@@ -6,7 +6,7 @@ module.exports = {
   },
   parserPreset: {
     parserOpts: {
-      headerPattern: /^((?:\[\w+-?\d*\])+)\s((\w+\s*)+)$/,
+      headerPattern: /^((?:\[\w+-?\d*\])+)\s((\w+\s?\w+-*)+)$/,
       headerCorrespondence: ['type', 'subject'],
     },
   },
