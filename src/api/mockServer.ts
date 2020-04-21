@@ -2,7 +2,7 @@ import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
 
-const schema = loader('../schema.graphql');
+const schema = loader('./schema.graphql');
 
 const graphqlSchema = buildSchema(schema.loc?.source.body as string);
 

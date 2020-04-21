@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/browser';
 
 import 'assets/styles/main.css';
 import { AppProviders } from 'providers/AppProviders';
-import { mockServer } from 'api/mocks/server';
+import { mockServer } from 'api/mockServer';
 
 import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
