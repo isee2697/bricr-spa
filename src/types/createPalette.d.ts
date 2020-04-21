@@ -11,5 +11,6 @@ declare module '@material-ui/core/styles/createPalette' {
     yellow: createPalette.SimplePaletteColorOptions;
     blue: createPalette.SimplePaletteColorOptions;
     purple: createPalette.SimplePaletteColorOptions;
+    gradientPrimary: createPalette.SimplePaletteColorOptions;
   }
 }
