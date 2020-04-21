@@ -46,7 +46,28 @@ Tooltip.styles.ts
 Tooltip.types.ts
 ```
 
-- Don't use `index.tsx` for root components of directory
+- Use withStyles function to overrite material-ui styles:
+```typescript
+import { withStyles } from '@material-ui/core';
+import { Alert as BasicAlert } from '@material-ui/lab';
+
+export const Alert = withStyles({
+  root: {
+    borderRadius: 16,
+  },
+  message: {},
+  standardWarning: {},
+  standardSuccess: {},
+})(BasicAlert);
+
+```
+
+- Import styled component and other styles like that:
+```typescript
+import * as S from './Alert.styles.ts';
+```
+
+- Don't use `index.tsx` for root component of directory
 
 ```typescript
 // bad
@@ -94,17 +115,17 @@ enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
 
 ## Placement
 
-- Common components, like a button should be placed inside the `ui` directory
+- Common components, like a button should be placed inside the `ui` directory and in subdirectory accorsing to AtomicDesign (atoms, molecules etc)
 
 ```typescript
 // good
-import { CodeBlock } from './ui/codeBlock/CodeBlock';
+import { CodeBlock } from './ui/atoms/button/Button';
 
 // bad
-import { CodeBlock } from './app/codeBlock/CodeBlock';
+import { CodeBlock } from './app/button/Button';
 ```
 
-- Feature specific components, like a page should be placed inside the `app` directory
+- Feature specific components, like a page (or other business domain specific staff) should be placed inside the `app` directory
 
 ```typescript
 // bad
