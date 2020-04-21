@@ -14,6 +14,7 @@
     "plop": "plop",
     "translations": "babelsheet generate --path ./src/i18n/data && node 'scripts/flatten-translations.js'",
     "serve": "./node_modules/.bin/http-server ./build --port 1337",
+    "generate:api-types": "graphql-codegen & npm run lint:fix",
     "e2e:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
     "e2e:run:firefox": "cd e2e && ./node_modules/.bin/cypress run --browser firefox && cd ..",
     "e2e:run:chrome": "cd e2e && ./node_modules/.bin/cypress run --browser chrome && cd ..",
@@ -71,7 +72,10 @@
     ]
   },
   "dependencies": {
+    "@apollo/react-common": "3.1.4",
     "@apollo/react-hooks": "3.1.5",
+    "@graphql-codegen/typescript-operations": "1.13.3",
+    "@graphql-codegen/typescript-react-apollo": "1.13.3",
     "@sentry/browser": "5.15.4",
     "@testing-library/jest-dom": "5.0.0",
     "@testing-library/react": "9.4.0",
@@ -87,6 +91,7 @@
     "clsx": "1.0.4",
     "flat": "5.0.0",
     "graphql": "15.0.0",
+    "graphql.macro": "1.4.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-hook-form": "4.6.2",
@@ -99,6 +104,8 @@
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
+    "@graphql-codegen/cli": "1.13.3",
+    "@graphql-codegen/typescript": "1.13.3",
     "@types/testing-library__jest-dom": "5.0.0",
     "@welldone-software/why-did-you-render": "4.0.3",
     "auto-changelog": "1.16.2",

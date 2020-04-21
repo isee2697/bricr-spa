@@ -5,13 +5,14 @@ import { Loader } from 'ui/loader/Loader';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { setAuthorized, setUnauthorized, startAuthorizing } from '../authActionCreators/authActionCreators';
 import { CURRENT_USER } from 'api/queries/profile';
+import { MeQuery } from 'api/types';
 
 import { UserControllerProps } from './UserController.types';
 
 export const UserController = ({ children }: UserControllerProps) => {
   const dispatch = useAuthDispatch();
 
-  const [loadCurrentUser, { loading, data, error }] = useLazyQuery(CURRENT_USER);
+  const [loadCurrentUser, { loading, data, error }] = useLazyQuery<MeQuery>(CURRENT_USER);
 
   useEffect(() => {
     dispatch(startAuthorizing());
@@ -22,7 +23,7 @@ export const UserController = ({ children }: UserControllerProps) => {
   }, [loadCurrentUser]);
 
   useEffect(() => {
-    if (!error && data) {
+    if (!error && data && data.me) {
       return dispatch(setAuthorized(data.me));
     }
 
