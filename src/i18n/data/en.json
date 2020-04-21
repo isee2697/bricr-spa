@@ -1,3 +1,6 @@
 {
-  "home.helloWorld": "Hello World"
+  "header.links.logout": "Logout",
+  "header.links.home": "Home",
+  "init": "Hello",
+  "common.save": "Save"
 }

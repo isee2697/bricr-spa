@@ -1,7 +1,6 @@
 import { AppLocale } from '../context/locale/AppLocale.enum';
 
 import enMessages from './data/en.json';
-import plMessages from './data/pl.json';
 
 type KeyAsValue<T> = { [P in keyof T]: P };
 
@@ -14,10 +13,8 @@ const keysToValues = <T extends Record<string, string | object>>(source: T): Key
 
 export const AppMessages = {
   ...keysToValues(enMessages),
-  ...keysToValues(plMessages),
 };
 
 export const translations: Record<AppLocale, Record<keyof typeof AppMessages, string>> = {
   [AppLocale.en]: enMessages,
-  [AppLocale.pl]: plMessages,
 };
