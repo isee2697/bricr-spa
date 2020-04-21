@@ -1,54 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import logo from 'assets/images/logo.svg';
 import { AppRoutes } from 'routing/AppRoutes';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { AppBar, Toolbar, Typography, Button, Card, CardContent } from 'ui/atoms';
 
-import './App.css';
+import { useStyles } from './App.styles';
 
 export const App = () => {
   const { isAuthorized } = useAuthState();
+  const { pathname } = useLocation();
+  const classes = useStyles();
 
   return (
-    <div className="app">
-      <header className="app__header">
-        <img src={logo} className="app__logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="app__link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-      <nav className="app__navigation">
-        <ul className="app__menu">
-          <li className="app__menu-item">
-            <Link className="app__menu-link" to={AppRoute.home}>
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h2" className={classes.title}>
+            Demo App
+          </Typography>
+          <Link to={AppRoute.home} className={classes.menuButton}>
+            <Button color="secondary" variant={pathname === AppRoute.home ? 'outlined' : 'contained'}>
               Home
-            </Link>
-          </li>
-          <li className="app__menu-item">
-            <Link className="app__menu-link" to={AppRoute.about}>
+            </Button>
+          </Link>
+          <Link to={AppRoute.about} className={classes.menuButton}>
+            <Button color="secondary" variant={pathname === AppRoute.about ? 'outlined' : 'contained'}>
               About
-            </Link>
-          </li>
-          <li className="app__menu-item">
-            <Link className="app__menu-link" to={AppRoute.help}>
+            </Button>
+          </Link>
+          <Link to={AppRoute.help} className={classes.menuButton}>
+            <Button color="secondary" variant={pathname === AppRoute.help ? 'outlined' : 'contained'}>
               Help
-            </Link>
-          </li>
-          <li className="app__menu-item">
-            <Link className="app__menu-link" to={isAuthorized ? AppRoute.logout : AppRoute.login}>
+            </Button>
+          </Link>
+          <Link to={isAuthorized ? AppRoute.logout : AppRoute.login} className={classes.menuButton}>
+            <Button color="secondary" variant={pathname === AppRoute.login ? 'outlined' : 'contained'}>
               {isAuthorized ? 'Logout' : 'Login'}
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <main className="app__main">
-        <AppRoutes />
-      </main>
+            </Button>
+          </Link>
+        </Toolbar>
+      </AppBar>
+
+      <Card className={classes.content} variant="outlined">
+        <CardContent>
+          <AppRoutes />
+        </CardContent>
+      </Card>
     </div>
   );
 };

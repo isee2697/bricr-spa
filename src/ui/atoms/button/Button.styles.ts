@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button as MaterialButton, ButtonProps, withStyles } from '@material-ui/core';
+import MaterialButton, { ButtonProps } from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 export const Button: React.ComponentType<ButtonProps> = withStyles({
   label: {

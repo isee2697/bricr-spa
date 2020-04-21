@@ -23,8 +23,8 @@
     "e2e:ci:firefox": "npm-run-all -p -r serve e2e:wait-and-run:firefox",
     "e2e:ci:chrome": "npm-run-all -p -r serve e2e:wait-and-run:chrome",
     "version": "auto-changelog -p && git add CHANGELOG.md",
-    "styleguidist": "styleguidist server",
-    "styleguidist-build": "styleguidist build"
+    "styleguidist:serve": "styleguidist server",
+    "styleguidist:build": "styleguidist build"
   },
   "husky": {
     "hooks": {

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { LocationInfo } from 'ui/locationInfo/LocationInfo';
-
 export const Help = () => {
   return (
     <>
@@ -92,8 +90,6 @@ export const Help = () => {
       <p>
         To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.
       </p>
-      <hr />
-      <LocationInfo />
     </>
   );
 };

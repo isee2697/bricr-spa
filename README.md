@@ -57,6 +57,14 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 It will generate TS types based on src/api/schema.graphql. It will create all required query and mutation hooks.
 
+### `npm run styleguidist:serve`
+
+It will open our styleguide with all ready to use components and its readme.
+
+### `npm run styleguidist:build`
+
+Build styleguidist to html page
+
 ### `npm run coverage`
 
 Launches the test runner in the coverage report generation mode.<br />

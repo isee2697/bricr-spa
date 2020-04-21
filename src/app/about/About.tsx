@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { LocationInfo } from 'ui/locationInfo/LocationInfo';
-
 export const About = () => {
   return (
     <>
@@ -27,8 +25,6 @@ export const About = () => {
           numbers, and strings, including pluralization and handling translations
         </li>
       </ul>
-      <hr />
-      <LocationInfo />
     </>
   );
 };

@@ -48,8 +48,8 @@ Tooltip.types.ts
 
 - Use withStyles function to overrite material-ui styles:
 ```typescript
-import { withStyles } from '@material-ui/core';
-import { Alert as BasicAlert } from '@material-ui/lab';
+import { withStyles } from '@material-ui/core/styles';
+import { Alert as BasicAlert } from '@material-ui/core/Alert';
 
 export const Alert = withStyles({
   root: {
@@ -119,10 +119,10 @@ enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
 
 ```typescript
 // good
-import { CodeBlock } from './ui/atoms/button/Button';
+import { Button } from './ui/atoms/button/Button';
 
 // bad
-import { CodeBlock } from './app/button/Button';
+import { Button } from './app/button/Button';
 ```
 
 - Feature specific components, like a page (or other business domain specific staff) should be placed inside the `app` directory

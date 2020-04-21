@@ -6,7 +6,6 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -32,8 +31,6 @@ export const Home = () => {
         to change language.
       </p>
       <p>This is a starter project for TSH React application. Click on navigation links above to learn more.</p>
-      <hr />
-      <LocationInfo />
       <hr />
       Current logged in user: {user?.firstName}{' '}
       {user?.firstName && (

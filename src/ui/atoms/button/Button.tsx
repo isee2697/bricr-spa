@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ButtonProps as DefaultButtonProps } from '@material-ui/core';
+import { ButtonProps as DefaultButtonProps } from '@material-ui/core/Button';
 
 import * as S from './Button.styles';
 

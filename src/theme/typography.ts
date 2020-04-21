@@ -8,31 +8,31 @@ export const typography = {
   h1: {
     fontSize: 24,
     fontWeight: regular,
-    lineHeight: 32,
+    lineHeight: '32px',
   },
   h2: {
     fontSize: 20,
     fontWeight: regular,
-    lineHeight: 32,
+    lineHeight: '26px',
   },
   h3: {
     fontSize: 16,
     fontWeight: regular,
-    lineHeight: 24,
+    lineHeight: '24px',
   },
   h4: {
     fontSize: 14,
     fontWeight: regular,
-    lineHeight: 24,
+    lineHeight: '22px',
   },
   h5: {
     fontSize: 12,
     fontWeight: regular,
-    lineHeight: 16,
+    lineHeight: '16px',
   },
   h6: {
     fontSize: 10,
     fontWeight: regular,
-    lineHeight: 16,
+    lineHeight: '12px',
   },
 };
