@@ -18,6 +18,7 @@ const blue = '#4CB9DF';
 const blueLight = '#ECF8FC';
 const purple = '#813FF6';
 const purpleLight = '#F2EEFC';
+const gradientPrimary = 'linear-gradient(315deg, #0A57E9 0%, #9FC0FF 100%);';
 
 export const palette: PaletteOptions = {
   primary: {
@@ -75,5 +76,8 @@ export const palette: PaletteOptions = {
   },
   background: {
     default: grayLight,
+  },
+  gradientPrimary: {
+    main: gradientPrimary,
   },
 };

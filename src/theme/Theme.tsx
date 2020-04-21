@@ -21,6 +21,17 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiIconButton: {
+      colorPrimary: {
+        background: palette.gradientPrimary.main,
+        '& svg': {
+          color: palette.white.main,
+        },
+      },
+      sizeSmall: {
+        padding: 4,
+      },
+    },
   },
 });
 
