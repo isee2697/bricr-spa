@@ -22,7 +22,9 @@
     "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome",
     "e2e:ci:firefox": "npm-run-all -p -r serve e2e:wait-and-run:firefox",
     "e2e:ci:chrome": "npm-run-all -p -r serve e2e:wait-and-run:chrome",
-    "version": "auto-changelog -p && git add CHANGELOG.md"
+    "version": "auto-changelog -p && git add CHANGELOG.md",
+    "styleguidist": "styleguidist server",
+    "styleguidist-build": "styleguidist build"
   },
   "husky": {
     "hooks": {
@@ -99,6 +101,7 @@
     "react-intl": "3.11.0",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
+    "react-styleguidist": "11.0.5",
     "react-test-renderer": "16.12.0",
     "typescript": "3.7.5"
   },
