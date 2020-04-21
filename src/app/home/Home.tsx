@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
 export const Home = () => {
-  const { formatMessage } = useLocale();
+  const { formatMessage, locale, setLocale } = useLocale();
   const { user } = useAuthState();
 
   return (
@@ -22,7 +23,13 @@ export const Home = () => {
           <code>formatMessage</code>
         </a>{' '}
         function from <a href="https://github.com/formatjs/react-intl">react-intl</a>. Click{' '}
-        <button style={{ fontSize: 'inherit' }}>here</button> to change language.
+        <button
+          style={{ fontSize: 'inherit' }}
+          onClick={() => setLocale(locale === AppLocale.en ? AppLocale.nl : AppLocale.en)}
+        >
+          here
+        </button>{' '}
+        to change language.
       </p>
       <p>This is a starter project for TSH React application. Click on navigation links above to learn more.</p>
       <hr />

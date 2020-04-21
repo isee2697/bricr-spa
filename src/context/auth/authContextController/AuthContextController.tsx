@@ -9,7 +9,7 @@ import { AuthContextControllerProps } from './AuthContextController.types';
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
   const [state, dispatch] = useReducer(authReducer, {
     isAuthorized: !!authStorage.accessToken,
-    isAuthorizing: false,
+    isAuthorizing: !!authStorage.accessToken,
     user: undefined,
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,

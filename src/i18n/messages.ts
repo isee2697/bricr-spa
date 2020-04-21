@@ -1,6 +1,7 @@
 import { AppLocale } from '../context/locale/AppLocale.enum';
 
 import enMessages from './data/en.json';
+import nlMessages from './data/nl.json';
 
 type KeyAsValue<T> = { [P in keyof T]: P };
 
@@ -17,4 +18,5 @@ export const AppMessages = {
 
 export const translations: Record<AppLocale, Record<keyof typeof AppMessages, string>> = {
   [AppLocale.en]: enMessages,
+  [AppLocale.nl]: nlMessages,
 };

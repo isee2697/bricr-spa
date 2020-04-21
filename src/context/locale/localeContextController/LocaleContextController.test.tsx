@@ -15,7 +15,7 @@ describe('LocaleContextController', () => {
 
     return (
       <>
-        <button onClick={() => context?.setLocale(AppLocale.pl)}>SET LOCALE</button>
+        <button onClick={() => context?.setLocale(AppLocale.nl)}>SET LOCALE</button>
         <div title="CONTEXT">{JSON.stringify(context)}</div>
       </>
     );
@@ -52,7 +52,7 @@ describe('LocaleContextController', () => {
     expect(getByTitle(/CONTEXT/)).toHaveTextContent(
       JSON.stringify({
         defaultLocale,
-        locale: AppLocale.pl,
+        locale: AppLocale.nl,
       }),
     );
   });

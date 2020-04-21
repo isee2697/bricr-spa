@@ -24,6 +24,7 @@ export const mockServer = () => {
                 firstName: 'test',
                 lastName: 'test',
                 avatar: 'test',
+                email: 'test@example.com',
               };
             }
             throw new Error();
