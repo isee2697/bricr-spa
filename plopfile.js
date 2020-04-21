@@ -68,6 +68,18 @@ const reactComponentGenerator = () => ({
       name: 'name',
       message: 'component name',
     },
+    {
+      type: 'confirm',
+      name: 'useContainer',
+      message: 'use container',
+      default: false,
+    },
+    {
+      type: 'confirm',
+      name: 'useReadme',
+      message: 'use Readme.md',
+      default: false,
+    },
   ],
   actions: function(data) {
     const actions = [
@@ -87,6 +99,22 @@ const reactComponentGenerator = () => ({
         templateFile: 'plop-templates/component/Component.types.hbs',
       },
     ];
+
+    if (data.useContainer) {
+      actions.push({
+        type: 'add',
+        path: `src/${data.baseDir}/{{directory}}/{{camelCase name}}/{{pascalCase name}}Container.tsx`,
+        templateFile: 'plop-templates/component/ComponentContainer.hbs',
+      });
+    }
+
+    if (data.useReadme) {
+      actions.push({
+        type: 'add',
+        path: `src/${data.baseDir}/{{directory}}/{{camelCase name}}/Readme.md`,
+        templateFile: 'plop-templates/component/Component.md.hbs',
+      });
+    }
 
     return actions;
   },
