@@ -1,27 +1,10 @@
 import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
+import { loader } from 'graphql.macro';
 
-const graphqlSchema = buildSchema(`
-  type Me {
-    firstName: String
-    lastName: String
-    email: String
-    avatar: String
-  }
+const schema = loader('../schema.graphql');
 
-  type Query {
-    me: Me
-  }
-
-  type LoginResponse {
-    accessToken: String
-    refreshToken: String
-  }
-
-  type Mutation {
-    login(login: String!, password: String!): LoginResponse
-  }
-`);
+const graphqlSchema = buildSchema(schema.loc?.source.body as string);
 
 export const mockServer = () => {
   new Server({
