@@ -1,10 +1,10 @@
 import * as React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
 
-import { IconProps } from '../Icon.types';
 import { palette } from 'theme/palette';
 
-export const AddIcon = (props: IconProps) => {
+export const AddIcon = (props: DefaultSvgIconProps) => {
   return (
     <SvgIcon {...props}>
       <path
