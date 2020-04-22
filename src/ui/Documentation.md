@@ -1,4 +1,107 @@
+### Typography:
+```jsx harmony
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { fontWeight } from 'theme/typography';
+
+<>
+  <Typography variant="h1">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h1. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h1. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h1. Heading - medium
+    </Box>
+    h1. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="h2">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h2. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h2. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h2. Heading - medium
+    </Box>
+    h2. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="h3">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h3. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h3. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h3. Heading - medium
+    </Box>
+    h3. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="h4">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h4. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h4. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h4. Heading - medium
+    </Box>
+    h4. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="h5">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h5. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h5. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h5. Heading - medium
+    </Box>
+    h5. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="h6">
+    <Box fontWeight={fontWeight.bold} mb={1}>
+      h6. Heading - bold
+    </Box>
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      h6. Heading - semibold
+    </Box>
+    <Box fontWeight={fontWeight.medium} mb={1}>
+      h6. Heading - medium
+    </Box>
+    h6. Heading - regular
+  </Typography>
+  <br/>
+  <br/>
+  <Typography variant="p">
+    <Box fontWeight={fontWeight.semibold} mb={1}>
+      Paragraph:<br />
+    </Box>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem, corporis cumque dignissimos eligendi 
+    eveniet exercitationem fugiat hic illum, impedit libero magni necessitatibus, numquam perspiciatis quia repellendus
+    sit ut voluptatem. Alias aperiam architecto asperiores, consectetur dolor esse harum ipsa ipsum laborum 
+    necessitatibus nesciunt officia pariatur perspiciatis repellendus tenetur ut, veniam.
+  </Typography>
+</>
+```
 ### Icons:
+
 
 ```jsx harmony
 import { AddIcon } from './atoms/icons/add/AddIcon';
