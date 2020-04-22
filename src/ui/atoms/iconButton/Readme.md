@@ -2,16 +2,17 @@ Icon Button:
 
 ```jsx harmony
 import { IconButton } from "./IconButton";
-import AddIcon from '@material-ui/icons/Add';
+import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
+import {palette} from "theme/palette";
 
 <>
   <IconButton aria-label="add" color="primary" background="gradient">
-    <AddIcon />
+    <AddIcon color={palette.white.main} />
   </IconButton>
   <br />
   <br />
   <IconButton aria-label="add" color="primary" background="gradient" size="small">
-    <AddIcon />
+    <AddIcon color={palette.white.main} />
   </IconButton>
 </>
 ```
