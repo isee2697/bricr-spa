@@ -7,6 +7,16 @@ module.exports = {
   styleguideComponents: {
     Wrapper: require('path').join(__dirname, 'src/styleguidistWrapper/StyleguidistWrapper'),
   },
+  sections: [
+    {
+      name: 'Style Guide',
+      content: 'src/ui/Documentation.md',
+    },
+    {
+      name: 'Components',
+      components: 'src/ui/**/*.tsx',
+    },
+  ],
   template: {
     head: {
       links: [
