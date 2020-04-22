@@ -3,13 +3,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { typography } from './typography';
-import { palette } from './palette';
+import { palette, shadows } from './palette';
 
 const defaultTheme = createMuiTheme();
 
 const theme = createMuiTheme({
   palette,
   typography,
+  shadows,
   overrides: {
     MuiContainer: {
       root: {

@@ -1,7 +1,123 @@
+### Colors:
+```jsx harmony
+import { Box, Grid } from '@material-ui/core';
+import {palette} from "theme/palette";
+
+<>
+	<Grid container spacing={3}>
+		<Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} bgcolor={palette.primary.main} color={palette.white.main} textAlign="center">
+        Primary
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} style={{background: palette.gradientPrimary.main}} color={palette.white.main} textAlign="center">
+        Gradient Primary
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} bgcolor={palette.secondary.main} color={palette.white.main} textAlign="center">
+        Secondary
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} bgcolor={palette.black.main} color={palette.white.main} textAlign="center">
+        Black
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} bgcolor={palette.gray.main} color={palette.white.main} textAlign="center">
+        Gray
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box pb={7} pt={7} bgcolor={palette.gray.light} color={palette.black.main} textAlign="center">
+        Gray light
+      </Box>
+    </Grid>
+	</Grid>
+	<Grid container spacing={3}>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.red.main} color={palette.white.main} textAlign="center">
+        Red
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.red.light} color={palette.black.main} textAlign="center">
+        Red light
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.orange.main} color={palette.white.main} textAlign="center">
+        Orange
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.orange.light} color={palette.black.main} textAlign="center">
+        Orange light
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.yellow.main} color={palette.white.main} textAlign="center">
+        Yellow
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.yellow.light} color={palette.black.main} textAlign="center">
+        Yellow light
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.green.main} color={palette.white.main} textAlign="center">
+        Green
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.green.light} color={palette.black.main} textAlign="center">
+        Green light
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.blue.main} color={palette.white.main} textAlign="center">
+        Blue
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.blue.light} color={palette.black.main} textAlign="center">
+        Blue light
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.purple.main} color={palette.white.main} textAlign="center">
+        Purple
+      </Box>
+      <Box mb={2} pb={7} pt={7} bgcolor={palette.purple.light} color={palette.black.main} textAlign="center">
+        Purple light
+      </Box>
+    </Grid>
+  </Grid>
+</>
+```
+
+### Shadows:
+```jsx harmony
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+
+<>
+	<Grid container spacing={3}>
+    <Grid item xs={6} lg={3}>
+      <Box boxShadow={1} pt={12} pb={12} textAlign="center">
+      	box-shadow #1
+			</Box>
+    </Grid>
+    <Grid item xs={6} lg={3}>
+      <Box boxShadow={2} pt={12} pb={12} textAlign="center">
+      	box-shadow #2
+			</Box>
+    </Grid>
+    <Grid item xs={6} lg={3}>
+      <Box boxShadow={3} pt={12} pb={12} textAlign="center">
+      	box-shadow #3
+			</Box>
+    </Grid>
+  </Grid>
+</>
+```
+
 ### Typography:
 ```jsx harmony
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { Typography, Box } from '@material-ui/core';
 import { fontWeight } from 'theme/typography';
 
 <>
@@ -89,7 +205,7 @@ import { fontWeight } from 'theme/typography';
   </Typography>
   <br/>
   <br/>
-  <Typography variant="p">
+  <Typography variant="subtitle1">
     <Box fontWeight={fontWeight.semibold} mb={1}>
       Paragraph:<br />
     </Box>

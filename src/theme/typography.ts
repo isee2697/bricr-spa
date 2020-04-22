@@ -37,7 +37,7 @@ export const typography = {
     fontWeight: fontWeight.regular,
     lineHeight: '16px',
   },
-  p: {
+  subtitle1: {
     fontSize: 14,
     fontWeight: fontWeight.regular,
     lineHeight: '24px',
