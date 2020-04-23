@@ -12,4 +12,5 @@ export { default as Grid } from '@material-ui/core/Grid';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
+export { Chip } from './chip/Chip';
 export { Logo } from './logo/Logo';
