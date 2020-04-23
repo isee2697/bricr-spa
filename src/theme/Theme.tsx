@@ -31,6 +31,9 @@ const theme = createMuiTheme({
       root: {
         boxShadow: shadows[1],
         border: 'none',
+        '& .MuiTabs-flexContainer': {
+          borderBottom: `2px solid ${palette.gray.light}`,
+        },
       },
     },
     MuiContainer: {
@@ -78,8 +81,9 @@ const theme = createMuiTheme({
     },
     MuiTabs: {
       indicator: {
-        '&.PrivateTabIndicator-colorPrimary-101': {
+        '&[class*="PrivateTabIndicator-colorPrimary"]': {
           background: palette.gradientPrimary.main,
+          borderRadius: 1,
         },
       },
     },

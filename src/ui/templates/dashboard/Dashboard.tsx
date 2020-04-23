@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Tabs, IconButton, Avatar, Badge } from 'ui/atoms';
+import { Tabs, IconButton, Avatar, Badge, Sidebar } from 'ui/atoms';
 import { TopBar, LinkTab } from 'ui/organisms';
 import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
@@ -46,25 +46,21 @@ export const Dashboard = ({ children }: DashboardProps) => {
             centered
           >
             <LinkTab
-              className={classes.menuItem}
               icon={<HomeIcon color="inherit" />}
               label={formatMessage({ id: AppMessages['header.links.home'] })}
               to="/"
             />
             <LinkTab
-              className={classes.menuItem}
               icon={<BuildingIcon color="inherit" />}
               label={formatMessage({ id: AppMessages['header.links.pim'] })}
               to="/pim"
             />
             <LinkTab
-              className={classes.menuItem}
               icon={<CrmIcon color="inherit" />}
               label={formatMessage({ id: AppMessages['header.links.crm'] })}
               to="/crm"
             />
             <LinkTab
-              className={classes.menuItem}
               icon={<GraphIcon color="inherit" />}
               label={formatMessage({ id: AppMessages['header.links.sales'] })}
               to="/sales"
@@ -95,7 +91,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
       </TopBar>
       <section className={classes.container}>
         <aside className={classes.content}>{children}</aside>
-        <aside className={classes.sidebar}>
+        <Sidebar>
           <IconButton size="small" aria-label="add">
             <ShortcutsIcon color="inherit" />
           </IconButton>
@@ -118,14 +114,14 @@ export const Dashboard = ({ children }: DashboardProps) => {
           <IconButton size="small" aria-label="add">
             <CommentIcon color="inherit" />
           </IconButton>
-          <div className={classes.sidebarDivider} />
+          <Sidebar.Divider />
           <IconButton size="small" aria-label="add">
             <HelpIcon color="inherit" />
           </IconButton>
           <IconButton size="small" aria-label="add">
             <SettingsIcon color="inherit" />
           </IconButton>
-        </aside>
+        </Sidebar>
       </section>
     </>
   );

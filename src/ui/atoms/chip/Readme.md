@@ -1,7 +1,7 @@
 Basic Chip:
 
 ```jsx harmony
-import { Chip } from "./Chip";
+import { Chip } from "ui/atoms";
 
 <Chip color="secondary" label="secondary"/>
 
@@ -10,25 +10,21 @@ import { Chip } from "./Chip";
 Chip sizes:
 
 ```jsx harmony
-import { Chip } from "./Chip";
+import { Chip } from "ui/atoms";
 
 <>
-    <Chip  color="secondary" size="small" label="small"/>
-    <br />
-    <br />
-    <Chip  color="secondary" size="medium" label="medium" />
-    <br />
-    <br />
-    <Chip color="secondary" size="large" label="large" />
-    <br />
-    <br />
+  <Chip  color="secondary" size="small" label="small"/>
+  {' '}
+  <Chip  color="secondary" size="medium" label="medium" />
+  {' '}
+  <Chip color="secondary" size="large" label="large" />
 </>
 ```
 
 Chip disabled:
 
 ```jsx harmony
-import { Chip } from "./Chip";
+import { Chip } from "ui/atoms";
 
 <Chip  color="secondary" disabled label="disabled"/>
 
@@ -37,18 +33,14 @@ import { Chip } from "./Chip";
 Colors:
 
 ```jsx harmony
-import { Chip } from "./Chip";
+import { Chip } from "ui/atoms";
 
 <>
-    <Chip color="primary" label="Primary" label ="primary"/>
-     
-    <br />
-    <br />
-    <Chip color="secondary" label="secondary" />
-    <br />
-    <br />
-    <Chip color="default" label="default"/>
-    <br />
-    <br />
+  <Chip color="primary" label="Primary" label ="primary"/>
+  {' '}
+  <Chip color="secondary" label="secondary" />
+  {' '}
+  <Chip color="default" label="default"/>
+  {' '}
 </>
 ```
