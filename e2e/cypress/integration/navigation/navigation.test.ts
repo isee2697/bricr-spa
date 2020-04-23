@@ -7,21 +7,6 @@ context('HomePage should', () => {
     cy.visit(Cypress.env().baseUrl);
   });
 
-  it('navigate to about on clicking about', () => {
-    NavigationMenu.goToAbout();
-    cy.location().should(loc => {
-      expect(loc.href).to.eq(NavigationMenu.aboutLink);
-    });
-  });
-
-  it('navigate to help on clicking help', () => {
-    NavigationMenu.goToHelp();
-    // debugger;
-    cy.location().should(loc => {
-      expect(loc.href).to.eq(NavigationMenu.helpLink);
-    });
-  });
-
   it('navigate to login on clicking login', () => {
     cy.clearSession();
     NavigationMenu.goToLogin();

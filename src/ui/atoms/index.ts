@@ -3,6 +3,13 @@ export { default as CardContent } from '@material-ui/core/CardContent';
 export { default as AppBar } from '@material-ui/core/AppBar';
 export { default as Toolbar } from '@material-ui/core/Toolbar';
 export { default as Typography } from '@material-ui/core/Typography';
+export { default as Tabs } from '@material-ui/core/Tabs';
+export { default as Tab } from '@material-ui/core/Tab';
+export { default as Avatar } from '@material-ui/core/Avatar';
+export { default as Badge } from '@material-ui/core/Badge';
+export { default as Box } from '@material-ui/core/Box';
+export { default as Grid } from '@material-ui/core/Grid';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
+export { Logo } from './logo/Logo';

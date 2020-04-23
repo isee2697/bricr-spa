@@ -2,5 +2,8 @@
   "init": "Hallo",
   "common.save": "Opslaan",
   "header.links.home": "Huis",
+  "header.links.pim": "PIM",
+  "header.links.crm": "CRM",
+  "header.links.sales": "Verkoop",
   "header.links.logout": "Uitloggen"
 }

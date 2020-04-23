@@ -1,7 +1,7 @@
 Basic button:
 
 ```jsx harmony
-import { Button } from "./Button";
+import { Button } from "ui/atoms";
 
 <Button variant="contained" color="secondary">
   Button Secondary

@@ -19,18 +19,6 @@ class Navigation {
       .click();
   }
 
-  goToAbout(): void {
-    cy.get(`a[href*="${AppRoute.about}"]`)
-      .first()
-      .click();
-  }
-
-  goToHelp(): void {
-    cy.get(`a[href*="${AppRoute.help}"]`)
-      .first()
-      .click();
-  }
-
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
   }
@@ -41,14 +29,6 @@ class Navigation {
 
   get logoutLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.logout}`;
-  }
-
-  get aboutLink(): string {
-    return `${Cypress.env().baseUrl}${AppRoute.about}`;
-  }
-
-  get helpLink(): string {
-    return `${Cypress.env().baseUrl}${AppRoute.help}`;
   }
 }
 

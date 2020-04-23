@@ -9,19 +9,22 @@ import { defaultLocale } from '../context/locale/defaultLocale';
 import { LocaleContext } from '../context/locale/localeContext/LocaleContext';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
+import { Theme } from 'theme/Theme';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
 
   return (
     <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
-      <AuthContextController>
-        <ApiClientContextController>
-          <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-            <Router>{children}</Router>
-          </LocaleContext.Provider>
-        </ApiClientContextController>
-      </AuthContextController>
+      <Theme>
+        <AuthContextController>
+          <ApiClientContextController>
+            <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+              <Router>{children}</Router>
+            </LocaleContext.Provider>
+          </ApiClientContextController>
+        </AuthContextController>
+      </Theme>
     </IntlProvider>
   );
 };

@@ -1,7 +1,7 @@
 ### Colors:
 ```jsx harmony
-import { Box, Grid } from '@material-ui/core';
-import {palette} from "theme/palette";
+import { Box, Grid } from 'ui/atoms';
+import { palette } from "theme/palette";
 
 <>
 	<Grid container spacing={3}>
@@ -91,33 +91,31 @@ import {palette} from "theme/palette";
 
 ### Shadows:
 ```jsx harmony
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Box } from 'ui/atoms';
 
-<>
-	<Grid container spacing={3}>
-    <Grid item xs={6} lg={3}>
-      <Box boxShadow={1} pt={12} pb={12} textAlign="center">
-      	box-shadow #1
-			</Box>
-    </Grid>
-    <Grid item xs={6} lg={3}>
-      <Box boxShadow={2} pt={12} pb={12} textAlign="center">
-      	box-shadow #2
-			</Box>
-    </Grid>
-    <Grid item xs={6} lg={3}>
-      <Box boxShadow={3} pt={12} pb={12} textAlign="center">
-      	box-shadow #3
-			</Box>
-    </Grid>
+<Grid container spacing={3}>
+  <Grid item xs={6} lg={3}>
+    <Box boxShadow={1} pt={12} pb={12} textAlign="center">
+      box-shadow #1
+    </Box>
   </Grid>
-</>
+  <Grid item xs={6} lg={3}>
+    <Box boxShadow={2} pt={12} pb={12} textAlign="center">
+      box-shadow #2
+    </Box>
+  </Grid>
+  <Grid item xs={6} lg={3}>
+    <Box boxShadow={3} pt={12} pb={12} textAlign="center">
+      box-shadow #3
+    </Box>
+  </Grid>
+</Grid>
 ```
 
 ### Typography:
+
 ```jsx harmony
-import { Typography, Box } from '@material-ui/core';
+import { Typography, Box } from 'ui/atoms';
 import { fontWeight } from 'theme/typography';
 
 <>
@@ -276,30 +274,30 @@ const wrapperStyle = {
     <FilesIcon color="secondary"/>
   </div>
   <br />
-  <div style={wrapperStyle}>
-    <FolderIcon color={palette.green.main}/>
-    <GraphIcon color={palette.green.main}/>
-    <GraphArrowIcon color={palette.green.main}/>
-    <HelpIcon color={palette.green.main}/>
-    <HideIcon color={palette.green.main}/>
-    <HomeIcon color={palette.green.main}/>
+  <div style={{...wrapperStyle, color:palette.green.main }}>
+    <FolderIcon color="inherit"/>
+    <GraphIcon color="inherit"/>
+    <GraphArrowIcon color="inherit"/>
+    <HelpIcon color="inherit"/>
+    <HideIcon color="inherit"/>
+    <HomeIcon color="inherit"/>
   </div>
   <br />
   <div style={wrapperStyle}>
-    <CommentIcon color="#aaa"/>
-    <LinkIcon color="#aaa"/>
-    <MailIcon color="#aaa"/>
-    <ManageIcon color="#aaa"/>
-    <NoteIcon color="#aaa"/>
-    <PinIcon color="#aaa"/>
+    <CommentIcon color="default"/>
+    <LinkIcon color="default"/>
+    <MailIcon color="default"/>
+    <ManageIcon color="default"/>
+    <NoteIcon color="default"/>
+    <PinIcon color="default"/>
   </div>
   <br />
-  <div style={wrapperStyle}>
-    <SearchIcon color='orange'/>
-    <SettingsIcon color='orange'/>
-    <ShortcutsIcon color='orange'/>
-    <TasksIcon color='orange'/>
-    <UserIcon color='orange'/>
+  <div style={{...wrapperStyle, color: 'orange' }}>
+    <SearchIcon color="inherit"/>
+    <SettingsIcon color="inherit"/>
+    <ShortcutsIcon color="inherit"/>
+    <TasksIcon color="inherit"/>
+    <UserIcon color="inherit"/>
     <div style={{width:24}}></div>
   </div>
 </>
