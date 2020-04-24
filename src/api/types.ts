@@ -24,6 +24,11 @@ export type Query = {
   me?: Maybe<Me>;
 };
 
+export type LoginInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
@@ -36,13 +41,11 @@ export type Mutation = {
 };
 
 export type MutationLoginArgs = {
-  login: Scalars['String'];
-  password: Scalars['String'];
+  input?: Maybe<LoginInput>;
 };
 
 export type LoginMutationVariables = {
-  login: Scalars['String'];
-  password: Scalars['String'];
+  input?: Maybe<LoginInput>;
 };
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
@@ -56,8 +59,8 @@ export type MeQuery = { __typename?: 'Query' } & {
 };
 
 export const LoginDocument = gql`
-  mutation Login($login: String!, $password: String!) {
-    login(login: $login, password: $password) {
+  mutation Login($input: LoginInput) {
+    login(input: $input) @rest(type: "LoginResponse", path: "/users/login", method: "POST") {
       accessToken
       refreshToken
     }

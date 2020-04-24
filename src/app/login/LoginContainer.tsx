@@ -18,17 +18,27 @@ export const LoginContainer = () => {
 
   const onSubmit = useCallback(
     async (body: FieldValues): Promise<boolean> => {
-      dispatch(startAuthorizing());
+      try {
+        dispatch(startAuthorizing());
 
-      const { data, errors } = await login({ variables: body as LoginMutationVariables });
-      if (!errors && data && data.login) {
-        const { accessToken, refreshToken } = data.login;
-        dispatch(setTokens(accessToken, refreshToken));
+        const { data, errors } = await login({
+          variables: {
+            input: body,
+          } as LoginMutationVariables,
+        });
 
-        return true;
+        if (!errors && data && data.login) {
+          const { accessToken, refreshToken } = data.login;
+          dispatch(setTokens(accessToken, refreshToken));
+
+          return true;
+        }
+
+        throw new Error();
+      } catch {
+        dispatch(setUnauthorized());
+        return false;
       }
-      dispatch(setUnauthorized());
-      return false;
     },
     [dispatch, login],
   );

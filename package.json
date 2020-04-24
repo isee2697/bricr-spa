@@ -74,12 +74,14 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "3.0.0-beta.44",
     "@apollo/react-common": "3.1.4",
     "@apollo/react-hooks": "3.1.5",
     "@graphql-codegen/typescript-operations": "1.13.3",
     "@graphql-codegen/typescript-react-apollo": "1.13.3",
     "@material-ui/core": "4.9.11",
     "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "4.0.0-alpha.50",
     "@sentry/browser": "5.15.4",
     "@testing-library/jest-dom": "5.0.0",
     "@testing-library/react": "9.4.0",
@@ -92,10 +94,13 @@
     "@types/react-dom": "16.9.5",
     "@types/react-router-dom": "5.1.3",
     "apollo-boost": "0.4.7",
+    "apollo-link": "1.2.14",
+    "apollo-link-rest": "0.8.0-beta.0",
     "classnames": "2.2.6",
     "clsx": "1.0.4",
     "flat": "5.0.0",
     "graphql": "15.0.0",
+    "graphql-anywhere": "4.1.0",
     "graphql.macro": "1.4.2",
     "react": "16.12.0",
     "react-dom": "16.12.0",
@@ -133,5 +138,8 @@
     "stylelint": "13.0.0",
     "stylelint-config-recommended": "3.0.0",
     "wait-on": "4.0.0"
+  },
+  "resolutions": {
+    "graphql-anywhere": "4.1.0"
   }
 }

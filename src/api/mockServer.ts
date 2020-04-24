@@ -12,6 +12,13 @@ export const mockServer = () => {
       me: Model,
     },
     routes() {
+      this.post('/mock-security/users/login', (schema, request) => {
+        return {
+          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+        };
+      });
+
       this.post('/mock', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
         const query = requestJson.query;
@@ -28,12 +35,6 @@ export const mockServer = () => {
               };
             }
             throw new Error();
-          },
-          login() {
-            return {
-              accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
-              refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
-            };
           },
         };
 

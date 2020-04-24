@@ -8,25 +8,25 @@ describe('Login', () => {
   test('calls onSubmit prop with username and password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
-    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} />);
+    const { getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText(/username/), {
+      fireEvent.change(getByLabelText(/Username/), {
         target: {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText(/password/), {
+      fireEvent.change(getByLabelText(/Password/), {
         target: {
           value: 'bar',
         },
       });
-      fireEvent.click(getByText('submit'));
+      fireEvent.click(getByRole('button'));
     });
 
     await wait(() => {
       expect(onSubmit).toBeCalledWith({
-        login: 'foo',
+        username: 'foo',
         password: 'bar',
       });
     });
@@ -34,20 +34,20 @@ describe('Login', () => {
 
   test('displays an error if login failed', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(false));
-    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} />);
+    const { getByText, getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText(/username/), {
+      fireEvent.change(getByLabelText(/Username/), {
         target: {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText(/password/), {
+      fireEvent.change(getByLabelText(/Password/), {
         target: {
           value: 'bar',
         },
       });
-      fireEvent.click(getByText('submit'));
+      fireEvent.submit(getByRole('button'));
     });
 
     await wait(() => {
@@ -57,10 +57,10 @@ describe('Login', () => {
 
   test('displays validation errors', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
-    const { getAllByText, getByText } = render(<Login onSubmit={onSubmit} />);
+    const { getAllByText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.click(getByText('submit'));
+      fireEvent.submit(getByRole('button'));
     });
 
     await wait(() => {

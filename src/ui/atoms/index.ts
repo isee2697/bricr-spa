@@ -8,6 +8,9 @@ export { default as Avatar } from '@material-ui/core/Avatar';
 export { default as Badge } from '@material-ui/core/Badge';
 export { default as Box } from '@material-ui/core/Box';
 export { default as Grid } from '@material-ui/core/Grid';
+export { default as Paper } from '@material-ui/core/Paper';
+export { default as TextField } from '@material-ui/core/TextField';
+export { default as Alert } from '@material-ui/lab/Alert';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

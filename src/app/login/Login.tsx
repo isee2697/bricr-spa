@@ -2,8 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { Button, TextField, Logo, Typography, Alert } from 'ui/atoms';
 
 import { LoginProps } from './Login.types';
+import { useStyles } from './Login.styles';
 
 /*
  * TODO:
@@ -15,12 +17,13 @@ import { LoginProps } from './Login.types';
 export const Login = ({ onSubmit }: LoginProps) => {
   const { register, handleSubmit, errors } = useForm();
   const { isAuthorizing } = useAuthState();
-
   const [error, setError] = useState(false);
+  const classes = useStyles();
 
   const handleSubmitCallback = useCallback(
     async (body: FieldValues) => {
       const valid = await onSubmit(body);
+
       if (!valid) {
         setError(!valid);
       }
@@ -30,26 +33,56 @@ export const Login = ({ onSubmit }: LoginProps) => {
 
   return (
     <>
-      <h2>Login</h2>
-      {error && <div>Invalid username and/or password</div>}
+      <Logo className={classes.logo} />
+
+      <Typography variant="h1" className={classes.title}>
+        Sign up to Bricr
+      </Typography>
+
+      {error && <Alert severity="error">Invalid username and/or password</Alert>}
+
       <form onSubmit={handleSubmit(handleSubmitCallback)}>
-        <div>
-          <label>
-            username:
-            <input name="login" ref={register({ required: true })} />
-          </label>
-          {errors.login && <span>This field is required</span>}
-        </div>
-        <div>
-          <label>
-            password:
-            <input name="password" type="password" ref={register({ required: true })} />
-          </label>
-          {errors.password && <span>This field is required</span>}
-        </div>
-        <button type="submit" disabled={isAuthorizing}>
-          submit
-        </button>
+        <TextField
+          name="username"
+          id="username"
+          label="Username"
+          style={{ margin: '16px 0 16px 0' }}
+          placeholder="Enter username"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          type="text"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+          helperText={errors.username ? 'This field is required' : undefined}
+          inputRef={register({ required: true })}
+          error={!!errors.username}
+        />
+
+        <TextField
+          name="password"
+          id="password"
+          label="Password"
+          style={{ margin: '16px 0 16px 0' }}
+          placeholder="Enter password"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          type="text"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
+          helperText={errors.password ? 'This field is required' : undefined}
+          inputRef={register({ required: true })}
+          error={!!errors.password}
+        />
+
+        <Button variant="contained" color="primary" fullWidth type="submit" disabled={isAuthorizing}>
+          Login
+        </Button>
       </form>
     </>
   );
