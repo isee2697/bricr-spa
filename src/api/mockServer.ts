@@ -30,7 +30,8 @@ export const mockServer = () => {
               return {
                 firstName: 'test',
                 lastName: 'test',
-                avatar: 'test',
+                avatar:
+                  'https://images.unsplash.com/photo-1476900966873-ab290e38e3f7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=fe0976a79ece0ee8effca4cab4527ae2',
                 email: 'test@example.com',
               };
             }

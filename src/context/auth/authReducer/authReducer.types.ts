@@ -1,8 +1,8 @@
-import { Me } from 'api/types';
+import { User } from 'api/types';
 
 export type AuthAction = {
   type: string;
-  user?: Me;
+  user?: User;
   accessToken?: string;
   refreshToken?: string;
 };

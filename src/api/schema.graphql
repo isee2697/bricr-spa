@@ -1,12 +1,13 @@
-type Me {
-    firstName: String!
-    lastName: String!
-    email: String!
-    avatar: String!
-  }
+type User {
+  id: String
+  firstName: String
+  lastName: String
+  email: String
+  avatar: String
+}
 
 type Query {
-  me: Me
+  me: User
 }
 
 input LoginInput {

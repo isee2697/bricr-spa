@@ -11,17 +11,18 @@ export type Scalars = {
   Float: number;
 };
 
-export type Me = {
-  __typename?: 'Me';
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  email: Scalars['String'];
-  avatar: Scalars['String'];
+export type User = {
+  __typename?: 'User';
+  id?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  avatar?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<Me>;
+  me?: Maybe<User>;
 };
 
 export type LoginInput = {
@@ -55,7 +56,7 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
 export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
-  me?: Maybe<{ __typename?: 'Me' } & Pick<Me, 'firstName' | 'lastName' | 'email' | 'avatar'>>;
+  me?: Maybe<{ __typename?: 'User' } & Pick<User, 'firstName' | 'lastName' | 'email' | 'avatar'>>;
 };
 
 export const LoginDocument = gql`

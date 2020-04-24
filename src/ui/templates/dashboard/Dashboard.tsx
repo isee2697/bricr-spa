@@ -32,7 +32,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const classes = useStyles();
   const { pathname } = useLocation();
   const { formatMessage } = useLocale();
-  const { isAuthorized } = useAuthState();
+  const { isAuthorized, user } = useAuthState();
   const activeLinkIndex = menuLinks.indexOf(pathname as AppRoute);
 
   return (
@@ -77,12 +77,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
             </Avatar>
           </Badge>
           <Link to={isAuthorized ? AppRoute.logout : AppRoute.login}>
-            <Avatar
-              className={classes.avatar}
-              src="https://material-ui.com/static/images/avatar/1.jpg"
-              alt="avatar"
-              variant="circle"
-            />
+            <Avatar className={classes.avatar} src={user?.avatar || ''} alt="avatar" variant="circle" />
           </Link>
           <IconButton size="small" aria-label="add" color="primary">
             <AddIcon color="inherit" />

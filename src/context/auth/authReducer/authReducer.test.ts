@@ -1,5 +1,5 @@
 import { AuthStateContextType } from '../authContext/AuthContext.types';
-import { Me } from 'api/types';
+import { User } from 'api/types';
 
 import { authReducer, LOGOUT, SET_AUTHORIZED, SET_TOKENS, SET_UNAUTHORIZED, START_AUTHORIZING } from './authReducer';
 
@@ -34,7 +34,7 @@ describe('authReducer', () => {
     });
     const action = {
       type: SET_AUTHORIZED,
-      user: ({ foo: 'bar' } as unknown) as Me,
+      user: ({ foo: 'bar' } as unknown) as User,
     };
 
     expect(authReducer(state, action)).toEqual({
@@ -51,7 +51,7 @@ describe('authReducer', () => {
   test('handles SET_UNAUTHORIZED action', () => {
     const state = AuthStateFactory({
       isAuthorized: true,
-      user: ({ foo: 'bar' } as unknown) as Me,
+      user: ({ foo: 'bar' } as unknown) as User,
     });
     const action = {
       type: SET_UNAUTHORIZED,
@@ -71,7 +71,7 @@ describe('authReducer', () => {
       accessToken: 'foo',
       refreshToken: 'foo',
       isAuthorized: true,
-      user: ({ foo: 'bar' } as unknown) as Me,
+      user: ({ foo: 'bar' } as unknown) as User,
     });
     const action = {
       type: LOGOUT,
