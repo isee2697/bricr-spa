@@ -4,8 +4,8 @@ import { Box, Grid } from 'ui/atoms';
 import { palette } from "theme/palette";
 
 <>
-	<Grid container spacing={3}>
-		<Grid item xs={6} lg={2}>
+  <Grid container spacing={3}>
+    <Grid item xs={6} lg={2}>
       <Box pb={7} pt={7} bgcolor={palette.primary.main} color={palette.white.main} textAlign="center">
         Primary
       </Box>
@@ -35,8 +35,8 @@ import { palette } from "theme/palette";
         Gray light
       </Box>
     </Grid>
-	</Grid>
-	<Grid container spacing={3}>
+    </Grid>
+    <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
       <Box mb={2} pb={7} pt={7} bgcolor={palette.red.main} color={palette.white.main} textAlign="center">
         Red

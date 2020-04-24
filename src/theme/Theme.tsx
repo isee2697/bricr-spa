@@ -14,6 +14,10 @@ const theme = createMuiTheme({
   shadows,
   overrides: {
     MuiAvatar: {
+      root: {
+        width: 32,
+        height: 32,
+      },
       colorDefault: {
         color: palette.gray.main,
         backgroundColor: palette.gray.light,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Tabs, IconButton, Avatar, Badge, Sidebar } from 'ui/atoms';
+import { Tabs, IconButton, Avatar, Badge, Sidebar, Menu, Box, Typography, Link as MaterialLink } from 'ui/atoms';
 import { TopBar, LinkTab } from 'ui/organisms';
 import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
@@ -18,10 +18,15 @@ import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
 import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
+import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
+import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
+import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
+import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { palette } from 'theme/palette';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -34,6 +39,19 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const { formatMessage } = useLocale();
   const { isAuthorized, user } = useAuthState();
   const activeLinkIndex = menuLinks.indexOf(pathname as AppRoute);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement & null>): void => {
+    setAnchorEl(anchorEl ? null : e.currentTarget);
+  };
+
+  const onClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'menu' : undefined;
 
   return (
     <>
@@ -87,8 +105,71 @@ export const Dashboard = ({ children }: DashboardProps) => {
       <section className={classes.container}>
         <aside className={classes.content}>{children}</aside>
         <Sidebar>
-          <IconButton size="small" aria-label="add">
+          <IconButton size="small" aria-label="add" onClick={handleClick}>
             <ShortcutsIcon color="inherit" />
+            <Menu
+              id={id}
+              open={open}
+              onClose={onClose}
+              anchorEl={anchorEl}
+              placement="left-start"
+              arrow={true}
+              offsetRight={2}
+            >
+              <>
+                <MaterialLink href="" color="inherit">
+                  <Box display="flex" alignItems="center" mb={2}>
+                    <Avatar variant="rounded" bgcolor={palette.red.light}>
+                      <Box color={palette.red.main}>
+                        <FilesIcon color="inherit" />
+                      </Box>
+                    </Avatar>
+                    <Box ml={2}>
+                      <Typography variant="subtitle1">Print Brochure</Typography>
+                    </Box>
+                  </Box>
+                </MaterialLink>
+                <MaterialLink href="" color="inherit">
+                  <Box display="flex" alignItems="center" mb={2}>
+                    <Avatar variant="rounded" bgcolor={palette.purple.light}>
+                      <Box color={palette.purple.main}>
+                        <LinkIcon color="inherit" />
+                      </Box>
+                    </Avatar>
+                    <Box ml={2}>
+                      <Typography variant="subtitle1">NVM offer</Typography>
+                    </Box>
+                  </Box>
+                </MaterialLink>
+                <MaterialLink href="" color="inherit">
+                  <Box display="flex" alignItems="center" mb={2}>
+                    <Avatar variant="rounded" bgcolor={palette.green.light}>
+                      <Box color={palette.green.main}>
+                        <DocIcon color="inherit" />
+                      </Box>
+                    </Avatar>
+                    <Box ml={2}>
+                      <Typography variant="subtitle1">WWFT Check</Typography>
+                    </Box>
+                  </Box>
+                </MaterialLink>
+                <MaterialLink href="" color="inherit">
+                  <Box display="flex" alignItems="center">
+                    <Avatar variant="rounded" bgcolor={palette.yellow.light}>
+                      <Box color={palette.yellow.main}>
+                        <FolderIcon color="inherit" />
+                      </Box>
+                    </Avatar>
+                    <Box ml={2}>
+                      <Typography variant="subtitle1">
+                        Outstanding invoices for <br />
+                        different types of clients
+                      </Typography>
+                    </Box>
+                  </Box>
+                </MaterialLink>
+              </>
+            </Menu>
           </IconButton>
           <IconButton size="small" aria-label="add">
             <Badge badgeContent={2} color="secondary">
