@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, SimplePaletteColorOptions } from '@material-ui/core/styles';
 
-import { typography } from './typography';
+import { typography, fontWeight } from './typography';
 import { palette } from './palette';
 import { shadows } from './shadows';
 
@@ -33,6 +33,30 @@ const theme = createMuiTheme({
         border: 'none',
         '& .MuiTabs-flexContainer': {
           borderBottom: `2px solid ${palette.gray.light}`,
+        },
+        borderRadius: 8,
+      },
+    },
+    MuiCardHeader: {
+      root: {
+        paddingBottom: 0,
+      },
+      title: {
+        ...typography.h2,
+      },
+      action: {
+        marginTop: 'auto',
+        marginRight: 'auto',
+      },
+    },
+    MuiCardActions: {
+      root: {
+        borderTop: `2px solid ${palette.gray.light}`,
+        padding: defaultTheme.spacing(2),
+        '& .MuiButton-label': {
+          textTransform: 'initial',
+          color: palette.gray.main,
+          fontWeight: fontWeight.semibold,
         },
       },
     },
