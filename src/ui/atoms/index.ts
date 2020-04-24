@@ -10,6 +10,7 @@ export { default as Grid } from '@material-ui/core/Grid';
 export { default as Paper } from '@material-ui/core/Paper';
 export { default as TextField } from '@material-ui/core/TextField';
 export { default as Alert } from '@material-ui/lab/Alert';
+export { default as InputAdornment } from '@material-ui/core/InputAdornment';
 export { default as Link } from '@material-ui/core/Link';
 export { default as FormControl } from '@material-ui/core/FormControl';
 export { default as MenuItem } from '@material-ui/core/MenuItem';

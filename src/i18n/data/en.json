@@ -5,5 +5,13 @@
   "header.links.crm": "CRM",
   "header.links.sales": "Sales",
   "init": "Hello",
-  "common.save": "Save"
+  "common.save": "Save",
+  "login.title": "Sign up to Bricr",
+  "login.username": "Username",
+  "login.username_placeholder": "Enter username",
+  "login.password": "Password",
+  "login.password_placeholder": "Enter password",
+  "login.submit": "Login",
+  "login.wrong_credentials": "Invalid username and/or password",
+  "validation.required": "Field is required"
 }

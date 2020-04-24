@@ -5,5 +5,13 @@
   "header.links.pim": "PIM",
   "header.links.crm": "CRM",
   "header.links.sales": "Verkoop",
-  "header.links.logout": "Uitloggen"
+  "header.links.logout": "Uitloggen",
+  "login.title": "Meld je aan bij Bricr",
+  "login.username": "Gebruikersnaam",
+  "login.username_placeholder": "Voer gebruikersnaam in",
+  "login.password": "Wachtwoord",
+  "login.password_placeholder": "Voer wachtwoord in",
+  "login.submit": "Login",
+  "login.wrong_credentials": "Ongeldige gebruikersnaam en / of wachtwoord",
+  "validation.required": "Veld is verplicht"
 }

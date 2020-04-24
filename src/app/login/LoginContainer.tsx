@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react';
 import { Redirect } from 'react-router-dom';
-import { FieldValues } from 'react-hook-form';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { startAuthorizing, setTokens, setUnauthorized } from 'context/auth/authActionCreators/authActionCreators';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { useLoginMutation, LoginMutationVariables } from 'api/types';
+import { useLoginMutation, LoginInput } from 'api/types';
 
 import { Login } from './Login';
 
@@ -17,14 +16,14 @@ export const LoginContainer = () => {
   const { isAuthorized } = useAuthState();
 
   const onSubmit = useCallback(
-    async (body: FieldValues): Promise<boolean> => {
+    async (body: LoginInput): Promise<boolean> => {
       try {
         dispatch(startAuthorizing());
 
         const { data, errors } = await login({
           variables: {
             input: body,
-          } as LoginMutationVariables,
+          },
         });
 
         if (!errors && data && data.login) {

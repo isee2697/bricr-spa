@@ -85,6 +85,29 @@ const theme = createMuiTheme({
         padding: 4,
       },
     },
+    MuiInputBase: {
+      root: {
+        '& fieldset > legend > span': {
+          display: 'none',
+        },
+      },
+      input: {
+        fontSize: '0.9rem',
+      },
+    },
+    MuiInputLabel: {
+      root: {
+        '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
+          position: 'inherit',
+          transform: 'none',
+          fontSize: '0.75rem',
+          fontWeight: fontWeight.semibold,
+          textAlign: 'left',
+          marginTop: 0,
+          marginBottom: defaultTheme.spacing(1),
+        },
+      },
+    },
     MuiTab: {
       root: {
         fontSize: '0.75rem',

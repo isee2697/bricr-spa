@@ -10,10 +10,12 @@ export const Authorization = ({ children }: AuthorizationProps) => {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.content}>{children}</div>
+      <Grid item xs={12} sm={8} md={6} lg={4} component={Paper} elevation={6} square>
+        <Grid item xs={10} lg={8} className={classes.content}>
+          {children}
+        </Grid>
       </Grid>
+      <Grid item xs={false} sm={4} md={6} lg={8} className={classes.image} />
     </Grid>
   );
 };

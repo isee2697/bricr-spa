@@ -1,3 +1,5 @@
+import { LoginInput } from 'api/types';
+
 export type LoginProps = {
-  onSubmit(payload: { username?: string; password?: string }): Promise<boolean>;
+  onSubmit(payload: LoginInput): Promise<boolean>;
 };

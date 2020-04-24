@@ -11,12 +11,12 @@ describe('Login', () => {
     const { getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText(/Username/), {
+      fireEvent.change(getByLabelText('login.username'), {
         target: {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText(/Password/), {
+      fireEvent.change(getByLabelText('login.password'), {
         target: {
           value: 'bar',
         },
@@ -37,12 +37,12 @@ describe('Login', () => {
     const { getByText, getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText(/Username/), {
+      fireEvent.change(getByLabelText('login.username'), {
         target: {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText(/Password/), {
+      fireEvent.change(getByLabelText('login.password'), {
         target: {
           value: 'bar',
         },
@@ -51,7 +51,7 @@ describe('Login', () => {
     });
 
     await wait(() => {
-      expect(getByText('Invalid username and/or password')).toBeTruthy();
+      expect(getByText('login.wrong_credentials')).toBeTruthy();
     });
   });
 
@@ -64,7 +64,7 @@ describe('Login', () => {
     });
 
     await wait(() => {
-      expect(getAllByText('This field is required').length).toBe(2);
+      expect(getAllByText('validation.required').length).toBe(2);
     });
   });
 });

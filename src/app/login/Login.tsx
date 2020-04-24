@@ -1,27 +1,27 @@
 import React, { useState, useCallback } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { Form } from 'react-final-form';
 
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { Button, TextField, Logo, Typography, Alert } from 'ui/atoms';
+import { Button, Logo, Typography, Alert, InputAdornment } from 'ui/atoms';
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { AppMessages } from 'i18n/messages';
+import { GenericField } from 'form/fields';
+import { requireValidator } from 'form/validators';
+import { LoginInput } from 'api/types';
+import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
+import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 
 import { LoginProps } from './Login.types';
 import { useStyles } from './Login.styles';
 
-/*
- * TODO:
- *   - create re-usable Input/Button components and replace inputs and/or button with them
- *     you can use React.forwardRef in order to pass reference to the proper element
- *     https://pl.reactjs.org/docs/forwarding-refs.html
- * */
-
 export const Login = ({ onSubmit }: LoginProps) => {
-  const { register, handleSubmit, errors } = useForm();
   const { isAuthorizing } = useAuthState();
   const [error, setError] = useState(false);
   const classes = useStyles();
+  const { formatMessage } = useLocale();
 
-  const handleSubmitCallback = useCallback(
-    async (body: FieldValues) => {
+  const handleSubmit = useCallback(
+    async (body: LoginInput) => {
       const valid = await onSubmit(body);
 
       if (!valid) {
@@ -32,58 +32,63 @@ export const Login = ({ onSubmit }: LoginProps) => {
   );
 
   return (
-    <>
-      <Logo className={classes.logo} />
+    <Form onSubmit={handleSubmit}>
+      {({ submitError, handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <Logo className={classes.logo} />
+          <Typography variant="h1" className={classes.title}>
+            {formatMessage({ id: AppMessages['login.title'] })}
+          </Typography>
 
-      <Typography variant="h1" className={classes.title}>
-        Sign up to Bricr
-      </Typography>
+          {error && (
+            <Alert className={classes.alert} severity="error">
+              {formatMessage({ id: AppMessages['login.wrong_credentials'] })}
+            </Alert>
+          )}
 
-      {error && <Alert severity="error">Invalid username and/or password</Alert>}
+          <GenericField
+            name="username"
+            label="login.username"
+            placeholder="login.username_placeholder"
+            validate={[requireValidator]}
+            size="medium"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <MailIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
 
-      <form onSubmit={handleSubmit(handleSubmitCallback)}>
-        <TextField
-          name="username"
-          id="username"
-          label="Username"
-          style={{ margin: '16px 0 16px 0' }}
-          placeholder="Enter username"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          type="text"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          size="small"
-          helperText={errors.username ? 'This field is required' : undefined}
-          inputRef={register({ required: true })}
-          error={!!errors.username}
-        />
+          <GenericField
+            name="password"
+            label="login.password"
+            placeholder="login.password_placeholder"
+            validate={[requireValidator]}
+            size="medium"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <UserIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
 
-        <TextField
-          name="password"
-          id="password"
-          label="Password"
-          style={{ margin: '16px 0 16px 0' }}
-          placeholder="Enter password"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          type="text"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          size="small"
-          helperText={errors.password ? 'This field is required' : undefined}
-          inputRef={register({ required: true })}
-          error={!!errors.password}
-        />
-
-        <Button variant="contained" color="primary" fullWidth type="submit" disabled={isAuthorizing}>
-          Login
-        </Button>
-      </form>
-    </>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            type="submit"
+            disabled={isAuthorizing}
+            className={classes.submit}
+            size="large"
+          >
+            {formatMessage({ id: AppMessages['login.submit'] })}
+          </Button>
+        </form>
+      )}
+    </Form>
   );
 };
