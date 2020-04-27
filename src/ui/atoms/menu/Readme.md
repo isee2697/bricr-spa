@@ -2,12 +2,14 @@ Menu:
 
 ```jsx harmony
 import { Button, Avatar, Box, Typography, Grid, Link, FormControl, MenuItem, Select, InputLabel, Menu } from "ui/atoms";
-import { palette } from "theme/palette";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
 import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
 import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
+import { useTheme } from '@material-ui/core';
+
+const theme = useTheme();
 
 const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -46,7 +48,7 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
   offsetTop = 2;
 }
 
-<Box bgcolor={palette.gray.light} p={2}>
+<Box bgcolor={theme.palette.gray.light} p={2}>
   <Box display="block" mb={2}>
 	<FormControl>
       <InputLabel id="placement">Placement</InputLabel>
@@ -90,8 +92,8 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
     <>
       <Link href="#" onClick={(e) => e.preventDefault()} color="inherit">
         <Box display="flex" alignItems="center" mb={2}>
-          <Avatar variant="rounded" bgcolor={palette.red.light}>
-            <Box color={palette.red.main}>
+          <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
+            <Box color={theme.palette.red.main}>
               <FilesIcon color="inherit"/>
             </Box>
           </Avatar>
@@ -104,8 +106,8 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
       </Link>
       <Link href="#" onClick={(e) => e.preventDefault()} color="inherit">
         <Box display="flex" alignItems="center" mb={2}>
-          <Avatar variant="rounded" bgcolor={palette.purple.light}>
-            <Box color={palette.purple.main}>
+          <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
+            <Box color={theme.palette.purple.main}>
               <LinkIcon color="inherit"/>
             </Box>
           </Avatar>
@@ -118,8 +120,8 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
       </Link>
       <Link href="#" onClick={(e) => e.preventDefault()} color="inherit">
         <Box display="flex" alignItems="center" mb={2}>
-          <Avatar variant="rounded" bgcolor={palette.green.light}>
-            <Box color={palette.green.main}>
+          <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
+            <Box color={theme.palette.green.main}>
               <DocIcon color="inherit"/>
             </Box>
           </Avatar>
@@ -132,8 +134,8 @@ if (placement === 'left' || placement === 'left-start' || placement === 'left-en
       </Link>
       <Link href="#" onClick={(e) => e.preventDefault()} color="inherit">
         <Box display="flex" alignItems="center">
-          <Avatar variant="rounded" bgcolor={palette.yellow.light}>
-            <Box color={palette.yellow.main}>
+          <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
+            <Box color={theme.palette.yellow.main}>
               <FolderIcon color="inherit"/>
             </Box>
           </Avatar>

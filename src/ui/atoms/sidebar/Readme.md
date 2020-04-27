@@ -3,9 +3,11 @@ Example of Sidebar component
 import { Sidebar, IconButton, Badge } from 'ui/atoms';
 import { ShortcutsIcon } from 'ui/atoms/icons/shortcuts/ShortcutsIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { palette } from 'theme/palette';
+import { useTheme } from '@material-ui/core';
 
-<div style={{display: 'flex', background: palette.gray.light}}>
+const theme = useTheme();
+
+<div style={{display: 'flex', background: theme.palette.gray.light}}>
   <div style={{flex: '1 1 auto', padding: 10}}> Some content </div>
   <Sidebar>
     <IconButton size="small" aria-label="add">

@@ -1,87 +1,88 @@
 ### Colors:
 ```jsx harmony
 import { Box, Grid } from 'ui/atoms';
-import { palette } from "theme/palette";
+import { useTheme } from '@material-ui/core';
+const theme = useTheme();
 
 <>
   <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={palette.primary.main} color={palette.white.main} textAlign="center">
+      <Box pb={7} pt={7} bgcolor={theme.palette.primary.main} color={theme.palette.white.main} textAlign="center">
         Primary
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} style={{background: palette.gradientPrimary.main}} color={palette.white.main} textAlign="center">
+      <Box pb={7} pt={7} style={{background: theme.palette.gradientPrimary.main}} color={theme.palette.white.main} textAlign="center">
         Gradient Primary
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={palette.secondary.main} color={palette.white.main} textAlign="center">
+      <Box pb={7} pt={7} bgcolor={theme.palette.secondary.main} color={theme.palette.white.main} textAlign="center">
         Secondary
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={palette.black.main} color={palette.white.main} textAlign="center">
+      <Box pb={7} pt={7} bgcolor={theme.palette.black.main} color={theme.palette.white.main} textAlign="center">
         Black
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={palette.gray.main} color={palette.white.main} textAlign="center">
+      <Box pb={7} pt={7} bgcolor={theme.palette.gray.main} color={theme.palette.white.main} textAlign="center">
         Gray
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={palette.gray.light} color={palette.black.main} textAlign="center">
+      <Box pb={7} pt={7} bgcolor={theme.palette.gray.light} color={theme.palette.black.main} textAlign="center">
         Gray light
       </Box>
     </Grid>
     </Grid>
     <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.red.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.red.main} color={theme.palette.white.main} textAlign="center">
         Red
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.red.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.red.light} color={theme.palette.black.main} textAlign="center">
         Red light
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.orange.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.orange.main} color={theme.palette.white.main} textAlign="center">
         Orange
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.orange.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.orange.light} color={theme.palette.black.main} textAlign="center">
         Orange light
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.yellow.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.yellow.main} color={theme.palette.white.main} textAlign="center">
         Yellow
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.yellow.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.yellow.light} color={theme.palette.black.main} textAlign="center">
         Yellow light
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.green.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.green.main} color={theme.palette.white.main} textAlign="center">
         Green
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.green.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.green.light} color={theme.palette.black.main} textAlign="center">
         Green light
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.blue.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.blue.main} color={theme.palette.white.main} textAlign="center">
         Blue
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.blue.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.blue.light} color={theme.palette.black.main} textAlign="center">
         Blue light
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.purple.main} color={palette.white.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.purple.main} color={theme.palette.white.main} textAlign="center">
         Purple
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={palette.purple.light} color={palette.black.main} textAlign="center">
+      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.purple.light} color={theme.palette.black.main} textAlign="center">
         Purple light
       </Box>
     </Grid>
@@ -116,17 +117,18 @@ import { Grid, Box } from 'ui/atoms';
 
 ```jsx harmony
 import { Typography, Box } from 'ui/atoms';
-import { fontWeight } from 'theme/typography';
+import { useTheme } from '@material-ui/core';
+const theme = useTheme();
 
 <>
   <Typography variant="h1">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h1. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h1. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h1. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h1. Heading - medium
     </Box>
     h1. Heading - regular
@@ -134,13 +136,13 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="h2">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h2. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h2. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h2. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h2. Heading - medium
     </Box>
     h2. Heading - regular
@@ -148,13 +150,13 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="h3">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h3. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h3. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h3. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h3. Heading - medium
     </Box>
     h3. Heading - regular
@@ -162,13 +164,13 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="h4">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h4. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h4. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h4. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h4. Heading - medium
     </Box>
     h4. Heading - regular
@@ -176,13 +178,13 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="h5">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h5. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h5. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h5. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h5. Heading - medium
     </Box>
     h5. Heading - regular
@@ -190,13 +192,13 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="h6">
-    <Box fontWeight={fontWeight.bold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBolder} mb={1}>
+      h6. Heading - bolder
+    </Box>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       h6. Heading - bold
     </Box>
-    <Box fontWeight={fontWeight.semibold} mb={1}>
-      h6. Heading - semibold
-    </Box>
-    <Box fontWeight={fontWeight.medium} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightMedium} mb={1}>
       h6. Heading - medium
     </Box>
     h6. Heading - regular
@@ -204,7 +206,7 @@ import { fontWeight } from 'theme/typography';
   <br/>
   <br/>
   <Typography variant="subtitle1">
-    <Box fontWeight={fontWeight.semibold} mb={1}>
+    <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
       Paragraph:<br />
     </Box>
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem, corporis cumque dignissimos eligendi 
@@ -247,7 +249,9 @@ import { SettingsIcon } from './atoms/icons/settings/SettingsIcon';
 import { ShortcutsIcon } from './atoms/icons/shortcuts/ShortcutsIcon';
 import { TasksIcon } from './atoms/icons/tasks/TasksIcon';
 import { UserIcon } from './atoms/icons/user/UserIcon';
-import {palette} from "theme/palette";
+import { useTheme } from '@material-ui/core';
+
+const theme = useTheme();
 
 const wrapperStyle = {
   display: 'flex',
@@ -274,7 +278,7 @@ const wrapperStyle = {
     <FilesIcon color="secondary"/>
   </div>
   <br />
-  <div style={{...wrapperStyle, color:palette.green.main }}>
+  <div style={{...wrapperStyle, color:theme.palette.green.main }}>
     <FolderIcon color="inherit"/>
     <GraphIcon color="inherit"/>
     <GraphArrowIcon color="inherit"/>

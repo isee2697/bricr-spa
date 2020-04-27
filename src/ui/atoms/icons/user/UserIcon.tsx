@@ -1,17 +1,18 @@
 import * as React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
-
-import { palette } from 'theme/palette';
+import { useTheme } from '@material-ui/core';
 
 export const UserIcon = (props: DefaultSvgIconProps) => {
+  const theme = useTheme();
+
   return (
     <SvgIcon {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M9.45517 8C9.45517 6.52752 10.5951 5.33333 12.0006 5.33333C13.4062 5.33333 14.5461 6.52752 14.5461 8V8.66667C14.5461 10.1391 13.4062 11.3333 12.0006 11.3333C10.5951 11.3333 9.45517 10.1391 9.45517 8.66667V8ZM12.0006 4C9.89217 4 8.18244 5.79114 8.18244 8V8.66667C8.18244 10.8755 9.89217 12.6667 12.0006 12.6667C14.1091 12.6667 15.8188 10.8755 15.8188 8.66667V8C15.8188 5.79114 14.1091 4 12.0006 4ZM12 14C10.2753 14 8.56884 14.3723 7.33626 14.7248H16.6637C15.4312 14.3723 13.7247 14 12 14ZM5 17.9387C5 16.4413 5.95076 15.1202 7.33588 14.7249H16.6641C18.0492 15.1202 19 16.4413 19 17.9387V19.3333C19 19.7015 18.7151 20 18.3636 20H5.63636C5.28491 20 5 19.7015 5 19.3333V17.9387ZM7.67103 16.0111C8.84896 15.6743 10.4336 15.3333 12 15.3333C13.5664 15.3333 15.151 15.6743 16.329 16.0111L16.3293 16.0112C17.1547 16.2467 17.7273 17.0361 17.7273 17.9387V18.6667H6.27273V17.9387C6.27273 17.0361 6.84525 16.2467 7.67065 16.0112L7.67103 16.0111Z"
-        fill={props.color ? props.color : palette.gray.main}
+        fill={props.color ? props.color : theme.palette.gray.main}
       />
     </SvgIcon>
   );

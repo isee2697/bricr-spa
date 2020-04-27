@@ -1,12 +1,16 @@
 export const fontWeight = {
   regular: 400,
   medium: 500,
-  semibold: 600,
-  bold: 700,
+  bold: 600,
+  bolder: 700,
 };
 
 export const typography = {
   fontFamily: 'Poppins, sans-serif',
+  fontWeightRegular: fontWeight['regular'],
+  fontWeightMedium: fontWeight['medium'],
+  fontWeightBold: fontWeight['bold'],
+  fontWeightBolder: fontWeight['bolder'],
   h1: {
     fontSize: 24,
     fontWeight: fontWeight.regular,

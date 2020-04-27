@@ -60,7 +60,7 @@ const theme = createMuiTheme({
         '& .MuiButton-label': {
           textTransform: 'initial',
           color: palette.gray.main,
-          fontWeight: fontWeight.semibold,
+          fontWeight: fontWeight.bold,
         },
       },
     },
@@ -120,7 +120,7 @@ const theme = createMuiTheme({
           position: 'inherit',
           transform: 'none',
           fontSize: '0.9rem',
-          fontWeight: fontWeight.semibold,
+          fontWeight: fontWeight.bold,
           marginTop: 0,
           marginBottom: defaultTheme.spacing(1),
         },

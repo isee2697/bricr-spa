@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from '@material-ui/core';
 
 import { Tabs, IconButton, Avatar, Badge, Sidebar, Menu, Box, Typography, Link as MaterialLink } from 'ui/atoms';
 import { TopBar, LinkTab } from 'ui/molecules';
@@ -26,7 +27,6 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { palette } from 'theme/palette';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -39,6 +39,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const { formatMessage } = useLocale();
   const { isAuthorized, user } = useAuthState();
   const activeLinkIndex = menuLinks.indexOf(pathname as AppRoute);
+  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -119,8 +120,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
               <>
                 <MaterialLink href="" color="inherit">
                   <Box display="flex" alignItems="center" mb={2}>
-                    <Avatar variant="rounded" bgcolor={palette.red.light}>
-                      <Box color={palette.red.main}>
+                    <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
+                      <Box color={theme.palette.red.main}>
                         <FilesIcon color="inherit" />
                       </Box>
                     </Avatar>
@@ -131,8 +132,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 </MaterialLink>
                 <MaterialLink href="" color="inherit">
                   <Box display="flex" alignItems="center" mb={2}>
-                    <Avatar variant="rounded" bgcolor={palette.purple.light}>
-                      <Box color={palette.purple.main}>
+                    <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
+                      <Box color={theme.palette.purple.main}>
                         <LinkIcon color="inherit" />
                       </Box>
                     </Avatar>
@@ -143,8 +144,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 </MaterialLink>
                 <MaterialLink href="" color="inherit">
                   <Box display="flex" alignItems="center" mb={2}>
-                    <Avatar variant="rounded" bgcolor={palette.green.light}>
-                      <Box color={palette.green.main}>
+                    <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
+                      <Box color={theme.palette.green.main}>
                         <DocIcon color="inherit" />
                       </Box>
                     </Avatar>
@@ -155,8 +156,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 </MaterialLink>
                 <MaterialLink href="" color="inherit">
                   <Box display="flex" alignItems="center">
-                    <Avatar variant="rounded" bgcolor={palette.yellow.light}>
-                      <Box color={palette.yellow.main}>
+                    <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
+                      <Box color={theme.palette.yellow.main}>
                         <FolderIcon color="inherit" />
                       </Box>
                     </Avatar>

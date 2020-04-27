@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
+import { useTheme } from '@material-ui/core';
 
 import { Avatar, Box } from '../../atoms';
-import { palette } from 'theme/palette';
 
 import { UserAvatarProps } from './UserAvatar.types';
 
 export const UserAvatar = (props: UserAvatarProps) => {
   const { name, avatar } = props;
+  const theme = useTheme();
   const initial = name && name.charAt(0);
 
   const getColor = useCallback((initial: string) => {
@@ -29,8 +30,8 @@ export const UserAvatar = (props: UserAvatarProps) => {
 
   return (
     <>
-      <Avatar bgcolor={palette[getColor(initial)]['light']} src={avatar && avatar}>
-        <Box color={palette[getColor(initial)]['main']}>{initial}</Box>
+      <Avatar bgcolor={theme.palette[getColor(initial)]['light']} src={avatar && avatar}>
+        <Box color={theme.palette[getColor(initial)]['main']}>{initial}</Box>
       </Avatar>
     </>
   );

@@ -2,21 +2,23 @@ Avatar icon:
 
 ```jsx harmony
 import { Avatar, Box, Grid } from "ui/atoms";
-import { palette } from "theme/palette";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
+import { useTheme } from '@material-ui/core';
+
+const theme = useTheme();
 
 <>
   <Grid container spacing={3}>
     <Grid item>
-      <Avatar variant="rounded" bgcolor={palette.orange.light}>
-        <Box color={palette.orange.main}>
+      <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
+        <Box color={theme.palette.orange.main}>
           <UserIcon color="inherit"/>
         </Box>
       </Avatar>
     </Grid>
     <Grid item>
-      <Avatar variant="circle" bgcolor={palette.orange.light}>
-        <Box color={palette.orange.main}>
+      <Avatar variant="circle" bgcolor={theme.palette.orange.light}>
+        <Box color={theme.palette.orange.main}>
           <UserIcon color="inherit"/>
         </Box>
       </Avatar>
@@ -29,21 +31,22 @@ Avatar Initials:
 
 ```jsx harmony
 import { Avatar, Box, Grid } from "ui/atoms";
-import { palette } from "theme/palette";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
+import { useTheme } from '@material-ui/core';
 
+const theme = useTheme();
 <>
   <Grid container spacing={3}>
     <Grid item>
-      <Avatar variant="rounded" bgcolor={palette.orange.light}>
-        <Box color={palette.orange.main}>
+      <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
+        <Box color={theme.palette.orange.main}>
           C
         </Box>
       </Avatar>
     </Grid>
     <Grid item>
-      <Avatar variant="circle" bgcolor={palette.orange.light}>
-        <Box color={palette.orange.main}>
+      <Avatar variant="circle" bgcolor={theme.palette.orange.light}>
+        <Box color={theme.palette.orange.main}>
           C
         </Box>
       </Avatar>
@@ -57,7 +60,6 @@ Avatar image:
 
 ```jsx harmony
 import { Avatar, Box, Grid } from "ui/atoms";
-import { palette } from "theme/palette";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { makeStyles } from '@material-ui/core/styles';
 

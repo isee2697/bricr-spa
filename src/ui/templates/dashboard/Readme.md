@@ -1,9 +1,10 @@
 Example of Dashboard component
 ```jsx harmony
 import { Dashboard } from 'ui/templates';
-import { palette } from 'theme/palette';
+import { useTheme } from '@material-ui/core';
+const theme = useTheme();
 
-<div style={{background: palette.gray.light}}>
+<div style={{background: theme.palette.gray.light}}>
   <Dashboard />
 </div>
 ```
