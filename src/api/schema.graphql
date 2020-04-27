@@ -20,6 +20,27 @@ type LoginResponse {
   refreshToken: String!
 }
 
+input ForgotPasswordInput {
+  username: String!
+}
+
+type ForgotPasswordResponse {
+  error: String
+  resetPasswordToken: String
+}
+
+input ResetPasswordInput {
+  newPassword: String!
+  token: String!
+}
+
+type ResetPasswordResponse {
+  error: String!
+  newPassword: String
+}
+
 type Mutation {
   login(input: LoginInput): LoginResponse
+  forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
+  resetPassword(input: ResetPasswordInput): ResetPasswordResponse
 }

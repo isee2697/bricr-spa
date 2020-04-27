@@ -25,7 +25,7 @@ const app = (
 
 const root = document.getElementById('root');
 
-if (process.env.REACT_APP_API_URL === 'mock') {
+if (process.env.REACT_APP_API_URL === '/mock') {
   const mockServer = import('./api/mockServer');
 
   mockServer.then(server => {

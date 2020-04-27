@@ -8,14 +8,14 @@ import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { LoginInput } from 'api/types';
-import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 
-import { LoginProps } from './Login.types';
+import { ForgotPasswordProps } from './ForgotPassword.types';
 
-export const Login = ({ onSubmit }: LoginProps) => {
+export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
   const [isError, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
   const { formatMessage } = useLocale();
 
   const handleSubmit = useCallback(
@@ -24,6 +24,8 @@ export const Login = ({ onSubmit }: LoginProps) => {
 
       if (!valid) {
         setError(!valid);
+      } else {
+        setSuccess(true);
       }
     },
     [onSubmit],
@@ -33,14 +35,20 @@ export const Login = ({ onSubmit }: LoginProps) => {
     <Form onSubmit={handleSubmit}>
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <Typography variant="h1">{formatMessage({ id: AppMessages['login.title'] })}</Typography>
+          <Typography variant="h1">{formatMessage({ id: AppMessages['forgot_password.title'] })}</Typography>
 
-          {isError && <Alert severity="error">{formatMessage({ id: AppMessages['login.wrong_credentials'] })}</Alert>}
+          {isError && (
+            <Alert severity="error">{formatMessage({ id: AppMessages['forgot_password.wrong_username'] })}</Alert>
+          )}
+
+          {isSuccess && (
+            <Alert severity="success">{formatMessage({ id: AppMessages['forgot_password.success'] })}</Alert>
+          )}
 
           <GenericField
             name="username"
-            label="login.username"
-            placeholder="login.username_placeholder"
+            label="forgot_password.username"
+            placeholder="forgot_password.username_placeholder"
             validate={[requireValidator]}
             size="medium"
             InputProps={{
@@ -52,27 +60,19 @@ export const Login = ({ onSubmit }: LoginProps) => {
             }}
           />
 
-          <GenericField
-            name="password"
-            label="login.password"
-            placeholder="login.password_placeholder"
-            validate={[requireValidator]}
-            size="medium"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <UserIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <Link component={RouterLink} to={AppRoute.forgotPassword}>
-            {formatMessage({ id: AppMessages['login.forgot_password'] })}
+          <Link component={RouterLink} to={AppRoute.login}>
+            {formatMessage({ id: AppMessages['forgot_password.back_to_login'] })}
           </Link>
 
-          <Button variant="contained" color="primary" fullWidth type="submit" disabled={submitting} size="large">
-            {formatMessage({ id: AppMessages['login.submit'] })}
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            type="submit"
+            disabled={submitting || isSuccess}
+            size="large"
+          >
+            {formatMessage({ id: AppMessages['forgot_password.submit'] })}
           </Button>
         </form>
       )}

@@ -11,7 +11,15 @@
   "login.username_placeholder": "Voer gebruikersnaam in",
   "login.password": "Wachtwoord",
   "login.password_placeholder": "Voer wachtwoord in",
+  "login.forgot_password": "Wachtwoord vergeten?",
   "login.submit": "Login",
   "login.wrong_credentials": "Ongeldige gebruikersnaam en / of wachtwoord",
+  "forgot_password.title": "Wachtwoord vergeten",
+  "forgot_password.username": "Gebruikersnaam",
+  "forgot_password.username_placeholder": "Typ je gebruikersnaam",
+  "forgot_password.back_to_login": "Terug naar Inloggen",
+  "forgot_password.submit": "Wachtwoord resetten",
+  "forgot_password.wrong_username": "Verkeerde gebruikersnaam opgegeven",
+  "forgot_password.success": "E-mail met link om wachtwoord opnieuw in te stellen is naar u verzonden.",
   "validation.required": "Veld is verplicht"
 }

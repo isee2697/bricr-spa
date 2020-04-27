@@ -100,9 +100,8 @@ const theme = createMuiTheme({
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
           position: 'inherit',
           transform: 'none',
-          fontSize: '0.75rem',
+          fontSize: '0.9rem',
           fontWeight: fontWeight.semibold,
-          textAlign: 'left',
           marginTop: 0,
           marginBottom: defaultTheme.spacing(1),
         },

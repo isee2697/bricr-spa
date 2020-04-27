@@ -11,7 +11,15 @@
   "login.username_placeholder": "Enter username",
   "login.password": "Password",
   "login.password_placeholder": "Enter password",
+  "login.forgot_password": "Password forgotten?",
   "login.submit": "Login",
   "login.wrong_credentials": "Invalid username and/or password",
+  "forgot_password.title": "Forgot password",
+  "forgot_password.username": "Username",
+  "forgot_password.username_placeholder": "Enter your username",
+  "forgot_password.back_to_login": "Back to login",
+  "forgot_password.submit": "Reset password",
+  "forgot_password.wrong_username": "Wrong username provided",
+  "forgot_password.success": "Email with link to reset password has been sent to you.",
   "validation.required": "Field is required"
 }

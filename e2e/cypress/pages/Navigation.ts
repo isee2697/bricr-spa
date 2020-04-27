@@ -19,6 +19,12 @@ class Navigation {
       .click();
   }
 
+  goToForgotPassword(): void {
+    cy.get(`a[href*="${AppRoute.forgotPassword}"]`)
+      .first()
+      .click();
+  }
+
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
   }
@@ -29,6 +35,10 @@ class Navigation {
 
   get logoutLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.logout}`;
+  }
+
+  get forgotPasswordLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.forgotPassword}`;
   }
 }
 

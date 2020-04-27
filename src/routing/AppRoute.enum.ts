@@ -3,6 +3,7 @@ export enum AppRoute {
   pim = '/pim',
   crm = '/crm',
   sales = '/sales',
-  login = '/login',
   logout = '/logout',
+  login = '/auth/login',
+  forgotPassword = '/auth/forgot-password',
 }

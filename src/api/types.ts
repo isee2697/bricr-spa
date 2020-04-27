@@ -36,13 +36,44 @@ export type LoginResponse = {
   refreshToken: Scalars['String'];
 };
 
+export type ForgotPasswordInput = {
+  username: Scalars['String'];
+};
+
+export type ForgotPasswordResponse = {
+  __typename?: 'ForgotPasswordResponse';
+  error?: Maybe<Scalars['String']>;
+  resetPasswordToken?: Maybe<Scalars['String']>;
+};
+
+export type ResetPasswordInput = {
+  newPassword: Scalars['String'];
+  token: Scalars['String'];
+};
+
+export type ResetPasswordResponse = {
+  __typename?: 'ResetPasswordResponse';
+  error: Scalars['String'];
+  newPassword?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<LoginResponse>;
+  forgotPassword?: Maybe<ForgotPasswordResponse>;
+  resetPassword?: Maybe<ResetPasswordResponse>;
 };
 
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
+};
+
+export type MutationForgotPasswordArgs = {
+  input?: Maybe<ForgotPasswordInput>;
+};
+
+export type MutationResetPasswordArgs = {
+  input?: Maybe<ResetPasswordInput>;
 };
 
 export type LoginMutationVariables = {
@@ -51,6 +82,22 @@ export type LoginMutationVariables = {
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
+};
+
+export type ForgotPasswordMutationVariables = {
+  input?: Maybe<ForgotPasswordInput>;
+};
+
+export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
+  forgotPassword?: Maybe<{ __typename?: 'ForgotPasswordResponse' } & Pick<ForgotPasswordResponse, 'error'>>;
+};
+
+export type ResetPasswordMutationVariables = {
+  input?: Maybe<ResetPasswordInput>;
+};
+
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
 };
 
 export type MeQueryVariables = {};
@@ -75,6 +122,48 @@ export function useLoginMutation(
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const ForgotPasswordDocument = gql`
+  mutation ForgotPassword($input: ForgotPasswordInput) {
+    forgotPassword(input: $input) {
+      error
+    }
+  }
+`;
+export function useForgotPasswordMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ForgotPasswordMutation, ForgotPasswordMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(
+    ForgotPasswordDocument,
+    baseOptions,
+  );
+}
+export type ForgotPasswordMutationHookResult = ReturnType<typeof useForgotPasswordMutation>;
+export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordMutation>;
+export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>;
+export const ResetPasswordDocument = gql`
+  mutation ResetPassword($input: ResetPasswordInput) {
+    resetPassword(input: $input) {
+      error
+    }
+  }
+`;
+export function useResetPasswordMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(
+    ResetPasswordDocument,
+    baseOptions,
+  );
+}
+export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
+export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<ResetPasswordMutation>;
+export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>;
 export const MeDocument = gql`
   query Me {
     me {

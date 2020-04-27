@@ -37,6 +37,12 @@ export const mockServer = () => {
             }
             throw new Error();
           },
+          forgotPassword() {
+            return {};
+          },
+          resetPassword() {
+            return {};
+          },
         };
 
         return graphql(graphqlSchema, query, resolver, null, variables);

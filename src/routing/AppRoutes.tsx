@@ -5,6 +5,7 @@ import { Home } from 'app/home/Home';
 import { LoginContainer } from 'app/login/LoginContainer';
 import { LogoutContainer } from 'app/logout/LogoutContainer';
 import { Dashboard, Authorization } from 'ui/templates';
+import { ForgotPasswordContainer } from 'app/forgotPassword/ForgotPasswordContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -12,15 +13,17 @@ import { AuthorizedRoute } from './AuthorizedRoute';
 export const AppRoutes = () => {
   return (
     <Switch>
-      <Route path={AppRoute.login}>
+      <Route path="/auth">
         {() => (
           <Authorization>
-            <LoginContainer />
+            <Switch>
+              <Route path={AppRoute.login} exact component={LoginContainer} />
+              <Route path={AppRoute.forgotPassword} exact component={ForgotPasswordContainer} />
+              <Redirect to={AppRoute.home} />
+            </Switch>
           </Authorization>
         )}
       </Route>
-
-      <Route path={AppRoute.logout} component={LogoutContainer} />
 
       <Route path="/">
         {() => (
@@ -30,6 +33,7 @@ export const AppRoutes = () => {
               <AuthorizedRoute path={AppRoute.pim} exact component={Home} />
               <AuthorizedRoute path={AppRoute.crm} exact component={Home} />
               <AuthorizedRoute path={AppRoute.sales} exact component={Home} />
+              <Route path={AppRoute.logout} component={LogoutContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
           </Dashboard>

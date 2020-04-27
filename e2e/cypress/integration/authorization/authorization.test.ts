@@ -7,6 +7,14 @@ context('Authorization', () => {
     cy.visit(Cypress.env().baseUrl);
   });
 
+  it('allows to start password resetting', () => {
+    cy.clearSession();
+    NavigationMenu.goToForgotPassword();
+    cy.get('input[name="username"]').type(Cypress.env().userLogin);
+    cy.get('button[type="submit"]').click();
+    cy.contains('sent');
+  });
+
   it('navigates to dashboard after logging in', () => {
     cy.clearSession();
     cy.userLogin();
