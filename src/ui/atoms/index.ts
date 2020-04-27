@@ -28,3 +28,4 @@ export { Sidebar } from './sidebar/Sidebar';
 export { Card } from './card/Card';
 export { Avatar } from './avatar/Avatar';
 export { Menu } from './menu/Menu';
+export { UserAvatar } from './userAvatar/UserAvatar';

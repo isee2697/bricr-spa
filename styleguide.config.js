@@ -17,8 +17,8 @@ module.exports = {
       components: 'src/ui/atoms/**/*.tsx',
     },
     {
-      name: 'Organisms Components',
-      components: 'src/ui/organisms/**/*.tsx',
+      name: 'molecules Components',
+      components: 'src/ui/molecules/**/*.tsx',
     },
     {
       name: 'Templates Components',

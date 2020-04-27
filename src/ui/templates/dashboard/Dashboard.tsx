@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Tabs, IconButton, Avatar, Badge, Sidebar, Menu, Box, Typography, Link as MaterialLink } from 'ui/atoms';
-import { TopBar, LinkTab } from 'ui/organisms';
+import { TopBar, LinkTab } from 'ui/molecules';
 import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { CrmIcon } from 'ui/atoms/icons/crm/CrmIcon';
