@@ -35,8 +35,7 @@ input ResetPasswordInput {
 }
 
 type ResetPasswordResponse {
-  error: String!
-  newPassword: String
+  error: String
 }
 
 type Mutation {

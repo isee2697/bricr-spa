@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
-import { LoginInput } from 'api/types';
+import { ForgotPasswordInput } from 'api/types';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -19,12 +19,13 @@ export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
   const { formatMessage } = useLocale();
 
   const handleSubmit = useCallback(
-    async (body: LoginInput) => {
+    async (body: ForgotPasswordInput) => {
       const valid = await onSubmit(body);
 
       if (!valid) {
         setError(!valid);
       } else {
+        setError(false);
         setSuccess(true);
       }
     },

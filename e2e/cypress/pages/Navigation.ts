@@ -25,6 +25,10 @@ class Navigation {
       .click();
   }
 
+  goToResetPasswordPage(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.resetPassword.replace(':token', 'test-token'));
+  }
+
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
   }

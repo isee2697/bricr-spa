@@ -53,8 +53,7 @@ export type ResetPasswordInput = {
 
 export type ResetPasswordResponse = {
   __typename?: 'ResetPasswordResponse';
-  error: Scalars['String'];
-  newPassword?: Maybe<Scalars['String']>;
+  error?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {

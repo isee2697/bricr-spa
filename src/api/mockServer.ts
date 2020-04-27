@@ -38,10 +38,18 @@ export const mockServer = () => {
             throw new Error();
           },
           forgotPassword() {
-            return {};
+            if (requestJson.variables.input.username === 'test-user') {
+              return {};
+            }
+
+            throw new Error();
           },
           resetPassword() {
-            return {};
+            if (requestJson.variables.input.token === 'test-token') {
+              return {};
+            }
+
+            throw new Error();
           },
         };
 

@@ -95,6 +95,25 @@ const theme = createMuiTheme({
         fontSize: '0.9rem',
       },
     },
+    MuiOutlinedInput: {
+      root: {
+        '&:hover:not(.Mui-focused) .MuiOutlinedInput-notchedOutline': {
+          borderColor: palette.gray.main,
+        },
+      },
+      notchedOutline: {
+        borderColor: palette.gray.light,
+        '& :hover': {
+          borderColor: palette.gray.light,
+        },
+      },
+      adornedEnd: {
+        background: palette.gray.light,
+      },
+      adornedStart: {
+        background: palette.gray.light,
+      },
+    },
     MuiInputLabel: {
       root: {
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {

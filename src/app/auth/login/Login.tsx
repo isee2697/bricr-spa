@@ -8,7 +8,7 @@ import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { LoginInput } from 'api/types';
-import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
+import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -61,7 +61,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <UserIcon />
+                  <LockIcon />
                 </InputAdornment>
               ),
             }}

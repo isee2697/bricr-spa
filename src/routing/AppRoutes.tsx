@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Home } from 'app/home/Home';
-import { LoginContainer } from 'app/login/LoginContainer';
-import { LogoutContainer } from 'app/logout/LogoutContainer';
 import { Dashboard, Authorization } from 'ui/templates';
-import { ForgotPasswordContainer } from 'app/forgotPassword/ForgotPasswordContainer';
+import { Home } from 'app/home/Home';
+import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
+import { LoginContainer } from 'app/auth/login/LoginContainer';
+import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
+import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
             <Switch>
               <Route path={AppRoute.login} exact component={LoginContainer} />
               <Route path={AppRoute.forgotPassword} exact component={ForgotPasswordContainer} />
+              <Route path={AppRoute.resetPassword} exact component={ResetPasswordContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
           </Authorization>
