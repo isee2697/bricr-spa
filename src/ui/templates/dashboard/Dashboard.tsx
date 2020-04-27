@@ -87,13 +87,13 @@ export const Dashboard = ({ children }: DashboardProps) => {
           </Tabs>
         </nav>
         <nav className={classes.actions}>
-          <Avatar className={classes.avatar} variant="rounded">
+          <IconButton size="small" variant="roundedContained">
             <PinIcon />
-          </Avatar>
+          </IconButton>
           <Badge badgeContent={4} color="secondary">
-            <Avatar className={classes.avatar} variant="rounded">
+            <IconButton size="small" variant="roundedContained">
               <BellIcon />
-            </Avatar>
+            </IconButton>
           </Badge>
           <Link to={isAuthorized ? AppRoute.logout : AppRoute.login}>
             <Avatar className={classes.avatar} src={user?.avatar || ''} alt="avatar" variant="circle" />
@@ -106,8 +106,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
       <section className={classes.container}>
         <aside className={classes.content}>{children}</aside>
         <Sidebar>
-          <IconButton size="small" aria-label="add" onClick={handleClick}>
-            <ShortcutsIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add" onClick={handleClick}>
+            <ShortcutsIcon />
             <Menu
               id={id}
               open={open}
@@ -172,31 +172,31 @@ export const Dashboard = ({ children }: DashboardProps) => {
               </>
             </Menu>
           </IconButton>
-          <IconButton size="small" aria-label="add">
+          <IconButton variant="rounded" size="small" aria-label="add">
             <Badge badgeContent={2} color="secondary">
-              <MailIcon color="inherit" />
+              <MailIcon />
             </Badge>
           </IconButton>
-          <IconButton size="small" aria-label="add">
-            <CalendarIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add">
+            <CalendarIcon />
           </IconButton>
-          <IconButton size="small" aria-label="add">
-            <TasksIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add">
+            <TasksIcon />
           </IconButton>
-          <IconButton size="small" aria-label="add">
+          <IconButton variant="rounded" size="small" aria-label="add">
             <Badge badgeContent={4} color="secondary">
-              <GraphArrowIcon color="inherit" />
+              <GraphArrowIcon />
             </Badge>
           </IconButton>
-          <IconButton size="small" aria-label="add">
-            <CommentIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add">
+            <CommentIcon />
           </IconButton>
           <Sidebar.Divider />
-          <IconButton size="small" aria-label="add">
-            <HelpIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add">
+            <HelpIcon />
           </IconButton>
-          <IconButton size="small" aria-label="add">
-            <SettingsIcon color="inherit" />
+          <IconButton variant="rounded" size="small" aria-label="add">
+            <SettingsIcon />
           </IconButton>
         </Sidebar>
       </section>

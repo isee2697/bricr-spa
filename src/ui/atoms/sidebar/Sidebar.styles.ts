@@ -7,7 +7,7 @@ export const Sidebar = styled('div')(({ theme }) => ({
   flex: `0 0 ${theme.spacing(8)}px`,
   top: theme.spacing(11),
   textAlign: 'center',
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(3),
   marginBottom: theme.spacing(2),
   borderLeft: `2px solid ${theme.palette.white.main}`,
   '& > *:not(:first-child)': {

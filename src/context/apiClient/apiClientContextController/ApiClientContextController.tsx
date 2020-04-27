@@ -28,17 +28,19 @@ const graphLink = (token: string | null) =>
     },
   });
 
-const cache = new InMemoryCache();
-
 export const ApiClientContextController = ({ children }: ApiClientProviderProps) => {
   const { accessToken } = useAuthState();
 
   const client = useMemo(() => {
+    const cache = new InMemoryCache();
+
     return new ApolloClient({
       link: from([restLink, graphLink(accessToken)]),
       cache,
     });
   }, [accessToken]);
 
-  return <ApolloProvider client={(client as unknown) as ApolloClientType<typeof cache>}>{children}</ApolloProvider>;
+  return (
+    <ApolloProvider client={(client as unknown) as ApolloClientType<typeof InMemoryCache>}>{children}</ApolloProvider>
+  );
 };

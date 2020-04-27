@@ -6,8 +6,8 @@ import { Home } from './Home';
 
 describe('Home', () => {
   test('renders correctly', () => {
-    const { getByRole } = render(<Home />);
-    const element = getByRole('button');
-    expect(element).toBeInTheDocument();
+    const { getAllByRole } = render(<Home />);
+    const element = getAllByRole('button');
+    expect(element.length).toEqual(2);
   });
 });

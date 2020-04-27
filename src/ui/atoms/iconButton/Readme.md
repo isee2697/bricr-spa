@@ -17,7 +17,7 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 </>
 ```
 
-Other  variants:
+Other color variants:
 
 ```jsx harmony
 import { IconButton } from "ui/atoms";
@@ -37,3 +37,29 @@ import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 </>
 ```
 
+
+Rounded variant:
+
+```jsx harmony
+import { IconButton } from "ui/atoms";
+import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
+import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
+
+<>
+  <IconButton color="primary" variant="rounded" aria-label="house" size="small">
+    <CalendarIcon color="inherit" />
+  </IconButton>
+
+  {' '}
+
+  <IconButton variant="rounded" aria-label="house" size="small">
+    <CalendarIcon color="inherit" />
+  </IconButton>
+
+  {' '}
+
+  <IconButton variant="rounded" aria-label="house" color="secondary" size="small">
+    <CalendarIcon color="inherit" />
+  </IconButton>
+</>
+```

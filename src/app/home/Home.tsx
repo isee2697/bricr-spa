@@ -1,29 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from '@material-ui/core/styles';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { Card, CardContent, Typography, Box } from 'ui/atoms';
+import { Card, CardContent } from 'ui/atoms';
+import { DashboardHeader } from 'ui/molecules';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
   const { user } = useAuthState();
-  const theme = useTheme();
 
   return (
     <>
-      <Typography variant="h1" style={{ marginBottom: '24px' }}>
-        <Box fontWeight={theme.typography.fontWeightBold} mb={1}>
-          Welcome, Christian{' '}
-          <span role="img" aria-label="hi1">
-            👋
-          </span>
-        </Box>
-      </Typography>
+      <DashboardHeader onFilterClick={() => {}}>
+        Welcome, {user?.firstName}{' '}
+        <span role="img" aria-label="hi1">
+          👋
+        </span>
+      </DashboardHeader>
 
       <Card variant="outlined">
         <CardContent>

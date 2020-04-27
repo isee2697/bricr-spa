@@ -24,8 +24,6 @@ export const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
   content: {
     padding: theme.spacing(3),

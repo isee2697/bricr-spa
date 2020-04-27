@@ -1,0 +1,28 @@
+import React from 'react';
+import { DateTime } from 'luxon';
+
+import { Typography, IconButton, Grid } from 'ui/atoms';
+import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+
+import { DashboardHeaderProps } from './DashboardHeader.types';
+import { useStyles } from './DashboardHeader.styles';
+
+export const DashboardHeader = ({ children, onFilterClick }: DashboardHeaderProps) => {
+  const classes = useStyles();
+
+  return (
+    <Grid container className={classes.root}>
+      <Typography variant="h1" className={classes.header}>
+        {children}
+      </Typography>
+
+      <Typography variant="h5" className={classes.date}>
+        {DateTime.local().toLocaleString(DateTime.DATE_HUGE)}
+      </Typography>
+
+      <IconButton variant="rounded" size="small" onClick={onFilterClick}>
+        <ManageIcon />
+      </IconButton>
+    </Grid>
+  );
+};

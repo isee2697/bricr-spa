@@ -1,3 +1,8 @@
-import IconButtonBase from '@material-ui/core/IconButton';
+import React from 'react';
 
-export const IconButton = IconButtonBase;
+import { IconButtonProps } from './IconButton.types';
+import * as S from './IconButton.styles';
+
+export const IconButton = (props: IconButtonProps) => {
+  return <S.IconButton {...props} />;
+};
