@@ -1,14 +1,28 @@
 import React from 'react';
-import MaterialChip, { ChipProps } from '@material-ui/core/Chip';
-import { withStyles } from '@material-ui/core/styles';
+import MaterialChip from '@material-ui/core/Chip';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+import { ChipProps } from './Chip.types';
 
 export const Chip: React.ComponentType<ChipProps> = withStyles(({ palette }) => ({
+  root: {
+    display: 'inline-flex',
+  },
   colorPrimary: {
-    backgroundColor: palette.yellow.light,
-    color: palette.yellow.main,
+    borderColor: palette.gray.main,
+    backgroundColor: palette.white.main,
+    color: palette.gray.main,
   },
   colorSecondary: {
-    backgroundColor: palette.green.light,
-    color: palette.green.main,
+    borderColor: palette.gray.main,
+    backgroundColor: 'currentColor',
+    color: 'inherit',
   },
 }))(MaterialChip);
+
+export const useStyles = makeStyles(theme => ({
+  secondary: {
+    backgroundColor: (props: ChipProps) => props.bgcolor && props.bgcolor,
+    color: (props: ChipProps) => props.fontcolor && props.fontcolor,
+  },
+}));

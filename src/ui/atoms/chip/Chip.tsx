@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { ChipProps as DefaultChipProps } from '@material-ui/core/Chip';
 
 import * as S from './Chip.styles';
+import { useStyles } from './Chip.styles';
+import { ChipProps } from './Chip.types';
 
-export type ChipProps = DefaultChipProps;
+export const Chip = (props: ChipProps) => {
+  const classes = useStyles(props);
 
-export const Chip = (props: ChipProps) => <S.Chip {...props} />;
+  return <S.Chip className={classes.secondary} {...props} />;
+};

@@ -3,7 +3,7 @@ Basic Chip:
 ```jsx harmony
 import { Chip } from "ui/atoms";
 
-<Chip color="secondary" label="secondary"/>
+<Chip variant="outlined" color="primary" label="primary"/>
 
 ```
 
@@ -13,11 +13,11 @@ Chip sizes:
 import { Chip } from "ui/atoms";
 
 <>
-  <Chip  color="secondary" size="small" label="small"/>
+  <Chip variant="outlined" color="primary" size="small" label="small"/>
   {' '}
-  <Chip  color="secondary" size="medium" label="medium" />
+  <Chip variant="outlined" color="primary" size="medium" label="medium" />
   {' '}
-  <Chip color="secondary" size="large" label="large" />
+  <Chip variant="outlined" color="primary" size="large" label="large" />
 </>
 ```
 
@@ -26,21 +26,27 @@ Chip disabled:
 ```jsx harmony
 import { Chip } from "ui/atoms";
 
-<Chip  color="secondary" disabled label="disabled"/>
+<Chip  variant="outlined" color="primary" disabled label="disabled"/>
 
 ```
 
 Colors:
 
 ```jsx harmony
-import { Chip } from "ui/atoms";
+import { Chip, Box } from "ui/atoms";
+import { useTheme } from '@material-ui/core/styles';
+
+const theme = useTheme();
 
 <>
-  <Chip color="primary" label="Primary" label ="primary"/>
-  {' '}
-  <Chip color="secondary" label="secondary" />
-  {' '}
-  <Chip color="default" label="default"/>
-  {' '}
+  <Chip variant="outlined" color="primary" label="Primary" label ="primary"/>
+  <br/>
+  <br/>
+  <Chip variant="outlined" fontcolor={theme.palette.green.main} bgcolor={theme.palette.green.light} color="secondary" label="secondary green"/>  
+  <br/>
+  <br/>
+  <Chip variant="outlined" fontcolor={theme.palette.red.main} bgcolor={theme.palette.red.light} color="secondary" label="secondary red"/>  
+  <br/>
+  <br/>
 </>
 ```

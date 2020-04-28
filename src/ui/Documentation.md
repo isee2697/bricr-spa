@@ -7,83 +7,100 @@ const theme = useTheme();
 <>
   <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={theme.palette.primary.main} color={theme.palette.white.main} textAlign="center">
-        Primary
+      <Box pb={6} pt={6} bgcolor={theme.palette.primary.main} color={theme.palette.white.main} textAlign="center">
+        Primary <br/>
+        {theme.palette.primary.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} style={{background: theme.palette.gradientPrimary.main}} color={theme.palette.white.main} textAlign="center">
+      <Box pb={6} pt={6} style={{background: theme.palette.gradientPrimary.main}} color={theme.palette.white.main} display="flex" alignItems="center" height="100%" justifyContent="center">
         Gradient Primary
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={theme.palette.secondary.main} color={theme.palette.white.main} textAlign="center">
-        Secondary
+      <Box pb={6} pt={6} bgcolor={theme.palette.secondary.main} color={theme.palette.white.main} textAlign="center">
+        Secondary <br/>
+        {theme.palette.secondary.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={theme.palette.black.main} color={theme.palette.white.main} textAlign="center">
-        Black
+      <Box pb={6} pt={6} bgcolor={theme.palette.black.main} color={theme.palette.white.main} textAlign="center">
+        Black <br/>
+        {theme.palette.black.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={theme.palette.gray.main} color={theme.palette.white.main} textAlign="center">
-        Gray
+      <Box pb={6} pt={6} bgcolor={theme.palette.gray.main} color={theme.palette.white.main} textAlign="center">
+        Gray <br/>
+        {theme.palette.gray.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={7} pt={7} bgcolor={theme.palette.gray.light} color={theme.palette.black.main} textAlign="center">
-        Gray light
+      <Box pb={6} pt={6} bgcolor={theme.palette.gray.light} color={theme.palette.black.main} textAlign="center">
+        Gray light <br/>
+        {theme.palette.gray.light}
       </Box>
     </Grid>
     </Grid>
     <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.red.main} color={theme.palette.white.main} textAlign="center">
-        Red
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.red.main} color={theme.palette.white.main} textAlign="center">
+        Red <br/>
+        {theme.palette.red.main}
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.red.light} color={theme.palette.black.main} textAlign="center">
-        Red light
-      </Box>
-    </Grid>
-    <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.orange.main} color={theme.palette.white.main} textAlign="center">
-        Orange
-      </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.orange.light} color={theme.palette.black.main} textAlign="center">
-        Orange light
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.red.light} color={theme.palette.black.main} textAlign="center">
+        Red light <br/>
+        {theme.palette.red.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.yellow.main} color={theme.palette.white.main} textAlign="center">
-        Yellow
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.orange.main} color={theme.palette.white.main} textAlign="center">
+        Orange <br/>
+        {theme.palette.orange.main}
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.yellow.light} color={theme.palette.black.main} textAlign="center">
-        Yellow light
-      </Box>
-    </Grid>
-    <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.green.main} color={theme.palette.white.main} textAlign="center">
-        Green
-      </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.green.light} color={theme.palette.black.main} textAlign="center">
-        Green light
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.orange.light} color={theme.palette.black.main} textAlign="center">
+        Orange light <br/>
+        {theme.palette.orange.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.blue.main} color={theme.palette.white.main} textAlign="center">
-        Blue
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.yellow.main} color={theme.palette.white.main} textAlign="center">
+        Yellow <br/>
+        {theme.palette.yellow.main}
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.blue.light} color={theme.palette.black.main} textAlign="center">
-        Blue light
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.yellow.light} color={theme.palette.black.main} textAlign="center">
+        Yellow light <br/>
+        {theme.palette.yellow.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.purple.main} color={theme.palette.white.main} textAlign="center">
-        Purple
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.green.main} color={theme.palette.white.main} textAlign="center">
+        Green <br/>
+        {theme.palette.green.main}
       </Box>
-      <Box mb={2} pb={7} pt={7} bgcolor={theme.palette.purple.light} color={theme.palette.black.main} textAlign="center">
-        Purple light
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.green.light} color={theme.palette.black.main} textAlign="center">
+        Green light <br/>
+        {theme.palette.green.light}
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.blue.main} color={theme.palette.white.main} textAlign="center">
+        Blue <br/>
+        {theme.palette.blue.main}
+      </Box>
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.blue.light} color={theme.palette.black.main} textAlign="center">
+        Blue light <br/>
+        {theme.palette.blue.light}
+      </Box>
+    </Grid>
+    <Grid item xs={6} lg={2}>
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.purple.main} color={theme.palette.white.main} textAlign="center">
+        Purple <br/>
+        {theme.palette.purple.main}
+      </Box>
+      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.purple.light} color={theme.palette.black.main} textAlign="center">
+        Purple light <br/>
+        {theme.palette.purple.light}
       </Box>
     </Grid>
   </Grid>
