@@ -10,13 +10,13 @@ import { OrderProps } from './Order.types';
 import { useStyles } from './Order.styles';
 
 export const Order = (props: OrderProps) => {
-  const { labels, price, packages, image, children, onClick } = props;
+  const { labels, price, packages, image, children, onClick, id } = props;
   const classes = useStyles(props);
   const theme = useTheme();
   const { formatMessage } = useLocale();
 
   return (
-    <Box display="flex" flexWrap="wrap" py={2} className={classes.wrapper} onClick={onClick}>
+    <Box display="flex" flexWrap="wrap" py={2} className={classes.wrapper} id={id} onClick={() => onClick(id)}>
       <Box display="flex" width="100%" flexWrap="wrap" alignItems="center">
         <Avatar variant="rounded" src={image} className={classes.image} />
         <Box display="flex" flexGrow={1}>

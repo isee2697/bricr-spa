@@ -39,5 +39,7 @@
   "validation.required": "Field is required",
   "order.package": "Package",
   "emails.title": "Unread mails",
-  "emails.view_more": "View more"
+  "emails.view_more": "View more",
+  "orders.title": "Orders",
+  "orders.view_more": "View more"
 }

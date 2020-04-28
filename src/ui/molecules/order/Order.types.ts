@@ -5,6 +5,7 @@ export type OrderProps = {
   price: number;
   packages: number | string;
   image: string;
-  onClick: () => void;
+  onClick: (id: string) => void;
   children: React.ReactNode;
+  id: string;
 };

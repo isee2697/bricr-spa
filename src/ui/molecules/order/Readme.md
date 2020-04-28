@@ -8,6 +8,7 @@ const orderData = {
   price: 375500,
   packages: 3,
   image: 'http://placeimg.com/80/80/arch',
+  id: 'test1'
 };
 
 <>
@@ -17,6 +18,7 @@ const orderData = {
     price={orderData.price}
     packages={orderData.packages}
     image={orderData.image}
+    id={orderData.id}
     onClick={() => {}}
   >
     <div>Isenburgstraat 36</div>
@@ -28,6 +30,7 @@ const orderData = {
     price={orderData.price}
     packages={orderData.packages}
     image={`${orderData.image}?t=2`}
+    id={`${orderData.id}2`}
     onClick={() => {}}
   >
     <div>Nova Scotiaplein</div>

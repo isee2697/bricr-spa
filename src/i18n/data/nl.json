@@ -39,5 +39,7 @@
   "validation.required": "Veld is verplicht",
   "order.package": "Pakket",
   "emails.title": "Ongelezen mails",
-  "emails.view_more": "Bekijk meer"
+  "emails.view_more": "Bekijk meer",
+  "orders.title": "Bestellingen",
+  "orders.view_more": "Bekijk meer"
 }
