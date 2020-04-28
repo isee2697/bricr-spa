@@ -1,15 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from 'react-final-form';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { Button, Typography, Alert, InputAdornment, Link } from 'ui/atoms';
+import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { ForgotPasswordInput } from 'api/types';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { AppRoute } from 'routing/AppRoute.enum';
 
 import { ForgotPasswordProps } from './ForgotPassword.types';
 
@@ -60,10 +58,6 @@ export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
               ),
             }}
           />
-
-          <Link component={RouterLink} to={AppRoute.login}>
-            {formatMessage({ id: AppMessages['forgot_password.back_to_login'] })}
-          </Link>
 
           <Button
             variant="contained"

@@ -31,6 +31,14 @@ const theme = createMuiTheme({
         fontSize: '0.7rem',
       },
     },
+    MuiButton: {
+      containedPrimary: {
+        background: palette.gradientPrimary.main,
+      },
+      label: {
+        textTransform: 'initial',
+      },
+    },
     MuiCard: {
       root: {
         boxShadow: shadows[1],
@@ -74,6 +82,11 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      contained: {
+        marginLeft: 0,
+      },
+    },
     MuiIconButton: {
       colorPrimary: {
         background: palette.gradientPrimary.main,
@@ -97,33 +110,43 @@ const theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       root: {
+        background: palette.gray.light,
         '&:hover:not(.Mui-focused) .MuiOutlinedInput-notchedOutline': {
           borderColor: palette.gray.main,
         },
       },
+      input: {
+        padding: '15.5px 14px',
+      },
       notchedOutline: {
-        borderColor: palette.gray.light,
-        '& :hover': {
-          borderColor: palette.gray.light,
-        },
-      },
-      adornedEnd: {
-        background: palette.gray.light,
-      },
-      adornedStart: {
-        background: palette.gray.light,
+        borderTop: 'none',
+        borderRight: 'none',
+        borderLeft: 'none',
+        borderBottomRightRadius: 0,
+        borderBottomLeftRadius: 0,
       },
     },
     MuiInputLabel: {
       root: {
+        color: palette.black.main,
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
           position: 'inherit',
           transform: 'none',
-          fontSize: '0.9rem',
-          fontWeight: fontWeight.bold,
+          fontSize: '0.85rem',
+          fontWeight: fontWeight.regular,
+          lineHeight: `${defaultTheme.spacing(3)}px`,
           marginTop: 0,
           marginBottom: defaultTheme.spacing(1),
         },
+        '& > a': {
+          pointerEvents: 'all',
+          float: 'right',
+        },
+      },
+    },
+    MuiLink: {
+      root: {
+        fontWeight: typography.fontWeightMedium,
       },
     },
     MuiTab: {

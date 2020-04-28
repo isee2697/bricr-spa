@@ -8,7 +8,7 @@ describe('Login', () => {
   test('calls onSubmit prop with username and password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
-    const { getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
+    const { getByLabelText, getByPlaceholderText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
       fireEvent.change(getByLabelText('login.username'), {
@@ -16,7 +16,7 @@ describe('Login', () => {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText('login.password'), {
+      fireEvent.change(getByPlaceholderText('login.password_placeholder'), {
         target: {
           value: 'bar',
         },
@@ -34,7 +34,7 @@ describe('Login', () => {
 
   test('displays an error if login failed', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(false));
-    const { getByText, getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
+    const { getByText, getByPlaceholderText, getByLabelText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
       fireEvent.change(getByLabelText('login.username'), {
@@ -42,7 +42,7 @@ describe('Login', () => {
           value: 'foo',
         },
       });
-      fireEvent.change(getByLabelText('login.password'), {
+      fireEvent.change(getByPlaceholderText('login.password_placeholder'), {
         target: {
           value: 'bar',
         },

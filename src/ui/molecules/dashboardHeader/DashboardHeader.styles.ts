@@ -6,7 +6,7 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
   },
   header: {
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightBolder,
     flex: '1 1 auto',
   },
   date: {

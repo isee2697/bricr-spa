@@ -27,3 +27,9 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientPrimary: createPalette.SimplePaletteColorOptions;
   }
 }
+
+declare module '@material-ui/core/styles/createTypography' {
+  interface FontStyle {
+    fontWeightBolder: React.CSSProperties['fontWeight'];
+  }
+}

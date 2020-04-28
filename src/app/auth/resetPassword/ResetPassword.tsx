@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from 'react-final-form';
-import { Link as RouterLink } from 'react-router-dom';
 
 import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
-import { Button, Typography, Alert, InputAdornment, Link } from 'ui/atoms';
+import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator, fieldMatchValidator } from 'form/validators';
-import { AppRoute } from 'routing/AppRoute.enum';
 
 import { ResetPasswordProps, ResetPasswordFormValues } from './ResetPassword.types';
 
@@ -74,10 +72,6 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
               ),
             }}
           />
-
-          <Link component={RouterLink} to={AppRoute.login}>
-            {formatMessage({ id: AppMessages['reset_password.back_to_login'] })}
-          </Link>
 
           <Button
             variant="contained"

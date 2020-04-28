@@ -4,7 +4,7 @@ export const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
     '& button[type=submit]': {
-      margin: `${theme.spacing(2)}px 0 0 0`,
+      margin: `${theme.spacing(3)}px 0 0 0`,
     },
     '& .MuiAlert-root': {
       width: '100%',
@@ -12,23 +12,25 @@ export const useStyles = makeStyles(theme => ({
     },
     '& .MuiTypography-h1': {
       width: '100%',
-      textAlign: 'center',
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: theme.typography.fontWeightBolder,
       marginBottom: theme.spacing(4),
     },
   },
-  logo: {
-    marginBottom: theme.spacing(4),
+  topBar: {
+    boxShadow: 'none',
+  },
+  topBarLink: {
+    marginLeft: 'auto',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/RFDP7_80v5A/1600x900)',
+    backgroundImage: 'url(https://source.unsplash.com/featured/?building)',
     backgroundRepeat: 'no-repeat',
     backgroundColor: theme.palette.gray.light,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   content: {
-    height: '100%',
+    height: `calc(100% - ${theme.spacing(8)}px)`,
     margin: '0 auto',
     padding: theme.spacing(1),
     justifyContent: 'center',
