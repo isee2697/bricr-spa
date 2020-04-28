@@ -6,13 +6,12 @@ import { EmailProps } from './Email.types';
 import { useStyles } from './Email.styles';
 
 export const Email = (props: EmailProps) => {
-  const { name, avatar, title, date, children, onClick } = props;
+  const { name, avatar, title, date, children, id, onClick } = props;
   const classes = useStyles(props);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const time = date.toTimeString().substr(0, 5);
 
   return (
-    <Box display="flex" flexWrap="wrap" pb={1.5} pt={2} className={classes.wrapper} onClick={onClick}>
+    <Box display="flex" flexWrap="wrap" pb={1.5} pt={2} className={classes.wrapper} id={id} onClick={() => onClick(id)}>
       <Box display="flex" width="100%" flexWrap="wrap" alignItems="center" mb={0.5}>
         <Box mr={1}>
           <UserAvatar name={name} avatar={avatar} />
@@ -23,9 +22,7 @@ export const Email = (props: EmailProps) => {
             <Typography className={classes.title}>{title}</Typography>
           </Box>
           <Box>
-            <Typography className={classes.date}>
-              {hours}:{minutes}
-            </Typography>
+            <Typography className={classes.date}>{time}</Typography>
           </Box>
         </Box>
       </Box>

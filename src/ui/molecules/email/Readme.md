@@ -10,6 +10,7 @@ const emailData1 = {
   content: 'Consectetur adipisicing elit. Ad assumenda blanditiis consequatur culpa cum dolore, earum esse fugiat ipsa magni mollitia nobis officia omnis quam quia quisquam rerum saepe tempore tenetur vero voluptate voluptatem voluptatum? Beatae dicta dolorum modi nobis!',
   date: new Date(),
   open: false,
+  id: 'id1233'
 };
 
 const emailData2 = {
@@ -19,6 +20,7 @@ const emailData2 = {
   content: 'Good morning Mariusz, Thank you for your feedback. You asked for information, you get information good morning Mariusz, Thank you for your feedback. You asked for information, you get information',
   date: new Date(),
   open: false,
+  id: 'id1234'
 };
 
 const emailData3 = {
@@ -28,6 +30,7 @@ const emailData3 = {
   content: 'As Eric shared last week, our commitment to strengthening and improving Zoom is our number one as Eric shared last week, our commitment to strengthening and improving Zoom is our number one',
   date: new Date(),
   open: true,
+  id: 'id1235'
 };
 
 <>
@@ -37,7 +40,8 @@ const emailData3 = {
     title={emailData1.title}
     date={emailData1.date}
     open={emailData1.open}
-    onClick={() => {}}>
+    onClick={() => {}}
+    id={emailData1.id}>
     { emailData1.content }
   </Email>
   <Email 
@@ -46,7 +50,8 @@ const emailData3 = {
     title={emailData2.title}
     date={emailData2.date}
     open={emailData2.open}
-    onClick={() => {}}>
+    onClick={() => {}}
+    id={emailData2.id}>
     { emailData2.content }
   </Email>
   <Email 
@@ -55,7 +60,8 @@ const emailData3 = {
     title={emailData3.title}
     date={emailData3.date}
     open={emailData3.open}
-    onClick={() => {}}>
+    onClick={() => {}}
+    id={emailData3.id}>
     { emailData3.content }
   </Email>
 </>

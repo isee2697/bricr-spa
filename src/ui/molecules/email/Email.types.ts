@@ -5,5 +5,6 @@ export type EmailProps = {
   children: string;
   date: Date;
   open: boolean;
-  onClick: () => void;
+  onClick: (id: string) => void;
+  id: string;
 };
