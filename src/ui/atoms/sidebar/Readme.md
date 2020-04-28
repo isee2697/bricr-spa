@@ -3,7 +3,7 @@ Example of Sidebar component
 import { Sidebar, IconButton, Badge } from 'ui/atoms';
 import { ShortcutsIcon } from 'ui/atoms/icons/shortcuts/ShortcutsIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
 

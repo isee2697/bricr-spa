@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 import { Tabs, IconButton, Avatar, Badge, Sidebar, Menu, Box, Typography, Link as MaterialLink } from 'ui/atoms';
 import { TopBar, LinkTab } from 'ui/molecules';

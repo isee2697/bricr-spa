@@ -29,3 +29,4 @@ export { Card } from './card/Card';
 export { Avatar } from './avatar/Avatar';
 export { Menu } from './menu/Menu';
 export { UserAvatar } from './userAvatar/UserAvatar';
+export { Scrollable } from './scrollable/Scrollable';

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 import { Avatar, Box } from '../../atoms';
 

@@ -2,11 +2,11 @@ import React from 'react';
 
 import { render } from 'tests';
 
-import { Home } from './Home';
+import { Dashboard } from './Dashboard';
 
-describe('Home', () => {
+describe('Dashboard', () => {
   test('renders correctly', () => {
-    const { getAllByRole } = render(<Home />);
+    const { getAllByRole } = render(<Dashboard />);
     const element = getAllByRole('button');
     expect(element.length).toEqual(2);
   });

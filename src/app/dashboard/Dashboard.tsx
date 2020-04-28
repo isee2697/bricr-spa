@@ -9,7 +9,9 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { Card, CardContent } from 'ui/atoms';
 import { DashboardHeader } from 'ui/molecules';
 
-export const Home = () => {
+import { DashboardStats } from './dashboardStats/DashboardStats';
+
+export const Dashboard = () => {
   const { formatMessage, locale, setLocale } = useLocale();
   const { user } = useAuthState();
 
@@ -21,6 +23,8 @@ export const Home = () => {
           👋
         </span>
       </DashboardHeader>
+
+      <DashboardStats />
 
       <Card variant="outlined">
         <CardContent>

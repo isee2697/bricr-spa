@@ -3,7 +3,7 @@ Avatar icon:
 ```jsx harmony
 import { Avatar, Box, Grid } from "ui/atoms";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
 
@@ -32,7 +32,7 @@ Avatar Initials:
 ```jsx harmony
 import { Avatar, Box, Grid } from "ui/atoms";
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
 <>

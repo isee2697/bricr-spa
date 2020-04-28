@@ -1,8 +1,8 @@
 Example of StatCard component
 ```jsx harmony
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
-import { StatCard } from './StatCard';
+import { StatCard } from 'ui/molecules';
 
 const theme = useTheme();
 

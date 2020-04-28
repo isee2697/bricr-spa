@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Dashboard, Authorization } from 'ui/templates';
-import { Home } from 'app/home/Home';
+import { Dashboard } from 'app/dashboard/Dashboard';
+import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
 import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
 import { LoginContainer } from 'app/auth/login/LoginContainer';
 import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
@@ -29,16 +29,16 @@ export const AppRoutes = () => {
 
       <Route path="/">
         {() => (
-          <Dashboard>
+          <DashboardTemplate>
             <Switch>
-              <AuthorizedRoute path={AppRoute.home} exact component={Home} />
-              <AuthorizedRoute path={AppRoute.pim} exact component={Home} />
-              <AuthorizedRoute path={AppRoute.crm} exact component={Home} />
-              <AuthorizedRoute path={AppRoute.sales} exact component={Home} />
+              <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
+              <AuthorizedRoute path={AppRoute.pim} exact component={Dashboard} />
+              <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
+              <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
               <Route path={AppRoute.logout} component={LogoutContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
-          </Dashboard>
+          </DashboardTemplate>
         )}
       </Route>
     </Switch>

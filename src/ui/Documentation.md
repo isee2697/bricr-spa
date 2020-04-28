@@ -1,7 +1,7 @@
 ### Colors:
 ```jsx harmony
 import { Box, Grid } from 'ui/atoms';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 const theme = useTheme();
 
 <>
@@ -117,7 +117,7 @@ import { Grid, Box } from 'ui/atoms';
 
 ```jsx harmony
 import { Typography, Box } from 'ui/atoms';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 const theme = useTheme();
 
 <>
@@ -249,7 +249,7 @@ import { SettingsIcon } from './atoms/icons/settings/SettingsIcon';
 import { ShortcutsIcon } from './atoms/icons/shortcuts/ShortcutsIcon';
 import { TasksIcon } from './atoms/icons/tasks/TasksIcon';
 import { UserIcon } from './atoms/icons/user/UserIcon';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
 
