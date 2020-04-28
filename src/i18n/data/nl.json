@@ -37,5 +37,8 @@
   "reset_password.submit": "Wachtwoord wijzigen",
   "reset_password.wrong_data": "Het ingevoerde wachtwoord voldoet niet aan het beveiligingsbeleid of de link is verlopen.",
   "reset_password.success": "Wachtwoord is succesvol gewijzigd. Nu kunt u inloggen met nieuwe gegevens.",
-  "validation.required": "Veld is verplicht"
+  "validation.required": "Veld is verplicht",
+  "order.package": "Pakket",
+  "emails.title": "Ongelezen mails",
+  "emails.view_more": "Bekijk meer"
 }

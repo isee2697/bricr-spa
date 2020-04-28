@@ -27,6 +27,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { Search } from 'ui/molecules';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -57,6 +58,16 @@ export const Dashboard = ({ children }: DashboardProps) => {
   return (
     <>
       <TopBar>
+        <Search
+          options={[
+            { title: 'Stationstraat 25, Amsterdam', type: 'Property' },
+            { title: 'The Software House', type: 'Email', subline: 'Marcin Piela', date: new Date() },
+            { title: 'CubicEyes', type: 'Email', subline: 'Christian van Gils', date: new Date() },
+            { title: 'Amsterdam bezichtiging inpannen', type: 'Note', date: new Date() },
+            { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
+            { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
+          ]}
+        />
         <nav className={classes.menu}>
           <Tabs
             value={activeLinkIndex !== -1 ? activeLinkIndex : 0}

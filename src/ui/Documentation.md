@@ -249,6 +249,7 @@ import { SettingsIcon } from './atoms/icons/settings/SettingsIcon';
 import { ShortcutsIcon } from './atoms/icons/shortcuts/ShortcutsIcon';
 import { TasksIcon } from './atoms/icons/tasks/TasksIcon';
 import { UserIcon } from './atoms/icons/user/UserIcon';
+import { FilterIcon } from './atoms/icons/filter/FilterIcon';
 import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
@@ -302,7 +303,7 @@ const wrapperStyle = {
     <ShortcutsIcon color="inherit"/>
     <TasksIcon color="inherit"/>
     <UserIcon color="inherit"/>
-    <div style={{width:24}}></div>
+    <FilterIcon color="inherit"/>
   </div>
 </>
 ```

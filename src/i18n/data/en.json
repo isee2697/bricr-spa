@@ -37,5 +37,8 @@
   "reset_password.submit": "Change password",
   "reset_password.wrong_data": "Entered password does not meet security policy or link has been expired.",
   "reset_password.success": "Password has been changed successfully. Now you can login with new data.",
-  "validation.required": "Field is required"
+  "validation.required": "Field is required",
+  "order.package": "Package",
+  "emails.title": "Unread mails",
+  "emails.view_more": "View more"
 }
