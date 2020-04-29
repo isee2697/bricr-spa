@@ -36,7 +36,7 @@ export const Orders = ({ tabs, children, onAddClick, onMoreClick, onManageClick 
       </CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: AppMessages['emails.view_more'] })}
+          {formatMessage({ id: AppMessages['orders.view_more'] })}
         </Button>
       </CardActions>
     </Card>

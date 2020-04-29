@@ -12,6 +12,13 @@
   "header.search.group.contact": "Contactpersoon",
   "header.search.all.results": "Toon alle resultaten",
   "header.search.placeholder": "Zoeken",
+  "side_menu.sale": "Uitverkoop",
+  "side_menu.rent": "Huur",
+  "side_menu.nc_sale": "NC Uitverkoop",
+  "side_menu.nc_rent": "NC Huur",
+  "side_menu.mutation": "Mutatie",
+  "side_menu.bog": "BOG",
+  "side_menu.aog": "AOG",
   "authorization.back_to_login": "Terug naar Inloggen",
   "login.title": "Meld je aan bij Bricr",
   "login.username": "Gebruikersnaam",
@@ -41,5 +48,7 @@
   "emails.title": "Ongelezen mails",
   "emails.view_more": "Bekijk meer",
   "orders.title": "Bestellingen",
-  "orders.view_more": "Bekijk meer"
+  "orders.view_more": "Bekijk meer",
+  "visited_pages.title": "Bezochte pagina's",
+  "visited_pages.view_more": "Bekijk meer"
 }

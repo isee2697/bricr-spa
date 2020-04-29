@@ -12,6 +12,13 @@
   "header.search.placeholder": "Search",
   "init": "Hello",
   "common.save": "Save",
+  "side_menu.sale": "Sale",
+  "side_menu.rent": "Rent",
+  "side_menu.nc_sale": "NC sale",
+  "side_menu.nc_rent": "NC rent",
+  "side_menu.mutation": "Mutation",
+  "side_menu.bog": "BOG",
+  "side_menu.aog": "AOG",
   "authorization.back_to_login": "Back to login",
   "login.title": "Sign in to Bricr",
   "login.username": "Username or Email address",
@@ -41,5 +48,7 @@
   "emails.title": "Unread mails",
   "emails.view_more": "View more",
   "orders.title": "Orders",
-  "orders.view_more": "View more"
+  "orders.view_more": "View more",
+  "visited_pages.title": "Visited pages",
+  "visited_pages.view_more": "View more"
 }
