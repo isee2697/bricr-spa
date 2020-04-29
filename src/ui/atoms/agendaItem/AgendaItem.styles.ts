@@ -1,0 +1,22 @@
+import { makeStyles } from '@material-ui/core';
+
+export const useStyles = makeStyles(theme => ({
+  date: {
+    borderRight: `2px solid ${theme.palette.gray.light}`,
+    minWidth: 60,
+    minHeight: '2.5em',
+    margin: theme.spacing(2),
+  },
+  startDate: {
+    width: '100%',
+    fontWeight: theme.typography.fontWeightBold,
+    '&:only-child': {
+      marginTop: theme.spacing(),
+    },
+  },
+  endDate: {
+    width: '100%',
+    color: theme.palette.gray.main,
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}));

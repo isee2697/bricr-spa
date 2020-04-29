@@ -50,5 +50,6 @@
   "orders.title": "Orders",
   "orders.view_more": "View more",
   "visited_pages.title": "Visited pages",
-  "visited_pages.view_more": "View more"
+  "visited_pages.view_more": "View more",
+  "date.all_day": "all day"
 }
