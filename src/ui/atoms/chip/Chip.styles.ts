@@ -22,7 +22,8 @@ export const Chip: React.ComponentType<ChipProps> = withStyles(({ palette }) => 
 
 export const useStyles = makeStyles(theme => ({
   secondary: {
-    backgroundColor: (props: ChipProps) => props.bgcolor && props.bgcolor,
-    color: (props: ChipProps) => props.fontcolor && props.fontcolor,
+    backgroundColor: (props: Pick<ChipProps, 'bgcolor' | 'fontcolor'>) => props.bgcolor && props.bgcolor,
+    color: (props: Pick<ChipProps, 'bgcolor' | 'fontcolor'>) => props.fontcolor && props.fontcolor,
+    borderColor: (props: Pick<ChipProps, 'bgcolor' | 'fontcolor'>) => props.fontcolor && props.fontcolor,
   },
 }));

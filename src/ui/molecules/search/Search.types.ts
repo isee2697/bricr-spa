@@ -9,6 +9,8 @@ export type Search = {
 
 interface SearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
   options: T[];
+  hasFocus?: boolean;
+  setFocus?: (value: boolean) => void;
 }
 
 export type SearchProps = SearchPropsInterface<Search>;

@@ -20,8 +20,22 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   paper: {
+    marginTop: theme.spacing(2) - 1,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
     '& .MuiAutocomplete-listbox': {
       maxHeight: '70vh',
+      boxShadow: 'inset 0 4px 4px -4px rgba(159, 192, 255, 0.5)',
+    },
+    '&::before': {
+      content: '""',
+      display: 'block',
+      width: '100%',
+      height: theme.spacing(2) - 1,
+      background: theme.palette.white.main,
+      position: 'absolute',
+      top: 0,
+      left: 0,
     },
   },
   textField: {

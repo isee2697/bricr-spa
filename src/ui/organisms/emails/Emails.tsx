@@ -3,12 +3,11 @@ import React from 'react';
 import { Card, CardHeader, CardContent, CardActions, IconButton, Button } from '../../atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { Email } from 'ui/molecules/email/Email';
-import { EmailProps } from 'ui/molecules/email/Email.types';
 import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './Emails.styles';
-import { EmailsProps } from './Emails.types';
+import { EmailsProps, EmailItem } from './Emails.types';
 
 export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: EmailsProps) => {
   const classes = useStyles();
@@ -25,7 +24,7 @@ export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: E
         }
       />
       <CardContent className={classes.card}>
-        {data.map((email: EmailProps) => (
+        {data.map((email: EmailItem) => (
           <Email
             name={email.name}
             avatar={email.avatar}

@@ -34,6 +34,9 @@ const theme = createMuiTheme({
     MuiButton: {
       containedPrimary: {
         background: palette.gradientPrimary.main,
+        '&:disabled': {
+          background: palette.gray.light,
+        },
       },
       label: {
         textTransform: 'initial',

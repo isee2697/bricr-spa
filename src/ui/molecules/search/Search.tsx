@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Grid, Typography, CardActions, PaperProps } from '@material-ui/core';
 
 import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
@@ -14,25 +14,31 @@ import { AppMessages } from 'i18n/messages';
 import { useStyles } from './Search.styles';
 import { SearchProps, Search as SearchType } from './Search.types';
 
-export const Search = ({ options, ...props }: SearchProps) => {
-  const [hasFocus, setFocus] = useState(false);
+const getIcon = (type: string) => {
+  switch (type) {
+    case 'Email':
+      return <MailIcon />;
+    case 'Contact':
+      return <UserIcon />;
+    case 'Property':
+      return <BuildingIcon />;
+    default:
+    case 'Note':
+      return <NoteIcon />;
+  }
+};
+
+export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp, ...props }: SearchProps) => {
+  const [hasFocus, setFocus] = useState(!!hasFocusProp);
   const [value, setValue] = useState(props.inputValue ? props.inputValue : '');
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const getIcon = (type: string) => {
-    switch (type) {
-      case 'Email':
-        return <MailIcon />;
-      case 'Contact':
-        return <UserIcon />;
-      case 'Property':
-        return <BuildingIcon />;
-      default:
-      case 'Note':
-        return <NoteIcon />;
+  useEffect(() => {
+    if (setFocusProp) {
+      setFocusProp(hasFocus);
     }
-  };
+  }, [hasFocus, setFocusProp]);
 
   const getTranslatedGroupName = (type: string) => {
     const stringKey = 'header.search.group.' + type.toLowerCase();
@@ -66,7 +72,7 @@ export const Search = ({ options, ...props }: SearchProps) => {
   const Results = (props: PaperProps) => {
     return (
       <Paper {...props} className={classes.paper}>
-        {props.children}{' '}
+        {props.children}
         <CardActions>
           <Button onClick={() => setValue('')} fullWidth>
             {formatMessage({ id: AppMessages['header.search.all.results'] })} ({options.length})
@@ -85,7 +91,7 @@ export const Search = ({ options, ...props }: SearchProps) => {
       groupBy={(option: SearchType) => getTranslatedGroupName(option.type)}
       freeSolo
       PaperComponent={Results}
-      onOpen={() => setFocus(true)}
+      open={hasFocus}
       renderOption={(option: SearchType) => (
         <Grid container alignItems="center" spacing={2}>
           <Grid item>

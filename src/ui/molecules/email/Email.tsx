@@ -5,9 +5,8 @@ import { UserAvatar, Box, Typography } from '../../atoms';
 import { EmailProps } from './Email.types';
 import { useStyles } from './Email.styles';
 
-export const Email = (props: EmailProps) => {
-  const { name, avatar, title, date, children, id, onClick } = props;
-  const classes = useStyles(props);
+export const Email = ({ name, avatar, title, date, children, id, onClick, open }: EmailProps) => {
+  const classes = useStyles({ open });
   const time = date.toTimeString().substr(0, 5);
 
   return (

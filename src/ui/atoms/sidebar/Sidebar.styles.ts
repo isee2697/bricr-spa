@@ -1,7 +1,6 @@
 import { styled } from '@material-ui/core/styles';
 
 export const Sidebar = styled('div')(({ theme }) => ({
-  position: 'sticky',
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
   flex: `0 0 ${theme.spacing(8)}px`,

@@ -10,7 +10,7 @@ context('Authorization', () => {
   it('allows to start password resetting', () => {
     cy.clearSession();
     NavigationMenu.goToForgotPassword();
-    cy.get('input[name="username"]').type('test-user');
+    cy.get('input[name="username"]').type('test');
     cy.get('button[type="submit"]').click();
     cy.contains('sent');
   });
@@ -18,8 +18,8 @@ context('Authorization', () => {
   it('allows to reset password', () => {
     cy.clearSession();
     NavigationMenu.goToResetPasswordPage();
-    cy.get('input[name="password"]').type('new-password');
-    cy.get('input[name="passwordRepeat"]').type('new-password');
+    cy.get('input[name="password"]').type('passw0rd');
+    cy.get('input[name="passwordRepeat"]').type('passw0rd');
     cy.get('button[type="submit"]').click();
     cy.contains('successfully');
   });

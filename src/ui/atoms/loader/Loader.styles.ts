@@ -4,7 +4,7 @@ export const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),
     position: 'absolute',
-    left: '45%',
-    top: '45%',
+    left: `calc(50% - ${theme.spacing(4)}px)`,
+    top: `calc(50% - ${theme.spacing(4)}px)`,
   },
 }));

@@ -14,12 +14,12 @@ export const useStyles = makeStyles(theme => ({
     fontSize: theme.spacing(1.5),
     lineHeight: `${theme.spacing(2)}px`,
     fontWeight: theme.typography.fontWeightBold,
-    color: (props: EmailProps) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
+    color: (props: Pick<EmailProps, 'open'>) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
   },
   title: {
     fontSize: theme.spacing(1.5),
     lineHeight: `${theme.spacing(2)}px`,
-    color: (props: EmailProps) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
+    color: (props: Pick<EmailProps, 'open'>) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
   },
   description: {
     fontSize: theme.spacing(1.25),
@@ -34,6 +34,6 @@ export const useStyles = makeStyles(theme => ({
     fontSize: theme.spacing(1.25),
     lineHeight: `${theme.spacing(2)}px`,
     fontWeight: theme.typography.fontWeightBold,
-    color: (props: EmailProps) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
+    color: (props: Pick<EmailProps, 'open'>) => (props.open ? theme.palette.gray.main : theme.palette.black.main),
   },
 }));

@@ -5,8 +5,7 @@ import { Avatar, Box } from '../../atoms';
 
 import { UserAvatarProps } from './UserAvatar.types';
 
-export const UserAvatar = (props: UserAvatarProps) => {
-  const { name, avatar } = props;
+export const UserAvatar = ({ name, avatar, ...avatarProps }: UserAvatarProps) => {
   const theme = useTheme();
   const initial = name && name.charAt(0);
 
@@ -30,7 +29,7 @@ export const UserAvatar = (props: UserAvatarProps) => {
 
   return (
     <>
-      <Avatar bgcolor={theme.palette[getColor(initial)]['light']} src={avatar && avatar}>
+      <Avatar bgcolor={theme.palette[getColor(initial)]['light']} src={avatar && avatar} {...avatarProps}>
         <Box color={theme.palette[getColor(initial)]['main']}>{initial}</Box>
       </Avatar>
     </>

@@ -29,4 +29,11 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     flex: '1 1 auto',
   },
+  overlay: {
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
+    zIndex: 2,
+    background: 'rgba(130, 141, 185, 0.3)',
+  },
 }));

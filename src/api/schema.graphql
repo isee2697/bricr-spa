@@ -26,20 +26,20 @@ input ForgotPasswordInput {
 
 type ForgotPasswordResponse {
   error: String
-  resetPasswordToken: String
+  stack: String
 }
 
 input ResetPasswordInput {
   newPassword: String!
-  token: String!
 }
 
 type ResetPasswordResponse {
   error: String
+  stack: String
 }
 
 type Mutation {
   login(input: LoginInput): LoginResponse
   forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
-  resetPassword(input: ResetPasswordInput): ResetPasswordResponse
+  resetPassword(input: ResetPasswordInput, token: String!): ResetPasswordResponse
 }

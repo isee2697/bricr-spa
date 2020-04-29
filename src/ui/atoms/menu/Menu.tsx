@@ -4,25 +4,26 @@ import { CardContent, Popper, Card, Box } from '../';
 import { useOnClickOutside } from 'hooks/useOnClickOutside/useOnClickOutside';
 
 import { MenuProps } from './Menu.types';
-import * as S from './Menu.styles';
+import { useStyles } from './Menu.styles';
 
-export const Menu = (props: MenuProps) => {
-  const {
-    open,
-    anchorEl,
-    id,
-    children,
-    placement,
-    offsetTop,
-    offsetRight,
-    offsetBottom,
-    offsetLeft,
-    arrow,
-    onClose,
-  } = props;
+// @TODO - we have to improve a11y in that component
+
+export const Menu = ({
+  open,
+  anchorEl,
+  id,
+  children,
+  placement,
+  offsetTop,
+  offsetRight,
+  offsetBottom,
+  offsetLeft,
+  arrow,
+  onClose,
+}: MenuProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [arrRef, setArrRef] = useState<HTMLDivElement | null>(null);
-  const classes = S.useStyles(props);
+  const classes = useStyles({ offsetTop, offsetRight, offsetBottom, offsetLeft, placement });
 
   useOnClickOutside(ref, () => onClose());
 

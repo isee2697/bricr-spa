@@ -19,6 +19,26 @@ export const mockServer = () => {
         };
       });
 
+      this.post('/mock-security/public/auth/reset-password', (schema, request) => {
+        const requestJson = JSON.parse(request.requestBody);
+
+        if (requestJson.username !== 'test') {
+          throw new Error();
+        }
+
+        return {};
+      });
+
+      this.post('/mock-security/public/auth/reset-password/token', (schema, request) => {
+        const requestJson = JSON.parse(request.requestBody);
+
+        if (requestJson.newPassword !== 'passw0rd') {
+          throw new Error();
+        }
+
+        return {};
+      });
+
       this.post('/mock', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
         const query = requestJson.query;
@@ -35,20 +55,6 @@ export const mockServer = () => {
                 email: 'test@example.com',
               };
             }
-            throw new Error();
-          },
-          forgotPassword() {
-            if (requestJson.variables.input.username === 'test-user') {
-              return {};
-            }
-
-            throw new Error();
-          },
-          resetPassword() {
-            if (requestJson.variables.input.token === 'test-token') {
-              return {};
-            }
-
             throw new Error();
           },
         };

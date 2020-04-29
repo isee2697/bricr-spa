@@ -13,21 +13,21 @@ export const ResetPasswordContainer = () => {
   const onSubmit = useCallback(
     async (body: ResetPasswordFormValues): Promise<boolean> => {
       try {
-        const { errors } = await forgotPassword({
+        const { errors, data } = await forgotPassword({
           variables: {
             input: {
               newPassword: body.password,
-              token,
             },
+            token,
           },
         });
 
-        if (errors) {
+        if (errors || data?.resetPassword === null) {
           throw new Error();
         }
 
         return true;
-      } catch {
+      } catch (error) {
         return false;
       }
     },

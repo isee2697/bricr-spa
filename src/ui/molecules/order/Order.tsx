@@ -9,9 +9,8 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { OrderProps } from './Order.types';
 import { useStyles } from './Order.styles';
 
-export const Order = (props: OrderProps) => {
-  const { labels, price, packages, image, children, onClick, id } = props;
-  const classes = useStyles(props);
+export const Order = ({ labels, price, packages, image, children, onClick, id }: OrderProps) => {
+  const classes = useStyles();
   const theme = useTheme();
   const { formatMessage } = useLocale();
 

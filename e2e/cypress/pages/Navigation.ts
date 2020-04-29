@@ -2,6 +2,7 @@ import { AppRoute } from '../../../src/routing/AppRoute.enum';
 
 class Navigation {
   goToLogout(): void {
+    cy.get('#profile-button').click();
     cy.get(`a[href*="${AppRoute.logout}"]`)
       .first()
       .click();
@@ -26,7 +27,7 @@ class Navigation {
   }
 
   goToResetPasswordPage(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.resetPassword.replace(':token', 'test-token'));
+    cy.visit(Cypress.env().baseUrl + AppRoute.resetPassword.replace(':token', 'token'));
   }
 
   get homeLink(): string {

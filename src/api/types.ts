@@ -43,17 +43,17 @@ export type ForgotPasswordInput = {
 export type ForgotPasswordResponse = {
   __typename?: 'ForgotPasswordResponse';
   error?: Maybe<Scalars['String']>;
-  resetPasswordToken?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
 };
 
 export type ResetPasswordInput = {
   newPassword: Scalars['String'];
-  token: Scalars['String'];
 };
 
 export type ResetPasswordResponse = {
   __typename?: 'ResetPasswordResponse';
   error?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -73,6 +73,7 @@ export type MutationForgotPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   input?: Maybe<ResetPasswordInput>;
+  token: Scalars['String'];
 };
 
 export type LoginMutationVariables = {
@@ -93,6 +94,7 @@ export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
 
 export type ResetPasswordMutationVariables = {
   input?: Maybe<ResetPasswordInput>;
+  token: Scalars['String'];
 };
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
@@ -123,7 +125,8 @@ export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
-    forgotPassword(input: $input) {
+    forgotPassword(input: $input)
+      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST") {
       error
     }
   }
@@ -143,8 +146,9 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
   ForgotPasswordMutationVariables
 >;
 export const ResetPasswordDocument = gql`
-  mutation ResetPassword($input: ResetPasswordInput) {
-    resetPassword(input: $input) {
+  mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
+    resetPassword(input: $input, token: $token)
+      @rest(type: "ResetPasswordResponse", path: "/public/auth/reset-password/{args.token}", method: "POST") {
       error
     }
   }
