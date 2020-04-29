@@ -18,6 +18,8 @@ export { default as MenuItem } from '@material-ui/core/MenuItem';
 export { default as Select } from '@material-ui/core/Select';
 export { default as InputLabel } from '@material-ui/core/InputLabel';
 export { default as Popper } from '@material-ui/core/Popper';
+export { default as List } from '@material-ui/core/List';
+export { default as ListItem } from '@material-ui/core/ListItem';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
@@ -33,3 +35,4 @@ export { UserAvatar } from './userAvatar/UserAvatar';
 export { Scrollable } from './scrollable/Scrollable';
 export { AgendaItem } from './agendaItem/AgendaItem';
 export { VisitedPage } from './visitedPage/VisitedPage';
+export { SideMenuItem } from './sideMenuItem/SideMenuItem';
