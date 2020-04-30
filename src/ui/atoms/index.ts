@@ -20,6 +20,10 @@ export { default as InputLabel } from '@material-ui/core/InputLabel';
 export { default as Popper } from '@material-ui/core/Popper';
 export { default as List } from '@material-ui/core/List';
 export { default as ListItem } from '@material-ui/core/ListItem';
+export { default as Stepper } from '@material-ui/core/Stepper';
+export { default as Step } from '@material-ui/core/Step';
+export { default as StepLabel } from '@material-ui/core/StepLabel';
+export { default as StepConnector } from '@material-ui/core/StepConnector';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
