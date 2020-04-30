@@ -6,7 +6,7 @@ import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
-import { requireValidator, fieldMatchValidator } from 'form/validators';
+import { requireValidator, fieldMatchValidator, minLengthValidator } from 'form/validators';
 
 import { ResetPasswordProps, ResetPasswordFormValues } from './ResetPassword.types';
 
@@ -45,7 +45,7 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
             name="password"
             label="reset_password.new_password"
             placeholder="reset_password.new_password_placeholder"
-            validate={[requireValidator]}
+            validate={[requireValidator, minLengthValidator(8)]}
             size="medium"
             type="password"
             InputProps={{

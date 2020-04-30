@@ -44,6 +44,7 @@
   "reset_password.wrong_data": "Entered password does not meet security policy or link has been expired.",
   "reset_password.success": "Password has been changed successfully. Now you can login with new data.",
   "validation.required": "Field is required",
+  "validation.min_length": "Minimum length of {length} is required",
   "order.package": "Package",
   "emails.title": "Unread mails",
   "emails.view_more": "View more",
@@ -51,5 +52,8 @@
   "orders.view_more": "View more",
   "visited_pages.title": "Visited pages",
   "visited_pages.view_more": "View more",
-  "date.all_day": "all day"
+  "date.all_day": "all day",
+  "date.today": "Today",
+  "date.tomorrow": "Tomorrow",
+  "date.view_more": "View more"
 }

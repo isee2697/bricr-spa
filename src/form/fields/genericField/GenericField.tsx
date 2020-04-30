@@ -30,7 +30,11 @@ export const GenericField = ({
 
   return (
     <BaseFormField
-      helperText={hasError ? formatMessage(meta.error || meta.submitError) : helperText}
+      helperText={
+        hasError
+          ? formatMessage(meta.error || meta.submitError, { ...meta.error?.values, ...meta.submitError?.values })
+          : helperText
+      }
       label={typeof label === 'string' ? (formatMessage({ id: label }) as string) : label}
       placeholder={placeholder ? (formatMessage({ id: placeholder }) as string) : undefined}
       id={name}

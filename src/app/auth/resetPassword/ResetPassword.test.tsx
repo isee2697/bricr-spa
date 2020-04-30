@@ -5,7 +5,7 @@ import { act, fireEvent, render, wait } from 'tests';
 import { ResetPassword } from './ResetPassword';
 
 describe('ResetPasssword', () => {
-  test('calls onSubmit prop with username', async () => {
+  test('calls onSubmit prop with new password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
     const { getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
@@ -13,12 +13,12 @@ describe('ResetPasssword', () => {
     act(() => {
       fireEvent.change(getByLabelText('reset_password.new_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.change(getByLabelText('reset_password.repeat_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.click(getByRole('button'));
@@ -26,8 +26,8 @@ describe('ResetPasssword', () => {
 
     await wait(() => {
       expect(onSubmit).toBeCalledWith({
-        password: 'foo',
-        passwordRepeat: 'foo',
+        password: 'fooBarBaz',
+        passwordRepeat: 'fooBarBaz',
       });
     });
   });
@@ -39,12 +39,12 @@ describe('ResetPasssword', () => {
     act(() => {
       fireEvent.change(getByLabelText('reset_password.new_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.change(getByLabelText('reset_password.repeat_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.click(getByRole('button'));
@@ -62,12 +62,12 @@ describe('ResetPasssword', () => {
     act(() => {
       fireEvent.change(getByLabelText('reset_password.new_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.change(getByLabelText('reset_password.repeat_password'), {
         target: {
-          value: 'foo',
+          value: 'fooBarBaz',
         },
       });
       fireEvent.submit(getByRole('button'));
