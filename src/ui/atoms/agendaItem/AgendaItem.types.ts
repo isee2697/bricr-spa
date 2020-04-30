@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
 export type AgendaItemProps = {
-  startDate?: string;
+  startDate: string;
   endDate?: string;
   isAllDay?: boolean;
-  children: ReactNode;
+  title: ReactNode;
 };

@@ -5,7 +5,7 @@ export const useStyles = makeStyles(theme => ({
     borderRight: `2px solid ${theme.palette.gray.light}`,
     minWidth: 60,
     minHeight: '2.5em',
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   startDate: {
     width: '100%',

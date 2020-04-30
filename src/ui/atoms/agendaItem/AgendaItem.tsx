@@ -8,7 +8,7 @@ import { AppMessages } from 'i18n/messages';
 import { AgendaItemProps } from './AgendaItem.types';
 import { useStyles } from './AgendaItem.styles';
 
-export const AgendaItem = ({ isAllDay, startDate, endDate, children }: AgendaItemProps) => {
+export const AgendaItem = ({ isAllDay, startDate, endDate, title }: AgendaItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const startTime = startDate && !isAllDay ? DateTime.fromISO(startDate).toFormat('HH:mm') : null;
@@ -27,7 +27,9 @@ export const AgendaItem = ({ isAllDay, startDate, endDate, children }: AgendaIte
         </Typography>
         {endTime}
       </Grid>
-      <Grid item>{children}</Grid>
+      <Grid xs={8} lg={'auto'} item>
+        {title}
+      </Grid>
     </Grid>
   );
 };
