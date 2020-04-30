@@ -43,7 +43,7 @@ export const AgendaSection = ({ data, onMoreClick, onAddClick }: AgendaSectionPr
         <Tab label="Tasks" />
       </Tabs>
       <CardContent>
-        <Scrollable className={classes.scrollable} width="auto" height={350}>
+        <Scrollable className={classes.scrollable} width="auto" height={342}>
           {sortedByDate.map((dateGroup, key) => {
             return (
               <div className={classes.group} key={key}>
