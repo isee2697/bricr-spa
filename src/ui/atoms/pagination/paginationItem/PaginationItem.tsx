@@ -14,7 +14,8 @@ export const PaginationItem = ({ page, type, selected, disabled, ...rest }: Pagi
         <div className={classes.ellipsis}>…</div>
       </li>
     );
-  } else if (type === 'page') {
+  }
+  if (type === 'page') {
     return (
       <li key={`${type}${page}`}>
         <button className={classNames({ [classes.selected]: selected }, classes.page)} disabled={disabled}>
@@ -22,13 +23,12 @@ export const PaginationItem = ({ page, type, selected, disabled, ...rest }: Pagi
         </button>
       </li>
     );
-  } else {
-    return (
-      <li key={`${type}${page}`}>
-        <button className={classes.nav} disabled={disabled}>
-          <div {...rest}>{type === 'previous' ? 'prev' : type}</div>
-        </button>
-      </li>
-    );
   }
+  return (
+    <li key={`${type}${page}`}>
+      <button className={classes.nav} disabled={disabled}>
+        <div {...rest}>{type === 'previous' ? 'prev' : type}</div>
+      </button>
+    </li>
+  );
 };

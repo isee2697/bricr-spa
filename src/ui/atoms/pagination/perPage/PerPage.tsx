@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import { useStyles } from '../Pagination.styles';
 import { PaginationProps } from '../Pagination.types';
-import { AppMessages } from '../../../../i18n/messages';
-import { useLocale } from '../../../../hooks/useLocale/useLocale';
+import { AppMessages } from 'i18n/messages';
+import { useLocale } from 'hooks/useLocale/useLocale';
 
 export const PerPage = ({ perPageOptions, currentPerPage, onPerPageChange }: PaginationProps) => {
   const classes = useStyles();
