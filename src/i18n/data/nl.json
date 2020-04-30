@@ -55,5 +55,6 @@
   "date.all_day": "hele dag",
   "date.today": "Vandaag",
   "date.tomorrow": "Morgen",
-  "date.view_more": "Bekijk meer"
+  "date.view_more": "Bekijk meer",
+  "pagination.views": "Per pagina"
 }

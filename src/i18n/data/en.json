@@ -55,5 +55,6 @@
   "date.all_day": "all day",
   "date.today": "Today",
   "date.tomorrow": "Tomorrow",
-  "date.view_more": "View more"
+  "date.view_more": "View more",
+  "pagination.views": "Views"
 }

@@ -37,3 +37,4 @@ export { AgendaItem } from './agendaItem/AgendaItem';
 export { VisitedPage } from './visitedPage/VisitedPage';
 export { SideMenuItem } from './sideMenuItem/SideMenuItem';
 export { ProgressFilling } from './progressFillig/ProgressFilling';
+export { Pagination } from './pagination/Pagination';

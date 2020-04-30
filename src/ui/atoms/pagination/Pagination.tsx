@@ -1,0 +1,33 @@
+import React from 'react';
+import { usePagination } from '@material-ui/lab/Pagination';
+
+import { Box } from 'ui/atoms';
+
+import { PaginationProps } from './Pagination.types';
+import { useStyles } from './Pagination.styles';
+import { PerPage } from './perPage/PerPage';
+import { PaginationItem } from './paginationItem/PaginationItem';
+
+export const Pagination = (props: PaginationProps) => {
+  const { items } = usePagination(props);
+  const classes = useStyles();
+
+  return (
+    <Box display="flex" width="100%" justifyContent="space-between" alignItems="center">
+      <ul className={classes.ul}>
+        {items.map(item => (
+          <PaginationItem {...item} />
+        ))}
+      </ul>
+      {props.perPageOptions && (
+        <Box>
+          <PerPage
+            currentPerPage={props.currentPerPage}
+            perPageOptions={props.perPageOptions}
+            onPerPageChange={props.onPerPageChange}
+          />
+        </Box>
+      )}
+    </Box>
+  );
+};
