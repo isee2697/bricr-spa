@@ -26,7 +26,7 @@ export const useStyles = makeStyles(theme => ({
     alignItems: 'flex-start',
   },
   content: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     flex: '1 1 auto',
   },
   overlay: {

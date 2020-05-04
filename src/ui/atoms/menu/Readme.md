@@ -7,7 +7,7 @@ import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
 import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
 import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 import { Scrollable, Stepper, Step, Typography } from 'ui/atoms';
 

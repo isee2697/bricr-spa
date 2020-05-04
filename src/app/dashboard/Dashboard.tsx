@@ -3,20 +3,25 @@ import React from 'react';
 import { Grid } from 'ui/atoms';
 import { DashboardHeader } from 'ui/molecules';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { AppMessages } from 'i18n/messages';
 
 import { DashboardEmailsContainer } from './dashboardEmails/DashboardEmailsContainer';
 import { DashboardOrdersContainer } from './dashboardOrders/DashboardOrdersContainer';
 import { DashboardStatsContainer } from './dashboardStats/DashboardStatsContainer';
 import { DashboardAgendaContainer } from './dashboardAgenda/DashboardAgendaContainer';
 import { DashboardVisitedPagesContainer } from './dashboardVisitedPages/DashboardVisitedPagesContainer';
+import { useStyles } from './Dashboard.styles';
 
 export const Dashboard = () => {
   const { user } = useAuthState();
+  const { formatMessage } = useLocale();
+  const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.content}>
       <DashboardHeader onFilterClick={() => {}}>
-        Welcome, {user?.firstName}{' '}
+        {formatMessage({ id: AppMessages['dashboard.welcome'] })} {user?.firstName}{' '}
         <span role="img" aria-label="hi1">
           👋
         </span>
@@ -46,6 +51,6 @@ export const Dashboard = () => {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, SimplePaletteColorOptions } from '@material-ui/core/styles';
 
@@ -32,6 +32,9 @@ const theme = createMuiTheme({
       },
     },
     MuiButton: {
+      root: {
+        borderRadius: defaultTheme.spacing(1),
+      },
       containedPrimary: {
         background: palette.gradientPrimary.main,
         '&:disabled': {
@@ -185,7 +188,7 @@ const theme = createMuiTheme({
   },
 });
 
-export const Theme: React.FC = ({ children }) => (
+export const Theme = ({ children }: { children: ReactNode }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     {children}

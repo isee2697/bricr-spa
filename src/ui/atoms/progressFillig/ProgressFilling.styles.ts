@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 
 export const ProgressFilling = styled('div')(({ theme }) => ({
   display: 'inline-flex',

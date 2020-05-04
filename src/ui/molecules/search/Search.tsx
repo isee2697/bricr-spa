@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Grid, Typography, CardActions, PaperProps } from '@material-ui/core';
 
+import { Avatar, Grid, Typography, CardActions, Autocomplete, TextField, Button, Paper } from 'ui/atoms';
 import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
 import { SearchIcon } from 'ui/atoms/icons/search/SearchIcon';
-import { Autocomplete, TextField, Button, Paper } from 'ui/atoms';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
@@ -69,7 +68,7 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
     );
   };
 
-  const Results = (props: PaperProps) => {
+  const Results = (props: Parameters<typeof Paper>[0]) => {
     return (
       <Paper {...props} className={classes.paper}>
         {props.children}

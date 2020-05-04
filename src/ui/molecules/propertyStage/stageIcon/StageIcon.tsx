@@ -1,12 +1,12 @@
 import React from 'react';
-import { StepIconProps } from '@material-ui/core';
+import { StepIconProps } from '@material-ui/core/StepIcon';
 
 import { Typography } from 'ui/atoms';
 import { CheckIcon } from 'ui/atoms/icons/check/CheckIcon';
 
 import * as S from './StageIcon.styles';
 
-export const StageIcon: React.FC<StepIconProps> = ({ active, completed, icon }) => {
+export const StageIcon = ({ active, completed, icon }: StepIconProps) => {
   if (completed)
     return (
       <S.CompletedIcon>

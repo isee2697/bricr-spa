@@ -13,7 +13,7 @@ export const typography = {
   fontWeightBolder: fontWeight['bolder'],
   h1: {
     fontSize: 24,
-    fontWeight: fontWeight.regular,
+    fontWeight: fontWeight.bolder,
     lineHeight: '32px',
   },
   h2: {

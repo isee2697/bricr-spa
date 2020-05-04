@@ -12,7 +12,6 @@ export const useStyles = makeStyles(theme => ({
     },
     '& .MuiTypography-h1': {
       width: '100%',
-      fontWeight: theme.typography.fontWeightBolder,
       marginBottom: theme.spacing(4),
     },
   },

@@ -14,6 +14,12 @@ class Navigation {
       .click();
   }
 
+  goToPim(): void {
+    cy.get(`a[href*="${AppRoute.pim}"]`)
+      .first()
+      .click();
+  }
+
   goToLogin(): void {
     cy.get(`a[href*="${AppRoute.login}"]`)
       .first()
@@ -32,6 +38,10 @@ class Navigation {
 
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
+  }
+
+  get pimLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.pim}`;
   }
 
   get loginLink(): string {

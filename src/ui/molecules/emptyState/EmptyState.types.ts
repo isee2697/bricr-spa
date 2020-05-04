@@ -1,3 +1,3 @@
 export type EmptyStateProps = {
-  children: React.ReactNodeArray;
+  children: React.ReactNode;
 };
