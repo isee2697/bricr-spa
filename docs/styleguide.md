@@ -46,6 +46,35 @@ Tooltip.styles.ts
 Tooltip.types.ts
 ```
 
+## Property Naming
+- Array | Dictionary use plural nouns
+- Number use Prefix or postfix which makes clear its a number
+- Bool use Prfeix is, can , has
+- Object use noun
+- Element use prefix element
+- function use prefix (for items)
+```
+// bad
+{
+  item: item[];
+  count: Number;
+  visible: Bool;
+  objects: myObject;
+  hover: myElement;
+  onChange: onObjectChange;
+}
+
+// good
+{
+  items: item[];
+  itemCount: Number;
+  isVisible: Bool;
+  item: myObject;
+  hoverElement: myElement;
+  onItemChange: onObjectChange;
+}
+```
+
 - Use withStyles function to overrite material-ui styles:
 ```typescript
 import { withStyles } from '@material-ui/core/styles';
