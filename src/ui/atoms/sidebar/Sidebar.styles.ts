@@ -5,12 +5,17 @@ export const Sidebar = styled('div')(({ theme }) => ({
   paddingLeft: theme.spacing(1),
   flex: `0 0 ${theme.spacing(8)}px`,
   top: theme.spacing(11),
+  position: 'sticky',
+  zIndex: 2,
   textAlign: 'center',
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(2),
   borderLeft: `2px solid ${theme.palette.white.main}`,
   '& > *:not(:first-child)': {
     marginTop: theme.spacing(2),
+  },
+  '&.hasOverlay': {
+    borderLeftColor: theme.palette.white.light,
   },
 }));
 
