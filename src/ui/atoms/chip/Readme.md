@@ -16,8 +16,6 @@ import { Chip } from "ui/atoms";
   <Chip variant="outlined" color="primary" size="small" label="small"/>
   {' '}
   <Chip variant="outlined" color="primary" size="medium" label="medium" />
-  {' '}
-  <Chip variant="outlined" color="primary" size="large" label="large" />
 </>
 ```
 

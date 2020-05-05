@@ -34,7 +34,7 @@ const visitedPagesData = [
     onManageClick={() => {}}>
     <Box>
       {visitedPagesData.map(item => (
-        <VisitedPage category={item.category} subCategory={item.subCategory}>
+        <VisitedPage key={`${item.category}_${item.content}`} category={item.category} subCategory={item.subCategory}>
           { item.content }
         </VisitedPage>
       ))}

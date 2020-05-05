@@ -24,6 +24,8 @@ export { default as Stepper } from '@material-ui/core/Stepper';
 export { default as Step } from '@material-ui/core/Step';
 export { default as StepLabel } from '@material-ui/core/StepLabel';
 export { default as StepConnector } from '@material-ui/core/StepConnector';
+export { default as Checkbox } from '@material-ui/core/Checkbox';
+export { default as Container } from '@material-ui/core/Container';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

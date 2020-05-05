@@ -16,6 +16,7 @@ export const PerPage = ({ perPageOptions, currentPerPage, onPerPageChange }: Pag
       {perPageOptions &&
         perPageOptions.map(item => (
           <span
+            key={item}
             onClick={() => onPerPageChange && onPerPageChange(item)}
             className={classNames({ [classes.selected]: item === currentPerPage })}
           >

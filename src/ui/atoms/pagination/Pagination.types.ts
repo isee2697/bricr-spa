@@ -1,7 +1,9 @@
 import { PaginationProps as BasePaginationProps } from '@material-ui/lab/Pagination';
 
+export type PerPageType = number | 'All';
+
 export type PaginationProps = BasePaginationProps & {
-  currentPerPage?: number;
-  perPageOptions?: number[] & 'All';
-  onPerPageChange?: (value: number) => void;
+  currentPerPage?: PerPageType;
+  perPageOptions?: PerPageType[];
+  onPerPageChange?: (value: PerPageType) => void;
 };

@@ -6,3 +6,4 @@ export { Search } from './search/Search';
 export { Order } from './order/Order';
 export { SideMenu } from './sideMenu/SideMenu';
 export { EmptyState } from './emptyState/EmptyState';
+export { List } from './list/List';

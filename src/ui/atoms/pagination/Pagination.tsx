@@ -16,7 +16,7 @@ export const Pagination = (props: PaginationProps) => {
     <Box display="flex" width="100%" justifyContent="space-between" alignItems="center">
       <ul className={classes.ul}>
         {items.map(item => (
-          <PaginationItem {...item} />
+          <PaginationItem key={`${item.type}_${item.page}`} {...item} />
         ))}
       </ul>
       {props.perPageOptions && (

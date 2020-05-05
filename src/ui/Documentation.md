@@ -310,12 +310,12 @@ const wrapperStyle = {
   </div>
   <br />
   <div style={wrapperStyle}>
-    <CommentIcon color="default"/>
-    <LinkIcon color="default"/>
-    <MailIcon color="default"/>
-    <ManageIcon color="default"/>
-    <NoteIcon color="default"/>
-    <PinIcon color="default"/>
+    <CommentIcon color="disabled"/>
+    <LinkIcon color="disabled"/>
+    <MailIcon color="disabled"/>
+    <ManageIcon color="disabled"/>
+    <NoteIcon color="disabled"/>
+    <PinIcon color="disabled"/>
   </div>
   <br />
   <div style={{...wrapperStyle, color: 'orange' }}>
@@ -328,9 +328,9 @@ const wrapperStyle = {
   </div>
   <br/>
   <div style={wrapperStyle}>
-    <SeeIcon color="default"/>
-    <UnseeIcon color="default"/>
-    <SiteIcon color="default"/>
+    <SeeIcon color="action"/>
+    <UnseeIcon color="action"/>
+    <SiteIcon color="action"/>
     <Box width={24}/>
     <Box width={24}/>
     <Box width={24}/>
