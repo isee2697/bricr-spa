@@ -68,5 +68,9 @@
   "property_item.per_meter": "p/m",
   "property_item.info_completed": "Information completed",
   "list.select_all": "Select all",
-  "list.bulk_actions": "Bulk actions"
+  "list.bulk_actions": "Bulk actions",
+  "property_item.error": "No more house view scheduling",
+  "property_item.button_more": "Show more",
+  "property_item.button_hide": "Hide",
+  "property_item.progress": "Progress of property"
 }

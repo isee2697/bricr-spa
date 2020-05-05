@@ -270,6 +270,7 @@ import { FilterIcon } from './atoms/icons/filter/FilterIcon';
 import { SeeIcon } from './atoms/icons/see/SeeIcon';
 import { UnseeIcon } from './atoms/icons/unsee/UnseeIcon';
 import { SiteIcon } from './atoms/icons/site/SiteIcon';
+import { MenuIcon } from './atoms/icons/menu/MenuIcon';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
 
@@ -331,7 +332,7 @@ const wrapperStyle = {
     <SeeIcon color="action"/>
     <UnseeIcon color="action"/>
     <SiteIcon color="action"/>
-    <Box width={24}/>
+    <MenuIcon color="action"/>
     <Box width={24}/>
     <Box width={24}/>
   </div>

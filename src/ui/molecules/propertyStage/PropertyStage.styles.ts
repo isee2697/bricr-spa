@@ -6,6 +6,9 @@ export const useStyles = makeStyles(theme => ({
   step: {
     padding: 0,
   },
+  stepper: {
+    backgroundColor: 'transparent',
+  },
 }));
 
 export const Connector = withStyles(theme => ({

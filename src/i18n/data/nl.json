@@ -68,5 +68,9 @@
   "property_item.per_meter": "p/m",
   "property_item.info_completed": "Informatie ingevuld",
   "list.select_all": "Selecteer alles",
-  "list.bulk_actions": "Bulkacties"
+  "list.bulk_actions": "Bulkacties",
+  "property_item.error": "Geen planning van huisweergave meer",
+  "property_item.button_more": "Laat meer zien",
+  "property_item.button_hide": "Zich verstoppen",
+  "property_item.progress": "Voortgang van eigendom"
 }

@@ -1,7 +1,11 @@
 Basic button:
 
 ```jsx harmony
-import { Button } from "ui/atoms";
+import { Button, Box } from "ui/atoms";
+import { ArrowDownIcon } from "ui/atoms/icons/arrowDown/ArrowDownIcon";
+import { useTheme } from '@material-ui/core/styles';
+
+const theme = useTheme();
 
 <>
 <Button variant="contained" color="primary">
@@ -25,6 +29,14 @@ import { Button } from "ui/atoms";
   <Button variant="contained" color="secondary" disabled>
     Button disabled
   </Button>
+  
+  {' '}
+  
+  <Box color={theme.palette.gray.main} display="inline-block">
+    <Button variant="contained" color="ghost" endIcon={<ArrowDownIcon color="primary"/>}>
+      Button ghost
+    </Button>
+  </Box>
 </>
 ```
 
@@ -89,12 +101,7 @@ import { Button } from "./Button";
     </Button>
     <br />
     <br />
-    <Button variant="contained" color="secondary" size="medium">
-      Medium
-    </Button>
-    <br />
-    <br />
-    <Button variant="contained" size="large">
+    <Button variant="contained" color="secondary" size="large">
       Large
     </Button>
     <br />

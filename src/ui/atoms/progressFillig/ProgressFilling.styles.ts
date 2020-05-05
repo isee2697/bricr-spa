@@ -1,6 +1,7 @@
 import { styled } from '@material-ui/core/styles';
 
 export const ProgressFilling = styled('div')(({ theme }) => ({
+  maxWidth: theme.spacing(13.25),
   display: 'inline-flex',
   borderRadius: theme.spacing(0.5),
   height: theme.spacing(1),

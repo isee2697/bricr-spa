@@ -19,6 +19,7 @@ export const PropertyStage = ({ items, activeItem }: PropertyStageProps) => {
         activeStep={activeItem}
         connector={<S.Connector />}
         data-testid="property-stage"
+        className={classes.stepper}
       >
         {items.map(({ title, date }) => (
           <Step key={title} className={classes.step}>
