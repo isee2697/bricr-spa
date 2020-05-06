@@ -28,6 +28,10 @@ module.exports = {
       name: 'Templates Components',
       components: 'src/ui/templates/**/*.tsx',
     },
+    {
+      name: 'Form Components',
+      components: 'src/form/fields/**/*.tsx',
+    },
   ],
   template: {
     head: {

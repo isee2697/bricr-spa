@@ -117,24 +117,39 @@ const theme = createMuiTheme({
     MuiOutlinedInput: {
       root: {
         background: palette.gray.light,
-        '&:hover:not(.Mui-focused) .MuiOutlinedInput-notchedOutline': {
+        '&:hover:not(.Mui-focused):not( .Mui-disabled) .MuiOutlinedInput-notchedOutline': {
           borderColor: palette.gray.main,
+          borderTopWidth: 1,
+          borderLeftWidth: 1,
+          borderRightWidth: 1,
+          borderTopStyle: 'solid',
+          borderLeftStyle: 'solid',
+          borderRightStyle: 'solid',
         },
-      },
-      input: {
-        padding: '15.5px 14px',
+        borderBottomLeftRadius: 0,
+        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderBottomWidth: 1,
+        },
+        '&.Mui-error': {
+          background: palette.red.light,
+          '& .MuiSvgIcon-root path': {
+            fill: palette.red.main,
+          },
+        },
+        '& .MuiOutlinedInput-inputMarginDense ': {
+          padding: `${defaultTheme.spacing(1.5)}px ${defaultTheme.spacing(2)}px`,
+        },
       },
       notchedOutline: {
         borderTop: 'none',
         borderRight: 'none',
         borderLeft: 'none',
         borderBottomRightRadius: 0,
-        borderBottomLeftRadius: 0,
       },
     },
     MuiInputLabel: {
       root: {
-        color: palette.black.main,
+        color: `${palette.black.main} !important`,
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
           position: 'inherit',
           transform: 'none',
