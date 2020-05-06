@@ -48,3 +48,4 @@ export { ProgressFilling } from './progressFillig/ProgressFilling';
 export { Checkbox } from './checkbox/Checkbox';
 export { Pagination } from './pagination/Pagination';
 export { Price } from './price/Price';
+export { Placeholder } from './placeholder/Placeholder';

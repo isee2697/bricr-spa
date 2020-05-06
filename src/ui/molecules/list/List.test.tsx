@@ -35,4 +35,12 @@ describe('List', () => {
 
     expect(element).toBeInTheDocument();
   });
+
+  test('renders loading items', () => {
+    const { getAllByText } = render(<List {...listProps} loading loadingItem={<div>LoadingItem</div>} />);
+
+    const elements = getAllByText('LoadingItem');
+
+    expect(elements.length).toEqual(5);
+  });
 });

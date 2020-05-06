@@ -20,7 +20,7 @@ export const useStyles = makeStyles(theme => ({
   },
   sorting: {
     backgroundColor: theme.palette.gray.light,
-    marginRight: padding,
+    marginRight: theme.spacing(2),
     '& .MuiOutlinedInput-notchedOutline, .MuiOutlinedInput-notchedOutline:focus': {
       borderWidth: 0,
     },
@@ -64,7 +64,8 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   item: {
-    padding: `${padding}px 16px 22px 0`,
+    padding: `10px 16px 22px 0`,
+    width: '100%',
   },
   pagination: {
     borderTop: `2px solid ${theme.palette.gray.light}`,

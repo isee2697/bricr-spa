@@ -3,11 +3,6 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
   },
   isHighlighted: {
     backgroundColor: theme.palette.yellow.light,

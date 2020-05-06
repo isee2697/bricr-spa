@@ -16,6 +16,8 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   sortOptions,
   onSort,
   pagination,
+  loading,
+  loadingItem,
 }) => {
   const classes = useStyles();
 
@@ -31,16 +33,31 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
         onBulk={() => onBulk(items.filter(item => checkedKeys.includes(`${item[itemIndex]}`)))}
         onSort={onSort}
       />
-      <Box>
-        {items.map(item => {
-          const key = `${item[itemIndex]}`;
-          const checked = checkedKeys.includes(key);
+      {!loading && items.length > 0 && (
+        <Box>
+          {items.map(item => {
+            const key = `${item[itemIndex]}`;
+            const checked = checkedKeys.includes(key);
 
-          return (
-            <ListRow key={key} checked={checked} onCheck={() => handleCheck(key)} item={item} renderItem={renderItem} />
-          );
-        })}
-      </Box>
+            return (
+              <ListRow
+                key={key}
+                checked={checked}
+                onCheck={() => handleCheck(key)}
+                item={item}
+                renderItem={renderItem}
+              />
+            );
+          })}
+        </Box>
+      )}
+      {loading && loadingItem && (
+        <>
+          {Array.from({ length: 5 }).map((i, k) => (
+            <ListRow key={k} checked={false} onCheck={() => {}} item={i} renderItem={() => loadingItem} />
+          ))}
+        </>
+      )}
       <Box className={classes.pagination}>
         <Pagination {...pagination} />
       </Box>

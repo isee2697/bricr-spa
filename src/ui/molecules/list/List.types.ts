@@ -15,6 +15,8 @@ export type ListProps<T> = {
   sortOptions: SortOption[];
   onSort: (key: string) => void;
   pagination: PaginationProps;
+  loading?: boolean;
+  loadingItem?: React.ReactNode;
 };
 
 export type ListHeaderProps = {

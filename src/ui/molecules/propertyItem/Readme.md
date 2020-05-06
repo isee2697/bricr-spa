@@ -64,6 +64,9 @@ const propertyData = {
     }>
       <PropertyStage items={PropertyStageItems} activeItem={2} />
   </PropertyItem>
+
+  <br/><br/>
+
   <PropertyItem 
     title={propertyData.title}
     image={`${propertyData.image}?t=2`} 
