@@ -12,7 +12,6 @@ export const LogoutContainer = () => {
   useEffect(() => {
     authStorage.accessToken = null;
     authStorage.refreshToken = null;
-
     dispatch(logout());
   }, [dispatch]);
 

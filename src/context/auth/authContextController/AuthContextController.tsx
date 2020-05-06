@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 
 import { authStorage } from '../authStorage/AuthStorage';
 import { AuthDispatchContext, AuthStateContext } from 'context/auth/authContext/AuthContext';
@@ -14,11 +14,6 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,
   });
-
-  useEffect(() => {
-    authStorage.accessToken = state.accessToken;
-    authStorage.refreshToken = state.refreshToken;
-  }, [state.accessToken, state.refreshToken]);
 
   return (
     <AuthStateContext.Provider value={state}>

@@ -12,7 +12,14 @@ export const mockServer = () => {
       me: Model,
     },
     routes() {
-      this.post('/mock-security/users/login', (schema, request) => {
+      this.post('/mock-security/public/auth/login', (schema, request) => {
+        return {
+          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+        };
+      });
+
+      this.post('/mock-security/public/auth/refresh-token', (schema, request) => {
         return {
           accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
           refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',

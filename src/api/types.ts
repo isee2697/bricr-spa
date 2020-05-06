@@ -109,7 +109,7 @@ export type MeQuery = { __typename?: 'Query' } & {
 
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/users/login", method: "POST") {
+    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST") {
       accessToken
       refreshToken
     }

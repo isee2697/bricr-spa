@@ -1,44 +1,35 @@
-import React, { useMemo } from 'react';
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import React, { useMemo, useEffect } from 'react';
+import { ApolloClient, InMemoryCache, from } from '@apollo/client';
 import { ApolloClient as ApolloClientType } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { RestLink } from 'apollo-link-rest';
 
+import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
 import { ApiClientProviderProps } from './ApiClientContextController.types';
+import { graphLink } from './graphLink/graphLink';
 
 const restLink = new RestLink({ uri: process.env.REACT_APP_SECURITY_URL });
-
-const graphLink = (token: string | null) =>
-  createHttpLink({
-    uri: process.env.REACT_APP_API_URL,
-    fetch: (endpoint, options) => {
-      return fetch(endpoint, {
-        ...options,
-        headers: {
-          ...options?.headers,
-          ...(token
-            ? {
-                authorization: `Bearer ${token}`,
-              }
-            : undefined),
-        },
-      });
-    },
-  });
+const cache = new InMemoryCache();
 
 export const ApiClientContextController = ({ children }: ApiClientProviderProps) => {
-  const { accessToken } = useAuthState();
+  const dispatch = useAuthDispatch();
+  const { isAuthorized } = useAuthState();
 
   const client = useMemo(() => {
-    const cache = new InMemoryCache();
-
     return new ApolloClient({
-      link: from([restLink, graphLink(accessToken)]),
+      link: from([restLink, graphLink(dispatch, authStorage)]),
       cache,
     });
-  }, [accessToken]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isAuthorized) {
+      client.clearStore();
+    }
+  });
 
   return (
     <ApolloProvider client={(client as unknown) as ApolloClientType<typeof InMemoryCache>}>{children}</ApolloProvider>
