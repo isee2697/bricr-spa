@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
 
 import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button, Price } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
@@ -25,16 +24,16 @@ export const PropertyItem = ({
   stage,
   children,
   isAlert,
-  isHighlighted,
+  isArchived,
   onMenuClick,
 }: PropertyItemProps) => {
   const { formatMessage } = useLocale();
   const intl = useIntl();
   const [isCollapsed, setCollapse] = useState(false);
-  const classes = useStyles();
+  const classes = useStyles({ isArchived });
 
   return (
-    <div className={classNames({ [classes.isHighlighted]: isHighlighted }, classes.wrapper)}>
+    <div className={classes.wrapper}>
       <Box display="flex" width="100%" flexDirection="column">
         <Box display="flex" mb={1}>
           <div>
@@ -44,6 +43,7 @@ export const PropertyItem = ({
             <Box display="flex" justifyContent="space-between">
               <div>
                 <Typography className={classes.date}>
+                  {isArchived && formatMessage({ id: AppMessages['property_item.archived'] })}{' '}
                   {DateTime.fromISO(date.toString()).toRelative({ locale: intl.locale })}
                 </Typography>
                 <Typography className={classes.title}>{title}</Typography>
@@ -63,7 +63,7 @@ export const PropertyItem = ({
             </Box>
             <div className={classes.content}>
               <div>
-                {discountPrice && (
+                {discountPrice ? (
                   <s className={classes.discountPrice}>
                     {discountPrice && (
                       <Price
@@ -73,8 +73,10 @@ export const PropertyItem = ({
                       />
                     )}
                   </s>
+                ) : (
+                  <Box mb={2.5} />
                 )}
-                <Box display="flex">
+                <div className={classes.prices}>
                   <div className={classes.price}>
                     <Price
                       value={price}
@@ -82,51 +84,59 @@ export const PropertyItem = ({
                       maximumFractionDigits={price % 1 === 0 ? 0 : 2}
                     />
                   </div>
-                  <span>
-                    <Price
-                      value={pricePerMeter}
-                      minimumFractionDigits={pricePerMeter % 1 === 0 ? 0 : 2}
-                      maximumFractionDigits={pricePerMeter % 1 === 0 ? 0 : 2}
-                    />{' '}
-                    {formatMessage({ id: AppMessages['property_item.per_meter'] })}
-                  </span>
-                </Box>
+                  {pricePerMeter && (
+                    <span>
+                      <Price
+                        value={pricePerMeter}
+                        minimumFractionDigits={pricePerMeter % 1 === 0 ? 0 : 2}
+                        maximumFractionDigits={pricePerMeter % 1 === 0 ? 0 : 2}
+                      />{' '}
+                      {formatMessage({ id: AppMessages['property_item.per_meter'] })}
+                    </span>
+                  )}
+                </div>
               </div>
               <div>{categories}</div>
             </div>
           </Box>
         </Box>
-        <Box display="flex">
-          <div className={classes.infoProgress}>
-            <Box mb={1}>{formatMessage({ id: AppMessages['property_item.info_completed'] })}</Box>
-            <ProgressFilling stage={stage} />
-          </div>
-          <Box ml={1.5} display="flex" alignItems="center" width="100%" justifyContent="space-between">
-            {isAlert && (
-              <div className={classes.alert}>
-                <HelpIcon color="inherit" />
-                <Box ml={0.5}>{formatMessage({ id: AppMessages['property_item.error'] })}</Box>
+        {!isArchived ? (
+          <>
+            <Box display="flex">
+              <div className={classes.infoProgress}>
+                <Box mb={1}>{formatMessage({ id: AppMessages['property_item.info_completed'] })}</Box>
+                <ProgressFilling stage={stage} />
               </div>
-            )}
-          </Box>
-          <div className={classes.buttonWrapper}>
-            <Button
-              color="ghost"
-              endIcon={<ArrowDownIcon color="primary" />}
-              onClick={() => setCollapse(prevState => !prevState)}
-            >
-              {isCollapsed
-                ? formatMessage({ id: AppMessages['property_item.button_hide'] })
-                : formatMessage({ id: AppMessages['property_item.button_more'] })}
-            </Button>
-          </div>
-        </Box>
-        <Collapse in={isCollapsed}>
-          <Box width="100%" mt={3}>
-            <div className={classes.collapse}>{formatMessage({ id: AppMessages['property_item.progress'] })}</div>
-            {children}
-          </Box>
-        </Collapse>
+              <Box ml={1.5} display="flex" alignItems="center" width="100%" justifyContent="space-between">
+                {isAlert && !isArchived && (
+                  <div className={classes.alert}>
+                    <HelpIcon color="inherit" />
+                    <Box ml={0.5}>{formatMessage({ id: AppMessages['property_item.error'] })}</Box>
+                  </div>
+                )}
+              </Box>
+              <div className={classes.buttonWrapper}>
+                <Button
+                  color="ghost"
+                  endIcon={<ArrowDownIcon color="primary" />}
+                  onClick={() => setCollapse(prevState => !prevState)}
+                >
+                  {isCollapsed
+                    ? formatMessage({ id: AppMessages['property_item.button_hide'] })
+                    : formatMessage({ id: AppMessages['property_item.button_more'] })}
+                </Button>
+              </div>
+            </Box>
+            <Collapse in={isCollapsed}>
+              <Box width="100%" mt={3}>
+                <div className={classes.collapse}>{formatMessage({ id: AppMessages['property_item.progress'] })}</div>
+                {children}
+              </Box>
+            </Collapse>
+          </>
+        ) : (
+          children
+        )}
       </Box>
     </div>
   );

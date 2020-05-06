@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
+import { PropertyItemProps } from './PropertyItem.types';
+
 export const useStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
@@ -11,6 +13,7 @@ export const useStyles = makeStyles(theme => ({
     width: 176,
     height: 112,
     marginRight: theme.spacing(2),
+    filter: ({ isArchived }: Pick<PropertyItemProps, 'isArchived'>) => (isArchived ? 'grayscale(1)' : ''),
   },
   date: {
     color: theme.palette.gray.main,
@@ -52,6 +55,10 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     fontSize: theme.typography.h3.fontSize,
     lineHeight: theme.typography.h3.lineHeight,
+  },
+  prices: {
+    display: 'flex',
+    color: ({ isArchived }: Pick<PropertyItemProps, 'isArchived'>) => theme.palette[isArchived ? 'gray' : 'black'].main,
   },
   price: {
     fontWeight: theme.typography.fontWeightBold,

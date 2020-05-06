@@ -11,8 +11,9 @@ export type PropertyItemProps = ProgressFillingProps & {
   price: number;
   pricePerMeter: number;
   isAlert?: boolean;
-  isHighlighted?: boolean;
+  isArchived?: boolean | undefined;
   categories: ReactNode;
   children: ReactNode;
   onMenuClick: () => void;
+  stage?: 0 | 1 | 2 | 3 | 4 | 5;
 };
