@@ -10,3 +10,4 @@ export { List } from './list/List';
 export { PropertyStage } from './propertyStage/PropertyStage';
 export { PropertyItem } from './propertyItem/PropertyItem';
 export { PropertyItemPlaceholder } from './propertyItemPlaceholder/PropertyItemPlaceholder';
+export { Modal } from './modal/Modal';

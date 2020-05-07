@@ -258,6 +258,7 @@ import { HideIcon } from './atoms/icons/hide/HideIcon';
 import { HomeIcon } from './atoms/icons/home/HomeIcon';
 import { LinkIcon } from './atoms/icons/link/LinkIcon';
 import { MailIcon } from './atoms/icons/mail/MailIcon';
+import { CloseIcon } from './atoms/icons/close/CloseIcon';
 import { ManageIcon } from './atoms/icons/manage/ManageIcon';
 import { NoteIcon } from './atoms/icons/note/NoteIcon';
 import { PinIcon } from './atoms/icons/pin/PinIcon';
@@ -333,7 +334,7 @@ const wrapperStyle = {
     <UnseeIcon color="action"/>
     <SiteIcon color="action"/>
     <MenuIcon color="action"/>
-    <Box width={24}/>
+    <CloseIcon color="action"/>
     <Box width={24}/>
   </div>
 </>

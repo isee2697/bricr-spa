@@ -12,6 +12,7 @@ declare module '@material-ui/core/styles/createPalette' {
     blue: createPalette.SimplePaletteColorOptions;
     purple: createPalette.SimplePaletteColorOptions;
     gradientPrimary: createPalette.SimplePaletteColorOptions;
+    overlay: createPalette.SimplePaletteColorOptions;
   }
 
   export interface Palette {
@@ -25,6 +26,7 @@ declare module '@material-ui/core/styles/createPalette' {
     blue: createPalette.SimplePaletteColorOptions;
     purple: createPalette.SimplePaletteColorOptions;
     gradientPrimary: createPalette.SimplePaletteColorOptions;
+    overlay: createPalette.SimplePaletteColorOptions;
   }
 }
 

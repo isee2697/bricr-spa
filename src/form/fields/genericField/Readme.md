@@ -15,10 +15,9 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <GenericField
-            placeholder="Placeholder"
+            placeholder="login.username_placeholder"
             name="my field"
             label={<>Label</>}
-            inactive={true}
             InputProps={{
                 endAdornment: (<MailIcon />)
             }}
@@ -26,8 +25,8 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
         </Grid>
         <Grid item xs={4}>
           <GenericField 
-            placeholder="Placeholder"
-            name="my field"
+            placeholder="login.username_placeholder"
+            name="my field2"
             label={<>Label</>}
             helperText="My error"
             error={true}
@@ -38,8 +37,8 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
         </Grid>
         <Grid item xs={4}>
           <GenericField 
-            placeholder="Placeholder"
-            name="my field"
+            placeholder="login.username_placeholder"
+            name="my field3"
             label={<>Label</>}
             disabled
             InputProps={{

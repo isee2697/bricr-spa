@@ -28,6 +28,11 @@ export { default as StepLabel } from '@material-ui/core/StepLabel';
 export { default as StepConnector } from '@material-ui/core/StepConnector';
 export { default as Container } from '@material-ui/core/Container';
 export { default as Collapse } from '@material-ui/core/Collapse';
+export { default as Dialog } from '@material-ui/core/Dialog';
+export { default as DialogTitle } from '@material-ui/core/DialogTitle';
+export { default as DialogContent } from '@material-ui/core/DialogContent';
+export { default as DialogContentText } from '@material-ui/core/DialogContentText';
+export { default as DialogActions } from '@material-ui/core/DialogActions';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

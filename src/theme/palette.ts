@@ -82,4 +82,7 @@ export const palette: PaletteOptions = {
   gradientPrimary: {
     main: gradientPrimary,
   },
+  overlay: {
+    main: 'rgba(130, 141, 185, 0.3)',
+  },
 };

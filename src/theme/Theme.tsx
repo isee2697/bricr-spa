@@ -23,6 +23,11 @@ const theme = createMuiTheme({
         backgroundColor: palette.gray.light,
       },
     },
+    MuiBackdrop: {
+      root: {
+        backgroundColor: palette.overlay.main,
+      },
+    },
     MuiBadge: {
       badge: {
         width: 16,
@@ -88,6 +93,33 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiDialogActions: {
+      root: {
+        padding: defaultTheme.spacing(3),
+        paddingTop: 0,
+        justifyContent: 'space-between',
+        '& > *:only-child': {
+          margin: '0 auto',
+        },
+      },
+    },
+    MuiDialogContent: {
+      root: {
+        padding: defaultTheme.spacing(3),
+      },
+    },
+    MuiDialogTitle: {
+      root: {
+        padding: defaultTheme.spacing(3),
+        '& h2': {
+          ...typography.h1,
+          fontWeight: fontWeight.medium,
+        },
+        '& button:last-child': {
+          float: 'right',
+        },
+      },
+    },
     MuiFormHelperText: {
       contained: {
         marginLeft: 0,
@@ -112,6 +144,11 @@ const theme = createMuiTheme({
       },
       input: {
         fontSize: '0.9rem',
+      },
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: defaultTheme.spacing(1),
       },
     },
     MuiOutlinedInput: {
