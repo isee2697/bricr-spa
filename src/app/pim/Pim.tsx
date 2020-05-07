@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Card, CardHeader, CardContent, Tabs, Tab, Typography } from 'ui/atoms';
-import { EmptyState } from 'ui/molecules';
+import { InfoSection } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 
@@ -43,12 +43,12 @@ export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) =>
                       label={formatMessage({ id: AppMessages['pim.status.archived'] }, { count: 0 })}
                     />
                   </Tabs>
-                  <EmptyState>
+                  <InfoSection emoji="🤔">
                     <Typography variant="h3">{formatMessage({ id: AppMessages['pim.list.empty_title'] })}</Typography>
                     <Typography variant="h3">
                       {formatMessage({ id: AppMessages['pim.list.empty_description'] })}
                     </Typography>
-                  </EmptyState>
+                  </InfoSection>
                 </CardContent>
               </Card>
             </Grid>
