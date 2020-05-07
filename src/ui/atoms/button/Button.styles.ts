@@ -4,6 +4,21 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { ButtonProps } from '@material-ui/core/Button';
 
 export const Button: React.ComponentType<ButtonProps> = withStyles(theme => ({
+  containedPrimary: {
+    '&:disabled': {
+      position: 'relative',
+      background: theme.palette.gradientPrimary.main,
+      color: theme.palette.white.main,
+      '&:before': {
+        position: 'absolute',
+        content: '""',
+        width: '100%',
+        height: '100%',
+        background: theme.palette.white.main,
+        opacity: 0.4,
+      },
+    },
+  },
   sizeSmall: {
     paddingTop: 5,
     paddingBottom: 5,
@@ -11,6 +26,8 @@ export const Button: React.ComponentType<ButtonProps> = withStyles(theme => ({
   sizeLarge: {
     paddingTop: 7,
     paddingBottom: 7,
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
   },
   startIcon: {
     marginRight: 4,
@@ -23,7 +40,8 @@ export const Button: React.ComponentType<ButtonProps> = withStyles(theme => ({
 export const useStyles = makeStyles(theme => ({
   ghost: {
     background: 'transparent',
-    border: 'none',
+    borderColor: ({ variant }: Pick<ButtonProps, 'variant'>) =>
+      variant === 'outlined' ? theme.palette.gray.main : 'none',
     boxShadow: 'none',
     color: 'currentColor',
     '& svg': {
@@ -31,6 +49,7 @@ export const useStyles = makeStyles(theme => ({
     },
     '&:hover': {
       background: 'transparent',
+      boxShadow: 'none',
     },
   },
 }));

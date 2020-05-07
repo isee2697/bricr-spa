@@ -8,65 +8,84 @@ import { useTheme } from '@material-ui/core/styles';
 const theme = useTheme();
 
 <>
-<Button variant="contained" color="primary">
-    Button Primary
-  </Button>
-
-   {' '}
-
-  <Button variant="contained" color="secondary">
-    Button Secondary
-  </Button>
-
-  {' '}
-
-  <Button variant="contained">
-    Button default
-  </Button>
-
-  {' '}
-
-  <Button variant="contained" color="secondary" disabled>
-    Button disabled
-  </Button>
-  
-  {' '}
-  
-  <Box color={theme.palette.gray.main} display="inline-block">
-    <Button variant="contained" color="ghost" endIcon={<ArrowDownIcon color="primary"/>}>
-      Button ghost
+  <div>
+    <Button variant="contained" color="primary">
+       Primary
     </Button>
-  </Box>
+    
+    {' '}
+    
+    <Button variant="contained" color="primary" disabled>
+       Primary disabled
+    </Button>
+  
+     {' '}
+  
+    <Button variant="contained" color="secondary">
+       Secondary
+    </Button>
+  
+    {' '}
+  
+    <Button variant="contained">
+       Default
+    </Button>
+  
+    {' '}
+  
+    <Button variant="contained" color="secondary" disabled>
+       Disabled
+    </Button>
+    
+    {' '}
+    
+    <Box color={theme.palette.gray.main} display="inline-block">
+      <Button variant="contained" color="ghost">
+         Ghost
+      </Button>
+    </Box>
+  </div>
 </>
 ```
 
 Outlined button:
 
 ```jsx harmony
-import { Button } from "ui/atoms";
+import { Button, Box } from "ui/atoms";
+import { useTheme } from '@material-ui/core/styles';
+
+const theme = useTheme();
 
 <div>
-<Button variant="outlined" color="primary">
-    Button Primary
+  <Button variant="outlined" color="primary">
+    Primary
   </Button>
 
   {' '}
 
   <Button variant="outlined" color="secondary">
-    Button Secondary
+    Secondary
   </Button>
 
   {' '}
 
   <Button variant="outlined">
-    Button default
+    Default
   </Button>
   
   {' '}
 
   <Button variant="outlined" color="secondary" disabled>
-    Button disabled
+    Disabled
   </Button>
+  
+  {' '}
+  
+  <Box color={theme.palette.gray.main} display="inline-block">
+    <Button variant="outlined" color="ghost">
+       Ghost
+    </Button>
+  </Box>
 </div>
 ```
 
@@ -117,4 +136,23 @@ import { Button } from "./Button";
 <Button variant="contained" color="secondary" fullWidth={true}>
   Full width
 </Button>
+```
+
+Loading button:
+
+```jsx harmony
+import { Button, Box, CircularProgress } from "ui/atoms";
+
+const [isLoading, setLoading] = React.useState(false);
+
+const fakeLoading = () => {
+  setLoading(true);
+  setTimeout(() => setLoading(false), 2000);
+};
+
+<Box width={100}>
+  <Button variant="contained" color="primary" onClick={fakeLoading} fullWidth={true}>
+    {isLoading ? <CircularProgress color="inherit"/> : 'Search'}
+  </Button>
+</Box>
 ```

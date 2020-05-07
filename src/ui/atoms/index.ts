@@ -54,3 +54,4 @@ export { Checkbox } from './checkbox/Checkbox';
 export { Pagination } from './pagination/Pagination';
 export { Price } from './price/Price';
 export { Placeholder } from './placeholder/Placeholder';
+export { CircularProgress } from './circularProgress/CircularProgress';
