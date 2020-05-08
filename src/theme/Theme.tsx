@@ -153,6 +153,9 @@ const theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       root: {
+        borderRadius: defaultTheme.spacing(1),
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
         background: palette.gray.light,
         '&:hover:not(.Mui-focused):not( .Mui-disabled) .MuiOutlinedInput-notchedOutline': {
           borderColor: palette.gray.main,
@@ -163,7 +166,6 @@ const theme = createMuiTheme({
           borderLeftStyle: 'solid',
           borderRightStyle: 'solid',
         },
-        borderBottomLeftRadius: 0,
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
           borderBottomWidth: 1,
         },
