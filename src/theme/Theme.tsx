@@ -134,7 +134,7 @@ const theme = createMuiTheme({
       },
       sizeSmall: {
         padding: 4,
-        '&:not([variant="roundedContained"])': {
+        '&:not([variant="roundedContained"]):not([variant="rounded"])': {
           boxShadow: shadows[1],
         },
       },
