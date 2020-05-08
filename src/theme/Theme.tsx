@@ -134,6 +134,9 @@ const theme = createMuiTheme({
       },
       sizeSmall: {
         padding: 4,
+        '&:not([variant="roundedContained"])': {
+          boxShadow: shadows[1],
+        },
       },
     },
     MuiInputBase: {
