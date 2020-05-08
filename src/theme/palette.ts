@@ -1,6 +1,7 @@
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 const primary = '#0A57E9';
+const primaryLight = '#e2ecfd';
 const secondary = '#EE2F57';
 const black = '#2F1F5B';
 const white = '#fff';
@@ -24,6 +25,7 @@ const gradientPrimary = 'linear-gradient(315deg, #0A57E9 0%, #9FC0FF 100%)';
 export const palette: PaletteOptions = {
   primary: {
     main: primary,
+    light: primaryLight,
   },
   secondary: {
     main: secondary,

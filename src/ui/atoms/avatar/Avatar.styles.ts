@@ -7,5 +7,6 @@ import { AvatarProps } from './Avatar.types';
 export const Avatar: React.ComponentType<AvatarProps> = withStyles({
   root: {
     background: (props: AvatarProps) => props.bgcolor,
+    outline: 'none',
   },
 })(MaterialAvatar);

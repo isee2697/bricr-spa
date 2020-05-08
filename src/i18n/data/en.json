@@ -73,5 +73,7 @@
   "property_item.progress": "Progress of property",
   "property_item.archived": "Archived",
   "list.select_all": "Select all",
-  "list.bulk_actions": "Bulk actions"
+  "list.bulk_actions": "Bulk actions",
+  "select_card.select": "Select",
+  "select_card.unselect": "Unselect"
 }

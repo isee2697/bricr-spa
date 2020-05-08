@@ -258,7 +258,6 @@ import { HideIcon } from './atoms/icons/hide/HideIcon';
 import { HomeIcon } from './atoms/icons/home/HomeIcon';
 import { LinkIcon } from './atoms/icons/link/LinkIcon';
 import { MailIcon } from './atoms/icons/mail/MailIcon';
-import { CloseIcon } from './atoms/icons/close/CloseIcon';
 import { ManageIcon } from './atoms/icons/manage/ManageIcon';
 import { NoteIcon } from './atoms/icons/note/NoteIcon';
 import { PinIcon } from './atoms/icons/pin/PinIcon';
@@ -272,6 +271,9 @@ import { SeeIcon } from './atoms/icons/see/SeeIcon';
 import { UnseeIcon } from './atoms/icons/unsee/UnseeIcon';
 import { SiteIcon } from './atoms/icons/site/SiteIcon';
 import { MenuIcon } from './atoms/icons/menu/MenuIcon';
+import { NewConstructionIcon } from './atoms/icons/newConstruction/NewConstructionIcon';
+import { ComplexBuildingIcon } from './atoms/icons/complexBuilding/ComplexBuildingIcon';
+import { CloseIcon } from './atoms/icons/close/CloseIcon';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
 
@@ -334,7 +336,16 @@ const wrapperStyle = {
     <UnseeIcon color="action"/>
     <SiteIcon color="action"/>
     <MenuIcon color="action"/>
-    <CloseIcon color="action"/>
+    <NewConstructionIcon color="action"/>
+    <ComplexBuildingIcon color="action"/>
+  </div>
+  <br/>
+  <div style={{...wrapperStyle, color: 'purple' }}>
+    <CloseIcon color="inherit"/>
+    <Box width={24}/>
+    <Box width={24}/>
+    <Box width={24}/>
+    <Box width={24}/>
     <Box width={24}/>
   </div>
 </>

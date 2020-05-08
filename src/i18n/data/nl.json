@@ -73,5 +73,7 @@
   "property_item.progress": "Voortgang van eigendom",
   "property_item.archived": "Gearchiveerd",
   "list.select_all": "Selecteer alles",
-  "list.bulk_actions": "Bulkacties"
+  "list.bulk_actions": "Bulkacties",
+  "select_card.select": "Selecteer",
+  "select_card.unselect": "Deselecteer"
 }
