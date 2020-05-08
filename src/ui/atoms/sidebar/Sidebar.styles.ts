@@ -11,6 +11,9 @@ export const Sidebar = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(2),
   borderLeft: `2px solid ${theme.palette.white.main}`,
+  [theme.breakpoints.down('sm')]: {
+    top: theme.spacing(0),
+  },
   '& > *:not(:first-child)': {
     marginTop: theme.spacing(2),
   },

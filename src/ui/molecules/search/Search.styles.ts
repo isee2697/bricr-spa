@@ -27,6 +27,12 @@ export const useStyles = makeStyles(theme => ({
       maxHeight: '70vh',
       boxShadow: 'inset 0 4px 4px -4px rgba(159, 192, 255, 0.5)',
     },
+    [theme.breakpoints.down('sm')]: {
+      top: theme.spacing(2),
+      width: '80vw',
+      position: 'fixed',
+      left: '5vw',
+    },
     '&::before': {
       content: '""',
       display: 'block',
@@ -45,7 +51,6 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(),
     position: 'absolute',
     top: theme.spacing(2),
-
     '& .MuiAutocomplete-inputRoot, & .MuiAutocomplete-input': {
       paddingTop: 0,
       paddingBottom: 0,
@@ -63,6 +68,10 @@ export const useStyles = makeStyles(theme => ({
     minWidth: '58vw',
     maxWidth: '58vw',
     zIndex: 20,
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '90vw',
+      maxWidth: '90vw',
+    },
   },
   '.MuiAutocomplete-paper': {
     minHeight: 2000,

@@ -24,10 +24,15 @@ export const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     alignItems: 'flex-start',
+    maxWidth: '100vw',
+    overflowX: 'hidden',
   },
   content: {
     padding: theme.spacing(0),
     flex: '1 1 auto',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: `calc(100vw - ${theme.spacing(8)}px)`,
+    },
   },
   overlay: {
     position: 'fixed',
