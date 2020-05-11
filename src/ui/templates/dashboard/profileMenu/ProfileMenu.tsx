@@ -2,12 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { UserAvatar, Avatar, Menu, Box, Typography, Link } from 'ui/atoms';
+import { UserAvatar, Avatar, Menu, Box, Typography, Link, Badge } from 'ui/atoms';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
+import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
+import { ArrowUpIcon } from 'ui/atoms/icons/arrowUp/ArrowUpIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
+
+import { useStyles } from './ProfileMenu.styles';
 
 export const ProfileMenu = () => {
   const theme = useTheme();
@@ -15,6 +19,7 @@ export const ProfileMenu = () => {
   const [isOpened, setOpened] = useState(false);
   const { user } = useAuthState();
   const setOverlay = useOverlayDispatch();
+  const classes = useStyles();
 
   useEffect(() => {
     setOverlay(isOpened);
@@ -22,19 +27,21 @@ export const ProfileMenu = () => {
 
   return (
     <>
-      <UserAvatar
-        onClick={() => setOpened(true)}
-        onKeyDown={() => setOpened(true)}
-        avatar={user?.avatar || ''}
-        name={user?.firstName || ''}
-        innerRef={menuRef}
-        style={{ cursor: 'pointer' }}
-        tabIndex={0}
-        aria-controls="profile-menu"
-        aria-label="profile"
-        aria-haspopup="true"
-        id="profile-button"
-      />
+      <Badge badgeContent={isOpened ? <ArrowUpIcon /> : <ArrowDownIcon />} color="secondary" className={classes.badge}>
+        <UserAvatar
+          onClick={() => setOpened(true)}
+          onKeyDown={() => setOpened(true)}
+          avatar={user?.avatar || ''}
+          name={user?.firstName || ''}
+          innerRef={menuRef}
+          style={{ cursor: 'pointer' }}
+          tabIndex={0}
+          aria-controls="profile-menu"
+          aria-label="profile"
+          aria-haspopup="true"
+          id="profile-button"
+        />
+      </Badge>
 
       <Menu
         id="profile-menu"

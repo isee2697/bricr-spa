@@ -4,7 +4,7 @@ export const Sidebar = styled('div')(({ theme }) => ({
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
   flex: `0 0 ${theme.spacing(8)}px`,
-  top: theme.spacing(11),
+  top: theme.spacing(3),
   position: 'sticky',
   zIndex: 2,
   textAlign: 'center',

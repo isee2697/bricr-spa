@@ -56,6 +56,7 @@ export const useStyles = makeStyles(theme => ({
       paddingBottom: 0,
       paddingLeft: theme.spacing(0.5),
       paddingRight: theme.spacing(0.5),
+      borderRadius: theme.spacing(),
     },
     '& .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input': {
       height: '1em',
