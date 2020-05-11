@@ -4,8 +4,8 @@ export const useStyles = makeStyles(theme => ({
   date: {
     borderRight: `2px solid ${theme.palette.gray.light}`,
     minWidth: 60,
-    minHeight: '2.5em',
     margin: theme.spacing(1),
+    marginLeft: 0,
   },
   startDate: {
     width: '100%',
@@ -18,5 +18,9 @@ export const useStyles = makeStyles(theme => ({
     width: '100%',
     color: theme.palette.gray.main,
     fontWeight: theme.typography.fontWeightBold,
+  },
+  title: {
+    fontSize: theme.typography.h5.fontSize,
+    lineHeight: `${theme.spacing(2)}px`,
   },
 }));

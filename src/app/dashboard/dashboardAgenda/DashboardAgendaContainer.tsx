@@ -32,7 +32,7 @@ const mockData = [
     isAllDay: false,
     startDate: new Date().toISOString(),
     endDate: laterToday.toISOString(),
-    title: 'My Thirth Today appointment',
+    title: 'My Thirth Today appointment, which cant be moved',
   },
   {
     isAllDay: false,

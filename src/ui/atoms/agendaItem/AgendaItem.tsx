@@ -27,7 +27,7 @@ export const AgendaItem = ({ isAllDay, startDate, endDate, title }: AgendaItemPr
         </Typography>
         {endTime}
       </Grid>
-      <Grid xs={8} lg={'auto'} item>
+      <Grid xs={8} lg={'auto'} className={classes.title} item>
         {title}
       </Grid>
     </Grid>
