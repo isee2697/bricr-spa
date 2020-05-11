@@ -9,6 +9,10 @@ export const useStyles = makeStyles(theme => ({
     '& *': {
       userSelect: 'none',
     },
+    '& .MuiBox-root': {
+      fontSize: theme.typography.h5.fontSize,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
   },
   name: {
     fontSize: theme.spacing(1.5),
