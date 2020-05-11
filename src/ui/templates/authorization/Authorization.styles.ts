@@ -18,8 +18,9 @@ export const useStyles = makeStyles(theme => ({
   topBar: {
     boxShadow: 'none',
   },
-  topBarLink: {
-    marginLeft: 'auto',
+  backLink: {
+    marginRight: 'auto',
+    marginTop: theme.spacing(4),
   },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/featured/?building)',

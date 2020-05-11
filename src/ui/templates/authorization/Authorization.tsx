@@ -19,16 +19,15 @@ export const Authorization = ({ children }: AuthorizationProps) => {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12} sm={8} md={7} lg={4} component={Paper} elevation={6} square>
-        <TopBar className={classes.topBar}>
-          {pathname !== AppRoute.login && (
-            <Link component={RouterLink} className={classes.topBarLink} to={AppRoute.login}>
-              {formatMessage({ id: AppMessages['authorization.back_to_login'] })}
-            </Link>
-          )}
-        </TopBar>
+        <TopBar className={classes.topBar}></TopBar>
 
         <Grid item xs={10} md={9} lg={9} className={classes.content}>
           {children}
+          {pathname !== AppRoute.login && (
+            <Link component={RouterLink} className={classes.backLink} to={AppRoute.login}>
+              {formatMessage({ id: AppMessages['authorization.back_to_login'] })}
+            </Link>
+          )}
         </Grid>
       </Grid>
       <Grid item xs={false} sm={4} md={5} lg={8} className={classes.image} />
