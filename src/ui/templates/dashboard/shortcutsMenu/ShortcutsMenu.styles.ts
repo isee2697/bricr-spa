@@ -8,4 +8,12 @@ export const useStyles = makeStyles(theme => ({
     },
     zIndex: 3,
   },
+  box: {
+    marginBottom: theme.spacing(1),
+    maxWidth: 250,
+  },
+  header: {
+    padding: 0,
+    marginBottom: theme.spacing(2),
+  },
 }));
