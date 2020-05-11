@@ -4,9 +4,12 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import { ChipProps } from './Chip.types';
 
-export const Chip: React.ComponentType<ChipProps> = withStyles(({ palette }) => ({
+export const Chip: React.ComponentType<ChipProps> = withStyles(({ palette, typography, spacing }) => ({
   root: {
     display: 'inline-flex',
+    fontSize: typography.h5.fontSize,
+    fontWeight: typography.fontWeightMedium,
+    padding: spacing(),
   },
   colorPrimary: {
     borderColor: palette.gray.main,
