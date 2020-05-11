@@ -8,5 +8,6 @@ export const useStyles = makeStyles(theme => ({
   },
   logo: {
     marginRight: theme.spacing(4),
+    minWidth: theme.spacing(15),
   },
 }));
