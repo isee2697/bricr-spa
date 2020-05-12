@@ -3,13 +3,15 @@ import React from 'react';
 import { ProgressFillingProps } from './ProgressFilling.types';
 import * as S from './ProgressFilling.styles';
 
-export const ProgressFilling = ({ stage }: ProgressFillingProps) => {
-  const maxStage = 6;
+const MAX_STAGE = 6;
+
+export const ProgressFilling = ({ progress }: ProgressFillingProps) => {
+  const intProgress = Math.round(progress * MAX_STAGE);
 
   return (
     <S.ProgressFilling>
-      {Array.from({ length: maxStage }).map((item, index) => (
-        <div key={`fill-${index}`} className={stage > index ? 'filled' : 'empty'} />
+      {Array.from({ length: MAX_STAGE }).map((item, index) => (
+        <div key={`fill-${index}`} className={intProgress > index ? 'filled' : 'empty'} />
       ))}
     </S.ProgressFilling>
   );

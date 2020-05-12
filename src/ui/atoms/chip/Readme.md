@@ -37,7 +37,7 @@ import { useTheme } from '@material-ui/core/styles';
 const theme = useTheme();
 
 <>
-  <Chip variant="outlined" color="primary" label="Primary" label ="primary"/>
+  <Chip variant="outlined" color="primary" label="primary"/>
   <br/>
   <br/>
   <Chip variant="outlined" fontcolor={theme.palette.green.main} bgcolor={theme.palette.green.light} color="secondary" label="secondary green"/>  

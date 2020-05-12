@@ -8,8 +8,6 @@ export const Checkbox: React.ComponentType<CheckboxProps> = withStyles(theme => 
   root: {
     color: theme.palette.gray.main,
     background: 'transparent',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
   },
   colorPrimary: {
     '& .MuiSvgIcon-root': {

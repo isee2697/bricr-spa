@@ -41,6 +41,6 @@ describe('List', () => {
 
     const elements = getAllByText('LoadingItem');
 
-    expect(elements.length).toEqual(5);
+    expect(elements.length).toEqual(3);
   });
 });

@@ -10,7 +10,19 @@ describe('Pim', () => {
     const onTypeChange = jest.fn();
 
     const { getByText } = render(
-      <Pim status="archived" type="sale" onTypeChange={onTypeChange} onStatusChange={onStatusChange} />,
+      <Pim
+        status="archived"
+        type="sale"
+        onTypeChange={onTypeChange}
+        onStatusChange={onStatusChange}
+        isLoading={false}
+        isError={false}
+        sorting={{
+          sortOptions: [{ name: 'Lowest sale price', key: 'salePriceAsc' }],
+          onSort: () => {},
+        }}
+        pagination={{}}
+      />,
     );
 
     fireEvent.click(getByText('pim.type.rent'));

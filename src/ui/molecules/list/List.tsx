@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Pagination } from 'ui/atoms';
+import { Box, Pagination, Typography } from 'ui/atoms';
+import { InfoSection } from 'ui/molecules';
 
 import { ListProps } from './List.types';
 import { useStyles } from './List.styles';
@@ -18,10 +19,21 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   pagination,
   loading,
   loadingItem,
+  emptyTitle,
+  emptyDescription,
 }) => {
   const classes = useStyles();
 
   const { checkedKeys, checkAllStatus, handleCheck, handleCheckAll } = useSelect(items, itemIndex);
+
+  if (!loading && !items.length && emptyTitle && emptyDescription) {
+    return (
+      <InfoSection emoji="🤔">
+        <Typography variant="h3">{emptyTitle}</Typography>
+        <Typography variant="h3">{emptyDescription}</Typography>
+      </InfoSection>
+    );
+  }
 
   return (
     <Box className={classes.container}>
@@ -53,7 +65,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
       )}
       {loading && loadingItem && (
         <>
-          {Array.from({ length: 5 }).map((i, k) => (
+          {Array.from({ length: 3 }).map((i, k) => (
             <ListRow key={k} checked={false} onCheck={() => {}} item={i} renderItem={() => loadingItem} />
           ))}
         </>

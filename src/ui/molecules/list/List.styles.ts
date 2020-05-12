@@ -51,20 +51,9 @@ export const useStyles = makeStyles(theme => ({
   },
   checkbox: {
     padding,
-    '&.MuiCheckbox-colorPrimary': {
-      background: 'transparent',
-      '& svg': {
-        color: theme.palette.gray.main,
-      },
-      '&.Mui-checked': {
-        '& svg': {
-          color: theme.palette.primary.main,
-        },
-      },
-    },
   },
   item: {
-    padding: `10px 16px 22px 0`,
+    padding: `22px 16px 22px 0`,
     width: '100%',
   },
   pagination: {

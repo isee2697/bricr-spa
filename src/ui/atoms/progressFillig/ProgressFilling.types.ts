@@ -1,3 +1,3 @@
 export type ProgressFillingProps = {
-  stage: 0 | 1 | 2 | 3 | 4 | 5;
+  progress: number;
 };

@@ -25,7 +25,7 @@ export const useStyles = makeStyles(theme => ({
     lineHeight: theme.typography.h3.lineHeight,
     fontWeight: theme.typography.fontWeightBold,
   },
-  categories: {
+  labels: {
     display: 'flex',
     color: theme.palette.gray.main,
     fontSize: theme.typography.h6.fontSize,
@@ -62,7 +62,18 @@ export const useStyles = makeStyles(theme => ({
   },
   price: {
     fontWeight: theme.typography.fontWeightBold,
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(2),
+  },
+  status: {
+    color: theme.palette.orange.main,
+    fontSize: theme.typography.h5.fontSize,
+    lineHeight: theme.typography.h5.lineHeight,
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  statusArchived: {
+    color: theme.palette.gray.main,
+    fontSize: theme.typography.h5.fontSize,
+    lineHeight: theme.typography.h5.lineHeight,
   },
   infoProgress: {
     display: 'flex',
@@ -86,5 +97,12 @@ export const useStyles = makeStyles(theme => ({
     lineHeight: theme.typography.h5.lineHeight,
     fontWeight: theme.typography.fontWeightBold,
     marginBottom: theme.spacing(2),
+  },
+  archivedTitle: {
+    fontSize: theme.typography.h5.fontSize,
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  archivedText: {
+    color: theme.palette.gray.main,
   },
 }));

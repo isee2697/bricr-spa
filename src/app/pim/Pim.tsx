@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
 
-import { Grid, Card, CardHeader, CardContent, Tabs, Tab, Typography } from 'ui/atoms';
-import { InfoSection } from 'ui/molecules';
+import { Pim as PimEntity } from 'api/types';
+import { Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
 import { AddPimModalContainer } from 'app/addPimModal/AddPimModalContainer';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
-import { useStyles } from './Pim.styles';
 import { PimHeader } from './pimHeader/PimHeader';
+import { PimTabs } from './pimTabs/PimTabs';
+import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
+import { useStyles } from './Pim.styles';
 
-export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) => {
+export const Pim = ({
+  status,
+  onStatusChange,
+  type,
+  onTypeChange,
+  isLoading,
+  isError,
+  amounts,
+  listData,
+  sorting,
+  pagination,
+}: PimProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [addPimOpened, setAddPimOpened] = useState(false);
 
   return (
     <>
+      {!!isError && <Alert severity="error">{formatMessage({ id: AppMessages['common.error'] })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
           <PimSidebarMenu type={type} onTypeChange={onTypeChange} />
@@ -29,28 +44,20 @@ export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) =>
               <Card>
                 <CardHeader title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
-                  <Tabs
-                    value={status}
-                    onChange={(event, value) => onStatusChange(value)}
-                    indicatorColor="primary"
-                    textColor="primary"
-                  >
-                    <Tab
-                      value="action_required"
-                      label={formatMessage({ id: AppMessages['pim.status.acion_required'] }, { count: 0 })}
-                    />
-                    <Tab value="active" label={formatMessage({ id: AppMessages['pim.status.active'] }, { count: 0 })} />
-                    <Tab
-                      value="archived"
-                      label={formatMessage({ id: AppMessages['pim.status.archived'] }, { count: 0 })}
-                    />
-                  </Tabs>
-                  <InfoSection emoji="🤔">
-                    <Typography variant="h3">{formatMessage({ id: AppMessages['pim.list.empty_title'] })}</Typography>
-                    <Typography variant="h3">
-                      {formatMessage({ id: AppMessages['pim.list.empty_description'] })}
-                    </Typography>
-                  </InfoSection>
+                  <PimTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                  <List
+                    items={(listData?.listPims.items ?? []) as PimEntity[]}
+                    itemIndex={'id'}
+                    renderItem={pim => <PimItem {...pim} />}
+                    onBulk={() => alert('Bulk clicked')}
+                    sortOptions={sorting.sortOptions}
+                    onSort={sorting.onSort}
+                    pagination={pagination}
+                    loading={isLoading}
+                    loadingItem={<PropertyItemPlaceholder />}
+                    emptyTitle={formatMessage({ id: AppMessages['pim.list.empty_title'] })}
+                    emptyDescription={formatMessage({ id: AppMessages['pim.list.empty_description'] })}
+                  />
                 </CardContent>
               </Card>
             </Grid>

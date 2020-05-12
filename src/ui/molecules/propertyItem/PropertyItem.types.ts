@@ -1,19 +1,21 @@
-import { ReactNode } from 'react';
+import { PropertyStageItem } from 'ui/molecules/propertyStage/PropertyStage.types';
 
-import { ProgressFillingProps } from 'ui/atoms/progressFillig/ProgressFilling.types';
-
-export type PropertyItemProps = ProgressFillingProps & {
+export type PropertyItemProps = {
   title: string;
   image: string;
   date: string;
   labels: string[];
   discountPrice?: number;
-  price: number;
-  pricePerMeter: number;
-  isAlert?: boolean;
+  salePrice?: number | null;
+  rentPrice?: number | null;
+  alert?: string;
+  status?: string;
+  categories: string[];
   isArchived?: boolean | undefined;
-  categories: ReactNode;
-  children: ReactNode;
+  completeness?: number;
+  stageItems?: PropertyStageItem[];
+  stageIndex?: number;
+  formerOwners?: string;
+  buyers?: string;
   onMenuClick: () => void;
-  stage?: 0 | 1 | 2 | 3 | 4 | 5;
 };

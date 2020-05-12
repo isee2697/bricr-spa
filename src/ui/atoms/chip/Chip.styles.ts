@@ -11,6 +11,11 @@ export const Chip: React.ComponentType<ChipProps> = withStyles(({ palette, typog
     fontWeight: typography.fontWeightMedium,
     padding: spacing(),
   },
+  labelSmall: {
+    fontSize: typography.h6.fontSize,
+    fontWeight: typography.fontWeightBold,
+    padding: `0 ${spacing(2)}px`,
+  },
   colorPrimary: {
     borderColor: palette.gray.main,
     backgroundColor: palette.white.main,

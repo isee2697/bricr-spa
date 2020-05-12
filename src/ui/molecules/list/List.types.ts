@@ -1,22 +1,24 @@
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
-type SortOption = {
+export type SortOption = {
   name: string;
   key: string;
 };
 
-type RenderItem = <T>(item: T, isSelected: boolean) => React.ReactNode;
+type RenderItem<T> = (item: T, isSelected: boolean) => React.ReactElement;
 
 export type ListProps<T> = {
   items: T[];
   itemIndex: keyof T;
-  renderItem: RenderItem;
+  renderItem: RenderItem<T>;
   onBulk: (selectedItems: T[]) => void;
   sortOptions: SortOption[];
   onSort: (key: string) => void;
   pagination: PaginationProps;
   loading?: boolean;
-  loadingItem?: React.ReactNode;
+  loadingItem?: React.ReactElement;
+  emptyTitle?: string;
+  emptyDescription?: string;
 };
 
 export type ListHeaderProps = {
@@ -35,5 +37,5 @@ export type ListRowProps<T> = {
   checked: boolean;
   onCheck: () => void;
   item: T;
-  renderItem: RenderItem;
+  renderItem: RenderItem<T>;
 };

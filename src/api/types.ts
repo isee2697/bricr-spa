@@ -337,6 +337,54 @@ export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type ListPimsCountQueryVariables = {};
+
+export type ListPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'PimSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'PimSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
+
+export type ListPimsQueryVariables = {
+  archived: Scalars['Boolean'];
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ListPimsQuery = { __typename?: 'Query' } & {
+  listPims: { __typename?: 'PimSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'Pim' } & Pick<
+          Pim,
+          | 'id'
+          | 'street'
+          | 'houseNumberPrefix'
+          | 'houseNumber'
+          | 'houseNumberAddition'
+          | 'constructionNumberPrefix'
+          | 'constructionNumber'
+          | 'constructionNumberAddition'
+          | 'city'
+          | 'dateCreated'
+          | 'livingArea'
+          | 'propertyType'
+          | 'images'
+          | 'salePrice'
+          | 'rentPrice'
+          | 'completeness'
+          | 'archived'
+        >
+      >
+    >;
+  };
+};
+
 export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -450,6 +498,78 @@ export type CountPimsByParamsQueryResult = ApolloReactCommon.QueryResult<
   CountPimsByParamsQuery,
   CountPimsByParamsQueryVariables
 >;
+export const ListPimsCountDocument = gql`
+  query ListPimsCount {
+    activeCount: listPims(filters: { archived: false }) {
+      metadata {
+        total
+      }
+    }
+    archivedCount: listPims(filters: { archived: true }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(ListPimsCountDocument, baseOptions);
+}
+export function useListPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(
+    ListPimsCountDocument,
+    baseOptions,
+  );
+}
+export type ListPimsCountQueryHookResult = ReturnType<typeof useListPimsCountQuery>;
+export type ListPimsCountLazyQueryHookResult = ReturnType<typeof useListPimsCountLazyQuery>;
+export type ListPimsCountQueryResult = ApolloReactCommon.QueryResult<ListPimsCountQuery, ListPimsCountQueryVariables>;
+export const ListPimsDocument = gql`
+  query ListPims($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+    listPims(
+      filters: { archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        street
+        houseNumberPrefix
+        houseNumber
+        houseNumberAddition
+        constructionNumberPrefix
+        constructionNumber
+        constructionNumberAddition
+        city
+        dateCreated
+        livingArea
+        propertyType
+        images
+        salePrice
+        rentPrice
+        completeness
+        archived
+      }
+    }
+  }
+`;
+export function useListPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsQuery, ListPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
+}
+export function useListPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsQuery, ListPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
+}
+export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
+export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
+export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
 export const MeDocument = gql`
   query Me {
     me {
