@@ -68,6 +68,7 @@
   "date.tomorrow": "Tomorrow",
   "date.view_more": "View more",
   "pagination.views": "Views",
+  "quantity.label": "Quantity",
   "property_item.per_meter": "p/m",
   "property_item.info_completed": "Information completed",
   "property_item.error": "No more house view scheduling",

@@ -274,6 +274,7 @@ import { MenuIcon } from './atoms/icons/menu/MenuIcon';
 import { NewConstructionIcon } from './atoms/icons/newConstruction/NewConstructionIcon';
 import { ComplexBuildingIcon } from './atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { CloseIcon } from './atoms/icons/close/CloseIcon';
+import { SubtractIcon } from './atoms/icons/subtract/SubtractIcon';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
 
@@ -342,7 +343,7 @@ const wrapperStyle = {
   <br/>
   <div style={{...wrapperStyle, color: 'purple' }}>
     <CloseIcon color="inherit"/>
-    <Box width={24}/>
+    <SubtractIcon color="inherit"/>
     <Box width={24}/>
     <Box width={24}/>
     <Box width={24}/>
