@@ -8,14 +8,22 @@ export const useStyles = makeStyles(theme => ({
     borderWidth: 1,
     borderStyle: 'solid',
     padding: theme.spacing(2),
-    margin: theme.spacing(1),
     display: 'inline-flex',
+    width: '100%',
     cursor: 'pointer',
     '& > *:first-child': {
       marginRight: theme.spacing(2),
     },
     '& > button': {
       marginLeft: 'auto',
+    },
+    '& > .MuiAvatar-root': {
+      width: theme.spacing(6),
+      height: theme.spacing(6),
+      '& .MuiSvgIcon-root': {
+        width: '1.5em',
+        height: '1.5em',
+      },
     },
   },
   selected: {
@@ -26,12 +34,6 @@ export const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.white.main,
       borderColor: theme.palette.primary.main,
     },
-  },
-  regular: {
-    width: `calc(25% - ${theme.spacing(2)}px)`,
-  },
-  fullWidth: {
-    width: `calc(100% - ${theme.spacing(2)}px)`,
   },
   centered: {
     justifyContent: 'center',

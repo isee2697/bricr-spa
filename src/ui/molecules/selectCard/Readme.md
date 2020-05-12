@@ -10,8 +10,9 @@ import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
  
-  <Grid container justify="center">
-    <SelectCard fullWidth  withButton onClick={() => {alert('Jhellow')}} >
+<Grid container justify="center" spacing={2}>
+  <Grid item xs={12}>
+    <SelectCard fullWidth selected withButton onClick={() => {alert('Jhellow')}} >
       <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
         <Box color={theme.palette.red.main}>
           <BuildingIcon color="inherit" />
@@ -19,6 +20,8 @@ const theme = useTheme();
       </Avatar>
       Property
     </SelectCard>
+  </Grid>
+  <Grid item xs={12}>
     <SelectCard fullWidth  withButton onClick={() => {alert('Jhellow')}} >
       <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
         <Box color={theme.palette.green.main}>
@@ -27,6 +30,8 @@ const theme = useTheme();
       </Avatar>
       New construction
     </SelectCard>
+  </Grid>
+  <Grid item xs={12}>
     <SelectCard fullWidth  withButton onClick={() => {alert('Jhellow')}} >
       <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
         <Box color={theme.palette.purple.main}>
@@ -35,7 +40,8 @@ const theme = useTheme();
       </Avatar>
       Property
     </SelectCard>
-  </Grid>;
+  </Grid>
+</Grid>
 ```
 
 Example of Select Card selected and small version
@@ -47,7 +53,8 @@ import { useTheme } from '@material-ui/core/styles';
 
 const theme = useTheme();
  
-  <Grid container justify="center">
+<Grid container justify="center" spacing={2}>
+  <Grid item xs={12}>
     <SelectCard fullWidth selected withButton onClick={() => {}} >
       <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
         <Box color={theme.palette.red.main}>
@@ -56,12 +63,27 @@ const theme = useTheme();
       </Avatar>
       Property
     </SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered selected={true} onClick={() => {}} >House</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >Apartment</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >BOG</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >AOG</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >Parking lot</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >Building plot</SelectCard>
+  </Grid>
+  <Grid item xs={4}>
     <SelectCard  centered onClick={() => {}} >Other</SelectCard>
-  </Grid>;
+  </Grid>
+</Grid>
 ```

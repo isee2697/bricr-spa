@@ -93,6 +93,11 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiDialog: {
+      paperWidthSm: {
+        maxWidth: defaultTheme.spacing(91),
+      },
+    },
     MuiDialogActions: {
       root: {
         padding: defaultTheme.spacing(3),
@@ -101,6 +106,7 @@ const theme = createMuiTheme({
         '& > *:only-child': {
           margin: '0 auto',
         },
+        color: palette.gray.main,
       },
     },
     MuiDialogContent: {

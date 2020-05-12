@@ -6,9 +6,10 @@ export const useStyles = makeStyles(theme => ({
       position: 'absolute',
       opacity: 0,
     },
+    minWidth: theme.spacing(20),
   },
   isLoading: {
-    '& .label': {
+    '& .label, & .MuiButton-startIcon, & .MuiButton-endIcon': {
       opacity: 0,
     },
     '& .spinner': {

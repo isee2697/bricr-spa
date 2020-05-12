@@ -8,4 +8,5 @@ export type SelectCardProps = {
   fullWidth?: boolean;
   centered?: boolean;
   selected?: boolean;
+  disabled?: boolean;
 };

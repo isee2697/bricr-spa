@@ -55,6 +55,7 @@ export const mockServer = () => {
           me() {
             if (request.requestHeaders?.authorization === 'Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3') {
               return {
+                id: 'test',
                 firstName: 'test',
                 lastName: 'test',
                 avatar:
@@ -63,6 +64,30 @@ export const mockServer = () => {
               };
             }
             throw new Error();
+          },
+          listPims() {
+            if (variables.filters.city === 'Rotterdam') {
+              return {
+                data: [],
+                metadata: {
+                  total: 1,
+                },
+              };
+            }
+
+            return {
+              data: [],
+              metadata: {
+                total: 0,
+              },
+            };
+          },
+          createPim() {
+            if (variables.input.city === 'Test') {
+              throw new Error();
+            }
+
+            return 'test';
           },
         };
 

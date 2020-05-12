@@ -1,5 +1,8 @@
 schema: src/api/schema.graphql
 documents: "src/api/{mutations,queries}/*.ts"
+config: 
+  scalars:
+    Date: "string"
 generates:
   ./src/api/types.ts:
     plugins:

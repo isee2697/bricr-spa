@@ -11,7 +11,12 @@ export const Modal = ({ children, title, isOpened, onClose, ...props }: ModalPro
       <DialogTitle id="alert-dialog-title">
         {title}
         {!!onClose && (
-          <IconButton variant="roundedContained" size="small" onClick={e => onClose(e, 'escapeKeyDown')}>
+          <IconButton
+            aria-label="close"
+            variant="roundedContained"
+            size="small"
+            onClick={e => onClose(e, 'escapeKeyDown')}
+          >
             <CloseIcon />
           </IconButton>
         )}

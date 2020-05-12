@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Grid, Card, CardHeader, CardContent, Tabs, Tab, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
+import { AddPimModalContainer } from 'app/addPimModal/AddPimModalContainer';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { useStyles } from './Pim.styles';
@@ -13,6 +14,7 @@ import { PimProps } from './Pim.types';
 export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const [addPimOpened, setAddPimOpened] = useState(false);
 
   return (
     <>
@@ -22,7 +24,7 @@ export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) =>
         </Grid>
         <Grid item xs={12} md={9} lg={10}>
           <Grid container spacing={3} className={classes.content}>
-            <PimHeader />
+            <PimHeader onAddPim={() => setAddPimOpened(true)} />
             <Grid item xs={12}>
               <Card>
                 <CardHeader title={formatMessage({ id: `pim.type.${type}` })} />
@@ -55,6 +57,7 @@ export const Pim = ({ status, onStatusChange, type, onTypeChange }: PimProps) =>
           </Grid>
         </Grid>
       </Grid>
+      <AddPimModalContainer isOpened={addPimOpened} onToggleOpen={() => setAddPimOpened(o => !o)} />
     </>
   );
 };

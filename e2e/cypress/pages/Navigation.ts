@@ -44,6 +44,10 @@ class Navigation {
     return `${Cypress.env().baseUrl}${AppRoute.pim}`;
   }
 
+  get pimDetailsLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.pimDetails}`;
+  }
+
   get loginLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.login}`;
   }

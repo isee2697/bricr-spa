@@ -14,6 +14,7 @@ describe('graphLink', () => {
         lastName: 'test',
         email: 'test',
         avatar: 'test',
+        id: 'test',
       },
     };
 

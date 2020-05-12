@@ -15,6 +15,8 @@ export const SelectCard = ({
   centered,
   selected,
   withButton,
+  disabled,
+  onClick,
   ...props
 }: SelectCardProps) => {
   const classes = useStyles();
@@ -26,15 +28,15 @@ export const SelectCard = ({
       className={classNames(
         classes.root,
         className,
-        !!fullWidth ? classes.fullWidth : classes.regular,
         !!centered ? classes.centered : '',
         !!selected ? classes.selected : '',
       )}
       data-testid="select-card"
+      onClick={disabled ? undefined : onClick}
     >
       {children}
       {!!withButton && (
-        <Button color="primary" variant={selected ? 'outlined' : 'contained'}>
+        <Button color="primary" disabled={disabled} size="small" variant={selected ? 'outlined' : 'contained'}>
           {selected
             ? formatMessage({ id: AppMessages['select_card.unselect'] })
             : formatMessage({ id: AppMessages['select_card.select'] })}

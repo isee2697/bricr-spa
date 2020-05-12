@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "target": "es5",
     "lib": ["dom", "es6"],
-    "types": ["cypress"],
+    "types": ["cypress", "@types/testing-library__cypress"],
     "jsx": "react",
     "experimentalDecorators": true
   },

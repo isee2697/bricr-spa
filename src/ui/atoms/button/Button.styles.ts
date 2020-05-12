@@ -43,7 +43,7 @@ export const useStyles = makeStyles(theme => ({
     borderColor: ({ variant }: Pick<ButtonProps, 'variant'>) =>
       variant === 'outlined' ? theme.palette.gray.main : 'none',
     boxShadow: 'none',
-    color: 'currentColor',
+    color: 'inherit',
     '& svg': {
       color: 'currentColor',
     },
