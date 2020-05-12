@@ -1,16 +1,21 @@
 import React from 'react';
 
 import { render, fireEvent, act, wait } from 'tests';
+import { ModalContext } from 'context/modal/modalContext/ModalContext';
 
 import { AddPimModal } from './AddPimModal';
 
 describe('AddPimModal', () => {
+  const modalsState = [{ id: 'pim-modal', isOpen: true }];
+  const setModalsState = jest.fn();
+
   test('add pim wizard', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(undefined));
-    const onClose = jest.fn();
 
     const { getByText, getByLabelText, getByRole } = render(
-      <AddPimModal onSubmit={onSubmit} onClose={onClose} isOpened={true} />,
+      <ModalContext.Provider value={{ modalsState, setModalsState }}>
+        <AddPimModal onSubmit={onSubmit} />,
+      </ModalContext.Provider>,
     );
 
     // Property type
@@ -18,7 +23,7 @@ describe('AddPimModal', () => {
     fireEvent.click(getByText('property_types.House'));
     fireEvent.click(getByText('common.next'));
 
-    // Addess
+    // Address
     act(() => {
       fireEvent.change(getByLabelText('add_pim.address.street'), {
         target: {
@@ -66,7 +71,9 @@ describe('AddPimModal', () => {
     const onClose = jest.fn();
 
     const { getByText, getByLabelText, getByRole } = render(
-      <AddPimModal onSubmit={onSubmit} onClose={onClose} isOpened={true} />,
+      <ModalContext.Provider value={{ modalsState, setModalsState }}>
+        <AddPimModal onSubmit={onSubmit} />
+      </ModalContext.Provider>,
     );
 
     // Property type
@@ -123,7 +130,9 @@ describe('AddPimModal', () => {
     const onClose = jest.fn();
 
     const { getByText, getByLabelText, getByRole } = render(
-      <AddPimModal onSubmit={onSubmit} onClose={onClose} isOpened={true} />,
+      <ModalContext.Provider value={{ modalsState, setModalsState }}>
+        <AddPimModal onSubmit={onSubmit} />
+      </ModalContext.Provider>,
     );
 
     // Property type

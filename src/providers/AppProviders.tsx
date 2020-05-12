@@ -8,6 +8,7 @@ import { LocaleContextController } from 'context/locale/localeContextController/
 import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { OverlayContextController } from 'context/overlay/overlayContextController/OverlayContextController';
+import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 
 import { AppProvidersProps } from './AppProviders.types';
 
@@ -19,7 +20,9 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
           <ApiClientContextController>
             <UserController>
               <OverlayContextController>
-                <Router>{children}</Router>
+                <ModalContextController>
+                  <Router>{children}</Router>
+                </ModalContextController>
               </OverlayContextController>
             </UserController>
           </ApiClientContextController>

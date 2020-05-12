@@ -26,7 +26,5 @@ export type AddPimStepProps = {
 };
 
 export type AddPimModalProps = {
-  isOpened: boolean;
-  onClose: () => void;
   onSubmit: AddPimSubmit;
 };

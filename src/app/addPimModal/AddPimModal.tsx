@@ -5,6 +5,8 @@ import { Modal } from 'ui/molecules';
 import { Alert, DialogContent } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
+import { useModalState } from 'hooks/useModalState/useModalState';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { AddPimModalProps, AddPimSubmit } from './AddPimModal.types';
 import { PropertyTypeStep } from './propertyTypeStep/PropertyTypeStep';
@@ -26,10 +28,12 @@ const steps = [
   },
 ];
 
-export const AddPimModal = ({ isOpened, onClose, onSubmit }: AddPimModalProps) => {
+export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
   const [step, setStep] = useState(0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
+  const isModalOpen = useModalState('pim-modal');
+  const { close } = useModalDispatch();
 
   const handleNext = () => {
     setStep(i => i + 1);
@@ -50,14 +54,14 @@ export const AddPimModal = ({ isOpened, onClose, onSubmit }: AddPimModalProps) =
   };
 
   const handleClose = () => {
-    onClose();
+    close('pim-modal');
     setStep(0);
   };
 
   return (
     <Modal
       fullWidth
-      isOpened={isOpened}
+      isOpened={isModalOpen}
       onClose={handleClose}
       title={formatMessage({ id: `add_pim.${currentStep.name}.title` })}
     >

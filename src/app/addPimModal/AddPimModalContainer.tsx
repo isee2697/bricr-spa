@@ -16,7 +16,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { AddPimModal } from './AddPimModal';
 import { AddPimSubmit } from './AddPimModal.types';
 
-export const AddPimModalContainer = ({ isOpened, onToggleOpen }: { isOpened: boolean; onToggleOpen: () => void }) => {
+export const AddPimModalContainer = () => {
   const apiClient = useApolloClient();
   const [createPim] = useCreatePimMutation();
   const { push } = useHistory();
@@ -60,7 +60,6 @@ export const AddPimModalContainer = ({ isOpened, onToggleOpen }: { isOpened: boo
         throw new Error();
       }
 
-      onToggleOpen();
       push(AppRoute.pimDetails.replace(':uid', result.createPim));
 
       return undefined;
@@ -71,5 +70,5 @@ export const AddPimModalContainer = ({ isOpened, onToggleOpen }: { isOpened: boo
     }
   };
 
-  return <AddPimModal onSubmit={handleSubmit} isOpened={isOpened} onClose={onToggleOpen} />;
+  return <AddPimModal onSubmit={handleSubmit} />;
 };

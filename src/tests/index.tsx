@@ -11,6 +11,7 @@ import { AuthContextController } from 'context/auth/authContextController/AuthCo
 import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
 import { Theme } from 'theme/Theme';
 import { OverlayContextController } from 'context/overlay/overlayContextController/OverlayContextController';
+import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
@@ -22,7 +23,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
           <ApiClientContextController>
             <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
               <OverlayContextController>
-                <Router>{children}</Router>
+                <ModalContextController>
+                  <Router>{children}</Router>
+                </ModalContextController>
               </OverlayContextController>
             </LocaleContext.Provider>
           </ApiClientContextController>

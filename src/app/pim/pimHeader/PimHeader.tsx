@@ -3,10 +3,12 @@ import React from 'react';
 import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppMessages } from 'i18n/messages';
 
-export const PimHeader = ({ onAddPim }: { onAddPim: () => void }) => {
+export const PimHeader = () => {
   const { formatMessage } = useLocale();
+  const { open } = useModalDispatch();
 
   return (
     <Grid container xs={12} item justify="space-between">
@@ -14,7 +16,7 @@ export const PimHeader = ({ onAddPim }: { onAddPim: () => void }) => {
       <Button
         color="primary"
         variant="contained"
-        onClick={onAddPim}
+        onClick={() => open('pim-modal')}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >
