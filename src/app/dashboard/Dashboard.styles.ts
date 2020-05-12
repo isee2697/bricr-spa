@@ -6,5 +6,10 @@ export const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
     },
+    '& .ScrollbarsCustom.trackXVisible': {
+      [theme.breakpoints.down('sm')]: {
+        width: `calc(100% + ${theme.spacing(1)}px) !important`,
+      },
+    },
   },
 }));
