@@ -275,6 +275,8 @@ import { NewConstructionIcon } from './atoms/icons/newConstruction/NewConstructi
 import { ComplexBuildingIcon } from './atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { CloseIcon } from './atoms/icons/close/CloseIcon';
 import { SubtractIcon } from './atoms/icons/subtract/SubtractIcon';
+import { SquareIcon } from './atoms/icons/square/SquareIcon';
+import { CheckMark } from './atoms/icons/checkMark/CheckMark';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
 
@@ -344,8 +346,8 @@ const wrapperStyle = {
   <div style={{...wrapperStyle, color: 'purple' }}>
     <CloseIcon color="inherit"/>
     <SubtractIcon color="inherit"/>
-    <Box width={24}/>
-    <Box width={24}/>
+    <SquareIcon color="inherit"/>
+    <CheckMark color="inherit"/>
     <Box width={24}/>
     <Box width={24}/>
   </div>

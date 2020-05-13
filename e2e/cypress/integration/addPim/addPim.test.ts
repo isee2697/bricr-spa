@@ -26,7 +26,7 @@ context('Add Pim', () => {
   });
 
   it('shows info about conflicts and allows to add PIM with existed address', () => {
-    NavigationMenu.goToPim();
+    cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
     cy.findByText('Property').click();
     cy.findByText('House').click();
@@ -46,7 +46,7 @@ context('Add Pim', () => {
   });
 
   it('shows unexpected errors during save', () => {
-    NavigationMenu.goToPim();
+    cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
     cy.findByText('Property').click();
     cy.findByText('House').click();
