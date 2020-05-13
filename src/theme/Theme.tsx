@@ -210,6 +210,9 @@ const theme = createMuiTheme({
         '& .MuiOutlinedInput-inputMarginDense ': {
           padding: `${defaultTheme.spacing(1.5)}px ${defaultTheme.spacing(2)}px`,
         },
+        '& .MuiIconButton-root': {
+          padding: 0,
+        },
       },
       notchedOutline: {
         borderTop: 'none',
