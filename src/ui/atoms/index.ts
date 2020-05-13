@@ -33,6 +33,10 @@ export { default as DialogTitle } from '@material-ui/core/DialogTitle';
 export { default as DialogContent } from '@material-ui/core/DialogContent';
 export { default as DialogContentText } from '@material-ui/core/DialogContentText';
 export { default as DialogActions } from '@material-ui/core/DialogActions';
+export { default as Switch } from '@material-ui/core/Switch';
+export { default as ExpansionPanel } from '@material-ui/core/ExpansionPanel';
+export { default as ExpansionPanelSummary } from '@material-ui/core/ExpansionPanelSummary';
+export { default as ExpansionPanelDetails } from '@material-ui/core/ExpansionPanelDetails';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
