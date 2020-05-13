@@ -10,7 +10,7 @@ export const DashboardStats = ({ orders, ordersValue, visits, properties, emails
   const theme = useTheme();
 
   return (
-    <StatsSection width={`calc(100% + ${theme.spacing(3)}px`}>
+    <StatsSection maxWidth={`calc(100% + ${theme.spacing(3)}px`}>
       <StatCard value={orders.value} variant={orders.type} endAdornment="%">
         Number of <strong>orders</strong> last month
       </StatCard>
