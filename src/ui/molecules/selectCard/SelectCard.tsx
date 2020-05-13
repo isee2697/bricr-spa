@@ -17,6 +17,7 @@ export const SelectCard = ({
   withButton,
   disabled,
   onClick,
+  adornment,
   ...props
 }: SelectCardProps) => {
   const classes = useStyles();
@@ -41,6 +42,12 @@ export const SelectCard = ({
             ? formatMessage({ id: AppMessages['select_card.unselect'] })
             : formatMessage({ id: AppMessages['select_card.select'] })}
         </Button>
+      )}
+
+      {adornment && (
+        <div onClick={e => e.stopPropagation()} className={classes.adornment}>
+          {adornment(!!selected)}
+        </div>
       )}
     </Card>
   );

@@ -9,4 +9,5 @@ export type SelectCardProps = {
   centered?: boolean;
   selected?: boolean;
   disabled?: boolean;
+  adornment?: (selected: boolean) => ReactNode;
 };

@@ -16,4 +16,16 @@ describe('SelectCard', () => {
 
     expect(element).toBeInTheDocument();
   });
+
+  test('renders with adornment', () => {
+    const { getByText } = render(
+      <SelectCard selected adornment={selected => selected && <span>Adornment</span>} centered onClick={() => {}}>
+        Other
+      </SelectCard>,
+    );
+
+    const element = getByText('Adornment');
+
+    expect(element).toBeInTheDocument();
+  });
 });

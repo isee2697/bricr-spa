@@ -9,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
     borderStyle: 'solid',
     padding: theme.spacing(2),
     display: 'inline-flex',
+    flexWrap: 'wrap',
     width: '100%',
     cursor: 'pointer',
     '& > *:first-child': {
@@ -34,6 +35,13 @@ export const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.white.main,
       borderColor: theme.palette.primary.main,
     },
+  },
+  adornment: {
+    cursor: 'default',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flex: '0 0 100%',
+    paddingTop: theme.spacing(5),
   },
   centered: {
     justifyContent: 'center',

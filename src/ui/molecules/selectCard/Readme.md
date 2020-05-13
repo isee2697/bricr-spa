@@ -12,7 +12,7 @@ const theme = useTheme();
  
 <Grid container justify="center" spacing={2}>
   <Grid item xs={12}>
-    <SelectCard fullWidth selected withButton onClick={() => {alert('Jhellow')}} >
+    <SelectCard fullWidth selected withButton onClick={() => {alert('Jhellow')}} adornment={(selected) => selected && (<>Additional options <button>Test</button></>)}>
       <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
         <Box color={theme.palette.red.main}>
           <BuildingIcon color="inherit" />
