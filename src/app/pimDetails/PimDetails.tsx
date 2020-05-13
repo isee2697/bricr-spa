@@ -1,14 +1,16 @@
 import React, { useState, useCallback } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { Grid, Alert } from 'ui/atoms';
-import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
-import { PimDetailsHeader } from './pimDetailsHeader/PimDetailsHeader';
 import { PimDetailsProps } from './PimDetails.types';
+import { General } from './sections/general/General';
+import { Inside } from './sections/inside/Inside';
 
 export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const classes = useStyles();
@@ -39,54 +41,23 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
               <Alert severity="error">{formatMessage({ id: AppMessages['common.error'] })}</Alert>
             </Grid>
           )}
-          <PimDetailsHeader name={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} />
-
-          <Grid item xs={12}>
-            <FormSection
-              title={formatMessage({ id: AppMessages['pim_details.general.address_information'] })}
-              isExpandable
-            >
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormSection
-              title={formatMessage({ id: AppMessages['pim_details.general.property_details'] })}
-              isExpandable
-            >
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormSection
-              title={formatMessage({ id: AppMessages['pim_details.general.construction_information'] })}
-              isExpandable
-            >
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormSection title={formatMessage({ id: AppMessages['pim_details.general.availability'] })} isExpandable>
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormSection title={formatMessage({ id: AppMessages['pim_details.general.habitation'] })} isExpandable>
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
-          <Grid item xs={12}>
-            <FormSection
-              title={formatMessage({ id: AppMessages['pim_details.general.status_construction'] })}
-              isExpandable
-            >
-              {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-            </FormSection>
-          </Grid>
+          <Switch>
+            <Route
+              path={`${AppRoute.pimDetails}/general`}
+              exact
+              render={() => (
+                <General isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.pimDetails}/inside`}
+              exact
+              render={() => (
+                <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+              )}
+            />
+            <Redirect to={`${AppRoute.pimDetails}/general`} />
+          </Switch>
         </Grid>
       </Grid>
     </Grid>

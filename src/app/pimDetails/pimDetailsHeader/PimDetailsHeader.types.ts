@@ -1,5 +1,7 @@
-export type PimDetailsHeaderProps = {
-  onOpenSidebar: () => void;
-  isSidebarVisible: boolean;
-  name?: string;
+import { ReactNode } from 'react';
+
+import { PimDetailsSectionProps } from '../PimDetails.types';
+
+export type PimDetailsHeaderProps = PimDetailsSectionProps & {
+  action: ReactNode;
 };

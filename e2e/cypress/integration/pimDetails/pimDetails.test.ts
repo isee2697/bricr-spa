@@ -12,13 +12,13 @@ context('Pim Details', () => {
       expect(loc.href).to.eq(NavigationMenu.homeLink);
     });
 
-    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'foo'));
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'foo/general'));
 
     cy.contains('Isenburgstraat 36 4813 NC Breda NL');
   });
 
   it('shows info about error', () => {
-    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'test'));
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'test/general'));
 
     cy.contains('Something went wrong');
   });
