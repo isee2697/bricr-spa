@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 
 import { SideMenu } from 'ui/molecules';
-import { SideMenuItem } from 'ui/atoms';
+import { SideMenuItem, SideSubMenuItem } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { UnseeIcon } from 'ui/atoms/icons/unsee/UnseeIcon';
@@ -28,6 +28,7 @@ const items = [
   {
     name: 'inside',
     icon: <FilesIcon />,
+    subItems: ['attic', 'groundfloor', 'basement'],
   },
   {
     name: 'outside',
@@ -74,14 +75,18 @@ export const PimDetailsSidebarMenu = ({ onHide }: PimDetailsSidebarMenuProps) =>
         selected={false}
         onClick={onHide}
       />
-      <SideMenu>
+      <SideMenu className={classes.menu}>
         {items.map(item => (
           <Link to={`${url}/${item.name}`} key={item.name}>
             <SideMenuItem
               icon={item.icon}
               title={formatMessage({ id: `pim_details.menu.${item.name}` })}
               selected={pathname === `${url}/${item.name}`}
-            />
+            >
+              {item.subItems?.map(title => (
+                <SideSubMenuItem title={formatMessage({ id: `pim_details.menu.${title}` })} selected={false} />
+              ))}
+            </SideMenuItem>
           </Link>
         ))}
       </SideMenu>

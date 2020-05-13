@@ -51,7 +51,7 @@ export const PimSidebarMenu = ({ type, onTypeChange }: PimSidebarMenuProps) => {
 
   return (
     <SideMenu className={classes.root}>
-      {types.map((t, index) => (
+      {types.map(t => (
         <SideMenuItem
           key={t.name}
           icon={t.icon}

@@ -53,6 +53,7 @@ export { Scrollable } from './scrollable/Scrollable';
 export { AgendaItem } from './agendaItem/AgendaItem';
 export { VisitedPage } from './visitedPage/VisitedPage';
 export { SideMenuItem } from './sideMenuItem/SideMenuItem';
+export { SideSubMenuItem } from './sideSubMenuItem/SideSubMenuItem';
 export { ProgressFilling } from './progressFillig/ProgressFilling';
 export { Checkbox } from './checkbox/Checkbox';
 export { Pagination } from './pagination/Pagination';

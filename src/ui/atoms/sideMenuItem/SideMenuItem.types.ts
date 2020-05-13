@@ -1,7 +1,8 @@
 export type SideMenuItemProps = {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   title: string;
   selected: boolean;
-  className?: string;
   onClick?: () => void;
+  children?: React.ReactNodeArray;
+  className?: string;
 };

@@ -2,19 +2,29 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   item: {
+    position: 'relative',
     height: 52,
     paddingLeft: 0,
-    borderBottomWidth: 2,
-    borderBottomColor: theme.palette.gray.light,
-    borderBottomStyle: 'solid',
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      borderBottomWidth: 2,
+      borderBottomColor: theme.palette.gray.light,
+      borderBottomStyle: 'solid',
+    },
     '&.Mui-selected, &:hover, &.Mui-selected:hover': {
       backgroundColor: 'transparent',
-      borderBottomColor: theme.palette.primary.main,
       '& > h3': {
         color: theme.palette.black.main,
       },
       '& path': {
         fill: theme.palette.primary.main,
+      },
+      '&::after': {
+        borderBottomColor: theme.palette.primary.main,
+        boxShadow: theme.shadows[2],
       },
     },
   },

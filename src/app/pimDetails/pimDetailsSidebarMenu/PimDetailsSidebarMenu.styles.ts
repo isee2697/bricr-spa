@@ -12,15 +12,17 @@ export const useStyles = makeStyles(theme => ({
     '& a': {
       textDecoration: 'none',
     },
-    '& .MuiList-root > :last-child': {
-      display: 'block',
-      marginTop: theme.spacing(3),
-    },
   },
   hideMenu: {
     marginBottom: theme.spacing(2),
     borderBottom: 0,
     marginLeft: theme.spacing(3),
+  },
+  menu: {
+    '& > :last-child': {
+      display: 'block',
+      marginTop: theme.spacing(3),
+    },
   },
   backToList: {
     paddingLeft: theme.spacing(3),
