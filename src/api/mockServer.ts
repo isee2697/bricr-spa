@@ -2,6 +2,8 @@ import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
 
+import { PIM_1 } from './mocks/pim';
+
 const schema = loader('./schema.graphql');
 
 const graphqlSchema = buildSchema(schema.loc?.source.body as string);
@@ -66,7 +68,7 @@ export const mockServer = () => {
             throw new Error();
           },
           listPims() {
-            if (variables.filters.city === 'Rotterdam') {
+            if (variables.filters?.city === 'Rotterdam') {
               return {
                 data: [],
                 metadata: {
@@ -88,6 +90,13 @@ export const mockServer = () => {
             }
 
             return 'test';
+          },
+          getPim() {
+            if (variables.id === 'test') {
+              throw new Error();
+            }
+
+            return PIM_1;
           },
         };
 

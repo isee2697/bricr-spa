@@ -8,7 +8,7 @@ import { LoginContainer } from 'app/auth/login/LoginContainer';
 import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
 import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 import { PimContainer } from 'app/pim/PimContainer';
-import { PimDetails } from 'app/pimDetails/PimDetails';
+import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
 import { AddPimModalContainer } from '../app/addPimModal/AddPimModalContainer';
 
 import { AppRoute } from './AppRoute.enum';
@@ -36,7 +36,7 @@ export const AppRoutes = () => {
             <Switch>
               <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
               <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
-              <AuthorizedRoute path={AppRoute.pimDetails} exact component={PimDetails} />
+              <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
               <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
               <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
               <Route path={AppRoute.logout} component={LogoutContainer} />

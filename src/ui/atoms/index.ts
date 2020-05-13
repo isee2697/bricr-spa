@@ -36,6 +36,7 @@ export { default as DialogActions } from '@material-ui/core/DialogActions';
 export { default as ExpansionPanel } from '@material-ui/core/ExpansionPanel';
 export { default as ExpansionPanelSummary } from '@material-ui/core/ExpansionPanelSummary';
 export { default as ExpansionPanelDetails } from '@material-ui/core/ExpansionPanelDetails';
+export { default as Breadrcumbs } from '@material-ui/core/Breadcrumbs';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

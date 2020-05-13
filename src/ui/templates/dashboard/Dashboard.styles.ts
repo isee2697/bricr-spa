@@ -25,7 +25,6 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     maxWidth: '100vw',
-    overflowX: 'hidden',
   },
   content: {
     padding: theme.spacing(0),

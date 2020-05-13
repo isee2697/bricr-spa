@@ -54,3 +54,34 @@ export const LIST_PIMS = gql`
     }
   }
 `;
+
+export const PIM_DETAILS = gql`
+  query PimDetails($id: ID!) {
+    getPim(id: $id) {
+      realEstateType
+      street
+      houseNumber
+      constructionNumberPrefix
+      constructionNumber
+      constructionNumberAddition
+      postalCode
+      district
+      city
+      state
+      county
+      country
+      developmentType
+      status
+      salePrice
+      rentPrice
+      description
+      images
+      livingArea
+      propertyType
+      attention
+      completeness
+      archived
+      dateCreated
+    }
+  }
+`;

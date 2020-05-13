@@ -1,12 +1,7 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
-import { Tabs, IconButton, Badge, Sidebar } from 'ui/atoms';
-import { TopBar, LinkTab } from 'ui/molecules';
-import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
-import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { CrmIcon } from 'ui/atoms/icons/crm/CrmIcon';
-import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
+import { IconButton, Badge, Sidebar } from 'ui/atoms';
+import { TopBar } from 'ui/molecules';
 import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
 import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
@@ -16,9 +11,6 @@ import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
 import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
-import { AppRoute } from 'routing/AppRoute.enum';
-import { AppMessages } from 'i18n/messages';
-import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -27,47 +19,17 @@ import { ProfileMenu } from './profileMenu/ProfileMenu';
 import { AddMenu } from './addMenu/AddMenu';
 import { Search } from './search/Search';
 import { Overlay } from './overlay/Overlay';
-
-const menuLinks = [AppRoute.home, AppRoute.pim, AppRoute.crm, AppRoute.sales];
+import { TopMenu } from './topMenu/TopMenu';
 
 export const Dashboard = ({ children }: DashboardProps) => {
   const classes = useStyles();
-  const { pathname } = useLocation();
-  const { formatMessage } = useLocale();
-  const activeLinkIndex = menuLinks.indexOf(pathname as AppRoute);
 
   return (
     <>
       <TopBar>
         <Search />
         <nav className={classes.menu}>
-          <Tabs
-            value={activeLinkIndex !== -1 ? activeLinkIndex : 0}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <LinkTab
-              icon={<HomeIcon color="inherit" />}
-              label={formatMessage({ id: AppMessages['header.links.home'] })}
-              to="/"
-            />
-            <LinkTab
-              icon={<BuildingIcon color="inherit" />}
-              label={formatMessage({ id: AppMessages['header.links.pim'] })}
-              to="/pim"
-            />
-            <LinkTab
-              icon={<CrmIcon color="inherit" />}
-              label={formatMessage({ id: AppMessages['header.links.crm'] })}
-              to="/crm"
-            />
-            <LinkTab
-              icon={<GraphIcon color="inherit" />}
-              label={formatMessage({ id: AppMessages['header.links.sales'] })}
-              to="/sales"
-            />
-          </Tabs>
+          <TopMenu />
         </nav>
         <nav className={classes.actions}>
           <IconButton size="small" variant="roundedContained">

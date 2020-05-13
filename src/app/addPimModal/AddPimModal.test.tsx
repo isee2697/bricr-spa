@@ -68,8 +68,6 @@ describe('AddPimModal', () => {
       } as const),
     );
 
-    const onClose = jest.fn();
-
     const { getByText, getByLabelText, getByRole } = render(
       <ModalContext.Provider value={{ modalsState, setModalsState }}>
         <AddPimModal onSubmit={onSubmit} />
@@ -126,8 +124,6 @@ describe('AddPimModal', () => {
         error: 'unknown',
       } as const),
     );
-
-    const onClose = jest.fn();
 
     const { getByText, getByLabelText, getByRole } = render(
       <ModalContext.Provider value={{ modalsState, setModalsState }}>

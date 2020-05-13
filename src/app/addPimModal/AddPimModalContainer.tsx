@@ -60,7 +60,7 @@ export const AddPimModalContainer = () => {
         throw new Error();
       }
 
-      push(AppRoute.pimDetails.replace(':uid', result.createPim));
+      push(AppRoute.pimDetails.replace(':id', result.createPim));
 
       return undefined;
     } catch {

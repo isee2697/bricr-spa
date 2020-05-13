@@ -4,10 +4,8 @@ export const useStyles = makeStyles(theme => ({
   list: {
     width: '100%',
     paddingLeft: theme.spacing(3),
-    boxShadow: 'inset -2px 0px 4px rgba(130, 141, 184, 0.2)',
     '& > .MuiListItem-root:not(:first-child)': {
       marginTop: theme.spacing(1),
     },
-    background: theme.palette.white.main,
   },
 }));

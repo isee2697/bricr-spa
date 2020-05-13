@@ -385,6 +385,42 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type PimDetailsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimDetailsQuery = { __typename?: 'Query' } & {
+  getPim?: Maybe<
+    { __typename?: 'Pim' } & Pick<
+      Pim,
+      | 'realEstateType'
+      | 'street'
+      | 'houseNumber'
+      | 'constructionNumberPrefix'
+      | 'constructionNumber'
+      | 'constructionNumberAddition'
+      | 'postalCode'
+      | 'district'
+      | 'city'
+      | 'state'
+      | 'county'
+      | 'country'
+      | 'developmentType'
+      | 'status'
+      | 'salePrice'
+      | 'rentPrice'
+      | 'description'
+      | 'images'
+      | 'livingArea'
+      | 'propertyType'
+      | 'attention'
+      | 'completeness'
+      | 'archived'
+      | 'dateCreated'
+    >
+  >;
+};
+
 export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
@@ -570,6 +606,49 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const PimDetailsDocument = gql`
+  query PimDetails($id: ID!) {
+    getPim(id: $id) {
+      realEstateType
+      street
+      houseNumber
+      constructionNumberPrefix
+      constructionNumber
+      constructionNumberAddition
+      postalCode
+      district
+      city
+      state
+      county
+      country
+      developmentType
+      status
+      salePrice
+      rentPrice
+      description
+      images
+      livingArea
+      propertyType
+      attention
+      completeness
+      archived
+      dateCreated
+    }
+  }
+`;
+export function usePimDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimDetailsQuery, PimDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimDetailsQuery, PimDetailsQueryVariables>(PimDetailsDocument, baseOptions);
+}
+export function usePimDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimDetailsQuery, PimDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimDetailsQuery, PimDetailsQueryVariables>(PimDetailsDocument, baseOptions);
+}
+export type PimDetailsQueryHookResult = ReturnType<typeof usePimDetailsQuery>;
+export type PimDetailsLazyQueryHookResult = ReturnType<typeof usePimDetailsLazyQuery>;
+export type PimDetailsQueryResult = ApolloReactCommon.QueryResult<PimDetailsQuery, PimDetailsQueryVariables>;
 export const MeDocument = gql`
   query Me {
     me {

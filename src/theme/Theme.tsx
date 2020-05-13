@@ -36,6 +36,17 @@ const theme = createMuiTheme({
         fontSize: '0.7rem',
       },
     },
+    MuiBreadcrumbs: {
+      root: {
+        fontSize: typography.h5.fontSize,
+        '& a': {
+          color: palette.gray.main,
+        },
+      },
+      separator: {
+        color: (palette.primary as SimplePaletteColorOptions).main,
+      },
+    },
     MuiButton: {
       root: {
         borderRadius: defaultTheme.spacing(1),
@@ -57,7 +68,7 @@ const theme = createMuiTheme({
         '& .MuiTabs-flexContainer': {
           borderBottom: `2px solid ${palette.gray.light}`,
         },
-        borderRadius: 8,
+        borderRadius: defaultTheme.spacing(1),
       },
     },
     MuiCardHeader: {
@@ -123,6 +134,18 @@ const theme = createMuiTheme({
         },
         '& button:last-child': {
           float: 'right',
+        },
+      },
+    },
+    MuiExpansionPanel: {
+      rounded: {
+        '&:last-child': {
+          borderBottomLeftRadius: defaultTheme.spacing(1),
+          borderBottomRightRadius: defaultTheme.spacing(1),
+        },
+        '&:first-child': {
+          borderTopLeftRadius: defaultTheme.spacing(1),
+          borderTopRightRadius: defaultTheme.spacing(1),
         },
       },
     },

@@ -1,7 +1,7 @@
 export enum AppRoute {
   home = '/',
   pim = '/pim',
-  pimDetails = '/pim/:uid',
+  pimDetails = '/pim/:id',
   crm = '/crm',
   sales = '/sales',
   logout = '/logout',
