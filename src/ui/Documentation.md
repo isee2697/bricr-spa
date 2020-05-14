@@ -240,7 +240,6 @@ const theme = useTheme();
 import { AddIcon } from './atoms/icons/add/AddIcon';
 import { ArrowRightIcon } from './atoms/icons/arrowRight/ArrowRightIcon';
 import { ArrowUpIcon } from './atoms/icons/arrowUp/ArrowUpIcon';
-import { ArrowLeftIcon } from './atoms/icons/arrowLeft/ArrowLeftIcon';
 import { ArrowDownIcon } from './atoms/icons/arrowDown/ArrowDownIcon';
 import { BellIcon } from './atoms/icons/bell/BellIcon';
 import { BuildingIcon } from './atoms/icons/building/BuildingIcon';
@@ -280,6 +279,8 @@ import { LockIcon } from './atoms/icons/lock/LockIcon';
 import { EditIcon } from './atoms/icons/edit/EditIcon';
 import { SquareIcon } from './atoms/icons/square/SquareIcon';
 import { CheckMark } from './atoms/icons/checkMark/CheckMark';
+import { SquareIcon } from './atoms/icons/square/SquareIcon';
+import { CheckMark } from './atoms/icons/checkMark/CheckMark';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
 
@@ -296,9 +297,9 @@ const wrapperStyle = {
     <AddIcon color="primary"/>
     <ArrowRightIcon color="primary"/>
     <ArrowUpIcon color="primary"/>
-    <ArrowLeftIcon color="primary"/>
     <ArrowDownIcon color="primary"/>
     <BellIcon color="primary"/>
+    <BuildingIcon color="primary"/>
   </div>
   <br />
   <div style={wrapperStyle}>
@@ -356,9 +357,8 @@ const wrapperStyle = {
   </div>
   <div style={{...wrapperStyle, color: 'purple' }}>
     <CheckMark color="inherit"/>
-    <Box width={24}/>
-    <Box width={24}/>
-    <Box width={24}/>
+    <SquareIcon color="inherit"/>
+    <CheckMark color="inherit"/>
     <Box width={24}/>
     <Box width={24}/>
     <Box width={24}/>

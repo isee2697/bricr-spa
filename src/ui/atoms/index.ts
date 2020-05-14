@@ -37,6 +37,7 @@ export { default as ExpansionPanel } from '@material-ui/core/ExpansionPanel';
 export { default as ExpansionPanelSummary } from '@material-ui/core/ExpansionPanelSummary';
 export { default as ExpansionPanelDetails } from '@material-ui/core/ExpansionPanelDetails';
 export { default as Breadrcumbs } from '@material-ui/core/Breadcrumbs';
+export { default as FormHelperText } from '@material-ui/core/FormHelperText';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

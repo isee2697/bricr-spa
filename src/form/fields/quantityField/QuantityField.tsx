@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'react-final-form';
-import { FormHelperText } from '@material-ui/core';
 
+import { FormHelperText } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
 import { QuantityInput } from 'ui/molecules';
