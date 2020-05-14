@@ -49,6 +49,7 @@ export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
             label="forgot_password.username"
             placeholder="forgot_password.username_placeholder"
             validate={[requireValidator]}
+            disabled={submitting || isSuccess}
             size="medium"
             InputProps={{
               endAdornment: (
