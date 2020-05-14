@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import { Typography, IconButton, Grid } from 'ui/atoms';
+import { Typography, IconButton, Grid, Emoji } from 'ui/atoms';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 
 import { DashboardHeaderProps } from './DashboardHeader.types';
@@ -13,7 +13,7 @@ export const DashboardHeader = ({ children, onFilterClick }: DashboardHeaderProp
   return (
     <Grid container className={classes.root}>
       <Typography variant="h1" className={classes.header}>
-        {children}
+        <Emoji>{children}</Emoji>
       </Typography>
 
       <Typography variant="h5" className={classes.date}>

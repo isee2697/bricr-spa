@@ -64,3 +64,4 @@ export { CircularProgress } from './circularProgress/CircularProgress';
 export { TileCheckbox } from './tileCheckbox/TileCheckbox';
 export { TileRadio } from './tileRadio/TileRadio';
 export { Switch } from './switch/Switch';
+export { Emoji } from './emoji/Emoji';

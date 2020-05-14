@@ -21,10 +21,7 @@ export const Dashboard = () => {
   return (
     <div className={classes.content}>
       <DashboardHeader onFilterClick={() => {}}>
-        {formatMessage({ id: AppMessages['dashboard.welcome'] })} {user?.firstName}{' '}
-        <span role="img" aria-label="hi1">
-          👋
-        </span>
+        {formatMessage({ id: AppMessages['dashboard.welcome'] })} {user?.firstName} 👋
       </DashboardHeader>
 
       <DashboardStatsContainer />
