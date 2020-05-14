@@ -3,7 +3,7 @@ import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
 import { useTheme } from '@material-ui/core/styles';
 
-export const CheckMark = (props: DefaultSvgIconProps) => {
+export const CheckMarkIcon = (props: DefaultSvgIconProps) => {
   const theme = useTheme();
 
   return (
