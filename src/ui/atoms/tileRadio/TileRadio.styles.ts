@@ -27,6 +27,7 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.h5.fontWeight,
+      textAlign: 'center',
     },
     '& div:first-child': {
       marginRight: 0,
