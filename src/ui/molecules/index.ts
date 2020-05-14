@@ -14,3 +14,4 @@ export { Modal } from './modal/Modal';
 export { SubmitButton } from './submitButton/SubmitButton';
 export { SelectCard } from './selectCard/SelectCard';
 export { QuantityInput } from './quantityInput/QuantityInput';
+export { SubSectionHeader } from './subSectionHeader/SubSectionHeader';
