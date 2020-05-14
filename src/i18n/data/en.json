@@ -147,5 +147,6 @@
   "pim_details.general.property_connection": "Property connection",
   "pim_details.general.status_construction": "Status construction / Period",
   "date_picker.aria_label": "Pick a date",
-  "time_picker.aria_label": "Pick a time"
+  "time_picker.aria_label": "Pick a time",
+  "upload_image.invalid_file": "only images allowed"
 }

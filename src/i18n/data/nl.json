@@ -147,5 +147,6 @@
   "pim_details.general.property_connection": "Eigenschap verbinding",
   "pim_details.general.status_construction": "Status constructie / periode",
   "date_picker.aria_label": "Kies een datum",
-  "time_picker.aria_label": "Kies een tijd"
+  "time_picker.aria_label": "Kies een tijd",
+  "upload_image.invalid_file": "alleen afbeeldingen toegestaan"
 }
