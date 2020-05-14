@@ -31,6 +31,7 @@ export const SelectCard = ({
         className,
         !!centered ? classes.centered : '',
         !!selected ? classes.selected : '',
+        !!disabled ? classes.disabled : '',
       )}
       data-testid="select-card"
       onClick={disabled ? undefined : onClick}

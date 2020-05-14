@@ -48,13 +48,19 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: AppMessages['pim_details.general.address_information'] })} isExpandable>
+        <FormSection
+          title={formatMessage({ id: AppMessages['pim_details.general.address_information.title'] })}
+          isExpandable
+        >
           {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
         </FormSection>
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: AppMessages['pim_details.general.property_details'] })} isExpandable>
+        <FormSection
+          title={formatMessage({ id: AppMessages['pim_details.general.property_details.title'] })}
+          isExpandable
+        >
           {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
         </FormSection>
       </Grid>

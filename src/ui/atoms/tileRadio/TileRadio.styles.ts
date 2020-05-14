@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
-    width: theme.spacing(13),
+    width: '100%',
+    minWidth: theme.spacing(13),
     height: theme.spacing(13),
     '& *': {
       userSelect: 'none',
@@ -14,7 +15,7 @@ export const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
-      borderColor: theme.palette.gray.main,
+      borderColor: theme.palette.gray.light,
     },
     '& .MuiCard-root svg': {
       width: 40,
@@ -47,6 +48,9 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    flexFlow: 'column',
+    width: '100%',
+    alignItems: 'center',
   },
   disabled: {
     pointerEvents: 'none',

@@ -11,14 +11,13 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     flexWrap: 'wrap',
     width: '100%',
+    minHeight: theme.spacing(8.5),
     cursor: 'pointer',
-    '& > *:first-child': {
-      marginRight: theme.spacing(2),
-    },
     '& > button': {
       marginLeft: 'auto',
     },
     '& > .MuiAvatar-root': {
+      marginRight: theme.spacing(2),
       width: theme.spacing(6),
       height: theme.spacing(6),
       '& .MuiSvgIcon-root': {
@@ -41,9 +40,13 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     flex: '0 0 100%',
-    paddingTop: theme.spacing(5),
+    paddingTop: theme.spacing(3),
+    alignItems: 'center',
   },
   centered: {
     justifyContent: 'center',
+  },
+  disabled: {
+    color: theme.palette.gray.main,
   },
 }));
