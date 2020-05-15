@@ -106,6 +106,211 @@ enum PropertyType {
   Other,
 }
 
+enum PropertyTypeDetailed {
+  SingleFamily,
+  DykeHouse,
+  CourtHouse,
+  DriveInHome,
+  SplitLevel,
+  QuadrantHouse,
+  PatioHouse,
+  Villa,
+  CanalHouse,
+  WaterHouse,
+  Bungalow,
+  SemiBungalow,
+  StiltHouse,
+  BusinessOrServiceHome,
+  Estate,
+  CountryHouse,
+  Mansion
+}
+
+enum PropertyConnection {
+  SemiDetached,
+  FinalHouse,
+  CornerHouse,
+  TerracedHouse,
+  DetachedHouse
+}
+
+enum PropertyAvailability {
+  InConsultation,
+  Immediatelly,
+  ByDate
+}
+
+enum PropertyHabitation {
+  RecreationalHome,
+  PermanentOccupation
+}
+
+enum PropertySpaces {
+  Kitchen
+}
+
+enum SpaceShape {
+  Rectangle,
+  Square,
+  LType,
+  TType,
+  UType,
+  ZType
+}
+
+enum SpacemMeasurement {
+  Length,
+  Width,
+  Height,
+  Surface,
+  Volume
+}
+
+enum SpaceServiceHeating {
+  GeothermalHeat,
+  NoHeating,
+  Fireplace,
+  MultiBurner,
+  HotAirHeating,
+  PelletStove,
+  ElectricHeating,
+  DistrictHeating,
+  GasFireplace,
+  CoalStove,
+  WallHeating,
+  HeatPump,
+  MotherFireplace,
+  GasHeaters,
+  BlockHeatingWoodStove,
+  CentralHeatingBoiler,
+  UnderfloorHeatingEntirely,
+  PossibilityForFireplaceHeat,
+  UnderfloorHeatingPartly,
+  RecoveryInstalation
+}
+
+enum KitchenType {
+  MainKitchen,
+  Scullery
+}
+
+enum KitchenConstruction {
+  DenseKitchen,
+  EatInKitchen,
+  HalfOpenKitchen,
+  OpenKitchen
+}
+
+enum KitchenServices {
+  KitchenIsland,
+  WashIsland
+}
+
+enum KitchenAppliances {
+  Refrigerator,
+  Microwave,
+  Dishwasher,
+  Oven,
+  Stove
+}
+
+enum KitchenHob {
+  GasHob,
+  InductionHob,
+  ElectricHob,
+  CeramicHob,
+  HalogenHob
+}
+
+enum FloorType {
+  Attic,
+  Floor,
+  Basement,
+  GroundFloor,
+  Loft,
+}
+
+enum SpaceType {
+  Kitchen,
+  Bathroom,
+  LivingRoom,
+  Bedroom,
+  HomeOffice,
+  Other,
+}
+
+type KitchenSpace {
+  constructionYear: Float
+  notes: String,
+  type: KitchenType,
+  constructionType: KitchenConstruction,
+  services: KitchenServices,
+  appliances: [KitchenAppliances],
+  hob: KitchenHob,
+  shape: SpaceShape,
+  measurement: SpacemMeasurement,
+  serviceHeating: SpaceServiceHeating,
+  images: [String]
+}
+
+type HouseGeneral  {
+  availability: PropertyAvailabilityInformation
+  construction: ConstructionInformation
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+}
+input HouseGeneralInput {
+  id: String!
+  availability: PropertyAvailabilityInformationInput
+  construction: ConstructionInformationInput
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+  street: String!
+  city: String!
+  houseNumber: String!
+  postalCode: String!
+}
+
+enum ConstructionType {
+  UnderConstruction
+  InDevelopment
+}
+
+type ConstructionInformation {
+  type: ConstructionType
+  from: Date
+  to: Date
+  notes: String
+}
+
+
+input ConstructionInformationInput {
+  type: ConstructionType
+  from: Date
+  to: Date
+  notes: String
+}
+
+type PropertyAvailabilityInformation {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
+input PropertyAvailabilityInformationInput {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
 input CreatePimInput {
   realEstateType: RealEstateType!
   street: String!
@@ -157,6 +362,21 @@ input UpdatePimInput {
   attention: String
 }
 
+union PimGeneral = HouseGeneral
+
+input PimGeneralInput {
+  id: String!
+  availability: PropertyAvailabilityInformationInput
+  construction: ConstructionInformationInput
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+  street: String!
+  city: String!
+  houseNumber: String!
+  postalCode: String!
+}
+
 type Pim {
   id: String!
   realEstateType: RealEstateType!
@@ -185,6 +405,21 @@ type Pim {
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!
+  houseGeneral: HouseGeneral
+  floors: [Floor!]
+}
+
+type Space {
+  id: String!
+  spaceType: SpaceType!
+  extraRoomPossibility: Boolean!
+}
+
+type Floor {
+  id: String!
+  level: Int!
+  floorType: FloorType!
+  spaces: [Space!]
 }
 
 type PimSearchResult {
@@ -217,6 +452,18 @@ input ListPimsFilters {
   archived: Boolean
 }
 
+input AddNewFloorInput {
+  pimId: String!
+  floorType: FloorType!
+}
+
+input AddSpaceInput {
+  spaceType: SpaceType!
+  extraRoomPossibility: Boolean!
+  pimId: String!
+  floorId: String!
+}
+
 type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
@@ -234,5 +481,8 @@ type Mutation {
   deleteUser(id: String): String @auth
   createPim(input: CreatePimInput!): String @auth
   updatePim(input: UpdatePimInput!): String @auth
+  updatePimGeneralInfo(input: PimGeneralInput!): String @auth
   removePim(id: String!): String @auth
+  addFloorToPim(input: AddNewFloorInput!): String @auth
+  addSpaceToFloor(input: AddSpaceInput!): String @auth
 }

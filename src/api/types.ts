@@ -120,6 +120,215 @@ export enum PropertyType {
   Other = 'Other',
 }
 
+export enum PropertyTypeDetailed {
+  SingleFamily = 'SingleFamily',
+  DykeHouse = 'DykeHouse',
+  CourtHouse = 'CourtHouse',
+  DriveInHome = 'DriveInHome',
+  SplitLevel = 'SplitLevel',
+  QuadrantHouse = 'QuadrantHouse',
+  PatioHouse = 'PatioHouse',
+  Villa = 'Villa',
+  CanalHouse = 'CanalHouse',
+  WaterHouse = 'WaterHouse',
+  Bungalow = 'Bungalow',
+  SemiBungalow = 'SemiBungalow',
+  StiltHouse = 'StiltHouse',
+  BusinessOrServiceHome = 'BusinessOrServiceHome',
+  Estate = 'Estate',
+  CountryHouse = 'CountryHouse',
+  Mansion = 'Mansion',
+}
+
+export enum PropertyConnection {
+  SemiDetached = 'SemiDetached',
+  FinalHouse = 'FinalHouse',
+  CornerHouse = 'CornerHouse',
+  TerracedHouse = 'TerracedHouse',
+  DetachedHouse = 'DetachedHouse',
+}
+
+export enum PropertyAvailability {
+  InConsultation = 'InConsultation',
+  Immediatelly = 'Immediatelly',
+  ByDate = 'ByDate',
+}
+
+export enum PropertyHabitation {
+  RecreationalHome = 'RecreationalHome',
+  PermanentOccupation = 'PermanentOccupation',
+}
+
+export enum PropertySpaces {
+  Kitchen = 'Kitchen',
+}
+
+export enum SpaceShape {
+  Rectangle = 'Rectangle',
+  Square = 'Square',
+  LType = 'LType',
+  TType = 'TType',
+  UType = 'UType',
+  ZType = 'ZType',
+}
+
+export enum SpacemMeasurement {
+  Length = 'Length',
+  Width = 'Width',
+  Height = 'Height',
+  Surface = 'Surface',
+  Volume = 'Volume',
+}
+
+export enum SpaceServiceHeating {
+  GeothermalHeat = 'GeothermalHeat',
+  NoHeating = 'NoHeating',
+  Fireplace = 'Fireplace',
+  MultiBurner = 'MultiBurner',
+  HotAirHeating = 'HotAirHeating',
+  PelletStove = 'PelletStove',
+  ElectricHeating = 'ElectricHeating',
+  DistrictHeating = 'DistrictHeating',
+  GasFireplace = 'GasFireplace',
+  CoalStove = 'CoalStove',
+  WallHeating = 'WallHeating',
+  HeatPump = 'HeatPump',
+  MotherFireplace = 'MotherFireplace',
+  GasHeaters = 'GasHeaters',
+  BlockHeatingWoodStove = 'BlockHeatingWoodStove',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  UnderfloorHeatingEntirely = 'UnderfloorHeatingEntirely',
+  PossibilityForFireplaceHeat = 'PossibilityForFireplaceHeat',
+  UnderfloorHeatingPartly = 'UnderfloorHeatingPartly',
+  RecoveryInstalation = 'RecoveryInstalation',
+}
+
+export enum KitchenType {
+  MainKitchen = 'MainKitchen',
+  Scullery = 'Scullery',
+}
+
+export enum KitchenConstruction {
+  DenseKitchen = 'DenseKitchen',
+  EatInKitchen = 'EatInKitchen',
+  HalfOpenKitchen = 'HalfOpenKitchen',
+  OpenKitchen = 'OpenKitchen',
+}
+
+export enum KitchenServices {
+  KitchenIsland = 'KitchenIsland',
+  WashIsland = 'WashIsland',
+}
+
+export enum KitchenAppliances {
+  Refrigerator = 'Refrigerator',
+  Microwave = 'Microwave',
+  Dishwasher = 'Dishwasher',
+  Oven = 'Oven',
+  Stove = 'Stove',
+}
+
+export enum KitchenHob {
+  GasHob = 'GasHob',
+  InductionHob = 'InductionHob',
+  ElectricHob = 'ElectricHob',
+  CeramicHob = 'CeramicHob',
+  HalogenHob = 'HalogenHob',
+}
+
+export enum FloorType {
+  Attic = 'Attic',
+  Floor = 'Floor',
+  Basement = 'Basement',
+  GroundFloor = 'GroundFloor',
+  Loft = 'Loft',
+}
+
+export enum SpaceType {
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  LivingRoom = 'LivingRoom',
+  Bedroom = 'Bedroom',
+  HomeOffice = 'HomeOffice',
+  Other = 'Other',
+}
+
+export type KitchenSpace = {
+  __typename?: 'KitchenSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  type?: Maybe<KitchenType>;
+  constructionType?: Maybe<KitchenConstruction>;
+  services?: Maybe<KitchenServices>;
+  appliances?: Maybe<Array<Maybe<KitchenAppliances>>>;
+  hob?: Maybe<KitchenHob>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpacemMeasurement>;
+  serviceHeating?: Maybe<SpaceServiceHeating>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type HouseGeneral = {
+  __typename?: 'HouseGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type HouseGeneralInput = {
+  id: Scalars['String'];
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+  street: Scalars['String'];
+  city: Scalars['String'];
+  houseNumber: Scalars['String'];
+  postalCode: Scalars['String'];
+};
+
+export enum ConstructionType {
+  UnderConstruction = 'UnderConstruction',
+  InDevelopment = 'InDevelopment',
+}
+
+export type ConstructionInformation = {
+  __typename?: 'ConstructionInformation';
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ConstructionInformationInput = {
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PropertyAvailabilityInformation = {
+  __typename?: 'PropertyAvailabilityInformation';
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type PropertyAvailabilityInformationInput = {
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
 export type CreatePimInput = {
   realEstateType: RealEstateType;
   street: Scalars['String'];
@@ -171,6 +380,21 @@ export type UpdatePimInput = {
   attention?: Maybe<Scalars['String']>;
 };
 
+export type PimGeneral = HouseGeneral;
+
+export type PimGeneralInput = {
+  id: Scalars['String'];
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+  street: Scalars['String'];
+  city: Scalars['String'];
+  houseNumber: Scalars['String'];
+  postalCode: Scalars['String'];
+};
+
 export type Pim = {
   __typename?: 'Pim';
   id: Scalars['String'];
@@ -200,6 +424,23 @@ export type Pim = {
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
+  houseGeneral?: Maybe<HouseGeneral>;
+  floors?: Maybe<Array<Floor>>;
+};
+
+export type Space = {
+  __typename?: 'Space';
+  id: Scalars['String'];
+  spaceType: SpaceType;
+  extraRoomPossibility: Scalars['Boolean'];
+};
+
+export type Floor = {
+  __typename?: 'Floor';
+  id: Scalars['String'];
+  level: Scalars['Int'];
+  floorType: FloorType;
+  spaces?: Maybe<Array<Space>>;
 };
 
 export type PimSearchResult = {
@@ -233,6 +474,18 @@ export type ListPimsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
 };
 
+export type AddNewFloorInput = {
+  pimId: Scalars['String'];
+  floorType: FloorType;
+};
+
+export type AddSpaceInput = {
+  spaceType: SpaceType;
+  extraRoomPossibility: Scalars['Boolean'];
+  pimId: Scalars['String'];
+  floorId: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Profile>;
@@ -264,7 +517,10 @@ export type Mutation = {
   deleteUser?: Maybe<Scalars['String']>;
   createPim?: Maybe<Scalars['String']>;
   updatePim?: Maybe<Scalars['String']>;
+  updatePimGeneralInfo?: Maybe<Scalars['String']>;
   removePim?: Maybe<Scalars['String']>;
+  addFloorToPim?: Maybe<Scalars['String']>;
+  addSpaceToFloor?: Maybe<Scalars['String']>;
 };
 
 export type MutationLoginArgs = {
@@ -292,8 +548,20 @@ export type MutationUpdatePimArgs = {
   input: UpdatePimInput;
 };
 
+export type MutationUpdatePimGeneralInfoArgs = {
+  input: PimGeneralInput;
+};
+
 export type MutationRemovePimArgs = {
   id: Scalars['String'];
+};
+
+export type MutationAddFloorToPimArgs = {
+  input: AddNewFloorInput;
+};
+
+export type MutationAddSpaceToFloorArgs = {
+  input: AddSpaceInput;
 };
 
 export type LoginMutationVariables = {
@@ -326,6 +594,30 @@ export type CreatePimMutationVariables = {
 };
 
 export type CreatePimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'createPim'>;
+
+export type UpdatePimMutationVariables = {
+  input: UpdatePimInput;
+};
+
+export type UpdatePimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updatePim'>;
+
+export type UpdatePimGeneralInfoMutationVariables = {
+  input: PimGeneralInput;
+};
+
+export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updatePimGeneralInfo'>;
+
+export type AddFloorToPimMutationVariables = {
+  input: AddNewFloorInput;
+};
+
+export type AddFloorToPimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'addFloorToPim'>;
+
+export type AddSpaceToFloorMutationVariables = {
+  input: AddSpaceInput;
+};
+
+export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'addSpaceToFloor'>;
 
 export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
@@ -502,6 +794,82 @@ export type CreatePimMutationResult = ApolloReactCommon.MutationResult<CreatePim
 export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePimMutation,
   CreatePimMutationVariables
+>;
+export const UpdatePimDocument = gql`
+  mutation UpdatePim($input: UpdatePimInput!) {
+    updatePim(input: $input)
+  }
+`;
+export function useUpdatePimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimMutation, UpdatePimMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimMutation, UpdatePimMutationVariables>(UpdatePimDocument, baseOptions);
+}
+export type UpdatePimMutationHookResult = ReturnType<typeof useUpdatePimMutation>;
+export type UpdatePimMutationResult = ApolloReactCommon.MutationResult<UpdatePimMutation>;
+export type UpdatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimMutation,
+  UpdatePimMutationVariables
+>;
+export const UpdatePimGeneralInfoDocument = gql`
+  mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
+    updatePimGeneralInfo(input: $input)
+  }
+`;
+export function useUpdatePimGeneralInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdatePimGeneralInfoMutation,
+    UpdatePimGeneralInfoMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>(
+    UpdatePimGeneralInfoDocument,
+    baseOptions,
+  );
+}
+export type UpdatePimGeneralInfoMutationHookResult = ReturnType<typeof useUpdatePimGeneralInfoMutation>;
+export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimGeneralInfoMutation>;
+export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimGeneralInfoMutation,
+  UpdatePimGeneralInfoMutationVariables
+>;
+export const AddFloorToPimDocument = gql`
+  mutation AddFloorToPim($input: AddNewFloorInput!) {
+    addFloorToPim(input: $input)
+  }
+`;
+export function useAddFloorToPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddFloorToPimMutation, AddFloorToPimMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddFloorToPimMutation, AddFloorToPimMutationVariables>(
+    AddFloorToPimDocument,
+    baseOptions,
+  );
+}
+export type AddFloorToPimMutationHookResult = ReturnType<typeof useAddFloorToPimMutation>;
+export type AddFloorToPimMutationResult = ApolloReactCommon.MutationResult<AddFloorToPimMutation>;
+export type AddFloorToPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddFloorToPimMutation,
+  AddFloorToPimMutationVariables
+>;
+export const AddSpaceToFloorDocument = gql`
+  mutation AddSpaceToFloor($input: AddSpaceInput!) {
+    addSpaceToFloor(input: $input)
+  }
+`;
+export function useAddSpaceToFloorMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>(
+    AddSpaceToFloorDocument,
+    baseOptions,
+  );
+}
+export type AddSpaceToFloorMutationHookResult = ReturnType<typeof useAddSpaceToFloorMutation>;
+export type AddSpaceToFloorMutationResult = ApolloReactCommon.MutationResult<AddSpaceToFloorMutation>;
+export type AddSpaceToFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddSpaceToFloorMutation,
+  AddSpaceToFloorMutationVariables
 >;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
