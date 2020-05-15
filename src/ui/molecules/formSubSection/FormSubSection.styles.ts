@@ -17,4 +17,7 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
     fontSize: typography.h5.fontSize,
     color: palette.gray.main,
   },
+  noBorder: {
+    borderBottomWidth: 0,
+  },
 }));

@@ -177,6 +177,10 @@ const theme = createMuiTheme({
       input: {
         fontSize: '0.9rem',
       },
+      adornedEnd: {
+        color: palette.gray.main,
+        fontSize: typography.h5.fontSize,
+      },
     },
     MuiPaper: {
       rounded: {
@@ -232,6 +236,9 @@ const theme = createMuiTheme({
           lineHeight: `${defaultTheme.spacing(3)}px`,
           marginTop: 0,
           marginBottom: defaultTheme.spacing(1),
+        },
+        '&.Mui-disabled': {
+          color: `${palette.gray.main} !important`,
         },
         '& > a': {
           pointerEvents: 'all',

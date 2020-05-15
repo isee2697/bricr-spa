@@ -1,42 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
+import arrayMutators from 'final-form-arrays';
+import { Form } from 'react-final-form';
 
-import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { Button } from 'ui/atoms';
-import { AddIcon } from 'ui/atoms/icons';
+import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
-import { EmptyFloor } from 'app/pimDetails/sections/emptyFloor/EmptyFloor';
-import { AddNewFloorModalContainer } from '../addNewFloorModal/AddNewFloorModalContainer';
+import { EmptyFloor } from 'app/pimDetails/sections/inside/floor/emptyFloor/EmptyFloor';
 import { AddNewSpaceModalContainer } from '../addNewSpace/AddNewSpaceModalContainer';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { GenericField } from 'form/fields';
+import { useModalState } from 'hooks/useModalState/useModalState';
 
 import { FloorProps } from './Floor.types';
+import { Spaces } from './spaces/Spaces';
 
-export const Floor = ({ title, description, isSidebarVisible, onOpenSidebar }: FloorProps) => {
+export const Floor = ({ type, spaces }: FloorProps) => {
   const { formatMessage } = useLocale();
-  const [isAddFloorModalOpen, setAddFloorModalOpened] = useState(false);
-  const [isAddNewSpaceModalOpen, setAddNewSpaceModalOpened] = useState(false);
+  const isAddNewSpaceModalOpen = useModalState('add-new-space');
+  const { close, open } = useModalDispatch();
 
   return (
     <>
-      <PimDetailsHeader
-        title={'Attic'}
-        isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
-        action={
-          <Button
-            color="primary"
-            startIcon={<AddIcon color="inherit" />}
-            variant="contained"
-            onClick={() => setAddNewSpaceModalOpened(true)}
-            size="small"
-          >
-            {formatMessage({ id: AppMessages['pim_details.add_new_floor'] })}
-          </Button>
-        }
-      />
-      <EmptyFloor onClick={() => setAddNewSpaceModalOpened(true)} title={'Attic'} description={description} />
-      <AddNewFloorModalContainer isOpened={isAddFloorModalOpen} onClose={() => setAddFloorModalOpened(false)} />
-      <AddNewSpaceModalContainer isOpened={isAddNewSpaceModalOpen} onClose={() => setAddNewSpaceModalOpened(false)} />
+      <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
+        {() => (
+          <>
+            <Grid container xs={12} item justify="space-between">
+              <Typography variant="h1">{formatMessage({ id: `dictionaries.floor_type.${type}` })}</Typography>
+              <GenericField placeholder="pim_details.inside.floor.description_placeholder" name="description" />
+            </Grid>
+
+            {spaces.length === 0 && (
+              <EmptyFloor
+                onClick={() => open('add-new-space')}
+                title={formatMessage({ id: `dictionaries.floor_type.${type}` })}
+              />
+            )}
+
+            {spaces.length > 0 && <Spaces floorType={type} spaces={spaces} />}
+          </>
+        )}
+      </Form>
+      <AddNewSpaceModalContainer isOpened={isAddNewSpaceModalOpen} onClose={() => close('add-new-space')} />
     </>
   );
 };

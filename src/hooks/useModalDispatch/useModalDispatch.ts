@@ -12,20 +12,42 @@ export const useModalDispatch = () => {
 
   const open = useCallback(
     (id: string) => {
-      context.setModalsState([
-        ...((context.modalsState.find((modalState: ModalStateType) => modalState.id !== id) || []) as ModalStateType[]),
-        { id: id, isOpen: true },
-      ]);
+      // @TODO move it to useReducer in context
+      context.setModalsState(state => {
+        const index = state.findIndex((modalState: ModalStateType) => modalState.id === id);
+
+        if (index !== -1) {
+          const newState = [...state];
+          newState[index] = { id: id, isOpen: true };
+
+          return newState;
+        } else {
+          return [...state, { id: id, isOpen: true }];
+        }
+      });
     },
     [context],
   );
 
-  const close = (id: string) => {
-    context.setModalsState([
-      ...((context.modalsState.find((modalState: ModalStateType) => modalState.id !== id) || []) as ModalStateType[]),
-      { id: id, isOpen: false },
-    ]);
-  };
+  const close = useCallback(
+    // @TODO move it to useReducer in context
+
+    (id: string) => {
+      context.setModalsState(state => {
+        const index = state.findIndex((modalState: ModalStateType) => modalState.id === id);
+
+        if (index !== -1) {
+          const newState = [...state];
+          newState[index] = { id: id, isOpen: false };
+
+          return newState;
+        } else {
+          return [...state, { id: id, isOpen: false }];
+        }
+      });
+    },
+    [context],
+  );
 
   return {
     open,

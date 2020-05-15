@@ -1,6 +1,6 @@
 export type ModalContextType = {
   modalsState: ModalStateType[];
-  setModalsState: (modal: ModalStateType[]) => void;
+  setModalsState: React.Dispatch<React.SetStateAction<ModalStateType[]>>;
 };
 
 export type ModalStateType = {

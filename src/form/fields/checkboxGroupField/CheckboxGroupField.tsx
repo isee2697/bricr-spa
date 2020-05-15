@@ -8,7 +8,16 @@ import { validatorsChain } from 'form/validators';
 
 import { CheckboxDataType, CheckboxGroupFieldProps } from './CheckboxGroupField.types';
 
-export const CheckboxGroupField = ({ name, options, validate, validateFields }: CheckboxGroupFieldProps) => {
+export const CheckboxGroupField = ({
+  name,
+  options,
+  validate,
+  validateFields,
+  xs = 1,
+  md,
+  lg,
+  disabled,
+}: CheckboxGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { fields, meta } = useFieldArray<string>(name, {
     validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<string>) : undefined,
@@ -35,11 +44,12 @@ export const CheckboxGroupField = ({ name, options, validate, validateFields }: 
     <>
       <Grid container spacing={3}>
         {options.map((item: CheckboxDataType) => (
-          <Grid item xs={2} key={item.title}>
+          <Grid item xs={xs} md={md} lg={lg} key={item.value}>
             <TileCheckbox
               onClick={() => handleClick(item)}
               isSelected={fields.value && fields.value.includes(item.value)}
-              title={item.title}
+              title={formatMessage({ id: item.label })}
+              isDisabled={disabled}
             >
               {item.icon}
             </TileCheckbox>

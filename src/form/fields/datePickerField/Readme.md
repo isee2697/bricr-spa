@@ -5,8 +5,6 @@ import { DatePickerField } from './DatePickerField';
 import { Form } from 'react-final-form';
 import { Grid } from 'ui/atoms';
 
-let val = new Date();
-
 <Form 
   onSubmit={() => {}}
   validate={() => {}}
@@ -15,19 +13,18 @@ let val = new Date();
     <form onSubmit={handleSubmit}>
     <Grid container spacing={3}>
       <Grid item xs={4}>
-        <DatePickerField label={<>Date picker</>} name="field" value={val} onChange={(e) => {val = e}} />
+        <DatePickerField label="pim_details.inside.year_of_construction" name="field" />
       </Grid>
       <Grid item xs={4}>
         <DatePickerField 
-          label={<>Date picker</>}
+          label="pim_details.inside.year_of_construction"
           name="field" 
-          // value={'fake date'} 
           helperText="My date error"
           error={true}
         />
       </Grid>
       <Grid item xs={4}>
-        <DatePickerField disabled label={<>Date picker</>} name="field" value={null} onChange={(e) => {val = e}} />
+        <DatePickerField disabled label="pim_details.inside.year_of_construction" name="field" label="pim_details.inside.year_of_construction_placeholder" />
       </Grid>
     </Grid>
 </form>)

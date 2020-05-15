@@ -7,34 +7,27 @@ import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { SeeIcon } from 'ui/atoms/icons/see/SeeIcon';
 import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
-import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { ComplexBuildingIcon } from 'ui/atoms/icons/complexBuilding/ComplexBuildingIcon';
 
 const checkboxes = [
   {
-    title: 'Recovery',
-    icon: <SeeIcon color="inherit"/>,
-    value: 'recovery'
+    label: 'dictionaries.kitchen_construction.DenseKitchen',
+    icon: <HomeIcon color="inherit" />,
+    value: 'DenseKitchen',
   },
   {
-    title: 'Fireplace',
-    icon: <MailIcon color="inherit"/>,
-    value: 'fire'
+    label: 'dictionaries.kitchen_construction.EatInKitchen',
+    icon: <SeeIcon color="inherit" />,
+    value: 'EatInKitchen',
   },
   {
-    title: 'Underfloor',
-    icon: <PinIcon color="inherit"/>,
-    value: 'underfloor'
+    label: 'dictionaries.kitchen_construction.HalfOpenKitchen',
+    icon: <PinIcon color="inherit" />,
+    value: 'HalfOpenKitchen',
   },
   {
-    title: 'Hot air',
-    icon: <HomeIcon color="inherit"/>,
-    value: 'hot'
-  },
-  {
-    title: 'Wall',
-    icon: <LinkIcon color="inherit"/>,
-    value: 'wall'
+    label: 'dictionaries.kitchen_construction.OpenKitchen',
+    icon: <LinkIcon color="inherit" />,
+    value: 'OpenKitchen',
   },
 ];
 

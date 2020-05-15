@@ -7,7 +7,16 @@ import { validatorsChain } from 'form/validators';
 
 import { RadioDataType, RadioGroupFieldProps } from './RadioGroupField.types';
 
-export const RadioGroupField = ({ name, options, validate, validateFields, width = 2 }: RadioGroupFieldProps) => {
+export const RadioGroupField = ({
+  name,
+  disabled,
+  options,
+  validate,
+  validateFields,
+  xs = 2,
+  md,
+  lg,
+}: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
     validate: validate ? validatorsChain(...validate) : undefined,
@@ -34,8 +43,13 @@ export const RadioGroupField = ({ name, options, validate, validateFields, width
     <>
       <Grid container spacing={3}>
         {options.map((item: RadioDataType) => (
-          <Grid item xs={width} key={item.title}>
-            <TileRadio onClick={() => handleClick(item)} isSelected={input.value === item.value} title={item.title}>
+          <Grid item xs={xs} md={md} lg={lg} key={item.value}>
+            <TileRadio
+              onClick={() => handleClick(item)}
+              isSelected={input.value === item.value}
+              title={formatMessage({ id: item.label })}
+              isDisabled={disabled}
+            >
               {item.icon}
             </TileRadio>
           </Grid>

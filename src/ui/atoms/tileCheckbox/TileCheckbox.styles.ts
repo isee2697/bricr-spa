@@ -14,7 +14,7 @@ export const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
       flexWrap: 'wrap',
       alignItems: 'center',
-      borderColor: theme.palette.gray.main,
+      borderColor: theme.palette.gray.light,
       padding: 0,
     },
     '& .MuiCard-root svg': {

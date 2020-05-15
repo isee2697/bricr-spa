@@ -11,7 +11,6 @@ import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebar
 import { PimDetailsProps } from './PimDetails.types';
 import { General } from './sections/general/General';
 import { Inside } from './sections/inside/Inside';
-import { Floor } from './sections/inside/floor/Floor';
 
 export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const classes = useStyles();
@@ -52,16 +51,8 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
             />
             <Route
               path={`${AppRoute.pimDetails}/inside`}
-              exact
               render={() => (
                 <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
-              )}
-            />
-            <Route
-              path={`${AppRoute.pimDetails}/inside/attic`}
-              exact
-              render={() => (
-                <Floor isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
               )}
             />
             <Redirect to={`${AppRoute.pimDetails}/general`} />
