@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { Button } from 'ui/atoms';
+import { Button, Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
+import { InfoSection } from 'ui/molecules';
 
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
 import { AddNewSpaceModalContainer } from './addNewSpace/AddNewSpaceModalContainer';
@@ -18,7 +19,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
   return (
     <>
       <PimDetailsHeader
-        title={title}
+        title={formatMessage({ id: AppMessages['pim_details.inside.title'] })}
         isSidebarVisible={isSidebarVisible}
         onOpenSidebar={onOpenSidebar}
         action={
@@ -35,17 +36,21 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
           </Button>
         }
       />
-      <Button
-        color="primary"
-        startIcon={<AddIcon color="inherit" />}
-        variant="contained"
-        onClick={() => {
-          setAddNewSpaceModalOpened(true);
-        }}
-        size="small"
-      >
-        {formatMessage({ id: AppMessages['pim_details.add_new_floor'] })}
-      </Button>
+      <Grid item xs={12}>
+        <Card>
+          <CardHeader title="Inside" />
+          <CardContent>
+            <InfoSection emoji="🤔">
+              <Typography variant="h3">
+                {formatMessage({ id: AppMessages['pim_details.empty_floor.title'] })}
+              </Typography>
+              <Typography variant="h3">
+                {formatMessage({ id: AppMessages['pim_details.empty_floor.description'] })}
+              </Typography>
+            </InfoSection>
+          </CardContent>
+        </Card>
+      </Grid>
       <AddNewFloorModalContainer isOpened={isAddFloorModalOpen} onClose={() => setAddFloorModalOpened(false)} />
       <AddNewSpaceModalContainer isOpened={isAddNewSpaceModalOpen} onClose={() => setAddNewSpaceModalOpened(false)} />
     </>

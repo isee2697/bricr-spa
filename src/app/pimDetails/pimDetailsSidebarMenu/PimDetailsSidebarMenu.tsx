@@ -84,11 +84,9 @@ export const PimDetailsSidebarMenu = ({ onHide }: PimDetailsSidebarMenuProps) =>
               selected={pathname === `${url}/${item.name}`}
             >
               {item.subItems?.map(title => (
-                <SideSubMenuItem
-                  key={title}
-                  title={formatMessage({ id: `pim_details.menu.${title}` })}
-                  selected={false}
-                />
+                <Link to={`${url}/${item.name}/${title}`} key={title}>
+                  <SideSubMenuItem title={formatMessage({ id: `pim_details.menu.${title}` })} selected={false} />
+                </Link>
               ))}
             </SideMenuItem>
           </Link>
