@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 type FieldValue = DateTime | null;
 
-export type DatePickerFieldProps = KeyboardDatePickerProps & {
+export type DatePickerFieldProps = Omit<KeyboardDatePickerProps, 'value' | 'onChange'> & {
   name: string;
   validate?: FieldValidator<FieldValue>[];
   validateFields?: string[];

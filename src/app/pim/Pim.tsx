@@ -1,10 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Pim as PimEntity } from 'api/types';
-import { Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
+import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppMessages } from 'i18n/messages';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';
@@ -27,6 +29,7 @@ export const Pim = ({
 }: PimProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   return (
     <>
@@ -46,7 +49,14 @@ export const Pim = ({
                   <List
                     items={(listData?.listPims.items ?? []) as PimEntity[]}
                     itemIndex={'id'}
-                    renderItem={pim => <PimItem {...pim} />}
+                    renderItem={pim => (
+                      <Box
+                        className={classes.itemButton}
+                        onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                      >
+                        <PimItem {...pim} />
+                      </Box>
+                    )}
                     onBulk={() => alert('Bulk clicked')}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}

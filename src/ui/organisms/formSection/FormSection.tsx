@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
-import { Typography, Box, FormControlLabel, Switch, IconButton, ExpansionPanel, ExpansionPanelDetails } from 'ui/atoms';
+import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 
 import { FormSectionProps } from './FormSection.types';
-import * as S from './FormSection.styles';
+import { useStyles } from './FormSection.styles';
 
 export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, children }: FormSectionProps) => {
   const { formatMessage } = useLocale();
-  const classes = S.useStyles();
+  const classes = useStyles();
 
   const [expanded, setExpanded] = useState(true);
   const [editing, setEditing] = useState(false);
 
   return (
-    <ExpansionPanel expanded={expanded}>
-      <S.Header editing={editing.toString()}>
+    <Card className={classes.root}>
+      <Box className={classNames(classes.header, { 'edit-mode': editing })}>
         <Typography variant="h2">{title}</Typography>
         <Box className={classes.actions}>
           {isEditable && (
@@ -37,7 +38,7 @@ export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, chi
           )}
           {isExpandable && (
             <IconButton
-              className="expanding-icon"
+              className={classNames({ 'icon-reversed': expanded })}
               variant="roundedContained"
               size="small"
               onClick={() => setExpanded(expanded => !expanded)}
@@ -46,8 +47,10 @@ export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, chi
             </IconButton>
           )}
         </Box>
-      </S.Header>
-      <ExpansionPanelDetails className={classes.content}>{children(editing)}</ExpansionPanelDetails>
-    </ExpansionPanel>
+      </Box>
+      <Collapse in={expanded} timeout="auto" unmountOnExit className={classes.content}>
+        {children(editing)}
+      </Collapse>
+    </Card>
   );
 };

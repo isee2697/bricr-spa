@@ -15,11 +15,11 @@ let val = new Date();
     <form onSubmit={handleSubmit}>
     <Grid container spacing={3}>
       <Grid item xs={4}>
-        <DatePickerField label="Date picker" name="field" value={val} onChange={(e) => {val = e}} />
+        <DatePickerField label={<>Date picker</>} name="field" value={val} onChange={(e) => {val = e}} />
       </Grid>
       <Grid item xs={4}>
         <DatePickerField 
-          label="Date picker" 
+          label={<>Date picker</>}
           name="field" 
           // value={'fake date'} 
           helperText="My date error"
@@ -27,7 +27,7 @@ let val = new Date();
         />
       </Grid>
       <Grid item xs={4}>
-        <DatePickerField disabled label="Date picker" name="field" value={null} placeholder="Enter date" onChange={(e) => {val = e}} />
+        <DatePickerField disabled label={<>Date picker</>} name="field" value={null} onChange={(e) => {val = e}} />
       </Grid>
     </Grid>
 </form>)

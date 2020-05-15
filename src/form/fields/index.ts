@@ -5,3 +5,4 @@ export * from './datePickerField/DatePickerField';
 export * from './timePickerField/TimePickerField';
 export * from './checkboxGroupField/CheckboxGroupField';
 export * from './radioGroupField/RadioGroupField';
+export * from './selectField/SelectField';

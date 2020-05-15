@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
+    display: 'inline-block',
     width: '100%',
     minWidth: theme.spacing(13),
     height: theme.spacing(13),
@@ -12,10 +13,12 @@ export const useStyles = makeStyles(theme => ({
       width: '100%',
       height: '100%',
       display: 'flex',
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
       justifyContent: 'center',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
-      borderColor: theme.palette.gray.light,
+      borderColor: theme.palette.gray.main,
     },
     '& .MuiCard-root svg': {
       width: 40,
@@ -37,8 +40,8 @@ export const useStyles = makeStyles(theme => ({
     '&.MuiCard-root': {
       borderColor: theme.palette.primary.main,
     },
-    '&.MuiCard-root svg': {
-      color: theme.palette.primary.main,
+    '&.MuiCard-root path': {
+      fill: theme.palette.primary.main,
     },
     '& .title': {
       color: theme.palette.black.main,

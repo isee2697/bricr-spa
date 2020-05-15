@@ -1,37 +1,23 @@
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { ExpansionPanelSummary } from 'ui/atoms';
-
-import { FormSectionHeaderProps } from './FormSection.types';
-
-export const Header: React.ComponentType<FormSectionHeaderProps> = withStyles(({ palette, spacing }) => ({
+export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
   root: {
     padding: spacing(2),
-    color: (props: FormSectionHeaderProps) => (props.editing === 'true' ? palette.primary.main : palette.black.main),
-    '&.MuiButtonBase-root.MuiExpansionPanelSummary-root': {
-      cursor: 'default',
-    },
   },
   content: {
-    minHeight: 0,
-    margin: 0,
+    padding: `${spacing(2)}px 0`,
+  },
+  header: {
+    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'stretch',
-    '&.Mui-expanded': {
-      margin: 0,
+    '&.edit-mode': {
+      color: palette.primary.main,
     },
-  },
-  expanded: {
-    '& .expanding-icon': {
+    '& .icon-reversed': {
       transform: 'rotate(180deg)',
     },
-  },
-}))(ExpansionPanelSummary);
-
-export const useStyles = makeStyles(({ typography, spacing }) => ({
-  content: {
-    padding: spacing(2),
   },
   actions: {
     '& > *': {

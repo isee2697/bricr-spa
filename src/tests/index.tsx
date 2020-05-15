@@ -3,6 +3,8 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
 import { IntlProvider } from 'react-intl';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import LuxonUtils from '@date-io/luxon';
 
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
@@ -24,7 +26,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
             <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
               <OverlayContextController>
                 <ModalContextController>
-                  <Router>{children}</Router>
+                  <MuiPickersUtilsProvider utils={LuxonUtils}>
+                    <Router>{children}</Router>
+                  </MuiPickersUtilsProvider>
                 </ModalContextController>
               </OverlayContextController>
             </LocaleContext.Provider>

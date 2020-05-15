@@ -5,4 +5,7 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     marginBottom: 0,
   },
+  itemButton: {
+    cursor: 'pointer',
+  },
 }));

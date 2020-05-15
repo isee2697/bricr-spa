@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
-import { FormSection } from 'ui/organisms';
 import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
@@ -11,6 +10,10 @@ import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { EditIcon } from 'ui/atoms/icons/edit/EditIcon';
 
 import { useStyles } from './General.styles';
+import { AddressForm } from './forms/AddressForm';
+import { PropertyDetailsForm } from './forms/PropertyDetailsForm';
+import { ConstructionInformationForm } from './forms/ConstructionInformationForm';
+import { AvailabilityForm } from './forms/AvailabilityForm';
 
 export const General = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
@@ -48,47 +51,19 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection
-          title={formatMessage({ id: AppMessages['pim_details.general.address_information.title'] })}
-          isExpandable
-        >
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
+        <AddressForm />
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection
-          title={formatMessage({ id: AppMessages['pim_details.general.property_details.title'] })}
-          isExpandable
-        >
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
+        <PropertyDetailsForm />
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection
-          title={formatMessage({ id: AppMessages['pim_details.general.construction_information'] })}
-          isExpandable
-        >
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
+        <ConstructionInformationForm />
       </Grid>
 
       <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: AppMessages['pim_details.general.availability'] })} isExpandable>
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
-      </Grid>
-
-      <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: AppMessages['pim_details.general.habitation'] })} isExpandable>
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
-      </Grid>
-      <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: AppMessages['pim_details.general.status_construction'] })} isExpandable>
-          {editing => <p>Form content{!!editing && ' in edit mode'}</p>}
-        </FormSection>
+        <AvailabilityForm />
       </Grid>
     </>
   );
