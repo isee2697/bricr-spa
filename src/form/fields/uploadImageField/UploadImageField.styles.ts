@@ -2,6 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
+    cursor: 'pointer',
+    position: 'relative',
+    '&:hover .MuiBadge-root': {
+      display: 'block',
+    },
+  },
+  item: {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: theme.spacing(),
@@ -37,5 +44,17 @@ export const useStyles = makeStyles(theme => ({
   },
   text: {
     width: '100%',
+  },
+  badge: {
+    position: 'absolute',
+    right: theme.spacing(0.75),
+    display: 'none',
+  },
+  badgeIcon: {
+    color: theme.palette.white.main,
+    fontSize: '0.75rem',
+    '& path': {
+      fill: theme.palette.white.main,
+    },
   },
 }));

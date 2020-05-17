@@ -8,13 +8,14 @@ import { Grid, Button } from 'ui/atoms';
 <Form 
   onSubmit={() => {}}
   validate={() => {}}
+  initialValues={{image: 'https://source.unsplash.com/featured/?building', image2: undefined, image3: null}}
   render={({handleSubmit, invalid, pristine}) => {
     return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={1}>
         <UploadImageField name="image" />
-        <UploadImageField name="errorImage" error={true} />
-        <UploadImageField name="uploadedImage" value="https://www.publicdomainpictures.net/pictures/70000/velka/london-motor-museum-uk-13872284008pj.jpg"/>
+        <UploadImageField name="image2" />
+        <UploadImageField name="image3" />
       </Grid>
     </form>
     )
