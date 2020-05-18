@@ -43,10 +43,11 @@ export const Pim = ({
             <PimHeader />
             <Grid item xs={12}>
               <Card>
-                <CardHeader title={formatMessage({ id: `pim.type.${type}` })} />
+                <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
                   <PimTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   <List
+                    className="pim-list"
                     items={(listData?.listPims.items ?? []) as PimEntity[]}
                     itemIndex={'id'}
                     renderItem={pim => (
@@ -63,8 +64,12 @@ export const Pim = ({
                     pagination={pagination}
                     loading={isLoading}
                     loadingItem={<PropertyItemPlaceholder />}
-                    emptyTitle={formatMessage({ id: AppMessages['pim.list.empty_title'] })}
-                    emptyDescription={formatMessage({ id: AppMessages['pim.list.empty_description'] })}
+                    emptyTitle={formatMessage({
+                      id: AppMessages['pim.list.empty_title'],
+                    })}
+                    emptyDescription={formatMessage({
+                      id: AppMessages['pim.list.empty_description'],
+                    })}
                   />
                 </CardContent>
               </Card>

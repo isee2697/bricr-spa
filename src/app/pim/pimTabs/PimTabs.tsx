@@ -11,6 +11,7 @@ export const PimTabs = ({ status, onStatusChange, amounts }: PimTabsProps) => {
 
   return (
     <Tabs
+      className="pim-tabs"
       value={status}
       onChange={(event, value) => onStatusChange(value)}
       indicatorColor="primary"
@@ -29,10 +30,12 @@ export const PimTabs = ({ status, onStatusChange, amounts }: PimTabsProps) => {
         }
       />
       <Tab
+        className="pim-tab-active"
         value="active"
         label={formatMessage({ id: AppMessages['pim.status.active'] }) + (amounts ? ` (${amounts.active})` : '')}
       />
       <Tab
+        className="pim-tab-archived"
         value="archived"
         label={formatMessage({ id: AppMessages['pim.status.archived'] }) + (amounts ? ` (${amounts.archived})` : '')}
       />

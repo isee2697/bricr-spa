@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks';
@@ -23,7 +24,7 @@ export const ListHeader = ({
     <Box className={classes.header}>
       <Box>
         <Typography variant="h5" className={classes.selectAll} onClick={onCheckAll}>
-          <Checkbox color="primary" className={classes.checkbox} {...checkAllStatus} />
+          <Checkbox color="primary" className={classNames(classes.checkbox, 'list-select-all')} {...checkAllStatus} />
           {formatMessage({ id: AppMessages['list.select_all'] })}
         </Typography>
         {!!checkedKeys.length && (
@@ -33,7 +34,7 @@ export const ListHeader = ({
         )}
       </Box>
       <Select
-        className={classes.sorting}
+        className={classNames(classes.sorting, 'sort-select')}
         variant="outlined"
         value={sorting}
         onChange={event => {

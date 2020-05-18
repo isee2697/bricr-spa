@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { Box, Pagination, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
@@ -21,6 +22,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   loadingItem,
   emptyTitle,
   emptyDescription,
+  className,
 }) => {
   const classes = useStyles();
 
@@ -36,7 +38,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   }
 
   return (
-    <Box className={classes.container}>
+    <Box className={classNames(classes.container, className)}>
       <ListHeader
         sortOptions={sortOptions}
         checkedKeys={checkedKeys}

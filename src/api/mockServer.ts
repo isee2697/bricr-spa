@@ -2,7 +2,7 @@ import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
 
-import { PIM_1, PIM_DETAILS_1 } from './mocks/pim';
+import { getListPims, PIM_DETAILS_1 } from './mocks/pim';
 
 const schema = loader('./schema.graphql');
 
@@ -68,19 +68,24 @@ export const mockServer = () => {
             throw new Error();
           },
           listPims() {
-            if (variables.filters?.city === 'Rotterdam') {
+            if (variables.filters?.city === 'Amsterdam' || variables.filters?.city === 'Test') {
               return {
-                data: [],
+                items: [],
                 metadata: {
-                  total: 1,
+                  total: 0,
                 },
               };
             }
 
+            const from = variables?.from ?? 0;
+            const limit = variables?.limit ?? 10;
+            const totalPims = getListPims();
+            const pims = totalPims.slice(from, limit + from);
+
             return {
-              items: [PIM_1],
+              items: pims,
               metadata: {
-                total: 0,
+                total: totalPims.length,
               },
             };
           },
@@ -90,11 +95,11 @@ export const mockServer = () => {
             }
 
             return {
-              id: 'test',
+              id: PIM_DETAILS_1.id,
             };
           },
           getPim() {
-            if (variables.id !== 'pim_1') {
+            if (variables.id === 'test') {
               throw new Error();
             }
 

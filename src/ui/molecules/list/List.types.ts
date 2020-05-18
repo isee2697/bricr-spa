@@ -19,6 +19,7 @@ export type ListProps<T> = {
   loadingItem?: React.ReactElement;
   emptyTitle?: string;
   emptyDescription?: string;
+  className?: string;
 };
 
 export type ListHeaderProps = {

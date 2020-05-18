@@ -33,34 +33,28 @@ export const PIM_1 = {
   images: [],
   completeness: 0,
   archived: false,
-  dateCreated: '',
+  dateCreated: '2020-05-17T15:26:40.317Z',
 };
 
+export const getListPims = () =>
+  Array.from({ length: 100 }, () => ({
+    ...PIM_1,
+    id: Math.random().toString(),
+  }));
+
 export const PIM_DETAILS_1: Pim = {
-  id: 'pim_1',
-  realEstateType: RealEstateType.Business,
-  street: 'Isenburgstraat',
-  houseNumber: '36',
+  ...PIM_1,
   constructionNumberPrefix: null,
   constructionNumber: null,
   constructionNumberAddition: null,
-  postalCode: '4813 NC',
   district: null,
-  city: 'Breda',
   state: null,
-  country: 'Netherlands',
-  developmentType: DevelopmentType.New,
-  status: PimStatus.Available,
   salePrice: null,
   rentPrice: null,
   description: null,
-  images: null,
   livingArea: null,
   propertyType: PropertyType.House,
   attention: null,
-  completeness: 0.41,
-  archived: false,
-  dateCreated: '2020-05-17T15:26:40.317Z',
   houseGeneral: {
     availability: {
       availability: PropertyAvailability.ByDate,

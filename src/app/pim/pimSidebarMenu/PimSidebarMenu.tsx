@@ -53,6 +53,7 @@ export const PimSidebarMenu = ({ type, onTypeChange }: PimSidebarMenuProps) => {
     <SideMenu className={classes.root}>
       {types.map(t => (
         <SideMenuItem
+          className="pim-side-menu-item"
           key={t.name}
           icon={t.icon}
           title={formatMessage({ id: `pim.type.${t.name}` })}

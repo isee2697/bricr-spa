@@ -13,7 +13,13 @@ export const Pagination = (props: PaginationProps) => {
   const classes = useStyles();
 
   return (
-    <Box display="flex" width="100%" justifyContent="space-between" alignItems="center">
+    <Box
+      className="pagination-container"
+      display="flex"
+      width="100%"
+      justifyContent="space-between"
+      alignItems="center"
+    >
       <ul className={classes.ul}>
         {items.map(item => (
           <PaginationItem key={`${item.type}_${item.page}`} {...item} />

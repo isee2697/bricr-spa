@@ -3,11 +3,9 @@
 import { NavigationMenu } from '../../pages/Navigation';
 
 context('Navigation', () => {
-  beforeEach(() => {
-    cy.visit(Cypress.env().baseUrl);
-  });
-
   it('allows to go to pim list', () => {
+    cy.clearSession();
+    cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
     NavigationMenu.goToPim();
     cy.contains('Property Information Management');
