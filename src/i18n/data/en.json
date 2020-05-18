@@ -241,6 +241,8 @@
   "pim_details.inside.empty_description": "To change that, click the “Circle” button at the top of the card.",
   "pim_details.empty_floor.title": "You don’t have any added spaces yet.",
   "pim_details.empty_floor.description": "To change that, click the “Circle” button at the top of the card.",
+  "pim_details.outside.title": "Outside",
+  "pim_details.outside.add_new_feature": "Add outside feature",
   "date_picker.aria_label": "Pick a date",
   "time_picker.aria_label": "Pick a time",
   "upload_image.invalid_file": "only images allowed",

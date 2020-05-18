@@ -241,6 +241,8 @@
   "pim_details.inside.empty_description": "Om dat te veranderen, klik je op de \"Cirkel\" knop bovenaan de kaart.",
   "pim_details.empty_floor.title": "Je hebt nog geen toegevoegde spaties.",
   "pim_details.empty_floor.description": "Om dat te veranderen, klik je op de \"Cirkel\" knop bovenaan de kaart.",
+  "pim_details.outside.title": "Buiten",
+  "pim_details.outside.add_new_feature": "Boeg buiten ruimte toe",
   "date_picker.aria_label": "Kies een datum",
   "time_picker.aria_label": "Kies een tijd",
   "upload_image.invalid_file": "alleen afbeeldingen toegestaan",

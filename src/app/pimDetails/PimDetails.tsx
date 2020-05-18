@@ -12,6 +12,7 @@ import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebar
 import { PimDetailsProps } from './PimDetails.types';
 import { GeneralContainer } from './sections/general/GeneralContainer';
 import { Inside } from './sections/inside/Inside';
+import { Outside } from './sections/outside/Outside';
 
 export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const classes = useStyles();
@@ -59,6 +60,12 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
               path={`${AppRoute.pimDetails}/inside`}
               render={() => (
                 <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.pimDetails}/outside`}
+              render={() => (
+                <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
               )}
             />
             <Redirect to={`${AppRoute.pimDetails}/general`} />
