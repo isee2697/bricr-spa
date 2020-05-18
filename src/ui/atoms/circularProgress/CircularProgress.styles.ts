@@ -21,5 +21,8 @@ export const useStyles = makeStyles(theme => ({
     animationDuration: '550ms',
     position: 'absolute',
     left: 0,
+    '& circle': {
+      strokeDasharray: `${theme.spacing(4)}px ${theme.spacing(25)}px`,
+    },
   },
 }));

@@ -13,19 +13,23 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Bricr</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swa" rel="stylesheet">
-    <style>
-      .gooey{position:absolute;top:50%;left:50%;width:142px;height:40px;margin:-20px 0 0 -71px;background:#fff;opacity:1;animation:gooey 2s;filter:contrast(20)}.gooey .dot{position:absolute;width:16px;height:16px;top:12px;left:15px;filter:blur(4px);background:#000;border-radius:50%;transform:translateX(0);animation:dot 2.8s infinite}.gooey .dots{transform:translateX(0);margin-top:12px;margin-left:31px;animation:dots 2.8s infinite}.gooey .dots span{display:block;float:left;width:16px;height:16px;margin-left:16px;filter:blur(4px);background:#000;border-radius:50%}@keyframes gooey{0%{opacity:0}40%{opacity:0}100%{opacity:1}}@keyframes dot{50%{transform:translateX(96px)}}@keyframes dots{50%{transform:translateX(-31px)}}
-    </style>
+    <style>body{margin:0}.loader{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}.loader>div{position:relative}.loader div>div{width:48px;height:48px}.loader-track circle{stroke:rgba(10,87,233,.4)}.loader-path{animation:loader-rotate 550ms linear infinite;position:absolute;top:0;left:0}.loader-path circle{stroke-dasharray:32px,200px;stroke:#0a57e9}@keyframes loader-rotate{100%{transform:rotate(360deg)}}</style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <div class="gooey">
-        <span class="dot"></span>
-        <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="loader">
+        <div>
+          <div class="loader-track">
+            <svg viewBox="22 22 44 44">
+              <circle cx="44" cy="44" r="20" fill="none" stroke-width="4"></circle>
+            </svg>
+          </div>
+          <div class="loader-path">
+            <svg viewBox="22 22 44 44">
+              <circle cx="44" cy="44" r="20" fill="none" stroke-width="4"></circle>
+            </svg>
+          </div>
         </div>
       </div>
     </div>

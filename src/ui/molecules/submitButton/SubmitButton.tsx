@@ -23,7 +23,7 @@ export const SubmitButton = ({
     >
       {isLoading && (
         <div className="spinner">
-          <CircularProgress color={spinnerColor} />
+          <CircularProgress color={spinnerColor} size={20} />
         </div>
       )}
       <div className="label">{children}</div>

@@ -78,7 +78,7 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
         >
           {loading && !hasError && (
             <Grid container className={classes.loading}>
-              <CircularProgress color="primary" />
+              <CircularProgress color="primary" size={24} />
             </Grid>
           )}
           {hasError && (
