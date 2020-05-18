@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -10,6 +11,9 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: string;
+  PimGeneralInput: any;
+  UpdateSpaceInputConfiguration: any;
+  Dictionary: any;
 };
 
 export type LoginInput = {
@@ -74,6 +78,12 @@ export type Sort = {
   direction: SortDirection;
 };
 
+export type Pagination = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  searchAfter?: Maybe<Array<Scalars['String']>>;
+};
+
 export type Company = {
   __typename?: 'Company';
   id: Scalars['String'];
@@ -118,6 +128,16 @@ export enum PropertyType {
   ParkingLot = 'ParkingLot',
   BuildingPlot = 'BuildingPlot',
   Other = 'Other',
+}
+
+export enum EventEntityType {
+  Pim = 'Pim',
+}
+
+export enum EventAction {
+  Created = 'Created',
+  Updated = 'Updated',
+  Removed = 'Removed',
 }
 
 export enum PropertyTypeDetailed {
@@ -172,13 +192,14 @@ export enum SpaceShape {
   ZType = 'ZType',
 }
 
-export enum SpacemMeasurement {
-  Length = 'Length',
-  Width = 'Width',
-  Height = 'Height',
-  Surface = 'Surface',
-  Volume = 'Volume',
-}
+export type SpaceMeasurement = {
+  __typename?: 'SpaceMeasurement';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
 
 export enum SpaceServiceHeating {
   GeothermalHeat = 'GeothermalHeat',
@@ -253,17 +274,25 @@ export enum SpaceType {
   Other = 'Other',
 }
 
+export type KitchenAppliance = {
+  __typename?: 'KitchenAppliance';
+  name: KitchenAppliances;
+  quantity: Scalars['Int'];
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type KitchenSpace = {
   __typename?: 'KitchenSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   type?: Maybe<KitchenType>;
   constructionType?: Maybe<KitchenConstruction>;
-  services?: Maybe<KitchenServices>;
-  appliances?: Maybe<Array<Maybe<KitchenAppliances>>>;
+  services?: Maybe<Array<Maybe<KitchenServices>>>;
+  servicesNotes?: Maybe<Scalars['String']>;
+  appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
   hob?: Maybe<KitchenHob>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpacemMeasurement>;
+  measurement?: Maybe<SpaceMeasurement>;
   serviceHeating?: Maybe<SpaceServiceHeating>;
   images?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
@@ -278,7 +307,7 @@ export type HouseGeneral = {
 };
 
 export type HouseGeneralInput = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
   availability?: Maybe<PropertyAvailabilityInformationInput>;
   construction?: Maybe<ConstructionInformationInput>;
   floor?: Maybe<FloorType>;
@@ -382,19 +411,6 @@ export type UpdatePimInput = {
 
 export type PimGeneral = HouseGeneral;
 
-export type PimGeneralInput = {
-  id: Scalars['String'];
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-  street: Scalars['String'];
-  city: Scalars['String'];
-  houseNumber: Scalars['String'];
-  postalCode: Scalars['String'];
-};
-
 export type Pim = {
   __typename?: 'Pim';
   id: Scalars['String'];
@@ -428,31 +444,41 @@ export type Pim = {
   floors?: Maybe<Array<Floor>>;
 };
 
+export type SpaceConfiguration = KitchenSpace;
+
 export type Space = {
   __typename?: 'Space';
   id: Scalars['String'];
   spaceType: SpaceType;
+  spaceName?: Maybe<Scalars['String']>;
   extraRoomPossibility: Scalars['Boolean'];
+  configuration?: Maybe<SpaceConfiguration>;
 };
 
 export type Floor = {
   __typename?: 'Floor';
   id: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
   level: Scalars['Int'];
   floorType: FloorType;
   spaces?: Maybe<Array<Space>>;
+};
+
+export type Event = {
+  __typename?: 'Event';
+  id: Scalars['String'];
+  entityType: EventEntityType;
+  relatedEntityId?: Maybe<Scalars['String']>;
+  action: EventAction;
+  timestamp: Scalars['Date'];
+  data?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type PimSearchResult = {
   __typename?: 'PimSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Pim>>;
-};
-
-export type Pagination = {
-  from?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
 export type ListPimsFilters = {
@@ -474,8 +500,13 @@ export type ListPimsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
 };
 
+export type ChangesHistoryFilters = {
+  entityType?: Maybe<EventEntityType>;
+};
+
 export type AddNewFloorInput = {
   pimId: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
   floorType: FloorType;
 };
 
@@ -484,6 +515,21 @@ export type AddSpaceInput = {
   extraRoomPossibility: Scalars['Boolean'];
   pimId: Scalars['String'];
   floorId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSpaceInput = {
+  pimId: Scalars['String'];
+  spaceId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+  space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
+};
+
+export type UpdateFloorInput = {
+  pimId: Scalars['String'];
+  floorId: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  floorType?: Maybe<FloorType>;
 };
 
 export type Query = {
@@ -493,6 +539,8 @@ export type Query = {
   listPims: PimSearchResult;
   getPim?: Maybe<Pim>;
   getPropertyTypes: Array<Scalars['String']>;
+  getChangesHistory: Array<Event>;
+  dictionary?: Maybe<Scalars['Dictionary']>;
 };
 
 export type QueryGetProfileArgs = {
@@ -509,18 +557,24 @@ export type QueryGetPimArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetChangesHistoryArgs = {
+  filters?: Maybe<ChangesHistoryFilters>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<LoginResponse>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   resetPassword?: Maybe<ResetPasswordResponse>;
   deleteUser?: Maybe<Scalars['String']>;
-  createPim?: Maybe<Scalars['String']>;
-  updatePim?: Maybe<Scalars['String']>;
-  updatePimGeneralInfo?: Maybe<Scalars['String']>;
+  createPim?: Maybe<Pim>;
+  updatePim?: Maybe<Pim>;
   removePim?: Maybe<Scalars['String']>;
-  addFloorToPim?: Maybe<Scalars['String']>;
-  addSpaceToFloor?: Maybe<Scalars['String']>;
+  updatePimGeneralInfo?: Maybe<Pim>;
+  addFloorToPim?: Maybe<Pim>;
+  addSpaceToFloor?: Maybe<Pim>;
+  updateSpace?: Maybe<Pim>;
+  updateFloor?: Maybe<Pim>;
 };
 
 export type MutationLoginArgs = {
@@ -548,12 +602,12 @@ export type MutationUpdatePimArgs = {
   input: UpdatePimInput;
 };
 
-export type MutationUpdatePimGeneralInfoArgs = {
-  input: PimGeneralInput;
-};
-
 export type MutationRemovePimArgs = {
   id: Scalars['String'];
+};
+
+export type MutationUpdatePimGeneralInfoArgs = {
+  input: Scalars['PimGeneralInput'];
 };
 
 export type MutationAddFloorToPimArgs = {
@@ -562,6 +616,14 @@ export type MutationAddFloorToPimArgs = {
 
 export type MutationAddSpaceToFloorArgs = {
   input: AddSpaceInput;
+};
+
+export type MutationUpdateSpaceArgs = {
+  input: UpdateSpaceInput;
+};
+
+export type MutationUpdateFloorArgs = {
+  input: UpdateFloorInput;
 };
 
 export type LoginMutationVariables = {
@@ -593,31 +655,59 @@ export type CreatePimMutationVariables = {
   input: CreatePimInput;
 };
 
-export type CreatePimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'createPim'>;
+export type CreatePimMutation = { __typename?: 'Mutation' } & {
+  createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdatePimMutationVariables = {
   input: UpdatePimInput;
 };
 
-export type UpdatePimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updatePim'>;
-
-export type UpdatePimGeneralInfoMutationVariables = {
-  input: PimGeneralInput;
+export type UpdatePimMutation = { __typename?: 'Mutation' } & {
+  updatePim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updatePimGeneralInfo'>;
+export type UpdatePimGeneralInfoMutationVariables = {
+  input: Scalars['PimGeneralInput'];
+};
+
+export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
+  updatePimGeneralInfo?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddFloorToPimMutationVariables = {
   input: AddNewFloorInput;
 };
 
-export type AddFloorToPimMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'addFloorToPim'>;
+export type AddFloorToPimMutation = { __typename?: 'Mutation' } & {
+  addFloorToPim?: Maybe<
+    { __typename?: 'Pim' } & { floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id'>>> }
+  >;
+};
 
 export type AddSpaceToFloorMutationVariables = {
   input: AddSpaceInput;
 };
 
-export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'addSpaceToFloor'>;
+export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
+  addSpaceToFloor?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type UpdateSpaceMutationVariables = {
+  input: UpdateSpaceInput;
+};
+
+export type UpdateSpaceMutation = { __typename?: 'Mutation' } & {
+  updateSpace?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type UpdateFloorMutationVariables = {
+  input: UpdateFloorInput;
+};
+
+export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
+  updateFloor?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
@@ -685,6 +775,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
   getPim?: Maybe<
     { __typename?: 'Pim' } & Pick<
       Pim,
+      | 'id'
       | 'realEstateType'
       | 'street'
       | 'houseNumber'
@@ -709,7 +800,68 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
       | 'completeness'
       | 'archived'
       | 'dateCreated'
-    >
+    > & {
+        houseGeneral?: Maybe<
+          { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'floor' | 'propertyConnection' | 'propertyDetails'> & {
+              availability?: Maybe<
+                { __typename?: 'PropertyAvailabilityInformation' } & Pick<
+                  PropertyAvailabilityInformation,
+                  'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
+                >
+              >;
+              construction?: Maybe<
+                { __typename?: 'ConstructionInformation' } & Pick<
+                  ConstructionInformation,
+                  'type' | 'from' | 'to' | 'notes'
+                >
+              >;
+            }
+        >;
+        floors?: Maybe<
+          Array<
+            { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription'> & {
+                spaces?: Maybe<
+                  Array<
+                    { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
+                        configuration?: Maybe<
+                          { __typename?: 'KitchenSpace' } & Pick<
+                            KitchenSpace,
+                            | 'constructionYear'
+                            | 'notes'
+                            | 'type'
+                            | 'constructionType'
+                            | 'servicesNotes'
+                            | 'services'
+                            | 'hob'
+                            | 'shape'
+                            | 'serviceHeating'
+                            | 'images'
+                          > & {
+                              appliances?: Maybe<
+                                Array<
+                                  Maybe<
+                                    { __typename?: 'KitchenAppliance' } & Pick<
+                                      KitchenAppliance,
+                                      'name' | 'quantity' | 'notes'
+                                    >
+                                  >
+                                >
+                              >;
+                              measurement?: Maybe<
+                                { __typename?: 'SpaceMeasurement' } & Pick<
+                                  SpaceMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                            }
+                        >;
+                      }
+                  >
+                >;
+              }
+          >
+        >;
+      }
   >;
 };
 
@@ -781,7 +933,9 @@ export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions
 >;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
-    createPim(input: $input)
+    createPim(input: $input) {
+      id
+    }
   }
 `;
 export function useCreatePimMutation(
@@ -797,7 +951,9 @@ export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdatePimDocument = gql`
   mutation UpdatePim($input: UpdatePimInput!) {
-    updatePim(input: $input)
+    updatePim(input: $input) {
+      id
+    }
   }
 `;
 export function useUpdatePimMutation(
@@ -813,7 +969,9 @@ export type UpdatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdatePimGeneralInfoDocument = gql`
   mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
-    updatePimGeneralInfo(input: $input)
+    updatePimGeneralInfo(input: $input) {
+      id
+    }
   }
 `;
 export function useUpdatePimGeneralInfoMutation(
@@ -835,7 +993,11 @@ export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutation
 >;
 export const AddFloorToPimDocument = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
-    addFloorToPim(input: $input)
+    addFloorToPim(input: $input) {
+      floors {
+        id
+      }
+    }
   }
 `;
 export function useAddFloorToPimMutation(
@@ -854,7 +1016,9 @@ export type AddFloorToPimMutationOptions = ApolloReactCommon.BaseMutationOptions
 >;
 export const AddSpaceToFloorDocument = gql`
   mutation AddSpaceToFloor($input: AddSpaceInput!) {
-    addSpaceToFloor(input: $input)
+    addSpaceToFloor(input: $input) {
+      id
+    }
   }
 `;
 export function useAddSpaceToFloorMutation(
@@ -870,6 +1034,48 @@ export type AddSpaceToFloorMutationResult = ApolloReactCommon.MutationResult<Add
 export type AddSpaceToFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddSpaceToFloorMutation,
   AddSpaceToFloorMutationVariables
+>;
+export const UpdateSpaceDocument = gql`
+  mutation UpdateSpace($input: UpdateSpaceInput!) {
+    updateSpace(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpaceMutation, UpdateSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSpaceMutation, UpdateSpaceMutationVariables>(
+    UpdateSpaceDocument,
+    baseOptions,
+  );
+}
+export type UpdateSpaceMutationHookResult = ReturnType<typeof useUpdateSpaceMutation>;
+export type UpdateSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateSpaceMutation>;
+export type UpdateSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpaceMutation,
+  UpdateSpaceMutationVariables
+>;
+export const UpdateFloorDocument = gql`
+  mutation UpdateFloor($input: UpdateFloorInput!) {
+    updateFloor(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateFloorMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateFloorMutation, UpdateFloorMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateFloorMutation, UpdateFloorMutationVariables>(
+    UpdateFloorDocument,
+    baseOptions,
+  );
+}
+export type UpdateFloorMutationHookResult = ReturnType<typeof useUpdateFloorMutation>;
+export type UpdateFloorMutationResult = ApolloReactCommon.MutationResult<UpdateFloorMutation>;
+export type UpdateFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateFloorMutation,
+  UpdateFloorMutationVariables
 >;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
@@ -977,6 +1183,7 @@ export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, L
 export const PimDetailsDocument = gql`
   query PimDetails($id: ID!) {
     getPim(id: $id) {
+      id
       realEstateType
       street
       houseNumber
@@ -1001,6 +1208,62 @@ export const PimDetailsDocument = gql`
       completeness
       archived
       dateCreated
+      houseGeneral {
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+        construction {
+          type
+          from
+          to
+          notes
+        }
+        floor
+        propertyConnection
+        propertyDetails
+      }
+      floors {
+        id
+        level
+        floorType
+        floorDescription
+        spaces {
+          id
+          spaceType
+          spaceName
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              type
+              constructionType
+              servicesNotes
+              services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images
+            }
+          }
+        }
+      }
     }
   }
 `;

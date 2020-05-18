@@ -12,6 +12,7 @@ import {
   PimStatus,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { AddPimModal } from './AddPimModal';
 import { AddPimSubmit } from './AddPimModal.types';
@@ -20,6 +21,7 @@ export const AddPimModalContainer = () => {
   const apiClient = useApolloClient();
   const [createPim] = useCreatePimMutation();
   const { push } = useHistory();
+  const { close } = useModalDispatch();
 
   const handleSubmit: AddPimSubmit = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
@@ -29,6 +31,7 @@ export const AddPimModalContainer = () => {
           variables: {
             filters: body,
           },
+          fetchPolicy: 'no-cache',
         });
 
         if (errors) {
@@ -60,7 +63,9 @@ export const AddPimModalContainer = () => {
         throw new Error();
       }
 
-      push(AppRoute.pimDetails.replace(':id', result.createPim));
+      push(AppRoute.pimDetails.replace(':id', result.createPim.id));
+
+      close('add-new-pim');
 
       return undefined;
     } catch {

@@ -68,9 +68,9 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
             <DialogContent className={classes.content}>
               <Grid item xs={12} className={classes.description}>
                 <GenericField
-                  name="description"
-                  label="pim_details.inside.add_floor.description"
-                  placeholder="pim_details.inside.add_floor.description_placeholder"
+                  name="name"
+                  label="pim_details.inside.add_space.name"
+                  placeholder="pim_details.inside.add_space.name_placeholder"
                   size="medium"
                 />
               </Grid>

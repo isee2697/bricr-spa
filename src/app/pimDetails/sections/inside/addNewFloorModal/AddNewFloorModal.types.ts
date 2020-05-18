@@ -1,5 +1,7 @@
+import { FloorType } from 'api/types';
+
 type AddNewFloorBody = {
-  type: string;
+  type: FloorType;
   description: string;
 };
 

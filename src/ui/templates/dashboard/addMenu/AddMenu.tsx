@@ -97,7 +97,13 @@ export const AddMenu = () => {
             </Box>
           </Box>
         </Link>
-        <Box display="flex" alignItems="center" mb={2} onClick={() => open('pim-modal')} style={{ cursor: 'pointer' }}>
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={2}
+          onClick={() => open('add-new-pim')}
+          style={{ cursor: 'pointer' }}
+        >
           <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
             <Box color={theme.palette.red.main}>
               <BuildingIcon color="inherit" />

@@ -7,4 +7,5 @@ export type UploadImageGroupFieldProps = {
   validateFields?: string[];
   name: string;
   max?: number;
+  disabled?: boolean;
 };

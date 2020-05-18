@@ -12,9 +12,9 @@ describe('AddNewSpaceModal', () => {
       <AddNewSpaceModal isOpened={true} onClose={jest.fn()} onSubmit={onSubmit} />,
     );
 
-    // Description
+    // Name
     act(() => {
-      fireEvent.change(getByLabelText('pim_details.inside.add_floor.description'), {
+      fireEvent.change(getByLabelText('pim_details.inside.add_space.name'), {
         target: {
           value: 'foo',
         },
@@ -41,9 +41,8 @@ describe('AddNewSpaceModal', () => {
       <AddNewSpaceModal isOpened={true} onClose={jest.fn()} onSubmit={onSubmit} />,
     );
 
-    // Description
     act(() => {
-      fireEvent.change(getByLabelText('pim_details.inside.add_floor.description'), {
+      fireEvent.change(getByLabelText('pim_details.inside.add_space.name'), {
         target: {
           value: 'foo',
         },

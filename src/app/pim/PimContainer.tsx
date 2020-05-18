@@ -34,6 +34,7 @@ export const PimContainer = () => {
 
   const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
     variables: { archived: status === 'archived', ...sortQuery, ...paginationQuery },
+    fetchPolicy: 'no-cache',
   });
 
   return (

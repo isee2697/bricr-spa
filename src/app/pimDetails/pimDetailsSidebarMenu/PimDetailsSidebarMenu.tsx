@@ -20,51 +20,54 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps } from './PimDetailsSidebarMenu.types';
 
-const items = [
-  {
-    name: 'general',
-    icon: <BuildingIcon />,
-  },
-  {
-    name: 'inside',
-    icon: <FilesIcon />,
-    subItems: ['attic', 'groundfloor', 'basement'],
-  },
-  {
-    name: 'outside',
-    icon: <LockIcon />,
-  },
-  {
-    name: 'cadastre',
-    icon: <FilterIcon />,
-  },
-  {
-    name: 'services',
-    icon: <HelpIcon />,
-  },
-  {
-    name: 'details',
-    icon: <PinIcon />,
-  },
-  {
-    name: 'prices',
-    icon: <MailIcon />,
-  },
-  {
-    name: 'media',
-    icon: <GraphIcon />,
-  },
-  {
-    name: 'summary',
-    icon: <TasksIcon />,
-  },
-];
-
-export const PimDetailsSidebarMenu = ({ onHide }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({ onHide, floors }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
+
+  const items = [
+    {
+      name: 'general',
+      icon: <BuildingIcon />,
+    },
+    {
+      name: 'inside',
+      icon: <FilesIcon />,
+      subItems: floors.map(floor => ({
+        id: floor.id,
+        label: `dictionaries.floor_type.${floor.floorType}`,
+      })),
+    },
+    {
+      name: 'outside',
+      icon: <LockIcon />,
+    },
+    {
+      name: 'cadastre',
+      icon: <FilterIcon />,
+    },
+    {
+      name: 'services',
+      icon: <HelpIcon />,
+    },
+    {
+      name: 'details',
+      icon: <PinIcon />,
+    },
+    {
+      name: 'prices',
+      icon: <MailIcon />,
+    },
+    {
+      name: 'media',
+      icon: <GraphIcon />,
+    },
+    {
+      name: 'summary',
+      icon: <TasksIcon />,
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -81,11 +84,14 @@ export const PimDetailsSidebarMenu = ({ onHide }: PimDetailsSidebarMenuProps) =>
             <SideMenuItem
               icon={item.icon}
               title={formatMessage({ id: `pim_details.menu.${item.name}` })}
-              selected={pathname === `${url}/${item.name}`}
+              selected={pathname.startsWith(`${url}/${item.name}`)}
             >
-              {item.subItems?.map(title => (
-                <Link to={`${url}/${item.name}/${title}`} key={title}>
-                  <SideSubMenuItem title={formatMessage({ id: `pim_details.menu.${title}` })} selected={false} />
+              {item.subItems?.map(subItem => (
+                <Link to={`${url}/${item.name}/${subItem.id}`} key={subItem.id}>
+                  <SideSubMenuItem
+                    title={formatMessage({ id: subItem.label })}
+                    selected={pathname === `${url}/${item.name}/${subItem.id}`}
+                  />
                 </Link>
               ))}
             </SideMenuItem>

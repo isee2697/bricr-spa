@@ -24,7 +24,12 @@ export const QuantityField = ({ validate, name, validateFields, label, ...props 
 
   return (
     <>
-      <QuantityInput value={input.value} onChange={input.onChange} label={formatMessage({ id: label })} {...props} />
+      <QuantityInput
+        value={input.value || 0}
+        onChange={input.onChange}
+        label={formatMessage({ id: label })}
+        {...props}
+      />
       {hasError && (
         <FormHelperText error>
           {formatMessage(meta.error || meta.submitError, { ...meta.error?.values, ...meta.submitError?.values })}

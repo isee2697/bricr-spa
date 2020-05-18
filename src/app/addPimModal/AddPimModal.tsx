@@ -32,7 +32,7 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
   const [step, setStep] = useState(0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
-  const isModalOpen = useModalState('pim-modal');
+  const isModalOpen = useModalState('add-new-pim');
   const { close } = useModalDispatch();
 
   const handleNext = () => {
@@ -54,7 +54,7 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
   };
 
   const handleClose = () => {
-    close('pim-modal');
+    close('add-new-pim');
     setStep(0);
   };
 

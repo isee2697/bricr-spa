@@ -11,7 +11,7 @@ import { validatorsChain } from 'form/validators';
 import { useStyles } from './UploadImageField.styles';
 import { UploadImageFieldProps } from './UploadImageField.types';
 
-export const UploadImageField = ({ validate, validateFields, name }: UploadImageFieldProps) => {
+export const UploadImageField = ({ validate, validateFields, name, disabled, onRemove }: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
   const { formatMessage } = useLocale();
@@ -54,9 +54,10 @@ export const UploadImageField = ({ validate, validateFields, name }: UploadImage
   const deleteFile = () => {
     setBackgroundImage(undefined);
     input.onChange(undefined);
+    onRemove && onRemove();
   };
 
-  const openInput = () => !!inputRef && inputRef.current && inputRef.current.click();
+  const openInput = () => !!inputRef && !disabled && inputRef.current && inputRef.current.click();
 
   return (
     <>

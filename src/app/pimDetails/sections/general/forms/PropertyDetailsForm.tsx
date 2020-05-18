@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { TileRadio, Grid } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
@@ -25,107 +25,128 @@ import {
   WarningIcon,
 } from 'ui/atoms/icons';
 import { useStyles } from '../General.styles';
+import { PropertyTypeDetailed, PropertyConnection } from 'api/types';
+import { RadioGroupField } from 'form/fields';
 
 const TYPES = [
   {
-    key: 'single_family',
+    label: 'pim_details.general.property_details.single_family',
     icon: <AogIcon />,
+    value: PropertyTypeDetailed.SingleFamily,
   },
   {
-    key: 'dyke_house',
+    label: 'pim_details.general.property_details.dyke_house',
     icon: <BogIcon />,
+    value: PropertyTypeDetailed.DykeHouse,
   },
   {
-    key: 'court_house',
+    label: 'pim_details.general.property_details.court_house',
     icon: <CalendarIcon />,
+    value: PropertyTypeDetailed.CourtHouse,
   },
   {
-    key: 'drive_in_home',
+    label: 'pim_details.general.property_details.drive_in_home',
     icon: <ComplexBuildingIcon />,
+    value: PropertyTypeDetailed.DriveInHome,
   },
   {
-    key: 'split_level',
+    label: 'pim_details.general.property_details.split_level',
     icon: <EditIcon />,
+    value: PropertyTypeDetailed.SplitLevel,
   },
   {
-    key: 'quadrant_house',
+    label: 'pim_details.general.property_details.quadrant_house',
     icon: <FolderIcon />,
+    value: PropertyTypeDetailed.QuadrantHouse,
   },
   {
-    key: 'patio_house',
+    label: 'pim_details.general.property_details.patio_house',
     icon: <FilterIcon />,
+    value: PropertyTypeDetailed.PatioHouse,
   },
   {
-    key: 'villa',
+    label: 'pim_details.general.property_details.villa',
     icon: <MailIcon />,
+    value: PropertyTypeDetailed.Villa,
   },
   {
-    key: 'canal_house',
+    label: 'pim_details.general.property_details.canal_house',
     icon: <MutationIcon />,
+    value: PropertyTypeDetailed.CanalHouse,
   },
   {
-    key: 'water_house',
+    label: 'pim_details.general.property_details.water_house',
     icon: <BellIcon />,
+    value: PropertyTypeDetailed.WaterHouse,
   },
   {
-    key: 'bungalow',
+    label: 'pim_details.general.property_details.bungalow',
     icon: <SiteIcon />,
+    value: PropertyTypeDetailed.Bungalow,
   },
   {
-    key: 'semi_bungalow',
+    label: 'pim_details.general.property_details.semi_bungalow',
     icon: <BuildingIcon />,
+    value: PropertyTypeDetailed.SemiBungalow,
   },
   {
-    key: 'stilt_house',
+    label: 'pim_details.general.property_details.stilt_house',
     icon: <PinIcon />,
+    value: PropertyTypeDetailed.StiltHouse,
   },
   {
-    key: 'business_or_serivce_home',
+    label: 'pim_details.general.property_details.business_or_serivce_home',
     icon: <SaleIcon />,
+    value: PropertyTypeDetailed.BusinessOrServiceHome,
   },
   {
-    key: 'estate',
+    label: 'pim_details.general.property_details.estate',
     icon: <SeeIcon />,
+    value: PropertyTypeDetailed.Estate,
   },
   {
-    key: 'country_house',
+    label: 'pim_details.general.property_details.country_house',
     icon: <UploadIcon />,
+    value: PropertyTypeDetailed.CountryHouse,
   },
   {
-    key: 'mansion',
+    label: 'pim_details.general.property_details.mansion',
     icon: <WarningIcon />,
+    value: PropertyTypeDetailed.Mansion,
   },
 ];
 
 const CONNECTIONS = [
   {
-    key: 'semi_detached',
+    label: 'pim_details.general.property_details.semi_detached',
     icon: <AogIcon />,
+    value: PropertyConnection.SemiDetached,
   },
   {
-    key: 'final_house',
+    label: 'pim_details.general.property_details.final_house',
     icon: <BogIcon />,
+    value: PropertyConnection.FinalHouse,
   },
   {
-    key: 'corner_house',
+    label: 'pim_details.general.property_details.corner_house',
     icon: <EditIcon />,
+    value: PropertyConnection.CornerHouse,
   },
   {
-    key: 'terraced_house',
+    label: 'pim_details.general.property_details.terraced_house',
     icon: <CalendarIcon />,
+    value: PropertyConnection.TerracedHouse,
   },
   {
-    key: 'detached_house',
+    label: 'pim_details.general.property_details.detached_house',
     icon: <ComplexBuildingIcon />,
+    value: PropertyConnection.DetachedHouse,
   },
 ];
 
 export const PropertyDetailsForm = () => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-
-  const [selectedType, setSelectedType] = useState('');
-  const [selectedConnection, setSelectedConnection] = useState('');
 
   return (
     <FormSection title={formatMessage({ id: AppMessages['pim_details.general.property_details.title'] })} isExpandable>
@@ -139,20 +160,7 @@ export const PropertyDetailsForm = () => {
             subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
-            {TYPES.map(({ key, icon }) => (
-              <Grid item sm={3} md={2} key={key}>
-                <TileRadio
-                  title={formatMessage({
-                    id: `pim_details.general.property_details.${key}`,
-                  })}
-                  onClick={() => setSelectedType(key)}
-                  isSelected={selectedType === key}
-                  isDisabled={!editing}
-                >
-                  {icon}
-                </TileRadio>
-              </Grid>
-            ))}
+            <RadioGroupField sm={3} options={TYPES} name="houseGeneral.propertyDetails" disabled={!editing} />
           </Grid>
 
           <FormSubSection
@@ -163,20 +171,7 @@ export const PropertyDetailsForm = () => {
             subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
-            {CONNECTIONS.map(({ key, icon }) => (
-              <Grid item sm={3} md={2} key={key}>
-                <TileRadio
-                  title={formatMessage({
-                    id: `pim_details.general.property_details.${key}`,
-                  })}
-                  onClick={() => setSelectedConnection(key)}
-                  isSelected={selectedConnection === key}
-                  isDisabled={!editing}
-                >
-                  {icon}
-                </TileRadio>
-              </Grid>
-            ))}
+            <RadioGroupField sm={3} options={CONNECTIONS} name="houseGeneral.propertyConnection" disabled={!editing} />
           </Grid>
         </>
       )}

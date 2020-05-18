@@ -9,23 +9,34 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { GenericField } from 'form/fields';
 import { SquareIcon } from 'ui/atoms/icons/square/SquareIcon';
 import { requireValidator } from 'form/validators';
+import { FloorType } from 'api/types';
 
 import { AddNewFloorModalProps } from './AddNewFloorModal.types';
 
 const TYPES = [
   {
-    type: 'Floor',
-    translation: 'floor',
+    type: FloorType.Floor,
+    translation: 'dictionaries.floor_type.Floor',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    type: 'Attic',
-    translation: 'attic',
+    type: FloorType.Attic,
+    translation: 'dictionaries.floor_type.Attic',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    type: 'Basement',
-    translation: 'basement',
+    type: FloorType.Basement,
+    translation: 'dictionaries.floor_type.Basement',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    type: FloorType.GroundFloor,
+    translation: 'dictionaries.floor_type.GroundFloor',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    type: FloorType.Loft,
+    translation: 'dictionaries.floor_type.Loft',
     icon: <SquareIcon color="inherit" />,
   },
 ];
@@ -64,7 +75,7 @@ export const AddNewFloorModal = ({ onSubmit, isOpened, onClose }: AddNewFloorMod
                             }
                           }}
                           isSelected={input.value === c.type}
-                          title={formatMessage({ id: `pim_details.inside.floor_type.${c.translation}` })}
+                          title={formatMessage({ id: c.translation })}
                         >
                           {c.icon}
                         </TileRadio>

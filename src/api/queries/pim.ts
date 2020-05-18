@@ -58,6 +58,7 @@ export const LIST_PIMS = gql`
 export const PIM_DETAILS = gql`
   query PimDetails($id: ID!) {
     getPim(id: $id) {
+      id
       realEstateType
       street
       houseNumber
@@ -82,6 +83,62 @@ export const PIM_DETAILS = gql`
       completeness
       archived
       dateCreated
+      houseGeneral {
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+        construction {
+          type
+          from
+          to
+          notes
+        }
+        floor
+        propertyConnection
+        propertyDetails
+      }
+      floors {
+        id
+        level
+        floorType
+        floorDescription
+        spaces {
+          id
+          spaceType
+          spaceName
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              type
+              constructionType
+              servicesNotes
+              services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images
+            }
+          }
+        }
+      }
     }
   }
 `;

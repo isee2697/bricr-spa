@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import { Form } from 'react-final-form';
+import React from 'react';
+import { Field } from 'react-final-form';
 
-import { Grid, TileRadio } from 'ui/atoms';
+import { Grid, Box } from 'ui/atoms';
 import { GraphIcon, FilterIcon, CalendarIcon, BogIcon, CrmIcon } from 'ui/atoms/icons';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
-import { GenericField, SelectField, DatePickerField } from 'form/fields';
+import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
 import { useStyles } from '../General.styles';
+import { PropertyHabitation, PropertyAvailability } from 'api/types';
 
 const AVAILABILITIES = [
   {
-    key: 'in_construction',
+    label: 'pim_details.general.availability.in_construction',
     icon: <GraphIcon />,
+    value: PropertyAvailability.InConsultation,
   },
   {
-    key: 'immediatelly',
+    label: 'pim_details.general.availability.immediatelly',
     icon: <FilterIcon />,
+    value: PropertyAvailability.Immediatelly,
   },
   {
-    key: 'by_date',
+    label: 'pim_details.general.availability.by_date',
     icon: <CalendarIcon />,
+    value: PropertyAvailability.ByDate,
   },
 ];
 
 const HABITATIONS = [
   {
-    key: 'recreational_home',
+    label: 'pim_details.general.availability.recreational_home',
     icon: <BogIcon />,
+    value: PropertyHabitation.RecreationalHome,
   },
   {
-    key: 'permanent_occupation',
+    label: 'pim_details.general.availability.permanent_occupation',
     icon: <CrmIcon />,
+    value: PropertyHabitation.PermanentOccupation,
   },
 ];
 
@@ -40,101 +46,89 @@ export const AvailabilityForm = () => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const [availability, setAvailability] = useState('');
-  const [habitation, setHabitation] = useState('');
-
   return (
     <FormSection title={formatMessage({ id: AppMessages['pim_details.general.availability.title'] })} isExpandable>
       {editing => (
-        <Form onSubmit={() => {}}>
-          {({ handleSubmit }) => (
-            <>
-              <FormSubSection
-                className={classes.subHeader}
-                title={formatMessage({
-                  id: AppMessages['pim_details.general.availability.title'],
-                })}
-                subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+        <>
+          <FormSubSection
+            className={classes.subHeader}
+            title={formatMessage({
+              id: AppMessages['pim_details.general.availability.title'],
+            })}
+            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+          />
+          <Box mb={2} mt={2}>
+            <Grid container spacing={1} className={classes.tilesContainer}>
+              <RadioGroupField
+                sm={3}
+                options={AVAILABILITIES}
+                name="houseGeneral.availability.availability"
+                disabled={!editing}
               />
-              <Grid container spacing={1} className={classes.tilesContainer}>
-                {AVAILABILITIES.map(({ key, icon }) => (
-                  <Grid item sm={3} md={2} key={key}>
-                    <TileRadio
-                      title={formatMessage({
-                        id: `pim_details.general.availability.${key}`,
-                      })}
-                      onClick={() => setAvailability(key)}
-                      isSelected={availability === key}
-                      isDisabled={!editing}
-                    >
-                      {icon}
-                    </TileRadio>
-                  </Grid>
-                ))}
-              </Grid>
-              <Grid className={classes.textFields} container spacing={3}>
-                {availability === 'by_date' && (
+            </Grid>
+          </Box>
+          <Grid className={classes.textFields} container spacing={3}>
+            <Field name="houseGeneral.availability.availability">
+              {({ input }) =>
+                input.value === PropertyAvailability.ByDate && (
                   <Grid item xs={4}>
                     <DatePickerField
-                      name="street"
+                      name="houseGeneral.availability.from"
                       label="common.from"
                       placeholder="common.from_placeholder"
                       disabled={!editing}
                     />
                   </Grid>
-                )}
-                <Grid item xs={12}>
-                  <GenericField
-                    name="city"
-                    label="common.notes"
-                    placeholder="common.notes_placeholder"
-                    disabled={!editing}
-                  />
-                </Grid>
-              </Grid>
+                )
+              }
+            </Field>
 
-              <FormSubSection
-                className={classes.subHeader}
-                title={formatMessage({
-                  id: AppMessages['pim_details.general.availability.habitation'],
-                })}
-                subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            <Grid item xs={12}>
+              <GenericField
+                name="houseGeneral.availability.notes"
+                label="common.notes"
+                placeholder="common.notes_placeholder"
+                disabled={!editing}
               />
-              <Grid container spacing={1} className={classes.tilesContainer}>
-                {HABITATIONS.map(({ key, icon }) => (
-                  <Grid item sm={3} md={2} key={key}>
-                    <TileRadio
-                      title={formatMessage({
-                        id: `pim_details.general.availability.${key}`,
-                      })}
-                      onClick={() => setHabitation(key)}
-                      isSelected={habitation === key}
-                      isDisabled={!editing}
-                    >
-                      {icon}
-                    </TileRadio>
-                  </Grid>
-                ))}
-              </Grid>
-              <Grid className={classes.textFields} container spacing={5}>
-                <Grid item xs={5}>
-                  <SelectField
-                    name="currentUse"
-                    label="pim_details.general.availability.current_use"
-                    disabled={!editing}
-                  />
-                </Grid>
-                <Grid item xs={5}>
-                  <SelectField
-                    name="currentDestination"
-                    label="pim_details.general.availability.current_destination"
-                    disabled={!editing}
-                  />
-                </Grid>
-              </Grid>
-            </>
-          )}
-        </Form>
+            </Grid>
+          </Grid>
+
+          <FormSubSection
+            className={classes.subHeader}
+            title={formatMessage({
+              id: AppMessages['pim_details.general.availability.habitation'],
+            })}
+            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+          />
+          <Box mb={2} mt={2}>
+            <Grid container spacing={1} className={classes.tilesContainer}>
+              <RadioGroupField
+                sm={3}
+                options={HABITATIONS}
+                name="houseGeneral.availability.habitation"
+                disabled={!editing}
+              />
+            </Grid>
+          </Box>
+          <Grid className={classes.textFields} container spacing={5}>
+            <Grid item xs={5}>
+              <GenericField
+                name="houseGeneral.availability.currentUse"
+                label="pim_details.general.availability.current_use"
+                disabled={!editing}
+                size="medium"
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <GenericField
+                name="houseGeneral.availability.currentDestination"
+                label="pim_details.general.availability.current_destination"
+                disabled={!editing}
+                size="medium"
+              />
+            </Grid>
+          </Grid>
+        </>
       )}
     </FormSection>
   );

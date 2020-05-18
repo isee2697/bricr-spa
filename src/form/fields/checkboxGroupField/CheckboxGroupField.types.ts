@@ -17,6 +17,7 @@ export type CheckboxGroupFieldProps = {
   name: string;
   options: CheckboxDataType[];
   xs?: Width;
+  sm?: Width;
   md?: Width;
   lg?: Width;
   disabled?: boolean;

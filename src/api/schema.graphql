@@ -60,6 +60,12 @@ input Sort {
   direction: SortDirection!
 }
 
+input Pagination {
+  from: Int
+  limit: Int
+  searchAfter: [String!]
+}
+
 scalar Date
 
 type Company {
@@ -77,12 +83,12 @@ type Team{
 
 enum RealEstateType {
   Residential,
-  Business,
+  Business
 }
 
 enum DevelopmentType {
   New,
-  Existing,
+  Existing
 }
 
 enum PimStatus {
@@ -93,7 +99,7 @@ enum PimStatus {
   SoldWithReservation,
   RentedWithReservation,
   Sold,
-  Rented,
+  Rented
 } 
 
 enum PropertyType {
@@ -103,7 +109,17 @@ enum PropertyType {
   Agricultural,
   ParkingLot,
   BuildingPlot,
-  Other,
+  Other
+}
+
+enum EventEntityType {
+  Pim,
+}
+
+enum EventAction {
+  Created,
+  Updated,
+  Removed,
 }
 
 enum PropertyTypeDetailed {
@@ -158,12 +174,12 @@ enum SpaceShape {
   ZType
 }
 
-enum SpacemMeasurement {
-  Length,
-  Width,
-  Height,
-  Surface,
-  Volume
+type SpaceMeasurement {
+  length: Float,
+  width: Float,
+  height: Float,
+  surface: Float,
+  volume: Float
 }
 
 enum SpaceServiceHeating {
@@ -239,16 +255,23 @@ enum SpaceType {
   Other,
 }
 
+type KitchenAppliance {
+  name: KitchenAppliances!,
+  quantity: Int!,
+  notes: String
+}
+
 type KitchenSpace {
-  constructionYear: Float
+  constructionYear: Float,
   notes: String,
   type: KitchenType,
   constructionType: KitchenConstruction,
-  services: KitchenServices,
-  appliances: [KitchenAppliances],
+  services: [KitchenServices],
+  servicesNotes: String,
+  appliances: [KitchenAppliance],
   hob: KitchenHob,
   shape: SpaceShape,
-  measurement: SpacemMeasurement,
+  measurement: SpaceMeasurement,
   serviceHeating: SpaceServiceHeating,
   images: [String]
 }
@@ -260,8 +283,9 @@ type HouseGeneral  {
   propertyConnection: PropertyConnection
   propertyDetails: PropertyTypeDetailed
 }
+
 input HouseGeneralInput {
-  id: String!
+  id: ID!
   availability: PropertyAvailabilityInformationInput
   construction: ConstructionInformationInput
   floor: FloorType
@@ -363,19 +387,7 @@ input UpdatePimInput {
 }
 
 union PimGeneral = HouseGeneral
-
-input PimGeneralInput {
-  id: String!
-  availability: PropertyAvailabilityInformationInput
-  construction: ConstructionInformationInput
-  floor: FloorType
-  propertyConnection: PropertyConnection
-  propertyDetails: PropertyTypeDetailed
-  street: String!
-  city: String!
-  houseNumber: String!
-  postalCode: String!
-}
+scalar PimGeneralInput
 
 type Pim {
   id: String!
@@ -409,28 +421,37 @@ type Pim {
   floors: [Floor!]
 }
 
+union SpaceConfiguration = KitchenSpace
+
 type Space {
   id: String!
   spaceType: SpaceType!
+  spaceName: String
   extraRoomPossibility: Boolean!
+  configuration: SpaceConfiguration
 }
 
 type Floor {
   id: String!
+  floorDescription: String
   level: Int!
   floorType: FloorType!
   spaces: [Space!]
 }
 
+type Event {
+  id: String!
+  entityType: EventEntityType!
+  relatedEntityId: String
+  action: EventAction!
+  timestamp: Date!
+  data: String
+  userId: String
+}
+
 type PimSearchResult {
   metadata: SearchMetadata
   items: [Pim!]
-}
-
-input Pagination {
-  from: Int
-  limit: Int
-  searchAfter: [String!]
 }
 
 input ListPimsFilters {
@@ -452,8 +473,13 @@ input ListPimsFilters {
   archived: Boolean
 }
 
+input ChangesHistoryFilters {
+  entityType: EventEntityType
+}
+
 input AddNewFloorInput {
   pimId: String!
+  floorDescription: String
   floorType: FloorType!
 }
 
@@ -462,7 +488,26 @@ input AddSpaceInput {
   extraRoomPossibility: Boolean!
   pimId: String!
   floorId: String!
+  spaceName: String
 }
+
+input UpdateSpaceInput {
+  pimId: String!
+  spaceId: String!
+  spaceName: String
+  space: UpdateSpaceInputConfiguration
+}
+
+input UpdateFloorInput {
+  pimId: String!
+  floorId: String!
+  floorDescription: String
+  floorType: FloorType
+}
+
+scalar UpdateSpaceInputConfiguration
+
+scalar Dictionary
 
 type Query {
   me: Profile @auth
@@ -470,6 +515,8 @@ type Query {
   listPims(filters: ListPimsFilters, pagination: Pagination, sort: [Sort!]): PimSearchResult! @auth
   getPim(id: ID!): Pim @auth
   getPropertyTypes: [String!]!
+  getChangesHistory(filters: ChangesHistoryFilters): [Event!]!
+  dictionary: Dictionary
 }
 
 type Mutation {
@@ -479,10 +526,12 @@ type Mutation {
   resetPassword(input: ResetPasswordInput, token: String!): ResetPasswordResponse
   #END REST
   deleteUser(id: String): String @auth
-  createPim(input: CreatePimInput!): String @auth
-  updatePim(input: UpdatePimInput!): String @auth
-  updatePimGeneralInfo(input: PimGeneralInput!): String @auth
+  createPim(input: CreatePimInput!): Pim @auth
+  updatePim(input: UpdatePimInput!): Pim @auth
   removePim(id: String!): String @auth
-  addFloorToPim(input: AddNewFloorInput!): String @auth
-  addSpaceToFloor(input: AddSpaceInput!): String @auth
+  updatePimGeneralInfo(input: PimGeneralInput!): Pim @auth
+  addFloorToPim(input: AddNewFloorInput!): Pim @auth
+  addSpaceToFloor(input: AddSpaceInput!): Pim @auth
+  updateSpace(input: UpdateSpaceInput!): Pim @auth
+  updateFloor(input: UpdateFloorInput!): Pim @auth
 }

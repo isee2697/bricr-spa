@@ -13,7 +13,7 @@ describe('AddNewFloorModal', () => {
     );
 
     // Floor type
-    fireEvent.click(getByText('pim_details.inside.floor_type.floor'));
+    fireEvent.click(getByText('dictionaries.floor_type.Floor'));
 
     // Description
     act(() => {
@@ -42,7 +42,7 @@ describe('AddNewFloorModal', () => {
     );
 
     // Floor type
-    fireEvent.click(getByText('pim_details.inside.floor_type.floor'));
+    fireEvent.click(getByText('dictionaries.floor_type.Floor'));
 
     // Description
     act(() => {

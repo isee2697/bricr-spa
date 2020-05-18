@@ -22,6 +22,8 @@
   "common.to_placeholder": "e.g. 23.09.1996",
   "common.notes": "Notes",
   "common.notes_placeholder": "Any special informations?",
+  "common.autosaving": "Autosaving",
+  "common.saved": "Error",
   "dashboard.welcome": "Welcome, ",
   "pim.title": "Property Information Management",
   "pim.add": "Add property",

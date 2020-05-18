@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import { List, ListItem, Typography, Collapse, Box } from 'ui/atoms';
@@ -9,13 +9,7 @@ import { useStyles } from './SideMenuItem.styles';
 export const SideMenuItem = ({ icon, title, selected, onClick, children, className }: SideMenuItemProps) => {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-
   const handleClick = () => {
-    if (children) {
-      setOpen(open => !open);
-    }
-
     onClick && onClick();
   };
 
@@ -28,7 +22,7 @@ export const SideMenuItem = ({ icon, title, selected, onClick, children, classNa
         </Typography>
       </ListItem>
       {children && (
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={selected} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {children}
           </List>

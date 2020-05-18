@@ -11,6 +11,8 @@
   "common.to_placeholder": "b.v. 23.09.1996",
   "common.notes": "Opmerkingen",
   "common.notes_placeholder": "Speciale informatie?",
+  "common.autosaving": "Automatisch opslaan",
+  "common.saved": "Fout",
   "header.links.home": "Huis",
   "header.links.pim": "PIM",
   "header.links.crm": "CRM",

@@ -8,6 +8,6 @@ export type FormObject<T> = {
 
 export type AutosaveProps = Omit<FormProps, 'onSubmit' | 'children'> & {
   children: React.ReactNode;
-  onSave(values: unknown): void;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
   timeout?: number;
 };

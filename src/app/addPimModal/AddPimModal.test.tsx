@@ -6,7 +6,7 @@ import { ModalContext } from 'context/modal/modalContext/ModalContext';
 import { AddPimModal } from './AddPimModal';
 
 describe('AddPimModal', () => {
-  const modalsState = [{ id: 'pim-modal', isOpen: true }];
+  const modalsState = [{ id: 'add-new-pim', isOpen: true }];
   const setModalsState = jest.fn();
 
   test('add pim wizard', async () => {

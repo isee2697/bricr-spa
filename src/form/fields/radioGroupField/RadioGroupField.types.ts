@@ -16,6 +16,7 @@ export type RadioGroupFieldProps = {
   name: string;
   options: RadioDataType[];
   xs?: Width;
+  sm?: Width;
   md?: Width;
   lg?: Width;
   disabled?: boolean;

@@ -16,7 +16,7 @@ export const PimHeader = () => {
       <Button
         color="primary"
         variant="contained"
-        onClick={() => open('pim-modal')}
+        onClick={() => open('add-new-pim')}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >

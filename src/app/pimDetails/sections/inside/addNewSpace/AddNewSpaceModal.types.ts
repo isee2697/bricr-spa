@@ -1,6 +1,8 @@
+import { SpaceType } from 'api/types';
+
 type AddNewSpaceBody = {
-  type: string;
-  description: string;
+  type: SpaceType;
+  name: string;
   extraRoom: boolean;
 };
 
@@ -16,8 +18,9 @@ export type AddNewSpaceSubmit = (
 export type AddNewSpaceModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
+  floorId: string;
 };
 
-export type AddNewSpaceModalProps = AddNewSpaceModalContainerProps & {
+export type AddNewSpaceModalProps = Omit<AddNewSpaceModalContainerProps, 'floorId'> & {
   onSubmit: AddNewSpaceSubmit;
 };

@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import { Pim } from 'api/types';
 import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppMessages } from 'i18n/messages';
@@ -9,14 +10,14 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { PimDetailsProps } from './PimDetails.types';
-import { General } from './sections/general/General';
+import { GeneralContainer } from './sections/general/GeneralContainer';
 import { Inside } from './sections/inside/Inside';
 
 export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
   const { formatMessage } = useLocale();
-  const pim = data?.getPim;
+  const pim = data?.getPim as Pim;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city} ${pim.country}` : '';
 
   const handleSidebarHide = useCallback(() => {
@@ -31,7 +32,7 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
     <Grid container spacing={0}>
       {isSidebarVisible && (
         <Grid item xs={12} md={3} lg={2}>
-          <PimDetailsSidebarMenu onHide={handleSidebarHide} />
+          <PimDetailsSidebarMenu floors={pim?.floors || []} onHide={handleSidebarHide} />
         </Grid>
       )}
       <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>
@@ -46,7 +47,12 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
               path={`${AppRoute.pimDetails}/general`}
               exact
               render={() => (
-                <General isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                <GeneralContainer
+                  isSidebarVisible={isSidebarVisible}
+                  onOpenSidebar={handleSidebarOpen}
+                  title={title}
+                  pim={pim}
+                />
               )}
             />
             <Route

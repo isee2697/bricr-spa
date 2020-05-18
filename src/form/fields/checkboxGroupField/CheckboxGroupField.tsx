@@ -14,6 +14,7 @@ export const CheckboxGroupField = ({
   validate,
   validateFields,
   xs = 1,
+  sm,
   md,
   lg,
   disabled,
@@ -44,7 +45,7 @@ export const CheckboxGroupField = ({
     <>
       <Grid container spacing={3}>
         {options.map((item: CheckboxDataType) => (
-          <Grid item xs={xs} md={md} lg={lg} key={item.value}>
+          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
             <TileCheckbox
               onClick={() => handleClick(item)}
               isSelected={fields.value && fields.value.includes(item.value)}

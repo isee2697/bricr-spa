@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator } from 'final-form';
 
@@ -8,32 +8,31 @@ import { UploadImageField } from '../';
 
 import { UploadImageGroupFieldProps } from './UploadImageGroupField.types';
 
-export const UploadImageGroupField = ({ name, max, validate, validateFields }: UploadImageGroupFieldProps) => {
+export const UploadImageGroupField = ({
+  name,
+  max,
+  validate,
+  validateFields,
+  disabled,
+}: UploadImageGroupFieldProps) => {
   const { fields } = useFieldArray<string>(name, {
     validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<string>) : undefined,
     validateFields,
   });
 
-  useEffect(() => {
-    const emptyValues = fields.value.filter(val => !val);
-    const amount = fields.length ? fields.length : 0;
-    const hasNoEmptyValue = emptyValues.length === 0;
-
-    if ((hasNoEmptyValue && !max) || (hasNoEmptyValue && !!max && amount < max)) {
-      fields.insert(amount, '');
-    }
-
-    if (emptyValues.length > 1) {
-      const key = fields.value.findIndex(val => !val);
-      fields.remove(key);
-    }
-  }, [fields, max]);
-
   return (
     <Grid container spacing={1}>
       {fields.map((field, index) => (
-        <UploadImageField key={fields.value[index]} name={field} />
+        <UploadImageField
+          disabled={disabled}
+          onRemove={() => fields.remove(index)}
+          key={fields.value[index]}
+          name={field}
+        />
       ))}
+      {fields && typeof fields.length === 'number' && fields.length < (max || Infinity) && (
+        <UploadImageField disabled={disabled} key={`${name}[${fields.length}]`} name={`${name}[${fields.length}]`} />
+      )}
     </Grid>
   );
 };

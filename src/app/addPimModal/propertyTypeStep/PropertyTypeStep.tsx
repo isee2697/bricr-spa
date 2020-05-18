@@ -82,7 +82,12 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
                     <Grid container justify="center" spacing={1}>
                       {Object.keys(PropertyType).map(p => (
                         <Grid item xs={6} md={3} key={p}>
-                          <SelectCard selected={category.value === p} centered onClick={() => category.onChange(p)}>
+                          <SelectCard
+                            disabled={p !== PropertyType.House}
+                            selected={category.value === p}
+                            centered
+                            onClick={() => category.onChange(p)}
+                          >
                             {formatMessage({ id: `property_types.${p}` })}
                           </SelectCard>
                         </Grid>

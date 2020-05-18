@@ -1,6 +1,6 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { Floor } from 'api/types';
 
 export type FloorProps = PimDetailsSectionProps & {
-  spaces: string[];
-  type: string;
+  floor: Floor;
 };

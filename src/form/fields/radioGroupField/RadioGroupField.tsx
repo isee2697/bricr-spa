@@ -14,6 +14,7 @@ export const RadioGroupField = ({
   validate,
   validateFields,
   xs = 2,
+  sm,
   md,
   lg,
 }: RadioGroupFieldProps) => {
@@ -43,7 +44,7 @@ export const RadioGroupField = ({
     <>
       <Grid container spacing={3}>
         {options.map((item: RadioDataType) => (
-          <Grid item xs={xs} md={md} lg={lg} key={item.value}>
+          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
             <TileRadio
               onClick={() => handleClick(item)}
               isSelected={input.value === item.value}
