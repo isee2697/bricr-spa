@@ -32,7 +32,7 @@ export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, chi
             />
           )}
           {onAdd && (
-            <IconButton color="primary" size="small" onClick={onAdd}>
+            <IconButton color="primary" size="small" className="form-section-add" onClick={onAdd}>
               <AddIcon color="inherit" />
             </IconButton>
           )}

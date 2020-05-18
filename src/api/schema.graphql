@@ -280,7 +280,7 @@ type KitchenSpace {
   hob: KitchenHob,
   shape: SpaceShape,
   measurement: SpaceMeasurement,
-  serviceHeating: SpaceServiceHeating,
+  serviceHeating: [SpaceServiceHeating],
   images: [String]
 }
 

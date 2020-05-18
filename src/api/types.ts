@@ -301,7 +301,7 @@ export type KitchenSpace = {
   hob?: Maybe<KitchenHob>;
   shape?: Maybe<SpaceShape>;
   measurement?: Maybe<SpaceMeasurement>;
-  serviceHeating?: Maybe<SpaceServiceHeating>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 

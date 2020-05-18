@@ -1,24 +1,4 @@
-import {
-  RealEstateType,
-  DevelopmentType,
-  PimStatus,
-  Pim,
-  PropertyType,
-  PropertyAvailability,
-  PropertyHabitation,
-  ConstructionType,
-  PropertyConnection,
-  FloorType,
-  SpaceType,
-  KitchenType,
-  KitchenConstruction,
-  KitchenServices,
-  KitchenAppliances,
-  KitchenHob,
-  SpaceShape,
-  SpaceServiceHeating,
-  PropertyTypeDetailed,
-} from 'api/types';
+import { RealEstateType, DevelopmentType, PimStatus, Pim, PropertyType } from 'api/types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -36,12 +16,6 @@ export const PIM_1 = {
   dateCreated: '2020-05-17T15:26:40.317Z',
 };
 
-export const getListPims = () =>
-  Array.from({ length: 100 }, () => ({
-    ...PIM_1,
-    id: Math.random().toString(),
-  }));
-
 export const PIM_DETAILS_1: Pim = {
   ...PIM_1,
   constructionNumberPrefix: null,
@@ -57,66 +31,22 @@ export const PIM_DETAILS_1: Pim = {
   attention: null,
   houseGeneral: {
     availability: {
-      availability: PropertyAvailability.ByDate,
+      availability: null,
       from: null,
-      notes: 'asdas',
-      habitation: PropertyHabitation.PermanentOccupation,
-      currentUse: 'asd',
-      currentDestination: 'asdsa',
+      notes: null,
+      habitation: null,
+      currentUse: null,
+      currentDestination: null,
     },
     construction: {
-      type: ConstructionType.InDevelopment,
-      from: '2020-05-12T15:26:00.000Z',
+      type: null,
+      from: null,
       to: null,
-      notes: 'test',
+      notes: null,
     },
     floor: null,
-    propertyConnection: PropertyConnection.CornerHouse,
-    propertyDetails: PropertyTypeDetailed.Bungalow,
+    propertyConnection: null,
+    propertyDetails: null,
   },
-  floors: [
-    {
-      id: '43fb98a8-f86c-471a-8e0d-a7a4d6ccac93',
-      level: 1,
-      floorType: FloorType.Floor,
-      floorDescription: 'New floor',
-      spaces: [
-        {
-          __typename: 'Space',
-          extraRoomPossibility: false,
-          id: '04c15a4b-4610-4045-8b48-b0428aa69037',
-          spaceType: SpaceType.Kitchen,
-          spaceName: 'New space',
-          configuration: {
-            __typename: 'KitchenSpace',
-            constructionYear: 2010,
-            notes: 'test',
-            type: KitchenType.Scullery,
-            constructionType: KitchenConstruction.DenseKitchen,
-            servicesNotes: 'test',
-            services: [KitchenServices.KitchenIsland],
-            appliances: [
-              {
-                name: KitchenAppliances.Dishwasher,
-                quantity: 3,
-                notes: 'dwa',
-              },
-              { name: KitchenAppliances.Microwave, quantity: 2, notes: 'dwa' },
-            ],
-            hob: KitchenHob.CeramicHob,
-            shape: SpaceShape.LType,
-            measurement: {
-              length: 123,
-              width: 123,
-              height: 123,
-              surface: 11.11,
-              volume: 123,
-            },
-            serviceHeating: SpaceServiceHeating.BlockHeatingWoodStove,
-            images: [],
-          },
-        },
-      ],
-    },
-  ],
+  floors: [],
 };

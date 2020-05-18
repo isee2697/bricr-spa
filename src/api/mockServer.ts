@@ -2,11 +2,14 @@ import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
 
-import { getListPims, PIM_DETAILS_1 } from './mocks/pim';
+import { PIM_DETAILS_1, PIM_1 } from './mocks/pim';
+import { Floor, Space } from './types';
 
 const schema = loader('./schema.graphql');
 
 const graphqlSchema = buildSchema(schema.loc?.source.body as string);
+
+let PIM_DETAILS = PIM_DETAILS_1;
 
 export const mockServer = () => {
   new Server({
@@ -79,7 +82,15 @@ export const mockServer = () => {
 
             const from = variables?.from ?? 0;
             const limit = variables?.limit ?? 10;
-            const totalPims = getListPims();
+            const totalPims = Array.from({ length: 100 }, (item, index) =>
+              index !== 0
+                ? {
+                    ...PIM_1,
+                    id: Math.random().toString(),
+                  }
+                : PIM_DETAILS,
+            );
+
             const pims = totalPims.slice(from, limit + from);
 
             return {
@@ -95,7 +106,7 @@ export const mockServer = () => {
             }
 
             return {
-              id: PIM_DETAILS_1.id,
+              id: PIM_DETAILS.id,
             };
           },
           getPim() {
@@ -103,7 +114,138 @@ export const mockServer = () => {
               throw new Error();
             }
 
-            return PIM_DETAILS_1;
+            return PIM_DETAILS;
+          },
+          addFloorToPim() {
+            if (!PIM_DETAILS.floors) {
+              PIM_DETAILS.floors = [];
+            }
+
+            PIM_DETAILS.floors = [
+              ...PIM_DETAILS.floors,
+              {
+                id: PIM_DETAILS.id + PIM_DETAILS.floors.length,
+                level: 1,
+                floorType: variables.input.floorType,
+                floorDescription: variables.input.floorDescription,
+                spaces: [],
+              },
+            ];
+
+            return PIM_DETAILS;
+          },
+          addSpaceToFloor() {
+            if (!PIM_DETAILS.floors) {
+              throw new Error('PIM does not have floos');
+            }
+
+            const floor: Floor | null | undefined = PIM_DETAILS.floors?.find(f => f.id === variables.input.floorId);
+
+            if (!floor) {
+              throw new Error('Floor does not exists');
+            }
+
+            if (!floor.spaces) {
+              floor.spaces = [];
+            }
+
+            floor.spaces = [
+              ...floor.spaces,
+              {
+                id: PIM_DETAILS.id + 'space' + floor.spaces.length,
+                __typename: 'Space',
+                extraRoomPossibility: variables.input.extraRoomPossibility,
+                spaceType: variables.input.spaceType,
+                spaceName: variables.input.spaceName,
+                configuration: {
+                  __typename: 'KitchenSpace',
+                  constructionYear: null,
+                  notes: null,
+                  type: null,
+                  constructionType: null,
+                  servicesNotes: null,
+                  services: [],
+                  appliances: [],
+                  hob: null,
+                  shape: null,
+                  measurement: {
+                    length: null,
+                    width: null,
+                    height: null,
+                    surface: null,
+                    volume: null,
+                  },
+                  serviceHeating: null,
+                  images: [],
+                },
+              },
+            ];
+
+            PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
+
+            return PIM_DETAILS;
+          },
+          updateFloor() {
+            if (!PIM_DETAILS.floors) {
+              throw new Error('PIM does not have floos');
+            }
+
+            const floor: Floor | null | undefined = PIM_DETAILS.floors?.find(f => f.id === variables.input.floorId);
+
+            if (!floor) {
+              throw new Error('Floor does not exists');
+            }
+
+            floor.floorDescription = variables.input.floorDescription;
+
+            PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
+
+            return PIM_DETAILS;
+          },
+          updateSpace() {
+            if (!PIM_DETAILS.floors) {
+              throw new Error('PIM does not have floos');
+            }
+
+            const floor: Floor | null | undefined = PIM_DETAILS.floors?.find(f =>
+              f.spaces?.some(s => s.id === variables.input.spaceId),
+            );
+
+            if (!floor) {
+              throw new Error('Floor does not exists');
+            }
+
+            const space: Space | null | undefined = floor.spaces?.find(s => s.id === variables.input.spaceId);
+
+            if (!space) {
+              throw new Error('Space does not exists');
+            }
+
+            space.configuration = {
+              ...space.configuration,
+              ...variables.input.space.configuration,
+            };
+
+            floor.spaces = floor.spaces?.map(s => (s.id === variables.input.spaceId ? space : s));
+
+            PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
+
+            return PIM_DETAILS;
+          },
+          updatePimGeneralInfo() {
+            PIM_DETAILS = {
+              ...PIM_DETAILS,
+              ...variables.input,
+              houseGeneral: {
+                ...PIM_DETAILS.houseGeneral,
+                availability: variables.input.availability,
+                construction: variables.input.construction,
+                propertyConnection: variables.input.propertyConnection,
+                propertyDetails: variables.input.propertyDetails,
+              },
+            };
+
+            return PIM_DETAILS;
           },
         };
 
