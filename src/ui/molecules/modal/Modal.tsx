@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Dialog, DialogTitle, IconButton } from 'ui/atoms';
+import { Dialog, DialogTitle, IconButton, Zoom } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 
 import { ModalProps } from './Modal.types';
 
 export const Modal = ({ children, title, isOpened, onClose, ...props }: ModalProps) => {
   return (
-    <Dialog open={isOpened} onClose={onClose} {...props}>
+    <Dialog TransitionComponent={Zoom} open={isOpened} onClose={onClose} {...props}>
       <DialogTitle id="alert-dialog-title">
         {title}
         {!!onClose && (
