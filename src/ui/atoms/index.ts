@@ -67,3 +67,4 @@ export { TileRadio } from './tileRadio/TileRadio';
 export { Switch } from './switch/Switch';
 export { Emoji } from './emoji/Emoji';
 export { Select } from './select/Select';
+export { Loader } from './loader/Loader';

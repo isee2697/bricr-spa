@@ -5,7 +5,7 @@ import { GenericField } from 'form/fields';
 import { AutosaveForm } from 'ui/organisms';
 import { PimDetailsDocument, useUpdateFloorMutation } from 'api/types';
 
-import { FloorDescriptionProps } from './FloorDescription.typs';
+import { FloorDescriptionProps } from './FloorDescription.types';
 
 export const FloorDescriptionContainer = ({ floorId, floorDescription }: FloorDescriptionProps) => {
   const { id: pimId } = useParams<{ id: string }>();
