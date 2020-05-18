@@ -35,7 +35,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
             startIcon={<AddIcon color="inherit" />}
             variant="contained"
             onClick={() => {
-              open('add-new-floor');
+              open('add-new-outside-feature');
             }}
             size="small"
           >

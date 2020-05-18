@@ -1,7 +1,7 @@
-import { FloorType } from 'api/types';
+import { OutsideFeatureType } from 'api/types';
 
 type AddOutsideFeatureBody = {
-  type: FloorType;
+  type: OutsideFeatureType;
   description: string;
 };
 

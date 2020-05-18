@@ -246,6 +246,14 @@ enum FloorType {
   Loft,
 }
 
+enum OutsideFeatureType {
+  Garden,
+  Garage,
+  Storage,
+  Terrain,
+  ParkingLot,
+}
+
 enum SpaceType {
   Kitchen,
   Bathroom,

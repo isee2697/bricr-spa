@@ -265,6 +265,14 @@ export enum FloorType {
   Loft = 'Loft',
 }
 
+export enum OutsideFeatureType {
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Storage = 'Storage',
+  Terrain = 'Terrain',
+  ParkingLot = 'ParkingLot',
+}
+
 export enum SpaceType {
   Kitchen = 'Kitchen',
   Bathroom = 'Bathroom',
