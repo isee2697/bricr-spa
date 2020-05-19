@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { List, ListItem, Typography, Collapse, Box } from 'ui/atoms';
+import { List, ListItem, Collapse, Box, Typography } from 'ui/atoms';
 
 import { SideMenuItemProps } from './SideMenuItem.types';
 import { useStyles } from './SideMenuItem.styles';
@@ -16,10 +16,16 @@ export const SideMenuItem = ({ icon, title, selected, onClick, children, classNa
   return (
     <>
       <ListItem button className={classNames(classes.item, className)} selected={selected} onClick={handleClick}>
-        {icon || <Box ml={3} />}
-        <Typography variant="h3" className={classes.title}>
-          {title}
-        </Typography>
+        {typeof title === 'string' ? (
+          <>
+            {icon || <Box ml={3} />}
+            <Typography variant="h3" className={classes.title}>
+              {title}
+            </Typography>
+          </>
+        ) : (
+          title
+        )}
       </ListItem>
       {children && (
         <Collapse in={selected} timeout="auto" unmountOnExit>

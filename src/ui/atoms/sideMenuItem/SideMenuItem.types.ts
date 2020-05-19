@@ -1,8 +1,10 @@
+import { ReactNode, ReactNodeArray } from 'react';
+
 export type SideMenuItemProps = {
-  icon?: React.ReactNode;
-  title: string;
+  icon?: ReactNode;
+  title: ReactNode | string;
   selected: boolean;
   onClick?: () => void;
-  children?: React.ReactNodeArray;
+  children?: ReactNodeArray;
   className?: string;
 };

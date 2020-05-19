@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 
 import { SideMenu } from 'ui/molecules';
-import { SideMenuItem, SideSubMenuItem } from 'ui/atoms';
+import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { UnseeIcon } from 'ui/atoms/icons/unsee/UnseeIcon';
@@ -80,22 +80,30 @@ export const PimDetailsSidebarMenu = ({ onHide, floors }: PimDetailsSidebarMenuP
       />
       <SideMenu className={classes.menu}>
         {items.map(item => (
-          <Link to={`${url}/${item.name}`} key={item.name}>
-            <SideMenuItem
-              icon={item.icon}
-              title={formatMessage({ id: `pim_details.menu.${item.name}` })}
-              selected={pathname.startsWith(`${url}/${item.name}`)}
-            >
-              {item.subItems?.map(subItem => (
-                <Link to={`${url}/${item.name}/${subItem.id}`} key={subItem.id}>
-                  <SideSubMenuItem
-                    title={formatMessage({ id: subItem.label })}
-                    selected={pathname === `${url}/${item.name}/${subItem.id}`}
-                  />
-                </Link>
-              ))}
-            </SideMenuItem>
-          </Link>
+          <SideMenuItem
+            key={item.name}
+            icon={item.icon}
+            title={
+              <Link to={`${url}/${item.name}`}>
+                {item.icon || <Box mr={4} />}
+                {formatMessage({ id: `pim_details.menu.${item.name}` })}
+              </Link>
+            }
+            selected={pathname.startsWith(`${url}/${item.name}`)}
+          >
+            {item.subItems?.map(subItem => (
+              <SideSubMenuItem
+                key={subItem.id}
+                title={
+                  <Link to={`${url}/${item.name}/${subItem.id}`}>
+                    <Box mr={4} />
+                    {formatMessage({ id: subItem.label })}
+                  </Link>
+                }
+                selected={pathname === `${url}/${item.name}/${subItem.id}`}
+              />
+            ))}
+          </SideMenuItem>
         ))}
       </SideMenu>
       <Link to={AppRoute.pim}>

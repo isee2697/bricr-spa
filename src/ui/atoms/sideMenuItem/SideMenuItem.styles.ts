@@ -16,7 +16,7 @@ export const useStyles = makeStyles(theme => ({
     },
     '&.Mui-selected, &:hover, &.Mui-selected:hover': {
       backgroundColor: 'transparent',
-      '& > h3': {
+      '& > h3, & a': {
         color: theme.palette.black.main,
       },
       '& path': {

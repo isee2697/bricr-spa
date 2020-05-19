@@ -1,5 +1,7 @@
+import { ReactNode } from 'react';
+
 export type SideSubMenuItemProps = {
-  title: string;
+  title: ReactNode;
   selected: boolean;
   onClick?: () => void;
 };
