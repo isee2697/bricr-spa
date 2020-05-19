@@ -9,7 +9,6 @@ import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordC
 import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 import { PimContainer } from 'app/pim/PimContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
-import { AddPimModalContainer } from '../app/addPimModal/AddPimModalContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -42,7 +41,6 @@ export const AppRoutes = () => {
               <Route path={AppRoute.logout} component={LogoutContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
-            <AddPimModalContainer />
           </DashboardTemplate>
         )}
       </Route>

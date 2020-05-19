@@ -12,8 +12,9 @@ export const useStyles = makeStyles(theme => ({
   },
   menu: {
     marginLeft: 'auto',
-  },
-  menuIcon: {
-    marginRight: theme.spacing(2),
+    '& .MuiIconButton-root': {
+      padding: theme.spacing(0.75),
+      marginLeft: theme.spacing(2),
+    },
   },
 }));

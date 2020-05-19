@@ -11,7 +11,9 @@ context('Add Pim', () => {
     NavigationMenu.goToPim();
     cy.findByRole('button', { name: 'Add property' }).click();
     cy.findByText('Property').click();
-    cy.findByText('House').click();
+    cy.findAllByText('House')
+      .last()
+      .click();
     cy.findByText('Next').click();
     cy.findByLabelText('Street address').type('Trufmarkt');
     cy.findByLabelText('City').type('Amsterdam');
@@ -29,7 +31,9 @@ context('Add Pim', () => {
     cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
     cy.findByText('Property').click();
-    cy.findByText('House').click();
+    cy.findAllByText('House')
+      .last()
+      .click();
     cy.findByText('Next').click();
     cy.findByLabelText('Street address').type('Trufmarkt');
     cy.findByLabelText('City').type('Rotterdam');
@@ -49,7 +53,9 @@ context('Add Pim', () => {
     cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
     cy.findByText('Property').click();
-    cy.findByText('House').click();
+    cy.findAllByText('House')
+      .last()
+      .click();
     cy.findByText('Next').click();
     cy.findByLabelText('Street address').type('Trufmarkt');
     cy.findByLabelText('City').type('Test');

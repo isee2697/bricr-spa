@@ -2,4 +2,11 @@ import React from 'react';
 
 import { AppRoutes } from 'routing/AppRoutes';
 
-export const App = () => <AppRoutes />;
+import { AddPimModalContainer } from './pim/addPimModal/AddPimModalContainer';
+
+export const App = () => (
+  <>
+    <AppRoutes />
+    <AddPimModalContainer />
+  </>
+);

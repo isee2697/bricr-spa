@@ -34,7 +34,7 @@ export const PimItem = ({
       ? ` (${constructionNumberPrefix ?? ''}${constructionNumber}${constructionNumberAddition ?? ''})`
       : ''
   }, ${city}`;
-  const labels = generateNonemptyList({ [`${livingArea} m2`]: livingArea, propertyType });
+  const labels = generateNonemptyList({ [`${livingArea} m2`]: livingArea, [`${propertyType}`]: propertyType });
   const stageItems = !archived
     ? ['Acquisition', 'Order', 'List up', 'Reactions', 'Bidding', 'Sign'].map(title => ({
         title,

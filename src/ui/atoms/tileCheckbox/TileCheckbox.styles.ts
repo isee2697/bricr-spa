@@ -61,7 +61,7 @@ export const useStyles = makeStyles(theme => ({
   },
   disabled: {
     pointerEvents: 'none',
-    '& .MuiCard-root': {
+    '& .MuiCard-root.MuiPaper-rounded': {
       borderColor: theme.palette.gray.light,
     },
     '& .title': {
