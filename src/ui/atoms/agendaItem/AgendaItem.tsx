@@ -3,7 +3,6 @@ import { DateTime } from 'luxon';
 
 import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 
 import { AgendaItemProps } from './AgendaItem.types';
 import { useStyles } from './AgendaItem.styles';
@@ -23,7 +22,7 @@ export const AgendaItem = ({ isAllDay, startDate, endDate, title }: AgendaItemPr
     <Grid alignItems="center" container>
       <Grid className={classes.date} item>
         <Typography className={classes.startDate} variant="h5">
-          {isAllDay ? formatMessage({ id: AppMessages['date.all_day'] }) : startTime}
+          {isAllDay ? formatMessage({ id: 'date.all_day' }) : startTime}
         </Typography>
         {endTime}
       </Grid>

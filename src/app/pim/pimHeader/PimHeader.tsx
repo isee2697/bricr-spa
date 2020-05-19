@@ -4,7 +4,6 @@ import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { AppMessages } from 'i18n/messages';
 
 export const PimHeader = () => {
   const { formatMessage } = useLocale();
@@ -12,7 +11,7 @@ export const PimHeader = () => {
 
   return (
     <Grid container xs={12} item justify="space-between">
-      <Typography variant="h1">{formatMessage({ id: AppMessages['pim.title'] })}</Typography>
+      <Typography variant="h1">{formatMessage({ id: 'pim.title' })}</Typography>
       <Button
         color="primary"
         variant="contained"
@@ -20,7 +19,7 @@ export const PimHeader = () => {
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >
-        {formatMessage({ id: AppMessages['pim.add'] })}
+        {formatMessage({ id: 'pim.add' })}
       </Button>
     </Grid>
   );

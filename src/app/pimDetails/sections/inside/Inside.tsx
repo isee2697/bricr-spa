@@ -6,7 +6,6 @@ import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHead
 import { Button, Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { InfoSection } from 'ui/molecules';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -39,7 +38,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
             }}
             size="small"
           >
-            {formatMessage({ id: AppMessages['pim_details.add_new_floor'] })}
+            {formatMessage({ id: 'pim_details.add_new_floor' })}
           </Button>
         }
       />
@@ -50,10 +49,8 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
             <CardHeader title="Inside" />
             <CardContent>
               <InfoSection emoji="🤔">
-                <Typography variant="h3">{formatMessage({ id: AppMessages['pim_details.inside.empty'] })}</Typography>
-                <Typography variant="h3">
-                  {formatMessage({ id: AppMessages['pim_details.inside.empty_description'] })}
-                </Typography>
+                <Typography variant="h3">{formatMessage({ id: 'pim_details.inside.empty' })}</Typography>
+                <Typography variant="h3">{formatMessage({ id: 'pim_details.inside.empty_description' })}</Typography>
               </InfoSection>
             </CardContent>
           </Card>

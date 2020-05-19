@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Card, Button } from 'ui/atoms';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { SelectCardProps } from './SelectCard.types';
@@ -39,9 +38,7 @@ export const SelectCard = ({
       {children}
       {!!withButton && (
         <Button color="primary" disabled={disabled} size="small" variant={selected ? 'outlined' : 'contained'}>
-          {selected
-            ? formatMessage({ id: AppMessages['select_card.unselect'] })
-            : formatMessage({ id: AppMessages['select_card.select'] })}
+          {selected ? formatMessage({ id: 'select_card.unselect' }) : formatMessage({ id: 'select_card.select' })}
         </Button>
       )}
 

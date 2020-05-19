@@ -10,7 +10,6 @@ import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
 import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
 import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './ShortcutsMenu.styles';
@@ -52,7 +51,7 @@ export const ShortcutsMenu = () => {
       >
         <CardHeader
           className={classes.header}
-          title={formatMessage({ id: AppMessages['shortcuts_menu.title'] })}
+          title={formatMessage({ id: 'shortcuts_menu.title' })}
           action={
             <IconButton aria-label="add" variant="roundedContained" size="small">
               <ManageIcon color="inherit" />
@@ -67,9 +66,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">
-                {formatMessage({ id: AppMessages['shortcuts_menu.print_brochure'] })}
-              </Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.print_brochure' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -81,9 +78,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">
-                {formatMessage({ id: AppMessages['shortcuts_menu.nvm_offer'] })}
-              </Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.nvm_offer' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -95,9 +90,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">
-                {formatMessage({ id: AppMessages['shortcuts_menu.wwft_check'] })}
-              </Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.wwft_check' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -109,9 +102,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">
-                {formatMessage({ id: AppMessages['shortcuts_menu.invoices'] })}
-              </Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.invoices' })}</Typography>
             </Box>
           </Box>
         </Link>

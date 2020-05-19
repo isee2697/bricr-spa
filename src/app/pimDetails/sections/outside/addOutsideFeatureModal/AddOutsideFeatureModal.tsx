@@ -4,7 +4,6 @@ import { Form, Field } from 'react-final-form';
 import { Modal, SubmitButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Button, Grid, TileRadio } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { SquareIcon } from 'ui/atoms/icons/square/SquareIcon';
 import { requireValidator } from 'form/validators';
@@ -55,7 +54,7 @@ export const AddOutsideFeatureModal = ({ onSubmit, isOpened, onClose }: AddOutsi
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: AppMessages['add_pim.error.unknown'] })}</Alert>
+                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
               </DialogContent>
             )}
 
@@ -87,7 +86,7 @@ export const AddOutsideFeatureModal = ({ onSubmit, isOpened, onClose }: AddOutsi
 
             <DialogActions>
               <Button color="default" variant="outlined" onClick={onClose}>
-                {formatMessage({ id: AppMessages['common.cancel'] })}
+                {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton
                 type="submit"
@@ -98,7 +97,7 @@ export const AddOutsideFeatureModal = ({ onSubmit, isOpened, onClose }: AddOutsi
                 isLoading={submitting}
                 disabled={!valid}
               >
-                {formatMessage({ id: AppMessages['pim_details.outside.add_new_feature'] })}
+                {formatMessage({ id: 'pim_details.outside.add_new_feature' })}
               </SubmitButton>
             </DialogActions>
           </form>

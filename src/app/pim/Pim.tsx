@@ -5,7 +5,6 @@ import { Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
@@ -33,7 +32,7 @@ export const Pim = ({
 
   return (
     <>
-      {!!isError && <Alert severity="error">{formatMessage({ id: AppMessages['common.error'] })}</Alert>}
+      {!!isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
           <PimSidebarMenu type={type} onTypeChange={onTypeChange} />
@@ -64,12 +63,8 @@ export const Pim = ({
                     pagination={pagination}
                     loading={isLoading}
                     loadingItem={<PropertyItemPlaceholder />}
-                    emptyTitle={formatMessage({
-                      id: AppMessages['pim.list.empty_title'],
-                    })}
-                    emptyDescription={formatMessage({
-                      id: AppMessages['pim.list.empty_description'],
-                    })}
+                    emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
+                    emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
                   />
                 </CardContent>
               </Card>

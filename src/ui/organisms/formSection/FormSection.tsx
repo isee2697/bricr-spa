@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
@@ -27,7 +26,7 @@ export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, chi
               className={classes.editLabel}
               value="start"
               control={<Switch checked={editing} onChange={() => setEditing(editing => !editing)} color="primary" />}
-              label={formatMessage({ id: AppMessages['form_section.edit_mode'] })}
+              label={formatMessage({ id: 'form_section.edit_mode' })}
               labelPlacement="start"
             />
           )}

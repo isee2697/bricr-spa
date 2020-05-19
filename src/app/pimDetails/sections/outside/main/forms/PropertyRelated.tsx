@@ -5,14 +5,13 @@ import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import * as dictionaries from '../dictionaries';
 
 export const PropertyRelated = () => {
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection title={formatMessage({ id: AppMessages['pim_details.outside.main.property_related'] })} isExpandable>
+    <FormSection title={formatMessage({ id: 'pim_details.outside.main.property_related' })} isExpandable>
       {isEditMode => (
         <>
           <Box mb={4}>

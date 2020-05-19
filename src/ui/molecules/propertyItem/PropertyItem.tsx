@@ -7,7 +7,6 @@ import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button,
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { PropertyItemProps } from './PropertyItem.types';
@@ -50,10 +49,7 @@ export const PropertyItem = ({
           <Box display="flex" justifyContent="space-between">
             <div>
               <Typography className={classes.date}>
-                {isArchived &&
-                  formatMessage({
-                    id: AppMessages['property_item.archived'],
-                  })}{' '}
+                {isArchived && formatMessage({ id: 'property_item.archived' })}{' '}
                 {DateTime.fromISO(date.toString()).toRelative({
                   locale: intl.locale,
                 })}
@@ -115,9 +111,7 @@ export const PropertyItem = ({
                       minimumFractionDigits={rentPrice % 1 === 0 ? 0 : 2}
                       maximumFractionDigits={rentPrice % 1 === 0 ? 0 : 2}
                     />{' '}
-                    {formatMessage({
-                      id: AppMessages['property_item.per_meter'],
-                    })}
+                    {formatMessage({ id: 'property_item.per_meter' })}
                   </span>
                 )}
               </div>
@@ -152,11 +146,7 @@ export const PropertyItem = ({
         <>
           <Box display="flex">
             <div className={classes.infoProgress}>
-              <Box mb={1}>
-                {formatMessage({
-                  id: AppMessages['property_item.info_completed'],
-                })}
-              </Box>
+              <Box mb={1}>{formatMessage({ id: 'property_item.info_completed' })}</Box>
               <ProgressFilling progress={completeness ?? 0} />
             </div>
             <Box ml={1.5} display="flex" alignItems="center" width="100%" justifyContent="space-between">
@@ -177,18 +167,14 @@ export const PropertyItem = ({
                 }}
               >
                 {isCollapsed
-                  ? formatMessage({
-                      id: AppMessages['property_item.button_hide'],
-                    })
-                  : formatMessage({
-                      id: AppMessages['property_item.button_more'],
-                    })}
+                  ? formatMessage({ id: 'property_item.button_hide' })
+                  : formatMessage({ id: 'property_item.button_more' })}
               </Button>
             </div>
           </Box>
           <Collapse in={isCollapsed}>
             <Box width="100%" mt={3}>
-              <div className={classes.collapse}>{formatMessage({ id: AppMessages['property_item.progress'] })}</div>
+              <div className={classes.collapse}>{formatMessage({ id: 'property_item.progress' })}</div>
               {stageItems && stageIndex !== undefined && <PropertyStage items={stageItems} activeItem={stageIndex} />}
             </Box>
           </Collapse>
@@ -197,9 +183,7 @@ export const PropertyItem = ({
         <Box display="flex" mt={1}>
           <Box display="flex" flexShrink={0} flexBasis={176} flexDirection="column">
             <Typography className={classes.archivedTitle}>
-              {formatMessage({
-                id: AppMessages['property_item.former_owners'],
-              })}
+              {formatMessage({ id: 'property_item.former_owners' })}
             </Typography>
             <Box>
               <Typography variant="h5" className={classes.archivedText}>
@@ -208,9 +192,7 @@ export const PropertyItem = ({
             </Box>
           </Box>
           <Box ml={1.5} display="flex" flexShrink={0} flexDirection="column">
-            <Typography className={classes.archivedTitle}>
-              {formatMessage({ id: AppMessages['property_item.buyers'] })}
-            </Typography>
+            <Typography className={classes.archivedTitle}>{formatMessage({ id: 'property_item.buyers' })}</Typography>
             <Box>
               <Typography variant="h5" className={classes.archivedText}>
                 {buyers}

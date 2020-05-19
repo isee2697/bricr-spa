@@ -6,7 +6,6 @@ import { Grid, Paper, Link } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 
 import { AuthorizationProps } from './Authorization.types';
 import { useStyles } from './Authorization.styles';
@@ -25,7 +24,7 @@ export const Authorization = ({ children }: AuthorizationProps) => {
           {children}
           {pathname !== AppRoute.login && (
             <Link component={RouterLink} className={classes.backLink} to={AppRoute.login}>
-              {formatMessage({ id: AppMessages['authorization.back_to_login'] })}
+              {formatMessage({ id: 'authorization.back_to_login' })}
             </Link>
           )}
         </Grid>

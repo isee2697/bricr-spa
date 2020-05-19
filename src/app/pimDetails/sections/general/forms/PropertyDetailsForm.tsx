@@ -4,7 +4,6 @@ import { Grid } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import {
   AogIcon,
   BogIcon,
@@ -149,15 +148,13 @@ export const PropertyDetailsForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection title={formatMessage({ id: AppMessages['pim_details.general.property_details.title'] })} isExpandable>
+    <FormSection title={formatMessage({ id: 'pim_details.general.property_details.title' })} isExpandable>
       {editing => (
         <>
           <FormSubSection
             className={classes.subHeader}
-            title={formatMessage({
-              id: AppMessages['pim_details.general.property_details.pick_type_of_property'],
-            })}
-            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            title={formatMessage({ id: 'pim_details.general.property_details.pick_type_of_property' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
             <RadioGroupField sm={3} options={TYPES} name="houseGeneral.propertyDetails" disabled={!editing} />
@@ -165,10 +162,8 @@ export const PropertyDetailsForm = () => {
 
           <FormSubSection
             className={classes.subHeader}
-            title={formatMessage({
-              id: AppMessages['pim_details.general.property_details.property_connection'],
-            })}
-            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            title={formatMessage({ id: 'pim_details.general.property_details.property_connection' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
             <RadioGroupField sm={3} options={CONNECTIONS} name="houseGeneral.propertyConnection" disabled={!editing} />

@@ -6,7 +6,6 @@ import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHead
 import { Button, Loader } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { usePimDetailsQuery } from 'api/types';
@@ -43,7 +42,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
             }}
             size="small"
           >
-            {formatMessage({ id: AppMessages['pim_details.outside.add_new_feature'] })}
+            {formatMessage({ id: 'pim_details.outside.add_new_feature' })}
           </Button>
         }
       />

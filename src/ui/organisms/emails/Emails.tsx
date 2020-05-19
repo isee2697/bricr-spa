@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardHeader, CardContent, CardActions, IconButton, Button } from '../../atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { Email } from 'ui/molecules/email/Email';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './Emails.styles';
@@ -16,7 +15,7 @@ export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: E
   return (
     <Card>
       <CardHeader
-        title={formatMessage({ id: AppMessages['emails.title'] })}
+        title={formatMessage({ id: 'emails.title' })}
         action={
           <IconButton aria-label="add" color="primary" size="small" onClick={onAddClick}>
             <AddIcon color="inherit" />
@@ -41,7 +40,7 @@ export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: E
       </CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: AppMessages['emails.view_more'] })} ({count})
+          {formatMessage({ id: 'emails.view_more' })} ({count})
         </Button>
       </CardActions>
     </Card>

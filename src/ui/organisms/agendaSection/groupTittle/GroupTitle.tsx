@@ -2,7 +2,6 @@ import React from 'react';
 import { DateTime, Duration } from 'luxon';
 
 import { Grid } from 'ui/atoms';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { GroupTitleProps } from './GroupTittle.types';
@@ -17,9 +16,9 @@ export const GroupTitle = ({ date, dateFormat }: GroupTitleProps) => {
 
   let title;
   if (today.toFormat(dateFormat) === date) {
-    title = formatMessage({ id: AppMessages['date.today'] });
+    title = formatMessage({ id: 'date.today' });
   } else if (tomorrow.toFormat(dateFormat) === date) {
-    title = title = formatMessage({ id: AppMessages['date.tomorrow'] });
+    title = title = formatMessage({ id: 'date.tomorrow' });
   } else {
     title = DateTime.fromString(date, dateFormat)
       .setLocale(locale)

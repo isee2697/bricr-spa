@@ -5,7 +5,6 @@ import { Grid, CircularProgress, Badge } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 import { validatorsChain } from 'form/validators';
 
 import { useStyles } from './UploadImageField.styles';
@@ -84,7 +83,7 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
           {hasError && (
             <Grid container className={classes.error}>
               <CloseIcon />
-              <span className={classes.text}>{formatMessage({ id: AppMessages['upload_image.invalid_file'] })}</span>
+              <span className={classes.text}>{formatMessage({ id: 'upload_image.invalid_file' })}</span>
             </Grid>
           )}
           {!loading && !hasError && !input.value && (

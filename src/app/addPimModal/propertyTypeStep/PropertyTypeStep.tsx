@@ -8,7 +8,6 @@ import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { NewConstructionIcon } from 'ui/atoms/icons/newConstruction/NewConstructionIcon';
 import { ComplexBuildingIcon } from 'ui/atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { requireValidator } from 'form/validators';
 import { AddPimStepProps } from '../AddPimModal.types';
 import { PropertyType } from 'api/types';
@@ -107,7 +106,7 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
                 variant="contained"
                 onClick={onNext}
               >
-                {formatMessage({ id: AppMessages['common.next'] })}
+                {formatMessage({ id: 'common.next' })}
               </SubmitButton>
             </DialogActions>
           )}

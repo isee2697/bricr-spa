@@ -4,7 +4,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Pim } from 'api/types';
 import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './PimDetails.styles';
@@ -40,7 +39,7 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
         <Grid container spacing={3} className={classes.content}>
           {!!isError && (
             <Grid item xs={12}>
-              <Alert severity="error">{formatMessage({ id: AppMessages['common.error'] })}</Alert>
+              <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
             </Grid>
           )}
           <Switch>

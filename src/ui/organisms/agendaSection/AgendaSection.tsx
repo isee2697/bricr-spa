@@ -4,7 +4,6 @@ import groupBy from 'lodash/groupBy';
 
 import { Card, CardContent, CardActions, IconButton, Button, Tabs, Tab, AgendaItem, Scrollable } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AgendaItemProps } from 'ui/atoms/agendaItem/AgendaItem.types';
 import { GroupTitle } from 'ui/organisms';
@@ -56,7 +55,7 @@ export const AgendaSection = ({ data, onMoreClick, onAddClick }: AgendaSectionPr
       </CardContent>
       <CardActions>
         <Button fullWidth className={classes.moreButton} onClick={onMoreClick}>
-          {formatMessage({ id: AppMessages['date.view_more'] })}
+          {formatMessage({ id: 'date.view_more' })}
         </Button>
         <IconButton aria-label="add" color="primary" size="small" onClick={onAddClick}>
           <AddIcon color="inherit" />

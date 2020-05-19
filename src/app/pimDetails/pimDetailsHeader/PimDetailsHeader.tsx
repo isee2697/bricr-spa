@@ -4,7 +4,6 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { IconButton, Breadrcumbs, Link, Box, Grid, Placeholder } from 'ui/atoms';
 import { HideIcon } from 'ui/atoms/icons/hide/HideIcon';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { PimDetailsHeaderProps } from './PimDetailsHeader.types';
@@ -31,10 +30,10 @@ export const PimDetailsHeader = ({ isSidebarVisible, onOpenSidebar, title, actio
           )}
           <Breadrcumbs separator=">">
             <Link component={RouterLink} to="/">
-              {formatMessage({ id: AppMessages['header.links.home'] })}
+              {formatMessage({ id: 'header.links.home' })}
             </Link>
             <Link component={RouterLink} to={AppRoute.pim}>
-              {formatMessage({ id: AppMessages['header.links.pim'] })}
+              {formatMessage({ id: 'header.links.pim' })}
             </Link>
             {title && (
               <Link component={RouterLink} to={pathname}>

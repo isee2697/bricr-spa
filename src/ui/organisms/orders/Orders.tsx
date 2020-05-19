@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardHeader, CardContent, CardActions, IconButton, Button, Box } from '../../atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './Orders.styles';
@@ -16,7 +15,7 @@ export const Orders = ({ tabs, children, onAddClick, onMoreClick, onManageClick 
   return (
     <Card>
       <CardHeader
-        title={formatMessage({ id: AppMessages['orders.title'] })}
+        title={formatMessage({ id: 'orders.title' })}
         action={
           <Box display="flex">
             <Box mr={3}>
@@ -36,7 +35,7 @@ export const Orders = ({ tabs, children, onAddClick, onMoreClick, onManageClick 
       </CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: AppMessages['orders.view_more'] })}
+          {formatMessage({ id: 'orders.view_more' })}
         </Button>
       </CardActions>
     </Card>

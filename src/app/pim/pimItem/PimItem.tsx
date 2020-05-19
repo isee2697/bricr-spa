@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { Pim } from 'api/types';
 import { PropertyItem } from 'ui/molecules';
 
@@ -43,10 +42,10 @@ export const PimItem = ({
     : undefined; // TODO: replace it with real transaction data
   const categories = !archived
     ? generateNonemptyList({
-        [formatMessage({ id: AppMessages['pim.type.sale'] })]: salePrice,
-        [formatMessage({ id: AppMessages['pim.type.rent'] })]: rentPrice,
+        [formatMessage({ id: 'pim.type.sale' })]: salePrice,
+        [formatMessage({ id: 'pim.type.rent' })]: rentPrice,
       })
-    : [formatMessage({ id: AppMessages['property_item.sold'] })];
+    : [formatMessage({ id: 'property_item.sold' })];
 
   return (
     <PropertyItem

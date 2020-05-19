@@ -4,7 +4,6 @@ import { Form, Field } from 'react-final-form';
 import { Modal, SubmitButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Button, Grid, TileRadio } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { GenericField } from 'form/fields';
 import { SquareIcon } from 'ui/atoms/icons/square/SquareIcon';
@@ -56,7 +55,7 @@ export const AddNewFloorModal = ({ onSubmit, isOpened, onClose }: AddNewFloorMod
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: AppMessages['add_pim.error.unknown'] })}</Alert>
+                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
               </DialogContent>
             )}
 
@@ -96,7 +95,7 @@ export const AddNewFloorModal = ({ onSubmit, isOpened, onClose }: AddNewFloorMod
 
             <DialogActions>
               <Button color="default" variant="outlined" onClick={onClose}>
-                {formatMessage({ id: AppMessages['common.cancel'] })}
+                {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton
                 type="submit"
@@ -107,7 +106,7 @@ export const AddNewFloorModal = ({ onSubmit, isOpened, onClose }: AddNewFloorMod
                 isLoading={submitting}
                 disabled={!valid}
               >
-                {formatMessage({ id: AppMessages['pim_details.add_new_floor'] })}
+                {formatMessage({ id: 'pim_details.add_new_floor' })}
               </SubmitButton>
             </DialogActions>
           </form>

@@ -4,7 +4,6 @@ import { Form, Field } from 'react-final-form';
 import { Modal, SubmitButton, SelectCard } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Button, Grid, Switch } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
@@ -61,7 +60,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: AppMessages['add_pim.error.unknown'] })}</Alert>
+                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
               </DialogContent>
             )}
 
@@ -95,7 +94,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
                             input.value === c.type
                               ? () => (
                                   <>
-                                    {formatMessage({ id: AppMessages['pim_details.inside.add_space.extra_room'] })}{' '}
+                                    {formatMessage({ id: 'pim_details.inside.add_space.extra_room' })}{' '}
                                     <Field name="extraRoom">
                                       {({ input: switchField }) => (
                                         <Switch
@@ -119,7 +118,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
             </DialogContent>
             <DialogActions>
               <Button color="default" variant="outlined" onClick={onClose}>
-                {formatMessage({ id: AppMessages['common.cancel'] })}
+                {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton
                 type="submit"
@@ -130,7 +129,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
                 isLoading={submitting}
                 disabled={!valid}
               >
-                {formatMessage({ id: AppMessages['pim_details.inside.add_space.label'] })}
+                {formatMessage({ id: 'pim_details.inside.add_space.label' })}
               </SubmitButton>
             </DialogActions>
           </form>

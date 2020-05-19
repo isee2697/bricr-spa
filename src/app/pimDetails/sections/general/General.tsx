@@ -4,7 +4,6 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { EditIcon } from 'ui/atoms/icons/edit/EditIcon';
@@ -39,7 +38,7 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }:
             onClick={() => push(`${AppRoute.pimDetails.replace(':id', id)}/inside`)}
             size="small"
           >
-            {formatMessage({ id: AppMessages['pim_details.customize'] })}
+            {formatMessage({ id: 'pim_details.customize' })}
           </Button>
         }
       />

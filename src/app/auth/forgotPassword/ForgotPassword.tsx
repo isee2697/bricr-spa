@@ -3,7 +3,6 @@ import { Form } from 'react-final-form';
 
 import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { ForgotPasswordInput } from 'api/types';
@@ -34,15 +33,11 @@ export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
     <Form onSubmit={handleSubmit}>
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <Typography variant="h1">{formatMessage({ id: AppMessages['forgot_password.title'] })}</Typography>
+          <Typography variant="h1">{formatMessage({ id: 'forgot_password.title' })}</Typography>
 
-          {isError && (
-            <Alert severity="error">{formatMessage({ id: AppMessages['forgot_password.wrong_username'] })}</Alert>
-          )}
+          {isError && <Alert severity="error">{formatMessage({ id: 'forgot_password.wrong_username' })}</Alert>}
 
-          {isSuccess && (
-            <Alert severity="success">{formatMessage({ id: AppMessages['forgot_password.success'] })}</Alert>
-          )}
+          {isSuccess && <Alert severity="success">{formatMessage({ id: 'forgot_password.success' })}</Alert>}
 
           <GenericField
             name="username"
@@ -68,7 +63,7 @@ export const ForgotPassword = ({ onSubmit }: ForgotPasswordProps) => {
             disabled={submitting || isSuccess}
             size="large"
           >
-            {formatMessage({ id: AppMessages['forgot_password.submit'] })}
+            {formatMessage({ id: 'forgot_password.submit' })}
           </Button>
         </form>
       )}

@@ -2,7 +2,6 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { Grid, Typography } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
 
@@ -17,7 +16,7 @@ export const Main = () => {
   return (
     <>
       <Grid xs={12} item>
-        <Typography variant="h1">{formatMessage({ id: AppMessages['pim_details.outside.title'] })}</Typography>
+        <Typography variant="h1">{formatMessage({ id: 'pim_details.outside.title' })}</Typography>
         <MainDescriptionContainer />
       </Grid>
 

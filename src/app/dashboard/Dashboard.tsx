@@ -4,7 +4,6 @@ import { Grid } from 'ui/atoms';
 import { DashboardHeader } from 'ui/molecules';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 
 import { DashboardEmailsContainer } from './dashboardEmails/DashboardEmailsContainer';
 import { DashboardOrdersContainer } from './dashboardOrders/DashboardOrdersContainer';
@@ -21,7 +20,7 @@ export const Dashboard = () => {
   return (
     <div className={classes.content}>
       <DashboardHeader onFilterClick={() => {}}>
-        {formatMessage({ id: AppMessages['dashboard.welcome'] })} {user?.firstName} 👋
+        {formatMessage({ id: 'dashboard.welcome' })} {user?.firstName} 👋
       </DashboardHeader>
 
       <DashboardStatsContainer />

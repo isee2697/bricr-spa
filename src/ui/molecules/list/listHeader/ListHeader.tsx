@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks';
 import { Box, Checkbox, Typography, Button, Select, MenuItem } from 'ui/atoms';
 import { ListHeaderProps } from '../List.types';
@@ -25,11 +24,11 @@ export const ListHeader = ({
       <Box>
         <Typography variant="h5" className={classes.selectAll} onClick={onCheckAll}>
           <Checkbox color="primary" className={classNames(classes.checkbox, 'list-select-all')} {...checkAllStatus} />
-          {formatMessage({ id: AppMessages['list.select_all'] })}
+          {formatMessage({ id: 'list.select_all' })}
         </Typography>
         {!!checkedKeys.length && (
           <Button variant="outlined" color="primary" onClick={onBulk}>
-            {formatMessage({ id: AppMessages['list.bulk_actions'] })}
+            {formatMessage({ id: 'list.bulk_actions' })}
           </Button>
         )}
       </Box>

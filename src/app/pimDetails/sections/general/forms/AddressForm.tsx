@@ -5,7 +5,6 @@ import { FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { useStyles } from '../General.styles';
 
 export const AddressForm = () => {
@@ -13,10 +12,7 @@ export const AddressForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection
-      title={formatMessage({ id: AppMessages['pim_details.general.address_information.title'] })}
-      isExpandable
-    >
+    <FormSection title={formatMessage({ id: 'pim_details.general.address_information.title' })} isExpandable>
       {editing => (
         <>
           <Grid className={classes.textFields} container spacing={3}>

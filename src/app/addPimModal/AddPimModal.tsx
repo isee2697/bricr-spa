@@ -4,7 +4,6 @@ import { Form } from 'react-final-form';
 import { Modal } from 'ui/molecules';
 import { Alert, DialogContent } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
@@ -70,7 +69,7 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error === 'unknown' && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: AppMessages['add_pim.error.unknown'] })}</Alert>
+                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
               </DialogContent>
             )}
             {React.createElement(currentStep.component, {

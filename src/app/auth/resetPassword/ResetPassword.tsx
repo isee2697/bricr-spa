@@ -4,7 +4,6 @@ import { Form } from 'react-final-form';
 import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
 import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 import { GenericField } from 'form/fields';
 import { requireValidator, fieldMatchValidator, minLengthValidator } from 'form/validators';
 
@@ -33,13 +32,11 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
     <Form onSubmit={handleSubmit}>
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
-          <Typography variant="h1">{formatMessage({ id: AppMessages['reset_password.title'] })}</Typography>
+          <Typography variant="h1">{formatMessage({ id: 'reset_password.title' })}</Typography>
 
-          {isError && <Alert severity="error">{formatMessage({ id: AppMessages['reset_password.wrong_data'] })}</Alert>}
+          {isError && <Alert severity="error">{formatMessage({ id: 'reset_password.wrong_data' })}</Alert>}
 
-          {isSuccess && (
-            <Alert severity="success">{formatMessage({ id: AppMessages['reset_password.success'] })}</Alert>
-          )}
+          {isSuccess && <Alert severity="success">{formatMessage({ id: 'reset_password.success' })}</Alert>}
 
           <GenericField
             name="password"
@@ -81,7 +78,7 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
             disabled={submitting || isSuccess}
             size="large"
           >
-            {formatMessage({ id: AppMessages['reset_password.submit'] })}
+            {formatMessage({ id: 'reset_password.submit' })}
           </Button>
         </form>
       )}

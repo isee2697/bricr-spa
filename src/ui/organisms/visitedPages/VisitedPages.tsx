@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Card, CardHeader, CardContent, CardActions, IconButton, Button } from '../../atoms';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './VisitedPages.styles';
@@ -15,7 +14,7 @@ export const VisitedPages = ({ children, onMoreClick, onManageClick }: VisitedPa
   return (
     <Card>
       <CardHeader
-        title={formatMessage({ id: AppMessages['visited_pages.title'] })}
+        title={formatMessage({ id: 'visited_pages.title' })}
         action={
           <IconButton aria-label="manage" size="small" variant="roundedContained" onClick={onManageClick}>
             <ManageIcon color="inherit" />
@@ -25,7 +24,7 @@ export const VisitedPages = ({ children, onMoreClick, onManageClick }: VisitedPa
       <CardContent className={classes.card}>{children}</CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: AppMessages['visited_pages.view_more'] })}
+          {formatMessage({ id: 'visited_pages.view_more' })}
         </Button>
       </CardActions>
     </Card>

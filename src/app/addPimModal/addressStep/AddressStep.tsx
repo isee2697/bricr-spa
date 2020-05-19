@@ -7,7 +7,6 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { requireValidator } from 'form/validators';
 import { GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AddPimStepProps } from '../AddPimModal.types';
 
 export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
@@ -60,7 +59,7 @@ export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
       </DialogContent>
       <DialogActions>
         <Button color="ghost" size="small" onClick={onPrev}>
-          {formatMessage({ id: AppMessages['common.previous'] })}
+          {formatMessage({ id: 'common.previous' })}
         </Button>
         <SubmitButton
           type="submit"
@@ -70,7 +69,7 @@ export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
           variant="contained"
           isLoading={submitting}
         >
-          {formatMessage({ id: AppMessages['pim.add'] })}
+          {formatMessage({ id: 'pim.add' })}
         </SubmitButton>
       </DialogActions>
     </>

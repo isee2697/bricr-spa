@@ -4,7 +4,6 @@ import { useForm, useFormState } from 'react-final-form';
 import { DialogActions, Typography } from 'ui/atoms';
 import { SubmitButton, InfoSection } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { AddPimStepProps } from '../AddPimModal.types';
 
 import { useStyles } from './ConflictStep.styles';
@@ -29,15 +28,15 @@ export const ConflictStep = ({ onPrev }: AddPimStepProps) => {
       <InfoSection emoji="😲" className={classes.info}>
         <Typography variant="h3">
           {formatMessage(
-            { id: AppMessages['add_pim.conflict.properties_exists'] },
+            { id: 'add_pim.conflict.properties_exists' },
             { count: conflictsCount, strong: msg => <strong>{msg}</strong> },
           )}
         </Typography>
-        <Typography variant="h3">{formatMessage({ id: AppMessages['add_pim.conflict.are_you_sure'] })}</Typography>
+        <Typography variant="h3">{formatMessage({ id: 'add_pim.conflict.are_you_sure' })}</Typography>
       </InfoSection>
       <DialogActions>
         <SubmitButton onClick={onPrev} size="large" color="primary" variant="outlined">
-          {formatMessage({ id: AppMessages['add_pim.conflict.i_will_correct'] })}
+          {formatMessage({ id: 'add_pim.conflict.i_will_correct' })}
         </SubmitButton>
         <SubmitButton
           onClick={() => change('forceAdd', true)}
@@ -47,7 +46,7 @@ export const ConflictStep = ({ onPrev }: AddPimStepProps) => {
           color="primary"
           variant="outlined"
         >
-          {formatMessage({ id: AppMessages['add_pim.conflict.yes_add_the_same'] })}
+          {formatMessage({ id: 'add_pim.conflict.yes_add_the_same' })}
         </SubmitButton>
       </DialogActions>
     </>

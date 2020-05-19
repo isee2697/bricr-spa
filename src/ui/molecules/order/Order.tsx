@@ -3,7 +3,6 @@ import { useTheme } from '@material-ui/core/styles';
 import { FormattedNumber } from 'react-intl';
 
 import { Box, Typography, Chip, Avatar } from 'ui/atoms';
-import { AppMessages } from 'i18n/messages';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { OrderProps } from './Order.types';
@@ -31,7 +30,7 @@ export const Order = ({ labels, price, packages, image, children, onClick, id }:
           </Box>
           <Box textAlign="right">
             <Typography className={classes.package}>
-              {formatMessage({ id: AppMessages['order.package'] })} {packages}
+              {formatMessage({ id: 'order.package' })} {packages}
             </Typography>
             <Typography className={classes.price}>
               <FormattedNumber value={price} style={`currency`} currency="EUR" />

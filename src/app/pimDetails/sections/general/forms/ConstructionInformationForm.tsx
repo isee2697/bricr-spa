@@ -6,7 +6,6 @@ import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { useStyles } from '../General.styles';
 import { ConstructionType } from 'api/types';
 
@@ -28,18 +27,13 @@ export const ConstructionInformationForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection
-      title={formatMessage({ id: AppMessages['pim_details.general.construction_information.title'] })}
-      isExpandable
-    >
+    <FormSection title={formatMessage({ id: 'pim_details.general.construction_information.title' })} isExpandable>
       {editing => (
         <>
           <FormSubSection
             className={classes.subHeader}
-            title={formatMessage({
-              id: AppMessages['pim_details.general.construction_information.status_construction'],
-            })}
-            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            title={formatMessage({ id: 'pim_details.general.construction_information.status_construction' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
             <RadioGroupField sm={3} options={CONSTRUCTIONS} name="houseGeneral.construction.type" disabled={!editing} />

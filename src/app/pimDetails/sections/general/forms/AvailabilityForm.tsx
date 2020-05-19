@@ -7,7 +7,6 @@ import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppMessages } from 'i18n/messages';
 import { useStyles } from '../General.styles';
 import { PropertyHabitation, PropertyAvailability } from 'api/types';
 
@@ -47,15 +46,13 @@ export const AvailabilityForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection title={formatMessage({ id: AppMessages['pim_details.general.availability.title'] })} isExpandable>
+    <FormSection title={formatMessage({ id: 'pim_details.general.availability.title' })} isExpandable>
       {editing => (
         <>
           <FormSubSection
             className={classes.subHeader}
-            title={formatMessage({
-              id: AppMessages['pim_details.general.availability.title'],
-            })}
-            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            title={formatMessage({ id: 'pim_details.general.availability.title' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Box mb={2} mt={2}>
             <Grid container spacing={1} className={classes.tilesContainer}>
@@ -95,10 +92,8 @@ export const AvailabilityForm = () => {
 
           <FormSubSection
             className={classes.subHeader}
-            title={formatMessage({
-              id: AppMessages['pim_details.general.availability.habitation'],
-            })}
-            subtitle={formatMessage({ id: AppMessages['pim_details.choose_one_option_below'] })}
+            title={formatMessage({ id: 'pim_details.general.availability.habitation' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Box mb={2} mt={2}>
             <Grid container spacing={1} className={classes.tilesContainer}>

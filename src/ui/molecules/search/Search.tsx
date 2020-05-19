@@ -8,7 +8,6 @@ import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { NoteIcon } from 'ui/atoms/icons/note/NoteIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppMessages } from 'i18n/messages';
 
 import { useStyles } from './Search.styles';
 import { SearchProps, Search as SearchType } from './Search.types';
@@ -39,17 +38,6 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
     }
   }, [hasFocus, setFocusProp]);
 
-  const getTranslatedGroupName = (type: string) => {
-    const stringKey = 'header.search.group.' + type.toLowerCase();
-    const key = stringKey in AppMessages ? stringKey : null;
-
-    if (key) {
-      return formatMessage({ id: key });
-    } else {
-      return type;
-    }
-  };
-
   const highlightString = (title: string) => {
     if (!value.trim()) {
       return title;
@@ -74,7 +62,7 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
         {props.children}
         <CardActions>
           <Button onClick={() => setValue('')} fullWidth>
-            {formatMessage({ id: AppMessages['header.search.all.results'] })} ({options.length})
+            {formatMessage({ id: 'header.search.all.results' })} ({options.length})
           </Button>
         </CardActions>
       </Paper>
@@ -87,7 +75,9 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
       className={classes.root}
       options={options}
       getOptionLabel={option => option.title}
-      groupBy={(option: SearchType) => getTranslatedGroupName(option.type)}
+      groupBy={(option: SearchType) =>
+        formatMessage({ id: `header.search.group.${option.type.toLowerCase()}`, defaultMessage: option.type })
+      }
       freeSolo
       PaperComponent={Results}
       open={hasFocus}
@@ -123,7 +113,7 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
             setValue('');
           }}
           onChange={e => setValue(e.target.value)}
-          placeholder={formatMessage({ id: AppMessages['header.search.placeholder'] })}
+          placeholder={formatMessage({ id: 'header.search.placeholder' })}
           className={`${classes.textField} ${hasFocus ? classes.hasFocus : ''}`}
           variant="outlined"
           InputProps={{
