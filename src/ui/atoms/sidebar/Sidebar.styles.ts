@@ -4,8 +4,10 @@ export const Sidebar = styled('div')(({ theme }) => ({
   paddingRight: theme.spacing(1),
   paddingLeft: theme.spacing(1),
   flex: `0 0 ${theme.spacing(8)}px`,
-  top: theme.spacing(3),
-  position: 'sticky',
+  top: theme.spacing(8),
+  width: theme.spacing(4),
+  right: theme.spacing(3),
+  position: 'fixed',
   zIndex: 2,
   textAlign: 'center',
   marginTop: theme.spacing(3),
@@ -20,6 +22,16 @@ export const Sidebar = styled('div')(({ theme }) => ({
   '&.hasOverlay': {
     borderLeftColor: theme.palette.white.light,
   },
+  '&:after': {
+    content: '""',
+    width: theme.spacing(4),
+  },
+}));
+
+export const Container = styled('div')(({ theme }) => ({
+  width: theme.spacing(7),
+  marginLeft: theme.spacing(2),
+  height: '100%',
 }));
 
 export const SidebarDivider = styled('div')(({ theme }) => ({
