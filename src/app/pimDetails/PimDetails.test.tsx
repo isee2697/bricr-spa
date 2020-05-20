@@ -31,6 +31,6 @@ describe('PimDetails', () => {
         />
       </Router>,
     );
-    expect(getAllByText('Isenburgstraat 36 4813 NC Breda NL').length).toEqual(2);
+    expect(getAllByText('Isenburgstraat 36 4813 NC Breda').length).toEqual(2);
   });
 });

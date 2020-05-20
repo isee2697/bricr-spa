@@ -18,7 +18,7 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
   const { formatMessage } = useLocale();
   const pim = data?.getPim as Pim;
-  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city} ${pim.country}` : '';
+  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisiblity(false);
