@@ -46,6 +46,12 @@ export const PimDetailsSidebarMenu = ({ onHide, floors }: PimDetailsSidebarMenuP
     {
       name: 'cadastre',
       icon: <FilterIcon />,
+      subItems: [
+        {
+          id: 'cadastreMap',
+          label: 'pim_details.cadastre.cadastre_map',
+        },
+      ],
     },
     {
       name: 'services',
