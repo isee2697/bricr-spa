@@ -35,11 +35,11 @@ export const Dashboard = ({ children }: DashboardProps) => {
           <IconButton size="small" variant="roundedContained">
             <PinIcon />
           </IconButton>
-          <Badge badgeContent={4} color="secondary">
-            <IconButton size="small" variant="roundedContained">
+          <IconButton size="small" variant="roundedContained">
+            <Badge badgeContent={4} color="secondary">
               <BellIcon />
-            </IconButton>
-          </Badge>
+            </Badge>
+          </IconButton>
           <ProfileMenu />
           <AddMenu />
         </nav>
