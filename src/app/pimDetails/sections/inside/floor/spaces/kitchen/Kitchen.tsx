@@ -48,13 +48,15 @@ export const Kitchen = ({ isEditMode, index, className, spaceName }: KitchenProp
                 </Grid>
                 <Grid item xs={2} />
                 <Grid item xs={6}>
-                  <GenericField
-                    name={`${name}.notes`}
-                    label="pim_details.inside.notes"
-                    placeholder="pim_details.inside.space_notes_placeholder"
-                    size="medium"
-                    disabled={!isEditMode}
-                  />
+                  <Box display="flex" alignItems="flex-end" height="100%">
+                    <GenericField
+                      name={`${name}.notes`}
+                      label="pim_details.inside.notes"
+                      placeholder="pim_details.inside.space_notes_placeholder"
+                      size="medium"
+                      disabled={!isEditMode}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>
