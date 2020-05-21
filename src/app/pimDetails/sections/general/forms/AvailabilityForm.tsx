@@ -12,17 +12,17 @@ import { PropertyHabitation, PropertyAvailability } from 'api/types';
 
 const AVAILABILITIES = [
   {
-    label: 'pim_details.general.availability.in_construction',
+    label: 'dictionaries.availability.InConsultation',
     icon: <GraphIcon />,
     value: PropertyAvailability.InConsultation,
   },
   {
-    label: 'pim_details.general.availability.immediatelly',
+    label: 'dictionaries.availability.Immediatelly',
     icon: <FilterIcon />,
     value: PropertyAvailability.Immediatelly,
   },
   {
-    label: 'pim_details.general.availability.by_date',
+    label: 'dictionaries.availability.ByDate',
     icon: <CalendarIcon />,
     value: PropertyAvailability.ByDate,
   },
@@ -30,12 +30,12 @@ const AVAILABILITIES = [
 
 const HABITATIONS = [
   {
-    label: 'pim_details.general.availability.recreational_home',
+    label: 'dictionaries.habitation.RecreationalHome',
     icon: <BogIcon />,
     value: PropertyHabitation.RecreationalHome,
   },
   {
-    label: 'pim_details.general.availability.permanent_occupation',
+    label: 'dictionaries.habitation.PermanentOccupation',
     icon: <CrmIcon />,
     value: PropertyHabitation.PermanentOccupation,
   },

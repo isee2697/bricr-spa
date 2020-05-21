@@ -59,7 +59,7 @@ context('Pim Details', () => {
       .eq(3)
       .click();
 
-    cy.findAllByText('In construction').click();
+    cy.findAllByText('In consultation').click();
     cy.findAllByText('Recreational home').click();
   });
 

@@ -12,62 +12,62 @@ import {
 
 export const qualities = [
   {
-    label: 'pim_details.outside.main.simple',
+    label: 'dictionaries.outside_quality.Simple',
     icon: <LinkIcon color="inherit" />,
     value: 'simple',
   },
   {
-    label: 'pim_details.outside.main.normal',
+    label: 'dictionaries.outside_quality.Normal',
     icon: <FilterIcon color="inherit" />,
     value: 'normal',
   },
   {
-    label: 'pim_details.outside.main.luxury',
+    label: 'dictionaries.outside_quality.Luxury',
     icon: <BuildingIcon color="inherit" />,
     value: 'luxury',
   },
   {
-    label: 'pim_details.outside.main.excellent',
+    label: 'dictionaries.outside_quality.Excellent',
     icon: <ComplexBuildingIcon color="inherit" />,
     value: 'excellent',
   },
   {
-    label: 'pim_details.outside.main.good_to_stick_out',
+    label: 'dictionaries.outside_quality.GoodToStickOut',
     icon: <UserIcon color="inherit" />,
     value: 'good_to_stick_out',
   },
   {
-    label: 'pim_details.outside.main.good',
+    label: 'dictionaries.outside_quality.Good',
     icon: <SettingsIcon color="inherit" />,
     value: 'good',
   },
   {
-    label: 'pim_details.outside.main.reasonable_good',
+    label: 'dictionaries.outside_quality.ReasonableToGood',
     icon: <WarningIcon color="inherit" />,
     value: 'reasonable_good',
   },
   {
-    label: 'pim_details.outside.main.fair',
+    label: 'dictionaries.outside_quality.Fair',
     icon: <LinkIcon color="inherit" />,
     value: 'fair',
   },
   {
-    label: 'pim_details.outside.main.moderate_to_fair',
+    label: 'dictionaries.outside_quality.ModerateToFairRedelijik',
     icon: <FilterIcon color="inherit" />,
     value: 'moderate_to_fair',
   },
   {
-    label: 'pim_details.outside.main.moderate',
+    label: 'dictionaries.outside_quality.Moderate',
     icon: <BuildingIcon color="inherit" />,
     value: 'moderate',
   },
   {
-    label: 'pim_details.outside.main.bad_to_moderate',
+    label: 'dictionaries.outside_quality.BadToModerate',
     icon: <ComplexBuildingIcon color="inherit" />,
     value: 'bad_to_moderate',
   },
   {
-    label: 'pim_details.outside.main.bad',
+    label: 'dictionaries.outside_quality.Bad',
     icon: <UserIcon color="inherit" />,
     value: 'bad',
   },
@@ -75,22 +75,22 @@ export const qualities = [
 
 export const relatedItems = [
   {
-    label: 'pim_details.outside.main.balcony',
+    label: 'dictionaries.outside_items.Balcony',
     icon: <LinkIcon color="inherit" />,
     value: 'balcony',
   },
   {
-    label: 'pim_details.outside.main.terrace',
+    label: 'dictionaries.outside_items.Terrace',
     icon: <UserIcon color="inherit" />,
     value: 'terrace',
   },
   {
-    label: 'pim_details.outside.main.roof_terrace',
+    label: 'dictionaries.outside_items.RoofTerrace',
     icon: <ComplexBuildingIcon color="inherit" />,
     value: 'roof_terrace',
   },
   {
-    label: 'pim_details.outside.main.porch',
+    label: 'dictionaries.outside_items.Porch',
     icon: <FilterIcon color="inherit" />,
     value: 'porch',
   },
@@ -98,42 +98,42 @@ export const relatedItems = [
 
 export const roofTypes = [
   {
-    label: 'pim_details.outside.main.transverse_roof',
+    label: 'dictionaries.outside_roof_types.TransverseRoof',
     icon: <ComplexBuildingIcon color="inherit" />,
     value: 'transverse_roof',
   },
   {
-    label: 'pim_details.outside.main.class_roof',
+    label: 'dictionaries.outside_roof_types.ClassRoof',
     icon: <FilterIcon color="inherit" />,
     value: 'class_roof',
   },
   {
-    label: 'pim_details.outside.main.mansard_roof',
+    label: 'dictionaries.outside_roof_types.MansardRoof',
     icon: <LinkIcon color="inherit" />,
     value: 'mansard_roof',
   },
   {
-    label: 'pim_details.outside.main.flat_roof',
+    label: 'dictionaries.outside_roof_types.FlatRoof',
     icon: <UserIcon color="inherit" />,
     value: 'flat_roof',
   },
   {
-    label: 'pim_details.outside.main.hipped_roof',
+    label: 'dictionaries.outside_roof_types.HippedRoof',
     icon: <LinkIcon color="inherit" />,
     value: 'hipped_roof',
   },
   {
-    label: 'pim_details.outside.main.tent_roof',
+    label: 'dictionaries.outside_roof_types.TentRoof',
     icon: <WarningIcon color="inherit" />,
     value: 'tent_roof',
   },
   {
-    label: 'pim_details.outside.main.saddle_roof',
+    label: 'dictionaries.outside_roof_types.SaddleRoof',
     icon: <SettingsIcon color="inherit" />,
     value: 'saddle_roof',
   },
   {
-    label: 'pim_details.outside.main.composite_roof',
+    label: 'dictionaries.outside_roof_types.CompositeRoof',
     icon: <BuildingIcon color="inherit" />,
     value: 'composite_roof',
   },
@@ -141,37 +141,37 @@ export const roofTypes = [
 
 export const roofMaterialTypes = [
   {
-    label: 'pim_details.outside.main.asbestos',
+    label: 'dictionaries.outside_roof_materials.Asbestos',
     icon: <UserIcon color="inherit" />,
     value: 'asbestos',
   },
   {
-    label: 'pim_details.outside.main.bituminous_roofing',
+    label: 'dictionaries.outside_roof_materials.BituminousRoofing',
     icon: <FilterIcon color="inherit" />,
     value: 'bituminous_roofing',
   },
   {
-    label: 'pim_details.outside.main.plastic',
+    label: 'dictionaries.outside_roof_materials.Plastic',
     icon: <LinkIcon color="inherit" />,
     value: 'plastic',
   },
   {
-    label: 'pim_details.outside.main.slate',
+    label: 'dictionaries.outside_roof_materials.Slate',
     icon: <BuildingIcon color="inherit" />,
     value: 'slate',
   },
   {
-    label: 'pim_details.outside.main.metal',
+    label: 'dictionaries.outside_roof_materials.Metal',
     icon: <WarningIcon color="inherit" />,
     value: 'metal',
   },
   {
-    label: 'pim_details.outside.main.pans',
+    label: 'dictionaries.outside_roof_materials.Pans',
     icon: <LinkIcon color="inherit" />,
     value: 'pans',
   },
   {
-    label: 'pim_details.outside.main.other',
+    label: 'dictionaries.outside_roof_materials.Other',
     icon: <SettingsIcon color="inherit" />,
     value: 'other',
   },
@@ -179,37 +179,37 @@ export const roofMaterialTypes = [
 
 export const roofInsulationTypes = [
   {
-    label: 'pim_details.outside.main.spray_foam',
+    label: 'dictionaries.outside_roof_insulations.SprayFoam',
     icon: <BuildingIcon color="inherit" />,
     value: 'spray_foam',
   },
   {
-    label: 'pim_details.outside.main.rigid_boards',
+    label: 'dictionaries.outside_roof_insulations.RigidBoards',
     icon: <FilterIcon color="inherit" />,
     value: 'rigid_boards',
   },
   {
-    label: 'pim_details.outside.main.blanket_or_matting',
+    label: 'dictionaries.outside_roof_insulations.BlanketOrMatting',
     icon: <UserIcon color="inherit" />,
     value: 'blanket_or_matting',
   },
   {
-    label: 'pim_details.outside.main.glass_rock',
+    label: 'dictionaries.outside_roof_insulations.GlassRock',
     icon: <LinkIcon color="inherit" />,
     value: 'glass_rock',
   },
   {
-    label: 'pim_details.outside.main.mineral_wool',
+    label: 'dictionaries.outside_roof_insulations.MineralWool',
     icon: <WarningIcon color="inherit" />,
     value: 'mineral_wool',
   },
   {
-    label: 'pim_details.outside.main.loose_fill',
+    label: 'dictionaries.outside_roof_insulations.LooseFill',
     icon: <SettingsIcon color="inherit" />,
     value: 'loose_fill',
   },
   {
-    label: 'pim_details.outside.main.structural_panels',
+    label: 'dictionaries.outside_roof_insulations.StructuralPanels',
     icon: <LinkIcon color="inherit" />,
     value: 'structural_panels',
   },

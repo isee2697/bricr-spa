@@ -29,87 +29,87 @@ import { RadioGroupField } from 'form/fields';
 
 const TYPES = [
   {
-    label: 'pim_details.general.property_details.single_family',
+    label: 'dictionaries.property_details.SingleFamily',
     icon: <AogIcon />,
     value: PropertyTypeDetailed.SingleFamily,
   },
   {
-    label: 'pim_details.general.property_details.dyke_house',
+    label: 'dictionaries.property_details.DykeHouse',
     icon: <BogIcon />,
     value: PropertyTypeDetailed.DykeHouse,
   },
   {
-    label: 'pim_details.general.property_details.court_house',
+    label: 'dictionaries.property_details.CourtHouse',
     icon: <CalendarIcon />,
     value: PropertyTypeDetailed.CourtHouse,
   },
   {
-    label: 'pim_details.general.property_details.drive_in_home',
+    label: 'dictionaries.property_details.DriveInHome',
     icon: <ComplexBuildingIcon />,
     value: PropertyTypeDetailed.DriveInHome,
   },
   {
-    label: 'pim_details.general.property_details.split_level',
+    label: 'dictionaries.property_details.SplitLevel',
     icon: <EditIcon />,
     value: PropertyTypeDetailed.SplitLevel,
   },
   {
-    label: 'pim_details.general.property_details.quadrant_house',
+    label: 'dictionaries.property_details.QuadrantHouse',
     icon: <FolderIcon />,
     value: PropertyTypeDetailed.QuadrantHouse,
   },
   {
-    label: 'pim_details.general.property_details.patio_house',
+    label: 'dictionaries.property_details.PatioHouse',
     icon: <FilterIcon />,
     value: PropertyTypeDetailed.PatioHouse,
   },
   {
-    label: 'pim_details.general.property_details.villa',
+    label: 'dictionaries.property_details.Villa',
     icon: <MailIcon />,
     value: PropertyTypeDetailed.Villa,
   },
   {
-    label: 'pim_details.general.property_details.canal_house',
+    label: 'dictionaries.property_details.CanalHouse',
     icon: <MutationIcon />,
     value: PropertyTypeDetailed.CanalHouse,
   },
   {
-    label: 'pim_details.general.property_details.water_house',
+    label: 'dictionaries.property_details.WaterHouse',
     icon: <BellIcon />,
     value: PropertyTypeDetailed.WaterHouse,
   },
   {
-    label: 'pim_details.general.property_details.bungalow',
+    label: 'dictionaries.property_details.Bungalow',
     icon: <SiteIcon />,
     value: PropertyTypeDetailed.Bungalow,
   },
   {
-    label: 'pim_details.general.property_details.semi_bungalow',
+    label: 'dictionaries.property_details.SemiBungalow',
     icon: <BuildingIcon />,
     value: PropertyTypeDetailed.SemiBungalow,
   },
   {
-    label: 'pim_details.general.property_details.stilt_house',
+    label: 'dictionaries.property_details.StiltHouse',
     icon: <PinIcon />,
     value: PropertyTypeDetailed.StiltHouse,
   },
   {
-    label: 'pim_details.general.property_details.business_or_serivce_home',
+    label: 'dictionaries.property_details.BusinessOrServiceHome',
     icon: <SaleIcon />,
     value: PropertyTypeDetailed.BusinessOrServiceHome,
   },
   {
-    label: 'pim_details.general.property_details.estate',
+    label: 'dictionaries.property_details.Estate',
     icon: <SeeIcon />,
     value: PropertyTypeDetailed.Estate,
   },
   {
-    label: 'pim_details.general.property_details.country_house',
+    label: 'dictionaries.property_details.CountryHouse',
     icon: <UploadIcon />,
     value: PropertyTypeDetailed.CountryHouse,
   },
   {
-    label: 'pim_details.general.property_details.mansion',
+    label: 'dictionaries.property_details.Mansion',
     icon: <WarningIcon />,
     value: PropertyTypeDetailed.Mansion,
   },
@@ -117,27 +117,27 @@ const TYPES = [
 
 const CONNECTIONS = [
   {
-    label: 'pim_details.general.property_details.semi_detached',
+    label: 'dictionaries.property_connections.SemiDetached',
     icon: <AogIcon />,
     value: PropertyConnection.SemiDetached,
   },
   {
-    label: 'pim_details.general.property_details.final_house',
+    label: 'dictionaries.property_connections.FinalHouse',
     icon: <BogIcon />,
     value: PropertyConnection.FinalHouse,
   },
   {
-    label: 'pim_details.general.property_details.corner_house',
+    label: 'dictionaries.property_connections.CornerHouse',
     icon: <EditIcon />,
     value: PropertyConnection.CornerHouse,
   },
   {
-    label: 'pim_details.general.property_details.terraced_house',
+    label: 'dictionaries.property_connections.TerracedHouse',
     icon: <CalendarIcon />,
     value: PropertyConnection.TerracedHouse,
   },
   {
-    label: 'pim_details.general.property_details.detached_house',
+    label: 'dictionaries.property_connections.DetachedHouse',
     icon: <ComplexBuildingIcon />,
     value: PropertyConnection.DetachedHouse,
   },
