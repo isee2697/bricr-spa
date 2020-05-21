@@ -33,7 +33,7 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
     <Grid container spacing={0}>
       {isSidebarVisible && (
         <Grid item xs={12} md={3} lg={2}>
-          <PimDetailsSidebarMenu floors={pim?.floors || []} onHide={handleSidebarHide} />
+          <PimDetailsSidebarMenu pim={pim} onHide={handleSidebarHide} />
         </Grid>
       )}
       <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>

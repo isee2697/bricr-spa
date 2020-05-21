@@ -1,6 +1,6 @@
-import { Floor } from 'api/types';
+import { Pim } from 'api/types';
 
 export type PimDetailsSidebarMenuProps = {
   onHide: () => void;
-  floors: Floor[];
+  pim?: Pim;
 };

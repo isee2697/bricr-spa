@@ -66,14 +66,11 @@ export const AddOutsideFeatureModal = ({ onSubmit, isOpened, onClose }: AddOutsi
                       <Grid item xs={4} key={c.type}>
                         <TileRadio
                           onClick={() => {
-                            if (input.value === c.type) {
-                              input.onChange('');
-                            } else {
-                              input.onChange(c.type);
-                            }
+                            input.onChange(input.value === c.type ? '' : c.type);
                           }}
                           isSelected={input.value === c.type}
                           title={formatMessage({ id: c.translation })}
+                          isDisabled={c.type !== OutsideFeatureType.Garden}
                         >
                           {c.icon}
                         </TileRadio>

@@ -57,3 +57,13 @@ export const UPDATE_FLOOR = gql`
     }
   }
 `;
+
+export const ADD_OUTSIDE_FEATURE = gql`
+  mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
+    addOutsideFeature(input: $input) {
+      outsideFeatures {
+        id
+      }
+    }
+  }
+`;

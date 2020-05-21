@@ -20,11 +20,14 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps } from './PimDetailsSidebarMenu.types';
 
-export const PimDetailsSidebarMenu = ({ onHide, floors }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
+
+  const floors = pim?.floors ?? [];
+  const outsideFeatures = pim?.outsideFeatures ?? [];
 
   const items = [
     {
@@ -42,6 +45,10 @@ export const PimDetailsSidebarMenu = ({ onHide, floors }: PimDetailsSidebarMenuP
     {
       name: 'outside',
       icon: <LockIcon />,
+      subItems: outsideFeatures.map(feature => ({
+        id: feature.id,
+        label: `dictionaries.outside_type.${feature.type}`,
+      })),
     },
     {
       name: 'cadastre',

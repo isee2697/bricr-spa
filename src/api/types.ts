@@ -450,6 +450,7 @@ export type Pim = {
   dateCreated: Scalars['Date'];
   houseGeneral?: Maybe<HouseGeneral>;
   floors?: Maybe<Array<Floor>>;
+  outsideFeatures?: Maybe<Array<OutsideFeature>>;
 };
 
 export type SpaceConfiguration = KitchenSpace;
@@ -470,6 +471,13 @@ export type Floor = {
   level: Scalars['Int'];
   floorType: FloorType;
   spaces?: Maybe<Array<Space>>;
+};
+
+export type OutsideFeature = {
+  __typename?: 'OutsideFeature';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: OutsideFeatureType;
 };
 
 export type Event = {
@@ -540,6 +548,12 @@ export type UpdateFloorInput = {
   floorType?: Maybe<FloorType>;
 };
 
+export type AddOutsideFeatureInput = {
+  pimId: Scalars['String'];
+  type: OutsideFeatureType;
+  description?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Profile>;
@@ -583,6 +597,7 @@ export type Mutation = {
   addSpaceToFloor?: Maybe<Pim>;
   updateSpace?: Maybe<Pim>;
   updateFloor?: Maybe<Pim>;
+  addOutsideFeature?: Maybe<Pim>;
 };
 
 export type MutationLoginArgs = {
@@ -632,6 +647,10 @@ export type MutationUpdateSpaceArgs = {
 
 export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
+};
+
+export type MutationAddOutsideFeatureArgs = {
+  input: AddOutsideFeatureInput;
 };
 
 export type LoginMutationVariables = {
@@ -715,6 +734,18 @@ export type UpdateFloorMutationVariables = {
 
 export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
   updateFloor?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddOutsideFeatureMutationVariables = {
+  input: AddOutsideFeatureInput;
+};
+
+export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
+  addOutsideFeature?: Maybe<
+    { __typename?: 'Pim' } & {
+      outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
+    }
+  >;
 };
 
 export type CountPimsByParamsQueryVariables = {
@@ -868,6 +899,9 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                 >;
               }
           >
+        >;
+        outsideFeatures?: Maybe<
+          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'>>
         >;
       }
   >;
@@ -1085,6 +1119,29 @@ export type UpdateFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateFloorMutation,
   UpdateFloorMutationVariables
 >;
+export const AddOutsideFeatureDocument = gql`
+  mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
+    addOutsideFeature(input: $input) {
+      outsideFeatures {
+        id
+      }
+    }
+  }
+`;
+export function useAddOutsideFeatureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>(
+    AddOutsideFeatureDocument,
+    baseOptions,
+  );
+}
+export type AddOutsideFeatureMutationHookResult = ReturnType<typeof useAddOutsideFeatureMutation>;
+export type AddOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<AddOutsideFeatureMutation>;
+export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddOutsideFeatureMutation,
+  AddOutsideFeatureMutationVariables
+>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -1271,6 +1328,11 @@ export const PimDetailsDocument = gql`
             }
           }
         }
+      }
+      outsideFeatures {
+        id
+        description
+        type
       }
     }
   }

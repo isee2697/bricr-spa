@@ -427,6 +427,7 @@ type Pim {
   dateCreated: Date!
   houseGeneral: HouseGeneral
   floors: [Floor!]
+  outsideFeatures: [OutsideFeature!]
 }
 
 union SpaceConfiguration = KitchenSpace
@@ -445,6 +446,12 @@ type Floor {
   level: Int!
   floorType: FloorType!
   spaces: [Space!]
+}
+
+type OutsideFeature {
+  id: String!
+  description: String
+  type: OutsideFeatureType!
 }
 
 type Event {
@@ -513,6 +520,12 @@ input UpdateFloorInput {
   floorType: FloorType
 }
 
+input AddOutsideFeatureInput {
+  pimId: String!
+  type: OutsideFeatureType!
+  description: String
+}
+
 scalar UpdateSpaceInputConfiguration
 
 scalar Dictionary
@@ -542,4 +555,5 @@ type Mutation {
   addSpaceToFloor(input: AddSpaceInput!): Pim @auth
   updateSpace(input: UpdateSpaceInput!): Pim @auth
   updateFloor(input: UpdateFloorInput!): Pim @auth
+  addOutsideFeature(input: AddOutsideFeatureInput!): Pim @auth
 }

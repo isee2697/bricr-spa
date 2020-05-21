@@ -139,6 +139,11 @@ export const PIM_DETAILS = gql`
           }
         }
       }
+      outsideFeatures {
+        id
+        description
+        type
+      }
     }
   }
 `;

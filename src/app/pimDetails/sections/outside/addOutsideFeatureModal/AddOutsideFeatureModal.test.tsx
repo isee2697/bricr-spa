@@ -8,7 +8,7 @@ describe('AddOutsideFeatureModal', () => {
   test('add new floor', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(undefined));
 
-    const { getByText, getByLabelText, getByRole } = render(
+    const { getByText, getByRole } = render(
       <AddOutsideFeatureModal isOpened={true} onClose={jest.fn()} onSubmit={onSubmit} />,
     );
 
@@ -28,7 +28,7 @@ describe('AddOutsideFeatureModal', () => {
   test('shows error message on fail', async () => {
     const onSubmit = jest.fn(() => Promise.resolve({ error: true }));
 
-    const { getByText, getByLabelText, getByRole } = render(
+    const { getByText, getByRole } = render(
       <AddOutsideFeatureModal isOpened={true} onClose={jest.fn()} onSubmit={onSubmit} />,
     );
 
