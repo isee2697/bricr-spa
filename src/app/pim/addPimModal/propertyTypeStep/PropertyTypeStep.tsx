@@ -12,9 +12,12 @@ import { requireValidator } from 'form/validators';
 import { AddPimStepProps } from '../AddPimModal.types';
 import { PropertyType } from 'api/types';
 
+import { useStyles } from './PropertyTypeStep.styles';
+
 export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
   const theme = useTheme();
   const { formatMessage } = useLocale();
+  const classes = useStyles();
   const { values } = useFormState({
     subscription: {
       values: true,
@@ -54,6 +57,7 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
               {CATEGORIES.filter(c => !input.value || input.value === c.type).map(c => (
                 <Grid xs={12} item key={c.type}>
                   <SelectCard
+                    className={classes.selectCard}
                     fullWidth
                     withButton
                     onClick={() => {
