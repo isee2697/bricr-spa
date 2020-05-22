@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
+import { QueryParamProvider } from 'use-query-params';
 
 import { Theme } from 'theme/Theme';
 import { ErrorBoundary } from 'app/errorBoundary/ErrorBoundary';
@@ -24,7 +25,9 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
               <UserController>
                 <OverlayContextController>
                   <ModalContextController>
-                    <Router>{children}</Router>
+                    <Router>
+                      <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                    </Router>
                   </ModalContextController>
                 </OverlayContextController>
               </UserController>

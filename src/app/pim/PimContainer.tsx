@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useQueryParam } from 'use-query-params';
 
 import { useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
@@ -12,8 +13,8 @@ const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const PimContainer = () => {
-  const [status, setStatus] = useState<PimTabsStatus>('active');
-  const [type, setType] = useState('sale');
+  const [status = 'active', setStatus] = useQueryParam<PimTabsStatus>('status');
+  const [type = 'sale', setType] = useQueryParam<string>('type');
 
   const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({});
 
@@ -28,6 +29,7 @@ export const PimContainer = () => {
   const { sorting, query: sortQuery } = usePimsSorting();
 
   const { pagination, query: paginationQuery } = usePagination({
+    prefix: status,
     itemsCount: amounts ? amounts[status] : 0,
     perPageOptions: PER_PAGE_OPTIONS,
   });

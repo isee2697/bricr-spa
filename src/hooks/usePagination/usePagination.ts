@@ -1,35 +1,31 @@
-import { useState, useEffect } from 'react';
-
-import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
+import { useQueryParam, NumberParam } from 'use-query-params';
 
 import { UsePaginationType } from './usePagination.types';
 
-export const usePagination: UsePaginationType = ({ itemsCount, perPageOptions }) => {
-  const [pageIndex, setPageIndex] = useState(0);
-  const [perPage, setPerPage] = useState<PerPageType>(perPageOptions[0]);
+export const usePagination: UsePaginationType = ({ itemsCount, perPageOptions, prefix = '' }) => {
+  const [pageIndex = 0, setPageIndex] = useQueryParam<number | null | undefined>(`${prefix}pageIndex`, NumberParam);
+  const [currentPerPage, setPerPage] = useQueryParam<number | null | undefined>(`${prefix}perPage`, NumberParam);
 
-  useEffect(() => {
-    setPageIndex(0);
-    setPerPage(perPageOptions[0]);
-  }, [itemsCount, perPageOptions]);
+  const perPage =
+    typeof currentPerPage !== 'number' ? (perPageOptions[0] === 'All' ? 0 : perPageOptions[0]) : currentPerPage;
 
   return {
     pagination: {
-      count: perPage === 'All' || itemsCount === 0 ? 1 : Math.floor((itemsCount - 1) / perPage) + 1,
-      page: pageIndex + 1,
+      count: !perPage || itemsCount === 0 ? 1 : Math.floor((itemsCount - 1) / perPage) + 1,
+      page: (pageIndex || 0) + 1,
       onChange(event, value) {
         setPageIndex(value - 1);
       },
-      currentPerPage: perPage,
+      currentPerPage: perPage || 'All',
       perPageOptions,
       onPerPageChange(value) {
         setPageIndex(0);
-        setPerPage(value);
+        setPerPage(value === 'All' ? 0 : value);
       },
     },
     query: {
-      from: perPage === 'All' ? 0 : pageIndex * perPage,
-      limit: perPage === 'All' ? undefined : perPage,
+      from: !perPage ? 0 : (pageIndex || 0) * perPage,
+      limit: !perPage ? undefined : perPage,
     },
   };
 };

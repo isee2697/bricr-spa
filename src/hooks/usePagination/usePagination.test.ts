@@ -1,9 +1,14 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from 'react-test-renderer';
+import { useState as mockUseState } from 'react';
 
 import { usePagination } from './usePagination';
 
-const PARAMS = { itemsCount: 100, perPageOptions: [10, 25, 'All'] };
+const PARAMS = { itemsCount: 100, perPageOptions: [10, 25, 'All' as const] };
+
+jest.mock('use-query-params', () => ({
+  useQueryParam: () => mockUseState(null),
+}));
 
 describe('usePagination', () => {
   it('returns correct page count and query params, based on different per page options', () => {

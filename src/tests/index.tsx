@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router, Route } from 'react-router-dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
 import { IntlProvider } from 'react-intl';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
+import { QueryParamProvider } from 'use-query-params';
 
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
@@ -27,7 +28,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
               <OverlayContextController>
                 <ModalContextController>
                   <MuiPickersUtilsProvider utils={LuxonUtils}>
-                    <Router>{children}</Router>
+                    <Router>
+                      <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                    </Router>
                   </MuiPickersUtilsProvider>
                 </ModalContextController>
               </OverlayContextController>

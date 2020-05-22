@@ -4,6 +4,7 @@ export type UsePaginationType = ({
   itemsCount,
   perPageOptions,
 }: {
+  prefix?: string;
   itemsCount: number;
   perPageOptions: PerPageType[];
 }) => { pagination: PaginationProps; query: { from: number; limit: number | undefined } };
