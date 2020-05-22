@@ -478,6 +478,7 @@ export type OutsideFeature = {
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type: OutsideFeatureType;
+  isMain?: Maybe<Scalars['Boolean']>;
 };
 
 export type Event = {
@@ -511,7 +512,6 @@ export type ListPimsFilters = {
   district?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   archived?: Maybe<Scalars['Boolean']>;
 };
@@ -901,7 +901,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
           >
         >;
         outsideFeatures?: Maybe<
-          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'>>
+          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type' | 'isMain'>>
         >;
       }
   >;
@@ -1333,6 +1333,7 @@ export const PimDetailsDocument = gql`
         id
         description
         type
+        isMain
       }
     }
   }

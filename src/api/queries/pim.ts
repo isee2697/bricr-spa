@@ -143,6 +143,7 @@ export const PIM_DETAILS = gql`
         id
         description
         type
+        isMain
       }
     }
   }

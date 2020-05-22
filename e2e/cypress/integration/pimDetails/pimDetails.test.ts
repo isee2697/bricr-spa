@@ -24,6 +24,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit general info', () => {
+    cy.wait(3000);
     cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/general'));
 
     cy.contains('Isenburgstraat 36 4813 NC Breda');

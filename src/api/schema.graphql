@@ -452,6 +452,7 @@ type OutsideFeature {
   id: String!
   description: String
   type: OutsideFeatureType!
+  isMain: Boolean
 }
 
 type Event {
@@ -483,7 +484,6 @@ input ListPimsFilters {
   district: String
   city: String
   state: String
-  county: String
   country: String
   archived: Boolean
 }

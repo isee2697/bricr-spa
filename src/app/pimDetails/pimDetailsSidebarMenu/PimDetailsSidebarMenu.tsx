@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import groupBy from 'lodash/groupBy';
 
 import { SideMenu } from 'ui/molecules';
 import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
@@ -18,7 +19,7 @@ import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
-import { PimDetailsSidebarMenuProps } from './PimDetailsSidebarMenu.types';
+import { PimDetailsSidebarMenuProps, subMenuItem } from './PimDetailsSidebarMenu.types';
 
 export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
@@ -26,8 +27,12 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
 
-  const floors = pim?.floors ?? [];
-  const outsideFeatures = pim?.outsideFeatures ?? [];
+  const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
+  const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
+
+  const createSubMenuData = (id: string, label: string, amount: number, key: number): subMenuItem => {
+    return { id, label, number: amount > 1 ? amount - key : undefined };
+  };
 
   const items = [
     {
@@ -37,18 +42,30 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     {
       name: 'inside',
       icon: <FilesIcon />,
-      subItems: floors.map(floor => ({
-        id: floor.id,
-        label: `dictionaries.floor_type.${floor.floorType}`,
-      })),
+      subItems: Object.values(floorGroups).flatMap(values =>
+        values.map((floor, key) =>
+          createSubMenuData(
+            floor.id,
+            `dictionaries.floor_type.${floor.floorType}`,
+            floorGroups[floor.floorType].length,
+            key,
+          ),
+        ),
+      ),
     },
     {
       name: 'outside',
       icon: <LockIcon />,
-      subItems: outsideFeatures.map(feature => ({
-        id: feature.id,
-        label: `dictionaries.outside_type.${feature.type}`,
-      })),
+      subItems: Object.values(outsideGroups).flatMap(values =>
+        values.map((outside, key) =>
+          createSubMenuData(
+            outside.id,
+            `dictionaries.outside_type.${outside.type}`,
+            outsideGroups[outside.type].length,
+            key,
+          ),
+        ),
+      ),
     },
     {
       name: 'cadastre',
@@ -110,7 +127,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
                 title={
                   <Link to={`${url}/${item.name}/${subItem.id}`}>
                     <Box mr={4} />
-                    {formatMessage({ id: subItem.label })}
+                    {formatMessage({ id: subItem.label })} {subItem.number}
                   </Link>
                 }
                 selected={pathname === `${url}/${item.name}/${subItem.id}`}

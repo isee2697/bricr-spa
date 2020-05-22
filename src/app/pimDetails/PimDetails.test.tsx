@@ -2,8 +2,9 @@ import React from 'react';
 import { ApolloError } from '@apollo/client';
 import { MemoryRouter as Router } from 'react-router-dom';
 
+import '@babel/polyfill';
 import { render } from 'tests';
-import { PIM_1 } from 'api/mocks/pim';
+import { PIM_DETAILS_1 } from 'api/mocks/pim';
 
 import { PimDetails } from './PimDetails';
 
@@ -26,7 +27,7 @@ describe('PimDetails', () => {
           error={undefined}
           loading={false}
           data={{
-            getPim: PIM_1,
+            getPim: PIM_DETAILS_1,
           }}
         />
       </Router>,

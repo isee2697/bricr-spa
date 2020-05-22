@@ -41,6 +41,7 @@ const checkboxes = [
     return (
       <form onSubmit={handleSubmit}>
         <CheckboxGroupField validate={[() => ({id: 'common.error'})]} name="checkbox-group" options={checkboxes} />
+        <CheckboxGroupField validate={[() => ({id: 'common.error'})]} name="checkbox-group-big" useBigTiles options={checkboxes} />
         <Box mt={2}>
           <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
         </Box>

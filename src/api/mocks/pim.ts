@@ -1,4 +1,4 @@
-import { RealEstateType, DevelopmentType, PimStatus, Pim, PropertyType } from 'api/types';
+import { RealEstateType, DevelopmentType, PimStatus, Pim, PropertyType, OutsideFeatureType } from 'api/types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -49,4 +49,24 @@ export const PIM_DETAILS_1: Pim = {
     propertyDetails: null,
   },
   floors: [],
+  outsideFeatures: [
+    {
+      type: OutsideFeatureType.Garden,
+      description: 'My Garden',
+      isMain: true,
+      id: '1',
+    },
+    {
+      type: OutsideFeatureType.Garden,
+      description: 'My Garden 2',
+      isMain: false,
+      id: '2',
+    },
+    {
+      type: OutsideFeatureType.Garage,
+      description: 'My Garage',
+      isMain: false,
+      id: '3',
+    },
+  ],
 };
