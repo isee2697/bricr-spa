@@ -5,3 +5,4 @@ export { AgendaSection } from './agendaSection/AgendaSection';
 export { GroupTitle } from './agendaSection/groupTittle/GroupTitle';
 export { FormSection } from './formSection/FormSection';
 export { AutosaveForm } from './autosaveForm/AutosaveForm';
+export { UploadModal } from './uploadModal/UploadModal';
