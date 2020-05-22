@@ -10,6 +10,7 @@ export const useStyles = makeStyles(theme => ({
   startDate: {
     width: '100%',
     fontWeight: theme.typography.fontWeightBold,
+    lineHeight: '18px',
     '&:only-child': {
       marginTop: theme.spacing(),
     },
