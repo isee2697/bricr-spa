@@ -51,22 +51,34 @@ export const PIM_DETAILS_1: Pim = {
   floors: [],
   outsideFeatures: [
     {
+      __typename: 'OutsideFeature',
       type: OutsideFeatureType.Garden,
       description: 'My Garden',
-      isMain: true,
       id: '1',
+      configuration: {
+        __typename: 'GardenFeature',
+        mainGarden: true,
+      },
     },
     {
+      __typename: 'OutsideFeature',
       type: OutsideFeatureType.Garden,
       description: 'My Garden 2',
-      isMain: false,
       id: '2',
+      configuration: {
+        __typename: 'GardenFeature',
+        mainGarden: true,
+      },
     },
     {
+      __typename: 'OutsideFeature',
       type: OutsideFeatureType.Garage,
       description: 'My Garage',
-      isMain: false,
       id: '3',
+      configuration: {
+        __typename: 'GardenFeature',
+        mainGarden: true,
+      },
     },
   ],
 };

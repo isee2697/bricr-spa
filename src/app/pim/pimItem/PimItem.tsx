@@ -49,7 +49,7 @@ export const PimItem = ({
 
   return (
     <PropertyItem
-      image={(images && images[0]) ?? 'http://placeimg.com/176/112/arch'}
+      image={(images && images[0] && images[0].url) ?? 'http://placeimg.com/176/112/arch'}
       date={dateCreated}
       title={title}
       labels={labels}

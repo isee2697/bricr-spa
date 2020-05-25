@@ -265,6 +265,15 @@ export enum FloorType {
   Loft = 'Loft',
 }
 
+export enum SpaceType {
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  LivingRoom = 'LivingRoom',
+  Bedroom = 'Bedroom',
+  HomeOffice = 'HomeOffice',
+  Other = 'Other',
+}
+
 export enum OutsideFeatureType {
   Garden = 'Garden',
   Garage = 'Garage',
@@ -273,13 +282,90 @@ export enum OutsideFeatureType {
   ParkingLot = 'ParkingLot',
 }
 
-export enum SpaceType {
-  Kitchen = 'Kitchen',
-  Bathroom = 'Bathroom',
-  LivingRoom = 'LivingRoom',
-  Bedroom = 'Bedroom',
-  HomeOffice = 'HomeOffice',
+export enum GardenType {
+  Backyard = 'Backyard',
+  PatioOrAtrium = 'PatioOrAtrium',
+  Place = 'Place',
+  AllGroundGarden = 'AllGroundGarden',
+  FrontGarden = 'FrontGarden',
+  SunTerrace = 'SunTerrace',
+  BackGarden = 'BackGarden',
+}
+
+export enum GardenQualityType {
+  ToBeConstructed = 'ToBeConstructed',
+  BeautifullyConstructed = 'BeautifullyConstructed',
+  Normal = 'Normal',
+  Neglected = 'Neglected',
+  TakenCareOf = 'TakenCareOf',
+}
+
+export enum Location {
+  North = 'North',
+  South = 'South',
+  East = 'East',
+  West = 'West',
+}
+
+export enum GardenShapeType {
+  Square = 'Square',
+  Rectangle = 'Rectangle',
+  LShape = 'LShape',
+  UShape = 'UShape',
+  TShape = 'TShape',
+}
+
+export enum QualityInformations {
+  Simple = 'Simple',
+  Normal = 'Normal',
+  Luxury = 'Luxury',
+  Excellent = 'Excellent',
+  GoodToStickOut = 'GoodToStickOut',
+  Good = 'Good',
+  ReasonableToGood = 'ReasonableToGood',
+  Fair = 'Fair',
+  ModerateToFairRedelijik = 'ModerateToFairRedelijik',
+  Moderate = 'Moderate',
+  BadToModerate = 'BadToModerate',
+  Bad = 'Bad',
+}
+
+export enum PropertyRelatedItems {
+  Balcony = 'Balcony',
+  Terrace = 'Terrace',
+  RoofTerrace = 'RoofTerrace',
+  Porch = 'Porch',
+}
+
+export enum RoofTypes {
+  TransverseRoof = 'TransverseRoof',
+  ClassRoof = 'ClassRoof',
+  MansardRoof = 'MansardRoof',
+  FlatRoof = 'FlatRoof',
+  HippedRoof = 'HippedRoof',
+  TentRoof = 'TentRoof',
+  SaddleRoof = 'SaddleRoof',
+  CompositeRoof = 'CompositeRoof',
+}
+
+export enum RoofMaterials {
+  Asbestos = 'Asbestos',
+  BituminousRoofing = 'BituminousRoofing',
+  Plastic = 'Plastic',
+  Slate = 'Slate',
+  Metal = 'Metal',
+  Pans = 'Pans',
   Other = 'Other',
+}
+
+export enum RoofInsulations {
+  SprayFoam = 'SprayFoam',
+  RigidBoards = 'RigidBoards',
+  BlanketOrMatting = 'BlanketOrMatting',
+  GlassRock = 'GlassRock',
+  MineralWool = 'MineralWool',
+  LooseFill = 'LooseFill',
+  StructuralPanels = 'StructuralPanels',
 }
 
 export type KitchenAppliance = {
@@ -302,7 +388,28 @@ export type KitchenSpace = {
   shape?: Maybe<SpaceShape>;
   measurement?: Maybe<SpaceMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type RectangleDimensions = {
+  __typename?: 'RectangleDimensions';
+  length?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']>;
+};
+
+export type GardenDimensions = RectangleDimensions;
+
+export type GardenFeature = {
+  __typename?: 'GardenFeature';
+  mainGarden?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<GardenType>;
+  notes?: Maybe<Scalars['String']>;
+  quality?: Maybe<GardenQualityType>;
+  location?: Maybe<Array<Maybe<Location>>>;
+  shape?: Maybe<GardenShapeType>;
+  dimensions?: Maybe<GardenDimensions>;
+  surface?: Maybe<Scalars['Float']>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type HouseGeneral = {
@@ -441,7 +548,7 @@ export type Pim = {
   salePrice?: Maybe<Scalars['Float']>;
   rentPrice?: Maybe<Scalars['Float']>;
   description?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<Scalars['String']>>;
+  images?: Maybe<Array<File>>;
   livingArea?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<PropertyType>;
   attention?: Maybe<Scalars['String']>;
@@ -473,12 +580,14 @@ export type Floor = {
   spaces?: Maybe<Array<Space>>;
 };
 
+export type OutsideFeatureConfiguration = GardenFeature;
+
 export type OutsideFeature = {
   __typename?: 'OutsideFeature';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type: OutsideFeatureType;
-  isMain?: Maybe<Scalars['Boolean']>;
+  configuration?: Maybe<OutsideFeatureConfiguration>;
 };
 
 export type Event = {
@@ -554,6 +663,44 @@ export type AddOutsideFeatureInput = {
   description?: Maybe<Scalars['String']>;
 };
 
+export enum FilePermission {
+  Public = 'public',
+  Private = 'private',
+}
+
+export enum EntityWithFiles {
+  Pim = 'Pim',
+  Space = 'Space',
+}
+
+export type CreateFileInput = {
+  fileName: Scalars['String'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithFiles;
+  entityID: Scalars['ID'];
+};
+
+export type File = {
+  __typename?: 'File';
+  id: Scalars['ID'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  status: Scalars['Int'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  key: Scalars['ID'];
+  createdAt?: Maybe<Scalars['Date']>;
+  signedUrl?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  bucket?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Profile>;
@@ -598,6 +745,7 @@ export type Mutation = {
   updateSpace?: Maybe<Pim>;
   updateFloor?: Maybe<Pim>;
   addOutsideFeature?: Maybe<Pim>;
+  addFiles: Array<File>;
 };
 
 export type MutationLoginArgs = {
@@ -651,6 +799,10 @@ export type MutationUpdateFloorArgs = {
 
 export type MutationAddOutsideFeatureArgs = {
   input: AddOutsideFeatureInput;
+};
+
+export type MutationAddFilesArgs = {
+  input: AddFilesInput;
 };
 
 export type LoginMutationVariables = {
@@ -795,12 +947,11 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'dateCreated'
           | 'livingArea'
           | 'propertyType'
-          | 'images'
           | 'salePrice'
           | 'rentPrice'
           | 'completeness'
           | 'archived'
-        >
+        > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
       >
     >;
   };
@@ -832,7 +983,6 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
       | 'salePrice'
       | 'rentPrice'
       | 'description'
-      | 'images'
       | 'livingArea'
       | 'propertyType'
       | 'attention'
@@ -840,6 +990,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
       | 'archived'
       | 'dateCreated'
     > & {
+        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
         houseGeneral?: Maybe<
           { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'floor' | 'propertyConnection' | 'propertyDetails'> & {
               availability?: Maybe<
@@ -874,7 +1025,6 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                             | 'hob'
                             | 'shape'
                             | 'serviceHeating'
-                            | 'images'
                           > & {
                               appliances?: Maybe<
                                 Array<
@@ -892,6 +1042,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                                   'length' | 'width' | 'height' | 'surface' | 'volume'
                                 >
                               >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
                             }
                         >;
                       }
@@ -901,7 +1052,11 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
           >
         >;
         outsideFeatures?: Maybe<
-          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type' | 'isMain'>>
+          Array<
+            { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
+                configuration?: Maybe<{ __typename?: 'GardenFeature' } & Pick<GardenFeature, 'mainGarden'>>;
+              }
+          >
         >;
       }
   >;
@@ -1223,7 +1378,9 @@ export const ListPimsDocument = gql`
         dateCreated
         livingArea
         propertyType
-        images
+        images {
+          url
+        }
         salePrice
         rentPrice
         completeness
@@ -1266,7 +1423,9 @@ export const PimDetailsDocument = gql`
       salePrice
       rentPrice
       description
-      images
+      images {
+        url
+      }
       livingArea
       propertyType
       attention
@@ -1324,7 +1483,9 @@ export const PimDetailsDocument = gql`
                 volume
               }
               serviceHeating
-              images
+              images {
+                url
+              }
             }
           }
         }
@@ -1333,7 +1494,11 @@ export const PimDetailsDocument = gql`
         id
         description
         type
-        isMain
+        configuration {
+          ... on GardenFeature {
+            mainGarden
+          }
+        }
       }
     }
   }

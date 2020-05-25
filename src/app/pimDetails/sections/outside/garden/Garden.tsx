@@ -30,7 +30,7 @@ export const Garden = () => {
             <Typography className={classes.title} variant="h1">
               {formatMessage({ id: 'pim_details.outside.garden.title' })}
             </Typography>{' '}
-            <CheckboxField name="isMain" label="pim_details.outside.garden.main_garden" />
+            <CheckboxField name="configuration.mainGarden" label="pim_details.outside.garden.main_garden" />
             <Grid item className={classes.buttons}>
               <WarningIcon />
               <MenuIcon className={classes.iconSpacing} />

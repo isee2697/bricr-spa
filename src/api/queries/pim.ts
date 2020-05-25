@@ -45,7 +45,9 @@ export const LIST_PIMS = gql`
         dateCreated
         livingArea
         propertyType
-        images
+        images {
+          url
+        }
         salePrice
         rentPrice
         completeness
@@ -76,7 +78,9 @@ export const PIM_DETAILS = gql`
       salePrice
       rentPrice
       description
-      images
+      images {
+        url
+      }
       livingArea
       propertyType
       attention
@@ -134,7 +138,9 @@ export const PIM_DETAILS = gql`
                 volume
               }
               serviceHeating
-              images
+              images {
+                url
+              }
             }
           }
         }
@@ -143,7 +149,11 @@ export const PIM_DETAILS = gql`
         id
         description
         type
-        isMain
+        configuration {
+          ... on GardenFeature {
+            mainGarden
+          }
+        }
       }
     }
   }

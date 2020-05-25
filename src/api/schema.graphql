@@ -246,6 +246,15 @@ enum FloorType {
   Loft,
 }
 
+enum SpaceType {
+  Kitchen,
+  Bathroom,
+  LivingRoom,
+  Bedroom,
+  HomeOffice,
+  Other,
+}
+
 enum OutsideFeatureType {
   Garden,
   Garage,
@@ -254,13 +263,90 @@ enum OutsideFeatureType {
   ParkingLot,
 }
 
-enum SpaceType {
-  Kitchen,
-  Bathroom,
-  LivingRoom,
-  Bedroom,
-  HomeOffice,
-  Other,
+enum GardenType {
+  Backyard,
+  PatioOrAtrium,
+  Place,
+  AllGroundGarden,
+  FrontGarden,
+  SunTerrace,
+  BackGarden,
+}
+
+enum GardenQualityType {
+  ToBeConstructed,
+  BeautifullyConstructed,
+  Normal,
+  Neglected,
+  TakenCareOf,
+}
+
+enum Location {
+  North,
+  South,
+  East,
+  West,
+}
+
+enum GardenShapeType {
+  Square,
+  Rectangle,
+  LShape,
+  UShape,
+  TShape,
+}
+
+enum QualityInformations {
+  Simple,
+  Normal,
+  Luxury,
+  Excellent,
+  GoodToStickOut,
+  Good,
+  ReasonableToGood,
+  Fair,
+  ModerateToFairRedelijik,
+  Moderate,
+  BadToModerate,
+  Bad
+}
+
+enum PropertyRelatedItems {
+  Balcony,
+  Terrace,
+  RoofTerrace,
+  Porch
+}
+
+enum RoofTypes {
+  TransverseRoof,
+  ClassRoof,
+  MansardRoof,
+  FlatRoof,
+  HippedRoof,
+  TentRoof,
+  SaddleRoof,
+  CompositeRoof
+}
+
+enum RoofMaterials {
+  Asbestos,
+  BituminousRoofing,
+  Plastic,
+  Slate,
+  Metal,
+  Pans,
+  Other
+}
+
+enum RoofInsulations {
+  SprayFoam,
+  RigidBoards,
+  BlanketOrMatting,
+  GlassRock,
+  MineralWool,
+  LooseFill,
+  StructuralPanels
 }
 
 type KitchenAppliance {
@@ -281,7 +367,26 @@ type KitchenSpace {
   shape: SpaceShape,
   measurement: SpaceMeasurement,
   serviceHeating: [SpaceServiceHeating],
-  images: [String]
+  images: [File!]
+}
+
+type RectangleDimensions {
+  length: Float,
+  height: Float,
+}
+
+union GardenDimensions = RectangleDimensions
+
+type GardenFeature {
+  mainGarden: Boolean,
+  type: GardenType,
+  notes: String,
+  quality: GardenQualityType,
+  location: [Location],
+  shape: GardenShapeType,
+  dimensions: GardenDimensions,
+  surface: Float,
+  pictures: [String]
 }
 
 type HouseGeneral  {
@@ -418,7 +523,7 @@ type Pim {
   salePrice: Float
   rentPrice: Float
   description: String
-  images: [String!]
+  images: [File!]
   livingArea: Int
   propertyType: PropertyType
   attention: String
@@ -448,11 +553,13 @@ type Floor {
   spaces: [Space!]
 }
 
+union OutsideFeatureConfiguration = GardenFeature
+
 type OutsideFeature {
   id: String!
   description: String
   type: OutsideFeatureType!
-  isMain: Boolean
+  configuration: OutsideFeatureConfiguration
 }
 
 type Event {
@@ -530,6 +637,44 @@ scalar UpdateSpaceInputConfiguration
 
 scalar Dictionary
 
+enum FilePermission {
+  public,
+  private
+}
+
+enum EntityWithFiles {
+  Pim,
+  Space
+}
+
+input CreateFileInput {
+  fileName: String!
+  fileType: String!
+  permission: FilePermission!
+  description: String
+}
+
+input AddFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithFiles!
+  entityID: ID!
+}
+
+type File {
+  id: ID!
+  fileName: String!
+  description: String
+  status: Int!
+  fileType: String!
+  permission: FilePermission!
+  key: ID!
+  createdAt: Date
+  signedUrl: String
+  url: String
+  bucket: String
+}
+
+
 type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
@@ -556,4 +701,5 @@ type Mutation {
   updateSpace(input: UpdateSpaceInput!): Pim @auth
   updateFloor(input: UpdateFloorInput!): Pim @auth
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim @auth
+  addFiles(input: AddFilesInput!): [File!]! @auth
 }
