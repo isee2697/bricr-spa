@@ -75,6 +75,10 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
           id: 'cadastreMap',
           label: 'pim_details.cadastre.cadastre_map',
         },
+        {
+          id: 'plot',
+          label: 'pim_details.cadastre.plot.title',
+        },
       ],
     },
     {

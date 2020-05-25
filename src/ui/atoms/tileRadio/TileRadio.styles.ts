@@ -4,7 +4,7 @@ export const useStyles = makeStyles(theme => ({
   root: {
     display: 'inline-block',
     width: '100%',
-    height: theme.spacing(13),
+    height: ({ isLargeSize }: { isLargeSize: boolean }) => (isLargeSize ? theme.spacing(13) : 'initial'),
     '& *': {
       userSelect: 'none',
     },

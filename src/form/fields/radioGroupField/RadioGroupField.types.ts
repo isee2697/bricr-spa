@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 import { FieldValidator } from 'final-form';
+import { GridSpacing } from '@material-ui/core';
 
 export type RadioDataType = {
   label: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   value: string;
 };
 
@@ -15,6 +16,7 @@ export type RadioGroupFieldProps = {
   validateFields?: string[];
   name: string;
   options: RadioDataType[];
+  spacing?: GridSpacing;
   xs?: Width;
   sm?: Width;
   md?: Width;

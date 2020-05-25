@@ -13,6 +13,7 @@ export const RadioGroupField = ({
   options,
   validate,
   validateFields,
+  spacing = 3,
   xs = 2,
   sm,
   md,
@@ -42,7 +43,7 @@ export const RadioGroupField = ({
 
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={spacing}>
         {options.map((item: RadioDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
             <TileRadio

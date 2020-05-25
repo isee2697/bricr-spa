@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Button, Grid, Typography } from 'ui/atoms';
-import { DownloadIcon } from 'ui/atoms/icons';
+import { AddIcon } from 'ui/atoms/icons';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -12,6 +12,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreProps } from './Cadastre.types';
 import { useStyles } from './Cadastre.styles';
 import { Maps } from './maps/Maps';
+import { Plot } from './plot/Plot';
 
 export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }: CadastreProps) => {
   const { id } = useParams<{ id: string }>();
@@ -27,16 +28,16 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }
         action={
           <Box display="flex">
             <Button className={classes.addPlot} color="primary" variant="outlined" onClick={() => {}} size="small">
-              {formatMessage({ id: 'pim_details.cadastre.add_new_plot' })}
+              {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre' })}
             </Button>
             <Button
               color="primary"
-              startIcon={<DownloadIcon color="inherit" />}
               variant="contained"
+              startIcon={<AddIcon color="inherit" />}
               onClick={() => {}}
               size="small"
             >
-              {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre' })}
+              {formatMessage({ id: 'pim_details.cadastre.add_new_plot' })}
             </Button>
           </Box>
         }
@@ -50,6 +51,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }
       <Grid xs={12} item>
         <Switch>
           <Route path={`${AppRoute.pimDetails}/cadastre/cadastreMap`} exact render={() => <Maps />} />
+          <Route path={`${AppRoute.pimDetails}/cadastre/plot`} exact render={() => <Plot />} />
           <Redirect to={`${AppRoute.pimDetails.replace(':id', id)}/cadastre/cadastreMap`} />
         </Switch>
       </Grid>

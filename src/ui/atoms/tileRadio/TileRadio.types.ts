@@ -4,6 +4,6 @@ export type TileRadioProps = {
   onClick: () => void;
   isSelected: boolean;
   isDisabled?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   title: string;
 };
