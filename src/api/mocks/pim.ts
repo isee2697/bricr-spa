@@ -1,4 +1,12 @@
-import { RealEstateType, DevelopmentType, PimStatus, Pim, PropertyType, OutsideFeatureType } from 'api/types';
+import {
+  RealEstateType,
+  DevelopmentType,
+  PimStatus,
+  Pim,
+  PropertyType,
+  OutsideFeatureType,
+  CadastreMapType,
+} from 'api/types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -29,6 +37,8 @@ export const PIM_DETAILS_1: Pim = {
   livingArea: null,
   propertyType: PropertyType.House,
   attention: null,
+  dateUpdated: '2020-04-28T07:30:18.162',
+  updatedBy: 'Christian van Gils',
   houseGeneral: {
     availability: {
       availability: null,
@@ -79,6 +89,25 @@ export const PIM_DETAILS_1: Pim = {
         __typename: 'GardenFeature',
         mainGarden: true,
       },
+    },
+  ],
+  cadastralMaps: [
+    {
+      id: '123',
+      type: CadastreMapType.Map,
+      title: 'Test',
+      file: 'https://source.unsplash.com/featured/?map',
+      fileName: 'Map 1',
+      dateUpdated: '2020-04-28T07:30:18.162',
+      updatedBy: 'Christian van Gils',
+    },
+    {
+      id: '1233',
+      type: CadastreMapType.Map,
+      title: 'Test 2',
+      file: 'https://source.unsplash.com/featured/?building',
+      fileName: 'Map 1',
+      dateUpdated: '2020-04-28T07:30:18.162',
     },
   ],
 };

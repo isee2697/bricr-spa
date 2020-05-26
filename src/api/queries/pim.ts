@@ -87,6 +87,8 @@ export const PIM_DETAILS = gql`
       completeness
       archived
       dateCreated
+      dateUpdated
+      updatedBy
       houseGeneral {
         availability {
           availability
@@ -181,6 +183,15 @@ export const PIM_DETAILS = gql`
             mainGarden
           }
         }
+      }
+      cadastralMaps {
+        id
+        file
+        fileName
+        title
+        type
+        dateUpdated
+        updatedBy
       }
     }
   }

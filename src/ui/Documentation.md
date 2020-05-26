@@ -321,6 +321,7 @@ import {
   SaleIcon,
   UploadIcon,
   WarningIcon,
+  HistoryIcon,
 } from './atoms/icons';
 import { useTheme } from '@material-ui/core/styles';
 import { Box } from 'ui/atoms';
@@ -410,7 +411,7 @@ const wrapperStyle = {
     <WarningIcon color="secondary" />
     <ListIcon color="secondary" />
     <NcSaleIcon color="secondary" />
-    <Box width={24} />
+    <HistoryIcon color="secondary" />
     <Box width={24} />
     <Box width={24} />
   </div>

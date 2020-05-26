@@ -11,7 +11,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { CadastreProps } from './Cadastre.types';
 import { useStyles } from './Cadastre.styles';
-import { Maps } from './maps/Maps';
+import { CadastralMaps } from './maps/CadastralMaps';
 import { Plot } from './plot/Plot';
 
 export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }: CadastreProps) => {
@@ -50,7 +50,11 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }
       </Grid>
       <Grid xs={12} item>
         <Switch>
-          <Route path={`${AppRoute.pimDetails}/cadastre/cadastreMap`} exact render={() => <Maps />} />
+          <Route
+            path={`${AppRoute.pimDetails}/cadastre/cadastreMap`}
+            exact
+            render={() => <CadastralMaps cadstralMaps={(pim && pim.cadastralMaps) || []} />}
+          />
           <Route path={`${AppRoute.pimDetails}/cadastre/plot`} exact render={() => <Plot />} />
           <Redirect to={`${AppRoute.pimDetails.replace(':id', id)}/cadastre/cadastreMap`} />
         </Switch>

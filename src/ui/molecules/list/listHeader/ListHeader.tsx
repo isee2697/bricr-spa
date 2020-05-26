@@ -16,11 +16,10 @@ export const ListHeader = ({
 }: ListHeaderProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-
-  const [sorting, setSorting] = useState(sortOptions[0].key);
+  const [sorting, setSorting] = useState(sortOptions.length > 0 ? sortOptions[0].key : '');
 
   return (
-    <Box className={classes.header}>
+    <Box className={classNames(classes.header, 'list-header')}>
       <Box>
         <Typography variant="h5" className={classes.selectAll} onClick={onCheckAll}>
           <Checkbox color="primary" className={classNames(classes.checkbox, 'list-select-all')} {...checkAllStatus} />
@@ -32,22 +31,24 @@ export const ListHeader = ({
           </Button>
         )}
       </Box>
-      <Select
-        className={classNames(classes.sorting, 'sort-select')}
-        variant="outlined"
-        value={sorting}
-        onChange={event => {
-          const value = event?.target.value as string;
-          setSorting(value);
-          onSort(value);
-        }}
-      >
-        {sortOptions.map(({ key, name }) => (
-          <MenuItem key={key} value={key}>
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
+      {sortOptions.length > 0 && (
+        <Select
+          className={classNames(classes.sorting, 'sort-select')}
+          variant="outlined"
+          value={sorting}
+          onChange={event => {
+            const value = event?.target.value as string;
+            setSorting(value);
+            onSort(value);
+          }}
+        >
+          {sortOptions.map(({ key, name }) => (
+            <MenuItem key={key} value={key}>
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
     </Box>
   );
 };

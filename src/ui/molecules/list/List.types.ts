@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type SortOption = {
@@ -5,18 +7,18 @@ export type SortOption = {
   key: string;
 };
 
-type RenderItem<T> = (item: T, isSelected: boolean) => React.ReactElement;
+type RenderItem<T> = (item: T, isSelected: boolean, checkbox: ReactElement) => ReactElement;
 
 export type ListProps<T> = {
   items: T[];
   itemIndex: keyof T;
   renderItem: RenderItem<T>;
   onBulk: (selectedItems: T[]) => void;
-  sortOptions: SortOption[];
-  onSort: (key: string) => void;
-  pagination: PaginationProps;
+  sortOptions?: SortOption[];
+  onSort?: (key: string) => void;
+  pagination?: PaginationProps;
   loading?: boolean;
-  loadingItem?: React.ReactElement;
+  loadingItem?: ReactElement;
   emptyTitle?: string;
   emptyDescription?: string;
   className?: string;
@@ -32,11 +34,4 @@ export type ListHeaderProps = {
   onCheckAll: () => void;
   onBulk: () => void;
   onSort: (key: string) => void;
-};
-
-export type ListRowProps<T> = {
-  checked: boolean;
-  onCheck: () => void;
-  item: T;
-  renderItem: RenderItem<T>;
 };

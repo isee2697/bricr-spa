@@ -52,3 +52,4 @@ export * from './unsee/UnseeIcon';
 export * from './upload/UploadIcon';
 export * from './user/UserIcon';
 export * from './warning/WarningIcon';
+export * from './history/HistoryIcon';

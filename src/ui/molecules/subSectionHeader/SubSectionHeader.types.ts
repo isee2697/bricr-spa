@@ -5,4 +5,5 @@ export type SubSectionHeaderProps = {
   onOptionsClick: VoidFunction;
   onToggleClick: VoidFunction;
   toggled?: boolean;
+  className?: string;
 };

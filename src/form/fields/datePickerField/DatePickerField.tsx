@@ -34,7 +34,7 @@ export const DatePickerField = ({
     <KeyboardDatePicker
       disableToolbar
       variant="dialog"
-      format="MM.dd.yyyy"
+      format="MM-dd-yyyy"
       margin="normal"
       inputVariant="outlined"
       size="small"

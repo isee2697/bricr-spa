@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
@@ -49,12 +50,17 @@ export const Pim = ({
                     className="pim-list"
                     items={(listData?.listPims.items ?? []) as PimEntity[]}
                     itemIndex={'id'}
-                    renderItem={pim => (
-                      <Box
-                        className={classes.itemButton}
-                        onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
-                      >
-                        <PimItem {...pim} />
+                    renderItem={(pim, checked, checkbox) => (
+                      <Box className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
+                        {checkbox}
+                        <Box component="span" className={classes.rowItem}>
+                          <Box
+                            className={classes.itemButton}
+                            onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                          >
+                            <PimItem {...pim} />
+                          </Box>
+                        </Box>
                       </Box>
                     )}
                     onBulk={() => alert('Bulk clicked')}

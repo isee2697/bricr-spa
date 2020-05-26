@@ -196,6 +196,22 @@ enum FloorType {
   Loft
 }
 
+enum CadastreMapType {
+  Register,
+  Map,
+  Other,
+}
+
+enum GardenType {
+  Backyard,
+  PatioOrAtrium,
+  Place,
+  AllGroundGarden,
+  FrontGarden,
+  SunTerrace,
+  BackGarden,
+}
+
 union GardenDimensions = RectangleDimensions
 type GardenFeature {
   mainGarden: Boolean
@@ -223,16 +239,6 @@ enum GardenShapeType {
   LShape
   UShape
   TShape
-}
-
-enum GardenType {
-  Backyard
-  PatioOrAtrium
-  Place
-  AllGroundGarden
-  FrontGarden
-  SunTerrace
-  BackGarden
 }
 
 type GeneralInformation {
@@ -413,10 +419,13 @@ type Pim {
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!
+  dateUpdated: Date
+  updatedBy: String
   houseGeneral: HouseGeneral
   houseOutside: HouseOutside
   floors: [Floor!]
   outsideFeatures: [OutsideFeature!]
+  cadastralMaps: [CadastreMap!]
 }
 
 union PimGeneral = HouseGeneral
@@ -468,6 +477,17 @@ type PropertyAvailabilityInformation {
   habitation: PropertyHabitation
   currentUse: String
   currentDestination: String
+}
+
+type CadastreMap {
+  id: String!
+  type: CadastreMapType
+  file: String
+  fileName: String
+  title: String
+  description: String
+  dateUpdated: Date
+  updatedBy: String
 }
 
 input PropertyAvailabilityInformationInput {

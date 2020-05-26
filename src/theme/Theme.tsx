@@ -233,7 +233,7 @@ const theme = createMuiTheme({
     },
     MuiInputLabel: {
       root: {
-        color: `${palette.black.main} !important`,
+        color: `${palette.black.main}`,
         '&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
           position: 'inherit',
           transform: 'none',

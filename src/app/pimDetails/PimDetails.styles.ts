@@ -5,4 +5,9 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     marginBottom: 0,
   },
+  lastUpdated: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    marginBottom: theme.spacing(4),
+  },
 }));

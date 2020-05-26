@@ -68,3 +68,5 @@ export { Switch } from './switch/Switch';
 export { Emoji } from './emoji/Emoji';
 export { Select } from './select/Select';
 export { Loader } from './loader/Loader';
+export { ImageHolder } from './imageHolder/ImageHolder';
+export { LastUpdated } from './lastUpdated/LastUpdated';

@@ -156,12 +156,12 @@ export enum EntityWithFiles {
 
 export type Event = {
   __typename?: 'Event';
-  id: Scalars['String'];
-  entityType: EventEntityType;
-  relatedEntityId?: Maybe<Scalars['String']>;
   action: EventAction;
-  timestamp: Scalars['Date'];
   data?: Maybe<Scalars['String']>;
+  entityType: EventEntityType;
+  id: Scalars['String'];
+  relatedEntityId?: Maybe<Scalars['String']>;
+  timestamp: Scalars['Date'];
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -212,6 +212,22 @@ export enum FloorType {
   Loft = 'Loft',
 }
 
+export enum CadastreMapType {
+  Register = 'Register',
+  Map = 'Map',
+  Other = 'Other',
+}
+
+export enum GardenType {
+  Backyard = 'Backyard',
+  PatioOrAtrium = 'PatioOrAtrium',
+  Place = 'Place',
+  AllGroundGarden = 'AllGroundGarden',
+  FrontGarden = 'FrontGarden',
+  SunTerrace = 'SunTerrace',
+  BackGarden = 'BackGarden',
+}
+
 export type GardenDimensions = RectangleDimensions;
 
 export type GardenFeature = {
@@ -241,16 +257,6 @@ export enum GardenShapeType {
   LShape = 'LShape',
   UShape = 'UShape',
   TShape = 'TShape',
-}
-
-export enum GardenType {
-  Backyard = 'Backyard',
-  PatioOrAtrium = 'PatioOrAtrium',
-  Place = 'Place',
-  AllGroundGarden = 'AllGroundGarden',
-  FrontGarden = 'FrontGarden',
-  SunTerrace = 'SunTerrace',
-  BackGarden = 'BackGarden',
 }
 
 export type GeneralInformation = {
@@ -439,10 +445,13 @@ export type Pim = {
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  updatedBy?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneral>;
   houseOutside?: Maybe<HouseOutside>;
   floors?: Maybe<Array<Floor>>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
+  cadastralMaps?: Maybe<Array<CadastreMap>>;
 };
 
 export type PimGeneral = HouseGeneral;
@@ -496,6 +505,18 @@ export type PropertyAvailabilityInformation = {
   habitation?: Maybe<PropertyHabitation>;
   currentUse?: Maybe<Scalars['String']>;
   currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type CadastreMap = {
+  __typename?: 'CadastreMap';
+  id: Scalars['String'];
+  type?: Maybe<CadastreMapType>;
+  file?: Maybe<Scalars['String']>;
+  fileName?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  updatedBy?: Maybe<Scalars['String']>;
 };
 
 export type PropertyAvailabilityInformationInput = {
@@ -1081,6 +1102,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
       | 'completeness'
       | 'archived'
       | 'dateCreated'
+      | 'dateUpdated'
+      | 'updatedBy'
     > & {
         images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
         houseGeneral?: Maybe<
@@ -1168,6 +1191,14 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
             { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
                 configuration?: Maybe<{ __typename?: 'GardenFeature' } & Pick<GardenFeature, 'mainGarden'>>;
               }
+          >
+        >;
+        cadastralMaps?: Maybe<
+          Array<
+            { __typename?: 'CadastreMap' } & Pick<
+              CadastreMap,
+              'id' | 'file' | 'fileName' | 'title' | 'type' | 'dateUpdated' | 'updatedBy'
+            >
           >
         >;
       }
@@ -1550,6 +1581,8 @@ export const PimDetailsDocument = gql`
       completeness
       archived
       dateCreated
+      dateUpdated
+      updatedBy
       houseGeneral {
         availability {
           availability
@@ -1644,6 +1677,15 @@ export const PimDetailsDocument = gql`
             mainGarden
           }
         }
+      }
+      cadastralMaps {
+        id
+        file
+        fileName
+        title
+        type
+        dateUpdated
+        updatedBy
       }
     }
   }

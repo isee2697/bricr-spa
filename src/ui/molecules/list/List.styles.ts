@@ -31,33 +31,21 @@ export const useStyles = makeStyles(theme => ({
       padding: '8px 36px 8px 8px',
     },
   },
-  rowContainer: {
-    '&:not(:last-child):after': {
-      content: '""',
-      display: 'block',
-      borderBottom: `1px solid ${theme.palette.gray.light}`,
-      margin: `0 ${theme.spacing(2)}px`,
-    },
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    '&:not(:last-child)': {
-      borderBottom: `2px solid ${theme.palette.gray.light}`,
-    },
-  },
-  rowChecked: {
-    background: `${theme.palette.primary.main}08`,
-  },
   checkbox: {
     padding,
   },
-  item: {
-    padding: `22px 16px 22px 0`,
-    width: '100%',
-  },
   pagination: {
-    borderTop: `2px solid ${theme.palette.gray.light}`,
     padding: theme.spacing(2.5),
+  },
+  loading: {
+    display: 'flex',
+    padding: `${theme.spacing()}px 0`,
+    alignItems: 'flex-start',
+    '& .MuiIconButton-root.Mui-disabled': {
+      paddingTop: 0,
+    },
+    '& div:first-of-type': {
+      flexGrow: 1,
+    },
   },
 }));
