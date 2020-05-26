@@ -28,6 +28,15 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.gray.light,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    [theme.breakpoints.up('sm')]: {
+      flex: `0 0 ${theme.spacing(46.5)}px`,
+    },
+  },
+  contentWrapper: {
+    [theme.breakpoints.up('sm')]: {
+      flex: `0 0 calc(100% - ${theme.spacing(46.5)}px)`,
+      maxWidth: `calc(100% - ${theme.spacing(46.5)}px)`,
+    },
   },
   content: {
     height: `calc(100% - ${theme.spacing(8)}px)`,
