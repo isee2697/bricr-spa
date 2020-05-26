@@ -229,6 +229,13 @@ const theme = createMuiTheme({
         borderRight: 'none',
         borderLeft: 'none',
         borderBottomRightRadius: 0,
+        borderColor: palette.gray.main,
+      },
+      adornedEnd: {
+        paddingRight: defaultTheme.spacing(1),
+      },
+      input: {
+        padding: `${defaultTheme.spacing(2)}px ${defaultTheme.spacing(1.75)}px`,
       },
     },
     MuiInputLabel: {
