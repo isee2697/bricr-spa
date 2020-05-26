@@ -8,6 +8,7 @@ import { SubSectionHeaderProps } from './SubSectionHeader.types';
 
 export const SubSectionHeader = ({ children, toggled, onOptionsClick, onToggleClick }: SubSectionHeaderProps) => {
   const classes = useStyles();
+
   return (
     <Grid className={classes.root} alignItems="center" container>
       <Grid item>{children}</Grid>

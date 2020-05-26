@@ -43,44 +43,46 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
               <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
             </Grid>
           )}
-          <Switch>
-            <Route
-              path={`${AppRoute.pimDetails}/general`}
-              exact
-              render={() => (
-                <GeneralContainer
-                  isSidebarVisible={isSidebarVisible}
-                  onOpenSidebar={handleSidebarOpen}
-                  title={title}
-                  pim={pim}
-                />
-              )}
-            />
-            <Route
-              path={`${AppRoute.pimDetails}/inside`}
-              render={() => (
-                <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
-              )}
-            />
-            <Route
-              path={`${AppRoute.pimDetails}/outside`}
-              render={() => (
-                <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
-              )}
-            />
-            <Route
-              path={`${AppRoute.pimDetails}/cadastre`}
-              render={() => (
-                <CadastreContainer
-                  isSidebarVisible={isSidebarVisible}
-                  onOpenSidebar={handleSidebarOpen}
-                  title={title}
-                  pim={pim}
-                />
-              )}
-            />
-            <Redirect to={`${AppRoute.pimDetails}/general`} />
-          </Switch>
+          {!isError && !!pim && (
+            <Switch>
+              <Route
+                path={`${AppRoute.pimDetails}/general`}
+                exact
+                render={() => (
+                  <GeneralContainer
+                    isSidebarVisible={isSidebarVisible}
+                    onOpenSidebar={handleSidebarOpen}
+                    title={title}
+                    pim={pim}
+                  />
+                )}
+              />
+              <Route
+                path={`${AppRoute.pimDetails}/inside`}
+                render={() => (
+                  <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.pimDetails}/outside`}
+                render={() => (
+                  <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.pimDetails}/cadastre`}
+                render={() => (
+                  <CadastreContainer
+                    isSidebarVisible={isSidebarVisible}
+                    onOpenSidebar={handleSidebarOpen}
+                    title={title}
+                    pim={pim}
+                  />
+                )}
+              />
+              <Redirect to={`${AppRoute.pimDetails}/general`} />
+            </Switch>
+          )}
         </Grid>
       </Grid>
     </Grid>

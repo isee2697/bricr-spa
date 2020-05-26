@@ -31,388 +31,49 @@ type ResetPasswordResponse {
 # END REST
 
 directive @auth on FIELD_DEFINITION
-
-type Profile {
-  id: String!
-  firstName: String
-  lastName: String
-  email: String
-  avatar: String
-  teams: [ProfileTeam!]
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+input AddFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithFiles!
+  entityID: ID!
 }
 
-type ProfileTeam {
-  id: String!
-  name: String
+input AddNewFloorInput {
+  pimId: String!
+  floorDescription: String
+  floorType: FloorType!
 }
 
-type SearchMetadata {
-  total: Int!
+input AddOutsideFeatureInput {
+  pimId: String!
+  type: OutsideFeatureType!
+  description: String
 }
 
-enum SortDirection {
-  asc
-  desc
+input AddSpaceInput {
+  spaceType: SpaceType!
+  extraRoomPossibility: Boolean!
+  pimId: String!
+  floorId: String!
+  spaceName: String
 }
 
-input Sort {
-  column: String!
-  direction: SortDirection!
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
 }
 
-input Pagination {
-  from: Int
-  limit: Int
-  searchAfter: [String!]
+input ChangesHistoryFilters {
+  entityType: EventEntityType
 }
-
-scalar Date
 
 type Company {
   id: String!
   teams: [Team!]
   name: String
-}
-
-type Team{
-  id: String!
-  members: [Profile!]
-  company: Company!
-  name: String
-}
-
-enum RealEstateType {
-  Residential,
-  Business
-}
-
-enum DevelopmentType {
-  New,
-  Existing
-}
-
-enum PimStatus {
-  Prospect,
-  Available,
-  Option,
-  Bid,
-  SoldWithReservation,
-  RentedWithReservation,
-  Sold,
-  Rented
-} 
-
-enum PropertyType {
-  House,
-  Apartment,
-  Commercial,
-  Agricultural,
-  ParkingLot,
-  BuildingPlot,
-  Other
-}
-
-enum EventEntityType {
-  Pim,
-}
-
-enum EventAction {
-  Created,
-  Updated,
-  Removed,
-}
-
-enum PropertyTypeDetailed {
-  SingleFamily,
-  DykeHouse,
-  CourtHouse,
-  DriveInHome,
-  SplitLevel,
-  QuadrantHouse,
-  PatioHouse,
-  Villa,
-  CanalHouse,
-  WaterHouse,
-  Bungalow,
-  SemiBungalow,
-  StiltHouse,
-  BusinessOrServiceHome,
-  Estate,
-  CountryHouse,
-  Mansion
-}
-
-enum PropertyConnection {
-  SemiDetached,
-  FinalHouse,
-  CornerHouse,
-  TerracedHouse,
-  DetachedHouse
-}
-
-enum PropertyAvailability {
-  InConsultation,
-  Immediatelly,
-  ByDate
-}
-
-enum PropertyHabitation {
-  RecreationalHome,
-  PermanentOccupation
-}
-
-enum PropertySpaces {
-  Kitchen
-}
-
-enum SpaceShape {
-  Rectangle,
-  Square,
-  LType,
-  TType,
-  UType,
-  ZType
-}
-
-type SpaceMeasurement {
-  length: Float,
-  width: Float,
-  height: Float,
-  surface: Float,
-  volume: Float
-}
-
-enum SpaceServiceHeating {
-  GeothermalHeat,
-  NoHeating,
-  Fireplace,
-  MultiBurner,
-  HotAirHeating,
-  PelletStove,
-  ElectricHeating,
-  DistrictHeating,
-  GasFireplace,
-  CoalStove,
-  WallHeating,
-  HeatPump,
-  MotherFireplace,
-  GasHeaters,
-  BlockHeatingWoodStove,
-  CentralHeatingBoiler,
-  UnderfloorHeatingEntirely,
-  PossibilityForFireplaceHeat,
-  UnderfloorHeatingPartly,
-  RecoveryInstalation
-}
-
-enum KitchenType {
-  MainKitchen,
-  Scullery
-}
-
-enum KitchenConstruction {
-  DenseKitchen,
-  EatInKitchen,
-  HalfOpenKitchen,
-  OpenKitchen
-}
-
-enum KitchenServices {
-  KitchenIsland,
-  WashIsland
-}
-
-enum KitchenAppliances {
-  Refrigerator,
-  Microwave,
-  Dishwasher,
-  Oven,
-  Stove
-}
-
-enum KitchenHob {
-  GasHob,
-  InductionHob,
-  ElectricHob,
-  CeramicHob,
-  HalogenHob
-}
-
-enum FloorType {
-  Attic,
-  Floor,
-  Basement,
-  GroundFloor,
-  Loft,
-}
-
-enum SpaceType {
-  Kitchen,
-  Bathroom,
-  LivingRoom,
-  Bedroom,
-  HomeOffice,
-  Other,
-}
-
-enum OutsideFeatureType {
-  Garden,
-  Garage,
-  Storage,
-  Terrain,
-  ParkingLot,
-}
-
-enum GardenType {
-  Backyard,
-  PatioOrAtrium,
-  Place,
-  AllGroundGarden,
-  FrontGarden,
-  SunTerrace,
-  BackGarden,
-}
-
-enum GardenQualityType {
-  ToBeConstructed,
-  BeautifullyConstructed,
-  Normal,
-  Neglected,
-  TakenCareOf,
-}
-
-enum Location {
-  North,
-  South,
-  East,
-  West,
-}
-
-enum GardenShapeType {
-  Square,
-  Rectangle,
-  LShape,
-  UShape,
-  TShape,
-}
-
-enum QualityInformations {
-  Simple,
-  Normal,
-  Luxury,
-  Excellent,
-  GoodToStickOut,
-  Good,
-  ReasonableToGood,
-  Fair,
-  ModerateToFairRedelijik,
-  Moderate,
-  BadToModerate,
-  Bad
-}
-
-enum PropertyRelatedItems {
-  Balcony,
-  Terrace,
-  RoofTerrace,
-  Porch
-}
-
-enum RoofTypes {
-  TransverseRoof,
-  ClassRoof,
-  MansardRoof,
-  FlatRoof,
-  HippedRoof,
-  TentRoof,
-  SaddleRoof,
-  CompositeRoof
-}
-
-enum RoofMaterials {
-  Asbestos,
-  BituminousRoofing,
-  Plastic,
-  Slate,
-  Metal,
-  Pans,
-  Other
-}
-
-enum RoofInsulations {
-  SprayFoam,
-  RigidBoards,
-  BlanketOrMatting,
-  GlassRock,
-  MineralWool,
-  LooseFill,
-  StructuralPanels
-}
-
-type KitchenAppliance {
-  name: KitchenAppliances!,
-  quantity: Int!,
-  notes: String
-}
-
-type KitchenSpace {
-  constructionYear: Float,
-  notes: String,
-  type: KitchenType,
-  constructionType: KitchenConstruction,
-  services: [KitchenServices],
-  servicesNotes: String,
-  appliances: [KitchenAppliance],
-  hob: KitchenHob,
-  shape: SpaceShape,
-  measurement: SpaceMeasurement,
-  serviceHeating: [SpaceServiceHeating],
-  images: [File!]
-}
-
-type RectangleDimensions {
-  length: Float,
-  height: Float,
-}
-
-union GardenDimensions = RectangleDimensions
-
-type GardenFeature {
-  mainGarden: Boolean,
-  type: GardenType,
-  notes: String,
-  quality: GardenQualityType,
-  location: [Location],
-  shape: GardenShapeType,
-  dimensions: GardenDimensions,
-  surface: Float,
-  pictures: [String]
-}
-
-type HouseGeneral  {
-  availability: PropertyAvailabilityInformation
-  construction: ConstructionInformation
-  floor: FloorType
-  propertyConnection: PropertyConnection
-  propertyDetails: PropertyTypeDetailed
-}
-
-input HouseGeneralInput {
-  id: ID!
-  availability: PropertyAvailabilityInformationInput
-  construction: ConstructionInformationInput
-  floor: FloorType
-  propertyConnection: PropertyConnection
-  propertyDetails: PropertyTypeDetailed
-  street: String!
-  city: String!
-  houseNumber: String!
-  postalCode: String!
-}
-
-enum ConstructionType {
-  UnderConstruction
-  InDevelopment
 }
 
 type ConstructionInformation {
@@ -422,7 +83,6 @@ type ConstructionInformation {
   notes: String
 }
 
-
 input ConstructionInformationInput {
   type: ConstructionType
   from: Date
@@ -430,22 +90,16 @@ input ConstructionInformationInput {
   notes: String
 }
 
-type PropertyAvailabilityInformation {
-  availability: PropertyAvailability
-  from: Date
-  notes: String
-  habitation: PropertyHabitation
-  currentUse: String
-  currentDestination: String
+enum ConstructionType {
+  UnderConstruction
+  InDevelopment
 }
 
-input PropertyAvailabilityInformationInput {
-  availability: PropertyAvailability
-  from: Date
-  notes: String
-  habitation: PropertyHabitation
-  currentUse: String
-  currentDestination: String
+input CreateFileInput {
+  fileName: String!
+  fileType: String!
+  permission: FilePermission!
+  description: String
 }
 
 input CreatePimInput {
@@ -473,34 +127,263 @@ input CreatePimInput {
   attention: String
 }
 
-input UpdatePimInput {
+scalar Date
+
+enum DevelopmentType {
+  New
+  Existing
+}
+
+scalar Dictionary
+
+enum EntityWithFiles {
+  Pim
+  Space
+}
+
+type Event {
   id: String!
-  realEstateType: RealEstateType!
+  entityType: EventEntityType!
+  relatedEntityId: String
+  action: EventAction!
+  timestamp: Date!
+  data: String
+  userId: String
+}
+
+enum EventAction {
+  Created
+  Updated
+  Removed
+}
+
+enum EventEntityType {
+  Pim
+}
+
+type File {
+  id: ID!
+  fileName: String!
+  description: String
+  status: Int!
+  fileType: String!
+  permission: FilePermission!
+  key: ID!
+  createdAt: Date
+  signedUrl: String
+  url: String
+  bucket: String
+}
+
+enum FilePermission {
+  public
+  private
+}
+
+type Floor {
+  id: String!
+  floorDescription: String
+  level: Int!
+  floorType: FloorType!
+  spaces: [Space!]
+}
+
+enum FloorType {
+  Attic
+  Floor
+  Basement
+  GroundFloor
+  Loft
+}
+
+union GardenDimensions = RectangleDimensions
+type GardenFeature {
+  mainGarden: Boolean
+  type: GardenType
+  notes: String
+  quality: GardenQualityType
+  location: [Location]
+  shape: GardenShapeType
+  dimensions: GardenDimensions
+  surface: Float
+  pictures: [String]
+}
+
+enum GardenQualityType {
+  ToBeConstructed
+  BeautifullyConstructed
+  Normal
+  Neglected
+  TakenCareOf
+}
+
+enum GardenShapeType {
+  Square
+  Rectangle
+  LShape
+  UShape
+  TShape
+}
+
+enum GardenType {
+  Backyard
+  PatioOrAtrium
+  Place
+  AllGroundGarden
+  FrontGarden
+  SunTerrace
+  BackGarden
+}
+
+type GeneralInformation {
+  qualityInformation: [QualityInformations]
+  pictures: [String]
+  notes: String
+}
+
+input GeneralInformationInput {
+  qualityInformation: [QualityInformations]
+  pictures: [String]
+  notes: String
+}
+
+type HouseGeneral {
+  availability: PropertyAvailabilityInformation
+  construction: ConstructionInformation
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+}
+
+input HouseGeneralInput {
+  id: ID!
+  availability: PropertyAvailabilityInformationInput
+  construction: ConstructionInformationInput
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
   street: String!
-  houseNumberPrefix: String
+  city: String!
   houseNumber: String!
+  postalCode: String!
+}
+
+type HouseOutside {
+  generalInformation: GeneralInformation
+  propertyRelated: PropertyRelated
+  roofInformation: RoofInformation
+  notes: String
+}
+
+input HouseOutsideInput {
+  id: ID!
+  generalInformation: GeneralInformationInput
+  propertyRelated: PropertyRelatedInput
+  roofInformation: RoofInformationInput
+  notes: String
+}
+
+type KitchenAppliance {
+  name: KitchenAppliances!
+  quantity: Int!
+  notes: String
+}
+
+enum KitchenAppliances {
+  Refrigerator
+  Microwave
+  Dishwasher
+  Oven
+  Stove
+}
+
+enum KitchenConstruction {
+  ClosedKitchen
+  EatInKitchen
+  HalfOpenKitchen
+  OpenKitchen
+}
+
+enum KitchenHob {
+  GasHob
+  InductionHob
+  ElectricHob
+  CeramicHob
+  HalogenHob
+}
+
+enum KitchenServices {
+  KitchenIsland
+  WashIsland
+}
+
+type KitchenSpace {
+  constructionYear: Float
+  notes: String
+  type: KitchenType
+  constructionType: KitchenConstruction
+  services: [KitchenServices]
+  servicesNotes: String
+  appliances: [KitchenAppliance]
+  hob: KitchenHob
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+enum KitchenType {
+  MainKitchen
+  Scullery
+}
+
+input ListPimsFilters {
+  developmentType: DevelopmentType
+  status: PimStatus
+  houseNumberPrefix: String
+  houseNumber: String
   houseNumberAddition: String
   constructionNumberPrefix: String
   constructionNumber: String
   constructionNumberAddition: String
-  postalCode: String!
+  street: String
+  postalCode: String
   district: String
-  city: String!
+  city: String
   state: String
   county: String
-  country: String!
-  developmentType: DevelopmentType!
-  status: PimStatus!
-  salePrice: Float
-  rentPrice: Float
-  description: String
-  livingArea: Int
-  propertyType: PropertyType
-  attention: String
+  country: String
+  archived: Boolean
 }
 
-union PimGeneral = HouseGeneral
-scalar PimGeneralInput
+enum Location {
+  North
+  South
+  East
+  West
+}
+
+type OutsideFeature {
+  id: String!
+  description: String
+  type: OutsideFeatureType!
+  configuration: OutsideFeatureConfiguration
+}
+
+union OutsideFeatureConfiguration = GardenFeature
+enum OutsideFeatureType {
+  Garden
+  Garage
+  Storage
+  Terrain
+  ParkingLot
+}
+
+input Pagination {
+  from: Int
+  limit: Int
+  searchAfter: [String!]
+}
 
 type Pim {
   id: String!
@@ -531,11 +414,250 @@ type Pim {
   archived: Boolean!
   dateCreated: Date!
   houseGeneral: HouseGeneral
+  houseOutside: HouseOutside
   floors: [Floor!]
   outsideFeatures: [OutsideFeature!]
 }
 
-union SpaceConfiguration = KitchenSpace
+union PimGeneral = HouseGeneral
+scalar PimGeneralInput
+
+union PimOutside = HouseOutside
+scalar PimOutsideInput
+
+type PimSearchResult {
+  metadata: SearchMetadata
+  items: [Pim!]
+}
+
+enum PimStatus {
+  Prospect
+  Available
+  Option
+  Bid
+  SoldWithReservation
+  RentedWithReservation
+  Sold
+  Rented
+}
+
+type Profile {
+  id: String!
+  firstName: String
+  lastName: String
+  email: String
+  avatar: String
+  teams: [ProfileTeam!]
+}
+
+type ProfileTeam {
+  id: String!
+  name: String
+}
+
+enum PropertyAvailability {
+  InConsultation
+  Immediatelly
+  ByDate
+}
+
+type PropertyAvailabilityInformation {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
+input PropertyAvailabilityInformationInput {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
+enum PropertyConnection {
+  SemiDetached
+  FinalHouse
+  CornerHouse
+  TerracedHouse
+  DetachedHouse
+}
+
+enum PropertyHabitation {
+  RecreationalHome
+  PermanentOccupation
+}
+
+type PropertyRelated {
+  items: [PropertyRelatedItems]
+  notes: String
+  pictures: [String]
+}
+
+input PropertyRelatedInput {
+  items: [PropertyRelatedItems]
+  notes: String
+  pictures: [String]
+}
+
+enum PropertyRelatedItems {
+  Balcony
+  Terrace
+  RoofTerrace
+  Porch
+}
+
+enum PropertySpaces {
+  Kitchen
+}
+
+enum PropertyType {
+  House
+  Apartment
+  Commercial
+  Agricultural
+  ParkingLot
+  BuildingPlot
+  Other
+}
+
+enum PropertyTypeDetailed {
+  SingleFamily
+  DykeHouse
+  CourtHouse
+  DriveInHome
+  SplitLevel
+  QuadrantHouse
+  PatioHouse
+  Villa
+  CanalHouse
+  WaterHouse
+  Bungalow
+  SemiBungalow
+  StiltHouse
+  BusinessOrServiceHome
+  Estate
+  CountryHouse
+  Mansion
+}
+
+enum QualityInformations {
+  Simple
+  Normal
+  Luxury
+  Excellent
+  GoodToStickOut
+  Good
+  ReasonableToGood
+  Fair
+  ModerateToFairRedelijik
+  Moderate
+  BadToModerate
+  Bad
+}
+
+enum RealEstateType {
+  Residential
+  Business
+}
+
+type RectangleDimensions {
+  length: Float
+  height: Float
+}
+
+type RoofInformation {
+  type: RoofType
+  material: RoofMaterial
+  insulation: RoofInsulation
+  pictures: [String]
+}
+
+input RoofInformationInput {
+  type: RoofTypeInput
+  material: RoofMaterialInput
+  insulation: RoofInsulationInput
+  pictures: [String]
+}
+
+type RoofInsulation {
+  name: RoofInsulations
+  notes: String
+}
+
+input RoofInsulationInput {
+  name: RoofInsulations
+  notes: String
+}
+
+enum RoofInsulations {
+  SprayFoam
+  RigidBoards
+  BlanketOrMatting
+  GlassRock
+  MineralWool
+  LooseFill
+  StructuralPanels
+}
+
+type RoofMaterial {
+  name: RoofMaterials
+  notes: String
+}
+
+input RoofMaterialInput {
+  name: RoofMaterials
+  notes: String
+}
+
+enum RoofMaterials {
+  Asbestos
+  BituminousRoofing
+  Plastic
+  Slate
+  Metal
+  Pans
+  Other
+}
+
+type RoofType {
+  name: RoofTypes
+  notes: String
+}
+
+input RoofTypeInput {
+  name: RoofTypes
+  notes: String
+}
+
+enum RoofTypes {
+  TransverseRoof
+  ClassRoof
+  MansardRoof
+  FlatRoof
+  HippedRoof
+  TentRoof
+  SaddleRoof
+  CompositeRoof
+}
+
+type SearchMetadata {
+  total: Int!
+}
+
+input Sort {
+  column: String!
+  direction: SortDirection!
+}
+
+enum SortDirection {
+  asc
+  desc
+}
 
 type Space {
   id: String!
@@ -545,72 +667,80 @@ type Space {
   configuration: SpaceConfiguration
 }
 
-type Floor {
+union SpaceConfiguration = KitchenSpace
+type SpaceMeasurement {
+  length: Float
+  width: Float
+  height: Float
+  surface: Float
+  volume: Float
+}
+
+enum SpaceServiceHeating {
+  GeothermalHeat
+  NoHeating
+  Fireplace
+  MultiBurner
+  HotAirHeating
+  PelletStove
+  ElectricHeating
+  DistrictHeating
+  GasFireplace
+  CoalStove
+  WallHeating
+  HeatPump
+  MotherFireplace
+  GasHeaters
+  BlockHeatingWoodStove
+  CentralHeatingBoiler
+  UnderfloorHeatingEntirely
+  PossibilityForFireplaceHeat
+  UnderfloorHeatingPartly
+  RecoveryInstalation
+}
+
+enum SpaceShape {
+  Rectangle
+  Square
+  LType
+  TType
+  UType
+  ZType
+}
+
+enum SpaceType {
+  Kitchen
+  Bathroom
+  LivingRoom
+  Bedroom
+  HomeOffice
+  Other
+}
+
+type Subscription {
+  _: Boolean
+}
+
+type Team {
   id: String!
-  floorDescription: String
-  level: Int!
-  floorType: FloorType!
-  spaces: [Space!]
+  members: [Profile!]
+  company: Company!
+  name: String
 }
 
-union OutsideFeatureConfiguration = GardenFeature
+scalar UpdateFeatureInputConfiguration
 
-type OutsideFeature {
-  id: String!
-  description: String
-  type: OutsideFeatureType!
-  configuration: OutsideFeatureConfiguration
-}
-
-type Event {
-  id: String!
-  entityType: EventEntityType!
-  relatedEntityId: String
-  action: EventAction!
-  timestamp: Date!
-  data: String
-  userId: String
-}
-
-type PimSearchResult {
-  metadata: SearchMetadata
-  items: [Pim!]
-}
-
-input ListPimsFilters {
-  developmentType: DevelopmentType
-  status: PimStatus
-  houseNumberPrefix: String
-  houseNumber: String
-  houseNumberAddition: String
-  constructionNumberPrefix: String
-  constructionNumber: String
-  constructionNumberAddition: String
-  street: String
-  postalCode: String
-  district: String
-  city: String
-  state: String
-  country: String
-  archived: Boolean
-}
-
-input ChangesHistoryFilters {
-  entityType: EventEntityType
-}
-
-input AddNewFloorInput {
-  pimId: String!
-  floorDescription: String
-  floorType: FloorType!
-}
-
-input AddSpaceInput {
-  spaceType: SpaceType!
-  extraRoomPossibility: Boolean!
+input UpdateFloorInput {
   pimId: String!
   floorId: String!
-  spaceName: String
+  floorDescription: String
+  floorType: FloorType
+}
+
+input UpdateOutsideFeatureInput {
+  pimId: String!
+  outsideFeatureId: String!
+  feature: UpdateFeatureInputConfiguration
 }
 
 input UpdateSpaceInput {
@@ -620,60 +750,9 @@ input UpdateSpaceInput {
   space: UpdateSpaceInputConfiguration
 }
 
-input UpdateFloorInput {
-  pimId: String!
-  floorId: String!
-  floorDescription: String
-  floorType: FloorType
-}
-
-input AddOutsideFeatureInput {
-  pimId: String!
-  type: OutsideFeatureType!
-  description: String
-}
-
 scalar UpdateSpaceInputConfiguration
 
-scalar Dictionary
-
-enum FilePermission {
-  public,
-  private
-}
-
-enum EntityWithFiles {
-  Pim,
-  Space
-}
-
-input CreateFileInput {
-  fileName: String!
-  fileType: String!
-  permission: FilePermission!
-  description: String
-}
-
-input AddFilesInput {
-  fileIDs: [ID!]!
-  entity: EntityWithFiles!
-  entityID: ID!
-}
-
-type File {
-  id: ID!
-  fileName: String!
-  description: String
-  status: Int!
-  fileType: String!
-  permission: FilePermission!
-  key: ID!
-  createdAt: Date
-  signedUrl: String
-  url: String
-  bucket: String
-}
-
+scalar Upload
 
 type Query {
   me: Profile @auth
@@ -693,13 +772,14 @@ type Mutation {
   #END REST
   deleteUser(id: String): String @auth
   createPim(input: CreatePimInput!): Pim @auth
-  updatePim(input: UpdatePimInput!): Pim @auth
   removePim(id: String!): String @auth
   updatePimGeneralInfo(input: PimGeneralInput!): Pim @auth
+  updatePimOutsideInfo(input: PimOutsideInput!): Pim @auth
   addFloorToPim(input: AddNewFloorInput!): Pim @auth
   addSpaceToFloor(input: AddSpaceInput!): Pim @auth
   updateSpace(input: UpdateSpaceInput!): Pim @auth
   updateFloor(input: UpdateFloorInput!): Pim @auth
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim @auth
+  updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim @auth
   addFiles(input: AddFilesInput!): [File!]! @auth
 }

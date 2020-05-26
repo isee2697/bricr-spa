@@ -106,6 +106,53 @@ context('Pim Details', () => {
     cy.wait(3000);
   });
 
+  it('allows to edit outside info', () => {
+    cy.findByText('Outside').click();
+    cy.contains('General information');
+
+    cy.findAllByText('Edit mode')
+      .first()
+      .click();
+    cy.get('input[name="houseOutside.generalInformation.notes"]').type('general information note');
+    cy.findByText('Normal').click();
+    cy.findByText('Fair').click();
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+    cy.findByText('Balcony').click();
+    cy.findByText('Porch').click();
+    cy.get('input[name="houseOutside.propertyRelated.notes"]').type('property related note');
+
+    cy.findAllByText('Edit mode')
+      .eq(2)
+      .click();
+    cy.findByText('Class roof').click();
+    cy.get('input[name="houseOutside.roofInformation.type.notes"]').type('roof type note');
+    cy.findByText('Plastic').click();
+    cy.get('input[name="houseOutside.roofInformation.material.notes"]').type('roof material note');
+    cy.findByText('Spray foam').click();
+    cy.get('input[name="houseOutside.roofInformation.insulation.notes"]').type('roof insulation note');
+
+    cy.wait(3000);
+  });
+
+  it('allows to add an outside feature', () => {
+    cy.findAllByText('Outside')
+      .first()
+      .click();
+    cy.contains('Garden 2');
+
+    cy.findByText('Add outside feature').click();
+    cy.findByText('Garden').click();
+
+    cy.findAllByText('Add outside feature')
+      .last()
+      .click();
+
+    cy.contains('Garden 3');
+  });
+
   it('shows pim after change on list', () => {
     cy.findAllByText('PIM')
       .first()

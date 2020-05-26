@@ -247,6 +247,48 @@ export const mockServer = () => {
 
             return PIM_DETAILS;
           },
+          addOutsideFeature() {
+            PIM_DETAILS = {
+              ...PIM_DETAILS,
+              outsideFeatures: [
+                ...(PIM_DETAILS.outsideFeatures ?? []),
+                {
+                  __typename: 'OutsideFeature',
+                  type: variables.input.type,
+                  description: 'My Garden',
+                  id: `${Math.floor(Math.random() * 100)}`,
+                  configuration: {
+                    __typename: 'GardenFeature',
+                    mainGarden: true,
+                  },
+                },
+              ],
+            };
+
+            return PIM_DETAILS;
+          },
+          updatePimOutsideInfo() {
+            PIM_DETAILS = {
+              ...PIM_DETAILS,
+              houseOutside: {
+                notes: variables.input.notes ?? PIM_DETAILS.houseOutside?.notes,
+                generalInformation: {
+                  ...PIM_DETAILS.houseOutside?.generalInformation,
+                  ...variables.input.generalInformation,
+                },
+                propertyRelated: {
+                  ...PIM_DETAILS.houseOutside?.propertyRelated,
+                  ...variables.input.property,
+                },
+                roofInformation: {
+                  ...PIM_DETAILS.houseOutside?.roofInformation,
+                  ...variables.input.roofInformation,
+                },
+              },
+            };
+
+            return PIM_DETAILS;
+          },
         };
 
         return graphql(graphqlSchema, query, resolver, null, variables);

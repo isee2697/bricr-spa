@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
-import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
+import { GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
 
@@ -21,15 +21,14 @@ export const RoofInformation = () => {
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
             </Box>
-            <CheckboxGroupField
+            <RadioGroupField
               disabled={!isEditMode}
               xs={2}
-              lg={1}
-              name="roofInformation.roofType"
+              name="houseOutside.roofInformation.type.name"
               options={dictionaries.roofTypes}
             />
             <GenericField
-              name="roofInformation.roofTypeNotes"
+              name="houseOutside.roofInformation.type.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
@@ -43,15 +42,14 @@ export const RoofInformation = () => {
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
             </Box>
-            <CheckboxGroupField
+            <RadioGroupField
               disabled={!isEditMode}
               xs={2}
-              lg={1}
-              name="roofInformation.roofMaterialType"
-              options={dictionaries.roofMaterialTypes}
+              name="houseOutside.roofInformation.material.name"
+              options={dictionaries.roofMaterials}
             />
             <GenericField
-              name="roofInformation.roofMaterialTypeNotes"
+              name="houseOutside.roofInformation.material.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
@@ -65,15 +63,14 @@ export const RoofInformation = () => {
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
             </Box>
-            <CheckboxGroupField
+            <RadioGroupField
               disabled={!isEditMode}
               xs={2}
-              lg={1}
-              name="roofInformation.roofInsulation"
-              options={dictionaries.roofInsulationTypes}
+              name="houseOutside.roofInformation.insulation.name"
+              options={dictionaries.roofInsulations}
             />
             <GenericField
-              name="roofInformation.roofInsulationNotes"
+              name="houseOutside.roofInformation.insulation.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
@@ -81,7 +78,7 @@ export const RoofInformation = () => {
           </Box>
 
           <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
-          <UploadImageGroupField max={3} disabled={!isEditMode} name="roofInformation.pictures" />
+          <UploadImageGroupField max={3} disabled={!isEditMode} name="houseOutside.roofInformation.pictures" />
         </>
       )}
     </FormSection>

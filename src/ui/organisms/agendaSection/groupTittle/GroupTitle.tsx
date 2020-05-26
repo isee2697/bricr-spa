@@ -15,6 +15,7 @@ export const GroupTitle = ({ date, dateFormat }: GroupTitleProps) => {
   const tomorrow = today.plus(Duration.fromObject({ days: 1 }));
 
   let title;
+
   if (today.toFormat(dateFormat) === date) {
     title = formatMessage({ id: 'date.today' });
   } else if (tomorrow.toFormat(dateFormat) === date) {

@@ -14,62 +14,62 @@ export const qualities = [
   {
     label: 'dictionaries.outside_quality.Simple',
     icon: <LinkIcon color="inherit" />,
-    value: 'simple',
+    value: 'Simple',
   },
   {
     label: 'dictionaries.outside_quality.Normal',
     icon: <FilterIcon color="inherit" />,
-    value: 'normal',
+    value: 'Normal',
   },
   {
     label: 'dictionaries.outside_quality.Luxury',
     icon: <BuildingIcon color="inherit" />,
-    value: 'luxury',
+    value: 'Luxury',
   },
   {
     label: 'dictionaries.outside_quality.Excellent',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'excellent',
+    value: 'Excellent',
   },
   {
     label: 'dictionaries.outside_quality.GoodToStickOut',
     icon: <UserIcon color="inherit" />,
-    value: 'good_to_stick_out',
+    value: 'GoodToStickOut',
   },
   {
     label: 'dictionaries.outside_quality.Good',
     icon: <SettingsIcon color="inherit" />,
-    value: 'good',
+    value: 'Good',
   },
   {
     label: 'dictionaries.outside_quality.ReasonableToGood',
     icon: <WarningIcon color="inherit" />,
-    value: 'reasonable_good',
+    value: 'ReasonableToGood',
   },
   {
     label: 'dictionaries.outside_quality.Fair',
     icon: <LinkIcon color="inherit" />,
-    value: 'fair',
+    value: 'Fair',
   },
   {
     label: 'dictionaries.outside_quality.ModerateToFairRedelijik',
     icon: <FilterIcon color="inherit" />,
-    value: 'moderate_to_fair',
+    value: 'ModerateToFairRedelijik',
   },
   {
     label: 'dictionaries.outside_quality.Moderate',
     icon: <BuildingIcon color="inherit" />,
-    value: 'moderate',
+    value: 'Moderate',
   },
   {
     label: 'dictionaries.outside_quality.BadToModerate',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'bad_to_moderate',
+    value: 'BadToModerate',
   },
   {
     label: 'dictionaries.outside_quality.Bad',
     icon: <UserIcon color="inherit" />,
-    value: 'bad',
+    value: 'Bad',
   },
 ];
 
@@ -77,22 +77,22 @@ export const relatedItems = [
   {
     label: 'dictionaries.outside_items.Balcony',
     icon: <LinkIcon color="inherit" />,
-    value: 'balcony',
+    value: 'Balcony',
   },
   {
     label: 'dictionaries.outside_items.Terrace',
     icon: <UserIcon color="inherit" />,
-    value: 'terrace',
+    value: 'Terrace',
   },
   {
     label: 'dictionaries.outside_items.RoofTerrace',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'roof_terrace',
+    value: 'RoofTerrace',
   },
   {
     label: 'dictionaries.outside_items.Porch',
     icon: <FilterIcon color="inherit" />,
-    value: 'porch',
+    value: 'Porch',
   },
 ];
 
@@ -100,117 +100,117 @@ export const roofTypes = [
   {
     label: 'dictionaries.outside_roof_types.TransverseRoof',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'transverse_roof',
+    value: 'TransverseRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.ClassRoof',
     icon: <FilterIcon color="inherit" />,
-    value: 'class_roof',
+    value: 'ClassRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.MansardRoof',
     icon: <LinkIcon color="inherit" />,
-    value: 'mansard_roof',
+    value: 'MansardRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.FlatRoof',
     icon: <UserIcon color="inherit" />,
-    value: 'flat_roof',
+    value: 'FlatRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.HippedRoof',
     icon: <LinkIcon color="inherit" />,
-    value: 'hipped_roof',
+    value: 'HippedRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.TentRoof',
     icon: <WarningIcon color="inherit" />,
-    value: 'tent_roof',
+    value: 'TentRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.SaddleRoof',
     icon: <SettingsIcon color="inherit" />,
-    value: 'saddle_roof',
+    value: 'SaddleRoof',
   },
   {
     label: 'dictionaries.outside_roof_types.CompositeRoof',
     icon: <BuildingIcon color="inherit" />,
-    value: 'composite_roof',
+    value: 'CompositeRoof',
   },
 ];
 
-export const roofMaterialTypes = [
+export const roofMaterials = [
   {
     label: 'dictionaries.outside_roof_materials.Asbestos',
     icon: <UserIcon color="inherit" />,
-    value: 'asbestos',
+    value: 'Asbestos',
   },
   {
     label: 'dictionaries.outside_roof_materials.BituminousRoofing',
     icon: <FilterIcon color="inherit" />,
-    value: 'bituminous_roofing',
+    value: 'BituminousRoofing',
   },
   {
     label: 'dictionaries.outside_roof_materials.Plastic',
     icon: <LinkIcon color="inherit" />,
-    value: 'plastic',
+    value: 'Plastic',
   },
   {
     label: 'dictionaries.outside_roof_materials.Slate',
     icon: <BuildingIcon color="inherit" />,
-    value: 'slate',
+    value: 'Slate',
   },
   {
     label: 'dictionaries.outside_roof_materials.Metal',
     icon: <WarningIcon color="inherit" />,
-    value: 'metal',
+    value: 'Metal',
   },
   {
     label: 'dictionaries.outside_roof_materials.Pans',
     icon: <LinkIcon color="inherit" />,
-    value: 'pans',
+    value: 'Pans',
   },
   {
     label: 'dictionaries.outside_roof_materials.Other',
     icon: <SettingsIcon color="inherit" />,
-    value: 'other',
+    value: 'Other',
   },
 ];
 
-export const roofInsulationTypes = [
+export const roofInsulations = [
   {
     label: 'dictionaries.outside_roof_insulations.SprayFoam',
     icon: <BuildingIcon color="inherit" />,
-    value: 'spray_foam',
+    value: 'SprayFoam',
   },
   {
     label: 'dictionaries.outside_roof_insulations.RigidBoards',
     icon: <FilterIcon color="inherit" />,
-    value: 'rigid_boards',
+    value: 'RigidBoards',
   },
   {
     label: 'dictionaries.outside_roof_insulations.BlanketOrMatting',
     icon: <UserIcon color="inherit" />,
-    value: 'blanket_or_matting',
+    value: 'BlanketOrMatting',
   },
   {
     label: 'dictionaries.outside_roof_insulations.GlassRock',
     icon: <LinkIcon color="inherit" />,
-    value: 'glass_rock',
+    value: 'GlassRock',
   },
   {
     label: 'dictionaries.outside_roof_insulations.MineralWool',
     icon: <WarningIcon color="inherit" />,
-    value: 'mineral_wool',
+    value: 'MineralWool',
   },
   {
     label: 'dictionaries.outside_roof_insulations.LooseFill',
     icon: <SettingsIcon color="inherit" />,
-    value: 'loose_fill',
+    value: 'LooseFill',
   },
   {
     label: 'dictionaries.outside_roof_insulations.StructuralPanels',
     icon: <LinkIcon color="inherit" />,
-    value: 'structural_panels',
+    value: 'StructuralPanels',
   },
 ];

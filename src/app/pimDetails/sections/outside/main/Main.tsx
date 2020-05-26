@@ -4,23 +4,24 @@ import arrayMutators from 'final-form-arrays';
 import { useLocale } from 'hooks';
 import { Grid, Typography } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
+import { GenericField } from 'form/fields';
 
-import { MainDescriptionContainer } from './mainDescription/MainDescriptionContainer';
 import { GeneralInformation } from './forms/GeneralInformation';
 import { PropertyRelated } from './forms/PropertyRelated';
 import { RoofInformation } from './forms/RoofInformation';
+import { MainProps } from './Main.types';
 
-export const Main = () => {
+export const Main = ({ pim, onSave }: MainProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
-      <Grid xs={12} item>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.outside.title' })}</Typography>
-        <MainDescriptionContainer />
-      </Grid>
+      <AutosaveForm initialValues={pim} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+        <Grid xs={12} item>
+          <Typography variant="h1">{formatMessage({ id: 'pim_details.outside.title' })}</Typography>
+          <GenericField placeholder="pim_details.outside.main.description_placeholder" name="houseOutside.notes" />
+        </Grid>
 
-      <AutosaveForm onSave={() => Promise.resolve({ error: false })} mutators={{ ...arrayMutators }} subscription={{}}>
         <Grid xs={12} item>
           <GeneralInformation />
         </Grid>

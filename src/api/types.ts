@@ -11,9 +11,12 @@ export type Scalars = {
   Int: number;
   Float: number;
   Date: string;
-  PimGeneralInput: any;
-  UpdateSpaceInputConfiguration: any;
   Dictionary: any;
+  PimGeneralInput: any;
+  PimOutsideInput: any;
+  UpdateFeatureInputConfiguration: any;
+  UpdateSpaceInputConfiguration: any;
+  Upload: any;
 };
 
 export type LoginInput = {
@@ -47,6 +50,422 @@ export type ResetPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
+export type AddFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithFiles;
+  entityID: Scalars['ID'];
+};
+
+export type AddNewFloorInput = {
+  pimId: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  floorType: FloorType;
+};
+
+export type AddOutsideFeatureInput = {
+  pimId: Scalars['String'];
+  type: OutsideFeatureType;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddSpaceInput = {
+  spaceType: SpaceType;
+  extraRoomPossibility: Scalars['Boolean'];
+  pimId: Scalars['String'];
+  floorId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+};
+
+export enum CacheControlScope {
+  Public = 'PUBLIC',
+  Private = 'PRIVATE',
+}
+
+export type ChangesHistoryFilters = {
+  entityType?: Maybe<EventEntityType>;
+};
+
+export type Company = {
+  __typename?: 'Company';
+  id: Scalars['String'];
+  teams?: Maybe<Array<Team>>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ConstructionInformation = {
+  __typename?: 'ConstructionInformation';
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ConstructionInformationInput = {
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum ConstructionType {
+  UnderConstruction = 'UnderConstruction',
+  InDevelopment = 'InDevelopment',
+}
+
+export type CreateFileInput = {
+  fileName: Scalars['String'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type CreatePimInput = {
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+};
+
+export enum DevelopmentType {
+  New = 'New',
+  Existing = 'Existing',
+}
+
+export enum EntityWithFiles {
+  Pim = 'Pim',
+  Space = 'Space',
+}
+
+export type Event = {
+  __typename?: 'Event';
+  id: Scalars['String'];
+  entityType: EventEntityType;
+  relatedEntityId?: Maybe<Scalars['String']>;
+  action: EventAction;
+  timestamp: Scalars['Date'];
+  data?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export enum EventAction {
+  Created = 'Created',
+  Updated = 'Updated',
+  Removed = 'Removed',
+}
+
+export enum EventEntityType {
+  Pim = 'Pim',
+}
+
+export type File = {
+  __typename?: 'File';
+  id: Scalars['ID'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  status: Scalars['Int'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  key: Scalars['ID'];
+  createdAt?: Maybe<Scalars['Date']>;
+  signedUrl?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  bucket?: Maybe<Scalars['String']>;
+};
+
+export enum FilePermission {
+  Public = 'public',
+  Private = 'private',
+}
+
+export type Floor = {
+  __typename?: 'Floor';
+  id: Scalars['String'];
+  floorDescription?: Maybe<Scalars['String']>;
+  level: Scalars['Int'];
+  floorType: FloorType;
+  spaces?: Maybe<Array<Space>>;
+};
+
+export enum FloorType {
+  Attic = 'Attic',
+  Floor = 'Floor',
+  Basement = 'Basement',
+  GroundFloor = 'GroundFloor',
+  Loft = 'Loft',
+}
+
+export type GardenDimensions = RectangleDimensions;
+
+export type GardenFeature = {
+  __typename?: 'GardenFeature';
+  mainGarden?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<GardenType>;
+  notes?: Maybe<Scalars['String']>;
+  quality?: Maybe<GardenQualityType>;
+  location?: Maybe<Array<Maybe<Location>>>;
+  shape?: Maybe<GardenShapeType>;
+  dimensions?: Maybe<GardenDimensions>;
+  surface?: Maybe<Scalars['Float']>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export enum GardenQualityType {
+  ToBeConstructed = 'ToBeConstructed',
+  BeautifullyConstructed = 'BeautifullyConstructed',
+  Normal = 'Normal',
+  Neglected = 'Neglected',
+  TakenCareOf = 'TakenCareOf',
+}
+
+export enum GardenShapeType {
+  Square = 'Square',
+  Rectangle = 'Rectangle',
+  LShape = 'LShape',
+  UShape = 'UShape',
+  TShape = 'TShape',
+}
+
+export enum GardenType {
+  Backyard = 'Backyard',
+  PatioOrAtrium = 'PatioOrAtrium',
+  Place = 'Place',
+  AllGroundGarden = 'AllGroundGarden',
+  FrontGarden = 'FrontGarden',
+  SunTerrace = 'SunTerrace',
+  BackGarden = 'BackGarden',
+}
+
+export type GeneralInformation = {
+  __typename?: 'GeneralInformation';
+  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GeneralInformationInput = {
+  qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HouseGeneral = {
+  __typename?: 'HouseGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type HouseGeneralInput = {
+  id: Scalars['ID'];
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+  street: Scalars['String'];
+  city: Scalars['String'];
+  houseNumber: Scalars['String'];
+  postalCode: Scalars['String'];
+};
+
+export type HouseOutside = {
+  __typename?: 'HouseOutside';
+  generalInformation?: Maybe<GeneralInformation>;
+  propertyRelated?: Maybe<PropertyRelated>;
+  roofInformation?: Maybe<RoofInformation>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HouseOutsideInput = {
+  id: Scalars['ID'];
+  generalInformation?: Maybe<GeneralInformationInput>;
+  propertyRelated?: Maybe<PropertyRelatedInput>;
+  roofInformation?: Maybe<RoofInformationInput>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type KitchenAppliance = {
+  __typename?: 'KitchenAppliance';
+  name: KitchenAppliances;
+  quantity: Scalars['Int'];
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum KitchenAppliances {
+  Refrigerator = 'Refrigerator',
+  Microwave = 'Microwave',
+  Dishwasher = 'Dishwasher',
+  Oven = 'Oven',
+  Stove = 'Stove',
+}
+
+export enum KitchenConstruction {
+  ClosedKitchen = 'ClosedKitchen',
+  EatInKitchen = 'EatInKitchen',
+  HalfOpenKitchen = 'HalfOpenKitchen',
+  OpenKitchen = 'OpenKitchen',
+}
+
+export enum KitchenHob {
+  GasHob = 'GasHob',
+  InductionHob = 'InductionHob',
+  ElectricHob = 'ElectricHob',
+  CeramicHob = 'CeramicHob',
+  HalogenHob = 'HalogenHob',
+}
+
+export enum KitchenServices {
+  KitchenIsland = 'KitchenIsland',
+  WashIsland = 'WashIsland',
+}
+
+export type KitchenSpace = {
+  __typename?: 'KitchenSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  type?: Maybe<KitchenType>;
+  constructionType?: Maybe<KitchenConstruction>;
+  services?: Maybe<Array<Maybe<KitchenServices>>>;
+  servicesNotes?: Maybe<Scalars['String']>;
+  appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
+  hob?: Maybe<KitchenHob>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export enum KitchenType {
+  MainKitchen = 'MainKitchen',
+  Scullery = 'Scullery',
+}
+
+export type ListPimsFilters = {
+  developmentType?: Maybe<DevelopmentType>;
+  status?: Maybe<PimStatus>;
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  district?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  archived?: Maybe<Scalars['Boolean']>;
+};
+
+export enum Location {
+  North = 'North',
+  South = 'South',
+  East = 'East',
+  West = 'West',
+}
+
+export type OutsideFeature = {
+  __typename?: 'OutsideFeature';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: OutsideFeatureType;
+  configuration?: Maybe<OutsideFeatureConfiguration>;
+};
+
+export type OutsideFeatureConfiguration = GardenFeature;
+
+export enum OutsideFeatureType {
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Storage = 'Storage',
+  Terrain = 'Terrain',
+  ParkingLot = 'ParkingLot',
+}
+
+export type Pagination = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  searchAfter?: Maybe<Array<Scalars['String']>>;
+};
+
+export type Pim = {
+  __typename?: 'Pim';
+  id: Scalars['String'];
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  completeness: Scalars['Float'];
+  archived: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+  houseGeneral?: Maybe<HouseGeneral>;
+  houseOutside?: Maybe<HouseOutside>;
+  floors?: Maybe<Array<Floor>>;
+  outsideFeatures?: Maybe<Array<OutsideFeature>>;
+};
+
+export type PimGeneral = HouseGeneral;
+
+export type PimOutside = HouseOutside;
+
+export type PimSearchResult = {
+  __typename?: 'PimSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Pim>>;
+};
+
+export enum PimStatus {
+  Prospect = 'Prospect',
+  Available = 'Available',
+  Option = 'Option',
+  Bid = 'Bid',
+  SoldWithReservation = 'SoldWithReservation',
+  RentedWithReservation = 'RentedWithReservation',
+  Sold = 'Sold',
+  Rented = 'Rented',
+}
+
 export type Profile = {
   __typename?: 'Profile';
   id: Scalars['String'];
@@ -63,61 +482,66 @@ export type ProfileTeam = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type SearchMetadata = {
-  __typename?: 'SearchMetadata';
-  total: Scalars['Int'];
-};
-
-export enum SortDirection {
-  Asc = 'asc',
-  Desc = 'desc',
+export enum PropertyAvailability {
+  InConsultation = 'InConsultation',
+  Immediatelly = 'Immediatelly',
+  ByDate = 'ByDate',
 }
 
-export type Sort = {
-  column: Scalars['String'];
-  direction: SortDirection;
+export type PropertyAvailabilityInformation = {
+  __typename?: 'PropertyAvailabilityInformation';
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
 };
 
-export type Pagination = {
-  from?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  searchAfter?: Maybe<Array<Scalars['String']>>;
+export type PropertyAvailabilityInformationInput = {
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
 };
 
-export type Company = {
-  __typename?: 'Company';
-  id: Scalars['String'];
-  teams?: Maybe<Array<Team>>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type Team = {
-  __typename?: 'Team';
-  id: Scalars['String'];
-  members?: Maybe<Array<Profile>>;
-  company: Company;
-  name?: Maybe<Scalars['String']>;
-};
-
-export enum RealEstateType {
-  Residential = 'Residential',
-  Business = 'Business',
+export enum PropertyConnection {
+  SemiDetached = 'SemiDetached',
+  FinalHouse = 'FinalHouse',
+  CornerHouse = 'CornerHouse',
+  TerracedHouse = 'TerracedHouse',
+  DetachedHouse = 'DetachedHouse',
 }
 
-export enum DevelopmentType {
-  New = 'New',
-  Existing = 'Existing',
+export enum PropertyHabitation {
+  RecreationalHome = 'RecreationalHome',
+  PermanentOccupation = 'PermanentOccupation',
 }
 
-export enum PimStatus {
-  Prospect = 'Prospect',
-  Available = 'Available',
-  Option = 'Option',
-  Bid = 'Bid',
-  SoldWithReservation = 'SoldWithReservation',
-  RentedWithReservation = 'RentedWithReservation',
-  Sold = 'Sold',
-  Rented = 'Rented',
+export type PropertyRelated = {
+  __typename?: 'PropertyRelated';
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+  notes?: Maybe<Scalars['String']>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type PropertyRelatedInput = {
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+  notes?: Maybe<Scalars['String']>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export enum PropertyRelatedItems {
+  Balcony = 'Balcony',
+  Terrace = 'Terrace',
+  RoofTerrace = 'RoofTerrace',
+  Porch = 'Porch',
+}
+
+export enum PropertySpaces {
+  Kitchen = 'Kitchen',
 }
 
 export enum PropertyType {
@@ -128,16 +552,6 @@ export enum PropertyType {
   ParkingLot = 'ParkingLot',
   BuildingPlot = 'BuildingPlot',
   Other = 'Other',
-}
-
-export enum EventEntityType {
-  Pim = 'Pim',
-}
-
-export enum EventAction {
-  Created = 'Created',
-  Updated = 'Updated',
-  Removed = 'Removed',
 }
 
 export enum PropertyTypeDetailed {
@@ -160,37 +574,136 @@ export enum PropertyTypeDetailed {
   Mansion = 'Mansion',
 }
 
-export enum PropertyConnection {
-  SemiDetached = 'SemiDetached',
-  FinalHouse = 'FinalHouse',
-  CornerHouse = 'CornerHouse',
-  TerracedHouse = 'TerracedHouse',
-  DetachedHouse = 'DetachedHouse',
+export enum QualityInformations {
+  Simple = 'Simple',
+  Normal = 'Normal',
+  Luxury = 'Luxury',
+  Excellent = 'Excellent',
+  GoodToStickOut = 'GoodToStickOut',
+  Good = 'Good',
+  ReasonableToGood = 'ReasonableToGood',
+  Fair = 'Fair',
+  ModerateToFairRedelijik = 'ModerateToFairRedelijik',
+  Moderate = 'Moderate',
+  BadToModerate = 'BadToModerate',
+  Bad = 'Bad',
 }
 
-export enum PropertyAvailability {
-  InConsultation = 'InConsultation',
-  Immediatelly = 'Immediatelly',
-  ByDate = 'ByDate',
+export enum RealEstateType {
+  Residential = 'Residential',
+  Business = 'Business',
 }
 
-export enum PropertyHabitation {
-  RecreationalHome = 'RecreationalHome',
-  PermanentOccupation = 'PermanentOccupation',
+export type RectangleDimensions = {
+  __typename?: 'RectangleDimensions';
+  length?: Maybe<Scalars['Float']>;
+  height?: Maybe<Scalars['Float']>;
+};
+
+export type RoofInformation = {
+  __typename?: 'RoofInformation';
+  type?: Maybe<RoofType>;
+  material?: Maybe<RoofMaterial>;
+  insulation?: Maybe<RoofInsulation>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type RoofInformationInput = {
+  type?: Maybe<RoofTypeInput>;
+  material?: Maybe<RoofMaterialInput>;
+  insulation?: Maybe<RoofInsulationInput>;
+  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type RoofInsulation = {
+  __typename?: 'RoofInsulation';
+  name?: Maybe<RoofInsulations>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofInsulationInput = {
+  name?: Maybe<RoofInsulations>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum RoofInsulations {
+  SprayFoam = 'SprayFoam',
+  RigidBoards = 'RigidBoards',
+  BlanketOrMatting = 'BlanketOrMatting',
+  GlassRock = 'GlassRock',
+  MineralWool = 'MineralWool',
+  LooseFill = 'LooseFill',
+  StructuralPanels = 'StructuralPanels',
 }
 
-export enum PropertySpaces {
-  Kitchen = 'Kitchen',
+export type RoofMaterial = {
+  __typename?: 'RoofMaterial';
+  name?: Maybe<RoofMaterials>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofMaterialInput = {
+  name?: Maybe<RoofMaterials>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum RoofMaterials {
+  Asbestos = 'Asbestos',
+  BituminousRoofing = 'BituminousRoofing',
+  Plastic = 'Plastic',
+  Slate = 'Slate',
+  Metal = 'Metal',
+  Pans = 'Pans',
+  Other = 'Other',
 }
 
-export enum SpaceShape {
-  Rectangle = 'Rectangle',
-  Square = 'Square',
-  LType = 'LType',
-  TType = 'TType',
-  UType = 'UType',
-  ZType = 'ZType',
+export type RoofType = {
+  __typename?: 'RoofType';
+  name?: Maybe<RoofTypes>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofTypeInput = {
+  name?: Maybe<RoofTypes>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum RoofTypes {
+  TransverseRoof = 'TransverseRoof',
+  ClassRoof = 'ClassRoof',
+  MansardRoof = 'MansardRoof',
+  FlatRoof = 'FlatRoof',
+  HippedRoof = 'HippedRoof',
+  TentRoof = 'TentRoof',
+  SaddleRoof = 'SaddleRoof',
+  CompositeRoof = 'CompositeRoof',
 }
+
+export type SearchMetadata = {
+  __typename?: 'SearchMetadata';
+  total: Scalars['Int'];
+};
+
+export type Sort = {
+  column: Scalars['String'];
+  direction: SortDirection;
+};
+
+export enum SortDirection {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
+export type Space = {
+  __typename?: 'Space';
+  id: Scalars['String'];
+  spaceType: SpaceType;
+  spaceName?: Maybe<Scalars['String']>;
+  extraRoomPossibility: Scalars['Boolean'];
+  configuration?: Maybe<SpaceConfiguration>;
+};
+
+export type SpaceConfiguration = KitchenSpace;
 
 export type SpaceMeasurement = {
   __typename?: 'SpaceMeasurement';
@@ -224,45 +737,13 @@ export enum SpaceServiceHeating {
   RecoveryInstalation = 'RecoveryInstalation',
 }
 
-export enum KitchenType {
-  MainKitchen = 'MainKitchen',
-  Scullery = 'Scullery',
-}
-
-export enum KitchenConstruction {
-  DenseKitchen = 'DenseKitchen',
-  EatInKitchen = 'EatInKitchen',
-  HalfOpenKitchen = 'HalfOpenKitchen',
-  OpenKitchen = 'OpenKitchen',
-}
-
-export enum KitchenServices {
-  KitchenIsland = 'KitchenIsland',
-  WashIsland = 'WashIsland',
-}
-
-export enum KitchenAppliances {
-  Refrigerator = 'Refrigerator',
-  Microwave = 'Microwave',
-  Dishwasher = 'Dishwasher',
-  Oven = 'Oven',
-  Stove = 'Stove',
-}
-
-export enum KitchenHob {
-  GasHob = 'GasHob',
-  InductionHob = 'InductionHob',
-  ElectricHob = 'ElectricHob',
-  CeramicHob = 'CeramicHob',
-  HalogenHob = 'HalogenHob',
-}
-
-export enum FloorType {
-  Attic = 'Attic',
-  Floor = 'Floor',
-  Basement = 'Basement',
-  GroundFloor = 'GroundFloor',
-  Loft = 'Loft',
+export enum SpaceShape {
+  Rectangle = 'Rectangle',
+  Square = 'Square',
+  LType = 'LType',
+  TType = 'TType',
+  UType = 'UType',
+  ZType = 'ZType',
 }
 
 export enum SpaceType {
@@ -274,380 +755,17 @@ export enum SpaceType {
   Other = 'Other',
 }
 
-export enum OutsideFeatureType {
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Storage = 'Storage',
-  Terrain = 'Terrain',
-  ParkingLot = 'ParkingLot',
-}
-
-export enum GardenType {
-  Backyard = 'Backyard',
-  PatioOrAtrium = 'PatioOrAtrium',
-  Place = 'Place',
-  AllGroundGarden = 'AllGroundGarden',
-  FrontGarden = 'FrontGarden',
-  SunTerrace = 'SunTerrace',
-  BackGarden = 'BackGarden',
-}
-
-export enum GardenQualityType {
-  ToBeConstructed = 'ToBeConstructed',
-  BeautifullyConstructed = 'BeautifullyConstructed',
-  Normal = 'Normal',
-  Neglected = 'Neglected',
-  TakenCareOf = 'TakenCareOf',
-}
-
-export enum Location {
-  North = 'North',
-  South = 'South',
-  East = 'East',
-  West = 'West',
-}
-
-export enum GardenShapeType {
-  Square = 'Square',
-  Rectangle = 'Rectangle',
-  LShape = 'LShape',
-  UShape = 'UShape',
-  TShape = 'TShape',
-}
-
-export enum QualityInformations {
-  Simple = 'Simple',
-  Normal = 'Normal',
-  Luxury = 'Luxury',
-  Excellent = 'Excellent',
-  GoodToStickOut = 'GoodToStickOut',
-  Good = 'Good',
-  ReasonableToGood = 'ReasonableToGood',
-  Fair = 'Fair',
-  ModerateToFairRedelijik = 'ModerateToFairRedelijik',
-  Moderate = 'Moderate',
-  BadToModerate = 'BadToModerate',
-  Bad = 'Bad',
-}
-
-export enum PropertyRelatedItems {
-  Balcony = 'Balcony',
-  Terrace = 'Terrace',
-  RoofTerrace = 'RoofTerrace',
-  Porch = 'Porch',
-}
-
-export enum RoofTypes {
-  TransverseRoof = 'TransverseRoof',
-  ClassRoof = 'ClassRoof',
-  MansardRoof = 'MansardRoof',
-  FlatRoof = 'FlatRoof',
-  HippedRoof = 'HippedRoof',
-  TentRoof = 'TentRoof',
-  SaddleRoof = 'SaddleRoof',
-  CompositeRoof = 'CompositeRoof',
-}
-
-export enum RoofMaterials {
-  Asbestos = 'Asbestos',
-  BituminousRoofing = 'BituminousRoofing',
-  Plastic = 'Plastic',
-  Slate = 'Slate',
-  Metal = 'Metal',
-  Pans = 'Pans',
-  Other = 'Other',
-}
-
-export enum RoofInsulations {
-  SprayFoam = 'SprayFoam',
-  RigidBoards = 'RigidBoards',
-  BlanketOrMatting = 'BlanketOrMatting',
-  GlassRock = 'GlassRock',
-  MineralWool = 'MineralWool',
-  LooseFill = 'LooseFill',
-  StructuralPanels = 'StructuralPanels',
-}
-
-export type KitchenAppliance = {
-  __typename?: 'KitchenAppliance';
-  name: KitchenAppliances;
-  quantity: Scalars['Int'];
-  notes?: Maybe<Scalars['String']>;
+export type Subscription = {
+  __typename?: 'Subscription';
+  _?: Maybe<Scalars['Boolean']>;
 };
 
-export type KitchenSpace = {
-  __typename?: 'KitchenSpace';
-  constructionYear?: Maybe<Scalars['Float']>;
-  notes?: Maybe<Scalars['String']>;
-  type?: Maybe<KitchenType>;
-  constructionType?: Maybe<KitchenConstruction>;
-  services?: Maybe<Array<Maybe<KitchenServices>>>;
-  servicesNotes?: Maybe<Scalars['String']>;
-  appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
-  hob?: Maybe<KitchenHob>;
-  shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
-  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
-  images?: Maybe<Array<File>>;
-};
-
-export type RectangleDimensions = {
-  __typename?: 'RectangleDimensions';
-  length?: Maybe<Scalars['Float']>;
-  height?: Maybe<Scalars['Float']>;
-};
-
-export type GardenDimensions = RectangleDimensions;
-
-export type GardenFeature = {
-  __typename?: 'GardenFeature';
-  mainGarden?: Maybe<Scalars['Boolean']>;
-  type?: Maybe<GardenType>;
-  notes?: Maybe<Scalars['String']>;
-  quality?: Maybe<GardenQualityType>;
-  location?: Maybe<Array<Maybe<Location>>>;
-  shape?: Maybe<GardenShapeType>;
-  dimensions?: Maybe<GardenDimensions>;
-  surface?: Maybe<Scalars['Float']>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type HouseGeneral = {
-  __typename?: 'HouseGeneral';
-  availability?: Maybe<PropertyAvailabilityInformation>;
-  construction?: Maybe<ConstructionInformation>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type HouseGeneralInput = {
-  id: Scalars['ID'];
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-  street: Scalars['String'];
-  city: Scalars['String'];
-  houseNumber: Scalars['String'];
-  postalCode: Scalars['String'];
-};
-
-export enum ConstructionType {
-  UnderConstruction = 'UnderConstruction',
-  InDevelopment = 'InDevelopment',
-}
-
-export type ConstructionInformation = {
-  __typename?: 'ConstructionInformation';
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type ConstructionInformationInput = {
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type PropertyAvailabilityInformation = {
-  __typename?: 'PropertyAvailabilityInformation';
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type PropertyAvailabilityInformationInput = {
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type CreatePimInput = {
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-};
-
-export type UpdatePimInput = {
+export type Team = {
+  __typename?: 'Team';
   id: Scalars['String'];
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-};
-
-export type PimGeneral = HouseGeneral;
-
-export type Pim = {
-  __typename?: 'Pim';
-  id: Scalars['String'];
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-  completeness: Scalars['Float'];
-  archived: Scalars['Boolean'];
-  dateCreated: Scalars['Date'];
-  houseGeneral?: Maybe<HouseGeneral>;
-  floors?: Maybe<Array<Floor>>;
-  outsideFeatures?: Maybe<Array<OutsideFeature>>;
-};
-
-export type SpaceConfiguration = KitchenSpace;
-
-export type Space = {
-  __typename?: 'Space';
-  id: Scalars['String'];
-  spaceType: SpaceType;
-  spaceName?: Maybe<Scalars['String']>;
-  extraRoomPossibility: Scalars['Boolean'];
-  configuration?: Maybe<SpaceConfiguration>;
-};
-
-export type Floor = {
-  __typename?: 'Floor';
-  id: Scalars['String'];
-  floorDescription?: Maybe<Scalars['String']>;
-  level: Scalars['Int'];
-  floorType: FloorType;
-  spaces?: Maybe<Array<Space>>;
-};
-
-export type OutsideFeatureConfiguration = GardenFeature;
-
-export type OutsideFeature = {
-  __typename?: 'OutsideFeature';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: OutsideFeatureType;
-  configuration?: Maybe<OutsideFeatureConfiguration>;
-};
-
-export type Event = {
-  __typename?: 'Event';
-  id: Scalars['String'];
-  entityType: EventEntityType;
-  relatedEntityId?: Maybe<Scalars['String']>;
-  action: EventAction;
-  timestamp: Scalars['Date'];
-  data?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
-};
-
-export type PimSearchResult = {
-  __typename?: 'PimSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<Pim>>;
-};
-
-export type ListPimsFilters = {
-  developmentType?: Maybe<DevelopmentType>;
-  status?: Maybe<PimStatus>;
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  archived?: Maybe<Scalars['Boolean']>;
-};
-
-export type ChangesHistoryFilters = {
-  entityType?: Maybe<EventEntityType>;
-};
-
-export type AddNewFloorInput = {
-  pimId: Scalars['String'];
-  floorDescription?: Maybe<Scalars['String']>;
-  floorType: FloorType;
-};
-
-export type AddSpaceInput = {
-  spaceType: SpaceType;
-  extraRoomPossibility: Scalars['Boolean'];
-  pimId: Scalars['String'];
-  floorId: Scalars['String'];
-  spaceName?: Maybe<Scalars['String']>;
-};
-
-export type UpdateSpaceInput = {
-  pimId: Scalars['String'];
-  spaceId: Scalars['String'];
-  spaceName?: Maybe<Scalars['String']>;
-  space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
+  members?: Maybe<Array<Profile>>;
+  company: Company;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type UpdateFloorInput = {
@@ -657,48 +775,17 @@ export type UpdateFloorInput = {
   floorType?: Maybe<FloorType>;
 };
 
-export type AddOutsideFeatureInput = {
+export type UpdateOutsideFeatureInput = {
   pimId: Scalars['String'];
-  type: OutsideFeatureType;
-  description?: Maybe<Scalars['String']>;
+  outsideFeatureId: Scalars['String'];
+  feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
 };
 
-export enum FilePermission {
-  Public = 'public',
-  Private = 'private',
-}
-
-export enum EntityWithFiles {
-  Pim = 'Pim',
-  Space = 'Space',
-}
-
-export type CreateFileInput = {
-  fileName: Scalars['String'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type AddFilesInput = {
-  fileIDs: Array<Scalars['ID']>;
-  entity: EntityWithFiles;
-  entityID: Scalars['ID'];
-};
-
-export type File = {
-  __typename?: 'File';
-  id: Scalars['ID'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  status: Scalars['Int'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  key: Scalars['ID'];
-  createdAt?: Maybe<Scalars['Date']>;
-  signedUrl?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  bucket?: Maybe<Scalars['String']>;
+export type UpdateSpaceInput = {
+  pimId: Scalars['String'];
+  spaceId: Scalars['String'];
+  spaceName?: Maybe<Scalars['String']>;
+  space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
 };
 
 export type Query = {
@@ -737,14 +824,15 @@ export type Mutation = {
   resetPassword?: Maybe<ResetPasswordResponse>;
   deleteUser?: Maybe<Scalars['String']>;
   createPim?: Maybe<Pim>;
-  updatePim?: Maybe<Pim>;
   removePim?: Maybe<Scalars['String']>;
   updatePimGeneralInfo?: Maybe<Pim>;
+  updatePimOutsideInfo?: Maybe<Pim>;
   addFloorToPim?: Maybe<Pim>;
   addSpaceToFloor?: Maybe<Pim>;
   updateSpace?: Maybe<Pim>;
   updateFloor?: Maybe<Pim>;
   addOutsideFeature?: Maybe<Pim>;
+  updateOutsideFeature?: Maybe<Pim>;
   addFiles: Array<File>;
 };
 
@@ -769,16 +857,16 @@ export type MutationCreatePimArgs = {
   input: CreatePimInput;
 };
 
-export type MutationUpdatePimArgs = {
-  input: UpdatePimInput;
-};
-
 export type MutationRemovePimArgs = {
   id: Scalars['String'];
 };
 
 export type MutationUpdatePimGeneralInfoArgs = {
   input: Scalars['PimGeneralInput'];
+};
+
+export type MutationUpdatePimOutsideInfoArgs = {
+  input: Scalars['PimOutsideInput'];
 };
 
 export type MutationAddFloorToPimArgs = {
@@ -799,6 +887,10 @@ export type MutationUpdateFloorArgs = {
 
 export type MutationAddOutsideFeatureArgs = {
   input: AddOutsideFeatureInput;
+};
+
+export type MutationUpdateOutsideFeatureArgs = {
+  input: Scalars['UpdateFeatureInputConfiguration'];
 };
 
 export type MutationAddFilesArgs = {
@@ -836,14 +928,6 @@ export type CreatePimMutationVariables = {
 
 export type CreatePimMutation = { __typename?: 'Mutation' } & {
   createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
-};
-
-export type UpdatePimMutationVariables = {
-  input: UpdatePimInput;
-};
-
-export type UpdatePimMutation = { __typename?: 'Mutation' } & {
-  updatePim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type UpdatePimGeneralInfoMutationVariables = {
@@ -898,6 +982,14 @@ export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
       outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
     }
   >;
+};
+
+export type UpdatePimOutsideInfoMutationVariables = {
+  input: Scalars['PimOutsideInput'];
+};
+
+export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
+  updatePimOutsideInfo?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type CountPimsByParamsQueryVariables = {
@@ -1004,6 +1096,26 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                   ConstructionInformation,
                   'type' | 'from' | 'to' | 'notes'
                 >
+              >;
+            }
+        >;
+        houseOutside?: Maybe<
+          { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
+              generalInformation?: Maybe<
+                { __typename?: 'GeneralInformation' } & Pick<
+                  GeneralInformation,
+                  'notes' | 'qualityInformation' | 'pictures'
+                >
+              >;
+              propertyRelated?: Maybe<
+                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes' | 'pictures'>
+              >;
+              roofInformation?: Maybe<
+                { __typename?: 'RoofInformation' } & {
+                  type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
+                  material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
+                  insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                }
               >;
             }
         >;
@@ -1146,24 +1258,6 @@ export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePimMutation,
   CreatePimMutationVariables
 >;
-export const UpdatePimDocument = gql`
-  mutation UpdatePim($input: UpdatePimInput!) {
-    updatePim(input: $input) {
-      id
-    }
-  }
-`;
-export function useUpdatePimMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimMutation, UpdatePimMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<UpdatePimMutation, UpdatePimMutationVariables>(UpdatePimDocument, baseOptions);
-}
-export type UpdatePimMutationHookResult = ReturnType<typeof useUpdatePimMutation>;
-export type UpdatePimMutationResult = ApolloReactCommon.MutationResult<UpdatePimMutation>;
-export type UpdatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdatePimMutation,
-  UpdatePimMutationVariables
->;
 export const UpdatePimGeneralInfoDocument = gql`
   mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
     updatePimGeneralInfo(input: $input) {
@@ -1296,6 +1390,30 @@ export type AddOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<A
 export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddOutsideFeatureMutation,
   AddOutsideFeatureMutationVariables
+>;
+export const UpdatePimOutsideInfoDocument = gql`
+  mutation UpdatePimOutsideInfo($input: PimOutsideInput!) {
+    updatePimOutsideInfo(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePimOutsideInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdatePimOutsideInfoMutation,
+    UpdatePimOutsideInfoMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimOutsideInfoMutation, UpdatePimOutsideInfoMutationVariables>(
+    UpdatePimOutsideInfoDocument,
+    baseOptions,
+  );
+}
+export type UpdatePimOutsideInfoMutationHookResult = ReturnType<typeof useUpdatePimOutsideInfoMutation>;
+export type UpdatePimOutsideInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimOutsideInfoMutation>;
+export type UpdatePimOutsideInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimOutsideInfoMutation,
+  UpdatePimOutsideInfoMutationVariables
 >;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
@@ -1450,6 +1568,33 @@ export const PimDetailsDocument = gql`
         floor
         propertyConnection
         propertyDetails
+      }
+      houseOutside {
+        generalInformation {
+          notes
+          qualityInformation
+          pictures
+        }
+        propertyRelated {
+          items
+          notes
+          pictures
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+        }
+        notes
       }
       floors {
         id

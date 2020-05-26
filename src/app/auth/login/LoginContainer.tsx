@@ -39,6 +39,7 @@ export const LoginContainer = () => {
         throw new Error();
       } catch {
         dispatch(setUnauthorized());
+
         return false;
       }
     },
@@ -48,5 +49,6 @@ export const LoginContainer = () => {
   if (isAuthorized) {
     return <Redirect to={AppRoute.home} />;
   }
+
   return <Login onSubmit={onSubmit} />;
 };

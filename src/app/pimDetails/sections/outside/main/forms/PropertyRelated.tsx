@@ -25,11 +25,11 @@ export const PropertyRelated = () => {
               disabled={!isEditMode}
               xs={2}
               lg={1}
-              name="propertyRelated.relatedItems"
+              name="houseOutside.propertyRelated.items"
               options={dictionaries.relatedItems}
             />
             <GenericField
-              name="propertyRelated.notes"
+              name="houseOutside.propertyRelated.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
@@ -37,7 +37,7 @@ export const PropertyRelated = () => {
           </Box>
 
           <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
-          <UploadImageGroupField max={3} disabled={!isEditMode} name="propertyRelated.pictures" />
+          <UploadImageGroupField max={3} disabled={!isEditMode} name="houseOutside.propertyRelated.pictures" />
         </>
       )}
     </FormSection>

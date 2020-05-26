@@ -16,6 +16,7 @@ export const useSelect = <T>(items: T[], itemIndex: keyof T) => {
         if (state.length === items.length) {
           return [];
         }
+
         return items.map(item => `${item[itemIndex]}`);
 
       default:

@@ -8,14 +8,6 @@ export const CREATE_PIM = gql`
   }
 `;
 
-export const UPDATE_PIM = gql`
-  mutation UpdatePim($input: UpdatePimInput!) {
-    updatePim(input: $input) {
-      id
-    }
-  }
-`;
-
 export const UPDATE_PIM_GENERAL_INFO = gql`
   mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
     updatePimGeneralInfo(input: $input) {
@@ -64,6 +56,14 @@ export const ADD_OUTSIDE_FEATURE = gql`
       outsideFeatures {
         id
       }
+    }
+  }
+`;
+
+export const UPDATE_OUTSIDE_INFO = gql`
+  mutation UpdatePimOutsideInfo($input: PimOutsideInput!) {
+    updatePimOutsideInfo(input: $input) {
+      id
     }
   }
 `;

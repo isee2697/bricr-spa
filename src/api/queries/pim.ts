@@ -106,6 +106,33 @@ export const PIM_DETAILS = gql`
         propertyConnection
         propertyDetails
       }
+      houseOutside {
+        generalInformation {
+          notes
+          qualityInformation
+          pictures
+        }
+        propertyRelated {
+          items
+          notes
+          pictures
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+        }
+        notes
+      }
       floors {
         id
         level

@@ -16,7 +16,7 @@ export const GeneralInformation = () => {
         <>
           <Box mb={4}>
             <GenericField
-              name="generalInformation.notes"
+              name="houseOutside.generalInformation.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
@@ -34,13 +34,13 @@ export const GeneralInformation = () => {
               disabled={!isEditMode}
               xs={2}
               lg={1}
-              name="generalInformation.qualityInformation"
+              name="houseOutside.generalInformation.qualityInformation"
               options={dictionaries.qualities}
             />
           </Box>
 
           <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
-          <UploadImageGroupField max={3} disabled={!isEditMode} name="generalInformation.pictures" />
+          <UploadImageGroupField max={3} disabled={!isEditMode} name="houseOutside.generalInformation.pictures" />
         </>
       )}
     </FormSection>

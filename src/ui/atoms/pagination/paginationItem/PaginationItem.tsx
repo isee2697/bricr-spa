@@ -15,6 +15,7 @@ export const PaginationItem = ({ page, type, selected, disabled, ...rest }: Pagi
       </li>
     );
   }
+
   if (type === 'page') {
     return (
       <li key={`${type}${page}`}>
@@ -24,6 +25,7 @@ export const PaginationItem = ({ page, type, selected, disabled, ...rest }: Pagi
       </li>
     );
   }
+
   return (
     <li key={`${type}${page}`}>
       <button className={classes.nav} disabled={disabled}>
