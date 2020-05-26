@@ -18,7 +18,7 @@ export const Authorization = ({ children }: AuthorizationProps) => {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12} sm={8} md={7} lg={4} component={Paper} elevation={6} square>
-        <TopBar className={classes.topBar}></TopBar>
+        <TopBar className={classes.topBar} />
 
         <Grid item xs={10} md={9} lg={9} className={classes.content}>
           {children}

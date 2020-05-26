@@ -35,10 +35,14 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     justifyContent: 'center',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    paddingTop: theme.spacing(5.5),
     '& form': {
       width: '100%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: 0,
+      flexDirection: 'column',
+      alignItems: 'center',
     },
   },
 }));
