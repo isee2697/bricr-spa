@@ -9,11 +9,14 @@ import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordC
 import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 import { PimContainer } from 'app/pim/PimContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
+import { useScrollToTop } from 'hooks';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
 
 export const AppRoutes = () => {
+  useScrollToTop();
+
   return (
     <Switch>
       <Route path="/auth">

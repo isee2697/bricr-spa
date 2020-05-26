@@ -46,6 +46,12 @@ const theme = createMuiTheme({
       separator: {
         color: (palette.primary as SimplePaletteColorOptions).main,
       },
+      li: {
+        maxWidth: defaultTheme.spacing(13.75),
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+      },
     },
     MuiButton: {
       root: {

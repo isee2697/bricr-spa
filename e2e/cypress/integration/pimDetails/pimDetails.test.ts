@@ -65,7 +65,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add floor', () => {
-    cy.findByText('Customize').click();
+    cy.findByText('Inside').click();
     cy.contains('You don’t have any added floors yet.');
 
     cy.findByText('Add new floor').click();
