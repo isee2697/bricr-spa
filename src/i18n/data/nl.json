@@ -319,6 +319,7 @@
   "pim_details.cadastre.add_new_plot": "Voeg een nieuw perceel toe",
   "pim_details.cadastre.autofill_cadastre": "Kadaster automatisch aanvullen",
   "pim_details.cadastre.description_placeholder": "Een paar woorden over kadaster ...",
+  "pim_details.cadastre.name_placeholder": "Kaart naam",
   "pim_details.cadastre.bulk_actions": "Bulk acties",
   "pim_details.cadastre.select_all": "Selecteer alles",
   "pim_details.cadastre.cadastre_map": "Kadaster kaart",
