@@ -193,6 +193,26 @@ export const PIM_DETAILS = gql`
         dateUpdated
         updatedBy
       }
+      services {
+        heating {
+          id
+          name
+        }
+        hotWater {
+          id
+          name
+        }
+        additional {
+          id
+          name
+        }
+        meters {
+          id
+          name
+          type
+          counter
+        }
+      }
     }
   }
 `;

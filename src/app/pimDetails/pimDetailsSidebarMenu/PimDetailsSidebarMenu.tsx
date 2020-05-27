@@ -29,6 +29,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
 
   const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
   const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
+  const meterGroups = groupBy((pim && pim.services && pim.services.meters) || [], meter => meter.type);
 
   const createSubMenuData = (id: string, label: string, amount: number, key: number): subMenuItem => {
     return { id, label, number: amount > 1 ? amount - key : undefined };
@@ -83,6 +84,9 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     },
     {
       name: 'services',
+      subItems: Object.entries(meterGroups).map((values, key) =>
+        createSubMenuData(values[0].toLowerCase(), `dictionaries.meter_type.${values[0].toLowerCase()}`, 0, key),
+      ),
       icon: <HelpIcon />,
     },
     {

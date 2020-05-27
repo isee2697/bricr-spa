@@ -426,6 +426,7 @@ type Pim {
   floors: [Floor!]
   outsideFeatures: [OutsideFeature!]
   cadastralMaps: [CadastreMap!]
+  services: Services
 }
 
 union PimGeneral = HouseGeneral
@@ -488,6 +489,30 @@ type CadastreMap {
   description: String
   dateUpdated: Date
   updatedBy: String
+}
+
+type BaseService {
+  id: String!
+  name: String
+}
+
+enum MeterType {
+  Gas
+  Water
+  Electricity
+}
+type Meters {
+  id: String!
+  type: MeterType!
+  name: String
+  counter: Float
+}
+
+type Services {
+  heating: [BaseService]
+  hotWater: [BaseService]
+  additional: [BaseService]
+  meters: [Meters!]
 }
 
 input PropertyAvailabilityInformationInput {

@@ -6,6 +6,7 @@ import {
   PropertyType,
   OutsideFeatureType,
   CadastreMapType,
+  MeterType,
 } from 'api/types';
 
 export const PIM_1 = {
@@ -110,4 +111,15 @@ export const PIM_DETAILS_1: Pim = {
       dateUpdated: '2020-04-28T07:30:18.162',
     },
   ],
+  services: {
+    heating: [],
+    hotWater: [],
+    additional: [],
+    meters: [
+      { id: '1', type: MeterType.Electricity },
+      { id: '2', type: MeterType.Electricity },
+      { id: '3', type: MeterType.Gas },
+      { id: '4', type: MeterType.Water },
+    ],
+  },
 };

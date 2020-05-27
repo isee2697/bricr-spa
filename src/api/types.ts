@@ -156,12 +156,12 @@ export enum EntityWithFiles {
 
 export type Event = {
   __typename?: 'Event';
-  action: EventAction;
-  data?: Maybe<Scalars['String']>;
-  entityType: EventEntityType;
   id: Scalars['String'];
+  entityType: EventEntityType;
   relatedEntityId?: Maybe<Scalars['String']>;
+  action: EventAction;
   timestamp: Scalars['Date'];
+  data?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -452,6 +452,7 @@ export type Pim = {
   floors?: Maybe<Array<Floor>>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   cadastralMaps?: Maybe<Array<CadastreMap>>;
+  services?: Maybe<Services>;
 };
 
 export type PimGeneral = HouseGeneral;
@@ -517,6 +518,34 @@ export type CadastreMap = {
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   updatedBy?: Maybe<Scalars['String']>;
+};
+
+export type BaseService = {
+  __typename?: 'BaseService';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export enum MeterType {
+  Gas = 'Gas',
+  Water = 'Water',
+  Electricity = 'Electricity',
+}
+
+export type Meters = {
+  __typename?: 'Meters';
+  id: Scalars['String'];
+  type: MeterType;
+  name?: Maybe<Scalars['String']>;
+  counter?: Maybe<Scalars['Float']>;
+};
+
+export type Services = {
+  __typename?: 'Services';
+  heating?: Maybe<Array<Maybe<BaseService>>>;
+  hotWater?: Maybe<Array<Maybe<BaseService>>>;
+  additional?: Maybe<Array<Maybe<BaseService>>>;
+  meters?: Maybe<Array<Meters>>;
 };
 
 export type PropertyAvailabilityInformationInput = {
@@ -1201,6 +1230,14 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
             >
           >
         >;
+        services?: Maybe<
+          { __typename?: 'Services' } & {
+            heating?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
+            hotWater?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
+            additional?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
+            meters?: Maybe<Array<{ __typename?: 'Meters' } & Pick<Meters, 'id' | 'name' | 'type' | 'counter'>>>;
+          }
+        >;
       }
   >;
 };
@@ -1686,6 +1723,26 @@ export const PimDetailsDocument = gql`
         type
         dateUpdated
         updatedBy
+      }
+      services {
+        heating {
+          id
+          name
+        }
+        hotWater {
+          id
+          name
+        }
+        additional {
+          id
+          name
+        }
+        meters {
+          id
+          name
+          type
+          counter
+        }
       }
     }
   }
