@@ -16,3 +16,4 @@ export { SelectCard } from './selectCard/SelectCard';
 export { QuantityInput } from './quantityInput/QuantityInput';
 export { SubSectionHeader } from './subSectionHeader/SubSectionHeader';
 export { FormSubSection } from './formSubSection/FormSubSection';
+export { LinkedPerson } from './linkedPerson/LinkedPerson';
