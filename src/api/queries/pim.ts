@@ -87,8 +87,8 @@ export const PIM_DETAILS = gql`
       completeness
       archived
       dateCreated
-      dateUpdated
-      updatedBy
+      # dateUpdated
+      # updatedBy
       houseGeneral {
         availability {
           availability
@@ -184,35 +184,35 @@ export const PIM_DETAILS = gql`
           }
         }
       }
-      cadastralMaps {
-        id
-        file
-        fileName
-        title
-        type
-        dateUpdated
-        updatedBy
-      }
-      services {
-        heating {
-          id
-          name
-        }
-        hotWater {
-          id
-          name
-        }
-        additional {
-          id
-          name
-        }
-        meters {
-          id
-          name
-          type
-          counter
-        }
-      }
+      # cadastralMaps {
+      #   id
+      #   file
+      #   fileName
+      #   title
+      #   type
+      #   dateUpdated
+      #   updatedBy
+      # }
+      # services {
+      #   heating {
+      #     id
+      #     name
+      #   }
+      #   hotWater {
+      #     id
+      #     name
+      #   }
+      #   additional {
+      #     id
+      #     name
+      #   }
+      #   meters {
+      #     id
+      #     name
+      #     type
+      #     counter
+      #   }
+      # }
     }
   }
 `;

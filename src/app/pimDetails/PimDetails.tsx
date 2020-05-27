@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { Pim } from 'api/types';
-import { Grid, Alert, LastUpdated } from 'ui/atoms';
+import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -96,12 +96,12 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
             </Switch>
           )}
         </Grid>
-        <LastUpdated
+        {/* <LastUpdated
           dateUpdated={!!pim ? pim.dateUpdated : null}
           updatedBy={!!pim ? pim.updatedBy : null}
           className={classes.lastUpdated}
           withIcon
-        />
+        /> */}
       </Grid>
     </Grid>
   );

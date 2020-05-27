@@ -20,7 +20,12 @@ export const KitchenContainer = ({ spaceId, initialValues, ...props }: KitchenCo
           input: {
             pimId: id,
             spaceId: spaceId,
-            space: body,
+            space: {
+              ...body,
+              configuration: {
+                images: [], //@TODO - has to wait for API fix
+              },
+            },
           },
         },
         refetchQueries: [

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -445,7 +444,6 @@ export type Pim = {
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
   updatedBy?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneral>;
   houseOutside?: Maybe<HouseOutside>;
@@ -1131,8 +1129,6 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
       | 'completeness'
       | 'archived'
       | 'dateCreated'
-      | 'dateUpdated'
-      | 'updatedBy'
     > & {
         images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
         houseGeneral?: Maybe<
@@ -1221,22 +1217,6 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                 configuration?: Maybe<{ __typename?: 'GardenFeature' } & Pick<GardenFeature, 'mainGarden'>>;
               }
           >
-        >;
-        cadastralMaps?: Maybe<
-          Array<
-            { __typename?: 'CadastreMap' } & Pick<
-              CadastreMap,
-              'id' | 'file' | 'fileName' | 'title' | 'type' | 'dateUpdated' | 'updatedBy'
-            >
-          >
-        >;
-        services?: Maybe<
-          { __typename?: 'Services' } & {
-            heating?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
-            hotWater?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
-            additional?: Maybe<Array<Maybe<{ __typename?: 'BaseService' } & Pick<BaseService, 'id' | 'name'>>>>;
-            meters?: Maybe<Array<{ __typename?: 'Meters' } & Pick<Meters, 'id' | 'name' | 'type' | 'counter'>>>;
-          }
         >;
       }
   >;
@@ -1618,8 +1598,6 @@ export const PimDetailsDocument = gql`
       completeness
       archived
       dateCreated
-      dateUpdated
-      updatedBy
       houseGeneral {
         availability {
           availability
@@ -1713,35 +1691,6 @@ export const PimDetailsDocument = gql`
           ... on GardenFeature {
             mainGarden
           }
-        }
-      }
-      cadastralMaps {
-        id
-        file
-        fileName
-        title
-        type
-        dateUpdated
-        updatedBy
-      }
-      services {
-        heating {
-          id
-          name
-        }
-        hotWater {
-          id
-          name
-        }
-        additional {
-          id
-          name
-        }
-        meters {
-          id
-          name
-          type
-          counter
         }
       }
     }

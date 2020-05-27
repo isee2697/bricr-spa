@@ -419,7 +419,6 @@ type Pim {
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!
-  dateUpdated: Date
   updatedBy: String
   houseGeneral: HouseGeneral
   houseOutside: HouseOutside

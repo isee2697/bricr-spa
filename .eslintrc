@@ -58,6 +58,12 @@
           }
         ]
       }
+    },
+    {
+      "files": ["src/api/types.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
     }
   ]
 }

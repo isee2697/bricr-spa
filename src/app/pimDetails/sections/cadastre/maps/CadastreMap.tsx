@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SubSectionHeader } from 'ui/molecules';
-import { Grid, Collapse, ImageHolder, LastUpdated, Box } from 'ui/atoms';
+import { Grid, Collapse, ImageHolder, Box } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 
 import { MapProps } from './CadastralMaps.types';
@@ -45,7 +45,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
               label="pim_details.cadastre.description_label"
             />
             <Box mb={4} />
-            <LastUpdated dateUpdated={cadastreMap.dateUpdated} updatedBy={cadastreMap.updatedBy} />
+            {/* <LastUpdated dateUpdated={cadastreMap.dateUpdated} updatedBy={cadastreMap.updatedBy} /> */}
           </Grid>
         </Grid>
       </Collapse>
