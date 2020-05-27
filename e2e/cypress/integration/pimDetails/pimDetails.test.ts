@@ -153,6 +153,25 @@ context('Pim Details', () => {
     cy.contains('Garden 3');
   });
 
+  it('allows to edit outside feature', () => {
+    cy.contains('Garden 3');
+    cy.findByText('Main garden').click();
+
+    cy.findAllByText('Edit mode')
+      .first()
+      .click();
+    cy.findByText('Place').click();
+    cy.get('input[name="configuration.notes"]').type('some note');
+    cy.findByText('Neglected').click();
+    cy.findByText('North').click();
+    cy.findByText('West').click();
+    cy.get('input[name="configuration.dimensions.height"]').type('200');
+    cy.get('input[name="configuration.dimensions.length"]').type('100');
+    cy.get('input[name="configuration.surface"]').type('20000');
+
+    cy.wait(3000);
+  });
+
   it('shows pim after change on list', () => {
     cy.findAllByText('PIM')
       .first()

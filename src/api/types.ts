@@ -1032,6 +1032,14 @@ export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type UpdateOutsideFeatureMutationVariables = {
+  input: Scalars['UpdateFeatureInputConfiguration'];
+};
+
+export type UpdateOutsideFeatureMutation = { __typename?: 'Mutation' } & {
+  updateOutsideFeature?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
 export type UpdatePimOutsideInfoMutationVariables = {
   input: Scalars['PimOutsideInput'];
 };
@@ -1214,7 +1222,16 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
         outsideFeatures?: Maybe<
           Array<
             { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
-                configuration?: Maybe<{ __typename?: 'GardenFeature' } & Pick<GardenFeature, 'mainGarden'>>;
+                configuration?: Maybe<
+                  { __typename?: 'GardenFeature' } & Pick<
+                    GardenFeature,
+                    'mainGarden' | 'type' | 'notes' | 'quality' | 'location' | 'shape' | 'surface' | 'pictures'
+                  > & {
+                      dimensions?: Maybe<
+                        { __typename?: 'RectangleDimensions' } & Pick<RectangleDimensions, 'length' | 'height'>
+                      >;
+                    }
+                >;
               }
           >
         >;
@@ -1438,6 +1455,30 @@ export type AddOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<A
 export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddOutsideFeatureMutation,
   AddOutsideFeatureMutationVariables
+>;
+export const UpdateOutsideFeatureDocument = gql`
+  mutation updateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
+    updateOutsideFeature(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateOutsideFeatureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateOutsideFeatureMutation,
+    UpdateOutsideFeatureMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateOutsideFeatureMutation, UpdateOutsideFeatureMutationVariables>(
+    UpdateOutsideFeatureDocument,
+    baseOptions,
+  );
+}
+export type UpdateOutsideFeatureMutationHookResult = ReturnType<typeof useUpdateOutsideFeatureMutation>;
+export type UpdateOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<UpdateOutsideFeatureMutation>;
+export type UpdateOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateOutsideFeatureMutation,
+  UpdateOutsideFeatureMutationVariables
 >;
 export const UpdatePimOutsideInfoDocument = gql`
   mutation UpdatePimOutsideInfo($input: PimOutsideInput!) {
@@ -1690,6 +1731,19 @@ export const PimDetailsDocument = gql`
         configuration {
           ... on GardenFeature {
             mainGarden
+            type
+            notes
+            quality
+            location
+            shape
+            dimensions {
+              ... on RectangleDimensions {
+                length
+                height
+              }
+            }
+            surface
+            pictures
           }
         }
       }

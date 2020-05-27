@@ -4,117 +4,117 @@ import { LinkIcon } from 'ui/atoms/icons';
 
 export const gardenTypes = [
   {
-    label: 'dictionaries.outside_garden_types.backyard',
+    label: 'dictionaries.outside_garden_types.Backyard',
     icon: <LinkIcon color="inherit" />,
-    value: 'backyard',
+    value: 'Backyard',
   },
   {
-    label: 'dictionaries.outside_garden_types.patio_atrium',
+    label: 'dictionaries.outside_garden_types.PatioAtrium',
     icon: <LinkIcon color="inherit" />,
-    value: 'patio_or_atrium',
+    value: 'PatioOrAtrium',
   },
   {
-    label: 'dictionaries.outside_garden_types.place',
+    label: 'dictionaries.outside_garden_types.Place',
     icon: <LinkIcon color="inherit" />,
-    value: 'place',
+    value: 'Place',
   },
   {
-    label: 'dictionaries.outside_garden_types.all_around_garden',
+    label: 'dictionaries.outside_garden_types.AllAroundGarden',
     icon: <LinkIcon color="inherit" />,
-    value: 'all_around_garden',
+    value: 'AllGroundGarden',
   },
   {
-    label: 'dictionaries.outside_garden_types.front_garden',
+    label: 'dictionaries.outside_garden_types.FrontGarden',
     icon: <LinkIcon color="inherit" />,
-    value: 'front_garden',
+    value: 'FrontGarden',
   },
   {
-    label: 'dictionaries.outside_garden_types.sun_terrace',
+    label: 'dictionaries.outside_garden_types.SunTerrace',
     icon: <LinkIcon color="inherit" />,
-    value: 'sun_terrace',
+    value: 'SunTerrace',
   },
   {
-    label: 'dictionaries.outside_garden_types.side_garden',
+    label: 'dictionaries.outside_garden_types.SideGarden',
     icon: <LinkIcon color="inherit" />,
-    value: 'side_garden',
-  },
-];
-
-export const windDirectionTypes = [
-  {
-    label: 'dictionaries.wind_directions.north',
-    icon: <LinkIcon color="inherit" />,
-    value: 'north',
-  },
-  {
-    label: 'dictionaries.wind_directions.east',
-    icon: <LinkIcon color="inherit" />,
-    value: 'east',
-  },
-  {
-    label: 'dictionaries.wind_directions.south',
-    icon: <LinkIcon color="inherit" />,
-    value: 'south',
-  },
-  {
-    label: 'dictionaries.wind_directions.west',
-    icon: <LinkIcon color="inherit" />,
-    value: 'west',
+    value: 'BackGarden',
   },
 ];
 
-export const gardenQualityTypes = [
+export const locations = [
   {
-    label: 'dictionaries.outside_garden_quality.to_be_constructed',
+    label: 'dictionaries.location.North',
     icon: <LinkIcon color="inherit" />,
-    value: 'to_be_constructed',
+    value: 'North',
   },
   {
-    label: 'dictionaries.outside_garden_quality.beautifully_constructed',
+    label: 'dictionaries.location.East',
     icon: <LinkIcon color="inherit" />,
-    value: 'beautifully_constructed',
+    value: 'South',
   },
   {
-    label: 'dictionaries.outside_garden_quality.normal',
+    label: 'dictionaries.location.South',
     icon: <LinkIcon color="inherit" />,
-    value: 'normal',
+    value: 'East',
   },
   {
-    label: 'dictionaries.outside_garden_quality.neglected',
+    label: 'dictionaries.location.West',
     icon: <LinkIcon color="inherit" />,
-    value: 'neglected',
-  },
-  {
-    label: 'dictionaries.outside_garden_quality.taken_care_of',
-    icon: <LinkIcon color="inherit" />,
-    value: 'taken_care_of',
+    value: 'West',
   },
 ];
 
-export const gardenShapeTypes = [
+export const gardenQualities = [
   {
-    label: 'dictionaries.outside_garden_shape.square',
+    label: 'dictionaries.outside_garden_quality.ToBeConstructed',
     icon: <LinkIcon color="inherit" />,
-    value: 'square',
+    value: 'ToBeConstructed',
   },
   {
-    label: 'dictionaries.outside_garden_shape.rectangle',
+    label: 'dictionaries.outside_garden_quality.BeautifullyConstructed',
     icon: <LinkIcon color="inherit" />,
-    value: 'rectangle',
+    value: 'BeautifullyConstructed',
   },
   {
-    label: 'dictionaries.outside_garden_shape.l_shape',
+    label: 'dictionaries.outside_garden_quality.Normal',
     icon: <LinkIcon color="inherit" />,
-    value: 'l_shape',
+    value: 'Normal',
   },
   {
-    label: 'dictionaries.outside_garden_shape.u_shape',
+    label: 'dictionaries.outside_garden_quality.Neglected',
     icon: <LinkIcon color="inherit" />,
-    value: 'u_shape',
+    value: 'Neglected',
   },
   {
-    label: 'dictionaries.outside_garden_shape.t_shape',
+    label: 'dictionaries.outside_garden_quality.TakenCareOf',
     icon: <LinkIcon color="inherit" />,
-    value: 't_shape',
+    value: 'TakenCareOf',
+  },
+];
+
+export const gardenShapes = [
+  {
+    label: 'dictionaries.outside_garden_shape.Square',
+    icon: <LinkIcon color="inherit" />,
+    value: 'Square',
+  },
+  {
+    label: 'dictionaries.outside_garden_shape.Rectangle',
+    icon: <LinkIcon color="inherit" />,
+    value: 'Rectangle',
+  },
+  {
+    label: 'dictionaries.outside_garden_shape.LShape',
+    icon: <LinkIcon color="inherit" />,
+    value: 'LShape',
+  },
+  {
+    label: 'dictionaries.outside_garden_shape.UShape',
+    icon: <LinkIcon color="inherit" />,
+    value: 'UShape',
+  },
+  {
+    label: 'dictionaries.outside_garden_shape.TShape',
+    icon: <LinkIcon color="inherit" />,
+    value: 'TShape',
   },
 ];

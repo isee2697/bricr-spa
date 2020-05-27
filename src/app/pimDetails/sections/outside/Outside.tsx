@@ -13,7 +13,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
-import { Garden } from './garden/Garden';
+import { GardenContainer } from './garden/GardenContainer';
 
 export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
@@ -46,10 +46,9 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
       <Switch>
         <Route default path={`${AppRoute.pimDetails}/outside`} exact render={() => <MainContainer />} />
-        {!!pim.outsideFeatures?.length &&
-          pim.outsideFeatures.map(outside => (
-            <Route key={outside.id} path={`${AppRoute.pimDetails}/outside/${outside.id}`} render={() => <Garden />} />
-          ))}
+        {!!pim.outsideFeatures?.length && (
+          <Route path={`${AppRoute.pimDetails}/outside/:featureId`} render={() => <GardenContainer />} />
+        )}
         <Redirect to={`${AppRoute.pimDetails}/outside`} />
       </Switch>
 

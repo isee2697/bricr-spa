@@ -181,6 +181,19 @@ export const PIM_DETAILS = gql`
         configuration {
           ... on GardenFeature {
             mainGarden
+            type
+            notes
+            quality
+            location
+            shape
+            dimensions {
+              ... on RectangleDimensions {
+                length
+                height
+              }
+            }
+            surface
+            pictures
           }
         }
       }

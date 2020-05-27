@@ -16,15 +16,16 @@ import { AutosaveForm, FormSection } from 'ui/organisms';
 import { FormSubSection } from 'ui/molecules';
 
 import * as dictionaries from './dictionaries';
+import { GardenProps } from './Garden.types';
 import { useStyles } from './Garden.styles';
 
-export const Garden = () => {
+export const Garden = ({ feature, onSave }: GardenProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <>
-      <AutosaveForm onSave={() => Promise.resolve({ error: false })} mutators={{ ...arrayMutators }} subscription={{}}>
+      <AutosaveForm initialValues={feature} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
         <Grid item xs={12} className={classes.form}>
           <Grid container alignItems="center">
             <Typography className={classes.title} variant="h1">
@@ -60,17 +61,18 @@ export const Garden = () => {
                       xs={3}
                       lg={2}
                       disabled={!isEditMode}
-                      name="roofInformation.roofType"
+                      name="configuration.type"
                       options={dictionaries.gardenTypes}
                     />
                   </Grid>
                   <GenericField
-                    name="roofInformation.roofTypeNotes"
+                    name="configuration.notes"
                     label="common.notes"
                     placeholder="pim_details.outside.garden.notes_placeholder"
                     disabled={!isEditMode}
                   />
                 </Box>
+
                 <Box mb={4}>
                   <Box mb={3}>
                     <FormSubSection
@@ -83,11 +85,12 @@ export const Garden = () => {
                       xs={3}
                       lg={2}
                       disabled={!isEditMode}
-                      name="outside.quality"
-                      options={dictionaries.gardenQualityTypes}
+                      name="configuration.quality"
+                      options={dictionaries.gardenQualities}
                     />
                   </Grid>
                 </Box>
+
                 <Box mb={4}>
                   <Box mb={3}>
                     <FormSubSection
@@ -99,10 +102,11 @@ export const Garden = () => {
                     disabled={!isEditMode}
                     xs={2}
                     lg={1}
-                    name="outside.windDirection"
-                    options={dictionaries.windDirectionTypes}
+                    name="configuration.location"
+                    options={dictionaries.locations}
                   />
                 </Box>
+
                 <Box mb={4}>
                   <Box mb={3}>
                     <FormSubSection
@@ -115,11 +119,12 @@ export const Garden = () => {
                       xs={3}
                       lg={2}
                       disabled={!isEditMode}
-                      name="outside.shape"
-                      options={dictionaries.gardenShapeTypes}
+                      name="configuration.shape"
+                      options={dictionaries.gardenShapes}
                     />
                   </Grid>
                 </Box>
+
                 <Box mb={3}>
                   <FormSubSection
                     title={formatMessage({ id: 'pim_details.outside.garden.surface' })}
@@ -129,8 +134,8 @@ export const Garden = () => {
                   <Grid container>
                     <Grid item xs={12} md={4}>
                       <GenericField
-                        name={`outside.garden.width`}
-                        label="pim_details.outside.garden.width"
+                        name="configuration.dimensions.height"
+                        label="pim_details.outside.garden.height"
                         type="number"
                         size="medium"
                         InputProps={{
@@ -139,7 +144,7 @@ export const Garden = () => {
                         disabled={!isEditMode}
                       />
                       <GenericField
-                        name={`outside.garden.length`}
+                        name="configuration.dimensions.length"
                         label="pim_details.outside.garden.length"
                         type="number"
                         size="medium"
@@ -152,7 +157,7 @@ export const Garden = () => {
                     <Grid item md={2}></Grid>
                     <Grid item xs={12} md={6}>
                       <CardField
-                        name="outside.surface"
+                        name="configuration.surface"
                         label="pim_details.outside.garden.surface"
                         endAdornment="㎡"
                         type="number"
@@ -161,6 +166,7 @@ export const Garden = () => {
                     </Grid>
                   </Grid>
                 </Box>
+
                 <Box mb={3}>
                   <FormSubSection
                     title={formatMessage({ id: 'common.pictures' })}

@@ -1,4 +1,15 @@
-import { RealEstateType, DevelopmentType, PimStatus, Pim, PropertyType, OutsideFeatureType } from 'api/types';
+import {
+  RealEstateType,
+  DevelopmentType,
+  PimStatus,
+  Pim,
+  PropertyType,
+  OutsideFeatureType,
+  GardenType,
+  GardenQualityType,
+  Location,
+  GardenShapeType,
+} from 'api/types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -60,6 +71,17 @@ export const PIM_DETAILS_1: Pim = {
       configuration: {
         __typename: 'GardenFeature',
         mainGarden: true,
+        type: GardenType.Backyard,
+        notes: 'Some notes',
+        quality: GardenQualityType.Neglected,
+        location: [Location.East, Location.South],
+        shape: GardenShapeType.LShape,
+        dimensions: {
+          __typename: 'RectangleDimensions',
+          length: 100,
+          height: 200,
+        },
+        surface: 20000,
       },
     },
     {
