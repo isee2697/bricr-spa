@@ -51,7 +51,10 @@ export const Pim = ({
                     items={(listData?.listPims.items ?? []) as PimEntity[]}
                     itemIndex={'id'}
                     renderItem={(pim, checked, checkbox) => (
-                      <Box className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
+                      <Box
+                        key={pim.id}
+                        className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}
+                      >
                         {checkbox}
                         <Box component="span" className={classes.rowItem}>
                           <Box

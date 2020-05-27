@@ -28,6 +28,7 @@ export const CadastralMaps = ({ cadstralMaps }: MapsProps) => {
             itemIndex={'id'}
             renderItem={(cadastre, _checked, checkbox) => (
               <CadastreMap
+                key={cadastre.id}
                 isEditMode={isEditMode}
                 title={
                   <>

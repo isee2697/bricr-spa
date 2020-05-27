@@ -24,18 +24,21 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
           </Grid>
           <Grid item md={7}>
             <GenericField
+              id={`cadastreMap.title.${cadastreMap.id}`}
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.name_placeholder"
               name="cadastreMap.title"
               label="pim_details.cadastre.name_label"
             />
             <GenericField
+              id={`cadastreMap.fileName.${cadastreMap.id}`}
               disabled={!isEditMode}
               name="cadastreMap.fileName"
               placeholder="pim_details.cadastre.file_name_placeholder"
               label="pim_details.cadastre.file_name_placeholder"
             />
             <GenericField
+              id={`cadastreMap.description.${cadastreMap.id}`}
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.description_placeholder"
               name="cadastreMap.description"
