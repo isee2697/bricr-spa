@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Box, Button } from '@material-ui/core';
 
@@ -10,9 +10,11 @@ import { AddIcon } from 'ui/atoms/icons';
 
 import { Meters } from './meters/Meters';
 import { Services } from './Services';
+import { AddMeterModalContainer } from './addMeterModal/AddMeterModalContainer';
 
 export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
+  const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
   const handleSave = () => Promise.resolve({ error: false });
 
   if (!pim) {
@@ -31,7 +33,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
               color="primary"
               variant="contained"
               startIcon={<AddIcon color="inherit" />}
-              onClick={() => {}}
+              onClick={() => setIsMeterModalOpen(true)}
               size="small"
             >
               {formatMessage({ id: 'pim_details.services.add_new_meter' })}
@@ -69,6 +71,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
         />
         <Redirect to={`${AppRoute.pimDetails}/services`} />
       </Switch>
+      <AddMeterModalContainer isOpened={isMeterModalOpen} onClose={() => setIsMeterModalOpen(false)} />
     </>
   );
 };

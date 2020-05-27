@@ -85,7 +85,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     {
       name: 'services',
       subItems: Object.entries(meterGroups).map((values, key) =>
-        createSubMenuData(values[0].toLowerCase(), `dictionaries.meter_type.${values[0].toLowerCase()}`, 0, key),
+        createSubMenuData(values[0].toLowerCase(), `pim_details.services.${values[0].toLowerCase()}_meters`, 0, key),
       ),
       icon: <HelpIcon />,
     },

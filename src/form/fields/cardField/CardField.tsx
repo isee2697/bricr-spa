@@ -63,8 +63,9 @@ export const CardField = ({
         )}
       >
         <Grid container justify="center" alignItems="center" spacing={1}>
-          <Grid item>
+          <Grid className="caret" item>
             <Typography variant="h1">{input.value}</Typography>
+            <i></i>
           </Grid>
           <Grid item className={classes.adornment}>
             {endAdornment}

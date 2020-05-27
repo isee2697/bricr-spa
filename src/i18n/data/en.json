@@ -386,6 +386,12 @@
   "pim_details.services.hot_water": "Hot water suply",
   "pim_details.services.hot_water_empty_title": "You don't have any warm water supllies yet.",
   "pim_details.services.hot_water_empty_description": "To change that click the \"circle\" button at the top of the card",
+  "pim_details.services.meter_name": "Name of the meter",
+  "pim_details.services.add_meter": "Add meter",
+  "pim_details.services.add_meter_modal_title": "What type of meter do you want to add?",
+  "pim_details.services.gas_meters": "Gas meters",
+  "pim_details.services.electricity_meters": "Electricity meters",
+  "pim_details.services.water_meters": "Water meters",
   "date_picker.aria_label": "Pick a date",
   "time_picker.aria_label": "Pick a time",
   "upload_image.invalid_file": "only images allowed",
@@ -593,7 +599,7 @@
   "dictionaries.cadastre_ground_duration.Forever": "Forever",
   "dictionaries.cadastre_ground_duration.Temporary": "Temporary",
   "dictionaries.cadastre_ground_duration.Constantly": "Constantly",
-  "dictionaries.meter_type.gas": "Gas meters",
-  "dictionaries.meter_type.electricity": "Electricity meters",
-  "dictionaries.meter_type.water": "Water meters"
+  "dictionaries.meter_type.Gas": "Gas",
+  "dictionaries.meter_type.Water": "Water",
+  "dictionaries.meter_type.Electricity": "Electric"
 }

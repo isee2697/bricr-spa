@@ -386,6 +386,12 @@
   "pim_details.services.hot_water": "Warm water voorziening",
   "pim_details.services.hot_water_empty_title": "U heeft nog geen warm water voorzieningen.",
   "pim_details.services.hot_water_empty_description": "Om dat veranderen klik de \"ronde\" knop boven in de kaart",
+  "pim_details.services.meter_name": "Naam van de meter",
+  "pim_details.services.add_meter": "Voeg meter toe",
+  "pim_details.services.add_meter_modal_title": "Wat voor een soort meter wil je toevoegen?",
+  "pim_details.services.gas_meters": "Gas meters",
+  "pim_details.services.electricity_meters": "Electriciteit meters",
+  "pim_details.services.water_meters": "Water meters",
   "date_picker.aria_label": "Kies een datum",
   "time_picker.aria_label": "Kies een tijd",
   "upload_image.invalid_file": "alleen afbeeldingen toegestaan",
@@ -593,7 +599,7 @@
   "dictionaries.cadastre_ground_duration.Forever": "Voor altijd",
   "dictionaries.cadastre_ground_duration.Temporary": "Tijdelijk",
   "dictionaries.cadastre_ground_duration.Constantly": "Voortdurend",
-  "dictionaries.meter_type.gas": "Gas meters",
-  "dictionaries.meter_type.electricity": "Electriciteit meters",
-  "dictionaries.meter_type.water": "Water meters"
+  "dictionaries.meter_type.Gas": "Gas",
+  "dictionaries.meter_type.Water": "Water",
+  "dictionaries.meter_type.Electricity": "Electriciteit"
 }
