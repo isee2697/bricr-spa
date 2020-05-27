@@ -10,17 +10,13 @@ export const DashboardStats = ({ orders, ordersValue, visits, properties, emails
   const theme = useTheme();
 
   return (
-    <StatsSection maxWidth={`calc(100% + ${theme.spacing(3)}px`}>
+    <StatsSection width={`calc(100% + ${theme.spacing(3.25)}px`}>
       <StatCard value={orders.value} variant={orders.type} endAdornment="%">
         Number of <strong>orders</strong> last month
       </StatCard>
 
       <StatCard value={ordersValue.value} variant={ordersValue.type} endAdornment="EUR">
         Value of <strong>orders</strong> last month
-      </StatCard>
-
-      <StatCard value={visits.value} variant={visits.type}>
-        Number of <strong>visits</strong> last month
       </StatCard>
 
       <StatCard value={properties.value} variant={properties.type}>
@@ -30,6 +26,12 @@ export const DashboardStats = ({ orders, ordersValue, visits, properties, emails
       <StatCard value={emails.value} variant={emails.type}>
         New <strong>emails</strong> last week
       </StatCard>
+
+      <StatCard value={visits.value} variant={visits.type}>
+        Number of <strong>visits</strong> last month per day
+      </StatCard>
+
+      <StatCard value={emails.value}>Average price per house you sell</StatCard>
     </StatsSection>
   );
 };

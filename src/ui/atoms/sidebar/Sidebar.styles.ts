@@ -1,12 +1,10 @@
 import { styled } from '@material-ui/core/styles';
 
 export const Sidebar = styled('div')(({ theme }) => ({
-  paddingRight: theme.spacing(1),
-  paddingLeft: theme.spacing(1),
-  flex: `0 0 ${theme.spacing(8)}px`,
+  flex: theme.spacing('0', '0', 8),
   top: theme.spacing(8),
-  width: theme.spacing(4),
-  right: theme.spacing(3),
+  right: 0,
+  width: theme.spacing(8),
   position: 'fixed',
   zIndex: 2,
   textAlign: 'center',
@@ -29,8 +27,8 @@ export const Sidebar = styled('div')(({ theme }) => ({
 }));
 
 export const Container = styled('div')(({ theme }) => ({
-  width: theme.spacing(7),
-  marginLeft: theme.spacing(2),
+  display: 'flex',
+  flex: theme.spacing('0', '0', 8),
   height: '100%',
 }));
 

@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(theme => ({
   root: {
     height: `calc(1em + ${theme.spacing(2)}px)`,
-    minWidth: 140,
-    maxWidth: 140,
+    minWidth: theme.spacing(21),
+    maxWidth: theme.spacing(21),
     borderRadius: theme.spacing(),
     '& .filter-icon': {
       display: 'none',
@@ -46,8 +46,8 @@ export const useStyles = makeStyles(theme => ({
   },
   textField: {
     background: theme.palette.gray.light,
-    minWidth: 140,
-    maxWidth: 140,
+    minWidth: theme.spacing(21),
+    maxWidth: theme.spacing(21),
     borderRadius: theme.spacing(),
     position: 'absolute',
     top: theme.spacing(2),
