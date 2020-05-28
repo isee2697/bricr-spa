@@ -27,7 +27,11 @@ export const ConstructionInformationForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection title={formatMessage({ id: 'pim_details.general.construction_information.title' })} isExpandable>
+    <FormSection
+      title={formatMessage({ id: 'pim_details.general.construction_information.title' })}
+      isExpandable
+      isInitExpanded={false}
+    >
       {editing => (
         <>
           <FormSubSection

@@ -9,12 +9,24 @@ import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 import { FormSectionProps } from './FormSection.types';
 import { useStyles } from './FormSection.styles';
 
-export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, children }: FormSectionProps) => {
+export const FormSection = ({
+  title,
+  isEditable = true,
+  onAdd,
+  isExpandable,
+  isInitExpanded = true,
+  children,
+}: FormSectionProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(isInitExpanded);
   const [editing, setEditing] = useState(false);
+
+  const handleSetEdit = () => {
+    !editing && setExpanded(true);
+    setEditing(editing => !editing);
+  };
 
   return (
     <Card className={classes.root}>
@@ -25,7 +37,7 @@ export const FormSection = ({ title, isEditable = true, onAdd, isExpandable, chi
             <FormControlLabel
               className={classes.editLabel}
               value="start"
-              control={<Switch checked={editing} onChange={() => setEditing(editing => !editing)} color="primary" />}
+              control={<Switch checked={editing} onChange={() => handleSetEdit()} color="primary" />}
               label={formatMessage({ id: 'form_section.edit_mode' })}
               labelPlacement="start"
             />

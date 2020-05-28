@@ -12,7 +12,11 @@ export const AddressForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection title={formatMessage({ id: 'pim_details.general.address_information.title' })} isExpandable>
+    <FormSection
+      title={formatMessage({ id: 'pim_details.general.address_information.title' })}
+      isExpandable
+      isInitExpanded={false}
+    >
       {editing => (
         <>
           <Grid className={classes.textFields} container spacing={3}>

@@ -8,5 +8,6 @@ export type FormSectionProps = {
   isEditable?: boolean;
   onAdd?: () => void;
   isExpandable?: boolean;
+  isInitExpanded?: boolean;
   children: (editing: boolean) => ReactNode;
 };

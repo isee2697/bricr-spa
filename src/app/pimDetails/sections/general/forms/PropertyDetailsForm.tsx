@@ -148,7 +148,11 @@ export const PropertyDetailsForm = () => {
   const classes = useStyles();
 
   return (
-    <FormSection title={formatMessage({ id: 'pim_details.general.property_details.title' })} isExpandable>
+    <FormSection
+      title={formatMessage({ id: 'pim_details.general.property_details.title' })}
+      isExpandable
+      isInitExpanded={false}
+    >
       {editing => (
         <>
           <FormSubSection
