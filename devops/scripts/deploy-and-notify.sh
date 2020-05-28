@@ -8,7 +8,7 @@ function success()  {
     curl -X POST --data-urlencode "payload={\"channel\": \"#bricr-notifications\", \"username\": \"Pipelines\", \"text\": \"Hey! Your job <https://bitbucket.org/thesoftwarehouse/bricr-spa/addon/pipelines/home#!/results/${BITBUCKET_BUILD_NUMBER}|finished successfully.> It should be live here ${URL} in a few minutes.\"}" "${SLACK_WEBHOOK}"
 }
 
-export TF_VAR_docker_tag=$BITBUCKET_TAG
+export TF_VAR_docker_tag=$BITBUCKET_COMMIT
 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 cd devops/terraform/staging/${PACKAGE}

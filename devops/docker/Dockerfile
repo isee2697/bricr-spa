@@ -25,5 +25,5 @@ COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 # replace with custom one
 COPY devops/docker/nginx.conf /etc/nginx/conf.d
-EXPOSE 80
+EXPOSE 3000
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
