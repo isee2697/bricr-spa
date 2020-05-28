@@ -11,11 +11,11 @@ export type ServicesMetersProps = PimDetailsSectionProps & {
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   type: 'gas' | 'water' | 'electricity';
 };
+export type ServiceTypes = 'hotWater' | 'heating' | 'additional';
 
 export type ServiceTypeListProps<T> = {
-  emptyTitle: string;
-  emptyDescription: string;
   emptyEmoji: string;
   title: string;
   items: T[];
+  type: ServiceTypes;
 };

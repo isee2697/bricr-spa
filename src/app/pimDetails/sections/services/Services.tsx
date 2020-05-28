@@ -1,7 +1,7 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
-import { Grid, Typography } from '@material-ui/core';
 
+import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
@@ -32,29 +32,26 @@ export const Services = ({ pim, onSave }: ServicesProps) => {
           </Grid>
           <Grid xs={12} item>
             <ServiceTypeList
-              emptyTitle="pim_details.services.hot_water_empty_title"
-              emptyDescription="pim_details.services.hot_water_empty_description"
               emptyEmoji="🚿"
               title="pim_details.services.hot_water"
               items={((pim.services && pim.services.hotWater) || []) as BaseService[]}
+              type="hotWater"
             />
           </Grid>
           <Grid xs={12} item>
             <ServiceTypeList
-              emptyTitle="pim_details.services.heating_empty_title"
-              emptyDescription="pim_details.services.heating_empty_description"
               emptyEmoji="🔥"
               title="pim_details.services.heating"
               items={((pim.services && pim.services.heating) || []) as BaseService[]}
+              type="heating"
             />
           </Grid>
           <Grid xs={12} item>
             <ServiceTypeList
-              emptyTitle="pim_details.services.additional_empty_title"
-              emptyDescription="pim_details.services.additional_empty_description"
               emptyEmoji="🤔"
               title="pim_details.services.additional"
               items={((pim.services && pim.services.additional) || []) as BaseService[]}
+              type="additional"
             />
           </Grid>
         </Grid>
