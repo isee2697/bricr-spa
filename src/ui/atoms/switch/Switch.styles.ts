@@ -20,7 +20,7 @@ export const Switch: React.ComponentType<SwitchProps> = withStyles(theme => ({
       transform: `translateX(${theme.spacing(3)}px)`,
       color: theme.palette.common.white,
       '& + $track': {
-        background: theme.palette.primary.main,
+        background: theme.palette.gradientPrimary.main,
         opacity: 1,
         border: 'none',
       },
