@@ -7,21 +7,25 @@ export const hotWaterTypes = [
     value: 'CentralHeatingBoiler',
     label: 'dictionaries.service.hotWater.CentralHeatingBoiler',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'Boiler',
     label: 'dictionaries.service.hotWater.Boiler',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'Geyser',
     label: 'dictionaries.service.hotWater.Geyser',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'SolarWaterHeater',
     label: 'dictionaries.service.hotWater.SolarWaterHeater',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
 ];
 
@@ -113,16 +117,19 @@ export const additionalTypes = [
     value: 'AirConditioning',
     label: 'dictionaries.service.additional.AirConditioning',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'AlarmSystem',
     label: 'dictionaries.service.additional.AlarmSystem',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'ExteriorSunProtection',
     label: 'dictionaries.service.additional.ExteriorSunProtection',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'Skylight',
@@ -133,11 +140,13 @@ export const additionalTypes = [
     value: 'SatelightDish',
     label: 'dictionaries.service.additional.SatelightDish',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'SlidingDoor',
     label: 'dictionaries.service.additional.SlidingDoor',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'CableTv',
@@ -148,16 +157,19 @@ export const additionalTypes = [
     value: 'Windmill',
     label: 'dictionaries.service.additional.WindMill',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'SolarColectors',
     label: 'dictionaries.service.additional.SolarColectors',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'SwimmingPool',
     label: 'dictionaries.service.additional.SwimmingPool',
     icon: <SquareIcon color="inherit" />,
+    hasOwnership: true,
   },
   {
     value: 'FrenchBalcony',
@@ -182,6 +194,42 @@ export const additionalTypes = [
   {
     value: 'Shutters',
     label: 'dictionaries.service.additional.Shutters',
+    icon: <SquareIcon color="inherit" />,
+  },
+];
+
+export const onwershipTypes = [
+  {
+    value: 'Rent',
+    label: 'dictionaries.service.ownership.Rent',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: 'Lease',
+    label: 'dictionaries.service.ownership.Lease',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: 'Sale',
+    label: 'dictionaries.service.ownership.Sale',
+    icon: <SquareIcon color="inherit" />,
+  },
+];
+
+export const hotWaterFuelTypes = [
+  {
+    value: 'Gas',
+    label: 'dictionaries.service.fuel.Gas',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: 'Electric',
+    label: 'dictionaries.service.fuel.Electric',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: 'Oil',
+    label: 'dictionaries.service.fuel.Oil',
     icon: <SquareIcon color="inherit" />,
   },
 ];

@@ -1,9 +1,9 @@
-import { ServiceTypes } from '../Services.types';
-import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
+import { ServiceTypes, ServiceRadioType } from '../Services.types';
 
 export type AddServiceModalContainerProps = {
   isOpened: boolean;
   type: ServiceTypes;
+  types: ServiceRadioType[];
   onClose: VoidFunction;
 };
 
@@ -25,7 +25,7 @@ export type AddServiceModalProps = {
   isOpened: boolean;
   onSubmit: AddServiceSubmit;
   onClose: VoidFunction;
-  types: RadioDataType[];
+  types: ServiceRadioType[];
   title: string;
   nameLabel: string;
 };

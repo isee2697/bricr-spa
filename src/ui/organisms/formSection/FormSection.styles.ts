@@ -30,4 +30,7 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
       fontWeight: typography.fontWeightMedium,
     },
   },
+  options: {
+    backgroundColor: palette.gray.light,
+  },
 }));

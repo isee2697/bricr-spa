@@ -514,7 +514,9 @@ export type PropertyAvailabilityInformation = {
 export type BaseService = {
   __typename?: 'BaseService';
   id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  type: Scalars['String'];
+  source?: Maybe<Scalars['String']>;
 };
 
 export enum MeterType {
@@ -533,9 +535,9 @@ export type Meters = {
 
 export type Services = {
   __typename?: 'Services';
-  heating?: Maybe<Array<Maybe<BaseService>>>;
-  hotWater?: Maybe<Array<Maybe<BaseService>>>;
-  additional?: Maybe<Array<Maybe<BaseService>>>;
+  heating?: Maybe<Array<BaseService>>;
+  hotWater?: Maybe<Array<BaseService>>;
+  additional?: Maybe<Array<BaseService>>;
   meters?: Maybe<Array<Meters>>;
 };
 

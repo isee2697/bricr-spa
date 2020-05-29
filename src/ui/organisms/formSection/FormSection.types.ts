@@ -4,9 +4,10 @@ import { ExpansionPanelSummaryProps } from '@material-ui/core/ExpansionPanelSumm
 export type FormSectionHeaderProps = ExpansionPanelSummaryProps & { editing: string };
 
 export type FormSectionProps = {
-  title: string;
+  title: ReactNode;
   isEditable?: boolean;
-  onAdd?: () => void;
+  onAdd?: VoidFunction;
+  onOptionsClick?: VoidFunction;
   isExpandable?: boolean;
   isInitExpanded?: boolean;
   children: (editing: boolean) => ReactNode;

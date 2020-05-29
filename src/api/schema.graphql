@@ -484,7 +484,9 @@ type PropertyAvailabilityInformation {
 
 type BaseService {
   id: String!
-  name: String
+  name: String!
+  type: String!
+  source: String
 }
 
 enum MeterType {
@@ -500,9 +502,9 @@ type Meters {
 }
 
 type Services {
-  heating: [BaseService]
-  hotWater: [BaseService]
-  additional: [BaseService]
+  heating: [BaseService!]
+  hotWater: [BaseService!]
+  additional: [BaseService!]
   meters: [Meters!]
 }
 

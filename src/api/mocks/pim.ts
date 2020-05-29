@@ -134,9 +134,18 @@ export const PIM_DETAILS_1: Pim = {
   //   },
   // ],
   // services: {
-  //   heating: [],
-  //   hotWater: [],
-  //   additional: [],
+  //   heating: [
+  //     { id: '21423sd43534', name: 'My gasoline', type: 'CentralHeatingBoiler' },
+  //     { id: '21423423fsd43534', name: 'My heating 2', type: 'Boiler' },
+  //   ],
+  //   hotWater: [
+  //     { id: '21423423fsd', name: 'My hotwater', type: 'CentralHeatingBoiler' },
+  //     { id: '21423423sd43534', name: 'My hotwater 2', type: 'Boiler' },
+  //   ],
+  //   additional: [
+  //     { id: '21423sd534', name: 'My additional service', type: 'Skylight' },
+  //     { id: '21423d43534', name: 'My additional 2', type: 'AirConditioning' },
+  //   ],
   //   meters: [
   //     { id: '1', type: MeterType.Electricity },
   //     { id: '2', type: MeterType.Electricity },

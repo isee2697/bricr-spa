@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
 import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
-import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
+import { AddIcon, MenuIcon } from 'ui/atoms/icons';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 
 import { FormSectionProps } from './FormSection.types';
@@ -13,6 +13,7 @@ export const FormSection = ({
   title,
   isEditable = true,
   onAdd,
+  onOptionsClick,
   isExpandable,
   isInitExpanded = true,
   children,
@@ -41,6 +42,11 @@ export const FormSection = ({
               label={formatMessage({ id: 'form_section.edit_mode' })}
               labelPlacement="start"
             />
+          )}
+          {onOptionsClick && (
+            <IconButton className={classes.options} variant="rounded" size="small" onClick={onOptionsClick}>
+              <MenuIcon color="inherit" />
+            </IconButton>
           )}
           {onAdd && (
             <IconButton color="primary" size="small" className="form-section-add" onClick={onAdd}>

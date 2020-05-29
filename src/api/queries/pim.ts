@@ -252,14 +252,18 @@ export const PIM_DETAILS = gql`
       #   heating {
       #     id
       #     name
+      #     type
+      #     source
       #   }
       #   hotWater {
       #     id
       #     name
+      #     type
       #   }
       #   additional {
       #     id
       #     name
+      #     type
       #   }
       #   meters {
       #     id

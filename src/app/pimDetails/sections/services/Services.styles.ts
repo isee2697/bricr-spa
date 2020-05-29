@@ -10,4 +10,17 @@ export const useStyles = makeStyles(theme => ({
   title: {
     float: 'left',
   },
+  avatar: {
+    backgroundColor: 'transparent',
+    border: `2px solid ${theme.palette.gray.light}`,
+    marginRight: theme.spacing(),
+    fontSize: theme.typography.h5.fontSize,
+    fontWeight: theme.typography.fontWeightMedium,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  counter: {
+    backgroundColor: theme.palette.gray.light,
+    display: 'inline-flex',
+  },
 }));
