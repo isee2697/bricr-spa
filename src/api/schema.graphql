@@ -196,12 +196,6 @@ enum FloorType {
   Loft
 }
 
-enum CadastreMapType {
-  Register,
-  Map,
-  Other,
-}
-
 enum GardenType {
   Backyard,
   PatioOrAtrium,
@@ -385,6 +379,15 @@ enum OutsideFeatureType {
   ParkingLot
 }
 
+union CadastreConfiguration = CadastreMaps | CadastrePlot
+
+type Cadastre {
+  id: String!
+  description: String
+  type: CadastreType!
+  configuration: CadastreConfiguration
+}
+
 input Pagination {
   from: Int
   limit: Int
@@ -424,7 +427,7 @@ type Pim {
   houseOutside: HouseOutside
   floors: [Floor!]
   outsideFeatures: [OutsideFeature!]
-  cadastralMaps: [CadastreMap!]
+  cadastre: [Cadastre!]
   services: Services
 }
 
@@ -477,17 +480,6 @@ type PropertyAvailabilityInformation {
   habitation: PropertyHabitation
   currentUse: String
   currentDestination: String
-}
-
-type CadastreMap {
-  id: String!
-  type: CadastreMapType
-  file: String
-  fileName: String
-  title: String
-  description: String
-  dateUpdated: Date
-  updatedBy: String
 }
 
 type BaseService {
@@ -648,6 +640,47 @@ enum RoofInsulations {
   StructuralPanels
 }
 
+enum CadastreMapType {
+  Map,
+  Register,
+}
+
+enum CadastreType {
+  CadastreMap,
+  Plot
+}
+
+enum CodeSizeType {
+  Apartment,
+  Tightness,
+  PartLot,
+  InWholePlot,
+  MembershipRight
+}
+
+enum LeaseholderType {
+  Different,
+  Township,
+  Private
+}
+
+enum LeaseInformationType {
+  Virable,
+  Fixed
+}
+
+enum LeaseDurationType {
+  Forever,
+  Temporary,
+  Constantly
+}
+
+enum OwnershipChoiceType {
+  NoneOfThem,
+  UseAndHabitation,
+  Usufruct
+}
+
 type RoofMaterial {
   name: RoofMaterials
   notes: String
@@ -666,6 +699,18 @@ enum RoofMaterials {
   Metal
   Pans
   Other
+}
+
+type CadastreMap {
+  id: String!
+  mapName: String!
+  fileName: String!
+  description: String
+  type: CadastreMapType,
+}
+
+type CadastreMaps {
+  maps: [CadastreMap!]
 }
 
 type RoofType {
@@ -772,8 +817,6 @@ type Team {
   name: String
 }
 
-scalar UpdateFeatureInputConfiguration
-
 input UpdateFloorInput {
   pimId: String!
   floorId: String!
@@ -787,6 +830,27 @@ input UpdateOutsideFeatureInput {
   feature: UpdateFeatureInputConfiguration
 }
 
+input NewCadastreMapInput {
+  mapName: String!
+  fileName: String!
+  description: String
+  type: CadastreMapType!
+}
+
+input AddCadastreMapsInput {
+  pimId: String!
+  maps: [NewCadastreMapInput!]!
+}
+
+input UpdateCadastreMapInput {
+  cadastreId: String!
+  mapId: String!
+  mapName: String!
+  fileName: String!
+  description: String
+  type: CadastreMapType!
+}
+
 input UpdateSpaceInput {
   pimId: String!
   spaceId: String!
@@ -794,7 +858,91 @@ input UpdateSpaceInput {
   space: UpdateSpaceInputConfiguration
 }
 
+type BoughtOff {
+  date: Date,
+  perpetually: Boolean,
+  notes: String
+}
+
+input BoughtOffInput {
+  date: Date,
+  perpetually: Boolean,
+  notes: String
+}
+
+type Lease {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float,
+  endDate: Date
+}
+
+input LeaseInput {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float,
+  endDate: Date
+}
+
+type Ownership {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
+
+input OwnershipInput {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
+
+type CadastrePlot {
+  notes: String,
+  name: String,
+  municipalCode: String,
+  sectionCode: String,
+  plot: String,
+  indexNumber: String,
+  surface: Float,
+  share: String
+  codeSize: CodeSizeType
+  ownership: Ownership
+  lease: Lease
+  boughtOff: BoughtOff
+}
+
+input CadastrePlotInput {
+  id: String
+  notes: String,
+  name: String,
+  municipalCode: String,
+  sectionCode: String,
+  plot: String,
+  indexNumber: String,
+  surface: Float,
+  share: String
+  codeSize: CodeSizeType
+  ownership: OwnershipInput
+  lease: LeaseInput
+  boughtOff: BoughtOffInput
+}
+
+input UpdateCadastreInput {
+  id: String!
+  pimId: String!
+  description: String
+  configuration: UpdateCadastreConfigurationInput
+}
+
+input AddCadastreInput {
+  pimId: String!
+  type: CadastreType!
+  description: String
+}
+
 scalar UpdateSpaceInputConfiguration
+
+scalar UpdateFeatureInputConfiguration
+
+scalar UpdateCadastreConfigurationInput
 
 scalar Upload
 
@@ -826,4 +974,8 @@ type Mutation {
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim @auth
   updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim @auth
   addFiles(input: AddFilesInput!): [File!]! @auth
+  addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
+  updateMap(input: UpdateCadastreMapInput!): Pim @auth
+  addCadastre(input: AddCadastreInput!): Pim @auth
+  updateCadastre(input: UpdateCadastreInput!): Pim @auth
 }

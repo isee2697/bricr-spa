@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { SubSectionHeader } from 'ui/molecules';
+import { SubSectionHeader, FormSubSection } from 'ui/molecules';
 import { Grid, Collapse, ImageHolder, Box } from 'ui/atoms';
-import { GenericField } from 'form/fields';
+import { GenericField, RadioGroupField } from 'form/fields';
+import { useStyles } from '../CadsatralMaps.styles';
+import { useLocale } from 'hooks';
 
-import { MapProps } from './CadastralMaps.types';
-import { useStyles } from './CadsatralMaps.styles';
+import { CadastreMapProps } from './CadastralMaps.types';
+import { cadastralMapTypes } from './dictionaries';
 
-export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleClick }: MapProps) => {
+export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleClick }: CadastreMapProps) => {
   const classes = useStyles();
+  const { formatMessage } = useLocale();
 
   return (
     <>
@@ -20,33 +23,43 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
       <Collapse in={toggled}>
         <Grid className={classes.content} container spacing={9}>
           <Grid item md={5}>
-            <ImageHolder withBorder src={!!cadastreMap.file ? cadastreMap.file : undefined} />
+            <ImageHolder withBorder src={!!cadastreMap.fileName ? cadastreMap.fileName : undefined} />
           </Grid>
           <Grid item md={7}>
             <GenericField
-              id={`cadastreMap.title.${cadastreMap.id}`}
+              id="mapName"
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.name_placeholder"
-              name="cadastreMap.title"
+              name="mapName"
               label="pim_details.cadastre.name_label"
             />
             <GenericField
-              id={`cadastreMap.fileName.${cadastreMap.id}`}
+              id="fileName"
               disabled={!isEditMode}
-              name="cadastreMap.fileName"
+              name="fileName"
               placeholder="pim_details.cadastre.file_name_placeholder"
               label="pim_details.cadastre.file_name_placeholder"
             />
             <GenericField
-              id={`cadastreMap.description.${cadastreMap.id}`}
+              id="description"
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.description_placeholder"
-              name="cadastreMap.description"
+              name="description"
               label="pim_details.cadastre.description_label"
             />
             <Box mb={4} />
             {/* <LastUpdated dateUpdated={cadastreMap.dateUpdated} updatedBy={cadastreMap.updatedBy} /> */}
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <FormSubSection
+            noBorder
+            title={formatMessage({ id: 'pim_details.cadastre.type_of_map' })}
+            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+          />
+          <Box paddingTop={2}>
+            <RadioGroupField disabled={!isEditMode} xs={4} lg={2} name="type" options={cadastralMapTypes} />
+          </Box>
         </Grid>
       </Collapse>
     </>

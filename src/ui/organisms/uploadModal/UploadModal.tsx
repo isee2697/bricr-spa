@@ -21,7 +21,7 @@ const readFileAsync = (file: File): Promise<string> =>
     reader.readAsDataURL(file);
   });
 
-export const UploadModal = ({ onClose, onUpload, ...props }: UploadModalProps) => {
+export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: UploadModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -100,6 +100,7 @@ export const UploadModal = ({ onClose, onUpload, ...props }: UploadModalProps) =
           variant="contained"
           disabled={!images.length || isError}
           onClick={() => onUpload(images)}
+          isLoading={isSubmitting}
         >
           {formatMessage({ id: 'common.upload' })}
         </SubmitButton>

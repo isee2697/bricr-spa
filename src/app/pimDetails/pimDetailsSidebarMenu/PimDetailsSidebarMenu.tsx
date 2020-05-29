@@ -17,6 +17,7 @@ import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { CadastreType } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, subMenuItem } from './PimDetailsSidebarMenu.types';
@@ -30,6 +31,10 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
   const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
   const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
   const meterGroups = groupBy((pim && pim.services && pim.services.meters) || [], meter => meter.type);
+  const plotGroups = groupBy(
+    (pim && pim.cadastre && pim.cadastre.filter(c => c.type === CadastreType.Plot).reverse()) || [],
+    c => c.type,
+  );
 
   const createSubMenuData = (id: string, label: string, amount: number, key: number): subMenuItem => {
     return { id, label, number: amount > 1 ? amount - key : undefined };
@@ -76,10 +81,11 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
           id: 'cadastreMap',
           label: 'pim_details.cadastre.cadastre_map',
         },
-        {
-          id: 'plot',
-          label: 'pim_details.cadastre.plot.title',
-        },
+        ...Object.values(plotGroups).flatMap(values =>
+          values.map((outside, key) =>
+            createSubMenuData(outside.id, 'pim_details.cadastre.plot.title', plotGroups[outside.type].length, key),
+          ),
+        ),
       ],
     },
     {

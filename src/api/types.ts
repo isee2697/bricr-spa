@@ -13,8 +13,9 @@ export type Scalars = {
   Dictionary: any;
   PimGeneralInput: any;
   PimOutsideInput: any;
-  UpdateFeatureInputConfiguration: any;
   UpdateSpaceInputConfiguration: any;
+  UpdateFeatureInputConfiguration: any;
+  UpdateCadastreConfigurationInput: any;
   Upload: any;
 };
 
@@ -211,12 +212,6 @@ export enum FloorType {
   Loft = 'Loft',
 }
 
-export enum CadastreMapType {
-  Register = 'Register',
-  Map = 'Map',
-  Other = 'Other',
-}
-
 export enum GardenType {
   Backyard = 'Backyard',
   PatioOrAtrium = 'PatioOrAtrium',
@@ -409,6 +404,16 @@ export enum OutsideFeatureType {
   ParkingLot = 'ParkingLot',
 }
 
+export type CadastreConfiguration = CadastreMaps | CadastrePlot;
+
+export type Cadastre = {
+  __typename?: 'Cadastre';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreType;
+  configuration?: Maybe<CadastreConfiguration>;
+};
+
 export type Pagination = {
   from?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
@@ -449,7 +454,7 @@ export type Pim = {
   houseOutside?: Maybe<HouseOutside>;
   floors?: Maybe<Array<Floor>>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
-  cadastralMaps?: Maybe<Array<CadastreMap>>;
+  cadastre?: Maybe<Array<Cadastre>>;
   services?: Maybe<Services>;
 };
 
@@ -504,18 +509,6 @@ export type PropertyAvailabilityInformation = {
   habitation?: Maybe<PropertyHabitation>;
   currentUse?: Maybe<Scalars['String']>;
   currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type CadastreMap = {
-  __typename?: 'CadastreMap';
-  id: Scalars['String'];
-  type?: Maybe<CadastreMapType>;
-  file?: Maybe<Scalars['String']>;
-  fileName?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  updatedBy?: Maybe<Scalars['String']>;
 };
 
 export type BaseService = {
@@ -684,6 +677,47 @@ export enum RoofInsulations {
   StructuralPanels = 'StructuralPanels',
 }
 
+export enum CadastreMapType {
+  Map = 'Map',
+  Register = 'Register',
+}
+
+export enum CadastreType {
+  CadastreMap = 'CadastreMap',
+  Plot = 'Plot',
+}
+
+export enum CodeSizeType {
+  Apartment = 'Apartment',
+  Tightness = 'Tightness',
+  PartLot = 'PartLot',
+  InWholePlot = 'InWholePlot',
+  MembershipRight = 'MembershipRight',
+}
+
+export enum LeaseholderType {
+  Different = 'Different',
+  Township = 'Township',
+  Private = 'Private',
+}
+
+export enum LeaseInformationType {
+  Virable = 'Virable',
+  Fixed = 'Fixed',
+}
+
+export enum LeaseDurationType {
+  Forever = 'Forever',
+  Temporary = 'Temporary',
+  Constantly = 'Constantly',
+}
+
+export enum OwnershipChoiceType {
+  NoneOfThem = 'NoneOfThem',
+  UseAndHabitation = 'UseAndHabitation',
+  Usufruct = 'Usufruct',
+}
+
 export type RoofMaterial = {
   __typename?: 'RoofMaterial';
   name?: Maybe<RoofMaterials>;
@@ -704,6 +738,20 @@ export enum RoofMaterials {
   Pans = 'Pans',
   Other = 'Other',
 }
+
+export type CadastreMap = {
+  __typename?: 'CadastreMap';
+  id: Scalars['String'];
+  mapName: Scalars['String'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<CadastreMapType>;
+};
+
+export type CadastreMaps = {
+  __typename?: 'CadastreMaps';
+  maps?: Maybe<Array<CadastreMap>>;
+};
 
 export type RoofType = {
   __typename?: 'RoofType';
@@ -829,11 +877,116 @@ export type UpdateOutsideFeatureInput = {
   feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
 };
 
+export type NewCadastreMapInput = {
+  mapName: Scalars['String'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreMapType;
+};
+
+export type AddCadastreMapsInput = {
+  pimId: Scalars['String'];
+  maps: Array<NewCadastreMapInput>;
+};
+
+export type UpdateCadastreMapInput = {
+  cadastreId: Scalars['String'];
+  mapId: Scalars['String'];
+  mapName: Scalars['String'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreMapType;
+};
+
 export type UpdateSpaceInput = {
   pimId: Scalars['String'];
   spaceId: Scalars['String'];
   spaceName?: Maybe<Scalars['String']>;
   space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
+};
+
+export type BoughtOff = {
+  __typename?: 'BoughtOff';
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BoughtOffInput = {
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Lease = {
+  __typename?: 'Lease';
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type LeaseInput = {
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type Ownership = {
+  __typename?: 'Ownership';
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
+};
+
+export type OwnershipInput = {
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
+};
+
+export type CadastrePlot = {
+  __typename?: 'CadastrePlot';
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<Ownership>;
+  lease?: Maybe<Lease>;
+  boughtOff?: Maybe<BoughtOff>;
+};
+
+export type CadastrePlotInput = {
+  id?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<OwnershipInput>;
+  lease?: Maybe<LeaseInput>;
+  boughtOff?: Maybe<BoughtOffInput>;
+};
+
+export type UpdateCadastreInput = {
+  id: Scalars['String'];
+  pimId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  configuration?: Maybe<Scalars['UpdateCadastreConfigurationInput']>;
+};
+
+export type AddCadastreInput = {
+  pimId: Scalars['String'];
+  type: CadastreType;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -882,6 +1035,10 @@ export type Mutation = {
   addOutsideFeature?: Maybe<Pim>;
   updateOutsideFeature?: Maybe<Pim>;
   addFiles: Array<File>;
+  addCadastreMaps?: Maybe<Pim>;
+  updateMap?: Maybe<Pim>;
+  addCadastre?: Maybe<Pim>;
+  updateCadastre?: Maybe<Pim>;
 };
 
 export type MutationLoginArgs = {
@@ -943,6 +1100,22 @@ export type MutationUpdateOutsideFeatureArgs = {
 
 export type MutationAddFilesArgs = {
   input: AddFilesInput;
+};
+
+export type MutationAddCadastreMapsArgs = {
+  input: AddCadastreMapsInput;
+};
+
+export type MutationUpdateMapArgs = {
+  input: UpdateCadastreMapInput;
+};
+
+export type MutationAddCadastreArgs = {
+  input: AddCadastreInput;
+};
+
+export type MutationUpdateCadastreArgs = {
+  input: UpdateCadastreInput;
 };
 
 export type LoginMutationVariables = {
@@ -1046,6 +1219,42 @@ export type UpdatePimOutsideInfoMutationVariables = {
 
 export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
   updatePimOutsideInfo?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddCadastreMutationVariables = {
+  input: AddCadastreInput;
+};
+
+export type AddCadastreMutation = { __typename?: 'Mutation' } & {
+  addCadastre?: Maybe<
+    { __typename?: 'Pim' } & Pick<Pim, 'id'> & {
+        cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
+      }
+  >;
+};
+
+export type UpdateCadastreMutationVariables = {
+  input: UpdateCadastreInput;
+};
+
+export type UpdateCadastreMutation = { __typename?: 'Mutation' } & {
+  updateCadastre?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddCadastreMapsMutationVariables = {
+  input: AddCadastreMapsInput;
+};
+
+export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
+  addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type UpdateMapMutationVariables = {
+  input: UpdateCadastreMapInput;
+};
+
+export type UpdateMapMutation = { __typename?: 'Mutation' } & {
+  updateMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type CountPimsByParamsQueryVariables = {
@@ -1231,6 +1440,47 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                         { __typename?: 'RectangleDimensions' } & Pick<RectangleDimensions, 'length' | 'height'>
                       >;
                     }
+                >;
+              }
+          >
+        >;
+        cadastre?: Maybe<
+          Array<
+            { __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'description' | 'type'> & {
+                configuration?: Maybe<
+                  | ({ __typename?: 'CadastreMaps' } & {
+                      maps?: Maybe<
+                        Array<
+                          { __typename?: 'CadastreMap' } & Pick<
+                            CadastreMap,
+                            'id' | 'mapName' | 'fileName' | 'description' | 'type'
+                          >
+                        >
+                      >;
+                    })
+                  | ({ __typename?: 'CadastrePlot' } & Pick<
+                      CadastrePlot,
+                      | 'notes'
+                      | 'name'
+                      | 'municipalCode'
+                      | 'sectionCode'
+                      | 'plot'
+                      | 'indexNumber'
+                      | 'surface'
+                      | 'share'
+                      | 'codeSize'
+                    > & {
+                        ownership?: Maybe<{ __typename?: 'Ownership' } & Pick<Ownership, 'stressedInChargeOf'>>;
+                        lease?: Maybe<
+                          { __typename?: 'Lease' } & Pick<
+                            Lease,
+                            'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                          >
+                        >;
+                        boughtOff?: Maybe<
+                          { __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
+                        >;
+                      })
                 >;
               }
           >
@@ -1504,6 +1754,91 @@ export type UpdatePimOutsideInfoMutationOptions = ApolloReactCommon.BaseMutation
   UpdatePimOutsideInfoMutation,
   UpdatePimOutsideInfoMutationVariables
 >;
+export const AddCadastreDocument = gql`
+  mutation AddCadastre($input: AddCadastreInput!) {
+    addCadastre(input: $input) {
+      id
+      cadastre {
+        id
+        type
+      }
+    }
+  }
+`;
+export function useAddCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMutation, AddCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMutation, AddCadastreMutationVariables>(
+    AddCadastreDocument,
+    baseOptions,
+  );
+}
+export type AddCadastreMutationHookResult = ReturnType<typeof useAddCadastreMutation>;
+export type AddCadastreMutationResult = ApolloReactCommon.MutationResult<AddCadastreMutation>;
+export type AddCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMutation,
+  AddCadastreMutationVariables
+>;
+export const UpdateCadastreDocument = gql`
+  mutation UpdateCadastre($input: UpdateCadastreInput!) {
+    updateCadastre(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCadastreMutation, UpdateCadastreMutationVariables>(
+    UpdateCadastreDocument,
+    baseOptions,
+  );
+}
+export type UpdateCadastreMutationHookResult = ReturnType<typeof useUpdateCadastreMutation>;
+export type UpdateCadastreMutationResult = ApolloReactCommon.MutationResult<UpdateCadastreMutation>;
+export type UpdateCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCadastreMutation,
+  UpdateCadastreMutationVariables
+>;
+export const AddCadastreMapsDocument = gql`
+  mutation AddCadastreMaps($input: AddCadastreMapsInput!) {
+    addCadastreMaps(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddCadastreMapsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>(
+    AddCadastreMapsDocument,
+    baseOptions,
+  );
+}
+export type AddCadastreMapsMutationHookResult = ReturnType<typeof useAddCadastreMapsMutation>;
+export type AddCadastreMapsMutationResult = ApolloReactCommon.MutationResult<AddCadastreMapsMutation>;
+export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMapsMutation,
+  AddCadastreMapsMutationVariables
+>;
+export const UpdateMapDocument = gql`
+  mutation UpdateMap($input: UpdateCadastreMapInput!) {
+    updateMap(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateMapMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMapMutation, UpdateMapMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMapMutation, UpdateMapMutationVariables>(UpdateMapDocument, baseOptions);
+}
+export type UpdateMapMutationHookResult = ReturnType<typeof useUpdateMapMutation>;
+export type UpdateMapMutationResult = ApolloReactCommon.MutationResult<UpdateMapMutation>;
+export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMapMutation,
+  UpdateMapMutationVariables
+>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -1744,6 +2079,48 @@ export const PimDetailsDocument = gql`
             }
             surface
             pictures
+          }
+        }
+      }
+      cadastre {
+        id
+        description
+        type
+        configuration {
+          ... on CadastreMaps {
+            maps {
+              id
+              mapName
+              fileName
+              description
+              type
+            }
+          }
+          ... on CadastrePlot {
+            notes
+            name
+            municipalCode
+            sectionCode
+            plot
+            indexNumber
+            surface
+            share
+            codeSize
+            ownership {
+              stressedInChargeOf
+            }
+            lease {
+              leaseholder
+              information
+              duration
+              yearlyPrice
+              endDate
+            }
+            boughtOff {
+              date
+              perpetually
+              notes
+            }
           }
         }
       }

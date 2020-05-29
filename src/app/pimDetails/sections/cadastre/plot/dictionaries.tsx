@@ -1,32 +1,33 @@
 import React from 'react';
 
 import { LinkIcon, FilterIcon, BuildingIcon, ComplexBuildingIcon, SettingsIcon } from 'ui/atoms/icons';
+import { CodeSizeType, OwnershipChoiceType, LeaseDurationType, LeaseholderType, LeaseInformationType } from 'api/types';
 
 export const size = [
   {
     label: 'dictionaries.cadastre_plot_size.ApartmentRightOrCompl',
     icon: <FilterIcon color="inherit" />,
-    value: 'apartmentRightOrCompl',
+    value: CodeSizeType.Apartment,
   },
   {
-    label: 'dictionaries.cadastre_plot_size.Tightness ',
+    label: 'dictionaries.cadastre_plot_size.Tightness',
     icon: <LinkIcon color="inherit" />,
-    value: 'tightness ',
+    value: CodeSizeType.Tightness,
   },
   {
     label: 'dictionaries.cadastre_plot_size.PartLot',
     icon: <BuildingIcon color="inherit" />,
-    value: 'partLot',
+    value: CodeSizeType.PartLot,
   },
   {
     label: 'dictionaries.cadastre_plot_size.InWholePlot',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'inWholePlot',
+    value: CodeSizeType.InWholePlot,
   },
   {
     label: 'dictionaries.cadastre_plot_size.MembershipRight',
     icon: <SettingsIcon color="inherit" />,
-    value: 'membershipRight',
+    value: CodeSizeType.MembershipRight,
   },
 ];
 
@@ -61,17 +62,17 @@ export const ownershipValue = [
   {
     label: 'dictionaries.cadastre_ownership_value.NoneOfThem',
     icon: <FilterIcon color="inherit" />,
-    value: 'noneOfThem',
+    value: OwnershipChoiceType.NoneOfThem,
   },
   {
     label: 'dictionaries.cadastre_ownership_value.UseAndHabitation',
     icon: <LinkIcon color="inherit" />,
-    value: 'useAndHabitation',
+    value: OwnershipChoiceType.UseAndHabitation,
   },
   {
     label: 'dictionaries.cadastre_ownership_value.Usufruct',
     icon: <BuildingIcon color="inherit" />,
-    value: 'usufruct',
+    value: OwnershipChoiceType.Usufruct,
   },
 ];
 
@@ -79,17 +80,17 @@ export const leaseholder = [
   {
     label: 'dictionaries.cadastre_leaseholder.Different',
     icon: <FilterIcon color="inherit" />,
-    value: 'different',
+    value: LeaseholderType.Different,
   },
   {
     label: 'dictionaries.cadastre_leaseholder.Township',
     icon: <LinkIcon color="inherit" />,
-    value: 'township',
+    value: LeaseholderType.Township,
   },
   {
     label: 'dictionaries.cadastre_leaseholder.Private',
     icon: <BuildingIcon color="inherit" />,
-    value: 'private',
+    value: LeaseholderType.Private,
   },
 ];
 
@@ -97,12 +98,12 @@ export const groundInfo = [
   {
     label: 'dictionaries.cadastre_ground_information.Virable',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'virable',
+    value: LeaseInformationType.Virable,
   },
   {
     label: 'dictionaries.cadastre_ground_information.Fixed',
     icon: <SettingsIcon color="inherit" />,
-    value: 'fixed',
+    value: LeaseInformationType.Fixed,
   },
 ];
 
@@ -110,16 +111,16 @@ export const groundDuration = [
   {
     label: 'dictionaries.cadastre_ground_duration.Forever',
     icon: <LinkIcon color="inherit" />,
-    value: 'forever',
+    value: LeaseDurationType.Forever,
   },
   {
     label: 'dictionaries.cadastre_ground_duration.Temporary',
     icon: <BuildingIcon color="inherit" />,
-    value: 'temporary',
+    value: LeaseDurationType.Temporary,
   },
   {
     label: 'dictionaries.cadastre_ground_duration.Constantly',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'constantly',
+    value: LeaseDurationType.Constantly,
   },
 ];

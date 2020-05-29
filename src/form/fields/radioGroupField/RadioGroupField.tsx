@@ -13,6 +13,8 @@ export const RadioGroupField = ({
   options,
   validate,
   validateFields,
+  parse,
+  format,
   spacing = 3,
   xs = 2,
   sm,
@@ -23,6 +25,8 @@ export const RadioGroupField = ({
   const { input, meta } = useField<string>(name, {
     validate: validate ? validatorsChain(...validate) : undefined,
     validateFields,
+    parse: parse as (value: string) => string,
+    format,
   });
 
   const handleClick = useCallback(

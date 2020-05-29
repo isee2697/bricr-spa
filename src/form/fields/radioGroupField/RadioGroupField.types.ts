@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { FieldValidator } from 'final-form';
 import { GridSpacing } from '@material-ui/core';
+import { UseFieldConfig } from 'react-final-form';
 
 export type RadioDataType = {
   label: string;
@@ -22,4 +23,5 @@ export type RadioGroupFieldProps = {
   md?: Width;
   lg?: Width;
   disabled?: boolean;
-};
+  parse?: Function;
+} & Pick<UseFieldConfig<string>, 'format'>;

@@ -1,39 +1,46 @@
 import React, { useState } from 'react';
-import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
 import { Typography } from 'ui/atoms';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
-import { FormSection, AutosaveForm } from 'ui/organisms';
-import { CadastreMap as CadastreEntity } from 'api/types';
+import { FormSection } from 'ui/organisms';
 
 import { MapsProps } from './CadastralMaps.types';
 import { useStyles } from './CadsatralMaps.styles';
-import { CadastreMap } from './CadastreMap';
+import { AddMapModalContainer } from './addMapModal/AddMapModalContainer';
+import { CadastreMapContainer } from './cadastreMap/CadastreMapContainer';
 
-export const CadastralMaps = ({ cadstralMaps }: MapsProps) => {
+export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
   const { formatMessage } = useLocale();
+  const [isAddModalOpened, setAddModalOpened] = useState(false);
   const classes = useStyles();
   const [toggled, setToggled] = useState<string | undefined>(
-    !!cadstralMaps && cadstralMaps.length > 1 ? cadstralMaps[0].id : undefined,
+    !!cadstralMaps.maps && cadstralMaps.maps.length > 1 ? cadstralMaps.maps[0].id : undefined,
   );
 
   return (
-    <AutosaveForm onSave={() => Promise.resolve({ error: false })} mutators={{ ...arrayMutators }} subscription={{}}>
-      <FormSection title={formatMessage({ id: 'pim_details.cadastre.map.title' })} isEditable onAdd={() => {}}>
+    <>
+      <FormSection
+        title={formatMessage({ id: 'pim_details.cadastre.map.title' })}
+        isEditable
+        onAdd={() => setAddModalOpened(true)}
+      >
         {isEditMode => (
           <List
             className={classes.list}
-            items={(cadstralMaps ?? []) as CadastreEntity[]}
+            items={cadstralMaps.maps ?? []}
             itemIndex={'id'}
             renderItem={(cadastre, _checked, checkbox) => (
-              <CadastreMap
+              <CadastreMapContainer
                 key={cadastre.id}
                 isEditMode={isEditMode}
+                cadastreId={cadastreId}
                 title={
                   <>
                     {checkbox}
-                    <Typography variant="h3">{cadastre.title}</Typography>
+                    <Typography variant="h3">
+                      {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
+                    </Typography>
                   </>
                 }
                 cadastreMap={cadastre}
@@ -50,6 +57,9 @@ export const CadastralMaps = ({ cadstralMaps }: MapsProps) => {
           />
         )}
       </FormSection>
-    </AutosaveForm>
+      {isAddModalOpened && (
+        <AddMapModalContainer isOpened={isAddModalOpened} onClose={() => setAddModalOpened(false)} />
+      )}
+    </>
   );
 };

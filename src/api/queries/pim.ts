@@ -197,6 +197,48 @@ export const PIM_DETAILS = gql`
           }
         }
       }
+      cadastre {
+        id
+        description
+        type
+        configuration {
+          ... on CadastreMaps {
+            maps {
+              id
+              mapName
+              fileName
+              description
+              type
+            }
+          }
+          ... on CadastrePlot {
+            notes
+            name
+            municipalCode
+            sectionCode
+            plot
+            indexNumber
+            surface
+            share
+            codeSize
+            ownership {
+              stressedInChargeOf
+            }
+            lease {
+              leaseholder
+              information
+              duration
+              yearlyPrice
+              endDate
+            }
+            boughtOff {
+              date
+              perpetually
+              notes
+            }
+          }
+        }
+      }
       # cadastralMaps {
       #   id
       #   file
