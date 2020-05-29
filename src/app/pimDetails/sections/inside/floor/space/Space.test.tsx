@@ -17,13 +17,15 @@ const space = {
 
 describe('Space form', () => {
   test('form rendered correctly', () => {
+    const SPACE_INDEX = 0;
+
     const { getByText, getByPlaceholderText } = render(
       <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
-        {() => <Space space={space} isEditMode index={0} />}
+        {() => <Space space={space} isEditMode index={SPACE_INDEX} />}
       </Form>,
     );
 
-    expect(getByText('dictionaries.space_type.Kitchen')).toBeInTheDocument();
+    expect(getByText(`dictionaries.space_type.Kitchen ${SPACE_INDEX + 1}`)).toBeInTheDocument();
     expect(getByPlaceholderText('pim_details.inside.year_of_construction_placeholder')).toBeInTheDocument();
     expect(getByPlaceholderText('pim_details.inside.space_notes_placeholder')).toBeInTheDocument();
     expect(getByText('pim_details.inside.type_of_kitchen')).toBeInTheDocument();

@@ -27,7 +27,7 @@ export const Space = ({ isEditMode, index, space: { spaceName, spaceType } }: Sp
         }}
         onOptionsClick={() => {}}
       >
-        {spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })}
+        {spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} {index + 1}
       </SubSectionHeader>
 
       <Collapse style={{ width: '100%' }} in={isToggled} timeout="auto" unmountOnExit>
