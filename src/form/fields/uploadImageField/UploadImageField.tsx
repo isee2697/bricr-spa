@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, useRef } from 'react';
 import { useField } from 'react-final-form';
+import classNames from 'classnames';
 
 import { Grid, CircularProgress, Badge } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
@@ -60,7 +61,7 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
 
   return (
     <>
-      <Grid item className={classes.root}>
+      <Grid item className={classNames(classes.root, { enabled: !disabled })}>
         {!loading && !!backgroundImage && (
           <Badge
             className={classes.badge}
@@ -87,7 +88,7 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
             </Grid>
           )}
           {!loading && !hasError && !input.value && (
-            <Grid container className={classes.empty}>
+            <Grid container className={classNames(classes.empty, { enabled: !disabled })}>
               <AddIcon />
             </Grid>
           )}

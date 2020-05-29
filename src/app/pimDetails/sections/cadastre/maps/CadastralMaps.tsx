@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
-import { Typography } from 'ui/atoms';
+import { Typography, Box } from 'ui/atoms';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 
@@ -30,23 +31,24 @@ export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
             className={classes.list}
             items={cadstralMaps.maps ?? []}
             itemIndex={'id'}
-            renderItem={(cadastre, _checked, checkbox) => (
-              <CadastreMapContainer
-                key={cadastre.id}
-                isEditMode={isEditMode}
-                cadastreId={cadastreId}
-                title={
-                  <>
-                    {checkbox}
-                    <Typography variant="h3">
-                      {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
-                    </Typography>
-                  </>
-                }
-                cadastreMap={cadastre}
-                toggled={toggled === cadastre.id}
-                onToggleClick={() => setToggled(toggled !== cadastre.id ? cadastre.id : undefined)}
-              />
+            renderItem={(cadastre, checked, checkbox) => (
+              <Box className={classNames({ [classes.rowChecked]: checked })} key={cadastre.id}>
+                <CadastreMapContainer
+                  isEditMode={isEditMode}
+                  cadastreId={cadastreId}
+                  title={
+                    <>
+                      {checkbox}
+                      <Typography variant="h3">
+                        {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
+                      </Typography>
+                    </>
+                  }
+                  cadastreMap={cadastre}
+                  toggled={toggled === cadastre.id}
+                  onToggleClick={() => setToggled(toggled !== cadastre.id ? cadastre.id : undefined)}
+                />
+              </Box>
             )}
             onBulk={() => alert('Bulk clicked')}
             onSort={() => {}}

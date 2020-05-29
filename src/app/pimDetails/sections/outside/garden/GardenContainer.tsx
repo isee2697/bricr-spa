@@ -1,25 +1,22 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import { useUpdateOutsideFeatureMutation, PimDetailsDocument } from 'api/types';
 import { usePim } from 'app/pimDetails/usePim/usePim';
 
+import { GardenContainerProps } from './Garden.types';
 import { Garden } from './Garden';
 
-export const GardenContainer = () => {
-  const { id, featureId } = useParams<{ id: string; featureId: string }>();
+export const GardenContainer = ({ feature }: GardenContainerProps) => {
   const [updateOutsideFeature] = useUpdateOutsideFeatureMutation();
   const pim = usePim();
-
-  const feature = pim.outsideFeatures?.find(({ id }) => featureId === id);
 
   const handleSave = async (body: unknown) => {
     try {
       const { data } = await updateOutsideFeature({
         variables: {
           input: {
-            pimId: id,
-            outsideFeatureId: featureId,
+            pimId: pim.id,
+            outsideFeatureId: feature.id,
             feature: body,
           },
         },
@@ -42,10 +39,6 @@ export const GardenContainer = () => {
       return { error: true };
     }
   };
-
-  if (!feature) {
-    return null;
-  }
 
   return <Garden feature={feature} onSave={handleSave} />;
 };

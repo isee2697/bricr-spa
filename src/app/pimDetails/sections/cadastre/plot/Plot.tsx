@@ -247,6 +247,7 @@ export const Plot = ({ index }: PlotProps) => {
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <DatePickerField
                       size="medium"
+                      format="yyyy"
                       name="configuration.lease.endDate"
                       label="pim_details.cadastre.plot.lease_end"
                       placeholder="pim_details.cadastre.plot.lease_end_placeholder"
@@ -267,7 +268,9 @@ export const Plot = ({ index }: PlotProps) => {
                         variant="contained"
                         color="ghost"
                       >
-                        {formatMessage({ id: 'pim_details.cadastre.plot.bought_off_subtitle' })}
+                        {formatMessage({
+                          id: `pim_details.cadastre.plot.bought_off_subtitle${isToggled ? '_hide' : ''}`,
+                        })}
                       </Button>
                     </span>
                   }

@@ -54,7 +54,7 @@ export const Cadastre = ({
       />
       <Grid xs={12} item>
         <Typography variant="h1">{formatMessage({ id: 'pim_details.cadastre.title' })}</Typography>
-        <AutosaveForm onSave={() => Promise.resolve({ error: false })} subscription={{}}>
+        <AutosaveForm onSave={onSave} subscription={{}}>
           <GenericField placeholder="pim_details.cadastre.description_placeholder" name="cadastre.description" />
         </AutosaveForm>
       </Grid>

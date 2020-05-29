@@ -46,9 +46,14 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
       <Switch>
         <Route default path={`${AppRoute.pimDetails}/outside`} exact render={() => <MainContainer />} />
-        {!!pim.outsideFeatures?.length && (
-          <Route path={`${AppRoute.pimDetails}/outside/:featureId`} render={() => <GardenContainer />} />
-        )}
+        {!!pim.outsideFeatures?.length &&
+          pim.outsideFeatures.map(feature => (
+            <Route
+              key={feature.id}
+              path={`${AppRoute.pimDetails}/outside/${feature.id}`}
+              render={() => <GardenContainer feature={feature} />}
+            />
+          ))}
         <Redirect to={`${AppRoute.pimDetails}/outside`} />
       </Switch>
 

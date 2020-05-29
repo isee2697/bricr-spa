@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
-    cursor: 'pointer',
     position: 'relative',
     '&:hover .MuiBadge-root': {
       display: 'block',
@@ -26,6 +25,10 @@ export const useStyles = makeStyles(theme => ({
   },
   empty: {
     border: `2px solid ${theme.palette.gray.light}`,
+    '&.enabled': {
+      border: `1px solid ${theme.palette.gray.main}`,
+      cursor: 'pointer',
+    },
   },
   loading: {
     background: theme.palette.white.light,
@@ -49,6 +52,7 @@ export const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: theme.spacing(0.75),
     display: 'none',
+    cursor: 'pointer',
   },
   badgeIcon: {
     color: theme.palette.white.main,

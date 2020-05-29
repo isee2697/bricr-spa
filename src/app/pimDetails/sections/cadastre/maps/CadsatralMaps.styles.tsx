@@ -15,4 +15,7 @@ export const useStyles = makeStyles(theme => ({
       paddingLeft: 0,
     },
   },
+  rowChecked: {
+    background: `${theme.palette.primary.main}08`,
+  },
 }));

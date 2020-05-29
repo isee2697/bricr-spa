@@ -57,7 +57,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
             title={formatMessage({ id: 'pim_details.cadastre.type_of_map' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
-          <Box paddingTop={2}>
+          <Box paddingTop={2} mb={2}>
             <RadioGroupField disabled={!isEditMode} xs={4} lg={2} name="type" options={cadastralMapTypes} />
           </Box>
         </Grid>
