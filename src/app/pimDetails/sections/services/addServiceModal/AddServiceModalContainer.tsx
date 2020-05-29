@@ -10,8 +10,8 @@ export const AddServiceModalContainer = ({ type, types, isOpened, onClose }: Add
 
   return (
     <AddServiceModal
-      title={`pim_details.services.${type}_modal_title`}
-      nameLabel={`pim_details.services.${type}_name_label`}
+      title={`pim_details.services.${type.toLowerCase()}_modal_title`}
+      nameLabel={`pim_details.services.${type.toLowerCase()}_name_label`}
       types={types}
       isOpened={isOpened}
       onClose={onClose}
