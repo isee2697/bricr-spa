@@ -22,7 +22,7 @@ describe('AddNewSpaceModal', () => {
     });
 
     // Space type
-    fireEvent.click(getByText('pim_details.inside.space_type.kitchen'));
+    fireEvent.click(getByText('dictionaries.space_type.Kitchen'));
 
     // Submit
     act(() => {
@@ -50,7 +50,7 @@ describe('AddNewSpaceModal', () => {
     });
 
     // Space type
-    fireEvent.click(getByText('pim_details.inside.space_type.kitchen'));
+    fireEvent.click(getByText('dictionaries.space_type.Kitchen'));
 
     // Submit
     act(() => {

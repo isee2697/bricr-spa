@@ -9,6 +9,7 @@ import {
   GardenQualityType,
   Location,
   GardenShapeType,
+  FloorType,
 } from 'api/types';
 
 export const PIM_1 = {
@@ -61,7 +62,15 @@ export const PIM_DETAILS_1: Pim = {
     propertyConnection: null,
     propertyDetails: null,
   },
-  floors: [],
+  floors: [
+    {
+      floorDescription: undefined,
+      floorType: FloorType.GroundFloor,
+      id: 'pim_10',
+      level: 1,
+      spaces: [],
+    },
+  ],
   outsideFeatures: [
     {
       __typename: 'OutsideFeature',

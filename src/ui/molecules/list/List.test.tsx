@@ -12,7 +12,7 @@ const listProps: ListProps<{ title: string; price: number }> = {
     { title: 'Baz', price: 790000 },
   ],
   itemIndex: 'title',
-  renderItem: (item, isSelected) => <div>{JSON.stringify(item)}</div>,
+  renderItem: (item, isSelected) => <div key={item.title}>{JSON.stringify(item)}</div>,
   onBulk: () => {},
   sortOptions: [
     { key: 'foo', name: 'Foo' },

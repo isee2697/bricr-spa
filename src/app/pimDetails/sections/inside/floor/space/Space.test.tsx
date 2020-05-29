@@ -3,14 +3,23 @@ import arrayMutators from 'final-form-arrays';
 import { Form } from 'react-final-form';
 
 import { render } from 'tests';
+import { SpaceType } from 'api/types';
 
-import { Kitchen } from './Kitchen';
+import { Space } from './Space';
 
-describe('Kitchen form', () => {
+const space = {
+  id: 'space1',
+  spaceType: SpaceType.Kitchen,
+  spaceName: undefined,
+  extraRoomPossibility: false,
+  configuration: undefined,
+};
+
+describe('Space form', () => {
   test('form rendered correctly', () => {
     const { getByText, getByPlaceholderText } = render(
       <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
-        {() => <Kitchen index={0} />}
+        {() => <Space space={space} isEditMode index={0} />}
       </Form>,
     );
 

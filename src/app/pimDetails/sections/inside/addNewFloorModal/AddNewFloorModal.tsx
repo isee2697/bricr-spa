@@ -29,11 +29,6 @@ const TYPES = [
     icon: <SquareIcon color="inherit" />,
   },
   {
-    type: FloorType.GroundFloor,
-    translation: 'dictionaries.floor_type.GroundFloor',
-    icon: <SquareIcon color="inherit" />,
-  },
-  {
     type: FloorType.Loft,
     translation: 'dictionaries.floor_type.Loft',
     icon: <SquareIcon color="inherit" />,

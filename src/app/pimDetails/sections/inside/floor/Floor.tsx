@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { EmptyFloor } from 'app/pimDetails/sections/inside/floor/emptyFloor/EmptyFloor';
-import { AddNewSpaceModalContainer } from '../addNewSpace/AddNewSpaceModalContainer';
-import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { useModalState } from 'hooks/useModalState/useModalState';
+import { Grid, Typography } from 'ui/atoms';
+import { FormSection } from 'ui/organisms';
 
-import { FloorProps } from './Floor.types';
-import { Spaces } from './spaces/Spaces';
+import { EmptyFloor } from './emptyFloor/EmptyFloor';
 import { FloorDescriptionContainer } from './floorDescription/FloorDescriptionContainer';
+import { AddNewSpaceModalContainer } from './addNewSpace/AddNewSpaceModalContainer';
+import { SpaceContainer } from './space/SpaceContainer';
+import { FloorProps } from './Floor.types';
 
 export const Floor = ({ floor }: FloorProps) => {
   const { formatMessage } = useLocale();
-  const isAddNewSpaceModalOpen = useModalState('add-new-space');
-  const { close, open } = useModalDispatch();
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -29,17 +28,27 @@ export const Floor = ({ floor }: FloorProps) => {
 
       {(floor.spaces === null || floor.spaces?.length === 0) && (
         <EmptyFloor
-          onClick={() => open('add-new-space')}
+          onClick={() => setModalOpen(true)}
           title={formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })}
         />
       )}
 
-      {floor.spaces && floor.spaces.length > 0 && <Spaces floorType={floor.floorType} spaces={floor.spaces} />}
-      <AddNewSpaceModalContainer
-        floorId={floor.id}
-        isOpened={isAddNewSpaceModalOpen}
-        onClose={() => close('add-new-space')}
-      />
+      {floor.spaces && floor.spaces.length > 0 && (
+        <Grid item xs={12}>
+          <FormSection
+            title={formatMessage({ id: 'pim_details.inside.space_title' }, { space: floor.floorType })}
+            onAdd={() => setModalOpen(true)}
+          >
+            {editing =>
+              floor.spaces?.map((space, index) => (
+                <SpaceContainer key={space.id} isEditMode={editing} index={index} space={space} />
+              ))
+            }
+          </FormSection>
+        </Grid>
+      )}
+
+      <AddNewSpaceModalContainer floorId={floor.id} isOpened={isModalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };

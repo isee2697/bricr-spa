@@ -66,17 +66,19 @@ context('Pim Details', () => {
 
   it('allows to add floor', () => {
     cy.findByText('Inside').click();
-    cy.contains('You don’t have any added floors yet.');
+    cy.contains('Ground floor');
 
     cy.findByText('Add new floor').click();
     cy.findByText('Attic').click();
-    cy.get('input[name="description"]').type('floor description');
+    cy.findAllByPlaceholderText('A few words about this floor...')
+      .last()
+      .type('floor description');
 
     cy.findAllByText('Add new floor')
       .last()
       .click();
 
-    cy.contains('You don’t have any added spaces yet.');
+    cy.contains('Ground floor');
     cy.get('.form-section-add')
       .last()
       .click();

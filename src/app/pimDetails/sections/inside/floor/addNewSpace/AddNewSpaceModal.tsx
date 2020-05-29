@@ -1,48 +1,16 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
+import { SpaceType } from 'api/types';
 import { Modal, SubmitButton, SelectCard } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Button, Grid, Switch } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
+import { AddIcon } from 'ui/atoms/icons';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 
 import { useStyles } from './AddNewSpaceModal.styles';
 import { AddNewSpaceModalProps } from './AddNewSpaceModal.types';
-
-const TYPES = [
-  {
-    type: 'Kitchen',
-    translation: 'kitchen',
-    disabled: false,
-  },
-  {
-    type: 'LivingRoom',
-    translation: 'living_room',
-    disabled: true,
-  },
-  {
-    type: 'Bathroom',
-    translation: 'bathroom',
-    disabled: true,
-  },
-  {
-    type: 'Bedroom',
-    translation: 'bedroom',
-    disabled: true,
-  },
-  {
-    type: 'HomeOffice',
-    translation: 'home_office',
-    disabled: true,
-  },
-  {
-    type: 'Other',
-    translation: 'other',
-    disabled: true,
-  },
-];
 
 export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceModalProps) => {
   const { formatMessage } = useLocale();
@@ -76,22 +44,18 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
               <Field name="type" validate={requireValidator}>
                 {({ input }) => (
                   <Grid container spacing={1}>
-                    {TYPES.map(c => (
-                      <Grid item xs={6} key={c.type}>
+                    {Object.values(SpaceType).map(space => (
+                      <Grid item xs={6} key={space}>
                         <SelectCard
                           fullWidth
-                          withButton={input.value === c.type}
+                          withButton={input.value === space}
                           onClick={() => {
-                            if (input.value === c.type) {
-                              input.onChange('');
-                            } else {
-                              input.onChange(c.type);
-                            }
+                            input.onChange(input.value === space ? '' : space);
                           }}
-                          disabled={c.disabled}
-                          selected={input.value === c.type}
+                          selected={input.value === space}
+                          disabled={space !== 'Kitchen'}
                           adornment={
-                            input.value === c.type
+                            input.value === space
                               ? () => (
                                   <>
                                     {formatMessage({ id: 'pim_details.inside.add_space.extra_room' })}{' '}
@@ -108,7 +72,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
                               : undefined
                           }
                         >
-                          {formatMessage({ id: `pim_details.inside.space_type.${c.translation}` })}
+                          {formatMessage({ id: `dictionaries.space_type.${space}` })}
                         </SelectCard>
                       </Grid>
                     ))}
