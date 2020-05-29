@@ -18,7 +18,9 @@ export const Floor = ({ floor }: FloorProps) => {
   return (
     <>
       <Grid container xs={12} item justify="space-between">
-        <Typography variant="h1">{formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })}</Typography>
+        <Typography variant="h1">
+          {formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })} {floor.level}
+        </Typography>
         <FloorDescriptionContainer
           floorDescription={floor.floorDescription || ''}
           floorId={floor.id}
