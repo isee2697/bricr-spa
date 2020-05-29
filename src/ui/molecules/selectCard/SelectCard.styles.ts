@@ -11,7 +11,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-flex',
     flexWrap: 'wrap',
     width: '100%',
-    minHeight: theme.spacing(8.5),
+    minHeight: theme.spacing(7),
     cursor: 'pointer',
     '& > button': {
       marginLeft: 'auto',
