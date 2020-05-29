@@ -59,7 +59,7 @@ export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
       </DialogContent>
       <DialogActions>
         <Button color="ghost" size="small" onClick={onPrev}>
-          {formatMessage({ id: 'common.previous' })}
+          {formatMessage({ id: 'add_pim.controls.previously_step' })}
         </Button>
         <SubmitButton
           type="submit"
