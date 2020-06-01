@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Grid } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
@@ -160,18 +159,30 @@ export const PropertyDetailsForm = () => {
             title={formatMessage({ id: 'pim_details.general.property_details.pick_type_of_property' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
-          <Grid container spacing={1} className={classes.tilesContainer}>
-            <RadioGroupField sm={3} options={TYPES} name="houseGeneral.propertyDetails" disabled={!editing} />
-          </Grid>
+          <div className={classes.tilesContainer}>
+            <RadioGroupField
+              sm={2}
+              spacing={1}
+              options={TYPES}
+              name="houseGeneral.propertyDetails"
+              disabled={!editing}
+            />
+          </div>
 
           <FormSubSection
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.property_details.property_connection' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
-          <Grid container spacing={1} className={classes.tilesContainer}>
-            <RadioGroupField sm={3} options={CONNECTIONS} name="houseGeneral.propertyConnection" disabled={!editing} />
-          </Grid>
+          <div className={classes.tilesContainer}>
+            <RadioGroupField
+              sm={2}
+              spacing={1}
+              options={CONNECTIONS}
+              name="houseGeneral.propertyConnection"
+              disabled={!editing}
+            />
+          </div>
         </>
       )}
     </FormSection>
