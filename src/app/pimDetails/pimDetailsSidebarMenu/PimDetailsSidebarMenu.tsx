@@ -96,7 +96,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
       icon: <HelpIcon />,
     },
     {
-      name: 'details',
+      name: 'specification',
       icon: <PinIcon />,
     },
     {
