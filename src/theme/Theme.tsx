@@ -22,6 +22,9 @@ const theme = createMuiTheme({
         color: palette.gray.main,
         backgroundColor: palette.gray.light,
       },
+      rounded: {
+        borderRadius: defaultTheme.spacing(1),
+      },
     },
     MuiBackdrop: {
       root: {
