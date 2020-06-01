@@ -18,7 +18,12 @@ export const Plot = ({ index }: PlotProps) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
+    <>
+      <GenericField
+        className={classes.description}
+        placeholder="pim_details.cadastre.description_placeholder"
+        name="description"
+      />
       <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
         {editing => (
           <Grid container spacing={4}>
@@ -248,6 +253,7 @@ export const Plot = ({ index }: PlotProps) => {
                     <DatePickerField
                       size="medium"
                       format="yyyy"
+                      views={['year']}
                       name="configuration.lease.endDate"
                       label="pim_details.cadastre.plot.lease_end"
                       placeholder="pim_details.cadastre.plot.lease_end_placeholder"
@@ -329,6 +335,6 @@ export const Plot = ({ index }: PlotProps) => {
           </Grid>
         )}
       </FormSection>
-    </Grid>
+    </>
   );
 };

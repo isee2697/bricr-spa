@@ -5,4 +5,9 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     marginRight: spacing(3),
     backgroundColor: palette.white.main,
   },
+  plotContainer: {
+    '&.MuiGrid-root': {
+      paddingTop: 0,
+    },
+  },
 }));

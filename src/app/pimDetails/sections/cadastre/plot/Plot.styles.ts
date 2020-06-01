@@ -22,4 +22,8 @@ export const useStyles = makeStyles(theme => ({
   collapse: {
     width: '100%',
   },
+  description: {
+    marginTop: 0,
+    marginBottom: theme.spacing(2),
+  },
 }));

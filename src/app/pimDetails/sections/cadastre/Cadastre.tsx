@@ -6,8 +6,6 @@ import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHead
 import { Box, Button, Grid, Typography } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { AddIcon } from 'ui/atoms/icons';
-import { AutosaveForm } from 'ui/organisms';
-import { GenericField } from 'form/fields';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType, CadastreMaps } from 'api/types';
 
@@ -21,7 +19,6 @@ export const Cadastre = ({
   isSidebarVisible,
   onOpenSidebar,
   pim,
-  onSave,
   onAddPlot,
   isAddPlotSubmitting,
 }: CadastreProps) => {
@@ -54,26 +51,27 @@ export const Cadastre = ({
       />
       <Grid xs={12} item>
         <Typography variant="h1">{formatMessage({ id: 'pim_details.cadastre.title' })}</Typography>
-        <AutosaveForm onSave={onSave} subscription={{}}>
-          <GenericField placeholder="pim_details.cadastre.description_placeholder" name="cadastre.description" />
-        </AutosaveForm>
       </Grid>
-      <Grid xs={12} item>
-        <Switch>
-          {pim.cadastre &&
-            pim.cadastre
-              .filter(c => c.type === CadastreType.Plot)
-              .map((plot, index) => (
-                <Route
-                  key={plot.id}
-                  path={`${AppRoute.pimDetails}/cadastre/${plot.id}`}
-                  exact
-                  render={() => <PlotContainer plot={plot} index={index + 1} />}
-                />
-              ))}
-          <Route
-            path={`${AppRoute.pimDetails}/cadastre/cadastreMap`}
-            render={() => (
+      <Switch>
+        {pim.cadastre &&
+          pim.cadastre
+            .filter(c => c.type === CadastreType.Plot)
+            .map((plot, index) => (
+              <Route
+                key={plot.id}
+                path={`${AppRoute.pimDetails}/cadastre/${plot.id}`}
+                exact
+                render={() => (
+                  <Grid className={classes.plotContainer} item xs={12}>
+                    <PlotContainer plot={plot} index={index + 1} />
+                  </Grid>
+                )}
+              />
+            ))}
+        <Route
+          path={`${AppRoute.pimDetails}/cadastre/cadastreMap`}
+          render={() => (
+            <Grid item xs={12}>
               <CadastralMaps
                 cadastreId={(pim && (pim.cadastre?.find(c => c.type === CadastreType.CadastreMap)?.id as string)) || ''}
                 cadstralMaps={
@@ -82,13 +80,13 @@ export const Cadastre = ({
                   []
                 }
               />
-            )}
-          />
-          <Route path={`${AppRoute.pimDetails}/cadastre`} exact>
-            <Redirect to={`${AppRoute.pimDetails.replace(':id', pim.id)}/cadastre/cadastreMap`} />
-          </Route>
-        </Switch>
-      </Grid>
+            </Grid>
+          )}
+        />
+        <Route path={`${AppRoute.pimDetails}/cadastre`} exact>
+          <Redirect to={`${AppRoute.pimDetails.replace(':id', pim.id)}/cadastre/cadastreMap`} />
+        </Route>
+      </Switch>
     </>
   );
 };

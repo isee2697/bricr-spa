@@ -51,8 +51,6 @@ export const CadastreContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
     }
   };
 
-  const handleSave = () => Promise.resolve({ error: false });
-
   if (!pim) {
     return null;
   }
@@ -63,7 +61,6 @@ export const CadastreContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
       onOpenSidebar={onOpenSidebar}
       title={title}
       pim={pim}
-      onSave={handleSave}
       onAddPlot={handleAddPlot}
       isAddPlotSubmitting={loading}
     />
