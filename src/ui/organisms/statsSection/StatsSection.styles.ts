@@ -7,8 +7,5 @@ export const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(3),
       flex: '1 0 auto',
     },
-    '& > *:last-child': {
-      marginRight: 0,
-    },
   },
 }));

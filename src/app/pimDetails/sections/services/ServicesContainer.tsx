@@ -66,6 +66,15 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
               onOpenSidebar={onOpenSidebar}
               pim={pim}
               onSave={handleSave}
+              linkedPerson={{
+                name: 'Christian van Gils',
+                avatar: 'https://source.unsplash.com/featured/?person',
+                office: 'Vesteging Weert',
+                company: 'Hendriks Makelaardij',
+                phone: '06-48764044',
+                email: 'christian@cubiceyes.com',
+                onChangeClick: () => {},
+              }}
             />
           )}
         />

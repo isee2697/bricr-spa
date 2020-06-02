@@ -33,4 +33,20 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
   options: {
     backgroundColor: palette.gray.light,
   },
+  title: {
+    alignItems: 'center',
+    display: 'flex',
+  },
+  titleBadge: {
+    display: 'flex',
+    borderRadius: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: spacing(3),
+    height: spacing(3),
+    background: palette.gray.light,
+    marginLeft: spacing(0.5),
+    color: palette.gray.main,
+    fontSize: typography.h4.fontSize,
+  },
 }));

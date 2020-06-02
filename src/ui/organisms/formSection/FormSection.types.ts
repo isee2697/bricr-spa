@@ -5,6 +5,7 @@ export type FormSectionHeaderProps = ExpansionPanelSummaryProps & { editing: str
 
 export type FormSectionProps = {
   title: ReactNode;
+  titleBadge?: number;
   isEditable?: boolean;
   onAdd?: VoidFunction;
   onOptionsClick?: VoidFunction;

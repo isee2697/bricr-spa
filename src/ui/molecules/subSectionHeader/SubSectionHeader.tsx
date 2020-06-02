@@ -13,11 +13,17 @@ export const SubSectionHeader = ({
   onOptionsClick,
   onToggleClick,
   className,
+  counter,
 }: SubSectionHeaderProps) => {
   const classes = useStyles();
 
   return (
     <Grid className={classNames(classes.root, className)} alignItems="center" container>
+      {counter && (
+        <Grid item>
+          <div className={classes.counter}>{counter}</div>
+        </Grid>
+      )}
       <Grid item>{children}</Grid>
       <Grid className={classes.menu} item>
         <IconButton onClick={onOptionsClick}>

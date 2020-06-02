@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 import { Pim } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
+import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
+
 export type ServicesProps = PimDetailsSectionProps & {
   pim: Pim;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
@@ -11,7 +13,8 @@ export type ServicesProps = PimDetailsSectionProps & {
 export type ServicesMetersProps = PimDetailsSectionProps & {
   pim: Pim;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
-  type: 'gas' | 'water' | 'electricity';
+  linkedPerson: LinkedPersonProps;
+  type: 'GasMeters' | 'WaterMeters' | 'ElectricityMeters';
 };
 
 export type ServiceTypes = 'HotWater' | 'Heating' | 'Additional';

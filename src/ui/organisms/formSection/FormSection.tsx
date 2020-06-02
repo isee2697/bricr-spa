@@ -11,6 +11,7 @@ import { useStyles } from './FormSection.styles';
 
 export const FormSection = ({
   title,
+  titleBadge,
   isEditable = true,
   onAdd,
   onOptionsClick,
@@ -32,7 +33,10 @@ export const FormSection = ({
   return (
     <Card className={classes.root}>
       <Box className={classNames(classes.header, { 'edit-mode': editing })}>
-        <Typography variant="h2">{title}</Typography>
+        <Typography variant="h2" className={classes.title}>
+          {title}
+          {titleBadge && <div className={classes.titleBadge}>{titleBadge}</div>}
+        </Typography>
         <Box className={classes.actions}>
           {isEditable && (
             <FormControlLabel

@@ -6,4 +6,5 @@ export type SubSectionHeaderProps = {
   onToggleClick: VoidFunction;
   toggled?: boolean;
   className?: string;
+  counter?: number;
 };

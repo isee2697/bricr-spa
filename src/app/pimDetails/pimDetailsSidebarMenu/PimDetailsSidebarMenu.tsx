@@ -31,6 +31,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
   const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
   const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
   const meterGroups = groupBy((pim && pim.services && pim.services.meters) || [], meter => meter.type);
+
   const plotGroups = groupBy(
     (pim && pim.cadastre && pim.cadastre.filter(c => c.type === CadastreType.Plot).reverse()) || [],
     c => c.type,
@@ -91,7 +92,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     {
       name: 'services',
       subItems: Object.entries(meterGroups).map((values, key) =>
-        createSubMenuData(values[0].toLowerCase(), `pim_details.services.${values[0].toLowerCase()}_meters`, 0, key),
+        createSubMenuData(values[0].toLowerCase(), `dictionaries.service.meter.${values[0]}Meters`, 0, key),
       ),
       icon: <HelpIcon />,
     },
