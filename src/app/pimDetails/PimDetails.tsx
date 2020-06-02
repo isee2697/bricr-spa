@@ -12,7 +12,7 @@ import { PimDetailsProps } from './PimDetails.types';
 import { GeneralContainer } from './sections/general/GeneralContainer';
 import { Inside } from './sections/inside/Inside';
 import { Outside } from './sections/outside/Outside';
-import { CadastreContainer } from './sections/cadastre/CadastreContainer';
+import { Cadastre } from './sections/cadastre/Cadastre';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Prices } from './sections/prices/Prices';
 
@@ -74,7 +74,7 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
               <Route
                 path={`${AppRoute.pimDetails}/cadastre`}
                 render={() => (
-                  <CadastreContainer
+                  <Cadastre
                     isSidebarVisible={isSidebarVisible}
                     onOpenSidebar={handleSidebarOpen}
                     title={title}

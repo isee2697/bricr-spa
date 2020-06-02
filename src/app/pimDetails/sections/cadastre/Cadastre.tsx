@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
@@ -13,17 +13,16 @@ import { CadastreProps } from './Cadastre.types';
 import { useStyles } from './Cadastre.styles';
 import { CadastralMaps } from './maps/CadastralMaps';
 import { PlotContainer } from './plot/PlotContainer';
+import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
 
-export const Cadastre = ({
-  title,
-  isSidebarVisible,
-  onOpenSidebar,
-  pim,
-  onAddPlot,
-  isAddPlotSubmitting,
-}: CadastreProps) => {
+export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim }: CadastreProps) => {
   const { formatMessage } = useLocale();
+  const [isAddPlotModalOpen, setAddPlotModalOpen] = useState(false);
   const classes = useStyles();
+
+  if (!pim) {
+    return null;
+  }
 
   return (
     <>
@@ -40,8 +39,7 @@ export const Cadastre = ({
               color="primary"
               variant="contained"
               startIcon={<AddIcon color="inherit" />}
-              onClick={onAddPlot}
-              isLoading={isAddPlotSubmitting}
+              onClick={() => setAddPlotModalOpen(true)}
               size="small"
             >
               {formatMessage({ id: 'pim_details.cadastre.add_new_plot' })}
@@ -87,6 +85,13 @@ export const Cadastre = ({
           <Redirect to={`${AppRoute.pimDetails.replace(':id', pim.id)}/cadastre/cadastreMap`} />
         </Route>
       </Switch>
+      {isAddPlotModalOpen && (
+        <AddPlotModalContainer
+          pim={pim}
+          isModalOpened={isAddPlotModalOpen}
+          onModalClose={() => setAddPlotModalOpen(false)}
+        />
+      )}
     </>
   );
 };

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { useAddCadastreMutation, CadastreType, PimDetailsDocument } from 'api/types';
+import { CadastreType, PimDetailsDocument, useAddCadastreMutation } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
-import { Cadastre } from './Cadastre';
+import { AddPlotModalContainerProps } from './AddPlotModal.types';
+import { AddPlotModal } from './AddPlotModal';
 
-export const CadastreContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }: PimDetailsSectionProps) => {
-  const [addCadastre, { loading }] = useAddCadastreMutation();
+export const AddPlotModalContainer = ({ pim, isModalOpened, onModalClose }: AddPlotModalContainerProps) => {
   const { push } = useHistory();
+  const [addCadastre, { loading }] = useAddCadastreMutation();
 
   const handleAddPlot = async () => {
     try {
@@ -51,18 +51,12 @@ export const CadastreContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
     }
   };
 
-  if (!pim) {
-    return null;
-  }
-
   return (
-    <Cadastre
-      isSidebarVisible={isSidebarVisible}
-      onOpenSidebar={onOpenSidebar}
-      title={title}
-      pim={pim}
-      onAddPlot={handleAddPlot}
-      isAddPlotSubmitting={loading}
+    <AddPlotModal
+      handleAddPlot={handleAddPlot}
+      isModalOpened={isModalOpened}
+      onModalClose={onModalClose}
+      loading={loading}
     />
   );
 };
