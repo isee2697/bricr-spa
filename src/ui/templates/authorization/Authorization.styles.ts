@@ -28,15 +28,6 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.gray.light,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    [theme.breakpoints.up('sm')]: {
-      flex: `0 0 ${theme.spacing(46.5)}px`,
-    },
-  },
-  contentWrapper: {
-    [theme.breakpoints.up('sm')]: {
-      flex: `0 0 calc(100% - ${theme.spacing(46.5)}px)`,
-      maxWidth: `calc(100% - ${theme.spacing(46.5)}px)`,
-    },
   },
   content: {
     height: `calc(100% - ${theme.spacing(8)}px)`,
@@ -44,14 +35,10 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     justifyContent: 'center',
     display: 'flex',
-    paddingTop: theme.spacing(5.5),
+    flexDirection: 'column',
+    alignItems: 'center',
     '& form': {
       width: '100%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      paddingTop: 0,
-      flexDirection: 'column',
-      alignItems: 'center',
     },
   },
 }));

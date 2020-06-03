@@ -17,7 +17,7 @@ export const Authorization = ({ children }: AuthorizationProps) => {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item xs={12} sm={8} md={7} lg={4} component={Paper} elevation={6} square className={classes.contentWrapper}>
+      <Grid item xs={12} sm={8} md={7} lg={4} component={Paper} elevation={6} square>
         <TopBar className={classes.topBar} />
 
         <Grid item xs={10} md={9} lg={9} className={classes.content}>
@@ -29,7 +29,7 @@ export const Authorization = ({ children }: AuthorizationProps) => {
           )}
         </Grid>
       </Grid>
-      <Grid item xs={false} lg={8} className={classes.image} />
+      <Grid item xs={false} sm={4} md={5} lg={8} className={classes.image} />
     </Grid>
   );
 };
