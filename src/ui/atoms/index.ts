@@ -70,3 +70,4 @@ export { Select } from './select/Select';
 export { Loader } from './loader/Loader';
 export { ImageHolder } from './imageHolder/ImageHolder';
 export { LastUpdated } from './lastUpdated/LastUpdated';
+export { Dropdown } from './dropdown/Dropdown';

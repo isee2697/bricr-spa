@@ -6,4 +6,5 @@ export type TileCheckboxProps = {
   isDisabled?: boolean;
   children: ReactNode;
   title: string;
+  orientation?: 'vertical' | 'horizontal';
 };

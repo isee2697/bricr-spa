@@ -21,4 +21,5 @@ export type CheckboxGroupFieldProps = {
   md?: Width;
   lg?: Width;
   disabled?: boolean;
+  orientation?: 'vertical' | 'horizontal';
 };

@@ -18,6 +18,7 @@ export const CheckboxGroupField = ({
   md,
   lg,
   disabled,
+  orientation,
 }: CheckboxGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { fields, meta } = useFieldArray<string>(name, {
@@ -51,6 +52,7 @@ export const CheckboxGroupField = ({
               isSelected={fields.value && fields.value.includes(item.value)}
               title={formatMessage({ id: item.label })}
               isDisabled={disabled}
+              orientation={orientation}
             >
               {item.icon}
             </TileCheckbox>
