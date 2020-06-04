@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Button, Typography, Alert, InputAdornment, Link } from 'ui/atoms';
+import { Button, Typography, Alert, InputAdornment, Link, Box, Checkbox, FormControlLabel } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
@@ -56,14 +56,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
           <GenericField
             name="password"
             type={isPasswordVisible ? 'text' : 'password'}
-            label={
-              <>
-                {formatMessage({ id: 'login.password' })}
-                <Link component={RouterLink} to={AppRoute.forgotPassword}>
-                  {formatMessage({ id: 'login.forgot_password' })}
-                </Link>
-              </>
-            }
+            label={formatMessage({ id: 'login.password' })}
             placeholder="login.password_placeholder"
             validate={[requireValidator]}
             size="medium"
@@ -79,6 +72,16 @@ export const Login = ({ onSubmit }: LoginProps) => {
               ),
             }}
           />
+
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <FormControlLabel
+              control={<Checkbox color="primary" onChange={() => {}} name="remember.me" />}
+              label={<Typography variant="h4">{formatMessage({ id: 'login.remember_me' })}</Typography>}
+            />
+            <Link component={RouterLink} to={AppRoute.forgotPassword}>
+              {formatMessage({ id: 'login.forgot_password' })}
+            </Link>
+          </Box>
 
           <Button variant="contained" color="primary" fullWidth type="submit" disabled={submitting} size="large">
             {formatMessage({ id: 'login.submit' })}
