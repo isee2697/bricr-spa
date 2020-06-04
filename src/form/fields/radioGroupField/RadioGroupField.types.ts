@@ -24,4 +24,5 @@ export type RadioGroupFieldProps = {
   lg?: Width;
   disabled?: boolean;
   parse?: Function;
+  actionElement?: ReactNode;
 } & Pick<UseFieldConfig<string>, 'format'>;

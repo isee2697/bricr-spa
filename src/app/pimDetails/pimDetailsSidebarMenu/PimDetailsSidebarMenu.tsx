@@ -98,6 +98,12 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     },
     {
       name: 'specification',
+      subItems: [
+        {
+          id: 'advanced',
+          label: 'pim_details.specification.advanced.title',
+        },
+      ],
       icon: <PinIcon />,
     },
     {

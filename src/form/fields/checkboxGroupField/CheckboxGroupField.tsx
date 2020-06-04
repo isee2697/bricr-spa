@@ -18,6 +18,7 @@ export const CheckboxGroupField = ({
   md,
   lg,
   disabled,
+  actionElement,
   orientation,
 }: CheckboxGroupFieldProps) => {
   const { formatMessage } = useLocale();
@@ -58,6 +59,11 @@ export const CheckboxGroupField = ({
             </TileCheckbox>
           </Grid>
         ))}
+        {actionElement && (
+          <Grid item xs={xs} sm={sm} md={md} lg={lg}>
+            {actionElement}
+          </Grid>
+        )}
       </Grid>
       {hasError && (
         <FormHelperText error>

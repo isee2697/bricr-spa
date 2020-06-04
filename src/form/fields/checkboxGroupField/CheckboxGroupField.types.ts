@@ -21,5 +21,6 @@ export type CheckboxGroupFieldProps = {
   md?: Width;
   lg?: Width;
   disabled?: boolean;
+  actionElement?: ReactNode;
   orientation?: 'vertical' | 'horizontal';
 };

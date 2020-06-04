@@ -16,6 +16,7 @@ import { Outside } from './sections/outside/Outside';
 import { Cadastre } from './sections/cadastre/Cadastre';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Prices } from './sections/prices/Prices';
+import { SpecificationContainer } from './sections/specification/SpecificationContainer';
 
 export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
   const classes = useStyles();
@@ -98,6 +99,16 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
                 path={`${AppRoute.pimDetails}/prices`}
                 render={() => (
                   <Prices isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.pimDetails}/specification`}
+                render={() => (
+                  <SpecificationContainer
+                    isSidebarVisible={isSidebarVisible}
+                    onOpenSidebar={handleSidebarOpen}
+                    title={title}
+                  />
                 )}
               />
               <Route

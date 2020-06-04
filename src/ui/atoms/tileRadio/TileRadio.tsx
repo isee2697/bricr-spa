@@ -7,7 +7,7 @@ import { TileRadioProps } from './TileRadio.types';
 import { useStyles } from './TileRadio.styles';
 
 export const TileRadio = ({ onClick, isSelected, children, title, isDisabled }: TileRadioProps) => {
-  const classes = useStyles({ isLargeSize: !!children });
+  const classes = useStyles();
 
   return (
     <div className={classNames(classes.root, !!isDisabled && classes.disabled)}>

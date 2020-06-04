@@ -27,6 +27,8 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.black.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.h5.fontWeight,
+      display: 'flex',
+      justifyContent: 'center',
     },
     '& div:first-child': {
       marginRight: 0,

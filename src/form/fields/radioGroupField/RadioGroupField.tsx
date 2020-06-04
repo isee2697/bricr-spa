@@ -20,6 +20,7 @@ export const RadioGroupField = ({
   sm,
   md,
   lg,
+  actionElement,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -60,6 +61,11 @@ export const RadioGroupField = ({
             </TileRadio>
           </Grid>
         ))}
+        {actionElement && (
+          <Grid item xs={xs} sm={sm} md={md} lg={lg}>
+            {actionElement}
+          </Grid>
+        )}
       </Grid>
       {hasError && (
         <FormHelperText error>
