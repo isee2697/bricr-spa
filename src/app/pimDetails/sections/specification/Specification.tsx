@@ -1,53 +1,46 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router';
 
-import { Button, Grid, Typography } from 'ui/atoms';
+import { Button, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { GenericField } from 'form/fields';
-import { EditIcon } from 'ui/atoms/icons';
 import { PimDetailsHeader } from '../../pimDetailsHeader/PimDetailsHeader';
+import { EditIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
-import { EnergyForm } from './forms/EnergyForm';
-import { ApprovalsForm } from './forms/ApprovalsForm';
-import { ObligationForm } from './forms/ObligationForm';
+import { SpecificationGeneral } from './specificationGeneral/SpecificationGeneral';
+import { Advanced } from './advanced/Advanced';
+import { LinkedProperty } from './linkedProperty/LinkedProperty';
 
 export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
-      <PimDetailsHeader
-        title={title}
-        isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
-        action={
-          <Button
-            color="primary"
-            startIcon={<EditIcon color="inherit" />}
-            variant="contained"
-            onClick={() => {}}
-            size="small"
-          >
-            {formatMessage({ id: 'pim_details.specification.add_property_button' })}
-          </Button>
-        }
-      />
       <Grid xs={12} item>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.specification.title' })}</Typography>
-        <GenericField
-          placeholder="pim_details.specification.description_placeholder"
-          name="specification.description"
+        <PimDetailsHeader
+          title={title}
+          isSidebarVisible={isSidebarVisible}
+          onOpenSidebar={onOpenSidebar}
+          action={
+            <Button
+              color="primary"
+              startIcon={<EditIcon color="inherit" />}
+              variant="contained"
+              onClick={() => {}}
+              size="small"
+            >
+              {formatMessage({ id: 'pim_details.specification.add_property_button' })}
+            </Button>
+          }
         />
       </Grid>
-      <Grid item xs={12}>
-        <EnergyForm />
-      </Grid>
-      <Grid item xs={12}>
-        <ApprovalsForm />
-      </Grid>
-      <Grid item xs={12}>
-        <ObligationForm />
-      </Grid>
+      <Switch>
+        <Route default path={`${AppRoute.pimDetails}/specification`} exact render={() => <SpecificationGeneral />} />
+        <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <Advanced />} />
+        <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
+        <Redirect to={`${AppRoute.pimDetails}/specification`} />
+      </Switch>
     </>
   );
 };

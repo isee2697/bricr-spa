@@ -103,6 +103,10 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
           id: 'advanced',
           label: 'pim_details.specification.advanced.title',
         },
+        {
+          id: 'linked-property',
+          label: 'pim_details.specification.linked_properties.title',
+        },
       ],
       icon: <PinIcon />,
     },
