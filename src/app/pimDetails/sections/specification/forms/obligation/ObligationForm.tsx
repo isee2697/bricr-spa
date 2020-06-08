@@ -5,11 +5,13 @@ import { TileButton } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { useStyles } from '../Specification.styles';
+import { useStyles } from '../../Specification.styles';
 import { FormSubSection } from 'ui/molecules';
-import * as dictionaries from '../dictionaries';
+import * as dictionaries from '../../dictionaries';
 
-export const ObligationForm = () => {
+import { ObligationFormProps } from './ObligationForm.types';
+
+export const ObligationForm = ({ onAddPropertyClick }: ObligationFormProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -34,7 +36,7 @@ export const ObligationForm = () => {
               xs={2}
               name="obligation"
               options={dictionaries.obligation}
-              actionElement={<TileButton onClick={() => {}} isDisabled={!editing} />}
+              actionElement={<TileButton onClick={onAddPropertyClick} isDisabled={!editing} />}
             />
             <Box mt={2}>
               <GenericField

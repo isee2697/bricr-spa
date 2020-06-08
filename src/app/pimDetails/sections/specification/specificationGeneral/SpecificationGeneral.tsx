@@ -5,9 +5,10 @@ import { useLocale } from 'hooks';
 import { GenericField } from 'form/fields';
 import { EnergyForm } from '../forms/EnergyForm';
 import { ApprovalsForm } from '../forms/ApprovalsForm';
-import { ObligationForm } from '../forms/ObligationForm';
+import { ObligationForm } from '../forms/obligation/ObligationForm';
+import { ObligationFormProps } from '../forms/obligation/ObligationForm.types';
 
-export const SpecificationGeneral = () => {
+export const SpecificationGeneral = ({ onAddPropertyClick }: ObligationFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -26,7 +27,7 @@ export const SpecificationGeneral = () => {
         <ApprovalsForm />
       </Grid>
       <Grid item xs={12}>
-        <ObligationForm />
+        <ObligationForm onAddPropertyClick={onAddPropertyClick} />
       </Grid>
     </>
   );

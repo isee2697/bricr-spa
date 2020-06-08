@@ -36,16 +36,16 @@ export const SpecialSubsection = ({
         </Box>
         {actionGroupType === 'radio' && (
           <RadioGroupField
-            disabled={!isDisabled}
+            disabled={isDisabled}
             xs={2}
             name={actionGroupName}
             options={options}
-            actionElement={<TileButton onClick={() => {}} isDisabled={!isDisabled} />}
+            actionElement={<TileButton onClick={() => {}} isDisabled={isDisabled} />}
           />
         )}
         {actionGroupType === 'checkbox' && (
           <CheckboxGroupField
-            disabled={!isDisabled}
+            disabled={isDisabled}
             xs={2}
             name={actionGroupName}
             options={options}
@@ -53,13 +53,13 @@ export const SpecialSubsection = ({
               <TileButton
                 className={classes.tileButton}
                 onClick={() => {}}
-                isDisabled={!isDisabled}
+                isDisabled={isDisabled}
                 title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}
               />
             }
           />
         )}
-        <GenericField name={inputName} label={label} placeholder={placeholder} disabled={!isDisabled} />
+        <GenericField name={inputName} label={label} placeholder={placeholder} disabled={isDisabled} />
       </Collapse>
     </>
   );

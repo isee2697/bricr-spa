@@ -8,11 +8,17 @@ import { EditIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
+import { ObligationFormProps } from './forms/obligation/ObligationForm.types';
 import { SpecificationGeneral } from './specificationGeneral/SpecificationGeneral';
 import { Advanced } from './advanced/Advanced';
 import { LinkedProperty } from './linkedProperty/LinkedProperty';
 
-export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const Specification = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  onAddPropertyClick,
+}: PimDetailsSectionProps & ObligationFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -36,7 +42,12 @@ export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
         />
       </Grid>
       <Switch>
-        <Route default path={`${AppRoute.pimDetails}/specification`} exact render={() => <SpecificationGeneral />} />
+        <Route
+          default
+          path={`${AppRoute.pimDetails}/specification`}
+          exact
+          render={() => <SpecificationGeneral onAddPropertyClick={onAddPropertyClick} />}
+        />
         <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <Advanced />} />
         <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
         <Redirect to={`${AppRoute.pimDetails}/specification`} />
