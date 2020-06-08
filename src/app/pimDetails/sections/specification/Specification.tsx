@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
 import { Button, Grid } from 'ui/atoms';
@@ -12,6 +12,7 @@ import { ObligationFormProps } from './forms/obligation/ObligationForm.types';
 import { SpecificationGeneral } from './specificationGeneral/SpecificationGeneral';
 import { Advanced } from './advanced/Advanced';
 import { LinkedProperty } from './linkedProperty/LinkedProperty';
+import { AddLinkedPropertyModalContainer } from './addLinkedPropertyModal/AddLinkedPropertyModalContainer';
 
 export const Specification = ({
   title,
@@ -20,6 +21,7 @@ export const Specification = ({
   onAddPropertyClick,
 }: PimDetailsSectionProps & ObligationFormProps) => {
   const { formatMessage } = useLocale();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -33,7 +35,7 @@ export const Specification = ({
               color="primary"
               startIcon={<EditIcon color="inherit" />}
               variant="contained"
-              onClick={() => {}}
+              onClick={() => setModalOpen(v => !v)}
               size="small"
             >
               {formatMessage({ id: 'pim_details.specification.add_property_button' })}
@@ -52,6 +54,7 @@ export const Specification = ({
         <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
         <Redirect to={`${AppRoute.pimDetails}/specification`} />
       </Switch>
+      <AddLinkedPropertyModalContainer isOpened={isModalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };

@@ -7,7 +7,6 @@ import { NewConstructionIcon } from 'ui/atoms/icons/newConstruction/NewConstruct
 import { ComplexBuildingIcon } from 'ui/atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { useTheme } from '@material-ui/core/styles';
-
 const theme = useTheme();
  
 <Grid container justify="center" spacing={2}>

@@ -20,3 +20,4 @@ export { LinkedPerson } from './linkedPerson/LinkedPerson';
 export { TileButton } from './tileButton/TileButton';
 export { LinkedPropertyItem } from './linkedPropertyItem/LinkedPropertyItem';
 export { IconPicker } from './iconPicker/IconPicker';
+export { SimpleSearch } from './simpleSearch/SimpleSearch';

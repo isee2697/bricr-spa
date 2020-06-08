@@ -22,6 +22,7 @@ const purple = '#813FF6';
 const purpleLight = '#F2EEFC';
 const gradientPrimary = 'linear-gradient(354.85deg, #0A57E9 0%, #9FC0FF 100%)';
 const gradientBlue = 'linear-gradient(339deg, #0a57e91a 0%, #9fc0ff1a 100%)';
+const gradientLightBlue = 'linear-gradient(354deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 
 export const palette: PaletteOptions = {
   primary: {
@@ -87,6 +88,7 @@ export const palette: PaletteOptions = {
   },
   gradientBlue: {
     main: gradientBlue,
+    light: gradientLightBlue,
   },
   overlay: {
     main: 'rgba(130, 141, 185, 0.3)',

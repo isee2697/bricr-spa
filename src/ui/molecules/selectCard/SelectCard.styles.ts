@@ -28,7 +28,7 @@ export const useStyles = makeStyles(theme => ({
   },
   selected: {
     borderColor: theme.palette.primary.main,
-    backgroundColor: theme.palette.primary.light,
+    background: theme.palette.gradientBlue.light,
     fontWeight: theme.typography.fontWeightBold,
     '& > button': {
       backgroundColor: theme.palette.white.main,

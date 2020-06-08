@@ -5,6 +5,6 @@ export type TileCheckboxProps = {
   isSelected: boolean;
   isDisabled?: boolean;
   children: ReactNode;
-  title: string;
+  title: ReactNode;
   orientation?: 'vertical' | 'horizontal';
 };
