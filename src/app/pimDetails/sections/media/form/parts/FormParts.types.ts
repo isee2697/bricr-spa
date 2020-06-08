@@ -12,3 +12,8 @@ export type SingleChooseProps = {
   disabled: boolean;
   options: RadioDataType[];
 };
+
+export type EditorProps = {
+  titleId: string;
+  disabled: boolean;
+};

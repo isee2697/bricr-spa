@@ -4,6 +4,7 @@ import { useLocale } from 'hooks';
 import { Section } from '../section/Section';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Form } from '../form/Form';
+import { Editor } from 'app/pimDetails/sections/media/form/parts/Editor';
 
 import { TextChaptersProps } from './TextChapters.types';
 
@@ -21,7 +22,8 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
     >
       {editing =>
         chapters.map(chapter => (
-          <Form title={chapter.name} onSave={onSave} initialValues={{}}>
+          <Form title={chapter.name} onSave={onSave} initialValues={chapter}>
+            <Editor titleId="pim_details.media.text_chapters.editor" disabled={!editing} />
             <SingleChoose
               disabled={!editing}
               options={options}

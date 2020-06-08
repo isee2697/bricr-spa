@@ -123,6 +123,8 @@
     "react-scrollbars-custom": "4.0.21",
     "react-styleguidist": "11.0.5",
     "react-test-renderer": "16.12.0",
+    "slate": "0.58.1",
+    "slate-react": "0.58.2",
     "typescript": "3.7.5",
     "use-query-params": "1.1.3"
   },

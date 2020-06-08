@@ -1,3 +1,5 @@
+import { Node } from 'slate';
+
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 
 export type TextChaptersProps = {
@@ -9,4 +11,5 @@ export type TextChaptersProps = {
 
 type Chapter = {
   name: string;
+  chapter: Node[];
 };
