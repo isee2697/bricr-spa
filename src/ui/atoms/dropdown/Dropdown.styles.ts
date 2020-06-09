@@ -32,6 +32,9 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&.disabled': {
       color: palette.gray.main,
     },
+    '&.placeholder': {
+      color: 'rgba(0, 0, 0, 0.38)',
+    },
   },
   reversedArrow: {
     transform: 'rotate(180deg)',
@@ -48,6 +51,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&.isOpened': {
       display: 'block',
     },
+    zIndex: 1,
   },
   item: {
     cursor: 'pointer',

@@ -18,6 +18,7 @@ export * from './dashboard/DashboardIcon';
 export * from './doc/DocIcon';
 export * from './download/DownloadIcon';
 export * from './edit/EditIcon';
+export * from './euro/EuroIcon';
 export * from './files/FilesIcon';
 export * from './filter/FilterIcon';
 export * from './folder/FolderIcon';

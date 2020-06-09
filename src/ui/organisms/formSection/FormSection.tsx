@@ -70,7 +70,7 @@ export const FormSection = ({
         </Box>
       </Box>
       <Collapse in={expanded} timeout="auto" unmountOnExit className={classes.content}>
-        {children(editing)}
+        {typeof children === 'function' ? children(editing) : children}
       </Collapse>
     </Card>
   );

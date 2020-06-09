@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { SpaceType } from 'api/types';
-import { SubSectionHeader } from 'ui/molecules';
-import { Collapse, Grid, Box } from 'ui/atoms';
+import { FormSubSection } from 'ui/organisms';
+import { Grid, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
 import { CommonForm } from './forms/CommonForm';
@@ -16,26 +16,18 @@ export const Space = ({ isEditMode, index, space: { spaceName, spaceType } }: Sp
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const [isToggled, setToggled] = useState(index === 0);
-
   return (
     <Box className={classes.container}>
-      <SubSectionHeader
-        toggled={isToggled}
-        onToggleClick={() => {
-          setToggled(t => !t);
-        }}
+      <FormSubSection
+        title={`${spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} ${index + 1}`}
         onOptionsClick={() => {}}
+        initiallyOpened={index === 0}
       >
-        {spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} {index + 1}
-      </SubSectionHeader>
-
-      <Collapse style={{ width: '100%' }} in={isToggled} timeout="auto" unmountOnExit>
         <Grid container spacing={4}>
           {spaceType === SpaceType.Kitchen && <KitchenForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}
           <CommonForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />
         </Grid>
-      </Collapse>
+      </FormSubSection>
     </Box>
   );
 };

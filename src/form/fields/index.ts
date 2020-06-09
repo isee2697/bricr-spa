@@ -9,3 +9,4 @@ export * from './checkboxGroupField/CheckboxGroupField';
 export * from './radioGroupField/RadioGroupField';
 export * from './selectField/SelectField';
 export * from './cardField/CardField';
+export * from './dropdownField/DropdownField';

@@ -7,13 +7,7 @@ import { ArrowDownIcon } from 'ui/atoms/icons';
 import { DropdownProps } from './Dropdown.types';
 import { useStyles } from './Dropdown.styles';
 
-export const Dropdown: <T>(p: DropdownProps<T>) => React.ReactElement<DropdownProps<T>> = ({
-  items,
-  placeholder,
-  disabled,
-  value,
-  onChange,
-}) => {
+export const Dropdown = ({ items, placeholder, disabled, value, onChange }: DropdownProps) => {
   const classes = useStyles();
 
   const select = useRef<HTMLSelectElement | null>(null);
@@ -28,7 +22,7 @@ export const Dropdown: <T>(p: DropdownProps<T>) => React.ReactElement<DropdownPr
         }}
         className={classNames(classes.input, { isOpened, disabled })}
       >
-        <Typography className={classNames(classes.value, { disabled })}>
+        <Typography className={classNames(classes.value, { disabled, placeholder: !value })}>
           {items.find(item => item.value === value)?.label ?? placeholder}
         </Typography>
         <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />

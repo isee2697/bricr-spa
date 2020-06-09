@@ -11,5 +11,5 @@ export type FormSectionProps = {
   onOptionsClick?: VoidFunction;
   isExpandable?: boolean;
   isInitExpanded?: boolean;
-  children: (editing: boolean) => ReactNode;
+  children: ((editing: boolean) => ReactNode) | ReactNode;
 };

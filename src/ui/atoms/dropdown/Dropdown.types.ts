@@ -1,12 +1,12 @@
-type DropdownItem<T> = {
+type DropdownItem = {
   label: string;
-  value: T;
+  value: string;
 };
 
-export type DropdownProps<T> = {
-  items: DropdownItem<T>[];
+export type DropdownProps = {
+  items: DropdownItem[];
   placeholder: string;
   disabled?: boolean;
-  value?: T;
-  onChange: (value: T) => void;
+  value?: string;
+  onChange: (value: string) => void;
 };

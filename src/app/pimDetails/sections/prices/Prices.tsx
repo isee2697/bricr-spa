@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, Typography, Grid, Box } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
@@ -8,10 +8,15 @@ import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
-import { Price } from './price/Price';
+import { PriceContainer } from './price/PriceContainer';
+import { SetPricesModal } from './setPricesModal/SetPricesModal';
+import { PriceType } from './Prices.types';
 
 export const Prices = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
+
+  const [pricesTypes, setPricesTypes] = useState([] as PriceType[]);
+  const [isPriceModalOpened, setPriceModalOpened] = useState(false);
 
   return (
     <>
@@ -24,13 +29,14 @@ export const Prices = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
             color="primary"
             startIcon={<AddIcon color="inherit" />}
             variant="contained"
-            onClick={() => {}}
+            onClick={() => setPriceModalOpened(true)}
             size="small"
           >
             {formatMessage({ id: 'pim_details.prices.add_price' })}
           </Button>
         }
       />
+
       <Grid item xs={12}>
         <Typography variant="h1">{formatMessage({ id: 'pim_details.prices.title' })}</Typography>
         <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
@@ -38,8 +44,22 @@ export const Prices = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
             <GenericField placeholder="pim_details.prices.description_placeholder" name="description" />
           </Box>
         </AutosaveForm>
-        <Price />
+        <PriceContainer types={pricesTypes} />
       </Grid>
+
+      {isPriceModalOpened && (
+        <SetPricesModal
+          isOpened
+          onClose={() => setPriceModalOpened(false)}
+          initialValues={pricesTypes}
+          onSubmit={({ prices }) => {
+            setPricesTypes(prices);
+            setPriceModalOpened(false);
+
+            return Promise.resolve({ error: false });
+          }}
+        />
+      )}
     </>
   );
 };
