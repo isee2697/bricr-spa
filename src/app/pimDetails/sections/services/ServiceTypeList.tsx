@@ -53,7 +53,7 @@ export const ServiceTypeList: <T extends BaseService>(
         }
         isEditable={items.length > 0}
         onAdd={() => setIsOpenAddService(true)}
-        onOptionsClick={() => {}}
+        onOptionsClick={items.length > 0 ? () => {} : undefined}
       >
         {isEditMode => (
           <>

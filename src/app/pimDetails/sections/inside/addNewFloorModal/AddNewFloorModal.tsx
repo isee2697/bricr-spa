@@ -14,6 +14,11 @@ import { AddNewFloorModalProps } from './AddNewFloorModal.types';
 
 const TYPES = [
   {
+    type: FloorType.Basement,
+    translation: 'dictionaries.floor_type.Basement',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
     type: FloorType.Floor,
     translation: 'dictionaries.floor_type.Floor',
     icon: <SquareIcon color="inherit" />,
@@ -21,11 +26,6 @@ const TYPES = [
   {
     type: FloorType.Attic,
     translation: 'dictionaries.floor_type.Attic',
-    icon: <SquareIcon color="inherit" />,
-  },
-  {
-    type: FloorType.Basement,
-    translation: 'dictionaries.floor_type.Basement',
     icon: <SquareIcon color="inherit" />,
   },
   {

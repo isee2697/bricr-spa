@@ -5,7 +5,7 @@ import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
-import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
+import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { ServiceTypeList } from './ServiceTypeList';
 import { ServicesProps } from './Services.types';
@@ -19,12 +19,12 @@ export const Services = ({ pim, onSave }: ServicesProps) => {
     <Grid item xs={12}>
       <AutosaveForm initialValues={pim} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
         <Grid container spacing={3}>
-          <Grid xs={12} item>
+          <Grid xs={12} item className={classes.header}>
             <Typography className={classes.title} variant="h1">
               {formatMessage({ id: 'pim_details.services.title' })}
             </Typography>
             <div className={classes.iconsHolder}>
-              <WarningIcon />
+              <HelpIcon />
               <MenuIcon />
             </div>
             <GenericField placeholder="pim_details.services.description_placeholder" name="services.description" />

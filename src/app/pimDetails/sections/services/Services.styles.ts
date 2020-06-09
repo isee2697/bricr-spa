@@ -10,6 +10,11 @@ export const useStyles = makeStyles(theme => ({
   title: {
     float: 'left',
   },
+  header: {
+    '&.MuiGrid-item': {
+      paddingBottom: 0,
+    },
+  },
   avatar: {
     backgroundColor: 'transparent',
     border: `2px solid ${theme.palette.gray.light}`,
