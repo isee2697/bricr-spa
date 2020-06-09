@@ -22,6 +22,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   emptyTitle,
   emptyDescription,
   className,
+  checkboxProps,
 }) => {
   const classes = useStyles();
 
@@ -57,6 +58,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
               className={classes.checkbox}
               onChange={() => handleCheck(key)}
               checked={checked}
+              {...checkboxProps}
             />
           );
 

@@ -1,19 +1,31 @@
-import React, { useState, ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { useField } from 'react-final-form';
 import classNames from 'classnames';
 
-import { Grid, CircularProgress, Badge } from 'ui/atoms';
+import { Badge, CircularProgress, Grid } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
+import { GenericField } from 'form/fields';
+import { UploadIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './UploadImageField.styles';
-import { UploadImageFieldProps } from './UploadImageField.types';
+import { UploadImageFieldProps, UploadImageFieldTypes } from './UploadImageField.types';
 
-export const UploadImageField = ({ validate, validateFields, name, disabled, onRemove }: UploadImageFieldProps) => {
+export const UploadImageField = ({
+  validate,
+  validateFields,
+  name,
+  disabled,
+  onRemove,
+  initialFileName,
+  type = UploadImageFieldTypes.BLOCK,
+  label,
+}: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
+  const [fileName, setFileName] = useState(initialFileName ?? '');
   const { formatMessage } = useLocale();
   const inputRef = useRef<HTMLInputElement>(null);
   const classes = useStyles();
@@ -39,6 +51,7 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
       reader.onload = () => {
         setLoading(true);
         setBackgroundImage(reader.result as string);
+        setFileName(file.name);
 
         //toDo implement api call and setLoading false after success
         setTimeout(() => {
@@ -59,8 +72,26 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
 
   const openInput = () => !!inputRef && !disabled && inputRef.current && inputRef.current.click();
 
-  return (
-    <>
+  const getUploadField = () => {
+    if (type === UploadImageFieldTypes.DENSE) {
+      return (
+        <GenericField
+          name={name}
+          label={label}
+          onClick={openInput}
+          value={fileName}
+          InputProps={{
+            disabled: true,
+            classes: {
+              root: classes.inputRoot,
+            },
+            endAdornment: <UploadIcon />,
+          }}
+        />
+      );
+    }
+
+    return (
       <Grid item className={classNames(classes.root, { enabled: !disabled })}>
         {!loading && !!backgroundImage && (
           <Badge
@@ -94,6 +125,12 @@ export const UploadImageField = ({ validate, validateFields, name, disabled, onR
           )}
         </Grid>
       </Grid>
+    );
+  };
+
+  return (
+    <>
+      {getUploadField()}
       <input
         ref={inputRef}
         name={name}

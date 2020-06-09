@@ -61,3 +61,4 @@ export * from './headingTwo/HeadingTwoIcon';
 export * from './quote/QuoteIcon';
 export * from './numberList/NumberListIcon';
 export * from './bulletList/BulletListIcon';
+export * from './unCheckMark/UnCheckMarkIcon';

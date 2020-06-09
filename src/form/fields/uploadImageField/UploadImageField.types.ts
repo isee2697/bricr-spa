@@ -6,4 +6,12 @@ export type UploadImageFieldProps = {
   validateFields?: string[];
   disabled?: boolean;
   onRemove?: VoidFunction;
+  type?: UploadImageFieldTypes;
+  initialFileName?: string;
+  label?: string;
 };
+
+export enum UploadImageFieldTypes {
+  DENSE = 'dense',
+  BLOCK = 'block',
+}

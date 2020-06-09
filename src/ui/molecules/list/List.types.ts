@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
+import { CheckboxProps } from 'ui/atoms/checkbox/Checkbox.types';
 
 export type SortOption = {
   name: string;
@@ -22,6 +23,7 @@ export type ListProps<T> = {
   emptyTitle?: string;
   emptyDescription?: string;
   className?: string;
+  checkboxProps?: CheckboxProps;
 };
 
 export type ListHeaderProps = {

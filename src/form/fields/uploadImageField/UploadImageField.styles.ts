@@ -61,4 +61,13 @@ export const useStyles = makeStyles(theme => ({
       fill: theme.palette.white.main,
     },
   },
+  inputRoot: {
+    '& input': {
+      cursor: 'pointer',
+      color: theme.palette.gray.main,
+    },
+    '&.MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+      borderBottomColor: theme.palette.gray.main,
+    },
+  },
 }));
