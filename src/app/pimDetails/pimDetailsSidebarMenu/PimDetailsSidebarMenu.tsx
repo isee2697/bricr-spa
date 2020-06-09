@@ -107,6 +107,10 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
           id: 'linked-property',
           label: 'pim_details.specification.linked_properties.title',
         },
+        {
+          id: 'inspection',
+          label: 'pim_details.specification.inspection.title',
+        },
       ],
       icon: <PinIcon />,
     },

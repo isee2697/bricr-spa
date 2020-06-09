@@ -404,3 +404,52 @@ export const goodToKnow = [
     value: 'Active',
   },
 ];
+
+export const inspectionTank = [
+  {
+    label: 'dictionaries.inspection_tank.Septic',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Septic',
+  },
+  {
+    label: 'dictionaries.inspection_tank.Oil',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Oil',
+  },
+  {
+    label: 'dictionaries.inspection_tank.Underground',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Underground',
+  },
+];
+
+export const inspectionPollution = [
+  {
+    label: 'dictionaries.inspection_pollution.Asbestos',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Asbestos',
+  },
+  {
+    label: 'dictionaries.inspection_pollution.Soil',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Soil',
+  },
+];
+
+export const inspectionMaintenance = [
+  {
+    label: 'dictionaries.inspection_maintenance.Paintwork',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Paintwork',
+  },
+  {
+    label: 'dictionaries.inspection_maintenance.ElectricityConnections',
+    icon: <SquareIcon color="inherit" />,
+    value: 'ElectricityConnections',
+  },
+  {
+    label: 'dictionaries.inspection_maintenance.WindowFrames',
+    icon: <SquareIcon color="inherit" />,
+    value: 'WindowFrames',
+  },
+];

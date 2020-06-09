@@ -13,6 +13,7 @@ import { SpecificationGeneral } from './specificationGeneral/SpecificationGenera
 import { Advanced } from './advanced/Advanced';
 import { LinkedProperty } from './linkedProperty/LinkedProperty';
 import { AddLinkedPropertyModalContainer } from './addLinkedPropertyModal/AddLinkedPropertyModalContainer';
+import { Inspection } from './inspection/Inspection';
 
 export const Specification = ({
   title,
@@ -52,6 +53,11 @@ export const Specification = ({
         />
         <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <Advanced />} />
         <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
+        <Route
+          path={`${AppRoute.pimDetails}/specification/inspection`}
+          exact
+          render={() => <Inspection onAddCustomType={onAddPropertyClick} />}
+        />
         <Redirect to={`${AppRoute.pimDetails}/specification`} />
       </Switch>
       <AddLinkedPropertyModalContainer isOpened={isModalOpen} onClose={() => setModalOpen(false)} />
