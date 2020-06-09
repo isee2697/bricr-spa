@@ -51,7 +51,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&.isOpened': {
       display: 'block',
     },
-    zIndex: 1,
+    zIndex: 10,
   },
   item: {
     cursor: 'pointer',

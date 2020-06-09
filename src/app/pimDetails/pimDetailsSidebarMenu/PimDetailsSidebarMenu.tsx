@@ -116,6 +116,16 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
     },
     {
       name: 'prices',
+      subItems: [
+        {
+          id: 'costs',
+          label: 'pim_details.prices.costs.title',
+        },
+        {
+          id: 'investments',
+          label: 'pim_details.prices.investments.title',
+        },
+      ],
       icon: <MailIcon />,
     },
     {

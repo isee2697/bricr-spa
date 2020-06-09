@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { FieldValidator } from 'final-form';
-import { GridSpacing } from '@material-ui/core';
+import { GridJustification, GridSpacing } from '@material-ui/core';
 import { UseFieldConfig } from 'react-final-form';
 
 export type RadioDataType = {
@@ -25,4 +25,5 @@ export type RadioGroupFieldProps = {
   disabled?: boolean;
   parse?: Function;
   actionElement?: ReactNode;
+  justify?: GridJustification;
 } & Pick<UseFieldConfig<string>, 'format'>;

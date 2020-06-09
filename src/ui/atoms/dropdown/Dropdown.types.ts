@@ -1,4 +1,4 @@
-type DropdownItem = {
+export type DropdownItem = {
   label: string;
   value: string;
 };

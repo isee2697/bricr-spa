@@ -18,6 +18,7 @@ export const FormSection = ({
   isExpandable,
   isInitExpanded = true,
   children,
+  className,
 }: FormSectionProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -31,7 +32,7 @@ export const FormSection = ({
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classNames(classes.root, className)}>
       <Box className={classNames(classes.header, { 'edit-mode': editing })}>
         <Typography variant="h2" className={classes.title}>
           {title}

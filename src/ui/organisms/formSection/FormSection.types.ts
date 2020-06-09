@@ -12,4 +12,5 @@ export type FormSectionProps = {
   isExpandable?: boolean;
   isInitExpanded?: boolean;
   children: ((editing: boolean) => ReactNode) | ReactNode;
+  className?: string;
 };

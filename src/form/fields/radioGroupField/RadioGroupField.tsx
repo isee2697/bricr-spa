@@ -21,6 +21,7 @@ export const RadioGroupField = ({
   md,
   lg,
   actionElement,
+  justify,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -48,7 +49,7 @@ export const RadioGroupField = ({
 
   return (
     <>
-      <Grid container spacing={spacing}>
+      <Grid container spacing={spacing} justify={justify}>
         {options.map((item: RadioDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
             <TileRadio
