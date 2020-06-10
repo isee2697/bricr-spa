@@ -56,7 +56,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
           <GenericField
             name="password"
             type={isPasswordVisible ? 'text' : 'password'}
-            label={formatMessage({ id: 'login.password' })}
+            label="login.password"
             placeholder="login.password_placeholder"
             validate={[requireValidator]}
             size="medium"

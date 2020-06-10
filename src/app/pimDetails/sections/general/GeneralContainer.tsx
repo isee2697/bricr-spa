@@ -21,10 +21,8 @@ export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }
             city: values.city,
             houseNumber: values.houseNumber,
             postalCode: values.postalCode,
-            propertyConnection: values.propertyConnection,
-            propertyDetails: values.propertyDetails,
-            floors: undefined,
-            ...values.houseGeneral,
+            country: values.country,
+            houseGeneral: values.houseGeneral,
           },
         },
         refetchQueries: [

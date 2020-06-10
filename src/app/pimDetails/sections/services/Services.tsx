@@ -33,7 +33,7 @@ export const Services = ({ pim, onSave }: ServicesProps) => {
             <ServiceTypeList
               emptyEmoji="🚿"
               title="pim_details.services.hot_water"
-              items={(pim.services && pim.services.hotWater) || []}
+              items={(pim.services && pim.services) || []}
               type="HotWater"
             />
           </Grid>
@@ -41,7 +41,7 @@ export const Services = ({ pim, onSave }: ServicesProps) => {
             <ServiceTypeList
               emptyEmoji="🔥"
               title="pim_details.services.heating"
-              items={(pim.services && pim.services.heating) || []}
+              items={(pim.services && pim.services) || []}
               type="Heating"
             />
           </Grid>
@@ -49,7 +49,7 @@ export const Services = ({ pim, onSave }: ServicesProps) => {
             <ServiceTypeList
               emptyEmoji="🤔"
               title="pim_details.services.additional"
-              items={(pim.services && pim.services.additional) || []}
+              items={(pim.services && pim.services) || []}
               type="Additional"
             />
           </Grid>

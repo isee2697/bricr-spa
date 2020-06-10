@@ -9,6 +9,7 @@ import { AddMapModalProps } from './AddMapModal.types';
 export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
   const [addMaps, { loading }] = useAddCadastreMapsMutation();
+
   const handleSave = async (files: string[]) => {
     try {
       await addMaps({
@@ -16,6 +17,7 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
           input: {
             pimId: id,
             maps: files.map(file => ({
+              fileID: file,
               mapName: '',
               fileName: file,
               description: '',

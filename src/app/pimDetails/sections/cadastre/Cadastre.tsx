@@ -7,7 +7,7 @@ import { Box, Button, Grid, Typography } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { AddIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType, CadastreMaps } from 'api/types';
+import { CadastreType } from 'api/types';
 
 import { CadastreProps } from './Cadastre.types';
 import { useStyles } from './Cadastre.styles';
@@ -72,11 +72,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, pim }: Cadast
             <Grid item xs={12}>
               <CadastralMaps
                 cadastreId={(pim && (pim.cadastre?.find(c => c.type === CadastreType.CadastreMap)?.id as string)) || ''}
-                cadstralMaps={
-                  (pim &&
-                    (pim.cadastre?.find(c => c.type === CadastreType.CadastreMap)?.configuration as CadastreMaps)) ||
-                  []
-                }
+                cadstralMaps={(pim && pim.cadastre?.find(c => c.type === CadastreType.CadastreMap)?.maps) || []}
               />
             </Grid>
           )}

@@ -112,12 +112,12 @@ export const PIM_DETAILS = gql`
         generalInformation {
           notes
           qualityInformation
-          pictures
+          # pictures
         }
         propertyRelated {
           items
           notes
-          pictures
+          # pictures
         }
         roofInformation {
           type {
@@ -193,7 +193,7 @@ export const PIM_DETAILS = gql`
               }
             }
             surface
-            pictures
+            # pictures
           }
         }
       }
@@ -201,41 +201,37 @@ export const PIM_DETAILS = gql`
         id
         description
         type
-        configuration {
-          ... on CadastreMaps {
-            maps {
-              id
-              mapName
-              fileName
-              description
-              type
-            }
+        maps {
+          id
+          mapName
+          # fileName
+          description
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownership {
+            stressedInChargeOf
           }
-          ... on CadastrePlot {
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
             notes
-            name
-            municipalCode
-            sectionCode
-            plot
-            indexNumber
-            surface
-            share
-            codeSize
-            ownership {
-              stressedInChargeOf
-            }
-            lease {
-              leaseholder
-              information
-              duration
-              yearlyPrice
-              endDate
-            }
-            boughtOff {
-              date
-              perpetually
-              notes
-            }
           }
         }
       }
@@ -272,6 +268,58 @@ export const PIM_DETAILS = gql`
       #     counter
       #   }
       # }
+    }
+  }
+`;
+
+export const PIM_SERVICES = gql`
+  query PimServices($id: ID!) {
+    getPimServices(id: $id) {
+      meters {
+        id
+        type
+        name
+        readings {
+          id
+          value
+          feedInId
+          dateOfReading
+        }
+      }
+      hotWaterSupplies {
+        id
+        type
+        name
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+      }
+      heatingSources {
+        id
+        type
+        name
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
     }
   }
 `;

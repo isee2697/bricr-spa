@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 
-import { BaseService } from 'api/types';
 import { SubSectionHeader } from 'ui/molecules';
 import { Grid, Collapse, Typography, Box } from 'ui/atoms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
@@ -9,7 +8,7 @@ import { useLocale } from 'hooks';
 import { ServiceFormProps } from './Services.types';
 import { onwershipTypes } from './dictionaries';
 
-export const ServiceForm: <T extends BaseService>(p: ServiceFormProps<T>) => ReactElement<ServiceFormProps<T>> = ({
+export const ServiceForm: <T extends { id: string }>(p: ServiceFormProps<T>) => ReactElement<ServiceFormProps<T>> = ({
   title,
   onToggleClick,
   toggled,

@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import classNames from 'classnames';
 
-import { BaseService } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
@@ -14,7 +13,7 @@ import { useStyles } from './Services.styles';
 import { ServiceRadioType } from './Services.types';
 import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from './dictionaries';
 
-export const ServiceTypeList: <T extends BaseService>(
+export const ServiceTypeList: <T extends { id: string; name: string; type: string }>(
   p: ServiceTypeListProps<T>,
 ) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type }) => {
   const { formatMessage } = useLocale();

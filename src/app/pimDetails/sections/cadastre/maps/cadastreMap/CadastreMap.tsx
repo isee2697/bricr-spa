@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SubSectionHeader, FormSubSection } from 'ui/molecules';
-import { Grid, Collapse, ImageHolder, Box } from 'ui/atoms';
+import { Grid, Collapse, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useStyles } from '../CadsatralMaps.styles';
 import { useLocale } from 'hooks';
@@ -23,7 +23,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
       <Collapse in={toggled}>
         <Grid className={classes.content} container spacing={9}>
           <Grid item md={5}>
-            <ImageHolder withBorder src={!!cadastreMap.fileName ? cadastreMap.fileName : undefined} />
+            {/* <ImageHolder withBorder src={!!cadastreMap.fileName ? cadastreMap.fileName : undefined} /> */}
           </Grid>
           <Grid item md={7}>
             <GenericField

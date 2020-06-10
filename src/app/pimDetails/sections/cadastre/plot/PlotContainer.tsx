@@ -21,7 +21,7 @@ export const PlotContainer = ({ plot, ...props }: PlotContainerProps) => {
             pimId: id,
             id: plot.id,
             description: body.description,
-            configuration: body.configuration,
+            // configuration: body.configuration,
           },
         },
         refetchQueries: [

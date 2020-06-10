@@ -149,41 +149,43 @@ export const mockServer = () => {
               floor.spaces = [];
             }
 
-            floor.spaces = [
-              ...floor.spaces,
-              {
-                id: PIM_DETAILS.id + 'space' + floor.spaces.length,
-                __typename: 'Space',
-                extraRoomPossibility: variables.input.extraRoomPossibility,
-                spaceType: variables.input.spaceType,
-                spaceName: variables.input.spaceName,
-                configuration: {
-                  __typename: 'KitchenSpace',
-                  constructionYear: null,
-                  notes: null,
-                  type: null,
-                  constructionType: null,
-                  servicesNotes: null,
-                  services: [],
-                  appliances: [],
-                  hob: null,
-                  shape: null,
-                  measurement: {
-                    length: null,
-                    width: null,
-                    height: null,
-                    surface: null,
-                    volume: null,
-                  },
-                  serviceHeating: null,
-                  images: [],
+            const newSpace: Space = {
+              id: PIM_DETAILS.id + 'space' + floor.spaces.length,
+              __typename: 'Space',
+              extraRoomPossibility: variables.input.extraRoomPossibility,
+              spaceType: variables.input.spaceType,
+              spaceName: variables.input.spaceName,
+              configuration: {
+                __typename: 'KitchenSpace',
+                constructionYear: null,
+                notes: null,
+                type: null,
+                constructionType: null,
+                servicesNotes: null,
+                services: [],
+                appliances: [],
+                hob: null,
+                shape: null,
+                measurement: {
+                  length: null,
+                  width: null,
+                  height: null,
+                  surface: null,
+                  volume: null,
                 },
+                serviceHeating: null,
+                images: [],
               },
-            ];
+            };
+
+            floor.spaces = [...floor.spaces, newSpace];
 
             PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
 
-            return PIM_DETAILS;
+            return {
+              newSpace,
+              pim: PIM_DETAILS,
+            };
           },
           updateFloor() {
             if (!PIM_DETAILS.floors) {

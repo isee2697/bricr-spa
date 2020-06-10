@@ -9,13 +9,16 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  AbsoluteFloat: any;
+  CostVat: any;
   Date: string;
   Dictionary: any;
-  PimGeneralInput: any;
+  LabelProperty: any;
+  LastEditedBy: any;
   PimOutsideInput: any;
-  UpdateSpaceInputConfiguration: any;
+  ServiceConfigurationInput: any;
   UpdateFeatureInputConfiguration: any;
-  UpdateCadastreConfigurationInput: any;
+  UpdateSpaceInputConfiguration: any;
   Upload: any;
 };
 
@@ -50,10 +53,56 @@ export type ResetPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
+export type AddCadastreInput = {
+  pimId: Scalars['String'];
+  type: CadastreType;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddCadastreMapsInput = {
+  pimId: Scalars['String'];
+  maps: Array<NewCadastreMapInput>;
+};
+
+export type AddCostInput = {
+  id: Scalars['ID'];
+  type: CostType;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type AddFilesInput = {
   fileIDs: Array<Scalars['ID']>;
   entity: EntityWithFiles;
   entityID: Scalars['ID'];
+};
+
+export type AdditionalServiceConfiguration = {
+  __typename?: 'AdditionalServiceConfiguration';
+  type: AdditionalServiceType;
+};
+
+export enum AdditionalServiceType {
+  AirConditioning = 'AirConditioning',
+  AlarmSystem = 'AlarmSystem',
+  ExteriorSunProtection = 'ExteriorSunProtection',
+  Skylight = 'Skylight',
+  SateliteDish = 'SateliteDish',
+  SlidingDoor = 'SlidingDoor',
+  CableTv = 'CableTv',
+  Windmill = 'Windmill',
+  SolarCollector = 'SolarCollector',
+  SwimmingPool = 'SwimmingPool',
+  FrenchBalcony = 'FrenchBalcony',
+  MechanicalVentilation = 'MechanicalVentilation',
+  Elevator = 'Elevator',
+  Flue = 'Flue',
+  Shutters = 'Shutters',
+}
+
+export type AddMeterInput = {
+  pimId: Scalars['String'];
+  name: Scalars['String'];
+  type: MeterType;
 };
 
 export type AddNewFloorInput = {
@@ -68,6 +117,26 @@ export type AddOutsideFeatureInput = {
   description?: Maybe<Scalars['String']>;
 };
 
+export type AddPricingInput = {
+  id: Scalars['ID'];
+  types: Array<PricingType>;
+};
+
+export type AddReadingInput = {
+  pimId: Scalars['String'];
+  meterId: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
+export type AddServiceInput = {
+  pimId: Scalars['String'];
+  name: Scalars['String'];
+  type: ServiceType;
+  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+};
+
 export type AddSpaceInput = {
   spaceType: SpaceType;
   extraRoomPossibility: Scalars['Boolean'];
@@ -76,14 +145,164 @@ export type AddSpaceInput = {
   spaceName?: Maybe<Scalars['String']>;
 };
 
+export type Approvals = {
+  __typename?: 'Approvals';
+  label?: Maybe<ApprovalType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ApprovalsInput = {
+  label?: Maybe<ApprovalType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum ApprovalType {
+  AdaptedHome = 'AdaptedHome',
+  EnergyPerformanceAdvice = 'EnergyPerformanceAdvice',
+  PoliceMark = 'PoliceMark',
+  GeneralHomeApproval = 'GeneralHomeApproval',
+  GiwGuaranteeCertificate = 'GiwGuaranteeCertificate',
+  SwkGuaranteeCertificate = 'SwkGuaranteeCertificate',
+  ArchitecturalInspection = 'ArchitecturalInspection',
+  HouseGuarantee = 'HouseGuarantee',
+  HousingGuaranteeCertificate = 'HousingGuaranteeCertificate',
+  FireSafety = 'FireSafety',
+  KiwaSafeLiving = 'KiwaSafeLiving',
+  QualityMarkCertificate = 'QualityMarkCertificate',
+}
+
+export enum BathroomServices {
+  Bidet = 'Bidet',
+  Sauna = 'Sauna',
+  WashingMachineConnection = 'WashingMachineConnection',
+  Shower = 'Shower',
+  SteamCabin = 'SteamCabin',
+  Sink = 'Sink',
+  CoubleWashbasin = 'CoubleWashbasin',
+  Toilet = 'Toilet',
+  Washbasin = 'Washbasin',
+  WalkInShower = 'WalkInShower',
+  Urinal = 'Urinal',
+  Whirlpool = 'Whirlpool',
+  Jacuzzi = 'Jacuzzi',
+  SitzBath = 'SitzBath',
+  Bathtub = 'Bathtub',
+}
+
+export type BathroomSpace = {
+  __typename?: 'BathroomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  services?: Maybe<Array<Maybe<BathroomServices>>>;
+  servicesNotes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type BedroomSpace = {
+  __typename?: 'BedroomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type BoughtOff = {
+  __typename?: 'BoughtOff';
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BoughtOffInput = {
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE',
 }
 
+export type Cadastre = {
+  __typename?: 'Cadastre';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreType;
+  maps?: Maybe<Array<CadastreMap>>;
+  plot?: Maybe<CadastrePlot>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+};
+
+export type CadastreMap = {
+  __typename?: 'CadastreMap';
+  id: Scalars['String'];
+  mapName: Scalars['String'];
+  file?: Maybe<File>;
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<CadastreMapType>;
+};
+
+export enum CadastreMapType {
+  Map = 'Map',
+  Register = 'Register',
+}
+
+export type CadastrePlot = {
+  __typename?: 'CadastrePlot';
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<Ownership>;
+  lease?: Maybe<Lease>;
+  boughtOff?: Maybe<BoughtOff>;
+};
+
+export type CadastrePlotInput = {
+  id?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<OwnershipInput>;
+  lease?: Maybe<LeaseInput>;
+  boughtOff?: Maybe<BoughtOffInput>;
+};
+
+export enum CadastreType {
+  CadastreMap = 'CadastreMap',
+  Plot = 'Plot',
+}
+
 export type ChangesHistoryFilters = {
   entityType?: Maybe<EventEntityType>;
 };
+
+export enum CodeSizeType {
+  Apartment = 'Apartment',
+  Tightness = 'Tightness',
+  PartLot = 'PartLot',
+  InWholePlot = 'InWholePlot',
+  MembershipRight = 'MembershipRight',
+}
 
 export type Company = {
   __typename?: 'Company';
@@ -110,6 +329,43 @@ export type ConstructionInformationInput = {
 export enum ConstructionType {
   UnderConstruction = 'UnderConstruction',
   InDevelopment = 'InDevelopment',
+}
+
+export type Cost = {
+  __typename?: 'Cost';
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  type: CostType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export enum CostPaymentFrequency {
+  Monthly = 'Monthly',
+  Yearly = 'Yearly',
+}
+
+export type CostResult = {
+  __typename?: 'CostResult';
+  pim: Pim;
+  cost: Cost;
+};
+
+export enum CostType {
+  Service = 'Service',
+  Heating = 'Heating',
+  Electricity = 'Electricity',
+  Water = 'Water',
+  Sewage = 'Sewage',
+  WaterBoard = 'WaterBoard',
+  LandConsolidationInterest = 'LandConsolidationInterest',
+  HomeownerAssociation = 'HomeownerAssociation',
+  OzbUserPart = 'OzbUserPart',
+  OzbBusinessPart = 'OzbBusinessPart',
+  Custom = 'Custom',
 }
 
 export type CreateFileInput = {
@@ -149,9 +405,54 @@ export enum DevelopmentType {
   Existing = 'Existing',
 }
 
+export type Energy = {
+  __typename?: 'Energy';
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum EnergyCharasteristicType {
+  Beng = 'Beng',
+  NaturalEnergy = 'NaturalEnergy',
+  ZeroOnMeter = 'ZeroOnMeter',
+}
+
+export type EnergyInput = {
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum EnergyType {
+  A = 'A',
+  A1Plus = 'A1Plus',
+  A2Plus = 'A2Plus',
+  A3Plus = 'A3Plus',
+  A4Plus = 'A4Plus',
+  A5Plus = 'A5Plus',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E',
+  F = 'F',
+  G = 'G',
+}
+
 export enum EntityWithFiles {
   Pim = 'Pim',
   Space = 'Space',
+  OutsideFeature = 'OutsideFeature',
+  OutsideGeneral = 'OutsideGeneral',
+  OutsidePropertyRelated = 'OutsidePropertyRelated',
+  RoofInformation = 'RoofInformation',
+  CadastreMap = 'CadastreMap',
 }
 
 export type Event = {
@@ -188,6 +489,8 @@ export type File = {
   signedUrl?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   bucket?: Maybe<Scalars['String']>;
+  entityID?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityWithFiles>;
 };
 
 export enum FilePermission {
@@ -202,6 +505,8 @@ export type Floor = {
   level: Scalars['Int'];
   floorType: FloorType;
   spaces?: Maybe<Array<Space>>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export enum FloorType {
@@ -210,16 +515,6 @@ export enum FloorType {
   Basement = 'Basement',
   GroundFloor = 'GroundFloor',
   Loft = 'Loft',
-}
-
-export enum GardenType {
-  Backyard = 'Backyard',
-  PatioOrAtrium = 'PatioOrAtrium',
-  Place = 'Place',
-  AllGroundGarden = 'AllGroundGarden',
-  FrontGarden = 'FrontGarden',
-  SunTerrace = 'SunTerrace',
-  BackGarden = 'BackGarden',
 }
 
 export type GardenDimensions = RectangleDimensions;
@@ -234,7 +529,7 @@ export type GardenFeature = {
   shape?: Maybe<GardenShapeType>;
   dimensions?: Maybe<GardenDimensions>;
   surface?: Maybe<Scalars['Float']>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<File>>;
 };
 
 export enum GardenQualityType {
@@ -253,18 +548,85 @@ export enum GardenShapeType {
   TShape = 'TShape',
 }
 
+export enum GardenType {
+  Backyard = 'Backyard',
+  PatioOrAtrium = 'PatioOrAtrium',
+  Place = 'Place',
+  AllGroundGarden = 'AllGroundGarden',
+  FrontGarden = 'FrontGarden',
+  SunTerrace = 'SunTerrace',
+  BackGarden = 'BackGarden',
+}
+
 export type GeneralInformation = {
   __typename?: 'GeneralInformation';
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<File>>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type GeneralInformationInput = {
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
   notes?: Maybe<Scalars['String']>;
 };
+
+export type HeatingSourceConfiguration = {
+  __typename?: 'HeatingSourceConfiguration';
+  type: HeatingSourceType;
+};
+
+export enum HeatingSourceType {
+  GeothermalHeat = 'GeothermalHeat',
+  Fireplace = 'Fireplace',
+  AllBurner = 'AllBurner',
+  PelletStove = 'PelletStove',
+  BlockHeating = 'BlockHeating',
+  WoodStove = 'WoodStove',
+  DistrictHeating = 'DistrictHeating',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  CoalStove = 'CoalStove',
+  PartialElectricHeating = 'PartialElectricHeating',
+  MotherHearth = 'MotherHearth',
+  GasFire = 'GasFire',
+  PossibleFireplace = 'PossibleFireplace',
+  HeatRecoverySystem = 'HeatRecoverySystem',
+  GasHeaters = 'GasHeaters',
+  HeatPump = 'HeatPump',
+  HotAirHeating = 'HotAirHeating',
+  UnderfloorHeating = 'UnderfloorHeating',
+  UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
+  WallHeating = 'WallHeating',
+}
+
+export type HomeOfficeSpace = {
+  __typename?: 'HomeOfficeSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
+export type HotWaterSupplyConfiguration = {
+  __typename?: 'HotWaterSupplyConfiguration';
+  type: HotWaterSupplyType;
+  fuel?: Maybe<HotWaterSupplyFuelType>;
+};
+
+export enum HotWaterSupplyFuelType {
+  Gas = 'Gas',
+  Electric = 'Electric',
+  Oil = 'Oil',
+}
+
+export enum HotWaterSupplyType {
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  Boiler = 'Boiler',
+  Geyser = 'Geyser',
+  SolarWaterHeater = 'SolarWaterHeater',
+}
 
 export type HouseGeneral = {
   __typename?: 'HouseGeneral';
@@ -276,16 +638,11 @@ export type HouseGeneral = {
 };
 
 export type HouseGeneralInput = {
-  id: Scalars['ID'];
   availability?: Maybe<PropertyAvailabilityInformationInput>;
   construction?: Maybe<ConstructionInformationInput>;
   floor?: Maybe<FloorType>;
   propertyConnection?: Maybe<PropertyConnection>;
   propertyDetails?: Maybe<PropertyTypeDetailed>;
-  street: Scalars['String'];
-  city: Scalars['String'];
-  houseNumber: Scalars['String'];
-  postalCode: Scalars['String'];
 };
 
 export type HouseOutside = {
@@ -301,6 +658,38 @@ export type HouseOutsideInput = {
   generalInformation?: Maybe<GeneralInformationInput>;
   propertyRelated?: Maybe<PropertyRelatedInput>;
   roofInformation?: Maybe<RoofInformationInput>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Investment = {
+  __typename?: 'Investment';
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InvestmentInput = {
+  id: Scalars['ID'];
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
 };
 
@@ -360,6 +749,108 @@ export enum KitchenType {
   Scullery = 'Scullery',
 }
 
+export type Lease = {
+  __typename?: 'Lease';
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export enum LeaseDurationType {
+  Forever = 'Forever',
+  Temporary = 'Temporary',
+  Constantly = 'Constantly',
+}
+
+export enum LeaseholderType {
+  Different = 'Different',
+  Township = 'Township',
+  Private = 'Private',
+}
+
+export enum LeaseInformationType {
+  Virable = 'Virable',
+  Fixed = 'Fixed',
+}
+
+export type LeaseInput = {
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type LinkedPim = {
+  __typename?: 'LinkedPim';
+  id: Scalars['ID'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  plotNumber?: Maybe<Scalars['Int']>;
+  salePrice?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  status: PimStatus;
+  images?: Maybe<Array<File>>;
+};
+
+export type LinkedPimInput = {
+  pimId: Scalars['ID'];
+  linkedPimIDs: Array<Scalars['ID']>;
+};
+
+export type ListPim = {
+  __typename?: 'ListPim';
+  id: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  completeness: Scalars['Float'];
+  propertyType?: Maybe<PropertyType>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  attention?: Maybe<Scalars['String']>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  houseOutside?: Maybe<ListPimHouseOutside>;
+  archived?: Maybe<Scalars['Boolean']>;
+  status: PimStatus;
+  developmentType: DevelopmentType;
+};
+
+export type ListPimHouseOutside = {
+  __typename?: 'ListPimHouseOutside';
+  propertyRelated?: Maybe<ListPimPropertyRelated>;
+};
+
+export type ListPimPropertyRelated = {
+  __typename?: 'ListPimPropertyRelated';
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+};
+
 export type ListPimsFilters = {
   developmentType?: Maybe<DevelopmentType>;
   status?: Maybe<PimStatus>;
@@ -379,6 +870,25 @@ export type ListPimsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
 };
 
+export type LivingRoomSpace = {
+  __typename?: 'LivingRoomSpace';
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  type?: Maybe<LivingRoomType>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+  stairs?: Maybe<Scalars['Boolean']>;
+};
+
+export enum LivingRoomType {
+  ThroughRoom = 'ThroughRoom',
+  FormerEnSuite = 'FormerEnSuite',
+  RoomAndSuite = 'RoomAndSuite',
+  Conservatory = 'Conservatory',
+}
+
 export enum Location {
   North = 'North',
   South = 'South',
@@ -386,12 +896,66 @@ export enum Location {
   West = 'West',
 }
 
+export type Meter = {
+  __typename?: 'Meter';
+  id: Scalars['String'];
+  type: MeterType;
+  name: Scalars['String'];
+  readings?: Maybe<Array<Reading>>;
+};
+
+export enum MeterType {
+  Water = 'Water',
+  Gas = 'Gas',
+  Electric = 'Electric',
+}
+
+export type NewCadastreMapInput = {
+  mapName: Scalars['String'];
+  fileID: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreMapType;
+};
+
+export type ObligationToProvideInformation = {
+  __typename?: 'ObligationToProvideInformation';
+  label?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ObligationToProvideInformationInput = {
+  label?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum ObligationToProvideInformationType {
+  Boot = 'Boot',
+  BwLetter = 'BWLetter',
+  SoilPollution = 'SoilPollution',
+  Asbestos = 'Asbestos',
+  OwnSake = 'OwnSake',
+}
+
+export type OtherSpace = {
+  __typename?: 'OtherSpace';
+  name?: Maybe<Scalars['String']>;
+  constructionYear?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  shape?: Maybe<SpaceShape>;
+  measurement?: Maybe<SpaceMeasurement>;
+  serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
+  images?: Maybe<Array<File>>;
+};
+
 export type OutsideFeature = {
   __typename?: 'OutsideFeature';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type: OutsideFeatureType;
   configuration?: Maybe<OutsideFeatureConfiguration>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
 };
 
 export type OutsideFeatureConfiguration = GardenFeature;
@@ -404,15 +968,26 @@ export enum OutsideFeatureType {
   ParkingLot = 'ParkingLot',
 }
 
-export type CadastreConfiguration = CadastreMaps | CadastrePlot;
-
-export type Cadastre = {
-  __typename?: 'Cadastre';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: CadastreType;
-  configuration?: Maybe<CadastreConfiguration>;
+export type Ownership = {
+  __typename?: 'Ownership';
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
 };
+
+export enum OwnershipChoiceType {
+  NoneOfThem = 'NoneOfThem',
+  UseAndHabitation = 'UseAndHabitation',
+  Usufruct = 'Usufruct',
+}
+
+export type OwnershipInput = {
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
+};
+
+export enum OwnershipType {
+  Rent = 'Rent',
+  Leased = 'Leased',
+  Owned = 'Owned',
+}
 
 export type Pagination = {
   from?: Maybe<Scalars['Int']>;
@@ -422,7 +997,7 @@ export type Pagination = {
 
 export type Pim = {
   __typename?: 'Pim';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   realEstateType: RealEstateType;
   street: Scalars['String'];
   houseNumberPrefix?: Maybe<Scalars['String']>;
@@ -449,23 +1024,152 @@ export type Pim = {
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
-  updatedBy?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneral>;
   houseOutside?: Maybe<HouseOutside>;
-  floors?: Maybe<Array<Floor>>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
+  floors?: Maybe<Array<Floor>>;
   cadastre?: Maybe<Array<Cadastre>>;
-  services?: Maybe<Services>;
+  meters?: Maybe<Array<Meter>>;
+  services?: Maybe<Array<Service>>;
+  pricing?: Maybe<Pricing>;
+  costs?: Maybe<Array<Cost>>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  investment?: Maybe<Investment>;
+  specification?: Maybe<Specification>;
+  linkedProperties?: Maybe<Array<Pim>>;
 };
 
-export type PimGeneral = HouseGeneral;
+export type PimCadastre = {
+  __typename?: 'PimCadastre';
+  id: Scalars['ID'];
+  cadastre?: Maybe<Array<Cadastre>>;
+};
 
-export type PimOutside = HouseOutside;
+export type PimFloor = {
+  __typename?: 'PimFloor';
+  id: Scalars['String'];
+  floors?: Maybe<Array<Floor>>;
+};
+
+export type PimGeneral = {
+  __typename?: 'PimGeneral';
+  id: Scalars['ID'];
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  completeness: Scalars['Float'];
+  archived: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  houseGeneral?: Maybe<HouseGeneral>;
+};
+
+export type PimGeneralInput = {
+  id: Scalars['ID'];
+  realEstateType?: Maybe<RealEstateType>;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType?: Maybe<DevelopmentType>;
+  status?: Maybe<PimStatus>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  livingArea?: Maybe<Scalars['Int']>;
+  attention?: Maybe<Scalars['String']>;
+  houseGeneral?: Maybe<HouseGeneralInput>;
+};
+
+export type PimLabel = {
+  __typename?: 'PimLabel';
+  id: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: Scalars['LabelProperty'];
+};
+
+export type PimLabelInput = {
+  pimId: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: Scalars['LabelProperty'];
+};
+
+export type PimListSearchResult = {
+  __typename?: 'PimListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListPim>>;
+};
+
+export type PimOutside = {
+  __typename?: 'PimOutside';
+  id: Scalars['ID'];
+  houseOutside?: Maybe<HouseOutside>;
+  outsideFeatures?: Maybe<Array<OutsideFeature>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+};
+
+export type PimPrices = {
+  __typename?: 'PimPrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<Pricing>;
+  costs?: Maybe<Array<Cost>>;
+  investment?: Maybe<Investment>;
+};
 
 export type PimSearchResult = {
   __typename?: 'PimSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Pim>>;
+};
+
+export type PimServices = {
+  __typename?: 'PimServices';
+  id: Scalars['String'];
+  meters?: Maybe<Array<Meter>>;
+  hotWaterSupplies?: Maybe<Array<Service>>;
+  heatingSources?: Maybe<Array<Service>>;
+  additionalServices?: Maybe<Array<Service>>;
+};
+
+export type PimSpecification = {
+  __typename?: 'PimSpecification';
+  id: Scalars['ID'];
+  specification?: Maybe<Specification>;
+  linkedProperties?: Maybe<Array<LinkedPim>>;
 };
 
 export enum PimStatus {
@@ -477,6 +1181,29 @@ export enum PimStatus {
   RentedWithReservation = 'RentedWithReservation',
   Sold = 'Sold',
   Rented = 'Rented',
+}
+
+export type PimWithNewService = {
+  __typename?: 'PimWithNewService';
+  pim: Pim;
+  newService: Service;
+};
+
+export type PimWithUpdatedSpace = {
+  __typename?: 'PimWithUpdatedSpace';
+  newSpace: Space;
+  pim: Pim;
+};
+
+export type Pricing = {
+  __typename?: 'Pricing';
+  rent?: Maybe<RentInformations>;
+  sale?: Maybe<SaleInformations>;
+};
+
+export enum PricingType {
+  Sale = 'Sale',
+  Rent = 'Rent',
 }
 
 export type Profile = {
@@ -511,36 +1238,6 @@ export type PropertyAvailabilityInformation = {
   currentDestination?: Maybe<Scalars['String']>;
 };
 
-export type BaseService = {
-  __typename?: 'BaseService';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  type: Scalars['String'];
-  source?: Maybe<Scalars['String']>;
-};
-
-export enum MeterType {
-  Gas = 'Gas',
-  Water = 'Water',
-  Electricity = 'Electricity',
-}
-
-export type Meters = {
-  __typename?: 'Meters';
-  id: Scalars['String'];
-  type: MeterType;
-  name?: Maybe<Scalars['String']>;
-  counter?: Maybe<Scalars['Float']>;
-};
-
-export type Services = {
-  __typename?: 'Services';
-  heating?: Maybe<Array<BaseService>>;
-  hotWater?: Maybe<Array<BaseService>>;
-  additional?: Maybe<Array<BaseService>>;
-  meters?: Maybe<Array<Meters>>;
-};
-
 export type PropertyAvailabilityInformationInput = {
   availability?: Maybe<PropertyAvailability>;
   from?: Maybe<Scalars['Date']>;
@@ -567,13 +1264,13 @@ export type PropertyRelated = {
   __typename?: 'PropertyRelated';
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
   notes?: Maybe<Scalars['String']>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<File>>;
 };
 
 export type PropertyRelatedInput = {
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
   notes?: Maybe<Scalars['String']>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export enum PropertyRelatedItems {
@@ -581,10 +1278,6 @@ export enum PropertyRelatedItems {
   Terrace = 'Terrace',
   RoofTerrace = 'RoofTerrace',
   Porch = 'Porch',
-}
-
-export enum PropertySpaces {
-  Kitchen = 'Kitchen',
 }
 
 export enum PropertyType {
@@ -617,6 +1310,13 @@ export enum PropertyTypeDetailed {
   Mansion = 'Mansion',
 }
 
+export enum PurchaseMix {
+  MgeConstruction = 'MgeConstruction',
+  PartOfIndividualProject = 'PartOfIndividualProject',
+  PurchaseGuarantee = 'PurchaseGuarantee',
+  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
+}
+
 export enum QualityInformations {
   Simple = 'Simple',
   Normal = 'Normal',
@@ -632,6 +1332,15 @@ export enum QualityInformations {
   Bad = 'Bad',
 }
 
+export type Reading = {
+  __typename?: 'Reading';
+  id: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
 export enum RealEstateType {
   Residential = 'Residential',
   Business = 'Business',
@@ -643,19 +1352,50 @@ export type RectangleDimensions = {
   height?: Maybe<Scalars['Float']>;
 };
 
+export enum RentCondition {
+  VatTaxed = 'VatTaxed',
+  ExcludingServiceCosts = 'ExcludingServiceCosts',
+  Furnished = 'Furnished',
+  IncludingServiceCosts = 'IncludingServiceCosts',
+  Indexed = 'Indexed',
+}
+
+export type RentInformations = {
+  __typename?: 'RentInformations';
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<Array<RentCondition>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RentInformationsInput = {
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<Array<RentCondition>>;
+  notes?: Maybe<Scalars['String']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+};
+
+export enum RentPaymentFrequency {
+  PerMonth = 'PerMonth',
+  Annual = 'Annual',
+  Custom = 'Custom',
+}
+
 export type RoofInformation = {
   __typename?: 'RoofInformation';
   type?: Maybe<RoofType>;
   material?: Maybe<RoofMaterial>;
   insulation?: Maybe<RoofInsulation>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<File>>;
 };
 
 export type RoofInformationInput = {
   type?: Maybe<RoofTypeInput>;
   material?: Maybe<RoofMaterialInput>;
   insulation?: Maybe<RoofInsulationInput>;
-  pictures?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type RoofInsulation = {
@@ -679,47 +1419,6 @@ export enum RoofInsulations {
   StructuralPanels = 'StructuralPanels',
 }
 
-export enum CadastreMapType {
-  Map = 'Map',
-  Register = 'Register',
-}
-
-export enum CadastreType {
-  CadastreMap = 'CadastreMap',
-  Plot = 'Plot',
-}
-
-export enum CodeSizeType {
-  Apartment = 'Apartment',
-  Tightness = 'Tightness',
-  PartLot = 'PartLot',
-  InWholePlot = 'InWholePlot',
-  MembershipRight = 'MembershipRight',
-}
-
-export enum LeaseholderType {
-  Different = 'Different',
-  Township = 'Township',
-  Private = 'Private',
-}
-
-export enum LeaseInformationType {
-  Virable = 'Virable',
-  Fixed = 'Fixed',
-}
-
-export enum LeaseDurationType {
-  Forever = 'Forever',
-  Temporary = 'Temporary',
-  Constantly = 'Constantly',
-}
-
-export enum OwnershipChoiceType {
-  NoneOfThem = 'NoneOfThem',
-  UseAndHabitation = 'UseAndHabitation',
-  Usufruct = 'Usufruct',
-}
-
 export type RoofMaterial = {
   __typename?: 'RoofMaterial';
   name?: Maybe<RoofMaterials>;
@@ -740,20 +1439,6 @@ export enum RoofMaterials {
   Pans = 'Pans',
   Other = 'Other',
 }
-
-export type CadastreMap = {
-  __typename?: 'CadastreMap';
-  id: Scalars['String'];
-  mapName: Scalars['String'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<CadastreMapType>;
-};
-
-export type CadastreMaps = {
-  __typename?: 'CadastreMaps';
-  maps?: Maybe<Array<CadastreMap>>;
-};
 
 export type RoofType = {
   __typename?: 'RoofType';
@@ -777,10 +1462,90 @@ export enum RoofTypes {
   CompositeRoof = 'CompositeRoof',
 }
 
+export enum SaleCondition {
+  VatTaxed = 'VatTaxed',
+  IncludingVat = 'IncludingVat',
+  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
+}
+
+export type SaleGeneral = {
+  __typename?: 'SaleGeneral';
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<Array<SaleCondition>>;
+  purchaseMix?: Maybe<Array<PurchaseMix>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleGeneralInput = {
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<Array<SaleCondition>>;
+  purchaseMix?: Maybe<Array<PurchaseMix>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleInformations = {
+  __typename?: 'SaleInformations';
+  general?: Maybe<SaleGeneral>;
+  woz?: Maybe<SaleWoz>;
+};
+
+export type SaleInformationsInput = {
+  general?: Maybe<SaleGeneralInput>;
+  woz?: Maybe<SaleWozInput>;
+};
+
+export enum SalePriceSuffix {
+  CostsBuyer = 'CostsBuyer',
+  FreeInName = 'FreeInName',
+  NoneOfThem = 'NoneOfThem',
+}
+
+export type SaleWoz = {
+  __typename?: 'SaleWOZ';
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleWozInput = {
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
   total: Scalars['Int'];
 };
+
+export type Service = {
+  __typename?: 'Service';
+  id: Scalars['String'];
+  type: ServiceType;
+  name: Scalars['String'];
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+  configuration: ServiceConfiguration;
+  ownership?: Maybe<OwnershipType>;
+};
+
+export type ServiceConfiguration =
+  | HotWaterSupplyConfiguration
+  | HeatingSourceConfiguration
+  | AdditionalServiceConfiguration;
+
+export enum ServiceType {
+  HotWaterSupplies = 'HotWaterSupplies',
+  HeatingSources = 'HeatingSources',
+  AdditionalServices = 'AdditionalServices',
+}
 
 export type Sort = {
   column: Scalars['String'];
@@ -799,9 +1564,17 @@ export type Space = {
   spaceName?: Maybe<Scalars['String']>;
   extraRoomPossibility: Scalars['Boolean'];
   configuration?: Maybe<SpaceConfiguration>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
-export type SpaceConfiguration = KitchenSpace;
+export type SpaceConfiguration =
+  | KitchenSpace
+  | BathroomSpace
+  | LivingRoomSpace
+  | BedroomSpace
+  | HomeOfficeSpace
+  | OtherSpace;
 
 export type SpaceMeasurement = {
   __typename?: 'SpaceMeasurement';
@@ -853,6 +1626,20 @@ export enum SpaceType {
   Other = 'Other',
 }
 
+export type Specification = {
+  __typename?: 'Specification';
+  energy?: Maybe<Energy>;
+  approvals?: Maybe<Approvals>;
+  obligation?: Maybe<ObligationToProvideInformation>;
+};
+
+export type SpecificationInput = {
+  pimId: Scalars['ID'];
+  energy?: Maybe<EnergyInput>;
+  approvals?: Maybe<ApprovalsInput>;
+  obligation?: Maybe<ObligationToProvideInformationInput>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
@@ -866,11 +1653,43 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type UpdateCadastreInput = {
+  id: Scalars['String'];
+  pimId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  plot?: Maybe<CadastrePlotInput>;
+};
+
+export type UpdateCadastreMapInput = {
+  mapId?: Maybe<Scalars['String']>;
+  cadastreId?: Maybe<Scalars['String']>;
+  mapName: Scalars['String'];
+  fileID?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  type: CadastreMapType;
+};
+
+export type UpdateCostInput = {
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type UpdateFloorInput = {
   pimId: Scalars['String'];
   floorId: Scalars['String'];
   floorDescription?: Maybe<Scalars['String']>;
   floorType?: Maybe<FloorType>;
+};
+
+export type UpdateMeterInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type UpdateOutsideFeatureInput = {
@@ -879,25 +1698,27 @@ export type UpdateOutsideFeatureInput = {
   feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
 };
 
-export type NewCadastreMapInput = {
-  mapName: Scalars['String'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: CadastreMapType;
+export type UpdatePricingInput = {
+  id: Scalars['ID'];
+  rent?: Maybe<RentInformationsInput>;
+  sale?: Maybe<SaleInformationsInput>;
 };
 
-export type AddCadastreMapsInput = {
+export type UpdateReadingInput = {
   pimId: Scalars['String'];
-  maps: Array<NewCadastreMapInput>;
+  id: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
 };
 
-export type UpdateCadastreMapInput = {
-  cadastreId: Scalars['String'];
-  mapId: Scalars['String'];
-  mapName: Scalars['String'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: CadastreMapType;
+export type UpdateServiceInput = {
+  pimId: Scalars['String'];
+  serviceId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+  ownership?: Maybe<OwnershipType>;
+  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
 };
 
 export type UpdateSpaceInput = {
@@ -907,99 +1728,22 @@ export type UpdateSpaceInput = {
   space?: Maybe<Scalars['UpdateSpaceInputConfiguration']>;
 };
 
-export type BoughtOff = {
-  __typename?: 'BoughtOff';
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BoughtOffInput = {
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type Lease = {
-  __typename?: 'Lease';
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export type LeaseInput = {
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export type Ownership = {
-  __typename?: 'Ownership';
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
-};
-
-export type OwnershipInput = {
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
-};
-
-export type CadastrePlot = {
-  __typename?: 'CadastrePlot';
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<Ownership>;
-  lease?: Maybe<Lease>;
-  boughtOff?: Maybe<BoughtOff>;
-};
-
-export type CadastrePlotInput = {
-  id?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<OwnershipInput>;
-  lease?: Maybe<LeaseInput>;
-  boughtOff?: Maybe<BoughtOffInput>;
-};
-
-export type UpdateCadastreInput = {
-  id: Scalars['String'];
-  pimId: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  configuration?: Maybe<Scalars['UpdateCadastreConfigurationInput']>;
-};
-
-export type AddCadastreInput = {
-  pimId: Scalars['String'];
-  type: CadastreType;
-  description?: Maybe<Scalars['String']>;
-};
-
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Profile>;
   getProfile?: Maybe<Profile>;
-  listPims: PimSearchResult;
+  listPims: PimListSearchResult;
   getPim?: Maybe<Pim>;
   getPropertyTypes: Array<Scalars['String']>;
   getChangesHistory: Array<Event>;
   dictionary?: Maybe<Scalars['Dictionary']>;
+  getPimGeneral: PimGeneral;
+  getPimFloors: PimFloor;
+  getPimCadastre: PimCadastre;
+  getPimOutside: PimOutside;
+  getPimServices: PimServices;
+  getPricing: PimPrices;
+  getPimSpecification: PimSpecification;
 };
 
 export type QueryGetProfileArgs = {
@@ -1020,6 +1764,34 @@ export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
 };
 
+export type QueryGetPimGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimFloorsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimCadastreArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimOutsideArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimServicesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPricingArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimSpecificationArgs = {
+  id: Scalars['ID'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<LoginResponse>;
@@ -1028,19 +1800,33 @@ export type Mutation = {
   deleteUser?: Maybe<Scalars['String']>;
   createPim?: Maybe<Pim>;
   removePim?: Maybe<Scalars['String']>;
-  updatePimGeneralInfo?: Maybe<Pim>;
-  updatePimOutsideInfo?: Maybe<Pim>;
-  addFloorToPim?: Maybe<Pim>;
-  addSpaceToFloor?: Maybe<Pim>;
-  updateSpace?: Maybe<Pim>;
-  updateFloor?: Maybe<Pim>;
-  addOutsideFeature?: Maybe<Pim>;
-  updateOutsideFeature?: Maybe<Pim>;
   addFiles: Array<File>;
+  updatePimGeneralInfo: Pim;
+  addFloorToPim: Pim;
+  addSpaceToFloor: PimWithUpdatedSpace;
+  updateSpace: Pim;
+  updateFloor: Pim;
   addCadastreMaps?: Maybe<Pim>;
-  updateMap?: Maybe<Pim>;
   addCadastre?: Maybe<Pim>;
   updateCadastre?: Maybe<Pim>;
+  updatePimOutsideInfo: Pim;
+  addOutsideFeature: Pim;
+  updateOutsideFeature: Pim;
+  addReading?: Maybe<Pim>;
+  updateReading?: Maybe<Pim>;
+  addMeter?: Maybe<Pim>;
+  updateMeter?: Maybe<Pim>;
+  addService?: Maybe<PimWithNewService>;
+  updateService?: Maybe<Pim>;
+  addPricing: Pim;
+  updatePricing: Pim;
+  addCost: CostResult;
+  updateCost: CostResult;
+  updateInvestment: Pim;
+  addPimLabel: Pim;
+  removePimLabel: Pim;
+  updateSpecification: Pim;
+  setLinkedProperties: Pim;
 };
 
 export type MutationLoginArgs = {
@@ -1068,12 +1854,12 @@ export type MutationRemovePimArgs = {
   id: Scalars['String'];
 };
 
-export type MutationUpdatePimGeneralInfoArgs = {
-  input: Scalars['PimGeneralInput'];
+export type MutationAddFilesArgs = {
+  input: AddFilesInput;
 };
 
-export type MutationUpdatePimOutsideInfoArgs = {
-  input: Scalars['PimOutsideInput'];
+export type MutationUpdatePimGeneralInfoArgs = {
+  input: PimGeneralInput;
 };
 
 export type MutationAddFloorToPimArgs = {
@@ -1092,24 +1878,8 @@ export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
 };
 
-export type MutationAddOutsideFeatureArgs = {
-  input: AddOutsideFeatureInput;
-};
-
-export type MutationUpdateOutsideFeatureArgs = {
-  input: Scalars['UpdateFeatureInputConfiguration'];
-};
-
-export type MutationAddFilesArgs = {
-  input: AddFilesInput;
-};
-
 export type MutationAddCadastreMapsArgs = {
   input: AddCadastreMapsInput;
-};
-
-export type MutationUpdateMapArgs = {
-  input: UpdateCadastreMapInput;
 };
 
 export type MutationAddCadastreArgs = {
@@ -1118,6 +1888,78 @@ export type MutationAddCadastreArgs = {
 
 export type MutationUpdateCadastreArgs = {
   input: UpdateCadastreInput;
+};
+
+export type MutationUpdatePimOutsideInfoArgs = {
+  input: Scalars['PimOutsideInput'];
+};
+
+export type MutationAddOutsideFeatureArgs = {
+  input: AddOutsideFeatureInput;
+};
+
+export type MutationUpdateOutsideFeatureArgs = {
+  input: Scalars['UpdateFeatureInputConfiguration'];
+};
+
+export type MutationAddReadingArgs = {
+  input: AddReadingInput;
+};
+
+export type MutationUpdateReadingArgs = {
+  input: UpdateReadingInput;
+};
+
+export type MutationAddMeterArgs = {
+  input: AddMeterInput;
+};
+
+export type MutationUpdateMeterArgs = {
+  input: UpdateMeterInput;
+};
+
+export type MutationAddServiceArgs = {
+  input: AddServiceInput;
+};
+
+export type MutationUpdateServiceArgs = {
+  input: UpdateServiceInput;
+};
+
+export type MutationAddPricingArgs = {
+  input: AddPricingInput;
+};
+
+export type MutationUpdatePricingArgs = {
+  input: UpdatePricingInput;
+};
+
+export type MutationAddCostArgs = {
+  input: AddCostInput;
+};
+
+export type MutationUpdateCostArgs = {
+  input: UpdateCostInput;
+};
+
+export type MutationUpdateInvestmentArgs = {
+  input: InvestmentInput;
+};
+
+export type MutationAddPimLabelArgs = {
+  input: PimLabelInput;
+};
+
+export type MutationRemovePimLabelArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationUpdateSpecificationArgs = {
+  input: SpecificationInput;
+};
+
+export type MutationSetLinkedPropertiesArgs = {
+  input: LinkedPimInput;
 };
 
 export type LoginMutationVariables = {
@@ -1154,11 +1996,11 @@ export type CreatePimMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdatePimGeneralInfoMutationVariables = {
-  input: Scalars['PimGeneralInput'];
+  input: PimGeneralInput;
 };
 
 export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
-  updatePimGeneralInfo?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type AddFloorToPimMutationVariables = {
@@ -1166,9 +2008,7 @@ export type AddFloorToPimMutationVariables = {
 };
 
 export type AddFloorToPimMutation = { __typename?: 'Mutation' } & {
-  addFloorToPim?: Maybe<
-    { __typename?: 'Pim' } & { floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id'>>> }
-  >;
+  addFloorToPim: { __typename?: 'Pim' } & { floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id'>>> };
 };
 
 export type AddSpaceToFloorMutationVariables = {
@@ -1176,7 +2016,7 @@ export type AddSpaceToFloorMutationVariables = {
 };
 
 export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
-  addSpaceToFloor?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  addSpaceToFloor: { __typename?: 'PimWithUpdatedSpace' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
 };
 
 export type UpdateSpaceMutationVariables = {
@@ -1184,7 +2024,7 @@ export type UpdateSpaceMutationVariables = {
 };
 
 export type UpdateSpaceMutation = { __typename?: 'Mutation' } & {
-  updateSpace?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updateSpace: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type UpdateFloorMutationVariables = {
@@ -1192,7 +2032,7 @@ export type UpdateFloorMutationVariables = {
 };
 
 export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
-  updateFloor?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updateFloor: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type AddOutsideFeatureMutationVariables = {
@@ -1200,11 +2040,9 @@ export type AddOutsideFeatureMutationVariables = {
 };
 
 export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
-  addOutsideFeature?: Maybe<
-    { __typename?: 'Pim' } & {
-      outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
-    }
-  >;
+  addOutsideFeature: { __typename?: 'Pim' } & {
+    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
+  };
 };
 
 export type UpdateOutsideFeatureMutationVariables = {
@@ -1212,7 +2050,7 @@ export type UpdateOutsideFeatureMutationVariables = {
 };
 
 export type UpdateOutsideFeatureMutation = { __typename?: 'Mutation' } & {
-  updateOutsideFeature?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updateOutsideFeature: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type UpdatePimOutsideInfoMutationVariables = {
@@ -1220,7 +2058,7 @@ export type UpdatePimOutsideInfoMutationVariables = {
 };
 
 export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
-  updatePimOutsideInfo?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updatePimOutsideInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type AddCadastreMutationVariables = {
@@ -1251,20 +2089,12 @@ export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
   addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateMapMutationVariables = {
-  input: UpdateCadastreMapInput;
-};
-
-export type UpdateMapMutation = { __typename?: 'Mutation' } & {
-  updateMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
-};
-
 export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
 };
 
 export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
-  listPims: { __typename?: 'PimSearchResult' } & {
+  listPims: { __typename?: 'PimListSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
 };
@@ -1272,10 +2102,10 @@ export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
 export type ListPimsCountQueryVariables = {};
 
 export type ListPimsCountQuery = { __typename?: 'Query' } & {
-  activeCount: { __typename?: 'PimSearchResult' } & {
+  activeCount: { __typename?: 'PimListSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
-  archivedCount: { __typename?: 'PimSearchResult' } & {
+  archivedCount: { __typename?: 'PimListSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
 };
@@ -1289,11 +2119,11 @@ export type ListPimsQueryVariables = {
 };
 
 export type ListPimsQuery = { __typename?: 'Query' } & {
-  listPims: { __typename?: 'PimSearchResult' } & {
+  listPims: { __typename?: 'PimListSearchResult' } & {
     items?: Maybe<
       Array<
-        { __typename?: 'Pim' } & Pick<
-          Pim,
+        { __typename?: 'ListPim' } & Pick<
+          ListPim,
           | 'id'
           | 'street'
           | 'houseNumberPrefix'
@@ -1369,14 +2199,9 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
         houseOutside?: Maybe<
           { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
               generalInformation?: Maybe<
-                { __typename?: 'GeneralInformation' } & Pick<
-                  GeneralInformation,
-                  'notes' | 'qualityInformation' | 'pictures'
-                >
+                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'notes' | 'qualityInformation'>
               >;
-              propertyRelated?: Maybe<
-                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes' | 'pictures'>
-              >;
+              propertyRelated?: Maybe<{ __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'>>;
               roofInformation?: Maybe<
                 { __typename?: 'RoofInformation' } & {
                   type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
@@ -1393,36 +2218,41 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                   Array<
                     { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
                         configuration?: Maybe<
-                          { __typename?: 'KitchenSpace' } & Pick<
-                            KitchenSpace,
-                            | 'constructionYear'
-                            | 'notes'
-                            | 'type'
-                            | 'constructionType'
-                            | 'servicesNotes'
-                            | 'services'
-                            | 'hob'
-                            | 'shape'
-                            | 'serviceHeating'
-                          > & {
-                              appliances?: Maybe<
-                                Array<
-                                  Maybe<
-                                    { __typename?: 'KitchenAppliance' } & Pick<
-                                      KitchenAppliance,
-                                      'name' | 'quantity' | 'notes'
+                          | ({ __typename?: 'KitchenSpace' } & Pick<
+                              KitchenSpace,
+                              | 'constructionYear'
+                              | 'notes'
+                              | 'type'
+                              | 'constructionType'
+                              | 'servicesNotes'
+                              | 'services'
+                              | 'hob'
+                              | 'shape'
+                              | 'serviceHeating'
+                            > & {
+                                appliances?: Maybe<
+                                  Array<
+                                    Maybe<
+                                      { __typename?: 'KitchenAppliance' } & Pick<
+                                        KitchenAppliance,
+                                        'name' | 'quantity' | 'notes'
+                                      >
                                     >
                                   >
-                                >
-                              >;
-                              measurement?: Maybe<
-                                { __typename?: 'SpaceMeasurement' } & Pick<
-                                  SpaceMeasurement,
-                                  'length' | 'width' | 'height' | 'surface' | 'volume'
-                                >
-                              >;
-                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                            }
+                                >;
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | { __typename?: 'BathroomSpace' }
+                          | { __typename?: 'LivingRoomSpace' }
+                          | { __typename?: 'BedroomSpace' }
+                          | { __typename?: 'HomeOfficeSpace' }
+                          | { __typename?: 'OtherSpace' }
                         >;
                       }
                   >
@@ -1436,7 +2266,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                 configuration?: Maybe<
                   { __typename?: 'GardenFeature' } & Pick<
                     GardenFeature,
-                    'mainGarden' | 'type' | 'notes' | 'quality' | 'location' | 'shape' | 'surface' | 'pictures'
+                    'mainGarden' | 'type' | 'notes' | 'quality' | 'location' | 'shape' | 'surface'
                   > & {
                       dimensions?: Maybe<
                         { __typename?: 'RectangleDimensions' } & Pick<RectangleDimensions, 'length' | 'height'>
@@ -1449,46 +2279,87 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
         cadastre?: Maybe<
           Array<
             { __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'description' | 'type'> & {
-                configuration?: Maybe<
-                  | ({ __typename?: 'CadastreMaps' } & {
-                      maps?: Maybe<
-                        Array<
-                          { __typename?: 'CadastreMap' } & Pick<
-                            CadastreMap,
-                            'id' | 'mapName' | 'fileName' | 'description' | 'type'
-                          >
+                maps?: Maybe<
+                  Array<{ __typename?: 'CadastreMap' } & Pick<CadastreMap, 'id' | 'mapName' | 'description' | 'type'>>
+                >;
+                plot?: Maybe<
+                  { __typename?: 'CadastrePlot' } & Pick<
+                    CadastrePlot,
+                    | 'notes'
+                    | 'name'
+                    | 'municipalCode'
+                    | 'sectionCode'
+                    | 'plot'
+                    | 'indexNumber'
+                    | 'surface'
+                    | 'share'
+                    | 'codeSize'
+                  > & {
+                      ownership?: Maybe<{ __typename?: 'Ownership' } & Pick<Ownership, 'stressedInChargeOf'>>;
+                      lease?: Maybe<
+                        { __typename?: 'Lease' } & Pick<
+                          Lease,
+                          'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
                         >
                       >;
-                    })
-                  | ({ __typename?: 'CadastrePlot' } & Pick<
-                      CadastrePlot,
-                      | 'notes'
-                      | 'name'
-                      | 'municipalCode'
-                      | 'sectionCode'
-                      | 'plot'
-                      | 'indexNumber'
-                      | 'surface'
-                      | 'share'
-                      | 'codeSize'
-                    > & {
-                        ownership?: Maybe<{ __typename?: 'Ownership' } & Pick<Ownership, 'stressedInChargeOf'>>;
-                        lease?: Maybe<
-                          { __typename?: 'Lease' } & Pick<
-                            Lease,
-                            'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
-                          >
-                        >;
-                        boughtOff?: Maybe<
-                          { __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
-                        >;
-                      })
+                      boughtOff?: Maybe<
+                        { __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
+                      >;
+                    }
                 >;
               }
           >
         >;
       }
   >;
+};
+
+export type PimServicesQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimServicesQuery = { __typename?: 'Query' } & {
+  getPimServices: { __typename?: 'PimServices' } & {
+    meters?: Maybe<
+      Array<
+        { __typename?: 'Meter' } & Pick<Meter, 'id' | 'type' | 'name'> & {
+            readings?: Maybe<
+              Array<{ __typename?: 'Reading' } & Pick<Reading, 'id' | 'value' | 'feedInId' | 'dateOfReading'>>
+            >;
+          }
+      >
+    >;
+    hotWaterSupplies?: Maybe<
+      Array<
+        { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'yearOfInstallation'> & {
+            configuration:
+              | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+              | { __typename?: 'HeatingSourceConfiguration' }
+              | { __typename?: 'AdditionalServiceConfiguration' };
+          }
+      >
+    >;
+    heatingSources?: Maybe<
+      Array<
+        { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'yearOfInstallation'> & {
+            configuration:
+              | { __typename?: 'HotWaterSupplyConfiguration' }
+              | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+              | { __typename?: 'AdditionalServiceConfiguration' };
+          }
+      >
+    >;
+    additionalServices?: Maybe<
+      Array<
+        { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'yearOfInstallation'> & {
+            configuration:
+              | { __typename?: 'HotWaterSupplyConfiguration' }
+              | { __typename?: 'HeatingSourceConfiguration' }
+              | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+          }
+      >
+    >;
+  };
 };
 
 export type MeQueryVariables = {};
@@ -1625,7 +2496,9 @@ export type AddFloorToPimMutationOptions = ApolloReactCommon.BaseMutationOptions
 export const AddSpaceToFloorDocument = gql`
   mutation AddSpaceToFloor($input: AddSpaceInput!) {
     addSpaceToFloor(input: $input) {
-      id
+      pim {
+        id
+      }
     }
   }
 `;
@@ -1823,24 +2696,6 @@ export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptio
   AddCadastreMapsMutation,
   AddCadastreMapsMutationVariables
 >;
-export const UpdateMapDocument = gql`
-  mutation UpdateMap($input: UpdateCadastreMapInput!) {
-    updateMap(input: $input) {
-      id
-    }
-  }
-`;
-export function useUpdateMapMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMapMutation, UpdateMapMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<UpdateMapMutation, UpdateMapMutationVariables>(UpdateMapDocument, baseOptions);
-}
-export type UpdateMapMutationHookResult = ReturnType<typeof useUpdateMapMutation>;
-export type UpdateMapMutationResult = ApolloReactCommon.MutationResult<UpdateMapMutation>;
-export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdateMapMutation,
-  UpdateMapMutationVariables
->;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -1999,12 +2854,10 @@ export const PimDetailsDocument = gql`
         generalInformation {
           notes
           qualityInformation
-          pictures
         }
         propertyRelated {
           items
           notes
-          pictures
         }
         roofInformation {
           type {
@@ -2080,7 +2933,6 @@ export const PimDetailsDocument = gql`
               }
             }
             surface
-            pictures
           }
         }
       }
@@ -2088,41 +2940,36 @@ export const PimDetailsDocument = gql`
         id
         description
         type
-        configuration {
-          ... on CadastreMaps {
-            maps {
-              id
-              mapName
-              fileName
-              description
-              type
-            }
+        maps {
+          id
+          mapName
+          description
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownership {
+            stressedInChargeOf
           }
-          ... on CadastrePlot {
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
             notes
-            name
-            municipalCode
-            sectionCode
-            plot
-            indexNumber
-            surface
-            share
-            codeSize
-            ownership {
-              stressedInChargeOf
-            }
-            lease {
-              leaseholder
-              information
-              duration
-              yearlyPrice
-              endDate
-            }
-            boughtOff {
-              date
-              perpetually
-              notes
-            }
           }
         }
       }
@@ -2142,6 +2989,70 @@ export function usePimDetailsLazyQuery(
 export type PimDetailsQueryHookResult = ReturnType<typeof usePimDetailsQuery>;
 export type PimDetailsLazyQueryHookResult = ReturnType<typeof usePimDetailsLazyQuery>;
 export type PimDetailsQueryResult = ApolloReactCommon.QueryResult<PimDetailsQuery, PimDetailsQueryVariables>;
+export const PimServicesDocument = gql`
+  query PimServices($id: ID!) {
+    getPimServices(id: $id) {
+      meters {
+        id
+        type
+        name
+        readings {
+          id
+          value
+          feedInId
+          dateOfReading
+        }
+      }
+      hotWaterSupplies {
+        id
+        type
+        name
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+      }
+      heatingSources {
+        id
+        type
+        name
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+    }
+  }
+`;
+export function usePimServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimServicesQuery, PimServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
+}
+export function usePimServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimServicesQuery, PimServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
+}
+export type PimServicesQueryHookResult = ReturnType<typeof usePimServicesQuery>;
+export type PimServicesLazyQueryHookResult = ReturnType<typeof usePimServicesLazyQuery>;
+export type PimServicesQueryResult = ApolloReactCommon.QueryResult<PimServicesQuery, PimServicesQueryVariables>;
 export const MeDocument = gql`
   query Me {
     me {

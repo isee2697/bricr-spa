@@ -22,7 +22,7 @@ const TYPES = [
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: MeterType.Electricity,
+    value: MeterType.Electric,
     label: 'dictionaries.meter_type.Electricity',
     icon: <SquareIcon color="inherit" />,
   },

@@ -1,4 +1,4 @@
-import { Meters } from 'api/types';
+import { MeterType } from 'api/types';
 
 export type AddMeterModalContainerProps = {
   isOpened: boolean;
@@ -6,7 +6,7 @@ export type AddMeterModalContainerProps = {
 };
 
 type AddOutsideFeatureBody = {
-  type: Meters;
+  type: MeterType;
   description: string;
 };
 

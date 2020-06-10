@@ -31,14 +31,64 @@ type ResetPasswordResponse {
 # END REST
 
 directive @auth on FIELD_DEFINITION
+directive @uuidOrEnum(
+  enum: String!
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 directive @cacheControl(
   maxAge: Int
   scope: CacheControlScope
 ) on FIELD_DEFINITION | OBJECT | INTERFACE
+scalar AbsoluteFloat
+
+input AddCadastreInput {
+  pimId: String!
+  type: CadastreType!
+  description: String
+}
+
+input AddCadastreMapsInput {
+  pimId: String!
+  maps: [NewCadastreMapInput!]!
+}
+
+input AddCostInput {
+  id: ID!
+  type: CostType!
+  name: String
+}
+
 input AddFilesInput {
   fileIDs: [ID!]!
   entity: EntityWithFiles!
   entityID: ID!
+}
+
+type AdditionalServiceConfiguration {
+  type: AdditionalServiceType!
+}
+
+enum AdditionalServiceType {
+  AirConditioning
+  AlarmSystem
+  ExteriorSunProtection
+  Skylight
+  SateliteDish
+  SlidingDoor
+  CableTv
+  Windmill
+  SolarCollector
+  SwimmingPool
+  FrenchBalcony
+  MechanicalVentilation
+  Elevator
+  Flue
+  Shutters
+}
+
+input AddMeterInput {
+  pimId: String!
+  name: String!
+  type: MeterType!
 }
 
 input AddNewFloorInput {
@@ -53,6 +103,26 @@ input AddOutsideFeatureInput {
   description: String
 }
 
+input AddPricingInput {
+  id: ID!
+  types: [PricingType!]!
+}
+
+input AddReadingInput {
+  pimId: String!
+  meterId: String!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
+}
+
+input AddServiceInput {
+  pimId: String!
+  name: String!
+  type: ServiceType!
+  configuration: ServiceConfigurationInput
+}
+
 input AddSpaceInput {
   spaceType: SpaceType!
   extraRoomPossibility: Boolean!
@@ -61,13 +131,156 @@ input AddSpaceInput {
   spaceName: String
 }
 
+type Approvals {
+  label: ApprovalType
+  notes: String
+}
+
+input ApprovalsInput {
+  label: ApprovalType
+  notes: String
+}
+
+enum ApprovalType {
+  AdaptedHome
+  EnergyPerformanceAdvice
+  PoliceMark
+  GeneralHomeApproval
+  GiwGuaranteeCertificate
+  SwkGuaranteeCertificate
+  ArchitecturalInspection
+  HouseGuarantee
+  HousingGuaranteeCertificate
+  FireSafety
+  KiwaSafeLiving
+  QualityMarkCertificate
+}
+
+enum BathroomServices {
+  Bidet
+  Sauna
+  WashingMachineConnection
+  Shower
+  SteamCabin
+  Sink
+  CoubleWashbasin
+  Toilet
+  Washbasin
+  WalkInShower
+  Urinal
+  Whirlpool
+  Jacuzzi
+  SitzBath
+  Bathtub
+}
+
+type BathroomSpace {
+  constructionYear: Float
+  notes: String
+  services: [BathroomServices]
+  servicesNotes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type BedroomSpace {
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type BoughtOff {
+  date: Date
+  perpetually: Boolean
+  notes: String
+}
+
+input BoughtOffInput {
+  date: Date
+  perpetually: Boolean
+  notes: String
+}
+
 enum CacheControlScope {
   PUBLIC
   PRIVATE
 }
 
+type Cadastre {
+  id: String!
+  description: String
+  type: CadastreType!
+  maps: [CadastreMap!]
+  plot: CadastrePlot
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+}
+
+type CadastreMap {
+  id: String!
+  mapName: String!
+  file: File
+  description: String
+  type: CadastreMapType
+}
+
+enum CadastreMapType {
+  Map
+  Register
+}
+
+type CadastrePlot {
+  notes: String
+  name: String
+  municipalCode: String
+  sectionCode: String
+  plot: String
+  indexNumber: String
+  surface: Float
+  share: String
+  codeSize: CodeSizeType
+  ownership: Ownership
+  lease: Lease
+  boughtOff: BoughtOff
+}
+
+input CadastrePlotInput {
+  id: String
+  notes: String
+  name: String
+  municipalCode: String
+  sectionCode: String
+  plot: String
+  indexNumber: String
+  surface: Float
+  share: String
+  codeSize: CodeSizeType
+  ownership: OwnershipInput
+  lease: LeaseInput
+  boughtOff: BoughtOffInput
+}
+
+enum CadastreType {
+  CadastreMap
+  Plot
+}
+
 input ChangesHistoryFilters {
   entityType: EventEntityType
+}
+
+enum CodeSizeType {
+  Apartment
+  Tightness
+  PartLot
+  InWholePlot
+  MembershipRight
 }
 
 type Company {
@@ -94,6 +307,43 @@ enum ConstructionType {
   UnderConstruction
   InDevelopment
 }
+
+type Cost {
+  id: ID!
+  serviceCosts: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCosts: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  type: CostType!
+  name: String
+}
+
+enum CostPaymentFrequency {
+  Monthly
+  Yearly
+}
+
+type CostResult {
+  pim: Pim!
+  cost: Cost!
+}
+
+enum CostType {
+  Service
+  Heating
+  Electricity
+  Water
+  Sewage
+  WaterBoard
+  LandConsolidationInterest
+  HomeownerAssociation
+  OzbUserPart
+  OzbBusinessPart
+  Custom
+}
+
+scalar CostVat
 
 input CreateFileInput {
   fileName: String!
@@ -136,9 +386,53 @@ enum DevelopmentType {
 
 scalar Dictionary
 
+type Energy {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}
+
+enum EnergyCharasteristicType {
+  Beng
+  NaturalEnergy
+  ZeroOnMeter
+}
+
+input EnergyInput {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}
+
+enum EnergyType {
+  A
+  A1Plus
+  A2Plus
+  A3Plus
+  A4Plus
+  A5Plus
+  B
+  C
+  D
+  E
+  F
+  G
+}
+
 enum EntityWithFiles {
   Pim
   Space
+  OutsideFeature
+  OutsideGeneral
+  OutsidePropertyRelated
+  RoofInformation
+  CadastreMap
 }
 
 type Event {
@@ -173,6 +467,8 @@ type File {
   signedUrl: String
   url: String
   bucket: String
+  entityID: String
+  entity: EntityWithFiles
 }
 
 enum FilePermission {
@@ -186,6 +482,8 @@ type Floor {
   level: Int!
   floorType: FloorType!
   spaces: [Space!]
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
 }
 
 enum FloorType {
@@ -194,16 +492,6 @@ enum FloorType {
   Basement
   GroundFloor
   Loft
-}
-
-enum GardenType {
-  Backyard,
-  PatioOrAtrium,
-  Place,
-  AllGroundGarden,
-  FrontGarden,
-  SunTerrace,
-  BackGarden,
 }
 
 union GardenDimensions = RectangleDimensions
@@ -216,7 +504,7 @@ type GardenFeature {
   shape: GardenShapeType
   dimensions: GardenDimensions
   surface: Float
-  pictures: [String]
+  images: [File!]
 }
 
 enum GardenQualityType {
@@ -235,16 +523,80 @@ enum GardenShapeType {
   TShape
 }
 
+enum GardenType {
+  Backyard
+  PatioOrAtrium
+  Place
+  AllGroundGarden
+  FrontGarden
+  SunTerrace
+  BackGarden
+}
+
 type GeneralInformation {
   qualityInformation: [QualityInformations]
-  pictures: [String]
+  images: [File!]
   notes: String
 }
 
 input GeneralInformationInput {
   qualityInformation: [QualityInformations]
-  pictures: [String]
+  images: [String]
   notes: String
+}
+
+type HeatingSourceConfiguration {
+  type: HeatingSourceType!
+}
+
+enum HeatingSourceType {
+  GeothermalHeat
+  Fireplace
+  AllBurner
+  PelletStove
+  BlockHeating
+  WoodStove
+  DistrictHeating
+  CentralHeatingBoiler
+  CoalStove
+  PartialElectricHeating
+  MotherHearth
+  GasFire
+  PossibleFireplace
+  HeatRecoverySystem
+  GasHeaters
+  HeatPump
+  HotAirHeating
+  UnderfloorHeating
+  UnderfloorHeatingCompletely
+  WallHeating
+}
+
+type HomeOfficeSpace {
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type HotWaterSupplyConfiguration {
+  type: HotWaterSupplyType!
+  fuel: HotWaterSupplyFuelType
+}
+
+enum HotWaterSupplyFuelType {
+  Gas
+  Electric
+  Oil
+}
+
+enum HotWaterSupplyType {
+  CentralHeatingBoiler
+  Boiler
+  Geyser
+  SolarWaterHeater
 }
 
 type HouseGeneral {
@@ -256,16 +608,11 @@ type HouseGeneral {
 }
 
 input HouseGeneralInput {
-  id: ID!
   availability: PropertyAvailabilityInformationInput
   construction: ConstructionInformationInput
   floor: FloorType
   propertyConnection: PropertyConnection
   propertyDetails: PropertyTypeDetailed
-  street: String!
-  city: String!
-  houseNumber: String!
-  postalCode: String!
 }
 
 type HouseOutside {
@@ -280,6 +627,37 @@ input HouseOutsideInput {
   generalInformation: GeneralInformationInput
   propertyRelated: PropertyRelatedInput
   roofInformation: RoofInformationInput
+  notes: String
+}
+
+type Investment {
+  netRentalIncome: AbsoluteFloat
+  grossRentalIncome: AbsoluteFloat
+  economicRentalValue: AbsoluteFloat
+  averageMaturity: AbsoluteFloat
+  rentIndexed: Boolean
+  splitApartment: Boolean
+  averageVacancyPercentage: Float
+  numberOfRentableUnits: Float
+  amountOfTenants: Int
+  remainingTermContacts: Int
+  vacancySquareMeters: Int
+  notes: String
+}
+
+input InvestmentInput {
+  id: ID!
+  netRentalIncome: AbsoluteFloat
+  grossRentalIncome: AbsoluteFloat
+  economicRentalValue: AbsoluteFloat
+  averageMaturity: AbsoluteFloat
+  rentIndexed: Boolean
+  splitApartment: Boolean
+  averageVacancyPercentage: Float
+  numberOfRentableUnits: Float
+  amountOfTenants: Int
+  remainingTermContacts: Int
+  vacancySquareMeters: Int
   notes: String
 }
 
@@ -337,6 +715,107 @@ enum KitchenType {
   Scullery
 }
 
+scalar LabelProperty
+
+scalar LastEditedBy
+
+type Lease {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float
+  endDate: Date
+}
+
+enum LeaseDurationType {
+  Forever
+  Temporary
+  Constantly
+}
+
+enum LeaseholderType {
+  Different
+  Township
+  Private
+}
+
+enum LeaseInformationType {
+  Virable
+  Fixed
+}
+
+input LeaseInput {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float
+  endDate: Date
+}
+
+type LinkedPim {
+  id: ID!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  propertyType: PropertyType
+  attention: String
+  plotNumber: Int
+  salePrice: AbsoluteFloat
+  rentPrice: AbsoluteFloat
+  status: PimStatus!
+  images: [File!]
+}
+
+input LinkedPimInput {
+  pimId: ID!
+  linkedPimIDs: [ID!]!
+}
+
+type ListPim {
+  id: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  street: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  completeness: Float!
+  propertyType: PropertyType
+  salePrice: Float
+  rentPrice: Float
+  images: [File!]
+  livingArea: Int
+  attention: String
+  dateCreated: Date!
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+  houseOutside: ListPimHouseOutside
+  archived: Boolean
+  status: PimStatus!
+  developmentType: DevelopmentType!
+}
+
+type ListPimHouseOutside {
+  propertyRelated: ListPimPropertyRelated
+}
+
+type ListPimPropertyRelated {
+  items: [PropertyRelatedItems]
+}
+
 input ListPimsFilters {
   developmentType: DevelopmentType
   status: PimStatus
@@ -356,6 +835,24 @@ input ListPimsFilters {
   archived: Boolean
 }
 
+type LivingRoomSpace {
+  constructionYear: Float
+  notes: String
+  type: LivingRoomType
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+  stairs: Boolean
+}
+
+enum LivingRoomType {
+  ThroughRoom
+  FormerEnSuite
+  RoomAndSuite
+  Conservatory
+}
+
 enum Location {
   North
   South
@@ -363,11 +860,62 @@ enum Location {
   West
 }
 
+type Meter {
+  id: String!
+  type: MeterType!
+  name: String!
+  readings: [Reading!]
+}
+
+enum MeterType {
+  Water
+  Gas
+  Electric
+}
+
+input NewCadastreMapInput {
+  mapName: String!
+  fileID: String!
+  description: String
+  type: CadastreMapType!
+}
+
+type ObligationToProvideInformation {
+  label: String
+  notes: String
+}
+
+input ObligationToProvideInformationInput {
+  label: String
+  notes: String
+}
+
+enum ObligationToProvideInformationType {
+  Boot
+  BWLetter
+  SoilPollution
+  Asbestos
+  OwnSake
+}
+
+type OtherSpace {
+  name: String
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
 type OutsideFeature {
   id: String!
   description: String
   type: OutsideFeatureType!
   configuration: OutsideFeatureConfiguration
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
 }
 
 union OutsideFeatureConfiguration = GardenFeature
@@ -379,13 +927,24 @@ enum OutsideFeatureType {
   ParkingLot
 }
 
-union CadastreConfiguration = CadastreMaps | CadastrePlot
+type Ownership {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
 
-type Cadastre {
-  id: String!
-  description: String
-  type: CadastreType!
-  configuration: CadastreConfiguration
+enum OwnershipChoiceType {
+  NoneOfThem
+  UseAndHabitation
+  Usufruct
+}
+
+input OwnershipInput {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
+
+enum OwnershipType {
+  Rent
+  Leased
+  Owned
 }
 
 input Pagination {
@@ -395,7 +954,7 @@ input Pagination {
 }
 
 type Pim {
-  id: String!
+  id: ID!
   realEstateType: RealEstateType!
   street: String!
   houseNumberPrefix: String
@@ -422,24 +981,144 @@ type Pim {
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!
-  updatedBy: String
   houseGeneral: HouseGeneral
   houseOutside: HouseOutside
-  floors: [Floor!]
   outsideFeatures: [OutsideFeature!]
+  floors: [Floor!]
   cadastre: [Cadastre!]
-  services: Services
+  meters: [Meter!]
+  services: [Service!]
+  pricing: Pricing
+  costs: [Cost!]
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
+  investment: Investment
+  specification: Specification
+  linkedProperties: [Pim!]
 }
 
-union PimGeneral = HouseGeneral
-scalar PimGeneralInput
+type PimCadastre {
+  id: ID!
+  cadastre: [Cadastre!]
+}
 
-union PimOutside = HouseOutside
+type PimFloor {
+  id: String!
+  floors: [Floor!]
+}
+
+type PimGeneral {
+  id: ID!
+  realEstateType: RealEstateType!
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType!
+  status: PimStatus!
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  images: [File!]
+  livingArea: Int
+  propertyType: PropertyType
+  attention: String
+  completeness: Float!
+  archived: Boolean!
+  dateCreated: Date!
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+  houseGeneral: HouseGeneral
+}
+
+input PimGeneralInput {
+  id: ID!
+  realEstateType: RealEstateType
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType
+  status: PimStatus
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  livingArea: Int
+  attention: String
+  houseGeneral: HouseGeneralInput
+}
+
+type PimLabel {
+  id: ID!
+  icon: String
+  text: String!
+  property: LabelProperty!
+}
+
+input PimLabelInput {
+  pimId: ID!
+  icon: String
+  text: String!
+  property: LabelProperty!
+}
+
+type PimListSearchResult {
+  metadata: SearchMetadata
+  items: [ListPim!]
+}
+
+type PimOutside {
+  id: ID!
+  houseOutside: HouseOutside
+  outsideFeatures: [OutsideFeature!]
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+}
+
 scalar PimOutsideInput
+
+type PimPrices {
+  id: ID!
+  pricing: Pricing
+  costs: [Cost!]
+  investment: Investment
+}
 
 type PimSearchResult {
   metadata: SearchMetadata
   items: [Pim!]
+}
+
+type PimServices {
+  id: String!
+  meters: [Meter!]
+  hotWaterSupplies: [Service!]
+  heatingSources: [Service!]
+  additionalServices: [Service!]
+}
+
+type PimSpecification {
+  id: ID!
+  specification: Specification
+  linkedProperties: [LinkedPim!]
 }
 
 enum PimStatus {
@@ -451,6 +1130,26 @@ enum PimStatus {
   RentedWithReservation
   Sold
   Rented
+}
+
+type PimWithNewService {
+  pim: Pim!
+  newService: Service!
+}
+
+type PimWithUpdatedSpace {
+  newSpace: Space!
+  pim: Pim!
+}
+
+type Pricing {
+  rent: RentInformations
+  sale: SaleInformations
+}
+
+enum PricingType {
+  Sale
+  Rent
 }
 
 type Profile {
@@ -482,32 +1181,6 @@ type PropertyAvailabilityInformation {
   currentDestination: String
 }
 
-type BaseService {
-  id: String!
-  name: String!
-  type: String!
-  source: String
-}
-
-enum MeterType {
-  Gas
-  Water
-  Electricity
-}
-type Meters {
-  id: String!
-  type: MeterType!
-  name: String
-  counter: Float
-}
-
-type Services {
-  heating: [BaseService!]
-  hotWater: [BaseService!]
-  additional: [BaseService!]
-  meters: [Meters!]
-}
-
 input PropertyAvailabilityInformationInput {
   availability: PropertyAvailability
   from: Date
@@ -533,13 +1206,13 @@ enum PropertyHabitation {
 type PropertyRelated {
   items: [PropertyRelatedItems]
   notes: String
-  pictures: [String]
+  images: [File!]
 }
 
 input PropertyRelatedInput {
   items: [PropertyRelatedItems]
   notes: String
-  pictures: [String]
+  images: [String]
 }
 
 enum PropertyRelatedItems {
@@ -547,10 +1220,6 @@ enum PropertyRelatedItems {
   Terrace
   RoofTerrace
   Porch
-}
-
-enum PropertySpaces {
-  Kitchen
 }
 
 enum PropertyType {
@@ -583,6 +1252,13 @@ enum PropertyTypeDetailed {
   Mansion
 }
 
+enum PurchaseMix {
+  MgeConstruction
+  PartOfIndividualProject
+  PurchaseGuarantee
+  MixedFormPurchaseRent
+}
+
 enum QualityInformations {
   Simple
   Normal
@@ -598,6 +1274,14 @@ enum QualityInformations {
   Bad
 }
 
+type Reading {
+  id: String!
+  value: Int
+  dateOfReading: Date
+  description: String
+  feedInId: String
+}
+
 enum RealEstateType {
   Residential
   Business
@@ -608,18 +1292,48 @@ type RectangleDimensions {
   height: Float
 }
 
+enum RentCondition {
+  VatTaxed
+  ExcludingServiceCosts
+  Furnished
+  IncludingServiceCosts
+  Indexed
+}
+
+type RentInformations {
+  rentalPrice: AbsoluteFloat
+  paymentFrequency: RentPaymentFrequency
+  suffix: String
+  conditions: [RentCondition!]
+  notes: String
+}
+
+input RentInformationsInput {
+  rentalPrice: AbsoluteFloat
+  suffix: String
+  conditions: [RentCondition!]
+  notes: String
+  paymentFrequency: RentPaymentFrequency
+}
+
+enum RentPaymentFrequency {
+  PerMonth
+  Annual
+  Custom
+}
+
 type RoofInformation {
   type: RoofType
   material: RoofMaterial
   insulation: RoofInsulation
-  pictures: [String]
+  images: [File!]
 }
 
 input RoofInformationInput {
   type: RoofTypeInput
   material: RoofMaterialInput
   insulation: RoofInsulationInput
-  pictures: [String]
+  images: [String]
 }
 
 type RoofInsulation {
@@ -642,47 +1356,6 @@ enum RoofInsulations {
   StructuralPanels
 }
 
-enum CadastreMapType {
-  Map,
-  Register,
-}
-
-enum CadastreType {
-  CadastreMap,
-  Plot
-}
-
-enum CodeSizeType {
-  Apartment,
-  Tightness,
-  PartLot,
-  InWholePlot,
-  MembershipRight
-}
-
-enum LeaseholderType {
-  Different,
-  Township,
-  Private
-}
-
-enum LeaseInformationType {
-  Virable,
-  Fixed
-}
-
-enum LeaseDurationType {
-  Forever,
-  Temporary,
-  Constantly
-}
-
-enum OwnershipChoiceType {
-  NoneOfThem,
-  UseAndHabitation,
-  Usufruct
-}
-
 type RoofMaterial {
   name: RoofMaterials
   notes: String
@@ -701,18 +1374,6 @@ enum RoofMaterials {
   Metal
   Pans
   Other
-}
-
-type CadastreMap {
-  id: String!
-  mapName: String!
-  fileName: String!
-  description: String
-  type: CadastreMapType,
-}
-
-type CadastreMaps {
-  maps: [CadastreMap!]
 }
 
 type RoofType {
@@ -736,8 +1397,85 @@ enum RoofTypes {
   CompositeRoof
 }
 
+enum SaleCondition {
+  VatTaxed
+  IncludingVat
+  ExcludingConstructionInterest
+}
+
+type SaleGeneral {
+  prefix: String
+  price: AbsoluteFloat
+  suffix: String
+  executionSale: Boolean
+  dateOfExecutionSale: Date
+  conditions: [SaleCondition!]
+  purchaseMix: [PurchaseMix!]
+  notes: String
+}
+
+input SaleGeneralInput {
+  prefix: String
+  price: AbsoluteFloat
+  suffix: String
+  executionSale: Boolean
+  dateOfExecutionSale: Date
+  conditions: [SaleCondition!]
+  purchaseMix: [PurchaseMix!]
+  notes: String
+}
+
+type SaleInformations {
+  general: SaleGeneral
+  woz: SaleWOZ
+}
+
+input SaleInformationsInput {
+  general: SaleGeneralInput
+  woz: SaleWOZInput
+}
+
+enum SalePriceSuffix {
+  CostsBuyer
+  FreeInName
+  NoneOfThem
+}
+
+type SaleWOZ {
+  wozPrice: AbsoluteFloat
+  referenceDateWoz: Date
+  notes: String
+}
+
+input SaleWOZInput {
+  wozPrice: AbsoluteFloat
+  referenceDateWoz: Date
+  notes: String
+}
+
 type SearchMetadata {
   total: Int!
+}
+
+type Service {
+  id: String!
+  type: ServiceType!
+  name: String!
+  yearOfInstallation: Int
+  configuration: ServiceConfiguration!
+  ownership: OwnershipType
+}
+
+union ServiceConfiguration =
+    HotWaterSupplyConfiguration
+  | HeatingSourceConfiguration
+  | AdditionalServiceConfiguration
+scalar ServiceConfigurationInput
+
+enum ServiceType {
+  HotWaterSupplies
+  HeatingSources
+  AdditionalServices
 }
 
 input Sort {
@@ -756,9 +1494,17 @@ type Space {
   spaceName: String
   extraRoomPossibility: Boolean!
   configuration: SpaceConfiguration
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
 }
 
-union SpaceConfiguration = KitchenSpace
+union SpaceConfiguration =
+    KitchenSpace
+  | BathroomSpace
+  | LivingRoomSpace
+  | BedroomSpace
+  | HomeOfficeSpace
+  | OtherSpace
 type SpaceMeasurement {
   length: Float
   width: Float
@@ -808,6 +1554,19 @@ enum SpaceType {
   Other
 }
 
+type Specification {
+  energy: Energy
+  approvals: Approvals
+  obligation: ObligationToProvideInformation
+}
+
+input SpecificationInput {
+  pimId: ID!
+  energy: EnergyInput
+  approvals: ApprovalsInput
+  obligation: ObligationToProvideInformationInput
+}
+
 type Subscription {
   _: Boolean
 }
@@ -819,11 +1578,45 @@ type Team {
   name: String
 }
 
+input UpdateCadastreInput {
+  id: String!
+  pimId: String!
+  description: String
+  plot: CadastrePlotInput
+}
+
+input UpdateCadastreMapInput {
+  mapId: String
+  cadastreId: String
+  mapName: String!
+  fileID: String
+  description: String
+  type: CadastreMapType!
+}
+
+input UpdateCostInput {
+  id: ID!
+  serviceCosts: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCosts: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  name: String
+}
+
+scalar UpdateFeatureInputConfiguration
+
 input UpdateFloorInput {
   pimId: String!
   floorId: String!
   floorDescription: String
   floorType: FloorType
+}
+
+input UpdateMeterInput {
+  pimId: String!
+  id: String!
+  name: String!
 }
 
 input UpdateOutsideFeatureInput {
@@ -832,25 +1625,27 @@ input UpdateOutsideFeatureInput {
   feature: UpdateFeatureInputConfiguration
 }
 
-input NewCadastreMapInput {
-  mapName: String!
-  fileName: String!
-  description: String
-  type: CadastreMapType!
+input UpdatePricingInput {
+  id: ID!
+  rent: RentInformationsInput
+  sale: SaleInformationsInput
 }
 
-input AddCadastreMapsInput {
+input UpdateReadingInput {
   pimId: String!
-  maps: [NewCadastreMapInput!]!
+  id: String!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
 }
 
-input UpdateCadastreMapInput {
-  cadastreId: String!
-  mapId: String!
-  mapName: String!
-  fileName: String!
-  description: String
-  type: CadastreMapType!
+input UpdateServiceInput {
+  pimId: String!
+  serviceId: String!
+  name: String
+  yearOfInstallation: Int
+  ownership: OwnershipType
+  configuration: ServiceConfigurationInput
 }
 
 input UpdateSpaceInput {
@@ -860,91 +1655,7 @@ input UpdateSpaceInput {
   space: UpdateSpaceInputConfiguration
 }
 
-type BoughtOff {
-  date: Date,
-  perpetually: Boolean,
-  notes: String
-}
-
-input BoughtOffInput {
-  date: Date,
-  perpetually: Boolean,
-  notes: String
-}
-
-type Lease {
-  leaseholder: LeaseholderType
-  information: LeaseInformationType
-  duration: LeaseDurationType
-  yearlyPrice: Float,
-  endDate: Date
-}
-
-input LeaseInput {
-  leaseholder: LeaseholderType
-  information: LeaseInformationType
-  duration: LeaseDurationType
-  yearlyPrice: Float,
-  endDate: Date
-}
-
-type Ownership {
-  stressedInChargeOf: [OwnershipChoiceType]
-}
-
-input OwnershipInput {
-  stressedInChargeOf: [OwnershipChoiceType]
-}
-
-type CadastrePlot {
-  notes: String,
-  name: String,
-  municipalCode: String,
-  sectionCode: String,
-  plot: String,
-  indexNumber: String,
-  surface: Float,
-  share: String
-  codeSize: CodeSizeType
-  ownership: Ownership
-  lease: Lease
-  boughtOff: BoughtOff
-}
-
-input CadastrePlotInput {
-  id: String
-  notes: String,
-  name: String,
-  municipalCode: String,
-  sectionCode: String,
-  plot: String,
-  indexNumber: String,
-  surface: Float,
-  share: String
-  codeSize: CodeSizeType
-  ownership: OwnershipInput
-  lease: LeaseInput
-  boughtOff: BoughtOffInput
-}
-
-input UpdateCadastreInput {
-  id: String!
-  pimId: String!
-  description: String
-  configuration: UpdateCadastreConfigurationInput
-}
-
-input AddCadastreInput {
-  pimId: String!
-  type: CadastreType!
-  description: String
-}
-
 scalar UpdateSpaceInputConfiguration
-
-scalar UpdateFeatureInputConfiguration
-
-scalar UpdateCadastreConfigurationInput
 
 scalar Upload
 
@@ -956,6 +1667,13 @@ type Query {
   getPropertyTypes: [String!]!
   getChangesHistory(filters: ChangesHistoryFilters): [Event!]!
   dictionary: Dictionary
+  getPimGeneral(id: ID!): PimGeneral! @auth
+  getPimFloors(id: ID!): PimFloor! @auth
+  getPimCadastre(id: ID!): PimCadastre! @auth
+  getPimOutside(id: ID!): PimOutside! @auth
+  getPimServices(id: ID!): PimServices! @auth
+  getPricing(id: ID!): PimPrices! @auth
+  getPimSpecification(id: ID!): PimSpecification! @auth
 }
 
 type Mutation {
@@ -964,20 +1682,35 @@ type Mutation {
   forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
   resetPassword(input: ResetPasswordInput, token: String!): ResetPasswordResponse
   #END REST
+
   deleteUser(id: String): String @auth
   createPim(input: CreatePimInput!): Pim @auth
   removePim(id: String!): String @auth
-  updatePimGeneralInfo(input: PimGeneralInput!): Pim @auth
-  updatePimOutsideInfo(input: PimOutsideInput!): Pim @auth
-  addFloorToPim(input: AddNewFloorInput!): Pim @auth
-  addSpaceToFloor(input: AddSpaceInput!): Pim @auth
-  updateSpace(input: UpdateSpaceInput!): Pim @auth
-  updateFloor(input: UpdateFloorInput!): Pim @auth
-  addOutsideFeature(input: AddOutsideFeatureInput!): Pim @auth
-  updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim @auth
   addFiles(input: AddFilesInput!): [File!]! @auth
+  updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth
+  addFloorToPim(input: AddNewFloorInput!): Pim! @auth
+  addSpaceToFloor(input: AddSpaceInput!): PimWithUpdatedSpace! @auth
+  updateSpace(input: UpdateSpaceInput!): Pim! @auth
+  updateFloor(input: UpdateFloorInput!): Pim! @auth
   addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
-  updateMap(input: UpdateCadastreMapInput!): Pim @auth
   addCadastre(input: AddCadastreInput!): Pim @auth
   updateCadastre(input: UpdateCadastreInput!): Pim @auth
+  updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
+  addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
+  updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth
+  addReading(input: AddReadingInput!): Pim @auth
+  updateReading(input: UpdateReadingInput!): Pim @auth
+  addMeter(input: AddMeterInput!): Pim @auth
+  updateMeter(input: UpdateMeterInput!): Pim @auth
+  addService(input: AddServiceInput!): PimWithNewService @auth
+  updateService(input: UpdateServiceInput!): Pim @auth
+  addPricing(input: AddPricingInput!): Pim! @auth
+  updatePricing(input: UpdatePricingInput!): Pim! @auth
+  addCost(input: AddCostInput!): CostResult! @auth
+  updateCost(input: UpdateCostInput!): CostResult! @auth
+  updateInvestment(input: InvestmentInput!): Pim! @auth
+  addPimLabel(input: PimLabelInput!): Pim! @auth
+  removePimLabel(id: ID!): Pim! @auth
+  updateSpecification(input: SpecificationInput!): Pim! @auth
+  setLinkedProperties(input: LinkedPimInput!): Pim! @auth
 }

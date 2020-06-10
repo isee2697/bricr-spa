@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation, useParams } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
 
 import { SideMenu } from 'ui/molecules';
@@ -17,7 +17,7 @@ import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType } from 'api/types';
+import { CadastreType, usePimServicesQuery } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, subMenuItem } from './PimDetailsSidebarMenu.types';
@@ -27,10 +27,14 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
+  const { id } = useParams<{ id: string }>();
+
+  const { data } = usePimServicesQuery({ variables: { id } });
+  const services = data?.getPimServices;
 
   const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
   const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
-  const meterGroups = groupBy((pim && pim.services && pim.services.meters) || [], meter => meter.type);
+  const meterGroups = groupBy((services && services.meters) || [], meter => meter.type);
 
   const plotGroups = groupBy(
     (pim && pim.cadastre && pim.cadastre.filter(c => c.type === CadastreType.Plot).reverse()) || [],

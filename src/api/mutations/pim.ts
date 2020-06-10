@@ -29,7 +29,9 @@ export const ADD_FLOOR = gql`
 export const ADD_SPACE_TO_FLOOR = gql`
   mutation AddSpaceToFloor($input: AddSpaceInput!) {
     addSpaceToFloor(input: $input) {
-      id
+      pim {
+        id
+      }
     }
   }
 `;
@@ -104,10 +106,10 @@ export const ADD_CADASTRE_MAPS = gql`
   }
 `;
 
-export const UPDATE_CADASTRE_MAP = gql`
-  mutation UpdateMap($input: UpdateCadastreMapInput!) {
-    updateMap(input: $input) {
-      id
-    }
-  }
-`;
+// export const UPDATE_CADASTRE_MAP = gql`
+//   mutation UpdateMap($input: UpdateCadastreMapInput!) {
+//     updateMap(input: $input) {
+//       id
+//     }
+//   }
+// `;
