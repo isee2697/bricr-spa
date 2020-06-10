@@ -7,11 +7,12 @@ import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
 import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../dictionaries';
+import { InspectionTypes } from '../inspection/inspectionType/InspectionType.types';
 
 import { AddInspectionModalProps } from './AddInspectionModal.types';
 import { useStyles } from './AddInspectionModal.styles';
 
-const getInspectionType = (type: 'Tank' | 'Pollution' | 'Maintenance') => {
+const getInspectionType = (type: InspectionTypes) => {
   switch (type) {
     case 'Tank':
       return inspectionTank;

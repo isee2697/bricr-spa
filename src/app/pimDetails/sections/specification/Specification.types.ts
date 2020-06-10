@@ -1,3 +1,3 @@
-export type SpecificationProps = {
-  onCustomPropertyModal: VoidFunction;
-};
+import { ObligationFormProps } from './forms/obligation/ObligationForm.types';
+
+export type SpecificationProps = ObligationFormProps;

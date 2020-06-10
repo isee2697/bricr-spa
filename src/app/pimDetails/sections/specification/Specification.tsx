@@ -8,19 +8,19 @@ import { EditIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
-import { ObligationFormProps } from './forms/obligation/ObligationForm.types';
 import { SpecificationGeneral } from './specificationGeneral/SpecificationGeneral';
 import { Advanced } from './advanced/Advanced';
 import { LinkedProperty } from './linkedProperty/LinkedProperty';
 import { AddLinkedPropertyModalContainer } from './addLinkedPropertyModal/AddLinkedPropertyModalContainer';
 import { Inspection } from './inspection/Inspection';
+import { SpecificationProps } from './Specification.types';
 
 export const Specification = ({
   title,
   isSidebarVisible,
   onOpenSidebar,
   onAddPropertyClick,
-}: PimDetailsSectionProps & ObligationFormProps) => {
+}: PimDetailsSectionProps & SpecificationProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
 

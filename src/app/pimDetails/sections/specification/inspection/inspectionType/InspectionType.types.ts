@@ -1,5 +1,7 @@
+export type InspectionTypes = 'Tank' | 'Pollution' | 'Maintenance';
+
 export type InspectionTypeProps = {
-  type: 'Tank' | 'Pollution' | 'Maintenance';
+  type: InspectionTypes;
   emoji: string;
   onAddCustomType: VoidFunction;
 };

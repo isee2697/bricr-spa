@@ -28,6 +28,7 @@ export const InspectionType = ({ type, emoji, onAddCustomType }: InspectionTypeP
           </Typography>
         </InfoSection>
       </FormSection>
+
       <AddInspectionModalContainer
         type={type}
         isOpened={isInspectionModalOpen}

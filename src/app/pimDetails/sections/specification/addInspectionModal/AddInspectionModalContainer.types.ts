@@ -1,6 +1,8 @@
+import { InspectionTypes } from '../inspection/inspectionType/InspectionType.types';
+
 export type AddInspectionModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
-  type: 'Tank' | 'Pollution' | 'Maintenance';
+  type: InspectionTypes;
   onAddCustomType: VoidFunction;
 };
