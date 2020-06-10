@@ -123,7 +123,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProp
         },
         {
           id: 'investments',
-          label: 'pim_details.prices.investments.title',
+          label: 'pim_details.prices.investments.menu_title',
         },
       ],
       icon: <MailIcon />,

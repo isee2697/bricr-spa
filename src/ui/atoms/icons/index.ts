@@ -63,3 +63,5 @@ export * from './quote/QuoteIcon';
 export * from './numberList/NumberListIcon';
 export * from './bulletList/BulletListIcon';
 export * from './unCheckMark/UnCheckMarkIcon';
+export * from './percent/PercentIcon';
+export * from './squareMeter/SquareMeterIcon';
