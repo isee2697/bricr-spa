@@ -1,4 +1,4 @@
-schema: src/api/schema.graphql
+schema: src/api/graphql/*.graphql
 documents: "src/api/{mutations,queries}/*.ts"
 config: 
   scalars:

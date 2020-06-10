@@ -24,10 +24,10 @@ import { PimDetailsSidebarMenuProps, subMenuItem } from './PimDetailsSidebarMenu
 
 export const PimDetailsSidebarMenu = ({ onHide, pim }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
+  const { id } = useParams<{ id: string }>();
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
-  const { id } = useParams<{ id: string }>();
 
   const { data } = usePimServicesQuery({ variables: { id } });
   const services = data?.getPimServices;

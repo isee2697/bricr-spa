@@ -23,8 +23,8 @@ export const AddServiceModal = ({ types, nameLabel, title, isOpened, onClose, on
               </DialogContent>
             )}
             <DialogContent>
-              <RadioGroupField md={3} name="service.type" options={types} />
-              <GenericField name="service.name" label={nameLabel} />
+              <RadioGroupField md={3} name="type" options={types} />
+              <GenericField name="name" id="service.name" label={nameLabel} />
             </DialogContent>
             <DialogActions>
               <Button color="default" variant="outlined" onClick={onClose}>

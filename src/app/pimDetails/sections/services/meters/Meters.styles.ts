@@ -6,6 +6,9 @@ export const useStyles = makeStyles(theme => ({
       paddingBottom: 0,
     },
   },
+  spacing: {
+    padding: theme.spacing(1, 0, 1, 0),
+  },
   label: {
     fontSize: theme.typography.h4.fontSize,
     lineHeight: theme.typography.h4.lineHeight,

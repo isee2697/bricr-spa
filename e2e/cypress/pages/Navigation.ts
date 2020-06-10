@@ -36,6 +36,10 @@ class Navigation {
     cy.visit(Cypress.env().baseUrl + AppRoute.resetPassword.replace(':token', 'token'));
   }
 
+  goToPimServices(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/services');
+  }
+
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
   }

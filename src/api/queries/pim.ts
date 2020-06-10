@@ -112,12 +112,12 @@ export const PIM_DETAILS = gql`
         generalInformation {
           notes
           qualityInformation
-          # pictures
+          #pictures
         }
         propertyRelated {
           items
           notes
-          # pictures
+          #pictures
         }
         roofInformation {
           type {
@@ -193,48 +193,52 @@ export const PIM_DETAILS = gql`
               }
             }
             surface
-            # pictures
+            #pictures
           }
         }
       }
-      cadastre {
-        id
-        description
-        type
-        maps {
-          id
-          mapName
-          # fileName
-          description
-          type
-        }
-        plot {
-          notes
-          name
-          municipalCode
-          sectionCode
-          plot
-          indexNumber
-          surface
-          share
-          codeSize
-          ownership {
-            stressedInChargeOf
-          }
-          lease {
-            leaseholder
-            information
-            duration
-            yearlyPrice
-            endDate
-          }
-          boughtOff {
-            date
-            perpetually
-            notes
-          }
-        }
-      }
+      # cadastre {
+      #   id
+      #   description
+      #   type
+      #   configuration {
+      #     ... on CadastreMaps {
+      #       maps {
+      #         id
+      #         mapName
+      #         fileName
+      #         description
+      #         type
+      #       }
+      #     }
+      #     ... on CadastrePlot {
+      #       notes
+      #       name
+      #       municipalCode
+      #       sectionCode
+      #       plot
+      #       indexNumber
+      #       surface
+      #       share
+      #       codeSize
+      #       ownership {
+      #         stressedInChargeOf
+      #       }
+      #       lease {
+      #         leaseholder
+      #         information
+      #         duration
+      #         yearlyPrice
+      #         endDate
+      #       }
+      #       boughtOff {
+      #         date
+      #         perpetually
+      #         notes
+      #       }
+      #     }
+      #   }
+      # }
       # cadastralMaps {
       #   id
       #   file
@@ -243,30 +247,6 @@ export const PIM_DETAILS = gql`
       #   type
       #   dateUpdated
       #   updatedBy
-      # }
-      # services {
-      #   heating {
-      #     id
-      #     name
-      #     type
-      #     source
-      #   }
-      #   hotWater {
-      #     id
-      #     name
-      #     type
-      #   }
-      #   additional {
-      #     id
-      #     name
-      #     type
-      #   }
-      #   meters {
-      #     id
-      #     name
-      #     type
-      #     counter
-      #   }
       # }
     }
   }
@@ -279,9 +259,11 @@ export const PIM_SERVICES = gql`
         id
         type
         name
+        description
         readings {
           id
           value
+          description
           feedInId
           dateOfReading
         }
@@ -290,6 +272,7 @@ export const PIM_SERVICES = gql`
         id
         type
         name
+        description
         configuration {
           ... on HotWaterSupplyConfiguration {
             type
@@ -302,6 +285,7 @@ export const PIM_SERVICES = gql`
         id
         type
         name
+        description
         configuration {
           ... on HeatingSourceConfiguration {
             type
@@ -313,6 +297,7 @@ export const PIM_SERVICES = gql`
         id
         type
         name
+        description
         configuration {
           ... on AdditionalServiceConfiguration {
             type

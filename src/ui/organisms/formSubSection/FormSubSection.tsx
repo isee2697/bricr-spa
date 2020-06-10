@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Collapse, Grid } from 'ui/atoms';
+import { Box, Collapse } from 'ui/atoms';
 import { SubSectionHeader } from 'ui/molecules';
 
 import { FormSubSectionProps } from './FormSubSection.types';

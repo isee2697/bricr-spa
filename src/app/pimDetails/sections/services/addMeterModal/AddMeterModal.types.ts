@@ -5,13 +5,13 @@ export type AddMeterModalContainerProps = {
   onClose: VoidFunction;
 };
 
-type AddOutsideFeatureBody = {
+type AddMeterBody = {
   type: MeterType;
-  description: string;
+  name: string;
 };
 
 export type AddMeterSubmit = (
-  body: AddOutsideFeatureBody,
+  body: AddMeterBody,
 ) => Promise<
   | undefined
   | {

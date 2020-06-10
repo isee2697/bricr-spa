@@ -10,6 +10,11 @@ import {
   Location,
   GardenShapeType,
   FloorType,
+  ServiceType,
+  MeterType,
+  PimServices,
+  HeatingSourceType,
+  AdditionalServiceType,
 } from 'api/types';
 
 export const PIM_1 = {
@@ -133,24 +138,46 @@ export const PIM_DETAILS_1: Pim = {
   //     dateUpdated: '2020-04-28T07:30:18.162',
   //   },
   // ],
-  // services: {
-  //   heating: [
-  //     { id: '21423sd43534', name: 'My gasoline', type: 'CentralHeatingBoiler' },
-  //     { id: '21423423fsd43534', name: 'My heating 2', type: 'Boiler' },
-  //   ],
-  //   hotWater: [
-  //     { id: '21423423fsd', name: 'My hotwater', type: 'CentralHeatingBoiler' },
-  //     { id: '21423423sd43534', name: 'My hotwater 2', type: 'Boiler' },
-  //   ],
-  //   additional: [
-  //     { id: '21423sd534', name: 'My additional service', type: 'Skylight' },
-  //     { id: '21423d43534', name: 'My additional 2', type: 'AirConditioning' },
-  //   ],
-  //   meters: [
-  //     { id: '1', type: MeterType.Electricity },
-  //     { id: '2', type: MeterType.Electricity },
-  //     { id: '3', type: MeterType.Gas },
-  //     { id: '4', type: MeterType.Water },
-  //   ],
-  // },
+};
+
+export const PIM_SERVICES: PimServices = {
+  id: PIM_1.id,
+  additionalServices: [
+    {
+      configuration: { type: AdditionalServiceType.AlarmSystem, __typename: 'AdditionalServiceConfiguration' },
+      type: ServiceType.AdditionalServices,
+      description: 'My description',
+      id: '7e155a65-551d-4b87-8001-41bc58703f02',
+      name: 'dfghgfhfh',
+      yearOfInstallation: 2020,
+    },
+  ],
+  heatingSources: [
+    {
+      configuration: { type: HeatingSourceType.AllBurner, __typename: 'HeatingSourceConfiguration' },
+      type: ServiceType.HeatingSources,
+      description: 'My description',
+      id: '7e155a65-551d-4b87-8001-41bc58703f02',
+      name: 'dfghgfhfh',
+      yearOfInstallation: 2020,
+    },
+  ],
+  hotWaterSupplies: [],
+  meters: [
+    {
+      description: 'test',
+      id: '78156291-9a89-4b41-86a1-f55471361bc9',
+      name: 'main gas meter',
+      readings: [
+        {
+          dateOfReading: '2020-05-17T15:26:40.317Z',
+          description: 'My frist reading',
+          feedInId: null,
+          id: '958afdc0-1ed4-45f4-98a7-d72ad4ce76aa',
+          value: 123456,
+        },
+      ],
+      type: MeterType.Gas,
+    },
+  ],
 };

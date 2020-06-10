@@ -63,34 +63,6 @@ input AddFilesInput {
   entityID: ID!
 }
 
-type AdditionalServiceConfiguration {
-  type: AdditionalServiceType!
-}
-
-enum AdditionalServiceType {
-  AirConditioning
-  AlarmSystem
-  ExteriorSunProtection
-  Skylight
-  SateliteDish
-  SlidingDoor
-  CableTv
-  Windmill
-  SolarCollector
-  SwimmingPool
-  FrenchBalcony
-  MechanicalVentilation
-  Elevator
-  Flue
-  Shutters
-}
-
-input AddMeterInput {
-  pimId: String!
-  name: String!
-  type: MeterType!
-}
-
 input AddNewFloorInput {
   pimId: String!
   floorDescription: String
@@ -106,21 +78,6 @@ input AddOutsideFeatureInput {
 input AddPricingInput {
   id: ID!
   types: [PricingType!]!
-}
-
-input AddReadingInput {
-  pimId: String!
-  meterId: String!
-  value: Int
-  dateOfReading: Date
-  feedInId: String
-}
-
-input AddServiceInput {
-  pimId: String!
-  name: String!
-  type: ServiceType!
-  configuration: ServiceConfigurationInput
 }
 
 input AddSpaceInput {
@@ -545,33 +502,6 @@ input GeneralInformationInput {
   notes: String
 }
 
-type HeatingSourceConfiguration {
-  type: HeatingSourceType!
-}
-
-enum HeatingSourceType {
-  GeothermalHeat
-  Fireplace
-  AllBurner
-  PelletStove
-  BlockHeating
-  WoodStove
-  DistrictHeating
-  CentralHeatingBoiler
-  CoalStove
-  PartialElectricHeating
-  MotherHearth
-  GasFire
-  PossibleFireplace
-  HeatRecoverySystem
-  GasHeaters
-  HeatPump
-  HotAirHeating
-  UnderfloorHeating
-  UnderfloorHeatingCompletely
-  WallHeating
-}
-
 type HomeOfficeSpace {
   constructionYear: Float
   notes: String
@@ -579,24 +509,6 @@ type HomeOfficeSpace {
   measurement: SpaceMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
-}
-
-type HotWaterSupplyConfiguration {
-  type: HotWaterSupplyType!
-  fuel: HotWaterSupplyFuelType
-}
-
-enum HotWaterSupplyFuelType {
-  Gas
-  Electric
-  Oil
-}
-
-enum HotWaterSupplyType {
-  CentralHeatingBoiler
-  Boiler
-  Geyser
-  SolarWaterHeater
 }
 
 type HouseGeneral {
@@ -860,19 +772,6 @@ enum Location {
   West
 }
 
-type Meter {
-  id: String!
-  type: MeterType!
-  name: String!
-  readings: [Reading!]
-}
-
-enum MeterType {
-  Water
-  Gas
-  Electric
-}
-
 input NewCadastreMapInput {
   mapName: String!
   fileID: String!
@@ -941,12 +840,6 @@ input OwnershipInput {
   stressedInChargeOf: [OwnershipChoiceType]
 }
 
-enum OwnershipType {
-  Rent
-  Leased
-  Owned
-}
-
 input Pagination {
   from: Int
   limit: Int
@@ -986,8 +879,6 @@ type Pim {
   outsideFeatures: [OutsideFeature!]
   floors: [Floor!]
   cadastre: [Cadastre!]
-  meters: [Meter!]
-  services: [Service!]
   pricing: Pricing
   costs: [Cost!]
   lastEditedBy: LastEditedBy
@@ -1107,14 +998,6 @@ type PimSearchResult {
   items: [Pim!]
 }
 
-type PimServices {
-  id: String!
-  meters: [Meter!]
-  hotWaterSupplies: [Service!]
-  heatingSources: [Service!]
-  additionalServices: [Service!]
-}
-
 type PimSpecification {
   id: ID!
   specification: Specification
@@ -1130,11 +1013,6 @@ enum PimStatus {
   RentedWithReservation
   Sold
   Rented
-}
-
-type PimWithNewService {
-  pim: Pim!
-  newService: Service!
 }
 
 type PimWithUpdatedSpace {
@@ -1272,14 +1150,6 @@ enum QualityInformations {
   Moderate
   BadToModerate
   Bad
-}
-
-type Reading {
-  id: String!
-  value: Int
-  dateOfReading: Date
-  description: String
-  feedInId: String
 }
 
 enum RealEstateType {
@@ -1457,27 +1327,6 @@ type SearchMetadata {
   total: Int!
 }
 
-type Service {
-  id: String!
-  type: ServiceType!
-  name: String!
-  yearOfInstallation: Int
-  configuration: ServiceConfiguration!
-  ownership: OwnershipType
-}
-
-union ServiceConfiguration =
-    HotWaterSupplyConfiguration
-  | HeatingSourceConfiguration
-  | AdditionalServiceConfiguration
-scalar ServiceConfigurationInput
-
-enum ServiceType {
-  HotWaterSupplies
-  HeatingSources
-  AdditionalServices
-}
-
 input Sort {
   column: String!
   direction: SortDirection!
@@ -1613,12 +1462,6 @@ input UpdateFloorInput {
   floorType: FloorType
 }
 
-input UpdateMeterInput {
-  pimId: String!
-  id: String!
-  name: String!
-}
-
 input UpdateOutsideFeatureInput {
   pimId: String!
   outsideFeatureId: String!
@@ -1629,23 +1472,6 @@ input UpdatePricingInput {
   id: ID!
   rent: RentInformationsInput
   sale: SaleInformationsInput
-}
-
-input UpdateReadingInput {
-  pimId: String!
-  id: String!
-  value: Int
-  dateOfReading: Date
-  feedInId: String
-}
-
-input UpdateServiceInput {
-  pimId: String!
-  serviceId: String!
-  name: String
-  yearOfInstallation: Int
-  ownership: OwnershipType
-  configuration: ServiceConfigurationInput
 }
 
 input UpdateSpaceInput {
@@ -1671,7 +1497,6 @@ type Query {
   getPimFloors(id: ID!): PimFloor! @auth
   getPimCadastre(id: ID!): PimCadastre! @auth
   getPimOutside(id: ID!): PimOutside! @auth
-  getPimServices(id: ID!): PimServices! @auth
   getPricing(id: ID!): PimPrices! @auth
   getPimSpecification(id: ID!): PimSpecification! @auth
 }
@@ -1698,12 +1523,6 @@ type Mutation {
   updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
   updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth
-  addReading(input: AddReadingInput!): Pim @auth
-  updateReading(input: UpdateReadingInput!): Pim @auth
-  addMeter(input: AddMeterInput!): Pim @auth
-  updateMeter(input: UpdateMeterInput!): Pim @auth
-  addService(input: AddServiceInput!): PimWithNewService @auth
-  updateService(input: UpdateServiceInput!): Pim @auth
   addPricing(input: AddPricingInput!): Pim! @auth
   updatePricing(input: UpdatePricingInput!): Pim! @auth
   addCost(input: AddCostInput!): CostResult! @auth

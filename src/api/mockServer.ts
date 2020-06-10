@@ -2,12 +2,15 @@ import { Server, Model } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
 
-import { PIM_DETAILS_1, PIM_1 } from './mocks/pim';
-import { Floor, Space } from './types';
+import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
+import { Floor, Space, ServiceType } from './types';
 
-const schema = loader('./schema.graphql');
+const schema = loader('./graphql/schema.graphql');
+const schemaServices = loader('./graphql/pim-services.graphql');
 
-const graphqlSchema = buildSchema(schema.loc?.source.body as string);
+const schemas = ((schema.loc?.source.body as string) + schemaServices.loc?.source.body) as string;
+
+const graphqlSchema = buildSchema(schemas);
 
 let PIM_DETAILS = PIM_DETAILS_1;
 
@@ -113,6 +116,98 @@ export const mockServer = () => {
             if (variables.id === 'test') {
               throw new Error();
             }
+
+            return PIM_DETAILS;
+          },
+          getPimServices() {
+            if (variables.id === 'test') {
+              throw new Error();
+            }
+
+            return PIM_SERVICES;
+          },
+          addService() {
+            variables.input.id = '13hdul_jrn3' + variables.input.name;
+
+            if (variables.input.type === ServiceType.AdditionalServices) {
+              variables.input.configuration.__typename = 'AdditionalServiceConfiguration';
+              const data = PIM_SERVICES.additionalServices || [];
+              PIM_SERVICES.additionalServices = [...data, variables.input];
+            }
+
+            if (variables.input.type === ServiceType.HeatingSources) {
+              variables.input.configuration.__typename = 'HeatingSourceConfiguration';
+              const data = PIM_SERVICES.heatingSources || [];
+              PIM_SERVICES.heatingSources = [...data, variables.input];
+            }
+
+            if (variables.input.type === ServiceType.HotWaterSupplies) {
+              variables.input.configuration.__typename = 'HotWaterSupplyConfiguration';
+              const data = PIM_SERVICES.hotWaterSupplies || [];
+              PIM_SERVICES.hotWaterSupplies = [...data, variables.input];
+            }
+
+            return {
+              pim: PIM_DETAILS,
+              newService: variables.input,
+            };
+          },
+          updateService() {
+            if (variables.input.type === ServiceType.AdditionalServices) {
+              PIM_SERVICES.additionalServices = PIM_SERVICES.additionalServices?.map(f =>
+                f.id === variables.input.id ? { ...f, ...variables.input } : f,
+              );
+            }
+
+            if (variables.input.type === ServiceType.HeatingSources) {
+              PIM_SERVICES.heatingSources = PIM_SERVICES.heatingSources?.map(f =>
+                f.id === variables.input.id ? { ...f, ...variables.input } : f,
+              );
+            }
+
+            if (variables.input.type === ServiceType.HotWaterSupplies) {
+              PIM_SERVICES.hotWaterSupplies = PIM_SERVICES.hotWaterSupplies?.map(f =>
+                f.id === variables.input.id ? { ...f, ...variables.input } : f,
+              );
+            }
+
+            return PIM_DETAILS;
+          },
+          updateMeter() {
+            PIM_SERVICES.meters = PIM_SERVICES.meters?.map(f =>
+              f.id === variables.input.id ? { ...f, ...variables.input } : f,
+            );
+
+            return PIM_DETAILS;
+          },
+          addMeter() {
+            variables.input.id = '13hdul_jrn3' + variables.input.name;
+            const data = PIM_SERVICES.meters || [];
+            PIM_SERVICES.meters = [...data, variables.input];
+
+            return PIM_DETAILS;
+          },
+          updateReading() {
+            const meter = PIM_SERVICES.meters?.find(m => m.id === variables.input.meterId);
+
+            meter?.readings?.map(r => (r.id === variables.input.id ? variables.input : r));
+
+            PIM_SERVICES.meters?.map(m => (m.id === variables.input.id ? meter : m));
+
+            return PIM_DETAILS;
+          },
+          addReading() {
+            variables.input.id = '13hdul_jrn3Reading';
+            const meter = PIM_SERVICES.meters?.find(m => m.id === variables.input.meterId);
+
+            if (!meter) {
+              throw new Error('meters does not exist');
+            }
+
+            const readings = meter?.readings || [];
+
+            meter.readings = [...readings, variables.input];
+            PIM_SERVICES.meters = PIM_SERVICES.meters?.map(m => (m.id === meter.id ? meter : m));
 
             return PIM_DETAILS;
           },

@@ -1,0 +1,187 @@
+enum MeterType {
+  Water,
+  Gas,
+  Electric,
+}
+
+enum HotWaterSupplyType {
+  CentralHeatingBoiler,
+  Boiler,
+  Geyser,
+  SolarWaterHeater,
+}
+
+enum HotWaterSupplyFuelType {
+  Gas,
+  Electric,
+  Oil,
+}
+
+enum HeatingSourceType {
+  GeothermalHeat,
+  Fireplace,
+  AllBurner,
+  PelletStove,
+  BlockHeating,
+  WoodStove,
+  DistrictHeating,
+  CentralHeatingBoiler,
+  CoalStove,
+  PartialElectricHeating,
+  MotherHearth,
+  GasFire,
+  PossibleFireplace,
+  HeatRecoverySystem,
+  GasHeaters,
+  HeatPump,
+  HotAirHeating,
+  UnderfloorHeating,
+  UnderfloorHeatingCompletely,
+  WallHeating,
+}
+
+enum AdditionalServiceType {
+  AirConditioning,
+  AlarmSystem,
+  ExteriorSunProtection,
+  Skylight,
+  SateliteDish,
+  SlidingDoor,
+  CableTv,
+  Windmill,
+  SolarCollector,
+  SwimmingPool,
+  FrenchBalcony,
+  MechanicalVentilation,
+  Elevator,
+  Flue,
+  Shutters,
+}
+
+enum OwnershipType {
+  Rent,
+  Leased,
+  Owned,
+}
+
+enum ServiceType {
+  HotWaterSupplies,
+  HeatingSources,
+  AdditionalServices,
+}
+
+input AddMeterInput {
+  pimId: String!
+  name: String!
+  type: MeterType!
+}
+
+input UpdateMeterInput {
+  pimId: String!
+  id: String!
+  name: String
+  description: String
+}
+
+input AddReadingInput {
+  pimId: String!
+  meterId: String!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
+}
+
+input UpdateReadingInput {
+  pimId: String!
+  id: String!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
+}
+
+scalar ServiceConfigurationInput 
+
+input AddServiceInput {
+  pimId: String!
+  name: String!
+  type: ServiceType!
+  configuration: ServiceConfigurationInput
+}
+
+input UpdateServiceInput {
+  pimId: String!
+  serviceId: String!
+  name: String
+  description: String
+  yearOfInstallation: Int
+  ownership: OwnershipType
+  configuration: ServiceConfigurationInput
+}
+
+type Reading {
+  id: String!
+  value: Int,
+  dateOfReading: Date,
+  description: String,
+  feedInId: String,
+}
+
+type Meter {
+  id: String!
+  type: MeterType!
+  name: String!
+  description: String
+  readings: [Reading!]
+}
+
+type HotWaterSupplyConfiguration {
+  type: HotWaterSupplyType!
+  fuel: HotWaterSupplyFuelType
+}
+
+type HeatingSourceConfiguration {
+  type: HeatingSourceType!
+}
+
+type AdditionalServiceConfiguration {
+  type: AdditionalServiceType!
+}
+
+union ServiceConfiguration = HotWaterSupplyConfiguration | HeatingSourceConfiguration | AdditionalServiceConfiguration
+
+type Service {
+  id: String!
+  type: ServiceType!
+  name: String!
+  description: String
+  yearOfInstallation: Int
+  configuration: ServiceConfiguration!
+  ownership: OwnershipType
+}
+
+type PimServices {
+  id: String!
+  meters: [Meter!]
+  hotWaterSupplies: [Service!]
+  heatingSources: [Service!]
+  additionalServices: [Service!]
+}
+
+type PimWithNewService {
+  pim: Pim!
+  newService: Service!
+}
+
+extend type Query {
+  getPimServices(id: ID!): PimServices! @auth
+}
+
+extend type Mutation {
+  addReading(input: AddReadingInput!): Pim @auth
+  updateReading(input: UpdateReadingInput!): Pim @auth
+  addMeter(input: AddMeterInput!): Pim @auth
+  updateMeter(input: UpdateMeterInput!): Pim @auth
+  addService(input: AddServiceInput!): PimWithNewService @auth
+  updateService(input: UpdateServiceInput!): Pim @auth
+}
+

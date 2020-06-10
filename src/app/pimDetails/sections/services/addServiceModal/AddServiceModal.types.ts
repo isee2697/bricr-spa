@@ -1,19 +1,15 @@
-import { ServiceTypes, ServiceRadioType } from '../Services.types';
+import { ServiceRadioType } from '../Services.types';
+import { AddServiceInput, ServiceType } from 'api/types';
 
 export type AddServiceModalContainerProps = {
   isOpened: boolean;
-  type: ServiceTypes;
+  type: ServiceType;
   types: ServiceRadioType[];
   onClose: VoidFunction;
 };
 
-type AddOutsideFeatureBody = {
-  type: ServiceTypes;
-  description: string;
-};
-
 export type AddServiceSubmit = (
-  body: AddOutsideFeatureBody,
+  body: AddServiceInput,
 ) => Promise<
   | undefined
   | {

@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import classNames from 'classnames';
 
+import { Service, ServiceType } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
@@ -8,14 +9,14 @@ import { Avatar, Typography } from 'ui/atoms';
 
 import { ServiceTypeListProps } from './Services.types';
 import { AddServiceModalContainer } from './addServiceModal/AddServiceModalContainer';
-import { ServiceForm } from './ServiceForm';
+import { ServiceForm } from './forms/ServiceForm';
 import { useStyles } from './Services.styles';
 import { ServiceRadioType } from './Services.types';
 import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from './dictionaries';
 
-export const ServiceTypeList: <T extends { id: string; name: string; type: string }>(
+export const ServiceTypeList: <T extends Service>(
   p: ServiceTypeListProps<T>,
-) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type }) => {
+) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type, onSave }) => {
   const { formatMessage } = useLocale();
   const [isOpenAddService, setIsOpenAddService] = useState(false);
   const [toggled, setToggled] = useState<number | undefined>(0);
@@ -26,15 +27,15 @@ export const ServiceTypeList: <T extends { id: string; name: string; type: strin
   let formTypeTitle: string | undefined;
 
   switch (type) {
-    case 'HotWater':
+    case ServiceType.HotWaterSupplies:
       types = hotWaterTypes;
       formTypes = hotWaterFuelTypes;
       formTypeTitle = 'pim_details.services.service_form.fuel_title';
       break;
-    case 'Heating':
+    case ServiceType.HeatingSources:
       types = heatingTypes;
       break;
-    case 'Additional':
+    case ServiceType.AdditionalServices:
       types = additionalTypes;
       break;
   }
@@ -69,6 +70,7 @@ export const ServiceTypeList: <T extends { id: string; name: string; type: strin
             {items.length > 0 &&
               items.map((item, key) => (
                 <ServiceForm
+                  onSave={onSave}
                   key={item.id}
                   isEditMode={isEditMode}
                   toggled={toggled === key}

@@ -1,11 +1,50 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import { AddServiceModalContainerProps } from './AddServiceModal.types';
+import { useAddServiceMutation, PimServicesDocument } from 'api/types';
+
+import { AddServiceModalContainerProps, AddServiceSubmit } from './AddServiceModal.types';
 import { AddServiceModal } from './AddServiceModal';
 
 export const AddServiceModalContainer = ({ type, types, isOpened, onClose }: AddServiceModalContainerProps) => {
-  const handleSubmit = async () => {
-    return undefined;
+  const { id } = useParams<{ id: string }>();
+  const [addService] = useAddServiceMutation();
+
+  const handleSubmit: AddServiceSubmit = async body => {
+    try {
+      const { data: result } = await addService({
+        variables: {
+          input: {
+            pimId: id,
+            name: body.name || '',
+            type: type,
+            configuration: {
+              type: body.type,
+            },
+          },
+        },
+        refetchQueries: [
+          {
+            query: PimServicesDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
+      });
+
+      if (!result) {
+        throw new Error();
+      }
+
+      onClose();
+
+      return undefined;
+    } catch {
+      return {
+        error: true,
+      };
+    }
   };
 
   return (

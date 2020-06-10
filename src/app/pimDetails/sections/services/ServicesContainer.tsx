@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useParams } from 'react-router-dom';
 import { Box, Button } from '@material-ui/core';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -7,19 +7,58 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';
+import { usePimServicesQuery, PimServices, Service, PimServicesDocument, useUpdateServiceMutation } from 'api/types';
 
-import { Meters } from './meters/Meters';
+import { MetersContainer } from './meters/MetersContainer';
 import { Services } from './Services';
 import { AddMeterModalContainer } from './addMeterModal/AddMeterModalContainer';
 
-export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }: PimDetailsSectionProps) => {
+export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
-  const handleSave = () => Promise.resolve({ error: false });
+  const { data } = usePimServicesQuery({ variables: { id } });
+  const [updateService] = useUpdateServiceMutation();
 
-  if (!pim) {
+  const onEdit = async (body: Service) => {
+    try {
+      const { data } = await updateService({
+        variables: {
+          input: {
+            pimId: id,
+            serviceId: body.id,
+            name: body.name,
+            description: body.description,
+            yearOfInstallation: body.yearOfInstallation ? Number(body.yearOfInstallation) : undefined,
+            ownership: body.ownership,
+            configuration: body.configuration,
+          },
+        },
+        refetchQueries: [
+          {
+            query: PimServicesDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
+      });
+
+      if (!data) {
+        throw new Error();
+      }
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
+
+  if (!data || !data.getPimServices) {
     return null;
   }
+
+  const pimServices = data?.getPimServices as PimServices;
 
   return (
     <>
@@ -51,8 +90,8 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
               isSidebarVisible={isSidebarVisible}
               onOpenSidebar={onOpenSidebar}
               title={title}
-              pim={pim}
-              onSave={handleSave}
+              pimServices={pimServices}
+              onSave={onEdit}
             />
           )}
         />
@@ -60,12 +99,11 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar, pim 
           path={`${AppRoute.pimDetails}/services/:meterType`}
           exact
           render={path => (
-            <Meters
+            <MetersContainer
               type={path.match.params.meterType}
               isSidebarVisible={isSidebarVisible}
               onOpenSidebar={onOpenSidebar}
-              pim={pim}
-              onSave={handleSave}
+              pimServices={pimServices}
               linkedPerson={{
                 name: 'Christian van Gils',
                 avatar: 'https://source.unsplash.com/featured/?person',

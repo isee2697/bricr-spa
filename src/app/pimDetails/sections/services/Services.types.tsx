@@ -1,29 +1,35 @@
 import { ReactNode } from 'react';
 
-import { Pim } from 'api/types';
+import { Meter, ServiceType, PimServices } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
 
 export type ServicesProps = PimDetailsSectionProps & {
-  pim: Pim;
+  pimServices: PimServices;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
-export type ServicesMetersProps = PimDetailsSectionProps & {
-  pim: Pim;
-  onSave(values: unknown): Promise<undefined | { error: boolean }>;
+export type ServicesMetersContainerProps = PimDetailsSectionProps & {
+  pimServices: PimServices;
   linkedPerson: LinkedPersonProps;
   type: 'GasMeters' | 'WaterMeters' | 'ElectricityMeters';
 };
 
-export type ServiceTypes = 'HotWater' | 'Heating' | 'Additional';
+export type ServicesMetersProps = {
+  meters: Meter[];
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
+  onAddReading(values: unknown): Promise<undefined | { error: boolean }>;
+  linkedPerson: LinkedPersonProps;
+  title: string;
+};
 
 export type ServiceTypeListProps<T> = {
   emptyEmoji: string;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
   title: string;
   items: T[];
-  type: ServiceTypes;
+  type: ServiceType;
 };
 
 export type ServiceFormProps<T> = {
@@ -35,8 +41,18 @@ export type ServiceFormProps<T> = {
   toggled: boolean;
   onToggleClick: VoidFunction;
   hasOwnership: boolean;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
 export type ServiceRadioType = RadioDataType & {
   hasOwnership?: boolean;
 };
+
+export type UpadeMeterSubmit = (
+  body: Meter,
+) => Promise<
+  | undefined
+  | {
+      error: boolean;
+    }
+>;
