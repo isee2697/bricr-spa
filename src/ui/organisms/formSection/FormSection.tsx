@@ -34,7 +34,7 @@ export const FormSection = ({
   return (
     <Card className={classNames(classes.root, className)}>
       <Box className={classNames(classes.header, { 'edit-mode': editing })}>
-        <Typography variant="h2" className={classes.title}>
+        <Typography variant="h2" className={classNames(classes.title, 'form-section-title')}>
           {title}
           {titleBadge && <div className={classes.titleBadge}>{titleBadge}</div>}
         </Typography>

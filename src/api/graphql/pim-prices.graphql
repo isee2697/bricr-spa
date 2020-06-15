@@ -1,0 +1,223 @@
+# Value that is >= 0
+scalar AbsoluteFloat
+
+# 21%, 9% or 0%
+scalar CostVat
+
+enum CostPaymentFrequency {
+  Monthly,
+  Yearly
+}
+
+enum PricingType {
+  Sale,
+  Rent
+}
+
+enum CostType {
+  Service,
+  Heating,
+  Electricity,
+  Water,
+  Sewage,
+  WaterBoard,
+  LandConsolidationInterest,
+  HomeownerAssociation,
+  OzbUserPart,
+  OzbBusinessPart,
+  Custom
+}
+
+enum SalePriceSuffix {
+  CostsBuyer,
+  FreeInName,
+  NoneOfThem
+}
+
+enum RentPaymentFrequency {
+  PerMonth,
+  Annual,
+  Custom
+}
+
+enum SaleCondition {
+  VatTaxed,
+  IncludingVat,
+  ExcludingConstructionInterest
+}
+
+enum RentCondition {
+  VatTaxed,
+  ExcludingServiceCosts,
+  Furnished,
+  IncludingServiceCosts,
+  Indexed
+}
+
+enum PurchaseMix {
+  MgeConstruction,
+  PartOfIndividualProject,
+  PurchaseGuarantee,
+  MixedFormPurchaseRent
+}
+
+input SaleGeneralInput {
+  prefix: String
+  price: AbsoluteFloat
+  suffix: String
+  executionSale: Boolean
+  dateOfExecutionSale: Date
+  conditions: [SaleCondition!]
+  purchaseMix: [PurchaseMix!]
+  notes: String
+}
+
+type SaleGeneral {
+  prefix: String
+  price: AbsoluteFloat
+  suffix: String
+  executionSale: Boolean
+  dateOfExecutionSale: Date
+  conditions: [SaleCondition!]
+  purchaseMix: [PurchaseMix!]
+  notes: String
+}
+
+input SaleWOZInput {
+  wozPrice: AbsoluteFloat
+  referenceDateWoz: Date
+  notes: String
+}
+
+type SaleWOZ {
+  wozPrice: AbsoluteFloat
+  referenceDateWoz: Date
+  notes: String
+}
+
+input SaleInformationsInput {
+  general: SaleGeneralInput
+  woz: SaleWOZInput
+}
+
+type SaleInformations {
+  general: SaleGeneral
+  woz: SaleWOZ
+  isEnabled: Boolean
+}
+
+input RentInformationsInput {
+  rentalPrice: AbsoluteFloat
+  suffix: String
+  conditions: [RentCondition!]
+  notes: String
+  paymentFrequency: RentPaymentFrequency
+}
+
+type RentInformations {
+  rentalPrice: AbsoluteFloat
+  paymentFrequency: RentPaymentFrequency
+  suffix: String
+  conditions: [RentCondition!]
+  notes: String
+  isEnabled: Boolean
+}
+
+type PimPrices {
+  id: ID!
+  pricing: Pricing
+  costs: [Cost!]
+  investment: Investment
+}
+
+input TogglePricingInput {
+  id: ID!
+  isRent: Boolean!
+  isSale: Boolean!
+}
+
+input UpdatePricingInput {
+  id: ID!
+  rent: RentInformationsInput
+  sale: SaleInformationsInput
+}
+
+type Pricing {
+  rent: RentInformations
+  sale: SaleInformations
+}
+
+type Cost {
+  id: ID!
+  serviceCosts: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCosts: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  type: CostType!
+  name: String
+}
+
+input UpdateCostInput {
+  id: ID!
+  serviceCosts: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCosts: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  name: String
+}
+
+input AddCostInput {
+  id: ID!
+  type: CostType!
+  name: String
+}
+
+type CostResult {
+  pim: Pim!
+  cost: Cost!
+}
+
+input InvestmentInput {
+  id: ID!
+  netRentalIncome: AbsoluteFloat
+  grossRentalIncome: AbsoluteFloat
+  economicRentalValue: AbsoluteFloat
+  averageMaturity: AbsoluteFloat
+  rentIndexed: Boolean
+  splitApartment: Boolean
+  averageVacancyPercentage: Float
+  numberOfRentableUnits: Float
+  amountOfTenants: Int
+  remainingTermContacts: Int
+  vacancySquareMeters: Int
+  notes: String
+}
+
+type Investment {
+  netRentalIncome: AbsoluteFloat
+  grossRentalIncome: AbsoluteFloat
+  economicRentalValue: AbsoluteFloat
+  averageMaturity: AbsoluteFloat
+  rentIndexed: Boolean
+  splitApartment: Boolean
+  averageVacancyPercentage: Float
+  numberOfRentableUnits: Float
+  amountOfTenants: Int
+  remainingTermContacts: Int
+  vacancySquareMeters: Int
+  notes: String
+}
+
+extend type Mutation {
+  togglePricing(input: TogglePricingInput!): Pim! @auth
+  updatePricing(input: UpdatePricingInput!): Pim! @auth
+  addCost(input: AddCostInput!): CostResult! @auth
+  updateCost(input: UpdateCostInput!): CostResult! @auth
+  updateInvestment(input: InvestmentInput!): Pim! @auth
+}
+
+extend type Query {
+  getPricing(id: ID!): PimPrices! @auth
+}

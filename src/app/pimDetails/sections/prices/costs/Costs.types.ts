@@ -1,12 +1,11 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { Cost, UpdateCostInput } from 'api/types';
 
 export type CostsProps = PimDetailsSectionProps & {
   costs: Cost[];
-  onSave: () => Promise<undefined | { error: boolean }>;
+  onSave: (values: UpdateCostInput) => Promise<undefined | { error: boolean }>;
 };
 
-export type Cost = {
-  id: string;
-  title: string;
-  type: string;
+export type CostContainerProps = PimDetailsSectionProps & {
+  costs: Cost[];
 };

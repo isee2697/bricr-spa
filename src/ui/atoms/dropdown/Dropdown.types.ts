@@ -1,6 +1,6 @@
 export type DropdownItem = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 export type DropdownProps = {
@@ -8,5 +8,5 @@ export type DropdownProps = {
   placeholder: string;
   disabled?: boolean;
   value?: string;
-  onChange: (value: string) => void;
+  onChange: (value: string | number) => void;
 };

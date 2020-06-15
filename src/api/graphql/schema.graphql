@@ -38,13 +38,6 @@ directive @cacheControl(
   maxAge: Int
   scope: CacheControlScope
 ) on FIELD_DEFINITION | OBJECT | INTERFACE
-scalar AbsoluteFloat
-
-input AddCostInput {
-  id: ID!
-  type: CostType!
-  name: String
-}
 
 input AddNewFloorInput {
   pimId: String!
@@ -56,11 +49,6 @@ input AddOutsideFeatureInput {
   pimId: String!
   type: OutsideFeatureType!
   description: String
-}
-
-input AddPricingInput {
-  id: ID!
-  types: [PricingType!]!
 }
 
 input AddSpaceInput {
@@ -167,43 +155,6 @@ enum ConstructionType {
   UnderConstruction
   InDevelopment
 }
-
-type Cost {
-  id: ID!
-  serviceCosts: AbsoluteFloat
-  paymentsFrequency: CostPaymentFrequency
-  vatTaxedServiceCosts: AbsoluteFloat
-  vatPercentage: CostVat
-  notes: String
-  type: CostType!
-  name: String
-}
-
-enum CostPaymentFrequency {
-  Monthly
-  Yearly
-}
-
-type CostResult {
-  pim: Pim!
-  cost: Cost!
-}
-
-enum CostType {
-  Service
-  Heating
-  Electricity
-  Water
-  Sewage
-  WaterBoard
-  LandConsolidationInterest
-  HomeownerAssociation
-  OzbUserPart
-  OzbBusinessPart
-  Custom
-}
-
-scalar CostVat
 
 input CreatePimInput {
   realEstateType: RealEstateType!
@@ -407,36 +358,6 @@ input HouseOutsideInput {
   notes: String
 }
 
-type Investment {
-  netRentalIncome: AbsoluteFloat
-  grossRentalIncome: AbsoluteFloat
-  economicRentalValue: AbsoluteFloat
-  averageMaturity: AbsoluteFloat
-  rentIndexed: Boolean
-  splitApartment: Boolean
-  averageVacancyPercentage: Float
-  numberOfRentableUnits: Float
-  amountOfTenants: Int
-  remainingTermContacts: Int
-  vacancySquareMeters: Int
-  notes: String
-}
-
-input InvestmentInput {
-  id: ID!
-  netRentalIncome: AbsoluteFloat
-  grossRentalIncome: AbsoluteFloat
-  economicRentalValue: AbsoluteFloat
-  averageMaturity: AbsoluteFloat
-  rentIndexed: Boolean
-  splitApartment: Boolean
-  averageVacancyPercentage: Float
-  numberOfRentableUnits: Float
-  amountOfTenants: Int
-  remainingTermContacts: Int
-  vacancySquareMeters: Int
-  notes: String
-}
 
 type KitchenAppliance {
   name: KitchenAppliances!
@@ -792,13 +713,6 @@ type PimOutside {
 
 scalar PimOutsideInput
 
-type PimPrices {
-  id: ID!
-  pricing: Pricing
-  costs: [Cost!]
-  investment: Investment
-}
-
 type PimSearchResult {
   metadata: SearchMetadata
   items: [Pim!]
@@ -824,16 +738,6 @@ enum PimStatus {
 type PimWithUpdatedSpace {
   newSpace: Space!
   pim: Pim!
-}
-
-type Pricing {
-  rent: RentInformations
-  sale: SaleInformations
-}
-
-enum PricingType {
-  Sale
-  Rent
 }
 
 type Profile {
@@ -936,13 +840,6 @@ enum PropertyTypeDetailed {
   Mansion
 }
 
-enum PurchaseMix {
-  MgeConstruction
-  PartOfIndividualProject
-  PurchaseGuarantee
-  MixedFormPurchaseRent
-}
-
 enum QualityInformations {
   Simple
   Normal
@@ -966,36 +863,6 @@ enum RealEstateType {
 type RectangleDimensions {
   length: Float
   height: Float
-}
-
-enum RentCondition {
-  VatTaxed
-  ExcludingServiceCosts
-  Furnished
-  IncludingServiceCosts
-  Indexed
-}
-
-type RentInformations {
-  rentalPrice: AbsoluteFloat
-  paymentFrequency: RentPaymentFrequency
-  suffix: String
-  conditions: [RentCondition!]
-  notes: String
-}
-
-input RentInformationsInput {
-  rentalPrice: AbsoluteFloat
-  suffix: String
-  conditions: [RentCondition!]
-  notes: String
-  paymentFrequency: RentPaymentFrequency
-}
-
-enum RentPaymentFrequency {
-  PerMonth
-  Annual
-  Custom
 }
 
 type RoofInformation {
@@ -1071,62 +938,6 @@ enum RoofTypes {
   TentRoof
   SaddleRoof
   CompositeRoof
-}
-
-enum SaleCondition {
-  VatTaxed
-  IncludingVat
-  ExcludingConstructionInterest
-}
-
-type SaleGeneral {
-  prefix: String
-  price: AbsoluteFloat
-  suffix: String
-  executionSale: Boolean
-  dateOfExecutionSale: Date
-  conditions: [SaleCondition!]
-  purchaseMix: [PurchaseMix!]
-  notes: String
-}
-
-input SaleGeneralInput {
-  prefix: String
-  price: AbsoluteFloat
-  suffix: String
-  executionSale: Boolean
-  dateOfExecutionSale: Date
-  conditions: [SaleCondition!]
-  purchaseMix: [PurchaseMix!]
-  notes: String
-}
-
-type SaleInformations {
-  general: SaleGeneral
-  woz: SaleWOZ
-}
-
-input SaleInformationsInput {
-  general: SaleGeneralInput
-  woz: SaleWOZInput
-}
-
-enum SalePriceSuffix {
-  CostsBuyer
-  FreeInName
-  NoneOfThem
-}
-
-type SaleWOZ {
-  wozPrice: AbsoluteFloat
-  referenceDateWoz: Date
-  notes: String
-}
-
-input SaleWOZInput {
-  wozPrice: AbsoluteFloat
-  referenceDateWoz: Date
-  notes: String
 }
 
 type SearchMetadata {
@@ -1233,16 +1044,6 @@ type Team {
   name: String
 }
 
-input UpdateCostInput {
-  id: ID!
-  serviceCosts: AbsoluteFloat
-  paymentsFrequency: CostPaymentFrequency
-  vatTaxedServiceCosts: AbsoluteFloat
-  vatPercentage: CostVat
-  notes: String
-  name: String
-}
-
 scalar UpdateFeatureInputConfiguration
 
 input UpdateFloorInput {
@@ -1256,12 +1057,6 @@ input UpdateOutsideFeatureInput {
   pimId: String!
   outsideFeatureId: String!
   feature: UpdateFeatureInputConfiguration
-}
-
-input UpdatePricingInput {
-  id: ID!
-  rent: RentInformationsInput
-  sale: SaleInformationsInput
 }
 
 input UpdateSpaceInput {
@@ -1286,7 +1081,6 @@ type Query {
   getPimGeneral(id: ID!): PimGeneral! @auth
   getPimFloors(id: ID!): PimFloor! @auth
   getPimOutside(id: ID!): PimOutside! @auth
-  getPricing(id: ID!): PimPrices! @auth
   getPimSpecification(id: ID!): PimSpecification! @auth
 }
 
@@ -1308,11 +1102,6 @@ type Mutation {
   updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
   updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth
-  addPricing(input: AddPricingInput!): Pim! @auth
-  updatePricing(input: UpdatePricingInput!): Pim! @auth
-  addCost(input: AddCostInput!): CostResult! @auth
-  updateCost(input: UpdateCostInput!): CostResult! @auth
-  updateInvestment(input: InvestmentInput!): Pim! @auth
   addPimLabel(input: PimLabelInput!): Pim! @auth
   removePimLabel(id: ID!): Pim! @auth
   updateSpecification(input: SpecificationInput!): Pim! @auth

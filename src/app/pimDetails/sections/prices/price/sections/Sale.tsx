@@ -29,7 +29,7 @@ export const Sale = () => {
             <Grid container spacing={1}>
               <Grid item xs={4}>
                 <DropdownField
-                  name="sale.prefix"
+                  name="sale.general.prefix"
                   items={dictionaries.salePrefixes.map(prefix => ({
                     label: formatMessage({ id: `dictionaries.prices.sale_prefix.${prefix}` }),
                     value: prefix,
@@ -41,7 +41,7 @@ export const Sale = () => {
               </Grid>
               <Grid item xs={4}>
                 <GenericField
-                  name="sale.price"
+                  name="sale.general.price"
                   label="pim_details.prices.price"
                   placeholder="pim_details.prices.price_placeholder"
                   size="medium"
@@ -54,7 +54,7 @@ export const Sale = () => {
               </Grid>
               <Grid item xs={4}>
                 <DropdownField
-                  name="sale.sufix"
+                  name="sale.general.suffix"
                   items={dictionaries.saleSufixes.map(sufix => ({
                     label: formatMessage({ id: `dictionaries.prices.sale_sufix.${sufix}` }),
                     value: sufix,
@@ -67,7 +67,7 @@ export const Sale = () => {
               <Grid item xs={4}>
                 <Box display="flex" alignItems="flex-end" pb={1.25} height="100%">
                   <CheckboxField
-                    name="sale.executionSale"
+                    name="sale.general.executionSale"
                     label="pim_details.prices.execution_sale"
                     disabled={!inEditMode}
                   />
@@ -77,7 +77,7 @@ export const Sale = () => {
                 <FormSpy subscription={{ values: true }}>
                   {({ values }) => (
                     <DatePickerField
-                      name="sale.executionSaleDate"
+                      name="sale.general.dateOfExecutionSale"
                       label="pim_details.prices.execution_sale_date"
                       placeholder="common.from_placeholder"
                       size="medium"
@@ -101,7 +101,7 @@ export const Sale = () => {
               xs={4}
               md={3}
               lg={2}
-              name="sale.conditions"
+              name="sale.general.conditions"
               options={dictionaries.saleConditions.map(condition => ({
                 label: `dictionaries.prices.sale_conditions.${condition}`,
                 value: condition,
@@ -122,7 +122,7 @@ export const Sale = () => {
               xs={4}
               md={3}
               lg={2}
-              name="sale.purchaseMix"
+              name="sale.general.purchaseMix"
               options={dictionaries.salePurchaseMix.map(mix => ({
                 label: `dictionaries.prices.sale_purchase_mix.${mix}`,
                 value: mix,
@@ -130,7 +130,7 @@ export const Sale = () => {
               }))}
             />
             <GenericField
-              name="sale.notes"
+              name="sale.general.notes"
               label="common.notes"
               placeholder="pim_details.prices.general_notes_placeholder"
               disabled={!inEditMode}
@@ -143,7 +143,7 @@ export const Sale = () => {
             <Grid container spacing={1}>
               <Grid item xs={4}>
                 <GenericField
-                  name="sale.wozPrice"
+                  name="sale.woz.wozPrice"
                   label="pim_details.prices.woz_price"
                   placeholder="pim_details.prices.price_placeholder"
                   size="medium"
@@ -156,7 +156,7 @@ export const Sale = () => {
               </Grid>
               <Grid item xs={4}>
                 <DatePickerField
-                  name="sale.executionSaleDate"
+                  name="sale.woz.referenceDateWoz"
                   label="pim_details.prices.reference_date_woz"
                   placeholder="common.from_placeholder"
                   size="medium"
@@ -165,7 +165,7 @@ export const Sale = () => {
               </Grid>
             </Grid>
             <GenericField
-              name="sale.wozNotes"
+              name="sale.woz.notes"
               label="common.notes"
               placeholder="pim_details.prices.woz_notes_placeholder"
               disabled={!inEditMode}

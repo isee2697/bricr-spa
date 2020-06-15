@@ -8,7 +8,7 @@ import { useLocale } from 'hooks';
 import { GenericField, RadioGroupField } from 'form/fields';
 
 import { useStyles } from './AddCostModal.styles';
-import { AddCostModalProps } from './AddCostModal.types';
+import { AddCostModalProps, CostForm } from './AddCostModal.types';
 
 export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }: AddCostModalProps) => {
   const { formatMessage } = useLocale();
@@ -21,7 +21,7 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }
       isOpened={isModalOpened}
       onClose={onModalClose}
     >
-      <Form onSubmit={onAddCost}>
+      <Form<CostForm> onSubmit={onAddCost}>
         {({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit}>
             <DialogContent>
@@ -41,7 +41,7 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }
                 color="primary"
                 variant="contained"
                 startIcon={<AddIcon color="inherit" />}
-                onClick={onAddCost}
+                onClick={handleSubmit}
                 isLoading={submitting}
                 size="small"
               >

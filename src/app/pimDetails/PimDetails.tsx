@@ -6,6 +6,7 @@ import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Media } from 'app/pimDetails/sections/media/Media';
+import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
@@ -15,7 +16,6 @@ import { Inside } from './sections/inside/Inside';
 import { Outside } from './sections/outside/Outside';
 import { Cadastre } from './sections/cadastre/Cadastre';
 import { ServicesContainer } from './sections/services/ServicesContainer';
-import { Prices } from './sections/prices/Prices';
 import { SpecificationContainer } from './sections/specification/SpecificationContainer';
 
 export const PimDetails = ({ error: isError, data, servicesData, cadastreData }: PimDetailsProps) => {
@@ -103,7 +103,12 @@ export const PimDetails = ({ error: isError, data, servicesData, cadastreData }:
               <Route
                 path={`${AppRoute.pimDetails}/prices`}
                 render={() => (
-                  <Prices isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                  <PricesContainer
+                    isSidebarVisible={isSidebarVisible}
+                    onOpenSidebar={handleSidebarOpen}
+                    title={title}
+                    pim={pim}
+                  />
                 )}
               />
               <Route

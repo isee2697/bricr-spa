@@ -1,6 +1,8 @@
-import { Server, Model } from 'miragejs';
+import { Model, Server } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 import { loader } from 'graphql.macro';
+
+import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 
 import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
 import { FILE_1 } from './mocks/file';
@@ -12,6 +14,7 @@ const loaded = [
   loader('./graphql/pim-services.graphql'),
   loader('./graphql/file.graphql'),
   loader('./graphql/pim-cadastre.graphql'),
+  loader('./graphql/pim-prices.graphql'),
 ];
 
 const schemas = loaded.map(schema => schema.loc?.source.body as string);
@@ -19,6 +22,8 @@ const schemas = loaded.map(schema => schema.loc?.source.body as string);
 const graphqlSchema = buildSchema(schemas.toString());
 
 let PIM_DETAILS = PIM_DETAILS_1;
+const PIM_PRICING = PIM_PRICING_1;
+const PIM_PRICING_COST = PIM_PRICING_COST_1;
 let FILE = FILE_1;
 let PIM_CADASTRE = PIM_CADASTRE_1;
 
@@ -472,6 +477,34 @@ export const mockServer = () => {
             };
 
             return PIM_DETAILS;
+          },
+          getPricing() {
+            return PIM_PRICING;
+          },
+          togglePricing({ input }: { input: { isRent: boolean; isSale: boolean } }) {
+            PIM_PRICING.pricing.rent.isEnabled = input.isRent;
+            PIM_PRICING.pricing.sale.isEnabled = input.isSale;
+
+            return PIM_PRICING;
+          },
+          addCost({ input }: { input: { name: string; type: string } }) {
+            PIM_PRICING_COST.name = input.name;
+            PIM_PRICING_COST.type = input.type;
+
+            PIM_PRICING.costs = [PIM_PRICING_COST];
+
+            return {
+              pim: PIM_PRICING,
+              cost: PIM_PRICING_COST,
+            };
+          },
+          updateInvestment(input: Record<string, string>) {
+            PIM_PRICING.investment = {
+              ...PIM_PRICING.investment,
+              ...input,
+            };
+
+            return PIM_PRICING;
           },
         };
 

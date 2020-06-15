@@ -12,7 +12,7 @@ import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
 import { CostsProps } from './Costs.types';
 import { CostsForm } from './costsForm/CostsForm';
 
-export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }: CostsProps) => {
+export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar, pim }: CostsProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
   const styles = useStyles();
@@ -64,7 +64,9 @@ export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }:
           {editing => (costs.length > 0 ? renderCosts(editing) : renderEmpty())}
         </FormSection>
       </Grid>
-      {isModalOpen && <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} />}
+      {isModalOpen && (
+        <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} pimId={pim?.id} />
+      )}
     </>
   );
 };

@@ -6,9 +6,10 @@ import { SubSectionHeader } from 'ui/molecules';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
+import { CostPaymentFrequency } from 'api/types';
 
 import { CostSection } from './costSection/CostSection';
-import { CostPaymentFrequency, FormProps } from './CostsForm.types';
+import { FormProps } from './CostsForm.types';
 import { useStyles } from './CostsForm.styles';
 
 export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
@@ -18,16 +19,26 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
 
   const vatOptions = [21, 9, 0].map(value => ({
     label: formatMessage({ id: 'pim_details.prices.costs.vat_percentage_option' }, { vat: value }),
-    value: (value / 100).toString(),
-  }));
-
-  const paymentFrequency = [CostPaymentFrequency.Monthly, CostPaymentFrequency.Yearly].map(value => ({
-    label: formatMessage({ id: `pim_details.prices.costs.frequency_${value}` }),
     value: value,
   }));
 
+  const paymentFrequency = [CostPaymentFrequency.Monthly, CostPaymentFrequency.Yearly].map(value => ({
+    label: formatMessage({ id: `dictionaries.prices.frequency.${value}` }),
+    value: value,
+  }));
+
+  const getTitle = () => {
+    const title = cost.type;
+
+    if (cost.name) {
+      return `${title} (${cost.name})`;
+    }
+
+    return title;
+  };
+
   return (
-    <AutosaveForm initialValues={{}} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+    <AutosaveForm initialValues={cost} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
       <Box>
         <SubSectionHeader
           toggled={isToggled}
@@ -36,45 +47,47 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
           }}
           onOptionsClick={() => {}}
         >
-          {cost.title}
+          {getTitle()}
         </SubSectionHeader>
 
         <Collapse style={{ width: '100%' }} in={isToggled} timeout="auto" unmountOnExit>
-          <Grid container spacing={4}>
-            <Grid item xs={12} className={styles.sections}>
-              <CostSection
-                title={formatMessage({ id: 'pim_details.prices.costs.payments' })}
-                subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
-                costLabel={formatMessage({ id: 'pim_details.prices.costs.service_costs' }, { name: cost.type })}
-                costName="serviceCosts"
-                selectLabelId="pim_details.prices.costs.payment_frequency"
-                selectName="paymentsFrequency"
-                options={paymentFrequency}
-                disabled={!editing}
-              />
-              <CostSection
-                title={formatMessage({ id: 'pim_details.prices.costs.vats' })}
-                subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
-                costLabel={formatMessage({ id: 'pim_details.prices.costs.vat_costs' })}
-                costName="vatTaxedServiceCosts"
-                selectLabelId="pim_details.prices.costs.vat_percentage"
-                selectName="vatPercentage"
-                options={vatOptions}
-                disabled={!editing}
-              />
+          <Box pb={4}>
+            <Grid container spacing={4}>
+              <Grid item xs={12} className={styles.sections}>
+                <CostSection
+                  title={formatMessage({ id: 'pim_details.prices.costs.payments' })}
+                  subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
+                  costLabel={formatMessage({ id: 'pim_details.prices.costs.service_costs' }, { name: cost.type })}
+                  costName="serviceCosts"
+                  selectLabelId="pim_details.prices.costs.payment_frequency"
+                  selectName="paymentsFrequency"
+                  options={paymentFrequency}
+                  disabled={!editing}
+                />
+                <CostSection
+                  title={formatMessage({ id: 'pim_details.prices.costs.vats' })}
+                  subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
+                  costLabel={formatMessage({ id: 'pim_details.prices.costs.vat_costs' })}
+                  costName="vatTaxedServiceCosts"
+                  selectLabelId="pim_details.prices.costs.vat_percentage"
+                  selectName="vatPercentage"
+                  options={vatOptions}
+                  disabled={!editing}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <GenericField
+                  id="notes"
+                  name="notes"
+                  label="pim_details.prices.costs.notes"
+                  placeholder="pim_details.prices.costs.notes_placeholder"
+                  size="medium"
+                  margin="none"
+                  disabled={!editing}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <GenericField
-                id="notes"
-                name="notes"
-                label="pim_details.prices.costs.notes"
-                placeholder="pim_details.prices.costs.notes_placeholder"
-                size="medium"
-                margin="none"
-                disabled={!editing}
-              />
-            </Grid>
-          </Grid>
+          </Box>
         </Collapse>
       </Box>
     </AutosaveForm>

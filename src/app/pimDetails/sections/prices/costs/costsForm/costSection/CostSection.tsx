@@ -4,6 +4,7 @@ import { FormSubSection } from 'ui/molecules';
 import { Grid } from 'ui/atoms';
 import { DropdownField, GenericField } from 'form/fields';
 import { EuroIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
 
 import { CostSectionProps } from './CostSection.types';
 
@@ -17,6 +18,8 @@ export const CostSection = ({
   options,
   disabled,
 }: CostSectionProps) => {
+  const { formatMessage } = useLocale();
+
   return (
     <>
       <FormSubSection noBorder title={title} subtitle={subtitle} />
@@ -26,7 +29,7 @@ export const CostSection = ({
             id={costName}
             name={costName}
             label={costLabel}
-            placeholder="100 000"
+            placeholder={formatMessage({ id: 'pim_details.prices.price_placeholder' })}
             size="medium"
             InputProps={{ endAdornment: <EuroIcon /> }}
             disabled={disabled}

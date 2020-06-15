@@ -6,16 +6,23 @@ import { GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { PricesGeneralProps, PriceType } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral.types';
+import { PriceContainer } from 'app/pimDetails/sections/prices/price/PriceContainer';
+import { SetPricesModal } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal';
 
-import { PriceType } from './Prices.types';
-import { PriceContainer } from './price/PriceContainer';
-import { SetPricesModal } from './setPricesModal/SetPricesModal';
-
-export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const PricesGeneral = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  onSave,
+  rent,
+  sale,
+  pim,
+}: PricesGeneralProps) => {
   const { formatMessage } = useLocale();
-  const [pricesTypes, setPricesTypes] = useState([] as PriceType[]);
   const [isPriceModalOpened, setPriceModalOpened] = useState(false);
+
+  const pricesTypes = [rent?.isEnabled && 'Rent', sale?.isEnabled && 'Sale'].filter(Boolean) as PriceType[];
 
   return (
     <>
@@ -43,7 +50,7 @@ export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
             <GenericField placeholder="pim_details.prices.description_placeholder" name="description" />
           </Box>
         </AutosaveForm>
-        <PriceContainer types={pricesTypes} />
+        <PriceContainer types={pricesTypes} rent={rent} sale={sale} pimId={pim?.id} />
       </Grid>
 
       {isPriceModalOpened && (
@@ -51,11 +58,12 @@ export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
           isOpened
           onClose={() => setPriceModalOpened(false)}
           initialValues={pricesTypes}
-          onSubmit={({ prices }) => {
-            setPricesTypes(prices);
-            setPriceModalOpened(false);
+          onSubmit={async values => {
+            const result = await onSave(values);
 
-            return Promise.resolve({ error: false });
+            if (!result) setPriceModalOpened(false);
+
+            return result;
           }}
         />
       )}

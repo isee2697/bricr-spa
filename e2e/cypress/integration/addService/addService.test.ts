@@ -64,7 +64,7 @@ context('Add Service', () => {
       .first()
       .click();
 
-    cy.get('.toggle-section')
+    cy.get('.sub-section-header-toggle')
       .first()
       .click();
     cy.findAllByLabelText('A few words about services...')

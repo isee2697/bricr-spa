@@ -1,12 +1,7 @@
-import { Cost } from '../Costs.types';
+import { Cost, UpdateCostInput } from 'api/types';
 
 export type FormProps = {
   cost: Cost;
   editing: boolean;
-  onSave: () => Promise<undefined | { error: boolean }>;
+  onSave: (values: UpdateCostInput) => Promise<undefined | { error: boolean }>;
 };
-
-export enum CostPaymentFrequency {
-  Monthly = 'monthly',
-  Yearly = 'yearly',
-}

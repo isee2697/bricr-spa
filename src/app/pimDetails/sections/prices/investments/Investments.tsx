@@ -12,7 +12,7 @@ import { EuroIcon, PercentIcon, SquareMeterIcon } from 'ui/atoms/icons';
 
 import { InvestmentsProps } from './Investments.types';
 
-export const Investments = ({ title, isSidebarVisible, onOpenSidebar, onSave }: InvestmentsProps) => {
+export const Investments = ({ title, isSidebarVisible, onOpenSidebar, onSave, investment }: InvestmentsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -27,7 +27,12 @@ export const Investments = ({ title, isSidebarVisible, onOpenSidebar, onSave }: 
         </AutosaveForm>
         <FormSection title={formatMessage({ id: 'pim_details.prices.investments.title' })} isEditable>
           {editing => (
-            <AutosaveForm initialValues={{}} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+            <AutosaveForm
+              initialValues={investment ?? {}}
+              onSave={onSave}
+              mutators={{ ...arrayMutators }}
+              subscription={{}}
+            >
               <Grid container direction="row" spacing={1}>
                 <Input
                   name="netRentalIncome"

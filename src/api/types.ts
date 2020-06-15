@@ -11,9 +11,9 @@ export type Scalars = {
   Float: number;
   UploadFileInput: any;
   PathBuilder: any;
-  ServiceConfigurationInput: any;
   AbsoluteFloat: any;
   CostVat: any;
+  ServiceConfigurationInput: any;
   Date: string;
   Dictionary: any;
   LabelProperty: any;
@@ -97,7 +97,6 @@ export type Mutation = {
   addMeter?: Maybe<Pim>;
   addOutsideFeature: Pim;
   addPimLabel: Pim;
-  addPricing: Pim;
   addReading?: Maybe<Pim>;
   addService?: Maybe<PimWithNewService>;
   addSpaceToFloor: PimWithUpdatedSpace;
@@ -110,6 +109,7 @@ export type Mutation = {
   removePimLabel: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
+  togglePricing: Pim;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
@@ -159,10 +159,6 @@ export type MutationAddPimLabelArgs = {
   input: PimLabelInput;
 };
 
-export type MutationAddPricingArgs = {
-  input: AddPricingInput;
-};
-
 export type MutationAddReadingArgs = {
   input: AddReadingInput;
 };
@@ -210,6 +206,10 @@ export type MutationResetPasswordArgs = {
 
 export type MutationSetLinkedPropertiesArgs = {
   input: LinkedPimInput;
+};
+
+export type MutationTogglePricingArgs = {
+  input: TogglePricingInput;
 };
 
 export type MutationUpdateCadastreArgs = {
@@ -515,6 +515,221 @@ export type QueryListPimsArgs = {
   sort?: Maybe<Array<Sort>>;
 };
 
+export enum CostPaymentFrequency {
+  Monthly = 'Monthly',
+  Yearly = 'Yearly',
+}
+
+export enum PricingType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export enum CostType {
+  Service = 'Service',
+  Heating = 'Heating',
+  Electricity = 'Electricity',
+  Water = 'Water',
+  Sewage = 'Sewage',
+  WaterBoard = 'WaterBoard',
+  LandConsolidationInterest = 'LandConsolidationInterest',
+  HomeownerAssociation = 'HomeownerAssociation',
+  OzbUserPart = 'OzbUserPart',
+  OzbBusinessPart = 'OzbBusinessPart',
+  Custom = 'Custom',
+}
+
+export enum SalePriceSuffix {
+  CostsBuyer = 'CostsBuyer',
+  FreeInName = 'FreeInName',
+  NoneOfThem = 'NoneOfThem',
+}
+
+export enum RentPaymentFrequency {
+  PerMonth = 'PerMonth',
+  Annual = 'Annual',
+  Custom = 'Custom',
+}
+
+export enum SaleCondition {
+  VatTaxed = 'VatTaxed',
+  IncludingVat = 'IncludingVat',
+  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
+}
+
+export enum RentCondition {
+  VatTaxed = 'VatTaxed',
+  ExcludingServiceCosts = 'ExcludingServiceCosts',
+  Furnished = 'Furnished',
+  IncludingServiceCosts = 'IncludingServiceCosts',
+  Indexed = 'Indexed',
+}
+
+export enum PurchaseMix {
+  MgeConstruction = 'MgeConstruction',
+  PartOfIndividualProject = 'PartOfIndividualProject',
+  PurchaseGuarantee = 'PurchaseGuarantee',
+  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
+}
+
+export type SaleGeneralInput = {
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<Array<SaleCondition>>;
+  purchaseMix?: Maybe<Array<PurchaseMix>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleGeneral = {
+  __typename?: 'SaleGeneral';
+  prefix?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  executionSale?: Maybe<Scalars['Boolean']>;
+  dateOfExecutionSale?: Maybe<Scalars['Date']>;
+  conditions?: Maybe<Array<SaleCondition>>;
+  purchaseMix?: Maybe<Array<PurchaseMix>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleWozInput = {
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleWoz = {
+  __typename?: 'SaleWOZ';
+  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  referenceDateWoz?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SaleInformationsInput = {
+  general?: Maybe<SaleGeneralInput>;
+  woz?: Maybe<SaleWozInput>;
+};
+
+export type SaleInformations = {
+  __typename?: 'SaleInformations';
+  general?: Maybe<SaleGeneral>;
+  woz?: Maybe<SaleWoz>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+};
+
+export type RentInformationsInput = {
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<Array<RentCondition>>;
+  notes?: Maybe<Scalars['String']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+};
+
+export type RentInformations = {
+  __typename?: 'RentInformations';
+  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentFrequency?: Maybe<RentPaymentFrequency>;
+  suffix?: Maybe<Scalars['String']>;
+  conditions?: Maybe<Array<RentCondition>>;
+  notes?: Maybe<Scalars['String']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimPrices = {
+  __typename?: 'PimPrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<Pricing>;
+  costs?: Maybe<Array<Cost>>;
+  investment?: Maybe<Investment>;
+};
+
+export type TogglePricingInput = {
+  id: Scalars['ID'];
+  isRent: Scalars['Boolean'];
+  isSale: Scalars['Boolean'];
+};
+
+export type UpdatePricingInput = {
+  id: Scalars['ID'];
+  rent?: Maybe<RentInformationsInput>;
+  sale?: Maybe<SaleInformationsInput>;
+};
+
+export type Pricing = {
+  __typename?: 'Pricing';
+  rent?: Maybe<RentInformations>;
+  sale?: Maybe<SaleInformations>;
+};
+
+export type Cost = {
+  __typename?: 'Cost';
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  type: CostType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCostInput = {
+  id: Scalars['ID'];
+  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AddCostInput = {
+  id: Scalars['ID'];
+  type: CostType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CostResult = {
+  __typename?: 'CostResult';
+  pim: Pim;
+  cost: Cost;
+};
+
+export type InvestmentInput = {
+  id: Scalars['ID'];
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Investment = {
+  __typename?: 'Investment';
+  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
+  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
+  rentIndexed?: Maybe<Scalars['Boolean']>;
+  splitApartment?: Maybe<Scalars['Boolean']>;
+  averageVacancyPercentage?: Maybe<Scalars['Float']>;
+  numberOfRentableUnits?: Maybe<Scalars['Float']>;
+  amountOfTenants?: Maybe<Scalars['Int']>;
+  remainingTermContacts?: Maybe<Scalars['Int']>;
+  vacancySquareMeters?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export enum MeterType {
   Water = 'Water',
   Gas = 'Gas',
@@ -729,12 +944,6 @@ export type ResetPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
-export type AddCostInput = {
-  id: Scalars['ID'];
-  type: CostType;
-  name?: Maybe<Scalars['String']>;
-};
-
 export type AddNewFloorInput = {
   pimId: Scalars['String'];
   floorDescription?: Maybe<Scalars['String']>;
@@ -745,11 +954,6 @@ export type AddOutsideFeatureInput = {
   pimId: Scalars['String'];
   type: OutsideFeatureType;
   description?: Maybe<Scalars['String']>;
-};
-
-export type AddPricingInput = {
-  id: Scalars['ID'];
-  types: Array<PricingType>;
 };
 
 export type AddSpaceInput = {
@@ -860,43 +1064,6 @@ export type ConstructionInformationInput = {
 export enum ConstructionType {
   UnderConstruction = 'UnderConstruction',
   InDevelopment = 'InDevelopment',
-}
-
-export type Cost = {
-  __typename?: 'Cost';
-  id: Scalars['ID'];
-  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  type: CostType;
-  name?: Maybe<Scalars['String']>;
-};
-
-export enum CostPaymentFrequency {
-  Monthly = 'Monthly',
-  Yearly = 'Yearly',
-}
-
-export type CostResult = {
-  __typename?: 'CostResult';
-  pim: Pim;
-  cost: Cost;
-};
-
-export enum CostType {
-  Service = 'Service',
-  Heating = 'Heating',
-  Electricity = 'Electricity',
-  Water = 'Water',
-  Sewage = 'Sewage',
-  WaterBoard = 'WaterBoard',
-  LandConsolidationInterest = 'LandConsolidationInterest',
-  HomeownerAssociation = 'HomeownerAssociation',
-  OzbUserPart = 'OzbUserPart',
-  OzbBusinessPart = 'OzbBusinessPart',
-  Custom = 'Custom',
 }
 
 export type CreatePimInput = {
@@ -1103,38 +1270,6 @@ export type HouseOutsideInput = {
   generalInformation?: Maybe<GeneralInformationInput>;
   propertyRelated?: Maybe<PropertyRelatedInput>;
   roofInformation?: Maybe<RoofInformationInput>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type Investment = {
-  __typename?: 'Investment';
-  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
-  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
-  rentIndexed?: Maybe<Scalars['Boolean']>;
-  splitApartment?: Maybe<Scalars['Boolean']>;
-  averageVacancyPercentage?: Maybe<Scalars['Float']>;
-  numberOfRentableUnits?: Maybe<Scalars['Float']>;
-  amountOfTenants?: Maybe<Scalars['Int']>;
-  remainingTermContacts?: Maybe<Scalars['Int']>;
-  vacancySquareMeters?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type InvestmentInput = {
-  id: Scalars['ID'];
-  netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
-  economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
-  averageMaturity?: Maybe<Scalars['AbsoluteFloat']>;
-  rentIndexed?: Maybe<Scalars['Boolean']>;
-  splitApartment?: Maybe<Scalars['Boolean']>;
-  averageVacancyPercentage?: Maybe<Scalars['Float']>;
-  numberOfRentableUnits?: Maybe<Scalars['Float']>;
-  amountOfTenants?: Maybe<Scalars['Int']>;
-  remainingTermContacts?: Maybe<Scalars['Int']>;
-  vacancySquareMeters?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
 };
 
@@ -1502,14 +1637,6 @@ export type PimOutside = {
   lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
 };
 
-export type PimPrices = {
-  __typename?: 'PimPrices';
-  id: Scalars['ID'];
-  pricing?: Maybe<Pricing>;
-  costs?: Maybe<Array<Cost>>;
-  investment?: Maybe<Investment>;
-};
-
 export type PimSearchResult = {
   __typename?: 'PimSearchResult';
   metadata?: Maybe<SearchMetadata>;
@@ -1539,17 +1666,6 @@ export type PimWithUpdatedSpace = {
   newSpace: Space;
   pim: Pim;
 };
-
-export type Pricing = {
-  __typename?: 'Pricing';
-  rent?: Maybe<RentInformations>;
-  sale?: Maybe<SaleInformations>;
-};
-
-export enum PricingType {
-  Sale = 'Sale',
-  Rent = 'Rent',
-}
 
 export type Profile = {
   __typename?: 'Profile';
@@ -1655,13 +1771,6 @@ export enum PropertyTypeDetailed {
   Mansion = 'Mansion',
 }
 
-export enum PurchaseMix {
-  MgeConstruction = 'MgeConstruction',
-  PartOfIndividualProject = 'PartOfIndividualProject',
-  PurchaseGuarantee = 'PurchaseGuarantee',
-  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
-}
-
 export enum QualityInformations {
   Simple = 'Simple',
   Normal = 'Normal',
@@ -1687,37 +1796,6 @@ export type RectangleDimensions = {
   length?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
 };
-
-export enum RentCondition {
-  VatTaxed = 'VatTaxed',
-  ExcludingServiceCosts = 'ExcludingServiceCosts',
-  Furnished = 'Furnished',
-  IncludingServiceCosts = 'IncludingServiceCosts',
-  Indexed = 'Indexed',
-}
-
-export type RentInformations = {
-  __typename?: 'RentInformations';
-  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentFrequency?: Maybe<RentPaymentFrequency>;
-  suffix?: Maybe<Scalars['String']>;
-  conditions?: Maybe<Array<RentCondition>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RentInformationsInput = {
-  rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  conditions?: Maybe<Array<RentCondition>>;
-  notes?: Maybe<Scalars['String']>;
-  paymentFrequency?: Maybe<RentPaymentFrequency>;
-};
-
-export enum RentPaymentFrequency {
-  PerMonth = 'PerMonth',
-  Annual = 'Annual',
-  Custom = 'Custom',
-}
 
 export type RoofInformation = {
   __typename?: 'RoofInformation';
@@ -1797,65 +1875,6 @@ export enum RoofTypes {
   SaddleRoof = 'SaddleRoof',
   CompositeRoof = 'CompositeRoof',
 }
-
-export enum SaleCondition {
-  VatTaxed = 'VatTaxed',
-  IncludingVat = 'IncludingVat',
-  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
-}
-
-export type SaleGeneral = {
-  __typename?: 'SaleGeneral';
-  prefix?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  executionSale?: Maybe<Scalars['Boolean']>;
-  dateOfExecutionSale?: Maybe<Scalars['Date']>;
-  conditions?: Maybe<Array<SaleCondition>>;
-  purchaseMix?: Maybe<Array<PurchaseMix>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleGeneralInput = {
-  prefix?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['AbsoluteFloat']>;
-  suffix?: Maybe<Scalars['String']>;
-  executionSale?: Maybe<Scalars['Boolean']>;
-  dateOfExecutionSale?: Maybe<Scalars['Date']>;
-  conditions?: Maybe<Array<SaleCondition>>;
-  purchaseMix?: Maybe<Array<PurchaseMix>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleInformations = {
-  __typename?: 'SaleInformations';
-  general?: Maybe<SaleGeneral>;
-  woz?: Maybe<SaleWoz>;
-};
-
-export type SaleInformationsInput = {
-  general?: Maybe<SaleGeneralInput>;
-  woz?: Maybe<SaleWozInput>;
-};
-
-export enum SalePriceSuffix {
-  CostsBuyer = 'CostsBuyer',
-  FreeInName = 'FreeInName',
-  NoneOfThem = 'NoneOfThem',
-}
-
-export type SaleWoz = {
-  __typename?: 'SaleWOZ';
-  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  referenceDateWoz?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type SaleWozInput = {
-  wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  referenceDateWoz?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-};
 
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
@@ -1968,16 +1987,6 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type UpdateCostInput = {
-  id: Scalars['ID'];
-  serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  paymentsFrequency?: Maybe<CostPaymentFrequency>;
-  vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
-  vatPercentage?: Maybe<Scalars['CostVat']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
 export type UpdateFloorInput = {
   pimId: Scalars['String'];
   floorId: Scalars['String'];
@@ -1989,12 +1998,6 @@ export type UpdateOutsideFeatureInput = {
   pimId: Scalars['String'];
   outsideFeatureId: Scalars['String'];
   feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
-};
-
-export type UpdatePricingInput = {
-  id: Scalars['ID'];
-  rent?: Maybe<RentInformationsInput>;
-  sale?: Maybe<SaleInformationsInput>;
 };
 
 export type UpdateSpaceInput = {
@@ -2088,6 +2091,46 @@ export type AddFilesMutationVariables = {
 
 export type AddFilesMutation = { __typename?: 'Mutation' } & {
   addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
+};
+
+export type TogglePricingMutationVariables = {
+  input: TogglePricingInput;
+};
+
+export type TogglePricingMutation = { __typename?: 'Mutation' } & {
+  togglePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
+export type AddCostsMutationVariables = {
+  input: AddCostInput;
+};
+
+export type AddCostsMutation = { __typename?: 'Mutation' } & {
+  addCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
+};
+
+export type UpdateCostMutationVariables = {
+  input: UpdateCostInput;
+};
+
+export type UpdateCostMutation = { __typename?: 'Mutation' } & {
+  updateCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
+};
+
+export type UpdateInvestmentMutationVariables = {
+  input: InvestmentInput;
+};
+
+export type UpdateInvestmentMutation = { __typename?: 'Mutation' } & {
+  updateInvestment: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
+export type UpdatePricingMutationVariables = {
+  input: UpdatePricingInput;
+};
+
+export type UpdatePricingMutation = { __typename?: 'Mutation' } & {
+  updatePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type CreatePimMutationVariables = {
@@ -2260,6 +2303,75 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
                   }
               >;
             }
+        >
+      >;
+    };
+};
+
+export type PimPricingQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimPricingQuery = { __typename?: 'Query' } & {
+  getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id'> & {
+      pricing?: Maybe<
+        { __typename?: 'Pricing' } & {
+          rent?: Maybe<
+            { __typename?: 'RentInformations' } & Pick<
+              RentInformations,
+              'isEnabled' | 'rentalPrice' | 'paymentFrequency' | 'suffix' | 'notes' | 'conditions'
+            >
+          >;
+          sale?: Maybe<
+            { __typename?: 'SaleInformations' } & Pick<SaleInformations, 'isEnabled'> & {
+                general?: Maybe<
+                  { __typename?: 'SaleGeneral' } & Pick<
+                    SaleGeneral,
+                    | 'prefix'
+                    | 'price'
+                    | 'suffix'
+                    | 'executionSale'
+                    | 'dateOfExecutionSale'
+                    | 'conditions'
+                    | 'purchaseMix'
+                    | 'notes'
+                  >
+                >;
+                woz?: Maybe<{ __typename?: 'SaleWOZ' } & Pick<SaleWoz, 'wozPrice' | 'referenceDateWoz' | 'notes'>>;
+              }
+          >;
+        }
+      >;
+      costs?: Maybe<
+        Array<
+          { __typename?: 'Cost' } & Pick<
+            Cost,
+            | 'id'
+            | 'serviceCosts'
+            | 'paymentsFrequency'
+            | 'vatTaxedServiceCosts'
+            | 'vatPercentage'
+            | 'notes'
+            | 'type'
+            | 'name'
+          >
+        >
+      >;
+      investment?: Maybe<
+        { __typename?: 'Investment' } & Pick<
+          Investment,
+          | 'netRentalIncome'
+          | 'grossRentalIncome'
+          | 'economicRentalValue'
+          | 'averageMaturity'
+          | 'rentIndexed'
+          | 'splitApartment'
+          | 'averageVacancyPercentage'
+          | 'numberOfRentableUnits'
+          | 'amountOfTenants'
+          | 'remainingTermContacts'
+          | 'vacancySquareMeters'
+          | 'notes'
         >
       >;
     };
@@ -2732,6 +2844,109 @@ export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddFilesMutation,
   AddFilesMutationVariables
 >;
+export const TogglePricingDocument = gql`
+  mutation TogglePricing($input: TogglePricingInput!) {
+    togglePricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useTogglePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<TogglePricingMutation, TogglePricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<TogglePricingMutation, TogglePricingMutationVariables>(
+    TogglePricingDocument,
+    baseOptions,
+  );
+}
+export type TogglePricingMutationHookResult = ReturnType<typeof useTogglePricingMutation>;
+export type TogglePricingMutationResult = ApolloReactCommon.MutationResult<TogglePricingMutation>;
+export type TogglePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  TogglePricingMutation,
+  TogglePricingMutationVariables
+>;
+export const AddCostsDocument = gql`
+  mutation AddCosts($input: AddCostInput!) {
+    addCost(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddCostsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCostsMutation, AddCostsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCostsMutation, AddCostsMutationVariables>(AddCostsDocument, baseOptions);
+}
+export type AddCostsMutationHookResult = ReturnType<typeof useAddCostsMutation>;
+export type AddCostsMutationResult = ApolloReactCommon.MutationResult<AddCostsMutation>;
+export type AddCostsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCostsMutation,
+  AddCostsMutationVariables
+>;
+export const UpdateCostDocument = gql`
+  mutation UpdateCost($input: UpdateCostInput!) {
+    updateCost(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useUpdateCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCostMutation, UpdateCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCostMutation, UpdateCostMutationVariables>(UpdateCostDocument, baseOptions);
+}
+export type UpdateCostMutationHookResult = ReturnType<typeof useUpdateCostMutation>;
+export type UpdateCostMutationResult = ApolloReactCommon.MutationResult<UpdateCostMutation>;
+export type UpdateCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCostMutation,
+  UpdateCostMutationVariables
+>;
+export const UpdateInvestmentDocument = gql`
+  mutation UpdateInvestment($input: InvestmentInput!) {
+    updateInvestment(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateInvestmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>(
+    UpdateInvestmentDocument,
+    baseOptions,
+  );
+}
+export type UpdateInvestmentMutationHookResult = ReturnType<typeof useUpdateInvestmentMutation>;
+export type UpdateInvestmentMutationResult = ApolloReactCommon.MutationResult<UpdateInvestmentMutation>;
+export type UpdateInvestmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInvestmentMutation,
+  UpdateInvestmentMutationVariables
+>;
+export const UpdatePricingDocument = gql`
+  mutation UpdatePricing($input: UpdatePricingInput!) {
+    updatePricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePricingMutation, UpdatePricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePricingMutation, UpdatePricingMutationVariables>(
+    UpdatePricingDocument,
+    baseOptions,
+  );
+}
+export type UpdatePricingMutationHookResult = ReturnType<typeof useUpdatePricingMutation>;
+export type UpdatePricingMutationResult = ApolloReactCommon.MutationResult<UpdatePricingMutation>;
+export type UpdatePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePricingMutation,
+  UpdatePricingMutationVariables
+>;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
     createPim(input: $input) {
@@ -3119,6 +3334,78 @@ export function usePimCadastreLazyQuery(
 export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
 export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
 export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
+export const PimPricingDocument = gql`
+  query PimPricing($id: ID!) {
+    getPricing(id: $id) {
+      id
+      pricing {
+        rent {
+          isEnabled
+          rentalPrice
+          paymentFrequency
+          suffix
+          notes
+          conditions
+        }
+        sale {
+          isEnabled
+          general {
+            prefix
+            price
+            suffix
+            executionSale
+            dateOfExecutionSale
+            conditions
+            purchaseMix
+            notes
+          }
+          woz {
+            wozPrice
+            referenceDateWoz
+            notes
+          }
+        }
+      }
+      costs {
+        id
+        serviceCosts
+        paymentsFrequency
+        vatTaxedServiceCosts
+        vatPercentage
+        notes
+        type
+        name
+      }
+      investment {
+        netRentalIncome
+        grossRentalIncome
+        economicRentalValue
+        averageMaturity
+        rentIndexed
+        splitApartment
+        averageVacancyPercentage
+        numberOfRentableUnits
+        amountOfTenants
+        remainingTermContacts
+        vacancySquareMeters
+        notes
+      }
+    }
+  }
+`;
+export function usePimPricingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimPricingQuery, PimPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
+}
+export function usePimPricingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimPricingQuery, PimPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
+}
+export type PimPricingQueryHookResult = ReturnType<typeof usePimPricingQuery>;
+export type PimPricingLazyQueryHookResult = ReturnType<typeof usePimPricingLazyQuery>;
+export type PimPricingQueryResult = ApolloReactCommon.QueryResult<PimPricingQuery, PimPricingQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
