@@ -21,7 +21,7 @@ describe('Space form', () => {
 
     const { getByText, getByPlaceholderText } = render(
       <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
-        {() => <Space space={space} isEditMode index={SPACE_INDEX} />}
+        {() => <Space space={space} isEditMode index={SPACE_INDEX} isExpanded={true} onExpand={() => {}} />}
       </Form>,
     );
 

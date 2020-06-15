@@ -12,7 +12,7 @@ import { SpaceProps } from './Space.types';
 
 const fieldPrefix = 'configuration';
 
-export const Space = ({ isEditMode, index, space: { spaceName, spaceType, id } }: SpaceProps) => {
+export const Space = ({ isEditMode, isExpanded, onExpand, index, space: { spaceName, spaceType, id } }: SpaceProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -21,7 +21,9 @@ export const Space = ({ isEditMode, index, space: { spaceName, spaceType, id } }
       <FormSubSection
         title={`${spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} ${index + 1}`}
         onOptionsClick={() => {}}
-        initiallyOpened={index === 0}
+        initiallyOpened={false}
+        isExpanded={isExpanded}
+        onExpand={() => onExpand(id)}
       >
         <Grid container spacing={4}>
           {spaceType === SpaceType.Kitchen && <KitchenForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}

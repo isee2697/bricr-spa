@@ -13,6 +13,8 @@ export type KitchenFormProps = {
 
 export type SpaceProps = {
   isEditMode: boolean;
+  isExpanded: boolean;
+  onExpand: (id: string) => void;
   index: number;
   space: Space;
 };

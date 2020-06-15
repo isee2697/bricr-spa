@@ -4,4 +4,6 @@ export type FormSubSectionProps = {
   onOptionsClick: VoidFunction;
   counter?: number;
   initiallyOpened?: boolean;
+  isExpanded?: boolean;
+  onExpand?: VoidFunction;
 };

@@ -20,7 +20,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
     <Modal
       fullWidth
       isOpened={isOpened}
-      onClose={onClose}
+      onClose={() => onClose(undefined)}
       title={formatMessage({ id: 'pim_details.inside.add_space.title' })}
     >
       <Form onSubmit={onSubmit}>
@@ -81,7 +81,7 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
               </Field>
             </DialogContent>
             <DialogActions>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <Button color="default" variant="outlined" onClick={() => onClose(undefined)}>
                 {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton

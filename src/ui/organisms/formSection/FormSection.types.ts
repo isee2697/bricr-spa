@@ -3,6 +3,8 @@ import { ExpansionPanelSummaryProps } from '@material-ui/core/ExpansionPanelSumm
 
 export type FormSectionHeaderProps = ExpansionPanelSummaryProps & { editing: string };
 
+export type FunctionChildren = (editing: boolean) => ReactNode;
+
 export type FormSectionProps = {
   title: ReactNode;
   titleBadge?: number;
@@ -11,6 +13,11 @@ export type FormSectionProps = {
   onOptionsClick?: VoidFunction;
   isExpandable?: boolean;
   isInitExpanded?: boolean;
-  children: ((editing: boolean) => ReactNode) | ReactNode;
+  children: FunctionChildren | ReactNode;
   className?: string;
+  isInitEdititng?: boolean;
+};
+
+export type FormSectionRef = {
+  handleSetEdit: (value: boolean) => void;
 };

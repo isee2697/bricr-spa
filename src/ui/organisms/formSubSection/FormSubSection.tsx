@@ -12,19 +12,33 @@ export const FormSubSection = ({
   onOptionsClick,
   counter,
   initiallyOpened = true,
+  onExpand,
+  isExpanded,
 }: FormSubSectionProps) => {
   const [isOpened, setOpened] = useState(initiallyOpened);
   const classes = useStyles();
 
+  const handleToggleClick = () => {
+    if (onExpand) {
+      onExpand();
+    } else {
+      setOpened(o => !o);
+    }
+  };
+
   return (
     <>
-      <SubSectionHeader toggled={isOpened} onToggleClick={() => setOpened(o => !o)} onOptionsClick={onOptionsClick}>
+      <SubSectionHeader
+        toggled={isExpanded || isOpened}
+        onToggleClick={handleToggleClick}
+        onOptionsClick={onOptionsClick}
+      >
         <Box display="flex">
           {counter && <div className={classes.counter}>{counter}</div>}
           {title}
         </Box>
       </SubSectionHeader>
-      <Collapse style={{ width: '100%' }} in={isOpened} timeout="auto" unmountOnExit>
+      <Collapse style={{ width: '100%' }} in={isExpanded || isOpened} timeout="auto" unmountOnExit>
         {children}
       </Collapse>
     </>

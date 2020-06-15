@@ -36,7 +36,7 @@ export const AddNewSpaceModalContainer = ({ isOpened, onClose, floorId }: AddNew
         throw new Error();
       }
 
-      onClose();
+      onClose(result.addSpaceToFloor?.newSpace.id);
 
       return undefined;
     } catch {

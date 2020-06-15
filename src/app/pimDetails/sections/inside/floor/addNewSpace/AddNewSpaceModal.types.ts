@@ -17,7 +17,7 @@ export type AddNewSpaceSubmit = (
 
 export type AddNewSpaceModalContainerProps = {
   isOpened: boolean;
-  onClose: VoidFunction;
+  onClose: (id?: string) => void;
   floorId: string;
 };
 

@@ -2162,7 +2162,10 @@ export type AddSpaceToFloorMutationVariables = {
 };
 
 export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
-  addSpaceToFloor: { __typename?: 'PimWithUpdatedSpace' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
+  addSpaceToFloor: { __typename?: 'PimWithUpdatedSpace' } & {
+    pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+    newSpace: { __typename?: 'Space' } & Pick<Space, 'id'>;
+  };
 };
 
 export type UpdateSpaceMutationVariables = {
@@ -3016,6 +3019,9 @@ export const AddSpaceToFloorDocument = gql`
   mutation AddSpaceToFloor($input: AddSpaceInput!) {
     addSpaceToFloor(input: $input) {
       pim {
+        id
+      }
+      newSpace {
         id
       }
     }

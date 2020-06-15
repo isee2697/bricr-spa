@@ -32,6 +32,9 @@ export const ADD_SPACE_TO_FLOOR = gql`
       pim {
         id
       }
+      newSpace {
+        id
+      }
     }
   }
 `;

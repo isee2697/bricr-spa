@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 import { EmptyFloor } from './emptyFloor/EmptyFloor';
 import { FloorDescriptionContainer } from './floorDescription/FloorDescriptionContainer';
@@ -12,8 +13,28 @@ import { FloorProps } from './Floor.types';
 
 export const Floor = ({ floor }: FloorProps) => {
   const { formatMessage } = useLocale();
-
+  const formRef = useRef<FormSectionRef>(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [expandedSpace, setExpandedSpace] = useState<string | undefined>(floor?.spaces?.[0]?.id);
+
+  const handleModalClose = (id?: string) => {
+    setModalOpen(false);
+
+    if (id) {
+      setExpandedSpace(id);
+      formRef?.current?.handleSetEdit(true);
+    }
+  };
+
+  const handleSpaceExpand = (id: string) => {
+    setExpandedSpace(spaceId => {
+      if (spaceId === id) {
+        return undefined;
+      }
+
+      return id;
+    });
+  };
 
   return (
     <>
@@ -40,17 +61,26 @@ export const Floor = ({ floor }: FloorProps) => {
           <FormSection
             title={formatMessage({ id: 'pim_details.inside.space_title' }, { space: floor.floorType })}
             onAdd={() => setModalOpen(true)}
+            isInitEdititng={true}
+            ref={formRef}
           >
             {editing =>
               floor.spaces?.map((space, index) => (
-                <SpaceContainer key={space.id} isEditMode={editing} index={index} space={space} />
+                <SpaceContainer
+                  key={space.id}
+                  isEditMode={editing}
+                  isExpanded={expandedSpace === space.id}
+                  onExpand={handleSpaceExpand}
+                  space={space}
+                  index={index}
+                />
               ))
             }
           </FormSection>
         </Grid>
       )}
 
-      <AddNewSpaceModalContainer floorId={floor.id} isOpened={isModalOpen} onClose={() => setModalOpen(false)} />
+      <AddNewSpaceModalContainer floorId={floor.id} isOpened={isModalOpen} onClose={handleModalClose} />
     </>
   );
 };
