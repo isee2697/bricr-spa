@@ -40,27 +40,10 @@ directive @cacheControl(
 ) on FIELD_DEFINITION | OBJECT | INTERFACE
 scalar AbsoluteFloat
 
-input AddCadastreInput {
-  pimId: String!
-  type: CadastreType!
-  description: String
-}
-
-input AddCadastreMapsInput {
-  pimId: String!
-  maps: [NewCadastreMapInput!]!
-}
-
 input AddCostInput {
   id: ID!
   type: CostType!
   name: String
-}
-
-input AddFilesInput {
-  fileIDs: [ID!]!
-  entity: EntityWithFiles!
-  entityID: ID!
 }
 
 input AddNewFloorInput {
@@ -151,93 +134,13 @@ type BedroomSpace {
   images: [File!]
 }
 
-type BoughtOff {
-  date: Date
-  perpetually: Boolean
-  notes: String
-}
-
-input BoughtOffInput {
-  date: Date
-  perpetually: Boolean
-  notes: String
-}
-
 enum CacheControlScope {
   PUBLIC
   PRIVATE
 }
 
-type Cadastre {
-  id: String!
-  description: String
-  type: CadastreType!
-  maps: [CadastreMap!]
-  plot: CadastrePlot
-  dateCreated: Date
-  dateUpdated: Date
-  lastEditedBy: LastEditedBy
-}
-
-type CadastreMap {
-  id: String!
-  mapName: String!
-  file: File
-  description: String
-  type: CadastreMapType
-}
-
-enum CadastreMapType {
-  Map
-  Register
-}
-
-type CadastrePlot {
-  notes: String
-  name: String
-  municipalCode: String
-  sectionCode: String
-  plot: String
-  indexNumber: String
-  surface: Float
-  share: String
-  codeSize: CodeSizeType
-  ownership: Ownership
-  lease: Lease
-  boughtOff: BoughtOff
-}
-
-input CadastrePlotInput {
-  id: String
-  notes: String
-  name: String
-  municipalCode: String
-  sectionCode: String
-  plot: String
-  indexNumber: String
-  surface: Float
-  share: String
-  codeSize: CodeSizeType
-  ownership: OwnershipInput
-  lease: LeaseInput
-  boughtOff: BoughtOffInput
-}
-
-enum CadastreType {
-  CadastreMap
-  Plot
-}
-
 input ChangesHistoryFilters {
   entityType: EventEntityType
-}
-
-enum CodeSizeType {
-  Apartment
-  Tightness
-  PartLot
-  InWholePlot
-  MembershipRight
 }
 
 type Company {
@@ -301,13 +204,6 @@ enum CostType {
 }
 
 scalar CostVat
-
-input CreateFileInput {
-  fileName: String!
-  fileType: String!
-  permission: FilePermission!
-  description: String
-}
 
 input CreatePimInput {
   realEstateType: RealEstateType!
@@ -382,16 +278,6 @@ enum EnergyType {
   G
 }
 
-enum EntityWithFiles {
-  Pim
-  Space
-  OutsideFeature
-  OutsideGeneral
-  OutsidePropertyRelated
-  RoofInformation
-  CadastreMap
-}
-
 type Event {
   id: String!
   entityType: EventEntityType!
@@ -410,27 +296,6 @@ enum EventAction {
 
 enum EventEntityType {
   Pim
-}
-
-type File {
-  id: ID!
-  fileName: String!
-  description: String
-  status: Int!
-  fileType: String!
-  permission: FilePermission!
-  key: ID!
-  createdAt: Date
-  signedUrl: String
-  url: String
-  bucket: String
-  entityID: String
-  entity: EntityWithFiles
-}
-
-enum FilePermission {
-  public
-  private
 }
 
 type Floor {
@@ -631,38 +496,6 @@ scalar LabelProperty
 
 scalar LastEditedBy
 
-type Lease {
-  leaseholder: LeaseholderType
-  information: LeaseInformationType
-  duration: LeaseDurationType
-  yearlyPrice: Float
-  endDate: Date
-}
-
-enum LeaseDurationType {
-  Forever
-  Temporary
-  Constantly
-}
-
-enum LeaseholderType {
-  Different
-  Township
-  Private
-}
-
-enum LeaseInformationType {
-  Virable
-  Fixed
-}
-
-input LeaseInput {
-  leaseholder: LeaseholderType
-  information: LeaseInformationType
-  duration: LeaseDurationType
-  yearlyPrice: Float
-  endDate: Date
-}
 
 type LinkedPim {
   id: ID!
@@ -772,13 +605,6 @@ enum Location {
   West
 }
 
-input NewCadastreMapInput {
-  mapName: String!
-  fileID: String!
-  description: String
-  type: CadastreMapType!
-}
-
 type ObligationToProvideInformation {
   label: String
   notes: String
@@ -826,20 +652,6 @@ enum OutsideFeatureType {
   ParkingLot
 }
 
-type Ownership {
-  stressedInChargeOf: [OwnershipChoiceType]
-}
-
-enum OwnershipChoiceType {
-  NoneOfThem
-  UseAndHabitation
-  Usufruct
-}
-
-input OwnershipInput {
-  stressedInChargeOf: [OwnershipChoiceType]
-}
-
 input Pagination {
   from: Int
   limit: Int
@@ -878,7 +690,6 @@ type Pim {
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   floors: [Floor!]
-  cadastre: [Cadastre!]
   pricing: Pricing
   costs: [Cost!]
   lastEditedBy: LastEditedBy
@@ -886,11 +697,6 @@ type Pim {
   investment: Investment
   specification: Specification
   linkedProperties: [Pim!]
-}
-
-type PimCadastre {
-  id: ID!
-  cadastre: [Cadastre!]
 }
 
 type PimFloor {
@@ -1427,22 +1233,6 @@ type Team {
   name: String
 }
 
-input UpdateCadastreInput {
-  id: String!
-  pimId: String!
-  description: String
-  plot: CadastrePlotInput
-}
-
-input UpdateCadastreMapInput {
-  mapId: String
-  cadastreId: String
-  mapName: String!
-  fileID: String
-  description: String
-  type: CadastreMapType!
-}
-
 input UpdateCostInput {
   id: ID!
   serviceCosts: AbsoluteFloat
@@ -1495,7 +1285,6 @@ type Query {
   dictionary: Dictionary
   getPimGeneral(id: ID!): PimGeneral! @auth
   getPimFloors(id: ID!): PimFloor! @auth
-  getPimCadastre(id: ID!): PimCadastre! @auth
   getPimOutside(id: ID!): PimOutside! @auth
   getPricing(id: ID!): PimPrices! @auth
   getPimSpecification(id: ID!): PimSpecification! @auth
@@ -1511,15 +1300,11 @@ type Mutation {
   deleteUser(id: String): String @auth
   createPim(input: CreatePimInput!): Pim @auth
   removePim(id: String!): String @auth
-  addFiles(input: AddFilesInput!): [File!]! @auth
   updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth
   addFloorToPim(input: AddNewFloorInput!): Pim! @auth
   addSpaceToFloor(input: AddSpaceInput!): PimWithUpdatedSpace! @auth
   updateSpace(input: UpdateSpaceInput!): Pim! @auth
   updateFloor(input: UpdateFloorInput!): Pim! @auth
-  addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
-  addCadastre(input: AddCadastreInput!): Pim @auth
-  updateCadastre(input: UpdateCadastreInput!): Pim @auth
   updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
   addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
   updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth

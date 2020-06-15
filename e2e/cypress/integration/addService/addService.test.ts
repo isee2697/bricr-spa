@@ -63,6 +63,10 @@ context('Add Service', () => {
     cy.findAllByText('Edit mode')
       .first()
       .click();
+
+    cy.get('.toggle-section')
+      .first()
+      .click();
     cy.findAllByLabelText('A few words about services...')
       .first()
       .type('my info');

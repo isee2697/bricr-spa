@@ -40,6 +40,10 @@ class Navigation {
     cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/services');
   }
 
+  goToPimCadastre(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/cadastre');
+  }
+
   get homeLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.home}`;
   }

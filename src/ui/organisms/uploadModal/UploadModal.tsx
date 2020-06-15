@@ -27,13 +27,15 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<string[]>([]);
+  const [fileList, setFileList] = useState<FileList>();
   const [isError, setError] = useState(false);
 
   const handleChange = async ({ target: { validity, files } }: React.ChangeEvent<HTMLInputElement>) => {
     if (validity.valid && files && files.length && Array.from(files).every(file => file.type.match(validTypes))) {
       const uploadedImages = await Promise.all(Array.from(files).map(file => readFileAsync(file)));
-
       setImages(images => [...images, ...uploadedImages]);
+      setFileList(files);
+
       setError(false);
     } else {
       setError(true);
@@ -98,8 +100,8 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
           size="large"
           color="primary"
           variant="contained"
-          disabled={!images.length || isError}
-          onClick={() => onUpload(images)}
+          disabled={!fileList || isError}
+          onClick={() => fileList && onUpload(fileList)}
           isLoading={isSubmitting}
         >
           {formatMessage({ id: 'common.upload' })}

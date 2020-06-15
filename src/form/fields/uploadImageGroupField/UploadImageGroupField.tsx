@@ -14,6 +14,8 @@ export const UploadImageGroupField = ({
   validate,
   validateFields,
   disabled,
+  entity,
+  entityID,
 }: UploadImageGroupFieldProps) => {
   const { fields } = useFieldArray<string>(name, {
     validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<string>) : undefined,
@@ -26,12 +28,20 @@ export const UploadImageGroupField = ({
         <UploadImageField
           disabled={disabled}
           onRemove={() => fields.remove(index)}
-          key={fields.value[index]}
+          key={`${name}[${index}]`}
           name={field}
+          entity={entity}
+          entityID={entityID}
         />
       ))}
       {fields && typeof fields.length === 'number' && fields.length < (max || Infinity) && (
-        <UploadImageField disabled={disabled} key={`${name}[${fields.length}]`} name={`${name}[${fields.length}]`} />
+        <UploadImageField
+          entity={entity}
+          entityID={entityID}
+          disabled={disabled}
+          key={`${name}[${fields.length}]`}
+          name={`${name}[${fields.length}]`}
+        />
       )}
     </Grid>
   );

@@ -3,14 +3,19 @@ import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
 
-import { PimDetailsDocument, useUpdateCadastreMutation } from 'api/types';
+import { useUpdateCadastreMutation, usePimCadastreQuery, PimCadastreDocument } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
-import { PlotContainerProps } from './Plot.types';
 import { Plot } from './Plot';
 
-export const PlotContainer = ({ plot, ...props }: PlotContainerProps) => {
-  const { id } = useParams<{ id: string }>();
+export const PlotContainer = () => {
+  const { id, cadastreId } = useParams<{ id: string; cadastreId: string }>();
+  const { data: cadastreData } = usePimCadastreQuery({
+    variables: { id },
+  });
+
+  const cadastre = cadastreData?.getPimCadastre?.cadastre?.find(c => c.id === cadastreId)?.plot || undefined;
+
   const [updateCadastre] = useUpdateCadastreMutation();
 
   const handleEdit = async (body: AnyObject) => {
@@ -19,14 +24,24 @@ export const PlotContainer = ({ plot, ...props }: PlotContainerProps) => {
         variables: {
           input: {
             pimId: id,
-            id: plot.id,
+            id: cadastreId,
             description: body.description,
-            // configuration: body.configuration,
+            plot: {
+              ...body,
+              surface: Number(body.surface),
+              ownership: {
+                stressedInChargeOf: body.ownership.stressedInChargeOf,
+              },
+              lease: {
+                ...body.lease,
+                yearlyPrice: body.lease?.yearlyPrice ? parseFloat(body.lease.yearlyPrice) : undefined,
+              },
+            },
           },
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
+            query: PimCadastreDocument,
             variables: {
               id,
             },
@@ -46,13 +61,13 @@ export const PlotContainer = ({ plot, ...props }: PlotContainerProps) => {
 
   return (
     <AutosaveForm
-      key={plot.id}
-      initialValues={plot}
+      key={id}
+      initialValues={cadastre}
       onSave={handleEdit}
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <Plot {...props} />
+      <Plot name={cadastre?.name || ''} />
     </AutosaveForm>
   );
 };

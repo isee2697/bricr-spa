@@ -29,7 +29,9 @@ export const SubSectionHeader = ({
         <IconButton onClick={onOptionsClick}>
           <MenuIcon />
         </IconButton>
-        <IconButton onClick={onToggleClick}>{toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}</IconButton>
+        <IconButton className="toggle-section" onClick={onToggleClick}>
+          {toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}
+        </IconButton>
       </Grid>
     </Grid>
   );

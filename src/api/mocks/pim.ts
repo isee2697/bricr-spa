@@ -119,25 +119,6 @@ export const PIM_DETAILS_1: Pim = {
       },
     },
   ],
-  // cadastralMaps: [
-  //   {
-  //     id: '123',
-  //     type: CadastreMapType.Map,
-  //     title: 'Test',
-  //     file: 'https://source.unsplash.com/featured/?map',
-  //     fileName: 'Map 1',
-  //     dateUpdated: '2020-04-28T07:30:18.162',
-  //     updatedBy: 'Christian van Gils',
-  //   },
-  //   {
-  //     id: '1233',
-  //     type: CadastreMapType.Map,
-  //     title: 'Test 2',
-  //     file: 'https://source.unsplash.com/featured/?building',
-  //     fileName: 'Map 1',
-  //     dateUpdated: '2020-04-28T07:30:18.162',
-  //   },
-  // ],
 };
 
 export const PIM_SERVICES: PimServices = {

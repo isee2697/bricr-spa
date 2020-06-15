@@ -9,6 +9,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  UploadFileInput: any;
+  PathBuilder: any;
   ServiceConfigurationInput: any;
   AbsoluteFloat: any;
   CostVat: any;
@@ -20,6 +22,497 @@ export type Scalars = {
   UpdateFeatureInputConfiguration: any;
   UpdateSpaceInputConfiguration: any;
   Upload: any;
+};
+
+export enum FilePermission {
+  Public = 'public',
+  Private = 'private',
+}
+
+export enum EntityWithFiles {
+  Pim = 'Pim',
+  Space = 'Space',
+  OutsideFeature = 'OutsideFeature',
+  OutsideGeneral = 'OutsideGeneral',
+  OutsidePropertyRelated = 'OutsidePropertyRelated',
+  RoofInformation = 'RoofInformation',
+  CadastreMap = 'CadastreMap',
+}
+
+export type CreateFileInput = {
+  fileName: Scalars['String'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithFiles;
+  entityID: Scalars['ID'];
+};
+
+export type File = {
+  __typename?: 'File';
+  id: Scalars['ID'];
+  fileName: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  status: Scalars['Int'];
+  fileType: Scalars['String'];
+  permission: FilePermission;
+  key: Scalars['ID'];
+  createdAt?: Maybe<Scalars['Date']>;
+  signedUrl?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  bucket?: Maybe<Scalars['String']>;
+  entityID?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityWithFiles>;
+};
+
+export type InitSendFileInput = {
+  fileName?: Maybe<Scalars['String']>;
+  fileType?: Maybe<Scalars['String']>;
+  permission?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type UploadFileResponse = {
+  __typename?: 'UploadFileResponse';
+  id?: Maybe<Scalars['String']>;
+};
+
+export type GetPrivateFileInput = {
+  key: Scalars['ID'];
+  entityID?: Maybe<Scalars['String']>;
+  entity?: Maybe<EntityWithFiles>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addCadastre?: Maybe<PimCadastre>;
+  addCadastreMaps?: Maybe<Pim>;
+  addCost: CostResult;
+  addFiles: Array<File>;
+  addFloorToPim: Pim;
+  addMeter?: Maybe<Pim>;
+  addOutsideFeature: Pim;
+  addPimLabel: Pim;
+  addPricing: Pim;
+  addReading?: Maybe<Pim>;
+  addService?: Maybe<PimWithNewService>;
+  addSpaceToFloor: PimWithUpdatedSpace;
+  createPim?: Maybe<Pim>;
+  deleteUser?: Maybe<Scalars['String']>;
+  forgotPassword?: Maybe<ForgotPasswordResponse>;
+  initSendFile: File;
+  login?: Maybe<LoginResponse>;
+  removePim?: Maybe<Scalars['String']>;
+  removePimLabel: Pim;
+  resetPassword?: Maybe<ResetPasswordResponse>;
+  setLinkedProperties: Pim;
+  updateCadastre?: Maybe<Pim>;
+  updateCadastreMap?: Maybe<Pim>;
+  updateCost: CostResult;
+  updateFloor: Pim;
+  updateInvestment: Pim;
+  updateMeter?: Maybe<Pim>;
+  updateOutsideFeature: Pim;
+  updatePimGeneralInfo: Pim;
+  updatePimOutsideInfo: Pim;
+  updatePricing: Pim;
+  updateReading?: Maybe<Pim>;
+  updateService?: Maybe<Pim>;
+  updateSpace: Pim;
+  updateSpecification: Pim;
+  uploadFile?: Maybe<UploadFileResponse>;
+};
+
+export type MutationAddCadastreArgs = {
+  input: AddCadastreInput;
+};
+
+export type MutationAddCadastreMapsArgs = {
+  input: AddCadastreMapsInput;
+};
+
+export type MutationAddCostArgs = {
+  input: AddCostInput;
+};
+
+export type MutationAddFilesArgs = {
+  input: AddFilesInput;
+};
+
+export type MutationAddFloorToPimArgs = {
+  input: AddNewFloorInput;
+};
+
+export type MutationAddMeterArgs = {
+  input: AddMeterInput;
+};
+
+export type MutationAddOutsideFeatureArgs = {
+  input: AddOutsideFeatureInput;
+};
+
+export type MutationAddPimLabelArgs = {
+  input: PimLabelInput;
+};
+
+export type MutationAddPricingArgs = {
+  input: AddPricingInput;
+};
+
+export type MutationAddReadingArgs = {
+  input: AddReadingInput;
+};
+
+export type MutationAddServiceArgs = {
+  input: AddServiceInput;
+};
+
+export type MutationAddSpaceToFloorArgs = {
+  input: AddSpaceInput;
+};
+
+export type MutationCreatePimArgs = {
+  input: CreatePimInput;
+};
+
+export type MutationDeleteUserArgs = {
+  id?: Maybe<Scalars['String']>;
+};
+
+export type MutationForgotPasswordArgs = {
+  input?: Maybe<ForgotPasswordInput>;
+};
+
+export type MutationInitSendFileArgs = {
+  input: InitSendFileInput;
+};
+
+export type MutationLoginArgs = {
+  input?: Maybe<LoginInput>;
+};
+
+export type MutationRemovePimArgs = {
+  id: Scalars['String'];
+};
+
+export type MutationRemovePimLabelArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationResetPasswordArgs = {
+  input?: Maybe<ResetPasswordInput>;
+  token: Scalars['String'];
+};
+
+export type MutationSetLinkedPropertiesArgs = {
+  input: LinkedPimInput;
+};
+
+export type MutationUpdateCadastreArgs = {
+  input: UpdateCadastreInput;
+};
+
+export type MutationUpdateCadastreMapArgs = {
+  input: UpdateCadastreMapInput;
+};
+
+export type MutationUpdateCostArgs = {
+  input: UpdateCostInput;
+};
+
+export type MutationUpdateFloorArgs = {
+  input: UpdateFloorInput;
+};
+
+export type MutationUpdateInvestmentArgs = {
+  input: InvestmentInput;
+};
+
+export type MutationUpdateMeterArgs = {
+  input: UpdateMeterInput;
+};
+
+export type MutationUpdateOutsideFeatureArgs = {
+  input: Scalars['UpdateFeatureInputConfiguration'];
+};
+
+export type MutationUpdatePimGeneralInfoArgs = {
+  input: PimGeneralInput;
+};
+
+export type MutationUpdatePimOutsideInfoArgs = {
+  input: Scalars['PimOutsideInput'];
+};
+
+export type MutationUpdatePricingArgs = {
+  input: UpdatePricingInput;
+};
+
+export type MutationUpdateReadingArgs = {
+  input: UpdateReadingInput;
+};
+
+export type MutationUpdateServiceArgs = {
+  input: UpdateServiceInput;
+};
+
+export type MutationUpdateSpaceArgs = {
+  input: UpdateSpaceInput;
+};
+
+export type MutationUpdateSpecificationArgs = {
+  input: SpecificationInput;
+};
+
+export type MutationUploadFileArgs = {
+  input: Scalars['UploadFileInput'];
+  pathBuilder?: Maybe<Scalars['PathBuilder']>;
+};
+
+export enum CadastreMapType {
+  Map = 'Map',
+  Register = 'Register',
+}
+
+export enum CodeSizeType {
+  Apartment = 'Apartment',
+  Tightness = 'Tightness',
+  PartLot = 'PartLot',
+  InWholePlot = 'InWholePlot',
+  MembershipRight = 'MembershipRight',
+}
+
+export enum LeaseholderType {
+  Different = 'Different',
+  Township = 'Township',
+  Private = 'Private',
+}
+
+export enum CadastreType {
+  CadastreMap = 'CadastreMap',
+  Plot = 'Plot',
+}
+
+export enum LeaseInformationType {
+  Virable = 'Virable',
+  Fixed = 'Fixed',
+}
+
+export enum LeaseDurationType {
+  Forever = 'Forever',
+  Temporary = 'Temporary',
+  Constantly = 'Constantly',
+}
+
+export enum OwnershipChoiceType {
+  NoneOfThem = 'NoneOfThem',
+  UseAndHabitation = 'UseAndHabitation',
+  Usufruct = 'Usufruct',
+}
+
+export type CadastrePlotInput = {
+  id?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<OwnershipInput>;
+  lease?: Maybe<LeaseInput>;
+  boughtOff?: Maybe<BoughtOffInput>;
+};
+
+export type UpdateCadastreInput = {
+  id: Scalars['String'];
+  pimId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  plot?: Maybe<CadastrePlotInput>;
+};
+
+export type AddCadastreInput = {
+  pimId: Scalars['String'];
+  type: CadastreType;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddCadastreMapsInput = {
+  pimId: Scalars['String'];
+  maps: Array<NewCadastreMapInput>;
+};
+
+export type BoughtOff = {
+  __typename?: 'BoughtOff';
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BoughtOffInput = {
+  date?: Maybe<Scalars['Date']>;
+  perpetually?: Maybe<Scalars['Boolean']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type CadastrePlot = {
+  __typename?: 'CadastrePlot';
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  municipalCode?: Maybe<Scalars['String']>;
+  sectionCode?: Maybe<Scalars['String']>;
+  plot?: Maybe<Scalars['String']>;
+  indexNumber?: Maybe<Scalars['String']>;
+  surface?: Maybe<Scalars['Float']>;
+  share?: Maybe<Scalars['String']>;
+  codeSize?: Maybe<CodeSizeType>;
+  ownership?: Maybe<Ownership>;
+  lease?: Maybe<Lease>;
+  boughtOff?: Maybe<BoughtOff>;
+};
+
+export type CadastreMap = {
+  __typename?: 'CadastreMap';
+  id: Scalars['String'];
+  mapName: Scalars['String'];
+  file?: Maybe<File>;
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<CadastreMapType>;
+};
+
+export type Lease = {
+  __typename?: 'Lease';
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type NewCadastreMapInput = {
+  mapName: Scalars['String'];
+  fileID: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreMapType;
+};
+
+export type LeaseInput = {
+  leaseholder?: Maybe<LeaseholderType>;
+  information?: Maybe<LeaseInformationType>;
+  duration?: Maybe<LeaseDurationType>;
+  yearlyPrice?: Maybe<Scalars['Float']>;
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type Ownership = {
+  __typename?: 'Ownership';
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
+};
+
+export type OwnershipInput = {
+  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
+};
+
+export type Cadastre = {
+  __typename?: 'Cadastre';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: CadastreType;
+  maps?: Maybe<Array<CadastreMap>>;
+  plot?: Maybe<CadastrePlot>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+};
+
+export type PimCadastre = {
+  __typename?: 'PimCadastre';
+  id: Scalars['ID'];
+  cadastre?: Maybe<Array<Cadastre>>;
+};
+
+export type CadastreMapInput = {
+  mapName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<CadastreMapType>;
+};
+
+export type UpdateCadastreMapInput = {
+  pimId: Scalars['String'];
+  cadastreId: Scalars['String'];
+  mapId: Scalars['String'];
+  map?: Maybe<CadastreMapInput>;
+  fileId?: Maybe<Scalars['String']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  dictionary?: Maybe<Scalars['Dictionary']>;
+  getChangesHistory: Array<Event>;
+  getPim?: Maybe<Pim>;
+  getPimCadastre: PimCadastre;
+  getPimFloors: PimFloor;
+  getPimGeneral: PimGeneral;
+  getPimOutside: PimOutside;
+  getPimServices: PimServices;
+  getPimSpecification: PimSpecification;
+  getPricing: PimPrices;
+  getProfile?: Maybe<Profile>;
+  getPropertyTypes: Array<Scalars['String']>;
+  listPims: PimSearchResult;
+  me?: Maybe<Profile>;
+};
+
+export type QueryGetChangesHistoryArgs = {
+  filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetPimArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimCadastreArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimFloorsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimOutsideArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimServicesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimSpecificationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPricingArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetProfileArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryListPimsArgs = {
+  filters?: Maybe<ListPimsFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
 };
 
 export enum MeterType {
@@ -205,240 +698,6 @@ export type PimWithNewService = {
   newService: Service;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  dictionary?: Maybe<Scalars['Dictionary']>;
-  getChangesHistory: Array<Event>;
-  getPim?: Maybe<Pim>;
-  getPimCadastre: PimCadastre;
-  getPimFloors: PimFloor;
-  getPimGeneral: PimGeneral;
-  getPimOutside: PimOutside;
-  getPimServices: PimServices;
-  getPimSpecification: PimSpecification;
-  getPricing: PimPrices;
-  getProfile?: Maybe<Profile>;
-  getPropertyTypes: Array<Scalars['String']>;
-  listPims: PimSearchResult;
-  me?: Maybe<Profile>;
-};
-
-export type QueryGetChangesHistoryArgs = {
-  filters?: Maybe<ChangesHistoryFilters>;
-};
-
-export type QueryGetPimArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimCadastreArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimFloorsArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimGeneralArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimOutsideArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimServicesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimSpecificationArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPricingArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetProfileArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryListPimsArgs = {
-  filters?: Maybe<ListPimsFilters>;
-  pagination?: Maybe<Pagination>;
-  sort?: Maybe<Array<Sort>>;
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  addCadastre?: Maybe<Pim>;
-  addCadastreMaps?: Maybe<Pim>;
-  addCost: CostResult;
-  addFiles: Array<File>;
-  addFloorToPim: Pim;
-  addMeter?: Maybe<Pim>;
-  addOutsideFeature: Pim;
-  addPimLabel: Pim;
-  addPricing: Pim;
-  addReading?: Maybe<Pim>;
-  addService?: Maybe<PimWithNewService>;
-  addSpaceToFloor: PimWithUpdatedSpace;
-  createPim?: Maybe<Pim>;
-  deleteUser?: Maybe<Scalars['String']>;
-  forgotPassword?: Maybe<ForgotPasswordResponse>;
-  login?: Maybe<LoginResponse>;
-  removePim?: Maybe<Scalars['String']>;
-  removePimLabel: Pim;
-  resetPassword?: Maybe<ResetPasswordResponse>;
-  setLinkedProperties: Pim;
-  updateCadastre?: Maybe<Pim>;
-  updateCost: CostResult;
-  updateFloor: Pim;
-  updateInvestment: Pim;
-  updateMeter?: Maybe<Pim>;
-  updateOutsideFeature: Pim;
-  updatePimGeneralInfo: Pim;
-  updatePimOutsideInfo: Pim;
-  updatePricing: Pim;
-  updateReading?: Maybe<Pim>;
-  updateService?: Maybe<Pim>;
-  updateSpace: Pim;
-  updateSpecification: Pim;
-};
-
-export type MutationAddCadastreArgs = {
-  input: AddCadastreInput;
-};
-
-export type MutationAddCadastreMapsArgs = {
-  input: AddCadastreMapsInput;
-};
-
-export type MutationAddCostArgs = {
-  input: AddCostInput;
-};
-
-export type MutationAddFilesArgs = {
-  input: AddFilesInput;
-};
-
-export type MutationAddFloorToPimArgs = {
-  input: AddNewFloorInput;
-};
-
-export type MutationAddMeterArgs = {
-  input: AddMeterInput;
-};
-
-export type MutationAddOutsideFeatureArgs = {
-  input: AddOutsideFeatureInput;
-};
-
-export type MutationAddPimLabelArgs = {
-  input: PimLabelInput;
-};
-
-export type MutationAddPricingArgs = {
-  input: AddPricingInput;
-};
-
-export type MutationAddReadingArgs = {
-  input: AddReadingInput;
-};
-
-export type MutationAddServiceArgs = {
-  input: AddServiceInput;
-};
-
-export type MutationAddSpaceToFloorArgs = {
-  input: AddSpaceInput;
-};
-
-export type MutationCreatePimArgs = {
-  input: CreatePimInput;
-};
-
-export type MutationDeleteUserArgs = {
-  id?: Maybe<Scalars['String']>;
-};
-
-export type MutationForgotPasswordArgs = {
-  input?: Maybe<ForgotPasswordInput>;
-};
-
-export type MutationLoginArgs = {
-  input?: Maybe<LoginInput>;
-};
-
-export type MutationRemovePimArgs = {
-  id: Scalars['String'];
-};
-
-export type MutationRemovePimLabelArgs = {
-  id: Scalars['ID'];
-};
-
-export type MutationResetPasswordArgs = {
-  input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
-};
-
-export type MutationSetLinkedPropertiesArgs = {
-  input: LinkedPimInput;
-};
-
-export type MutationUpdateCadastreArgs = {
-  input: UpdateCadastreInput;
-};
-
-export type MutationUpdateCostArgs = {
-  input: UpdateCostInput;
-};
-
-export type MutationUpdateFloorArgs = {
-  input: UpdateFloorInput;
-};
-
-export type MutationUpdateInvestmentArgs = {
-  input: InvestmentInput;
-};
-
-export type MutationUpdateMeterArgs = {
-  input: UpdateMeterInput;
-};
-
-export type MutationUpdateOutsideFeatureArgs = {
-  input: Scalars['UpdateFeatureInputConfiguration'];
-};
-
-export type MutationUpdatePimGeneralInfoArgs = {
-  input: PimGeneralInput;
-};
-
-export type MutationUpdatePimOutsideInfoArgs = {
-  input: Scalars['PimOutsideInput'];
-};
-
-export type MutationUpdatePricingArgs = {
-  input: UpdatePricingInput;
-};
-
-export type MutationUpdateReadingArgs = {
-  input: UpdateReadingInput;
-};
-
-export type MutationUpdateServiceArgs = {
-  input: UpdateServiceInput;
-};
-
-export type MutationUpdateSpaceArgs = {
-  input: UpdateSpaceInput;
-};
-
-export type MutationUpdateSpecificationArgs = {
-  input: SpecificationInput;
-};
-
 export type LoginInput = {
   username: Scalars['String'];
   password: Scalars['String'];
@@ -470,27 +729,10 @@ export type ResetPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
-export type AddCadastreInput = {
-  pimId: Scalars['String'];
-  type: CadastreType;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type AddCadastreMapsInput = {
-  pimId: Scalars['String'];
-  maps: Array<NewCadastreMapInput>;
-};
-
 export type AddCostInput = {
   id: Scalars['ID'];
   type: CostType;
   name?: Maybe<Scalars['String']>;
-};
-
-export type AddFilesInput = {
-  fileIDs: Array<Scalars['ID']>;
-  entity: EntityWithFiles;
-  entityID: Scalars['ID'];
 };
 
 export type AddNewFloorInput = {
@@ -584,98 +826,14 @@ export type BedroomSpace = {
   images?: Maybe<Array<File>>;
 };
 
-export type BoughtOff = {
-  __typename?: 'BoughtOff';
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BoughtOffInput = {
-  date?: Maybe<Scalars['Date']>;
-  perpetually?: Maybe<Scalars['Boolean']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE',
 }
 
-export type Cadastre = {
-  __typename?: 'Cadastre';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: CadastreType;
-  maps?: Maybe<Array<CadastreMap>>;
-  plot?: Maybe<CadastrePlot>;
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
-};
-
-export type CadastreMap = {
-  __typename?: 'CadastreMap';
-  id: Scalars['String'];
-  mapName: Scalars['String'];
-  file?: Maybe<File>;
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<CadastreMapType>;
-};
-
-export enum CadastreMapType {
-  Map = 'Map',
-  Register = 'Register',
-}
-
-export type CadastrePlot = {
-  __typename?: 'CadastrePlot';
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<Ownership>;
-  lease?: Maybe<Lease>;
-  boughtOff?: Maybe<BoughtOff>;
-};
-
-export type CadastrePlotInput = {
-  id?: Maybe<Scalars['String']>;
-  notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  municipalCode?: Maybe<Scalars['String']>;
-  sectionCode?: Maybe<Scalars['String']>;
-  plot?: Maybe<Scalars['String']>;
-  indexNumber?: Maybe<Scalars['String']>;
-  surface?: Maybe<Scalars['Float']>;
-  share?: Maybe<Scalars['String']>;
-  codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<OwnershipInput>;
-  lease?: Maybe<LeaseInput>;
-  boughtOff?: Maybe<BoughtOffInput>;
-};
-
-export enum CadastreType {
-  CadastreMap = 'CadastreMap',
-  Plot = 'Plot',
-}
-
 export type ChangesHistoryFilters = {
   entityType?: Maybe<EventEntityType>;
 };
-
-export enum CodeSizeType {
-  Apartment = 'Apartment',
-  Tightness = 'Tightness',
-  PartLot = 'PartLot',
-  InWholePlot = 'InWholePlot',
-  MembershipRight = 'MembershipRight',
-}
 
 export type Company = {
   __typename?: 'Company';
@@ -740,13 +898,6 @@ export enum CostType {
   OzbBusinessPart = 'OzbBusinessPart',
   Custom = 'Custom',
 }
-
-export type CreateFileInput = {
-  fileName: Scalars['String'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  description?: Maybe<Scalars['String']>;
-};
 
 export type CreatePimInput = {
   realEstateType: RealEstateType;
@@ -818,16 +969,6 @@ export enum EnergyType {
   G = 'G',
 }
 
-export enum EntityWithFiles {
-  Pim = 'Pim',
-  Space = 'Space',
-  OutsideFeature = 'OutsideFeature',
-  OutsideGeneral = 'OutsideGeneral',
-  OutsidePropertyRelated = 'OutsidePropertyRelated',
-  RoofInformation = 'RoofInformation',
-  CadastreMap = 'CadastreMap',
-}
-
 export type Event = {
   __typename?: 'Event';
   id: Scalars['String'];
@@ -847,28 +988,6 @@ export enum EventAction {
 
 export enum EventEntityType {
   Pim = 'Pim',
-}
-
-export type File = {
-  __typename?: 'File';
-  id: Scalars['ID'];
-  fileName: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  status: Scalars['Int'];
-  fileType: Scalars['String'];
-  permission: FilePermission;
-  key: Scalars['ID'];
-  createdAt?: Maybe<Scalars['Date']>;
-  signedUrl?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  bucket?: Maybe<Scalars['String']>;
-  entityID?: Maybe<Scalars['String']>;
-  entity?: Maybe<EntityWithFiles>;
-};
-
-export enum FilePermission {
-  Public = 'public',
-  Private = 'private',
 }
 
 export type Floor = {
@@ -1075,40 +1194,6 @@ export enum KitchenType {
   Scullery = 'Scullery',
 }
 
-export type Lease = {
-  __typename?: 'Lease';
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
-export enum LeaseDurationType {
-  Forever = 'Forever',
-  Temporary = 'Temporary',
-  Constantly = 'Constantly',
-}
-
-export enum LeaseholderType {
-  Different = 'Different',
-  Township = 'Township',
-  Private = 'Private',
-}
-
-export enum LeaseInformationType {
-  Virable = 'Virable',
-  Fixed = 'Fixed',
-}
-
-export type LeaseInput = {
-  leaseholder?: Maybe<LeaseholderType>;
-  information?: Maybe<LeaseInformationType>;
-  duration?: Maybe<LeaseDurationType>;
-  yearlyPrice?: Maybe<Scalars['Float']>;
-  endDate?: Maybe<Scalars['Date']>;
-};
-
 export type LinkedPim = {
   __typename?: 'LinkedPim';
   id: Scalars['ID'];
@@ -1222,13 +1307,6 @@ export enum Location {
   West = 'West',
 }
 
-export type NewCadastreMapInput = {
-  mapName: Scalars['String'];
-  fileID: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: CadastreMapType;
-};
-
 export type ObligationToProvideInformation = {
   __typename?: 'ObligationToProvideInformation';
   label?: Maybe<Scalars['String']>;
@@ -1280,21 +1358,6 @@ export enum OutsideFeatureType {
   ParkingLot = 'ParkingLot',
 }
 
-export type Ownership = {
-  __typename?: 'Ownership';
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
-};
-
-export enum OwnershipChoiceType {
-  NoneOfThem = 'NoneOfThem',
-  UseAndHabitation = 'UseAndHabitation',
-  Usufruct = 'Usufruct',
-}
-
-export type OwnershipInput = {
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
-};
-
 export type Pagination = {
   from?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
@@ -1334,7 +1397,6 @@ export type Pim = {
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   floors?: Maybe<Array<Floor>>;
-  cadastre?: Maybe<Array<Cadastre>>;
   pricing?: Maybe<Pricing>;
   costs?: Maybe<Array<Cost>>;
   lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
@@ -1342,12 +1404,6 @@ export type Pim = {
   investment?: Maybe<Investment>;
   specification?: Maybe<Specification>;
   linkedProperties?: Maybe<Array<Pim>>;
-};
-
-export type PimCadastre = {
-  __typename?: 'PimCadastre';
-  id: Scalars['ID'];
-  cadastre?: Maybe<Array<Cadastre>>;
 };
 
 export type PimFloor = {
@@ -1912,22 +1968,6 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type UpdateCadastreInput = {
-  id: Scalars['String'];
-  pimId: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  plot?: Maybe<CadastrePlotInput>;
-};
-
-export type UpdateCadastreMapInput = {
-  mapId?: Maybe<Scalars['String']>;
-  cadastreId?: Maybe<Scalars['String']>;
-  mapName: Scalars['String'];
-  fileID?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  type: CadastreMapType;
-};
-
 export type UpdateCostInput = {
   id: Scalars['ID'];
   serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
@@ -1987,6 +2027,67 @@ export type ResetPasswordMutationVariables = {
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
+};
+
+export type AddCadastreMutationVariables = {
+  input: AddCadastreInput;
+};
+
+export type AddCadastreMutation = { __typename?: 'Mutation' } & {
+  addCadastre?: Maybe<
+    { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
+        cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
+      }
+  >;
+};
+
+export type UpdateCadastreMutationVariables = {
+  input: UpdateCadastreInput;
+};
+
+export type UpdateCadastreMutation = { __typename?: 'Mutation' } & {
+  updateCadastre?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddCadastreMapsMutationVariables = {
+  input: AddCadastreMapsInput;
+};
+
+export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
+  addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type UpdateMapMutationVariables = {
+  input: UpdateCadastreMapInput;
+};
+
+export type UpdateMapMutation = { __typename?: 'Mutation' } & {
+  updateCadastreMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type InitSendFileMutationVariables = {
+  input: InitSendFileInput;
+};
+
+export type InitSendFileMutation = { __typename?: 'Mutation' } & {
+  initSendFile: { __typename?: 'File' } & Pick<File, 'signedUrl' | 'id'>;
+};
+
+export type UploadFileMutationVariables = {
+  input: Scalars['UploadFileInput'];
+  pathBuilder?: Maybe<Scalars['PathBuilder']>;
+};
+
+export type UploadFileMutation = { __typename?: 'Mutation' } & {
+  uploadFile?: Maybe<{ __typename?: 'UploadFileResponse' } & Pick<UploadFileResponse, 'id'>>;
+};
+
+export type AddFilesMutationVariables = {
+  input: AddFilesInput;
+};
+
+export type AddFilesMutation = { __typename?: 'Mutation' } & {
+  addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
 };
 
 export type CreatePimMutationVariables = {
@@ -2063,34 +2164,6 @@ export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
   updatePimOutsideInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddCadastreMutationVariables = {
-  input: AddCadastreInput;
-};
-
-export type AddCadastreMutation = { __typename?: 'Mutation' } & {
-  addCadastre?: Maybe<
-    { __typename?: 'Pim' } & Pick<Pim, 'id'> & {
-        cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
-      }
-  >;
-};
-
-export type UpdateCadastreMutationVariables = {
-  input: UpdateCadastreInput;
-};
-
-export type UpdateCadastreMutation = { __typename?: 'Mutation' } & {
-  updateCadastre?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
-};
-
-export type AddCadastreMapsMutationVariables = {
-  input: AddCadastreMapsInput;
-};
-
-export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
-  addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
-};
-
 export type AddServiceMutationVariables = {
   input: AddServiceInput;
 };
@@ -2142,6 +2215,54 @@ export type UpdateReadingMutationVariables = {
 
 export type UpdateReadingMutation = { __typename?: 'Mutation' } & {
   updateReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type PimCadastreQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimCadastreQuery = { __typename?: 'Query' } & {
+  getPimCadastre: { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
+      cadastre?: Maybe<
+        Array<
+          { __typename?: 'Cadastre' } & Pick<
+            Cadastre,
+            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated' | 'lastEditedBy'
+          > & {
+              maps?: Maybe<
+                Array<
+                  { __typename?: 'CadastreMap' } & Pick<CadastreMap, 'id' | 'mapName' | 'description' | 'type'> & {
+                      file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id'>>;
+                    }
+                >
+              >;
+              plot?: Maybe<
+                { __typename?: 'CadastrePlot' } & Pick<
+                  CadastrePlot,
+                  | 'notes'
+                  | 'name'
+                  | 'municipalCode'
+                  | 'sectionCode'
+                  | 'plot'
+                  | 'indexNumber'
+                  | 'surface'
+                  | 'share'
+                  | 'codeSize'
+                > & {
+                    ownership?: Maybe<{ __typename?: 'Ownership' } & Pick<Ownership, 'stressedInChargeOf'>>;
+                    lease?: Maybe<
+                      { __typename?: 'Lease' } & Pick<
+                        Lease,
+                        'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                      >
+                    >;
+                    boughtOff?: Maybe<{ __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>>;
+                  }
+              >;
+            }
+        >
+      >;
+    };
 };
 
 export type CountPimsByParamsQueryVariables = {
@@ -2254,14 +2375,21 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
         houseOutside?: Maybe<
           { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
               generalInformation?: Maybe<
-                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'notes' | 'qualityInformation'>
+                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'notes' | 'qualityInformation'> & {
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                  }
               >;
-              propertyRelated?: Maybe<{ __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'>>;
+              propertyRelated?: Maybe<
+                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                  }
+              >;
               roofInformation?: Maybe<
                 { __typename?: 'RoofInformation' } & {
                   type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
                   material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
                   insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
                 }
               >;
             }
@@ -2326,6 +2454,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                       dimensions?: Maybe<
                         { __typename?: 'RectangleDimensions' } & Pick<RectangleDimensions, 'length' | 'height'>
                       >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
                     }
                 >;
               }
@@ -2396,7 +2525,7 @@ export type MeQuery = { __typename?: 'Query' } & {
 
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST") {
+    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
       accessToken
       refreshToken
     }
@@ -2413,7 +2542,7 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
     forgotPassword(input: $input)
-      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST") {
+      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -2435,7 +2564,12 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
 export const ResetPasswordDocument = gql`
   mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
     resetPassword(input: $input, token: $token)
-      @rest(type: "ResetPasswordResponse", path: "/public/auth/reset-password/{args.token}", method: "POST") {
+      @rest(
+        type: "ResetPasswordResponse"
+        path: "/public/auth/reset-password/{args.token}"
+        method: "POST"
+        endpoint: "default"
+      ) {
       error
     }
   }
@@ -2453,6 +2587,150 @@ export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<Reset
 export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
+>;
+export const AddCadastreDocument = gql`
+  mutation AddCadastre($input: AddCadastreInput!) {
+    addCadastre(input: $input) {
+      id
+      cadastre {
+        id
+        type
+      }
+    }
+  }
+`;
+export function useAddCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMutation, AddCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMutation, AddCadastreMutationVariables>(
+    AddCadastreDocument,
+    baseOptions,
+  );
+}
+export type AddCadastreMutationHookResult = ReturnType<typeof useAddCadastreMutation>;
+export type AddCadastreMutationResult = ApolloReactCommon.MutationResult<AddCadastreMutation>;
+export type AddCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMutation,
+  AddCadastreMutationVariables
+>;
+export const UpdateCadastreDocument = gql`
+  mutation UpdateCadastre($input: UpdateCadastreInput!) {
+    updateCadastre(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCadastreMutation, UpdateCadastreMutationVariables>(
+    UpdateCadastreDocument,
+    baseOptions,
+  );
+}
+export type UpdateCadastreMutationHookResult = ReturnType<typeof useUpdateCadastreMutation>;
+export type UpdateCadastreMutationResult = ApolloReactCommon.MutationResult<UpdateCadastreMutation>;
+export type UpdateCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCadastreMutation,
+  UpdateCadastreMutationVariables
+>;
+export const AddCadastreMapsDocument = gql`
+  mutation AddCadastreMaps($input: AddCadastreMapsInput!) {
+    addCadastreMaps(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddCadastreMapsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>(
+    AddCadastreMapsDocument,
+    baseOptions,
+  );
+}
+export type AddCadastreMapsMutationHookResult = ReturnType<typeof useAddCadastreMapsMutation>;
+export type AddCadastreMapsMutationResult = ApolloReactCommon.MutationResult<AddCadastreMapsMutation>;
+export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMapsMutation,
+  AddCadastreMapsMutationVariables
+>;
+export const UpdateMapDocument = gql`
+  mutation UpdateMap($input: UpdateCadastreMapInput!) {
+    updateCadastreMap(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateMapMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMapMutation, UpdateMapMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMapMutation, UpdateMapMutationVariables>(UpdateMapDocument, baseOptions);
+}
+export type UpdateMapMutationHookResult = ReturnType<typeof useUpdateMapMutation>;
+export type UpdateMapMutationResult = ApolloReactCommon.MutationResult<UpdateMapMutation>;
+export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMapMutation,
+  UpdateMapMutationVariables
+>;
+export const InitSendFileDocument = gql`
+  mutation InitSendFile($input: InitSendFileInput!) {
+    initSendFile(input: $input) @rest(type: "File!", method: "POST", path: "", endpoint: "upload") {
+      signedUrl
+      id
+    }
+  }
+`;
+export function useInitSendFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<InitSendFileMutation, InitSendFileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<InitSendFileMutation, InitSendFileMutationVariables>(
+    InitSendFileDocument,
+    baseOptions,
+  );
+}
+export type InitSendFileMutationHookResult = ReturnType<typeof useInitSendFileMutation>;
+export type InitSendFileMutationResult = ApolloReactCommon.MutationResult<InitSendFileMutation>;
+export type InitSendFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  InitSendFileMutation,
+  InitSendFileMutationVariables
+>;
+export const UploadFileDocument = gql`
+  mutation UploadFile($input: UploadFileInput!, $pathBuilder: PathBuilder) {
+    uploadFile(input: $input, pathBuilder: $pathBuilder)
+      @rest(type: "UploadFileResponse!", pathBuilder: $pathBuilder, method: "PUT", bodySerializer: "fileEncode") {
+      id
+    }
+  }
+`;
+export function useUploadFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, baseOptions);
+}
+export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
+export type UploadFileMutationResult = ApolloReactCommon.MutationResult<UploadFileMutation>;
+export type UploadFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UploadFileMutation,
+  UploadFileMutationVariables
+>;
+export const AddFilesDocument = gql`
+  mutation AddFiles($input: AddFilesInput!) {
+    addFiles(input: $input) {
+      url
+    }
+  }
+`;
+export function useAddFilesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddFilesMutation, AddFilesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddFilesMutation, AddFilesMutationVariables>(AddFilesDocument, baseOptions);
+}
+export type AddFilesMutationHookResult = ReturnType<typeof useAddFilesMutation>;
+export type AddFilesMutationResult = ApolloReactCommon.MutationResult<AddFilesMutation>;
+export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddFilesMutation,
+  AddFilesMutationVariables
 >;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
@@ -2655,73 +2933,6 @@ export type UpdatePimOutsideInfoMutationOptions = ApolloReactCommon.BaseMutation
   UpdatePimOutsideInfoMutation,
   UpdatePimOutsideInfoMutationVariables
 >;
-export const AddCadastreDocument = gql`
-  mutation AddCadastre($input: AddCadastreInput!) {
-    addCadastre(input: $input) {
-      id
-      cadastre {
-        id
-        type
-      }
-    }
-  }
-`;
-export function useAddCadastreMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMutation, AddCadastreMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<AddCadastreMutation, AddCadastreMutationVariables>(
-    AddCadastreDocument,
-    baseOptions,
-  );
-}
-export type AddCadastreMutationHookResult = ReturnType<typeof useAddCadastreMutation>;
-export type AddCadastreMutationResult = ApolloReactCommon.MutationResult<AddCadastreMutation>;
-export type AddCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddCadastreMutation,
-  AddCadastreMutationVariables
->;
-export const UpdateCadastreDocument = gql`
-  mutation UpdateCadastre($input: UpdateCadastreInput!) {
-    updateCadastre(input: $input) {
-      id
-    }
-  }
-`;
-export function useUpdateCadastreMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<UpdateCadastreMutation, UpdateCadastreMutationVariables>(
-    UpdateCadastreDocument,
-    baseOptions,
-  );
-}
-export type UpdateCadastreMutationHookResult = ReturnType<typeof useUpdateCadastreMutation>;
-export type UpdateCadastreMutationResult = ApolloReactCommon.MutationResult<UpdateCadastreMutation>;
-export type UpdateCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdateCadastreMutation,
-  UpdateCadastreMutationVariables
->;
-export const AddCadastreMapsDocument = gql`
-  mutation AddCadastreMaps($input: AddCadastreMapsInput!) {
-    addCadastreMaps(input: $input) {
-      id
-    }
-  }
-`;
-export function useAddCadastreMapsMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>(
-    AddCadastreMapsDocument,
-    baseOptions,
-  );
-}
-export type AddCadastreMapsMutationHookResult = ReturnType<typeof useAddCadastreMapsMutation>;
-export type AddCadastreMapsMutationResult = ApolloReactCommon.MutationResult<AddCadastreMapsMutation>;
-export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddCadastreMapsMutation,
-  AddCadastreMapsMutationVariables
->;
 export const AddServiceDocument = gql`
   mutation AddService($input: AddServiceInput!) {
     addService(input: $input) {
@@ -2844,6 +3055,70 @@ export type UpdateReadingMutationOptions = ApolloReactCommon.BaseMutationOptions
   UpdateReadingMutation,
   UpdateReadingMutationVariables
 >;
+export const PimCadastreDocument = gql`
+  query PimCadastre($id: ID!) {
+    getPimCadastre(id: $id) {
+      id
+      cadastre {
+        id
+        description
+        type
+        maps {
+          id
+          mapName
+          file {
+            key
+            id
+          }
+          description
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownership {
+            stressedInChargeOf
+          }
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
+            notes
+          }
+        }
+        dateCreated
+        dateUpdated
+        lastEditedBy
+      }
+    }
+  }
+`;
+export function usePimCadastreQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export function usePimCadastreLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
+export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
+export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -3002,10 +3277,16 @@ export const PimDetailsDocument = gql`
         generalInformation {
           notes
           qualityInformation
+          images {
+            url
+          }
         }
         propertyRelated {
           items
           notes
+          images {
+            url
+          }
         }
         roofInformation {
           type {
@@ -3019,6 +3300,9 @@ export const PimDetailsDocument = gql`
           insulation {
             name
             notes
+          }
+          images {
+            url
           }
         }
         notes
@@ -3081,6 +3365,9 @@ export const PimDetailsDocument = gql`
               }
             }
             surface
+            images {
+              url
+            }
           }
         }
       }

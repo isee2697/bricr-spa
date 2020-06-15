@@ -13,9 +13,9 @@ import { Grid, Button } from 'ui/atoms';
     return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={1}>
-        <UploadImageField name="image" />
-        <UploadImageField name="image2" />
-        <UploadImageField name="image3" />
+        <UploadImageField name="image" entity="Space" entityId="test"/>
+        <UploadImageField name="image2" entity="Space" entityId="test"/>
+        <UploadImageField name="image3" entity="Space" entityId="test"/>
       </Grid>
     </form>
     )

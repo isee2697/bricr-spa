@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { SubSectionHeader, FormSubSection } from 'ui/molecules';
-import { Grid, Collapse, Box } from 'ui/atoms';
+import { Grid, Collapse, Box, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useStyles } from '../CadsatralMaps.styles';
-import { useLocale } from 'hooks';
+import { useLocale, useGetPrivateFile } from 'hooks';
+import { EntityWithFiles } from 'api/types';
 
 import { CadastreMapProps } from './CadastralMaps.types';
 import { cadastralMapTypes } from './dictionaries';
@@ -12,6 +13,11 @@ import { cadastralMapTypes } from './dictionaries';
 export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleClick }: CadastreMapProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { data } = useGetPrivateFile(
+    (cadastreMap.file && cadastreMap.file.key) || '',
+    EntityWithFiles.CadastreMap,
+    cadastreMap.id,
+  );
 
   return (
     <>
@@ -23,7 +29,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
       <Collapse in={toggled}>
         <Grid className={classes.content} container spacing={9}>
           <Grid item md={5}>
-            {/* <ImageHolder withBorder src={!!cadastreMap.fileName ? cadastreMap.fileName : undefined} /> */}
+            <ImageHolder withBorder src={data?.signedUrl || undefined} />
           </Grid>
           <Grid item md={7}>
             <GenericField
@@ -48,7 +54,6 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
               label="pim_details.cadastre.description_label"
             />
             <Box mb={4} />
-            {/* <LastUpdated dateUpdated={cadastreMap.dateUpdated} updatedBy={cadastreMap.updatedBy} /> */}
           </Grid>
         </Grid>
         <Grid item xs={12}>

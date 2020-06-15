@@ -5,10 +5,10 @@ import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AppliancesField } from '../appliancesField/AppliancesField';
-import { SpaceFormProps } from '../Space.types';
+import { KitchenFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
 
-export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
+export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
   const { formatMessage } = useLocale();
 
   return (

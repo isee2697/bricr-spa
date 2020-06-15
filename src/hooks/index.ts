@@ -9,3 +9,4 @@ export * from './useOverlayState/useOverlayState';
 export * from './usePortal/usePortal';
 export * from './usePagination/usePagination';
 export * from './useScrollTop/useScrollTop';
+export * from './useGetPrivateFile/useGetPrivateFile';

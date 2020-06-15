@@ -14,12 +14,13 @@ import { Grid, Typography, Box } from 'ui/atoms';
 import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { FormSubSection } from 'ui/molecules';
+import { EntityWithFiles } from 'api/types';
 
 import * as dictionaries from './dictionaries';
 import { GardenProps } from './Garden.types';
 import { useStyles } from './Garden.styles';
 
-export const Garden = ({ feature, onSave }: GardenProps) => {
+export const Garden = ({ feature, onSave, id = '' }: GardenProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -173,7 +174,12 @@ export const Garden = ({ feature, onSave }: GardenProps) => {
                     subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
                   />
                 </Box>
-                <UploadImageGroupField name="outside.images" disabled={!isEditMode} />
+                <UploadImageGroupField
+                  entity={EntityWithFiles.OutsideFeature}
+                  entityID={id}
+                  name="configuration.images"
+                  disabled={!isEditMode}
+                />
               </>
             )}
           </FormSection>

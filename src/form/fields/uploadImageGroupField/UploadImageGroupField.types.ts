@@ -1,5 +1,7 @@
 import { FieldValidator } from 'final-form';
 
+import { EntityWithFiles } from 'api/types';
+
 type FieldValue = string[];
 
 export type UploadImageGroupFieldProps = {
@@ -8,4 +10,6 @@ export type UploadImageGroupFieldProps = {
   name: string;
   max?: number;
   disabled?: boolean;
+  entity: EntityWithFiles;
+  entityID: string;
 };

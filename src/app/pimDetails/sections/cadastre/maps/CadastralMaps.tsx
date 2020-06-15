@@ -15,9 +15,7 @@ export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
   const { formatMessage } = useLocale();
   const [isAddModalOpened, setAddModalOpened] = useState(false);
   const classes = useStyles();
-  // const [toggled, setToggled] = useState<string | undefined>(
-  //   !!cadstralMaps.maps && cadstralMaps.maps.length > 1 ? cadstralMaps.maps[0].id : undefined,
-  // );
+  const [toggled, setToggled] = useState<string | undefined>();
 
   return (
     <>
@@ -29,10 +27,10 @@ export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
         {isEditMode => (
           <List
             className={classes.list}
-            items={/*cadstralMaps.maps ??*/ []}
+            items={cadstralMaps}
             itemIndex={'id'}
             renderItem={(cadastre, checked, checkbox) => (
-              <Box className={classNames({ [classes.rowChecked]: checked })} key={cadastre}>
+              <Box className={classNames({ [classes.rowChecked]: checked })} key={cadastre.id}>
                 <CadastreMapContainer
                   isEditMode={isEditMode}
                   cadastreId={cadastreId}
@@ -40,13 +38,13 @@ export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
                     <>
                       {checkbox}
                       <Typography variant="h3">
-                        {/*cadastre.mapName ||*/ formatMessage({ id: 'pim_details.cadastre.unnamed' })}
+                        {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
                       </Typography>
                     </>
                   }
                   cadastreMap={cadastre}
-                  toggled={false /*toggled === cadastre.id*/}
-                  onToggleClick={() => /*setToggled(toggled !== cadastre.id ? cadastre.id : undefined)*/ undefined}
+                  toggled={toggled === cadastre.id}
+                  onToggleClick={() => setToggled(toggled !== cadastre.id ? cadastre.id : undefined)}
                 />
               </Box>
             )}

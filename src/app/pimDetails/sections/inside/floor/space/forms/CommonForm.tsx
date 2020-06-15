@@ -6,8 +6,9 @@ import { GenericField, RadioGroupField, CheckboxGroupField, UploadImageGroupFiel
 import { useLocale } from 'hooks';
 import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
+import { EntityWithFiles } from 'api/types';
 
-export const CommonForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
+export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -117,7 +118,13 @@ export const CommonForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
       <Grid item xs={12}>
         <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
-        <UploadImageGroupField max={3} disabled={!isEditMode} name={`${fieldPrefix}.images`} />
+        <UploadImageGroupField
+          entity={EntityWithFiles.Space}
+          entityID={id}
+          max={3}
+          disabled={!isEditMode}
+          name={`${fieldPrefix}.images`}
+        />
       </Grid>
     </>
   );

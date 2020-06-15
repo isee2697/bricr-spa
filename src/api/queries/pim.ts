@@ -112,11 +112,17 @@ export const PIM_DETAILS = gql`
         generalInformation {
           notes
           qualityInformation
+          images {
+            url
+          }
           #pictures
         }
         propertyRelated {
           items
           notes
+          images {
+            url
+          }
           #pictures
         }
         roofInformation {
@@ -131,6 +137,9 @@ export const PIM_DETAILS = gql`
           insulation {
             name
             notes
+          }
+          images {
+            url
           }
         }
         notes
@@ -193,61 +202,12 @@ export const PIM_DETAILS = gql`
               }
             }
             surface
-            #pictures
+            images {
+              url
+            }
           }
         }
       }
-      # cadastre {
-      #   id
-      #   description
-      #   type
-      #   configuration {
-      #     ... on CadastreMaps {
-      #       maps {
-      #         id
-      #         mapName
-      #         fileName
-      #         description
-      #         type
-      #       }
-      #     }
-      #     ... on CadastrePlot {
-      #       notes
-      #       name
-      #       municipalCode
-      #       sectionCode
-      #       plot
-      #       indexNumber
-      #       surface
-      #       share
-      #       codeSize
-      #       ownership {
-      #         stressedInChargeOf
-      #       }
-      #       lease {
-      #         leaseholder
-      #         information
-      #         duration
-      #         yearlyPrice
-      #         endDate
-      #       }
-      #       boughtOff {
-      #         date
-      #         perpetually
-      #         notes
-      #       }
-      #     }
-      #   }
-      # }
-      # cadastralMaps {
-      #   id
-      #   file
-      #   fileName
-      #   title
-      #   type
-      #   dateUpdated
-      #   updatedBy
-      # }
     }
   }
 `;

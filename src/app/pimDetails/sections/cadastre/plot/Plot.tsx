@@ -12,7 +12,7 @@ import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
 import { PlotProps } from './Plot.types';
 
-export const Plot = ({ index }: PlotProps) => {
+export const Plot = ({ name }: PlotProps) => {
   const [isToggled, setToggled] = useState(false);
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -24,7 +24,7 @@ export const Plot = ({ index }: PlotProps) => {
         placeholder="pim_details.cadastre.description_placeholder"
         name="description"
       />
-      <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
+      <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index: name })}>
         {editing => (
           <Grid container spacing={4}>
             <Grid item xs={12}>
@@ -41,14 +41,14 @@ export const Plot = ({ index }: PlotProps) => {
                     size="medium"
                     label="pim_details.cadastre.plot.name_of_municipality"
                     placeholder="pim_details.cadastre.plot.name_of_municipality_placeholder"
-                    name="configuration.name"
+                    name="name"
                     disabled={!editing}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <GenericField
-                      name="configuration.municipalCode"
+                      name="municipalCode"
                       label="pim_details.cadastre.plot.municipality_code"
                       placeholder="pim_details.cadastre.plot.municipality_code_placeholder"
                       size="medium"
@@ -61,14 +61,14 @@ export const Plot = ({ index }: PlotProps) => {
                     size="medium"
                     label="pim_details.cadastre.plot.municipality_section_code"
                     placeholder="pim_details.cadastre.plot.municipality_section_code_placeholder"
-                    name="configuration.sectionCode"
+                    name="sectionCode"
                     disabled={!editing}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <GenericField
-                      name="configuration.plot"
+                      name="plot"
                       label="pim_details.cadastre.plot.cadastral_plot"
                       placeholder="pim_details.cadastre.plot.cadastral_plot_placeholder"
                       size="medium"
@@ -81,14 +81,14 @@ export const Plot = ({ index }: PlotProps) => {
                     size="medium"
                     label="pim_details.cadastre.plot.index"
                     placeholder="pim_details.cadastre.plot.index_placeholder"
-                    name="configuration.indexNumber"
+                    name="indexNumber"
                     disabled={!editing}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <GenericField
-                      name="configuration.surface"
+                      name="surface"
                       label="pim_details.cadastre.plot.surface"
                       placeholder="pim_details.cadastre.plot.surface_placeholder"
                       size="medium"
@@ -100,7 +100,7 @@ export const Plot = ({ index }: PlotProps) => {
                 <Grid item xs={6}>
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <GenericField
-                      name="configuration.share"
+                      name="share"
                       label="pim_details.cadastre.plot.share"
                       placeholder="pim_details.cadastre.plot.share_placeholder"
                       size="medium"
@@ -122,7 +122,7 @@ export const Plot = ({ index }: PlotProps) => {
                   disabled={!editing}
                   xs={4}
                   lg={2}
-                  name="configuration.codeSize"
+                  name="codeSize"
                   options={dictionaries.size}
                 />
               </Box>
@@ -141,7 +141,7 @@ export const Plot = ({ index }: PlotProps) => {
                       disabled={!editing}
                       xs={12}
                       lg={12}
-                      name="configuration.ownership.type"
+                      name="ownership.type"
                       options={dictionaries.ownershipType}
                     />
                   </Box>
@@ -149,14 +149,14 @@ export const Plot = ({ index }: PlotProps) => {
                 <Grid item xs={1} />
                 <Grid item xs={6}>
                   <Box pt={2}>
-                    <Field name="configuration.ownership.type">
+                    <Field name="ownership.type">
                       {({ input }) =>
                         !!input.value && (
                           <RadioGroupField
                             spacing={1}
                             disabled={!editing}
                             xs={4}
-                            name="configuration.ownership.stressedInChargeOf"
+                            name="ownership.stressedInChargeOf"
                             options={dictionaries.ownershipValue}
                             format={value => (value ? value[0] : undefined)}
                             parse={(value: string) => (value ? [value] : [])}
@@ -180,7 +180,7 @@ export const Plot = ({ index }: PlotProps) => {
                   disabled={!editing}
                   xs={4}
                   lg={2}
-                  name="configuration.lease.leaseholder"
+                  name="lease.leaseholder"
                   options={dictionaries.leaseholder}
                 />
               </Box>
@@ -197,7 +197,7 @@ export const Plot = ({ index }: PlotProps) => {
                   disabled={!editing}
                   xs={4}
                   lg={2}
-                  name="configuration.lease.information"
+                  name="lease.information"
                   options={dictionaries.groundInfo}
                 />
               </Box>
@@ -214,7 +214,7 @@ export const Plot = ({ index }: PlotProps) => {
                   disabled={!editing}
                   xs={4}
                   lg={2}
-                  name="configuration.lease.duration"
+                  name="lease.duration"
                   options={dictionaries.groundDuration}
                 />
               </Box>
@@ -242,7 +242,7 @@ export const Plot = ({ index }: PlotProps) => {
                     size="medium"
                     label="pim_details.cadastre.plot.yearly_price"
                     placeholder="pim_details.cadastre.plot.yearly_price_placeholder"
-                    name="configuration.lease.yearlyPrice"
+                    name="lease.yearlyPrice"
                     disabled={!editing}
                     type="number"
                   />
@@ -254,7 +254,7 @@ export const Plot = ({ index }: PlotProps) => {
                       size="medium"
                       format="yyyy"
                       views={['year']}
-                      name="configuration.lease.endDate"
+                      name="lease.endDate"
                       label="pim_details.cadastre.plot.lease_end"
                       placeholder="pim_details.cadastre.plot.lease_end_placeholder"
                       disabled={!editing}
@@ -285,11 +285,11 @@ export const Plot = ({ index }: PlotProps) => {
               <Collapse className={classes.collapse} in={isToggled} timeout="auto" unmountOnExit>
                 <Grid container spacing={1} className={classes.gridContainer}>
                   <Grid item xs={5}>
-                    <Field name="configuration.boughtOff.perpetually">
+                    <Field name="boughtOff.perpetually">
                       {({ input }) => (
                         <DatePickerField
                           size="medium"
-                          name="configuration.boughtOff.date"
+                          name="boughtOff.date"
                           label="pim_details.cadastre.plot.bought_off"
                           placeholder="pim_details.cadastre.plot.bought_off_placeholder"
                           disabled={!editing || !!input.value}
@@ -304,10 +304,10 @@ export const Plot = ({ index }: PlotProps) => {
                         label={formatMessage({ id: 'pim_details.cadastre.plot.endless_lease' })}
                         className={classes.checkbox}
                         control={
-                          <Field name="configuration.boughtOff.perpetually">
+                          <Field name="boughtOff.perpetually">
                             {({ input }) => (
                               <Checkbox
-                                name="configuration.boughtOff.perpetually"
+                                name="boughtOff.perpetually"
                                 color="primary"
                                 value={input.value}
                                 checked={!!input.value}
@@ -325,7 +325,7 @@ export const Plot = ({ index }: PlotProps) => {
                       size="medium"
                       label="pim_details.cadastre.plot.notes"
                       placeholder="pim_details.cadastre.plot.notes_placeholder"
-                      name="configuration.boughtOff.notes"
+                      name="boughtOff.notes"
                       disabled={!editing}
                     />
                   </Grid>

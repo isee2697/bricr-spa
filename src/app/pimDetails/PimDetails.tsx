@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { Pim } from 'api/types';
+import { Pim, PimServices } from 'api/types';
 import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -18,7 +18,7 @@ import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Prices } from './sections/prices/Prices';
 import { SpecificationContainer } from './sections/specification/SpecificationContainer';
 
-export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
+export const PimDetails = ({ error: isError, data, servicesData, cadastreData }: PimDetailsProps) => {
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
   const { formatMessage } = useLocale();
@@ -37,7 +37,12 @@ export const PimDetails = ({ error: isError, data }: PimDetailsProps) => {
     <Grid container spacing={0}>
       {isSidebarVisible && (
         <Grid item xs={12} md={3} lg={2}>
-          <PimDetailsSidebarMenu pim={pim} onHide={handleSidebarHide} />
+          <PimDetailsSidebarMenu
+            pim={pim}
+            services={servicesData?.getPimServices as PimServices}
+            cadastre={cadastreData?.getPimCadastre}
+            onHide={handleSidebarHide}
+          />
         </Grid>
       )}
       <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>

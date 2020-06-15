@@ -4,7 +4,8 @@ import { MemoryRouter as Router } from 'react-router-dom';
 
 import '@babel/polyfill';
 import { render } from 'tests';
-import { PIM_DETAILS_1 } from 'api/mocks/pim';
+import { PIM_DETAILS_1, PIM_SERVICES } from 'api/mocks/pim';
+import { PIM_CADASTRE_1 } from 'api/mocks/cadastre';
 
 import { PimDetails } from './PimDetails';
 
@@ -28,6 +29,12 @@ describe('PimDetails', () => {
           loading={false}
           data={{
             getPim: PIM_DETAILS_1,
+          }}
+          servicesData={{
+            getPimServices: PIM_SERVICES,
+          }}
+          cadastreData={{
+            getPimCadastre: PIM_CADASTRE_1,
           }}
         />
       </Router>,

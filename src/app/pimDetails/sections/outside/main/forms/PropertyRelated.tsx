@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Box } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
@@ -6,9 +7,11 @@ import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
+import { EntityWithFiles } from 'api/types';
 
 export const PropertyRelated = () => {
   const { formatMessage } = useLocale();
+  const { id: pimId } = useParams<{ id: string }>();
 
   return (
     <FormSection title={formatMessage({ id: 'pim_details.outside.main.property_related' })} isExpandable>
@@ -37,7 +40,13 @@ export const PropertyRelated = () => {
           </Box>
 
           <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
-          <UploadImageGroupField max={3} disabled={!isEditMode} name="houseOutside.propertyRelated.pictures" />
+          <UploadImageGroupField
+            entity={EntityWithFiles.OutsidePropertyRelated}
+            entityID={pimId}
+            max={3}
+            disabled={!isEditMode}
+            name="houseOutside.propertyRelated.images"
+          />
         </>
       )}
     </FormSection>

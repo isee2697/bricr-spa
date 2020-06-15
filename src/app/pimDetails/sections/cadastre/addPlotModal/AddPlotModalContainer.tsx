@@ -1,44 +1,45 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { CadastreType, PimDetailsDocument, useAddCadastreMutation } from 'api/types';
+import { CadastreType, useAddCadastreMutation, PimCadastreDocument } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddPlotModalContainerProps } from './AddPlotModal.types';
 import { AddPlotModal } from './AddPlotModal';
 
-export const AddPlotModalContainer = ({ pim, isModalOpened, onModalClose }: AddPlotModalContainerProps) => {
+export const AddPlotModalContainer = ({ isModalOpened, onModalClose }: AddPlotModalContainerProps) => {
+  const { id: pimId } = useParams<{ id: string }>();
   const { push } = useHistory();
   const [addCadastre, { loading }] = useAddCadastreMutation();
 
   const handleAddPlot = async () => {
     try {
-      if (!pim || !pim.id) {
+      if (!pimId) {
         throw new Error();
       }
 
       const { data: addCadastreResponse } = await addCadastre({
         variables: {
           input: {
-            pimId: pim.id,
+            pimId: pimId,
             description: '',
             type: CadastreType.Plot,
           },
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
+            query: PimCadastreDocument,
             variables: {
-              id: pim.id,
+              id: pimId,
             },
           },
         ],
       });
 
       if (addCadastreResponse && addCadastreResponse.addCadastre && addCadastreResponse.addCadastre.cadastre) {
-        const cadastre = addCadastreResponse.addCadastre.cadastre;
+        const cadastre = addCadastreResponse.addCadastre.cadastre.filter(c => c.type === CadastreType.Plot);
         const id = cadastre[cadastre.length - 1].id;
-        push(AppRoute.pimDetails.replace(':id', pim.id) + '/cadastre/' + id);
+        push(AppRoute.pimDetails.replace(':id', pimId) + '/cadastre/' + id);
 
         return undefined;
       }

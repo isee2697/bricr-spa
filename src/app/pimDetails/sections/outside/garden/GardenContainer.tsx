@@ -40,5 +40,5 @@ export const GardenContainer = ({ feature }: GardenContainerProps) => {
     }
   };
 
-  return <Garden feature={feature} onSave={handleSave} />;
+  return <Garden id={feature.id} feature={feature} onSave={handleSave} />;
 };

@@ -15,8 +15,8 @@ import arrayMutators from 'final-form-arrays';
   render={({handleSubmit, invalid, pristine}) => {
     return (
     <form onSubmit={handleSubmit}>
-        <UploadImageGroupField name="images" />
-        <UploadImageGroupField max={3} name="imagesMax" />
+        <UploadImageGroupField name="images" entity="Space" entityId="test"/>
+        <UploadImageGroupField max={3} name="imagesMax" entity="Space" entityId="test"/>
     </form>
     )
 }} />

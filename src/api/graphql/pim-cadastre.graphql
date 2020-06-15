@@ -1,0 +1,184 @@
+
+enum CadastreMapType {
+  Map,
+  Register,
+}
+
+enum CodeSizeType {
+  Apartment,
+  Tightness,
+  PartLot,
+  InWholePlot,
+  MembershipRight
+}
+
+enum LeaseholderType {
+  Different,
+  Township,
+  Private
+}
+
+enum CadastreType {
+  CadastreMap,
+  Plot
+}
+
+enum LeaseInformationType {
+  Virable,
+  Fixed
+}
+
+enum LeaseDurationType {
+  Forever,
+  Temporary,
+  Constantly
+}
+
+enum OwnershipChoiceType {
+  NoneOfThem,
+  UseAndHabitation,
+  Usufruct
+}
+
+input CadastrePlotInput {
+  id: String
+  notes: String,
+  name: String,
+  municipalCode: String,
+  sectionCode: String,
+  plot: String,
+  indexNumber: String,
+  surface: Float,
+  share: String
+  codeSize: CodeSizeType
+  ownership: OwnershipInput
+  lease: LeaseInput
+  boughtOff: BoughtOffInput
+}
+
+input UpdateCadastreInput {
+  id: String!
+  pimId: String!
+  description: String
+  plot: CadastrePlotInput
+}
+
+input AddCadastreInput {
+  pimId: String!
+  type: CadastreType!
+  description: String
+}
+
+input AddCadastreMapsInput {
+  pimId: String!
+  maps: [NewCadastreMapInput!]!
+}
+
+type BoughtOff {
+  date: Date,
+  perpetually: Boolean,
+  notes: String
+}
+
+
+input BoughtOffInput {
+  date: Date,
+  perpetually: Boolean,
+  notes: String
+}
+
+type CadastrePlot {
+  notes: String,
+  name: String,
+  municipalCode: String,
+  sectionCode: String,
+  plot: String,
+  indexNumber: String,
+  surface: Float,
+  share: String
+  codeSize: CodeSizeType
+  ownership: Ownership
+  lease: Lease
+  boughtOff: BoughtOff
+}
+
+type CadastreMap {
+  id: String!
+  mapName: String!
+  file: File
+  description: String
+  type: CadastreMapType,
+}
+
+type Lease {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float,
+  endDate: Date
+}
+
+input NewCadastreMapInput {
+  mapName: String!
+  fileID: String!
+  description: String
+  type: CadastreMapType!,
+}
+
+
+input LeaseInput {
+  leaseholder: LeaseholderType
+  information: LeaseInformationType
+  duration: LeaseDurationType
+  yearlyPrice: Float,
+  endDate: Date
+}
+
+type Ownership {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
+
+input OwnershipInput {
+  stressedInChargeOf: [OwnershipChoiceType]
+}
+
+type Cadastre {
+  id: String!
+  description: String
+  type: CadastreType!
+  maps: [CadastreMap!]
+  plot: CadastrePlot
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+}
+
+type PimCadastre {
+  id: ID!
+  cadastre: [Cadastre!]
+}
+
+input CadastreMapInput {
+  mapName: String
+  description: String
+  type: CadastreMapType,
+}
+
+input UpdateCadastreMapInput {
+  pimId: String!
+  cadastreId: String!
+  mapId: String!
+  map: CadastreMapInput
+  fileId: String
+}
+
+extend type Query {
+  getPimCadastre(id: ID!): PimCadastre! @auth
+}
+
+extend type Mutation {
+  addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
+  addCadastre(input: AddCadastreInput!): PimCadastre @auth
+  updateCadastre(input: UpdateCadastreInput!): Pim @auth
+  updateCadastreMap(input: UpdateCadastreMapInput!): Pim @auth
+}

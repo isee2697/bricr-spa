@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost';
 
 export const LOGIN = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST") {
+    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
       accessToken
       refreshToken
     }
@@ -12,7 +12,7 @@ export const LOGIN = gql`
 export const FORGOT_PASSWORD = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
     forgotPassword(input: $input)
-      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST") {
+      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -21,7 +21,12 @@ export const FORGOT_PASSWORD = gql`
 export const RESET_PASSWORD = gql`
   mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
     resetPassword(input: $input, token: $token)
-      @rest(type: "ResetPasswordResponse", path: "/public/auth/reset-password/{args.token}", method: "POST") {
+      @rest(
+        type: "ResetPasswordResponse"
+        path: "/public/auth/reset-password/{args.token}"
+        method: "POST"
+        endpoint: "default"
+      ) {
       error
     }
   }

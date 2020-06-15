@@ -1,8 +1,10 @@
-import { Pim } from 'api/types';
+import { Pim, PimServices, PimCadastre } from 'api/types';
 
 export type PimDetailsSidebarMenuProps = {
   onHide: () => void;
   pim?: Pim;
+  services?: PimServices;
+  cadastre?: PimCadastre;
 };
 
 export type subMenuItem = {

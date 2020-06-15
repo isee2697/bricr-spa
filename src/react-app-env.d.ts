@@ -6,5 +6,6 @@ declare namespace NodeJS {
     REACT_APP_API_URL: string;
     REACT_APP_SECURITY_URL: string;
     REACT_APP_CI: string;
+    REACT_APP_FILE_URL: string;
   }
 }

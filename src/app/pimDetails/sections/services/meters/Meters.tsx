@@ -25,9 +25,17 @@ export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters }: Se
                     <AutosaveForm key={meter.id} initialValues={meter} onSave={onSave} subscription={{}}>
                       <GenericField
                         disabled={!editing}
-                        placeholder="pim_details.services.meter.description"
+                        placeholder="pim_details.services.name"
+                        name="name"
+                        label="pim_details.services.name"
+                      />
+                      <GenericField
+                        label="pim_details.services.description"
+                        disabled={!editing}
+                        placeholder="pim_details.services.description"
                         name="description"
                       />
+                      <Box mb={2}></Box>
                     </AutosaveForm>
                     <ReadingsContainer linkedPerson={linkedPerson} editing={editing} readings={meter.readings || []} />
                   </>

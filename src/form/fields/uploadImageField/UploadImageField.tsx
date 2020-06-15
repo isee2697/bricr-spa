@@ -7,11 +7,10 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
-import { GenericField } from 'form/fields';
-import { UploadIcon } from 'ui/atoms/icons';
+import { useInitSendFileMutation, useUploadFileMutation, useAddFilesMutation, File } from 'api/types';
 
 import { useStyles } from './UploadImageField.styles';
-import { UploadImageFieldProps, UploadImageFieldTypes } from './UploadImageField.types';
+import { UploadImageFieldProps } from './UploadImageField.types';
 
 export const UploadImageField = ({
   validate,
@@ -19,84 +18,104 @@ export const UploadImageField = ({
   name,
   disabled,
   onRemove,
-  initialFileName,
-  type = UploadImageFieldTypes.BLOCK,
-  label,
+  entityID,
+  entity,
 }: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
-  const [fileName, setFileName] = useState(initialFileName ?? '');
   const { formatMessage } = useLocale();
   const inputRef = useRef<HTMLInputElement>(null);
   const classes = useStyles();
+  const [initUpload] = useInitSendFileMutation();
+  const [uploadFile] = useUploadFileMutation();
+  const [addFiles] = useAddFilesMutation();
 
-  const { input, meta } = useField(name, {
+  const { input, meta } = useField<File>(name, {
     validate: validate ? validatorsChain(...validate) : undefined,
     validateFields,
   });
-  const [backgroundImage, setBackgroundImage] = useState<string | undefined>(input.value);
+
+  const [backgroundImage, setBackgroundImage] = useState(input.value?.url || '');
   const hasError =
     invalidFile ||
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
-    (meta.initial === null && !loading) ||
-    (meta.initial === '' && !loading);
+    (meta.initial === null && !loading);
 
-  const processFile = ({ target: { validity, files } }: ChangeEvent<HTMLInputElement>) => {
+  const setFileAsBackground = (file: globalThis.File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setBackgroundImage(reader.result as string);
+    };
+  };
+  const processFile = async ({ target: { validity, files } }: ChangeEvent<HTMLInputElement>) => {
     const file = files && files[0];
+    setLoading(true);
+    setInvalidFile(false);
 
-    if (validity.valid && !!file && !!file.type.match(/image\/*/)) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setLoading(true);
-        setBackgroundImage(reader.result as string);
-        setFileName(file.name);
+    try {
+      if (!validity.valid || !file) {
+        throw new Error();
+      }
+      setFileAsBackground(file);
 
-        //toDo implement api call and setLoading false after success
-        setTimeout(() => {
-          setLoading(false);
-          input.onChange(reader.result as string);
-        }, 500);
-      };
-    } else {
+      const { data: initUploadResponse } = await initUpload({
+        variables: {
+          input: {
+            fileName: file.name,
+            fileType: file.type,
+            permission: 'public',
+            description: file.name,
+          },
+        },
+      });
+
+      if (initUploadResponse?.initSendFile && initUploadResponse.initSendFile.signedUrl) {
+        await uploadFile({
+          variables: {
+            input: file,
+            pathBuilder: () => initUploadResponse.initSendFile.signedUrl,
+          },
+        });
+
+        const { data: addFilesResponse } = await addFiles({
+          variables: {
+            input: {
+              fileIDs: [initUploadResponse.initSendFile.id],
+              entityID,
+              entity,
+            },
+          },
+        });
+
+        setLoading(false);
+        setBackgroundImage(addFilesResponse?.addFiles[0]?.url || '');
+
+        if (addFilesResponse?.addFiles[0]) {
+          input.onChange(addFilesResponse?.addFiles[0]);
+        }
+      }
+    } catch (error) {
       setInvalidFile(true);
     }
   };
 
-  const deleteFile = () => {
-    setBackgroundImage(undefined);
-    input.onChange(undefined);
+  const openInput = () => !!inputRef && !disabled && inputRef.current && inputRef.current.click();
+  const onRemoveImage = () => {
+    setLoading(false);
+    setBackgroundImage('');
+    setInvalidFile(false);
     onRemove && onRemove();
   };
 
-  const openInput = () => !!inputRef && !disabled && inputRef.current && inputRef.current.click();
-
-  const getUploadField = () => {
-    if (type === UploadImageFieldTypes.DENSE) {
-      return (
-        <GenericField
-          name={name}
-          label={label}
-          onClick={openInput}
-          value={fileName}
-          InputProps={{
-            disabled: true,
-            classes: {
-              root: classes.inputRoot,
-            },
-            endAdornment: <UploadIcon />,
-          }}
-        />
-      );
-    }
-
-    return (
+  return (
+    <>
       <Grid item className={classNames(classes.root, { enabled: !disabled })}>
-        {!loading && !!backgroundImage && (
+        {!disabled && !loading && !!backgroundImage && (
           <Badge
             className={classes.badge}
-            onClick={deleteFile}
+            onClick={onRemoveImage}
             badgeContent={<CloseIcon className={classes.badgeIcon} />}
             color="error"
           />
@@ -125,12 +144,6 @@ export const UploadImageField = ({
           )}
         </Grid>
       </Grid>
-    );
-  };
-
-  return (
-    <>
-      {getUploadField()}
       <input
         ref={inputRef}
         name={name}

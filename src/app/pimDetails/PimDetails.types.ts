@@ -1,4 +1,4 @@
-import { PimDetailsQueryHookResult, Pim } from 'api/types';
+import { PimDetailsQueryHookResult, Pim, PimCadastreQuery, PimServicesQuery } from 'api/types';
 
 export type PimDetailsSectionProps = {
   isSidebarVisible: boolean;
@@ -7,4 +7,7 @@ export type PimDetailsSectionProps = {
   pim?: Pim;
 };
 
-export type PimDetailsProps = Pick<PimDetailsQueryHookResult, 'loading' | 'error' | 'data'>;
+export type PimDetailsProps = Pick<PimDetailsQueryHookResult, 'loading' | 'error' | 'data'> & {
+  servicesData?: PimServicesQuery;
+  cadastreData?: PimCadastreQuery;
+};

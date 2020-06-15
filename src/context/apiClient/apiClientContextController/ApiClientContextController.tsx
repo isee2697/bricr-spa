@@ -11,7 +11,19 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { ApiClientProviderProps } from './ApiClientContextController.types';
 import { graphLink } from './graphLink/graphLink';
 
-const restLink = new RestLink({ uri: process.env.REACT_APP_SECURITY_URL });
+const restLink = new RestLink({
+  uri: '',
+  endpoints: {
+    upload: process.env.REACT_APP_FILE_URL + '/upload',
+    default: process.env.REACT_APP_SECURITY_URL,
+    empty: '',
+  },
+  bodySerializers: {
+    fileEncode: (data: File, headers: Headers) => {
+      return { body: data, headers };
+    },
+  },
+});
 const cache = new InMemoryCache();
 
 export const ApiClientContextController = ({ children }: ApiClientProviderProps) => {

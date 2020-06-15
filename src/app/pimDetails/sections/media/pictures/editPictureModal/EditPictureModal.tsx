@@ -7,6 +7,7 @@ import { Box, Button, DialogActions, Grid, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField, UploadImageField } from 'form/fields';
 import { useStyles } from 'app/pimDetails/sections/media/pictures/editPictureModal/EditPictureModal.styles';
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
+import { EntityWithFiles } from 'api/types';
 
 import { EditPictureModalProps } from './EditPictureModal.types';
 
@@ -42,6 +43,8 @@ export const EditPictureModal = ({
                   type={UploadImageFieldTypes.DENSE}
                   label="pim_details.media.add_picture_modal.file_name"
                   initialFileName={picture.image.fileName}
+                  entityID="myID"
+                  entity={EntityWithFiles.Pim}
                 />
                 <GenericField
                   id="description"

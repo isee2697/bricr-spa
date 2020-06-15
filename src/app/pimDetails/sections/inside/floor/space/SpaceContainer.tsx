@@ -20,12 +20,7 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
           input: {
             pimId: id,
             spaceId: space.id,
-            space: {
-              ...body,
-              configuration: {
-                images: [], //@TODO - has to wait for API fix
-              },
-            },
+            space: body,
           },
         },
         refetchQueries: [

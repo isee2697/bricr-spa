@@ -1,6 +1,6 @@
-// import { CadastreMap } from 'api/types';
+import { CadastreMap } from 'api/types';
 
 export type MapsProps = {
-  cadstralMaps: unknown; // CadasterMap;
+  cadstralMaps: CadastreMap[];
   cadastreId: string;
 };

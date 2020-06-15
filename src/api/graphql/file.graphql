@@ -1,0 +1,70 @@
+enum FilePermission {
+  public,
+  private
+}
+
+enum EntityWithFiles {
+  Pim,
+  Space,
+  OutsideFeature,
+  OutsideGeneral,
+  OutsidePropertyRelated,
+  RoofInformation
+  CadastreMap
+}
+
+input CreateFileInput {
+  fileName: String!
+  fileType: String!
+  permission: FilePermission!
+  description: String
+}
+
+input AddFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithFiles!
+  entityID: ID!
+}
+
+type File {
+  id: ID!
+  fileName: String!
+  description: String
+  status: Int!
+  fileType: String!
+  permission: FilePermission!
+  key: ID!
+  createdAt: Date
+  signedUrl: String
+  url: String
+  bucket: String
+  entityID: String
+  entity: EntityWithFiles
+}
+
+input InitSendFileInput {
+  fileName: String
+  fileType: String
+  permission: String
+  description: String
+}
+
+type UploadFileResponse {
+  id: String
+}
+
+scalar UploadFileInput
+
+scalar PathBuilder
+
+input GetPrivateFileInput {
+  key: ID!
+  entityID: String
+  entity: EntityWithFiles
+}
+
+extend type Mutation {
+  addFiles(input: AddFilesInput!): [File!]! @auth
+  initSendFile(input: InitSendFileInput!): File!
+  uploadFile(input: UploadFileInput!, pathBuilder: PathBuilder): UploadFileResponse
+}

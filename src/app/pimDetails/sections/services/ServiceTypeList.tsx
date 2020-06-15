@@ -19,7 +19,7 @@ export const ServiceTypeList: <T extends Service>(
 ) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type, onSave }) => {
   const { formatMessage } = useLocale();
   const [isOpenAddService, setIsOpenAddService] = useState(false);
-  const [toggled, setToggled] = useState<number | undefined>(0);
+  const [toggled, setToggled] = useState<number | undefined>();
   const classes = useStyles();
 
   let types: ServiceRadioType[] = [];

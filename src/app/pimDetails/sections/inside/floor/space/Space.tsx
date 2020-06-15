@@ -12,7 +12,7 @@ import { SpaceProps } from './Space.types';
 
 const fieldPrefix = 'configuration';
 
-export const Space = ({ isEditMode, index, space: { spaceName, spaceType } }: SpaceProps) => {
+export const Space = ({ isEditMode, index, space: { spaceName, spaceType, id } }: SpaceProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -25,7 +25,7 @@ export const Space = ({ isEditMode, index, space: { spaceName, spaceType } }: Sp
       >
         <Grid container spacing={4}>
           {spaceType === SpaceType.Kitchen && <KitchenForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}
-          <CommonForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />
+          <CommonForm id={id} fieldPrefix={fieldPrefix} isEditMode={isEditMode} />
         </Grid>
       </FormSubSection>
     </Box>

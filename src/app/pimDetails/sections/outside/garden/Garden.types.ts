@@ -6,4 +6,5 @@ export type GardenContainerProps = {
 
 export type GardenProps = GardenContainerProps & {
   onSave: (values: unknown) => Promise<{ error: boolean } | undefined>;
+  id: string;
 };
