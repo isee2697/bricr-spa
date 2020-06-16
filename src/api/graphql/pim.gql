@@ -1,0 +1,261 @@
+enum RealEstateType {
+  Residential,
+  Business
+}
+
+enum DevelopmentType {
+  New,
+  Existing
+}
+
+enum PimStatus {
+  Prospect,
+  Available,
+  Option,
+  Bid,
+  SoldWithReservation,
+  RentedWithReservation,
+  Sold,
+  Rented
+}
+
+enum PropertyType {
+  House,
+  Apartment,
+  Commercial,
+  Agricultural,
+  ParkingLot,
+  BuildingPlot,
+  Other
+}
+
+enum EventEntityType {
+  Pim,
+}
+
+enum EventAction {
+  Created,
+  Updated,
+  Removed
+}
+
+enum PropertyTypeDetailed {
+  SingleFamily,
+  DykeHouse,
+  CourtHouse,
+  DriveInHome,
+  SplitLevel,
+  QuadrantHouse,
+  PatioHouse,
+  Villa,
+  CanalHouse,
+  WaterHouse,
+  Bungalow,
+  SemiBungalow,
+  StiltHouse,
+  BusinessOrServiceHome,
+  Estate,
+  CountryHouse,
+  Mansion
+}
+
+enum PropertyConnection {
+  SemiDetached,
+  FinalHouse,
+  CornerHouse,
+  TerracedHouse,
+  DetachedHouse
+}
+
+enum PropertyAvailability {
+  InConsultation,
+  Immediatelly,
+  ByDate
+}
+
+enum PropertyHabitation {
+  RecreationalHome,
+  PermanentOccupation
+}
+
+input RoofTypeInput {
+  name: RoofTypes
+  notes: String
+}
+
+input RoofMaterialInput {
+  name: RoofMaterials,
+  notes: String
+}
+
+input RoofInsulationInput {
+  name: RoofInsulations
+  notes: String
+}
+
+input PropertyRelatedInput {
+  items: [PropertyRelatedItems]
+  notes: String
+  images: [String]
+}
+
+input RoofInformationInput {
+  type: RoofTypeInput
+  material: RoofMaterialInput
+  insulation: RoofInsulationInput
+  images: [String]
+}
+
+input GeneralInformationInput {
+  qualityInformation: [QualityInformations]
+  images: [String]
+  notes: String
+}
+
+input HouseOutsideInput {
+  id: ID!
+  generalInformation: GeneralInformationInput
+  propertyRelated: PropertyRelatedInput,
+  roofInformation: RoofInformationInput,
+  notes: String
+}
+
+enum ConstructionType {
+  UnderConstruction
+  InDevelopment
+}
+
+input CreatePimInput {
+  realEstateType: RealEstateType!
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType!
+  status: PimStatus!
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  livingArea: Int
+  propertyType: PropertyType
+  attention: String
+}
+
+type Pim {
+  id: ID!
+  realEstateType: RealEstateType!
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType!
+  status: PimStatus!
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  images: [File!]
+  livingArea: Int
+  propertyType: PropertyType
+  attention: String
+  completeness: Float!
+  archived: Boolean!
+  dateCreated: Date!
+  houseGeneral: HouseGeneral
+  houseOutside: HouseOutside
+  outsideFeatures: [OutsideFeature!]
+  floors: [Floor!]
+  cadastre: [Cadastre!]
+  meters: [Meter!]
+  services: [Service!]
+  pictures: [Picture!]
+  textChapters: [TextChapter!]
+  usps: [Usp!]
+  mediaLinks: [MediaLink!]
+  tags: [Tag!]
+  pricing: Pricing
+  costs: [Cost!]
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
+  investment: Investment
+  specification: Specification
+  specificationAdvanced: SpecificationAdvanced
+  linkedProperties: [Pim!]
+  inspections: [Inspection!]
+}
+
+type Event {
+  id: String!
+  entityType: EventEntityType!
+  relatedEntityId: String
+  action: EventAction!
+  timestamp: Date!
+  data: String
+  userId: String
+}
+
+type PimSearchResult {
+  metadata: SearchMetadata
+  items: [Pim!]
+}
+
+input ListPimsFilters {
+  developmentType: DevelopmentType
+  status: PimStatus
+  houseNumberPrefix: String
+  houseNumber: String
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  street: String
+  postalCode: String
+  district: String
+  city: String
+  state: String
+  county: String
+  country: String
+  archived: Boolean
+}
+
+input ChangesHistoryFilters {
+  entityType: EventEntityType
+}
+
+input UpdateOutsideFeatureInput {
+  pimId: String!
+  outsideFeatureId: String!
+  feature: UpdateFeatureInputConfiguration
+}
+
+scalar Dictionary
+scalar LastEditedBy
+
+extend type Query {
+  getPim(id: ID!): Pim @auth @deprecated(reason: "In later version pim will be split into multiple smaller views.")
+  getPropertyTypes: [String!]!
+  getChangesHistory(filters: ChangesHistoryFilters): [Event!]!
+  dictionary: Dictionary
+}
+
+extend type Mutation {
+  createPim(input: CreatePimInput!): Pim @auth
+  removePim(id: String!): String @auth
+}

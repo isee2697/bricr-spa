@@ -1,0 +1,347 @@
+enum EnergyType {
+  A
+  A1Plus
+  A2Plus
+  A3Plus
+  A4Plus
+  A5Plus
+  B
+  C
+  D
+  E
+  F
+  G
+}
+
+enum InspectionType {
+  Tanks,
+  Pollution,
+  Maintenance
+}
+
+enum ParkingFacilities {
+  PaidParking,
+  OnSite,
+  ParkingGarage,
+  OnClosedTerrain,
+  PublicParking,
+  ParkingPermits
+}
+
+enum MonumentType {
+  Heritage,
+  MonumentalProperty,
+  ProtectedCityOrVillageView,
+  NationalMonument,
+  MunciapalMonument
+}
+
+enum InsideType {
+  Furnished,
+  Upholstered,
+  PartialyUpholstered
+}
+
+enum HousingType {
+  PartiallyRented,
+  DoubleOccupancyAvailable,
+  DoubleOccupancyPossible,
+  AccessibleToDisabledPeople,
+  AcessibleToTheEldery
+}
+
+enum SpecialTagsType {
+  DemolitionProperty,
+  DoItYourselfProperty,
+  SeniorsProperty,
+  RuralLiving,
+  The30s,
+  LivingNearTheWater,
+  ExclusiveProperty,
+  Turnkey,
+  ReadyToUse,
+  StarterProperty,
+}
+
+enum PropertyRightType {
+  BpRights,
+  Easements,
+  RightOfSuperficies,
+  Cooperative,
+  Horizontal
+}
+
+enum GoodToKnowType {
+  MaintenancePlan,
+  ReserveFund,
+  HomeInsurance,
+  PeriodicContribution,
+  Meeting,
+  RegistrationChamberOfCommerce,
+  ChecklistPresent,
+  Active
+}
+
+enum TankType {
+  Septic,
+  Oil,
+  Underground
+}
+
+enum PollutionType {
+  Asbestos,
+  Soil
+}
+
+enum MaintenanceType {
+  Paintwork,
+  ElectricityConnections,
+  WindowFrames
+}
+
+enum EnergyCharasteristicType {
+  Beng,
+  NaturalEnergy,
+  ZeroOnMeter
+}
+
+enum ApprovalType {
+  AdaptedHome,
+  EnergyPerformanceAdvice,
+  PoliceMark,
+  GeneralHomeApproval,
+  GiwGuaranteeCertificate,
+  SwkGuaranteeCertificate,
+  ArchitecturalInspection,
+  HouseGuarantee,
+  HousingGuaranteeCertificate,
+  FireSafety,
+  KiwaSafeLiving,
+  QualityMarkCertificate
+}
+
+enum ObligationToProvideInformationType {
+  Boot,
+  BwLetter,
+  SoilPollution,
+  Asbestos,
+  OwnSake
+}
+
+type LinkedPim {
+  id: ID!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  propertyType: PropertyType
+  attention: String
+  plotNumber: Int
+  salePrice: AbsoluteFloat
+  rentPrice: AbsoluteFloat
+  status: PimStatus!
+  images: [File!]
+}
+
+input LinkedPimInput {
+  pimId: ID!
+  linkedPimIDs: [ID!]!
+}
+
+type Inspection {
+  id: ID!
+  inspectionType: InspectionType!
+  type: String! @uuidOrEnum(enum: ["TankType", "PollutionType", "MaintenanceType"])
+  description: String
+}
+
+input AddInspectionInput {
+  pimId: ID!
+  inspectionType: InspectionType!
+  type: String! @uuidOrEnum(enum: ["TankType", "PollutionType", "MaintenanceType"])
+}
+
+input UpdateInspectionInput {
+  id: ID!
+  description: String
+}
+
+type Energy {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}
+
+input EnergyInput {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}
+
+type Approvals {
+  label: ApprovalType
+  notes: String
+}
+
+input ApprovalsInput {
+  label: ApprovalType
+  notes: String
+}
+
+input ObligationToProvideInformationInput {
+  label: String @uuidOrEnum(enum: ["ObligationToProvideInformationType"])
+  notes: String
+}
+
+type ObligationToProvideInformation {
+  label: String @uuidOrEnum(enum: ["ObligationToProvideInformationType"])
+  notes: String
+}
+
+input SpecificationInput {
+  pimId: ID!
+  energy: EnergyInput
+  approvals: ApprovalsInput
+  obligation: ObligationToProvideInformationInput
+}
+
+type Specification {
+  energy: Energy
+  approvals: Approvals
+  obligation: ObligationToProvideInformation
+
+}
+
+type PimSpecification {
+  id: ID!
+  specification: Specification
+  specificationAdvanced: SpecificationAdvanced
+  linkedProperties: [LinkedPim!]
+  inspections: [Inspection!]
+}
+
+type AddInspectionResult {
+  inspection: Inspection!
+  pim: Pim!
+}
+
+type ParkingSpecification {
+  description: String
+  parkingCapacity: String
+  parkingFacilities: [String!] @uuidOrEnum(enum: ["ParkingFacilities"])
+}
+
+input ParkingSpecificationInput {
+  description: String
+  parkingCapacity: String
+  parkingFacilities: [String!] @uuidOrEnum(enum: ["ParkingFacilities"])
+}
+
+type MonumentSpecification {
+  type: [String!] @uuidOrEnum(enum: ["MonumentType"])
+  notes: String
+}
+
+input MonumentSpecificationInput {
+  type: [String!] @uuidOrEnum(enum: ["MonumentType"])
+  notes: String
+}
+
+type InsideSpecification {
+  type: [String!] @uuidOrEnum(enum: ["InsideType"])
+  notes: String
+}
+
+input InsideSpecificationInput {
+  type: [String!] @uuidOrEnum(enum: ["InsideType"])
+  notes: String
+}
+
+type HousingOptions {
+  type: [String!] @uuidOrEnum(enum: ["HousingType"])
+  notes: String
+}
+
+input HousingOptionsInput {
+  type: [String!] @uuidOrEnum(enum: ["HousingType"])
+  notes: String
+}
+
+type SpecialTags {
+  type: [String!] @uuidOrEnum(enum: ["SpecialTagsType"])
+  notes: String
+}
+
+input SpecialTagsInput {
+  type: [String!] @uuidOrEnum(enum: ["SpecialTagsType"])
+  notes: String
+}
+
+type PropertyRights {
+  type: [String!] @uuidOrEnum(enum: ["PropertyRightType"])
+  notes: String
+}
+
+input PropertyRightsInput {
+  type: [String!] @uuidOrEnum(enum: ["PropertyRightType"])
+  notes: String
+}
+
+type HomeOwnerAssociation {
+  name: String
+  monthlyContribution: AbsoluteFloat
+  goodToKnow: [String!] @uuidOrEnum(enum: ["GoodToKnowType"])
+  notes: String
+}
+
+input HomeOwnerAssociationInput {
+  name: String
+  monthlyContribution: AbsoluteFloat
+  goodToKnow: [String!] @uuidOrEnum(enum: ["GoodToKnowType"])
+  notes: String
+}
+
+type SpecificationAdvanced {
+  parking: ParkingSpecification
+  monument: MonumentSpecification
+  inside: InsideSpecification
+  housingOptions: HousingOptions
+  specialTags: SpecialTags
+  propertyRights: PropertyRights
+  homeOwnerAssociation: HomeOwnerAssociation
+}
+
+input SpecificationAdvancedInput {
+  pimId: String!
+  parking: ParkingSpecificationInput
+  monument: MonumentSpecificationInput
+  inside: InsideSpecificationInput
+  housingOptions: HousingOptionsInput
+  specialTags: SpecialTagsInput
+  propertyRights: PropertyRightsInput
+  homeOwnerAssociation: HomeOwnerAssociationInput
+}
+
+extend type Mutation {
+  updateSpecification(input: SpecificationInput!): Pim! @auth
+  updateSpecificationAdvanced(input: SpecificationAdvancedInput!): Pim! @auth
+  setLinkedProperties(input: LinkedPimInput!): Pim! @auth
+  addInspection(input: AddInspectionInput!): AddInspectionResult! @auth
+  updateInspection(input: UpdateInspectionInput!): Pim! @auth
+  removeInspection(id: ID!): Pim! @auth
+}
+
+extend type Query {
+  getPimSpecification(id: ID!): PimSpecification! @auth
+}

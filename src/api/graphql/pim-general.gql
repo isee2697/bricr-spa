@@ -1,0 +1,114 @@
+input PimGeneralInput {
+  id: ID!
+  realEstateType: RealEstateType
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType
+  status: PimStatus
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  livingArea: Int
+  attention: String
+  houseGeneral: HouseGeneralInput
+}
+
+type PropertyAvailabilityInformation {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
+type ConstructionInformation {
+  type: ConstructionType
+  from: Date
+  to: Date
+  notes: String
+}
+
+type HouseGeneral  {
+  availability: PropertyAvailabilityInformation
+  construction: ConstructionInformation
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+}
+
+input PropertyAvailabilityInformationInput {
+  availability: PropertyAvailability
+  from: Date
+  notes: String
+  habitation: PropertyHabitation
+  currentUse: String
+  currentDestination: String
+}
+
+input HouseGeneralInput {
+  availability: PropertyAvailabilityInformationInput
+  construction: ConstructionInformationInput
+  floor: FloorType
+  propertyConnection: PropertyConnection
+  propertyDetails: PropertyTypeDetailed
+}
+
+input ConstructionInformationInput {
+  type: ConstructionType
+  from: Date
+  to: Date
+  notes: String
+}
+
+type PimGeneral {
+  id: ID!
+  realEstateType: RealEstateType!
+  street: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  developmentType: DevelopmentType!
+  status: PimStatus!
+  salePrice: Float
+  rentPrice: Float
+  description: String
+  images: [File!]
+  livingArea: Int
+  propertyType: PropertyType
+  attention: String
+  completeness: Float!
+  archived: Boolean!
+  dateCreated: Date!
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+  houseGeneral: HouseGeneral
+}
+
+extend type Mutation {
+  updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth,
+}
+
+extend type Query {
+  getPimGeneral(id: ID!): PimGeneral! @auth
+}

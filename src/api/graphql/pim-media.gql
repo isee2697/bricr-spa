@@ -1,0 +1,228 @@
+enum PictureType {
+  General,
+  Inside,
+  Outside,
+  LivingRoom,
+  Kitchen,
+  Bathroom,
+  Garden,
+  Garage,
+  Terrain,
+  Surroundings,
+  Attic
+}
+
+enum MediaLinkType {
+  YouTube,
+  ThreeSixtyDegree,
+  Floorplanner,
+  FacebookTrackingCode
+}
+
+enum ChapterOrUspType {
+  Garden,
+  Garage,
+  Storage,
+  Terrain,
+  ParkingLot,
+  Kitchen,
+  Bathroom,
+  LivingRoom,
+  Bedroom,
+  HomeOffice,
+  Attic,
+  Floor,
+  Basement,
+  GroundFloor
+}
+
+enum TagType {
+  Remote,
+  DogLover,
+  Seniors,
+  Architecture,
+  n1930s,
+  Sports,
+  SpecialLiving,
+  ReadyToUse,
+  Gardening,
+  NeighbourhoodAssociation,
+  ChildFriendly,
+  View,
+  CentralLocation,
+  Safe,
+  Culture,
+  LuxuriousFinisch,
+  ClubLife,
+  DIY,
+  MotorOwner,
+  Water,
+  Edological,
+  Relaxation,
+  Wellness,
+  HobbyAnimals,
+  HorseLover,
+  WorkAtHome,
+  Courtyard,
+  NationWide,
+  Quit,
+  Shopping,
+}
+
+type Picture {
+  id: String!
+  description: String
+  type: String @uuidOrEnum(enum: ["PictureType"])
+  name: String
+}
+
+type TextChapter {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+}
+
+type Usp {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String
+}
+
+type MediaLink {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+}
+
+type Tag {
+  id: String!
+  name: String
+  type: TagType
+  description: String
+}
+
+type PimMedia {
+  id: String!
+  pictures: [Picture!]
+  mediaLinks: [MediaLink!]
+  textChapters: [TextChapter!]
+  usps: [Usp!]
+  tags: [Tag!]
+}
+
+input AddPictureInput {
+  pimId: String!
+  fileId: String!
+}
+
+input AddTextChapterInput {
+  pimId: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+}
+
+input UpdateTextChapterInput {
+  pimId: String!
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+}
+
+input AddUspInput {
+  pimId: String!
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String
+}
+
+input UpdateUspInput {
+  pimId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String,
+  name: String
+}
+
+input AddMediaLinkInput {
+  pimId: String!
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+  name: String
+}
+
+input UpdateMediaLinkInput {
+  pimId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+  name: String
+}
+
+input AddTagInput {
+  pimId: String!
+  type: TagType
+  description: String
+  name: String
+}
+
+input UpdateTagInput {
+  pimId: String!
+  id: String!
+  type: TagType
+  description: String
+  name: String
+}
+
+input UpdatePictureInput {
+  pimId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["PictureType"])
+  name: String
+  description: String
+}
+
+type PimWithNewPicture {
+  pim: Pim!
+  newPicture: Picture!
+}
+
+type PimWithNewTextChapter {
+  pim: Pim!
+  newChapter: TextChapter!
+}
+
+type PimWithNewUsp {
+  pim: Pim!
+  newUsp: Usp!
+}
+
+type PimWithNewMediaLink {
+  pim: Pim!
+  newMediaLink: MediaLink!
+}
+
+type PimWithNewTag {
+  pim: Pim!
+  newTag: Tag!
+}
+
+extend type Query {
+  getPimMedia(id: ID!): PimMedia! @auth
+}
+
+extend type Mutation {
+  addPicture(input: AddPictureInput!): PimWithNewPicture @auth
+  updatePicture(input: UpdatePictureInput!): Pim @auth
+  addTextChapter(input: AddTextChapterInput!): PimWithNewTextChapter @auth
+  updateTextChapter(input: UpdateTextChapterInput!): Pim @auth
+  addUsp(input: AddUspInput!): PimWithNewUsp @auth
+  updateUsp(input: UpdateUspInput!): Pim @auth
+  addMediaLink(input: AddMediaLinkInput!): PimWithNewMediaLink @auth
+  updateMediaLink(input: UpdateMediaLinkInput!): Pim @auth
+  addTag(input: AddTagInput!): PimWithNewTag @auth
+  updateTag(input: UpdateTagInput!): Pim @auth
+}

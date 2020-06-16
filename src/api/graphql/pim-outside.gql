@@ -1,0 +1,192 @@
+enum QualityInformations {
+  Simple,
+  Normal,
+  Luxury,
+  Excellent,
+  GoodToStickOut,
+  Good,
+  ReasonableToGood,
+  Fair,
+  ModerateToFairRedelijik,
+  Moderate,
+  BadToModerate,
+  Bad
+}
+
+enum RoofTypes {
+  TransverseRoof,
+  ClassRoof,
+  MansardRoof,
+  FlatRoof,
+  HippedRoof,
+  TentRoof,
+  SaddleRoof,
+  CompositeRoof
+}
+
+enum RoofMaterials {
+  Asbestos,
+  BituminousRoofing,
+  Plastic,
+  Slate,
+  Metal,
+  Pans,
+  Other
+}
+
+enum RoofInsulations {
+  SprayFoam,
+  RigidBoards,
+  BlanketOrMatting,
+  GlassRock,
+  MineralWool,
+  LooseFill,
+  StructuralPanels
+}
+
+enum PropertyRelatedItems {
+  Balcony,
+  Terrace,
+  RoofTerrace,
+  Porch
+}
+
+enum OutsideFeatureType {
+  Garden,
+  Garage,
+  Storage,
+  Terrain,
+  ParkingLot,
+}
+
+enum GardenType {
+  Backyard,
+  PatioOrAtrium,
+  Place,
+  AllGroundGarden,
+  FrontGarden,
+  SunTerrace,
+  BackGarden,
+}
+
+enum GardenQualityType {
+  ToBeConstructed,
+  BeautifullyConstructed,
+  Normal,
+  Neglected,
+  TakenCareOf,
+}
+
+enum GardenShapeType {
+  Square,
+  Rectangle,
+  LShape,
+  UShape,
+  TShape,
+}
+
+enum Location {
+  North,
+  South,
+  East,
+  West,
+}
+
+type GeneralInformation {
+  qualityInformation: [QualityInformations]
+  images: [File!]
+  notes: String
+}
+
+type PropertyRelated {
+  items: [PropertyRelatedItems]
+  notes: String
+  images: [File!]
+}
+
+type RoofType {
+  name: RoofTypes
+  notes: String
+}
+
+type RoofMaterial {
+  name: RoofMaterials,
+  notes: String
+}
+
+type RoofInsulation {
+  name: RoofInsulations
+  notes: String
+}
+
+type RoofInformation {
+  type: RoofType
+  material: RoofMaterial
+  insulation: RoofInsulation
+  images: [File!]
+}
+
+type HouseOutside {
+  generalInformation: GeneralInformation
+  propertyRelated: PropertyRelated
+  roofInformation: RoofInformation
+  notes: String
+}
+
+type RectangleDimensions {
+  length: Float
+  height: Float
+}
+
+union GardenDimensions = RectangleDimensions
+
+type GardenFeature {
+  mainGarden: Boolean
+  type: GardenType
+  notes: String
+  quality: GardenQualityType
+  location: [Location]
+  shape: GardenShapeType
+  dimensions: GardenDimensions
+  surface: Float
+  images: [File!]
+}
+
+union OutsideFeatureConfiguration = GardenFeature
+
+type OutsideFeature {
+  id: String!
+  description: String
+  type: OutsideFeatureType!
+  configuration: OutsideFeatureConfiguration
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+}
+
+type PimOutside {
+  id: ID!
+  houseOutside: HouseOutside
+  outsideFeatures: [OutsideFeature!]
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+}
+
+scalar PimOutsideInput
+scalar UpdateFeatureInputConfiguration
+
+input AddOutsideFeatureInput {
+  pimId: String!
+  type: OutsideFeatureType!
+  description: String
+}
+
+extend type Query {
+  getPimOutside(id: ID!): PimOutside!
+}
+
+extend type Mutation {
+  updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
+  addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
+  updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth
+}

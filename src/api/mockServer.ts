@@ -1,25 +1,15 @@
 import { Model, Server } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
-import { loader } from 'graphql.macro';
 
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 
+import { loadSchemas } from './loadSchemas';
 import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
 import { FILE_1 } from './mocks/file';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/cadastre';
 import { Floor, Space, ServiceType, CadastreType } from './types';
 
-const loaded = [
-  loader('./graphql/schema.graphql'),
-  loader('./graphql/pim-services.graphql'),
-  loader('./graphql/file.graphql'),
-  loader('./graphql/pim-cadastre.graphql'),
-  loader('./graphql/pim-prices.graphql'),
-];
-
-const schemas = loaded.map(schema => schema.loc?.source.body as string);
-
-const graphqlSchema = buildSchema(schemas.toString());
+const graphqlSchema = buildSchema(loadSchemas());
 
 let PIM_DETAILS = PIM_DETAILS_1;
 const PIM_PRICING = PIM_PRICING_1;

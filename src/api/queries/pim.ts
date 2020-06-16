@@ -1,62 +1,5 @@
 import { gql } from 'apollo-boost';
 
-export const COUNT_PIMS_BY_PARAMS = gql`
-  query CountPimsByParams($filters: ListPimsFilters) {
-    listPims(filters: $filters) {
-      metadata {
-        total
-      }
-    }
-  }
-`;
-
-export const LIST_PIMS_COUNT = gql`
-  query ListPimsCount {
-    activeCount: listPims(filters: { archived: false }) {
-      metadata {
-        total
-      }
-    }
-    archivedCount: listPims(filters: { archived: true }) {
-      metadata {
-        total
-      }
-    }
-  }
-`;
-
-export const LIST_PIMS = gql`
-  query ListPims($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-    listPims(
-      filters: { archived: $archived }
-      pagination: { from: $from, limit: $limit }
-      sort: { column: $sortColumn, direction: $sortDirection }
-    ) {
-      items {
-        id
-        street
-        houseNumberPrefix
-        houseNumber
-        houseNumberAddition
-        constructionNumberPrefix
-        constructionNumber
-        constructionNumberAddition
-        city
-        dateCreated
-        livingArea
-        propertyType
-        images {
-          url
-        }
-        salePrice
-        rentPrice
-        completeness
-        archived
-      }
-    }
-  }
-`;
-
 export const PIM_DETAILS = gql`
   query PimDetails($id: ID!) {
     getPim(id: $id) {
@@ -284,63 +227,6 @@ export const PIM_DETAILS = gql`
             }
           }
         }
-      }
-    }
-  }
-`;
-
-export const PIM_SERVICES = gql`
-  query PimServices($id: ID!) {
-    getPimServices(id: $id) {
-      meters {
-        id
-        type
-        name
-        description
-        readings {
-          id
-          value
-          description
-          feedInId
-          dateOfReading
-        }
-      }
-      hotWaterSupplies {
-        id
-        type
-        name
-        description
-        configuration {
-          ... on HotWaterSupplyConfiguration {
-            type
-            fuel
-          }
-        }
-        yearOfInstallation
-      }
-      heatingSources {
-        id
-        type
-        name
-        description
-        configuration {
-          ... on HeatingSourceConfiguration {
-            type
-          }
-        }
-        yearOfInstallation
-      }
-      additionalServices {
-        id
-        type
-        name
-        description
-        configuration {
-          ... on AdditionalServiceConfiguration {
-            type
-          }
-        }
-        yearOfInstallation
       }
     }
   }

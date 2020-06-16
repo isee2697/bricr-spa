@@ -1,0 +1,47 @@
+type ListPimPropertyRelated {
+  items: [PropertyRelatedItems]
+}
+
+type ListPimHouseOutside {
+  propertyRelated: ListPimPropertyRelated
+}
+
+type ListPim {
+  id: String!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  constructionNumberPrefix: String
+  constructionNumber: String
+  constructionNumberAddition: String
+  postalCode: String!
+  district: String
+  street: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  completeness: Float!
+  propertyType: PropertyType
+  salePrice: Float
+  rentPrice: Float
+  images: [File!]
+  livingArea: Int
+  attention: String
+  dateCreated: Date!
+  dateUpdated: Date
+  lastEditedBy: LastEditedBy
+  houseOutside: ListPimHouseOutside
+  archived: Boolean
+  status: PimStatus!
+  developmentType: DevelopmentType!
+}
+
+type PimListSearchResult {
+  metadata: SearchMetadata
+  items: [ListPim!]
+}
+
+extend type Query {
+  listPims(filters: ListPimsFilters, pagination: Pagination, sort: [Sort!]): PimListSearchResult! @auth
+}

@@ -1,0 +1,35 @@
+type Profile {
+  id: String!
+  firstName: String
+  lastName: String
+  email: String
+  avatar: String
+  teams: [ProfileTeam!]
+}
+
+type ProfileTeam {
+  id: String!
+  name: String
+}
+
+type Company {
+  id: String!
+  teams: [Team!]
+  name: String
+}
+
+type Team{
+  id: String!
+  members: [Profile!]
+  company: Company!
+  name: String
+}
+
+extend type Query {
+  me: Profile @auth
+  getProfile(id: ID!): Profile @auth
+}
+
+extend type Mutation {
+  deleteUser(id: String): String @auth
+}

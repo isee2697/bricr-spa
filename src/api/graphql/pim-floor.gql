@@ -1,0 +1,259 @@
+enum SpaceServiceHeating {
+  GeothermalHeat,
+  NoHeating,
+  Fireplace,
+  MultiBurner,
+  HotAirHeating,
+  PelletStove,
+  ElectricHeating,
+  DistrictHeating,
+  GasFireplace,
+  CoalStove,
+  WallHeating,
+  HeatPump,
+  MotherFireplace,
+  GasHeaters,
+  BlockHeatingWoodStove,
+  CentralHeatingBoiler,
+  UnderfloorHeatingEntirely,
+  PossibilityForFireplaceHeat,
+  UnderfloorHeatingPartly,
+  RecoveryInstalation
+}
+
+
+enum KitchenType {
+  MainKitchen,
+  Scullery
+}
+
+enum LivingRoomType {
+  ThroughRoom,
+  FormerEnSuite,
+  RoomAndSuite,
+  Conservatory
+}
+
+enum KitchenAppliances {
+  Refrigerator,
+  Microwave,
+  Dishwasher,
+  Oven,
+  Stove
+}
+
+enum KitchenHob {
+  GasHob,
+  InductionHob,
+  ElectricHob,
+  CeramicHob,
+  HalogenHob
+}
+
+enum KitchenServices {
+  KitchenIsland,
+  WashIsland
+}
+
+enum BathroomServices {
+  Bidet,
+  Sauna,
+  WashingMachineConnection,
+  Shower,
+  SteamCabin, 
+  Sink,
+  CoubleWashbasin,
+  Toilet,
+  Washbasin,
+  WalkInShower,
+  Urinal,
+  Whirlpool,
+  Jacuzzi,
+  SitzBath,
+  Bathtub,
+}
+
+type KitchenAppliance {
+  name: KitchenAppliances!,
+  quantity: Int!,
+  notes: String
+}
+
+enum KitchenConstruction {
+  ClosedKitchen,
+  EatInKitchen,
+  HalfOpenKitchen,
+  OpenKitchen
+}
+
+type SpaceMeasurement {
+  length: Float,
+  width: Float,
+  height: Float,
+  surface: Float,
+  volume: Float
+}
+
+enum FloorType {
+  Attic,
+  Floor,
+  Basement,
+  GroundFloor,
+  Loft
+}
+
+enum SpaceType {
+  Kitchen,
+  Bathroom,
+  LivingRoom,
+  Bedroom,
+  HomeOffice,
+  Other
+}
+
+enum SpaceShape {
+  Rectangle,
+  Square,
+  LType,
+  TType,
+  UType,
+  ZType
+}
+
+type KitchenSpace {
+  constructionYear: Float
+  notes: String
+  type: KitchenType
+  constructionType: KitchenConstruction
+  services: [KitchenServices]
+  servicesNotes: String
+  appliances: [KitchenAppliance]
+  hob: KitchenHob
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type BathroomSpace {
+  constructionYear: Float
+  notes: String
+  services: [BathroomServices]
+  servicesNotes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type LivingRoomSpace {
+  constructionYear: Float
+  notes: String
+  type: LivingRoomType
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+  stairs: Boolean
+}
+
+type BedroomSpace {
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type HomeOfficeSpace {
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type OtherSpace {
+  name: String
+  constructionYear: Float
+  notes: String
+  shape: SpaceShape
+  measurement: SpaceMeasurement
+  serviceHeating: [SpaceServiceHeating]
+  images: [File!]
+}
+
+type Floor {
+  id: String!
+  floorDescription: String
+  level: Int!
+  floorType: FloorType!
+  spaces: [Space!]
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
+}
+
+union SpaceConfiguration = KitchenSpace | BathroomSpace | LivingRoomSpace | BedroomSpace | HomeOfficeSpace | OtherSpace
+
+type Space {
+  id: String!
+  spaceType: SpaceType!
+  spaceName: String
+  extraRoomPossibility: Boolean!
+  configuration: SpaceConfiguration
+  lastEditedBy: LastEditedBy
+  dateUpdated: Date
+}
+
+type PimFloor {
+  id: String!
+  floors: [Floor!]
+}
+
+type PimWithUpdatedSpace {
+  newSpace: Space!
+  pim: Pim!
+}
+
+input AddNewFloorInput {
+  pimId: String!
+  floorDescription: String
+  floorType: FloorType!
+}
+
+input AddSpaceInput {
+  spaceType: SpaceType!
+  extraRoomPossibility: Boolean!
+  pimId: String!
+  floorId: String!
+  spaceName: String
+}
+
+scalar UpdateSpaceInputConfiguration
+
+input UpdateSpaceInput {
+  pimId: String!
+  spaceId: String!
+  spaceName: String
+  space: UpdateSpaceInputConfiguration
+}
+
+input UpdateFloorInput {
+  pimId: String!
+  floorId: String!
+  floorDescription: String
+  floorType: FloorType
+}
+
+extend type Query {
+  getPimFloors(id: ID!): PimFloor! @auth
+}
+
+extend type Mutation {
+  addFloorToPim(input: AddNewFloorInput!): Pim! @auth
+  addSpaceToFloor(input: AddSpaceInput!): PimWithUpdatedSpace! @auth
+  updateSpace(input: UpdateSpaceInput!): Pim! @auth
+  updateFloor(input: UpdateFloorInput!): Pim! @auth
+}

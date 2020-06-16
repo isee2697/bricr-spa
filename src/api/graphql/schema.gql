@@ -1,0 +1,41 @@
+# Requires token to be passed in header
+directive @auth on FIELD_DEFINITION
+
+#Direcitve to ensure that provided value is either an ID or provided enum
+directive @uuidOrEnum(enum: [String!]!) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+scalar UuidOrEnum
+
+type SearchMetadata {
+  total: Int!
+}
+
+enum SortDirection {
+  asc
+  desc
+}
+
+input Sort {
+  column: String!
+  direction: SortDirection!
+}
+
+input Pagination {
+  from: Int
+  limit: Int
+  searchAfter: [String!]
+}
+
+scalar Date
+
+type Query {
+  _: Boolean
+}
+
+type Mutation {
+  _: Boolean
+}
+
+type Subscription {
+  _: Boolean
+}
