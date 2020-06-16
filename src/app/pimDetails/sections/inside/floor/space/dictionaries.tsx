@@ -1,6 +1,17 @@
 import React from 'react';
 
 import {
+  KitchenType,
+  KitchenConstruction,
+  KitchenServices,
+  KitchenAppliances,
+  KitchenHob,
+  LivingRoomType,
+  BathroomServices,
+  SpaceShape,
+  SpaceServiceHeating,
+} from 'api/types';
+import {
   LinkIcon,
   FilterIcon,
   BuildingIcon,
@@ -8,110 +19,212 @@ import {
   UserIcon,
   SettingsIcon,
   WarningIcon,
+  SquareIcon,
 } from 'ui/atoms/icons';
 
-export const type = [
+export const kitchenType = [
   {
     label: 'dictionaries.kitchen_type.MainKitchen',
     icon: <FilterIcon color="inherit" />,
-    value: 'MainKitchen',
+    value: KitchenType.MainKitchen,
   },
   {
     label: 'dictionaries.kitchen_type.Scullery',
     icon: <LinkIcon color="inherit" />,
-    value: 'Scullery',
+    value: KitchenType.Scullery,
   },
 ];
 
-export const construction = [
+export const kitchenConstruction = [
   {
     label: 'dictionaries.kitchen_construction.DenseKitchen',
     icon: <BuildingIcon color="inherit" />,
-    value: 'DenseKitchen',
+    value: KitchenConstruction.ClosedKitchen,
   },
   {
     label: 'dictionaries.kitchen_construction.EatInKitchen',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'EatInKitchen',
+    value: KitchenConstruction.EatInKitchen,
   },
   {
     label: 'dictionaries.kitchen_construction.HalfOpenKitchen',
     icon: <UserIcon color="inherit" />,
-    value: 'HalfOpenKitchen',
+    value: KitchenConstruction.HalfOpenKitchen,
   },
   {
     label: 'dictionaries.kitchen_construction.OpenKitchen',
     icon: <SettingsIcon color="inherit" />,
-    value: 'OpenKitchen',
+    value: KitchenConstruction.OpenKitchen,
   },
 ];
 
-export const service = [
+export const kitchenService = [
   {
     label: 'dictionaries.kitchen_services.KitchenIsland',
     icon: <FilterIcon color="inherit" />,
-    value: 'KitchenIsland',
+    value: KitchenServices.KitchenIsland,
   },
   {
     label: 'dictionaries.kitchen_services.WashIsland',
     icon: <WarningIcon color="inherit" />,
-    value: 'WashIsland',
+    value: KitchenServices.WashIsland,
   },
 ];
 
-export const appliances = [
+export const kitchenAppliances = [
   {
     label: 'dictionaries.kitchen_appliances.Refrigerator',
     icon: <LinkIcon color="inherit" />,
-    value: 'Refrigerator',
+    value: KitchenAppliances.Refrigerator,
   },
   {
     label: 'dictionaries.kitchen_appliances.Microwave',
     icon: <FilterIcon color="inherit" />,
-    value: 'Microwave',
+    value: KitchenAppliances.Microwave,
   },
   {
     label: 'dictionaries.kitchen_appliances.Dishwasher',
     icon: <BuildingIcon color="inherit" />,
-    value: 'Dishwasher',
+    value: KitchenAppliances.Dishwasher,
   },
   {
     label: 'dictionaries.kitchen_appliances.Oven',
     icon: <UserIcon color="inherit" />,
-    value: 'Oven',
+    value: KitchenAppliances.Oven,
   },
   {
     label: 'dictionaries.kitchen_appliances.Stove',
     icon: <WarningIcon color="inherit" />,
-    value: 'Stove',
+    value: KitchenAppliances.Stove,
   },
 ];
 
-export const hob = [
+export const kitchenHob = [
   {
     label: 'dictionaries.kitchen_hob.GasHob',
     icon: <SettingsIcon color="inherit" />,
-    value: 'GasHob',
+    value: KitchenHob.GasHob,
   },
   {
     label: 'dictionaries.kitchen_hob.InductionHob',
     icon: <LinkIcon color="inherit" />,
-    value: 'InductionHob',
+    value: KitchenHob.InductionHob,
   },
   {
     label: 'dictionaries.kitchen_hob.ElectricHob',
     icon: <FilterIcon color="inherit" />,
-    value: 'ElectricHob',
+    value: KitchenHob.ElectricHob,
   },
   {
     label: 'dictionaries.kitchen_hob.CeramicHob',
     icon: <BuildingIcon color="inherit" />,
-    value: 'CeramicHob',
+    value: KitchenHob.CeramicHob,
   },
   {
     label: 'dictionaries.kitchen_hob.HalogenHob',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'HalogenHob',
+    value: KitchenHob.HalogenHob,
+  },
+];
+
+export const livingRoomType = [
+  {
+    label: 'dictionaries.livingroom_type.ThroughRoom',
+    icon: <SquareIcon color="inherit" />,
+    value: LivingRoomType.ThroughRoom,
+  },
+  {
+    label: 'dictionaries.livingroom_type.FormerEnSuite',
+    icon: <SquareIcon color="inherit" />,
+    value: LivingRoomType.FormerEnSuite,
+  },
+  {
+    label: 'dictionaries.livingroom_type.RoomAndSuite',
+    icon: <SquareIcon color="inherit" />,
+    value: LivingRoomType.RoomAndSuite,
+  },
+  {
+    label: 'dictionaries.livingroom_type.Conservatory',
+    icon: <SquareIcon color="inherit" />,
+    value: LivingRoomType.Conservatory,
+  },
+];
+
+export const bathroomServices = [
+  {
+    label: 'dictionaries.bathroom_service.Bidet',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Bidet,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Sauna',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Sauna,
+  },
+  {
+    label: 'dictionaries.bathroom_service.WashingMachineConnection',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.WashingMachineConnection,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Shower',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Shower,
+  },
+  {
+    label: 'dictionaries.bathroom_service.SteamCabin',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.SteamCabin,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Sink',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Sink,
+  },
+  {
+    label: 'dictionaries.bathroom_service.DoubleWashbasin',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.CoubleWashbasin,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Toilet',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Toilet,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Washbasin',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Washbasin,
+  },
+  {
+    label: 'dictionaries.bathroom_service.WalkInShower',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.WalkInShower,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Urinal',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Urinal,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Whirlpool',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Whirlpool,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Jacuzzi',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Jacuzzi,
+  },
+  {
+    label: 'dictionaries.bathroom_service.SitzBath',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.SitzBath,
+  },
+  {
+    label: 'dictionaries.bathroom_service.Bathtub',
+    icon: <SquareIcon color="inherit" />,
+    value: BathroomServices.Bathtub,
   },
 ];
 
@@ -119,32 +232,32 @@ export const shape = [
   {
     label: 'dictionaries.space_shape.Rectangle',
     icon: <SettingsIcon color="inherit" />,
-    value: 'Rectangle',
+    value: SpaceShape.Rectangle,
   },
   {
     label: 'dictionaries.space_shape.Square',
     icon: <WarningIcon color="inherit" />,
-    value: 'Square',
+    value: SpaceShape.Square,
   },
   {
     label: 'dictionaries.space_shape.LType',
     icon: <LinkIcon color="inherit" />,
-    value: 'LType',
+    value: SpaceShape.LType,
   },
   {
     label: 'dictionaries.space_shape.TType',
     icon: <UserIcon color="inherit" />,
-    value: 'TType',
+    value: SpaceShape.TType,
   },
   {
     label: 'dictionaries.space_shape.UType',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'UType',
+    value: SpaceShape.UType,
   },
   {
     label: 'dictionaries.space_shape.ZType',
     icon: <LinkIcon color="inherit" />,
-    value: 'ZType',
+    value: SpaceShape.ZType,
   },
 ];
 
@@ -152,101 +265,101 @@ export const heating = [
   {
     label: 'dictionaries.space_service_heating.GeothermalHeat',
     icon: <SettingsIcon color="inherit" />,
-    value: 'GeothermalHeat',
+    value: SpaceServiceHeating.GeothermalHeat,
   },
   {
     label: 'dictionaries.space_service_heating.NoHeating',
     icon: <LinkIcon color="inherit" />,
-    value: 'NoHeating',
+    value: SpaceServiceHeating.NoHeating,
   },
   {
     label: 'dictionaries.space_service_heating.Fireplace',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'Fireplace',
+    value: SpaceServiceHeating.Fireplace,
   },
   {
     label: 'dictionaries.space_service_heating.MultiBurner',
     icon: <UserIcon color="inherit" />,
-    value: 'MultiBurner',
+    value: SpaceServiceHeating.MultiBurner,
   },
   {
     label: 'dictionaries.space_service_heating.HotAirHeating',
     icon: <FilterIcon color="inherit" />,
-    value: 'HotAirHeating',
+    value: SpaceServiceHeating.HotAirHeating,
   },
   {
     label: 'dictionaries.space_service_heating.PelletStove',
     icon: <LinkIcon color="inherit" />,
-    value: 'PelletStove',
+    value: SpaceServiceHeating.PelletStove,
   },
   {
     label: 'dictionaries.space_service_heating.ElectricHeating',
     icon: <LinkIcon color="inherit" />,
-    value: 'ElectricHeating',
+    value: SpaceServiceHeating.ElectricHeating,
   },
   {
     label: 'dictionaries.space_service_heating.DistrictHeating',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'DistrictHeating',
+    value: SpaceServiceHeating.DistrictHeating,
   },
   {
     label: 'dictionaries.space_service_heating.GasFireplace',
     icon: <LinkIcon color="inherit" />,
-    value: 'GasFireplace',
+    value: SpaceServiceHeating.GasFireplace,
   },
   {
     label: 'dictionaries.space_service_heating.CoalStove',
     icon: <WarningIcon color="inherit" />,
-    value: 'CoalStove',
+    value: SpaceServiceHeating.CoalStove,
   },
   {
     label: 'dictionaries.space_service_heating.WallHeating',
     icon: <LinkIcon color="inherit" />,
-    value: 'WallHeating',
+    value: SpaceServiceHeating.WallHeating,
   },
   {
     label: 'dictionaries.space_service_heating.HeatPump',
     icon: <LinkIcon color="inherit" />,
-    value: 'HeatPump',
+    value: SpaceServiceHeating.HeatPump,
   },
   {
     label: 'dictionaries.space_service_heating.MotherFireplace',
     icon: <LinkIcon color="inherit" />,
-    value: 'MotherFireplace',
+    value: SpaceServiceHeating.MotherFireplace,
   },
   {
     label: 'dictionaries.space_service_heating.GasHeaters',
     icon: <FilterIcon color="inherit" />,
-    value: 'GasHeaters',
+    value: SpaceServiceHeating.GasHeaters,
   },
   {
     label: 'dictionaries.space_service_heating.BlockHeatingWoodStove',
     icon: <BuildingIcon color="inherit" />,
-    value: 'BlockHeatingWoodStove',
+    value: SpaceServiceHeating.BlockHeatingWoodStove,
   },
   {
     label: 'dictionaries.space_service_heating.CentralHeatingBoiler',
     icon: <LinkIcon color="inherit" />,
-    value: 'CentralHeatingBoiler',
+    value: SpaceServiceHeating.CentralHeatingBoiler,
   },
   {
     label: 'dictionaries.space_service_heating.UnderfloorHeatingEntirely',
     icon: <ComplexBuildingIcon color="inherit" />,
-    value: 'UnderfloorHeatingEntirely',
+    value: SpaceServiceHeating.UnderfloorHeatingEntirely,
   },
   {
     label: 'dictionaries.space_service_heating.PossibilityForFireplaceHeat',
     icon: <UserIcon color="inherit" />,
-    value: 'PossibilityForFireplaceHeat',
+    value: SpaceServiceHeating.PossibilityForFireplaceHeat,
   },
   {
     label: 'dictionaries.space_service_heating.UnderfloorHeatingPartly',
     icon: <SettingsIcon color="inherit" />,
-    value: 'UnderfloorHeatingPartly',
+    value: SpaceServiceHeating.UnderfloorHeatingPartly,
   },
   {
     label: 'dictionaries.space_service_heating.RecoveryInstalation',
     icon: <WarningIcon color="inherit" />,
-    value: 'RecoveryInstalation',
+    value: SpaceServiceHeating.RecoveryInstalation,
   },
 ];

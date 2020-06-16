@@ -7,7 +7,7 @@ export type PimDetailsSidebarMenuProps = {
   cadastre?: PimCadastre;
 };
 
-export type subMenuItem = {
+export type SubMenuItem = {
   id: string;
   label: string;
   number?: number;

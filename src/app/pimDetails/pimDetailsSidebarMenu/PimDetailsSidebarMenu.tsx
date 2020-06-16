@@ -20,7 +20,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
-import { PimDetailsSidebarMenuProps, subMenuItem } from './PimDetailsSidebarMenu.types';
+import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
 
 export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
@@ -37,7 +37,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
     c => c.type,
   );
 
-  const createSubMenuData = (id: string, label: string, amount: number, key: number): subMenuItem => {
+  const createSubMenuData = (id: string, label: string, amount: number, key: number): SubMenuItem => {
     return { id, label, number: amount > 1 ? amount - key : undefined };
   };
 

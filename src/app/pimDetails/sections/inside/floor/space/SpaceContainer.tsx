@@ -6,7 +6,7 @@ import { AnyObject } from 'final-form';
 import { useUpdateSpaceMutation, PimDetailsDocument } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
-import { SpaceProps } from './Space.types';
+import { SpaceProps, AliasedSpace } from './Space.types';
 import { Space } from './Space';
 
 export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
@@ -43,8 +43,22 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
     }
   };
 
+  const configuration = space.configuration as AliasedSpace;
+  const initialValues = {
+    ...space,
+    configuration: {
+      ...space.configuration,
+      type: configuration.kitchenType || configuration.livingRoomType,
+      services: configuration.kitchenServices || configuration.bathroomServices,
+      kitchenType: undefined,
+      livingRoomType: undefined,
+      kitchenServices: undefined,
+      bathroomServices: undefined,
+    },
+  };
+
   return (
-    <AutosaveForm initialValues={space} onSave={handleEdit} mutators={{ ...arrayMutators }} subscription={{}}>
+    <AutosaveForm initialValues={initialValues} onSave={handleEdit} mutators={{ ...arrayMutators }} subscription={{}}>
       <Space space={space} {...props} />
     </AutosaveForm>
   );

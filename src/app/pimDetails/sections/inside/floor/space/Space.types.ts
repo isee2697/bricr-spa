@@ -1,12 +1,13 @@
 import { Space } from 'api/types';
 
-export type SpaceFormProps = {
-  isEditMode: boolean;
-  id: string;
-  fieldPrefix: string;
+export type AliasedSpace = {
+  kitchenType: string;
+  livingRoomType: string;
+  kitchenServices: string;
+  bathroomServices: string;
 };
 
-export type KitchenFormProps = {
+export type SpaceFormProps = {
   isEditMode: boolean;
   fieldPrefix: string;
 };

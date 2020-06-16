@@ -53,7 +53,6 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
                             input.onChange(input.value === space ? '' : space);
                           }}
                           selected={input.value === space}
-                          disabled={space !== 'Kitchen'}
                           adornment={
                             input.value === space
                               ? () => (

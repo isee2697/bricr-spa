@@ -5,10 +5,10 @@ import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AppliancesField } from '../appliancesField/AppliancesField';
-import { KitchenFormProps } from '../Space.types';
+import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
 
-export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
+export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -53,7 +53,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
             xs={4}
             lg={2}
             name={`${fieldPrefix}.type`}
-            options={dictionaries.type}
+            options={dictionaries.kitchenType}
           />
         </Box>
       </Grid>
@@ -62,7 +62,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
         <FormSubSection
           noBorder
           title={formatMessage({ id: 'pim_details.inside.type_of_construction' })}
-          subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
+          subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
         />
         <Box paddingTop={2}>
           <RadioGroupField
@@ -70,7 +70,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
             xs={4}
             lg={2}
             name={`${fieldPrefix}.constructionType`}
-            options={dictionaries.construction}
+            options={dictionaries.kitchenConstruction}
           />
         </Box>
       </Grid>
@@ -87,7 +87,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
             xs={2}
             lg={1}
             name={`${fieldPrefix}.services`}
-            options={dictionaries.service}
+            options={dictionaries.kitchenService}
           />
         </Box>
         <GenericField
@@ -105,7 +105,11 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
           title={formatMessage({ id: 'pim_details.inside.built_in_appliances' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
         />
-        <AppliancesField disabled={!isEditMode} options={dictionaries.appliances} name={`${fieldPrefix}.appliances`} />
+        <AppliancesField
+          disabled={!isEditMode}
+          options={dictionaries.kitchenAppliances}
+          name={`${fieldPrefix}.appliances`}
+        />
       </Grid>
 
       <Grid item xs={12}>
@@ -120,7 +124,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: KitchenFormProps) => {
             sm={3}
             md={2}
             name={`${fieldPrefix}.hob`}
-            options={dictionaries.hob}
+            options={dictionaries.kitchenHob}
           />
         </Box>
       </Grid>

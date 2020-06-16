@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { useLocale } from 'hooks';
-import { Grid, Typography } from 'ui/atoms';
+import { Grid, Typography, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
@@ -59,21 +59,25 @@ export const Floor = ({ floor }: FloorProps) => {
       {floor.spaces && floor.spaces.length > 0 && (
         <Grid item xs={12}>
           <FormSection
-            title={formatMessage({ id: 'pim_details.inside.space_title' }, { space: floor.floorType })}
+            title={formatMessage(
+              { id: 'pim_details.inside.space_title' },
+              { space: formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` }) },
+            )}
             onAdd={() => setModalOpen(true)}
             isInitEdititng={true}
             ref={formRef}
           >
             {editing =>
               floor.spaces?.map((space, index) => (
-                <SpaceContainer
-                  key={space.id}
-                  isEditMode={editing}
-                  isExpanded={expandedSpace === space.id}
-                  onExpand={handleSpaceExpand}
-                  space={space}
-                  index={index}
-                />
+                <Box mb={3} key={space.id}>
+                  <SpaceContainer
+                    isEditMode={editing}
+                    isExpanded={expandedSpace === space.id}
+                    onExpand={handleSpaceExpand}
+                    space={space}
+                    index={index}
+                  />
+                </Box>
               ))
             }
           </FormSection>

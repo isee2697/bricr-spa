@@ -8,7 +8,7 @@ import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
 import { EntityWithFiles } from 'api/types';
 
-export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps) => {
+export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { id: string }) => {
   const { formatMessage } = useLocale();
 
   return (

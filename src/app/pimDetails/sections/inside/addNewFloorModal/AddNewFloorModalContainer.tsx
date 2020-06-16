@@ -42,7 +42,7 @@ export const AddNewFloorModalContainer = ({ isOpened, onClose }: AddNewFloorModa
       push(AppRoute.pimDetails.replace(':id', id) + '/inside/' + floors[0].id);
 
       return undefined;
-    } catch {
+    } catch (e) {
       return {
         error: true,
       };

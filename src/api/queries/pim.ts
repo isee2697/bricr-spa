@@ -157,16 +157,93 @@ export const PIM_DETAILS = gql`
             ... on KitchenSpace {
               constructionYear
               notes
-              type
+              kitchenType: type
               constructionType
               servicesNotes
-              services
+              kitchenServices: services
               appliances {
                 name
                 quantity
                 notes
               }
               hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
               shape
               measurement {
                 length

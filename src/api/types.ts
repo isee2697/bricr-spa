@@ -2520,14 +2520,12 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               KitchenSpace,
                               | 'constructionYear'
                               | 'notes'
-                              | 'type'
                               | 'constructionType'
                               | 'servicesNotes'
-                              | 'services'
                               | 'hob'
                               | 'shape'
                               | 'serviceHeating'
-                            > & {
+                            > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
                                 appliances?: Maybe<
                                   Array<
                                     Maybe<
@@ -2546,11 +2544,63 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                                 >;
                                 images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
                               })
-                          | { __typename?: 'BathroomSpace' }
-                          | { __typename?: 'LivingRoomSpace' }
-                          | { __typename?: 'BedroomSpace' }
-                          | { __typename?: 'HomeOfficeSpace' }
-                          | { __typename?: 'OtherSpace' }
+                          | ({ __typename?: 'BathroomSpace' } & Pick<
+                              BathroomSpace,
+                              'constructionYear' | 'shape' | 'serviceHeating'
+                            > & { bathroomServices: BathroomSpace['services'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'LivingRoomSpace' } & Pick<
+                              LivingRoomSpace,
+                              'shape' | 'stairs' | 'serviceHeating'
+                            > & { livingRoomType: LivingRoomSpace['type'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'BedroomSpace' } & Pick<
+                              BedroomSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'HomeOfficeSpace' } & Pick<
+                              HomeOfficeSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
+                                measurement?: Maybe<
+                                  { __typename?: 'SpaceMeasurement' } & Pick<
+                                    SpaceMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
                         >;
                       }
                   >
@@ -3613,16 +3663,93 @@ export const PimDetailsDocument = gql`
             ... on KitchenSpace {
               constructionYear
               notes
-              type
+              kitchenType: type
               constructionType
               servicesNotes
-              services
+              kitchenServices: services
               appliances {
                 name
                 quantity
                 notes
               }
               hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
               shape
               measurement {
                 length
