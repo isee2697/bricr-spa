@@ -10,4 +10,15 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
       paddingTop: 0,
     },
   },
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: 'auto',
+  },
+  iconSpacing: {
+    marginLeft: spacing(3),
+  },
+  header: {
+    display: 'flex',
+  },
 }));

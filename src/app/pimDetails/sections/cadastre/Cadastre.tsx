@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Button, Grid, Typography } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
-import { AddIcon } from 'ui/atoms/icons';
+import { AddIcon, MenuIcon, HelpIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType, usePimCadastreQuery } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -52,8 +52,14 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsS
           </Box>
         }
       />
-      <Grid xs={12} item>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.cadastre.title' })}</Typography>
+      <Grid item xs={12}>
+        <Box className={classes.header}>
+          <Typography variant="h1">{formatMessage({ id: 'pim_details.cadastre.title' })}</Typography>
+          <Box className={classes.buttons}>
+            <HelpIcon />
+            <MenuIcon className={classes.iconSpacing} />
+          </Box>
+        </Box>
       </Grid>
       <Switch>
         <Route
