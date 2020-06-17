@@ -58,7 +58,7 @@ export type ResetPasswordResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
-  addCadastre?: Maybe<PimCadastre>;
+  addCadastre?: Maybe<Pim>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
   addFiles: Array<File>;
@@ -529,10 +529,33 @@ export enum LeaseDurationType {
   Constantly = 'Constantly',
 }
 
+export enum CadastreOwnershipType {
+  StressedInChargeOf = 'StressedInChargeOf',
+  LeaseholdAndBuildingChargedWith = 'LeaseholdAndBuildingChargedWith',
+  PropertyInChargeOf = 'PropertyInChargeOf',
+  BuildingResponsibleFor = 'BuildingResponsibleFor',
+  AnnualLeasePaymentInChargeOf = 'AnnualLeasePaymentInChargeOf',
+  OtherLike = 'OtherLike',
+}
+
 export enum OwnershipChoiceType {
-  NoneOfThem = 'NoneOfThem',
-  UseAndHabitation = 'UseAndHabitation',
+  MembershipRight = 'MembershipRight',
+  Mandeling = 'Mandeling',
+  Understress = 'Understress',
+  Leasehold = 'Leasehold',
+  RightToRebuild = 'RightToRebuild',
+  Stadsmeierright = 'Stadsmeierright',
+  FullOwnership = 'FullOwnership',
   Usufruct = 'Usufruct',
+  SeeDeed = 'SeeDeed',
+  Oppresed = 'Oppresed',
+  LimitedRights = 'LimitedRights',
+  GroundLease = 'GroundLease',
+  LeaseholdAndBuilding = 'LeaseholdAndBuilding',
+  UseAndHabitation = 'UseAndHabitation',
+  Building = 'Building',
+  CityMayorLaw = 'CityMayorLaw',
+  NoneOfThem = 'NoneOfThem',
 }
 
 export type CadastrePlotInput = {
@@ -546,7 +569,8 @@ export type CadastrePlotInput = {
   surface?: Maybe<Scalars['Float']>;
   share?: Maybe<Scalars['String']>;
   codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<OwnershipInput>;
+  ownershipChoice?: Maybe<OwnershipChoiceType>;
+  ownershipType?: Maybe<CadastreOwnershipType>;
   lease?: Maybe<LeaseInput>;
   boughtOff?: Maybe<BoughtOffInput>;
 };
@@ -593,7 +617,8 @@ export type CadastrePlot = {
   surface?: Maybe<Scalars['Float']>;
   share?: Maybe<Scalars['String']>;
   codeSize?: Maybe<CodeSizeType>;
-  ownership?: Maybe<Ownership>;
+  ownershipChoice?: Maybe<OwnershipChoiceType>;
+  ownershipType?: Maybe<CadastreOwnershipType>;
   lease?: Maybe<Lease>;
   boughtOff?: Maybe<BoughtOff>;
 };
@@ -602,6 +627,7 @@ export type CadastreMap = {
   __typename?: 'CadastreMap';
   id: Scalars['String'];
   mapName: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   file?: Maybe<File>;
   description?: Maybe<Scalars['String']>;
   type?: Maybe<CadastreMapType>;
@@ -619,6 +645,7 @@ export type Lease = {
 export type NewCadastreMapInput = {
   mapName: Scalars['String'];
   fileID: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   type: CadastreMapType;
 };
@@ -629,15 +656,6 @@ export type LeaseInput = {
   duration?: Maybe<LeaseDurationType>;
   yearlyPrice?: Maybe<Scalars['Float']>;
   endDate?: Maybe<Scalars['Date']>;
-};
-
-export type Ownership = {
-  __typename?: 'Ownership';
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
-};
-
-export type OwnershipInput = {
-  stressedInChargeOf?: Maybe<Array<Maybe<OwnershipChoiceType>>>;
 };
 
 export type Cadastre = {
@@ -661,6 +679,7 @@ export type PimCadastre = {
 export type CadastreMapInput = {
   mapName?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   type?: Maybe<CadastreMapType>;
 };
 
@@ -2587,7 +2606,7 @@ export type AddCadastreMutationVariables = {
 
 export type AddCadastreMutation = { __typename?: 'Mutation' } & {
   addCadastre?: Maybe<
-    { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
+    { __typename?: 'Pim' } & Pick<Pim, 'id'> & {
         cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
       }
   >;
@@ -2787,54 +2806,6 @@ export type CreatePimMutation = { __typename?: 'Mutation' } & {
   createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type PimCadastreQueryVariables = {
-  id: Scalars['ID'];
-};
-
-export type PimCadastreQuery = { __typename?: 'Query' } & {
-  getPimCadastre: { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
-      cadastre?: Maybe<
-        Array<
-          { __typename?: 'Cadastre' } & Pick<
-            Cadastre,
-            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated' | 'lastEditedBy'
-          > & {
-              maps?: Maybe<
-                Array<
-                  { __typename?: 'CadastreMap' } & Pick<CadastreMap, 'id' | 'mapName' | 'description' | 'type'> & {
-                      file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id'>>;
-                    }
-                >
-              >;
-              plot?: Maybe<
-                { __typename?: 'CadastrePlot' } & Pick<
-                  CadastrePlot,
-                  | 'notes'
-                  | 'name'
-                  | 'municipalCode'
-                  | 'sectionCode'
-                  | 'plot'
-                  | 'indexNumber'
-                  | 'surface'
-                  | 'share'
-                  | 'codeSize'
-                > & {
-                    ownership?: Maybe<{ __typename?: 'Ownership' } & Pick<Ownership, 'stressedInChargeOf'>>;
-                    lease?: Maybe<
-                      { __typename?: 'Lease' } & Pick<
-                        Lease,
-                        'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
-                      >
-                    >;
-                    boughtOff?: Maybe<{ __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>>;
-                  }
-              >;
-            }
-        >
-      >;
-    };
-};
-
 export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
 };
@@ -2890,6 +2861,56 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type PimCadastreQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimCadastreQuery = { __typename?: 'Query' } & {
+  getPimCadastre: { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
+      cadastre?: Maybe<
+        Array<
+          { __typename?: 'Cadastre' } & Pick<
+            Cadastre,
+            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated' | 'lastEditedBy'
+          > & {
+              maps?: Maybe<
+                Array<
+                  { __typename?: 'CadastreMap' } & Pick<
+                    CadastreMap,
+                    'id' | 'mapName' | 'name' | 'description' | 'type'
+                  > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id'>> }
+                >
+              >;
+              plot?: Maybe<
+                { __typename?: 'CadastrePlot' } & Pick<
+                  CadastrePlot,
+                  | 'notes'
+                  | 'name'
+                  | 'municipalCode'
+                  | 'sectionCode'
+                  | 'plot'
+                  | 'indexNumber'
+                  | 'surface'
+                  | 'share'
+                  | 'codeSize'
+                  | 'ownershipChoice'
+                  | 'ownershipType'
+                > & {
+                    lease?: Maybe<
+                      { __typename?: 'Lease' } & Pick<
+                        Lease,
+                        'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                      >
+                    >;
+                    boughtOff?: Maybe<{ __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>>;
+                  }
+              >;
+            }
+        >
+      >;
+    };
 };
 
 export type PimPricingQueryVariables = {
@@ -3850,70 +3871,6 @@ export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePimMutation,
   CreatePimMutationVariables
 >;
-export const PimCadastreDocument = gql`
-  query PimCadastre($id: ID!) {
-    getPimCadastre(id: $id) {
-      id
-      cadastre {
-        id
-        description
-        type
-        maps {
-          id
-          mapName
-          file {
-            key
-            id
-          }
-          description
-          type
-        }
-        plot {
-          notes
-          name
-          municipalCode
-          sectionCode
-          plot
-          indexNumber
-          surface
-          share
-          codeSize
-          ownership {
-            stressedInChargeOf
-          }
-          lease {
-            leaseholder
-            information
-            duration
-            yearlyPrice
-            endDate
-          }
-          boughtOff {
-            date
-            perpetually
-            notes
-          }
-        }
-        dateCreated
-        dateUpdated
-        lastEditedBy
-      }
-    }
-  }
-`;
-export function usePimCadastreQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
-) {
-  return ApolloReactHooks.useQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
-}
-export function usePimCadastreLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
-) {
-  return ApolloReactHooks.useLazyQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
-}
-export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
-export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
-export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {
@@ -4019,6 +3976,70 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const PimCadastreDocument = gql`
+  query PimCadastre($id: ID!) {
+    getPimCadastre(id: $id) {
+      id
+      cadastre {
+        id
+        description
+        type
+        maps {
+          id
+          mapName
+          name
+          file {
+            key
+            id
+          }
+          description
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownershipChoice
+          ownershipType
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
+            notes
+          }
+        }
+        dateCreated
+        dateUpdated
+        lastEditedBy
+      }
+    }
+  }
+`;
+export function usePimCadastreQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export function usePimCadastreLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
+export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
+export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
 export const PimPricingDocument = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {

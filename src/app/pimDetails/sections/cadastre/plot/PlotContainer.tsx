@@ -29,9 +29,8 @@ export const PlotContainer = () => {
             plot: {
               ...body,
               surface: Number(body.surface),
-              ownership: {
-                stressedInChargeOf: body.ownership.stressedInChargeOf,
-              },
+              ownershipType: body.ownershipType,
+              ownershipChoice: body.ownershipChoice,
               lease: {
                 ...body.lease,
                 yearlyPrice: body.lease?.yearlyPrice ? parseFloat(body.lease.yearlyPrice) : undefined,

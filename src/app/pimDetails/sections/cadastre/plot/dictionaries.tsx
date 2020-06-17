@@ -1,7 +1,14 @@
 import React from 'react';
 
 import { LinkIcon, FilterIcon, BuildingIcon, ComplexBuildingIcon, SettingsIcon } from 'ui/atoms/icons';
-import { CodeSizeType, OwnershipChoiceType, LeaseDurationType, LeaseholderType, LeaseInformationType } from 'api/types';
+import {
+  CodeSizeType,
+  OwnershipChoiceType,
+  LeaseDurationType,
+  LeaseholderType,
+  LeaseInformationType,
+  CadastreOwnershipType,
+} from 'api/types';
 
 export const size = [
   {
@@ -34,27 +41,27 @@ export const size = [
 export const ownershipType = [
   {
     label: 'dictionaries.cadastre_ownership_type.StressedInChargeOf',
-    value: 'stressedInChargeOf',
+    value: CadastreOwnershipType.StressedInChargeOf,
   },
   {
     label: 'dictionaries.cadastre_ownership_type.LeaseholdAndBuildingChargedWith',
-    value: 'leaseholdAndBuildingChargedWith',
+    value: CadastreOwnershipType.LeaseholdAndBuildingChargedWith,
   },
   {
     label: 'dictionaries.cadastre_ownership_type.PropertyInChargeOf',
-    value: 'propertyInChargeOf',
+    value: CadastreOwnershipType.PropertyInChargeOf,
   },
   {
     label: 'dictionaries.cadastre_ownership_type.BuildingResponsibleFor',
-    value: 'buildingResponsibleFor',
+    value: CadastreOwnershipType.BuildingResponsibleFor,
   },
   {
     label: 'dictionaries.cadastre_ownership_type.AnnualLeasePaymentsInChargeOf',
-    value: 'annualLeasePaymentsInChargeOf',
+    value: CadastreOwnershipType.AnnualLeasePaymentInChargeOf,
   },
   {
     label: 'dictionaries.cadastre_ownership_type.OtherLike',
-    value: 'otherLike',
+    value: CadastreOwnershipType.OtherLike,
   },
 ];
 

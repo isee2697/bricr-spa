@@ -141,7 +141,7 @@ export const Plot = ({ name }: PlotProps) => {
                       disabled={!editing}
                       xs={12}
                       lg={12}
-                      name="ownership.type"
+                      name="ownershipType"
                       options={dictionaries.ownershipType}
                     />
                   </Box>
@@ -149,17 +149,15 @@ export const Plot = ({ name }: PlotProps) => {
                 <Grid item xs={1} />
                 <Grid item xs={6}>
                   <Box pt={2}>
-                    <Field name="ownership.type">
+                    <Field name="ownershipType">
                       {({ input }) =>
                         !!input.value && (
                           <RadioGroupField
                             spacing={1}
                             disabled={!editing}
                             xs={4}
-                            name="ownership.stressedInChargeOf"
+                            name="ownershipChoice"
                             options={dictionaries.ownershipValue}
-                            format={value => (value ? value[0] : undefined)}
-                            parse={(value: string) => (value ? [value] : [])}
                           />
                         )
                       }

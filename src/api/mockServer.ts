@@ -6,7 +6,7 @@ import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { loadSchemas } from './loadSchemas';
 import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
 import { FILE_1 } from './mocks/file';
-import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/cadastre';
+import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
 import { Floor, Space, ServiceType, CadastreType } from './types';
 
 const graphqlSchema = buildSchema(loadSchemas());

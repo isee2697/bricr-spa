@@ -11,6 +11,7 @@ export const PIM_CADASTRE = gql`
         maps {
           id
           mapName
+          name
           file {
             key
             id
@@ -28,9 +29,8 @@ export const PIM_CADASTRE = gql`
           surface
           share
           codeSize
-          ownership {
-            stressedInChargeOf
-          }
+          ownershipChoice
+          ownershipType
           lease {
             leaseholder
             information

@@ -42,7 +42,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
             <GenericField
               id="fileName"
               disabled={!isEditMode}
-              name="fileName"
+              name="name"
               placeholder="pim_details.cadastre.file_name_placeholder"
               label="pim_details.cadastre.file_name_placeholder"
             />

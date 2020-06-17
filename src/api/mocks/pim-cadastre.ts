@@ -6,6 +6,7 @@ import {
   PimCadastre,
   CodeSizeType,
   OwnershipChoiceType,
+  CadastreOwnershipType,
 } from 'api/types';
 
 import { FILE_1 } from './file';
@@ -36,9 +37,8 @@ export const CADASTRE_PLOT_1: CadastrePlot = {
   surface: 5,
   share: 'hi',
   codeSize: CodeSizeType.Apartment,
-  ownership: {
-    stressedInChargeOf: [OwnershipChoiceType.UseAndHabitation],
-  },
+  ownershipType: CadastreOwnershipType.StressedInChargeOf,
+  ownershipChoice: OwnershipChoiceType.UseAndHabitation,
 };
 
 export const CADASTRE_1 = {

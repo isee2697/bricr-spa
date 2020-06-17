@@ -50,10 +50,12 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
 
     for (let i = 0; i < files.length; i++) {
       const fileID = await getFileId(files[i]);
+
       fileIds.push({
         mapName: '',
         fileID: fileID,
         description: '',
+        name: files[i].name,
         type: CadastreMapType.Map,
       });
     }

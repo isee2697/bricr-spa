@@ -34,10 +34,33 @@ enum LeaseDurationType {
   Constantly
 }
 
+enum CadastreOwnershipType {
+  StressedInChargeOf,
+  LeaseholdAndBuildingChargedWith,
+  PropertyInChargeOf,
+  BuildingResponsibleFor,
+  AnnualLeasePaymentInChargeOf,
+  OtherLike,
+}
+
 enum OwnershipChoiceType {
-  NoneOfThem,
+  MembershipRight,
+  Mandeling
+  Understress,
+  Leasehold,
+  RightToRebuild,
+  Stadsmeierright,
+  FullOwnership,
+  Usufruct,
+  SeeDeed,
+  Oppresed,
+  LimitedRights,
+  GroundLease,
+  LeaseholdAndBuilding,
   UseAndHabitation,
-  Usufruct
+  Building,
+  CityMayorLaw,
+  NoneOfThem,
 }
 
 input CadastrePlotInput {
@@ -51,7 +74,8 @@ input CadastrePlotInput {
   surface: Float,
   share: String
   codeSize: CodeSizeType
-  ownership: OwnershipInput
+  ownershipChoice: OwnershipChoiceType
+  ownershipType: CadastreOwnershipType
   lease: LeaseInput
   boughtOff: BoughtOffInput
 }
@@ -80,7 +104,6 @@ type BoughtOff {
   notes: String
 }
 
-
 input BoughtOffInput {
   date: Date,
   perpetually: Boolean,
@@ -97,7 +120,8 @@ type CadastrePlot {
   surface: Float,
   share: String
   codeSize: CodeSizeType
-  ownership: Ownership
+  ownershipChoice: OwnershipChoiceType
+  ownershipType: CadastreOwnershipType
   lease: Lease
   boughtOff: BoughtOff
 }
@@ -105,6 +129,7 @@ type CadastrePlot {
 type CadastreMap {
   id: String!
   mapName: String!
+  name: String
   file: File
   description: String
   type: CadastreMapType,
@@ -121,6 +146,7 @@ type Lease {
 input NewCadastreMapInput {
   mapName: String!
   fileID: String!
+  name: String
   description: String
   type: CadastreMapType!,
 }
@@ -132,14 +158,6 @@ input LeaseInput {
   duration: LeaseDurationType
   yearlyPrice: Float,
   endDate: Date
-}
-
-type Ownership {
-  stressedInChargeOf: [OwnershipChoiceType]
-}
-
-input OwnershipInput {
-  stressedInChargeOf: [OwnershipChoiceType]
 }
 
 type Cadastre {
@@ -161,7 +179,8 @@ type PimCadastre {
 input CadastreMapInput {
   mapName: String
   description: String
-  type: CadastreMapType,
+  name: String
+  type: CadastreMapType
 }
 
 input UpdateCadastreMapInput {
@@ -178,7 +197,7 @@ extend type Query {
 
 extend type Mutation {
   addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
-  addCadastre(input: AddCadastreInput!): PimCadastre @auth
+  addCadastre(input: AddCadastreInput!): Pim @auth
   updateCadastre(input: UpdateCadastreInput!): Pim @auth
   updateCadastreMap(input: UpdateCadastreMapInput!): Pim @auth
 }

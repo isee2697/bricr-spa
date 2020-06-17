@@ -25,6 +25,7 @@ export const CadastreMapContainer = ({ cadastreMap, cadastreId, ...props }: Cada
               mapName: body.mapName,
               type: body.type,
               description: body.description,
+              name: body.name,
             },
             fileId: body.file.id,
           },
