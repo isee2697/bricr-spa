@@ -438,7 +438,7 @@ export const mockServer = () => {
                   id: `${Math.floor(Math.random() * 100)}`,
                   configuration: {
                     __typename: 'GardenFeature',
-                    mainGarden: true,
+                    main: true,
                   },
                 },
               ],

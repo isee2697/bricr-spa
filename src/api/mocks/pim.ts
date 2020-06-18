@@ -84,18 +84,18 @@ export const PIM_DETAILS_1: Pim = {
       id: '1',
       configuration: {
         __typename: 'GardenFeature',
-        mainGarden: true,
+        main: true,
         type: GardenType.Backyard,
         notes: 'Some notes',
         quality: GardenQualityType.Neglected,
         location: [Location.East, Location.South],
         shape: GardenShapeType.LShape,
-        dimensions: {
-          __typename: 'RectangleDimensions',
+        measurement: {
+          __typename: 'RectangleMeasurement',
           length: 100,
-          height: 200,
+          width: 200,
+          surface: 20000,
         },
-        surface: 20000,
       },
     },
     {
@@ -105,7 +105,7 @@ export const PIM_DETAILS_1: Pim = {
       id: '2',
       configuration: {
         __typename: 'GardenFeature',
-        mainGarden: true,
+        main: true,
       },
     },
     {
@@ -114,8 +114,36 @@ export const PIM_DETAILS_1: Pim = {
       description: 'My Garage',
       id: '3',
       configuration: {
-        __typename: 'GardenFeature',
-        mainGarden: true,
+        __typename: 'GarageFeature',
+        main: true,
+      },
+    },
+    {
+      __typename: 'OutsideFeature',
+      type: OutsideFeatureType.Storage,
+      description: 'My Storage',
+      id: '4',
+      configuration: {
+        __typename: 'StorageFeature',
+        main: true,
+      },
+    },
+    {
+      __typename: 'OutsideFeature',
+      type: OutsideFeatureType.Terrain,
+      description: 'My Terrain',
+      id: '5',
+      configuration: {
+        __typename: 'TerrainFeature',
+      },
+    },
+    {
+      __typename: 'OutsideFeature',
+      type: OutsideFeatureType.ParkingLot,
+      description: 'My Parking Lot',
+      id: '6',
+      configuration: {
+        __typename: 'ParkingLotFeature',
       },
     },
   ],

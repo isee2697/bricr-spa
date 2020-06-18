@@ -56,7 +56,7 @@ enum OutsideFeatureType {
   Garage,
   Storage,
   Terrain,
-  ParkingLot,
+  ParkingLot
 }
 
 enum GardenType {
@@ -66,7 +66,7 @@ enum GardenType {
   AllGroundGarden,
   FrontGarden,
   SunTerrace,
-  BackGarden,
+  BackGarden
 }
 
 enum GardenQualityType {
@@ -74,7 +74,7 @@ enum GardenQualityType {
   BeautifullyConstructed,
   Normal,
   Neglected,
-  TakenCareOf,
+  TakenCareOf
 }
 
 enum GardenShapeType {
@@ -82,14 +82,90 @@ enum GardenShapeType {
   Rectangle,
   LShape,
   UShape,
-  TShape,
+  TShape
 }
 
 enum Location {
   North,
   South,
   East,
-  West,
+  West
+}
+
+enum GarageType {
+  NoGarage,
+  AttachmentWood,
+  AttachmentStone,
+  Carport,
+  GarageWithCarport,
+  GaragePossible,
+  GarageBox,
+  Indoor,
+  ParkingBasement,
+  ParkingSpace,
+  Basement,
+  FreestandingWood,
+  FreestandingStone
+}
+
+enum GarageAndStorageMaterial {
+  Stone,
+  Wood,
+  Plastic,
+  Metal,
+  Other
+}
+
+enum GarageInsulation {
+  RoofInsulation,
+  DoubleGlazing,
+  EcoConstruction,
+  NoCavity,
+  PartlyDoubleGlazing,
+  WallInsulation, 
+  FloorInsulation, 
+  FullyInsulated
+}
+
+enum GarageService {
+  ElectricDoor,
+  Loft,
+  Electricity,
+  HeatingWater
+}
+
+enum StorageType {
+  StorageBox,
+  Shed,
+  TeaHouse,
+  WithAttic
+}
+
+enum StorageInsulation {
+  NoInsulation,
+  RoofInsulation,
+  DoubleGlazing,
+  EcoConstruction,
+  NoCavity,
+  PartlyDoubleGlazing,
+  WallInsulation,
+  FloorInsulation,
+  FullyInsulated
+}
+
+enum StorageService {
+  WithElectricDoor,
+  WithLoft,
+  EquippedWithElectricity,
+  ProvidedWithHeating,
+  ProvidedWithWater
+}
+
+enum TerrainParking {
+  PaidParking,
+  PublicParking,
+  ParkingGarage,
+  ParkingPermits
 }
 
 type GeneralInformation {
@@ -133,26 +209,62 @@ type HouseOutside {
   notes: String
 }
 
-type RectangleDimensions {
-  length: Float
-  height: Float
-}
-
-union GardenDimensions = RectangleDimensions
-
 type GardenFeature {
-  mainGarden: Boolean
+  main: Boolean
   type: GardenType
   notes: String
   quality: GardenQualityType
   location: [Location]
   shape: GardenShapeType
-  dimensions: GardenDimensions
-  surface: Float
+  measurement: RectangleMeasurement
   images: [File!]
 }
 
-union OutsideFeatureConfiguration = GardenFeature
+type GarageFeature {
+  main: Boolean
+  types: [GarageType]
+  attached: Boolean
+  attic: Boolean
+  insulations: [GarageInsulation]
+  services: [GarageService]
+  secondaryWindows: Boolean
+  materials: [GarageAndStorageMaterial]
+  measurement: CuboidMeasurement
+  notes: String
+  images: [File!]
+}
+
+type StorageFeature {
+  main: Boolean
+  attached: Boolean
+  types: [StorageType]
+  materials: [GarageAndStorageMaterial]
+  insulations: [StorageInsulation]
+  services: [StorageService]
+  secondaryWindows: Boolean
+  measurement: CuboidMeasurement
+  notes: String
+  images: [File!]
+}
+
+type TerrainFeature {
+  parking: TerrainParking
+  measurement: RectangleMeasurement 
+  notes: String
+  images: [File!]
+}
+
+type ParkingLotFeature {
+  number: Float
+  price: Float,
+  cost: Float,
+  notes: String
+  images: [File!]
+}
+
+
+
+union OutsideFeatureConfiguration = GardenFeature | GarageFeature | StorageFeature | TerrainFeature | ParkingLotFeature 
 
 type OutsideFeature {
   id: String!

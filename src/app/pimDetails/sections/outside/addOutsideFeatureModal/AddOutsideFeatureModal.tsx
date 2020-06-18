@@ -70,7 +70,6 @@ export const AddOutsideFeatureModal = ({ onSubmit, isOpened, onClose }: AddOutsi
                           }}
                           isSelected={input.value === c.type}
                           title={formatMessage({ id: c.translation })}
-                          isDisabled={c.type !== OutsideFeatureType.Garden}
                         >
                           {c.icon}
                         </TileRadio>

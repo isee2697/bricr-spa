@@ -13,7 +13,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
-import { GardenContainer } from './garden/GardenContainer';
+import { FeatureContainer } from './feature/FeatureContainer';
 
 export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
@@ -51,7 +51,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
             <Route
               key={feature.id}
               path={`${AppRoute.pimDetails}/outside/${feature.id}`}
-              render={() => <GardenContainer feature={feature} />}
+              render={() => <FeatureContainer feature={feature} />}
             />
           ))}
         <Redirect to={`${AppRoute.pimDetails}/outside`} />

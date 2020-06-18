@@ -779,8 +779,15 @@ export enum KitchenConstruction {
   OpenKitchen = 'OpenKitchen',
 }
 
-export type SpaceMeasurement = {
-  __typename?: 'SpaceMeasurement';
+export type RectangleMeasurement = {
+  __typename?: 'RectangleMeasurement';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+};
+
+export type CuboidMeasurement = {
+  __typename?: 'CuboidMeasurement';
   length?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
@@ -819,13 +826,13 @@ export type KitchenSpace = {
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   type?: Maybe<KitchenType>;
-  constructionType?: Maybe<KitchenConstruction>;
+  constructionType?: Maybe<Array<Maybe<KitchenConstruction>>>;
   services?: Maybe<Array<Maybe<KitchenServices>>>;
   servicesNotes?: Maybe<Scalars['String']>;
   appliances?: Maybe<Array<Maybe<KitchenAppliance>>>;
   hob?: Maybe<KitchenHob>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
 };
@@ -837,7 +844,7 @@ export type BathroomSpace = {
   services?: Maybe<Array<Maybe<BathroomServices>>>;
   servicesNotes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
 };
@@ -846,9 +853,9 @@ export type LivingRoomSpace = {
   __typename?: 'LivingRoomSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
-  type?: Maybe<LivingRoomType>;
+  type?: Maybe<Array<Maybe<LivingRoomType>>>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
   stairs?: Maybe<Scalars['Boolean']>;
@@ -859,7 +866,7 @@ export type BedroomSpace = {
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
 };
@@ -869,7 +876,7 @@ export type HomeOfficeSpace = {
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
 };
@@ -880,7 +887,7 @@ export type OtherSpace = {
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
-  measurement?: Maybe<SpaceMeasurement>;
+  measurement?: Maybe<CuboidMeasurement>;
   serviceHeating?: Maybe<Array<Maybe<SpaceServiceHeating>>>;
   images?: Maybe<Array<File>>;
 };
@@ -1398,6 +1405,82 @@ export enum Location {
   West = 'West',
 }
 
+export enum GarageType {
+  NoGarage = 'NoGarage',
+  AttachmentWood = 'AttachmentWood',
+  AttachmentStone = 'AttachmentStone',
+  Carport = 'Carport',
+  GarageWithCarport = 'GarageWithCarport',
+  GaragePossible = 'GaragePossible',
+  GarageBox = 'GarageBox',
+  Indoor = 'Indoor',
+  ParkingBasement = 'ParkingBasement',
+  ParkingSpace = 'ParkingSpace',
+  Basement = 'Basement',
+  FreestandingWood = 'FreestandingWood',
+  FreestandingStone = 'FreestandingStone',
+}
+
+export enum GarageAndStorageMaterial {
+  Stone = 'Stone',
+  Wood = 'Wood',
+  Plastic = 'Plastic',
+  Metal = 'Metal',
+  Other = 'Other',
+}
+
+export enum GarageInsulation {
+  RoofInsulation = 'RoofInsulation',
+  DoubleGlazing = 'DoubleGlazing',
+  EcoConstruction = 'EcoConstruction',
+  NoCavity = 'NoCavity',
+  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
+  WallInsulation = 'WallInsulation',
+  FloorInsulation = 'FloorInsulation',
+  FullyInsulated = 'FullyInsulated',
+}
+
+export enum GarageService {
+  ElectricDoor = 'ElectricDoor',
+  Loft = 'Loft',
+  Electricity = 'Electricity',
+  HeatingWater = 'HeatingWater',
+}
+
+export enum StorageType {
+  StorageBox = 'StorageBox',
+  Shed = 'Shed',
+  TeaHouse = 'TeaHouse',
+  WithAttic = 'WithAttic',
+}
+
+export enum StorageInsulation {
+  NoInsulation = 'NoInsulation',
+  RoofInsulation = 'RoofInsulation',
+  DoubleGlazing = 'DoubleGlazing',
+  EcoConstruction = 'EcoConstruction',
+  NoCavity = 'NoCavity',
+  PartlyDoubleGlazing = 'PartlyDoubleGlazing',
+  WallInsulation = 'WallInsulation',
+  FloorInsulation = 'FloorInsulation',
+  FullyInsulated = 'FullyInsulated',
+}
+
+export enum StorageService {
+  WithElectricDoor = 'WithElectricDoor',
+  WithLoft = 'WithLoft',
+  EquippedWithElectricity = 'EquippedWithElectricity',
+  ProvidedWithHeating = 'ProvidedWithHeating',
+  ProvidedWithWater = 'ProvidedWithWater',
+}
+
+export enum TerrainParking {
+  PaidParking = 'PaidParking',
+  PublicParking = 'PublicParking',
+  ParkingGarage = 'ParkingGarage',
+  ParkingPermits = 'ParkingPermits',
+}
+
 export type GeneralInformation = {
   __typename?: 'GeneralInformation';
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
@@ -1446,28 +1529,70 @@ export type HouseOutside = {
   notes?: Maybe<Scalars['String']>;
 };
 
-export type RectangleDimensions = {
-  __typename?: 'RectangleDimensions';
-  length?: Maybe<Scalars['Float']>;
-  height?: Maybe<Scalars['Float']>;
-};
-
-export type GardenDimensions = RectangleDimensions;
-
 export type GardenFeature = {
   __typename?: 'GardenFeature';
-  mainGarden?: Maybe<Scalars['Boolean']>;
+  main?: Maybe<Scalars['Boolean']>;
   type?: Maybe<GardenType>;
   notes?: Maybe<Scalars['String']>;
   quality?: Maybe<GardenQualityType>;
   location?: Maybe<Array<Maybe<Location>>>;
   shape?: Maybe<GardenShapeType>;
-  dimensions?: Maybe<GardenDimensions>;
-  surface?: Maybe<Scalars['Float']>;
+  measurement?: Maybe<RectangleMeasurement>;
   images?: Maybe<Array<File>>;
 };
 
-export type OutsideFeatureConfiguration = GardenFeature;
+export type GarageFeature = {
+  __typename?: 'GarageFeature';
+  main?: Maybe<Scalars['Boolean']>;
+  types?: Maybe<Array<Maybe<GarageType>>>;
+  attached?: Maybe<Scalars['Boolean']>;
+  attic?: Maybe<Scalars['Boolean']>;
+  insulations?: Maybe<Array<Maybe<GarageInsulation>>>;
+  services?: Maybe<Array<Maybe<GarageService>>>;
+  secondaryWindows?: Maybe<Scalars['Boolean']>;
+  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
+  measurement?: Maybe<CuboidMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type StorageFeature = {
+  __typename?: 'StorageFeature';
+  main?: Maybe<Scalars['Boolean']>;
+  attached?: Maybe<Scalars['Boolean']>;
+  types?: Maybe<Array<Maybe<StorageType>>>;
+  materials?: Maybe<Array<Maybe<GarageAndStorageMaterial>>>;
+  insulations?: Maybe<Array<Maybe<StorageInsulation>>>;
+  services?: Maybe<Array<Maybe<StorageService>>>;
+  secondaryWindows?: Maybe<Scalars['Boolean']>;
+  measurement?: Maybe<CuboidMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type TerrainFeature = {
+  __typename?: 'TerrainFeature';
+  parking?: Maybe<TerrainParking>;
+  measurement?: Maybe<RectangleMeasurement>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type ParkingLotFeature = {
+  __typename?: 'ParkingLotFeature';
+  number?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  cost?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+};
+
+export type OutsideFeatureConfiguration =
+  | GardenFeature
+  | GarageFeature
+  | StorageFeature
+  | TerrainFeature
+  | ParkingLotFeature;
 
 export type OutsideFeature = {
   __typename?: 'OutsideFeature';
@@ -3218,8 +3343,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                                   >
                                 >;
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3230,8 +3355,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               'constructionYear' | 'shape' | 'serviceHeating'
                             > & { bathroomServices: BathroomSpace['services'] } & {
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3242,8 +3367,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               'shape' | 'stairs' | 'serviceHeating'
                             > & { livingRoomType: LivingRoomSpace['type'] } & {
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3254,8 +3379,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               'notes' | 'shape' | 'serviceHeating'
                             > & {
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3266,8 +3391,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               'notes' | 'shape' | 'serviceHeating'
                             > & {
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3275,8 +3400,8 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
                               })
                           | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
                                 measurement?: Maybe<
-                                  { __typename?: 'SpaceMeasurement' } & Pick<
-                                    SpaceMeasurement,
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
                                     'length' | 'width' | 'height' | 'surface' | 'volume'
                                   >
                                 >;
@@ -3293,15 +3418,63 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
           Array<
             { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
                 configuration?: Maybe<
-                  { __typename?: 'GardenFeature' } & Pick<
-                    GardenFeature,
-                    'mainGarden' | 'type' | 'notes' | 'quality' | 'location' | 'shape' | 'surface'
-                  > & {
-                      dimensions?: Maybe<
-                        { __typename?: 'RectangleDimensions' } & Pick<RectangleDimensions, 'length' | 'height'>
-                      >;
-                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                    }
+                  | ({ __typename?: 'GardenFeature' } & Pick<
+                      GardenFeature,
+                      'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
+                    > & {
+                        measurement?: Maybe<
+                          { __typename?: 'RectangleMeasurement' } & Pick<
+                            RectangleMeasurement,
+                            'length' | 'width' | 'surface'
+                          >
+                        >;
+                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                      })
+                  | ({ __typename?: 'GarageFeature' } & Pick<
+                      GarageFeature,
+                      'main' | 'notes' | 'attached' | 'attic' | 'secondaryWindows' | 'materials'
+                    > & {
+                        garageTypes: GarageFeature['types'];
+                        garageInsulations: GarageFeature['insulations'];
+                        garageServices: GarageFeature['services'];
+                      } & {
+                        measurement?: Maybe<
+                          { __typename?: 'CuboidMeasurement' } & Pick<
+                            CuboidMeasurement,
+                            'length' | 'width' | 'height' | 'surface' | 'volume'
+                          >
+                        >;
+                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                      })
+                  | ({ __typename?: 'StorageFeature' } & Pick<
+                      StorageFeature,
+                      'main' | 'notes' | 'attached' | 'secondaryWindows' | 'materials'
+                    > & {
+                        storageTypes: StorageFeature['types'];
+                        storageInsulations: StorageFeature['insulations'];
+                        storageServices: StorageFeature['services'];
+                      } & {
+                        measurement?: Maybe<
+                          { __typename?: 'CuboidMeasurement' } & Pick<
+                            CuboidMeasurement,
+                            'length' | 'width' | 'height' | 'surface' | 'volume'
+                          >
+                        >;
+                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                      })
+                  | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                        measurement?: Maybe<
+                          { __typename?: 'RectangleMeasurement' } & Pick<
+                            RectangleMeasurement,
+                            'length' | 'width' | 'surface'
+                          >
+                        >;
+                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                      })
+                  | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                      ParkingLotFeature,
+                      'number' | 'price' | 'cost' | 'notes'
+                    > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> })
                 >;
               }
           >
@@ -4616,19 +4789,79 @@ export const PimDetailsDocument = gql`
         type
         configuration {
           ... on GardenFeature {
-            mainGarden
+            main
             type
             notes
             quality
             location
             shape
-            dimensions {
-              ... on RectangleDimensions {
-                length
-                height
-              }
+            measurement {
+              length
+              width
+              surface
             }
-            surface
+            images {
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            notes
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            storageTypes: types
+            notes
+            attached
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            notes
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
             images {
               url
             }

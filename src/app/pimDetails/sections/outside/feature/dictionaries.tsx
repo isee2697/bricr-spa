@@ -1,6 +1,16 @@
 import React from 'react';
 
-import { LinkIcon } from 'ui/atoms/icons';
+import { LinkIcon, SquareIcon } from 'ui/atoms/icons';
+import {
+  GarageType,
+  GarageAndStorageMaterial,
+  GarageInsulation,
+  GarageService,
+  StorageType,
+  StorageInsulation,
+  StorageService,
+  TerrainParking,
+} from 'api/types';
 
 export const gardenTypes = [
   {
@@ -40,7 +50,7 @@ export const gardenTypes = [
   },
 ];
 
-export const locations = [
+export const gardenLocations = [
   {
     label: 'dictionaries.location.North',
     icon: <LinkIcon color="inherit" />,
@@ -118,3 +128,53 @@ export const gardenShapes = [
     value: 'TShape',
   },
 ];
+
+export const garageTypes = Object.keys(GarageType).map(type => ({
+  label: `dictionaries.outside_garage.type.${type}`,
+  icon: <SquareIcon color="inherit" />,
+  value: type,
+}));
+
+export const garageStorageMaterials = Object.keys(GarageAndStorageMaterial).map(material => ({
+  label: `dictionaries.outside_garage.material.${material}`,
+  icon: <SquareIcon color="inherit" />,
+  value: material,
+}));
+
+export const garageInsulations = Object.keys(GarageInsulation).map(insulation => ({
+  label: `dictionaries.outside_garage.insulation.${insulation}`,
+  icon: <SquareIcon color="inherit" />,
+  value: insulation,
+}));
+
+export const garageServices = Object.keys(GarageService).map(service => ({
+  label: `dictionaries.outside_garage.service.${service}`,
+  icon: <SquareIcon color="inherit" />,
+  value: service,
+}));
+
+export const storageTypes = Object.keys(StorageType).map(type => ({
+  label: `dictionaries.outside_storage.type.${type}`,
+  icon: <SquareIcon color="inherit" />,
+  value: type,
+}));
+
+export const storageInsulations = Object.keys(StorageInsulation)
+  .filter(insulation => insulation !== StorageInsulation.NoInsulation)
+  .map(insulation => ({
+    label: `dictionaries.outside_storage.insulation.${insulation}`,
+    icon: <SquareIcon color="inherit" />,
+    value: insulation,
+  }));
+
+export const storageServices = Object.keys(StorageService).map(service => ({
+  label: `dictionaries.outside_storage.service.${service}`,
+  icon: <SquareIcon color="inherit" />,
+  value: service,
+}));
+
+export const terrainParkings = Object.keys(TerrainParking).map(parking => ({
+  label: `dictionaries.outside_terrain.parking.${parking}`,
+  icon: <SquareIcon color="inherit" />,
+  value: parking,
+}));

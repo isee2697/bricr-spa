@@ -209,19 +209,79 @@ export const PIM_DETAILS = gql`
         type
         configuration {
           ... on GardenFeature {
-            mainGarden
+            main
             type
             notes
             quality
             location
             shape
-            dimensions {
-              ... on RectangleDimensions {
-                length
-                height
-              }
+            measurement {
+              length
+              width
+              surface
             }
-            surface
+            images {
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            notes
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            storageTypes: types
+            notes
+            attached
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            notes
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
             images {
               url
             }

@@ -62,13 +62,12 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
         <FormSubSection
           noBorder
           title={formatMessage({ id: 'pim_details.inside.type_of_construction' })}
-          subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+          subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
         />
-        <Box paddingTop={2}>
-          <RadioGroupField
+        <Box paddingTop={2} paddingLeft={2}>
+          <CheckboxGroupField
             disabled={!isEditMode}
-            xs={4}
-            lg={2}
+            xs={2}
             name={`${fieldPrefix}.constructionType`}
             options={dictionaries.kitchenConstruction}
           />

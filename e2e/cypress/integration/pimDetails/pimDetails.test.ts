@@ -167,9 +167,9 @@ context('Pim Details', () => {
     cy.findByText('Neglected').click();
     cy.findByText('North').click();
     cy.findByText('West').click();
-    cy.get('input[name="configuration.dimensions.height"]').type('200');
-    cy.get('input[name="configuration.dimensions.length"]').type('100');
-    cy.get('input[name="configuration.surface"]').type('20000');
+    cy.get('input[name="configuration.measurement.width"]').type('200');
+    cy.get('input[name="configuration.measurement.length"]').type('100');
+    cy.get('input[name="configuration.measurement.surface"]').type('20000');
 
     cy.wait(3000);
   });

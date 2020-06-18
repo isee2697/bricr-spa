@@ -24,13 +24,15 @@ export const PropertyRelated = () => {
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
             </Box>
-            <CheckboxGroupField
-              disabled={!isEditMode}
-              xs={2}
-              lg={1}
-              name="houseOutside.propertyRelated.items"
-              options={dictionaries.relatedItems}
-            />
+            <Box pl={2}>
+              <CheckboxGroupField
+                disabled={!isEditMode}
+                xs={2}
+                lg={1}
+                name="houseOutside.propertyRelated.items"
+                options={dictionaries.relatedItems}
+              />
+            </Box>
             <GenericField
               name="houseOutside.propertyRelated.notes"
               label="common.notes"

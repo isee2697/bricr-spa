@@ -32,7 +32,7 @@ export const BathroomForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
           title={formatMessage({ id: 'pim_details.inside.bathroom_services' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
         />
-        <Box paddingTop={2}>
+        <Box paddingTop={2} paddingLeft={2}>
           <CheckboxGroupField
             disabled={!isEditMode}
             xs={2}

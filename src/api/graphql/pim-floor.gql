@@ -86,7 +86,13 @@ enum KitchenConstruction {
   OpenKitchen
 }
 
-type SpaceMeasurement {
+type RectangleMeasurement {
+  length: Float
+  width: Float
+  surface: Float
+}
+
+type CuboidMeasurement {
   length: Float,
   width: Float,
   height: Float,
@@ -124,13 +130,13 @@ type KitchenSpace {
   constructionYear: Float
   notes: String
   type: KitchenType
-  constructionType: KitchenConstruction
+  constructionType: [KitchenConstruction]
   services: [KitchenServices]
   servicesNotes: String
   appliances: [KitchenAppliance]
   hob: KitchenHob
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
 }
@@ -141,7 +147,7 @@ type BathroomSpace {
   services: [BathroomServices]
   servicesNotes: String
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
 }
@@ -149,9 +155,9 @@ type BathroomSpace {
 type LivingRoomSpace {
   constructionYear: Float
   notes: String
-  type: LivingRoomType
+  type: [LivingRoomType]
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
   stairs: Boolean
@@ -161,7 +167,7 @@ type BedroomSpace {
   constructionYear: Float
   notes: String
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
 }
@@ -170,7 +176,7 @@ type HomeOfficeSpace {
   constructionYear: Float
   notes: String
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
 }
@@ -180,7 +186,7 @@ type OtherSpace {
   constructionYear: Float
   notes: String
   shape: SpaceShape
-  measurement: SpaceMeasurement
+  measurement: CuboidMeasurement
   serviceHeating: [SpaceServiceHeating]
   images: [File!]
 }

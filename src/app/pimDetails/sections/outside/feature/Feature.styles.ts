@@ -6,6 +6,7 @@ export const useStyles = makeStyles(theme => ({
   },
   description: {
     margin: 0,
+    marginTop: theme.spacing(1),
   },
   buttons: {
     marginLeft: 'auto',

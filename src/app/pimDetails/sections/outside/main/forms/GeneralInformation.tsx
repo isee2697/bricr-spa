@@ -33,13 +33,15 @@ export const GeneralInformation = () => {
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
             </Box>
-            <CheckboxGroupField
-              disabled={!isEditMode}
-              xs={2}
-              lg={1}
-              name="houseOutside.generalInformation.qualityInformation"
-              options={dictionaries.qualities}
-            />
+            <Box pl={2}>
+              <CheckboxGroupField
+                disabled={!isEditMode}
+                md={2}
+                lg={1}
+                name="houseOutside.generalInformation.qualityInformation"
+                options={dictionaries.qualities}
+              />
+            </Box>
           </Box>
 
           <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
