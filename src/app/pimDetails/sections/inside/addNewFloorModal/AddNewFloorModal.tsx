@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Button, Grid, TileRadio } from 'ui/atoms';
+import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
+import { Alert, DialogContent, DialogActions, Grid, TileRadio } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { GenericField } from 'form/fields';
@@ -89,9 +89,9 @@ export const AddNewFloorModal = ({ onSubmit, isOpened, onClose }: AddNewFloorMod
             </DialogContent>
 
             <DialogActions>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
-import { Modal, SubmitButton, TileButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Button, Box } from 'ui/atoms';
+import { Modal, SubmitButton, TileButton, CancelButton } from 'ui/molecules';
+import { Alert, DialogContent, DialogActions, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
@@ -60,9 +60,9 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
               </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 
 import { useLocale } from 'hooks';
-import { DialogContent, DialogActions, Button, Box, Typography, Badge, Alert } from 'ui/atoms';
+import { DialogContent, DialogActions, Box, Typography, Badge, Alert } from 'ui/atoms';
 import { UploadIcon, CloseIcon } from 'ui/atoms/icons';
-import { Modal, SubmitButton } from 'ui/molecules';
+import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 
 import { UploadModalProps } from './UploadModal.types';
 import { useStyles } from './UploadModal.styles';
@@ -91,9 +91,9 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
       </DialogContent>
 
       <DialogActions className={classes.actions}>
-        <Button color="default" variant="outlined" onClick={onClose}>
+        <CancelButton variant="outlined" size="large" onClick={onClose}>
           {formatMessage({ id: 'common.cancel' })}
-        </Button>
+        </CancelButton>
         <SubmitButton
           type="submit"
           startIcon={<UploadIcon color="inherit" />}

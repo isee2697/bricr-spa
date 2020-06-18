@@ -2,8 +2,8 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 
 import { SpaceType } from 'api/types';
-import { Modal, SubmitButton, SelectCard } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Button, Grid, Switch } from 'ui/atoms';
+import { Modal, SubmitButton, SelectCard, CancelButton } from 'ui/molecules';
+import { Alert, DialogContent, DialogActions, Grid, Switch } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { GenericField } from 'form/fields';
@@ -80,9 +80,9 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
               </Field>
             </DialogContent>
             <DialogActions>
-              <Button color="default" variant="outlined" onClick={() => onClose(undefined)}>
+              <CancelButton variant="outlined" size="large" onClick={() => onClose(undefined)}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

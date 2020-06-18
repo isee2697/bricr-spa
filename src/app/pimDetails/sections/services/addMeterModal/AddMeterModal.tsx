@@ -2,8 +2,8 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { RadioGroupField, GenericField } from 'form/fields';
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Button } from 'ui/atoms';
+import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
+import { Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { SquareIcon, AddIcon } from 'ui/atoms/icons';
 import { MeterType } from 'api/types';
@@ -54,9 +54,9 @@ export const AddMeterModal = ({ isOpened, onClose, onSubmit }: AddMeterModalProp
               />
             </DialogContent>
             <DialogActions>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

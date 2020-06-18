@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react';
 import { Form } from 'react-final-form';
 
-import { InfoSection, Modal, SubmitButton, SimpleSearch } from 'ui/molecules';
+import { InfoSection, Modal, SubmitButton, SimpleSearch, CancelButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { Box, Button, DialogActions, DialogContent, Grid, TileCheckbox, Typography } from 'ui/atoms';
+import { Box, DialogActions, DialogContent, Grid, TileCheckbox, Typography } from 'ui/atoms';
 import { AddIcon, HomeIcon } from 'ui/atoms/icons';
 
 import { AddLinkedPropertyModalProps, LinkedPropertyType } from './AddLinkedPropertyModal.types';
@@ -162,9 +162,9 @@ export const AddLinkedPropertyModal = ({ isOpened, onClose, onSubmit }: AddLinke
               </Grid>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

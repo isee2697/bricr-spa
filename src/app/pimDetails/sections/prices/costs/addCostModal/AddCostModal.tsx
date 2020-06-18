@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Button, DialogActions, DialogContent } from 'ui/atoms';
+import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
+import { DialogActions, DialogContent } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { GenericField, RadioGroupField } from 'form/fields';
@@ -34,9 +34,9 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }
               />
             </DialogContent>
             <DialogActions classes={{ root: classes.actions }}>
-              <Button onClick={onModalClose} color="primary" variant="outlined">
+              <CancelButton variant="outlined" size="large" onClick={onModalClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 color="primary"
                 variant="contained"

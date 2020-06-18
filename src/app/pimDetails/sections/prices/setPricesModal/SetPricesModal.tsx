@@ -3,9 +3,9 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
-import { Modal, SubmitButton } from 'ui/molecules';
+import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { CheckboxGroupField } from 'form/fields';
-import { DialogContent, DialogActions, Button } from 'ui/atoms';
+import { DialogContent, DialogActions } from 'ui/atoms';
 import { AddIcon, HomeIcon, LockIcon } from 'ui/atoms/icons';
 
 import { SetPricesModalProps } from './SetPricesModal.types';
@@ -41,9 +41,9 @@ export const SetPricesModal = ({ isOpened, onClose, initialValues, onSubmit }: S
             </DialogContent>
 
             <DialogActions>
-              <Button color="default" variant="outlined">
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}

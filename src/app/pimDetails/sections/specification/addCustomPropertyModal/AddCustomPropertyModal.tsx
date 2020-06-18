@@ -2,10 +2,9 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { GenericField } from 'form/fields';
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Button, Grid, Box } from 'ui/atoms';
+import { Modal, SubmitButton, IconPicker, CancelButton } from 'ui/molecules';
+import { Alert, DialogContent, DialogActions, Grid, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { IconPicker } from 'ui/molecules';
 import {
   AddIcon,
   BellIcon,
@@ -88,9 +87,9 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
               </Grid>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <Button color="default" variant="outlined" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
-              </Button>
+              </CancelButton>
               <SubmitButton
                 type="submit"
                 startIcon={<AddIcon color="inherit" />}
