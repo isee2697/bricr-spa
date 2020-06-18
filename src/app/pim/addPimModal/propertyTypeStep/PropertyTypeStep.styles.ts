@@ -1,11 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   selectCard: {
-    paddingRight: theme.spacing(3),
+    paddingRight: spacing(3),
+    '& button': {
+      padding: spacing(1, 2),
+      lineHeight: typography.h5.lineHeight,
+    },
     '& button:hover': {
       '@media (hover: none)': {
-        backgroundColor: theme.palette.white.main,
+        backgroundColor: palette.white.main,
       },
     },
   },

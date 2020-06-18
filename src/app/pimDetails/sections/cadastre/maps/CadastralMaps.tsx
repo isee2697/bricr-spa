@@ -23,7 +23,7 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
     <>
       <FormSection
         title={formatMessage({ id: 'pim_details.cadastre.map.title' })}
-        isEditable
+        isEditable={false}
         onAdd={() => setAddModalOpened(true)}
         buttons={
           <>

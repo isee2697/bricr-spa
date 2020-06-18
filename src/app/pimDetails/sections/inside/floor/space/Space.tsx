@@ -24,7 +24,7 @@ export const Space = ({ isEditMode, isExpanded, onExpand, index, space: { spaceN
   return (
     <Box className={classes.container}>
       <FormSubSection
-        title={`${spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} ${index + 1}`}
+        title={spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })}
         onOptionsClick={() => {}}
         initiallyOpened={false}
         isExpanded={isExpanded}

@@ -25,7 +25,7 @@ describe('Space form', () => {
       </Form>,
     );
 
-    expect(getByText(`dictionaries.space_type.Kitchen ${SPACE_INDEX + 1}`)).toBeInTheDocument();
+    expect(getByText('dictionaries.space_type.Kitchen')).toBeInTheDocument();
     expect(getByPlaceholderText('pim_details.inside.year_of_construction_placeholder')).toBeInTheDocument();
     expect(getByPlaceholderText('pim_details.inside.space_notes_placeholder')).toBeInTheDocument();
     expect(getByText('pim_details.inside.type_of_kitchen')).toBeInTheDocument();
