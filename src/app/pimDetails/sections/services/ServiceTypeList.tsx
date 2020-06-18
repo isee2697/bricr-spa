@@ -68,24 +68,29 @@ export const ServiceTypeList: <T extends Service>(
               </InfoSection>
             )}
             {items.length > 0 &&
-              items.map((item, key) => (
-                <ServiceForm
-                  onSave={onSave}
-                  key={item.id}
-                  isEditMode={isEditMode}
-                  toggled={toggled === key}
-                  onToggleClick={() => setToggled(toggled === key ? undefined : key)}
-                  item={item}
-                  types={formTypes}
-                  typesTitle={formTypeTitle}
-                  hasOwnership={!!types.find(type => type.value === item.type)?.hasOwnership}
-                  title={
-                    <>
-                      <Avatar className={classes.avatar}>{key + 1}</Avatar> {item.name}
-                    </>
-                  }
-                />
-              ))}
+              items.map((item, key) => {
+                const type = types.find(type => type.value === item.configuration.type);
+
+                return (
+                  <ServiceForm
+                    onSave={onSave}
+                    key={item.id}
+                    isEditMode={isEditMode}
+                    toggled={toggled === key}
+                    onToggleClick={() => setToggled(toggled === key ? undefined : key)}
+                    item={item}
+                    types={formTypes}
+                    typesTitle={formTypeTitle}
+                    hasOwnership={!!type?.hasOwnership}
+                    title={
+                      <>
+                        <Avatar className={classes.avatar}>{key + 1}</Avatar>
+                        {`${type && formatMessage({ id: type.label })} ${item.name}`}
+                      </>
+                    }
+                  />
+                );
+              })}
           </>
         )}
       </FormSection>
