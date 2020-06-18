@@ -1,6 +1,9 @@
-import { CadastreMap } from 'api/types';
+import { Cadastre } from 'api/types';
 
 export type MapsProps = {
-  cadstralMaps: CadastreMap[];
-  cadastreId: string;
+  cadastreItem: Cadastre;
+};
+
+export type MapsContainerProps = {
+  cadastreItem?: Cadastre;
 };

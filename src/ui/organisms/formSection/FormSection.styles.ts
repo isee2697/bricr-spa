@@ -20,14 +20,14 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
     },
   },
   actions: {
-    '& > *': {
+    '& > *:last-child': {
       marginLeft: spacing(3),
     },
   },
   editLabel: {
     '& .MuiFormControlLabel-label': {
       fontSize: typography.h5.fontSize,
-      fontWeight: typography.fontWeightMedium,
+      fontWeight: 'normal',
     },
   },
   options: {

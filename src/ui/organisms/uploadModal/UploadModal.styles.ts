@@ -62,6 +62,7 @@ export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   },
   actions: {
     padding: spacing(2),
+    margin: spacing(0, 1),
     borderTop: `1px solid ${palette.gray.light}`,
   },
 }));

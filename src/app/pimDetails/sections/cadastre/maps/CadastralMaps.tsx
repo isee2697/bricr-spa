@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
-import { Typography, Box } from 'ui/atoms';
+import { Typography, Box, IconButton } from 'ui/atoms';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
+import { ListIcon, CardsIcon } from 'ui/atoms/icons';
 
 import { MapsProps } from './CadastralMaps.types';
 import { useStyles } from './CadsatralMaps.styles';
 import { AddMapModalContainer } from './addMapModal/AddMapModalContainer';
 import { CadastreMapContainer } from './cadastreMap/CadastreMapContainer';
 
-export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
+export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
   const { formatMessage } = useLocale();
   const [isAddModalOpened, setAddModalOpened] = useState(false);
+
   const classes = useStyles();
   const [toggled, setToggled] = useState<string | undefined>();
 
@@ -23,17 +25,27 @@ export const CadastralMaps = ({ cadstralMaps, cadastreId }: MapsProps) => {
         title={formatMessage({ id: 'pim_details.cadastre.map.title' })}
         isEditable
         onAdd={() => setAddModalOpened(true)}
+        buttons={
+          <>
+            <IconButton>
+              <ListIcon />
+            </IconButton>
+            <IconButton>
+              <CardsIcon />
+            </IconButton>
+          </>
+        }
       >
         {isEditMode => (
           <List
             className={classes.list}
-            items={cadstralMaps}
+            items={cadastreItem.maps || []}
             itemIndex={'id'}
             renderItem={(cadastre, checked, checkbox) => (
               <Box className={classNames({ [classes.rowChecked]: checked })} key={cadastre.id}>
                 <CadastreMapContainer
                   isEditMode={isEditMode}
-                  cadastreId={cadastreId}
+                  cadastreId={cadastreItem?.id}
                   title={
                     <>
                       {checkbox}

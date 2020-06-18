@@ -25,7 +25,6 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
     },
     '& .title': {
-      marginTop: theme.spacing(1),
       color: theme.palette.gray.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.h5.fontWeight,
@@ -54,6 +53,9 @@ export const useStyles = makeStyles(theme => ({
     flexFlow: 'column',
     width: '100%',
     alignItems: 'center',
+    '&.hasIcon .title': {
+      marginTop: theme.spacing(1),
+    },
   },
   disabled: {
     pointerEvents: 'none',

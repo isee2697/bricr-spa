@@ -11,7 +11,7 @@ import { CadastreType, usePimCadastreQuery } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { useStyles } from './Cadastre.styles';
-import { CadastralMaps } from './maps/CadastralMaps';
+import { CadastralMapsContainer } from './maps/CadastralMapsContainer';
 import { PlotContainer } from './plot/PlotContainer';
 import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
 
@@ -67,7 +67,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsS
           exact
           render={() => (
             <Grid item xs={12}>
-              <CadastralMaps cadastreId={cadastreMap?.id || ''} cadstralMaps={cadastreMap?.maps || []} />
+              <CadastralMapsContainer cadastreItem={cadastreMap} />
             </Grid>
           )}
         />

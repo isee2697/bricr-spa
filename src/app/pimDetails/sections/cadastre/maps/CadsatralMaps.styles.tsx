@@ -18,4 +18,8 @@ export const useStyles = makeStyles(theme => ({
   rowChecked: {
     background: `${theme.palette.primary.main}08`,
   },
+  description: {
+    marginTop: -theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
 }));

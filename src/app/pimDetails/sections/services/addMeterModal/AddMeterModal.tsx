@@ -47,7 +47,11 @@ export const AddMeterModal = ({ isOpened, onClose, onSubmit }: AddMeterModalProp
             )}
             <DialogContent>
               <RadioGroupField xs={4} name="type" options={TYPES} />
-              <GenericField name="name" label="pim_details.services.meter_name.label" />
+              <GenericField
+                name="name"
+                label="pim_details.services.meter_name.label"
+                placeholder="pim_details.services.meter_name.placeholder"
+              />
             </DialogContent>
             <DialogActions>
               <Button color="default" variant="outlined" onClick={onClose}>

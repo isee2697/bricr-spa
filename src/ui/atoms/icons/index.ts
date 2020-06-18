@@ -29,6 +29,7 @@ export * from './hide/HideIcon';
 export * from './home/HomeIcon';
 export * from './link/LinkIcon';
 export * from './list/ListIcon';
+export * from './cards/CardsIcon';
 export * from './lock/LockIcon';
 export * from './mail/MailIcon';
 export * from './manage/ManageIcon';

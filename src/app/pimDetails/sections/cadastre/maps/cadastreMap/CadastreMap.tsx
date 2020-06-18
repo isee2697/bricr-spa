@@ -6,6 +6,7 @@ import { GenericField, RadioGroupField } from 'form/fields';
 import { useStyles } from '../CadsatralMaps.styles';
 import { useLocale, useGetPrivateFile } from 'hooks';
 import { EntityWithFiles } from 'api/types';
+import { UploadIcon } from 'ui/atoms/icons';
 
 import { CadastreMapProps } from './CadastralMaps.types';
 import { cadastralMapTypes } from './dictionaries';
@@ -33,21 +34,24 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
           </Grid>
           <Grid item md={7}>
             <GenericField
-              id="mapName"
+              id={`mapName.${cadastreMap.id}`}
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.name_placeholder"
               name="mapName"
               label="pim_details.cadastre.name_label"
             />
             <GenericField
-              id="fileName"
+              id={`fileName.${cadastreMap.id}`}
               disabled={!isEditMode}
               name="name"
               placeholder="pim_details.cadastre.file_name_placeholder"
               label="pim_details.cadastre.file_name_placeholder"
+              InputProps={{
+                endAdornment: <UploadIcon />,
+              }}
             />
             <GenericField
-              id="description"
+              id={`description.${cadastreMap.id}`}
               disabled={!isEditMode}
               placeholder="pim_details.cadastre.description_placeholder"
               name="description"
@@ -63,7 +67,15 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
           <Box paddingTop={2} mb={2}>
-            <RadioGroupField disabled={!isEditMode} xs={4} lg={2} name="type" options={cadastralMapTypes} />
+            <RadioGroupField
+              disabled={!isEditMode}
+              xs={4}
+              md={2}
+              lg={2}
+              spacing={1}
+              name="type"
+              options={cadastralMapTypes}
+            />
           </Box>
         </Grid>
       </Collapse>

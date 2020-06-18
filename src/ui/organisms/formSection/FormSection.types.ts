@@ -16,6 +16,7 @@ export type FormSectionProps = {
   children: FunctionChildren | ReactNode;
   className?: string;
   isInitEdititng?: boolean;
+  buttons?: ReactNode;
 };
 
 export type FormSectionRef = {

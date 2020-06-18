@@ -117,6 +117,10 @@ const theme = createMuiTheme({
       paperWidthSm: {
         maxWidth: defaultTheme.spacing(91),
       },
+      container: {
+        alignItems: 'flex-start',
+        marginTop: defaultTheme.spacing(4.5),
+      },
     },
     MuiDialogActions: {
       root: {
@@ -185,6 +189,9 @@ const theme = createMuiTheme({
       },
       input: {
         fontSize: '0.9rem',
+        '&.Mui-disabled': {
+          color: palette.gray.main,
+        },
       },
       adornedEnd: {
         color: palette.gray.main,
@@ -239,6 +246,12 @@ const theme = createMuiTheme({
       },
       input: {
         padding: `${defaultTheme.spacing(2)}px ${defaultTheme.spacing(1.75)}px`,
+      },
+    },
+    MuiFormControlLabel: {
+      label: {
+        fontSize: typography.h4.fontSize,
+        lineHeight: typography.h4.lineHeight,
       },
     },
     MuiInputLabel: {

@@ -21,6 +21,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       children,
       className,
       titleBadge,
+      buttons,
     },
     ref,
   ) => {
@@ -49,6 +50,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
             {titleBadge && <div className={classes.titleBadge}>{titleBadge}</div>}
           </Typography>
           <Box className={classes.actions}>
+            {buttons}
             {isEditable && (
               <FormControlLabel
                 className={classes.editLabel}

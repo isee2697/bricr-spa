@@ -121,7 +121,7 @@ export const Plot = ({ name }: PlotProps) => {
                   spacing={1}
                   disabled={!editing}
                   xs={4}
-                  lg={2}
+                  md={2}
                   name="codeSize"
                   options={dictionaries.size}
                 />
@@ -134,7 +134,7 @@ export const Plot = ({ name }: PlotProps) => {
                 subtitle={formatMessage({ id: 'pim_details.cadastre.plot.ownership_subtitle' })}
               />
               <Grid container spacing={3}>
-                <Grid container item xs={3} spacing={1}>
+                <Grid container item xs={3} md={4} spacing={1}>
                   <Box pt={2}>
                     <RadioGroupField
                       spacing={1}
@@ -177,7 +177,7 @@ export const Plot = ({ name }: PlotProps) => {
                   spacing={1}
                   disabled={!editing}
                   xs={4}
-                  lg={2}
+                  md={2}
                   name="lease.leaseholder"
                   options={dictionaries.leaseholder}
                 />
@@ -194,7 +194,7 @@ export const Plot = ({ name }: PlotProps) => {
                   spacing={1}
                   disabled={!editing}
                   xs={4}
-                  lg={2}
+                  md={2}
                   name="lease.information"
                   options={dictionaries.groundInfo}
                 />
@@ -211,7 +211,7 @@ export const Plot = ({ name }: PlotProps) => {
                   spacing={1}
                   disabled={!editing}
                   xs={4}
-                  lg={2}
+                  md={2}
                   name="lease.duration"
                   options={dictionaries.groundDuration}
                 />
