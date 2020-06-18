@@ -8,7 +8,7 @@ import { AutosaveForm } from 'ui/organisms';
 
 import { FormProps } from './Form.types';
 
-export const Form = ({ title, children, initialValues, onSave }: FormProps) => {
+export const Form = <T extends unknown>({ title, children, initialValues, onSave }: FormProps<T>) => {
   const classes = useStyles();
 
   const [isToggled, setToggled] = useState(false);

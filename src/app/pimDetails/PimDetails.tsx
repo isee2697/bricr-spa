@@ -5,8 +5,8 @@ import { Pim, PimServices } from 'api/types';
 import { Grid, Alert, LastUpdated } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Media } from 'app/pimDetails/sections/media/Media';
 import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
+import { MediaContainer } from 'app/pimDetails/sections/media/MediaContainer';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
@@ -124,7 +124,7 @@ export const PimDetails = ({ error: isError, data, servicesData, cadastreData }:
               <Route
                 path={`${AppRoute.pimDetails}/media`}
                 render={() => (
-                  <Media isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                  <MediaContainer isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
                 )}
               />
               <Redirect to={`${AppRoute.pimDetails}/general`} />

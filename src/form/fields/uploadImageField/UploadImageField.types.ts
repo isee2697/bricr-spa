@@ -13,6 +13,7 @@ export type UploadImageFieldProps = {
   type?: UploadImageFieldTypes;
   initialFileName?: string;
   label?: string;
+  onSetBackground?: (value: string) => void;
 };
 
 export enum UploadImageFieldTypes {

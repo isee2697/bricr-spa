@@ -8,4 +8,7 @@ export const useStyles = makeStyles(theme => ({
   editor: {
     padding: theme.spacing(4),
   },
+  disabled: {
+    pointerEvents: 'none',
+  },
 }));

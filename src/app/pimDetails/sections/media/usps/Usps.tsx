@@ -5,6 +5,7 @@ import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
+import { UpdateUspInput } from 'api/types';
 
 import { UspsProps } from './Usps.types';
 
@@ -22,12 +23,16 @@ export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
     >
       {editing =>
         usps.map(usp => (
-          <Form title={usp.name} onSave={onSave} initialValues={{}}>
+          <Form<UpdateUspInput>
+            title={usp.name ?? formatMessage({ id: 'pim_details.media.usps.default_name' })}
+            onSave={onSave}
+            initialValues={usp}
+          >
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.usps.single_choose" />
             <Input
               disabled={!editing}
               label="pim_details.media.usps.label"
-              name="usp"
+              name="description"
               placeholder="pim_details.media.usps.placeholder"
             />
           </Form>

@@ -32,4 +32,7 @@ export const useStyles = makeStyles(theme => ({
   active: {
     cursor: 'pointer',
   },
+  chip: {
+    marginTop: theme.spacing(1),
+  },
 }));

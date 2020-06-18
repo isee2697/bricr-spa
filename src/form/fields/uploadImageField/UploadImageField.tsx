@@ -8,9 +8,11 @@ import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
 import { useInitSendFileMutation, useUploadFileMutation, useAddFilesMutation, File } from 'api/types';
+import { GenericField } from 'form/fields';
+import { UploadIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './UploadImageField.styles';
-import { UploadImageFieldProps } from './UploadImageField.types';
+import { UploadImageFieldProps, UploadImageFieldTypes } from './UploadImageField.types';
 
 export const UploadImageField = ({
   validate,
@@ -18,8 +20,11 @@ export const UploadImageField = ({
   name,
   disabled,
   onRemove,
+  type = UploadImageFieldTypes.BLOCK,
+  label,
   entityID,
   entity,
+  onSetBackground,
 }: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
@@ -36,6 +41,7 @@ export const UploadImageField = ({
   });
 
   const [backgroundImage, setBackgroundImage] = useState(input.value?.url || '');
+
   const hasError =
     invalidFile ||
     (meta.touched && !!meta.error) ||
@@ -47,6 +53,10 @@ export const UploadImageField = ({
     reader.readAsDataURL(file);
     reader.onload = () => {
       setBackgroundImage(reader.result as string);
+
+      if (onSetBackground) {
+        onSetBackground(reader.result as string);
+      }
     };
   };
   const processFile = async ({ target: { validity, files } }: ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +69,7 @@ export const UploadImageField = ({
         throw new Error();
       }
       setFileAsBackground(file);
+      input.onChange({ ...input.values, fileName: file.name });
 
       const { data: initUploadResponse } = await initUpload({
         variables: {
@@ -93,7 +104,7 @@ export const UploadImageField = ({
         setBackgroundImage(addFilesResponse?.addFiles[0]?.url || '');
 
         if (addFilesResponse?.addFiles[0]) {
-          input.onChange(addFilesResponse?.addFiles[0]);
+          input.onChange({ fileName: file.name, ...initUploadResponse.initSendFile, ...addFilesResponse?.addFiles[0] });
         }
       }
     } catch (error) {
@@ -109,8 +120,26 @@ export const UploadImageField = ({
     onRemove && onRemove();
   };
 
-  return (
-    <>
+  const getUploadField = () => {
+    if (type === UploadImageFieldTypes.DENSE) {
+      return (
+        <GenericField
+          name={`${name}-name`}
+          label={label}
+          onClick={openInput}
+          value={input.value.fileName}
+          InputProps={{
+            disabled: true,
+            classes: {
+              root: classes.inputRoot,
+            },
+            endAdornment: <UploadIcon />,
+          }}
+        />
+      );
+    }
+
+    return (
       <Grid item className={classNames(classes.root, { enabled: !disabled })}>
         {!disabled && !loading && !!backgroundImage && (
           <Badge
@@ -144,6 +173,12 @@ export const UploadImageField = ({
           )}
         </Grid>
       </Grid>
+    );
+  };
+
+  return (
+    <>
+      {getUploadField()}
       <input
         ref={inputRef}
         name={name}

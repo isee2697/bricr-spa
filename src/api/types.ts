@@ -67,7 +67,7 @@ export type Mutation = {
   addMediaLink?: Maybe<PimWithNewMediaLink>;
   addMeter?: Maybe<Pim>;
   addOutsideFeature: Pim;
-  addPicture?: Maybe<PimWithNewPicture>;
+  addPictures?: Maybe<PimWithNewPictures>;
   addPimLabel: Pim;
   addReading?: Maybe<Pim>;
   addService?: Maybe<PimWithNewService>;
@@ -146,8 +146,8 @@ export type MutationAddOutsideFeatureArgs = {
   input: AddOutsideFeatureInput;
 };
 
-export type MutationAddPictureArgs = {
-  input: AddPictureInput;
+export type MutationAddPicturesArgs = {
+  input: AddPicturesInput;
 };
 
 export type MutationAddPimLabelArgs = {
@@ -325,6 +325,7 @@ export enum EntityWithFiles {
   OutsidePropertyRelated = 'OutsidePropertyRelated',
   RoofInformation = 'RoofInformation',
   CadastreMap = 'CadastreMap',
+  MediaPicture = 'MediaPicture',
 }
 
 export type CreateFileInput = {
@@ -1165,6 +1166,7 @@ export type Picture = {
   description?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  file?: Maybe<File>;
 };
 
 export type TextChapter = {
@@ -1209,9 +1211,13 @@ export type PimMedia = {
   tags?: Maybe<Array<Tag>>;
 };
 
-export type AddPictureInput = {
+export type NewPictureInput = {
+  fileID: Scalars['String'];
+};
+
+export type AddPicturesInput = {
   pimId: Scalars['String'];
-  fileId: Scalars['String'];
+  pictures: Array<NewPictureInput>;
 };
 
 export type AddTextChapterInput = {
@@ -1279,12 +1285,13 @@ export type UpdatePictureInput = {
   type?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  fileId?: Maybe<Scalars['String']>;
 };
 
-export type PimWithNewPicture = {
-  __typename?: 'PimWithNewPicture';
+export type PimWithNewPictures = {
+  __typename?: 'PimWithNewPictures';
   pim: Pim;
-  newPicture: Picture;
+  newPictures?: Maybe<Array<Picture>>;
 };
 
 export type PimWithNewTextChapter = {
@@ -2804,6 +2811,86 @@ export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
   updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
+export type AddTagMutationVariables = {
+  input: AddTagInput;
+};
+
+export type AddTagMutation = { __typename?: 'Mutation' } & {
+  addTag?: Maybe<{ __typename?: 'PimWithNewTag' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
+
+export type UpdateTagMutationVariables = {
+  input: UpdateTagInput;
+};
+
+export type UpdateTagMutation = { __typename?: 'Mutation' } & {
+  updateTag?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddUspMutationVariables = {
+  input: AddUspInput;
+};
+
+export type AddUspMutation = { __typename?: 'Mutation' } & {
+  addUsp?: Maybe<{ __typename?: 'PimWithNewUsp' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
+
+export type UpdateUspMutationVariables = {
+  input: UpdateUspInput;
+};
+
+export type UpdateUspMutation = { __typename?: 'Mutation' } & {
+  updateUsp?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddMediaLinkMutationVariables = {
+  input: AddMediaLinkInput;
+};
+
+export type AddMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addMediaLink?: Maybe<{ __typename?: 'PimWithNewMediaLink' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
+
+export type UpdateMediaLinkMutationVariables = {
+  input: UpdateMediaLinkInput;
+};
+
+export type UpdateMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateMediaLink?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddTextChapterMutationVariables = {
+  input: AddTextChapterInput;
+};
+
+export type AddTextChapterMutation = { __typename?: 'Mutation' } & {
+  addTextChapter?: Maybe<{ __typename?: 'PimWithNewTextChapter' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
+
+export type UpdateTextChapterMutationVariables = {
+  input: UpdateTextChapterInput;
+};
+
+export type UpdateTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateTextChapter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type AddPicturesMutationVariables = {
+  input: AddPicturesInput;
+};
+
+export type AddPicturesMutation = { __typename?: 'Mutation' } & {
+  addPictures?: Maybe<{ __typename?: 'PimWithNewPictures' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
+
+export type UpdatePictureMutationVariables = {
+  input: UpdatePictureInput;
+};
+
+export type UpdatePictureMutation = { __typename?: 'Mutation' } & {
+  updatePicture?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
 export type AddOutsideFeatureMutationVariables = {
   input: AddOutsideFeatureInput;
 };
@@ -3051,6 +3138,26 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
             }
         >
       >;
+    };
+};
+
+export type PimMediaQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimMediaQuery = { __typename?: 'Query' } & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id'> & {
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
     };
 };
 
@@ -3813,6 +3920,208 @@ export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutation
   UpdatePimGeneralInfoMutation,
   UpdatePimGeneralInfoMutationVariables
 >;
+export const AddTagDocument = gql`
+  mutation AddTag($input: AddTagInput!) {
+    addTag(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTagMutation, AddTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, baseOptions);
+}
+export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
+export type AddTagMutationResult = ApolloReactCommon.MutationResult<AddTagMutation>;
+export type AddTagMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
+export const UpdateTagDocument = gql`
+  mutation UpdateTag($input: UpdateTagInput!) {
+    updateTag(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTagMutation, UpdateTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(UpdateTagDocument, baseOptions);
+}
+export type UpdateTagMutationHookResult = ReturnType<typeof useUpdateTagMutation>;
+export type UpdateTagMutationResult = ApolloReactCommon.MutationResult<UpdateTagMutation>;
+export type UpdateTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTagMutation,
+  UpdateTagMutationVariables
+>;
+export const AddUspDocument = gql`
+  mutation AddUsp($input: AddUspInput!) {
+    addUsp(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddUspMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUspMutation, AddUspMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddUspMutation, AddUspMutationVariables>(AddUspDocument, baseOptions);
+}
+export type AddUspMutationHookResult = ReturnType<typeof useAddUspMutation>;
+export type AddUspMutationResult = ApolloReactCommon.MutationResult<AddUspMutation>;
+export type AddUspMutationOptions = ApolloReactCommon.BaseMutationOptions<AddUspMutation, AddUspMutationVariables>;
+export const UpdateUspDocument = gql`
+  mutation UpdateUsp($input: UpdateUspInput!) {
+    updateUsp(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateUspMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUspMutation, UpdateUspMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateUspMutation, UpdateUspMutationVariables>(UpdateUspDocument, baseOptions);
+}
+export type UpdateUspMutationHookResult = ReturnType<typeof useUpdateUspMutation>;
+export type UpdateUspMutationResult = ApolloReactCommon.MutationResult<UpdateUspMutation>;
+export type UpdateUspMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUspMutation,
+  UpdateUspMutationVariables
+>;
+export const AddMediaLinkDocument = gql`
+  mutation AddMediaLink($input: AddMediaLinkInput!) {
+    addMediaLink(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddMediaLinkMutation, AddMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddMediaLinkMutation, AddMediaLinkMutationVariables>(
+    AddMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type AddMediaLinkMutationHookResult = ReturnType<typeof useAddMediaLinkMutation>;
+export type AddMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddMediaLinkMutation>;
+export type AddMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddMediaLinkMutation,
+  AddMediaLinkMutationVariables
+>;
+export const UpdateMediaLinkDocument = gql`
+  mutation UpdateMediaLink($input: UpdateMediaLinkInput!) {
+    updateMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>(
+    UpdateMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateMediaLinkMutationHookResult = ReturnType<typeof useUpdateMediaLinkMutation>;
+export type UpdateMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateMediaLinkMutation>;
+export type UpdateMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMediaLinkMutation,
+  UpdateMediaLinkMutationVariables
+>;
+export const AddTextChapterDocument = gql`
+  mutation AddTextChapter($input: AddTextChapterInput!) {
+    addTextChapter(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTextChapterMutation, AddTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTextChapterMutation, AddTextChapterMutationVariables>(
+    AddTextChapterDocument,
+    baseOptions,
+  );
+}
+export type AddTextChapterMutationHookResult = ReturnType<typeof useAddTextChapterMutation>;
+export type AddTextChapterMutationResult = ApolloReactCommon.MutationResult<AddTextChapterMutation>;
+export type AddTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddTextChapterMutation,
+  AddTextChapterMutationVariables
+>;
+export const UpdateTextChapterDocument = gql`
+  mutation UpdateTextChapter($input: UpdateTextChapterInput!) {
+    updateTextChapter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>(
+    UpdateTextChapterDocument,
+    baseOptions,
+  );
+}
+export type UpdateTextChapterMutationHookResult = ReturnType<typeof useUpdateTextChapterMutation>;
+export type UpdateTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateTextChapterMutation>;
+export type UpdateTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTextChapterMutation,
+  UpdateTextChapterMutationVariables
+>;
+export const AddPicturesDocument = gql`
+  mutation AddPictures($input: AddPicturesInput!) {
+    addPictures(input: $input) {
+      pim {
+        id
+      }
+    }
+  }
+`;
+export function useAddPicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddPicturesMutation, AddPicturesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddPicturesMutation, AddPicturesMutationVariables>(
+    AddPicturesDocument,
+    baseOptions,
+  );
+}
+export type AddPicturesMutationHookResult = ReturnType<typeof useAddPicturesMutation>;
+export type AddPicturesMutationResult = ApolloReactCommon.MutationResult<AddPicturesMutation>;
+export type AddPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddPicturesMutation,
+  AddPicturesMutationVariables
+>;
+export const UpdatePictureDocument = gql`
+  mutation UpdatePicture($input: UpdatePictureInput!) {
+    updatePicture(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePictureMutation, UpdatePictureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePictureMutation, UpdatePictureMutationVariables>(
+    UpdatePictureDocument,
+    baseOptions,
+  );
+}
+export type UpdatePictureMutationHookResult = ReturnType<typeof useUpdatePictureMutation>;
+export type UpdatePictureMutationResult = ApolloReactCommon.MutationResult<UpdatePictureMutation>;
+export type UpdatePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePictureMutation,
+  UpdatePictureMutationVariables
+>;
 export const AddOutsideFeatureDocument = gql`
   mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
     addOutsideFeature(input: $input) {
@@ -4343,6 +4652,61 @@ export function usePimCadastreLazyQuery(
 export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
 export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
 export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
+export const PimMediaDocument = gql`
+  query PimMedia($id: ID!) {
+    getPimMedia(id: $id) {
+      id
+      pictures {
+        id
+        name
+        description
+        type
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function usePimMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimMediaQuery, PimMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
+}
+export function usePimMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMediaQuery, PimMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
+}
+export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
+export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
+export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
 export const PimPricingDocument = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {

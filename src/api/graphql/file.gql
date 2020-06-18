@@ -9,8 +9,9 @@ enum EntityWithFiles {
   OutsideFeature,
   OutsideGeneral,
   OutsidePropertyRelated,
-  RoofInformation
-  CadastreMap
+  RoofInformation,
+  CadastreMap,
+  MediaPicture,
 }
 
 input CreateFileInput {

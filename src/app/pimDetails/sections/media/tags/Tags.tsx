@@ -5,6 +5,7 @@ import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
+import { UpdateTagInput } from 'api/types';
 
 import { TagsProps } from './Tags.types';
 
@@ -22,12 +23,16 @@ export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
     >
       {editing =>
         tags.map(tag => (
-          <Form title={tag.name} onSave={onSave} initialValues={{}}>
+          <Form<UpdateTagInput>
+            title={tag.name ?? formatMessage({ id: 'pim_details.media.tags.default_name' })}
+            onSave={onSave}
+            initialValues={tag}
+          >
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.tags.single_choose" />
             <Input
               disabled={!editing}
               label="pim_details.media.tags.label"
-              name="tag"
+              name="description"
               placeholder="pim_details.media.tags.placeholder"
             />
           </Form>

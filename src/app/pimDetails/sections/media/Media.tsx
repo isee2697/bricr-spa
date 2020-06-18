@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
@@ -12,8 +11,9 @@ import { LinksContainer } from './links/LinksContainer';
 import { TextChaptersContainer } from './textChapters/TextChaptersContainer';
 import { UspsContainer } from './usps/UspsContainer';
 import { TagsContainer } from './tags/TagsContainer';
+import { MediaProps } from './Media.types';
 
-export const Media = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -23,28 +23,28 @@ export const Media = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSect
         <Typography variant="h1">{formatMessage({ id: 'pim_details.media.title' })}</Typography>
         <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
           <Box mb={1}>
-            <GenericField placeholder="pim_details.media.description_placeholder" name="description" />
+            <GenericField placeholder="pim_details.media.description_placeholder" name="name" />
           </Box>
         </AutosaveForm>
       </Grid>
       <Grid item xs={12}>
-        <PicturesContainer />
+        <PicturesContainer pictures={media.pictures} />
       </Grid>
 
       <Grid item xs={12}>
-        <LinksContainer />
+        <LinksContainer links={media.mediaLinks} />
       </Grid>
 
       <Grid item xs={12}>
-        <TextChaptersContainer />
+        <TextChaptersContainer chapters={media.textChapters} />
       </Grid>
 
       <Grid item xs={12}>
-        <UspsContainer />
+        <UspsContainer usps={media.usps} />
       </Grid>
 
       <Grid item xs={12}>
-        <TagsContainer />
+        <TagsContainer tags={media.tags} />
       </Grid>
     </>
   );

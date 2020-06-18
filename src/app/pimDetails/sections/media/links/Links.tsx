@@ -22,12 +22,16 @@ export const Links = ({ onAdd, onSave, options, links }: LinksProps) => {
     >
       {editing =>
         links.map(link => (
-          <Form title={link.name} onSave={onSave} initialValues={{}}>
+          <Form
+            title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
+            onSave={onSave}
+            initialValues={{}}
+          >
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.links.single_choose" />
             <Input
               disabled={!editing}
               label="pim_details.media.links.label"
-              name="link"
+              name="description"
               placeholder="pim_details.media.links.placeholder"
             />
           </Form>

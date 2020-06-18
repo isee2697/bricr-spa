@@ -1,14 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Grid, Typography } from 'ui/atoms';
-import { EditIcon } from 'ui/atoms/icons';
+import { Chip, Grid, Typography } from 'ui/atoms';
+import { EditIcon, SaleIcon } from 'ui/atoms/icons';
+import { useGetPrivateFile } from 'hooks';
+import { EntityWithFiles } from 'api/types';
 
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
 export const PictureItem = ({ picture, editing, checkbox, onSelect }: PictureItemProps) => {
-  const classes = useStyles({ src: picture.image.url });
+  const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
+  const classes = useStyles({ src: data?.signedUrl });
 
   const handleOnClick = () => {
     if (editing) {
@@ -30,12 +33,21 @@ export const PictureItem = ({ picture, editing, checkbox, onSelect }: PictureIte
       <Grid xs={9} item>
         <div className={classes.content}>
           <Typography className={classNames(classes.title, !editing && classes.disabledText)} variant="h5">
-            {picture.title}
+            {picture.name ?? picture.file?.fileName}
             <EditIcon />
           </Typography>
-          <Typography variant="h5" className={classNames(!editing && classes.disabledText)}>
+          <Typography variant="h5" className={classNames(classes.disabledText)}>
             {picture.description}
           </Typography>
+          {picture.type && (
+            <Chip
+              label={picture.type}
+              variant="outlined"
+              icon={<SaleIcon />}
+              color="primary"
+              className={classes.chip}
+            />
+          )}
         </div>
       </Grid>
     </Grid>

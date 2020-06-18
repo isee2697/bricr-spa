@@ -1,4 +1,4 @@
-import { File } from 'api/types';
+import { Maybe, Picture } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 
 export type PictureProps = {
@@ -6,9 +6,6 @@ export type PictureProps = {
   sortOptions: SortOption[];
 };
 
-export type Picture = {
-  image: File;
-  title: string;
-  description: string;
-  type: string;
+export type PictureContainerProps = {
+  pictures?: Maybe<Picture[]>;
 };

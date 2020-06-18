@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-export type FormProps = {
+export type FormProps<T> = {
   title: string;
   children: ReactNode;
   initialValues: object;
-  onSave: (values: object) => Promise<undefined | { error: boolean }>;
+  onSave: (values: T) => Promise<undefined | { error: boolean }>;
 };

@@ -12,4 +12,7 @@ export const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(8),
     },
   },
+  disabled: {
+    pointerEvents: 'none',
+  },
 }));

@@ -1,12 +1,13 @@
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
+import { Maybe, Tag, UpdateTagInput } from 'api/types';
 
 export type TagsProps = {
   options: RadioDataType[];
-  onAdd: VoidFunction;
-  onSave: () => Promise<undefined | { error: boolean }>;
+  onAdd: () => Promise<undefined | { error: boolean }>;
+  onSave: (values: UpdateTagInput) => Promise<undefined | { error: boolean }>;
   tags: Tag[];
 };
 
-type Tag = {
-  name: string;
+export type TagsContainerProps = {
+  tags?: Maybe<Tag[]>;
 };

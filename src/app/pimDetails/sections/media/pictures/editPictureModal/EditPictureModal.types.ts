@@ -1,5 +1,5 @@
-import { Picture } from 'app/pimDetails/sections/media/pictures/Pictures.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
+import { Picture } from 'api/types';
 
 export type EditPictureModalContainerProps = {
   isModalOpened: boolean;
@@ -8,7 +8,9 @@ export type EditPictureModalContainerProps = {
 };
 
 export type EditPictureModalProps = EditPictureModalContainerProps & {
-  initialValues: object;
+  initialValues: EditPictureForm;
   options: RadioDataType[];
-  onSubmit: VoidFunction;
+  onSubmit: (values: EditPictureForm) => Promise<undefined | { error: boolean }>;
 };
+
+export type EditPictureForm = Picture & { signedUrl: string };

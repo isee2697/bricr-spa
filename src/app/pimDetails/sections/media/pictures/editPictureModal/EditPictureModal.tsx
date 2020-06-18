@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
 import { FormSubSection, Modal, SubmitButton } from 'ui/molecules';
@@ -22,6 +22,8 @@ export const EditPictureModal = ({
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
+  const [backgroundImage, setBackgroundImage] = useState(initialValues.signedUrl);
+
   return (
     <Modal
       title={formatMessage({ id: 'pim_details.media.add_picture_modal.title' })}
@@ -34,21 +36,21 @@ export const EditPictureModal = ({
           <form onSubmit={handleSubmit}>
             <Grid container spacing={4} className={classes.container}>
               <Grid xs={5} item>
-                <ImageHolder src={picture.image.url ?? undefined} />
+                <ImageHolder src={backgroundImage} />
               </Grid>
               <Grid xs={7} item className={classes.form}>
                 <GenericField id="name" name="name" label="pim_details.media.add_picture_modal.name" />
                 <UploadImageField
-                  name="image"
+                  name="file"
                   type={UploadImageFieldTypes.DENSE}
                   label="pim_details.media.add_picture_modal.file_name"
-                  initialFileName={picture.image.fileName}
-                  entityID="myID"
-                  entity={EntityWithFiles.Pim}
+                  entityID={picture.id}
+                  entity={EntityWithFiles.MediaPicture}
+                  onSetBackground={setBackgroundImage}
                 />
                 <GenericField
                   id="description"
-                  name="name"
+                  name="description"
                   label="pim_details.media.add_picture_modal.description"
                   placeholder="pim_details.media.add_picture_modal.description_placeholder"
                 />

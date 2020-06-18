@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { EntityWithFiles, File } from 'api/types';
 import { useAuthState } from 'hooks';
@@ -25,18 +25,23 @@ export const useGetPrivateFile = (key: string, entity: EntityWithFiles, entityID
       if (response.ok) {
         const file: File = await response.json();
 
-        setLoading(false);
         setData(file);
+        setLoading(false);
       } else {
         throw new Error('Failed to fetch private file from server');
       }
     } catch {
-      setLoading(false);
       setError(true);
+      setLoading(false);
     }
   };
 
-  if (accessToken && !data && !loading) {
+  useEffect(() => {
+    setData(undefined);
+    setError(false);
+  }, [key]);
+
+  if (accessToken && !data && !loading && !error) {
     setLoading(true);
     getFile();
   }

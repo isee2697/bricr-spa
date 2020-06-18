@@ -74,6 +74,7 @@ type Picture {
   description: String
   type: String @uuidOrEnum(enum: ["PictureType"])
   name: String
+  file: File
 }
 
 type TextChapter {
@@ -113,9 +114,13 @@ type PimMedia {
   tags: [Tag!]
 }
 
-input AddPictureInput {
+input NewPictureInput {
+  fileID: String!
+}
+
+input AddPicturesInput {
   pimId: String!
-  fileId: String!
+  pictures: [NewPictureInput!]!
 }
 
 input AddTextChapterInput {
@@ -183,11 +188,12 @@ input UpdatePictureInput {
   type: String @uuidOrEnum(enum: ["PictureType"])
   name: String
   description: String
+  fileId: String
 }
 
-type PimWithNewPicture {
+type PimWithNewPictures {
   pim: Pim!
-  newPicture: Picture!
+  newPictures: [Picture!]
 }
 
 type PimWithNewTextChapter {
@@ -215,7 +221,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  addPicture(input: AddPictureInput!): PimWithNewPicture @auth
+  addPictures(input: AddPicturesInput!): PimWithNewPictures @auth
   updatePicture(input: UpdatePictureInput!): Pim @auth
   addTextChapter(input: AddTextChapterInput!): PimWithNewTextChapter @auth
   updateTextChapter(input: UpdateTextChapterInput!): Pim @auth

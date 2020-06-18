@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Editable, RenderElementProps, RenderLeafProps, Slate, withReact } from 'slate-react';
 import { createEditor } from 'slate';
 import { useField } from 'react-final-form';
+import classNames from 'classnames';
 
 import { Leaf } from './components/leaf/Leaf';
 import { ToolbarSection } from './components/toolbarSection/ToolbarSection';
@@ -14,6 +15,12 @@ import { MarkButton } from './components/markButton/MarkButton';
 import { RichTextFieldProps } from './RichTextField.types';
 import { useStyles } from './RichTextField.styles';
 
+export const RICH_TEXT_DEFAULT = [
+  {
+    children: [{ text: '' }],
+  },
+];
+
 export const RichTextField = ({ name, placeholder, disabled }: RichTextFieldProps) => {
   const classes = useStyles();
   const renderElement = useCallback((props: RenderElementProps) => <Element {...props} />, []);
@@ -25,7 +32,7 @@ export const RichTextField = ({ name, placeholder, disabled }: RichTextFieldProp
   return (
     <Slate editor={editor} value={input.value} onChange={input.onChange}>
       <div className={classes.container}>
-        <Toolbar>
+        <Toolbar disabled={disabled}>
           <ToolbarSection>
             <MarkButton format={LeafTypes.BOLD} />
             <MarkButton format={LeafTypes.ITALIC} />
@@ -41,12 +48,12 @@ export const RichTextField = ({ name, placeholder, disabled }: RichTextFieldProp
             <BlockButton format={ElementTypes.BULLET_LIST} />
           </ToolbarSection>
         </Toolbar>
-        <div className={classes.editor}>
+        <div className={classNames(classes.editor, disabled && classes.disabled)}>
           <Editable
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             placeholder={placeholder}
-            disabled={disabled}
+            readOnly={disabled}
           />
         </div>
       </div>

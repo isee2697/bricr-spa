@@ -2,6 +2,7 @@ import { Model, Server } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
 
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
+import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
 
 import { loadSchemas } from './loadSchemas';
 import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
@@ -16,6 +17,7 @@ const PIM_PRICING = PIM_PRICING_1;
 const PIM_PRICING_COST = PIM_PRICING_COST_1;
 let FILE = FILE_1;
 let PIM_CADASTRE = PIM_CADASTRE_1;
+const PIM_MEDIA = PIM_MEDIA_1;
 
 export const mockServer = () => {
   new Server({
@@ -495,6 +497,49 @@ export const mockServer = () => {
             };
 
             return PIM_PRICING;
+          },
+          getPimMedia() {
+            return PIM_MEDIA;
+          },
+          addMediaLink() {
+            PIM_MEDIA.mediaLinks = [MEDIA_LINK];
+
+            return {
+              pim: PIM_DETAILS,
+              newMediaLink: MEDIA_LINK,
+            };
+          },
+          addTextChapter() {
+            PIM_MEDIA.textChapters = [MEDIA_CHAPTER];
+
+            return {
+              pim: PIM_DETAILS,
+              newChapter: MEDIA_CHAPTER,
+            };
+          },
+          addUsp() {
+            PIM_MEDIA.usps = [MEDIA_USPS];
+
+            return {
+              pim: PIM_DETAILS,
+              newUsp: MEDIA_USPS,
+            };
+          },
+          addTag() {
+            PIM_MEDIA.tags = [MEDIA_TAG];
+
+            return {
+              pim: PIM_DETAILS,
+              newTag: MEDIA_TAG,
+            };
+          },
+          addPicture() {
+            PIM_MEDIA.pictures = [MEDIA_PICTURE];
+
+            return {
+              pim: PIM_DETAILS,
+              newPicture: MEDIA_PICTURE,
+            };
           },
         };
 

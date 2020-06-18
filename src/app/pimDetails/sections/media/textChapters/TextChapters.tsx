@@ -22,7 +22,11 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
     >
       {editing =>
         chapters.map(chapter => (
-          <Form title={chapter.name} onSave={onSave} initialValues={chapter}>
+          <Form
+            title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
+            onSave={onSave}
+            initialValues={chapter}
+          >
             <Editor titleId="pim_details.media.text_chapters.editor" disabled={!editing} />
             <SingleChoose
               disabled={!editing}

@@ -1,12 +1,13 @@
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
+import { Maybe, MediaLink, UpdateMediaLinkInput } from 'api/types';
 
 export type LinksProps = {
   options: RadioDataType[];
-  onAdd: VoidFunction;
-  onSave: (e: object) => Promise<undefined | { error: boolean }>;
-  links: Link[];
+  onAdd: () => Promise<undefined | { error: boolean }>;
+  onSave: (values: UpdateMediaLinkInput) => Promise<undefined | { error: boolean }>;
+  links: MediaLink[];
 };
 
-type Link = {
-  name: string;
+export type LinksContainerProps = {
+  links?: Maybe<MediaLink[]>;
 };

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Picture } from 'app/pimDetails/sections/media/pictures/Pictures.types';
+import { Picture } from 'api/types';
 
 export type PictureItemProps = {
   picture: Picture;

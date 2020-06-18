@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { Section } from '../section/Section';
 import { useLocale } from 'hooks';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { Picture, PictureProps } from 'app/pimDetails/sections/media/pictures/Pictures.types';
+import { PictureProps } from 'app/pimDetails/sections/media/pictures/Pictures.types';
 import { PictureItem } from 'app/pimDetails/sections/media/pictures/pictureItem/PictureItem';
 import { useStyles } from 'app/pimDetails/sections/media/pictures/Pictures.styles';
 import { EditPictureModalContainer } from 'app/pimDetails/sections/media/pictures/editPictureModal/EditPictureModalContainer';
 import { UnCheckMarkIcon, CheckMarkIcon } from 'ui/atoms/icons';
 import { AddPictureModalContainer } from 'app/pimDetails/sections/media/pictures/addPictureModal/AddPictureModalContainer';
+import { Picture } from 'api/types';
 
 export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
   const { formatMessage } = useLocale();
@@ -29,11 +30,17 @@ export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
         {editing => (
           <List<Picture>
             items={pictures}
-            itemIndex="title"
+            itemIndex="id"
             renderItem={(item, isSelected, checkbox) => (
-              <PictureItem picture={item} editing={editing} checkbox={checkbox} onSelect={() => setPicture(item)} />
+              <PictureItem
+                key={item.id}
+                picture={item}
+                editing={editing}
+                checkbox={checkbox}
+                onSelect={() => setPicture(item)}
+              />
             )}
-            onBulk={selectedItems => alert(JSON.stringify(selectedItems))}
+            onBulk={() => {}}
             loadingItem={<PropertyItemPlaceholder />}
             sortOptions={sortOptions}
             checkboxProps={{
