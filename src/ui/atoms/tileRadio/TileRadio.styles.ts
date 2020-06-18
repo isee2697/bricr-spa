@@ -25,7 +25,8 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
     },
     '& .title': {
-      color: theme.palette.gray.main,
+      marginTop: theme.spacing(1),
+      color: theme.palette.black.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.h5.fontWeight,
       textAlign: 'center',
@@ -61,6 +62,9 @@ export const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     '& .MuiCard-root': {
       borderColor: theme.palette.gray.light,
+    },
+    '& .title': {
+      color: theme.palette.gray.main,
     },
   },
 }));
