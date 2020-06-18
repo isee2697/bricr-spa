@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Collapse, Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { GenericField, RadioGroupField } from 'form/fields';
+import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { useStyles } from '../Specification.styles';
 import { FormSubSection, SubSectionHeader } from 'ui/molecules';
@@ -41,7 +41,12 @@ export const EnergyForm = () => {
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                   />
                 </Box>
-                <RadioGroupField disabled={!editing} xs={2} name="energy.label" options={dictionaries.energy} />
+                <RadioGroupField
+                  disabled={!editing}
+                  xs={2}
+                  name="specification.energy.label"
+                  options={dictionaries.energy}
+                />
                 <Box mt={3} mb={2}>
                   <FormSubSection
                     title={formatMessage({ id: 'pim_details.specification.energy.general_information' })}
@@ -50,15 +55,15 @@ export const EnergyForm = () => {
                 <Grid container spacing={1}>
                   <Grid item xs={4}>
                     <GenericField
-                      name="energy.energy_index"
+                      name="specification.energy.energyIndex"
                       label="pim_details.specification.energy.energy_index"
                       placeholder="pim_details.specification.energy.energy_index_placeholder"
                       disabled={!editing}
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <GenericField
-                      name="energy.end_date"
+                    <DatePickerField
+                      name="specification.energy.endDateEnergyLabel"
                       label="pim_details.specification.energy.end_date"
                       placeholder="pim_details.specification.energy.end_date_placeholder"
                       disabled={!editing}
@@ -66,7 +71,7 @@ export const EnergyForm = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <GenericField
-                      name="energy.epc"
+                      name="specification.energy.EPC"
                       label="pim_details.specification.energy.epc"
                       placeholder="pim_details.specification.energy.epc_placeholder"
                       disabled={!editing}
@@ -94,10 +99,15 @@ export const EnergyForm = () => {
                   subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                 />
               </Box>
-              <RadioGroupField disabled={!editing} xs={2} name="energy.type" options={dictionaries.energyType} />
+              <RadioGroupField
+                disabled={!editing}
+                xs={2}
+                name="specification.energy.characteristicType"
+                options={dictionaries.energyType}
+              />
               <Box mt={2}>
                 <GenericField
-                  name="energy.energy_index"
+                  name="specification.energy.notes"
                   label="pim_details.specification.notes_label"
                   placeholder="pim_details.specification.notes_placeholder"
                   disabled={!editing}

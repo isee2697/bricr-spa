@@ -2798,6 +2798,22 @@ export type UpdateReadingMutation = { __typename?: 'Mutation' } & {
   updateReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
+export type UpdateSpecificationMutationVariables = {
+  input: SpecificationInput;
+};
+
+export type UpdateSpecificationMutation = { __typename?: 'Mutation' } & {
+  updateSpecification: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
+export type UpdateSpecificationAdvancedMutationVariables = {
+  input: SpecificationAdvancedInput;
+};
+
+export type UpdateSpecificationAdvancedMutation = { __typename?: 'Mutation' } & {
+  updateSpecificationAdvanced: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type CreatePimMutationVariables = {
   input: CreatePimInput;
 };
@@ -3030,6 +3046,73 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
               | { __typename?: 'HeatingSourceConfiguration' }
               | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
           }
+      >
+    >;
+  };
+};
+
+export type PimSpecificationQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimSpecificationQuery = { __typename?: 'Query' } & {
+  getPimSpecification: { __typename?: 'PimSpecification' } & {
+    specification?: Maybe<
+      { __typename?: 'Specification' } & {
+        energy?: Maybe<
+          { __typename?: 'Energy' } & Pick<
+            Energy,
+            'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+          >
+        >;
+        approvals?: Maybe<{ __typename?: 'Approvals' } & Pick<Approvals, 'notes' | 'label'>>;
+        obligation?: Maybe<
+          { __typename?: 'ObligationToProvideInformation' } & Pick<ObligationToProvideInformation, 'label' | 'notes'>
+        >;
+      }
+    >;
+    specificationAdvanced?: Maybe<
+      { __typename?: 'SpecificationAdvanced' } & {
+        parking?: Maybe<
+          { __typename?: 'ParkingSpecification' } & Pick<
+            ParkingSpecification,
+            'description' | 'parkingCapacity' | 'parkingFacilities'
+          >
+        >;
+        monument?: Maybe<{ __typename?: 'MonumentSpecification' } & Pick<MonumentSpecification, 'notes' | 'type'>>;
+        inside?: Maybe<{ __typename?: 'InsideSpecification' } & Pick<InsideSpecification, 'notes' | 'type'>>;
+        housingOptions?: Maybe<{ __typename?: 'HousingOptions' } & Pick<HousingOptions, 'notes' | 'type'>>;
+        specialTags?: Maybe<{ __typename?: 'SpecialTags' } & Pick<SpecialTags, 'notes' | 'type'>>;
+        propertyRights?: Maybe<{ __typename?: 'PropertyRights' } & Pick<PropertyRights, 'notes' | 'type'>>;
+        homeOwnerAssociation?: Maybe<
+          { __typename?: 'HomeOwnerAssociation' } & Pick<
+            HomeOwnerAssociation,
+            'name' | 'monthlyContribution' | 'goodToKnow' | 'notes'
+          >
+        >;
+      }
+    >;
+    linkedProperties?: Maybe<
+      Array<
+        { __typename?: 'LinkedPim' } & Pick<
+          LinkedPim,
+          | 'id'
+          | 'houseNumberPrefix'
+          | 'houseNumber'
+          | 'houseNumberAddition'
+          | 'postalCode'
+          | 'district'
+          | 'city'
+          | 'state'
+          | 'county'
+          | 'country'
+          | 'propertyType'
+          | 'attention'
+          | 'plotNumber'
+          | 'salePrice'
+          | 'rentPrice'
+          | 'status'
+        > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
       >
     >;
   };
@@ -3853,6 +3936,53 @@ export type UpdateReadingMutationOptions = ApolloReactCommon.BaseMutationOptions
   UpdateReadingMutation,
   UpdateReadingMutationVariables
 >;
+export const UpdateSpecificationDocument = gql`
+  mutation UpdateSpecification($input: SpecificationInput!) {
+    updateSpecification(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSpecificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>(
+    UpdateSpecificationDocument,
+    baseOptions,
+  );
+}
+export type UpdateSpecificationMutationHookResult = ReturnType<typeof useUpdateSpecificationMutation>;
+export type UpdateSpecificationMutationResult = ApolloReactCommon.MutationResult<UpdateSpecificationMutation>;
+export type UpdateSpecificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpecificationMutation,
+  UpdateSpecificationMutationVariables
+>;
+export const UpdateSpecificationAdvancedDocument = gql`
+  mutation UpdateSpecificationAdvanced($input: SpecificationAdvancedInput!) {
+    updateSpecificationAdvanced(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSpecificationAdvancedMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateSpecificationAdvancedMutation,
+    UpdateSpecificationAdvancedMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateSpecificationAdvancedMutation,
+    UpdateSpecificationAdvancedMutationVariables
+  >(UpdateSpecificationAdvancedDocument, baseOptions);
+}
+export type UpdateSpecificationAdvancedMutationHookResult = ReturnType<typeof useUpdateSpecificationAdvancedMutation>;
+export type UpdateSpecificationAdvancedMutationResult = ApolloReactCommon.MutationResult<
+  UpdateSpecificationAdvancedMutation
+>;
+export type UpdateSpecificationAdvancedMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpecificationAdvancedMutation,
+  UpdateSpecificationAdvancedMutationVariables
+>;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
     createPim(input: $input) {
@@ -4181,6 +4311,106 @@ export function usePimServicesLazyQuery(
 export type PimServicesQueryHookResult = ReturnType<typeof usePimServicesQuery>;
 export type PimServicesLazyQueryHookResult = ReturnType<typeof usePimServicesLazyQuery>;
 export type PimServicesQueryResult = ApolloReactCommon.QueryResult<PimServicesQuery, PimServicesQueryVariables>;
+export const PimSpecificationDocument = gql`
+  query PimSpecification($id: ID!) {
+    getPimSpecification(id: $id) {
+      specification {
+        energy {
+          label
+          energyIndex
+          endDateEnergyLabel
+          EPC
+          characteristicType
+          notes
+        }
+        approvals {
+          notes
+          label
+        }
+        obligation {
+          label
+          notes
+        }
+      }
+      specificationAdvanced {
+        parking {
+          description
+          parkingCapacity
+          parkingFacilities
+        }
+        monument {
+          notes
+          type
+        }
+        inside {
+          notes
+          type
+        }
+        housingOptions {
+          notes
+          type
+        }
+        specialTags {
+          notes
+          type
+        }
+        propertyRights {
+          notes
+          type
+        }
+        homeOwnerAssociation {
+          name
+          monthlyContribution
+          goodToKnow
+          notes
+        }
+      }
+      linkedProperties {
+        id
+        houseNumberPrefix
+        houseNumber
+        houseNumberAddition
+        postalCode
+        district
+        city
+        state
+        county
+        country
+        propertyType
+        attention
+        plotNumber
+        salePrice
+        rentPrice
+        status
+        images {
+          url
+        }
+      }
+    }
+  }
+`;
+export function usePimSpecificationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(
+    PimSpecificationDocument,
+    baseOptions,
+  );
+}
+export function usePimSpecificationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(
+    PimSpecificationDocument,
+    baseOptions,
+  );
+}
+export type PimSpecificationQueryHookResult = ReturnType<typeof usePimSpecificationQuery>;
+export type PimSpecificationLazyQueryHookResult = ReturnType<typeof usePimSpecificationLazyQuery>;
+export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<
+  PimSpecificationQuery,
+  PimSpecificationQueryVariables
+>;
 export const PimDetailsDocument = gql`
   query PimDetails($id: ID!) {
     getPim(id: $id) {

@@ -29,11 +29,16 @@ export const ApprovalsForm = () => {
               />
             </Box>
             <div className={classes.checkboxWrapper}>
-              <CheckboxGroupField disabled={!editing} xs={2} name="approvals" options={dictionaries.approvals} />
+              <CheckboxGroupField
+                disabled={!editing}
+                xs={2}
+                name="specification.approvals.label"
+                options={dictionaries.approvals}
+              />
             </div>
             <Box mt={2}>
               <GenericField
-                name="energy.energy_index"
+                name="specification.approvals.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
                 disabled={!editing}

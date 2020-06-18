@@ -8,12 +8,12 @@ import { EditIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
-import { SpecificationGeneral } from './specificationGeneral/SpecificationGeneral';
-import { Advanced } from './advanced/Advanced';
+import { SpecificationGeneralContainer } from './specificationGeneral/SpecificationGeneralContainer';
 import { LinkedProperty } from './linkedProperty/LinkedProperty';
 import { AddLinkedPropertyModalContainer } from './addLinkedPropertyModal/AddLinkedPropertyModalContainer';
 import { Inspection } from './inspection/Inspection';
 import { SpecificationProps } from './Specification.types';
+import { AdvancedContainer } from './advanced/AdvancedContainer';
 
 export const Specification = ({
   title,
@@ -49,9 +49,9 @@ export const Specification = ({
           default
           path={`${AppRoute.pimDetails}/specification`}
           exact
-          render={() => <SpecificationGeneral onAddPropertyClick={onAddPropertyClick} />}
+          render={() => <SpecificationGeneralContainer onAddPropertyClick={onAddPropertyClick} />}
         />
-        <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <Advanced />} />
+        <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <AdvancedContainer />} />
         <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
         <Route
           path={`${AppRoute.pimDetails}/specification/inspection`}

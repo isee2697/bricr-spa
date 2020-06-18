@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { GenericField } from 'form/fields';
 import { Box } from 'ui/atoms';
 import { LinkedPropertyItem } from 'ui/molecules';
-import { FormSection } from 'ui/organisms';
+import { AutosaveForm, FormSection } from 'ui/organisms';
 
 const MOCKED_DATA = {
   title: 'Parking Lot 12',
@@ -24,7 +24,7 @@ export const LinkedProperty = () => {
   const { formatMessage } = useLocale();
 
   return (
-    <>
+    <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
       <Grid xs={12} item>
         <Typography variant="h1">
           {formatMessage({ id: 'pim_details.specification.linked_properties.title' })}
@@ -59,6 +59,6 @@ export const LinkedProperty = () => {
           </FormSection>
         </Box>
       </Grid>
-    </>
+    </AutosaveForm>
   );
 };

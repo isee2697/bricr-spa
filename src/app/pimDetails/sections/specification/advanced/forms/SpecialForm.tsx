@@ -27,11 +27,11 @@ export const SpecialForm = () => {
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.monument_type' })}
                 subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                 actionGroupType="radio"
-                actionGroupName="advanced.monument"
+                actionGroupName="specificationAdvanced.monument.type"
                 options={dictionaries.advancedMonument}
-                inputName="advanced.monument.notes"
-                label={formatMessage({ id: 'pim_details.specification.notes_label' })}
-                placeholder={formatMessage({ id: 'pim_details.specification.notes_placeholder' })}
+                inputName="specificationAdvanced.monument.notes"
+                label="pim_details.specification.notes_label"
+                placeholder="pim_details.specification.notes_placeholder"
                 isDisabled={!editing}
               />
             </Box>
@@ -41,11 +41,11 @@ export const SpecialForm = () => {
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
                 subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                 actionGroupType="radio"
-                actionGroupName="advanced.inside"
+                actionGroupName="specificationAdvanced.inside.type"
                 options={dictionaries.advancedInside}
-                inputName="advanced.inside.notes"
-                label={formatMessage({ id: 'pim_details.specification.notes_label' })}
-                placeholder={formatMessage({ id: 'pim_details.specification.notes_placeholder' })}
+                inputName="specificationAdvanced.inside.notes"
+                label="pim_details.specification.notes_label"
+                placeholder="pim_details.specification.notes_placeholder"
                 isDisabled={!editing}
               />
             </Box>
@@ -55,11 +55,11 @@ export const SpecialForm = () => {
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
                 subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                 actionGroupType="radio"
-                actionGroupName="advanced.options"
+                actionGroupName="specificationAdvanced.housingOptions.type"
                 options={dictionaries.advancedOptions}
-                inputName="advanced.inside.notes"
-                label={formatMessage({ id: 'pim_details.specification.notes_label' })}
-                placeholder={formatMessage({ id: 'pim_details.specification.notes_placeholder' })}
+                inputName="specificationAdvanced.housingOptions.notes"
+                label="pim_details.specification.notes_label"
+                placeholder="pim_details.specification.notes_placeholder"
                 isDisabled={!editing}
               />
             </Box>
@@ -69,11 +69,11 @@ export const SpecialForm = () => {
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
                 subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
                 actionGroupType="checkbox"
-                actionGroupName="advanced.tags"
+                actionGroupName="specificationAdvanced.specialTags.type"
                 options={dictionaries.advancedTags}
-                inputName="advanced.inside.notes"
-                label={formatMessage({ id: 'pim_details.specification.notes_label' })}
-                placeholder={formatMessage({ id: 'pim_details.specification.notes_placeholder' })}
+                inputName="specificationAdvanced.specialTags.notes"
+                label="pim_details.specification.notes_label"
+                placeholder="pim_details.specification.notes_placeholder"
                 isDisabled={!editing}
               />
             </Box>
@@ -82,11 +82,11 @@ export const SpecialForm = () => {
               subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
               subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               actionGroupType="checkbox"
-              actionGroupName="advanced.property"
+              actionGroupName="specificationAdvanced.propertyRights.type"
               options={dictionaries.advancedProperty}
-              inputName="advanced.inside.notes"
-              label={formatMessage({ id: 'pim_details.specification.notes_label' })}
-              placeholder={formatMessage({ id: 'pim_details.specification.notes_placeholder' })}
+              inputName="specificationAdvanced.propertyRights.notes"
+              label="pim_details.specification.notes_label"
+              placeholder="pim_details.specification.notes_placeholder"
               isDisabled={!editing}
             />
           </>

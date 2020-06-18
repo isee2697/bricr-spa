@@ -4,6 +4,7 @@ import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { GenericField } from 'form/fields';
 import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
+import { AutosaveForm } from '../../../../../ui/organisms';
 
 import { useStyles } from './Inspection.styles';
 import { InspectionType } from './inspectionType/InspectionType';
@@ -14,7 +15,7 @@ export const Inspection = ({ onAddCustomType }: InspectionProps) => {
   const classes = useStyles();
 
   return (
-    <>
+    <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
       <Grid xs={12} item>
         <Typography className={classes.title} variant="h1">
           {formatMessage({ id: 'pim_details.specification.inspection.title' })}
@@ -37,6 +38,6 @@ export const Inspection = ({ onAddCustomType }: InspectionProps) => {
       <Grid xs={12} item>
         <InspectionType emoji="🛠" type="Maintenance" onAddCustomType={onAddCustomType} />
       </Grid>
-    </>
+    </AutosaveForm>
   );
 };

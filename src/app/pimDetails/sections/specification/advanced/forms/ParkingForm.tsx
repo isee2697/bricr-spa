@@ -29,7 +29,7 @@ export const ParkingForm = () => {
             <Grid container spacing={1}>
               <Grid item xs={7}>
                 <GenericField
-                  name="advanced.parking.description"
+                  name="specificationAdvanced.parking.description"
                   label="pim_details.specification.advanced.parking_description_label"
                   placeholder="pim_details.specification.advanced.parking_description_placeholder"
                   disabled={!editing}
@@ -37,7 +37,7 @@ export const ParkingForm = () => {
               </Grid>
               <Grid item xs={5}>
                 <GenericField
-                  name="advanced.parking.capacity"
+                  name="specificationAdvanced.parking.parkingCapacity"
                   label="pim_details.specification.advanced.parking_capacity_label"
                   placeholder="pim_details.specification.advanced.parking_capacity_placeholder"
                   disabled={!editing}
@@ -52,7 +52,12 @@ export const ParkingForm = () => {
               />
             </Box>
             <Box my={2}>
-              <RadioGroupField disabled={!editing} xs={2} name="advanced.parking" options={dictionaries.parking} />
+              <RadioGroupField
+                disabled={!editing}
+                xs={2}
+                name="specificationAdvanced.parking.parkingFacilities"
+                options={dictionaries.parking}
+              />
             </Box>
           </>
         )}

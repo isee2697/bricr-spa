@@ -34,13 +34,13 @@ export const ObligationForm = ({ onAddPropertyClick }: ObligationFormProps) => {
             <RadioGroupField
               disabled={!editing}
               xs={2}
-              name="obligation"
+              name="specification.obligation.label"
               options={dictionaries.obligation}
               actionElement={<TileButton onClick={onAddPropertyClick} isDisabled={!editing} />}
             />
             <Box mt={2}>
               <GenericField
-                name="energy.energy_index"
+                name="specification.obligation.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
                 disabled={!editing}
