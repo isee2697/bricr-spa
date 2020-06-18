@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, useParams, Redirect } from 'react-router-dom';
+import groupBy from 'lodash/groupBy';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -10,7 +11,7 @@ import { InfoSection } from 'ui/molecules';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { usePimDetailsQuery } from 'api/types';
+import { usePimDetailsQuery, Floor as FloorTypes } from 'api/types';
 
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
 import { Floor } from './floor/Floor';
@@ -21,6 +22,23 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
   const { close, open } = useModalDispatch();
   const { id } = useParams<{ id: string }>();
   const { data: pim } = usePimDetailsQuery({ variables: { id } });
+
+  const getCount = (floor: FloorTypes) => {
+    const groupedFloors = groupBy((pim && pim.getPim?.floors) || [], floors => floors.floorType);
+
+    let count: number | undefined;
+
+    Object.values(groupedFloors).flatMap(floors =>
+      floors.forEach((floorType, i) => {
+        if (floorType.id === floor.id) {
+          const numberOfFloorTypeOccurence = groupedFloors[floorType.floorType].length;
+          count = numberOfFloorTypeOccurence > 1 ? numberOfFloorTypeOccurence - i : undefined;
+        }
+      }),
+    );
+
+    return count;
+  };
 
   return (
     <>
@@ -64,7 +82,14 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
               key={floor.id}
               path={`${AppRoute.pimDetails}/inside/${floor.id}`}
               exact
-              render={() => <Floor floor={floor} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />}
+              render={() => (
+                <Floor
+                  floor={floor}
+                  count={getCount(floor)}
+                  isSidebarVisible={isSidebarVisible}
+                  onOpenSidebar={onOpenSidebar}
+                />
+              )}
             />
           ))}
           <Route path={`${AppRoute.pimDetails}/inside`} exact>

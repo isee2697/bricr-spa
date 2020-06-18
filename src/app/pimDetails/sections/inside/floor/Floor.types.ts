@@ -3,4 +3,5 @@ import { Floor } from 'api/types';
 
 export type FloorProps = PimDetailsSectionProps & {
   floor: Floor;
+  count?: number;
 };

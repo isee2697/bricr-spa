@@ -11,7 +11,7 @@ import { AddNewSpaceModalContainer } from './addNewSpace/AddNewSpaceModalContain
 import { SpaceContainer } from './space/SpaceContainer';
 import { FloorProps } from './Floor.types';
 
-export const Floor = ({ floor }: FloorProps) => {
+export const Floor = ({ floor, count }: FloorProps) => {
   const { formatMessage } = useLocale();
   const formRef = useRef<FormSectionRef>(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -40,7 +40,7 @@ export const Floor = ({ floor }: FloorProps) => {
     <>
       <Grid container xs={12} item justify="space-between">
         <Typography variant="h1">
-          {formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })} {floor.level}
+          {formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })} {count}
         </Typography>
         <FloorDescriptionContainer
           floorDescription={floor.floorDescription || ''}
