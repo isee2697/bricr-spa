@@ -138,7 +138,7 @@ const theme = createMuiTheme({
       root: {
         padding: defaultTheme.spacing(3),
         '& h2': {
-          ...typography.h1,
+          ...typography.h2,
           fontWeight: fontWeight.medium,
         },
         '& button:last-child': {
