@@ -17,7 +17,7 @@ import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType } from 'api/types';
+import { CadastreType, FloorType } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -28,10 +28,9 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
 
+  const floorOrder = [FloorType.Attic, FloorType.Loft, FloorType.Floor, FloorType.GroundFloor, FloorType.Basement];
   const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
-  const floorGroups = groupBy((pim && pim.floors) || [], floor => floor.floorType);
   const meterGroups = groupBy((services && services.meters) || [], meter => meter.type);
-
   const plotGroups = groupBy(
     (cadastre && cadastre.cadastre?.filter(c => c.type === CadastreType.Plot).reverse()) || [],
     c => c.type,
@@ -41,6 +40,14 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
     return { id, label, number: amount > 1 ? amount - key : undefined };
   };
 
+  const floors = floorOrder.flatMap(type => {
+    const floorItems = (pim && pim.floors?.filter(floor => floor.floorType === type)) || [];
+
+    return floorItems.map((floor, key) =>
+      createSubMenuData(floor.id, `dictionaries.floor_type.${floor.floorType}`, floorItems.length, key),
+    );
+  });
+
   const items = [
     {
       name: 'general',
@@ -49,16 +56,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
     {
       name: 'inside',
       icon: <FilesIcon />,
-      subItems: Object.values(floorGroups).flatMap(values =>
-        values.map((floor, key) =>
-          createSubMenuData(
-            floor.id,
-            `dictionaries.floor_type.${floor.floorType}`,
-            floorGroups[floor.floorType].length,
-            key,
-          ),
-        ),
-      ),
+      subItems: floors,
     },
     {
       name: 'outside',
