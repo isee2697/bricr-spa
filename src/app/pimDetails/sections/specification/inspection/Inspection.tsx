@@ -1,43 +1,61 @@
 import React from 'react';
 
-import { Grid, Typography } from 'ui/atoms';
+import { InspectionType } from 'api/types';
+import { Grid, Typography, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { GenericField } from 'form/fields';
 import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
-import { AutosaveForm } from '../../../../../ui/organisms';
 
 import { useStyles } from './Inspection.styles';
-import { InspectionType } from './inspectionType/InspectionType';
+import { InspectionType as InspectionTypeComponent } from './inspectionType/InspectionType';
 import { InspectionProps } from './Inspection.types';
 
-export const Inspection = ({ onAddCustomType }: InspectionProps) => {
+export const Inspection = ({ inspections, onSave, onAddCustomType }: InspectionProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
-    <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
+    <>
       <Grid xs={12} item>
-        <Typography className={classes.title} variant="h1">
-          {formatMessage({ id: 'pim_details.specification.inspection.title' })}
-        </Typography>
-        <div className={classes.iconsHolder}>
-          <WarningIcon />
-          <MenuIcon />
-        </div>
-        <GenericField
-          placeholder="pim_details.specification.inspection.description_placeholder"
-          name="inspection.description"
+        <Box display="flex" justifyContent="space-between">
+          <Typography className={classes.title} variant="h1">
+            {formatMessage({ id: 'pim_details.specification.inspection.title' })}
+          </Typography>
+          <div className={classes.iconsHolder}>
+            <WarningIcon />
+            <MenuIcon />
+          </div>
+        </Box>
+      </Grid>
+
+      <Grid xs={12} item>
+        <InspectionTypeComponent
+          emoji="🛢"
+          type={InspectionType.Tanks}
+          inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Tanks)}
+          onSave={onSave}
+          onAddCustomType={onAddCustomType}
         />
       </Grid>
+
       <Grid xs={12} item>
-        <InspectionType emoji="🛢" type="Tank" onAddCustomType={onAddCustomType} />
+        <InspectionTypeComponent
+          emoji="☣"
+          type={InspectionType.Pollution}
+          inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Pollution)}
+          onSave={onSave}
+          onAddCustomType={onAddCustomType}
+        />
       </Grid>
+
       <Grid xs={12} item>
-        <InspectionType emoji="☣" type="Pollution" onAddCustomType={onAddCustomType} />
+        <InspectionTypeComponent
+          emoji="🛠"
+          type={InspectionType.Maintenance}
+          inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Maintenance)}
+          onSave={onSave}
+          onAddCustomType={onAddCustomType}
+        />
       </Grid>
-      <Grid xs={12} item>
-        <InspectionType emoji="🛠" type="Maintenance" onAddCustomType={onAddCustomType} />
-      </Grid>
-    </AutosaveForm>
+    </>
   );
 };

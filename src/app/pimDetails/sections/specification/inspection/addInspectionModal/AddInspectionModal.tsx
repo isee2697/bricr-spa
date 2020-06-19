@@ -1,24 +1,24 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
+import { InspectionType } from 'api/types';
 import { Modal, SubmitButton, TileButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
-import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../dictionaries';
-import { InspectionTypes } from '../inspection/inspectionType/InspectionType.types';
+import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../../dictionaries';
 
 import { AddInspectionModalProps } from './AddInspectionModal.types';
 import { useStyles } from './AddInspectionModal.styles';
 
-const getInspectionType = (type: InspectionTypes) => {
+const getInspectionType = (type: InspectionType) => {
   switch (type) {
-    case 'Tank':
+    case InspectionType.Tanks:
       return inspectionTank;
-    case 'Pollution':
+    case InspectionType.Pollution:
       return inspectionPollution;
-    case 'Maintenance':
+    case InspectionType.Maintenance:
       return inspectionMaintenance;
   }
 };
@@ -53,7 +53,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
                 <RadioGroupField
                   disabled={false}
                   xs={2}
-                  name={`inspection.${type.toLowerCase()}`}
+                  name="inspection"
                   options={getInspectionType(type)}
                   actionElement={<TileButton onClick={addCustomType} isDisabled={false} />}
                 />

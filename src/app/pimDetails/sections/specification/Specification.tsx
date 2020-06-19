@@ -2,27 +2,24 @@ import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
 import { Button, Grid } from 'ui/atoms';
+import { AddCustomPropertyModalContainer } from 'ui/organisms/addCustomPropertyModal/AddCustomPropertyModalContainer';
 import { useLocale } from 'hooks';
-import { PimDetailsHeader } from '../../pimDetailsHeader/PimDetailsHeader';
 import { EditIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { LabelProperty } from 'api/types';
+import { PimDetailsHeader } from '../../pimDetailsHeader/PimDetailsHeader';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
 import { SpecificationGeneralContainer } from './specificationGeneral/SpecificationGeneralContainer';
-import { LinkedProperty } from './linkedProperty/LinkedProperty';
 import { AddLinkedPropertyModalContainer } from './addLinkedPropertyModal/AddLinkedPropertyModalContainer';
-import { Inspection } from './inspection/Inspection';
-import { SpecificationProps } from './Specification.types';
 import { AdvancedContainer } from './advanced/AdvancedContainer';
+import { LinkedPropertyContainer } from './linkedProperty/LinkedPropertyContainer';
+import { InspectionContainer } from './inspection/InspectionContainer';
 
-export const Specification = ({
-  title,
-  isSidebarVisible,
-  onOpenSidebar,
-  onAddPropertyClick,
-}: PimDetailsSectionProps & SpecificationProps) => {
+export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isLinkedPropertyModalOpen, setLinkedPropertyModalOpen] = useState(false);
+  const [isCustomPropertyModalOpen, setCustomPropertyModalOpen] = useState(false);
 
   return (
     <>
@@ -36,7 +33,7 @@ export const Specification = ({
               color="primary"
               startIcon={<EditIcon color="inherit" />}
               variant="contained"
-              onClick={() => setModalOpen(v => !v)}
+              onClick={() => setLinkedPropertyModalOpen(v => !v)}
               size="small"
             >
               {formatMessage({ id: 'pim_details.specification.add_property_button' })}
@@ -49,18 +46,32 @@ export const Specification = ({
           default
           path={`${AppRoute.pimDetails}/specification`}
           exact
-          render={() => <SpecificationGeneralContainer onAddPropertyClick={onAddPropertyClick} />}
+          render={() => (
+            <SpecificationGeneralContainer onAddPropertyClick={() => setCustomPropertyModalOpen(v => !v)} />
+          )}
         />
         <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <AdvancedContainer />} />
-        <Route path={`${AppRoute.pimDetails}/specification/linked-property`} exact render={() => <LinkedProperty />} />
+        <Route
+          path={`${AppRoute.pimDetails}/specification/linked-property`}
+          exact
+          render={() => <LinkedPropertyContainer />}
+        />
         <Route
           path={`${AppRoute.pimDetails}/specification/inspection`}
           exact
-          render={() => <Inspection onAddCustomType={onAddPropertyClick} />}
+          render={() => <InspectionContainer onAddCustomType={() => setCustomPropertyModalOpen(v => !v)} />}
         />
         <Redirect to={`${AppRoute.pimDetails}/specification`} />
       </Switch>
-      <AddLinkedPropertyModalContainer isOpened={isModalOpen} onClose={() => setModalOpen(false)} />
+      <AddLinkedPropertyModalContainer
+        isOpened={isLinkedPropertyModalOpen}
+        onClose={() => setLinkedPropertyModalOpen(false)}
+      />
+      <AddCustomPropertyModalContainer
+        property={LabelProperty.ObligationToProvideInformation}
+        isOpened={isCustomPropertyModalOpen}
+        onClose={() => setCustomPropertyModalOpen(false)}
+      />
     </>
   );
 };

@@ -23,3 +23,21 @@ export const SET_LINKED_PROPERTIES = gql`
     }
   }
 `;
+
+export const ADD_INSPECTION = gql`
+  mutation AddInspection($input: AddInspectionInput!) {
+    addInspection(input: $input) {
+      inspection {
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_INSPECTION = gql`
+  mutation UpdateInspection($input: UpdateInspectionInput!) {
+    updateInspection(input: $input) {
+      id
+    }
+  }
+`;

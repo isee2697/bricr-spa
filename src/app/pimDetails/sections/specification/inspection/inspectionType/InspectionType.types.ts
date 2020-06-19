@@ -1,7 +1,9 @@
-export type InspectionTypes = 'Tank' | 'Pollution' | 'Maintenance';
+import { InspectionType, Inspection } from 'api/types';
 
 export type InspectionTypeProps = {
-  type: InspectionTypes;
+  type: InspectionType;
   emoji: string;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
   onAddCustomType: VoidFunction;
+  inspections: Inspection[];
 };

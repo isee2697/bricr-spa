@@ -75,6 +75,12 @@ export const PIM_SPECIFICATION = gql`
           url
         }
       }
+      inspections {
+        id
+        inspectionType
+        type
+        description
+      }
     }
   }
 `;

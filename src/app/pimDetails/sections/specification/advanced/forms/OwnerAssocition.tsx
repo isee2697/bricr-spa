@@ -41,6 +41,7 @@ export const OwnerAssociation = () => {
                   name="specificationAdvanced.homeOwnerAssociation.monthlyContribution"
                   label="pim_details.specification.advanced.monthly_contribution_label"
                   placeholder="pim_details.specification.advanced.monthly_contribution_placeholder"
+                  type="number"
                   disabled={!editing}
                 />
               </Grid>

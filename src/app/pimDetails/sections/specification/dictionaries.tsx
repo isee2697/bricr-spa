@@ -407,17 +407,17 @@ export const goodToKnow = [
 
 export const inspectionTank = [
   {
-    label: 'dictionaries.inspection_tank.Septic',
+    label: 'dictionaries.inspection_tanks.Septic',
     icon: <SquareIcon color="inherit" />,
     value: 'Septic',
   },
   {
-    label: 'dictionaries.inspection_tank.Oil',
+    label: 'dictionaries.inspection_tanks.Oil',
     icon: <SquareIcon color="inherit" />,
     value: 'Oil',
   },
   {
-    label: 'dictionaries.inspection_tank.Underground',
+    label: 'dictionaries.inspection_tanks.Underground',
     icon: <SquareIcon color="inherit" />,
     value: 'Underground',
   },

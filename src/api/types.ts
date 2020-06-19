@@ -3406,6 +3406,24 @@ export type SetLinkedPropertiesMutation = { __typename?: 'Mutation' } & {
   setLinkedProperties: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
+export type AddInspectionMutationVariables = {
+  input: AddInspectionInput;
+};
+
+export type AddInspectionMutation = { __typename?: 'Mutation' } & {
+  addInspection: { __typename?: 'AddInspectionResult' } & {
+    inspection: { __typename?: 'Inspection' } & Pick<Inspection, 'id'>;
+  };
+};
+
+export type UpdateInspectionMutationVariables = {
+  input: UpdateInspectionInput;
+};
+
+export type UpdateInspectionMutation = { __typename?: 'Mutation' } & {
+  updateInspection: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type CreatePimMutationVariables = {
   input: CreatePimInput;
 };
@@ -3989,6 +4007,9 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
           | 'status'
         > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
       >
+    >;
+    inspections?: Maybe<
+      Array<{ __typename?: 'Inspection' } & Pick<Inspection, 'id' | 'inspectionType' | 'type' | 'description'>>
     >;
   };
 };
@@ -5084,6 +5105,50 @@ export type SetLinkedPropertiesMutationOptions = ApolloReactCommon.BaseMutationO
   SetLinkedPropertiesMutation,
   SetLinkedPropertiesMutationVariables
 >;
+export const AddInspectionDocument = gql`
+  mutation AddInspection($input: AddInspectionInput!) {
+    addInspection(input: $input) {
+      inspection {
+        id
+      }
+    }
+  }
+`;
+export function useAddInspectionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddInspectionMutation, AddInspectionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddInspectionMutation, AddInspectionMutationVariables>(
+    AddInspectionDocument,
+    baseOptions,
+  );
+}
+export type AddInspectionMutationHookResult = ReturnType<typeof useAddInspectionMutation>;
+export type AddInspectionMutationResult = ApolloReactCommon.MutationResult<AddInspectionMutation>;
+export type AddInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddInspectionMutation,
+  AddInspectionMutationVariables
+>;
+export const UpdateInspectionDocument = gql`
+  mutation UpdateInspection($input: UpdateInspectionInput!) {
+    updateInspection(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateInspectionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInspectionMutation, UpdateInspectionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateInspectionMutation, UpdateInspectionMutationVariables>(
+    UpdateInspectionDocument,
+    baseOptions,
+  );
+}
+export type UpdateInspectionMutationHookResult = ReturnType<typeof useUpdateInspectionMutation>;
+export type UpdateInspectionMutationResult = ApolloReactCommon.MutationResult<UpdateInspectionMutation>;
+export type UpdateInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInspectionMutation,
+  UpdateInspectionMutationVariables
+>;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
     createPim(input: $input) {
@@ -5909,6 +5974,12 @@ export const PimSpecificationDocument = gql`
         images {
           url
         }
+      }
+      inspections {
+        id
+        inspectionType
+        type
+        description
       }
     }
   }

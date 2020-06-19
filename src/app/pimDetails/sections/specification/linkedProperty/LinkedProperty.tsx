@@ -4,23 +4,12 @@ import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { GenericField } from 'form/fields';
 import { Box } from 'ui/atoms';
-import { LinkedPropertyItem } from 'ui/molecules';
+import { LinkedPropertyItem, InfoSection } from 'ui/molecules';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 
-const MOCKED_DATA = {
-  title: 'Parking Lot 12',
-  image: 'https://source.unsplash.com/featured/?building',
-  address: '1011 Amsterdam Isenburgstraat 36, Breda',
-  project: 'Projecte Name Linked Object Type',
-  price: '€ 25000,00 k.',
-  owner: 'Christian van Gils',
-  accManager: 'Hendriks Makelaardij',
-  status: 'Wojciech Dobry',
-  plotNumber: 'Field Value',
-  pimAttention: 'Field Value',
-};
+import { LinkedPropertyProps } from './LinkedProperty.types';
 
-export const LinkedProperty = () => {
+export const LinkedProperty = ({ properties }: LinkedPropertyProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -41,21 +30,37 @@ export const LinkedProperty = () => {
             isExpandable
             isInitExpanded
           >
-            {() => (
-              <LinkedPropertyItem
-                title={MOCKED_DATA.title}
-                image={MOCKED_DATA.image}
-                address={MOCKED_DATA.address}
-                project={MOCKED_DATA.project}
-                price={MOCKED_DATA.price}
-                owner={MOCKED_DATA.owner}
-                accManager={MOCKED_DATA.accManager}
-                status={MOCKED_DATA.status}
-                plotNumber={MOCKED_DATA.plotNumber}
-                pimAttention={MOCKED_DATA.pimAttention}
-                onEditClick={() => {}}
-              />
+            {!properties.length && (
+              <InfoSection emoji="🤔">
+                <Typography variant="h3">
+                  {formatMessage({ id: 'pim_details.specification.linked_properties.empty_description_1' })}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({ id: 'pim_details.specification.linked_properties.empty_description_2' })}
+                </Typography>
+              </InfoSection>
             )}
+            {properties.map(property => {
+              const address = `${property.houseNumber} ${property.city} ${property.postalCode} `;
+
+              return (
+                <Box key={property.id} mb={1}>
+                  <LinkedPropertyItem
+                    title={address}
+                    image="https://source.unsplash.com/featured/?building"
+                    address={address}
+                    project=""
+                    price=""
+                    owner=""
+                    accManager=""
+                    status={property.status}
+                    plotNumber=""
+                    pimAttention=""
+                    onEditClick={() => {}}
+                  />
+                </Box>
+              );
+            })}
           </FormSection>
         </Box>
       </Grid>
