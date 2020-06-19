@@ -7,7 +7,7 @@ import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { useStyles } from '../General.styles';
+import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { PropertyHabitation, PropertyAvailability } from 'api/types';
 
 const AVAILABILITIES = [

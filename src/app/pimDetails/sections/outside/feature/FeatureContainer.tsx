@@ -47,9 +47,9 @@ export const FeatureContainer = ({ feature }: FeatureContainerProps) => {
     ...feature,
     configuration: {
       ...configuration,
-      types: configuration.garageTypes || configuration.storageTypes,
-      insulations: configuration.garageInsulations || configuration.storageInsulations,
-      services: configuration.garageServices || configuration.storageServices,
+      types: configuration?.garageTypes || configuration?.storageTypes,
+      insulations: configuration?.garageInsulations || configuration?.storageInsulations,
+      services: configuration?.garageServices || configuration?.storageServices,
       garageTypes: undefined,
       garageInsulations: undefined,
       garageServices: undefined,

@@ -7,11 +7,11 @@ import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
 import { MediaContainer } from 'app/pimDetails/sections/media/MediaContainer';
+import { General } from 'app/pimDetails/sections/general/General';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { PimDetailsProps } from './PimDetails.types';
-import { GeneralContainer } from './sections/general/GeneralContainer';
 import { Inside } from './sections/inside/Inside';
 import { Outside } from './sections/outside/Outside';
 import { Cadastre } from './sections/cadastre/Cadastre';
@@ -56,9 +56,8 @@ export const PimDetails = ({ error: isError, data, servicesData, cadastreData, o
             <Switch>
               <Route
                 path={`${AppRoute.pimDetails}/general`}
-                exact
                 render={() => (
-                  <GeneralContainer
+                  <General
                     isSidebarVisible={isSidebarVisible}
                     onOpenSidebar={handleSidebarOpen}
                     title={title}

@@ -1,97 +1,15 @@
-import React, { useState } from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router';
 
-import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';
-import { useLocale } from 'hooks';
-import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { EditIcon } from 'ui/atoms/icons/edit/EditIcon';
-import { AutosaveForm } from 'ui/organisms';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { GeneralMainContainer } from 'app/pimDetails/sections/general/generalMain/GeneralMainContainer';
+import { LocationContainer } from 'app/pimDetails/sections/general/location/LocationContainer';
 
-import { GeneralProps } from './General.types';
-import { useStyles } from './General.styles';
-import { AddressForm } from './forms/AddressForm';
-import { ExtraAddressForm } from './forms/ExtraAddressForm';
-import { IdentificationNumberFormContainer } from './forms/identificationNumberForm/IdentificationNumberFormContainer';
-import { PropertyDetailsForm } from './forms/PropertyDetailsForm';
-import { ConstructionInformationForm } from './forms/ConstructionInformationForm';
-import { AvailabilityForm } from './forms/AvailabilityForm';
-import { AdditionalInformationModalContainer } from './additionalInformationModal/AdditionalInformationModalContainer';
-
-export const General = ({ title, isSidebarVisible, onOpenSidebar, pimGeneral, onSave }: GeneralProps) => {
-  const { formatMessage } = useLocale();
-  const theme = useTheme();
-  const classes = useStyles();
-
-  const [isModalOpened, setModalOpened] = useState(false);
-
-  return (
-    <>
-      <PimDetailsHeader
-        title={title}
-        isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
-        action={
-          <Button
-            color="primary"
-            startIcon={<EditIcon color="inherit" />}
-            variant="contained"
-            onClick={() => setModalOpened(true)}
-            size="small"
-          >
-            {formatMessage({ id: 'pim_details.general.additional_information' })}
-          </Button>
-        }
-      />
-
-      <Grid xs={12} item>
-        <Box display="flex" alignItems="center">
-          <Avatar variant="rounded" bgcolor={theme.palette.red.light} className={classes.avatarIcon}>
-            <Box color={theme.palette.red.main}>
-              <BuildingIcon color="inherit" />
-            </Box>
-          </Avatar>
-          <Typography variant="h1">{title ? title : <Placeholder variant="text" width={150} />}</Typography>
-        </Box>
-      </Grid>
-
-      <AutosaveForm initialValues={pimGeneral} onSave={onSave} subscription={{}}>
-        <Grid item xs={12}>
-          <AddressForm />
-        </Grid>
-
-        {!!pimGeneral.showExtraAddress && (
-          <Grid item xs={12}>
-            <ExtraAddressForm />
-          </Grid>
-        )}
-
-        {!!pimGeneral.showIdentificationNumber && (
-          <Grid item xs={12}>
-            <IdentificationNumberFormContainer items={pimGeneral.identificationNumbers || []} />
-          </Grid>
-        )}
-
-        <Grid item xs={12}>
-          <PropertyDetailsForm />
-        </Grid>
-
-        <Grid item xs={12}>
-          <ConstructionInformationForm />
-        </Grid>
-
-        <Grid item xs={12}>
-          <AvailabilityForm />
-        </Grid>
-      </AutosaveForm>
-
-      {!!isModalOpened && (
-        <AdditionalInformationModalContainer
-          pimGeneral={{ ...pimGeneral, __typename: undefined, identificationNumbers: undefined }}
-          isOpened={isModalOpened}
-          onClose={() => setModalOpened(false)}
-        />
-      )}
-    </>
-  );
-};
+export const General = (props: PimDetailsSectionProps) => (
+  <Switch>
+    <Route default path={`${AppRoute.pimDetails}/general`} exact render={() => <GeneralMainContainer {...props} />} />
+    <Route path={`${AppRoute.pimDetails}/general/location`} exact render={() => <LocationContainer {...props} />} />
+    <Redirect to={`${AppRoute.pimDetails}/general`} />
+  </Switch>
+);

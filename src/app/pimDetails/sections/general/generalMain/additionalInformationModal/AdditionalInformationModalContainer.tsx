@@ -25,7 +25,12 @@ export const AdditionalInformationModalContainer = ({
       const { data: result } = await updatePimGeneralInfo({
         variables: {
           input: {
-            ...pimGeneral,
+            id: pimGeneral.id,
+            street: pimGeneral.street,
+            houseNumber: pimGeneral.houseNumber,
+            postalCode: pimGeneral.postalCode,
+            city: pimGeneral.city,
+            country: pimGeneral.country,
             ...data,
           },
         },

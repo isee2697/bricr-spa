@@ -11,7 +11,7 @@ export const Foundation = () => {
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection isExpandable title={formatMessage({ id: 'pim_details.outside.foundation.title' })}>
+    <FormSection isExpandable title={formatMessage({ id: 'pim_details.outside.main.foundation_title' })}>
       {isEditMode => (
         <>
           <Box mb={4}>

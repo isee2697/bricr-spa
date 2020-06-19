@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import { usePimGeneralQuery, useUpdatePimGeneralInfoMutation, PimDetailsDocument, PimGeneral } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
-import { General } from './General';
+import { GeneralMain } from './GeneralMain';
 
-export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const GeneralMainContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { data } = usePimGeneralQuery({ variables: { id } });
   const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
@@ -52,7 +52,7 @@ export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pim
   }
 
   return (
-    <General
+    <GeneralMain
       isSidebarVisible={isSidebarVisible}
       onOpenSidebar={onOpenSidebar}
       title={title}

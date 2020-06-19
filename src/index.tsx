@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
+import { setDefaultOptions } from 'esri-loader';
 
 import { AppProviders } from 'providers/AppProviders';
 
 import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
+
+// configure esri-loader to lazy load the CSS
+// the fisrt time any react-arcgis components are rendered
+setDefaultOptions({
+  css: true,
+});
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

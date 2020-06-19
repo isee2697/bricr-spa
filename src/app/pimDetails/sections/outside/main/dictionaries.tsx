@@ -248,7 +248,7 @@ export const typesOfGutter = [
     value: GutterType.HalfRound,
   },
   {
-    label: 'dictionaries.outside_roof_gutters.FlatBottom',
+    label: 'dictionaries.outside_roof_gutters.Flatbottom',
     icon: <SquareIcon color="inherit" />,
     value: GutterType.Flatbottom,
   },

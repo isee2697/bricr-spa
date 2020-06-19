@@ -5,7 +5,7 @@ import { FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useLocale } from 'hooks';
-import { useStyles } from '../General.styles';
+import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 
 export const AddressForm = () => {
   const { formatMessage } = useLocale();

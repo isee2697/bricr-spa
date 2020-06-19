@@ -22,7 +22,7 @@ import {
   UploadIcon,
   WarningIcon,
 } from 'ui/atoms/icons';
-import { useStyles } from '../General.styles';
+import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { PropertyTypeDetailed, PropertyConnection } from 'api/types';
 import { RadioGroupField } from 'form/fields';
 

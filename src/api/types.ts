@@ -98,6 +98,7 @@ export type Mutation = {
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
+  updatePimLocation: Pim;
   updatePimOutsideInfo: Pim;
   updatePricing: Pim;
   updateReading?: Maybe<Pim>;
@@ -280,6 +281,10 @@ export type MutationUpdatePimGeneralInfoArgs = {
   input: PimGeneralInput;
 };
 
+export type MutationUpdatePimLocationArgs = {
+  input: UpdatePimLocationInput;
+};
+
 export type MutationUpdatePimOutsideInfoArgs = {
   input: PimOutsideInput;
 };
@@ -430,6 +435,7 @@ export type Query = {
   getPimCadastre: PimCadastre;
   getPimGeneral: PimGeneral;
   getPimInside: PimInside;
+  getPimLocation: PimLocation;
   getPimMedia: PimMedia;
   getPimOutside: PimOutside;
   getPimServices: PimServices;
@@ -463,6 +469,10 @@ export type QueryGetPimGeneralArgs = {
 };
 
 export type QueryGetPimInsideArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimLocationArgs = {
   id: Scalars['ID'];
 };
 
@@ -1240,6 +1250,73 @@ export type InsideGeneral = {
   windows?: Maybe<InsideWindows>;
   extension?: Maybe<Extension>;
   renovation?: Maybe<Renovation>;
+};
+
+export enum LocationType {
+  OnTheEdgeOfForest = 'OnTheEdgeOfForest',
+  OnBusyRoad = 'OnBusyRoad',
+  OnPark = 'OnPark',
+  OnQuietRoad = 'OnQuietRoad',
+  OnFairway = 'OnFairway',
+  OnWater = 'OnWater',
+  ShelteredLocation = 'ShelteredLocation',
+  OutsideBuiltUpAreas = 'OutsideBuiltUpAreas',
+  InWoodedArea = 'InWoodedArea',
+  InCenter = 'InCenter',
+  InResidentialArea = 'InResidentialArea',
+  OpenLocation = 'OpenLocation',
+}
+
+export enum LocationGoodToKnowType {
+  Restaurants = 'Restaurants',
+  Subway = 'Subway',
+  Recreation = 'Recreation',
+  Shops = 'Shops',
+  Train = 'Train',
+  School = 'School',
+  Highway = 'Highway',
+  Sport = 'Sport',
+}
+
+export enum DistanceUnit {
+  Meters = 'Meters',
+  Kilometers = 'Kilometers',
+}
+
+export type GoodToKnow = {
+  __typename?: 'GoodToKnow';
+  type?: Maybe<Scalars['String']>;
+  distance?: Maybe<Scalars['Int']>;
+  units?: Maybe<DistanceUnit>;
+  checked?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimLocation = {
+  __typename?: 'PimLocation';
+  id: Scalars['String'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  map?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  goodToKnows?: Maybe<Array<GoodToKnow>>;
+};
+
+export type UpdatePimLocationInput = {
+  id: Scalars['String'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  map?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  goodToKnows?: Maybe<Array<GoodToKnowInput>>;
+};
+
+export type GoodToKnowInput = {
+  type?: Maybe<Scalars['String']>;
+  distance?: Maybe<Scalars['Int']>;
+  units?: Maybe<DistanceUnit>;
+  checked?: Maybe<Scalars['Boolean']>;
 };
 
 export enum PictureType {
@@ -3098,6 +3175,14 @@ export type UpdateInsideGeneralMutation = { __typename?: 'Mutation' } & {
   updateInsideGeneral?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
+export type UpdatePimLocationMutationVariables = {
+  input: UpdatePimLocationInput;
+};
+
+export type UpdatePimLocationMutation = { __typename?: 'Mutation' } & {
+  updatePimLocation: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type AddTagMutationVariables = {
   input: AddTagInput;
 };
@@ -3607,6 +3692,21 @@ export type PimInsideQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimLocationQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimLocationQuery = { __typename?: 'Query' } & {
+  getPimLocation: { __typename?: 'PimLocation' } & Pick<
+    PimLocation,
+    'id' | 'latitude' | 'longitude' | 'type' | 'notes'
+  > & {
+      goodToKnows?: Maybe<
+        Array<{ __typename?: 'GoodToKnow' } & Pick<GoodToKnow, 'type' | 'distance' | 'units' | 'checked'>>
+      >;
+    };
+};
+
 export type PimMediaQueryVariables = {
   id: Scalars['ID'];
 };
@@ -3967,69 +4067,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
         >;
         floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType'>>>;
         outsideFeatures?: Maybe<
-          Array<
-            { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
-                configuration?: Maybe<
-                  | ({ __typename?: 'GardenFeature' } & Pick<
-                      GardenFeature,
-                      'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
-                    > & {
-                        measurement?: Maybe<
-                          { __typename?: 'RectangleMeasurement' } & Pick<
-                            RectangleMeasurement,
-                            'length' | 'width' | 'surface'
-                          >
-                        >;
-                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                      })
-                  | ({ __typename?: 'GarageFeature' } & Pick<
-                      GarageFeature,
-                      'main' | 'notes' | 'attached' | 'attic' | 'secondaryWindows' | 'materials'
-                    > & {
-                        garageTypes: GarageFeature['types'];
-                        garageInsulations: GarageFeature['insulations'];
-                        garageServices: GarageFeature['services'];
-                      } & {
-                        measurement?: Maybe<
-                          { __typename?: 'CuboidMeasurement' } & Pick<
-                            CuboidMeasurement,
-                            'length' | 'width' | 'height' | 'surface' | 'volume'
-                          >
-                        >;
-                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                      })
-                  | ({ __typename?: 'StorageFeature' } & Pick<
-                      StorageFeature,
-                      'main' | 'notes' | 'attached' | 'secondaryWindows' | 'materials'
-                    > & {
-                        storageTypes: StorageFeature['types'];
-                        storageInsulations: StorageFeature['insulations'];
-                        storageServices: StorageFeature['services'];
-                      } & {
-                        measurement?: Maybe<
-                          { __typename?: 'CuboidMeasurement' } & Pick<
-                            CuboidMeasurement,
-                            'length' | 'width' | 'height' | 'surface' | 'volume'
-                          >
-                        >;
-                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                      })
-                  | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
-                        measurement?: Maybe<
-                          { __typename?: 'RectangleMeasurement' } & Pick<
-                            RectangleMeasurement,
-                            'length' | 'width' | 'surface'
-                          >
-                        >;
-                        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                      })
-                  | ({ __typename?: 'ParkingLotFeature' } & Pick<
-                      ParkingLotFeature,
-                      'number' | 'price' | 'cost' | 'notes'
-                    > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> })
-                >;
-              }
-          >
+          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'>>
         >;
       }
   >;
@@ -4458,6 +4496,27 @@ export type UpdateInsideGeneralMutationResult = ApolloReactCommon.MutationResult
 export type UpdateInsideGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateInsideGeneralMutation,
   UpdateInsideGeneralMutationVariables
+>;
+export const UpdatePimLocationDocument = gql`
+  mutation UpdatePimLocation($input: UpdatePimLocationInput!) {
+    updatePimLocation(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePimLocationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>(
+    UpdatePimLocationDocument,
+    baseOptions,
+  );
+}
+export type UpdatePimLocationMutationHookResult = ReturnType<typeof useUpdatePimLocationMutation>;
+export type UpdatePimLocationMutationResult = ApolloReactCommon.MutationResult<UpdatePimLocationMutation>;
+export type UpdatePimLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimLocationMutation,
+  UpdatePimLocationMutationVariables
 >;
 export const AddTagDocument = gql`
   mutation AddTag($input: AddTagInput!) {
@@ -5446,6 +5505,36 @@ export function usePimInsideLazyQuery(
 export type PimInsideQueryHookResult = ReturnType<typeof usePimInsideQuery>;
 export type PimInsideLazyQueryHookResult = ReturnType<typeof usePimInsideLazyQuery>;
 export type PimInsideQueryResult = ApolloReactCommon.QueryResult<PimInsideQuery, PimInsideQueryVariables>;
+export const PimLocationDocument = gql`
+  query PimLocation($id: ID!) {
+    getPimLocation(id: $id) {
+      id
+      latitude
+      longitude
+      type
+      notes
+      goodToKnows {
+        type
+        distance
+        units
+        checked
+      }
+    }
+  }
+`;
+export function usePimLocationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimLocationQuery, PimLocationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
+}
+export function usePimLocationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimLocationQuery, PimLocationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
+}
+export type PimLocationQueryHookResult = ReturnType<typeof usePimLocationQuery>;
+export type PimLocationLazyQueryHookResult = ReturnType<typeof usePimLocationLazyQuery>;
+export type PimLocationQueryResult = ApolloReactCommon.QueryResult<PimLocationQuery, PimLocationQueryVariables>;
 export const PimMediaDocument = gql`
   query PimMedia($id: ID!) {
     getPimMedia(id: $id) {
@@ -5938,86 +6027,6 @@ export const PimDetailsDocument = gql`
         id
         description
         type
-        configuration {
-          ... on GardenFeature {
-            main
-            type
-            notes
-            quality
-            location
-            shape
-            measurement {
-              length
-              width
-              surface
-            }
-            images {
-              url
-            }
-          }
-          ... on GarageFeature {
-            main
-            garageTypes: types
-            notes
-            attached
-            attic
-            garageInsulations: insulations
-            garageServices: services
-            secondaryWindows
-            materials
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            images {
-              url
-            }
-          }
-          ... on StorageFeature {
-            main
-            storageTypes: types
-            notes
-            attached
-            storageInsulations: insulations
-            storageServices: services
-            secondaryWindows
-            materials
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            images {
-              url
-            }
-          }
-          ... on TerrainFeature {
-            parking
-            notes
-            measurement {
-              length
-              width
-              surface
-            }
-            images {
-              url
-            }
-          }
-          ... on ParkingLotFeature {
-            number
-            price
-            cost
-            notes
-            images {
-              url
-            }
-          }
-        }
       }
     }
   }

@@ -1,0 +1,72 @@
+enum LocationType {
+  OnTheEdgeOfForest,
+  OnBusyRoad,
+  OnPark,
+  OnQuietRoad,
+  OnFairway,
+  OnWater,
+  ShelteredLocation,
+  OutsideBuiltUpAreas,
+  InWoodedArea,
+  InCenter,
+  InResidentialArea,
+  OpenLocation,
+}
+
+enum LocationGoodToKnowType {
+  Restaurants,
+  Subway,
+  Recreation,
+  Shops,
+  Train,
+  School,
+  Highway,
+  Sport,
+}
+
+enum DistanceUnit {
+  Meters,
+  Kilometers
+}
+
+type GoodToKnow {
+  type: String @uuidOrEnum(enum: ["LocationGoodToKnowType"])
+  distance: Int
+  units: DistanceUnit
+  checked: Boolean
+}
+
+type PimLocation {
+  id: String!
+  latitude: Float
+  longitude: Float,
+  map: String,
+  type: String @uuidOrEnum(enum: ["LocationType"])
+  notes: String
+  goodToKnows: [GoodToKnow!]
+}
+
+input UpdatePimLocationInput {
+  id: String!
+  latitude: Float
+  longitude: Float,
+  map: String,
+  type: String @uuidOrEnum(enum: ["LocationType"])
+  notes: String
+  goodToKnows: [GoodToKnowInput!]
+}
+
+input GoodToKnowInput {
+  type: String @uuidOrEnum(enum: ["LocationGoodToKnowType"])
+  distance: Int
+  units: DistanceUnit
+  checked: Boolean
+}
+
+extend type Query {
+  getPimLocation(id: ID!): PimLocation! @auth
+}
+
+extend type Mutation {
+  updatePimLocation(input: UpdatePimLocationInput!): Pim! @auth
+}

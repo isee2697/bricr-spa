@@ -52,6 +52,12 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
     {
       name: 'general',
       icon: <BuildingIcon />,
+      subItems: [
+        {
+          id: 'location',
+          label: 'pim_details.general.location.title',
+        },
+      ],
     },
     {
       name: 'inside',
