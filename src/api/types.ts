@@ -61,6 +61,7 @@ export type Mutation = {
   addCost: CostResult;
   addFiles: Array<File>;
   addFloorToPim: Pim;
+  addIdentificationNumber: PimWithNewIdentificationNumber;
   addInspection: AddInspectionResult;
   addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
@@ -88,6 +89,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateFloor: Pim;
+  updateIdentificationNumber: Pim;
   updateInsideGeneral?: Maybe<Pim>;
   updateInspection: Pim;
   updateInvestment: Pim;
@@ -127,6 +129,10 @@ export type MutationAddFilesArgs = {
 
 export type MutationAddFloorToPimArgs = {
   input: AddNewFloorInput;
+};
+
+export type MutationAddIdentificationNumberArgs = {
+  input: AddIdentificationNumberInput;
 };
 
 export type MutationAddInspectionArgs = {
@@ -236,6 +242,10 @@ export type MutationUpdateCostArgs = {
 
 export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
+};
+
+export type MutationUpdateIdentificationNumberArgs = {
+  input: UpdateIdentificationNumberInput;
 };
 
 export type MutationUpdateInsideGeneralArgs = {
@@ -755,6 +765,9 @@ export type PimGeneralInput = {
   livingArea?: Maybe<Scalars['Int']>;
   attention?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneralInput>;
+  extraAddress?: Maybe<ExtraAddressInput>;
+  showExtraAddress?: Maybe<Scalars['Boolean']>;
+  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
 };
 
 export type PropertyAvailabilityInformation = {
@@ -808,6 +821,48 @@ export type ConstructionInformationInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
+export type ExtraAddress = {
+  __typename?: 'ExtraAddress';
+  plotNumber?: Maybe<Scalars['String']>;
+  plotNumberAddition?: Maybe<Scalars['String']>;
+  houseNumberStart?: Maybe<Scalars['String']>;
+  houseNumberEnd?: Maybe<Scalars['String']>;
+};
+
+export type ExtraAddressInput = {
+  plotNumber?: Maybe<Scalars['String']>;
+  plotNumberAddition?: Maybe<Scalars['String']>;
+  houseNumberStart?: Maybe<Scalars['String']>;
+  houseNumberEnd?: Maybe<Scalars['String']>;
+};
+
+export enum IdentificationNumberType {
+  Sap = 'Sap',
+  Form = 'Form',
+}
+
+export type IdentificationNumber = {
+  __typename?: 'IdentificationNumber';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type AddIdentificationNumberInput = {
+  pimId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UpdateIdentificationNumberInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
 export type PimGeneral = {
   __typename?: 'PimGeneral';
   id: Scalars['ID'];
@@ -840,6 +895,16 @@ export type PimGeneral = {
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
   houseGeneral?: Maybe<HouseGeneral>;
+  extraAddress?: Maybe<ExtraAddress>;
+  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+  showExtraAddress?: Maybe<Scalars['Boolean']>;
+  showIdentificationNumber?: Maybe<Scalars['Boolean']>;
+};
+
+export type PimWithNewIdentificationNumber = {
+  __typename?: 'PimWithNewIdentificationNumber';
+  pim: Pim;
+  newIdentificationNumber: IdentificationNumber;
 };
 
 export enum SpaceServiceHeating {
@@ -2972,6 +3037,24 @@ export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
   updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
+export type AddIdentificationNumberMutationVariables = {
+  input: AddIdentificationNumberInput;
+};
+
+export type AddIdentificationNumberMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumber: { __typename?: 'PimWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
+
+export type UpdateIdentificationNumberMutationVariables = {
+  input: UpdateIdentificationNumberInput;
+};
+
+export type UpdateIdentificationNumberMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumber: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type AddFloorToPimMutationVariables = {
   input: AddNewFloorInput;
 };
@@ -3358,6 +3441,53 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
               >;
             }
         >
+      >;
+    };
+};
+
+export type PimGeneralQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimGeneralQuery = { __typename?: 'Query' } & {
+  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
+    PimGeneral,
+    | 'id'
+    | 'street'
+    | 'houseNumber'
+    | 'postalCode'
+    | 'district'
+    | 'city'
+    | 'state'
+    | 'county'
+    | 'country'
+    | 'showExtraAddress'
+    | 'showIdentificationNumber'
+  > & {
+      houseGeneral?: Maybe<
+        { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'propertyConnection' | 'propertyDetails'> & {
+            construction?: Maybe<
+              { __typename?: 'ConstructionInformation' } & Pick<
+                ConstructionInformation,
+                'type' | 'from' | 'to' | 'notes'
+              >
+            >;
+            availability?: Maybe<
+              { __typename?: 'PropertyAvailabilityInformation' } & Pick<
+                PropertyAvailabilityInformation,
+                'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
+              >
+            >;
+          }
+      >;
+      extraAddress?: Maybe<
+        { __typename?: 'ExtraAddress' } & Pick<
+          ExtraAddress,
+          'plotNumber' | 'plotNumberAddition' | 'houseNumberStart' | 'houseNumberEnd'
+        >
+      >;
+      identificationNumbers?: Maybe<
+        Array<{ __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type'>>
       >;
     };
 };
@@ -4164,6 +4294,58 @@ export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResul
 export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdatePimGeneralInfoMutation,
   UpdatePimGeneralInfoMutationVariables
+>;
+export const AddIdentificationNumberDocument = gql`
+  mutation AddIdentificationNumber($input: AddIdentificationNumberInput!) {
+    addIdentificationNumber(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+export function useAddIdentificationNumberMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberMutation,
+    AddIdentificationNumberMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddIdentificationNumberMutation, AddIdentificationNumberMutationVariables>(
+    AddIdentificationNumberDocument,
+    baseOptions,
+  );
+}
+export type AddIdentificationNumberMutationHookResult = ReturnType<typeof useAddIdentificationNumberMutation>;
+export type AddIdentificationNumberMutationResult = ApolloReactCommon.MutationResult<AddIdentificationNumberMutation>;
+export type AddIdentificationNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberMutation,
+  AddIdentificationNumberMutationVariables
+>;
+export const UpdateIdentificationNumberDocument = gql`
+  mutation UpdateIdentificationNumber($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumber(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberMutation,
+    UpdateIdentificationNumberMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateIdentificationNumberMutation, UpdateIdentificationNumberMutationVariables>(
+    UpdateIdentificationNumberDocument,
+    baseOptions,
+  );
+}
+export type UpdateIdentificationNumberMutationHookResult = ReturnType<typeof useUpdateIdentificationNumberMutation>;
+export type UpdateIdentificationNumberMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberMutation
+>;
+export type UpdateIdentificationNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberMutation,
+  UpdateIdentificationNumberMutationVariables
 >;
 export const AddFloorToPimDocument = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
@@ -5053,6 +5235,66 @@ export function usePimCadastreLazyQuery(
 export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
 export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
 export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
+export const PimGeneralDocument = gql`
+  query PimGeneral($id: ID!) {
+    getPimGeneral(id: $id) {
+      id
+      street
+      houseNumber
+      postalCode
+      district
+      city
+      state
+      county
+      country
+      houseGeneral {
+        propertyConnection
+        propertyDetails
+        construction {
+          type
+          from
+          to
+          notes
+        }
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+      }
+      extraAddress {
+        plotNumber
+        plotNumberAddition
+        houseNumberStart
+        houseNumberEnd
+      }
+      identificationNumbers {
+        id
+        name
+        number
+        type
+      }
+      showExtraAddress
+      showIdentificationNumber
+    }
+  }
+`;
+export function usePimGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
+}
+export function usePimGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
+}
+export type PimGeneralQueryHookResult = ReturnType<typeof usePimGeneralQuery>;
+export type PimGeneralLazyQueryHookResult = ReturnType<typeof usePimGeneralLazyQuery>;
+export type PimGeneralQueryResult = ApolloReactCommon.QueryResult<PimGeneralQuery, PimGeneralQueryVariables>;
 export const PimInsideDocument = gql`
   query PimInside($id: ID!) {
     getPimInside(id: $id) {

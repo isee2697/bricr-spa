@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
 import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';
@@ -11,14 +11,19 @@ import { AutosaveForm } from 'ui/organisms';
 import { GeneralProps } from './General.types';
 import { useStyles } from './General.styles';
 import { AddressForm } from './forms/AddressForm';
+import { ExtraAddressForm } from './forms/ExtraAddressForm';
+import { IdentificationNumberFormContainer } from './forms/identificationNumberForm/IdentificationNumberFormContainer';
 import { PropertyDetailsForm } from './forms/PropertyDetailsForm';
 import { ConstructionInformationForm } from './forms/ConstructionInformationForm';
 import { AvailabilityForm } from './forms/AvailabilityForm';
+import { AdditionalInformationModalContainer } from './additionalInformationModal/AdditionalInformationModalContainer';
 
-export const General = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }: GeneralProps) => {
+export const General = ({ title, isSidebarVisible, onOpenSidebar, pimGeneral, onSave }: GeneralProps) => {
   const { formatMessage } = useLocale();
   const theme = useTheme();
   const classes = useStyles();
+
+  const [isModalOpened, setModalOpened] = useState(false);
 
   return (
     <>
@@ -31,10 +36,10 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }:
             color="primary"
             startIcon={<EditIcon color="inherit" />}
             variant="contained"
-            onClick={() => {}}
+            onClick={() => setModalOpened(true)}
             size="small"
           >
-            {formatMessage({ id: 'pim_details.customize' })}
+            {formatMessage({ id: 'pim_details.general.additional_information' })}
           </Button>
         }
       />
@@ -50,10 +55,22 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }:
         </Box>
       </Grid>
 
-      <AutosaveForm initialValues={pim || undefined} onSave={onSave} subscription={{}}>
+      <AutosaveForm initialValues={pimGeneral} onSave={onSave} subscription={{}}>
         <Grid item xs={12}>
           <AddressForm />
         </Grid>
+
+        {!!pimGeneral.showExtraAddress && (
+          <Grid item xs={12}>
+            <ExtraAddressForm />
+          </Grid>
+        )}
+
+        {!!pimGeneral.showIdentificationNumber && (
+          <Grid item xs={12}>
+            <IdentificationNumberFormContainer items={pimGeneral.identificationNumbers || []} />
+          </Grid>
+        )}
 
         <Grid item xs={12}>
           <PropertyDetailsForm />
@@ -67,6 +84,14 @@ export const General = ({ title, isSidebarVisible, onOpenSidebar, pim, onSave }:
           <AvailabilityForm />
         </Grid>
       </AutosaveForm>
+
+      {!!isModalOpened && (
+        <AdditionalInformationModalContainer
+          pimGeneral={{ ...pimGeneral, __typename: undefined, identificationNumbers: undefined }}
+          isOpened={isModalOpened}
+          onClose={() => setModalOpened(false)}
+        />
+      )}
     </>
   );
 };

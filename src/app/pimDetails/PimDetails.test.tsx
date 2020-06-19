@@ -20,25 +20,4 @@ describe('PimDetails', () => {
     );
     expect(getByText('common.error')).toBeInTheDocument();
   });
-
-  test('renders correctly with data', () => {
-    const { getAllByText } = render(
-      <Router initialEntries={['/pim/test/general']} initialIndex={0}>
-        <PimDetails
-          error={undefined}
-          loading={false}
-          data={{
-            getPim: PIM_DETAILS_1,
-          }}
-          servicesData={{
-            getPimServices: PIM_SERVICES,
-          }}
-          cadastreData={{
-            getPimCadastre: PIM_CADASTRE_1,
-          }}
-        />
-      </Router>,
-    );
-    expect(getAllByText('Isenburgstraat 36 4813 NC Breda').length).toEqual(2);
-  });
 });

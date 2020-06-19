@@ -5,11 +5,12 @@ import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
 
 import { loadSchemas } from './loadSchemas';
-import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
-import { FILE_1 } from './mocks/file';
-import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
-import { PIM_INSIDE_1 } from './mocks/pim-inside';
 import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
+import { FILE_1 } from './mocks/file';
+import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
+import { PIM_GENERAL_1 } from './mocks/pim-general';
+import { PIM_INSIDE_1 } from './mocks/pim-inside';
+import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -20,6 +21,7 @@ let FILE = FILE_1;
 let PIM_CADASTRE = PIM_CADASTRE_1;
 const PIM_MEDIA = PIM_MEDIA_1;
 let PIM_INSIDE = PIM_INSIDE_1;
+const PIM_GENERAL = PIM_GENERAL_1;
 
 export const mockServer = () => {
   new Server({
@@ -149,6 +151,13 @@ export const mockServer = () => {
             }
 
             return PIM_DETAILS;
+          },
+          getPimGeneral() {
+            if (variables.id === 'test') {
+              throw new Error();
+            }
+
+            return PIM_GENERAL;
           },
           getPimInside() {
             if (variables.id === 'test') {

@@ -20,7 +20,7 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
     },
   },
   actions: {
-    '& > *:not(:first-child)': {
+    '& > *': {
       marginLeft: spacing(3),
     },
   },

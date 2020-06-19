@@ -22,6 +22,9 @@ input PimGeneralInput {
   livingArea: Int
   attention: String
   houseGeneral: HouseGeneralInput
+  extraAddress: ExtraAddressInput
+  showExtraAddress: Boolean
+  showIdentificationNumber: Boolean
 }
 
 type PropertyAvailabilityInformation {
@@ -72,6 +75,46 @@ input ConstructionInformationInput {
   notes: String
 }
 
+type ExtraAddress {
+  plotNumber: String
+  plotNumberAddition: String
+  houseNumberStart: String
+  houseNumberEnd: String
+}
+
+input ExtraAddressInput {
+  plotNumber: String
+  plotNumberAddition: String
+  houseNumberStart: String
+  houseNumberEnd: String
+}
+
+enum IdentificationNumberType {
+  Sap,
+  Form
+}
+
+type IdentificationNumber {
+  id: String!
+  name: String
+  number: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+}
+
+input AddIdentificationNumberInput {
+  pimId: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+}
+
+input UpdateIdentificationNumberInput {
+  pimId: String!
+  id: String!
+  name: String
+  number: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+}
+
 type PimGeneral {
   id: ID!
   realEstateType: RealEstateType!
@@ -103,10 +146,21 @@ type PimGeneral {
   dateUpdated: Date
   lastEditedBy: LastEditedBy
   houseGeneral: HouseGeneral
+  extraAddress: ExtraAddress
+  identificationNumbers: [IdentificationNumber!]
+  showExtraAddress: Boolean
+  showIdentificationNumber: Boolean
+}
+
+type PimWithNewIdentificationNumber {
+  pim: Pim!
+  newIdentificationNumber: IdentificationNumber!
 }
 
 extend type Mutation {
-  updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth,
+  updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth
+  addIdentificationNumber(input: AddIdentificationNumberInput!): PimWithNewIdentificationNumber! @auth
+  updateIdentificationNumber(input: UpdateIdentificationNumberInput!): Pim! @auth
 }
 
 extend type Query {

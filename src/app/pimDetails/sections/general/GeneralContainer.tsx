@@ -2,14 +2,15 @@ import React from 'react';
 import { AnyObject } from 'final-form';
 import { useParams } from 'react-router-dom';
 
-import { useUpdatePimGeneralInfoMutation, PimDetailsDocument } from 'api/types';
+import { usePimGeneralQuery, useUpdatePimGeneralInfoMutation, PimDetailsDocument, PimGeneral } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { General } from './General';
 
-export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }: PimDetailsSectionProps) => {
-  const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
+export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
+  const { data } = usePimGeneralQuery({ variables: { id } });
+  const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
 
   const handleSave = async (values: AnyObject) => {
     try {
@@ -23,6 +24,7 @@ export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }
             postalCode: values.postalCode,
             country: values.country,
             houseGeneral: values.houseGeneral,
+            extraAddress: values.extraAddress,
           },
         },
         refetchQueries: [
@@ -45,7 +47,7 @@ export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }
     }
   };
 
-  if (!pim) {
+  if (!data) {
     return null;
   }
 
@@ -54,7 +56,7 @@ export const GeneralContainer = ({ title, isSidebarVisible, onOpenSidebar, pim }
       isSidebarVisible={isSidebarVisible}
       onOpenSidebar={onOpenSidebar}
       title={title}
-      pim={pim}
+      pimGeneral={data.getPimGeneral as PimGeneral}
       onSave={handleSave}
     />
   );
