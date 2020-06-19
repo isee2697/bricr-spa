@@ -6,6 +6,9 @@ export const useStyles = makeStyles(theme => ({
     flexGrow: 100,
     display: 'flex',
     justifyContent: 'center',
+    '& .MuiTabs-root': {
+      width: '100%',
+    },
   },
   avatar: {
     width: theme.spacing(4),
