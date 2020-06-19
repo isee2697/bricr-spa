@@ -7,7 +7,7 @@ import { LinkTabProps } from './LinkTab.types';
 import { useStyles } from './LinkTab.styles';
 
 export const LinkTab = ({ icon, ...props }: LinkTabProps) => {
-  const classses = useStyles();
+  const classes = useStyles();
 
-  return <Tab component={Link} className={classses.root} icon={icon} {...props} />;
+  return <Tab component={Link} className={classes.root} icon={icon} {...props} />;
 };

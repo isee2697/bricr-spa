@@ -7,8 +7,5 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.75, 0),
     marginRight: theme.spacing(2.75),
     marginLeft: theme.spacing(2.75),
-    '&:last-of-type': {
-      marginRight: theme.spacing(1),
-    },
   },
 }));
