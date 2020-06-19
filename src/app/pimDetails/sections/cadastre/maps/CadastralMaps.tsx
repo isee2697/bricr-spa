@@ -27,10 +27,10 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
         onAdd={() => setAddModalOpened(true)}
         buttons={
           <>
-            <IconButton>
+            <IconButton variant="rounded" size="small">
               <ListIcon />
             </IconButton>
-            <IconButton>
+            <IconButton variant="rounded" size="small">
               <CardsIcon />
             </IconButton>
           </>
