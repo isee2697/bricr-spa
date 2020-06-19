@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, SetStateAction, useEffect } from 'react';
 import { Form } from 'react-final-form';
 
 import { InfoSection, Modal, SubmitButton, SimpleSearch, CancelButton } from 'ui/molecules';
@@ -6,58 +6,34 @@ import { useLocale } from 'hooks';
 import { Box, DialogActions, DialogContent, Grid, TileCheckbox, Typography } from 'ui/atoms';
 import { AddIcon, HomeIcon } from 'ui/atoms/icons';
 
-import { AddLinkedPropertyModalProps, LinkedPropertyType } from './AddLinkedPropertyModal.types';
+import { AddLinkedPropertyModalProps, LinkedPimType, LinkedPropertyType } from './AddLinkedPropertyModal.types';
 import { useStyles } from './AddLinkedPropertyModal.styles';
+import { PropertyTile } from './propertyTile/PropertyTile';
 
-const MOCKED_LINKED_PROPERTIES = [
-  {
-    address: 'Stationsstraat 25',
-    city: 'Amsterdam',
-  },
-  {
-    address: 'Parking Lot 25',
-    city: 'Rotterdam',
-  },
-  {
-    address: 'Stationsstraat 26',
-    city: 'Haga',
-  },
-  {
-    address: 'Parking Lot 27',
-    city: 'Amsterdam',
-  },
-  {
-    address: 'Parking Lot 28',
-    city: 'Rotterdam',
-  },
-  {
-    address: 'Stationsstraat 29',
-    city: 'Amsterdam',
-  },
-  {
-    address: 'Parking Lot 30',
-    city: 'Haga',
-  },
-  {
-    address: 'Stationsstraat 31',
-    city: 'Amsterdam',
-  },
-  {
-    address: 'Parking Lot 32',
-    city: 'Rotterdam',
-  },
-];
-
-const MOCKED_SELECTED_PROPERTY = {
-  address: 'Parking Lot 32',
-  city: 'Amsterdam',
-};
-
-export const AddLinkedPropertyModal = ({ isOpened, onClose, onSubmit }: AddLinkedPropertyModalProps) => {
+export const AddLinkedPropertyModal = ({
+  isOpened,
+  onClose,
+  onSubmit,
+  pimList,
+  linkedProperty,
+  onPropertySelect,
+  selectedPims,
+}: AddLinkedPropertyModalProps) => {
   const { formatMessage } = useLocale();
   const [value, setValue] = React.useState('');
-  const [propertyList, setPropertyList] = React.useState<LinkedPropertyType[]>(MOCKED_LINKED_PROPERTIES);
+  const [propertyList, setPropertyList] = React.useState([]);
+  const [selectedProperty, setSelectedProperty] = React.useState([]);
   const classes = useStyles();
+
+  useEffect(() => {
+    setValue('');
+    setPropertyList(
+      pimList?.filter((i: LinkedPimType) => (i ? !selectedPims.includes(i.id) : false)) as SetStateAction<never[]>,
+    );
+    setSelectedProperty(
+      pimList?.filter((i: LinkedPimType) => (i ? selectedPims.includes(i.id) : false)) as SetStateAction<never[]>,
+    );
+  }, [pimList, selectedPims, onClose]);
 
   const handleChange = (v: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentValue = v.target.value;
@@ -67,9 +43,9 @@ export const AddLinkedPropertyModal = ({ isOpened, onClose, onSubmit }: AddLinke
   };
 
   const filterProperties = (currentValue: string) => {
-    const results = MOCKED_LINKED_PROPERTIES.filter(
-      item =>
-        item.address.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()) ||
+    const results = propertyList.filter(
+      (item: LinkedPropertyType) =>
+        item.street?.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()) ||
         item.city.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()),
     );
     setPropertyList(results);
@@ -80,9 +56,9 @@ export const AddLinkedPropertyModal = ({ isOpened, onClose, onSubmit }: AddLinke
       return currentValue;
     }
 
-    const parts = currentValue.split(new RegExp(`(${value})`, 'gi'));
+    const parts = currentValue?.split(new RegExp(`(${value})`, 'gi'));
 
-    return parts.map((part, index) =>
+    return parts?.map((part, index) =>
       part.toLowerCase().match(value.toLowerCase()) ? (
         <span key={index} className={classes.highlight}>
           {part}
@@ -112,47 +88,49 @@ export const AddLinkedPropertyModal = ({ isOpened, onClose, onSubmit }: AddLinke
                     placeholderId="pim_details.specification.add_linked_property_modal.search_placeholder"
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <label className={classes.listLabel}>
-                    {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.current_label' })}
-                  </label>
-                  <Box mt={2} className={classes.list}>
-                    <TileCheckbox
-                      onClick={() => {}}
-                      isSelected
-                      title={
-                        <>
-                          {MOCKED_SELECTED_PROPERTY.address}, {MOCKED_SELECTED_PROPERTY.city}
-                        </>
-                      }
-                      orientation="horizontal"
-                    >
-                      <HomeIcon color="inherit" />
-                    </TileCheckbox>
-                  </Box>
-                </Grid>
+                {!!selectedProperty && (
+                  <Grid item xs={12}>
+                    <label className={classes.listLabel}>
+                      {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.current_label' })}
+                    </label>
+                    <Box mt={2} className={classes.list}>
+                      {selectedProperty.map((property: LinkedPropertyType, index: number) => (
+                        <Box mb={2} key={`${property.street}-selected${index}`}>
+                          <TileCheckbox
+                            onClick={() => {}}
+                            isSelected
+                            title={
+                              <>
+                                {property.street}, {property.city}
+                              </>
+                            }
+                            orientation="horizontal"
+                          >
+                            <HomeIcon color="inherit" />
+                          </TileCheckbox>
+                        </Box>
+                      ))}
+                    </Box>
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <label className={classes.listLabel}>
                     {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.result_label' })}
                   </label>
                   <Box mt={2} className={classes.list}>
-                    {propertyList.map((property: LinkedPropertyType) => (
-                      <Box mb={2}>
-                        <TileCheckbox
-                          onClick={() => {}}
-                          isSelected={false}
+                    {propertyList?.map((property: LinkedPropertyType, index: number) => (
+                      <Box mb={2} key={`${property.street}-${index}`}>
+                        <PropertyTile
+                          onClick={() => onPropertySelect(property.id)}
                           title={
                             <>
-                              {highlightString(property.address)}, {highlightString(property.city)}
+                              {highlightString(property.street ?? '')}, {highlightString(property.city)}
                             </>
                           }
-                          orientation="horizontal"
-                        >
-                          <HomeIcon color="inherit" />
-                        </TileCheckbox>
+                        />
                       </Box>
                     ))}
-                    {!propertyList.length && (
+                    {!propertyList && (
                       <InfoSection emoji="🤔">
                         <Typography variant="h3">{formatMessage({ id: 'common.no_results' })}</Typography>
                       </InfoSection>

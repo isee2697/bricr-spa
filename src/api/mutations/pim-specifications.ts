@@ -15,3 +15,11 @@ export const UPDATE_SPECIFICATION_ADVANCED = gql`
     }
   }
 `;
+
+export const SET_LINKED_PROPERTIES = gql`
+  mutation SetLinkedProperties($input: LinkedPimInput!) {
+    setLinkedProperties(input: $input) {
+      id
+    }
+  }
+`;

@@ -3104,6 +3104,14 @@ export type UpdateSpecificationAdvancedMutation = { __typename?: 'Mutation' } & 
   updateSpecificationAdvanced: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
+export type SetLinkedPropertiesMutationVariables = {
+  input: LinkedPimInput;
+};
+
+export type SetLinkedPropertiesMutation = { __typename?: 'Mutation' } & {
+  setLinkedProperties: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type CreatePimMutationVariables = {
   input: CreatePimInput;
 };
@@ -4580,6 +4588,27 @@ export type UpdateSpecificationAdvancedMutationResult = ApolloReactCommon.Mutati
 export type UpdateSpecificationAdvancedMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateSpecificationAdvancedMutation,
   UpdateSpecificationAdvancedMutationVariables
+>;
+export const SetLinkedPropertiesDocument = gql`
+  mutation SetLinkedProperties($input: LinkedPimInput!) {
+    setLinkedProperties(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetLinkedPropertiesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>(
+    SetLinkedPropertiesDocument,
+    baseOptions,
+  );
+}
+export type SetLinkedPropertiesMutationHookResult = ReturnType<typeof useSetLinkedPropertiesMutation>;
+export type SetLinkedPropertiesMutationResult = ApolloReactCommon.MutationResult<SetLinkedPropertiesMutation>;
+export type SetLinkedPropertiesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetLinkedPropertiesMutation,
+  SetLinkedPropertiesMutationVariables
 >;
 export const CreatePimDocument = gql`
   mutation CreatePim($input: CreatePimInput!) {
