@@ -1,0 +1,37 @@
+enum LabelProperty {
+  ObligationToProvideInformation
+  Picture
+  Usp
+  TextChapter
+  Inspection
+  ParkingSpecification
+  MonumentSpecification
+  InsideSpecification
+  HousingOptions
+  SpecialTags
+  PropertyRights
+  HomeOwnerAssociation
+}
+
+type Label {
+  id: ID!
+  icon: String
+  text: String!
+  property: LabelProperty!
+}
+
+input LabelInput {
+  pimId: ID!
+  icon: String
+  text: String!
+  property: LabelProperty!
+}
+
+extend type Mutation {
+  addLabel(input: LabelInput!): Label! @auth
+  removeLabel(id: ID!): Boolean! @auth
+}
+
+extend type Query {
+  getLabels(pimId: ID!, properties: [LabelProperty!]): [Label!] @auth
+}

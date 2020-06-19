@@ -2,50 +2,13 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { GenericField } from 'form/fields';
-import { Modal, SubmitButton, IconPicker, CancelButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Grid, Box } from 'ui/atoms';
-import { useLocale } from 'hooks';
-import {
-  AddIcon,
-  BellIcon,
-  BuildingIcon,
-  DocIcon,
-  FilesIcon,
-  FolderIcon,
-  GraphArrowIcon,
-  HomeIcon,
-  LinkIcon,
-  MailIcon,
-  PinIcon,
-  TasksIcon,
-  FilterIcon,
-  EditIcon,
-  SquareIcon,
-} from 'ui/atoms/icons';
+import { CancelButton, IconPicker, Modal, SubmitButton } from 'ui/molecules';
+import { Alert, Box, DialogActions, DialogContent, Grid } from 'ui/atoms';
+import { iconPickerIcons, useLocale } from 'hooks';
+import { AddIcon } from 'ui/atoms/icons';
 
 import { AddCustomPropertyModalProps } from './AddCustomPropertyModal.types';
 import { useStyles } from './AddCustomPropertyModal.styles';
-
-const icons = [
-  <AddIcon color="inherit" />,
-  <BellIcon color="inherit" />,
-  <BuildingIcon color="inherit" />,
-  <DocIcon color="inherit" />,
-  <FilesIcon color="inherit" />,
-  <FolderIcon color="inherit" />,
-  <GraphArrowIcon color="inherit" />,
-  <HomeIcon color="inherit" />,
-  <LinkIcon color="inherit" />,
-  <MailIcon color="inherit" />,
-  <PinIcon color="inherit" />,
-  <AddIcon color="inherit" />,
-  <TasksIcon color="inherit" />,
-  <FilesIcon color="inherit" />,
-  <FolderIcon color="inherit" />,
-  <FilterIcon color="inherit" />,
-  <EditIcon color="inherit" />,
-  <SquareIcon color="inherit" />,
-];
 
 export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCustomPropertyModalProps) => {
   const { formatMessage } = useLocale();
@@ -60,7 +23,7 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
       className={classes.modal}
     >
       <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitErrors, submitting, valid }) => (
+        {({ handleSubmit, submitErrors, submitting, valid, values }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
@@ -71,7 +34,7 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
               <Grid container spacing={2}>
                 <Grid item xs={5} className={classes.col}>
                   <GenericField
-                    name="service.meter.name"
+                    name="text"
                     label="pim_details.specification.custom_property_modal.input_label"
                     placeholder="pim_details.specification.custom_property_modal.input_placeholder"
                   />
@@ -82,7 +45,7 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
                       {formatMessage({ id: 'pim_details.specification.custom_property_modal.icons_label' })}
                     </label>
                   </Box>
-                  <IconPicker iconList={icons} selectedIcon={() => {}} />
+                  <IconPicker name="icon" iconList={iconPickerIcons} />
                 </Grid>
               </Grid>
             </DialogContent>

@@ -55,7 +55,7 @@ export const RadioGroupField = ({
             <TileRadio
               onClick={() => handleClick(item)}
               isSelected={input.value === item.value}
-              title={formatMessage({ id: item.label })}
+              title={item.isCustom ? item.label : formatMessage({ id: item.label })}
               isDisabled={disabled}
             >
               {item.icon}

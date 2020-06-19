@@ -1,8 +1,13 @@
 import { ReactNode } from 'react';
 
+export interface IconPickerIcon {
+  name: string;
+  icon: ReactNode;
+}
+
 export type IconPickerProps = {
-  iconList: ReactNode[];
-  selectedIcon: (icon: ReactNode) => void;
+  name: string;
+  iconList: IconPickerIcon[];
   size?: number;
   color?: string;
 };

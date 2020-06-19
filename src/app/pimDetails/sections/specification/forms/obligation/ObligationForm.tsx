@@ -1,17 +1,21 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Box } from 'ui/atoms';
-import { TileButton } from 'ui/molecules';
+import { FormSubSection, TileButton } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
-import { useLocale } from 'hooks';
+import { useCustomLabels, useLocale } from 'hooks';
 import { useStyles } from '../../Specification.styles';
-import { FormSubSection } from 'ui/molecules';
 import * as dictionaries from '../../dictionaries';
+import { LabelProperty } from 'api/types';
 
 import { ObligationFormProps } from './ObligationForm.types';
 
 export const ObligationForm = ({ onAddPropertyClick }: ObligationFormProps) => {
+  const { id: pimId } = useParams<{ id: string }>();
+  const customLabels = useCustomLabels(pimId, [LabelProperty.ObligationToProvideInformation]);
+
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -35,7 +39,10 @@ export const ObligationForm = ({ onAddPropertyClick }: ObligationFormProps) => {
               disabled={!editing}
               xs={2}
               name="specification.obligation.label"
-              options={dictionaries.obligation}
+              options={[
+                ...dictionaries.obligation,
+                ...(customLabels[LabelProperty.ObligationToProvideInformation] ?? []),
+              ]}
               actionElement={<TileButton onClick={onAddPropertyClick} isDisabled={!editing} />}
             />
             <Box mt={2}>

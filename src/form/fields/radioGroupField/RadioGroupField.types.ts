@@ -7,6 +7,7 @@ export type RadioDataType = {
   label: string;
   icon?: ReactNode;
   value: string;
+  isCustom?: boolean;
 };
 
 type Width = boolean | 2 | 'auto' | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;

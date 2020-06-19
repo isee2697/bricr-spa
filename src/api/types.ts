@@ -12,7 +12,6 @@ export type Scalars = {
   UploadFileInput: any;
   PathBuilder: any;
   UpdateSpaceInputConfiguration: any;
-  LabelProperty: any;
   UpdateFeatureInputConfiguration: any;
   AbsoluteFloat: any;
   CostVat: any;
@@ -63,11 +62,11 @@ export type Mutation = {
   addFiles: Array<File>;
   addFloorToPim: Pim;
   addInspection: AddInspectionResult;
+  addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
   addMeter?: Maybe<Pim>;
   addOutsideFeature: Pim;
   addPictures?: Maybe<PimWithNewPictures>;
-  addPimLabel: Pim;
   addReading?: Maybe<Pim>;
   addService?: Maybe<PimWithNewService>;
   addSpaceToFloor: PimWithUpdatedSpace;
@@ -80,8 +79,8 @@ export type Mutation = {
   initSendFile: File;
   login?: Maybe<LoginResponse>;
   removeInspection: Pim;
+  removeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
-  removePimLabel: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
   togglePricing: Pim;
@@ -134,6 +133,10 @@ export type MutationAddInspectionArgs = {
   input: AddInspectionInput;
 };
 
+export type MutationAddLabelArgs = {
+  input: LabelInput;
+};
+
 export type MutationAddMediaLinkArgs = {
   input: AddMediaLinkInput;
 };
@@ -148,10 +151,6 @@ export type MutationAddOutsideFeatureArgs = {
 
 export type MutationAddPicturesArgs = {
   input: AddPicturesInput;
-};
-
-export type MutationAddPimLabelArgs = {
-  input: PimLabelInput;
 };
 
 export type MutationAddReadingArgs = {
@@ -202,12 +201,12 @@ export type MutationRemoveInspectionArgs = {
   id: Scalars['ID'];
 };
 
-export type MutationRemovePimArgs = {
-  id: Scalars['String'];
+export type MutationRemoveLabelArgs = {
+  id: Scalars['ID'];
 };
 
-export type MutationRemovePimLabelArgs = {
-  id: Scalars['ID'];
+export type MutationRemovePimArgs = {
+  id: Scalars['String'];
 };
 
 export type MutationResetPasswordArgs = {
@@ -380,52 +379,34 @@ export type GetPrivateFileInput = {
   entity?: Maybe<EntityWithFiles>;
 };
 
-export type ListPimPropertyRelated = {
-  __typename?: 'ListPimPropertyRelated';
-  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+export enum LabelProperty {
+  ObligationToProvideInformation = 'ObligationToProvideInformation',
+  Picture = 'Picture',
+  Usp = 'Usp',
+  TextChapter = 'TextChapter',
+  Inspection = 'Inspection',
+  ParkingSpecification = 'ParkingSpecification',
+  MonumentSpecification = 'MonumentSpecification',
+  InsideSpecification = 'InsideSpecification',
+  HousingOptions = 'HousingOptions',
+  SpecialTags = 'SpecialTags',
+  PropertyRights = 'PropertyRights',
+  HomeOwnerAssociation = 'HomeOwnerAssociation',
+}
+
+export type Label = {
+  __typename?: 'Label';
+  id: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: LabelProperty;
 };
 
-export type ListPimHouseOutside = {
-  __typename?: 'ListPimHouseOutside';
-  propertyRelated?: Maybe<ListPimPropertyRelated>;
-};
-
-export type ListPim = {
-  __typename?: 'ListPim';
-  id: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  street?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  completeness: Scalars['Float'];
-  propertyType?: Maybe<PropertyType>;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  images?: Maybe<Array<File>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  attention?: Maybe<Scalars['String']>;
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
-  houseOutside?: Maybe<ListPimHouseOutside>;
-  archived?: Maybe<Scalars['Boolean']>;
-  status: PimStatus;
-  developmentType: DevelopmentType;
-};
-
-export type PimListSearchResult = {
-  __typename?: 'PimListSearchResult';
-  metadata?: Maybe<SearchMetadata>;
-  items?: Maybe<Array<ListPim>>;
+export type LabelInput = {
+  pimId: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: LabelProperty;
 };
 
 export type Query = {
@@ -433,6 +414,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getChangesHistory: Array<Event>;
+  getLabels?: Maybe<Array<Label>>;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -451,6 +433,11 @@ export type Query = {
 
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetLabelsArgs = {
+  pimId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetPimArgs = {
@@ -497,6 +484,54 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type ListPimPropertyRelated = {
+  __typename?: 'ListPimPropertyRelated';
+  items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
+};
+
+export type ListPimHouseOutside = {
+  __typename?: 'ListPimHouseOutside';
+  propertyRelated?: Maybe<ListPimPropertyRelated>;
+};
+
+export type ListPim = {
+  __typename?: 'ListPim';
+  id: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  completeness: Scalars['Float'];
+  propertyType?: Maybe<PropertyType>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  attention?: Maybe<Scalars['String']>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  houseOutside?: Maybe<ListPimHouseOutside>;
+  archived?: Maybe<Scalars['Boolean']>;
+  status: PimStatus;
+  developmentType: DevelopmentType;
+};
+
+export type PimListSearchResult = {
+  __typename?: 'PimListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListPim>>;
 };
 
 export enum CadastreMapType {
@@ -1140,21 +1175,6 @@ export type InsideGeneral = {
   windows?: Maybe<InsideWindows>;
   extension?: Maybe<Extension>;
   renovation?: Maybe<Renovation>;
-};
-
-export type PimLabel = {
-  __typename?: 'PimLabel';
-  id: Scalars['ID'];
-  icon?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  property: Scalars['LabelProperty'];
-};
-
-export type PimLabelInput = {
-  pimId: Scalars['ID'];
-  icon?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  property: Scalars['LabelProperty'];
 };
 
 export enum PictureType {
@@ -2900,6 +2920,14 @@ export type AddFilesMutation = { __typename?: 'Mutation' } & {
   addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
 };
 
+export type AddLabelMutationVariables = {
+  input: LabelInput;
+};
+
+export type AddLabelMutation = { __typename?: 'Mutation' } & {
+  addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -3216,6 +3244,15 @@ export type CreatePimMutationVariables = {
 
 export type CreatePimMutation = { __typename?: 'Mutation' } & {
   createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
+
+export type GetLabelsQueryVariables = {
+  pimId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type GetLabelsQuery = { __typename?: 'Query' } & {
+  getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type CountPimsByParamsQueryVariables = {
@@ -3997,6 +4034,27 @@ export type AddFilesMutationResult = ApolloReactCommon.MutationResult<AddFilesMu
 export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddFilesMutation,
   AddFilesMutationVariables
+>;
+export const AddLabelDocument = gql`
+  mutation AddLabel($input: LabelInput!) {
+    addLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddLabelMutation, AddLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddLabelMutation, AddLabelMutationVariables>(AddLabelDocument, baseOptions);
+}
+export type AddLabelMutationHookResult = ReturnType<typeof useAddLabelMutation>;
+export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMutation>;
+export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddLabelMutation,
+  AddLabelMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -4803,6 +4861,29 @@ export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePimMutation,
   CreatePimMutationVariables
 >;
+export const GetLabelsDocument = gql`
+  query GetLabels($pimId: ID!, $properties: [LabelProperty!]) {
+    getLabels(pimId: $pimId, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
+}
+export function useGetLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
+}
+export type GetLabelsQueryHookResult = ReturnType<typeof useGetLabelsQuery>;
+export type GetLabelsLazyQueryHookResult = ReturnType<typeof useGetLabelsLazyQuery>;
+export type GetLabelsQueryResult = ApolloReactCommon.QueryResult<GetLabelsQuery, GetLabelsQueryVariables>;
 export const CountPimsByParamsDocument = gql`
   query CountPimsByParams($filters: ListPimsFilters) {
     listPims(filters: $filters) {

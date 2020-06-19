@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { PimDetailsSectionProps } from '../../PimDetails.types';
+import { LabelProperty } from 'api/types';
+import { AddCustomPropertyModalContainer } from 'ui/organisms/addCustomPropertyModal/AddCustomPropertyModalContainer';
 
 import { Specification } from './Specification';
-import { AddCustomPropertyModalContainer } from './addCustomPropertyModal/AddCustomPropertyModalContainer';
 
 export const SpecificationContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const [isCustomPropertyModalOpen, setIsCustomPropertyModalOpen] = useState(false);
@@ -17,6 +18,7 @@ export const SpecificationContainer = ({ title, isSidebarVisible, onOpenSidebar 
         onAddPropertyClick={() => setIsCustomPropertyModalOpen(v => !v)}
       />
       <AddCustomPropertyModalContainer
+        property={LabelProperty.ObligationToProvideInformation}
         isOpened={isCustomPropertyModalOpen}
         onClose={() => setIsCustomPropertyModalOpen(false)}
       />
