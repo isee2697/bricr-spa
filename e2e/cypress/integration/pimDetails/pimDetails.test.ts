@@ -64,8 +64,41 @@ context('Pim Details', () => {
     cy.findAllByText('Recreational home').click();
   });
 
-  it('allows to add floor', () => {
+  it('allows edit Inside general', () => {
     cy.findByText('Inside').click();
+
+    cy.findAllByPlaceholderText('A few words about inside...')
+      .last()
+      .type('Inside general description');
+
+    cy.findAllByText('Edit mode')
+      .first()
+      .click();
+
+    cy.findByPlaceholderText('A few words about renovation...').type('inside renovation description');
+    cy.get('input[name="extension.yearOfExtension"]').type('1998');
+
+    cy.findByPlaceholderText('A few words about extension...').type('inside renovation description');
+    cy.get('input[name="renovation.yearOfRenovation"]').type('1960');
+
+    cy.findAllByText('Edit mode')
+      .first()
+      .click();
+
+    cy.findAllByText('Edit mode')
+      .last()
+      .click();
+
+    cy.get('div[data-testid="select-card"]')
+      .first()
+      .click();
+
+    cy.findByPlaceholderText('A few words about windows...').type(' I prefer my computer to run windows xp');
+
+    cy.wait(3000);
+  });
+
+  it('allows to add floor', () => {
     cy.contains('Ground floor');
 
     cy.findByText('Add new floor').click();

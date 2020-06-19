@@ -21,6 +21,19 @@ enum SpaceServiceHeating {
   RecoveryInstalation
 }
 
+enum WindowType {
+  FloatGlass,
+  SafetyLaminatedGlass,
+  ObscuredGlass,
+  AnnealedGlass,
+  TintedGlass,
+  TemperedGlass,
+  InsulatedGlass,
+  MirroredGlass,
+  LowEglass,
+  WiredGlass,
+  HeatStrengthenedGlass
+}
 
 enum KitchenType {
   MainKitchen,
@@ -60,7 +73,7 @@ enum BathroomServices {
   Sauna,
   WashingMachineConnection,
   Shower,
-  SteamCabin, 
+  SteamCabin,
   Sink,
   CoubleWashbasin,
   Toilet,
@@ -213,9 +226,10 @@ type Space {
   dateUpdated: Date
 }
 
-type PimFloor {
+type PimInside {
   id: String!
   floors: [Floor!]
+  insideGeneral: InsideGeneral
 }
 
 type PimWithUpdatedSpace {
@@ -253,8 +267,53 @@ input UpdateFloorInput {
   floorType: FloorType
 }
 
+input InsideWindowsInput {
+  types: [WindowType!]
+  notes: String
+}
+
+type InsideWindows {
+  types: [WindowType!]
+  notes: String
+}
+
+input RenovationInput {
+  yearOfRenovation: Int
+  notes: String
+}
+
+type Renovation {
+  yearOfRenovation: Int
+  notes: String
+}
+
+input ExtensionInput {
+  yearOfExtension: Int
+  notes: String
+}
+
+type Extension {
+  yearOfExtension: Int
+  notes: String
+}
+
+input InsideGeneralInput {
+  pimId: ID!
+  notes: String
+  windows: InsideWindowsInput
+  extension: ExtensionInput
+  renovation: RenovationInput
+}
+
+type InsideGeneral {
+  notes: String
+  windows: InsideWindows
+  extension: Extension
+  renovation: Renovation
+}
+
 extend type Query {
-  getPimFloors(id: ID!): PimFloor! @auth
+  getPimInside(id: ID!): PimInside! @auth
 }
 
 extend type Mutation {
@@ -262,4 +321,5 @@ extend type Mutation {
   addSpaceToFloor(input: AddSpaceInput!): PimWithUpdatedSpace! @auth
   updateSpace(input: UpdateSpaceInput!): Pim! @auth
   updateFloor(input: UpdateFloorInput!): Pim! @auth
+  updateInsideGeneral(input: InsideGeneralInput!): Pim @auth
 }

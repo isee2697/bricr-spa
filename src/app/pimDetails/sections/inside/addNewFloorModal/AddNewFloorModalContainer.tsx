@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
-import { useAddFloorToPimMutation, PimDetailsDocument } from 'api/types';
+import { useAddFloorToPimMutation, PimInsideDocument } from 'api/types';
 
 import { AddNewFloorModal } from './AddNewFloorModal';
 import { AddNewFloorSubmit, AddNewFloorModalContainerProps } from './AddNewFloorModal.types';
@@ -24,7 +24,7 @@ export const AddNewFloorModalContainer = ({ isOpened, onClose }: AddNewFloorModa
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
+            query: PimInsideDocument,
             variables: {
               id,
             },

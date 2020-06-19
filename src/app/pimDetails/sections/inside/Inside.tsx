@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useParams, Redirect } from 'react-router-dom';
+import { Route, Switch, useParams } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -11,8 +11,9 @@ import { InfoSection } from 'ui/molecules';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { usePimDetailsQuery, Floor as FloorTypes } from 'api/types';
+import { Floor as FloorTypes, usePimInsideQuery } from 'api/types';
 
+import { InsideGeneralContainer } from './general/InsideGeneralContainer';
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
 import { Floor } from './floor/Floor';
 
@@ -21,10 +22,11 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
   const isAddFloorModalOpen = useModalState('add-new-floor');
   const { close, open } = useModalDispatch();
   const { id } = useParams<{ id: string }>();
-  const { data: pim } = usePimDetailsQuery({ variables: { id } });
+  const { data: pimInsideData } = usePimInsideQuery({ variables: { id } });
+  const pimInside = pimInsideData?.getPimInside;
 
   const getCount = (floor: FloorTypes) => {
-    const groupedFloors = groupBy((pim && pim.getPim?.floors) || [], floors => floors.floorType);
+    const groupedFloors = groupBy((pimInside && pimInside?.floors) || [], floors => floors.floorType);
 
     let count: number | undefined;
 
@@ -61,7 +63,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
         }
       />
 
-      {(pim?.getPim?.floors?.length === 0 || pim?.getPim?.floors === null) && (
+      {(pimInside?.floors?.length === 0 || pimInside?.floors === null) && (
         <Grid item xs={12}>
           <Card>
             <CardHeader title="Inside" />
@@ -75,9 +77,9 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
         </Grid>
       )}
 
-      {pim?.getPim?.floors && pim.getPim.floors.length > 0 && (
+      {pimInside?.floors && pimInside.floors.length > 0 && (
         <Switch>
-          {pim.getPim.floors.map(floor => (
+          {pimInside.floors.map(floor => (
             <Route
               key={floor.id}
               path={`${AppRoute.pimDetails}/inside/${floor.id}`}
@@ -92,9 +94,11 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
               )}
             />
           ))}
-          <Route path={`${AppRoute.pimDetails}/inside`} exact>
-            <Redirect to={`${AppRoute.pimDetails.replace(':id', id)}/inside/${pim.getPim.floors[0].id}`} />
-          </Route>
+          <Route
+            path={`${AppRoute.pimDetails}/inside`}
+            exact
+            render={() => <InsideGeneralContainer {...pimInside.insideGeneral} />}
+          />
         </Switch>
       )}
 

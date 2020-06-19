@@ -6,7 +6,7 @@ const schemas = [
   loader('./graphql/list-pim.gql'),
   loader('./graphql/pim.gql'),
   loader('./graphql/pim-cadastre.gql'),
-  loader('./graphql/pim-floor.gql'),
+  loader('./graphql/pim-inside.gql'),
   loader('./graphql/pim-general.gql'),
   loader('./graphql/pim-label.gql'),
   loader('./graphql/pim-media.gql'),

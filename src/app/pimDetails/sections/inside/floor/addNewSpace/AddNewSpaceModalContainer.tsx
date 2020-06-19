@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useAddSpaceToFloorMutation, PimDetailsDocument } from 'api/types';
+import { useAddSpaceToFloorMutation, PimInsideDocument } from 'api/types';
 
 import { AddNewSpaceModal } from './AddNewSpaceModal';
 import { AddNewSpaceSubmit, AddNewSpaceModalContainerProps } from './AddNewSpaceModal.types';
@@ -24,7 +24,7 @@ export const AddNewSpaceModalContainer = ({ isOpened, onClose, floorId }: AddNew
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
+            query: PimInsideDocument,
             variables: {
               id,
             },

@@ -182,6 +182,7 @@ type Pim {
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   floors: [Floor!]
+  insideGeneral: InsideGeneral
   cadastre: [Cadastre!]
   meters: [Meter!]
   services: [Service!]

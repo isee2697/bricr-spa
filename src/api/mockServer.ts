@@ -9,6 +9,7 @@ import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
 import { FILE_1 } from './mocks/file';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
 import { Floor, Space, ServiceType, CadastreType } from './types';
+import { PIM_INSIDE_1 } from './mocks/pim-inside';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -18,6 +19,7 @@ const PIM_PRICING_COST = PIM_PRICING_COST_1;
 let FILE = FILE_1;
 let PIM_CADASTRE = PIM_CADASTRE_1;
 const PIM_MEDIA = PIM_MEDIA_1;
+let PIM_INSIDE = PIM_INSIDE_1;
 
 export const mockServer = () => {
   new Server({
@@ -148,6 +150,13 @@ export const mockServer = () => {
 
             return PIM_DETAILS;
           },
+          getPimInside() {
+            if (variables.id === 'test') {
+              throw new Error();
+            }
+
+            return PIM_INSIDE;
+          },
           getPimCadastre() {
             return PIM_CADASTRE;
           },
@@ -193,6 +202,11 @@ export const mockServer = () => {
             );
 
             return PIM_DETAILS;
+          },
+          updateInsideGeneral() {
+            PIM_INSIDE = { ...PIM_INSIDE, ...variables.input };
+
+            return PIM_INSIDE;
           },
 
           getPimServices() {

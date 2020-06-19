@@ -38,3 +38,11 @@ export const UPDATE_FLOOR = gql`
     }
   }
 `;
+
+export const UPDATE_INSIDE_GENERAL = gql`
+  mutation UPDATEInsideGeneral($input: InsideGeneralInput!) {
+    updateInsideGeneral(input: $input) {
+      id
+    }
+  }
+`;

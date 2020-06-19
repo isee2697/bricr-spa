@@ -90,6 +90,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateFloor: Pim;
+  updateInsideGeneral?: Maybe<Pim>;
   updateInspection: Pim;
   updateInvestment: Pim;
   updateMediaLink?: Maybe<Pim>;
@@ -237,6 +238,10 @@ export type MutationUpdateCostArgs = {
 
 export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
+};
+
+export type MutationUpdateInsideGeneralArgs = {
+  input: InsideGeneralInput;
 };
 
 export type MutationUpdateInspectionArgs = {
@@ -432,8 +437,8 @@ export type Query = {
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
-  getPimFloors: PimFloor;
   getPimGeneral: PimGeneral;
+  getPimInside: PimInside;
   getPimMedia: PimMedia;
   getPimOutside: PimOutside;
   getPimServices: PimServices;
@@ -457,11 +462,11 @@ export type QueryGetPimCadastreArgs = {
   id: Scalars['ID'];
 };
 
-export type QueryGetPimFloorsArgs = {
+export type QueryGetPimGeneralArgs = {
   id: Scalars['ID'];
 };
 
-export type QueryGetPimGeneralArgs = {
+export type QueryGetPimInsideArgs = {
   id: Scalars['ID'];
 };
 
@@ -692,6 +697,117 @@ export type UpdateCadastreMapInput = {
   fileId?: Maybe<Scalars['String']>;
 };
 
+export type PimGeneralInput = {
+  id: Scalars['ID'];
+  realEstateType?: Maybe<RealEstateType>;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType?: Maybe<DevelopmentType>;
+  status?: Maybe<PimStatus>;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  livingArea?: Maybe<Scalars['Int']>;
+  attention?: Maybe<Scalars['String']>;
+  houseGeneral?: Maybe<HouseGeneralInput>;
+};
+
+export type PropertyAvailabilityInformation = {
+  __typename?: 'PropertyAvailabilityInformation';
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type ConstructionInformation = {
+  __typename?: 'ConstructionInformation';
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HouseGeneral = {
+  __typename?: 'HouseGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type PropertyAvailabilityInformationInput = {
+  availability?: Maybe<PropertyAvailability>;
+  from?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  habitation?: Maybe<PropertyHabitation>;
+  currentUse?: Maybe<Scalars['String']>;
+  currentDestination?: Maybe<Scalars['String']>;
+};
+
+export type HouseGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  floor?: Maybe<FloorType>;
+  propertyConnection?: Maybe<PropertyConnection>;
+  propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type ConstructionInformationInput = {
+  type?: Maybe<ConstructionType>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PimGeneral = {
+  __typename?: 'PimGeneral';
+  id: Scalars['ID'];
+  realEstateType: RealEstateType;
+  street: Scalars['String'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  constructionNumberPrefix?: Maybe<Scalars['String']>;
+  constructionNumber?: Maybe<Scalars['String']>;
+  constructionNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  developmentType: DevelopmentType;
+  status: PimStatus;
+  salePrice?: Maybe<Scalars['Float']>;
+  rentPrice?: Maybe<Scalars['Float']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<File>>;
+  livingArea?: Maybe<Scalars['Int']>;
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  completeness: Scalars['Float'];
+  archived: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+  houseGeneral?: Maybe<HouseGeneral>;
+};
+
 export enum SpaceServiceHeating {
   GeothermalHeat = 'GeothermalHeat',
   NoHeating = 'NoHeating',
@@ -713,6 +829,20 @@ export enum SpaceServiceHeating {
   PossibilityForFireplaceHeat = 'PossibilityForFireplaceHeat',
   UnderfloorHeatingPartly = 'UnderfloorHeatingPartly',
   RecoveryInstalation = 'RecoveryInstalation',
+}
+
+export enum WindowType {
+  FloatGlass = 'FloatGlass',
+  SafetyLaminatedGlass = 'SafetyLaminatedGlass',
+  ObscuredGlass = 'ObscuredGlass',
+  AnnealedGlass = 'AnnealedGlass',
+  TintedGlass = 'TintedGlass',
+  TemperedGlass = 'TemperedGlass',
+  InsulatedGlass = 'InsulatedGlass',
+  MirroredGlass = 'MirroredGlass',
+  LowEglass = 'LowEglass',
+  WiredGlass = 'WiredGlass',
+  HeatStrengthenedGlass = 'HeatStrengthenedGlass',
 }
 
 export enum KitchenType {
@@ -923,10 +1053,11 @@ export type Space = {
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
-export type PimFloor = {
-  __typename?: 'PimFloor';
+export type PimInside = {
+  __typename?: 'PimInside';
   id: Scalars['String'];
   floors?: Maybe<Array<Floor>>;
+  insideGeneral?: Maybe<InsideGeneral>;
 };
 
 export type PimWithUpdatedSpace = {
@@ -963,115 +1094,53 @@ export type UpdateFloorInput = {
   floorType?: Maybe<FloorType>;
 };
 
-export type PimGeneralInput = {
-  id: Scalars['ID'];
-  realEstateType?: Maybe<RealEstateType>;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType?: Maybe<DevelopmentType>;
-  status?: Maybe<PimStatus>;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  livingArea?: Maybe<Scalars['Int']>;
-  attention?: Maybe<Scalars['String']>;
-  houseGeneral?: Maybe<HouseGeneralInput>;
-};
-
-export type PropertyAvailabilityInformation = {
-  __typename?: 'PropertyAvailabilityInformation';
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type ConstructionInformation = {
-  __typename?: 'ConstructionInformation';
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+export type InsideWindowsInput = {
+  types?: Maybe<Array<WindowType>>;
   notes?: Maybe<Scalars['String']>;
 };
 
-export type HouseGeneral = {
-  __typename?: 'HouseGeneral';
-  availability?: Maybe<PropertyAvailabilityInformation>;
-  construction?: Maybe<ConstructionInformation>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type PropertyAvailabilityInformationInput = {
-  availability?: Maybe<PropertyAvailability>;
-  from?: Maybe<Scalars['Date']>;
-  notes?: Maybe<Scalars['String']>;
-  habitation?: Maybe<PropertyHabitation>;
-  currentUse?: Maybe<Scalars['String']>;
-  currentDestination?: Maybe<Scalars['String']>;
-};
-
-export type HouseGeneralInput = {
-  availability?: Maybe<PropertyAvailabilityInformationInput>;
-  construction?: Maybe<ConstructionInformationInput>;
-  floor?: Maybe<FloorType>;
-  propertyConnection?: Maybe<PropertyConnection>;
-  propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type ConstructionInformationInput = {
-  type?: Maybe<ConstructionType>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+export type InsideWindows = {
+  __typename?: 'InsideWindows';
+  types?: Maybe<Array<WindowType>>;
   notes?: Maybe<Scalars['String']>;
 };
 
-export type PimGeneral = {
-  __typename?: 'PimGeneral';
-  id: Scalars['ID'];
-  realEstateType: RealEstateType;
-  street: Scalars['String'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  constructionNumberPrefix?: Maybe<Scalars['String']>;
-  constructionNumber?: Maybe<Scalars['String']>;
-  constructionNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  developmentType: DevelopmentType;
-  status: PimStatus;
-  salePrice?: Maybe<Scalars['Float']>;
-  rentPrice?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<File>>;
-  livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-  completeness: Scalars['Float'];
-  archived: Scalars['Boolean'];
-  dateCreated: Scalars['Date'];
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
-  houseGeneral?: Maybe<HouseGeneral>;
+export type RenovationInput = {
+  yearOfRenovation?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Renovation = {
+  __typename?: 'Renovation';
+  yearOfRenovation?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ExtensionInput = {
+  yearOfExtension?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Extension = {
+  __typename?: 'Extension';
+  yearOfExtension?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InsideGeneralInput = {
+  pimId: Scalars['ID'];
+  notes?: Maybe<Scalars['String']>;
+  windows?: Maybe<InsideWindowsInput>;
+  extension?: Maybe<ExtensionInput>;
+  renovation?: Maybe<RenovationInput>;
+};
+
+export type InsideGeneral = {
+  __typename?: 'InsideGeneral';
+  notes?: Maybe<Scalars['String']>;
+  windows?: Maybe<InsideWindows>;
+  extension?: Maybe<Extension>;
+  renovation?: Maybe<Renovation>;
 };
 
 export type PimLabel = {
@@ -2560,6 +2629,7 @@ export type Pim = {
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   floors?: Maybe<Array<Floor>>;
+  insideGeneral?: Maybe<InsideGeneral>;
   cadastre?: Maybe<Array<Cadastre>>;
   meters?: Maybe<Array<Meter>>;
   services?: Maybe<Array<Service>>;
@@ -2768,6 +2838,14 @@ export type UpdateMapMutation = { __typename?: 'Mutation' } & {
   updateCadastreMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
+export type UpdatePimGeneralInfoMutationVariables = {
+  input: PimGeneralInput;
+};
+
+export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
+  updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
 export type AddFloorToPimMutationVariables = {
   input: AddNewFloorInput;
 };
@@ -2803,12 +2881,12 @@ export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
   updateFloor: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdatePimGeneralInfoMutationVariables = {
-  input: PimGeneralInput;
+export type UpdateInsideGeneralMutationVariables = {
+  input: InsideGeneralInput;
 };
 
-export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
-  updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+export type UpdateInsideGeneralMutation = { __typename?: 'Mutation' } & {
+  updateInsideGeneral?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type AddTagMutationVariables = {
@@ -3141,6 +3219,121 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimInsideQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimInsideQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
+      floors?: Maybe<
+        Array<
+          { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription'> & {
+              spaces?: Maybe<
+                Array<
+                  { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
+                      configuration?: Maybe<
+                        | ({ __typename?: 'KitchenSpace' } & Pick<
+                            KitchenSpace,
+                            | 'constructionYear'
+                            | 'notes'
+                            | 'constructionType'
+                            | 'servicesNotes'
+                            | 'hob'
+                            | 'shape'
+                            | 'serviceHeating'
+                          > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
+                              appliances?: Maybe<
+                                Array<
+                                  Maybe<
+                                    { __typename?: 'KitchenAppliance' } & Pick<
+                                      KitchenAppliance,
+                                      'name' | 'quantity' | 'notes'
+                                    >
+                                  >
+                                >
+                              >;
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'BathroomSpace' } & Pick<
+                            BathroomSpace,
+                            'constructionYear' | 'shape' | 'serviceHeating'
+                          > & { bathroomServices: BathroomSpace['services'] } & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'LivingRoomSpace' } & Pick<
+                            LivingRoomSpace,
+                            'shape' | 'stairs' | 'serviceHeating'
+                          > & { livingRoomType: LivingRoomSpace['type'] } & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'BedroomSpace' } & Pick<
+                            BedroomSpace,
+                            'notes' | 'shape' | 'serviceHeating'
+                          > & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'HomeOfficeSpace' } & Pick<
+                            HomeOfficeSpace,
+                            'notes' | 'shape' | 'serviceHeating'
+                          > & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                      >;
+                    }
+                >
+              >;
+            }
+        >
+      >;
+      insideGeneral?: Maybe<
+        { __typename?: 'InsideGeneral' } & Pick<InsideGeneral, 'notes'> & {
+            extension?: Maybe<{ __typename?: 'Extension' } & Pick<Extension, 'notes' | 'yearOfExtension'>>;
+            renovation?: Maybe<{ __typename?: 'Renovation' } & Pick<Renovation, 'notes' | 'yearOfRenovation'>>;
+            windows?: Maybe<{ __typename?: 'InsideWindows' } & Pick<InsideWindows, 'notes' | 'types'>>;
+          }
+      >;
+    };
+};
+
 export type PimMediaQueryVariables = {
   id: Scalars['ID'];
 };
@@ -3422,105 +3615,7 @@ export type PimDetailsQuery = { __typename?: 'Query' } & {
               >;
             }
         >;
-        floors?: Maybe<
-          Array<
-            { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription'> & {
-                spaces?: Maybe<
-                  Array<
-                    { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
-                        configuration?: Maybe<
-                          | ({ __typename?: 'KitchenSpace' } & Pick<
-                              KitchenSpace,
-                              | 'constructionYear'
-                              | 'notes'
-                              | 'constructionType'
-                              | 'servicesNotes'
-                              | 'hob'
-                              | 'shape'
-                              | 'serviceHeating'
-                            > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
-                                appliances?: Maybe<
-                                  Array<
-                                    Maybe<
-                                      { __typename?: 'KitchenAppliance' } & Pick<
-                                        KitchenAppliance,
-                                        'name' | 'quantity' | 'notes'
-                                      >
-                                    >
-                                  >
-                                >;
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                          | ({ __typename?: 'BathroomSpace' } & Pick<
-                              BathroomSpace,
-                              'constructionYear' | 'shape' | 'serviceHeating'
-                            > & { bathroomServices: BathroomSpace['services'] } & {
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                          | ({ __typename?: 'LivingRoomSpace' } & Pick<
-                              LivingRoomSpace,
-                              'shape' | 'stairs' | 'serviceHeating'
-                            > & { livingRoomType: LivingRoomSpace['type'] } & {
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                          | ({ __typename?: 'BedroomSpace' } & Pick<
-                              BedroomSpace,
-                              'notes' | 'shape' | 'serviceHeating'
-                            > & {
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                          | ({ __typename?: 'HomeOfficeSpace' } & Pick<
-                              HomeOfficeSpace,
-                              'notes' | 'shape' | 'serviceHeating'
-                            > & {
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                          | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
-                                measurement?: Maybe<
-                                  { __typename?: 'CuboidMeasurement' } & Pick<
-                                    CuboidMeasurement,
-                                    'length' | 'width' | 'height' | 'surface' | 'volume'
-                                  >
-                                >;
-                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                              })
-                        >;
-                      }
-                  >
-                >;
-              }
-          >
-        >;
+        floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType'>>>;
         outsideFeatures?: Maybe<
           Array<
             { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'> & {
@@ -3805,6 +3900,30 @@ export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateMapMutation,
   UpdateMapMutationVariables
 >;
+export const UpdatePimGeneralInfoDocument = gql`
+  mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
+    updatePimGeneralInfo(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePimGeneralInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdatePimGeneralInfoMutation,
+    UpdatePimGeneralInfoMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>(
+    UpdatePimGeneralInfoDocument,
+    baseOptions,
+  );
+}
+export type UpdatePimGeneralInfoMutationHookResult = ReturnType<typeof useUpdatePimGeneralInfoMutation>;
+export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimGeneralInfoMutation>;
+export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimGeneralInfoMutation,
+  UpdatePimGeneralInfoMutationVariables
+>;
 export const AddFloorToPimDocument = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
     addFloorToPim(input: $input) {
@@ -3896,29 +4015,26 @@ export type UpdateFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateFloorMutation,
   UpdateFloorMutationVariables
 >;
-export const UpdatePimGeneralInfoDocument = gql`
-  mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
-    updatePimGeneralInfo(input: $input) {
+export const UpdateInsideGeneralDocument = gql`
+  mutation UPDATEInsideGeneral($input: InsideGeneralInput!) {
+    updateInsideGeneral(input: $input) {
       id
     }
   }
 `;
-export function useUpdatePimGeneralInfoMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpdatePimGeneralInfoMutation,
-    UpdatePimGeneralInfoMutationVariables
-  >,
+export function useUpdateInsideGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>,
 ) {
-  return ApolloReactHooks.useMutation<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>(
-    UpdatePimGeneralInfoDocument,
+  return ApolloReactHooks.useMutation<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>(
+    UpdateInsideGeneralDocument,
     baseOptions,
   );
 }
-export type UpdatePimGeneralInfoMutationHookResult = ReturnType<typeof useUpdatePimGeneralInfoMutation>;
-export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimGeneralInfoMutation>;
-export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdatePimGeneralInfoMutation,
-  UpdatePimGeneralInfoMutationVariables
+export type UpdateInsideGeneralMutationHookResult = ReturnType<typeof useUpdateInsideGeneralMutation>;
+export type UpdateInsideGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateInsideGeneralMutation>;
+export type UpdateInsideGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInsideGeneralMutation,
+  UpdateInsideGeneralMutationVariables
 >;
 export const AddTagDocument = gql`
   mutation AddTag($input: AddTagInput!) {
@@ -4652,6 +4768,157 @@ export function usePimCadastreLazyQuery(
 export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
 export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
 export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
+export const PimInsideDocument = gql`
+  query PimInside($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      floors {
+        id
+        level
+        floorType
+        floorDescription
+        spaces {
+          id
+          spaceType
+          spaceName
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              kitchenType: type
+              constructionType
+              servicesNotes
+              kitchenServices: services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+          }
+        }
+      }
+      insideGeneral {
+        extension {
+          notes
+          yearOfExtension
+        }
+        renovation {
+          notes
+          yearOfRenovation
+        }
+        windows {
+          notes
+          types
+        }
+        notes
+      }
+    }
+  }
+`;
+export function usePimInsideQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimInsideQuery, PimInsideQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
+}
+export function usePimInsideLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimInsideQuery, PimInsideQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
+}
+export type PimInsideQueryHookResult = ReturnType<typeof usePimInsideQuery>;
+export type PimInsideLazyQueryHookResult = ReturnType<typeof usePimInsideLazyQuery>;
+export type PimInsideQueryResult = ApolloReactCommon.QueryResult<PimInsideQuery, PimInsideQueryVariables>;
 export const PimMediaDocument = gql`
   query PimMedia($id: ID!) {
     getPimMedia(id: $id) {
@@ -5035,117 +5302,6 @@ export const PimDetailsDocument = gql`
         id
         level
         floorType
-        floorDescription
-        spaces {
-          id
-          spaceType
-          spaceName
-          configuration {
-            ... on KitchenSpace {
-              constructionYear
-              notes
-              kitchenType: type
-              constructionType
-              servicesNotes
-              kitchenServices: services
-              appliances {
-                name
-                quantity
-                notes
-              }
-              hob
-              shape
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-            ... on LivingRoomSpace {
-              livingRoomType: type
-              shape
-              stairs
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-            ... on BathroomSpace {
-              constructionYear
-              shape
-              bathroomServices: services
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-            ... on BedroomSpace {
-              notes
-              shape
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-            ... on HomeOfficeSpace {
-              notes
-              shape
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-            ... on OtherSpace {
-              notes
-              shape
-              measurement {
-                length
-                width
-                height
-                surface
-                volume
-              }
-              serviceHeating
-              images {
-                url
-              }
-            }
-          }
-        }
       }
       outsideFeatures {
         id
