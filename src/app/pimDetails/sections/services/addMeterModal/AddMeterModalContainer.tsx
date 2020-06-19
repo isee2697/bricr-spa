@@ -1,7 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { useAddMeterMutation, PimServicesDocument } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddMeterModalContainerProps, AddMeterSubmit } from './AddMeterModal.types';
 import { AddMeterModal } from './AddMeterModal';
@@ -9,6 +10,8 @@ import { AddMeterModal } from './AddMeterModal';
 export const AddMeterModalContainer = ({ isOpened, onClose }: AddMeterModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addMeter] = useAddMeterMutation();
+  const { push } = useHistory();
+
   const handleSubmit: AddMeterSubmit = async body => {
     try {
       const { data: result } = await addMeter({
@@ -34,6 +37,7 @@ export const AddMeterModalContainer = ({ isOpened, onClose }: AddMeterModalConta
       }
 
       onClose();
+      push(`${AppRoute.pimDetails.replace(':id', id)}/services/${body.type.toLowerCase()}`);
 
       return undefined;
     } catch {
