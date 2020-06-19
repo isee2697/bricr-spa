@@ -1,5 +1,5 @@
 export type FormSubSectionProps = {
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
   onOptionsClick: VoidFunction;
   counter?: number;

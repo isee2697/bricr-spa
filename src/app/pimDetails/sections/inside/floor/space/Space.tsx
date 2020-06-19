@@ -4,6 +4,7 @@ import { SpaceType } from 'api/types';
 import { FormSubSection } from 'ui/organisms';
 import { Grid, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
+import { Counter } from 'ui/molecules/counter/Counter';
 
 import { CommonForm } from './forms/CommonForm';
 import { KitchenForm } from './forms/KitchenForm';
@@ -17,14 +18,26 @@ import { SpaceProps } from './Space.types';
 
 const fieldPrefix = 'configuration';
 
-export const Space = ({ isEditMode, isExpanded, onExpand, index, space: { spaceName, spaceType, id } }: SpaceProps) => {
+export const Space = ({
+  isEditMode,
+  isExpanded,
+  onExpand,
+  index,
+  groupedSpaceCount,
+  space: { spaceName, spaceType, id },
+}: SpaceProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <Box className={classes.container}>
       <FormSubSection
-        title={spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })}
+        title={
+          <>
+            <Counter count={index + 1} hasMarginRight />
+            {spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} {groupedSpaceCount ?? ''}
+          </>
+        }
         onOptionsClick={() => {}}
         initiallyOpened={false}
         isExpanded={isExpanded}

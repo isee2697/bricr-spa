@@ -18,4 +18,5 @@ export type SpaceProps = {
   onExpand: (id: string) => void;
   index: number;
   space: Space;
+  groupedSpaceCount?: number;
 };
