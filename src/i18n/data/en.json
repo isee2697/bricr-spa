@@ -505,7 +505,7 @@
   "pim_details.aria_label": "Pick a date",
   "pim_details.specification.title": "Specification",
   "pim_details.specification.add_property_button": "Add linked Property",
-  "pim_details.specification.description_placeholder": "A few words about services...",
+  "pim_details.specification.description_placeholder": "A few words about specification...",
   "pim_details.specification.notes_label": "Notes",
   "pim_details.specification.notes_placeholder": "Extra information",
   "pim_details.specification.energy_characteristics": "Energy characteristics",
