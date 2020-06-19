@@ -1170,5 +1170,16 @@
   "dictionaries.inside.windows.MirroredGlass": "Spiegel glas",
   "dictionaries.inside.windows.LowEglass": "Laag E glas",
   "dictionaries.inside.windows.WiredGlass": "Gewapend glas",
-  "dictionaries.inside.windows.HeatStrengthenedGlass": "Hitte betsendig glas"
+  "dictionaries.inside.windows.HeatStrengthenedGlass": "Hitte betsendig glas",
+  "pim_details.outside.main.type_of_gutter": "",
+  "dictionaries.outside_roof_gutters.HalfRound": "",
+  "dictionaries.outside_roof_gutters.FlatBottom": "",
+  "dictionaries.outside_roof_gutters.NoGutter": "",
+  "pim_details.outside.main.gutter_material": "",
+  "dictionaries.outside_roof_gutters_materials.Vinyl": "",
+  "dictionaries.outside_roof_gutters_materials.Stainless": "",
+  "dictionaries.outside_roof_gutters_materials.Aluminium": "",
+  "dictionaries.outside_roof_gutters_materials.Copper": "",
+  "dictionaries.outside_roof_gutters_materials.Zinc": "",
+  "dictionaries.outside_roof_gutters_materials.Steel": ""
 }

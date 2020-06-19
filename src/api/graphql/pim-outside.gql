@@ -122,8 +122,8 @@ enum GarageInsulation {
   EcoConstruction,
   NoCavity,
   PartlyDoubleGlazing,
-  WallInsulation, 
-  FloorInsulation, 
+  WallInsulation,
+  FloorInsulation,
   FullyInsulated
 }
 
@@ -168,6 +168,83 @@ enum TerrainParking {
   ParkingPermits
 }
 
+enum FoundationType {
+  IsolatedFooting,
+  CombinedFooting,
+  WallFooting,
+  SpreadLooting,
+  RaftOrMatFoundations,
+  PileFoundations,
+  DrilledShafts
+}
+
+enum FoundationMaterialType {
+  Concrete,
+  Timber,
+  Steel,
+  Plastic
+}
+
+enum GutterType {
+  HalfRound,
+  Flatbottom,
+  NoGutter
+}
+
+enum GutterMaterial {
+  Vinyl,
+  Stainless,
+  Aluminium,
+  Copper,
+  Zinc,
+  Steel
+}
+
+input RoofInformationInput {
+  type: RoofTypeInput
+  material: RoofMaterialInput
+  insulation: RoofInsulationInput
+  gutter: GutterInformationsInput
+  gutterMaterial: GutterMaterialInformationsInput
+  images: [String]
+  yearOfRoof: Int
+}
+
+input RoofTypeInput {
+  name: RoofTypes
+  notes: String
+}
+
+input RoofMaterialInput {
+  name: RoofMaterials,
+  notes: String
+}
+
+input GutterMaterialInformationsInput {
+  material: GutterMaterial
+  notes: String
+}
+
+type GutterMaterialInformations {
+  material: GutterMaterial
+  notes: String
+}
+
+input GutterInformationsInput {
+  type: GutterType
+  notes: String
+}
+
+type GutterInformations {
+  type: GutterType
+  notes: String
+}
+
+input RoofInsulationInput {
+  name: RoofInsulations
+  notes: String
+}
+
 type GeneralInformation {
   qualityInformation: [QualityInformations]
   images: [File!]
@@ -200,10 +277,52 @@ type RoofInformation {
   material: RoofMaterial
   insulation: RoofInsulation
   images: [File!]
+  yearOfRoof: Int
+  gutter: GutterInformations
+  gutterMaterial: GutterMaterialInformations
+}
+
+input FoundationTypeInformationsInput {
+  type: FoundationType
+  notes: String
+}
+
+type FoundationTypeInformations {
+  type: FoundationType
+  notes: String
+}
+
+input FoundationMaterialInformationsInput {
+  type: FoundationMaterialType
+  notes: String
+}
+
+type FoundationMaterialInformations {
+  type: FoundationMaterialType
+  notes: String
+}
+
+input FoundationInput {
+  type: FoundationTypeInformationsInput
+  material: FoundationMaterialInformationsInput
+}
+
+type Foundation {
+  type: FoundationTypeInformations
+  material: FoundationMaterialInformations
+}
+
+input HouseOutsideInput {
+  generalInformation: GeneralInformationInput
+  foundation: FoundationInput
+  propertyRelated: PropertyRelatedInput
+  roofInformation: RoofInformationInput
+  notes: String
 }
 
 type HouseOutside {
   generalInformation: GeneralInformation
+  foundation: Foundation
   propertyRelated: PropertyRelated
   roofInformation: RoofInformation
   notes: String
@@ -249,7 +368,7 @@ type StorageFeature {
 
 type TerrainFeature {
   parking: TerrainParking
-  measurement: RectangleMeasurement 
+  measurement: RectangleMeasurement
   notes: String
   images: [File!]
 }
@@ -264,7 +383,7 @@ type ParkingLotFeature {
 
 
 
-union OutsideFeatureConfiguration = GardenFeature | GarageFeature | StorageFeature | TerrainFeature | ParkingLotFeature 
+union OutsideFeatureConfiguration = GardenFeature | GarageFeature | StorageFeature | TerrainFeature | ParkingLotFeature
 
 type OutsideFeature {
   id: String!
@@ -284,7 +403,11 @@ type PimOutside {
   lastEditedBy: LastEditedBy
 }
 
-scalar PimOutsideInput
+input PimOutsideInput {
+  id: ID!
+  houseOutside: HouseOutsideInput
+}
+
 scalar UpdateFeatureInputConfiguration
 
 input AddOutsideFeatureInput {

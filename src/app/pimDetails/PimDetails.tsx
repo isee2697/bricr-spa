@@ -18,7 +18,7 @@ import { Cadastre } from './sections/cadastre/Cadastre';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { SpecificationContainer } from './sections/specification/SpecificationContainer';
 
-export const PimDetails = ({ error: isError, data, servicesData, cadastreData }: PimDetailsProps) => {
+export const PimDetails = ({ error: isError, data, servicesData, cadastreData, outsideData }: PimDetailsProps) => {
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
   const { formatMessage } = useLocale();
@@ -75,7 +75,12 @@ export const PimDetails = ({ error: isError, data, servicesData, cadastreData }:
               <Route
                 path={`${AppRoute.pimDetails}/outside`}
                 render={() => (
-                  <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                  <Outside
+                    pim={pim}
+                    isSidebarVisible={isSidebarVisible}
+                    onOpenSidebar={handleSidebarOpen}
+                    title={title}
+                  />
                 )}
               />
               <Route

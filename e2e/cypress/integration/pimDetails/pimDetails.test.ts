@@ -160,11 +160,13 @@ context('Pim Details', () => {
     cy.get('input[name="houseOutside.propertyRelated.notes"]').type('property related note');
 
     cy.findAllByText('Edit mode')
-      .eq(2)
+      .eq(3)
       .click();
     cy.findByText('Class roof').click();
     cy.get('input[name="houseOutside.roofInformation.type.notes"]').type('roof type note');
-    cy.findByText('Plastic').click();
+    cy.findAllByText('Plastic')
+      .eq(1)
+      .click();
     cy.get('input[name="houseOutside.roofInformation.material.notes"]').type('roof material note');
     cy.findByText('Spray foam').click();
     cy.get('input[name="houseOutside.roofInformation.insulation.notes"]').type('roof insulation note');

@@ -13,7 +13,6 @@ export type Scalars = {
   PathBuilder: any;
   UpdateSpaceInputConfiguration: any;
   LabelProperty: any;
-  PimOutsideInput: any;
   UpdateFeatureInputConfiguration: any;
   AbsoluteFloat: any;
   CostVat: any;
@@ -273,7 +272,7 @@ export type MutationUpdatePimGeneralInfoArgs = {
 };
 
 export type MutationUpdatePimOutsideInfoArgs = {
-  input: Scalars['PimOutsideInput'];
+  input: PimOutsideInput;
 };
 
 export type MutationUpdatePricingArgs = {
@@ -1557,6 +1556,85 @@ export enum TerrainParking {
   ParkingPermits = 'ParkingPermits',
 }
 
+export enum FoundationType {
+  IsolatedFooting = 'IsolatedFooting',
+  CombinedFooting = 'CombinedFooting',
+  WallFooting = 'WallFooting',
+  SpreadLooting = 'SpreadLooting',
+  RaftOrMatFoundations = 'RaftOrMatFoundations',
+  PileFoundations = 'PileFoundations',
+  DrilledShafts = 'DrilledShafts',
+}
+
+export enum FoundationMaterialType {
+  Concrete = 'Concrete',
+  Timber = 'Timber',
+  Steel = 'Steel',
+  Plastic = 'Plastic',
+}
+
+export enum GutterType {
+  HalfRound = 'HalfRound',
+  Flatbottom = 'Flatbottom',
+  NoGutter = 'NoGutter',
+}
+
+export enum GutterMaterial {
+  Vinyl = 'Vinyl',
+  Stainless = 'Stainless',
+  Aluminium = 'Aluminium',
+  Copper = 'Copper',
+  Zinc = 'Zinc',
+  Steel = 'Steel',
+}
+
+export type RoofInformationInput = {
+  type?: Maybe<RoofTypeInput>;
+  material?: Maybe<RoofMaterialInput>;
+  insulation?: Maybe<RoofInsulationInput>;
+  gutter?: Maybe<GutterInformationsInput>;
+  gutterMaterial?: Maybe<GutterMaterialInformationsInput>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+  yearOfRoof?: Maybe<Scalars['Int']>;
+};
+
+export type RoofTypeInput = {
+  name?: Maybe<RoofTypes>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofMaterialInput = {
+  name?: Maybe<RoofMaterials>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterMaterialInformationsInput = {
+  material?: Maybe<GutterMaterial>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterMaterialInformations = {
+  __typename?: 'GutterMaterialInformations';
+  material?: Maybe<GutterMaterial>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterInformationsInput = {
+  type?: Maybe<GutterType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GutterInformations = {
+  __typename?: 'GutterInformations';
+  type?: Maybe<GutterType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RoofInsulationInput = {
+  name?: Maybe<RoofInsulations>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type GeneralInformation = {
   __typename?: 'GeneralInformation';
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
@@ -1595,11 +1673,56 @@ export type RoofInformation = {
   material?: Maybe<RoofMaterial>;
   insulation?: Maybe<RoofInsulation>;
   images?: Maybe<Array<File>>;
+  yearOfRoof?: Maybe<Scalars['Int']>;
+  gutter?: Maybe<GutterInformations>;
+  gutterMaterial?: Maybe<GutterMaterialInformations>;
+};
+
+export type FoundationTypeInformationsInput = {
+  type?: Maybe<FoundationType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationTypeInformations = {
+  __typename?: 'FoundationTypeInformations';
+  type?: Maybe<FoundationType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationMaterialInformationsInput = {
+  type?: Maybe<FoundationMaterialType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationMaterialInformations = {
+  __typename?: 'FoundationMaterialInformations';
+  type?: Maybe<FoundationMaterialType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type FoundationInput = {
+  type?: Maybe<FoundationTypeInformationsInput>;
+  material?: Maybe<FoundationMaterialInformationsInput>;
+};
+
+export type Foundation = {
+  __typename?: 'Foundation';
+  type?: Maybe<FoundationTypeInformations>;
+  material?: Maybe<FoundationMaterialInformations>;
+};
+
+export type HouseOutsideInput = {
+  generalInformation?: Maybe<GeneralInformationInput>;
+  foundation?: Maybe<FoundationInput>;
+  propertyRelated?: Maybe<PropertyRelatedInput>;
+  roofInformation?: Maybe<RoofInformationInput>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type HouseOutside = {
   __typename?: 'HouseOutside';
   generalInformation?: Maybe<GeneralInformation>;
+  foundation?: Maybe<Foundation>;
   propertyRelated?: Maybe<PropertyRelated>;
   roofInformation?: Maybe<RoofInformation>;
   notes?: Maybe<Scalars['String']>;
@@ -1688,6 +1811,11 @@ export type PimOutside = {
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Scalars['LastEditedBy']>;
+};
+
+export type PimOutsideInput = {
+  id: Scalars['ID'];
+  houseOutside?: Maybe<HouseOutsideInput>;
 };
 
 export type AddOutsideFeatureInput = {
@@ -2524,45 +2652,15 @@ export enum PropertyHabitation {
   PermanentOccupation = 'PermanentOccupation',
 }
 
-export type RoofTypeInput = {
-  name?: Maybe<RoofTypes>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofMaterialInput = {
-  name?: Maybe<RoofMaterials>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type RoofInsulationInput = {
-  name?: Maybe<RoofInsulations>;
-  notes?: Maybe<Scalars['String']>;
-};
-
 export type PropertyRelatedInput = {
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
   notes?: Maybe<Scalars['String']>;
   images?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
-export type RoofInformationInput = {
-  type?: Maybe<RoofTypeInput>;
-  material?: Maybe<RoofMaterialInput>;
-  insulation?: Maybe<RoofInsulationInput>;
-  images?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
 export type GeneralInformationInput = {
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
   images?: Maybe<Array<Maybe<Scalars['String']>>>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type HouseOutsideInput = {
-  id: Scalars['ID'];
-  generalInformation?: Maybe<GeneralInformationInput>;
-  propertyRelated?: Maybe<PropertyRelatedInput>;
-  roofInformation?: Maybe<RoofInformationInput>;
   notes?: Maybe<Scalars['String']>;
 };
 
@@ -2988,7 +3086,7 @@ export type UpdateOutsideFeatureMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdatePimOutsideInfoMutationVariables = {
-  input: Scalars['PimOutsideInput'];
+  input: PimOutsideInput;
 };
 
 export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
@@ -3359,6 +3457,83 @@ export type PimMediaQuery = { __typename?: 'Query' } & {
       textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
       usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
       tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+};
+
+export type GetPimOutsideQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetPimOutsideQuery = { __typename?: 'Query' } & {
+  getPimOutside: { __typename?: 'PimOutside' } & Pick<PimOutside, 'id' | 'lastEditedBy' | 'dateUpdated'> & {
+      houseOutside?: Maybe<
+        { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
+            foundation?: Maybe<
+              { __typename?: 'Foundation' } & {
+                material?: Maybe<
+                  { __typename?: 'FoundationMaterialInformations' } & Pick<
+                    FoundationMaterialInformations,
+                    'notes' | 'type'
+                  >
+                >;
+                type?: Maybe<
+                  { __typename?: 'FoundationTypeInformations' } & Pick<FoundationTypeInformations, 'notes' | 'type'>
+                >;
+              }
+            >;
+            generalInformation?: Maybe<
+              { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'qualityInformation' | 'notes'> & {
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                }
+            >;
+            propertyRelated?: Maybe<
+              { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                }
+            >;
+            roofInformation?: Maybe<
+              { __typename?: 'RoofInformation' } & Pick<RoofInformation, 'yearOfRoof'> & {
+                  type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
+                  material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
+                  insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  gutter?: Maybe<{ __typename?: 'GutterInformations' } & Pick<GutterInformations, 'notes' | 'type'>>;
+                  gutterMaterial?: Maybe<
+                    { __typename?: 'GutterMaterialInformations' } & Pick<
+                      GutterMaterialInformations,
+                      'material' | 'notes'
+                    >
+                  >;
+                }
+            >;
+          }
+      >;
+      outsideFeatures?: Maybe<
+        Array<
+          { __typename?: 'OutsideFeature' } & Pick<
+            OutsideFeature,
+            'id' | 'type' | 'dateCreated' | 'dateUpdated' | 'lastEditedBy' | 'description'
+          > & {
+              configuration?: Maybe<
+                | ({ __typename?: 'GardenFeature' } & Pick<
+                    GardenFeature,
+                    'location' | 'main' | 'notes' | 'quality' | 'shape' | 'type'
+                  > & {
+                      measurement?: Maybe<
+                        { __typename?: 'RectangleMeasurement' } & Pick<
+                          RectangleMeasurement,
+                          'width' | 'length' | 'surface'
+                        >
+                      >;
+                    })
+                | { __typename?: 'GarageFeature' }
+                | { __typename?: 'StorageFeature' }
+                | { __typename?: 'TerrainFeature' }
+                | { __typename?: 'ParkingLotFeature' }
+              >;
+            }
+        >
+      >;
     };
 };
 
@@ -5003,6 +5178,110 @@ export function usePimMediaLazyQuery(
 export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
 export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
 export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
+export const GetPimOutsideDocument = gql`
+  query GetPimOutside($id: ID!) {
+    getPimOutside(id: $id) {
+      id
+      lastEditedBy
+      dateUpdated
+      houseOutside {
+        foundation {
+          material {
+            notes
+            type
+          }
+          type {
+            notes
+            type
+          }
+        }
+        generalInformation {
+          qualityInformation
+          images {
+            id
+            url
+          }
+          notes
+        }
+        propertyRelated {
+          items
+          notes
+          images {
+            id
+            url
+          }
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+          images {
+            id
+            url
+          }
+          gutter {
+            notes
+            type
+          }
+          gutterMaterial {
+            material
+            notes
+          }
+          yearOfRoof
+        }
+        notes
+      }
+      outsideFeatures {
+        id
+        type
+        dateCreated
+        dateUpdated
+        lastEditedBy
+        description
+        configuration {
+          ... on GardenFeature {
+            measurement {
+              width
+              length
+              surface
+            }
+            location
+            main
+            notes
+            quality
+            shape
+            type
+          }
+        }
+      }
+    }
+  }
+`;
+export function useGetPimOutsideQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetPimOutsideQuery, GetPimOutsideQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetPimOutsideQuery, GetPimOutsideQueryVariables>(GetPimOutsideDocument, baseOptions);
+}
+export function useGetPimOutsideLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPimOutsideQuery, GetPimOutsideQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetPimOutsideQuery, GetPimOutsideQueryVariables>(
+    GetPimOutsideDocument,
+    baseOptions,
+  );
+}
+export type GetPimOutsideQueryHookResult = ReturnType<typeof useGetPimOutsideQuery>;
+export type GetPimOutsideLazyQueryHookResult = ReturnType<typeof useGetPimOutsideLazyQuery>;
+export type GetPimOutsideQueryResult = ApolloReactCommon.QueryResult<GetPimOutsideQuery, GetPimOutsideQueryVariables>;
 export const PimPricingDocument = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {

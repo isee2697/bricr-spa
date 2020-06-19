@@ -8,8 +8,8 @@ import { loadSchemas } from './loadSchemas';
 import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
 import { FILE_1 } from './mocks/file';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
-import { Floor, Space, ServiceType, CadastreType } from './types';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
+import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -159,6 +159,14 @@ export const mockServer = () => {
           },
           getPimCadastre() {
             return PIM_CADASTRE;
+          },
+          getPimOutside() {
+            const outside: PimOutside = {
+              ...PIM_DETAILS,
+              __typename: 'PimOutside',
+            };
+
+            return outside;
           },
           addCadastre() {
             if (!!PIM_CADASTRE.cadastre) {

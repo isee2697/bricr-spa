@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { usePimDetailsQuery, usePimServicesQuery, usePimCadastreQuery } from 'api/types';
+import { useGetPimOutsideQuery, usePimCadastreQuery, usePimDetailsQuery, usePimServicesQuery } from 'api/types';
 
 import { PimDetails } from './PimDetails';
 
@@ -15,13 +15,20 @@ export const PimDetailsContainer = () => {
     variables: { id },
   });
 
+  const { data: outsideData, loading: loadingOutside, error: outsideError } = useGetPimOutsideQuery({
+    variables: {
+      id,
+    },
+  });
+
   return (
     <PimDetails
-      loading={loading || loadingServices || loadingCadastre}
-      error={error || errorServices || errorCadastre}
+      loading={loading || loadingServices || loadingCadastre || loadingOutside}
+      error={error || errorServices || errorCadastre || outsideError}
       data={data}
       servicesData={servicesData}
       cadastreData={cadastreData}
+      outsideData={outsideData}
     />
   );
 };

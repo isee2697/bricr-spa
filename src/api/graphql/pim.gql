@@ -78,45 +78,15 @@ enum PropertyHabitation {
   PermanentOccupation
 }
 
-input RoofTypeInput {
-  name: RoofTypes
-  notes: String
-}
-
-input RoofMaterialInput {
-  name: RoofMaterials,
-  notes: String
-}
-
-input RoofInsulationInput {
-  name: RoofInsulations
-  notes: String
-}
-
 input PropertyRelatedInput {
   items: [PropertyRelatedItems]
   notes: String
   images: [String]
 }
 
-input RoofInformationInput {
-  type: RoofTypeInput
-  material: RoofMaterialInput
-  insulation: RoofInsulationInput
-  images: [String]
-}
-
 input GeneralInformationInput {
   qualityInformation: [QualityInformations]
   images: [String]
-  notes: String
-}
-
-input HouseOutsideInput {
-  id: ID!
-  generalInformation: GeneralInformationInput
-  propertyRelated: PropertyRelatedInput,
-  roofInformation: RoofInformationInput,
   notes: String
 }
 

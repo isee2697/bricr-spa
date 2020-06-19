@@ -8,7 +8,10 @@ import {
   UserIcon,
   SettingsIcon,
   WarningIcon,
+  SquareIcon,
+  BellIcon,
 } from 'ui/atoms/icons';
+import { FoundationMaterialType, FoundationType, GutterMaterial, GutterType } from 'api/types';
 
 export const qualities = [
   {
@@ -174,6 +177,118 @@ export const roofMaterials = [
     label: 'dictionaries.outside_roof_materials.Other',
     icon: <SettingsIcon color="inherit" />,
     value: 'Other',
+  },
+];
+
+export const foundations = [
+  {
+    label: 'dictionaries.outside_foundation_type.IsolatedFooting',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.IsolatedFooting,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.CombinedFooting',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.CombinedFooting,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.WallFooting',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.WallFooting,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.SpreadFooting',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.SpreadLooting,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.RaftOrMatFoundations',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.RaftOrMatFoundations,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.PileFoundations',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.PileFoundations,
+  },
+  {
+    label: 'dictionaries.outside_foundation_type.DrilledShafts',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationType.DrilledShafts,
+  },
+];
+
+export const foundationMaterials = [
+  {
+    label: 'dictionaries.outside_foundation_material.Concrete',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationMaterialType.Concrete,
+  },
+  {
+    label: 'dictionaries.outside_foundation_material.Timber',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationMaterialType.Timber,
+  },
+  {
+    label: 'dictionaries.outside_foundation_material.Steel',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationMaterialType.Steel,
+  },
+  {
+    label: 'dictionaries.outside_foundation_material.Plastic',
+    icon: <SquareIcon color="inherit" />,
+    value: FoundationMaterialType.Plastic,
+  },
+];
+
+export const typesOfGutter = [
+  {
+    label: 'dictionaries.outside_roof_gutters.HalfRound',
+    icon: <SquareIcon color="inherit" />,
+    value: GutterType.HalfRound,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters.FlatBottom',
+    icon: <SquareIcon color="inherit" />,
+    value: GutterType.Flatbottom,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters.NoGutter',
+    icon: <SquareIcon color="inherit" />,
+    value: GutterType.NoGutter,
+  },
+];
+
+export const gutterMaterials = [
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Vinyl',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Vinyl,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Stainless',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Stainless,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Aluminium',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Aluminium,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Copper',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Copper,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Zinc',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Zinc,
+  },
+  {
+    label: 'dictionaries.outside_roof_gutters_materials.Steel',
+    icon: <BellIcon color="inherit" />,
+    value: GutterMaterial.Steel,
   },
 ];
 

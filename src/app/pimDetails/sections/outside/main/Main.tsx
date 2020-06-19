@@ -10,13 +10,14 @@ import { GeneralInformation } from './forms/GeneralInformation';
 import { PropertyRelated } from './forms/PropertyRelated';
 import { RoofInformation } from './forms/RoofInformation';
 import { MainProps } from './Main.types';
+import { Foundation } from './forms/Foundation';
 
-export const Main = ({ pim, onSave }: MainProps) => {
+export const Main = ({ pimOutside, onSave }: MainProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
-      <AutosaveForm initialValues={pim} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+      <AutosaveForm initialValues={pimOutside} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
         <Grid xs={12} item>
           <Typography variant="h1">{formatMessage({ id: 'pim_details.outside.title' })}</Typography>
           <GenericField placeholder="pim_details.outside.main.description_placeholder" name="houseOutside.notes" />
@@ -27,6 +28,9 @@ export const Main = ({ pim, onSave }: MainProps) => {
         </Grid>
         <Grid xs={12} item>
           <PropertyRelated />
+        </Grid>
+        <Grid xs={12} item>
+          <Foundation />
         </Grid>
         <Grid xs={12} item>
           <RoofInformation />

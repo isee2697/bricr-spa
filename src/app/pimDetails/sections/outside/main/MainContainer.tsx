@@ -1,29 +1,33 @@
 import React from 'react';
 
-import { usePim } from 'app/pimDetails/usePim/usePim';
-import { useUpdatePimOutsideInfoMutation, PimDetailsDocument, Pim } from 'api/types';
+import { GetPimOutsideDocument, PimDetailsDocument, PimOutsideInput, useUpdatePimOutsideInfoMutation } from 'api/types';
 
 import { Main } from './Main';
+import { MainContainerProps } from './Main.types';
 
-export const MainContainer = () => {
-  const pim = usePim();
-
+export const MainContainer = ({ pimOutside }: MainContainerProps) => {
   const [updatePimOutsideInfo] = useUpdatePimOutsideInfoMutation();
 
-  const handleSave = async (values: Pim) => {
+  const handleSave = async (values: PimOutsideInput) => {
     try {
       const { data: result } = await updatePimOutsideInfo({
         variables: {
           input: {
-            id: pim.id,
-            ...values.houseOutside,
+            id: pimOutside.id,
+            houseOutside: values.houseOutside,
           },
         },
         refetchQueries: [
           {
             query: PimDetailsDocument,
             variables: {
-              id: pim.id,
+              id: pimOutside.id,
+            },
+          },
+          {
+            query: GetPimOutsideDocument,
+            variables: {
+              id: pimOutside.id,
             },
           },
         ],
@@ -39,5 +43,5 @@ export const MainContainer = () => {
     }
   };
 
-  return <Main pim={pim} onSave={handleSave} />;
+  return <Main pimOutside={pimOutside} onSave={handleSave} />;
 };

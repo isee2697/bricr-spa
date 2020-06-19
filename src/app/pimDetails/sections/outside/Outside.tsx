@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -10,6 +10,7 @@ import { useLocale } from 'hooks';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useGetPimOutsideQuery } from 'api/types';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
@@ -18,10 +19,22 @@ import { FeatureContainer } from './feature/FeatureContainer';
 export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
+  const { id } = useParams<{ id: string }>();
+
+  const { data } = useGetPimOutsideQuery({
+    variables: {
+      id,
+    },
+  });
+
   const isAddFloorModalOpen = useModalState('add-new-outside-feature');
   const { close, open } = useModalDispatch();
 
   const pim = usePim();
+
+  if (!data?.getPimOutside) {
+    return null;
+  }
 
   return (
     <>
@@ -45,7 +58,12 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
       />
 
       <Switch>
-        <Route default path={`${AppRoute.pimDetails}/outside`} exact render={() => <MainContainer />} />
+        <Route
+          default
+          path={`${AppRoute.pimDetails}/outside`}
+          exact
+          render={() => <MainContainer pimOutside={data?.getPimOutside} />}
+        />
         {!!pim.outsideFeatures?.length &&
           pim.outsideFeatures.map(feature => (
             <Route

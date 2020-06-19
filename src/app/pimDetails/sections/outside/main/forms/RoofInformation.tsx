@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Box } from 'ui/atoms';
 import { FormSubSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
-import { GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
+import { DatePickerField, GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
 import { EntityWithFiles } from 'api/types';
@@ -18,6 +18,19 @@ export const RoofInformation = () => {
       {isEditMode => (
         <>
           <Box mb={4}>
+            <Box>
+              <FormSubSection
+                title={formatMessage({ id: 'pim_details.outside.main.general_info' })}
+                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+              />
+            </Box>
+            <Box width="33%">
+              <DatePickerField
+                format="yyyy"
+                label="pim_details.outside.main.roof_year"
+                name="houseOutside.roofInformation.yearOfRoof"
+              />
+            </Box>
             <Box mb={3}>
               <FormSubSection
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_type' })}
@@ -74,6 +87,48 @@ export const RoofInformation = () => {
             />
             <GenericField
               name="houseOutside.roofInformation.insulation.notes"
+              label="common.notes"
+              placeholder="pim_details.outside.main.notes_placeholder"
+              disabled={!isEditMode}
+            />
+          </Box>
+
+          <Box mb={4}>
+            <Box mb={3}>
+              <FormSubSection
+                title={formatMessage({ id: 'pim_details.outside.main.type_of_gutter' })}
+                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+              />
+            </Box>
+            <RadioGroupField
+              disabled={!isEditMode}
+              xs={2}
+              name="houseOutside.roofInformation.gutter.type"
+              options={dictionaries.typesOfGutter}
+            />
+            <GenericField
+              name="houseOutside.roofInformation.gutter.notes"
+              label="common.notes"
+              placeholder="pim_details.outside.main.notes_placeholder"
+              disabled={!isEditMode}
+            />
+          </Box>
+
+          <Box mb={4}>
+            <Box mb={3}>
+              <FormSubSection
+                title={formatMessage({ id: 'pim_details.outside.main.gutter_material' })}
+                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+              />
+            </Box>
+            <RadioGroupField
+              disabled={!isEditMode}
+              xs={2}
+              name="houseOutside.roofInformation.gutterMaterial.material"
+              options={dictionaries.gutterMaterials}
+            />
+            <GenericField
+              name="houseOutside.roofInformation.gutterMaterial.notes"
               label="common.notes"
               placeholder="pim_details.outside.main.notes_placeholder"
               disabled={!isEditMode}
