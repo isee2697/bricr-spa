@@ -42,10 +42,8 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
               <Grid item xs={isElectricity ? 4 : 6}>
                 <GenericField
                   size="medium"
-                  label={formatMessage({ id: 'pim_details.services.meter.value' })}
-                  placeholder={formatMessage({
-                    id: 'pim_details.services.meter.value_placeholder',
-                  })}
+                  label={'pim_details.services.meter.value'}
+                  placeholder={'pim_details.services.meter.value_placeholder'}
                   type="number"
                   name="value"
                   id={`value.${reading.id}`}
@@ -57,10 +55,8 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
                   <DatePickerField
                     name="dateOfReading"
                     id={`date.${reading.id}`}
-                    label={formatMessage({ id: 'pim_details.services.meter.reading_date' })}
-                    placeholder={formatMessage({
-                      id: 'pim_details.services.meter.id_placeholder',
-                    })}
+                    label={'pim_details.services.meter.reading_date'}
+                    placeholder={'pim_details.services.meter.id_placeholder'}
                     size="medium"
                     disabled={!editing}
                   />
