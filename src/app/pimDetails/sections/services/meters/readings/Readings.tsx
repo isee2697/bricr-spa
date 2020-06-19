@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
@@ -13,36 +13,31 @@ import { useStyles } from '../Meters.styles';
 import { ReadingProps } from './Reading.types';
 
 export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingProps) => {
-  const isInitialMount = useRef(true);
   const { formatMessage } = useLocale();
   const { meterType } = useParams<{ meterType: string }>();
-  const [toggled, setToggled] = useState<number | undefined>(0);
+  const [toggled, setToggled] = useState<string | undefined>();
   const classes = useStyles();
   const isElectricity = meterType === 'electric';
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      setToggled(readings.length - 1);
-    }
-  }, [readings]);
+  const sorted = readings.slice().sort((a, b) => {
+    return a.id.localeCompare(b.id);
+  });
 
   return (
     <>
-      {readings.map((reading, key) => (
+      {sorted.map((reading, key) => (
         <AutosaveForm key={reading.id} initialValues={reading} onSave={onSave} subscription={{}}>
           <SubSectionHeader
             onOptionsClick={() => {}}
-            onToggleClick={() => setToggled(v => (v !== key ? key : undefined))}
-            toggled={key === toggled}
+            onToggleClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
+            toggled={reading.id === toggled}
             counter={key + 1}
           >
             <Grid container alignItems="center">
               {formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
             </Grid>
           </SubSectionHeader>
-          <Collapse in={key === toggled}>
+          <Collapse in={reading.id === toggled}>
             <Grid container spacing={1}>
               <Grid item xs={isElectricity ? 4 : 6}>
                 <GenericField
