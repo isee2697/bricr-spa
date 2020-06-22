@@ -49,6 +49,10 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
       handleNext();
     }
 
+    if (!response?.error) {
+      setStep(0);
+    }
+
     return response;
   };
 
