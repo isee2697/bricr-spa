@@ -28,9 +28,9 @@ export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <GenericField
-              name="city"
-              label="add_pim.address.city"
-              placeholder="add_pim.address.city_placeholder"
+              name="houseNumber"
+              label="add_pim.address.house_number"
+              placeholder="add_pim.address.house_number_placeholder"
               validate={[requireValidator]}
               size="medium"
             />
@@ -39,18 +39,18 @@ export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <GenericField
-              name="houseNumber"
-              label="add_pim.address.house_number"
-              placeholder="add_pim.address.house_number_placeholder"
+              name="postalCode"
+              label="add_pim.address.postal_code"
+              placeholder="add_pim.address.postal_code_placeholder"
               validate={[requireValidator]}
               size="medium"
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <GenericField
-              name="postalCode"
-              label="add_pim.address.postal_code"
-              placeholder="add_pim.address.postal_code_placeholder"
+              name="city"
+              label="add_pim.address.city"
+              placeholder="add_pim.address.city_placeholder"
               validate={[requireValidator]}
               size="medium"
             />
