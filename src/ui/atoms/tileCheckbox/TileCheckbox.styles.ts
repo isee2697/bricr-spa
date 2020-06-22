@@ -45,6 +45,9 @@ export const useStyles = makeStyles(theme => ({
         fontWeight: theme.typography.fontWeightBold,
       },
     },
+    '& svg': {
+      pointerEvents: 'none',
+    },
   },
   square: {
     width: theme.spacing(8),
