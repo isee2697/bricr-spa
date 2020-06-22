@@ -18,7 +18,14 @@ import { Cadastre } from './sections/cadastre/Cadastre';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Specification } from './sections/specification/Specification';
 
-export const PimDetails = ({ error: isError, data, servicesData, cadastreData, outsideData }: PimDetailsProps) => {
+export const PimDetails = ({
+  error: isError,
+  data,
+  servicesData,
+  cadastreData,
+  outsideData,
+  insideData,
+}: PimDetailsProps) => {
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
   const { formatMessage } = useLocale();
@@ -42,6 +49,7 @@ export const PimDetails = ({ error: isError, data, servicesData, cadastreData, o
             services={servicesData?.getPimServices as PimServices}
             cadastre={cadastreData?.getPimCadastre}
             onHide={handleSidebarHide}
+            inside={insideData}
           />
         </Grid>
       )}

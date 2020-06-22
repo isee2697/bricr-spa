@@ -1,7 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useGetPimOutsideQuery, usePimCadastreQuery, usePimDetailsQuery, usePimServicesQuery } from 'api/types';
+import {
+  useGetPimOutsideQuery,
+  usePimCadastreQuery,
+  usePimDetailsQuery,
+  usePimInsideQuery,
+  usePimServicesQuery,
+} from 'api/types';
 
 import { PimDetails } from './PimDetails';
 
@@ -21,14 +27,21 @@ export const PimDetailsContainer = () => {
     },
   });
 
+  const { data: insideData, loading: loadingInside, error: insideError } = usePimInsideQuery({
+    variables: {
+      id,
+    },
+  });
+
   return (
     <PimDetails
-      loading={loading || loadingServices || loadingCadastre || loadingOutside}
-      error={error || errorServices || errorCadastre || outsideError}
+      loading={loading || loadingServices || loadingCadastre || loadingOutside || loadingInside}
+      error={error || errorServices || errorCadastre || outsideError || insideError}
       data={data}
       servicesData={servicesData}
       cadastreData={cadastreData}
       outsideData={outsideData}
+      insideData={insideData?.getPimInside}
     />
   );
 };

@@ -22,7 +22,7 @@ import { CadastreType, FloorType } from 'api/types';
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
 
-export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre, inside }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { url } = useRouteMatch();
@@ -41,7 +41,7 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre }: PimDe
   };
 
   const floors = floorOrder.flatMap(type => {
-    const floorItems = (pim && pim.floors?.filter(floor => floor.floorType === type)) || [];
+    const floorItems = (inside && inside.floors?.filter(floor => floor.floorType === type)) || [];
 
     return floorItems.map((floor, key) =>
       createSubMenuData(floor.id, `dictionaries.floor_type.${floor.floorType}`, floorItems.length, key),
