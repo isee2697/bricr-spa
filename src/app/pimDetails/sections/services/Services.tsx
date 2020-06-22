@@ -4,6 +4,8 @@ import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
 import { ServiceType } from 'api/types';
+import { GenericField } from 'form/fields';
+import { AutosaveForm } from 'ui/organisms';
 
 import { ServiceTypeList } from './ServiceTypeList';
 import { ServicesProps } from './Services.types';
@@ -24,6 +26,14 @@ export const Services = ({ pimServices, onSave }: ServicesProps) => {
             <WarningIcon />
             <MenuIcon />
           </div>
+        </Grid>
+        <Grid xs={12} item>
+          <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
+            <GenericField
+              placeholder="pim_details.services.description_placeholder"
+              name="pim_details.services.description"
+            />
+          </AutosaveForm>
         </Grid>
         <Grid xs={12} item>
           <ServiceTypeList
