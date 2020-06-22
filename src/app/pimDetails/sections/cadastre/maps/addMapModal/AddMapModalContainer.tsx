@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { UploadModal } from 'ui/organisms';
@@ -15,9 +15,10 @@ import { AddMapModalProps } from './AddMapModal.types';
 
 export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
-  const [addMaps, { loading }] = useAddCadastreMapsMutation();
+  const [addMaps] = useAddCadastreMapsMutation();
   const [initUpload] = useInitSendFileMutation();
   const [uploadFile] = useUploadFileMutation();
+  const [isUploading, setIsUploading] = useState(false);
 
   const getFileId = async (file: globalThis.File) => {
     const { data: initUploadResponse } = await initUpload({
@@ -46,6 +47,7 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
   };
 
   const handleSave = async (files: FileList) => {
+    setIsUploading(true);
     const fileIds: NewCadastreMapInput[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -77,9 +79,13 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
           },
         ],
       });
+
+      setIsUploading(false);
       onClose();
-    } catch (error) {}
+    } catch (error) {
+      setIsUploading(false);
+    }
   };
 
-  return <UploadModal onUpload={handleSave} isSubmitting={loading} isOpened={isOpened} onClose={onClose} />;
+  return <UploadModal onUpload={handleSave} isSubmitting={isUploading} isOpened={isOpened} onClose={onClose} />;
 };
