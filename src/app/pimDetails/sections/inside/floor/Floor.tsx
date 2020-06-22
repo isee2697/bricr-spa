@@ -18,13 +18,15 @@ export const Floor = ({ floor, count }: FloorProps) => {
   const { formatMessage } = useLocale();
   const formRef = useRef<FormSectionRef>(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [expandedSpace, setExpandedSpace] = useState<string | undefined>(floor?.spaces?.[0]?.id);
+  const [expandedSpace, setExpandedSpace] = useState<string | undefined>();
+  const [newlyCreatedSpace, setNewlyCreatedSpace] = useState<string | undefined>();
 
   const handleModalClose = (id?: string) => {
     setModalOpen(false);
 
     if (id) {
       setExpandedSpace(id);
+      setNewlyCreatedSpace(id);
       formRef?.current?.handleSetEdit(true);
     }
   };
@@ -93,8 +95,8 @@ export const Floor = ({ floor, count }: FloorProps) => {
               </>
             }
             onAdd={() => setModalOpen(true)}
-            isInitEdititng={true}
             ref={formRef}
+            isInitEditing={!!newlyCreatedSpace}
           >
             {editing =>
               Object.values(groupedSpaces)

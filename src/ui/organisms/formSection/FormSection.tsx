@@ -22,6 +22,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       className,
       titleBadge,
       buttons,
+      isInitEditing = false,
     },
     ref,
   ) => {
@@ -29,7 +30,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
     const classes = useStyles();
 
     const [expanded, setExpanded] = useState(isInitExpanded);
-    const [editing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(isInitEditing);
 
     const handleSetEdit = (isEdititng: boolean) => {
       isEdititng && setExpanded(true);

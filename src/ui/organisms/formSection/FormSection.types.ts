@@ -15,7 +15,7 @@ export type FormSectionProps = {
   isInitExpanded?: boolean;
   children: FunctionChildren | ReactNode;
   className?: string;
-  isInitEdititng?: boolean;
+  isInitEditing?: boolean;
   buttons?: ReactNode;
 };
 

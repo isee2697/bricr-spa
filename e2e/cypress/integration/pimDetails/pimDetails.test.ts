@@ -122,8 +122,6 @@ context('Pim Details', () => {
 
     cy.contains('space name');
 
-    cy.findByText('Edit mode').click();
-
     cy.get('input[name="configuration.constructionYear"]').type('2020');
     cy.get('input[name="configuration.notes"]').type('space notes');
     cy.findByText('Main kitchen').click();
