@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
-import { LinkedPim, useListPimsQuery, usePimSpecificationQuery, useSetLinkedPropertiesMutation } from 'api/types';
+import {
+  LinkedPim,
+  PimSpecificationDocument,
+  useListPimsQuery,
+  usePimSpecificationQuery,
+  useSetLinkedPropertiesMutation,
+} from 'api/types';
 import { usePagination } from 'hooks';
 import { usePimsSorting } from '../../../../pim/usePimsSorting/usePimsSorting';
 
@@ -56,6 +62,14 @@ export const AddLinkedPropertyModalContainer = ({ isOpened, onClose }: AddLinked
             linkedPimIDs: selectedPims,
           },
         },
+        refetchQueries: [
+          {
+            query: PimSpecificationDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
       });
 
       if (!result || !result.setLinkedProperties) {
