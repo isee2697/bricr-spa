@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "bricr-staging-application-state"
-    key    = "terraform/bricr/staging-bricr-spa.tfstate"
+    key    = "terraform/bricr/develop-bricr-spa.tfstate"
     region = "eu-west-1"
   }
 
