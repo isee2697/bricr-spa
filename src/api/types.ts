@@ -3802,19 +3802,61 @@ export type GetPimOutsideQuery = { __typename?: 'Query' } & {
               configuration?: Maybe<
                 | ({ __typename?: 'GardenFeature' } & Pick<
                     GardenFeature,
-                    'location' | 'main' | 'notes' | 'quality' | 'shape' | 'type'
+                    'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
                   > & {
                       measurement?: Maybe<
                         { __typename?: 'RectangleMeasurement' } & Pick<
                           RectangleMeasurement,
-                          'width' | 'length' | 'surface'
+                          'length' | 'width' | 'surface'
                         >
                       >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
                     })
-                | { __typename?: 'GarageFeature' }
-                | { __typename?: 'StorageFeature' }
-                | { __typename?: 'TerrainFeature' }
-                | { __typename?: 'ParkingLotFeature' }
+                | ({ __typename?: 'GarageFeature' } & Pick<
+                    GarageFeature,
+                    'main' | 'notes' | 'attached' | 'attic' | 'secondaryWindows' | 'materials'
+                  > & {
+                      garageTypes: GarageFeature['types'];
+                      garageInsulations: GarageFeature['insulations'];
+                      garageServices: GarageFeature['services'];
+                    } & {
+                      measurement?: Maybe<
+                        { __typename?: 'CuboidMeasurement' } & Pick<
+                          CuboidMeasurement,
+                          'length' | 'width' | 'height' | 'surface' | 'volume'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'StorageFeature' } & Pick<
+                    StorageFeature,
+                    'main' | 'notes' | 'attached' | 'secondaryWindows' | 'materials'
+                  > & {
+                      storageTypes: StorageFeature['types'];
+                      storageInsulations: StorageFeature['insulations'];
+                      storageServices: StorageFeature['services'];
+                    } & {
+                      measurement?: Maybe<
+                        { __typename?: 'CuboidMeasurement' } & Pick<
+                          CuboidMeasurement,
+                          'length' | 'width' | 'height' | 'surface' | 'volume'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                      measurement?: Maybe<
+                        { __typename?: 'RectangleMeasurement' } & Pick<
+                          RectangleMeasurement,
+                          'length' | 'width' | 'surface'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                    ParkingLotFeature,
+                    'number' | 'price' | 'cost' | 'notes'
+                  > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> })
               >;
             }
         >
@@ -5726,17 +5768,82 @@ export const GetPimOutsideDocument = gql`
         description
         configuration {
           ... on GardenFeature {
-            measurement {
-              width
-              length
-              surface
-            }
-            location
             main
+            type
             notes
             quality
+            location
             shape
-            type
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            notes
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            storageTypes: types
+            notes
+            attached
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            notes
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              url
+            }
           }
         }
       }

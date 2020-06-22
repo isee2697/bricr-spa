@@ -3,7 +3,6 @@ import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { usePim } from 'app/pimDetails/usePim/usePim';
 import { Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
@@ -29,8 +28,6 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
   const isAddFloorModalOpen = useModalState('add-new-outside-feature');
   const { close, open } = useModalDispatch();
-
-  const pim = usePim();
 
   if (!data?.getPimOutside) {
     return null;
@@ -64,8 +61,8 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
           exact
           render={() => <MainContainer pimOutside={data?.getPimOutside} />}
         />
-        {!!pim.outsideFeatures?.length &&
-          pim.outsideFeatures.map(feature => (
+        {!!data.getPimOutside.outsideFeatures?.length &&
+          data.getPimOutside.outsideFeatures.map(feature => (
             <Route
               key={feature.id}
               path={`${AppRoute.pimDetails}/outside/${feature.id}`}
