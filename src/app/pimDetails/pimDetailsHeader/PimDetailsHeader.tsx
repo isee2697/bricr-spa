@@ -45,7 +45,6 @@ export const PimDetailsHeader = ({ isSidebarVisible, onOpenSidebar, title, actio
                 <Placeholder variant="text" width={100} />
               </Link>
             )}
-            <span />
           </Breadrcumbs>
         </Box>
         {action}
