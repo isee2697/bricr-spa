@@ -1,15 +1,18 @@
 import React from 'react';
 
 import { AutosaveForm } from 'ui/organisms';
-import { PimPricingDocument, UpdatePricingInput, useUpdatePricingMutation } from 'api/types';
+import { PimPricingDocument, useUpdatePricingMutation } from 'api/types';
 
-import { PriceContainerProps } from './Price.types';
+import { PriceContainerProps, PriceForm } from './Price.types';
 import { Price } from './Price';
 
 export const PriceContainer = (props: PriceContainerProps) => {
   const [updatePricing] = useUpdatePricingMutation();
 
-  const handleSave = async (values: UpdatePricingInput) => {
+  const handleSave = async ({
+    rent: { isEnabled: isRentEnabled, ...rentRest },
+    sale: { isEnabled: isSaleEnabled, ...saleRest },
+  }: PriceForm) => {
     if (!props.pimId) {
       throw new Error();
     }
@@ -19,7 +22,8 @@ export const PriceContainer = (props: PriceContainerProps) => {
         variables: {
           input: {
             id: props.pimId,
-            ...values,
+            rent: rentRest,
+            sale: saleRest,
           },
         },
         refetchQueries: [

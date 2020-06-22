@@ -24,7 +24,7 @@ export const Rent = () => {
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <GenericField
-                name="rent.price"
+                name="rent.rentalPrice"
                 label="pim_details.prices.rental_price"
                 placeholder="pim_details.prices.price_placeholder"
                 size="medium"
@@ -37,7 +37,7 @@ export const Rent = () => {
             </Grid>
             <Grid item xs={4}>
               <DropdownField
-                name="rent.sufix"
+                name="rent.suffix"
                 items={dictionaries.rentPaymentFrequency.map(frequency => ({
                   label: formatMessage({ id: `dictionaries.prices.rent_payments_frequency.${frequency}` }),
                   value: frequency,

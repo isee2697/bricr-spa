@@ -81,7 +81,7 @@ export const Sale = () => {
                       label="pim_details.prices.execution_sale_date"
                       placeholder="common.from_placeholder"
                       size="medium"
-                      disabled={!inEditMode || !values?.sale?.executionSale}
+                      disabled={!inEditMode || !values?.sale?.general.executionSale}
                     />
                   )}
                 </FormSpy>
