@@ -50,6 +50,7 @@ export const ExtraAddressForm = () => {
               <GenericField
                 name="extraAddress.houseNumberStart"
                 label="pim_details.general.extra_address_information.house_number_start"
+                placeholder="pim_details.general.extra_address_information.house_number_start_placeholder"
                 type="number"
                 validate={[requireValidator]}
                 disabled={!editing}
@@ -59,6 +60,7 @@ export const ExtraAddressForm = () => {
               <GenericField
                 name="extraAddress.houseNumberEnd"
                 label="pim_details.general.extra_address_information.house_number_end"
+                placeholder="pim_details.general.extra_address_information.house_number_end_placeholder"
                 type="number"
                 validate={[requireValidator]}
                 disabled={!editing}
