@@ -24,7 +24,11 @@ export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
       {editing =>
         usps.map(usp => (
           <Form<UpdateUspInput>
-            title={usp.name ?? formatMessage({ id: 'pim_details.media.usps.default_name' })}
+            title={
+              usp.type
+                ? formatMessage({ id: `dictionaries.media.chapter_or_usp.${usp.type}` })
+                : formatMessage({ id: 'pim_details.media.usps.default_name' })
+            }
             onSave={onSave}
             initialValues={usp}
           >

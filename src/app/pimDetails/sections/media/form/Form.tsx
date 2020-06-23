@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import arrayMutators from 'final-form-arrays';
 
 import { useStyles } from 'app/pimDetails/sections/inside/floor/space/Space.styles';
 import { Box, Collapse, Grid } from 'ui/atoms';
@@ -14,7 +13,7 @@ export const Form = <T extends unknown>({ title, children, initialValues, onSave
   const [isToggled, setToggled] = useState(false);
 
   return (
-    <AutosaveForm initialValues={initialValues} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+    <AutosaveForm initialValues={initialValues} onSave={onSave}>
       <Box className={classes.container}>
         <SubSectionHeader
           toggled={isToggled}

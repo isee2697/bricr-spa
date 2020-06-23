@@ -8,4 +8,6 @@ export type SectionProps = {
   emptyLineFirst: string;
   emptyLineSecond: string;
   onAdd: VoidFunction;
+  isExpandable?: boolean;
+  buttons?: ReactNode;
 };

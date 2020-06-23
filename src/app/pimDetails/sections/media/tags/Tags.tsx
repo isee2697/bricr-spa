@@ -24,7 +24,11 @@ export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
       {editing =>
         tags.map(tag => (
           <Form<UpdateTagInput>
-            title={tag.name ?? formatMessage({ id: 'pim_details.media.tags.default_name' })}
+            title={
+              tag.type
+                ? formatMessage({ id: `dictionaries.media.tag.${tag.type}` })
+                : formatMessage({ id: 'pim_details.media.tags.default_name' })
+            }
             onSave={onSave}
             initialValues={tag}
           >

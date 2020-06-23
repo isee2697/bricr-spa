@@ -25,8 +25,14 @@ export const Links = ({ onAdd, onSave, options, links }: LinksProps) => {
           <Form
             title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
             onSave={onSave}
-            initialValues={{}}
+            initialValues={link}
           >
+            <Input
+              disabled={!editing}
+              label="pim_details.media.links.name_label"
+              name="name"
+              placeholder="pim_details.media.links.name_placeholder"
+            />
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.links.single_choose" />
             <Input
               disabled={!editing}

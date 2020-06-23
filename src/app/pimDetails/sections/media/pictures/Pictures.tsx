@@ -7,9 +7,10 @@ import { PictureProps } from 'app/pimDetails/sections/media/pictures/Pictures.ty
 import { PictureItem } from 'app/pimDetails/sections/media/pictures/pictureItem/PictureItem';
 import { useStyles } from 'app/pimDetails/sections/media/pictures/Pictures.styles';
 import { EditPictureModalContainer } from 'app/pimDetails/sections/media/pictures/editPictureModal/EditPictureModalContainer';
-import { UnCheckMarkIcon, CheckMarkIcon } from 'ui/atoms/icons';
+import { UnCheckMarkIcon, CheckMarkIcon, CardsIcon, ListIcon } from 'ui/atoms/icons';
 import { AddPictureModalContainer } from 'app/pimDetails/sections/media/pictures/addPictureModal/AddPictureModalContainer';
 import { Picture } from 'api/types';
+import { IconButton } from 'ui/atoms';
 
 export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
   const { formatMessage } = useLocale();
@@ -26,6 +27,17 @@ export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
         emptyLineSecond={formatMessage({ id: 'pim_details.media.pictures.empty_line_2' })}
         title={formatMessage({ id: 'pim_details.media.pictures.title' })}
         onAdd={() => setAddModalVisible(true)}
+        isExpandable={true}
+        buttons={
+          <>
+            <IconButton variant="rounded" size="small">
+              <ListIcon />
+            </IconButton>
+            <IconButton variant="rounded" size="small">
+              <CardsIcon />
+            </IconButton>
+          </>
+        }
       >
         {editing => (
           <List<Picture>

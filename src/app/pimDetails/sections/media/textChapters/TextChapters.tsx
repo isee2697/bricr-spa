@@ -5,6 +5,7 @@ import { Section } from '../section/Section';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Form } from '../form/Form';
 import { Editor } from 'app/pimDetails/sections/media/form/parts/Editor';
+import { Input } from 'app/pimDetails/sections/media/form/parts/Input';
 
 import { TextChaptersProps } from './TextChapters.types';
 
@@ -27,6 +28,12 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
             onSave={onSave}
             initialValues={chapter}
           >
+            <Input
+              disabled={!editing}
+              label="pim_details.media.text_chapters.name_label"
+              name="name"
+              placeholder="pim_details.media.text_chapters.name_placeholder"
+            />
             <Editor titleId="pim_details.media.text_chapters.editor" disabled={!editing} />
             <SingleChoose
               disabled={!editing}

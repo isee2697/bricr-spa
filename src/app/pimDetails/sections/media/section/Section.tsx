@@ -7,7 +7,17 @@ import { InfoSection } from 'ui/molecules';
 import { SectionProps } from './Section.types';
 import { useStyles } from './Section.styles';
 
-export const Section = ({ children, count, icon, emptyLineFirst, emptyLineSecond, title, onAdd }: SectionProps) => {
+export const Section = ({
+  children,
+  count,
+  icon,
+  emptyLineFirst,
+  emptyLineSecond,
+  title,
+  onAdd,
+  isExpandable = false,
+  buttons,
+}: SectionProps) => {
   const styles = useStyles();
 
   const renderContent = (editable: boolean) => {
@@ -32,7 +42,9 @@ export const Section = ({ children, count, icon, emptyLineFirst, emptyLineSecond
         </div>
       }
       isEditable
+      isExpandable={isExpandable}
       onAdd={onAdd}
+      buttons={buttons}
     >
       {renderContent}
     </FormSection>
