@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Grid } from '@material-ui/core';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { useStyles } from '../Meters.styles';
 import { ReadingProps } from './Reading.types';
 
 export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingProps) => {
+  const isInitialMount = useRef(true);
   const { formatMessage } = useLocale();
   const { meterType } = useParams<{ meterType: string }>();
   const [toggled, setToggled] = useState<string | undefined>();
@@ -22,6 +23,19 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
   const sorted = readings.slice().sort((a, b) => {
     return a.id.localeCompare(b.id);
   });
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+
+      return;
+    }
+
+    if (sorted.length) {
+      setToggled(sorted[sorted.length - 1].id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sorted.length]);
 
   return (
     <>
@@ -66,10 +80,8 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
                 <Grid item xs={4}>
                   <GenericField
                     size="medium"
-                    label={formatMessage({ id: 'pim_details.services.meter.id' })}
-                    placeholder={formatMessage({
-                      id: 'pim_details.services.meter.id',
-                    })}
+                    label={'pim_details.services.meter.id'}
+                    placeholder={'pim_details.services.meter.id'}
                     name="feedInId"
                     id={`feed-in.${reading.id}`}
                     disabled={!editing}

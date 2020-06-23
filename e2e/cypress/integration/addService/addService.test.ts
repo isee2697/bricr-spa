@@ -41,10 +41,6 @@ context('Add Service', () => {
       .last()
       .click();
 
-    cy.get('.sub-section-header-toggle')
-      .first()
-      .click();
-
     cy.findByLabelText('Value').type('12345');
   });
 
