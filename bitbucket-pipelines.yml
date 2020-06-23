@@ -13,40 +13,74 @@ pipelines:
           - npm run coverage
           - npm run build
 
-    - step:
-        image: tshio/node-pipelines:node-12
-        name: Build image
-        trigger: manual
-        services:
-          - docker
-        script:
-          - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile .
-          #Variables
-          - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          - export AWS_REGION=eu-west-1
-          #Dependencies
-          - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          - unzip awscliv2.zip
-          - ./aws/install
-          #Push commands
-          - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
-          - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT
+  custom:
+    staging:
+      - step:
+          image: tshio/node-pipelines:node-12
+          name: Build image
+          services:
+            - docker
+          script:
+            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile .
+            #Variables
+            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            - export AWS_REGION=eu-west-1
+            #Dependencies
+            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            - unzip awscliv2.zip
+            - ./aws/install
+            #Push commands
+            - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
+            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT
 
-    - step:
-        image: wojtaszczykkamil/terraform:0.12.24
-        trigger: manual
-        name: Deploy
-        script:
-          #Variables
-          - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          - export PACKAGE=bricr-spa
-          - export URL=https://staging.dev-domain.nl
-          #Deploy
-          - export TF_VAR_docker_tag=$BITBUCKET_COMMIT
-          - chmod +x ./devops/scripts/deploy-and-notify.sh
-          - ./devops/scripts/deploy-and-notify.sh
+      - step:
+          image: wojtaszczykkamil/terraform:0.12.24
+          name: Deploy
+          script:
+            #Variables
+            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            - export PACKAGE=bricr-spa
+            - export URL=https://staging.dev-domain.nl
+            #Deploy
+            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT
+            - chmod +x ./devops/scripts/deploy-and-notify.sh
+            - ./devops/scripts/deploy-and-notify.sh
+
+    develop:
+      - step:
+          image: tshio/node-pipelines:node-12
+          name: Build image
+          services:
+            - docker
+          script:
+            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile.dev .
+            #Variables
+            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            - export AWS_REGION=eu-west-1
+            #Dependencies
+            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            - unzip awscliv2.zip
+            - ./aws/install
+            #Push commands
+            - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
+            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT
+
+      - step:
+          image: wojtaszczykkamil/terraform:0.12.24
+          name: Deploy
+          script:
+            #Variables
+            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            - export PACKAGE=bricr-spa-dev
+            - export URL=https://develop.dev-domain.nl
+            #Deploy
+            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT
+            - chmod +x ./devops/scripts/deploy-and-notify.sh
+            - ./devops/scripts/deploy-and-notify.sh
 
   pull-requests:
     '**':
