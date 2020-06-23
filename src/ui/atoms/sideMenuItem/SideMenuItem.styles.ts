@@ -4,7 +4,7 @@ export const useStyles = makeStyles(theme => ({
   item: {
     position: 'relative',
     height: 52,
-    paddingLeft: 0,
+    padding: 0,
     '&::after': {
       content: '""',
       position: 'absolute',

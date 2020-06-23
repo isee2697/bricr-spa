@@ -14,6 +14,7 @@ export const useStyles = makeStyles(theme => ({
       display: 'flex',
       alignItems: 'center',
       width: '100%',
+      height: '100%',
       fontWeight: theme.typography.fontWeightMedium,
       fontSize: theme.typography.h3.fontSize,
       color: theme.palette.gray.main,

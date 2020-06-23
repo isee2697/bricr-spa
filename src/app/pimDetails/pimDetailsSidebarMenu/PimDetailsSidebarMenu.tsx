@@ -165,16 +165,17 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre, inside 
             selected={pathname.startsWith(`${url}/${item.name}`)}
           >
             {item.subItems?.map(subItem => (
-              <SideSubMenuItem
-                key={subItem.id}
-                title={
-                  <Link to={`${url}/${item.name}/${subItem.id}`}>
-                    <Box mr={4} />
-                    {formatMessage({ id: subItem.label })} {subItem.number}
-                  </Link>
-                }
-                selected={pathname === `${url}/${item.name}/${subItem.id}`}
-              />
+              <Link to={`${url}/${item.name}/${subItem.id}`} key={subItem.id}>
+                <SideSubMenuItem
+                  title={
+                    <>
+                      <Box mr={4} />
+                      {formatMessage({ id: subItem.label })} {subItem.number}
+                    </>
+                  }
+                  selected={pathname === `${url}/${item.name}/${subItem.id}`}
+                />
+              </Link>
             ))}
           </SideMenuItem>
         ))}
