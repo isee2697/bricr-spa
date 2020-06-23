@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
+import { DateTime } from 'luxon';
 
-import { Meter, ServiceType, PimServices } from 'api/types';
+import { Meter, ServiceType, PimServices, ServiceConfiguration, OwnershipType } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
@@ -48,11 +49,12 @@ export type ServiceRadioType = RadioDataType & {
   hasOwnership?: boolean;
 };
 
-export type UpadeMeterSubmit = (
-  body: Meter,
-) => Promise<
-  | undefined
-  | {
-      error: boolean;
-    }
->;
+export type ServiceForm = {
+  id: string;
+  type: ServiceType;
+  name: string;
+  description?: string;
+  yearOfInstallation?: DateTime;
+  configuration: ServiceConfiguration;
+  ownership?: OwnershipType;
+};

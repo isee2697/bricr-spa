@@ -2,24 +2,17 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
-import { DateTime } from 'luxon';
 
 import { InsideGeneral, PimInsideDocument, useUpdateInsideGeneralMutation } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { dateToYear, yearToDate } from 'form/fields';
 
 import { InsideGeneral as InsideGeneralFields } from './InsideGeneral';
 import { InsideGeneralBody } from './InsideGeneral.types';
+
 export const InsideGeneralContainer = ({ extension, windows, renovation, notes }: InsideGeneral) => {
   const { id: pimId } = useParams<{ id: string }>();
   const [updateInsideGeneral] = useUpdateInsideGeneralMutation();
-
-  const dateToYear = (date?: DateTime) => {
-    return !!date ? date.year : undefined;
-  };
-
-  const yearToDate = (year?: number | null) => {
-    return !!year ? DateTime.fromString(year.toString(), 'yyyy') : undefined;
-  };
 
   const handleSubmit = async (body: InsideGeneralBody) => {
     try {

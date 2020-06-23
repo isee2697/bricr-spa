@@ -7,7 +7,9 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';
-import { usePimServicesQuery, PimServices, Service, PimServicesDocument, useUpdateServiceMutation } from 'api/types';
+import { usePimServicesQuery, PimServices, PimServicesDocument, useUpdateServiceMutation } from 'api/types';
+import { dateToYear } from 'form/fields';
+import { ServiceForm } from 'app/pimDetails/sections/services/Services.types';
 
 import { MetersContainer } from './meters/MetersContainer';
 import { Services } from './Services';
@@ -20,7 +22,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
   const { data } = usePimServicesQuery({ variables: { id } });
   const [updateService] = useUpdateServiceMutation();
 
-  const onEdit = async (body: Service) => {
+  const onEdit = async (body: ServiceForm) => {
     try {
       const { data } = await updateService({
         variables: {
@@ -29,7 +31,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
             serviceId: body.id,
             name: body.name,
             description: body.description,
-            yearOfInstallation: body.yearOfInstallation ? Number(body.yearOfInstallation) : undefined,
+            yearOfInstallation: dateToYear(body.yearOfInstallation),
             ownership: body.ownership,
             configuration: body.configuration,
           },

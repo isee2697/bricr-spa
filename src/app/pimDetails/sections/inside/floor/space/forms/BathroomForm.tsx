@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormSubSection } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
-import { CheckboxGroupField, GenericField } from 'form/fields';
+import { CheckboxGroupField, DatePickerField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
@@ -15,13 +15,12 @@ export const BathroomForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       <Grid item xs={12}>
         <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
         <Box width="33%">
-          <GenericField
-            size="medium"
+          <DatePickerField
             label="pim_details.inside.year_of_bathroom"
             placeholder="pim_details.inside.year_of_construction_placeholder"
             name={`${fieldPrefix}.constructionYear`}
             disabled={!isEditMode}
-            type="number"
+            isYearPicker
           />
         </Box>
       </Grid>

@@ -3,8 +3,9 @@ import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
 
-import { useUpdateSpaceMutation, PimInsideDocument } from 'api/types';
+import { useUpdateSpaceMutation, PimInsideDocument, SpaceType } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { dateToYear, yearToDate } from 'form/fields';
 
 import { SpaceProps, AliasedSpace } from './Space.types';
 import { Space } from './Space';
@@ -12,6 +13,7 @@ import { Space } from './Space';
 export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
   const { id } = useParams<{ id: string }>();
   const [updateSpace] = useUpdateSpaceMutation();
+  const hasConstructionYear = [SpaceType.Bathroom, SpaceType.Kitchen].includes(space.spaceType);
 
   const handleEdit = async (body: AnyObject) => {
     try {
@@ -20,7 +22,13 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
           input: {
             pimId: id,
             spaceId: space.id,
-            space: body,
+            space: {
+              ...body,
+              configuration: {
+                ...body.configuration,
+                constructionYear: hasConstructionYear ? dateToYear(body.configuration?.constructionYear) : undefined,
+              },
+            },
           },
         },
         refetchQueries: [
@@ -42,10 +50,12 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
   };
 
   const configuration = space.configuration as AliasedSpace;
+
   const initialValues = {
     ...space,
     configuration: {
       ...space.configuration,
+      constructionYear: hasConstructionYear ? yearToDate(space.configuration?.constructionYear) : undefined,
       type: configuration.kitchenType || configuration.livingRoomType,
       services: configuration.kitchenServices || configuration.bathroomServices,
       kitchenType: undefined,

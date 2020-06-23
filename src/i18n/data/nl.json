@@ -76,6 +76,7 @@
   "reset_password.success": "Wachtwoord is succesvol gewijzigd. Nu kunt u inloggen met nieuwe gegevens.",
   "validation.required": "Veld is verplicht",
   "validation.min_length": "Minimale lengte van {length} is vereist",
+  "validation.invalid_date": "Datum is ongeldig",
   "order.package": "Pakket",
   "emails.title": "Ongelezen mails",
   "emails.view_more": "Bekijk meer",

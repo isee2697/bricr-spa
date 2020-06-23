@@ -250,12 +250,11 @@ export const Plot = ({ index }: PlotProps) => {
                   <Box display="flex" alignItems="flex-end" height="100%">
                     <DatePickerField
                       size="medium"
-                      format="yyyy"
-                      views={['year']}
                       name="lease.endDate"
                       label="pim_details.cadastre.plot.lease_end"
                       placeholder="pim_details.cadastre.plot.lease_end_placeholder"
                       disabled={!editing}
+                      isYearPicker
                     />
                   </Box>
                 </Grid>

@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { validatorsChain } from 'form/validators';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { dateValidator } from 'form/validators/dateValidator/dateValidator';
 
 import { DatePickerFieldProps } from './DatePickerField.types';
 
@@ -16,12 +17,13 @@ export const DatePickerField = ({
   placeholder,
   label,
   helperText,
+  isYearPicker = false,
   ...props
 }: DatePickerFieldProps) => {
   const { formatMessage } = useLocale();
 
-  const { input, meta } = useField<DateTime>(name, {
-    validate: validate ? validatorsChain(...validate) : undefined,
+  const { input, meta } = useField<string | null>(name, {
+    validate: validate ? validatorsChain(...validate, dateValidator) : dateValidator,
     validateFields,
   });
 
@@ -32,9 +34,10 @@ export const DatePickerField = ({
 
   return (
     <KeyboardDatePicker
+      views={isYearPicker ? ['year'] : undefined}
       disableToolbar
       variant="dialog"
-      format="MM-dd-yyyy"
+      format={isYearPicker ? 'yyyy' : 'MM-dd-yyyy'}
       margin="normal"
       inputVariant="outlined"
       size="small"
@@ -56,6 +59,15 @@ export const DatePickerField = ({
       }}
       {...input}
       {...props}
+      value={input.value ? DateTime.fromISO(input.value) : null}
     />
   );
+};
+
+export const dateToYear = (date?: DateTime | null) => {
+  return !!date ? date.year : null;
+};
+
+export const yearToDate = (year?: number | null) => {
+  return !!year ? DateTime.fromFormat(year.toString(), 'yyyy') : null;
 };

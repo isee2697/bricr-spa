@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormSubSection } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
-import { GenericField, RadioGroupField, CheckboxGroupField } from 'form/fields';
+import { GenericField, RadioGroupField, CheckboxGroupField, DatePickerField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AppliancesField } from '../appliancesField/AppliancesField';
 import { SpaceFormProps } from '../Space.types';
@@ -17,13 +17,12 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
         <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <GenericField
-              size="medium"
+            <DatePickerField
+              name={`${fieldPrefix}.constructionYear`}
               label="pim_details.inside.year_of_construction"
               placeholder="pim_details.inside.year_of_construction_placeholder"
-              name={`${fieldPrefix}.constructionYear`}
               disabled={!isEditMode}
-              type="number"
+              isYearPicker
             />
           </Grid>
           <Grid item xs={2} />

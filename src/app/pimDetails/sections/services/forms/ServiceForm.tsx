@@ -4,10 +4,9 @@ import arrayMutators from 'final-form-arrays';
 import { Service } from 'api/types';
 import { SubSectionHeader } from 'ui/molecules';
 import { Grid, Collapse, Typography, Box } from 'ui/atoms';
-import { GenericField, RadioGroupField } from 'form/fields';
+import { DatePickerField, GenericField, RadioGroupField, yearToDate } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AutosaveForm } from 'ui/organisms';
-import { CalendarIcon } from 'ui/atoms/icons';
 import { ServiceFormProps } from '../Services.types';
 import { onwershipTypes } from '../dictionaries';
 
@@ -24,8 +23,13 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
 }) => {
   const { formatMessage } = useLocale();
 
+  const initialValues = {
+    ...item,
+    yearOfInstallation: yearToDate(item.yearOfInstallation),
+  };
+
   return (
-    <AutosaveForm initialValues={item} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
+    <AutosaveForm initialValues={initialValues} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
       <SubSectionHeader onOptionsClick={() => {}} onToggleClick={onToggleClick} toggled={toggled}>
         <Box display="flex">{title}</Box>
       </SubSectionHeader>
@@ -51,16 +55,12 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
             />
           </Grid>
           <Grid item md={4}>
-            <GenericField
-              fullWidth
+            <DatePickerField
               label="pim_details.services.service_form.year"
               name="yearOfInstallation"
               id={`service.yearOfInstallation.${item.id}`}
               disabled={!isEditMode}
-              type="number"
-              InputProps={{
-                endAdornment: <CalendarIcon />,
-              }}
+              isYearPicker
             />
           </Grid>
           {types && (

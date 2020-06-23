@@ -28,8 +28,8 @@ export const InsideGeneral = () => {
                 label="pim_details.inside.general.renovation_year"
                 placeholder="pim_details.inside.general.renovation_year"
                 disabled={!isEditing}
-                format="yyyy"
                 name="renovation.yearOfRenovation"
+                isYearPicker
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -45,8 +45,8 @@ export const InsideGeneral = () => {
                 label="pim_details.inside.general.extension_year"
                 placeholder="pim_details.inside.general.extension_year"
                 disabled={!isEditing}
-                format="yyyy"
                 name="extension.yearOfExtension"
+                isYearPicker
               />
             </Grid>
             <Grid item xs={12} md={6}>

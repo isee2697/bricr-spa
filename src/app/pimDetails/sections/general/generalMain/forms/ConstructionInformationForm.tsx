@@ -50,6 +50,7 @@ export const ConstructionInformationForm = () => {
                   label="common.from"
                   placeholder="common.from_placeholder"
                   disabled={!editing}
+                  isYearPicker
                 />
               </Grid>
               <Grid item xs={4}>
@@ -58,6 +59,7 @@ export const ConstructionInformationForm = () => {
                   label="common.to"
                   placeholder="common.to_placeholder"
                   disabled={!editing}
+                  isYearPicker
                 />
               </Grid>
               <Grid item xs={12}>
