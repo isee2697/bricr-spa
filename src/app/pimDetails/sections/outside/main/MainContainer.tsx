@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  PimOutsideDocument,
-  PimOverallInfoDocument,
-  PimOutsideInput,
-  useUpdatePimOutsideInfoMutation,
-} from 'api/types';
+import { PimOutsideDocument, PimOverallInfoDocument, useUpdatePimOutsideInfoMutation, PimOutside } from 'api/types';
 
 import { Main } from './Main';
 import { MainContainerProps } from './Main.types';
@@ -13,13 +8,27 @@ import { MainContainerProps } from './Main.types';
 export const MainContainer = ({ pimOutside }: MainContainerProps) => {
   const [updatePimOutsideInfo] = useUpdatePimOutsideInfoMutation();
 
-  const handleSave = async (values: PimOutsideInput) => {
+  const handleSave = async (values: PimOutside) => {
     try {
       const { data: result } = await updatePimOutsideInfo({
         variables: {
           input: {
             id: pimOutside.id,
-            houseOutside: values.houseOutside,
+            houseOutside: {
+              ...values.houseOutside,
+              generalInformation: {
+                ...values.houseOutside?.generalInformation,
+                images: values.houseOutside?.generalInformation?.images?.map(file => file.id),
+              },
+              propertyRelated: {
+                ...values.houseOutside?.propertyRelated,
+                images: values.houseOutside?.propertyRelated?.images?.map(file => file.id),
+              },
+              roofInformation: {
+                ...values.houseOutside?.roofInformation,
+                images: values.houseOutside?.roofInformation?.images?.map(file => file.id),
+              },
+            },
           },
         },
         refetchQueries: [

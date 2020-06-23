@@ -2,7 +2,7 @@ import { FieldValidator } from 'final-form';
 
 import { EntityWithFiles } from 'api/types';
 
-type FieldValue = string[];
+type FieldValue = File[];
 
 export type UploadImageGroupFieldProps = {
   validate?: FieldValidator<FieldValue>[];

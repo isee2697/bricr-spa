@@ -69,7 +69,6 @@ export const UploadImageField = ({
         throw new Error();
       }
       setFileAsBackground(file);
-      input.onChange({ ...input.values, fileName: file.name });
 
       const { data: initUploadResponse } = await initUpload({
         variables: {
@@ -101,7 +100,6 @@ export const UploadImageField = ({
         });
 
         setLoading(false);
-        setBackgroundImage(addFilesResponse?.addFiles[0]?.url || '');
 
         if (addFilesResponse?.addFiles[0]) {
           input.onChange({ fileName: file.name, ...initUploadResponse.initSendFile, ...addFilesResponse?.addFiles[0] });
@@ -113,6 +111,7 @@ export const UploadImageField = ({
   };
 
   const openInput = () => !!inputRef && !disabled && inputRef.current && inputRef.current.click();
+
   const onRemoveImage = () => {
     setLoading(false);
     setBackgroundImage('');

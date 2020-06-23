@@ -2,6 +2,7 @@ import React from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator } from 'final-form';
 
+import { File } from 'api/types';
 import { Grid } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 import { UploadImageField } from '../';
@@ -17,8 +18,8 @@ export const UploadImageGroupField = ({
   entity,
   entityID,
 }: UploadImageGroupFieldProps) => {
-  const { fields } = useFieldArray<string>(name, {
-    validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<string>) : undefined,
+  const { fields } = useFieldArray<File>(name, {
+    validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<File>) : undefined,
     validateFields,
   });
 
@@ -28,7 +29,7 @@ export const UploadImageGroupField = ({
         <UploadImageField
           disabled={disabled}
           onRemove={() => fields.remove(index)}
-          key={`${name}[${index}]`}
+          key={fields.value[index].id}
           name={field}
           entity={entity}
           entityID={entityID}
