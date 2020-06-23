@@ -45,7 +45,7 @@ export const IdentificationNumberForm = ({ items, onAdd, onSave }: Identificatio
               <AutosaveForm key={item.id} initialValues={item} onSave={onSave} subscription={{}}>
                 <FormSubSection
                   title={
-                    (item.name
+                    (item.type
                       ? formatMessage({ id: `dictionaries.general_identification_number_type.${item.type}` })
                       : '') +
                     ` (${item.name ??

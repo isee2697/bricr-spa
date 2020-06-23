@@ -1,18 +1,17 @@
 import React, { ReactElement, useState } from 'react';
 import classNames from 'classnames';
 
+import { Avatar, Typography } from 'ui/atoms';
 import { Service, ServiceType } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
-import { Avatar, Typography } from 'ui/atoms';
-
-import { ServiceTypeListProps } from './Services.types';
-import { AddServiceModalContainer } from './addServiceModal/AddServiceModalContainer';
-import { ServiceForm } from './forms/ServiceForm';
-import { useStyles } from './Services.styles';
-import { ServiceRadioType } from './Services.types';
-import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from './dictionaries';
+import { ServiceTypeListProps } from '../Services.types';
+import { AddServiceModalContainer } from '../addServiceModal/AddServiceModalContainer';
+import { ServiceForm } from '../forms/ServiceForm';
+import { useStyles } from '../Services.styles';
+import { ServiceRadioType } from '../Services.types';
+import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from '../dictionaries';
 
 export const ServiceTypeList: <T extends Service>(
   p: ServiceTypeListProps<T>,

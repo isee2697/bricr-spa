@@ -1,33 +1,37 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
 
-import { useUpdateOutsideFeatureMutation, PimDetailsDocument } from 'api/types';
+import { useUpdateOutsideFeatureMutation, PimOutsideDocument } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
-import { usePim } from 'app/pimDetails/usePim/usePim';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
 import { Feature } from './Feature';
 
-export const FeatureContainer = ({ feature }: FeatureContainerProps) => {
+export const FeatureContainer = ({ features }: FeatureContainerProps) => {
+  const { id, featureId } = useParams<{ id: string; featureId: string }>();
   const [updateOutsideFeature] = useUpdateOutsideFeatureMutation();
-  const pim = usePim();
+
+  const feature = features.find(({ id }) => id === featureId);
+
+  if (!feature) {
+    return null;
+  }
 
   const handleSave = async (body: unknown) => {
     try {
       const { data } = await updateOutsideFeature({
         variables: {
           input: {
-            pimId: pim.id,
-            outsideFeatureId: feature.id,
+            pimId: id,
+            outsideFeatureId: featureId,
             feature: body,
           },
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
-            variables: {
-              id: pim.id,
-            },
+            query: PimOutsideDocument,
+            variables: { id },
           },
         ],
       });

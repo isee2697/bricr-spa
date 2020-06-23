@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { CostContainerProps } from 'app/pimDetails/sections/prices/costs/Costs.types';
 import { PimPricingDocument, UpdateCostInput, useUpdateCostMutation } from 'api/types';
@@ -6,13 +7,10 @@ import { PimPricingDocument, UpdateCostInput, useUpdateCostMutation } from 'api/
 import { Costs } from './Costs';
 
 export const CostsContainer = (props: CostContainerProps) => {
+  const { id } = useParams<{ id: string }>();
   const [updateCost] = useUpdateCostMutation();
 
   const handleUpdate = async (values: UpdateCostInput) => {
-    if (!props.pim || !props.pim.id) {
-      throw new Error();
-    }
-
     try {
       await updateCost({
         variables: {
@@ -30,7 +28,7 @@ export const CostsContainer = (props: CostContainerProps) => {
           {
             query: PimPricingDocument,
             variables: {
-              id: props.pim.id,
+              id,
             },
           },
         ],

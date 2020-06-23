@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { PimPricingDocument, useUpdateInvestmentMutation } from 'api/types';
 import {
@@ -9,6 +10,7 @@ import {
 import { Investments } from './Investments';
 
 export const InvestmentsContainer = (props: InvestmentsContainerProps) => {
+  const { id } = useParams<{ id: string }>();
   const [updateInvestment] = useUpdateInvestmentMutation();
 
   const handleSave = async ({
@@ -19,15 +21,11 @@ export const InvestmentsContainer = (props: InvestmentsContainerProps) => {
     numberOfRentableUnits,
     ...values
   }: InvestmentForm) => {
-    if (!props.pim || !props.pim.id) {
-      throw new Error();
-    }
-
     try {
       await updateInvestment({
         variables: {
           input: {
-            id: props.pim.id,
+            id,
             ...values,
             averageVacancyPercentage: parseFloat(averageVacancyPercentage ?? ''),
             numberOfRentableUnits: parseFloat(numberOfRentableUnits ?? ''),
@@ -40,7 +38,7 @@ export const InvestmentsContainer = (props: InvestmentsContainerProps) => {
           {
             query: PimPricingDocument,
             variables: {
-              id: props.pim.id,
+              id,
             },
           },
         ],

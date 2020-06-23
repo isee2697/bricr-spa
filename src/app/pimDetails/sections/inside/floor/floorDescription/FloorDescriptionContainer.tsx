@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { GenericField } from 'form/fields';
 import { AutosaveForm } from 'ui/organisms';
-import { PimDetailsDocument, useUpdateFloorMutation } from 'api/types';
+import { PimInsideDocument, useUpdateFloorMutation } from 'api/types';
 
 import { FloorDescriptionProps } from './FloorDescription.types';
 
@@ -23,10 +23,8 @@ export const FloorDescriptionContainer = ({ floorId, floorDescription }: FloorDe
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
-            variables: {
-              id: pimId,
-            },
+            query: PimInsideDocument,
+            variables: { id: pimId },
           },
         ],
       });

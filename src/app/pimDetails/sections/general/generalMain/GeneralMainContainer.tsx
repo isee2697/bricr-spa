@@ -2,13 +2,20 @@ import React from 'react';
 import { AnyObject } from 'final-form';
 import { useParams } from 'react-router-dom';
 
-import { usePimGeneralQuery, useUpdatePimGeneralInfoMutation, PimDetailsDocument, PimGeneral } from 'api/types';
+import {
+  usePimGeneralQuery,
+  useUpdatePimGeneralInfoMutation,
+  PimOverallInfoDocument,
+  PimGeneralDocument,
+  PimGeneral,
+} from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { GeneralMain } from './GeneralMain';
 
 export const GeneralMainContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
+
   const { data } = usePimGeneralQuery({ variables: { id } });
   const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
 
@@ -29,7 +36,13 @@ export const GeneralMainContainer = ({ title, isSidebarVisible, onOpenSidebar }:
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
+            query: PimOverallInfoDocument,
+            variables: {
+              id,
+            },
+          },
+          {
+            query: PimGeneralDocument,
             variables: {
               id,
             },

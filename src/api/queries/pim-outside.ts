@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const PIM_OUTSIDE = gql`
-  query GetPimOutside($id: ID!) {
+  query PimOutside($id: ID!) {
     getPimOutside(id: $id) {
       id
       lastEditedBy

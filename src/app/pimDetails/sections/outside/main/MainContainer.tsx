@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { GetPimOutsideDocument, PimDetailsDocument, PimOutsideInput, useUpdatePimOutsideInfoMutation } from 'api/types';
+import {
+  PimOutsideDocument,
+  PimOverallInfoDocument,
+  PimOutsideInput,
+  useUpdatePimOutsideInfoMutation,
+} from 'api/types';
 
 import { Main } from './Main';
 import { MainContainerProps } from './Main.types';
@@ -19,16 +24,12 @@ export const MainContainer = ({ pimOutside }: MainContainerProps) => {
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
-            variables: {
-              id: pimOutside.id,
-            },
+            query: PimOverallInfoDocument,
+            variables: { id: pimOutside.id },
           },
           {
-            query: GetPimOutsideDocument,
-            variables: {
-              id: pimOutside.id,
-            },
+            query: PimOutsideDocument,
+            variables: { id: pimOutside.id },
           },
         ],
       });

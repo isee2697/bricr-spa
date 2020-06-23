@@ -7,7 +7,7 @@ import { ServiceType } from 'api/types';
 import { GenericField } from 'form/fields';
 import { AutosaveForm } from 'ui/organisms';
 
-import { ServiceTypeList } from './ServiceTypeList';
+import { ServiceTypeList } from './serviceTypeList/ServiceTypeList';
 import { ServicesProps } from './Services.types';
 import { useStyles } from './Services.styles';
 

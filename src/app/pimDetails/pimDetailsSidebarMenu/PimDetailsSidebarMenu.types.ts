@@ -1,11 +1,8 @@
-import { Pim, PimServices, PimCadastre, PimInside } from 'api/types';
+import { PimOverallInfoQuery } from 'api/types';
 
 export type PimDetailsSidebarMenuProps = {
   onHide: () => void;
-  pim?: Pim;
-  services?: PimServices;
-  cadastre?: PimCadastre;
-  inside?: PimInside;
+  data?: PimOverallInfoQuery;
 };
 
 export type SubMenuItem = {

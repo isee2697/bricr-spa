@@ -22,31 +22,34 @@ import { CadastreType, FloorType } from 'api/types';
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
 
-export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre, inside }: PimDetailsSidebarMenuProps) => {
+const createSubMenuData = (id: string, label: string, amount: number, key: number): SubMenuItem => {
+  return { id, label, number: amount > 1 ? amount - key : undefined };
+};
+
+export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
 
+  if (!data) {
+    return null;
+  }
+
   const floorOrder = [FloorType.Attic, FloorType.Loft, FloorType.Floor, FloorType.GroundFloor, FloorType.Basement];
-  const outsideGroups = groupBy((pim && pim.outsideFeatures) || [], outside => outside.type);
-  const meterGroups = groupBy((services && services.meters) || [], meter => meter.type);
-  const plotGroups = groupBy(
-    (cadastre && cadastre.cadastre?.filter(c => c.type === CadastreType.Plot).reverse()) || [],
-    c => c.type,
-  );
-
-  const createSubMenuData = (id: string, label: string, amount: number, key: number): SubMenuItem => {
-    return { id, label, number: amount > 1 ? amount - key : undefined };
-  };
-
   const floors = floorOrder.flatMap(type => {
-    const floorItems = (inside && inside.floors?.filter(floor => floor.floorType === type)) || [];
+    const floorItems = data.getPimInside.floors?.filter(floor => floor.floorType === type) || [];
 
     return floorItems.map((floor, key) =>
       createSubMenuData(floor.id, `dictionaries.floor_type.${floor.floorType}`, floorItems.length, key),
     );
   });
+  const outsideGroups = groupBy(data.getPimOutside.outsideFeatures || [], outside => outside.type);
+  const plotGroups = groupBy(
+    data.getPimCadastre.cadastre?.filter(c => c.type === CadastreType.Plot).reverse() || [],
+    c => c.type,
+  );
+  const meterGroups = groupBy(data.getPimServices.meters || [], meter => meter.type);
 
   const items = [
     {
@@ -87,8 +90,8 @@ export const PimDetailsSidebarMenu = ({ onHide, pim, services, cadastre, inside 
           label: 'pim_details.cadastre.cadastre_map',
         },
         ...Object.values(plotGroups).flatMap(values =>
-          values.map((outside, key) =>
-            createSubMenuData(outside.id, 'pim_details.cadastre.plot.title', plotGroups[outside.type].length, key),
+          values.map((plot, key) =>
+            createSubMenuData(plot.id, 'pim_details.cadastre.plot.title', plotGroups[plot.type].length, key),
           ),
         ),
       ],

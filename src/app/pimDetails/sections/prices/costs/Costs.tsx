@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Avatar, Box, Grid, Typography } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
@@ -12,7 +13,8 @@ import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
 import { CostsProps } from './Costs.types';
 import { CostsForm } from './costsForm/CostsForm';
 
-export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar, pim }: CostsProps) => {
+export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }: CostsProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
   const styles = useStyles();
@@ -65,7 +67,7 @@ export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar, p
         </FormSection>
       </Grid>
       {isModalOpen && (
-        <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} pimId={pim?.id} />
+        <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} pimId={id} />
       )}
     </>
   );

@@ -3,7 +3,7 @@ import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
 
-import { useUpdateSpaceMutation, PimDetailsDocument } from 'api/types';
+import { useUpdateSpaceMutation, PimInsideDocument } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
 import { SpaceProps, AliasedSpace } from './Space.types';
@@ -25,10 +25,8 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
         },
         refetchQueries: [
           {
-            query: PimDetailsDocument,
-            variables: {
-              id,
-            },
+            query: PimInsideDocument,
+            variables: { id },
           },
         ],
       });

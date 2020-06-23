@@ -3745,11 +3745,11 @@ export type PimMediaQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type GetPimOutsideQueryVariables = {
+export type PimOutsideQueryVariables = {
   id: Scalars['ID'];
 };
 
-export type GetPimOutsideQuery = { __typename?: 'Query' } & {
+export type PimOutsideQuery = { __typename?: 'Query' } & {
   getPimOutside: { __typename?: 'PimOutside' } & Pick<PimOutside, 'id' | 'lastEditedBy' | 'dateUpdated'> & {
       houseOutside?: Maybe<
         { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
@@ -4056,84 +4056,24 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type PimDetailsQueryVariables = {
+export type PimOverallInfoQueryVariables = {
   id: Scalars['ID'];
 };
 
-export type PimDetailsQuery = { __typename?: 'Query' } & {
-  getPim?: Maybe<
-    { __typename?: 'Pim' } & Pick<
-      Pim,
-      | 'id'
-      | 'realEstateType'
-      | 'street'
-      | 'houseNumber'
-      | 'constructionNumberPrefix'
-      | 'constructionNumber'
-      | 'constructionNumberAddition'
-      | 'postalCode'
-      | 'district'
-      | 'city'
-      | 'state'
-      | 'county'
-      | 'country'
-      | 'developmentType'
-      | 'status'
-      | 'salePrice'
-      | 'rentPrice'
-      | 'description'
-      | 'livingArea'
-      | 'propertyType'
-      | 'attention'
-      | 'completeness'
-      | 'archived'
-      | 'dateCreated'
-    > & {
-        images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-        houseGeneral?: Maybe<
-          { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'floor' | 'propertyConnection' | 'propertyDetails'> & {
-              availability?: Maybe<
-                { __typename?: 'PropertyAvailabilityInformation' } & Pick<
-                  PropertyAvailabilityInformation,
-                  'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
-                >
-              >;
-              construction?: Maybe<
-                { __typename?: 'ConstructionInformation' } & Pick<
-                  ConstructionInformation,
-                  'type' | 'from' | 'to' | 'notes'
-                >
-              >;
-            }
-        >;
-        houseOutside?: Maybe<
-          { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
-              generalInformation?: Maybe<
-                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'notes' | 'qualityInformation'> & {
-                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                  }
-              >;
-              propertyRelated?: Maybe<
-                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
-                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                  }
-              >;
-              roofInformation?: Maybe<
-                { __typename?: 'RoofInformation' } & {
-                  type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
-                  material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
-                  insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
-                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
-                }
-              >;
-            }
-        >;
-        floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType'>>>;
-        outsideFeatures?: Maybe<
-          Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'description' | 'type'>>
-        >;
-      }
-  >;
+export type PimOverallInfoQuery = { __typename?: 'Query' } & {
+  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<PimGeneral, 'street' | 'houseNumber' | 'postalCode' | 'city'>;
+  getPimInside: { __typename?: 'PimInside' } & {
+    floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType'>>>;
+  };
+  getPimOutside: { __typename?: 'PimOutside' } & {
+    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
+  };
+  getPimCadastre: { __typename?: 'PimCadastre' } & {
+    cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
+  };
+  getPimServices: { __typename?: 'PimServices' } & {
+    meters?: Maybe<Array<{ __typename?: 'Meter' } & Pick<Meter, 'id' | 'type'>>>;
+  };
 };
 
 export type MeQueryVariables = {};
@@ -5697,8 +5637,8 @@ export function usePimMediaLazyQuery(
 export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
 export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
 export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
-export const GetPimOutsideDocument = gql`
-  query GetPimOutside($id: ID!) {
+export const PimOutsideDocument = gql`
+  query PimOutside($id: ID!) {
     getPimOutside(id: $id) {
       id
       lastEditedBy
@@ -5850,22 +5790,19 @@ export const GetPimOutsideDocument = gql`
     }
   }
 `;
-export function useGetPimOutsideQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<GetPimOutsideQuery, GetPimOutsideQueryVariables>,
+export function usePimOutsideQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<GetPimOutsideQuery, GetPimOutsideQueryVariables>(GetPimOutsideDocument, baseOptions);
+  return ApolloReactHooks.useQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
 }
-export function useGetPimOutsideLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPimOutsideQuery, GetPimOutsideQueryVariables>,
+export function usePimOutsideLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<GetPimOutsideQuery, GetPimOutsideQueryVariables>(
-    GetPimOutsideDocument,
-    baseOptions,
-  );
+  return ApolloReactHooks.useLazyQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
 }
-export type GetPimOutsideQueryHookResult = ReturnType<typeof useGetPimOutsideQuery>;
-export type GetPimOutsideLazyQueryHookResult = ReturnType<typeof useGetPimOutsideLazyQuery>;
-export type GetPimOutsideQueryResult = ApolloReactCommon.QueryResult<GetPimOutsideQuery, GetPimOutsideQueryVariables>;
+export type PimOutsideQueryHookResult = ReturnType<typeof usePimOutsideQuery>;
+export type PimOutsideLazyQueryHookResult = ReturnType<typeof usePimOutsideLazyQuery>;
+export type PimOutsideQueryResult = ApolloReactCommon.QueryResult<PimOutsideQuery, PimOutsideQueryVariables>;
 export const PimPricingDocument = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {
@@ -6113,115 +6050,62 @@ export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<
   PimSpecificationQuery,
   PimSpecificationQueryVariables
 >;
-export const PimDetailsDocument = gql`
-  query PimDetails($id: ID!) {
-    getPim(id: $id) {
-      id
-      realEstateType
+export const PimOverallInfoDocument = gql`
+  query PimOverallInfo($id: ID!) {
+    getPimGeneral(id: $id) {
       street
       houseNumber
-      constructionNumberPrefix
-      constructionNumber
-      constructionNumberAddition
       postalCode
-      district
       city
-      state
-      county
-      country
-      developmentType
-      status
-      salePrice
-      rentPrice
-      description
-      images {
-        url
-      }
-      livingArea
-      propertyType
-      attention
-      completeness
-      archived
-      dateCreated
-      houseGeneral {
-        availability {
-          availability
-          from
-          notes
-          habitation
-          currentUse
-          currentDestination
-        }
-        construction {
-          type
-          from
-          to
-          notes
-        }
-        floor
-        propertyConnection
-        propertyDetails
-      }
-      houseOutside {
-        generalInformation {
-          notes
-          qualityInformation
-          images {
-            url
-          }
-        }
-        propertyRelated {
-          items
-          notes
-          images {
-            url
-          }
-        }
-        roofInformation {
-          type {
-            name
-            notes
-          }
-          material {
-            name
-            notes
-          }
-          insulation {
-            name
-            notes
-          }
-          images {
-            url
-          }
-        }
-        notes
-      }
+    }
+    getPimInside(id: $id) {
       floors {
         id
-        level
         floorType
       }
+    }
+    getPimOutside(id: $id) {
       outsideFeatures {
         id
-        description
+        type
+      }
+    }
+    getPimCadastre(id: $id) {
+      cadastre {
+        id
+        type
+      }
+    }
+    getPimServices(id: $id) {
+      meters {
+        id
         type
       }
     }
   }
 `;
-export function usePimDetailsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<PimDetailsQuery, PimDetailsQueryVariables>,
+export function usePimOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<PimDetailsQuery, PimDetailsQueryVariables>(PimDetailsDocument, baseOptions);
+  return ApolloReactHooks.useQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(
+    PimOverallInfoDocument,
+    baseOptions,
+  );
 }
-export function usePimDetailsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimDetailsQuery, PimDetailsQueryVariables>,
+export function usePimOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<PimDetailsQuery, PimDetailsQueryVariables>(PimDetailsDocument, baseOptions);
+  return ApolloReactHooks.useLazyQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(
+    PimOverallInfoDocument,
+    baseOptions,
+  );
 }
-export type PimDetailsQueryHookResult = ReturnType<typeof usePimDetailsQuery>;
-export type PimDetailsLazyQueryHookResult = ReturnType<typeof usePimDetailsLazyQuery>;
-export type PimDetailsQueryResult = ApolloReactCommon.QueryResult<PimDetailsQuery, PimDetailsQueryVariables>;
+export type PimOverallInfoQueryHookResult = ReturnType<typeof usePimOverallInfoQuery>;
+export type PimOverallInfoLazyQueryHookResult = ReturnType<typeof usePimOverallInfoLazyQuery>;
+export type PimOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  PimOverallInfoQuery,
+  PimOverallInfoQueryVariables
+>;
 export const MeDocument = gql`
   query Me {
     me {

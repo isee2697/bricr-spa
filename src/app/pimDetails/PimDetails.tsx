@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { Pim, PimServices } from 'api/types';
-import { Grid, Alert, LastUpdated } from 'ui/atoms';
+import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
@@ -14,22 +13,16 @@ import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebar
 import { PimDetailsProps } from './PimDetails.types';
 import { Inside } from './sections/inside/Inside';
 import { Outside } from './sections/outside/Outside';
-import { Cadastre } from './sections/cadastre/Cadastre';
+import { CadastreContainer } from './sections/cadastre/CadastreContainer';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Specification } from './sections/specification/Specification';
 
-export const PimDetails = ({
-  error: isError,
-  data,
-  servicesData,
-  cadastreData,
-  outsideData,
-  insideData,
-}: PimDetailsProps) => {
+export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
+  const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
-  const { formatMessage } = useLocale();
-  const pim = data?.getPim as Pim;
+
+  const pim = data?.getPimGeneral;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
@@ -40,37 +33,30 @@ export const PimDetails = ({
     setSidebarVisiblity(true);
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <Grid container spacing={0}>
       {isSidebarVisible && (
         <Grid item xs={12} md={3} lg={2}>
-          <PimDetailsSidebarMenu
-            pim={pim}
-            services={servicesData?.getPimServices as PimServices}
-            cadastre={cadastreData?.getPimCadastre}
-            onHide={handleSidebarHide}
-            inside={insideData}
-          />
+          <PimDetailsSidebarMenu data={data} onHide={handleSidebarHide} />
         </Grid>
       )}
       <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>
         <Grid container spacing={3} className={classes.content}>
-          {!!isError && (
+          {!!error && (
             <Grid item xs={12}>
               <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
             </Grid>
           )}
-          {!isError && !!pim && (
+          {!error && !!pim && (
             <Switch>
               <Route
                 path={`${AppRoute.pimDetails}/general`}
                 render={() => (
-                  <General
-                    isSidebarVisible={isSidebarVisible}
-                    onOpenSidebar={handleSidebarOpen}
-                    title={title}
-                    pim={pim}
-                  />
+                  <General isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
                 )}
               />
               <Route
@@ -82,22 +68,16 @@ export const PimDetails = ({
               <Route
                 path={`${AppRoute.pimDetails}/outside`}
                 render={() => (
-                  <Outside
-                    pim={pim}
-                    isSidebarVisible={isSidebarVisible}
-                    onOpenSidebar={handleSidebarOpen}
-                    title={title}
-                  />
+                  <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
                 )}
               />
               <Route
                 path={`${AppRoute.pimDetails}/cadastre`}
                 render={() => (
-                  <Cadastre
+                  <CadastreContainer
                     isSidebarVisible={isSidebarVisible}
                     onOpenSidebar={handleSidebarOpen}
                     title={title}
-                    pim={pim}
                   />
                 )}
               />
@@ -108,7 +88,6 @@ export const PimDetails = ({
                     isSidebarVisible={isSidebarVisible}
                     onOpenSidebar={handleSidebarOpen}
                     title={title}
-                    pim={pim}
                   />
                 )}
               />
@@ -119,7 +98,6 @@ export const PimDetails = ({
                     isSidebarVisible={isSidebarVisible}
                     onOpenSidebar={handleSidebarOpen}
                     title={title}
-                    pim={pim}
                   />
                 )}
               />
@@ -139,12 +117,12 @@ export const PimDetails = ({
             </Switch>
           )}
         </Grid>
-        <LastUpdated
+        {/* <LastUpdated
           dateUpdated={!!pim ? pim.dateUpdated : null}
           updatedBy={!!pim ? pim.lastEditedBy : null}
           className={classes.lastUpdated}
           withIcon
-        />
+        /> */}
       </Grid>
     </Grid>
   );

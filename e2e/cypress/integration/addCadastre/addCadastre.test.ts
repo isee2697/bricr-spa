@@ -17,7 +17,7 @@ context('Add Cadastre', () => {
     cy.findByRole('button', { name: 'Yes, I want' }).click();
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/cadastre/cadastre-id-3'));
+      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim-cadastre-1/cadastre/cadastre-id-3'));
     });
   });
 });

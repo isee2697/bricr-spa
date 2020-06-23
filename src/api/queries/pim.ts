@@ -1,100 +1,34 @@
 import { gql } from 'apollo-boost';
 
-export const PIM_DETAILS = gql`
-  query PimDetails($id: ID!) {
-    getPim(id: $id) {
-      id
-      realEstateType
+export const PIM_OVERALL_INFO = gql`
+  query PimOverallInfo($id: ID!) {
+    getPimGeneral(id: $id) {
       street
       houseNumber
-      constructionNumberPrefix
-      constructionNumber
-      constructionNumberAddition
       postalCode
-      district
       city
-      state
-      county
-      country
-      developmentType
-      status
-      salePrice
-      rentPrice
-      description
-      images {
-        url
-      }
-      livingArea
-      propertyType
-      attention
-      completeness
-      archived
-      dateCreated
-      # dateUpdated
-      # updatedBy
-      houseGeneral {
-        availability {
-          availability
-          from
-          notes
-          habitation
-          currentUse
-          currentDestination
-        }
-        construction {
-          type
-          from
-          to
-          notes
-        }
-        floor
-        propertyConnection
-        propertyDetails
-      }
-      houseOutside {
-        generalInformation {
-          notes
-          qualityInformation
-          images {
-            url
-          }
-          #pictures
-        }
-        propertyRelated {
-          items
-          notes
-          images {
-            url
-          }
-          #pictures
-        }
-        roofInformation {
-          type {
-            name
-            notes
-          }
-          material {
-            name
-            notes
-          }
-          insulation {
-            name
-            notes
-          }
-          images {
-            url
-          }
-        }
-        notes
-      }
+    }
+    getPimInside(id: $id) {
       floors {
         id
-        level
         floorType
       }
+    }
+    getPimOutside(id: $id) {
       outsideFeatures {
         id
-        description
+        type
+      }
+    }
+    getPimCadastre(id: $id) {
+      cadastre {
+        id
+        type
+      }
+    }
+    getPimServices(id: $id) {
+      meters {
+        id
         type
       }
     }

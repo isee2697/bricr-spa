@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Route, Redirect, useParams } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -7,27 +7,26 @@ import { Box, Button, Grid, Typography } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { AddIcon, MenuIcon, HelpIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType, usePimCadastreQuery } from 'api/types';
-import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { CadastreType } from 'api/types';
 
 import { useStyles } from './Cadastre.styles';
 import { CadastralMapsContainer } from './maps/CadastralMapsContainer';
 import { PlotContainer } from './plot/PlotContainer';
 import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
+import { CadastreProps } from './Cadastre.types';
 
-export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
-  const { id } = useParams<{ id: string }>();
+export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: CadastreProps) => {
   const { formatMessage } = useLocale();
-  const [isAddPlotModalOpen, setAddPlotModalOpen] = useState(false);
   const classes = useStyles();
-  const { data } = usePimCadastreQuery({ variables: { id } });
-  const cadastress = data?.getPimCadastre?.cadastre;
 
-  if (!cadastress) {
+  const [isAddPlotModalOpen, setAddPlotModalOpen] = useState(false);
+
+  if (!data || !data.getPimCadastre.cadastre) {
     return null;
   }
 
-  const cadastreMap = cadastress.find(data => data.type === CadastreType.CadastreMap);
+  const { cadastre } = data?.getPimCadastre;
+  const cadastreMap = cadastre.find(data => data.type === CadastreType.CadastreMap);
 
   return (
     <>
@@ -81,7 +80,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsS
           )}
         />
         <Route path={`${AppRoute.pimDetails}/cadastre`} exact>
-          <Redirect to={`${AppRoute.pimDetails.replace(':id', id)}/cadastre/cadastreMap`} />
+          <Redirect to={`${AppRoute.pimDetails.replace(':id', data.getPimCadastre.id)}/cadastre/cadastreMap`} />
         </Route>
       </Switch>
       {isAddPlotModalOpen && (

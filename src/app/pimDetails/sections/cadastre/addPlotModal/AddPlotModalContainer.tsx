@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { CadastreType, useAddCadastreMutation, PimCadastreDocument } from 'api/types';
+import { CadastreType, useAddCadastreMutation, PimOverallInfoDocument, PimCadastreDocument } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddPlotModalContainerProps } from './AddPlotModal.types';
@@ -21,17 +21,19 @@ export const AddPlotModalContainer = ({ isModalOpened, onModalClose }: AddPlotMo
       const { data: addCadastreResponse } = await addCadastre({
         variables: {
           input: {
-            pimId: pimId,
+            pimId,
             description: '',
             type: CadastreType.Plot,
           },
         },
         refetchQueries: [
           {
+            query: PimOverallInfoDocument,
+            variables: { id: pimId },
+          },
+          {
             query: PimCadastreDocument,
-            variables: {
-              id: pimId,
-            },
+            variables: { id: pimId },
           },
         ],
       });

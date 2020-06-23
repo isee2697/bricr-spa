@@ -189,7 +189,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside feature', () => {
-    cy.contains('Garden 3');
+    cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 
     cy.findAllByText('Edit mode')

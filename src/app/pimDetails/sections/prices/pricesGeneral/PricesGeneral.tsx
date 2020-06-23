@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Box, Button, Grid, Typography } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
@@ -10,15 +11,8 @@ import { PricesGeneralProps, PriceType } from 'app/pimDetails/sections/prices/pr
 import { PriceContainer } from 'app/pimDetails/sections/prices/price/PriceContainer';
 import { SetPricesModal } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal';
 
-export const PricesGeneral = ({
-  title,
-  isSidebarVisible,
-  onOpenSidebar,
-  onSave,
-  rent,
-  sale,
-  pim,
-}: PricesGeneralProps) => {
+export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, rent, sale }: PricesGeneralProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isPriceModalOpened, setPriceModalOpened] = useState(false);
 
@@ -52,7 +46,7 @@ export const PricesGeneral = ({
             <GenericField placeholder="pim_details.prices.description_placeholder" name="description" />
           </Box>
         </AutosaveForm>
-        <PriceContainer types={pricesTypes} rent={rent} sale={sale} pimId={pim?.id} />
+        <PriceContainer types={pricesTypes} rent={rent} sale={sale} pimId={id} />
       </Grid>
 
       {isPriceModalOpened && (
