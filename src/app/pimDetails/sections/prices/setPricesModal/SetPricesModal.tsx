@@ -33,7 +33,12 @@ export const SetPricesModal = ({ isOpened, onClose, initialValues, onSubmit }: S
       onClose={onClose}
       title={formatMessage({ id: 'pim_details.prices.the_property_is_for' })}
     >
-      <Form onSubmit={onSubmit} initialValues={{ prices: initialValues }} mutators={{ ...arrayMutators }}>
+      <Form
+        onSubmit={onSubmit}
+        initialValues={{ prices: initialValues }}
+        mutators={{ ...arrayMutators }}
+        initialValuesEqual={() => true}
+      >
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>

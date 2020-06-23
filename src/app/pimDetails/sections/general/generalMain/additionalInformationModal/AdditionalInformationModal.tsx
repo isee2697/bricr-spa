@@ -38,7 +38,12 @@ export const AdditionalInformationModal = ({
       onClose={onClose}
       title={formatMessage({ id: 'pim_details.general.additional_information_modal.title' })}
     >
-      <Form onSubmit={onSubmit} initialValues={initialValues} mutators={{ ...arrayMutators }}>
+      <Form
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        mutators={{ ...arrayMutators }}
+        initialValuesEqual={() => true}
+      >
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
