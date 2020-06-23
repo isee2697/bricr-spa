@@ -14,7 +14,9 @@ export const PlotContainer = () => {
     variables: { id },
   });
 
-  const cadastre = cadastreData?.getPimCadastre?.cadastre?.find(c => c.id === cadastreId)?.plot || undefined;
+  const cadastre = cadastreData?.getPimCadastre?.cadastre
+    ?.map((cadastre, index) => ({ ...cadastre, index }))
+    .find(c => c.id === cadastreId);
 
   const [updateCadastre] = useUpdateCadastreMutation();
 
@@ -61,12 +63,14 @@ export const PlotContainer = () => {
   return (
     <AutosaveForm
       key={id}
-      initialValues={cadastre}
+      initialValues={cadastre?.plot || undefined}
       onSave={handleEdit}
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <Plot name={cadastre?.name || ''} />
+      <Plot index={(cadastreData?.getPimCadastre?.cadastre?.length || 0) > 2 ? cadastre?.index.toString() || '' : ''} />
     </AutosaveForm>
   );
 };
+
+//

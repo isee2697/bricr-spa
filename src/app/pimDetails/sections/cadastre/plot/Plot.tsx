@@ -12,7 +12,7 @@ import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
 import { PlotProps } from './Plot.types';
 
-export const Plot = ({ name }: PlotProps) => {
+export const Plot = ({ index }: PlotProps) => {
   const [isToggled, setToggled] = useState(false);
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -24,7 +24,7 @@ export const Plot = ({ name }: PlotProps) => {
         placeholder="pim_details.cadastre.description_placeholder"
         name="description"
       />
-      <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index: name })}>
+      <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
         {editing => (
           <Grid container spacing={4}>
             <Grid item xs={12}>

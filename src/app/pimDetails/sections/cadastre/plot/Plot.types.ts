@@ -1,3 +1,3 @@
 export type PlotProps = {
-  name: string;
+  index: string;
 };
