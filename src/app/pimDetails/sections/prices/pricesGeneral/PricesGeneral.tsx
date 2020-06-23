@@ -38,7 +38,9 @@ export const PricesGeneral = ({
             onClick={() => setPriceModalOpened(true)}
             size="small"
           >
-            {formatMessage({ id: 'pim_details.prices.add_price' })}
+            {formatMessage({
+              id: !pricesTypes.length ? 'pim_details.prices.add_price' : 'pim_details.prices.edit_price',
+            })}
           </Button>
         }
       />

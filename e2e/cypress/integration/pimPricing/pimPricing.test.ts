@@ -31,7 +31,7 @@ context('Pim Details', () => {
     cy.get('.form-section-title').contains('Rent');
   });
   it('allows to hide pricings', () => {
-    cy.findByText('Add price').click();
+    cy.findByText('Edit price').click();
 
     cy.contains('The property is for...');
     cy.get('.MuiDialog-paper')
