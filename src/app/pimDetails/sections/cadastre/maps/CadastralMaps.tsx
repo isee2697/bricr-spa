@@ -26,14 +26,16 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
         isEditable={false}
         onAdd={() => setAddModalOpened(true)}
         buttons={
-          <>
-            <IconButton variant="rounded" size="small">
-              <ListIcon />
-            </IconButton>
-            <IconButton variant="rounded" size="small">
-              <CardsIcon />
-            </IconButton>
-          </>
+          !!cadastreItem.maps?.length && (
+            <>
+              <IconButton variant="rounded" size="small">
+                <ListIcon />
+              </IconButton>
+              <IconButton variant="rounded" size="small">
+                <CardsIcon />
+              </IconButton>
+            </>
+          )
         }
       >
         {isEditMode => (
