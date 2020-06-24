@@ -3,8 +3,9 @@ import React from 'react';
 import { FormSection } from 'ui/organisms';
 import { FormSubSection } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { Grid, Box, Typography } from 'ui/atoms';
+import { Grid, Box, Typography, InputAdornment } from 'ui/atoms';
 import { GenericField, DatePickerField, CheckboxGroupField } from 'form/fields';
+import { MailIcon } from 'ui/atoms/icons';
 
 import { windowTypes } from './dictionaries';
 export const InsideGeneral = () => {
@@ -38,6 +39,13 @@ export const InsideGeneral = () => {
                 placeholder="pim_details.inside.general.renovation_notes_placeholder"
                 disabled={!isEditing}
                 name="renovation.notes"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <MailIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -55,6 +63,13 @@ export const InsideGeneral = () => {
                 placeholder="pim_details.inside.general.extension_notes_placeholder"
                 disabled={!isEditing}
                 name="extension.notes"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <MailIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>
