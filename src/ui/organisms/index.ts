@@ -7,3 +7,4 @@ export { FormSection } from './formSection/FormSection';
 export { FormSubSection } from './formSubSection/FormSubSection';
 export { AutosaveForm } from './autosaveForm/AutosaveForm';
 export { UploadModal } from './uploadModal/UploadModal';
+export { AddCustomPropertyModalContainer } from './addCustomPropertyModal/AddCustomPropertyModalContainer';

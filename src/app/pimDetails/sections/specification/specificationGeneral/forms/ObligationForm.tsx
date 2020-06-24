@@ -6,13 +6,12 @@ import { FormSubSection, TileButton } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useCustomLabels, useLocale } from 'hooks';
+import { LabelProperty } from 'api/types';
 import { useStyles } from '../../Specification.styles';
 import * as dictionaries from '../../dictionaries';
-import { LabelProperty } from 'api/types';
+import { SpecificationGeneralFormProps } from '../SpecificationGeneral.types';
 
-import { ObligationFormProps } from './ObligationForm.types';
-
-export const ObligationForm = ({ onAddPropertyClick }: ObligationFormProps) => {
+export const ObligationForm = ({ onAddPropertyClick }: SpecificationGeneralFormProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const customLabels = useCustomLabels(pimId, [LabelProperty.ObligationToProvideInformation]);
 

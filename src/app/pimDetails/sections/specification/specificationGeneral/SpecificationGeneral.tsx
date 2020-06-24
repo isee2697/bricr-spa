@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { GenericField } from 'form/fields';
-import { EnergyForm } from '../forms/EnergyForm';
-import { ApprovalsForm } from '../forms/ApprovalsForm';
-import { ObligationForm } from '../forms/obligation/ObligationForm';
-import { ObligationFormProps } from '../forms/obligation/ObligationForm.types';
+import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { LabelProperty } from 'api/types';
 
-export const SpecificationGeneral = ({ onAddPropertyClick }: ObligationFormProps) => {
+import { EnergyForm } from './forms/EnergyForm';
+import { ApprovalsForm } from './forms/ApprovalsForm';
+import { ObligationForm } from './forms/ObligationForm';
+
+export const SpecificationGeneral = () => {
   const { formatMessage } = useLocale();
+
+  const [isModalOpened, setModalOpened] = useState(false);
 
   return (
     <>
@@ -27,8 +31,15 @@ export const SpecificationGeneral = ({ onAddPropertyClick }: ObligationFormProps
         <ApprovalsForm />
       </Grid>
       <Grid item xs={12}>
-        <ObligationForm onAddPropertyClick={onAddPropertyClick} />
+        <ObligationForm onAddPropertyClick={() => setModalOpened(true)} />
       </Grid>
+      {isModalOpened && (
+        <AddCustomPropertyModalContainer
+          property={LabelProperty.ObligationToProvideInformation}
+          isOpened={isModalOpened}
+          onClose={() => setModalOpened(false)}
+        />
+      )}
     </>
   );
 };

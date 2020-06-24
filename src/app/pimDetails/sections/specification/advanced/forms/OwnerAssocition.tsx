@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Box, Grid } from 'ui/atoms';
-import { TileButton } from 'ui/molecules';
-import { FormSection } from 'ui/organisms';
+import { TileButton, FormSubSection } from 'ui/molecules';
+import { FormSection, AddCustomPropertyModalContainer } from 'ui/organisms';
 import { CheckboxGroupField, GenericField } from 'form/fields';
-import { useLocale } from 'hooks';
+import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
+import { useLocale, useCustomLabels } from 'hooks';
+import { LabelProperty } from 'api/types';
 import { useStyles } from '../Advanced.styles';
 import * as dictionaries from '../../dictionaries';
-import { FormSubSection } from 'ui/molecules';
 
 export const OwnerAssociation = () => {
+  const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
+
+  const [isModalOpened, setModalOpened] = useState(false);
+  const customLabels =
+    useCustomLabels(pimId, [LabelProperty.HomeOwnerAssociation])[LabelProperty.HomeOwnerAssociation] ?? [];
 
   return (
     <div className={classes.root}>
@@ -59,11 +66,11 @@ export const OwnerAssociation = () => {
                   disabled={!editing}
                   xs={2}
                   name="specificationAdvanced.homeOwnerAssociation.goodToKnow"
-                  options={dictionaries.goodToKnow}
+                  options={[...dictionaries.goodToKnow, ...customLabels] as CheckboxDataType[]}
                   actionElement={
                     <TileButton
                       className={classes.tileButton}
-                      onClick={() => {}}
+                      onClick={() => setModalOpened(true)}
                       isDisabled={!editing}
                       title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}
                     />
@@ -80,6 +87,13 @@ export const OwnerAssociation = () => {
           </>
         )}
       </FormSection>
+      {isModalOpened && (
+        <AddCustomPropertyModalContainer
+          property={LabelProperty.HomeOwnerAssociation}
+          isOpened={isModalOpened}
+          onClose={() => setModalOpened(false)}
+        />
+      )}
     </div>
   );
 };

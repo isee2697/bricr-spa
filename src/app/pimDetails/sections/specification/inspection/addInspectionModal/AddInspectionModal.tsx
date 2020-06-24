@@ -1,10 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Form } from 'react-final-form';
 
-import { InspectionType } from 'api/types';
+import { InspectionType, LabelProperty } from 'api/types';
 import { Modal, SubmitButton, TileButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Box } from 'ui/atoms';
-import { useLocale } from 'hooks';
+import { useLocale, useCustomLabels } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
 import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../../dictionaries';
@@ -25,7 +26,10 @@ const getInspectionType = (type: InspectionType) => {
 
 export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCustomType }: AddInspectionModalProps) => {
   const { formatMessage } = useLocale();
+  const { id: pimId } = useParams<{ id: string }>();
   const classes = useStyles();
+
+  const customLabels = useCustomLabels(pimId, [LabelProperty.Inspection])[LabelProperty.Inspection] ?? [];
 
   const addCustomType = () => {
     onAddCustomType();
@@ -54,7 +58,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
                   disabled={false}
                   xs={2}
                   name="inspection"
-                  options={getInspectionType(type)}
+                  options={[...getInspectionType(type), ...customLabels]}
                   actionElement={<TileButton onClick={addCustomType} isDisabled={false} />}
                 />
               </Box>

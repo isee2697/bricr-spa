@@ -2,13 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router';
 import arrayMutators from 'final-form-arrays';
 
-import { ObligationFormProps } from '../forms/obligation/ObligationForm.types';
 import { PimSpecification, usePimSpecificationQuery, useUpdateSpecificationMutation } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
 import { SpecificationGeneral } from './SpecificationGeneral';
 
-export const SpecificationGeneralContainer = ({ onAddPropertyClick }: ObligationFormProps) => {
+export const SpecificationGeneralContainer = () => {
   const { id } = useParams<{ id: string }>();
 
   const [updateSpecification] = useUpdateSpecificationMutation();
@@ -47,7 +46,7 @@ export const SpecificationGeneralContainer = ({ onAddPropertyClick }: Obligation
       subscription={{}}
       mutators={{ ...arrayMutators }}
     >
-      <SpecificationGeneral onAddPropertyClick={onAddPropertyClick} />
+      <SpecificationGeneral />
     </AutosaveForm>
   );
 };

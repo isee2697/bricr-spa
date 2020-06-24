@@ -4,9 +4,9 @@ import { Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { CheckboxGroupField, GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { useStyles } from '../Specification.styles';
+import { useStyles } from '../../Specification.styles';
 import { FormSubSection } from 'ui/molecules';
-import * as dictionaries from '../dictionaries';
+import * as dictionaries from '../../dictionaries';
 
 export const ApprovalsForm = () => {
   const { formatMessage } = useLocale();

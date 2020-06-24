@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
+import { LabelProperty } from 'api/types';
 import { Typography, Box } from 'ui/atoms';
-import { useLocale } from 'hooks';
+import { useLocale, useCustomLabels } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { FormSection, FormSubSection, AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
@@ -10,8 +12,11 @@ import { AddInspectionModalContainer } from '../addInspectionModal/AddInspection
 import { InspectionTypeProps } from './InspectionType.types';
 
 export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomType }: InspectionTypeProps) => {
-  const [isInspectionModalOpen, setIsInspectionModalOpen] = useState(false);
+  const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+
+  const [isInspectionModalOpen, setIsInspectionModalOpen] = useState(false);
+  const customLabels = useCustomLabels(pimId, [LabelProperty.Inspection])[LabelProperty.Inspection] ?? [];
 
   return (
     <>
@@ -39,6 +44,7 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
                   key={inspection.id}
                   title={formatMessage({
                     id: `dictionaries.inspection_${inspection.inspectionType.toLowerCase()}.${inspection.type}`,
+                    defaultMessage: customLabels.find(label => label.value === inspection.type)?.label ?? ' ',
                   })}
                   counter={index + 1}
                   onOptionsClick={() => {}}

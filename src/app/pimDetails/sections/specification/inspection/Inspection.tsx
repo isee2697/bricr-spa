@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { InspectionType } from 'api/types';
+import { InspectionType, LabelProperty } from 'api/types';
 import { Grid, Typography, Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
+import { AddCustomPropertyModalContainer } from 'ui/organisms';
 
 import { useStyles } from './Inspection.styles';
 import { InspectionType as InspectionTypeComponent } from './inspectionType/InspectionType';
 import { InspectionProps } from './Inspection.types';
 
-export const Inspection = ({ inspections, onSave, onAddCustomType }: InspectionProps) => {
+export const Inspection = ({ inspections, onSave }: InspectionProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+
+  const [isModalOpened, setModalOpened] = useState(false);
 
   return (
     <>
@@ -33,7 +36,7 @@ export const Inspection = ({ inspections, onSave, onAddCustomType }: InspectionP
           type={InspectionType.Tanks}
           inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Tanks)}
           onSave={onSave}
-          onAddCustomType={onAddCustomType}
+          onAddCustomType={() => setModalOpened(true)}
         />
       </Grid>
 
@@ -43,7 +46,7 @@ export const Inspection = ({ inspections, onSave, onAddCustomType }: InspectionP
           type={InspectionType.Pollution}
           inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Pollution)}
           onSave={onSave}
-          onAddCustomType={onAddCustomType}
+          onAddCustomType={() => setModalOpened(true)}
         />
       </Grid>
 
@@ -53,9 +56,17 @@ export const Inspection = ({ inspections, onSave, onAddCustomType }: InspectionP
           type={InspectionType.Maintenance}
           inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Maintenance)}
           onSave={onSave}
-          onAddCustomType={onAddCustomType}
+          onAddCustomType={() => setModalOpened(true)}
         />
       </Grid>
+
+      {isModalOpened && (
+        <AddCustomPropertyModalContainer
+          property={LabelProperty.Inspection}
+          isOpened={isModalOpened}
+          onClose={() => setModalOpened(false)}
+        />
+      )}
     </>
   );
 };

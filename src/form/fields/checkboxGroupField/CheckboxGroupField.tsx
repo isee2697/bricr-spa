@@ -51,7 +51,7 @@ export const CheckboxGroupField = ({
             <TileCheckbox
               onClick={() => handleClick(item)}
               isSelected={fields.value && fields.value.includes(item.value)}
-              title={formatMessage({ id: item.label })}
+              title={formatMessage({ id: item.label, defaultMessage: item.label })}
               isDisabled={disabled}
               orientation={orientation}
             >

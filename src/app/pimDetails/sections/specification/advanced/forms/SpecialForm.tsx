@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { LabelProperty } from 'api/types';
+import { Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from '../Advanced.styles';
 import * as dictionaries from '../../dictionaries';
-import { Box } from 'ui/atoms';
 
 import { SpecialSubsection } from './component/SpecialSubsection';
 
@@ -32,6 +33,7 @@ export const SpecialForm = () => {
                 inputName="specificationAdvanced.monument.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
+                labelPropertyType={LabelProperty.MonumentSpecification}
                 isDisabled={!editing}
               />
             </Box>
@@ -46,6 +48,7 @@ export const SpecialForm = () => {
                 inputName="specificationAdvanced.inside.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
+                labelPropertyType={LabelProperty.InsideSpecification}
                 isDisabled={!editing}
               />
             </Box>
@@ -60,6 +63,7 @@ export const SpecialForm = () => {
                 inputName="specificationAdvanced.housingOptions.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
+                labelPropertyType={LabelProperty.HousingOptions}
                 isDisabled={!editing}
               />
             </Box>
@@ -74,6 +78,7 @@ export const SpecialForm = () => {
                 inputName="specificationAdvanced.specialTags.notes"
                 label="pim_details.specification.notes_label"
                 placeholder="pim_details.specification.notes_placeholder"
+                labelPropertyType={LabelProperty.SpecialTags}
                 isDisabled={!editing}
               />
             </Box>
@@ -87,6 +92,7 @@ export const SpecialForm = () => {
               inputName="specificationAdvanced.propertyRights.notes"
               label="pim_details.specification.notes_label"
               placeholder="pim_details.specification.notes_placeholder"
+              labelPropertyType={LabelProperty.PropertyRights}
               isDisabled={!editing}
             />
           </>

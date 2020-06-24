@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import { usePimSpecificationQuery, useUpdateInspectionMutation, UpdateInspectionInput } from 'api/types';
 
-import { InspectionContainerProps } from './Inspection.types';
 import { Inspection } from './Inspection';
 
-export const InspectionContainer = ({ onAddCustomType }: InspectionContainerProps) => {
+export const InspectionContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = usePimSpecificationQuery({ variables: { id } });
 
@@ -34,11 +33,5 @@ export const InspectionContainer = ({ onAddCustomType }: InspectionContainerProp
     return null;
   }
 
-  return (
-    <Inspection
-      inspections={data.getPimSpecification.inspections}
-      onSave={handleSave}
-      onAddCustomType={onAddCustomType}
-    />
-  );
+  return <Inspection inspections={data.getPimSpecification.inspections} onSave={handleSave} />;
 };

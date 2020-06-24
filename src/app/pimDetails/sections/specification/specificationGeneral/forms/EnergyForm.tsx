@@ -4,9 +4,9 @@ import { Box, Collapse, Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { useStyles } from '../Specification.styles';
+import { useStyles } from '../../Specification.styles';
 import { FormSubSection, SubSectionHeader } from 'ui/molecules';
-import * as dictionaries from '../dictionaries';
+import * as dictionaries from '../../dictionaries';
 
 export const EnergyForm = () => {
   const { formatMessage } = useLocale();

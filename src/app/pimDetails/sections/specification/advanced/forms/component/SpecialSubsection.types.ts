@@ -1,4 +1,5 @@
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
+import { LabelProperty } from 'api/types';
 
 export type SpecialSubsectionProps = {
   title: string;
@@ -11,4 +12,5 @@ export type SpecialSubsectionProps = {
   label: string;
   placeholder: string;
   isDisabled: boolean;
+  labelPropertyType: LabelProperty;
 };

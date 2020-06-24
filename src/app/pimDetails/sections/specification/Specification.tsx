@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
 import { Button, Grid } from 'ui/atoms';
-import { AddCustomPropertyModalContainer } from 'ui/organisms/addCustomPropertyModal/AddCustomPropertyModalContainer';
 import { useLocale } from 'hooks';
 import { EditIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { LabelProperty } from 'api/types';
 import { PimDetailsHeader } from '../../pimDetailsHeader/PimDetailsHeader';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
@@ -19,7 +17,6 @@ import { InspectionContainer } from './inspection/InspectionContainer';
 export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
   const [isLinkedPropertyModalOpen, setLinkedPropertyModalOpen] = useState(false);
-  const [isCustomPropertyModalOpen, setCustomPropertyModalOpen] = useState(false);
 
   return (
     <>
@@ -46,9 +43,7 @@ export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
           default
           path={`${AppRoute.pimDetails}/specification`}
           exact
-          render={() => (
-            <SpecificationGeneralContainer onAddPropertyClick={() => setCustomPropertyModalOpen(v => !v)} />
-          )}
+          render={() => <SpecificationGeneralContainer />}
         />
         <Route path={`${AppRoute.pimDetails}/specification/advanced`} exact render={() => <AdvancedContainer />} />
         <Route
@@ -56,21 +51,12 @@ export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
           exact
           render={() => <LinkedPropertyContainer />}
         />
-        <Route
-          path={`${AppRoute.pimDetails}/specification/inspection`}
-          exact
-          render={() => <InspectionContainer onAddCustomType={() => setCustomPropertyModalOpen(v => !v)} />}
-        />
+        <Route path={`${AppRoute.pimDetails}/specification/inspection`} exact render={() => <InspectionContainer />} />
         <Redirect to={`${AppRoute.pimDetails}/specification`} />
       </Switch>
       <AddLinkedPropertyModalContainer
         isOpened={isLinkedPropertyModalOpen}
         onClose={() => setLinkedPropertyModalOpen(false)}
-      />
-      <AddCustomPropertyModalContainer
-        property={LabelProperty.ObligationToProvideInformation}
-        isOpened={isCustomPropertyModalOpen}
-        onClose={() => setCustomPropertyModalOpen(false)}
       />
     </>
   );
