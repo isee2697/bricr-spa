@@ -24,6 +24,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     },
     '&.disabled': {
       cursor: 'default',
+      background: 'rgba(243, 245, 250, .5)',
     },
   },
   value: {
@@ -33,7 +34,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       color: palette.gray.main,
     },
     '&.placeholder': {
-      color: 'rgba(0, 0, 0, 0.38)',
+      color: 'rgba(130, 141, 184, .5)',
     },
   },
   reversedArrow: {
