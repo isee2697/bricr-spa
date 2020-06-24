@@ -19,4 +19,5 @@ export interface MapView {
     remove: (pin: Pin) => void;
     removeAll: () => void;
   };
+  center: [number, number];
 }

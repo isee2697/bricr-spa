@@ -203,7 +203,7 @@
   "pim_details.general.extra_address_information.plot_number": "Plot number",
   "pim_details.general.extra_address_information.plot_number_placeholder": "e.g. Isenburgstraat",
   "pim_details.general.extra_address_information.plot_number_addition": "Plot number addition",
-  "pim_details.general.extra_address_information.plot_number_addition_placeholder": "e.g. Breda",
+  "pim_details.general.extra_address_information.plot_number_addition_placeholder": "Breda",
   "pim_details.general.extra_address_information.house_number_series": "House number series",
   "pim_details.general.extra_address_information.house_number_start": "House number start",
   "pim_details.general.extra_address_information.house_number_start_placeholder": "e.g. 10",

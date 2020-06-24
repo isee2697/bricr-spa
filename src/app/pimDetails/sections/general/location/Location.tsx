@@ -49,7 +49,7 @@ export const Location = ({
       <Grid item xs={12}>
         <AutosaveForm onSave={onSave} initialValues={initialValues}>
           <Grid item xs={12}>
-            <FormSection title={formatMessage({ id: 'pim_details.general.location.header' })}>
+            <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
               {editable => (
                 <>
                   <FormSubSection

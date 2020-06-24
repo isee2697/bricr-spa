@@ -33,6 +33,7 @@ export const Pin = ({ latitude, longitude, view }: PinProps) => {
 
       view.graphics.removeAll();
       view.graphics.add(newPin);
+      view.center = [longitude, latitude];
     });
   }, [latitude, longitude, view]);
 

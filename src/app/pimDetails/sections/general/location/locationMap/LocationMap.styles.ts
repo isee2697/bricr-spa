@@ -5,6 +5,7 @@ export const useStyles = makeStyles(() => ({
     height: '100%',
   },
   container: {
+    position: 'relative',
     height: '350px',
   },
   disabledOverlay: {
