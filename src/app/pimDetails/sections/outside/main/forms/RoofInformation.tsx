@@ -26,9 +26,10 @@ export const RoofInformation = () => {
             </Box>
             <Box width="33%">
               <DatePickerField
-                format="yyyy"
                 label="pim_details.outside.main.roof_year"
                 name="houseOutside.roofInformation.yearOfRoof"
+                placeholder="common.year_placeholder"
+                isYearPicker
               />
             </Box>
             <Box mb={3}>
