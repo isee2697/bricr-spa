@@ -5,7 +5,7 @@ import { Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
 import { AutosaveProps, KeyValuesObject, FormObject } from './AutosaveForm.types';
-import { useDebounce } from './useDebounce';
+import { useDebounce } from './useDebounce/useDebounce';
 
 const isEmpty = (obj: {} | null | undefined) => !obj || !Object.keys(obj).length;
 
