@@ -40,7 +40,6 @@ export const DatePickerField = ({
       format={isYearPicker ? 'yyyy' : 'MM-dd-yyyy'}
       margin="normal"
       inputVariant="outlined"
-      size="small"
       fullWidth
       InputLabelProps={{
         shrink: true,

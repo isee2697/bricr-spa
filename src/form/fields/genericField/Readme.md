@@ -4,7 +4,7 @@ Generic field:
 import { GenericField } from './GenericField';
 import { Form } from 'react-final-form';
 import { Grid } from 'ui/atoms';
-import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
+import { MailIcon, EuroIcon } from 'ui/atoms/icons';
 
 <Form 
   onSubmit={() => {}}
@@ -15,11 +15,13 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <GenericField
-            placeholder="login.username_placeholder"
+            placeholder="Type number"
             name="my field"
             label={<>Label</>}
+            type="number"
+            disabled
             InputProps={{
-                endAdornment: (<MailIcon />)
+              endAdornment: (<EuroIcon />)
             }}
           />
         </Grid>
@@ -37,7 +39,7 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
         </Grid>
         <Grid item xs={4}>
           <GenericField 
-            placeholder="login.username_placeholder"
+            placeholder="disabled"
             name="my field3"
             label={<>Label</>}
             disabled

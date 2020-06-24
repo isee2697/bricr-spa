@@ -186,11 +186,33 @@ const theme = createMuiTheme({
         '& fieldset > legend > span': {
           display: 'none',
         },
+        '&.Mui-disabled': {
+          opacity: 1,
+          background: 'rgba(243, 245, 250, .5)',
+          color: 'rgba(130, 141, 184, .5)',
+          '& .MuiSvgIcon-root, & path': {
+            color: 'rgba(130, 141, 184, .5)',
+            fill: 'rgba(130, 141, 184, .5)',
+          },
+        },
+        '& .Mui-disabled::placeholder': {
+          color: 'rgba(130, 141, 184, .5)',
+        },
       },
       input: {
         fontSize: '0.9rem',
+        height: defaultTheme.spacing(2),
+        color: palette.black.main,
         '&.Mui-disabled': {
           color: palette.gray.main,
+        },
+        '&:-webkit-autofill': {
+          transitionDelay: '9999999s',
+        },
+        '&::placeholder': {
+          color: palette.gray.main,
+          opacity: 1,
+          fontSize: defaultTheme.spacing(1.75),
         },
       },
       adornedEnd: {
@@ -261,13 +283,13 @@ const theme = createMuiTheme({
           position: 'inherit',
           transform: 'none',
           fontSize: '0.85rem',
-          fontWeight: fontWeight.regular,
+          fontWeight: fontWeight.medium,
           lineHeight: `${defaultTheme.spacing(3)}px`,
           marginTop: 0,
           marginBottom: defaultTheme.spacing(1),
         },
         '&.Mui-disabled': {
-          color: `${palette.gray.main} !important`,
+          color: palette.gray.main,
         },
         '& > a': {
           pointerEvents: 'all',

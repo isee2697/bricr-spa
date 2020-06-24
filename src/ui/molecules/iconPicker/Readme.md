@@ -2,6 +2,7 @@ Example of Icon Picker component
 
 ```jsx harmony
 import { IconPicker } from "./IconPicker";
+import { Form } from 'react-final-form';
 import { Grid, Box, IconButton } from "ui/atoms";
 import {
   AddIcon,
@@ -52,7 +53,9 @@ const icons = [
     <Box mb={2}>
       Select icon from the list:
     </Box>
-    <IconPicker iconList={icons} selectedIcon={(icon) => setSelectedIcon(icon)} />
+    <Form onSubmit={() => {}}>
+      <IconPicker iconList={icons} selectedIcon={(icon) => setSelectedIcon(icon)} />
+    </Form>
   </Grid>
   {selectedIcon && (
     <Grid item xs={12}>

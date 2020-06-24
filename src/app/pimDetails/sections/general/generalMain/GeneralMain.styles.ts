@@ -10,7 +10,7 @@ export const useStyles = makeStyles(({ spacing }) => ({
     },
   },
   tilesContainer: {
-    marginTop: spacing(1),
+    marginTop: spacing(2),
   },
   subHeader: {
     marginTop: spacing(5),

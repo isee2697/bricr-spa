@@ -6,7 +6,6 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
 
 import { GenericFieldProps } from './GenericField.types';
-import { useStyles } from './GenericField.styles';
 
 export const GenericField = ({
   label,
@@ -22,7 +21,6 @@ export const GenericField = ({
     validate: validate ? validatorsChain(...validate) : undefined,
     validateFields,
   });
-  const classes = useStyles();
 
   const hasError =
     (meta.touched && !!meta.error) ||
@@ -44,14 +42,10 @@ export const GenericField = ({
       id={name}
       margin="normal"
       variant="outlined"
-      size="small"
       error={hasError}
       fullWidth
       InputLabelProps={{
         shrink: true,
-        classes: {
-          shrink: classes.label,
-        },
       }}
       {...input}
       {...props}

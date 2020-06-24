@@ -36,7 +36,6 @@ export const TimePickerField = ({
       variant="dialog"
       margin="normal"
       inputVariant="outlined"
-      size="small"
       fullWidth
       InputLabelProps={{
         shrink: true,
