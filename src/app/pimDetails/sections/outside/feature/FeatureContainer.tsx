@@ -65,7 +65,7 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={handleSave} mutators={{ ...arrayMutators }} subscription={{}}>
-      <Feature id={feature.id} featureType={feature.type} />
+      <Feature feature={feature} />
     </AutosaveForm>
   );
 };

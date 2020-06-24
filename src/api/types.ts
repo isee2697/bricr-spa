@@ -3566,6 +3566,8 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
     | 'country'
     | 'showExtraAddress'
     | 'showIdentificationNumber'
+    | 'dateUpdated'
+    | 'lastEditedBy'
   > & {
       houseGeneral?: Maybe<
         { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'propertyConnection' | 'propertyDetails'> & {
@@ -3603,7 +3605,10 @@ export type PimInsideQuery = { __typename?: 'Query' } & {
   getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
       floors?: Maybe<
         Array<
-          { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription'> & {
+          { __typename?: 'Floor' } & Pick<
+            Floor,
+            'id' | 'level' | 'floorType' | 'floorDescription' | 'lastEditedBy' | 'dateUpdated'
+          > & {
               spaces?: Maybe<
                 Array<
                   { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
@@ -5385,6 +5390,8 @@ export const PimGeneralDocument = gql`
       }
       showExtraAddress
       showIdentificationNumber
+      dateUpdated
+      lastEditedBy
     }
   }
 `;
@@ -5410,6 +5417,8 @@ export const PimInsideDocument = gql`
         level
         floorType
         floorDescription
+        lastEditedBy
+        dateUpdated
         spaces {
           id
           spaceType

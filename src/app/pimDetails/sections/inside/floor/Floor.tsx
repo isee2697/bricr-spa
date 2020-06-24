@@ -2,19 +2,19 @@ import React, { useRef, useState } from 'react';
 import groupBy from 'lodash/groupBy';
 
 import { useLocale } from 'hooks';
-import { Grid, Typography, Box } from 'ui/atoms';
+import { Grid, Box } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSection } from 'ui/organisms';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { Space } from 'api/types';
+import { Page } from 'ui/templates';
 
 import { EmptyFloor } from './emptyFloor/EmptyFloor';
-import { FloorDescriptionContainer } from './floorDescription/FloorDescriptionContainer';
 import { AddNewSpaceModalContainer } from './addNewSpace/AddNewSpaceModalContainer';
 import { SpaceContainer } from './space/SpaceContainer';
 import { FloorProps } from './Floor.types';
 
-export const Floor = ({ floor, count }: FloorProps) => {
+export const Floor = ({ floor, count, onSave }: FloorProps) => {
   const { formatMessage } = useLocale();
   const formRef = useRef<FormSectionRef>(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -60,63 +60,62 @@ export const Floor = ({ floor, count }: FloorProps) => {
 
   return (
     <>
-      <Grid container xs={12} item justify="space-between">
-        <Typography variant="h1">
-          {formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })} {count}
-        </Typography>
-        <FloorDescriptionContainer
-          floorDescription={floor.floorDescription || ''}
-          floorId={floor.id}
-          floorType={floor.floorType}
-        />
-      </Grid>
+      <Page
+        title={`${formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })} ${count ?? ''}`}
+        onSave={onSave}
+        placeholder="pim_details.inside.floor.description_placeholder"
+        name="description"
+        initialValues={{ description: floor.floorDescription || '' }}
+        updatedBy={floor.lastEditedBy}
+        dateUpdated={floor.dateUpdated}
+      >
+        {(floor.spaces === null || floor.spaces?.length === 0) && (
+          <EmptyFloor
+            onClick={() => setModalOpen(true)}
+            title={formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })}
+          />
+        )}
 
-      {(floor.spaces === null || floor.spaces?.length === 0) && (
-        <EmptyFloor
-          onClick={() => setModalOpen(true)}
-          title={formatMessage({ id: `dictionaries.floor_type.${floor.floorType}` })}
-        />
-      )}
-
-      {floor.spaces && floor.spaces.length > 0 && (
-        <Grid item xs={12}>
-          <FormSection
-            title={
-              <>
-                {formatMessage(
-                  { id: 'pim_details.inside.space_title' },
-                  {
-                    space: formatMessage({
-                      id: `dictionaries.floor_type.${floor.floorType}`,
-                    }),
-                  },
-                )}{' '}
-                <Counter count={floor.spaces.length} hasMarginLeft />
-              </>
-            }
-            onAdd={() => setModalOpen(true)}
-            ref={formRef}
-            isInitEditing={!!newlyCreatedSpace}
-          >
-            {editing =>
-              Object.values(groupedSpaces)
-                .flat()
-                .map((space, index) => (
-                  <Box mb={3} key={space.id}>
-                    <SpaceContainer
-                      isEditMode={editing}
-                      isExpanded={expandedSpace === space.id}
-                      onExpand={handleSpaceExpand}
-                      space={space}
-                      index={index}
-                      groupedSpaceCount={getGroupedSpaceCount(space)}
-                    />
-                  </Box>
-                ))
-            }
-          </FormSection>
-        </Grid>
-      )}
+        {floor.spaces && floor.spaces.length > 0 && (
+          <Grid item xs={12}>
+            <FormSection
+              title={
+                <>
+                  {formatMessage(
+                    { id: 'pim_details.inside.space_title' },
+                    {
+                      space: formatMessage({
+                        id: `dictionaries.floor_type.${floor.floorType}`,
+                      }),
+                    },
+                  )}{' '}
+                  <Counter count={floor.spaces.length} hasMarginLeft />
+                </>
+              }
+              onAdd={() => setModalOpen(true)}
+              ref={formRef}
+              isInitEditing={!!newlyCreatedSpace}
+            >
+              {editing =>
+                Object.values(groupedSpaces)
+                  .flat()
+                  .map((space, index) => (
+                    <Box mb={3} key={space.id}>
+                      <SpaceContainer
+                        isEditMode={editing}
+                        isExpanded={expandedSpace === space.id}
+                        onExpand={handleSpaceExpand}
+                        space={space}
+                        index={index}
+                        groupedSpaceCount={getGroupedSpaceCount(space)}
+                      />
+                    </Box>
+                  ))
+              }
+            </FormSection>
+          </Grid>
+        )}
+      </Page>
 
       <AddNewSpaceModalContainer floorId={floor.id} isOpened={isModalOpen} onClose={handleModalClose} />
     </>

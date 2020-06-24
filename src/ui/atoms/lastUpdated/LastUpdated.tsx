@@ -23,7 +23,7 @@ export const LastUpdated = ({ dateUpdated, updatedBy, className, withIcon }: Las
       </Typography>
       {updatedBy && (
         <Typography className={classNames(classes.text, classes.bold)}>
-          {formatMessage({ id: 'common.updated_by' })} {updatedBy}
+          {formatMessage({ id: 'common.updated_by' })} {updatedBy.firstName} {updatedBy.lastName}
         </Typography>
       )}
       {withIcon && <HistoryIcon className={classes.icon} />}

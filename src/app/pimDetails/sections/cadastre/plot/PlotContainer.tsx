@@ -3,7 +3,7 @@ import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
 
-import { useUpdateCadastreMutation, usePimCadastreQuery, PimCadastreDocument } from 'api/types';
+import { useUpdateCadastreMutation, usePimCadastreQuery, PimCadastreDocument, CadastreType } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
 import { Plot } from './Plot';
@@ -15,7 +15,8 @@ export const PlotContainer = () => {
   });
 
   const cadastre = cadastreData?.getPimCadastre?.cadastre
-    ?.map((cadastre, index) => ({ ...cadastre, index }))
+    ?.filter(cadastre => cadastre.type === CadastreType.Plot)
+    ?.map((cadastre, index) => ({ ...cadastre, index: index + 1 }))
     .find(c => c.id === cadastreId);
 
   const [updateCadastre] = useUpdateCadastreMutation();
@@ -66,11 +67,11 @@ export const PlotContainer = () => {
       initialValues={cadastre?.plot || undefined}
       onSave={handleEdit}
       mutators={{ ...arrayMutators }}
-      subscription={{}}
     >
-      <Plot index={(cadastreData?.getPimCadastre?.cadastre?.length || 0) > 2 ? cadastre?.index.toString() || '' : ''} />
+      <Plot
+        cadastre={cadastre}
+        index={(cadastreData?.getPimCadastre?.cadastre?.length || 0) > 2 ? cadastre?.index.toString() || '' : ''}
+      />
     </AutosaveForm>
   );
 };
-
-//

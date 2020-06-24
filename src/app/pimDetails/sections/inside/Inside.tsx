@@ -12,10 +12,10 @@ import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Floor as FloorTypes, usePimInsideQuery } from 'api/types';
+import { FloorContainer } from 'app/pimDetails/sections/inside/floor/FloorContainer';
 
 import { InsideGeneralContainer } from './general/InsideGeneralContainer';
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
-import { Floor } from './floor/Floor';
 
 export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
@@ -85,7 +85,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
               path={`${AppRoute.pimDetails}/inside/${floor.id}`}
               exact
               render={() => (
-                <Floor
+                <FloorContainer
                   floor={floor}
                   count={getCount(floor)}
                   isSidebarVisible={isSidebarVisible}

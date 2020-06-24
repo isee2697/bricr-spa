@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { Box, Grid, Typography } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AutosaveForm } from 'ui/organisms';
-import { GenericField } from 'form/fields';
+import { Page } from 'ui/templates';
 
 import { PicturesContainer } from './pictures/PicturesContainer';
 import { LinksContainer } from './links/LinksContainer';
@@ -19,33 +18,32 @@ export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaPr
   return (
     <>
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
-      <Grid item xs={12}>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.media.title' })}</Typography>
-        <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
-          <Box mb={1}>
-            <GenericField placeholder="pim_details.media.description_placeholder" name="name" />
-          </Box>
-        </AutosaveForm>
-      </Grid>
-      <Grid item xs={12}>
-        <PicturesContainer pictures={media.pictures} />
-      </Grid>
+      <Page
+        title={formatMessage({ id: 'pim_details.media.title' })}
+        onSave={() => Promise.resolve({ error: false })}
+        placeholder="pim_details.media.description_placeholder"
+        name="name"
+      >
+        <Grid item xs={12}>
+          <PicturesContainer pictures={media.pictures} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <LinksContainer links={media.mediaLinks} />
-      </Grid>
+        <Grid item xs={12}>
+          <LinksContainer links={media.mediaLinks} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <TextChaptersContainer chapters={media.textChapters} />
-      </Grid>
+        <Grid item xs={12}>
+          <TextChaptersContainer chapters={media.textChapters} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <UspsContainer usps={media.usps} />
-      </Grid>
+        <Grid item xs={12}>
+          <UspsContainer usps={media.usps} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <TagsContainer tags={media.tags} />
-      </Grid>
+        <Grid item xs={12}>
+          <TagsContainer tags={media.tags} />
+        </Grid>
+      </Page>
     </>
   );
 };

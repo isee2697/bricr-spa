@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
-import { useAddOutsideFeatureMutation, PimOverallInfoDocument } from 'api/types';
+import { useAddOutsideFeatureMutation, PimOverallInfoDocument, PimOutsideDocument } from 'api/types';
 
 import { AddOutsideFeatureModal } from './AddOutsideFeatureModal';
 import { AddOutsideFeatureSubmit, AddOutsideFeatureModalContainerProps } from './AddOutsideFeatureModal.types';
@@ -25,6 +25,12 @@ export const AddOutsideFeatureModalContainer = ({ isOpened, onClose }: AddOutsid
         refetchQueries: [
           {
             query: PimOverallInfoDocument,
+            variables: {
+              id,
+            },
+          },
+          {
+            query: PimOutsideDocument,
             variables: {
               id,
             },

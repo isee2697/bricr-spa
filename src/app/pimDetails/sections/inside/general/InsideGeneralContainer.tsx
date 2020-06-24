@@ -1,7 +1,6 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
 
 import { InsideGeneral, PimInsideDocument, useUpdateInsideGeneralMutation } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
@@ -74,9 +73,7 @@ export const InsideGeneralContainer = ({ extension, windows, renovation, notes }
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <Grid container xs={12} item justify="space-between">
-        <InsideGeneralFields />
-      </Grid>
+      <InsideGeneralFields />
     </AutosaveForm>
   );
 };

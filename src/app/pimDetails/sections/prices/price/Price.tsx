@@ -23,7 +23,7 @@ export const Price = ({ types }: PriceProps) => {
     );
 
   return (
-    <Grid container spacing={3}>
+    <>
       {types.includes('Sale') && (
         <Grid item xs={12}>
           <Sale />
@@ -34,6 +34,6 @@ export const Price = ({ types }: PriceProps) => {
           <Rent />
         </Grid>
       )}
-    </Grid>
+    </>
   );
 };

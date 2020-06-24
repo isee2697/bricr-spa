@@ -22,13 +22,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
           />
         </Box>
         <Grid item md={9} lg={7}>
-          <RadioGroupField
-            xs={3}
-            lg={2}
-            disabled={!inEditMode}
-            name="configuration.type"
-            options={dictionaries.gardenTypes}
-          />
+          <RadioGroupField xs={3} disabled={!inEditMode} name="configuration.type" options={dictionaries.gardenTypes} />
         </Grid>
         <GenericField
           name="configuration.notes"
@@ -48,7 +42,6 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
         <Grid item md={9} lg={7}>
           <RadioGroupField
             xs={3}
-            lg={2}
             disabled={!inEditMode}
             name="configuration.quality"
             options={dictionaries.gardenQualities}

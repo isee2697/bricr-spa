@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Switch, Redirect, useParams } from 'react-router-dom';
-import { Box, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -69,17 +69,15 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
         isSidebarVisible={isSidebarVisible}
         onOpenSidebar={onOpenSidebar}
         action={
-          <Box display="flex">
-            <Button
-              color="primary"
-              variant="contained"
-              startIcon={<AddIcon color="inherit" />}
-              onClick={() => setIsMeterModalOpen(true)}
-              size="small"
-            >
-              {formatMessage({ id: 'pim_details.services.add_new_meter' })}
-            </Button>
-          </Box>
+          <Button
+            color="primary"
+            variant="contained"
+            startIcon={<AddIcon color="inherit" />}
+            onClick={() => setIsMeterModalOpen(true)}
+            size="small"
+          >
+            {formatMessage({ id: 'pim_details.services.add_new_meter' })}
+          </Button>
         }
       />
       <Switch>

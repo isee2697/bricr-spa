@@ -29,9 +29,5 @@ export const InspectionContainer = () => {
     }
   };
 
-  if (!data?.getPimSpecification.inspections) {
-    return null;
-  }
-
-  return <Inspection inspections={data.getPimSpecification.inspections} onSave={handleSave} />;
+  return <Inspection inspections={data?.getPimSpecification.inspections ?? []} onSave={handleSave} />;
 };

@@ -43,7 +43,6 @@ export const SpecificationGeneralContainer = () => {
     <AutosaveForm
       initialValues={data?.getPimSpecification || undefined}
       onSave={handleSave}
-      subscription={{}}
       mutators={{ ...arrayMutators }}
     >
       <SpecificationGeneral />

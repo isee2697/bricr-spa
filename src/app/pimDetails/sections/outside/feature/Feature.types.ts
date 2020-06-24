@@ -1,12 +1,11 @@
-import { OutsideFeature, OutsideFeatureType } from 'api/types';
+import { OutsideFeature } from 'api/types';
 
 export type FeatureContainerProps = {
   features: OutsideFeature[];
 };
 
 export type FeatureProps = {
-  id: string;
-  featureType: OutsideFeatureType;
+  feature: OutsideFeature;
 };
 
 export type FeatureFormProps = {

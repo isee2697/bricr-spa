@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import { Grid, Typography } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { GenericField } from 'form/fields';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
 import { LabelProperty } from 'api/types';
+import { Page } from 'ui/templates';
 
 import { EnergyForm } from './forms/EnergyForm';
 import { ApprovalsForm } from './forms/ApprovalsForm';
@@ -17,22 +17,21 @@ export const SpecificationGeneral = () => {
 
   return (
     <>
-      <Grid xs={12} item>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.specification.title' })}</Typography>
-        <GenericField
-          placeholder="pim_details.specification.description_placeholder"
-          name="specification.description"
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <EnergyForm />
-      </Grid>
-      <Grid item xs={12}>
-        <ApprovalsForm />
-      </Grid>
-      <Grid item xs={12}>
-        <ObligationForm onAddPropertyClick={() => setModalOpened(true)} />
-      </Grid>
+      <Page
+        title={formatMessage({ id: 'pim_details.specification.title' })}
+        placeholder="pim_details.specification.description_placeholder"
+        name="specification.description"
+      >
+        <Grid item xs={12}>
+          <EnergyForm />
+        </Grid>
+        <Grid item xs={12}>
+          <ApprovalsForm />
+        </Grid>
+        <Grid item xs={12}>
+          <ObligationForm onAddPropertyClick={() => setModalOpened(true)} />
+        </Grid>
+      </Page>
       {isModalOpened && (
         <AddCustomPropertyModalContainer
           property={LabelProperty.ObligationToProvideInformation}
