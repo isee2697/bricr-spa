@@ -28,14 +28,6 @@ context('Pim Details', () => {
     cy.wait(1000);
     cy.contains('Media link');
 
-    cy.findAllByText('Edit mode')
-      .eq(1)
-      .click();
-
-    cy.get('.sub-section-header-toggle')
-      .eq(0)
-      .click();
-
     cy.findByText('You Tube').click();
 
     cy.get('input[name="description"]').type('URL');
@@ -50,14 +42,6 @@ context('Pim Details', () => {
       .click();
     cy.wait(1000);
     cy.contains('Text chapter name');
-
-    cy.findAllByText('Edit mode')
-      .eq(2)
-      .click();
-
-    cy.get('.sub-section-header-toggle')
-      .eq(1)
-      .click();
 
     cy.get('[data-slate-node="value"]').type('Chapter');
 
@@ -74,14 +58,6 @@ context('Pim Details', () => {
     cy.wait(1000);
     cy.contains('Media link');
 
-    cy.findAllByText('Edit mode')
-      .eq(3)
-      .click();
-
-    cy.get('.sub-section-header-toggle')
-      .eq(2)
-      .click();
-
     cy.findByText('Garden').click();
 
     cy.get('input[name="description"]').type('Usp description');
@@ -96,14 +72,6 @@ context('Pim Details', () => {
       .click();
     cy.wait(1000);
     cy.contains('Media link');
-
-    cy.findAllByText('Edit mode')
-      .eq(4)
-      .click();
-
-    cy.get('.sub-section-header-toggle')
-      .eq(3)
-      .click();
 
     cy.findByText('Remote').click();
 

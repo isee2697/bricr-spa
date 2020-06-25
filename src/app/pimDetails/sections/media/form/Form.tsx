@@ -6,13 +6,19 @@ import { AutosaveForm, FormSubSection } from 'ui/organisms';
 
 import { FormProps } from './Form.types';
 
-export const Form = <T extends unknown>({ title, children, initialValues, onSave }: FormProps<T>) => {
+export const Form = <T extends unknown>({
+  title,
+  children,
+  initialValues,
+  onSave,
+  isInitiallyOpened = false,
+}: FormProps<T>) => {
   const classes = useStyles();
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={onSave}>
       <Box className={classes.container}>
-        <FormSubSection title={title} initiallyOpened={false} onOptionsClick={() => {}}>
+        <FormSubSection title={title} initiallyOpened={isInitiallyOpened} onOptionsClick={() => {}}>
           <Grid container spacing={4}>
             {children}
           </Grid>

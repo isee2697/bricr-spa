@@ -9,7 +9,7 @@ import { UpdateTagInput } from 'api/types';
 
 import { TagsProps } from './Tags.types';
 
-export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
+export const Tags = ({ onAdd, onSave, options, tags, newTagId }: TagsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -32,8 +32,9 @@ export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
             onSave={onSave}
             initialValues={tag}
             key={tag.id}
+            isInitiallyOpened={tag.id === newTagId}
           >
-            <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.tags.single_choose" />
+            <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.tags.single_choose" xs={3} />
             <Input
               disabled={!editing}
               label="pim_details.media.tags.label"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PimMediaDocument, TagType, UpdateTagInput, useAddTagMutation, useUpdateTagMutation } from 'api/types';
@@ -17,6 +17,7 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addTag] = useAddTagMutation();
   const [editTag] = useUpdateTagMutation();
+  const [newTagId, setNewTagId] = useState<string | null>(null);
 
   const handleAdd = async () => {
     try {
@@ -24,7 +25,7 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
         throw new Error();
       }
 
-      await addTag({
+      const { data } = await addTag({
         variables: {
           input: {
             pimId: id,
@@ -39,6 +40,8 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
           },
         ],
       });
+
+      setNewTagId(data?.addTag?.newTag.id ?? null);
 
       return undefined;
     } catch (error) {
@@ -79,5 +82,5 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
     }
   };
 
-  return <Tags onSave={handleSave} options={options} onAdd={handleAdd} tags={tags ?? []} />;
+  return <Tags onSave={handleSave} options={options} onAdd={handleAdd} tags={tags ?? []} newTagId={newTagId} />;
 };

@@ -66,11 +66,6 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                 <MenuIcon color="inherit" />
               </IconButton>
             )}
-            {onAdd && (
-              <IconButton color="primary" size="small" className="form-section-add" onClick={onAdd}>
-                <AddIcon color="inherit" />
-              </IconButton>
-            )}
             {isExpandable && (
               <IconButton
                 className={classNames({ 'icon-reversed': expanded })}
@@ -79,6 +74,11 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                 onClick={() => setExpanded(expanded => !expanded)}
               >
                 <ArrowDownIcon color="inherit" />
+              </IconButton>
+            )}
+            {onAdd && (
+              <IconButton color="primary" size="small" className="form-section-add" onClick={onAdd}>
+                <AddIcon color="inherit" />
               </IconButton>
             )}
           </Box>

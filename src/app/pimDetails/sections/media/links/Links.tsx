@@ -8,7 +8,7 @@ import { useLocale } from 'hooks';
 
 import { LinksProps } from './Links.types';
 
-export const Links = ({ onAdd, onSave, options, links }: LinksProps) => {
+export const Links = ({ onAdd, onSave, options, links, newLinkId }: LinksProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -26,6 +26,7 @@ export const Links = ({ onAdd, onSave, options, links }: LinksProps) => {
             title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
             onSave={onSave}
             initialValues={link}
+            isInitiallyOpened={newLinkId === link.id}
           >
             <Input
               disabled={!editing}

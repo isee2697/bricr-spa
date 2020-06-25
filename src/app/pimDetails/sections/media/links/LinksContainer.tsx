@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { LinksContainerProps } from 'app/pimDetails/sections/media/links/Links.types';
@@ -23,6 +23,7 @@ export const LinksContainer = ({ links }: LinksContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addMediaLink] = useAddMediaLinkMutation();
   const [editMediaLink] = useUpdateMediaLinkMutation();
+  const [newLinkId, setNewLinkId] = useState<string | null>(null);
 
   const handleAdd = async () => {
     try {
@@ -30,7 +31,7 @@ export const LinksContainer = ({ links }: LinksContainerProps) => {
         throw new Error();
       }
 
-      await addMediaLink({
+      const { data } = await addMediaLink({
         variables: {
           input: {
             pimId: id,
@@ -45,6 +46,8 @@ export const LinksContainer = ({ links }: LinksContainerProps) => {
           },
         ],
       });
+
+      setNewLinkId(data?.addMediaLink?.newMediaLink.id ?? null);
 
       return undefined;
     } catch (error) {
@@ -85,5 +88,5 @@ export const LinksContainer = ({ links }: LinksContainerProps) => {
     }
   };
 
-  return <Links links={links ?? []} onSave={handleSave} options={options} onAdd={handleAdd} />;
+  return <Links links={links ?? []} onSave={handleSave} options={options} onAdd={handleAdd} newLinkId={newLinkId} />;
 };

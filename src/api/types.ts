@@ -3188,7 +3188,12 @@ export type AddTagMutationVariables = {
 };
 
 export type AddTagMutation = { __typename?: 'Mutation' } & {
-  addTag?: Maybe<{ __typename?: 'PimWithNewTag' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+  addTag?: Maybe<
+    { __typename?: 'PimWithNewTag' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newTag: { __typename?: 'Tag' } & Pick<Tag, 'id'>;
+    }
+  >;
 };
 
 export type UpdateTagMutationVariables = {
@@ -3204,7 +3209,12 @@ export type AddUspMutationVariables = {
 };
 
 export type AddUspMutation = { __typename?: 'Mutation' } & {
-  addUsp?: Maybe<{ __typename?: 'PimWithNewUsp' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+  addUsp?: Maybe<
+    { __typename?: 'PimWithNewUsp' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newUsp: { __typename?: 'Usp' } & Pick<Usp, 'id'>;
+    }
+  >;
 };
 
 export type UpdateUspMutationVariables = {
@@ -3220,7 +3230,12 @@ export type AddMediaLinkMutationVariables = {
 };
 
 export type AddMediaLinkMutation = { __typename?: 'Mutation' } & {
-  addMediaLink?: Maybe<{ __typename?: 'PimWithNewMediaLink' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+  addMediaLink?: Maybe<
+    { __typename?: 'PimWithNewMediaLink' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newMediaLink: { __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>;
+    }
+  >;
 };
 
 export type UpdateMediaLinkMutationVariables = {
@@ -3236,7 +3251,12 @@ export type AddTextChapterMutationVariables = {
 };
 
 export type AddTextChapterMutation = { __typename?: 'Mutation' } & {
-  addTextChapter?: Maybe<{ __typename?: 'PimWithNewTextChapter' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+  addTextChapter?: Maybe<
+    { __typename?: 'PimWithNewTextChapter' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newChapter: { __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>;
+    }
+  >;
 };
 
 export type UpdateTextChapterMutationVariables = {
@@ -4532,6 +4552,9 @@ export const AddTagDocument = gql`
       pim {
         id
       }
+      newTag {
+        id
+      }
     }
   }
 `;
@@ -4567,6 +4590,9 @@ export const AddUspDocument = gql`
       pim {
         id
       }
+      newUsp {
+        id
+      }
     }
   }
 `;
@@ -4600,6 +4626,9 @@ export const AddMediaLinkDocument = gql`
   mutation AddMediaLink($input: AddMediaLinkInput!) {
     addMediaLink(input: $input) {
       pim {
+        id
+      }
+      newMediaLink {
         id
       }
     }
@@ -4644,6 +4673,9 @@ export const AddTextChapterDocument = gql`
   mutation AddTextChapter($input: AddTextChapterInput!) {
     addTextChapter(input: $input) {
       pim {
+        id
+      }
+      newChapter {
         id
       }
     }

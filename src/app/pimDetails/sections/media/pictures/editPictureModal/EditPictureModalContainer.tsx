@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { EntityWithFiles, PictureType, PimMediaDocument, useUpdatePictureMutation } from 'api/types';
+import { EntityWithFiles, LabelProperty, PictureType, PimMediaDocument, useUpdatePictureMutation } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
-import { useGetPrivateFile } from 'hooks';
+import { useCustomLabels, useGetPrivateFile } from 'hooks';
 
 import { EditPictureModal } from './EditPictureModal';
 import { EditPictureForm, EditPictureModalContainerProps } from './EditPictureModal.types';
@@ -18,6 +18,7 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
   const { id: pimId } = useParams<{ id: string }>();
   const { loading, data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
   const [updatePicture] = useUpdatePictureMutation();
+  const customLabels = useCustomLabels(pimId, [LabelProperty.Picture]);
 
   const handleSave = async ({ file, description, name, type, id }: EditPictureForm) => {
     try {
@@ -66,7 +67,7 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
       onModalClose={onModalClose}
       picture={picture}
       initialValues={{ ...picture, signedUrl: data?.signedUrl ?? '' }}
-      options={options}
+      options={[...options, ...(customLabels[LabelProperty.Picture] ?? [])]}
       onSubmit={handleSave}
     />
   );

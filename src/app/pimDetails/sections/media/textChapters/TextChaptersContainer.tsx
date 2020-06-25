@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Chapter, TextChaptersContainerProps } from 'app/pimDetails/sections/media/textChapters/TextChapters.types';
@@ -18,6 +18,7 @@ export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) 
   const { id } = useParams<{ id: string }>();
   const [addTextChapter] = useAddTextChapterMutation();
   const [editTextChapter] = useUpdateTextChapterMutation();
+  const [newChapterId, setNewChapterId] = useState<string | null>(null);
 
   const handleAdd = async () => {
     try {
@@ -25,7 +26,7 @@ export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) 
         throw new Error();
       }
 
-      await addTextChapter({
+      const { data } = await addTextChapter({
         variables: {
           input: {
             pimId: id,
@@ -40,6 +41,8 @@ export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) 
           },
         ],
       });
+
+      setNewChapterId(data?.addTextChapter?.newChapter.id ?? null);
 
       return undefined;
     } catch (error) {
@@ -88,5 +91,13 @@ export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) 
       chapter: ch.text ? JSON.parse(ch.text) : RICH_TEXT_DEFAULT,
     }));
 
-  return <TextChapters onSave={handleSave} options={options} onAdd={handleAdd} chapters={textChapters ?? []} />;
+  return (
+    <TextChapters
+      onSave={handleSave}
+      options={options}
+      onAdd={handleAdd}
+      chapters={textChapters ?? []}
+      newChapterId={newChapterId}
+    />
+  );
 };

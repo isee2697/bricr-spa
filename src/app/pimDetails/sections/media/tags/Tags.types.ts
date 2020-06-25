@@ -6,6 +6,7 @@ export type TagsProps = {
   onAdd: () => Promise<undefined | { error: boolean }>;
   onSave: (values: UpdateTagInput) => Promise<undefined | { error: boolean }>;
   tags: Tag[];
+  newTagId: string | null;
 };
 
 export type TagsContainerProps = {

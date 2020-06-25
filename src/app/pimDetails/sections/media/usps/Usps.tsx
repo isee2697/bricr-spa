@@ -9,7 +9,7 @@ import { UpdateUspInput } from 'api/types';
 
 import { UspsProps } from './Usps.types';
 
-export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
+export const Usps = ({ onAdd, onSave, options, usps, newUspId }: UspsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -31,6 +31,7 @@ export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
             }
             onSave={onSave}
             initialValues={usp}
+            isInitiallyOpened={newUspId === usp.id}
           >
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.usps.single_choose" />
             <Input

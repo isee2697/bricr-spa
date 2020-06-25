@@ -9,7 +9,7 @@ import { Input } from 'app/pimDetails/sections/media/form/parts/Input';
 
 import { TextChaptersProps } from './TextChapters.types';
 
-export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersProps) => {
+export const TextChapters = ({ onAdd, onSave, options, chapters, newChapterId }: TextChaptersProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -27,6 +27,7 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
             title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
             onSave={onSave}
             initialValues={chapter}
+            isInitiallyOpened={newChapterId === chapter.id}
           >
             <Input
               disabled={!editing}
