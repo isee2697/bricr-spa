@@ -17,7 +17,7 @@ import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType, FloorType } from 'api/types';
+import { CadastreType } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -36,14 +36,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
     return null;
   }
 
-  const floorOrder = [FloorType.Attic, FloorType.Loft, FloorType.Floor, FloorType.GroundFloor, FloorType.Basement];
-  const floors = floorOrder.flatMap(type => {
-    const floorItems = data.getPimInside.floors?.filter(floor => floor.floorType === type) || [];
-
-    return floorItems.map((floor, key) =>
-      createSubMenuData(floor.id, `dictionaries.floor_type.${floor.floorType}`, floorItems.length, key),
-    );
-  });
+  const floorGroups = groupBy(data.getPimInside.floors || [], floor => floor.floorType);
   const outsideGroups = groupBy(data.getPimOutside.outsideFeatures || [], outside => outside.type);
   const plotGroups = groupBy(
     data.getPimCadastre.cadastre?.filter(c => c.type === CadastreType.Plot).reverse() || [],
@@ -65,7 +58,16 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
     {
       name: 'inside',
       icon: <FilesIcon />,
-      subItems: floors,
+      subItems: Object.values(floorGroups).flatMap(values =>
+        values.map((floor, key) =>
+          createSubMenuData(
+            floor.id,
+            `dictionaries.floor_type.${floor.floorType}`,
+            floorGroups[floor.floorType].length,
+            key,
+          ),
+        ),
+      ),
     },
     {
       name: 'outside',
