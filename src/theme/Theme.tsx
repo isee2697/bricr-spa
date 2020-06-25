@@ -326,10 +326,8 @@ const theme = createMuiTheme({
     },
     MuiTabs: {
       indicator: {
-        '&[class*="PrivateTabIndicator-colorPrimary"]': {
-          background: palette.gradientPrimary.main,
-          borderRadius: 1,
-        },
+        background: palette.gradientPrimary.main,
+        borderRadius: 1,
       },
     },
   },
