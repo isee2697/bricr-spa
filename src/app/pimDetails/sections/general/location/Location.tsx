@@ -5,7 +5,7 @@ import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHead
 import { Box, Button, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { GoodToKnowRow } from 'app/pimDetails/sections/general/location/goodToKnowRow/GoodToKnowRow';
 import { LocationGoodToKnowType } from 'api/types';
 import { Page } from 'ui/templates';
@@ -47,7 +47,7 @@ export const Location = ({
               <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
                 {editable => (
                   <>
-                    <FormSubSection
+                    <FormSubSectionHeader
                       noBorder
                       title={formatMessage({ id: 'pim_details.general.location.type' })}
                       subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -74,7 +74,7 @@ export const Location = ({
                     <LocationMap disabled={!editable} latitudeName="latitude" longitudeName="longitude" />
                     <Box mb={3} />
 
-                    <FormSubSection
+                    <FormSubSectionHeader
                       noBorder
                       title={formatMessage({ id: 'pim_details.general.location.type' })}
                       subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -89,7 +89,7 @@ export const Location = ({
                     />
                     <Box mb={3} />
 
-                    <FormSubSection
+                    <FormSubSectionHeader
                       noBorder
                       title={formatMessage({ id: 'pim_details.general.location.good_to_know' })}
                       subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

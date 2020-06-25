@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FormSection } from 'ui/organisms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { Grid, InputAdornment } from 'ui/atoms';
 import { GenericField, DatePickerField, CheckboxGroupField } from 'form/fields';
@@ -89,7 +89,7 @@ export const InsideGeneral = () => {
           {isEditing => (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   title={formatMessage({ id: 'pim_details.inside.general.windows_types' })}
                   subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
                 />

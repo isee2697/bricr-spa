@@ -4,7 +4,7 @@ import { FormSpy } from 'react-final-form';
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { EuroIcon, SquareIcon } from 'ui/atoms/icons';
-import { FormSubSection as SubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection, FormSubSection } from 'ui/organisms';
 import { GenericField, CheckboxField, DatePickerField, DropdownField, RadioGroupField } from 'form/fields';
 
@@ -21,7 +21,7 @@ export const Sale = () => {
             title={formatMessage({ id: 'pim_details.prices.general_information' })}
             onOptionsClick={() => {}}
           >
-            <SubSectionHeader
+            <FormSubSectionHeader
               title={formatMessage({ id: 'pim_details.prices.price_settings' })}
               subtitle={formatMessage({ id: 'pim_details.prices.select_prefix' })}
               noBorder
@@ -89,7 +89,7 @@ export const Sale = () => {
             </Grid>
             <Box mb={4} />
 
-            <SubSectionHeader
+            <FormSubSectionHeader
               title={formatMessage({ id: 'pim_details.prices.conditions' })}
               subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               noBorder
@@ -110,7 +110,7 @@ export const Sale = () => {
             />
             <Box mb={4} />
 
-            <SubSectionHeader
+            <FormSubSectionHeader
               title={formatMessage({ id: 'pim_details.prices.purchase_mix' })}
               subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               noBorder

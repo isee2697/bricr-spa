@@ -3,7 +3,7 @@ import { Field } from 'react-final-form';
 
 import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { HelpIcon, UnseeIcon, SeeIcon } from 'ui/atoms/icons';
@@ -32,7 +32,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
             <Grid container spacing={4}>
               <Grid item xs={12}>
                 <Box pb={1.25}>
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.cadastre.plot.general_info_title' })}
                     subtitle={formatMessage({ id: 'pim_details.cadastre.plot.general_info_subtitle' })}
@@ -114,7 +114,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.code_size_title' })}
                   subtitle={formatMessage({ id: 'pim_details.cadastre.plot.code_size_subtitle' })}
@@ -131,7 +131,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.ownership_title' })}
                   subtitle={formatMessage({ id: 'pim_details.cadastre.plot.ownership_subtitle' })}
@@ -170,7 +170,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.leaseholder_title' })}
                   subtitle={formatMessage({ id: 'pim_details.cadastre.plot.leaseholder_subtitle' })}
@@ -187,7 +187,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.ground_info_title' })}
                   subtitle={formatMessage({ id: 'pim_details.cadastre.plot.ground_info_subtitle' })}
@@ -204,7 +204,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.ground_duration_title' })}
                   subtitle={formatMessage({ id: 'pim_details.cadastre.plot.ground_duration_subtitle' })}
@@ -221,7 +221,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.cadastre.plot.ground_price_title' })}
                   subtitle={
@@ -263,7 +263,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                   </Grid>
                 </Grid>
                 <Box paddingTop={2}>
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.cadastre.plot.bought_off_title' })}
                     subtitle={

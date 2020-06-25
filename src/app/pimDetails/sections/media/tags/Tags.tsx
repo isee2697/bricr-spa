@@ -31,6 +31,7 @@ export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
             }
             onSave={onSave}
             initialValues={tag}
+            key={tag.id}
           >
             <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.tags.single_choose" />
             <Input

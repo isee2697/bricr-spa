@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Box } from 'ui/atoms';
 import { ListIcon, NcSaleIcon } from 'ui/atoms/icons';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -34,7 +34,7 @@ export const ConstructionInformationForm = () => {
     >
       {editing => (
         <>
-          <FormSubSection
+          <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.construction_information.status_construction' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

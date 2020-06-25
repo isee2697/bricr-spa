@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
-import { FormSubSection, Modal, SubmitButton } from 'ui/molecules';
+import { FormSubSectionHeader, Modal, SubmitButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { Box, Button, DialogActions, Grid, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField, UploadImageField } from 'form/fields';
@@ -56,7 +56,7 @@ export const EditPictureModal = ({
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.media.add_picture_modal.title' })}
                   subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

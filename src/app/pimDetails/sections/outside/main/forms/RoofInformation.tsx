@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from 'ui/atoms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -19,7 +19,7 @@ export const RoofInformation = () => {
         <>
           <Box mb={4}>
             <Box>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.general_info' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -33,7 +33,7 @@ export const RoofInformation = () => {
               />
             </Box>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_type' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -54,7 +54,7 @@ export const RoofInformation = () => {
 
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_material' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -75,7 +75,7 @@ export const RoofInformation = () => {
 
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_insulation' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -96,7 +96,7 @@ export const RoofInformation = () => {
 
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.type_of_gutter' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -117,7 +117,7 @@ export const RoofInformation = () => {
 
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.gutter_material' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -136,7 +136,7 @@ export const RoofInformation = () => {
             />
           </Box>
 
-          <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+          <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
           <UploadImageGroupField
             entity={EntityWithFiles.RoofInformation}
             entityID={pimId}

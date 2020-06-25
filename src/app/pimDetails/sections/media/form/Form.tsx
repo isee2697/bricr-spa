@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useStyles } from 'app/pimDetails/sections/inside/floor/space/Space.styles';
-import { Box, Collapse, Grid } from 'ui/atoms';
-import { SubSectionHeader } from 'ui/molecules';
-import { AutosaveForm } from 'ui/organisms';
+import { Box, Grid } from 'ui/atoms';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
 
 import { FormProps } from './Form.types';
 
 export const Form = <T extends unknown>({ title, children, initialValues, onSave }: FormProps<T>) => {
   const classes = useStyles();
 
-  const [isToggled, setToggled] = useState(false);
-
   return (
     <AutosaveForm initialValues={initialValues} onSave={onSave}>
       <Box className={classes.container}>
-        <SubSectionHeader
-          toggled={isToggled}
-          onToggleClick={() => {
-            setToggled(t => !t);
-          }}
-          onOptionsClick={() => {}}
-        >
-          {title}
-        </SubSectionHeader>
-
-        <Collapse style={{ width: '100%' }} in={isToggled} timeout="auto" unmountOnExit>
+        <FormSubSection title={title} initiallyOpened={false} onOptionsClick={() => {}}>
           <Grid container spacing={4}>
             {children}
           </Grid>
-        </Collapse>
+        </FormSubSection>
       </Box>
     </AutosaveForm>
   );

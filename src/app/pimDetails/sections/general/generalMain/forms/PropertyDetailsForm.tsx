@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import {
@@ -154,7 +154,7 @@ export const PropertyDetailsForm = () => {
     >
       {editing => (
         <>
-          <FormSubSection
+          <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.property_details.pick_type_of_property' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -169,7 +169,7 @@ export const PropertyDetailsForm = () => {
             />
           </div>
 
-          <FormSubSection
+          <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.property_details.property_connection' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

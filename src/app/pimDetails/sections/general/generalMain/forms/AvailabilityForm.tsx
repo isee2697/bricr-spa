@@ -3,7 +3,7 @@ import { Field } from 'react-final-form';
 
 import { Grid, Box } from 'ui/atoms';
 import { GraphIcon, FilterIcon, CalendarIcon, BogIcon, CrmIcon } from 'ui/atoms/icons';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DatePickerField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -53,7 +53,7 @@ export const AvailabilityForm = () => {
     >
       {editing => (
         <>
-          <FormSubSection
+          <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.availability.title' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -94,7 +94,7 @@ export const AvailabilityForm = () => {
             </Grid>
           </Grid>
 
-          <FormSubSection
+          <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.availability.habitation' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

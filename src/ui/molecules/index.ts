@@ -15,7 +15,7 @@ export { SubmitButton } from './submitButton/SubmitButton';
 export { SelectCard } from './selectCard/SelectCard';
 export { QuantityInput } from './quantityInput/QuantityInput';
 export { SubSectionHeader } from './subSectionHeader/SubSectionHeader';
-export { FormSubSection } from './formSubSection/FormSubSection';
+export { FormSubSectionHeader } from './formSubSectionHeader/FormSubSectionHeader';
 export { LinkedPerson } from './linkedPerson/LinkedPerson';
 export { TileButton } from './tileButton/TileButton';
 export { LinkedPropertyItem } from './linkedPropertyItem/LinkedPropertyItem';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Grid, Box } from 'ui/atoms';
-import { FormSubSection as FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';

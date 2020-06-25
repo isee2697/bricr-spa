@@ -4,7 +4,7 @@ import { EntityWithFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, UploadImageGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FeatureFormProps } from '../Feature.types';
 
 export const ParkingLotForm = ({ id, inEditMode }: FeatureFormProps) => {
@@ -14,7 +14,7 @@ export const ParkingLotForm = ({ id, inEditMode }: FeatureFormProps) => {
     <>
       <Box mb={4}>
         <Box mb={1}>
-          <FormSubSection title={formatMessage({ id: 'pim_details.outside.main.general_info' })} />
+          <FormSubSectionHeader title={formatMessage({ id: 'pim_details.outside.main.general_info' })} />
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={4}>
@@ -51,7 +51,7 @@ export const ParkingLotForm = ({ id, inEditMode }: FeatureFormProps) => {
       </Box>
 
       <Box mb={3}>
-        <FormSubSection
+        <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
         />

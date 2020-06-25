@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Box, Collapse, Grid } from 'ui/atoms';
-import { FormSection } from 'ui/organisms';
-import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
+import { Box, Grid } from 'ui/atoms';
+import { FormSubSectionHeader } from 'ui/molecules';
+import { FormSection, FormSubSection } from 'ui/organisms';
+import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useStyles } from '../../Specification.styles';
-import { FormSubSection, SubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../../dictionaries';
 
 export const EnergyForm = () => {
   const { formatMessage } = useLocale();
-  const [toggled, setToggled] = useState({
-    energy: true,
-    energyCharacteristic: true,
-  });
   const classes = useStyles();
 
   return (
@@ -22,20 +18,12 @@ export const EnergyForm = () => {
         {editing => (
           <>
             <Box mb={4}>
-              <SubSectionHeader
+              <FormSubSection
+                title={formatMessage({ id: 'pim_details.specification.energy.energy_label' })}
                 onOptionsClick={() => {}}
-                onToggleClick={() =>
-                  setToggled(v => {
-                    return { ...v, energy: !v.energy };
-                  })
-                }
-                toggled={toggled.energy}
               >
-                {formatMessage({ id: 'pim_details.specification.energy.energy_label' })}
-              </SubSectionHeader>
-              <Collapse in={toggled.energy}>
                 <Box mb={2}>
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.specification.label_title' })}
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -48,7 +36,7 @@ export const EnergyForm = () => {
                   options={dictionaries.energy}
                 />
                 <Box mt={3} mb={2}>
-                  <FormSubSection
+                  <FormSubSectionHeader
                     title={formatMessage({ id: 'pim_details.specification.energy.general_information' })}
                   />
                 </Box>
@@ -78,22 +66,14 @@ export const EnergyForm = () => {
                     />
                   </Grid>
                 </Grid>
-              </Collapse>
+              </FormSubSection>
             </Box>
-            <SubSectionHeader
+            <FormSubSection
+              title={formatMessage({ id: 'pim_details.specification.energy.energy_characteristics' })}
               onOptionsClick={() => {}}
-              onToggleClick={() =>
-                setToggled(v => {
-                  return { ...v, energyCharacteristic: !v.energyCharacteristic };
-                })
-              }
-              toggled={toggled.energyCharacteristic}
             >
-              {formatMessage({ id: 'pim_details.specification.energy.energy_characteristics' })}
-            </SubSectionHeader>
-            <Collapse in={toggled.energyCharacteristic}>
               <Box mb={2}>
-                <FormSubSection
+                <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.specification.energy.select_type' })}
                   subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -113,7 +93,7 @@ export const EnergyForm = () => {
                   disabled={!editing}
                 />
               </Box>
-            </Collapse>
+            </FormSubSection>
           </>
         )}
       </FormSection>

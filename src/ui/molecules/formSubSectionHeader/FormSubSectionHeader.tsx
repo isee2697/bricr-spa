@@ -3,10 +3,10 @@ import classNames from 'classnames';
 
 import { Box, Typography } from 'ui/atoms';
 
-import { FormSubSectionProps } from './FormSubSection.types';
-import { useStyles } from './FormSubSection.styles';
+import { FormSubSectionHeaderProps } from './FormSubSectionHeader.types';
+import { useStyles } from './FormSubSectionHeader.styles';
 
-export const FormSubSection = ({ title, subtitle, noBorder, className }: FormSubSectionProps) => {
+export const FormSubSectionHeader = ({ title, subtitle, noBorder, className }: FormSubSectionHeaderProps) => {
   const classes = useStyles();
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField, DatePickerField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -14,7 +14,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
   return (
     <>
       <Grid item xs={12}>
-        <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
+        <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
         <Grid container spacing={3}>
           <Grid item xs={4}>
             <DatePickerField
@@ -41,7 +41,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.type_of_kitchen' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -58,7 +58,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.type_of_construction' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
@@ -74,7 +74,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.services' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
@@ -98,7 +98,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.built_in_appliances' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
@@ -111,7 +111,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.hob' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

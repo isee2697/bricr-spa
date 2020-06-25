@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid, Box, Typography } from 'ui/atoms';
 import { SquareIcon } from 'ui/atoms/icons';
-import { FormSubSection as FormSubSectionHeader, InfoSection } from 'ui/molecules';
+import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
 import { FormSection, FormSubSection, AutosaveForm } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';

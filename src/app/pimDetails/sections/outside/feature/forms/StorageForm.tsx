@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, CheckboxField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
 import { SquareMeterIcon } from 'ui/atoms/icons';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
@@ -16,7 +16,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
     <>
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.storage.types' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
           />
@@ -42,7 +42,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.material' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
           />
@@ -59,7 +59,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.insulations' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
           />
@@ -83,7 +83,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.services' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
           />
@@ -99,7 +99,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
       </Box>
 
       <Box mb={3}>
-        <FormSubSection
+        <FormSubSectionHeader
           title={formatMessage({ id: 'pim_details.surface.surface' })}
           subtitle={formatMessage(
             { id: 'pim_details.surface.description' },
@@ -164,7 +164,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
       </Box>
 
       <Box mb={3}>
-        <FormSubSection
+        <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
         />

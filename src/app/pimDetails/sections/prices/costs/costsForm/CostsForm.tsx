@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
-import { Box, Collapse, Grid } from 'ui/atoms';
-import { SubSectionHeader } from 'ui/molecules';
-import { AutosaveForm } from 'ui/organisms';
+import { Box, Grid } from 'ui/atoms';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { CostPaymentFrequency } from 'api/types';
@@ -15,7 +14,6 @@ import { useStyles } from './CostsForm.styles';
 export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
   const { formatMessage } = useLocale();
   const styles = useStyles();
-  const [isToggled, setToggled] = useState(false);
 
   const vatOptions = [21, 9, 0].map(value => ({
     label: formatMessage({ id: 'pim_details.prices.costs.vat_percentage_option' }, { vat: value }),
@@ -40,24 +38,16 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
   return (
     <AutosaveForm initialValues={cost} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
       <Box>
-        <SubSectionHeader
-          toggled={isToggled}
-          onToggleClick={() => {
-            setToggled(t => !t);
-          }}
-          onOptionsClick={() => {}}
-        >
-          {getTitle()}
-        </SubSectionHeader>
-
-        <Collapse style={{ width: '100%' }} in={isToggled} timeout="auto" unmountOnExit>
+        <FormSubSection title={getTitle()} onOptionsClick={() => {}} initiallyOpened={false}>
           <Box pb={4}>
             <Grid container spacing={4}>
               <Grid item xs={12} className={styles.sections}>
                 <CostSection
                   title={formatMessage({ id: 'pim_details.prices.costs.payments' })}
                   subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
-                  costLabel={formatMessage({ id: 'pim_details.prices.costs.service_costs' }, { name: cost.type })}
+                  costLabel={
+                    <>{formatMessage({ id: 'pim_details.prices.costs.service_costs' }, { name: cost.type })}</>
+                  }
                   costName="serviceCosts"
                   selectLabelId="pim_details.prices.costs.payment_frequency"
                   selectName="paymentsFrequency"
@@ -67,7 +57,7 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
                 <CostSection
                   title={formatMessage({ id: 'pim_details.prices.costs.vats' })}
                   subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
-                  costLabel={formatMessage({ id: 'pim_details.prices.costs.vat_costs' })}
+                  costLabel="pim_details.prices.costs.vat_costs"
                   costName="vatTaxedServiceCosts"
                   selectLabelId="pim_details.prices.costs.vat_percentage"
                   selectName="vatPercentage"
@@ -88,7 +78,7 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
               </Grid>
             </Grid>
           </Box>
-        </Collapse>
+        </FormSubSection>
       </Box>
     </AutosaveForm>
   );
