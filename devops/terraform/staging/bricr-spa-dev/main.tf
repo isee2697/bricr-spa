@@ -11,8 +11,8 @@ module "bricr-spa-dev" {
   listener_arn                    = "arn:aws:elasticloadbalancing:eu-west-1:158856956003:listener/app/bricr-staging/30eb0f5a4014c299/966d84860e1d8a74"
   hosts                           = ["develop.dev-domain.nl"]
   docker_tag                      = var.docker_tag
-  health_check_matcher            = "200-499"
-  health_check                    = "/auth/login"
+  health_check_matcher            = "200"
+  health_check                    = "/"
   container_port                  = 3000
   web_envs = [
     { "name" : "LOG_CHANNEL",
