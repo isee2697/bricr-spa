@@ -35,7 +35,11 @@ export const useStyles = makeStyles(theme => ({
     },
     '&.selected': {
       '& .MuiCard-root': {
-        borderColor: theme.palette.primary.main,
+        border: `double ${theme.spacing(0.125)}px transparent`,
+        borderRadius: theme.spacing(1),
+        backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
+        backgroundOrigin: 'border-box',
+        backgroundClip: 'content-box, border-box',
       },
       '& .MuiCard-root svg': {
         color: theme.palette.primary.main,
@@ -69,7 +73,15 @@ export const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     '& .MuiCard-root.MuiPaper-rounded': {
       borderColor: theme.palette.gray.light,
-      borderWidth: '2px',
+      borderWidth: theme.spacing(0.25),
+    },
+    '&.selected .MuiCard-root.MuiPaper-rounded': {
+      border: `double ${theme.spacing(0.125)}px transparent`,
+      borderRadius: theme.spacing(1),
+      backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
+      backgroundOrigin: 'border-box',
+      backgroundClip: 'content-box, border-box',
+      borderWidth: theme.spacing(0.125),
     },
     '& .title': {
       color: theme.palette.gray.main,
