@@ -99,7 +99,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add floor', () => {
-    cy.contains('Ground floor');
+    cy.contains('Groundfloor');
 
     cy.findByText('Add new floor').click();
     cy.findByText('Attic').click();
@@ -111,7 +111,7 @@ context('Pim Details', () => {
       .last()
       .click();
 
-    cy.contains('Ground floor');
+    cy.contains('Groundfloor');
     cy.get('.form-section-add')
       .last()
       .click();
