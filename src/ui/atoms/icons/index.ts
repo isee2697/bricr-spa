@@ -66,3 +66,4 @@ export * from './bulletList/BulletListIcon';
 export * from './unCheckMark/UnCheckMarkIcon';
 export * from './percent/PercentIcon';
 export * from './squareMeter/SquareMeterIcon';
+export * from './refresh/RefreshIcon';
