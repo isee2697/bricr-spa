@@ -41,7 +41,7 @@ type PimLocation implements LastUpdated {
   latitude: Float
   longitude: Float,
   map: String,
-  type: [String] @uuidOrEnum(enum: ["LocationType"])
+  type: String @uuidOrEnum(enum: ["LocationType"])
   notes: String
   goodToKnows: [GoodToKnow!]
   lastEditedBy: Profile
@@ -54,7 +54,7 @@ input UpdatePimLocationInput {
   latitude: Float
   longitude: Float,
   map: String,
-  type: [String] @uuidOrEnum(enum: ["LocationType"])
+  type: String @uuidOrEnum(enum: ["LocationType"])
   notes: String
   goodToKnows: [GoodToKnowInput!]
   description: String

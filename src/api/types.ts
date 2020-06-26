@@ -1338,7 +1338,7 @@ export type PimLocation = LastUpdated & {
   latitude?: Maybe<Scalars['Float']>;
   longitude?: Maybe<Scalars['Float']>;
   map?: Maybe<Scalars['String']>;
-  type?: Maybe<Array<Maybe<Scalars['String']>>>;
+  type?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   goodToKnows?: Maybe<Array<GoodToKnow>>;
   lastEditedBy?: Maybe<Profile>;
@@ -1351,7 +1351,7 @@ export type UpdatePimLocationInput = {
   latitude?: Maybe<Scalars['Float']>;
   longitude?: Maybe<Scalars['Float']>;
   map?: Maybe<Scalars['String']>;
-  type?: Maybe<Array<Maybe<Scalars['String']>>>;
+  type?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   goodToKnows?: Maybe<Array<GoodToKnowInput>>;
   description?: Maybe<Scalars['String']>;

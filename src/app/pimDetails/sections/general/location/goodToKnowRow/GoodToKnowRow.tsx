@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useField } from 'react-final-form';
 
 import { Grid, TileCheckbox, Box } from 'ui/atoms';
-import { BellIcon } from 'ui/atoms/icons';
+import { BellIcon, HomeIcon } from 'ui/atoms/icons';
 import { DropdownField, GenericField } from 'form/fields';
 import { GoodToKnowProps } from 'app/pimDetails/sections/general/location/goodToKnowRow/GoodToKnowRow.types';
 import { DistanceUnit } from 'api/types';
 import { useLocale } from 'hooks';
 
-export const GoodToKnowRow = ({ disabled, type, index, icon }: GoodToKnowProps) => {
+export const GoodToKnowRow = ({ disabled, type, index }: GoodToKnowProps) => {
   const { formatMessage } = useLocale();
   const { input: inputType } = useField(`goodToKnows[${index}].type`);
   const { input: inputChecked } = useField(`goodToKnows[${index}].checked`);
@@ -36,10 +36,10 @@ export const GoodToKnowRow = ({ disabled, type, index, icon }: GoodToKnowProps) 
           <TileCheckbox
             onClick={handleSelect}
             isSelected={isSelected}
-            title={formatMessage({ id: `dictionaries.general_location.good_to_know.${type}`, defaultMessage: type })}
+            title={formatMessage({ id: `dictionaries.general_location.good_to_know.${type}` })}
             isDisabled={disabled}
           >
-            {icon ?? <BellIcon color="inherit" />}
+            {isSelected ? <HomeIcon color="inherit" /> : <BellIcon color="inherit" />}
           </TileCheckbox>
         </Box>
       </Grid>
