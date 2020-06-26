@@ -17,6 +17,7 @@ export type FormSectionProps = {
   className?: string;
   isInitEditing?: boolean;
   buttons?: ReactNode;
+  loading?: boolean;
 };
 
 export type FormSectionRef = {

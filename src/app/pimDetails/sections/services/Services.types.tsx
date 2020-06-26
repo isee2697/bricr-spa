@@ -19,6 +19,7 @@ export type ServicesMetersContainerProps = PimDetailsSectionProps & {
 
 export type ServicesMetersProps = {
   meters: Meter[];
+  loading: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   onAddReading(values: unknown): Promise<undefined | { error: boolean }>;
   linkedPerson: LinkedPersonProps;

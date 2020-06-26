@@ -23,12 +23,12 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       titleBadge,
       buttons,
       isInitEditing = false,
+      loading = false,
     },
     ref,
   ) => {
     const { formatMessage } = useLocale();
     const [expanded, setExpanded] = useState(isInitExpanded);
-
     const [editing, setEditing] = useState(isInitEditing);
     const classes = useStyles({ bordered: editing });
 
@@ -78,7 +78,13 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                 </IconButton>
               )}
               {onAdd && (
-                <IconButton color="primary" size="small" className="form-section-add" onClick={onAdd}>
+                <IconButton
+                  color="primary"
+                  size="small"
+                  className="form-section-add"
+                  onClick={onAdd}
+                  disabled={loading}
+                >
                   <AddIcon color="inherit" />
                 </IconButton>
               )}

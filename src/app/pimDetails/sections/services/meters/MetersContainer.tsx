@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useUpdateMeterMutation, useAddReadingMutation, PimServicesDocument, Meter } from 'api/types';
@@ -10,6 +10,7 @@ import { Meters } from './Meters';
 export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...props }: ServicesMetersContainerProps) => {
   const { id, meterType } = useParams<{ id: string; meterType: string }>();
   const { formatMessage } = useLocale();
+  const [loading, setLoading] = useState(false);
   const [updateMeter] = useUpdateMeterMutation();
   const [addReading] = useAddReadingMutation();
 
@@ -48,6 +49,8 @@ export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...pro
   };
 
   const onAddReading = async (meterId: string) => {
+    setLoading(true);
+
     try {
       const { data } = await addReading({
         variables: {
@@ -66,6 +69,8 @@ export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...pro
         ],
       });
 
+      await setLoading(false);
+
       if (!data) {
         throw new Error();
       }
@@ -80,6 +85,7 @@ export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...pro
     <Meters
       onSave={handleEdit}
       linkedPerson={linkedPerson}
+      loading={loading}
       meters={meters || []}
       onAddReading={onAddReading}
       title={formatMessage({ id: `dictionaries.service.meter.${type.charAt(0).toUpperCase()}${type.slice(1)}Meters` })}

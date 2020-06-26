@@ -10,7 +10,7 @@ import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
 
-export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters }: ServicesMetersProps) => {
+export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters, loading }: ServicesMetersProps) => {
   const classes = useStyles();
   const formRef = React.useRef<FormSectionRef>(null);
 
@@ -30,6 +30,7 @@ export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters }: Se
               onAdd={() => handleOnAddReading(meter.id)}
               onOptionsClick={() => {}}
               ref={formRef}
+              loading={loading}
             >
               {editing => (
                 <>
