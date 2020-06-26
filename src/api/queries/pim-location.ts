@@ -8,6 +8,12 @@ export const PIM_LOCATION = gql`
       longitude
       type
       notes
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
       goodToKnows {
         type
         distance

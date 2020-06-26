@@ -3,7 +3,25 @@ import { gql } from 'apollo-boost';
 export const PIM_SPECIFICATION = gql`
   query PimSpecification($id: ID!) {
     getPimSpecification(id: $id) {
+      linkedPropertiesDateUpdated
+      linkedPropertiesLastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      inspectionsDateUpdated
+      inspectionsLastEditedBy {
+        id
+        firstName
+        lastName
+      }
       specification {
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
         energy {
           label
           energyIndex
@@ -22,6 +40,12 @@ export const PIM_SPECIFICATION = gql`
         }
       }
       specificationAdvanced {
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
         parking {
           description
           parkingCapacity

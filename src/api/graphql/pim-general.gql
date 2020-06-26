@@ -115,7 +115,7 @@ input UpdateIdentificationNumberInput {
   type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
 }
 
-type PimGeneral {
+type PimGeneral implements LastUpdated {
   id: ID!
   realEstateType: RealEstateType!
   street: String!
@@ -144,7 +144,7 @@ type PimGeneral {
   archived: Boolean!
   dateCreated: Date!
   dateUpdated: Date
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
   houseGeneral: HouseGeneral
   extraAddress: ExtraAddress
   identificationNumbers: [IdentificationNumber!]

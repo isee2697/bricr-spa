@@ -120,7 +120,7 @@ input CreatePimInput {
   attention: String
 }
 
-type Pim {
+type Pim implements LastUpdated{
   id: ID!
   realEstateType: RealEstateType!
   street: String!
@@ -163,13 +163,17 @@ type Pim {
   tags: [Tag!]
   pricing: Pricing
   costs: [Cost!]
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
   dateUpdated: Date
   investment: Investment
   specification: Specification
   specificationAdvanced: SpecificationAdvanced
-  linkedProperties: [Pim!]
+  linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
+  identificationNumbers: [IdentificationNumber!]
+  salesSettings: SalesSettings
+  viewingMoments: [ViewingMoment!]
+  location: PimLocation
 }
 
 type Event {
@@ -217,7 +221,6 @@ input UpdateOutsideFeatureInput {
 }
 
 scalar Dictionary
-scalar LastEditedBy
 
 extend type Query {
   getPim(id: ID!): Pim @auth @deprecated(reason: "In later version pim will be split into multiple smaller views.")

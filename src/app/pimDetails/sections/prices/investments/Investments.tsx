@@ -23,12 +23,14 @@ export const Investments = ({ title, isSidebarVisible, onOpenSidebar, onSave, in
         onSave={() => Promise.resolve({ error: false })}
         placeholder="pim_details.prices.description_placeholder"
         name="description"
+        updatedBy={investment?.lastEditedBy}
+        dateUpdated={investment?.dateUpdated}
       >
         <Grid item xs={12}>
           <FormSection title={formatMessage({ id: 'pim_details.prices.investments.title' })} isEditable>
             {editing => (
               <AutosaveForm
-                initialValues={investment ?? {}}
+                initialValues={investment ?? undefined}
                 onSave={onSave}
                 mutators={{ ...arrayMutators }}
                 subscription={{}}

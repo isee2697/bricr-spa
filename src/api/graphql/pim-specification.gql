@@ -190,12 +190,12 @@ input EnergyInput {
 }
 
 type Approvals {
-  label: ApprovalType
+  label: [ApprovalType!]
   notes: String
 }
 
 input ApprovalsInput {
-  label: ApprovalType
+  label: [ApprovalType!]
   notes: String
 }
 
@@ -216,19 +216,26 @@ input SpecificationInput {
   obligation: ObligationToProvideInformationInput
 }
 
-type Specification {
+type Specification implements LastUpdated {
   energy: Energy
   approvals: Approvals
   obligation: ObligationToProvideInformation
-
+  dateUpdated: Date
+  lastEditedBy: Profile
 }
 
-type PimSpecification {
+type PimSpecification implements LastUpdated {
   id: ID!
   specification: Specification
   specificationAdvanced: SpecificationAdvanced
   linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
+  lastEditedBy: Profile
+  dateUpdated: Date
+  linkedPropertiesDateUpdated: Date
+  linkedPropertiesLastEditedBy: Profile
+  inspectionsDateUpdated: Date
+  inspectionsLastEditedBy: Profile
 }
 
 type AddInspectionResult {
@@ -312,7 +319,7 @@ input HomeOwnerAssociationInput {
   notes: String
 }
 
-type SpecificationAdvanced {
+type SpecificationAdvanced implements LastUpdated{
   parking: ParkingSpecification
   monument: MonumentSpecification
   inside: InsideSpecification
@@ -320,6 +327,8 @@ type SpecificationAdvanced {
   specialTags: SpecialTags
   propertyRights: PropertyRights
   homeOwnerAssociation: HomeOwnerAssociation
+  lastEditedBy: Profile
+  dateUpdated: Date
 }
 
 input SpecificationAdvancedInput {

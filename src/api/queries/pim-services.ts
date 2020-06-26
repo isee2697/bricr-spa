@@ -3,6 +3,12 @@ import { gql } from 'apollo-boost';
 export const PIM_SERVICES = gql`
   query PimServices($id: ID!) {
     getPimServices(id: $id) {
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
       meters {
         id
         type

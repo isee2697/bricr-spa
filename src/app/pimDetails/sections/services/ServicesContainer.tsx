@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, Redirect, useParams } from 'react-router-dom';
+import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -7,7 +7,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';
-import { usePimServicesQuery, PimServices, PimServicesDocument, useUpdateServiceMutation } from 'api/types';
+import { PimServices, PimServicesDocument, usePimServicesQuery, useUpdateServiceMutation } from 'api/types';
 import { dateToYear } from 'form/fields';
 import { ServiceForm } from 'app/pimDetails/sections/services/Services.types';
 

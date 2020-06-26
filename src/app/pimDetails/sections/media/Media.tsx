@@ -23,6 +23,8 @@ export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaPr
         onSave={() => Promise.resolve({ error: false })}
         placeholder="pim_details.media.description_placeholder"
         name="name"
+        dateUpdated={media.dateUpdated}
+        updatedBy={media.lastEditedBy}
       >
         <Grid item xs={12}>
           <PicturesContainer pictures={media.pictures} />

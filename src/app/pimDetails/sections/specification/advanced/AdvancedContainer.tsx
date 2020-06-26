@@ -2,7 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router';
 import arrayMutators from 'final-form-arrays';
 
-import { PimSpecification, usePimSpecificationQuery, useUpdateSpecificationAdvancedMutation } from 'api/types';
+import {
+  PimSpecification,
+  PimSpecificationDocument,
+  usePimSpecificationQuery,
+  useUpdateSpecificationAdvancedMutation,
+} from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
 import { Advanced } from './Advanced';
@@ -18,9 +23,23 @@ export const AdvancedContainer = () => {
         variables: {
           input: {
             pimId: id,
-            ...values.specificationAdvanced,
+            parking: values.specificationAdvanced?.parking,
+            monument: values.specificationAdvanced?.monument,
+            inside: values.specificationAdvanced?.inside,
+            housingOptions: values.specificationAdvanced?.housingOptions,
+            specialTags: values.specificationAdvanced?.specialTags,
+            propertyRights: values.specificationAdvanced?.propertyRights,
+            homeOwnerAssociation: values.specificationAdvanced?.homeOwnerAssociation,
           },
         },
+        refetchQueries: [
+          {
+            query: PimSpecificationDocument,
+            variables: {
+              id: id,
+            },
+          },
+        ],
       });
 
       if (!result || !result.updateSpecificationAdvanced) {
@@ -44,7 +63,10 @@ export const AdvancedContainer = () => {
       subscription={{}}
       mutators={{ ...arrayMutators }}
     >
-      <Advanced />
+      <Advanced
+        dateUpdated={data?.getPimSpecification.specificationAdvanced?.dateUpdated}
+        updatedBy={data?.getPimSpecification.specificationAdvanced?.lastEditedBy}
+      />
     </AutosaveForm>
   );
 };

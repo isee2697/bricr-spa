@@ -20,11 +20,13 @@ export const Location = ({
   initialValues,
   typeOptions,
   onSave,
+  dateUpdated,
+  updatedBy,
 }: LocationProps) => {
   const { formatMessage } = useIntl();
 
   return (
-    <>
+    <AutosaveForm onSave={onSave} initialValues={initialValues}>
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
@@ -37,73 +39,72 @@ export const Location = ({
       />
       <Page
         title={formatMessage({ id: 'pim_details.general.location.header' })}
-        onSave={() => Promise.resolve(undefined)}
         placeholder="pim_details.general.location.placeholder"
-        name="notes"
+        name="description"
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
       >
         <Grid item xs={12}>
-          <AutosaveForm onSave={onSave} initialValues={initialValues}>
-            <Grid item xs={12}>
-              <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
-                {editable => (
-                  <>
-                    <FormSubSectionHeader
-                      noBorder
-                      title={formatMessage({ id: 'pim_details.general.location.type' })}
-                      subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
-                    />
-                    <Grid container spacing={3}>
-                      <Grid item xs={4}>
-                        <GenericField
-                          label="pim_details.general.location.latitude"
-                          placeholder="pim_details.general.location.latitude_placeholder"
-                          name="latitude"
-                          disabled={!editable}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <GenericField
-                          label="pim_details.general.location.longitude"
-                          placeholder="pim_details.general.location.longitude_placeholder"
-                          name="longitude"
-                          disabled={!editable}
-                        />
-                      </Grid>
+          <Grid item xs={12}>
+            <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
+              {editable => (
+                <>
+                  <FormSubSectionHeader
+                    noBorder
+                    title={formatMessage({ id: 'pim_details.general.location.type' })}
+                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  />
+                  <Grid container spacing={3}>
+                    <Grid item xs={4}>
+                      <GenericField
+                        label="pim_details.general.location.latitude"
+                        placeholder="pim_details.general.location.latitude_placeholder"
+                        name="latitude"
+                        disabled={!editable}
+                      />
                     </Grid>
-                    <Box mb={1} />
-                    <LocationMap disabled={!editable} latitudeName="latitude" longitudeName="longitude" />
-                    <Box mb={3} />
+                    <Grid item xs={4}>
+                      <GenericField
+                        label="pim_details.general.location.longitude"
+                        placeholder="pim_details.general.location.longitude_placeholder"
+                        name="longitude"
+                        disabled={!editable}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Box mb={1} />
+                  <LocationMap disabled={!editable} latitudeName="latitude" longitudeName="longitude" />
+                  <Box mb={3} />
 
-                    <FormSubSectionHeader
-                      noBorder
-                      title={formatMessage({ id: 'pim_details.general.location.type' })}
-                      subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
-                    />
-                    <Box paddingTop={2} mb={2}>
-                      <RadioGroupField xs={2} name="type" options={typeOptions} disabled={!editable} />
-                    </Box>
-                    <GenericField
-                      label="pim_details.general.location.notes"
-                      placeholder="pim_details.general.location.notes_placeholder"
-                      name="notes"
-                    />
-                    <Box mb={3} />
+                  <FormSubSectionHeader
+                    noBorder
+                    title={formatMessage({ id: 'pim_details.general.location.type' })}
+                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  />
+                  <Box paddingTop={2} mb={2}>
+                    <RadioGroupField xs={2} name="type" options={typeOptions} disabled={!editable} />
+                  </Box>
+                  <GenericField
+                    label="pim_details.general.location.notes"
+                    placeholder="pim_details.general.location.notes_placeholder"
+                    name="notes"
+                  />
+                  <Box mb={3} />
 
-                    <FormSubSectionHeader
-                      noBorder
-                      title={formatMessage({ id: 'pim_details.general.location.good_to_know' })}
-                      subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
-                    />
-                    {Object.values(LocationGoodToKnowType).map((type, index) => (
-                      <GoodToKnowRow key={`${type}-${index}`} type={type} disabled={!editable} index={index} />
-                    ))}
-                  </>
-                )}
-              </FormSection>
-            </Grid>
-          </AutosaveForm>
+                  <FormSubSectionHeader
+                    noBorder
+                    title={formatMessage({ id: 'pim_details.general.location.good_to_know' })}
+                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  />
+                  {Object.values(LocationGoodToKnowType).map((type, index) => (
+                    <GoodToKnowRow key={`${type}-${index}`} type={type} disabled={!editable} index={index} />
+                  ))}
+                </>
+              )}
+            </FormSection>
+          </Grid>
         </Grid>
       </Page>
-    </>
+    </AutosaveForm>
   );
 };

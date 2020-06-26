@@ -1,5 +1,5 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { Investment, InvestmentInput } from 'api/types';
+import { Investment } from 'api/types';
 
 export type InvestmentsProps = PimDetailsSectionProps & {
   onSave: (values: InvestmentForm) => Promise<undefined | { error: boolean }>;
@@ -10,7 +10,7 @@ export type InvestmentsContainerProps = PimDetailsSectionProps & {
   investment: Investment | null;
 };
 
-export type InvestmentForm = InvestmentInput & {
+export type InvestmentForm = Investment & {
   averageVacancyPercentage?: string;
   numberOfRentableUnits?: string;
   amountOfTenants?: string;

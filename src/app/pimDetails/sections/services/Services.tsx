@@ -17,6 +17,8 @@ export const Services = ({ pimServices, onSave }: ServicesProps) => {
       placeholder="pim_details.services.description_placeholder"
       name="pim_details.services.description"
       onSave={() => Promise.resolve({ error: false })}
+      dateUpdated={pimServices.dateUpdated}
+      updatedBy={pimServices.lastEditedBy}
     >
       <Grid xs={12} item>
         <ServiceTypeList

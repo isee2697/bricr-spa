@@ -13,7 +13,15 @@ import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
 import { CostsProps } from './Costs.types';
 import { CostsForm } from './costsForm/CostsForm';
 
-export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }: CostsProps) => {
+export const Costs = ({
+  costs,
+  onSave,
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  dateUpdated,
+  updatedBy,
+}: CostsProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -56,6 +64,8 @@ export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }:
         placeholder="pim_details.prices.description_placeholder"
         name="description"
         onSave={() => Promise.resolve({ error: false })}
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
       >
         <Grid item xs={12}>
           <FormSection

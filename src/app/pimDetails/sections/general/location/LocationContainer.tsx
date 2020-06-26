@@ -58,9 +58,27 @@ export const LocationContainer = (props: PimDetailsSectionProps) => {
     }
   };
 
+  const initialValues: LocationForm = {
+    latitude: data?.getPimLocation?.latitude?.toString() ?? '',
+    longitude: data?.getPimLocation?.longitude?.toString() ?? '',
+    type: data?.getPimLocation?.type ?? undefined,
+    notes: data?.getPimLocation?.notes ?? undefined,
+    goodToKnows: (data?.getPimLocation?.goodToKnows ?? []).map(goodToKnow => ({
+      ...goodToKnow,
+      distance: goodToKnow?.distance?.toString() ?? '',
+    })),
+  };
+
   if (data)
     return (
-      <Location {...props} typeOptions={locationOptions} onSave={handleUpdate} initialValues={data.getPimLocation} />
+      <Location
+        {...props}
+        typeOptions={locationOptions}
+        onSave={handleUpdate}
+        initialValues={initialValues}
+        updatedBy={data?.getPimLocation?.lastEditedBy}
+        dateUpdated={data?.getPimLocation?.dateUpdated}
+      />
     );
 
   return null;

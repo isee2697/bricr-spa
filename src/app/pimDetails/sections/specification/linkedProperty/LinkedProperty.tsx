@@ -10,7 +10,7 @@ import { Page } from 'ui/templates';
 
 import { LinkedPropertyProps } from './LinkedProperty.types';
 
-export const LinkedProperty = ({ properties }: LinkedPropertyProps) => {
+export const LinkedProperty = ({ properties, dateUpdated, updatedBy }: LinkedPropertyProps) => {
   const { formatMessage } = useLocale();
   const [isLinkedPropertyModalOpen, setLinkedPropertyModalOpen] = useState(false);
 
@@ -23,6 +23,8 @@ export const LinkedProperty = ({ properties }: LinkedPropertyProps) => {
           })}
           placeholder="pim_details.specification.linked_properties.description_placeholder"
           name="specification.linked_properties.description"
+          dateUpdated={dateUpdated}
+          updatedBy={updatedBy}
         >
           <Grid xs={12} item>
             <Box mt={1}>

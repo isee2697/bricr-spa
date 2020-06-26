@@ -7,9 +7,11 @@ import { Grid, InputAdornment } from 'ui/atoms';
 import { GenericField, DatePickerField, CheckboxGroupField } from 'form/fields';
 import { MailIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
+import { InsideGeneralProps } from 'app/pimDetails/sections/inside/general/InsideGeneral.types';
 
 import { windowTypes } from './dictionaries';
-export const InsideGeneral = () => {
+
+export const InsideGeneral = ({ dateUpdated, updatedBy }: InsideGeneralProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -17,6 +19,8 @@ export const InsideGeneral = () => {
       title={formatMessage({ id: `pim_details.inside.general.title` })}
       name="notes"
       placeholder="pim_details.inside.general.notes_placeholder"
+      dateUpdated={dateUpdated}
+      updatedBy={updatedBy}
     >
       <Grid item xs={12}>
         <FormSection

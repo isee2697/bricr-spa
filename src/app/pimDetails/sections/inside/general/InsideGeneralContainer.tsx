@@ -9,7 +9,14 @@ import { dateToYear, yearToDate } from 'form/fields';
 import { InsideGeneral as InsideGeneralFields } from './InsideGeneral';
 import { InsideGeneralBody } from './InsideGeneral.types';
 
-export const InsideGeneralContainer = ({ extension, windows, renovation, notes }: InsideGeneral) => {
+export const InsideGeneralContainer = ({
+  extension,
+  windows,
+  renovation,
+  notes,
+  dateUpdated,
+  lastEditedBy,
+}: InsideGeneral) => {
   const { id: pimId } = useParams<{ id: string }>();
   const [updateInsideGeneral] = useUpdateInsideGeneralMutation();
 
@@ -73,7 +80,7 @@ export const InsideGeneralContainer = ({ extension, windows, renovation, notes }
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <InsideGeneralFields />
+      <InsideGeneralFields updatedBy={lastEditedBy} dateUpdated={dateUpdated} />
     </AutosaveForm>
   );
 };

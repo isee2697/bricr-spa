@@ -4,7 +4,19 @@ export const PIM_PRICING = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {
       id
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
       pricing {
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
         rent {
           isEnabled
           rentalPrice
@@ -55,6 +67,12 @@ export const PIM_PRICING = gql`
         remainingTermContacts
         vacancySquareMeters
         notes
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

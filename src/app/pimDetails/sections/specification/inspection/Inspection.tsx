@@ -9,7 +9,7 @@ import { Page } from 'ui/templates';
 import { InspectionType as InspectionTypeComponent } from './inspectionType/InspectionType';
 import { InspectionProps } from './Inspection.types';
 
-export const Inspection = ({ inspections, onSave }: InspectionProps) => {
+export const Inspection = ({ inspections, onSave, dateUpdated, updatedBy }: InspectionProps) => {
   const { formatMessage } = useLocale();
 
   const [isModalOpened, setModalOpened] = useState(false);
@@ -21,6 +21,8 @@ export const Inspection = ({ inspections, onSave }: InspectionProps) => {
         placeholder="pim_details.specification.description_placeholder"
         name="specification.description"
         onSave={() => Promise.resolve(undefined)}
+        dateUpdated={dateUpdated}
+        updatedBy={updatedBy}
       >
         <Grid xs={12} item>
           <InspectionTypeComponent

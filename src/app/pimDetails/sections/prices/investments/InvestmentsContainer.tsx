@@ -19,6 +19,8 @@ export const InvestmentsContainer = (props: InvestmentsContainerProps) => {
     vacancySquareMeters,
     averageVacancyPercentage,
     numberOfRentableUnits,
+    dateUpdated,
+    lastEditedBy,
     ...values
   }: InvestmentForm) => {
     try {

@@ -385,22 +385,22 @@ type ParkingLotFeature {
 
 union OutsideFeatureConfiguration = GardenFeature | GarageFeature | StorageFeature | TerrainFeature | ParkingLotFeature
 
-type OutsideFeature {
+type OutsideFeature implements LastUpdated{
   id: String!
   description: String
   type: OutsideFeatureType!
   configuration: OutsideFeatureConfiguration
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
 }
 
-type PimOutside {
+type PimOutside implements LastUpdated {
   id: ID!
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   dateUpdated: Date
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
 }
 
 input PimOutsideInput {

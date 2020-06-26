@@ -9,5 +9,11 @@ export const LinkedPropertyContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = usePimSpecificationQuery({ variables: { id } });
 
-  return <LinkedProperty properties={(data?.getPimSpecification.linkedProperties ?? []) as LinkedPim[]} />;
+  return (
+    <LinkedProperty
+      properties={data?.getPimSpecification.linkedProperties as LinkedPim[]}
+      dateUpdated={data?.getPimSpecification.linkedPropertiesDateUpdated}
+      updatedBy={data?.getPimSpecification.linkedPropertiesLastEditedBy}
+    />
+  );
 };

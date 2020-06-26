@@ -36,7 +36,7 @@ type GoodToKnow {
   checked: Boolean
 }
 
-type PimLocation {
+type PimLocation implements LastUpdated {
   id: String!
   latitude: Float
   longitude: Float,
@@ -44,6 +44,8 @@ type PimLocation {
   type: String @uuidOrEnum(enum: ["LocationType"])
   notes: String
   goodToKnows: [GoodToKnow!]
+  lastEditedBy: Profile
+  dateUpdated: Date
 }
 
 input UpdatePimLocationInput {

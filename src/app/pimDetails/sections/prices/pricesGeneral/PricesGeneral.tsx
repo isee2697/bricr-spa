@@ -10,7 +10,16 @@ import { PriceContainer } from 'app/pimDetails/sections/prices/price/PriceContai
 import { SetPricesModal } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal';
 import { Page } from 'ui/templates';
 
-export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, rent, sale }: PricesGeneralProps) => {
+export const PricesGeneral = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  onSave,
+  rent,
+  sale,
+  updatedBy,
+  dateUpdated,
+}: PricesGeneralProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isPriceModalOpened, setPriceModalOpened] = useState(false);
@@ -43,6 +52,8 @@ export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, 
         title={formatMessage({ id: 'pim_details.prices.title' })}
         placeholder="pim_details.prices.description_placeholder"
         name="description"
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
       >
         <PriceContainer types={pricesTypes} rent={rent} sale={sale} pimId={id} />
       </Page>

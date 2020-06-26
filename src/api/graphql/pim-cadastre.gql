@@ -132,7 +132,7 @@ type CadastreMap {
   name: String
   file: File
   description: String
-  type: CadastreMapType,
+  type: String @uuidOrEnum(enum: ["CadastreMapType"])
 }
 
 type Lease {
@@ -148,7 +148,7 @@ input NewCadastreMapInput {
   fileID: String!
   name: String
   description: String
-  type: CadastreMapType!,
+  type: String! @uuidOrEnum(enum: ["CadastreMapType"])
 }
 
 
@@ -160,7 +160,7 @@ input LeaseInput {
   endDate: Date
 }
 
-type Cadastre {
+type Cadastre implements LastUpdated {
   id: String!
   description: String
   type: CadastreType!
@@ -168,7 +168,7 @@ type Cadastre {
   plot: CadastrePlot
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
 }
 
 type PimCadastre {
@@ -180,7 +180,7 @@ input CadastreMapInput {
   mapName: String
   description: String
   name: String
-  type: CadastreMapType
+  type: String @uuidOrEnum(enum: ["CadastreMapType"])
 }
 
 input UpdateCadastreMapInput {

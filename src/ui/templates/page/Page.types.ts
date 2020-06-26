@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { AnyObject } from 'react-final-form';
 
-import { LastEditedBy } from 'ui/atoms/lastUpdated/LastUpdated.types';
+import { Profile } from 'api/types';
 
 export type PageProps = {
   children: ReactNode;
@@ -11,7 +11,7 @@ export type PageProps = {
   name?: string;
   placeholder?: string;
   dateUpdated?: string | null;
-  updatedBy?: LastEditedBy | null;
+  updatedBy?: Profile | null;
   withoutHeader?: boolean;
   afterTitle?: ReactNode;
 };
