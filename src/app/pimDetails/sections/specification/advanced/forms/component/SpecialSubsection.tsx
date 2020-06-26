@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { useLocale, useCustomLabels } from 'hooks';
 import { Box } from 'ui/atoms';
@@ -56,7 +57,7 @@ export const SpecialSubsection = ({
               options={[...options, ...customLabels] as CheckboxDataType[]}
               actionElement={
                 <TileButton
-                  className={classes.tileButton}
+                  className={classNames(classes.tileButton, { [classes.preventClick]: isDisabled })}
                   onClick={() => setModalOpened(true)}
                   isDisabled={isDisabled}
                   title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}

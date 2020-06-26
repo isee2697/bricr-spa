@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { Box, Grid } from 'ui/atoms';
 import { TileButton, FormSubSectionHeader } from 'ui/molecules';
@@ -69,7 +70,7 @@ export const OwnerAssociation = () => {
                   options={[...dictionaries.goodToKnow, ...customLabels] as CheckboxDataType[]}
                   actionElement={
                     <TileButton
-                      className={classes.tileButton}
+                      className={classNames(classes.tileButton, { [classes.preventClick]: !editing })}
                       onClick={() => setModalOpened(true)}
                       isDisabled={!editing}
                       title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}
