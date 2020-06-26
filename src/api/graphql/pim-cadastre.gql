@@ -35,21 +35,20 @@ enum LeaseDurationType {
 }
 
 enum CadastreOwnershipType {
-  StressedInChargeOf,
+  PerpetualLeaseChargedWith,
+  PropertyChargedWith,
+  AnnualLeaseholdChargedWith,
   LeaseholdAndBuildingChargedWith,
-  PropertyInChargeOf,
-  BuildingResponsibleFor,
-  AnnualLeasePaymentInChargeOf,
-  OtherLike,
+  BuildingChargedWith,
+  Other
 }
 
 enum OwnershipChoiceType {
   MembershipRight,
-  Mandeling
+  Mandeling,
   Understress,
   Leasehold,
   RightToRebuild,
-  Stadsmeierright,
   FullOwnership,
   Usufruct,
   SeeDeed,
@@ -61,6 +60,11 @@ enum OwnershipChoiceType {
   Building,
   CityMayorLaw,
   NoneOfThem,
+  SharedOwnership,
+  PerpetualLease,
+  PerpetualSublease,
+  Subleasehold,
+  RightOfOverhang
 }
 
 input CadastrePlotInput {

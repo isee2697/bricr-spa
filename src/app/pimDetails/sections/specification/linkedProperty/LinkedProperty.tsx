@@ -37,7 +37,7 @@ export const LinkedProperty = ({ properties, dateUpdated, updatedBy }: LinkedPro
                 isEditable={false}
                 onAdd={() => setLinkedPropertyModalOpen(v => !v)}
               >
-                {!properties.length && (
+                {!properties?.length && (
                   <InfoSection emoji="🤔">
                     <Typography variant="h3">
                       {formatMessage({
@@ -51,27 +51,28 @@ export const LinkedProperty = ({ properties, dateUpdated, updatedBy }: LinkedPro
                     </Typography>
                   </InfoSection>
                 )}
-                {properties.map(property => {
-                  const address = `${property.houseNumber} ${property.city} ${property.postalCode} `;
+                {!!properties?.length &&
+                  properties.map(property => {
+                    const address = `${property.houseNumber} ${property.city} ${property.postalCode} `;
 
-                  return (
-                    <Box key={property.id} mb={1}>
-                      <LinkedPropertyItem
-                        title={address}
-                        image="https://source.unsplash.com/featured/?building"
-                        address={address}
-                        project=""
-                        price=""
-                        owner=""
-                        accManager=""
-                        status={property.status}
-                        plotNumber=""
-                        pimAttention=""
-                        onEditClick={() => {}}
-                      />
-                    </Box>
-                  );
-                })}
+                    return (
+                      <Box key={property.id} mb={1}>
+                        <LinkedPropertyItem
+                          title={address}
+                          image="https://source.unsplash.com/featured/?building"
+                          address={address}
+                          project=""
+                          price=""
+                          owner=""
+                          accManager=""
+                          status={property.status}
+                          plotNumber=""
+                          pimAttention=""
+                          onEditClick={() => {}}
+                        />
+                      </Box>
+                    );
+                  })}
               </FormSection>
             </Box>
           </Grid>

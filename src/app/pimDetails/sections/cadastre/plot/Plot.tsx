@@ -8,6 +8,7 @@ import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { HelpIcon, UnseeIcon, SeeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
+import { CadastreOwnershipType } from 'api/types';
 
 import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
@@ -153,14 +154,14 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                   <Grid item xs={6}>
                     <Box pt={2}>
                       <Field name="ownershipType">
-                        {({ input }) =>
+                        {({ input }: { input: { value: CadastreOwnershipType } }) =>
                           !!input.value && (
                             <RadioGroupField
                               spacing={1}
                               disabled={!editing}
                               xs={4}
                               name="ownershipChoice"
-                              options={dictionaries.ownershipValue}
+                              options={dictionaries.ownershipValues[input.value]}
                             />
                           )
                         }

@@ -37,7 +37,7 @@ export const CADASTRE_PLOT_1: CadastrePlot = {
   surface: 5,
   share: 'hi',
   codeSize: CodeSizeType.Apartment,
-  ownershipType: CadastreOwnershipType.StressedInChargeOf,
+  ownershipType: CadastreOwnershipType.AnnualLeaseholdChargedWith,
   ownershipChoice: OwnershipChoiceType.UseAndHabitation,
 };
 

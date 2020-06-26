@@ -614,12 +614,12 @@ export enum LeaseDurationType {
 }
 
 export enum CadastreOwnershipType {
-  StressedInChargeOf = 'StressedInChargeOf',
+  PerpetualLeaseChargedWith = 'PerpetualLeaseChargedWith',
+  PropertyChargedWith = 'PropertyChargedWith',
+  AnnualLeaseholdChargedWith = 'AnnualLeaseholdChargedWith',
   LeaseholdAndBuildingChargedWith = 'LeaseholdAndBuildingChargedWith',
-  PropertyInChargeOf = 'PropertyInChargeOf',
-  BuildingResponsibleFor = 'BuildingResponsibleFor',
-  AnnualLeasePaymentInChargeOf = 'AnnualLeasePaymentInChargeOf',
-  OtherLike = 'OtherLike',
+  BuildingChargedWith = 'BuildingChargedWith',
+  Other = 'Other',
 }
 
 export enum OwnershipChoiceType {
@@ -628,7 +628,6 @@ export enum OwnershipChoiceType {
   Understress = 'Understress',
   Leasehold = 'Leasehold',
   RightToRebuild = 'RightToRebuild',
-  Stadsmeierright = 'Stadsmeierright',
   FullOwnership = 'FullOwnership',
   Usufruct = 'Usufruct',
   SeeDeed = 'SeeDeed',
@@ -640,6 +639,11 @@ export enum OwnershipChoiceType {
   Building = 'Building',
   CityMayorLaw = 'CityMayorLaw',
   NoneOfThem = 'NoneOfThem',
+  SharedOwnership = 'SharedOwnership',
+  PerpetualLease = 'PerpetualLease',
+  PerpetualSublease = 'PerpetualSublease',
+  Subleasehold = 'Subleasehold',
+  RightOfOverhang = 'RightOfOverhang',
 }
 
 export type CadastrePlotInput = {
