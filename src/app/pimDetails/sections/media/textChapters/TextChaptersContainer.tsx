@@ -2,9 +2,16 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Chapter, TextChaptersContainerProps } from 'app/pimDetails/sections/media/textChapters/TextChapters.types';
-import { ChapterOrUspType, PimMediaDocument, useAddTextChapterMutation, useUpdateTextChapterMutation } from 'api/types';
+import {
+  ChapterOrUspType,
+  LabelProperty,
+  PimMediaDocument,
+  useAddTextChapterMutation,
+  useUpdateTextChapterMutation,
+} from 'api/types';
 import { RICH_TEXT_DEFAULT } from 'form/fields/richTextField/RichTextField';
 import { SquareIcon } from 'ui/atoms/icons';
+import { useCustomLabels } from 'hooks/useCustomLabels';
 
 import { TextChapters } from './TextChapters';
 
@@ -14,11 +21,12 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
   icon: <SquareIcon />,
 }));
 
-export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) => {
+export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChaptersContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addTextChapter] = useAddTextChapterMutation();
   const [editTextChapter] = useUpdateTextChapterMutation();
   const [newChapterId, setNewChapterId] = useState<string | null>(null);
+  const customLabels = useCustomLabels(id, [LabelProperty.TextChapter])[LabelProperty.TextChapter] ?? [];
 
   const handleAdd = async () => {
     try {
@@ -94,10 +102,11 @@ export const TextChaptersContainer = ({ chapters }: TextChaptersContainerProps) 
   return (
     <TextChapters
       onSave={handleSave}
-      options={options}
+      options={[...options, ...customLabels]}
       onAdd={handleAdd}
       chapters={textChapters ?? []}
       newChapterId={newChapterId}
+      onAddCustomType={onAddCustomType}
     />
   );
 };

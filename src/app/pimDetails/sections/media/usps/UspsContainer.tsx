@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ChapterOrUspType, PimMediaDocument, UpdateUspInput, useAddUspMutation, useUpdateUspMutation } from 'api/types';
+import {
+  ChapterOrUspType,
+  LabelProperty,
+  PimMediaDocument,
+  UpdateUspInput,
+  useAddUspMutation,
+  useUpdateUspMutation,
+} from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
+import { useCustomLabels } from 'hooks/useCustomLabels';
 
 import { Usps } from './Usps';
 import { UspsContainerProps } from './Usps.types';
@@ -13,11 +21,12 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
   icon: <SquareIcon />,
 }));
 
-export const UspsContainer = ({ usps }: UspsContainerProps) => {
+export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addUsp] = useAddUspMutation();
   const [editUsp] = useUpdateUspMutation();
   const [newUspId, setNewUspId] = useState<string | null>(null);
+  const customLabels = useCustomLabels(id, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
 
   const handleAdd = async () => {
     try {
@@ -82,5 +91,14 @@ export const UspsContainer = ({ usps }: UspsContainerProps) => {
     }
   };
 
-  return <Usps onSave={handleSave} options={options} onAdd={handleAdd} usps={usps ?? []} newUspId={newUspId} />;
+  return (
+    <Usps
+      onSave={handleSave}
+      options={[...options, ...customLabels]}
+      onAdd={handleAdd}
+      usps={usps ?? []}
+      newUspId={newUspId}
+      onAddCustomType={onAddCustomType}
+    />
+  );
 };

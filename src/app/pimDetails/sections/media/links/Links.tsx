@@ -5,10 +5,11 @@ import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
 import { useLocale } from 'hooks';
+import { TileButton } from 'ui/molecules';
 
 import { LinksProps } from './Links.types';
 
-export const Links = ({ onAdd, onSave, options, links, newLinkId }: LinksProps) => {
+export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomType }: LinksProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -34,7 +35,12 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId }: LinksProps) 
               name="name"
               placeholder="pim_details.media.links.name_placeholder"
             />
-            <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.links.single_choose" />
+            <SingleChoose
+              disabled={!editing}
+              options={options}
+              titleId="pim_details.media.links.single_choose"
+              actionElement={<TileButton onClick={onAddCustomType} />}
+            />
             <Input
               disabled={!editing}
               label="pim_details.media.links.label"

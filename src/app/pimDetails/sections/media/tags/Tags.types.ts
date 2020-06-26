@@ -7,8 +7,10 @@ export type TagsProps = {
   onSave: (values: UpdateTagInput) => Promise<undefined | { error: boolean }>;
   tags: Tag[];
   newTagId: string | null;
+  onAddCustomType: () => void;
 };
 
 export type TagsContainerProps = {
   tags?: Maybe<Tag[]>;
+  onAddCustomType: () => void;
 };

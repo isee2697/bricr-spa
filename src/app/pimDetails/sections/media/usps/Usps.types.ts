@@ -7,8 +7,10 @@ export type UspsProps = {
   onSave: (values: UpdateUspInput) => Promise<undefined | { error: boolean }>;
   usps: Usp[];
   newUspId: string | null;
+  onAddCustomType: () => void;
 };
 
 export type UspsContainerProps = {
   usps?: Maybe<Usp[]>;
+  onAddCustomType: () => void;
 };

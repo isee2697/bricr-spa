@@ -9,10 +9,12 @@ export type TextChaptersProps = {
   onSave: (values: Chapter) => Promise<undefined | { error: boolean }>;
   chapters: Chapter[];
   newChapterId: string | null;
+  onAddCustomType: () => void;
 };
 
 export type TextChaptersContainerProps = {
   chapters?: Maybe<TextChapter[]>;
+  onAddCustomType: () => void;
 };
 
 export type Chapter = TextChapter & {

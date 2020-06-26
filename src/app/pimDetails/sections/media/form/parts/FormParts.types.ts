@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { RadioDataType, Width } from 'form/fields/radioGroupField/RadioGroupField.types';
 
 export type InputProps = {
@@ -12,6 +14,7 @@ export type SingleChooseProps = {
   disabled: boolean;
   options: RadioDataType[];
   xs?: Width;
+  actionElement?: ReactNode;
 };
 
 export type EditorProps = {

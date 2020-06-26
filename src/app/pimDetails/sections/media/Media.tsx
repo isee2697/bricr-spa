@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
+import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { LabelProperty } from 'api/types';
 
 import { PicturesContainer } from './pictures/PicturesContainer';
 import { LinksContainer } from './links/LinksContainer';
@@ -14,6 +16,13 @@ import { MediaProps } from './Media.types';
 
 export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaProps) => {
   const { formatMessage } = useLocale();
+  const [isLabelModalOpened, setLabelModalOpened] = useState(false);
+  const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
+
+  const handleAddCustomType = (label: LabelProperty) => {
+    setLabelProperty(label);
+    setLabelModalOpened(true);
+  };
 
   return (
     <>
@@ -31,21 +40,34 @@ export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaPr
         </Grid>
 
         <Grid item xs={12}>
-          <LinksContainer links={media.mediaLinks} />
+          <LinksContainer
+            links={media.mediaLinks}
+            onAddCustomType={() => handleAddCustomType(LabelProperty.MediaLink)}
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <TextChaptersContainer chapters={media.textChapters} />
+          <TextChaptersContainer
+            chapters={media.textChapters}
+            onAddCustomType={() => handleAddCustomType(LabelProperty.TextChapter)}
+          />
         </Grid>
 
         <Grid item xs={12}>
-          <UspsContainer usps={media.usps} />
+          <UspsContainer usps={media.usps} onAddCustomType={() => handleAddCustomType(LabelProperty.Usp)} />
         </Grid>
 
         <Grid item xs={12}>
-          <TagsContainer tags={media.tags} />
+          <TagsContainer tags={media.tags} onAddCustomType={() => handleAddCustomType(LabelProperty.Tag)} />
         </Grid>
       </Page>
+      {isLabelModalOpened && labelProperty && (
+        <AddCustomPropertyModalContainer
+          property={labelProperty}
+          isOpened={isLabelModalOpened}
+          onClose={() => setLabelModalOpened(false)}
+        />
+      )}
     </>
   );
 };
