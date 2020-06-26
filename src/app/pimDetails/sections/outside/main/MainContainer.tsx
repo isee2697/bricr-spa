@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { PimOutsideDocument, PimOverallInfoDocument, useUpdatePimOutsideInfoMutation, PimOutside } from 'api/types';
 
@@ -26,6 +27,7 @@ export const MainContainer = ({ pimOutside }: MainContainerProps) => {
               },
               roofInformation: {
                 ...values.houseOutside?.roofInformation,
+                yearOfRoof: ((values.houseOutside?.roofInformation?.yearOfRoof as unknown) as DateTime)?.year,
                 images: values.houseOutside?.roofInformation?.images?.map(file => file.id),
               },
             },

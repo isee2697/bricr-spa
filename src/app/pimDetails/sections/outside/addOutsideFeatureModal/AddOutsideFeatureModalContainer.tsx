@@ -38,14 +38,12 @@ export const AddOutsideFeatureModalContainer = ({ isOpened, onClose }: AddOutsid
         ],
       });
 
-      if (!result?.addOutsideFeature || !result.addOutsideFeature.outsideFeatures) {
+      if (!result?.addOutsideFeature || !result.addOutsideFeature.newOutsideFeature) {
         throw new Error();
       }
 
       onClose();
-
-      const outsideFeatures = result.addOutsideFeature.outsideFeatures;
-      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${outsideFeatures[0].id}`);
+      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${result.addOutsideFeature.newOutsideFeature.id}`);
 
       return undefined;
     } catch {

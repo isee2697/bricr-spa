@@ -14,12 +14,14 @@ export const Price = ({ types }: PriceProps) => {
 
   if (!types.length)
     return (
-      <FormSection title={formatMessage({ id: 'pim_details.prices.add_new_price' })} isEditable={false}>
-        <InfoSection emoji="🤑">
-          <Typography variant="h3">{formatMessage({ id: 'pim_details.prices.empty_line_1' })}</Typography>
-          <Typography variant="h3">{formatMessage({ id: 'pim_details.prices.empty_line_2' })}</Typography>
-        </InfoSection>
-      </FormSection>
+      <Grid item xs={12}>
+        <FormSection title={formatMessage({ id: 'pim_details.prices.add_new_price' })} isEditable={false}>
+          <InfoSection emoji="🤑">
+            <Typography variant="h3">{formatMessage({ id: 'pim_details.prices.empty_line_1' })}</Typography>
+            <Typography variant="h3">{formatMessage({ id: 'pim_details.prices.empty_line_2' })}</Typography>
+          </InfoSection>
+        </FormSection>
+      </Grid>
     );
 
   return (

@@ -1,25 +1,30 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { FormSubSection } from 'ui/organisms';
-import { FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader, TileButton } from 'ui/molecules';
 import { Grid, Box, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useStyles } from '../CadsatralMaps.styles';
-import { useLocale, useGetPrivateFile } from 'hooks';
-import { EntityWithFiles } from 'api/types';
+import { useLocale, useGetPrivateFile, useCustomLabels } from 'hooks';
+import { EntityWithFiles, LabelProperty } from 'api/types';
 import { UploadIcon } from 'ui/atoms/icons';
 
 import { CadastreMapProps } from './CadastralMaps.types';
 import { cadastralMapTypes } from './dictionaries';
 
-export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleClick }: CadastreMapProps) => {
+export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType }: CadastreMapProps) => {
+  const { id: pimId } = useParams<{ id: string }>();
   const classes = useStyles();
   const { formatMessage } = useLocale();
+
   const { data } = useGetPrivateFile(
     (cadastreMap.file && cadastreMap.file.key) || '',
     EntityWithFiles.CadastreMap,
     cadastreMap.id,
   );
+
+  const customLabels = useCustomLabels(pimId, [LabelProperty.CadastreMap])[LabelProperty.CadastreMap] ?? [];
 
   return (
     <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={false}>
@@ -69,7 +74,8 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, toggled, onToggleC
             lg={2}
             spacing={1}
             name="type"
-            options={cadastralMapTypes}
+            options={[...cadastralMapTypes, ...customLabels]}
+            actionElement={<TileButton onClick={onAddCustomType} isDisabled={!isEditMode} />}
           />
         </Box>
       </Grid>

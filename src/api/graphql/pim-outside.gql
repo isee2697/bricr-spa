@@ -293,12 +293,12 @@ type FoundationTypeInformations {
 }
 
 input FoundationMaterialInformationsInput {
-  type: FoundationMaterialType
+  type: [FoundationMaterialType!]
   notes: String
 }
 
 type FoundationMaterialInformations {
-  type: FoundationMaterialType
+  type: [FoundationMaterialType!]
   notes: String
 }
 
@@ -416,12 +416,17 @@ input AddOutsideFeatureInput {
   description: String
 }
 
+type PimWithNewOutside {
+   pim: Pim!
+   newOutsideFeature: OutsideFeature!
+}
+
 extend type Query {
   getPimOutside(id: ID!): PimOutside!
 }
 
 extend type Mutation {
   updatePimOutsideInfo(input: PimOutsideInput!): Pim! @auth
-  addOutsideFeature(input: AddOutsideFeatureInput!): Pim! @auth
+  addOutsideFeature(input: AddOutsideFeatureInput!): PimWithNewOutside! @auth
   updateOutsideFeature(input: UpdateFeatureInputConfiguration!): Pim! @auth
 }

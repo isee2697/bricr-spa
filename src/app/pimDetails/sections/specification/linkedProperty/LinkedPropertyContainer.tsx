@@ -9,9 +9,5 @@ export const LinkedPropertyContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = usePimSpecificationQuery({ variables: { id } });
 
-  if (!data?.getPimSpecification.linkedProperties) {
-    return null;
-  }
-
-  return <LinkedProperty properties={data?.getPimSpecification.linkedProperties as LinkedPim[]} />;
+  return <LinkedProperty properties={(data?.getPimSpecification.linkedProperties ?? []) as LinkedPim[]} />;
 };

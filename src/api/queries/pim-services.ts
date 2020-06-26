@@ -28,6 +28,7 @@ export const PIM_SERVICES = gql`
           }
         }
         yearOfInstallation
+        ownership
       }
       heatingSources {
         id

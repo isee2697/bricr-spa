@@ -96,7 +96,7 @@ export const ServiceTypeList: <T extends Service>(
                     title={
                       <>
                         <Avatar className={classes.avatar}>{key + 1}</Avatar>
-                        {`${type && formatMessage({ id: type.label })} (${item.name})`}
+                        {type && formatMessage({ id: type.label }) + (item.name ? ` (${item.name})` : '')}
                       </>
                     }
                   />

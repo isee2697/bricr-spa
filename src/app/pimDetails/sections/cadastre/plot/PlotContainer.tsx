@@ -63,7 +63,7 @@ export const PlotContainer = () => {
 
   return (
     <AutosaveForm
-      key={id}
+      key={cadastreId}
       initialValues={cadastre?.plot || undefined}
       onSave={handleEdit}
       mutators={{ ...arrayMutators }}

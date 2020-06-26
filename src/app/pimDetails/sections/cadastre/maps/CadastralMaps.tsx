@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
+import { LabelProperty } from 'api/types';
 import { useLocale } from 'hooks';
 import { Typography, Box, IconButton } from 'ui/atoms';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
-import { FormSection } from 'ui/organisms';
+import { FormSection, AddCustomPropertyModalContainer } from 'ui/organisms';
 import { ListIcon, CardsIcon } from 'ui/atoms/icons';
 
 import { MapsProps } from './CadastralMaps.types';
@@ -15,6 +16,7 @@ import { CadastreMapContainer } from './cadastreMap/CadastreMapContainer';
 export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
   const { formatMessage } = useLocale();
   const [isAddModalOpened, setAddModalOpened] = useState(false);
+  const [isAddPropertyModalOpened, setAddPropertyModalOpened] = useState(false);
 
   const classes = useStyles();
   const [toggled, setToggled] = useState<string | undefined>();
@@ -59,6 +61,7 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
                   cadastreMap={cadastre}
                   toggled={toggled === cadastre.id}
                   onToggleClick={() => setToggled(toggled !== cadastre.id ? cadastre.id : undefined)}
+                  onAddCustomType={() => setAddPropertyModalOpened(true)}
                 />
               </Box>
             )}
@@ -73,6 +76,13 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
       </FormSection>
       {isAddModalOpened && (
         <AddMapModalContainer isOpened={isAddModalOpened} onClose={() => setAddModalOpened(false)} />
+      )}
+      {isAddPropertyModalOpened && (
+        <AddCustomPropertyModalContainer
+          property={LabelProperty.CadastreMap}
+          isOpened={isAddPropertyModalOpened}
+          onClose={() => setAddPropertyModalOpened(false)}
+        />
       )}
     </>
   );

@@ -18,7 +18,7 @@ export const Inspection = ({ inspections, onSave }: InspectionProps) => {
     <>
       <Page
         title={formatMessage({ id: 'pim_details.specification.inspection.title' })}
-        placeholder="pim_details.inspection.description_placeholder"
+        placeholder="pim_details.specification.description_placeholder"
         name="specification.description"
         onSave={() => Promise.resolve(undefined)}
       >

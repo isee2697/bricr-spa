@@ -60,13 +60,13 @@ export type Mutation = {
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
   addFiles: Array<File>;
-  addFloorToPim: Pim;
+  addFloorToPim: PimWithNewFloor;
   addIdentificationNumber: PimWithNewIdentificationNumber;
   addInspection: AddInspectionResult;
   addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
   addMeter?: Maybe<Pim>;
-  addOutsideFeature: Pim;
+  addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
   addReading?: Maybe<Pim>;
   addService?: Maybe<PimWithNewService>;
@@ -407,6 +407,11 @@ export enum LabelProperty {
   SpecialTags = 'SpecialTags',
   PropertyRights = 'PropertyRights',
   HomeOwnerAssociation = 'HomeOwnerAssociation',
+  LocationGoodToKnow = 'LocationGoodToKnow',
+  Location = 'Location',
+  CadastreMap = 'CadastreMap',
+  MediaLink = 'MediaLink',
+  Tag = 'Tag',
 }
 
 export type Label = {
@@ -1238,18 +1243,24 @@ export type Extension = {
 
 export type InsideGeneralInput = {
   pimId: Scalars['ID'];
-  notes?: Maybe<Scalars['String']>;
   windows?: Maybe<InsideWindowsInput>;
   extension?: Maybe<ExtensionInput>;
   renovation?: Maybe<RenovationInput>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type InsideGeneral = {
   __typename?: 'InsideGeneral';
-  notes?: Maybe<Scalars['String']>;
   windows?: Maybe<InsideWindows>;
   extension?: Maybe<Extension>;
   renovation?: Maybe<Renovation>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewFloor = {
+  __typename?: 'PimWithNewFloor';
+  newFloor: Floor;
+  pim: Pim;
 };
 
 export enum LocationType {
@@ -1852,13 +1863,13 @@ export type FoundationTypeInformations = {
 };
 
 export type FoundationMaterialInformationsInput = {
-  type?: Maybe<FoundationMaterialType>;
+  type?: Maybe<Array<FoundationMaterialType>>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type FoundationMaterialInformations = {
   __typename?: 'FoundationMaterialInformations';
-  type?: Maybe<FoundationMaterialType>;
+  type?: Maybe<Array<FoundationMaterialType>>;
   notes?: Maybe<Scalars['String']>;
 };
 
@@ -1984,6 +1995,12 @@ export type AddOutsideFeatureInput = {
   pimId: Scalars['String'];
   type: OutsideFeatureType;
   description?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewOutside = {
+  __typename?: 'PimWithNewOutside';
+  pim: Pim;
+  newOutsideFeature: OutsideFeature;
 };
 
 export enum CostPaymentFrequency {
@@ -3137,7 +3154,7 @@ export type AddFloorToPimMutationVariables = {
 };
 
 export type AddFloorToPimMutation = { __typename?: 'Mutation' } & {
-  addFloorToPim: { __typename?: 'Pim' } & { floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id'>>> };
+  addFloorToPim: { __typename?: 'PimWithNewFloor' } & { newFloor: { __typename?: 'Floor' } & Pick<Floor, 'id'> };
 };
 
 export type AddSpaceToFloorMutationVariables = {
@@ -3288,8 +3305,8 @@ export type AddOutsideFeatureMutationVariables = {
 };
 
 export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
-  addOutsideFeature: { __typename?: 'Pim' } & {
-    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>>>;
+  addOutsideFeature: { __typename?: 'PimWithNewOutside' } & {
+    newOutsideFeature: { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>;
   };
 };
 
@@ -3980,7 +3997,10 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
     >;
     hotWaterSupplies?: Maybe<
       Array<
-        { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+        { __typename?: 'Service' } & Pick<
+          Service,
+          'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+        > & {
             configuration:
               | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
               | { __typename?: 'HeatingSourceConfiguration' }
@@ -4416,7 +4436,7 @@ export type UpdateIdentificationNumberMutationOptions = ApolloReactCommon.BaseMu
 export const AddFloorToPimDocument = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
     addFloorToPim(input: $input) {
-      floors {
+      newFloor {
         id
       }
     }
@@ -4763,7 +4783,7 @@ export type UpdatePictureMutationOptions = ApolloReactCommon.BaseMutationOptions
 export const AddOutsideFeatureDocument = gql`
   mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
     addOutsideFeature(input: $input) {
-      outsideFeatures {
+      newOutsideFeature {
         id
       }
     }
@@ -4784,7 +4804,7 @@ export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOpt
   AddOutsideFeatureMutationVariables
 >;
 export const UpdateOutsideFeatureDocument = gql`
-  mutation updateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
+  mutation UpdateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
     updateOutsideFeature(input: $input) {
       id
     }
@@ -5944,6 +5964,7 @@ export const PimServicesDocument = gql`
           }
         }
         yearOfInstallation
+        ownership
       }
       heatingSources {
         id
