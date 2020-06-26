@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { EuroIcon, SquareIcon } from 'ui/atoms/icons';
-import { FormSubSection as SubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, DropdownField, RadioGroupField } from 'form/fields';
 
@@ -16,7 +16,7 @@ export const Rent = () => {
     <FormSection title={formatMessage({ id: 'pim_details.prices.rent' })} isExpandable>
       {inEditMode => (
         <>
-          <SubSectionHeader
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.prices.price_settings' })}
             subtitle={formatMessage({ id: 'pim_details.prices.select_prefix' })}
             noBorder
@@ -50,7 +50,7 @@ export const Rent = () => {
           </Grid>
           <Box mb={4} />
 
-          <SubSectionHeader
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.prices.conditions' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
             noBorder

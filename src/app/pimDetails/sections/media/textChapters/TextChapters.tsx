@@ -6,10 +6,18 @@ import { SingleChoose } from '../form/parts/SingleChoose';
 import { Form } from '../form/Form';
 import { Editor } from 'app/pimDetails/sections/media/form/parts/Editor';
 import { Input } from 'app/pimDetails/sections/media/form/parts/Input';
+import { TileButton } from 'ui/molecules';
 
 import { TextChaptersProps } from './TextChapters.types';
 
-export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersProps) => {
+export const TextChapters = ({
+  onAdd,
+  onSave,
+  options,
+  chapters,
+  newChapterId,
+  onAddCustomType,
+}: TextChaptersProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -27,6 +35,7 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
             title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
             onSave={onSave}
             initialValues={chapter}
+            isInitiallyOpened={newChapterId === chapter.id}
           >
             <Input
               disabled={!editing}
@@ -39,6 +48,7 @@ export const TextChapters = ({ onAdd, onSave, options, chapters }: TextChaptersP
               disabled={!editing}
               options={options}
               titleId="pim_details.media.text_chapters.single_choose"
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
             />
           </Form>
         ))

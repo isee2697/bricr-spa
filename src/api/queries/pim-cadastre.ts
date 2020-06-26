@@ -46,7 +46,11 @@ export const PIM_CADASTRE = gql`
         }
         dateCreated
         dateUpdated
-        lastEditedBy
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

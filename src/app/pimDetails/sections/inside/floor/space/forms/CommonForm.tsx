@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
 import { EntityWithFiles } from 'api/types';
+import { SquareMeterIcon, CubicMeterIcon, MeterIcon } from 'ui/atoms/icons';
 
 export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { id: string }) => {
   const { formatMessage } = useLocale();
@@ -14,7 +15,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
   return (
     <>
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.shape' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -31,7 +32,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.measurements' })}
           subtitle={formatMessage({ id: 'pim_details.inside.measurements_info' })}
@@ -44,19 +45,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
-              }}
-              disabled={!isEditMode}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name={`${fieldPrefix}.measurement.height`}
-              label="pim_details.inside.height"
-              type="number"
-              size="medium"
-              InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -68,7 +57,19 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
+              }}
+              disabled={!isEditMode}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <GenericField
+              name={`${fieldPrefix}.measurement.height`}
+              label="pim_details.inside.height"
+              type="number"
+              size="medium"
+              InputProps={{
+                endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -80,7 +81,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: 'm2',
+                endAdornment: <SquareMeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -92,7 +93,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               size="medium"
               type="number"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <CubicMeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -101,7 +102,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.service_heating' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
@@ -117,7 +118,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+        <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
         <UploadImageGroupField
           entity={EntityWithFiles.Space}
           entityID={id}

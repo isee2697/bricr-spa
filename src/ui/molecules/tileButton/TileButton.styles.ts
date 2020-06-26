@@ -23,22 +23,27 @@ export const useStyles = makeStyles(theme => ({
       width: theme.spacing(4),
       height: theme.spacing(4),
     },
+    '& + .title': {
+      fontSize: theme.typography.h5.fontSize,
+      lineHeight: theme.typography.h5.lineHeight,
+      marginTop: theme.spacing(1),
+      display: 'flex',
+      color: theme.palette.black.main,
+      textAlign: 'center',
+      flex: ({ isSmallSize }: { isSmallSize: boolean }) => (isSmallSize ? 'initial' : '1 1 100%'),
+    },
   },
   children: {
     padding: theme.spacing(1.875),
     display: 'flex',
   },
-  title: {
-    fontSize: theme.typography.h5.fontSize,
-    lineHeight: theme.typography.h5.lineHeight,
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    color: theme.palette.gray.main,
-    textAlign: 'center',
-    flex: ({ isSmallSize }: { isSmallSize: boolean }) => (isSmallSize ? 'initial' : '1 1 100%'),
-  },
   disabled: {
     borderColor: theme.palette.gray.light,
+    pointerEvents: 'none',
+
+    '& + .title': {
+      color: theme.palette.gray.main,
+    },
   },
   preventClick: {
     pointerEvents: 'none',

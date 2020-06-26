@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 
 import { Chip, Grid, Typography } from 'ui/atoms';
 import { EditIcon, SaleIcon } from 'ui/atoms/icons';
-import { useGetPrivateFile } from 'hooks';
+import { useGetPrivateFile, useLocale } from 'hooks';
 import { EntityWithFiles } from 'api/types';
 
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({ picture, editing, checkbox, onSelect }: PictureItemProps) => {
+export const PictureItem = ({ picture, editing, checkbox, onSelect, customLabel }: PictureItemProps) => {
+  const { formatMessage } = useLocale();
   const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
   const classes = useStyles({ src: data?.signedUrl });
 
@@ -41,9 +42,11 @@ export const PictureItem = ({ picture, editing, checkbox, onSelect }: PictureIte
           </Typography>
           {picture.type && (
             <Chip
-              label={picture.type}
+              label={
+                customLabel ? customLabel.label : formatMessage({ id: `dictionaries.media.picture.${picture.type}` })
+              }
               variant="outlined"
-              icon={<SaleIcon />}
+              icon={customLabel && customLabel.icon ? (customLabel.icon as ReactElement) : <SaleIcon />}
               color="primary"
               className={classes.chip}
             />

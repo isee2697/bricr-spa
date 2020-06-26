@@ -5,6 +5,11 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     width: '100%',
     height: '100%',
+    border: `double ${theme.spacing(0.125)}px transparent`,
+    borderRadius: theme.spacing(1),
+    backgroundImage: `linear-gradient(#ffffff, #ffffff), radial-gradient(circle at top left, ${theme.palette.gray.main}, ${theme.palette.gray.main})`,
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'content-box, border-box',
     '& *': {
       userSelect: 'none',
     },
@@ -17,7 +22,7 @@ export const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
       flexWrap: 'wrap',
       alignItems: 'flex-start',
-      borderColor: theme.palette.gray.main,
+      border: 'none',
     },
     '& .MuiCard-root svg': {
       width: 40,
@@ -34,17 +39,15 @@ export const useStyles = makeStyles(theme => ({
     '& div:first-child': {
       marginRight: 0,
     },
-  },
-  selected: {
-    '&.MuiCard-root': {
-      borderColor: theme.palette.primary.main,
-    },
-    '&.MuiCard-root path': {
-      fill: theme.palette.primary.main,
-    },
-    '& .title': {
-      color: theme.palette.black.main,
-      fontWeight: theme.typography.fontWeightBold,
+    '&.selected': {
+      backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
+      '& .MuiCard-root path': {
+        fill: theme.palette.primary.main,
+      },
+      '& .title': {
+        color: theme.palette.black.main,
+        fontWeight: theme.typography.fontWeightBold,
+      },
     },
   },
   content: {
@@ -60,11 +63,12 @@ export const useStyles = makeStyles(theme => ({
   },
   disabled: {
     pointerEvents: 'none',
-    '& .MuiCard-root': {
-      borderColor: theme.palette.gray.light,
-    },
+    backgroundImage: `linear-gradient(#ffffff, #ffffff), radial-gradient(circle at top left, ${theme.palette.gray.light}, ${theme.palette.gray.light})`,
     '& .title': {
       color: theme.palette.gray.main,
+    },
+    '&.selected': {
+      backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
     },
   },
 }));

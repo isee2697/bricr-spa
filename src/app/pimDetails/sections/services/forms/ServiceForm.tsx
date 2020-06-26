@@ -2,11 +2,10 @@ import React, { ReactElement } from 'react';
 import arrayMutators from 'final-form-arrays';
 
 import { Service } from 'api/types';
-import { SubSectionHeader } from 'ui/molecules';
-import { Grid, Collapse, Typography, Box } from 'ui/atoms';
+import { Grid, Typography, Box } from 'ui/atoms';
 import { DatePickerField, GenericField, RadioGroupField, yearToDate } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AutosaveForm } from 'ui/organisms';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { ServiceFormProps } from '../Services.types';
 import { onwershipTypes } from '../dictionaries';
 
@@ -30,10 +29,7 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
-      <SubSectionHeader onOptionsClick={() => {}} onToggleClick={onToggleClick} toggled={toggled}>
-        <Box display="flex">{title}</Box>
-      </SubSectionHeader>
-      <Collapse in={toggled}>
+      <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={toggled}>
         <Typography variant="h2">{formatMessage({ id: 'pim_details.services.service_form.general_title' })}</Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -81,7 +77,7 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
           )}
         </Grid>
         <Box mb={4} />
-      </Collapse>
+      </FormSubSection>
     </AutosaveForm>
   );
 };

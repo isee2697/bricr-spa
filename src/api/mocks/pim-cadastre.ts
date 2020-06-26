@@ -37,7 +37,7 @@ export const CADASTRE_PLOT_1: CadastrePlot = {
   surface: 5,
   share: 'hi',
   codeSize: CodeSizeType.Apartment,
-  ownershipType: CadastreOwnershipType.StressedInChargeOf,
+  ownershipType: CadastreOwnershipType.AnnualLeaseholdChargedWith,
   ownershipChoice: OwnershipChoiceType.UseAndHabitation,
 };
 
@@ -48,7 +48,11 @@ export const CADASTRE_1 = {
   maps: [CADASTRE_MAP_1],
   dateCreated: new Date().toISOString(),
   dateUpdated: new Date().toISOString(),
-  lastEditedBy: 'me mysel and i',
+  lastEditedBy: {
+    id: 'foo',
+    firstName: 'fooName',
+    lastName: 'fooLastName',
+  },
 };
 
 export const CADASTRE_2 = {
@@ -58,7 +62,11 @@ export const CADASTRE_2 = {
   plot: CADASTRE_PLOT_1,
   dateCreated: new Date().toISOString(),
   dateUpdated: new Date().toISOString(),
-  lastEditedBy: 'me mysel and i',
+  lastEditedBy: {
+    id: 'foo',
+    firstName: 'fooName',
+    lastName: 'fooLastName',
+  },
 };
 
 export const CADASTRE_3 = {
@@ -68,7 +76,11 @@ export const CADASTRE_3 = {
   plot: CADASTRE_PLOT_1,
   dateCreated: new Date().toISOString(),
   dateUpdated: new Date().toISOString(),
-  lastEditedBy: 'me mysel and i',
+  lastEditedBy: {
+    id: 'foo',
+    firstName: 'fooName',
+    lastName: 'fooLastName',
+  },
 };
 
 export const PIM_CADASTRE_1: PimCadastre = {

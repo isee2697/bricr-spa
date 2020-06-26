@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, RadioGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
 import { SquareMeterIcon } from 'ui/atoms/icons';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
@@ -16,19 +16,13 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
     <>
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.type' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
         </Box>
         <Grid item md={9} lg={7}>
-          <RadioGroupField
-            xs={3}
-            lg={2}
-            disabled={!inEditMode}
-            name="configuration.type"
-            options={dictionaries.gardenTypes}
-          />
+          <RadioGroupField xs={3} disabled={!inEditMode} name="configuration.type" options={dictionaries.gardenTypes} />
         </Grid>
         <GenericField
           name="configuration.notes"
@@ -40,7 +34,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.quality_of_garden' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
@@ -48,7 +42,6 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
         <Grid item md={9} lg={7}>
           <RadioGroupField
             xs={3}
-            lg={2}
             disabled={!inEditMode}
             name="configuration.quality"
             options={dictionaries.gardenQualities}
@@ -58,7 +51,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.location' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
           />
@@ -76,7 +69,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
 
       <Box mb={4}>
         <Box mb={3}>
-          <FormSubSection
+          <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.shape_of_garden' })}
             subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
           />
@@ -93,7 +86,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
       </Box>
 
       <Box mb={3}>
-        <FormSubSection
+        <FormSubSectionHeader
           title={formatMessage({ id: 'pim_details.surface.surface' })}
           subtitle={formatMessage(
             { id: 'pim_details.surface.description' },
@@ -138,7 +131,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
       </Box>
 
       <Box mb={3}>
-        <FormSubSection
+        <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
         />

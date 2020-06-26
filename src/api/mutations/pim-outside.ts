@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 export const ADD_OUTSIDE_FEATURE = gql`
   mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
     addOutsideFeature(input: $input) {
-      outsideFeatures {
+      newOutsideFeature {
         id
       }
     }
@@ -11,7 +11,7 @@ export const ADD_OUTSIDE_FEATURE = gql`
 `;
 
 export const UPDATE_OUTSIDE_FEATURE = gql`
-  mutation updateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
+  mutation UpdateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
     updateOutsideFeature(input: $input) {
       id
     }

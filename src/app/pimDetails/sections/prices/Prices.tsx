@@ -21,13 +21,24 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
               {...props}
               rent={pricing.pricing?.rent ?? undefined}
               sale={pricing.pricing?.sale ?? undefined}
+              dateUpdated={pricing.pricing?.dateUpdated}
+              updatedBy={pricing.pricing?.lastEditedBy}
+              description={pricing.pricing?.description ?? ''}
             />
           )}
         />
         <Route
           path={`${AppRoute.pimDetails}/prices/costs`}
           exact
-          render={() => <CostsContainer {...props} costs={pricing.costs ?? []} />}
+          render={() => (
+            <CostsContainer
+              {...props}
+              costs={pricing.costs ?? []}
+              dateUpdated={pricing.dateUpdated}
+              updatedBy={pricing.lastEditedBy}
+              description={pricing.costsDescription ?? ''}
+            />
+          )}
         />
         <Route
           path={`${AppRoute.pimDetails}/prices/investments`}

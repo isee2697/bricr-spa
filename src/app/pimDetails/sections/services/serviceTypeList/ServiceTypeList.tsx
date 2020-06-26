@@ -12,6 +12,7 @@ import { ServiceForm } from '../forms/ServiceForm';
 import { useStyles } from '../Services.styles';
 import { ServiceRadioType } from '../Services.types';
 import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from '../dictionaries';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 export const ServiceTypeList: <T extends Service>(
   p: ServiceTypeListProps<T>,
@@ -19,7 +20,15 @@ export const ServiceTypeList: <T extends Service>(
   const { formatMessage } = useLocale();
   const [isOpenAddService, setIsOpenAddService] = useState(false);
   const [toggled, setToggled] = useState<number | undefined>();
+  const [newServiceAdded, setNewServiceAdded] = useState<boolean>(false);
+  const formRef = React.useRef<FormSectionRef>(null);
+
   const classes = useStyles();
+
+  const onAddService = () => {
+    setNewServiceAdded(true);
+    formRef?.current?.handleSetEdit(true);
+  };
 
   let types: ServiceRadioType[] = [];
   let formTypes: ServiceRadioType[] | undefined;
@@ -53,6 +62,7 @@ export const ServiceTypeList: <T extends Service>(
         isEditable={items.length > 0}
         onAdd={() => setIsOpenAddService(true)}
         onOptionsClick={items.length > 0 ? () => {} : undefined}
+        ref={formRef}
       >
         {isEditMode => (
           <>
@@ -69,13 +79,15 @@ export const ServiceTypeList: <T extends Service>(
             {items.length > 0 &&
               items.map((item, key) => {
                 const type = types.find(type => type.value === item.configuration.type);
+                const newestAdded = newServiceAdded && items.length === key + 1;
+                setNewServiceAdded(newestAdded);
 
                 return (
                   <ServiceForm
                     onSave={onSave}
                     key={item.id}
                     isEditMode={isEditMode}
-                    toggled={toggled === key}
+                    toggled={newestAdded || toggled === key}
                     onToggleClick={() => setToggled(toggled === key ? undefined : key)}
                     item={item}
                     types={formTypes}
@@ -84,7 +96,7 @@ export const ServiceTypeList: <T extends Service>(
                     title={
                       <>
                         <Avatar className={classes.avatar}>{key + 1}</Avatar>
-                        {`${type && formatMessage({ id: type.label })} (${item.name})`}
+                        {type && formatMessage({ id: type.label }) + (item.name ? ` (${item.name})` : '')}
                       </>
                     }
                   />
@@ -94,6 +106,7 @@ export const ServiceTypeList: <T extends Service>(
         )}
       </FormSection>
       <AddServiceModalContainer
+        onAddService={onAddService}
         type={type}
         types={types}
         isOpened={isOpenAddService}

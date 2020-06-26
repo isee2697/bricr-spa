@@ -319,14 +319,16 @@ export const mockServer = () => {
             return PIM_DETAILS;
           },
           addFloorToPim() {
-            if (!PIM_DETAILS.floors) {
-              PIM_DETAILS.floors = [];
+            if (!PIM_INSIDE.floors) {
+              PIM_INSIDE.floors = [];
             }
 
-            PIM_DETAILS.floors = [
-              ...PIM_DETAILS.floors,
+            const id = PIM_INSIDE.id + PIM_INSIDE.floors.length;
+
+            PIM_INSIDE.floors = [
+              ...PIM_INSIDE.floors,
               {
-                id: PIM_DETAILS.id + PIM_DETAILS.floors.length,
+                id,
                 level: 1,
                 floorType: variables.input.floorType,
                 floorDescription: variables.input.floorDescription,
@@ -334,14 +336,17 @@ export const mockServer = () => {
               },
             ];
 
-            return PIM_DETAILS;
+            return {
+              pim: PIM_INSIDE,
+              newFloor: { id },
+            };
           },
           addSpaceToFloor() {
-            if (!PIM_DETAILS.floors) {
+            if (!PIM_INSIDE.floors) {
               throw new Error('PIM does not have floos');
             }
 
-            const floor: Floor | null | undefined = PIM_DETAILS.floors?.find(f => f.id === variables.input.floorId);
+            const floor: Floor | null | undefined = PIM_INSIDE.floors?.find(f => f.id === variables.input.floorId);
 
             if (!floor) {
               throw new Error('Floor does not exists');
@@ -352,7 +357,7 @@ export const mockServer = () => {
             }
 
             const newSpace: Space = {
-              id: PIM_DETAILS.id + 'space' + floor.spaces.length,
+              id: PIM_INSIDE.id + 'space' + floor.spaces.length,
               __typename: 'Space',
               extraRoomPossibility: variables.input.extraRoomPossibility,
               spaceType: variables.input.spaceType,
@@ -382,19 +387,19 @@ export const mockServer = () => {
 
             floor.spaces = [...floor.spaces, newSpace];
 
-            PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
+            PIM_INSIDE.floors = PIM_INSIDE.floors.map(f => (f.id === variables.input.floorId ? floor : f));
 
             return {
               newSpace,
-              pim: PIM_DETAILS,
+              pim: PIM_INSIDE,
             };
           },
           updateFloor() {
-            if (!PIM_DETAILS.floors) {
+            if (!PIM_INSIDE.floors) {
               throw new Error('PIM does not have floos');
             }
 
-            const floor: Floor | null | undefined = PIM_DETAILS.floors?.find(f => f.id === variables.input.floorId);
+            const floor: Floor | null | undefined = PIM_INSIDE.floors?.find(f => f.id === variables.input.floorId);
 
             if (!floor) {
               throw new Error('Floor does not exists');
@@ -402,9 +407,9 @@ export const mockServer = () => {
 
             floor.floorDescription = variables.input.floorDescription;
 
-            PIM_DETAILS.floors = PIM_DETAILS.floors.map(f => (f.id === variables.input.floorId ? floor : f));
+            PIM_INSIDE.floors = PIM_INSIDE.floors.map(f => (f.id === variables.input.floorId ? floor : f));
 
-            return PIM_DETAILS;
+            return PIM_INSIDE;
           },
           updateSpace() {
             if (!PIM_DETAILS.floors) {
@@ -460,6 +465,8 @@ export const mockServer = () => {
             return [FILE];
           },
           addOutsideFeature() {
+            const id = `${Math.floor(Math.random() * 100)}`;
+
             PIM_DETAILS = {
               ...PIM_DETAILS,
               outsideFeatures: [
@@ -468,7 +475,7 @@ export const mockServer = () => {
                   __typename: 'OutsideFeature',
                   type: variables.input.type,
                   description: 'My Garden',
-                  id: `${Math.floor(Math.random() * 100)}`,
+                  id,
                   configuration: {
                     __typename: 'GardenFeature',
                     main: true,
@@ -477,7 +484,12 @@ export const mockServer = () => {
               ],
             };
 
-            return PIM_DETAILS;
+            return {
+              pim: PIM_DETAILS,
+              newOutsideFeature: {
+                id,
+              },
+            };
           },
           updatePimOutsideInfo() {
             PIM_DETAILS = {

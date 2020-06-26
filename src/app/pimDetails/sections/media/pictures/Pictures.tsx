@@ -12,7 +12,7 @@ import { AddPictureModalContainer } from 'app/pimDetails/sections/media/pictures
 import { Picture } from 'api/types';
 import { IconButton } from 'ui/atoms';
 
-export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
+export const Pictures = ({ pictures, sortOptions, customLabels }: PictureProps) => {
   const { formatMessage } = useLocale();
   const [picture, setPicture] = useState<Picture | null>();
   const [isAddModaVisible, setAddModalVisible] = useState(false);
@@ -50,6 +50,7 @@ export const Pictures = ({ pictures, sortOptions }: PictureProps) => {
                 editing={editing}
                 checkbox={checkbox}
                 onSelect={() => setPicture(item)}
+                customLabel={customLabels.find(label => label.value === item.type)}
               />
             )}
             onBulk={() => {}}

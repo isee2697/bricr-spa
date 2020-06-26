@@ -1,7 +1,6 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
 
 import { InsideGeneral, PimInsideDocument, useUpdateInsideGeneralMutation } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
@@ -10,7 +9,14 @@ import { dateToYear, yearToDate } from 'form/fields';
 import { InsideGeneral as InsideGeneralFields } from './InsideGeneral';
 import { InsideGeneralBody } from './InsideGeneral.types';
 
-export const InsideGeneralContainer = ({ extension, windows, renovation, notes }: InsideGeneral) => {
+export const InsideGeneralContainer = ({
+  extension,
+  windows,
+  renovation,
+  notes,
+  dateUpdated,
+  lastEditedBy,
+}: InsideGeneral) => {
   const { id: pimId } = useParams<{ id: string }>();
   const [updateInsideGeneral] = useUpdateInsideGeneralMutation();
 
@@ -74,9 +80,7 @@ export const InsideGeneralContainer = ({ extension, windows, renovation, notes }
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <Grid container xs={12} item justify="space-between">
-        <InsideGeneralFields />
-      </Grid>
+      <InsideGeneralFields updatedBy={lastEditedBy} dateUpdated={dateUpdated} />
     </AutosaveForm>
   );
 };

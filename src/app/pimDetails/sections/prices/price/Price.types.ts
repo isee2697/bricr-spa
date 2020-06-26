@@ -5,14 +5,8 @@ export type PriceProps = {
   types: PriceType[];
 };
 
-export type PriceContainerProps = {
-  types: PriceType[];
-  pimId?: string;
-  rent?: RentInformations;
-  sale?: SaleInformations;
-};
-
 export type PriceForm = {
   rent: RentInformations;
   sale: SaleInformations;
+  description?: string;
 };

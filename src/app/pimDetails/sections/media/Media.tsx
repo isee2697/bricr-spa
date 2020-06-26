@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { Box, Grid, Typography } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AutosaveForm } from 'ui/organisms';
-import { GenericField } from 'form/fields';
+import { Page } from 'ui/templates';
+import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { LabelProperty } from 'api/types';
 
 import { PicturesContainer } from './pictures/PicturesContainer';
 import { LinksContainer } from './links/LinksContainer';
@@ -13,39 +14,68 @@ import { UspsContainer } from './usps/UspsContainer';
 import { TagsContainer } from './tags/TagsContainer';
 import { MediaProps } from './Media.types';
 
-export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaProps) => {
+export const Media = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  media,
+  onDescriptionUpdate,
+  description,
+}: MediaProps) => {
   const { formatMessage } = useLocale();
+  const [isLabelModalOpened, setLabelModalOpened] = useState(false);
+  const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
+
+  const handleAddCustomType = (label: LabelProperty) => {
+    setLabelProperty(label);
+    setLabelModalOpened(true);
+  };
 
   return (
     <>
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
-      <Grid item xs={12}>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.media.title' })}</Typography>
-        <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
-          <Box mb={1}>
-            <GenericField placeholder="pim_details.media.description_placeholder" name="name" />
-          </Box>
-        </AutosaveForm>
-      </Grid>
-      <Grid item xs={12}>
-        <PicturesContainer pictures={media.pictures} />
-      </Grid>
+      <Page
+        title={formatMessage({ id: 'pim_details.media.title' })}
+        onSave={onDescriptionUpdate}
+        placeholder="pim_details.media.description_placeholder"
+        name="description"
+        initialValues={{ description }}
+        dateUpdated={media.dateUpdated}
+        updatedBy={media.lastEditedBy}
+      >
+        <Grid item xs={12}>
+          <PicturesContainer pictures={media.pictures} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <LinksContainer links={media.mediaLinks} />
-      </Grid>
+        <Grid item xs={12}>
+          <LinksContainer
+            links={media.mediaLinks}
+            onAddCustomType={() => handleAddCustomType(LabelProperty.MediaLink)}
+          />
+        </Grid>
 
-      <Grid item xs={12}>
-        <TextChaptersContainer chapters={media.textChapters} />
-      </Grid>
+        <Grid item xs={12}>
+          <TextChaptersContainer
+            chapters={media.textChapters}
+            onAddCustomType={() => handleAddCustomType(LabelProperty.TextChapter)}
+          />
+        </Grid>
 
-      <Grid item xs={12}>
-        <UspsContainer usps={media.usps} />
-      </Grid>
+        <Grid item xs={12}>
+          <UspsContainer usps={media.usps} onAddCustomType={() => handleAddCustomType(LabelProperty.Usp)} />
+        </Grid>
 
-      <Grid item xs={12}>
-        <TagsContainer tags={media.tags} />
-      </Grid>
+        <Grid item xs={12}>
+          <TagsContainer tags={media.tags} onAddCustomType={() => handleAddCustomType(LabelProperty.Tag)} />
+        </Grid>
+      </Page>
+      {isLabelModalOpened && labelProperty && (
+        <AddCustomPropertyModalContainer
+          property={labelProperty}
+          isOpened={isLabelModalOpened}
+          onClose={() => setLabelModalOpened(false)}
+        />
+      )}
     </>
   );
 };

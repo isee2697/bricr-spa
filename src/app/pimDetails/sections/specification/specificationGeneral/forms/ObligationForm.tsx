@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from 'ui/atoms';
-import { FormSubSection, TileButton } from 'ui/molecules';
+import { FormSubSectionHeader, TileButton } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { useCustomLabels, useLocale } from 'hooks';
@@ -28,7 +28,7 @@ export const ObligationForm = ({ onAddPropertyClick }: SpecificationGeneralFormP
         {editing => (
           <>
             <Box mb={2}>
-              <FormSubSection
+              <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.specification.label_title' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

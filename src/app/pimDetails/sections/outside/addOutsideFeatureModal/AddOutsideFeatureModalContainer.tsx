@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
-import { useAddOutsideFeatureMutation, PimOverallInfoDocument } from 'api/types';
+import { useAddOutsideFeatureMutation, PimOverallInfoDocument, PimOutsideDocument } from 'api/types';
 
 import { AddOutsideFeatureModal } from './AddOutsideFeatureModal';
 import { AddOutsideFeatureSubmit, AddOutsideFeatureModalContainerProps } from './AddOutsideFeatureModal.types';
@@ -29,17 +29,21 @@ export const AddOutsideFeatureModalContainer = ({ isOpened, onClose }: AddOutsid
               id,
             },
           },
+          {
+            query: PimOutsideDocument,
+            variables: {
+              id,
+            },
+          },
         ],
       });
 
-      if (!result?.addOutsideFeature || !result.addOutsideFeature.outsideFeatures) {
+      if (!result?.addOutsideFeature || !result.addOutsideFeature.newOutsideFeature) {
         throw new Error();
       }
 
       onClose();
-
-      const outsideFeatures = result.addOutsideFeature.outsideFeatures;
-      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${outsideFeatures[0].id}`);
+      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${result.addOutsideFeature.newOutsideFeature.id}`);
 
       return undefined;
     } catch {

@@ -38,50 +38,62 @@ export const size = [
   },
 ];
 
-export const ownershipType = [
-  {
-    label: 'dictionaries.cadastre_ownership_type.StressedInChargeOf',
-    value: CadastreOwnershipType.StressedInChargeOf,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_type.LeaseholdAndBuildingChargedWith',
-    value: CadastreOwnershipType.LeaseholdAndBuildingChargedWith,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_type.PropertyInChargeOf',
-    value: CadastreOwnershipType.PropertyInChargeOf,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_type.BuildingResponsibleFor',
-    value: CadastreOwnershipType.BuildingResponsibleFor,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_type.AnnualLeasePaymentsInChargeOf',
-    value: CadastreOwnershipType.AnnualLeasePaymentInChargeOf,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_type.OtherLike',
-    value: CadastreOwnershipType.OtherLike,
-  },
-];
+export const ownershipType = Object.keys(CadastreOwnershipType).map(value => ({
+  label: `dictionaries.cadastre_ownership_type.${value}`,
+  value,
+}));
 
-export const ownershipValue = [
-  {
-    label: 'dictionaries.cadastre_ownership_value.NoneOfThem',
-    icon: <FilterIcon color="inherit" />,
-    value: OwnershipChoiceType.NoneOfThem,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_value.UseAndHabitation',
+const generateOwnershipItems = (values: OwnershipChoiceType[]) =>
+  values.map(value => ({
+    label: `dictionaries.cadastre_ownership_value.${value}`,
     icon: <LinkIcon color="inherit" />,
-    value: OwnershipChoiceType.UseAndHabitation,
-  },
-  {
-    label: 'dictionaries.cadastre_ownership_value.Usufruct',
-    icon: <BuildingIcon color="inherit" />,
-    value: OwnershipChoiceType.Usufruct,
-  },
-];
+    value,
+  }));
+
+export const ownershipValues = {
+  PerpetualLeaseChargedWith: generateOwnershipItems([
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.Usufruct,
+    OwnershipChoiceType.NoneOfThem,
+  ]),
+  PropertyChargedWith: generateOwnershipItems([
+    OwnershipChoiceType.PerpetualLease,
+    OwnershipChoiceType.LimitedRights,
+    OwnershipChoiceType.Leasehold,
+    OwnershipChoiceType.LeaseholdAndBuilding,
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.Building,
+    OwnershipChoiceType.CityMayorLaw,
+    OwnershipChoiceType.Usufruct,
+  ]),
+  AnnualLeaseholdChargedWith: generateOwnershipItems([
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.Usufruct,
+    OwnershipChoiceType.NoneOfThem,
+  ]),
+  LeaseholdAndBuildingChargedWith: generateOwnershipItems([
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.Usufruct,
+    OwnershipChoiceType.NoneOfThem,
+  ]),
+  BuildingChargedWith: generateOwnershipItems([
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.Usufruct,
+    OwnershipChoiceType.NoneOfThem,
+  ]),
+  Other: generateOwnershipItems([
+    OwnershipChoiceType.FullOwnership,
+    OwnershipChoiceType.UseAndHabitation,
+    OwnershipChoiceType.MembershipRight,
+    OwnershipChoiceType.SharedOwnership,
+    OwnershipChoiceType.PerpetualSublease,
+    OwnershipChoiceType.Subleasehold,
+    OwnershipChoiceType.RightOfOverhang,
+    OwnershipChoiceType.CityMayorLaw,
+    OwnershipChoiceType.Usufruct,
+    OwnershipChoiceType.SeeDeed,
+  ]),
+};
 
 export const leaseholder = [
   {

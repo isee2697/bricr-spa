@@ -9,6 +9,7 @@ import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types'
 export type ServicesProps = PimDetailsSectionProps & {
   pimServices: PimServices;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
+  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
 export type ServicesMetersContainerProps = PimDetailsSectionProps & {
@@ -19,6 +20,7 @@ export type ServicesMetersContainerProps = PimDetailsSectionProps & {
 
 export type ServicesMetersProps = {
   meters: Meter[];
+  loading: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   onAddReading(values: unknown): Promise<undefined | { error: boolean }>;
   linkedPerson: LinkedPersonProps;

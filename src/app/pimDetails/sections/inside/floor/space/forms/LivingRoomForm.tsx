@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { CheckboxField, CheckboxGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -13,7 +13,7 @@ export const LivingRoomForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
   return (
     <>
       <Grid item xs={12}>
-        <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
+        <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.general_information' })} />
         <Box mt={1}>
           <CheckboxField
             label="pim_details.inside.stairs_in_livingroom"
@@ -24,7 +24,7 @@ export const LivingRoomForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
       </Grid>
 
       <Grid item xs={12}>
-        <FormSubSection
+        <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.type_of_livingroom' })}
           subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}

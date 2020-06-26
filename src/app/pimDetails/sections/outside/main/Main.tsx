@@ -2,9 +2,9 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
-import { Grid, Typography } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
-import { GenericField } from 'form/fields';
+import { Page } from 'ui/templates';
 
 import { GeneralInformation } from './forms/GeneralInformation';
 import { PropertyRelated } from './forms/PropertyRelated';
@@ -18,23 +18,26 @@ export const Main = ({ pimOutside, onSave }: MainProps) => {
   return (
     <>
       <AutosaveForm initialValues={pimOutside} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
-        <Grid xs={12} item>
-          <Typography variant="h1">{formatMessage({ id: 'pim_details.outside.title' })}</Typography>
-          <GenericField placeholder="pim_details.outside.main.description_placeholder" name="houseOutside.notes" />
-        </Grid>
-
-        <Grid xs={12} item>
-          <GeneralInformation />
-        </Grid>
-        <Grid xs={12} item>
-          <PropertyRelated />
-        </Grid>
-        <Grid xs={12} item>
-          <Foundation />
-        </Grid>
-        <Grid xs={12} item>
-          <RoofInformation />
-        </Grid>
+        <Page
+          title={formatMessage({ id: 'pim_details.outside.title' })}
+          placeholder="pim_details.outside.main.description_placeholder"
+          name="houseOutside.notes"
+          updatedBy={pimOutside.lastEditedBy}
+          dateUpdated={pimOutside.dateUpdated}
+        >
+          <Grid xs={12} item>
+            <GeneralInformation />
+          </Grid>
+          <Grid xs={12} item>
+            <PropertyRelated />
+          </Grid>
+          <Grid xs={12} item>
+            <Foundation />
+          </Grid>
+          <Grid xs={12} item>
+            <RoofInformation />
+          </Grid>
+        </Page>
       </AutosaveForm>
     </>
   );

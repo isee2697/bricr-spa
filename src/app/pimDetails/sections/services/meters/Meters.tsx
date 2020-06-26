@@ -10,13 +10,13 @@ import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
 
-export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters }: ServicesMetersProps) => {
+export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters, loading }: ServicesMetersProps) => {
   const classes = useStyles();
-  const formRef = React.useRef<FormSectionRef>(null);
+  const formRefs = React.useRef<{ [key: string]: FormSectionRef }>({});
 
   const handleOnAddReading = (id: string) => {
     onAddReading(id);
-    formRef?.current?.handleSetEdit(true);
+    formRefs?.current[id].handleSetEdit(true);
   };
 
   return (
@@ -29,7 +29,12 @@ export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters }: Se
               title={meter.name}
               onAdd={() => handleOnAddReading(meter.id)}
               onOptionsClick={() => {}}
-              ref={formRef}
+              loading={loading}
+              ref={ref => {
+                if (ref) {
+                  formRefs.current[meter.id] = ref;
+                }
+              }}
             >
               {editing => (
                 <>

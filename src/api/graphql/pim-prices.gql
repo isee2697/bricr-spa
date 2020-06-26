@@ -67,8 +67,8 @@ input SaleGeneralInput {
   suffix: String
   executionSale: Boolean
   dateOfExecutionSale: Date
-  conditions: [SaleCondition!]
-  purchaseMix: [PurchaseMix!]
+  conditions: SaleCondition
+  purchaseMix: PurchaseMix
   notes: String
 }
 
@@ -78,8 +78,8 @@ type SaleGeneral {
   suffix: String
   executionSale: Boolean
   dateOfExecutionSale: Date
-  conditions: [SaleCondition!]
-  purchaseMix: [PurchaseMix!]
+  conditions: SaleCondition
+  purchaseMix: PurchaseMix
   notes: String
 }
 
@@ -109,7 +109,7 @@ type SaleInformations {
 input RentInformationsInput {
   rentalPrice: AbsoluteFloat
   suffix: String
-  conditions: [RentCondition!]
+  conditions: RentCondition
   notes: String
   paymentFrequency: RentPaymentFrequency
 }
@@ -118,16 +118,19 @@ type RentInformations {
   rentalPrice: AbsoluteFloat
   paymentFrequency: RentPaymentFrequency
   suffix: String
-  conditions: [RentCondition!]
+  conditions: RentCondition
   notes: String
   isEnabled: Boolean
 }
 
-type PimPrices {
+type PimPrices implements LastUpdated {
   id: ID!
   pricing: Pricing
   costs: [Cost!]
   investment: Investment
+  costsDescription: String
+  dateUpdated: Date
+  lastEditedBy: Profile
 }
 
 input TogglePricingInput {
@@ -140,11 +143,15 @@ input UpdatePricingInput {
   id: ID!
   rent: RentInformationsInput
   sale: SaleInformationsInput
+  description: String
 }
 
-type Pricing {
+type Pricing implements LastUpdated {
   rent: RentInformations
   sale: SaleInformations
+  lastEditedBy: Profile
+  dateUpdated: Date
+  description: String
 }
 
 type Cost {
@@ -193,9 +200,10 @@ input InvestmentInput {
   remainingTermContacts: Int
   vacancySquareMeters: Int
   notes: String
+  description: String
 }
 
-type Investment {
+type Investment implements LastUpdated {
   netRentalIncome: AbsoluteFloat
   grossRentalIncome: AbsoluteFloat
   economicRentalValue: AbsoluteFloat
@@ -208,6 +216,9 @@ type Investment {
   remainingTermContacts: Int
   vacancySquareMeters: Int
   notes: String
+  description: String
+  dateUpdated: Date
+  lastEditedBy: Profile
 }
 
 extend type Mutation {

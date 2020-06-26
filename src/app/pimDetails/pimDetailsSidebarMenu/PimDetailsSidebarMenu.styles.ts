@@ -34,18 +34,20 @@ export const useStyles = makeStyles(theme => ({
         height: '100%',
       },
       display: 'block',
-      marginTop: theme.spacing(3),
     },
+    marginBottom: theme.spacing(2.25),
   },
   backToList: {
-    paddingLeft: theme.spacing(3),
-    borderBottom: 0,
-    marginTop: -theme.spacing(1),
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    borderTop: `1px solid ${theme.palette.gray.light}`,
-    '& h3, & svg': {
-      color: theme.palette.black.main,
+    height: 'auto',
+    '& a': {
+      paddingLeft: theme.spacing(3),
+      borderBottom: 0,
+      paddingTop: theme.spacing(2.375),
+      paddingBottom: theme.spacing(2.375),
+      borderTop: `2px solid ${theme.palette.gray.light}`,
+      '& h3, & svg': {
+        color: theme.palette.black.main,
+      },
     },
   },
 }));

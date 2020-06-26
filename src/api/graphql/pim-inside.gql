@@ -204,13 +204,13 @@ type OtherSpace {
   images: [File!]
 }
 
-type Floor {
+type Floor implements LastUpdated {
   id: String!
   floorDescription: String
   level: Int!
   floorType: FloorType!
   spaces: [Space!]
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
   dateUpdated: Date
 }
 
@@ -222,14 +222,14 @@ type Space {
   spaceName: String
   extraRoomPossibility: Boolean!
   configuration: SpaceConfiguration
-  lastEditedBy: LastEditedBy
-  dateUpdated: Date
 }
 
-type PimInside {
+type PimInside implements LastUpdated {
   id: String!
   floors: [Floor!]
   insideGeneral: InsideGeneral
+  dateUpdated: Date
+  lastEditedBy: Profile
 }
 
 type PimWithUpdatedSpace {
@@ -299,17 +299,24 @@ type Extension {
 
 input InsideGeneralInput {
   pimId: ID!
-  notes: String
   windows: InsideWindowsInput
   extension: ExtensionInput
   renovation: RenovationInput
+  notes: String
 }
 
-type InsideGeneral {
-  notes: String
+type InsideGeneral implements LastUpdated {
   windows: InsideWindows
   extension: Extension
   renovation: Renovation
+  notes: String
+  dateUpdated: Date
+  lastEditedBy: Profile
+}
+
+type PimWithNewFloor {
+  newFloor: Floor!
+  pim: Pim!
 }
 
 extend type Query {
@@ -317,7 +324,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  addFloorToPim(input: AddNewFloorInput!): Pim! @auth
+  addFloorToPim(input: AddNewFloorInput!): PimWithNewFloor! @auth
   addSpaceToFloor(input: AddSpaceInput!): PimWithUpdatedSpace! @auth
   updateSpace(input: UpdateSpaceInput!): Pim! @auth
   updateFloor(input: UpdateFloorInput!): Pim! @auth

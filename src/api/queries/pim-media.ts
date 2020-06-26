@@ -4,6 +4,13 @@ export const PIM_MEDIA = gql`
   query PimMedia($id: ID!) {
     getPimMedia(id: $id) {
       id
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
       pictures {
         id
         name

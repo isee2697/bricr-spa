@@ -6,8 +6,11 @@ export type TagsProps = {
   onAdd: () => Promise<undefined | { error: boolean }>;
   onSave: (values: UpdateTagInput) => Promise<undefined | { error: boolean }>;
   tags: Tag[];
+  newTagId: string | null;
+  onAddCustomType: () => void;
 };
 
 export type TagsContainerProps = {
   tags?: Maybe<Tag[]>;
+  onAddCustomType: () => void;
 };

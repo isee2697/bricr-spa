@@ -2,14 +2,13 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { Box, Button, Grid, Typography } from 'ui/atoms';
-import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
+import { Box, Button, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { GoodToKnowRow } from 'app/pimDetails/sections/general/location/goodToKnowRow/GoodToKnowRow';
 import { LocationGoodToKnowType } from 'api/types';
-import { useStyles } from 'app/pimDetails/sections/general/location/Location.styles';
+import { Page } from 'ui/templates';
 
 import { LocationProps } from './Location.types';
 import { LocationMap } from './locationMap/LocationMap';
@@ -21,12 +20,13 @@ export const Location = ({
   initialValues,
   typeOptions,
   onSave,
+  dateUpdated,
+  updatedBy,
 }: LocationProps) => {
   const { formatMessage } = useIntl();
-  const classes = useStyles();
 
   return (
-    <>
+    <AutosaveForm onSave={onSave} initialValues={initialValues}>
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
@@ -37,22 +37,19 @@ export const Location = ({
           </Button>
         }
       />
-      <Grid item xs={12}>
-        <Typography className={classes.title} variant="h1">
-          {formatMessage({ id: 'pim_details.general.location.header' })}
-        </Typography>
-        <div className={classes.iconsHolder}>
-          <HelpIcon />
-          <MenuIcon />
-        </div>
-      </Grid>
-      <Grid item xs={12}>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+      <Page
+        title={formatMessage({ id: 'pim_details.general.location.header' })}
+        placeholder="pim_details.general.location.placeholder"
+        name="description"
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
+      >
+        <Grid item xs={12}>
           <Grid item xs={12}>
             <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
               {editable => (
                 <>
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.general.location.type' })}
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -79,7 +76,7 @@ export const Location = ({
                   <LocationMap disabled={!editable} latitudeName="latitude" longitudeName="longitude" />
                   <Box mb={3} />
 
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.general.location.type' })}
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -94,7 +91,7 @@ export const Location = ({
                   />
                   <Box mb={3} />
 
-                  <FormSubSection
+                  <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.general.location.good_to_know' })}
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -106,8 +103,8 @@ export const Location = ({
               )}
             </FormSection>
           </Grid>
-        </AutosaveForm>
-      </Grid>
-    </>
+        </Grid>
+      </Page>
+    </AutosaveForm>
   );
 };

@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 export const ADD_FLOOR = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
     addFloorToPim(input: $input) {
-      floors {
+      newFloor {
         id
       }
     }

@@ -5,4 +5,5 @@ export type FormProps<T> = {
   children: ReactNode;
   initialValues: object;
   onSave: (values: T) => Promise<undefined | { error: boolean }>;
+  isInitiallyOpened?: boolean;
 };

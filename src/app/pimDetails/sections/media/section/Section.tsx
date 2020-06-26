@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { FormSection } from 'ui/organisms';
 import { Avatar, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 import { SectionProps } from './Section.types';
 import { useStyles } from './Section.styles';
@@ -19,6 +20,7 @@ export const Section = ({
   buttons,
 }: SectionProps) => {
   const styles = useStyles();
+  const formSectionRef = useRef<FormSectionRef>(null);
 
   const renderContent = (editable: boolean) => {
     if (count > 0 && children) {
@@ -33,6 +35,11 @@ export const Section = ({
     );
   };
 
+  const handleAdd = () => {
+    formSectionRef?.current?.handleSetEdit(true);
+    onAdd();
+  };
+
   return (
     <FormSection
       title={
@@ -41,10 +48,11 @@ export const Section = ({
           <Avatar className={styles.count}>{count}</Avatar>
         </div>
       }
-      isEditable
-      isExpandable={isExpandable}
-      onAdd={onAdd}
-      buttons={buttons}
+      isEditable={children && count > 0}
+      isExpandable={children && count > 0 && isExpandable}
+      onAdd={handleAdd}
+      buttons={children && count > 0 && buttons}
+      ref={formSectionRef}
     >
       {renderContent}
     </FormSection>

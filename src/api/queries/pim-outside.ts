@@ -4,8 +4,12 @@ export const PIM_OUTSIDE = gql`
   query PimOutside($id: ID!) {
     getPimOutside(id: $id) {
       id
-      lastEditedBy
       dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
       houseOutside {
         foundation {
           material {
@@ -67,7 +71,11 @@ export const PIM_OUTSIDE = gql`
         type
         dateCreated
         dateUpdated
-        lastEditedBy
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
         description
         configuration {
           ... on GardenFeature {

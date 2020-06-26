@@ -1,28 +1,35 @@
 import React from 'react';
 
+import {
+  HotWaterSupplyType,
+  HeatingSourceType,
+  AdditionalServiceType,
+  OwnershipType,
+  HotWaterSupplyFuelType,
+} from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 
 export const hotWaterTypes = [
   {
-    value: 'CentralHeatingBoiler',
+    value: HotWaterSupplyType.CentralHeatingBoiler,
     label: 'dictionaries.service.hotWater.CentralHeatingBoiler',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'Boiler',
+    value: HotWaterSupplyType.Boiler,
     label: 'dictionaries.service.hotWater.Boiler',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'Geyser',
+    value: HotWaterSupplyType.Geyser,
     label: 'dictionaries.service.hotWater.Geyser',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'SolarWaterHeater',
+    value: HotWaterSupplyType.SolarWaterHeater,
     label: 'dictionaries.service.hotWater.SolarWaterHeater',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
@@ -31,82 +38,82 @@ export const hotWaterTypes = [
 
 export const heatingTypes = [
   {
-    value: 'Geothermalheat',
+    value: HeatingSourceType.GeothermalHeat,
     label: 'dictionaries.service.heating.Geothermalheat',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Fireplace',
+    value: HeatingSourceType.Fireplace,
     label: 'dictionaries.service.heating.Fireplace',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'AllBurner',
+    value: HeatingSourceType.AllBurner,
     label: 'dictionaries.service.heating.AllBurner',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'PelletStove',
+    value: HeatingSourceType.PelletStove,
     label: 'dictionaries.service.heating.PelletStove',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'BlockHeating',
+    value: HeatingSourceType.BlockHeating,
     label: 'dictionaries.service.heating.BlockHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'WoodStove',
+    value: HeatingSourceType.WoodStove,
     label: 'dictionaries.service.heating.WoodStove',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'DistrictHeating',
+    value: HeatingSourceType.DistrictHeating,
     label: 'dictionaries.service.heating.DistrictHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'CentralHeatingBoiler',
+    value: HeatingSourceType.CentralHeatingBoiler,
     label: 'dictionaries.service.heating.CentralHeatingBoiler',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'CoalStove',
+    value: HeatingSourceType.CoalStove,
     label: 'dictionaries.service.heating.CoalStove',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'PatrialElectricHeating',
+    value: HeatingSourceType.PartialElectricHeating,
     label: 'dictionaries.service.heating.PatrialElectricHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'GasHeaters',
+    value: HeatingSourceType.GasHeaters,
     label: 'dictionaries.service.heating.GasHeaters',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'HeatPump',
+    value: HeatingSourceType.HeatPump,
     label: 'dictionaries.service.heating.HeatPump',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'HotAirHeating',
+    value: HeatingSourceType.HotAirHeating,
     label: 'dictionaries.service.heating.HotAirHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'UnderfloorHeating',
+    value: HeatingSourceType.UnderfloorHeating,
     label: 'dictionaries.service.heating.UnderfloorHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'UnderfloorHeatingCompletely',
+    value: HeatingSourceType.UnderfloorHeatingCompletely,
     label: 'dictionaries.service.heating.UnderfloorHeatingCompletely',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'WallHeating',
+    value: HeatingSourceType.WallHeating,
     label: 'dictionaries.service.heating.WallHeating',
     icon: <SquareIcon color="inherit" />,
   },
@@ -114,85 +121,85 @@ export const heatingTypes = [
 
 export const additionalTypes = [
   {
-    value: 'AirConditioning',
+    value: AdditionalServiceType.AirConditioning,
     label: 'dictionaries.service.additional.AirConditioning',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'AlarmSystem',
+    value: AdditionalServiceType.AlarmSystem,
     label: 'dictionaries.service.additional.AlarmSystem',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'ExteriorSunProtection',
+    value: AdditionalServiceType.ExteriorSunProtection,
     label: 'dictionaries.service.additional.ExteriorSunProtection',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'Skylight',
+    value: AdditionalServiceType.Skylight,
     label: 'dictionaries.service.additional.Skylight',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'SatelightDish',
+    value: AdditionalServiceType.SateliteDish,
     label: 'dictionaries.service.additional.SatelightDish',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'SlidingDoor',
+    value: AdditionalServiceType.SlidingDoor,
     label: 'dictionaries.service.additional.SlidingDoor',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'CableTv',
+    value: AdditionalServiceType.CableTv,
     label: 'dictionaries.service.additional.CableTv',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Windmill',
+    value: AdditionalServiceType.Windmill,
     label: 'dictionaries.service.additional.WindMill',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'SolarColectors',
+    value: AdditionalServiceType.SolarCollector,
     label: 'dictionaries.service.additional.SolarColectors',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'SwimmingPool',
+    value: AdditionalServiceType.SwimmingPool,
     label: 'dictionaries.service.additional.SwimmingPool',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
-    value: 'FrenchBalcony',
+    value: AdditionalServiceType.FrenchBalcony,
     label: 'dictionaries.service.additional.FrencBalcony',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'MechanicalVentilation',
+    value: AdditionalServiceType.MechanicalVentilation,
     label: 'dictionaries.service.additional.MechanicalVentilation',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Elevator',
+    value: AdditionalServiceType.Elevator,
     label: 'dictionaries.service.additional.Elevator',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Flue',
+    value: AdditionalServiceType.Flue,
     label: 'dictionaries.service.additional.Flue',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Shutters',
+    value: AdditionalServiceType.Shutters,
     label: 'dictionaries.service.additional.Shutters',
     icon: <SquareIcon color="inherit" />,
   },
@@ -200,17 +207,17 @@ export const additionalTypes = [
 
 export const onwershipTypes = [
   {
-    value: 'Rent',
+    value: OwnershipType.Rent,
     label: 'dictionaries.service.ownership.Rent',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Lease',
+    value: OwnershipType.Leased,
     label: 'dictionaries.service.ownership.Lease',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Sale',
+    value: OwnershipType.Owned,
     label: 'dictionaries.service.ownership.Sale',
     icon: <SquareIcon color="inherit" />,
   },
@@ -218,17 +225,17 @@ export const onwershipTypes = [
 
 export const hotWaterFuelTypes = [
   {
-    value: 'Gas',
+    value: HotWaterSupplyFuelType.Gas,
     label: 'dictionaries.service.fuel.Gas',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Electric',
+    value: HotWaterSupplyFuelType.Electric,
     label: 'dictionaries.service.fuel.Electric',
     icon: <SquareIcon color="inherit" />,
   },
   {
-    value: 'Oil',
+    value: HotWaterSupplyFuelType.Oil,
     label: 'dictionaries.service.fuel.Oil',
     icon: <SquareIcon color="inherit" />,
   },

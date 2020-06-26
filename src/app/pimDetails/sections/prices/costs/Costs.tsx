@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Avatar, Box, Grid, Typography } from 'ui/atoms';
-import { AutosaveForm, FormSection } from 'ui/organisms';
-import { GenericField } from 'form/fields';
+import { Avatar, Grid, Typography } from 'ui/atoms';
+import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
+import { Page } from 'ui/templates';
 
 import { useStyles } from './Costs.styles';
 import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
 import { CostsProps } from './Costs.types';
 import { CostsForm } from './costsForm/CostsForm';
 
-export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }: CostsProps) => {
+export const Costs = ({
+  costs,
+  onSave,
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  dateUpdated,
+  updatedBy,
+  description,
+  onDescriptionUpdate,
+}: CostsProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -50,22 +60,28 @@ export const Costs = ({ costs, onSave, title, isSidebarVisible, onOpenSidebar }:
   return (
     <>
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
-      <Grid item xs={12}>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.prices.costs.title' })}</Typography>
-        <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
-          <Box mb={1}>
-            <GenericField placeholder="pim_details.prices.description_placeholder" name="description" />
-          </Box>
-        </AutosaveForm>
-        <FormSection
-          title={renderHeader()}
-          isEditable={costs.length > 0}
-          onAdd={() => setModalOpen(true)}
-          className={styles.container}
-        >
-          {editing => (costs.length > 0 ? renderCosts(editing) : renderEmpty())}
-        </FormSection>
-      </Grid>
+
+      <Page
+        title={formatMessage({ id: 'pim_details.prices.costs.title' })}
+        placeholder="pim_details.prices.description_placeholder"
+        name="description"
+        initialValues={{ description }}
+        onSave={onDescriptionUpdate}
+        updatedBy={updatedBy}
+        dateUpdated={dateUpdated}
+      >
+        <Grid item xs={12}>
+          <FormSection
+            title={renderHeader()}
+            isEditable={costs.length > 0}
+            onAdd={() => setModalOpen(true)}
+            className={styles.container}
+          >
+            {editing => (costs.length > 0 ? renderCosts(editing) : renderEmpty())}
+          </FormSection>
+        </Grid>
+      </Page>
+
       {isModalOpen && (
         <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} pimId={id} />
       )}

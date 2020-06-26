@@ -32,14 +32,12 @@ export const AddNewFloorModalContainer = ({ isOpened, onClose }: AddNewFloorModa
         ],
       });
 
-      if (!result?.addFloorToPim || !result.addFloorToPim.floors) {
+      if (!result?.addFloorToPim || !result.addFloorToPim.newFloor) {
         throw new Error();
       }
 
       onClose();
-
-      const floors = result.addFloorToPim.floors;
-      push(AppRoute.pimDetails.replace(':id', id) + '/inside/' + floors[0].id);
+      push(`${AppRoute.pimDetails.replace(':id', id)}/inside/${result.addFloorToPim.newFloor.id}`);
 
       return undefined;
     } catch (e) {

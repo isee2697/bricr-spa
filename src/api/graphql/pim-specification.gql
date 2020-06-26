@@ -190,12 +190,12 @@ input EnergyInput {
 }
 
 type Approvals {
-  label: ApprovalType
+  label: [ApprovalType!]
   notes: String
 }
 
 input ApprovalsInput {
-  label: ApprovalType
+  label: [ApprovalType!]
   notes: String
 }
 
@@ -214,21 +214,32 @@ input SpecificationInput {
   energy: EnergyInput
   approvals: ApprovalsInput
   obligation: ObligationToProvideInformationInput
+  description: String
 }
 
-type Specification {
+type Specification implements LastUpdated {
   energy: Energy
   approvals: Approvals
   obligation: ObligationToProvideInformation
-
+  description: String
+  dateUpdated: Date
+  lastEditedBy: Profile
 }
 
-type PimSpecification {
+type PimSpecification implements LastUpdated {
   id: ID!
   specification: Specification
   specificationAdvanced: SpecificationAdvanced
   linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
+  lastEditedBy: Profile
+  dateUpdated: Date
+  linkedPropertiesDateUpdated: Date
+  linkedPropertiesLastEditedBy: Profile
+  linkedPropertiesDescription: String
+  inspectionsDateUpdated: Date
+  inspectionsLastEditedBy: Profile
+  inspectionsDescription: String
 }
 
 type AddInspectionResult {
@@ -312,7 +323,7 @@ input HomeOwnerAssociationInput {
   notes: String
 }
 
-type SpecificationAdvanced {
+type SpecificationAdvanced implements LastUpdated{
   parking: ParkingSpecification
   monument: MonumentSpecification
   inside: InsideSpecification
@@ -320,6 +331,9 @@ type SpecificationAdvanced {
   specialTags: SpecialTags
   propertyRights: PropertyRights
   homeOwnerAssociation: HomeOwnerAssociation
+  description: String
+  lastEditedBy: Profile
+  dateUpdated: Date
 }
 
 input SpecificationAdvancedInput {
@@ -331,6 +345,7 @@ input SpecificationAdvancedInput {
   specialTags: SpecialTagsInput
   propertyRights: PropertyRightsInput
   homeOwnerAssociation: HomeOwnerAssociationInput
+  description: String
 }
 
 extend type Mutation {

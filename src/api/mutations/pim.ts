@@ -7,3 +7,9 @@ export const CREATE_PIM = gql`
     }
   }
 `;
+
+export const UPDATE_DESCRIPTION = gql`
+  mutation UpdateDescription($input: UpdateDescriptionInput!) {
+    updateDescription(input: $input)
+  }
+`;

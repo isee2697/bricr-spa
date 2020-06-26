@@ -18,12 +18,12 @@ export const LastUpdated = ({ dateUpdated, updatedBy, className, withIcon }: Las
       <Typography className={classes.text}>{formatMessage({ id: 'common.last_updated' })}:</Typography>
       <Typography className={classNames(classes.text, classes.bold)}>
         {dateUpdated
-          ? DateTime.fromISO(dateUpdated).toFormat('dd-mm-yyyy, hh:mm')
+          ? DateTime.fromISO(dateUpdated).toFormat('dd-LL-yyyy, HH:mm')
           : formatMessage({ id: 'common.never_updated' })}
       </Typography>
       {updatedBy && (
         <Typography className={classNames(classes.text, classes.bold)}>
-          {formatMessage({ id: 'common.updated_by' })} {updatedBy}
+          {formatMessage({ id: 'common.updated_by' })} {updatedBy.firstName} {updatedBy.lastName}
         </Typography>
       )}
       {withIcon && <HistoryIcon className={classes.icon} />}

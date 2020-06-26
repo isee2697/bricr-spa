@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { Route, Switch, Redirect, useParams } from 'react-router-dom';
-import { Box, Button } from '@material-ui/core';
+import { Redirect, Route, Switch, useParams } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';
-import { usePimServicesQuery, PimServices, PimServicesDocument, useUpdateServiceMutation } from 'api/types';
+import {
+  PimServices,
+  PimServicesDocument,
+  SectionWithDescriptionType,
+  usePimServicesQuery,
+  useUpdateDescriptionMutation,
+  useUpdateServiceMutation,
+} from 'api/types';
 import { dateToYear } from 'form/fields';
 import { ServiceForm } from 'app/pimDetails/sections/services/Services.types';
 
@@ -21,6 +28,33 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
   const { data } = usePimServicesQuery({ variables: { id } });
   const [updateService] = useUpdateServiceMutation();
+  const [updateDescription] = useUpdateDescriptionMutation();
+
+  const onDescriptionUpdate = async (body: { description: string }) => {
+    try {
+      updateDescription({
+        variables: {
+          input: {
+            ...body,
+            pimId: id,
+            section: SectionWithDescriptionType.Services,
+          },
+        },
+        refetchQueries: [
+          {
+            query: PimServicesDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
+      });
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
 
   const onEdit = async (body: ServiceForm) => {
     try {
@@ -69,17 +103,15 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
         isSidebarVisible={isSidebarVisible}
         onOpenSidebar={onOpenSidebar}
         action={
-          <Box display="flex">
-            <Button
-              color="primary"
-              variant="contained"
-              startIcon={<AddIcon color="inherit" />}
-              onClick={() => setIsMeterModalOpen(true)}
-              size="small"
-            >
-              {formatMessage({ id: 'pim_details.services.add_new_meter' })}
-            </Button>
-          </Box>
+          <Button
+            color="primary"
+            variant="contained"
+            startIcon={<AddIcon color="inherit" />}
+            onClick={() => setIsMeterModalOpen(true)}
+            size="small"
+          >
+            {formatMessage({ id: 'pim_details.services.add_new_meter' })}
+          </Button>
         }
       />
       <Switch>
@@ -94,6 +126,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
               title={title}
               pimServices={pimServices}
               onSave={onEdit}
+              onDescriptionUpdate={onDescriptionUpdate}
             />
           )}
         />

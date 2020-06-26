@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { Box, Grid } from 'ui/atoms';
-import { TileButton, FormSubSection } from 'ui/molecules';
+import { TileButton, FormSubSectionHeader } from 'ui/molecules';
 import { FormSection, AddCustomPropertyModalContainer } from 'ui/organisms';
 import { CheckboxGroupField, GenericField } from 'form/fields';
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
@@ -29,7 +30,7 @@ export const OwnerAssociation = () => {
       >
         {editing => (
           <>
-            <FormSubSection
+            <FormSubSectionHeader
               className="subtitle"
               noBorder
               title={formatMessage({ id: 'pim_details.specification.advanced.general_information' })}
@@ -54,7 +55,7 @@ export const OwnerAssociation = () => {
               </Grid>
             </Grid>
             <Box mt={2}>
-              <FormSubSection
+              <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.specification.advanced.good_to_know' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
@@ -69,7 +70,7 @@ export const OwnerAssociation = () => {
                   options={[...dictionaries.goodToKnow, ...customLabels] as CheckboxDataType[]}
                   actionElement={
                     <TileButton
-                      className={classes.tileButton}
+                      className={classNames(classes.tileButton, { [classes.preventClick]: !editing })}
                       onClick={() => setModalOpened(true)}
                       isDisabled={!editing}
                       title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}

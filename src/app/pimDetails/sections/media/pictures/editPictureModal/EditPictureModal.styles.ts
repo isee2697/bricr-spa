@@ -17,4 +17,10 @@ export const useStyles = makeStyles(theme => ({
       marginBottom: 0,
     },
   },
+  addTypeButton: {
+    height: theme.spacing(12.375),
+    '& > .MuiBox-root': {
+      height: '100%',
+    },
+  },
 }));

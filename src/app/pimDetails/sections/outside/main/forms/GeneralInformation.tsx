@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from 'ui/atoms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
@@ -28,7 +28,7 @@ export const GeneralInformation = () => {
 
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.quality_info' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
               />
@@ -44,7 +44,7 @@ export const GeneralInformation = () => {
             </Box>
           </Box>
 
-          <FormSubSection noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+          <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
           <UploadImageGroupField
             entity={EntityWithFiles.OutsideGeneral}
             entityID={pimId}

@@ -6,10 +6,11 @@ import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
 import { UpdateUspInput } from 'api/types';
+import { TileButton } from 'ui/molecules';
 
 import { UspsProps } from './Usps.types';
 
-export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
+export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }: UspsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -31,8 +32,14 @@ export const Usps = ({ onAdd, onSave, options, usps }: UspsProps) => {
             }
             onSave={onSave}
             initialValues={usp}
+            isInitiallyOpened={newUspId === usp.id}
           >
-            <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.usps.single_choose" />
+            <SingleChoose
+              disabled={!editing}
+              options={options}
+              titleId="pim_details.media.usps.single_choose"
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
+            />
             <Input
               disabled={!editing}
               label="pim_details.media.usps.label"

@@ -99,7 +99,7 @@ input UpdateReadingInput {
   feedInId: String
 }
 
-scalar ServiceConfigurationInput 
+scalar ServiceConfigurationInput
 
 input AddServiceInput {
   pimId: String!
@@ -126,12 +126,19 @@ type Reading {
   feedInId: String,
 }
 
-type Meter {
+type Meter implements LastUpdated {
   id: String!
   type: MeterType!
   name: String!
   description: String
   readings: [Reading!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+}
+
+type HeatingSourceMaintenanceContract {
+  enabled: Boolean!
+  endDate: Date
 }
 
 type HotWaterSupplyConfiguration {
@@ -141,6 +148,7 @@ type HotWaterSupplyConfiguration {
 
 type HeatingSourceConfiguration {
   type: HeatingSourceType!
+  maintenanceContract: HeatingSourceMaintenanceContract
 }
 
 type AdditionalServiceConfiguration {
@@ -159,12 +167,15 @@ type Service {
   ownership: OwnershipType
 }
 
-type PimServices {
+type PimServices implements LastUpdated {
   id: String!
   meters: [Meter!]
   hotWaterSupplies: [Service!]
   heatingSources: [Service!]
   additionalServices: [Service!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  description: String
 }
 
 type PimWithNewService {

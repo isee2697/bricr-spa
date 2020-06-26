@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { FormSection } from 'ui/organisms';
 import { Box } from 'ui/atoms';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
 import * as dictionaries from '../dictionaries';
 
@@ -16,7 +16,7 @@ export const Foundation = () => {
         <>
           <Box mb={4}>
             <Box mb={3}>
-              <FormSubSection
+              <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_foundation_type' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
               />
@@ -40,7 +40,7 @@ export const Foundation = () => {
             />
           </Box>
           <Box mb={3}>
-            <FormSubSection
+            <FormSubSectionHeader
               title={formatMessage({ id: 'pim_details.outside.main.select_foundation_material' })}
               subtitle={formatMessage({ id: 'pim_details.choose_one_or_more_option_below' })}
             />

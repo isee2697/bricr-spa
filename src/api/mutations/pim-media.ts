@@ -6,6 +6,9 @@ export const ADD_PIM_TAG = gql`
       pim {
         id
       }
+      newTag {
+        id
+      }
     }
   }
 `;
@@ -22,6 +25,9 @@ export const ADD_PIM_USP = gql`
   mutation AddUsp($input: AddUspInput!) {
     addUsp(input: $input) {
       pim {
+        id
+      }
+      newUsp {
         id
       }
     }
@@ -42,6 +48,9 @@ export const ADD_PIM_MEDIA_LINK = gql`
       pim {
         id
       }
+      newMediaLink {
+        id
+      }
     }
   }
 `;
@@ -58,6 +67,9 @@ export const ADD_PIM_TEXT_CHAPTER = gql`
   mutation AddTextChapter($input: AddTextChapterInput!) {
     addTextChapter(input: $input) {
       pim {
+        id
+      }
+      newChapter {
         id
       }
     }

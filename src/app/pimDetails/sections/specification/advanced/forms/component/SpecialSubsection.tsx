@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { useLocale, useCustomLabels } from 'hooks';
-import { Box, Collapse } from 'ui/atoms';
-import { TileButton } from 'ui/molecules';
-import { FormSubSection, SubSectionHeader } from 'ui/molecules';
-import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { Box } from 'ui/atoms';
+import { TileButton, FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSection, AddCustomPropertyModalContainer } from 'ui/organisms';
 import { CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
 import { useStyles } from '../../Advanced.styles';
@@ -31,17 +31,13 @@ export const SpecialSubsection = ({
 
   const customLabels = useCustomLabels(pimId, [labelPropertyType])[labelPropertyType] ?? [];
 
-  const [toggled, setToggled] = useState(true);
   const [isModalOpened, setModalOpened] = useState(false);
 
   return (
     <>
-      <SubSectionHeader onOptionsClick={() => {}} onToggleClick={() => setToggled(v => !v)} toggled={toggled}>
-        {title}
-      </SubSectionHeader>
-      <Collapse in={toggled}>
+      <FormSubSection title={title} onOptionsClick={() => {}}>
         <Box mb={2}>
-          <FormSubSection noBorder title={subSectionTitle} subtitle={subSectionSubtitle} />
+          <FormSubSectionHeader noBorder title={subSectionTitle} subtitle={subSectionSubtitle} />
         </Box>
         {actionGroupType === 'radio' && (
           <RadioGroupField
@@ -61,7 +57,7 @@ export const SpecialSubsection = ({
               options={[...options, ...customLabels] as CheckboxDataType[]}
               actionElement={
                 <TileButton
-                  className={classes.tileButton}
+                  className={classNames(classes.tileButton, { [classes.preventClick]: isDisabled })}
                   onClick={() => setModalOpened(true)}
                   isDisabled={isDisabled}
                   title={formatMessage({ id: 'pim_details.specification.advanced.add_custom' })}
@@ -71,7 +67,7 @@ export const SpecialSubsection = ({
           </Box>
         )}
         <GenericField name={inputName} label={label} placeholder={placeholder} disabled={isDisabled} />
-      </Collapse>
+      </FormSubSection>
       {isModalOpened && (
         <AddCustomPropertyModalContainer
           property={labelPropertyType}

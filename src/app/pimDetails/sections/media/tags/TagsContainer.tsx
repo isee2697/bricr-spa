@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { PimMediaDocument, TagType, UpdateTagInput, useAddTagMutation, useUpdateTagMutation } from 'api/types';
+import {
+  LabelProperty,
+  PimMediaDocument,
+  TagType,
+  UpdateTagInput,
+  useAddTagMutation,
+  useUpdateTagMutation,
+} from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { TagsContainerProps } from 'app/pimDetails/sections/media/tags/Tags.types';
+import { useCustomLabels } from 'hooks/useCustomLabels';
 
 import { Tags } from './Tags';
 
@@ -13,10 +21,12 @@ const options = Object.values(TagType).map(tagName => ({
   icon: <SquareIcon />,
 }));
 
-export const TagsContainer = ({ tags }: TagsContainerProps) => {
+export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addTag] = useAddTagMutation();
   const [editTag] = useUpdateTagMutation();
+  const [newTagId, setNewTagId] = useState<string | null>(null);
+  const customLabels = useCustomLabels(id, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
 
   const handleAdd = async () => {
     try {
@@ -24,7 +34,7 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
         throw new Error();
       }
 
-      await addTag({
+      const { data } = await addTag({
         variables: {
           input: {
             pimId: id,
@@ -39,6 +49,8 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
           },
         ],
       });
+
+      setNewTagId(data?.addTag?.newTag.id ?? null);
 
       return undefined;
     } catch (error) {
@@ -79,5 +91,14 @@ export const TagsContainer = ({ tags }: TagsContainerProps) => {
     }
   };
 
-  return <Tags onSave={handleSave} options={options} onAdd={handleAdd} tags={tags ?? []} />;
+  return (
+    <Tags
+      onSave={handleSave}
+      options={[...options, ...customLabels]}
+      onAdd={handleAdd}
+      tags={tags ?? []}
+      newTagId={newTagId}
+      onAddCustomType={onAddCustomType}
+    />
+  );
 };

@@ -22,6 +22,7 @@ export const AddLinkedPropertyModal = ({
   const { formatMessage } = useLocale();
   const [value, setValue] = React.useState('');
   const [propertyList, setPropertyList] = React.useState([]);
+  const [filteredProperties, setFilteredProperties] = React.useState(propertyList);
   const [selectedProperty, setSelectedProperty] = React.useState([]);
   const classes = useStyles();
 
@@ -48,7 +49,7 @@ export const AddLinkedPropertyModal = ({
         item.street?.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()) ||
         item.city.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()),
     );
-    setPropertyList(results);
+    setFilteredProperties(results);
   };
 
   const highlightString = (currentValue: string) => {
@@ -88,7 +89,7 @@ export const AddLinkedPropertyModal = ({
                     placeholderId="pim_details.specification.add_linked_property_modal.search_placeholder"
                   />
                 </Grid>
-                {!!selectedProperty && (
+                {!!selectedProperty.length && (
                   <Grid item xs={12}>
                     <label className={classes.listLabel}>
                       {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.current_label' })}
@@ -118,18 +119,20 @@ export const AddLinkedPropertyModal = ({
                     {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.result_label' })}
                   </label>
                   <Box mt={2} className={classes.list}>
-                    {propertyList?.map((property: LinkedPropertyType, index: number) => (
-                      <Box mb={2} key={`${property.street}-${index}`}>
-                        <PropertyTile
-                          onClick={() => onPropertySelect(property.id)}
-                          title={
-                            <>
-                              {highlightString(property.street ?? '')}, {highlightString(property.city)}
-                            </>
-                          }
-                        />
-                      </Box>
-                    ))}
+                    {(filteredProperties.length ? filteredProperties : propertyList).map(
+                      (property: LinkedPropertyType, index: number) => (
+                        <Box mb={2} key={`${property.street}-${index}`}>
+                          <PropertyTile
+                            onClick={() => onPropertySelect(property.id)}
+                            title={
+                              <>
+                                {highlightString(property.street ?? '')}, {highlightString(property.city)}
+                              </>
+                            }
+                          />
+                        </Box>
+                      ),
+                    )}
                     {!propertyList && (
                       <InfoSection emoji="🤔">
                         <Typography variant="h3">{formatMessage({ id: 'common.no_results' })}</Typography>

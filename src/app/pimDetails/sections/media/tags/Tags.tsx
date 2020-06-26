@@ -6,10 +6,11 @@ import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
 import { UpdateTagInput } from 'api/types';
+import { TileButton } from 'ui/molecules';
 
 import { TagsProps } from './Tags.types';
 
-export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
+export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }: TagsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -31,8 +32,16 @@ export const Tags = ({ onAdd, onSave, options, tags }: TagsProps) => {
             }
             onSave={onSave}
             initialValues={tag}
+            key={tag.id}
+            isInitiallyOpened={tag.id === newTagId}
           >
-            <SingleChoose disabled={!editing} options={options} titleId="pim_details.media.tags.single_choose" />
+            <SingleChoose
+              disabled={!editing}
+              options={options}
+              titleId="pim_details.media.tags.single_choose"
+              xs={3}
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
+            />
             <Input
               disabled={!editing}
               label="pim_details.media.tags.label"

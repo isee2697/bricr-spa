@@ -1,0 +1,91 @@
+enum MomentGeneralSetting {
+  ScheduleOnline,
+  DoNotScheduleOnline
+}
+
+enum MomentScheduleDay {
+  Mon,
+  Tue,
+  Wed,
+  Thu,
+  Fri,
+  Sat,
+  Sun
+}
+
+enum TypeOfAppointment {
+  Viewing,
+  OnlineViewing
+}
+
+type MomentSchedule {
+  day: MomentScheduleDay
+  startAt: String
+  endAt: String
+}
+
+input MomentScheduleInput {
+  day: MomentScheduleDay
+  startAt: String
+  endAt: String
+}
+
+type ViewingMoment {
+  id: ID!
+  typeOfAppointment: TypeOfAppointment
+  schedules: [MomentSchedule!]
+  duration: Int
+  travelTimeBefore: Int
+  travelTimeAfter: Int
+  accountManagersIds: [ID!]
+}
+
+input UpdateViewingMomentInput {
+  id: ID!
+  typeOfAppointment: TypeOfAppointment
+  schedules: [MomentScheduleInput!]
+  duration: Int
+  travelTimeBefore: Int
+  travelTimeAfter: Int
+  accountManagers: [ID!]
+}
+
+input AddViewingMomentInput {
+  pimId: ID!
+}
+
+input SalesSettingsInput {
+  pimId: ID!
+  generalSettings: MomentGeneralSetting
+  amountOfViewings: Int
+  moments: [UpdateViewingMomentInput!]
+}
+
+type SalesSettings {
+  generalSettings: MomentGeneralSetting
+  amountOfViewings: Int
+}
+
+type PimSales implements LastUpdated {
+  id: ID!
+  salesSettings: SalesSettings
+  viewingMoments: [ViewingMoment!]
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+type AddViewingMomentResult {
+  pim: Pim!
+  moment: ViewingMoment!
+}
+
+extend type Mutation {
+  updateSalesSettings(input: SalesSettingsInput!): Pim! @auth
+  addViewingMoment(input: AddViewingMomentInput!): AddViewingMomentResult! @auth
+  removeViewingMoment(id: ID!): Pim! @auth
+}
+
+extend type Query {
+  getPimSales(id: ID!): PimSales! @auth
+}
+

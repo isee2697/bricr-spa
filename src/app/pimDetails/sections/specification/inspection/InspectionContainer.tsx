@@ -1,7 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { usePimSpecificationQuery, useUpdateInspectionMutation, UpdateInspectionInput } from 'api/types';
+import {
+  usePimSpecificationQuery,
+  useUpdateInspectionMutation,
+  UpdateInspectionInput,
+  useUpdateDescriptionMutation,
+  SectionWithDescriptionType,
+  PimSpecificationDocument,
+} from 'api/types';
 
 import { Inspection } from './Inspection';
 
@@ -10,6 +17,33 @@ export const InspectionContainer = () => {
   const { data } = usePimSpecificationQuery({ variables: { id } });
 
   const [updateInspection] = useUpdateInspectionMutation();
+  const [updateDescription] = useUpdateDescriptionMutation();
+
+  const onDescriptionUpdate = async (body: { description: string }) => {
+    try {
+      updateDescription({
+        variables: {
+          input: {
+            ...body,
+            pimId: id,
+            section: SectionWithDescriptionType.Inspection,
+          },
+        },
+        refetchQueries: [
+          {
+            query: PimSpecificationDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
+      });
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
 
   const handleSave = async (values: UpdateInspectionInput) => {
     try {
@@ -29,9 +63,16 @@ export const InspectionContainer = () => {
     }
   };
 
-  if (!data?.getPimSpecification.inspections) {
-    return null;
-  }
+  if (!data) return null;
 
-  return <Inspection inspections={data.getPimSpecification.inspections} onSave={handleSave} />;
+  return (
+    <Inspection
+      inspections={data?.getPimSpecification.inspections ?? []}
+      onSave={handleSave}
+      dateUpdated={data?.getPimSpecification.inspectionsDateUpdated}
+      updatedBy={data?.getPimSpecification.inspectionsLastEditedBy}
+      description={data?.getPimSpecification.inspectionsDescription ?? ''}
+      onDescriptionUpdate={onDescriptionUpdate}
+    />
+  );
 };

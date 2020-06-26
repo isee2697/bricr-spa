@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import { Box, Collapse } from 'ui/atoms';
-import { LinkedPerson, SubSectionHeader } from 'ui/molecules';
-import { AutosaveForm } from 'ui/organisms';
+import { Box } from 'ui/atoms';
+import { LinkedPerson } from 'ui/molecules';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField, DatePickerField } from 'form/fields';
 import { useStyles } from '../Meters.styles';
 
@@ -41,36 +41,34 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
     <>
       {sorted.map((reading, key) => (
         <AutosaveForm key={reading.id} initialValues={reading} onSave={onSave} subscription={{}}>
-          <SubSectionHeader
-            onOptionsClick={() => {}}
-            onToggleClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
-            toggled={reading.id === toggled}
+          <FormSubSection
+            title={formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
+            onOptionsClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
+            isExpanded={reading.id === toggled}
             counter={key + 1}
+            initiallyOpened={false}
           >
-            <Grid container alignItems="center">
-              {formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
-            </Grid>
-          </SubSectionHeader>
-          <Collapse in={reading.id === toggled}>
             <Grid container spacing={1}>
               <Grid item xs={isElectricity ? 4 : 6}>
-                <GenericField
-                  size="medium"
-                  label={'pim_details.services.meter.value'}
-                  placeholder={'pim_details.services.meter.value_placeholder'}
-                  type="number"
-                  name="value"
-                  id={`value.${reading.id}`}
-                  disabled={!editing}
-                />
+                <Box display="flex" alignItems="flex-end" height="100%">
+                  <GenericField
+                    size="medium"
+                    label="pim_details.services.meter.value"
+                    placeholder="pim_details.services.meter.value_placeholder"
+                    type="number"
+                    name="value"
+                    id={`value.${reading.id}`}
+                    disabled={!editing}
+                  />
+                </Box>
               </Grid>
               <Grid item xs={isElectricity ? 4 : 6}>
                 <Box display="flex" alignItems="flex-end" height="100%">
                   <DatePickerField
                     name="dateOfReading"
                     id={`date.${reading.id}`}
-                    label={'pim_details.services.meter.reading_date'}
-                    placeholder={'pim_details.services.meter.id_placeholder'}
+                    label="pim_details.services.meter.reading_date"
+                    placeholder="pim_details.services.meter.id_placeholder"
                     size="medium"
                     disabled={!editing}
                   />
@@ -78,14 +76,16 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
               </Grid>
               {isElectricity && (
                 <Grid item xs={4}>
-                  <GenericField
-                    size="medium"
-                    label={'pim_details.services.meter.id'}
-                    placeholder={'pim_details.services.meter.id'}
-                    name="feedInId"
-                    id={`feed-in.${reading.id}`}
-                    disabled={!editing}
-                  />
+                  <Box display="flex" alignItems="flex-end" height="100%">
+                    <GenericField
+                      size="medium"
+                      label="pim_details.services.meter.id"
+                      placeholder="pim_details.services.meter.id"
+                      name="feedInId"
+                      id={`feed-in.${reading.id}`}
+                      disabled={!editing}
+                    />
+                  </Box>
                 </Grid>
               )}
               <Grid item xs={12}>
@@ -103,7 +103,7 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
                 />
               </Grid>
             </Grid>
-          </Collapse>
+          </FormSubSection>
         </AutosaveForm>
       ))}
     </>

@@ -2,7 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
   root: {
-    padding: spacing(2),
+    border: `double ${spacing(0.125)}px transparent`,
+    borderRadius: spacing(1),
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'content-box, border-box',
+    backgroundImage: ({ bordered }: { bordered: boolean }) =>
+      bordered
+        ? 'linear-gradient(#ffffff, #ffffff), radial-gradient(circle at top left, #9fc0ff, #0a57e9)'
+        : 'linear-gradient(#ffffff, #ffffff)',
   },
   content: {
     padding: `${spacing(2)}px 0`,

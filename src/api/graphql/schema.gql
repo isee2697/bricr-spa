@@ -10,6 +10,11 @@ type SearchMetadata {
   total: Int!
 }
 
+interface LastUpdated {
+  dateUpdated: Date
+  lastEditedBy: Profile
+}
+
 enum SortDirection {
   asc
   desc

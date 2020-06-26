@@ -11,6 +11,11 @@ enum LabelProperty {
   SpecialTags
   PropertyRights
   HomeOwnerAssociation
+  LocationGoodToKnow
+  Location
+  CadastreMap
+  MediaLink
+  Tag
 }
 
 type Label {

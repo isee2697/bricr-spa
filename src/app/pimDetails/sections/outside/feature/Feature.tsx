@@ -2,65 +2,54 @@ import React from 'react';
 
 import { OutsideFeatureType } from 'api/types';
 import { useLocale } from 'hooks';
-import { GenericField, CheckboxField } from 'form/fields';
-import { Grid, Typography } from 'ui/atoms';
-import { MenuIcon, WarningIcon } from 'ui/atoms/icons';
+import { CheckboxField } from 'form/fields';
+import { Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
+import { Page } from 'ui/templates';
 
 import { FeatureProps } from './Feature.types';
-import { useStyles } from './Feature.styles';
 import { GardenForm } from './forms/GardenForm';
 import { GarageForm } from './forms/GarageForm';
 import { StorageForm } from './forms/StorageForm';
 import { TerrainForm } from './forms/TerrainForm';
 import { ParkingLotForm } from './forms/ParkingLotForm';
 
-export const Feature = ({ featureType, id = '' }: FeatureProps) => {
+export const Feature = ({ feature }: FeatureProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles();
 
   return (
-    <>
-      <Grid item xs={12} className={classes.form}>
-        <Grid container alignItems="center">
-          <Typography className={classes.title} variant="h1">
-            {formatMessage({ id: `dictionaries.outside_type.${featureType}` })}
-          </Typography>
-          {![OutsideFeatureType.Terrain, OutsideFeatureType.ParkingLot].includes(featureType) && (
-            <CheckboxField name="configuration.main" label={`pim_details.outside.${featureType.toLowerCase()}.main`} />
-          )}
-          <Grid item className={classes.buttons}>
-            <WarningIcon />
-            <MenuIcon className={classes.iconSpacing} />
-          </Grid>
-          <Grid xs={12} item>
-            <GenericField
-              className={classes.description}
-              placeholder={`pim_details.outside.${featureType.toLowerCase()}.description_placeholder`}
-              name="description"
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-
+    <Page
+      title={formatMessage({ id: `dictionaries.outside_type.${feature.type}` })}
+      placeholder={`pim_details.outside.${feature.type.toLowerCase()}.description_placeholder`}
+      name="description"
+      afterTitle={
+        ![OutsideFeatureType.Terrain, OutsideFeatureType.ParkingLot].includes(feature.type) && (
+          <CheckboxField name="configuration.main" label={`pim_details.outside.${feature.type.toLowerCase()}.main`} />
+        )
+      }
+      updatedBy={feature.lastEditedBy}
+      dateUpdated={feature.dateUpdated}
+    >
       <Grid xs={12} item>
         <FormSection
           title={formatMessage(
             { id: 'pim_details.outside.information' },
-            { featureName: formatMessage({ id: `dictionaries.outside_type.${featureType}` }) },
+            { featureName: formatMessage({ id: `dictionaries.outside_type.${feature.type}` }) },
           )}
         >
           {inEditMode => (
             <>
-              {featureType === OutsideFeatureType.Garden && <GardenForm id={id} inEditMode={inEditMode} />}
-              {featureType === OutsideFeatureType.Garage && <GarageForm id={id} inEditMode={inEditMode} />}
-              {featureType === OutsideFeatureType.Storage && <StorageForm id={id} inEditMode={inEditMode} />}
-              {featureType === OutsideFeatureType.Terrain && <TerrainForm id={id} inEditMode={inEditMode} />}
-              {featureType === OutsideFeatureType.ParkingLot && <ParkingLotForm id={id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.Garden && <GardenForm id={feature.id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.Garage && <GarageForm id={feature.id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.Storage && <StorageForm id={feature.id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.Terrain && <TerrainForm id={feature.id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.ParkingLot && (
+                <ParkingLotForm id={feature.id} inEditMode={inEditMode} />
+              )}
             </>
           )}
         </FormSection>
       </Grid>
-    </>
+    </Page>
   );
 };

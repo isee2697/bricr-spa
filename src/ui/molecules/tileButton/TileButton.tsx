@@ -23,7 +23,7 @@ export const TileButton = ({
       <Box className={classNames(classes.tile, { [classes.disabled]: isDisabled })}>
         <Box className={classes.children}>{children}</Box>
       </Box>
-      {title && <Typography className={classes.title}>{title}</Typography>}
+      {title && <Typography className="title">{title}</Typography>}
     </Box>
   );
 };

@@ -2,23 +2,23 @@ import React from 'react';
 
 import { Box, Grid } from 'ui/atoms';
 import { RadioGroupField } from 'form/fields';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 
 import { SingleChooseProps } from './FormParts.types';
 
-export const SingleChoose = ({ titleId, disabled, options }: SingleChooseProps) => {
+export const SingleChoose = ({ titleId, disabled, options, xs = 2, actionElement }: SingleChooseProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <Grid item xs={12}>
-      <FormSubSection
+      <FormSubSectionHeader
         noBorder
         title={formatMessage({ id: titleId })}
         subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
       />
       <Box paddingTop={2} mb={2}>
-        <RadioGroupField disabled={disabled} xs={2} name="type" options={options} />
+        <RadioGroupField disabled={disabled} xs={xs} name="type" options={options} actionElement={actionElement} />
       </Box>
     </Grid>
   );

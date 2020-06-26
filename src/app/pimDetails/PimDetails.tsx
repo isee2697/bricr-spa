@@ -45,7 +45,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
         </Grid>
       )}
       <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>
-        <Grid container spacing={3} className={classes.content}>
+        <Grid container className={classes.content}>
           {!!error && (
             <Grid item xs={12}>
               <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
@@ -117,12 +117,6 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
             </Switch>
           )}
         </Grid>
-        {/* <LastUpdated
-          dateUpdated={!!pim ? pim.dateUpdated : null}
-          updatedBy={!!pim ? pim.lastEditedBy : null}
-          className={classes.lastUpdated}
-          withIcon
-        /> */}
       </Grid>
     </Grid>
   );

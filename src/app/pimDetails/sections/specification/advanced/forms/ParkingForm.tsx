@@ -6,7 +6,7 @@ import { GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { useStyles } from '../Advanced.styles';
 import * as dictionaries from '../../dictionaries';
-import { FormSubSection } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 
 export const ParkingForm = () => {
   const { formatMessage } = useLocale();
@@ -21,7 +21,7 @@ export const ParkingForm = () => {
       >
         {editing => (
           <>
-            <FormSubSection
+            <FormSubSectionHeader
               className="subtitle"
               noBorder
               title={formatMessage({ id: 'pim_details.specification.advanced.general_information' })}
@@ -45,7 +45,7 @@ export const ParkingForm = () => {
               </Grid>
             </Grid>
             <Box mt={2}>
-              <FormSubSection
+              <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.specification.advanced.parking_facilities' })}
                 subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}

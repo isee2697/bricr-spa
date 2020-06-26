@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-import { Box, Button, Grid, Typography } from 'ui/atoms';
-import { AutosaveForm } from 'ui/organisms';
-import { GenericField } from 'form/fields';
+import { Button } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { PricesGeneralProps, PriceType } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral.types';
-import { PriceContainer } from 'app/pimDetails/sections/prices/price/PriceContainer';
 import { SetPricesModal } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal';
+import { Page } from 'ui/templates';
+import { AutosaveForm } from 'ui/organisms';
+import { Price } from 'app/pimDetails/sections/prices/price/Price';
 
-export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, rent, sale }: PricesGeneralProps) => {
-  const { id } = useParams<{ id: string }>();
+export const PricesGeneral = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  onSetPrice,
+  rent,
+  sale,
+  updatedBy,
+  dateUpdated,
+  onSave,
+  initialValues,
+}: PricesGeneralProps) => {
   const { formatMessage } = useLocale();
   const [isPriceModalOpened, setPriceModalOpened] = useState(false);
 
@@ -38,16 +47,17 @@ export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, 
           </Button>
         }
       />
-
-      <Grid item xs={12}>
-        <Typography variant="h1">{formatMessage({ id: 'pim_details.prices.title' })}</Typography>
-        <AutosaveForm onSave={() => Promise.resolve({ error: false })}>
-          <Box mb={1}>
-            <GenericField placeholder="pim_details.prices.description_placeholder" name="description" />
-          </Box>
-        </AutosaveForm>
-        <PriceContainer types={pricesTypes} rent={rent} sale={sale} pimId={id} />
-      </Grid>
+      <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <Page
+          title={formatMessage({ id: 'pim_details.prices.title' })}
+          placeholder="pim_details.prices.description_placeholder"
+          name="description"
+          updatedBy={updatedBy}
+          dateUpdated={dateUpdated}
+        >
+          <Price types={pricesTypes} />
+        </Page>
+      </AutosaveForm>
 
       {isPriceModalOpened && (
         <SetPricesModal
@@ -55,7 +65,7 @@ export const PricesGeneral = ({ title, isSidebarVisible, onOpenSidebar, onSave, 
           onClose={() => setPriceModalOpened(false)}
           initialValues={pricesTypes}
           onSubmit={async values => {
-            const result = await onSave(values);
+            const result = await onSetPrice(values);
 
             if (!result) setPriceModalOpened(false);
 

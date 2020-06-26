@@ -9,6 +9,12 @@ export const PIM_INSIDE = gql`
         level
         floorType
         floorDescription
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
         spaces {
           id
           spaceType
@@ -134,6 +140,12 @@ export const PIM_INSIDE = gql`
           types
         }
         notes
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

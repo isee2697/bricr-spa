@@ -8,6 +8,7 @@ export type CadastreMapProps = {
   isEditMode: boolean;
   toggled: boolean;
   onToggleClick: VoidFunction;
+  onAddCustomType: VoidFunction;
 };
 
 export type CadastreMapContainerProps = CadastreMapProps & {

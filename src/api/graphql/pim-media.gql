@@ -105,13 +105,16 @@ type Tag {
   description: String
 }
 
-type PimMedia {
+type PimMedia implements LastUpdated {
   id: String!
   pictures: [Picture!]
   mediaLinks: [MediaLink!]
   textChapters: [TextChapter!]
   usps: [Usp!]
   tags: [Tag!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  description: String
 }
 
 input NewPictureInput {

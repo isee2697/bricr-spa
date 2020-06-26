@@ -30,7 +30,7 @@ type ListPim {
   attention: String
   dateCreated: Date!
   dateUpdated: Date
-  lastEditedBy: LastEditedBy
+  lastEditedBy: Profile
   houseOutside: ListPimHouseOutside
   archived: Boolean
   status: PimStatus!

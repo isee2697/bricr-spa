@@ -6,7 +6,7 @@ import { useLocale } from 'hooks';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { CheckboxGroupField } from 'form/fields';
 import { DialogContent, DialogActions } from 'ui/atoms';
-import { AddIcon, HomeIcon, LockIcon } from 'ui/atoms/icons';
+import { HomeIcon, LockIcon, RefreshIcon } from 'ui/atoms/icons';
 
 import { AdditionalInformationModalProps } from './AdditionalInformationModal.types';
 
@@ -56,7 +56,7 @@ export const AdditionalInformationModal = ({
               </CancelButton>
               <SubmitButton
                 type="submit"
-                startIcon={<AddIcon color="inherit" />}
+                startIcon={<RefreshIcon />}
                 size="large"
                 color="primary"
                 variant="contained"

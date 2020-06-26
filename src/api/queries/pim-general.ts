@@ -44,6 +44,12 @@ export const PIM_MEDIA = gql`
       }
       showExtraAddress
       showIdentificationNumber
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
