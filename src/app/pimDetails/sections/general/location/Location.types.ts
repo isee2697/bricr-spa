@@ -13,7 +13,7 @@ export type LocationProps = PimDetailsSectionProps & {
 export type LocationForm = {
   latitude?: string | null;
   longitude?: string | null;
-  type?: string | null;
+  type?: (string | null)[] | null;
   notes?: string | null;
   goodToKnows?: {
     type?: string | null;
