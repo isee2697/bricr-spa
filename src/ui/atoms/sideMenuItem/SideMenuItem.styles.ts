@@ -9,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
       content: '""',
       position: 'absolute',
       bottom: 0,
+      left: 0,
       width: '100%',
       borderBottomWidth: 2,
       borderBottomColor: theme.palette.gray.light,

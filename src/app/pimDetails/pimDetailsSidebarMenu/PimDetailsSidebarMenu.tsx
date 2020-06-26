@@ -156,7 +156,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
         selected={false}
         onClick={onHide}
       />
-      <SideMenu className={classes.menu}>
+      <SideMenu className={classes.menu} disablePadding>
         {items.map(item => (
           <SideMenuItem
             key={item.name}
@@ -184,14 +184,16 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
           </SideMenuItem>
         ))}
       </SideMenu>
-      <Link to={AppRoute.pim}>
-        <SideMenuItem
-          className={classes.backToList}
-          icon={<ArrowLeftIcon color="inherit" />}
-          title={formatMessage({ id: `pim_details.menu.back_to_pim_list` })}
-          selected={false}
-        />
-      </Link>
+      <SideMenuItem
+        className={classes.backToList}
+        title={
+          <Link to={AppRoute.pim}>
+            <ArrowLeftIcon color="inherit" />
+            {formatMessage({ id: `pim_details.menu.back_to_pim_list` })}
+          </Link>
+        }
+        selected={false}
+      />
     </div>
   );
 };
