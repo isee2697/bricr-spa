@@ -7,6 +7,7 @@ import { useLocale } from 'hooks';
 import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
 import { EntityWithFiles } from 'api/types';
+import { SquareMeterIcon, CubicMeterIcon, MeterIcon } from 'ui/atoms/icons';
 
 export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { id: string }) => {
   const { formatMessage } = useLocale();
@@ -44,19 +45,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
-              }}
-              disabled={!isEditMode}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name={`${fieldPrefix}.measurement.height`}
-              label="pim_details.inside.height"
-              type="number"
-              size="medium"
-              InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -68,7 +57,19 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
+              }}
+              disabled={!isEditMode}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <GenericField
+              name={`${fieldPrefix}.measurement.height`}
+              label="pim_details.inside.height"
+              type="number"
+              size="medium"
+              InputProps={{
+                endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -80,7 +81,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: 'm2',
+                endAdornment: <SquareMeterIcon />,
               }}
               disabled={!isEditMode}
             />
@@ -92,7 +93,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
               size="medium"
               type="number"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <CubicMeterIcon />,
               }}
               disabled={!isEditMode}
             />
