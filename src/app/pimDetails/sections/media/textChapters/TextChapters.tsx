@@ -48,7 +48,7 @@ export const TextChapters = ({
               disabled={!editing}
               options={options}
               titleId="pim_details.media.text_chapters.single_choose"
-              actionElement={<TileButton onClick={onAddCustomType} />}
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
             />
           </Form>
         ))

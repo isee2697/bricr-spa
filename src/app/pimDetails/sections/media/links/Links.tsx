@@ -39,7 +39,7 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomTyp
               disabled={!editing}
               options={options}
               titleId="pim_details.media.links.single_choose"
-              actionElement={<TileButton onClick={onAddCustomType} />}
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
             />
             <Input
               disabled={!editing}

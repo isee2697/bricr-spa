@@ -38,7 +38,7 @@ export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }
               disabled={!editing}
               options={options}
               titleId="pim_details.media.usps.single_choose"
-              actionElement={<TileButton onClick={onAddCustomType} />}
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
             />
             <Input
               disabled={!editing}

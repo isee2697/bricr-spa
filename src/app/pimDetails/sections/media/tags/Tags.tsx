@@ -40,7 +40,7 @@ export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }
               options={options}
               titleId="pim_details.media.tags.single_choose"
               xs={3}
-              actionElement={<TileButton onClick={onAddCustomType} />}
+              actionElement={<TileButton onClick={onAddCustomType} isDisabled={!editing} />}
             />
             <Input
               disabled={!editing}

@@ -66,7 +66,9 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
               ...body,
               configuration: {
                 ...body.configuration,
-                constructionYear: hasConstructionYear ? dateToYear(body.configuration?.constructionYear) : undefined,
+                constructionYear: hasConstructionYear
+                  ? dateToYear(body.configuration?.constructionYear) ?? undefined
+                  : undefined,
               },
             },
           },
