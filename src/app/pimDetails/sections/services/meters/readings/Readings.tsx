@@ -50,15 +50,17 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
           >
             <Grid container spacing={1}>
               <Grid item xs={isElectricity ? 4 : 6}>
-                <GenericField
-                  size="medium"
-                  label="pim_details.services.meter.value"
-                  placeholder="pim_details.services.meter.value_placeholder"
-                  type="number"
-                  name="value"
-                  id={`value.${reading.id}`}
-                  disabled={!editing}
-                />
+                <Box display="flex" alignItems="flex-end" height="100%">
+                  <GenericField
+                    size="medium"
+                    label="pim_details.services.meter.value"
+                    placeholder="pim_details.services.meter.value_placeholder"
+                    type="number"
+                    name="value"
+                    id={`value.${reading.id}`}
+                    disabled={!editing}
+                  />
+                </Box>
               </Grid>
               <Grid item xs={isElectricity ? 4 : 6}>
                 <Box display="flex" alignItems="flex-end" height="100%">
@@ -74,14 +76,16 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
               </Grid>
               {isElectricity && (
                 <Grid item xs={4}>
-                  <GenericField
-                    size="medium"
-                    label="pim_details.services.meter.id"
-                    placeholder="pim_details.services.meter.id"
-                    name="feedInId"
-                    id={`feed-in.${reading.id}`}
-                    disabled={!editing}
-                  />
+                  <Box display="flex" alignItems="flex-end" height="100%">
+                    <GenericField
+                      size="medium"
+                      label="pim_details.services.meter.id"
+                      placeholder="pim_details.services.meter.id"
+                      name="feedInId"
+                      id={`feed-in.${reading.id}`}
+                      disabled={!editing}
+                    />
+                  </Box>
                 </Grid>
               )}
               <Grid item xs={12}>
