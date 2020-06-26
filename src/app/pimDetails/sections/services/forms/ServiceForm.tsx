@@ -29,7 +29,7 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
-      <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={false}>
+      <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={toggled}>
         <Typography variant="h2">{formatMessage({ id: 'pim_details.services.service_form.general_title' })}</Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>

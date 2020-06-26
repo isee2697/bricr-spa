@@ -2,6 +2,7 @@ import { ServiceRadioType } from '../Services.types';
 import { AddServiceInput, ServiceType } from 'api/types';
 
 export type AddServiceModalContainerProps = {
+  onAddService: VoidFunction;
   isOpened: boolean;
   type: ServiceType;
   types: ServiceRadioType[];

@@ -6,7 +6,13 @@ import { useAddServiceMutation, PimServicesDocument } from 'api/types';
 import { AddServiceModalContainerProps, AddServiceSubmit } from './AddServiceModal.types';
 import { AddServiceModal } from './AddServiceModal';
 
-export const AddServiceModalContainer = ({ type, types, isOpened, onClose }: AddServiceModalContainerProps) => {
+export const AddServiceModalContainer = ({
+  type,
+  types,
+  isOpened,
+  onClose,
+  onAddService,
+}: AddServiceModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addService] = useAddServiceMutation();
 
@@ -37,6 +43,7 @@ export const AddServiceModalContainer = ({ type, types, isOpened, onClose }: Add
         throw new Error();
       }
 
+      onAddService();
       onClose();
 
       return undefined;
