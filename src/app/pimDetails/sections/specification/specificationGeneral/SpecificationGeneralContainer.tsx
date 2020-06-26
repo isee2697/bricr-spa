@@ -28,6 +28,7 @@ export const SpecificationGeneralContainer = () => {
             energy: values.specification?.energy,
             approvals: values.specification?.approvals,
             obligation: values.specification?.obligation,
+            description: values.specification?.description,
           },
         },
         refetchQueries: [

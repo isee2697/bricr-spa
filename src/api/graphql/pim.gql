@@ -78,6 +78,14 @@ enum PropertyHabitation {
   PermanentOccupation
 }
 
+enum SectionWithDescriptionType {
+  Media
+  Inspection,
+  LinkedProperties,
+  Services,
+  PricesCosts
+}
+
 input PropertyRelatedInput {
   items: [PropertyRelatedItems]
   notes: String
@@ -120,7 +128,7 @@ input CreatePimInput {
   attention: String
 }
 
-type Pim implements LastUpdated{
+type Pim implements LastUpdated {
   id: ID!
   realEstateType: RealEstateType!
   street: String!
@@ -156,10 +164,12 @@ type Pim implements LastUpdated{
   cadastre: [Cadastre!]
   meters: [Meter!]
   services: [Service!]
+  servicesDescription: String
   pictures: [Picture!]
   textChapters: [TextChapter!]
   usps: [Usp!]
   mediaLinks: [MediaLink!]
+  mediaDescription: String
   tags: [Tag!]
   pricing: Pricing
   costs: [Cost!]
@@ -168,12 +178,17 @@ type Pim implements LastUpdated{
   investment: Investment
   specification: Specification
   specificationAdvanced: SpecificationAdvanced
+  specificationDescription: String
   linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
   identificationNumbers: [IdentificationNumber!]
   salesSettings: SalesSettings
   viewingMoments: [ViewingMoment!]
   location: PimLocation
+  linkedPropertiesDateUpdated: Date
+  linkedPropertiesLastEditedBy: Profile
+  inspectionsDateUpdated: Date
+  inspectionsLastEditedBy: Profile
 }
 
 type Event {
@@ -220,6 +235,12 @@ input UpdateOutsideFeatureInput {
   feature: UpdateFeatureInputConfiguration
 }
 
+input UpdateDescriptionInput {
+  section: SectionWithDescriptionType!
+  pimId: String!
+  description: String!
+}
+
 scalar Dictionary
 
 extend type Query {
@@ -232,4 +253,5 @@ extend type Query {
 extend type Mutation {
   createPim(input: CreatePimInput!): Pim @auth
   removePim(id: String!): String @auth
+  updateDescription(input: UpdateDescriptionInput!): String @auth
 }

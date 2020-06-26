@@ -10,7 +10,13 @@ import { Page } from 'ui/templates';
 
 import { LinkedPropertyProps } from './LinkedProperty.types';
 
-export const LinkedProperty = ({ properties, dateUpdated, updatedBy }: LinkedPropertyProps) => {
+export const LinkedProperty = ({
+  properties,
+  dateUpdated,
+  updatedBy,
+  description,
+  onDescriptionUpdate,
+}: LinkedPropertyProps) => {
   const { formatMessage } = useLocale();
   const [isLinkedPropertyModalOpen, setLinkedPropertyModalOpen] = useState(false);
 
@@ -22,7 +28,9 @@ export const LinkedProperty = ({ properties, dateUpdated, updatedBy }: LinkedPro
             id: 'pim_details.specification.linked_properties.title',
           })}
           placeholder="pim_details.specification.linked_properties.description_placeholder"
-          name="specification.linked_properties.description"
+          name="description"
+          initialValues={{ description }}
+          onSave={onDescriptionUpdate}
           dateUpdated={dateUpdated}
           updatedBy={updatedBy}
         >

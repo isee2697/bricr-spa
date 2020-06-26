@@ -61,7 +61,7 @@ export const EditPictureModal = ({
                 <Grid item xs={12}>
                   <FormSubSectionHeader
                     noBorder
-                    title={formatMessage({ id: 'pim_details.media.add_picture_modal.title' })}
+                    title={formatMessage({ id: 'pim_details.media.add_picture_modal.type' })}
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                   />
                   <Box paddingTop={2} mb={2}>

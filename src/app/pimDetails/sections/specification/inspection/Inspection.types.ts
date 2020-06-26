@@ -5,4 +5,6 @@ export type InspectionProps = {
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   dateUpdated?: string | null;
   updatedBy?: Profile | null;
+  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
+  description: string;
 };

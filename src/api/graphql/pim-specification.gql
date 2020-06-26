@@ -214,12 +214,14 @@ input SpecificationInput {
   energy: EnergyInput
   approvals: ApprovalsInput
   obligation: ObligationToProvideInformationInput
+  description: String
 }
 
 type Specification implements LastUpdated {
   energy: Energy
   approvals: Approvals
   obligation: ObligationToProvideInformation
+  description: String
   dateUpdated: Date
   lastEditedBy: Profile
 }
@@ -234,8 +236,10 @@ type PimSpecification implements LastUpdated {
   dateUpdated: Date
   linkedPropertiesDateUpdated: Date
   linkedPropertiesLastEditedBy: Profile
+  linkedPropertiesDescription: String
   inspectionsDateUpdated: Date
   inspectionsLastEditedBy: Profile
+  inspectionsDescription: String
 }
 
 type AddInspectionResult {
@@ -327,6 +331,7 @@ type SpecificationAdvanced implements LastUpdated{
   specialTags: SpecialTags
   propertyRights: PropertyRights
   homeOwnerAssociation: HomeOwnerAssociation
+  description: String
   lastEditedBy: Profile
   dateUpdated: Date
 }
@@ -340,6 +345,7 @@ input SpecificationAdvancedInput {
   specialTags: SpecialTagsInput
   propertyRights: PropertyRightsInput
   homeOwnerAssociation: HomeOwnerAssociationInput
+  description: String
 }
 
 extend type Mutation {

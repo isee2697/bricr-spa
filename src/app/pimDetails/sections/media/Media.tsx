@@ -14,7 +14,14 @@ import { UspsContainer } from './usps/UspsContainer';
 import { TagsContainer } from './tags/TagsContainer';
 import { MediaProps } from './Media.types';
 
-export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaProps) => {
+export const Media = ({
+  title,
+  isSidebarVisible,
+  onOpenSidebar,
+  media,
+  onDescriptionUpdate,
+  description,
+}: MediaProps) => {
   const { formatMessage } = useLocale();
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
   const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
@@ -29,9 +36,10 @@ export const Media = ({ title, isSidebarVisible, onOpenSidebar, media }: MediaPr
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
       <Page
         title={formatMessage({ id: 'pim_details.media.title' })}
-        onSave={() => Promise.resolve({ error: false })}
+        onSave={onDescriptionUpdate}
         placeholder="pim_details.media.description_placeholder"
-        name="name"
+        name="description"
+        initialValues={{ description }}
         dateUpdated={media.dateUpdated}
         updatedBy={media.lastEditedBy}
       >

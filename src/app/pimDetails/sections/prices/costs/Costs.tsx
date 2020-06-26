@@ -21,6 +21,8 @@ export const Costs = ({
   onOpenSidebar,
   dateUpdated,
   updatedBy,
+  description,
+  onDescriptionUpdate,
 }: CostsProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
@@ -63,7 +65,8 @@ export const Costs = ({
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}
         placeholder="pim_details.prices.description_placeholder"
         name="description"
-        onSave={() => Promise.resolve({ error: false })}
+        initialValues={{ description }}
+        onSave={onDescriptionUpdate}
         updatedBy={updatedBy}
         dateUpdated={dateUpdated}
       >

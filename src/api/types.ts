@@ -89,6 +89,7 @@ export type Mutation = {
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
+  updateDescription?: Maybe<Scalars['String']>;
   updateFloor: Pim;
   updateIdentificationNumber: Pim;
   updateInsideGeneral?: Maybe<Pim>;
@@ -249,6 +250,10 @@ export type MutationUpdateCadastreMapArgs = {
 
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
+};
+
+export type MutationUpdateDescriptionArgs = {
+  input: UpdateDescriptionInput;
 };
 
 export type MutationUpdateFloorArgs = {
@@ -1338,6 +1343,7 @@ export type PimLocation = LastUpdated & {
   goodToKnows?: Maybe<Array<GoodToKnow>>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type UpdatePimLocationInput = {
@@ -1348,6 +1354,7 @@ export type UpdatePimLocationInput = {
   type?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
   goodToKnows?: Maybe<Array<GoodToKnowInput>>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type GoodToKnowInput = {
@@ -1479,6 +1486,7 @@ export type PimMedia = LastUpdated & {
   tags?: Maybe<Array<Tag>>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type NewPictureInput = {
@@ -2161,6 +2169,7 @@ export type PimPrices = LastUpdated & {
   pricing?: Maybe<Pricing>;
   costs?: Maybe<Array<Cost>>;
   investment?: Maybe<Investment>;
+  costsDescription?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
 };
@@ -2175,6 +2184,7 @@ export type UpdatePricingInput = {
   id: Scalars['ID'];
   rent?: Maybe<RentInformationsInput>;
   sale?: Maybe<SaleInformationsInput>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Pricing = LastUpdated & {
@@ -2183,6 +2193,7 @@ export type Pricing = LastUpdated & {
   sale?: Maybe<SaleInformations>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Cost = {
@@ -2233,6 +2244,7 @@ export type InvestmentInput = {
   remainingTermContacts?: Maybe<Scalars['Int']>;
   vacancySquareMeters?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Investment = LastUpdated & {
@@ -2249,6 +2261,7 @@ export type Investment = LastUpdated & {
   remainingTermContacts?: Maybe<Scalars['Int']>;
   vacancySquareMeters?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
 };
@@ -2525,6 +2538,7 @@ export type PimServices = LastUpdated & {
   additionalServices?: Maybe<Array<Service>>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type PimWithNewService = {
@@ -2754,6 +2768,7 @@ export type SpecificationInput = {
   energy?: Maybe<EnergyInput>;
   approvals?: Maybe<ApprovalsInput>;
   obligation?: Maybe<ObligationToProvideInformationInput>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Specification = LastUpdated & {
@@ -2761,6 +2776,7 @@ export type Specification = LastUpdated & {
   energy?: Maybe<Energy>;
   approvals?: Maybe<Approvals>;
   obligation?: Maybe<ObligationToProvideInformation>;
+  description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
 };
@@ -2776,8 +2792,10 @@ export type PimSpecification = LastUpdated & {
   dateUpdated?: Maybe<Scalars['Date']>;
   linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
   linkedPropertiesLastEditedBy?: Maybe<Profile>;
+  linkedPropertiesDescription?: Maybe<Scalars['String']>;
   inspectionsDateUpdated?: Maybe<Scalars['Date']>;
   inspectionsLastEditedBy?: Maybe<Profile>;
+  inspectionsDescription?: Maybe<Scalars['String']>;
 };
 
 export type AddInspectionResult = {
@@ -2878,6 +2896,7 @@ export type SpecificationAdvanced = LastUpdated & {
   specialTags?: Maybe<SpecialTags>;
   propertyRights?: Maybe<PropertyRights>;
   homeOwnerAssociation?: Maybe<HomeOwnerAssociation>;
+  description?: Maybe<Scalars['String']>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
@@ -2891,6 +2910,7 @@ export type SpecificationAdvancedInput = {
   specialTags?: Maybe<SpecialTagsInput>;
   propertyRights?: Maybe<PropertyRightsInput>;
   homeOwnerAssociation?: Maybe<HomeOwnerAssociationInput>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export enum RealEstateType {
@@ -2973,6 +2993,14 @@ export enum PropertyHabitation {
   PermanentOccupation = 'PermanentOccupation',
 }
 
+export enum SectionWithDescriptionType {
+  Media = 'Media',
+  Inspection = 'Inspection',
+  LinkedProperties = 'LinkedProperties',
+  Services = 'Services',
+  PricesCosts = 'PricesCosts',
+}
+
 export type PropertyRelatedInput = {
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
   notes?: Maybe<Scalars['String']>;
@@ -3052,10 +3080,12 @@ export type Pim = LastUpdated & {
   cadastre?: Maybe<Array<Cadastre>>;
   meters?: Maybe<Array<Meter>>;
   services?: Maybe<Array<Service>>;
+  servicesDescription?: Maybe<Scalars['String']>;
   pictures?: Maybe<Array<Picture>>;
   textChapters?: Maybe<Array<TextChapter>>;
   usps?: Maybe<Array<Usp>>;
   mediaLinks?: Maybe<Array<MediaLink>>;
+  mediaDescription?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Tag>>;
   pricing?: Maybe<Pricing>;
   costs?: Maybe<Array<Cost>>;
@@ -3064,12 +3094,17 @@ export type Pim = LastUpdated & {
   investment?: Maybe<Investment>;
   specification?: Maybe<Specification>;
   specificationAdvanced?: Maybe<SpecificationAdvanced>;
+  specificationDescription?: Maybe<Scalars['String']>;
   linkedProperties?: Maybe<Array<LinkedPim>>;
   inspections?: Maybe<Array<Inspection>>;
   identificationNumbers?: Maybe<Array<IdentificationNumber>>;
   salesSettings?: Maybe<SalesSettings>;
   viewingMoments?: Maybe<Array<ViewingMoment>>;
   location?: Maybe<PimLocation>;
+  linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
+  linkedPropertiesLastEditedBy?: Maybe<Profile>;
+  inspectionsDateUpdated?: Maybe<Scalars['Date']>;
+  inspectionsLastEditedBy?: Maybe<Profile>;
 };
 
 export type Event = {
@@ -3116,6 +3151,12 @@ export type UpdateOutsideFeatureInput = {
   pimId: Scalars['String'];
   outsideFeatureId: Scalars['String'];
   feature?: Maybe<Scalars['UpdateFeatureInputConfiguration']>;
+};
+
+export type UpdateDescriptionInput = {
+  section: SectionWithDescriptionType;
+  pimId: Scalars['String'];
+  description: Scalars['String'];
 };
 
 export type Profile = {
@@ -3620,6 +3661,12 @@ export type CreatePimMutation = { __typename?: 'Mutation' } & {
   createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
+export type UpdateDescriptionMutationVariables = {
+  input: UpdateDescriptionInput;
+};
+
+export type UpdateDescriptionMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateDescription'>;
+
 export type GetLabelsQueryVariables = {
   pimId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
@@ -3910,7 +3957,7 @@ export type PimLocationQueryVariables = {
 export type PimLocationQuery = { __typename?: 'Query' } & {
   getPimLocation: { __typename?: 'PimLocation' } & Pick<
     PimLocation,
-    'id' | 'latitude' | 'longitude' | 'type' | 'notes' | 'dateUpdated'
+    'id' | 'latitude' | 'longitude' | 'type' | 'notes' | 'description' | 'dateUpdated'
   > & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       goodToKnows?: Maybe<
@@ -3924,7 +3971,7 @@ export type PimMediaQueryVariables = {
 };
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
-  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'dateUpdated'> & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated'> & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pictures?: Maybe<
         Array<
@@ -4066,10 +4113,10 @@ export type PimPricingQueryVariables = {
 };
 
 export type PimPricingQuery = { __typename?: 'Query' } & {
-  getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id' | 'dateUpdated'> & {
+  getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id' | 'costsDescription' | 'dateUpdated'> & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pricing?: Maybe<
-        { __typename?: 'Pricing' } & Pick<Pricing, 'dateUpdated'> & {
+        { __typename?: 'Pricing' } & Pick<Pricing, 'description' | 'dateUpdated'> & {
             lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
             rent?: Maybe<
               { __typename?: 'RentInformations' } & Pick<
@@ -4115,6 +4162,7 @@ export type PimPricingQuery = { __typename?: 'Query' } & {
       investment?: Maybe<
         { __typename?: 'Investment' } & Pick<
           Investment,
+          | 'description'
           | 'netRentalIncome'
           | 'grossRentalIncome'
           | 'economicRentalValue'
@@ -4138,7 +4186,7 @@ export type PimServicesQueryVariables = {
 };
 
 export type PimServicesQuery = { __typename?: 'Query' } & {
-  getPimServices: { __typename?: 'PimServices' } & Pick<PimServices, 'dateUpdated'> & {
+  getPimServices: { __typename?: 'PimServices' } & Pick<PimServices, 'description' | 'dateUpdated'> & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       meters?: Maybe<
         Array<
@@ -4197,12 +4245,12 @@ export type PimSpecificationQueryVariables = {
 export type PimSpecificationQuery = { __typename?: 'Query' } & {
   getPimSpecification: { __typename?: 'PimSpecification' } & Pick<
     PimSpecification,
-    'linkedPropertiesDateUpdated' | 'inspectionsDateUpdated'
+    'linkedPropertiesDescription' | 'inspectionsDescription' | 'linkedPropertiesDateUpdated' | 'inspectionsDateUpdated'
   > & {
       linkedPropertiesLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       inspectionsLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       specification?: Maybe<
-        { __typename?: 'Specification' } & Pick<Specification, 'dateUpdated'> & {
+        { __typename?: 'Specification' } & Pick<Specification, 'description' | 'dateUpdated'> & {
             lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
             energy?: Maybe<
               { __typename?: 'Energy' } & Pick<
@@ -4220,7 +4268,7 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
           }
       >;
       specificationAdvanced?: Maybe<
-        { __typename?: 'SpecificationAdvanced' } & Pick<SpecificationAdvanced, 'dateUpdated'> & {
+        { __typename?: 'SpecificationAdvanced' } & Pick<SpecificationAdvanced, 'description' | 'dateUpdated'> & {
             lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
             parking?: Maybe<
               { __typename?: 'ParkingSpecification' } & Pick<
@@ -5375,6 +5423,25 @@ export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePimMutation,
   CreatePimMutationVariables
 >;
+export const UpdateDescriptionDocument = gql`
+  mutation UpdateDescription($input: UpdateDescriptionInput!) {
+    updateDescription(input: $input)
+  }
+`;
+export function useUpdateDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>(
+    UpdateDescriptionDocument,
+    baseOptions,
+  );
+}
+export type UpdateDescriptionMutationHookResult = ReturnType<typeof useUpdateDescriptionMutation>;
+export type UpdateDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateDescriptionMutation>;
+export type UpdateDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateDescriptionMutation,
+  UpdateDescriptionMutationVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($pimId: ID!, $properties: [LabelProperty!]) {
     getLabels(pimId: $pimId, properties: $properties) {
@@ -5808,6 +5875,7 @@ export const PimLocationDocument = gql`
       longitude
       type
       notes
+      description
       dateUpdated
       lastEditedBy {
         id
@@ -5840,6 +5908,7 @@ export const PimMediaDocument = gql`
   query PimMedia($id: ID!) {
     getPimMedia(id: $id) {
       id
+      description
       dateUpdated
       lastEditedBy {
         id
@@ -6075,6 +6144,7 @@ export const PimPricingDocument = gql`
   query PimPricing($id: ID!) {
     getPricing(id: $id) {
       id
+      costsDescription
       dateUpdated
       lastEditedBy {
         id
@@ -6082,6 +6152,7 @@ export const PimPricingDocument = gql`
         lastName
       }
       pricing {
+        description
         dateUpdated
         lastEditedBy {
           id
@@ -6126,6 +6197,7 @@ export const PimPricingDocument = gql`
         name
       }
       investment {
+        description
         netRentalIncome
         grossRentalIncome
         economicRentalValue
@@ -6164,6 +6236,7 @@ export type PimPricingQueryResult = ApolloReactCommon.QueryResult<PimPricingQuer
 export const PimServicesDocument = gql`
   query PimServices($id: ID!) {
     getPimServices(id: $id) {
+      description
       dateUpdated
       lastEditedBy {
         id
@@ -6240,6 +6313,8 @@ export type PimServicesQueryResult = ApolloReactCommon.QueryResult<PimServicesQu
 export const PimSpecificationDocument = gql`
   query PimSpecification($id: ID!) {
     getPimSpecification(id: $id) {
+      linkedPropertiesDescription
+      inspectionsDescription
       linkedPropertiesDateUpdated
       linkedPropertiesLastEditedBy {
         id
@@ -6253,6 +6328,7 @@ export const PimSpecificationDocument = gql`
         lastName
       }
       specification {
+        description
         dateUpdated
         lastEditedBy {
           id
@@ -6277,6 +6353,7 @@ export const PimSpecificationDocument = gql`
         }
       }
       specificationAdvanced {
+        description
         dateUpdated
         lastEditedBy {
           id

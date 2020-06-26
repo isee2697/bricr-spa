@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 export const PIM_SERVICES = gql`
   query PimServices($id: ID!) {
     getPimServices(id: $id) {
+      description
       dateUpdated
       lastEditedBy {
         id

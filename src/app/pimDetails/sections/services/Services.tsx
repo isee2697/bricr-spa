@@ -8,15 +8,16 @@ import { Page } from 'ui/templates';
 import { ServiceTypeList } from './serviceTypeList/ServiceTypeList';
 import { ServicesProps } from './Services.types';
 
-export const Services = ({ pimServices, onSave }: ServicesProps) => {
+export const Services = ({ pimServices, onSave, onDescriptionUpdate }: ServicesProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <Page
       title={formatMessage({ id: 'pim_details.services.title' })}
       placeholder="pim_details.services.description_placeholder"
-      name="pim_details.services.description"
-      onSave={() => Promise.resolve({ error: false })}
+      name="description"
+      onSave={onDescriptionUpdate}
+      initialValues={{ description: pimServices.description }}
       dateUpdated={pimServices.dateUpdated}
       updatedBy={pimServices.lastEditedBy}
     >

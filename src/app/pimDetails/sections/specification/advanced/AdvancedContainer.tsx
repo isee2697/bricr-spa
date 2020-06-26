@@ -30,6 +30,7 @@ export const AdvancedContainer = () => {
             specialTags: values.specificationAdvanced?.specialTags,
             propertyRights: values.specificationAdvanced?.propertyRights,
             homeOwnerAssociation: values.specificationAdvanced?.homeOwnerAssociation,
+            description: values.specificationAdvanced?.description,
           },
         },
         refetchQueries: [

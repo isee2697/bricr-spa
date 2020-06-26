@@ -9,6 +9,7 @@ import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types'
 export type ServicesProps = PimDetailsSectionProps & {
   pimServices: PimServices;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
+  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
 export type ServicesMetersContainerProps = PimDetailsSectionProps & {

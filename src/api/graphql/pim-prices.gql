@@ -128,6 +128,7 @@ type PimPrices implements LastUpdated {
   pricing: Pricing
   costs: [Cost!]
   investment: Investment
+  costsDescription: String
   dateUpdated: Date
   lastEditedBy: Profile
 }
@@ -142,6 +143,7 @@ input UpdatePricingInput {
   id: ID!
   rent: RentInformationsInput
   sale: SaleInformationsInput
+  description: String
 }
 
 type Pricing implements LastUpdated {
@@ -149,6 +151,7 @@ type Pricing implements LastUpdated {
   sale: SaleInformations
   lastEditedBy: Profile
   dateUpdated: Date
+  description: String
 }
 
 type Cost {
@@ -197,6 +200,7 @@ input InvestmentInput {
   remainingTermContacts: Int
   vacancySquareMeters: Int
   notes: String
+  description: String
 }
 
 type Investment implements LastUpdated {
@@ -212,6 +216,7 @@ type Investment implements LastUpdated {
   remainingTermContacts: Int
   vacancySquareMeters: Int
   notes: String
+  description: String
   dateUpdated: Date
   lastEditedBy: Profile
 }

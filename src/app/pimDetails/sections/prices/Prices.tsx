@@ -23,6 +23,7 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
               sale={pricing.pricing?.sale ?? undefined}
               dateUpdated={pricing.pricing?.dateUpdated}
               updatedBy={pricing.pricing?.lastEditedBy}
+              description={pricing.pricing?.description ?? ''}
             />
           )}
         />
@@ -35,6 +36,7 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
               costs={pricing.costs ?? []}
               dateUpdated={pricing.dateUpdated}
               updatedBy={pricing.lastEditedBy}
+              description={pricing.costsDescription ?? ''}
             />
           )}
         />

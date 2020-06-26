@@ -67,6 +67,7 @@ export const LocationContainer = (props: PimDetailsSectionProps) => {
       ...goodToKnow,
       distance: goodToKnow?.distance?.toString() ?? '',
     })),
+    description: data?.getPimLocation?.description ?? undefined,
   };
 
   if (data)

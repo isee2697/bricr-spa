@@ -30,7 +30,9 @@ context('Pim Details', () => {
 
     cy.findByText('You Tube').click();
 
-    cy.get('input[name="description"]').type('URL');
+    cy.get('input[name="description"]')
+      .eq(1)
+      .type('URL');
 
     cy.get('.sub-section-header-toggle')
       .eq(0)
@@ -60,7 +62,9 @@ context('Pim Details', () => {
 
     cy.findByText('Garden').click();
 
-    cy.get('input[name="description"]').type('Usp description');
+    cy.get('input[name="description"]')
+      .eq(1)
+      .type('Usp description');
 
     cy.get('.sub-section-header-toggle')
       .eq(2)
@@ -75,7 +79,9 @@ context('Pim Details', () => {
 
     cy.findByText('Remote').click();
 
-    cy.get('input[name="description"]').type('Tag description');
+    cy.get('input[name="description"]')
+      .eq(1)
+      .type('Tag description');
 
     cy.get('.sub-section-header-toggle')
       .eq(3)

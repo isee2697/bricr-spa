@@ -17,7 +17,7 @@ export const Advanced = ({ dateUpdated, updatedBy }: AdvancedProps) => {
       <Page
         title={formatMessage({ id: 'pim_details.specification.advanced.title' })}
         placeholder="pim_details.specification.description_placeholder"
-        name="specification.advanced.description"
+        name="specificationAdvanced.description"
         dateUpdated={dateUpdated}
         updatedBy={updatedBy}
       >

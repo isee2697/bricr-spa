@@ -7,7 +7,14 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';
-import { PimServices, PimServicesDocument, usePimServicesQuery, useUpdateServiceMutation } from 'api/types';
+import {
+  PimServices,
+  PimServicesDocument,
+  SectionWithDescriptionType,
+  usePimServicesQuery,
+  useUpdateDescriptionMutation,
+  useUpdateServiceMutation,
+} from 'api/types';
 import { dateToYear } from 'form/fields';
 import { ServiceForm } from 'app/pimDetails/sections/services/Services.types';
 
@@ -21,6 +28,33 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
   const { data } = usePimServicesQuery({ variables: { id } });
   const [updateService] = useUpdateServiceMutation();
+  const [updateDescription] = useUpdateDescriptionMutation();
+
+  const onDescriptionUpdate = async (body: { description: string }) => {
+    try {
+      updateDescription({
+        variables: {
+          input: {
+            ...body,
+            pimId: id,
+            section: SectionWithDescriptionType.Services,
+          },
+        },
+        refetchQueries: [
+          {
+            query: PimServicesDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
+      });
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
 
   const onEdit = async (body: ServiceForm) => {
     try {
@@ -92,6 +126,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
               title={title}
               pimServices={pimServices}
               onSave={onEdit}
+              onDescriptionUpdate={onDescriptionUpdate}
             />
           )}
         />

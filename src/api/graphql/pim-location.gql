@@ -46,6 +46,7 @@ type PimLocation implements LastUpdated {
   goodToKnows: [GoodToKnow!]
   lastEditedBy: Profile
   dateUpdated: Date
+  description: String
 }
 
 input UpdatePimLocationInput {
@@ -56,6 +57,7 @@ input UpdatePimLocationInput {
   type: String @uuidOrEnum(enum: ["LocationType"])
   notes: String
   goodToKnows: [GoodToKnowInput!]
+  description: String
 }
 
 input GoodToKnowInput {

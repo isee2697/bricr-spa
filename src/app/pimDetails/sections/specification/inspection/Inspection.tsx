@@ -9,7 +9,14 @@ import { Page } from 'ui/templates';
 import { InspectionType as InspectionTypeComponent } from './inspectionType/InspectionType';
 import { InspectionProps } from './Inspection.types';
 
-export const Inspection = ({ inspections, onSave, dateUpdated, updatedBy }: InspectionProps) => {
+export const Inspection = ({
+  inspections,
+  onSave,
+  dateUpdated,
+  updatedBy,
+  description,
+  onDescriptionUpdate,
+}: InspectionProps) => {
   const { formatMessage } = useLocale();
 
   const [isModalOpened, setModalOpened] = useState(false);
@@ -19,8 +26,9 @@ export const Inspection = ({ inspections, onSave, dateUpdated, updatedBy }: Insp
       <Page
         title={formatMessage({ id: 'pim_details.specification.inspection.title' })}
         placeholder="pim_details.specification.description_placeholder"
-        name="specification.description"
-        onSave={() => Promise.resolve(undefined)}
+        name="description"
+        initialValues={{ description }}
+        onSave={onDescriptionUpdate}
         dateUpdated={dateUpdated}
         updatedBy={updatedBy}
       >

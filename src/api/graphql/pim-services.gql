@@ -175,6 +175,7 @@ type PimServices implements LastUpdated {
   additionalServices: [Service!]
   dateUpdated: Date
   lastEditedBy: Profile
+  description: String
 }
 
 type PimWithNewService {
