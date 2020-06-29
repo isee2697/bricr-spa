@@ -19,7 +19,7 @@ const sanitize = (obj: object) => {
 
 export const AutosaveForm = ({ onSave, timeout = 2500, children, initialValues, ...props }: AutosaveProps) => {
   const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
-  const previousValues = useRef<KeyValuesObject<string | number>>();
+  const previousValues = useRef<KeyValuesObject<string | number> | null>(null);
   const { formatMessage } = useLocale();
 
   const initial = useMemo(() => {
@@ -31,7 +31,7 @@ export const AutosaveForm = ({ onSave, timeout = 2500, children, initialValues, 
     async ({ values }) => {
       if (
         !isEmpty(values) &&
-        !isEmpty(previousValues.current) &&
+        !!previousValues.current &&
         JSON.stringify(values) !== JSON.stringify(previousValues.current)
       ) {
         setIndicatorState('info');

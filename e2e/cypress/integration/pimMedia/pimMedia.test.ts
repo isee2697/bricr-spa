@@ -30,8 +30,8 @@ context('Pim Details', () => {
 
     cy.findByText('You Tube').click();
 
-    cy.get('input[name="description"]')
-      .eq(1)
+    cy.get('input[name="url"]')
+      .eq(0)
       .type('URL');
 
     cy.get('.sub-section-header-toggle')
