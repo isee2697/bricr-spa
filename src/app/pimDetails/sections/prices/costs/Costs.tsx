@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 
 import { Avatar, Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { useLocale } from 'hooks';
+import { useLocale, useToogleOnNewlyCreated } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Page } from 'ui/templates';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 import { useStyles } from './Costs.styles';
 import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
@@ -28,11 +29,20 @@ export const Costs = ({
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
   const styles = useStyles();
+  const formRef = React.useRef<FormSectionRef>(null);
+  const [toggled, setToggled] = useState<string | undefined>();
 
   const renderCosts = (editing: boolean) => (
     <>
       {costs.map(cost => (
-        <CostsForm cost={cost} editing={editing} onSave={onSave} key={cost.id} />
+        <CostsForm
+          cost={cost}
+          editing={editing}
+          onSave={onSave}
+          key={cost.id}
+          toggled={toggled === cost.id}
+          onCostClick={() => setToggled(toogled => (toogled !== cost.id ? cost.id : undefined))}
+        />
       ))}
     </>
   );
@@ -57,6 +67,13 @@ export const Costs = ({
     return formatMessage({ id: 'pim_details.prices.costs.add_costs' });
   };
 
+  const handleOnAdd = () => {
+    setModalOpen(false);
+    formRef.current?.handleSetEdit(true);
+  };
+
+  useToogleOnNewlyCreated(costs, setToggled);
+
   return (
     <>
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
@@ -76,6 +93,7 @@ export const Costs = ({
             isEditable={costs.length > 0}
             onAdd={() => setModalOpen(true)}
             className={styles.container}
+            ref={formRef}
           >
             {editing => (costs.length > 0 ? renderCosts(editing) : renderEmpty())}
           </FormSection>
@@ -83,7 +101,12 @@ export const Costs = ({
       </Page>
 
       {isModalOpen && (
-        <AddCostModalContainer isModalOpened={isModalOpen} onModalClose={() => setModalOpen(false)} pimId={id} />
+        <AddCostModalContainer
+          isModalOpened={isModalOpen}
+          onModalClose={() => setModalOpen(false)}
+          pimId={id}
+          onAdd={handleOnAdd}
+        />
       )}
     </>
   );

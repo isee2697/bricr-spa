@@ -29,9 +29,6 @@ context('Pim Details Costs', () => {
     cy.contains('Electricity (Custom Name)');
   });
   it('allows to edit costs', () => {
-    cy.findByText('Edit mode').click();
-    cy.get('.sub-section-header-toggle').click();
-
     cy.contains('Payments');
     cy.contains('VAT');
 

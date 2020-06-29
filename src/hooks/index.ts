@@ -12,3 +12,4 @@ export * from './useScrollTop/useScrollTop';
 export * from './useGetPrivateFile/useGetPrivateFile';
 export * from './useCustomLabels';
 export * from './usePrevious/usePrevious';
+export * from './useToogleOnNewlyCreated/useToogleOnNewlyCreated';

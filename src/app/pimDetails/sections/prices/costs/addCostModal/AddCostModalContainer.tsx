@@ -59,7 +59,7 @@ const options = [
   },
 ];
 
-export const AddCostModalContainer = ({ isModalOpened, onModalClose, pimId }: AddCostModalContainerProps) => {
+export const AddCostModalContainer = ({ isModalOpened, onModalClose, pimId, onAdd }: AddCostModalContainerProps) => {
   const [addCost] = useAddCostsMutation();
 
   const handleAdd = async (values: CostForm) => {
@@ -85,7 +85,7 @@ export const AddCostModalContainer = ({ isModalOpened, onModalClose, pimId }: Ad
         ],
       });
 
-      onModalClose();
+      onAdd();
 
       return undefined;
     } catch (error) {

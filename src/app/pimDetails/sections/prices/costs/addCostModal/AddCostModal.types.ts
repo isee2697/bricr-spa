@@ -12,6 +12,7 @@ export type AddCostModalContainerProps = {
   isModalOpened: boolean;
   onModalClose: () => void;
   pimId?: string;
+  onAdd: VoidFunction;
 };
 
 export type CostForm = {

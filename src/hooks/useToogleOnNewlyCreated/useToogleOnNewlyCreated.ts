@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
-import { CadastreMap } from 'api/types';
+import { CadastreMap, Cost, Reading } from 'api/types';
 
 export const useToogleOnNewlyCreated = (
-  array: Array<CadastreMap> | null | undefined,
+  array: Array<CadastreMap | Cost | Reading> | null | undefined,
   setToggled: React.Dispatch<React.SetStateAction<string | undefined>>,
 ) => {
   const isInitialMount = useRef(true);
