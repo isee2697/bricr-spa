@@ -1,10 +1,10 @@
-import React, { ChangeEvent, SetStateAction, useEffect } from 'react';
+import React, { ChangeEvent, SetStateAction, useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 
 import { InfoSection, Modal, SubmitButton, SimpleSearch, CancelButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { Box, DialogActions, DialogContent, Grid, TileCheckbox, Typography } from 'ui/atoms';
-import { AddIcon, HomeIcon } from 'ui/atoms/icons';
+import { Box, DialogActions, DialogContent, Grid, Typography } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
 
 import { AddLinkedPropertyModalProps, LinkedPimType, LinkedPropertyType } from './AddLinkedPropertyModal.types';
 import { useStyles } from './AddLinkedPropertyModal.styles';
@@ -20,7 +20,7 @@ export const AddLinkedPropertyModal = ({
   selectedPims,
 }: AddLinkedPropertyModalProps) => {
   const { formatMessage } = useLocale();
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = useState('');
   const [propertyList, setPropertyList] = React.useState([]);
   const [filteredProperties, setFilteredProperties] = React.useState(propertyList);
   const [selectedProperty, setSelectedProperty] = React.useState([]);
@@ -34,7 +34,9 @@ export const AddLinkedPropertyModal = ({
     setSelectedProperty(
       pimList?.filter((i: LinkedPimType) => (i ? selectedPims.includes(i.id) : false)) as SetStateAction<never[]>,
     );
-  }, [pimList, selectedPims, onClose]);
+    setFilteredProperties(propertyList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pimList, onClose]);
 
   const handleChange = (v: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentValue = v.target.value;
@@ -96,19 +98,16 @@ export const AddLinkedPropertyModal = ({
                     </label>
                     <Box mt={2} className={classes.list}>
                       {selectedProperty.map((property: LinkedPropertyType, index: number) => (
-                        <Box mb={2} key={`${property.street}-selected${index}`}>
-                          <TileCheckbox
-                            onClick={() => {}}
+                        <Box mb={2} key={`${property.street}-selected${index}`} onClick={() => {}}>
+                          <PropertyTile
+                            onClick={() => onPropertySelect(property.id)}
                             isSelected
                             title={
                               <>
-                                {property.street}, {property.city}
+                                {highlightString(property.street ?? '')}, {highlightString(property.city)}
                               </>
                             }
-                            orientation="horizontal"
-                          >
-                            <HomeIcon color="inherit" />
-                          </TileCheckbox>
+                          />
                         </Box>
                       ))}
                     </Box>
@@ -119,21 +118,19 @@ export const AddLinkedPropertyModal = ({
                     {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.result_label' })}
                   </label>
                   <Box mt={2} className={classes.list}>
-                    {(filteredProperties.length ? filteredProperties : propertyList).map(
-                      (property: LinkedPropertyType, index: number) => (
-                        <Box mb={2} key={`${property.street}-${index}`}>
-                          <PropertyTile
-                            onClick={() => onPropertySelect(property.id)}
-                            title={
-                              <>
-                                {highlightString(property.street ?? '')}, {highlightString(property.city)}
-                              </>
-                            }
-                          />
-                        </Box>
-                      ),
-                    )}
-                    {!propertyList && (
+                    {filteredProperties.map((property: LinkedPropertyType, index: number) => (
+                      <Box mb={2} key={`${property.street}-${index}`}>
+                        <PropertyTile
+                          onClick={() => onPropertySelect(property.id)}
+                          title={
+                            <>
+                              {highlightString(property.street ?? '')}, {highlightString(property.city)}
+                            </>
+                          }
+                        />
+                      </Box>
+                    ))}
+                    {!filteredProperties.length && (
                       <InfoSection emoji="🤔">
                         <Typography variant="h3">{formatMessage({ id: 'common.no_results' })}</Typography>
                       </InfoSection>
