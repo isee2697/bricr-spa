@@ -36,6 +36,9 @@ export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     color: palette.gray.main,
   },
   image: {
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
     position: 'relative',
     height: spacing(16),
     width: spacing(21),
