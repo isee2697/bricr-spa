@@ -23,7 +23,7 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
       <FormSection
         title={formatMessage({ id: `pim_details.specification.inspection.type_${type.toLowerCase()}` })}
         titleBadge={inspections.length || undefined}
-        isEditable
+        isEditable={!!inspections.length}
         onAdd={() => setIsInspectionModalOpen(v => !v)}
       >
         {inEditMode => (

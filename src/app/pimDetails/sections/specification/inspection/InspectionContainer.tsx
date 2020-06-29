@@ -67,7 +67,7 @@ export const InspectionContainer = () => {
 
   return (
     <Inspection
-      inspections={data?.getPimSpecification.inspections ?? []}
+      inspections={data.getPimSpecification.inspections ?? []}
       onSave={handleSave}
       dateUpdated={data?.getPimSpecification.inspectionsDateUpdated}
       updatedBy={data?.getPimSpecification.inspectionsLastEditedBy}
