@@ -5,7 +5,7 @@ import { UploadModal } from 'ui/organisms';
 import { AddMapModalProps } from 'app/pimDetails/sections/media/pictures/addPictureModal/AddPictureModal.types';
 import { PimMediaDocument, useAddPicturesMutation, useInitSendFileMutation, useUploadFileMutation } from 'api/types';
 
-export const AddPictureModalContainer = ({ isOpened, onClose }: AddMapModalProps) => {
+export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
   const [initUpload, { loading: initLoading }] = useInitSendFileMutation();
   const [uploadFile, { loading: uploadLoading }] = useUploadFileMutation();
@@ -59,6 +59,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose }: AddMapModalProps
             query: PimMediaDocument,
             variables: {
               id,
+              picturesSort: sortQuery,
             },
           },
         ],

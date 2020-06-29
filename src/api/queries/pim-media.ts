@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const PIM_MEDIA = gql`
-  query PimMedia($id: ID!) {
+  query PimMedia($id: ID!, $picturesSort: Sort) {
     getPimMedia(id: $id) {
       id
       description
@@ -11,11 +11,12 @@ export const PIM_MEDIA = gql`
         firstName
         lastName
       }
-      pictures {
+      pictures(sort: $picturesSort) {
         id
         name
         description
         type
+        dateUpdated
         file {
           id
           key

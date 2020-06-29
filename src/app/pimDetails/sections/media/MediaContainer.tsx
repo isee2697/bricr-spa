@@ -8,12 +8,14 @@ import {
   useUpdateDescriptionMutation,
 } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { usePicturesSorting } from 'app/pimDetails/sections/media/pictures/usePicturesSorting/usePicturesSorting';
 
 import { Media } from './Media';
 
 export const MediaContainer = (props: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
-  const { data } = usePimMediaQuery({ variables: { id } });
+  const { sorting, query: sortQuery } = usePicturesSorting();
+  const { data } = usePimMediaQuery({ variables: { id, picturesSort: sortQuery } });
 
   const [updateDescription] = useUpdateDescriptionMutation();
 
@@ -50,6 +52,8 @@ export const MediaContainer = (props: PimDetailsSectionProps) => {
         media={data.getPimMedia}
         onDescriptionUpdate={onDescriptionUpdate}
         description={data.getPimMedia.description ?? ''}
+        sorting={sorting}
+        sortQuery={sortQuery}
       />
     );
 

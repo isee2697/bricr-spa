@@ -1435,13 +1435,15 @@ export enum TagType {
   Shopping = 'Shopping',
 }
 
-export type Picture = {
+export type Picture = LastUpdated & {
   __typename?: 'Picture';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   file?: Maybe<File>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type TextChapter = {
@@ -1472,7 +1474,7 @@ export type Tag = {
   __typename?: 'Tag';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
-  type?: Maybe<TagType>;
+  type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
 };
 
@@ -1487,6 +1489,10 @@ export type PimMedia = LastUpdated & {
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
   description?: Maybe<Scalars['String']>;
+};
+
+export type PimMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
 };
 
 export type NewPictureInput = {
@@ -1544,7 +1550,7 @@ export type UpdateMediaLinkInput = {
 
 export type AddTagInput = {
   pimId: Scalars['String'];
-  type?: Maybe<TagType>;
+  type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -1552,7 +1558,7 @@ export type AddTagInput = {
 export type UpdateTagInput = {
   pimId: Scalars['String'];
   id: Scalars['String'];
-  type?: Maybe<TagType>;
+  type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
 };
@@ -3968,6 +3974,7 @@ export type PimLocationQuery = { __typename?: 'Query' } & {
 
 export type PimMediaQueryVariables = {
   id: Scalars['ID'];
+  picturesSort?: Maybe<Sort>;
 };
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
@@ -3975,7 +3982,7 @@ export type PimMediaQuery = { __typename?: 'Query' } & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pictures?: Maybe<
         Array<
-          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type'> & {
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
               file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
             }
         >
@@ -5905,7 +5912,7 @@ export type PimLocationQueryHookResult = ReturnType<typeof usePimLocationQuery>;
 export type PimLocationLazyQueryHookResult = ReturnType<typeof usePimLocationLazyQuery>;
 export type PimLocationQueryResult = ApolloReactCommon.QueryResult<PimLocationQuery, PimLocationQueryVariables>;
 export const PimMediaDocument = gql`
-  query PimMedia($id: ID!) {
+  query PimMedia($id: ID!, $picturesSort: Sort) {
     getPimMedia(id: $id) {
       id
       description
@@ -5915,11 +5922,12 @@ export const PimMediaDocument = gql`
         firstName
         lastName
       }
-      pictures {
+      pictures(sort: $picturesSort) {
         id
         name
         description
         type
+        dateUpdated
         file {
           id
           key

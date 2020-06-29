@@ -21,6 +21,8 @@ export const Media = ({
   media,
   onDescriptionUpdate,
   description,
+  sorting,
+  sortQuery,
 }: MediaProps) => {
   const { formatMessage } = useLocale();
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
@@ -44,7 +46,7 @@ export const Media = ({
         updatedBy={media.lastEditedBy}
       >
         <Grid item xs={12}>
-          <PicturesContainer pictures={media.pictures} />
+          <PicturesContainer pictures={media.pictures} sorting={sorting} sortQuery={sortQuery} />
         </Grid>
 
         <Grid item xs={12}>

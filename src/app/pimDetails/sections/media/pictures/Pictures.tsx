@@ -12,7 +12,7 @@ import { AddPictureModalContainer } from 'app/pimDetails/sections/media/pictures
 import { Picture } from 'api/types';
 import { IconButton } from 'ui/atoms';
 
-export const Pictures = ({ pictures, sortOptions, customLabels }: PictureProps) => {
+export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: PictureProps) => {
   const { formatMessage } = useLocale();
   const [picture, setPicture] = useState<Picture | null>();
   const [isAddModaVisible, setAddModalVisible] = useState(false);
@@ -55,7 +55,8 @@ export const Pictures = ({ pictures, sortOptions, customLabels }: PictureProps) 
             )}
             onBulk={() => {}}
             loadingItem={<PropertyItemPlaceholder />}
-            sortOptions={sortOptions}
+            sortOptions={sorting.sortOptions}
+            onSort={sorting.onSort}
             checkboxProps={{
               className: classes.checkbox,
               icon: <UnCheckMarkIcon />,
@@ -69,7 +70,11 @@ export const Pictures = ({ pictures, sortOptions, customLabels }: PictureProps) 
         <EditPictureModalContainer isModalOpened={!!picture} onModalClose={() => setPicture(null)} picture={picture} />
       )}
       {isAddModaVisible && (
-        <AddPictureModalContainer onClose={() => setAddModalVisible(false)} isOpened={isAddModaVisible} />
+        <AddPictureModalContainer
+          onClose={() => setAddModalVisible(false)}
+          isOpened={isAddModaVisible}
+          sortQuery={sortQuery}
+        />
       )}
     </>
   );
