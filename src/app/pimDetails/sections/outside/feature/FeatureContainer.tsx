@@ -1,8 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
+import groupBy from 'lodash/groupBy';
 
-import { useUpdateOutsideFeatureMutation, PimOutsideDocument } from 'api/types';
+import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
@@ -11,6 +12,22 @@ import { Feature } from './Feature';
 export const FeatureContainer = ({ features }: FeatureContainerProps) => {
   const { id, featureId } = useParams<{ id: string; featureId: string }>();
   const [updateOutsideFeature] = useUpdateOutsideFeatureMutation();
+
+  const getCount = (item: OutsideFeature) => {
+    const groupedSpaces = groupBy(features || [], items => items.type);
+    let count: number | undefined;
+
+    Object.values(groupedSpaces).flatMap(space =>
+      space.forEach((spaceType, i) => {
+        if (spaceType.id === item.id) {
+          const numberOfSpaceTypeOccurence = groupedSpaces[spaceType.type].length;
+          count = numberOfSpaceTypeOccurence > 1 ? numberOfSpaceTypeOccurence - i : undefined;
+        }
+      }),
+    );
+
+    return count;
+  };
 
   const feature = features.find(({ id }) => id === featureId);
 
@@ -71,7 +88,7 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
       mutators={{ ...arrayMutators }}
       subscription={{}}
     >
-      <Feature feature={feature} />
+      <Feature feature={feature} count={getCount(feature)} />
     </AutosaveForm>
   );
 };

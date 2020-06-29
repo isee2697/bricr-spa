@@ -6,6 +6,7 @@ export type FeatureContainerProps = {
 
 export type FeatureProps = {
   feature: OutsideFeature;
+  count?: number;
 };
 
 export type FeatureFormProps = {
