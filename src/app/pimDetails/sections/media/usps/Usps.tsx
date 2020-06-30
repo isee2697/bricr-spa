@@ -1,17 +1,21 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import { useLocale } from 'hooks';
+import { useLocale, useCustomLabels } from 'hooks';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
-import { UpdateUspInput } from 'api/types';
+import { UpdateUspInput, LabelProperty } from 'api/types';
 import { TileButton } from 'ui/molecules';
 
 import { UspsProps } from './Usps.types';
 
 export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }: UspsProps) => {
+  const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+
+  const customLabels = useCustomLabels(pimId, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
 
   return (
     <Section
@@ -25,9 +29,13 @@ export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }
       {editing =>
         usps.map(usp => (
           <Form<UpdateUspInput>
+            key={usp.id}
             title={
               usp.type
-                ? formatMessage({ id: `dictionaries.media.chapter_or_usp.${usp.type}` })
+                ? formatMessage({
+                    id: `dictionaries.media.chapter_or_usp.${usp.type}`,
+                    defaultMessage: customLabels.find(({ value }) => value === usp.type)?.label ?? ' ',
+                  })
                 : formatMessage({ id: 'pim_details.media.usps.default_name' })
             }
             onSave={onSave}
