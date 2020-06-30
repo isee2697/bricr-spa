@@ -30,6 +30,7 @@ export const RoofInformation = () => {
                 name="houseOutside.roofInformation.yearOfRoof"
                 placeholder="common.year_placeholder"
                 isYearPicker
+                disabled={!isEditMode}
               />
             </Box>
             <Box mb={3}>
