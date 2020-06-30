@@ -7,7 +7,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { AddMeterModalContainerProps, AddMeterSubmit } from './AddMeterModal.types';
 import { AddMeterModal } from './AddMeterModal';
 
-export const AddMeterModalContainer = ({ isOpened, onClose }: AddMeterModalContainerProps) => {
+export const AddMeterModalContainer = ({ isOpened, onClose, onAddMeter }: AddMeterModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [addMeter] = useAddMeterMutation();
   const { push } = useHistory();
@@ -36,6 +36,7 @@ export const AddMeterModalContainer = ({ isOpened, onClose }: AddMeterModalConta
         throw new Error();
       }
 
+      await onAddMeter();
       onClose();
       push(`${AppRoute.pimDetails.replace(':id', id)}/services/${body.type.toLowerCase()}`);
 

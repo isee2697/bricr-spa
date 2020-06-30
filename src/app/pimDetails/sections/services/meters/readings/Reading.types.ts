@@ -2,12 +2,14 @@ import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types'
 import { Reading } from 'api/types';
 
 export type ReadingContainerProps = {
+  isMeterAdded: boolean;
   readings: Reading[];
   editing: boolean;
   linkedPerson: LinkedPersonProps;
 };
 
 export type ReadingProps = ReadingContainerProps & {
+  isMeterAdded: boolean;
   onSave(values: Reading): Promise<undefined | { error: boolean }>;
 };
 

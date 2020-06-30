@@ -12,7 +12,7 @@ import { useStyles } from '../Meters.styles';
 
 import { ReadingProps } from './Reading.types';
 
-export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingProps) => {
+export const Readings = ({ readings, editing, linkedPerson, onSave, isMeterAdded }: ReadingProps) => {
   const { formatMessage } = useLocale();
   const { meterType } = useParams<{ meterType: string }>();
   const [toggled, setToggled] = useState<string | undefined>();
@@ -32,7 +32,7 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
           <FormSubSection
             title={formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
             onOptionsClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
-            isExpanded={reading.id === toggled}
+            isExpanded={reading.id === toggled || isMeterAdded}
             counter={key + 1}
             initiallyOpened={false}
           >

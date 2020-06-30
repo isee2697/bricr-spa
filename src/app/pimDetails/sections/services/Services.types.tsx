@@ -13,12 +13,14 @@ export type ServicesProps = PimDetailsSectionProps & {
 };
 
 export type ServicesMetersContainerProps = PimDetailsSectionProps & {
+  isMeterAdded: boolean;
   pimServices: PimServices;
   linkedPerson: LinkedPersonProps;
   type: 'GasMeters' | 'WaterMeters' | 'ElectricityMeters';
 };
 
 export type ServicesMetersProps = {
+  isMeterAdded: boolean;
   meters: Meter[];
   loading: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;

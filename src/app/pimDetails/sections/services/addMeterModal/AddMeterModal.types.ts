@@ -3,6 +3,7 @@ import { MeterType } from 'api/types';
 export type AddMeterModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
+  onAddMeter: VoidFunction;
 };
 
 type AddMeterBody = {
@@ -19,6 +20,6 @@ export type AddMeterSubmit = (
     }
 >;
 
-export type AddMeterModalProps = AddMeterModalContainerProps & {
+export type AddMeterModalProps = Pick<AddMeterModalContainerProps, 'isOpened' | 'onClose'> & {
   onSubmit: AddMeterSubmit;
 };
