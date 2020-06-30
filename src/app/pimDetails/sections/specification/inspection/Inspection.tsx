@@ -18,8 +18,7 @@ export const Inspection = ({
   onDescriptionUpdate,
 }: InspectionProps) => {
   const { formatMessage } = useLocale();
-
-  const [isModalOpened, setModalOpened] = useState(false);
+  const [type, setType] = useState();
 
   return (
     <>
@@ -38,7 +37,9 @@ export const Inspection = ({
             type={InspectionType.Tanks}
             inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Tanks)}
             onSave={onSave}
-            onAddCustomType={() => setModalOpened(true)}
+            onAddCustomType={() => {
+              setType(InspectionType.Tanks);
+            }}
           />
         </Grid>
 
@@ -48,7 +49,9 @@ export const Inspection = ({
             type={InspectionType.Pollution}
             inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Pollution)}
             onSave={onSave}
-            onAddCustomType={() => setModalOpened(true)}
+            onAddCustomType={() => {
+              setType(InspectionType.Pollution);
+            }}
           />
         </Grid>
 
@@ -58,15 +61,18 @@ export const Inspection = ({
             type={InspectionType.Maintenance}
             inspections={inspections.filter(({ inspectionType }) => inspectionType === InspectionType.Maintenance)}
             onSave={onSave}
-            onAddCustomType={() => setModalOpened(true)}
+            onAddCustomType={() => {
+              setType(InspectionType.Maintenance);
+            }}
           />
         </Grid>
       </Page>
-      {isModalOpened && (
+      {!!type && (
         <AddCustomPropertyModalContainer
           property={LabelProperty.Inspection}
-          isOpened={isModalOpened}
-          onClose={() => setModalOpened(false)}
+          isOpened={!!type}
+          onClose={() => setType(null)}
+          type={type}
         />
       )}
     </>

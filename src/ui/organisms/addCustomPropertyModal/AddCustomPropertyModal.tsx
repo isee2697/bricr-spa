@@ -10,7 +10,7 @@ import { AddIcon } from 'ui/atoms/icons';
 import { AddCustomPropertyModalProps } from './AddCustomPropertyModal.types';
 import { useStyles } from './AddCustomPropertyModal.styles';
 
-export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCustomPropertyModalProps) => {
+export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit, type }: AddCustomPropertyModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -19,7 +19,11 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
       fullWidth
       isOpened={isOpened}
       onClose={onClose}
-      title={formatMessage({ id: 'pim_details.specification.custom_property_modal.title' })}
+      title={formatMessage({
+        id: type
+          ? `pim_details.specification.inspection.custom_${type?.toLowerCase()}_modal_title`
+          : 'pim_details.specification.custom_property_modal.title',
+      })}
       className={classes.modal}
     >
       <Form onSubmit={onSubmit}>
@@ -35,7 +39,11 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit }: AddCusto
                 <Grid item xs={5} className={classes.col}>
                   <GenericField
                     name="text"
-                    label="pim_details.specification.custom_property_modal.input_label"
+                    label={formatMessage({
+                      id: type
+                        ? `pim_details.specification.inspection.custom_${type?.toLowerCase()}_property_name`
+                        : 'pim_details.specification.custom_property_modal.input_label',
+                    })}
                     placeholder="pim_details.specification.custom_property_modal.input_placeholder"
                   />
                 </Grid>
