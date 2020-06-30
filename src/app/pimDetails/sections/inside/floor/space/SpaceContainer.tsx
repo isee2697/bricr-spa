@@ -6,7 +6,7 @@ import { AnyObject } from 'final-form';
 import { useUpdateSpaceMutation, PimInsideDocument, SpaceType } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { dateToYear, yearToDate } from 'form/fields';
-import { measurementDecorator } from 'decorators/measurementDecorator';
+import { measurementDecorator } from 'form/decorators/measurementDecorator';
 
 import { SpaceProps, AliasedSpace } from './Space.types';
 import { Space as SpaceComponent } from './Space';

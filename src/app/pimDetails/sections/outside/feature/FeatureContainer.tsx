@@ -5,7 +5,7 @@ import groupBy from 'lodash/groupBy';
 
 import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
-import { measurementDecorator } from 'decorators/measurementDecorator';
+import { measurementDecorator } from 'form/decorators/measurementDecorator';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
 import { Feature } from './Feature';
