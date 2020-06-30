@@ -4234,7 +4234,10 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
       >;
       additionalServices?: Maybe<
         Array<
-          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
               configuration:
                 | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
@@ -6301,6 +6304,7 @@ export const PimServicesDocument = gql`
           }
         }
         yearOfInstallation
+        ownership
       }
     }
   }
