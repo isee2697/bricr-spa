@@ -5,6 +5,7 @@ import groupBy from 'lodash/groupBy';
 
 import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { measurementDecorator } from 'decorators/measurementDecorator';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
 import { Feature } from './Feature';
@@ -87,6 +88,7 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
       onSave={handleSave}
       mutators={{ ...arrayMutators }}
       subscription={{}}
+      decorators={[measurementDecorator]}
     >
       <Feature feature={feature} count={getCount(feature)} />
     </AutosaveForm>

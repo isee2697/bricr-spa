@@ -2,53 +2,14 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
-import createDecorator from 'final-form-calculate';
 
-import { useUpdateSpaceMutation, PimInsideDocument, SpaceType, Space } from 'api/types';
+import { useUpdateSpaceMutation, PimInsideDocument, SpaceType } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { dateToYear, yearToDate } from 'form/fields';
+import { measurementDecorator } from 'decorators/measurementDecorator';
 
 import { SpaceProps, AliasedSpace } from './Space.types';
 import { Space as SpaceComponent } from './Space';
-
-const calculateSurface = ({ configuration }: Space) => {
-  if (!!configuration?.measurement?.length && !!configuration?.measurement?.width) {
-    return configuration?.measurement?.length * configuration?.measurement?.width;
-  }
-};
-
-const calculateVolume = ({ configuration }: Space) => {
-  if (
-    !!configuration?.measurement?.length &&
-    !!configuration?.measurement?.width &&
-    !!configuration?.measurement?.height
-  ) {
-    return configuration?.measurement?.length * configuration?.measurement?.width * configuration?.measurement?.height;
-  }
-};
-
-const decorator = createDecorator(
-  {
-    field: 'configuration.measurement.length',
-    updates: {
-      'configuration.measurement.surface': (value, allValues) => calculateSurface(allValues as Space),
-      'configuration.measurement.volume': (value, allValues) => calculateVolume(allValues as Space),
-    },
-  },
-  {
-    field: 'configuration.measurement.width',
-    updates: {
-      'configuration.measurement.surface': (value, allValues) => calculateSurface(allValues as Space),
-      'configuration.measurement.volume': (value, allValues) => calculateVolume(allValues as Space),
-    },
-  },
-  {
-    field: 'configuration.measurement.height',
-    updates: {
-      'configuration.measurement.volume': (value, allValues) => calculateVolume(allValues as Space),
-    },
-  },
-);
 
 export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
   const { id } = useParams<{ id: string }>();
@@ -113,7 +74,7 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
       onSave={handleEdit}
       mutators={{ ...arrayMutators }}
       subscription={{}}
-      decorators={[decorator]}
+      decorators={[measurementDecorator]}
     >
       <SpaceComponent space={space} {...props} />
     </AutosaveForm>
