@@ -37,9 +37,9 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
     return '';
   };
 
-  const handleSave = async (files: FileList) => {
+  const handleSave = async (files: File[]) => {
     const pictures = await Promise.all(
-      Array.from(files).map(async file => {
+      files.map(async file => {
         return {
           fileID: await getFileId(file),
         };

@@ -46,7 +46,7 @@ export const AddMapModalContainer = ({ isOpened, onClose, onUpload }: AddMapModa
     return '';
   };
 
-  const handleSave = async (files: FileList) => {
+  const handleSave = async (files: File[]) => {
     setIsUploading(true);
     const fileIds: NewCadastreMapInput[] = [];
 
