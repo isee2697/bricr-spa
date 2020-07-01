@@ -6,7 +6,7 @@ import { PimServicesDocument, useUpdateReadingMutation, Reading } from 'api/type
 import { Readings } from './Readings';
 import { ReadingContainerProps } from './Reading.types';
 
-export const ReadingsContainer = ({ readings, editing, linkedPerson }: ReadingContainerProps) => {
+export const ReadingsContainer = ({ readings, editing, linkedPerson, isMeterAdded }: ReadingContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [updateReading] = useUpdateReadingMutation();
 
@@ -42,5 +42,13 @@ export const ReadingsContainer = ({ readings, editing, linkedPerson }: ReadingCo
     }
   };
 
-  return <Readings readings={readings} editing={editing} linkedPerson={linkedPerson} onSave={onEdit} />;
+  return (
+    <Readings
+      readings={readings}
+      editing={editing}
+      linkedPerson={linkedPerson}
+      onSave={onEdit}
+      isMeterAdded={isMeterAdded}
+    />
+  );
 };

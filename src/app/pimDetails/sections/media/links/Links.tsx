@@ -44,7 +44,7 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomTyp
             <Input
               disabled={!editing}
               label="pim_details.media.links.label"
-              name="description"
+              name="url"
               placeholder="pim_details.media.links.placeholder"
             />
           </Form>

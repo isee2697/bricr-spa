@@ -31,15 +31,6 @@ export const AddressForm = () => {
             </Grid>
             <Grid item xs={6}>
               <GenericField
-                name="city"
-                label="pim_details.general.address_information.city"
-                placeholder="pim_details.general.address_information.city_placeholder"
-                validate={[requireValidator]}
-                disabled={!editing}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <GenericField
                 name="houseNumber"
                 label="pim_details.general.address_information.house_number"
                 placeholder="pim_details.general.address_information.house_number_placeholder"
@@ -52,6 +43,15 @@ export const AddressForm = () => {
                 name="postalCode"
                 label="pim_details.general.address_information.zipcode"
                 placeholder="pim_details.general.address_information.zipcode_placeholder"
+                validate={[requireValidator]}
+                disabled={!editing}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <GenericField
+                name="city"
+                label="pim_details.general.address_information.city"
+                placeholder="pim_details.general.address_information.city_placeholder"
                 validate={[requireValidator]}
                 disabled={!editing}
               />

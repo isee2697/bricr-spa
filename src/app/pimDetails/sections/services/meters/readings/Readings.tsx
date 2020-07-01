@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 
-import { useLocale } from 'hooks';
+import { useLocale, useToogleOnNewlyCreated } from 'hooks';
 import { Box } from 'ui/atoms';
 import { LinkedPerson } from 'ui/molecules';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
@@ -12,8 +12,7 @@ import { useStyles } from '../Meters.styles';
 
 import { ReadingProps } from './Reading.types';
 
-export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingProps) => {
-  const isInitialMount = useRef(true);
+export const Readings = ({ readings, editing, linkedPerson, onSave, isMeterAdded }: ReadingProps) => {
   const { formatMessage } = useLocale();
   const { meterType } = useParams<{ meterType: string }>();
   const [toggled, setToggled] = useState<string | undefined>();
@@ -24,18 +23,7 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
     return a.id.localeCompare(b.id);
   });
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-
-      return;
-    }
-
-    if (sorted.length) {
-      setToggled(sorted[sorted.length - 1].id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sorted.length]);
+  useToogleOnNewlyCreated(sorted, setToggled);
 
   return (
     <>
@@ -44,7 +32,7 @@ export const Readings = ({ readings, editing, linkedPerson, onSave }: ReadingPro
           <FormSubSection
             title={formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
             onOptionsClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
-            isExpanded={reading.id === toggled}
+            isExpanded={reading.id === toggled || isMeterAdded}
             counter={key + 1}
             initiallyOpened={false}
           >

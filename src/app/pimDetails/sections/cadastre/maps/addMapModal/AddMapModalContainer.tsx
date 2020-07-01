@@ -13,7 +13,7 @@ import {
 
 import { AddMapModalProps } from './AddMapModal.types';
 
-export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) => {
+export const AddMapModalContainer = ({ isOpened, onClose, onUpload }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
   const [addMaps] = useAddCadastreMapsMutation();
   const [initUpload] = useInitSendFileMutation();
@@ -46,7 +46,7 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
     return '';
   };
 
-  const handleSave = async (files: FileList) => {
+  const handleSave = async (files: File[]) => {
     setIsUploading(true);
     const fileIds: NewCadastreMapInput[] = [];
 
@@ -81,7 +81,7 @@ export const AddMapModalContainer = ({ isOpened, onClose }: AddMapModalProps) =>
       });
 
       setIsUploading(false);
-      onClose();
+      onUpload();
     } catch (error) {
       setIsUploading(false);
     }

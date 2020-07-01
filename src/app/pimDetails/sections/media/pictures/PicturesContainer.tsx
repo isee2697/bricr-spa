@@ -7,9 +7,9 @@ import { LabelProperty } from 'api/types';
 
 import { Pictures } from './Pictures';
 
-export const PicturesContainer = ({ pictures }: PictureContainerProps) => {
+export const PicturesContainer = ({ pictures, sorting, sortQuery }: PictureContainerProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const customLabels = useCustomLabels(pimId, [LabelProperty.Picture])[LabelProperty.Picture] ?? [];
 
-  return <Pictures pictures={pictures ?? []} sortOptions={[]} customLabels={customLabels} />;
+  return <Pictures pictures={pictures ?? []} customLabels={customLabels} sorting={sorting} sortQuery={sortQuery} />;
 };

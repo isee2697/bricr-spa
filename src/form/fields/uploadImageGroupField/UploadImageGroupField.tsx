@@ -29,7 +29,7 @@ export const UploadImageGroupField = ({
         <UploadImageField
           disabled={disabled}
           onRemove={() => fields.remove(index)}
-          key={fields.value[index].id}
+          key={fields.value[index].url ?? `${index}`}
           name={field}
           entity={entity}
           entityID={entityID}

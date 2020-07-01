@@ -14,12 +14,12 @@ import { StorageForm } from './forms/StorageForm';
 import { TerrainForm } from './forms/TerrainForm';
 import { ParkingLotForm } from './forms/ParkingLotForm';
 
-export const Feature = ({ feature }: FeatureProps) => {
+export const Feature = ({ feature, count }: FeatureProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <Page
-      title={formatMessage({ id: `dictionaries.outside_type.${feature.type}` })}
+      title={`${formatMessage({ id: `dictionaries.outside_type.${feature.type}` })} ${count ?? ''}`}
       placeholder={`pim_details.outside.${feature.type.toLowerCase()}.description_placeholder`}
       name="description"
       afterTitle={

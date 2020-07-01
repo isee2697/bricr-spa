@@ -40,10 +40,7 @@ export const LinkedProperty = ({
                 title={formatMessage({
                   id: 'pim_details.specification.linked_properties.title',
                 })}
-                isExpandable
-                isInitExpanded
                 isEditable={false}
-                onAdd={() => setLinkedPropertyModalOpen(v => !v)}
               >
                 {!properties?.length && (
                   <InfoSection emoji="🤔">
@@ -76,7 +73,7 @@ export const LinkedProperty = ({
                           status={property.status}
                           plotNumber=""
                           pimAttention=""
-                          onEditClick={() => {}}
+                          onEditClick={() => setLinkedPropertyModalOpen(v => !v)}
                         />
                       </Box>
                     );

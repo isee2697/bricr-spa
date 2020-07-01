@@ -13,7 +13,7 @@ import { UploadIcon } from 'ui/atoms/icons';
 import { CadastreMapProps } from './CadastralMaps.types';
 import { cadastralMapTypes } from './dictionaries';
 
-export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType }: CadastreMapProps) => {
+export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType, toggled }: CadastreMapProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -27,7 +27,7 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType }:
   const customLabels = useCustomLabels(pimId, [LabelProperty.CadastreMap])[LabelProperty.CadastreMap] ?? [];
 
   return (
-    <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={false}>
+    <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={false} isExpanded={toggled}>
       <Grid className={classes.content} container spacing={9}>
         <Grid item md={5}>
           <ImageHolder withBorder src={data?.signedUrl || undefined} />

@@ -6,7 +6,7 @@ export const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
   },
   header: {
-    padding: theme.spacing(2, 0, 1),
+    padding: theme.spacing(1.5, 0, 0.5),
     borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.white.main}`,
     margin: theme.spacing(0, 2),
   },

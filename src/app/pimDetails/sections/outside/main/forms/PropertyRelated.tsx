@@ -45,7 +45,7 @@ export const PropertyRelated = () => {
           <UploadImageGroupField
             entity={EntityWithFiles.OutsidePropertyRelated}
             entityID={pimId}
-            max={3}
+            max={300}
             disabled={!isEditMode}
             name="houseOutside.propertyRelated.images"
           />

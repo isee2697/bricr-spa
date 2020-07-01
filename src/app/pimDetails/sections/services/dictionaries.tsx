@@ -6,8 +6,27 @@ import {
   AdditionalServiceType,
   OwnershipType,
   HotWaterSupplyFuelType,
+  MeterType,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
+
+export const meterTypes = [
+  {
+    value: MeterType.Water,
+    label: 'dictionaries.meter_type.Water',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: MeterType.Gas,
+    label: 'dictionaries.meter_type.Gas',
+    icon: <SquareIcon color="inherit" />,
+  },
+  {
+    value: MeterType.Electric,
+    label: 'dictionaries.meter_type.Electricity',
+    icon: <SquareIcon color="inherit" />,
+  },
+];
 
 export const hotWaterTypes = [
   {

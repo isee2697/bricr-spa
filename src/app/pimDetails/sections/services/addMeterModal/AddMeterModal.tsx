@@ -2,31 +2,15 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { RadioGroupField, GenericField } from 'form/fields';
+import { requireValidator } from 'form/validators';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
-import { SquareIcon, AddIcon } from 'ui/atoms/icons';
-import { MeterType } from 'api/types';
+import * as dictionaries from '../dictionaries';
 
 import { AddMeterModalProps } from './AddMeterModal.types';
 
-const TYPES = [
-  {
-    value: MeterType.Water,
-    label: 'dictionaries.meter_type.Water',
-    icon: <SquareIcon color="inherit" />,
-  },
-  {
-    value: MeterType.Gas,
-    label: 'dictionaries.meter_type.Gas',
-    icon: <SquareIcon color="inherit" />,
-  },
-  {
-    value: MeterType.Electric,
-    label: 'dictionaries.meter_type.Electricity',
-    icon: <SquareIcon color="inherit" />,
-  },
-];
 export const AddMeterModal = ({ isOpened, onClose, onSubmit }: AddMeterModalProps) => {
   const { formatMessage } = useLocale();
 
@@ -46,7 +30,7 @@ export const AddMeterModal = ({ isOpened, onClose, onSubmit }: AddMeterModalProp
               </DialogContent>
             )}
             <DialogContent>
-              <RadioGroupField xs={4} name="type" options={TYPES} />
+              <RadioGroupField xs={4} name="type" options={dictionaries.meterTypes} validate={[requireValidator]} />
               <GenericField
                 name="name"
                 label="pim_details.services.meter_name.label"

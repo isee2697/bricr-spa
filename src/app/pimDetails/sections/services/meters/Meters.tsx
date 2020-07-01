@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 
 import { ServicesMetersProps } from '../Services.types';
@@ -10,9 +10,17 @@ import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
 
-export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters, loading }: ServicesMetersProps) => {
+export const Meters = ({
+  title,
+  onSave,
+  onAddReading,
+  linkedPerson,
+  meters,
+  loading,
+  isMeterAdded,
+}: ServicesMetersProps) => {
   const classes = useStyles();
-  const formRefs = React.useRef<{ [key: string]: FormSectionRef }>({});
+  const formRefs = useRef<{ [key: string]: FormSectionRef }>({});
 
   const handleOnAddReading = (id: string) => {
     onAddReading(id);
@@ -23,12 +31,13 @@ export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters, load
     <Grid xs={12} item>
       <Typography variant="h1">{title}</Typography>
       <Box mb={4} className={classes.meter}>
-        {meters.map(meter => (
+        {meters.map((meter, index) => (
           <div key={meter.id} className={classes.spacing}>
             <FormSection
               title={meter.name}
               onAdd={() => handleOnAddReading(meter.id)}
               onOptionsClick={() => {}}
+              isInitEditing={isMeterAdded}
               loading={loading}
               ref={ref => {
                 if (ref) {
@@ -53,7 +62,12 @@ export const Meters = ({ title, onSave, onAddReading, linkedPerson, meters, load
                     />
                     <Box mb={2}></Box>
                   </AutosaveForm>
-                  <ReadingsContainer linkedPerson={linkedPerson} editing={editing} readings={meter.readings || []} />
+                  <ReadingsContainer
+                    isMeterAdded={meters.length === index + 1 && isMeterAdded}
+                    linkedPerson={linkedPerson}
+                    editing={editing}
+                    readings={meter.readings || []}
+                  />
                 </>
               )}
             </FormSection>

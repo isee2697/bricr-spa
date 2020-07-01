@@ -48,7 +48,7 @@ export const GeneralInformation = () => {
           <UploadImageGroupField
             entity={EntityWithFiles.OutsideGeneral}
             entityID={pimId}
-            max={3}
+            max={300}
             disabled={!isEditMode}
             name="houseOutside.generalInformation.images"
           />

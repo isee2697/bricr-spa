@@ -30,6 +30,7 @@ export const RoofInformation = () => {
                 name="houseOutside.roofInformation.yearOfRoof"
                 placeholder="common.year_placeholder"
                 isYearPicker
+                disabled={!isEditMode}
               />
             </Box>
             <Box mb={3}>
@@ -140,7 +141,7 @@ export const RoofInformation = () => {
           <UploadImageGroupField
             entity={EntityWithFiles.RoofInformation}
             entityID={pimId}
-            max={3}
+            max={300}
             disabled={!isEditMode}
             name="houseOutside.roofInformation.images"
           />

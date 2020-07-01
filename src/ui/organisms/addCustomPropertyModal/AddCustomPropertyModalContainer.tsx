@@ -10,6 +10,7 @@ export const AddCustomPropertyModalContainer = ({
   isOpened,
   onClose,
   property,
+  type,
 }: AddCustomPropertyModalContainerProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const [addLabel] = useAddLabelMutation({
@@ -37,5 +38,5 @@ export const AddCustomPropertyModalContainer = ({
     [addLabel, onClose, pimId, property],
   );
 
-  return <AddCustomPropertyModal isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} />;
+  return <AddCustomPropertyModal isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} type={type} />;
 };

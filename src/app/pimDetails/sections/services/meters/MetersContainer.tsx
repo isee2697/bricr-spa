@@ -7,7 +7,14 @@ import { useLocale } from 'hooks';
 
 import { Meters } from './Meters';
 
-export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...props }: ServicesMetersContainerProps) => {
+export const MetersContainer = ({
+  pimServices,
+  title,
+  linkedPerson,
+  type,
+  isMeterAdded,
+  ...props
+}: ServicesMetersContainerProps) => {
   const { id, meterType } = useParams<{ id: string; meterType: string }>();
   const { formatMessage } = useLocale();
   const [loading, setLoading] = useState(false);
@@ -83,6 +90,7 @@ export const MetersContainer = ({ pimServices, title, linkedPerson, type, ...pro
 
   return (
     <Meters
+      isMeterAdded={isMeterAdded}
       onSave={handleEdit}
       linkedPerson={linkedPerson}
       loading={loading}

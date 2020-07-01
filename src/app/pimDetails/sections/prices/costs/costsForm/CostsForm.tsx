@@ -11,7 +11,7 @@ import { CostSection } from './costSection/CostSection';
 import { FormProps } from './CostsForm.types';
 import { useStyles } from './CostsForm.styles';
 
-export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
+export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormProps) => {
   const { formatMessage } = useLocale();
   const styles = useStyles();
 
@@ -38,7 +38,13 @@ export const CostsForm = ({ cost, editing, onSave }: FormProps) => {
   return (
     <AutosaveForm initialValues={cost} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
       <Box>
-        <FormSubSection title={getTitle()} onOptionsClick={() => {}} initiallyOpened={false}>
+        <FormSubSection
+          title={getTitle()}
+          onExpand={onCostClick}
+          initiallyOpened={false}
+          isExpanded={toggled}
+          onOptionsClick={() => {}}
+        >
           <Box pb={4}>
             <Grid container spacing={4}>
               <Grid item xs={12} className={styles.sections}>

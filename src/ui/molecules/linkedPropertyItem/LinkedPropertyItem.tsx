@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardHeader, CardContent, Grid, Typography, Box } from 'ui/atoms';
+import { Card, CardHeader, CardContent, Grid, Typography, Box, IconButton } from 'ui/atoms';
 import { EditIcon } from 'ui/atoms/icons';
 
 import { LinkedPropertyItemProps } from './LinkedPropertyItem.types';
@@ -37,8 +37,10 @@ export const LinkedPropertyItem = ({
               </Typography>
             }
             action={
-              <Grid className={classes.link} onClick={onEditClick} container alignItems="center">
-                <EditIcon />
+              <Grid className={classes.link} container alignItems="center">
+                <IconButton onClick={onEditClick} variant="rounded" size="small">
+                  <EditIcon color="inherit" />
+                </IconButton>
               </Grid>
             }
           />

@@ -26,9 +26,14 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
+  const [isMeterAdded, setMeterAdded] = useState(false);
   const { data } = usePimServicesQuery({ variables: { id } });
   const [updateService] = useUpdateServiceMutation();
   const [updateDescription] = useUpdateDescriptionMutation();
+
+  const onAddMeter = () => {
+    setMeterAdded(true);
+  };
 
   const onDescriptionUpdate = async (body: { description: string }) => {
     try {
@@ -135,6 +140,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
           exact
           render={path => (
             <MetersContainer
+              isMeterAdded={isMeterAdded}
               type={path.match.params.meterType}
               isSidebarVisible={isSidebarVisible}
               onOpenSidebar={onOpenSidebar}
@@ -153,7 +159,11 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
         />
         <Redirect to={`${AppRoute.pimDetails}/services`} />
       </Switch>
-      <AddMeterModalContainer isOpened={isMeterModalOpen} onClose={() => setIsMeterModalOpen(false)} />
+      <AddMeterModalContainer
+        isOpened={isMeterModalOpen}
+        onClose={() => setIsMeterModalOpen(false)}
+        onAddMeter={onAddMeter}
+      />
     </>
   );
 };
