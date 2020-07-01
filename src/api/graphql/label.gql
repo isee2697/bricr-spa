@@ -3,7 +3,6 @@ enum LabelProperty {
   Picture
   Usp
   TextChapter
-  Inspection
   ParkingSpecification
   MonumentSpecification
   InsideSpecification
@@ -16,6 +15,9 @@ enum LabelProperty {
   CadastreMap
   MediaLink
   Tag
+  TankInspection
+  PollutionInspection
+  MaintenanceInspection
 }
 
 type Label {

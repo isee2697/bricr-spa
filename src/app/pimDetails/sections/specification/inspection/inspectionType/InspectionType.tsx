@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LabelProperty } from 'api/types';
 import { Typography, Box } from 'ui/atoms';
 import { useLocale, useCustomLabels } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { FormSection, FormSubSection, AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { AddInspectionModalContainer } from '../addInspectionModal/AddInspectionModalContainer';
+import { typeToLabelProperty } from '../Inspection.helpers';
 
 import { InspectionTypeProps } from './InspectionType.types';
 
@@ -16,7 +16,7 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
   const { formatMessage } = useLocale();
 
   const [isInspectionModalOpen, setIsInspectionModalOpen] = useState(false);
-  const customLabels = useCustomLabels(pimId, [LabelProperty.Inspection])[LabelProperty.Inspection] ?? [];
+  const customLabels = useCustomLabels(pimId, [typeToLabelProperty(type)])[typeToLabelProperty(type)] ?? [];
 
   return (
     <>

@@ -1,10 +1,11 @@
-import { InspectionType, LabelInput, LabelProperty } from 'api/types';
+import { LabelInput, LabelProperty } from 'api/types';
 
 export type AddCustomPropertyModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   property: LabelProperty;
-  type?: InspectionType;
+  title?: string;
+  labelId?: string;
 };
 
 export type AddCustomPropertyModalProps = Omit<AddCustomPropertyModalContainerProps, 'property'> & {

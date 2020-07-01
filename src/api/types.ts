@@ -418,7 +418,6 @@ export enum LabelProperty {
   Picture = 'Picture',
   Usp = 'Usp',
   TextChapter = 'TextChapter',
-  Inspection = 'Inspection',
   ParkingSpecification = 'ParkingSpecification',
   MonumentSpecification = 'MonumentSpecification',
   InsideSpecification = 'InsideSpecification',
@@ -431,6 +430,9 @@ export enum LabelProperty {
   CadastreMap = 'CadastreMap',
   MediaLink = 'MediaLink',
   Tag = 'Tag',
+  TankInspection = 'TankInspection',
+  PollutionInspection = 'PollutionInspection',
+  MaintenanceInspection = 'MaintenanceInspection',
 }
 
 export type Label = {
