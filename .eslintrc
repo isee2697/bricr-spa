@@ -17,6 +17,7 @@
       "proseWrap": "always"
     }],
     "no-console": "warn",
+    "no-debugger": "error",
 
     "react/jsx-props-no-spreading": "off",
     "react-hooks/exhaustive-deps": "warn",

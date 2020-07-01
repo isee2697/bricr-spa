@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useField } from 'react-final-form';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { useHighestElementHeight } from 'hooks/useHighestElementHeight/useHighestElementHeight';
 import { Grid, TileRadio, FormHelperText } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 
 import { RadioDataType, RadioGroupFieldProps } from './RadioGroupField.types';
+import { useStyles } from './RadioGroupField.styles';
 
 export const RadioGroupField = ({
   name,
@@ -30,6 +32,9 @@ export const RadioGroupField = ({
     parse: parse as (value: string) => string,
     format,
   });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const tileHeight = useHighestElementHeight({ containerRef, options, minHeight: 123 });
+  const classes = useStyles({ tileHeight });
 
   const handleClick = useCallback(
     (item: RadioDataType) => {
@@ -49,7 +54,7 @@ export const RadioGroupField = ({
 
   return (
     <>
-      <Grid container spacing={spacing} justify={justify}>
+      <Grid container spacing={spacing} justify={justify} ref={containerRef}>
         {options.map((item: RadioDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
             <TileRadio
@@ -63,7 +68,7 @@ export const RadioGroupField = ({
           </Grid>
         ))}
         {actionElement && (
-          <Grid item xs={xs} sm={sm} md={md} lg={lg}>
+          <Grid item xs={xs} sm={sm} md={md} lg={lg} className={classes.action}>
             {actionElement}
           </Grid>
         )}

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
 import { FieldValidator } from 'final-form';
 import { GridJustification, GridSpacing } from '@material-ui/core';
 import { UseFieldConfig } from 'react-final-form';
@@ -28,3 +28,7 @@ export type RadioGroupFieldProps = {
   actionElement?: ReactNode;
   justify?: GridJustification;
 } & Pick<UseFieldConfig<string>, 'format'>;
+
+export type RadioGroupFieldStylesProps = {
+  tileHeight: number;
+};
