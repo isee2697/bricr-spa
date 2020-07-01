@@ -8,5 +8,6 @@ export type PictureItemProps = {
   editing: boolean;
   checkbox: ReactNode;
   onSelect: () => void;
+  isSelected: boolean;
   customLabel?: RadioDataType;
 };

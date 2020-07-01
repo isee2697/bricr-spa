@@ -51,6 +51,7 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
                 checkbox={checkbox}
                 onSelect={() => setPicture(item)}
                 customLabel={customLabels.find(label => label.value === item.type)}
+                isSelected={isSelected}
               />
             )}
             onBulk={() => {}}

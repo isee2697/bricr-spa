@@ -9,7 +9,7 @@ import { EntityWithFiles } from 'api/types';
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({ picture, editing, checkbox, onSelect, customLabel }: PictureItemProps) => {
+export const PictureItem = ({ picture, editing, checkbox, onSelect, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
   const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
   const classes = useStyles({ src: data?.signedUrl });
@@ -24,7 +24,7 @@ export const PictureItem = ({ picture, editing, checkbox, onSelect, customLabel 
     <Grid
       container
       spacing={0}
-      className={classNames(classes.container, editing && classes.active)}
+      className={classNames(classes.container, editing && classes.active, isSelected && classes.selected)}
       data-testid="picture-item"
       onClick={handleOnClick}
     >

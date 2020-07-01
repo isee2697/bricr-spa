@@ -4,6 +4,7 @@ export const useStyles = makeStyles(theme => ({
   container: {
     border: `1px solid ${theme.palette.gray.main}`,
     borderRadius: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   image: {
     backgroundImage: ({ src }: { src?: string }) => `url(${src})`,
@@ -34,5 +35,8 @@ export const useStyles = makeStyles(theme => ({
   },
   chip: {
     marginTop: theme.spacing(1),
+  },
+  selected: {
+    backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
   },
 }));
