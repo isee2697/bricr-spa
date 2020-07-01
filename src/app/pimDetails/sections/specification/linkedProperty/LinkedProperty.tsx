@@ -41,6 +41,7 @@ export const LinkedProperty = ({
                   id: 'pim_details.specification.linked_properties.title',
                 })}
                 isEditable={false}
+                onAdd={() => setLinkedPropertyModalOpen(v => !v)}
               >
                 {!properties?.length && (
                   <InfoSection emoji="🤔">
