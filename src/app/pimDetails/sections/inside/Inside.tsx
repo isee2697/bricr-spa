@@ -11,7 +11,7 @@ import { InfoSection } from 'ui/molecules';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Floor as FloorTypes, usePimInsideQuery } from 'api/types';
+import { Floor as FloorTypes, usePimInsideQuery, FloorType } from 'api/types';
 import { FloorContainer } from 'app/pimDetails/sections/inside/floor/FloorContainer';
 
 import { InsideGeneralContainer } from './general/InsideGeneralContainer';
@@ -31,10 +31,17 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
     let count: number | undefined;
 
     Object.values(groupedFloors).flatMap(floors =>
-      floors.forEach((floorType, i) => {
-        if (floorType.id === floor.id) {
-          const numberOfFloorTypeOccurence = groupedFloors[floorType.floorType].length;
-          count = numberOfFloorTypeOccurence > 1 ? numberOfFloorTypeOccurence - i : undefined;
+      floors.forEach(({ id, floorType }, index) => {
+        if (id === floor.id) {
+          const numberOfFloorTypeOccurence = groupedFloors[floorType].length,
+            indexAscending = index + 1,
+            indexDescending = numberOfFloorTypeOccurence - index;
+          count =
+            numberOfFloorTypeOccurence > 1
+              ? floorType === FloorType.Basement
+                ? indexAscending
+                : indexDescending
+              : undefined;
         }
       }),
     );

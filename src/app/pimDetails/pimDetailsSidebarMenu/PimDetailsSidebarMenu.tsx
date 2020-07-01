@@ -17,7 +17,7 @@ import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CadastreType } from 'api/types';
+import { CadastreType, FloorType } from 'api/types';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -59,14 +59,18 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       name: 'inside',
       icon: <FilesIcon />,
       subItems: Object.values(floorGroups).flatMap(values =>
-        values.map((floor, key) =>
-          createSubMenuData(
-            floor.id,
-            `dictionaries.floor_type.${floor.floorType}`,
-            floorGroups[floor.floorType].length,
-            key,
-          ),
-        ),
+        values.map(({ id, floorType }, index) => {
+          const amount = floorGroups[floorType].length,
+            indexAscending = index + 1,
+            indexDescending = amount - index;
+          const number = amount > 1 ? (floorType === FloorType.Basement ? indexAscending : indexDescending) : undefined;
+
+          return {
+            id,
+            label: `dictionaries.floor_type.${floorType}`,
+            number,
+          };
+        }),
       ),
     },
     {

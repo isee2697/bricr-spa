@@ -4335,7 +4335,7 @@ export type PimOverallInfoQueryVariables = {
 export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   getPimGeneral: { __typename?: 'PimGeneral' } & Pick<PimGeneral, 'street' | 'houseNumber' | 'postalCode' | 'city'>;
   getPimInside: { __typename?: 'PimInside' } & {
-    floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType'>>>;
+    floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType' | 'level'>>>;
   };
   getPimOutside: { __typename?: 'PimOutside' } & {
     outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
@@ -6468,6 +6468,7 @@ export const PimOverallInfoDocument = gql`
       floors {
         id
         floorType
+        level
       }
     }
     getPimOutside(id: $id) {
