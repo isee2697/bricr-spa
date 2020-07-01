@@ -24,6 +24,7 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomTyp
       {editing =>
         links.map(link => (
           <Form
+            key={link.id}
             title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
             onSave={onSave}
             initialValues={link}

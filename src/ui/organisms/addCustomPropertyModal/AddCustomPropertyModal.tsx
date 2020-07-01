@@ -39,11 +39,11 @@ export const AddCustomPropertyModal = ({ isOpened, onClose, onSubmit, type }: Ad
                 <Grid item xs={5} className={classes.col}>
                   <GenericField
                     name="text"
-                    label={formatMessage({
-                      id: type
+                    label={
+                      type
                         ? `pim_details.specification.inspection.custom_${type?.toLowerCase()}_property_name`
-                        : 'pim_details.specification.custom_property_modal.input_label',
-                    })}
+                        : 'pim_details.specification.custom_property_modal.input_label'
+                    }
                     placeholder="pim_details.specification.custom_property_modal.input_placeholder"
                   />
                 </Grid>

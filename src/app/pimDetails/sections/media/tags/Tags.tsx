@@ -1,17 +1,21 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import { useLocale } from 'hooks';
+import { useLocale, useCustomLabels } from 'hooks';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
-import { UpdateTagInput } from 'api/types';
+import { UpdateTagInput, LabelProperty } from 'api/types';
 import { TileButton } from 'ui/molecules';
 
 import { TagsProps } from './Tags.types';
 
 export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }: TagsProps) => {
   const { formatMessage } = useLocale();
+  const { id: pimId } = useParams<{ id: string }>();
+
+  const customLabels = useCustomLabels(pimId, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
 
   return (
     <Section
@@ -27,7 +31,10 @@ export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }
           <Form<UpdateTagInput>
             title={
               tag.type
-                ? formatMessage({ id: `dictionaries.media.tag.${tag.type}` })
+                ? formatMessage({
+                    id: `dictionaries.media.tag.${tag.type}`,
+                    defaultMessage: customLabels.find(({ value }) => value === tag.type)?.label ?? ' ',
+                  })
                 : formatMessage({ id: 'pim_details.media.tags.default_name' })
             }
             onSave={onSave}

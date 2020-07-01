@@ -32,6 +32,7 @@ export const TextChapters = ({
       {editing =>
         chapters.map(chapter => (
           <Form
+            key={chapter.id}
             title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
             onSave={onSave}
             initialValues={chapter}
