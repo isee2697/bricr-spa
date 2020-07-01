@@ -4,7 +4,7 @@ import { EntityWithFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, UploadImageGroupField, RadioGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { SquareMeterIcon } from 'ui/atoms/icons';
+import { MeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
@@ -31,7 +31,7 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
             />
@@ -41,7 +41,7 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
             />

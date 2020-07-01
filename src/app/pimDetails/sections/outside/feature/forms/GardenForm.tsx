@@ -4,7 +4,7 @@ import { EntityWithFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, RadioGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { SquareMeterIcon } from 'ui/atoms/icons';
+import { SquareMeterIcon, MeterIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
@@ -102,7 +102,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
             />
@@ -112,7 +112,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
             />
