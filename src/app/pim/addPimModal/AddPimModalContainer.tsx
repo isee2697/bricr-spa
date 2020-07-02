@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 
 import {
   useCreatePimMutation,
-  CountPimsByParamsDocument,
-  CountPimsByParamsQuery,
-  CountPimsByParamsQueryVariables,
   RealEstateType,
   DevelopmentType,
   PimStatus,
+  PimWithSameAddressQueryVariables,
+  PimWithSameAddressQuery,
+  PimWithSameAddressDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -26,22 +26,30 @@ export const AddPimModalContainer = () => {
   const handleSubmit: AddPimSubmit = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data, errors } = await apiClient.query<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>({
-          query: CountPimsByParamsDocument,
+        const { data: pimWithSameAddress, errors } = await apiClient.query<
+          PimWithSameAddressQuery,
+          PimWithSameAddressQueryVariables
+        >({
+          query: PimWithSameAddressDocument,
+          fetchPolicy: 'network-only',
           variables: {
-            filters: body,
+            input: {
+              street: body.street,
+              houseNumber: body.houseNumber,
+              postalCode: body.postalCode,
+              city: body.city,
+            },
           },
-          fetchPolicy: 'no-cache',
         });
 
         if (errors) {
           throw new Error();
         }
 
-        if (data.listPims.metadata?.total) {
+        if (pimWithSameAddress?.getPimsGeneralWithSameAddress.items?.length) {
           return {
             error: 'conflict',
-            conflictsCount: data.listPims.metadata?.total,
+            conflictsCount: pimWithSameAddress?.getPimsGeneralWithSameAddress.metadata?.total,
           };
         }
       }

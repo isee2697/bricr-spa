@@ -35,10 +35,10 @@ context('Add Pim', () => {
       .last()
       .click();
     cy.findByText('Next').click();
-    cy.findByLabelText('Street address').type('Trufmarkt');
-    cy.findByLabelText('City').type('Rotterdam');
-    cy.findByLabelText('Number of house').type('15');
-    cy.findByLabelText('Zipcode').type('123');
+    cy.findByLabelText('Street address').type('Isenburgstraat');
+    cy.findByLabelText('City').type('Breda');
+    cy.findByLabelText('Number of house').type('36');
+    cy.findByLabelText('Zipcode').type('4813 NC');
     cy.findAllByRole('button', { name: 'Add property' })
       .last()
       .click();

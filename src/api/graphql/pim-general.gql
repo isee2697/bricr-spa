@@ -157,6 +157,19 @@ type PimWithNewIdentificationNumber {
   newIdentificationNumber: IdentificationNumber!
 }
 
+type GeneralPimSearchResult {
+  metadata: SearchMetadata
+  items: [PimGeneral!]
+}
+
+input PimWithSameAddressInput {
+  pimId: String
+  street: String
+  houseNumber: String
+  postalCode: String
+  city: String
+}
+
 extend type Mutation {
   updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth
   addIdentificationNumber(input: AddIdentificationNumberInput!): PimWithNewIdentificationNumber! @auth
@@ -165,4 +178,5 @@ extend type Mutation {
 
 extend type Query {
   getPimGeneral(id: ID!): PimGeneral! @auth
+  getPimsGeneralWithSameAddress(input: PimWithSameAddressInput!): GeneralPimSearchResult! @auth
 }

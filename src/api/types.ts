@@ -467,6 +467,7 @@ export type Query = {
   getPimSales: PimSales;
   getPimServices: PimServices;
   getPimSpecification: PimSpecification;
+  getPimsGeneralWithSameAddress: GeneralPimSearchResult;
   getPricing: PimPrices;
   getProfile?: Maybe<Profile>;
   getPropertyTypes: Array<Scalars['String']>;
@@ -521,6 +522,10 @@ export type QueryGetPimServicesArgs = {
 
 export type QueryGetPimSpecificationArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetPimsGeneralWithSameAddressArgs = {
+  input: PimWithSameAddressInput;
 };
 
 export type QueryGetPricingArgs = {
@@ -950,6 +955,20 @@ export type PimWithNewIdentificationNumber = {
   __typename?: 'PimWithNewIdentificationNumber';
   pim: Pim;
   newIdentificationNumber: IdentificationNumber;
+};
+
+export type GeneralPimSearchResult = {
+  __typename?: 'GeneralPimSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<PimGeneral>>;
+};
+
+export type PimWithSameAddressInput = {
+  pimId?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  postalCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
 };
 
 export enum SpaceServiceHeating {
@@ -3841,6 +3860,17 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimWithSameAddressQueryVariables = {
+  input: PimWithSameAddressInput;
+};
+
+export type PimWithSameAddressQuery = { __typename?: 'Query' } & {
+  getPimsGeneralWithSameAddress: { __typename?: 'GeneralPimSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'PimGeneral' } & Pick<PimGeneral, 'id'>>>;
+  };
+};
+
 export type PimInsideQueryVariables = {
   id: Scalars['ID'];
 };
@@ -5716,6 +5746,40 @@ export function usePimGeneralLazyQuery(
 export type PimGeneralQueryHookResult = ReturnType<typeof usePimGeneralQuery>;
 export type PimGeneralLazyQueryHookResult = ReturnType<typeof usePimGeneralLazyQuery>;
 export type PimGeneralQueryResult = ApolloReactCommon.QueryResult<PimGeneralQuery, PimGeneralQueryVariables>;
+export const PimWithSameAddressDocument = gql`
+  query PimWithSameAddress($input: PimWithSameAddressInput!) {
+    getPimsGeneralWithSameAddress(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;
+export function usePimWithSameAddressQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(
+    PimWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export function usePimWithSameAddressLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(
+    PimWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export type PimWithSameAddressQueryHookResult = ReturnType<typeof usePimWithSameAddressQuery>;
+export type PimWithSameAddressLazyQueryHookResult = ReturnType<typeof usePimWithSameAddressLazyQuery>;
+export type PimWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
+  PimWithSameAddressQuery,
+  PimWithSameAddressQueryVariables
+>;
 export const PimInsideDocument = gql`
   query PimInside($id: ID!) {
     getPimInside(id: $id) {

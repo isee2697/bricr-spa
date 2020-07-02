@@ -53,3 +53,16 @@ export const PIM_MEDIA = gql`
     }
   }
 `;
+
+export const PIM_GENERAL_WITH_SAME_ADDRESS = gql`
+  query PimWithSameAddress($input: PimWithSameAddressInput!) {
+    getPimsGeneralWithSameAddress(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;

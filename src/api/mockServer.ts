@@ -159,6 +159,26 @@ export const mockServer = () => {
 
             return PIM_GENERAL;
           },
+          getPimsGeneralWithSameAddress() {
+            if (
+              [
+                variables.input.street === PIM_DETAILS.street,
+                variables.input.houseNumber === PIM_DETAILS.houseNumber,
+                variables.input.postalCode === PIM_DETAILS.postalCode,
+                variables.input.city === PIM_DETAILS.city,
+              ].filter(Boolean).length > 2
+            ) {
+              return {
+                metadata: { total: 1 },
+                items: [PIM_DETAILS],
+              };
+            }
+
+            return {
+              metadata: { total: 0 },
+              items: [],
+            };
+          },
           getPimInside() {
             if (variables.id === 'test') {
               throw new Error();
