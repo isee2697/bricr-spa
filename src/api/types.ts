@@ -742,7 +742,7 @@ export type NewCadastreMapInput = {
   fileID: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
 };
 
 export type LeaseInput = {

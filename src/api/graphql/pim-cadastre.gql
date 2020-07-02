@@ -45,7 +45,7 @@ enum CadastreOwnershipType {
 
 enum OwnershipChoiceType {
   MembershipRight,
-  Mandeling,
+  Mandeling
   Understress,
   Leasehold,
   RightToRebuild,
@@ -152,7 +152,7 @@ input NewCadastreMapInput {
   fileID: String!
   name: String
   description: String
-  type: String! @uuidOrEnum(enum: ["CadastreMapType"])
+  type: String @uuidOrEnum(enum: ["CadastreMapType"])
 }
 
 
