@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from 'react';
+import { ReactNode } from 'react';
 import { FieldValidator } from 'final-form';
 import { GridJustification, GridSpacing } from '@material-ui/core';
 import { UseFieldConfig } from 'react-final-form';

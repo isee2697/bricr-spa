@@ -7,7 +7,7 @@ import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_ME
 import { loadSchemas } from './loadSchemas';
 import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
 import { FILE_1 } from './mocks/file';
-import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
+import { PIM_DETAILS_1, PIM_1, PIM_SERVICES, EMPTY_READING } from './mocks/pim';
 import { PIM_GENERAL_1 } from './mocks/pim-general';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
@@ -290,7 +290,7 @@ export const mockServer = () => {
           addMeter() {
             variables.input.id = '13hdul_jrn3' + variables.input.name;
             const data = PIM_SERVICES.meters || [];
-            PIM_SERVICES.meters = [...data, variables.input];
+            PIM_SERVICES.meters = [...data, { ...variables.input, readings: [{ ...EMPTY_READING, id: 'reading_id' }] }];
 
             return PIM_DETAILS;
           },

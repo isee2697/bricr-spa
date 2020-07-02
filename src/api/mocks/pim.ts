@@ -190,3 +190,11 @@ export const PIM_SERVICES: PimServices = {
     },
   ],
 };
+
+export const EMPTY_READING = {
+  dateOfReading: null,
+  description: null,
+  feedInId: null,
+  id: null,
+  value: null,
+};

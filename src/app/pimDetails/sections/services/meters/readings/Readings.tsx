@@ -15,26 +15,23 @@ import { ReadingProps } from './Reading.types';
 export const Readings = ({ readings, editing, linkedPerson, onSave, isMeterAdded }: ReadingProps) => {
   const { formatMessage } = useLocale();
   const { meterType } = useParams<{ meterType: string }>();
-  const [toggled, setToggled] = useState<string | undefined>();
+  const [toggled, setToggled] = useState<string | undefined>(isMeterAdded ? readings[0].id : undefined);
   const classes = useStyles();
   const isElectricity = meterType === 'electric';
 
-  const sorted = readings.slice().sort((a, b) => {
-    return a.id.localeCompare(b.id);
-  });
-
-  useToogleOnNewlyCreated(sorted, setToggled);
+  useToogleOnNewlyCreated(readings, setToggled);
 
   return (
     <>
-      {sorted.map((reading, key) => (
+      {readings.map((reading, key) => (
         <AutosaveForm key={reading.id} initialValues={reading} onSave={onSave} subscription={{}}>
           <FormSubSection
             title={formatMessage({ id: 'pim_details.services.meter.section_subtitle' })}
-            onOptionsClick={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
-            isExpanded={reading.id === toggled || isMeterAdded}
+            onExpand={() => setToggled(v => (v !== reading.id ? reading.id : undefined))}
+            isExpanded={reading.id === toggled}
             counter={key + 1}
             initiallyOpened={false}
+            onOptionsClick={() => {}}
           >
             <Grid container spacing={1}>
               <Grid item xs={isElectricity ? 4 : 6}>
