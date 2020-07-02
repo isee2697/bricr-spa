@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
 import { QueryParamProvider } from 'use-query-params';
+import { ThroughProvider } from 'react-through';
 
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
@@ -20,25 +21,27 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
 
   return (
-    <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
-      <Theme>
-        <AuthContextController>
-          <ApiClientContextController>
-            <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-              <OverlayContextController>
-                <ModalContextController>
-                  <MuiPickersUtilsProvider utils={LuxonUtils}>
-                    <Router>
-                      <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                    </Router>
-                  </MuiPickersUtilsProvider>
-                </ModalContextController>
-              </OverlayContextController>
-            </LocaleContext.Provider>
-          </ApiClientContextController>
-        </AuthContextController>
-      </Theme>
-    </IntlProvider>
+    <ThroughProvider>
+      <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
+        <Theme>
+          <AuthContextController>
+            <ApiClientContextController>
+              <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+                <OverlayContextController>
+                  <ModalContextController>
+                    <MuiPickersUtilsProvider utils={LuxonUtils}>
+                      <Router>
+                        <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                      </Router>
+                    </MuiPickersUtilsProvider>
+                  </ModalContextController>
+                </OverlayContextController>
+              </LocaleContext.Provider>
+            </ApiClientContextController>
+          </AuthContextController>
+        </Theme>
+      </IntlProvider>
+    </ThroughProvider>
   );
 };
 

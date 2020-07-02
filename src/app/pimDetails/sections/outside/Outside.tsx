@@ -10,6 +10,7 @@ import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { usePimOutsideQuery, OutsideFeature } from 'api/types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
@@ -35,6 +36,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
   return (
     <>
+      <NavBreadcrumb to="/outside" title={formatMessage({ id: 'pim_details.outside.title' })} isPimDetailsPage />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}

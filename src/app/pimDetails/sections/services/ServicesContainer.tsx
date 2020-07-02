@@ -17,6 +17,7 @@ import {
 } from 'api/types';
 import { dateToYear } from 'form/fields';
 import { ServiceForm } from 'app/pimDetails/sections/services/Services.types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { MetersContainer } from './meters/MetersContainer';
 import { Services } from './Services';
@@ -103,6 +104,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
 
   return (
     <>
+      <NavBreadcrumb to="/services" title={formatMessage({ id: 'pim_details.services.title' })} isPimDetailsPage />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}

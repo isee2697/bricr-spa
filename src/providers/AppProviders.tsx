@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
 import { QueryParamProvider } from 'use-query-params';
+import { ThroughProvider } from 'react-through';
 
 import { Theme } from 'theme/Theme';
 import { ErrorBoundary } from 'app/errorBoundary/ErrorBoundary';
@@ -16,25 +17,27 @@ import { ModalContextController } from 'context/modal/modalContextController/Mod
 import { AppProvidersProps } from './AppProviders.types';
 
 export const AppProviders = ({ children }: AppProvidersProps) => (
-  <Theme>
-    <LocaleContextController>
-      <MuiPickersUtilsProvider utils={LuxonUtils}>
-        <ErrorBoundary>
-          <AuthContextController>
-            <ApiClientContextController>
-              <UserController>
-                <OverlayContextController>
-                  <ModalContextController>
-                    <Router>
-                      <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                    </Router>
-                  </ModalContextController>
-                </OverlayContextController>
-              </UserController>
-            </ApiClientContextController>
-          </AuthContextController>
-        </ErrorBoundary>
-      </MuiPickersUtilsProvider>
-    </LocaleContextController>
-  </Theme>
+  <ThroughProvider>
+    <Theme>
+      <LocaleContextController>
+        <MuiPickersUtilsProvider utils={LuxonUtils}>
+          <ErrorBoundary>
+            <AuthContextController>
+              <ApiClientContextController>
+                <UserController>
+                  <OverlayContextController>
+                    <ModalContextController>
+                      <Router>
+                        <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                      </Router>
+                    </ModalContextController>
+                  </OverlayContextController>
+                </UserController>
+              </ApiClientContextController>
+            </AuthContextController>
+          </ErrorBoundary>
+        </MuiPickersUtilsProvider>
+      </LocaleContextController>
+    </Theme>
+  </ThroughProvider>
 );

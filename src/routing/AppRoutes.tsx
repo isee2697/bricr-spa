@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 import { Dashboard } from 'app/dashboard/Dashboard';
 import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
@@ -10,11 +11,13 @@ import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordCont
 import { PimContainer } from 'app/pim/PimContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
 import { useScrollToTop } from 'hooks';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
 
 export const AppRoutes = () => {
+  const { formatMessage } = useIntl();
   useScrollToTop();
 
   return (
@@ -34,17 +37,20 @@ export const AppRoutes = () => {
 
       <Route path="/">
         {() => (
-          <DashboardTemplate>
-            <Switch>
-              <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
-              <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
-              <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
-              <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
-              <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
-              <Route path={AppRoute.logout} component={LogoutContainer} />
-              <Redirect to={AppRoute.home} />
-            </Switch>
-          </DashboardTemplate>
+          <>
+            <NavBreadcrumb title={formatMessage({ id: 'header.links.home' })} to={'/'} />
+            <DashboardTemplate>
+              <Switch>
+                <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
+                <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
+                <Route path={AppRoute.logout} component={LogoutContainer} />
+                <Redirect to={AppRoute.home} />
+              </Switch>
+            </DashboardTemplate>
+          </>
         )}
       </Route>
     </Switch>

@@ -14,4 +14,5 @@ export type PageProps = {
   updatedBy?: Profile | null;
   withoutHeader?: boolean;
   afterTitle?: ReactNode;
+  hideBreadcrumb?: boolean;
 };

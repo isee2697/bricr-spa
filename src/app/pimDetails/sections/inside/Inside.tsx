@@ -13,6 +13,7 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Floor as FloorTypes, usePimInsideQuery, FloorType } from 'api/types';
 import { FloorContainer } from 'app/pimDetails/sections/inside/floor/FloorContainer';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { InsideGeneralContainer } from './general/InsideGeneralContainer';
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
@@ -51,6 +52,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
 
   return (
     <>
+      <NavBreadcrumb to="/inside" title={formatMessage({ id: 'pim_details.inside.title' })} isPimDetailsPage />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}

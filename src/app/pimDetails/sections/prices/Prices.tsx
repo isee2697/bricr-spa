@@ -5,12 +5,17 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { PricesGeneralContainer } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneralContainer';
 import { PricesProps } from 'app/pimDetails/sections/prices/Prices.types';
 import { InvestmentsContainer } from 'app/pimDetails/sections/prices/investments/InvestmentsContainer';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { useLocale } from 'hooks';
 
 import { CostsContainer } from './costs/CostsContainer';
 
 export const Prices = ({ pricing, ...props }: PricesProps) => {
+  const { formatMessage } = useLocale();
+
   return (
     <>
+      <NavBreadcrumb to="/prices" title={formatMessage({ id: 'pim_details.prices.title' })} isPimDetailsPage />
       <Switch>
         <Route
           default

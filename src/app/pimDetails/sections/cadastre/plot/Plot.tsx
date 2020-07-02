@@ -9,6 +9,7 @@ import { useLocale } from 'hooks';
 import { HelpIcon, UnseeIcon, SeeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { CadastreOwnershipType } from 'api/types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
@@ -27,6 +28,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
       updatedBy={cadastre?.lastEditedBy}
       dateUpdated={cadastre?.dateUpdated}
     >
+      <NavBreadcrumb title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })} />
       <Grid item xs={12}>
         <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
           {editing => (

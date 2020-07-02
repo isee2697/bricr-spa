@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import { ServicesMetersProps } from '../Services.types';
 import { Box } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
+import { Page } from 'ui/templates';
 
 import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
@@ -28,9 +29,8 @@ export const Meters = ({
   };
 
   return (
-    <Grid xs={12} item>
-      <Typography variant="h1">{title}</Typography>
-      <Box mb={4} className={classes.meter}>
+    <Page title={title}>
+      <Grid xs={12} item>
         {meters.map((meter, index) => (
           <div key={meter.id} className={classes.spacing}>
             <FormSection
@@ -73,7 +73,7 @@ export const Meters = ({
             </FormSection>
           </div>
         ))}
-      </Box>
-    </Grid>
+      </Grid>
+    </Page>
   );
 };

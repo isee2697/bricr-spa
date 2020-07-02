@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  meter: {
-    '& .MuiCollapse-container': {
-      paddingBottom: 0,
-    },
-  },
   spacing: {
     padding: theme.spacing(1, 0, 1, 0),
   },
