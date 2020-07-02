@@ -17,7 +17,7 @@ export const IdentificationNumberFormContainer = ({ items }: IdentificationNumbe
   const [updateIdentificationNumber] = useUpdateIdentificationNumberMutation();
 
   const handleAdd = async () => {
-    await addIdentificationNumber({
+    return addIdentificationNumber({
       variables: {
         input: {
           pimId: id,

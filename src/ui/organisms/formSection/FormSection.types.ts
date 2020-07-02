@@ -22,4 +22,5 @@ export type FormSectionProps = {
 
 export type FormSectionRef = {
   handleSetEdit: (value: boolean) => void;
+  handleSetExpanded: (value: boolean) => void;
 };

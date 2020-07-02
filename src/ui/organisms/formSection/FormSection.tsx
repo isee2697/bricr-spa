@@ -41,6 +41,9 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       handleSetEdit: (value: boolean) => {
         handleSetEdit(value);
       },
+      handleSetExpanded: (value: boolean) => {
+        setExpanded(value);
+      },
     }));
 
     return (
