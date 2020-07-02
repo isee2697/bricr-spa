@@ -41,7 +41,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
     <Modal
       fullWidth
       isOpened={isOpened}
-      onClose={onClose}
+      onClose={() => onClose()}
       title={formatMessage({ id: `pim_details.specification.inspection.${type.toLowerCase()}_modal_title` })}
       className={classes.modal}
     >
@@ -65,7 +65,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
               </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <CancelButton variant="outlined" size="large" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={() => onClose()}>
                 {formatMessage({ id: 'common.cancel' })}
               </CancelButton>
               <SubmitButton

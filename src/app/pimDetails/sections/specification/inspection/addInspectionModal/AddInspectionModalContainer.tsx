@@ -40,7 +40,7 @@ export const AddInspectionModalContainer = ({
         throw new Error();
       }
 
-      onClose();
+      onClose(result.addInspection.inspection.id);
 
       return undefined;
     } catch (e) {
