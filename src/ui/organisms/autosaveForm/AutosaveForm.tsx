@@ -17,7 +17,7 @@ const sanitize = (obj: object) => {
   );
 };
 
-export const AutosaveForm = ({ onSave, timeout = 2500, children, initialValues, ...props }: AutosaveProps) => {
+export const AutosaveForm = ({ onSave, timeout = 1000, children, initialValues, ...props }: AutosaveProps) => {
   const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
   const previousValues = useRef<KeyValuesObject<string | number> | null>(null);
   const { formatMessage } = useLocale();

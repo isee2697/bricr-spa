@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 
-import { Chip, Grid, Typography } from 'ui/atoms';
+import { Chip, Grid, Typography, IconButton, Box } from 'ui/atoms';
 import { EditIcon, SaleIcon } from 'ui/atoms/icons';
 import { useGetPrivateFile, useLocale } from 'hooks';
 import { EntityWithFiles } from 'api/types';
@@ -9,49 +9,51 @@ import { EntityWithFiles } from 'api/types';
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({ picture, editing, checkbox, onSelect, customLabel, isSelected }: PictureItemProps) => {
+export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
   const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
   const classes = useStyles({ src: data?.signedUrl });
 
-  const handleOnClick = () => {
+  const handleEdit = () => {
     if (editing) {
-      onSelect();
+      onEdit();
     }
   };
 
   return (
-    <Grid
-      container
-      spacing={0}
-      className={classNames(classes.container, editing && classes.active, isSelected && classes.selected)}
-      data-testid="picture-item"
-      onClick={handleOnClick}
-    >
-      <Grid xs={3} item>
+    <Grid container spacing={0} className={classNames(classes.container, isSelected && classes.selected)}>
+      <Grid item xs={3}>
         <div className={classes.image}> {checkbox} </div>
       </Grid>
-      <Grid xs={9} item>
-        <div className={classes.content}>
+      <Grid item xs={8}>
+        <Box className={classes.content}>
           <Typography className={classNames(classes.title, !editing && classes.disabledText)} variant="h5">
             {picture.name ?? picture.file?.fileName}
-            <EditIcon />
           </Typography>
           <Typography variant="h5" className={classNames(classes.disabledText)}>
-            {picture.description}
+            {picture.description ?? formatMessage({ id: 'pim_details.media.pictures.description_placeholder' })}
           </Typography>
           {picture.type && (
             <Chip
+              className={classes.chip}
               label={
                 customLabel ? customLabel.label : formatMessage({ id: `dictionaries.media.picture.${picture.type}` })
               }
               variant="outlined"
               icon={customLabel && customLabel.icon ? (customLabel.icon as ReactElement) : <SaleIcon />}
               color="primary"
-              className={classes.chip}
             />
           )}
-        </div>
+        </Box>
+      </Grid>
+      <Grid item xs={1}>
+        {editing && (
+          <Box display="flex" justifyContent="flex-end" padding={0.5}>
+            <IconButton onClick={handleEdit} data-testid="edit-picture-button">
+              <EditIcon />
+            </IconButton>
+          </Box>
+        )}
       </Grid>
     </Grid>
   );

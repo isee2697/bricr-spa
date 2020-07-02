@@ -7,7 +7,7 @@ export type PictureItemProps = {
   picture: Picture;
   editing: boolean;
   checkbox: ReactNode;
-  onSelect: () => void;
+  onEdit: () => void;
   isSelected: boolean;
   customLabel?: RadioDataType;
 };

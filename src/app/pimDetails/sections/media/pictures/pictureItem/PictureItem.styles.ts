@@ -4,7 +4,9 @@ export const useStyles = makeStyles(theme => ({
   container: {
     border: `1px solid ${theme.palette.gray.main}`,
     borderRadius: theme.spacing(1),
-    marginBottom: theme.spacing(2),
+    '&:not(:last-child)': {
+      marginBottom: theme.spacing(2),
+    },
   },
   image: {
     backgroundImage: ({ src }: { src?: string }) => `url(${src})`,
@@ -23,6 +25,8 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     display: 'flex',
     alignItems: 'center',
+    color: theme.palette.black.main,
+    marginBottom: theme.spacing(1),
   },
   content: {
     padding: theme.spacing(2.5, 2, 2, 2),
@@ -30,11 +34,11 @@ export const useStyles = makeStyles(theme => ({
   disabledText: {
     color: theme.palette.gray.main,
   },
-  active: {
-    cursor: 'pointer',
-  },
   chip: {
+    height: 'auto',
     marginTop: theme.spacing(1),
+    padding: theme.spacing(0, 0.5, 0, 0),
+    fontSize: theme.typography.h6.fontSize,
   },
   selected: {
     backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',

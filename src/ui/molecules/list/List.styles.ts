@@ -17,6 +17,7 @@ export const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     display: 'inline-block',
     marginRight: theme.spacing(4),
+    userSelect: 'none',
   },
   sorting: {
     backgroundColor: theme.palette.gray.light,
@@ -47,5 +48,8 @@ export const useStyles = makeStyles(theme => ({
     '& div:first-of-type': {
       flexGrow: 1,
     },
+  },
+  disabled: {
+    cursor: 'default',
   },
 }));

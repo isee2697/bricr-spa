@@ -64,9 +64,11 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
                   title={
                     <>
                       {checkbox}
-                      <Typography variant="h3">
-                        {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
-                      </Typography>
+                      <Box display="flex" alignItems="center">
+                        <Typography variant="h3">
+                          {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
+                        </Typography>
+                      </Box>
                     </>
                   }
                   cadastreMap={cadastre}
@@ -82,6 +84,7 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
             loadingItem={<PropertyItemPlaceholder />}
             emptyTitle={formatMessage({ id: 'pim_details.cadastre.map.empty_title' })}
             emptyDescription={formatMessage({ id: 'pim_details.cadastre.map.empty_subtitle' })}
+            disabled={!isEditMode}
           />
         )}
       </FormSection>

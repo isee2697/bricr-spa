@@ -49,7 +49,7 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
                 picture={item}
                 editing={editing}
                 checkbox={checkbox}
-                onSelect={() => setPicture(item)}
+                onEdit={() => setPicture(item)}
                 customLabel={customLabels.find(label => label.value === item.type)}
                 isSelected={isSelected}
               />
@@ -64,6 +64,7 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
               checkedIcon: <CheckMarkIcon color="primary" />,
             }}
             className={classes.list}
+            disabled={!editing}
           />
         )}
       </Section>

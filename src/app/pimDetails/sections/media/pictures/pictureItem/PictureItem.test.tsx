@@ -24,7 +24,7 @@ const picture = {
 describe('PictureItem', () => {
   test('renders all elements', () => {
     const { getByText } = render(
-      <PictureItem checkbox={<></>} picture={picture} onSelect={() => {}} editing={false} />,
+      <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />,
     );
 
     const title = getByText('Some Picture Name');
@@ -33,26 +33,26 @@ describe('PictureItem', () => {
     expect(title).toBeInTheDocument();
     expect(description).toBeInTheDocument();
   });
-  test('call on Select if editing', () => {
-    const onSelect = jest.fn();
+
+  test('call on onEdit if editing', () => {
+    const onEdit = jest.fn();
     const { getByTestId } = render(
-      <PictureItem checkbox={<></>} picture={picture} onSelect={onSelect} editing={true} />,
+      <PictureItem checkbox={<></>} picture={picture} onEdit={onEdit} editing={true} isSelected={false} />,
     );
 
-    const container = getByTestId('picture-item');
-    fireEvent.click(container);
+    const editButton = getByTestId('edit-picture-button');
+    fireEvent.click(editButton);
 
-    expect(onSelect).toBeCalled();
+    expect(onEdit).toBeCalled();
   });
-  test('does not call on Select if not editing', () => {
-    const onSelect = jest.fn();
-    const { getByTestId } = render(
-      <PictureItem checkbox={<></>} picture={picture} onSelect={onSelect} editing={false} />,
+
+  test('does not have edit button if not editing', () => {
+    const { queryByTestId } = render(
+      <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />,
     );
 
-    const container = getByTestId('picture-item');
-    fireEvent.click(container);
+    const editButton = queryByTestId('edit-picture-button');
 
-    expect(onSelect).not.toBeCalled();
+    expect(editButton).toBeFalsy();
   });
 });

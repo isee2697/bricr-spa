@@ -24,6 +24,7 @@ export type ListProps<T> = {
   emptyDescription?: string;
   className?: string;
   checkboxProps?: CheckboxProps;
+  disabled?: boolean;
 };
 
 export type ListHeaderProps = {
@@ -33,6 +34,7 @@ export type ListHeaderProps = {
     indeterminate: boolean;
     checked: boolean;
   };
+  disabled?: boolean;
   onCheckAll: () => void;
   onBulk: () => void;
   onSort: (key: string) => void;
