@@ -27,7 +27,7 @@ export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }
       onAdd={onAdd}
     >
       {editing =>
-        tags.map(tag => (
+        tags.map((tag, index) => (
           <Form<UpdateTagInput>
             title={
               tag.type
@@ -41,6 +41,7 @@ export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }
             initialValues={tag}
             key={tag.id}
             isInitiallyOpened={tag.id === newTagId}
+            counter={index + 1}
           >
             <SingleChoose
               disabled={!editing}

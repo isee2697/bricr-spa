@@ -18,7 +18,14 @@ export const SingleChoose = ({ titleId, disabled, options, xs = 2, actionElement
         subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
       />
       <Box paddingTop={2} mb={2}>
-        <RadioGroupField disabled={disabled} xs={xs} name="type" options={options} actionElement={actionElement} />
+        <RadioGroupField
+          disabled={disabled}
+          xs={xs}
+          lg={2}
+          name="type"
+          options={options}
+          actionElement={actionElement}
+        />
       </Box>
     </Grid>
   );
