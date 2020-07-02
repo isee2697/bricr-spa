@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.REACT_APP_SENTRY_DSN) {
-  Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
+  Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN, environment: process.env.REACT_APP_SENTRY_ENV });
 }
 
 const app = (
