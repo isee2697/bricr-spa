@@ -69,10 +69,6 @@ export const iconPickerIcons: IconPickerIcon[] = [
     name: 'tasks',
   },
   {
-    icon: <FolderIcon color="inherit" />,
-    name: 'folder',
-  },
-  {
     icon: <FilterIcon color="inherit" />,
     name: 'filter',
   },
