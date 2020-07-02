@@ -44,7 +44,12 @@ export const GeneralInformation = () => {
             </Box>
           </Box>
 
-          <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+          <Box mb={2.25}>
+            <FormSubSectionHeader
+              title={formatMessage({ id: 'common.pictures' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
+            />
+          </Box>
           <UploadImageGroupField
             entity={EntityWithFiles.OutsideGeneral}
             entityID={pimId}

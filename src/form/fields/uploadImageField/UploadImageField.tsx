@@ -167,7 +167,7 @@ export const UploadImageField = ({
           )}
           {!loading && !hasError && !input.value && (
             <Grid container className={classNames(classes.empty, { enabled: !disabled })}>
-              <AddIcon />
+              <AddIcon viewBox="5 5 14 14" />
             </Grid>
           )}
         </Grid>

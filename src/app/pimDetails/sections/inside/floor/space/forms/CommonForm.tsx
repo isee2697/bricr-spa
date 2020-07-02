@@ -118,7 +118,14 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+        <FormSubSectionHeader
+          noBorder
+          title={formatMessage({ id: 'pim_details.inside.pictures' })}
+          subtitle={formatMessage(
+            { id: 'pim_details.inside.pictures_subtitle' },
+            { strong: msg => <strong>{msg}</strong> },
+          )}
+        />
         <UploadImageGroupField
           entity={EntityWithFiles.Space}
           entityID={id}

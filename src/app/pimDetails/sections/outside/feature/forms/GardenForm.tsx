@@ -130,7 +130,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
         </Grid>
       </Box>
 
-      <Box mb={3}>
+      <Box mb={2.25}>
         <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}

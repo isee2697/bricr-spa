@@ -12,7 +12,7 @@ export const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
     borderRadius: theme.spacing(),
     height: theme.spacing(10),
-    width: theme.spacing(17.5),
+    width: theme.spacing(13),
     '& .MuiGrid-container': {
       height: '100%',
       padding: theme.spacing(),
