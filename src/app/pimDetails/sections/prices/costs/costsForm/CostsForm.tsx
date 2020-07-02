@@ -26,7 +26,7 @@ export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormP
   }));
 
   const getTitle = () => {
-    const title = cost.type;
+    const title = formatMessage({ id: `dictionaries.prices.cost_type.${cost.type}` });
 
     if (cost.name) {
       return `${title} (${cost.name})`;

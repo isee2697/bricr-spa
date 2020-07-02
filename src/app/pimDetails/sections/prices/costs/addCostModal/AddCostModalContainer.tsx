@@ -8,52 +8,52 @@ import { AddCostModal } from './AddCostModal';
 
 const options = [
   {
-    label: 'dictionaries.prices.cost_type.service',
+    label: 'dictionaries.prices.cost_type.Service',
     value: CostType.Service,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.heating',
+    label: 'dictionaries.prices.cost_type.Heating',
     value: CostType.Heating,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.electricity',
+    label: 'dictionaries.prices.cost_type.Electricity',
     value: CostType.Electricity,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.water',
+    label: 'dictionaries.prices.cost_type.Water',
     value: CostType.Water,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.sewage',
+    label: 'dictionaries.prices.cost_type.Sewage',
     value: CostType.Sewage,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.water_board',
+    label: 'dictionaries.prices.cost_type.WaterBoard',
     value: CostType.WaterBoard,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.land_consolidation_interest',
+    label: 'dictionaries.prices.cost_type.LandConsolidationInterest',
     value: CostType.LandConsolidationInterest,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.homeowner_association',
+    label: 'dictionaries.prices.cost_type.HomeownerAssociation',
     value: CostType.HomeownerAssociation,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.ozb_user_part',
+    label: 'dictionaries.prices.cost_type.OzbUserPart',
     value: CostType.OzbUserPart,
     icon: <SquareIcon />,
   },
   {
-    label: 'dictionaries.prices.cost_type.ozb_business_part',
+    label: 'dictionaries.prices.cost_type.OzbBusinessPart',
     value: CostType.OzbBusinessPart,
     icon: <SquareIcon />,
   },
