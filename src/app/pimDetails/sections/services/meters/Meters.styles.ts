@@ -14,4 +14,9 @@ export const useStyles = makeStyles(theme => ({
   activeLabel: {
     color: theme.palette.black.main,
   },
+  formContainer: {
+    '&:not(:last-child)': {
+      marginBottom: theme.spacing(4),
+    },
+  },
 }));
