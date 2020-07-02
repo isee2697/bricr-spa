@@ -38,10 +38,10 @@ export const AddPlotModalContainer = ({ isModalOpened, onModalClose }: AddPlotMo
         ],
       });
 
-      if (addCadastreResponse && addCadastreResponse.addCadastre && addCadastreResponse.addCadastre.cadastre) {
+      if (addCadastreResponse?.addCadastre?.cadastre) {
         const cadastre = addCadastreResponse.addCadastre.cadastre.filter(c => c.type === CadastreType.Plot);
         const id = cadastre[cadastre.length - 1].id;
-        push(AppRoute.pimDetails.replace(':id', pimId) + '/cadastre/' + id);
+        push(AppRoute.pimDetails.replace(':id', pimId) + '/cadastre/' + id, { newPlotAdded: true });
 
         return undefined;
       }

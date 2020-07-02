@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Field } from 'react-final-form';
 
 import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid } from 'ui/atoms';
@@ -16,9 +17,11 @@ import { useStyles } from './Plot.styles';
 import { PlotProps } from './Plot.types';
 
 export const Plot = ({ index, cadastre }: PlotProps) => {
-  const [isToggled, setToggled] = useState(false);
+  const { state } = useLocation<{ newPlotAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
+
+  const [isToggled, setToggled] = useState(false);
 
   return (
     <Page
@@ -30,7 +33,10 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
     >
       <NavBreadcrumb title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })} />
       <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
+        <FormSection
+          title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}
+          isInitEditing={!!state?.newPlotAdded}
+        >
           {editing => (
             <Grid container spacing={4}>
               <Grid item xs={12}>
