@@ -10,6 +10,7 @@ import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
 import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../../dictionaries';
 import { typeToLabelProperty } from '../Inspection.helpers';
+import { requireValidator } from 'form/validators';
 
 import { AddInspectionModalProps } from './AddInspectionModal.types';
 import { useStyles } from './AddInspectionModal.styles';
@@ -61,6 +62,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
                   name="inspection"
                   options={[...getInspectionType(type), ...customLabels]}
                   actionElement={<TileButton onClick={addCustomType} isDisabled={false} />}
+                  validate={[requireValidator]}
                 />
               </Box>
             </DialogContent>
