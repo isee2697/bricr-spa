@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import { CadastreMap } from 'api/types';
+import { CadastreMap, File } from 'api/types';
 
-export type CadastreMapProps = {
+type CadastreMapCommonProps = {
   title: ReactNode;
   cadastreMap: CadastreMap;
   isEditMode: boolean;
@@ -11,6 +11,10 @@ export type CadastreMapProps = {
   onAddCustomType: VoidFunction;
 };
 
-export type CadastreMapContainerProps = CadastreMapProps & {
+export type CadastreMapContainerProps = CadastreMapCommonProps & {
   cadastreId: string;
+};
+
+export type CadastreMapProps = CadastreMapCommonProps & {
+  mapFile: File | undefined;
 };

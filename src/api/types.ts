@@ -3795,7 +3795,7 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
                   { __typename?: 'CadastreMap' } & Pick<
                     CadastreMap,
                     'id' | 'mapName' | 'name' | 'description' | 'type'
-                  > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id'>> }
+                  > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id' | 'fileName'>> }
                 >
               >;
               plot?: Maybe<
@@ -5664,6 +5664,7 @@ export const PimCadastreDocument = gql`
           file {
             key
             id
+            fileName
           }
           description
           type

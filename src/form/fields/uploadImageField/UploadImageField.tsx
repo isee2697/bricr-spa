@@ -134,6 +134,7 @@ export const UploadImageField = ({
             },
             endAdornment: <UploadIcon />,
           }}
+          disabled={disabled}
         />
       );
     }
