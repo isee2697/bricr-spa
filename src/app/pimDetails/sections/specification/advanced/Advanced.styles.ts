@@ -17,7 +17,7 @@ export const useStyles = makeStyles(({ spacing }) => ({
   },
   tileButton: {
     width: spacing(8),
-    height: spacing(8),
+    minHeight: spacing(8),
     cursor: 'pointer',
   },
   preventClick: {
