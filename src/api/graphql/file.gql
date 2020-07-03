@@ -14,6 +14,15 @@ enum EntityWithFiles {
   MediaPicture,
 }
 
+enum EntityWithMultipleFiles {
+  Pim,
+  Space,
+  OutsideFeature,
+  OutsideGeneral,
+  OutsidePropertyRelated,
+  RoofInformation,
+}
+
 input CreateFileInput {
   fileName: String!
   fileType: String!
@@ -64,8 +73,15 @@ input GetPrivateFileInput {
   entity: EntityWithFiles
 }
 
+input RemoveFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithMultipleFiles!
+  entityID: ID!
+}
+
 extend type Mutation {
   addFiles(input: AddFilesInput!): [File!]! @auth
+  removeFiles(input: RemoveFilesInput!): [File]! @auth
   initSendFile(input: InitSendFileInput!): File!
   uploadFile(input: UploadFileInput!, pathBuilder: PathBuilder): UploadFileResponse
 }

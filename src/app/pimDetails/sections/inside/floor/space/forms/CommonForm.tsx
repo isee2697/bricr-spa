@@ -6,7 +6,7 @@ import { GenericField, RadioGroupField, CheckboxGroupField, UploadImageGroupFiel
 import { useLocale } from 'hooks';
 import { SpaceFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { SquareMeterIcon, CubicMeterIcon, MeterIcon } from 'ui/atoms/icons';
 
 export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { id: string }) => {
@@ -132,6 +132,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
           max={3}
           disabled={!isEditMode}
           name={`${fieldPrefix}.images`}
+          removeEntity={EntityWithMultipleFiles.Space}
         />
       </Grid>
     </>

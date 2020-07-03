@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, CheckboxField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
@@ -174,6 +174,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
         entityID={id}
         name="configuration.images"
         disabled={!inEditMode}
+        removeEntity={EntityWithMultipleFiles.OutsideFeature}
       />
     </>
   );

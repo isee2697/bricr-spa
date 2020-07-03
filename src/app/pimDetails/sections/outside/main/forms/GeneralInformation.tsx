@@ -7,7 +7,7 @@ import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 export const GeneralInformation = () => {
   const { formatMessage } = useLocale();
@@ -56,6 +56,7 @@ export const GeneralInformation = () => {
             max={300}
             disabled={!isEditMode}
             name="houseOutside.generalInformation.images"
+            removeEntity={EntityWithMultipleFiles.OutsideGeneral}
           />
         </>
       )}

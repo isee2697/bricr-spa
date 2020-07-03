@@ -25,3 +25,11 @@ export const ADD_FILES = gql`
     }
   }
 `;
+
+export const REMOVE_FILES = gql`
+  mutation RemoveFiles($input: RemoveFilesInput!) {
+    removeFiles(input: $input) {
+      id
+    }
+  }
+`;

@@ -7,7 +7,7 @@ import { FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 export const RoofInformation = () => {
   const { formatMessage } = useLocale();
@@ -149,6 +149,7 @@ export const RoofInformation = () => {
             max={300}
             disabled={!isEditMode}
             name="houseOutside.roofInformation.images"
+            removeEntity={EntityWithMultipleFiles.RoofInformation}
           />
         </>
       )}

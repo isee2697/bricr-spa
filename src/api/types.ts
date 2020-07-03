@@ -79,6 +79,7 @@ export type Mutation = {
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   login?: Maybe<LoginResponse>;
+  removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
@@ -209,6 +210,10 @@ export type MutationInitSendFileArgs = {
 
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
+};
+
+export type MutationRemoveFilesArgs = {
+  input: RemoveFilesInput;
 };
 
 export type MutationRemoveInspectionArgs = {
@@ -365,6 +370,15 @@ export enum EntityWithFiles {
   MediaPicture = 'MediaPicture',
 }
 
+export enum EntityWithMultipleFiles {
+  Pim = 'Pim',
+  Space = 'Space',
+  OutsideFeature = 'OutsideFeature',
+  OutsideGeneral = 'OutsideGeneral',
+  OutsidePropertyRelated = 'OutsidePropertyRelated',
+  RoofInformation = 'RoofInformation',
+}
+
 export type CreateFileInput = {
   fileName: Scalars['String'];
   fileType: Scalars['String'];
@@ -411,6 +425,12 @@ export type GetPrivateFileInput = {
   key: Scalars['ID'];
   entityID?: Maybe<Scalars['String']>;
   entity?: Maybe<EntityWithFiles>;
+};
+
+export type RemoveFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithMultipleFiles;
+  entityID: Scalars['ID'];
 };
 
 export enum LabelProperty {
@@ -3316,6 +3336,14 @@ export type AddFilesMutation = { __typename?: 'Mutation' } & {
   addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
 };
 
+export type RemoveFilesMutationVariables = {
+  input: RemoveFilesInput;
+};
+
+export type RemoveFilesMutation = { __typename?: 'Mutation' } & {
+  removeFiles: Array<Maybe<{ __typename?: 'File' } & Pick<File, 'id'>>>;
+};
+
 export type AddLabelMutationVariables = {
   input: LabelInput;
 };
@@ -4546,6 +4574,27 @@ export type AddFilesMutationResult = ApolloReactCommon.MutationResult<AddFilesMu
 export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddFilesMutation,
   AddFilesMutationVariables
+>;
+export const RemoveFilesDocument = gql`
+  mutation RemoveFiles($input: RemoveFilesInput!) {
+    removeFiles(input: $input) {
+      id
+    }
+  }
+`;
+export function useRemoveFilesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFilesMutation, RemoveFilesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveFilesMutation, RemoveFilesMutationVariables>(
+    RemoveFilesDocument,
+    baseOptions,
+  );
+}
+export type RemoveFilesMutationHookResult = ReturnType<typeof useRemoveFilesMutation>;
+export type RemoveFilesMutationResult = ApolloReactCommon.MutationResult<RemoveFilesMutation>;
+export type RemoveFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveFilesMutation,
+  RemoveFilesMutationVariables
 >;
 export const AddLabelDocument = gql`
   mutation AddLabel($input: LabelInput!) {
