@@ -40,7 +40,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: Cadas
         isSidebarVisible={isSidebarVisible}
         onOpenSidebar={onOpenSidebar}
         action={
-          <Box display="flex">
+          <Box display="flex" flexShrink={0}>
             <Button className={classes.addPlot} color="primary" variant="outlined" onClick={() => {}} size="small">
               {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre' })}
             </Button>

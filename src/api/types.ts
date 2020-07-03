@@ -55,7 +55,7 @@ export type ResetPasswordResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
-  addCadastre?: Maybe<Pim>;
+  addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
   addFiles: Array<File>;
@@ -794,6 +794,12 @@ export type PimCadastre = {
   __typename?: 'PimCadastre';
   id: Scalars['ID'];
   cadastre?: Maybe<Array<Cadastre>>;
+};
+
+export type PimWithNewCadastre = {
+  __typename?: 'PimWithNewCadastre';
+  pim?: Maybe<Pim>;
+  cadastre?: Maybe<Cadastre>;
 };
 
 export type CadastreMapInput = {
@@ -3358,9 +3364,10 @@ export type AddCadastreMutationVariables = {
 
 export type AddCadastreMutation = { __typename?: 'Mutation' } & {
   addCadastre?: Maybe<
-    { __typename?: 'Pim' } & Pick<Pim, 'id'> & {
-        cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
-      }
+    { __typename?: 'PimWithNewCadastre' } & {
+      pim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+      cadastre?: Maybe<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>;
+    }
   >;
 };
 
@@ -4620,7 +4627,9 @@ export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
     addCadastre(input: $input) {
-      id
+      pim {
+        id
+      }
       cadastre {
         id
         type

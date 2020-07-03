@@ -204,7 +204,10 @@ export const mockServer = () => {
               PIM_CADASTRE.cadastre = [CADASTRE_3];
             }
 
-            return PIM_CADASTRE;
+            return {
+              pim: { id: PIM_CADASTRE.id },
+              cadastre: CADASTRE_3,
+            };
           },
           updateCadastre() {
             PIM_CADASTRE.cadastre?.map(c => (c.id === variables.input.id ? variables.input : c));

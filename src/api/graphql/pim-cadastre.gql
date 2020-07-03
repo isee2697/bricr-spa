@@ -180,6 +180,11 @@ type PimCadastre {
   cadastre: [Cadastre!]
 }
 
+type PimWithNewCadastre {
+  pim: Pim
+  cadastre: Cadastre
+}
+
 input CadastreMapInput {
   mapName: String
   description: String
@@ -201,7 +206,7 @@ extend type Query {
 
 extend type Mutation {
   addCadastreMaps(input: AddCadastreMapsInput!): Pim @auth
-  addCadastre(input: AddCadastreInput!): Pim @auth
+  addCadastre(input: AddCadastreInput!): PimWithNewCadastre @auth
   updateCadastre(input: UpdateCadastreInput!): Pim @auth
   updateCadastreMap(input: UpdateCadastreMapInput!): Pim @auth
 }
