@@ -125,7 +125,7 @@ context('Pim Details', () => {
     cy.get('input[name="configuration.constructionYear"]').type('2020');
     cy.get('input[name="configuration.notes"]').type('space notes');
     cy.findByText('Main kitchen').click();
-    cy.findByText('Dense Kitchen').click();
+    cy.findByText('Dense kitchen').click();
     cy.findByText('Kitchen island').click();
     cy.findByText('Refrigerator').click();
     cy.findByText('Gas hob').click();

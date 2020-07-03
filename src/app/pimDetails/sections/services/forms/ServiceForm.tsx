@@ -53,6 +53,7 @@ export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactEl
           <Grid item md={4}>
             <DatePickerField
               label="pim_details.services.service_form.year"
+              placeholder="common.year_placeholder"
               name="yearOfInstallation"
               id={`service.yearOfInstallation.${item.id}`}
               disabled={!isEditMode}

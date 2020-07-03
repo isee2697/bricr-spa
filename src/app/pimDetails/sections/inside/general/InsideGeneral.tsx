@@ -34,7 +34,7 @@ export const InsideGeneral = ({ dateUpdated, updatedBy }: InsideGeneralProps) =>
               <Grid item xs={12} md={6}>
                 <DatePickerField
                   label="pim_details.inside.general.renovation_year"
-                  placeholder="pim_details.inside.general.renovation_year"
+                  placeholder="common.year_placeholder"
                   disabled={!isEditing}
                   name="renovation.yearOfRenovation"
                   isYearPicker
@@ -58,7 +58,7 @@ export const InsideGeneral = ({ dateUpdated, updatedBy }: InsideGeneralProps) =>
               <Grid item xs={12} md={6}>
                 <DatePickerField
                   label="pim_details.inside.general.extension_year"
-                  placeholder="pim_details.inside.general.extension_year"
+                  placeholder="common.year_placeholder"
                   disabled={!isEditing}
                   name="extension.yearOfExtension"
                   isYearPicker
