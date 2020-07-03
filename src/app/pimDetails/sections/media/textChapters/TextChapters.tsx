@@ -30,13 +30,14 @@ export const TextChapters = ({
       onAdd={onAdd}
     >
       {editing =>
-        chapters.map(chapter => (
+        chapters.map((chapter, index) => (
           <Form
             key={chapter.id}
             title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
             onSave={onSave}
             initialValues={chapter}
             isInitiallyOpened={newChapterId === chapter.id}
+            counter={index + 1}
           >
             <Input
               disabled={!editing}

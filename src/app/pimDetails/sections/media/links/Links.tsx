@@ -22,13 +22,14 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomTyp
       onAdd={onAdd}
     >
       {editing =>
-        links.map(link => (
+        links.map((link, index) => (
           <Form
             key={link.id}
             title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
             onSave={onSave}
             initialValues={link}
             isInitiallyOpened={newLinkId === link.id}
+            counter={index + 1}
           >
             <Input
               disabled={!editing}

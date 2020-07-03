@@ -11,7 +11,7 @@ import { CostSection } from './costSection/CostSection';
 import { FormProps } from './CostsForm.types';
 import { useStyles } from './CostsForm.styles';
 
-export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormProps) => {
+export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick, counter }: FormProps) => {
   const { formatMessage } = useLocale();
   const styles = useStyles();
 
@@ -44,6 +44,7 @@ export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormP
           initiallyOpened={false}
           isExpanded={toggled}
           onOptionsClick={() => {}}
+          counter={counter}
         >
           <Box pb={4}>
             <Grid container spacing={4}>

@@ -34,7 +34,7 @@ export const Costs = ({
 
   const renderCosts = (editing: boolean) => (
     <>
-      {costs.map(cost => (
+      {costs.map((cost, index) => (
         <CostsForm
           cost={cost}
           editing={editing}
@@ -42,6 +42,7 @@ export const Costs = ({
           key={cost.id}
           toggled={toggled === cost.id}
           onCostClick={() => setToggled(toogled => (toogled !== cost.id ? cost.id : undefined))}
+          counter={index + 1}
         />
       ))}
     </>

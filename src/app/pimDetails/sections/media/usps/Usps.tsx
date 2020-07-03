@@ -27,7 +27,7 @@ export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }
       onAdd={onAdd}
     >
       {editing =>
-        usps.map(usp => (
+        usps.map((usp, index) => (
           <Form<UpdateUspInput>
             key={usp.id}
             title={
@@ -41,6 +41,7 @@ export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }
             onSave={onSave}
             initialValues={usp}
             isInitiallyOpened={newUspId === usp.id}
+            counter={index + 1}
           >
             <SingleChoose
               disabled={!editing}
