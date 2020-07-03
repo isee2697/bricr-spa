@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
@@ -22,6 +22,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
+  const { state } = useLocation<{ newlyAdded: boolean }>();
 
   const pim = data?.getPimGeneral;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
@@ -125,7 +126,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                     />
                   )}
                 />
-                <Redirect to={`${AppRoute.pimDetails}/general`} />
+                <Redirect to={{ pathname: `${AppRoute.pimDetails}/general`, state }} />
               </Switch>
             )}
           </Grid>
