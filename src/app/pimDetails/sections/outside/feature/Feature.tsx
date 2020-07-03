@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { OutsideFeatureType } from 'api/types';
 import { useLocale } from 'hooks';
@@ -15,6 +16,7 @@ import { TerrainForm } from './forms/TerrainForm';
 import { ParkingLotForm } from './forms/ParkingLotForm';
 
 export const Feature = ({ feature, count }: FeatureProps) => {
+  const { state } = useLocation<{ newFeatureAdded?: boolean }>();
   const { formatMessage } = useLocale();
 
   return (
@@ -36,6 +38,7 @@ export const Feature = ({ feature, count }: FeatureProps) => {
             { id: 'pim_details.outside.information' },
             { featureName: formatMessage({ id: `dictionaries.outside_type.${feature.type}` }) },
           )}
+          isInitEditing={!!state?.newFeatureAdded}
         >
           {inEditMode => (
             <>

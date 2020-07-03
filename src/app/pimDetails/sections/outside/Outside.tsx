@@ -9,7 +9,7 @@ import { useLocale } from 'hooks';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { usePimOutsideQuery, OutsideFeature } from 'api/types';
+import { usePimOutsideQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
@@ -65,7 +65,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
         />
         <Route
           path={`${AppRoute.pimDetails}/outside/:featureId`}
-          render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures as OutsideFeature[]} />}
+          render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures ?? []} />}
         />
         <Redirect to={`${AppRoute.pimDetails}/outside`} />
       </Switch>

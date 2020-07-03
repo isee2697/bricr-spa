@@ -192,9 +192,6 @@ context('Pim Details', () => {
     cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 
-    cy.findAllByText('Edit mode')
-      .first()
-      .click();
     cy.findByText('Place').click();
     cy.get('input[name="configuration.notes"]').type('some note');
     cy.findByText('Neglected').click();

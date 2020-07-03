@@ -43,7 +43,9 @@ export const AddOutsideFeatureModalContainer = ({ isOpened, onClose }: AddOutsid
       }
 
       onClose();
-      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${result.addOutsideFeature.newOutsideFeature.id}`);
+      push(`${AppRoute.pimDetails.replace(':id', id)}/outside/${result.addOutsideFeature.newOutsideFeature.id}`, {
+        newFeatureAdded: true,
+      });
 
       return undefined;
     } catch {
