@@ -16,6 +16,7 @@ export const PlotContainer = () => {
 
   const cadastre = cadastreData?.getPimCadastre?.cadastre
     ?.filter(cadastre => cadastre.type === CadastreType.Plot)
+    ?.reverse()
     ?.map((cadastre, index) => ({ ...cadastre, index: index + 1 }))
     .find(c => c.id === cadastreId);
 

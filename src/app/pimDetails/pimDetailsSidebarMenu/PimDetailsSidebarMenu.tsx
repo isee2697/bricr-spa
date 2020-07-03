@@ -39,7 +39,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
   const floorGroups = groupBy(data.getPimInside.floors || [], floor => floor.floorType);
   const outsideGroups = groupBy(data.getPimOutside.outsideFeatures || [], outside => outside.type);
   const plotGroups = groupBy(
-    data.getPimCadastre.cadastre?.filter(c => c.type === CadastreType.Plot).reverse() || [],
+    data.getPimCadastre.cadastre?.filter(c => c.type === CadastreType.Plot) || [],
     c => c.type,
   );
   const meterGroups = groupBy(data.getPimServices.meters || [], meter => meter.type);
