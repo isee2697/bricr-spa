@@ -4,7 +4,7 @@ import { Space, SpaceConfiguration } from 'api/types';
 
 const calculateSurface = (configuration: SpaceConfiguration | null | undefined) => {
   if (!!configuration?.measurement?.length && !!configuration?.measurement?.width) {
-    return configuration?.measurement?.length * configuration?.measurement?.width;
+    return (configuration?.measurement?.length * configuration?.measurement?.width).toFixed(2);
   }
 };
 

@@ -63,12 +63,10 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
           exact
           render={() => <MainContainer pimOutside={data?.getPimOutside} />}
         />
-        {!!data.getPimOutside.outsideFeatures?.length && (
-          <Route
-            path={`${AppRoute.pimDetails}/outside/:featureId`}
-            render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures as OutsideFeature[]} />}
-          />
-        )}
+        <Route
+          path={`${AppRoute.pimDetails}/outside/:featureId`}
+          render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures as OutsideFeature[]} />}
+        />
         <Redirect to={`${AppRoute.pimDetails}/outside`} />
       </Switch>
 
