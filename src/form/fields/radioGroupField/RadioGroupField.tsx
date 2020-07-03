@@ -24,6 +24,7 @@ export const RadioGroupField = ({
   lg,
   actionElement,
   justify,
+  onChange,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -43,8 +44,12 @@ export const RadioGroupField = ({
       } else {
         input.onChange(item.value);
       }
+
+      if (onChange) {
+        onChange(item);
+      }
     },
-    [input],
+    [input, onChange],
   );
 
   const hasError =

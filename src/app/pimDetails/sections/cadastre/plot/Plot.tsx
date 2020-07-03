@@ -16,7 +16,7 @@ import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
 import { PlotProps } from './Plot.types';
 
-export const Plot = ({ index, cadastre }: PlotProps) => {
+export const Plot = ({ index, cadastre, onOwnershipChange }: PlotProps) => {
   const { state } = useLocation<{ newPlotAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -155,6 +155,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                         lg={12}
                         name="ownershipType"
                         options={dictionaries.ownershipType}
+                        onChange={onOwnershipChange}
                       />
                     </Box>
                   </Grid>

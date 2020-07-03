@@ -67,12 +67,20 @@ export const PlotContainer = () => {
       key={cadastreId}
       initialValues={cadastre?.plot || undefined}
       onSave={handleEdit}
-      mutators={{ ...arrayMutators }}
+      mutators={{
+        ...arrayMutators,
+        resetOwnershipChoice: (args, state, utils) => {
+          utils.changeValue(state, 'ownershipChoice', () => undefined);
+        },
+      }}
     >
-      <Plot
-        cadastre={cadastre}
-        index={(cadastreData?.getPimCadastre?.cadastre?.length || 0) > 2 ? cadastre?.index.toString() || '' : ''}
-      />
+      {form => (
+        <Plot
+          cadastre={cadastre}
+          index={(cadastreData?.getPimCadastre?.cadastre?.length || 0) > 2 ? cadastre?.index.toString() || '' : ''}
+          onOwnershipChange={form.form.mutators.resetOwnershipChoice}
+        />
+      )}
     </AutosaveForm>
   );
 };

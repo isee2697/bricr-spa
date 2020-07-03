@@ -4,7 +4,7 @@ import { Form, FormSpy } from 'react-final-form';
 import { Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
-import { AutosaveProps, KeyValuesObject, FormObject } from './AutosaveForm.types';
+import { AutosaveProps, KeyValuesObject, FormObject, AutosaveFunctionChildren } from './AutosaveForm.types';
 import { useDebounce } from './useDebounce/useDebounce';
 
 const isEmpty = (obj: {} | null | undefined) => !obj || !Object.keys(obj).length;
@@ -54,9 +54,9 @@ export const AutosaveForm = ({ onSave, timeout = 1000, children, initialValues, 
 
   return (
     <Form onSubmit={() => {}} {...props} initialValues={initial}>
-      {() => (
+      {form => (
         <>
-          {children}
+          {typeof children === 'function' ? (children as AutosaveFunctionChildren)(form) : children}
           <FormSpy subscription={{ values: true }} onChange={debouncedCallback} />
           <Snackbar
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
