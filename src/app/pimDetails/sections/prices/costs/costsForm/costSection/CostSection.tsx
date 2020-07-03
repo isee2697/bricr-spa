@@ -30,6 +30,7 @@ export const CostSection = ({
             size="medium"
             InputProps={{ endAdornment: <EuroIcon /> }}
             disabled={disabled}
+            type="number"
           />
         </Grid>
         <Grid item xs={4}>
