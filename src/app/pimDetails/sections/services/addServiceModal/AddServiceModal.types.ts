@@ -6,7 +6,7 @@ export type AddServiceModalContainerProps = {
   isOpened: boolean;
   type: ServiceType;
   types: ServiceRadioType[];
-  onClose: VoidFunction;
+  onClose: (id?: string) => void;
 };
 
 export type AddServiceSubmit = (

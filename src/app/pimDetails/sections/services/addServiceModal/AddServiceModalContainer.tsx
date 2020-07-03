@@ -44,7 +44,7 @@ export const AddServiceModalContainer = ({
       }
 
       onAddService();
-      onClose();
+      onClose(result?.addService?.newService.id);
 
       return undefined;
     } catch {

@@ -49,6 +49,8 @@ export type ServiceFormProps<T> = {
   onToggleClick: VoidFunction;
   hasOwnership: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
+  isExpanded: boolean;
+  onExpand: (id: string) => void;
 };
 
 export type ServiceRadioType = RadioDataType & {

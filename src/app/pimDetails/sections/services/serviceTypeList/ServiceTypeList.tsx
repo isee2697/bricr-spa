@@ -22,6 +22,7 @@ export const ServiceTypeList: <T extends Service>(
   const [toggled, setToggled] = useState<number | undefined>();
   const [newServiceAdded, setNewServiceAdded] = useState<boolean>(false);
   const formRef = React.useRef<FormSectionRef>(null);
+  const [expandedService, setExpandedService] = useState<string | undefined>();
 
   const classes = useStyles();
 
@@ -47,6 +48,25 @@ export const ServiceTypeList: <T extends Service>(
       types = additionalTypes;
       break;
   }
+
+  const handleModalClose = (id?: string) => {
+    setIsOpenAddService(false);
+
+    if (id) {
+      setExpandedService(id);
+      formRef?.current?.handleSetEdit(true);
+    }
+  };
+
+  const handleSpaceExpand = (id: string) => {
+    setExpandedService(serviceId => {
+      if (serviceId === id) {
+        return undefined;
+      }
+
+      return id;
+    });
+  };
 
   return (
     <>
@@ -99,6 +119,8 @@ export const ServiceTypeList: <T extends Service>(
                         {type && formatMessage({ id: type.label }) + (item.name ? ` (${item.name})` : '')}
                       </>
                     }
+                    isExpanded={expandedService === item.id}
+                    onExpand={handleSpaceExpand}
                   />
                 );
               })}
@@ -110,7 +132,7 @@ export const ServiceTypeList: <T extends Service>(
         type={type}
         types={types}
         isOpened={isOpenAddService}
-        onClose={() => setIsOpenAddService(false)}
+        onClose={handleModalClose}
       />
     </>
   );
