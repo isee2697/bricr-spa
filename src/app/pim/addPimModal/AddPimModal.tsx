@@ -4,7 +4,6 @@ import { Form } from 'react-final-form';
 import { Modal } from 'ui/molecules';
 import { Alert, DialogContent } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { AddPimModalProps, AddPimSubmit } from './AddPimModal.types';
@@ -27,11 +26,10 @@ const steps = [
   },
 ];
 
-export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
+export const AddPimModal = ({ onSubmit, propertyCategory, isOpen }: AddPimModalProps) => {
   const [step, setStep] = useState(0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
-  const isModalOpen = useModalState('add-new-pim');
   const { close } = useModalDispatch();
 
   const handleNext = () => {
@@ -62,14 +60,17 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
   };
 
   return (
-    <Modal
-      fullWidth
-      isOpened={isModalOpen}
-      onClose={handleClose}
-      title={formatMessage({ id: `add_pim.${currentStep.name}.title` })}
-    >
-      <Form onSubmit={handleSubmit}>
-        {({ handleSubmit, submitErrors }) => (
+    <Form onSubmit={handleSubmit} initialValues={{ category: propertyCategory }}>
+      {({ handleSubmit, submitErrors, values }) => (
+        <Modal
+          fullWidth
+          isOpened={isOpen}
+          onClose={handleClose}
+          title={formatMessage({
+            id: `add_pim.${currentStep.name}.title_${values.category}`,
+            defaultMessage: formatMessage({ id: `add_pim.${currentStep.name}.title` }),
+          })}
+        >
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error === 'unknown' && (
               <DialogContent>
@@ -81,8 +82,8 @@ export const AddPimModal = ({ onSubmit }: AddPimModalProps) => {
               onPrev: handlePrev,
             })}
           </form>
-        )}
-      </Form>
-    </Modal>
+        </Modal>
+      )}
+    </Form>
   );
 };

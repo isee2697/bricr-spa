@@ -1,0 +1,29 @@
+enum NcpType {
+  Houses,
+  Apartments,
+  BuildingPlots
+}
+input CreateNcpInput {
+  name: String!
+  additionalName: String
+  street: String!
+  houseNumber: String!
+  addition: String
+  zipCode: String!
+  city: String!
+  country: String!
+}
+type NcpGeneral {
+  id: ID!
+  name: String!
+  additionalName: String
+  street: String!
+  houseNumber: String!
+  addition: String
+  zipCode: String!
+  city: String!
+  country: String!
+}
+extend type Mutation {
+  createNcp(input: CreateNcpInput!): NcpGeneral!
+}

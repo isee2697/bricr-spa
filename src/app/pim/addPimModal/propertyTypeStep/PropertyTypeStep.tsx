@@ -1,16 +1,16 @@
 import React from 'react';
-import { useTheme, DialogActions } from '@material-ui/core';
+import { DialogActions, useTheme } from '@material-ui/core';
 import { Field, useFormState } from 'react-final-form';
 
-import { Grid, DialogContent, Avatar, Box } from 'ui/atoms';
+import { Avatar, Box, DialogContent, Grid } from 'ui/atoms';
 import { SelectCard, SubmitButton } from 'ui/molecules';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { NewConstructionIcon } from 'ui/atoms/icons/newConstruction/NewConstructionIcon';
 import { ComplexBuildingIcon } from 'ui/atoms/icons/complexBuilding/ComplexBuildingIcon';
 import { useLocale } from 'hooks';
 import { requireValidator } from 'form/validators';
-import { AddPimStepProps } from '../AddPimModal.types';
-import { PropertyType } from 'api/types';
+import { AddPimStepProps, PropertyCategory } from '../AddPimModal.types';
+import { NcpType, PropertyType } from 'api/types';
 
 import { useStyles } from './PropertyTypeStep.styles';
 
@@ -26,27 +26,49 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
 
   const CATEGORIES = [
     {
-      type: 'Property',
+      type: PropertyCategory.PROPERTY,
       translation: 'property',
       icon: <BuildingIcon color="inherit" />,
       color: theme.palette.red,
       disabled: false,
     },
     {
-      type: 'Project',
+      type: PropertyCategory.PROJECT,
       translation: 'new_construction_project',
       icon: <NewConstructionIcon color="inherit" />,
       color: theme.palette.green,
-      disabled: true,
+      disabled: false,
     },
     {
-      type: 'Complex',
+      type: PropertyCategory.COMPLEX,
       translation: 'complex_buildings',
       icon: <ComplexBuildingIcon color="inherit" />,
       color: theme.palette.purple,
       disabled: true,
     },
   ];
+
+  const getTypes = (): { label: string; value: string }[] => {
+    const category = values.category;
+
+    if (category === PropertyCategory.PROPERTY) {
+      return Object.values(PropertyType).map(p => ({ label: `property_types.${p}`, value: p }));
+    } else if (category === PropertyCategory.PROJECT) {
+      return Object.values(NcpType).map(p => ({ label: `dictionaries.ncp_type.${p}`, value: p }));
+    }
+
+    return [];
+  };
+
+  const isPropertyTypeDisabled = (p: string) => {
+    const category = values.category;
+
+    if (category === PropertyCategory.PROPERTY) {
+      return p !== PropertyType.House;
+    }
+
+    return false;
+  };
 
   return (
     <Field name="category" validate={requireValidator}>
@@ -83,15 +105,15 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
                 {({ input: category }) => (
                   <Box mt={2}>
                     <Grid container justify="center" spacing={1}>
-                      {Object.keys(PropertyType).map(p => (
-                        <Grid item xs={6} md={3} key={p}>
+                      {getTypes().map(p => (
+                        <Grid item xs={6} md={3} key={p.value}>
                           <SelectCard
-                            disabled={p !== PropertyType.House}
-                            selected={category.value === p}
+                            disabled={isPropertyTypeDisabled(p.value)}
+                            selected={category.value === p.value}
                             centered
-                            onClick={() => category.onChange(p)}
+                            onClick={() => category.onChange(p.value)}
                           >
-                            {formatMessage({ id: `property_types.${p}` })}
+                            {formatMessage({ id: p.label })}
                           </SelectCard>
                         </Grid>
                       ))}

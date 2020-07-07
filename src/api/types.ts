@@ -74,6 +74,7 @@ export type Mutation = {
   addTextChapter?: Maybe<PimWithNewTextChapter>;
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
+  createNcp: NcpGeneral;
   createPim?: Maybe<Pim>;
   deleteUser?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -190,6 +191,10 @@ export type MutationAddUspArgs = {
 
 export type MutationAddViewingMomentArgs = {
   input: AddViewingMomentInput;
+};
+
+export type MutationCreateNcpArgs = {
+  input: CreateNcpInput;
 };
 
 export type MutationCreatePimArgs = {
@@ -608,6 +613,36 @@ export type PimListSearchResult = {
   __typename?: 'PimListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListPim>>;
+};
+
+export enum NcpType {
+  Houses = 'Houses',
+  Apartments = 'Apartments',
+  BuildingPlots = 'BuildingPlots',
+}
+
+export type CreateNcpInput = {
+  name: Scalars['String'];
+  additionalName?: Maybe<Scalars['String']>;
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  addition?: Maybe<Scalars['String']>;
+  zipCode: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+};
+
+export type NcpGeneral = {
+  __typename?: 'NcpGeneral';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  additionalName?: Maybe<Scalars['String']>;
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  addition?: Maybe<Scalars['String']>;
+  zipCode: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
 };
 
 export enum CadastreMapType {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl';
+import countries from 'i18n-iso-countries';
 
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
@@ -7,6 +8,11 @@ import { translations } from '../../../i18n/messages';
 import { LocaleContext } from '../localeContext/LocaleContext';
 
 import { LocaleContextControllerProps } from './LocaleContextController.types';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+countries.registerLocale(require('i18n-iso-countries/langs/nl.json'));
 
 const formats = {
   number: {

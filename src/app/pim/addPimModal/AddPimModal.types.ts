@@ -1,6 +1,8 @@
+import { AnyObject } from 'react-final-form';
+
 import { PropertyType } from 'api/types';
 
-type AddPimBody = {
+export type AddPimBody = {
   forceAdd?: boolean;
   category: string;
   propertyType: PropertyType;
@@ -10,8 +12,8 @@ type AddPimBody = {
   city: string;
 };
 
-export type AddPimSubmit = (
-  body: AddPimBody,
+export type AddPimSubmit<T = AnyObject> = (
+  body: T,
 ) => Promise<
   | undefined
   | {
@@ -25,6 +27,14 @@ export type AddPimStepProps = {
   onPrev: () => void;
 };
 
+export enum PropertyCategory {
+  PROPERTY = 'Property',
+  PROJECT = 'Project',
+  COMPLEX = 'Complex',
+}
+
 export type AddPimModalProps = {
   onSubmit: AddPimSubmit;
+  isOpen: boolean;
+  propertyCategory?: string;
 };

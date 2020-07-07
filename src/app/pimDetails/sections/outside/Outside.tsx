@@ -27,7 +27,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
     },
   });
 
-  const isAddFloorModalOpen = useModalState('add-new-outside-feature');
+  const { isOpen: isAddFloorModalOpen } = useModalState('add-new-outside-feature');
   const { close, open } = useModalDispatch();
 
   if (!data?.getPimOutside) {

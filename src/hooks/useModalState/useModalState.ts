@@ -10,5 +10,8 @@ export const useModalState = (id: string) => {
     throw new Error('useModalState must be used within an ModalContextController');
   }
 
-  return context.modalsState.find((modalState: ModalStateType) => modalState.id === id)?.isOpen || false;
+  return (
+    context.modalsState.find((modalState: ModalStateType) => modalState.id === id) ??
+    ({ isOpen: false } as ModalStateType)
+  );
 };

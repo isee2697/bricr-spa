@@ -40,7 +40,7 @@ export const Pim = ({
         </Grid>
         <Grid item xs={12} md={9} lg={10}>
           <Grid container spacing={3} className={classes.content}>
-            <PimHeader />
+            <PimHeader type={type} />
             <Grid item xs={12}>
               <Card>
                 <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />

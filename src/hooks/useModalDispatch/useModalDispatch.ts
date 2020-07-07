@@ -11,18 +11,18 @@ export const useModalDispatch = () => {
   }
 
   const open = useCallback(
-    (id: string) => {
+    (id: string, options?: Record<string, unknown>) => {
       // @TODO move it to useReducer in context
       context.setModalsState(state => {
         const index = state.findIndex((modalState: ModalStateType) => modalState.id === id);
 
         if (index !== -1) {
           const newState = [...state];
-          newState[index] = { id: id, isOpen: true };
+          newState[index] = { id: id, isOpen: true, options };
 
           return newState;
         } else {
-          return [...state, { id: id, isOpen: true }];
+          return [...state, { id: id, isOpen: true, options }];
         }
       });
     },

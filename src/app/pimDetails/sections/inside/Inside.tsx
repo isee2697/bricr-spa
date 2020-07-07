@@ -20,7 +20,7 @@ import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalCo
 
 export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
-  const isAddFloorModalOpen = useModalState('add-new-floor');
+  const { isOpen: isAddFloorModalOpen } = useModalState('add-new-floor');
   const { close, open } = useModalDispatch();
   const { id } = useParams<{ id: string }>();
   const { data: pimInsideData } = usePimInsideQuery({ variables: { id } });

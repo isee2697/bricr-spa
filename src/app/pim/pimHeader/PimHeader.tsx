@@ -4,8 +4,20 @@ import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { PropertyCategory } from 'app/pim/addPimModal/AddPimModal.types';
 
-export const PimHeader = () => {
+/* eslint-disable @typescript-eslint/camelcase */
+const mapTypeToPropertyCategory = (type?: string) => {
+  const types: Record<string, string> = {
+    nc_sale: PropertyCategory.PROJECT,
+    nc_rent: PropertyCategory.PROJECT,
+  };
+
+  return type && types[type];
+};
+/* eslint-enable @typescript-eslint/camelcase */
+
+export const PimHeader = ({ type }: { type?: string }) => {
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
 
@@ -15,7 +27,7 @@ export const PimHeader = () => {
       <Button
         color="primary"
         variant="contained"
-        onClick={() => open('add-new-pim')}
+        onClick={() => open('add-new-pim', { propertyCategory: mapTypeToPropertyCategory(type) })}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >

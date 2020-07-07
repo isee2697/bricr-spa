@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
+import { AnyObject } from 'react-final-form';
 
 import {
   useCreatePimMutation,
@@ -13,17 +14,19 @@ import {
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { useModalState } from 'hooks';
 
 import { AddPimModal } from './AddPimModal';
-import { AddPimSubmit } from './AddPimModal.types';
+import { AddPimBody, AddPimSubmit, PropertyCategory } from './AddPimModal.types';
 
 export const AddPimModalContainer = () => {
   const apiClient = useApolloClient();
   const [createPim] = useCreatePimMutation();
   const { push } = useHistory();
   const { close } = useModalDispatch();
+  const { isOpen: isModalOpen, options } = useModalState('add-new-pim');
 
-  const handleSubmit: AddPimSubmit = async ({ forceAdd, propertyType, category, ...body }) => {
+  const handlePimSubmit: AddPimSubmit<AddPimBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
         const { data: pimWithSameAddress, errors } = await apiClient.query<
@@ -83,5 +86,22 @@ export const AddPimModalContainer = () => {
     }
   };
 
-  return <AddPimModal onSubmit={handleSubmit} />;
+  const handleSubmit = async (values: AnyObject) => {
+    if (values.category === PropertyCategory.PROPERTY) {
+      return handlePimSubmit(values as AddPimBody);
+    }
+
+    if (values.category === PropertyCategory.PROJECT) {
+      push(AppRoute.projectDetails.replace(':id', 'test') + '/general', { newlyAdded: true });
+      close('add-new-pim');
+    }
+
+    return undefined;
+  };
+
+  if (!isModalOpen) return null;
+
+  return (
+    <AddPimModal onSubmit={handleSubmit} isOpen={isModalOpen} propertyCategory={options?.propertyCategory as string} />
+  );
 };
