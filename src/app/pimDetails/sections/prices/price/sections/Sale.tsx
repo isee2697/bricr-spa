@@ -7,14 +7,20 @@ import { EuroIcon, SquareIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection, FormSubSection } from 'ui/organisms';
 import { GenericField, CheckboxField, DatePickerField, DropdownField, RadioGroupField } from 'form/fields';
+import { PropertyTypeProps } from '../Price.types';
 
 import * as dictionaries from './dictionaries';
 
-export const Sale = () => {
+export const Sale = ({ isInitExpanded }: PropertyTypeProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection title={formatMessage({ id: 'pim_details.prices.sale' })} isExpandable>
+    <FormSection
+      title={formatMessage({ id: 'pim_details.prices.sale' })}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitExpanded}
+      isExpandable
+    >
       {inEditMode => (
         <>
           <FormSubSection

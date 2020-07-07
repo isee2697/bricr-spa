@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Typography, Grid } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
@@ -9,8 +9,18 @@ import { PriceProps } from './Price.types';
 import { Sale } from './sections/Sale';
 import { Rent } from './sections/Rent';
 
+const useIsInitialized = () => {
+  const isInitialized = useRef(false);
+  useEffect(() => {
+    isInitialized.current = true;
+  }, []);
+
+  return isInitialized.current;
+};
+
 export const Price = ({ types }: PriceProps) => {
   const { formatMessage } = useLocale();
+  const isInitialized = useIsInitialized();
 
   if (!types.length)
     return (
@@ -28,12 +38,12 @@ export const Price = ({ types }: PriceProps) => {
     <>
       {types.includes('Sale') && (
         <Grid item xs={12}>
-          <Sale />
+          <Sale isInitExpanded={isInitialized} />
         </Grid>
       )}
       {types.includes('Rent') && (
         <Grid item xs={12}>
-          <Rent />
+          <Rent isInitExpanded={isInitialized} />
         </Grid>
       )}
     </>
