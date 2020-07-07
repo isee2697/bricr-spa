@@ -7,6 +7,7 @@ import { Box } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
+import { useLocale } from 'hooks';
 
 import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
@@ -24,6 +25,7 @@ export const Meters = ({
 }: ServicesMetersProps) => {
   const classes = useStyles();
   const formRefs = useRef<{ [key: string]: FormSectionRef }>({});
+  const { formatMessage } = useLocale();
 
   const handleOnAddReading = (id: string) => {
     onAddReading(id);
@@ -45,7 +47,13 @@ export const Meters = ({
         {meters.map((meter, index) => (
           <FormSection
             key={meter.id}
-            title={meter.name}
+            title={
+              meter.name
+                ? meter.name
+                : `(${formatMessage({
+                    id: 'pim_details.general.identification_number.identification_numbers_name_placeholder',
+                  })})`
+            }
             onAdd={() => handleOnAddReading(meter.id)}
             onOptionsClick={() => {}}
             isInitEditing={isMeterAdded}
