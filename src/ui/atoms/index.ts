@@ -71,3 +71,5 @@ export { Loader } from './loader/Loader';
 export { ImageHolder } from './imageHolder/ImageHolder';
 export { LastUpdated } from './lastUpdated/LastUpdated';
 export { Dropdown } from './dropdown/Dropdown';
+export { NavBreadcrumb } from './navBreadcrumb/NavBreadcrumb';
+export { NavBreadcrumbs } from './navBreadcrumbs/NavBreadcrumbs';

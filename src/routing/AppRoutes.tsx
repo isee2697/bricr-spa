@@ -10,6 +10,7 @@ import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordC
 import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 import { PimContainer } from 'app/pim/PimContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
+import { ProjectDetails } from 'app/projectDetails/ProjectDetails';
 import { useScrollToTop } from 'hooks';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
@@ -44,6 +45,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetails} />
                 <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
