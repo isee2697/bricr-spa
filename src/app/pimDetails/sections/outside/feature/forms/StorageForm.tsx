@@ -9,7 +9,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
-export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
+export const StorageForm = ({ id, inEditMode, onDimensionChange }: FeatureFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -118,6 +118,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
                 endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.width')}
             />
             <GenericField
               name="configuration.measurement.height"
@@ -128,6 +129,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
                 endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.height')}
             />
             <GenericField
               name="configuration.measurement.length"
@@ -138,6 +140,7 @@ export const StorageForm = ({ id, inEditMode }: FeatureFormProps) => {
                 endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.length')}
             />
             <GenericField
               name="configuration.measurement.volume"

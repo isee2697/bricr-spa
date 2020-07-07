@@ -9,7 +9,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
-export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
+export const GardenForm = ({ id, inEditMode, onDimensionChange }: FeatureFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -105,6 +105,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
                 endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.width')}
             />
             <GenericField
               name="configuration.measurement.length"
@@ -115,6 +116,7 @@ export const GardenForm = ({ id, inEditMode }: FeatureFormProps) => {
                 endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.length')}
             />
           </Grid>
           <Grid item md={2}></Grid>
