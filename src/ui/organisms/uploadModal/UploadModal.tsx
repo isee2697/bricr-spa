@@ -55,6 +55,8 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
     setFileList(files => files.filter(file => file !== removedFile));
   };
 
+  const isFile = !!fileList.length;
+
   return (
     <Modal title={formatMessage({ id: 'upload_modal.upload_file' })} onClose={onClose} fullWidth {...props}>
       <DialogContent>
@@ -74,7 +76,7 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
           />
         </Box>
 
-        {!!fileList.length && (
+        {isFile && (
           <>
             <Typography className={classes.previewTitle}>{formatMessage({ id: 'upload_modal.preview' })}</Typography>
             <Box display="flex" flexWrap="wrap">
@@ -102,7 +104,7 @@ export const UploadModal = ({ onClose, onUpload, isSubmitting, ...props }: Uploa
           size="large"
           color="primary"
           variant="contained"
-          disabled={!fileList || isError}
+          disabled={!isFile || isError}
           onClick={() => fileList && onUpload(fileList)}
           isLoading={isSubmitting}
         >
