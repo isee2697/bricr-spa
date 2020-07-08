@@ -7,6 +7,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
+import { GeneralContainer } from './sections/general/GeneralContainer';
 
 export const ProjectDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +25,7 @@ export const ProjectDetails = () => {
           <Box padding={3}>
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
+              <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
             </Switch>
           </Box>

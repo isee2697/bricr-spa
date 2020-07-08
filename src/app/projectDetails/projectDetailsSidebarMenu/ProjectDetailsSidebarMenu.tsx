@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation, useRouteMatch, useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
@@ -23,6 +24,9 @@ const menuItems = [
 
 export const ProjectDetailsSidebarMenu = () => {
   const { formatMessage } = useLocale();
+  const { url } = useRouteMatch();
+  const { pathname } = useLocation();
+  const { push } = useHistory();
   const classes = useStyles();
 
   return (
@@ -32,7 +36,8 @@ export const ProjectDetailsSidebarMenu = () => {
           key={itemName}
           icon={<SaleIcon />}
           title={formatMessage({ id: `project_details.menu.${itemName}` })}
-          selected={itemName === 'dashboard'}
+          selected={pathname.startsWith(`${url}/${itemName}`)}
+          onClick={() => push(`${url}/${itemName}`)}
         />
       ))}
     </SideMenu>

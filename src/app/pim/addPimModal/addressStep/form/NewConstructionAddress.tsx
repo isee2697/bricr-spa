@@ -5,8 +5,9 @@ import { Grid } from 'ui/atoms';
 import { DropdownField, GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useLocale } from 'hooks';
+import { AddressStepFormProps } from '../AddressStep.types';
 
-export const NewConstructionAddress = () => {
+export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormProps) => {
   const { locale } = useLocale();
 
   const countryOptions = useMemo(() => {
@@ -32,6 +33,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.name_placeholder"
             validate={[requireValidator]}
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
         <Grid item xs={12}>
@@ -40,6 +42,7 @@ export const NewConstructionAddress = () => {
             label="project_details.general.address.additional_name"
             placeholder="project_details.general.address.name_placeholder"
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
       </Grid>
@@ -51,6 +54,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.street_placeholder"
             validate={[requireValidator]}
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
         <Grid item xs={3}>
@@ -60,6 +64,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.house_number_placeholder"
             validate={[requireValidator]}
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
         <Grid item xs={3}>
@@ -68,6 +73,7 @@ export const NewConstructionAddress = () => {
             label="project_details.general.address.house_number"
             placeholder="project_details.general.address.house_number_placeholder"
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
       </Grid>
@@ -79,6 +85,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.postal_code_placeholder"
             validate={[requireValidator]}
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -88,6 +95,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.city_placeholder"
             validate={[requireValidator]}
             size="medium"
+            disabled={!inEditMode}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -97,6 +105,7 @@ export const NewConstructionAddress = () => {
             placeholder="project_details.general.address.country_placeholder"
             name="country"
             label="project_details.general.address.country"
+            disabled={!inEditMode}
           />
         </Grid>
       </Grid>
