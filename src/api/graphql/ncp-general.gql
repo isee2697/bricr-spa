@@ -3,27 +3,35 @@ enum NcpType {
   Apartments,
   BuildingPlots
 }
+
 input CreateNcpInput {
+  type: NcpType!
   name: String!
   additionalName: String
   street: String!
   houseNumber: String!
-  addition: String
   zipCode: String!
   city: String!
   country: String!
+  additionalHouseNumber: String
 }
-type NcpGeneral {
+
+type NcpGeneral implements LastUpdated {
   id: ID!
+  type: NcpType!
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: Profile
   name: String!
   additionalName: String
   street: String!
   houseNumber: String!
-  addition: String
+  additionalHouseNumber: String
   zipCode: String!
   city: String!
   country: String!
 }
+
 extend type Mutation {
   createNcp(input: CreateNcpInput!): NcpGeneral!
 }

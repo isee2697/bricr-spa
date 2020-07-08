@@ -69,9 +69,9 @@ export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormPro
         </Grid>
         <Grid item xs={3}>
           <GenericField
-            name="addition"
-            label="project_details.general.address.house_number"
-            placeholder="project_details.general.address.house_number_placeholder"
+            name="additionalHouseNumber"
+            label="project_details.general.address.addition"
+            placeholder="project_details.general.address.addition_placeholder"
             size="medium"
             disabled={!inEditMode}
           />

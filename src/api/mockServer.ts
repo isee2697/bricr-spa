@@ -3,6 +3,7 @@ import { buildSchema, graphql } from 'graphql';
 
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
+import { NCP_GENERAL_1 } from 'api/mocks/ncp-general';
 
 import { loadSchemas } from './loadSchemas';
 import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
@@ -22,6 +23,7 @@ let PIM_CADASTRE = PIM_CADASTRE_1;
 const PIM_MEDIA = PIM_MEDIA_1;
 let PIM_INSIDE = PIM_INSIDE_1;
 const PIM_GENERAL = PIM_GENERAL_1;
+const NCP_GENERAL = NCP_GENERAL_1;
 
 export const mockServer = () => {
   new Server({
@@ -606,6 +608,9 @@ export const mockServer = () => {
               pim: PIM_DETAILS,
               newPicture: MEDIA_PICTURE,
             };
+          },
+          createNcp() {
+            return NCP_GENERAL;
           },
         };
 

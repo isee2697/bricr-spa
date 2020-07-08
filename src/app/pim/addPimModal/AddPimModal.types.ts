@@ -1,6 +1,6 @@
 import { AnyObject } from 'react-final-form';
 
-import { PropertyType } from 'api/types';
+import { NcpType, PropertyType } from 'api/types';
 
 export type AddPimBody = {
   forceAdd?: boolean;
@@ -10,6 +10,20 @@ export type AddPimBody = {
   houseNumber: string;
   postalCode: string;
   city: string;
+};
+
+export type AddNcpBody = {
+  forceAdd?: boolean;
+  category: string;
+  propertyType: NcpType;
+  name: string;
+  additionalName: string;
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  additionalHouseNumber: string;
 };
 
 export type AddPimSubmit<T = AnyObject> = (

@@ -622,24 +622,29 @@ export enum NcpType {
 }
 
 export type CreateNcpInput = {
+  type: NcpType;
   name: Scalars['String'];
   additionalName?: Maybe<Scalars['String']>;
   street: Scalars['String'];
   houseNumber: Scalars['String'];
-  addition?: Maybe<Scalars['String']>;
   zipCode: Scalars['String'];
   city: Scalars['String'];
   country: Scalars['String'];
+  additionalHouseNumber?: Maybe<Scalars['String']>;
 };
 
-export type NcpGeneral = {
+export type NcpGeneral = LastUpdated & {
   __typename?: 'NcpGeneral';
   id: Scalars['ID'];
+  type: NcpType;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
   name: Scalars['String'];
   additionalName?: Maybe<Scalars['String']>;
   street: Scalars['String'];
   houseNumber: Scalars['String'];
-  addition?: Maybe<Scalars['String']>;
+  additionalHouseNumber?: Maybe<Scalars['String']>;
   zipCode: Scalars['String'];
   city: Scalars['String'];
   country: Scalars['String'];
@@ -3393,6 +3398,14 @@ export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
+export type CreateNcpMutationVariables = {
+  input: CreateNcpInput;
+};
+
+export type CreateNcpMutation = { __typename?: 'Mutation' } & {
+  createNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -4658,6 +4671,24 @@ export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMu
 export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutation,
   AddLabelMutationVariables
+>;
+export const CreateNcpDocument = gql`
+  mutation CreateNcp($input: CreateNcpInput!) {
+    createNcp(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateNcpMutation, CreateNcpMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateNcpMutation, CreateNcpMutationVariables>(CreateNcpDocument, baseOptions);
+}
+export type CreateNcpMutationHookResult = ReturnType<typeof useCreateNcpMutation>;
+export type CreateNcpMutationResult = ApolloReactCommon.MutationResult<CreateNcpMutation>;
+export type CreateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateNcpMutation,
+  CreateNcpMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {

@@ -18,6 +18,7 @@ const schemas = [
   loader('./graphql/pim-location.gql'),
   loader('./graphql/profile.gql'),
   loader('./graphql/schema.gql'),
+  loader('./graphql/ncp-general.gql'),
 ];
 
 export const loadSchemas = () => {
