@@ -13,4 +13,5 @@ export type UploadImageGroupFieldProps = {
   entity: EntityWithFiles;
   entityID: string;
   removeEntity: EntityWithMultipleFiles;
+  mainName?: string;
 };

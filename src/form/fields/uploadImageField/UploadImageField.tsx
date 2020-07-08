@@ -2,14 +2,14 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 import { useField } from 'react-final-form';
 import classNames from 'classnames';
 
-import { Badge, CircularProgress, Grid } from 'ui/atoms';
+import { Badge, Checkbox, CircularProgress, Grid } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
 import { useInitSendFileMutation, useUploadFileMutation, useAddFilesMutation, File } from 'api/types';
 import { GenericField } from 'form/fields';
-import { UploadIcon } from 'ui/atoms/icons';
+import { CheckMarkIcon, UnCheckMarkIcon, UploadIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './UploadImageField.styles';
 import { UploadImageFieldProps, UploadImageFieldTypes } from './UploadImageField.types';
@@ -25,6 +25,9 @@ export const UploadImageField = ({
   entityID,
   entity,
   onSetBackground,
+  isChecked,
+  showCheckbox,
+  onCheck,
 }: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
@@ -141,12 +144,24 @@ export const UploadImageField = ({
 
     return (
       <Grid item className={classNames(classes.root, { enabled: !disabled })}>
-        {!disabled && !loading && !!backgroundImage && (
+        {showCheckbox && !disabled && !loading && !!backgroundImage && (
+          <Checkbox
+            color="primary"
+            className={classes.checkbox}
+            checked={isChecked}
+            onClick={onCheck}
+            data-testid="image-main-checkbox"
+            icon={<UnCheckMarkIcon />}
+            checkedIcon={<CheckMarkIcon color="primary" />}
+          />
+        )}
+        {!disabled && !loading && !!backgroundImage && (!showCheckbox || !isChecked) && (
           <Badge
             className={classes.badge}
             onClick={onRemoveImage}
             badgeContent={<CloseIcon className={classes.badgeIcon} />}
             color="error"
+            data-testid="remove-image"
           />
         )}
         <Grid

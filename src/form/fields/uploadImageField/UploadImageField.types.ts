@@ -14,6 +14,9 @@ export type UploadImageFieldProps = {
   initialFileName?: string;
   label?: string;
   onSetBackground?: (value: string) => void;
+  showCheckbox?: boolean;
+  isChecked?: boolean;
+  onCheck?: () => void;
 };
 
 export enum UploadImageFieldTypes {

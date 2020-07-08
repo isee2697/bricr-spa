@@ -48,6 +48,13 @@ export const useStyles = makeStyles(theme => ({
   text: {
     width: '100%',
   },
+  checkbox: {
+    position: 'absolute',
+    left: theme.spacing(0),
+    top: theme.spacing(0),
+    padding: theme.spacing(0.625),
+    cursor: 'pointer',
+  },
   badge: {
     position: 'absolute',
     right: theme.spacing(0.75),
