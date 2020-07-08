@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useLocale, useCustomLabels } from 'hooks';
+import { useLocale, useCustomLabels, useToggleOnNewlyCreated } from 'hooks';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
@@ -14,6 +14,9 @@ import { TagsProps } from './Tags.types';
 export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }: TagsProps) => {
   const { formatMessage } = useLocale();
   const { id: pimId } = useParams<{ id: string }>();
+  const [toggled, setToggled] = useState<string | undefined>(newTagId);
+
+  useToggleOnNewlyCreated(newTagId, setToggled);
 
   const customLabels = useCustomLabels(pimId, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
 
@@ -40,8 +43,9 @@ export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }
             onSave={onSave}
             initialValues={tag}
             key={tag.id}
-            isInitiallyOpened={tag.id === newTagId}
             counter={index + 1}
+            onExpand={() => setToggled(toggled => (toggled !== tag.id ? tag.id : undefined))}
+            isExpanded={toggled === tag.id}
           >
             <SingleChoose
               disabled={!editing}

@@ -6,7 +6,7 @@ export type LinksProps = {
   onAdd: () => Promise<undefined | { error: boolean }>;
   onSave: (values: UpdateMediaLinkInput) => Promise<undefined | { error: boolean }>;
   links: MediaLink[];
-  newLinkId: string | null;
+  newLinkId?: string;
   onAddCustomType: () => void;
 };
 

@@ -25,7 +25,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
   const { id } = useParams<{ id: string }>();
   const [addTag] = useAddTagMutation();
   const [editTag] = useUpdateTagMutation();
-  const [newTagId, setNewTagId] = useState<string | null>(null);
+  const [newTagId, setNewTagId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
 
   const handleAdd = async () => {
@@ -50,7 +50,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         ],
       });
 
-      setNewTagId(data?.addTag?.newTag.id ?? null);
+      setNewTagId(data?.addTag?.newTag.id ?? undefined);
 
       return undefined;
     } catch (error) {

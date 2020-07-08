@@ -25,7 +25,7 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
   const { id } = useParams<{ id: string }>();
   const [addUsp] = useAddUspMutation();
   const [editUsp] = useUpdateUspMutation();
-  const [newUspId, setNewUspId] = useState<string | null>(null);
+  const [newUspId, setNewUspId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
 
   const handleAdd = async () => {
@@ -50,7 +50,7 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
         ],
       });
 
-      setNewUspId(data?.addUsp?.newUsp.id ?? null);
+      setNewUspId(data?.addUsp?.newUsp.id ?? undefined);
 
       return undefined;
     } catch (error) {

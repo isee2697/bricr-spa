@@ -25,7 +25,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
   const { id } = useParams<{ id: string }>();
   const [addMediaLink] = useAddMediaLinkMutation();
   const [editMediaLink] = useUpdateMediaLinkMutation();
-  const [newLinkId, setNewLinkId] = useState<string | null>(null);
+  const [newLinkId, setNewLinkId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.MediaLink])[LabelProperty.MediaLink] ?? [];
 
   const handleAdd = async () => {
@@ -50,7 +50,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         ],
       });
 
-      setNewLinkId(data?.addMediaLink?.newMediaLink?.id ?? null);
+      setNewLinkId(data?.addMediaLink?.newMediaLink?.id ?? undefined);
 
       return undefined;
     } catch (error) {

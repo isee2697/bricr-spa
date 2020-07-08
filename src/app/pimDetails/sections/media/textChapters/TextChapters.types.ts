@@ -8,7 +8,7 @@ export type TextChaptersProps = {
   onAdd: VoidFunction;
   onSave: (values: Chapter) => Promise<undefined | { error: boolean }>;
   chapters: Chapter[];
-  newChapterId: string | null;
+  newChapterId?: string;
   onAddCustomType: () => void;
 };
 

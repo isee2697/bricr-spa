@@ -13,13 +13,22 @@ export const Form = <T extends unknown>({
   onSave,
   isInitiallyOpened = false,
   counter,
+  onExpand,
+  isExpanded,
 }: FormProps<T>) => {
   const classes = useStyles();
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={onSave}>
       <Box className={classes.container}>
-        <FormSubSection counter={counter} title={title} initiallyOpened={isInitiallyOpened} onOptionsClick={() => {}}>
+        <FormSubSection
+          counter={counter}
+          title={title}
+          initiallyOpened={isInitiallyOpened}
+          onOptionsClick={() => {}}
+          onExpand={onExpand}
+          isExpanded={isExpanded}
+        >
           <Grid container spacing={4}>
             {children}
           </Grid>

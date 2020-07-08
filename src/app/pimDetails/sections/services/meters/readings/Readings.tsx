@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 
-import { useLocale, useToogleOnNewlyCreated } from 'hooks';
+import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { LinkedPerson } from 'ui/molecules';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField, DatePickerField } from 'form/fields';
@@ -18,7 +18,7 @@ export const Readings = ({ readings, editing, linkedPerson, onSave, isMeterAdded
   const classes = useStyles();
   const isElectricity = meterType === 'electric';
 
-  useToogleOnNewlyCreated(readings, setToggled);
+  useToggleOnNewlyCreatedFromArray(readings, setToggled);
 
   return (
     <>

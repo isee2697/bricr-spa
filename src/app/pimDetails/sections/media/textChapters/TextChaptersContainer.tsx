@@ -25,7 +25,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
   const { id } = useParams<{ id: string }>();
   const [addTextChapter] = useAddTextChapterMutation();
   const [editTextChapter] = useUpdateTextChapterMutation();
-  const [newChapterId, setNewChapterId] = useState<string | null>(null);
+  const [newChapterId, setNewChapterId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.TextChapter])[LabelProperty.TextChapter] ?? [];
 
   const handleAdd = async () => {
@@ -50,7 +50,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         ],
       });
 
-      setNewChapterId(data?.addTextChapter?.newChapter.id ?? null);
+      setNewChapterId(data?.addTextChapter?.newChapter.id ?? undefined);
 
       return undefined;
     } catch (error) {

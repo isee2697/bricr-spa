@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { Section } from '../section/Section';
@@ -7,6 +7,7 @@ import { Form } from '../form/Form';
 import { Editor } from 'app/pimDetails/sections/media/form/parts/Editor';
 import { Input } from 'app/pimDetails/sections/media/form/parts/Input';
 import { TileButton } from 'ui/molecules';
+import { useToggleOnNewlyCreated } from 'hooks';
 
 import { TextChaptersProps } from './TextChapters.types';
 
@@ -19,6 +20,9 @@ export const TextChapters = ({
   onAddCustomType,
 }: TextChaptersProps) => {
   const { formatMessage } = useLocale();
+  const [toggled, setToggled] = useState<string | undefined>(newChapterId);
+
+  useToggleOnNewlyCreated(newChapterId, setToggled);
 
   return (
     <Section
@@ -36,8 +40,9 @@ export const TextChapters = ({
             title={chapter.name ?? formatMessage({ id: 'pim_details.media.text_chapters.default_name' })}
             onSave={onSave}
             initialValues={chapter}
-            isInitiallyOpened={newChapterId === chapter.id}
             counter={index + 1}
+            onExpand={() => setToggled(toggled => (toggled !== chapter.id ? chapter.id : undefined))}
+            isExpanded={toggled === chapter.id}
           >
             <Input
               disabled={!editing}

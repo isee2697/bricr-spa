@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Avatar, Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { useLocale, useToogleOnNewlyCreated } from 'hooks';
+import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Page } from 'ui/templates';
@@ -73,7 +73,7 @@ export const Costs = ({
     formRef.current?.handleSetEdit(true);
   };
 
-  useToogleOnNewlyCreated(costs, setToggled);
+  useToggleOnNewlyCreatedFromArray(costs, setToggled);
 
   return (
     <>

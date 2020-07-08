@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useLocale, useCustomLabels } from 'hooks';
+import { useLocale, useCustomLabels, useToggleOnNewlyCreated } from 'hooks';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
@@ -14,6 +14,9 @@ import { UspsProps } from './Usps.types';
 export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }: UspsProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+  const [toggled, setToggled] = useState<string | undefined>(newUspId);
+
+  useToggleOnNewlyCreated(newUspId, setToggled);
 
   const customLabels = useCustomLabels(pimId, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
 
@@ -40,8 +43,9 @@ export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }
             }
             onSave={onSave}
             initialValues={usp}
-            isInitiallyOpened={newUspId === usp.id}
             counter={index + 1}
+            onExpand={() => setToggled(toggled => (toggled !== usp.id ? usp.id : undefined))}
+            isExpanded={toggled === usp.id}
           >
             <SingleChoose
               disabled={!editing}

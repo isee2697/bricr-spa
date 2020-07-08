@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { CadastreMap, Cost, Reading } from 'api/types';
 
-export const useToogleOnNewlyCreated = (
+export const useToggleOnNewlyCreatedFromArray = (
   array: Array<CadastreMap | Cost | Reading> | null | undefined,
   setToggled: React.Dispatch<React.SetStateAction<string | undefined>>,
 ) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
@@ -6,11 +6,15 @@ import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
 import { useLocale } from 'hooks';
 import { TileButton } from 'ui/molecules';
+import { useToggleOnNewlyCreated } from 'hooks';
 
 import { LinksProps } from './Links.types';
 
 export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomType }: LinksProps) => {
   const { formatMessage } = useLocale();
+  const [toggled, setToggled] = useState<string | undefined>(newLinkId);
+
+  useToggleOnNewlyCreated(newLinkId, setToggled);
 
   return (
     <Section
@@ -28,8 +32,9 @@ export const Links = ({ onAdd, onSave, options, links, newLinkId, onAddCustomTyp
             title={link.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
             onSave={onSave}
             initialValues={link}
-            isInitiallyOpened={newLinkId === link.id}
             counter={index + 1}
+            onExpand={() => setToggled(toggled => (toggled !== link.id ? link.id : undefined))}
+            isExpanded={toggled === link.id}
           >
             <Input
               disabled={!editing}
