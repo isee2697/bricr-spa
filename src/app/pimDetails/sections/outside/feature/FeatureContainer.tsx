@@ -108,6 +108,8 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
 
           if (!!length && !!width && !!height) {
             utils.changeValue(state, 'configuration.measurement.volume', () => (length * height * width).toFixed(2));
+          } else {
+            utils.changeValue(state, 'configuration.measurement.volume', () => undefined);
           }
         },
       }}
