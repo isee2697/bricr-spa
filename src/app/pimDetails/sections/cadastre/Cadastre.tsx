@@ -31,9 +31,9 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: Cadas
   return (
     <>
       <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
         to="/cadastre/cadastreMap"
         title={formatMessage({ id: 'pim_details.cadastre.title' })}
-        isPimDetailsPage
       />
       <PimDetailsHeader
         title={title}

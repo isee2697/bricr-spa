@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { PricesGeneralProps, PriceType } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral.types';
-import { SetPricesModal } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal';
+import { SetPricesModal } from 'app/shared/prices';
 import { Page } from 'ui/templates';
 import { AutosaveForm } from 'ui/organisms';
 import { Price } from 'app/pimDetails/sections/prices/price/Price';

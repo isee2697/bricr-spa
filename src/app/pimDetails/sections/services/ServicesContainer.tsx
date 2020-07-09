@@ -104,7 +104,11 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
 
   return (
     <>
-      <NavBreadcrumb to="/services" title={formatMessage({ id: 'pim_details.services.title' })} isPimDetailsPage />
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/services"
+        title={formatMessage({ id: 'pim_details.services.title' })}
+      />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}

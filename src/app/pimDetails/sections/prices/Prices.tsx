@@ -15,7 +15,11 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
 
   return (
     <>
-      <NavBreadcrumb to="/prices" title={formatMessage({ id: 'pim_details.prices.title' })} isPimDetailsPage />
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/prices"
+        title={formatMessage({ id: 'pim_details.prices.title' })}
+      />
       <Switch>
         <Route
           default

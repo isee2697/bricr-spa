@@ -36,7 +36,11 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
   return (
     <>
-      <NavBreadcrumb to="/outside" title={formatMessage({ id: 'pim_details.outside.title' })} isPimDetailsPage />
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/outside"
+        title={formatMessage({ id: 'pim_details.outside.title' })}
+      />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}

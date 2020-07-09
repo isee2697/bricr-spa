@@ -1,5 +1,5 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { SetPriceForm } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal.types';
+import { SetPriceForm } from 'app/shared/prices/setPricesModal/SetPricesModal.types';
 import { Profile, RentInformations, SaleInformations } from 'api/types';
 import { PriceForm } from 'app/pimDetails/sections/prices/price/Price.types';
 

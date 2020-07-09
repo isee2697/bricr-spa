@@ -19,9 +19,9 @@ export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
   return (
     <>
       <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
         to="/specification"
         title={formatMessage({ id: 'pim_details.specification.title' })}
-        isPimDetailsPage
       />
       <Grid xs={12} item>
         <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />

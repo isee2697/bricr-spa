@@ -42,7 +42,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
   return (
     <>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.pim' })} to={AppRoute.pim} />
-      <NavBreadcrumb title={title} isPimDetailsPage />
+      <NavBreadcrumb title={title} urlBase={AppRoute.pimDetails} />
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>

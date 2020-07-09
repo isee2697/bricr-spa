@@ -13,7 +13,11 @@ export const General = (props: PimDetailsSectionProps) => {
 
   return (
     <>
-      <NavBreadcrumb to="/general" title={formatMessage({ id: 'pim_details.general.title' })} isPimDetailsPage />
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/general"
+        title={formatMessage({ id: 'pim_details.general.title' })}
+      />
       <Switch>
         <Route
           default

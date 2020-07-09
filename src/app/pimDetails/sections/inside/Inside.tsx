@@ -52,7 +52,11 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
 
   return (
     <>
-      <NavBreadcrumb to="/inside" title={formatMessage({ id: 'pim_details.inside.title' })} isPimDetailsPage />
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/inside"
+        title={formatMessage({ id: 'pim_details.inside.title' })}
+      />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
