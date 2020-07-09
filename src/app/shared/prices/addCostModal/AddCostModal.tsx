@@ -9,8 +9,9 @@ import { GenericField, RadioGroupField } from 'form/fields';
 
 import { useStyles } from './AddCostModal.styles';
 import { AddCostModalProps, CostForm } from './AddCostModal.types';
+import * as dictionaries from './dictionaries';
 
-export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }: AddCostModalProps) => {
+export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost }: AddCostModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -22,10 +23,10 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }
       onClose={onModalClose}
     >
       <Form<CostForm> onSubmit={onAddCost}>
-        {({ handleSubmit, submitting }) => (
+        {({ handleSubmit, submitting, values }) => (
           <form onSubmit={handleSubmit}>
             <DialogContent>
-              <RadioGroupField xs={2} spacing={1} name="type" justify="center" options={options} />
+              <RadioGroupField xs={2} spacing={1} name="type" justify="center" options={dictionaries.costTypes} />
               <GenericField
                 id="name"
                 name="name"
@@ -43,7 +44,7 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost, options }
                 startIcon={<AddIcon color="inherit" />}
                 onClick={handleSubmit}
                 isLoading={submitting}
-                size="small"
+                disabled={!values.type}
               >
                 {formatMessage({ id: 'pim_details.prices.costs.add_cost_modal.confirm' })}
               </SubmitButton>

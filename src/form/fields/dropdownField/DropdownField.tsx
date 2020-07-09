@@ -14,6 +14,7 @@ export const DropdownField = ({
   validate,
   validateFields,
   disabled,
+  margin,
   ...props
 }: DropdownFieldProps) => {
   const { formatMessage } = useLocale();
@@ -29,7 +30,7 @@ export const DropdownField = ({
     (meta.initial !== undefined && meta.initial !== '' && meta.initial !== null && !!meta.error);
 
   return (
-    <FormControl margin="normal" style={{ width: '100%' }}>
+    <FormControl margin={margin ?? 'normal'} style={{ width: '100%' }}>
       <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
         {formatMessage({ id: label })}
       </InputLabel>
