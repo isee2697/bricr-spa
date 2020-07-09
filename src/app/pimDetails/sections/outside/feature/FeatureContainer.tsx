@@ -96,6 +96,8 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
 
           if (!!length && !!width) {
             utils.changeValue(state, 'configuration.measurement.surface', () => (length * width).toFixed(2));
+          } else {
+            utils.changeValue(state, 'configuration.measurement.surface', () => undefined);
           }
         },
         calculateVolume: (args, state, utils) => {
