@@ -4,7 +4,7 @@ import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, CheckboxField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { MeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
+import { CubicMeterIcon, MeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
@@ -159,7 +159,7 @@ export const GarageForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPro
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: <MeterIcon />,
+                endAdornment: <CubicMeterIcon />,
               }}
               disabled={!inEditMode}
             />
