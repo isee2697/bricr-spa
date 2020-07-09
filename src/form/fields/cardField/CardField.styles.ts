@@ -14,16 +14,6 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
     minHeight: theme.spacing(17),
     cursor: 'text',
-    '& .caret': {
-      position: 'relative',
-      '& .MuiTypography-root': {
-        minWidth: theme.spacing(),
-        minHeight: theme.spacing(4),
-      },
-      '& i': {
-        display: 'none',
-      },
-    },
     '& .MuiFormControl-root': {
       width: '100%',
     },
@@ -43,6 +33,7 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.black.main,
       textAlign: 'right',
       marginRight: theme.spacing(1),
+      height: 'auto',
     },
     '& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button': {
       '-webkit-appearance': 'none',
