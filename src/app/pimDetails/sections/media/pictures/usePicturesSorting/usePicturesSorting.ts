@@ -5,8 +5,8 @@ import { SortDirection } from 'api/types';
 import { useLocale } from 'hooks';
 
 const SORTING_DATA: { [key: string]: { sortColumn: string; sortDirection: SortDirection } } = {
-  last_edited: { sortColumn: 'dateUpdated', sortDirection: SortDirection.Desc },
-  first_edited: { sortColumn: 'dateUpdated', sortDirection: SortDirection.Asc },
+  last_edited: { sortColumn: 'dateUpdated', sortDirection: SortDirection.Asc },
+  first_edited: { sortColumn: 'dateUpdated', sortDirection: SortDirection.Desc },
 };
 
 export const usePicturesSorting = () => {
