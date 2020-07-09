@@ -3,9 +3,9 @@ import React from 'react';
 import { Tabs, Tab, Badge } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
-import { PimTabsProps } from './PimTabs.types';
+import { ActionTabsProps } from './ActionTabs.types';
 
-export const PimTabs = ({ status, onStatusChange, amounts }: PimTabsProps) => {
+export const ActionTabs = ({ status, onStatusChange, amounts }: ActionTabsProps) => {
   const { formatMessage } = useLocale();
 
   return (

@@ -1,67 +1,57 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { Pim as PimEntity } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
+import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
+import { PimSidebarMenu } from '../pim/pimSidebarMenu/PimSidebarMenu';
 import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppRoute } from 'routing/AppRoute.enum';
+import { useLocale } from 'hooks';
 
-import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
-import { PimHeader } from './pimHeader/PimHeader';
-import { PimItem } from './pimItem/PimItem';
-import { PimProps } from './Pim.types';
-import { useStyles } from './Pim.styles';
+import { useStyles } from './Project.styles';
+import { ProjectHeader } from './projectHeader/ProjectHeader';
+import { ProjectProps } from './Project.types';
+import { ProjectItem } from './projectItem/ProjectItem';
 
-export const Pim = ({
+export const Project = ({
   status,
   onStatusChange,
   type,
-  onTypeChange,
   isLoading,
   isError,
   amounts,
   listData,
   sorting,
   pagination,
-}: PimProps) => {
+}: ProjectProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { push } = useHistory();
 
   return (
     <>
       {!!isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
-          <PimSidebarMenu type={type} onTypeChange={onTypeChange} />
+          <PimSidebarMenu type={type} onTypeChange={() => {}} />
         </Grid>
         <Grid item xs={12} md={9} lg={10}>
           <Grid container spacing={3} className={classes.content}>
-            <PimHeader type={type} />
+            <ProjectHeader />
             <Grid item xs={12}>
               <Card>
-                <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
+                <CardHeader className="project-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
                   <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   <List
-                    className="pim-list"
-                    items={(listData?.listPims.items ?? []) as PimEntity[]}
-                    itemIndex={'id'}
-                    renderItem={(pim, checked, checkbox) => (
+                    className="project-list"
+                    items={listData?.listProject ?? []}
+                    itemIndex="id"
+                    renderItem={(project, checked, checkbox) => (
                       <Box
-                        key={pim.id}
-                        className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}
+                        key={project.id}
+                        className={classNames(classes.row, { [classes.rowChecked]: checked }, 'project-row')}
                       >
                         {checkbox}
                         <Box component="span" className={classes.rowItem}>
-                          <Box
-                            className={classes.itemButton}
-                            onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
-                          >
-                            <PimItem {...pim} />
-                          </Box>
+                          <ProjectItem {...project} />
                         </Box>
                       </Box>
                     )}

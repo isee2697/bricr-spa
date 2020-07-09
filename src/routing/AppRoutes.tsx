@@ -9,6 +9,7 @@ import { LoginContainer } from 'app/auth/login/LoginContainer';
 import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
 import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
 import { PimContainer } from 'app/pim/PimContainer';
+import { ProjectContainer } from 'app/project/ProjectContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
 import { ProjectDetails } from 'app/projectDetails/ProjectDetails';
 import { useScrollToTop } from 'hooks';
@@ -44,6 +45,7 @@ export const AppRoutes = () => {
               <Switch>
                 <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
+                <AuthorizedRoute path={AppRoute.project} exact component={ProjectContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetails} />
                 <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />

@@ -123,4 +123,4 @@ definitions:
     cypress-node: ./e2e/node_modules
   services:
     docker:
-      memory: 3000
+      memory: 5000

@@ -4,6 +4,7 @@ const primary = '#0A57E9';
 const primaryLight = '#e2ecfd';
 const secondary = '#EE2F57';
 const black = '#2F1F5B';
+const blackLight = 'rgba(47, 31, 91, 0.6)';
 const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
@@ -34,6 +35,7 @@ export const palette: PaletteOptions = {
   },
   black: {
     main: black,
+    light: blackLight,
   },
   white: {
     main: white,

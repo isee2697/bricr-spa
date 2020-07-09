@@ -4,8 +4,8 @@ import { useQueryParam } from 'use-query-params';
 import { useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
+import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 
-import { PimTabsStatus } from './pimTabs/PimTabs.types';
 import { usePimsSorting } from './usePimsSorting/usePimsSorting';
 import { Pim } from './Pim';
 
@@ -13,7 +13,7 @@ const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const PimContainer = () => {
-  const [status = 'active', setStatus] = useQueryParam<PimTabsStatus>('status');
+  const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
   const [type = 'sale', setType] = useQueryParam<string>('type');
 
   const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({});

@@ -43,7 +43,7 @@ context('Add Ncp', () => {
 
     NavigationMenu.goToPim();
     cy.findByRole('button', { name: 'NC sale' }).click();
-    cy.findByText('Add property').click();
+    cy.findByText('Add NC project').click();
 
     cy.contains('What kind of project you want to add?');
   });

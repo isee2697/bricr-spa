@@ -1,14 +1,13 @@
 import { ListPimsQuery } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
-
-import { PimTabsStatus } from './pimTabs/PimTabs.types';
+import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 
 export type PimProps = {
   type: string;
   onTypeChange: (type: string) => void;
-  status: PimTabsStatus;
-  onStatusChange: (type: PimTabsStatus) => void;
+  status: ActionTabStatus;
+  onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;
   isError: boolean;
   amounts?: {
