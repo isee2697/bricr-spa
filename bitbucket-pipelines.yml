@@ -84,7 +84,7 @@ pipelines:
 
   pull-requests:
     '**':
-      - step: 
+      - step:
           name: build and install
           image: tshio/e2e-runner:v4.0.2.2
           caches:
@@ -123,4 +123,4 @@ definitions:
     cypress-node: ./e2e/node_modules
   services:
     docker:
-      memory: 5000
+      memory: 3000
