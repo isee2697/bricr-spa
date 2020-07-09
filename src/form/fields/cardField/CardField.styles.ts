@@ -24,24 +24,32 @@ export const useStyles = makeStyles(theme => ({
         display: 'none',
       },
     },
+    '& .MuiFormControl-root': {
+      width: '100%',
+    },
   },
   input: {
-    opacity: 0,
-    position: 'absolute',
+    '& .MuiInputBase-root': {
+      background: 'transparent',
+      border: 'none',
+      width: `calc(50% + ${theme.spacing(4)}px)`,
+      '&::before, &::after': {
+        content: 'none',
+      },
+    },
+    '& input.MuiInputBase-input': {
+      fontSize: theme.typography.h1.fontSize,
+      fontWeight: theme.typography.h1.fontWeight,
+      color: theme.palette.black.main,
+      textAlign: 'right',
+      marginRight: theme.spacing(1),
+    },
+    '& input[type=number]::-webkit-inner-spin-button, & input[type=number]::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+    },
   },
   focus: {
     borderColor: theme.palette.primary.main,
-    '& .caret i': {
-      display: 'block',
-      position: 'absolute',
-      width: theme.spacing(0.125),
-      height: theme.spacing(2),
-      backgroundColor: theme.palette.primary.main,
-      left: -theme.spacing(0.5),
-      top: theme.spacing(1.5),
-      animation: '$blink 800ms infinite',
-      opacity: 1,
-    },
   },
   error: {
     borderColor: theme.palette.red.main,

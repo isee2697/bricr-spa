@@ -124,7 +124,9 @@ export const GardenForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPro
             <CardField
               name="configuration.measurement.surface"
               label="pim_details.surface.surface"
-              endAdornment={<SquareMeterIcon />}
+              InputProps={{
+                endAdornment: <SquareMeterIcon />,
+              }}
               type="number"
               disabled={!inEditMode}
             />

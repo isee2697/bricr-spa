@@ -158,7 +158,9 @@ export const StorageForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPr
             <CardField
               name="configuration.measurement.surface"
               label="pim_details.surface.surface"
-              endAdornment={<SquareMeterIcon />}
+              InputProps={{
+                endAdornment: <SquareMeterIcon />,
+              }}
               type="number"
               disabled={!inEditMode}
             />
