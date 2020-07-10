@@ -5,9 +5,10 @@ import { useLocale } from 'hooks';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
 import { LabelProperty } from 'api/types';
 import { Page } from 'ui/templates';
-import { SpecificationGeneralProps } from 'app/pimDetails/sections/specification/specificationGeneral/SpecificationGeneral.types';
+import { EnergyForm } from 'app/shared/energy/EnergyForm';
+import { useStyles } from '../Specification.styles';
 
-import { EnergyForm } from './forms/EnergyForm';
+import { SpecificationGeneralProps } from './SpecificationGeneral.types';
 import { ApprovalsForm } from './forms/ApprovalsForm';
 import { ObligationForm } from './forms/ObligationForm';
 
@@ -15,6 +16,7 @@ export const SpecificationGeneral = ({ dateUpdated, updatedBy }: SpecificationGe
   const { formatMessage } = useLocale();
 
   const [isModalOpened, setModalOpened] = useState(false);
+  const classes = useStyles();
 
   return (
     <>
@@ -26,7 +28,7 @@ export const SpecificationGeneral = ({ dateUpdated, updatedBy }: SpecificationGe
         updatedBy={updatedBy}
       >
         <Grid item xs={12}>
-          <EnergyForm />
+          <EnergyForm namePrefix="specification.energy" classNames={classes.root} isInitExpanded />
         </Grid>
         <Grid item xs={12}>
           <ApprovalsForm />

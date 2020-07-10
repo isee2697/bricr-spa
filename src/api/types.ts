@@ -87,6 +87,7 @@ export type Mutation = {
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
+  setNcpCharacteristics: NcpCharacteristics;
   togglePricing: Pim;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
@@ -99,6 +100,7 @@ export type Mutation = {
   updateInvestment: Pim;
   updateMediaLink?: Maybe<Pim>;
   updateMeter?: Maybe<Pim>;
+  updateNcpCharacteristics: NcpCharacteristics;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
@@ -246,6 +248,10 @@ export type MutationSetLinkedPropertiesArgs = {
   input: LinkedPimInput;
 };
 
+export type MutationSetNcpCharacteristicsArgs = {
+  input: SetNcpCharacteristicsSectionsInput;
+};
+
 export type MutationTogglePricingArgs = {
   input: TogglePricingInput;
 };
@@ -292,6 +298,10 @@ export type MutationUpdateMediaLinkArgs = {
 
 export type MutationUpdateMeterArgs = {
   input: UpdateMeterInput;
+};
+
+export type MutationUpdateNcpCharacteristicsArgs = {
+  input: NcpCharacteristicsInput;
 };
 
 export type MutationUpdateOutsideFeatureArgs = {
@@ -357,6 +367,25 @@ export type MutationUpdateUspArgs = {
 export type MutationUploadFileArgs = {
   input: Scalars['UploadFileInput'];
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
+};
+
+export type Energy = {
+  __typename?: 'Energy';
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type EnergyInput = {
+  label?: Maybe<EnergyType>;
+  energyIndex?: Maybe<Scalars['String']>;
+  endDateEnergyLabel?: Maybe<Scalars['Date']>;
+  EPC?: Maybe<Scalars['String']>;
+  characteristicType?: Maybe<EnergyCharasteristicType>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export enum FilePermission {
@@ -438,6 +467,34 @@ export type RemoveFilesInput = {
   entityID: Scalars['ID'];
 };
 
+export enum IdentificationNumberType {
+  Sap = 'Sap',
+  Form = 'Form',
+}
+
+export type IdentificationNumber = {
+  __typename?: 'IdentificationNumber';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type AddIdentificationNumberInput = {
+  pimId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type UpdateIdentificationNumberInput = {
+  pimId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
 export enum LabelProperty {
   ObligationToProvideInformation = 'ObligationToProvideInformation',
   Picture = 'Picture',
@@ -481,6 +538,7 @@ export type Query = {
   dictionary?: Maybe<Scalars['Dictionary']>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
+  getNcpCharacteristics: NcpCharacteristics;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -507,6 +565,10 @@ export type QueryGetChangesHistoryArgs = {
 export type QueryGetLabelsArgs = {
   pimId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetNcpCharacteristicsArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetPimArgs = {
@@ -613,6 +675,112 @@ export type PimListSearchResult = {
   __typename?: 'PimListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListPim>>;
+};
+
+export enum NcpCharacteristicsSections {
+  Measurements = 'Measurements',
+  ClientInformation = 'ClientInformation',
+  InvoiceDetails = 'InvoiceDetails',
+  IdentificationNumber = 'IdentificationNumber',
+  Energy = 'Energy',
+  Phase = 'Phase',
+  AccountManagers = 'AccountManagers',
+  ProjectMarketing = 'ProjectMarketing',
+  AttentionField = 'AttentionField',
+}
+
+export type SetNcpCharacteristicsSectionsInput = {
+  id: Scalars['ID'];
+  sections?: Maybe<Array<NcpCharacteristicsSections>>;
+};
+
+export type ProjectMarketingInput = {
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+};
+
+export type ProjectMarketing = {
+  __typename?: 'ProjectMarketing';
+  logos?: Maybe<Array<File>>;
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+};
+
+export type MeasurementsInput = {
+  volumeFrom?: Maybe<Scalars['Int']>;
+  volumeTo?: Maybe<Scalars['Int']>;
+  livingSpaceFrom?: Maybe<Scalars['Int']>;
+  livingSpaceTo?: Maybe<Scalars['Int']>;
+  plotAreaFrom?: Maybe<Scalars['Int']>;
+  plotAreaTo?: Maybe<Scalars['Int']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type Measurements = {
+  __typename?: 'Measurements';
+  volumeFrom?: Maybe<Scalars['Int']>;
+  volumeTo?: Maybe<Scalars['Int']>;
+  livingSpaceFrom?: Maybe<Scalars['Int']>;
+  livingSpaceTo?: Maybe<Scalars['Int']>;
+  plotAreaFrom?: Maybe<Scalars['Int']>;
+  plotAreaTo?: Maybe<Scalars['Int']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type InvoiceDetailsInput = {
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type InvoiceDetails = {
+  __typename?: 'InvoiceDetails';
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpCharacteristicsInput = {
+  id: Scalars['ID'];
+  projectMarketing?: Maybe<ProjectMarketingInput>;
+  measurements?: Maybe<MeasurementsInput>;
+  energy?: Maybe<EnergyInput>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  identificationNumbers?: Maybe<Array<UpdateIdentificationNumberInput>>;
+  attentionNote?: Maybe<Scalars['String']>;
+  invoiceDetails?: Maybe<InvoiceDetailsInput>;
+};
+
+export type NcpCharacteristics = LastUpdated & {
+  __typename?: 'NcpCharacteristics';
+  id: Scalars['ID'];
+  characteristicsSections?: Maybe<Array<NcpCharacteristicsSections>>;
+  projectMarketing?: Maybe<ProjectMarketing>;
+  measurements?: Maybe<Measurements>;
+  energy?: Maybe<Energy>;
+  accountManagers?: Maybe<Array<Profile>>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+  attentionNote?: Maybe<Scalars['String']>;
+  invoiceDetails?: Maybe<InvoiceDetails>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export enum NcpType {
@@ -950,33 +1118,6 @@ export type ExtraAddressInput = {
   plotNumberAddition?: Maybe<Scalars['String']>;
   houseNumberStart?: Maybe<Scalars['String']>;
   houseNumberEnd?: Maybe<Scalars['String']>;
-};
-
-export enum IdentificationNumberType {
-  Sap = 'Sap',
-  Form = 'Form',
-}
-
-export type IdentificationNumber = {
-  __typename?: 'IdentificationNumber';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type AddIdentificationNumberInput = {
-  pimId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type UpdateIdentificationNumberInput = {
-  pimId: Scalars['String'];
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  number?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
 };
 
 export type PimGeneral = LastUpdated & {
@@ -2817,6 +2958,7 @@ export type Inspection = {
   inspectionType: InspectionType;
   type: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type AddInspectionInput = {
@@ -2828,25 +2970,6 @@ export type AddInspectionInput = {
 export type UpdateInspectionInput = {
   id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
-};
-
-export type Energy = {
-  __typename?: 'Energy';
-  label?: Maybe<EnergyType>;
-  energyIndex?: Maybe<Scalars['String']>;
-  endDateEnergyLabel?: Maybe<Scalars['Date']>;
-  EPC?: Maybe<Scalars['String']>;
-  characteristicType?: Maybe<EnergyCharasteristicType>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type EnergyInput = {
-  label?: Maybe<EnergyType>;
-  energyIndex?: Maybe<Scalars['String']>;
-  endDateEnergyLabel?: Maybe<Scalars['Date']>;
-  EPC?: Maybe<Scalars['String']>;
-  characteristicType?: Maybe<EnergyCharasteristicType>;
-  notes?: Maybe<Scalars['String']>;
 };
 
 export type Approvals = {
@@ -2889,15 +3012,13 @@ export type Specification = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
-export type PimSpecification = LastUpdated & {
+export type PimSpecification = {
   __typename?: 'PimSpecification';
   id: Scalars['ID'];
   specification?: Maybe<Specification>;
   specificationAdvanced?: Maybe<SpecificationAdvanced>;
   linkedProperties?: Maybe<Array<LinkedPim>>;
   inspections?: Maybe<Array<Inspection>>;
-  lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
   linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
   linkedPropertiesLastEditedBy?: Maybe<Profile>;
   linkedPropertiesDescription?: Maybe<Scalars['String']>;

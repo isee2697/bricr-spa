@@ -7,17 +7,15 @@ import {
   PimGeneralDocument,
   IdentificationNumber,
 } from 'api/types';
+import { IdentificationNumberForm } from 'app/shared/identificationNumber/IdentificationNumberForm';
 
-import { IdentificationNumberFormContainerProps } from './IdentificationNumberForm.types';
-import { IdentificationNumberForm } from './IdentificationNumberForm';
-
-export const IdentificationNumberFormContainer = ({ items }: IdentificationNumberFormContainerProps) => {
+export const IdentificationNumberFormContainer = ({ items }: { items: IdentificationNumber[] }) => {
   const { id } = useParams<{ id: string }>();
   const [addIdentificationNumber] = useAddIdentificationNumberMutation();
   const [updateIdentificationNumber] = useUpdateIdentificationNumberMutation();
 
   const handleAdd = async () => {
-    return addIdentificationNumber({
+    const { data } = await addIdentificationNumber({
       variables: {
         input: {
           pimId: id,
@@ -32,6 +30,10 @@ export const IdentificationNumberFormContainer = ({ items }: IdentificationNumbe
         },
       ],
     });
+
+    return {
+      id: data?.addIdentificationNumber.newIdentificationNumber.id,
+    };
   };
 
   const handleSave = async (values: IdentificationNumber) => {

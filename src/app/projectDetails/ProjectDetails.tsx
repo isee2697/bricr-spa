@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { CharacteristicsContainer } from 'app/projectDetails/sections/characteristics/CharacteristicsContainer';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -26,6 +27,7 @@ export const ProjectDetails = () => {
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
               <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer />} />
+              <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
             </Switch>

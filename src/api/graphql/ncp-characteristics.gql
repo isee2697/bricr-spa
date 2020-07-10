@@ -1,0 +1,110 @@
+enum NcpCharacteristicsSections {
+  Measurements,
+  ClientInformation,
+  InvoiceDetails,
+  IdentificationNumber,
+  Energy,
+  Phase,
+  AccountManagers,
+  ProjectMarketing,
+  AttentionField
+}
+
+input SetNcpCharacteristicsSectionsInput {
+  id: ID!
+  sections: [NcpCharacteristicsSections!]
+}
+
+input ProjectMarketingInput {
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+}
+
+type ProjectMarketing {
+  logos: [File!]
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+}
+
+input MeasurementsInput {
+  volumeFrom: Int
+  volumeTo: Int
+  livingSpaceFrom: Int
+  livingSpaceTo: Int
+  plotAreaFrom: Int
+  plotAreaTo: Int
+  calculateAutomatically: Boolean
+}
+
+type Measurements {
+  volumeFrom: Int
+  volumeTo: Int
+  livingSpaceFrom: Int
+  livingSpaceTo: Int
+  plotAreaFrom: Int
+  plotAreaTo: Int
+  calculateAutomatically: Boolean
+}
+
+input InvoiceDetailsInput {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}
+
+type InvoiceDetails {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}
+
+input NcpCharacteristicsInput {
+  id: ID!
+  projectMarketing: ProjectMarketingInput
+  measurements: MeasurementsInput
+  energy: EnergyInput
+  accountManagersIds: [ID!]
+  identificationNumbers: [UpdateIdentificationNumberInput!]
+  attentionNote: String
+  invoiceDetails: InvoiceDetailsInput
+}
+
+type NcpCharacteristics implements LastUpdated {
+  id: ID!
+  characteristicsSections: [NcpCharacteristicsSections!]
+  projectMarketing: ProjectMarketing
+  measurements: Measurements
+  energy: Energy
+  accountManagers: [Profile!]
+  accountManagersIds: [ID!]
+  identificationNumbers: [IdentificationNumber!]
+  attentionNote: String
+  invoiceDetails: InvoiceDetails
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+extend type Mutation {
+  setNcpCharacteristics(input: SetNcpCharacteristicsSectionsInput!): NcpCharacteristics!
+  updateNcpCharacteristics(input: NcpCharacteristicsInput!): NcpCharacteristics!
+}
+
+extend type Query {
+  getNcpCharacteristics(id: ID!): NcpCharacteristics!
+}

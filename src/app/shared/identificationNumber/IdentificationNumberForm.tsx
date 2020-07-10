@@ -24,9 +24,7 @@ export const IdentificationNumberForm = ({ items, onAdd, onSave }: Identificatio
   const formRef = React.useRef<FormSectionRef>(null);
 
   const handleAdd = async () => {
-    const { data } = await onAdd();
-
-    const id = data?.addIdentificationNumber.newIdentificationNumber.id;
+    const { id } = await onAdd();
 
     if (id) {
       setToggled(id);

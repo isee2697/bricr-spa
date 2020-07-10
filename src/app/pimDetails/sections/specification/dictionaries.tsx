@@ -3,8 +3,6 @@ import React from 'react';
 import { SquareIcon } from 'ui/atoms/icons';
 import {
   ApprovalType,
-  EnergyCharasteristicType,
-  EnergyType,
   GoodToKnowType,
   HousingType,
   InsideType,
@@ -17,18 +15,6 @@ import {
   SpecialTagsType,
   TankType,
 } from 'api/types';
-
-export const energy = Object.keys(EnergyType).map(value => ({
-  label: `dictionaries.specification.energy.${value}`,
-  icon: <SquareIcon color="inherit" />,
-  value,
-}));
-
-export const energyType = Object.keys(EnergyCharasteristicType).map(value => ({
-  label: `dictionaries.specification.energy_type.${value}`,
-  icon: <SquareIcon color="inherit" />,
-  value,
-}));
 
 export const approvals = Object.keys(ApprovalType).map(value => ({
   label: `dictionaries.specification.approvals.${value}`,

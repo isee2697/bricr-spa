@@ -6,4 +6,5 @@ export type AutoCalculateFormProps = {
   disabled: boolean;
   children: (isCalculated: boolean) => ReactNode;
   onChange: (isCalculated: boolean) => void;
+  name?: string;
 };

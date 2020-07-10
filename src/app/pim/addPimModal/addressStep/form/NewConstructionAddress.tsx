@@ -1,27 +1,13 @@
-import React, { useMemo } from 'react';
-import countries from 'i18n-iso-countries';
+import React from 'react';
 
 import { Grid } from 'ui/atoms';
 import { DropdownField, GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
-import { useLocale } from 'hooks';
 import { AddressStepFormProps } from '../AddressStep.types';
+import { useCountries } from 'hooks';
 
 export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormProps) => {
-  const { locale } = useLocale();
-
-  const countryOptions = useMemo(() => {
-    const countriesList = countries.getNames(locale);
-
-    return Object.keys(countriesList).map(key => {
-      const name = countriesList[key];
-
-      return {
-        label: Array.isArray(name) ? name.join(' ') : name,
-        value: key,
-      };
-    });
-  }, [locale]);
+  const { countryOptions } = useCountries();
 
   return (
     <>

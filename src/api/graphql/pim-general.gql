@@ -89,32 +89,6 @@ input ExtraAddressInput {
   houseNumberEnd: String
 }
 
-enum IdentificationNumberType {
-  Sap,
-  Form
-}
-
-type IdentificationNumber {
-  id: String!
-  name: String
-  number: String
-  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
-}
-
-input AddIdentificationNumberInput {
-  pimId: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
-}
-
-input UpdateIdentificationNumberInput {
-  pimId: String!
-  id: String!
-  name: String
-  number: String
-  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
-}
-
 type PimGeneral implements LastUpdated {
   id: ID!
   realEstateType: RealEstateType!
