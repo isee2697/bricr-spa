@@ -2,31 +2,33 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
+  ChapterOrUspType,
   LabelProperty,
   PimMediaDocument,
-  TagType,
-  UpdateTagInput,
-  useAddTagMutation,
-  useUpdateTagMutation,
+  UpdateUspInput,
+  useAddUspMutation,
+  useUpdateUspMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
-import { TagsContainerProps } from 'app/pimDetails/sections/media/tags/Tags.types';
 import { useCustomLabels } from 'hooks/useCustomLabels';
 
-import { Tags } from './Tags';
+import { Usps } from './Usps';
+import { UspsContainerProps } from './Usps.types';
 
-const options = Object.values(TagType).map(tagName => ({
-  label: `dictionaries.media.tag.${tagName}`,
+const options = Object.values(ChapterOrUspType).map(tagName => ({
+  label: `dictionaries.media.chapter_or_usp.${tagName}`,
   value: tagName,
   icon: <SquareIcon />,
 }));
 
-export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => {
+export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [addTag] = useAddTagMutation();
-  const [editTag] = useUpdateTagMutation();
-  const [newTagId, setNewTagId] = useState<string | undefined>();
-  const customLabels = useCustomLabels(id, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
+  const [newUspId, setNewUspId] = useState<string | undefined>();
+  const customLabels = useCustomLabels(id, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
+
+  // TODO: change data based on type while integration
+  const [addUsp] = useAddUspMutation();
+  const [editUsp] = useUpdateUspMutation();
 
   const handleAdd = async () => {
     try {
@@ -34,7 +36,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         throw new Error();
       }
 
-      const { data } = await addTag({
+      const { data } = await addUsp({
         variables: {
           input: {
             pimId: id,
@@ -50,7 +52,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         ],
       });
 
-      setNewTagId(data?.addTag?.newTag.id ?? undefined);
+      setNewUspId(data?.addUsp?.newUsp.id ?? undefined);
 
       return undefined;
     } catch (error) {
@@ -60,13 +62,13 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
     }
   };
 
-  const handleSave = async (values: UpdateTagInput) => {
+  const handleSave = async (values: UpdateUspInput) => {
     try {
       if (!id) {
         throw new Error();
       }
 
-      await editTag({
+      await editUsp({
         variables: {
           input: {
             pimId: id,
@@ -92,12 +94,12 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
   };
 
   return (
-    <Tags
+    <Usps
       onSave={handleSave}
       options={[...options, ...customLabels]}
       onAdd={handleAdd}
-      tags={tags ?? []}
-      newTagId={newTagId}
+      usps={usps ?? []}
+      newUspId={newUspId}
       onAddCustomType={onAddCustomType}
     />
   );

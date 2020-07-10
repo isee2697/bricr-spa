@@ -1,20 +1,20 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
-import { Grid, Alert, Loader } from 'ui/atoms';
+import { Grid, Alert, Loader, NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
-import { MediaContainer } from 'app/pimDetails/sections/media/MediaContainer';
-import { General } from 'app/pimDetails/sections/general/General';
-import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { MediaContainer } from 'app/shared/media/MediaContainer';
+import { PimType } from 'app/shared/pimType';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { PimDetailsProps } from './PimDetails.types';
+import { General } from './sections/general/General';
 import { Inside } from './sections/inside/Inside';
 import { Outside } from './sections/outside/Outside';
 import { CadastreContainer } from './sections/cadastre/CadastreContainer';
+import { PricesContainer } from './sections/prices/PricesContainer';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Specification } from './sections/specification/Specification';
 
@@ -123,6 +123,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                       isSidebarVisible={isSidebarVisible}
                       onOpenSidebar={handleSidebarOpen}
                       title={title}
+                      pimType={PimType.Property}
                     />
                   )}
                 />

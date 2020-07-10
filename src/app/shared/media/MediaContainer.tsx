@@ -7,16 +7,18 @@ import {
   usePimMediaQuery,
   useUpdateDescriptionMutation,
 } from 'api/types';
-import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { usePicturesSorting } from 'app/pimDetails/sections/media/pictures/usePicturesSorting/usePicturesSorting';
+import { PimTypeProvider } from '../pimType';
 
+import { usePicturesSorting } from './pictures/usePicturesSorting/usePicturesSorting';
+import { MediaContainerProps } from './Media.types';
 import { Media } from './Media';
 
-export const MediaContainer = (props: PimDetailsSectionProps) => {
+export const MediaContainer = ({ pimType, ...props }: MediaContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const { sorting, query: sortQuery } = usePicturesSorting();
-  const { data } = usePimMediaQuery({ variables: { id, picturesSort: sortQuery } });
 
+  // TODO: change data based on type while integration
+  const { data } = usePimMediaQuery({ variables: { id, picturesSort: sortQuery } });
   const [updateDescription] = useUpdateDescriptionMutation();
 
   const onDescriptionUpdate = async (body: { description: string }) => {
@@ -47,14 +49,16 @@ export const MediaContainer = (props: PimDetailsSectionProps) => {
 
   if (data)
     return (
-      <Media
-        {...props}
-        media={data.getPimMedia}
-        onDescriptionUpdate={onDescriptionUpdate}
-        description={data.getPimMedia.description ?? ''}
-        sorting={sorting}
-        sortQuery={sortQuery}
-      />
+      <PimTypeProvider pimType={pimType}>
+        <Media
+          {...props}
+          media={data.getPimMedia}
+          onDescriptionUpdate={onDescriptionUpdate}
+          description={data.getPimMedia.description ?? ''}
+          sorting={sorting}
+          sortQuery={sortQuery}
+        />
+      </PimTypeProvider>
     );
 
   return null;

@@ -5,7 +5,7 @@ import { FormSubSectionHeader, Modal, SubmitButton, TileButton } from 'ui/molecu
 import { useLocale } from 'hooks';
 import { Box, Button, DialogActions, Grid, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField, UploadImageField } from 'form/fields';
-import { useStyles } from 'app/pimDetails/sections/media/pictures/editPictureModal/EditPictureModal.styles';
+import { useStyles } from 'app/shared/media/pictures/editPictureModal/EditPictureModal.styles';
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 import { EntityWithFiles, LabelProperty } from 'api/types';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';

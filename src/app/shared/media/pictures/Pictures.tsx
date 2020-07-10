@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { Section } from '../section/Section';
 import { useLocale } from 'hooks';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { PictureProps } from 'app/pimDetails/sections/media/pictures/Pictures.types';
-import { PictureItem } from 'app/pimDetails/sections/media/pictures/pictureItem/PictureItem';
-import { useStyles } from 'app/pimDetails/sections/media/pictures/Pictures.styles';
-import { EditPictureModalContainer } from 'app/pimDetails/sections/media/pictures/editPictureModal/EditPictureModalContainer';
+import { PictureProps } from 'app/shared/media/pictures/Pictures.types';
+import { PictureItem } from 'app/shared/media/pictures/pictureItem/PictureItem';
+import { useStyles } from 'app/shared/media/pictures/Pictures.styles';
+import { EditPictureModalContainer } from 'app/shared/media/pictures/editPictureModal/EditPictureModalContainer';
 import { UnCheckMarkIcon, CheckMarkIcon, CardsIcon, ListIcon } from 'ui/atoms/icons';
-import { AddPictureModalContainer } from 'app/pimDetails/sections/media/pictures/addPictureModal/AddPictureModalContainer';
+import { AddPictureModalContainer } from 'app/shared/media/pictures/addPictureModal/AddPictureModalContainer';
 import { Picture } from 'api/types';
 import { IconButton } from 'ui/atoms';
 

@@ -18,8 +18,8 @@ const menuItems = [
   { key: 'prices', subItems: ['costs'] },
   { key: 'services' },
   { key: 'media' },
-  { key: 'objectTypes' },
-  { key: 'properties' },
+  { key: 'objectTypes', count: 4 },
+  { key: 'properties', count: 0 },
 ];
 
 export const ProjectDetailsSidebarMenu = () => {
@@ -37,6 +37,7 @@ export const ProjectDetailsSidebarMenu = () => {
           icon={<SaleIcon />}
           title={formatMessage({ id: `project_details.menu.${item.key}` })}
           selected={pathname.startsWith(`${url}/${item.key}`)}
+          badge={item.count}
           onClick={() => push(`${url}/${item.key}`)}
         >
           {item.subItems?.map(subItem => (

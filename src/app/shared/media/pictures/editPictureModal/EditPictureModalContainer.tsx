@@ -17,8 +17,10 @@ const options = Object.values(PictureType).map(tagName => ({
 export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture }: EditPictureModalContainerProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const { loading, data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
-  const [updatePicture] = useUpdatePictureMutation();
   const customLabels = useCustomLabels(pimId, [LabelProperty.Picture]);
+
+  // TODO: change data based on type while integration
+  const [updatePicture] = useUpdatePictureMutation();
 
   const handleSave = async ({ file, description, name, type, id }: EditPictureForm) => {
     try {

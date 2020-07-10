@@ -4,12 +4,15 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CharacteristicsContainer } from 'app/projectDetails/sections/characteristics/CharacteristicsContainer';
+import { MediaContainer } from 'app/shared/media/MediaContainer';
+import { PimType } from 'app/shared/pimType';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
 import { GeneralContainer } from './sections/general/GeneralContainer';
 import { Prices } from './sections/prices/Prices';
+import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
+import { ObjectTypes } from './sections/objectTypes/ObjectTypes';
 
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
@@ -29,6 +32,11 @@ export const ProjectDetails = () => {
               <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
+              <Route
+                path={`${AppRoute.projectDetails}/media`}
+                render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} pimType={PimType.Project} />}
+              />
+              <Route path={`${AppRoute.projectDetails}/objectTypes`} render={() => <ObjectTypes />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
             </Switch>
           </Box>

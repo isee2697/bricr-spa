@@ -44,4 +44,11 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.gray.main,
   },
+  badge: {
+    marginRight: theme.spacing(1.5),
+    padding: theme.spacing(0, 1.25),
+    color: theme.palette.gray.main,
+    background: theme.palette.gray.light,
+    borderRadius: theme.spacing(3),
+  },
 }));

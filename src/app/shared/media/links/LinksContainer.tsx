@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Chapter, TextChaptersContainerProps } from 'app/pimDetails/sections/media/textChapters/TextChapters.types';
+import { LinksContainerProps } from 'app/shared/media/links/Links.types';
 import {
-  ChapterOrUspType,
   LabelProperty,
+  MediaLinkType,
   PimMediaDocument,
-  useAddTextChapterMutation,
-  useUpdateTextChapterMutation,
+  UpdateMediaLinkInput,
+  useAddMediaLinkMutation,
+  useUpdateMediaLinkMutation,
 } from 'api/types';
-import { RICH_TEXT_DEFAULT } from 'form/fields/richTextField/RichTextField';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
 
-import { TextChapters } from './TextChapters';
+import { Links } from './Links';
 
-const options = Object.values(ChapterOrUspType).map(tagName => ({
-  label: `dictionaries.media.chapter_or_usp.${tagName}`,
+const options = Object.values(MediaLinkType).map(tagName => ({
+  label: `dictionaries.media.link.${tagName}`,
   value: tagName,
   icon: <SquareIcon />,
 }));
 
-export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChaptersContainerProps) => {
+export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [addTextChapter] = useAddTextChapterMutation();
-  const [editTextChapter] = useUpdateTextChapterMutation();
-  const [newChapterId, setNewChapterId] = useState<string | undefined>();
-  const customLabels = useCustomLabels(id, [LabelProperty.TextChapter])[LabelProperty.TextChapter] ?? [];
+  const [newLinkId, setNewLinkId] = useState<string | undefined>();
+  const customLabels = useCustomLabels(id, [LabelProperty.MediaLink])[LabelProperty.MediaLink] ?? [];
+
+  // TODO: change data based on type while integration
+  const [addMediaLink] = useAddMediaLinkMutation();
+  const [editMediaLink] = useUpdateMediaLinkMutation();
 
   const handleAdd = async () => {
     try {
@@ -34,7 +36,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         throw new Error();
       }
 
-      const { data } = await addTextChapter({
+      const { data } = await addMediaLink({
         variables: {
           input: {
             pimId: id,
@@ -50,7 +52,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         ],
       });
 
-      setNewChapterId(data?.addTextChapter?.newChapter.id ?? undefined);
+      setNewLinkId(data?.addMediaLink?.newMediaLink?.id ?? undefined);
 
       return undefined;
     } catch (error) {
@@ -60,18 +62,17 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
     }
   };
 
-  const handleSave = async ({ chapter, ...values }: Chapter) => {
+  const handleSave = async (values: UpdateMediaLinkInput) => {
     try {
       if (!id) {
         throw new Error();
       }
 
-      await editTextChapter({
+      await editMediaLink({
         variables: {
           input: {
             pimId: id,
             ...values,
-            text: JSON.stringify(chapter),
           },
         },
         refetchQueries: [
@@ -92,20 +93,13 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
     }
   };
 
-  const textChapters =
-    chapters &&
-    chapters.map(ch => ({
-      ...ch,
-      chapter: ch.text ? JSON.parse(ch.text) : RICH_TEXT_DEFAULT,
-    }));
-
   return (
-    <TextChapters
+    <Links
+      links={links ?? []}
       onSave={handleSave}
       options={[...options, ...customLabels]}
       onAdd={handleAdd}
-      chapters={textChapters ?? []}
-      newChapterId={newChapterId}
+      newLinkId={newLinkId}
       onAddCustomType={onAddCustomType}
     />
   );

@@ -2,11 +2,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { UploadModal } from 'ui/organisms';
-import { AddMapModalProps } from 'app/pimDetails/sections/media/pictures/addPictureModal/AddPictureModal.types';
+import { AddMapModalProps } from 'app/shared/media/pictures/addPictureModal/AddPictureModal.types';
 import { PimMediaDocument, useAddPicturesMutation, useInitSendFileMutation, useUploadFileMutation } from 'api/types';
 
 export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
+
+  // TODO: change data based on type while integration
   const [initUpload, { loading: initLoading }] = useInitSendFileMutation();
   const [uploadFile, { loading: uploadLoading }] = useUploadFileMutation();
   const [addPicture, { loading: pictureLoading }] = useAddPicturesMutation();

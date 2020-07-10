@@ -4,8 +4,8 @@ import { useLocale } from 'hooks';
 import { Section } from '../section/Section';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Form } from '../form/Form';
-import { Editor } from 'app/pimDetails/sections/media/form/parts/Editor';
-import { Input } from 'app/pimDetails/sections/media/form/parts/Input';
+import { Editor } from 'app/shared/media/form/parts/Editor';
+import { Input } from 'app/shared/media/form/parts/Input';
 import { TileButton } from 'ui/molecules';
 import { useToggleOnNewlyCreated } from 'hooks';
 
