@@ -7,3 +7,11 @@ export const CREATE_NCP = gql`
     }
   }
 `;
+
+export const UPDATE_NCP = gql`
+  mutation updateNcp($input: UpdateNcpInput!) {
+    updateNcp(input: $input) {
+      id
+    }
+  }
+`;

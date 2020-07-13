@@ -49,11 +49,9 @@ export const Measurements = () => {
     >
       {inEditMode => (
         <AutoCalculateForm
-          label={formatMessage({ id: 'project_details.general.construction.automatically_calculate' })}
-          initValue={true}
-          disabled={!inEditMode}
-          onChange={() => {}}
           name="measurements.calculateAutomatically"
+          label={formatMessage({ id: 'project_details.general.construction.automatically_calculate' })}
+          disabled={!inEditMode}
         >
           {isCalculated => (
             <>

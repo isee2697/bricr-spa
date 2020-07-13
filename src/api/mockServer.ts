@@ -23,7 +23,7 @@ let PIM_CADASTRE = PIM_CADASTRE_1;
 const PIM_MEDIA = PIM_MEDIA_1;
 let PIM_INSIDE = PIM_INSIDE_1;
 const PIM_GENERAL = PIM_GENERAL_1;
-const NCP_GENERAL = NCP_GENERAL_1;
+let NCP_GENERAL = NCP_GENERAL_1;
 
 export const mockServer = () => {
   new Server({
@@ -610,6 +610,17 @@ export const mockServer = () => {
             };
           },
           createNcp() {
+            return NCP_GENERAL;
+          },
+          getNcp() {
+            return NCP_GENERAL;
+          },
+          updateNcp() {
+            NCP_GENERAL = {
+              ...NCP_GENERAL,
+              ...variables.input,
+            };
+
             return NCP_GENERAL;
           },
         };

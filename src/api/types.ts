@@ -100,6 +100,7 @@ export type Mutation = {
   updateInvestment: Pim;
   updateMediaLink?: Maybe<Pim>;
   updateMeter?: Maybe<Pim>;
+  updateNcp: NcpGeneral;
   updateNcpCharacteristics: NcpCharacteristics;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
@@ -298,6 +299,10 @@ export type MutationUpdateMediaLinkArgs = {
 
 export type MutationUpdateMeterArgs = {
   input: UpdateMeterInput;
+};
+
+export type MutationUpdateNcpArgs = {
+  input: UpdateNcpInput;
 };
 
 export type MutationUpdateNcpCharacteristicsArgs = {
@@ -538,6 +543,7 @@ export type Query = {
   dictionary?: Maybe<Scalars['Dictionary']>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
+  getNcp: NcpGeneral;
   getNcpCharacteristics: NcpCharacteristics;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
@@ -566,6 +572,10 @@ export type QueryGetChangesHistoryArgs = {
 export type QueryGetLabelsArgs = {
   pimId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetNcpArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetNcpCharacteristicsArgs = {
@@ -796,6 +806,20 @@ export enum NcpType {
   BuildingPlots = 'BuildingPlots',
 }
 
+export enum ProgressStatus {
+  Concept = 'Concept',
+  InPreparation = 'InPreparation',
+  InPresale = 'InPresale',
+  InProgress = 'InProgress',
+  Delivered = 'Delivered',
+}
+
+export enum ProjectRisk {
+  Low = 'Low',
+  Middle = 'Middle',
+  High = 'High',
+}
+
 export type CreateNcpInput = {
   type: NcpType;
   name: Scalars['String'];
@@ -806,6 +830,31 @@ export type CreateNcpInput = {
   city: Scalars['String'];
   country: Scalars['String'];
   additionalHouseNumber?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  additionalName?: Maybe<Scalars['String']>;
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  additionalHouseNumber?: Maybe<Scalars['String']>;
+  zipCode: Scalars['String'];
+  city: Scalars['String'];
+  country: Scalars['String'];
+  automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
+  objectTypes?: Maybe<Scalars['Int']>;
+  properties?: Maybe<Scalars['Int']>;
+  progressStatus?: Maybe<ProgressStatus>;
+  startConstruction?: Maybe<Scalars['Date']>;
+  noteStartConstruction?: Maybe<Scalars['Date']>;
+  startSale?: Maybe<Scalars['Date']>;
+  noteStartSale?: Maybe<Scalars['Date']>;
+  startDelivery?: Maybe<Scalars['Date']>;
+  noteStartDelivery?: Maybe<Scalars['String']>;
+  startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
+  projectRisk?: Maybe<ProjectRisk>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type NcpGeneral = LastUpdated & {
@@ -823,6 +872,19 @@ export type NcpGeneral = LastUpdated & {
   zipCode: Scalars['String'];
   city: Scalars['String'];
   country: Scalars['String'];
+  automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
+  objectTypes?: Maybe<Scalars['Int']>;
+  properties?: Maybe<Scalars['Int']>;
+  progressStatus?: Maybe<ProgressStatus>;
+  startConstruction?: Maybe<Scalars['Date']>;
+  noteStartConstruction?: Maybe<Scalars['String']>;
+  startSale?: Maybe<Scalars['Date']>;
+  noteStartSale?: Maybe<Scalars['String']>;
+  startDelivery?: Maybe<Scalars['Date']>;
+  noteStartDelivery?: Maybe<Scalars['String']>;
+  startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
+  projectRisk?: Maybe<ProjectRisk>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type ListNcpsFilters = {
@@ -3578,6 +3640,14 @@ export type CreateNcpMutation = { __typename?: 'Mutation' } & {
   createNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
 };
 
+export type UpdateNcpMutationVariables = {
+  input: UpdateNcpInput;
+};
+
+export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
+  updateNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -4031,6 +4101,41 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type NcpGeneralQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpGeneralQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    | 'id'
+    | 'type'
+    | 'dateCreated'
+    | 'dateUpdated'
+    | 'name'
+    | 'additionalName'
+    | 'street'
+    | 'houseNumber'
+    | 'additionalHouseNumber'
+    | 'zipCode'
+    | 'city'
+    | 'country'
+    | 'automaticallyCalculateQuantity'
+    | 'objectTypes'
+    | 'properties'
+    | 'progressStatus'
+    | 'startConstruction'
+    | 'noteStartConstruction'
+    | 'startSale'
+    | 'noteStartSale'
+    | 'startDelivery'
+    | 'noteStartDelivery'
+    | 'startConstructionAfterPresalePercentage'
+    | 'projectRisk'
+    | 'notes'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
 };
 
 export type ListNcpsCountQueryVariables = {};
@@ -4923,6 +5028,24 @@ export type CreateNcpMutationResult = ApolloReactCommon.MutationResult<CreateNcp
 export type CreateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateNcpMutation,
   CreateNcpMutationVariables
+>;
+export const UpdateNcpDocument = gql`
+  mutation updateNcp($input: UpdateNcpInput!) {
+    updateNcp(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMutation, UpdateNcpMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMutation, UpdateNcpMutationVariables>(UpdateNcpDocument, baseOptions);
+}
+export type UpdateNcpMutationHookResult = ReturnType<typeof useUpdateNcpMutation>;
+export type UpdateNcpMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMutation>;
+export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMutation,
+  UpdateNcpMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -6007,6 +6130,55 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const NcpGeneralDocument = gql`
+  query NcpGeneral($id: ID!) {
+    getNcp(id: $id) {
+      id
+      type
+      dateCreated
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      name
+      additionalName
+      street
+      houseNumber
+      additionalHouseNumber
+      zipCode
+      city
+      country
+      automaticallyCalculateQuantity
+      objectTypes
+      properties
+      progressStatus
+      startConstruction
+      noteStartConstruction
+      startSale
+      noteStartSale
+      startDelivery
+      noteStartDelivery
+      startConstructionAfterPresalePercentage
+      projectRisk
+      notes
+    }
+  }
+`;
+export function useNcpGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
+}
+export function useNcpGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
+}
+export type NcpGeneralQueryHookResult = ReturnType<typeof useNcpGeneralQuery>;
+export type NcpGeneralLazyQueryHookResult = ReturnType<typeof useNcpGeneralLazyQuery>;
+export type NcpGeneralQueryResult = ApolloReactCommon.QueryResult<NcpGeneralQuery, NcpGeneralQueryVariables>;
 export const ListNcpsCountDocument = gql`
   query ListNcpsCount {
     activeCount: listNcps(filters: { archived: false }) {

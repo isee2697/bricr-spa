@@ -1,10 +1,8 @@
 import { ReactNode } from 'react';
 
 export type AutoCalculateFormProps = {
+  name: string;
   label: string;
-  initValue: boolean;
   disabled: boolean;
   children: (isCalculated: boolean) => ReactNode;
-  onChange: (isCalculated: boolean) => void;
-  name?: string;
 };

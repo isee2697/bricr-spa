@@ -16,9 +16,8 @@ export const PriceSection = ({ type }: PriceSectionProps) => {
     <FormSection title={formatMessage({ id: `pim_details.prices.${type.toLowerCase()}` })} isExpandable isEditable>
       {inEditMode => (
         <AutoCalculateForm
+          name="autocalculatePrices"
           label={formatMessage({ id: 'project_details.prices.automatically_calculate_prices' })}
-          initValue={false}
-          onChange={() => {}}
           disabled={!inEditMode}
         >
           {isCalculated => (

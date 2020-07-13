@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
+import { PercentIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection, AutoCalculateForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
@@ -10,10 +11,11 @@ import { GenericField, RadioGroupField, DatePickerField } from 'form/fields';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { NewConstructionAddress } from 'app/pim/addPimModal/addressStep/form/NewConstructionAddress';
 
+import { GeneralProps } from './General.types';
 import { useStyles } from './General.styles';
 import * as dictionaries from './dictionaries';
 
-export const General = () => {
+export const General = ({ data }: GeneralProps) => {
   const { state } = useLocation<{ newlyAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -21,7 +23,12 @@ export const General = () => {
   return (
     <>
       <ProjectDetailsHeader />
-      <Page title={formatMessage({ id: 'project_details.general.title' })}>
+
+      <Page
+        title={formatMessage({ id: 'project_details.general.title' })}
+        dateUpdated={data?.dateUpdated}
+        updatedBy={data?.lastEditedBy}
+      >
         <Grid item xs={12}>
           <Box mt={3}>
             <FormSection
@@ -50,10 +57,9 @@ export const General = () => {
                   subtitle={formatMessage({ id: 'project_details.general.construction.project_volume_description' })}
                 />
                 <AutoCalculateForm
+                  name="automaticallyCalculateQuantity"
                   label={formatMessage({ id: 'project_details.general.construction.automatically_calculate' })}
-                  initValue={true}
                   disabled={!inEditMode}
-                  onChange={() => {}}
                 >
                   {isCalculated => (
                     <Grid container spacing={1}>
@@ -63,7 +69,6 @@ export const General = () => {
                           name="objectTypes"
                           label="project_details.general.construction.object_types"
                           placeholder="project_details.general.construction.object_types_placeholder"
-                          size="medium"
                           disabled={!inEditMode || isCalculated}
                           type="number"
                         />
@@ -83,6 +88,7 @@ export const General = () => {
                   )}
                 </AutoCalculateForm>
                 <Box mb={3} />
+
                 <FormSubSectionHeader
                   title={formatMessage({ id: 'project_details.general.construction.progress_project' })}
                   subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
@@ -94,7 +100,7 @@ export const General = () => {
                         spacing={1}
                         xs={4}
                         md={2}
-                        name="progress"
+                        name="progressStatus"
                         options={dictionaries.progressTypes}
                         disabled={!inEditMode}
                       />
@@ -110,7 +116,7 @@ export const General = () => {
                   </Grid>
                   <Grid item xs={8}>
                     <GenericField
-                      name="startConstructionDescription"
+                      name="noteStartConstruction"
                       label="project_details.general.construction.note_start_construction"
                       placeholder="project_details.general.construction.note_start_construction_placeholder"
                       size="medium"
@@ -127,7 +133,7 @@ export const General = () => {
                   </Grid>
                   <Grid item xs={8}>
                     <GenericField
-                      name="startSaleDescription"
+                      name="noteStartSale"
                       label="project_details.general.construction.note_start_sale"
                       placeholder="project_details.general.construction.note_start_sale_placeholder"
                       size="medium"
@@ -144,7 +150,7 @@ export const General = () => {
                   </Grid>
                   <Grid item xs={8}>
                     <GenericField
-                      name="startConstructionDescription"
+                      name="noteStartDelivery"
                       label="project_details.general.construction.note_start_delivery"
                       placeholder="project_details.general.construction.note_start_delivery_placeholder"
                       size="medium"
@@ -152,12 +158,14 @@ export const General = () => {
                     />
                   </Grid>
                   <Grid item xs={4}>
-                    <DatePickerField
-                      name="startConstructionPercentage"
+                    <GenericField
+                      name="startConstructionAfterPresalePercentage"
                       label="project_details.general.construction.start_construction_percentage"
                       placeholder="project_details.general.construction.start_construction_percentage_placeholder"
-                      disabled={!inEditMode}
                       type="number"
+                      InputProps={{ endAdornment: <PercentIcon /> }}
+                      size="medium"
+                      disabled={!inEditMode}
                     />
                   </Grid>
                 </Grid>
@@ -172,7 +180,7 @@ export const General = () => {
                     spacing={1}
                     xs={4}
                     md={2}
-                    name="risk"
+                    name="projectRisk"
                     options={dictionaries.riskTypes}
                     disabled={!inEditMode}
                   />

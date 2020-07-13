@@ -6,15 +6,14 @@ import { FormControlLabel, Checkbox, Box } from 'ui/atoms';
 import { AutoCalculateFormProps } from './AutoCalculateForm.types';
 import { AutoCalculateModal } from './autoCalculateModal/AutoCalculateModal';
 
-export const AutoCalculateForm = ({ label, disabled, children, onChange, name }: AutoCalculateFormProps) => {
+export const AutoCalculateForm = ({ name, label, disabled, children }: AutoCalculateFormProps) => {
   const [modalOpened, setModalOpened] = useState(false);
 
-  const { input } = useField<boolean>(name ?? '');
+  const { input } = useField<boolean>(name);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     if (!checked) {
       input.onChange(false);
-      onChange(false);
 
       return;
     }
@@ -23,15 +22,9 @@ export const AutoCalculateForm = ({ label, disabled, children, onChange, name }:
   };
 
   const handleSubmit = async (): Promise<{ error: boolean } | undefined> => {
-    // TODO: change it when integrating with the backend
-    return new Promise(resolve => {
-      setTimeout(() => {
-        input.onChange(true);
-        onChange(true);
+    input.onChange(true);
 
-        resolve(undefined);
-      }, 1000);
-    });
+    return Promise.resolve(undefined);
   };
 
   return (
@@ -49,12 +42,18 @@ export const AutoCalculateForm = ({ label, disabled, children, onChange, name }:
       <FormControlLabel
         control={
           <Box my={1}>
-            <Checkbox color="primary" size="medium" checked={input.value} onChange={handleChange} disabled={disabled} />
+            <Checkbox
+              color="primary"
+              size="medium"
+              checked={!!input.value}
+              onChange={handleChange}
+              disabled={disabled}
+            />
           </Box>
         }
         label={label}
       />
-      {children(input.value)}
+      {children(!!input.value)}
     </>
   );
 };

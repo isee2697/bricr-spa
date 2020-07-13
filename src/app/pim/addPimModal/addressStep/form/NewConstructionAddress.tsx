@@ -11,7 +11,7 @@ export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormPro
 
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <GenericField
             name="name"
@@ -32,7 +32,7 @@ export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormPro
           />
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={6}>
           <GenericField
             name="street"
@@ -63,7 +63,7 @@ export const NewConstructionAddress = ({ inEditMode = true }: AddressStepFormPro
           />
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <GenericField
             name="zipCode"
