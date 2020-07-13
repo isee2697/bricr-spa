@@ -6,7 +6,7 @@ import { Grid, Typography, Box } from 'ui/atoms';
 import { DatePickerField, GenericField, RadioGroupField, yearToDate } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
-import { ServiceFormProps } from '../Services.types';
+import { ServiceFormProps } from '../Service.types';
 import { onwershipTypes } from '../dictionaries';
 
 export const ServiceForm: <T extends Service>(p: ServiceFormProps<T>) => ReactElement<ServiceFormProps<T>> = ({

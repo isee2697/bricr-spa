@@ -5,17 +5,20 @@ import { Service, ServiceType } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
-import { ServiceTypeListProps } from '../Services.types';
-import { AddServiceModalContainer } from '../addServiceModal/AddServiceModalContainer';
-import { ServiceForm } from 'app/shared/services/forms/ServiceForm';
-import { useStyles } from 'app/shared/services/Service.styles';
-import { ServiceRadioType } from 'app/shared/services/Service.types';
+import { AddServiceModalContainer } from '../modal/AddServiceModalContainer';
+import { ServiceForm } from '../../../../shared/services/forms/ServiceForm';
+import { useStyles } from '../../../../shared/services/Service.styles';
+import { ServiceRadioType, ServiceTypeListProps } from '../../../../shared/services/Service.types';
+import * as dictionaries from '../../../../shared/services/dictionaries';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
-import * as dictionaries from 'app/shared/services/dictionaries';
 
-export const ServiceTypeList: <T extends Service>(
-  p: ServiceTypeListProps<T>,
-) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type, onSave }) => {
+export const ServiceList: <T extends Service>(p: ServiceTypeListProps<T>) => ReactElement<ServiceTypeListProps<T>> = ({
+  emptyEmoji,
+  items,
+  title,
+  type,
+  onSave,
+}) => {
   const { formatMessage } = useLocale();
   const [isOpenAddService, setIsOpenAddService] = useState(false);
   const [toggled, setToggled] = useState<number | undefined>();

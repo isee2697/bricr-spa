@@ -2,9 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAddServiceMutation, PimServicesDocument } from 'api/types';
-
-import { AddServiceModalContainerProps, AddServiceSubmit } from './AddServiceModal.types';
-import { AddServiceModal } from './AddServiceModal';
+import { AddServiceModal } from 'app/shared/services/modal/AddServiceModal';
+import { AddServiceModalContainerProps, AddServiceSubmit } from 'app/shared/services/Service.types';
 
 export const AddServiceModalContainer = ({
   type,

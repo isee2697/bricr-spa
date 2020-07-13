@@ -7,7 +7,7 @@ import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
-import * as dictionaries from '../dictionaries';
+import * as dictionaries from 'app/shared/services/dictionaries';
 
 import { AddMeterModalProps } from './AddMeterModal.types';
 

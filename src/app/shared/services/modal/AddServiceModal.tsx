@@ -7,8 +7,7 @@ import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
-
-import { AddServiceModalProps } from './AddServiceModal.types';
+import { AddServiceModalProps } from '../Service.types';
 
 export const AddServiceModal = ({ types, nameLabel, title, isOpened, onClose, onSubmit }: AddServiceModalProps) => {
   const { formatMessage } = useLocale();
