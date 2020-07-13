@@ -5,6 +5,7 @@ import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
 import { PimSidebarMenu } from '../pim/pimSidebarMenu/PimSidebarMenu';
 import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
+import { ListNcp } from 'api/types';
 
 import { useStyles } from './Project.styles';
 import { ProjectHeader } from './projectHeader/ProjectHeader';
@@ -27,7 +28,7 @@ export const Project = ({
 
   return (
     <>
-      {!!isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
+      {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
           <PimSidebarMenu type={type} onTypeChange={() => {}} />
@@ -40,9 +41,9 @@ export const Project = ({
                 <CardHeader className="project-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
                   <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-                  <List
+                  <List<ListNcp>
                     className="project-list"
-                    items={listData?.listProject ?? []}
+                    items={listData}
                     itemIndex="id"
                     renderItem={(project, checked, checkbox) => (
                       <Box

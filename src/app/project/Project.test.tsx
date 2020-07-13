@@ -22,6 +22,7 @@ describe('Project', () => {
           onSort: () => {},
         }}
         pagination={{}}
+        listData={[]}
       />,
     );
   });

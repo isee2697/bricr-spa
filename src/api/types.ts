@@ -554,6 +554,7 @@ export type Query = {
   getPricing: PimPrices;
   getProfile?: Maybe<Profile>;
   getPropertyTypes: Array<Scalars['String']>;
+  listNcps: NcpListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
 };
@@ -621,6 +622,12 @@ export type QueryGetPricingArgs = {
 
 export type QueryGetProfileArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryListNcpsArgs = {
+  filters?: Maybe<ListNcpsFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
 };
 
 export type QueryListPimsArgs = {
@@ -816,6 +823,50 @@ export type NcpGeneral = LastUpdated & {
   zipCode: Scalars['String'];
   city: Scalars['String'];
   country: Scalars['String'];
+};
+
+export type ListNcpsFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+};
+
+export type ListNcp = {
+  __typename?: 'ListNcp';
+  id: Scalars['ID'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  archived: Scalars['Boolean'];
+  areaRangeFrom?: Maybe<Scalars['Int']>;
+  areaRangeTo?: Maybe<Scalars['Int']>;
+  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
+  numberOfRoomsTo?: Maybe<Scalars['Int']>;
+  logoPicture?: Maybe<File>;
+  mainPicture?: Maybe<File>;
+  name?: Maybe<Scalars['String']>;
+  salePriceFrom?: Maybe<Scalars['Int']>;
+  salePriceTo?: Maybe<Scalars['Int']>;
+  rentPriceFrom?: Maybe<Scalars['Int']>;
+  rentPriceTo?: Maybe<Scalars['Int']>;
+  saleLabel?: Maybe<Scalars['String']>;
+  rentLabel?: Maybe<Scalars['String']>;
+  partOfPhase?: Maybe<Scalars['Int']>;
+  soldNumber?: Maybe<Scalars['Int']>;
+  rentNumber?: Maybe<Scalars['Int']>;
+  completeness: Scalars['Float'];
+  available?: Maybe<Scalars['Int']>;
+  underOption?: Maybe<Scalars['Int']>;
+  soldOrRent?: Maybe<Scalars['Int']>;
+  matches?: Maybe<Scalars['Int']>;
+  interests?: Maybe<Scalars['Int']>;
+  candidates?: Maybe<Scalars['Int']>;
+  optants?: Maybe<Scalars['Int']>;
+  properties?: Maybe<Scalars['Int']>;
+  objectTypes?: Maybe<Scalars['Int']>;
+};
+
+export type NcpListSearchResult = {
+  __typename?: 'NcpListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListNcp>>;
 };
 
 export enum CadastreMapType {
@@ -3982,6 +4033,68 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type ListNcpsCountQueryVariables = {};
+
+export type ListNcpsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'NcpListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'NcpListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
+
+export type ListNcpsQueryVariables = {
+  archived: Scalars['Boolean'];
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ListNcpsQuery = { __typename?: 'Query' } & {
+  listNcps: { __typename?: 'NcpListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListNcp' } & Pick<
+          ListNcp,
+          | 'id'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'soldNumber'
+          | 'rentNumber'
+          | 'completeness'
+          | 'available'
+          | 'underOption'
+          | 'soldOrRent'
+          | 'matches'
+          | 'interests'
+          | 'candidates'
+          | 'optants'
+          | 'properties'
+          | 'objectTypes'
+        > & {
+            logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+          }
+      >
+    >;
+  };
+};
+
 export type PimCadastreQueryVariables = {
   id: Scalars['ID'];
 };
@@ -5894,6 +6007,95 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const ListNcpsCountDocument = gql`
+  query ListNcpsCount {
+    activeCount: listNcps(filters: { archived: false }) {
+      metadata {
+        total
+      }
+    }
+    archivedCount: listNcps(filters: { archived: true }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListNcpsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(ListNcpsCountDocument, baseOptions);
+}
+export function useListNcpsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(
+    ListNcpsCountDocument,
+    baseOptions,
+  );
+}
+export type ListNcpsCountQueryHookResult = ReturnType<typeof useListNcpsCountQuery>;
+export type ListNcpsCountLazyQueryHookResult = ReturnType<typeof useListNcpsCountLazyQuery>;
+export type ListNcpsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpsCountQuery, ListNcpsCountQueryVariables>;
+export const ListNcpsDocument = gql`
+  query ListNcps($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+    listNcps(
+      filters: { archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        logoPicture {
+          url
+        }
+        mainPicture {
+          url
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        soldNumber
+        rentNumber
+        completeness
+        available
+        underOption
+        soldOrRent
+        matches
+        interests
+        candidates
+        optants
+        properties
+        objectTypes
+      }
+    }
+  }
+`;
+export function useListNcpsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
+}
+export function useListNcpsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
+}
+export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
+export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
+export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {
     getPimCadastre(id: $id) {

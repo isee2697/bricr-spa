@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 
-import { AppRoute } from '../../../routing/AppRoute.enum';
+import { AppRoute } from 'routing/AppRoute.enum';
 import {
   Grid,
   Typography,
@@ -15,38 +15,44 @@ import {
   ColoredImage,
   InfoItem,
 } from 'ui/atoms';
-import { ProjectData } from '../Project.types';
 import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon, MenuIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
+import { ListNcp } from 'api/types';
 
 import { useStyles } from './ProjectItem.styles';
 
 export const ProjectItem = ({
   id,
   dateCreated,
+  areaRangeFrom,
+  areaRangeTo,
+  numberOfRoomsFrom,
+  numberOfRoomsTo,
+  logoPicture,
+  mainPicture,
   name,
-  measurements,
-  mainImage,
-  amountOfProperties,
-  soldProperties,
-  rentedProperties,
-  logo,
-  prices,
-  amountOfPhases,
-  amountOfCandidates,
-  amountOfInterests,
-  amountOfMatches,
-  amountOfObjectTypes,
-  amountOfOptands,
-  availableProperties,
-  underOptionProperties,
-}: ProjectData) => {
+  salePriceFrom,
+  salePriceTo,
+  rentPriceFrom,
+  rentPriceTo,
+  partOfPhase,
+  completeness,
+  available,
+  underOption,
+  soldOrRent,
+  matches,
+  interests,
+  candidates,
+  optants,
+  properties,
+  objectTypes,
+}: ListNcp) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
   const classes = useStyles();
   const daysAgo = Math.round(-DateTime.fromISO(dateCreated).diffNow('day').days);
-  const percentage = (soldProperties / amountOfProperties) * 100;
   const [toggled, setToggled] = useState(false);
+  const percentage = soldOrRent && properties ? (soldOrRent / properties) * 100 : 0;
 
   return (
     <>
@@ -59,14 +65,14 @@ export const ProjectItem = ({
             <NewConstructionIcon /> {name}
           </Typography>
           <Typography className={classes.subTitle} variant="h6">
-            {measurements?.surfaceFrom &&
-              measurements.surfaceTo &&
-              `${measurements.surfaceFrom} - ${measurements.surfaceTo} ${formatMessage({
+            {areaRangeFrom &&
+              areaRangeTo &&
+              `${areaRangeFrom} - ${areaRangeTo} ${formatMessage({
                 id: 'common.square_meters',
               })}`}
-            {measurements?.roomsFrom &&
-              measurements?.roomsTo &&
-              ` ${measurements.roomsFrom} - ${measurements.roomsTo} ${formatMessage({ id: 'common.rooms' })}`}
+            {numberOfRoomsFrom &&
+              numberOfRoomsTo &&
+              ` ${numberOfRoomsFrom} - ${numberOfRoomsTo} ${formatMessage({ id: 'common.rooms' })}`}
           </Typography>
         </Grid>
         <Grid className={classes.rightItem} item>
@@ -76,10 +82,12 @@ export const ProjectItem = ({
       <ColoredImage
         className={classes.image}
         onClick={() => push(AppRoute.projectDetails.replace(':id', id))}
-        src={mainImage}
+        src={mainPicture?.url ?? 'http://placeimg.com/176/112/arch'}
         variant="green"
       >
-        <Grid item style={{ backgroundImage: `url(${logo})` }} className={classes.logo}></Grid>
+        {logoPicture?.url && (
+          <Grid item style={{ backgroundImage: `url(${logoPicture?.url})` }} className={classes.logo} />
+        )}
         <Grid className={classes.stats} item>
           <Grid container justify="center">
             <Typography className={classes.statsText} variant="h6">
@@ -89,40 +97,40 @@ export const ProjectItem = ({
               <CircularStatus value={percentage} />
             </Box>
             <Typography className={classes.statsText} variant="h6">
-              {soldProperties} / {amountOfProperties}
+              {soldOrRent ?? 0} / {properties ?? 0}
             </Typography>
           </Grid>
         </Grid>
       </ColoredImage>
       <Grid container spacing={3}>
         <Grid item>
-          {prices.saleFrom && prices.saleTo && (
+          {salePriceFrom && salePriceTo && (
             <Typography className={classes.price}>
-              € {prices.saleFrom} - {prices.saleTo}
+              € {salePriceFrom} - {salePriceTo}
             </Typography>
           )}
         </Grid>
         <Grid item className={classes.price}>
-          {prices.rentFrom && prices.rentTo && (
+          {rentPriceFrom && rentPriceTo && (
             <Typography>
-              € {prices.rentFrom} - {prices.rentTo} {formatMessage({ id: 'projects.per_month' })}
+              € {rentPriceFrom} - {rentPriceTo} {formatMessage({ id: 'projects.per_month' })}
             </Typography>
           )}
         </Grid>
         <Grid className={classes.rightItem} item>
-          {(prices.saleFrom || prices.saleTo) && (
+          {(salePriceFrom || salePriceTo) && (
             <Chip size="small" color="primary" variant="outlined" label={formatMessage({ id: 'common.sale' })} />
           )}
-          {(prices.rentFrom || prices.rentTo) && (
+          {(rentPriceFrom || rentPriceTo) && (
             <Chip size="small" color="primary" variant="outlined" label={formatMessage({ id: 'common.rent' })} />
           )}
         </Grid>
       </Grid>
       <Grid container spacing={3}>
-        {amountOfPhases && (
+        {partOfPhase && (
           <Grid item>
             <Typography>
-              {`${formatMessage({ id: 'projects.part_of' })} ${amountOfPhases} ${formatMessage({
+              {`${formatMessage({ id: 'projects.part_of' })} ${partOfPhase} ${formatMessage({
                 id: 'projects.phases',
               })}`}
             </Typography>
@@ -146,19 +154,19 @@ export const ProjectItem = ({
             <Typography className={classes.information} variant="h6">
               {formatMessage({ id: 'common.information_completed' })}
             </Typography>
-            <ProgressFilling progress={0.7} />
+            <ProgressFilling progress={completeness / 100} />
           </Grid>
-          <InfoItem xs={2} color="red" amount={availableProperties} labelId="projects.available" />
-          <InfoItem xs={2} color="orange" amount={underOptionProperties} labelId="projects.under_option" />
-          <InfoItem xs={2} color="green" amount={soldProperties + rentedProperties} labelId="projects.sold_or_rent" />
+          <InfoItem xs={2} color="red" amount={available} labelId="projects.available" />
+          <InfoItem xs={2} color="orange" amount={underOption} labelId="projects.under_option" />
+          <InfoItem xs={2} color="green" amount={soldOrRent} labelId="projects.sold_or_rent" />
         </Grid>
         <Grid container className={classes.extraInformation}>
-          <InfoItem xs={2} amount={amountOfMatches} labelId="projects.matches" />
-          <InfoItem xs={2} amount={amountOfInterests} labelId="projects.interests" />
-          <InfoItem xs={2} amount={amountOfCandidates} labelId="projects.candidates" />
-          <InfoItem xs={2} amount={amountOfOptands} labelId="projects.optands" />
-          <InfoItem xs={2} amount={amountOfProperties} labelId="projects.properties" />
-          <InfoItem xs={2} amount={amountOfObjectTypes} labelId="projects.objecttypes" />
+          <InfoItem xs={2} amount={matches} labelId="projects.matches" />
+          <InfoItem xs={2} amount={interests} labelId="projects.interests" />
+          <InfoItem xs={2} amount={candidates} labelId="projects.candidates" />
+          <InfoItem xs={2} amount={optants} labelId="projects.optands" />
+          <InfoItem xs={2} amount={properties} labelId="projects.properties" />
+          <InfoItem xs={2} amount={objectTypes} labelId="projects.objecttypes" />
         </Grid>
       </Collapse>
     </>

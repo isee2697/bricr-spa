@@ -13,7 +13,7 @@ export const InfoItem = ({ amount, labelId, className, color, ...props }: InfoIt
 
   return (
     <Grid item className={classNames(classes.root, className, color)} {...props}>
-      <Typography variant="h3">{amount}</Typography>
+      <Typography variant="h3">{amount ?? 0}</Typography>
       <Typography variant="h6">{formatMessage({ id: labelId })}</Typography>
     </Grid>
   );

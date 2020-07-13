@@ -1,0 +1,45 @@
+input ListNcpsFilters {
+  archived: Boolean
+}
+
+type ListNcp {
+  id: ID!
+  dateCreated: Date!
+  dateUpdated: Date
+  archived: Boolean!
+  areaRangeFrom: Int
+  areaRangeTo: Int
+  numberOfRoomsFrom: Int
+  numberOfRoomsTo: Int
+  logoPicture: File
+  mainPicture: File
+  name: String
+  salePriceFrom: Int
+  salePriceTo: Int
+  rentPriceFrom: Int
+  rentPriceTo: Int
+  saleLabel: String
+  rentLabel: String
+  partOfPhase: Int
+  soldNumber: Int
+  rentNumber: Int
+  completeness: Float!
+  available: Int
+  underOption: Int
+  soldOrRent: Int
+  matches: Int
+  interests: Int
+  candidates: Int
+  optants: Int
+  properties: Int
+  objectTypes: Int
+}
+
+type NcpListSearchResult {
+  metadata: SearchMetadata
+  items: [ListNcp!]
+}
+
+extend type Query {
+  listNcps(filters: ListNcpsFilters, pagination: Pagination, sort: [Sort!]): NcpListSearchResult! @auth
+}
