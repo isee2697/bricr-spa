@@ -12,11 +12,20 @@ export type SpaceFormProps = {
   fieldPrefix: string;
 };
 
-export type SpaceProps = {
+export type CommonFormProps = SpaceFormProps & {
+  id: string;
+  onDimensionChange: (field: string) => void;
+};
+
+export type SpaceContainerProps = {
   isEditMode: boolean;
   isExpanded: boolean;
   onExpand: (id: string) => void;
   index: number;
   space: Space;
   groupedSpaceCount?: number;
+};
+
+export type SpaceProps = SpaceContainerProps & {
+  onDimensionChange: (field: string) => void;
 };

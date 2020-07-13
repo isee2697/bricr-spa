@@ -2,10 +2,11 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
 import groupBy from 'lodash/groupBy';
-import { AnyObject, FormRenderProps } from 'react-final-form';
+import { FormRenderProps } from 'react-final-form';
 
-import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature, SpaceConfiguration } from 'api/types';
+import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature, CuboidMeasurement } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { calculateSurface, calculateVolume } from 'form/mutators/measurementMutators';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
 import { Feature } from './Feature';
@@ -88,35 +89,11 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
       onSave={handleSave}
       mutators={{
         ...arrayMutators,
-        calculateSurface: (args, state, utils) => {
-          const length = ((state.formState.values as OutsideFeature)?.configuration as SpaceConfiguration)?.measurement
-            ?.length;
-          const width = ((state.formState.values as OutsideFeature)?.configuration as SpaceConfiguration)?.measurement
-            ?.width;
-
-          if (!!length && !!width) {
-            utils.changeValue(state, 'configuration.measurement.surface', () => (length * width).toFixed(2));
-          } else {
-            utils.changeValue(state, 'configuration.measurement.surface', () => undefined);
-          }
-        },
-        calculateVolume: (args, state, utils) => {
-          const length = ((state.formState.values as OutsideFeature)?.configuration as SpaceConfiguration)?.measurement
-            ?.length;
-          const width = ((state.formState.values as OutsideFeature)?.configuration as SpaceConfiguration)?.measurement
-            ?.width;
-          const height = ((state.formState.values as OutsideFeature)?.configuration as SpaceConfiguration)?.measurement
-            ?.height;
-
-          if (!!length && !!width && !!height) {
-            utils.changeValue(state, 'configuration.measurement.volume', () => (length * height * width).toFixed(2));
-          } else {
-            utils.changeValue(state, 'configuration.measurement.volume', () => undefined);
-          }
-        },
+        calculateSurface: (args, state, utils) => calculateSurface(state, utils),
+        calculateVolume: (args, state, utils) => calculateVolume(state, utils),
       }}
     >
-      {(form: FormRenderProps<AnyObject>) => (
+      {(form: FormRenderProps<CuboidMeasurement>) => (
         <Feature
           feature={feature}
           count={getCount(feature)}

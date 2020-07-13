@@ -25,6 +25,7 @@ export const Space = ({
   index,
   groupedSpaceCount,
   space: { spaceName, spaceType, id },
+  onDimensionChange,
 }: SpaceProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -50,7 +51,7 @@ export const Space = ({
           {spaceType === SpaceType.Bedroom && <BedroomForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}
           {spaceType === SpaceType.HomeOffice && <HomeOfficeForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}
           {spaceType === SpaceType.Other && <OtherForm fieldPrefix={fieldPrefix} isEditMode={isEditMode} />}
-          <CommonForm id={id} fieldPrefix={fieldPrefix} isEditMode={isEditMode} />
+          <CommonForm id={id} fieldPrefix={fieldPrefix} isEditMode={isEditMode} onDimensionChange={onDimensionChange} />
         </Grid>
       </FormSubSection>
     </Box>
