@@ -12,6 +12,7 @@ import { PIM_DETAILS_1, PIM_1, PIM_SERVICES, EMPTY_READING } from './mocks/pim';
 import { PIM_GENERAL_1 } from './mocks/pim-general';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
+import { LIST_NCP_1, LIST_NCP_ARCHIVED_1 } from './mocks/ncp-list';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -24,6 +25,8 @@ const PIM_MEDIA = PIM_MEDIA_1;
 let PIM_INSIDE = PIM_INSIDE_1;
 const PIM_GENERAL = PIM_GENERAL_1;
 let NCP_GENERAL = NCP_GENERAL_1;
+const LIST_NCP = LIST_NCP_1;
+const LIST_NCP_ARCHIVED = LIST_NCP_ARCHIVED_1;
 
 export const mockServer = () => {
   new Server({
@@ -107,6 +110,29 @@ export const mockServer = () => {
               };
             }
             throw new Error();
+          },
+          listNcps() {
+            const from = variables?.from ?? 0;
+            const limit = variables?.limit ?? 10;
+
+            const ncp = !!variables?.archived ? LIST_NCP_ARCHIVED : LIST_NCP;
+            const totalNcps = Array.from({ length: 100 }, (item, index) =>
+              index !== 0
+                ? {
+                    ...ncp,
+                    id: Math.random().toString(),
+                  }
+                : ncp,
+            );
+
+            const Ncps = totalNcps.slice(from, limit + from);
+
+            return {
+              items: Ncps,
+              metadata: {
+                total: Ncps.length,
+              },
+            };
           },
           listPims() {
             if (variables.filters?.city === 'Amsterdam' || variables.filters?.city === 'Test') {

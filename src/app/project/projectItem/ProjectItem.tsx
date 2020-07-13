@@ -46,6 +46,7 @@ export const ProjectItem = ({
   optants,
   properties,
   objectTypes,
+  archived,
 }: ListNcp) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -83,6 +84,7 @@ export const ProjectItem = ({
         className={classes.image}
         onClick={() => push(AppRoute.projectDetails.replace(':id', id))}
         src={mainPicture?.url ?? 'http://placeimg.com/176/112/arch'}
+        grayscale={archived}
         variant="green"
       >
         {logoPicture?.url && (

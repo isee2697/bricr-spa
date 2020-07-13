@@ -22,6 +22,7 @@ const schemas = [
   loader('./graphql/energy.gql'),
   loader('./graphql/identification-number.gql'),
   loader('./graphql/ncp-characteristics.gql'),
+  loader('./graphql/ncp-list.gql'),
 ];
 
 export const loadSchemas = () => {
