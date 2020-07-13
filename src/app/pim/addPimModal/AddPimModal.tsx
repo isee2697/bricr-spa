@@ -43,11 +43,15 @@ export const AddPimModal = ({ onSubmit, propertyCategory, isOpen }: AddPimModalP
   const handleSubmit: AddPimSubmit = async body => {
     const response = await onSubmit(body);
 
-    if (response?.error === 'conflict') {
+    if (!response) {
+      return;
+    }
+
+    if (response.error === 'conflict') {
       handleNext();
     }
 
-    if (!response?.error) {
+    if (!response.error) {
       setStep(0);
     }
 
