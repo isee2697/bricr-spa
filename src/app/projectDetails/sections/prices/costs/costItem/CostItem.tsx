@@ -10,11 +10,11 @@ import { GenericField, DropdownField } from 'form/fields';
 
 import { CostItemProps } from './CostItem.types';
 
-const generateTitle = (title: string, name?: string) => {
+const generateTitle = (title: string, name?: string | null) => {
   return name ? `${title} (${name})` : title;
 };
 
-export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
+export const CostItem = ({ cost, index, inEditMode, isExpanded, onExpand }: CostItemProps) => {
   const { formatMessage } = useLocale();
 
   const paymentFrequencies = [CostPaymentFrequency.Monthly, CostPaymentFrequency.Yearly].map(value => ({
@@ -31,11 +31,13 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
     <FormSubSection
       title={generateTitle(formatMessage({ id: `dictionaries.prices.cost_type.${cost.type}` }), cost.name)}
       initiallyOpened={false}
+      isExpanded={isExpanded}
+      onExpand={onExpand}
       onOptionsClick={() => {}}
       counter={index}
     >
       <GenericField
-        name={`${cost.type}.customName`}
+        name="name"
         label="project_details.prices.costs.custom_name"
         placeholder="project_details.prices.costs.custom_name_placeholder"
         size="medium"
@@ -53,7 +55,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
       <Grid container spacing={1}>
         <Grid item xs={4}>
           <GenericField
-            name={`${cost.type}.rentalFrom`}
+            name="serviceCostsFrom"
             label="project_details.prices.costs.service_costs_from"
             placeholder="common.big_price_placeholder"
             size="medium"
@@ -67,7 +69,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
         </Grid>
         <Grid item xs={4}>
           <GenericField
-            name={`${cost.type}.rentalTill`}
+            name="serviceCostsTill"
             label="project_details.prices.costs.service_costs_till"
             placeholder="common.big_price_placeholder"
             size="medium"
@@ -81,7 +83,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
         </Grid>
         <Grid item xs={4}>
           <DropdownField
-            name={`${cost.type}.paymentFrequency`}
+            name="paymentsFrequency"
             items={paymentFrequencies}
             label="project_details.prices.costs.payments_frequency"
             placeholder="common.select_placeholder"
@@ -101,7 +103,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
       <Grid container spacing={1}>
         <Grid item xs={4}>
           <GenericField
-            name={`${cost.type}.vatFrom`}
+            name="vatTaxedServiceCostsFrom"
             label="project_details.prices.costs.vat_costs_from"
             placeholder="common.big_price_placeholder"
             size="medium"
@@ -115,7 +117,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
         </Grid>
         <Grid item xs={4}>
           <GenericField
-            name={`${cost.type}.vatTill`}
+            name="vatTaxedServiceCostsTill"
             label="project_details.prices.costs.vat_costs_till"
             placeholder="common.big_price_placeholder"
             size="medium"
@@ -129,7 +131,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
         </Grid>
         <Grid item xs={4}>
           <DropdownField
-            name={`${cost.type}.vatPercentage`}
+            name="vatPercentage"
             items={vatOptions}
             label="project_details.prices.costs.vat_percentage"
             placeholder="common.select_placeholder"
@@ -141,7 +143,7 @@ export const CostItem = ({ cost, index, inEditMode }: CostItemProps) => {
 
       <Box mt={1} mb={2}>
         <GenericField
-          name={`${cost.type}.notes`}
+          name="notes"
           label="common.notes"
           placeholder="project_details.prices.costs.information_about_costs_placeholder"
           size="medium"

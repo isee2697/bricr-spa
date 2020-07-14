@@ -12,7 +12,7 @@ import { SetPricesModal } from 'app/shared/prices';
 import { PriceSection } from './priceSection/PriceSection';
 import { PricesGeneralProps } from './PricesGeneral.types';
 
-export const PricesGeneral = ({ types, onSetPrice }: PricesGeneralProps) => {
+export const PricesGeneral = ({ types, dateUpdated, updatedBy, onSetPrice }: PricesGeneralProps) => {
   const { formatMessage } = useLocale();
 
   const [modalOpened, setModalOpened] = useState(false);
@@ -38,6 +38,8 @@ export const PricesGeneral = ({ types, onSetPrice }: PricesGeneralProps) => {
         title={formatMessage({ id: 'pim_details.prices.title' })}
         name="description"
         placeholder="pim_details.prices.description_placeholder"
+        dateUpdated={dateUpdated}
+        updatedBy={updatedBy}
       >
         {!types.length && (
           <Grid item xs={12}>

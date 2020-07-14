@@ -1,18 +1,9 @@
-import { RentPaymentFrequency, CostType } from 'api/types';
+import { NcpCosts, NcpCost } from 'api/types';
+import { CostForm } from 'app/shared/prices/addCostModal/AddCostModal.types';
 
 export type CostsProps = {
-  costs: Cost[];
-  onAddCost: (values: Cost) => Promise<undefined | { error: boolean }>;
-};
-
-export type Cost = {
-  name?: string;
-  type: CostType;
-  serviceCostFrom?: number;
-  serviceCostTill?: number;
-  paymentFrequency?: RentPaymentFrequency;
-  vatFrom?: number;
-  vatTill?: number;
-  vatPercentage?: 21 | 9 | 0;
-  notes?: string;
+  data: NcpCosts;
+  onAddCost: (values: CostForm) => Promise<undefined | { error: boolean }>;
+  onDescriptionSave: (values: { description: string }) => Promise<undefined | { error: boolean }>;
+  onUpdateCost: (values: NcpCost) => Promise<undefined | { error: boolean }>;
 };

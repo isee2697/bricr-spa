@@ -15,5 +15,5 @@ export type AddCostModalContainerProps = {
 
 export type CostForm = {
   type: CostType;
-  name: string;
+  name?: string;
 };

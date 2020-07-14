@@ -66,6 +66,7 @@ export type Mutation = {
   addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
   addMeter?: Maybe<Pim>;
+  addNcpCost: NcpPricesResult;
   addNcpIdentificationNumber: NcpCharacteristics;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
@@ -90,6 +91,7 @@ export type Mutation = {
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
   setNcpCharacteristics: NcpCharacteristics;
+  toggleNcpPricing: NcpPricesResult;
   togglePricing: Pim;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
@@ -105,6 +107,10 @@ export type Mutation = {
   updateMeter?: Maybe<Pim>;
   updateNcp: NcpGeneral;
   updateNcpCharacteristics: NcpCharacteristics;
+  updateNcpCost: NcpPricesResult;
+  updateNcpCostsDetails: NcpPricesResult;
+  updateNcpInterests: NcpPricesResult;
+  updateNcpPricing: NcpPricesResult;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
@@ -165,6 +171,10 @@ export type MutationAddMediaLinkArgs = {
 
 export type MutationAddMeterArgs = {
   input: AddMeterInput;
+};
+
+export type MutationAddNcpCostArgs = {
+  input: AddCostInput;
 };
 
 export type MutationAddNcpIdentificationNumberArgs = {
@@ -264,6 +274,10 @@ export type MutationSetNcpCharacteristicsArgs = {
   input: SetNcpCharacteristicsSectionsInput;
 };
 
+export type MutationToggleNcpPricingArgs = {
+  input: ToggleNcpPricingInput;
+};
+
 export type MutationTogglePricingArgs = {
   input: TogglePricingInput;
 };
@@ -322,6 +336,22 @@ export type MutationUpdateNcpArgs = {
 
 export type MutationUpdateNcpCharacteristicsArgs = {
   input: NcpCharacteristicsInput;
+};
+
+export type MutationUpdateNcpCostArgs = {
+  input: UpdateNcpCostInput;
+};
+
+export type MutationUpdateNcpCostsDetailsArgs = {
+  input: UpdateNcpCostsDetailsInput;
+};
+
+export type MutationUpdateNcpInterestsArgs = {
+  input: InterestsInput;
+};
+
+export type MutationUpdateNcpPricingArgs = {
+  input: UpdateNcpPricingInput;
 };
 
 export type MutationUpdateOutsideFeatureArgs = {
@@ -561,6 +591,7 @@ export type Query = {
   getLabels?: Maybe<Array<Label>>;
   getNcp: NcpGeneral;
   getNcpCharacteristics: NcpCharacteristics;
+  getNcpPrices: NcpPricesResult;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -595,6 +626,10 @@ export type QueryGetNcpArgs = {
 };
 
 export type QueryGetNcpCharacteristicsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpPricesArgs = {
   id: Scalars['ID'];
 };
 
@@ -954,6 +989,163 @@ export type NcpListSearchResult = {
   __typename?: 'NcpListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListNcp>>;
+};
+
+export enum NcpPricingType {
+  Sale = 'Sale',
+  Rent = 'Rent',
+}
+
+export enum NcpCostType {
+  Kitchen = 'Kitchen',
+  Tiles = 'Tiles',
+  Bathroom = 'Bathroom',
+  Service = 'Service',
+  Heating = 'Heating',
+  Electricity = 'Electricity',
+  Water = 'Water',
+  Sewage = 'Sewage',
+  WaterBoard = 'WaterBoard',
+  LandConsolidationInterest = 'LandConsolidationInterest',
+  HomeownerAssociation = 'HomeownerAssociation',
+  OzbUserPart = 'OzbUserPart',
+  OzbBusinessPart = 'OzbBusinessPart',
+  Custom = 'Custom',
+}
+
+export type NcpCost = {
+  __typename?: 'NcpCost';
+  id: Scalars['ID'];
+  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateNcpCostInput = {
+  id: Scalars['ID'];
+  serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  paymentsFrequency?: Maybe<CostPaymentFrequency>;
+  vatTaxedServiceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedServiceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatPercentage?: Maybe<Scalars['CostVat']>;
+  notes?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpCostsDetailsInput = {
+  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpSaleInformationsInput = {
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type NcpSaleInformations = {
+  __typename?: 'NcpSaleInformations';
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type NcpRentInformationsInput = {
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type NcpRentInformations = {
+  __typename?: 'NcpRentInformations';
+  minPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  isEnabled?: Maybe<Scalars['Boolean']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type CostsDetails = LastUpdated & {
+  __typename?: 'CostsDetails';
+  description?: Maybe<Scalars['String']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+};
+
+export type NcpPrices = {
+  __typename?: 'NcpPrices';
+  id: Scalars['ID'];
+  pricing?: Maybe<NcpPricing>;
+  costs?: Maybe<Array<NcpCost>>;
+  costsDetails?: Maybe<CostsDetails>;
+  interests?: Maybe<Interests>;
+};
+
+export type NcpCosts = LastUpdated & {
+  __typename?: 'NcpCosts';
+  costs?: Maybe<Array<NcpCost>>;
+  description?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type NcpPricesResult = {
+  __typename?: 'NcpPricesResult';
+  id: Scalars['ID'];
+  pricing?: Maybe<NcpPricing>;
+  costs?: Maybe<NcpCosts>;
+  interests?: Maybe<Interests>;
+};
+
+export type InterestsInput = {
+  id: Scalars['ID'];
+  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
+  suspensiveCondition?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type Interests = LastUpdated & {
+  __typename?: 'Interests';
+  groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
+  rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
+  suspensiveCondition?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+};
+
+export type ToggleNcpPricingInput = {
+  id: Scalars['ID'];
+  isRent: Scalars['Boolean'];
+  isSale: Scalars['Boolean'];
+};
+
+export type UpdateNcpPricingInput = {
+  id: Scalars['ID'];
+  rent?: Maybe<NcpRentInformationsInput>;
+  sale?: Maybe<NcpSaleInformationsInput>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpPricing = LastUpdated & {
+  __typename?: 'NcpPricing';
+  rent?: Maybe<NcpRentInformations>;
+  sale?: Maybe<NcpSaleInformations>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export enum CadastreMapType {
@@ -3738,6 +3930,54 @@ export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
   updateNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
 };
 
+export type ToggleNcpPricingMutationVariables = {
+  input: ToggleNcpPricingInput;
+};
+
+export type ToggleNcpPricingMutation = { __typename?: 'Mutation' } & {
+  toggleNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type UpdateNcpPricingMutationVariables = {
+  input: UpdateNcpPricingInput;
+};
+
+export type UpdateNcpPricingMutation = { __typename?: 'Mutation' } & {
+  updateNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type AddNcpCostMutationVariables = {
+  input: AddCostInput;
+};
+
+export type AddNcpCostMutation = { __typename?: 'Mutation' } & {
+  addNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type UpdateNcpCostMutationVariables = {
+  input: UpdateNcpCostInput;
+};
+
+export type UpdateNcpCostMutation = { __typename?: 'Mutation' } & {
+  updateNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type UpdateNcpCostsDetailsMutationVariables = {
+  input: UpdateNcpCostsDetailsInput;
+};
+
+export type UpdateNcpCostsDetailsMutation = { __typename?: 'Mutation' } & {
+  updateNcpCostsDetails: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type UpdateNcpInterestsMutationVariables = {
+  input: InterestsInput;
+};
+
+export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
+  updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -4335,6 +4575,85 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type NcpPricesPricingQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpPricesPricingQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      pricing?: Maybe<
+        { __typename?: 'NcpPricing' } & Pick<NcpPricing, 'dateUpdated' | 'description'> & {
+            rent?: Maybe<
+              { __typename?: 'NcpRentInformations' } & Pick<
+                NcpRentInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            sale?: Maybe<
+              { __typename?: 'NcpSaleInformations' } & Pick<
+                NcpSaleInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
+
+export type NcpPricesCostsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpPricesCostsQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      costs?: Maybe<
+        { __typename?: 'NcpCosts' } & Pick<NcpCosts, 'description' | 'dateUpdated'> & {
+            costs?: Maybe<
+              Array<
+                { __typename?: 'NcpCost' } & Pick<
+                  NcpCost,
+                  | 'id'
+                  | 'serviceCostsFrom'
+                  | 'serviceCostsTill'
+                  | 'paymentsFrequency'
+                  | 'vatTaxedServiceCostsFrom'
+                  | 'vatTaxedServiceCostsTill'
+                  | 'vatPercentage'
+                  | 'notes'
+                  | 'type'
+                  | 'name'
+                  | 'dateCreated'
+                >
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
+
+export type NcpPricesInterestsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      interests?: Maybe<
+        { __typename?: 'Interests' } & Pick<
+          Interests,
+          | 'groundInterest'
+          | 'buildingInterest'
+          | 'rentedagen'
+          | 'suspensiveCondition'
+          | 'description'
+          | 'dateCreated'
+          | 'dateUpdated'
+        > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
+      >;
+    };
 };
 
 export type PimCadastreQueryVariables = {
@@ -5352,6 +5671,132 @@ export type UpdateNcpMutationResult = ApolloReactCommon.MutationResult<UpdateNcp
 export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpMutation,
   UpdateNcpMutationVariables
+>;
+export const ToggleNcpPricingDocument = gql`
+  mutation ToggleNcpPricing($input: ToggleNcpPricingInput!) {
+    toggleNcpPricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useToggleNcpPricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>(
+    ToggleNcpPricingDocument,
+    baseOptions,
+  );
+}
+export type ToggleNcpPricingMutationHookResult = ReturnType<typeof useToggleNcpPricingMutation>;
+export type ToggleNcpPricingMutationResult = ApolloReactCommon.MutationResult<ToggleNcpPricingMutation>;
+export type ToggleNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ToggleNcpPricingMutation,
+  ToggleNcpPricingMutationVariables
+>;
+export const UpdateNcpPricingDocument = gql`
+  mutation UpdateNcpPricing($input: UpdateNcpPricingInput!) {
+    updateNcpPricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpPricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>(
+    UpdateNcpPricingDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpPricingMutationHookResult = ReturnType<typeof useUpdateNcpPricingMutation>;
+export type UpdateNcpPricingMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPricingMutation>;
+export type UpdateNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpPricingMutation,
+  UpdateNcpPricingMutationVariables
+>;
+export const AddNcpCostDocument = gql`
+  mutation AddNcpCost($input: AddCostInput!) {
+    addNcpCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddNcpCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpCostMutation, AddNcpCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpCostMutation, AddNcpCostMutationVariables>(AddNcpCostDocument, baseOptions);
+}
+export type AddNcpCostMutationHookResult = ReturnType<typeof useAddNcpCostMutation>;
+export type AddNcpCostMutationResult = ApolloReactCommon.MutationResult<AddNcpCostMutation>;
+export type AddNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpCostMutation,
+  AddNcpCostMutationVariables
+>;
+export const UpdateNcpCostDocument = gql`
+  mutation UpdateNcpCost($input: UpdateNcpCostInput!) {
+    updateNcpCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>(
+    UpdateNcpCostDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCostMutationHookResult = ReturnType<typeof useUpdateNcpCostMutation>;
+export type UpdateNcpCostMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostMutation>;
+export type UpdateNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCostMutation,
+  UpdateNcpCostMutationVariables
+>;
+export const UpdateNcpCostsDetailsDocument = gql`
+  mutation UpdateNcpCostsDetails($input: UpdateNcpCostsDetailsInput!) {
+    updateNcpCostsDetails(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpCostsDetailsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpCostsDetailsMutation,
+    UpdateNcpCostsDetailsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCostsDetailsMutation, UpdateNcpCostsDetailsMutationVariables>(
+    UpdateNcpCostsDetailsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCostsDetailsMutationHookResult = ReturnType<typeof useUpdateNcpCostsDetailsMutation>;
+export type UpdateNcpCostsDetailsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostsDetailsMutation>;
+export type UpdateNcpCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCostsDetailsMutation,
+  UpdateNcpCostsDetailsMutationVariables
+>;
+export const UpdateNcpInterestsDocument = gql`
+  mutation UpdateNcpInterests($input: InterestsInput!) {
+    updateNcpInterests(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpInterestsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>(
+    UpdateNcpInterestsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpInterestsMutationHookResult = ReturnType<typeof useUpdateNcpInterestsMutation>;
+export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpInterestsMutation>;
+export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpInterestsMutation,
+  UpdateNcpInterestsMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -6610,6 +7055,150 @@ export function useListNcpsLazyQuery(
 export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
 export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
 export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
+export const NcpPricesPricingDocument = gql`
+  query NcpPricesPricing($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      pricing {
+        rent {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        sale {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+        description
+      }
+    }
+  }
+`;
+export function useNcpPricesPricingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(
+    NcpPricesPricingDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesPricingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(
+    NcpPricesPricingDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesPricingQueryHookResult = ReturnType<typeof useNcpPricesPricingQuery>;
+export type NcpPricesPricingLazyQueryHookResult = ReturnType<typeof useNcpPricesPricingLazyQuery>;
+export type NcpPricesPricingQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesPricingQuery,
+  NcpPricesPricingQueryVariables
+>;
+export const NcpPricesCostsDocument = gql`
+  query NcpPricesCosts($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      costs {
+        costs {
+          id
+          serviceCostsFrom
+          serviceCostsTill
+          paymentsFrequency
+          vatTaxedServiceCostsFrom
+          vatTaxedServiceCostsTill
+          vatPercentage
+          notes
+          type
+          name
+          dateCreated
+        }
+        description
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
+    }
+  }
+`;
+export function useNcpPricesCostsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(
+    NcpPricesCostsDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesCostsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(
+    NcpPricesCostsDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesCostsQueryHookResult = ReturnType<typeof useNcpPricesCostsQuery>;
+export type NcpPricesCostsLazyQueryHookResult = ReturnType<typeof useNcpPricesCostsLazyQuery>;
+export type NcpPricesCostsQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesCostsQuery,
+  NcpPricesCostsQueryVariables
+>;
+export const NcpPricesInterestsDocument = gql`
+  query NcpPricesInterests($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      interests {
+        groundInterest
+        buildingInterest
+        rentedagen
+        suspensiveCondition
+        description
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+export function useNcpPricesInterestsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(
+    NcpPricesInterestsDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesInterestsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(
+    NcpPricesInterestsDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesInterestsQueryHookResult = ReturnType<typeof useNcpPricesInterestsQuery>;
+export type NcpPricesInterestsLazyQueryHookResult = ReturnType<typeof useNcpPricesInterestsLazyQuery>;
+export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesInterestsQuery,
+  NcpPricesInterestsQueryVariables
+>;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {
     getPimCadastre(id: $id) {

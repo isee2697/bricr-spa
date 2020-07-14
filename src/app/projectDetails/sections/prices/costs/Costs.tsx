@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-import { useLocale } from 'hooks';
+import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { Grid, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
-import { FormSection } from 'ui/organisms';
+import { FormSection, AutosaveForm } from 'ui/organisms';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { Page } from 'ui/templates';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { AddCostModal } from 'app/shared/prices';
@@ -11,10 +12,14 @@ import { AddCostModal } from 'app/shared/prices';
 import { CostsProps } from './Costs.types';
 import { CostItem } from './costItem/CostItem';
 
-export const Costs = ({ costs, onAddCost }: CostsProps) => {
+export const Costs = ({ data, onAddCost, onDescriptionSave, onUpdateCost }: CostsProps) => {
   const { formatMessage } = useLocale();
 
+  const formRef = useRef<FormSectionRef>(null);
+  const [expandedItem, setExpandedItem] = useState<string>();
   const [modalOpened, setModalOpened] = useState(false);
+
+  useToggleOnNewlyCreatedFromArray(data.costs, setExpandedItem);
 
   return (
     <>
@@ -23,17 +28,22 @@ export const Costs = ({ costs, onAddCost }: CostsProps) => {
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}
         name="description"
         placeholder="pim_details.prices.costs.description_placeholder"
+        initialValues={{ description: data.description }}
+        onSave={onDescriptionSave}
+        dateUpdated={data.dateUpdated}
+        updatedBy={data.lastEditedBy}
       >
         <Grid item xs={12}>
           <FormSection
-            title={formatMessage({ id: `pim_details.prices.costs.${costs.length ? 'title' : 'add_costs'}` })}
-            isEditable={!!costs.length}
-            titleBadge={!!costs.length ? costs.length : undefined}
+            title={formatMessage({ id: `pim_details.prices.costs.${data.costs?.length ? 'title' : 'add_costs'}` })}
+            isEditable={!!data.costs?.length}
+            titleBadge={!!data.costs && !!data.costs.length ? data.costs.length : undefined}
             onAdd={() => setModalOpened(true)}
+            ref={formRef}
           >
             {inEditMode => (
               <>
-                {!costs.length && (
+                {!data.costs?.length && (
                   <InfoSection emoji="🤑">
                     <Typography variant="h3">
                       {formatMessage({ id: 'pim_details.prices.costs.empty_line_1' })}
@@ -43,9 +53,18 @@ export const Costs = ({ costs, onAddCost }: CostsProps) => {
                     </Typography>
                   </InfoSection>
                 )}
-                {costs.map((cost, index) => (
-                  <CostItem key={`${cost.type}_${index}`} cost={cost} index={index + 1} inEditMode={inEditMode} />
-                ))}
+                {!!data.costs?.length &&
+                  data.costs?.map((cost, index) => (
+                    <AutosaveForm key={`${cost.type}_${index}`} initialValues={cost} onSave={onUpdateCost}>
+                      <CostItem
+                        cost={cost}
+                        index={index + 1}
+                        inEditMode={inEditMode}
+                        isExpanded={expandedItem === cost.id}
+                        onExpand={() => setExpandedItem(cost.id)}
+                      />
+                    </AutosaveForm>
+                  ))}
               </>
             )}
           </FormSection>
@@ -59,7 +78,10 @@ export const Costs = ({ costs, onAddCost }: CostsProps) => {
           onAddCost={async values => {
             const result = await onAddCost(values);
 
-            if (!result) setModalOpened(false);
+            if (!result) {
+              formRef.current?.handleSetEdit(true);
+              setModalOpened(false);
+            }
 
             return result;
           }}

@@ -1,7 +1,9 @@
-import { Cost } from '../Costs.types';
+import { NcpCost } from 'api/types';
 
 export type CostItemProps = {
-  cost: Cost;
+  cost: NcpCost;
   index: number;
   inEditMode: boolean;
+  isExpanded: boolean;
+  onExpand: VoidFunction;
 };

@@ -16,7 +16,7 @@ export const PriceSection = ({ type }: PriceSectionProps) => {
     <FormSection title={formatMessage({ id: `pim_details.prices.${type.toLowerCase()}` })} isExpandable isEditable>
       {inEditMode => (
         <AutoCalculateForm
-          name="autocalculatePrices"
+          name={`${type.toLowerCase()}.calculateAutomatically`}
           label={formatMessage({ id: 'project_details.prices.automatically_calculate_prices' })}
           disabled={!inEditMode}
         >
@@ -31,7 +31,7 @@ export const PriceSection = ({ type }: PriceSectionProps) => {
               <Grid container spacing={1}>
                 <Grid item xs={4}>
                   <GenericField
-                    name={`${type.toLowerCase()}.from`}
+                    name={`${type.toLowerCase()}.minPrice`}
                     label="common.from"
                     placeholder="common.big_price_placeholder"
                     size="medium"
@@ -44,7 +44,7 @@ export const PriceSection = ({ type }: PriceSectionProps) => {
                 </Grid>
                 <Grid item xs={4}>
                   <GenericField
-                    name={`${type.toLowerCase()}.to`}
+                    name={`${type.toLowerCase()}.maxPrice`}
                     label="common.to"
                     placeholder="common.big_price_placeholder"
                     size="medium"
