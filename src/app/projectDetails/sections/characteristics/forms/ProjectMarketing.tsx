@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { GenericField, UploadImageGroupField } from 'form/fields';
-import { Box } from 'ui/atoms';
+import { GenericField, UploadImageGroupField, ColorPickerField } from 'form/fields';
+import { Box, Grid } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
@@ -28,13 +28,13 @@ export const ProjectMarketing = () => {
                 subtitle={formatMessage({ id: 'project_details.characteristics.project_marketing.logos_subtitle' })}
               />
             </Box>
-            {/*TODO enable when backend is ready*/}
             <UploadImageGroupField
               name="projectMarketing.logos"
-              entity={EntityWithFiles.Pim}
+              entity={EntityWithFiles.ProjectMarketing}
               entityID={id}
-              removeEntity={EntityWithMultipleFiles.Pim}
-              disabled={true}
+              removeEntity={EntityWithMultipleFiles.ProjectMarketing}
+              disabled={!inEditMode}
+              mainName="projectMarketing.mainLogoId"
             />
           </Box>
           <Box>
@@ -55,7 +55,24 @@ export const ProjectMarketing = () => {
                 placeholder="project_details.characteristics.project_marketing.website_placeholder"
                 disabled={!inEditMode}
               />
-              {/* TODO place colorpicker field when merged*/}
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <ColorPickerField
+                    name="projectMarketing.firstColor"
+                    disabled={!inEditMode}
+                    label="project_details.characteristics.project_marketing.color_one"
+                    placeholder="project_details.characteristics.project_marketing.color_placeholder"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <ColorPickerField
+                    name="projectMarketing.secondColor"
+                    disabled={!inEditMode}
+                    label="project_details.characteristics.project_marketing.color_two"
+                    placeholder="project_details.characteristics.project_marketing.color_placeholder"
+                  />
+                </Grid>
+              </Grid>
             </Box>
           </Box>
         </>

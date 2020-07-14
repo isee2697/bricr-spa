@@ -70,7 +70,7 @@ export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: E
                   </Grid>
                   <Grid item xs={4}>
                     <GenericField
-                      name={`${namePrefix}.energy.EPC`}
+                      name={`${namePrefix}.EPC`}
                       label="pim_details.specification.energy.epc"
                       placeholder="pim_details.specification.energy.epc_placeholder"
                       disabled={!editing}

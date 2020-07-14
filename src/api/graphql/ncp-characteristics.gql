@@ -20,10 +20,12 @@ input ProjectMarketingInput {
   website: String
   firstColor: String
   secondColor: String
+  mainLogoId: String
 }
 
 type ProjectMarketing {
   logos: [File!]
+  mainLogoId: String
   emailAddress: String
   website: String
   firstColor: String
@@ -80,9 +82,9 @@ input NcpCharacteristicsInput {
   measurements: MeasurementsInput
   energy: EnergyInput
   accountManagersIds: [ID!]
-  identificationNumbers: [UpdateIdentificationNumberInput!]
   attentionNote: String
   invoiceDetails: InvoiceDetailsInput
+  characteristicsDescription: String
 }
 
 type NcpCharacteristics implements LastUpdated {
@@ -98,9 +100,16 @@ type NcpCharacteristics implements LastUpdated {
   invoiceDetails: InvoiceDetails
   lastEditedBy: Profile
   dateUpdated: Date
+  characteristicsDescription: String
+}
+
+type NcpWithNewIdentificationNumber {
+  ncp: NcpGeneral!
+  newIdentificationNumber: IdentificationNumber!
 }
 
 extend type Mutation {
+  addNcpIdentificationNumber(input: AddIdentificationNumberInput!): NcpCharacteristics!
   setNcpCharacteristics(input: SetNcpCharacteristicsSectionsInput!): NcpCharacteristics!
   updateNcpCharacteristics(input: NcpCharacteristicsInput!): NcpCharacteristics!
 }

@@ -18,7 +18,7 @@ export const PhaseItem = ({ inEditMode, phase }: PhaseItemProps) => {
     <>
       <Box mb={4}>
         <GenericField
-          name="phase_name"
+          name="phase.name"
           placeholder="project_details.characteristics.phase.placeholder"
           label="project_details.characteristics.phase.label"
           disabled={!inEditMode}

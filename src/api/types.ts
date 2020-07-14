@@ -60,11 +60,13 @@ export type Mutation = {
   addCost: CostResult;
   addFiles: Array<File>;
   addFloorToPim: PimWithNewFloor;
-  addIdentificationNumber: PimWithNewIdentificationNumber;
+  addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
+  addIdentificationNumberPim: PimWithNewIdentificationNumber;
   addInspection: AddInspectionResult;
   addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
   addMeter?: Maybe<Pim>;
+  addNcpIdentificationNumber: NcpCharacteristics;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
   addReading?: Maybe<Pim>;
@@ -94,7 +96,8 @@ export type Mutation = {
   updateCost: CostResult;
   updateDescription?: Maybe<Scalars['String']>;
   updateFloor: Pim;
-  updateIdentificationNumber: Pim;
+  updateIdentificationNumberNcp: NcpCharacteristics;
+  updateIdentificationNumberPim: Pim;
   updateInsideGeneral?: Maybe<Pim>;
   updateInspection: Pim;
   updateInvestment: Pim;
@@ -140,7 +143,11 @@ export type MutationAddFloorToPimArgs = {
   input: AddNewFloorInput;
 };
 
-export type MutationAddIdentificationNumberArgs = {
+export type MutationAddIdentificationNumberNcpArgs = {
+  input: AddIdentificationNumberInput;
+};
+
+export type MutationAddIdentificationNumberPimArgs = {
   input: AddIdentificationNumberInput;
 };
 
@@ -158,6 +165,10 @@ export type MutationAddMediaLinkArgs = {
 
 export type MutationAddMeterArgs = {
   input: AddMeterInput;
+};
+
+export type MutationAddNcpIdentificationNumberArgs = {
+  input: AddIdentificationNumberInput;
 };
 
 export type MutationAddOutsideFeatureArgs = {
@@ -277,7 +288,11 @@ export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
 };
 
-export type MutationUpdateIdentificationNumberArgs = {
+export type MutationUpdateIdentificationNumberNcpArgs = {
+  input: UpdateIdentificationNumberInput;
+};
+
+export type MutationUpdateIdentificationNumberPimArgs = {
   input: UpdateIdentificationNumberInput;
 };
 
@@ -407,6 +422,7 @@ export enum EntityWithFiles {
   RoofInformation = 'RoofInformation',
   CadastreMap = 'CadastreMap',
   MediaPicture = 'MediaPicture',
+  ProjectMarketing = 'ProjectMarketing',
 }
 
 export enum EntityWithMultipleFiles {
@@ -416,6 +432,7 @@ export enum EntityWithMultipleFiles {
   OutsideGeneral = 'OutsideGeneral',
   OutsidePropertyRelated = 'OutsidePropertyRelated',
   RoofInformation = 'RoofInformation',
+  ProjectMarketing = 'ProjectMarketing',
 }
 
 export type CreateFileInput = {
@@ -428,6 +445,12 @@ export type CreateFileInput = {
 export type AddFilesInput = {
   fileIDs: Array<Scalars['ID']>;
   entity: EntityWithFiles;
+  entityID: Scalars['ID'];
+};
+
+export type RemoveFilesInput = {
+  fileIDs: Array<Scalars['ID']>;
+  entity: EntityWithMultipleFiles;
   entityID: Scalars['ID'];
 };
 
@@ -466,12 +489,6 @@ export type GetPrivateFileInput = {
   entity?: Maybe<EntityWithFiles>;
 };
 
-export type RemoveFilesInput = {
-  fileIDs: Array<Scalars['ID']>;
-  entity: EntityWithMultipleFiles;
-  entityID: Scalars['ID'];
-};
-
 export enum IdentificationNumberType {
   Sap = 'Sap',
   Form = 'Form',
@@ -487,13 +504,12 @@ export type IdentificationNumber = {
 };
 
 export type AddIdentificationNumberInput = {
-  pimId: Scalars['String'];
+  parentId: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
 
 export type UpdateIdentificationNumberInput = {
-  pimId: Scalars['String'];
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   number?: Maybe<Scalars['String']>;
@@ -716,11 +732,13 @@ export type ProjectMarketingInput = {
   website?: Maybe<Scalars['String']>;
   firstColor?: Maybe<Scalars['String']>;
   secondColor?: Maybe<Scalars['String']>;
+  mainLogoId?: Maybe<Scalars['String']>;
 };
 
 export type ProjectMarketing = {
   __typename?: 'ProjectMarketing';
   logos?: Maybe<Array<File>>;
+  mainLogoId?: Maybe<Scalars['String']>;
   emailAddress?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   firstColor?: Maybe<Scalars['String']>;
@@ -779,9 +797,9 @@ export type NcpCharacteristicsInput = {
   measurements?: Maybe<MeasurementsInput>;
   energy?: Maybe<EnergyInput>;
   accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  identificationNumbers?: Maybe<Array<UpdateIdentificationNumberInput>>;
   attentionNote?: Maybe<Scalars['String']>;
   invoiceDetails?: Maybe<InvoiceDetailsInput>;
+  characteristicsDescription?: Maybe<Scalars['String']>;
 };
 
 export type NcpCharacteristics = LastUpdated & {
@@ -798,6 +816,13 @@ export type NcpCharacteristics = LastUpdated & {
   invoiceDetails?: Maybe<InvoiceDetails>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  characteristicsDescription?: Maybe<Scalars['String']>;
+};
+
+export type NcpWithNewIdentificationNumber = {
+  __typename?: 'NcpWithNewIdentificationNumber';
+  ncp: NcpGeneral;
+  newIdentificationNumber: IdentificationNumber;
 };
 
 export enum NcpType {
@@ -3624,12 +3649,77 @@ export type RemoveFilesMutation = { __typename?: 'Mutation' } & {
   removeFiles: Array<Maybe<{ __typename?: 'File' } & Pick<File, 'id'>>>;
 };
 
+export type AddIdentificationNumberPimMutationVariables = {
+  input: AddIdentificationNumberInput;
+};
+
+export type AddIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberPim: { __typename?: 'PimWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
+
+export type UpdateIdentificationNumberPimMutationVariables = {
+  input: UpdateIdentificationNumberInput;
+};
+
+export type UpdateIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberPim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
+
+export type AddIdentificationNumberNcpMutationVariables = {
+  input: AddIdentificationNumberInput;
+};
+
+export type AddIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberNcp: { __typename?: 'NcpWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
+
+export type UpdateIdentificationNumberNcpMutationVariables = {
+  input: UpdateIdentificationNumberInput;
+};
+
+export type UpdateIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberNcp: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
+};
+
 export type AddLabelMutationVariables = {
   input: LabelInput;
 };
 
 export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
+export type UpdateNcpCharacteristicsMutationVariables = {
+  input: NcpCharacteristicsInput;
+};
+
+export type UpdateNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  updateNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'> & {
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+    };
+};
+
+export type SetNcpCharacteristicsMutationVariables = {
+  input: SetNcpCharacteristicsSectionsInput;
+};
+
+export type SetNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  setNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
 };
 
 export type CreateNcpMutationVariables = {
@@ -3691,24 +3781,6 @@ export type UpdatePimGeneralInfoMutationVariables = {
 
 export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
   updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
-};
-
-export type AddIdentificationNumberMutationVariables = {
-  input: AddIdentificationNumberInput;
-};
-
-export type AddIdentificationNumberMutation = { __typename?: 'Mutation' } & {
-  addIdentificationNumber: { __typename?: 'PimWithNewIdentificationNumber' } & {
-    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
-  };
-};
-
-export type UpdateIdentificationNumberMutationVariables = {
-  input: UpdateIdentificationNumberInput;
-};
-
-export type UpdateIdentificationNumberMutation = { __typename?: 'Mutation' } & {
-  updateIdentificationNumber: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
 export type AddFloorToPimMutationVariables = {
@@ -4101,6 +4173,71 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type NcpCharacteristicsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpCharacteristicsQuery = { __typename?: 'Query' } & {
+  getNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<
+    NcpCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      invoiceDetails?: Maybe<
+        { __typename?: 'InvoiceDetails' } & Pick<
+          InvoiceDetails,
+          | 'street'
+          | 'houseNumber'
+          | 'additionalNumber'
+          | 'zipCode'
+          | 'city'
+          | 'country'
+          | 'projectInvoiceNumber'
+          | 'contactPerson'
+          | 'description'
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
 };
 
 export type NcpGeneralQueryVariables = {
@@ -4990,6 +5127,118 @@ export type RemoveFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
   RemoveFilesMutation,
   RemoveFilesMutationVariables
 >;
+export const AddIdentificationNumberPimDocument = gql`
+  mutation AddIdentificationNumberPim($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberPim(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+export function useAddIdentificationNumberPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberPimMutation,
+    AddIdentificationNumberPimMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddIdentificationNumberPimMutation, AddIdentificationNumberPimMutationVariables>(
+    AddIdentificationNumberPimDocument,
+    baseOptions,
+  );
+}
+export type AddIdentificationNumberPimMutationHookResult = ReturnType<typeof useAddIdentificationNumberPimMutation>;
+export type AddIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberPimMutation
+>;
+export type AddIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberPimMutation,
+  AddIdentificationNumberPimMutationVariables
+>;
+export const UpdateIdentificationNumberPimDocument = gql`
+  mutation UpdateIdentificationNumberPim($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberPim(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberPimMutation,
+    UpdateIdentificationNumberPimMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberPimMutation,
+    UpdateIdentificationNumberPimMutationVariables
+  >(UpdateIdentificationNumberPimDocument, baseOptions);
+}
+export type UpdateIdentificationNumberPimMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberPimMutation
+>;
+export type UpdateIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberPimMutation
+>;
+export type UpdateIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberPimMutation,
+  UpdateIdentificationNumberPimMutationVariables
+>;
+export const AddIdentificationNumberNcpDocument = gql`
+  mutation AddIdentificationNumberNcp($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberNcp(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+export function useAddIdentificationNumberNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberNcpMutation,
+    AddIdentificationNumberNcpMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddIdentificationNumberNcpMutation, AddIdentificationNumberNcpMutationVariables>(
+    AddIdentificationNumberNcpDocument,
+    baseOptions,
+  );
+}
+export type AddIdentificationNumberNcpMutationHookResult = ReturnType<typeof useAddIdentificationNumberNcpMutation>;
+export type AddIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberNcpMutation
+>;
+export type AddIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberNcpMutation,
+  AddIdentificationNumberNcpMutationVariables
+>;
+export const UpdateIdentificationNumberNcpDocument = gql`
+  mutation UpdateIdentificationNumberNcp($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberNcp(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberNcpMutation,
+    UpdateIdentificationNumberNcpMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberNcpMutation,
+    UpdateIdentificationNumberNcpMutationVariables
+  >(UpdateIdentificationNumberNcpDocument, baseOptions);
+}
+export type UpdateIdentificationNumberNcpMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberNcpMutation
+>;
+export type UpdateIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberNcpMutation
+>;
+export type UpdateIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberNcpMutation,
+  UpdateIdentificationNumberNcpMutationVariables
+>;
 export const AddLabelDocument = gql`
   mutation AddLabel($input: LabelInput!) {
     addLabel(input: $input) {
@@ -5010,6 +5259,63 @@ export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMu
 export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddLabelMutation,
   AddLabelMutationVariables
+>;
+export const UpdateNcpCharacteristicsDocument = gql`
+  mutation UpdateNcpCharacteristics($input: NcpCharacteristicsInput!) {
+    updateNcpCharacteristics(input: $input) {
+      id
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+    }
+  }
+`;
+export function useUpdateNcpCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpCharacteristicsMutation,
+    UpdateNcpCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCharacteristicsMutation, UpdateNcpCharacteristicsMutationVariables>(
+    UpdateNcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCharacteristicsMutationHookResult = ReturnType<typeof useUpdateNcpCharacteristicsMutation>;
+export type UpdateNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCharacteristicsMutation>;
+export type UpdateNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCharacteristicsMutation,
+  UpdateNcpCharacteristicsMutationVariables
+>;
+export const SetNcpCharacteristicsDocument = gql`
+  mutation SetNcpCharacteristics($input: SetNcpCharacteristicsSectionsInput!) {
+    setNcpCharacteristics(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetNcpCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetNcpCharacteristicsMutation,
+    SetNcpCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<SetNcpCharacteristicsMutation, SetNcpCharacteristicsMutationVariables>(
+    SetNcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type SetNcpCharacteristicsMutationHookResult = ReturnType<typeof useSetNcpCharacteristicsMutation>;
+export type SetNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<SetNcpCharacteristicsMutation>;
+export type SetNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetNcpCharacteristicsMutation,
+  SetNcpCharacteristicsMutationVariables
 >;
 export const CreateNcpDocument = gql`
   mutation CreateNcp($input: CreateNcpInput!) {
@@ -5157,58 +5463,6 @@ export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResul
 export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdatePimGeneralInfoMutation,
   UpdatePimGeneralInfoMutationVariables
->;
-export const AddIdentificationNumberDocument = gql`
-  mutation AddIdentificationNumber($input: AddIdentificationNumberInput!) {
-    addIdentificationNumber(input: $input) {
-      newIdentificationNumber {
-        id
-      }
-    }
-  }
-`;
-export function useAddIdentificationNumberMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    AddIdentificationNumberMutation,
-    AddIdentificationNumberMutationVariables
-  >,
-) {
-  return ApolloReactHooks.useMutation<AddIdentificationNumberMutation, AddIdentificationNumberMutationVariables>(
-    AddIdentificationNumberDocument,
-    baseOptions,
-  );
-}
-export type AddIdentificationNumberMutationHookResult = ReturnType<typeof useAddIdentificationNumberMutation>;
-export type AddIdentificationNumberMutationResult = ApolloReactCommon.MutationResult<AddIdentificationNumberMutation>;
-export type AddIdentificationNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddIdentificationNumberMutation,
-  AddIdentificationNumberMutationVariables
->;
-export const UpdateIdentificationNumberDocument = gql`
-  mutation UpdateIdentificationNumber($input: UpdateIdentificationNumberInput!) {
-    updateIdentificationNumber(input: $input) {
-      id
-    }
-  }
-`;
-export function useUpdateIdentificationNumberMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpdateIdentificationNumberMutation,
-    UpdateIdentificationNumberMutationVariables
-  >,
-) {
-  return ApolloReactHooks.useMutation<UpdateIdentificationNumberMutation, UpdateIdentificationNumberMutationVariables>(
-    UpdateIdentificationNumberDocument,
-    baseOptions,
-  );
-}
-export type UpdateIdentificationNumberMutationHookResult = ReturnType<typeof useUpdateIdentificationNumberMutation>;
-export type UpdateIdentificationNumberMutationResult = ApolloReactCommon.MutationResult<
-  UpdateIdentificationNumberMutation
->;
-export type UpdateIdentificationNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdateIdentificationNumberMutation,
-  UpdateIdentificationNumberMutationVariables
 >;
 export const AddFloorToPimDocument = gql`
   mutation AddFloorToPim($input: AddNewFloorInput!) {
@@ -6130,6 +6384,94 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const NcpCharacteristicsDocument = gql`
+  query NcpCharacteristics($id: ID!) {
+    getNcpCharacteristics(id: $id) {
+      id
+      characteristicsSections
+      projectMarketing {
+        logos {
+          id
+          url
+        }
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
+      }
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+      energy {
+        label
+        energyIndex
+        endDateEnergyLabel
+        EPC
+        characteristicType
+        notes
+      }
+      accountManagers {
+        id
+      }
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      invoiceDetails {
+        street
+        houseNumber
+        additionalNumber
+        zipCode
+        city
+        country
+        projectInvoiceNumber
+        contactPerson
+        description
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+    }
+  }
+`;
+export function useNcpCharacteristicsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(
+    NcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export function useNcpCharacteristicsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(
+    NcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type NcpCharacteristicsQueryHookResult = ReturnType<typeof useNcpCharacteristicsQuery>;
+export type NcpCharacteristicsLazyQueryHookResult = ReturnType<typeof useNcpCharacteristicsLazyQuery>;
+export type NcpCharacteristicsQueryResult = ApolloReactCommon.QueryResult<
+  NcpCharacteristicsQuery,
+  NcpCharacteristicsQueryVariables
+>;
 export const NcpGeneralDocument = gql`
   query NcpGeneral($id: ID!) {
     getNcp(id: $id) {

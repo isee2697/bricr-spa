@@ -146,8 +146,6 @@ input PimWithSameAddressInput {
 
 extend type Mutation {
   updatePimGeneralInfo(input: PimGeneralInput!): Pim! @auth
-  addIdentificationNumber(input: AddIdentificationNumberInput!): PimWithNewIdentificationNumber! @auth
-  updateIdentificationNumber(input: UpdateIdentificationNumberInput!): Pim! @auth
 }
 
 extend type Query {

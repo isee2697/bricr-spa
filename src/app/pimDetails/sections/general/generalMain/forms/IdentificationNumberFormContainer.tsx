@@ -2,23 +2,23 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  useAddIdentificationNumberMutation,
-  useUpdateIdentificationNumberMutation,
   PimGeneralDocument,
   IdentificationNumber,
+  useAddIdentificationNumberPimMutation,
+  useUpdateIdentificationNumberPimMutation,
 } from 'api/types';
 import { IdentificationNumberForm } from 'app/shared/identificationNumber/IdentificationNumberForm';
 
 export const IdentificationNumberFormContainer = ({ items }: { items: IdentificationNumber[] }) => {
   const { id } = useParams<{ id: string }>();
-  const [addIdentificationNumber] = useAddIdentificationNumberMutation();
-  const [updateIdentificationNumber] = useUpdateIdentificationNumberMutation();
+  const [addIdentificationNumber] = useAddIdentificationNumberPimMutation();
+  const [updateIdentificationNumber] = useUpdateIdentificationNumberPimMutation();
 
   const handleAdd = async () => {
     const { data } = await addIdentificationNumber({
       variables: {
         input: {
-          pimId: id,
+          parentId: id,
         },
       },
       refetchQueries: [
@@ -32,7 +32,7 @@ export const IdentificationNumberFormContainer = ({ items }: { items: Identifica
     });
 
     return {
-      id: data?.addIdentificationNumber.newIdentificationNumber.id,
+      id: data?.addIdentificationNumberPim.newIdentificationNumber.id,
     };
   };
 
@@ -41,8 +41,10 @@ export const IdentificationNumberFormContainer = ({ items }: { items: Identifica
       const { data: result } = await updateIdentificationNumber({
         variables: {
           input: {
-            pimId: id,
-            ...values,
+            id: values.id,
+            name: values.name,
+            number: values.number,
+            type: values.type,
           },
         },
         refetchQueries: [

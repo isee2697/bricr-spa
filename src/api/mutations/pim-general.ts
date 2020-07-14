@@ -7,21 +7,3 @@ export const UPDATE_PIM_GENERAL_INFO = gql`
     }
   }
 `;
-
-export const ADD_IDENTIFICATION_NUMBER = gql`
-  mutation AddIdentificationNumber($input: AddIdentificationNumberInput!) {
-    addIdentificationNumber(input: $input) {
-      newIdentificationNumber {
-        id
-      }
-    }
-  }
-`;
-
-export const UDPATE_IDENTIFICATION_NUMBER = gql`
-  mutation UpdateIdentificationNumber($input: UpdateIdentificationNumberInput!) {
-    updateIdentificationNumber(input: $input) {
-      id
-    }
-  }
-`;

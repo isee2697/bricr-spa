@@ -8,6 +8,7 @@ import { CheckboxGroupField } from 'form/fields';
 import { DialogActions, DialogContent } from 'ui/atoms';
 import { HomeIcon, LockIcon, RefreshIcon } from 'ui/atoms/icons';
 import { NcpCharacteristicsSections } from 'api/types';
+import { sectionsOrder } from '../Characteristics.types';
 
 import { AdditionalInformationModalProps } from './AdditionalInformationModal.types';
 
@@ -18,7 +19,7 @@ const withLockIcon = (section: NcpCharacteristicsSections) =>
     NcpCharacteristicsSections.AttentionField,
   ].includes(section);
 
-const ADDITIONAL_INFORMATIONS = Object.keys(NcpCharacteristicsSections).map(section => ({
+const ADDITIONAL_INFORMATIONS = sectionsOrder.map(section => ({
   label: `dictionaries.characteristic_sections.${section}`,
   icon: withLockIcon(section as NcpCharacteristicsSections) ? (
     <LockIcon color="inherit" />

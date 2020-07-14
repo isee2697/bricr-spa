@@ -1,4 +1,7 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import { NcpCharacteristicsDocument, useSetNcpCharacteristicsMutation } from 'api/types';
 
 import {
   AdditionalInformationModalContainerProps,
@@ -11,10 +14,36 @@ export const AdditionalInformationModalContainer = ({
   isOpened,
   onClose,
 }: AdditionalInformationModalContainerProps) => {
-  const handleSubmit = async (values: AdditionalInformationVisibility) => {
-    onClose();
+  const { id } = useParams<{ id: string }>();
+  const [setCharacteristics] = useSetNcpCharacteristicsMutation();
 
-    return undefined;
+  const handleSubmit = async (values: AdditionalInformationVisibility) => {
+    try {
+      const { data } = await setCharacteristics({
+        variables: {
+          input: {
+            id,
+            ...values,
+          },
+        },
+        refetchQueries: [
+          {
+            query: NcpCharacteristicsDocument,
+            variables: { id },
+          },
+        ],
+      });
+
+      if (!data?.setNcpCharacteristics) {
+        throw new Error();
+      }
+
+      onClose();
+
+      return undefined;
+    } catch (e) {
+      return { error: true };
+    }
   };
 
   const initialValues = {

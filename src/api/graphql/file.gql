@@ -12,6 +12,7 @@ enum EntityWithFiles {
   RoofInformation,
   CadastreMap,
   MediaPicture,
+  ProjectMarketing
 }
 
 enum EntityWithMultipleFiles {
@@ -21,6 +22,7 @@ enum EntityWithMultipleFiles {
   OutsideGeneral,
   OutsidePropertyRelated,
   RoofInformation,
+  ProjectMarketing
 }
 
 input CreateFileInput {
@@ -33,6 +35,12 @@ input CreateFileInput {
 input AddFilesInput {
   fileIDs: [ID!]!
   entity: EntityWithFiles!
+  entityID: ID!
+}
+
+input RemoveFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithMultipleFiles!
   entityID: ID!
 }
 
@@ -71,12 +79,6 @@ input GetPrivateFileInput {
   key: ID!
   entityID: String
   entity: EntityWithFiles
-}
-
-input RemoveFilesInput {
-  fileIDs: [ID!]!
-  entity: EntityWithMultipleFiles!
-  entityID: ID!
 }
 
 extend type Mutation {

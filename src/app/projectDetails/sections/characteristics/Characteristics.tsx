@@ -21,7 +21,12 @@ import { ClientInformation } from './forms/ClientInformation';
 import { AdditionalInformationModalContainer } from './additionalInformationModal/AdditionalInformationModalContainer';
 import { CharacteristicsProps } from './Characteristics.types';
 
-export const Characteristics = ({ dateUpdated, updatedBy, characteristicsSections }: CharacteristicsProps) => {
+export const Characteristics = ({
+  dateUpdated,
+  updatedBy,
+  characteristicsSections,
+  identificationNumbers,
+}: CharacteristicsProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
 
@@ -33,7 +38,9 @@ export const Characteristics = ({ dateUpdated, updatedBy, characteristicsSection
       [NcpCharacteristicsSections.Phase]: <Phase />,
       [NcpCharacteristicsSections.AccountManagers]: <AccountManagers />,
       [NcpCharacteristicsSections.ClientInformation]: <ClientInformation />,
-      [NcpCharacteristicsSections.IdentificationNumber]: <IdentificationNumberFormContainer items={[]} />,
+      [NcpCharacteristicsSections.IdentificationNumber]: (
+        <IdentificationNumberFormContainer items={identificationNumbers} />
+      ),
       [NcpCharacteristicsSections.AttentionField]: <Attention />,
       [NcpCharacteristicsSections.InvoiceDetails]: <InvoiceDetails />,
     };
@@ -82,7 +89,7 @@ export const Characteristics = ({ dateUpdated, updatedBy, characteristicsSection
       />
       <Page
         title={formatMessage({ id: 'project_details.characteristics.title' })}
-        name="description"
+        name="characteristicsDescription"
         placeholder="project_details.characteristics.description_placeholder"
         dateUpdated={dateUpdated}
         updatedBy={updatedBy}
@@ -93,7 +100,7 @@ export const Characteristics = ({ dateUpdated, updatedBy, characteristicsSection
         <AdditionalInformationModalContainer
           isOpened={isModalOpened}
           onClose={() => setModalOpened(false)}
-          sections={[]}
+          sections={characteristicsSections}
         />
       )}
     </>
