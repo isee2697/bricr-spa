@@ -592,6 +592,7 @@ export type Query = {
   getNcp: NcpGeneral;
   getNcpCharacteristics: NcpCharacteristics;
   getNcpPrices: NcpPricesResult;
+  getNcpWithSameAddress: NcpSearchResult;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -631,6 +632,10 @@ export type QueryGetNcpCharacteristicsArgs = {
 
 export type QueryGetNcpPricesArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetNcpWithSameAddressArgs = {
+  input: NcpWithSameAddressInput;
 };
 
 export type QueryGetPimArgs = {
@@ -907,9 +912,9 @@ export type UpdateNcpInput = {
   properties?: Maybe<Scalars['Int']>;
   progressStatus?: Maybe<ProgressStatus>;
   startConstruction?: Maybe<Scalars['Date']>;
-  noteStartConstruction?: Maybe<Scalars['Date']>;
+  noteStartConstruction?: Maybe<Scalars['String']>;
   startSale?: Maybe<Scalars['Date']>;
-  noteStartSale?: Maybe<Scalars['Date']>;
+  noteStartSale?: Maybe<Scalars['String']>;
   startDelivery?: Maybe<Scalars['Date']>;
   noteStartDelivery?: Maybe<Scalars['String']>;
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
@@ -932,6 +937,7 @@ export type NcpGeneral = LastUpdated & {
   zipCode: Scalars['String'];
   city: Scalars['String'];
   country: Scalars['String'];
+  archived: Scalars['Boolean'];
   automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
   objectTypes?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
@@ -945,6 +951,20 @@ export type NcpGeneral = LastUpdated & {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
+};
+
+export type NcpSearchResult = {
+  __typename?: 'NcpSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<NcpGeneral>>;
+};
+
+export type NcpWithSameAddressInput = {
+  ncpId?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
 };
 
 export type ListNcpsFilters = {
@@ -4512,7 +4532,19 @@ export type NcpGeneralQuery = { __typename?: 'Query' } & {
     | 'startConstructionAfterPresalePercentage'
     | 'projectRisk'
     | 'notes'
+    | 'archived'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type NcpWithSameAddressQueryVariables = {
+  input: NcpWithSameAddressInput;
+};
+
+export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
+  getNcpWithSameAddress: { __typename?: 'NcpSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>>;
+  };
 };
 
 export type ListNcpsCountQueryVariables = {};
@@ -6950,6 +6982,7 @@ export const NcpGeneralDocument = gql`
       startConstructionAfterPresalePercentage
       projectRisk
       notes
+      archived
     }
   }
 `;
@@ -6966,6 +6999,40 @@ export function useNcpGeneralLazyQuery(
 export type NcpGeneralQueryHookResult = ReturnType<typeof useNcpGeneralQuery>;
 export type NcpGeneralLazyQueryHookResult = ReturnType<typeof useNcpGeneralLazyQuery>;
 export type NcpGeneralQueryResult = ApolloReactCommon.QueryResult<NcpGeneralQuery, NcpGeneralQueryVariables>;
+export const NcpWithSameAddressDocument = gql`
+  query NcpWithSameAddress($input: NcpWithSameAddressInput!) {
+    getNcpWithSameAddress(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;
+export function useNcpWithSameAddressQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(
+    NcpWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export function useNcpWithSameAddressLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(
+    NcpWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export type NcpWithSameAddressQueryHookResult = ReturnType<typeof useNcpWithSameAddressQuery>;
+export type NcpWithSameAddressLazyQueryHookResult = ReturnType<typeof useNcpWithSameAddressLazyQuery>;
+export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
+  NcpWithSameAddressQuery,
+  NcpWithSameAddressQueryVariables
+>;
 export const ListNcpsCountDocument = gql`
   query ListNcpsCount {
     activeCount: listNcps(filters: { archived: false }) {

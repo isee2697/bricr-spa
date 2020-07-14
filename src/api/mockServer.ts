@@ -649,6 +649,26 @@ export const mockServer = () => {
 
             return NCP_GENERAL;
           },
+          getNcpWithSameAddress() {
+            if (
+              [
+                variables.input.street === NCP_GENERAL.street,
+                variables.input.houseNumber === NCP_GENERAL.houseNumber,
+                variables.input.zipCode === NCP_GENERAL.zipCode,
+                variables.input.city === NCP_GENERAL.city,
+              ].filter(Boolean).length > 2
+            ) {
+              return {
+                metadata: { total: 1 },
+                items: [NCP_GENERAL],
+              };
+            }
+
+            return {
+              metadata: { total: 0 },
+              items: [],
+            };
+          },
         };
 
         return graphql(graphqlSchema, query, resolver, null, variables);

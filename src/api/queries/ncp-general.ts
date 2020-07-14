@@ -34,6 +34,20 @@ export const PIM_MEDIA = gql`
       startConstructionAfterPresalePercentage
       projectRisk
       notes
+      archived
+    }
+  }
+`;
+
+export const NCP_GENERAL_WITH_SAME_ADDRESS = gql`
+  query NcpWithSameAddress($input: NcpWithSameAddressInput!) {
+    getNcpWithSameAddress(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
     }
   }
 `;

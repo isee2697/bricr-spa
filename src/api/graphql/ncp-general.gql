@@ -45,9 +45,9 @@ input UpdateNcpInput {
   properties: Int
   progressStatus: ProgressStatus
   startConstruction: Date
-  noteStartConstruction: Date
+  noteStartConstruction: String
   startSale: Date
-  noteStartSale: Date
+  noteStartSale: String
   startDelivery: Date
   noteStartDelivery: String
   startConstructionAfterPresalePercentage: Int
@@ -69,6 +69,7 @@ type NcpGeneral implements LastUpdated {
   zipCode: String!
   city: String!
   country: String!
+  archived: Boolean!
   automaticallyCalculateQuantity: Boolean
   objectTypes: Int
   properties: Int
@@ -84,8 +85,22 @@ type NcpGeneral implements LastUpdated {
   notes: String
 }
 
+type NcpSearchResult {
+  metadata: SearchMetadata
+  items: [NcpGeneral!]
+}
+
+input NcpWithSameAddressInput {
+  ncpId: String
+  street: String
+  houseNumber: String
+  zipCode: String
+  city: String
+}
+
 extend type Query {
   getNcp(id: ID!): NcpGeneral! @auth
+  getNcpWithSameAddress(input: NcpWithSameAddressInput!): NcpSearchResult! @auth
 }
 
 extend type Mutation {

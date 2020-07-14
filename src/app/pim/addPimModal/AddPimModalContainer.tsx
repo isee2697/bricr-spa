@@ -12,6 +12,9 @@ import {
   PimWithSameAddressQuery,
   PimWithSameAddressDocument,
   useCreateNcpMutation,
+  NcpWithSameAddressQuery,
+  NcpWithSameAddressQueryVariables,
+  NcpWithSameAddressDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -91,7 +94,32 @@ export const AddPimModalContainer = () => {
   const handleNcpSubmit: AddPimSubmit<AddNcpBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        //@TODO duplicate check
+        const { data: pimWithSameAddress, errors } = await apiClient.query<
+          NcpWithSameAddressQuery,
+          NcpWithSameAddressQueryVariables
+        >({
+          query: NcpWithSameAddressDocument,
+          fetchPolicy: 'network-only',
+          variables: {
+            input: {
+              street: body.street,
+              houseNumber: body.houseNumber,
+              zipCode: body.zipCode,
+              city: body.city,
+            },
+          },
+        });
+
+        if (errors) {
+          throw new Error();
+        }
+
+        if (pimWithSameAddress?.getNcpWithSameAddress.items?.length) {
+          return {
+            error: 'conflict',
+            conflictsCount: pimWithSameAddress?.getNcpWithSameAddress.metadata?.total,
+          };
+        }
       }
 
       const { data: result } = await createNcp({
