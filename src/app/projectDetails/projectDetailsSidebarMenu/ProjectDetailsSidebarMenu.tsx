@@ -15,7 +15,7 @@ const menuItems = [
   { key: 'salesSettings' },
   { key: 'general' },
   { key: 'characteristics' },
-  { key: 'prices', subItems: ['costs'] },
+  { key: 'prices', subItems: ['costs', 'interest'] },
   { key: 'services' },
   { key: 'media' },
   { key: 'objectTypes', count: 4 },
