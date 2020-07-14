@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { UploadModalImageProps } from 'ui/organisms/uploadModal/UploadModal.types';
 import { Badge, Box } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons';
-import { useStyles } from 'ui/organisms/uploadModal/UploadModal.styles';
-import { readFileAsync } from 'ui/organisms/uploadModal/UploadModal.helpers';
+import { readFileAsync } from '../uploadModal/UploadModal.helpers';
+
+import { useStyles } from './UploadModalImage.styles';
+import { UploadModalImageProps } from './UploadModalImage.types';
 
 export const UploadModalImage = ({ file, onRemove }: UploadModalImageProps) => {
   const classes = useStyles();

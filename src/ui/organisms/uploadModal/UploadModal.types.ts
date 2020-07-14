@@ -6,8 +6,3 @@ export type UploadModalProps = Omit<DialogProps, 'open' | 'onClose'> & {
   onClose: VoidFunction;
   onUpload: (files: File[]) => void;
 };
-
-export type UploadModalImageProps = {
-  file: File;
-  onRemove: () => void;
-};
