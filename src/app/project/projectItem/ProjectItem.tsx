@@ -83,7 +83,7 @@ export const ProjectItem = ({
       <ColoredImage
         className={classes.image}
         onClick={() => push(AppRoute.projectDetails.replace(':id', id))}
-        src={mainPicture?.url ?? 'http://placeimg.com/176/112/arch'}
+        src={mainPicture?.url ?? 'http://placeimg.com/624/160/arch'}
         grayscale={archived}
         variant="green"
       >
