@@ -61,7 +61,7 @@ export const Costs = ({ data, onAddCost, onDescriptionSave, onUpdateCost }: Cost
                         index={index + 1}
                         inEditMode={inEditMode}
                         isExpanded={expandedItem === cost.id}
-                        onExpand={() => setExpandedItem(cost.id)}
+                        onExpand={() => setExpandedItem(expandedItem !== cost.id ? cost.id : undefined)}
                       />
                     </AutosaveForm>
                   ))}
