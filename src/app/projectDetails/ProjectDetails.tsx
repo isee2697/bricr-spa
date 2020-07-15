@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
@@ -17,6 +17,7 @@ import { ObjectTypes } from './sections/objectTypes/ObjectTypes';
 
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
+  const { id } = useParams<{ id: string }>();
 
   return (
     <>
@@ -30,7 +31,7 @@ export const ProjectDetails = () => {
           <Box padding={3}>
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
-              <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer />} />
+              <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer key={id} />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
               <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
