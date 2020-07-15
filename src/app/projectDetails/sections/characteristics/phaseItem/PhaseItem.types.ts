@@ -1,8 +1,7 @@
+import { ProjectPhase } from 'api/types';
+
 export type PhaseItemProps = {
   inEditMode: boolean;
-  phase: {
-    image: string;
-    name: string;
-    id: string;
-  };
+  phase: ProjectPhase;
+  handleEdit: VoidFunction;
 };

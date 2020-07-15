@@ -26,6 +26,7 @@ export const Characteristics = ({
   updatedBy,
   characteristicsSections,
   identificationNumbers,
+  projectPhase,
 }: CharacteristicsProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
@@ -35,7 +36,7 @@ export const Characteristics = ({
       [NcpCharacteristicsSections.ProjectMarketing]: <ProjectMarketing />,
       [NcpCharacteristicsSections.Measurements]: <Measurements />,
       [NcpCharacteristicsSections.Energy]: <EnergyForm namePrefix="energy" />,
-      [NcpCharacteristicsSections.Phase]: <Phase />,
+      [NcpCharacteristicsSections.Phase]: <Phase phase={projectPhase} />,
       [NcpCharacteristicsSections.AccountManagers]: <AccountManagers />,
       [NcpCharacteristicsSections.ClientInformation]: <ClientInformation />,
       [NcpCharacteristicsSections.IdentificationNumber]: (

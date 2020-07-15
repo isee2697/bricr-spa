@@ -70,6 +70,7 @@ export type Mutation = {
   addNcpIdentificationNumber: NcpCharacteristics;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
+  addProjectPhase: ProjectPhase;
   addReading?: Maybe<Pim>;
   addService?: Maybe<PimWithNewService>;
   addSpaceToFloor: PimWithUpdatedSpace;
@@ -82,11 +83,13 @@ export type Mutation = {
   deleteUser?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
+  linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
+  removeProjectPhase?: Maybe<Scalars['Boolean']>;
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
@@ -117,6 +120,7 @@ export type Mutation = {
   updatePimLocation: Pim;
   updatePimOutsideInfo: Pim;
   updatePricing: Pim;
+  updateProjectPhase: ProjectPhase;
   updateReading?: Maybe<Pim>;
   updateSalesSettings: Pim;
   updateService?: Maybe<Pim>;
@@ -189,6 +193,10 @@ export type MutationAddPicturesArgs = {
   input: AddPicturesInput;
 };
 
+export type MutationAddProjectPhaseArgs = {
+  input: CreateProjectPhaseInput;
+};
+
 export type MutationAddReadingArgs = {
   input: AddReadingInput;
 };
@@ -237,6 +245,10 @@ export type MutationInitSendFileArgs = {
   input: InitSendFileInput;
 };
 
+export type MutationLinkNcpToProjectPhaseArgs = {
+  input: LinkNcpToProjectPhaseInput;
+};
+
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
 };
@@ -255,6 +267,10 @@ export type MutationRemoveLabelArgs = {
 
 export type MutationRemovePimArgs = {
   id: Scalars['String'];
+};
+
+export type MutationRemoveProjectPhaseArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationRemoveViewingMomentArgs = {
@@ -378,6 +394,10 @@ export type MutationUpdatePricingArgs = {
   input: UpdatePricingInput;
 };
 
+export type MutationUpdateProjectPhaseArgs = {
+  input: UpdateProjectPhaseInput;
+};
+
 export type MutationUpdateReadingArgs = {
   input: UpdateReadingInput;
 };
@@ -453,6 +473,7 @@ export enum EntityWithFiles {
   CadastreMap = 'CadastreMap',
   MediaPicture = 'MediaPicture',
   ProjectMarketing = 'ProjectMarketing',
+  ProjectPhase = 'ProjectPhase',
 }
 
 export enum EntityWithMultipleFiles {
@@ -607,6 +628,7 @@ export type Query = {
   getPimsGeneralWithSameAddress: GeneralPimSearchResult;
   getPricing: PimPrices;
   getProfile?: Maybe<Profile>;
+  getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   listNcps: NcpListSearchResult;
   listPims: PimListSearchResult;
@@ -688,6 +710,11 @@ export type QueryGetPricingArgs = {
 
 export type QueryGetProfileArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetProjectPhasesArgs = {
+  filters?: Maybe<ProjectPhaseFilters>;
+  pagination: Pagination;
 };
 
 export type QueryListNcpsArgs = {
@@ -3772,6 +3799,43 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type ProjectPhase = {
+  __typename?: 'ProjectPhase';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  logo?: Maybe<File>;
+  ncpIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type CreateProjectPhaseInput = {
+  name: Scalars['String'];
+  logoId?: Maybe<Scalars['ID']>;
+  ncpId?: Maybe<Scalars['ID']>;
+};
+
+export type UpdateProjectPhaseInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  logoId?: Maybe<Scalars['ID']>;
+  ncpIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type ProjectPhaseFilters = {
+  name?: Maybe<Scalars['String']>;
+  ncpId?: Maybe<Scalars['ID']>;
+};
+
+export type ProjectPhaseSearchResult = {
+  __typename?: 'ProjectPhaseSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ProjectPhase>>;
+};
+
+export type LinkNcpToProjectPhaseInput = {
+  ncpId: Scalars['ID'];
+  projectPhaseId: Scalars['ID'];
+};
+
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
   total: Scalars['Int'];
@@ -4368,6 +4432,22 @@ export type UpdateDescriptionMutationVariables = {
 };
 
 export type UpdateDescriptionMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateDescription'>;
+
+export type AddProjectPhaseMutationVariables = {
+  input: CreateProjectPhaseInput;
+};
+
+export type AddProjectPhaseMutation = { __typename?: 'Mutation' } & {
+  addProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type LinkNcpToProjectPhaseMutationVariables = {
+  input: LinkNcpToProjectPhaseInput;
+};
+
+export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
+  linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
 
 export type GetLabelsQueryVariables = {
   pimId: Scalars['ID'];
@@ -5331,6 +5411,42 @@ export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>;
+};
+
+export type ProjectPhasesQueryVariables = {
+  name?: Maybe<Scalars['String']>;
+  ncpId?: Maybe<Scalars['ID']>;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ProjectPhasesQuery = { __typename?: 'Query' } & {
+  getProjectPhases: { __typename?: 'ProjectPhaseSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id' | 'name' | 'ncpIds'> & {
+            logo?: Maybe<
+              { __typename?: 'File' } & Pick<
+                File,
+                | 'id'
+                | 'fileName'
+                | 'description'
+                | 'status'
+                | 'fileType'
+                | 'permission'
+                | 'key'
+                | 'createdAt'
+                | 'signedUrl'
+                | 'url'
+                | 'bucket'
+                | 'entityID'
+                | 'entity'
+              >
+            >;
+          }
+      >
+    >;
+  };
 };
 
 export const LoginDocument = gql`
@@ -6732,6 +6848,51 @@ export type UpdateDescriptionMutationResult = ApolloReactCommon.MutationResult<U
 export type UpdateDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateDescriptionMutation,
   UpdateDescriptionMutationVariables
+>;
+export const AddProjectPhaseDocument = gql`
+  mutation AddProjectPhase($input: CreateProjectPhaseInput!) {
+    addProjectPhase(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddProjectPhaseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>(
+    AddProjectPhaseDocument,
+    baseOptions,
+  );
+}
+export type AddProjectPhaseMutationHookResult = ReturnType<typeof useAddProjectPhaseMutation>;
+export type AddProjectPhaseMutationResult = ApolloReactCommon.MutationResult<AddProjectPhaseMutation>;
+export type AddProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddProjectPhaseMutation,
+  AddProjectPhaseMutationVariables
+>;
+export const LinkNcpToProjectPhaseDocument = gql`
+  mutation LinkNcpToProjectPhase($input: LinkNcpToProjectPhaseInput!) {
+    linkNcpToProjectPhase(input: $input) {
+      id
+    }
+  }
+`;
+export function useLinkNcpToProjectPhaseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    LinkNcpToProjectPhaseMutation,
+    LinkNcpToProjectPhaseMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<LinkNcpToProjectPhaseMutation, LinkNcpToProjectPhaseMutationVariables>(
+    LinkNcpToProjectPhaseDocument,
+    baseOptions,
+  );
+}
+export type LinkNcpToProjectPhaseMutationHookResult = ReturnType<typeof useLinkNcpToProjectPhaseMutation>;
+export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResult<LinkNcpToProjectPhaseMutation>;
+export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LinkNcpToProjectPhaseMutation,
+  LinkNcpToProjectPhaseMutationVariables
 >;
 export const GetLabelsDocument = gql`
   query GetLabels($pimId: ID!, $properties: [LabelProperty!]) {
@@ -8283,3 +8444,45 @@ export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptio
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const ProjectPhasesDocument = gql`
+  query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
+    getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        name
+        logo {
+          id
+          fileName
+          description
+          status
+          fileType
+          permission
+          key
+          createdAt
+          signedUrl
+          url
+          bucket
+          entityID
+          entity
+        }
+        ncpIds
+      }
+    }
+  }
+`;
+export function useProjectPhasesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(ProjectPhasesDocument, baseOptions);
+}
+export function useProjectPhasesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(
+    ProjectPhasesDocument,
+    baseOptions,
+  );
+}
+export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
+export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
+export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;

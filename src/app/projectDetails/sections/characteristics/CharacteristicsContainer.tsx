@@ -4,20 +4,30 @@ import { useParams } from 'react-router-dom';
 import { FormRenderProps } from 'react-final-form';
 
 import { AutosaveForm } from 'ui/organisms';
-import { NcpCharacteristicsDocument, NcpCharacteristicsInput, useUpdateNcpCharacteristicsMutation } from 'api/types';
+import {
+  NcpCharacteristicsDocument,
+  NcpCharacteristicsInput,
+  useProjectPhasesQuery,
+  useUpdateNcpCharacteristicsMutation,
+} from 'api/types';
 import { useNcpCharacteristicsQuery } from 'api/types';
 
-import { FormValues, sectionsOrder } from './Characteristics.types';
+import { sectionsOrder } from './Characteristics.types';
 import { Characteristics } from './Characteristics';
 
 export const CharacteristicsContainer = () => {
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<NcpCharacteristicsInput>>();
 
+  const { data: phaseData } = useProjectPhasesQuery({
+    variables: { name: undefined, ncpId: id, from: 0, limit: 1 },
+    fetchPolicy: 'no-cache',
+  });
+
   const { data } = useNcpCharacteristicsQuery({ variables: { id } });
   const [updateCharacteristics] = useUpdateNcpCharacteristicsMutation();
 
-  const handleSave = async ({ phase, ...values }: FormValues) => {
+  const handleSave = async (values: NcpCharacteristicsInput) => {
     try {
       const { data } = await updateCharacteristics({
         variables: {
@@ -98,6 +108,7 @@ export const CharacteristicsContainer = () => {
             updatedBy={data?.getNcpCharacteristics.lastEditedBy}
             dateUpdated={data?.getNcpCharacteristics.dateUpdated}
             identificationNumbers={data?.getNcpCharacteristics.identificationNumbers ?? []}
+            projectPhase={phaseData?.getProjectPhases.items?.[0]}
           />
         );
       }}

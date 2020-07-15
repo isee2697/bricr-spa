@@ -12,7 +12,8 @@ enum EntityWithFiles {
   RoofInformation,
   CadastreMap,
   MediaPicture,
-  ProjectMarketing
+  ProjectMarketing,
+  ProjectPhase
 }
 
 enum EntityWithMultipleFiles {

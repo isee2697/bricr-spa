@@ -1,23 +1,20 @@
+import { ProjectPhase } from 'api/types';
+
 export type PhaseForm = {
-  phase: string;
+  phase?: ProjectPhase;
 };
 
 export type PhaseModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   onSubmit: (values: PhaseForm) => Promise<undefined | { error: boolean }>;
-  phaseList: Phase[];
+  phaseList: ProjectPhase[];
   onAdd: () => void;
-  selectedPhase?: string;
-};
-
-export type Phase = {
-  id: string;
-  name: string;
+  selectedPhase?: ProjectPhase;
 };
 
 export type PhaseModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
-  selectedPhase?: string;
+  selectedPhase?: ProjectPhase;
 };

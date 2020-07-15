@@ -6,15 +6,16 @@ import { SearchList } from 'ui/organisms';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
 import { BogIcon, LinkIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { ProjectPhase } from 'api/types';
 
 import { useStyles } from './PhaseModal.styles';
-import { Phase, PhaseModalProps } from './PhaseModal.types';
+import { PhaseModalProps } from './PhaseModal.types';
 
 export const PhaseModal = ({ isOpened, onClose, onSubmit, phaseList, onAdd, selectedPhase }: PhaseModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const filterItem = (item: Phase, currentValue: string) =>
+  const filterItem = (item: ProjectPhase, currentValue: string) =>
     item?.name?.toLocaleLowerCase().includes(currentValue.toLocaleLowerCase()) ?? true;
 
   return (
@@ -24,20 +25,20 @@ export const PhaseModal = ({ isOpened, onClose, onSubmit, phaseList, onAdd, sele
       onClose={onClose}
       title={formatMessage({ id: 'project_details.characteristics.phase_modal.title' })}
     >
-      <Form onSubmit={onSubmit} initialValues={{ phase: selectedPhase ?? '' }}>
+      <Form onSubmit={onSubmit} initialValues={{ phase: selectedPhase }}>
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
               <Field name="phase">
                 {({ input }) => (
-                  <SearchList<Phase>
+                  <SearchList<ProjectPhase>
                     items={phaseList}
-                    selectedItemsIds={selectedPhase ? [selectedPhase] : []}
+                    selectedItemsIds={selectedPhase ? [selectedPhase.id] : []}
                     item={({ item, highlightString }) => (
                       <Box mb={2}>
                         <TileCheckbox
-                          onClick={() => input.onChange(item.id)}
-                          isSelected={input.value === item.id}
+                          onClick={() => input.onChange(item)}
+                          isSelected={input.value.id === item.id}
                           title={highlightString(item.name)}
                           orientation="horizontal"
                         >

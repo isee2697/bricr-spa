@@ -1,6 +1,6 @@
 export type FormProps = {
   name: string;
-  file: File;
+  file?: File;
   forceAdd: boolean;
 };
 

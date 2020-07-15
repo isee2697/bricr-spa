@@ -1,10 +1,11 @@
-import { IdentificationNumber, NcpCharacteristicsInput, NcpCharacteristicsSections, Profile } from 'api/types';
+import { IdentificationNumber, NcpCharacteristicsSections, Profile, ProjectPhase } from 'api/types';
 
 export type CharacteristicsProps = {
   dateUpdated?: string | null;
   updatedBy?: Profile | null;
   characteristicsSections: NcpCharacteristicsSections[];
   identificationNumbers: IdentificationNumber[];
+  projectPhase?: ProjectPhase | null;
 };
 
 export const sectionsOrder = [
@@ -18,9 +19,3 @@ export const sectionsOrder = [
   NcpCharacteristicsSections.AttentionField,
   NcpCharacteristicsSections.InvoiceDetails,
 ];
-
-export type FormValues = NcpCharacteristicsInput & {
-  phase: {
-    name: string;
-  };
-};
