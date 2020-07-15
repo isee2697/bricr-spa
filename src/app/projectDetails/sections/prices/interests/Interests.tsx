@@ -8,8 +8,9 @@ import { PercentIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 
 import { Input } from './formParts/Input';
+import { InterestsProps } from './Interests.types';
 
-export const Interest = () => {
+export const Interests = ({ dateUpdated, updatedBy }: InterestsProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -19,6 +20,8 @@ export const Interest = () => {
         title={formatMessage({ id: 'project_details.prices.interest.title' })}
         placeholder="project_details.prices.interest.description_placeholder"
         name="description"
+        dateUpdated={dateUpdated}
+        updatedBy={updatedBy}
       >
         <Grid item xs={12}>
           <FormSection title={formatMessage({ id: 'project_details.prices.interest.title' })} isEditable>
@@ -44,14 +47,14 @@ export const Interest = () => {
                 </Grid>
                 <Grid container direction="row" spacing={1}>
                   <Input
-                    name="interestDays"
+                    name="rentedagen"
                     label="project_details.prices.interest.interest_days"
                     disabled={!editing}
                     type="number"
                     placeholder="project_details.prices.interest.interest_days_placeholder"
                   />
                   <Input
-                    name="suspensiveConditions"
+                    name="suspensiveCondition"
                     label="project_details.prices.interest.suspensive_conditions"
                     disabled={!editing}
                     placeholder="project_details.prices.interest.suspensive_conditions_placeholder"

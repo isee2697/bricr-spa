@@ -31,9 +31,9 @@ export const ProjectDetails = () => {
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
               <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer />} />
-              <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
+              <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
               <Route
                 path={`${AppRoute.projectDetails}/media`}
                 render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} pimType={PimType.Project} />}
