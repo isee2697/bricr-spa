@@ -36,6 +36,7 @@ export const General = ({ data }: GeneralProps) => {
               isEditable
               isExpandable
               isInitExpanded={false}
+              className={classes.addressContainer}
             >
               {inEditMode => <NewConstructionAddress inEditMode={inEditMode} />}
             </FormSection>
