@@ -1,16 +1,16 @@
-import { PimMedia, Sort } from 'api/types';
+import { PimMedia, Sort, NcpMedia } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { SortOption } from 'ui/molecules/list/List.types';
-import { PimType } from '../pimType';
+import { EntityType } from '../entityType';
 
 export type MediaContainerProps = PimDetailsSectionProps & {
-  pimType: PimType;
+  entityType: EntityType;
 };
 
 export type MediaProps = PimDetailsSectionProps & {
-  media: PimMedia;
-  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
+  media: PimMedia | NcpMedia;
   description: string;
+  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
   sorting: {
     sortOptions: SortOption[];
     onSort: (key: string) => void;

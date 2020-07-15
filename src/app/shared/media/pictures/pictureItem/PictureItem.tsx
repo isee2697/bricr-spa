@@ -11,7 +11,7 @@ import { useStyles } from './PictureItem.styles';
 
 export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
-  const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.MediaPicture, picture.id);
+  const { data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.NcpMediaPicture, picture.id);
   const classes = useStyles({ src: data?.signedUrl });
 
   const handleEdit = () => {
@@ -37,7 +37,9 @@ export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, i
             <Chip
               className={classes.chip}
               label={
-                customLabel ? customLabel.label : formatMessage({ id: `dictionaries.media.picture.${picture.type}` })
+                customLabel
+                  ? customLabel.label
+                  : formatMessage({ id: `dictionaries.media.picture.${picture.type}`, defaultMessage: ' ' })
               }
               variant="outlined"
               icon={customLabel && customLabel.icon ? (customLabel.icon as ReactElement) : <SaleIcon />}

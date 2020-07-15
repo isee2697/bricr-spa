@@ -9,6 +9,7 @@ import { useStyles } from 'app/shared/media/pictures/editPictureModal/EditPictur
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 import { EntityWithFiles, LabelProperty } from 'api/types';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { useEntityType } from 'app/shared/entityType';
 
 import { EditPictureModalProps } from './EditPictureModal.types';
 
@@ -22,6 +23,7 @@ export const EditPictureModal = ({
 }: EditPictureModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const entityType = useEntityType();
 
   const [backgroundImage, setBackgroundImage] = useState(initialValues.signedUrl);
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
@@ -98,6 +100,7 @@ export const EditPictureModal = ({
         <AddCustomPropertyModalContainer
           property={LabelProperty.Picture}
           isOpened={isLabelModalOpened}
+          entityType={entityType}
           onClose={() => setLabelModalOpened(false)}
         />
       )}

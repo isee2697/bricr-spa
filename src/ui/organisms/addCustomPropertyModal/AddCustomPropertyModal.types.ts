@@ -1,4 +1,5 @@
 import { LabelInput, LabelProperty } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 export type AddCustomPropertyModalContainerProps = {
   isOpened: boolean;
@@ -6,6 +7,7 @@ export type AddCustomPropertyModalContainerProps = {
   property: LabelProperty;
   title?: string;
   labelId?: string;
+  entityType?: EntityType;
 };
 
 export type AddCustomPropertyModalProps = Omit<AddCustomPropertyModalContainerProps, 'property'> & {

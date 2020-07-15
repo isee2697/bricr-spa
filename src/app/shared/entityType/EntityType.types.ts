@@ -1,4 +1,4 @@
-export enum PimType {
+export enum EntityType {
   'Property',
   'Project',
 }

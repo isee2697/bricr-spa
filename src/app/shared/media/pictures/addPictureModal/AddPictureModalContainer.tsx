@@ -3,15 +3,24 @@ import { useParams } from 'react-router-dom';
 
 import { UploadModal } from 'ui/organisms';
 import { AddMapModalProps } from 'app/shared/media/pictures/addPictureModal/AddPictureModal.types';
-import { PimMediaDocument, useAddPicturesMutation, useInitSendFileMutation, useUploadFileMutation } from 'api/types';
+import {
+  PimMediaDocument,
+  NcpMediaDocument,
+  useAddPicturesMutation,
+  useAddNcpPicturesMutation,
+  useInitSendFileMutation,
+  useUploadFileMutation,
+} from 'api/types';
+import { useEntityType, EntityType } from 'app/shared/entityType';
 
 export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
+  const entityType = useEntityType();
 
-  // TODO: change data based on type while integration
   const [initUpload, { loading: initLoading }] = useInitSendFileMutation();
   const [uploadFile, { loading: uploadLoading }] = useUploadFileMutation();
   const [addPicture, { loading: pictureLoading }] = useAddPicturesMutation();
+  const [addNcpPicture, { loading: ncpPictureLoading }] = useAddNcpPicturesMutation();
 
   const getFileId = async (file: globalThis.File) => {
     const { data: initUploadResponse } = await initUpload({
@@ -49,23 +58,40 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
     );
 
     try {
-      await addPicture({
-        variables: {
-          input: {
-            pimId: id,
-            pictures: pictures,
-          },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id,
-              picturesSort: sortQuery,
+      if (entityType === EntityType.Property) {
+        await addPicture({
+          variables: {
+            input: {
+              pimId: id,
+              pictures,
             },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id, picturesSort: sortQuery },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.Project) {
+        await addNcpPicture({
+          variables: {
+            input: {
+              parentId: id,
+              pictures,
+            },
+          },
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id, picturesSort: sortQuery },
+            },
+          ],
+        });
+      }
+
       onClose();
     } catch (error) {}
   };
@@ -73,7 +99,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
   return (
     <UploadModal
       onUpload={handleSave}
-      isSubmitting={initLoading || uploadLoading || pictureLoading}
+      isSubmitting={initLoading || uploadLoading || pictureLoading || ncpPictureLoading}
       isOpened={isOpened}
       onClose={onClose}
     />

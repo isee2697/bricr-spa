@@ -6,6 +6,7 @@ import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
 import { LabelProperty } from 'api/types';
+import { useEntityType } from '../entityType';
 
 import { PicturesContainer } from './pictures/PicturesContainer';
 import { LinksContainer } from './links/LinksContainer';
@@ -19,12 +20,13 @@ export const Media = ({
   isSidebarVisible,
   onOpenSidebar,
   media,
-  onDescriptionUpdate,
   description,
+  onDescriptionUpdate,
   sorting,
   sortQuery,
 }: MediaProps) => {
   const { formatMessage } = useLocale();
+  const entityType = useEntityType();
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
   const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
 
@@ -75,6 +77,7 @@ export const Media = ({
         <AddCustomPropertyModalContainer
           property={labelProperty}
           isOpened={isLabelModalOpened}
+          entityType={entityType}
           onClose={() => setLabelModalOpened(false)}
         />
       )}

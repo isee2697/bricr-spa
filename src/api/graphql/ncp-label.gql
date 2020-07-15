@@ -1,0 +1,15 @@
+input NcpLabelInput {
+  parentId: ID!
+  icon: String
+  text: String!
+  property: LabelProperty!
+}
+
+extend type Mutation {
+  addNcpLabel(input: NcpLabelInput!): Label! @auth
+  removeNcpLabel(id: ID!): Boolean! @auth
+}
+
+extend type Query {
+  getNcpLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
+}

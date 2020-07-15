@@ -6,12 +6,17 @@ import {
   LabelProperty,
   MediaLinkType,
   PimMediaDocument,
+  NcpMediaDocument,
   UpdateMediaLinkInput,
+  UpdateNcpMediaLinkInput,
   useAddMediaLinkMutation,
+  useAddNcpMediaLinkMutation,
   useUpdateMediaLinkMutation,
+  useUpdateNcpMediaLinkMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
+import { useEntityType, EntityType } from 'app/shared/entityType';
 
 import { Links } from './Links';
 
@@ -23,12 +28,15 @@ const options = Object.values(MediaLinkType).map(tagName => ({
 
 export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [newLinkId, setNewLinkId] = useState<string | undefined>();
-  const customLabels = useCustomLabels(id, [LabelProperty.MediaLink])[LabelProperty.MediaLink] ?? [];
+  const entityType = useEntityType();
 
-  // TODO: change data based on type while integration
+  const [newLinkId, setNewLinkId] = useState<string | undefined>();
+  const customLabels = useCustomLabels(id, [LabelProperty.MediaLink], entityType)[LabelProperty.MediaLink] ?? [];
+
   const [addMediaLink] = useAddMediaLinkMutation();
+  const [addNcpMediaLink] = useAddNcpMediaLinkMutation();
   const [editMediaLink] = useUpdateMediaLinkMutation();
+  const [editNcpMediaLink] = useUpdateNcpMediaLinkMutation();
 
   const handleAdd = async () => {
     try {
@@ -36,23 +44,41 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         throw new Error();
       }
 
-      const { data } = await addMediaLink({
-        variables: {
-          input: {
-            pimId: id,
+      if (entityType === EntityType.Property) {
+        const { data } = await addMediaLink({
+          variables: {
+            input: { pimId: id },
           },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
             },
-          },
-        ],
-      });
+          ],
+        });
 
-      setNewLinkId(data?.addMediaLink?.newMediaLink?.id ?? undefined);
+        setNewLinkId(data?.addMediaLink?.newMediaLink?.id ?? undefined);
+      }
+
+      if (entityType === EntityType.Project) {
+        const { data } = await addNcpMediaLink({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const links = data?.addNcpMediaLink?.mediaLinks;
+
+        if (links?.length) {
+          setNewLinkId(links[links.length - 1].id);
+        }
+      }
 
       return undefined;
     } catch (error) {
@@ -62,28 +88,39 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
     }
   };
 
-  const handleSave = async (values: UpdateMediaLinkInput) => {
+  const handleSave = async (values: UpdateMediaLinkInput | UpdateNcpMediaLinkInput) => {
     try {
       if (!id) {
         throw new Error();
       }
 
-      await editMediaLink({
-        variables: {
-          input: {
-            pimId: id,
-            ...values,
+      if (entityType === EntityType.Property) {
+        await editMediaLink({
+          variables: {
+            input: { ...values, pimId: id },
           },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
             },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.Project) {
+        await editNcpMediaLink({
+          variables: {
+            input: { ...values, parentId: id },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
 
       return undefined;
     } catch (error) {

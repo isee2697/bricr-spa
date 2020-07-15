@@ -6,12 +6,16 @@ import {
   ChapterOrUspType,
   LabelProperty,
   PimMediaDocument,
+  NcpMediaDocument,
   useAddTextChapterMutation,
+  useAddNcpTextChapterMutation,
   useUpdateTextChapterMutation,
+  useUpdateNcpTextChapterMutation,
 } from 'api/types';
 import { RICH_TEXT_DEFAULT } from 'form/fields/richTextField/RichTextField';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
+import { useEntityType, EntityType } from 'app/shared/entityType';
 
 import { TextChapters } from './TextChapters';
 
@@ -23,12 +27,15 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
 
 export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChaptersContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [newChapterId, setNewChapterId] = useState<string | undefined>();
-  const customLabels = useCustomLabels(id, [LabelProperty.TextChapter])[LabelProperty.TextChapter] ?? [];
+  const entityType = useEntityType();
 
-  // TODO: change data based on type while integration
+  const [newChapterId, setNewChapterId] = useState<string | undefined>();
+  const customLabels = useCustomLabels(id, [LabelProperty.TextChapter], entityType)[LabelProperty.TextChapter] ?? [];
+
   const [addTextChapter] = useAddTextChapterMutation();
+  const [addNcpTextChapter] = useAddNcpTextChapterMutation();
   const [editTextChapter] = useUpdateTextChapterMutation();
+  const [editNcpTextChapter] = useUpdateNcpTextChapterMutation();
 
   const handleAdd = async () => {
     try {
@@ -36,23 +43,41 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         throw new Error();
       }
 
-      const { data } = await addTextChapter({
-        variables: {
-          input: {
-            pimId: id,
+      if (entityType === EntityType.Property) {
+        const { data } = await addTextChapter({
+          variables: {
+            input: { pimId: id },
           },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
             },
-          },
-        ],
-      });
+          ],
+        });
 
-      setNewChapterId(data?.addTextChapter?.newChapter.id ?? undefined);
+        setNewChapterId(data?.addTextChapter?.newChapter.id ?? undefined);
+      }
+
+      if (entityType === EntityType.Project) {
+        const { data } = await addNcpTextChapter({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const chapters = data?.addNcpTextChapter?.textChapters;
+
+        if (chapters?.length) {
+          setNewChapterId(chapters[chapters.length - 1].id);
+        }
+      }
 
       return undefined;
     } catch (error) {
@@ -68,23 +93,41 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         throw new Error();
       }
 
-      await editTextChapter({
-        variables: {
-          input: {
-            pimId: id,
-            ...values,
-            text: JSON.stringify(chapter),
-          },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+      if (entityType === EntityType.Property) {
+        await editTextChapter({
+          variables: {
+            input: {
+              pimId: id,
+              ...values,
+              text: JSON.stringify(chapter),
             },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.Project) {
+        await editNcpTextChapter({
+          variables: {
+            input: {
+              parentId: id,
+              ...values,
+              text: JSON.stringify(chapter),
+            },
+          },
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
 
       return undefined;
     } catch (error) {

@@ -23,6 +23,7 @@ const schemas = [
   loader('./graphql/identification-number.gql'),
   loader('./graphql/ncp-characteristics.gql'),
   loader('./graphql/ncp-list.gql'),
+  loader('./graphql/media.gql'),
 ];
 
 export const loadSchemas = () => {

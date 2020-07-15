@@ -68,6 +68,12 @@ export type Mutation = {
   addMeter?: Maybe<Pim>;
   addNcpCost: NcpPricesResult;
   addNcpIdentificationNumber: NcpCharacteristics;
+  addNcpLabel: Label;
+  addNcpMediaLink?: Maybe<NcpMedia>;
+  addNcpPictures?: Maybe<NcpMedia>;
+  addNcpTag?: Maybe<NcpMedia>;
+  addNcpTextChapter?: Maybe<NcpMedia>;
+  addNcpUsps?: Maybe<NcpMedia>;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
   addProjectPhase: ProjectPhase;
@@ -88,6 +94,7 @@ export type Mutation = {
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
+  removeNcpLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
   removeViewingMoment: Pim;
@@ -113,7 +120,13 @@ export type Mutation = {
   updateNcpCost: NcpPricesResult;
   updateNcpCostsDetails: NcpPricesResult;
   updateNcpInterests: NcpPricesResult;
+  updateNcpMediaDescription?: Maybe<NcpMedia>;
+  updateNcpMediaLink?: Maybe<NcpMedia>;
+  updateNcpPicture?: Maybe<NcpMedia>;
   updateNcpPricing: NcpPricesResult;
+  updateNcpTag?: Maybe<NcpMedia>;
+  updateNcpTextChapter?: Maybe<NcpMedia>;
+  updateNcpUsps?: Maybe<NcpMedia>;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
@@ -183,6 +196,30 @@ export type MutationAddNcpCostArgs = {
 
 export type MutationAddNcpIdentificationNumberArgs = {
   input: AddIdentificationNumberInput;
+};
+
+export type MutationAddNcpLabelArgs = {
+  input: NcpLabelInput;
+};
+
+export type MutationAddNcpMediaLinkArgs = {
+  input: AddNcpMediaLinkInput;
+};
+
+export type MutationAddNcpPicturesArgs = {
+  input: AddNcpPicturesInput;
+};
+
+export type MutationAddNcpTagArgs = {
+  input: AddNcpTagInput;
+};
+
+export type MutationAddNcpTextChapterArgs = {
+  input: AddNcpTextChapterInput;
+};
+
+export type MutationAddNcpUspsArgs = {
+  input: AddNcpUspsInput;
 };
 
 export type MutationAddOutsideFeatureArgs = {
@@ -262,6 +299,10 @@ export type MutationRemoveInspectionArgs = {
 };
 
 export type MutationRemoveLabelArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveNcpLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -366,8 +407,32 @@ export type MutationUpdateNcpInterestsArgs = {
   input: InterestsInput;
 };
 
+export type MutationUpdateNcpMediaDescriptionArgs = {
+  input: UpdateNcpMediaDescriptionInput;
+};
+
+export type MutationUpdateNcpMediaLinkArgs = {
+  input: UpdateNcpMediaLinkInput;
+};
+
+export type MutationUpdateNcpPictureArgs = {
+  input: UpdateNcpPictureInput;
+};
+
 export type MutationUpdateNcpPricingArgs = {
   input: UpdateNcpPricingInput;
+};
+
+export type MutationUpdateNcpTagArgs = {
+  input: UpdateNcpTagInput;
+};
+
+export type MutationUpdateNcpTextChapterArgs = {
+  input: UpdateNcpTextChapterInput;
+};
+
+export type MutationUpdateNcpUspsArgs = {
+  input: UpdateNcpUspsInput;
 };
 
 export type MutationUpdateOutsideFeatureArgs = {
@@ -465,6 +530,7 @@ export enum FilePermission {
 
 export enum EntityWithFiles {
   Pim = 'Pim',
+  Ncp = 'Ncp',
   Space = 'Space',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
@@ -472,12 +538,14 @@ export enum EntityWithFiles {
   RoofInformation = 'RoofInformation',
   CadastreMap = 'CadastreMap',
   MediaPicture = 'MediaPicture',
+  NcpMediaPicture = 'NcpMediaPicture',
   ProjectMarketing = 'ProjectMarketing',
   ProjectPhase = 'ProjectPhase',
 }
 
 export enum EntityWithMultipleFiles {
   Pim = 'Pim',
+  Ncp = 'Ncp',
   Space = 'Space',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
@@ -612,6 +680,8 @@ export type Query = {
   getLabels?: Maybe<Array<Label>>;
   getNcp: NcpGeneral;
   getNcpCharacteristics: NcpCharacteristics;
+  getNcpLabels?: Maybe<Array<Label>>;
+  getNcpMedia: NcpMedia;
   getNcpPrices: NcpPricesResult;
   getNcpWithSameAddress: NcpSearchResult;
   /** @deprecated In later version pim will be split into multiple smaller views. */
@@ -649,6 +719,15 @@ export type QueryGetNcpArgs = {
 };
 
 export type QueryGetNcpCharacteristicsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetNcpMediaArgs = {
   id: Scalars['ID'];
 };
 
@@ -775,6 +854,124 @@ export type PimListSearchResult = {
   __typename?: 'PimListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListPim>>;
+};
+
+export enum PictureType {
+  General = 'General',
+  Inside = 'Inside',
+  Outside = 'Outside',
+  LivingRoom = 'LivingRoom',
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Terrain = 'Terrain',
+  Surroundings = 'Surroundings',
+  Attic = 'Attic',
+}
+
+export enum MediaLinkType {
+  YouTube = 'YouTube',
+  ThreeSixtyDegree = 'ThreeSixtyDegree',
+  Floorplanner = 'Floorplanner',
+  FacebookTrackingCode = 'FacebookTrackingCode',
+}
+
+export enum ChapterOrUspType {
+  Garden = 'Garden',
+  Garage = 'Garage',
+  Storage = 'Storage',
+  Terrain = 'Terrain',
+  ParkingLot = 'ParkingLot',
+  Kitchen = 'Kitchen',
+  Bathroom = 'Bathroom',
+  LivingRoom = 'LivingRoom',
+  Bedroom = 'Bedroom',
+  HomeOffice = 'HomeOffice',
+  Attic = 'Attic',
+  Floor = 'Floor',
+  Basement = 'Basement',
+  GroundFloor = 'GroundFloor',
+}
+
+export enum TagType {
+  Remote = 'Remote',
+  DogLover = 'DogLover',
+  Seniors = 'Seniors',
+  Architecture = 'Architecture',
+  N1930s = 'n1930s',
+  Sports = 'Sports',
+  SpecialLiving = 'SpecialLiving',
+  ReadyToUse = 'ReadyToUse',
+  Gardening = 'Gardening',
+  NeighbourhoodAssociation = 'NeighbourhoodAssociation',
+  ChildFriendly = 'ChildFriendly',
+  View = 'View',
+  CentralLocation = 'CentralLocation',
+  Safe = 'Safe',
+  Culture = 'Culture',
+  LuxuriousFinisch = 'LuxuriousFinisch',
+  ClubLife = 'ClubLife',
+  Diy = 'DIY',
+  MotorOwner = 'MotorOwner',
+  Water = 'Water',
+  Edological = 'Edological',
+  Relaxation = 'Relaxation',
+  Wellness = 'Wellness',
+  HobbyAnimals = 'HobbyAnimals',
+  HorseLover = 'HorseLover',
+  WorkAtHome = 'WorkAtHome',
+  Courtyard = 'Courtyard',
+  NationWide = 'NationWide',
+  Quit = 'Quit',
+  Shopping = 'Shopping',
+}
+
+export type Picture = LastUpdated & {
+  __typename?: 'Picture';
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  file?: Maybe<File>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type TextChapter = {
+  __typename?: 'TextChapter';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type Usp = {
+  __typename?: 'Usp';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type MediaLink = {
+  __typename?: 'MediaLink';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type Tag = {
+  __typename?: 'Tag';
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export enum NcpCharacteristicsSections {
@@ -994,6 +1191,13 @@ export type NcpWithSameAddressInput = {
   city?: Maybe<Scalars['String']>;
 };
 
+export type NcpLabelInput = {
+  parentId: Scalars['ID'];
+  icon?: Maybe<Scalars['String']>;
+  text: Scalars['String'];
+  property: LabelProperty;
+};
+
 export type ListNcpsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
 };
@@ -1036,6 +1240,105 @@ export type NcpListSearchResult = {
   __typename?: 'NcpListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListNcp>>;
+};
+
+export type NcpMedia = LastUpdated & {
+  __typename?: 'NcpMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  mediaDescription?: Maybe<Scalars['String']>;
+};
+
+export type NcpMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
+export type NewNcpPictureInput = {
+  fileID: Scalars['String'];
+};
+
+export type AddNcpPicturesInput = {
+  parentId: Scalars['String'];
+  pictures: Array<NewPictureInput>;
+};
+
+export type AddNcpTextChapterInput = {
+  parentId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpTextChapterInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type AddNcpUspsInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpUspsInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AddNcpMediaLinkInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpMediaLinkInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type AddNcpTagInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpTagInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpPictureInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  fileId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateNcpMediaDescriptionInput = {
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
 };
 
 export enum NcpPricingType {
@@ -1969,120 +2272,6 @@ export type GoodToKnowInput = {
   checked?: Maybe<Scalars['Boolean']>;
 };
 
-export enum PictureType {
-  General = 'General',
-  Inside = 'Inside',
-  Outside = 'Outside',
-  LivingRoom = 'LivingRoom',
-  Kitchen = 'Kitchen',
-  Bathroom = 'Bathroom',
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Terrain = 'Terrain',
-  Surroundings = 'Surroundings',
-  Attic = 'Attic',
-}
-
-export enum MediaLinkType {
-  YouTube = 'YouTube',
-  ThreeSixtyDegree = 'ThreeSixtyDegree',
-  Floorplanner = 'Floorplanner',
-  FacebookTrackingCode = 'FacebookTrackingCode',
-}
-
-export enum ChapterOrUspType {
-  Garden = 'Garden',
-  Garage = 'Garage',
-  Storage = 'Storage',
-  Terrain = 'Terrain',
-  ParkingLot = 'ParkingLot',
-  Kitchen = 'Kitchen',
-  Bathroom = 'Bathroom',
-  LivingRoom = 'LivingRoom',
-  Bedroom = 'Bedroom',
-  HomeOffice = 'HomeOffice',
-  Attic = 'Attic',
-  Floor = 'Floor',
-  Basement = 'Basement',
-  GroundFloor = 'GroundFloor',
-}
-
-export enum TagType {
-  Remote = 'Remote',
-  DogLover = 'DogLover',
-  Seniors = 'Seniors',
-  Architecture = 'Architecture',
-  N1930s = 'n1930s',
-  Sports = 'Sports',
-  SpecialLiving = 'SpecialLiving',
-  ReadyToUse = 'ReadyToUse',
-  Gardening = 'Gardening',
-  NeighbourhoodAssociation = 'NeighbourhoodAssociation',
-  ChildFriendly = 'ChildFriendly',
-  View = 'View',
-  CentralLocation = 'CentralLocation',
-  Safe = 'Safe',
-  Culture = 'Culture',
-  LuxuriousFinisch = 'LuxuriousFinisch',
-  ClubLife = 'ClubLife',
-  Diy = 'DIY',
-  MotorOwner = 'MotorOwner',
-  Water = 'Water',
-  Edological = 'Edological',
-  Relaxation = 'Relaxation',
-  Wellness = 'Wellness',
-  HobbyAnimals = 'HobbyAnimals',
-  HorseLover = 'HorseLover',
-  WorkAtHome = 'WorkAtHome',
-  Courtyard = 'Courtyard',
-  NationWide = 'NationWide',
-  Quit = 'Quit',
-  Shopping = 'Shopping',
-}
-
-export type Picture = LastUpdated & {
-  __typename?: 'Picture';
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  file?: Maybe<File>;
-  lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-};
-
-export type TextChapter = {
-  __typename?: 'TextChapter';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type Usp = {
-  __typename?: 'Usp';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type MediaLink = {
-  __typename?: 'MediaLink';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-};
-
-export type Tag = {
-  __typename?: 'Tag';
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
 export type PimMedia = LastUpdated & {
   __typename?: 'PimMedia';
   id: Scalars['String'];
@@ -2098,6 +2287,36 @@ export type PimMedia = LastUpdated & {
 
 export type PimMediaPicturesArgs = {
   sort?: Maybe<Sort>;
+};
+
+export type PimWithNewPictures = {
+  __typename?: 'PimWithNewPictures';
+  pim: Pim;
+  newPictures?: Maybe<Array<Picture>>;
+};
+
+export type PimWithNewTextChapter = {
+  __typename?: 'PimWithNewTextChapter';
+  pim: Pim;
+  newChapter: TextChapter;
+};
+
+export type PimWithNewUsp = {
+  __typename?: 'PimWithNewUsp';
+  pim: Pim;
+  newUsp: Usp;
+};
+
+export type PimWithNewMediaLink = {
+  __typename?: 'PimWithNewMediaLink';
+  pim: Pim;
+  newMediaLink: MediaLink;
+};
+
+export type PimWithNewTag = {
+  __typename?: 'PimWithNewTag';
+  pim: Pim;
+  newTag: Tag;
 };
 
 export type NewPictureInput = {
@@ -2175,36 +2394,6 @@ export type UpdatePictureInput = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   fileId?: Maybe<Scalars['String']>;
-};
-
-export type PimWithNewPictures = {
-  __typename?: 'PimWithNewPictures';
-  pim: Pim;
-  newPictures?: Maybe<Array<Picture>>;
-};
-
-export type PimWithNewTextChapter = {
-  __typename?: 'PimWithNewTextChapter';
-  pim: Pim;
-  newChapter: TextChapter;
-};
-
-export type PimWithNewUsp = {
-  __typename?: 'PimWithNewUsp';
-  pim: Pim;
-  newUsp: Usp;
-};
-
-export type PimWithNewMediaLink = {
-  __typename?: 'PimWithNewMediaLink';
-  pim: Pim;
-  newMediaLink: MediaLink;
-};
-
-export type PimWithNewTag = {
-  __typename?: 'PimWithNewTag';
-  pim: Pim;
-  newTag: Tag;
 };
 
 export enum QualityInformations {
@@ -4014,6 +4203,118 @@ export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
   updateNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
 };
 
+export type AddNcpLabelMutationVariables = {
+  input: NcpLabelInput;
+};
+
+export type AddNcpLabelMutation = { __typename?: 'Mutation' } & {
+  addNcpLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
+
+export type UpdateNcpMediaDescriptionMutationVariables = {
+  input: UpdateNcpMediaDescriptionInput;
+};
+
+export type UpdateNcpMediaDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpMediaDescription?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type AddNcpPicturesMutationVariables = {
+  input: AddNcpPicturesInput;
+};
+
+export type AddNcpPicturesMutation = { __typename?: 'Mutation' } & {
+  addNcpPictures?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type UpdateNcpPictureMutationVariables = {
+  input: UpdateNcpPictureInput;
+};
+
+export type UpdateNcpPictureMutation = { __typename?: 'Mutation' } & {
+  updateNcpPicture?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type AddNcpMediaLinkMutationVariables = {
+  input: AddNcpMediaLinkInput;
+};
+
+export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addNcpMediaLink?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateNcpMediaLinkMutationVariables = {
+  input: UpdateNcpMediaLinkInput;
+};
+
+export type UpdateNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateNcpMediaLink?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type AddNcpTextChapterMutationVariables = {
+  input: AddNcpTextChapterInput;
+};
+
+export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
+  addNcpTextChapter?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateNcpTextChapterMutationVariables = {
+  input: UpdateNcpTextChapterInput;
+};
+
+export type UpdateNcpTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateNcpTextChapter?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type AddNcpUspsMutationVariables = {
+  input: AddNcpUspsInput;
+};
+
+export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
+  addNcpUsps?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateNcpUspsMutationVariables = {
+  input: UpdateNcpUspsInput;
+};
+
+export type UpdateNcpUspsMutation = { __typename?: 'Mutation' } & {
+  updateNcpUsps?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
+export type AddNcpTagMutationVariables = {
+  input: AddNcpTagInput;
+};
+
+export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
+  addNcpTag?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateNcpTagMutationVariables = {
+  input: UpdateNcpTagInput;
+};
+
+export type UpdateNcpTagMutation = { __typename?: 'Mutation' } & {
+  updateNcpTag?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
+
 export type ToggleNcpPricingMutationVariables = {
   input: ToggleNcpPricingInput;
 };
@@ -4450,7 +4751,7 @@ export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
 };
 
 export type GetLabelsQueryVariables = {
-  pimId: Scalars['ID'];
+  id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
@@ -4627,6 +4928,15 @@ export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type GetNcpLabelsQueryVariables = {
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
+  getNcpLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
+
 export type ListNcpsCountQueryVariables = {};
 
 export type ListNcpsCountQuery = { __typename?: 'Query' } & {
@@ -4687,6 +4997,28 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type NcpMediaQueryVariables = {
+  id: Scalars['ID'];
+  picturesSort?: Maybe<Sort>;
+};
+
+export type NcpMediaQuery = { __typename?: 'Query' } & {
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id' | 'mediaDescription' | 'dateUpdated'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
 };
 
 export type NcpPricesPricingQueryVariables = {
@@ -5820,6 +6152,275 @@ export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpMutation,
   UpdateNcpMutationVariables
 >;
+export const AddNcpLabelDocument = gql`
+  mutation AddNcpLabel($input: NcpLabelInput!) {
+    addNcpLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddNcpLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpLabelMutation, AddNcpLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpLabelMutation, AddNcpLabelMutationVariables>(
+    AddNcpLabelDocument,
+    baseOptions,
+  );
+}
+export type AddNcpLabelMutationHookResult = ReturnType<typeof useAddNcpLabelMutation>;
+export type AddNcpLabelMutationResult = ApolloReactCommon.MutationResult<AddNcpLabelMutation>;
+export type AddNcpLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpLabelMutation,
+  AddNcpLabelMutationVariables
+>;
+export const UpdateNcpMediaDescriptionDocument = gql`
+  mutation UpdateNcpMediaDescription($input: UpdateNcpMediaDescriptionInput!) {
+    updateNcpMediaDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpMediaDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpMediaDescriptionMutation,
+    UpdateNcpMediaDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMediaDescriptionMutation, UpdateNcpMediaDescriptionMutationVariables>(
+    UpdateNcpMediaDescriptionDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpMediaDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpMediaDescriptionMutation>;
+export type UpdateNcpMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpMediaDescriptionMutation
+>;
+export type UpdateNcpMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMediaDescriptionMutation,
+  UpdateNcpMediaDescriptionMutationVariables
+>;
+export const AddNcpPicturesDocument = gql`
+  mutation AddNcpPictures($input: AddNcpPicturesInput!) {
+    addNcpPictures(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddNcpPicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>(
+    AddNcpPicturesDocument,
+    baseOptions,
+  );
+}
+export type AddNcpPicturesMutationHookResult = ReturnType<typeof useAddNcpPicturesMutation>;
+export type AddNcpPicturesMutationResult = ApolloReactCommon.MutationResult<AddNcpPicturesMutation>;
+export type AddNcpPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpPicturesMutation,
+  AddNcpPicturesMutationVariables
+>;
+export const UpdateNcpPictureDocument = gql`
+  mutation UpdateNcpPicture($input: UpdateNcpPictureInput!) {
+    updateNcpPicture(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpPictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>(
+    UpdateNcpPictureDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpPictureMutationHookResult = ReturnType<typeof useUpdateNcpPictureMutation>;
+export type UpdateNcpPictureMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPictureMutation>;
+export type UpdateNcpPictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpPictureMutation,
+  UpdateNcpPictureMutationVariables
+>;
+export const AddNcpMediaLinkDocument = gql`
+  mutation AddNcpMediaLink($input: AddNcpMediaLinkInput!) {
+    addNcpMediaLink(input: $input) {
+      id
+      mediaLinks {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>(
+    AddNcpMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type AddNcpMediaLinkMutationHookResult = ReturnType<typeof useAddNcpMediaLinkMutation>;
+export type AddNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddNcpMediaLinkMutation>;
+export type AddNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpMediaLinkMutation,
+  AddNcpMediaLinkMutationVariables
+>;
+export const UpdateNcpMediaLinkDocument = gql`
+  mutation UpdateNcpMediaLink($input: UpdateNcpMediaLinkInput!) {
+    updateNcpMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>(
+    UpdateNcpMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpMediaLinkMutationHookResult = ReturnType<typeof useUpdateNcpMediaLinkMutation>;
+export type UpdateNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMediaLinkMutation>;
+export type UpdateNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMediaLinkMutation,
+  UpdateNcpMediaLinkMutationVariables
+>;
+export const AddNcpTextChapterDocument = gql`
+  mutation AddNcpTextChapter($input: AddNcpTextChapterInput!) {
+    addNcpTextChapter(input: $input) {
+      id
+      textChapters {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>(
+    AddNcpTextChapterDocument,
+    baseOptions,
+  );
+}
+export type AddNcpTextChapterMutationHookResult = ReturnType<typeof useAddNcpTextChapterMutation>;
+export type AddNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<AddNcpTextChapterMutation>;
+export type AddNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpTextChapterMutation,
+  AddNcpTextChapterMutationVariables
+>;
+export const UpdateNcpTextChapterDocument = gql`
+  mutation UpdateNcpTextChapter($input: UpdateNcpTextChapterInput!) {
+    updateNcpTextChapter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpTextChapterMutation,
+    UpdateNcpTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpTextChapterMutation, UpdateNcpTextChapterMutationVariables>(
+    UpdateNcpTextChapterDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpTextChapterMutationHookResult = ReturnType<typeof useUpdateNcpTextChapterMutation>;
+export type UpdateNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTextChapterMutation>;
+export type UpdateNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpTextChapterMutation,
+  UpdateNcpTextChapterMutationVariables
+>;
+export const AddNcpUspsDocument = gql`
+  mutation AddNcpUsps($input: AddNcpUspsInput!) {
+    addNcpUsps(input: $input) {
+      id
+      usps {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpUspsMutation, AddNcpUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpUspsMutation, AddNcpUspsMutationVariables>(AddNcpUspsDocument, baseOptions);
+}
+export type AddNcpUspsMutationHookResult = ReturnType<typeof useAddNcpUspsMutation>;
+export type AddNcpUspsMutationResult = ApolloReactCommon.MutationResult<AddNcpUspsMutation>;
+export type AddNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpUspsMutation,
+  AddNcpUspsMutationVariables
+>;
+export const UpdateNcpUspsDocument = gql`
+  mutation UpdateNcpUsps($input: UpdateNcpUspsInput!) {
+    updateNcpUsps(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>(
+    UpdateNcpUspsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpUspsMutationHookResult = ReturnType<typeof useUpdateNcpUspsMutation>;
+export type UpdateNcpUspsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpUspsMutation>;
+export type UpdateNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpUspsMutation,
+  UpdateNcpUspsMutationVariables
+>;
+export const AddNcpTagDocument = gql`
+  mutation AddNcpTag($input: AddNcpTagInput!) {
+    addNcpTag(input: $input) {
+      id
+      tags {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTagMutation, AddNcpTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpTagMutation, AddNcpTagMutationVariables>(AddNcpTagDocument, baseOptions);
+}
+export type AddNcpTagMutationHookResult = ReturnType<typeof useAddNcpTagMutation>;
+export type AddNcpTagMutationResult = ApolloReactCommon.MutationResult<AddNcpTagMutation>;
+export type AddNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpTagMutation,
+  AddNcpTagMutationVariables
+>;
+export const UpdateNcpTagDocument = gql`
+  mutation UpdateNcpTag($input: UpdateNcpTagInput!) {
+    updateNcpTag(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>(
+    UpdateNcpTagDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpTagMutationHookResult = ReturnType<typeof useUpdateNcpTagMutation>;
+export type UpdateNcpTagMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTagMutation>;
+export type UpdateNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpTagMutation,
+  UpdateNcpTagMutationVariables
+>;
 export const ToggleNcpPricingDocument = gql`
   mutation ToggleNcpPricing($input: ToggleNcpPricingInput!) {
     toggleNcpPricing(input: $input) {
@@ -6895,8 +7496,8 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
   LinkNcpToProjectPhaseMutationVariables
 >;
 export const GetLabelsDocument = gql`
-  query GetLabels($pimId: ID!, $properties: [LabelProperty!]) {
-    getLabels(pimId: $pimId, properties: $properties) {
+  query GetLabels($id: ID!, $properties: [LabelProperty!]) {
+    getLabels(pimId: $id, properties: $properties) {
       id
       property
       icon
@@ -7194,6 +7795,32 @@ export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables
 >;
+export const GetNcpLabelsDocument = gql`
+  query GetNcpLabels($id: ID!, $properties: [LabelProperty!]) {
+    getNcpLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetNcpLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(GetNcpLabelsDocument, baseOptions);
+}
+export function useGetNcpLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(
+    GetNcpLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetNcpLabelsQueryHookResult = ReturnType<typeof useGetNcpLabelsQuery>;
+export type GetNcpLabelsLazyQueryHookResult = ReturnType<typeof useGetNcpLabelsLazyQuery>;
+export type GetNcpLabelsQueryResult = ApolloReactCommon.QueryResult<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>;
 export const ListNcpsCountDocument = gql`
   query ListNcpsCount {
     activeCount: listNcps(filters: { archived: false }) {
@@ -7283,6 +7910,69 @@ export function useListNcpsLazyQuery(
 export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
 export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
 export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
+export const NcpMediaDocument = gql`
+  query NcpMedia($id: ID!, $picturesSort: Sort) {
+    getNcpMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function useNcpMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
+}
+export function useNcpMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
+}
+export type NcpMediaQueryHookResult = ReturnType<typeof useNcpMediaQuery>;
+export type NcpMediaLazyQueryHookResult = ReturnType<typeof useNcpMediaLazyQuery>;
+export type NcpMediaQueryResult = ApolloReactCommon.QueryResult<NcpMediaQuery, NcpMediaQueryVariables>;
 export const NcpPricesPricingDocument = gql`
   query NcpPricesPricing($id: ID!) {
     getNcpPrices(id: $id) {

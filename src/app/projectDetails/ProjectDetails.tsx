@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
-import { PimType } from 'app/shared/pimType';
+import { EntityType } from 'app/shared/entityType';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -37,7 +37,9 @@ export const ProjectDetails = () => {
               <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
               <Route
                 path={`${AppRoute.projectDetails}/media`}
-                render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} pimType={PimType.Project} />}
+                render={() => (
+                  <MediaContainer isSidebarVisible onOpenSidebar={() => {}} entityType={EntityType.Project} />
+                )}
               />
               <Route path={`${AppRoute.projectDetails}/objectTypes`} render={() => <ObjectTypes />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />

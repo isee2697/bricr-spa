@@ -5,7 +5,7 @@ import { Grid, Alert, Loader, NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
-import { PimType } from 'app/shared/pimType';
+import { EntityType } from 'app/shared/entityType';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
@@ -123,7 +123,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                       isSidebarVisible={isSidebarVisible}
                       onOpenSidebar={handleSidebarOpen}
                       title={title}
-                      pimType={PimType.Property}
+                      entityType={EntityType.Property}
                     />
                   )}
                 />

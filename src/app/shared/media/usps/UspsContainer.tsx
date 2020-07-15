@@ -5,12 +5,16 @@ import {
   ChapterOrUspType,
   LabelProperty,
   PimMediaDocument,
+  NcpMediaDocument,
   UpdateUspInput,
   useAddUspMutation,
+  useAddNcpUspsMutation,
   useUpdateUspMutation,
+  useUpdateNcpUspsMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
+import { useEntityType, EntityType } from 'app/shared/entityType';
 
 import { Usps } from './Usps';
 import { UspsContainerProps } from './Usps.types';
@@ -23,12 +27,15 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
 
 export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [newUspId, setNewUspId] = useState<string | undefined>();
-  const customLabels = useCustomLabels(id, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
+  const entityType = useEntityType();
 
-  // TODO: change data based on type while integration
+  const [newUspId, setNewUspId] = useState<string | undefined>();
+  const customLabels = useCustomLabels(id, [LabelProperty.Usp], entityType)[LabelProperty.Usp] ?? [];
+
   const [addUsp] = useAddUspMutation();
+  const [addNcpUsp] = useAddNcpUspsMutation();
   const [editUsp] = useUpdateUspMutation();
+  const [editNcpUsp] = useUpdateNcpUspsMutation();
 
   const handleAdd = async () => {
     try {
@@ -36,23 +43,41 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
         throw new Error();
       }
 
-      const { data } = await addUsp({
-        variables: {
-          input: {
-            pimId: id,
+      if (entityType === EntityType.Property) {
+        const { data } = await addUsp({
+          variables: {
+            input: { pimId: id },
           },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
             },
-          },
-        ],
-      });
+          ],
+        });
 
-      setNewUspId(data?.addUsp?.newUsp.id ?? undefined);
+        setNewUspId(data?.addUsp?.newUsp.id ?? undefined);
+      }
+
+      if (entityType === EntityType.Project) {
+        const { data } = await addNcpUsp({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const usps = data?.addNcpUsps?.usps;
+
+        if (usps?.length) {
+          setNewUspId(usps[usps.length - 1].id);
+        }
+      }
 
       return undefined;
     } catch (error) {
@@ -68,22 +93,33 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
         throw new Error();
       }
 
-      await editUsp({
-        variables: {
-          input: {
-            pimId: id,
-            ...values,
+      if (entityType === EntityType.Property) {
+        await editUsp({
+          variables: {
+            input: { ...values, pimId: id },
           },
-        },
-        refetchQueries: [
-          {
-            query: PimMediaDocument,
-            variables: {
-              id: id,
+          refetchQueries: [
+            {
+              query: PimMediaDocument,
+              variables: { id },
             },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.Project) {
+        await editNcpUsp({
+          variables: {
+            input: { ...values, parentId: id },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
 
       return undefined;
     } catch (error) {

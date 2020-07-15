@@ -5,6 +5,7 @@ enum FilePermission {
 
 enum EntityWithFiles {
   Pim,
+  Ncp,
   Space,
   OutsideFeature,
   OutsideGeneral,
@@ -12,12 +13,14 @@ enum EntityWithFiles {
   RoofInformation,
   CadastreMap,
   MediaPicture,
+  NcpMediaPicture,
   ProjectMarketing,
   ProjectPhase
 }
 
 enum EntityWithMultipleFiles {
   Pim,
+  Ncp,
   Space,
   OutsideFeature,
   OutsideGeneral,
