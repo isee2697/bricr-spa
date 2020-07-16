@@ -22,6 +22,9 @@ export const useStyles = makeStyles(theme => ({
     '&.red': {
       borderLeftColor: theme.palette.red.main,
     },
+    '&.purple': {
+      borderLeftColor: theme.palette.purple.main,
+    },
   },
   children: {
     zIndex: 2,

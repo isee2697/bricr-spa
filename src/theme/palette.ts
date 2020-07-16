@@ -2,6 +2,7 @@ import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 const primary = '#0A57E9';
 const primaryLight = '#e2ecfd';
+const primaryInfo = 'rgba(10, 88, 233, 0.02)';
 const secondary = '#EE2F57';
 const black = '#2F1F5B';
 const blackLight = 'rgba(47, 31, 91, 0.6)';
@@ -94,5 +95,8 @@ export const palette: PaletteOptions = {
   },
   overlay: {
     main: 'rgba(130, 141, 185, 0.3)',
+  },
+  info: {
+    main: primaryInfo,
   },
 };

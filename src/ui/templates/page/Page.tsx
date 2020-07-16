@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Box, Grid, LastUpdated, Typography } from 'ui/atoms';
+import { Box, Grid, LastUpdated, NavBreadcrumb, Typography } from 'ui/atoms';
 import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 import { GenericField } from 'form/fields';
 import { AutosaveForm } from 'ui/organisms';
 import { useStyles } from 'ui/templates/page/Page.styles';
-import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { PageProps } from './Page.types';
 

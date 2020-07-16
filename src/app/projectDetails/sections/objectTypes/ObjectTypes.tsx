@@ -1,46 +1,90 @@
 import React from 'react';
+import classNames from 'classnames';
 
-import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
+import { Alert, Box, Grid, Button } from 'ui/atoms';
+import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { useLocale, useModalDispatch } from 'hooks';
 import { Page } from 'ui/templates';
-import { Button, Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { InfoSection } from 'ui/molecules';
+import { PropertyCategory } from 'app/pim/addPimModal/AddPimModal.types';
 import { AddIcon } from 'ui/atoms/icons';
-import { useLocale } from 'hooks';
+import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
 
-export const ObjectTypes = () => {
+import { useStyles } from './ObjectTypes.styles';
+import { ObjectTypeData, ObjectTypesProps } from './ObjectTypes.types';
+import { ObjectItem } from './objectItem/ObjectItem';
+export const ObjectTypes = ({
+  sorting,
+  isError,
+  isLoading,
+  listData,
+  amounts,
+  onStatusChange,
+  pagination,
+  status,
+}: ObjectTypesProps) => {
+  const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { open } = useModalDispatch();
 
   return (
-    <>
+    <div className={classes.root}>
+      {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <ProjectDetailsHeader
         action={
           <Button
             color="primary"
-            startIcon={<AddIcon color="inherit" />}
             variant="contained"
-            onClick={() => {}}
+            onClick={() => open('add-new-pim', { propertyCategory: PropertyCategory.COMPLEX })}
+            startIcon={<AddIcon color="inherit" />}
             size="small"
           >
-            {formatMessage({ id: 'project_details.object_types.add' })}
+            {formatMessage({ id: 'pim.object_type_add' })}
           </Button>
         }
       />
       <Page
-        title={formatMessage({ id: 'project_details.object_types.title' })}
-        placeholder={formatMessage({ id: 'project_details.object_types.description_placeholder' })}
+        title={formatMessage({ id: `project_details.object_types.title` })}
+        placeholder="project_details.object_types.description_placeholder"
         name="description"
+        initialValues={undefined}
         onSave={() => Promise.resolve(undefined)}
       >
         <Grid item xs={12}>
-          <FormSection isEditable={false} title="">
-            <InfoSection emoji="🤔">
-              <Typography variant="h3">{formatMessage({ id: 'project_details.object_types.empty_line_1' })}</Typography>
-              <Typography variant="h3">{formatMessage({ id: 'project_details.object_types.empty_line_2' })}</Typography>
-            </InfoSection>
+          <FormSection
+            titleBadge={listData.length}
+            title={formatMessage({ id: `project_details.object_types.card_title` })}
+            isEditable={false}
+            onOptionsClick={() => {}}
+          >
+            <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+            <List<ObjectTypeData>
+              className="object-type-list"
+              items={listData}
+              itemIndex="id"
+              renderItem={(objectType, checked, checkbox) => (
+                <Box
+                  key={objectType.id}
+                  className={classNames(classes.row, { [classes.rowChecked]: checked }, 'object-type-row')}
+                >
+                  {checkbox}
+                  <Box component="span" className={classes.rowItem}>
+                    <ObjectItem {...objectType} />
+                  </Box>
+                </Box>
+              )}
+              onBulk={() => alert('Bulk clicked')}
+              sortOptions={sorting.sortOptions}
+              onSort={sorting.onSort}
+              pagination={pagination}
+              loading={isLoading}
+              loadingItem={<PropertyItemPlaceholder />}
+              emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
+              emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+            />
           </FormSection>
         </Grid>
       </Page>
-    </>
+    </div>
   );
 };

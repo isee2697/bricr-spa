@@ -13,7 +13,7 @@ import { GeneralContainer } from './sections/general/GeneralContainer';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Prices } from './sections/prices/Prices';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
-import { ObjectTypes } from './sections/objectTypes/ObjectTypes';
+import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
@@ -41,7 +41,7 @@ export const ProjectDetails = () => {
                   <MediaContainer isSidebarVisible onOpenSidebar={() => {}} entityType={EntityType.Project} />
                 )}
               />
-              <Route path={`${AppRoute.projectDetails}/objectTypes`} render={() => <ObjectTypes />} />
+              <Route path={`${AppRoute.projectDetails}/objectTypes`} render={() => <ObjectTypesContainer />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
             </Switch>
           </Box>
