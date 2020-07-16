@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
 import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
-import { AddIcon, MenuIcon } from 'ui/atoms/icons';
+import { AddIcon, MenuIcon, ManageIcon } from 'ui/atoms/icons';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 
 import { FormSectionProps, FormSectionRef, FunctionChildren } from './FormSection.types';
@@ -16,6 +16,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       isEditable = true,
       onAdd,
       onOptionsClick,
+      onSettingsClick,
       isExpandable,
       isInitExpanded = true,
       children,
@@ -52,7 +53,9 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
           <Box className={classNames(classes.header, { 'edit-mode': editing })}>
             <Typography variant="h2" className={classNames(classes.title, 'form-section-title')}>
               {title}
-              {titleBadge && <div className={classes.titleBadge}>{titleBadge}</div>}
+              {titleBadge !== undefined && (
+                <div className={classes.titleBadge}>{titleBadge === 0 ? '-' : titleBadge}</div>
+              )}
             </Typography>
             <Box className={classes.actions}>
               {buttons}
@@ -70,14 +73,9 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                   <MenuIcon color="inherit" />
                 </IconButton>
               )}
-              {isExpandable && (
-                <IconButton
-                  className={classNames({ 'icon-reversed': expanded })}
-                  variant="roundedContained"
-                  size="small"
-                  onClick={() => setExpanded(expanded => !expanded)}
-                >
-                  <ArrowDownIcon color="inherit" />
+              {onSettingsClick && (
+                <IconButton className={classes.options} variant="rounded" size="small" onClick={onSettingsClick}>
+                  <ManageIcon color="inherit" />
                 </IconButton>
               )}
               {onAdd && (
@@ -89,6 +87,16 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                   disabled={loading}
                 >
                   <AddIcon color="inherit" />
+                </IconButton>
+              )}
+              {isExpandable && (
+                <IconButton
+                  className={classNames({ 'icon-reversed': expanded })}
+                  variant="roundedContained"
+                  size="small"
+                  onClick={() => setExpanded(expanded => !expanded)}
+                >
+                  <ArrowDownIcon color="inherit" />
                 </IconButton>
               )}
             </Box>

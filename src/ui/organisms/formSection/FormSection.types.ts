@@ -5,19 +5,23 @@ export type FormSectionHeaderProps = ExpansionPanelSummaryProps & { editing: str
 
 export type FunctionChildren = (editing: boolean) => ReactNode;
 
-export type FormSectionProps = {
+export type FormSectionBaseProps = {
   title: ReactNode;
   titleBadge?: number;
   isEditable?: boolean;
   onAdd?: VoidFunction;
   onOptionsClick?: VoidFunction;
+  onSettingsClick?: VoidFunction;
   isExpandable?: boolean;
   isInitExpanded?: boolean;
-  children: FunctionChildren | ReactNode;
   className?: string;
   isInitEditing?: boolean;
   buttons?: ReactNode;
   loading?: boolean;
+};
+
+export type FormSectionProps = FormSectionBaseProps & {
+  children: FunctionChildren | ReactNode;
 };
 
 export type FormSectionRef = {

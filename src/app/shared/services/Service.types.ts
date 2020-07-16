@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -48,17 +47,11 @@ export type ServiceTypeListProps<T> = {
 };
 
 export type ServiceFormProps<T> = {
-  title: ReactNode;
   types?: ServiceRadioType[];
   typesTitle?: string;
   item: T;
   isEditMode: boolean;
-  toggled: boolean;
-  onToggleClick: VoidFunction;
   hasOwnership: boolean;
-  onSave(values: unknown): Promise<undefined | { error: boolean }>;
-  isExpanded: boolean;
-  onExpand: (id: string) => void;
 };
 
 export type ServiceRadioType = RadioDataType & {

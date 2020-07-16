@@ -56,7 +56,7 @@ context('Add Service', () => {
     NavigationMenu.goToPimServices();
 
     cy.findAllByText('Edit mode')
-      .first()
+      .last()
       .click();
 
     cy.get('.sub-section-header-toggle')
