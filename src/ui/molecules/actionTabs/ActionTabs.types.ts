@@ -1,11 +1,17 @@
+import { BadgeProps, TabProps } from '@material-ui/core';
+
 export type ActionTabStatus = 'actionRequired' | 'active' | 'archived';
 
-export type ActionTabsProps = {
-  status: ActionTabStatus;
-  onStatusChange: (type: ActionTabStatus) => void;
-  amounts?: {
-    actionRequired: number;
-    active: number;
-    archived: number;
-  };
+export type ActionTab = TabProps & {
+  amount?: number;
+  hasBadge?: boolean;
+  badgeColor?: BadgeProps['color'];
+  label: string;
+};
+
+export type ActionTabsProps<T> = {
+  className?: string;
+  status?: T;
+  onStatusChange: (type: T) => void;
+  tabs?: ActionTab[];
 };

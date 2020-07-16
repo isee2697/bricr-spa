@@ -76,3 +76,4 @@ export { Dropdown } from './dropdown/Dropdown';
 export { NavBreadcrumb } from './navBreadcrumb/NavBreadcrumb';
 export { NavBreadcrumbs } from './navBreadcrumbs/NavBreadcrumbs';
 export { InfoItem } from './infoItem/InfoItem';
+export { PersonChip } from './personChip/PersonChip';

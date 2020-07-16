@@ -4,12 +4,13 @@ import classNames from 'classnames';
 
 import { Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
-import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';
+import { PimActionTabs } from './pimActionTabs/PimActionTabs';
 import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
@@ -44,7 +45,7 @@ export const Pim = ({
               <Card>
                 <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
-                  <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                  <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims.items ?? []) as PimEntity[]}

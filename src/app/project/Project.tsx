@@ -3,8 +3,9 @@ import classNames from 'classnames';
 
 import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
 import { PimSidebarMenu } from '../pim/pimSidebarMenu/PimSidebarMenu';
-import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
+import { PimActionTabs } from '../pim/pimActionTabs/PimActionTabs';
 import { ListNcp } from 'api/types';
 
 import { useStyles } from './Project.styles';
@@ -40,7 +41,7 @@ export const Project = ({
               <Card>
                 <CardHeader className="project-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
                 <CardContent>
-                  <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                  <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   <List<ListNcp>
                     className="project-list"
                     items={listData}

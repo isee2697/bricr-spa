@@ -2,13 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Alert, Box, Grid, Button } from 'ui/atoms';
-import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale, useModalDispatch } from 'hooks';
 import { Page } from 'ui/templates';
 import { FormSection } from 'ui/organisms';
 import { PropertyCategory } from 'app/pim/addPimModal/AddPimModal.types';
 import { AddIcon } from 'ui/atoms/icons';
 import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
+import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 
 import { useStyles } from './ObjectTypes.styles';
 import { ObjectTypeData, ObjectTypesProps } from './ObjectTypes.types';
@@ -57,7 +58,7 @@ export const ObjectTypes = ({
             isEditable={false}
             onOptionsClick={() => {}}
           >
-            <ActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+            <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
             <List<ObjectTypeData>
               className="object-type-list"
               items={listData}

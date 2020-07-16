@@ -18,8 +18,8 @@ context('Add Ncp', () => {
       .last()
       .click();
     cy.findByText('Next').click();
-    cy.findByLabelText('Projectname').type('Test project');
-    cy.findByLabelText('Additional projectname (designation)').type('v2');
+    cy.findByLabelText('Project name').type('Test project');
+    cy.findByLabelText('Additional project name (designation)').type('v2');
     cy.findByLabelText('Street').type('Trufmarkt');
     cy.findByLabelText('House number').type('8');
     cy.findByLabelText('Addition').type('A');

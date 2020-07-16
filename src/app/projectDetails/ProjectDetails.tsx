@@ -14,6 +14,7 @@ import { ServicesContainer } from './sections/services/ServicesContainer';
 import { Prices } from './sections/prices/Prices';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
+import { ProjectJourneyContainer } from './sections/projectJourney/ProjectJourneyContainer';
 
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
@@ -32,6 +33,7 @@ export const ProjectDetails = () => {
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
               <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer key={id} />} />
+              <Route path={`${AppRoute.projectDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
               <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Tabs, Tab, Badge } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { ActionTabsProps } from './ActionTabs.types';
+import { useStyles } from './ActionTabs.styles';
 
-export const ActionTabs = ({ status, onStatusChange, amounts }: ActionTabsProps) => {
-  const { formatMessage } = useLocale();
+export const ActionTabs: <T>(p: ActionTabsProps<T>) => ReactElement<ActionTabsProps<T>> = ({
+  status,
+  onStatusChange,
+  tabs,
+}) => {
+  const classes = useStyles();
 
   return (
     <Tabs
@@ -16,28 +20,24 @@ export const ActionTabs = ({ status, onStatusChange, amounts }: ActionTabsProps)
       indicatorColor="primary"
       textColor="primary"
     >
-      <Tab
-        value="actionRequired"
-        label={
-          amounts && amounts.actionRequired ? (
-            <Badge badgeContent={amounts.actionRequired} color="secondary">
-              {formatMessage({ id: 'pim.status.action_required' })}
-            </Badge>
-          ) : (
-            formatMessage({ id: 'pim.status.action_required' })
-          )
-        }
-      />
-      <Tab
-        className="pim-tab-active"
-        value="active"
-        label={formatMessage({ id: 'pim.status.active' }) + (amounts ? ` (${amounts.active})` : '')}
-      />
-      <Tab
-        className="pim-tab-archived"
-        value="archived"
-        label={formatMessage({ id: 'pim.status.archived' }) + (amounts ? ` (${amounts.archived})` : '')}
-      />
+      {(tabs || []).map(tab => {
+        return (
+          <Tab
+            key={tab.value}
+            value={tab.value}
+            className={tab.className}
+            label={
+              tab.hasBadge && tab.amount && tab.amount > 0 ? (
+                <Badge className={classes.badge} badgeContent={tab.amount} color={tab?.badgeColor || 'primary'}>
+                  {tab.label}
+                </Badge>
+              ) : (
+                tab.label + (tab.amount ? ` (${tab.amount})` : '')
+              )
+            }
+          />
+        );
+      })}
     </Tabs>
   );
 };
