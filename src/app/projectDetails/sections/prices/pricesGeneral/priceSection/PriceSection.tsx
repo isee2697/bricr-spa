@@ -9,11 +9,16 @@ import { FormSection, AutoCalculateForm } from 'ui/organisms';
 
 import { PriceSectionProps } from './PriceSection.types';
 
-export const PriceSection = ({ type }: PriceSectionProps) => {
+export const PriceSection = ({ type, isInitEditing }: PriceSectionProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection title={formatMessage({ id: `pim_details.prices.${type.toLowerCase()}` })} isExpandable isEditable>
+    <FormSection
+      title={formatMessage({ id: `pim_details.prices.${type.toLowerCase()}` })}
+      isExpandable
+      isEditable
+      isInitEditing={isInitEditing}
+    >
       {inEditMode => (
         <AutoCalculateForm
           name={`${type.toLowerCase()}.calculateAutomatically`}

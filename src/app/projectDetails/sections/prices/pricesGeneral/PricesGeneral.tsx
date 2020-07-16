@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { useLocale } from 'hooks';
 import { Button, Grid, Typography } from 'ui/atoms';
@@ -12,8 +12,19 @@ import { SetPricesModal } from 'app/shared/prices';
 import { PriceSection } from './priceSection/PriceSection';
 import { PricesGeneralProps } from './PricesGeneral.types';
 
+const useIsInitialized = () => {
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    isInitialized.current = true;
+  }, []);
+
+  return isInitialized.current;
+};
+
 export const PricesGeneral = ({ types, dateUpdated, updatedBy, onSetPrice }: PricesGeneralProps) => {
   const { formatMessage } = useLocale();
+  const isInitialized = useIsInitialized();
 
   const [modalOpened, setModalOpened] = useState(false);
 
@@ -53,12 +64,12 @@ export const PricesGeneral = ({ types, dateUpdated, updatedBy, onSetPrice }: Pri
         )}
         {types.includes('Sale') && (
           <Grid item xs={12}>
-            <PriceSection type="Sale" />
+            <PriceSection type="Sale" isInitEditing={isInitialized} />
           </Grid>
         )}
         {types.includes('Rent') && (
           <Grid item xs={12}>
-            <PriceSection type="Rent" />
+            <PriceSection type="Rent" isInitEditing={isInitialized} />
           </Grid>
         )}
       </Page>
