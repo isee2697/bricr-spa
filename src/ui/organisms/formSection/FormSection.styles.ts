@@ -49,7 +49,7 @@ export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
     borderRadius: spacing(1.5),
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: spacing(1),
+    minWidth: spacing(3),
     height: spacing(3),
     width: 'auto',
     padding: spacing(0, 1),
