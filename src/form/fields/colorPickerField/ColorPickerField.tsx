@@ -16,6 +16,7 @@ export const ColorPickerField = ({
   validateFields,
   placeholder,
   helperText,
+  defaultColor = '',
   ...props
 }: ColorPickerFieldProps) => {
   const { formatMessage } = useLocale();
@@ -74,7 +75,11 @@ export const ColorPickerField = ({
         {...props}
       />
 
-      <ColorPickerModal isOpened={isColorPickerOpened} onClose={handleOnClose} initialColor={input.value} />
+      <ColorPickerModal
+        isOpened={isColorPickerOpened}
+        onClose={handleOnClose}
+        initialColor={input.value || defaultColor}
+      />
     </>
   );
 };

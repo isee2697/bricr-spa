@@ -7,12 +7,12 @@ import { FormSection, AutosaveForm } from 'ui/organisms';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { Page } from 'ui/templates';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
-import { AddCostModal } from 'app/shared/prices';
+import { AddCostModalContainer } from 'app/shared/prices';
 
 import { CostsProps } from './Costs.types';
 import { CostItem } from './costItem/CostItem';
 
-export const Costs = ({ data, onAddCost, onDescriptionSave, onUpdateCost }: CostsProps) => {
+export const Costs = ({ data, onDescriptionSave, onUpdateCost }: CostsProps) => {
   const { formatMessage } = useLocale();
 
   const formRef = useRef<FormSectionRef>(null);
@@ -72,18 +72,12 @@ export const Costs = ({ data, onAddCost, onDescriptionSave, onUpdateCost }: Cost
       </Page>
 
       {modalOpened && (
-        <AddCostModal
+        <AddCostModalContainer
           isModalOpened
           onModalClose={() => setModalOpened(false)}
-          onAddCost={async values => {
-            const result = await onAddCost(values);
-
-            if (!result) {
-              formRef.current?.handleSetEdit(true);
-              setModalOpened(false);
-            }
-
-            return result;
+          onAdd={() => {
+            formRef.current?.handleSetEdit(true);
+            setModalOpened(false);
           }}
         />
       )}

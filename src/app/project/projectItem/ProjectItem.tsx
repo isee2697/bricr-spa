@@ -47,11 +47,11 @@ export const ProjectItem = ({
   properties,
   objectTypes,
   archived,
+  attentionNote,
 }: ListNcp) => {
-  const { formatMessage } = useLocale();
+  const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
   const classes = useStyles();
-  const daysAgo = Math.round(-DateTime.fromISO(dateCreated).diffNow('day').days);
   const [toggled, setToggled] = useState(false);
   const percentage = soldOrRent && properties ? (soldOrRent / properties) * 100 : 0;
 
@@ -60,7 +60,9 @@ export const ProjectItem = ({
       <Grid container>
         <Grid item>
           <Typography className={classes.date} variant="h6">
-            {daysAgo} {formatMessage({ id: 'common.days_ago' })}
+            {DateTime.fromISO(dateCreated.toString()).toRelative({
+              locale: locale,
+            })}
           </Typography>
           <Typography className={classes.title} variant="h3">
             <NewConstructionIcon /> {name}
@@ -129,7 +131,7 @@ export const ProjectItem = ({
         </Grid>
       </Grid>
       <Grid container spacing={3}>
-        {partOfPhase && (
+        {!!partOfPhase && (
           <Grid item>
             <Typography>
               {`${formatMessage({ id: 'projects.part_of' })} ${partOfPhase} ${formatMessage({
@@ -138,11 +140,13 @@ export const ProjectItem = ({
             </Typography>
           </Grid>
         )}
-        <Grid item>
-          <Box className={classes.warning}>
-            <WarningIcon /> {formatMessage({ id: 'projects.no_more_scheduling' })}
-          </Box>
-        </Grid>
+        {!!attentionNote && (
+          <Grid item>
+            <Box className={classes.warning}>
+              <WarningIcon /> {attentionNote}
+            </Box>
+          </Grid>
+        )}
         <Grid onClick={() => setToggled(prevState => !prevState)} className={classes.rightItem} item>
           <IconButton>{toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}</IconButton>
           <Typography className={classes.grayText} variant="h5">

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from 'tests';
 import { FilePermission } from 'api/types';
+import { EntityTypeProvider, EntityType } from 'app/shared/entityType';
 
 import { PictureItem } from './PictureItem';
 
@@ -24,7 +25,9 @@ const picture = {
 describe('PictureItem', () => {
   test('renders all elements', () => {
     const { getByText } = render(
-      <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />,
+      <EntityTypeProvider entityType={EntityType.Project}>
+        <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />
+      </EntityTypeProvider>,
     );
 
     const title = getByText('Some Picture Name');
@@ -37,7 +40,9 @@ describe('PictureItem', () => {
   test('call on onEdit if editing', () => {
     const onEdit = jest.fn();
     const { getByTestId } = render(
-      <PictureItem checkbox={<></>} picture={picture} onEdit={onEdit} editing={true} isSelected={false} />,
+      <EntityTypeProvider entityType={EntityType.Project}>
+        <PictureItem checkbox={<></>} picture={picture} onEdit={onEdit} editing={true} isSelected={false} />
+      </EntityTypeProvider>,
     );
 
     const editButton = getByTestId('edit-picture-button');
@@ -48,7 +53,9 @@ describe('PictureItem', () => {
 
   test('does not have edit button if not editing', () => {
     const { queryByTestId } = render(
-      <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />,
+      <EntityTypeProvider entityType={EntityType.Project}>
+        <PictureItem checkbox={<></>} picture={picture} onEdit={() => {}} editing={false} isSelected={false} />
+      </EntityTypeProvider>,
     );
 
     const editButton = queryByTestId('edit-picture-button');

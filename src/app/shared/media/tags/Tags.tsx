@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useLocale, useCustomLabels, useToggleOnNewlyCreated } from 'hooks';
+import { UpdateTagInput, LabelProperty } from 'api/types';
+import { TileButton } from 'ui/molecules';
+import { useEntityType } from 'app/shared/entityType';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
-import { UpdateTagInput, LabelProperty } from 'api/types';
-import { TileButton } from 'ui/molecules';
 
 import { TagsProps } from './Tags.types';
 
 export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }: TagsProps) => {
   const { formatMessage } = useLocale();
-  const { id: pimId } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
+  const entityType = useEntityType();
   const [toggled, setToggled] = useState<string | undefined>(newTagId);
 
   useToggleOnNewlyCreated(newTagId, setToggled);
 
-  const customLabels = useCustomLabels(pimId, [LabelProperty.Tag])[LabelProperty.Tag] ?? [];
+  const customLabels = useCustomLabels(id, [LabelProperty.Tag], entityType)[LabelProperty.Tag] ?? [];
 
   return (
     <Section

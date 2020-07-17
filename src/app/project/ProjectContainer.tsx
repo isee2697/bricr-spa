@@ -2,12 +2,12 @@ import React from 'react';
 import { useQueryParam } from 'use-query-params';
 
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
-import { usePimsSorting } from '../pim/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ListNcp, useListNcpsCountQuery, useListNcpsQuery } from 'api/types';
 
 import { Project } from './Project';
+import { useProjectSorting } from './useProjectSorting/useProjectSorting';
 
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
@@ -25,7 +25,7 @@ export const ProjectContainer = () => {
     }) ??
     undefined;
 
-  const { sorting, query: sortQuery } = usePimsSorting();
+  const { sorting, query: sortQuery } = useProjectSorting();
 
   const { pagination, query: paginationQuery } = usePagination({
     prefix: status,
@@ -47,7 +47,7 @@ export const ProjectContainer = () => {
       isLoading={isCountLoading || isListLoading}
       isError={!!countError || !!listError}
       amounts={amounts}
-      listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps.items ?? []}
+      listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
       sorting={sorting}
       pagination={pagination}
     />

@@ -9,7 +9,7 @@ import { useStyles } from 'app/shared/media/pictures/editPictureModal/EditPictur
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 import { EntityWithFiles, LabelProperty } from 'api/types';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
-import { useEntityType } from 'app/shared/entityType';
+import { useEntityType, EntityType } from 'app/shared/entityType';
 
 import { EditPictureModalProps } from './EditPictureModal.types';
 
@@ -50,7 +50,11 @@ export const EditPictureModal = ({
                     type={UploadImageFieldTypes.DENSE}
                     label="pim_details.media.add_picture_modal.file_name"
                     entityID={picture.id}
-                    entity={EntityWithFiles.MediaPicture}
+                    entity={
+                      entityType === EntityType.Property
+                        ? EntityWithFiles.MediaPicture
+                        : EntityWithFiles.NcpMediaPicture
+                    }
                     onSetBackground={setBackgroundImage}
                   />
                   <GenericField

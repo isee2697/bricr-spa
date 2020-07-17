@@ -12,10 +12,10 @@ import {
   PimMediaQuery,
   NcpMediaQuery,
 } from 'api/types';
-import { EntityTypeProvider, EntityType } from '../entityType';
+import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
+import { useEntityType, EntityType } from '../entityType';
 
 import { usePicturesSorting } from './pictures/usePicturesSorting/usePicturesSorting';
-import { MediaContainerProps } from './Media.types';
 import { Media } from './Media';
 
 const getQuery = (entityType: EntityType) => {
@@ -29,12 +29,13 @@ const getQuery = (entityType: EntityType) => {
   }
 };
 
-export const MediaContainer = ({ entityType, ...props }: MediaContainerProps) => {
+export const MediaContainer = (props: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { sorting, query: sortQuery } = usePicturesSorting();
+  const entityType = useEntityType();
 
   const useQuery = getQuery(entityType);
-  const { data } = useQuery({ variables: { id, picturesSort: sortQuery } });
+  const { data } = useQuery({ variables: { id, picturesSort: sortQuery }, fetchPolicy: 'network-only' });
   const [updateDescription] = useUpdateDescriptionMutation();
   const [updateNcpMediaDescription] = useUpdateNcpMediaDescriptionMutation();
 
@@ -49,7 +50,7 @@ export const MediaContainer = ({ entityType, ...props }: MediaContainerProps) =>
               section: SectionWithDescriptionType.Media,
             },
           },
-          refetchQueries: [{ query: PimMediaDocument, variables: { id } }],
+          refetchQueries: [{ query: PimMediaDocument, variables: { id, picturesSort: sortQuery } }],
         });
       }
 
@@ -76,19 +77,15 @@ export const MediaContainer = ({ entityType, ...props }: MediaContainerProps) =>
   }
 
   return (
-    <EntityTypeProvider entityType={entityType}>
-      <Media
-        {...props}
-        media={(data as PimMediaQuery).getPimMedia || (data as NcpMediaQuery).getNcpMedia}
-        description={
-          (data as PimMediaQuery).getPimMedia?.description ||
-          (data as NcpMediaQuery).getNcpMedia?.mediaDescription ||
-          ''
-        }
-        onDescriptionUpdate={onDescriptionUpdate}
-        sorting={sorting}
-        sortQuery={sortQuery}
-      />
-    </EntityTypeProvider>
+    <Media
+      {...props}
+      media={(data as PimMediaQuery).getPimMedia || (data as NcpMediaQuery).getNcpMedia}
+      description={
+        (data as PimMediaQuery).getPimMedia?.description || (data as NcpMediaQuery).getNcpMedia?.mediaDescription || ''
+      }
+      onDescriptionUpdate={onDescriptionUpdate}
+      sorting={sorting}
+      sortQuery={sortQuery}
+    />
   );
 };

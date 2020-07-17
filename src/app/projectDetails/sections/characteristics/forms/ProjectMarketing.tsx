@@ -7,6 +7,7 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { FormSection } from 'ui/organisms';
+import { emailValidator, urlValidator } from 'form/validators';
 
 export const ProjectMarketing = () => {
   const { formatMessage } = useLocale();
@@ -48,12 +49,14 @@ export const ProjectMarketing = () => {
                 label="project_details.characteristics.project_marketing.email_label"
                 placeholder="project_details.characteristics.project_marketing.email_placeholder"
                 disabled={!inEditMode}
+                validate={[emailValidator]}
               />
               <GenericField
                 name="projectMarketing.website"
                 label="project_details.characteristics.project_marketing.website_label"
                 placeholder="project_details.characteristics.project_marketing.website_placeholder"
                 disabled={!inEditMode}
+                validate={[urlValidator]}
               />
               <Grid container spacing={1}>
                 <Grid item xs={6}>
@@ -62,6 +65,7 @@ export const ProjectMarketing = () => {
                     disabled={!inEditMode}
                     label="project_details.characteristics.project_marketing.color_one"
                     placeholder="project_details.characteristics.project_marketing.color_placeholder"
+                    defaultColor="#FFFFFFFF"
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -70,6 +74,7 @@ export const ProjectMarketing = () => {
                     disabled={!inEditMode}
                     label="project_details.characteristics.project_marketing.color_two"
                     placeholder="project_details.characteristics.project_marketing.color_placeholder"
+                    defaultColor="#FFFFFFFF"
                   />
                 </Grid>
               </Grid>

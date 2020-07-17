@@ -33,22 +33,22 @@ type ProjectMarketing {
 }
 
 input MeasurementsInput {
-  volumeFrom: Int
-  volumeTo: Int
-  livingSpaceFrom: Int
-  livingSpaceTo: Int
-  plotAreaFrom: Int
-  plotAreaTo: Int
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
   calculateAutomatically: Boolean
 }
 
 type Measurements {
-  volumeFrom: Int
-  volumeTo: Int
-  livingSpaceFrom: Int
-  livingSpaceTo: Int
-  plotAreaFrom: Int
-  plotAreaTo: Int
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
   calculateAutomatically: Boolean
 }
 

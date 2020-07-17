@@ -655,6 +655,7 @@ export enum LabelProperty {
   TankInspection = 'TankInspection',
   PollutionInspection = 'PollutionInspection',
   MaintenanceInspection = 'MaintenanceInspection',
+  Cost = 'Cost',
 }
 
 export type Label = {
@@ -1010,23 +1011,23 @@ export type ProjectMarketing = {
 };
 
 export type MeasurementsInput = {
-  volumeFrom?: Maybe<Scalars['Int']>;
-  volumeTo?: Maybe<Scalars['Int']>;
-  livingSpaceFrom?: Maybe<Scalars['Int']>;
-  livingSpaceTo?: Maybe<Scalars['Int']>;
-  plotAreaFrom?: Maybe<Scalars['Int']>;
-  plotAreaTo?: Maybe<Scalars['Int']>;
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
   calculateAutomatically?: Maybe<Scalars['Boolean']>;
 };
 
 export type Measurements = {
   __typename?: 'Measurements';
-  volumeFrom?: Maybe<Scalars['Int']>;
-  volumeTo?: Maybe<Scalars['Int']>;
-  livingSpaceFrom?: Maybe<Scalars['Int']>;
-  livingSpaceTo?: Maybe<Scalars['Int']>;
-  plotAreaFrom?: Maybe<Scalars['Int']>;
-  plotAreaTo?: Maybe<Scalars['Int']>;
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
   calculateAutomatically?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1208,17 +1209,17 @@ export type ListNcp = {
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
   archived: Scalars['Boolean'];
-  areaRangeFrom?: Maybe<Scalars['Int']>;
-  areaRangeTo?: Maybe<Scalars['Int']>;
+  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
   numberOfRoomsFrom?: Maybe<Scalars['Int']>;
   numberOfRoomsTo?: Maybe<Scalars['Int']>;
   logoPicture?: Maybe<File>;
   mainPicture?: Maybe<File>;
   name?: Maybe<Scalars['String']>;
-  salePriceFrom?: Maybe<Scalars['Int']>;
-  salePriceTo?: Maybe<Scalars['Int']>;
-  rentPriceFrom?: Maybe<Scalars['Int']>;
-  rentPriceTo?: Maybe<Scalars['Int']>;
+  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
   saleLabel?: Maybe<Scalars['String']>;
   rentLabel?: Maybe<Scalars['String']>;
   partOfPhase?: Maybe<Scalars['Int']>;
@@ -1234,6 +1235,8 @@ export type ListNcp = {
   optants?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
   objectTypes?: Maybe<Scalars['Int']>;
+  color?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
 };
 
 export type NcpListSearchResult = {
@@ -3004,7 +3007,7 @@ export type Cost = {
   vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
   vatPercentage?: Maybe<Scalars['CostVat']>;
   notes?: Maybe<Scalars['String']>;
-  type: CostType;
+  type: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
 
@@ -3020,7 +3023,7 @@ export type UpdateCostInput = {
 
 export type AddCostInput = {
   id: Scalars['ID'];
-  type: CostType;
+  type: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
 
@@ -4990,6 +4993,7 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
           | 'optants'
           | 'properties'
           | 'objectTypes'
+          | 'attentionNote'
         > & {
             logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
             mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
@@ -7893,6 +7897,7 @@ export const ListNcpsDocument = gql`
         optants
         properties
         objectTypes
+        attentionNote
       }
     }
   }

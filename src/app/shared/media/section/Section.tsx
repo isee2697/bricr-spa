@@ -37,6 +37,7 @@ export const Section = ({
 
   const handleAdd = () => {
     formSectionRef?.current?.handleSetEdit(true);
+    formSectionRef.current?.handleSetExpanded(true);
     onAdd();
   };
 
@@ -50,6 +51,7 @@ export const Section = ({
       }
       isEditable={children && count > 0}
       isExpandable={children && count > 0 && isExpandable}
+      isInitExpanded={isExpandable ? !(children && count > 0) : undefined}
       onAdd={handleAdd}
       buttons={children && count > 0 && buttons}
       ref={formSectionRef}

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { Avatar, Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
@@ -25,7 +24,6 @@ export const Costs = ({
   description,
   onDescriptionUpdate,
 }: CostsProps) => {
-  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
   const styles = useStyles();
@@ -105,7 +103,6 @@ export const Costs = ({
         <AddCostModalContainer
           isModalOpened={isModalOpen}
           onModalClose={() => setModalOpen(false)}
-          pimId={id}
           onAdd={handleOnAdd}
         />
       )}

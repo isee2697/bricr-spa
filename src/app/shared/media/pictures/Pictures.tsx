@@ -27,7 +27,7 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
         emptyLineSecond={formatMessage({ id: 'pim_details.media.pictures.empty_line_2' })}
         title={formatMessage({ id: 'pim_details.media.pictures.title' })}
         onAdd={() => setAddModalVisible(true)}
-        isExpandable={true}
+        isExpandable
         buttons={
           <>
             <IconButton variant="rounded" size="small">

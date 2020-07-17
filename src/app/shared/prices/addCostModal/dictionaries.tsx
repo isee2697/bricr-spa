@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SquareIcon } from 'ui/atoms/icons';
-import { CostType } from 'api/types';
+import { CostType, NcpCostType } from 'api/types';
 
 export const costTypes = [
   {
@@ -55,3 +55,11 @@ export const costTypes = [
     icon: <SquareIcon />,
   },
 ];
+
+export const ncpCostTypes = Object.values(NcpCostType)
+  .filter(type => type !== NcpCostType.Custom)
+  .map(type => ({
+    label: `dictionaries.prices.cost_type.${type}`,
+    value: type,
+    icon: <SquareIcon />,
+  }));

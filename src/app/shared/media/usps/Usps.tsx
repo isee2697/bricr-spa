@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useLocale, useCustomLabels, useToggleOnNewlyCreated } from 'hooks';
+import { UpdateUspInput, LabelProperty } from 'api/types';
+import { TileButton } from 'ui/molecules';
+import { useEntityType } from 'app/shared/entityType';
 import { Section } from '../section/Section';
 import { Form } from '../form/Form';
 import { SingleChoose } from '../form/parts/SingleChoose';
 import { Input } from '../form/parts/Input';
-import { UpdateUspInput, LabelProperty } from 'api/types';
-import { TileButton } from 'ui/molecules';
 
 import { UspsProps } from './Usps.types';
 
 export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }: UspsProps) => {
-  const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+  const { id } = useParams<{ id: string }>();
+  const entityType = useEntityType();
   const [toggled, setToggled] = useState<string | undefined>(newUspId);
 
   useToggleOnNewlyCreated(newUspId, setToggled);
 
-  const customLabels = useCustomLabels(pimId, [LabelProperty.Usp])[LabelProperty.Usp] ?? [];
+  const customLabels = useCustomLabels(id, [LabelProperty.Usp], entityType)[LabelProperty.Usp] ?? [];
 
   return (
     <Section

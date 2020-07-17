@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
-import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
+import { Modal, SubmitButton, CancelButton, TileButton } from 'ui/molecules';
 import { DialogActions, DialogContent } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { GenericField, RadioGroupField } from 'form/fields';
+import { AddCustomPropertyModalContainer } from 'ui/organisms';
+import { useEntityType } from 'app/shared/entityType';
+import { LabelProperty } from 'api/types';
 
 import { useStyles } from './AddCostModal.styles';
 import { AddCostModalProps, CostForm } from './AddCostModal.types';
-import * as dictionaries from './dictionaries';
 
-export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost }: AddCostModalProps) => {
+export const AddCostModal = ({ isModalOpened, costTypes, onModalClose, onAddCost }: AddCostModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const entityType = useEntityType();
+
+  const [customTypeModalOpened, setCustomTypeModalOpened] = useState(false);
 
   return (
     <Modal
@@ -26,7 +31,14 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost }: AddCost
         {({ handleSubmit, submitting, values }) => (
           <form onSubmit={handleSubmit}>
             <DialogContent>
-              <RadioGroupField xs={2} spacing={1} name="type" justify="center" options={dictionaries.costTypes} />
+              <RadioGroupField
+                xs={2}
+                spacing={1}
+                name="type"
+                justify="center"
+                options={costTypes}
+                actionElement={<TileButton onClick={() => setCustomTypeModalOpened(true)} />}
+              />
               <GenericField
                 id="name"
                 name="name"
@@ -52,6 +64,15 @@ export const AddCostModal = ({ isModalOpened, onModalClose, onAddCost }: AddCost
           </form>
         )}
       </Form>
+
+      {customTypeModalOpened && (
+        <AddCustomPropertyModalContainer
+          property={LabelProperty.Cost}
+          isOpened
+          entityType={entityType}
+          onClose={() => setCustomTypeModalOpened(false)}
+        />
+      )}
     </Modal>
   );
 };

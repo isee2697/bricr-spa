@@ -5,6 +5,7 @@ import { Grid } from 'ui/atoms';
 import { AutoCalculateForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { SquareMeterIcon } from 'ui/atoms/icons';
+import { minValueValidator } from 'form/validators';
 
 export const Measurements = () => {
   const { formatMessage } = useLocale();
@@ -22,12 +23,16 @@ export const Measurements = () => {
           InputProps={{
             endAdornment: <SquareMeterIcon />,
           }}
+          inputProps={{
+            min: 0,
+          }}
+          validate={[minValueValidator(0)]}
         />
       </Grid>
       <Grid item xs={4}>
         <GenericField
           name={`measurements.${name}To`}
-          label={`project_details.characteristics.measurements.${name}_from`}
+          label={`project_details.characteristics.measurements.${name}_to`}
           placeholder={`project_details.characteristics.measurements.placeholder`}
           size="medium"
           disabled={disabled}
@@ -35,6 +40,7 @@ export const Measurements = () => {
           InputProps={{
             endAdornment: <SquareMeterIcon />,
           }}
+          validate={[minValueValidator(0)]}
         />
       </Grid>
     </Grid>

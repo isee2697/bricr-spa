@@ -1,12 +1,14 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import { CostPaymentFrequency } from 'api/types';
-import { useLocale } from 'hooks';
+import { CostPaymentFrequency, LabelProperty } from 'api/types';
+import { useLocale, useCustomLabels } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { EuroIcon } from 'ui/atoms/icons';
 import { FormSubSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenericField, DropdownField } from 'form/fields';
+import { EntityType } from 'app/shared/entityType';
 
 import { CostItemProps } from './CostItem.types';
 
@@ -15,7 +17,9 @@ const generateTitle = (title: string, name?: string | null) => {
 };
 
 export const CostItem = ({ cost, index, inEditMode, isExpanded, onExpand }: CostItemProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+  const customLabels = useCustomLabels(id, [LabelProperty.Cost], EntityType.Project)[LabelProperty.Cost] ?? [];
 
   const paymentFrequencies = [CostPaymentFrequency.Monthly, CostPaymentFrequency.Yearly].map(value => ({
     label: formatMessage({ id: `dictionaries.prices.frequency.${value}` }),
@@ -29,7 +33,13 @@ export const CostItem = ({ cost, index, inEditMode, isExpanded, onExpand }: Cost
 
   return (
     <FormSubSection
-      title={generateTitle(formatMessage({ id: `dictionaries.prices.cost_type.${cost.type}` }), cost.name)}
+      title={generateTitle(
+        formatMessage({
+          id: `dictionaries.prices.cost_type.${cost.type}`,
+          defaultMessage: customLabels.find(label => label.value === cost.type)?.label ?? ' ',
+        }),
+        cost.name,
+      )}
       initiallyOpened={false}
       isExpanded={isExpanded}
       onExpand={onExpand}

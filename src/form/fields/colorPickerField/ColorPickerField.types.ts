@@ -5,4 +5,5 @@ export type ColorPickerFieldProps = Omit<OutlinedTextFieldProps, 'variant'> & {
   name: string;
   validate?: FieldValidator<string>[];
   validateFields?: string[];
+  defaultColor?: string;
 };

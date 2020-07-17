@@ -7,17 +7,17 @@ type ListNcp {
   dateCreated: Date!
   dateUpdated: Date
   archived: Boolean!
-  areaRangeFrom: Int
-  areaRangeTo: Int
+  areaRangeFrom: AbsoluteFloat
+  areaRangeTo: AbsoluteFloat
   numberOfRoomsFrom: Int
   numberOfRoomsTo: Int
   logoPicture: File
   mainPicture: File
   name: String
-  salePriceFrom: Int
-  salePriceTo: Int
-  rentPriceFrom: Int
-  rentPriceTo: Int
+  salePriceFrom: AbsoluteFloat
+  salePriceTo: AbsoluteFloat
+  rentPriceFrom: AbsoluteFloat
+  rentPriceTo: AbsoluteFloat
   saleLabel: String
   rentLabel: String
   partOfPhase: Int
@@ -33,6 +33,8 @@ type ListNcp {
   optants: Int
   properties: Int
   objectTypes: Int
+  color: String
+  attentionNote: String
 }
 
 type NcpListSearchResult {

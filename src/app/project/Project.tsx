@@ -2,10 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
-import { PimSidebarMenu } from '../pim/pimSidebarMenu/PimSidebarMenu';
+import { PimSidebarMenu } from 'app/pim/pimSidebarMenu/PimSidebarMenu';
+import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { PimActionTabs } from '../pim/pimActionTabs/PimActionTabs';
 import { ListNcp } from 'api/types';
 
 import { useStyles } from './Project.styles';

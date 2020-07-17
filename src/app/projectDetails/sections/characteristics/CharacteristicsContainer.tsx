@@ -36,12 +36,12 @@ export const CharacteristicsContainer = () => {
             ...values,
             measurements: {
               ...values.measurements,
-              volumeFrom: parseInt(values?.measurements?.volumeFrom?.toString() ?? '') || null,
-              volumeTo: parseInt(values?.measurements?.volumeTo?.toString() ?? '') || null,
-              livingSpaceFrom: parseInt(values?.measurements?.livingSpaceFrom?.toString() ?? '') || null,
-              livingSpaceTo: parseInt(values?.measurements?.livingSpaceTo?.toString() ?? '') || null,
-              plotAreaFrom: parseInt(values?.measurements?.plotAreaFrom?.toString() ?? '') || null,
-              plotAreaTo: parseInt(values?.measurements?.plotAreaTo?.toString() ?? '') || null,
+              volumeFrom: parseFloat(values?.measurements?.volumeFrom?.toString() ?? '') || null,
+              volumeTo: parseFloat(values?.measurements?.volumeTo?.toString() ?? '') || null,
+              livingSpaceFrom: parseFloat(values?.measurements?.livingSpaceFrom?.toString() ?? '') || null,
+              livingSpaceTo: parseFloat(values?.measurements?.livingSpaceTo?.toString() ?? '') || null,
+              plotAreaFrom: parseFloat(values?.measurements?.plotAreaFrom?.toString() ?? '') || null,
+              plotAreaTo: parseFloat(values?.measurements?.plotAreaTo?.toString() ?? '') || null,
             },
             projectMarketing: {
               mainLogoId: values.projectMarketing?.mainLogoId,

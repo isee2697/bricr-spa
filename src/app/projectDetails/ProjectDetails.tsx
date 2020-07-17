@@ -5,23 +5,23 @@ import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
-import { EntityType } from 'app/shared/entityType';
+import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
-import { GeneralContainer } from './sections/general/GeneralContainer';
-import { ServicesContainer } from './sections/services/ServicesContainer';
-import { Prices } from './sections/prices/Prices';
-import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
-import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { ProjectJourneyContainer } from './sections/projectJourney/ProjectJourneyContainer';
+import { GeneralContainer } from './sections/general/GeneralContainer';
+import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
+import { Prices } from './sections/prices/Prices';
+import { ServicesContainer } from './sections/services/ServicesContainer';
+import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
 
   return (
-    <>
+    <EntityTypeProvider entityType={EntityType.Project}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
       <NavBreadcrumb title={'TODO: place here a project name'} urlBase={AppRoute.projectDetails} />
       <Grid container spacing={0}>
@@ -32,6 +32,7 @@ export const ProjectDetails = () => {
           <Box padding={3}>
             <Switch>
               <Route path={`${AppRoute.projectDetails}/dashboard`} render={() => <Dashboard />} />
+              <Route path={`${AppRoute.projectDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
               <Route path={`${AppRoute.projectDetails}/general`} render={() => <GeneralContainer key={id} />} />
               <Route path={`${AppRoute.projectDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
@@ -39,9 +40,7 @@ export const ProjectDetails = () => {
               <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
               <Route
                 path={`${AppRoute.projectDetails}/media`}
-                render={() => (
-                  <MediaContainer isSidebarVisible onOpenSidebar={() => {}} entityType={EntityType.Project} />
-                )}
+                render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} />}
               />
               <Route path={`${AppRoute.projectDetails}/objectTypes`} render={() => <ObjectTypesContainer />} />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
@@ -49,6 +48,6 @@ export const ProjectDetails = () => {
           </Box>
         </Grid>
       </Grid>
-    </>
+    </EntityTypeProvider>
   );
 };

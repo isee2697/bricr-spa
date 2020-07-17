@@ -27,7 +27,11 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
   const { id } = useParams<{ id: string }>();
   const entityType = useEntityType();
 
-  const { loading, data } = useGetPrivateFile(picture.file?.key || '', EntityWithFiles.NcpMediaPicture, picture.id);
+  const { loading, data } = useGetPrivateFile(
+    picture.file?.key || '',
+    entityType === EntityType.Property ? EntityWithFiles.MediaPicture : EntityWithFiles.NcpMediaPicture,
+    picture.id,
+  );
   const customLabels = useCustomLabels(id, [LabelProperty.Picture], entityType);
 
   const [updatePicture] = useUpdatePictureMutation();

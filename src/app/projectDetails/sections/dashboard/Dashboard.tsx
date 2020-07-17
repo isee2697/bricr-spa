@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
+import { Typography } from 'ui/atoms';
 
 export const Dashboard = () => {
   return (
     <>
       <ProjectDetailsHeader />
-      <div>Project details</div>
+      <Typography variant="h1">Dashboard</Typography>
     </>
   );
 };

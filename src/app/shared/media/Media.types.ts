@@ -1,11 +1,6 @@
 import { PimMedia, Sort, NcpMedia } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { SortOption } from 'ui/molecules/list/List.types';
-import { EntityType } from '../entityType';
-
-export type MediaContainerProps = PimDetailsSectionProps & {
-  entityType: EntityType;
-};
 
 export type MediaProps = PimDetailsSectionProps & {
   media: PimMedia | NcpMedia;

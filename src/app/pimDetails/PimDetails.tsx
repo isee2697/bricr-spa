@@ -5,7 +5,7 @@ import { Grid, Alert, Loader, NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
-import { EntityType } from 'app/shared/entityType';
+import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 
 import { useStyles } from './PimDetails.styles';
 import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
@@ -40,7 +40,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
   }
 
   return (
-    <>
+    <EntityTypeProvider entityType={EntityType.Property}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.pim' })} to={AppRoute.pim} />
       <NavBreadcrumb title={title} urlBase={AppRoute.pimDetails} />
       <Grid container spacing={0}>
@@ -123,7 +123,6 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                       isSidebarVisible={isSidebarVisible}
                       onOpenSidebar={handleSidebarOpen}
                       title={title}
-                      entityType={EntityType.Property}
                     />
                   )}
                 />
@@ -133,6 +132,6 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </EntityTypeProvider>
   );
 };

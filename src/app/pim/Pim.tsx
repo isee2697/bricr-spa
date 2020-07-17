@@ -48,7 +48,7 @@ export const Pim = ({
                   <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   <List
                     className="pim-list"
-                    items={(listData?.listPims.items ?? []) as PimEntity[]}
+                    items={(listData?.listPims?.items ?? []) as PimEntity[]}
                     itemIndex={'id'}
                     renderItem={(pim, checked, checkbox) => (
                       <Box
