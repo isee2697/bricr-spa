@@ -1,9 +1,9 @@
-import { AnyObject } from 'react-final-form';
+import { ObjectTypeGeneral } from 'api/types';
 
 export type AddNewObjectTypeModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
-  onSubmit: (values: AnyObject) => Promise<undefined | { error: boolean }>;
+  onSubmit: (values: ObjectTypeGeneral) => Promise<undefined | { error: boolean }>;
 };
 
 export type AddNewObjectTypeModalContainerProps = Pick<AddNewObjectTypeModalProps, 'isOpened' | 'onClose'>;

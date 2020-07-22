@@ -85,6 +85,7 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   createNcp: NcpGeneral;
+  createObjectType: ObjectTypeGeneral;
   createPim?: Maybe<Pim>;
   deleteUser?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -264,6 +265,10 @@ export type MutationAddViewingMomentArgs = {
 
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
+};
+
+export type MutationCreateObjectTypeArgs = {
+  input: CreateObjectTypeInput;
 };
 
 export type MutationCreatePimArgs = {
@@ -685,6 +690,7 @@ export type Query = {
   getNcpMedia: NcpMedia;
   getNcpPrices: NcpPricesResult;
   getNcpWithSameAddress: NcpSearchResult;
+  getObjectTypeGeneral: ObjectTypeGeneral;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -738,6 +744,10 @@ export type QueryGetNcpPricesArgs = {
 
 export type QueryGetNcpWithSameAddressArgs = {
   input: NcpWithSameAddressInput;
+};
+
+export type QueryGetObjectTypeGeneralArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetPimArgs = {
@@ -1499,6 +1509,20 @@ export type NcpPricing = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeGeneral = LastUpdated & {
+  __typename?: 'ObjectTypeGeneral';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  ncpId: Scalars['ID'];
+};
+
+export type CreateObjectTypeInput = {
+  name: Scalars['String'];
+  ncpId: Scalars['ID'];
 };
 
 export enum CadastreMapType {
@@ -4366,6 +4390,16 @@ export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
   updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
+export type CreateObjectTypeMutationVariables = {
+  input: CreateObjectTypeInput;
+};
+
+export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
+  createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'name' | 'dateUpdated' | 'ncpId'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -5102,6 +5136,17 @@ export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
         > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
       >;
     };
+};
+
+export type GetObjectTypeGeneralQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
+  getObjectTypeGeneral: { __typename?: 'ObjectTypeGeneral' } & Pick<
+    ObjectTypeGeneral,
+    'id' | 'name' | 'dateUpdated' | 'ncpId'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
 };
 
 export type PimCadastreQueryVariables = {
@@ -6550,6 +6595,34 @@ export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<
 export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpInterestsMutation,
   UpdateNcpInterestsMutationVariables
+>;
+export const CreateObjectTypeDocument = gql`
+  mutation CreateObjectType($input: CreateObjectTypeInput!) {
+    createObjectType(input: $input) {
+      name
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      ncpId
+    }
+  }
+`;
+export function useCreateObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>(
+    CreateObjectTypeDocument,
+    baseOptions,
+  );
+}
+export type CreateObjectTypeMutationHookResult = ReturnType<typeof useCreateObjectTypeMutation>;
+export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<CreateObjectTypeMutation>;
+export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateObjectTypeMutation,
+  CreateObjectTypeMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -8121,6 +8194,43 @@ export type NcpPricesInterestsLazyQueryHookResult = ReturnType<typeof useNcpPric
 export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<
   NcpPricesInterestsQuery,
   NcpPricesInterestsQueryVariables
+>;
+export const GetObjectTypeGeneralDocument = gql`
+  query GetObjectTypeGeneral($id: ID!) {
+    getObjectTypeGeneral(id: $id) {
+      id
+      name
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      ncpId
+    }
+  }
+`;
+export function useGetObjectTypeGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(
+    GetObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(
+    GetObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeGeneralQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralQuery>;
+export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralLazyQuery>;
+export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeGeneralQuery,
+  GetObjectTypeGeneralQueryVariables
 >;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {

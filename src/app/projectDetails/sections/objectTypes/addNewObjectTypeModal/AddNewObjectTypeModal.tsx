@@ -22,7 +22,7 @@ export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit }: AddNewObj
       title={formatMessage({ id: 'project_details.object_types.new_type_title' })}
       className={classes.root}
     >
-      <Form onSubmit={onSubmit} initialValuesEqual={() => true}>
+      <Form onSubmit={onSubmit}>
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
