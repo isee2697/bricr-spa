@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { PhaseItem } from '../phaseItem/PhaseItem';
-import { ProjectPhase } from 'api/types';
 import { EmptyBox } from '../emptyBox/EmptyBox';
 import { PhaseModalContainer } from '../phaseModal/PhaseModalContainer';
 
-export const Phase = ({ phase }: { phase?: ProjectPhase | null }) => {
+import { PhaseForm } from './Forms.types';
+
+export const Phase = ({ phase, isInitEditing, isInitExpanded }: PhaseForm) => {
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
 
@@ -17,7 +18,8 @@ export const Phase = ({ phase }: { phase?: ProjectPhase | null }) => {
         title={formatMessage({ id: 'project_details.characteristics.phase.title' })}
         isEditable={!!phase}
         isExpandable
-        isInitExpanded={false}
+        isInitExpanded={isInitExpanded}
+        isInitEditing={isInitEditing}
       >
         {inEditMode => {
           if (!phase) {

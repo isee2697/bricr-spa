@@ -30,20 +30,43 @@ export const Characteristics = ({
 }: CharacteristicsProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
+  const [newlyAddedCards, setNewlyAddedCards] = useState<NcpCharacteristicsSections[]>([]);
 
+  const onModalClose = (sections?: NcpCharacteristicsSections[]) => {
+    if (sections) {
+      setNewlyAddedCards(sections);
+    }
+
+    setModalOpened(false);
+  };
+
+  const setPropsForType = (type: NcpCharacteristicsSections) => {
+    if (newlyAddedCards.includes(type)) {
+      return {
+        isInitEditing: true,
+        isInitExpanded: true,
+      };
+    }
+
+    return {
+      isInitEditing: false,
+      isInitExpanded: false,
+    };
+  };
   const getFormByType = (type: NcpCharacteristicsSections) => {
+    const props = setPropsForType(type);
     const sections = {
-      [NcpCharacteristicsSections.ProjectMarketing]: <ProjectMarketing />,
-      [NcpCharacteristicsSections.Measurements]: <Measurements />,
-      [NcpCharacteristicsSections.Energy]: <EnergyForm namePrefix="energy" />,
-      [NcpCharacteristicsSections.Phase]: <Phase phase={projectPhase} />,
-      [NcpCharacteristicsSections.AccountManagers]: <AccountManagers />,
-      [NcpCharacteristicsSections.ClientInformation]: <ClientInformation />,
+      [NcpCharacteristicsSections.ProjectMarketing]: <ProjectMarketing {...props} />,
+      [NcpCharacteristicsSections.Measurements]: <Measurements {...props} />,
+      [NcpCharacteristicsSections.Energy]: <EnergyForm namePrefix="energy" {...props} />,
+      [NcpCharacteristicsSections.Phase]: <Phase phase={projectPhase} {...props} />,
+      [NcpCharacteristicsSections.AccountManagers]: <AccountManagers {...props} />,
+      [NcpCharacteristicsSections.ClientInformation]: <ClientInformation {...props} />,
       [NcpCharacteristicsSections.IdentificationNumber]: (
-        <IdentificationNumberFormContainer items={identificationNumbers} />
+        <IdentificationNumberFormContainer items={identificationNumbers} {...props} />
       ),
-      [NcpCharacteristicsSections.AttentionField]: <Attention />,
-      [NcpCharacteristicsSections.InvoiceDetails]: <InvoiceDetails />,
+      [NcpCharacteristicsSections.AttentionField]: <Attention {...props} />,
+      [NcpCharacteristicsSections.InvoiceDetails]: <InvoiceDetails {...props} />,
     };
 
     return sections[type];
@@ -100,7 +123,7 @@ export const Characteristics = ({
       {isModalOpened && (
         <AdditionalInformationModalContainer
           isOpened={isModalOpened}
-          onClose={() => setModalOpened(false)}
+          onClose={onModalClose}
           sections={characteristicsSections}
         />
       )}

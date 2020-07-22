@@ -4,7 +4,9 @@ import { GenericField } from 'form/fields';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-export const Attention = () => {
+import { FormProps } from './Forms.types';
+
+export const Attention = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -12,7 +14,8 @@ export const Attention = () => {
       title={formatMessage({ id: 'project_details.characteristics.attention.title' })}
       isEditable
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <GenericField

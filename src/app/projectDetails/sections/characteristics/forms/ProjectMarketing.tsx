@@ -9,7 +9,9 @@ import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { emailValidator, urlValidator } from 'form/validators';
 
-export const ProjectMarketing = () => {
+import { FormProps } from './Forms.types';
+
+export const ProjectMarketing = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
 
@@ -18,7 +20,8 @@ export const ProjectMarketing = () => {
       title={formatMessage({ id: 'project_details.characteristics.project_marketing.title' })}
       isEditable
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <>

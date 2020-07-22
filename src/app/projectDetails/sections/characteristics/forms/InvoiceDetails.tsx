@@ -5,7 +5,9 @@ import { Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale, useCountries } from 'hooks';
 
-export const InvoiceDetails = () => {
+import { FormProps } from './Forms.types';
+
+export const InvoiceDetails = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { countryOptions } = useCountries();
   const { formatMessage } = useLocale();
 
@@ -14,7 +16,8 @@ export const InvoiceDetails = () => {
       title={formatMessage({ id: 'project_details.characteristics.invoice.title' })}
       isEditable
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <>

@@ -5,6 +5,8 @@ import { useLocale } from 'hooks';
 import { Grid } from 'ui/atoms';
 import { AccountManager } from '../accountManager/AccountManager';
 
+import { FormProps } from './Forms.types';
+
 const ACCOUNT_MANAGER = {
   name: 'Victor Martin Brochner',
   office: ['Vestiging Weert', 'Hendriks Makelaardij'],
@@ -15,7 +17,7 @@ const ACCOUNT_MANAGER = {
   },
 };
 
-export const AccountManagers = () => {
+export const AccountManagers = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -24,7 +26,8 @@ export const AccountManagers = () => {
       isEditable
       isExpandable
       onAdd={() => {}}
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <Grid container spacing={2}>

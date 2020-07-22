@@ -38,7 +38,7 @@ export const AdditionalInformationModalContainer = ({
         throw new Error();
       }
 
-      onClose();
+      onClose(values.sections.filter(section => !sections.includes(section)));
 
       return undefined;
     } catch (e) {

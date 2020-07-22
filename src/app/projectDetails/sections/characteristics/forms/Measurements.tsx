@@ -7,7 +7,9 @@ import { useLocale } from 'hooks';
 import { SquareMeterIcon } from 'ui/atoms/icons';
 import { minValueValidator } from 'form/validators';
 
-export const Measurements = () => {
+import { FormProps } from './Forms.types';
+
+export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
 
   const fromToRow = (name: string, disabled: boolean) => (
@@ -51,7 +53,8 @@ export const Measurements = () => {
       title={formatMessage({ id: 'project_details.characteristics.measurements.title' })}
       isEditable
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <AutoCalculateForm

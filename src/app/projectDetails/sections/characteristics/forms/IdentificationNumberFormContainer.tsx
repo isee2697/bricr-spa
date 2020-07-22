@@ -9,7 +9,13 @@ import {
 } from 'api/types';
 import { IdentificationNumberForm } from 'app/shared/identificationNumber/IdentificationNumberForm';
 
-export const IdentificationNumberFormContainer = ({ items }: { items: IdentificationNumber[] }) => {
+import { IdentificationNumbersForm } from './Forms.types';
+
+export const IdentificationNumberFormContainer = ({
+  items,
+  isInitEditing,
+  isInitExpanded,
+}: IdentificationNumbersForm) => {
   const { id } = useParams<{ id: string }>();
   const [addIdentificationNumber] = useAddIdentificationNumberNcpMutation();
   const [updateIdentificationNumber] = useUpdateIdentificationNumberNcpMutation();
@@ -67,5 +73,13 @@ export const IdentificationNumberFormContainer = ({ items }: { items: Identifica
     }
   };
 
-  return <IdentificationNumberForm items={items} onAdd={handleAdd} onSave={handleSave} />;
+  return (
+    <IdentificationNumberForm
+      items={items}
+      onAdd={handleAdd}
+      onSave={handleSave}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
+    />
+  );
 };

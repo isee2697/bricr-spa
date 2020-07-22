@@ -4,7 +4,9 @@ import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { EmptyBox } from '../emptyBox/EmptyBox';
 
-export const ClientInformation = () => {
+import { FormProps } from './Forms.types';
+
+export const ClientInformation = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -12,7 +14,8 @@ export const ClientInformation = () => {
       title={formatMessage({ id: 'project_details.characteristics.client_information.title' })}
       isEditable
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
     >
       {inEditMode => (
         <EmptyBox

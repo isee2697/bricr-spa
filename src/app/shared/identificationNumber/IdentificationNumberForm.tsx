@@ -17,7 +17,13 @@ const identificationNumberTypes = Object.keys(IdentificationNumberType).map(type
   value: type,
 }));
 
-export const IdentificationNumberForm = ({ items, onAdd, onSave }: IdentificationNumberFormProps) => {
+export const IdentificationNumberForm = ({
+  items,
+  onAdd,
+  onSave,
+  isInitExpanded = false,
+  isInitEditing = false,
+}: IdentificationNumberFormProps) => {
   const { formatMessage } = useLocale();
 
   const [toggled, setToggled] = useState<string | undefined>();
@@ -39,7 +45,8 @@ export const IdentificationNumberForm = ({ items, onAdd, onSave }: Identificatio
       titleBadge={items.length || undefined}
       onAdd={handleAdd}
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={isInitExpanded}
+      isInitEditing={isInitEditing}
       isEditable={!!items.length}
       ref={formRef}
     >

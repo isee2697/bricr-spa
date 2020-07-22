@@ -6,7 +6,7 @@ export type AdditionalInformationVisibility = {
 
 export type AdditionalInformationModalContainerProps = {
   isOpened: boolean;
-  onClose: VoidFunction;
+  onClose: (sections?: NcpCharacteristicsSections[]) => void;
   sections: NcpCharacteristicsSections[];
 };
 

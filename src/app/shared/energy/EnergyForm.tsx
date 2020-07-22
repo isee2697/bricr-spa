@@ -21,7 +21,12 @@ export const energyType = Object.keys(EnergyCharasteristicType).map(value => ({
   value,
 }));
 
-export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: EnergyFormProps) => {
+export const EnergyForm = ({
+  namePrefix,
+  classNames,
+  isInitExpanded = false,
+  isInitEditing = false,
+}: EnergyFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -30,6 +35,7 @@ export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: E
         title={formatMessage({ id: 'pim_details.specification.energy.title' })}
         isExpandable
         isInitExpanded={isInitExpanded}
+        isInitEditing={isInitEditing}
       >
         {editing => (
           <>
