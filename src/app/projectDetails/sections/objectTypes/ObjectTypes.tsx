@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { Alert, Box, Grid, Button } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { useLocale, useModalDispatch } from 'hooks';
+import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { FormSection } from 'ui/organisms';
-import { PropertyCategory } from 'app/pim/addPimModal/AddPimModal.types';
 import { AddIcon } from 'ui/atoms/icons';
 import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
@@ -14,6 +13,7 @@ import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 import { useStyles } from './ObjectTypes.styles';
 import { ObjectTypeData, ObjectTypesProps } from './ObjectTypes.types';
 import { ObjectItem } from './objectItem/ObjectItem';
+import { AddNewObjectTypeModalContainer } from './addNewObjectTypeModal/AddNewObjectTypeModalContainer';
 export const ObjectTypes = ({
   sorting,
   isError,
@@ -26,7 +26,7 @@ export const ObjectTypes = ({
 }: ObjectTypesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { open } = useModalDispatch();
+  const [isModalOpened, setModalOpened] = useState(false);
 
   return (
     <div className={classes.root}>
@@ -36,7 +36,7 @@ export const ObjectTypes = ({
           <Button
             color="primary"
             variant="contained"
-            onClick={() => open('add-new-pim', { propertyCategory: PropertyCategory.COMPLEX })}
+            onClick={() => setModalOpened(true)}
             startIcon={<AddIcon color="inherit" />}
             size="small"
           >
@@ -85,6 +85,9 @@ export const ObjectTypes = ({
             />
           </FormSection>
         </Grid>
+        {isModalOpened && (
+          <AddNewObjectTypeModalContainer isOpened={isModalOpened} onClose={() => setModalOpened(false)} />
+        )}
       </Page>
     </div>
   );
