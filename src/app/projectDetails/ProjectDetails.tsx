@@ -6,10 +6,10 @@ import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
+import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
-import { ProjectJourneyContainer } from './sections/projectJourney/ProjectJourneyContainer';
 import { GeneralContainer } from './sections/general/GeneralContainer';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { Prices } from './sections/prices/Prices';

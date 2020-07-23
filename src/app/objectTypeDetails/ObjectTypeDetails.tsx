@@ -5,6 +5,7 @@ import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Dashboard } from 'app/objectTypeDetails/sections/dashboard/Dashboard';
+import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
 
@@ -28,6 +29,7 @@ export const ObjectTypeDetails = () => {
           <Box padding={3}>
             <Switch>
               <Route path={`${AppRoute.objectTypeDetails}/dashboard`} render={() => <Dashboard />} />
+              <Route path={`${AppRoute.objectTypeDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
               <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
             </Switch>
           </Box>
