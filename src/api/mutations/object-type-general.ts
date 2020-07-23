@@ -11,6 +11,7 @@ export const CREATE_OBJECT_TYPE = gql`
         lastName
       }
       ncpId
+      id
     }
   }
 `;

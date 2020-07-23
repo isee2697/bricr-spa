@@ -5,12 +5,15 @@ import {
   LabelProperty,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   TagType,
   UpdateTagInput,
   useAddTagMutation,
   useAddNcpTagMutation,
+  useAddObjectTypeTagMutation,
   useUpdateTagMutation,
   useUpdateNcpTagMutation,
+  useUpdateObjectTypeTagMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { TagsContainerProps } from 'app/shared/media/tags/Tags.types';
@@ -34,8 +37,10 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
 
   const [addTag] = useAddTagMutation();
   const [addNcpTag] = useAddNcpTagMutation();
+  const [addObjectTypeTag] = useAddObjectTypeTagMutation();
   const [editTag] = useUpdateTagMutation();
   const [editNcpTag] = useUpdateNcpTagMutation();
+  const [editObjectTypeTag] = useUpdateObjectTypeTagMutation();
 
   const handleAdd = async () => {
     try {
@@ -73,6 +78,26 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         });
 
         const tags = data?.addNcpTag?.tags;
+
+        if (tags?.length) {
+          setNewTagId(tags[tags.length - 1].id);
+        }
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeTag({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const tags = data?.addObjectTypeTag?.tags;
 
         if (tags?.length) {
           setNewTagId(tags[tags.length - 1].id);
@@ -121,6 +146,23 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeTag({
+          variables: {
+            input: {
+              ...values,
+              parentId: id,
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

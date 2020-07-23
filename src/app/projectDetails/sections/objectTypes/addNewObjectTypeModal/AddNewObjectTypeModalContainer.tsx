@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { ObjectTypeGeneral, useCreateObjectTypeMutation } from 'api/types';
@@ -11,10 +11,11 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
   const [createObjectType] = useCreateObjectTypeMutation();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
+  const [isError, setError] = useState(false);
 
   const handleSubmit = async (values: ObjectTypeGeneral) => {
     try {
-      await createObjectType({
+      const { data } = await createObjectType({
         variables: {
           input: {
             ncpId: id,
@@ -22,14 +23,16 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
           },
         },
       });
-      await onClose();
-      push(AppRoute.objectTypeDetails.replace(':projectId', id).replace(':id', values.name));
+      (await data) && onClose();
+      (await data) && data
+        ? push(AppRoute.objectTypeDetails.replace(':projectId', id).replace(':id', data?.createObjectType?.id))
+        : setError(true);
 
-      return undefined;
+      return data ? undefined : { error: true };
     } catch (e) {
       return { error: true };
     }
   };
 
-  return <AddNewObjectTypeModal isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} />;
+  return <AddNewObjectTypeModal isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} isError={isError} />;
 };

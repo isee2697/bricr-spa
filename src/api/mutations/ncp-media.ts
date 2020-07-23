@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const UPDATE_NCP_MEDIA_DESCRIPTION = gql`
-  mutation UpdateNcpMediaDescription($input: UpdateNcpMediaDescriptionInput!) {
+  mutation UpdateNcpMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
     updateNcpMediaDescription(input: $input) {
       id
     }
@@ -9,7 +9,7 @@ export const UPDATE_NCP_MEDIA_DESCRIPTION = gql`
 `;
 
 export const ADD_NCP_PICTURE = gql`
-  mutation AddNcpPictures($input: AddNcpPicturesInput!) {
+  mutation AddNcpPictures($input: CommonAddPicturesInput!) {
     addNcpPictures(input: $input) {
       id
     }
@@ -17,7 +17,7 @@ export const ADD_NCP_PICTURE = gql`
 `;
 
 export const UPDATE_NCP_PICTURE = gql`
-  mutation UpdateNcpPicture($input: UpdateNcpPictureInput!) {
+  mutation UpdateNcpPicture($input: CommonUpdatePictureInput!) {
     updateNcpPicture(input: $input) {
       id
     }
@@ -25,7 +25,7 @@ export const UPDATE_NCP_PICTURE = gql`
 `;
 
 export const ADD_NCP_MEDIA_LINK = gql`
-  mutation AddNcpMediaLink($input: AddNcpMediaLinkInput!) {
+  mutation AddNcpMediaLink($input: CommonAddMediaLinkInput!) {
     addNcpMediaLink(input: $input) {
       id
       mediaLinks {
@@ -36,7 +36,7 @@ export const ADD_NCP_MEDIA_LINK = gql`
 `;
 
 export const UPDATE_NCP_MEDIA_LINK = gql`
-  mutation UpdateNcpMediaLink($input: UpdateNcpMediaLinkInput!) {
+  mutation UpdateNcpMediaLink($input: CommonUpdateMediaLinkInput!) {
     updateNcpMediaLink(input: $input) {
       id
     }
@@ -44,7 +44,7 @@ export const UPDATE_NCP_MEDIA_LINK = gql`
 `;
 
 export const ADD_NCP_TEXT_CHAPTER = gql`
-  mutation AddNcpTextChapter($input: AddNcpTextChapterInput!) {
+  mutation AddNcpTextChapter($input: CommonAddTextChapterInput!) {
     addNcpTextChapter(input: $input) {
       id
       textChapters {
@@ -55,7 +55,7 @@ export const ADD_NCP_TEXT_CHAPTER = gql`
 `;
 
 export const UPDATE_NCP_TEXT_CHAPTER = gql`
-  mutation UpdateNcpTextChapter($input: UpdateNcpTextChapterInput!) {
+  mutation UpdateNcpTextChapter($input: CommonUpdateTextChapterInput!) {
     updateNcpTextChapter(input: $input) {
       id
     }
@@ -63,7 +63,7 @@ export const UPDATE_NCP_TEXT_CHAPTER = gql`
 `;
 
 export const ADD_NCP_USP = gql`
-  mutation AddNcpUsps($input: AddNcpUspsInput!) {
+  mutation AddNcpUsps($input: CommonAddUspsInput!) {
     addNcpUsps(input: $input) {
       id
       usps {
@@ -74,7 +74,7 @@ export const ADD_NCP_USP = gql`
 `;
 
 export const UPDATE_NCP_USP = gql`
-  mutation UpdateNcpUsps($input: UpdateNcpUspsInput!) {
+  mutation UpdateNcpUsps($input: CommonUpdateUspsInput!) {
     updateNcpUsps(input: $input) {
       id
     }
@@ -82,7 +82,7 @@ export const UPDATE_NCP_USP = gql`
 `;
 
 export const ADD_NCP_TAG = gql`
-  mutation AddNcpTag($input: AddNcpTagInput!) {
+  mutation AddNcpTag($input: CommonAddTagInput!) {
     addNcpTag(input: $input) {
       id
       tags {
@@ -93,7 +93,7 @@ export const ADD_NCP_TAG = gql`
 `;
 
 export const UPDATE_NCP_TAG = gql`
-  mutation UpdateNcpTag($input: UpdateNcpTagInput!) {
+  mutation UpdateNcpTag($input: CommonUpdateTagInput!) {
     updateNcpTag(input: $input) {
       id
     }

@@ -5,7 +5,9 @@ import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Dashboard } from 'app/objectTypeDetails/sections/dashboard/Dashboard';
-import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
+import { MediaContainer } from 'app/shared/media/MediaContainer';
+import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
+import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourneyContainer';
 
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
 
@@ -18,23 +20,32 @@ export const ObjectTypeDetails = () => {
 
   return (
     <>
-      <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
-      <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
-      <Grid container spacing={0}>
-        <Grid item xs={12} md={3} lg={2}>
-          <ObjectTypeDetailsSidebarMenu />
+      <EntityTypeProvider entityType={EntityType.ObjectType}>
+        <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
+        <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
+        <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
+        <Grid container spacing={0}>
+          <Grid item xs={12} md={3} lg={2}>
+            <ObjectTypeDetailsSidebarMenu />
+          </Grid>
+          <Grid item xs={12} md={9} lg={10}>
+            <Box padding={3}>
+              <Switch>
+                <Route path={`${AppRoute.objectTypeDetails}/dashboard`} render={() => <Dashboard />} />
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/media`}
+                  render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} />}
+                />
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/projectJourney`}
+                  render={() => <ProjectJourneyContainer />}
+                />
+                <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
+              </Switch>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={9} lg={10}>
-          <Box padding={3}>
-            <Switch>
-              <Route path={`${AppRoute.objectTypeDetails}/dashboard`} render={() => <Dashboard />} />
-              <Route path={`${AppRoute.objectTypeDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
-              <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
-            </Switch>
-          </Box>
-        </Grid>
-      </Grid>
+      </EntityTypeProvider>
     </>
   );
 };

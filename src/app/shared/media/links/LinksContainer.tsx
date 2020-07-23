@@ -7,12 +7,15 @@ import {
   MediaLinkType,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   UpdateMediaLinkInput,
   UpdateNcpMediaLinkInput,
   useAddMediaLinkMutation,
   useAddNcpMediaLinkMutation,
+  useAddObjectTypeMediaLinkMutation,
   useUpdateMediaLinkMutation,
   useUpdateNcpMediaLinkMutation,
+  useUpdateObjectTypeMediaLinkMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
@@ -35,8 +38,10 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
 
   const [addMediaLink] = useAddMediaLinkMutation();
   const [addNcpMediaLink] = useAddNcpMediaLinkMutation();
+  const [addObjectTypeMediaLink] = useAddObjectTypeMediaLinkMutation();
   const [editMediaLink] = useUpdateMediaLinkMutation();
   const [editNcpMediaLink] = useUpdateNcpMediaLinkMutation();
+  const [editObjectTypeMediaLink] = useUpdateObjectTypeMediaLinkMutation();
 
   const handleAdd = async () => {
     try {
@@ -80,6 +85,26 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         }
       }
 
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeMediaLink({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const links = data?.addObjectTypeMediaLink?.mediaLinks;
+
+        if (links?.length) {
+          setNewLinkId(links[links.length - 1].id);
+        }
+      }
+
       return undefined;
     } catch (error) {
       return {
@@ -116,6 +141,20 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeMediaLink({
+          variables: {
+            input: { ...values, parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

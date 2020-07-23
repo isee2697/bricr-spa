@@ -1,72 +1,84 @@
 enum PictureType {
-  General
-  Inside
-  Outside
-  LivingRoom
-  Kitchen
-  Bathroom
-  Garden
-  Garage
-  Terrain
-  Surroundings
+  General,
+  Inside,
+  Outside,
+  LivingRoom,
+  Kitchen,
+  Bathroom,
+  Garden,
+  Garage,
+  Terrain,
+  Surroundings,
   Attic
 }
 
 enum MediaLinkType {
-  YouTube
-  ThreeSixtyDegree
-  Floorplanner
+  YouTube,
+  ThreeSixtyDegree,
+  Floorplanner,
   FacebookTrackingCode
 }
 
 enum ChapterOrUspType {
-  Garden
-  Garage
-  Storage
-  Terrain
-  ParkingLot
-  Kitchen
-  Bathroom
-  LivingRoom
-  Bedroom
-  HomeOffice
-  Attic
-  Floor
-  Basement
+  Garden,
+  Garage,
+  Storage,
+  Terrain,
+  ParkingLot,
+  Kitchen,
+  Bathroom,
+  LivingRoom,
+  Bedroom,
+  HomeOffice,
+  Attic,
+  Floor,
+  Basement,
   GroundFloor
 }
 
 enum TagType {
-  Remote
-  DogLover
-  Seniors
-  Architecture
-  n1930s
-  Sports
-  SpecialLiving
-  ReadyToUse
-  Gardening
-  NeighbourhoodAssociation
-  ChildFriendly
-  View
-  CentralLocation
-  Safe
-  Culture
-  LuxuriousFinisch
-  ClubLife
-  DIY
-  MotorOwner
-  Water
-  Edological
-  Relaxation
-  Wellness
-  HobbyAnimals
-  HorseLover
-  WorkAtHome
-  Courtyard
-  NationWide
-  Quit
-  Shopping
+  Remote,
+  DogLover,
+  Seniors,
+  Architecture,
+  n1930s,
+  Sports,
+  SpecialLiving,
+  ReadyToUse,
+  Gardening,
+  NeighbourhoodAssociation,
+  ChildFriendly,
+  View,
+  CentralLocation,
+  Safe,
+  Culture,
+  LuxuriousFinisch,
+  ClubLife,
+  DIY,
+  MotorOwner,
+  Water,
+  Edological,
+  Relaxation,
+  Wellness,
+  HobbyAnimals,
+  HorseLover,
+  WorkAtHome,
+  Courtyard,
+  NationWide,
+  Quit,
+  Shopping,
+}
+
+type CommonMedia implements LastUpdated {
+  id: String!
+  pictures(sort: Sort): [Picture!]
+  mediaLinks: [MediaLink!]
+  textChapters: [TextChapter!]
+  usps: [Usp!]
+  tags: [Tag!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  mediaDescription: String
 }
 
 type Picture implements LastUpdated {
@@ -109,4 +121,86 @@ type Tag {
   type: String @uuidOrEnum(enum: ["TagType"])
   description: String
   dateCreated: Date
+}
+
+input CommonNewPictureInput {
+  fileID: String!
+}
+
+input CommonAddPicturesInput {
+  parentId: String!
+  pictures: [NewPictureInput!]!
+}
+
+input CommonAddTextChapterInput {
+  parentId: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+}
+
+input CommonUpdateTextChapterInput {
+  parentId: String!
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+}
+
+input CommonAddUspsInput {
+  parentId: String!
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String
+}
+
+input CommonUpdateUspsInput {
+  parentId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String,
+  name: String
+}
+
+input CommonAddMediaLinkInput {
+  parentId: String!
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+  name: String
+}
+
+input CommonUpdateMediaLinkInput {
+  parentId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+  name: String
+}
+
+input CommonAddTagInput {
+  parentId: String!
+  type: String @uuidOrEnum(enum: ["TagType"])
+  description: String
+  name: String
+}
+
+input CommonUpdateTagInput {
+  parentId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["TagType"])
+  description: String
+  name: String
+}
+
+input CommonUpdatePictureInput {
+  parentId: String!
+  id: String!
+  type: String @uuidOrEnum(enum: ["PictureType"])
+  name: String
+  description: String
+  fileId: String
+}
+
+input CommonUpdateMediaDescriptionInput {
+  id: String!
+  description: String
 }

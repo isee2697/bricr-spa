@@ -13,6 +13,8 @@ const getQuery = (entityType: EntityType) => {
       return useGetLabelsQuery;
     case EntityType.Project:
       return useGetNcpLabelsQuery;
+    case EntityType.ObjectType:
+      return useGetNcpLabelsQuery;
     default:
       throw new Error('There is no such EnitityType');
   }

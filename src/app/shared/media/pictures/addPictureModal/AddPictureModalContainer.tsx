@@ -6,8 +6,10 @@ import { AddMapModalProps } from 'app/shared/media/pictures/addPictureModal/AddP
 import {
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   useAddPicturesMutation,
   useAddNcpPicturesMutation,
+  useAddObjectTypePicturesMutation,
   useInitSendFileMutation,
   useUploadFileMutation,
 } from 'api/types';
@@ -20,6 +22,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
   const [initUpload, { loading: initLoading }] = useInitSendFileMutation();
   const [uploadFile, { loading: uploadLoading }] = useUploadFileMutation();
   const [addPicture, { loading: pictureLoading }] = useAddPicturesMutation();
+  const [addObjectTypePicture, { loading: objectTypePictureLoading }] = useAddObjectTypePicturesMutation();
   const [addNcpPicture, { loading: ncpPictureLoading }] = useAddNcpPicturesMutation();
 
   const getFileId = async (file: globalThis.File) => {
@@ -92,6 +95,23 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
         });
       }
 
+      if (entityType === EntityType.ObjectType) {
+        await addObjectTypePicture({
+          variables: {
+            input: {
+              parentId: id,
+              pictures,
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id, picturesSort: sortQuery },
+            },
+          ],
+        });
+      }
+
       onClose();
     } catch (error) {}
   };
@@ -99,7 +119,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
   return (
     <UploadModal
       onUpload={handleSave}
-      isSubmitting={initLoading || uploadLoading || pictureLoading || ncpPictureLoading}
+      isSubmitting={initLoading || uploadLoading || pictureLoading || ncpPictureLoading || objectTypePictureLoading}
       isOpened={isOpened}
       onClose={onClose}
     />

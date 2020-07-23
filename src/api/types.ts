@@ -74,6 +74,11 @@ export type Mutation = {
   addNcpTag?: Maybe<NcpMedia>;
   addNcpTextChapter?: Maybe<NcpMedia>;
   addNcpUsps?: Maybe<NcpMedia>;
+  addObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
+  addObjectTypePictures?: Maybe<ObjectTypeMedia>;
+  addObjectTypeTag?: Maybe<ObjectTypeMedia>;
+  addObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
+  addObjectTypeUsps?: Maybe<ObjectTypeMedia>;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
   addProjectPhase: ProjectPhase;
@@ -128,6 +133,12 @@ export type Mutation = {
   updateNcpTag?: Maybe<NcpMedia>;
   updateNcpTextChapter?: Maybe<NcpMedia>;
   updateNcpUsps?: Maybe<NcpMedia>;
+  updateObjectTypeMediaDescription?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
+  updateObjectTypePicture?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeTag?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
+  updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
@@ -204,23 +215,43 @@ export type MutationAddNcpLabelArgs = {
 };
 
 export type MutationAddNcpMediaLinkArgs = {
-  input: AddNcpMediaLinkInput;
+  input: CommonAddMediaLinkInput;
 };
 
 export type MutationAddNcpPicturesArgs = {
-  input: AddNcpPicturesInput;
+  input: CommonAddPicturesInput;
 };
 
 export type MutationAddNcpTagArgs = {
-  input: AddNcpTagInput;
+  input: CommonAddTagInput;
 };
 
 export type MutationAddNcpTextChapterArgs = {
-  input: AddNcpTextChapterInput;
+  input: CommonAddTextChapterInput;
 };
 
 export type MutationAddNcpUspsArgs = {
-  input: AddNcpUspsInput;
+  input: CommonAddUspsInput;
+};
+
+export type MutationAddObjectTypeMediaLinkArgs = {
+  input: CommonAddMediaLinkInput;
+};
+
+export type MutationAddObjectTypePicturesArgs = {
+  input: CommonAddPicturesInput;
+};
+
+export type MutationAddObjectTypeTagArgs = {
+  input: CommonAddTagInput;
+};
+
+export type MutationAddObjectTypeTextChapterArgs = {
+  input: CommonAddTextChapterInput;
+};
+
+export type MutationAddObjectTypeUspsArgs = {
+  input: CommonAddUspsInput;
 };
 
 export type MutationAddOutsideFeatureArgs = {
@@ -413,15 +444,15 @@ export type MutationUpdateNcpInterestsArgs = {
 };
 
 export type MutationUpdateNcpMediaDescriptionArgs = {
-  input: UpdateNcpMediaDescriptionInput;
+  input: CommonUpdateMediaDescriptionInput;
 };
 
 export type MutationUpdateNcpMediaLinkArgs = {
-  input: UpdateNcpMediaLinkInput;
+  input: CommonUpdateMediaLinkInput;
 };
 
 export type MutationUpdateNcpPictureArgs = {
-  input: UpdateNcpPictureInput;
+  input: CommonUpdatePictureInput;
 };
 
 export type MutationUpdateNcpPricingArgs = {
@@ -429,15 +460,39 @@ export type MutationUpdateNcpPricingArgs = {
 };
 
 export type MutationUpdateNcpTagArgs = {
-  input: UpdateNcpTagInput;
+  input: CommonUpdateTagInput;
 };
 
 export type MutationUpdateNcpTextChapterArgs = {
-  input: UpdateNcpTextChapterInput;
+  input: CommonUpdateTextChapterInput;
 };
 
 export type MutationUpdateNcpUspsArgs = {
-  input: UpdateNcpUspsInput;
+  input: CommonUpdateUspsInput;
+};
+
+export type MutationUpdateObjectTypeMediaDescriptionArgs = {
+  input: CommonUpdateMediaDescriptionInput;
+};
+
+export type MutationUpdateObjectTypeMediaLinkArgs = {
+  input: CommonUpdateMediaLinkInput;
+};
+
+export type MutationUpdateObjectTypePictureArgs = {
+  input: CommonUpdatePictureInput;
+};
+
+export type MutationUpdateObjectTypeTagArgs = {
+  input: CommonUpdateTagInput;
+};
+
+export type MutationUpdateObjectTypeTextChapterArgs = {
+  input: CommonUpdateTextChapterInput;
+};
+
+export type MutationUpdateObjectTypeUspsArgs = {
+  input: CommonUpdateUspsInput;
 };
 
 export type MutationUpdateOutsideFeatureArgs = {
@@ -536,6 +591,7 @@ export enum FilePermission {
 export enum EntityWithFiles {
   Pim = 'Pim',
   Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
   Space = 'Space',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
@@ -545,12 +601,14 @@ export enum EntityWithFiles {
   MediaPicture = 'MediaPicture',
   NcpMediaPicture = 'NcpMediaPicture',
   ProjectMarketing = 'ProjectMarketing',
+  ObjectTypeMediaPicture = 'ObjectTypeMediaPicture',
   ProjectPhase = 'ProjectPhase',
 }
 
 export enum EntityWithMultipleFiles {
   Pim = 'Pim',
   Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
   Space = 'Space',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
@@ -691,6 +749,7 @@ export type Query = {
   getNcpPrices: NcpPricesResult;
   getNcpWithSameAddress: NcpSearchResult;
   getObjectTypeGeneral: ObjectTypeGeneral;
+  getObjectTypeMedia: ObjectTypeMedia;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -747,6 +806,10 @@ export type QueryGetNcpWithSameAddressArgs = {
 };
 
 export type QueryGetObjectTypeGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeMediaArgs = {
   id: Scalars['ID'];
 };
 
@@ -938,6 +1001,23 @@ export enum TagType {
   Shopping = 'Shopping',
 }
 
+export type CommonMedia = LastUpdated & {
+  __typename?: 'CommonMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  mediaDescription?: Maybe<Scalars['String']>;
+};
+
+export type CommonMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
+};
+
 export type Picture = LastUpdated & {
   __typename?: 'Picture';
   id: Scalars['String'];
@@ -983,6 +1063,88 @@ export type Tag = {
   type?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type CommonNewPictureInput = {
+  fileID: Scalars['String'];
+};
+
+export type CommonAddPicturesInput = {
+  parentId: Scalars['String'];
+  pictures: Array<NewPictureInput>;
+};
+
+export type CommonAddTextChapterInput = {
+  parentId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateTextChapterInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type CommonAddUspsInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateUspsInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonAddMediaLinkInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateMediaLinkInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonAddTagInput = {
+  parentId: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateTagInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdatePictureInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  fileId?: Maybe<Scalars['String']>;
+};
+
+export type CommonUpdateMediaDescriptionInput = {
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
 };
 
 export enum NcpCharacteristicsSections {
@@ -1523,6 +1685,23 @@ export type ObjectTypeGeneral = LastUpdated & {
 export type CreateObjectTypeInput = {
   name: Scalars['String'];
   ncpId: Scalars['ID'];
+};
+
+export type ObjectTypeMedia = {
+  __typename?: 'ObjectTypeMedia';
+  id: Scalars['String'];
+  pictures?: Maybe<Array<Picture>>;
+  mediaLinks?: Maybe<Array<MediaLink>>;
+  textChapters?: Maybe<Array<TextChapter>>;
+  usps?: Maybe<Array<Usp>>;
+  tags?: Maybe<Array<Tag>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  mediaDescription?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeMediaPicturesArgs = {
+  sort?: Maybe<Sort>;
 };
 
 export enum CadastreMapType {
@@ -4239,7 +4418,7 @@ export type AddNcpLabelMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpMediaDescriptionMutationVariables = {
-  input: UpdateNcpMediaDescriptionInput;
+  input: CommonUpdateMediaDescriptionInput;
 };
 
 export type UpdateNcpMediaDescriptionMutation = { __typename?: 'Mutation' } & {
@@ -4247,7 +4426,7 @@ export type UpdateNcpMediaDescriptionMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpPicturesMutationVariables = {
-  input: AddNcpPicturesInput;
+  input: CommonAddPicturesInput;
 };
 
 export type AddNcpPicturesMutation = { __typename?: 'Mutation' } & {
@@ -4255,7 +4434,7 @@ export type AddNcpPicturesMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpPictureMutationVariables = {
-  input: UpdateNcpPictureInput;
+  input: CommonUpdatePictureInput;
 };
 
 export type UpdateNcpPictureMutation = { __typename?: 'Mutation' } & {
@@ -4263,7 +4442,7 @@ export type UpdateNcpPictureMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpMediaLinkMutationVariables = {
-  input: AddNcpMediaLinkInput;
+  input: CommonAddMediaLinkInput;
 };
 
 export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
@@ -4275,7 +4454,7 @@ export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpMediaLinkMutationVariables = {
-  input: UpdateNcpMediaLinkInput;
+  input: CommonUpdateMediaLinkInput;
 };
 
 export type UpdateNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
@@ -4283,7 +4462,7 @@ export type UpdateNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpTextChapterMutationVariables = {
-  input: AddNcpTextChapterInput;
+  input: CommonAddTextChapterInput;
 };
 
 export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
@@ -4295,7 +4474,7 @@ export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpTextChapterMutationVariables = {
-  input: UpdateNcpTextChapterInput;
+  input: CommonUpdateTextChapterInput;
 };
 
 export type UpdateNcpTextChapterMutation = { __typename?: 'Mutation' } & {
@@ -4303,7 +4482,7 @@ export type UpdateNcpTextChapterMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpUspsMutationVariables = {
-  input: AddNcpUspsInput;
+  input: CommonAddUspsInput;
 };
 
 export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
@@ -4315,7 +4494,7 @@ export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpUspsMutationVariables = {
-  input: UpdateNcpUspsInput;
+  input: CommonUpdateUspsInput;
 };
 
 export type UpdateNcpUspsMutation = { __typename?: 'Mutation' } & {
@@ -4323,7 +4502,7 @@ export type UpdateNcpUspsMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpTagMutationVariables = {
-  input: AddNcpTagInput;
+  input: CommonAddTagInput;
 };
 
 export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
@@ -4335,7 +4514,7 @@ export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateNcpTagMutationVariables = {
-  input: UpdateNcpTagInput;
+  input: CommonUpdateTagInput;
 };
 
 export type UpdateNcpTagMutation = { __typename?: 'Mutation' } & {
@@ -4395,9 +4574,114 @@ export type CreateObjectTypeMutationVariables = {
 };
 
 export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
-  createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'name' | 'dateUpdated' | 'ncpId'> & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
-    };
+  createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<
+    ObjectTypeGeneral,
+    'name' | 'dateUpdated' | 'ncpId' | 'id'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type UpdateObjectTypeMediaDescriptionMutationVariables = {
+  input: CommonUpdateMediaDescriptionInput;
+};
+
+export type UpdateObjectTypeMediaDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeMediaDescription?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type AddObjectTypePicturesMutationVariables = {
+  input: CommonAddPicturesInput;
+};
+
+export type AddObjectTypePicturesMutation = { __typename?: 'Mutation' } & {
+  addObjectTypePictures?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type UpdateObjectTypePictureMutationVariables = {
+  input: CommonUpdatePictureInput;
+};
+
+export type UpdateObjectTypePictureMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypePicture?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type AddObjectTypeMediaLinkMutationVariables = {
+  input: CommonAddMediaLinkInput;
+};
+
+export type AddObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeMediaLink?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateObjectTypeMediaLinkMutationVariables = {
+  input: CommonUpdateMediaLinkInput;
+};
+
+export type UpdateObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeMediaLink?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type AddObjectTypeTextChapterMutationVariables = {
+  input: CommonAddTextChapterInput;
+};
+
+export type AddObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeTextChapter?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateObjectTypeTextChapterMutationVariables = {
+  input: CommonUpdateTextChapterInput;
+};
+
+export type UpdateObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeTextChapter?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type AddObjectTypeUspsMutationVariables = {
+  input: CommonAddUspsInput;
+};
+
+export type AddObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeUsps?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateObjectTypeUspsMutationVariables = {
+  input: CommonUpdateUspsInput;
+};
+
+export type UpdateObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeUsps?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
+
+export type AddObjectTypeTagMutationVariables = {
+  input: CommonAddTagInput;
+};
+
+export type AddObjectTypeTagMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeTag?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id'>>>;
+      }
+  >;
+};
+
+export type UpdateObjectTypeTagMutationVariables = {
+  input: CommonUpdateTagInput;
+};
+
+export type UpdateObjectTypeTagMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeTag?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
 export type AddCadastreMutationVariables = {
@@ -5147,6 +5431,31 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
     ObjectTypeGeneral,
     'id' | 'name' | 'dateUpdated' | 'ncpId'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type ObjectTypeMediaQueryVariables = {
+  id: Scalars['ID'];
+  picturesSort?: Maybe<Sort>;
+};
+
+export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
+  getObjectTypeMedia: { __typename?: 'ObjectTypeMedia' } & Pick<
+    ObjectTypeMedia,
+    'id' | 'mediaDescription' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
 };
 
 export type PimCadastreQueryVariables = {
@@ -6226,7 +6535,7 @@ export type AddNcpLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddNcpLabelMutationVariables
 >;
 export const UpdateNcpMediaDescriptionDocument = gql`
-  mutation UpdateNcpMediaDescription($input: UpdateNcpMediaDescriptionInput!) {
+  mutation UpdateNcpMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
     updateNcpMediaDescription(input: $input) {
       id
     }
@@ -6252,7 +6561,7 @@ export type UpdateNcpMediaDescriptionMutationOptions = ApolloReactCommon.BaseMut
   UpdateNcpMediaDescriptionMutationVariables
 >;
 export const AddNcpPicturesDocument = gql`
-  mutation AddNcpPictures($input: AddNcpPicturesInput!) {
+  mutation AddNcpPictures($input: CommonAddPicturesInput!) {
     addNcpPictures(input: $input) {
       id
     }
@@ -6273,7 +6582,7 @@ export type AddNcpPicturesMutationOptions = ApolloReactCommon.BaseMutationOption
   AddNcpPicturesMutationVariables
 >;
 export const UpdateNcpPictureDocument = gql`
-  mutation UpdateNcpPicture($input: UpdateNcpPictureInput!) {
+  mutation UpdateNcpPicture($input: CommonUpdatePictureInput!) {
     updateNcpPicture(input: $input) {
       id
     }
@@ -6294,7 +6603,7 @@ export type UpdateNcpPictureMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateNcpPictureMutationVariables
 >;
 export const AddNcpMediaLinkDocument = gql`
-  mutation AddNcpMediaLink($input: AddNcpMediaLinkInput!) {
+  mutation AddNcpMediaLink($input: CommonAddMediaLinkInput!) {
     addNcpMediaLink(input: $input) {
       id
       mediaLinks {
@@ -6318,7 +6627,7 @@ export type AddNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptio
   AddNcpMediaLinkMutationVariables
 >;
 export const UpdateNcpMediaLinkDocument = gql`
-  mutation UpdateNcpMediaLink($input: UpdateNcpMediaLinkInput!) {
+  mutation UpdateNcpMediaLink($input: CommonUpdateMediaLinkInput!) {
     updateNcpMediaLink(input: $input) {
       id
     }
@@ -6339,7 +6648,7 @@ export type UpdateNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOp
   UpdateNcpMediaLinkMutationVariables
 >;
 export const AddNcpTextChapterDocument = gql`
-  mutation AddNcpTextChapter($input: AddNcpTextChapterInput!) {
+  mutation AddNcpTextChapter($input: CommonAddTextChapterInput!) {
     addNcpTextChapter(input: $input) {
       id
       textChapters {
@@ -6363,7 +6672,7 @@ export type AddNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOpt
   AddNcpTextChapterMutationVariables
 >;
 export const UpdateNcpTextChapterDocument = gql`
-  mutation UpdateNcpTextChapter($input: UpdateNcpTextChapterInput!) {
+  mutation UpdateNcpTextChapter($input: CommonUpdateTextChapterInput!) {
     updateNcpTextChapter(input: $input) {
       id
     }
@@ -6387,7 +6696,7 @@ export type UpdateNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutation
   UpdateNcpTextChapterMutationVariables
 >;
 export const AddNcpUspsDocument = gql`
-  mutation AddNcpUsps($input: AddNcpUspsInput!) {
+  mutation AddNcpUsps($input: CommonAddUspsInput!) {
     addNcpUsps(input: $input) {
       id
       usps {
@@ -6408,7 +6717,7 @@ export type AddNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddNcpUspsMutationVariables
 >;
 export const UpdateNcpUspsDocument = gql`
-  mutation UpdateNcpUsps($input: UpdateNcpUspsInput!) {
+  mutation UpdateNcpUsps($input: CommonUpdateUspsInput!) {
     updateNcpUsps(input: $input) {
       id
     }
@@ -6429,7 +6738,7 @@ export type UpdateNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions
   UpdateNcpUspsMutationVariables
 >;
 export const AddNcpTagDocument = gql`
-  mutation AddNcpTag($input: AddNcpTagInput!) {
+  mutation AddNcpTag($input: CommonAddTagInput!) {
     addNcpTag(input: $input) {
       id
       tags {
@@ -6450,7 +6759,7 @@ export type AddNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddNcpTagMutationVariables
 >;
 export const UpdateNcpTagDocument = gql`
-  mutation UpdateNcpTag($input: UpdateNcpTagInput!) {
+  mutation UpdateNcpTag($input: CommonUpdateTagInput!) {
     updateNcpTag(input: $input) {
       id
     }
@@ -6607,6 +6916,7 @@ export const CreateObjectTypeDocument = gql`
         lastName
       }
       ncpId
+      id
     }
   }
 `;
@@ -6623,6 +6933,281 @@ export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<Cr
 export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateObjectTypeMutation,
   CreateObjectTypeMutationVariables
+>;
+export const UpdateObjectTypeMediaDescriptionDocument = gql`
+  mutation UpdateObjectTypeMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
+    updateObjectTypeMediaDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeMediaDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeMediaDescriptionMutation,
+    UpdateObjectTypeMediaDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeMediaDescriptionMutation,
+    UpdateObjectTypeMediaDescriptionMutationVariables
+  >(UpdateObjectTypeMediaDescriptionDocument, baseOptions);
+}
+export type UpdateObjectTypeMediaDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeMediaDescriptionMutation
+>;
+export type UpdateObjectTypeMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeMediaDescriptionMutation
+>;
+export type UpdateObjectTypeMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeMediaDescriptionMutation,
+  UpdateObjectTypeMediaDescriptionMutationVariables
+>;
+export const AddObjectTypePicturesDocument = gql`
+  mutation addObjectTypePictures($input: CommonAddPicturesInput!) {
+    addObjectTypePictures(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddObjectTypePicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypePicturesMutation,
+    AddObjectTypePicturesMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypePicturesMutation, AddObjectTypePicturesMutationVariables>(
+    AddObjectTypePicturesDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypePicturesMutationHookResult = ReturnType<typeof useAddObjectTypePicturesMutation>;
+export type AddObjectTypePicturesMutationResult = ApolloReactCommon.MutationResult<AddObjectTypePicturesMutation>;
+export type AddObjectTypePicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypePicturesMutation,
+  AddObjectTypePicturesMutationVariables
+>;
+export const UpdateObjectTypePictureDocument = gql`
+  mutation UpdateObjectTypePicture($input: CommonUpdatePictureInput!) {
+    updateObjectTypePicture(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypePictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypePictureMutation,
+    UpdateObjectTypePictureMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypePictureMutation, UpdateObjectTypePictureMutationVariables>(
+    UpdateObjectTypePictureDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypePictureMutationHookResult = ReturnType<typeof useUpdateObjectTypePictureMutation>;
+export type UpdateObjectTypePictureMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypePictureMutation>;
+export type UpdateObjectTypePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypePictureMutation,
+  UpdateObjectTypePictureMutationVariables
+>;
+export const AddObjectTypeMediaLinkDocument = gql`
+  mutation AddObjectTypeMediaLink($input: CommonAddMediaLinkInput!) {
+    addObjectTypeMediaLink(input: $input) {
+      id
+      mediaLinks {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeMediaLinkMutation,
+    AddObjectTypeMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeMediaLinkMutation, AddObjectTypeMediaLinkMutationVariables>(
+    AddObjectTypeMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useAddObjectTypeMediaLinkMutation>;
+export type AddObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeMediaLinkMutation>;
+export type AddObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeMediaLinkMutation,
+  AddObjectTypeMediaLinkMutationVariables
+>;
+export const UpdateObjectTypeMediaLinkDocument = gql`
+  mutation UpdateObjectTypeMediaLink($input: CommonUpdateMediaLinkInput!) {
+    updateObjectTypeMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeMediaLinkMutation,
+    UpdateObjectTypeMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeMediaLinkMutation, UpdateObjectTypeMediaLinkMutationVariables>(
+    UpdateObjectTypeMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useUpdateObjectTypeMediaLinkMutation>;
+export type UpdateObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeMediaLinkMutation
+>;
+export type UpdateObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeMediaLinkMutation,
+  UpdateObjectTypeMediaLinkMutationVariables
+>;
+export const AddObjectTypeTextChapterDocument = gql`
+  mutation AddObjectTypeTextChapter($input: CommonAddTextChapterInput!) {
+    addObjectTypeTextChapter(input: $input) {
+      id
+      textChapters {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeTextChapterMutation,
+    AddObjectTypeTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeTextChapterMutation, AddObjectTypeTextChapterMutationVariables>(
+    AddObjectTypeTextChapterDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeTextChapterMutationHookResult = ReturnType<typeof useAddObjectTypeTextChapterMutation>;
+export type AddObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTextChapterMutation>;
+export type AddObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeTextChapterMutation,
+  AddObjectTypeTextChapterMutationVariables
+>;
+export const UpdateObjectTypeTextChapterDocument = gql`
+  mutation UpdateObjectTypeTextChapter($input: CommonUpdateTextChapterInput!) {
+    updateObjectTypeTextChapter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeTextChapterMutation,
+    UpdateObjectTypeTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeTextChapterMutation,
+    UpdateObjectTypeTextChapterMutationVariables
+  >(UpdateObjectTypeTextChapterDocument, baseOptions);
+}
+export type UpdateObjectTypeTextChapterMutationHookResult = ReturnType<typeof useUpdateObjectTypeTextChapterMutation>;
+export type UpdateObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeTextChapterMutation
+>;
+export type UpdateObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeTextChapterMutation,
+  UpdateObjectTypeTextChapterMutationVariables
+>;
+export const AddObjectTypeUspsDocument = gql`
+  mutation AddObjectTypeUsps($input: CommonAddUspsInput!) {
+    addObjectTypeUsps(input: $input) {
+      id
+      usps {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>(
+    AddObjectTypeUspsDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeUspsMutationHookResult = ReturnType<typeof useAddObjectTypeUspsMutation>;
+export type AddObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeUspsMutation>;
+export type AddObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeUspsMutation,
+  AddObjectTypeUspsMutationVariables
+>;
+export const UpdateObjectTypeUspsDocument = gql`
+  mutation UpdateObjectTypeUsps($input: CommonUpdateUspsInput!) {
+    updateObjectTypeUsps(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeUspsMutation,
+    UpdateObjectTypeUspsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeUspsMutation, UpdateObjectTypeUspsMutationVariables>(
+    UpdateObjectTypeUspsDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeUspsMutationHookResult = ReturnType<typeof useUpdateObjectTypeUspsMutation>;
+export type UpdateObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeUspsMutation>;
+export type UpdateObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeUspsMutation,
+  UpdateObjectTypeUspsMutationVariables
+>;
+export const AddObjectTypeTagDocument = gql`
+  mutation AddObjectTypeTag($input: CommonAddTagInput!) {
+    addObjectTypeTag(input: $input) {
+      id
+      tags {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>(
+    AddObjectTypeTagDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeTagMutationHookResult = ReturnType<typeof useAddObjectTypeTagMutation>;
+export type AddObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTagMutation>;
+export type AddObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeTagMutation,
+  AddObjectTypeTagMutationVariables
+>;
+export const UpdateObjectTypeTagDocument = gql`
+  mutation UpdateObjectTypeTag($input: CommonUpdateTagInput!) {
+    updateObjectTypeTag(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>(
+    UpdateObjectTypeTagDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeTagMutationHookResult = ReturnType<typeof useUpdateObjectTypeTagMutation>;
+export type UpdateObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeTagMutation>;
+export type UpdateObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeTagMutation,
+  UpdateObjectTypeTagMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -8231,6 +8816,78 @@ export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetOb
 export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeGeneralQuery,
   GetObjectTypeGeneralQueryVariables
+>;
+export const ObjectTypeMediaDocument = gql`
+  query ObjectTypeMedia($id: ID!, $picturesSort: Sort) {
+    getObjectTypeMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function useObjectTypeMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(
+    ObjectTypeMediaDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(
+    ObjectTypeMediaDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeMediaQueryHookResult = ReturnType<typeof useObjectTypeMediaQuery>;
+export type ObjectTypeMediaLazyQueryHookResult = ReturnType<typeof useObjectTypeMediaLazyQuery>;
+export type ObjectTypeMediaQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeMediaQuery,
+  ObjectTypeMediaQueryVariables
 >;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {

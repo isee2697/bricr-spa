@@ -6,11 +6,14 @@ import {
   LabelProperty,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   UpdateUspInput,
   useAddUspMutation,
   useAddNcpUspsMutation,
+  useAddObjectTypeUspsMutation,
   useUpdateUspMutation,
   useUpdateNcpUspsMutation,
+  useUpdateObjectTypeUspsMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
@@ -34,8 +37,10 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
 
   const [addUsp] = useAddUspMutation();
   const [addNcpUsp] = useAddNcpUspsMutation();
+  const [addObjectTypeUsps] = useAddObjectTypeUspsMutation();
   const [editUsp] = useUpdateUspMutation();
   const [editNcpUsp] = useUpdateNcpUspsMutation();
+  const [editObjectTypeUsp] = useUpdateObjectTypeUspsMutation();
 
   const handleAdd = async () => {
     try {
@@ -79,6 +84,26 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
         }
       }
 
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeUsps({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const usps = data?.addObjectTypeUsps?.usps;
+
+        if (usps?.length) {
+          setNewUspId(usps[usps.length - 1].id);
+        }
+      }
+
       return undefined;
     } catch (error) {
       return {
@@ -115,6 +140,20 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeUsp({
+          variables: {
+            input: { ...values, parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

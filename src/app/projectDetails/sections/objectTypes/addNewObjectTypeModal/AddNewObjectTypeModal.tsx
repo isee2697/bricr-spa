@@ -3,14 +3,15 @@ import React from 'react';
 
 import { useLocale } from 'hooks';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
-import { DialogActions, DialogContent } from 'ui/atoms';
+import { Alert, DialogActions, DialogContent } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { GenericField } from 'form/fields';
+import { requireValidator } from 'form/validators';
 
 import { useStyles } from './AddNewObjectTypeModal.styles';
 import { AddNewObjectTypeModalProps } from './AddNewObjectTypeModal.types';
 
-export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit }: AddNewObjectTypeModalProps) => {
+export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit, isError }: AddNewObjectTypeModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -26,11 +27,15 @@ export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit }: AddNewObj
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
+              {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
+            </DialogContent>
+            <DialogContent>
               <GenericField
                 size="medium"
                 label="project_details.object_types.label"
                 placeholder="project_details.object_types.placeholder"
                 name="name"
+                validate={[requireValidator]}
               />
             </DialogContent>
             <DialogActions>
