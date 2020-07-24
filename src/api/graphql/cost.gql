@@ -1,0 +1,66 @@
+enum CommonCostType {
+  Kitchen,
+  Tiles,
+  Bathroom,
+  Service,
+  Heating,
+  Electricity,
+  Water,
+  Sewage,
+  WaterBoard,
+  LandConsolidationInterest,
+  HomeownerAssociation,
+  OzbUserPart,
+  OzbBusinessPart,
+  Custom
+}
+
+type CommonCost {
+  id: ID!
+  serviceCostsFrom: AbsoluteFloat
+  serviceCostsTill: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCostsFrom: AbsoluteFloat
+  vatTaxedServiceCostsTill: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  type: String! @uuidOrEnum(enum: ["CommonCostType"])
+  name: String
+  dateCreated: Date
+}
+
+type CommonCosts implements LastUpdated {
+  costs: [CommonCost!]
+  description: String
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+input AddCommonCostInput {
+  id: ID!
+  type: String! @uuidOrEnum(enum: ["CommonCostType"])
+  name: String
+}
+
+input UpdateCommonCostInput {
+  id: ID!
+  serviceCostsFrom: AbsoluteFloat
+  serviceCostsTill: AbsoluteFloat
+  paymentsFrequency: CostPaymentFrequency
+  vatTaxedServiceCostsFrom: AbsoluteFloat
+  vatTaxedServiceCostsTill: AbsoluteFloat
+  vatPercentage: CostVat
+  notes: String
+  name: String
+}
+
+input UpdateCommonCostsDetailsInput {
+  id: ID!
+  description: String
+}
+
+type CostsDetails implements LastUpdated {
+  description: String
+  dateUpdated: Date
+  lastEditedBy: Profile
+}

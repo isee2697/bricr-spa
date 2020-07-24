@@ -1,7 +1,7 @@
-import { NcpCost } from 'api/types';
+import { CommonCost } from 'api/types';
 
 export type CostItemProps = {
-  cost: NcpCost;
+  cost: CommonCost;
   index: number;
   inEditMode: boolean;
   isExpanded: boolean;

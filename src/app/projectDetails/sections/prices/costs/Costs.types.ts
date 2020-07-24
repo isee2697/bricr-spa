@@ -1,7 +1,7 @@
-import { NcpCosts, NcpCost } from 'api/types';
+import { CommonCosts, CommonCost } from 'api/types';
 
 export type CostsProps = {
-  data: NcpCosts;
+  data: CommonCosts;
   onDescriptionSave: (values: { description: string }) => Promise<undefined | { error: boolean }>;
-  onUpdateCost: (values: NcpCost) => Promise<undefined | { error: boolean }>;
+  onUpdateCost: (values: CommonCost) => Promise<undefined | { error: boolean }>;
 };

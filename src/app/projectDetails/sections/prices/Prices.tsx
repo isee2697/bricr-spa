@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
+import { PricesGeneralContainer } from 'app/shared/prices';
 
-import { PricesGeneralContainer } from './pricesGeneral/PricesGeneralContainer';
 import { CostsContainer } from './costs/CostsContainer';
 import { InterestsContainer } from './interests/InterestsContainer';
 

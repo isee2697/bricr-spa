@@ -8,8 +8,8 @@ import { FormSection } from 'ui/organisms';
 import { Page } from 'ui/templates';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { SetPricesModal } from 'app/shared/prices';
+import { PriceSection } from 'app/shared/prices';
 
-import { PriceSection } from './priceSection/PriceSection';
 import { PricesGeneralProps } from './PricesGeneral.types';
 
 const useIsInitialized = () => {

@@ -14,7 +14,7 @@ const menuItems = [
   { key: 'projectJourney' },
   { key: 'salesSettings' },
   { key: 'characteristics' },
-  { key: 'prices', subItems: [] },
+  { key: 'prices', subItems: ['costs'] },
   { key: 'services' },
   { key: 'media' },
   { key: 'properties', count: 0 },

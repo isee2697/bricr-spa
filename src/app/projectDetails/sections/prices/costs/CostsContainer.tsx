@@ -6,7 +6,7 @@ import {
   useUpdateNcpCostsDetailsMutation,
   useUpdateNcpCostMutation,
   NcpPricesCostsDocument,
-  NcpCost,
+  CommonCost,
 } from 'api/types';
 
 import { Costs } from './Costs';
@@ -37,7 +37,7 @@ export const CostsContainer = () => {
     }
   };
 
-  const handleUpdateCost = async (values: NcpCost) => {
+  const handleUpdateCost = async (values: CommonCost) => {
     try {
       const { data } = await updateNcpCost({
         variables: {
