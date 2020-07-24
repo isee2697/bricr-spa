@@ -67,7 +67,7 @@ export const General = ({ data }: GeneralProps) => {
                       <Grid item xs={4}>
                         <GenericField
                           className={classes.input}
-                          name="objectTypes"
+                          name="objectTypesCount"
                           label="project_details.general.construction.object_types"
                           placeholder="project_details.general.construction.object_types_placeholder"
                           disabled={!inEditMode || isCalculated}

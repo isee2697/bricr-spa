@@ -19,7 +19,7 @@ export const GeneralContainer = () => {
         variables: {
           input: {
             ...values,
-            objectTypes: parseInt(values.objectTypes?.toString() ?? '') || null,
+            objectTypesCount: parseInt(values.objectTypesCount?.toString() ?? '') || null,
             properties: parseInt(values.properties?.toString() ?? '') || null,
             startConstructionAfterPresalePercentage:
               parseInt(values.startConstructionAfterPresalePercentage?.toString() ?? '') || null,

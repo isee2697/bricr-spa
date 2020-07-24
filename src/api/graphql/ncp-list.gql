@@ -32,9 +32,9 @@ type ListNcp {
   candidates: Int
   optants: Int
   properties: Int
-  objectTypes: Int
   color: String
   attentionNote: String
+  objectTypesCount: Int
 }
 
 type NcpListSearchResult {

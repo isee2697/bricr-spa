@@ -1305,7 +1305,6 @@ export type UpdateNcpInput = {
   city: Scalars['String'];
   country: Scalars['String'];
   automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
-  objectTypes?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
   progressStatus?: Maybe<ProgressStatus>;
   startConstruction?: Maybe<Scalars['Date']>;
@@ -1317,6 +1316,7 @@ export type UpdateNcpInput = {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
 };
 
 export type NcpGeneral = LastUpdated & {
@@ -1336,7 +1336,6 @@ export type NcpGeneral = LastUpdated & {
   country: Scalars['String'];
   archived: Scalars['Boolean'];
   automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
-  objectTypes?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
   progressStatus?: Maybe<ProgressStatus>;
   startConstruction?: Maybe<Scalars['Date']>;
@@ -1348,6 +1347,7 @@ export type NcpGeneral = LastUpdated & {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
 };
 
 export type NcpSearchResult = {
@@ -1406,9 +1406,9 @@ export type ListNcp = {
   candidates?: Maybe<Scalars['Int']>;
   optants?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
-  objectTypes?: Maybe<Scalars['Int']>;
   color?: Maybe<Scalars['String']>;
   attentionNote?: Maybe<Scalars['String']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
 };
 
 export type NcpListSearchResult = {
@@ -5221,8 +5221,8 @@ export type NcpGeneralQuery = { __typename?: 'Query' } & {
     | 'zipCode'
     | 'city'
     | 'country'
+    | 'objectTypesCount'
     | 'automaticallyCalculateQuantity'
-    | 'objectTypes'
     | 'properties'
     | 'progressStatus'
     | 'startConstruction'
@@ -5310,7 +5310,7 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
           | 'candidates'
           | 'optants'
           | 'properties'
-          | 'objectTypes'
+          | 'objectTypesCount'
           | 'attentionNote'
         > & {
             logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
@@ -8393,8 +8393,8 @@ export const NcpGeneralDocument = gql`
       zipCode
       city
       country
+      objectTypesCount
       automaticallyCalculateQuantity
-      objectTypes
       properties
       progressStatus
       startConstruction
@@ -8554,7 +8554,7 @@ export const ListNcpsDocument = gql`
         candidates
         optants
         properties
-        objectTypes
+        objectTypesCount
         attentionNote
       }
     }

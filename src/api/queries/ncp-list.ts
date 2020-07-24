@@ -56,7 +56,7 @@ export const LIST_NCPS = gql`
         candidates
         optants
         properties
-        objectTypes
+        objectTypesCount
         attentionNote
       }
     }

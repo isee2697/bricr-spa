@@ -31,7 +31,7 @@ export const LIST_NCP_1: ListNcp = {
   interests: 2500,
   optants: 999,
   properties: 80,
-  objectTypes: 2,
+  objectTypesCount: 2,
 };
 
 export const LIST_NCP_ARCHIVED_1: ListNcp = {

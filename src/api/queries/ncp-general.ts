@@ -20,9 +20,8 @@ export const PIM_MEDIA = gql`
       zipCode
       city
       country
-
+      objectTypesCount
       automaticallyCalculateQuantity
-      objectTypes
       properties
       progressStatus
       startConstruction
