@@ -1,15 +1,33 @@
 import React from 'react';
 
-import { Box } from 'ui/atoms';
+import { Box, Grid, IconButton } from 'ui/atoms';
+import { HideIcon } from 'ui/atoms/icons';
 import { NavBreadcrumbs } from 'ui/atoms/navBreadcrumbs/NavBreadcrumbs';
 
+import { useStyles } from './ProjectDetailsHeader.styles';
 import { ProjectDetailsHeaderProps } from './ProjectDetailsHeader.types';
 
-export const ProjectDetailsHeader = ({ action }: ProjectDetailsHeaderProps) => {
+export const ProjectDetailsHeader = ({ isSidebarVisible, onOpenSidebar, action }: ProjectDetailsHeaderProps) => {
+  const classes = useStyles();
+
   return (
-    <Box mb={1} display="flex" justifyContent="space-between" alignItems="center" minHeight={32}>
-      <NavBreadcrumbs />
-      {action}
-    </Box>
+    <Grid xs={12} item>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box display="flex" alignItems="center">
+          {!isSidebarVisible && (
+            <IconButton
+              className={classes.hideSidebarButton}
+              onClick={onOpenSidebar}
+              size="small"
+              variant="roundedContained"
+            >
+              <HideIcon />
+            </IconButton>
+          )}
+          <NavBreadcrumbs />
+        </Box>
+        {action}
+      </Box>
+    </Grid>
   );
 };

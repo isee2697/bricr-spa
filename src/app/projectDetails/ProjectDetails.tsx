@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
@@ -19,6 +19,11 @@ import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContaine
 export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
+  const [isSidebarVisible, setSidebarVisibility] = useState(true);
+
+  const handleSidebarOpen = useCallback(() => {
+    setSidebarVisibility(true);
+  }, []);
 
   return (
     <EntityTypeProvider entityType={EntityType.Project}>
@@ -37,7 +42,12 @@ export const ProjectDetails = () => {
               <Route path={`${AppRoute.projectDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
               <Route path={`${AppRoute.projectDetails}/characteristics`} render={() => <CharacteristicsContainer />} />
               <Route path={`${AppRoute.projectDetails}/prices`} render={() => <Prices />} />
-              <Route path={`${AppRoute.projectDetails}/services`} render={() => <ServicesContainer />} />
+              <Route
+                path={`${AppRoute.projectDetails}/services`}
+                render={() => (
+                  <ServicesContainer isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} />
+                )}
+              />
               <Route
                 path={`${AppRoute.projectDetails}/media`}
                 render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} />}

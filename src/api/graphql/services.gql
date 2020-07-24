@@ -170,6 +170,11 @@ type Service {
   dateCreated: Date
 }
 
+input ServiceDescriptionInput {
+  id: ID!
+  servicesDescription: String
+}
+
 interface Services {
   hotWaterSupplies: [Service!]
   heatingSources: [Service!]
@@ -187,35 +192,3 @@ type MetersMeta  {
   Gas: MetersSharedData
   Electric: MetersSharedData
 }
-
-
-type PimServices implements LastUpdated & Services {
-  id: String!
-  meters: [Meter!]
-  metersMeta: MetersMeta
-  hotWaterSupplies: [Service!]
-  heatingSources: [Service!]
-  additionalServices: [Service!]
-  dateUpdated: Date
-  lastEditedBy: Profile
-  description: String
-}
-
-type PimWithNewService {
-  pim: Pim!
-  newService: Service!
-}
-
-extend type Query {
-  getPimServices(id: ID!): PimServices! @auth
-}
-
-extend type Mutation {
-  addPimReading(input: AddReadingInput!): Pim @auth
-  updatePimReading(input: UpdateReadingInput!): Pim @auth
-  addPimMeter(input: AddMeterInput!): Pim @auth
-  updatePimMeter(input: UpdateMeterInput!): Pim @auth
-  addPimService(input: AddServiceInput!): PimWithNewService @auth
-  updatePimService(input: UpdateServiceInput!): Pim @auth
-}
-

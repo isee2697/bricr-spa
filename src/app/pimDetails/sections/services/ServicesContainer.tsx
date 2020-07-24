@@ -29,7 +29,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
   const [isMeterAdded, setMeterAdded] = useState(false);
   const { data } = usePimServicesQuery({ variables: { id } });
-  const [updateService] = useUpdateServiceMutation();
+  const [updatePimService] = useUpdateServiceMutation();
   const [updateDescription] = useUpdateDescriptionMutation();
 
   const onAddMeter = () => {
@@ -64,10 +64,10 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
 
   const onEdit = async (body: ServiceForm) => {
     try {
-      const { data } = await updateService({
+      const { data } = await updatePimService({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             serviceId: body.id,
             name: body.name,
             description: body.description,

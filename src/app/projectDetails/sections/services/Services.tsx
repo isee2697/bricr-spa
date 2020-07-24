@@ -1,52 +1,53 @@
 import React from 'react';
 
-import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { Page } from 'ui/templates';
-import { Box, Grid } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ServiceType } from 'api/types';
-import { PIM_SERVICES } from 'api/mocks/pim';
 
 import { ServiceList } from './serviceList/ServiceList';
 import { ServicesProps } from './Services.types';
 
-export const Services = ({ onSave }: ServicesProps) => {
+export const Services = ({ ncpServices, onSave, onDescriptionUpdate }: ServicesProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <>
-      <ProjectDetailsHeader />
-      <Page
-        name="description"
-        placeholder="project_details.services.description_placeholder"
-        title={formatMessage({ id: 'project_details.services.title' })}
-      >
-        <Grid item xs={12}>
-          <ServiceList
-            emptyEmoji="🚿"
-            title="pim_details.services.hot_water"
-            items={[]}
-            type={ServiceType.HotWaterSupplies}
-            onSave={onSave}
-          />
-          <Box mb={3} />
-          <ServiceList
-            emptyEmoji="🔥"
-            title="pim_details.services.heating"
-            items={[]}
-            type={ServiceType.HeatingSources}
-            onSave={onSave}
-          />
-          <Box mb={3} />
-          <ServiceList
-            emptyEmoji="🤔"
-            title="pim_details.services.additional"
-            items={PIM_SERVICES.additionalServices || []}
-            type={ServiceType.AdditionalServices}
-            onSave={onSave}
-          />
-        </Grid>
-      </Page>
-    </>
+    <Page
+      title={formatMessage({ id: 'pim_details.services.title' })}
+      placeholder="pim_details.services.description_placeholder"
+      name="description"
+      onSave={onDescriptionUpdate}
+      initialValues={{ description: ncpServices.description }}
+      dateUpdated={ncpServices.dateUpdated}
+      updatedBy={ncpServices.lastEditedBy}
+    >
+      <Grid xs={12} item>
+        <ServiceList
+          emptyEmoji="🚿"
+          title="pim_details.services.hot_water"
+          items={ncpServices.hotWaterSupplies || []}
+          type={ServiceType.HotWaterSupplies}
+          onSave={onSave}
+        />
+      </Grid>
+      <Grid xs={12} item>
+        <ServiceList
+          emptyEmoji="🔥"
+          title="pim_details.services.heating"
+          items={ncpServices.heatingSources || []}
+          type={ServiceType.HeatingSources}
+          onSave={onSave}
+        />
+      </Grid>
+      <Grid xs={12} item>
+        <ServiceList
+          emptyEmoji="🤔"
+          title="pim_details.services.additional"
+          items={ncpServices.additionalServices || []}
+          type={ServiceType.AdditionalServices}
+          onSave={onSave}
+        />
+      </Grid>
+    </Page>
   );
 };

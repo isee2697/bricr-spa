@@ -21,18 +21,18 @@ import { Specification } from './sections/specification/Specification';
 export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [isSidebarVisible, setSidebarVisiblity] = useState(true);
+  const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const { state } = useLocation<{ newlyAdded: boolean }>();
 
   const pim = data?.getPimGeneral;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
-    setSidebarVisiblity(false);
+    setSidebarVisibility(false);
   }, []);
 
   const handleSidebarOpen = useCallback(() => {
-    setSidebarVisiblity(true);
+    setSidebarVisibility(true);
   }, []);
 
   if (loading) {

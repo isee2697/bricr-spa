@@ -65,12 +65,12 @@ export type Mutation = {
   addInspection: AddInspectionResult;
   addLabel: Label;
   addMediaLink?: Maybe<PimWithNewMediaLink>;
-  addMeter?: Maybe<Pim>;
   addNcpCost: NcpPricesResult;
   addNcpIdentificationNumber: NcpCharacteristics;
   addNcpLabel: Label;
   addNcpMediaLink?: Maybe<NcpMedia>;
   addNcpPictures?: Maybe<NcpMedia>;
+  addNcpService: NcpWithNewService;
   addNcpTag?: Maybe<NcpMedia>;
   addNcpTextChapter?: Maybe<NcpMedia>;
   addNcpUsps?: Maybe<NcpMedia>;
@@ -82,9 +82,10 @@ export type Mutation = {
   addObjectTypeUsps?: Maybe<ObjectTypeMedia>;
   addOutsideFeature: PimWithNewOutside;
   addPictures?: Maybe<PimWithNewPictures>;
+  addPimMeter?: Maybe<Pim>;
+  addPimReading?: Maybe<Pim>;
+  addPimService?: Maybe<PimWithNewService>;
   addProjectPhase: ProjectPhase;
-  addReading?: Maybe<Pim>;
-  addService?: Maybe<PimWithNewService>;
   addSpaceToFloor: PimWithUpdatedSpace;
   addTag?: Maybe<PimWithNewTag>;
   addTextChapter?: Maybe<PimWithNewTextChapter>;
@@ -122,7 +123,6 @@ export type Mutation = {
   updateInspection: Pim;
   updateInvestment: Pim;
   updateMediaLink?: Maybe<Pim>;
-  updateMeter?: Maybe<Pim>;
   updateNcp: NcpGeneral;
   updateNcpCharacteristics: NcpCharacteristics;
   updateNcpCost: NcpPricesResult;
@@ -132,6 +132,8 @@ export type Mutation = {
   updateNcpMediaLink?: Maybe<NcpMedia>;
   updateNcpPicture?: Maybe<NcpMedia>;
   updateNcpPricing: NcpPricesResult;
+  updateNcpService: NcpServices;
+  updateNcpServiceDescription: NcpServices;
   updateNcpTag?: Maybe<NcpMedia>;
   updateNcpTextChapter?: Maybe<NcpMedia>;
   updateNcpUsps?: Maybe<NcpMedia>;
@@ -147,12 +149,13 @@ export type Mutation = {
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
   updatePimLocation: Pim;
+  updatePimMeter?: Maybe<Pim>;
   updatePimOutsideInfo: Pim;
+  updatePimReading?: Maybe<Pim>;
+  updatePimService?: Maybe<Pim>;
   updatePricing: Pim;
   updateProjectPhase: ProjectPhase;
-  updateReading?: Maybe<Pim>;
   updateSalesSettings: Pim;
-  updateService?: Maybe<Pim>;
   updateSpace: Pim;
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
@@ -202,10 +205,6 @@ export type MutationAddMediaLinkArgs = {
   input: AddMediaLinkInput;
 };
 
-export type MutationAddMeterArgs = {
-  input: AddMeterInput;
-};
-
 export type MutationAddNcpCostArgs = {
   input: AddCommonCostInput;
 };
@@ -224,6 +223,10 @@ export type MutationAddNcpMediaLinkArgs = {
 
 export type MutationAddNcpPicturesArgs = {
   input: CommonAddPicturesInput;
+};
+
+export type MutationAddNcpServiceArgs = {
+  input: AddServiceInput;
 };
 
 export type MutationAddNcpTagArgs = {
@@ -270,16 +273,20 @@ export type MutationAddPicturesArgs = {
   input: AddPicturesInput;
 };
 
-export type MutationAddProjectPhaseArgs = {
-  input: CreateProjectPhaseInput;
+export type MutationAddPimMeterArgs = {
+  input: AddMeterInput;
 };
 
-export type MutationAddReadingArgs = {
+export type MutationAddPimReadingArgs = {
   input: AddReadingInput;
 };
 
-export type MutationAddServiceArgs = {
+export type MutationAddPimServiceArgs = {
   input: AddServiceInput;
+};
+
+export type MutationAddProjectPhaseArgs = {
+  input: CreateProjectPhaseInput;
 };
 
 export type MutationAddSpaceToFloorArgs = {
@@ -431,10 +438,6 @@ export type MutationUpdateMediaLinkArgs = {
   input: UpdateMediaLinkInput;
 };
 
-export type MutationUpdateMeterArgs = {
-  input: UpdateMeterInput;
-};
-
 export type MutationUpdateNcpArgs = {
   input: UpdateNcpInput;
 };
@@ -469,6 +472,14 @@ export type MutationUpdateNcpPictureArgs = {
 
 export type MutationUpdateNcpPricingArgs = {
   input: UpdateCommonPricingInput;
+};
+
+export type MutationUpdateNcpServiceArgs = {
+  input: UpdateServiceInput;
+};
+
+export type MutationUpdateNcpServiceDescriptionArgs = {
+  input: ServiceDescriptionInput;
 };
 
 export type MutationUpdateNcpTagArgs = {
@@ -531,8 +542,20 @@ export type MutationUpdatePimLocationArgs = {
   input: UpdatePimLocationInput;
 };
 
+export type MutationUpdatePimMeterArgs = {
+  input: UpdateMeterInput;
+};
+
 export type MutationUpdatePimOutsideInfoArgs = {
   input: PimOutsideInput;
+};
+
+export type MutationUpdatePimReadingArgs = {
+  input: UpdateReadingInput;
+};
+
+export type MutationUpdatePimServiceArgs = {
+  input: UpdateServiceInput;
 };
 
 export type MutationUpdatePricingArgs = {
@@ -543,16 +566,8 @@ export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
-export type MutationUpdateReadingArgs = {
-  input: UpdateReadingInput;
-};
-
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
-};
-
-export type MutationUpdateServiceArgs = {
-  input: UpdateServiceInput;
 };
 
 export type MutationUpdateSpaceArgs = {
@@ -837,6 +852,7 @@ export type Query = {
   getNcpLabels?: Maybe<Array<Label>>;
   getNcpMedia: NcpMedia;
   getNcpPrices: NcpPricesResult;
+  getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeMedia: ObjectTypeMedia;
@@ -889,6 +905,10 @@ export type QueryGetNcpMediaArgs = {
 };
 
 export type QueryGetNcpPricesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpServicesArgs = {
   id: Scalars['ID'];
 };
 
@@ -1647,6 +1667,24 @@ export type Interests = LastUpdated & {
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
+};
+
+export type NcpServices = LastUpdated &
+  Services & {
+    __typename?: 'NcpServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
+
+export type NcpWithNewService = {
+  __typename?: 'NcpWithNewService';
+  ncp: NcpServices;
+  newService: Service;
 };
 
 export type ObjectTypeGeneral = LastUpdated & {
@@ -3361,141 +3399,143 @@ export type AddViewingMomentResult = {
 };
 
 export enum MeterType {
-  Water = 'Water',
-  Gas = 'Gas',
   Electric = 'Electric',
+  Gas = 'Gas',
+  Water = 'Water',
 }
 
 export enum HotWaterSupplyType {
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
   Boiler = 'Boiler',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
   Geyser = 'Geyser',
   SolarWaterHeater = 'SolarWaterHeater',
 }
 
 export enum HotWaterSupplyFuelType {
-  Gas = 'Gas',
   Electric = 'Electric',
+  Gas = 'Gas',
   Oil = 'Oil',
 }
 
 export enum HeatingSourceType {
-  GeothermalHeat = 'GeothermalHeat',
-  Fireplace = 'Fireplace',
   AllBurner = 'AllBurner',
-  PelletStove = 'PelletStove',
   BlockHeating = 'BlockHeating',
-  WoodStove = 'WoodStove',
-  DistrictHeating = 'DistrictHeating',
   CentralHeatingBoiler = 'CentralHeatingBoiler',
   CoalStove = 'CoalStove',
-  PartialElectricHeating = 'PartialElectricHeating',
-  MotherHearth = 'MotherHearth',
+  DistrictHeating = 'DistrictHeating',
+  Fireplace = 'Fireplace',
   GasFire = 'GasFire',
-  PossibleFireplace = 'PossibleFireplace',
-  HeatRecoverySystem = 'HeatRecoverySystem',
   GasHeaters = 'GasHeaters',
+  GeothermalHeat = 'GeothermalHeat',
   HeatPump = 'HeatPump',
+  HeatRecoverySystem = 'HeatRecoverySystem',
   HotAirHeating = 'HotAirHeating',
+  MotherHearth = 'MotherHearth',
+  PartialElectricHeating = 'PartialElectricHeating',
+  PelletStove = 'PelletStove',
+  PossibleFireplace = 'PossibleFireplace',
   UnderfloorHeating = 'UnderfloorHeating',
   UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
   WallHeating = 'WallHeating',
+  WoodStove = 'WoodStove',
 }
 
 export enum AdditionalServiceType {
   AirConditioning = 'AirConditioning',
   AlarmSystem = 'AlarmSystem',
-  ExteriorSunProtection = 'ExteriorSunProtection',
-  Skylight = 'Skylight',
-  SateliteDish = 'SateliteDish',
-  SlidingDoor = 'SlidingDoor',
   CableTv = 'CableTv',
-  Windmill = 'Windmill',
-  SolarCollector = 'SolarCollector',
-  SwimmingPool = 'SwimmingPool',
+  Elevator = 'Elevator',
+  ExteriorSunProtection = 'ExteriorSunProtection',
+  Flue = 'Flue',
   FrenchBalcony = 'FrenchBalcony',
   MechanicalVentilation = 'MechanicalVentilation',
-  Elevator = 'Elevator',
-  Flue = 'Flue',
+  SateliteDish = 'SateliteDish',
   Shutters = 'Shutters',
+  Skylight = 'Skylight',
+  SlidingDoor = 'SlidingDoor',
+  SolarCollector = 'SolarCollector',
+  SwimmingPool = 'SwimmingPool',
+  Windmill = 'Windmill',
 }
 
 export enum OwnershipType {
-  Rent = 'Rent',
   Leased = 'Leased',
   Owned = 'Owned',
+  Rent = 'Rent',
 }
 
 export enum ServiceType {
-  HotWaterSupplies = 'HotWaterSupplies',
-  HeatingSources = 'HeatingSources',
   AdditionalServices = 'AdditionalServices',
+  HeatingSources = 'HeatingSources',
+  HotWaterSupplies = 'HotWaterSupplies',
 }
 
 export type AddMeterInput = {
-  pimId: Scalars['String'];
   name: Scalars['String'];
+  parentId: Scalars['String'];
   type: MeterType;
 };
 
 export type UpdateMeterInput = {
-  pimId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  parentId: Scalars['String'];
 };
 
 export type AddReadingInput = {
-  pimId: Scalars['String'];
-  meterId: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
   dateOfReading?: Maybe<Scalars['Date']>;
   feedInId?: Maybe<Scalars['String']>;
+  meterId: Scalars['ID'];
+  parentId: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
 };
 
 export type UpdateReadingInput = {
-  pimId: Scalars['String'];
-  id: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
   dateOfReading?: Maybe<Scalars['Date']>;
   feedInId?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parentId: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
 };
 
 export type AddServiceInput = {
-  pimId: Scalars['String'];
-  name: Scalars['String'];
-  type: ServiceType;
   configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+  name: Scalars['String'];
+  parentId: Scalars['ID'];
+  type: ServiceType;
 };
 
 export type UpdateServiceInput = {
-  pimId: Scalars['String'];
-  serviceId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  yearOfInstallation?: Maybe<Scalars['Int']>;
-  ownership?: Maybe<OwnershipType>;
   configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  ownership?: Maybe<OwnershipType>;
+  parentId: Scalars['ID'];
+  serviceId: Scalars['ID'];
+  yearOfInstallation?: Maybe<Scalars['Int']>;
 };
 
 export type Reading = {
   __typename?: 'Reading';
-  id: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
+  dateCreated?: Maybe<Scalars['Date']>;
   dateOfReading?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   feedInId?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
 };
 
 export type Meter = LastUpdated & {
   __typename?: 'Meter';
-  id: Scalars['String'];
-  type: MeterType;
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  readings?: Maybe<Array<Reading>>;
+  dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   lastEditedBy?: Maybe<Profile>;
+  name: Scalars['String'];
+  readings?: Maybe<Array<Reading>>;
+  type: MeterType;
 };
 
 export type HeatingSourceMaintenanceContract = {
@@ -3506,14 +3546,14 @@ export type HeatingSourceMaintenanceContract = {
 
 export type HotWaterSupplyConfiguration = {
   __typename?: 'HotWaterSupplyConfiguration';
-  type: HotWaterSupplyType;
   fuel?: Maybe<HotWaterSupplyFuelType>;
+  type: HotWaterSupplyType;
 };
 
 export type HeatingSourceConfiguration = {
   __typename?: 'HeatingSourceConfiguration';
-  type: HeatingSourceType;
   maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
+  type: HeatingSourceType;
 };
 
 export type AdditionalServiceConfiguration = {
@@ -3522,47 +3562,55 @@ export type AdditionalServiceConfiguration = {
 };
 
 export type ServiceConfiguration =
-  | HotWaterSupplyConfiguration
+  | AdditionalServiceConfiguration
   | HeatingSourceConfiguration
-  | AdditionalServiceConfiguration;
+  | HotWaterSupplyConfiguration;
 
 export type Service = {
   __typename?: 'Service';
-  id: Scalars['String'];
-  type: ServiceType;
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  yearOfInstallation?: Maybe<Scalars['Int']>;
   configuration: ServiceConfiguration;
+  dateCreated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  name: Scalars['String'];
   ownership?: Maybe<OwnershipType>;
+  type: ServiceType;
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+};
+
+export type Services = {
+  additionalServices?: Maybe<Array<Service>>;
+  heatingSources?: Maybe<Array<Service>>;
+  hotWaterSupplies?: Maybe<Array<Service>>;
 };
 
 export type MetersSharedData = {
   __typename?: 'MetersSharedData';
+  dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type MetersMeta = {
   __typename?: 'MetersMeta';
-  Water?: Maybe<MetersSharedData>;
-  Gas?: Maybe<MetersSharedData>;
   Electric?: Maybe<MetersSharedData>;
+  Gas?: Maybe<MetersSharedData>;
+  Water?: Maybe<MetersSharedData>;
 };
 
-export type PimServices = LastUpdated & {
-  __typename?: 'PimServices';
-  id: Scalars['String'];
-  meters?: Maybe<Array<Meter>>;
-  metersMeta?: Maybe<MetersMeta>;
-  hotWaterSupplies?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  additionalServices?: Maybe<Array<Service>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
-  description?: Maybe<Scalars['String']>;
-};
+export type PimServices = LastUpdated &
+  Services & {
+    __typename?: 'PimServices';
+    id: Scalars['String'];
+    meters?: Maybe<Array<Meter>>;
+    metersMeta?: Maybe<MetersMeta>;
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    description?: Maybe<Scalars['String']>;
+  };
 
 export type PimWithNewService = {
   __typename?: 'PimWithNewService';
@@ -4319,6 +4367,11 @@ export type Subscription = {
   _?: Maybe<Scalars['Boolean']>;
 };
 
+export type ServiceDescriptionInput = {
+  id: Scalars['ID'];
+  servicesDescription?: Maybe<Scalars['String']>;
+};
+
 export type LoginMutationVariables = {
   input?: Maybe<LoginInput>;
 };
@@ -4624,6 +4677,63 @@ export type UpdateNcpInterestsMutationVariables = {
 
 export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
   updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
+
+export type AddNcpServiceMutationVariables = {
+  input: AddServiceInput;
+};
+
+export type AddNcpServiceMutation = { __typename?: 'Mutation' } & {
+  addNcpService: { __typename?: 'NcpWithNewService' } & {
+    ncp: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
+    newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
+  };
+};
+
+export type UpdateNcpServiceMutationVariables = {
+  input: UpdateServiceInput;
+};
+
+export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
+  updateNcpService: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
 };
 
 export type CreateObjectTypeMutationVariables = {
@@ -5048,7 +5158,7 @@ export type AddServiceMutationVariables = {
 };
 
 export type AddServiceMutation = { __typename?: 'Mutation' } & {
-  addService?: Maybe<
+  addPimService?: Maybe<
     { __typename?: 'PimWithNewService' } & {
       pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
       newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
@@ -5061,7 +5171,7 @@ export type UpdateServiceMutationVariables = {
 };
 
 export type UpdateServiceMutation = { __typename?: 'Mutation' } & {
-  updateService?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updatePimService?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type AddMeterMutationVariables = {
@@ -5069,7 +5179,7 @@ export type AddMeterMutationVariables = {
 };
 
 export type AddMeterMutation = { __typename?: 'Mutation' } & {
-  addMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  addPimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type UpdateMeterMutationVariables = {
@@ -5077,7 +5187,7 @@ export type UpdateMeterMutationVariables = {
 };
 
 export type UpdateMeterMutation = { __typename?: 'Mutation' } & {
-  updateMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updatePimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type AddReadingMutationVariables = {
@@ -5085,7 +5195,7 @@ export type AddReadingMutationVariables = {
 };
 
 export type AddReadingMutation = { __typename?: 'Mutation' } & {
-  addReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  addPimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type UpdateReadingMutationVariables = {
@@ -5093,7 +5203,7 @@ export type UpdateReadingMutationVariables = {
 };
 
 export type UpdateReadingMutation = { __typename?: 'Mutation' } & {
-  updateReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+  updatePimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
 export type UpdateSpecificationMutationVariables = {
@@ -5516,6 +5626,52 @@ export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
           | 'dateUpdated'
         > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
       >;
+    };
+};
+
+export type GetNcpServicesQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetNcpServicesQuery = { __typename?: 'Query' } & {
+  getNcpServices: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
     };
 };
 
@@ -6120,9 +6276,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'AdditionalServiceConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'AdditionalServiceConfiguration' };
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
             }
         >
       >;
@@ -6130,9 +6286,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'AdditionalServiceConfiguration' };
+                | { __typename?: 'HotWaterSupplyConfiguration' };
             }
         >
       >;
@@ -6143,9 +6299,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+                | { __typename?: 'HotWaterSupplyConfiguration' };
             }
         >
       >;
@@ -7059,6 +7215,99 @@ export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<
 export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpInterestsMutation,
   UpdateNcpInterestsMutationVariables
+>;
+export const AddNcpServiceDocument = gql`
+  mutation AddNcpService($input: AddServiceInput!) {
+    addNcpService(input: $input) {
+      ncp {
+        id
+      }
+      newService {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpServiceMutation, AddNcpServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpServiceMutation, AddNcpServiceMutationVariables>(
+    AddNcpServiceDocument,
+    baseOptions,
+  );
+}
+export type AddNcpServiceMutationHookResult = ReturnType<typeof useAddNcpServiceMutation>;
+export type AddNcpServiceMutationResult = ApolloReactCommon.MutationResult<AddNcpServiceMutation>;
+export type AddNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpServiceMutation,
+  AddNcpServiceMutationVariables
+>;
+export const UpdateNcpServiceDocument = gql`
+  mutation UpdateNcpService($input: UpdateServiceInput!) {
+    updateNcpService(input: $input) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      servicesDescription
+    }
+  }
+`;
+export function useUpdateNcpServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>(
+    UpdateNcpServiceDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpServiceMutationHookResult = ReturnType<typeof useUpdateNcpServiceMutation>;
+export type UpdateNcpServiceMutationResult = ApolloReactCommon.MutationResult<UpdateNcpServiceMutation>;
+export type UpdateNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpServiceMutation,
+  UpdateNcpServiceMutationVariables
 >;
 export const CreateObjectTypeDocument = gql`
   mutation CreateObjectType($input: CreateObjectTypeInput!) {
@@ -8117,7 +8366,7 @@ export type UpdatePricingMutationOptions = ApolloReactCommon.BaseMutationOptions
 >;
 export const AddServiceDocument = gql`
   mutation AddService($input: AddServiceInput!) {
-    addService(input: $input) {
+    addPimService(input: $input) {
       pim {
         id
       }
@@ -8140,7 +8389,7 @@ export type AddServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdateServiceDocument = gql`
   mutation UpdateService($input: UpdateServiceInput!) {
-    updateService(input: $input) {
+    updatePimService(input: $input) {
       id
     }
   }
@@ -8161,7 +8410,7 @@ export type UpdateServiceMutationOptions = ApolloReactCommon.BaseMutationOptions
 >;
 export const AddMeterDocument = gql`
   mutation AddMeter($input: AddMeterInput!) {
-    addMeter(input: $input) {
+    addPimMeter(input: $input) {
       id
     }
   }
@@ -8179,7 +8428,7 @@ export type AddMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdateMeterDocument = gql`
   mutation UpdateMeter($input: UpdateMeterInput!) {
-    updateMeter(input: $input) {
+    updatePimMeter(input: $input) {
       id
     }
   }
@@ -8200,7 +8449,7 @@ export type UpdateMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const AddReadingDocument = gql`
   mutation AddReading($input: AddReadingInput!) {
-    addReading(input: $input) {
+    addPimReading(input: $input) {
       id
     }
   }
@@ -8218,7 +8467,7 @@ export type AddReadingMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdateReadingDocument = gql`
   mutation UpdateReading($input: UpdateReadingInput!) {
-    updateReading(input: $input) {
+    updatePimReading(input: $input) {
       id
     }
   }
@@ -9053,6 +9302,81 @@ export type NcpPricesInterestsLazyQueryHookResult = ReturnType<typeof useNcpPric
 export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<
   NcpPricesInterestsQuery,
   NcpPricesInterestsQueryVariables
+>;
+export const GetNcpServicesDocument = gql`
+  query GetNcpServices($id: ID!) {
+    getNcpServices(id: $id) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      servicesDescription
+    }
+  }
+`;
+export function useGetNcpServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(
+    GetNcpServicesDocument,
+    baseOptions,
+  );
+}
+export function useGetNcpServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(
+    GetNcpServicesDocument,
+    baseOptions,
+  );
+}
+export type GetNcpServicesQueryHookResult = ReturnType<typeof useGetNcpServicesQuery>;
+export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServicesLazyQuery>;
+export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
+  GetNcpServicesQuery,
+  GetNcpServicesQueryVariables
 >;
 export const GetObjectTypeGeneralDocument = gql`
   query GetObjectTypeGeneral($id: ID!) {

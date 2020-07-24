@@ -9,15 +9,15 @@ import { AddMeterModal } from './AddMeterModal';
 
 export const AddMeterModalContainer = ({ isOpened, onClose, onAddMeter }: AddMeterModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [addMeter] = useAddMeterMutation();
+  const [addPimMeter] = useAddMeterMutation();
   const { push } = useHistory();
 
   const handleSubmit: AddMeterSubmit = async body => {
     try {
-      const { data: result } = await addMeter({
+      const { data: result } = await addPimMeter({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             name: body.name || '',
             type: body.type,
           },

@@ -284,7 +284,7 @@ export const mockServer = () => {
 
             return PIM_SERVICES;
           },
-          addService() {
+          addPimService() {
             variables.input.id = '13hdul_jrn3' + variables.input.name;
 
             if (variables.input.type === ServiceType.AdditionalServices) {
@@ -310,7 +310,7 @@ export const mockServer = () => {
               newService: variables.input,
             };
           },
-          updateService() {
+          updatePimService() {
             if (variables.input.type === ServiceType.AdditionalServices) {
               PIM_SERVICES.additionalServices = PIM_SERVICES.additionalServices?.map(f =>
                 f.id === variables.input.id ? { ...f, ...variables.input } : f,
@@ -331,21 +331,21 @@ export const mockServer = () => {
 
             return PIM_DETAILS;
           },
-          updateMeter() {
+          updatePimMeter() {
             PIM_SERVICES.meters = PIM_SERVICES.meters?.map(f =>
               f.id === variables.input.id ? { ...f, ...variables.input } : f,
             );
 
             return PIM_DETAILS;
           },
-          addMeter() {
+          addPimMeter() {
             variables.input.id = '13hdul_jrn3' + variables.input.name;
             const data = PIM_SERVICES.meters || [];
             PIM_SERVICES.meters = [...data, { ...variables.input, readings: [{ ...EMPTY_READING, id: 'reading_id' }] }];
 
             return PIM_DETAILS;
           },
-          updateReading() {
+          updatePimReading() {
             const meter = PIM_SERVICES.meters?.find(m => m.id === variables.input.meterId);
 
             meter?.readings?.map(r => (r.id === variables.input.id ? variables.input : r));
@@ -354,7 +354,7 @@ export const mockServer = () => {
 
             return PIM_DETAILS;
           },
-          addReading() {
+          addPimReading() {
             variables.input.id = '13hdul_jrn3Reading';
             const meter = PIM_SERVICES.meters?.find(m => m.id === variables.input.meterId);
 

@@ -27,8 +27,8 @@ export const MetersContainer = ({
   const { id, meterType } = useParams<{ id: string; meterType: string }>();
   const { formatMessage } = useLocale();
   const [loading, setLoading] = useState(false);
-  const [updateMeter] = useUpdateMeterMutation();
-  const [addReading] = useAddReadingMutation();
+  const [updatePimMeter] = useUpdateMeterMutation();
+  const [addPimReading] = useAddReadingMutation();
   const [updateDescription] = useUpdateDescriptionMutation();
 
   const meters =
@@ -65,10 +65,10 @@ export const MetersContainer = ({
 
   const handleEdit = async (body: Meter) => {
     try {
-      const { data } = await updateMeter({
+      const { data } = await updatePimMeter({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             id: body.id,
             name: body.name,
             description: body.description,
@@ -98,10 +98,10 @@ export const MetersContainer = ({
     setLoading(true);
 
     try {
-      const { data } = await addReading({
+      const { data } = await addPimReading({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             meterId: meterId,
           },
         },
