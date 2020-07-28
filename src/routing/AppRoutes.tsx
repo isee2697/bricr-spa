@@ -11,10 +11,10 @@ import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordCont
 import { PimContainer } from 'app/pim/PimContainer';
 import { ProjectContainer } from 'app/project/ProjectContainer';
 import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
-import { ProjectDetails } from 'app/projectDetails/ProjectDetails';
 import { ObjectTypeDetails } from 'app/objectTypeDetails/ObjectTypeDetails';
 import { useScrollToTop } from 'hooks';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { ProjectDetailsContainer } from '../app/projectDetails/ProjectDetailsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -49,7 +49,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.project} exact component={ProjectContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetails} />
-                <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetails} />
+                <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />

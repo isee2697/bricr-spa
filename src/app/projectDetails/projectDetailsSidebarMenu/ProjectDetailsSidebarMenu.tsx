@@ -1,16 +1,19 @@
 import React from 'react';
-import { useLocation, useRouteMatch, useHistory } from 'react-router-dom';
+import { useLocation, useRouteMatch, useHistory, Link } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
-import { SideMenuItem, SideSubMenuItem } from 'ui/atoms';
-import { SaleIcon } from 'ui/atoms/icons';
+import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
+import { ArrowLeftIcon, NewConstructionIcon, SaleIcon } from 'ui/atoms/icons';
 import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton';
+import { SidebarTitleTile } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { EntityType } from 'app/shared/entityType';
 
 import { useStyles } from './ProjectDetailsSidebarMenu.styles';
 import { ProjectDetailsSidebarMenuProps } from './ProjectDetailsSidebarMenu.types';
 
-export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber }: ProjectDetailsSidebarMenuProps) => {
+export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, ncp }: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
@@ -37,6 +40,14 @@ export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber }: ProjectD
         <SidebarHideButton />
       </div>
       <div className={classes.menuWrapper}>
+        <Box mb={2}>
+          <SidebarTitleTile
+            title={ncp?.getNcp.name}
+            subtitle={formatMessage({ id: 'common.sidebar_category.project' })}
+            category={EntityType.Project}
+            icon={<NewConstructionIcon color="inherit" />}
+          />
+        </Box>
         <SideMenu className={classes.root} disablePadding>
           {menuItems.map(item => (
             <SideMenuItem
@@ -58,6 +69,16 @@ export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber }: ProjectD
             </SideMenuItem>
           ))}
         </SideMenu>
+        <SideMenuItem
+          className={classes.backToList}
+          title={
+            <Link to={AppRoute.project}>
+              <ArrowLeftIcon color="inherit" />
+              {formatMessage({ id: `project_details.menu.back_to_ncp_list` })}
+            </Link>
+          }
+          selected={false}
+        />
       </div>
     </div>
   );

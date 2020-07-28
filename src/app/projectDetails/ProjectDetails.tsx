@@ -16,8 +16,9 @@ import { CharacteristicsContainer } from './sections/characteristics/Characteris
 import { Prices } from './sections/prices/Prices';
 import { ServicesContainer } from './sections/services/ServicesContainer';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
+import { NcpProps } from './ProjectDetails.types';
 
-export const ProjectDetails = () => {
+export const ProjectDetails = ({ ncp }: NcpProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -43,6 +44,7 @@ export const ProjectDetails = () => {
           <Grid item xs={12} md={3} lg={2}>
             <ProjectDetailsSidebarMenu
               onHide={handleSidebarHide}
+              ncp={ncp}
               objectTypeNumber={data?.activeCount.metadata?.total ?? 0}
             />
           </Grid>
