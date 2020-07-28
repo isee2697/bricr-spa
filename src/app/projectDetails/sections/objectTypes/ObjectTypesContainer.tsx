@@ -6,6 +6,7 @@ import { usePimsSorting } from 'app/pim/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { LIST_NCP_1 } from 'api/mocks/ncp-list';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { ObjectTypes } from './ObjectTypes';
 import { ListObjectTypes } from './ObjectTypes.types';
@@ -16,7 +17,7 @@ const OBJECT_TYPE_DATA: ListObjectTypes = {
   listObjectTypes: [LIST_NCP_1],
 };
 
-export const ObjectTypesContainer = () => {
+export const ObjectTypesContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
 
   const { loading: isCountLoading, error: countError, data: countData } = {
@@ -49,6 +50,8 @@ export const ObjectTypesContainer = () => {
 
   return (
     <ObjectTypes
+      isSidebarVisible={isSidebarVisible}
+      onSidebarOpen={onSidebarOpen}
       status={status}
       onStatusChange={setStatus}
       isLoading={isCountLoading || isListLoading}

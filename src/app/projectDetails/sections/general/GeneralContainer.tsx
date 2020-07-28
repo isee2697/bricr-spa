@@ -4,10 +4,11 @@ import arrayMutators from 'final-form-arrays';
 
 import { useNcpGeneralQuery, useUpdateNcpMutation, NcpGeneralDocument, NcpGeneral } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { General } from './General';
 
-export const GeneralContainer = () => {
+export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data } = useNcpGeneralQuery({ variables: { id } });
@@ -57,7 +58,7 @@ export const GeneralContainer = () => {
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={handleSave} mutators={{ ...arrayMutators }}>
-      <General data={data.getNcp} />
+      <General data={data.getNcp} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
     </AutosaveForm>
   );
 };

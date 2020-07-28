@@ -1,4 +1,5 @@
 import { SortOption } from 'ui/molecules/list/List.types';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 export type ProjectJourneyActionTabStatus = 'actionRequired' | 'matches' | 'interests';
 
@@ -36,7 +37,7 @@ export type ProjectJourneyActionTabsProps = {
   };
 };
 
-export type ProjectJourneyProps = {
+export type ProjectJourneyProps = ProjectDetailsProps & {
   data: ProjectJourneyData;
   sorting: {
     sortOptions: SortOption[];

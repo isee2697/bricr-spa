@@ -2,7 +2,7 @@ import { PimOverallInfoQueryHookResult, PimOverallInfoQuery } from 'api/types';
 
 export type PimDetailsSectionProps = {
   isSidebarVisible: boolean;
-  onOpenSidebar: VoidFunction;
+  onSidebarOpen: VoidFunction;
   title?: string;
 };
 

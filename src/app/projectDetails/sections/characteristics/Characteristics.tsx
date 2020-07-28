@@ -27,6 +27,8 @@ export const Characteristics = ({
   characteristicsSections,
   identificationNumbers,
   projectPhase,
+  isSidebarVisible,
+  onSidebarOpen,
 }: CharacteristicsProps) => {
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
@@ -99,6 +101,8 @@ export const Characteristics = ({
   return (
     <>
       <ProjectDetailsHeader
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

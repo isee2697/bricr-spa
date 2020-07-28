@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
 export type ProjectDetailsHeaderProps = {
-  isSidebarVisible?: boolean;
-  onOpenSidebar?: VoidFunction;
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
   title?: string;
   action?: ReactNode;
 };

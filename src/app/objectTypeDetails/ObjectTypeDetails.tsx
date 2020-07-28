@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Switch, Redirect, Route, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
@@ -15,34 +15,63 @@ import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/Obj
 export const ObjectTypeDetails = () => {
   const { formatMessage } = useLocale();
   const { id, projectId } = useParams<{ id: string; projectId: string }>();
+  const [isSidebarVisible, setSidebarVisiblity] = useState(true);
 
   const projectUrl = AppRoute.projectDetails.replace(':id', projectId);
   const objectTypeUrl = AppRoute.objectTypeDetails.replace(':id', id).replace(':projectId', projectId);
 
+  const handleSidebarHide = useCallback(() => {
+    setSidebarVisiblity(false);
+  }, []);
+
+  const handleSidebarOpen = useCallback(() => {
+    setSidebarVisiblity(true);
+  }, []);
+
   return (
-    <EntityTypeProvider entityType={EntityType.ObjectType}>
-      <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
-      <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
-      <Grid container spacing={0}>
-        <Grid item xs={12} md={3} lg={2}>
-          <ObjectTypeDetailsSidebarMenu />
+    <>
+      <EntityTypeProvider entityType={EntityType.ObjectType}>
+        <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
+        <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
+        <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
+        <Grid container spacing={0}>
+          {isSidebarVisible && (
+            <Grid item xs={12} md={3} lg={2}>
+              <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} />
+            </Grid>
+          )}
+          <Grid item xs={12} md={9} lg={10}>
+            <Box padding={3}>
+              <Switch>
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/dashboard`}
+                  render={() => <Dashboard isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+                />
+                } />
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/prices`}
+                  render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+                />
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/media`}
+                  render={() => (
+                    <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  )}
+                />
+                } />
+                <Route
+                  path={`${AppRoute.objectTypeDetails}/projectJourney`}
+                  render={() => (
+                    <ProjectJourneyContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  )}
+                />
+                } />
+                <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
+              </Switch>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={9} lg={10}>
-          <Box padding={3}>
-            <Switch>
-              <Route path={`${AppRoute.objectTypeDetails}/dashboard`} render={() => <Dashboard />} />
-              <Route path={`${AppRoute.objectTypeDetails}/prices`} render={() => <Prices />} />
-              <Route
-                path={`${AppRoute.objectTypeDetails}/media`}
-                render={() => <MediaContainer isSidebarVisible onOpenSidebar={() => {}} />}
-              />
-              <Route path={`${AppRoute.objectTypeDetails}/projectJourney`} render={() => <ProjectJourneyContainer />} />
-              <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
-            </Switch>
-          </Box>
-        </Grid>
-      </Grid>
-    </EntityTypeProvider>
+      </EntityTypeProvider>
+    </>
   );
 };

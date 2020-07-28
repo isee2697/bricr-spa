@@ -18,7 +18,7 @@ export const Costs = ({
   onSave,
   title,
   isSidebarVisible,
-  onOpenSidebar,
+  onSidebarOpen,
   dateUpdated,
   updatedBy,
   description,
@@ -75,7 +75,7 @@ export const Costs = ({
 
   return (
     <>
-      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
+      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
 
       <Page
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}

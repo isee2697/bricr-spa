@@ -61,19 +61,19 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                 <Route
                   path={`${AppRoute.pimDetails}/general`}
                   render={() => (
-                    <General isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                    <General isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
                   path={`${AppRoute.pimDetails}/inside`}
                   render={() => (
-                    <Inside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                    <Inside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
                   path={`${AppRoute.pimDetails}/outside`}
                   render={() => (
-                    <Outside isSidebarVisible={isSidebarVisible} onOpenSidebar={handleSidebarOpen} title={title} />
+                    <Outside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
@@ -81,7 +81,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   render={() => (
                     <CadastreContainer
                       isSidebarVisible={isSidebarVisible}
-                      onOpenSidebar={handleSidebarOpen}
+                      onSidebarOpen={handleSidebarOpen}
                       title={title}
                     />
                   )}
@@ -91,7 +91,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   render={() => (
                     <ServicesContainer
                       isSidebarVisible={isSidebarVisible}
-                      onOpenSidebar={handleSidebarOpen}
+                      onSidebarOpen={handleSidebarOpen}
                       title={title}
                     />
                   )}
@@ -101,7 +101,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   render={() => (
                     <PricesContainer
                       isSidebarVisible={isSidebarVisible}
-                      onOpenSidebar={handleSidebarOpen}
+                      onSidebarOpen={handleSidebarOpen}
                       title={title}
                     />
                   )}
@@ -111,7 +111,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   render={() => (
                     <Specification
                       isSidebarVisible={isSidebarVisible}
-                      onOpenSidebar={handleSidebarOpen}
+                      onSidebarOpen={handleSidebarOpen}
                       title={title}
                     />
                   )}
@@ -121,7 +121,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   render={() => (
                     <MediaContainer
                       isSidebarVisible={isSidebarVisible}
-                      onOpenSidebar={handleSidebarOpen}
+                      onSidebarOpen={handleSidebarOpen}
                       title={title}
                     />
                   )}

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
-export type ObjectTypeDetailsHeaderProps = {
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
+
+export type ObjectTypeDetailsHeaderProps = ProjectDetailsProps & {
   action?: ReactNode;
 };

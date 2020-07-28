@@ -6,10 +6,10 @@ import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { Cadastre } from './Cadastre';
 
-export const CadastreContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const CadastreContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data } = usePimCadastreQuery({ variables: { id } });
 
-  return <Cadastre title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} data={data} />;
+  return <Cadastre title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} data={data} />;
 };

@@ -22,7 +22,14 @@ const useIsInitialized = () => {
   return isInitialized.current;
 };
 
-export const PricesGeneral = ({ types, dateUpdated, updatedBy, onSetPrice }: PricesGeneralProps) => {
+export const PricesGeneral = ({
+  types,
+  dateUpdated,
+  updatedBy,
+  onSetPrice,
+  onSidebarOpen,
+  isSidebarVisible,
+}: PricesGeneralProps) => {
   const { formatMessage } = useLocale();
   const isInitialized = useIsInitialized();
 
@@ -31,6 +38,8 @@ export const PricesGeneral = ({ types, dateUpdated, updatedBy, onSetPrice }: Pri
   return (
     <>
       <ProjectDetailsHeader
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

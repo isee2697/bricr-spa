@@ -17,6 +17,7 @@ import {
 } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { EntityType, useEntityType } from '../entityType';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { PriceType } from './PricesGeneral.types';
 import { PricesGeneral } from './PricesGeneral';
@@ -32,7 +33,7 @@ const getQuery = (entityType: EntityType) => {
   }
 };
 
-export const PricesGeneralContainer = () => {
+export const PricesGeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
   const entityType = useEntityType();
 
@@ -162,6 +163,8 @@ export const PricesGeneralContainer = () => {
       mutators={{ ...arrayMutators }}
     >
       <PricesGeneral
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         types={
           [
             ((data as NcpPricesPricingQuery).getNcpPrices?.pricing?.sale?.isEnabled ||

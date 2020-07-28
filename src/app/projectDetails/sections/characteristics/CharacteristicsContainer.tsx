@@ -11,11 +11,12 @@ import {
   useUpdateNcpCharacteristicsMutation,
 } from 'api/types';
 import { useNcpCharacteristicsQuery } from 'api/types';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { sectionsOrder } from './Characteristics.types';
 import { Characteristics } from './Characteristics';
 
-export const CharacteristicsContainer = () => {
+export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<NcpCharacteristicsInput>>();
 
@@ -102,6 +103,8 @@ export const CharacteristicsContainer = () => {
 
         return (
           <Characteristics
+            onSidebarOpen={onSidebarOpen}
+            isSidebarVisible={isSidebarVisible}
             characteristicsSections={sectionsOrder.filter(section =>
               (data?.getNcpCharacteristics.characteristicsSections ?? []).includes(section),
             )}

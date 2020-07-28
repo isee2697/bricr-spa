@@ -1,16 +1,18 @@
 import { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 import { Meter, ServiceType, PimServices, ServiceConfiguration, OwnershipType, MetersSharedData } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
 
-export type ServicesProps = PimDetailsSectionProps & {
-  ncpServices: PimServices;
-  onSave(values: unknown): Promise<undefined | { error: boolean }>;
-  onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
-};
+export type ServicesProps = PimDetailsSectionProps &
+  ProjectDetailsProps & {
+    ncpServices: PimServices;
+    onSave(values: unknown): Promise<undefined | { error: boolean }>;
+    onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
+  };
 
 export type ServicesMetersContainerProps = PimDetailsSectionProps & {
   isMeterAdded: boolean;

@@ -3,6 +3,7 @@ import { useQueryParam } from 'use-query-params';
 
 import { usePimsSorting } from 'app/pim/usePimsSorting/usePimsSorting';
 import { AutosaveForm } from 'ui/organisms';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { ProjectJourney } from './ProjectJourney';
 import { ProjectJourneyData, ProjectJourneyActionTabStatus } from './ProjectJourney.types';
@@ -33,7 +34,7 @@ const data: ProjectJourneyData = {
   designation: 'Tower H',
 };
 
-export const ProjectJourneyContainer = () => {
+export const ProjectJourneyContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const [status = 'matches', setStatus] = useQueryParam<ProjectJourneyActionTabStatus>('status');
   const amounts = {
     actionRequired: 1,
@@ -44,7 +45,15 @@ export const ProjectJourneyContainer = () => {
 
   return (
     <AutosaveForm onSave={() => Promise.resolve(undefined)}>
-      <ProjectJourney data={data} status={status} onStatusChange={setStatus} amounts={amounts} sorting={sorting} />
+      <ProjectJourney
+        data={data}
+        status={status}
+        onStatusChange={setStatus}
+        amounts={amounts}
+        sorting={sorting}
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
+      />
     </AutosaveForm>
   );
 };

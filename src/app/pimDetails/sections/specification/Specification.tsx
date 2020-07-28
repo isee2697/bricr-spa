@@ -13,7 +13,7 @@ import { AdvancedContainer } from './advanced/AdvancedContainer';
 import { LinkedPropertyContainer } from './linkedProperty/LinkedPropertyContainer';
 import { InspectionContainer } from './inspection/InspectionContainer';
 
-export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const Specification = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -24,7 +24,7 @@ export const Specification = ({ title, isSidebarVisible, onOpenSidebar }: PimDet
         title={formatMessage({ id: 'pim_details.specification.title' })}
       />
       <Grid xs={12} item>
-        <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
+        <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       </Grid>
       <Switch>
         <Route

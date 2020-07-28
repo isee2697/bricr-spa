@@ -6,7 +6,6 @@ import { SideMenu } from 'ui/molecules';
 import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { UnseeIcon } from 'ui/atoms/icons/unsee/UnseeIcon';
 import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
 import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
@@ -18,6 +17,7 @@ import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType, FloorType } from 'api/types';
+import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -153,51 +153,49 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
 
   return (
     <div className={classes.root}>
-      <SideMenuItem
-        className={classes.hideMenu}
-        icon={<UnseeIcon />}
-        title={formatMessage({ id: `pim_details.menu.hide_sidebar` })}
-        selected={false}
-        onClick={onHide}
-      />
-      <SideMenu className={classes.menu} disablePadding>
-        {items.map(item => (
-          <SideMenuItem
-            key={item.name}
-            icon={item.icon}
-            title={
-              <Link to={`${url}/${item.name}`}>
-                {item.icon || <Box mr={4} />}
-                {formatMessage({ id: `pim_details.menu.${item.name}` })}
-              </Link>
-            }
-            selected={pathname.startsWith(`${url}/${item.name}`)}
-          >
-            {item.subItems?.map(subItem => (
-              <SideSubMenuItem
-                key={subItem.id}
-                title={
-                  <Link to={`${url}/${item.name}/${subItem.id}`}>
-                    <Box mr={4} />
-                    {formatMessage({ id: subItem.label })} {subItem.number}
-                  </Link>
-                }
-                selected={pathname === `${url}/${item.name}/${subItem.id}`}
-              />
-            ))}
-          </SideMenuItem>
-        ))}
-      </SideMenu>
-      <SideMenuItem
-        className={classes.backToList}
-        title={
-          <Link to={AppRoute.pim}>
-            <ArrowLeftIcon color="inherit" />
-            {formatMessage({ id: `pim_details.menu.back_to_pim_list` })}
-          </Link>
-        }
-        selected={false}
-      />
+      <div className={classes.hideButton} onClick={onHide}>
+        <SidebarHideButton />
+      </div>
+      <div className={classes.menuWrapper}>
+        <SideMenu className={classes.menu} disablePadding>
+          {items.map(item => (
+            <SideMenuItem
+              key={item.name}
+              icon={item.icon}
+              title={
+                <Link to={`${url}/${item.name}`}>
+                  {item.icon || <Box mr={4} />}
+                  {formatMessage({ id: `pim_details.menu.${item.name}` })}
+                </Link>
+              }
+              selected={pathname.startsWith(`${url}/${item.name}`)}
+            >
+              {item.subItems?.map(subItem => (
+                <SideSubMenuItem
+                  key={subItem.id}
+                  title={
+                    <Link to={`${url}/${item.name}/${subItem.id}`}>
+                      <Box mr={4} />
+                      {formatMessage({ id: subItem.label })} {subItem.number}
+                    </Link>
+                  }
+                  selected={pathname === `${url}/${item.name}/${subItem.id}`}
+                />
+              ))}
+            </SideMenuItem>
+          ))}
+        </SideMenu>
+        <SideMenuItem
+          className={classes.backToList}
+          title={
+            <Link to={AppRoute.pim}>
+              <ArrowLeftIcon color="inherit" />
+              {formatMessage({ id: `pim_details.menu.back_to_pim_list` })}
+            </Link>
+          }
+          selected={false}
+        />
+      </div>
     </div>
   );
 };

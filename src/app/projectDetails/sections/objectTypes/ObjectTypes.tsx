@@ -7,7 +7,7 @@ import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { FormSection } from 'ui/organisms';
 import { AddIcon } from 'ui/atoms/icons';
-import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
+import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 
 import { useStyles } from './ObjectTypes.styles';
@@ -23,6 +23,8 @@ export const ObjectTypes = ({
   onStatusChange,
   pagination,
   status,
+  onSidebarOpen,
+  isSidebarVisible,
 }: ObjectTypesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -32,6 +34,8 @@ export const ObjectTypes = ({
     <div className={classes.root}>
       {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <ProjectDetailsHeader
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

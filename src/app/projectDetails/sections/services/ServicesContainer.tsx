@@ -4,7 +4,7 @@ import { Redirect, Route, Switch, useParams } from 'react-router';
 import { dateToYear } from 'form/fields';
 import { NavBreadcrumb, Button } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
+import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import {
   PimServices,
   GetNcpServicesDocument,
@@ -15,12 +15,12 @@ import {
 } from 'api/types';
 import { useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
-import { PimDetailsSectionProps } from '../../../pimDetails/PimDetails.types';
+import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { ServiceForm } from './Services.types';
 import { Services } from './Services';
 
-export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const ServicesContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { data } = useGetNcpServicesQuery({ variables: { id } });
@@ -101,7 +101,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
       />
       <ProjectDetailsHeader
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"
@@ -122,7 +122,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
           render={() => (
             <Services
               isSidebarVisible={isSidebarVisible}
-              onOpenSidebar={onOpenSidebar}
+              onSidebarOpen={onSidebarOpen}
               ncpServices={ncpServices}
               onSave={onEdit}
               onDescriptionUpdate={onDescriptionUpdate}

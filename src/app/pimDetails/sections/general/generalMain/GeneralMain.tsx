@@ -19,7 +19,7 @@ import { ConstructionInformationForm } from './forms/ConstructionInformationForm
 import { AvailabilityForm } from './forms/AvailabilityForm';
 import { AdditionalInformationModalContainer } from './additionalInformationModal/AdditionalInformationModalContainer';
 
-export const GeneralMain = ({ title, isSidebarVisible, onOpenSidebar, pimGeneral, onSave }: GeneralProps) => {
+export const GeneralMain = ({ title, isSidebarVisible, onSidebarOpen, pimGeneral, onSave }: GeneralProps) => {
   const { formatMessage } = useLocale();
   const theme = useTheme();
   const classes = useStyles();
@@ -31,7 +31,7 @@ export const GeneralMain = ({ title, isSidebarVisible, onOpenSidebar, pimGeneral
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

@@ -35,7 +35,7 @@ const getQuery = (entityType: EntityType) => {
   }
 };
 
-export const MediaContainer = (props: PimDetailsSectionProps) => {
+export const MediaContainer = ({ isSidebarVisible, onSidebarOpen, ...props }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { sorting, query: sortQuery } = usePicturesSorting();
   const entityType = useEntityType();
@@ -112,6 +112,8 @@ export const MediaContainer = (props: PimDetailsSectionProps) => {
       onDescriptionUpdate={onDescriptionUpdate}
       sorting={sorting}
       sortQuery={sortQuery}
+      isSidebarVisible={isSidebarVisible}
+      onSidebarOpen={onSidebarOpen}
     />
   );
 };

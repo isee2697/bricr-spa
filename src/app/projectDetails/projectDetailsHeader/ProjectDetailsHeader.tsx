@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Box, Grid, IconButton } from 'ui/atoms';
+import { Box, IconButton, Grid } from 'ui/atoms';
 import { HideIcon } from 'ui/atoms/icons';
 import { NavBreadcrumbs } from 'ui/atoms/navBreadcrumbs/NavBreadcrumbs';
 
-import { useStyles } from './ProjectDetailsHeader.styles';
 import { ProjectDetailsHeaderProps } from './ProjectDetailsHeader.types';
+import { useStyles } from './ProjectDetailsHeader.styles';
 
-export const ProjectDetailsHeader = ({ isSidebarVisible, onOpenSidebar, action }: ProjectDetailsHeaderProps) => {
+export const ProjectDetailsHeader = ({ action, isSidebarVisible, onSidebarOpen }: ProjectDetailsHeaderProps) => {
   const classes = useStyles();
 
   return (
@@ -17,7 +17,7 @@ export const ProjectDetailsHeader = ({ isSidebarVisible, onOpenSidebar, action }
           {!isSidebarVisible && (
             <IconButton
               className={classes.hideSidebarButton}
-              onClick={onOpenSidebar}
+              onClick={onSidebarOpen}
               size="small"
               variant="roundedContained"
             >

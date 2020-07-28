@@ -14,13 +14,23 @@ import { ProjectJourneyProps } from './ProjectJourney.types';
 import { ProjectJourneyItem } from './projectJourneyItem/ProjectJourneyItem';
 import { ProjectJourneyActionTabs } from './projectJourneyActionTabs/ProjectJourneyActionTabs';
 
-export const ProjectJourney = ({ data, status, onStatusChange, amounts, sorting }: ProjectJourneyProps) => {
+export const ProjectJourney = ({
+  data,
+  status,
+  onStatusChange,
+  amounts,
+  sorting,
+  isSidebarVisible,
+  onSidebarOpen,
+}: ProjectJourneyProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <>
       <ProjectDetailsHeader
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Box display="flex">
             <Grid container spacing={3}>
@@ -42,7 +52,7 @@ export const ProjectJourney = ({ data, status, onStatusChange, amounts, sorting 
                   </Typography>
                 </Grid>
               )}
-              <Grid item style={{ backgroundImage: `url(${data.projectLogo})` }} className={classes.logo}></Grid>
+              <Grid item style={{ backgroundImage: `url(${data.projectLogo})` }} className={classes.logo} />
             </Grid>
           </Box>
         }

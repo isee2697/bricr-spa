@@ -16,7 +16,7 @@ import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOut
 import { MainContainer } from './main/MainContainer';
 import { FeatureContainer } from './feature/FeatureContainer';
 
-export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const Outside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
   const { id } = useParams<{ id: string }>();
@@ -44,7 +44,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

@@ -1,6 +1,7 @@
 import { IdentificationNumber, NcpCharacteristicsSections, Profile, ProjectPhase } from 'api/types';
+import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
-export type CharacteristicsProps = {
+export type CharacteristicsProps = PimDetailsSectionProps & {
   dateUpdated?: string | null;
   updatedBy?: Profile | null;
   characteristicsSections: NcpCharacteristicsSections[];

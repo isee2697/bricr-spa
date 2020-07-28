@@ -18,7 +18,7 @@ import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { InsideGeneralContainer } from './general/InsideGeneralContainer';
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
 
-export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
   const { isOpen: isAddFloorModalOpen } = useModalState('add-new-floor');
   const { close, open } = useModalDispatch();
@@ -60,7 +60,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"
@@ -102,7 +102,7 @@ export const Inside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSec
                   floor={floor}
                   count={getCount(floor)}
                   isSidebarVisible={isSidebarVisible}
-                  onOpenSidebar={onOpenSidebar}
+                  onSidebarOpen={onSidebarOpen}
                 />
               )}
             />

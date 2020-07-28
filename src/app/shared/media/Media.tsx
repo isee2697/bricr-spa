@@ -18,7 +18,7 @@ import { MediaProps } from './Media.types';
 export const Media = ({
   title,
   isSidebarVisible,
-  onOpenSidebar,
+  onSidebarOpen,
   media,
   description,
   onDescriptionUpdate,
@@ -37,7 +37,7 @@ export const Media = ({
 
   return (
     <>
-      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
+      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'pim_details.media.title' })}
         onSave={onDescriptionUpdate}

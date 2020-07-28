@@ -13,7 +13,7 @@ import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { GeneralMain } from './GeneralMain';
 
-export const GeneralMainContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const GeneralMainContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data } = usePimGeneralQuery({ variables: { id } });
@@ -67,7 +67,7 @@ export const GeneralMainContainer = ({ title, isSidebarVisible, onOpenSidebar }:
   return (
     <GeneralMain
       isSidebarVisible={isSidebarVisible}
-      onOpenSidebar={onOpenSidebar}
+      onSidebarOpen={onSidebarOpen}
       title={title}
       pimGeneral={data.getPimGeneral as PimGeneral}
       onSave={handleSave}

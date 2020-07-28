@@ -12,7 +12,7 @@ import { AddCostModalContainer } from 'app/shared/prices';
 import { CostsProps } from './Costs.types';
 import { CostItem } from './costItem/CostItem';
 
-export const Costs = ({ data, onDescriptionSave, onUpdateCost }: CostsProps) => {
+export const Costs = ({ data, onDescriptionSave, onUpdateCost, onSidebarOpen, isSidebarVisible }: CostsProps) => {
   const { formatMessage } = useLocale();
 
   const formRef = useRef<FormSectionRef>(null);
@@ -23,7 +23,7 @@ export const Costs = ({ data, onDescriptionSave, onUpdateCost }: CostsProps) => 
 
   return (
     <>
-      <ProjectDetailsHeader />
+      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}
         name="description"
@@ -53,6 +53,7 @@ export const Costs = ({ data, onDescriptionSave, onUpdateCost }: CostsProps) => 
                     </Typography>
                   </InfoSection>
                 )}
+
                 {!!data.costs?.length &&
                   data.costs?.map((cost, index) => (
                     <AutosaveForm key={`${cost.type}_${index}`} initialValues={cost} onSave={onUpdateCost}>

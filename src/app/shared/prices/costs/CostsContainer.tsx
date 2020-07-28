@@ -8,10 +8,11 @@ import {
   NcpPricesCostsDocument,
   CommonCost,
 } from 'api/types';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { Costs } from './Costs';
 
-export const CostsContainer = () => {
+export const CostsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data } = useNcpPricesCostsQuery({ variables: { id } });
@@ -71,6 +72,12 @@ export const CostsContainer = () => {
   }
 
   return (
-    <Costs data={data.getNcpPrices.costs} onDescriptionSave={handleDescriptionSave} onUpdateCost={handleUpdateCost} />
+    <Costs
+      data={data.getNcpPrices.costs}
+      onDescriptionSave={handleDescriptionSave}
+      onUpdateCost={handleUpdateCost}
+      isSidebarVisible={isSidebarVisible}
+      onSidebarOpen={onSidebarOpen}
+    />
   );
 };

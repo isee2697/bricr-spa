@@ -15,7 +15,7 @@ import { PlotContainer } from './plot/PlotContainer';
 import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
 import { CadastreProps } from './Cadastre.types';
 
-export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: CadastreProps) => {
+export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: CadastreProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -38,7 +38,7 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: Cadas
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Box display="flex" flexShrink={0}>
             <Button className={classes.addPlot} color="primary" variant="outlined" onClick={() => {}} size="small">
