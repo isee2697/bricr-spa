@@ -1,6 +1,13 @@
 import React, { useMemo } from 'react';
 
-import { LabelProperty, useGetLabelsQuery, useGetNcpLabelsQuery, GetLabelsQuery, GetNcpLabelsQuery } from 'api/types';
+import {
+  LabelProperty,
+  useGetLabelsQuery,
+  useGetNcpLabelsQuery,
+  useGetObjectTypeLabelsQuery,
+  GetLabelsQuery,
+  GetNcpLabelsQuery,
+} from 'api/types';
 import { iconPickerIcons } from 'hooks/useCustomLabels/icons';
 import { SquareIcon } from 'ui/atoms/icons';
 import { EntityType } from 'app/shared/entityType';
@@ -14,7 +21,7 @@ const getQuery = (entityType: EntityType) => {
     case EntityType.Project:
       return useGetNcpLabelsQuery;
     case EntityType.ObjectType:
-      return useGetNcpLabelsQuery;
+      return useGetObjectTypeLabelsQuery;
     default:
       throw new Error('There is no such EnitityType');
   }

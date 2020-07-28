@@ -75,6 +75,7 @@ export type Mutation = {
   addNcpTextChapter?: Maybe<NcpMedia>;
   addNcpUsps?: Maybe<NcpMedia>;
   addObjectTypeCost: ObjectTypePricesResult;
+  addObjectTypeLabel: Label;
   addObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
   addObjectTypePictures?: Maybe<ObjectTypeMedia>;
   addObjectTypeTag?: Maybe<ObjectTypeMedia>;
@@ -103,6 +104,7 @@ export type Mutation = {
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
   removeNcpLabel: Scalars['Boolean'];
+  removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
   removeViewingMoment: Pim;
@@ -217,7 +219,7 @@ export type MutationAddNcpIdentificationNumberArgs = {
 };
 
 export type MutationAddNcpLabelArgs = {
-  input: NcpLabelInput;
+  input: LabelInput;
 };
 
 export type MutationAddNcpMediaLinkArgs = {
@@ -246,6 +248,10 @@ export type MutationAddNcpUspsArgs = {
 
 export type MutationAddObjectTypeCostArgs = {
   input: AddCommonCostInput;
+};
+
+export type MutationAddObjectTypeLabelArgs = {
+  input: LabelInput;
 };
 
 export type MutationAddObjectTypeMediaLinkArgs = {
@@ -357,6 +363,10 @@ export type MutationRemoveLabelArgs = {
 };
 
 export type MutationRemoveNcpLabelArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveObjectTypeLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -933,10 +943,11 @@ export type Label = {
   icon?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   property: LabelProperty;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type LabelInput = {
-  pimId: Scalars['ID'];
+  parentId: Scalars['ID'];
   icon?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   property: LabelProperty;
@@ -957,6 +968,7 @@ export type Query = {
   getNcpWithSameAddress: NcpSearchResult;
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
+  getObjectTypeLabels?: Maybe<Array<Label>>;
   getObjectTypeMedia: ObjectTypeMedia;
   getObjectTypePrices: ObjectTypePricesResult;
   /** @deprecated In later version pim will be split into multiple smaller views. */
@@ -986,7 +998,7 @@ export type QueryGetChangesHistoryArgs = {
 };
 
 export type QueryGetLabelsArgs = {
-  pimId: Scalars['ID'];
+  parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
@@ -1025,6 +1037,11 @@ export type QueryGetObjectTypeCharacteristicsArgs = {
 
 export type QueryGetObjectTypeGeneralArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetObjectTypeMediaArgs = {
@@ -1513,13 +1530,6 @@ export type NcpWithSameAddressInput = {
   houseNumber?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
-};
-
-export type NcpLabelInput = {
-  parentId: Scalars['ID'];
-  icon?: Maybe<Scalars['String']>;
-  text: Scalars['String'];
-  property: LabelProperty;
 };
 
 export type ListNcpsFilters = {
@@ -4644,7 +4654,7 @@ export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
 };
 
 export type AddNcpLabelMutationVariables = {
-  input: NcpLabelInput;
+  input: LabelInput;
 };
 
 export type AddNcpLabelMutation = { __typename?: 'Mutation' } & {
@@ -4904,6 +4914,14 @@ export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
     ObjectTypeGeneral,
     'name' | 'dateUpdated' | 'ncpId' | 'id'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type AddObjectTypeLabelMutationVariables = {
+  input: LabelInput;
+};
+
+export type AddObjectTypeLabelMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type UpdateObjectTypesListDescriptionMutationVariables = {
@@ -5904,6 +5922,15 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
     ObjectTypeGeneral,
     'id' | 'name' | 'dateUpdated' | 'ncpId'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type GetObjectTypeLabelsQueryVariables = {
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type GetObjectTypeLabelsQuery = { __typename?: 'Query' } & {
+  getObjectTypeLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type ListObjectTypesCountQueryVariables = {
@@ -7113,7 +7140,7 @@ export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpMutationVariables
 >;
 export const AddNcpLabelDocument = gql`
-  mutation AddNcpLabel($input: NcpLabelInput!) {
+  mutation AddNcpLabel($input: LabelInput!) {
     addNcpLabel(input: $input) {
       id
       property
@@ -7693,6 +7720,30 @@ export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<Cr
 export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateObjectTypeMutation,
   CreateObjectTypeMutationVariables
+>;
+export const AddObjectTypeLabelDocument = gql`
+  mutation AddObjectTypeLabel($input: LabelInput!) {
+    addObjectTypeLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddObjectTypeLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>(
+    AddObjectTypeLabelDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeLabelMutationHookResult = ReturnType<typeof useAddObjectTypeLabelMutation>;
+export type AddObjectTypeLabelMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeLabelMutation>;
+export type AddObjectTypeLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeLabelMutation,
+  AddObjectTypeLabelMutationVariables
 >;
 export const UpdateObjectTypesListDescriptionDocument = gql`
   mutation UpdateObjectTypesListDescription($input: UpdateObjectTypesListDescription!) {
@@ -9066,7 +9117,7 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
 >;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
-    getLabels(pimId: $id, properties: $properties) {
+    getLabels(parentId: $id, properties: $properties) {
       id
       property
       icon
@@ -9883,6 +9934,38 @@ export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetOb
 export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeGeneralQuery,
   GetObjectTypeGeneralQueryVariables
+>;
+export const GetObjectTypeLabelsDocument = gql`
+  query GetObjectTypeLabels($id: ID!, $properties: [LabelProperty!]) {
+    getObjectTypeLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetObjectTypeLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(
+    GetObjectTypeLabelsDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(
+    GetObjectTypeLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeLabelsQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsQuery>;
+export type GetObjectTypeLabelsLazyQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsLazyQuery>;
+export type GetObjectTypeLabelsQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeLabelsQuery,
+  GetObjectTypeLabelsQueryVariables
 >;
 export const ListObjectTypesCountDocument = gql`
   query ListObjectTypesCount($ncpId: String!) {
