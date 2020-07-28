@@ -9,6 +9,7 @@ import { Prices } from 'app/objectTypeDetails/sections/prices/Prices';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourneyContainer';
+import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
 
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
@@ -53,6 +54,10 @@ export const ObjectTypeDetails = ({ ncp, objectTypes }: NcpObjectTypesProps) => 
                 render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
                 isSidebarVisible={isSidebarVisible}
                 onSidebarOpen={handleSidebarOpen}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/services`}
+                render={() => <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={() => {}} />}
               />
               <Route
                 path={`${AppRoute.objectTypeDetails}/media`}

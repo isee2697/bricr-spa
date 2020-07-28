@@ -1,9 +1,9 @@
 import { gql } from 'apollo-boost';
 
-export const ADD_NCP_SERVICE = gql`
-  mutation AddNcpService($input: AddServiceInput!) {
-    addNcpService(input: $input) {
-      ncp {
+export const ADD_OBJECT_TYPE_SERVICE = gql`
+  mutation AddObjectTypeService($input: AddServiceInput!) {
+    addObjectTypeService(input: $input) {
+      objectType {
         id
       }
       newService {
@@ -13,9 +13,9 @@ export const ADD_NCP_SERVICE = gql`
   }
 `;
 
-export const UPDATE_NCP_SERVICE = gql`
-  mutation UpdateNcpService($input: UpdateServiceInput!) {
-    updateNcpService(input: $input) {
+export const UPDATE_OBJECT_TYPE_SERVICE = gql`
+  mutation UpdateObjectTypeService($input: UpdateServiceInput!) {
+    updateObjectTypeService(input: $input) {
       id
       hotWaterSupplies {
         id
@@ -67,9 +67,9 @@ export const UPDATE_NCP_SERVICE = gql`
   }
 `;
 
-export const UPDATE_NCP_SERVICE_DESCRIPTION = gql`
-  mutation UpdateNcpServiceDescription($input: ServiceDescriptionInput!) {
-    updateNcpServiceDescription(input: $input) {
+export const UPDATE_OBJECT_TYPE_SERVICE_DESCRIPTION = gql`
+  mutation UpdateObjectTypeServiceDescription($input: ServiceDescriptionInput!) {
+    updateObjectTypeServiceDescription(input: $input) {
       id
     }
   }

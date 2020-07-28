@@ -77,6 +77,7 @@ export type Mutation = {
   addObjectTypeCost: ObjectTypePricesResult;
   addObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
   addObjectTypePictures?: Maybe<ObjectTypeMedia>;
+  addObjectTypeService: ObjectTypeWithNewService;
   addObjectTypeTag?: Maybe<ObjectTypeMedia>;
   addObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
   addObjectTypeUsps?: Maybe<ObjectTypeMedia>;
@@ -144,6 +145,8 @@ export type Mutation = {
   updateObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
   updateObjectTypePicture?: Maybe<ObjectTypeMedia>;
   updateObjectTypePricing: ObjectTypePricesResult;
+  updateObjectTypeService: ObjectTypeServices;
+  updateObjectTypeServiceDescription: ObjectTypeServices;
   updateObjectTypeTag?: Maybe<ObjectTypeMedia>;
   updateObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
   updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
@@ -254,6 +257,10 @@ export type MutationAddObjectTypeMediaLinkArgs = {
 
 export type MutationAddObjectTypePicturesArgs = {
   input: CommonAddPicturesInput;
+};
+
+export type MutationAddObjectTypeServiceArgs = {
+  input: AddServiceInput;
 };
 
 export type MutationAddObjectTypeTagArgs = {
@@ -523,6 +530,14 @@ export type MutationUpdateObjectTypePictureArgs = {
 
 export type MutationUpdateObjectTypePricingArgs = {
   input: UpdateCommonPricingInput;
+};
+
+export type MutationUpdateObjectTypeServiceArgs = {
+  input: UpdateServiceInput;
+};
+
+export type MutationUpdateObjectTypeServiceDescriptionArgs = {
+  input: ServiceDescriptionInput;
 };
 
 export type MutationUpdateObjectTypeTagArgs = {
@@ -959,6 +974,7 @@ export type Query = {
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeMedia: ObjectTypeMedia;
   getObjectTypePrices: ObjectTypePricesResult;
+  getObjectTypeServices: ObjectTypeServices;
   /** @deprecated In later version pim will be split into multiple smaller views. */
   getPim?: Maybe<Pim>;
   getPimCadastre: PimCadastre;
@@ -1032,6 +1048,10 @@ export type QueryGetObjectTypeMediaArgs = {
 };
 
 export type QueryGetObjectTypePricesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeServicesArgs = {
   id: Scalars['ID'];
 };
 
@@ -1866,6 +1886,24 @@ export type ObjectTypePricesResult = {
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<CommonCosts>;
   ncpId?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeServices = LastUpdated &
+  Services & {
+    __typename?: 'ObjectTypeServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
+
+export type ObjectTypeWithNewService = {
+  __typename?: 'ObjectTypeWithNewService';
+  objectType: ObjectTypeServices;
+  newService: Service;
 };
 
 export enum CadastreMapType {
@@ -4860,6 +4898,14 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
     };
 };
 
+export type UpdateNcpServiceDescriptionMutationVariables = {
+  input: ServiceDescriptionInput;
+};
+
+export type UpdateNcpServiceDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpServiceDescription: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
+};
+
 export type UpdateObjectTypeCharacteristicsMutationVariables = {
   input: ObjectTypeCharacteristicsInput;
 };
@@ -5056,6 +5102,74 @@ export type UpdateObjectTypeCostsDetailsMutationVariables = {
 
 export type UpdateObjectTypeCostsDetailsMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
+
+export type AddObjectTypeServiceMutationVariables = {
+  input: AddServiceInput;
+};
+
+export type AddObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeService: { __typename?: 'ObjectTypeWithNewService' } & {
+    objectType: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
+    newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
+  };
+};
+
+export type UpdateObjectTypeServiceMutationVariables = {
+  input: UpdateServiceInput;
+};
+
+export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeService: { __typename?: 'ObjectTypeServices' } & Pick<
+    ObjectTypeServices,
+    'id' | 'dateUpdated' | 'servicesDescription'
+  > & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
+
+export type UpdateObjectTypeServiceDescriptionMutationVariables = {
+  input: ServiceDescriptionInput;
+};
+
+export type UpdateObjectTypeServiceDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeServiceDescription: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
 };
 
 export type AddCadastreMutationVariables = {
@@ -6057,6 +6171,55 @@ export type ObjectTypePricesCostsQuery = { __typename?: 'Query' } & {
             lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
           }
       >;
+    };
+};
+
+export type GetObjectTypeServicesQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
+  getObjectTypeServices: { __typename?: 'ObjectTypeServices' } & Pick<
+    ObjectTypeServices,
+    'id' | 'dateUpdated' | 'servicesDescription'
+  > & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' };
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
     };
 };
 
@@ -7600,6 +7763,32 @@ export type UpdateNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateNcpServiceMutation,
   UpdateNcpServiceMutationVariables
 >;
+export const UpdateNcpServiceDescriptionDocument = gql`
+  mutation UpdateNcpServiceDescription($input: ServiceDescriptionInput!) {
+    updateNcpServiceDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpServiceDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpServiceDescriptionMutation,
+    UpdateNcpServiceDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateNcpServiceDescriptionMutation,
+    UpdateNcpServiceDescriptionMutationVariables
+  >(UpdateNcpServiceDescriptionDocument, baseOptions);
+}
+export type UpdateNcpServiceDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpServiceDescriptionMutation>;
+export type UpdateNcpServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpServiceDescriptionMutation
+>;
+export type UpdateNcpServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpServiceDescriptionMutation,
+  UpdateNcpServiceDescriptionMutationVariables
+>;
 export const UpdateObjectTypeCharacteristicsDocument = gql`
   mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
     updateObjectTypeCharacteristics(input: $input) {
@@ -8115,6 +8304,133 @@ export type UpdateObjectTypeCostsDetailsMutationResult = ApolloReactCommon.Mutat
 export type UpdateObjectTypeCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateObjectTypeCostsDetailsMutation,
   UpdateObjectTypeCostsDetailsMutationVariables
+>;
+export const AddObjectTypeServiceDocument = gql`
+  mutation AddObjectTypeService($input: AddServiceInput!) {
+    addObjectTypeService(input: $input) {
+      objectType {
+        id
+      }
+      newService {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeServiceMutation,
+    AddObjectTypeServiceMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeServiceMutation, AddObjectTypeServiceMutationVariables>(
+    AddObjectTypeServiceDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeServiceMutationHookResult = ReturnType<typeof useAddObjectTypeServiceMutation>;
+export type AddObjectTypeServiceMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeServiceMutation>;
+export type AddObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeServiceMutation,
+  AddObjectTypeServiceMutationVariables
+>;
+export const UpdateObjectTypeServiceDocument = gql`
+  mutation UpdateObjectTypeService($input: UpdateServiceInput!) {
+    updateObjectTypeService(input: $input) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      servicesDescription
+    }
+  }
+`;
+export function useUpdateObjectTypeServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeServiceMutation,
+    UpdateObjectTypeServiceMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeServiceMutation, UpdateObjectTypeServiceMutationVariables>(
+    UpdateObjectTypeServiceDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeServiceMutationHookResult = ReturnType<typeof useUpdateObjectTypeServiceMutation>;
+export type UpdateObjectTypeServiceMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeServiceMutation>;
+export type UpdateObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeServiceMutation,
+  UpdateObjectTypeServiceMutationVariables
+>;
+export const UpdateObjectTypeServiceDescriptionDocument = gql`
+  mutation UpdateObjectTypeServiceDescription($input: ServiceDescriptionInput!) {
+    updateObjectTypeServiceDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeServiceDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeServiceDescriptionMutation,
+    UpdateObjectTypeServiceDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeServiceDescriptionMutation,
+    UpdateObjectTypeServiceDescriptionMutationVariables
+  >(UpdateObjectTypeServiceDescriptionDocument, baseOptions);
+}
+export type UpdateObjectTypeServiceDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeServiceDescriptionMutation
+>;
+export type UpdateObjectTypeServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeServiceDescriptionMutation
+>;
+export type UpdateObjectTypeServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeServiceDescriptionMutation,
+  UpdateObjectTypeServiceDescriptionMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -10204,6 +10520,81 @@ export type ObjectTypePricesCostsLazyQueryHookResult = ReturnType<typeof useObje
 export type ObjectTypePricesCostsQueryResult = ApolloReactCommon.QueryResult<
   ObjectTypePricesCostsQuery,
   ObjectTypePricesCostsQueryVariables
+>;
+export const GetObjectTypeServicesDocument = gql`
+  query GetObjectTypeServices($id: ID!) {
+    getObjectTypeServices(id: $id) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      servicesDescription
+    }
+  }
+`;
+export function useGetObjectTypeServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(
+    GetObjectTypeServicesDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(
+    GetObjectTypeServicesDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeServicesQueryHookResult = ReturnType<typeof useGetObjectTypeServicesQuery>;
+export type GetObjectTypeServicesLazyQueryHookResult = ReturnType<typeof useGetObjectTypeServicesLazyQuery>;
+export type GetObjectTypeServicesQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeServicesQuery,
+  GetObjectTypeServicesQueryVariables
 >;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {

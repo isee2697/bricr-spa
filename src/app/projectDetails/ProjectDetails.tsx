@@ -7,6 +7,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
+import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
 import { useListObjectTypesCountQuery } from 'api/types';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
@@ -14,7 +15,6 @@ import { Dashboard } from './sections/dashboard/Dashboard';
 import { GeneralContainer } from './sections/general/GeneralContainer';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { Prices } from './sections/prices/Prices';
-import { ServicesContainer } from './sections/services/ServicesContainer';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
 
@@ -81,7 +81,7 @@ export const ProjectDetails = ({ ncp }: NcpProps) => {
               <Route
                 path={`${AppRoute.projectDetails}/services`}
                 render={() => (
-                  <ServicesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                 )}
               />
 

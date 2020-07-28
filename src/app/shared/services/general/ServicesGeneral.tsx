@@ -7,9 +7,9 @@ import { useLocale } from 'hooks';
 import { ServiceType } from 'api/types';
 
 import { ServiceList } from './serviceList/ServiceList';
-import { ServicesProps } from './Services.types';
+import { ServicesProps } from './ServicesGeneral.types';
 
-export const Services = ({
+export const ServicesGeneral = ({
   onSave,
   onSidebarOpen,
   isSidebarVisible,
@@ -26,7 +26,7 @@ export const Services = ({
         placeholder="pim_details.services.description_placeholder"
         name="description"
         onSave={onDescriptionUpdate}
-        initialValues={{ description: ncpServices.description }}
+        initialValues={{ description: ncpServices?.servicesDescription }}
         dateUpdated={ncpServices.dateUpdated}
         updatedBy={ncpServices.lastEditedBy}
       >
