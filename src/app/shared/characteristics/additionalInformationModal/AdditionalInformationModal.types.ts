@@ -1,16 +1,20 @@
-import { NcpCharacteristicsSections } from 'api/types';
+import { CharacteristicsSections } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 export type AdditionalInformationVisibility = {
-  sections: NcpCharacteristicsSections[];
+  sections: CharacteristicsSections[];
 };
 
 export type AdditionalInformationModalContainerProps = {
   isOpened: boolean;
-  onClose: (sections?: NcpCharacteristicsSections[]) => void;
-  sections: NcpCharacteristicsSections[];
+  onClose: (sections?: CharacteristicsSections[]) => void;
+  sections: CharacteristicsSections[];
+  availableSections: CharacteristicsSections[];
+  entityType: EntityType;
 };
 
 export type AdditionalInformationModalProps = {
+  availableSections: CharacteristicsSections[];
   initialValues: AdditionalInformationVisibility;
   isOpened: boolean;
   onClose: VoidFunction;

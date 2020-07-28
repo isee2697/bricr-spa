@@ -7,35 +7,35 @@ import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
 import { CheckboxGroupField } from 'form/fields';
 import { DialogActions, DialogContent } from 'ui/atoms';
 import { HomeIcon, LockIcon, RefreshIcon } from 'ui/atoms/icons';
-import { NcpCharacteristicsSections } from 'api/types';
-import { sectionsOrder } from '../Characteristics.types';
+import { CharacteristicsSections } from 'api/types';
 
 import { AdditionalInformationModalProps } from './AdditionalInformationModal.types';
 
-const withLockIcon = (section: NcpCharacteristicsSections) =>
+const withLockIcon = (section: CharacteristicsSections) =>
   [
-    NcpCharacteristicsSections.Phase,
-    NcpCharacteristicsSections.AccountManagers,
-    NcpCharacteristicsSections.AttentionField,
+    CharacteristicsSections.Phase,
+    CharacteristicsSections.AccountManagers,
+    CharacteristicsSections.AttentionField,
   ].includes(section);
-
-const ADDITIONAL_INFORMATIONS = sectionsOrder.map(section => ({
-  label: `dictionaries.characteristic_sections.${section}`,
-  icon: withLockIcon(section as NcpCharacteristicsSections) ? (
-    <LockIcon color="inherit" />
-  ) : (
-    <HomeIcon color="inherit" />
-  ),
-  value: section,
-}));
 
 export const AdditionalInformationModal = ({
   isOpened,
   onClose,
   initialValues,
   onSubmit,
+  availableSections,
 }: AdditionalInformationModalProps) => {
   const { formatMessage } = useLocale();
+
+  const ADDITIONAL_INFORMATIONS = availableSections.map(section => ({
+    label: `dictionaries.characteristic_sections.${section}`,
+    icon: withLockIcon(section as CharacteristicsSections) ? (
+      <LockIcon color="inherit" />
+    ) : (
+      <HomeIcon color="inherit" />
+    ),
+    value: section,
+  }));
 
   return (
     <Modal

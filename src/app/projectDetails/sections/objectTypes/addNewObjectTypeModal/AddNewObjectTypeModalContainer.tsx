@@ -25,7 +25,10 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
       });
       (await data) && onClose();
       (await data) && data
-        ? push(AppRoute.objectTypeDetails.replace(':projectId', id).replace(':id', data?.createObjectType?.id))
+        ? push(
+            AppRoute.objectTypeDetails.replace(':projectId', id).replace(':id', data?.createObjectType?.id) +
+              '/characteristics',
+          )
         : setError(true);
 
       return data ? undefined : { error: true };

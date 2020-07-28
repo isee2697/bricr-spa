@@ -109,6 +109,7 @@ export type Mutation = {
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
   setNcpCharacteristics: NcpCharacteristics;
+  setObjectTypeCharacteristicsSections: ObjectTypeCharacteristics;
   toggleNcpPricing: NcpPricesResult;
   toggleObjectTypePricing: ObjectTypePricesResult;
   togglePricing: Pim;
@@ -137,6 +138,7 @@ export type Mutation = {
   updateNcpTag?: Maybe<NcpMedia>;
   updateNcpTextChapter?: Maybe<NcpMedia>;
   updateNcpUsps?: Maybe<NcpMedia>;
+  updateObjectTypeCharacteristics: ObjectTypeCharacteristics;
   updateObjectTypeCost: ObjectTypePricesResult;
   updateObjectTypeMediaDescription?: Maybe<ObjectTypeMedia>;
   updateObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
@@ -145,6 +147,7 @@ export type Mutation = {
   updateObjectTypeTag?: Maybe<ObjectTypeMedia>;
   updateObjectTypeTextChapter?: Maybe<ObjectTypeMedia>;
   updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
+  updateObjectTypesListDescription?: Maybe<NcpGeneral>;
   updateOutsideFeature: Pim;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
@@ -379,7 +382,11 @@ export type MutationSetLinkedPropertiesArgs = {
 };
 
 export type MutationSetNcpCharacteristicsArgs = {
-  input: SetNcpCharacteristicsSectionsInput;
+  input: SetCharacteristicsSectionsInput;
+};
+
+export type MutationSetObjectTypeCharacteristicsSectionsArgs = {
+  input: SetCharacteristicsSectionsInput;
 };
 
 export type MutationToggleNcpPricingArgs = {
@@ -494,6 +501,10 @@ export type MutationUpdateNcpUspsArgs = {
   input: CommonUpdateUspsInput;
 };
 
+export type MutationUpdateObjectTypeCharacteristicsArgs = {
+  input: ObjectTypeCharacteristicsInput;
+};
+
 export type MutationUpdateObjectTypeCostArgs = {
   input: UpdateCommonCostInput;
 };
@@ -524,6 +535,10 @@ export type MutationUpdateObjectTypeTextChapterArgs = {
 
 export type MutationUpdateObjectTypeUspsArgs = {
   input: CommonUpdateUspsInput;
+};
+
+export type MutationUpdateObjectTypesListDescriptionArgs = {
+  input: UpdateObjectTypesListDescription;
 };
 
 export type MutationUpdateOutsideFeatureArgs = {
@@ -597,6 +612,92 @@ export type MutationUpdateUspArgs = {
 export type MutationUploadFileArgs = {
   input: Scalars['UploadFileInput'];
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
+};
+
+export enum CharacteristicsSections {
+  Measurements = 'Measurements',
+  ClientInformation = 'ClientInformation',
+  InvoiceDetails = 'InvoiceDetails',
+  IdentificationNumber = 'IdentificationNumber',
+  Energy = 'Energy',
+  Phase = 'Phase',
+  AccountManagers = 'AccountManagers',
+  ProjectMarketing = 'ProjectMarketing',
+  AttentionField = 'AttentionField',
+  ObjectTypes = 'ObjectTypes',
+}
+
+export type HasCharacteristicsSections = {
+  characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+};
+
+export type SetCharacteristicsSectionsInput = {
+  id: Scalars['ID'];
+  sections?: Maybe<Array<CharacteristicsSections>>;
+};
+
+export type ProjectMarketingInput = {
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+  mainLogoId?: Maybe<Scalars['String']>;
+};
+
+export type ProjectMarketing = {
+  __typename?: 'ProjectMarketing';
+  logos?: Maybe<Array<File>>;
+  mainLogoId?: Maybe<Scalars['String']>;
+  emailAddress?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  firstColor?: Maybe<Scalars['String']>;
+  secondColor?: Maybe<Scalars['String']>;
+};
+
+export type MeasurementsInput = {
+  volumeFrom?: Maybe<Scalars['Int']>;
+  volumeTo?: Maybe<Scalars['Int']>;
+  livingSpaceFrom?: Maybe<Scalars['Int']>;
+  livingSpaceTo?: Maybe<Scalars['Int']>;
+  plotAreaFrom?: Maybe<Scalars['Int']>;
+  plotAreaTo?: Maybe<Scalars['Int']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type Measurements = {
+  __typename?: 'Measurements';
+  volumeFrom?: Maybe<Scalars['Int']>;
+  volumeTo?: Maybe<Scalars['Int']>;
+  livingSpaceFrom?: Maybe<Scalars['Int']>;
+  livingSpaceTo?: Maybe<Scalars['Int']>;
+  plotAreaFrom?: Maybe<Scalars['Int']>;
+  plotAreaTo?: Maybe<Scalars['Int']>;
+  calculateAutomatically?: Maybe<Scalars['Boolean']>;
+};
+
+export type InvoiceDetailsInput = {
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type InvoiceDetails = {
+  __typename?: 'InvoiceDetails';
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  additionalNumber?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  projectInvoiceNumber?: Maybe<Scalars['String']>;
+  contactPerson?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export enum CommonCostType {
@@ -854,6 +955,7 @@ export type Query = {
   getNcpPrices: NcpPricesResult;
   getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
+  getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeMedia: ObjectTypeMedia;
   getObjectTypePrices: ObjectTypePricesResult;
@@ -874,6 +976,7 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   listNcps: NcpListSearchResult;
+  listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
 };
@@ -914,6 +1017,10 @@ export type QueryGetNcpServicesArgs = {
 
 export type QueryGetNcpWithSameAddressArgs = {
   input: NcpWithSameAddressInput;
+};
+
+export type QueryGetObjectTypeCharacteristicsArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetObjectTypeGeneralArgs = {
@@ -987,6 +1094,12 @@ export type QueryGetProjectPhasesArgs = {
 
 export type QueryListNcpsArgs = {
   filters?: Maybe<ListNcpsFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryListObjectTypesArgs = {
+  filters: ListObjectTypesFilters;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
 };
@@ -1262,87 +1375,6 @@ export type CommonUpdateMediaDescriptionInput = {
   description?: Maybe<Scalars['String']>;
 };
 
-export enum NcpCharacteristicsSections {
-  Measurements = 'Measurements',
-  ClientInformation = 'ClientInformation',
-  InvoiceDetails = 'InvoiceDetails',
-  IdentificationNumber = 'IdentificationNumber',
-  Energy = 'Energy',
-  Phase = 'Phase',
-  AccountManagers = 'AccountManagers',
-  ProjectMarketing = 'ProjectMarketing',
-  AttentionField = 'AttentionField',
-}
-
-export type SetNcpCharacteristicsSectionsInput = {
-  id: Scalars['ID'];
-  sections?: Maybe<Array<NcpCharacteristicsSections>>;
-};
-
-export type ProjectMarketingInput = {
-  emailAddress?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
-  firstColor?: Maybe<Scalars['String']>;
-  secondColor?: Maybe<Scalars['String']>;
-  mainLogoId?: Maybe<Scalars['String']>;
-};
-
-export type ProjectMarketing = {
-  __typename?: 'ProjectMarketing';
-  logos?: Maybe<Array<File>>;
-  mainLogoId?: Maybe<Scalars['String']>;
-  emailAddress?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
-  firstColor?: Maybe<Scalars['String']>;
-  secondColor?: Maybe<Scalars['String']>;
-};
-
-export type MeasurementsInput = {
-  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type Measurements = {
-  __typename?: 'Measurements';
-  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
-  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
-  calculateAutomatically?: Maybe<Scalars['Boolean']>;
-};
-
-export type InvoiceDetailsInput = {
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  additionalNumber?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  projectInvoiceNumber?: Maybe<Scalars['String']>;
-  contactPerson?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type InvoiceDetails = {
-  __typename?: 'InvoiceDetails';
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  additionalNumber?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  projectInvoiceNumber?: Maybe<Scalars['String']>;
-  contactPerson?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
 export type NcpCharacteristicsInput = {
   id: Scalars['ID'];
   projectMarketing?: Maybe<ProjectMarketingInput>;
@@ -1354,22 +1386,23 @@ export type NcpCharacteristicsInput = {
   characteristicsDescription?: Maybe<Scalars['String']>;
 };
 
-export type NcpCharacteristics = LastUpdated & {
-  __typename?: 'NcpCharacteristics';
-  id: Scalars['ID'];
-  characteristicsSections?: Maybe<Array<NcpCharacteristicsSections>>;
-  projectMarketing?: Maybe<ProjectMarketing>;
-  measurements?: Maybe<Measurements>;
-  energy?: Maybe<Energy>;
-  accountManagers?: Maybe<Array<Profile>>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-  attentionNote?: Maybe<Scalars['String']>;
-  invoiceDetails?: Maybe<InvoiceDetails>;
-  lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  characteristicsDescription?: Maybe<Scalars['String']>;
-};
+export type NcpCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'NcpCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    invoiceDetails?: Maybe<InvoiceDetails>;
+    lastEditedBy?: Maybe<Profile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+  };
 
 export type NcpWithNewIdentificationNumber = {
   __typename?: 'NcpWithNewIdentificationNumber';
@@ -1420,6 +1453,7 @@ export type UpdateNcpInput = {
   city: Scalars['String'];
   country: Scalars['String'];
   automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
   properties?: Maybe<Scalars['Int']>;
   progressStatus?: Maybe<ProgressStatus>;
   startConstruction?: Maybe<Scalars['Date']>;
@@ -1431,7 +1465,6 @@ export type UpdateNcpInput = {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
-  objectTypesCount?: Maybe<Scalars['Int']>;
 };
 
 export type NcpGeneral = LastUpdated & {
@@ -1452,6 +1485,7 @@ export type NcpGeneral = LastUpdated & {
   archived: Scalars['Boolean'];
   automaticallyCalculateQuantity?: Maybe<Scalars['Boolean']>;
   properties?: Maybe<Scalars['Int']>;
+  objectTypesCount?: Maybe<Scalars['Int']>;
   progressStatus?: Maybe<ProgressStatus>;
   startConstruction?: Maybe<Scalars['Date']>;
   noteStartConstruction?: Maybe<Scalars['String']>;
@@ -1462,7 +1496,9 @@ export type NcpGeneral = LastUpdated & {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
-  objectTypesCount?: Maybe<Scalars['Int']>;
+  objectTypesListDescription?: Maybe<Scalars['String']>;
+  objectTypesListLastUpdatedBy?: Maybe<Profile>;
+  objectTypesListLastUpdatedOn?: Maybe<Scalars['Date']>;
 };
 
 export type NcpSearchResult = {
@@ -1524,6 +1560,11 @@ export type ListNcp = {
   color?: Maybe<Scalars['String']>;
   attentionNote?: Maybe<Scalars['String']>;
   objectTypesCount?: Maybe<Scalars['Int']>;
+};
+
+export type UpdateObjectTypesListDescription = {
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
 };
 
 export type NcpListSearchResult = {
@@ -1687,6 +1728,49 @@ export type NcpWithNewService = {
   newService: Service;
 };
 
+export enum TypeOfObjectType {
+  House = 'House',
+  Apartament = 'Apartament',
+  BuildingPlot = 'BuildingPlot',
+}
+
+export type ObjectTypeCharacteristicsInput = {
+  id: Scalars['ID'];
+  projectMarketing?: Maybe<ProjectMarketingInput>;
+  measurements?: Maybe<MeasurementsInput>;
+  energy?: Maybe<EnergyInput>;
+  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  attentionNote?: Maybe<Scalars['String']>;
+  characteristicsDescription?: Maybe<Scalars['String']>;
+  type?: Maybe<TypeOfObjectType>;
+  automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
+};
+
+export type ObjectTypeCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'ObjectTypeCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    lastEditedBy?: Maybe<Profile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+    type?: Maybe<TypeOfObjectType>;
+    automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
+  };
+
+export type ObjectTypeWithNewIdentificationNumber = {
+  __typename?: 'ObjectTypeWithNewIdentificationNumber';
+  objectType: ObjectTypeCharacteristics;
+  newIdentificationNumber: IdentificationNumber;
+};
+
 export type ObjectTypeGeneral = LastUpdated & {
   __typename?: 'ObjectTypeGeneral';
   id: Scalars['ID'];
@@ -1699,6 +1783,46 @@ export type ObjectTypeGeneral = LastUpdated & {
 export type CreateObjectTypeInput = {
   name: Scalars['String'];
   ncpId: Scalars['ID'];
+};
+
+export type ListObjectTypesFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+  ncpId: Scalars['String'];
+};
+
+export type ListObjectTypes = {
+  __typename?: 'ListObjectTypes';
+  id: Scalars['ID'];
+  ncpId: Scalars['ID'];
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  archived?: Maybe<Scalars['Boolean']>;
+  areaRangeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfRoomsFrom?: Maybe<Scalars['Int']>;
+  numberOfRoomsTo?: Maybe<Scalars['Int']>;
+  mainPicture?: Maybe<File>;
+  name?: Maybe<Scalars['String']>;
+  salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPriceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  underOption?: Maybe<Scalars['Int']>;
+  soldOrRent?: Maybe<Scalars['Int']>;
+  saleLabel?: Maybe<Scalars['String']>;
+  rentLabel?: Maybe<Scalars['String']>;
+  partOfPhase?: Maybe<Scalars['Int']>;
+  completeness: Scalars['Float'];
+  matches?: Maybe<Scalars['Int']>;
+  interests?: Maybe<Scalars['Int']>;
+  propertiesConnected?: Maybe<Scalars['Int']>;
+  propertiesAvailable?: Maybe<Scalars['Int']>;
+};
+
+export type ObjectTypeListSearchResult = {
+  __typename?: 'ObjectTypeListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<ListObjectTypes>>;
 };
 
 export type ObjectTypeMedia = {
@@ -4496,7 +4620,7 @@ export type UpdateNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
 };
 
 export type SetNcpCharacteristicsMutationVariables = {
-  input: SetNcpCharacteristicsSectionsInput;
+  input: SetCharacteristicsSectionsInput;
 };
 
 export type SetNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
@@ -4736,6 +4860,41 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
     };
 };
 
+export type UpdateObjectTypeCharacteristicsMutationVariables = {
+  input: ObjectTypeCharacteristicsInput;
+};
+
+export type UpdateObjectTypeCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  > & {
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+    };
+};
+
+export type SetObjectTypeCharacteristicsSectionsMutationVariables = {
+  input: SetCharacteristicsSectionsInput;
+};
+
+export type SetObjectTypeCharacteristicsSectionsMutation = { __typename?: 'Mutation' } & {
+  setObjectTypeCharacteristicsSections: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  >;
+};
+
 export type CreateObjectTypeMutationVariables = {
   input: CreateObjectTypeInput;
 };
@@ -4745,6 +4904,14 @@ export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
     ObjectTypeGeneral,
     'name' | 'dateUpdated' | 'ncpId' | 'id'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type UpdateObjectTypesListDescriptionMutationVariables = {
+  input: UpdateObjectTypesListDescription;
+};
+
+export type UpdateObjectTypesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
 };
 
 export type UpdateObjectTypeMediaDescriptionMutationVariables = {
@@ -5675,6 +5842,59 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type ObjectTypeCharacteristicsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type ObjectTypeCharacteristicsQuery = { __typename?: 'Query' } & {
+  getObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+    | 'type'
+    | 'automaticallySetObjectTypes'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
+
 export type GetObjectTypeGeneralQueryVariables = {
   id: Scalars['ID'];
 };
@@ -5684,6 +5904,77 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
     ObjectTypeGeneral,
     'id' | 'name' | 'dateUpdated' | 'ncpId'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type ListObjectTypesCountQueryVariables = {
+  ncpId: Scalars['String'];
+};
+
+export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
+
+export type ListObjectTypesQueryVariables = {
+  ncpId: Scalars['String'];
+  archived?: Maybe<Scalars['Boolean']>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ListObjectTypesQuery = { __typename?: 'Query' } & {
+  listObjectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListObjectTypes' } & Pick<
+          ListObjectTypes,
+          | 'id'
+          | 'ncpId'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'completeness'
+          | 'matches'
+          | 'interests'
+          | 'propertiesConnected'
+          | 'propertiesAvailable'
+          | 'underOption'
+          | 'soldOrRent'
+        > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+      >
+    >;
+  };
+};
+
+export type ObjectTypeListDescriptionQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type ObjectTypeListDescriptionQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'objectTypesListDescription' | 'objectTypesListLastUpdatedOn'
+  > & {
+      objectTypesListLastUpdatedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
 };
 
 export type ObjectTypeMediaQueryVariables = {
@@ -6762,7 +7053,7 @@ export type UpdateNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMuta
   UpdateNcpCharacteristicsMutationVariables
 >;
 export const SetNcpCharacteristicsDocument = gql`
-  mutation SetNcpCharacteristics($input: SetNcpCharacteristicsSectionsInput!) {
+  mutation SetNcpCharacteristics($input: SetCharacteristicsSectionsInput!) {
     setNcpCharacteristics(input: $input) {
       id
     }
@@ -7309,6 +7600,71 @@ export type UpdateNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateNcpServiceMutation,
   UpdateNcpServiceMutationVariables
 >;
+export const UpdateObjectTypeCharacteristicsDocument = gql`
+  mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
+    updateObjectTypeCharacteristics(input: $input) {
+      id
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+    }
+  }
+`;
+export function useUpdateObjectTypeCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeCharacteristicsMutation,
+    UpdateObjectTypeCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeCharacteristicsMutation,
+    UpdateObjectTypeCharacteristicsMutationVariables
+  >(UpdateObjectTypeCharacteristicsDocument, baseOptions);
+}
+export type UpdateObjectTypeCharacteristicsMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeCharacteristicsMutation
+>;
+export type UpdateObjectTypeCharacteristicsMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeCharacteristicsMutation
+>;
+export type UpdateObjectTypeCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeCharacteristicsMutation,
+  UpdateObjectTypeCharacteristicsMutationVariables
+>;
+export const SetObjectTypeCharacteristicsSectionsDocument = gql`
+  mutation SetObjectTypeCharacteristicsSections($input: SetCharacteristicsSectionsInput!) {
+    setObjectTypeCharacteristicsSections(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetObjectTypeCharacteristicsSectionsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetObjectTypeCharacteristicsSectionsMutation,
+    SetObjectTypeCharacteristicsSectionsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    SetObjectTypeCharacteristicsSectionsMutation,
+    SetObjectTypeCharacteristicsSectionsMutationVariables
+  >(SetObjectTypeCharacteristicsSectionsDocument, baseOptions);
+}
+export type SetObjectTypeCharacteristicsSectionsMutationHookResult = ReturnType<
+  typeof useSetObjectTypeCharacteristicsSectionsMutation
+>;
+export type SetObjectTypeCharacteristicsSectionsMutationResult = ApolloReactCommon.MutationResult<
+  SetObjectTypeCharacteristicsSectionsMutation
+>;
+export type SetObjectTypeCharacteristicsSectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetObjectTypeCharacteristicsSectionsMutation,
+  SetObjectTypeCharacteristicsSectionsMutationVariables
+>;
 export const CreateObjectTypeDocument = gql`
   mutation CreateObjectType($input: CreateObjectTypeInput!) {
     createObjectType(input: $input) {
@@ -7337,6 +7693,34 @@ export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<Cr
 export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateObjectTypeMutation,
   CreateObjectTypeMutationVariables
+>;
+export const UpdateObjectTypesListDescriptionDocument = gql`
+  mutation UpdateObjectTypesListDescription($input: UpdateObjectTypesListDescription!) {
+    updateObjectTypesListDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypesListDescriptionMutation,
+    UpdateObjectTypesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypesListDescriptionMutation,
+    UpdateObjectTypesListDescriptionMutationVariables
+  >(UpdateObjectTypesListDescriptionDocument, baseOptions);
+}
+export type UpdateObjectTypesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypesListDescriptionMutation
+>;
+export type UpdateObjectTypesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypesListDescriptionMutation
+>;
+export type UpdateObjectTypesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypesListDescriptionMutation,
+  UpdateObjectTypesListDescriptionMutationVariables
 >;
 export const UpdateObjectTypeMediaDescriptionDocument = gql`
   mutation UpdateObjectTypeMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
@@ -9378,6 +9762,91 @@ export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
   GetNcpServicesQuery,
   GetNcpServicesQueryVariables
 >;
+export const ObjectTypeCharacteristicsDocument = gql`
+  query ObjectTypeCharacteristics($id: ID!) {
+    getObjectTypeCharacteristics(id: $id) {
+      id
+      characteristicsSections
+      projectMarketing {
+        logos {
+          id
+          url
+        }
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
+      }
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+      energy {
+        label
+        energyIndex
+        endDateEnergyLabel
+        EPC
+        characteristicType
+        notes
+      }
+      accountManagers {
+        id
+      }
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+      type
+      automaticallySetObjectTypes
+    }
+  }
+`;
+export function useObjectTypeCharacteristicsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ObjectTypeCharacteristicsQuery,
+    ObjectTypeCharacteristicsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(
+    ObjectTypeCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeCharacteristicsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ObjectTypeCharacteristicsQuery,
+    ObjectTypeCharacteristicsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(
+    ObjectTypeCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeCharacteristicsQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsQuery>;
+export type ObjectTypeCharacteristicsLazyQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsLazyQuery>;
+export type ObjectTypeCharacteristicsQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeCharacteristicsQuery,
+  ObjectTypeCharacteristicsQueryVariables
+>;
 export const GetObjectTypeGeneralDocument = gql`
   query GetObjectTypeGeneral($id: ID!) {
     getObjectTypeGeneral(id: $id) {
@@ -9414,6 +9883,151 @@ export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetOb
 export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeGeneralQuery,
   GetObjectTypeGeneralQueryVariables
+>;
+export const ListObjectTypesCountDocument = gql`
+  query ListObjectTypesCount($ncpId: String!) {
+    activeCount: listObjectTypes(filters: { ncpId: $ncpId, archived: null }) {
+      metadata {
+        total
+      }
+    }
+    archivedCount: listObjectTypes(filters: { ncpId: $ncpId, archived: true }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListObjectTypesCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(
+    ListObjectTypesCountDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypesCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(
+    ListObjectTypesCountDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypesCountQueryHookResult = ReturnType<typeof useListObjectTypesCountQuery>;
+export type ListObjectTypesCountLazyQueryHookResult = ReturnType<typeof useListObjectTypesCountLazyQuery>;
+export type ListObjectTypesCountQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypesCountQuery,
+  ListObjectTypesCountQueryVariables
+>;
+export const ListObjectTypesDocument = gql`
+  query ListObjectTypes(
+    $ncpId: String!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    listObjectTypes(
+      filters: { ncpId: $ncpId, archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        ncpId
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        mainPicture {
+          url
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        completeness
+        matches
+        interests
+        propertiesConnected
+        propertiesAvailable
+        underOption
+        soldOrRent
+      }
+    }
+  }
+`;
+export function useListObjectTypesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(
+    ListObjectTypesDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(
+    ListObjectTypesDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypesQueryHookResult = ReturnType<typeof useListObjectTypesQuery>;
+export type ListObjectTypesLazyQueryHookResult = ReturnType<typeof useListObjectTypesLazyQuery>;
+export type ListObjectTypesQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypesQuery,
+  ListObjectTypesQueryVariables
+>;
+export const ObjectTypeListDescriptionDocument = gql`
+  query ObjectTypeListDescription($id: ID!) {
+    getNcp(id: $id) {
+      objectTypesListDescription
+      objectTypesListLastUpdatedBy {
+        id
+        firstName
+        lastName
+      }
+      objectTypesListLastUpdatedOn
+    }
+  }
+`;
+export function useObjectTypeListDescriptionQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ObjectTypeListDescriptionQuery,
+    ObjectTypeListDescriptionQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(
+    ObjectTypeListDescriptionDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeListDescriptionLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ObjectTypeListDescriptionQuery,
+    ObjectTypeListDescriptionQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(
+    ObjectTypeListDescriptionDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeListDescriptionQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionQuery>;
+export type ObjectTypeListDescriptionLazyQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionLazyQuery>;
+export type ObjectTypeListDescriptionQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeListDescriptionQuery,
+  ObjectTypeListDescriptionQueryVariables
 >;
 export const ObjectTypeMediaDocument = gql`
   query ObjectTypeMedia($id: ID!, $picturesSort: Sort) {

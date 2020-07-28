@@ -10,6 +10,7 @@ import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourneyContainer';
 
+import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
 
 export const ObjectTypeDetails = () => {
@@ -29,49 +30,50 @@ export const ObjectTypeDetails = () => {
   }, []);
 
   return (
-    <>
-      <EntityTypeProvider entityType={EntityType.ObjectType}>
-        <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-        <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
-        <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
-        <Grid container spacing={0}>
-          {isSidebarVisible && (
-            <Grid item xs={12} md={3} lg={2}>
-              <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} />
-            </Grid>
-          )}
-          <Grid item xs={12} md={9} lg={10}>
-            <Box padding={3}>
-              <Switch>
-                <Route
-                  path={`${AppRoute.objectTypeDetails}/dashboard`}
-                  render={() => <Dashboard isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
-                />
-                } />
-                <Route
-                  path={`${AppRoute.objectTypeDetails}/prices`}
-                  render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
-                />
-                <Route
-                  path={`${AppRoute.objectTypeDetails}/media`}
-                  render={() => (
-                    <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                  )}
-                />
-                } />
-                <Route
-                  path={`${AppRoute.objectTypeDetails}/projectJourney`}
-                  render={() => (
-                    <ProjectJourneyContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                  )}
-                />
-                } />
-                <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
-              </Switch>
-            </Box>
+    <EntityTypeProvider entityType={EntityType.ObjectType}>
+      <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
+      <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
+      <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
+      <Grid container spacing={0}>
+        {isSidebarVisible && (
+          <Grid item xs={12} md={3} lg={2}>
+            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} />
           </Grid>
+        )}
+        <Grid item xs={12} md={9} lg={10}>
+          <Box padding={3}>
+            <Switch>
+              <Route
+                path={`${AppRoute.objectTypeDetails}/dashboard`}
+                render={() => <Dashboard isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/prices`}
+                render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+                isSidebarVisible={isSidebarVisible}
+                onSidebarOpen={handleSidebarOpen}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/media`}
+                render={() => <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/projectJourney`}
+                render={() => (
+                  <ProjectJourneyContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/characteristics`}
+                render={() => (
+                  <CharacteristicsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
+            </Switch>
+          </Box>
         </Grid>
-      </EntityTypeProvider>
-    </>
+      </Grid>
+    </EntityTypeProvider>
   );
 };

@@ -18,7 +18,7 @@ export const UPDATE_NCP_CHARACTERISTICS = gql`
 `;
 
 export const SET_NCP_CHARACTERISTICS = gql`
-  mutation SetNcpCharacteristics($input: SetNcpCharacteristicsSectionsInput!) {
+  mutation SetNcpCharacteristics($input: SetCharacteristicsSectionsInput!) {
     setNcpCharacteristics(input: $input) {
       id
     }

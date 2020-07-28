@@ -24,6 +24,7 @@ const schemas = [
   loader('./graphql/ncp-characteristics.gql'),
   loader('./graphql/ncp-list.gql'),
   loader('./graphql/media.gql'),
+  loader('./graphql/characteristics.gql'),
 ];
 
 export const loadSchemas = () => {

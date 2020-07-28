@@ -37,6 +37,11 @@ type ListNcp {
   objectTypesCount: Int
 }
 
+input UpdateObjectTypesListDescription {
+  id: String!
+  description: String
+}
+
 type NcpListSearchResult {
   metadata: SearchMetadata
   items: [ListNcp!]
@@ -44,4 +49,8 @@ type NcpListSearchResult {
 
 extend type Query {
   listNcps(filters: ListNcpsFilters, pagination: Pagination, sort: [Sort!]): NcpListSearchResult! @auth
+}
+
+extend type Mutation {
+  updateObjectTypesListDescription(input: UpdateObjectTypesListDescription!): NcpGeneral @auth 
 }

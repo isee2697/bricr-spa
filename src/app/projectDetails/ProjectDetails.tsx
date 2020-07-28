@@ -7,6 +7,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
+import { useListObjectTypesCountQuery } from 'api/types';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -20,6 +21,10 @@ export const ProjectDetails = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
+
+  const { data } = useListObjectTypesCountQuery({
+    variables: { ncpId: id },
+  });
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -36,7 +41,10 @@ export const ProjectDetails = () => {
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
-            <ProjectDetailsSidebarMenu onHide={handleSidebarHide} />
+            <ProjectDetailsSidebarMenu
+              onHide={handleSidebarHide}
+              objectTypeNumber={data?.activeCount.metadata?.total ?? 0}
+            />
           </Grid>
         )}
         <Grid item xs={12} md={9} lg={10}>

@@ -10,26 +10,26 @@ import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton'
 import { useStyles } from './ProjectDetailsSidebarMenu.styles';
 import { ProjectDetailsSidebarMenuProps } from './ProjectDetailsSidebarMenu.types';
 
-const menuItems = [
-  { key: 'dashboard' },
-  { key: 'summary' },
-  { key: 'projectJourney' },
-  { key: 'salesSettings' },
-  { key: 'general' },
-  { key: 'characteristics' },
-  { key: 'prices', subItems: ['costs', 'interests'] },
-  { key: 'services' },
-  { key: 'media' },
-  { key: 'objectTypes', count: 4 },
-  { key: 'properties', count: 0 },
-];
-
-export const ProjectDetailsSidebarMenu = ({ onHide }: ProjectDetailsSidebarMenuProps) => {
+export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber }: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
   const { push } = useHistory();
   const classes = useStyles();
+
+  const menuItems = [
+    { key: 'dashboard' },
+    { key: 'summary' },
+    { key: 'projectJourney' },
+    { key: 'salesSettings' },
+    { key: 'general' },
+    { key: 'characteristics' },
+    { key: 'prices', subItems: ['costs', 'interests'] },
+    { key: 'services' },
+    { key: 'media' },
+    { key: 'objectTypes', count: objectTypeNumber },
+    { key: 'properties', count: 0 },
+  ];
 
   return (
     <div className={classes.root}>

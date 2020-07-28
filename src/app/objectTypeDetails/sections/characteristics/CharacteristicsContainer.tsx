@@ -6,30 +6,25 @@ import { FormRenderProps } from 'react-final-form';
 import { AutosaveForm } from 'ui/organisms';
 import {
   CharacteristicsSections,
-  NcpCharacteristicsDocument,
   NcpCharacteristicsInput,
-  useNcpCharacteristicsQuery,
-  useProjectPhasesQuery,
-  useUpdateNcpCharacteristicsMutation,
+  ObjectTypeCharacteristicsDocument,
+  ObjectTypeCharacteristicsInput,
+  useObjectTypeCharacteristicsQuery,
+  useUpdateObjectTypeCharacteristicsMutation,
 } from 'api/types';
 import { Characteristics } from 'app/shared/characteristics/Characteristics';
+import { sectionsOrder } from 'app/shared/characteristics/Characteristics.types';
 import { EntityType } from 'app/shared/entityType';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
-import { sectionsOrder } from 'app/shared/characteristics/Characteristics.types';
 
 export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<NcpCharacteristicsInput>>();
 
-  const { data: phaseData } = useProjectPhasesQuery({
-    variables: { name: undefined, ncpId: id, from: 0, limit: 1 },
-    fetchPolicy: 'no-cache',
-  });
+  const { data } = useObjectTypeCharacteristicsQuery({ variables: { id } });
+  const [updateCharacteristics] = useUpdateObjectTypeCharacteristicsMutation();
 
-  const { data } = useNcpCharacteristicsQuery({ variables: { id } });
-  const [updateCharacteristics] = useUpdateNcpCharacteristicsMutation();
-
-  const handleSave = async (values: NcpCharacteristicsInput) => {
+  const handleSave = async (values: ObjectTypeCharacteristicsInput) => {
     try {
       const { data } = await updateCharacteristics({
         variables: {
@@ -56,24 +51,24 @@ export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: Pr
         },
         refetchQueries: [
           {
-            query: NcpCharacteristicsDocument,
+            query: ObjectTypeCharacteristicsDocument,
             variables: { id },
           },
         ],
       });
 
-      if (!data?.updateNcpCharacteristics) {
+      if (!data?.updateObjectTypeCharacteristics) {
         throw new Error();
       }
 
-      if (data.updateNcpCharacteristics.measurements?.calculateAutomatically && !!formRef.current) {
+      if (data.updateObjectTypeCharacteristics.measurements?.calculateAutomatically && !!formRef.current) {
         const change = formRef.current.form.change;
-        change('measurements.volumeFrom', data.updateNcpCharacteristics.measurements.volumeFrom ?? '');
-        change('measurements.volumeTo', data.updateNcpCharacteristics.measurements.volumeTo ?? '');
-        change('measurements.livingSpaceFrom', data.updateNcpCharacteristics.measurements.livingSpaceFrom ?? '');
-        change('measurements.livingSpaceTo', data.updateNcpCharacteristics.measurements.livingSpaceTo ?? '');
-        change('measurements.plotAreaFrom', data.updateNcpCharacteristics.measurements.plotAreaFrom ?? '');
-        change('measurements.plotAreaTo', data.updateNcpCharacteristics.measurements.plotAreaTo ?? '');
+        change('measurements.volumeFrom', data.updateObjectTypeCharacteristics.measurements.volumeFrom ?? '');
+        change('measurements.volumeTo', data.updateObjectTypeCharacteristics.measurements.volumeTo ?? '');
+        change('measurements.livingSpaceFrom', data.updateObjectTypeCharacteristics.measurements.livingSpaceFrom ?? '');
+        change('measurements.livingSpaceTo', data.updateObjectTypeCharacteristics.measurements.livingSpaceTo ?? '');
+        change('measurements.plotAreaFrom', data.updateObjectTypeCharacteristics.measurements.plotAreaFrom ?? '');
+        change('measurements.plotAreaTo', data.updateObjectTypeCharacteristics.measurements.plotAreaTo ?? '');
       }
 
       return undefined;
@@ -82,17 +77,16 @@ export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: Pr
     }
   };
 
-  if (!data?.getNcpCharacteristics) {
+  if (!data?.getObjectTypeCharacteristics) {
     return null;
   }
 
   const initialValues = {
-    attentionNote: data?.getNcpCharacteristics.attentionNote,
-    characteristicsDescription: data?.getNcpCharacteristics.characteristicsDescription,
-    invoiceDetails: data?.getNcpCharacteristics.invoiceDetails,
-    measurements: data?.getNcpCharacteristics.measurements,
-    projectMarketing: data?.getNcpCharacteristics.projectMarketing,
-    energy: data?.getNcpCharacteristics.energy,
+    attentionNote: data?.getObjectTypeCharacteristics.attentionNote,
+    characteristicsDescription: data?.getObjectTypeCharacteristics.characteristicsDescription,
+    measurements: data?.getObjectTypeCharacteristics.measurements,
+    projectMarketing: data?.getObjectTypeCharacteristics.projectMarketing,
+    energy: data?.getObjectTypeCharacteristics.energy,
   };
 
   return (
@@ -107,24 +101,21 @@ export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: Pr
             onSidebarOpen={onSidebarOpen}
             isSidebarVisible={isSidebarVisible}
             characteristicsSections={sectionsOrder.filter(section =>
-              (data?.getNcpCharacteristics.characteristicsSections ?? []).includes(section),
+              (data?.getObjectTypeCharacteristics.characteristicsSections ?? []).includes(section),
             )}
-            updatedBy={data?.getNcpCharacteristics.lastEditedBy}
-            dateUpdated={data?.getNcpCharacteristics.dateUpdated}
-            identificationNumbers={data?.getNcpCharacteristics.identificationNumbers ?? []}
-            projectPhase={phaseData?.getProjectPhases.items?.[0]}
+            updatedBy={data?.getObjectTypeCharacteristics.lastEditedBy}
+            dateUpdated={data?.getObjectTypeCharacteristics.dateUpdated}
+            identificationNumbers={data?.getObjectTypeCharacteristics.identificationNumbers ?? []}
             availableSections={[
               CharacteristicsSections.ProjectMarketing,
               CharacteristicsSections.Measurements,
               CharacteristicsSections.Energy,
-              CharacteristicsSections.Phase,
               CharacteristicsSections.AccountManagers,
-              CharacteristicsSections.ClientInformation,
               CharacteristicsSections.IdentificationNumber,
               CharacteristicsSections.AttentionField,
-              CharacteristicsSections.InvoiceDetails,
+              CharacteristicsSections.ObjectTypes,
             ]}
-            entityType={EntityType.Project}
+            entityType={EntityType.ObjectType}
           />
         );
       }}
