@@ -1,11 +1,15 @@
 import React from 'react';
-import { useLocation, useRouteMatch, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
-import { SideMenuItem, SideSubMenuItem } from 'ui/atoms';
-import { SaleIcon } from 'ui/atoms/icons';
+import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
+import { ArrowLeftIcon, BuildingIcon, NewConstructionIcon, SaleIcon } from 'ui/atoms/icons';
 import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton';
+import { SidebarTitleTile } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { EntityType } from 'app/shared/entityType';
 
 import { useStyles } from './ObjectTypeDetailsSidebarMenu.styles';
 import { ObjectTypeDetailsSidebarMenuProps } from './ObjectTypeDetailsSidebarMenu.types';
@@ -22,12 +26,14 @@ const menuItems = [
   { key: 'properties', count: 0 },
 ];
 
-export const ObjectTypeDetailsSidebarMenu = ({ onHide }: ObjectTypeDetailsSidebarMenuProps) => {
+export const ObjectTypeDetailsSidebarMenu = ({ onHide, ncp, objectTypes }: ObjectTypeDetailsSidebarMenuProps) => {
+  const { projectId } = useParams<{ projectId: string }>();
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
   const { push } = useHistory();
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <div className={classes.root}>
@@ -35,6 +41,20 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide }: ObjectTypeDetailsSideba
         <SidebarHideButton />
       </div>
       <div className={classes.menuWrapper}>
+        <Box mb={2}>
+          <SidebarTitleTile
+            prevPage={ncp?.getNcp.name}
+            title={objectTypes?.getObjectTypeGeneral.name}
+            subtitle={formatMessage({ id: 'common.sidebar_category.object_type' })}
+            category={EntityType.ObjectType}
+            icon={<NewConstructionIcon color="inherit" />}
+            prevPageicon={
+              <Box color={theme.palette.green.main}>
+                <BuildingIcon color="inherit" />
+              </Box>
+            }
+          />
+        </Box>
         <SideMenu className={classes.root} disablePadding>
           {menuItems.map(item => (
             <SideMenuItem
@@ -56,6 +76,16 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide }: ObjectTypeDetailsSideba
             </SideMenuItem>
           ))}
         </SideMenu>
+        <SideMenuItem
+          className={classes.backToList}
+          title={
+            <Link to={`${AppRoute.projectDetails.replace(':id', projectId)}/objectTypes`}>
+              <ArrowLeftIcon color="inherit" />
+              {formatMessage({ id: `project_details.object_types.menu.back_to_object_type_list` })}
+            </Link>
+          }
+          selected={false}
+        />
       </div>
     </div>
   );

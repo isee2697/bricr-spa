@@ -12,8 +12,9 @@ import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourne
 
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
+import { NcpObjectTypesProps } from './ObjectTypeDetails.types';
 
-export const ObjectTypeDetails = () => {
+export const ObjectTypeDetails = ({ ncp, objectTypes }: NcpObjectTypesProps) => {
   const { formatMessage } = useLocale();
   const { id, projectId } = useParams<{ id: string; projectId: string }>();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
@@ -37,7 +38,7 @@ export const ObjectTypeDetails = () => {
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
-            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} />
+            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} ncp={ncp} objectTypes={objectTypes} />
           </Grid>
         )}
         <Grid item xs={12} md={9} lg={10}>

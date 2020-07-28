@@ -7,4 +7,6 @@ export type SidebarTitleTileProps = {
   subtitle: string;
   category?: EntityType.Project | EntityType.ObjectType | EntityType.Property;
   icon: ReactElement;
+  prevPage?: string;
+  prevPageicon?: ReactElement;
 };
