@@ -26,6 +26,7 @@ extend type Mutation {
   updateObjectTypePricing(input: UpdateCommonPricingInput!): ObjectTypePricesResult! @auth
   addObjectTypeCost(input: AddCommonCostInput!): ObjectTypePricesResult! @auth
   updateObjectTypeCost(input: UpdateCommonCostInput!): ObjectTypePricesResult! @auth
+  updateObjectTypeCostsDetails(input: UpdateCommonCostsDetailsInput!): ObjectTypePricesResult! @auth
 }
 
 extend type Query {

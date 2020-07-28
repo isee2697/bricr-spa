@@ -33,8 +33,8 @@ export const UPDATE_OBJECT_TYPE_COST = gql`
 `;
 
 export const UPDATE_OBJECT_TYPE_COSTS_DETAILS = gql`
-  mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostInput!) {
-    updateObjectTypeCost(input: $input) {
+  mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostsDetailsInput!) {
+    updateObjectTypeCostsDetails(input: $input) {
       id
     }
   }

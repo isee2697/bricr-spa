@@ -163,6 +163,13 @@ type Cost {
   notes: String
   type: String! @uuidOrEnum(enum: ["CostType"])
   name: String
+  dateCreated: Date
+}
+
+input AddCostInput {
+  id: ID!
+  type: String! @uuidOrEnum(enum: ["CostType"])
+  name: String
 }
 
 input UpdateCostInput {
@@ -172,12 +179,6 @@ input UpdateCostInput {
   vatTaxedServiceCosts: AbsoluteFloat
   vatPercentage: CostVat
   notes: String
-  name: String
-}
-
-input AddCostInput {
-  id: ID!
-  type: String! @uuidOrEnum(enum: ["CostType"])
   name: String
 }
 
@@ -216,6 +217,7 @@ type Investment implements LastUpdated {
   remainingTermContacts: Int
   vacancySquareMeters: Int
   notes: String
+  dateCreated: Date
   description: String
   dateUpdated: Date
   lastEditedBy: Profile

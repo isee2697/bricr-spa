@@ -19,7 +19,7 @@ export const Costs = ({ data, onDescriptionSave, onUpdateCost, onSidebarOpen, is
   const [expandedItem, setExpandedItem] = useState<string>();
   const [modalOpened, setModalOpened] = useState(false);
 
-  useToggleOnNewlyCreatedFromArray(data.costs, setExpandedItem);
+  useToggleOnNewlyCreatedFromArray(data?.costs, setExpandedItem);
 
   return (
     <>
@@ -28,22 +28,22 @@ export const Costs = ({ data, onDescriptionSave, onUpdateCost, onSidebarOpen, is
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}
         name="description"
         placeholder="pim_details.prices.costs.description_placeholder"
-        initialValues={{ description: data.description }}
+        initialValues={{ description: data?.description }}
         onSave={onDescriptionSave}
-        dateUpdated={data.dateUpdated}
-        updatedBy={data.lastEditedBy}
+        dateUpdated={data?.dateUpdated}
+        updatedBy={data?.lastEditedBy}
       >
         <Grid item xs={12}>
           <FormSection
-            title={formatMessage({ id: `pim_details.prices.costs.${data.costs?.length ? 'title' : 'add_costs'}` })}
-            isEditable={!!data.costs?.length}
-            titleBadge={!!data.costs && !!data.costs.length ? data.costs.length : undefined}
+            title={formatMessage({ id: `pim_details.prices.costs.${data?.costs?.length ? 'title' : 'add_costs'}` })}
+            isEditable={!!data?.costs?.length}
+            titleBadge={!!data?.costs && !!data.costs.length ? data.costs.length : undefined}
             onAdd={() => setModalOpened(true)}
             ref={formRef}
           >
             {inEditMode => (
               <>
-                {!data.costs?.length && (
+                {!data?.costs?.length && (
                   <InfoSection emoji="🤑">
                     <Typography variant="h3">
                       {formatMessage({ id: 'pim_details.prices.costs.empty_line_1' })}
@@ -53,9 +53,8 @@ export const Costs = ({ data, onDescriptionSave, onUpdateCost, onSidebarOpen, is
                     </Typography>
                   </InfoSection>
                 )}
-
-                {!!data.costs?.length &&
-                  data.costs?.map((cost, index) => (
+                {!!data?.costs?.length &&
+                  data?.costs?.map((cost, index) => (
                     <AutosaveForm key={`${cost.type}_${index}`} initialValues={cost} onSave={onUpdateCost}>
                       <CostItem
                         cost={cost}

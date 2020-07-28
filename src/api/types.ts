@@ -141,6 +141,7 @@ export type Mutation = {
   updateNcpUsps?: Maybe<NcpMedia>;
   updateObjectTypeCharacteristics: ObjectTypeCharacteristics;
   updateObjectTypeCost: ObjectTypePricesResult;
+  updateObjectTypeCostsDetails: ObjectTypePricesResult;
   updateObjectTypeMediaDescription?: Maybe<ObjectTypeMedia>;
   updateObjectTypeMediaLink?: Maybe<ObjectTypeMedia>;
   updateObjectTypePicture?: Maybe<ObjectTypeMedia>;
@@ -514,6 +515,10 @@ export type MutationUpdateObjectTypeCharacteristicsArgs = {
 
 export type MutationUpdateObjectTypeCostArgs = {
   input: UpdateCommonCostInput;
+};
+
+export type MutationUpdateObjectTypeCostsDetailsArgs = {
+  input: UpdateCommonCostsDetailsInput;
 };
 
 export type MutationUpdateObjectTypeMediaDescriptionArgs = {
@@ -3414,6 +3419,13 @@ export type Cost = {
   notes?: Maybe<Scalars['String']>;
   type: Scalars['String'];
   name?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type AddCostInput = {
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type UpdateCostInput = {
@@ -3423,12 +3435,6 @@ export type UpdateCostInput = {
   vatTaxedServiceCosts?: Maybe<Scalars['AbsoluteFloat']>;
   vatPercentage?: Maybe<Scalars['CostVat']>;
   notes?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddCostInput = {
-  id: Scalars['ID'];
-  type: Scalars['String'];
   name?: Maybe<Scalars['String']>;
 };
 
@@ -3469,6 +3475,7 @@ export type Investment = LastUpdated & {
   remainingTermContacts?: Maybe<Scalars['Int']>;
   vacancySquareMeters?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -5097,11 +5104,11 @@ export type UpdateObjectTypeCostMutation = { __typename?: 'Mutation' } & {
 };
 
 export type UpdateObjectTypeCostsDetailsMutationVariables = {
-  input: UpdateCommonCostInput;
+  input: UpdateCommonCostsDetailsInput;
 };
 
 export type UpdateObjectTypeCostsDetailsMutation = { __typename?: 'Mutation' } & {
-  updateObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+  updateObjectTypeCostsDetails: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
 export type AddObjectTypeServiceMutationVariables = {
@@ -8280,8 +8287,8 @@ export type UpdateObjectTypeCostMutationOptions = ApolloReactCommon.BaseMutation
   UpdateObjectTypeCostMutationVariables
 >;
 export const UpdateObjectTypeCostsDetailsDocument = gql`
-  mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostInput!) {
-    updateObjectTypeCost(input: $input) {
+  mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostsDetailsInput!) {
+    updateObjectTypeCostsDetails(input: $input) {
       id
     }
   }
