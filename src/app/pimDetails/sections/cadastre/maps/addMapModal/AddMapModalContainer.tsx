@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { UploadModal } from 'ui/organisms';
 import {
   useAddCadastreMapsMutation,
-  CadastreMapType,
   useInitSendFileMutation,
   useUploadFileMutation,
   NewCadastreMapInput,
@@ -58,7 +57,6 @@ export const AddMapModalContainer = ({ isOpened, onClose, onUpload }: AddMapModa
         fileID: fileID,
         description: '',
         name: files[i].name,
-        type: CadastreMapType.Map,
       });
     }
 

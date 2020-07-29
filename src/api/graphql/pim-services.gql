@@ -167,9 +167,22 @@ type Service {
   ownership: OwnershipType
 }
 
+type MetersSharedData {
+  description: String
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+type MetersMeta  {
+  Water: MetersSharedData
+  Gas: MetersSharedData
+  Electric: MetersSharedData
+}
+
 type PimServices implements LastUpdated {
   id: String!
   meters: [Meter!]
+  metersMeta: MetersMeta
   hotWaterSupplies: [Service!]
   heatingSources: [Service!]
   additionalServices: [Service!]

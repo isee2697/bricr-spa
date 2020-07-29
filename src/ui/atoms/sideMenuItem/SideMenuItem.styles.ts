@@ -1,4 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+
+const hoverAndSelectedStyles = (theme: Theme) => ({
+  '& > h3, & a': {
+    color: theme.palette.black.main,
+  },
+  '& path': {
+    fill: theme.palette.primary.main,
+  },
+  '&::after': {
+    borderBottomColor: theme.palette.primary.main,
+    boxShadow: theme.shadows[2],
+  },
+});
 
 export const useStyles = makeStyles(theme => ({
   item: {
@@ -15,17 +28,14 @@ export const useStyles = makeStyles(theme => ({
       borderBottomColor: theme.palette.gray.light,
       borderBottomStyle: 'solid',
     },
-    '&.Mui-selected, &:hover, &.Mui-selected:hover': {
+    '&.Mui-selected': {
       backgroundColor: 'transparent',
-      '& > h3, & a': {
-        color: theme.palette.black.main,
-      },
-      '& path': {
-        fill: theme.palette.primary.main,
-      },
-      '&::after': {
-        borderBottomColor: theme.palette.primary.main,
-        boxShadow: theme.shadows[2],
+      ...hoverAndSelectedStyles(theme),
+    },
+    '&:hover, &.Mui-selected:hover': {
+      backgroundColor: 'transparent',
+      '@media (hover: hover)': {
+        ...hoverAndSelectedStyles(theme),
       },
     },
   },
@@ -33,5 +43,12 @@ export const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.gray.main,
+  },
+  badge: {
+    marginRight: theme.spacing(1.5),
+    padding: theme.spacing(0, 1.25),
+    color: theme.palette.gray.main,
+    background: theme.palette.gray.light,
+    borderRadius: theme.spacing(3),
   },
 }));

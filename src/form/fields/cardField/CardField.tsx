@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useField } from 'react-final-form';
 import classNames from 'classnames';
 
-import { TextField as Field, FormHelperText, InputLabel, FormControl, Grid, Typography } from 'ui/atoms';
+import { TextField as Field, FormHelperText, InputLabel, FormControl, Grid } from 'ui/atoms';
 import { SelectCard } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { validatorsChain } from 'form/validators';
@@ -17,7 +17,6 @@ export const CardField = ({
   validateFields,
   placeholder,
   helperText,
-  endAdornment,
   inputProps,
   disabled,
   error,
@@ -62,29 +61,22 @@ export const CardField = ({
           disabled && classes.disabled,
         )}
       >
-        <Grid container justify="center" alignItems="center" spacing={1}>
-          <Grid className="caret" item>
-            <Typography variant="h1">{input.value}</Typography>
-            <i></i>
-          </Grid>
-          <Grid item className={classes.adornment}>
-            {endAdornment}
-          </Grid>
+        <Grid container justify="center" alignItems="center">
+          <Field
+            className={classes.input}
+            id={name}
+            error={hasError}
+            inputProps={{
+              ...inputProps,
+              onBlur: () => setFocus(false),
+              onFocus: () => setFocus(true),
+              ref: inputRef,
+            }}
+            disabled={disabled}
+            {...input}
+            {...props}
+          />
         </Grid>
-        <Field
-          className={classes.input}
-          id={name}
-          error={hasError}
-          inputProps={{
-            ...inputProps,
-            onBlur: () => setFocus(false),
-            onFocus: () => setFocus(true),
-            ref: inputRef,
-          }}
-          disabled={disabled}
-          {...input}
-          {...props}
-        />
       </SelectCard>
       <FormHelperText error={error || hasError}>
         {hasError

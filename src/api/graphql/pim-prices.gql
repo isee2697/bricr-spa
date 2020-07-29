@@ -161,7 +161,7 @@ type Cost {
   vatTaxedServiceCosts: AbsoluteFloat
   vatPercentage: CostVat
   notes: String
-  type: CostType!
+  type: String! @uuidOrEnum(enum: ["CostType"])
   name: String
 }
 
@@ -177,7 +177,7 @@ input UpdateCostInput {
 
 input AddCostInput {
   id: ID!
-  type: CostType!
+  type: String! @uuidOrEnum(enum: ["CostType"])
   name: String
 }
 

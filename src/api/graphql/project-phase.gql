@@ -1,0 +1,45 @@
+type ProjectPhase {
+  id: ID!
+  name: String!
+  logo: File
+  ncpIds: [ID!]
+}
+
+input CreateProjectPhaseInput {
+  name: String!
+  logoId: ID
+  ncpId: ID
+}
+
+input UpdateProjectPhaseInput {
+  id: ID!
+  name: String!
+  logoId: ID
+  ncpIds: [ID!]
+}
+
+input ProjectPhaseFilters {
+  name: String
+  ncpId: ID
+}
+
+type ProjectPhaseSearchResult {
+  metadata: SearchMetadata
+  items: [ProjectPhase!]
+}
+
+input LinkNcpToProjectPhaseInput {
+  ncpId: ID!
+  projectPhaseId: ID!
+}
+
+extend type Mutation {
+  addProjectPhase(input: CreateProjectPhaseInput!): ProjectPhase!
+  updateProjectPhase(input: UpdateProjectPhaseInput!): ProjectPhase!
+  removeProjectPhase(id: ID!): Boolean
+  linkNcpToProjectPhase(input: LinkNcpToProjectPhaseInput!): ProjectPhase!
+}
+
+extend type Query {
+  getProjectPhases(filters: ProjectPhaseFilters, pagination: Pagination!): ProjectPhaseSearchResult!
+}

@@ -1,10 +1,13 @@
-import { InspectionType, LabelInput, LabelProperty } from 'api/types';
+import { LabelInput, LabelProperty } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 export type AddCustomPropertyModalContainerProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   property: LabelProperty;
-  type?: InspectionType;
+  title?: string;
+  labelId?: string;
+  entityType?: EntityType;
 };
 
 export type AddCustomPropertyModalProps = Omit<AddCustomPropertyModalContainerProps, 'property'> & {

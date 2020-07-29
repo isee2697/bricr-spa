@@ -3,7 +3,9 @@ import { gql } from 'apollo-boost';
 export const ADD_CADASTRE = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
     addCadastre(input: $input) {
-      id
+      pim {
+        id
+      }
       cadastre {
         id
         type

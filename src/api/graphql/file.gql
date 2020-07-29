@@ -5,6 +5,7 @@ enum FilePermission {
 
 enum EntityWithFiles {
   Pim,
+  Ncp,
   Space,
   OutsideFeature,
   OutsideGeneral,
@@ -12,6 +13,20 @@ enum EntityWithFiles {
   RoofInformation,
   CadastreMap,
   MediaPicture,
+  NcpMediaPicture,
+  ProjectMarketing,
+  ProjectPhase
+}
+
+enum EntityWithMultipleFiles {
+  Pim,
+  Ncp,
+  Space,
+  OutsideFeature,
+  OutsideGeneral,
+  OutsidePropertyRelated,
+  RoofInformation,
+  ProjectMarketing
 }
 
 input CreateFileInput {
@@ -24,6 +39,12 @@ input CreateFileInput {
 input AddFilesInput {
   fileIDs: [ID!]!
   entity: EntityWithFiles!
+  entityID: ID!
+}
+
+input RemoveFilesInput {
+  fileIDs: [ID!]!
+  entity: EntityWithMultipleFiles!
   entityID: ID!
 }
 
@@ -66,6 +87,7 @@ input GetPrivateFileInput {
 
 extend type Mutation {
   addFiles(input: AddFilesInput!): [File!]! @auth
+  removeFiles(input: RemoveFilesInput!): [File]! @auth
   initSendFile(input: InitSendFileInput!): File!
   uploadFile(input: UploadFileInput!, pathBuilder: PathBuilder): UploadFileResponse
 }

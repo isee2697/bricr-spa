@@ -6,4 +6,5 @@ export type FormProps = {
   onSave: (values: UpdateCostInput) => Promise<undefined | { error: boolean }>;
   toggled: boolean;
   onCostClick: VoidFunction;
+  counter: number;
 };

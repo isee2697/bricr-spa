@@ -10,6 +10,7 @@ export const ListHeader = ({
   sortOptions,
   checkedKeys,
   checkAllStatus,
+  disabled,
   onCheckAll,
   onBulk,
   onSort,
@@ -21,8 +22,17 @@ export const ListHeader = ({
   return (
     <Box className={classNames(classes.header, 'list-header')}>
       <Box>
-        <Typography variant="h5" className={classes.selectAll} onClick={onCheckAll}>
-          <Checkbox color="primary" className={classNames(classes.checkbox, 'list-select-all')} {...checkAllStatus} />
+        <Typography
+          variant="h5"
+          className={classNames(classes.selectAll, disabled && classes.disabled)}
+          onClick={() => !disabled && onCheckAll()}
+        >
+          <Checkbox
+            color="primary"
+            className={classNames(classes.checkbox, 'list-select-all')}
+            disabled={disabled}
+            {...checkAllStatus}
+          />
           {formatMessage({ id: 'list.select_all' })}
         </Typography>
         {!!checkedKeys.length && (

@@ -27,4 +27,9 @@ export type RadioGroupFieldProps = {
   parse?: Function;
   actionElement?: ReactNode;
   justify?: GridJustification;
+  onChange?: (item: RadioDataType) => void;
 } & Pick<UseFieldConfig<string>, 'format'>;
+
+export type RadioGroupFieldStylesProps = {
+  tileHeight: number;
+};

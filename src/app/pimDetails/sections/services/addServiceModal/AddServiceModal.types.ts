@@ -1,4 +1,4 @@
-import { ServiceRadioType } from '../Services.types';
+import { ServiceRadioType } from 'app/shared/services/Service.types';
 import { AddServiceInput, ServiceType } from 'api/types';
 
 export type AddServiceModalContainerProps = {
@@ -6,7 +6,7 @@ export type AddServiceModalContainerProps = {
   isOpened: boolean;
   type: ServiceType;
   types: ServiceRadioType[];
-  onClose: VoidFunction;
+  onClose: (id?: string) => void;
 };
 
 export type AddServiceSubmit = (

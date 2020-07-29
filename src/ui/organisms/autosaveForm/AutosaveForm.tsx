@@ -4,7 +4,7 @@ import { Form, FormSpy } from 'react-final-form';
 import { Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
-import { AutosaveProps, KeyValuesObject, FormObject } from './AutosaveForm.types';
+import { AutosaveProps, KeyValuesObject, FormObject, AutosaveFunctionChildren } from './AutosaveForm.types';
 import { useDebounce } from './useDebounce/useDebounce';
 
 const isEmpty = (obj: {} | null | undefined) => !obj || !Object.keys(obj).length;
@@ -17,7 +17,7 @@ const sanitize = (obj: object) => {
   );
 };
 
-export const AutosaveForm = ({ onSave, timeout = 2500, children, initialValues, ...props }: AutosaveProps) => {
+export const AutosaveForm = ({ onSave, timeout = 1000, children, initialValues, ...props }: AutosaveProps) => {
   const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
   const previousValues = useRef<KeyValuesObject<string | number> | null>(null);
   const { formatMessage } = useLocale();
@@ -54,9 +54,9 @@ export const AutosaveForm = ({ onSave, timeout = 2500, children, initialValues, 
 
   return (
     <Form onSubmit={() => {}} {...props} initialValues={initial}>
-      {() => (
+      {form => (
         <>
-          {children}
+          {typeof children === 'function' ? (children as AutosaveFunctionChildren)(form) : children}
           <FormSpy subscription={{ values: true }} onChange={debouncedCallback} />
           <Snackbar
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}

@@ -1,22 +1,39 @@
 import React, { useMemo } from 'react';
 
-import { LabelProperty, useGetLabelsQuery } from 'api/types';
+import { LabelProperty, useGetLabelsQuery, useGetNcpLabelsQuery, GetLabelsQuery, GetNcpLabelsQuery } from 'api/types';
 import { iconPickerIcons } from 'hooks/useCustomLabels/icons';
 import { SquareIcon } from 'ui/atoms/icons';
+import { EntityType } from 'app/shared/entityType';
 
 import { CustomRadioDataType, CustomRadioDataTypeRecord } from './useCustomLabels.types';
 
-export const useCustomLabels = (pimId: string, properties: LabelProperty[]) => {
-  const { data } = useGetLabelsQuery({
+const getQuery = (entityType: EntityType) => {
+  switch (entityType) {
+    case EntityType.Property:
+      return useGetLabelsQuery;
+    case EntityType.Project:
+      return useGetNcpLabelsQuery;
+    default:
+      throw new Error('There is no such EnitityType');
+  }
+};
+
+export const useCustomLabels = (
+  id: string,
+  properties: LabelProperty[],
+  entityType: EntityType = EntityType.Property,
+) => {
+  const useQuery = getQuery(entityType);
+  const { data } = useQuery({
     variables: {
-      pimId,
+      id,
       properties,
     },
   });
 
   return useMemo(() => {
     const labels =
-      data?.getLabels?.map(
+      ((data as GetLabelsQuery)?.getLabels || (data as GetNcpLabelsQuery)?.getNcpLabels)?.map(
         (label): CustomRadioDataType => ({
           icon: iconPickerIcons.find(icon => icon.name === label.icon)?.icon ?? <SquareIcon color="inherit" />,
           label: label.text,

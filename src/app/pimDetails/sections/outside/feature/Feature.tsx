@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { OutsideFeatureType } from 'api/types';
 import { useLocale } from 'hooks';
@@ -14,7 +15,8 @@ import { StorageForm } from './forms/StorageForm';
 import { TerrainForm } from './forms/TerrainForm';
 import { ParkingLotForm } from './forms/ParkingLotForm';
 
-export const Feature = ({ feature, count }: FeatureProps) => {
+export const Feature = ({ feature, count, onDimensionChange }: FeatureProps) => {
+  const { state } = useLocation<{ newFeatureAdded?: boolean }>();
   const { formatMessage } = useLocale();
 
   return (
@@ -36,15 +38,24 @@ export const Feature = ({ feature, count }: FeatureProps) => {
             { id: 'pim_details.outside.information' },
             { featureName: formatMessage({ id: `dictionaries.outside_type.${feature.type}` }) },
           )}
+          isInitEditing={!!state?.newFeatureAdded}
         >
           {inEditMode => (
             <>
-              {feature.type === OutsideFeatureType.Garden && <GardenForm id={feature.id} inEditMode={inEditMode} />}
-              {feature.type === OutsideFeatureType.Garage && <GarageForm id={feature.id} inEditMode={inEditMode} />}
-              {feature.type === OutsideFeatureType.Storage && <StorageForm id={feature.id} inEditMode={inEditMode} />}
-              {feature.type === OutsideFeatureType.Terrain && <TerrainForm id={feature.id} inEditMode={inEditMode} />}
+              {feature.type === OutsideFeatureType.Garden && (
+                <GardenForm id={feature.id} inEditMode={inEditMode} onDimensionChange={onDimensionChange} />
+              )}
+              {feature.type === OutsideFeatureType.Garage && (
+                <GarageForm id={feature.id} inEditMode={inEditMode} onDimensionChange={onDimensionChange} />
+              )}
+              {feature.type === OutsideFeatureType.Storage && (
+                <StorageForm id={feature.id} inEditMode={inEditMode} onDimensionChange={onDimensionChange} />
+              )}
+              {feature.type === OutsideFeatureType.Terrain && (
+                <TerrainForm id={feature.id} inEditMode={inEditMode} onDimensionChange={onDimensionChange} />
+              )}
               {feature.type === OutsideFeatureType.ParkingLot && (
-                <ParkingLotForm id={feature.id} inEditMode={inEditMode} />
+                <ParkingLotForm id={feature.id} inEditMode={inEditMode} onDimensionChange={onDimensionChange} />
               )}
             </>
           )}

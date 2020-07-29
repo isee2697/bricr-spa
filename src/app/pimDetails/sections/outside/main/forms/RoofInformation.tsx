@@ -7,7 +7,7 @@ import { FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 export const RoofInformation = () => {
   const { formatMessage } = useLocale();
@@ -137,13 +137,19 @@ export const RoofInformation = () => {
             />
           </Box>
 
-          <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+          <Box mb={2.25}>
+            <FormSubSectionHeader
+              title={formatMessage({ id: 'common.pictures' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
+            />
+          </Box>
           <UploadImageGroupField
             entity={EntityWithFiles.RoofInformation}
             entityID={pimId}
             max={300}
             disabled={!isEditMode}
             name="houseOutside.roofInformation.images"
+            removeEntity={EntityWithMultipleFiles.RoofInformation}
           />
         </>
       )}

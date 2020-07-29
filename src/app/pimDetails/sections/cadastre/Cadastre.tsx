@@ -7,6 +7,7 @@ import { Box, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType } from 'api/types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { useStyles } from './Cadastre.styles';
 import { CadastralMapsContainer } from './maps/CadastralMapsContainer';
@@ -29,12 +30,17 @@ export const Cadastre = ({ title, isSidebarVisible, onOpenSidebar, data }: Cadas
 
   return (
     <>
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/cadastre/cadastreMap"
+        title={formatMessage({ id: 'pim_details.cadastre.title' })}
+      />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
         onOpenSidebar={onOpenSidebar}
         action={
-          <Box display="flex">
+          <Box display="flex" flexShrink={0}>
             <Button className={classes.addPlot} color="primary" variant="outlined" onClick={() => {}} size="small">
               {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre' })}
             </Button>

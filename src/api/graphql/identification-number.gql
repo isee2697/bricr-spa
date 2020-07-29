@@ -1,0 +1,32 @@
+enum IdentificationNumberType {
+  Sap,
+  Form
+}
+
+type IdentificationNumber {
+  id: String!
+  name: String
+  number: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+  dateCreated: Date
+}
+
+input AddIdentificationNumberInput {
+  parentId: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+}
+
+input UpdateIdentificationNumberInput {
+  id: String!
+  name: String
+  number: String
+  type: String @uuidOrEnum(enum: ["IdentificationNumberType"])
+}
+
+extend type Mutation {
+  addIdentificationNumberPim(input: AddIdentificationNumberInput!): PimWithNewIdentificationNumber! @auth
+  addIdentificationNumberNcp(input: AddIdentificationNumberInput!): NcpWithNewIdentificationNumber! @auth
+  updateIdentificationNumberPim(input: UpdateIdentificationNumberInput!): Pim! @auth
+  updateIdentificationNumberNcp(input: UpdateIdentificationNumberInput!): NcpCharacteristics! @auth
+}

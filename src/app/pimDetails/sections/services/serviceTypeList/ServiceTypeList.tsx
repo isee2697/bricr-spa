@@ -1,112 +1,57 @@
 import React, { ReactElement, useState } from 'react';
-import classNames from 'classnames';
 
-import { Avatar, Typography } from 'ui/atoms';
 import { Service, ServiceType } from 'api/types';
-import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { InfoSection } from 'ui/molecules';
 import { ServiceTypeListProps } from '../Services.types';
 import { AddServiceModalContainer } from '../addServiceModal/AddServiceModalContainer';
-import { ServiceForm } from '../forms/ServiceForm';
-import { useStyles } from '../Services.styles';
-import { ServiceRadioType } from '../Services.types';
-import { hotWaterTypes, heatingTypes, additionalTypes, hotWaterFuelTypes } from '../dictionaries';
-import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
+import { ServiceForm } from 'app/shared/services/forms/ServiceForm';
+import { ServiceRadioType } from 'app/shared/services/Service.types';
+import * as dictionaries from 'app/shared/services/dictionaries';
+import { CardWithList } from 'ui/templates';
+import { yearToDate } from 'form/fields';
 
 export const ServiceTypeList: <T extends Service>(
   p: ServiceTypeListProps<T>,
 ) => ReactElement<ServiceTypeListProps<T>> = ({ emptyEmoji, items, title, type, onSave }) => {
   const { formatMessage } = useLocale();
   const [isOpenAddService, setIsOpenAddService] = useState(false);
-  const [toggled, setToggled] = useState<number | undefined>();
-  const [newServiceAdded, setNewServiceAdded] = useState<boolean>(false);
-  const formRef = React.useRef<FormSectionRef>(null);
+  const types: ServiceRadioType[] =
+    (type === ServiceType.HotWaterSupplies && dictionaries.hotWaterTypes) ||
+    (type === ServiceType.HeatingSources && dictionaries.heatingTypes) ||
+    (type === ServiceType.AdditionalServices && dictionaries.additionalTypes) ||
+    [];
 
-  const classes = useStyles();
-
-  const onAddService = () => {
-    setNewServiceAdded(true);
-    formRef?.current?.handleSetEdit(true);
-  };
-
-  let types: ServiceRadioType[] = [];
-  let formTypes: ServiceRadioType[] | undefined;
-  let formTypeTitle: string | undefined;
-
-  switch (type) {
-    case ServiceType.HotWaterSupplies:
-      types = hotWaterTypes;
-      formTypes = hotWaterFuelTypes;
-      formTypeTitle = 'pim_details.services.service_form.fuel_title';
-      break;
-    case ServiceType.HeatingSources:
-      types = heatingTypes;
-      break;
-    case ServiceType.AdditionalServices:
-      types = additionalTypes;
-      break;
-  }
+  const itemsWithYear = items.map(item => ({ ...item, yearOfInstallation: yearToDate(item.yearOfInstallation) }));
 
   return (
     <>
-      <FormSection
-        title={
-          <>
-            {formatMessage({ id: title })}{' '}
-            {items.length > 0 && (
-              <Avatar className={classNames(classes.avatar, classes.counter)}>{items.length}</Avatar>
-            )}
-          </>
-        }
-        isEditable={items.length > 0}
+      <CardWithList
+        title={formatMessage({ id: title })}
+        emptyStateTextFirst={formatMessage({ id: `pim_details.services.${type.toLowerCase()}_empty_title` })}
+        emptyStateTextSecond={formatMessage({ id: `pim_details.services.${type.toLowerCase()}_empty_description` })}
+        emoji={emptyEmoji}
+        items={itemsWithYear}
         onAdd={() => setIsOpenAddService(true)}
         onOptionsClick={items.length > 0 ? () => {} : undefined}
-        ref={formRef}
-      >
-        {isEditMode => (
-          <>
-            {items.length === 0 && (
-              <InfoSection emoji={emptyEmoji}>
-                <Typography variant="h3">
-                  {formatMessage({ id: `pim_details.services.${type.toLowerCase()}_empty_title` })}
-                </Typography>
-                <Typography variant="h3">
-                  {formatMessage({ id: `pim_details.services.${type.toLowerCase()}_empty_description` })}
-                </Typography>
-              </InfoSection>
-            )}
-            {items.length > 0 &&
-              items.map((item, key) => {
-                const type = types.find(type => type.value === item.configuration.type);
-                const newestAdded = newServiceAdded && items.length === key + 1;
-                setNewServiceAdded(newestAdded);
+        onSave={onSave}
+        renderItem={(item, isEditMode) => {
+          const typeItem = types.find(typeItem => typeItem.value === item.configuration.type);
 
-                return (
-                  <ServiceForm
-                    onSave={onSave}
-                    key={item.id}
-                    isEditMode={isEditMode}
-                    toggled={newestAdded || toggled === key}
-                    onToggleClick={() => setToggled(toggled === key ? undefined : key)}
-                    item={item}
-                    types={formTypes}
-                    typesTitle={formTypeTitle}
-                    hasOwnership={!!type?.hasOwnership}
-                    title={
-                      <>
-                        <Avatar className={classes.avatar}>{key + 1}</Avatar>
-                        {type && formatMessage({ id: type.label }) + (item.name ? ` (${item.name})` : '')}
-                      </>
-                    }
-                  />
-                );
-              })}
-          </>
-        )}
-      </FormSection>
+          return (
+            <ServiceForm
+              item={item}
+              types={(type === ServiceType.HotWaterSupplies && dictionaries.hotWaterFuelTypes) || undefined}
+              typesTitle={
+                (type === ServiceType.HotWaterSupplies && 'pim_details.services.service_form.fuel_title') || undefined
+              }
+              isEditMode={isEditMode}
+              hasOwnership={!!typeItem?.hasOwnership}
+            />
+          );
+        }}
+      />
       <AddServiceModalContainer
-        onAddService={onAddService}
+        onAddService={() => setIsOpenAddService(true)}
         type={type}
         types={types}
         isOpened={isOpenAddService}

@@ -7,11 +7,13 @@ export type FeatureContainerProps = {
 export type FeatureProps = {
   feature: OutsideFeature;
   count?: number;
+  onDimensionChange: (field: string) => void;
 };
 
 export type FeatureFormProps = {
   id: string;
   inEditMode: boolean;
+  onDimensionChange: (field: string) => void;
 };
 
 export type AliasedFeatureConfiguration = {

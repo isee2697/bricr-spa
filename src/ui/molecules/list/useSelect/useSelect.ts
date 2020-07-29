@@ -1,8 +1,8 @@
-import { useReducer, Reducer } from 'react';
+import { useReducer, useEffect, Reducer } from 'react';
 
 import { SelectState, SelectAction } from './useSelect.types';
 
-export const useSelect = <T>(items: T[], itemIndex: keyof T) => {
+export const useSelect = <T>(items: T[], itemIndex: keyof T, disabled?: boolean) => {
   const [checkedKeys, dispatch] = useReducer<Reducer<SelectState, SelectAction>>((state, action) => {
     switch (action.type) {
       case 'TOGGLE':
@@ -19,10 +19,19 @@ export const useSelect = <T>(items: T[], itemIndex: keyof T) => {
 
         return items.map(item => `${item[itemIndex]}`);
 
+      case 'CLEAR_ALL':
+        return !!state.length ? [] : state;
+
       default:
         return state;
     }
   }, []);
+
+  useEffect(() => {
+    if (disabled) {
+      dispatch({ type: 'CLEAR_ALL' });
+    }
+  }, [disabled]);
 
   return {
     checkedKeys,

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { PimPricingDocument, useTogglePricingMutation, useUpdatePricingMutation } from 'api/types';
 import { PricesGeneral } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral';
-import { SetPriceForm } from 'app/pimDetails/sections/prices/setPricesModal/SetPricesModal.types';
+import { SetPriceForm } from 'app/shared/prices/setPricesModal/SetPricesModal.types';
 import { PricesGeneralContainerProps } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral.types';
 import { PriceForm } from 'app/pimDetails/sections/prices/price/Price.types';
 

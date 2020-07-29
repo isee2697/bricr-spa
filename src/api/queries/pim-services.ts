@@ -10,6 +10,35 @@ export const PIM_SERVICES = gql`
         firstName
         lastName
       }
+      metersMeta {
+        Water {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Gas {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Electric {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+      }
       meters {
         id
         type

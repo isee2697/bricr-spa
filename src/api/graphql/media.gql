@@ -1,0 +1,112 @@
+enum PictureType {
+  General
+  Inside
+  Outside
+  LivingRoom
+  Kitchen
+  Bathroom
+  Garden
+  Garage
+  Terrain
+  Surroundings
+  Attic
+}
+
+enum MediaLinkType {
+  YouTube
+  ThreeSixtyDegree
+  Floorplanner
+  FacebookTrackingCode
+}
+
+enum ChapterOrUspType {
+  Garden
+  Garage
+  Storage
+  Terrain
+  ParkingLot
+  Kitchen
+  Bathroom
+  LivingRoom
+  Bedroom
+  HomeOffice
+  Attic
+  Floor
+  Basement
+  GroundFloor
+}
+
+enum TagType {
+  Remote
+  DogLover
+  Seniors
+  Architecture
+  n1930s
+  Sports
+  SpecialLiving
+  ReadyToUse
+  Gardening
+  NeighbourhoodAssociation
+  ChildFriendly
+  View
+  CentralLocation
+  Safe
+  Culture
+  LuxuriousFinisch
+  ClubLife
+  DIY
+  MotorOwner
+  Water
+  Edological
+  Relaxation
+  Wellness
+  HobbyAnimals
+  HorseLover
+  WorkAtHome
+  Courtyard
+  NationWide
+  Quit
+  Shopping
+}
+
+type Picture implements LastUpdated {
+  id: String!
+  description: String
+  type: String @uuidOrEnum(enum: ["PictureType"])
+  name: String
+  file: File
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+type TextChapter {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  text: String
+  dateCreated: Date
+}
+
+type Usp {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
+  description: String
+  dateCreated: Date
+}
+
+type MediaLink {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["MediaLinkType"])
+  url: String
+  dateCreated: Date
+}
+
+type Tag {
+  id: String!
+  name: String
+  type: String @uuidOrEnum(enum: ["TagType"])
+  description: String
+  dateCreated: Date
+}

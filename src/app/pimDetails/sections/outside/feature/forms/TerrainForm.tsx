@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, UploadImageGroupField, RadioGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { SquareMeterIcon } from 'ui/atoms/icons';
+import { MeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
-export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
+export const TerrainForm = ({ id, inEditMode, onDimensionChange }: FeatureFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -31,9 +31,10 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.width')}
             />
             <GenericField
               name="configuration.measurement.length"
@@ -41,9 +42,10 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.length')}
             />
           </Grid>
           <Grid item md={2} />
@@ -51,7 +53,9 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
             <CardField
               name="configuration.measurement.surface"
               label="pim_details.surface.surface"
-              endAdornment={<SquareMeterIcon />}
+              InputProps={{
+                endAdornment: <SquareMeterIcon />,
+              }}
               type="number"
               disabled={!inEditMode}
             />
@@ -76,7 +80,7 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
         </Box>
       </Box>
 
-      <Box mb={3}>
+      <Box mb={2.25}>
         <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
@@ -87,6 +91,7 @@ export const TerrainForm = ({ id, inEditMode }: FeatureFormProps) => {
         entityID={id}
         name="configuration.images"
         disabled={!inEditMode}
+        removeEntity={EntityWithMultipleFiles.OutsideFeature}
       />
     </>
   );

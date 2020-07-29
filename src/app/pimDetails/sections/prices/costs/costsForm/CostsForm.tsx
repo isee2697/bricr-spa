@@ -1,19 +1,23 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
 
 import { Box, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
-import { useLocale } from 'hooks';
-import { CostPaymentFrequency } from 'api/types';
+import { useLocale, useCustomLabels } from 'hooks';
+import { CostPaymentFrequency, LabelProperty } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 import { CostSection } from './costSection/CostSection';
 import { FormProps } from './CostsForm.types';
 import { useStyles } from './CostsForm.styles';
 
-export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormProps) => {
+export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick, counter }: FormProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const styles = useStyles();
+  const customLabels = useCustomLabels(id, [LabelProperty.Cost], EntityType.Property)[LabelProperty.Cost] ?? [];
 
   const vatOptions = [21, 9, 0].map(value => ({
     label: formatMessage({ id: 'pim_details.prices.costs.vat_percentage_option' }, { vat: value }),
@@ -26,7 +30,10 @@ export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormP
   }));
 
   const getTitle = () => {
-    const title = cost.type;
+    const title = formatMessage({
+      id: `dictionaries.prices.cost_type.${cost.type}`,
+      defaultMessage: customLabels.find(label => label.value === cost.type)?.label ?? ' ',
+    });
 
     if (cost.name) {
       return `${title} (${cost.name})`;
@@ -44,6 +51,7 @@ export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormP
           initiallyOpened={false}
           isExpanded={toggled}
           onOptionsClick={() => {}}
+          counter={counter}
         >
           <Box pb={4}>
             <Grid container spacing={4}>
@@ -52,7 +60,12 @@ export const CostsForm = ({ cost, editing, onSave, toggled, onCostClick }: FormP
                   title={formatMessage({ id: 'pim_details.prices.costs.payments' })}
                   subtitle={formatMessage({ id: 'pim_details.prices.costs.set_price' })}
                   costLabel={
-                    <>{formatMessage({ id: 'pim_details.prices.costs.service_costs' }, { name: cost.type })}</>
+                    <>
+                      {formatMessage(
+                        { id: 'pim_details.prices.costs.service_costs' },
+                        { name: customLabels.find(label => label.value === cost.type)?.label ?? cost.type },
+                      )}
+                    </>
                   }
                   costName="serviceCosts"
                   selectLabelId="pim_details.prices.costs.payment_frequency"

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Field } from 'react-final-form';
 
 import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid } from 'ui/atoms';
@@ -9,15 +10,18 @@ import { useLocale } from 'hooks';
 import { HelpIcon, UnseeIcon, SeeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { CadastreOwnershipType } from 'api/types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import * as dictionaries from './dictionaries';
 import { useStyles } from './Plot.styles';
 import { PlotProps } from './Plot.types';
 
-export const Plot = ({ index, cadastre }: PlotProps) => {
-  const [isToggled, setToggled] = useState(false);
+export const Plot = ({ index, cadastre, onOwnershipChange }: PlotProps) => {
+  const { state } = useLocation<{ newPlotAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
+
+  const [isToggled, setToggled] = useState(false);
 
   return (
     <Page
@@ -27,8 +31,12 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
       updatedBy={cadastre?.lastEditedBy}
       dateUpdated={cadastre?.dateUpdated}
     >
+      <NavBreadcrumb title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })} />
       <Grid item xs={12}>
-        <FormSection title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}>
+        <FormSection
+          title={formatMessage({ id: 'pim_details.cadastre.plot.information' }, { index })}
+          isInitEditing={!!state?.newPlotAdded}
+        >
           {editing => (
             <Grid container spacing={4}>
               <Grid item xs={12}>
@@ -147,6 +155,7 @@ export const Plot = ({ index, cadastre }: PlotProps) => {
                         lg={12}
                         name="ownershipType"
                         options={dictionaries.ownershipType}
+                        onChange={onOwnershipChange}
                       />
                     </Box>
                   </Grid>

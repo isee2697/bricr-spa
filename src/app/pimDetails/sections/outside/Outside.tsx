@@ -9,7 +9,8 @@ import { useLocale } from 'hooks';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { usePimOutsideQuery, OutsideFeature } from 'api/types';
+import { usePimOutsideQuery } from 'api/types';
+import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
@@ -26,7 +27,7 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
     },
   });
 
-  const isAddFloorModalOpen = useModalState('add-new-outside-feature');
+  const { isOpen: isAddFloorModalOpen } = useModalState('add-new-outside-feature');
   const { close, open } = useModalDispatch();
 
   if (!data?.getPimOutside) {
@@ -35,6 +36,11 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
 
   return (
     <>
+      <NavBreadcrumb
+        urlBase={AppRoute.pimDetails}
+        to="/outside"
+        title={formatMessage({ id: 'pim_details.outside.title' })}
+      />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
@@ -61,12 +67,10 @@ export const Outside = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSe
           exact
           render={() => <MainContainer pimOutside={data?.getPimOutside} />}
         />
-        {!!data.getPimOutside.outsideFeatures?.length && (
-          <Route
-            path={`${AppRoute.pimDetails}/outside/:featureId`}
-            render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures as OutsideFeature[]} />}
-          />
-        )}
+        <Route
+          path={`${AppRoute.pimDetails}/outside/:featureId`}
+          render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures ?? []} />}
+        />
         <Redirect to={`${AppRoute.pimDetails}/outside`} />
       </Switch>
 

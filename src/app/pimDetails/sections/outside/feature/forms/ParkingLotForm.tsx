@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, UploadImageGroupField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
@@ -50,7 +50,7 @@ export const ParkingLotForm = ({ id, inEditMode }: FeatureFormProps) => {
         />
       </Box>
 
-      <Box mb={3}>
+      <Box mb={2.25}>
         <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
@@ -61,6 +61,7 @@ export const ParkingLotForm = ({ id, inEditMode }: FeatureFormProps) => {
         entityID={id}
         name="configuration.images"
         disabled={!inEditMode}
+        removeEntity={EntityWithMultipleFiles.OutsideFeature}
       />
     </>
   );

@@ -17,7 +17,7 @@ export const BathroomForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
         <Box width="33%">
           <DatePickerField
             label="pim_details.inside.year_of_bathroom"
-            placeholder="pim_details.inside.year_of_construction_placeholder"
+            placeholder="common.year_placeholder"
             name={`${fieldPrefix}.constructionYear`}
             disabled={!isEditMode}
             isYearPicker

@@ -3,14 +3,16 @@ import { buildSchema, graphql } from 'graphql';
 
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
+import { NCP_GENERAL_1 } from 'api/mocks/ncp-general';
 
 import { loadSchemas } from './loadSchemas';
 import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
 import { FILE_1 } from './mocks/file';
-import { PIM_DETAILS_1, PIM_1, PIM_SERVICES } from './mocks/pim';
+import { PIM_DETAILS_1, PIM_1, PIM_SERVICES, EMPTY_READING } from './mocks/pim';
 import { PIM_GENERAL_1 } from './mocks/pim-general';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
 import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
+import { LIST_NCP_1, LIST_NCP_ARCHIVED_1 } from './mocks/ncp-list';
 
 const graphqlSchema = buildSchema(loadSchemas());
 
@@ -22,6 +24,9 @@ let PIM_CADASTRE = PIM_CADASTRE_1;
 const PIM_MEDIA = PIM_MEDIA_1;
 let PIM_INSIDE = PIM_INSIDE_1;
 const PIM_GENERAL = PIM_GENERAL_1;
+let NCP_GENERAL = NCP_GENERAL_1;
+const LIST_NCP = LIST_NCP_1;
+const LIST_NCP_ARCHIVED = LIST_NCP_ARCHIVED_1;
 
 export const mockServer = () => {
   new Server({
@@ -106,6 +111,29 @@ export const mockServer = () => {
             }
             throw new Error();
           },
+          listNcps() {
+            const from = variables?.from ?? 0;
+            const limit = variables?.limit ?? 10;
+
+            const ncp = !!variables?.archived ? LIST_NCP_ARCHIVED : LIST_NCP;
+            const totalNcps = Array.from({ length: 100 }, (item, index) =>
+              index !== 0
+                ? {
+                    ...ncp,
+                    id: Math.random().toString(),
+                  }
+                : ncp,
+            );
+
+            const Ncps = totalNcps.slice(from, limit + from);
+
+            return {
+              items: Ncps,
+              metadata: {
+                total: Ncps.length,
+              },
+            };
+          },
           listPims() {
             if (variables.filters?.city === 'Amsterdam' || variables.filters?.city === 'Test') {
               return {
@@ -159,6 +187,26 @@ export const mockServer = () => {
 
             return PIM_GENERAL;
           },
+          getPimsGeneralWithSameAddress() {
+            if (
+              [
+                variables.input.street === PIM_DETAILS.street,
+                variables.input.houseNumber === PIM_DETAILS.houseNumber,
+                variables.input.postalCode === PIM_DETAILS.postalCode,
+                variables.input.city === PIM_DETAILS.city,
+              ].filter(Boolean).length > 2
+            ) {
+              return {
+                metadata: { total: 1 },
+                items: [PIM_DETAILS],
+              };
+            }
+
+            return {
+              metadata: { total: 0 },
+              items: [],
+            };
+          },
           getPimInside() {
             if (variables.id === 'test') {
               throw new Error();
@@ -184,7 +232,10 @@ export const mockServer = () => {
               PIM_CADASTRE.cadastre = [CADASTRE_3];
             }
 
-            return PIM_CADASTRE;
+            return {
+              pim: { id: PIM_CADASTRE.id },
+              cadastre: CADASTRE_3,
+            };
           },
           updateCadastre() {
             PIM_CADASTRE.cadastre?.map(c => (c.id === variables.input.id ? variables.input : c));
@@ -290,7 +341,7 @@ export const mockServer = () => {
           addMeter() {
             variables.input.id = '13hdul_jrn3' + variables.input.name;
             const data = PIM_SERVICES.meters || [];
-            PIM_SERVICES.meters = [...data, variables.input];
+            PIM_SERVICES.meters = [...data, { ...variables.input, readings: [{ ...EMPTY_READING, id: 'reading_id' }] }];
 
             return PIM_DETAILS;
           },
@@ -582,6 +633,40 @@ export const mockServer = () => {
             return {
               pim: PIM_DETAILS,
               newPicture: MEDIA_PICTURE,
+            };
+          },
+          createNcp() {
+            return NCP_GENERAL;
+          },
+          getNcp() {
+            return NCP_GENERAL;
+          },
+          updateNcp() {
+            NCP_GENERAL = {
+              ...NCP_GENERAL,
+              ...variables.input,
+            };
+
+            return NCP_GENERAL;
+          },
+          getNcpWithSameAddress() {
+            if (
+              [
+                variables.input.street === NCP_GENERAL.street,
+                variables.input.houseNumber === NCP_GENERAL.houseNumber,
+                variables.input.zipCode === NCP_GENERAL.zipCode,
+                variables.input.city === NCP_GENERAL.city,
+              ].filter(Boolean).length > 2
+            ) {
+              return {
+                metadata: { total: 1 },
+                items: [NCP_GENERAL],
+              };
+            }
+
+            return {
+              metadata: { total: 0 },
+              items: [],
             };
           },
         };

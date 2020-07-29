@@ -48,7 +48,7 @@ export const ConstructionInformationForm = () => {
                 <DatePickerField
                   name="houseGeneral.construction.from"
                   label="common.from"
-                  placeholder="common.from_placeholder"
+                  placeholder="common.from_year_placeholder"
                   disabled={!editing}
                   isYearPicker
                 />
@@ -57,7 +57,7 @@ export const ConstructionInformationForm = () => {
                 <DatePickerField
                   name="houseGeneral.construction.to"
                   label="common.to"
-                  placeholder="common.to_placeholder"
+                  placeholder="common.to_year_placeholder"
                   disabled={!editing}
                   isYearPicker
                 />

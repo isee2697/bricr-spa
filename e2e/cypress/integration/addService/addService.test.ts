@@ -18,8 +18,6 @@ context('Add Service', () => {
     cy.findByLabelText('Name of the meter').type('My water meter');
     cy.findByRole('button', { name: 'Add meter' }).click();
 
-    cy.findByText('Water Meters').click();
-
     cy.location().should(loc => {
       expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/services/water'));
     });
@@ -31,8 +29,6 @@ context('Add Service', () => {
     cy.findByText('Water').click();
     cy.findByLabelText('Name of the meter').type('My water meter');
     cy.findByRole('button', { name: 'Add meter' }).click();
-
-    cy.findByText('Water Meters').click();
 
     cy.location().should(loc => {
       expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/services/water'));
@@ -60,7 +56,7 @@ context('Add Service', () => {
     NavigationMenu.goToPimServices();
 
     cy.findAllByText('Edit mode')
-      .first()
+      .last()
       .click();
 
     cy.get('.sub-section-header-toggle')

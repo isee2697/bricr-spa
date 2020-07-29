@@ -2,10 +2,11 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
 import groupBy from 'lodash/groupBy';
+import { FormRenderProps } from 'react-final-form';
 
-import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature } from 'api/types';
+import { useUpdateOutsideFeatureMutation, PimOutsideDocument, OutsideFeature, CuboidMeasurement } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
-import { measurementDecorator } from 'form/decorators/measurementDecorator';
+import { calculateSurface, calculateVolume } from 'form/mutators/measurementMutators';
 
 import { FeatureContainerProps, AliasedFeatureConfiguration } from './Feature.types';
 import { Feature } from './Feature';
@@ -86,11 +87,26 @@ export const FeatureContainer = ({ features }: FeatureContainerProps) => {
       key={featureId}
       initialValues={initialValues}
       onSave={handleSave}
-      mutators={{ ...arrayMutators }}
-      subscription={{}}
-      decorators={[measurementDecorator]}
+      mutators={{
+        ...arrayMutators,
+        calculateSurface: (args, state, utils) => calculateSurface(state, utils),
+        calculateVolume: (args, state, utils) => calculateVolume(state, utils),
+      }}
     >
-      <Feature feature={feature} count={getCount(feature)} />
+      {(form: FormRenderProps<CuboidMeasurement>) => (
+        <Feature
+          feature={feature}
+          count={getCount(feature)}
+          onDimensionChange={(field: string) => {
+            if (field === 'configuration.measurement.height') {
+              form.form.mutators.calculateVolume();
+            } else {
+              form.form.mutators.calculateSurface();
+              form.form.mutators.calculateVolume();
+            }
+          }}
+        />
+      )}
     </AutosaveForm>
   );
 };

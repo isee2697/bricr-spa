@@ -10,3 +10,7 @@ export type PriceForm = {
   sale: SaleInformations;
   description?: string;
 };
+
+export type PropertyTypeProps = {
+  isInitExpanded: boolean;
+};

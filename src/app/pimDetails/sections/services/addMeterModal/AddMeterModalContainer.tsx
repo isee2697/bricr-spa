@@ -35,7 +35,6 @@ export const AddMeterModalContainer = ({ isOpened, onClose, onAddMeter }: AddMet
       if (!result) {
         throw new Error();
       }
-
       await onAddMeter();
       onClose();
       push(`${AppRoute.pimDetails.replace(':id', id)}/services/${body.type.toLowerCase()}`);

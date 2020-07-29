@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
 
 import { AutosaveForm } from 'ui/organisms';
-import { PimCadastreDocument, useUpdateMapMutation } from 'api/types';
+import { PimCadastreDocument, useUpdateMapMutation, EntityWithFiles } from 'api/types';
+import { useGetPrivateFile } from 'hooks';
 
 import { CadastreMapContainerProps } from './CadastralMaps.types';
 import { CadastreMap } from './CadastreMap';
@@ -12,6 +13,12 @@ import { CadastreMap } from './CadastreMap';
 export const CadastreMapContainer = ({ cadastreMap, cadastreId, ...props }: CadastreMapContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [updateMap] = useUpdateMapMutation();
+
+  const { data: mapFile } = useGetPrivateFile(
+    (cadastreMap.file && cadastreMap.file.key) || '',
+    EntityWithFiles.CadastreMap,
+    cadastreMap.id,
+  );
 
   const handleSave = async (body: AnyObject) => {
     try {
@@ -48,7 +55,7 @@ export const CadastreMapContainer = ({ cadastreMap, cadastreId, ...props }: Cada
 
   return (
     <AutosaveForm onSave={handleSave} initialValues={cadastreMap || {}} mutators={{ ...arrayMutators }}>
-      <CadastreMap cadastreMap={cadastreMap} {...props} />
+      <CadastreMap cadastreMap={cadastreMap} mapFile={mapFile} {...props} />
     </AutosaveForm>
   );
 };

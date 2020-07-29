@@ -15,6 +15,7 @@ export const PIM_CADASTRE = gql`
           file {
             key
             id
+            fileName
           }
           description
           type

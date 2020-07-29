@@ -2,16 +2,17 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
+import { FormRenderProps } from 'react-final-form';
 
-import { useUpdateSpaceMutation, PimInsideDocument, SpaceType } from 'api/types';
+import { useUpdateSpaceMutation, PimInsideDocument, SpaceType, CuboidMeasurement } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { dateToYear, yearToDate } from 'form/fields';
-import { measurementDecorator } from 'form/decorators/measurementDecorator';
+import { calculateSurface, calculateVolume } from 'form/mutators/measurementMutators';
 
-import { SpaceProps, AliasedSpace } from './Space.types';
+import { SpaceContainerProps, AliasedSpace } from './Space.types';
 import { Space as SpaceComponent } from './Space';
 
-export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
+export const SpaceContainer = ({ space, ...props }: SpaceContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const [updateSpace] = useUpdateSpaceMutation();
   const hasConstructionYear = [SpaceType.Bathroom, SpaceType.Kitchen].includes(space.spaceType);
@@ -72,11 +73,27 @@ export const SpaceContainer = ({ space, ...props }: SpaceProps) => {
     <AutosaveForm
       initialValues={initialValues}
       onSave={handleEdit}
-      mutators={{ ...arrayMutators }}
+      mutators={{
+        ...arrayMutators,
+        calculateSurface: (args, state, utils) => calculateSurface(state, utils),
+        calculateVolume: (args, state, utils) => calculateVolume(state, utils),
+      }}
       subscription={{}}
-      decorators={[measurementDecorator]}
     >
-      <SpaceComponent space={space} {...props} />
+      {(form: FormRenderProps<CuboidMeasurement>) => (
+        <SpaceComponent
+          space={space}
+          onDimensionChange={(field: string) => {
+            if (field === 'configuration.measurement.height') {
+              form.form.mutators.calculateVolume();
+            } else {
+              form.form.mutators.calculateSurface();
+              form.form.mutators.calculateVolume();
+            }
+          }}
+          {...props}
+        />
+      )}
     </AutosaveForm>
   );
 };

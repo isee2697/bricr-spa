@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { Avatar, Grid, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
-import { useLocale, useToogleOnNewlyCreated } from 'hooks';
+import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
+import { AddCostModalContainer } from 'app/shared/prices';
 import { Page } from 'ui/templates';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 import { useStyles } from './Costs.styles';
-import { AddCostModalContainer } from './addCostModal/AddCostModalContainer';
 import { CostsProps } from './Costs.types';
 import { CostsForm } from './costsForm/CostsForm';
 
@@ -25,7 +24,6 @@ export const Costs = ({
   description,
   onDescriptionUpdate,
 }: CostsProps) => {
-  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
   const styles = useStyles();
@@ -34,7 +32,7 @@ export const Costs = ({
 
   const renderCosts = (editing: boolean) => (
     <>
-      {costs.map(cost => (
+      {costs.map((cost, index) => (
         <CostsForm
           cost={cost}
           editing={editing}
@@ -42,6 +40,7 @@ export const Costs = ({
           key={cost.id}
           toggled={toggled === cost.id}
           onCostClick={() => setToggled(toogled => (toogled !== cost.id ? cost.id : undefined))}
+          counter={index + 1}
         />
       ))}
     </>
@@ -72,7 +71,7 @@ export const Costs = ({
     formRef.current?.handleSetEdit(true);
   };
 
-  useToogleOnNewlyCreated(costs, setToggled);
+  useToggleOnNewlyCreatedFromArray(costs, setToggled);
 
   return (
     <>
@@ -80,7 +79,7 @@ export const Costs = ({
 
       <Page
         title={formatMessage({ id: 'pim_details.prices.costs.title' })}
-        placeholder="pim_details.prices.description_placeholder"
+        placeholder="pim_details.prices.costs.description_placeholder"
         name="description"
         initialValues={{ description }}
         onSave={onDescriptionUpdate}
@@ -104,7 +103,6 @@ export const Costs = ({
         <AddCostModalContainer
           isModalOpened={isModalOpen}
           onModalClose={() => setModalOpen(false)}
-          pimId={id}
           onAdd={handleOnAdd}
         />
       )}

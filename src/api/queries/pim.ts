@@ -12,6 +12,7 @@ export const PIM_OVERALL_INFO = gql`
       floors {
         id
         floorType
+        level
       }
     }
     getPimOutside(id: $id) {

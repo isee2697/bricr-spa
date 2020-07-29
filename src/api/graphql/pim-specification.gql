@@ -158,6 +158,7 @@ type Inspection {
   inspectionType: InspectionType!
   type: String! @uuidOrEnum(enum: ["TankType", "PollutionType", "MaintenanceType"])
   description: String
+  dateCreated: Date
 }
 
 input AddInspectionInput {
@@ -169,24 +170,6 @@ input AddInspectionInput {
 input UpdateInspectionInput {
   id: ID!
   description: String
-}
-
-type Energy {
-  label: EnergyType
-  energyIndex: String
-  endDateEnergyLabel: Date
-  EPC: String
-  characteristicType: EnergyCharasteristicType
-  notes: String
-}
-
-input EnergyInput {
-  label: EnergyType
-  energyIndex: String
-  endDateEnergyLabel: Date
-  EPC: String
-  characteristicType: EnergyCharasteristicType
-  notes: String
 }
 
 type Approvals {
@@ -226,14 +209,12 @@ type Specification implements LastUpdated {
   lastEditedBy: Profile
 }
 
-type PimSpecification implements LastUpdated {
+type PimSpecification {
   id: ID!
   specification: Specification
   specificationAdvanced: SpecificationAdvanced
   linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
-  lastEditedBy: Profile
-  dateUpdated: Date
   linkedPropertiesDateUpdated: Date
   linkedPropertiesLastEditedBy: Profile
   linkedPropertiesDescription: String

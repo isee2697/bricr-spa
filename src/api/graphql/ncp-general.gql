@@ -1,0 +1,109 @@
+enum NcpType {
+  Houses,
+  Apartments,
+  BuildingPlots
+}
+
+enum ProgressStatus {
+  Concept,
+  InPreparation,
+  InPresale,
+  InProgress,
+  Delivered,
+}
+
+enum ProjectRisk {
+  Low,
+  Middle,
+  High
+}
+
+input CreateNcpInput {
+  type: NcpType!
+  name: String!
+  additionalName: String
+  street: String!
+  houseNumber: String!
+  zipCode: String!
+  city: String!
+  country: String!
+  additionalHouseNumber: String
+}
+
+input UpdateNcpInput {
+  id: ID!
+  name: String!
+  additionalName: String
+  street: String!
+  houseNumber: String!
+  additionalHouseNumber: String
+  zipCode: String!
+  city: String!
+  country: String!
+  automaticallyCalculateQuantity: Boolean
+  objectTypes: Int
+  properties: Int
+  progressStatus: ProgressStatus
+  startConstruction: Date
+  noteStartConstruction: String
+  startSale: Date
+  noteStartSale: String
+  startDelivery: Date
+  noteStartDelivery: String
+  startConstructionAfterPresalePercentage: Int
+  projectRisk: ProjectRisk
+  notes: String
+}
+
+type NcpGeneral implements LastUpdated {
+  id: ID!
+  type: NcpType!
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: Profile
+  name: String!
+  additionalName: String
+  street: String!
+  houseNumber: String!
+  additionalHouseNumber: String
+  zipCode: String!
+  city: String!
+  country: String!
+  archived: Boolean!
+  automaticallyCalculateQuantity: Boolean
+  objectTypes: Int
+  properties: Int
+  progressStatus: ProgressStatus
+  startConstruction: Date
+  noteStartConstruction: String
+  startSale: Date
+  noteStartSale: String
+  startDelivery: Date
+  noteStartDelivery: String
+  startConstructionAfterPresalePercentage: Int
+  projectRisk: ProjectRisk
+  notes: String
+}
+
+type NcpSearchResult {
+  metadata: SearchMetadata
+  items: [NcpGeneral!]
+}
+
+input NcpWithSameAddressInput {
+  ncpId: String
+  street: String
+  houseNumber: String
+  zipCode: String
+  city: String
+}
+
+extend type Query {
+  getNcp(id: ID!): NcpGeneral! @auth
+  getNcpWithSameAddress(input: NcpWithSameAddressInput!): NcpSearchResult! @auth
+}
+
+extend type Mutation {
+  createNcp(input: CreateNcpInput!): NcpGeneral! @auth
+  updateNcp(input: UpdateNcpInput!): NcpGeneral! @auth
+}

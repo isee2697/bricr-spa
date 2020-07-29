@@ -419,3 +419,5 @@ declare module 'miragejs/test-support/setup-mirage' {
   /** Enables Mirage in the current test scope. */
   export default function setupMirage(hooks: { beforeEach: () => void; afterEach: () => void }): void;
 }
+
+declare module 'react-through';

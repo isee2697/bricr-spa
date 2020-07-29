@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router';
 
 import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';
@@ -145,12 +146,14 @@ const CONNECTIONS = [
 export const PropertyDetailsForm = () => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const { state } = useLocation<{ newlyAdded: boolean | undefined }>();
 
   return (
     <FormSection
       title={formatMessage({ id: 'pim_details.general.property_details.title' })}
       isExpandable
-      isInitExpanded={false}
+      isInitExpanded={!!state?.newlyAdded}
+      isInitEditing={!!state?.newlyAdded}
     >
       {editing => (
         <>

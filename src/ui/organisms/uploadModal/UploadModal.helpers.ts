@@ -37,7 +37,7 @@ const pageToImage = (page: PDFPageProxy, fileName: string): Promise<File> =>
               canvas.remove();
 
               resolve(
-                new File([blob], `${fileName}_page_${page.pageNumber}`, {
+                new File([blob], `${fileName}_page_${page.pageNumber}.jpeg`, {
                   type: 'image/jpeg',
                 }),
               );

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, CardField, CheckboxGroupField, UploadImageGroupField, CheckboxField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
-import { SquareMeterIcon } from 'ui/atoms/icons';
+import { CubicMeterIcon, MeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import * as dictionaries from '../dictionaries';
 import { FeatureFormProps } from '../Feature.types';
 
-export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
+export const GarageForm = ({ id, inEditMode, onDimensionChange }: FeatureFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -126,9 +126,10 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.width')}
             />
             <GenericField
               name="configuration.measurement.height"
@@ -136,9 +137,10 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.height')}
             />
             <GenericField
               name="configuration.measurement.length"
@@ -146,9 +148,10 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <MeterIcon />,
               }}
               disabled={!inEditMode}
+              onChange={() => onDimensionChange('configuration.measurement.length')}
             />
             <GenericField
               name="configuration.measurement.volume"
@@ -156,7 +159,7 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
               type="number"
               size="medium"
               InputProps={{
-                endAdornment: '[m]',
+                endAdornment: <CubicMeterIcon />,
               }}
               disabled={!inEditMode}
             />
@@ -166,7 +169,9 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
             <CardField
               name="configuration.measurement.surface"
               label="pim_details.surface.surface"
-              endAdornment={<SquareMeterIcon />}
+              InputProps={{
+                endAdornment: <SquareMeterIcon />,
+              }}
               type="number"
               disabled={!inEditMode}
             />
@@ -174,7 +179,7 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
         </Grid>
       </Box>
 
-      <Box mb={3}>
+      <Box mb={2.25}>
         <FormSubSectionHeader
           title={formatMessage({ id: 'common.pictures' })}
           subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
@@ -185,6 +190,7 @@ export const GarageForm = ({ id, inEditMode }: FeatureFormProps) => {
         entityID={id}
         name="configuration.images"
         disabled={!inEditMode}
+        removeEntity={EntityWithMultipleFiles.OutsideFeature}
       />
     </>
   );

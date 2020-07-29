@@ -1,112 +1,3 @@
-enum PictureType {
-  General,
-  Inside,
-  Outside,
-  LivingRoom,
-  Kitchen,
-  Bathroom,
-  Garden,
-  Garage,
-  Terrain,
-  Surroundings,
-  Attic
-}
-
-enum MediaLinkType {
-  YouTube,
-  ThreeSixtyDegree,
-  Floorplanner,
-  FacebookTrackingCode
-}
-
-enum ChapterOrUspType {
-  Garden,
-  Garage,
-  Storage,
-  Terrain,
-  ParkingLot,
-  Kitchen,
-  Bathroom,
-  LivingRoom,
-  Bedroom,
-  HomeOffice,
-  Attic,
-  Floor,
-  Basement,
-  GroundFloor
-}
-
-enum TagType {
-  Remote,
-  DogLover,
-  Seniors,
-  Architecture,
-  n1930s,
-  Sports,
-  SpecialLiving,
-  ReadyToUse,
-  Gardening,
-  NeighbourhoodAssociation,
-  ChildFriendly,
-  View,
-  CentralLocation,
-  Safe,
-  Culture,
-  LuxuriousFinisch,
-  ClubLife,
-  DIY,
-  MotorOwner,
-  Water,
-  Edological,
-  Relaxation,
-  Wellness,
-  HobbyAnimals,
-  HorseLover,
-  WorkAtHome,
-  Courtyard,
-  NationWide,
-  Quit,
-  Shopping,
-}
-
-type Picture implements LastUpdated {
-  id: String!
-  description: String
-  type: String @uuidOrEnum(enum: ["PictureType"])
-  name: String
-  file: File
-  lastEditedBy: Profile
-  dateUpdated: Date
-}
-
-type TextChapter {
-  id: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  text: String
-}
-
-type Usp {
-  id: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  description: String
-}
-
-type MediaLink {
-  id: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["MediaLinkType"])
-  url: String
-}
-
-type Tag {
-  id: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["TagType"])
-  description: String
-}
-
 type PimMedia implements LastUpdated {
   id: String!
   pictures(sort: Sort): [Picture!]
@@ -117,6 +8,31 @@ type PimMedia implements LastUpdated {
   dateUpdated: Date
   lastEditedBy: Profile
   description: String
+}
+
+type PimWithNewPictures {
+  pim: Pim!
+  newPictures: [Picture!]
+}
+
+type PimWithNewTextChapter {
+  pim: Pim!
+  newChapter: TextChapter!
+}
+
+type PimWithNewUsp {
+  pim: Pim!
+  newUsp: Usp!
+}
+
+type PimWithNewMediaLink {
+  pim: Pim!
+  newMediaLink: MediaLink!
+}
+
+type PimWithNewTag {
+  pim: Pim!
+  newTag: Tag!
 }
 
 input NewPictureInput {
@@ -194,31 +110,6 @@ input UpdatePictureInput {
   name: String
   description: String
   fileId: String
-}
-
-type PimWithNewPictures {
-  pim: Pim!
-  newPictures: [Picture!]
-}
-
-type PimWithNewTextChapter {
-  pim: Pim!
-  newChapter: TextChapter!
-}
-
-type PimWithNewUsp {
-  pim: Pim!
-  newUsp: Usp!
-}
-
-type PimWithNewMediaLink {
-  pim: Pim!
-  newMediaLink: MediaLink!
-}
-
-type PimWithNewTag {
-  pim: Pim!
-  newTag: Tag!
 }
 
 extend type Query {

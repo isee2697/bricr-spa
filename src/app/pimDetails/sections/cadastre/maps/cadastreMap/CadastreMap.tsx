@@ -4,33 +4,41 @@ import { useParams } from 'react-router-dom';
 import { FormSubSection } from 'ui/organisms';
 import { FormSubSectionHeader, TileButton } from 'ui/molecules';
 import { Grid, Box, ImageHolder } from 'ui/atoms';
-import { GenericField, RadioGroupField } from 'form/fields';
+import { GenericField, RadioGroupField, UploadImageField } from 'form/fields';
+import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 import { useStyles } from '../CadsatralMaps.styles';
-import { useLocale, useGetPrivateFile, useCustomLabels } from 'hooks';
+import { useLocale, useCustomLabels } from 'hooks';
 import { EntityWithFiles, LabelProperty } from 'api/types';
-import { UploadIcon } from 'ui/atoms/icons';
 
 import { CadastreMapProps } from './CadastralMaps.types';
 import { cadastralMapTypes } from './dictionaries';
 
-export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType, toggled }: CadastreMapProps) => {
+export const CadastreMap = ({
+  cadastreMap,
+  mapFile,
+  title,
+  isEditMode,
+  onAddCustomType,
+  toggled,
+  onToggleClick,
+}: CadastreMapProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const { data } = useGetPrivateFile(
-    (cadastreMap.file && cadastreMap.file.key) || '',
-    EntityWithFiles.CadastreMap,
-    cadastreMap.id,
-  );
-
   const customLabels = useCustomLabels(pimId, [LabelProperty.CadastreMap])[LabelProperty.CadastreMap] ?? [];
 
   return (
-    <FormSubSection title={title} onOptionsClick={() => {}} initiallyOpened={false} isExpanded={toggled}>
+    <FormSubSection
+      title={title}
+      onOptionsClick={() => {}}
+      initiallyOpened={false}
+      isExpanded={toggled}
+      onExpand={onToggleClick}
+    >
       <Grid className={classes.content} container spacing={9}>
         <Grid item md={5}>
-          <ImageHolder withBorder src={data?.signedUrl || undefined} />
+          <ImageHolder withBorder src={mapFile?.signedUrl || undefined} />
         </Grid>
         <Grid item md={7}>
           <GenericField
@@ -40,15 +48,13 @@ export const CadastreMap = ({ cadastreMap, title, isEditMode, onAddCustomType, t
             name="mapName"
             label="pim_details.cadastre.name_label"
           />
-          <GenericField
-            id={`fileName.${cadastreMap.id}`}
+          <UploadImageField
+            name="file"
+            type={UploadImageFieldTypes.DENSE}
+            label="pim_details.media.add_picture_modal.file_name"
+            entityID={mapFile?.entityID ?? ''}
+            entity={EntityWithFiles.CadastreMap}
             disabled={!isEditMode}
-            name="name"
-            placeholder="pim_details.cadastre.file_name_placeholder"
-            label="pim_details.cadastre.file_name_placeholder"
-            InputProps={{
-              endAdornment: <UploadIcon />,
-            }}
           />
           <GenericField
             id={`description.${cadastreMap.id}`}

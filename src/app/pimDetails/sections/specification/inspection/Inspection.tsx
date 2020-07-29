@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { InspectionType, LabelProperty } from 'api/types';
+import { InspectionType } from 'api/types';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
@@ -8,6 +8,7 @@ import { Page } from 'ui/templates';
 
 import { InspectionType as InspectionTypeComponent } from './inspectionType/InspectionType';
 import { InspectionProps } from './Inspection.types';
+import { typeToLabelProperty } from './Inspection.helpers';
 
 export const Inspection = ({
   inspections,
@@ -18,7 +19,7 @@ export const Inspection = ({
   onDescriptionUpdate,
 }: InspectionProps) => {
   const { formatMessage } = useLocale();
-  const [type, setType] = useState();
+  const [type, setType] = useState<InspectionType | null>(null);
 
   return (
     <>
@@ -69,10 +70,13 @@ export const Inspection = ({
       </Page>
       {!!type && (
         <AddCustomPropertyModalContainer
-          property={LabelProperty.Inspection}
+          property={typeToLabelProperty(type)}
           isOpened={!!type}
           onClose={() => setType(null)}
-          type={type}
+          title={formatMessage({
+            id: `pim_details.specification.inspection.custom_${type?.toLowerCase()}_modal_title`,
+          })}
+          labelId={`pim_details.specification.inspection.custom_${type?.toLowerCase()}_property_name`}
         />
       )}
     </>

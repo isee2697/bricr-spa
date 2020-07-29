@@ -2,13 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Form } from 'react-final-form';
 
-import { InspectionType, LabelProperty } from 'api/types';
+import { InspectionType } from 'api/types';
 import { Modal, SubmitButton, TileButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Box } from 'ui/atoms';
 import { useLocale, useCustomLabels } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
 import { RadioGroupField } from 'form/fields';
 import { inspectionTank, inspectionPollution, inspectionMaintenance } from '../../dictionaries';
+import { typeToLabelProperty } from '../Inspection.helpers';
+import { requireValidator } from 'form/validators';
 
 import { AddInspectionModalProps } from './AddInspectionModal.types';
 import { useStyles } from './AddInspectionModal.styles';
@@ -29,7 +31,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
   const { id: pimId } = useParams<{ id: string }>();
   const classes = useStyles();
 
-  const customLabels = useCustomLabels(pimId, [LabelProperty.Inspection])[LabelProperty.Inspection] ?? [];
+  const customLabels = useCustomLabels(pimId, [typeToLabelProperty(type)])[typeToLabelProperty(type)] ?? [];
 
   const addCustomType = () => {
     onAddCustomType();
@@ -40,7 +42,7 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
     <Modal
       fullWidth
       isOpened={isOpened}
-      onClose={onClose}
+      onClose={() => onClose()}
       title={formatMessage({ id: `pim_details.specification.inspection.${type.toLowerCase()}_modal_title` })}
       className={classes.modal}
     >
@@ -60,11 +62,12 @@ export const AddInspectionModal = ({ isOpened, onClose, onSubmit, type, onAddCus
                   name="inspection"
                   options={[...getInspectionType(type), ...customLabels]}
                   actionElement={<TileButton onClick={addCustomType} isDisabled={false} />}
+                  validate={[requireValidator]}
                 />
               </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
-              <CancelButton variant="outlined" size="large" onClick={onClose}>
+              <CancelButton variant="outlined" size="large" onClick={() => onClose()}>
                 {formatMessage({ id: 'common.cancel' })}
               </CancelButton>
               <SubmitButton

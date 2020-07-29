@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 
-import { Meter, ServiceType, PimServices, ServiceConfiguration, OwnershipType } from 'api/types';
+import { Meter, ServiceType, PimServices, ServiceConfiguration, OwnershipType, MetersSharedData } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
@@ -22,6 +22,8 @@ export type ServicesMetersContainerProps = PimDetailsSectionProps & {
 export type ServicesMetersProps = {
   isMeterAdded: boolean;
   meters: Meter[];
+  metersMeta: MetersSharedData;
+  onDescriptionUpdate(body: { description: string }): Promise<undefined | { error: boolean }>;
   loading: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   onAddReading(values: unknown): Promise<undefined | { error: boolean }>;
@@ -47,6 +49,8 @@ export type ServiceFormProps<T> = {
   onToggleClick: VoidFunction;
   hasOwnership: boolean;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
+  isExpanded: boolean;
+  onExpand: (id: string) => void;
 };
 
 export type ServiceRadioType = RadioDataType & {

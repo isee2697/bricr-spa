@@ -1,0 +1,17 @@
+type Energy {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}
+
+input EnergyInput {
+  label: EnergyType
+  energyIndex: String
+  endDateEnergyLabel: Date
+  EPC: String
+  characteristicType: EnergyCharasteristicType
+  notes: String
+}

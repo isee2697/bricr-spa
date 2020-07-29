@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent, act, wait } from 'tests';
+import { act, fireEvent, render, wait } from 'tests';
 import { ModalContext } from 'context/modal/modalContext/ModalContext';
 
 import { AddPimModal } from './AddPimModal';
@@ -14,7 +14,7 @@ describe('AddPimModal', () => {
 
     const { getByText, getByLabelText, getByRole } = render(
       <ModalContext.Provider value={{ modalsState, setModalsState }}>
-        <AddPimModal onSubmit={onSubmit} />,
+        <AddPimModal onSubmit={onSubmit} isOpen={true} />,
       </ModalContext.Provider>,
     );
 
@@ -70,7 +70,7 @@ describe('AddPimModal', () => {
 
     const { getByText, getByLabelText, getByRole } = render(
       <ModalContext.Provider value={{ modalsState, setModalsState }}>
-        <AddPimModal onSubmit={onSubmit} />
+        <AddPimModal onSubmit={onSubmit} isOpen={true} />
       </ModalContext.Provider>,
     );
 
@@ -127,7 +127,7 @@ describe('AddPimModal', () => {
 
     const { getByText, getByLabelText, getByRole } = render(
       <ModalContext.Provider value={{ modalsState, setModalsState }}>
-        <AddPimModal onSubmit={onSubmit} />
+        <AddPimModal onSubmit={onSubmit} isOpen={true} />
       </ModalContext.Provider>,
     );
 

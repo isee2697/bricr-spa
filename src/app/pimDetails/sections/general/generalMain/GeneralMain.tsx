@@ -9,11 +9,11 @@ import { EditIcon } from 'ui/atoms/icons/edit/EditIcon';
 import { AutosaveForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
 
+import { IdentificationNumberFormContainer } from './forms/IdentificationNumberFormContainer';
 import { GeneralProps } from './GeneralMain.types';
 import { useStyles } from './GeneralMain.styles';
 import { AddressForm } from './forms/AddressForm';
 import { ExtraAddressForm } from './forms/ExtraAddressForm';
-import { IdentificationNumberFormContainer } from './forms/identificationNumberForm/IdentificationNumberFormContainer';
 import { PropertyDetailsForm } from './forms/PropertyDetailsForm';
 import { ConstructionInformationForm } from './forms/ConstructionInformationForm';
 import { AvailabilityForm } from './forms/AvailabilityForm';

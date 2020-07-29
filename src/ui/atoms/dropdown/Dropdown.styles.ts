@@ -53,6 +53,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       display: 'block',
     },
     zIndex: 10,
+    maxHeight: spacing(21),
+    overflow: 'scroll',
   },
   item: {
     cursor: 'pointer',

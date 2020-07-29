@@ -1,6 +1,6 @@
 import { FieldValidator } from 'final-form';
 
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 type FieldValue = File[];
 
@@ -12,4 +12,6 @@ export type UploadImageGroupFieldProps = {
   disabled?: boolean;
   entity: EntityWithFiles;
   entityID: string;
+  removeEntity: EntityWithMultipleFiles;
+  mainName?: string;
 };

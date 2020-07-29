@@ -20,6 +20,7 @@ pipelines:
           name: Build image
           services:
             - docker
+          size: 2x
           script:
             - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile .
             #Variables
@@ -54,6 +55,7 @@ pipelines:
           name: Build image
           services:
             - docker
+          size: 2x
           script:
             - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile.dev .
             #Variables
@@ -84,7 +86,7 @@ pipelines:
 
   pull-requests:
     '**':
-      - step: 
+      - step:
           name: build and install
           image: tshio/e2e-runner:v4.0.2.2
           caches:
@@ -123,4 +125,4 @@ definitions:
     cypress-node: ./e2e/node_modules
   services:
     docker:
-      memory: 3000
+      memory: 5000

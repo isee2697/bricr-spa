@@ -22,3 +22,4 @@ export { LinkedPropertyItem } from './linkedPropertyItem/LinkedPropertyItem';
 export { IconPicker } from './iconPicker/IconPicker';
 export { SimpleSearch } from './simpleSearch/SimpleSearch';
 export { CancelButton } from './cancelButton/CancelButton';
+export { ActionTabs } from './actionTabs/ActionTabs';

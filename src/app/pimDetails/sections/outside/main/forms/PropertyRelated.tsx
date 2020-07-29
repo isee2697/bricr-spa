@@ -7,7 +7,7 @@ import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 export const PropertyRelated = () => {
   const { formatMessage } = useLocale();
@@ -41,13 +41,19 @@ export const PropertyRelated = () => {
             />
           </Box>
 
-          <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+          <Box mb={2.25}>
+            <FormSubSectionHeader
+              title={formatMessage({ id: 'common.pictures' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_picture' })}
+            />
+          </Box>
           <UploadImageGroupField
             entity={EntityWithFiles.OutsidePropertyRelated}
             entityID={pimId}
             max={300}
             disabled={!isEditMode}
             name="houseOutside.propertyRelated.images"
+            removeEntity={EntityWithMultipleFiles.OutsidePropertyRelated}
           />
         </>
       )}

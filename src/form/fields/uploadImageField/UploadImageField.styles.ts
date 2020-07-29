@@ -12,7 +12,7 @@ export const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
     borderRadius: theme.spacing(),
     height: theme.spacing(10),
-    width: theme.spacing(17.5),
+    width: theme.spacing(13),
     '& .MuiGrid-container': {
       height: '100%',
       padding: theme.spacing(),
@@ -47,6 +47,13 @@ export const useStyles = makeStyles(theme => ({
   },
   text: {
     width: '100%',
+  },
+  checkbox: {
+    position: 'absolute',
+    left: theme.spacing(0),
+    top: theme.spacing(0),
+    padding: theme.spacing(0.625),
+    cursor: 'pointer',
   },
   badge: {
     position: 'absolute',

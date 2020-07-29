@@ -2,7 +2,7 @@ import { InspectionType, TankType, PollutionType, MaintenanceType } from 'api/ty
 
 export type AddInspectionModalContainerProps = {
   isOpened: boolean;
-  onClose: VoidFunction;
+  onClose: (id?: string) => void;
   type: InspectionType;
   onAddCustomType: VoidFunction;
 };

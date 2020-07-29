@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useField } from 'react-final-form';
 
 import { TextField as BaseFormField } from 'ui/atoms';
@@ -14,6 +14,7 @@ export const GenericField = ({
   validateFields,
   placeholder,
   helperText,
+  onChange,
   ...props
 }: GenericFieldProps) => {
   const { formatMessage } = useLocale();
@@ -26,6 +27,14 @@ export const GenericField = ({
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
     (meta.initial !== undefined && meta.initial !== '' && meta.initial !== null && !!meta.error);
+
+  const handleChange = (value: ChangeEvent<HTMLInputElement>) => {
+    input.onChange(value);
+
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
   return (
     <BaseFormField
@@ -49,6 +58,7 @@ export const GenericField = ({
       }}
       {...input}
       {...props}
+      onChange={handleChange}
     />
   );
 };

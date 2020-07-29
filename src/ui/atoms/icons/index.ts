@@ -69,3 +69,4 @@ export * from './squareMeter/SquareMeterIcon';
 export * from './cubicMeter/CubicMeterIcon';
 export * from './meter/MeterIcon';
 export * from './refresh/RefreshIcon';
+export * from './location/LocationIcon';

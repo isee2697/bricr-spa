@@ -12,4 +12,6 @@ export * from './useScrollTop/useScrollTop';
 export * from './useGetPrivateFile/useGetPrivateFile';
 export * from './useCustomLabels';
 export * from './usePrevious/usePrevious';
-export * from './useToogleOnNewlyCreated/useToogleOnNewlyCreated';
+export * from './useToggleOnNewlyCreatedFromArray/useToggleOnNewlyCreatedFromArray';
+export * from './useToggleOnNewlyCreated/useToggleOnNewlyCreated';
+export * from './useCountries/useCountries';

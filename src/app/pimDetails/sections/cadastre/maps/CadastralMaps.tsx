@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { LabelProperty } from 'api/types';
-import { useLocale, useToogleOnNewlyCreated } from 'hooks';
+import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { Typography, Box, IconButton } from 'ui/atoms';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
 import { FormSection, AddCustomPropertyModalContainer } from 'ui/organisms';
@@ -29,7 +29,7 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
     formRef.current?.handleSetEdit(true);
   };
 
-  useToogleOnNewlyCreated(cadastreItem.maps, setToggled);
+  useToggleOnNewlyCreatedFromArray(cadastreItem.maps, setToggled);
 
   return (
     <>
@@ -64,9 +64,11 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
                   title={
                     <>
                       {checkbox}
-                      <Typography variant="h3">
-                        {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
-                      </Typography>
+                      <Box display="flex" alignItems="center">
+                        <Typography variant="h3">
+                          {cadastre.mapName || formatMessage({ id: 'pim_details.cadastre.unnamed' })}
+                        </Typography>
+                      </Box>
                     </>
                   }
                   cadastreMap={cadastre}
@@ -82,6 +84,7 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
             loadingItem={<PropertyItemPlaceholder />}
             emptyTitle={formatMessage({ id: 'pim_details.cadastre.map.empty_title' })}
             emptyDescription={formatMessage({ id: 'pim_details.cadastre.map.empty_subtitle' })}
+            disabled={!isEditMode}
           />
         )}
       </FormSection>

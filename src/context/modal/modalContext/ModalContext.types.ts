@@ -6,4 +6,5 @@ export type ModalContextType = {
 export type ModalStateType = {
   id: string;
   isOpen: boolean;
+  options?: Record<string, unknown>;
 };

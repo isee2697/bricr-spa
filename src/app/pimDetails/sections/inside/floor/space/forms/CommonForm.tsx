@@ -4,12 +4,12 @@ import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField, UploadImageGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { SpaceFormProps } from '../Space.types';
+import { CommonFormProps } from '../Space.types';
 import * as dictionaries from '../dictionaries';
-import { EntityWithFiles } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { SquareMeterIcon, CubicMeterIcon, MeterIcon } from 'ui/atoms/icons';
 
-export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { id: string }) => {
+export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: CommonFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -48,6 +48,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
                 endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
+              onChange={() => onDimensionChange(`${fieldPrefix}.measurement.length`)}
             />
           </Grid>
           <Grid item xs={4}>
@@ -60,6 +61,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
                 endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
+              onChange={() => onDimensionChange(`${fieldPrefix}.measurement.width`)}
             />
           </Grid>
           <Grid item xs={4}>
@@ -72,6 +74,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
                 endAdornment: <MeterIcon />,
               }}
               disabled={!isEditMode}
+              onChange={() => onDimensionChange(`${fieldPrefix}.measurement.height`)}
             />
           </Grid>
           <Grid item xs={4}>
@@ -118,13 +121,21 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id }: SpaceFormProps & { i
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.inside.pictures' })} />
+        <FormSubSectionHeader
+          noBorder
+          title={formatMessage({ id: 'pim_details.inside.pictures' })}
+          subtitle={formatMessage(
+            { id: 'pim_details.inside.pictures_subtitle' },
+            { strong: msg => <strong>{msg}</strong> },
+          )}
+        />
         <UploadImageGroupField
           entity={EntityWithFiles.Space}
           entityID={id}
           max={3}
           disabled={!isEditMode}
           name={`${fieldPrefix}.images`}
+          removeEntity={EntityWithMultipleFiles.Space}
         />
       </Grid>
     </>

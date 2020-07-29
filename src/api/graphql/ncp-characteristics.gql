@@ -1,0 +1,119 @@
+enum NcpCharacteristicsSections {
+  Measurements,
+  ClientInformation,
+  InvoiceDetails,
+  IdentificationNumber,
+  Energy,
+  Phase,
+  AccountManagers,
+  ProjectMarketing,
+  AttentionField
+}
+
+input SetNcpCharacteristicsSectionsInput {
+  id: ID!
+  sections: [NcpCharacteristicsSections!]
+}
+
+input ProjectMarketingInput {
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+  mainLogoId: String
+}
+
+type ProjectMarketing {
+  logos: [File!]
+  mainLogoId: String
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+}
+
+input MeasurementsInput {
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+type Measurements {
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+input InvoiceDetailsInput {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}
+
+type InvoiceDetails {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}
+
+input NcpCharacteristicsInput {
+  id: ID!
+  projectMarketing: ProjectMarketingInput
+  measurements: MeasurementsInput
+  energy: EnergyInput
+  accountManagersIds: [ID!]
+  attentionNote: String
+  invoiceDetails: InvoiceDetailsInput
+  characteristicsDescription: String
+}
+
+type NcpCharacteristics implements LastUpdated {
+  id: ID!
+  characteristicsSections: [NcpCharacteristicsSections!]
+  projectMarketing: ProjectMarketing
+  measurements: Measurements
+  energy: Energy
+  accountManagers: [Profile!]
+  accountManagersIds: [ID!]
+  identificationNumbers: [IdentificationNumber!]
+  attentionNote: String
+  invoiceDetails: InvoiceDetails
+  lastEditedBy: Profile
+  dateUpdated: Date
+  characteristicsDescription: String
+}
+
+type NcpWithNewIdentificationNumber {
+  ncp: NcpGeneral!
+  newIdentificationNumber: IdentificationNumber!
+}
+
+extend type Mutation {
+  addNcpIdentificationNumber(input: AddIdentificationNumberInput!): NcpCharacteristics!
+  setNcpCharacteristics(input: SetNcpCharacteristicsSectionsInput!): NcpCharacteristics!
+  updateNcpCharacteristics(input: NcpCharacteristicsInput!): NcpCharacteristics!
+}
+
+extend type Query {
+  getNcpCharacteristics(id: ID!): NcpCharacteristics!
+}

@@ -83,7 +83,8 @@ enum SectionWithDescriptionType {
   Inspection,
   LinkedProperties,
   Services,
-  PricesCosts
+  PricesCosts,
+  Meters
 }
 
 input PropertyRelatedInput {
@@ -189,6 +190,7 @@ type Pim implements LastUpdated {
   linkedPropertiesLastEditedBy: Profile
   inspectionsDateUpdated: Date
   inspectionsLastEditedBy: Profile
+  metersMeta: MetersMeta
 }
 
 type Event {
@@ -239,6 +241,7 @@ input UpdateDescriptionInput {
   section: SectionWithDescriptionType!
   pimId: String!
   description: String!
+  meterType: MeterType
 }
 
 scalar Dictionary

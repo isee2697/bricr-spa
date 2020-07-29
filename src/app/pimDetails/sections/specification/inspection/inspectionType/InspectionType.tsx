@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LabelProperty } from 'api/types';
 import { Typography, Box } from 'ui/atoms';
 import { useLocale, useCustomLabels } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { FormSection, FormSubSection, AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { AddInspectionModalContainer } from '../addInspectionModal/AddInspectionModalContainer';
+import { typeToLabelProperty } from '../Inspection.helpers';
+import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 
 import { InspectionTypeProps } from './InspectionType.types';
 
 export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomType }: InspectionTypeProps) => {
   const { id: pimId } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
+  const formRef = React.useRef<FormSectionRef>(null);
+  const [toggled, setToggled] = useState<string | undefined>();
 
   const [isInspectionModalOpen, setIsInspectionModalOpen] = useState(false);
-  const customLabels = useCustomLabels(pimId, [LabelProperty.Inspection])[LabelProperty.Inspection] ?? [];
+  const customLabels = useCustomLabels(pimId, [typeToLabelProperty(type)])[typeToLabelProperty(type)] ?? [];
 
   return (
     <>
@@ -25,6 +28,7 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
         titleBadge={inspections.length || undefined}
         isEditable={!!inspections.length}
         onAdd={() => setIsInspectionModalOpen(v => !v)}
+        ref={formRef}
       >
         {inEditMode => (
           <>
@@ -48,6 +52,9 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
                   })}
                   counter={index + 1}
                   onOptionsClick={() => {}}
+                  isExpanded={inspection.id === toggled}
+                  onExpand={() => setToggled(v => (v !== inspection.id ? inspection.id : undefined))}
+                  initiallyOpened={false}
                 >
                   <AutosaveForm
                     initialValues={{
@@ -73,7 +80,14 @@ export const InspectionType = ({ type, emoji, inspections, onSave, onAddCustomTy
       <AddInspectionModalContainer
         type={type}
         isOpened={isInspectionModalOpen}
-        onClose={() => setIsInspectionModalOpen(false)}
+        onClose={(id?: string) => {
+          setIsInspectionModalOpen(false);
+
+          if (id) {
+            setToggled(id);
+            formRef?.current?.handleSetEdit(true);
+          }
+        }}
         onAddCustomType={onAddCustomType}
       />
     </>

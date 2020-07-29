@@ -51,6 +51,14 @@ export const InspectionContainer = () => {
         variables: {
           input: values,
         },
+        refetchQueries: [
+          {
+            query: PimSpecificationDocument,
+            variables: {
+              id,
+            },
+          },
+        ],
       });
 
       if (!result || !result.updateInspection) {
