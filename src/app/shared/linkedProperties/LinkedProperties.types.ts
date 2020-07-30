@@ -26,4 +26,5 @@ export type ObjectTypesProps = ProjectDetailsProps & {
   updatedBy?: Profile | null;
   linkedPropertiesIds: string[];
   showAddButton?: boolean;
+  titleId: string;
 };

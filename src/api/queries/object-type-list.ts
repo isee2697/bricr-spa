@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const LIST_OBJECT_TYPES_COUNT = gql`
-  query ListObjectTypesCount($ncpId: String!) {
+  query ListObjectTypesCount($ncpId: ID!) {
     activeCount: listObjectTypes(filters: { ncpId: $ncpId, archived: null }) {
       metadata {
         total
@@ -17,7 +17,7 @@ export const LIST_OBJECT_TYPES_COUNT = gql`
 
 export const LIST_OBJECT_TYPES = gql`
   query ListObjectTypes(
-    $ncpId: String!
+    $ncpId: ID!
     $archived: Boolean
     $sortColumn: String!
     $sortDirection: SortDirection!

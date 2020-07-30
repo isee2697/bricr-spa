@@ -34,6 +34,7 @@ export const LinkedProperties = ({
   isSidebarVisible,
   linkedPropertiesIds,
   showAddButton = false,
+  titleId,
 }: ObjectTypesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -69,7 +70,7 @@ export const LinkedProperties = ({
         }
       />
       <Page
-        title={formatMessage({ id: `project_details.properties.title` })}
+        title={formatMessage({ id: titleId })}
         placeholder="project_details.properties.description_placeholder"
         name="description"
         initialValues={{ description }}

@@ -7,10 +7,10 @@ import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import {
-  ObjectTypeLinkedPimsDocument,
-  useListObjectTypeLinkedPimsCountQuery,
-  useObjectTypeLinkedPimsQuery,
-  useUpdateLinkedPropertiesListDescriptionMutation,
+  NcpLinkedPimsDocument,
+  useListNcpLinkedPimsCountQuery,
+  useNcpLinkedPimsQuery,
+  useUpdateNcpLinkedPropertiesListDescriptionMutation,
 } from 'api/types';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 import { LinkedProperties } from 'app/shared/linkedProperties/LinkedProperties';
@@ -21,10 +21,10 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
   const { id } = useParams<{ id: string; projectId: string }>();
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListObjectTypeLinkedPimsCountQuery({
+  const { loading: isCountLoading, error: countError, data: countData } = useListNcpLinkedPimsCountQuery({
     variables: { id },
   });
-  const [updateLinkedPropertiesListDescription] = useUpdateLinkedPropertiesListDescriptionMutation();
+  const [updateLinkedPropertiesListDescription] = useUpdateNcpLinkedPropertiesListDescriptionMutation();
 
   const amounts =
     (countData && {
@@ -42,7 +42,7 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, error: listError, data: listData } = useObjectTypeLinkedPimsQuery({
+  const { loading: isListLoading, error: listError, data: listData } = useNcpLinkedPimsQuery({
     variables: { id, ...sortQuery, ...paginationQuery },
     fetchPolicy: 'no-cache',
   });
@@ -58,13 +58,13 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
         },
         refetchQueries: [
           {
-            query: ObjectTypeLinkedPimsDocument,
+            query: NcpLinkedPimsDocument,
             variables: { id, ...sortQuery, ...paginationQuery },
           },
         ],
       });
 
-      if (!data?.updateLinkedPropertiesListDescription) {
+      if (!data?.updateNcpLinkedPropertiesListDescription) {
         throw new Error();
       }
 
@@ -74,7 +74,7 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
     }
   };
 
-  if (!listData?.getObjectTypeLinkedPims) {
+  if (!listData?.getNcpLinkedPims) {
     return null;
   }
 
@@ -85,18 +85,17 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
       isLoading={isCountLoading || isListLoading}
       isError={!!countError || !!listError}
       amounts={amounts}
-      listData={listData?.getObjectTypeLinkedPims.linkedProperties.items ?? []}
+      listData={listData?.getNcpLinkedPims.linkedProperties.items ?? []}
       sorting={sorting}
       pagination={pagination}
-      description={listData.getObjectTypeLinkedPims.description ?? ''}
+      description={listData.getNcpLinkedPims.description ?? ''}
       onDescriptionSave={handleSave}
-      dateUpdated={listData.getObjectTypeLinkedPims.dateUpdated}
-      updatedBy={listData.getObjectTypeLinkedPims.lastEditedBy}
+      dateUpdated={listData.getNcpLinkedPims.dateUpdated}
+      updatedBy={listData.getNcpLinkedPims.lastEditedBy}
       isSidebarVisible={isSidebarVisible}
       onSidebarOpen={onSidebarOpen}
-      linkedPropertiesIds={listData.getObjectTypeLinkedPims.linkedPropertiesIds ?? []}
-      titleId="project_details.properties.object_type_title"
-      showAddButton
+      linkedPropertiesIds={listData.getNcpLinkedPims.linkedPropertiesIds ?? []}
+      titleId="project_details.properties.project_title"
     />
   );
 };

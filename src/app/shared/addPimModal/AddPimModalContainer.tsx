@@ -17,6 +17,7 @@ import {
   NcpWithSameAddressDocument,
   useSetObjectTypeLinkedPimsMutation,
   ObjectTypeGeneralDocument,
+  NcpGeneralInformationDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -97,6 +98,10 @@ export const AddPimModalContainer = () => {
                 id: options.objectTypeId,
                 projectId: options?.projectId,
               },
+            },
+            {
+              query: NcpGeneralInformationDocument,
+              variables: { id: options?.projectId },
             },
           ],
         });

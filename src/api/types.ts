@@ -142,6 +142,7 @@ export type Mutation = {
   updateNcpCost: NcpPricesResult;
   updateNcpCostsDetails: NcpPricesResult;
   updateNcpInterests: NcpPricesResult;
+  updateNcpLinkedPropertiesListDescription?: Maybe<NcpGeneral>;
   updateNcpMediaDescription?: Maybe<NcpMedia>;
   updateNcpMediaLink?: Maybe<NcpMedia>;
   updateNcpPicture?: Maybe<NcpMedia>;
@@ -531,6 +532,10 @@ export type MutationUpdateNcpCostsDetailsArgs = {
 
 export type MutationUpdateNcpInterestsArgs = {
   input: InterestsInput;
+};
+
+export type MutationUpdateNcpLinkedPropertiesListDescriptionArgs = {
+  input: UpdateLinkedPropertiesListDescription;
 };
 
 export type MutationUpdateNcpMediaDescriptionArgs = {
@@ -1624,7 +1629,6 @@ export type UpdateNcpInput = {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
-  objectTypesListDescription?: Maybe<Scalars['String']>;
 };
 
 export type NcpGeneral = LastUpdated & {
@@ -1659,6 +1663,9 @@ export type NcpGeneral = LastUpdated & {
   objectTypesListDescription?: Maybe<Scalars['String']>;
   objectTypesListLastUpdatedBy?: Maybe<Profile>;
   objectTypesListLastUpdatedOn?: Maybe<Scalars['Date']>;
+  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
+  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
+  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
 };
 
 export type NcpSearchResult = {
@@ -1900,7 +1907,7 @@ export type UpdateLinkedPropertiesListDescription = {
 
 export type ListObjectTypesFilters = {
   archived?: Maybe<Scalars['Boolean']>;
-  ncpId: Scalars['String'];
+  ncpId: Scalars['ID'];
 };
 
 export type ListObjectTypes = {
@@ -5568,6 +5575,14 @@ export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
   updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
+export type UpdateNcpLinkedPropertiesListDescriptionMutationVariables = {
+  input: UpdateLinkedPropertiesListDescription;
+};
+
+export type UpdateNcpLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpLinkedPropertiesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
+};
+
 export type AddNcpServiceMutationVariables = {
   input: AddServiceInput;
 };
@@ -6492,6 +6507,22 @@ export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type NcpGeneralInformationQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type NcpGeneralInformationQuery = { __typename?: 'Query' } & {
+  project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
+  objectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  linkedProperties: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
+
 export type GetNcpLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
@@ -6665,6 +6696,70 @@ export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type ListNcpLinkedPimsCountQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type ListNcpLinkedPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+  archivedCount: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
+
+export type NcpLinkedPimsQueryVariables = {
+  id: Scalars['ID'];
+  archived?: Maybe<Scalars['Boolean']>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
+  getNcpLinkedPims: { __typename?: 'NcpLinkedPims' } & Pick<
+    NcpLinkedPims,
+    'linkedPropertiesIds' | 'description' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      linkedProperties: { __typename?: 'PimListSearchResult' } & {
+        items?: Maybe<
+          Array<
+            { __typename?: 'ListPim' } & Pick<
+              ListPim,
+              | 'id'
+              | 'street'
+              | 'houseNumberPrefix'
+              | 'houseNumber'
+              | 'houseNumberAddition'
+              | 'constructionNumberPrefix'
+              | 'constructionNumber'
+              | 'constructionNumberAddition'
+              | 'city'
+              | 'dateCreated'
+              | 'livingArea'
+              | 'propertyType'
+              | 'salePrice'
+              | 'rentPrice'
+              | 'completeness'
+              | 'archived'
+              | 'postalCode'
+              | 'country'
+              | 'status'
+              | 'developmentType'
+            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+          >
+        >;
+      };
+    };
+};
+
 export type GetNcpServicesQueryVariables = {
   id: Scalars['ID'];
 };
@@ -6800,7 +6895,7 @@ export type GetObjectTypeLabelsQuery = { __typename?: 'Query' } & {
 };
 
 export type ListObjectTypesCountQueryVariables = {
-  ncpId: Scalars['String'];
+  ncpId: Scalars['ID'];
 };
 
 export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
@@ -6813,7 +6908,7 @@ export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
 };
 
 export type ListObjectTypesQueryVariables = {
-  ncpId: Scalars['String'];
+  ncpId: Scalars['ID'];
   archived?: Maybe<Scalars['Boolean']>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
@@ -6851,7 +6946,6 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'propertiesAvailable'
           | 'underOption'
           | 'soldOrRent'
-          | 'attentionNote'
         > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
       >
     >;
@@ -8513,6 +8607,34 @@ export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<
 export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpInterestsMutation,
   UpdateNcpInterestsMutationVariables
+>;
+export const UpdateNcpLinkedPropertiesListDescriptionDocument = gql`
+  mutation UpdateNcpLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
+    updateNcpLinkedPropertiesListDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpLinkedPropertiesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpLinkedPropertiesListDescriptionMutation,
+    UpdateNcpLinkedPropertiesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateNcpLinkedPropertiesListDescriptionMutation,
+    UpdateNcpLinkedPropertiesListDescriptionMutationVariables
+  >(UpdateNcpLinkedPropertiesListDescriptionDocument, baseOptions);
+}
+export type UpdateNcpLinkedPropertiesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateNcpLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateNcpLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateNcpLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpLinkedPropertiesListDescriptionMutation,
+  UpdateNcpLinkedPropertiesListDescriptionMutationVariables
 >;
 export const AddNcpServiceDocument = gql`
   mutation AddNcpService($input: AddServiceInput!) {
@@ -10604,6 +10726,48 @@ export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables
 >;
+export const NcpGeneralInformationDocument = gql`
+  query NcpGeneralInformation($id: ID!) {
+    project: getNcp(id: $id) {
+      id
+      name
+    }
+    objectTypes: listObjectTypes(filters: { ncpId: $id, archived: false }) {
+      metadata {
+        total
+      }
+    }
+    linkedProperties: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useNcpGeneralInformationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>(
+    NcpGeneralInformationDocument,
+    baseOptions,
+  );
+}
+export function useNcpGeneralInformationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>(
+    NcpGeneralInformationDocument,
+    baseOptions,
+  );
+}
+export type NcpGeneralInformationQueryHookResult = ReturnType<typeof useNcpGeneralInformationQuery>;
+export type NcpGeneralInformationLazyQueryHookResult = ReturnType<typeof useNcpGeneralInformationLazyQuery>;
+export type NcpGeneralInformationQueryResult = ApolloReactCommon.QueryResult<
+  NcpGeneralInformationQuery,
+  NcpGeneralInformationQueryVariables
+>;
 export const GetNcpLabelsDocument = gql`
   query GetNcpLabels($id: ID!, $properties: [LabelProperty!]) {
     getNcpLabels(parentId: $id, properties: $properties) {
@@ -10927,6 +11091,117 @@ export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<
   NcpPricesInterestsQuery,
   NcpPricesInterestsQueryVariables
 >;
+export const ListNcpLinkedPimsCountDocument = gql`
+  query ListNcpLinkedPimsCount($id: ID!) {
+    activeCount: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+    archivedCount: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: true }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useListNcpLinkedPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(
+    ListNcpLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export function useListNcpLinkedPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListNcpLinkedPimsCountQuery,
+    ListNcpLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(
+    ListNcpLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export type ListNcpLinkedPimsCountQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountQuery>;
+export type ListNcpLinkedPimsCountLazyQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountLazyQuery>;
+export type ListNcpLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<
+  ListNcpLinkedPimsCountQuery,
+  ListNcpLinkedPimsCountQueryVariables
+>;
+export const NcpLinkedPimsDocument = gql`
+  query NcpLinkedPims(
+    $id: ID!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    getNcpLinkedPims(id: $id) {
+      linkedPropertiesIds
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      linkedProperties(
+        filters: { archived: $archived }
+        pagination: { from: $from, limit: $limit }
+        sort: { column: $sortColumn, direction: $sortDirection }
+      ) {
+        items {
+          id
+          street
+          houseNumberPrefix
+          houseNumber
+          houseNumberAddition
+          constructionNumberPrefix
+          constructionNumber
+          constructionNumberAddition
+          city
+          dateCreated
+          livingArea
+          propertyType
+          images {
+            url
+          }
+          salePrice
+          rentPrice
+          completeness
+          archived
+          postalCode
+          country
+          status
+          developmentType
+        }
+      }
+    }
+  }
+`;
+export function useNcpLinkedPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(NcpLinkedPimsDocument, baseOptions);
+}
+export function useNcpLinkedPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(
+    NcpLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export type NcpLinkedPimsQueryHookResult = ReturnType<typeof useNcpLinkedPimsQuery>;
+export type NcpLinkedPimsLazyQueryHookResult = ReturnType<typeof useNcpLinkedPimsLazyQuery>;
+export type NcpLinkedPimsQueryResult = ApolloReactCommon.QueryResult<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>;
 export const GetNcpServicesDocument = gql`
   query GetNcpServices($id: ID!) {
     getNcpServices(id: $id) {
@@ -11198,7 +11473,7 @@ export type GetObjectTypeLabelsQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeLabelsQueryVariables
 >;
 export const ListObjectTypesCountDocument = gql`
-  query ListObjectTypesCount($ncpId: String!) {
+  query ListObjectTypesCount($ncpId: ID!) {
     activeCount: listObjectTypes(filters: { ncpId: $ncpId, archived: null }) {
       metadata {
         total
@@ -11235,7 +11510,7 @@ export type ListObjectTypesCountQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListObjectTypesDocument = gql`
   query ListObjectTypes(
-    $ncpId: String!
+    $ncpId: ID!
     $archived: Boolean
     $sortColumn: String!
     $sortDirection: SortDirection!
@@ -11275,7 +11550,6 @@ export const ListObjectTypesDocument = gql`
         propertiesAvailable
         underOption
         soldOrRent
-        attentionNote
       }
     }
   }

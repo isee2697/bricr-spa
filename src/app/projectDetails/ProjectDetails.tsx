@@ -16,8 +16,9 @@ import { CharacteristicsContainer } from './sections/characteristics/Characteris
 import { Prices } from './sections/prices/Prices';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
+import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
 
-export const ProjectDetails = ({ ncp, count }: NcpProps) => {
+export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -33,14 +34,15 @@ export const ProjectDetails = ({ ncp, count }: NcpProps) => {
   return (
     <EntityTypeProvider entityType={EntityType.Project}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={'TODO: place here a project name'} urlBase={AppRoute.projectDetails} />
+      <NavBreadcrumb title={data?.project.name ?? ''} urlBase={AppRoute.projectDetails} />
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
             <ProjectDetailsSidebarMenu
               onHide={handleSidebarHide}
-              objectTypeNumber={count?.activeCount.metadata?.total ?? 0}
-              title={ncp?.getNcp.name}
+              objectTypeNumber={data?.objectTypes.metadata?.total ?? 0}
+              title={data?.project.name ?? ''}
+              linkedPropertiesNumber={data?.linkedProperties.linkedProperties.metadata?.total ?? 0}
             />
           </Grid>
         )}
@@ -88,6 +90,12 @@ export const ProjectDetails = ({ ncp, count }: NcpProps) => {
                 path={`${AppRoute.projectDetails}/objectTypes`}
                 render={() => (
                   <ObjectTypesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.projectDetails}/properties`}
+                render={() => (
+                  <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                 )}
               />
               <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />

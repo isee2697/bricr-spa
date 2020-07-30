@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { ObjectTypeGeneral, useCreateObjectTypeMutation, ListObjectTypesCountDocument } from 'api/types';
+import {
+  ObjectTypeGeneral,
+  useCreateObjectTypeMutation,
+  ListObjectTypesCountDocument,
+  NcpGeneralInformationDocument,
+} from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddNewObjectTypeModal } from './AddNewObjectTypeModal';
@@ -26,6 +31,10 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
           {
             query: ListObjectTypesCountDocument,
             variables: { ncpId: id },
+          },
+          {
+            query: NcpGeneralInformationDocument,
+            variables: { id },
           },
         ],
       });

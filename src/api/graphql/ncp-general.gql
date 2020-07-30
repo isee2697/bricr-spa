@@ -53,7 +53,6 @@ input UpdateNcpInput {
   startConstructionAfterPresalePercentage: Int
   projectRisk: ProjectRisk
   notes: String
-  objectTypesListDescription: String
 }
 
 type NcpGeneral implements LastUpdated {
@@ -87,6 +86,9 @@ type NcpGeneral implements LastUpdated {
   objectTypesListDescription: String
   objectTypesListLastUpdatedBy: Profile
   objectTypesListLastUpdatedOn: Date
+  linkedPropertiesListDescription: String
+  linkedPropertiesListLastUpdatedBy: Profile
+  linkedPropertiesListLastUpdatedOn: Date
 }
 
 type NcpSearchResult {

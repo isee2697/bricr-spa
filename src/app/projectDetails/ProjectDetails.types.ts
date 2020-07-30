@@ -1,4 +1,4 @@
-import { NcpGeneralQuery, ListObjectTypesCountQuery } from 'api/types';
+import { NcpGeneralInformationQuery } from 'api/types';
 
 export type ProjectDetailsProps = {
   isSidebarVisible: boolean;
@@ -6,6 +6,5 @@ export type ProjectDetailsProps = {
 };
 
 export type NcpProps = {
-  ncp: NcpGeneralQuery | undefined;
-  count: ListObjectTypesCountQuery | undefined;
+  data?: NcpGeneralInformationQuery;
 };

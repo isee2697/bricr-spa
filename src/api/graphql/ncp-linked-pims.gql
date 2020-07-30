@@ -9,6 +9,7 @@ type NcpLinkedPims implements EntityLinkedWithPims {
 
 extend type Mutation {
   setNcpLinkedPims(input: SetLinkedPimsInput!): NcpLinkedPims! @auth
+  updateNcpLinkedPropertiesListDescription(input: UpdateLinkedPropertiesListDescription!): NcpGeneral @auth
 }
 
 extend type Query {

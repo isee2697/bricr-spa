@@ -13,7 +13,12 @@ import { EntityType } from 'app/shared/entityType';
 import { useStyles } from './ProjectDetailsSidebarMenu.styles';
 import { ProjectDetailsSidebarMenuProps } from './ProjectDetailsSidebarMenu.types';
 
-export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, title }: ProjectDetailsSidebarMenuProps) => {
+export const ProjectDetailsSidebarMenu = ({
+  onHide,
+  objectTypeNumber,
+  title,
+  linkedPropertiesNumber,
+}: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
@@ -31,7 +36,7 @@ export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, title }: P
     { key: 'services' },
     { key: 'media' },
     { key: 'objectTypes', count: objectTypeNumber },
-    { key: 'properties', count: 0 },
+    { key: 'properties', count: linkedPropertiesNumber },
   ];
 
   return (

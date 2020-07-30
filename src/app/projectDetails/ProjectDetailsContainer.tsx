@@ -1,15 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNcpGeneralQuery, useListObjectTypesCountQuery } from 'api/types';
+import { useNcpGeneralInformationQuery } from 'api/types';
 
 import { ProjectDetails } from './ProjectDetails';
 
 export const ProjectDetailsContainer = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: ncp } = useNcpGeneralQuery({ variables: { id } });
-  const { data: count } = useListObjectTypesCountQuery({ variables: { ncpId: id } });
+  const { data } = useNcpGeneralInformationQuery({ variables: { id } });
 
-  return <ProjectDetails ncp={ncp} count={count} />;
+  return <ProjectDetails data={data} />;
 };

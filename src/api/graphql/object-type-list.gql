@@ -1,6 +1,6 @@
 input ListObjectTypesFilters {
   archived: Boolean
-  ncpId: String!
+  ncpId: ID!
 }
 
 type ListObjectTypes {
