@@ -42,7 +42,7 @@ const routeUrlBaseMap: Record<EntityType, AppRoute> = {
   [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
 };
 
-export const ServicesGeneralContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
+export const ServicesGeneralContainer = ({ isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();

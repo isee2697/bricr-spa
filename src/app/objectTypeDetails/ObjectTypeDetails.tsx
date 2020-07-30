@@ -58,7 +58,9 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
               />
               <Route
                 path={`${AppRoute.objectTypeDetails}/services`}
-                render={() => <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={() => {}} />}
+                render={() => (
+                  <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
               />
               <Route
                 path={`${AppRoute.objectTypeDetails}/media`}
