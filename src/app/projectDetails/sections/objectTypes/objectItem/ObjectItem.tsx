@@ -33,6 +33,7 @@ export const ObjectItem = ({
   propertiesConnected,
   soldOrRent,
   underOption,
+  attentionNote,
 }: ListObjectTypes) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -113,11 +114,13 @@ export const ObjectItem = ({
           </Typography>
           <ProgressFilling progress={completeness / 100} />
         </Grid>
-        <Grid item>
-          <Box className={classes.warning}>
-            <WarningIcon /> {formatMessage({ id: 'projects.no_more_scheduling' })}
-          </Box>
-        </Grid>
+        {attentionNote && (
+          <Grid item>
+            <Box className={classes.warning}>
+              <WarningIcon /> {attentionNote}
+            </Box>
+          </Grid>
+        )}
         <Grid onClick={() => setToggled(prevState => !prevState)} className={classes.rightItem} item>
           <IconButton>{toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}</IconButton>
           <Typography className={classes.grayText} variant="h5">

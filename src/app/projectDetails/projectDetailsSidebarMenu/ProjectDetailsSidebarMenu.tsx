@@ -13,7 +13,7 @@ import { EntityType } from 'app/shared/entityType';
 import { useStyles } from './ProjectDetailsSidebarMenu.styles';
 import { ProjectDetailsSidebarMenuProps } from './ProjectDetailsSidebarMenu.types';
 
-export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, ncp }: ProjectDetailsSidebarMenuProps) => {
+export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, title }: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
@@ -42,7 +42,7 @@ export const ProjectDetailsSidebarMenu = ({ onHide, objectTypeNumber, ncp }: Pro
       <div className={classes.menuWrapper}>
         <Box mb={2}>
           <SidebarTitleTile
-            title={ncp?.getNcp.name}
+            title={title}
             subtitle={formatMessage({ id: 'common.sidebar_category.project' })}
             category={EntityType.Project}
             icon={<NewConstructionIcon color="inherit" />}

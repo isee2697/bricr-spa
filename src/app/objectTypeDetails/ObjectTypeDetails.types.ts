@@ -1,11 +1,11 @@
-import { GetObjectTypeGeneralQuery } from 'api/types';
-import { NcpProps } from '../projectDetails/ProjectDetails.types';
+import { GetObjectTypeGeneralQuery, NcpGeneralQuery } from 'api/types';
 
 export type ObjectTypeDetailsProps = {
   isSidebarVisible: boolean;
   onSidebarOpen: VoidFunction;
 };
 
-export type NcpObjectTypesProps = NcpProps & {
+export type NcpObjectTypesProps = {
+  ncp: NcpGeneralQuery | undefined;
   objectTypes: GetObjectTypeGeneralQuery | undefined;
 };

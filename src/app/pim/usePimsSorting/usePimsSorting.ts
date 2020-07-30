@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { useState } from 'react';
-
 import { SortDirection } from 'api/types';
-import { useLocale } from 'hooks';
+import { useSorting } from 'hooks';
 
-const SORTING_DATA: { [key: string]: { sortColumn: string; sortDirection: SortDirection } } = {
+const SORTING_DATA = {
   last_created: { sortColumn: 'dateCreated', sortDirection: SortDirection.Desc },
   first_created: { sortColumn: 'dateCreated', sortDirection: SortDirection.Asc },
   lowest_rent_price: { sortColumn: 'rentPrice', sortDirection: SortDirection.Asc },
@@ -13,23 +11,4 @@ const SORTING_DATA: { [key: string]: { sortColumn: string; sortDirection: SortDi
   highest_sale_price: { sortColumn: 'salePrice', sortDirection: SortDirection.Desc },
 };
 
-export const usePimsSorting = () => {
-  const { formatMessage } = useLocale();
-
-  const [sortingKey, setSortingKey] = useState(Object.keys(SORTING_DATA)[0]);
-
-  const sortOptions = Object.keys(SORTING_DATA).map(key => ({
-    name: formatMessage({ id: `property_item.sorting.${key}` }),
-    key,
-  }));
-
-  return {
-    sorting: {
-      sortOptions,
-      onSort(value: string) {
-        setSortingKey(value);
-      },
-    },
-    query: SORTING_DATA[sortingKey],
-  };
-};
+export const usePimsSorting = () => useSorting(SORTING_DATA);

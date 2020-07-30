@@ -8,7 +8,6 @@ import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
-import { useListObjectTypesCountQuery } from 'api/types';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -18,14 +17,10 @@ import { Prices } from './sections/prices/Prices';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
 
-export const ProjectDetails = ({ ncp }: NcpProps) => {
+export const ProjectDetails = ({ ncp, count }: NcpProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
-
-  const { data } = useListObjectTypesCountQuery({
-    variables: { ncpId: id },
-  });
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -44,8 +39,8 @@ export const ProjectDetails = ({ ncp }: NcpProps) => {
           <Grid item xs={12} md={3} lg={2}>
             <ProjectDetailsSidebarMenu
               onHide={handleSidebarHide}
-              ncp={ncp}
-              objectTypeNumber={data?.activeCount.metadata?.total ?? 0}
+              objectTypeNumber={count?.activeCount.metadata?.total ?? 0}
+              title={ncp?.getNcp.name}
             />
           </Grid>
         )}

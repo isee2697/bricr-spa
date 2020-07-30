@@ -3,7 +3,6 @@ import { useQueryParam } from 'use-query-params';
 import { useParams } from 'react-router';
 
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { usePimsSorting } from 'app/pim/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import {
@@ -15,6 +14,7 @@ import {
 } from 'api/types';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
+import { useObjectTypesSorting } from './useObjectTypesSorting/useObjectTypesSorting';
 import { ObjectTypes } from './ObjectTypes';
 
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
@@ -38,7 +38,7 @@ export const ObjectTypesContainer = ({ onSidebarOpen, isSidebarVisible }: Projec
     }) ??
     undefined;
 
-  const { sorting, query: sortQuery } = usePimsSorting();
+  const { sorting, query: sortQuery } = useObjectTypesSorting();
 
   const { pagination, query: paginationQuery } = usePagination({
     prefix: status,

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import { Alert, Box, Grid, Button, Typography } from 'ui/atoms';
-import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { Alert, Box, Grid, Button } from 'ui/atoms';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { FormSection } from 'ui/organisms';
@@ -35,57 +35,42 @@ export const ObjectTypes = ({
   const { formatMessage } = useLocale();
   const [isModalOpened, setModalOpened] = useState(false);
 
-  const renderContent = () => {
-    if (listData.length === 0) {
-      return (
-        <Grid item xs={12}>
-          <FormSection isEditable={false} title="">
-            <InfoSection emoji="🤔">
-              <Typography variant="h3">{formatMessage({ id: 'project_details.object_types.empty_line_1' })}</Typography>
-              <Typography variant="h3">{formatMessage({ id: 'project_details.object_types.empty_line_2' })}</Typography>
-            </InfoSection>
-          </FormSection>
-        </Grid>
-      );
-    }
-
-    return (
-      <Grid item xs={12}>
-        <FormSection
-          titleBadge={listData.length}
-          title={formatMessage({ id: `project_details.object_types.card_title` })}
-          isEditable={false}
-          onOptionsClick={() => {}}
-        >
-          <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-          <List<ListObjectTypes>
-            className="object-type-list"
-            items={listData}
-            itemIndex="id"
-            renderItem={(objectType, checked, checkbox) => (
-              <Box
-                key={objectType.id}
-                className={classNames(classes.row, { [classes.rowChecked]: checked }, 'object-type-row')}
-              >
-                {checkbox}
-                <Box component="span" className={classes.rowItem}>
-                  <ObjectItem {...objectType} />
-                </Box>
+  const renderContent = () => (
+    <Grid item xs={12}>
+      <FormSection
+        titleBadge={listData.length}
+        title={formatMessage({ id: `project_details.object_types.card_title` })}
+        isEditable={false}
+        onOptionsClick={() => {}}
+      >
+        <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+        <List<ListObjectTypes>
+          className="object-type-list"
+          items={listData}
+          itemIndex="id"
+          renderItem={(objectType, checked, checkbox) => (
+            <Box
+              key={objectType.id}
+              className={classNames(classes.row, { [classes.rowChecked]: checked }, 'object-type-row')}
+            >
+              {checkbox}
+              <Box component="span" className={classes.rowItem}>
+                <ObjectItem {...objectType} />
               </Box>
-            )}
-            onBulk={() => alert('Bulk clicked')}
-            sortOptions={sorting.sortOptions}
-            onSort={sorting.onSort}
-            pagination={pagination}
-            loading={isLoading}
-            loadingItem={<PropertyItemPlaceholder />}
-            emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
-            emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
-          />
-        </FormSection>
-      </Grid>
-    );
-  };
+            </Box>
+          )}
+          onBulk={() => alert('Bulk clicked')}
+          sortOptions={sorting.sortOptions}
+          onSort={sorting.onSort}
+          pagination={pagination}
+          loading={isLoading}
+          loadingItem={<PropertyItemPlaceholder />}
+          emptyTitle={formatMessage({ id: 'project_details.object_types.empty_line_1' })}
+          emptyDescription={formatMessage({ id: 'project_details.object_types.empty_line_2' })}
+        />
+      </FormSection>
+    </Grid>
+  );
 
   return (
     <div className={classes.root}>

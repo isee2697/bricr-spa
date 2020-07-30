@@ -10,9 +10,5 @@ export const ObjectTypeDetailsContainer = () => {
   const { data: ncp } = useNcpGeneralQuery({ variables: { id: projectId } });
   const { data: objectTypes } = useGetObjectTypeGeneralQuery({ variables: { id } });
 
-  return (
-    <>
-      <ObjectTypeDetails ncp={ncp} objectTypes={objectTypes} />
-    </>
-  );
+  return <ObjectTypeDetails ncp={ncp} objectTypes={objectTypes} />;
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { ObjectTypeGeneral, useCreateObjectTypeMutation } from 'api/types';
+import { ObjectTypeGeneral, useCreateObjectTypeMutation, ListObjectTypesCountDocument } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddNewObjectTypeModal } from './AddNewObjectTypeModal';
@@ -22,7 +22,14 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
             name: values.name,
           },
         },
+        refetchQueries: [
+          {
+            query: ListObjectTypesCountDocument,
+            variables: { ncpId: id },
+          },
+        ],
       });
+
       (await data) && onClose();
       (await data) && data
         ? push(

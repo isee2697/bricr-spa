@@ -1852,6 +1852,7 @@ export type ListObjectTypes = {
   interests?: Maybe<Scalars['Int']>;
   propertiesConnected?: Maybe<Scalars['Int']>;
   propertiesAvailable?: Maybe<Scalars['Int']>;
+  attentionNote?: Maybe<Scalars['String']>;
 };
 
 export type ObjectTypeListSearchResult = {
@@ -6106,6 +6107,7 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'propertiesAvailable'
           | 'underOption'
           | 'soldOrRent'
+          | 'attentionNote'
         > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
       >
     >;
@@ -10368,6 +10370,7 @@ export const ListObjectTypesDocument = gql`
         propertiesAvailable
         underOption
         soldOrRent
+        attentionNote
       }
     }
   }

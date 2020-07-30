@@ -29,6 +29,7 @@ type ListObjectTypes {
   interests: Int
   propertiesConnected: Int
   propertiesAvailable: Int
+  attentionNote: String
 }
 
 type ObjectTypeListSearchResult {
