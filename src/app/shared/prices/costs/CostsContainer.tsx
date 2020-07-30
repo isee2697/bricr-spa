@@ -6,18 +6,19 @@ import {
   useUpdateNcpCostsDetailsMutation,
   useUpdateNcpCostMutation,
   NcpPricesCostsDocument,
-  NcpPricesCostsQuery,
   CommonCost,
   useObjectTypePricesCostsQuery,
   useUpdateObjectTypeCostsDetailsMutation,
   useUpdateObjectTypeCostMutation,
   ObjectTypePricesCostsDocument,
+  NcpPricesCostsQuery,
   ObjectTypePricesCostsQuery,
 } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { Costs } from './Costs';
+
 const getQuery = (entityType: EntityType) => {
   switch (entityType) {
     case EntityType.Project:
@@ -28,20 +29,18 @@ const getQuery = (entityType: EntityType) => {
       throw new Error('There is no such EntityType');
   }
 };
-const isNcpCostsQuery = (data: NcpPricesCostsQuery | ObjectTypePricesCostsQuery): data is NcpPricesCostsQuery =>
-  data.hasOwnProperty('getNcpPrices');
-const isObjectTypeCostsQuery = (
-  data: NcpPricesCostsQuery | ObjectTypePricesCostsQuery,
-): data is ObjectTypePricesCostsQuery => data.hasOwnProperty('getObjectTypePrices');
+
 export const CostsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
   const { entityType } = useEntityType();
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });
+
   const [updateNcpCostsDetails] = useUpdateNcpCostsDetailsMutation();
   const [updateNcpCost] = useUpdateNcpCostMutation();
   const [updateObjectTypeCostsDetails] = useUpdateObjectTypeCostsDetailsMutation();
   const [updateObjectTypeCost] = useUpdateObjectTypeCostMutation();
+
   const handleDescriptionSave = async (values: { description: string }) => {
     try {
       if (entityType === EntityType.Project) {
@@ -75,6 +74,7 @@ export const CostsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetai
       return { error: true };
     }
   };
+
   const handleUpdateCost = async (values: CommonCost) => {
     try {
       if (entityType === EntityType.Project) {
@@ -133,26 +133,22 @@ export const CostsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetai
     return null;
   }
 
+  if (!data) {
+    return null;
+  }
+
+  const { costs } =
+    entityType === EntityType.Project
+      ? (data as NcpPricesCostsQuery).getNcpPrices
+      : (data as ObjectTypePricesCostsQuery).getObjectTypePrices;
+
   return (
-    <>
-      {isNcpCostsQuery(data) && (
-        <Costs
-          data={data.getNcpPrices.costs}
-          onDescriptionSave={handleDescriptionSave}
-          onUpdateCost={handleUpdateCost}
-          isSidebarVisible={isSidebarVisible}
-          onSidebarOpen={onSidebarOpen}
-        />
-      )}
-      {isObjectTypeCostsQuery(data) && (
-        <Costs
-          data={data.getObjectTypePrices.costs}
-          onDescriptionSave={handleDescriptionSave}
-          onUpdateCost={handleUpdateCost}
-          isSidebarVisible={isSidebarVisible}
-          onSidebarOpen={onSidebarOpen}
-        />
-      )}
-    </>
+    <Costs
+      data={costs}
+      onDescriptionSave={handleDescriptionSave}
+      onUpdateCost={handleUpdateCost}
+      isSidebarVisible={isSidebarVisible}
+      onSidebarOpen={onSidebarOpen}
+    />
   );
 };

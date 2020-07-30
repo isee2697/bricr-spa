@@ -8,7 +8,7 @@ import { EuroIcon } from 'ui/atoms/icons';
 import { FormSubSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenericField, DropdownField } from 'form/fields';
-import { EntityType } from 'app/shared/entityType';
+import { useEntityType } from 'app/shared/entityType';
 
 import { CostItemProps } from './CostItem.types';
 
@@ -19,7 +19,9 @@ const generateTitle = (title: string, name?: string | null) => {
 export const CostItem = ({ cost, index, inEditMode, isExpanded, onExpand }: CostItemProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
-  const customLabels = useCustomLabels(id, [LabelProperty.Cost], EntityType.Project)[LabelProperty.Cost] ?? [];
+
+  const { entityType } = useEntityType();
+  const customLabels = useCustomLabels(id, [LabelProperty.Cost], entityType)[LabelProperty.Cost] ?? [];
 
   const paymentFrequencies = [CostPaymentFrequency.Monthly, CostPaymentFrequency.Yearly].map(value => ({
     label: formatMessage({ id: `dictionaries.prices.frequency.${value}` }),

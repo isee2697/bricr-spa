@@ -6,7 +6,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useEntityTypeProps } from './useEntityType.types';
 
-const getBasicUrl = {
+const baseUrls = {
   [EntityType.Property]: AppRoute.pimDetails,
   [EntityType.Project]: AppRoute.projectDetails,
   [EntityType.ObjectType]: AppRoute.objectTypeDetails,
@@ -22,6 +22,6 @@ export const useEntityType = (): useEntityTypeProps => {
 
   return {
     entityType,
-    baseUrl: getBasicUrl[entityType],
+    baseUrl: baseUrls[entityType],
   };
 };
