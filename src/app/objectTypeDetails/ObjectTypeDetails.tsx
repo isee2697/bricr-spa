@@ -67,7 +67,7 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
                 render={() => <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
               />
               <Route
-                path={`${AppRoute.objectTypeDetails}/projectJourney`}
+                path={`${AppRoute.objectTypeDetails}/objectJourney`}
                 render={() => (
                   <ProjectJourneyContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                 )}

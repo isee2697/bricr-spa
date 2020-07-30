@@ -57,7 +57,6 @@ export const LIST_OBJECT_TYPES = gql`
         propertiesAvailable
         underOption
         soldOrRent
-        attentionNote
       }
     }
   }

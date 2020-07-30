@@ -60,4 +60,9 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     top: 24,
     zIndex: 10,
   },
+  group: {
+    '& + &': {
+      marginTop: spacing(2),
+    },
+  },
 }));

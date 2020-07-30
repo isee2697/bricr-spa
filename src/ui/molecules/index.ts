@@ -23,3 +23,4 @@ export { IconPicker } from './iconPicker/IconPicker';
 export { SimpleSearch } from './simpleSearch/SimpleSearch';
 export { CancelButton } from './cancelButton/CancelButton';
 export { ActionTabs } from './actionTabs/ActionTabs';
+export { SidebarMenu } from './sidebarMenu/SidebarMenu';
