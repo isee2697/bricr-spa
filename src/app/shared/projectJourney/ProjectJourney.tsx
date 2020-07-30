@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { List } from 'ui/molecules';
-import { Box, Grid, IconButton, Typography } from 'ui/atoms';
+import { Box, Grid, IconButton } from 'ui/atoms';
 import { Page } from 'ui/templates';
 import { LocationIcon, ListIcon, ManageIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
@@ -28,35 +28,7 @@ export const ProjectJourney = ({
 
   return (
     <>
-      <ProjectDetailsHeader
-        isSidebarVisible={isSidebarVisible}
-        onSidebarOpen={onSidebarOpen}
-        action={
-          <Box display="flex">
-            <Grid container spacing={3}>
-              {data.phase && (
-                <Grid item>
-                  <Typography variant="h6">{formatMessage({ id: 'project_details.project_journey.phase' })}</Typography>
-                  <Typography variant="h5" className={classes.boldText}>
-                    {data.phase}
-                  </Typography>
-                </Grid>
-              )}
-              {data.designation && (
-                <Grid item>
-                  <Typography variant="h6">
-                    {formatMessage({ id: 'project_details.project_journey.designation' })}
-                  </Typography>
-                  <Typography variant="h5" className={classes.boldText}>
-                    {data.designation}
-                  </Typography>
-                </Grid>
-              )}
-              <Grid item style={{ backgroundImage: `url(${data.projectLogo})` }} className={classes.logo} />
-            </Grid>
-          </Box>
-        }
-      />
+      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page title={formatMessage({ id: 'project_details.project_journey.title' })}>
         <Grid item xs={12}>
           <Box mt={3}>

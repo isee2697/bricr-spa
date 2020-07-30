@@ -23,17 +23,4 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2.75, 2, 2.75, 0),
     width: '100%',
   },
-  boldText: {
-    fontWeight: theme.typography.fontWeightBold,
-  },
-  logo: {
-    height: theme.spacing(4),
-    width: theme.spacing(10.5),
-    backgroundColor: theme.palette.white.main,
-    borderRadius: theme.spacing(1),
-    marginTop: theme.spacing(1.25),
-    marginRight: theme.spacing(1.5),
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-  },
 }));

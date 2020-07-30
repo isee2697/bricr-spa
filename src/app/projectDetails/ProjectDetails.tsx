@@ -44,7 +44,7 @@ export const ProjectDetails = ({ ncp, count }: NcpProps) => {
             />
           </Grid>
         )}
-        <Grid item xs={12} md={9} lg={10}>
+        <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>
           <Box padding={3}>
             <Switch>
               <Route
