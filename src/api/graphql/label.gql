@@ -26,10 +26,11 @@ type Label {
   icon: String
   text: String!
   property: LabelProperty!
+  dateCreated: Date
 }
 
 input LabelInput {
-  pimId: ID!
+  parentId: ID!
   icon: String
   text: String!
   property: LabelProperty!
@@ -41,5 +42,5 @@ extend type Mutation {
 }
 
 extend type Query {
-  getLabels(pimId: ID!, properties: [LabelProperty!]): [Label!] @auth
+  getLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
 }
