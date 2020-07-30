@@ -26,9 +26,11 @@ export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit, isError }: 
       <Form onSubmit={onSubmit}>
         {({ handleSubmit, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <DialogContent>
-              {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
-            </DialogContent>
+            {isError && (
+              <DialogContent>
+                <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
+              </DialogContent>
+            )}
             <DialogContent>
               <GenericField
                 size="medium"
@@ -38,7 +40,7 @@ export const AddNewObjectTypeModal = ({ isOpened, onClose, onSubmit, isError }: 
                 validate={[requireValidator]}
               />
             </DialogContent>
-            <DialogActions>
+            <DialogActions className={classes.actionsPanel}>
               <CancelButton variant="outlined" size="large" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
               </CancelButton>
