@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router';
 
 import { dateToYear } from 'form/fields';
-import { NavBreadcrumb, Button } from 'ui/atoms';
+import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import {
   GetNcpServicesDocument,
-  useGetNcpServicesQuery,
-  useUpdateNcpServiceMutation,
   GetObjectTypeServicesDocument,
-  useGetObjectTypeServicesQuery,
-  useUpdateObjectTypeServiceMutation,
-  GetNcpServicesQuery,
-  GetObjectTypeServicesQuery,
-  useUpdateNcpServiceDescriptionMutation,
-  useUpdateObjectTypeServiceDescriptionMutation,
   NcpServices,
   ObjectTypeServices,
+  useGetNcpServicesQuery,
+  useGetObjectTypeServicesQuery,
+  useUpdateNcpServiceDescriptionMutation,
+  useUpdateNcpServiceMutation,
+  useUpdateObjectTypeServiceDescriptionMutation,
+  useUpdateObjectTypeServiceMutation,
 } from 'api/types';
 import { useLocale } from 'hooks';
-import { AddIcon } from 'ui/atoms/icons';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { EntityType, useEntityType } from 'app/shared/entityType';
@@ -38,12 +35,12 @@ const getQuery = (entityType: EntityType) => {
   }
 };
 
-const isNcpServicesQuery = (data: GetNcpServicesQuery | GetObjectTypeServicesQuery): data is GetNcpServicesQuery =>
-  data.hasOwnProperty('getNcpServices');
-
-const isObjectTypeServicesQuery = (
-  data: GetNcpServicesQuery | GetObjectTypeServicesQuery,
-): data is GetObjectTypeServicesQuery => data.hasOwnProperty('getObjectTypeServices');
+const routeUrlBaseMap: Record<EntityType, AppRoute> = {
+  [EntityType.Project]: AppRoute.projectDetails,
+  [EntityType.ObjectType]: AppRoute.objectTypeDetails,
+  [EntityType.Property]: AppRoute.pimDetails,
+  [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
+};
 
 export const ServicesGeneralContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
@@ -51,6 +48,10 @@ export const ServicesGeneralContainer = ({ title, isSidebarVisible, onSidebarOpe
   const { entityType } = useEntityType();
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });
+  const dataResult = useMemo<ObjectTypeServices | NcpServices | undefined>(
+    () => (data ? (Object.values(data)[0] as ObjectTypeServices | NcpServices) : undefined),
+    [data],
+  );
 
   const [updateNcpServices] = useUpdateNcpServiceMutation();
   const [updateNcpDescription] = useUpdateNcpServiceDescriptionMutation();
@@ -168,94 +169,35 @@ export const ServicesGeneralContainer = ({ title, isSidebarVisible, onSidebarOpe
     }
   };
 
-  if (!data) {
+  if (!dataResult) {
     return null;
   }
 
   return (
     <>
-      {isNcpServicesQuery(data) && (
-        <>
-          <NavBreadcrumb
-            urlBase={AppRoute.projectDetails}
-            to="/services"
-            title={formatMessage({ id: 'pim_details.services.title' })}
-          />
-          <ProjectDetailsHeader
-            isSidebarVisible={isSidebarVisible}
-            onSidebarOpen={onSidebarOpen}
-            action={
-              <Button
-                color="primary"
-                variant="contained"
-                startIcon={<AddIcon color="inherit" />}
-                onClick={() => {}}
-                size="small"
-              >
-                {formatMessage({ id: 'pim_details.services.add_new_meter' })}
-              </Button>
-            }
-          />
-          <Switch>
-            <Route
-              default
-              path={`${AppRoute.projectDetails}/services`}
-              exact
-              render={() => (
-                <ServicesGeneral
-                  isSidebarVisible={isSidebarVisible}
-                  onSidebarOpen={onSidebarOpen}
-                  ncpServices={data.getNcpServices as NcpServices}
-                  onSave={onEdit}
-                  onDescriptionUpdate={onDescriptionUpdate}
-                />
-              )}
+      <NavBreadcrumb
+        urlBase={routeUrlBaseMap[entityType]}
+        to="/services"
+        title={formatMessage({ id: 'pim_details.services.title' })}
+      />
+      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+      <Switch>
+        <Route
+          default
+          path={`${routeUrlBaseMap[entityType]}/services`}
+          exact
+          render={() => (
+            <ServicesGeneral
+              isSidebarVisible={isSidebarVisible}
+              onSidebarOpen={onSidebarOpen}
+              ncpServices={dataResult}
+              onSave={onEdit}
+              onDescriptionUpdate={onDescriptionUpdate}
             />
-            <Redirect to={`${AppRoute.projectDetails}/services`} />
-          </Switch>
-        </>
-      )}
-      {isObjectTypeServicesQuery(data) && (
-        <>
-          <NavBreadcrumb
-            urlBase={AppRoute.objectTypeDetails}
-            to="/services"
-            title={formatMessage({ id: 'pim_details.services.title' })}
-          />
-          <ProjectDetailsHeader
-            isSidebarVisible={isSidebarVisible}
-            onSidebarOpen={onSidebarOpen}
-            action={
-              <Button
-                color="primary"
-                variant="contained"
-                startIcon={<AddIcon color="inherit" />}
-                onClick={() => {}}
-                size="small"
-              >
-                {formatMessage({ id: 'pim_details.services.add_new_meter' })}
-              </Button>
-            }
-          />
-          <Switch>
-            <Route
-              default
-              path={`${AppRoute.objectTypeDetails}/services`}
-              exact
-              render={() => (
-                <ServicesGeneral
-                  isSidebarVisible={isSidebarVisible}
-                  onSidebarOpen={onSidebarOpen}
-                  ncpServices={data.getObjectTypeServices as ObjectTypeServices}
-                  onSave={onEdit}
-                  onDescriptionUpdate={onDescriptionUpdate}
-                />
-              )}
-            />
-            <Redirect to={`${AppRoute.objectTypeDetails}/services`} />
-          </Switch>
-        </>
-      )}
+          )}
+        />
+        <Redirect to={`${routeUrlBaseMap[entityType]}/services`} />
+      </Switch>
     </>
   );
 };
