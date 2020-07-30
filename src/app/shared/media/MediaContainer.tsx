@@ -2,22 +2,22 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  PimMediaDocument,
   NcpMediaDocument,
+  NcpMediaQuery,
   ObjectTypeMediaDocument,
+  ObjectTypeMediaQuery,
+  PimMediaDocument,
+  PimMediaQuery,
   SectionWithDescriptionType,
-  usePimMediaQuery,
   useNcpMediaQuery,
   useObjectTypeMediaQuery,
+  usePimMediaQuery,
   useUpdateDescriptionMutation,
   useUpdateNcpMediaDescriptionMutation,
   useUpdateObjectTypeMediaDescriptionMutation,
-  PimMediaQuery,
-  NcpMediaQuery,
-  ObjectTypeMediaQuery,
 } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { useEntityType, EntityType } from '../entityType';
+import { EntityType, useEntityType } from '../entityType';
 
 import { usePicturesSorting } from './pictures/usePicturesSorting/usePicturesSorting';
 import { Media } from './Media';
@@ -25,6 +25,8 @@ import { Media } from './Media';
 const getQuery = (entityType: EntityType) => {
   switch (entityType) {
     case EntityType.Property:
+      return usePimMediaQuery;
+    case EntityType.LinkedProperty:
       return usePimMediaQuery;
     case EntityType.Project:
       return useNcpMediaQuery;
@@ -38,7 +40,7 @@ const getQuery = (entityType: EntityType) => {
 export const MediaContainer = ({ isSidebarVisible, onSidebarOpen, ...props }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { sorting, query: sortQuery } = usePicturesSorting();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id, picturesSort: sortQuery }, fetchPolicy: 'network-only' });

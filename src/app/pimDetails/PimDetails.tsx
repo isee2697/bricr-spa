@@ -1,24 +1,23 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
-import { Grid, Alert, Loader, NavBreadcrumb } from 'ui/atoms';
+import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
-import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
+import { General } from 'app/pimDetails/sections/general/General';
+import { Inside } from 'app/pimDetails/sections/inside/Inside';
+import { Outside } from 'app/pimDetails/sections/outside/Outside';
+import { CadastreContainer } from 'app/pimDetails/sections/cadastre/CadastreContainer';
+import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
+import { ServicesContainer } from 'app/pimDetails/sections/services/ServicesContainer';
+import { Specification } from 'app/pimDetails/sections/specification/Specification';
+import { EntityTypeProvider } from 'app/shared/entityType';
+import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 
-import { useStyles } from './PimDetails.styles';
-import { PimDetailsSidebarMenu } from './pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { PimDetailsProps } from './PimDetails.types';
-import { General } from './sections/general/General';
-import { Inside } from './sections/inside/Inside';
-import { Outside } from './sections/outside/Outside';
-import { CadastreContainer } from './sections/cadastre/CadastreContainer';
-import { PricesContainer } from './sections/prices/PricesContainer';
-import { ServicesContainer } from './sections/services/ServicesContainer';
-import { Specification } from './sections/specification/Specification';
+import { useStyles } from './PimDetails.styles';
 
-export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
+export const PimDetails = ({ loading, error, data, breadcrumbs, path, entityType }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -40,9 +39,8 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
   }
 
   return (
-    <EntityTypeProvider entityType={EntityType.Property}>
-      <NavBreadcrumb title={formatMessage({ id: 'header.links.pim' })} to={AppRoute.pim} />
-      <NavBreadcrumb title={title} urlBase={AppRoute.pimDetails} />
+    <EntityTypeProvider entityType={entityType}>
+      {breadcrumbs}
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
@@ -59,25 +57,25 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
             {!error && !!pim && (
               <Switch>
                 <Route
-                  path={`${AppRoute.pimDetails}/general`}
+                  path={`${path}/general`}
                   render={() => (
                     <General isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/inside`}
+                  path={`${path}/inside`}
                   render={() => (
                     <Inside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/outside`}
+                  path={`${path}/outside`}
                   render={() => (
                     <Outside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/cadastre`}
+                  path={`${path}/cadastre`}
                   render={() => (
                     <CadastreContainer
                       isSidebarVisible={isSidebarVisible}
@@ -87,7 +85,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/services`}
+                  path={`${path}/services`}
                   render={() => (
                     <ServicesContainer
                       isSidebarVisible={isSidebarVisible}
@@ -97,7 +95,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/prices`}
+                  path={`${path}/prices`}
                   render={() => (
                     <PricesContainer
                       isSidebarVisible={isSidebarVisible}
@@ -107,7 +105,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/specification`}
+                  path={`${path}/specification`}
                   render={() => (
                     <Specification
                       isSidebarVisible={isSidebarVisible}
@@ -117,7 +115,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                   )}
                 />
                 <Route
-                  path={`${AppRoute.pimDetails}/media`}
+                  path={`${path}/media`}
                   render={() => (
                     <MediaContainer
                       isSidebarVisible={isSidebarVisible}
@@ -126,7 +124,7 @@ export const PimDetails = ({ loading, error, data }: PimDetailsProps) => {
                     />
                   )}
                 />
-                <Redirect to={{ pathname: `${AppRoute.pimDetails}/general`, state }} />
+                <Redirect to={{ pathname: `${path}/general`, state }} />
               </Switch>
             )}
           </Grid>

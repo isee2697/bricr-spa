@@ -1,0 +1,42 @@
+input LinkedPimFilters {
+  archived: Boolean
+}
+
+interface EntityLinkedWithPims {
+  id: ID!
+  linkedProperties(filters: LinkedPimFilters, sort: [Sort!], pagination: Pagination!): PimListSearchResult! @auth
+  linkedPropertiesIds: [ID!]
+  lastEditedBy: Profile
+  dateUpdated: Date
+  description: String
+}
+
+input SetLinkedPimsInput {
+  id: ID!
+  linkedProperties: [ID!]
+}
+
+type LinkedPim {
+  id: ID!
+  houseNumberPrefix: String
+  houseNumber: String!
+  houseNumberAddition: String
+  postalCode: String!
+  district: String
+  city: String!
+  state: String
+  county: String
+  country: String!
+  propertyType: PropertyType
+  attention: String
+  plotNumber: Int
+  salePrice: AbsoluteFloat
+  rentPrice: AbsoluteFloat
+  status: PimStatus!
+  images: [File!]
+}
+
+type LinkedPimSearchResult {
+  metadata: SearchMetadata!
+  items: [LinkedPim!]
+}

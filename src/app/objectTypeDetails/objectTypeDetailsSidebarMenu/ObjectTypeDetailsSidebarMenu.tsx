@@ -14,19 +14,7 @@ import { EntityType } from 'app/shared/entityType';
 import { useStyles } from './ObjectTypeDetailsSidebarMenu.styles';
 import { ObjectTypeDetailsSidebarMenuProps } from './ObjectTypeDetailsSidebarMenu.types';
 
-const menuItems = [
-  { key: 'dashboard' },
-  { key: 'summary' },
-  { key: 'projectJourney' },
-  { key: 'salesSettings' },
-  { key: 'characteristics' },
-  { key: 'prices', subItems: ['costs'] },
-  { key: 'services' },
-  { key: 'media' },
-  { key: 'properties', count: 0 },
-];
-
-export const ObjectTypeDetailsSidebarMenu = ({ onHide, ncp, objectTypes }: ObjectTypeDetailsSidebarMenuProps) => {
+export const ObjectTypeDetailsSidebarMenu = ({ onHide, data }: ObjectTypeDetailsSidebarMenuProps) => {
   const { projectId } = useParams<{ projectId: string }>();
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -34,6 +22,18 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide, ncp, objectTypes }: Objec
   const { push } = useHistory();
   const classes = useStyles();
   const theme = useTheme();
+
+  const menuItems = [
+    { key: 'dashboard' },
+    { key: 'summary' },
+    { key: 'projectJourney' },
+    { key: 'salesSettings' },
+    { key: 'characteristics' },
+    { key: 'prices', subItems: ['costs'] },
+    { key: 'services' },
+    { key: 'media' },
+    { key: 'properties', count: data?.linkedProperty.linkedProperties.metadata?.total },
+  ];
 
   return (
     <div className={classes.root}>
@@ -43,8 +43,8 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide, ncp, objectTypes }: Objec
       <div className={classes.menuWrapper}>
         <Box mb={2}>
           <SidebarTitleTile
-            prevPage={ncp?.getNcp.name}
-            title={objectTypes?.getObjectTypeGeneral.name}
+            prevPage={data?.project.name}
+            title={data?.objectType.name}
             subtitle={formatMessage({ id: 'common.sidebar_category.object_type' })}
             category={EntityType.ObjectType}
             icon={<NewConstructionIcon color="inherit" />}

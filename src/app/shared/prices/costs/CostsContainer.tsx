@@ -35,7 +35,7 @@ const isObjectTypeCostsQuery = (
 ): data is ObjectTypePricesCostsQuery => data.hasOwnProperty('getObjectTypePrices');
 export const CostsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });
   const [updateNcpCostsDetails] = useUpdateNcpCostsDetailsMutation();

@@ -15,10 +15,10 @@ export type Scalars = {
   UpdateFeatureInputConfiguration: any;
   AbsoluteFloat: any;
   CostVat: any;
-  ServiceConfigurationInput: any;
   Dictionary: any;
   UuidOrEnum: any;
   Date: string;
+  ServiceConfigurationInput: any;
 };
 
 export type LoginInput = {
@@ -55,12 +55,15 @@ export type ResetPasswordResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
+  addAllocationCriteria: AddAllocationCriteriaResult;
+  addBogSpace: PimWithNewBogSpace;
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
   addCost: CostResult;
   addFiles: Array<File>;
   addFloorToPim: PimWithNewFloor;
   addIdentificationNumberNcp: NcpWithNewIdentificationNumber;
+  addIdentificationNumberObjectType: ObjectTypeWithNewIdentificationNumber;
   addIdentificationNumberPim: PimWithNewIdentificationNumber;
   addInspection: AddInspectionResult;
   addLabel: Label;
@@ -101,6 +104,7 @@ export type Mutation = {
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
+  removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
   removeLabel: Scalars['Boolean'];
@@ -112,20 +116,26 @@ export type Mutation = {
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
   setNcpCharacteristics: NcpCharacteristics;
+  setNcpLinkedPims: NcpLinkedPims;
   setObjectTypeCharacteristicsSections: ObjectTypeCharacteristics;
+  setObjectTypeLinkedPims: ObjectTypeLinkedPims;
   toggleNcpPricing: NcpPricesResult;
   toggleObjectTypePricing: ObjectTypePricesResult;
   togglePricing: Pim;
+  updateAllocationCriteria: Pim;
+  updateBogSpace: Pim;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateDescription?: Maybe<Scalars['String']>;
   updateFloor: Pim;
   updateIdentificationNumberNcp: NcpCharacteristics;
+  updateIdentificationNumberObjectType: ObjectTypeCharacteristics;
   updateIdentificationNumberPim: Pim;
   updateInsideGeneral?: Maybe<Pim>;
   updateInspection: Pim;
   updateInvestment: Pim;
+  updateLinkedPropertiesListDescription?: Maybe<ObjectTypeGeneral>;
   updateMediaLink?: Maybe<Pim>;
   updateNcp: NcpGeneral;
   updateNcpCharacteristics: NcpCharacteristics;
@@ -174,6 +184,14 @@ export type Mutation = {
   uploadFile?: Maybe<UploadFileResponse>;
 };
 
+export type MutationAddAllocationCriteriaArgs = {
+  input: AddAllocationCriteriaInput;
+};
+
+export type MutationAddBogSpaceArgs = {
+  input: AddBogSpaceInput;
+};
+
 export type MutationAddCadastreArgs = {
   input: AddCadastreInput;
 };
@@ -195,6 +213,10 @@ export type MutationAddFloorToPimArgs = {
 };
 
 export type MutationAddIdentificationNumberNcpArgs = {
+  input: AddIdentificationNumberInput;
+};
+
+export type MutationAddIdentificationNumberObjectTypeArgs = {
   input: AddIdentificationNumberInput;
 };
 
@@ -358,6 +380,10 @@ export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
 };
 
+export type MutationRemoveAllocationCriteriaArgs = {
+  id: Scalars['ID'];
+};
+
 export type MutationRemoveFilesArgs = {
   input: RemoveFilesInput;
 };
@@ -403,8 +429,16 @@ export type MutationSetNcpCharacteristicsArgs = {
   input: SetCharacteristicsSectionsInput;
 };
 
+export type MutationSetNcpLinkedPimsArgs = {
+  input: SetLinkedPimsInput;
+};
+
 export type MutationSetObjectTypeCharacteristicsSectionsArgs = {
   input: SetCharacteristicsSectionsInput;
+};
+
+export type MutationSetObjectTypeLinkedPimsArgs = {
+  input: SetLinkedPimsInput;
 };
 
 export type MutationToggleNcpPricingArgs = {
@@ -417,6 +451,14 @@ export type MutationToggleObjectTypePricingArgs = {
 
 export type MutationTogglePricingArgs = {
   input: TogglePricingInput;
+};
+
+export type MutationUpdateAllocationCriteriaArgs = {
+  input: AllocationCriteriaInput;
+};
+
+export type MutationUpdateBogSpaceArgs = {
+  input: UpdateBogSpaceInput;
 };
 
 export type MutationUpdateCadastreArgs = {
@@ -443,6 +485,10 @@ export type MutationUpdateIdentificationNumberNcpArgs = {
   input: UpdateIdentificationNumberInput;
 };
 
+export type MutationUpdateIdentificationNumberObjectTypeArgs = {
+  input: UpdateIdentificationNumberInput;
+};
+
 export type MutationUpdateIdentificationNumberPimArgs = {
   input: UpdateIdentificationNumberInput;
 };
@@ -457,6 +503,10 @@ export type MutationUpdateInspectionArgs = {
 
 export type MutationUpdateInvestmentArgs = {
   input: InvestmentInput;
+};
+
+export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
+  input: UpdateLinkedPropertiesListDescription;
 };
 
 export type MutationUpdateMediaLinkArgs = {
@@ -979,9 +1029,11 @@ export type Query = {
   dictionary?: Maybe<Scalars['Dictionary']>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
+  getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
   getNcpCharacteristics: NcpCharacteristics;
   getNcpLabels?: Maybe<Array<Label>>;
+  getNcpLinkedPims: NcpLinkedPims;
   getNcpMedia: NcpMedia;
   getNcpPrices: NcpPricesResult;
   getNcpServices: NcpServices;
@@ -989,6 +1041,7 @@ export type Query = {
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeLabels?: Maybe<Array<Label>>;
+  getObjectTypeLinkedPims: ObjectTypeLinkedPims;
   getObjectTypeMedia: ObjectTypeMedia;
   getObjectTypePrices: ObjectTypePricesResult;
   getObjectTypeServices: ObjectTypeServices;
@@ -1023,6 +1076,11 @@ export type QueryGetLabelsArgs = {
   properties?: Maybe<Array<LabelProperty>>;
 };
 
+export type QueryGetMyTeamMembersArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+};
+
 export type QueryGetNcpArgs = {
   id: Scalars['ID'];
 };
@@ -1034,6 +1092,10 @@ export type QueryGetNcpCharacteristicsArgs = {
 export type QueryGetNcpLabelsArgs = {
   parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetNcpLinkedPimsArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetNcpMediaArgs = {
@@ -1063,6 +1125,10 @@ export type QueryGetObjectTypeGeneralArgs = {
 export type QueryGetObjectTypeLabelsArgs = {
   parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetObjectTypeLinkedPimsArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetObjectTypeMediaArgs = {
@@ -1150,6 +1216,57 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type LinkedPimFilters = {
+  archived?: Maybe<Scalars['Boolean']>;
+};
+
+export type EntityLinkedWithPims = {
+  id: Scalars['ID'];
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type EntityLinkedWithPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
+};
+
+export type SetLinkedPimsInput = {
+  id: Scalars['ID'];
+  linkedProperties?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type LinkedPim = {
+  __typename?: 'LinkedPim';
+  id: Scalars['ID'];
+  houseNumberPrefix?: Maybe<Scalars['String']>;
+  houseNumber: Scalars['String'];
+  houseNumberAddition?: Maybe<Scalars['String']>;
+  postalCode: Scalars['String'];
+  district?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  county?: Maybe<Scalars['String']>;
+  country: Scalars['String'];
+  propertyType?: Maybe<PropertyType>;
+  attention?: Maybe<Scalars['String']>;
+  plotNumber?: Maybe<Scalars['Int']>;
+  salePrice?: Maybe<Scalars['AbsoluteFloat']>;
+  rentPrice?: Maybe<Scalars['AbsoluteFloat']>;
+  status: PimStatus;
+  images?: Maybe<Array<File>>;
+};
+
+export type LinkedPimSearchResult = {
+  __typename?: 'LinkedPimSearchResult';
+  metadata: SearchMetadata;
+  items?: Maybe<Array<LinkedPim>>;
 };
 
 export type ListPimPropertyRelated = {
@@ -1507,6 +1624,7 @@ export type UpdateNcpInput = {
   startConstructionAfterPresalePercentage?: Maybe<Scalars['Int']>;
   projectRisk?: Maybe<ProjectRisk>;
   notes?: Maybe<Scalars['String']>;
+  objectTypesListDescription?: Maybe<Scalars['String']>;
 };
 
 export type NcpGeneral = LastUpdated & {
@@ -1555,6 +1673,22 @@ export type NcpWithSameAddressInput = {
   houseNumber?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
+};
+
+export type NcpLinkedPims = EntityLinkedWithPims & {
+  __typename?: 'NcpLinkedPims';
+  id: Scalars['ID'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type NcpLinkedPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
 };
 
 export type ListNcpsFilters = {
@@ -1623,88 +1757,6 @@ export type NcpMedia = LastUpdated & {
 
 export type NcpMediaPicturesArgs = {
   sort?: Maybe<Sort>;
-};
-
-export type NewNcpPictureInput = {
-  fileID: Scalars['String'];
-};
-
-export type AddNcpPicturesInput = {
-  parentId: Scalars['String'];
-  pictures: Array<NewPictureInput>;
-};
-
-export type AddNcpTextChapterInput = {
-  parentId: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpTextChapterInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type AddNcpUspsInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpUspsInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddNcpMediaLinkInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpMediaLinkInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type AddNcpTagInput = {
-  parentId: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpTagInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpPictureInput = {
-  parentId: Scalars['String'];
-  id: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  fileId?: Maybe<Scalars['String']>;
-};
-
-export type UpdateNcpMediaDescriptionInput = {
-  id: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
 };
 
 export type NcpPrices = {
@@ -1810,14 +1862,40 @@ export type ObjectTypeGeneral = LastUpdated & {
   __typename?: 'ObjectTypeGeneral';
   id: Scalars['ID'];
   name: Scalars['String'];
+  archived?: Maybe<Scalars['Boolean']>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  dateCreated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
   ncpId: Scalars['ID'];
+  linkedPropertiesListDescription?: Maybe<Scalars['String']>;
+  linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
+  linkedPropertiesListLastUpdatedOn?: Maybe<Scalars['Date']>;
 };
 
 export type CreateObjectTypeInput = {
   name: Scalars['String'];
   ncpId: Scalars['ID'];
+};
+
+export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
+  __typename?: 'ObjectTypeLinkedPims';
+  id: Scalars['ID'];
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  linkedProperties: PimListSearchResult;
+  linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ObjectTypeLinkedPimsLinkedPropertiesArgs = {
+  filters?: Maybe<LinkedPimFilters>;
+  sort?: Maybe<Array<Sort>>;
+  pagination: Pagination;
+};
+
+export type UpdateLinkedPropertiesListDescription = {
+  id: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
 };
 
 export type ListObjectTypesFilters = {
@@ -1893,7 +1971,6 @@ export type ObjectTypePrices = {
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<Array<CommonCost>>;
   costsDetails?: Maybe<CostsDetails>;
-  ncpId?: Maybe<Scalars['String']>;
 };
 
 export type ObjectTypePricesResult = {
@@ -1901,7 +1978,6 @@ export type ObjectTypePricesResult = {
   id: Scalars['ID'];
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<CommonCosts>;
-  ncpId?: Maybe<Scalars['String']>;
 };
 
 export type ObjectTypeServices = LastUpdated &
@@ -1920,6 +1996,410 @@ export type ObjectTypeWithNewService = {
   __typename?: 'ObjectTypeWithNewService';
   objectType: ObjectTypeServices;
   newService: Service;
+};
+
+export enum BogSpaceType {
+  BusinessSpace = 'BusinessSpace',
+  OfficeSpace = 'OfficeSpace',
+  RetailSpace = 'RetailSpace',
+  Leissure = 'Leissure',
+  HorecaSpace = 'HorecaSpace',
+  SocialRealEstateSpace = 'SocialRealEstateSpace',
+  Terrain = 'Terrain',
+  Storage = 'Storage',
+}
+
+export enum AirTreatmentType {
+  Airco = 'Airco',
+  MechanicalVentilation = 'MechanicalVentilation',
+  TopCooling = 'TopCooling',
+}
+
+export enum SpecificationType {
+  TakeoverOfPersonel = 'TakeoverOfPersonel',
+  CateringAllowed = 'CateringAllowed',
+  IndustryLimitation = 'IndustryLimitation',
+  PublicOrientedServices = 'PublicOrientedServices',
+  Retail = 'Retail',
+  Showroom = 'Showroom',
+  AnnualPitches = 'AnnualPitches',
+  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
+  ReturnService = 'ReturnService',
+  CateringArea = 'CateringArea',
+  Terrace = 'Terrace',
+  Luxery = 'Luxery',
+}
+
+export enum BogServicesType {
+  Electra = 'Electra',
+  Reception = 'Reception',
+  SanitaryBlocks = 'SanitaryBlocks',
+  SwimmingPool = 'SwimmingPool',
+  SewageSystem = 'SewageSystem',
+  CateringAvailable = 'CateringAvailable',
+  CampShop = 'CampShop',
+  ConcreteFloor = 'ConcreteFloor',
+  SkyLights = 'SkyLights',
+  Pantry = 'Pantry',
+  Heating = 'Heating',
+  LoadingDocks = 'LoadingDocks',
+  Sprinkler = 'Sprinkler',
+  PowerFlow = 'PowerFlow',
+  OverheadDoors = 'OverheadDoors',
+  Toilet = 'Toilet',
+  RecessedLuminaires = 'RecessedLuminaires',
+  Elevators = 'Elevators',
+  OpenableWindows = 'OpenableWindows',
+  CableTrays = 'CableTrays',
+  SuspendedCeiling = 'SuspendedCeiling',
+  RoomLayout = 'RoomLayout',
+  FlexDesk = 'FlexDesk',
+}
+
+export enum WealthClassType {
+  A1 = 'A1',
+  A2 = 'A2',
+  B1 = 'B1',
+  B2 = 'B2',
+  C1 = 'C1',
+  C2 = 'C2',
+}
+
+export enum TermsOfCostsType {
+  Monthly = 'Monthly',
+  Yearly = 'Yearly',
+}
+
+export enum CommonRoomsType {
+  Canteen = 'Canteen',
+  Pantry = 'Pantry',
+  Kitchen = 'Kitchen',
+  FrontDesk = 'FrontDesk',
+  Sanitary = 'Sanitary',
+  ConferenceRoom = 'ConferenceRoom',
+}
+
+export enum HorecaType {
+  Snackbar = 'Snackbar',
+  ConferenceRoomCenter = 'ConferenceRoomCenter',
+  Restaurant = 'Restaurant',
+  Bistro = 'Bistro',
+  Disco = 'Disco',
+  Hotel = 'Hotel',
+  Cafe = 'Cafe',
+  EatCafe = 'EatCafe',
+  PancakeHouse = 'PancakeHouse',
+  Cafeteria = 'Cafeteria',
+  Restaria = 'Restaria',
+  Lunchroom = 'Lunchroom',
+  Fastfood = 'Fastfood',
+  RoadHouse = 'RoadHouse',
+  IceCreamParlour = 'IceCreamParlour',
+  SandwichShop = 'SandwichShop',
+}
+
+export enum LegalFormType {
+  Bv = 'BV',
+  Cv = 'CV',
+  Cooperation = 'Cooperation',
+  Proprietorship = 'Proprietorship',
+  Partnership = 'Partnership',
+  Nv = 'NV',
+  Vof = 'VOF',
+  Foundation = 'Foundation',
+  Association = 'Association',
+}
+
+export type RetailMeasurements = {
+  __typename?: 'RetailMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type RetailMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type LeisureMeasurements = {
+  __typename?: 'LeisureMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfPitches?: Maybe<Scalars['Int']>;
+  numberOfStays?: Maybe<Scalars['Int']>;
+  capacityOfPersons?: Maybe<Scalars['Int']>;
+};
+
+export type LeisureMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfPitches?: Maybe<Scalars['Int']>;
+  numberOfStays?: Maybe<Scalars['Int']>;
+  capacityOfPersons?: Maybe<Scalars['Int']>;
+};
+
+export type HorecaMeasurements = {
+  __typename?: 'HorecaMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+  amountOfRooms?: Maybe<Scalars['Int']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type HorecaMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+  amountOfRooms?: Maybe<Scalars['Int']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BusinessSpaceMeasurements = {
+  __typename?: 'BusinessSpaceMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
+  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
+  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type BusinessSpaceMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
+  freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
+  floorLoad?: Maybe<Scalars['AbsoluteFloat']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type OfficeSpaceMeasurements = {
+  __typename?: 'OfficeSpaceMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type OfficeSpaceMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  measurementsCertificateAvailable?: Maybe<Scalars['Boolean']>;
+  inUnitsFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfFloors?: Maybe<Scalars['Int']>;
+};
+
+export type GoodWillPrices = {
+  __typename?: 'GoodWillPrices';
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type GoodWillPricesInput = {
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HorecaPrices = {
+  __typename?: 'HorecaPrices';
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
+  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type HorecaPricesInput = {
+  priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceInventoryGoodwillIncludedVat?: Maybe<Scalars['AbsoluteFloat']>;
+  revenueLastFiscalYear?: Maybe<Scalars['AbsoluteFloat']>;
+  rentalIncomeHomeYear?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogPrices = {
+  __typename?: 'BogPrices';
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  vateRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BogPricesInput = {
+  price?: Maybe<Scalars['AbsoluteFloat']>;
+  vateRate?: Maybe<Scalars['AbsoluteFloat']>;
+  priceVat?: Maybe<Scalars['AbsoluteFloat']>;
+  priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type RetailerAssociationContribution = {
+  __typename?: 'RetailerAssociationContribution';
+  contribution?: Maybe<Scalars['AbsoluteFloat']>;
+  termsOfCosts?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RetailerAssociationContributionInput = {
+  contribution?: Maybe<Scalars['AbsoluteFloat']>;
+  termsOfCosts?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  vatTaxedContribution?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RetailSpace = {
+  __typename?: 'RetailSpace';
+  measurements?: Maybe<RetailMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPrices>;
+  wealthClass?: Maybe<Scalars['String']>;
+  retailerAssociationContribution?: Maybe<RetailerAssociationContribution>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type RetailSpaceInput = {
+  measurements?: Maybe<RetailMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPricesInput>;
+  wealthClass?: Maybe<Scalars['String']>;
+  retailerAssociationContribution?: Maybe<RetailerAssociationContributionInput>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type LeisureSpace = {
+  __typename?: 'LeisureSpace';
+  measurements?: Maybe<LeisureMeasurements>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPrices>;
+  services?: Maybe<Array<Scalars['String']>>;
+};
+
+export type LeisureSpaceInput = {
+  measurements?: Maybe<LeisureMeasurementsInput>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<GoodWillPricesInput>;
+  services?: Maybe<Array<Scalars['String']>>;
+};
+
+export type HorecaSpace = {
+  __typename?: 'HorecaSpace';
+  measurements?: Maybe<HorecaMeasurements>;
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<HorecaPrices>;
+  wealthClass?: Maybe<Scalars['String']>;
+  legalForm?: Maybe<Scalars['String']>;
+};
+
+export type HorecaSpaceInput = {
+  measurements?: Maybe<HorecaMeasurementsInput>;
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+  specification?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<HorecaPricesInput>;
+  wealthClass?: Maybe<Scalars['String']>;
+  legalForm?: Maybe<Scalars['String']>;
+};
+
+export type BusinessSpace = {
+  __typename?: 'BusinessSpace';
+  measurements?: Maybe<BusinessSpaceMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+};
+
+export type BusinessSpaceInput = {
+  measurements?: Maybe<BusinessSpaceMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+};
+
+export type OfficeSpace = {
+  __typename?: 'OfficeSpace';
+  measurements?: Maybe<OfficeSpaceMeasurements>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+  turnKey?: Maybe<Scalars['Boolean']>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type OfficeSpaceInput = {
+  measurements?: Maybe<OfficeSpaceMeasurementsInput>;
+  airTreatment?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+  turnKey?: Maybe<Scalars['Boolean']>;
+  commonRooms?: Maybe<Array<Scalars['String']>>;
+};
+
+export type BogSpace = LastUpdated & {
+  __typename?: 'BogSpace';
+  id: Scalars['ID'];
+  type: BogSpaceType;
+  name?: Maybe<Scalars['String']>;
+  retailSpaceConfiguration?: Maybe<RetailSpace>;
+  leisureSpaceConfiguration?: Maybe<LeisureSpace>;
+  horecaSpaceConfiguration?: Maybe<HorecaSpace>;
+  businessSpaceConfiguration?: Maybe<BusinessSpace>;
+  officeSpaceConfiguration?: Maybe<OfficeSpace>;
+  images?: Maybe<Array<File>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+};
+
+export type UpdateBogSpaceInput = {
+  pimId: Scalars['ID'];
+  spaceId: Scalars['ID'];
+  spaceName?: Maybe<Scalars['String']>;
+  retailSpaceConfiguration?: Maybe<RetailSpaceInput>;
+  leisureSpaceConfiguration?: Maybe<LeisureSpaceInput>;
+  horecaSpaceConfiguration?: Maybe<HorecaSpaceInput>;
+  businessSpaceConfiguration?: Maybe<BusinessSpaceInput>;
+  officeSpaceConfiguration?: Maybe<OfficeSpaceInput>;
+};
+
+export type AddBogSpaceInput = {
+  id: Scalars['ID'];
+  type: BogSpaceType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewBogSpace = {
+  __typename?: 'PimWithNewBogSpace';
+  newSpace: BogSpace;
+  pim: Pim;
 };
 
 export enum CadastreMapType {
@@ -2053,6 +2533,7 @@ export type CadastrePlot = {
   ownershipType?: Maybe<CadastreOwnershipType>;
   lease?: Maybe<Lease>;
   boughtOff?: Maybe<BoughtOff>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type CadastreMap = {
@@ -2062,6 +2543,7 @@ export type CadastreMap = {
   name?: Maybe<Scalars['String']>;
   file?: Maybe<File>;
   description?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
   type?: Maybe<Scalars['String']>;
 };
 
@@ -2129,6 +2611,22 @@ export type UpdateCadastreMapInput = {
   fileId?: Maybe<Scalars['String']>;
 };
 
+export enum GeneralBogType {
+  BusinessSpace = 'BusinessSpace',
+  Offices = 'Offices',
+  RetailSpace = 'RetailSpace',
+  SocialRealEstate = 'SocialRealEstate',
+  Horeca = 'Horeca',
+}
+
+export enum GeneralCharacteristicsBog {
+  Leissure = 'Leissure',
+  BuildingPlot = 'BuildingPlot',
+  Investment = 'Investment',
+  PavedOutsideArea = 'PavedOutsideArea',
+  LogisticsFunction = 'LogisticsFunction',
+}
+
 export type PimGeneralInput = {
   id: Scalars['ID'];
   realEstateType?: Maybe<RealEstateType>;
@@ -2153,9 +2651,60 @@ export type PimGeneralInput = {
   livingArea?: Maybe<Scalars['Int']>;
   attention?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneralInput>;
+  bogGeneral?: Maybe<BogGeneralInput>;
   extraAddress?: Maybe<ExtraAddressInput>;
   showExtraAddress?: Maybe<Scalars['Boolean']>;
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
+  apartmentGeneral?: Maybe<ApartmentGeneralInput>;
+};
+
+export enum ApartmentType {
+  OneBedroomApartment = 'OneBedroomApartment',
+  TwoBedroomApartment = 'TwoBedroomApartment',
+  ThreeBedroomApartment = 'ThreeBedroomApartment',
+  FourBedroomApartment = 'FourBedroomApartment',
+  FiveBedroomApartment = 'FiveBedroomApartment',
+}
+
+export enum CharacteristicsApartment {
+  CorridorApartment = 'CorridorApartment',
+  ServiceApartment = 'ServiceApartment',
+  NursingApartment = 'NursingApartment',
+  CallFloor = 'CallFloor',
+  DormRoom = 'DormRoom',
+  OpenPorch = 'OpenPorch',
+  PorchApartment = 'PorchApartment',
+  GalleryApartment = 'GalleryApartment',
+  Mezzanine = 'Mezzanine',
+  Penthouse = 'Penthouse',
+  Maisonette = 'Maisonette',
+  UpstairsApartment = 'UpstairsApartment',
+  DownstairsApartment = 'DownstairsApartment',
+  DoubleUpstairsApartment = 'DoubleUpstairsApartment',
+  DoubleDownstairsApartment = 'DoubleDownstairsApartment',
+}
+
+export type ApartmentPropertyDetailsInput = {
+  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
+  amountOfTotalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  apartmentType?: Maybe<Scalars['String']>;
+  characteristicsApartment?: Maybe<Scalars['String']>;
+};
+
+export type ApartmentPropertyDetails = {
+  __typename?: 'ApartmentPropertyDetails';
+  groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
+  amountOfTotalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  apartmentType?: Maybe<Scalars['String']>;
+  characteristicsApartment?: Maybe<Scalars['String']>;
+};
+
+export type ApartmentGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  propertyDetails?: Maybe<ApartmentPropertyDetailsInput>;
 };
 
 export type PropertyAvailabilityInformation = {
@@ -2176,6 +2725,13 @@ export type ConstructionInformation = {
   notes?: Maybe<Scalars['String']>;
 };
 
+export type ApartmentGeneral = {
+  __typename?: 'ApartmentGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  propertyDetails?: Maybe<ApartmentPropertyDetails>;
+};
+
 export type HouseGeneral = {
   __typename?: 'HouseGeneral';
   availability?: Maybe<PropertyAvailabilityInformation>;
@@ -2183,6 +2739,23 @@ export type HouseGeneral = {
   floor?: Maybe<FloorType>;
   propertyConnection?: Maybe<PropertyConnection>;
   propertyDetails?: Maybe<PropertyTypeDetailed>;
+};
+
+export type BogGeneralInput = {
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogGeneral = {
+  __typename?: 'BogGeneral';
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type PropertyAvailabilityInformationInput = {
@@ -2256,10 +2829,12 @@ export type PimGeneral = LastUpdated & {
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
   houseGeneral?: Maybe<HouseGeneral>;
+  bogGeneral?: Maybe<BogGeneral>;
   extraAddress?: Maybe<ExtraAddress>;
   identificationNumbers?: Maybe<Array<IdentificationNumber>>;
   showExtraAddress?: Maybe<Scalars['Boolean']>;
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
+  apartmentGeneral?: Maybe<ApartmentGeneral>;
 };
 
 export type PimWithNewIdentificationNumber = {
@@ -2506,6 +3081,7 @@ export type Floor = LastUpdated & {
   spaces?: Maybe<Array<Space>>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type SpaceConfiguration =
@@ -2523,12 +3099,14 @@ export type Space = {
   spaceName?: Maybe<Scalars['String']>;
   extraRoomPossibility: Scalars['Boolean'];
   configuration?: Maybe<SpaceConfiguration>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type PimInside = LastUpdated & {
   __typename?: 'PimInside';
   id: Scalars['String'];
   floors?: Maybe<Array<Floor>>;
+  bogSpaces?: Maybe<Array<BogSpace>>;
   insideGeneral?: Maybe<InsideGeneral>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -3512,6 +4090,46 @@ export enum TypeOfAppointment {
   OnlineViewing = 'OnlineViewing',
 }
 
+export enum AllocationCriteriaType {
+  MatchProfile = 'MatchProfile',
+  Allocation = 'Allocation',
+}
+
+export enum PropertyPublishedExternally {
+  Yes = 'Yes',
+  No = 'No',
+}
+
+export enum CriteriaOrder {
+  JointIncome = 'JointIncome',
+  MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
+  NumberOfPreferenceInterest = 'NumberOfPreferenceInterest',
+  DateOfRegistrationInterest = 'DateOfRegistrationInterest',
+  AdditionalWork = 'AdditionalWork',
+}
+
+export enum HomeSituation {
+  LivingIn = 'LivingIn',
+  OwnerOccupiedHome = 'OwnerOccupiedHome',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+}
+
+export enum TypeOfEmployment {
+  IncomeFromEquity = 'IncomeFromEquity',
+  SalariedEmployment = 'SalariedEmployment',
+  Entrepreneur = 'Entrepreneur',
+  Benefits = 'Benefits',
+  None = 'None',
+}
+
+export enum PersonRole {
+  Reservation = 'Reservation',
+  Candidate = 'Candidate',
+  Optant = 'Optant',
+  Tenant = 'Tenant',
+}
+
 export type MomentSchedule = {
   __typename?: 'MomentSchedule';
   day?: Maybe<MomentScheduleDay>;
@@ -3534,6 +4152,8 @@ export type ViewingMoment = {
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
   accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  accountManagers?: Maybe<Array<Profile>>;
 };
 
 export type UpdateViewingMomentInput = {
@@ -3547,6 +4167,10 @@ export type UpdateViewingMomentInput = {
 };
 
 export type AddViewingMomentInput = {
+  pimId: Scalars['ID'];
+};
+
+export type AddAllocationCriteriaInput = {
   pimId: Scalars['ID'];
 };
 
@@ -3570,6 +4194,7 @@ export type PimSales = LastUpdated & {
   viewingMoments?: Maybe<Array<ViewingMoment>>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
 };
 
 export type AddViewingMomentResult = {
@@ -3578,204 +4203,99 @@ export type AddViewingMomentResult = {
   moment: ViewingMoment;
 };
 
-export enum MeterType {
-  Electric = 'Electric',
-  Gas = 'Gas',
-  Water = 'Water',
-}
-
-export enum HotWaterSupplyType {
-  Boiler = 'Boiler',
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
-  Geyser = 'Geyser',
-  SolarWaterHeater = 'SolarWaterHeater',
-}
-
-export enum HotWaterSupplyFuelType {
-  Electric = 'Electric',
-  Gas = 'Gas',
-  Oil = 'Oil',
-}
-
-export enum HeatingSourceType {
-  AllBurner = 'AllBurner',
-  BlockHeating = 'BlockHeating',
-  CentralHeatingBoiler = 'CentralHeatingBoiler',
-  CoalStove = 'CoalStove',
-  DistrictHeating = 'DistrictHeating',
-  Fireplace = 'Fireplace',
-  GasFire = 'GasFire',
-  GasHeaters = 'GasHeaters',
-  GeothermalHeat = 'GeothermalHeat',
-  HeatPump = 'HeatPump',
-  HeatRecoverySystem = 'HeatRecoverySystem',
-  HotAirHeating = 'HotAirHeating',
-  MotherHearth = 'MotherHearth',
-  PartialElectricHeating = 'PartialElectricHeating',
-  PelletStove = 'PelletStove',
-  PossibleFireplace = 'PossibleFireplace',
-  UnderfloorHeating = 'UnderfloorHeating',
-  UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
-  WallHeating = 'WallHeating',
-  WoodStove = 'WoodStove',
-}
-
-export enum AdditionalServiceType {
-  AirConditioning = 'AirConditioning',
-  AlarmSystem = 'AlarmSystem',
-  CableTv = 'CableTv',
-  Elevator = 'Elevator',
-  ExteriorSunProtection = 'ExteriorSunProtection',
-  Flue = 'Flue',
-  FrenchBalcony = 'FrenchBalcony',
-  MechanicalVentilation = 'MechanicalVentilation',
-  SateliteDish = 'SateliteDish',
-  Shutters = 'Shutters',
-  Skylight = 'Skylight',
-  SlidingDoor = 'SlidingDoor',
-  SolarCollector = 'SolarCollector',
-  SwimmingPool = 'SwimmingPool',
-  Windmill = 'Windmill',
-}
-
-export enum OwnershipType {
-  Leased = 'Leased',
-  Owned = 'Owned',
-  Rent = 'Rent',
-}
-
-export enum ServiceType {
-  AdditionalServices = 'AdditionalServices',
-  HeatingSources = 'HeatingSources',
-  HotWaterSupplies = 'HotWaterSupplies',
-}
-
-export type AddMeterInput = {
-  name: Scalars['String'];
-  parentId: Scalars['String'];
-  type: MeterType;
+export type AddAllocationCriteriaResult = {
+  __typename?: 'AddAllocationCriteriaResult';
+  pim: Pim;
+  criteria: AllocationCriteria;
 };
 
-export type UpdateMeterInput = {
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  parentId: Scalars['String'];
+export type PersonCapitalInput = {
+  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
+  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
 };
 
-export type AddReadingInput = {
-  dateOfReading?: Maybe<Scalars['Date']>;
-  feedInId?: Maybe<Scalars['String']>;
-  meterId: Scalars['ID'];
-  parentId: Scalars['ID'];
-  value?: Maybe<Scalars['Int']>;
+export type PersonCapital = {
+  __typename?: 'PersonCapital';
+  deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
+  availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
 };
 
-export type UpdateReadingInput = {
-  dateOfReading?: Maybe<Scalars['Date']>;
-  feedInId?: Maybe<Scalars['String']>;
+export type AllocationCriteriaInput = {
   id: Scalars['ID'];
-  parentId: Scalars['ID'];
-  value?: Maybe<Scalars['Int']>;
-};
-
-export type AddServiceInput = {
-  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
-  name: Scalars['String'];
-  parentId: Scalars['ID'];
-  type: ServiceType;
-};
-
-export type UpdateServiceInput = {
-  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
   description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  ownership?: Maybe<OwnershipType>;
-  parentId: Scalars['ID'];
-  serviceId: Scalars['ID'];
-  yearOfInstallation?: Maybe<Scalars['Int']>;
-};
-
-export type Reading = {
-  __typename?: 'Reading';
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateOfReading?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  feedInId?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
-};
-
-export type Meter = LastUpdated & {
-  __typename?: 'Meter';
-  dateCreated?: Maybe<Scalars['Date']>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  lastEditedBy?: Maybe<Profile>;
-  name: Scalars['String'];
-  readings?: Maybe<Array<Reading>>;
-  type: MeterType;
-};
-
-export type HeatingSourceMaintenanceContract = {
-  __typename?: 'HeatingSourceMaintenanceContract';
-  enabled: Scalars['Boolean'];
+  type?: Maybe<AllocationCriteriaType>;
+  note?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
+  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
+  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  publishedExternally?: Maybe<PropertyPublishedExternally>;
+  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
+  registrationFrom?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
+  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+  criteriaOrder: Array<CriteriaOrder>;
+  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
+  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
+  firstPersonFromCouple?: Maybe<PersonCapitalInput>;
+  secondPersonFromCouple?: Maybe<PersonCapitalInput>;
+  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
+  minimalAgePartner?: Maybe<Scalars['Int']>;
+  homeSituation?: Maybe<Array<HomeSituation>>;
+  numberOfAdults?: Maybe<Scalars['Int']>;
+  numberOfChildren?: Maybe<Scalars['Int']>;
+  currentResidence?: Maybe<Scalars['String']>;
+  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
+  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
+  segmentationProfileIds?: Maybe<Array<Scalars['ID']>>;
 };
 
-export type HotWaterSupplyConfiguration = {
-  __typename?: 'HotWaterSupplyConfiguration';
-  fuel?: Maybe<HotWaterSupplyFuelType>;
-  type: HotWaterSupplyType;
-};
-
-export type HeatingSourceConfiguration = {
-  __typename?: 'HeatingSourceConfiguration';
-  maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
-  type: HeatingSourceType;
-};
-
-export type AdditionalServiceConfiguration = {
-  __typename?: 'AdditionalServiceConfiguration';
-  type: AdditionalServiceType;
-};
-
-export type ServiceConfiguration =
-  | AdditionalServiceConfiguration
-  | HeatingSourceConfiguration
-  | HotWaterSupplyConfiguration;
-
-export type Service = {
-  __typename?: 'Service';
-  configuration: ServiceConfiguration;
-  dateCreated?: Maybe<Scalars['Date']>;
+export type AllocationCriteria = {
+  __typename?: 'AllocationCriteria';
+  id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
-  id: Scalars['String'];
-  name: Scalars['String'];
-  ownership?: Maybe<OwnershipType>;
-  type: ServiceType;
-  yearOfInstallation?: Maybe<Scalars['Int']>;
-};
-
-export type Services = {
-  additionalServices?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  hotWaterSupplies?: Maybe<Array<Service>>;
-};
-
-export type MetersSharedData = {
-  __typename?: 'MetersSharedData';
-  dateUpdated?: Maybe<Scalars['Date']>;
-  description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<Profile>;
-};
-
-export type MetersMeta = {
-  __typename?: 'MetersMeta';
-  Electric?: Maybe<MetersSharedData>;
-  Gas?: Maybe<MetersSharedData>;
-  Water?: Maybe<MetersSharedData>;
+  type?: Maybe<AllocationCriteriaType>;
+  note?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  candidatesAssignedPerProperty?: Maybe<Scalars['Int']>;
+  minJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMinJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  maxJointAnnualIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  monthlyRentByMaxJointIncome?: Maybe<Scalars['AbsoluteFloat']>;
+  publishedExternally?: Maybe<PropertyPublishedExternally>;
+  minNumberPreferenceInterest?: Maybe<Scalars['Int']>;
+  registrationFrom?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyPeopleWithPropertyInterest?: Maybe<Scalars['Boolean']>;
+  acceptedMissingDocuments?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+  criteriaOrder: Array<CriteriaOrder>;
+  lowestIncomePercentage?: Maybe<Scalars['AbsoluteFloat']>;
+  incomeDistributionThreshold?: Maybe<Scalars['AbsoluteFloat']>;
+  fictitiousIncomeCalculation?: Maybe<Scalars['AbsoluteFloat']>;
+  firstPersonFromCouple?: Maybe<PersonCapital>;
+  secondPersonFromCouple?: Maybe<PersonCapital>;
+  minimalAgeFirstPersonCouple?: Maybe<Scalars['Int']>;
+  minimalAgePartner?: Maybe<Scalars['Int']>;
+  homeSituation?: Maybe<Array<HomeSituation>>;
+  numberOfAdults?: Maybe<Scalars['Int']>;
+  numberOfChildren?: Maybe<Scalars['Int']>;
+  currentResidence?: Maybe<Scalars['String']>;
+  typeOfEmploymentFirstPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  typeOfEmploymentSecondPersonInCouple?: Maybe<Array<TypeOfEmployment>>;
+  assignToPersonsWithRole?: Maybe<Array<PersonRole>>;
+  assignPeopleAboveMaxJointIncome?: Maybe<Scalars['Boolean']>;
+  segmentationProfiles?: Maybe<Array<Profile>>;
+  segmentationProfileIds?: Maybe<Array<Scalars['String']>>;
 };
 
 export type PimServices = LastUpdated &
@@ -3927,27 +4447,6 @@ export enum ObligationToProvideInformationType {
   Asbestos = 'Asbestos',
   OwnSake = 'OwnSake',
 }
-
-export type LinkedPim = {
-  __typename?: 'LinkedPim';
-  id: Scalars['ID'];
-  houseNumberPrefix?: Maybe<Scalars['String']>;
-  houseNumber: Scalars['String'];
-  houseNumberAddition?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  district?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  county?: Maybe<Scalars['String']>;
-  country: Scalars['String'];
-  propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
-  plotNumber?: Maybe<Scalars['Int']>;
-  salePrice?: Maybe<Scalars['AbsoluteFloat']>;
-  rentPrice?: Maybe<Scalars['AbsoluteFloat']>;
-  status: PimStatus;
-  images?: Maybe<Array<File>>;
-};
 
 export type LinkedPimInput = {
   pimId: Scalars['ID'];
@@ -4305,6 +4804,7 @@ export type Pim = LastUpdated & {
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
   houseGeneral?: Maybe<HouseGeneral>;
+  bogGeneral?: Maybe<BogGeneral>;
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   floors?: Maybe<Array<Floor>>;
@@ -4338,6 +4838,9 @@ export type Pim = LastUpdated & {
   inspectionsDateUpdated?: Maybe<Scalars['Date']>;
   inspectionsLastEditedBy?: Maybe<Profile>;
   metersMeta?: Maybe<MetersMeta>;
+  allocationCriterias?: Maybe<Array<AllocationCriteria>>;
+  apartmentGeneral?: Maybe<ApartmentGeneral>;
+  bogSpaces?: Maybe<Array<BogSpace>>;
 };
 
 export type Event = {
@@ -4479,6 +4982,12 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type ProfileSearchResult = {
+  __typename?: 'ProfileSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Profile>>;
+};
+
 export type ProjectPhase = {
   __typename?: 'ProjectPhase';
   id: Scalars['ID'];
@@ -4547,9 +5056,209 @@ export type Subscription = {
   _?: Maybe<Scalars['Boolean']>;
 };
 
+export enum MeterType {
+  Water = 'Water',
+  Gas = 'Gas',
+  Electric = 'Electric',
+}
+
+export enum HotWaterSupplyType {
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  Boiler = 'Boiler',
+  Geyser = 'Geyser',
+  SolarWaterHeater = 'SolarWaterHeater',
+}
+
+export enum HotWaterSupplyFuelType {
+  Gas = 'Gas',
+  Electric = 'Electric',
+  Oil = 'Oil',
+}
+
+export enum HeatingSourceType {
+  GeothermalHeat = 'GeothermalHeat',
+  Fireplace = 'Fireplace',
+  AllBurner = 'AllBurner',
+  PelletStove = 'PelletStove',
+  BlockHeating = 'BlockHeating',
+  WoodStove = 'WoodStove',
+  DistrictHeating = 'DistrictHeating',
+  CentralHeatingBoiler = 'CentralHeatingBoiler',
+  CoalStove = 'CoalStove',
+  PartialElectricHeating = 'PartialElectricHeating',
+  MotherHearth = 'MotherHearth',
+  GasFire = 'GasFire',
+  PossibleFireplace = 'PossibleFireplace',
+  HeatRecoverySystem = 'HeatRecoverySystem',
+  GasHeaters = 'GasHeaters',
+  HeatPump = 'HeatPump',
+  HotAirHeating = 'HotAirHeating',
+  UnderfloorHeating = 'UnderfloorHeating',
+  UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
+  WallHeating = 'WallHeating',
+}
+
+export enum AdditionalServiceType {
+  AirConditioning = 'AirConditioning',
+  AlarmSystem = 'AlarmSystem',
+  ExteriorSunProtection = 'ExteriorSunProtection',
+  Skylight = 'Skylight',
+  SateliteDish = 'SateliteDish',
+  SlidingDoor = 'SlidingDoor',
+  CableTv = 'CableTv',
+  Windmill = 'Windmill',
+  SolarCollector = 'SolarCollector',
+  SwimmingPool = 'SwimmingPool',
+  FrenchBalcony = 'FrenchBalcony',
+  MechanicalVentilation = 'MechanicalVentilation',
+  Elevator = 'Elevator',
+  Flue = 'Flue',
+  Shutters = 'Shutters',
+}
+
+export enum OwnershipType {
+  Rent = 'Rent',
+  Leased = 'Leased',
+  Owned = 'Owned',
+}
+
+export enum ServiceType {
+  HotWaterSupplies = 'HotWaterSupplies',
+  HeatingSources = 'HeatingSources',
+  AdditionalServices = 'AdditionalServices',
+}
+
+export type AddMeterInput = {
+  parentId: Scalars['String'];
+  name: Scalars['String'];
+  type: MeterType;
+};
+
+export type UpdateMeterInput = {
+  parentId: Scalars['String'];
+  id: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type AddReadingInput = {
+  parentId: Scalars['ID'];
+  meterId: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
+export type UpdateReadingInput = {
+  parentId: Scalars['ID'];
+  id: Scalars['ID'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  feedInId?: Maybe<Scalars['String']>;
+};
+
+export type AddServiceInput = {
+  parentId: Scalars['ID'];
+  name: Scalars['String'];
+  type: ServiceType;
+  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+};
+
+export type UpdateServiceInput = {
+  parentId: Scalars['ID'];
+  serviceId: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+  ownership?: Maybe<OwnershipType>;
+  configuration?: Maybe<Scalars['ServiceConfigurationInput']>;
+};
+
+export type Reading = {
+  __typename?: 'Reading';
+  id: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
+  dateOfReading?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
+  feedInId?: Maybe<Scalars['String']>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type Meter = LastUpdated & {
+  __typename?: 'Meter';
+  id: Scalars['String'];
+  type: MeterType;
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  readings?: Maybe<Array<Reading>>;
+  dateCreated?: Maybe<Scalars['Date']>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+};
+
+export type HeatingSourceMaintenanceContract = {
+  __typename?: 'HeatingSourceMaintenanceContract';
+  enabled: Scalars['Boolean'];
+  endDate?: Maybe<Scalars['Date']>;
+};
+
+export type HotWaterSupplyConfiguration = {
+  __typename?: 'HotWaterSupplyConfiguration';
+  type: HotWaterSupplyType;
+  fuel?: Maybe<HotWaterSupplyFuelType>;
+};
+
+export type HeatingSourceConfiguration = {
+  __typename?: 'HeatingSourceConfiguration';
+  type: HeatingSourceType;
+  maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
+};
+
+export type AdditionalServiceConfiguration = {
+  __typename?: 'AdditionalServiceConfiguration';
+  type: AdditionalServiceType;
+};
+
+export type ServiceConfiguration =
+  | HotWaterSupplyConfiguration
+  | HeatingSourceConfiguration
+  | AdditionalServiceConfiguration;
+
+export type Service = {
+  __typename?: 'Service';
+  id: Scalars['String'];
+  type: ServiceType;
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  yearOfInstallation?: Maybe<Scalars['Int']>;
+  configuration: ServiceConfiguration;
+  ownership?: Maybe<OwnershipType>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
 export type ServiceDescriptionInput = {
   id: Scalars['ID'];
   servicesDescription?: Maybe<Scalars['String']>;
+};
+
+export type Services = {
+  hotWaterSupplies?: Maybe<Array<Service>>;
+  heatingSources?: Maybe<Array<Service>>;
+  additionalServices?: Maybe<Array<Service>>;
+};
+
+export type MetersSharedData = {
+  __typename?: 'MetersSharedData';
+  description?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<Profile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type MetersMeta = {
+  __typename?: 'MetersMeta';
+  Water?: Maybe<MetersSharedData>;
+  Gas?: Maybe<MetersSharedData>;
+  Electric?: Maybe<MetersSharedData>;
 };
 
 export type LoginMutationVariables = {
@@ -4883,9 +5592,9 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -4893,9 +5602,9 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -4906,9 +5615,9 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
             }
         >
       >;
@@ -5130,6 +5839,26 @@ export type UpdateObjectTypeCostsDetailsMutation = { __typename?: 'Mutation' } &
   updateObjectTypeCostsDetails: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
+export type SetObjectTypeLinkedPimsMutationVariables = {
+  input: SetLinkedPimsInput;
+};
+
+export type SetObjectTypeLinkedPimsMutation = { __typename?: 'Mutation' } & {
+  setObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      items?: Maybe<Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id'>>>;
+    };
+  };
+};
+
+export type UpdateLinkedPropertiesListDescriptionMutationVariables = {
+  input: UpdateLinkedPropertiesListDescription;
+};
+
+export type UpdateLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateLinkedPropertiesListDescription?: Maybe<{ __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id'>>;
+};
+
 export type AddObjectTypeServiceMutationVariables = {
   input: AddServiceInput;
 };
@@ -5157,9 +5886,9 @@ export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -5167,9 +5896,9 @@ export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -5180,9 +5909,9 @@ export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
             }
         >
       >;
@@ -5949,9 +6678,9 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -5959,9 +6688,9 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -5972,9 +6701,9 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
             }
         >
       >;
@@ -6044,6 +6773,21 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
     ObjectTypeGeneral,
     'id' | 'name' | 'dateUpdated' | 'ncpId'
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
+
+export type ObjectTypeGeneralQueryVariables = {
+  id: Scalars['ID'];
+  projectId: Scalars['ID'];
+};
+
+export type ObjectTypeGeneralQuery = { __typename?: 'Query' } & {
+  objectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id' | 'name'>;
+  project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
+  linkedProperty: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
 };
 
 export type GetObjectTypeLabelsQueryVariables = {
@@ -6226,9 +6970,9 @@ export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -6236,9 +6980,9 @@ export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -6249,13 +6993,77 @@ export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
             }
         >
       >;
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
+
+export type ListObjectTypeLinkedPimsCountQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type ListObjectTypeLinkedPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+  archivedCount: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
+
+export type ObjectTypeLinkedPimsQueryVariables = {
+  id: Scalars['ID'];
+  archived?: Maybe<Scalars['Boolean']>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
+  getObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & Pick<
+    ObjectTypeLinkedPims,
+    'linkedPropertiesIds' | 'description' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      linkedProperties: { __typename?: 'PimListSearchResult' } & {
+        items?: Maybe<
+          Array<
+            { __typename?: 'ListPim' } & Pick<
+              ListPim,
+              | 'id'
+              | 'street'
+              | 'houseNumberPrefix'
+              | 'houseNumber'
+              | 'houseNumberAddition'
+              | 'constructionNumberPrefix'
+              | 'constructionNumber'
+              | 'constructionNumberAddition'
+              | 'city'
+              | 'dateCreated'
+              | 'livingArea'
+              | 'propertyType'
+              | 'salePrice'
+              | 'rentPrice'
+              | 'completeness'
+              | 'archived'
+              | 'postalCode'
+              | 'country'
+              | 'status'
+              | 'developmentType'
+            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+          >
+        >;
+      };
     };
 };
 
@@ -6766,9 +7574,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>);
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -6776,9 +7584,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
               configuration:
-                | { __typename?: 'AdditionalServiceConfiguration' }
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | { __typename?: 'AdditionalServiceConfiguration' };
             }
         >
       >;
@@ -6789,9 +7597,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
             'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
           > & {
               configuration:
-                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>)
+                | { __typename?: 'HotWaterSupplyConfiguration' }
                 | { __typename?: 'HeatingSourceConfiguration' }
-                | { __typename?: 'HotWaterSupplyConfiguration' };
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
             }
         >
       >;
@@ -8364,6 +9172,62 @@ export type UpdateObjectTypeCostsDetailsMutationResult = ApolloReactCommon.Mutat
 export type UpdateObjectTypeCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateObjectTypeCostsDetailsMutation,
   UpdateObjectTypeCostsDetailsMutationVariables
+>;
+export const SetObjectTypeLinkedPimsDocument = gql`
+  mutation SetObjectTypeLinkedPims($input: SetLinkedPimsInput!) {
+    setObjectTypeLinkedPims(input: $input) {
+      linkedProperties(pagination: { from: 0 }) {
+        items {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useSetObjectTypeLinkedPimsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetObjectTypeLinkedPimsMutation,
+    SetObjectTypeLinkedPimsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<SetObjectTypeLinkedPimsMutation, SetObjectTypeLinkedPimsMutationVariables>(
+    SetObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export type SetObjectTypeLinkedPimsMutationHookResult = ReturnType<typeof useSetObjectTypeLinkedPimsMutation>;
+export type SetObjectTypeLinkedPimsMutationResult = ApolloReactCommon.MutationResult<SetObjectTypeLinkedPimsMutation>;
+export type SetObjectTypeLinkedPimsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetObjectTypeLinkedPimsMutation,
+  SetObjectTypeLinkedPimsMutationVariables
+>;
+export const UpdateLinkedPropertiesListDescriptionDocument = gql`
+  mutation UpdateLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
+    updateLinkedPropertiesListDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateLinkedPropertiesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateLinkedPropertiesListDescriptionMutation,
+    UpdateLinkedPropertiesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateLinkedPropertiesListDescriptionMutation,
+    UpdateLinkedPropertiesListDescriptionMutationVariables
+  >(UpdateLinkedPropertiesListDescriptionDocument, baseOptions);
+}
+export type UpdateLinkedPropertiesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateLinkedPropertiesListDescriptionMutation,
+  UpdateLinkedPropertiesListDescriptionMutationVariables
 >;
 export const AddObjectTypeServiceDocument = gql`
   mutation AddObjectTypeService($input: AddServiceInput!) {
@@ -10260,6 +11124,47 @@ export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeGeneralQuery,
   GetObjectTypeGeneralQueryVariables
 >;
+export const ObjectTypeGeneralDocument = gql`
+  query ObjectTypeGeneral($id: ID!, $projectId: ID!) {
+    objectType: getObjectTypeGeneral(id: $id) {
+      id
+      name
+    }
+    project: getNcp(id: $projectId) {
+      id
+      name
+    }
+    linkedProperty: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useObjectTypeGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>(
+    ObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>(
+    ObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeGeneralQueryHookResult = ReturnType<typeof useObjectTypeGeneralQuery>;
+export type ObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useObjectTypeGeneralLazyQuery>;
+export type ObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeGeneralQuery,
+  ObjectTypeGeneralQueryVariables
+>;
 export const GetObjectTypeLabelsDocument = gql`
   query GetObjectTypeLabels($id: ID!, $properties: [LabelProperty!]) {
     getObjectTypeLabels(parentId: $id, properties: $properties) {
@@ -10688,6 +11593,128 @@ export type GetObjectTypeServicesLazyQueryHookResult = ReturnType<typeof useGetO
 export type GetObjectTypeServicesQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeServicesQuery,
   GetObjectTypeServicesQueryVariables
+>;
+export const ListObjectTypeLinkedPimsCountDocument = gql`
+  query ListObjectTypeLinkedPimsCount($id: ID!) {
+    activeCount: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+    archivedCount: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: true }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useListObjectTypeLinkedPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ListObjectTypeLinkedPimsCountQuery,
+    ListObjectTypeLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(
+    ListObjectTypeLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypeLinkedPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListObjectTypeLinkedPimsCountQuery,
+    ListObjectTypeLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(
+    ListObjectTypeLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypeLinkedPimsCountQueryHookResult = ReturnType<typeof useListObjectTypeLinkedPimsCountQuery>;
+export type ListObjectTypeLinkedPimsCountLazyQueryHookResult = ReturnType<
+  typeof useListObjectTypeLinkedPimsCountLazyQuery
+>;
+export type ListObjectTypeLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypeLinkedPimsCountQuery,
+  ListObjectTypeLinkedPimsCountQueryVariables
+>;
+export const ObjectTypeLinkedPimsDocument = gql`
+  query ObjectTypeLinkedPims(
+    $id: ID!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    getObjectTypeLinkedPims(id: $id) {
+      linkedPropertiesIds
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      linkedProperties(
+        filters: { archived: $archived }
+        pagination: { from: $from, limit: $limit }
+        sort: { column: $sortColumn, direction: $sortDirection }
+      ) {
+        items {
+          id
+          street
+          houseNumberPrefix
+          houseNumber
+          houseNumberAddition
+          constructionNumberPrefix
+          constructionNumber
+          constructionNumberAddition
+          city
+          dateCreated
+          livingArea
+          propertyType
+          images {
+            url
+          }
+          salePrice
+          rentPrice
+          completeness
+          archived
+          postalCode
+          country
+          status
+          developmentType
+        }
+      }
+    }
+  }
+`;
+export function useObjectTypeLinkedPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(
+    ObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeLinkedPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(
+    ObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeLinkedPimsQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsQuery>;
+export type ObjectTypeLinkedPimsLazyQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsLazyQuery>;
+export type ObjectTypeLinkedPimsQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeLinkedPimsQuery,
+  ObjectTypeLinkedPimsQueryVariables
 >;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {

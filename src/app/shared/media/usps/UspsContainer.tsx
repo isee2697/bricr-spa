@@ -30,7 +30,7 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
 
 export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newUspId, setNewUspId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.Usp], entityType)[LabelProperty.Usp] ?? [];
@@ -48,7 +48,7 @@ export const UspsContainer = ({ usps, onAddCustomType }: UspsContainerProps) => 
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addUsp({
           variables: {
             input: { pimId: id },

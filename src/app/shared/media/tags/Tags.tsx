@@ -15,7 +15,7 @@ import { TagsProps } from './Tags.types';
 export const Tags = ({ onAdd, onSave, options, tags, newTagId, onAddCustomType }: TagsProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const [toggled, setToggled] = useState<string | undefined>(newTagId);
 
   useToggleOnNewlyCreated(newTagId, setToggled);

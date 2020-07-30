@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { ObjectTypeDetailsHeader } from 'app/objectTypeDetails/objectTypeDetailsHeader/ObjectTypeDetailsHeader';
-import { ObjectTypeDetailsProps } from 'app/objectTypeDetails/ObjectTypeDetails.types';
+import { ObjectTypeDetailsCommonProps } from 'app/objectTypeDetails/ObjectTypeDetails.types';
 
-export const Dashboard = ({ onSidebarOpen, isSidebarVisible }: ObjectTypeDetailsProps) => {
+export const Dashboard = ({ onSidebarOpen, isSidebarVisible }: ObjectTypeDetailsCommonProps) => {
   return (
     <>
       <ObjectTypeDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />

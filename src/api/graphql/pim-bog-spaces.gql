@@ -1,0 +1,392 @@
+enum BogSpaceType {
+  BusinessSpace,
+  OfficeSpace,
+  RetailSpace,
+  Leissure,
+  HorecaSpace,
+  SocialRealEstateSpace,
+  Terrain,
+  Storage
+}
+
+enum AirTreatmentType {
+  Airco,
+  MechanicalVentilation,
+  TopCooling
+}
+
+enum SpecificationType {
+  TakeoverOfPersonel,
+  CateringAllowed,
+  IndustryLimitation,
+  PublicOrientedServices,
+  Retail,
+  Showroom,
+  AnnualPitches,
+  ResidentialObjectAvailable,
+  ReturnService,
+  CateringArea,
+  Terrace,
+  Luxery
+}
+
+enum BogServicesType {
+  Electra,
+  Reception,
+  SanitaryBlocks,
+  SwimmingPool,
+  SewageSystem,
+  CateringAvailable,
+  CampShop,
+  ConcreteFloor,
+  SkyLights,
+  Pantry,
+  Heating,
+  LoadingDocks,
+  Sprinkler,
+  PowerFlow,
+  OverheadDoors,
+  Toilet,
+  RecessedLuminaires,
+  Elevators,
+  OpenableWindows,
+  CableTrays,
+  SuspendedCeiling,
+  RoomLayout,
+  FlexDesk
+}
+
+enum WealthClassType {
+  A1,
+  A2,
+  B1,
+  B2,
+  C1,
+  C2
+}
+
+enum TermsOfCostsType {
+  Monthly,
+  Yearly
+}
+
+enum CommonRoomsType {
+  Canteen,
+  Pantry,
+  Kitchen,
+  FrontDesk,
+  Sanitary,
+  ConferenceRoom
+}
+
+enum HorecaType {
+  Snackbar,
+  ConferenceRoomCenter,
+  Restaurant,
+  Bistro,
+  Disco,
+  Hotel,
+  Cafe,
+  EatCafe,
+  PancakeHouse,
+  Cafeteria,
+  Restaria,
+  Lunchroom,
+  Fastfood,
+  RoadHouse,
+  IceCreamParlour,
+  SandwichShop
+}
+
+enum LegalFormType {
+  BV,
+  CV,
+  Cooperation,
+  Proprietorship,
+  Partnership,
+  NV,
+  VOF,
+  Foundation,
+  Association
+}
+
+type RetailMeasurements {
+  surface: AbsoluteFloat
+  salesFloorArea: AbsoluteFloat
+  frontWidth: AbsoluteFloat
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+input RetailMeasurementsInput {
+  surface: AbsoluteFloat
+  salesFloorArea: AbsoluteFloat
+  frontWidth: AbsoluteFloat
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+type LeisureMeasurements {
+  surface: AbsoluteFloat
+  numberOfPitches: Int
+  numberOfStays: Int
+  capacityOfPersons: Int
+}
+
+input LeisureMeasurementsInput {
+  surface: AbsoluteFloat
+  numberOfPitches: Int
+  numberOfStays: Int
+  capacityOfPersons: Int
+}
+
+type HorecaMeasurements {
+  surface: AbsoluteFloat
+  salesFloorArea: AbsoluteFloat
+  amountOfFloors: Int
+  amountOfRooms: Int
+  currentNumberOfSeats: Int
+  housingArea: AbsoluteFloat
+}
+
+input HorecaMeasurementsInput {
+  surface: AbsoluteFloat
+  salesFloorArea: AbsoluteFloat
+  amountOfFloors: Int
+  amountOfRooms: Int
+  currentNumberOfSeats: Int
+  housingArea: AbsoluteFloat
+}
+
+type BusinessSpaceMeasurements {
+  surface: AbsoluteFloat
+  freeHeight: AbsoluteFloat
+  freeSpan: AbsoluteFloat
+  floorLoad: AbsoluteFloat
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+input BusinessSpaceMeasurementsInput {
+  surface: AbsoluteFloat
+  freeHeight: AbsoluteFloat
+  freeSpan: AbsoluteFloat
+  floorLoad: AbsoluteFloat
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+type OfficeSpaceMeasurements {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  height: AbsoluteFloat
+  surface: AbsoluteFloat
+  volume: AbsoluteFloat
+  measurementsCertificateAvailable: Boolean
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+input OfficeSpaceMeasurementsInput {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  height: AbsoluteFloat
+  surface: AbsoluteFloat
+  volume: AbsoluteFloat
+  measurementsCertificateAvailable: Boolean
+  inUnitsFrom: AbsoluteFloat
+  amountOfFloors: Int
+}
+
+type GoodWillPrices {
+  priceInventoryGoodwill: AbsoluteFloat
+  vatRate: AbsoluteFloat
+  priceInventoryGoodwillVat: AbsoluteFloat
+  priceInventoryGoodwillIncludedVat: AbsoluteFloat
+  notes: String
+}
+
+input GoodWillPricesInput {
+  priceInventoryGoodwill: AbsoluteFloat
+  vatRate: AbsoluteFloat
+  priceInventoryGoodwillVat: AbsoluteFloat
+  priceInventoryGoodwillIncludedVat: AbsoluteFloat
+  notes: String
+}
+
+type HorecaPrices {
+  priceInventoryGoodwill: AbsoluteFloat
+  vatRate: AbsoluteFloat
+  priceInventoryGoodwillVat: AbsoluteFloat
+  priceInventoryGoodwillIncludedVat: AbsoluteFloat
+  revenueLastFiscalYear: AbsoluteFloat
+  rentalIncomeHomeYear: AbsoluteFloat
+  notes: String
+}
+
+input HorecaPricesInput {
+  priceInventoryGoodwill: AbsoluteFloat
+  vatRate: AbsoluteFloat
+  priceInventoryGoodwillVat: AbsoluteFloat
+  priceInventoryGoodwillIncludedVat: AbsoluteFloat
+  revenueLastFiscalYear: AbsoluteFloat
+  rentalIncomeHomeYear: AbsoluteFloat
+  notes: String
+}
+
+type BogPrices {
+  price: AbsoluteFloat
+  vateRate: AbsoluteFloat
+  priceVat: AbsoluteFloat
+  priceIncVat: AbsoluteFloat
+}
+
+input BogPricesInput {
+  price: AbsoluteFloat
+  vateRate: AbsoluteFloat
+  priceVat: AbsoluteFloat
+  priceIncVat: AbsoluteFloat
+}
+
+type RetailerAssociationContribution {
+  contribution: AbsoluteFloat
+  termsOfCosts: String @uuidOrEnum(enum: ["TermsOfCostsType"])
+  vatPercentage: AbsoluteFloat
+  vatTaxedContribution: AbsoluteFloat
+  notes: String
+}
+
+input RetailerAssociationContributionInput {
+  contribution: AbsoluteFloat
+  termsOfCosts: String @uuidOrEnum(enum: ["TermsOfCostsType"])
+  vatPercentage: AbsoluteFloat
+  vatTaxedContribution: AbsoluteFloat
+  notes: String
+}
+
+type RetailSpace {
+  measurements: RetailMeasurements
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: GoodWillPrices
+  wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
+  retailerAssociationContribution: RetailerAssociationContribution
+  commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
+}
+
+input RetailSpaceInput {
+  measurements: RetailMeasurementsInput
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: GoodWillPricesInput
+  wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
+  retailerAssociationContribution: RetailerAssociationContributionInput
+  commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
+}
+
+type LeisureSpace {
+  measurements: LeisureMeasurements
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: GoodWillPrices
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+}
+
+input LeisureSpaceInput {
+  measurements: LeisureMeasurementsInput
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: GoodWillPricesInput
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+}
+
+type HorecaSpace {
+  measurements: HorecaMeasurements
+  type: [String!] @uuidOrEnum(enum: ["HorecaType"])
+  notes: String
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: HorecaPrices
+  wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
+  legalForm: String @uuidOrEnum(enum: ["LegalFormType"])
+}
+
+input HorecaSpaceInput {
+  measurements: HorecaMeasurementsInput
+  type: [String!] @uuidOrEnum(enum: ["HorecaType"])
+  notes: String
+  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  prices: HorecaPricesInput
+  wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
+  legalForm: String @uuidOrEnum(enum: ["LegalFormType"])
+}
+
+type BusinessSpace {
+  measurements: BusinessSpaceMeasurements
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  prices: BogPrices
+}
+
+input BusinessSpaceInput {
+  measurements: BusinessSpaceMeasurementsInput
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  prices: BogPricesInput
+}
+
+type OfficeSpace {
+  measurements: OfficeSpaceMeasurements
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  prices: BogPrices
+  turnKey: Boolean
+  commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
+}
+
+input OfficeSpaceInput {
+  measurements: OfficeSpaceMeasurementsInput
+  airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
+  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  prices: BogPricesInput
+  turnKey: Boolean
+  commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
+}
+
+type BogSpace implements LastUpdated {
+  id: ID!
+  type: BogSpaceType!
+  name: String
+  retailSpaceConfiguration: RetailSpace
+  leisureSpaceConfiguration: LeisureSpace
+  horecaSpaceConfiguration: HorecaSpace
+  businessSpaceConfiguration: BusinessSpace
+  officeSpaceConfiguration: OfficeSpace
+  images: [File!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+}
+
+input UpdateBogSpaceInput {
+  pimId: ID!
+  spaceId: ID!
+  spaceName: String
+  retailSpaceConfiguration: RetailSpaceInput
+  leisureSpaceConfiguration: LeisureSpaceInput
+  horecaSpaceConfiguration: HorecaSpaceInput
+  businessSpaceConfiguration: BusinessSpaceInput
+  officeSpaceConfiguration: OfficeSpaceInput
+}
+
+input AddBogSpaceInput {
+  id: ID!
+  type: BogSpaceType!
+  name: String
+}
+
+type PimWithNewBogSpace {
+  newSpace: BogSpace!
+  pim: Pim!
+}
+
+extend type Mutation {
+  addBogSpace(input: AddBogSpaceInput!): PimWithNewBogSpace! @auth
+  updateBogSpace(input: UpdateBogSpaceInput!): Pim! @auth
+}

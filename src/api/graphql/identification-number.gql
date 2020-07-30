@@ -27,6 +27,8 @@ input UpdateIdentificationNumberInput {
 extend type Mutation {
   addIdentificationNumberPim(input: AddIdentificationNumberInput!): PimWithNewIdentificationNumber! @auth
   addIdentificationNumberNcp(input: AddIdentificationNumberInput!): NcpWithNewIdentificationNumber! @auth
+  addIdentificationNumberObjectType(input: AddIdentificationNumberInput!): ObjectTypeWithNewIdentificationNumber! @auth
   updateIdentificationNumberPim(input: UpdateIdentificationNumberInput!): Pim! @auth
   updateIdentificationNumberNcp(input: UpdateIdentificationNumberInput!): NcpCharacteristics! @auth
+  updateIdentificationNumberObjectType(input: UpdateIdentificationNumberInput!): ObjectTypeCharacteristics! @auth
 }

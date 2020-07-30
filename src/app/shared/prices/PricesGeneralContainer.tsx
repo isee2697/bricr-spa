@@ -35,7 +35,7 @@ const getQuery = (entityType: EntityType) => {
 
 export const PricesGeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });

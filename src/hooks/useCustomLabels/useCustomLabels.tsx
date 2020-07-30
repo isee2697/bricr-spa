@@ -18,6 +18,8 @@ const getQuery = (entityType: EntityType) => {
   switch (entityType) {
     case EntityType.Property:
       return useGetLabelsQuery;
+    case EntityType.LinkedProperty:
+      return useGetLabelsQuery;
     case EntityType.Project:
       return useGetNcpLabelsQuery;
     case EntityType.ObjectType:

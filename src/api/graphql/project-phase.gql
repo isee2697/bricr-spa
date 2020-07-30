@@ -34,12 +34,12 @@ input LinkNcpToProjectPhaseInput {
 }
 
 extend type Mutation {
-  addProjectPhase(input: CreateProjectPhaseInput!): ProjectPhase!
-  updateProjectPhase(input: UpdateProjectPhaseInput!): ProjectPhase!
-  removeProjectPhase(id: ID!): Boolean
-  linkNcpToProjectPhase(input: LinkNcpToProjectPhaseInput!): ProjectPhase!
+  addProjectPhase(input: CreateProjectPhaseInput!): ProjectPhase! @auth
+  updateProjectPhase(input: UpdateProjectPhaseInput!): ProjectPhase! @auth
+  removeProjectPhase(id: ID!): Boolean @auth
+  linkNcpToProjectPhase(input: LinkNcpToProjectPhaseInput!): ProjectPhase! @auth
 }
 
 extend type Query {
-  getProjectPhases(filters: ProjectPhaseFilters, pagination: Pagination!): ProjectPhaseSearchResult!
+  getProjectPhases(filters: ProjectPhaseFilters, pagination: Pagination!): ProjectPhaseSearchResult! @auth
 }

@@ -25,7 +25,7 @@ const options = Object.values(PictureType).map(tagName => ({
 
 export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture }: EditPictureModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const { loading, data } = useGetPrivateFile(
     picture.file?.key || '',
@@ -43,7 +43,7 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
         throw new Error();
       }
 
-      if (entityType === EntityType.Property)
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty)
         await updatePicture({
           variables: {
             input: {

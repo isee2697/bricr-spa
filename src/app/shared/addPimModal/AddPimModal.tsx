@@ -26,7 +26,7 @@ const steps = [
   },
 ];
 
-export const AddPimModal = ({ onSubmit, propertyCategory, isOpen }: AddPimModalProps) => {
+export const AddPimModal = ({ onSubmit, propertyCategory, isOpen, options }: AddPimModalProps) => {
   const [step, setStep] = useState(0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
@@ -84,6 +84,7 @@ export const AddPimModal = ({ onSubmit, propertyCategory, isOpen }: AddPimModalP
             {React.createElement(currentStep.component, {
               onNext: handleNext,
               onPrev: handlePrev,
+              options,
             })}
           </form>
         </Modal>

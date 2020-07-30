@@ -18,16 +18,22 @@ type Company {
   name: String
 }
 
-type Team{
+type Team {
   id: String!
   members: [Profile!]
   company: Company!
   name: String
 }
 
+type ProfileSearchResult {
+  metadata: SearchMetadata
+  items: [Profile!]
+}
+
 extend type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
+  getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult!
 }
 
 extend type Mutation {

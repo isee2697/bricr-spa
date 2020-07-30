@@ -26,7 +26,7 @@ export const Media = ({
   sortQuery,
 }: MediaProps) => {
   const { formatMessage } = useLocale();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
   const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
 

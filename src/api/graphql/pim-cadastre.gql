@@ -128,6 +128,7 @@ type CadastrePlot {
   ownershipType: CadastreOwnershipType
   lease: Lease
   boughtOff: BoughtOff
+  dateCreated: Date
 }
 
 type CadastreMap {
@@ -136,6 +137,7 @@ type CadastreMap {
   name: String
   file: File
   description: String
+  dateCreated: Date
   type: String @uuidOrEnum(enum: ["CadastreMapType"])
 }
 
@@ -160,7 +162,7 @@ input LeaseInput {
   leaseholder: LeaseholderType
   information: LeaseInformationType
   duration: LeaseDurationType
-  yearlyPrice: Float,
+  yearlyPrice: Float
   endDate: Date
 }
 

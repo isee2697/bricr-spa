@@ -15,7 +15,7 @@ import { UspsProps } from './Usps.types';
 export const Usps = ({ onAdd, onSave, options, usps, newUspId, onAddCustomType }: UspsProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const [toggled, setToggled] = useState<string | undefined>(newUspId);
 
   useToggleOnNewlyCreated(newUspId, setToggled);

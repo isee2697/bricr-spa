@@ -30,7 +30,7 @@ const options = Object.values(TagType).map(tagName => ({
 
 export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newTagId, setNewTagId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.Tag], entityType)[LabelProperty.Tag] ?? [];
@@ -48,7 +48,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addTag({
           variables: {
             input: { pimId: id },

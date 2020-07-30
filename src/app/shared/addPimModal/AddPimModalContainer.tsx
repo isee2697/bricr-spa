@@ -15,6 +15,8 @@ import {
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables,
   NcpWithSameAddressDocument,
+  useSetObjectTypeLinkedPimsMutation,
+  ObjectTypeGeneralDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -27,6 +29,7 @@ export const AddPimModalContainer = () => {
   const apiClient = useApolloClient();
   const [createPim] = useCreatePimMutation();
   const [createNcp] = useCreateNcpMutation();
+  const [setLinked] = useSetObjectTypeLinkedPimsMutation();
   const { push } = useHistory();
   const { close } = useModalDispatch();
   const { isOpen: isModalOpen, options } = useModalState('add-new-pim');
@@ -79,7 +82,39 @@ export const AddPimModalContainer = () => {
         throw new Error();
       }
 
-      push(AppRoute.pimDetails.replace(':id', result.createPim.id), { newlyAdded: true });
+      if (options?.projectId && options?.objectTypeId) {
+        const { data: setResult } = await setLinked({
+          variables: {
+            input: {
+              id: options.objectTypeId as string,
+              linkedProperties: [...(options?.linkedPropertiesIds as string[]), result.createPim.id],
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeGeneralDocument,
+              variables: {
+                id: options.objectTypeId,
+                projectId: options?.projectId,
+              },
+            },
+          ],
+        });
+
+        if (!setResult || !setResult.setObjectTypeLinkedPims) {
+          throw new Error();
+        }
+
+        push(
+          AppRoute.linkedPropertyDetails
+            .replace(':projectId', options.projectId as string)
+            .replace(':objectTypeId', options.objectTypeId as string)
+            .replace(':id', result.createPim.id),
+          { newlyAdded: true },
+        );
+      } else {
+        push(AppRoute.pimDetails.replace(':id', result.createPim.id), { newlyAdded: true });
+      }
 
       close('add-new-pim');
 
@@ -161,6 +196,11 @@ export const AddPimModalContainer = () => {
   if (!isModalOpen) return null;
 
   return (
-    <AddPimModal onSubmit={handleSubmit} isOpen={isModalOpen} propertyCategory={options?.propertyCategory as string} />
+    <AddPimModal
+      onSubmit={handleSubmit}
+      isOpen={isModalOpen}
+      propertyCategory={options?.propertyCategory as string}
+      options={options}
+    />
   );
 };

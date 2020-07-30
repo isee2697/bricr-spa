@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation, useParams } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
 
 import { SideMenu } from 'ui/molecules';
@@ -18,6 +18,7 @@ import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType, FloorType } from 'api/types';
 import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton';
+import { EntityType, useEntityType } from 'app/shared/entityType';
 
 import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -26,11 +27,24 @@ const createSubMenuData = (id: string, label: string, amount: number, key: numbe
   return { id, label, number: amount > 1 ? amount - key : undefined };
 };
 
+const getBackUrl = (routeParams: Record<string, string>) => {
+  if (routeParams.projectId && routeParams.objectTypeId) {
+    return (
+      AppRoute.objectTypeDetails.replace(':id', routeParams.objectTypeId).replace(':projectId', routeParams.projectId) +
+      '/properties'
+    );
+  }
+
+  return AppRoute.pim;
+};
+
 export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { url } = useRouteMatch();
+  const params = useParams();
   const { pathname } = useLocation();
+  const { entityType } = useEntityType();
 
   if (!data) {
     return null;
@@ -188,9 +202,14 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
         <SideMenuItem
           className={classes.backToList}
           title={
-            <Link to={AppRoute.pim}>
+            <Link to={getBackUrl(params)}>
               <ArrowLeftIcon color="inherit" />
-              {formatMessage({ id: `pim_details.menu.back_to_pim_list` })}
+              {formatMessage({
+                id:
+                  entityType === EntityType.Property
+                    ? `pim_details.menu.back_to_pim_list`
+                    : `project_details.properties.menu.back_to_properties_list`,
+              })}
             </Link>
           }
           selected={false}

@@ -8,9 +8,9 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { usePimOutsideQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { useEntityType } from 'app/shared/entityType';
 
 import { AddOutsideFeatureModalContainer } from './addOutsideFeatureModal/AddOutsideFeatureModalContainer';
 import { MainContainer } from './main/MainContainer';
@@ -18,7 +18,7 @@ import { FeatureContainer } from './feature/FeatureContainer';
 
 export const Outside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
-
+  const { baseUrl } = useEntityType();
   const { id } = useParams<{ id: string }>();
 
   const { data } = usePimOutsideQuery({
@@ -36,11 +36,7 @@ export const Outside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSe
 
   return (
     <>
-      <NavBreadcrumb
-        urlBase={AppRoute.pimDetails}
-        to="/outside"
-        title={formatMessage({ id: 'pim_details.outside.title' })}
-      />
+      <NavBreadcrumb urlBase={baseUrl} to="/outside" title={formatMessage({ id: 'pim_details.outside.title' })} />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
@@ -63,15 +59,15 @@ export const Outside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSe
       <Switch>
         <Route
           default
-          path={`${AppRoute.pimDetails}/outside`}
+          path={`${baseUrl}/outside`}
           exact
           render={() => <MainContainer pimOutside={data?.getPimOutside} />}
         />
         <Route
-          path={`${AppRoute.pimDetails}/outside/:featureId`}
+          path={`${baseUrl}/outside/:featureId`}
           render={() => <FeatureContainer features={data.getPimOutside.outsideFeatures ?? []} />}
         />
-        <Redirect to={`${AppRoute.pimDetails}/outside`} />
+        <Redirect to={`${baseUrl}/outside`} />
       </Switch>
 
       <AddOutsideFeatureModalContainer

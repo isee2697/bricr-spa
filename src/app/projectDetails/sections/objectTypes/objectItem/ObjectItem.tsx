@@ -35,11 +35,10 @@ export const ObjectItem = ({
   underOption,
   attentionNote,
 }: ListObjectTypes) => {
-  const { formatMessage } = useLocale();
+  const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
   const { id: projectId } = useParams<{ id: string }>();
   const classes = useStyles();
-  const daysAgo = Math.round(-DateTime.fromISO(dateCreated).diffNow('day').days);
   const [toggled, setToggled] = useState(false);
 
   return (
@@ -58,7 +57,9 @@ export const ObjectItem = ({
           <Grid container spacing={3}>
             <Grid item>
               <Typography className={classes.date} variant="h6">
-                {daysAgo} {formatMessage({ id: 'common.days_ago' })}
+                {DateTime.fromISO(dateCreated.toString()).toRelative({
+                  locale,
+                })}
               </Typography>
               <Typography className={classes.title} variant="h3">
                 <ComplexBuildingIcon /> {name}

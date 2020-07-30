@@ -2,8 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, wait } from 'tests';
 import { ModalContext } from 'context/modal/modalContext/ModalContext';
-
-import { AddPimModal } from './AddPimModal';
+import { AddPimModal } from 'app/shared/addPimModal/AddPimModal';
 
 describe('AddPimModal', () => {
   const modalsState = [{ id: 'add-new-pim', isOpen: true }];

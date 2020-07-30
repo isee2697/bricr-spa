@@ -10,7 +10,7 @@ import { Pictures } from './Pictures';
 
 export const PicturesContainer = ({ pictures, sorting, sortQuery }: PictureContainerProps) => {
   const { id: pimId } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const customLabels = useCustomLabels(pimId, [LabelProperty.Picture], entityType)[LabelProperty.Picture] ?? [];
 
   return <Pictures pictures={pictures ?? []} customLabels={customLabels} sorting={sorting} sortQuery={sortQuery} />;

@@ -23,7 +23,7 @@ export const EditPictureModal = ({
 }: EditPictureModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [backgroundImage, setBackgroundImage] = useState(initialValues.signedUrl);
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);

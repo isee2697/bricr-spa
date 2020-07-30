@@ -11,11 +11,12 @@ import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
 
+import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
-import { NcpObjectTypesProps } from './ObjectTypeDetails.types';
+import { ObjectTypeDetailsProps } from './ObjectTypeDetails.types';
 
-export const ObjectTypeDetails = ({ ncp, objectTypes }: NcpObjectTypesProps) => {
+export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
   const { formatMessage } = useLocale();
   const { id, projectId } = useParams<{ id: string; projectId: string }>();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
@@ -34,12 +35,12 @@ export const ObjectTypeDetails = ({ ncp, objectTypes }: NcpObjectTypesProps) => 
   return (
     <EntityTypeProvider entityType={EntityType.ObjectType}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
-      <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
+      <NavBreadcrumb title={data?.project.name ?? ''} to={projectUrl} />
+      <NavBreadcrumb title={data?.objectType.name ?? ''} to={objectTypeUrl} />
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
-            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} ncp={ncp} objectTypes={objectTypes} />
+            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} data={data} />
           </Grid>
         )}
         <Grid item xs={12} md={9} lg={10}>
@@ -73,6 +74,12 @@ export const ObjectTypeDetails = ({ ncp, objectTypes }: NcpObjectTypesProps) => 
                 path={`${AppRoute.objectTypeDetails}/characteristics`}
                 render={() => (
                   <CharacteristicsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/properties`}
+                render={() => (
+                  <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                 )}
               />
               <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />

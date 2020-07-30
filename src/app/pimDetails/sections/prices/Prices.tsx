@@ -1,29 +1,26 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 
-import { AppRoute } from 'routing/AppRoute.enum';
 import { PricesGeneralContainer } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneralContainer';
 import { PricesProps } from 'app/pimDetails/sections/prices/Prices.types';
 import { InvestmentsContainer } from 'app/pimDetails/sections/prices/investments/InvestmentsContainer';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { useLocale } from 'hooks';
+import { useEntityType } from 'app/shared/entityType';
 
 import { CostsContainer } from './costs/CostsContainer';
 
 export const Prices = ({ pricing, ...props }: PricesProps) => {
   const { formatMessage } = useLocale();
+  const { baseUrl } = useEntityType();
 
   return (
     <>
-      <NavBreadcrumb
-        urlBase={AppRoute.pimDetails}
-        to="/prices"
-        title={formatMessage({ id: 'pim_details.prices.title' })}
-      />
+      <NavBreadcrumb urlBase={baseUrl} to="/prices" title={formatMessage({ id: 'pim_details.prices.title' })} />
       <Switch>
         <Route
           default
-          path={`${AppRoute.pimDetails}/prices`}
+          path={`${baseUrl}/prices`}
           exact
           render={() => (
             <PricesGeneralContainer
@@ -37,7 +34,7 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
           )}
         />
         <Route
-          path={`${AppRoute.pimDetails}/prices/costs`}
+          path={`${baseUrl}/prices/costs`}
           exact
           render={() => (
             <CostsContainer
@@ -50,11 +47,11 @@ export const Prices = ({ pricing, ...props }: PricesProps) => {
           )}
         />
         <Route
-          path={`${AppRoute.pimDetails}/prices/investments`}
+          path={`${baseUrl}/prices/investments`}
           exact
           render={() => <InvestmentsContainer {...props} investment={pricing.investment ?? null} />}
         />
-        <Redirect to={`${AppRoute.pimDetails}/prices`} />
+        <Redirect to={`${baseUrl}/prices`} />
       </Switch>
     </>
   );

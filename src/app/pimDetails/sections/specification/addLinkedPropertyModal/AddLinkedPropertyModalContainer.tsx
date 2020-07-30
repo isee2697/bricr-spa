@@ -9,7 +9,7 @@ import {
   useSetLinkedPropertiesMutation,
 } from 'api/types';
 import { usePagination } from 'hooks';
-import { usePimsSorting } from '../../../../pim/usePimsSorting/usePimsSorting';
+import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 
 import { AddLinkedPropertyModalContainerProps, PimList } from './AddLinkedPropertyModal.types';
 import { AddLinkedPropertyModal } from './AddLinkedPropertyModal';

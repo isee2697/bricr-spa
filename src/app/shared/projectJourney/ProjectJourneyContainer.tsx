@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQueryParam } from 'use-query-params';
 
-import { usePimsSorting } from 'app/pim/usePimsSorting/usePimsSorting';
+import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { AutosaveForm } from 'ui/organisms';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 

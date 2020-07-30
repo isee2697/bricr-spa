@@ -17,7 +17,7 @@ import { useEntityType, EntityType } from 'app/shared/entityType';
 
 export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMapModalProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [initUpload, { loading: initLoading }] = useInitSendFileMutation();
   const [uploadFile, { loading: uploadLoading }] = useUploadFileMutation();
@@ -61,7 +61,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
     );
 
     try {
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         await addPicture({
           variables: {
             input: {

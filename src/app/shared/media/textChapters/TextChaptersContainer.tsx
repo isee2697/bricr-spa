@@ -30,7 +30,7 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
 
 export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChaptersContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newChapterId, setNewChapterId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.TextChapter], entityType)[LabelProperty.TextChapter] ?? [];
@@ -48,7 +48,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addTextChapter({
           variables: {
             input: { pimId: id },

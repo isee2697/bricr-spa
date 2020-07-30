@@ -19,7 +19,7 @@ export const AddServiceModalContainer = ({
   onAddService,
 }: AddServiceModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [addNcpService] = useAddNcpServiceMutation();
   const [addObjectType] = useAddObjectTypeServiceMutation();

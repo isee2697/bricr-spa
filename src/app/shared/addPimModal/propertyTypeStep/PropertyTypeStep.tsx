@@ -14,7 +14,7 @@ import { NcpType, PropertyType } from 'api/types';
 
 import { useStyles } from './PropertyTypeStep.styles';
 
-export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
+export const PropertyTypeStep = ({ onNext, options }: AddPimStepProps) => {
   const theme = useTheme();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -81,8 +81,12 @@ export const PropertyTypeStep = ({ onNext }: AddPimStepProps) => {
                   <SelectCard
                     className={classes.selectCard}
                     fullWidth
-                    withButton
+                    withButton={!options?.disableChange}
                     onClick={() => {
+                      if (!!options?.disableChange) {
+                        return;
+                      }
+
                       if (input.value === c.type) {
                         input.onChange('');
                       } else {

@@ -6,8 +6,9 @@ import { SubmitButton } from 'ui/molecules';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks';
 import { AddPimStepProps, PropertyCategory } from '../AddPimModal.types';
-import { PimAddress } from 'app/pim/addPimModal/addressStep/form/PimAddress';
-import { NewConstructionAddress } from 'app/pim/addPimModal/addressStep/form/NewConstructionAddress';
+
+import { PimAddress } from './form/PimAddress';
+import { NewConstructionAddress } from './form/NewConstructionAddress';
 
 export const AddressStep = ({ onPrev, onNext }: AddPimStepProps) => {
   const { formatMessage } = useLocale();

@@ -1,4 +1,7 @@
+import { ReactNode } from 'react';
+
 import { PimOverallInfoQueryHookResult, PimOverallInfoQuery } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 export type PimDetailsSectionProps = {
   isSidebarVisible: boolean;
@@ -8,4 +11,7 @@ export type PimDetailsSectionProps = {
 
 export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error' | 'data'> & {
   data?: PimOverallInfoQuery;
+  breadcrumbs: ReactNode;
+  path: string;
+  entityType: EntityType;
 };

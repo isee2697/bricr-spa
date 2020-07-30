@@ -9,7 +9,6 @@ import {
   NcpMediaDocument,
   ObjectTypeMediaDocument,
   UpdateMediaLinkInput,
-  UpdateNcpMediaLinkInput,
   useAddMediaLinkMutation,
   useAddNcpMediaLinkMutation,
   useAddObjectTypeMediaLinkMutation,
@@ -31,7 +30,7 @@ const options = Object.values(MediaLinkType).map(tagName => ({
 
 export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newLinkId, setNewLinkId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.MediaLink], entityType)[LabelProperty.MediaLink] ?? [];
@@ -49,7 +48,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addMediaLink({
           variables: {
             input: { pimId: id },
@@ -113,7 +112,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
     }
   };
 
-  const handleSave = async (values: UpdateMediaLinkInput | UpdateNcpMediaLinkInput) => {
+  const handleSave = async (values: UpdateMediaLinkInput) => {
     try {
       if (!id) {
         throw new Error();

@@ -15,9 +15,9 @@ import {
 import { Characteristics } from 'app/shared/characteristics/Characteristics';
 import { sectionsOrder } from 'app/shared/characteristics/Characteristics.types';
 import { EntityType } from 'app/shared/entityType';
-import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
+import { ObjectTypeDetailsCommonProps } from 'app/objectTypeDetails/ObjectTypeDetails.types';
 
-export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDetailsProps) => {
+export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: ObjectTypeDetailsCommonProps) => {
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<NcpCharacteristicsInput>>();
 

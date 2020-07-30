@@ -48,7 +48,7 @@ const isObjectTypeServicesQuery = (
 export const ServicesGeneralContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });
 

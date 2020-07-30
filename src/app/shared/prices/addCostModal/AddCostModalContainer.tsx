@@ -20,7 +20,7 @@ import * as dictionaries from './dictionaries';
 
 export const AddCostModalContainer = ({ isModalOpened, onModalClose, onAdd }: AddCostModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const customLabels = useCustomLabels(id, [LabelProperty.Cost], entityType)[LabelProperty.Cost] ?? [];
 

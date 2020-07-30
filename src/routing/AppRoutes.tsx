@@ -14,7 +14,8 @@ import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
 import { ObjectTypeDetailsContainer } from 'app/objectTypeDetails/ObjectTypeDetailsContainer';
 import { useScrollToTop } from 'hooks';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
-import { ProjectDetailsContainer } from '../app/projectDetails/ProjectDetailsContainer';
+import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContainer';
+import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -48,6 +49,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
                 <AuthorizedRoute path={AppRoute.project} exact component={ProjectContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.linkedPropertyDetails} component={LinkedPropertiesDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />

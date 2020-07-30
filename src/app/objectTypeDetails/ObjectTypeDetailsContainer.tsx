@@ -1,14 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router';
 
-import { useNcpGeneralQuery, useGetObjectTypeGeneralQuery } from 'api/types';
+import { useObjectTypeGeneralQuery } from 'api/types';
 
 import { ObjectTypeDetails } from './ObjectTypeDetails';
 
 export const ObjectTypeDetailsContainer = () => {
   const { id, projectId } = useParams<{ id: string; projectId: string }>();
-  const { data: ncp } = useNcpGeneralQuery({ variables: { id: projectId } });
-  const { data: objectTypes } = useGetObjectTypeGeneralQuery({ variables: { id } });
+  const { data } = useObjectTypeGeneralQuery({ variables: { id, projectId } });
 
-  return <ObjectTypeDetails ncp={ncp} objectTypes={objectTypes} />;
+  return (
+    <>
+      <ObjectTypeDetails data={data} />
+    </>
+  );
 };

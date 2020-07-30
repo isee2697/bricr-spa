@@ -11,14 +11,12 @@ type ObjectTypePrices {
   pricing: CommonPricing
   costs: [CommonCost!]
   costsDetails: CostsDetails
-  ncpId: String
 }
 
 type ObjectTypePricesResult {
   id: ID!
   pricing: CommonPricing
   costs: CommonCosts
-  ncpId: String
 }
 
 extend type Mutation {

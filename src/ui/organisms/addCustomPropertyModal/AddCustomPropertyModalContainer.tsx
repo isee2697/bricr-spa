@@ -23,7 +23,7 @@ export const AddCustomPropertyModalContainer = ({
 
   const handleSubmit = useCallback(
     async (input: Pick<LabelInput, 'text' | 'icon'>) => {
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { errors, data } = await addLabel({
           variables: {
             input: {

@@ -9,7 +9,7 @@ import { FormSection, AutoCalculateForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
 import { GenericField, RadioGroupField, DatePickerField } from 'form/fields';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
-import { NewConstructionAddress } from 'app/pim/addPimModal/addressStep/form/NewConstructionAddress';
+import { NewConstructionAddress } from 'app/shared/addPimModal/addressStep/form/NewConstructionAddress';
 
 import { GeneralProps } from './General.types';
 import { useStyles } from './General.styles';

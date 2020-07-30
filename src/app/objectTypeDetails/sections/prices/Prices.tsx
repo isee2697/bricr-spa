@@ -4,9 +4,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { CostsContainer } from 'app/shared/prices';
 import { PricesGeneralContainer } from 'app/shared/prices';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ObjectTypeDetailsProps } from 'app/objectTypeDetails/ObjectTypeDetails.types';
+import { ObjectTypeDetailsCommonProps } from 'app/objectTypeDetails/ObjectTypeDetails.types';
 
-export const Prices = ({ isSidebarVisible, onSidebarOpen }: ObjectTypeDetailsProps) => {
+export const Prices = ({ isSidebarVisible, onSidebarOpen }: ObjectTypeDetailsCommonProps) => {
   return (
     <Switch>
       <Route

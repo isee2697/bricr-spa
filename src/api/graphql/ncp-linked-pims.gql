@@ -1,0 +1,16 @@
+type NcpLinkedPims implements EntityLinkedWithPims {
+  id: ID!
+  dateUpdated: Date
+  lastEditedBy: Profile
+  linkedProperties(filters: LinkedPimFilters, sort: [Sort!], pagination: Pagination!): PimListSearchResult! @auth
+  linkedPropertiesIds: [ID!]
+  description: String
+}
+
+extend type Mutation {
+  setNcpLinkedPims(input: SetLinkedPimsInput!): NcpLinkedPims! @auth
+}
+
+extend type Query {
+  getNcpLinkedPims(id: ID!): NcpLinkedPims! @auth
+}

@@ -1,6 +1,7 @@
 import { AnyObject } from 'react-final-form';
 
 import { NcpType, PropertyType } from 'api/types';
+import { ModalStateOptions } from 'context/modal/modalContext/ModalContext.types';
 
 export type AddPimBody = {
   forceAdd?: boolean;
@@ -39,6 +40,7 @@ export type AddPimSubmit<T = AnyObject> = (
 export type AddPimStepProps = {
   onNext: () => void;
   onPrev: () => void;
+  options?: ModalStateOptions;
 };
 
 export enum PropertyCategory {
@@ -51,4 +53,5 @@ export type AddPimModalProps = {
   onSubmit: AddPimSubmit;
   isOpen: boolean;
   propertyCategory?: string;
+  options?: ModalStateOptions;
 };

@@ -10,10 +10,10 @@ import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { Floor as FloorTypes, usePimInsideQuery, FloorType } from 'api/types';
 import { FloorContainer } from 'app/pimDetails/sections/inside/floor/FloorContainer';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { useEntityType } from 'app/shared/entityType';
 
 import { InsideGeneralContainer } from './general/InsideGeneralContainer';
 import { AddNewFloorModalContainer } from './addNewFloorModal/AddNewFloorModalContainer';
@@ -24,6 +24,7 @@ export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSec
   const { close, open } = useModalDispatch();
   const { id } = useParams<{ id: string }>();
   const { data: pimInsideData } = usePimInsideQuery({ variables: { id } });
+  const { baseUrl } = useEntityType();
   const pimInside = pimInsideData?.getPimInside;
 
   const getCount = (floor: FloorTypes) => {
@@ -52,11 +53,7 @@ export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSec
 
   return (
     <>
-      <NavBreadcrumb
-        urlBase={AppRoute.pimDetails}
-        to="/inside"
-        title={formatMessage({ id: 'pim_details.inside.title' })}
-      />
+      <NavBreadcrumb urlBase={baseUrl} to="/inside" title={formatMessage({ id: 'pim_details.inside.title' })} />
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
@@ -95,7 +92,7 @@ export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSec
           {pimInside.floors.map(floor => (
             <Route
               key={floor.id}
-              path={`${AppRoute.pimDetails}/inside/${floor.id}`}
+              path={`${baseUrl}/inside/${floor.id}`}
               exact
               render={() => (
                 <FloorContainer
@@ -108,7 +105,7 @@ export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSec
             />
           ))}
           <Route
-            path={`${AppRoute.pimDetails}/inside`}
+            path={`${baseUrl}/inside`}
             exact
             render={() => <InsideGeneralContainer {...pimInside.insideGeneral} />}
           />

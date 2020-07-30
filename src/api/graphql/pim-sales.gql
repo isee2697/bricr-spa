@@ -18,6 +18,46 @@ enum TypeOfAppointment {
   OnlineViewing
 }
 
+enum AllocationCriteriaType {
+  MatchProfile,
+  Allocation
+}
+
+enum PropertyPublishedExternally {
+  Yes,
+  No
+}
+
+enum CriteriaOrder {
+  JointIncome,
+  MinimalAmountOfMissingDocuments,
+  NumberOfPreferenceInterest,
+  DateOfRegistrationInterest,
+  AdditionalWork
+}
+
+enum HomeSituation {
+  LivingIn,
+  OwnerOccupiedHome,
+  SocialHousing,
+  FreeSectorRentalHome
+}
+
+enum TypeOfEmployment {
+  IncomeFromEquity,
+  SalariedEmployment,
+  Entrepreneur,
+  Benefits,
+  None
+}
+
+enum PersonRole {
+  Reservation,
+  Candidate,
+  Optant,
+  Tenant
+}
+
 type MomentSchedule {
   day: MomentScheduleDay
   startAt: String
@@ -38,6 +78,8 @@ type ViewingMoment {
   travelTimeBefore: Int
   travelTimeAfter: Int
   accountManagersIds: [ID!]
+  dateCreated: Date
+  accountManagers: [Profile!]
 }
 
 input UpdateViewingMomentInput {
@@ -51,6 +93,10 @@ input UpdateViewingMomentInput {
 }
 
 input AddViewingMomentInput {
+  pimId: ID!
+}
+
+input AddAllocationCriteriaInput {
   pimId: ID!
 }
 
@@ -72,6 +118,7 @@ type PimSales implements LastUpdated {
   viewingMoments: [ViewingMoment!]
   lastEditedBy: Profile
   dateUpdated: Date
+  allocationCriterias: [AllocationCriteria!]
 }
 
 type AddViewingMomentResult {
@@ -79,10 +126,105 @@ type AddViewingMomentResult {
   moment: ViewingMoment!
 }
 
+type AddAllocationCriteriaResult {
+  pim: Pim!
+  criteria: AllocationCriteria!
+}
+
+input PersonCapitalInput {
+  deductMonthlyObligations: AbsoluteFloat
+  availableCapitalCount: AbsoluteFloat
+}
+
+type PersonCapital {
+  deductMonthlyObligations: AbsoluteFloat
+  availableCapitalCount: AbsoluteFloat
+}
+
+input AllocationCriteriaInput {
+  id: ID!
+  description: String
+  type: AllocationCriteriaType
+  note: String
+  startDate: Date
+  endDate : Date
+  candidatesAssignedPerProperty: Int
+  minJointAnnualIncome: AbsoluteFloat
+  monthlyRentByMinJointIncome: AbsoluteFloat
+  maxJointAnnualIncome: AbsoluteFloat
+  monthlyRentByMaxJointIncome: AbsoluteFloat
+  publishedExternally: PropertyPublishedExternally
+  minNumberPreferenceInterest: Int
+  registrationFrom: Date
+  registrationTo: Date
+  assignOnlyPeopleWithPropertyInterest: Boolean
+  acceptedMissingDocuments: Int
+  onlyAcceptedDocuments: Boolean
+  criteriaOrder: [CriteriaOrder!]!
+  lowestIncomePercentage: AbsoluteFloat
+  incomeDistributionThreshold: AbsoluteFloat
+  fictitiousIncomeCalculation: AbsoluteFloat
+  firstPersonFromCouple: PersonCapitalInput
+  secondPersonFromCouple: PersonCapitalInput
+  minimalAgeFirstPersonCouple: Int
+  minimalAgePartner: Int
+  homeSituation: [HomeSituation!]
+  numberOfAdults: Int
+  numberOfChildren: Int
+  currentResidence: String
+  typeOfEmploymentFirstPersonInCouple: [TypeOfEmployment!]
+  typeOfEmploymentSecondPersonInCouple: [TypeOfEmployment!]
+  assignToPersonsWithRole: [PersonRole!]
+  assignPeopleAboveMaxJointIncome: Boolean
+  segmentationProfileIds: [ID!]
+}
+
+type AllocationCriteria {
+  id: ID!
+  description: String
+  type: AllocationCriteriaType
+  note: String
+  startDate: Date
+  endDate : Date
+  candidatesAssignedPerProperty: Int
+  minJointAnnualIncome: AbsoluteFloat
+  monthlyRentByMinJointIncome: AbsoluteFloat
+  maxJointAnnualIncome: AbsoluteFloat
+  monthlyRentByMaxJointIncome: AbsoluteFloat
+  publishedExternally: PropertyPublishedExternally
+  minNumberPreferenceInterest: Int
+  registrationFrom: Date
+  registrationTo: Date
+  assignOnlyPeopleWithPropertyInterest: Boolean
+  acceptedMissingDocuments: Int
+  onlyAcceptedDocuments: Boolean
+  criteriaOrder: [CriteriaOrder!]!
+  lowestIncomePercentage: AbsoluteFloat
+  incomeDistributionThreshold: AbsoluteFloat
+  fictitiousIncomeCalculation: AbsoluteFloat
+  firstPersonFromCouple: PersonCapital
+  secondPersonFromCouple: PersonCapital
+  minimalAgeFirstPersonCouple: Int
+  minimalAgePartner: Int
+  homeSituation: [HomeSituation!]
+  numberOfAdults: Int
+  numberOfChildren: Int
+  currentResidence: String
+  typeOfEmploymentFirstPersonInCouple: [TypeOfEmployment!]
+  typeOfEmploymentSecondPersonInCouple: [TypeOfEmployment!]
+  assignToPersonsWithRole: [PersonRole!]
+  assignPeopleAboveMaxJointIncome: Boolean
+  segmentationProfiles: [Profile!]
+  segmentationProfileIds: [String!]
+}
+
 extend type Mutation {
   updateSalesSettings(input: SalesSettingsInput!): Pim! @auth
   addViewingMoment(input: AddViewingMomentInput!): AddViewingMomentResult! @auth
   removeViewingMoment(id: ID!): Pim! @auth
+  addAllocationCriteria(input: AddAllocationCriteriaInput!): AddAllocationCriteriaResult! @auth
+  updateAllocationCriteria(input: AllocationCriteriaInput!): Pim! @auth
+  removeAllocationCriteria(id: ID!): Pim! @auth
 }
 
 extend type Query {

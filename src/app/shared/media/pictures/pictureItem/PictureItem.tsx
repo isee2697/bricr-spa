@@ -25,7 +25,7 @@ const getEntityType = (entityType: EntityType) => {
 
 export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const { data } = useGetPrivateFile(picture.file?.key || '', getEntityType(entityType), picture.id);
   const classes = useStyles({ src: data?.signedUrl });
