@@ -740,23 +740,23 @@ export type ProjectMarketing = {
 };
 
 export type MeasurementsInput = {
-  volumeFrom?: Maybe<Scalars['Int']>;
-  volumeTo?: Maybe<Scalars['Int']>;
-  livingSpaceFrom?: Maybe<Scalars['Int']>;
-  livingSpaceTo?: Maybe<Scalars['Int']>;
-  plotAreaFrom?: Maybe<Scalars['Int']>;
-  plotAreaTo?: Maybe<Scalars['Int']>;
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
   calculateAutomatically?: Maybe<Scalars['Boolean']>;
 };
 
 export type Measurements = {
   __typename?: 'Measurements';
-  volumeFrom?: Maybe<Scalars['Int']>;
-  volumeTo?: Maybe<Scalars['Int']>;
-  livingSpaceFrom?: Maybe<Scalars['Int']>;
-  livingSpaceTo?: Maybe<Scalars['Int']>;
-  plotAreaFrom?: Maybe<Scalars['Int']>;
-  plotAreaTo?: Maybe<Scalars['Int']>;
+  volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  livingSpaceTo?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaFrom?: Maybe<Scalars['AbsoluteFloat']>;
+  plotAreaTo?: Maybe<Scalars['AbsoluteFloat']>;
   calculateAutomatically?: Maybe<Scalars['Boolean']>;
 };
 
@@ -6946,6 +6946,7 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'propertiesAvailable'
           | 'underOption'
           | 'soldOrRent'
+          | 'attentionNote'
         > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
       >
     >;
@@ -11550,6 +11551,7 @@ export const ListObjectTypesDocument = gql`
         propertiesAvailable
         underOption
         soldOrRent
+        attentionNote
       }
     }
   }
