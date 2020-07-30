@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { Page } from 'ui/templates';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
@@ -20,7 +19,6 @@ export const ServicesGeneral = ({
 
   return (
     <>
-      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'pim_details.services.title' })}
         placeholder="pim_details.services.description_placeholder"

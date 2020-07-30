@@ -9,13 +9,16 @@ import { CrmIcon } from 'ui/atoms/icons/crm/CrmIcon';
 import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { matchesRouteAlias } from 'routing/AppRoute.aliases';
 
 const menuLinks = [AppRoute.home, AppRoute.pim, AppRoute.crm, AppRoute.sales];
 
 export const TopMenu = () => {
   const { pathname } = useLocation();
   const { formatMessage } = useLocale();
-  const activeLinkIndex = menuLinks.findIndex(link => link !== AppRoute.home && pathname.startsWith(link));
+  const activeLinkIndex = menuLinks.findIndex(
+    link => link !== AppRoute.home && (pathname.startsWith(link) || matchesRouteAlias(pathname, link)),
+  );
 
   return (
     <Tabs value={activeLinkIndex !== -1 ? activeLinkIndex : 0} indicatorColor="primary" textColor="primary" centered>
