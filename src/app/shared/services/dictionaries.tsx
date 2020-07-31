@@ -164,7 +164,7 @@ export const additionalTypes = [
   },
   {
     value: AdditionalServiceType.SateliteDish,
-    label: 'dictionaries.service.additionalservices.SatelightDish',
+    label: 'dictionaries.service.additionalservices.SateliteDish',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
@@ -181,13 +181,13 @@ export const additionalTypes = [
   },
   {
     value: AdditionalServiceType.Windmill,
-    label: 'dictionaries.service.additionalservices.WindMill',
+    label: 'dictionaries.service.additionalservices.Windmill',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
   {
     value: AdditionalServiceType.SolarCollector,
-    label: 'dictionaries.service.additionalservices.SolarColectors',
+    label: 'dictionaries.service.additionalservices.SolarCollector',
     icon: <SquareIcon color="inherit" />,
     hasOwnership: true,
   },
