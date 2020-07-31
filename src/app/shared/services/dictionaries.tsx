@@ -58,7 +58,7 @@ export const hotWaterTypes = [
 export const heatingTypes = [
   {
     value: HeatingSourceType.GeothermalHeat,
-    label: 'dictionaries.service.heatingsources.Geothermalheat',
+    label: 'dictionaries.service.heatingsources.GeothermalHeat',
     icon: <SquareIcon color="inherit" />,
   },
   {
@@ -103,7 +103,7 @@ export const heatingTypes = [
   },
   {
     value: HeatingSourceType.PartialElectricHeating,
-    label: 'dictionaries.service.heatingsources.PatrialElectricHeating',
+    label: 'dictionaries.service.heatingsources.PartialElectricHeating',
     icon: <SquareIcon color="inherit" />,
   },
   {
@@ -199,7 +199,7 @@ export const additionalTypes = [
   },
   {
     value: AdditionalServiceType.FrenchBalcony,
-    label: 'dictionaries.service.additionalservices.FrencBalcony',
+    label: 'dictionaries.service.additionalservices.FrenchBalcony',
     icon: <SquareIcon color="inherit" />,
   },
   {
