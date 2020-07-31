@@ -43,6 +43,10 @@ context('Add Service', () => {
   it('allows to add service', () => {
     NavigationMenu.goToPimServices();
 
+    cy.findAllByText('Edit mode')
+      .first()
+      .click();
+
     cy.get('.form-section-add')
       .first()
       .click();

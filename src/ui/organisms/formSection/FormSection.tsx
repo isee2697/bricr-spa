@@ -84,7 +84,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                   size="small"
                   className="form-section-add"
                   onClick={onAdd}
-                  disabled={loading}
+                  disabled={(isEditable && !editing) || loading}
                 >
                   <AddIcon color="inherit" />
                 </IconButton>
