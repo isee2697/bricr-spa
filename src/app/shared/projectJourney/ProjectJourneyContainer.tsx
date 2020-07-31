@@ -3,10 +3,13 @@ import { useQueryParam } from 'use-query-params';
 
 import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { AutosaveForm } from 'ui/organisms';
-import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { ProjectJourney } from './ProjectJourney';
-import { ProjectJourneyData, ProjectJourneyActionTabStatus } from './ProjectJourney.types';
+import {
+  ProjectJourneyActionTabStatus,
+  ProjectJourneyContainerProps,
+  ProjectJourneyData,
+} from './ProjectJourney.types';
 
 const data: ProjectJourneyData = {
   items: [
@@ -15,8 +18,14 @@ const data: ProjectJourneyData = {
       name: 'Ludwig Mies van der Rohe',
       phoneNumber: '06-48764044',
       email: 'miesvanderrohe@gmail.com',
-      partner: { name: 'Anna Kowalska', image: 'http://placeimg.com/176/112/arch' },
-      manager: { name: 'Christian van Gils', image: 'http://placeimg.com/176/112/arch' },
+      partner: {
+        name: 'Anna Kowalska',
+        image: 'http://placeimg.com/176/112/arch',
+      },
+      manager: {
+        name: 'Christian van Gils',
+        image: 'http://placeimg.com/176/112/arch',
+      },
       role: 'Buyer',
       image: 'http://placeimg.com/176/112/arch',
     },
@@ -34,7 +43,7 @@ const data: ProjectJourneyData = {
   designation: 'Tower H',
 };
 
-export const ProjectJourneyContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
+export const ProjectJourneyContainer = (props: ProjectJourneyContainerProps) => {
   const [status = 'matches', setStatus] = useQueryParam<ProjectJourneyActionTabStatus>('status');
   const amounts = {
     actionRequired: 1,
@@ -51,8 +60,7 @@ export const ProjectJourneyContainer = ({ onSidebarOpen, isSidebarVisible }: Pro
         onStatusChange={setStatus}
         amounts={amounts}
         sorting={sorting}
-        isSidebarVisible={isSidebarVisible}
-        onSidebarOpen={onSidebarOpen}
+        {...props}
       />
     </AutosaveForm>
   );

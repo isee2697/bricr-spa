@@ -22,6 +22,8 @@ export const ProjectJourney = ({
   sorting,
   isSidebarVisible,
   onSidebarOpen,
+  subtitleId,
+  titleId,
 }: ProjectJourneyProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -29,11 +31,11 @@ export const ProjectJourney = ({
   return (
     <>
       <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
-      <Page title={formatMessage({ id: 'project_details.project_journey.title' })}>
+      <Page title={formatMessage({ id: titleId })}>
         <Grid item xs={12}>
           <Box mt={3}>
             <FormSection
-              title={formatMessage({ id: 'project_details.project_journey.title' })}
+              title={formatMessage({ id: subtitleId })}
               isEditable={false}
               buttons={
                 <>

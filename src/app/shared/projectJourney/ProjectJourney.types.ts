@@ -37,7 +37,12 @@ export type ProjectJourneyActionTabsProps = {
   };
 };
 
-export type ProjectJourneyProps = ProjectDetailsProps & {
+export type ProjectJourneyContainerProps = ProjectDetailsProps & {
+  titleId: string;
+  subtitleId: string;
+};
+
+export type ProjectJourneyProps = ProjectJourneyContainerProps & {
   data: ProjectJourneyData;
   sorting: {
     sortOptions: SortOption[];

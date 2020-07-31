@@ -56,7 +56,12 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               <Route
                 path={`${AppRoute.projectDetails}/projectJourney`}
                 render={() => (
-                  <ProjectJourneyContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  <ProjectJourneyContainer
+                    titleId="project_details.project_journey.title"
+                    subtitleId="project_details.project_journey.title"
+                    isSidebarVisible={isSidebarVisible}
+                    onSidebarOpen={handleSidebarOpen}
+                  />
                 )}
               />
               <Route

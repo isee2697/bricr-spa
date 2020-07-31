@@ -2018,5 +2018,13 @@
   "dictionaries.characteristic_sections.AccountManagers": "Account managers",
   "dictionaries.characteristic_sections.ProjectMarketing": "Projectmarketing",
   "dictionaries.characteristic_sections.AttentionField": "Aandachtsveld",
-  "dictionaries.characteristic_sections.ObjectTypes": "Objecttypen"
+  "dictionaries.characteristic_sections.ObjectTypes": "Objecttypen",
+  "project_details.characteristics.object_type.title": "Objecttype",
+  "project_details.characteristics.object_type.subtitle": "Type of object type",
+  "dictionaries.object_type.House": "House",
+  "dictionaries.object_type.BuildingPlot": "Building Plot",
+  "dictionaries.object_type.Apartament": "Apartament",
+  "project_details.characteristics.object_type.set_automatically": "Automatically set objecttypes",
+  "project_details.object_type.project_journey.title": "Reactions to this objecttype",
+  "project_details.object_type.project_journey.subtitle": "Object journey"
 }
