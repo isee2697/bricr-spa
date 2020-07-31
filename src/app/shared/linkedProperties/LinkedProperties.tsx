@@ -97,7 +97,7 @@ export const LinkedProperties = ({
                 >
                   {checkbox}
                   <Box component="span" className={classes.rowItem}>
-                    <LinkedPropertyItem {...linkedProperty} salePrice={100} rentPrice={200} livingArea={90} />
+                    <LinkedPropertyItem {...linkedProperty} />
                   </Box>
                 </Box>
               )}
