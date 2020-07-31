@@ -19,6 +19,7 @@
   "common.cancel": "Cancel",
   "common.close": "Close",
   "common.undo": "Undo",
+  "common.show_details": "Show details",
   "common.from": "From",
   "common.from_placeholder": "e.g. 14-06-1991",
   "common.to": "To",
