@@ -1318,6 +1318,7 @@ export type ListPim = {
   archived?: Maybe<Scalars['Boolean']>;
   status: PimStatus;
   developmentType: DevelopmentType;
+  linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type PimListSearchResult = {
@@ -6778,6 +6779,7 @@ export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'country'
               | 'status'
               | 'developmentType'
+              | 'linkedObjectTypeIds'
             > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
           >
         >;
@@ -7179,6 +7181,7 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'country'
               | 'status'
               | 'developmentType'
+              | 'linkedObjectTypeIds'
             > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
           >
         >;
@@ -11264,6 +11267,7 @@ export const NcpLinkedPimsDocument = gql`
           country
           status
           developmentType
+          linkedObjectTypeIds
         }
       }
     }
@@ -12046,6 +12050,7 @@ export const ObjectTypeLinkedPimsDocument = gql`
           country
           status
           developmentType
+          linkedObjectTypeIds
         }
       }
     }

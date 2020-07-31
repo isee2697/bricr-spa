@@ -66,6 +66,7 @@ export const LIST_OBJECT_TYPES = gql`
           country
           status
           developmentType
+          linkedObjectTypeIds
         }
       }
     }

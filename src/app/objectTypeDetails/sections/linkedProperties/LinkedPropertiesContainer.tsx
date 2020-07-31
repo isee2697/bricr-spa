@@ -18,7 +18,7 @@ import { LinkedProperties } from 'app/shared/linkedProperties/LinkedProperties';
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
-  const { id } = useParams<{ id: string; projectId: string }>();
+  const { id, projectId } = useParams<{ id: string; projectId: string }>();
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
 
   const { loading: isCountLoading, error: countError, data: countData } = useListObjectTypeLinkedPimsCountQuery({
@@ -97,6 +97,7 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
       linkedPropertiesIds={listData.getObjectTypeLinkedPims.linkedPropertiesIds ?? []}
       titleId="project_details.properties.object_type_title"
       showAddButton
+      projectId={projectId}
     />
   );
 };

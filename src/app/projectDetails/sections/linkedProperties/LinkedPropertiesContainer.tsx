@@ -96,6 +96,7 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
       onSidebarOpen={onSidebarOpen}
       linkedPropertiesIds={listData.getNcpLinkedPims.linkedPropertiesIds ?? []}
       titleId="project_details.properties.project_title"
+      projectId={id}
     />
   );
 };

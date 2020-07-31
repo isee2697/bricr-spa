@@ -66,6 +66,7 @@ export const LIST_NCP_PROPERTIES = gql`
           country
           status
           developmentType
+          linkedObjectTypeIds
         }
       }
     }

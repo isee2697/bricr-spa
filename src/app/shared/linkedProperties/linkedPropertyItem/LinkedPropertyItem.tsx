@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import { useParams } from 'react-router';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Grid, Typography, Box, Chip, IconButton, Collapse, ProgressFilling, ColoredImage } from 'ui/atoms';
@@ -30,10 +29,11 @@ export const LinkedPropertyItem = ({
   rentPrice,
   completeness,
   archived,
-}: ListPim) => {
+  linkedObjectTypeIds,
+  projectId,
+}: ListPim & { projectId: string }) => {
   const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
-  const { id: objectTypeId, projectId } = useParams<{ id: string; projectId: string }>();
   const classes = useStyles();
   const [toggled, setToggled] = useState(false);
 
@@ -59,7 +59,7 @@ export const LinkedPropertyItem = ({
               push(
                 AppRoute.linkedPropertyDetails
                   .replace(':projectId', projectId)
-                  .replace(':objectTypeId', objectTypeId)
+                  .replace(':objectTypeId', linkedObjectTypeIds?.[0] ?? '')
                   .replace(':id', id),
               )
             }

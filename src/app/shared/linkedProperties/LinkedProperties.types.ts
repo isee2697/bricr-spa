@@ -27,4 +27,5 @@ export type ObjectTypesProps = ProjectDetailsProps & {
   linkedPropertiesIds: string[];
   showAddButton?: boolean;
   titleId: string;
+  projectId: string;
 };

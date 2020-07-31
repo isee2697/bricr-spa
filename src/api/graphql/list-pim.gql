@@ -35,6 +35,7 @@ type ListPim {
   archived: Boolean
   status: PimStatus!
   developmentType: DevelopmentType!
+  linkedObjectTypeIds: [String]
 }
 
 type PimListSearchResult {

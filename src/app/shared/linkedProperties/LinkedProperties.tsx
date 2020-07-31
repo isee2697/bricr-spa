@@ -35,11 +35,12 @@ export const LinkedProperties = ({
   linkedPropertiesIds,
   showAddButton = false,
   titleId,
+  projectId,
 }: ObjectTypesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
-  const { id, projectId } = useParams<{ id: string; projectId: string }>();
+  const { id } = useParams<{ id: string; projectId: string }>();
 
   return (
     <div className={classes.root}>
@@ -98,7 +99,7 @@ export const LinkedProperties = ({
                 >
                   {checkbox}
                   <Box component="span" className={classes.rowItem}>
-                    <LinkedPropertyItem {...linkedProperty} />
+                    <LinkedPropertyItem {...linkedProperty} projectId={projectId} />
                   </Box>
                 </Box>
               )}
