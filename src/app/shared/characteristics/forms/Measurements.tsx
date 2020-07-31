@@ -45,7 +45,9 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           InputProps={{
             endAdornment: <SquareMeterIcon />,
           }}
-          validate={[minValueValidator(formState.values.measurements[`${name}From`] ?? 0)]}
+          validate={[
+            minValueValidator(formState?.values?.measurements ? formState.values.measurements[`${name}From`] : 0),
+          ]}
         />
       </Grid>
     </Grid>
