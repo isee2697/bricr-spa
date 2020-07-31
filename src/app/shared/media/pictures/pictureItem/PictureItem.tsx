@@ -4,30 +4,17 @@ import classNames from 'classnames';
 import { Chip, Grid, Typography, IconButton, Box } from 'ui/atoms';
 import { EditIcon, SaleIcon } from 'ui/atoms/icons';
 import { useGetPrivateFile, useLocale } from 'hooks';
-import { EntityWithFiles } from 'api/types';
-import { useEntityType, EntityType } from 'app/shared/entityType';
+import { useEntityType } from 'app/shared/entityType';
+import { getEntityFilesType } from '../Pictures.helpers';
 
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
-
-const getEntityType = (entityType: EntityType) => {
-  switch (entityType) {
-    case EntityType.Property:
-      return EntityWithFiles.MediaPicture;
-    case EntityType.Project:
-      return EntityWithFiles.NcpMediaPicture;
-    case EntityType.ObjectType:
-      return EntityWithFiles.ObjectTypeMediaPicture;
-    default:
-      throw new Error('There is no such EntityType');
-  }
-};
 
 export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
 
-  const { data } = useGetPrivateFile(picture.file?.key || '', getEntityType(entityType), picture.id);
+  const { data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);
   const classes = useStyles({ src: data?.signedUrl });
 
   const handleEdit = () => {

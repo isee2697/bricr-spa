@@ -23,8 +23,8 @@ export const SidebarMenu = ({ onHide, menuTitle, menu, translationPrefix }: Side
       <div className={classes.menuWrapper}>
         {!!menuTitle && <Box mb={2}>{menuTitle}</Box>}
         <SideMenu className={classes.root} disablePadding>
-          {menu.groups.map(groups => (
-            <Box className={classes.group}>
+          {menu.groups.map((groups, index) => (
+            <Box className={classes.group} key={`group_${index}`}>
               {groups.items.map(item => (
                 <SideMenuItem
                   key={item.key}

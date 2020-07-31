@@ -2,17 +2,19 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  EntityWithFiles,
   LabelProperty,
   PictureType,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   useUpdatePictureMutation,
   useUpdateNcpPictureMutation,
+  useUpdateObjectTypePictureMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels, useGetPrivateFile } from 'hooks';
 import { useEntityType, EntityType } from 'app/shared/entityType';
+import { getEntityFilesType } from '../Pictures.helpers';
 
 import { EditPictureModal } from './EditPictureModal';
 import { EditPictureForm, EditPictureModalContainerProps } from './EditPictureModal.types';
@@ -27,15 +29,12 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
   const { id } = useParams<{ id: string }>();
   const { entityType } = useEntityType();
 
-  const { loading, data } = useGetPrivateFile(
-    picture.file?.key || '',
-    entityType === EntityType.Property ? EntityWithFiles.MediaPicture : EntityWithFiles.NcpMediaPicture,
-    picture.id,
-  );
+  const { loading, data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);
   const customLabels = useCustomLabels(id, [LabelProperty.Picture], entityType);
 
   const [updatePicture] = useUpdatePictureMutation();
   const [updateNcpPicture] = useUpdateNcpPictureMutation();
+  const [updateObjectTypePicture] = useUpdateObjectTypePictureMutation();
 
   const handleSave = async ({ file, description, name, type, id: pictureId }: EditPictureForm) => {
     try {
@@ -78,6 +77,26 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+      if (entityType === EntityType.ObjectType)
+        await updateObjectTypePicture({
+          variables: {
+            input: {
+              parentId: id,
+              fileId: file?.id,
+              id: pictureId,
+              description,
+              name,
+              type,
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],
