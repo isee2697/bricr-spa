@@ -52,6 +52,13 @@ export const PropertyTypeStep = ({ onNext, options }: AddPimStepProps) => {
     const category = values.category;
 
     if (category === PropertyCategory.PROPERTY) {
+      if (options?.isLinkedProperty) {
+        return [PropertyType.House, PropertyType.Apartment, PropertyType.BuildingPlot].map(p => ({
+          label: `property_types.${p}`,
+          value: p,
+        }));
+      }
+
       return Object.values(PropertyType).map(p => ({ label: `property_types.${p}`, value: p }));
     } else if (category === PropertyCategory.PROJECT) {
       return Object.values(NcpType).map(p => ({ label: `dictionaries.ncp_type.${p}`, value: p }));

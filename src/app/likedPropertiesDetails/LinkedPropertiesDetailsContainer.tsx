@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { usePimOverallInfoQuery } from 'api/types';
+import { useObjectTypeOverallInfoQuery, usePimOverallInfoQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
@@ -20,13 +20,17 @@ export const LinkedPropertiesDetailsContainer = () => {
     .replace(':objectTypeId', objectTypeId);
 
   const { loading, error, data } = usePimOverallInfoQuery({ variables: { id } });
+  const { data: overallInfo } = useObjectTypeOverallInfoQuery({ variables: { id: objectTypeId, projectId } });
+
+  const pim = data?.getPimGeneral;
+  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const breadcrumbs = (
     <>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={'TODO: place here a project name'} to={projectUrl} />
-      <NavBreadcrumb title={'TODO: place here a object type name'} to={objectTypeUrl} />
-      <NavBreadcrumb title={'TODO: place here a linked property name'} to={linkedPropertyUrl} />
+      <NavBreadcrumb title={overallInfo?.project.name ?? ''} to={projectUrl} />
+      <NavBreadcrumb title={overallInfo?.objectType.name ?? ''} to={objectTypeUrl} />
+      <NavBreadcrumb title={title} to={linkedPropertyUrl} />
     </>
   );
 

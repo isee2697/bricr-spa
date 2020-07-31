@@ -5,7 +5,7 @@ import {
   ObjectTypeGeneral,
   useCreateObjectTypeMutation,
   ListObjectTypesCountDocument,
-  NcpGeneralInformationDocument,
+  NcpGeneralOverallInfoDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -33,7 +33,7 @@ export const AddNewObjectTypeModalContainer = ({ isOpened, onClose }: AddNewObje
             variables: { ncpId: id },
           },
           {
-            query: NcpGeneralInformationDocument,
+            query: NcpGeneralOverallInfoDocument,
             variables: { id },
           },
         ],

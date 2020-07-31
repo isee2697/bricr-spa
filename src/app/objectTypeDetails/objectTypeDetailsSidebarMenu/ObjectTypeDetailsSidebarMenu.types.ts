@@ -1,6 +1,6 @@
-import { ObjectTypeGeneralQuery } from 'api/types';
+import { ObjectTypeOverallInfoQuery } from 'api/types';
 
 export type ObjectTypeDetailsSidebarMenuProps = {
   onHide: VoidFunction;
-  data?: ObjectTypeGeneralQuery;
+  data?: ObjectTypeOverallInfoQuery;
 };

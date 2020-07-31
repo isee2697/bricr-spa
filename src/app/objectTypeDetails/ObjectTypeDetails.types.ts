@@ -1,4 +1,4 @@
-import { ObjectTypeGeneralQuery } from '../../api/types';
+import { ObjectTypeOverallInfoQuery } from 'api/types';
 
 export type ObjectTypeDetailsCommonProps = {
   isSidebarVisible: boolean;
@@ -6,5 +6,5 @@ export type ObjectTypeDetailsCommonProps = {
 };
 
 export type ObjectTypeDetailsProps = {
-  data?: ObjectTypeGeneralQuery;
+  data?: ObjectTypeOverallInfoQuery;
 };

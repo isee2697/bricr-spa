@@ -11,6 +11,7 @@ export type ModalStateOptions = {
   objectTypeId?: string;
   linkedPropertiesIds?: string[];
   disableChange?: boolean;
+  isLinkedProperty?: boolean;
 };
 
 export type ModalStateType = {

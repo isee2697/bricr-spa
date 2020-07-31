@@ -6507,11 +6507,11 @@ export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type NcpGeneralInformationQueryVariables = {
+export type NcpGeneralOverallInfoQueryVariables = {
   id: Scalars['ID'];
 };
 
-export type NcpGeneralInformationQuery = { __typename?: 'Query' } & {
+export type NcpGeneralOverallInfoQuery = { __typename?: 'Query' } & {
   project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
   objectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
@@ -6870,12 +6870,12 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
   > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
 };
 
-export type ObjectTypeGeneralQueryVariables = {
+export type ObjectTypeOverallInfoQueryVariables = {
   id: Scalars['ID'];
   projectId: Scalars['ID'];
 };
 
-export type ObjectTypeGeneralQuery = { __typename?: 'Query' } & {
+export type ObjectTypeOverallInfoQuery = { __typename?: 'Query' } & {
   objectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id' | 'name'>;
   project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
   linkedProperty: { __typename?: 'ObjectTypeLinkedPims' } & {
@@ -6946,7 +6946,6 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'propertiesAvailable'
           | 'underOption'
           | 'soldOrRent'
-          | 'attentionNote'
         > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
       >
     >;
@@ -10727,8 +10726,8 @@ export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables
 >;
-export const NcpGeneralInformationDocument = gql`
-  query NcpGeneralInformation($id: ID!) {
+export const NcpGeneralOverallInfoDocument = gql`
+  query NcpGeneralOverallInfo($id: ID!) {
     project: getNcp(id: $id) {
       id
       name
@@ -10747,27 +10746,27 @@ export const NcpGeneralInformationDocument = gql`
     }
   }
 `;
-export function useNcpGeneralInformationQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>,
+export function useNcpGeneralOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>(
-    NcpGeneralInformationDocument,
+  return ApolloReactHooks.useQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(
+    NcpGeneralOverallInfoDocument,
     baseOptions,
   );
 }
-export function useNcpGeneralInformationLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>,
+export function useNcpGeneralOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<NcpGeneralInformationQuery, NcpGeneralInformationQueryVariables>(
-    NcpGeneralInformationDocument,
+  return ApolloReactHooks.useLazyQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(
+    NcpGeneralOverallInfoDocument,
     baseOptions,
   );
 }
-export type NcpGeneralInformationQueryHookResult = ReturnType<typeof useNcpGeneralInformationQuery>;
-export type NcpGeneralInformationLazyQueryHookResult = ReturnType<typeof useNcpGeneralInformationLazyQuery>;
-export type NcpGeneralInformationQueryResult = ApolloReactCommon.QueryResult<
-  NcpGeneralInformationQuery,
-  NcpGeneralInformationQueryVariables
+export type NcpGeneralOverallInfoQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoQuery>;
+export type NcpGeneralOverallInfoLazyQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoLazyQuery>;
+export type NcpGeneralOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  NcpGeneralOverallInfoQuery,
+  NcpGeneralOverallInfoQueryVariables
 >;
 export const GetNcpLabelsDocument = gql`
   query GetNcpLabels($id: ID!, $properties: [LabelProperty!]) {
@@ -11400,8 +11399,8 @@ export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
   GetObjectTypeGeneralQuery,
   GetObjectTypeGeneralQueryVariables
 >;
-export const ObjectTypeGeneralDocument = gql`
-  query ObjectTypeGeneral($id: ID!, $projectId: ID!) {
+export const ObjectTypeOverallInfoDocument = gql`
+  query ObjectTypeOverallInfo($id: ID!, $projectId: ID!) {
     objectType: getObjectTypeGeneral(id: $id) {
       id
       name
@@ -11419,27 +11418,27 @@ export const ObjectTypeGeneralDocument = gql`
     }
   }
 `;
-export function useObjectTypeGeneralQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>,
+export function useObjectTypeOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useQuery<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>(
-    ObjectTypeGeneralDocument,
+  return ApolloReactHooks.useQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(
+    ObjectTypeOverallInfoDocument,
     baseOptions,
   );
 }
-export function useObjectTypeGeneralLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>,
+export function useObjectTypeOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>,
 ) {
-  return ApolloReactHooks.useLazyQuery<ObjectTypeGeneralQuery, ObjectTypeGeneralQueryVariables>(
-    ObjectTypeGeneralDocument,
+  return ApolloReactHooks.useLazyQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(
+    ObjectTypeOverallInfoDocument,
     baseOptions,
   );
 }
-export type ObjectTypeGeneralQueryHookResult = ReturnType<typeof useObjectTypeGeneralQuery>;
-export type ObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useObjectTypeGeneralLazyQuery>;
-export type ObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
-  ObjectTypeGeneralQuery,
-  ObjectTypeGeneralQueryVariables
+export type ObjectTypeOverallInfoQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoQuery>;
+export type ObjectTypeOverallInfoLazyQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoLazyQuery>;
+export type ObjectTypeOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeOverallInfoQuery,
+  ObjectTypeOverallInfoQueryVariables
 >;
 export const GetObjectTypeLabelsDocument = gql`
   query GetObjectTypeLabels($id: ID!, $properties: [LabelProperty!]) {
@@ -11551,7 +11550,6 @@ export const ListObjectTypesDocument = gql`
         propertiesAvailable
         underOption
         soldOrRent
-        attentionNote
       }
     }
   }

@@ -16,8 +16,8 @@ import {
   NcpWithSameAddressQueryVariables,
   NcpWithSameAddressDocument,
   useSetObjectTypeLinkedPimsMutation,
-  ObjectTypeGeneralDocument,
-  NcpGeneralInformationDocument,
+  ObjectTypeOverallInfoDocument,
+  NcpGeneralOverallInfoDocument,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -93,14 +93,14 @@ export const AddPimModalContainer = () => {
           },
           refetchQueries: [
             {
-              query: ObjectTypeGeneralDocument,
+              query: ObjectTypeOverallInfoDocument,
               variables: {
                 id: options.objectTypeId,
                 projectId: options?.projectId,
               },
             },
             {
-              query: NcpGeneralInformationDocument,
+              query: NcpGeneralOverallInfoDocument,
               variables: { id: options?.projectId },
             },
           ],

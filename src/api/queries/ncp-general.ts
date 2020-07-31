@@ -51,8 +51,8 @@ export const NCP_GENERAL_WITH_SAME_ADDRESS = gql`
   }
 `;
 
-export const OBJECT_TYPE_GENERAL_INFORMATION = gql`
-  query NcpGeneralInformation($id: ID!) {
+export const OBJECT_TYPE_OVERALL_INFO = gql`
+  query NcpGeneralOverallInfo($id: ID!) {
     project: getNcp(id: $id) {
       id
       name

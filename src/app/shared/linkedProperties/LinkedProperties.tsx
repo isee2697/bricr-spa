@@ -59,6 +59,7 @@ export const LinkedProperties = ({
                   objectTypeId: id,
                   linkedPropertiesIds: linkedPropertiesIds,
                   disableChange: true,
+                  isLinkedProperty: true,
                 })
               }
               startIcon={<AddIcon color="inherit" />}

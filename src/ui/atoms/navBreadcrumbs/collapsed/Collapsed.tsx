@@ -31,15 +31,18 @@ export const Collapsed = ({ children }: CollapsedProps) => {
             </div>
           }
         >
-          <Button
-            disableElevation
-            variant="contained"
-            className={classNames(classes.button, { open })}
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            ...
-          </Button>
+          <span>
+            {/*span -> FIX for Safari not displaying tooltip*/}
+            <Button
+              disableElevation
+              variant="contained"
+              className={classNames(classes.button, { open })}
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              ...
+            </Button>
+          </span>
         </WhiteTooltip>
       </div>
     </ClickAwayListener>

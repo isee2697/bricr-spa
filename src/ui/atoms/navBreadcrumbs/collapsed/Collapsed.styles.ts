@@ -27,6 +27,7 @@ export const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(2),
     '& .MuiButton-label': {
       height: '100%',
+      lineHeight: `${theme.spacing(0.21875)}px`,
     },
     '&.open': {
       color: theme.palette.primary.main,

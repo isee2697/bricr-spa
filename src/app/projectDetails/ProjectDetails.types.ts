@@ -1,4 +1,4 @@
-import { NcpGeneralInformationQuery } from 'api/types';
+import { NcpGeneralOverallInfoQuery } from 'api/types';
 
 export type ProjectDetailsProps = {
   isSidebarVisible: boolean;
@@ -6,5 +6,5 @@ export type ProjectDetailsProps = {
 };
 
 export type NcpProps = {
-  data?: NcpGeneralInformationQuery;
+  data?: NcpGeneralOverallInfoQuery;
 };

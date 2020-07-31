@@ -16,8 +16,8 @@ export const PIM_OBJECT_TYPE_GENERAL = gql`
   }
 `;
 
-export const OBJECT_TYPE_GENERAL_INFORMATION = gql`
-  query ObjectTypeGeneral($id: ID!, $projectId: ID!) {
+export const OBJECT_TYPE_OVERALL_INFO = gql`
+  query ObjectTypeOverallInfo($id: ID!, $projectId: ID!) {
     objectType: getObjectTypeGeneral(id: $id) {
       id
       name
