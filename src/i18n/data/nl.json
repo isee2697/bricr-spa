@@ -1051,7 +1051,7 @@
   "project_details.object_types.new_type_title": "Nieuw objecttype toevoegen",
   "project_details.object_types.label": "Stel de unieke naam in",
   "project_details.object_types.placeholder": "Aangepaste naam van objecttype",
-  "project_details.object_types.menu.back_to_object_type_list": "Terug naar de lijst Objecttypen",
+  "project_details.object_types.menu.back_to_object_type_list": "Terug naar NC-project",
   "project_details.general.title": "Algemeen",
   "project_details.general.address.title": "Adres informatie",
   "project_details.general.address.name": "Naam van het project",

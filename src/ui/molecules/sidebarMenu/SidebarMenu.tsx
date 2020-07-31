@@ -4,7 +4,7 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
 import { Box, SideMenuItem, SideSubMenuItem, SidebarHideButton } from 'ui/atoms';
-import { ArrowLeftIcon, SaleIcon } from 'ui/atoms/icons';
+import { SaleIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './SidebarMenu.styles';
 import { SidebarMenuProps } from './SidebarMenu.types';
@@ -50,12 +50,7 @@ export const SidebarMenu = ({ onHide, menuTitle, menu, translationPrefix }: Side
         {!!menu.back && (
           <SideMenuItem
             className={classes.backToList}
-            title={
-              <Link to={menu.back.url}>
-                <ArrowLeftIcon color="inherit" />
-                {menu.back.title}
-              </Link>
-            }
+            title={<Link to={menu.back.url}>{menu.back.title}</Link>}
             selected={false}
           />
         )}

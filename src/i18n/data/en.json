@@ -1079,7 +1079,7 @@
   "project_details.object_types.new_type_title": "Add new object type",
   "project_details.object_types.label": "Set the unique name",
   "project_details.object_types.placeholder": "Custom name of object type",
-  "project_details.object_types.menu.back_to_object_type_list": "Back to Object Types list",
+  "project_details.object_types.menu.back_to_object_type_list": "Back to NC project",
   "project_details.general.title": "General",
   "project_details.general.address.title": "Address information",
   "project_details.general.address.name": "Project name",

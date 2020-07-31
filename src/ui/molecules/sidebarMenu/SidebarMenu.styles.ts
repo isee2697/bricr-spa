@@ -44,11 +44,13 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   backToList: {
     height: 'auto',
     '& a': {
-      paddingLeft: spacing(3),
+      display: 'flex',
+      justifyContent: 'center',
+      padding: spacing(3, 2, 3, 2),
       borderBottom: 0,
-      paddingTop: spacing(2.375),
-      paddingBottom: spacing(2.375),
       borderTop: `2px solid ${palette.gray.light}`,
+      ...typography.h5,
+      fontWeight: typography.fontWeightBold,
       '& h3, & svg': {
         color: palette.black.main,
       },
