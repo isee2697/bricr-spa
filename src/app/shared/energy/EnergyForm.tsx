@@ -64,6 +64,7 @@ export const EnergyForm = ({
                       label="pim_details.specification.energy.energy_index"
                       placeholder="pim_details.specification.energy.energy_index_placeholder"
                       disabled={!editing}
+                      type="number"
                     />
                   </Grid>
                   <Grid item xs={4}>

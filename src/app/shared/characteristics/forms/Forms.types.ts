@@ -1,4 +1,5 @@
-import { IdentificationNumber, ProjectPhase } from 'api/types';
+import { EntityWithFiles, EntityWithMultipleFiles, IdentificationNumber, ProjectPhase } from 'api/types';
+import { EntityType } from 'app/shared/entityType';
 
 export type FormProps = {
   isInitEditing: boolean;
@@ -11,4 +12,12 @@ export type IdentificationNumbersForm = FormProps & {
 
 export type PhaseForm = FormProps & {
   phase?: ProjectPhase | null;
+};
+
+export type EntityWithFilesMap = {
+  [Key in EntityType]?: EntityWithFiles;
+};
+
+export type EntityWithMultipleFilesMap = {
+  [Key in EntityType]?: EntityWithMultipleFiles;
 };

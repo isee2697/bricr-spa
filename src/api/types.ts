@@ -884,6 +884,7 @@ export enum EntityWithFiles {
   Ncp = 'Ncp',
   ObjectType = 'ObjectType',
   Space = 'Space',
+  BogSpace = 'BogSpace',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
   OutsidePropertyRelated = 'OutsidePropertyRelated',
@@ -891,8 +892,9 @@ export enum EntityWithFiles {
   CadastreMap = 'CadastreMap',
   MediaPicture = 'MediaPicture',
   NcpMediaPicture = 'NcpMediaPicture',
-  ProjectMarketing = 'ProjectMarketing',
   ObjectTypeMediaPicture = 'ObjectTypeMediaPicture',
+  NcpProjectMarketing = 'NcpProjectMarketing',
+  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
   ProjectPhase = 'ProjectPhase',
 }
 
@@ -901,11 +903,13 @@ export enum EntityWithMultipleFiles {
   Ncp = 'Ncp',
   ObjectType = 'ObjectType',
   Space = 'Space',
+  BogSpace = 'BogSpace',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
   OutsidePropertyRelated = 'OutsidePropertyRelated',
   RoofInformation = 'RoofInformation',
-  ProjectMarketing = 'ProjectMarketing',
+  NcpProjectMarketing = 'NcpProjectMarketing',
+  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
 }
 
 export type CreateFileInput = {
@@ -5362,6 +5366,27 @@ export type UpdateIdentificationNumberNcpMutation = { __typename?: 'Mutation' } 
   updateIdentificationNumberNcp: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
 };
 
+export type AddIdentificationNumberObjectTypeMutationVariables = {
+  input: AddIdentificationNumberInput;
+};
+
+export type AddIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberObjectType: { __typename?: 'ObjectTypeWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
+
+export type UpdateIdentificationNumberObjectTypeMutationVariables = {
+  input: UpdateIdentificationNumberInput;
+};
+
+export type UpdateIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberObjectType: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  >;
+};
+
 export type AddLabelMutationVariables = {
   input: LabelInput;
 };
@@ -8098,6 +8123,64 @@ export type UpdateIdentificationNumberNcpMutationResult = ApolloReactCommon.Muta
 export type UpdateIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateIdentificationNumberNcpMutation,
   UpdateIdentificationNumberNcpMutationVariables
+>;
+export const AddIdentificationNumberObjectTypeDocument = gql`
+  mutation AddIdentificationNumberObjectType($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberObjectType(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+export function useAddIdentificationNumberObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberObjectTypeMutation,
+    AddIdentificationNumberObjectTypeMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    AddIdentificationNumberObjectTypeMutation,
+    AddIdentificationNumberObjectTypeMutationVariables
+  >(AddIdentificationNumberObjectTypeDocument, baseOptions);
+}
+export type AddIdentificationNumberObjectTypeMutationHookResult = ReturnType<
+  typeof useAddIdentificationNumberObjectTypeMutation
+>;
+export type AddIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberObjectTypeMutation
+>;
+export type AddIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberObjectTypeMutation,
+  AddIdentificationNumberObjectTypeMutationVariables
+>;
+export const UpdateIdentificationNumberObjectTypeDocument = gql`
+  mutation UpdateIdentificationNumberObjectType($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberObjectType(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberObjectTypeMutation,
+    UpdateIdentificationNumberObjectTypeMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberObjectTypeMutation,
+    UpdateIdentificationNumberObjectTypeMutationVariables
+  >(UpdateIdentificationNumberObjectTypeDocument, baseOptions);
+}
+export type UpdateIdentificationNumberObjectTypeMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberObjectTypeMutation
+>;
+export type UpdateIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberObjectTypeMutation
+>;
+export type UpdateIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberObjectTypeMutation,
+  UpdateIdentificationNumberObjectTypeMutationVariables
 >;
 export const AddLabelDocument = gql`
   mutation AddLabel($input: LabelInput!) {

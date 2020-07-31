@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CheckboxField, RadioGroupField } from 'form/fields';
+import { RadioGroupField } from 'form/fields';
 import { Box } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
@@ -15,7 +15,9 @@ export const ObjectType = ({ isInitEditing, isInitExpanded }: FormProps) => {
 
   return (
     <FormSection
-      title={formatMessage({ id: 'project_details.characteristics.project_marketing.title' })}
+      title={formatMessage({
+        id: 'project_details.characteristics.object_type.title',
+      })}
       isEditable
       isExpandable
       isInitExpanded={isInitExpanded}
@@ -23,11 +25,15 @@ export const ObjectType = ({ isInitEditing, isInitExpanded }: FormProps) => {
     >
       {inEditMode => (
         <>
-          <Box mb={4}>
+          <Box>
             <Box mb={2}>
               <FormSubSectionHeader
-                title={formatMessage({ id: 'project_details.characteristics.object_type.title' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                title={formatMessage({
+                  id: 'project_details.characteristics.object_type.subtitle',
+                })}
+                subtitle={formatMessage({
+                  id: 'pim_details.choose_one_option_below',
+                })}
               />
             </Box>
             <RadioGroupField
@@ -39,13 +45,6 @@ export const ObjectType = ({ isInitEditing, isInitExpanded }: FormProps) => {
                 icon: <SquareIcon color="inherit" />,
                 value: type,
               }))}
-            />
-          </Box>
-          <Box>
-            <CheckboxField
-              name="automaticallySetObjectTypes"
-              disabled={!inEditMode}
-              label={formatMessage({ id: 'project_details.characteristics.object_type.set_automatically' })}
             />
           </Box>
         </>

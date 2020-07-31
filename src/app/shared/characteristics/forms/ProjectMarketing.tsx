@@ -1,23 +1,37 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { GenericField, UploadImageGroupField, ColorPickerField } from 'form/fields';
+import { ColorPickerField, GenericField, UploadImageGroupField } from 'form/fields';
 import { Box, Grid } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { FormSection } from 'ui/organisms';
 import { emailValidator, urlValidator } from 'form/validators';
+import { EntityType, useEntityType } from 'app/shared/entityType';
 
-import { FormProps } from './Forms.types';
+import { EntityWithFilesMap, EntityWithMultipleFilesMap, FormProps } from './Forms.types';
+
+const entityWithFilesMap: EntityWithFilesMap = {
+  [EntityType.ObjectType]: EntityWithFiles.ObjectTypeProjectMarketing,
+  [EntityType.Project]: EntityWithFiles.NcpProjectMarketing,
+};
+
+const entityWithMultipleFilesMap: EntityWithMultipleFilesMap = {
+  [EntityType.ObjectType]: EntityWithMultipleFiles.ObjectTypeProjectMarketing,
+  [EntityType.Project]: EntityWithMultipleFiles.NcpProjectMarketing,
+};
 
 export const ProjectMarketing = ({ isInitEditing, isInitExpanded }: FormProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
+  const { entityType } = useEntityType();
 
   return (
     <FormSection
-      title={formatMessage({ id: 'project_details.characteristics.project_marketing.title' })}
+      title={formatMessage({
+        id: 'project_details.characteristics.project_marketing.title',
+      })}
       isEditable
       isExpandable
       isInitExpanded={isInitExpanded}
@@ -28,24 +42,34 @@ export const ProjectMarketing = ({ isInitEditing, isInitExpanded }: FormProps) =
           <Box mb={4}>
             <Box mb={2}>
               <FormSubSectionHeader
-                title={formatMessage({ id: 'project_details.characteristics.project_marketing.logos_title' })}
-                subtitle={formatMessage({ id: 'project_details.characteristics.project_marketing.logos_subtitle' })}
+                title={formatMessage({
+                  id: 'project_details.characteristics.project_marketing.logos_title',
+                })}
+                subtitle={formatMessage({
+                  id: 'project_details.characteristics.project_marketing.logos_subtitle',
+                })}
               />
             </Box>
-            <UploadImageGroupField
-              name="projectMarketing.logos"
-              entity={EntityWithFiles.ProjectMarketing}
-              entityID={id}
-              removeEntity={EntityWithMultipleFiles.ProjectMarketing}
-              disabled={!inEditMode}
-              mainName="projectMarketing.mainLogoId"
-            />
+            {entityWithFilesMap[entityType] && entityWithMultipleFilesMap[entityType] && (
+              <UploadImageGroupField
+                name="projectMarketing.logos"
+                entity={entityWithFilesMap[entityType]!}
+                entityID={id}
+                removeEntity={entityWithMultipleFilesMap[entityType]!}
+                disabled={!inEditMode}
+                mainName="projectMarketing.mainLogoId"
+              />
+            )}
           </Box>
           <Box>
             <Box mb={2}>
               <FormSubSectionHeader
-                title={formatMessage({ id: 'project_details.characteristics.project_marketing.online_title' })}
-                subtitle={formatMessage({ id: 'project_details.characteristics.project_marketing.online_subtitle' })}
+                title={formatMessage({
+                  id: 'project_details.characteristics.project_marketing.online_title',
+                })}
+                subtitle={formatMessage({
+                  id: 'project_details.characteristics.project_marketing.online_subtitle',
+                })}
               />
               <GenericField
                 name="projectMarketing.emailAddress"

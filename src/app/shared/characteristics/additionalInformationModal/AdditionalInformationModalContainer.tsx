@@ -86,7 +86,7 @@ export const AdditionalInformationModalContainer = ({
     <AdditionalInformationModal
       initialValues={initialValues}
       isOpened={isOpened}
-      onClose={onClose}
+      onClose={() => onClose()}
       onSubmit={handleSubmit}
       availableSections={availableSections}
     />

@@ -46,7 +46,7 @@ export const Characteristics = ({
   };
 
   const setPropsForType = (type: CharacteristicsSections) => {
-    if (newlyAddedCards.includes(type)) {
+    if (newlyAddedCards?.includes(type)) {
       return {
         isInitEditing: true,
         isInitExpanded: true,

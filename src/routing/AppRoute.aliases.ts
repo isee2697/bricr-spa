@@ -6,4 +6,4 @@ export const appRouteAliases: AppRouteAliases = {
 };
 
 export const matchesRouteAlias = (pathname: string, route: AppRoute) =>
-  appRouteAliases[route] && pathname.startsWith(appRouteAliases[route]!);
+  appRouteAliases[route] && pathname.startsWith(appRouteAliases[route] as string);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormState } from 'react-final-form';
 
 import { GenericField } from 'form/fields';
 import { Grid } from 'ui/atoms';
@@ -10,6 +11,8 @@ import { minValueValidator } from 'form/validators';
 import { FormProps } from './Forms.types';
 
 export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
+  const formState = useFormState();
+
   const { formatMessage } = useLocale();
 
   const fromToRow = (name: string, disabled: boolean) => (
@@ -42,7 +45,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           InputProps={{
             endAdornment: <SquareMeterIcon />,
           }}
-          validate={[minValueValidator(0)]}
+          validate={[minValueValidator(formState.values.measurements[`${name}From`] ?? 0)]}
         />
       </Grid>
     </Grid>
@@ -50,7 +53,9 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
 
   return (
     <FormSection
-      title={formatMessage({ id: 'project_details.characteristics.measurements.title' })}
+      title={formatMessage({
+        id: 'project_details.characteristics.measurements.title',
+      })}
       isEditable
       isExpandable
       isInitExpanded={isInitExpanded}
@@ -59,7 +64,9 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
       {inEditMode => (
         <AutoCalculateForm
           name="measurements.calculateAutomatically"
-          label={formatMessage({ id: 'project_details.general.construction.automatically_calculate' })}
+          label={formatMessage({
+            id: 'project_details.general.construction.automatically_calculate',
+          })}
           disabled={!inEditMode}
         >
           {isCalculated => (

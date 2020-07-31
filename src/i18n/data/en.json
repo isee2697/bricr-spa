@@ -2080,5 +2080,11 @@
   "dictionaries.characteristic_sections.AccountManagers": "Account managers",
   "dictionaries.characteristic_sections.ProjectMarketing": "Project marketing",
   "dictionaries.characteristic_sections.AttentionField": "Attention field",
-  "dictionaries.characteristic_sections.ObjectTypes": "Object types"
+  "dictionaries.characteristic_sections.ObjectTypes": "Object types",
+  "project_details.characteristics.object_type.title": "Object type",
+  "project_details.characteristics.object_type.subtitle": "Type of object type",
+  "dictionaries.object_type.House": "House",
+  "dictionaries.object_type.BuildingPlot": "Building Plot",
+  "dictionaries.object_type.Apartament": "Apartament",
+  "project_details.characteristics.object_type.set_automatically": "Automatically set object types"
 }

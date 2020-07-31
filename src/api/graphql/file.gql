@@ -8,6 +8,7 @@ enum EntityWithFiles {
   Ncp,
   ObjectType,
   Space,
+  BogSpace,
   OutsideFeature,
   OutsideGeneral,
   OutsidePropertyRelated,
@@ -15,8 +16,9 @@ enum EntityWithFiles {
   CadastreMap,
   MediaPicture,
   NcpMediaPicture,
-  ProjectMarketing,
   ObjectTypeMediaPicture,
+  NcpProjectMarketing,
+  ObjectTypeProjectMarketing,
   ProjectPhase
 }
 
@@ -25,11 +27,13 @@ enum EntityWithMultipleFiles {
   Ncp,
   ObjectType,
   Space,
+  BogSpace,
   OutsideFeature,
   OutsideGeneral,
   OutsidePropertyRelated,
   RoofInformation,
-  ProjectMarketing
+  NcpProjectMarketing,
+  ObjectTypeProjectMarketing
 }
 
 input CreateFileInput {
