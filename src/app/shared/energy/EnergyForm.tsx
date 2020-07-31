@@ -8,6 +8,7 @@ import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { EnergyFormProps } from 'app/shared/energy/EnergyForm.types';
 import { EnergyCharasteristicType, EnergyType } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
 
 export const energy = Object.keys(EnergyType).map(value => ({
   label: `dictionaries.specification.energy.${value}`,
@@ -65,6 +66,7 @@ export const EnergyForm = ({
                       placeholder="pim_details.specification.energy.energy_index_placeholder"
                       disabled={!editing}
                       type="number"
+                      validate={[numberValidator()]}
                     />
                   </Grid>
                   <Grid item xs={4}>

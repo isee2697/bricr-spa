@@ -5,7 +5,7 @@ import { GenericField } from 'form/fields';
 import { Grid } from 'ui/atoms';
 import { AutoCalculateForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { SquareMeterIcon } from 'ui/atoms/icons';
+import { CubicMeterIcon } from 'ui/atoms/icons';
 import { minValueValidator } from 'form/validators';
 
 import { FormProps } from './Forms.types';
@@ -26,7 +26,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           disabled={disabled}
           type="number"
           InputProps={{
-            endAdornment: <SquareMeterIcon />,
+            endAdornment: <CubicMeterIcon />,
           }}
           inputProps={{
             min: 0,
@@ -43,7 +43,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           disabled={disabled}
           type="number"
           InputProps={{
-            endAdornment: <SquareMeterIcon />,
+            endAdornment: <CubicMeterIcon />,
           }}
           validate={[
             minValueValidator(formState?.values?.measurements ? formState.values.measurements[`${name}From`] : 0),
