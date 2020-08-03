@@ -6973,6 +6973,7 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'propertiesAvailable'
           | 'underOption'
           | 'soldOrRent'
+          | 'attentionNote'
         > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
       >
     >;
@@ -11637,6 +11638,7 @@ export const ListObjectTypesDocument = gql`
         propertiesAvailable
         underOption
         soldOrRent
+        attentionNote
       }
     }
   }
