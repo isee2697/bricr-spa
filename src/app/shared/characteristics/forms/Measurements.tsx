@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useFormState } from 'react-final-form';
 
 import { GenericField } from 'form/fields';
 import { Grid } from 'ui/atoms';
 import { AutoCalculateForm, FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { CubicMeterIcon } from 'ui/atoms/icons';
+import { CubicMeterIcon, SquareMeterIcon } from 'ui/atoms/icons';
 import { minValueValidator } from 'form/validators';
 
 import { FormProps } from './Forms.types';
@@ -15,7 +15,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
 
   const { formatMessage } = useLocale();
 
-  const fromToRow = (name: string, disabled: boolean) => (
+  const fromToRow = (name: string, disabled: boolean, icon: ReactNode) => (
     <Grid container spacing={1}>
       <Grid item xs={4}>
         <GenericField
@@ -26,7 +26,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           disabled={disabled}
           type="number"
           InputProps={{
-            endAdornment: <CubicMeterIcon />,
+            endAdornment: icon,
           }}
           inputProps={{
             min: 0,
@@ -43,7 +43,7 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
           disabled={disabled}
           type="number"
           InputProps={{
-            endAdornment: <CubicMeterIcon />,
+            endAdornment: icon,
           }}
           validate={[
             minValueValidator(formState?.values?.measurements ? formState.values.measurements[`${name}From`] : 0),
@@ -73,9 +73,9 @@ export const Measurements = ({ isInitEditing, isInitExpanded }: FormProps) => {
         >
           {isCalculated => (
             <>
-              {fromToRow('volume', !inEditMode || isCalculated)}
-              {fromToRow('livingSpace', !inEditMode || isCalculated)}
-              {fromToRow('plotArea', !inEditMode || isCalculated)}
+              {fromToRow('volume', !inEditMode || isCalculated, <CubicMeterIcon />)}
+              {fromToRow('livingSpace', !inEditMode || isCalculated, <SquareMeterIcon />)}
+              {fromToRow('plotArea', !inEditMode || isCalculated, <SquareMeterIcon />)}
             </>
           )}
         </AutoCalculateForm>
