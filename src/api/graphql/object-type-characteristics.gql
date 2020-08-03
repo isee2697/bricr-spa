@@ -1,0 +1,48 @@
+enum TypeOfObjectType {
+  House,
+  Apartament,
+  BuildingPlot
+}
+
+input ObjectTypeCharacteristicsInput {
+  id: ID!
+  projectMarketing: ProjectMarketingInput
+  measurements: MeasurementsInput
+  energy: EnergyInput
+  accountManagersIds: [ID!]
+  attentionNote: String
+  characteristicsDescription: String
+  type: TypeOfObjectType
+  automaticallySetObjectTypes: Boolean
+}
+
+type ObjectTypeCharacteristics implements LastUpdated & HasCharacteristicsSections {
+  id: ID!
+  characteristicsSections: [CharacteristicsSections!]
+  projectMarketing: ProjectMarketing
+  measurements: Measurements
+  energy: Energy
+  accountManagers: [Profile!]
+  accountManagersIds: [ID!]
+  identificationNumbers: [IdentificationNumber!]
+  attentionNote: String
+  lastEditedBy: Profile
+  dateUpdated: Date
+  characteristicsDescription: String
+  type: TypeOfObjectType
+  automaticallySetObjectTypes: Boolean
+}
+
+type ObjectTypeWithNewIdentificationNumber {
+  objectType: ObjectTypeCharacteristics!
+  newIdentificationNumber: IdentificationNumber!
+}
+
+extend type Query {
+  getObjectTypeCharacteristics(id: ID!): ObjectTypeCharacteristics! @auth
+}
+
+extend type Mutation {
+  setObjectTypeCharacteristicsSections(input: SetCharacteristicsSectionsInput!): ObjectTypeCharacteristics! @auth
+  updateObjectTypeCharacteristics(input: ObjectTypeCharacteristicsInput!): ObjectTypeCharacteristics! @auth
+}

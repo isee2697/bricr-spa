@@ -23,13 +23,13 @@ import { MetersContainer } from './meters/MetersContainer';
 import { Services } from './Services';
 import { AddMeterModalContainer } from './addMeterModal/AddMeterModalContainer';
 
-export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: PimDetailsSectionProps) => {
+export const ServicesContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const [isMeterModalOpen, setIsMeterModalOpen] = useState(false);
   const [isMeterAdded, setMeterAdded] = useState(false);
   const { data } = usePimServicesQuery({ variables: { id } });
-  const [updateService] = useUpdateServiceMutation();
+  const [updatePimService] = useUpdateServiceMutation();
   const [updateDescription] = useUpdateDescriptionMutation();
 
   const onAddMeter = () => {
@@ -64,10 +64,10 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
 
   const onEdit = async (body: ServiceForm) => {
     try {
-      const { data } = await updateService({
+      const { data } = await updatePimService({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             serviceId: body.id,
             name: body.name,
             description: body.description,
@@ -112,7 +112,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"
@@ -133,7 +133,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
           render={() => (
             <Services
               isSidebarVisible={isSidebarVisible}
-              onOpenSidebar={onOpenSidebar}
+              onSidebarOpen={onSidebarOpen}
               title={title}
               pimServices={pimServices}
               onSave={onEdit}
@@ -149,7 +149,7 @@ export const ServicesContainer = ({ title, isSidebarVisible, onOpenSidebar }: Pi
               isMeterAdded={isMeterAdded}
               type={path.match.params.meterType}
               isSidebarVisible={isSidebarVisible}
-              onOpenSidebar={onOpenSidebar}
+              onSidebarOpen={onSidebarOpen}
               pimServices={pimServices}
               linkedPerson={{
                 name: 'Christian van Gils',

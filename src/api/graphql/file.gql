@@ -6,7 +6,9 @@ enum FilePermission {
 enum EntityWithFiles {
   Pim,
   Ncp,
+  ObjectType,
   Space,
+  BogSpace,
   OutsideFeature,
   OutsideGeneral,
   OutsidePropertyRelated,
@@ -14,19 +16,24 @@ enum EntityWithFiles {
   CadastreMap,
   MediaPicture,
   NcpMediaPicture,
-  ProjectMarketing,
+  ObjectTypeMediaPicture,
+  NcpProjectMarketing,
+  ObjectTypeProjectMarketing,
   ProjectPhase
 }
 
 enum EntityWithMultipleFiles {
   Pim,
   Ncp,
+  ObjectType,
   Space,
+  BogSpace,
   OutsideFeature,
   OutsideGeneral,
   OutsidePropertyRelated,
   RoofInformation,
-  ProjectMarketing
+  NcpProjectMarketing,
+  ObjectTypeProjectMarketing
 }
 
 input CreateFileInput {

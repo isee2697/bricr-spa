@@ -1,0 +1,42 @@
+input ListObjectTypesFilters {
+  archived: Boolean
+  ncpId: ID!
+}
+
+type ListObjectTypes {
+  id: ID!
+  ncpId: ID!
+  dateCreated: Date!
+  dateUpdated: Date
+  archived: Boolean
+  areaRangeFrom: AbsoluteFloat
+  areaRangeTo: AbsoluteFloat
+  numberOfRoomsFrom: Int
+  numberOfRoomsTo: Int
+  mainPicture: File
+  name: String
+  salePriceFrom: AbsoluteFloat
+  salePriceTo: AbsoluteFloat
+  rentPriceFrom: AbsoluteFloat
+  rentPriceTo: AbsoluteFloat
+  underOption: Int
+  soldOrRent: Int
+  saleLabel: String
+  rentLabel: String
+  partOfPhase: Int
+  completeness: Float!
+  matches: Int
+  interests: Int
+  propertiesConnected: Int
+  propertiesAvailable: Int
+  attentionNote: String
+}
+
+type ObjectTypeListSearchResult {
+  metadata: SearchMetadata
+  items: [ListObjectTypes!]
+}
+
+extend type Query {
+  listObjectTypes(filters: ListObjectTypesFilters!, pagination: Pagination, sort: [Sort!]): ObjectTypeListSearchResult! @auth
+}

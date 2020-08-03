@@ -128,26 +128,6 @@ enum ObligationToProvideInformationType {
   OwnSake
 }
 
-type LinkedPim {
-  id: ID!
-  houseNumberPrefix: String
-  houseNumber: String!
-  houseNumberAddition: String
-  postalCode: String!
-  district: String
-  city: String!
-  state: String
-  county: String
-  country: String!
-  propertyType: PropertyType
-  attention: String
-  plotNumber: Int
-  salePrice: AbsoluteFloat
-  rentPrice: AbsoluteFloat
-  status: PimStatus!
-  images: [File!]
-}
-
 input LinkedPimInput {
   pimId: ID!
   linkedPimIDs: [ID!]!

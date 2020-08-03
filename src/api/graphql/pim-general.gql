@@ -1,3 +1,19 @@
+enum GeneralBogType {
+  BusinessSpace,
+  Offices,
+  RetailSpace,
+  SocialRealEstate,
+  Horeca
+}
+
+enum GeneralCharacteristicsBog {
+  Leissure,
+  BuildingPlot,
+  Investment,
+  PavedOutsideArea,
+  LogisticsFunction
+}
+
 input PimGeneralInput {
   id: ID!
   realEstateType: RealEstateType
@@ -22,9 +38,59 @@ input PimGeneralInput {
   livingArea: Int
   attention: String
   houseGeneral: HouseGeneralInput
+  bogGeneral: BogGeneralInput
   extraAddress: ExtraAddressInput
   showExtraAddress: Boolean
   showIdentificationNumber: Boolean
+  apartmentGeneral: ApartmentGeneralInput
+}
+
+enum ApartmentType {
+  OneBedroomApartment,
+  TwoBedroomApartment,
+  ThreeBedroomApartment,
+  FourBedroomApartment,
+  FiveBedroomApartment
+}
+
+enum CharacteristicsApartment {
+  CorridorApartment,
+  ServiceApartment,
+  NursingApartment,
+  CallFloor,
+  DormRoom,
+  OpenPorch,
+  PorchApartment,
+  GalleryApartment,
+  Mezzanine,
+  Penthouse,
+  Maisonette,
+  UpstairsApartment,
+  DownstairsApartment,
+  DoubleUpstairsApartment,
+  DoubleDownstairsApartment,
+}
+
+input ApartmentPropertyDetailsInput {
+  groundfloorApartmentStartsOnFloor: Int
+  amountOfTotalFloors: Int
+  notes: String
+  apartmentType: String @uuidOrEnum(enum: ["ApartmentType"])
+  characteristicsApartment: String @uuidOrEnum(enum: ["CharacteristicsApartment"])
+}
+
+type ApartmentPropertyDetails {
+  groundfloorApartmentStartsOnFloor: Int
+  amountOfTotalFloors: Int
+  notes: String
+  apartmentType: String @uuidOrEnum(enum: ["ApartmentType"])
+  characteristicsApartment: String @uuidOrEnum(enum: ["CharacteristicsApartment"])
+}
+
+input ApartmentGeneralInput {
+  availability: PropertyAvailabilityInformationInput
+  construction: ConstructionInformationInput
+  propertyDetails: ApartmentPropertyDetailsInput
 }
 
 type PropertyAvailabilityInformation {
@@ -43,12 +109,34 @@ type ConstructionInformation {
   notes: String
 }
 
+type ApartmentGeneral {
+  availability: PropertyAvailabilityInformation
+  construction: ConstructionInformation
+  propertyDetails: ApartmentPropertyDetails
+}
+
 type HouseGeneral  {
   availability: PropertyAvailabilityInformation
   construction: ConstructionInformation
   floor: FloorType
   propertyConnection: PropertyConnection
   propertyDetails: PropertyTypeDetailed
+}
+
+input BogGeneralInput {
+  type: GeneralBogType
+  characteristics: GeneralCharacteristicsBog
+  startsOnFloor: Int
+  totalFloors: Int
+  notes: String
+}
+
+type BogGeneral {
+  type: GeneralBogType
+  characteristics: GeneralCharacteristicsBog
+  startsOnFloor: Int
+  totalFloors: Int
+  notes: String
 }
 
 input PropertyAvailabilityInformationInput {
@@ -120,10 +208,12 @@ type PimGeneral implements LastUpdated {
   dateUpdated: Date
   lastEditedBy: Profile
   houseGeneral: HouseGeneral
+  bogGeneral: BogGeneral
   extraAddress: ExtraAddress
   identificationNumbers: [IdentificationNumber!]
   showExtraAddress: Boolean
   showIdentificationNumber: Boolean
+  apartmentGeneral: ApartmentGeneral
 }
 
 type PimWithNewIdentificationNumber {

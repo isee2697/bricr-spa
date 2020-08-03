@@ -8,6 +8,7 @@ import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { EnergyFormProps } from 'app/shared/energy/EnergyForm.types';
 import { EnergyCharasteristicType, EnergyType } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
+import { numberValidator } from 'form/validators/numberValidator/numberValidator';
 
 export const energy = Object.keys(EnergyType).map(value => ({
   label: `dictionaries.specification.energy.${value}`,
@@ -21,7 +22,12 @@ export const energyType = Object.keys(EnergyCharasteristicType).map(value => ({
   value,
 }));
 
-export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: EnergyFormProps) => {
+export const EnergyForm = ({
+  namePrefix,
+  classNames,
+  isInitExpanded = false,
+  isInitEditing = false,
+}: EnergyFormProps) => {
   const { formatMessage } = useLocale();
 
   return (
@@ -30,6 +36,7 @@ export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: E
         title={formatMessage({ id: 'pim_details.specification.energy.title' })}
         isExpandable
         isInitExpanded={isInitExpanded}
+        isInitEditing={isInitEditing}
       >
         {editing => (
           <>
@@ -58,6 +65,8 @@ export const EnergyForm = ({ namePrefix, classNames, isInitExpanded = false }: E
                       label="pim_details.specification.energy.energy_index"
                       placeholder="pim_details.specification.energy.energy_index_placeholder"
                       disabled={!editing}
+                      type="number"
+                      validate={[numberValidator()]}
                     />
                   </Grid>
                   <Grid item xs={4}>

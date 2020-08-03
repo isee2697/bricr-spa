@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LabelInput, useAddLabelMutation, useAddNcpLabelMutation } from 'api/types';
+import { LabelInput, useAddLabelMutation, useAddNcpLabelMutation, useAddObjectTypeLabelMutation } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 import { AddCustomPropertyModalContainerProps } from './AddCustomPropertyModal.types';
@@ -19,15 +19,16 @@ export const AddCustomPropertyModalContainer = ({
 
   const [addLabel] = useAddLabelMutation({ refetchQueries: ['GetLabels'] });
   const [addNcpLabel] = useAddNcpLabelMutation({ refetchQueries: ['GetNcpLabels'] });
+  const [addObjectTypeLabel] = useAddObjectTypeLabelMutation({ refetchQueries: ['GetObjectTypeLabels'] });
 
   const handleSubmit = useCallback(
     async (input: Pick<LabelInput, 'text' | 'icon'>) => {
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { errors, data } = await addLabel({
           variables: {
             input: {
               ...input,
-              pimId: id,
+              parentId: id,
               property,
             },
           },
@@ -54,9 +55,25 @@ export const AddCustomPropertyModalContainer = ({
         }
       }
 
+      if (entityType === EntityType.ObjectType) {
+        const { errors, data } = await addObjectTypeLabel({
+          variables: {
+            input: {
+              ...input,
+              parentId: id,
+              property,
+            },
+          },
+        });
+
+        if (errors || !data?.addObjectTypeLabel) {
+          throw new Error();
+        }
+      }
+
       onClose();
     },
-    [entityType, onClose, addLabel, id, property, addNcpLabel],
+    [entityType, onClose, addLabel, id, property, addNcpLabel, addObjectTypeLabel],
   );
 
   return (

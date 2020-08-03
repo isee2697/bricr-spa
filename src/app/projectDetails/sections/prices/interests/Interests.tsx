@@ -10,12 +10,12 @@ import { Page } from 'ui/templates';
 import { Input } from './formParts/Input';
 import { InterestsProps } from './Interests.types';
 
-export const Interests = ({ dateUpdated, updatedBy }: InterestsProps) => {
+export const Interests = ({ dateUpdated, updatedBy, onSidebarOpen, isSidebarVisible }: InterestsProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
-      <ProjectDetailsHeader />
+      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'project_details.prices.interest.title' })}
         placeholder="project_details.prices.interest.description_placeholder"

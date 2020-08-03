@@ -8,10 +8,11 @@ import {
   NcpPricesInterestsDocument,
 } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 import { Interests } from './Interests';
 
-export const InterestsContainer = () => {
+export const InterestsContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data } = useNcpPricesInterestsQuery({ variables: { id } });
@@ -51,6 +52,8 @@ export const InterestsContainer = () => {
   return (
     <AutosaveForm initialValues={initialValues} onSave={handleSave}>
       <Interests
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
         dateUpdated={data.getNcpPrices.interests?.dateUpdated}
         updatedBy={data.getNcpPrices.interests?.lastEditedBy}
       />

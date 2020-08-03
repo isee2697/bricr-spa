@@ -1,107 +1,16 @@
-enum NcpPricingType {
-  Sale,
-  Rent
-}
-
-enum NcpCostType {
-  Kitchen,
-  Tiles,
-  Bathroom,
-  Service,
-  Heating,
-  Electricity,
-  Water,
-  Sewage,
-  WaterBoard,
-  LandConsolidationInterest,
-  HomeownerAssociation,
-  OzbUserPart,
-  OzbBusinessPart,
-  Custom
-}
-
-type NcpCost {
-  id: ID!
-  serviceCostsFrom: AbsoluteFloat
-  serviceCostsTill: AbsoluteFloat
-  paymentsFrequency: CostPaymentFrequency
-  vatTaxedServiceCostsFrom: AbsoluteFloat
-  vatTaxedServiceCostsTill: AbsoluteFloat
-  vatPercentage: CostVat
-  notes: String
-  type: String! @uuidOrEnum(enum: ["NcpCostType"])
-  name: String
-  dateCreated: Date
-}
-
-input UpdateNcpCostInput {
-  id: ID!
-  serviceCostsFrom: AbsoluteFloat
-  serviceCostsTill: AbsoluteFloat
-  paymentsFrequency: CostPaymentFrequency
-  vatTaxedServiceCostsFrom: AbsoluteFloat
-  vatTaxedServiceCostsTill: AbsoluteFloat
-  vatPercentage: CostVat
-  notes: String
-  name: String
-}
-
-input UpdateNcpCostsDetailsInput {
-  id: ID!
-  description: String
-}
-
-input NcpSaleInformationsInput {
-  minPrice: AbsoluteFloat
-  maxPrice: AbsoluteFloat
-  calculateAutomatically: Boolean
-}
-
-type NcpSaleInformations {
-  minPrice: AbsoluteFloat
-  maxPrice: AbsoluteFloat
-  isEnabled: Boolean
-  calculateAutomatically: Boolean
-}
-
-input NcpRentInformationsInput {
-  minPrice: AbsoluteFloat
-  maxPrice: AbsoluteFloat
-  calculateAutomatically: Boolean
-}
-
-type NcpRentInformations {
-  minPrice: AbsoluteFloat
-  maxPrice: AbsoluteFloat
-  isEnabled: Boolean
-  calculateAutomatically: Boolean
-}
-
-type CostsDetails implements LastUpdated {
-  description: String
-  dateUpdated: Date
-  lastEditedBy: Profile
-}
-
 type NcpPrices {
   id: ID!
-  pricing: NcpPricing
-  costs: [NcpCost!]
+  pricing: CommonPricing
+  costs: [CommonCost!]
   costsDetails: CostsDetails
   interests: Interests
 }
 
-type NcpCosts implements LastUpdated {
-  costs: [NcpCost!]
-  description: String
-  lastEditedBy: Profile
-  dateUpdated: Date
-}
 
 type NcpPricesResult {
   id: ID!
-  pricing: NcpPricing
-  costs: NcpCosts
+  pricing: CommonPricing
+  costs: CommonCosts
   interests: Interests
 }
 
@@ -125,35 +34,14 @@ type Interests implements LastUpdated {
   lastEditedBy: Profile
 }
 
-input ToggleNcpPricingInput {
-  id: ID!
-  isRent: Boolean!
-  isSale: Boolean!
-}
-
-input UpdateNcpPricingInput {
-  id: ID!
-  rent: NcpRentInformationsInput
-  sale: NcpSaleInformationsInput
-  description: String
-}
-
-
-type NcpPricing implements LastUpdated {
-  rent: NcpRentInformations
-  sale: NcpSaleInformations
-  lastEditedBy: Profile
-  dateUpdated: Date
-  description: String
-}
 
 extend type Mutation {
-  toggleNcpPricing(input: ToggleNcpPricingInput!): NcpPricesResult! @auth
-  updateNcpPricing(input: UpdateNcpPricingInput!): NcpPricesResult! @auth
-  addNcpCost(input: AddCostInput!): NcpPricesResult! @auth
-  updateNcpCost(input: UpdateNcpCostInput!): NcpPricesResult! @auth
+  toggleNcpPricing(input: ToggleCommonPricingInput!): NcpPricesResult! @auth
+  updateNcpPricing(input: UpdateCommonPricingInput!): NcpPricesResult! @auth
+  addNcpCost(input: AddCommonCostInput!): NcpPricesResult! @auth
+  updateNcpCost(input: UpdateCommonCostInput!): NcpPricesResult! @auth
   updateNcpInterests(input: InterestsInput!): NcpPricesResult! @auth
-  updateNcpCostsDetails(input: UpdateNcpCostsDetailsInput!): NcpPricesResult! @auth
+  updateNcpCostsDetails(input: UpdateCommonCostsDetailsInput!): NcpPricesResult! @auth
 }
 
 extend type Query {

@@ -16,7 +16,7 @@ import { AddCostModalProps, CostForm } from './AddCostModal.types';
 export const AddCostModal = ({ isModalOpened, costTypes, onModalClose, onAddCost }: AddCostModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [customTypeModalOpened, setCustomTypeModalOpened] = useState(false);
 

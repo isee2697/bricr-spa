@@ -1,0 +1,22 @@
+type ObjectTypeLinkedPims implements EntityLinkedWithPims {
+  id: ID!
+  dateUpdated: Date
+  lastEditedBy: Profile
+  linkedProperties(filters: LinkedPimFilters, sort: [Sort!], pagination: Pagination!): PimListSearchResult! @auth
+  linkedPropertiesIds: [ID!]
+  description: String
+}
+
+input UpdateLinkedPropertiesListDescription {
+  id: String!
+  description: String
+}
+
+extend type Mutation {
+  setObjectTypeLinkedPims(input: SetLinkedPimsInput!): ObjectTypeLinkedPims! @auth
+  updateLinkedPropertiesListDescription(input: UpdateLinkedPropertiesListDescription!): ObjectTypeGeneral @auth 
+}
+
+extend type Query {
+  getObjectTypeLinkedPims(id: ID!): ObjectTypeLinkedPims! @auth
+}

@@ -1,0 +1,25 @@
+type ObjectTypeGeneral implements LastUpdated{
+  id: ID!
+  name: String!
+  archived: Boolean
+  dateUpdated: Date
+  dateCreated: Date
+  lastEditedBy: Profile
+  ncpId: ID!
+  linkedPropertiesListDescription: String
+  linkedPropertiesListLastUpdatedBy: Profile
+  linkedPropertiesListLastUpdatedOn: Date
+}
+
+input CreateObjectTypeInput {
+  name: String!
+  ncpId: ID!
+}
+
+extend type Mutation {
+  createObjectType(input: CreateObjectTypeInput!): ObjectTypeGeneral! @auth
+}
+
+extend type Query {
+  getObjectTypeGeneral(id: ID!): ObjectTypeGeneral! @auth
+}

@@ -1,0 +1,29 @@
+type ObjectTypeMedia {
+  id: String!
+  pictures(sort: Sort): [Picture!]
+  mediaLinks: [MediaLink!]
+  textChapters: [TextChapter!]
+  usps: [Usp!]
+  tags: [Tag!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  mediaDescription: String
+}
+
+extend type Query {
+  getObjectTypeMedia(id: ID!): ObjectTypeMedia! @auth
+}
+
+extend type Mutation {
+  addObjectTypePictures(input: CommonAddPicturesInput!): ObjectTypeMedia @auth
+  updateObjectTypePicture(input: CommonUpdatePictureInput!): ObjectTypeMedia @auth
+  addObjectTypeTextChapter(input: CommonAddTextChapterInput!): ObjectTypeMedia @auth
+  updateObjectTypeTextChapter(input: CommonUpdateTextChapterInput!): ObjectTypeMedia @auth
+  addObjectTypeUsps(input: CommonAddUspsInput!): ObjectTypeMedia @auth
+  updateObjectTypeUsps(input: CommonUpdateUspsInput!): ObjectTypeMedia @auth
+  addObjectTypeMediaLink(input: CommonAddMediaLinkInput!): ObjectTypeMedia @auth
+  updateObjectTypeMediaLink(input: CommonUpdateMediaLinkInput!): ObjectTypeMedia @auth
+  addObjectTypeTag(input: CommonAddTagInput!): ObjectTypeMedia @auth
+  updateObjectTypeTag(input: CommonUpdateTagInput!): ObjectTypeMedia @auth
+  updateObjectTypeMediaDescription(input: CommonUpdateMediaDescriptionInput!): ObjectTypeMedia @auth
+}

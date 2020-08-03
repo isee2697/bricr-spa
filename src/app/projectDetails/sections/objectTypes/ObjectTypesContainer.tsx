@@ -1,29 +1,34 @@
 import React from 'react';
 import { useQueryParam } from 'use-query-params';
+import { useParams } from 'react-router';
 
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { usePimsSorting } from 'app/pim/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
-import { LIST_NCP_1 } from 'api/mocks/ncp-list';
+import {
+  ObjectTypeListDescriptionDocument,
+  useListObjectTypesCountQuery,
+  useListObjectTypesQuery,
+  useObjectTypeListDescriptionQuery,
+  useUpdateObjectTypesListDescriptionMutation,
+} from 'api/types';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
+import { useObjectTypesSorting } from './useObjectTypesSorting/useObjectTypesSorting';
 import { ObjectTypes } from './ObjectTypes';
-import { ListObjectTypes } from './ObjectTypes.types';
 
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
-const OBJECT_TYPE_DATA: ListObjectTypes = {
-  listObjectTypes: [LIST_NCP_1],
-};
-
-export const ObjectTypesContainer = () => {
+export const ObjectTypesContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
+  const { id } = useParams<{ id: string }>();
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
 
-  const { loading: isCountLoading, error: countError, data: countData } = {
-    loading: false,
-    error: false,
-    data: { activeCount: { metadata: { total: 10 } }, archivedCount: { metadata: { total: 10 } } },
-  };
+  const { loading: isCountLoading, error: countError, data: countData } = useListObjectTypesCountQuery({
+    variables: { ncpId: id },
+  });
+
+  const { data: description } = useObjectTypeListDescriptionQuery({ variables: { id } });
+  const [updateObjectTypeListDescription] = useUpdateObjectTypesListDescriptionMutation();
 
   const amounts =
     (countData && {
@@ -33,30 +38,66 @@ export const ObjectTypesContainer = () => {
     }) ??
     undefined;
 
-  const { sorting } = usePimsSorting();
+  const { sorting, query: sortQuery } = useObjectTypesSorting();
 
-  const { pagination } = usePagination({
+  const { pagination, query: paginationQuery } = usePagination({
     prefix: status,
     itemsCount: amounts ? amounts[status] : 0,
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, error: listError, data: listData } = {
-    loading: false,
-    error: false,
-    data: OBJECT_TYPE_DATA,
+  const { loading: isListLoading, error: listError, data: listData } = useListObjectTypesQuery({
+    variables: { ncpId: id, archived: status === 'archived' || null, ...sortQuery, ...paginationQuery },
+    fetchPolicy: 'no-cache',
+  });
+
+  const handleSave = async (values: { description: string }) => {
+    try {
+      const { data } = await updateObjectTypeListDescription({
+        variables: {
+          input: {
+            id,
+            description: values.description,
+          },
+        },
+        refetchQueries: [
+          {
+            query: ObjectTypeListDescriptionDocument,
+            variables: { id },
+          },
+        ],
+      });
+
+      if (!data?.updateObjectTypesListDescription) {
+        throw new Error();
+      }
+
+      return undefined;
+    } catch (e) {
+      return { error: true };
+    }
   };
+
+  if (!description?.getNcp) {
+    return null;
+  }
 
   return (
     <ObjectTypes
+      isSidebarVisible={isSidebarVisible}
+      onSidebarOpen={onSidebarOpen}
       status={status}
       onStatusChange={setStatus}
       isLoading={isCountLoading || isListLoading}
       isError={!!countError || !!listError}
       amounts={amounts}
-      listData={listData?.listObjectTypes}
+      listData={listData?.listObjectTypes.items ?? []}
       sorting={sorting}
       pagination={pagination}
+      description={description?.getNcp.objectTypesListDescription ?? ''}
+      onDescriptionSave={handleSave}
+      dateUpdated={description?.getNcp.objectTypesListLastUpdatedOn}
+      updatedBy={description?.getNcp.objectTypesListLastUpdatedBy}
     />
   );
 };

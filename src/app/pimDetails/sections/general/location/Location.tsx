@@ -19,7 +19,7 @@ import { GoodToKnowRow } from './goodToKnowRow/GoodToKnowRow';
 export const Location = ({
   title,
   isSidebarVisible,
-  onOpenSidebar,
+  onSidebarOpen,
   initialValues,
   typeOptions,
   onSave,
@@ -37,7 +37,7 @@ export const Location = ({
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button color="primary" variant="outlined" onClick={() => {}} size="small">
             {formatMessage({ id: 'pim_details.general.location.autocheck' })}

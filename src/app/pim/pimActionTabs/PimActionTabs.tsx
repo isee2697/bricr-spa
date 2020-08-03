@@ -12,7 +12,7 @@ export const PimActionTabs = ({ status, onStatusChange, amounts }: PimActionTabs
   const tabs: ActionTab[] = [
     {
       value: 'actionRequired',
-      amount: 10,
+      amount: amounts && amounts.actionRequired,
       hasBadge: true,
       badgeColor: 'secondary',
       label: formatMessage({ id: 'pim.status.action_required' }),

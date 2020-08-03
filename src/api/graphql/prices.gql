@@ -1,0 +1,51 @@
+enum CommonPricingType {
+  Sale,
+  Rent
+}
+
+type CommonPricing implements LastUpdated {
+  rent: CommonRentInformations
+  sale: CommonSaleInformations
+  lastEditedBy: Profile
+  dateUpdated: Date
+  description: String
+}
+
+input CommonSaleInformationsInput {
+  minPrice: AbsoluteFloat
+  maxPrice: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+type CommonSaleInformations {
+  minPrice: AbsoluteFloat
+  maxPrice: AbsoluteFloat
+  isEnabled: Boolean
+  calculateAutomatically: Boolean
+}
+
+input CommonRentInformationsInput {
+  minPrice: AbsoluteFloat
+  maxPrice: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+type CommonRentInformations {
+  minPrice: AbsoluteFloat
+  maxPrice: AbsoluteFloat
+  isEnabled: Boolean
+  calculateAutomatically: Boolean
+}
+
+input ToggleCommonPricingInput {
+  id: ID!
+  isRent: Boolean!
+  isSale: Boolean!
+}
+
+input UpdateCommonPricingInput {
+  id: ID!
+  rent: CommonRentInformationsInput
+  sale: CommonSaleInformationsInput
+  description: String
+}

@@ -17,6 +17,7 @@ export const useStyles = makeStyles(theme => ({
   },
   buttons: {
     marginLeft: 'auto',
+    width: 'auto',
   },
   inputField: {
     marginBottom: theme.spacing(2),

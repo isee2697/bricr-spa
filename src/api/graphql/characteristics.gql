@@ -1,0 +1,82 @@
+enum CharacteristicsSections {
+  Measurements,
+  ClientInformation,
+  InvoiceDetails,
+  IdentificationNumber,
+  Energy,
+  Phase,
+  AccountManagers,
+  ProjectMarketing,
+  AttentionField,
+  ObjectTypes
+}
+
+interface HasCharacteristicsSections {
+  characteristicsSections: [CharacteristicsSections!]
+}
+
+input SetCharacteristicsSectionsInput {
+  id: ID!
+  sections: [CharacteristicsSections!]
+}
+
+input ProjectMarketingInput {
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+  mainLogoId: String
+}
+
+type ProjectMarketing {
+  logos: [File!]
+  mainLogoId: String
+  emailAddress: String
+  website: String
+  firstColor: String
+  secondColor: String
+}
+
+input MeasurementsInput {
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+type Measurements {
+  volumeFrom: AbsoluteFloat
+  volumeTo: AbsoluteFloat
+  livingSpaceFrom: AbsoluteFloat
+  livingSpaceTo: AbsoluteFloat
+  plotAreaFrom: AbsoluteFloat
+  plotAreaTo: AbsoluteFloat
+  calculateAutomatically: Boolean
+}
+
+input InvoiceDetailsInput {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}
+
+type InvoiceDetails {
+  street: String
+  houseNumber: String
+  additionalNumber: String
+  zipCode: String
+  city: String
+  country: String
+  projectInvoiceNumber: String
+  contactPerson: String
+  description: String
+}

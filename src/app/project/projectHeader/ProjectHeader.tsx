@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale, useModalDispatch } from 'hooks';
-import { PropertyCategory } from '../../pim/addPimModal/AddPimModal.types';
+import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
 
 export const ProjectHeader = () => {
   const { formatMessage } = useLocale();

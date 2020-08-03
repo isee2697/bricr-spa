@@ -5,12 +5,13 @@ import { FormSubSectionHeader, Modal, SubmitButton, TileButton } from 'ui/molecu
 import { useLocale } from 'hooks';
 import { Box, Button, DialogActions, Grid, ImageHolder } from 'ui/atoms';
 import { GenericField, RadioGroupField, UploadImageField } from 'form/fields';
-import { useStyles } from 'app/shared/media/pictures/editPictureModal/EditPictureModal.styles';
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
-import { EntityWithFiles, LabelProperty } from 'api/types';
+import { LabelProperty } from 'api/types';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';
-import { useEntityType, EntityType } from 'app/shared/entityType';
+import { useEntityType } from 'app/shared/entityType';
+import { getEntityFilesType } from '../Pictures.helpers';
 
+import { useStyles } from './EditPictureModal.styles';
 import { EditPictureModalProps } from './EditPictureModal.types';
 
 export const EditPictureModal = ({
@@ -23,7 +24,7 @@ export const EditPictureModal = ({
 }: EditPictureModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [backgroundImage, setBackgroundImage] = useState(initialValues.signedUrl);
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
@@ -50,11 +51,7 @@ export const EditPictureModal = ({
                     type={UploadImageFieldTypes.DENSE}
                     label="pim_details.media.add_picture_modal.file_name"
                     entityID={picture.id}
-                    entity={
-                      entityType === EntityType.Property
-                        ? EntityWithFiles.MediaPicture
-                        : EntityWithFiles.NcpMediaPicture
-                    }
+                    entity={getEntityFilesType(entityType)}
                     onSetBackground={setBackgroundImage}
                   />
                   <GenericField

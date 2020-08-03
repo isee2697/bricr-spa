@@ -158,6 +158,7 @@ type Pim implements LastUpdated {
   archived: Boolean!
   dateCreated: Date!
   houseGeneral: HouseGeneral
+  bogGeneral: BogGeneral
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   floors: [Floor!]
@@ -191,6 +192,9 @@ type Pim implements LastUpdated {
   inspectionsDateUpdated: Date
   inspectionsLastEditedBy: Profile
   metersMeta: MetersMeta
+  allocationCriterias: [AllocationCriteria!]
+  apartmentGeneral: ApartmentGeneral
+  bogSpaces: [BogSpace!]
 }
 
 type Event {

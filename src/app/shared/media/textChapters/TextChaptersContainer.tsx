@@ -7,10 +7,13 @@ import {
   LabelProperty,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   useAddTextChapterMutation,
   useAddNcpTextChapterMutation,
+  useAddObjectTypeTextChapterMutation,
   useUpdateTextChapterMutation,
   useUpdateNcpTextChapterMutation,
+  useUpdateObjectTypeTextChapterMutation,
 } from 'api/types';
 import { RICH_TEXT_DEFAULT } from 'form/fields/richTextField/RichTextField';
 import { SquareIcon } from 'ui/atoms/icons';
@@ -27,15 +30,17 @@ const options = Object.values(ChapterOrUspType).map(tagName => ({
 
 export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChaptersContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newChapterId, setNewChapterId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.TextChapter], entityType)[LabelProperty.TextChapter] ?? [];
 
   const [addTextChapter] = useAddTextChapterMutation();
   const [addNcpTextChapter] = useAddNcpTextChapterMutation();
+  const [addObjectTypeTextChapter] = useAddObjectTypeTextChapterMutation();
   const [editTextChapter] = useUpdateTextChapterMutation();
   const [editNcpTextChapter] = useUpdateNcpTextChapterMutation();
+  const [editObjectTypeTextChapter] = useUpdateObjectTypeTextChapterMutation();
 
   const handleAdd = async () => {
     try {
@@ -43,7 +48,7 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addTextChapter({
           variables: {
             input: { pimId: id },
@@ -73,6 +78,26 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
         });
 
         const chapters = data?.addNcpTextChapter?.textChapters;
+
+        if (chapters?.length) {
+          setNewChapterId(chapters[chapters.length - 1].id);
+        }
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeTextChapter({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const chapters = data?.addObjectTypeTextChapter?.textChapters;
 
         if (chapters?.length) {
           setNewChapterId(chapters[chapters.length - 1].id);
@@ -123,6 +148,24 @@ export const TextChaptersContainer = ({ chapters, onAddCustomType }: TextChapter
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeTextChapter({
+          variables: {
+            input: {
+              parentId: id,
+              ...values,
+              text: JSON.stringify(chapter),
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

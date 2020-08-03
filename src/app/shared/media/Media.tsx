@@ -18,7 +18,7 @@ import { MediaProps } from './Media.types';
 export const Media = ({
   title,
   isSidebarVisible,
-  onOpenSidebar,
+  onSidebarOpen,
   media,
   description,
   onDescriptionUpdate,
@@ -26,7 +26,7 @@ export const Media = ({
   sortQuery,
 }: MediaProps) => {
   const { formatMessage } = useLocale();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
   const [isLabelModalOpened, setLabelModalOpened] = useState(false);
   const [labelProperty, setLabelProperty] = useState<LabelProperty | null>(null);
 
@@ -37,7 +37,7 @@ export const Media = ({
 
   return (
     <>
-      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
+      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'pim_details.media.title' })}
         onSave={onDescriptionUpdate}

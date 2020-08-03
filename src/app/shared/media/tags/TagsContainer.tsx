@@ -5,12 +5,15 @@ import {
   LabelProperty,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   TagType,
   UpdateTagInput,
   useAddTagMutation,
   useAddNcpTagMutation,
+  useAddObjectTypeTagMutation,
   useUpdateTagMutation,
   useUpdateNcpTagMutation,
+  useUpdateObjectTypeTagMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { TagsContainerProps } from 'app/shared/media/tags/Tags.types';
@@ -27,15 +30,17 @@ const options = Object.values(TagType).map(tagName => ({
 
 export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newTagId, setNewTagId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.Tag], entityType)[LabelProperty.Tag] ?? [];
 
   const [addTag] = useAddTagMutation();
   const [addNcpTag] = useAddNcpTagMutation();
+  const [addObjectTypeTag] = useAddObjectTypeTagMutation();
   const [editTag] = useUpdateTagMutation();
   const [editNcpTag] = useUpdateNcpTagMutation();
+  const [editObjectTypeTag] = useUpdateObjectTypeTagMutation();
 
   const handleAdd = async () => {
     try {
@@ -43,7 +48,7 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addTag({
           variables: {
             input: { pimId: id },
@@ -73,6 +78,26 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
         });
 
         const tags = data?.addNcpTag?.tags;
+
+        if (tags?.length) {
+          setNewTagId(tags[tags.length - 1].id);
+        }
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeTag({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const tags = data?.addObjectTypeTag?.tags;
 
         if (tags?.length) {
           setNewTagId(tags[tags.length - 1].id);
@@ -121,6 +146,23 @@ export const TagsContainer = ({ tags, onAddCustomType }: TagsContainerProps) => 
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeTag({
+          variables: {
+            input: {
+              ...values,
+              parentId: id,
+            },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

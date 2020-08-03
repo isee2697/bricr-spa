@@ -41,7 +41,7 @@ input UpdateNcpInput {
   city: String!
   country: String!
   automaticallyCalculateQuantity: Boolean
-  objectTypes: Int
+  objectTypesCount: Int
   properties: Int
   progressStatus: ProgressStatus
   startConstruction: Date
@@ -71,8 +71,8 @@ type NcpGeneral implements LastUpdated {
   country: String!
   archived: Boolean!
   automaticallyCalculateQuantity: Boolean
-  objectTypes: Int
   properties: Int
+  objectTypesCount: Int
   progressStatus: ProgressStatus
   startConstruction: Date
   noteStartConstruction: String
@@ -83,6 +83,12 @@ type NcpGeneral implements LastUpdated {
   startConstructionAfterPresalePercentage: Int
   projectRisk: ProjectRisk
   notes: String
+  objectTypesListDescription: String
+  objectTypesListLastUpdatedBy: Profile
+  objectTypesListLastUpdatedOn: Date
+  linkedPropertiesListDescription: String
+  linkedPropertiesListLastUpdatedBy: Profile
+  linkedPropertiesListLastUpdatedOn: Date
 }
 
 type NcpSearchResult {

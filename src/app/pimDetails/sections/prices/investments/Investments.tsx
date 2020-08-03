@@ -12,12 +12,12 @@ import { Page } from 'ui/templates';
 
 import { InvestmentsProps } from './Investments.types';
 
-export const Investments = ({ title, isSidebarVisible, onOpenSidebar, onSave, investment }: InvestmentsProps) => {
+export const Investments = ({ title, isSidebarVisible, onSidebarOpen, onSave, investment }: InvestmentsProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
-      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onOpenSidebar={onOpenSidebar} />
+      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <AutosaveForm
         initialValues={investment ?? undefined}
         onSave={onSave}

@@ -4,6 +4,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
 
 import '@babel/polyfill';
 import { render } from 'tests';
+import { EntityType } from '../shared/entityType';
 
 import { PimDetails } from './PimDetails';
 
@@ -13,7 +14,14 @@ describe('PimDetails', () => {
 
     const { getByText } = render(
       <Router initialEntries={['/pim/test/general']} initialIndex={0}>
-        <PimDetails error={error} loading={false} data={undefined} />
+        <PimDetails
+          error={error}
+          loading={false}
+          data={undefined}
+          entityType={EntityType.Property}
+          breadcrumbs={<></>}
+          path={''}
+        />
       </Router>,
     );
     expect(getByText('common.error')).toBeInTheDocument();

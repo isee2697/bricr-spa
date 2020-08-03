@@ -47,10 +47,14 @@ export const Page = ({
                   {title}
                 </Typography>
                 {afterTitle}
-                <Box className={classes.buttons}>
-                  <HelpIcon />
-                  <MenuIcon />
-                </Box>
+                <Grid justify="flex-end" spacing={3} container className={classes.buttons}>
+                  <Grid item>
+                    <HelpIcon />
+                  </Grid>
+                  <Grid item>
+                    <MenuIcon />
+                  </Grid>
+                </Grid>
               </Box>
             </Grid>
             {name && autosaveForm}

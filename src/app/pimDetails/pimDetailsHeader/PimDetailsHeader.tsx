@@ -7,7 +7,7 @@ import { NavBreadcrumbs } from 'ui/atoms/navBreadcrumbs/NavBreadcrumbs';
 import { PimDetailsHeaderProps } from './PimDetailsHeader.types';
 import { useStyles } from './PimDetailsHeader.styles';
 
-export const PimDetailsHeader = ({ isSidebarVisible, onOpenSidebar, action }: PimDetailsHeaderProps) => {
+export const PimDetailsHeader = ({ isSidebarVisible, onSidebarOpen, action }: PimDetailsHeaderProps) => {
   const classes = useStyles();
 
   return (
@@ -17,7 +17,7 @@ export const PimDetailsHeader = ({ isSidebarVisible, onOpenSidebar, action }: Pi
           {!isSidebarVisible && (
             <IconButton
               className={classes.hideSidebarButton}
-              onClick={onOpenSidebar}
+              onClick={onSidebarOpen}
               size="small"
               variant="roundedContained"
             >

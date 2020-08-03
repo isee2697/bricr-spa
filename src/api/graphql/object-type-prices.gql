@@ -1,0 +1,32 @@
+type ObjectTypePricing implements LastUpdated {
+  rent: CommonRentInformations
+  sale: CommonSaleInformations
+  lastEditedBy: Profile
+  dateUpdated: Date
+  description: String
+}
+
+type ObjectTypePrices {
+  id: ID!
+  pricing: CommonPricing
+  costs: [CommonCost!]
+  costsDetails: CostsDetails
+}
+
+type ObjectTypePricesResult {
+  id: ID!
+  pricing: CommonPricing
+  costs: CommonCosts
+}
+
+extend type Mutation {
+  toggleObjectTypePricing(input: ToggleCommonPricingInput!): ObjectTypePricesResult! @auth
+  updateObjectTypePricing(input: UpdateCommonPricingInput!): ObjectTypePricesResult! @auth
+  addObjectTypeCost(input: AddCommonCostInput!): ObjectTypePricesResult! @auth
+  updateObjectTypeCost(input: UpdateCommonCostInput!): ObjectTypePricesResult! @auth
+  updateObjectTypeCostsDetails(input: UpdateCommonCostsDetailsInput!): ObjectTypePricesResult! @auth
+}
+
+extend type Query {
+  getObjectTypePrices(id: ID!): ObjectTypePricesResult! @auth
+}

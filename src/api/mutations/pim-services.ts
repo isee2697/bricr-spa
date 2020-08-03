@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
-export const ADD_SERVICE = gql`
+export const ADD_PIM_SERVICE = gql`
   mutation AddService($input: AddServiceInput!) {
-    addService(input: $input) {
+    addPimService(input: $input) {
       pim {
         id
       }
@@ -13,41 +13,41 @@ export const ADD_SERVICE = gql`
   }
 `;
 
-export const UPDATE_SERVICE = gql`
+export const UPDATE_PIM_SERVICE = gql`
   mutation UpdateService($input: UpdateServiceInput!) {
-    updateService(input: $input) {
+    updatePimService(input: $input) {
       id
     }
   }
 `;
 
-export const ADD_METER = gql`
+export const ADD_PIM_METER = gql`
   mutation AddMeter($input: AddMeterInput!) {
-    addMeter(input: $input) {
+    addPimMeter(input: $input) {
       id
     }
   }
 `;
 
-export const UPDATE_METER = gql`
+export const UPDATE_PIM_METER = gql`
   mutation UpdateMeter($input: UpdateMeterInput!) {
-    updateMeter(input: $input) {
+    updatePimMeter(input: $input) {
       id
     }
   }
 `;
 
-export const ADD_READING = gql`
+export const ADD_PIM_READING = gql`
   mutation AddReading($input: AddReadingInput!) {
-    addReading(input: $input) {
+    addPimReading(input: $input) {
       id
     }
   }
 `;
 
-export const UPDATE_READING = gql`
+export const UPDATE_PIM_READING = gql`
   mutation UpdateReading($input: UpdateReadingInput!) {
-    updateReading(input: $input) {
+    updatePimReading(input: $input) {
       id
     }
   }

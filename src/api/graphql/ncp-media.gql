@@ -10,102 +10,20 @@ type NcpMedia implements LastUpdated {
   mediaDescription: String
 }
 
-input NewNcpPictureInput {
-  fileID: String!
-}
-
-input AddNcpPicturesInput {
-  parentId: String!
-  pictures: [NewPictureInput!]!
-}
-
-input AddNcpTextChapterInput {
-  parentId: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  text: String
-}
-
-input UpdateNcpTextChapterInput {
-  parentId: String!
-  id: String!
-  name: String
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  text: String
-}
-
-input AddNcpUspsInput {
-  parentId: String!
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  description: String
-}
-
-input UpdateNcpUspsInput {
-  parentId: String!
-  id: String!
-  type: String @uuidOrEnum(enum: ["ChapterOrUspType"])
-  description: String,
-  name: String
-}
-
-input AddNcpMediaLinkInput {
-  parentId: String!
-  type: String @uuidOrEnum(enum: ["MediaLinkType"])
-  url: String
-  name: String
-}
-
-input UpdateNcpMediaLinkInput {
-  parentId: String!
-  id: String!
-  type: String @uuidOrEnum(enum: ["MediaLinkType"])
-  url: String
-  name: String
-}
-
-input AddNcpTagInput {
-  parentId: String!
-  type: String @uuidOrEnum(enum: ["TagType"])
-  description: String
-  name: String
-}
-
-input UpdateNcpTagInput {
-  parentId: String!
-  id: String!
-  type: String @uuidOrEnum(enum: ["TagType"])
-  description: String
-  name: String
-}
-
-input UpdateNcpPictureInput {
-  parentId: String!
-  id: String!
-  type: String @uuidOrEnum(enum: ["PictureType"])
-  name: String
-  description: String
-  fileId: String
-}
-
-input UpdateNcpMediaDescriptionInput {
-  id: String!
-  description: String
-}
-
 extend type Query {
   getNcpMedia(id: ID!): NcpMedia! @auth
 }
 
 extend type Mutation {
-  addNcpPictures(input: AddNcpPicturesInput!): NcpMedia @auth
-  updateNcpPicture(input: UpdateNcpPictureInput!): NcpMedia @auth
-  addNcpTextChapter(input: AddNcpTextChapterInput!): NcpMedia @auth
-  updateNcpTextChapter(input: UpdateNcpTextChapterInput!): NcpMedia @auth
-  addNcpUsps(input: AddNcpUspsInput!): NcpMedia @auth
-  updateNcpUsps(input: UpdateNcpUspsInput!): NcpMedia @auth
-  addNcpMediaLink(input: AddNcpMediaLinkInput!): NcpMedia @auth
-  updateNcpMediaLink(input: UpdateNcpMediaLinkInput!): NcpMedia @auth
-  addNcpTag(input: AddNcpTagInput!): NcpMedia @auth
-  updateNcpTag(input: UpdateNcpTagInput!): NcpMedia @auth
-  updateNcpMediaDescription(input: UpdateNcpMediaDescriptionInput!): NcpMedia @auth
+  addNcpPictures(input: CommonAddPicturesInput!): NcpMedia @auth
+  updateNcpPicture(input: CommonUpdatePictureInput!): NcpMedia @auth
+  addNcpTextChapter(input: CommonAddTextChapterInput!): NcpMedia @auth
+  updateNcpTextChapter(input: CommonUpdateTextChapterInput!): NcpMedia @auth
+  addNcpUsps(input: CommonAddUspsInput!): NcpMedia @auth
+  updateNcpUsps(input: CommonUpdateUspsInput!): NcpMedia @auth
+  addNcpMediaLink(input: CommonAddMediaLinkInput!): NcpMedia @auth
+  updateNcpMediaLink(input: CommonUpdateMediaLinkInput!): NcpMedia @auth
+  addNcpTag(input: CommonAddTagInput!): NcpMedia @auth
+  updateNcpTag(input: CommonUpdateTagInput!): NcpMedia @auth
+  updateNcpMediaDescription(input: CommonUpdateMediaDescriptionInput!): NcpMedia @auth
 }

@@ -1,9 +1,10 @@
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { ListNcp } from 'api/types';
+import { ListObjectTypes, Profile } from 'api/types';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
-export type ObjectTypesProps = {
+export type ObjectTypesProps = ProjectDetailsProps & {
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;
@@ -13,18 +14,14 @@ export type ObjectTypesProps = {
     active: number;
     archived: number;
   };
-  listData: ObjectTypeData[];
+  listData: ListObjectTypes[];
   sorting: {
     sortOptions: SortOption[];
     onSort: (key: string) => void;
   };
   pagination: PaginationProps;
-};
-
-// @Todo remove this and add real data
-
-export type ObjectTypeData = ListNcp;
-
-export type ListObjectTypes = {
-  listObjectTypes: ObjectTypeData[];
+  description: string;
+  onDescriptionSave: (values: { description: string }) => Promise<undefined | { error: boolean }>;
+  dateUpdated?: string | null;
+  updatedBy?: Profile | null;
 };

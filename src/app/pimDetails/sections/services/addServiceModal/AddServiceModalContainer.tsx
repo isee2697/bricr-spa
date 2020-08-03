@@ -13,14 +13,14 @@ export const AddServiceModalContainer = ({
   onAddService,
 }: AddServiceModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [addService] = useAddServiceMutation();
+  const [addPimService] = useAddServiceMutation();
 
   const handleSubmit: AddServiceSubmit = async body => {
     try {
-      const { data: result } = await addService({
+      const { data: result } = await addPimService({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             name: body.name || '',
             type: type,
             configuration: {
@@ -43,7 +43,7 @@ export const AddServiceModalContainer = ({
       }
 
       onAddService();
-      onClose(result?.addService?.newService.id);
+      onClose(result?.addPimService?.newService.id);
 
       return undefined;
     } catch {

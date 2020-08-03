@@ -8,14 +8,14 @@ import { ReadingContainerProps } from './Reading.types';
 
 export const ReadingsContainer = ({ readings, editing, linkedPerson, isMeterAdded }: ReadingContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const [updateReading] = useUpdateReadingMutation();
+  const [updatePimReading] = useUpdateReadingMutation();
 
   const onEdit = async (body: Reading) => {
     try {
-      const { data } = await updateReading({
+      const { data } = await updatePimReading({
         variables: {
           input: {
-            pimId: id,
+            parentId: id,
             id: body.id,
             value: Number(body.value) || undefined,
             dateOfReading: body.dateOfReading,

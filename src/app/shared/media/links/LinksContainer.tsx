@@ -7,12 +7,14 @@ import {
   MediaLinkType,
   PimMediaDocument,
   NcpMediaDocument,
+  ObjectTypeMediaDocument,
   UpdateMediaLinkInput,
-  UpdateNcpMediaLinkInput,
   useAddMediaLinkMutation,
   useAddNcpMediaLinkMutation,
+  useAddObjectTypeMediaLinkMutation,
   useUpdateMediaLinkMutation,
   useUpdateNcpMediaLinkMutation,
+  useUpdateObjectTypeMediaLinkMutation,
 } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels } from 'hooks/useCustomLabels';
@@ -28,15 +30,17 @@ const options = Object.values(MediaLinkType).map(tagName => ({
 
 export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const [newLinkId, setNewLinkId] = useState<string | undefined>();
   const customLabels = useCustomLabels(id, [LabelProperty.MediaLink], entityType)[LabelProperty.MediaLink] ?? [];
 
   const [addMediaLink] = useAddMediaLinkMutation();
   const [addNcpMediaLink] = useAddNcpMediaLinkMutation();
+  const [addObjectTypeMediaLink] = useAddObjectTypeMediaLinkMutation();
   const [editMediaLink] = useUpdateMediaLinkMutation();
   const [editNcpMediaLink] = useUpdateNcpMediaLinkMutation();
+  const [editObjectTypeMediaLink] = useUpdateObjectTypeMediaLinkMutation();
 
   const handleAdd = async () => {
     try {
@@ -44,7 +48,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         throw new Error();
       }
 
-      if (entityType === EntityType.Property) {
+      if (entityType === EntityType.Property || entityType === EntityType.LinkedProperty) {
         const { data } = await addMediaLink({
           variables: {
             input: { pimId: id },
@@ -80,6 +84,26 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
         }
       }
 
+      if (entityType === EntityType.ObjectType) {
+        const { data } = await addObjectTypeMediaLink({
+          variables: {
+            input: { parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+
+        const links = data?.addObjectTypeMediaLink?.mediaLinks;
+
+        if (links?.length) {
+          setNewLinkId(links[links.length - 1].id);
+        }
+      }
+
       return undefined;
     } catch (error) {
       return {
@@ -88,7 +112,7 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
     }
   };
 
-  const handleSave = async (values: UpdateMediaLinkInput | UpdateNcpMediaLinkInput) => {
+  const handleSave = async (values: UpdateMediaLinkInput) => {
     try {
       if (!id) {
         throw new Error();
@@ -116,6 +140,20 @@ export const LinksContainer = ({ links, onAddCustomType }: LinksContainerProps) 
           refetchQueries: [
             {
               query: NcpMediaDocument,
+              variables: { id },
+            },
+          ],
+        });
+      }
+
+      if (entityType === EntityType.ObjectType) {
+        await editObjectTypeMediaLink({
+          variables: {
+            input: { ...values, parentId: id },
+          },
+          refetchQueries: [
+            {
+              query: ObjectTypeMediaDocument,
               variables: { id },
             },
           ],

@@ -13,7 +13,7 @@ import { Price } from 'app/pimDetails/sections/prices/price/Price';
 export const PricesGeneral = ({
   title,
   isSidebarVisible,
-  onOpenSidebar,
+  onSidebarOpen,
   onSetPrice,
   rent,
   sale,
@@ -32,7 +32,7 @@ export const PricesGeneral = ({
       <PimDetailsHeader
         title={title}
         isSidebarVisible={isSidebarVisible}
-        onOpenSidebar={onOpenSidebar}
+        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"

@@ -1,81 +1,3 @@
-enum NcpCharacteristicsSections {
-  Measurements,
-  ClientInformation,
-  InvoiceDetails,
-  IdentificationNumber,
-  Energy,
-  Phase,
-  AccountManagers,
-  ProjectMarketing,
-  AttentionField
-}
-
-input SetNcpCharacteristicsSectionsInput {
-  id: ID!
-  sections: [NcpCharacteristicsSections!]
-}
-
-input ProjectMarketingInput {
-  emailAddress: String
-  website: String
-  firstColor: String
-  secondColor: String
-  mainLogoId: String
-}
-
-type ProjectMarketing {
-  logos: [File!]
-  mainLogoId: String
-  emailAddress: String
-  website: String
-  firstColor: String
-  secondColor: String
-}
-
-input MeasurementsInput {
-  volumeFrom: AbsoluteFloat
-  volumeTo: AbsoluteFloat
-  livingSpaceFrom: AbsoluteFloat
-  livingSpaceTo: AbsoluteFloat
-  plotAreaFrom: AbsoluteFloat
-  plotAreaTo: AbsoluteFloat
-  calculateAutomatically: Boolean
-}
-
-type Measurements {
-  volumeFrom: AbsoluteFloat
-  volumeTo: AbsoluteFloat
-  livingSpaceFrom: AbsoluteFloat
-  livingSpaceTo: AbsoluteFloat
-  plotAreaFrom: AbsoluteFloat
-  plotAreaTo: AbsoluteFloat
-  calculateAutomatically: Boolean
-}
-
-input InvoiceDetailsInput {
-  street: String
-  houseNumber: String
-  additionalNumber: String
-  zipCode: String
-  city: String
-  country: String
-  projectInvoiceNumber: String
-  contactPerson: String
-  description: String
-}
-
-type InvoiceDetails {
-  street: String
-  houseNumber: String
-  additionalNumber: String
-  zipCode: String
-  city: String
-  country: String
-  projectInvoiceNumber: String
-  contactPerson: String
-  description: String
-}
-
 input NcpCharacteristicsInput {
   id: ID!
   projectMarketing: ProjectMarketingInput
@@ -87,9 +9,9 @@ input NcpCharacteristicsInput {
   characteristicsDescription: String
 }
 
-type NcpCharacteristics implements LastUpdated {
+type NcpCharacteristics implements LastUpdated & HasCharacteristicsSections {
   id: ID!
-  characteristicsSections: [NcpCharacteristicsSections!]
+  characteristicsSections: [CharacteristicsSections!]
   projectMarketing: ProjectMarketing
   measurements: Measurements
   energy: Energy
@@ -109,11 +31,11 @@ type NcpWithNewIdentificationNumber {
 }
 
 extend type Mutation {
-  addNcpIdentificationNumber(input: AddIdentificationNumberInput!): NcpCharacteristics!
-  setNcpCharacteristics(input: SetNcpCharacteristicsSectionsInput!): NcpCharacteristics!
-  updateNcpCharacteristics(input: NcpCharacteristicsInput!): NcpCharacteristics!
+  addNcpIdentificationNumber(input: AddIdentificationNumberInput!): NcpCharacteristics! @auth
+  setNcpCharacteristics(input: SetCharacteristicsSectionsInput!): NcpCharacteristics! @auth
+  updateNcpCharacteristics(input: NcpCharacteristicsInput!): NcpCharacteristics! @auth
 }
 
 extend type Query {
-  getNcpCharacteristics(id: ID!): NcpCharacteristics!
+  getNcpCharacteristics(id: ID!): NcpCharacteristics! @auth
 }

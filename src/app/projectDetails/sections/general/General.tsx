@@ -9,21 +9,20 @@ import { FormSection, AutoCalculateForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
 import { GenericField, RadioGroupField, DatePickerField } from 'form/fields';
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
-import { NewConstructionAddress } from 'app/pim/addPimModal/addressStep/form/NewConstructionAddress';
+import { NewConstructionAddress } from 'app/shared/addPimModal/addressStep/form/NewConstructionAddress';
 
 import { GeneralProps } from './General.types';
 import { useStyles } from './General.styles';
 import * as dictionaries from './dictionaries';
 
-export const General = ({ data }: GeneralProps) => {
+export const General = ({ data, isSidebarVisible, onSidebarOpen }: GeneralProps) => {
   const { state } = useLocation<{ newlyAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <>
-      <ProjectDetailsHeader />
-
+      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'project_details.general.title' })}
         dateUpdated={data?.dateUpdated}
@@ -67,7 +66,7 @@ export const General = ({ data }: GeneralProps) => {
                       <Grid item xs={4}>
                         <GenericField
                           className={classes.input}
-                          name="objectTypes"
+                          name="objectTypesCount"
                           label="project_details.general.construction.object_types"
                           placeholder="project_details.general.construction.object_types_placeholder"
                           disabled={!inEditMode || isCalculated}

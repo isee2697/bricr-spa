@@ -45,7 +45,7 @@ export const ProjectItem = ({
   candidates,
   optants,
   properties,
-  objectTypes,
+  objectTypesCount,
   archived,
   attentionNote,
 }: ListNcp) => {
@@ -172,7 +172,7 @@ export const ProjectItem = ({
           <InfoItem xs={2} amount={candidates} labelId="projects.candidates" />
           <InfoItem xs={2} amount={optants} labelId="projects.optands" />
           <InfoItem xs={2} amount={properties} labelId="projects.properties" />
-          <InfoItem xs={2} amount={objectTypes} labelId="projects.objecttypes" />
+          <InfoItem xs={2} amount={objectTypesCount} labelId="projects.objecttypes" />
         </Grid>
       </Collapse>
     </>

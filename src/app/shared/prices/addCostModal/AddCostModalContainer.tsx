@@ -8,6 +8,8 @@ import {
   CostType,
   useAddNcpCostMutation,
   NcpPricesCostsDocument,
+  useAddObjectTypeCostMutation,
+  ObjectTypePricesCostsDocument,
 } from 'api/types';
 import { useCustomLabels } from 'hooks';
 import { useEntityType, EntityType } from 'app/shared/entityType';
@@ -18,12 +20,13 @@ import * as dictionaries from './dictionaries';
 
 export const AddCostModalContainer = ({ isModalOpened, onModalClose, onAdd }: AddCostModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
-  const entityType = useEntityType();
+  const { entityType } = useEntityType();
 
   const customLabels = useCustomLabels(id, [LabelProperty.Cost], entityType)[LabelProperty.Cost] ?? [];
 
   const [addCost] = useAddCostsMutation();
   const [addNcpCost] = useAddNcpCostMutation();
+  const [addObjectTypeCost] = useAddObjectTypeCostMutation();
 
   const handleAdd = async (values: CostForm) => {
     if (!id) {
@@ -54,6 +57,14 @@ export const AddCostModalContainer = ({ isModalOpened, onModalClose, onAdd }: Ad
         });
       }
 
+      if (entityType === EntityType.ObjectType) {
+        await addObjectTypeCost({
+          variables: {
+            input: { id, ...values, type: values.type as CostType },
+          },
+          refetchQueries: [{ query: ObjectTypePricesCostsDocument, variables: { id } }],
+        });
+      }
       onAdd();
 
       return undefined;

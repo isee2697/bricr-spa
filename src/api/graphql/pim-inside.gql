@@ -212,6 +212,7 @@ type Floor implements LastUpdated {
   spaces: [Space!]
   lastEditedBy: Profile
   dateUpdated: Date
+  dateCreated: Date
 }
 
 union SpaceConfiguration = KitchenSpace | BathroomSpace | LivingRoomSpace | BedroomSpace | HomeOfficeSpace | OtherSpace
@@ -222,11 +223,13 @@ type Space {
   spaceName: String
   extraRoomPossibility: Boolean!
   configuration: SpaceConfiguration
+  dateCreated: Date
 }
 
 type PimInside implements LastUpdated {
   id: String!
   floors: [Floor!]
+  bogSpaces: [BogSpace!]
   insideGeneral: InsideGeneral
   dateUpdated: Date
   lastEditedBy: Profile

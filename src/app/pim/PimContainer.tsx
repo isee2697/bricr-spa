@@ -5,8 +5,8 @@ import { useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
 
-import { usePimsSorting } from './usePimsSorting/usePimsSorting';
 import { Pim } from './Pim';
 
 const EMPTY_LIST = { listPims: { items: [] } };

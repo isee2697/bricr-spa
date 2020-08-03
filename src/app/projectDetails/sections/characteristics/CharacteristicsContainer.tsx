@@ -5,17 +5,19 @@ import { FormRenderProps } from 'react-final-form';
 
 import { AutosaveForm } from 'ui/organisms';
 import {
+  CharacteristicsSections,
   NcpCharacteristicsDocument,
   NcpCharacteristicsInput,
+  useNcpCharacteristicsQuery,
   useProjectPhasesQuery,
   useUpdateNcpCharacteristicsMutation,
 } from 'api/types';
-import { useNcpCharacteristicsQuery } from 'api/types';
+import { Characteristics } from 'app/shared/characteristics/Characteristics';
+import { EntityType } from 'app/shared/entityType';
+import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
+import { sectionsOrder } from 'app/shared/characteristics/Characteristics.types';
 
-import { sectionsOrder } from './Characteristics.types';
-import { Characteristics } from './Characteristics';
-
-export const CharacteristicsContainer = () => {
+export const CharacteristicsContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<NcpCharacteristicsInput>>();
 
@@ -102,6 +104,8 @@ export const CharacteristicsContainer = () => {
 
         return (
           <Characteristics
+            onSidebarOpen={onSidebarOpen}
+            isSidebarVisible={isSidebarVisible}
             characteristicsSections={sectionsOrder.filter(section =>
               (data?.getNcpCharacteristics.characteristicsSections ?? []).includes(section),
             )}
@@ -109,6 +113,18 @@ export const CharacteristicsContainer = () => {
             dateUpdated={data?.getNcpCharacteristics.dateUpdated}
             identificationNumbers={data?.getNcpCharacteristics.identificationNumbers ?? []}
             projectPhase={phaseData?.getProjectPhases.items?.[0]}
+            availableSections={[
+              CharacteristicsSections.ProjectMarketing,
+              CharacteristicsSections.Measurements,
+              CharacteristicsSections.Energy,
+              CharacteristicsSections.Phase,
+              CharacteristicsSections.AccountManagers,
+              CharacteristicsSections.ClientInformation,
+              CharacteristicsSections.IdentificationNumber,
+              CharacteristicsSections.AttentionField,
+              CharacteristicsSections.InvoiceDetails,
+            ]}
+            entityType={EntityType.Project}
           />
         );
       }}

@@ -1,0 +1,194 @@
+enum MeterType {
+  Water,
+  Gas,
+  Electric,
+}
+
+enum HotWaterSupplyType {
+  CentralHeatingBoiler,
+  Boiler,
+  Geyser,
+  SolarWaterHeater,
+}
+
+enum HotWaterSupplyFuelType {
+  Gas,
+  Electric,
+  Oil,
+}
+
+enum HeatingSourceType {
+  GeothermalHeat,
+  Fireplace,
+  AllBurner,
+  PelletStove,
+  BlockHeating,
+  WoodStove,
+  DistrictHeating,
+  CentralHeatingBoiler,
+  CoalStove,
+  PartialElectricHeating,
+  MotherHearth,
+  GasFire,
+  PossibleFireplace,
+  HeatRecoverySystem,
+  GasHeaters,
+  HeatPump,
+  HotAirHeating,
+  UnderfloorHeating,
+  UnderfloorHeatingCompletely,
+  WallHeating,
+}
+
+enum AdditionalServiceType {
+  AirConditioning,
+  AlarmSystem,
+  ExteriorSunProtection,
+  Skylight,
+  SateliteDish,
+  SlidingDoor,
+  CableTv,
+  Windmill,
+  SolarCollector,
+  SwimmingPool,
+  FrenchBalcony,
+  MechanicalVentilation,
+  Elevator,
+  Flue,
+  Shutters,
+}
+
+enum OwnershipType {
+  Rent,
+  Leased,
+  Owned,
+}
+
+enum ServiceType {
+  HotWaterSupplies,
+  HeatingSources,
+  AdditionalServices,
+}
+
+input AddMeterInput {
+  parentId: String!
+  name: String!
+  type: MeterType!
+}
+
+input UpdateMeterInput {
+  parentId: String!
+  id: String!
+  name: String
+  description: String
+}
+
+input AddReadingInput {
+  parentId: ID!
+  meterId: ID!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
+}
+
+input UpdateReadingInput {
+  parentId: ID!
+  id: ID!
+  value: Int
+  dateOfReading: Date
+  feedInId: String
+}
+
+scalar ServiceConfigurationInput
+
+input AddServiceInput {
+  parentId: ID!
+  name: String!
+  type: ServiceType!
+  configuration: ServiceConfigurationInput
+}
+
+input UpdateServiceInput {
+  parentId: ID!
+  serviceId: ID!
+  name: String
+  description: String
+  yearOfInstallation: Int
+  ownership: OwnershipType
+  configuration: ServiceConfigurationInput
+}
+
+type Reading {
+  id: String!
+  value: Int
+  dateOfReading: Date
+  description: String
+  feedInId: String
+  dateCreated: Date
+}
+
+type Meter implements LastUpdated {
+  id: String!
+  type: MeterType!
+  name: String!
+  description: String
+  readings: [Reading!]
+  dateCreated: Date
+  dateUpdated: Date
+  lastEditedBy: Profile
+}
+
+type HeatingSourceMaintenanceContract {
+  enabled: Boolean!
+  endDate: Date
+}
+
+type HotWaterSupplyConfiguration {
+  type: HotWaterSupplyType!
+  fuel: HotWaterSupplyFuelType
+}
+
+type HeatingSourceConfiguration {
+  type: HeatingSourceType!
+  maintenanceContract: HeatingSourceMaintenanceContract
+}
+
+type AdditionalServiceConfiguration {
+  type: AdditionalServiceType!
+}
+
+union ServiceConfiguration = HotWaterSupplyConfiguration | HeatingSourceConfiguration | AdditionalServiceConfiguration
+
+type Service {
+  id: String!
+  type: ServiceType!
+  name: String!
+  description: String
+  yearOfInstallation: Int
+  configuration: ServiceConfiguration!
+  ownership: OwnershipType
+  dateCreated: Date
+}
+
+input ServiceDescriptionInput {
+  id: ID!
+  servicesDescription: String
+}
+
+interface Services {
+  hotWaterSupplies: [Service!]
+  heatingSources: [Service!]
+  additionalServices: [Service!]
+}
+
+type MetersSharedData {
+  description: String
+  lastEditedBy: Profile
+  dateUpdated: Date
+}
+
+type MetersMeta  {
+  Water: MetersSharedData
+  Gas: MetersSharedData
+  Electric: MetersSharedData
+}

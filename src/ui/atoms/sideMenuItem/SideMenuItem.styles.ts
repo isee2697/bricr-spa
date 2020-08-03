@@ -1,7 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const hoverAndSelectedStyles = (theme: Theme) => ({
-  '& > h3, & a': {
+  '& h3, & a': {
     color: theme.palette.black.main,
   },
   '& path': {
@@ -41,6 +41,7 @@ export const useStyles = makeStyles(theme => ({
   },
   title: {
     marginLeft: theme.spacing(1),
+    ...theme.typography.h4,
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.gray.main,
   },

@@ -35,3 +35,21 @@ export const UDPATE_NCP_IDENTIFICATION_NUMBER = gql`
     }
   }
 `;
+
+export const ADD_OBJECT_TYPE_IDENTIFICATION_NUMBER = gql`
+  mutation AddIdentificationNumberObjectType($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberObjectType(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+
+export const UDPATE_OBJECT_TYPE_IDENTIFICATION_NUMBER = gql`
+  mutation UpdateIdentificationNumberObjectType($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberObjectType(input: $input) {
+      id
+    }
+  }
+`;

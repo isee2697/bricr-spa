@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
+import { useParams } from 'react-router';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Grid, Typography, Box, Chip, IconButton, Collapse, ProgressFilling, ColoredImage, InfoItem } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon, ComplexBuildingIcon, MenuIcon, WarningIcon } from 'ui/atoms/icons';
-import { ObjectTypeData } from '../ObjectTypes.types';
+import { ListObjectTypes } from 'api/types';
 
 import { useStyles } from './ObjectItem.styles';
 
@@ -22,21 +23,22 @@ export const ObjectItem = ({
   numberOfRoomsTo,
   archived,
   completeness,
-  soldOrRent,
-  properties,
   salePriceFrom,
   salePriceTo,
   rentPriceFrom,
   rentPriceTo,
   matches,
   interests,
-  available,
+  propertiesAvailable,
+  propertiesConnected,
+  soldOrRent,
   underOption,
-}: ObjectTypeData) => {
-  const { formatMessage } = useLocale();
+  attentionNote,
+}: ListObjectTypes) => {
+  const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
+  const { id: projectId } = useParams<{ id: string }>();
   const classes = useStyles();
-  const daysAgo = Math.round(-DateTime.fromISO(dateCreated).diffNow('day').days);
   const [toggled, setToggled] = useState(false);
 
   return (
@@ -45,17 +47,19 @@ export const ObjectItem = ({
         <Grid item xs={6}>
           <ColoredImage
             className={classes.image}
-            onClick={() => push(AppRoute.projectDetails.replace(':id', id))}
+            onClick={() => push(AppRoute.objectTypeDetails.replace(':projectId', projectId).replace(':id', id))}
             src={mainPicture?.url ?? 'http://placeimg.com/176/112/arch'}
-            grayscale={archived}
+            grayscale={archived ?? false}
             variant="purple"
-          ></ColoredImage>
+          />
         </Grid>
         <Grid item xs={6}>
           <Grid container spacing={3}>
             <Grid item>
               <Typography className={classes.date} variant="h6">
-                {daysAgo} {formatMessage({ id: 'common.days_ago' })}
+                {DateTime.fromISO(dateCreated.toString()).toRelative({
+                  locale,
+                })}
               </Typography>
               <Typography className={classes.title} variant="h3">
                 <ComplexBuildingIcon /> {name}
@@ -111,11 +115,13 @@ export const ObjectItem = ({
           </Typography>
           <ProgressFilling progress={completeness / 100} />
         </Grid>
-        <Grid item>
-          <Box className={classes.warning}>
-            <WarningIcon /> {formatMessage({ id: 'projects.no_more_scheduling' })}
-          </Box>
-        </Grid>
+        {attentionNote && (
+          <Grid item>
+            <Box className={classes.warning}>
+              <WarningIcon /> {attentionNote}
+            </Box>
+          </Grid>
+        )}
         <Grid onClick={() => setToggled(prevState => !prevState)} className={classes.rightItem} item>
           <IconButton>{toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}</IconButton>
           <Typography className={classes.grayText} variant="h5">
@@ -127,10 +133,10 @@ export const ObjectItem = ({
         <Grid container className={classes.extraInformation}>
           <InfoItem xs={2} amount={matches} labelId="projects.matches" />
           <InfoItem xs={2} amount={interests} labelId="projects.interests" />
-          <InfoItem xs={2} color="red" amount={available} labelId="projects.available" />
+          <InfoItem xs={2} color="red" amount={propertiesAvailable} labelId="projects.available" />
           <InfoItem xs={2} color="orange" amount={underOption} labelId="projects.under_option" />
           <InfoItem xs={2} color="green" amount={soldOrRent} labelId="projects.sold_or_rent" />
-          <InfoItem xs={2} amount={properties} labelId="projects.properties" />
+          <InfoItem xs={2} amount={propertiesConnected} labelId="projects.properties" />
         </Grid>
       </Collapse>
     </>

@@ -4,7 +4,7 @@ import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { PropertyCategory } from 'app/pim/addPimModal/AddPimModal.types';
+import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
 
 /* eslint-disable @typescript-eslint/camelcase */
 const mapTypeToPropertyCategory = (type?: string) => {

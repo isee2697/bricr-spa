@@ -1,0 +1,24 @@
+type ObjectTypeServices implements LastUpdated & Services {
+  id: ID!
+  hotWaterSupplies: [Service!]
+  heatingSources: [Service!]
+  additionalServices: [Service!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  servicesDescription: String
+}
+
+type ObjectTypeWithNewService  {
+  objectType: ObjectTypeServices!
+  newService: Service!
+}
+
+extend type Mutation {
+  addObjectTypeService(input: AddServiceInput!): ObjectTypeWithNewService! @auth
+  updateObjectTypeService(input: UpdateServiceInput!): ObjectTypeServices! @auth
+  updateObjectTypeServiceDescription(input: ServiceDescriptionInput!): ObjectTypeServices! @auth
+}
+
+extend type Query {
+  getObjectTypeServices(id: ID!): ObjectTypeServices!
+}

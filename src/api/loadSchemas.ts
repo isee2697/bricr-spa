@@ -24,6 +24,11 @@ const schemas = [
   loader('./graphql/ncp-characteristics.gql'),
   loader('./graphql/ncp-list.gql'),
   loader('./graphql/media.gql'),
+  loader('./graphql/characteristics.gql'),
+  loader('./graphql/services.gql'),
+  loader('./graphql/linked-pim.gql'),
+  loader('./graphql/pim-bog-spaces.gql'),
+  loader('./graphql/object-type-characteristics.gql'),
 ];
 
 export const loadSchemas = () => {

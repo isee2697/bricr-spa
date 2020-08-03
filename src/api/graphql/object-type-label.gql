@@ -1,0 +1,8 @@
+extend type Mutation {
+  addObjectTypeLabel(input: LabelInput!): Label! @auth
+  removeObjectTypeLabel(id: ID!): Boolean! @auth
+}
+
+extend type Query {
+  getObjectTypeLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
+}
