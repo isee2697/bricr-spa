@@ -4,6 +4,7 @@ import { EntityType } from 'app/shared/entityType';
 export const getEntityFilesType = (entityType: EntityType) => {
   switch (entityType) {
     case EntityType.Property:
+    case EntityType.LinkedProperty:
       return EntityWithFiles.MediaPicture;
     case EntityType.Project:
       return EntityWithFiles.NcpMediaPicture;
