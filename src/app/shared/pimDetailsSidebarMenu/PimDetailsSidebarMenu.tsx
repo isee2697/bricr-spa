@@ -1,31 +1,27 @@
 import React from 'react';
-import { Link, useRouteMatch, useLocation, useParams } from 'react-router-dom';
+import { useRouteMatch, useParams } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
+import { useTheme } from '@material-ui/core';
 
-import { SideMenu } from 'ui/molecules';
-import { Box, SideMenuItem, SideSubMenuItem } from 'ui/atoms';
+import { SidebarMenu } from 'ui/molecules';
+import { Box, SidebarTitleTile } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
-import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
-import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
-import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
-import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
-import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { GraphIcon } from 'ui/atoms/icons/graph/GraphIcon';
-import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
-import { ArrowLeftIcon } from 'ui/atoms/icons/arrowLeft/ArrowLeftIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType, FloorType } from 'api/types';
-import { SidebarHideButton } from 'ui/atoms/sidebarHideButton/SidebarHideButton';
 import { EntityType, useEntityType } from 'app/shared/entityType';
+import {
+  ComplexBuildingIcon,
+  GraphIcon,
+  MailIcon,
+  PinIcon,
+  HelpIcon,
+  FilterIcon,
+  LockIcon,
+  FilesIcon,
+  BuildingIcon,
+} from 'ui/atoms/icons';
 
-import { useStyles } from './PimDetailsSidebarMenu.styles';
 import { PimDetailsSidebarMenuProps, SubMenuItem } from './PimDetailsSidebarMenu.types';
-
-const createSubMenuData = (id: string, label: string, amount: number, key: number): SubMenuItem => {
-  return { id, label, number: amount > 1 ? amount - key : undefined };
-};
 
 const getBackUrl = (routeParams: Record<string, string>) => {
   if (routeParams.projectId && routeParams.objectTypeId) {
@@ -38,17 +34,22 @@ const getBackUrl = (routeParams: Record<string, string>) => {
   return AppRoute.pim;
 };
 
-export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles();
   const { url } = useRouteMatch();
   const params = useParams();
-  const { pathname } = useLocation();
   const { entityType } = useEntityType();
+  const theme = useTheme();
 
   if (!data) {
     return null;
   }
+
+  const createSubMenuData = (id: string, label: string, amount: number, key: number): SubMenuItem => {
+    const number = amount > 1 ? amount - key : undefined;
+
+    return { id, title: `${formatMessage({ id: label })} ${number ?? ''}` };
+  };
 
   const floorGroups = groupBy(data.getPimInside.floors || [], floor => floor.floorType);
   const outsideGroups = groupBy(data.getPimOutside.outsideFeatures || [], outside => outside.type);
@@ -60,7 +61,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
 
   const items = [
     {
-      name: 'general',
+      key: 'general',
       icon: <BuildingIcon />,
       subItems: [
         {
@@ -70,7 +71,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       ],
     },
     {
-      name: 'inside',
+      key: 'inside',
       icon: <FilesIcon />,
       subItems: Object.values(floorGroups).flatMap(values =>
         values.map(({ id, floorType }, index) => {
@@ -88,7 +89,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       ),
     },
     {
-      name: 'outside',
+      key: 'outside',
       icon: <LockIcon />,
       subItems: Object.values(outsideGroups).flatMap(values =>
         values.map((outside, key) =>
@@ -102,7 +103,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       ),
     },
     {
-      name: 'cadastre',
+      key: 'cadastre',
       icon: <FilterIcon />,
       subItems: [
         {
@@ -117,14 +118,14 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       ],
     },
     {
-      name: 'services',
+      key: 'services',
       subItems: Object.entries(meterGroups).map((values, key) =>
         createSubMenuData(values[0].toLowerCase(), `dictionaries.service.meter.${values[0]}Meters`, 0, key),
       ),
       icon: <HelpIcon />,
     },
     {
-      name: 'specification',
+      key: 'specification',
       subItems: [
         {
           id: 'advanced',
@@ -142,7 +143,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       icon: <PinIcon />,
     },
     {
-      name: 'prices',
+      key: 'prices',
       subItems: [
         {
           id: 'costs',
@@ -156,65 +157,60 @@ export const PimDetailsSidebarMenu = ({ onHide, data }: PimDetailsSidebarMenuPro
       icon: <MailIcon />,
     },
     {
-      name: 'media',
+      key: 'media',
       icon: <GraphIcon />,
-    },
-    {
-      name: 'summary',
-      icon: <TasksIcon />,
     },
   ];
 
+  const menu = {
+    url: url,
+    back: {
+      url: getBackUrl(params),
+      title: formatMessage({
+        id:
+          entityType === EntityType.Property
+            ? `pim_details.menu.back_to_pim_list`
+            : `project_details.properties.menu.back_to_properties_list`,
+      }),
+    },
+    groups: [
+      {
+        items: [{ key: 'dashboard' }, { key: 'summary' }, { key: 'propertyJourney' }, { key: 'salesSettings' }],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.pim_intake',
+        items,
+      },
+    ],
+  };
+
+  const pim = data?.getPimGeneral;
+  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
+
   return (
-    <div className={classes.root}>
-      <div className={classes.hideButton} onClick={onHide}>
-        <SidebarHideButton />
-      </div>
-      <div className={classes.menuWrapper}>
-        <SideMenu className={classes.menu} disablePadding>
-          {items.map(item => (
-            <SideMenuItem
-              key={item.name}
-              icon={item.icon}
-              title={
-                <Link to={`${url}/${item.name}`}>
-                  {item.icon || <Box mr={4} />}
-                  {formatMessage({ id: `pim_details.menu.${item.name}` })}
-                </Link>
-              }
-              selected={pathname.startsWith(`${url}/${item.name}`)}
-            >
-              {item.subItems?.map(subItem => (
-                <SideSubMenuItem
-                  key={subItem.id}
-                  title={
-                    <Link to={`${url}/${item.name}/${subItem.id}`}>
-                      <Box mr={4} />
-                      {formatMessage({ id: subItem.label })} {subItem.number}
-                    </Link>
-                  }
-                  selected={pathname === `${url}/${item.name}/${subItem.id}`}
-                />
-              ))}
-            </SideMenuItem>
-          ))}
-        </SideMenu>
-        <SideMenuItem
-          className={classes.backToList}
-          title={
-            <Link to={getBackUrl(params)}>
-              <ArrowLeftIcon color="inherit" />
-              {formatMessage({
-                id:
-                  entityType === EntityType.Property
-                    ? `pim_details.menu.back_to_pim_list`
-                    : `project_details.properties.menu.back_to_properties_list`,
-              })}
-            </Link>
-          }
-          selected={false}
-        />
-      </div>
-    </div>
+    <SidebarMenu
+      onHide={onHide}
+      translationPrefix="pim_details.menu"
+      menu={menu}
+      menuTitle={
+        objectTypeName ? (
+          <SidebarTitleTile
+            prevPage={objectTypeName}
+            title={title}
+            subtitle={formatMessage({ id: 'common.sidebar_category.property' })}
+            category={EntityType.LinkedProperty}
+            icon={<BuildingIcon color="inherit" />}
+            prevPageicon={
+              <Box color={theme.palette.purple.main}>
+                <ComplexBuildingIcon color="inherit" />
+              </Box>
+            }
+          />
+        ) : (
+          undefined
+        )
+      }
+    />
   );
 };

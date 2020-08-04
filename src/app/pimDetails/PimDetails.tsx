@@ -17,7 +17,15 @@ import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetai
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
 
-export const PimDetails = ({ loading, error, data, breadcrumbs, path, entityType }: PimDetailsProps) => {
+export const PimDetails = ({
+  loading,
+  error,
+  data,
+  breadcrumbs,
+  path,
+  entityType,
+  objectTypeName,
+}: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -44,7 +52,7 @@ export const PimDetails = ({ loading, error, data, breadcrumbs, path, entityType
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
-            <PimDetailsSidebarMenu data={data} onHide={handleSidebarHide} />
+            <PimDetailsSidebarMenu data={data} onHide={handleSidebarHide} objectTypeName={objectTypeName} />
           </Grid>
         )}
         <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>

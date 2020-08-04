@@ -20,7 +20,7 @@ export const LinkedPropertiesDetailsContainer = () => {
     .replace(':objectTypeId', objectTypeId);
 
   const { loading, error, data } = usePimOverallInfoQuery({ variables: { id } });
-  const { data: overallInfo } = useObjectTypeOverallInfoQuery({ variables: { id: objectTypeId, projectId } });
+  const { data: objectTypeData } = useObjectTypeOverallInfoQuery({ variables: { id: objectTypeId, projectId } });
 
   const pim = data?.getPimGeneral;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
@@ -28,8 +28,8 @@ export const LinkedPropertiesDetailsContainer = () => {
   const breadcrumbs = (
     <>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
-      <NavBreadcrumb title={overallInfo?.project.name ?? ''} to={projectUrl} />
-      <NavBreadcrumb title={overallInfo?.objectType.name ?? ''} to={objectTypeUrl} />
+      <NavBreadcrumb title={objectTypeData?.project.name ?? ''} to={projectUrl} />
+      <NavBreadcrumb title={objectTypeData?.objectType.name ?? ''} to={objectTypeUrl} />
       <NavBreadcrumb title={title} to={linkedPropertyUrl} />
     </>
   );
@@ -42,6 +42,7 @@ export const LinkedPropertiesDetailsContainer = () => {
       breadcrumbs={breadcrumbs}
       path={AppRoute.linkedPropertyDetails}
       entityType={EntityType.LinkedProperty}
+      objectTypeName={objectTypeData?.objectType.name}
     />
   );
 };

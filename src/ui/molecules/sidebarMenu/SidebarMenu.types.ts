@@ -1,9 +1,25 @@
 import { ReactNode } from 'react';
 
+export type SubMenuItem =
+  | {
+      id: string;
+      label?: string;
+      title?: string;
+      number?: number;
+    }
+  | string;
+
 export type MenuItem = {
   key: string;
-  subItems?: string[];
+  subItems?: SubMenuItem[];
   count?: number;
+  icon?: ReactNode;
+};
+
+export type MenuGroup = {
+  isCollapsable?: boolean;
+  key?: string;
+  items: MenuItem[];
 };
 
 export type SidebarMenuProps = {
@@ -16,8 +32,6 @@ export type SidebarMenuProps = {
       url: string;
       title: string;
     };
-    groups: {
-      items: MenuItem[];
-    }[];
+    groups: MenuGroup[];
   };
 };

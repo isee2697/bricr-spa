@@ -23,6 +23,8 @@ export const SidebarTitleTile = ({
         return theme.palette.green[light ? 'light' : 'main'];
       case EntityType.ObjectType:
         return theme.palette.purple[light ? 'light' : 'main'];
+      case EntityType.LinkedProperty:
+        return theme.palette.blue[light ? 'light' : 'dark'];
       default:
         return theme.palette.gray[light ? 'light' : 'main'];
     }

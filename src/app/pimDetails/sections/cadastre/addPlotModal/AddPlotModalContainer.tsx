@@ -1,27 +1,29 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
+import { useEntityType } from 'app/shared/entityType';
 import { CadastreType, useAddCadastreMutation, PimOverallInfoDocument, PimCadastreDocument } from 'api/types';
-import { AppRoute } from 'routing/AppRoute.enum';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { AddPlotModalContainerProps } from './AddPlotModal.types';
 import { AddPlotModal } from './AddPlotModal';
 
 export const AddPlotModalContainer = ({ isModalOpened, onModalClose }: AddPlotModalContainerProps) => {
-  const { id: pimId } = useParams<{ id: string }>();
+  const urlParams = useParams<{ id: string; projectId: string; objectTypeId: string }>();
   const { push } = useHistory();
   const [addCadastre, { loading }] = useAddCadastreMutation();
+  const { baseUrl } = useEntityType();
 
   const handleAddPlot = async () => {
     try {
-      if (!pimId) {
+      if (!urlParams.id) {
         throw new Error();
       }
 
       const { data: addCadastreResponse } = await addCadastre({
         variables: {
           input: {
-            pimId,
+            pimId: urlParams.id,
             description: '',
             type: CadastreType.Plot,
           },
@@ -29,18 +31,18 @@ export const AddPlotModalContainer = ({ isModalOpened, onModalClose }: AddPlotMo
         refetchQueries: [
           {
             query: PimOverallInfoDocument,
-            variables: { id: pimId },
+            variables: { id: urlParams.id },
           },
           {
             query: PimCadastreDocument,
-            variables: { id: pimId },
+            variables: { id: urlParams.id },
           },
         ],
       });
 
       if (addCadastreResponse?.addCadastre?.cadastre) {
         const id = addCadastreResponse.addCadastre.cadastre.id;
-        push(`${AppRoute.pimDetails.replace(':id', pimId)}/cadastre/${id}`, { newPlotAdded: true });
+        push(`${joinUrlParams(baseUrl, urlParams)}/cadastre/${id}`, { newPlotAdded: true });
 
         return undefined;
       }

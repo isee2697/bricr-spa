@@ -64,7 +64,16 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
   group: {
     '& + &': {
-      marginTop: spacing(2),
+      marginTop: spacing(3),
     },
+  },
+  collapseHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingRight: spacing(1.875),
+  },
+  collapseTitle: {
+    ...typography.h4,
+    fontWeight: typography.fontWeightMedium,
   },
 }));

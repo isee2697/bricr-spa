@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
-export type SideSubMenuItemProps = {
+import { SideMenuItemProps } from '../sideMenuItem/SideMenuItem.types';
+
+export type SideSubMenuItemProps = SideMenuItemProps & {
   title: ReactNode;
   selected: boolean;
   onClick?: () => void;

@@ -11,6 +11,7 @@ export type PimDetailsSectionProps = {
 
 export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error' | 'data'> & {
   data?: PimOverallInfoQuery;
+  objectTypeName?: string;
   breadcrumbs: ReactNode;
   path: string;
   entityType: EntityType;

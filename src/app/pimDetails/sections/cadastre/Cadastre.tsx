@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 
+import { useEntityType } from 'app/shared/entityType';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { CadastreType } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { useStyles } from './Cadastre.styles';
 import { CadastralMapsContainer } from './maps/CadastralMapsContainer';
@@ -18,6 +19,8 @@ import { CadastreProps } from './Cadastre.types';
 export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: CadastreProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const { baseUrl } = useEntityType();
+  const urlParams = useParams();
 
   const [isAddPlotModalOpen, setAddPlotModalOpen] = useState(false);
 
@@ -31,7 +34,7 @@ export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: Cadas
   return (
     <>
       <NavBreadcrumb
-        urlBase={AppRoute.pimDetails}
+        urlBase={baseUrl}
         to="/cadastre/cadastreMap"
         title={formatMessage({ id: 'pim_details.cadastre.title' })}
       />
@@ -58,13 +61,13 @@ export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: Cadas
       />
       <Switch>
         <Route
-          path={`${AppRoute.pimDetails}/cadastre/cadastreMap`}
+          path={`${baseUrl}/cadastre/cadastreMap`}
           exact
           render={() => <CadastralMapsContainer cadastreItem={cadastreMap} />}
         />
-        <Route path={`${AppRoute.pimDetails}/cadastre/:cadastreId`} exact render={() => <PlotContainer />} />
-        <Route path={`${AppRoute.pimDetails}/cadastre`} exact>
-          <Redirect to={`${AppRoute.pimDetails.replace(':id', data.getPimCadastre.id)}/cadastre/cadastreMap`} />
+        <Route path={`${baseUrl}/cadastre/:cadastreId`} exact render={() => <PlotContainer />} />
+        <Route path={`${baseUrl}/cadastre`} exact>
+          <Redirect to={`${joinUrlParams(baseUrl, urlParams)}/cadastre/cadastreMap`} />
         </Route>
       </Switch>
       {isAddPlotModalOpen && (
