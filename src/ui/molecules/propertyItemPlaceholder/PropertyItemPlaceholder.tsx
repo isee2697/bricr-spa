@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Placeholder } from 'ui/atoms';
 
 export const PropertyItemPlaceholder = () => (
-  <Box display="flex">
+  <Box display="flex" mr={2}>
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex" mb={1}>
         <Box>

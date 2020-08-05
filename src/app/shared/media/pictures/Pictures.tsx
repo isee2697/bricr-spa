@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import { Section } from '../section/Section';
 import { useLocale } from 'hooks';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { PictureProps } from 'app/shared/media/pictures/Pictures.types';
-import { PictureItem } from 'app/shared/media/pictures/pictureItem/PictureItem';
-import { useStyles } from 'app/shared/media/pictures/Pictures.styles';
-import { EditPictureModalContainer } from 'app/shared/media/pictures/editPictureModal/EditPictureModalContainer';
 import { UnCheckMarkIcon, CheckMarkIcon, CardsIcon, ListIcon } from 'ui/atoms/icons';
-import { AddPictureModalContainer } from 'app/shared/media/pictures/addPictureModal/AddPictureModalContainer';
 import { Picture } from 'api/types';
-import { IconButton } from 'ui/atoms';
+import { IconButton, Box } from 'ui/atoms';
+
+import { EditPictureModalContainer } from './editPictureModal/EditPictureModalContainer';
+import { AddPictureModalContainer } from './addPictureModal/AddPictureModalContainer';
+import { PictureItem } from './pictureItem/PictureItem';
+import { PictureProps } from './Pictures.types';
+import { useStyles } from './Pictures.styles';
 
 export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: PictureProps) => {
   const { formatMessage } = useLocale();
@@ -40,32 +41,34 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
         }
       >
         {editing => (
-          <List<Picture>
-            items={pictures}
-            itemIndex="id"
-            renderItem={(item, isSelected, checkbox) => (
-              <PictureItem
-                key={item.id}
-                picture={item}
-                editing={editing}
-                checkbox={checkbox}
-                onEdit={() => setPicture(item)}
-                customLabel={customLabels.find(label => label.value === item.type)}
-                isSelected={isSelected}
-              />
-            )}
-            onBulk={() => {}}
-            loadingItem={<PropertyItemPlaceholder />}
-            sortOptions={sorting.sortOptions}
-            onSort={sorting.onSort}
-            checkboxProps={{
-              className: classes.checkbox,
-              icon: <UnCheckMarkIcon />,
-              checkedIcon: <CheckMarkIcon color="primary" />,
-            }}
-            className={classes.list}
-            disabled={!editing}
-          />
+          <Box mx={-2}>
+            <List<Picture>
+              items={pictures}
+              itemIndex="id"
+              renderItem={(item, isSelected, checkbox) => (
+                <PictureItem
+                  key={item.id}
+                  picture={item}
+                  editing={editing}
+                  checkbox={checkbox}
+                  onEdit={() => setPicture(item)}
+                  customLabel={customLabels.find(label => label.value === item.type)}
+                  isSelected={isSelected}
+                />
+              )}
+              onBulk={() => {}}
+              loadingItem={<PropertyItemPlaceholder />}
+              sortOptions={sorting.sortOptions}
+              onSort={sorting.onSort}
+              checkboxProps={{
+                className: classes.checkbox,
+                icon: <UnCheckMarkIcon />,
+                checkedIcon: <CheckMarkIcon color="primary" />,
+              }}
+              className={classes.list}
+              disabled={!editing}
+            />
+          </Box>
         )}
       </Section>
       {!!picture && (

@@ -44,8 +44,10 @@ export const Pim = ({
             <Grid item xs={12}>
               <Card>
                 <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
-                <CardContent>
-                  <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                <CardContent className={classes.listContent}>
+                  <Box mx={2}>
+                    <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                  </Box>
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}
@@ -67,6 +69,8 @@ export const Pim = ({
                       </Box>
                     )}
                     onBulk={() => alert('Bulk clicked')}
+                    onArchive={() => alert('Archive clicked')}
+                    onDelete={() => alert('Delete clicked')}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
                     pagination={pagination}

@@ -13,9 +13,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   items,
   itemIndex,
   renderItem,
-  onBulk,
   sortOptions,
-  onSort,
   pagination,
   loading,
   loadingItem,
@@ -24,6 +22,10 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   className,
   checkboxProps,
   disabled,
+  onArchive,
+  onDelete,
+  onBulk,
+  onSort,
 }) => {
   const classes = useStyles();
 
@@ -46,6 +48,12 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
         checkAllStatus={checkAllStatus}
         disabled={disabled}
         onCheckAll={handleCheckAll}
+        onArchive={
+          onArchive ? () => onArchive(items.filter(item => checkedKeys.includes(`${item[itemIndex]}`))) : undefined
+        }
+        onDelete={
+          onDelete ? () => onDelete(items.filter(item => checkedKeys.includes(`${item[itemIndex]}`))) : undefined
+        }
         onBulk={() => onBulk(items.filter(item => checkedKeys.includes(`${item[itemIndex]}`)))}
         onSort={!!onSort ? onSort : () => {}}
       />

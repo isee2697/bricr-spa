@@ -14,9 +14,7 @@ export type ListProps<T> = {
   items: T[];
   itemIndex: keyof T;
   renderItem: RenderItem<T>;
-  onBulk: (selectedItems: T[]) => void;
   sortOptions?: SortOption[];
-  onSort?: (key: string) => void;
   pagination?: PaginationProps;
   loading?: boolean;
   loadingItem?: ReactElement;
@@ -25,6 +23,10 @@ export type ListProps<T> = {
   className?: string;
   checkboxProps?: CheckboxProps;
   disabled?: boolean;
+  onSort?: (key: string) => void;
+  onArchive?: (selectedItems: T[]) => void;
+  onDelete?: (selectedItems: T[]) => void;
+  onBulk: (selectedItems: T[]) => void;
 };
 
 export type ListHeaderProps = {
@@ -35,7 +37,9 @@ export type ListHeaderProps = {
     checked: boolean;
   };
   disabled?: boolean;
-  onCheckAll: () => void;
-  onBulk: () => void;
+  onCheckAll: VoidFunction;
+  onArchive?: VoidFunction;
+  onDelete?: VoidFunction;
+  onBulk: VoidFunction;
   onSort: (key: string) => void;
 };

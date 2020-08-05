@@ -2,7 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   container: {
+    margin: theme.spacing(0, 2),
     border: `1px solid ${theme.palette.gray.main}`,
+    width: 'auto',
     borderRadius: theme.spacing(1),
     '&:not(:last-child)': {
       marginBottom: theme.spacing(2),

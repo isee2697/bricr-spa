@@ -11,13 +11,44 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  headerSelected: {
+    background: theme.palette.gradientPrimary.main,
+    borderRadius: theme.spacing(1),
+  },
   selectAll: {
     color: theme.palette.gray.main,
     fontWeight: theme.typography.fontWeightMedium,
     cursor: 'pointer',
     display: 'inline-block',
-    marginRight: theme.spacing(4),
     userSelect: 'none',
+  },
+  itemsSelected: {
+    display: 'inline',
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: theme.typography.h5.fontSize,
+    color: theme.palette.white.main,
+  },
+  badge: {
+    display: 'inline',
+    borderRadius: theme.spacing(1.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: theme.spacing(3),
+    height: theme.spacing(3),
+    width: 'auto',
+    padding: theme.spacing(0, 1),
+    marginRight: theme.spacing(1),
+    color: theme.palette.primary.main,
+    background: theme.palette.white.main,
+    fontSize: theme.typography.h4.fontSize,
+  },
+  iconPanel: {
+    '& svg': {
+      color: theme.palette.white.main,
+    },
+  },
+  icon: {
+    margin: theme.spacing(0, 1.5, 0, 0.5),
   },
   sorting: {
     backgroundColor: theme.palette.gray.light,

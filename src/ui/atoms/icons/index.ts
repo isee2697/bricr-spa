@@ -1,5 +1,6 @@
 export * from './add/AddIcon';
 export * from './aog/AogIcon';
+export * from './archive/ArchiveIcon';
 export * from './arrowDown/ArrowDownIcon';
 export * from './arrowLeft/ArrowLeftIcon';
 export * from './arrowRight/ArrowRightIcon';
@@ -15,6 +16,7 @@ export * from './comment/CommentIcon';
 export * from './complexBuilding/ComplexBuildingIcon';
 export * from './crm/CrmIcon';
 export * from './dashboard/DashboardIcon';
+export * from './delete/DeleteIcon';
 export * from './doc/DocIcon';
 export * from './download/DownloadIcon';
 export * from './edit/EditIcon';

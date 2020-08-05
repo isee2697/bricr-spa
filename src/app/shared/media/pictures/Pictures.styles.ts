@@ -9,9 +9,5 @@ export const useStyles = makeStyles(theme => ({
     '& .sort-select': {
       borderRadius: theme.spacing(0.5),
     },
-
-    '& .list-select-all': {
-      paddingLeft: 0,
-    },
   },
 }));

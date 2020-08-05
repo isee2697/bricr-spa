@@ -53,24 +53,28 @@ export const ProjectJourney = ({
               onAdd={() => {}}
             >
               <ProjectJourneyActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-              <List
-                items={data.items || []}
-                renderItem={(item, checked, checkbox) => (
-                  <Box
-                    key={item.id}
-                    className={classNames(classes.row, { [classes.rowChecked]: checked }, 'project-journey-row')}
-                  >
-                    {checkbox}
-                    <Box component="span" className={classes.rowItem}>
-                      <ProjectJourneyItem {...item} />
+              <Box mx={-2}>
+                <List
+                  items={data.items || []}
+                  renderItem={(item, checked, checkbox) => (
+                    <Box
+                      key={item.id}
+                      className={classNames(classes.row, { [classes.rowChecked]: checked }, 'project-journey-row')}
+                    >
+                      {checkbox}
+                      <Box component="span" className={classes.rowItem}>
+                        <ProjectJourneyItem {...item} />
+                      </Box>
                     </Box>
-                  </Box>
-                )}
-                itemIndex={'id'}
-                sortOptions={sorting.sortOptions}
-                onSort={sorting.onSort}
-                onBulk={() => alert('Bulk clicked')}
-              />
+                  )}
+                  itemIndex={'id'}
+                  sortOptions={sorting.sortOptions}
+                  onSort={sorting.onSort}
+                  onBulk={() => alert('Bulk clicked')}
+                  onArchive={() => alert('Archive clicked')}
+                  onDelete={() => alert('Delete clicked')}
+                />
+              </Box>
             </FormSection>
           </Box>
         </Grid>

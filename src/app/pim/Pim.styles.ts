@@ -7,10 +7,22 @@ export const useStyles = makeStyles(theme => ({
   itemButton: {
     cursor: 'pointer',
   },
+  listContent: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
   row: {
     display: 'flex',
     alignItems: 'flex-start',
-    borderBottom: `2px solid ${theme.palette.gray.light}`,
+    position: 'relative',
+    '&:after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      width: `calc(100% - ${theme.spacing(4)}px)`,
+      margin: theme.spacing(0, 2),
+      borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
+    },
   },
   rowChecked: {
     background: `${theme.palette.primary.main}08`,

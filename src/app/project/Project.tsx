@@ -40,8 +40,10 @@ export const Project = ({
             <Grid item xs={12}>
               <Card>
                 <CardHeader className="project-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
-                <CardContent>
-                  <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                <CardContent className={classes.listContent}>
+                  <Box mx={2}>
+                    <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+                  </Box>
                   <List<ListNcp>
                     className="project-list"
                     items={listData}
@@ -58,6 +60,8 @@ export const Project = ({
                       </Box>
                     )}
                     onBulk={() => alert('Bulk clicked')}
+                    onArchive={() => alert('Archive clicked')}
+                    onDelete={() => alert('Delete clicked')}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
                     pagination={pagination}

@@ -44,30 +44,32 @@ export const ObjectTypes = ({
         onOptionsClick={() => {}}
       >
         <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-        <List<ListObjectTypes>
-          className="object-type-list"
-          items={listData}
-          itemIndex="id"
-          renderItem={(objectType, checked, checkbox) => (
-            <Box
-              key={objectType.id}
-              className={classNames(classes.row, { [classes.rowChecked]: checked }, 'object-type-row')}
-            >
-              {checkbox}
-              <Box component="span" className={classes.rowItem}>
-                <ObjectItem {...objectType} />
+        <Box mx={-2}>
+          <List<ListObjectTypes>
+            className="object-type-list"
+            items={listData}
+            itemIndex="id"
+            renderItem={(objectType, checked, checkbox) => (
+              <Box
+                key={objectType.id}
+                className={classNames(classes.row, { [classes.rowChecked]: checked }, 'object-type-row')}
+              >
+                {checkbox}
+                <Box component="span" className={classes.rowItem}>
+                  <ObjectItem {...objectType} />
+                </Box>
               </Box>
-            </Box>
-          )}
-          onBulk={() => alert('Bulk clicked')}
-          sortOptions={sorting.sortOptions}
-          onSort={sorting.onSort}
-          pagination={pagination}
-          loading={isLoading}
-          loadingItem={<PropertyItemPlaceholder />}
-          emptyTitle={formatMessage({ id: 'project_details.object_types.empty_line_1' })}
-          emptyDescription={formatMessage({ id: 'project_details.object_types.empty_line_2' })}
-        />
+            )}
+            onBulk={() => alert('Bulk clicked')}
+            sortOptions={sorting.sortOptions}
+            onSort={sorting.onSort}
+            pagination={pagination}
+            loading={isLoading}
+            loadingItem={<PropertyItemPlaceholder />}
+            emptyTitle={formatMessage({ id: 'project_details.object_types.empty_line_1' })}
+            emptyDescription={formatMessage({ id: 'project_details.object_types.empty_line_2' })}
+          />
+        </Box>
       </FormSection>
     </Grid>
   );
