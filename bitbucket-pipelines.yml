@@ -22,7 +22,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile .
+            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg -f devops/docker/Dockerfile .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -33,7 +33,7 @@ pipelines:
             - ./aws/install
             #Push commands
             - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
-            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT
+            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg
 
       - step:
           image: wojtaszczykkamil/terraform:0.12.24
@@ -45,7 +45,7 @@ pipelines:
             - export PACKAGE=bricr-spa
             - export URL=https://staging.dev-domain.nl
             #Deploy
-            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT
+            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT-stg
             - chmod +x ./devops/scripts/deploy-and-notify.sh
             - ./devops/scripts/deploy-and-notify.sh
 
@@ -57,7 +57,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT -f devops/docker/Dockerfile.dev .
+            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -68,7 +68,7 @@ pipelines:
             - ./aws/install
             #Push commands
             - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
-            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT
+            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev
 
       - step:
           image: wojtaszczykkamil/terraform:0.12.24
@@ -80,7 +80,7 @@ pipelines:
             - export PACKAGE=bricr-spa-dev
             - export URL=https://develop.dev-domain.nl
             #Deploy
-            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT
+            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT-dev
             - chmod +x ./devops/scripts/deploy-and-notify.sh
             - ./devops/scripts/deploy-and-notify.sh
 
