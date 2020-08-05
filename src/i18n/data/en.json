@@ -298,6 +298,7 @@
   "pim_details.general.identification_number.type_of_identification_number": "Type of identification number",
   "pim_details.general.identification_number.empty_description_1": "You don’t have any identification numbers yet.",
   "pim_details.general.identification_number.empty_description_2": "To change that, click the “Circle” button at the top of the card.",
+  "pim_details.general.attention.title": "Attention",
   "pim_details.general.additional_information_modal.title": "What additional information you want to show?",
   "pim_details.general.additional_information_modal.update_cards": "Update cards",
   "pim_details.general.property_details.title": "Property details",

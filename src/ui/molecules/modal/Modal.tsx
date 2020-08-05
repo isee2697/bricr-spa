@@ -5,10 +5,10 @@ import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';
 
 import { ModalProps } from './Modal.types';
 
-export const Modal = ({ children, title, isOpened, onClose, ...props }: ModalProps) => {
+export const Modal = ({ children, title, isOpened, onClose, titleClassName, ...props }: ModalProps) => {
   return (
     <Dialog TransitionComponent={Zoom} open={isOpened} onClose={onClose} {...props}>
-      <DialogTitle id="alert-dialog-title">
+      <DialogTitle id="alert-dialog-title" className={titleClassName}>
         {title}
         {!!onClose && (
           <IconButton

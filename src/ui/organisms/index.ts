@@ -13,3 +13,4 @@ export { ConflictInfo } from './conflictInfo/ConflictInfo';
 export { SearchList } from './searchList/SearchList';
 export { UploadModalField } from './uploadModalField/UploadModalField';
 export { UploadModalImage } from './uploadModalImage/UploadModalImage';
+export { BulkActionConfirmModal } from './bulkActionConfirmModal/BulkActionConfirmModal';

@@ -298,6 +298,7 @@
   "pim_details.general.identification_number.type_of_identification_number": "Type identificatienummer",
   "pim_details.general.identification_number.empty_description_1": "U heeft nog geen identificatienummers.",
   "pim_details.general.identification_number.empty_description_2": "Om dat te veranderen, klik je op de \"Cirkel\" knop bovenaan de kaart.",
+  "pim_details.general.attention.title": "Attentie",
   "pim_details.general.additional_information_modal.title": "Welke aanvullende informatie wil je laten zien?",
   "pim_details.general.additional_information_modal.update_cards": "Kaarten bijwerken",
   "pim_details.general.property_details.title": "Eigendomsdetails",

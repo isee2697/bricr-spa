@@ -5,4 +5,5 @@ export type ModalProps = Omit<DialogProps, 'open' | 'title'> & {
   isOpened: boolean;
   title: ReactNode;
   children: ReactNode;
+  titleClassName?: string;
 };
