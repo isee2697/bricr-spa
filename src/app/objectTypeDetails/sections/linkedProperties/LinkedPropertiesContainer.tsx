@@ -94,10 +94,10 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
       updatedBy={listData.getObjectTypeLinkedPims.lastEditedBy}
       isSidebarVisible={isSidebarVisible}
       onSidebarOpen={onSidebarOpen}
-      linkedPropertiesIds={listData.getObjectTypeLinkedPims.linkedPropertiesIds ?? []}
       titleId="project_details.properties.object_type_title"
       showAddButton
       projectId={projectId}
+      refetchQueryVariables={{ ...sortQuery, ...paginationQuery }}
     />
   );
 };

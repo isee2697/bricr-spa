@@ -94,9 +94,9 @@ export const LinkedPropertiesContainer = ({ onSidebarOpen, isSidebarVisible }: P
       updatedBy={listData.getNcpLinkedPims.lastEditedBy}
       isSidebarVisible={isSidebarVisible}
       onSidebarOpen={onSidebarOpen}
-      linkedPropertiesIds={listData.getNcpLinkedPims.linkedPropertiesIds ?? []}
       titleId="project_details.properties.project_title"
       projectId={id}
+      refetchQueryVariables={{ ...sortQuery, ...paginationQuery }}
     />
   );
 };

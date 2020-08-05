@@ -3,6 +3,8 @@ import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ListPim, Profile } from 'api/types';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
+import { SortingQuery } from 'hooks/useSorting/useSorting.types';
+import { PaginationQuery } from 'hooks/usePagination/usePagination.types';
 
 export type ObjectTypesProps = ProjectDetailsProps & {
   status: ActionTabStatus;
@@ -24,8 +26,8 @@ export type ObjectTypesProps = ProjectDetailsProps & {
   onDescriptionSave: (values: { description: string }) => Promise<undefined | { error: boolean }>;
   dateUpdated?: string | null;
   updatedBy?: Profile | null;
-  linkedPropertiesIds: string[];
   showAddButton?: boolean;
   titleId: string;
   projectId: string;
+  refetchQueryVariables: SortingQuery & PaginationQuery;
 };

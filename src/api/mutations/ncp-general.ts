@@ -12,6 +12,9 @@ export const UPDATE_NCP = gql`
   mutation updateNcp($input: UpdateNcpInput!) {
     updateNcp(input: $input) {
       id
+      objectTypesCount
+      automaticallyCalculateQuantity
+      properties
     }
   }
 `;

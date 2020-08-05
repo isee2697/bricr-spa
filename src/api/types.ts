@@ -5438,7 +5438,10 @@ export type UpdateNcpMutationVariables = {
 };
 
 export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
-  updateNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
+  updateNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'id' | 'objectTypesCount' | 'automaticallyCalculateQuantity' | 'properties'
+  >;
 };
 
 export type AddNcpLabelMutationVariables = {
@@ -6419,6 +6422,21 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type LinkedPimsListQueryVariables = {
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+};
+
+export type LinkedPimsListQuery = { __typename?: 'Query' } & {
+  pims: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id' | 'street' | 'houseNumber' | 'city' | 'postalCode'>>
+    >;
+  };
+  linkedObjectIds: { __typename?: 'ObjectTypeLinkedPims' } & Pick<ObjectTypeLinkedPims, 'linkedPropertiesIds'>;
 };
 
 export type NcpCharacteristicsQueryVariables = {
@@ -8286,6 +8304,9 @@ export const UpdateNcpDocument = gql`
   mutation updateNcp($input: UpdateNcpInput!) {
     updateNcp(input: $input) {
       id
+      objectTypesCount
+      automaticallyCalculateQuantity
+      properties
     }
   }
 `;
@@ -10641,6 +10662,44 @@ export function useListPimsLazyQuery(
 export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
 export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
 export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const LinkedPimsListDocument = gql`
+  query LinkedPimsList($from: Int!, $limit: Int, $id: ID!) {
+    pims: listPims(filters: { archived: false }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        street
+        houseNumber
+        city
+        postalCode
+      }
+    }
+    linkedObjectIds: getObjectTypeLinkedPims(id: $id) {
+      linkedPropertiesIds
+    }
+  }
+`;
+export function useLinkedPimsListQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(
+    LinkedPimsListDocument,
+    baseOptions,
+  );
+}
+export function useLinkedPimsListLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(
+    LinkedPimsListDocument,
+    baseOptions,
+  );
+}
+export type LinkedPimsListQueryHookResult = ReturnType<typeof useLinkedPimsListQuery>;
+export type LinkedPimsListLazyQueryHookResult = ReturnType<typeof useLinkedPimsListLazyQuery>;
+export type LinkedPimsListQueryResult = ApolloReactCommon.QueryResult<
+  LinkedPimsListQuery,
+  LinkedPimsListQueryVariables
+>;
 export const NcpCharacteristicsDocument = gql`
   query NcpCharacteristics($id: ID!) {
     getNcpCharacteristics(id: $id) {

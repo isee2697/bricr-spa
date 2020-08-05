@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
+import { FormRenderProps } from 'react-final-form';
 
-import { useNcpGeneralQuery, useUpdateNcpMutation, NcpGeneralDocument, NcpGeneral } from 'api/types';
+import { useNcpGeneralQuery, useUpdateNcpMutation, NcpGeneralDocument, NcpGeneral, UpdateNcpInput } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
@@ -10,6 +11,7 @@ import { General } from './General';
 
 export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
+  const formRef = useRef<FormRenderProps<UpdateNcpInput>>();
 
   const { data } = useNcpGeneralQuery({ variables: { id } });
   const [updateNcpGeneral] = useUpdateNcpMutation();
@@ -38,6 +40,12 @@ export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDet
         throw new Error();
       }
 
+      if (data.updateNcp.automaticallyCalculateQuantity && !!formRef.current) {
+        const change = formRef.current.form.change;
+        change('objectTypesCount', data.updateNcp.objectTypesCount ?? '');
+        change('properties', data.updateNcp.properties ?? '');
+      }
+
       return undefined;
     } catch (e) {
       return { error: true };
@@ -58,7 +66,13 @@ export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDet
 
   return (
     <AutosaveForm initialValues={initialValues} onSave={handleSave} mutators={{ ...arrayMutators }}>
-      <General data={data.getNcp} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+      {form => {
+        if (!formRef.current) {
+          formRef.current = (form as unknown) as FormRenderProps<UpdateNcpInput>;
+        }
+
+        return <General data={data.getNcp} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />;
+      }}
     </AutosaveForm>
   );
 };

@@ -56,3 +56,20 @@ export const LIST_PIMS = gql`
     }
   }
 `;
+
+export const LINKED_LIST_PIMS = gql`
+  query LinkedPimsList($from: Int!, $limit: Int, $id: ID!) {
+    pims: listPims(filters: { archived: false }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        street
+        houseNumber
+        city
+        postalCode
+      }
+    }
+    linkedObjectIds: getObjectTypeLinkedPims(id: $id) {
+      linkedPropertiesIds
+    }
+  }
+`;
