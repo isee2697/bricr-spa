@@ -33,14 +33,6 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
             )}
 
             <DialogContent className={classes.content}>
-              <Grid item xs={12} className={classes.description}>
-                <GenericField
-                  name="name"
-                  label="pim_details.inside.add_space.name"
-                  placeholder="pim_details.inside.add_space.name_placeholder"
-                  size="medium"
-                />
-              </Grid>
               <Field name="type" validate={requireValidator}>
                 {({ input }) => (
                   <Grid container spacing={1}>
@@ -78,6 +70,14 @@ export const AddNewSpaceModal = ({ onSubmit, isOpened, onClose }: AddNewSpaceMod
                   </Grid>
                 )}
               </Field>
+              <Grid item xs={12} className={classes.description}>
+                <GenericField
+                  name="name"
+                  label="pim_details.inside.add_space.name"
+                  placeholder="pim_details.inside.add_space.name_placeholder"
+                  size="medium"
+                />
+              </Grid>
             </DialogContent>
             <DialogActions>
               <CancelButton variant="outlined" size="large" onClick={() => onClose(undefined)}>
