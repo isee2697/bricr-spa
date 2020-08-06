@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { IconButton, Badge, Sidebar } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
@@ -11,6 +12,7 @@ import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
 import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -23,6 +25,8 @@ import { TopMenu } from './topMenu/TopMenu';
 
 export const Dashboard = ({ children }: DashboardProps) => {
   const classes = useStyles();
+  const { push } = useHistory();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -72,7 +76,14 @@ export const Dashboard = ({ children }: DashboardProps) => {
           <IconButton variant="rounded" size="small" aria-label="help">
             <HelpIcon />
           </IconButton>
-          <IconButton variant="rounded" size="small" aria-label="settings">
+          <IconButton
+            variant="rounded"
+            size="small"
+            aria-label="settings"
+            onClick={() => push(AppRoute.settings)}
+            selected={pathname.startsWith(AppRoute.settings)}
+            key={pathname}
+          >
             <SettingsIcon />
           </IconButton>
         </Sidebar>

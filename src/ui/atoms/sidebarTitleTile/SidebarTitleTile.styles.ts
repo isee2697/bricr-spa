@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
+export const useStyles = makeStyles(({ spacing, typography }) => ({
   label: {
     padding: spacing(1, 1, 1, 3),
     background: ({ bgColor }: { bgColor: string | undefined }) => bgColor,
@@ -8,6 +8,9 @@ export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   },
   content: {
     marginLeft: spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     '& p': {
       margin: spacing(0, 1, 0, 0),
       fontSize: typography.h5.fontSize,

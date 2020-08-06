@@ -5,19 +5,19 @@ import { Avatar, Box } from '../index';
 import { EntityType } from 'app/shared/entityType';
 
 import { useStyles } from './SidebarTitleTile.styles';
-import { SidebarTitleTileProps } from './SidebarTitleTile.types';
+import { SidebarTileCategory, SidebarTitleTileProps } from './SidebarTitleTile.types';
 
 export const SidebarTitleTile = ({
   title,
   subtitle,
-  category,
+  category = SidebarTileCategory.OTHER,
   icon,
   prevPage,
   prevPageicon,
 }: SidebarTitleTileProps) => {
   const theme = useTheme();
 
-  const getCategory = (category: EntityType, light: boolean): string | undefined => {
+  const getCategory = (category: EntityType | SidebarTileCategory, light: boolean): string | undefined => {
     switch (category) {
       case EntityType.Project:
         return theme.palette.green[light ? 'light' : 'main'];
@@ -27,6 +27,15 @@ export const SidebarTitleTile = ({
         return theme.palette.blue[light ? 'light' : 'dark'];
       default:
         return theme.palette.gray[light ? 'light' : 'main'];
+    }
+  };
+
+  const getAvatarBackgroundColor = (category: EntityType | SidebarTileCategory): string => {
+    switch (category) {
+      case SidebarTileCategory.OTHER:
+        return 'transparent';
+      default:
+        return theme.palette.white.main;
     }
   };
 
@@ -41,12 +50,12 @@ export const SidebarTitleTile = ({
         </div>
       )}
       <div className={classes.label}>
-        <Avatar variant="rounded" bgcolor={theme.palette.white.main}>
-          <Box color={getCategory(category ?? EntityType.Project, false)}>{icon}</Box>
+        <Avatar variant="rounded" bgcolor={getAvatarBackgroundColor(category)}>
+          <Box color={getCategory(category, false)}>{icon}</Box>
         </Avatar>
-        <div color={getCategory(category ?? EntityType.Project, false)} className={classes.content}>
+        <div color={getCategory(category, false)} className={classes.content}>
           <p>{title}</p>
-          <p>{subtitle}</p>
+          {subtitle && <p>{subtitle}</p>}
         </div>
       </div>
     </>

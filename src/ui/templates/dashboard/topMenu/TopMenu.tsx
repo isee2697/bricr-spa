@@ -16,12 +16,15 @@ const menuLinks = [AppRoute.home, AppRoute.pim, AppRoute.crm, AppRoute.sales];
 export const TopMenu = () => {
   const { pathname } = useLocation();
   const { formatMessage } = useLocale();
-  const activeLinkIndex = menuLinks.findIndex(
-    link => link !== AppRoute.home && (pathname.startsWith(link) || matchesRouteAlias(pathname, link)),
-  );
+  const activeLinkIndex =
+    pathname === AppRoute.home
+      ? 0
+      : menuLinks.findIndex(
+          link => (link !== AppRoute.home && pathname.startsWith(link)) || matchesRouteAlias(pathname, link),
+        );
 
   return (
-    <Tabs value={activeLinkIndex !== -1 ? activeLinkIndex : 0} indicatorColor="primary" textColor="primary" centered>
+    <Tabs value={activeLinkIndex} indicatorColor="primary" textColor="primary" centered>
       <LinkTab icon={<HomeIcon color="inherit" />} label={formatMessage({ id: 'header.links.home' })} to="/" />
       <LinkTab icon={<BuildingIcon color="inherit" />} label={formatMessage({ id: 'header.links.pim' })} to="/pim" />
       <LinkTab icon={<CrmIcon color="inherit" />} label={formatMessage({ id: 'header.links.crm' })} to="/crm" />
