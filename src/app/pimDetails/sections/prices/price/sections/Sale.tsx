@@ -5,7 +5,7 @@ import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { EuroIcon, SquareIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { FormSection, FormSubSection } from 'ui/organisms';
+import { FormSection } from 'ui/organisms';
 import { GenericField, CheckboxField, DatePickerField, DropdownField, RadioGroupField } from 'form/fields';
 import { PropertyTypeProps } from '../Price.types';
 
@@ -15,18 +15,15 @@ export const Sale = ({ isInitExpanded }: PropertyTypeProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection
-      title={formatMessage({ id: 'pim_details.prices.sale' })}
-      isInitExpanded={isInitExpanded}
-      isInitEditing={isInitExpanded}
-      isExpandable
-    >
-      {inEditMode => (
-        <>
-          <FormSubSection
-            title={formatMessage({ id: 'pim_details.prices.general_information' })}
-            onOptionsClick={() => {}}
-          >
+    <>
+      <FormSection
+        title={formatMessage({ id: 'pim_details.prices.sale' })}
+        isInitExpanded={isInitExpanded}
+        isInitEditing={isInitExpanded}
+        isExpandable
+      >
+        {inEditMode => (
+          <>
             <FormSubSectionHeader
               title={formatMessage({ id: 'pim_details.prices.price_settings' })}
               subtitle={formatMessage({ id: 'pim_details.prices.select_prefix' })}
@@ -141,11 +138,18 @@ export const Sale = ({ isInitExpanded }: PropertyTypeProps) => {
               placeholder="pim_details.prices.general_notes_placeholder"
               disabled={!inEditMode}
             />
-          </FormSubSection>
-
-          <Box mb={4} />
-
-          <FormSubSection title={formatMessage({ id: 'pim_details.prices.woz' })} onOptionsClick={() => {}}>
+          </>
+        )}
+      </FormSection>
+      <Box mb={3} />
+      <FormSection
+        title={formatMessage({ id: 'pim_details.prices.woz' })}
+        isInitExpanded={isInitExpanded}
+        isInitEditing={isInitExpanded}
+        isExpandable
+      >
+        {inEditMode => (
+          <>
             <Grid container spacing={1}>
               <Grid item xs={4}>
                 <GenericField
@@ -176,9 +180,9 @@ export const Sale = ({ isInitExpanded }: PropertyTypeProps) => {
               placeholder="pim_details.prices.woz_notes_placeholder"
               disabled={!inEditMode}
             />
-          </FormSubSection>
-        </>
-      )}
-    </FormSection>
+          </>
+        )}
+      </FormSection>
+    </>
   );
 };
