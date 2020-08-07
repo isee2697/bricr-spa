@@ -13,6 +13,7 @@ import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useLayout } from 'context/layout';
 
 import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
@@ -27,66 +28,71 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const classes = useStyles();
   const { push } = useHistory();
   const { pathname } = useLocation();
+  const { isSidebarVisible, isHeaderVisible } = useLayout();
 
   return (
     <>
-      <TopBar>
-        <Search />
-        <nav className={classes.menu}>
-          <TopMenu />
-        </nav>
-        <nav className={classes.actions}>
-          <IconButton size="small" variant="roundedContained">
-            <PinIcon />
-          </IconButton>
-          <IconButton size="small" variant="roundedContained">
-            <Badge badgeContent={4} color="secondary">
-              <BellIcon />
-            </Badge>
-          </IconButton>
-          <ProfileMenu />
-          <AddMenu />
-        </nav>
-      </TopBar>
+      {isHeaderVisible && (
+        <TopBar>
+          <Search />
+          <nav className={classes.menu}>
+            <TopMenu />
+          </nav>
+          <nav className={classes.actions}>
+            <IconButton size="small" variant="roundedContained">
+              <PinIcon />
+            </IconButton>
+            <IconButton size="small" variant="roundedContained">
+              <Badge badgeContent={4} color="secondary">
+                <BellIcon />
+              </Badge>
+            </IconButton>
+            <ProfileMenu />
+            <AddMenu />
+          </nav>
+        </TopBar>
+      )}
       <Overlay />
       <section className={classes.container}>
         <aside className={classes.content}>{children}</aside>
-        <Sidebar>
-          <ShortcutsMenu />
-          <IconButton variant="rounded" size="small" aria-label="mail">
-            <Badge badgeContent={2} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton variant="rounded" size="small" aria-label="calendar">
-            <CalendarIcon />
-          </IconButton>
-          <IconButton variant="rounded" size="small" aria-label="tasks">
-            <TasksIcon />
-          </IconButton>
-          <IconButton variant="rounded" size="small" aria-label="stats">
-            <Badge badgeContent={4} color="secondary">
-              <GraphArrowIcon />
-            </Badge>
-          </IconButton>
-          <IconButton variant="rounded" size="small" aria-label="comments">
-            <CommentIcon />
-          </IconButton>
-          <Sidebar.Divider />
-          <IconButton variant="rounded" size="small" aria-label="help">
-            <HelpIcon />
-          </IconButton>
-          <IconButton
-            variant="rounded"
-            size="small"
-            aria-label="settings"
-            onClick={() => push(AppRoute.settings)}
-            selected={pathname.startsWith(AppRoute.settings)}
-            key={pathname}
-          >
-            <SettingsIcon />
-          </IconButton>
-        </Sidebar>
+        {isSidebarVisible && (
+          <Sidebar>
+            <ShortcutsMenu />
+            <IconButton variant="rounded" size="small" aria-label="mail">
+              <Badge badgeContent={2} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton variant="rounded" size="small" aria-label="calendar">
+              <CalendarIcon />
+            </IconButton>
+            <IconButton variant="rounded" size="small" aria-label="tasks">
+              <TasksIcon />
+            </IconButton>
+            <IconButton variant="rounded" size="small" aria-label="stats">
+              <Badge badgeContent={4} color="secondary">
+                <GraphArrowIcon />
+              </Badge>
+            </IconButton>
+            <IconButton variant="rounded" size="small" aria-label="comments">
+              <CommentIcon />
+            </IconButton>
+            <Sidebar.Divider />
+            <IconButton variant="rounded" size="small" aria-label="help">
+              <HelpIcon />
+            </IconButton>
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="settings"
+              onClick={() => push(AppRoute.settings)}
+              selected={pathname.startsWith(AppRoute.settings)}
+              key={pathname}
+            >
+              <SettingsIcon />
+            </IconButton>
+          </Sidebar>
+        )}
       </section>
     </>
   );

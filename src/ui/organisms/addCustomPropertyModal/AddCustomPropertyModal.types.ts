@@ -10,7 +10,7 @@ export type AddCustomPropertyModalContainerProps = {
   labelId?: string;
   entityType?: EntityType;
   iconPickerSelectedTheme?: IconSelectedTheme;
-  placeholderText?: string;
+  placeholderId?: string;
   addText?: string;
 };
 

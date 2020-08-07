@@ -7,12 +7,12 @@ import { SettingsIcon } from 'ui/atoms/icons';
 import { SidebarTitleTile } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
+import { useLayout } from 'context/layout';
 
-import { SettingsSidebarMenuProps } from './SettingsSidebarMenu.types';
-
-export const SettingsSidebarMenu = ({ onHide }: SettingsSidebarMenuProps) => {
+export const SettingsSidebarMenu = () => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
+  const { setSidebarMenuVisible } = useLayout();
 
   const menu = {
     url: url,
@@ -31,7 +31,7 @@ export const SettingsSidebarMenu = ({ onHide }: SettingsSidebarMenuProps) => {
 
   return (
     <SidebarMenu
-      onHide={onHide}
+      onHide={() => setSidebarMenuVisible(false)}
       menu={menu}
       translationPrefix="settings.menu"
       menuTitle={

@@ -13,6 +13,7 @@ import { ApiClientContextController } from 'context/apiClient/apiClientContextCo
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { OverlayContextController } from 'context/overlay/overlayContextController/OverlayContextController';
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
+import { LayoutContextController } from 'context/layout';
 
 import { AppProvidersProps } from './AppProviders.types';
 
@@ -27,9 +28,11 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
                 <UserController>
                   <OverlayContextController>
                     <ModalContextController>
-                      <Router>
-                        <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                      </Router>
+                      <LayoutContextController>
+                        <Router>
+                          <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                        </Router>
+                      </LayoutContextController>
                     </ModalContextController>
                   </OverlayContextController>
                 </UserController>

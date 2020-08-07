@@ -17,7 +17,7 @@ export const AddCustomPropertyModal = ({
   title,
   labelId,
   iconPickerSelectedTheme,
-  placeholderText,
+  placeholderId,
   addText,
 }: AddCustomPropertyModalProps) => {
   const { formatMessage } = useLocale();
@@ -45,7 +45,7 @@ export const AddCustomPropertyModal = ({
                   <GenericField
                     name="text"
                     label={labelId ?? 'pim_details.specification.custom_property_modal.input_label'}
-                    placeholder={placeholderText ?? 'pim_details.specification.custom_property_modal.input_placeholder'}
+                    placeholder={placeholderId ?? 'pim_details.specification.custom_property_modal.input_placeholder'}
                   />
                 </Grid>
                 <Grid item xs={6}>

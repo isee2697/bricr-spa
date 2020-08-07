@@ -24,7 +24,12 @@ export const TopMenu = () => {
         );
 
   return (
-    <Tabs value={activeLinkIndex} indicatorColor="primary" textColor="primary" centered>
+    <Tabs
+      value={activeLinkIndex !== -1 ? activeLinkIndex : false}
+      indicatorColor="primary"
+      textColor="primary"
+      centered
+    >
       <LinkTab icon={<HomeIcon color="inherit" />} label={formatMessage({ id: 'header.links.home' })} to="/" />
       <LinkTab icon={<BuildingIcon color="inherit" />} label={formatMessage({ id: 'header.links.pim' })} to="/pim" />
       <LinkTab icon={<CrmIcon color="inherit" />} label={formatMessage({ id: 'header.links.crm' })} to="/crm" />

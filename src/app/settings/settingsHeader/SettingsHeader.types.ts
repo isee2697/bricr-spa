@@ -1,10 +1,5 @@
 import { ReactNode } from 'react';
 
-export type SettingsHeaderProps = SettingHeaderCommonProps & {
+export type SettingsHeaderProps = {
   action?: ReactNode;
-};
-
-export type SettingHeaderCommonProps = {
-  onSidebarOpen: VoidFunction;
-  isSidebarVisible: boolean;
 };

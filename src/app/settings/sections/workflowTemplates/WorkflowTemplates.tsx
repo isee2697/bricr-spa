@@ -13,13 +13,7 @@ import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 import { WorkflowBluePrints, WorkflowTemplatesProps } from './WorkflowTemplates.types';
 import { useStyles } from './WorkflowTemplates.styles';
 
-export const WorkflowTemplates = ({
-  isSidebarVisible,
-  onSidebarOpen,
-  updatedBy,
-  dateUpdated,
-  onAdd,
-}: WorkflowTemplatesProps) => {
+export const WorkflowTemplates = ({ updatedBy, dateUpdated, onAdd }: WorkflowTemplatesProps) => {
   const { formatMessage } = useLocale();
   const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
@@ -27,8 +21,6 @@ export const WorkflowTemplates = ({
   return (
     <>
       <SettingsHeader
-        isSidebarVisible={isSidebarVisible}
-        onSidebarOpen={onSidebarOpen}
         action={
           <Button
             color="primary"
@@ -87,8 +79,8 @@ export const WorkflowTemplates = ({
           onClose={() => setModalVisible(false)}
           isOpened={isModalVisible}
           labelId="settings.new_workflow_template.label"
+          placeholderId="settings.new_workflow_template.placeholder"
           title={formatMessage({ id: 'settings.new_workflow_template.title' })}
-          placeholderText={formatMessage({ id: 'settings.new_workflow_template.placeholder' })}
           addText={formatMessage({ id: 'settings.new_workflow_template.add' })}
           iconPickerSelectedTheme={IconSelectedTheme.ORANGE}
           onSubmit={onAdd}

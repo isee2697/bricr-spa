@@ -13,4 +13,5 @@ export enum AppRoute {
   forgotPassword = '/auth/forgot-password',
   resetPassword = '/auth/reset-password/:token',
   settings = '/settings',
+  workflow = '/settings/workflow/:id',
 }
