@@ -15,3 +15,4 @@ export { UploadModalField } from './uploadModalField/UploadModalField';
 export { UploadModalImage } from './uploadModalImage/UploadModalImage';
 export { BulkActionConfirmModal } from './bulkActionConfirmModal/BulkActionConfirmModal';
 export { ActionModal } from './actionModal/ActionModal';
+export { AddCustomPropertyModal } from './addCustomPropertyModal/AddCustomPropertyModal';

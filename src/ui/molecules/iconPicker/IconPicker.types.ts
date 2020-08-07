@@ -10,4 +10,10 @@ export type IconPickerProps = {
   iconList: IconPickerIcon[];
   size?: number;
   color?: string;
+  selectedTheme?: IconSelectedTheme;
 };
+
+export enum IconSelectedTheme {
+  DEFAULT = 'Default',
+  ORANGE = 'Orange',
+}

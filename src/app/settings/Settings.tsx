@@ -7,6 +7,7 @@ import { useLocale } from 'hooks';
 
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 import { WorkflowTemplatesContainer } from './sections/workflowTemplates/WorkflowTemplatesContainer';
+import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 
 export const Settings = () => {
   const { formatMessage } = useLocale();
@@ -38,6 +39,7 @@ export const Settings = () => {
                   <WorkflowTemplatesContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
                 )}
               />
+              <Route path={`${AppRoute.settings}/workflow`} render={() => <WorkflowContainer />} />
               <Redirect to={{ pathname: `${AppRoute.settings}/workflowTemplates` }} />
             </Switch>
           </Box>

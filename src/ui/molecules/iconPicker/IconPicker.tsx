@@ -5,10 +5,16 @@ import { useField } from 'react-final-form';
 import { Box, Grid, IconButton } from 'ui/atoms';
 
 import { useStyles } from './IconPicker.styles';
-import { IconPickerProps } from './IconPicker.types';
+import { IconPickerProps, IconSelectedTheme } from './IconPicker.types';
 
-export const IconPicker = ({ iconList, size, color, name }: IconPickerProps) => {
-  const classes = useStyles({ size, color });
+export const IconPicker = ({
+  iconList,
+  size,
+  color,
+  name,
+  selectedTheme = IconSelectedTheme.DEFAULT,
+}: IconPickerProps) => {
+  const classes = useStyles({ size, color, selectedTheme });
   const { input } = useField(name);
 
   const selectedIndex = useMemo(() => iconList.findIndex(item => item.name === input.value), [input, iconList]);

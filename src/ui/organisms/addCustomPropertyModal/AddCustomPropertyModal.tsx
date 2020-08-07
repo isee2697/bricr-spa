@@ -16,6 +16,9 @@ export const AddCustomPropertyModal = ({
   onSubmit,
   title,
   labelId,
+  iconPickerSelectedTheme,
+  placeholderText,
+  addText,
 }: AddCustomPropertyModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -42,7 +45,7 @@ export const AddCustomPropertyModal = ({
                   <GenericField
                     name="text"
                     label={labelId ?? 'pim_details.specification.custom_property_modal.input_label'}
-                    placeholder="pim_details.specification.custom_property_modal.input_placeholder"
+                    placeholder={placeholderText ?? 'pim_details.specification.custom_property_modal.input_placeholder'}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -51,7 +54,7 @@ export const AddCustomPropertyModal = ({
                       {formatMessage({ id: 'pim_details.specification.custom_property_modal.icons_label' })}
                     </label>
                   </Box>
-                  <IconPicker name="icon" iconList={iconPickerIcons} />
+                  <IconPicker name="icon" iconList={iconPickerIcons} selectedTheme={iconPickerSelectedTheme} />
                 </Grid>
               </Grid>
             </DialogContent>
@@ -68,7 +71,7 @@ export const AddCustomPropertyModal = ({
                 isLoading={submitting}
                 disabled={!valid}
               >
-                {formatMessage({ id: 'pim_details.specification.custom_property_modal.submit_button' })}
+                {addText ?? formatMessage({ id: 'pim_details.specification.custom_property_modal.submit_button' })}
               </SubmitButton>
             </DialogActions>
           </form>

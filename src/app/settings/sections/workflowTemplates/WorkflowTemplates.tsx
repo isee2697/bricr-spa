@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Page } from 'ui/templates';
 import { SettingsHeader } from 'app/settings/settingsHeader/SettingsHeader';
@@ -7,6 +7,8 @@ import { Button, Card, CardContent, Grid, Typography } from 'ui/atoms';
 import { AddIcon, HelpIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 import { CheckboxField } from 'form/fields';
+import { AddCustomPropertyModal } from 'ui/organisms';
+import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 
 import { WorkflowBluePrints, WorkflowTemplatesProps } from './WorkflowTemplates.types';
 import { useStyles } from './WorkflowTemplates.styles';
@@ -16,8 +18,10 @@ export const WorkflowTemplates = ({
   onSidebarOpen,
   updatedBy,
   dateUpdated,
+  onAdd,
 }: WorkflowTemplatesProps) => {
   const { formatMessage } = useLocale();
+  const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
 
   return (
@@ -30,7 +34,7 @@ export const WorkflowTemplates = ({
             color="primary"
             variant="contained"
             startIcon={<AddIcon color="inherit" />}
-            onClick={() => {}}
+            onClick={() => setModalVisible(true)}
             size="small"
           >
             {formatMessage({ id: 'settings.workflow_templates.add_new_workflow_template' })}
@@ -78,6 +82,18 @@ export const WorkflowTemplates = ({
           </Card>
         </Grid>
       </Page>
+      {isModalVisible && (
+        <AddCustomPropertyModal
+          onClose={() => setModalVisible(false)}
+          isOpened={isModalVisible}
+          labelId="settings.new_workflow_template.label"
+          title={formatMessage({ id: 'settings.new_workflow_template.title' })}
+          placeholderText={formatMessage({ id: 'settings.new_workflow_template.placeholder' })}
+          addText={formatMessage({ id: 'settings.new_workflow_template.add' })}
+          iconPickerSelectedTheme={IconSelectedTheme.ORANGE}
+          onSubmit={onAdd}
+        />
+      )}
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { LabelInput, LabelProperty } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
+import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 
 export type AddCustomPropertyModalContainerProps = {
   isOpened: boolean;
@@ -8,6 +9,9 @@ export type AddCustomPropertyModalContainerProps = {
   title?: string;
   labelId?: string;
   entityType?: EntityType;
+  iconPickerSelectedTheme?: IconSelectedTheme;
+  placeholderText?: string;
+  addText?: string;
 };
 
 export type AddCustomPropertyModalProps = Omit<AddCustomPropertyModalContainerProps, 'property'> & {
