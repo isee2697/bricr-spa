@@ -15,4 +15,5 @@ export type PageProps = {
   withoutHeader?: boolean;
   afterTitle?: ReactNode;
   hideBreadcrumb?: boolean;
+  titleActions?: ReactNode;
 };

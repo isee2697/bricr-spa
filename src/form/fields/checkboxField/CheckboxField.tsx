@@ -7,7 +7,14 @@ import { validatorsChain } from 'form/validators';
 
 import { CheckboxFieldProps } from './CheckboxField.types';
 
-export const CheckboxField = ({ label, validate, name, validateFields, ...props }: CheckboxFieldProps) => {
+export const CheckboxField = ({
+  label,
+  validate,
+  name,
+  validateFields,
+  containerClassName,
+  ...props
+}: CheckboxFieldProps) => {
   const { formatMessage } = useLocale();
 
   const { input } = useField(name, {
@@ -20,6 +27,7 @@ export const CheckboxField = ({ label, validate, name, validateFields, ...props 
     <FormControlLabel
       control={<Checkbox color="primary" id={name} size="medium" {...input} {...props} />}
       label={formatMessage({ id: label })}
+      className={containerClassName}
     />
   );
 };

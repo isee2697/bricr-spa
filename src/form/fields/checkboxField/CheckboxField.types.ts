@@ -6,4 +6,5 @@ export type CheckboxFieldProps = Omit<CheckboxProps, 'variant'> & {
   label: string;
   validate?: FieldValidator<boolean>[];
   validateFields?: string[];
+  containerClassName?: string;
 };

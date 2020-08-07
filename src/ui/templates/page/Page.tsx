@@ -20,6 +20,7 @@ export const Page = ({
   withoutHeader,
   afterTitle,
   hideBreadcrumb,
+  titleActions,
 }: PageProps) => {
   const classes = useStyles();
 
@@ -48,12 +49,18 @@ export const Page = ({
                 </Typography>
                 {afterTitle}
                 <Grid justify="flex-end" spacing={3} container className={classes.buttons}>
-                  <Grid item>
-                    <HelpIcon />
-                  </Grid>
-                  <Grid item>
-                    <MenuIcon />
-                  </Grid>
+                  {titleActions ? (
+                    titleActions
+                  ) : (
+                    <>
+                      <Grid item>
+                        <HelpIcon />
+                      </Grid>
+                      <Grid item>
+                        <MenuIcon />
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
               </Box>
             </Grid>
