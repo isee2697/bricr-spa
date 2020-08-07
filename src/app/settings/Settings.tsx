@@ -12,7 +12,9 @@ import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 
 export const Settings = () => {
   const { formatMessage } = useLocale();
-  const { isSidebarMenuVisible } = useLayout();
+  const { isSidebarMenuVisible, isHeaderVisible, isSidebarVisible } = useLayout();
+
+  const isFullScreen = !isSidebarMenuVisible && !isHeaderVisible && !isSidebarVisible;
 
   return (
     <>
@@ -24,7 +26,7 @@ export const Settings = () => {
           </Grid>
         )}
         <Grid item xs={12} md={isSidebarMenuVisible ? 9 : 12} lg={isSidebarMenuVisible ? 10 : 12}>
-          <Box padding={3}>
+          <Box padding={isFullScreen ? 0 : 3}>
             <Switch>
               <Route path={`${AppRoute.settings}/workflowTemplates`} render={() => <WorkflowTemplatesContainer />} />
               <Route path={AppRoute.workflow} render={() => <WorkflowContainer />} />

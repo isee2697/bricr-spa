@@ -74,3 +74,6 @@ export * from './refresh/RefreshIcon';
 export * from './location/LocationIcon';
 export * from './fullscreenOn/FullscreenOnIcon';
 export * from './fullscreenOff/FullscreenOffIcon';
+export * from './back/BackIcon';
+export * from './undo/UndoIcon';
+export * from './redo/RedoIcon';
