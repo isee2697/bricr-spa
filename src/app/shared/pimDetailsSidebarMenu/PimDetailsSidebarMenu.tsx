@@ -143,20 +143,6 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName }: PimDetai
       icon: <PinIcon />,
     },
     {
-      key: 'prices',
-      subItems: [
-        {
-          id: 'costs',
-          label: 'pim_details.prices.costs.title',
-        },
-        {
-          id: 'investments',
-          label: 'pim_details.prices.investments.menu_title',
-        },
-      ],
-      icon: <MailIcon />,
-    },
-    {
       key: 'media',
       icon: <GraphIcon />,
     },
@@ -181,6 +167,28 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName }: PimDetai
         isCollapsable: true,
         key: 'pim_details.menu.pim_intake',
         items,
+      },
+      {
+        items: [
+          {
+            key: 'prices',
+            subItems: [
+              {
+                id: 'costs',
+                label: 'pim_details.prices.costs.title',
+              },
+              {
+                id: 'investments',
+                label: 'pim_details.prices.investments.menu_title',
+              },
+            ],
+            icon: <MailIcon />,
+          },
+          { key: 'documents' },
+          { key: 'contacts' },
+          { key: 'marketing' },
+          { key: 'reactions' },
+        ],
       },
     ],
   };

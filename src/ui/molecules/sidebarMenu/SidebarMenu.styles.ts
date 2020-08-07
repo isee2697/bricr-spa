@@ -71,6 +71,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     paddingRight: spacing(1.875),
+    cursor: 'pointer',
   },
   collapseTitle: {
     ...typography.h4,

@@ -14,7 +14,7 @@ export const LinkedPropertiesDetailsContainer = () => {
 
   const projectUrl = AppRoute.projectDetails.replace(':id', projectId);
   const objectTypeUrl = AppRoute.objectTypeDetails.replace(':id', objectTypeId).replace(':projectId', projectId);
-  const linkedPropertyUrl = AppRoute.objectTypeDetails
+  const linkedPropertyUrl = AppRoute.linkedPropertyDetails
     .replace(':id', id)
     .replace(':projectId', projectId)
     .replace(':objectTypeId', objectTypeId);
