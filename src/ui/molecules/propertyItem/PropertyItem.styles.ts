@@ -14,6 +14,7 @@ export const useStyles = makeStyles(theme => ({
     height: 112,
     marginRight: theme.spacing(2),
     filter: ({ isArchived }: Pick<PropertyItemProps, 'isArchived'>) => (isArchived ? 'grayscale(1)' : ''),
+    fontSize: '3em',
   },
   date: {
     color: theme.palette.gray.main,

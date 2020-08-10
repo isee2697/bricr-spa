@@ -2,7 +2,7 @@ import { PropertyStageItem } from 'ui/molecules/propertyStage/PropertyStage.type
 
 export type PropertyItemProps = {
   title: string;
-  image: string;
+  image?: string;
   date: string;
   labels: string[];
   discountPrice?: number;

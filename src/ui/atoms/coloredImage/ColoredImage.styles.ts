@@ -13,6 +13,7 @@ export const useStyles = makeStyles(theme => ({
     borderLeftStyle: 'solid',
     overflow: 'hidden',
     margin: theme.spacing(2, 0),
+    backgroundColor: theme.palette.gray.light,
     '&.green': {
       borderLeftColor: theme.palette.green.main,
     },
@@ -28,6 +29,12 @@ export const useStyles = makeStyles(theme => ({
     '&.blue': {
       borderLeftColor: theme.palette.blue.dark,
     },
+  },
+  placeholder: {
+    fontSize: '3em',
+    position: 'absolute',
+    top: '40%',
+    right: '50%',
   },
   children: {
     zIndex: 2,

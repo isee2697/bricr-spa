@@ -3,7 +3,7 @@ import { useTheme } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
 
-import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button, Price, Chip } from 'ui/atoms';
+import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button, Price, Chip, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
@@ -43,7 +43,9 @@ export const PropertyItem = ({
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex" mb={1}>
         <div>
-          <Avatar variant="rounded" src={image} className={classes.image} />
+          <Avatar variant="rounded" src={image} className={classes.image}>
+            {!image && <Emoji>{'📷'}</Emoji>}
+          </Avatar>
         </div>
         <Box width="100%">
           <Box display="flex" justifyContent="space-between">
