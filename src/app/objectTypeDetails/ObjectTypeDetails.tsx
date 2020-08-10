@@ -40,7 +40,7 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
       <Grid container spacing={0}>
         {isSidebarVisible && (
           <Grid item xs={12} md={3} lg={2}>
-            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} data={data} />
+            <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} data={data} />
           </Grid>
         )}
         <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>

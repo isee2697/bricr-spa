@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
-import { Grid, Alert, Loader } from 'ui/atoms';
+import { Box, Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { General } from 'app/pimDetails/sections/general/General';
@@ -50,12 +50,13 @@ export const PimDetails = ({
     <EntityTypeProvider entityType={entityType}>
       {breadcrumbs}
       <Grid container spacing={0}>
-        {isSidebarVisible && (
-          <Grid item xs={12} md={3} lg={2}>
-            <PimDetailsSidebarMenu data={data} onHide={handleSidebarHide} objectTypeName={objectTypeName} />
-          </Grid>
-        )}
-        <Grid item xs={12} md={isSidebarVisible ? 9 : 12} lg={isSidebarVisible ? 10 : 12}>
+        <PimDetailsSidebarMenu
+          isVisible={isSidebarVisible}
+          data={data}
+          onHide={handleSidebarHide}
+          objectTypeName={objectTypeName}
+        />
+        <Box flex={1}>
           <Grid container className={classes.content}>
             {!!error && (
               <Grid item xs={12}>
@@ -136,7 +137,7 @@ export const PimDetails = ({
               </Switch>
             )}
           </Grid>
-        </Grid>
+        </Box>
       </Grid>
     </EntityTypeProvider>
   );

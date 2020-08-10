@@ -15,6 +15,7 @@ export const ProjectDetailsSidebarMenu = ({
   objectTypeNumber,
   title,
   linkedPropertiesNumber,
+  isVisible,
 }: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -46,6 +47,7 @@ export const ProjectDetailsSidebarMenu = ({
   return (
     <SidebarMenu
       onHide={onHide}
+      isVisible={isVisible}
       menu={menu}
       translationPrefix="project_details.menu"
       menuTitle={

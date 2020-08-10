@@ -12,7 +12,7 @@ import { EntityType } from 'app/shared/entityType';
 
 import { ObjectTypeDetailsSidebarMenuProps } from './ObjectTypeDetailsSidebarMenu.types';
 
-export const ObjectTypeDetailsSidebarMenu = ({ onHide, data }: ObjectTypeDetailsSidebarMenuProps) => {
+export const ObjectTypeDetailsSidebarMenu = ({ onHide, isVisible, data }: ObjectTypeDetailsSidebarMenuProps) => {
   const { projectId } = useParams<{ projectId: string }>();
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -43,6 +43,7 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide, data }: ObjectTypeDetails
   return (
     <SidebarMenu
       onHide={onHide}
+      isVisible={isVisible}
       translationPrefix="project_details.menu"
       menu={menu}
       menuTitle={

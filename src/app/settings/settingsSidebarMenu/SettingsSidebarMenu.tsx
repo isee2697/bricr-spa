@@ -12,7 +12,7 @@ import { useLayout } from 'context/layout';
 export const SettingsSidebarMenu = () => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
-  const { setSidebarMenuVisible } = useLayout();
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
 
   const menu = {
     url: url,
@@ -32,6 +32,7 @@ export const SettingsSidebarMenu = () => {
   return (
     <SidebarMenu
       onHide={() => setSidebarMenuVisible(false)}
+      isVisible={isSidebarMenuVisible}
       menu={menu}
       translationPrefix="settings.menu"
       menuTitle={

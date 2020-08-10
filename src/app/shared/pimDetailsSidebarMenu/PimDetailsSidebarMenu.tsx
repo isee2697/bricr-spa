@@ -34,7 +34,7 @@ const getBackUrl = (routeParams: Record<string, string>) => {
   return AppRoute.pim;
 };
 
-export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const params = useParams();
@@ -199,6 +199,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName }: PimDetai
   return (
     <SidebarMenu
       onHide={onHide}
+      isVisible={isVisible}
       translationPrefix="pim_details.menu"
       menu={menu}
       menuTitle={

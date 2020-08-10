@@ -20,20 +20,14 @@ export const Settings = () => {
     <>
       <NavBreadcrumb title={formatMessage({ id: 'settings.title' })} urlBase={AppRoute.settings} />
       <Grid container spacing={0}>
-        {isSidebarMenuVisible && (
-          <Grid item xs={12} md={3} lg={2}>
-            <SettingsSidebarMenu />
-          </Grid>
-        )}
-        <Grid item xs={12} md={isSidebarMenuVisible ? 9 : 12} lg={isSidebarMenuVisible ? 10 : 12}>
-          <Box padding={isFullScreen ? 0 : 3}>
-            <Switch>
-              <Route path={`${AppRoute.settings}/workflowTemplates`} render={() => <WorkflowTemplatesContainer />} />
-              <Route path={AppRoute.workflow} render={() => <WorkflowContainer />} />
-              <Redirect to={{ pathname: `${AppRoute.settings}/workflowTemplates` }} />
-            </Switch>
-          </Box>
-        </Grid>
+        <SettingsSidebarMenu />
+        <Box flex={1} padding={isFullScreen ? 0 : 3}>
+          <Switch>
+            <Route path={`${AppRoute.settings}/workflowTemplates`} render={() => <WorkflowTemplatesContainer />} />
+            <Route path={AppRoute.workflow} render={() => <WorkflowContainer />} />
+            <Redirect to={{ pathname: `${AppRoute.settings}/workflowTemplates` }} />
+          </Switch>
+        </Box>
       </Grid>
     </>
   );

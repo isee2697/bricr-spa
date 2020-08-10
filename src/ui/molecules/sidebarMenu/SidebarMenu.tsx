@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
-import { Box, SideMenuItem, SideSubMenuItem, SidebarHideButton, Collapse, Typography } from 'ui/atoms';
+import { Box, SideMenuItem, SideSubMenuItem, SidebarHideButton, Collapse, Typography, Slide, Grid } from 'ui/atoms';
 import { ArrowDownIcon, ArrowUpIcon, SaleIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './SidebarMenu.styles';
 import { MenuGroup, MenuItem, SidebarMenuProps, SubMenuItem } from './SidebarMenu.types';
 
-export const SidebarMenu = ({ onHide, menuTitle, menu, translationPrefix }: SidebarMenuProps) => {
+export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPrefix }: SidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { pathname } = useLocation();
   const { push } = useHistory();
   const classes = useStyles();
-  const [isGroupOpen, setGroupOpen] = React.useState<Record<string, boolean>>({});
+  const [isGroupOpen, setGroupOpen] = useState<Record<string, boolean>>({});
 
   const renderSubItem = (subItem: SubMenuItem, menuItem: MenuItem) => {
     if (typeof subItem === 'string') {
@@ -61,54 +61,58 @@ export const SidebarMenu = ({ onHide, menuTitle, menu, translationPrefix }: Side
   };
 
   return (
-    <div className={classes.root}>
-      <div className={classes.hideButton} onClick={onHide}>
-        <SidebarHideButton />
-      </div>
-      <div className={classes.menuWrapper}>
-        {!!menuTitle && <Box mb={2}>{menuTitle}</Box>}
-        <SideMenu className={classes.root} disablePadding>
-          {menu.groups.map((group, index) => (
-            <Box className={classes.group} key={`group_${index}`}>
-              {group.isCollapsable && group.key && (
-                <Box
-                  onClick={() =>
-                    setGroupOpen(groups => ({
-                      ...groups,
-                      [group.key as string]: !groups[group.key as string],
-                    }))
-                  }
-                  className={classes.collapseHeader}
-                >
-                  <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>
-                  {isGroupCollapseOpen(group) ? <ArrowUpIcon /> : <ArrowDownIcon />}
+    <Slide unmountOnExit mountOnEnter in={isVisible} direction="right">
+      <Grid item xs={12} md={3} lg={2}>
+        <div className={classes.root}>
+          <div className={classes.hideButton} onClick={onHide}>
+            <SidebarHideButton />
+          </div>
+          <div className={classes.menuWrapper}>
+            {!!menuTitle && <Box mb={2}>{menuTitle}</Box>}
+            <SideMenu className={classes.root} disablePadding>
+              {menu.groups.map((group, index) => (
+                <Box className={classes.group} key={`group_${index}`}>
+                  {group.isCollapsable && group.key && (
+                    <Box
+                      onClick={() =>
+                        setGroupOpen(groups => ({
+                          ...groups,
+                          [group.key as string]: !groups[group.key as string],
+                        }))
+                      }
+                      className={classes.collapseHeader}
+                    >
+                      <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>
+                      {isGroupCollapseOpen(group) ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                    </Box>
+                  )}
+                  <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
+                    {group.items.map(item => (
+                      <SideMenuItem
+                        key={item.key}
+                        icon={item.icon ? item.icon : <SaleIcon />}
+                        title={formatMessage({ id: `${translationPrefix}.${item.key}` })}
+                        selected={pathname.startsWith(`${menu.url}/${item.key}`)}
+                        badge={item.count}
+                        onClick={() => push(`${menu.url}/${item.key}`)}
+                      >
+                        {item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
+                      </SideMenuItem>
+                    ))}
+                  </Collapse>
                 </Box>
-              )}
-              <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
-                {group.items.map(item => (
-                  <SideMenuItem
-                    key={item.key}
-                    icon={item.icon ? item.icon : <SaleIcon />}
-                    title={formatMessage({ id: `${translationPrefix}.${item.key}` })}
-                    selected={pathname.startsWith(`${menu.url}/${item.key}`)}
-                    badge={item.count}
-                    onClick={() => push(`${menu.url}/${item.key}`)}
-                  >
-                    {item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
-                  </SideMenuItem>
-                ))}
-              </Collapse>
-            </Box>
-          ))}
-        </SideMenu>
-        {!!menu.back && (
-          <SideMenuItem
-            className={classes.backToList}
-            title={<Link to={menu.back.url}>{menu.back.title}</Link>}
-            selected={false}
-          />
-        )}
-      </div>
-    </div>
+              ))}
+            </SideMenu>
+            {!!menu.back && (
+              <SideMenuItem
+                className={classes.backToList}
+                title={<Link to={menu.back.url}>{menu.back.title}</Link>}
+                selected={false}
+              />
+            )}
+          </div>
+        </div>
+      </Grid>
+    </Slide>
   );
 };

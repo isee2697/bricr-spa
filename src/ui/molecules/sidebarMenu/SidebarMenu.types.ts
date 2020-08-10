@@ -24,6 +24,7 @@ export type MenuGroup = {
 
 export type SidebarMenuProps = {
   onHide: VoidFunction;
+  isVisible: boolean;
   menuTitle?: ReactNode;
   translationPrefix: string;
   menu: {
