@@ -6,6 +6,7 @@ import { CancelButton, IconPicker, Modal, SubmitButton } from 'ui/molecules';
 import { Alert, Box, DialogActions, DialogContent, Grid } from 'ui/atoms';
 import { iconPickerIcons, useLocale } from 'hooks';
 import { AddIcon } from 'ui/atoms/icons';
+import { requireValidator } from 'form/validators';
 
 import { AddCustomPropertyModalProps } from './AddCustomPropertyModal.types';
 import { useStyles } from './AddCustomPropertyModal.styles';
@@ -46,6 +47,7 @@ export const AddCustomPropertyModal = ({
                     name="text"
                     label={labelId ?? 'pim_details.specification.custom_property_modal.input_label'}
                     placeholder={placeholderId ?? 'pim_details.specification.custom_property_modal.input_placeholder'}
+                    validate={[requireValidator]}
                   />
                 </Grid>
                 <Grid item xs={6}>

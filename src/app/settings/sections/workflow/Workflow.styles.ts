@@ -9,4 +9,9 @@ export const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(3),
     right: ({ fullScreen }: { fullScreen: boolean }) => theme.spacing(Number(!fullScreen) * 8 + 2),
   },
+  container: {
+    maxHeight: ({ fullScreen }: { fullScreen: boolean }) =>
+      fullScreen ? '100vh' : `calc(100vh - ${theme.spacing(11)}px)`,
+    overflow: 'hidden',
+  },
 }));

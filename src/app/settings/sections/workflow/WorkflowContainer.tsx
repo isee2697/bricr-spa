@@ -3,8 +3,50 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useLayout } from 'context/layout';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 
 import { Workflow } from './Workflow';
+import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
+
+const triggersGroups: WorkflowSidebarGroup[] = [
+  {
+    title: 'Group 1',
+    items: [
+      {
+        icon: <ArrowUpIcon color={'inherit'} />,
+        title: 'Trigger 1',
+      },
+      {
+        icon: <ArrowUpIcon color={'inherit'} />,
+        title: 'Trigger 2',
+      },
+      {
+        icon: <ArrowUpIcon color={'inherit'} />,
+        title: 'Trigger 3',
+      },
+    ],
+  },
+];
+
+const actionsGroups: WorkflowSidebarGroup[] = [
+  {
+    title: 'Group 1',
+    items: [
+      {
+        icon: <ArrowDownIcon color={'inherit'} />,
+        title: 'Action 1',
+      },
+      {
+        icon: <ArrowDownIcon color={'inherit'} />,
+        title: 'Action 2',
+      },
+      {
+        icon: <ArrowDownIcon color={'inherit'} />,
+        title: 'Action 3',
+      },
+    ],
+  },
+];
 
 export const WorkflowContainer = () => {
   const { setFullscreen } = useLayout();
@@ -25,5 +67,14 @@ export const WorkflowContainer = () => {
     setFullscreen(false);
   };
 
-  return <Workflow onToggleFullScreen={onToggleFullScreen} name={id} iconName={state.iconName} goBack={goBack} />;
+  return (
+    <Workflow
+      onToggleFullScreen={onToggleFullScreen}
+      name={id}
+      iconName={state.iconName}
+      goBack={goBack}
+      actionsGroups={actionsGroups}
+      triggersGroups={triggersGroups}
+    />
+  );
 };
