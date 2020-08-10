@@ -52,6 +52,7 @@ export const LIST_PIMS = gql`
         rentPrice
         completeness
         archived
+        attentionNote
       }
     }
   }

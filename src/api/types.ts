@@ -1310,7 +1310,7 @@ export type ListPim = {
   rentPrice?: Maybe<Scalars['Float']>;
   images?: Maybe<Array<File>>;
   livingArea?: Maybe<Scalars['Int']>;
-  attention?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -2661,13 +2661,14 @@ export type PimGeneralInput = {
   rentPrice?: Maybe<Scalars['Float']>;
   description?: Maybe<Scalars['String']>;
   livingArea?: Maybe<Scalars['Int']>;
-  attention?: Maybe<Scalars['String']>;
   houseGeneral?: Maybe<HouseGeneralInput>;
   bogGeneral?: Maybe<BogGeneralInput>;
   extraAddress?: Maybe<ExtraAddressInput>;
   showExtraAddress?: Maybe<Scalars['Boolean']>;
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
   apartmentGeneral?: Maybe<ApartmentGeneralInput>;
+  attentionNote?: Maybe<Scalars['String']>;
+  showAttentionNote?: Maybe<Scalars['Boolean']>;
 };
 
 export enum ApartmentType {
@@ -2834,7 +2835,8 @@ export type PimGeneral = LastUpdated & {
   images?: Maybe<Array<File>>;
   livingArea?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
+  showAttentionNote?: Maybe<Scalars['Boolean']>;
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
@@ -4783,7 +4785,7 @@ export type CreatePimInput = {
   description?: Maybe<Scalars['String']>;
   livingArea?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
 };
 
 export type Pim = LastUpdated & {
@@ -4811,7 +4813,7 @@ export type Pim = LastUpdated & {
   images?: Maybe<Array<File>>;
   livingArea?: Maybe<Scalars['Int']>;
   propertyType?: Maybe<PropertyType>;
-  attention?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
   completeness: Scalars['Float'];
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
@@ -6418,6 +6420,7 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'rentPrice'
           | 'completeness'
           | 'archived'
+          | 'attentionNote'
         > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
       >
     >;
@@ -7277,6 +7280,8 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
     | 'country'
     | 'showExtraAddress'
     | 'showIdentificationNumber'
+    | 'attentionNote'
+    | 'showAttentionNote'
     | 'dateUpdated'
   > & {
       houseGeneral?: Maybe<
@@ -10645,6 +10650,7 @@ export const ListPimsDocument = gql`
         rentPrice
         completeness
         archived
+        attentionNote
       }
     }
   }
@@ -12252,6 +12258,8 @@ export const PimGeneralDocument = gql`
       }
       showExtraAddress
       showIdentificationNumber
+      attentionNote
+      showAttentionNote
       dateUpdated
       lastEditedBy {
         id

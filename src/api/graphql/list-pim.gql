@@ -27,7 +27,7 @@ type ListPim {
   rentPrice: Float
   images: [File!]
   livingArea: Int
-  attention: String
+  attentionNote: String
   dateCreated: Date!
   dateUpdated: Date
   lastEditedBy: Profile

@@ -36,13 +36,14 @@ input PimGeneralInput {
   rentPrice: Float
   description: String
   livingArea: Int
-  attention: String
   houseGeneral: HouseGeneralInput
   bogGeneral: BogGeneralInput
   extraAddress: ExtraAddressInput
   showExtraAddress: Boolean
   showIdentificationNumber: Boolean
   apartmentGeneral: ApartmentGeneralInput
+  attentionNote: String
+  showAttentionNote: Boolean
 }
 
 enum ApartmentType {
@@ -201,7 +202,8 @@ type PimGeneral implements LastUpdated {
   images: [File!]
   livingArea: Int
   propertyType: PropertyType
-  attention: String
+  attentionNote: String
+  showAttentionNote: Boolean
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!

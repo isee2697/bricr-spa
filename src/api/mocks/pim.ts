@@ -45,7 +45,7 @@ export const PIM_DETAILS_1: Pim = {
   description: null,
   livingArea: null,
   propertyType: PropertyType.House,
-  attention: null,
+  attentionNote: null,
   // dateUpdated: '2020-04-28T07:30:18.162',
   // updatedBy: 'Christian van Gils',
   houseGeneral: {

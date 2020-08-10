@@ -25,6 +25,7 @@ export const PimItem = ({
   salePrice,
   rentPrice,
   completeness,
+  attentionNote,
   archived,
 }: Pim) => {
   const { formatMessage } = useLocale();
@@ -63,6 +64,7 @@ export const PimItem = ({
       isArchived={archived}
       formerOwners="Unknown"
       buyers="Unknown"
+      alert={attentionNote ? attentionNote : undefined}
     />
   );
 };

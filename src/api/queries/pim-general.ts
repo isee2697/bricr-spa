@@ -44,6 +44,8 @@ export const PIM_MEDIA = gql`
       }
       showExtraAddress
       showIdentificationNumber
+      attentionNote
+      showAttentionNote
       dateUpdated
       lastEditedBy {
         id

@@ -21,6 +21,11 @@ const ADDITIONAL_INFORMATIONS = [
     icon: <LockIcon color="inherit" />,
     value: 'showIdentificationNumber',
   },
+  {
+    label: 'pim_details.general.attention.title',
+    icon: <LockIcon color="inherit" />,
+    value: 'showAttentionNote',
+  },
 ];
 
 export const AdditionalInformationModal = ({

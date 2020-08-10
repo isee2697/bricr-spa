@@ -126,7 +126,7 @@ input CreatePimInput {
   description: String
   livingArea: Int
   propertyType: PropertyType
-  attention: String
+  attentionNote: String
 }
 
 type Pim implements LastUpdated {
@@ -153,7 +153,7 @@ type Pim implements LastUpdated {
   images: [File!]
   livingArea: Int
   propertyType: PropertyType
-  attention: String
+  attentionNote: String
   completeness: Float!
   archived: Boolean!
   dateCreated: Date!

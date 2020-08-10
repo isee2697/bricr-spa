@@ -1,7 +1,7 @@
 import { PimGeneral } from 'api/types';
 
 export type AdditionalInformationVisibility = {
-  visibility: ('showExtraAddress' | 'showIdentificationNumber')[];
+  visibility: ('showExtraAddress' | 'showIdentificationNumber' | 'showAttentionNote')[];
 };
 
 export type AdditionalInformationModalContainerProps = {

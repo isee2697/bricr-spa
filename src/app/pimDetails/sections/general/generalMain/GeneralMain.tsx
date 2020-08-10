@@ -8,6 +8,7 @@ import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHead
 import { EditIcon } from 'ui/atoms/icons/edit/EditIcon';
 import { AutosaveForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
+import { Attention } from 'app/shared/characteristics/forms/Attention';
 
 import { IdentificationNumberFormContainer } from './forms/IdentificationNumberFormContainer';
 import { GeneralProps } from './GeneralMain.types';
@@ -84,6 +85,11 @@ export const GeneralMain = ({ title, isSidebarVisible, onSidebarOpen, pimGeneral
           <Grid item xs={12}>
             <AvailabilityForm />
           </Grid>
+          {!!pimGeneral.showAttentionNote && (
+            <Grid item xs={12}>
+              <Attention isInitExpanded={false} isInitEditing={false} />
+            </Grid>
+          )}
         </AutosaveForm>
       </Page>
 

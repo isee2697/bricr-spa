@@ -19,6 +19,7 @@ export const AdditionalInformationModalContainer = ({
     const data = {
       showExtraAddress: values.visibility.includes('showExtraAddress'),
       showIdentificationNumber: values.visibility.includes('showIdentificationNumber'),
+      showAttentionNote: values.visibility.includes('showAttentionNote'),
     };
 
     try {
@@ -60,6 +61,7 @@ export const AdditionalInformationModalContainer = ({
     visibility: [
       pimGeneral.showExtraAddress && 'showExtraAddress',
       pimGeneral.showIdentificationNumber && 'showIdentificationNumber',
+      pimGeneral.showAttentionNote && 'showAttentionNote',
     ].filter(Boolean),
   } as AdditionalInformationVisibility;
 

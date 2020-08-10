@@ -32,6 +32,7 @@ export const GeneralMainContainer = ({ title, isSidebarVisible, onSidebarOpen }:
             country: values.country,
             houseGeneral: values.houseGeneral,
             extraAddress: values.extraAddress,
+            attentionNote: values.attentionNote,
           },
         },
         refetchQueries: [
