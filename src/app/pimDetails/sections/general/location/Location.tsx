@@ -52,7 +52,7 @@ export const Location = ({
         dateUpdated={dateUpdated}
       >
         <Grid item xs={12}>
-          <FormSection title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
+          <FormSection isExpandable title={formatMessage({ id: 'pim_details.general.location.subheader' })}>
             {editable => (
               <>
                 <FormSubSectionHeader noBorder title={formatMessage({ id: 'pim_details.general.location.type' })} />
@@ -106,7 +106,13 @@ export const Location = ({
                   name="notes"
                 />
                 <Box mb={3} />
-
+              </>
+            )}
+          </FormSection>
+          <Box mb={3} />
+          <FormSection isExpandable title={formatMessage({ id: 'pim_details.general.location.distance_title' })}>
+            {editable => (
+              <>
                 <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.general.location.good_to_know' })}

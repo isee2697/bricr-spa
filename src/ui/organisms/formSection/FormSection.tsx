@@ -18,7 +18,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       onOptionsClick,
       onSettingsClick,
       isExpandable,
-      isInitExpanded = true,
+      isInitExpanded = false,
       children,
       className,
       titleBadge,
@@ -29,7 +29,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
     ref,
   ) => {
     const { formatMessage } = useLocale();
-    const [expanded, setExpanded] = useState(isInitExpanded);
+    const [expanded, setExpanded] = useState(!isExpandable || (isExpandable && isInitExpanded) || isInitEditing);
     const [editing, setEditing] = useState(isInitEditing);
     const classes = useStyles({ bordered: editing });
 

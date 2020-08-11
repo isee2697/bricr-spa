@@ -163,7 +163,7 @@ context('Pim Details', () => {
     cy.findByText('Class roof').click();
     cy.get('input[name="houseOutside.roofInformation.type.notes"]').type('roof type note');
     cy.findAllByText('Plastic')
-      .eq(1)
+      .first()
       .click();
     cy.get('input[name="houseOutside.roofInformation.material.notes"]').type('roof material note');
     cy.findByText('Spray foam').click();
