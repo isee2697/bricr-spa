@@ -10,6 +10,7 @@ import { WorkflowProps } from './Workflow.types';
 import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
+import { WorkflowSection } from './workflowSection/WorkflowSection';
 
 export const Workflow = ({
   onToggleFullScreen,
@@ -18,6 +19,8 @@ export const Workflow = ({
   goBack,
   actionsGroups,
   triggersGroups,
+  onAddSection,
+  sections,
 }: WorkflowProps) => {
   const { id } = useParams<{ id: string }>();
   const [fullScreen, setFullScreen] = useState(true);
@@ -39,7 +42,7 @@ export const Workflow = ({
       <WorkflowHeader
         name={name}
         iconName={iconName}
-        onAdd={() => {}}
+        onAdd={onAddSection}
         onBack={goBack}
         onRedo={() => {}}
         onUndo={() => {}}
@@ -47,6 +50,11 @@ export const Workflow = ({
       <Grid container>
         <Grid item xs={2}>
           <WorkflowSidebar isFullScreen={fullScreen} actionsGroups={actionsGroups} triggersGroups={triggersGroups} />
+        </Grid>
+        <Grid item xs={10}>
+          {sections.map(section => (
+            <WorkflowSection section={section} key={section.title} />
+          ))}
         </Grid>
       </Grid>
 

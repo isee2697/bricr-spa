@@ -7,7 +7,7 @@ import { iconPickerIcons, useLocale } from 'hooks';
 import { useStyles } from './WorkflowHeader.styles';
 import { WorkflowHeaderProps } from './WorkflowHeader.types';
 
-export const WorkflowHeader = ({ name, iconName, onBack }: WorkflowHeaderProps) => {
+export const WorkflowHeader = ({ name, iconName, onBack, onAdd }: WorkflowHeaderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -35,7 +35,7 @@ export const WorkflowHeader = ({ name, iconName, onBack }: WorkflowHeaderProps) 
           color="primary"
           variant="outlined"
           startIcon={<AddIcon color="inherit" />}
-          onClick={() => {}}
+          onClick={onAdd}
           size="small"
           className={classes.newButton}
         >

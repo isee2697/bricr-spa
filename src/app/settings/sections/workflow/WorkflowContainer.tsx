@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useLayout } from 'context/layout';
@@ -53,6 +53,7 @@ export const WorkflowContainer = () => {
   const { state } = useLocation<{ iconName: string }>();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
+  const [sections, setSections] = useState([{ title: 'Workflow section 1' }]);
 
   useEffect(() => {
     setFullscreen(true);
@@ -67,6 +68,14 @@ export const WorkflowContainer = () => {
     setFullscreen(false);
   };
 
+  const handleAddSection = async () => {
+    setSections(s => {
+      return [...s, { title: `Workflow section ${s.length + 1}` }];
+    });
+
+    return undefined;
+  };
+
   return (
     <Workflow
       onToggleFullScreen={onToggleFullScreen}
@@ -75,6 +84,8 @@ export const WorkflowContainer = () => {
       goBack={goBack}
       actionsGroups={actionsGroups}
       triggersGroups={triggersGroups}
+      onAddSection={handleAddSection}
+      sections={sections}
     />
   );
 };

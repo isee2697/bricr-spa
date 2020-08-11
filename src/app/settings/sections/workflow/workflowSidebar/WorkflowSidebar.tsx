@@ -33,7 +33,7 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
       );
 
       if (filteredItems.length > 0) {
-        return [...newGroups, group];
+        return [...newGroups, { ...group, items: filteredItems }];
       } else {
         return newGroups;
       }

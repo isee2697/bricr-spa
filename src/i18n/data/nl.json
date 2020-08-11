@@ -1244,6 +1244,7 @@
   "settings.workflow.search_placeholder": "Zoeken",
   "settings.workflow.triggers": "Triggers",
   "settings.workflow.actions": "Acties",
+  "settings.workflow.add_trigger": "Voeg een nieuwe trigger van links toe om uw workflow op te bouwen",
   "dictionaries.object_type.Apartament": "Apartament",
   "dictionaries.object_type.BuildingPlot": "Building Plot",
   "dictionaries.object_type.House": "House",
