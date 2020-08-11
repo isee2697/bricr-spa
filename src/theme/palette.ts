@@ -97,6 +97,7 @@ export const palette: PaletteOptions = {
   },
   overlay: {
     main: 'rgba(130, 141, 185, 0.3)',
+    light: '#0A57E933',
   },
   info: {
     main: primaryInfo,

@@ -11,6 +11,7 @@ import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
 import { WorkflowSection } from './workflowSection/WorkflowSection';
+import { WorkflowCanvas } from './workflowCanvas/WorkflowCanvas';
 
 export const Workflow = ({
   onToggleFullScreen,
@@ -55,6 +56,7 @@ export const Workflow = ({
           {sections.map(section => (
             <WorkflowSection section={section} key={section.title} />
           ))}
+          <WorkflowCanvas />
         </Grid>
       </Grid>
 

@@ -1,12 +1,13 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 
-import { Typography } from 'ui/atoms';
+import { Box } from 'ui/atoms';
+import { ActionItem, TriggerItem, DndItemState } from '../../workflowItems';
 
 import { WorkflowSidebarItemProps, WorkflowSidebarType } from './WorkflowSidebarItem.types';
-import { useStyles } from './WorkflowSidebarItem.styles';
 
 export const WorkflowSidebarItem = ({ icon, title, type, searchValue }: WorkflowSidebarItemProps) => {
-  const classes = useStyles({ isAction: type === WorkflowSidebarType.ACTION });
+  const theme = useTheme();
 
   const getHighlightedString = () => {
     if (!searchValue.trim()) {
@@ -17,19 +18,26 @@ export const WorkflowSidebarItem = ({ icon, title, type, searchValue }: Workflow
 
     return parts?.map((part, index) =>
       part.toLowerCase().match(searchValue.toLowerCase()) ? (
-        <span key={index} className={classes.highlight}>
+        <Box key={index} component="span" color={theme.palette.red.main}>
           {part}
-        </span>
+        </Box>
       ) : (
         part
       ),
     );
   };
 
+  if (type === WorkflowSidebarType.ACTION) {
+    return (
+      <Box mb={2}>
+        <ActionItem icon={icon} title={getHighlightedString()} state={DndItemState.STATIC} />
+      </Box>
+    );
+  }
+
   return (
-    <div className={classes.item}>
-      <div className={classes.itemIcon}>{icon}</div>
-      <Typography variant="h5">{getHighlightedString()}</Typography>
-    </div>
+    <Box mb={3}>
+      <TriggerItem icon={icon} title={getHighlightedString()} state={DndItemState.STATIC} />
+    </Box>
   );
 };

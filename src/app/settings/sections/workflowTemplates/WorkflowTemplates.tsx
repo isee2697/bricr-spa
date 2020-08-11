@@ -52,13 +52,12 @@ export const WorkflowTemplates = ({ updatedBy, dateUpdated, onAdd }: WorkflowTem
           <Card>
             <div className={classes.blueprintCheckboxContainer}>
               {Object.keys(WorkflowBluePrints).map(key => (
-                <>
-                  <CheckboxField
-                    label={`dictionaries.workflow_blueprint.${key}`}
-                    name={key}
-                    containerClassName={classes.blueprintCheckbox}
-                  />
-                </>
+                <CheckboxField
+                  key={key}
+                  label={`dictionaries.workflow_blueprint.${key}`}
+                  name={key}
+                  containerClassName={classes.blueprintCheckbox}
+                />
               ))}
             </div>
             <CardContent>

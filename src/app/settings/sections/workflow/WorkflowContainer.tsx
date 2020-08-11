@@ -3,7 +3,16 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useLayout } from 'context/layout';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import {
+  ArrowDownIcon,
+  SearchIcon,
+  UserIcon,
+  DashboardIcon,
+  SeeIcon,
+  UploadIcon,
+  SaleIcon,
+  SettingsIcon,
+} from 'ui/atoms/icons';
 
 import { Workflow } from './Workflow';
 import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
@@ -13,16 +22,20 @@ const triggersGroups: WorkflowSidebarGroup[] = [
     title: 'Group 1',
     items: [
       {
-        icon: <ArrowUpIcon color={'inherit'} />,
+        icon: <SearchIcon color={'inherit'} />,
+        title: 'Make an appointment',
+      },
+      {
+        icon: <UserIcon color={'inherit'} />,
+        title: 'Different trigger',
+      },
+      {
+        icon: <DashboardIcon color={'inherit'} />,
         title: 'Trigger 1',
       },
       {
-        icon: <ArrowUpIcon color={'inherit'} />,
+        icon: <SeeIcon color={'inherit'} />,
         title: 'Trigger 2',
-      },
-      {
-        icon: <ArrowUpIcon color={'inherit'} />,
-        title: 'Trigger 3',
       },
     ],
   },
@@ -33,7 +46,11 @@ const actionsGroups: WorkflowSidebarGroup[] = [
     title: 'Group 1',
     items: [
       {
-        icon: <ArrowDownIcon color={'inherit'} />,
+        icon: <UploadIcon color={'inherit'} />,
+        title: 'Send email',
+      },
+      {
+        icon: <SaleIcon color={'inherit'} />,
         title: 'Action 1',
       },
       {
@@ -41,7 +58,7 @@ const actionsGroups: WorkflowSidebarGroup[] = [
         title: 'Action 2',
       },
       {
-        icon: <ArrowDownIcon color={'inherit'} />,
+        icon: <SettingsIcon color={'inherit'} />,
         title: 'Action 3',
       },
     ],
