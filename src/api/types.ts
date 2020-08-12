@@ -1061,6 +1061,7 @@ export type Query = {
   getPimInside: PimInside;
   getPimLocation: PimLocation;
   getPimMedia: PimMedia;
+  getPimMeters: PimMeters;
   getPimOutside: PimOutside;
   getPimSales: PimSales;
   getPimServices: PimServices;
@@ -1173,6 +1174,10 @@ export type QueryGetPimLocationArgs = {
 };
 
 export type QueryGetPimMediaArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimMetersArgs = {
   id: Scalars['ID'];
 };
 
@@ -3410,6 +3415,15 @@ export type UpdatePictureInput = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   fileId?: Maybe<Scalars['String']>;
+};
+
+export type PimMeters = LastUpdated & {
+  __typename?: 'PimMeters';
+  id: Scalars['String'];
+  meters?: Maybe<Array<Meter>>;
+  metersMeta?: Maybe<MetersMeta>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
 };
 
 export enum QualityInformations {
@@ -7477,6 +7491,48 @@ export type PimMediaQuery = { __typename?: 'Query' } & {
       usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
       tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
     };
+};
+
+export type PimMetersQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimMetersQuery = { __typename?: 'Query' } & {
+  getPimServices: { __typename?: 'PimServices' } & {
+    metersMeta?: Maybe<
+      { __typename?: 'MetersMeta' } & {
+        Water?: Maybe<
+          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >;
+        Gas?: Maybe<
+          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >;
+        Electric?: Maybe<
+          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >;
+      }
+    >;
+    meters?: Maybe<
+      Array<
+        { __typename?: 'Meter' } & Pick<Meter, 'id' | 'type' | 'name' | 'description'> & {
+            readings?: Maybe<
+              Array<
+                { __typename?: 'Reading' } & Pick<
+                  Reading,
+                  'id' | 'value' | 'description' | 'feedInId' | 'dateOfReading'
+                >
+              >
+            >;
+          }
+      >
+    >;
+  };
 };
 
 export type PimOutsideQueryVariables = {
@@ -12579,6 +12635,67 @@ export function usePimMediaLazyQuery(
 export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
 export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
 export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
+export const PimMetersDocument = gql`
+  query PimMeters($id: ID!) {
+    getPimServices(id: $id) {
+      metersMeta {
+        Water {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Gas {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Electric {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+      }
+      meters {
+        id
+        type
+        name
+        description
+        readings {
+          id
+          value
+          description
+          feedInId
+          dateOfReading
+        }
+      }
+    }
+  }
+`;
+export function usePimMetersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimMetersQuery, PimMetersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
+}
+export function usePimMetersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMetersQuery, PimMetersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
+}
+export type PimMetersQueryHookResult = ReturnType<typeof usePimMetersQuery>;
+export type PimMetersLazyQueryHookResult = ReturnType<typeof usePimMetersLazyQuery>;
+export type PimMetersQueryResult = ApolloReactCommon.QueryResult<PimMetersQuery, PimMetersQueryVariables>;
 export const PimOutsideDocument = gql`
   query PimOutside($id: ID!) {
     getPimOutside(id: $id) {

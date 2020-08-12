@@ -10,6 +10,7 @@ import { Outside } from 'app/pimDetails/sections/outside/Outside';
 import { CadastreContainer } from 'app/pimDetails/sections/cadastre/CadastreContainer';
 import { PricesContainer } from 'app/pimDetails/sections/prices/PricesContainer';
 import { ServicesContainer } from 'app/pimDetails/sections/services/ServicesContainer';
+import { MetersContainer } from 'app/pimDetails/sections/meters/MetersContainer';
 import { Specification } from 'app/pimDetails/sections/specification/Specification';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
@@ -97,6 +98,16 @@ export const PimDetails = ({
                   path={`${path}/services`}
                   render={() => (
                     <ServicesContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/meters`}
+                  render={() => (
+                    <MetersContainer
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                       title={title}

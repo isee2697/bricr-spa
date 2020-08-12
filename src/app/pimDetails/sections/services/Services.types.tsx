@@ -1,7 +1,15 @@
 import { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 
-import { Meter, ServiceType, PimServices, ServiceConfiguration, OwnershipType, MetersSharedData } from 'api/types';
+import {
+  Meter,
+  ServiceType,
+  PimServices,
+  ServiceConfiguration,
+  OwnershipType,
+  MetersSharedData,
+  MetersMeta,
+} from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { LinkedPersonProps } from 'ui/molecules/linkedPerson/LinkedPerson.types';
@@ -14,7 +22,8 @@ export type ServicesProps = PimDetailsSectionProps & {
 
 export type ServicesMetersContainerProps = PimDetailsSectionProps & {
   isMeterAdded: boolean;
-  pimServices: PimServices;
+  pimMeters: Meter[];
+  pimMetersMeta: MetersMeta;
   linkedPerson: LinkedPersonProps;
   type: 'GasMeters' | 'WaterMeters' | 'ElectricityMeters';
 };

@@ -13,6 +13,7 @@ const schemas = [
   loader('./graphql/pim-prices.gql'),
   loader('./graphql/label.gql'),
   loader('./graphql/pim-services.gql'),
+  loader('./graphql/pim-meters.gql'),
   loader('./graphql/pim-specification.gql'),
   loader('./graphql/pim-sales.gql'),
   loader('./graphql/pim-location.gql'),

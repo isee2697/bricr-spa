@@ -12,26 +12,26 @@ context('Add Service', () => {
   });
 
   it('allows to add meter', () => {
-    NavigationMenu.goToPimServices();
+    NavigationMenu.goToPimMeters();
     cy.findByRole('button', { name: 'Add new meter' }).click();
     cy.findByText('Water').click();
     cy.findByLabelText('Name of the meter').type('My water meter');
     cy.findByRole('button', { name: 'Add meter' }).click();
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/services/water'));
+      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/meters/water'));
     });
   });
 
   it('allows to add reading to just added meter', () => {
-    NavigationMenu.goToPimServices();
+    NavigationMenu.goToPimMeters();
     cy.findByRole('button', { name: 'Add new meter' }).click();
     cy.findByText('Water').click();
     cy.findByLabelText('Name of the meter').type('My water meter');
     cy.findByRole('button', { name: 'Add meter' }).click();
 
     cy.location().should(loc => {
-      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/services/water'));
+      expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/meters/water'));
     });
     cy.get('.form-section-add')
       .last()

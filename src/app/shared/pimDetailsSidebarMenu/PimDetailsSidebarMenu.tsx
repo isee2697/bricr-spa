@@ -105,20 +105,18 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
     {
       key: 'cadastre',
       icon: <FilterIcon />,
-      subItems: [
-        {
-          id: 'cadastreMap',
-          label: 'pim_details.cadastre.cadastre_map',
-        },
-        ...Object.values(plotGroups).flatMap(values =>
-          values.map((plot, key) =>
-            createSubMenuData(plot.id, 'pim_details.cadastre.plot.title', plotGroups[plot.type].length, key),
-          ),
+      subItems: Object.values(plotGroups).flatMap(values =>
+        values.map((plot, key) =>
+          createSubMenuData(plot.id, 'pim_details.cadastre.plot.title', plotGroups[plot.type].length, key),
         ),
-      ],
+      ),
     },
     {
       key: 'services',
+      icon: <HelpIcon />,
+    },
+    {
+      key: 'meters',
       subItems: Object.entries(meterGroups).map((values, key) =>
         createSubMenuData(values[0].toLowerCase(), `dictionaries.service.meter.${values[0]}Meters`, 0, key),
       ),

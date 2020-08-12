@@ -20,10 +20,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  addPimReading(input: AddReadingInput!): Pim @auth
-  updatePimReading(input: UpdateReadingInput!): Pim @auth
-  addPimMeter(input: AddMeterInput!): Pim @auth
-  updatePimMeter(input: UpdateMeterInput!): Pim @auth
   addPimService(input: AddServiceInput!): PimWithNewService @auth
   updatePimService(input: UpdateServiceInput!): Pim @auth
 }

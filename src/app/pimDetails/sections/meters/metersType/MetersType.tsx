@@ -2,17 +2,17 @@ import React, { useRef } from 'react';
 import { Grid } from '@material-ui/core';
 
 import { Page } from 'ui/templates';
-import { ServicesMetersProps } from '../Services.types';
+import { ServicesMetersProps } from '../../services/Services.types';
 import { Box } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 import { FormSectionRef } from 'ui/organisms/formSection/FormSection.types';
 import { useLocale } from 'hooks';
+import { useStyles } from '../Meters.styles';
 
-import { useStyles } from './Meters.styles';
 import { ReadingsContainer } from './readings/ReadingsContainer';
 
-export const Meters = ({
+export const MetersType = ({
   title,
   onSave,
   onAddReading,

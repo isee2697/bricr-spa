@@ -11,13 +11,14 @@ import {
   useUpdateDescriptionMutation,
   MeterType,
 } from 'api/types';
-import { ServicesMetersContainerProps } from '../Services.types';
+import { ServicesMetersContainerProps } from '../../services/Services.types';
 import { useLocale } from 'hooks';
 
-import { Meters } from './Meters';
+import { MetersType } from './MetersType';
 
-export const MetersContainer = ({
-  pimServices,
+export const MeterTypeContainer = ({
+  pimMeters,
+  pimMetersMeta,
   title,
   linkedPerson,
   type,
@@ -31,10 +32,9 @@ export const MetersContainer = ({
   const [addPimReading] = useAddReadingMutation();
   const [updateDescription] = useUpdateDescriptionMutation();
 
-  const meters =
-    pimServices.meters && pimServices.meters.filter(meter => meter.type.toString().toLowerCase() === meterType);
+  const meters = pimMeters && pimMeters.filter(meter => meter.type.toString().toLowerCase() === meterType);
   const typeOfMeter = upperFirst(meterType) as MeterType;
-  const metersMeta = pimServices.metersMeta?.[typeOfMeter];
+  const metersMeta = pimMetersMeta?.[typeOfMeter];
 
   const onDescriptionUpdate = async (body: { description: string }) => {
     try {
@@ -128,7 +128,7 @@ export const MetersContainer = ({
   };
 
   return (
-    <Meters
+    <MetersType
       isMeterAdded={isMeterAdded}
       onSave={handleEdit}
       linkedPerson={linkedPerson}

@@ -37,7 +37,7 @@ export const AddMeterModalContainer = ({ isOpened, onClose, onAddMeter }: AddMet
       }
       await onAddMeter();
       onClose();
-      push(`${AppRoute.pimDetails.replace(':id', id)}/services/${body.type.toLowerCase()}`);
+      push(`${AppRoute.pimDetails.replace(':id', id)}/meters/${body.type.toLowerCase()}`);
 
       return undefined;
     } catch {

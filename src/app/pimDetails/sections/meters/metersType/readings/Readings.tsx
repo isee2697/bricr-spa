@@ -7,7 +7,7 @@ import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { LinkedPerson } from 'ui/molecules';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField, DatePickerField } from 'form/fields';
-import { useStyles } from '../Meters.styles';
+import { useStyles } from 'app/pimDetails/sections/meters/Meters.styles';
 
 import { ReadingProps } from './Reading.types';
 
