@@ -2,7 +2,7 @@ Example of ActionModal component
 
 ```jsx harmony
 import { Button } from 'ui/atoms';
-import { ActionModal } from 'ui/organisms';
+import { ActionModalContainer } from 'ui/organisms';
 
 const [isOpened, setOpened] = React.useState(false);
 
@@ -10,7 +10,7 @@ const [isOpened, setOpened] = React.useState(false);
   <Button color="primary" variant="outlined" onClick={() => setOpened(true)}>
     Open modal
   </Button>
-  <ActionModal
+  <ActionModalContainer
     title="Additional actions"
     isOpened={isOpened}
     submitText="Update selected items"

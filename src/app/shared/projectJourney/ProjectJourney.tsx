@@ -70,9 +70,6 @@ export const ProjectJourney = ({
                   itemIndex={'id'}
                   sortOptions={sorting.sortOptions}
                   onSort={sorting.onSort}
-                  onBulk={() => alert('Bulk clicked')}
-                  onArchive={() => alert('Archive clicked')}
-                  onDelete={() => alert('Delete clicked')}
                 />
               </Box>
             </FormSection>

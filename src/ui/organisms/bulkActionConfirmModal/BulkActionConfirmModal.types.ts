@@ -1,18 +1,14 @@
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
+import { BulkOperations } from 'api/types';
 
 export type BulkActionConfirmModalProps = {
-  type: BulkActionType;
-  onConfirm: VoidFunction;
+  type: Omit<BulkOperations, 'SetField'>;
+  onConfirm: () => Promise<void>;
   onCancel: VoidFunction;
   itemName?: string;
   count: number;
   isOpened: boolean;
 };
-
-export enum BulkActionType {
-  DELETE = 'Delete',
-  ARCHIVE = 'Archive',
-}
 
 export type BulkActionConfigMapType = {
   emoji: string;

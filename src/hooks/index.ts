@@ -16,3 +16,4 @@ export * from './useToggleOnNewlyCreatedFromArray/useToggleOnNewlyCreatedFromArr
 export * from './useToggleOnNewlyCreated/useToggleOnNewlyCreated';
 export * from './useCountries/useCountries';
 export * from './useSorting/useSorting';
+export * from './useSnackbar/useSnackbar';

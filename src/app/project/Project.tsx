@@ -6,7 +6,8 @@ import { PimSidebarMenu } from 'app/pim/pimSidebarMenu/PimSidebarMenu';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { ListNcp } from 'api/types';
+import { BulkField, ListNcp } from 'api/types';
+import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
 
 import { useStyles } from './Project.styles';
 import { ProjectHeader } from './projectHeader/ProjectHeader';
@@ -23,6 +24,10 @@ export const Project = ({
   listData,
   sorting,
   pagination,
+  onOperation,
+  bulkData,
+  onBulk,
+  onBulkOpen,
 }: ProjectProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -59,9 +64,9 @@ export const Project = ({
                         </Box>
                       </Box>
                     )}
-                    onBulk={() => alert('Bulk clicked')}
-                    onArchive={() => alert('Archive clicked')}
-                    onDelete={() => alert('Delete clicked')}
+                    renderDeleteTitle={({ name }) => name ?? ''}
+                    onBulk={onBulk}
+                    onOperation={onOperation}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
                     pagination={pagination}
@@ -69,6 +74,25 @@ export const Project = ({
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
                     emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+                    onBulkOpen={onBulkOpen}
+                    bulkData={bulkData}
+                    bulkTitle={formatMessage({ id: 'project.bulk.title' })}
+                    bulkSubmitText={formatMessage({ id: 'project.bulk.submit' })}
+                    bulkActions={[
+                      {
+                        key: BulkField.City,
+                        title: formatMessage({ id: 'project.bulk.city.title' }),
+                        content: (
+                          <FieldChange
+                            fieldLabelId="project.bulk.city.label"
+                            fieldName={BulkField.City}
+                            fieldPlaceholderId="project.bulk.city.placeholder"
+                            valuesFieldName={'cityValues'}
+                            valuesLabel={formatMessage({ id: 'project.bulk.city.values_title' })}
+                          />
+                        ),
+                      },
+                    ]}
                   />
                 </CardContent>
               </Card>

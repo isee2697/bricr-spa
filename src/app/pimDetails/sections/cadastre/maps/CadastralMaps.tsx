@@ -78,7 +78,6 @@ export const CadastralMaps = ({ cadastreItem }: MapsProps) => {
                 />
               </Box>
             )}
-            onBulk={() => alert('Bulk clicked')}
             onSort={() => {}}
             loading={false}
             loadingItem={<PropertyItemPlaceholder />}

@@ -45,5 +45,8 @@ export const useSelect = <T>(items: T[], itemIndex: keyof T, disabled?: boolean)
     handleCheckAll() {
       dispatch({ type: 'TOGGLE_ALL' });
     },
+    handleClearAll() {
+      dispatch({ type: 'CLEAR_ALL' });
+    },
   };
 };

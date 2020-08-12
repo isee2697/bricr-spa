@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { ConfirmModal } from 'ui/molecules';
 import { useLocale } from 'hooks';
+import { BulkOperations } from 'api/types';
 
-import { BulkActionConfigMapType, BulkActionConfirmModalProps, BulkActionType } from './BulkActionConfirmModal.types';
+import { BulkActionConfigMapType, BulkActionConfirmModalProps } from './BulkActionConfirmModal.types';
 
 export const BulkActionConfirmModal = ({
   isOpened,
@@ -15,8 +16,10 @@ export const BulkActionConfirmModal = ({
   type,
 }: BulkActionConfirmModalProps) => {
   const { formatMessage } = useLocale();
+  const [isBulkActionLoading, setBulkActionLoading] = useState(false);
+
   const bulkActionConfigMap: Record<string, BulkActionConfigMapType> = {
-    [BulkActionType.DELETE]: {
+    [BulkOperations.Delete]: {
       messageLineFirst: formatMessage({ id: 'bulk_actions.delete.message_line_1' }, { count, name: itemName }),
       messageLineSecond: formatMessage({ id: 'bulk_actions.delete.message_line_2' }),
       cancelText: formatMessage({ id: 'bulk_actions.delete.cancel' }),
@@ -25,7 +28,7 @@ export const BulkActionConfirmModal = ({
       emoji: '😬',
       confirmButtonType: ConfirmButtonType.ERROR,
     },
-    [BulkActionType.ARCHIVE]: {
+    [BulkOperations.Archive]: {
       messageLineFirst: formatMessage({ id: 'bulk_actions.archive.message_line_1' }, { count, name: itemName }),
       messageLineSecond: undefined,
       cancelText: formatMessage({ id: 'bulk_actions.archive.cancel' }),
@@ -36,5 +39,19 @@ export const BulkActionConfirmModal = ({
     },
   };
 
-  return <ConfirmModal isOpened={isOpened} onCancel={onCancel} onConfirm={onConfirm} {...bulkActionConfigMap[type]} />;
+  const handleConfirm = async () => {
+    setBulkActionLoading(true);
+    await onConfirm();
+    setBulkActionLoading(false);
+  };
+
+  return (
+    <ConfirmModal
+      isOpened={isOpened}
+      isLoading={isBulkActionLoading}
+      onCancel={onCancel}
+      onConfirm={handleConfirm}
+      {...bulkActionConfigMap[type as string]}
+    />
+  );
 };

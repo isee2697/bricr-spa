@@ -1,7 +1,9 @@
 import { ReactElement } from 'react';
 
+import { ActionModalAction } from 'ui/organisms/actionModal/ActionModal.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { CheckboxProps } from 'ui/atoms/checkbox/Checkbox.types';
+import { BulkOperations } from 'api/types';
 
 export type SortOption = {
   name: string;
@@ -24,9 +26,14 @@ export type ListProps<T> = {
   checkboxProps?: CheckboxProps;
   disabled?: boolean;
   onSort?: (key: string) => void;
-  onArchive?: (selectedItems: T[]) => void;
-  onDelete?: (selectedItems: T[]) => void;
-  onBulk: (selectedItems: T[]) => void;
+  onOperation?: (operation: BulkOperations, selectedItems: T[]) => Promise<undefined>;
+  onBulk?: (selectedItems: T[], values: Record<string, string | string[]>) => Promise<undefined>;
+  renderDeleteTitle?: (item: T) => string;
+  bulkActions?: ActionModalAction[];
+  onBulkOpen?: (selectedItems: T[]) => void;
+  bulkData?: Record<string, string | string[]> | null;
+  bulkTitle?: string;
+  bulkSubmitText?: string;
 };
 
 export type ListHeaderProps = {

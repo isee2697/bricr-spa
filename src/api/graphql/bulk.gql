@@ -1,0 +1,50 @@
+enum BulkField {
+  city
+  status
+}
+
+enum BulkEntities {
+  Pim,
+  ObjectType,
+  Ncp
+}
+
+enum BulkOperations {
+  SetField
+  Delete
+  Archive
+}
+
+input GetBulkDetailsInput {
+  ids: [ID!]!
+  field: BulkField!
+  entity: BulkEntities!
+}
+
+input BulkOperationInput {
+  operation: BulkOperations!
+  ids: [ID!]!
+  entity: BulkEntities!
+  # Only required if operation is set to "SetField"
+  field: BulkField
+  value: BulkFieldValue
+}
+
+scalar BulkFieldValue
+
+type GetBulkResult {
+  id: ID!
+  value: BulkFieldValue
+}
+
+type BulkOperationResult {
+  undoIds: [ID!]!
+}
+
+extend type Query {
+  getBulkDetails(input: GetBulkDetailsInput!): [GetBulkResult!]
+}
+
+extend type Mutation {
+  bulk(input: BulkOperationInput!): BulkOperationResult!
+}

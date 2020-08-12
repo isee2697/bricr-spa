@@ -1,0 +1,93 @@
+enum EventEntityType {
+  Pim,
+  ObjectType,
+  Ncp,
+  BogSpace,
+  AogSpace,
+  Cost,
+  PimCost,
+  AllocationCriteria,
+  CadastreMap,
+  Cadastre,
+  Floor,
+  Inspection,
+  OutsideFeature,
+  Meter,
+  Reading,
+  Service,
+  ViewingMoment,
+  Space
+  MediaLinks,
+  ProjectPhase,
+  Tags,
+  TextChapters,
+  Usps
+}
+
+enum EventParentType {
+  Pim,
+  ObjectType,
+  Ncp,
+}
+
+enum EventAction {
+  Created,
+  Updated,
+  Removed
+}
+
+scalar EventData
+
+type Event {
+  id: String!
+  entityType: EventEntityType!
+  relatedEntityId: String
+  action: EventAction!
+  timestamp: Date!
+  data: EventData
+  emittedBy: Profile
+  parentType: EventParentType
+  parentId: String
+  description: String
+}
+
+input ChangesHistoryFilters {
+  entityType: EventEntityType
+  relatedEntityId: ID
+}
+
+input UndoIdQueryFilters {
+  relatedEntityId: ID!
+}
+
+input UndoEntityInput {
+  undoIds: [ID!]!
+}
+
+input DeleteEntityInput {
+  entityType: EventParentType!
+  entityIds: [String!]!
+}
+
+type UndoResult {
+  successful: Boolean
+  message: String
+  entityId: ID
+  entityType: EventEntityType
+}
+
+type DeleteResult {
+  successful: Boolean
+  message: String
+  undoId: String
+}
+
+extend type Query {
+  getChangesHistory(filters: ChangesHistoryFilters): [Event!]!
+  getUndoId(filters: UndoIdQueryFilters): ID!
+}
+
+extend type Mutation {
+  undoEntity(input: UndoEntityInput!): [UndoResult!]! @auth
+  deleteEntity(input: DeleteEntityInput!): [DeleteResult!]! @auth
+}

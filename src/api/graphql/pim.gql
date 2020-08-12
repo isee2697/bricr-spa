@@ -197,16 +197,6 @@ type Pim implements LastUpdated {
   bogSpaces: [BogSpace!]
 }
 
-type Event {
-  id: String!
-  entityType: EventEntityType!
-  relatedEntityId: String
-  action: EventAction!
-  timestamp: Date!
-  data: String
-  userId: String
-}
-
 type PimSearchResult {
   metadata: SearchMetadata
   items: [Pim!]
@@ -255,7 +245,6 @@ scalar Dictionary
 extend type Query {
   getPim(id: ID!): Pim @auth @deprecated(reason: "In later version pim will be split into multiple smaller views.")
   getPropertyTypes: [String!]!
-  getChangesHistory(filters: ChangesHistoryFilters): [Event!]!
   dictionary: Dictionary
 }
 

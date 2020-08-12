@@ -60,7 +60,6 @@ export const ObjectTypes = ({
                 </Box>
               </Box>
             )}
-            onBulk={() => alert('Bulk clicked')}
             sortOptions={sorting.sortOptions}
             onSort={sorting.onSort}
             pagination={pagination}

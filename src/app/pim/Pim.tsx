@@ -68,9 +68,6 @@ export const Pim = ({
                         </Box>
                       </Box>
                     )}
-                    onBulk={() => alert('Bulk clicked')}
-                    onArchive={() => alert('Archive clicked')}
-                    onDelete={() => alert('Delete clicked')}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
                     pagination={pagination}

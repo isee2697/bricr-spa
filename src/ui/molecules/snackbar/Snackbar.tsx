@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import MuiSnackbar from '@material-ui/core/Snackbar/Snackbar';
 
 import { Box, DialogActions, IconButton, Typography, Button } from 'ui/atoms';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
 import { CloseIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { SnackbarContext } from 'context/snackbar/snackbarContext/SnackbarContext';
 
-import { SnackbarProps } from './Snackbar.types';
 import { useStyles } from './Snackbar.styles';
 
 const severityIconMap = {
@@ -16,34 +16,50 @@ const severityIconMap = {
   info: '😇',
 };
 
-export const Snackbar = ({ severity, message, modalTitle, modalContent, onUndo }: SnackbarProps) => {
+export const Snackbar = () => {
   const { formatMessage } = useLocale();
+  const context = useContext(SnackbarContext);
+
+  if (context === undefined) {
+    throw new Error('SnackbarContext must be used within an SnacbarContextController');
+  }
+
+  const {
+    setSnackbarState,
+    snackbarState: {
+      isOpen,
+      props: { severity, message, modalTitle, modalContent, onUndo },
+    },
+  } = context;
+
   const classes = useStyles({ severity });
 
   const [isModalOpened, setModalOpened] = useState(false);
-  const [isSnackbarOpened, setSnackbarOpened] = useState(true);
+
+  const onClose = () => {
+    setSnackbarState(s => ({ ...s, isOpen: false }));
+  };
 
   const handleModalClose = () => setModalOpened(false);
-  const handleSnackbarClose = () => setSnackbarOpened(false);
 
   const handleShowDetails = () => {
-    setSnackbarOpened(false);
+    onClose();
     setModalOpened(true);
   };
   const handleUndo = () => {
-    setSnackbarOpened(false);
-    setModalOpened(false);
     onUndo();
+    onClose();
+    setModalOpened(false);
   };
 
   return (
     <>
       <MuiSnackbar
         className={classes.snackbar}
-        open={isSnackbarOpened}
+        open={isOpen}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         autoHideDuration={6000}
-        onClose={handleSnackbarClose}
+        onClose={onClose}
       >
         <Box display="flex" alignItems="center">
           <Typography className={classes.icon}>{severityIconMap[severity]}</Typography>
@@ -54,7 +70,7 @@ export const Snackbar = ({ severity, message, modalTitle, modalContent, onUndo }
           <Button className={classes.button} onClick={handleUndo}>
             {formatMessage({ id: 'common.undo' })}
           </Button>
-          <IconButton variant="rounded" size="small" onClick={handleSnackbarClose}>
+          <IconButton variant="rounded" size="small" onClick={onClose}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Box>

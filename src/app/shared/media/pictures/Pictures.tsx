@@ -56,7 +56,6 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
                   isSelected={isSelected}
                 />
               )}
-              onBulk={() => {}}
               loadingItem={<PropertyItemPlaceholder />}
               sortOptions={sorting.sortOptions}
               onSort={sorting.onSort}

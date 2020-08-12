@@ -14,6 +14,7 @@ import { AuthContextController } from 'context/auth/authContextController/AuthCo
 import { OverlayContextController } from 'context/overlay/overlayContextController/OverlayContextController';
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
+import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
 
 import { AppProvidersProps } from './AppProviders.types';
 
@@ -29,9 +30,11 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
                   <OverlayContextController>
                     <ModalContextController>
                       <LayoutContextController>
-                        <Router>
-                          <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                        </Router>
+                        <SnackbarContextController>
+                          <Router>
+                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                          </Router>
+                        </SnackbarContextController>
                       </LayoutContextController>
                     </ModalContextController>
                   </OverlayContextController>

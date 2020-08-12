@@ -9,6 +9,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BulkFieldValue: any;
+  EventData: any;
   UploadFileInput: any;
   PathBuilder: any;
   UpdateSpaceInputConfiguration: any;
@@ -96,9 +98,11 @@ export type Mutation = {
   addTextChapter?: Maybe<PimWithNewTextChapter>;
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
+  bulk: BulkOperationResult;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
   createPim?: Maybe<Pim>;
+  deleteEntity: Array<DeleteResult>;
   deleteUser?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
@@ -122,6 +126,7 @@ export type Mutation = {
   toggleNcpPricing: NcpPricesResult;
   toggleObjectTypePricing: ObjectTypePricesResult;
   togglePricing: Pim;
+  undoEntity: Array<UndoResult>;
   updateAllocationCriteria: Pim;
   updateBogSpace: Pim;
   updateCadastre?: Maybe<Pim>;
@@ -349,6 +354,10 @@ export type MutationAddViewingMomentArgs = {
   input: AddViewingMomentInput;
 };
 
+export type MutationBulkArgs = {
+  input: BulkOperationInput;
+};
+
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
 };
@@ -359,6 +368,10 @@ export type MutationCreateObjectTypeArgs = {
 
 export type MutationCreatePimArgs = {
   input: CreatePimInput;
+};
+
+export type MutationDeleteEntityArgs = {
+  input: DeleteEntityInput;
 };
 
 export type MutationDeleteUserArgs = {
@@ -452,6 +465,10 @@ export type MutationToggleObjectTypePricingArgs = {
 
 export type MutationTogglePricingArgs = {
   input: TogglePricingInput;
+};
+
+export type MutationUndoEntityArgs = {
+  input: UndoEntityInput;
 };
 
 export type MutationUpdateAllocationCriteriaArgs = {
@@ -699,6 +716,258 @@ export type MutationUploadFileArgs = {
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
+export enum BulkField {
+  City = 'city',
+  Status = 'status',
+}
+
+export enum BulkEntities {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+}
+
+export enum BulkOperations {
+  SetField = 'SetField',
+  Delete = 'Delete',
+  Archive = 'Archive',
+}
+
+export type GetBulkDetailsInput = {
+  ids: Array<Scalars['ID']>;
+  field: BulkField;
+  entity: BulkEntities;
+};
+
+export type BulkOperationInput = {
+  operation: BulkOperations;
+  ids: Array<Scalars['ID']>;
+  entity: BulkEntities;
+  field?: Maybe<BulkField>;
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type GetBulkResult = {
+  __typename?: 'GetBulkResult';
+  id: Scalars['ID'];
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type BulkOperationResult = {
+  __typename?: 'BulkOperationResult';
+  undoIds: Array<Scalars['ID']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  _?: Maybe<Scalars['Boolean']>;
+  dictionary?: Maybe<Scalars['Dictionary']>;
+  getBulkDetails?: Maybe<Array<GetBulkResult>>;
+  getChangesHistory: Array<Event>;
+  getLabels?: Maybe<Array<Label>>;
+  getMyTeamMembers: ProfileSearchResult;
+  getNcp: NcpGeneral;
+  getNcpCharacteristics: NcpCharacteristics;
+  getNcpLabels?: Maybe<Array<Label>>;
+  getNcpLinkedPims: NcpLinkedPims;
+  getNcpMedia: NcpMedia;
+  getNcpPrices: NcpPricesResult;
+  getNcpServices: NcpServices;
+  getNcpWithSameAddress: NcpSearchResult;
+  getObjectTypeCharacteristics: ObjectTypeCharacteristics;
+  getObjectTypeGeneral: ObjectTypeGeneral;
+  getObjectTypeLabels?: Maybe<Array<Label>>;
+  getObjectTypeLinkedPims: ObjectTypeLinkedPims;
+  getObjectTypeMedia: ObjectTypeMedia;
+  getObjectTypePrices: ObjectTypePricesResult;
+  getObjectTypeServices: ObjectTypeServices;
+  /** @deprecated In later version pim will be split into multiple smaller views. */
+  getPim?: Maybe<Pim>;
+  getPimCadastre: PimCadastre;
+  getPimGeneral: PimGeneral;
+  getPimInside: PimInside;
+  getPimLocation: PimLocation;
+  getPimMedia: PimMedia;
+  getPimMeters: PimMeters;
+  getPimOutside: PimOutside;
+  getPimSales: PimSales;
+  getPimServices: PimServices;
+  getPimSpecification: PimSpecification;
+  getPimsGeneralWithSameAddress: GeneralPimSearchResult;
+  getPricing: PimPrices;
+  getProfile?: Maybe<Profile>;
+  getProjectPhases: ProjectPhaseSearchResult;
+  getPropertyTypes: Array<Scalars['String']>;
+  getUndoId: Scalars['ID'];
+  listNcps: NcpListSearchResult;
+  listObjectTypes: ObjectTypeListSearchResult;
+  listPims: PimListSearchResult;
+  me?: Maybe<Profile>;
+};
+
+export type QueryGetBulkDetailsArgs = {
+  input: GetBulkDetailsInput;
+};
+
+export type QueryGetChangesHistoryArgs = {
+  filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetMyTeamMembersArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetNcpArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpCharacteristicsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetNcpLinkedPimsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpMediaArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpPricesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpServicesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetNcpWithSameAddressArgs = {
+  input: NcpWithSameAddressInput;
+};
+
+export type QueryGetObjectTypeCharacteristicsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
+export type QueryGetObjectTypeLinkedPimsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeMediaArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypePricesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetObjectTypeServicesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimCadastreArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimInsideArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimLocationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimMediaArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimMetersArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimOutsideArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimSalesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimServicesArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimSpecificationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetPimsGeneralWithSameAddressArgs = {
+  input: PimWithSameAddressInput;
+};
+
+export type QueryGetPricingArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetProfileArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetProjectPhasesArgs = {
+  filters?: Maybe<ProjectPhaseFilters>;
+  pagination: Pagination;
+};
+
+export type QueryGetUndoIdArgs = {
+  filters?: Maybe<UndoIdQueryFilters>;
+};
+
+export type QueryListNcpsArgs = {
+  filters?: Maybe<ListNcpsFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryListObjectTypesArgs = {
+  filters: ListObjectTypesFilters;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryListPimsArgs = {
+  filters?: Maybe<ListPimsFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
+};
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',
@@ -874,6 +1143,91 @@ export type EnergyInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
+export enum EventEntityType {
+  AllocationCriteria = 'AllocationCriteria',
+  AogSpace = 'AogSpace',
+  BogSpace = 'BogSpace',
+  Cadastre = 'Cadastre',
+  CadastreMap = 'CadastreMap',
+  Cost = 'Cost',
+  Floor = 'Floor',
+  Inspection = 'Inspection',
+  MediaLinks = 'MediaLinks',
+  Meter = 'Meter',
+  Ncp = 'Ncp',
+  ObjectType = 'ObjectType',
+  OutsideFeature = 'OutsideFeature',
+  Pim = 'Pim',
+  PimCost = 'PimCost',
+  ProjectPhase = 'ProjectPhase',
+  Reading = 'Reading',
+  Service = 'Service',
+  Space = 'Space',
+  Tags = 'Tags',
+  TextChapters = 'TextChapters',
+  Usps = 'Usps',
+  ViewingMoment = 'ViewingMoment',
+}
+
+export enum EventParentType {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+}
+
+export enum EventAction {
+  Created = 'Created',
+  Removed = 'Removed',
+  Updated = 'Updated',
+}
+
+export type Event = {
+  __typename?: 'Event';
+  id: Scalars['String'];
+  entityType: EventEntityType;
+  relatedEntityId?: Maybe<Scalars['String']>;
+  action: EventAction;
+  timestamp: Scalars['Date'];
+  data?: Maybe<Scalars['EventData']>;
+  emittedBy?: Maybe<Profile>;
+  parentType?: Maybe<EventParentType>;
+  parentId?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type ChangesHistoryFilters = {
+  entityType?: Maybe<EventEntityType>;
+  relatedEntityId?: Maybe<Scalars['ID']>;
+};
+
+export type UndoIdQueryFilters = {
+  relatedEntityId: Scalars['ID'];
+};
+
+export type UndoEntityInput = {
+  undoIds: Array<Scalars['ID']>;
+};
+
+export type DeleteEntityInput = {
+  entityType: EventParentType;
+  entityIds: Array<Scalars['String']>;
+};
+
+export type UndoResult = {
+  __typename?: 'UndoResult';
+  successful?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+  entityId?: Maybe<Scalars['ID']>;
+  entityType?: Maybe<EventEntityType>;
+};
+
+export type DeleteResult = {
+  __typename?: 'DeleteResult';
+  successful?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+  undoId?: Maybe<Scalars['String']>;
+};
+
 export enum FilePermission {
   Public = 'public',
   Private = 'private',
@@ -1030,206 +1384,6 @@ export type LabelInput = {
   icon?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   property: LabelProperty;
-};
-
-export type Query = {
-  __typename?: 'Query';
-  _?: Maybe<Scalars['Boolean']>;
-  dictionary?: Maybe<Scalars['Dictionary']>;
-  getChangesHistory: Array<Event>;
-  getLabels?: Maybe<Array<Label>>;
-  getMyTeamMembers: ProfileSearchResult;
-  getNcp: NcpGeneral;
-  getNcpCharacteristics: NcpCharacteristics;
-  getNcpLabels?: Maybe<Array<Label>>;
-  getNcpLinkedPims: NcpLinkedPims;
-  getNcpMedia: NcpMedia;
-  getNcpPrices: NcpPricesResult;
-  getNcpServices: NcpServices;
-  getNcpWithSameAddress: NcpSearchResult;
-  getObjectTypeCharacteristics: ObjectTypeCharacteristics;
-  getObjectTypeGeneral: ObjectTypeGeneral;
-  getObjectTypeLabels?: Maybe<Array<Label>>;
-  getObjectTypeLinkedPims: ObjectTypeLinkedPims;
-  getObjectTypeMedia: ObjectTypeMedia;
-  getObjectTypePrices: ObjectTypePricesResult;
-  getObjectTypeServices: ObjectTypeServices;
-  /** @deprecated In later version pim will be split into multiple smaller views. */
-  getPim?: Maybe<Pim>;
-  getPimCadastre: PimCadastre;
-  getPimGeneral: PimGeneral;
-  getPimInside: PimInside;
-  getPimLocation: PimLocation;
-  getPimMedia: PimMedia;
-  getPimMeters: PimMeters;
-  getPimOutside: PimOutside;
-  getPimSales: PimSales;
-  getPimServices: PimServices;
-  getPimSpecification: PimSpecification;
-  getPimsGeneralWithSameAddress: GeneralPimSearchResult;
-  getPricing: PimPrices;
-  getProfile?: Maybe<Profile>;
-  getProjectPhases: ProjectPhaseSearchResult;
-  getPropertyTypes: Array<Scalars['String']>;
-  listNcps: NcpListSearchResult;
-  listObjectTypes: ObjectTypeListSearchResult;
-  listPims: PimListSearchResult;
-  me?: Maybe<Profile>;
-};
-
-export type QueryGetChangesHistoryArgs = {
-  filters?: Maybe<ChangesHistoryFilters>;
-};
-
-export type QueryGetLabelsArgs = {
-  parentId: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty>>;
-};
-
-export type QueryGetMyTeamMembersArgs = {
-  pagination?: Maybe<Pagination>;
-  search?: Maybe<Scalars['String']>;
-};
-
-export type QueryGetNcpArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpCharacteristicsArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpLabelsArgs = {
-  parentId: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty>>;
-};
-
-export type QueryGetNcpLinkedPimsArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpMediaArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpPricesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpServicesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetNcpWithSameAddressArgs = {
-  input: NcpWithSameAddressInput;
-};
-
-export type QueryGetObjectTypeCharacteristicsArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetObjectTypeGeneralArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetObjectTypeLabelsArgs = {
-  parentId: Scalars['ID'];
-  properties?: Maybe<Array<LabelProperty>>;
-};
-
-export type QueryGetObjectTypeLinkedPimsArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetObjectTypeMediaArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetObjectTypePricesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetObjectTypeServicesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimCadastreArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimGeneralArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimInsideArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimLocationArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimMediaArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimMetersArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimOutsideArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimSalesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimServicesArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimSpecificationArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetPimsGeneralWithSameAddressArgs = {
-  input: PimWithSameAddressInput;
-};
-
-export type QueryGetPricingArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetProfileArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryGetProjectPhasesArgs = {
-  filters?: Maybe<ProjectPhaseFilters>;
-  pagination: Pagination;
-};
-
-export type QueryListNcpsArgs = {
-  filters?: Maybe<ListNcpsFilters>;
-  pagination?: Maybe<Pagination>;
-  sort?: Maybe<Array<Sort>>;
-};
-
-export type QueryListObjectTypesArgs = {
-  filters: ListObjectTypesFilters;
-  pagination?: Maybe<Pagination>;
-  sort?: Maybe<Array<Sort>>;
-};
-
-export type QueryListPimsArgs = {
-  filters?: Maybe<ListPimsFilters>;
-  pagination?: Maybe<Pagination>;
-  sort?: Maybe<Array<Sort>>;
 };
 
 export type LinkedPimFilters = {
@@ -4702,16 +4856,6 @@ export enum PropertyType {
   Other = 'Other',
 }
 
-export enum EventEntityType {
-  Pim = 'Pim',
-}
-
-export enum EventAction {
-  Created = 'Created',
-  Updated = 'Updated',
-  Removed = 'Removed',
-}
-
 export enum PropertyTypeDetailed {
   SingleFamily = 'SingleFamily',
   DykeHouse = 'DykeHouse',
@@ -4871,17 +5015,6 @@ export type Pim = LastUpdated & {
   bogSpaces?: Maybe<Array<BogSpace>>;
 };
 
-export type Event = {
-  __typename?: 'Event';
-  id: Scalars['String'];
-  entityType: EventEntityType;
-  relatedEntityId?: Maybe<Scalars['String']>;
-  action: EventAction;
-  timestamp: Scalars['Date'];
-  data?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
-};
-
 export type PimSearchResult = {
   __typename?: 'PimSearchResult';
   metadata?: Maybe<SearchMetadata>;
@@ -4907,10 +5040,6 @@ export type ListPimsFilters = {
   country?: Maybe<Scalars['String']>;
   archived?: Maybe<Scalars['Boolean']>;
   pricingType?: Maybe<PricingType>;
-};
-
-export type ChangesHistoryFilters = {
-  entityType?: Maybe<EventEntityType>;
 };
 
 export type UpdateOutsideFeatureInput = {
@@ -5314,6 +5443,30 @@ export type ResetPasswordMutationVariables = {
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
+};
+
+export type BulkMutationVariables = {
+  input: BulkOperationInput;
+};
+
+export type BulkMutation = { __typename?: 'Mutation' } & {
+  bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
+};
+
+export type DeleteEntityMutationVariables = {
+  input: DeleteEntityInput;
+};
+
+export type DeleteEntityMutation = { __typename?: 'Mutation' } & {
+  deleteEntity: Array<{ __typename?: 'DeleteResult' } & Pick<DeleteResult, 'successful' | 'message' | 'undoId'>>;
+};
+
+export type UndoEntityMutationVariables = {
+  input: UndoEntityInput;
+};
+
+export type UndoEntityMutation = { __typename?: 'Mutation' } & {
+  undoEntity: Array<{ __typename?: 'UndoResult' } & Pick<UndoResult, 'successful' | 'entityId'>>;
 };
 
 export type InitSendFileMutationVariables = {
@@ -6376,6 +6529,14 @@ export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
+export type BulkDetailsQueryVariables = {
+  input: GetBulkDetailsInput;
+};
+
+export type BulkDetailsQuery = { __typename?: 'Query' } & {
+  getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
 export type GetLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
@@ -6658,6 +6819,14 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type NcpBulkDetailsQueryVariables = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type NcpBulkDetailsQuery = { __typename?: 'Query' } & {
+  city?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
 };
 
 export type NcpMediaQueryVariables = {
@@ -8018,6 +8187,63 @@ export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<Reset
 export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
+>;
+export const BulkDocument = gql`
+  mutation Bulk($input: BulkOperationInput!) {
+    bulk(input: $input) {
+      undoIds
+    }
+  }
+`;
+export function useBulkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<BulkMutation, BulkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<BulkMutation, BulkMutationVariables>(BulkDocument, baseOptions);
+}
+export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
+export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
+export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const DeleteEntityDocument = gql`
+  mutation DeleteEntity($input: DeleteEntityInput!) {
+    deleteEntity(input: $input) {
+      successful
+      message
+      undoId
+    }
+  }
+`;
+export function useDeleteEntityMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteEntityMutation, DeleteEntityMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteEntityMutation, DeleteEntityMutationVariables>(
+    DeleteEntityDocument,
+    baseOptions,
+  );
+}
+export type DeleteEntityMutationHookResult = ReturnType<typeof useDeleteEntityMutation>;
+export type DeleteEntityMutationResult = ApolloReactCommon.MutationResult<DeleteEntityMutation>;
+export type DeleteEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteEntityMutation,
+  DeleteEntityMutationVariables
+>;
+export const UndoEntityDocument = gql`
+  mutation UndoEntity($input: UndoEntityInput!) {
+    undoEntity(input: $input) {
+      successful
+      entityId
+    }
+  }
+`;
+export function useUndoEntityMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UndoEntityMutation, UndoEntityMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UndoEntityMutation, UndoEntityMutationVariables>(UndoEntityDocument, baseOptions);
+}
+export type UndoEntityMutationHookResult = ReturnType<typeof useUndoEntityMutation>;
+export type UndoEntityMutationResult = ApolloReactCommon.MutationResult<UndoEntityMutation>;
+export type UndoEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UndoEntityMutation,
+  UndoEntityMutationVariables
 >;
 export const InitSendFileDocument = gql`
   mutation InitSendFile($input: InitSendFileInput!) {
@@ -10599,6 +10825,27 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
 >;
+export const BulkDetailsDocument = gql`
+  query BulkDetails($input: GetBulkDetailsInput!) {
+    getBulkDetails(input: $input) {
+      id
+      value
+    }
+  }
+`;
+export function useBulkDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
+}
+export function useBulkDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
+}
+export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
+export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
+export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {
@@ -11104,6 +11351,35 @@ export function useListNcpsLazyQuery(
 export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
 export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
 export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
+export const NcpBulkDetailsDocument = gql`
+  query NcpBulkDetails($ids: [ID!]!) {
+    city: getBulkDetails(input: { ids: $ids, field: city, entity: Ncp }) {
+      value
+    }
+  }
+`;
+export function useNcpBulkDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(
+    NcpBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export function useNcpBulkDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(
+    NcpBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export type NcpBulkDetailsQueryHookResult = ReturnType<typeof useNcpBulkDetailsQuery>;
+export type NcpBulkDetailsLazyQueryHookResult = ReturnType<typeof useNcpBulkDetailsLazyQuery>;
+export type NcpBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
+  NcpBulkDetailsQuery,
+  NcpBulkDetailsQueryVariables
+>;
 export const NcpMediaDocument = gql`
   query NcpMedia($id: ID!, $picturesSort: Sort) {
     getNcpMedia(id: $id) {

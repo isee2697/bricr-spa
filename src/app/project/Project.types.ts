@@ -1,7 +1,7 @@
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { ListNcp } from 'api/types';
+import { BulkField, BulkOperations, ListNcp } from 'api/types';
 
 export type ProjectProps = {
   type: string;
@@ -21,4 +21,13 @@ export type ProjectProps = {
     onSort: (key: string) => void;
   };
   pagination: PaginationProps;
+  onOperation: (operation: BulkOperations, rojects: ListNcp[]) => Promise<undefined>;
+  onBulkOpen: (projects: ListNcp[]) => void;
+  bulkData: Record<string, string | string[]> | null;
+  onBulk: (projects: ListNcp[], formData: Record<string, string | string[]>) => Promise<undefined>;
+};
+
+export type BulkForm = {
+  operation: BulkField.City;
+  city: string;
 };
