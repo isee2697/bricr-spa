@@ -30,6 +30,15 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const { pathname } = useLocation();
   const { isSidebarVisible, isHeaderVisible } = useLayout();
 
+  const isOnSettingsPage = pathname.startsWith(AppRoute.settings);
+  const handleSettingsClick = () => {
+    if (isOnSettingsPage) {
+      push(AppRoute.home);
+    } else {
+      push(AppRoute.settings);
+    }
+  };
+
   return (
     <>
       {isHeaderVisible && (
@@ -85,8 +94,8 @@ export const Dashboard = ({ children }: DashboardProps) => {
               variant="rounded"
               size="small"
               aria-label="settings"
-              onClick={() => push(AppRoute.settings)}
-              selected={pathname.startsWith(AppRoute.settings)}
+              onClick={handleSettingsClick}
+              selected={isOnSettingsPage}
               key={pathname}
             >
               <SettingsIcon />
