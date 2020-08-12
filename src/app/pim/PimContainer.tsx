@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQueryParam } from 'use-query-params';
 
-import { ListPimsFilters, PricingType, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -16,10 +16,7 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   switch (type) {
     case 'rent':
     case 'sale':
-      return {
-        pricingType: type === 'sale' ? PricingType.Sale : PricingType.Rent,
-        propertyTypes: [PropertyType.Apartment, PropertyType.House],
-      };
+      return { propertyTypes: [PropertyType.Apartment, PropertyType.House] };
     case 'bog':
       return { propertyTypes: [PropertyType.Commercial] };
     case 'aog':
@@ -37,7 +34,11 @@ export const PimContainer = () => {
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
   const [type = 'sale', setType] = useQueryParam<string>('type');
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({});
+  const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
+    variables: {
+      ...getPimFilterVariables(type),
+    },
+  });
 
   const amounts =
     (countData && {

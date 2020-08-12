@@ -11,13 +11,13 @@ export const COUNT_PIMS_BY_PARAMS = gql`
 `;
 
 export const LIST_PIMS_COUNT = gql`
-  query ListPimsCount {
-    activeCount: listPims(filters: { archived: false }) {
+  query ListPimsCount($pricingType: PricingType, $propertyTypes: [PropertyType]) {
+    activeCount: listPims(filters: { archived: false, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
       metadata {
         total
       }
     }
-    archivedCount: listPims(filters: { archived: true }) {
+    archivedCount: listPims(filters: { archived: true, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
       metadata {
         total
       }

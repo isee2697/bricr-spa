@@ -6556,7 +6556,10 @@ export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListPimsCountQueryVariables = {};
+export type ListPimsCountQueryVariables = {
+  pricingType?: Maybe<PricingType>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
+};
 
 export type ListPimsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'PimListSearchResult' } & {
@@ -10901,13 +10904,13 @@ export type CountPimsByParamsQueryResult = ApolloReactCommon.QueryResult<
   CountPimsByParamsQueryVariables
 >;
 export const ListPimsCountDocument = gql`
-  query ListPimsCount {
-    activeCount: listPims(filters: { archived: false }) {
+  query ListPimsCount($pricingType: PricingType, $propertyTypes: [PropertyType]) {
+    activeCount: listPims(filters: { archived: false, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
       metadata {
         total
       }
     }
-    archivedCount: listPims(filters: { archived: true }) {
+    archivedCount: listPims(filters: { archived: true, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
       metadata {
         total
       }
