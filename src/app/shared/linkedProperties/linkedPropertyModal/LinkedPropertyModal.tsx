@@ -39,7 +39,7 @@ export const LinkedPropertyModal = ({ isOpened, onClose, onSubmit, pimList, onAd
       title={formatMessage({ id: 'project_details.properties.modal.title' })}
     >
       <Form onSubmit={onSubmit} initialValues={{ linkedProperties: [] }}>
-        {({ handleSubmit, submitting, valid }) => (
+        {({ handleSubmit, submitting, valid, values }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
               <Field name="linkedProperties">
@@ -81,7 +81,7 @@ export const LinkedPropertyModal = ({ isOpened, onClose, onSubmit, pimList, onAd
                   color="primary"
                   variant="contained"
                   isLoading={submitting}
-                  disabled={!valid}
+                  disabled={!valid || values.linkedProperties.length === 0}
                 >
                   {formatMessage({ id: 'project_details.properties.modal.confirm' })}
                 </SubmitButton>
