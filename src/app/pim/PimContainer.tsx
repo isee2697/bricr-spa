@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQueryParam } from 'use-query-params';
 
-import { useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import { ListPimsFilters, PricingType, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -11,6 +11,27 @@ import { Pim } from './Pim';
 
 const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
+
+const getPimFilterVariables = (type: string): ListPimsFilters => {
+  switch (type) {
+    case 'rent':
+    case 'sale':
+      return {
+        pricingType: type === 'sale' ? PricingType.Sale : PricingType.Rent,
+        propertyTypes: [PropertyType.Apartment, PropertyType.House],
+      };
+    case 'bog':
+      return { propertyTypes: [PropertyType.Commercial] };
+    case 'aog':
+      return { propertyTypes: [PropertyType.Agricultural] };
+    case 'parkinglot':
+      return { propertyTypes: [PropertyType.ParkingLot] };
+    case 'plot':
+      return { propertyTypes: [PropertyType.BuildingPlot] };
+    default:
+      return {};
+  }
+};
 
 export const PimContainer = () => {
   const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
@@ -35,7 +56,12 @@ export const PimContainer = () => {
   });
 
   const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
-    variables: { archived: status === 'archived', ...sortQuery, ...paginationQuery },
+    variables: {
+      ...getPimFilterVariables(type),
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
     fetchPolicy: 'no-cache',
   });
 

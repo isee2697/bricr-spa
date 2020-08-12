@@ -45,6 +45,14 @@ const types = [
     name: 'aog',
     icon: <AogIcon />,
   },
+  {
+    name: 'parkinglot',
+    icon: <AogIcon />,
+  },
+  {
+    name: 'plot',
+    icon: <AogIcon />,
+  },
 ];
 
 export const PimSidebarMenu = ({ type, onTypeChange }: PimSidebarMenuProps) => {

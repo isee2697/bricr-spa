@@ -67,16 +67,6 @@ export const PropertyTypeStep = ({ onNext, options }: AddPimStepProps) => {
     return [];
   };
 
-  const isPropertyTypeDisabled = (p: string) => {
-    const category = values.category;
-
-    if (category === PropertyCategory.PROPERTY) {
-      return p !== PropertyType.House;
-    }
-
-    return false;
-  };
-
   return (
     <Field name="category" validate={requireValidator}>
       {({ input }) => (
@@ -119,7 +109,6 @@ export const PropertyTypeStep = ({ onNext, options }: AddPimStepProps) => {
                       {getTypes().map(p => (
                         <Grid item xs={6} md={3} key={p.value}>
                           <SelectCard
-                            disabled={isPropertyTypeDisabled(p.value)}
                             selected={category.value === p.value}
                             centered
                             onClick={() => category.onChange(p.value)}

@@ -4890,6 +4890,7 @@ export type PimSearchResult = {
 
 export type ListPimsFilters = {
   developmentType?: Maybe<DevelopmentType>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
   status?: Maybe<PimStatus>;
   houseNumberPrefix?: Maybe<Scalars['String']>;
   houseNumber?: Maybe<Scalars['String']>;
@@ -4905,6 +4906,7 @@ export type ListPimsFilters = {
   county?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   archived?: Maybe<Scalars['Boolean']>;
+  pricingType?: Maybe<PricingType>;
 };
 
 export type ChangesHistoryFilters = {
@@ -6406,6 +6408,8 @@ export type ListPimsCountQuery = { __typename?: 'Query' } & {
 
 export type ListPimsQueryVariables = {
   archived: Scalars['Boolean'];
+  pricingType?: Maybe<PricingType>;
+  propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
@@ -10680,9 +10684,17 @@ export type ListPimsCountQueryHookResult = ReturnType<typeof useListPimsCountQue
 export type ListPimsCountLazyQueryHookResult = ReturnType<typeof useListPimsCountLazyQuery>;
 export type ListPimsCountQueryResult = ApolloReactCommon.QueryResult<ListPimsCountQuery, ListPimsCountQueryVariables>;
 export const ListPimsDocument = gql`
-  query ListPims($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+  query ListPims(
+    $archived: Boolean!
+    $pricingType: PricingType
+    $propertyTypes: [PropertyType]
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
     listPims(
-      filters: { archived: $archived }
+      filters: { archived: $archived, pricingType: $pricingType, propertyTypes: $propertyTypes }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {

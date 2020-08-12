@@ -26,9 +26,17 @@ export const LIST_PIMS_COUNT = gql`
 `;
 
 export const LIST_PIMS = gql`
-  query ListPims($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+  query ListPims(
+    $archived: Boolean!
+    $pricingType: PricingType
+    $propertyTypes: [PropertyType]
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
     listPims(
-      filters: { archived: $archived }
+      filters: { archived: $archived, pricingType: $pricingType, propertyTypes: $propertyTypes }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {

@@ -214,6 +214,7 @@ type PimSearchResult {
 
 input ListPimsFilters {
   developmentType: DevelopmentType
+  propertyTypes: [PropertyType]
   status: PimStatus
   houseNumberPrefix: String
   houseNumber: String
@@ -229,6 +230,7 @@ input ListPimsFilters {
   county: String
   country: String
   archived: Boolean
+  pricingType: PricingType
 }
 
 input ChangesHistoryFilters {
