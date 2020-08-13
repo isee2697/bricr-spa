@@ -94,7 +94,7 @@ export const WorkflowCanvas = ({ trigger }: WorkflowCanvasProps) => {
 
   const renderAction = useCallback(
     (action: Action, topOffset: number, leftOffset: number): ReactNode => (
-      <Box key={action.id}>
+      <>
         <Box position="absolute" top={topOffset} left={leftOffset}>
           <ActionItem icon={action.icon} title={action.title} state={DndItemState.DROPPED} />
           <Box mt={2.5}>
@@ -109,7 +109,7 @@ export const WorkflowCanvas = ({ trigger }: WorkflowCanvasProps) => {
         )}
         {!!action.nextAction && renderAction(action.nextAction, topOffset, leftOffset + ACTION_STEP.left)}
         {!action.nextAction && renderAddPlaceholder(topOffset, leftOffset + ACTION_STEP.left)}
-      </Box>
+      </>
     ),
     [classes.ruleButton, formatMessage, renderLine],
   );
@@ -141,13 +141,13 @@ export const WorkflowCanvas = ({ trigger }: WorkflowCanvasProps) => {
             </Box>
           </Box>
           {trigger.actions.map((action, index) => (
-            <>
+            <div key={action.id}>
               {renderLine(
                 { x: TRIGGER_OFFSET.left + 5 * STEP, y: TRIGGER_OFFSET.top + 2.5 * STEP },
                 { x: TRIGGER_OFFSET.left + 9 * STEP, y: ACTION_OFFSET.top + STEP + 7 * index * STEP },
               )}
               {renderAction(action, ACTION_OFFSET.top + index * ACTION_STEP.top, ACTION_OFFSET.left)}
-            </>
+            </div>
           ))}
           {renderLine(
             { x: TRIGGER_OFFSET.left + 5 * STEP, y: TRIGGER_OFFSET.top + 2.5 * STEP },

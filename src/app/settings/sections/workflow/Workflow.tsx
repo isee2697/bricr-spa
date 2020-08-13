@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Box, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
+import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { FullscreenOnIcon, FullscreenOffIcon } from 'ui/atoms/icons';
 import { SettingsHeader } from 'app/settings/settingsHeader/SettingsHeader';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -48,11 +48,12 @@ export const Workflow = ({
         onRedo={() => {}}
         onUndo={() => {}}
       />
-      <Grid container>
-        <Grid item xs={2}>
+
+      <Box display="flex">
+        <Box width={216}>
           <WorkflowSidebar isFullScreen={fullScreen} actionsGroups={actionsGroups} triggersGroups={triggersGroups} />
-        </Grid>
-        <Grid item xs={10}>
+        </Box>
+        <Box width="100%">
           {sections.map(section => (
             <WorkflowSection
               key={section.title}
@@ -61,8 +62,8 @@ export const Workflow = ({
               onExpanded={() => setExpandedSection(section.title === expandedSection ? null : section.title)}
             />
           ))}
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
 
       <div className={classes.controlContainer}>
         <IconButton onClick={handleFullScreenToggle} variant="rounded" size="small" className={classes.controlButton}>
