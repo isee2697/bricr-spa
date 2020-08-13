@@ -13,7 +13,7 @@ export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDet
   const { id } = useParams<{ id: string }>();
   const formRef = useRef<FormRenderProps<UpdateNcpInput>>();
 
-  const { data } = useNcpGeneralQuery({ variables: { id } });
+  const { data } = useNcpGeneralQuery({ variables: { id }, fetchPolicy: 'network-only' });
   const [updateNcpGeneral] = useUpdateNcpMutation();
 
   const handleSave = async ({ archived, ...values }: NcpGeneral) => {

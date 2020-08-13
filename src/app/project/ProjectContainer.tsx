@@ -31,7 +31,7 @@ export const ProjectContainer = () => {
   const [type = 'nc_sale', setType] = useQueryParam<string>('type');
 
   const [bulk] = useBulkMutation();
-  const [getBulkData, { data: bulkData }] = useNcpBulkDetailsLazyQuery();
+  const [getBulkData, { data: bulkData }] = useNcpBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
   const [undoEntity] = useUndoEntityMutation();
 
   const { loading: isCountLoading, error: countError, data: countData } = useListNcpsCountQuery({});
@@ -54,7 +54,7 @@ export const ProjectContainer = () => {
 
   const { loading: isListLoading, error: listError, data: listData } = useListNcpsQuery({
     variables: { archived: status === 'archived', ...sortQuery, ...paginationQuery },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'network-only',
   });
 
   const handleOperation = async (operation: BulkOperations, projects: ListNcp[]) => {
