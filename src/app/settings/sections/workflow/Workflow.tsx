@@ -11,7 +11,6 @@ import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
 import { WorkflowSection } from './workflowSection/WorkflowSection';
-import { WorkflowCanvas } from './workflowCanvas/WorkflowCanvas';
 
 export const Workflow = ({
   onToggleFullScreen,
@@ -25,6 +24,7 @@ export const Workflow = ({
 }: WorkflowProps) => {
   const { id } = useParams<{ id: string }>();
   const [fullScreen, setFullScreen] = useState(true);
+  const [expandedSection, setExpandedSection] = useState<string | null>(sections[0].title);
   const classes = useStyles({ fullScreen });
 
   const handleFullScreenToggle = () => {
@@ -54,9 +54,13 @@ export const Workflow = ({
         </Grid>
         <Grid item xs={10}>
           {sections.map(section => (
-            <WorkflowSection section={section} key={section.title} />
+            <WorkflowSection
+              key={section.title}
+              section={section}
+              expanded={section.title === expandedSection}
+              onExpanded={() => setExpandedSection(section.title === expandedSection ? null : section.title)}
+            />
           ))}
-          <WorkflowCanvas />
         </Grid>
       </Grid>
 

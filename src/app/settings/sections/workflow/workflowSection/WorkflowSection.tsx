@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { InfoSection } from 'ui/molecules';
 import { Box, Card, Collapse, IconButton, Typography } from 'ui/atoms';
-import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
+import { WorkflowCanvas } from '../workflowCanvas/WorkflowCanvas';
 
 import { WorkflowSectionProps } from './WorkflowSection.types';
 import { useStyles } from './WorkflowSection.styles';
 
-export const WorkflowSection = ({ section }: WorkflowSectionProps) => {
-  const { formatMessage } = useLocale();
+export const WorkflowSection = ({ section, expanded, onExpanded }: WorkflowSectionProps) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
@@ -23,12 +20,7 @@ export const WorkflowSection = ({ section }: WorkflowSectionProps) => {
               <IconButton className={classes.options} variant="rounded" size="small" onClick={() => {}}>
                 <MenuIcon color="inherit" />
               </IconButton>
-              <IconButton
-                className={classes.options}
-                variant="roundedContained"
-                size="small"
-                onClick={() => setExpanded(expanded => !expanded)}
-              >
+              <IconButton className={classes.options} variant="roundedContained" size="small" onClick={onExpanded}>
                 {expanded ? <ArrowUpIcon color="inherit" /> : <ArrowDownIcon color="inherit" />}
               </IconButton>
             </Box>
@@ -36,9 +28,7 @@ export const WorkflowSection = ({ section }: WorkflowSectionProps) => {
         </Box>
       </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <InfoSection emoji="👈">
-          <Typography variant="h3">{formatMessage({ id: 'settings.workflow.add_trigger' })}</Typography>
-        </InfoSection>
+        <WorkflowCanvas trigger={section.trigger} />
       </Collapse>
     </>
   );
