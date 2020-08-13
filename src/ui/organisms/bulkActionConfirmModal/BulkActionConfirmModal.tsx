@@ -6,6 +6,7 @@ import { useLocale } from 'hooks';
 import { BulkOperations } from 'api/types';
 
 import { BulkActionConfigMapType, BulkActionConfirmModalProps } from './BulkActionConfirmModal.types';
+import { useStyles } from './BulkActionConfirmModal.styles';
 
 export const BulkActionConfirmModal = ({
   isOpened,
@@ -17,10 +18,14 @@ export const BulkActionConfirmModal = ({
 }: BulkActionConfirmModalProps) => {
   const { formatMessage } = useLocale();
   const [isBulkActionLoading, setBulkActionLoading] = useState(false);
+  const classes = useStyles();
 
   const bulkActionConfigMap: Record<string, BulkActionConfigMapType> = {
     [BulkOperations.Delete]: {
-      messageLineFirst: formatMessage({ id: 'bulk_actions.delete.message_line_1' }, { count, name: itemName }),
+      messageLineFirst: formatMessage(
+        { id: 'bulk_actions.delete.message_line_1' },
+        { count, name: itemName, span: msg => <span className={classes.deleteWarning}>{msg}</span> },
+      ),
       messageLineSecond: formatMessage({ id: 'bulk_actions.delete.message_line_2' }),
       cancelText: formatMessage({ id: 'bulk_actions.delete.cancel' }),
       confirmText: formatMessage({ id: 'bulk_actions.delete.confirm' }, { count }),
@@ -29,7 +34,10 @@ export const BulkActionConfirmModal = ({
       confirmButtonType: ConfirmButtonType.ERROR,
     },
     [BulkOperations.Archive]: {
-      messageLineFirst: formatMessage({ id: 'bulk_actions.archive.message_line_1' }, { count, name: itemName }),
+      messageLineFirst: formatMessage(
+        { id: 'bulk_actions.archive.message_line_1' },
+        { count, name: itemName, span: msg => <span className={classes.deleteWarning}>{msg}</span> },
+      ),
       messageLineSecond: undefined,
       cancelText: formatMessage({ id: 'bulk_actions.archive.cancel' }),
       confirmText: formatMessage({ id: 'bulk_actions.archive.confirm' }, { count }),

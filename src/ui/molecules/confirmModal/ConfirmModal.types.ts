@@ -1,9 +1,11 @@
+import { ReactNodeArray } from 'react';
+
 export type ConfirmModalProps = {
   emoji?: string;
   title: string;
   onCancel: VoidFunction;
   onConfirm: VoidFunction;
-  messageLineFirst: string;
+  messageLineFirst: string | ReactNodeArray;
   messageLineSecond?: string;
   cancelText: string;
   confirmText: string;

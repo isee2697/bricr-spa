@@ -1,3 +1,5 @@
+import { ReactNodeArray } from 'react';
+
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { BulkOperations } from 'api/types';
 
@@ -13,7 +15,7 @@ export type BulkActionConfirmModalProps = {
 export type BulkActionConfigMapType = {
   emoji: string;
   title: string;
-  messageLineFirst: string;
+  messageLineFirst: string | ReactNodeArray;
   messageLineSecond?: string;
   cancelText: string;
   confirmText: string;
