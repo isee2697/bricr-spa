@@ -28,7 +28,7 @@ export const LinkedPropertyModal = ({ isOpened, onClose, onSubmit, pimList, onAd
   };
 
   const formatTitle = (pim: PimListItem) => {
-    return `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}`;
+    return `${pim.street}, ${pim.city}`;
   };
 
   return (
