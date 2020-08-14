@@ -15,6 +15,10 @@ export const PIM_OVERALL_INFO = gql`
         floorType
         level
       }
+      bogSpaces {
+        id
+        type
+      }
       aogSpaces {
         id
         type

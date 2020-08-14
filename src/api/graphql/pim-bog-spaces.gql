@@ -2,7 +2,7 @@ enum BogSpaceType {
   BusinessSpace,
   OfficeSpace,
   RetailSpace,
-  Leissure,
+  Leisure,
   HorecaSpace,
   SocialRealEstateSpace,
   Terrain,
@@ -10,36 +10,58 @@ enum BogSpaceType {
 }
 
 enum AirTreatmentType {
-  Airco,
+  AirCondition,
   MechanicalVentilation,
   TopCooling
 }
 
-enum SpecificationType {
-  TakeoverOfPersonel,
-  CateringAllowed,
-  IndustryLimitation,
-  PublicOrientedServices,
-  Retail,
-  Showroom,
-  AnnualPitches,
-  ResidentialObjectAvailable,
-  ReturnService,
+enum SocialRealEstateSpecificationType {
+  PracticeSpace,
+  RedesignationPossible,
+  HousingAvailable,
+  ReturnServices
+}
+
+enum SocialRealEstateServicesType {
+  SanitaryShared,
+  SanitaryIndividually,
+  Elevator,
+  Swimmingpool,
+  Daycare,
+  PrivateParkingFacilities,
+  OutdoorSpaceAvailable
+  OutOfSchoolChildcare
+  FireAlarmSystem
+}
+
+enum HorecaSpecificationType {
+  TakeoverPersonnel,
   CateringArea,
+  ResidentialObjectAvailable,
   Terrace,
   Luxery
 }
 
-enum BogServicesType {
-  Electra,
-  Reception,
-  SanitaryBlocks,
-  SwimmingPool,
-  SewageSystem,
-  CateringAvailable,
-  CampShop,
+enum OfficeServicesType {
+  CableTrays,
+  Skylights,
+  Pantry,
+  Heating,
+  SuspendedCeiling,
+  Sprinkler,
+  PowerFlow,
+  OverheadDoors,
+  Toilet,
+  RecessedLuminaires,
+  Elevators,
+  OpenableWindows,
+  RoomLayout,
+  FlexDesk
+}
+
+enum BusinessServicesType {
   ConcreteFloor,
-  SkyLights,
+  Skylights,
   Pantry,
   Heating,
   LoadingDocks,
@@ -49,11 +71,38 @@ enum BogServicesType {
   Toilet,
   RecessedLuminaires,
   Elevators,
-  OpenableWindows,
-  CableTrays,
-  SuspendedCeiling,
-  RoomLayout,
-  FlexDesk
+  OpenableWindows
+}
+
+enum LeisureSpecificationType {
+  TakeoverPersonnel,
+  AnnualPitches,
+  ResidentialObjectAvailable,
+  ReturnServices,
+}
+
+enum RetailSpecificationType {
+  TakeoverPersonnel,
+  CateringAllowed,
+  IndustryLimitation,
+  PublicOrientedServices,
+  Retail,
+  Showroom
+}
+
+enum LeisureServicesType {
+  Electric,
+  Reception,
+  SanitaryBlocks,
+  SwimmingPool,
+  SewageSystem,
+  CateringAvailable,
+  CampShop
+}
+
+enum TerrainSpecificationsType {
+  Fenced,
+  Lockable
 }
 
 enum WealthClassType {
@@ -92,7 +141,7 @@ enum HorecaType {
   Cafeteria,
   Restaria,
   Lunchroom,
-  Fastfood,
+  FastFood,
   RoadHouse,
   IceCreamParlour,
   SandwichShop
@@ -108,6 +157,31 @@ enum LegalFormType {
   VOF,
   Foundation,
   Association
+}
+
+enum SocialRealEstateSpaceType {
+  Cultural
+  Education
+  Religious
+  Sport
+  Care
+}
+
+enum DestinationType {
+  Socially
+  Living
+}
+
+enum TypeOfPavement {
+  Asphalt,
+  ClinkerBricks,
+  StelconPlates,
+  FloorTiles
+}
+
+enum TypeOfStorage {
+  StorageRoom,
+  StorageArea
 }
 
 type RetailMeasurements {
@@ -198,6 +272,34 @@ input OfficeSpaceMeasurementsInput {
   amountOfFloors: Int
 }
 
+type StorageMeasurements {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  height: AbsoluteFloat
+  surface: AbsoluteFloat
+  volume: AbsoluteFloat
+}
+
+input StorageMeasurementsInput {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  height: AbsoluteFloat
+  surface: AbsoluteFloat
+  volume: AbsoluteFloat
+}
+
+type SocialRealEstateSpaceMeasurements {
+  surface: AbsoluteFloat
+  numberOfCareUnits: Int
+  numberOfSeats: Int
+}
+
+input SocialRealEstateSpaceMeasurementsInput {
+  surface: AbsoluteFloat
+  numberOfCareUnits: Int
+  numberOfSeats: Int
+}
+
 type GoodWillPrices {
   priceInventoryGoodwill: AbsoluteFloat
   vatRate: AbsoluteFloat
@@ -236,16 +338,26 @@ input HorecaPricesInput {
 
 type BogPrices {
   price: AbsoluteFloat
-  vateRate: AbsoluteFloat
+  vatRate: AbsoluteFloat
   priceVat: AbsoluteFloat
   priceIncVat: AbsoluteFloat
 }
 
 input BogPricesInput {
   price: AbsoluteFloat
-  vateRate: AbsoluteFloat
+  vatRate: AbsoluteFloat
   priceVat: AbsoluteFloat
   priceIncVat: AbsoluteFloat
+}
+
+type SocialRealEstateSpacePrices {
+  vatRate: AbsoluteFloat
+  notes: String
+}
+
+input SocialRealEstateSpacePricesInput {
+  vatRate: AbsoluteFloat
+  notes: String
 }
 
 type RetailerAssociationContribution {
@@ -264,10 +376,26 @@ input RetailerAssociationContributionInput {
   notes: String
 }
 
+type TerrainSpecifications {
+  surface: AbsoluteFloat
+  buildingHeightTerrain: AbsoluteFloat
+  extensionTerrainPercent: AbsoluteFloat
+  extensionTerrainM2: AbsoluteFloat
+  pavedPercentage: AbsoluteFloat
+}
+
+input TerrainSpecificationsInput {
+  surface: AbsoluteFloat
+  buildingHeightTerrain: AbsoluteFloat
+  extensionTerrainPercent: AbsoluteFloat
+  extensionTerrainM2: AbsoluteFloat
+  pavedPercentage: AbsoluteFloat
+}
+
 type RetailSpace {
   measurements: RetailMeasurements
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["RetailSpecificationType"])
   prices: GoodWillPrices
   wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
   retailerAssociationContribution: RetailerAssociationContribution
@@ -277,7 +405,7 @@ type RetailSpace {
 input RetailSpaceInput {
   measurements: RetailMeasurementsInput
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["RetailSpecificationType"])
   prices: GoodWillPricesInput
   wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
   retailerAssociationContribution: RetailerAssociationContributionInput
@@ -286,23 +414,23 @@ input RetailSpaceInput {
 
 type LeisureSpace {
   measurements: LeisureMeasurements
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["LeisureSpecificationType"])
   prices: GoodWillPrices
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["LeisureServicesType"])
 }
 
 input LeisureSpaceInput {
   measurements: LeisureMeasurementsInput
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["LeisureSpecificationType"])
   prices: GoodWillPricesInput
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["LeisureServicesType"])
 }
 
 type HorecaSpace {
   measurements: HorecaMeasurements
   type: [String!] @uuidOrEnum(enum: ["HorecaType"])
   notes: String
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["HorecaSpecificationType"])
   prices: HorecaPrices
   wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
   legalForm: String @uuidOrEnum(enum: ["LegalFormType"])
@@ -312,7 +440,7 @@ input HorecaSpaceInput {
   measurements: HorecaMeasurementsInput
   type: [String!] @uuidOrEnum(enum: ["HorecaType"])
   notes: String
-  specification: [String!] @uuidOrEnum(enum: ["SpecificationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["HorecaSpecificationType"])
   prices: HorecaPricesInput
   wealthClass: String @uuidOrEnum(enum: ["WealthClassType"])
   legalForm: String @uuidOrEnum(enum: ["LegalFormType"])
@@ -321,21 +449,21 @@ input HorecaSpaceInput {
 type BusinessSpace {
   measurements: BusinessSpaceMeasurements
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["BusinessServicesType"])
   prices: BogPrices
 }
 
 input BusinessSpaceInput {
   measurements: BusinessSpaceMeasurementsInput
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["BusinessServicesType"])
   prices: BogPricesInput
 }
 
 type OfficeSpace {
   measurements: OfficeSpaceMeasurements
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["OfficeServicesType"])
   prices: BogPrices
   turnKey: Boolean
   commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
@@ -344,35 +472,92 @@ type OfficeSpace {
 input OfficeSpaceInput {
   measurements: OfficeSpaceMeasurementsInput
   airTreatment: [String!] @uuidOrEnum(enum: ["AirTreatmentType"])
-  services: [String!] @uuidOrEnum(enum: ["BogServicesType"])
+  services: [String!] @uuidOrEnum(enum: ["OfficeServicesType"])
   prices: BogPricesInput
   turnKey: Boolean
   commonRooms: [String!] @uuidOrEnum(enum: ["CommonRoomsType"])
+}
+
+type SocialRealEstateSpace {
+  measurements: SocialRealEstateSpaceMeasurements
+  type: String @uuidOrEnum(enum: ["SocialRealEstateSpaceType"])
+  notesAboutType: String
+  destinationType: [String!] @uuidOrEnum(enum: ["DestinationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["SocialRealEstateSpecificationType"])
+  services: [String!] @uuidOrEnum(enum: ["SocialRealEstateServicesType"])
+  prices: SocialRealEstateSpacePrices
+}
+
+input SocialRealEstateSpaceInput {
+  measurements: SocialRealEstateSpaceMeasurementsInput
+  type: String @uuidOrEnum(enum: ["SocialRealEstateSpaceType"])
+  notesAboutType: String
+  destinationType: [String!] @uuidOrEnum(enum: ["DestinationType"])
+  specifications: [String!] @uuidOrEnum(enum: ["SocialRealEstateSpecificationType"])
+  services: [String!] @uuidOrEnum(enum: ["SocialRealEstateServicesType"])
+  prices: SocialRealEstateSpacePricesInput
+}
+
+type Terrain {
+  terrainSpecifications: TerrainSpecifications
+  specifications: [String!] @uuidOrEnum(enum: ["TerrainSpecificationType"])
+  typeOfPavement: [String!] @uuidOrEnum(enum: ["TypeOfPavement"])
+  prices: BogPrices
+}
+
+input TerrainInput {
+  terrainSpecifications: TerrainSpecificationsInput
+  specifications: [String!] @uuidOrEnum(enum: ["TerrainSpecificationType"])
+  typeOfPavement: [String!] @uuidOrEnum(enum: ["TypeOfPavement"])
+  prices: BogPricesInput
+}
+
+type Storage {
+  measurements: StorageMeasurements
+  type: String @uuidOrEnum(enum: ["TypeOfStorage"])
+  notes: String
+}
+
+input StorageInput {
+  measurements: StorageMeasurementsInput
+  type: String @uuidOrEnum(enum: ["TypeOfStorage"])
+  notes: String
 }
 
 type BogSpace implements LastUpdated {
   id: ID!
   type: BogSpaceType!
   name: String
+  notes: String
+  description: String
   retailSpaceConfiguration: RetailSpace
   leisureSpaceConfiguration: LeisureSpace
   horecaSpaceConfiguration: HorecaSpace
   businessSpaceConfiguration: BusinessSpace
   officeSpaceConfiguration: OfficeSpace
+  socialRealEstateSpaceConfiguration: SocialRealEstateSpace
+  terrainConfiguration: Terrain
+  storageConfiguration: Storage
   images: [File!]
   dateUpdated: Date
   lastEditedBy: Profile
+  dateCreated: Date
 }
 
 input UpdateBogSpaceInput {
   pimId: ID!
   spaceId: ID!
   spaceName: String
+  notes: String
+  description: String
   retailSpaceConfiguration: RetailSpaceInput
   leisureSpaceConfiguration: LeisureSpaceInput
   horecaSpaceConfiguration: HorecaSpaceInput
   businessSpaceConfiguration: BusinessSpaceInput
   officeSpaceConfiguration: OfficeSpaceInput
+  socialRealEstateSpaceConfiguration: SocialRealEstateSpaceInput
+  terrainConfiguration: TerrainInput
+  storageConfiguration: StorageInput
 }
 
 input AddBogSpaceInput {
@@ -388,5 +573,5 @@ type PimWithNewBogSpace {
 
 extend type Mutation {
   addBogSpace(input: AddBogSpaceInput!): PimWithNewBogSpace! @auth
-  updateBogSpace(input: UpdateBogSpaceInput!): Pim! @auth
+  updateBogSpace(input: UpdateBogSpaceInput!): BogSpace! @auth
 }

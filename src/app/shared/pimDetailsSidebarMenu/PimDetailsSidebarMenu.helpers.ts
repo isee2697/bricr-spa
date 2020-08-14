@@ -43,7 +43,7 @@ export const getMenuItem = (
     case SideBarItemTypes.Media:
       return mediaItem;
     case SideBarItemTypes.Commercial:
-      return commercialSpacesItem;
+      return getCommercialSpacesItem(data, formatMessage);
     case SideBarItemTypes.Ground:
       return getAogSpaceTypeItem(data, groundItem, AogSpaceType.Ground);
     case SideBarItemTypes.Installations:
@@ -87,6 +87,27 @@ const getInsideItem = (data: PimOverallInfoQuery) => {
           number,
         };
       }),
+    ),
+  };
+};
+
+const getCommercialSpacesItem = (data: PimOverallInfoQuery, formatMessage: (data: MessageFormat) => string) => {
+  const spaceGroups = groupBy([...(data.getPimInside.bogSpaces || [])].reverse(), space => space.type);
+
+  return {
+    ...commercialSpacesItem,
+    subItems: Object.values(spaceGroups).flatMap(values =>
+      values
+        .map((space, key) =>
+          createSubMenuData(
+            space.id,
+            `dictionaries.commercial.space_type.${space.type}`,
+            spaceGroups[space.type].length,
+            key,
+            formatMessage,
+          ),
+        )
+        .reverse(),
     ),
   };
 };

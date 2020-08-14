@@ -130,7 +130,7 @@ export type Mutation = {
   undoEntity: Array<UndoResult>;
   updateAllocationCriteria: Pim;
   updateAogSpace: AogSpace;
-  updateBogSpace: Pim;
+  updateBogSpace: BogSpace;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
@@ -2521,7 +2521,7 @@ export enum BogSpaceType {
   BusinessSpace = 'BusinessSpace',
   OfficeSpace = 'OfficeSpace',
   RetailSpace = 'RetailSpace',
-  Leissure = 'Leissure',
+  Leisure = 'Leisure',
   HorecaSpace = 'HorecaSpace',
   SocialRealEstateSpace = 'SocialRealEstateSpace',
   Terrain = 'Terrain',
@@ -2529,36 +2529,58 @@ export enum BogSpaceType {
 }
 
 export enum AirTreatmentType {
-  Airco = 'Airco',
+  AirCondition = 'AirCondition',
   MechanicalVentilation = 'MechanicalVentilation',
   TopCooling = 'TopCooling',
 }
 
-export enum SpecificationType {
-  TakeoverOfPersonel = 'TakeoverOfPersonel',
-  CateringAllowed = 'CateringAllowed',
-  IndustryLimitation = 'IndustryLimitation',
-  PublicOrientedServices = 'PublicOrientedServices',
-  Retail = 'Retail',
-  Showroom = 'Showroom',
-  AnnualPitches = 'AnnualPitches',
-  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
-  ReturnService = 'ReturnService',
+export enum SocialRealEstateSpecificationType {
+  PracticeSpace = 'PracticeSpace',
+  RedesignationPossible = 'RedesignationPossible',
+  HousingAvailable = 'HousingAvailable',
+  ReturnServices = 'ReturnServices',
+}
+
+export enum SocialRealEstateServicesType {
+  SanitaryShared = 'SanitaryShared',
+  SanitaryIndividually = 'SanitaryIndividually',
+  Elevator = 'Elevator',
+  Swimmingpool = 'Swimmingpool',
+  Daycare = 'Daycare',
+  PrivateParkingFacilities = 'PrivateParkingFacilities',
+  OutdoorSpaceAvailable = 'OutdoorSpaceAvailable',
+  OutOfSchoolChildcare = 'OutOfSchoolChildcare',
+  FireAlarmSystem = 'FireAlarmSystem',
+}
+
+export enum HorecaSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
   CateringArea = 'CateringArea',
+  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
   Terrace = 'Terrace',
   Luxery = 'Luxery',
 }
 
-export enum BogServicesType {
-  Electra = 'Electra',
-  Reception = 'Reception',
-  SanitaryBlocks = 'SanitaryBlocks',
-  SwimmingPool = 'SwimmingPool',
-  SewageSystem = 'SewageSystem',
-  CateringAvailable = 'CateringAvailable',
-  CampShop = 'CampShop',
+export enum OfficeServicesType {
+  CableTrays = 'CableTrays',
+  Skylights = 'Skylights',
+  Pantry = 'Pantry',
+  Heating = 'Heating',
+  SuspendedCeiling = 'SuspendedCeiling',
+  Sprinkler = 'Sprinkler',
+  PowerFlow = 'PowerFlow',
+  OverheadDoors = 'OverheadDoors',
+  Toilet = 'Toilet',
+  RecessedLuminaires = 'RecessedLuminaires',
+  Elevators = 'Elevators',
+  OpenableWindows = 'OpenableWindows',
+  RoomLayout = 'RoomLayout',
+  FlexDesk = 'FlexDesk',
+}
+
+export enum BusinessServicesType {
   ConcreteFloor = 'ConcreteFloor',
-  SkyLights = 'SkyLights',
+  Skylights = 'Skylights',
   Pantry = 'Pantry',
   Heating = 'Heating',
   LoadingDocks = 'LoadingDocks',
@@ -2569,10 +2591,37 @@ export enum BogServicesType {
   RecessedLuminaires = 'RecessedLuminaires',
   Elevators = 'Elevators',
   OpenableWindows = 'OpenableWindows',
-  CableTrays = 'CableTrays',
-  SuspendedCeiling = 'SuspendedCeiling',
-  RoomLayout = 'RoomLayout',
-  FlexDesk = 'FlexDesk',
+}
+
+export enum LeisureSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
+  AnnualPitches = 'AnnualPitches',
+  ResidentialObjectAvailable = 'ResidentialObjectAvailable',
+  ReturnServices = 'ReturnServices',
+}
+
+export enum RetailSpecificationType {
+  TakeoverPersonnel = 'TakeoverPersonnel',
+  CateringAllowed = 'CateringAllowed',
+  IndustryLimitation = 'IndustryLimitation',
+  PublicOrientedServices = 'PublicOrientedServices',
+  Retail = 'Retail',
+  Showroom = 'Showroom',
+}
+
+export enum LeisureServicesType {
+  Electric = 'Electric',
+  Reception = 'Reception',
+  SanitaryBlocks = 'SanitaryBlocks',
+  SwimmingPool = 'SwimmingPool',
+  SewageSystem = 'SewageSystem',
+  CateringAvailable = 'CateringAvailable',
+  CampShop = 'CampShop',
+}
+
+export enum TerrainSpecificationsType {
+  Fenced = 'Fenced',
+  Lockable = 'Lockable',
 }
 
 export enum WealthClassType {
@@ -2611,7 +2660,7 @@ export enum HorecaType {
   Cafeteria = 'Cafeteria',
   Restaria = 'Restaria',
   Lunchroom = 'Lunchroom',
-  Fastfood = 'Fastfood',
+  FastFood = 'FastFood',
   RoadHouse = 'RoadHouse',
   IceCreamParlour = 'IceCreamParlour',
   SandwichShop = 'SandwichShop',
@@ -2627,6 +2676,31 @@ export enum LegalFormType {
   Vof = 'VOF',
   Foundation = 'Foundation',
   Association = 'Association',
+}
+
+export enum SocialRealEstateSpaceType {
+  Cultural = 'Cultural',
+  Education = 'Education',
+  Religious = 'Religious',
+  Sport = 'Sport',
+  Care = 'Care',
+}
+
+export enum DestinationType {
+  Socially = 'Socially',
+  Living = 'Living',
+}
+
+export enum TypeOfPavement {
+  Asphalt = 'Asphalt',
+  ClinkerBricks = 'ClinkerBricks',
+  StelconPlates = 'StelconPlates',
+  FloorTiles = 'FloorTiles',
+}
+
+export enum TypeOfStorage {
+  StorageRoom = 'StorageRoom',
+  StorageArea = 'StorageArea',
 }
 
 export type RetailMeasurements = {
@@ -2722,6 +2796,36 @@ export type OfficeSpaceMeasurementsInput = {
   amountOfFloors?: Maybe<Scalars['Int']>;
 };
 
+export type StorageMeasurements = {
+  __typename?: 'StorageMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type StorageMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type SocialRealEstateSpaceMeasurements = {
+  __typename?: 'SocialRealEstateSpaceMeasurements';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfCareUnits?: Maybe<Scalars['Int']>;
+  numberOfSeats?: Maybe<Scalars['Int']>;
+};
+
+export type SocialRealEstateSpaceMeasurementsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  numberOfCareUnits?: Maybe<Scalars['Int']>;
+  numberOfSeats?: Maybe<Scalars['Int']>;
+};
+
 export type GoodWillPrices = {
   __typename?: 'GoodWillPrices';
   priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2763,16 +2867,27 @@ export type HorecaPricesInput = {
 export type BogPrices = {
   __typename?: 'BogPrices';
   price?: Maybe<Scalars['AbsoluteFloat']>;
-  vateRate?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   priceVat?: Maybe<Scalars['AbsoluteFloat']>;
   priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
 };
 
 export type BogPricesInput = {
   price?: Maybe<Scalars['AbsoluteFloat']>;
-  vateRate?: Maybe<Scalars['AbsoluteFloat']>;
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   priceVat?: Maybe<Scalars['AbsoluteFloat']>;
   priceIncVat?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type SocialRealEstateSpacePrices = {
+  __typename?: 'SocialRealEstateSpacePrices';
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type SocialRealEstateSpacePricesInput = {
+  vatRate?: Maybe<Scalars['AbsoluteFloat']>;
+  notes?: Maybe<Scalars['String']>;
 };
 
 export type RetailerAssociationContribution = {
@@ -2792,11 +2907,28 @@ export type RetailerAssociationContributionInput = {
   notes?: Maybe<Scalars['String']>;
 };
 
+export type TerrainSpecifications = {
+  __typename?: 'TerrainSpecifications';
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
+  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type TerrainSpecificationsInput = {
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
+  extensionTerrainM2?: Maybe<Scalars['AbsoluteFloat']>;
+  pavedPercentage?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
 export type RetailSpace = {
   __typename?: 'RetailSpace';
   measurements?: Maybe<RetailMeasurements>;
   airTreatment?: Maybe<Array<Scalars['String']>>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<GoodWillPrices>;
   wealthClass?: Maybe<Scalars['String']>;
   retailerAssociationContribution?: Maybe<RetailerAssociationContribution>;
@@ -2806,7 +2938,7 @@ export type RetailSpace = {
 export type RetailSpaceInput = {
   measurements?: Maybe<RetailMeasurementsInput>;
   airTreatment?: Maybe<Array<Scalars['String']>>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<GoodWillPricesInput>;
   wealthClass?: Maybe<Scalars['String']>;
   retailerAssociationContribution?: Maybe<RetailerAssociationContributionInput>;
@@ -2816,14 +2948,14 @@ export type RetailSpaceInput = {
 export type LeisureSpace = {
   __typename?: 'LeisureSpace';
   measurements?: Maybe<LeisureMeasurements>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<GoodWillPrices>;
   services?: Maybe<Array<Scalars['String']>>;
 };
 
 export type LeisureSpaceInput = {
   measurements?: Maybe<LeisureMeasurementsInput>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<GoodWillPricesInput>;
   services?: Maybe<Array<Scalars['String']>>;
 };
@@ -2833,7 +2965,7 @@ export type HorecaSpace = {
   measurements?: Maybe<HorecaMeasurements>;
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<HorecaPrices>;
   wealthClass?: Maybe<Scalars['String']>;
   legalForm?: Maybe<Scalars['String']>;
@@ -2843,7 +2975,7 @@ export type HorecaSpaceInput = {
   measurements?: Maybe<HorecaMeasurementsInput>;
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
-  specification?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<HorecaPricesInput>;
   wealthClass?: Maybe<Scalars['String']>;
   legalForm?: Maybe<Scalars['String']>;
@@ -2883,30 +3015,90 @@ export type OfficeSpaceInput = {
   commonRooms?: Maybe<Array<Scalars['String']>>;
 };
 
+export type SocialRealEstateSpace = {
+  __typename?: 'SocialRealEstateSpace';
+  measurements?: Maybe<SocialRealEstateSpaceMeasurements>;
+  type?: Maybe<Scalars['String']>;
+  notesAboutType?: Maybe<Scalars['String']>;
+  destinationType?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<SocialRealEstateSpacePrices>;
+};
+
+export type SocialRealEstateSpaceInput = {
+  measurements?: Maybe<SocialRealEstateSpaceMeasurementsInput>;
+  type?: Maybe<Scalars['String']>;
+  notesAboutType?: Maybe<Scalars['String']>;
+  destinationType?: Maybe<Array<Scalars['String']>>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  services?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<SocialRealEstateSpacePricesInput>;
+};
+
+export type Terrain = {
+  __typename?: 'Terrain';
+  terrainSpecifications?: Maybe<TerrainSpecifications>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  typeOfPavement?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPrices>;
+};
+
+export type TerrainInput = {
+  terrainSpecifications?: Maybe<TerrainSpecificationsInput>;
+  specifications?: Maybe<Array<Scalars['String']>>;
+  typeOfPavement?: Maybe<Array<Scalars['String']>>;
+  prices?: Maybe<BogPricesInput>;
+};
+
+export type Storage = {
+  __typename?: 'Storage';
+  measurements?: Maybe<StorageMeasurements>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type StorageInput = {
+  measurements?: Maybe<StorageMeasurementsInput>;
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type BogSpace = LastUpdated & {
   __typename?: 'BogSpace';
   id: Scalars['ID'];
   type: BogSpaceType;
   name?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   retailSpaceConfiguration?: Maybe<RetailSpace>;
   leisureSpaceConfiguration?: Maybe<LeisureSpace>;
   horecaSpaceConfiguration?: Maybe<HorecaSpace>;
   businessSpaceConfiguration?: Maybe<BusinessSpace>;
   officeSpaceConfiguration?: Maybe<OfficeSpace>;
+  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpace>;
+  terrainConfiguration?: Maybe<Terrain>;
+  storageConfiguration?: Maybe<Storage>;
   images?: Maybe<Array<File>>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
+  dateCreated?: Maybe<Scalars['Date']>;
 };
 
 export type UpdateBogSpaceInput = {
   pimId: Scalars['ID'];
   spaceId: Scalars['ID'];
   spaceName?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   retailSpaceConfiguration?: Maybe<RetailSpaceInput>;
   leisureSpaceConfiguration?: Maybe<LeisureSpaceInput>;
   horecaSpaceConfiguration?: Maybe<HorecaSpaceInput>;
   businessSpaceConfiguration?: Maybe<BusinessSpaceInput>;
   officeSpaceConfiguration?: Maybe<OfficeSpaceInput>;
+  socialRealEstateSpaceConfiguration?: Maybe<SocialRealEstateSpaceInput>;
+  terrainConfiguration?: Maybe<TerrainInput>;
+  storageConfiguration?: Maybe<StorageInput>;
 };
 
 export type AddBogSpaceInput = {
@@ -6660,6 +6852,24 @@ export type UpdateAogSpaceMutation = { __typename?: 'Mutation' } & {
   updateAogSpace: { __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>;
 };
 
+export type AddBogSpaceMutationVariables = {
+  input: AddBogSpaceInput;
+};
+
+export type AddBogSpaceMutation = { __typename?: 'Mutation' } & {
+  addBogSpace: { __typename?: 'PimWithNewBogSpace' } & {
+    newSpace: { __typename?: 'BogSpace' } & Pick<BogSpace, 'id' | 'type' | 'name'>;
+  };
+};
+
+export type UpdateBogSpaceMutationVariables = {
+  input: UpdateBogSpaceInput;
+};
+
+export type UpdateBogSpaceMutation = { __typename?: 'Mutation' } & {
+  updateBogSpace: { __typename?: 'BogSpace' } & Pick<BogSpace, 'id'>;
+};
+
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
@@ -7978,6 +8188,187 @@ export type PimAogSpacesQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimBogSpacesQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimBogSpacesQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
+      bogSpaces?: Maybe<
+        Array<
+          { __typename?: 'BogSpace' } & Pick<
+            BogSpace,
+            'id' | 'type' | 'name' | 'notes' | 'description' | 'dateUpdated'
+          > & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              retailSpaceConfiguration?: Maybe<
+                { __typename?: 'RetailSpace' } & Pick<
+                  RetailSpace,
+                  'airTreatment' | 'specifications' | 'wealthClass' | 'commonRooms'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'RetailMeasurements' } & Pick<
+                        RetailMeasurements,
+                        'surface' | 'salesFloorArea' | 'frontWidth' | 'inUnitsFrom' | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'GoodWillPrices' } & Pick<
+                        GoodWillPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'notes'
+                      >
+                    >;
+                    retailerAssociationContribution?: Maybe<
+                      { __typename?: 'RetailerAssociationContribution' } & Pick<
+                        RetailerAssociationContribution,
+                        'contribution' | 'termsOfCosts' | 'vatPercentage' | 'vatTaxedContribution' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              leisureSpaceConfiguration?: Maybe<
+                { __typename?: 'LeisureSpace' } & Pick<LeisureSpace, 'specifications' | 'services'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'LeisureMeasurements' } & Pick<
+                        LeisureMeasurements,
+                        'surface' | 'numberOfPitches' | 'numberOfStays' | 'capacityOfPersons'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'GoodWillPrices' } & Pick<
+                        GoodWillPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              horecaSpaceConfiguration?: Maybe<
+                { __typename?: 'HorecaSpace' } & Pick<
+                  HorecaSpace,
+                  'type' | 'notes' | 'specifications' | 'wealthClass' | 'legalForm'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'HorecaMeasurements' } & Pick<
+                        HorecaMeasurements,
+                        | 'surface'
+                        | 'salesFloorArea'
+                        | 'amountOfFloors'
+                        | 'amountOfRooms'
+                        | 'currentNumberOfSeats'
+                        | 'housingArea'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'HorecaPrices' } & Pick<
+                        HorecaPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'revenueLastFiscalYear'
+                        | 'rentalIncomeHomeYear'
+                        | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              businessSpaceConfiguration?: Maybe<
+                { __typename?: 'BusinessSpace' } & Pick<BusinessSpace, 'airTreatment' | 'services'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'BusinessSpaceMeasurements' } & Pick<
+                        BusinessSpaceMeasurements,
+                        'surface' | 'freeHeight' | 'freeSpan' | 'floorLoad' | 'inUnitsFrom' | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              officeSpaceConfiguration?: Maybe<
+                { __typename?: 'OfficeSpace' } & Pick<
+                  OfficeSpace,
+                  'airTreatment' | 'services' | 'turnKey' | 'commonRooms'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'OfficeSpaceMeasurements' } & Pick<
+                        OfficeSpaceMeasurements,
+                        | 'length'
+                        | 'width'
+                        | 'height'
+                        | 'surface'
+                        | 'volume'
+                        | 'measurementsCertificateAvailable'
+                        | 'inUnitsFrom'
+                        | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              socialRealEstateSpaceConfiguration?: Maybe<
+                { __typename?: 'SocialRealEstateSpace' } & Pick<
+                  SocialRealEstateSpace,
+                  'type' | 'notesAboutType' | 'destinationType' | 'specifications' | 'services'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'SocialRealEstateSpaceMeasurements' } & Pick<
+                        SocialRealEstateSpaceMeasurements,
+                        'surface' | 'numberOfCareUnits' | 'numberOfSeats'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'SocialRealEstateSpacePrices' } & Pick<
+                        SocialRealEstateSpacePrices,
+                        'vatRate' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              terrainConfiguration?: Maybe<
+                { __typename?: 'Terrain' } & Pick<Terrain, 'specifications' | 'typeOfPavement'> & {
+                    terrainSpecifications?: Maybe<
+                      { __typename?: 'TerrainSpecifications' } & Pick<
+                        TerrainSpecifications,
+                        | 'surface'
+                        | 'buildingHeightTerrain'
+                        | 'extensionTerrainPercent'
+                        | 'extensionTerrainM2'
+                        | 'pavedPercentage'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              storageConfiguration?: Maybe<
+                { __typename?: 'Storage' } & Pick<Storage, 'type' | 'notes'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'StorageMeasurements' } & Pick<
+                        StorageMeasurements,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                  }
+              >;
+              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+            }
+        >
+      >;
+    };
+};
+
 export type PimCadastreQueryVariables = {
   id: Scalars['ID'];
 };
@@ -8713,6 +9104,7 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   >;
   getPimInside: { __typename?: 'PimInside' } & {
     floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType' | 'level'>>>;
+    bogSpaces?: Maybe<Array<{ __typename?: 'BogSpace' } & Pick<BogSpace, 'id' | 'type'>>>;
     aogSpaces?: Maybe<
       Array<
         { __typename?: 'AogSpace' } & Pick<AogSpace, 'id' | 'type' | 'name'> & {
@@ -10574,6 +10966,52 @@ export type UpdateAogSpaceMutationResult = ApolloReactCommon.MutationResult<Upda
 export type UpdateAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateAogSpaceMutation,
   UpdateAogSpaceMutationVariables
+>;
+export const AddBogSpaceDocument = gql`
+  mutation AddBogSpace($input: AddBogSpaceInput!) {
+    addBogSpace(input: $input) {
+      newSpace {
+        id
+        type
+        name
+      }
+    }
+  }
+`;
+export function useAddBogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddBogSpaceMutation, AddBogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddBogSpaceMutation, AddBogSpaceMutationVariables>(
+    AddBogSpaceDocument,
+    baseOptions,
+  );
+}
+export type AddBogSpaceMutationHookResult = ReturnType<typeof useAddBogSpaceMutation>;
+export type AddBogSpaceMutationResult = ApolloReactCommon.MutationResult<AddBogSpaceMutation>;
+export type AddBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddBogSpaceMutation,
+  AddBogSpaceMutationVariables
+>;
+export const UpdateBogSpaceDocument = gql`
+  mutation UpdateBogSpace($input: UpdateBogSpaceInput!) {
+    updateBogSpace(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateBogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>(
+    UpdateBogSpaceDocument,
+    baseOptions,
+  );
+}
+export type UpdateBogSpaceMutationHookResult = ReturnType<typeof useUpdateBogSpaceMutation>;
+export type UpdateBogSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateBogSpaceMutation>;
+export type UpdateBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateBogSpaceMutation,
+  UpdateBogSpaceMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -13278,6 +13716,197 @@ export function usePimAogSpacesLazyQuery(
 export type PimAogSpacesQueryHookResult = ReturnType<typeof usePimAogSpacesQuery>;
 export type PimAogSpacesLazyQueryHookResult = ReturnType<typeof usePimAogSpacesLazyQuery>;
 export type PimAogSpacesQueryResult = ApolloReactCommon.QueryResult<PimAogSpacesQuery, PimAogSpacesQueryVariables>;
+export const PimBogSpacesDocument = gql`
+  query PimBogSpaces($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      bogSpaces {
+        id
+        type
+        name
+        notes
+        description
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        retailSpaceConfiguration {
+          measurements {
+            surface
+            salesFloorArea
+            frontWidth
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            notes
+          }
+          wealthClass
+          retailerAssociationContribution {
+            contribution
+            termsOfCosts
+            vatPercentage
+            vatTaxedContribution
+            notes
+          }
+          commonRooms
+        }
+        leisureSpaceConfiguration {
+          measurements {
+            surface
+            numberOfPitches
+            numberOfStays
+            capacityOfPersons
+          }
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            notes
+          }
+          services
+        }
+        horecaSpaceConfiguration {
+          measurements {
+            surface
+            salesFloorArea
+            amountOfFloors
+            amountOfRooms
+            currentNumberOfSeats
+            housingArea
+          }
+          type
+          notes
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            revenueLastFiscalYear
+            rentalIncomeHomeYear
+            notes
+          }
+          wealthClass
+          legalForm
+        }
+        businessSpaceConfiguration {
+          measurements {
+            surface
+            freeHeight
+            freeSpan
+            floorLoad
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          services
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+        }
+        officeSpaceConfiguration {
+          measurements {
+            length
+            width
+            height
+            surface
+            volume
+            measurementsCertificateAvailable
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          services
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+          turnKey
+          commonRooms
+        }
+        socialRealEstateSpaceConfiguration {
+          measurements {
+            surface
+            numberOfCareUnits
+            numberOfSeats
+          }
+          type
+          notesAboutType
+          destinationType
+          specifications
+          services
+          prices {
+            vatRate
+            notes
+          }
+        }
+        terrainConfiguration {
+          terrainSpecifications {
+            surface
+            buildingHeightTerrain
+            extensionTerrainPercent
+            extensionTerrainM2
+            pavedPercentage
+          }
+          specifications
+          typeOfPavement
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+        }
+        storageConfiguration {
+          measurements {
+            length
+            width
+            height
+            surface
+            volume
+          }
+          type
+          notes
+        }
+        images {
+          url
+        }
+      }
+    }
+  }
+`;
+export function usePimBogSpacesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(PimBogSpacesDocument, baseOptions);
+}
+export function usePimBogSpacesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(
+    PimBogSpacesDocument,
+    baseOptions,
+  );
+}
+export type PimBogSpacesQueryHookResult = ReturnType<typeof usePimBogSpacesQuery>;
+export type PimBogSpacesLazyQueryHookResult = ReturnType<typeof usePimBogSpacesLazyQuery>;
+export type PimBogSpacesQueryResult = ApolloReactCommon.QueryResult<PimBogSpacesQuery, PimBogSpacesQueryVariables>;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {
     getPimCadastre(id: $id) {
@@ -14366,6 +14995,10 @@ export const PimOverallInfoDocument = gql`
         id
         floorType
         level
+      }
+      bogSpaces {
+        id
+        type
       }
       aogSpaces {
         id

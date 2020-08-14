@@ -18,6 +18,7 @@ import { AogSpaceType } from '../../api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
+import { CommercialSpacesContainer } from './sections/commercial/CommercialSpacesContainer';
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 
 export const PimDetails = ({
@@ -140,6 +141,16 @@ export const PimDetails = ({
                   path={`${path}/media`}
                   render={() => (
                     <MediaContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/commercialspaces`}
+                  render={() => (
+                    <CommercialSpacesContainer
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                       title={title}
