@@ -37,6 +37,7 @@ const PIM_GENERAL = PIM_GENERAL_1;
 let NCP_GENERAL = NCP_GENERAL_1;
 const LIST_NCP = LIST_NCP_1;
 const LIST_NCP_ARCHIVED = LIST_NCP_ARCHIVED_1;
+const PIM_AOG = PIM_DETAILS_4_AOG;
 
 export const mockServer = () => {
   new Server({
@@ -246,7 +247,7 @@ export const mockServer = () => {
               throw new Error();
             }
 
-            return PIM_INSIDE;
+            return { ...PIM_INSIDE, aogSpaces: PIM_AOG.aogSpaces };
           },
           getPimCadastre() {
             return PIM_CADASTRE;
@@ -270,6 +271,25 @@ export const mockServer = () => {
               pim: { id: PIM_CADASTRE.id },
               cadastre: CADASTRE_3,
             };
+          },
+          addAogSpace() {
+            const newSpace = { ...variables.input, id: 'newId' };
+            PIM_AOG.aogSpaces = [...(PIM_AOG?.aogSpaces || []), newSpace];
+
+            return { newSpace };
+          },
+          updateAogSpace() {
+            let returnSpace = {};
+            PIM_AOG.aogSpaces?.map(space => {
+              if (variables.input.spaceId === space.id) {
+                space = { ...space, ...variables.input };
+                returnSpace = space;
+              }
+
+              return space;
+            });
+
+            return returnSpace;
           },
           updateCadastre() {
             PIM_CADASTRE.cadastre?.map(c => (c.id === variables.input.id ? variables.input : c));

@@ -15,6 +15,23 @@ export const PIM_OVERALL_INFO = gql`
         floorType
         level
       }
+      aogSpaces {
+        id
+        type
+        name
+        animalsConfiguration {
+          type
+        }
+        groundConfiguration {
+          typeOfLooseGround
+        }
+        buildingsConfiguration {
+          buildingType
+        }
+        installationsConfiguration {
+          type
+        }
+      }
     }
     getPimOutside(id: $id) {
       outsideFeatures {

@@ -40,6 +40,18 @@ class Navigation {
     cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/services');
   }
 
+  goToPimBuildings(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/buildings');
+  }
+
+  goToPimGrounds(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/ground');
+  }
+
+  goToPimAnimals(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/animals');
+  }
+
   goToPimMeters(): void {
     cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/meters');
   }

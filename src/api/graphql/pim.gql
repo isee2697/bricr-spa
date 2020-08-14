@@ -84,7 +84,12 @@ enum SectionWithDescriptionType {
   LinkedProperties,
   Services,
   PricesCosts,
-  Meters
+  Meters,
+  BogSpaces,
+  AogAnimals,
+  AogBuildings,
+  AogInstallations,
+  AogGrounds
 }
 
 input PropertyRelatedInput {

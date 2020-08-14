@@ -1,9 +1,9 @@
 import groupBy from 'lodash/groupBy';
 
-import { CadastreType, FloorType, PimOverallInfoQuery } from 'api/types';
+import { AogSpaceType, CadastreType, FloorType, PimOverallInfoQuery } from 'api/types';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
-import { SubMenuItem, MessageFormat, SideBarItemTypes } from './PimDetailsSidebarMenu.types';
+import { MessageFormat, SideBarItemTypes, SubMenuItem } from './PimDetailsSidebarMenu.types';
 import {
   buildingsItem,
   cadastreItem,
@@ -13,9 +13,9 @@ import {
   insideItem,
   installationsItem,
   mediaItem,
+  metersItem,
   outsideItem,
   servicesItem,
-  metersItem,
   specificationItem,
   animalsItem,
 } from './dictionaries';
@@ -45,13 +45,13 @@ export const getMenuItem = (
     case SideBarItemTypes.Commercial:
       return commercialSpacesItem;
     case SideBarItemTypes.Ground:
-      return groundItem;
+      return getAogSpaceTypeItem(data, groundItem, AogSpaceType.Ground);
     case SideBarItemTypes.Installations:
-      return installationsItem;
+      return getAogSpaceTypeItem(data, installationsItem, AogSpaceType.Installations);
     case SideBarItemTypes.Buildings:
-      return buildingsItem;
+      return getAogSpaceTypeItem(data, buildingsItem, AogSpaceType.Buildings);
     case SideBarItemTypes.Animals:
-      return animalsItem;
+      return getAogSpaceTypeItem(data, animalsItem, AogSpaceType.Animals);
   }
 
   return { key: item };
@@ -152,5 +152,14 @@ export const getMetersItem = (data: PimOverallInfoQuery, formatMessage: (data: M
         formatMessage,
       ),
     ),
+  };
+};
+
+export const getAogSpaceTypeItem = (data: PimOverallInfoQuery, baseItem: MenuItem, type: AogSpaceType) => {
+  const animals = data?.getPimInside?.aogSpaces?.filter(space => space.type === type) || [];
+
+  return {
+    ...baseItem,
+    subItems: animals.map(ground => ({ id: ground.id, title: ground.name || '' })),
   };
 };

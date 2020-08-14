@@ -1249,6 +1249,7 @@ export enum EntityWithFiles {
   ObjectType = 'ObjectType',
   Space = 'Space',
   BogSpace = 'BogSpace',
+  AogSpace = 'AogSpace',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
   OutsidePropertyRelated = 'OutsidePropertyRelated',
@@ -1268,6 +1269,7 @@ export enum EntityWithMultipleFiles {
   ObjectType = 'ObjectType',
   Space = 'Space',
   BogSpace = 'BogSpace',
+  AogSpace = 'AogSpace',
   OutsideFeature = 'OutsideFeature',
   OutsideGeneral = 'OutsideGeneral',
   OutsidePropertyRelated = 'OutsidePropertyRelated',
@@ -3642,6 +3644,12 @@ export type PimInside = LastUpdated & {
   id: Scalars['String'];
   floors?: Maybe<Array<Floor>>;
   bogSpaces?: Maybe<Array<BogSpace>>;
+  bogSpacesDescription?: Maybe<Scalars['String']>;
+  aogSpaces?: Maybe<Array<AogSpace>>;
+  aogAnimalsDescription?: Maybe<Scalars['String']>;
+  aogBuildingsDescription?: Maybe<Scalars['String']>;
+  aogInstallationsDescription?: Maybe<Scalars['String']>;
+  aogGroundsDescription?: Maybe<Scalars['String']>;
   insideGeneral?: Maybe<InsideGeneral>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -5385,6 +5393,11 @@ export enum SectionWithDescriptionType {
   Services = 'Services',
   PricesCosts = 'PricesCosts',
   Meters = 'Meters',
+  BogSpaces = 'BogSpaces',
+  AogAnimals = 'AogAnimals',
+  AogBuildings = 'AogBuildings',
+  AogInstallations = 'AogInstallations',
+  AogGrounds = 'AogGrounds',
 }
 
 export type PropertyRelatedInput = {
@@ -6627,6 +6640,24 @@ export type UpdateObjectTypeServiceDescriptionMutationVariables = {
 
 export type UpdateObjectTypeServiceDescriptionMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeServiceDescription: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
+};
+
+export type AddAogSpaceMutationVariables = {
+  input: AddAogSpaceInput;
+};
+
+export type AddAogSpaceMutation = { __typename?: 'Mutation' } & {
+  addAogSpace: { __typename?: 'PimWithNewAogSpace' } & {
+    newSpace?: Maybe<{ __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>>;
+  };
+};
+
+export type UpdateAogSpaceMutationVariables = {
+  input: UpdateAogSpaceInput;
+};
+
+export type UpdateAogSpaceMutation = { __typename?: 'Mutation' } & {
+  updateAogSpace: { __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>;
 };
 
 export type AddCadastreMutationVariables = {
@@ -7888,6 +7919,65 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimAogSpacesQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type PimAogSpacesQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<
+    PimInside,
+    'id' | 'aogAnimalsDescription' | 'aogBuildingsDescription' | 'aogInstallationsDescription' | 'aogGroundsDescription'
+  > & {
+      aogSpaces?: Maybe<
+        Array<
+          { __typename?: 'AogSpace' } & Pick<AogSpace, 'id' | 'name' | 'type' | 'dateUpdated' | 'dateCreated'> & {
+              groundConfiguration?: Maybe<
+                { __typename?: 'GroundSpace' } & Pick<
+                  GroundSpace,
+                  'typeOfLooseGround' | 'soilType' | 'soilTypeNotes' | 'cultivationTypes' | 'fenceTypes'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'GroundMeasurements' } & Pick<
+                        GroundMeasurements,
+                        'length' | 'width' | 'surface' | 'fullBuiltWidth' | 'currentNumberOfSeats' | 'housingArea'
+                      >
+                    >;
+                    specifications?: Maybe<
+                      Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+                    >;
+                  }
+              >;
+              buildingsConfiguration?: Maybe<
+                { __typename?: 'BuildingsSpace' } & Pick<
+                  BuildingsSpace,
+                  'buildingType' | 'numberOfSameBuilding' | 'buildingTypeNotes'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'BuildingMeasurements' } & Pick<
+                        BuildingMeasurements,
+                        'length' | 'width' | 'surface' | 'height' | 'volume' | 'constructionYear'
+                      >
+                    >;
+                  }
+              >;
+              installationsConfiguration?: Maybe<
+                { __typename?: 'Installations' } & Pick<Installations, 'type' | 'numberOfSameInstallations' | 'notes'>
+              >;
+              animalsConfiguration?: Maybe<
+                { __typename?: 'Animals' } & Pick<Animals, 'type' | 'numberOfSameAnimals' | 'notes'> & {
+                    specifications?: Maybe<
+                      Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+                    >;
+                  }
+              >;
+              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'key' | 'id' | 'fileName' | 'url'>>>;
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >
+      >;
+    };
+};
+
 export type PimCadastreQueryVariables = {
   id: Scalars['ID'];
 };
@@ -8623,6 +8713,16 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   >;
   getPimInside: { __typename?: 'PimInside' } & {
     floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType' | 'level'>>>;
+    aogSpaces?: Maybe<
+      Array<
+        { __typename?: 'AogSpace' } & Pick<AogSpace, 'id' | 'type' | 'name'> & {
+            animalsConfiguration?: Maybe<{ __typename?: 'Animals' } & Pick<Animals, 'type'>>;
+            groundConfiguration?: Maybe<{ __typename?: 'GroundSpace' } & Pick<GroundSpace, 'typeOfLooseGround'>>;
+            buildingsConfiguration?: Maybe<{ __typename?: 'BuildingsSpace' } & Pick<BuildingsSpace, 'buildingType'>>;
+            installationsConfiguration?: Maybe<{ __typename?: 'Installations' } & Pick<Installations, 'type'>>;
+          }
+      >
+    >;
   };
   getPimOutside: { __typename?: 'PimOutside' } & {
     outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
@@ -10430,6 +10530,50 @@ export type UpdateObjectTypeServiceDescriptionMutationResult = ApolloReactCommon
 export type UpdateObjectTypeServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateObjectTypeServiceDescriptionMutation,
   UpdateObjectTypeServiceDescriptionMutationVariables
+>;
+export const AddAogSpaceDocument = gql`
+  mutation AddAogSpace($input: AddAogSpaceInput!) {
+    addAogSpace(input: $input) {
+      newSpace {
+        id
+      }
+    }
+  }
+`;
+export function useAddAogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddAogSpaceMutation, AddAogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddAogSpaceMutation, AddAogSpaceMutationVariables>(
+    AddAogSpaceDocument,
+    baseOptions,
+  );
+}
+export type AddAogSpaceMutationHookResult = ReturnType<typeof useAddAogSpaceMutation>;
+export type AddAogSpaceMutationResult = ApolloReactCommon.MutationResult<AddAogSpaceMutation>;
+export type AddAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAogSpaceMutation,
+  AddAogSpaceMutationVariables
+>;
+export const UpdateAogSpaceDocument = gql`
+  mutation UpdateAogSpace($input: UpdateAogSpaceInput!) {
+    updateAogSpace(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateAogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>(
+    UpdateAogSpaceDocument,
+    baseOptions,
+  );
+}
+export type UpdateAogSpaceMutationHookResult = ReturnType<typeof useUpdateAogSpaceMutation>;
+export type UpdateAogSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateAogSpaceMutation>;
+export type UpdateAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateAogSpaceMutation,
+  UpdateAogSpaceMutationVariables
 >;
 export const AddCadastreDocument = gql`
   mutation AddCadastre($input: AddCadastreInput!) {
@@ -13043,6 +13187,97 @@ export type ObjectTypeLinkedPimsQueryResult = ApolloReactCommon.QueryResult<
   ObjectTypeLinkedPimsQuery,
   ObjectTypeLinkedPimsQueryVariables
 >;
+export const PimAogSpacesDocument = gql`
+  query PimAogSpaces($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      aogAnimalsDescription
+      aogBuildingsDescription
+      aogInstallationsDescription
+      aogGroundsDescription
+      aogSpaces {
+        id
+        name
+        type
+        groundConfiguration {
+          typeOfLooseGround
+          soilType
+          soilTypeNotes
+          measurements {
+            length
+            width
+            surface
+            fullBuiltWidth
+            currentNumberOfSeats
+            housingArea
+          }
+          specifications {
+            type
+            notes
+          }
+          cultivationTypes
+          fenceTypes
+        }
+        buildingsConfiguration {
+          buildingType
+          numberOfSameBuilding
+          buildingTypeNotes
+          measurements {
+            length
+            width
+            surface
+            height
+            volume
+            constructionYear
+          }
+        }
+        installationsConfiguration {
+          type
+          numberOfSameInstallations
+          notes
+        }
+        animalsConfiguration {
+          type
+          numberOfSameAnimals
+          notes
+          specifications {
+            type
+            notes
+          }
+        }
+        images {
+          key
+          id
+          fileName
+          url
+        }
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateCreated
+      }
+    }
+  }
+`;
+export function usePimAogSpacesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(PimAogSpacesDocument, baseOptions);
+}
+export function usePimAogSpacesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(
+    PimAogSpacesDocument,
+    baseOptions,
+  );
+}
+export type PimAogSpacesQueryHookResult = ReturnType<typeof usePimAogSpacesQuery>;
+export type PimAogSpacesLazyQueryHookResult = ReturnType<typeof usePimAogSpacesLazyQuery>;
+export type PimAogSpacesQueryResult = ApolloReactCommon.QueryResult<PimAogSpacesQuery, PimAogSpacesQueryVariables>;
 export const PimCadastreDocument = gql`
   query PimCadastre($id: ID!) {
     getPimCadastre(id: $id) {
@@ -14131,6 +14366,23 @@ export const PimOverallInfoDocument = gql`
         id
         floorType
         level
+      }
+      aogSpaces {
+        id
+        type
+        name
+        animalsConfiguration {
+          type
+        }
+        groundConfiguration {
+          typeOfLooseGround
+        }
+        buildingsConfiguration {
+          buildingType
+        }
+        installationsConfiguration {
+          type
+        }
       }
     }
     getPimOutside(id: $id) {

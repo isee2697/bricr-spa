@@ -236,6 +236,12 @@ type PimInside implements LastUpdated {
   id: String!
   floors: [Floor!]
   bogSpaces: [BogSpace!]
+  bogSpacesDescription: String
+  aogSpaces: [AogSpace!]
+  aogAnimalsDescription: String
+  aogBuildingsDescription: String
+  aogInstallationsDescription: String
+  aogGroundsDescription: String
   insideGeneral: InsideGeneral
   dateUpdated: Date
   lastEditedBy: Profile

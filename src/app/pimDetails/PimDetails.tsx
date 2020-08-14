@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
-import { Box, Grid, Alert, Loader } from 'ui/atoms';
+import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { General } from 'app/pimDetails/sections/general/General';
@@ -14,9 +14,11 @@ import { MetersContainer } from 'app/pimDetails/sections/meters/MetersContainer'
 import { Specification } from 'app/pimDetails/sections/specification/Specification';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
+import { AogSpaceType } from '../../api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
+import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 
 export const PimDetails = ({
   loading,
@@ -144,6 +146,19 @@ export const PimDetails = ({
                     />
                   )}
                 />
+                {Object.values(AogSpaceType).map(aogSpaceType => (
+                  <Route
+                    path={`${path}/${aogSpaceType.toLowerCase()}`}
+                    render={() => (
+                      <AogSpacesContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                        type={aogSpaceType}
+                      />
+                    )}
+                  />
+                ))}
                 <Redirect to={{ pathname: `${path}/general`, state }} />
               </Switch>
             )}
