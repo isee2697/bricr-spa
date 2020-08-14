@@ -7,6 +7,7 @@ export const PIM_OVERALL_INFO = gql`
       houseNumber
       postalCode
       city
+      propertyType
     }
     getPimInside(id: $id) {
       floors {

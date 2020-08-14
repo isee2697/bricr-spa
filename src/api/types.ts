@@ -2993,7 +2993,7 @@ export type PimGeneral = LastUpdated & {
   description?: Maybe<Scalars['String']>;
   images?: Maybe<Array<File>>;
   livingArea?: Maybe<Scalars['Int']>;
-  propertyType?: Maybe<PropertyType>;
+  propertyType: PropertyType;
   attentionNote?: Maybe<Scalars['String']>;
   showAttentionNote?: Maybe<Scalars['Boolean']>;
   completeness: Scalars['Float'];
@@ -8069,7 +8069,10 @@ export type PimOverallInfoQueryVariables = {
 };
 
 export type PimOverallInfoQuery = { __typename?: 'Query' } & {
-  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<PimGeneral, 'street' | 'houseNumber' | 'postalCode' | 'city'>;
+  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
+    PimGeneral,
+    'street' | 'houseNumber' | 'postalCode' | 'city' | 'propertyType'
+  >;
   getPimInside: { __typename?: 'PimInside' } & {
     floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType' | 'level'>>>;
   };
@@ -13502,6 +13505,7 @@ export const PimOverallInfoDocument = gql`
       houseNumber
       postalCode
       city
+      propertyType
     }
     getPimInside(id: $id) {
       floors {

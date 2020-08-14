@@ -201,7 +201,7 @@ type PimGeneral implements LastUpdated {
   description: String
   images: [File!]
   livingArea: Int
-  propertyType: PropertyType
+  propertyType: PropertyType!
   attentionNote: String
   showAttentionNote: Boolean
   completeness: Float!

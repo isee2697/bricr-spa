@@ -26,6 +26,7 @@ export const PIM_1 = {
   country: 'NL',
   realEstateType: RealEstateType.Business,
   developmentType: DevelopmentType.New,
+  propertyType: PropertyType.House,
   status: PimStatus.Available,
   images: [],
   completeness: 0,
@@ -46,8 +47,6 @@ export const PIM_DETAILS_1: Pim = {
   livingArea: null,
   propertyType: PropertyType.House,
   attentionNote: null,
-  // dateUpdated: '2020-04-28T07:30:18.162',
-  // updatedBy: 'Christian van Gils',
   houseGeneral: {
     availability: {
       availability: null,
