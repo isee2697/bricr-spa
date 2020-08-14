@@ -1,0 +1,114 @@
+enum TypeOfParkingType {
+  Garage,
+  ParkingBasement,
+  ParkingLot,
+  Berth,
+  MobileHomePitch,
+  CaravanSite
+}
+
+enum ParkingLotSpecificationsType {
+  OnEnclosedGrounds,
+  OnOwnProperty,
+  ParkingPermit,
+  Indoor,
+  WithAttic,
+  Freestanding,
+  ElectricDoor,
+  Water,
+  Heating
+}
+
+enum ParkingMaterialType {
+  Wood,
+  Stone,
+  Plastic,
+  Metal
+}
+
+enum ParkingInsulationType {
+  Roof,
+  Wall,
+  Floor,
+  NoCavity,
+  DoubleGalzing,
+  EcoConstruction,
+  PartlyDoubleGalzing,
+  SecondaryWindows
+}
+
+input TypeOfParkingInput {
+  type: String @uuidOrEnum(enum: ["TypeOfParkingType"])
+  parkingNumber: Int
+  notes: String
+}
+
+type TypeOfParking {
+  type: String @uuidOrEnum(enum: ["TypeOfParkingType"])
+  parkingNumber: Int
+  notes: String
+}
+
+input ParkingLotSpecificationsInput {
+  type: [String!] @uuidOrEnum(enum: ["ParkingLotSpecificationsType"])
+  notes: String
+}
+
+type ParkingLotSpecifications {
+  type: [String!] @uuidOrEnum(enum: ["ParkingLotSpecificationsType"])
+  notes: String
+}
+
+input ParkingMaterialInput {
+  type: [String!] @uuidOrEnum(enum: ["ParkingMaterialType"])
+  notes: String
+}
+
+type ParkingMaterial {
+  type: [String!] @uuidOrEnum(enum: ["ParkingMaterialType"])
+  notes: String
+}
+
+input ParkingInsulationInput {
+  type: [String!] @uuidOrEnum(enum: ["ParkingInsulationType"])
+  notes: String
+}
+
+type ParkingInsulation {
+  type: [String!] @uuidOrEnum(enum: ["ParkingInsulationType"])
+  notes: String
+}
+
+input ParkingMeasurementsInput {
+  length: Float
+  width: Float
+  surface: Float
+  capacity: Int
+  height: Float
+  volume: Float
+}
+
+type ParkingMeasurements {
+  length: Float
+  width: Float
+  surface: Float
+  capacity: Int
+  height: Float
+  volume: Float
+}
+
+input ParkingLotGeneralInput {
+  type: TypeOfParkingInput
+  measurements: ParkingMeasurementsInput
+  specifications: ParkingLotSpecificationsInput
+  material: ParkingMaterialInput
+  insulation: ParkingInsulationInput
+}
+
+type ParkingLotGeneral {
+  type: TypeOfParking
+  measurements: ParkingMeasurements
+  specifications: ParkingLotSpecifications
+  material: ParkingMaterial
+  insulation: ParkingInsulation
+}

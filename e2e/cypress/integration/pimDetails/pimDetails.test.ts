@@ -211,4 +211,101 @@ context('Pim Details', () => {
 
     cy.contains('BredaAmsterdam New');
   });
+
+  it('allows to edit property details of house', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_1/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('Single family')
+      .first()
+      .click();
+
+    cy.findAllByText('Semi - detached')
+      .first()
+      .click();
+  });
+
+  it('allows to edit property details of apartment', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_2_APARTMENT/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('One bedroom apartment')
+      .first()
+      .click();
+
+    cy.findAllByText('Corridor apartment')
+      .first()
+      .parent()
+      .click();
+  });
+
+  it('allows to edit property details of Commercial/bog', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_3_BOG/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('Business space')
+      .first()
+      .click();
+
+    cy.findAllByText('Leissure')
+      .first()
+      .click();
+  });
+
+  it('allows to edit property details of agricultural', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_4_AOG/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('Arable Farm')
+      .first()
+      .click();
+
+    cy.findAllByText('Other company')
+      .first()
+      .click();
+  });
+
+  it('allows to edit property details of parking lot', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_5_PARKING/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('Garage')
+      .first()
+      .click();
+
+    cy.findAllByText('On own property')
+      .first()
+      .click();
+  });
+
+  it('allows to edit property details of building plot', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_6_PLOT/general'));
+
+    cy.findAllByText('Edit mode')
+      .eq(1)
+      .click();
+
+    cy.findAllByText('Clay')
+      .first()
+      .click();
+
+    cy.findAllByText('Is ready for construction')
+      .first()
+      .click();
+  });
 });

@@ -58,6 +58,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
   addAllocationCriteria: AddAllocationCriteriaResult;
+  addAogSpace: PimWithNewAogSpace;
   addBogSpace: PimWithNewBogSpace;
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
@@ -128,6 +129,7 @@ export type Mutation = {
   togglePricing: Pim;
   undoEntity: Array<UndoResult>;
   updateAllocationCriteria: Pim;
+  updateAogSpace: AogSpace;
   updateBogSpace: Pim;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
@@ -192,6 +194,10 @@ export type Mutation = {
 
 export type MutationAddAllocationCriteriaArgs = {
   input: AddAllocationCriteriaInput;
+};
+
+export type MutationAddAogSpaceArgs = {
+  input: AddAogSpaceInput;
 };
 
 export type MutationAddBogSpaceArgs = {
@@ -473,6 +479,10 @@ export type MutationUndoEntityArgs = {
 
 export type MutationUpdateAllocationCriteriaArgs = {
   input: AllocationCriteriaInput;
+};
+
+export type MutationUpdateAogSpaceArgs = {
+  input: UpdateAogSpaceInput;
 };
 
 export type MutationUpdateBogSpaceArgs = {
@@ -2169,6 +2179,342 @@ export type ObjectTypeWithNewService = {
   newService: Service;
 };
 
+export enum AogSpaceType {
+  Ground = 'Ground',
+  Buildings = 'Buildings',
+  Installations = 'Installations',
+  Animals = 'Animals',
+}
+
+export enum AogGeneralType {
+  ArableFarm = 'ArableFarm',
+  TreeNursery = 'TreeNursery',
+  MushroomCultivation = 'MushroomCultivation',
+  FruitGrowing = 'FruitGrowing',
+  Goats = 'Goats',
+  GlassGarden = 'GlassGarden',
+  YoungCattleRearing = 'YoungCattleRearing',
+  Turkeys = 'Turkeys',
+  Ducks = 'Ducks',
+  Geese = 'Geese',
+  Ostriches = 'Ostriches',
+  LayingHens = 'LayingHens',
+  RidingSchool = 'RidingSchool',
+  PensionStorage = 'PensionStorage',
+  DairyFarm = 'DairyFarm',
+  HorseHusbandry = 'HorseHusbandry',
+  EalFarm = 'EalFarm',
+  SheepFarm = 'SheepFarm',
+  FishFarm = 'FishFarm',
+  MeatCalf = 'MeatCalf',
+  Broiler = 'Broiler',
+  BeefBull = 'BeefBull',
+  FatteningPig = 'FatteningPig',
+  OpenFieldGarden = 'OpenFieldGarden',
+  WarnFarm = 'WarnFarm',
+  SawsAndFatteningPigFarm = 'SawsAndFatteningPigFarm',
+  SowFarm = 'SowFarm',
+  SucklerCowFarm = 'SucklerCowFarm',
+  LooseGround = 'LooseGround',
+}
+
+export enum AdditionalPositionNotArgaic {
+  OtherCompany = 'OtherCompany',
+  Horeca = 'Horeca',
+  Recreation = 'Recreation',
+  Living = 'Living',
+  CareFunction = 'CareFunction',
+  CaravanStorage = 'CaravanStorage',
+}
+
+export enum AogSpecificationsType {
+  EnvironmentalPermit = 'EnvironmentalPermit',
+  Drainage = 'Drainage',
+  ProductionRights = 'ProductionRights',
+}
+
+export enum LooseGroundType {
+  ForestPlot = 'ForestPlot',
+  ArableLand = 'ArableLand',
+  Grassland = 'Grassland',
+}
+
+export enum AogSoilType {
+  Clay = 'Clay',
+  Peat = 'Peat',
+  Gravel = 'Gravel',
+  Sand = 'Sand',
+  Loam = 'Loam',
+}
+
+export enum CultivationTypes {
+  FlowerBulbs = 'FlowerBulbs',
+  Fruit = 'Fruit',
+  Plants = 'Plants',
+  Vegetables = 'Vegetables',
+  Flowers = 'Flowers',
+  Trees = 'Trees',
+}
+
+export enum FenceTypes {
+  Wood = 'Wood',
+  Plastic = 'Plastic',
+  PlasticBand = 'PlasticBand',
+}
+
+export enum BuildingType {
+  Sheds = 'Sheds',
+  RidingHalls = 'RidingHalls',
+  Canteen = 'Canteen',
+  StorageShed = 'StorageShed',
+  MachineShed = 'MachineShed',
+  GlassCurb = 'GlassCurb',
+  ManureSilo = 'ManureSilo',
+  HorseBoxes = 'HorseBoxes',
+  CageHouse = 'CageHouse',
+  Cubicles = 'Cubicles',
+  FatteningPigsty = 'FatteningPigsty',
+  BreedingPigsty = 'BreedingPigsty',
+  PigletStable = 'PigletStable',
+}
+
+export enum InstallationsType {
+  RotaryStableMilkingSystem = 'RotaryStableMilkingSystem',
+  MilkingParlorSystem = 'MilkingParlorSystem',
+  MilkingRobot = 'MilkingRobot',
+  HerringBoneStable = 'HerringBoneStable',
+  SideBySideMilkingSystem = 'SideBySideMilkingSystem',
+}
+
+export enum AnimalsType {
+  Geese = 'Geese',
+  Ducks = 'Ducks',
+  Ostriches = 'Ostriches',
+  LayingHens = 'LayingHens',
+  Cows = 'Cows',
+  Horses = 'Horses',
+  Eels = 'Eels',
+  Sheep = 'Sheep',
+  Fish = 'Fish',
+  VealCalves = 'VealCalves',
+  Broilers = 'Broilers',
+  MeatBulls = 'MeatBulls',
+  Worms = 'Worms',
+}
+
+export type AogHouseLot = {
+  __typename?: 'AogHouseLot';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfHouses?: Maybe<Scalars['Int']>;
+};
+
+export type AogHouseLotInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  amountOfHouses?: Maybe<Scalars['Int']>;
+};
+
+export type AogSpecifications = {
+  __typename?: 'AogSpecifications';
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type AogSpecificationsInput = {
+  type?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type AogGeneral = {
+  __typename?: 'AogGeneral';
+  generalType?: Maybe<Scalars['String']>;
+  additionalPosition?: Maybe<Array<Scalars['String']>>;
+  houseLot?: Maybe<AogHouseLot>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+};
+
+export type AogGeneralInput = {
+  generalType?: Maybe<Scalars['String']>;
+  additionalPosition?: Maybe<Array<Scalars['String']>>;
+  houseLot?: Maybe<AogHouseLotInput>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+};
+
+export type GroundMeasurements = {
+  __typename?: 'GroundMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type GroundMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  fullBuiltWidth?: Maybe<Scalars['AbsoluteFloat']>;
+  currentNumberOfSeats?: Maybe<Scalars['Int']>;
+  housingArea?: Maybe<Scalars['AbsoluteFloat']>;
+};
+
+export type BuildingMeasurements = {
+  __typename?: 'BuildingMeasurements';
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  constructionYear?: Maybe<Scalars['Int']>;
+};
+
+export type BuildingMeasurementsInput = {
+  length?: Maybe<Scalars['AbsoluteFloat']>;
+  width?: Maybe<Scalars['AbsoluteFloat']>;
+  surface?: Maybe<Scalars['AbsoluteFloat']>;
+  height?: Maybe<Scalars['AbsoluteFloat']>;
+  volume?: Maybe<Scalars['AbsoluteFloat']>;
+  constructionYear?: Maybe<Scalars['Int']>;
+};
+
+export type GroundSpace = {
+  __typename?: 'GroundSpace';
+  typeOfLooseGround?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Array<Scalars['String']>>;
+  soilTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<GroundMeasurements>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+  cultivationTypes?: Maybe<Array<Scalars['String']>>;
+  fenceTypes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type GroundSpaceInput = {
+  typeOfLooseGround?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Array<Scalars['String']>>;
+  soilTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<GroundMeasurementsInput>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+  cultivationTypes?: Maybe<Array<Scalars['String']>>;
+  fenceTypes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type BuildingsSpace = {
+  __typename?: 'BuildingsSpace';
+  buildingType?: Maybe<Scalars['String']>;
+  numberOfSameBuilding?: Maybe<Scalars['Int']>;
+  buildingTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<BuildingMeasurements>;
+};
+
+export type BuildingsSpaceInput = {
+  buildingType?: Maybe<Scalars['String']>;
+  numberOfSameBuilding?: Maybe<Scalars['Int']>;
+  buildingTypeNotes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<BuildingMeasurementsInput>;
+};
+
+export type Installations = {
+  __typename?: 'Installations';
+  type?: Maybe<Scalars['String']>;
+  numberOfSameInstallations?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type InstallationsInput = {
+  type?: Maybe<Scalars['String']>;
+  numberOfSameInstallations?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Animals = {
+  __typename?: 'Animals';
+  type?: Maybe<Scalars['String']>;
+  numberOfSameAnimals?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<AogSpecifications>>;
+};
+
+export type AnimalsInput = {
+  type?: Maybe<Scalars['String']>;
+  numberOfSameAnimals?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  specifications?: Maybe<Array<AogSpecificationsInput>>;
+};
+
+export type AogSpace = LastUpdated & {
+  __typename?: 'AogSpace';
+  id: Scalars['ID'];
+  type: AogSpaceType;
+  name?: Maybe<Scalars['String']>;
+  groundConfiguration?: Maybe<GroundSpace>;
+  buildingsConfiguration?: Maybe<BuildingsSpace>;
+  installationsConfiguration?: Maybe<Installations>;
+  animalsConfiguration?: Maybe<Animals>;
+  images?: Maybe<Array<File>>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
+  dateCreated?: Maybe<Scalars['Date']>;
+};
+
+export type UpdateAogSpaceInput = {
+  pimId: Scalars['ID'];
+  spaceId: Scalars['ID'];
+  spaceName?: Maybe<Scalars['String']>;
+  groundConfiguration?: Maybe<GroundSpaceInput>;
+  buildingsConfiguration?: Maybe<BuildingsSpaceInput>;
+  installationsConfiguration?: Maybe<InstallationsInput>;
+  animalsConfiguration?: Maybe<AnimalsInput>;
+};
+
+export type AddAogSpaceInput = {
+  id: Scalars['ID'];
+  type: AogSpaceType;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type PimWithNewAogSpace = {
+  __typename?: 'PimWithNewAogSpace';
+  newSpace?: Maybe<AogSpace>;
+  pim?: Maybe<Pim>;
+};
+
+export enum GeneralBogType {
+  BusinessSpace = 'BusinessSpace',
+  Offices = 'Offices',
+  RetailSpace = 'RetailSpace',
+  SocialRealEstate = 'SocialRealEstate',
+  Horeca = 'Horeca',
+}
+
+export enum GeneralCharacteristicsBog {
+  Leissure = 'Leissure',
+  BuildingPlot = 'BuildingPlot',
+  Investment = 'Investment',
+  PavedOutsideArea = 'PavedOutsideArea',
+  LogisticsFunction = 'LogisticsFunction',
+}
+
+export type BogGeneralInput = {
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type BogGeneral = {
+  __typename?: 'BogGeneral';
+  type?: Maybe<GeneralBogType>;
+  characteristics?: Maybe<GeneralCharacteristicsBog>;
+  startsOnFloor?: Maybe<Scalars['Int']>;
+  totalFloors?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export enum BogSpaceType {
   BusinessSpace = 'BusinessSpace',
   OfficeSpace = 'OfficeSpace',
@@ -2782,22 +3128,6 @@ export type UpdateCadastreMapInput = {
   fileId?: Maybe<Scalars['String']>;
 };
 
-export enum GeneralBogType {
-  BusinessSpace = 'BusinessSpace',
-  Offices = 'Offices',
-  RetailSpace = 'RetailSpace',
-  SocialRealEstate = 'SocialRealEstate',
-  Horeca = 'Horeca',
-}
-
-export enum GeneralCharacteristicsBog {
-  Leissure = 'Leissure',
-  BuildingPlot = 'BuildingPlot',
-  Investment = 'Investment',
-  PavedOutsideArea = 'PavedOutsideArea',
-  LogisticsFunction = 'LogisticsFunction',
-}
-
 export type PimGeneralInput = {
   id: Scalars['ID'];
   realEstateType?: Maybe<RealEstateType>;
@@ -2822,10 +3152,13 @@ export type PimGeneralInput = {
   livingArea?: Maybe<Scalars['Int']>;
   houseGeneral?: Maybe<HouseGeneralInput>;
   bogGeneral?: Maybe<BogGeneralInput>;
+  parkingGeneral?: Maybe<ParkingLotGeneralInput>;
+  aogGeneral?: Maybe<AogGeneralInput>;
   extraAddress?: Maybe<ExtraAddressInput>;
   showExtraAddress?: Maybe<Scalars['Boolean']>;
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
   apartmentGeneral?: Maybe<ApartmentGeneralInput>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneralInput>;
   attentionNote?: Maybe<Scalars['String']>;
   showAttentionNote?: Maybe<Scalars['Boolean']>;
 };
@@ -2836,6 +3169,13 @@ export enum ApartmentType {
   ThreeBedroomApartment = 'ThreeBedroomApartment',
   FourBedroomApartment = 'FourBedroomApartment',
   FiveBedroomApartment = 'FiveBedroomApartment',
+}
+
+export enum SoilType {
+  Clay = 'Clay',
+  Peat = 'Peat',
+  Sand = 'Sand',
+  Loam = 'Loam',
 }
 
 export enum CharacteristicsApartment {
@@ -2873,10 +3213,33 @@ export type ApartmentPropertyDetails = {
   characteristicsApartment?: Maybe<Scalars['String']>;
 };
 
+export type BuildingPlotPropertyDetails = {
+  __typename?: 'BuildingPlotPropertyDetails';
+  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
+  buildingPlotNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  soilType?: Maybe<Scalars['String']>;
+  measurements?: Maybe<RectangleMeasurement>;
+};
+
 export type ApartmentGeneralInput = {
   availability?: Maybe<PropertyAvailabilityInformationInput>;
   construction?: Maybe<ConstructionInformationInput>;
   propertyDetails?: Maybe<ApartmentPropertyDetailsInput>;
+};
+
+export type BuildingPlotPropertyDetailsInput = {
+  plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
+  buildingPlotNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+  measurements?: Maybe<RectangleMeasurementInput>;
+  soilType?: Maybe<Scalars['String']>;
+};
+
+export type BuildingPlotGeneralInput = {
+  availability?: Maybe<PropertyAvailabilityInformationInput>;
+  construction?: Maybe<ConstructionInformationInput>;
+  propertyDetails?: Maybe<BuildingPlotPropertyDetailsInput>;
 };
 
 export type PropertyAvailabilityInformation = {
@@ -2904,6 +3267,13 @@ export type ApartmentGeneral = {
   propertyDetails?: Maybe<ApartmentPropertyDetails>;
 };
 
+export type BuildingPlotGeneral = {
+  __typename?: 'BuildingPlotGeneral';
+  availability?: Maybe<PropertyAvailabilityInformation>;
+  construction?: Maybe<ConstructionInformation>;
+  propertyDetails?: Maybe<BuildingPlotPropertyDetails>;
+};
+
 export type HouseGeneral = {
   __typename?: 'HouseGeneral';
   availability?: Maybe<PropertyAvailabilityInformation>;
@@ -2911,23 +3281,6 @@ export type HouseGeneral = {
   floor?: Maybe<FloorType>;
   propertyConnection?: Maybe<PropertyConnection>;
   propertyDetails?: Maybe<PropertyTypeDetailed>;
-};
-
-export type BogGeneralInput = {
-  type?: Maybe<GeneralBogType>;
-  characteristics?: Maybe<GeneralCharacteristicsBog>;
-  startsOnFloor?: Maybe<Scalars['Int']>;
-  totalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
-};
-
-export type BogGeneral = {
-  __typename?: 'BogGeneral';
-  type?: Maybe<GeneralBogType>;
-  characteristics?: Maybe<GeneralCharacteristicsBog>;
-  startsOnFloor?: Maybe<Scalars['Int']>;
-  totalFloors?: Maybe<Scalars['Int']>;
-  notes?: Maybe<Scalars['String']>;
 };
 
 export type PropertyAvailabilityInformationInput = {
@@ -3003,11 +3356,14 @@ export type PimGeneral = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
   houseGeneral?: Maybe<HouseGeneral>;
   bogGeneral?: Maybe<BogGeneral>;
+  parkingGeneral?: Maybe<ParkingLotGeneral>;
+  aogGeneral?: Maybe<AogGeneral>;
   extraAddress?: Maybe<ExtraAddress>;
   identificationNumbers?: Maybe<Array<IdentificationNumber>>;
   showExtraAddress?: Maybe<Scalars['Boolean']>;
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
   apartmentGeneral?: Maybe<ApartmentGeneral>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
 };
 
 export type PimWithNewIdentificationNumber = {
@@ -3131,6 +3487,12 @@ export enum KitchenConstruction {
   HalfOpenKitchen = 'HalfOpenKitchen',
   OpenKitchen = 'OpenKitchen',
 }
+
+export type RectangleMeasurementInput = {
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+};
 
 export type RectangleMeasurement = {
   __typename?: 'RectangleMeasurement';
@@ -4022,6 +4384,127 @@ export type PimWithNewOutside = {
   __typename?: 'PimWithNewOutside';
   pim: Pim;
   newOutsideFeature: OutsideFeature;
+};
+
+export enum TypeOfParkingType {
+  Garage = 'Garage',
+  ParkingBasement = 'ParkingBasement',
+  ParkingLot = 'ParkingLot',
+  Berth = 'Berth',
+  MobileHomePitch = 'MobileHomePitch',
+  CaravanSite = 'CaravanSite',
+}
+
+export enum ParkingLotSpecificationsType {
+  OnEnclosedGrounds = 'OnEnclosedGrounds',
+  OnOwnProperty = 'OnOwnProperty',
+  ParkingPermit = 'ParkingPermit',
+  Indoor = 'Indoor',
+  WithAttic = 'WithAttic',
+  Freestanding = 'Freestanding',
+  ElectricDoor = 'ElectricDoor',
+  Water = 'Water',
+  Heating = 'Heating',
+}
+
+export enum ParkingMaterialType {
+  Wood = 'Wood',
+  Stone = 'Stone',
+  Plastic = 'Plastic',
+  Metal = 'Metal',
+}
+
+export enum ParkingInsulationType {
+  Roof = 'Roof',
+  Wall = 'Wall',
+  Floor = 'Floor',
+  NoCavity = 'NoCavity',
+  DoubleGalzing = 'DoubleGalzing',
+  EcoConstruction = 'EcoConstruction',
+  PartlyDoubleGalzing = 'PartlyDoubleGalzing',
+  SecondaryWindows = 'SecondaryWindows',
+}
+
+export type TypeOfParkingInput = {
+  type?: Maybe<Scalars['String']>;
+  parkingNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type TypeOfParking = {
+  __typename?: 'TypeOfParking';
+  type?: Maybe<Scalars['String']>;
+  parkingNumber?: Maybe<Scalars['Int']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingLotSpecificationsInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingLotSpecifications = {
+  __typename?: 'ParkingLotSpecifications';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMaterialInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMaterial = {
+  __typename?: 'ParkingMaterial';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingInsulationInput = {
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingInsulation = {
+  __typename?: 'ParkingInsulation';
+  type?: Maybe<Array<Scalars['String']>>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type ParkingMeasurementsInput = {
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  capacity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
+
+export type ParkingMeasurements = {
+  __typename?: 'ParkingMeasurements';
+  length?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Float']>;
+  surface?: Maybe<Scalars['Float']>;
+  capacity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Float']>;
+  volume?: Maybe<Scalars['Float']>;
+};
+
+export type ParkingLotGeneralInput = {
+  type?: Maybe<TypeOfParkingInput>;
+  measurements?: Maybe<ParkingMeasurementsInput>;
+  specifications?: Maybe<ParkingLotSpecificationsInput>;
+  material?: Maybe<ParkingMaterialInput>;
+  insulation?: Maybe<ParkingInsulationInput>;
+};
+
+export type ParkingLotGeneral = {
+  __typename?: 'ParkingLotGeneral';
+  type?: Maybe<TypeOfParking>;
+  measurements?: Maybe<ParkingMeasurements>;
+  specifications?: Maybe<ParkingLotSpecifications>;
+  material?: Maybe<ParkingMaterial>;
+  insulation?: Maybe<ParkingInsulation>;
 };
 
 export enum CostPaymentFrequency {
@@ -4976,7 +5459,9 @@ export type Pim = LastUpdated & {
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
   houseGeneral?: Maybe<HouseGeneral>;
+  parkingGeneral?: Maybe<ParkingLotGeneral>;
   bogGeneral?: Maybe<BogGeneral>;
+  aogGeneral?: Maybe<AogGeneral>;
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   floors?: Maybe<Array<Floor>>;
@@ -5012,7 +5497,9 @@ export type Pim = LastUpdated & {
   metersMeta?: Maybe<MetersMeta>;
   allocationCriterias?: Maybe<Array<AllocationCriteria>>;
   apartmentGeneral?: Maybe<ApartmentGeneral>;
+  buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
   bogSpaces?: Maybe<Array<BogSpace>>;
+  aogSpaces?: Maybe<Array<AogSpace>>;
 };
 
 export type PimSearchResult = {
@@ -7468,6 +7955,7 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
     | 'state'
     | 'county'
     | 'country'
+    | 'propertyType'
     | 'showExtraAddress'
     | 'showIdentificationNumber'
     | 'attentionNote'
@@ -7489,6 +7977,66 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
               >
             >;
           }
+      >;
+      apartmentGeneral?: Maybe<
+        { __typename?: 'ApartmentGeneral' } & {
+          propertyDetails?: Maybe<
+            { __typename?: 'ApartmentPropertyDetails' } & Pick<
+              ApartmentPropertyDetails,
+              | 'groundfloorApartmentStartsOnFloor'
+              | 'amountOfTotalFloors'
+              | 'notes'
+              | 'apartmentType'
+              | 'characteristicsApartment'
+            >
+          >;
+        }
+      >;
+      bogGeneral?: Maybe<
+        { __typename?: 'BogGeneral' } & Pick<
+          BogGeneral,
+          'type' | 'characteristics' | 'startsOnFloor' | 'totalFloors' | 'notes'
+        >
+      >;
+      aogGeneral?: Maybe<
+        { __typename?: 'AogGeneral' } & Pick<AogGeneral, 'generalType' | 'additionalPosition'> & {
+            houseLot?: Maybe<
+              { __typename?: 'AogHouseLot' } & Pick<AogHouseLot, 'length' | 'width' | 'surface' | 'amountOfHouses'>
+            >;
+            specifications?: Maybe<
+              Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+            >;
+          }
+      >;
+      parkingGeneral?: Maybe<
+        { __typename?: 'ParkingLotGeneral' } & {
+          type?: Maybe<{ __typename?: 'TypeOfParking' } & Pick<TypeOfParking, 'type' | 'parkingNumber' | 'notes'>>;
+          measurements?: Maybe<
+            { __typename?: 'ParkingMeasurements' } & Pick<
+              ParkingMeasurements,
+              'length' | 'width' | 'surface' | 'capacity' | 'height' | 'volume'
+            >
+          >;
+          specifications?: Maybe<
+            { __typename?: 'ParkingLotSpecifications' } & Pick<ParkingLotSpecifications, 'type' | 'notes'>
+          >;
+          material?: Maybe<{ __typename?: 'ParkingMaterial' } & Pick<ParkingMaterial, 'type' | 'notes'>>;
+          insulation?: Maybe<{ __typename?: 'ParkingInsulation' } & Pick<ParkingInsulation, 'type' | 'notes'>>;
+        }
+      >;
+      buildingPlotGeneral?: Maybe<
+        { __typename?: 'BuildingPlotGeneral' } & {
+          propertyDetails?: Maybe<
+            { __typename?: 'BuildingPlotPropertyDetails' } & Pick<
+              BuildingPlotPropertyDetails,
+              'plotReadyForConstruction' | 'buildingPlotNumber' | 'notes' | 'soilType'
+            > & {
+                measurements?: Maybe<
+                  { __typename?: 'RectangleMeasurement' } & Pick<RectangleMeasurement, 'length' | 'width' | 'surface'>
+                >;
+              }
+          >;
+        }
       >;
       extraAddress?: Maybe<
         { __typename?: 'ExtraAddress' } & Pick<
@@ -12576,6 +13124,7 @@ export const PimGeneralDocument = gql`
       state
       county
       country
+      propertyType
       houseGeneral {
         propertyConnection
         propertyDetails
@@ -12592,6 +13141,76 @@ export const PimGeneralDocument = gql`
           habitation
           currentUse
           currentDestination
+        }
+      }
+      apartmentGeneral {
+        propertyDetails {
+          groundfloorApartmentStartsOnFloor
+          amountOfTotalFloors
+          notes
+          apartmentType
+          characteristicsApartment
+        }
+      }
+      bogGeneral {
+        type
+        characteristics
+        startsOnFloor
+        totalFloors
+        notes
+      }
+      aogGeneral {
+        generalType
+        additionalPosition
+        houseLot {
+          length
+          width
+          surface
+          amountOfHouses
+        }
+        specifications {
+          type
+          notes
+        }
+      }
+      parkingGeneral {
+        type {
+          type
+          parkingNumber
+          notes
+        }
+        measurements {
+          length
+          width
+          surface
+          capacity
+          height
+          volume
+        }
+        specifications {
+          type
+          notes
+        }
+        material {
+          type
+          notes
+        }
+        insulation {
+          type
+          notes
+        }
+      }
+      buildingPlotGeneral {
+        propertyDetails {
+          plotReadyForConstruction
+          buildingPlotNumber
+          notes
+          soilType
+          measurements {
+            length
+            width
+            surface
+          }
         }
       }
       extraAddress {

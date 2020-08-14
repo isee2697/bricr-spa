@@ -1,5 +1,4 @@
 import React from 'react';
-import { AnyObject } from 'final-form';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -19,7 +18,7 @@ export const GeneralMainContainer = ({ title, isSidebarVisible, onSidebarOpen }:
   const { data } = usePimGeneralQuery({ variables: { id } });
   const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
 
-  const handleSave = async (values: AnyObject) => {
+  const handleSave = async (values: PimGeneral) => {
     try {
       const { data: result } = await updatePimGeneralInfo({
         variables: {
@@ -33,6 +32,11 @@ export const GeneralMainContainer = ({ title, isSidebarVisible, onSidebarOpen }:
             houseGeneral: values.houseGeneral,
             extraAddress: values.extraAddress,
             attentionNote: values.attentionNote,
+            apartmentGeneral: values.apartmentGeneral,
+            bogGeneral: values.bogGeneral,
+            aogGeneral: values.aogGeneral,
+            parkingGeneral: values.parkingGeneral,
+            buildingPlotGeneral: values.buildingPlotGeneral,
           },
         },
         refetchQueries: [

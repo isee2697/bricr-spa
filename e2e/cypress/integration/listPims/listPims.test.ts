@@ -41,15 +41,28 @@ context('List Pims', () => {
       });
   });
 
-  it('should handle sorting', () => {
-    cy.get('.sort-select').click();
-    cy.get('.MuiPopover-root').within(() => {
-      cy.get('li')
-        .eq(2)
-        .click();
-    });
+  it('should handle filter on sidemenu parking', () => {
+    cy.findAllByText('Parking lot').click();
 
-    cy.get('.sort-select').contains('Lowest rent price');
+    cy.contains('ParkingLot');
+  });
+
+  it('should handle filter on sidemenu plot', () => {
+    cy.findAllByText('Building plot').click();
+
+    cy.contains('BuildingPlot');
+  });
+
+  it('should handle filter on sidemenu AOG', () => {
+    cy.findAllByText('AOG').click();
+
+    cy.contains('Agricultural');
+  });
+
+  it('should handle filter on sidemenu BOG', () => {
+    cy.findAllByText('BOG').click();
+
+    cy.contains('Commercial');
   });
 
   it('should handle pagination', () => {
@@ -67,5 +80,16 @@ context('List Pims', () => {
         .find('div')
         .should('have.attr', 'aria-current');
     });
+  });
+
+  it('should handle sorting', () => {
+    cy.get('.sort-select').click();
+    cy.get('.MuiPopover-root').within(() => {
+      cy.get('li')
+        .eq(2)
+        .click();
+    });
+
+    cy.get('.sort-select').contains('Lowest rent price');
   });
 });

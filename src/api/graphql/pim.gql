@@ -158,7 +158,9 @@ type Pim implements LastUpdated {
   archived: Boolean!
   dateCreated: Date!
   houseGeneral: HouseGeneral
+  parkingGeneral: ParkingLotGeneral
   bogGeneral: BogGeneral
+  aogGeneral: AogGeneral
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   floors: [Floor!]
@@ -194,7 +196,9 @@ type Pim implements LastUpdated {
   metersMeta: MetersMeta
   allocationCriterias: [AllocationCriteria!]
   apartmentGeneral: ApartmentGeneral
+  buildingPlotGeneral: BuildingPlotGeneral
   bogSpaces: [BogSpace!]
+  aogSpaces: [AogSpace!]
 }
 
 type PimSearchResult {

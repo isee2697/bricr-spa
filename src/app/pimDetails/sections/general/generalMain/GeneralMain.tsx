@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import arrayMutators from 'final-form-arrays';
 
 import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';
 import { useLocale } from 'hooks';
@@ -15,10 +16,10 @@ import { GeneralProps } from './GeneralMain.types';
 import { useStyles } from './GeneralMain.styles';
 import { AddressForm } from './forms/AddressForm';
 import { ExtraAddressForm } from './forms/ExtraAddressForm';
-import { PropertyDetailsForm } from './forms/PropertyDetailsForm';
 import { ConstructionInformationForm } from './forms/ConstructionInformationForm';
 import { AvailabilityForm } from './forms/AvailabilityForm';
 import { AdditionalInformationModalContainer } from './additionalInformationModal/AdditionalInformationModalContainer';
+import { DetailsForm } from './forms/detailsForms/DetailsForm';
 
 export const GeneralMain = ({ title, isSidebarVisible, onSidebarOpen, pimGeneral, onSave }: GeneralProps) => {
   const { formatMessage } = useLocale();
@@ -57,7 +58,7 @@ export const GeneralMain = ({ title, isSidebarVisible, onSidebarOpen, pimGeneral
           </Box>
         </Grid>
 
-        <AutosaveForm initialValues={pimGeneral} onSave={onSave}>
+        <AutosaveForm initialValues={pimGeneral} mutators={{ ...arrayMutators }} onSave={onSave}>
           <Grid item xs={12}>
             <AddressForm />
           </Grid>
@@ -75,7 +76,10 @@ export const GeneralMain = ({ title, isSidebarVisible, onSidebarOpen, pimGeneral
           )}
 
           <Grid item xs={12}>
-            <PropertyDetailsForm />
+            <DetailsForm
+              title={formatMessage({ id: 'pim_details.general.property_details.title' })}
+              type={pimGeneral.propertyType}
+            />
           </Grid>
 
           <Grid item xs={12}>

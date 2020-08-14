@@ -6,6 +6,7 @@ export * from './datePickerField/DatePickerField';
 export * from './timePickerField/TimePickerField';
 export * from './checkboxField/CheckboxField';
 export * from './checkboxGroupField/CheckboxGroupField';
+export * from './checkboxButtonField/CheckboxButtonField';
 export * from './radioGroupField/RadioGroupField';
 export * from './selectField/SelectField';
 export * from './cardField/CardField';

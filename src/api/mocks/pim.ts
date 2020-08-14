@@ -1,20 +1,20 @@
 import {
-  RealEstateType,
-  DevelopmentType,
-  PimStatus,
-  Pim,
-  PropertyType,
-  OutsideFeatureType,
-  GardenType,
-  GardenQualityType,
-  Location,
-  GardenShapeType,
-  FloorType,
-  ServiceType,
-  MeterType,
-  PimServices,
-  HeatingSourceType,
   AdditionalServiceType,
+  DevelopmentType,
+  FloorType,
+  GardenQualityType,
+  GardenShapeType,
+  GardenType,
+  HeatingSourceType,
+  Location,
+  MeterType,
+  OutsideFeatureType,
+  Pim,
+  PimServices,
+  PimStatus,
+  PropertyType,
+  RealEstateType,
+  ServiceType,
 } from 'api/types';
 
 export const PIM_1 = {
@@ -188,6 +188,36 @@ export const PIM_SERVICES: PimServices = {
       type: MeterType.Gas,
     },
   ],
+};
+
+export const PIM_DETAILS_2_APARTMENT: Pim = {
+  ...PIM_DETAILS_1,
+  id: 'PIM_2_APARTMENT',
+  propertyType: PropertyType.Apartment,
+};
+
+export const PIM_DETAILS_3_BOG: Pim = {
+  ...PIM_DETAILS_1,
+  id: 'PIM_3_BOG',
+  propertyType: PropertyType.Commercial,
+};
+
+export const PIM_DETAILS_4_AOG: Pim = {
+  ...PIM_DETAILS_1,
+  id: 'PIM_4_AOG',
+  propertyType: PropertyType.Agricultural,
+};
+
+export const PIM_DETAILS_5_PARKING: Pim = {
+  ...PIM_DETAILS_1,
+  id: 'PIM_5_PARKING',
+  propertyType: PropertyType.ParkingLot,
+};
+
+export const PIM_DETAILS_6_PLOT: Pim = {
+  ...PIM_DETAILS_1,
+  id: 'PIM_6_PLOT',
+  propertyType: PropertyType.BuildingPlot,
 };
 
 export const EMPTY_READING = {

@@ -12,6 +12,7 @@ export const PIM_MEDIA = gql`
       state
       county
       country
+      propertyType
       houseGeneral {
         propertyConnection
         propertyDetails
@@ -28,6 +29,76 @@ export const PIM_MEDIA = gql`
           habitation
           currentUse
           currentDestination
+        }
+      }
+      apartmentGeneral {
+        propertyDetails {
+          groundfloorApartmentStartsOnFloor
+          amountOfTotalFloors
+          notes
+          apartmentType
+          characteristicsApartment
+        }
+      }
+      bogGeneral {
+        type
+        characteristics
+        startsOnFloor
+        totalFloors
+        notes
+      }
+      aogGeneral {
+        generalType
+        additionalPosition
+        houseLot {
+          length
+          width
+          surface
+          amountOfHouses
+        }
+        specifications {
+          type
+          notes
+        }
+      }
+      parkingGeneral {
+        type {
+          type
+          parkingNumber
+          notes
+        }
+        measurements {
+          length
+          width
+          surface
+          capacity
+          height
+          volume
+        }
+        specifications {
+          type
+          notes
+        }
+        material {
+          type
+          notes
+        }
+        insulation {
+          type
+          notes
+        }
+      }
+      buildingPlotGeneral {
+        propertyDetails {
+          plotReadyForConstruction
+          buildingPlotNumber
+          notes
+          soilType
+          measurements {
+            length
+            width
+            surface
+          }
         }
       }
       extraAddress {

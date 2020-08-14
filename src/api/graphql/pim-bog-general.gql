@@ -1,0 +1,31 @@
+enum GeneralBogType {
+  BusinessSpace,
+  Offices,
+  RetailSpace,
+  SocialRealEstate,
+  Horeca
+}
+
+enum GeneralCharacteristicsBog {
+  Leissure,
+  BuildingPlot,
+  Investment,
+  PavedOutsideArea,
+  LogisticsFunction
+}
+
+input BogGeneralInput {
+  type: GeneralBogType
+  characteristics: GeneralCharacteristicsBog
+  startsOnFloor: Int
+  totalFloors: Int
+  notes: String
+}
+
+type BogGeneral {
+  type: GeneralBogType
+  characteristics: GeneralCharacteristicsBog
+  startsOnFloor: Int
+  totalFloors: Int
+  notes: String
+}

@@ -15,6 +15,7 @@ export const GenericField = ({
   placeholder,
   helperText,
   onChange,
+  type,
   ...props
 }: GenericFieldProps) => {
   const { formatMessage } = useLocale();
@@ -29,7 +30,7 @@ export const GenericField = ({
     (meta.initial !== undefined && meta.initial !== '' && meta.initial !== null && !!meta.error);
 
   const handleChange = (value: ChangeEvent<HTMLInputElement>) => {
-    input.onChange(value);
+    input.onChange(type === 'number' ? parseFloat(value.target.value) : value.target.value);
 
     if (onChange) {
       onChange(value);
@@ -53,6 +54,7 @@ export const GenericField = ({
       variant="outlined"
       error={hasError}
       fullWidth
+      type={type}
       InputLabelProps={{
         shrink: true,
       }}

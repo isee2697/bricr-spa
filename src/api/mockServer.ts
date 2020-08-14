@@ -6,12 +6,22 @@ import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_ME
 import { NCP_GENERAL_1 } from 'api/mocks/ncp-general';
 
 import { loadSchemas } from './loadSchemas';
-import { Floor, Space, ServiceType, CadastreType, PimOutside } from './types';
+import { CadastreType, Floor, PimOutside, PropertyType, ServiceType, Space } from './types';
 import { FILE_1 } from './mocks/file';
-import { PIM_DETAILS_1, PIM_1, PIM_SERVICES, EMPTY_READING } from './mocks/pim';
+import {
+  EMPTY_READING,
+  PIM_1,
+  PIM_DETAILS_1,
+  PIM_DETAILS_2_APARTMENT,
+  PIM_DETAILS_3_BOG,
+  PIM_DETAILS_4_AOG,
+  PIM_DETAILS_5_PARKING,
+  PIM_DETAILS_6_PLOT,
+  PIM_SERVICES,
+} from './mocks/pim';
 import { PIM_GENERAL_1 } from './mocks/pim-general';
 import { PIM_INSIDE_1 } from './mocks/pim-inside';
-import { CADASTRE_3, PIM_CADASTRE_1, CADASTRE_MAP_1 } from './mocks/pim-cadastre';
+import { CADASTRE_3, CADASTRE_MAP_1, PIM_CADASTRE_1 } from './mocks/pim-cadastre';
 import { LIST_NCP_1, LIST_NCP_ARCHIVED_1 } from './mocks/ncp-list';
 
 const graphqlSchema = buildSchema(loadSchemas());
@@ -144,16 +154,37 @@ export const mockServer = () => {
               };
             }
 
+            const baseArray = [
+              PIM_DETAILS_2_APARTMENT,
+              PIM_DETAILS_3_BOG,
+              PIM_DETAILS_4_AOG,
+              PIM_DETAILS_5_PARKING,
+              PIM_DETAILS_6_PLOT,
+            ];
+
             const from = variables?.from ?? 0;
             const limit = variables?.limit ?? 10;
-            const totalPims = Array.from({ length: 100 }, (item, index) =>
-              index !== 0
-                ? {
-                    ...PIM_1,
-                    id: Math.random().toString(),
-                  }
-                : PIM_DETAILS,
-            );
+            let totalPims = [
+              ...baseArray,
+              ...Array.from({ length: 100 }, (item, index) =>
+                index !== 0
+                  ? {
+                      ...PIM_1,
+                      id: Math.random().toString(),
+                    }
+                  : PIM_DETAILS,
+              ),
+            ];
+
+            const propertyTypes: PropertyType[] = variables.propertyTypes || [];
+
+            if (propertyTypes.includes(PropertyType.House) || propertyTypes.includes(PropertyType.Apartment)) {
+              totalPims = totalPims.filter(
+                pim => pim.propertyType === PropertyType.House || pim.propertyType === PropertyType.Apartment,
+              );
+            } else if (propertyTypes.length > 0) {
+              totalPims = totalPims.filter(pim => pim.propertyType === propertyTypes[0]);
+            }
 
             const pims = totalPims.slice(from, limit + from);
 
@@ -177,15 +208,18 @@ export const mockServer = () => {
             if (variables.id === 'test') {
               throw new Error();
             }
+            const pims = resolver.listPims().items;
 
-            return PIM_DETAILS;
+            return pims.find(pim => pim.id === variables.id) || PIM_DETAILS;
           },
           getPimGeneral() {
             if (variables.id === 'test') {
               throw new Error();
             }
 
-            return PIM_GENERAL;
+            const pims = resolver.listPims().items;
+
+            return { ...PIM_GENERAL, ...pims.find(pim => pim.id === variables.id) };
           },
           getPimsGeneralWithSameAddress() {
             if (
@@ -493,9 +527,13 @@ export const mockServer = () => {
             return PIM_DETAILS;
           },
           updatePimGeneralInfo() {
+            const pims = resolver.listPims().items;
+
+            const details = pims.find(pim => pim.id === variables.input.id);
             PIM_DETAILS = {
-              ...PIM_DETAILS,
+              ...details,
               ...variables.input,
+              id: variables.input.id,
               houseGeneral: {
                 ...PIM_DETAILS.houseGeneral,
                 availability: variables.input.availability,

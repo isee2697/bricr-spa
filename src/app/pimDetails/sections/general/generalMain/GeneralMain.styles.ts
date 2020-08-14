@@ -18,4 +18,7 @@ export const useStyles = makeStyles(({ spacing }) => ({
       marginTop: spacing(1),
     },
   },
+  alignRight: {
+    marginLeft: 'auto',
+  },
 }));

@@ -1,0 +1,296 @@
+enum AogSpaceType {
+  Ground,
+  Buildings,
+  Installations,
+  Animals
+}
+
+enum AogGeneralType {
+  ArableFarm,
+  TreeNursery,
+  MushroomCultivation,
+  FruitGrowing,
+  Goats,
+  GlassGarden,
+  YoungCattleRearing,
+  Turkeys,
+  Ducks,
+  Geese,
+  Ostriches,
+  LayingHens,
+  RidingSchool,
+  PensionStorage,
+  DairyFarm,
+  HorseHusbandry,
+  EalFarm,
+  SheepFarm,
+  FishFarm,
+  MeatCalf,
+  Broiler,
+  BeefBull,
+  FatteningPig,
+  OpenFieldGarden,
+  WarnFarm,
+  SawsAndFatteningPigFarm,
+  SowFarm,
+  SucklerCowFarm,
+  LooseGround
+}
+
+enum AdditionalPositionNotArgaic {
+  OtherCompany,
+  Horeca,
+  Recreation,
+  Living,
+  CareFunction
+  CaravanStorage
+}
+
+enum AogSpecificationsType {
+  EnvironmentalPermit
+  Drainage,
+  ProductionRights
+}
+
+enum LooseGroundType {
+  ForestPlot,
+  ArableLand,
+  Grassland
+}
+
+enum AogSoilType {
+  Clay,
+  Peat,
+  Gravel,
+  Sand,
+  Loam
+}
+
+enum CultivationTypes {
+  FlowerBulbs,
+  Fruit,
+  Plants,
+  Vegetables,
+  Flowers,
+  Trees
+}
+
+enum FenceTypes {
+  Wood,
+  Plastic,
+  PlasticBand
+}
+
+enum BuildingType {
+  Sheds,
+  RidingHalls,
+  Canteen,
+  StorageShed,
+  MachineShed,
+  GlassCurb,
+  ManureSilo,
+  HorseBoxes,
+  CageHouse,
+  Cubicles,
+  FatteningPigsty,
+  BreedingPigsty,
+  PigletStable
+}
+
+enum InstallationsType {
+  RotaryStableMilkingSystem,
+  MilkingParlorSystem,
+  MilkingRobot,
+  HerringBoneStable,
+  SideBySideMilkingSystem
+}
+
+enum AnimalsType {
+  Geese,
+  Ducks,
+  Ostriches,
+  LayingHens,
+  Cows,
+  Horses,
+  Eels,
+  Sheep,
+  Fish,
+  VealCalves,
+  Broilers,
+  MeatBulls,
+  Worms
+}
+
+type AogHouseLot {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  amountOfHouses: Int
+}
+
+input AogHouseLotInput {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  amountOfHouses: Int
+}
+
+type AogSpecifications {
+  type: String @uuidOrEnum(enum: ["AogSpecificationsType"])
+  notes: String
+}
+
+input AogSpecificationsInput {
+  type: String @uuidOrEnum(enum: ["AogSpecificationsType"])
+  notes: String
+}
+
+type AogGeneral {
+  generalType: String @uuidOrEnum(enum: ["AogGeneralType"])
+  additionalPosition: [String!] @uuidOrEnum(enum: ["AdditionalPositionNotArgaic"])
+  houseLot: AogHouseLot
+  specifications: [AogSpecifications!]
+}
+
+input AogGeneralInput {
+  generalType: String @uuidOrEnum(enum: ["AogGeneralType"])
+  additionalPosition: [String!] @uuidOrEnum(enum: ["AdditionalPositionNotArgaic"])
+  houseLot: AogHouseLotInput
+  specifications: [AogSpecificationsInput!]
+}
+
+type GroundMeasurements {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  fullBuiltWidth: AbsoluteFloat
+  currentNumberOfSeats: Int
+  housingArea: AbsoluteFloat
+}
+
+input GroundMeasurementsInput {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  fullBuiltWidth: AbsoluteFloat
+  currentNumberOfSeats: Int
+  housingArea: AbsoluteFloat
+}
+
+type BuildingMeasurements {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  height: AbsoluteFloat
+  volume: AbsoluteFloat
+  constructionYear: Int
+}
+
+input BuildingMeasurementsInput {
+  length: AbsoluteFloat
+  width: AbsoluteFloat
+  surface: AbsoluteFloat
+  height: AbsoluteFloat
+  volume: AbsoluteFloat
+  constructionYear: Int
+}
+
+type GroundSpace {
+  typeOfLooseGround: String @uuidOrEnum(enum: ["LooseGroundType"])
+  soilType: [String!] @uuidOrEnum(enum: ["AogSoilType"])
+  soilTypeNotes: String
+  measurements: GroundMeasurements
+  specifications: [AogSpecifications!]
+  cultivationTypes: [String!] @uuidOrEnum(enum: ["CultivationTypes"])
+  fenceTypes: [String!] @uuidOrEnum(enum: ["FenceTypes"])
+}
+
+input GroundSpaceInput {
+  typeOfLooseGround: String @uuidOrEnum(enum: ["LooseGroundType"])
+  soilType: [String!] @uuidOrEnum(enum: ["AogSoilType"])
+  soilTypeNotes: String
+  measurements: GroundMeasurementsInput
+  specifications: [AogSpecificationsInput!]
+  cultivationTypes: [String!] @uuidOrEnum(enum: ["CultivationTypes"])
+  fenceTypes: [String!] @uuidOrEnum(enum: ["FenceTypes"])
+}
+
+type BuildingsSpace {
+  buildingType: String @uuidOrEnum(enum: ["BuildingType"])
+  numberOfSameBuilding: Int
+  buildingTypeNotes: String
+  measurements: BuildingMeasurements
+}
+
+input BuildingsSpaceInput {
+  buildingType: String @uuidOrEnum(enum: ["BuildingType"])
+  numberOfSameBuilding: Int
+  buildingTypeNotes: String
+  measurements: BuildingMeasurementsInput
+}
+
+type Installations {
+  type: String @uuidOrEnum(enum: ["InstallationsType"])
+  numberOfSameInstallations: Int
+  notes: String
+}
+
+input InstallationsInput {
+  type: String @uuidOrEnum(enum: ["InstallationsType"])
+  numberOfSameInstallations: Int
+  notes: String
+}
+
+type Animals {
+  type: String @uuidOrEnum(enum: ["AnimalsType"])
+  numberOfSameAnimals: Int
+  notes: String
+  specifications: [AogSpecifications!]
+}
+
+input AnimalsInput {
+  type: String @uuidOrEnum(enum: ["AnimalsType"])
+  numberOfSameAnimals: Int
+  notes: String
+  specifications: [AogSpecificationsInput!]
+}
+
+type AogSpace implements LastUpdated {
+  id: ID!
+  type: AogSpaceType!
+  name: String
+  groundConfiguration: GroundSpace
+  buildingsConfiguration: BuildingsSpace
+  installationsConfiguration: Installations
+  animalsConfiguration: Animals
+  images: [File!]
+  dateUpdated: Date
+  lastEditedBy: Profile
+  dateCreated: Date
+}
+
+input UpdateAogSpaceInput {
+  pimId: ID!
+  spaceId: ID!
+  spaceName: String
+  groundConfiguration: GroundSpaceInput
+  buildingsConfiguration: BuildingsSpaceInput
+  installationsConfiguration: InstallationsInput
+  animalsConfiguration: AnimalsInput
+}
+
+input AddAogSpaceInput {
+  id: ID!
+  type: AogSpaceType!
+  name: String
+}
+
+type PimWithNewAogSpace {
+  newSpace: AogSpace
+  pim: Pim
+}
+
+extend type Mutation {
+  addAogSpace(input: AddAogSpaceInput!): PimWithNewAogSpace! @auth
+  updateAogSpace(input: UpdateAogSpaceInput!): AogSpace! @auth
+}
