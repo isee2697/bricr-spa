@@ -18,6 +18,7 @@ import { SquareMeterIcon, GraphIcon, MeterIcon } from 'ui/atoms/icons';
 import { AogSpace, AogSpecificationsType, EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { GROUND_TYPES, SOIL_TYPES, CULTIVATION_TYPES, FENCE_TYPES } from '../dictionaries';
 import { AogTypeSpecificFormProps } from '../AogSpaceForm.types';
+import { AogSpaceDescriptionContainer } from '../../aogSpaceDescription/AogSpaceDescriptionContainer';
 
 export const GroundsForm = ({ data }: AogTypeSpecificFormProps) => {
   const { formatMessage } = useLocale();
@@ -26,12 +27,10 @@ export const GroundsForm = ({ data }: AogTypeSpecificFormProps) => {
   return (
     <Page
       title={formatMessage({ id: 'pim_details.ground.title' })}
-      placeholder="pim_details.ground.description_placeholder"
-      name="description"
-      initialValues={{ data }}
       updatedBy={data.lastEditedBy}
       dateUpdated={data.dateUpdated}
     >
+      <AogSpaceDescriptionContainer type={data.type} />
       <Grid item xs={12}>
         <FormSection title={`${formatMessage({ id: 'pim_details.ground.single_title' })} - ${data.name}`} isEditable>
           {editing => (

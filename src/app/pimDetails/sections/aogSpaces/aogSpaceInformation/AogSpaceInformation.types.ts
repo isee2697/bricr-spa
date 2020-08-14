@@ -1,4 +1,4 @@
-import { AogSpaceType, PimInside } from 'api/types';
+import { AogSpaceType } from 'api/types';
 
 export type AogSpaceInformationProps = {
   type: AogSpaceType;

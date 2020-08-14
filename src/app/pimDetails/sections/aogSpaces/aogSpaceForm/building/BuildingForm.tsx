@@ -12,6 +12,7 @@ import { AogSpace, EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { MeterIcon, SquareMeterIcon, CubicMeterIcon } from 'ui/atoms/icons';
 import { BUILDING_TYPES } from '../dictionaries';
 import { AogTypeSpecificFormProps } from '../AogSpaceForm.types';
+import { AogSpaceDescriptionContainer } from '../../aogSpaceDescription/AogSpaceDescriptionContainer';
 
 export const BuildingsForm = ({ data }: AogTypeSpecificFormProps) => {
   const { formatMessage } = useLocale();
@@ -20,12 +21,10 @@ export const BuildingsForm = ({ data }: AogTypeSpecificFormProps) => {
   return (
     <Page
       title={formatMessage({ id: 'pim_details.buildings.title' })}
-      placeholder="pim_details.buildings.description_placeholder"
-      name="description"
-      initialValues={{ data }}
       updatedBy={data.lastEditedBy}
       dateUpdated={data.dateUpdated}
     >
+      <AogSpaceDescriptionContainer type={data.type} />
       <Grid item xs={12}>
         <FormSection title={`${formatMessage({ id: `pim_details.buildings.single_title` })} - ${data.name}`} isEditable>
           {editing => (

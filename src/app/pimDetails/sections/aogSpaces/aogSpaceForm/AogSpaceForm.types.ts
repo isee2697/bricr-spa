@@ -1,4 +1,4 @@
-import { AogSpace, AogSpaceType } from 'api/types';
+import { AogSpace } from 'api/types';
 
 export type AogTypeSpecificFormProps = {
   data: AogSpace;

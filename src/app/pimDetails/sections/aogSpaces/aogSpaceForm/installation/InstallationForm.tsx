@@ -9,6 +9,7 @@ import { Page } from 'ui/templates';
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { INSTALLATION_TYPES } from '../dictionaries';
 import { AogTypeSpecificFormProps } from '../AogSpaceForm.types';
+import { AogSpaceDescriptionContainer } from '../../aogSpaceDescription/AogSpaceDescriptionContainer';
 
 export const InstallationsForm = ({ data }: AogTypeSpecificFormProps) => {
   const { formatMessage } = useLocale();
@@ -16,12 +17,10 @@ export const InstallationsForm = ({ data }: AogTypeSpecificFormProps) => {
   return (
     <Page
       title={formatMessage({ id: 'pim_details.installations.title' })}
-      placeholder="pim_details.installations.description_placeholder"
-      name="installation"
-      initialValues={{ data }}
       updatedBy={data.lastEditedBy}
       dateUpdated={data.dateUpdated}
     >
+      <AogSpaceDescriptionContainer type={data.type} />
       <Grid item xs={12}>
         <FormSection
           title={`${formatMessage({ id: `pim_details.installations.single_title` })} - ${data.name}`}

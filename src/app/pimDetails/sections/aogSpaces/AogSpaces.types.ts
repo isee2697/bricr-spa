@@ -1,5 +1,5 @@
 import { PimDetailsSectionProps } from '../../PimDetails.types';
-import { AogSpace, AogSpaceType, PimAogSpacesQuery, PimInside } from '../../../../api/types';
+import { AogSpace, AogSpaceType, PimInside } from '../../../../api/types';
 export type AogSpacesContainerProps = PimDetailsSectionProps & {
   type: AogSpaceType;
 };
