@@ -32,9 +32,10 @@ export const useStyles = makeStyles(theme => ({
   },
   placeholder: {
     fontSize: '3em',
-    position: 'absolute',
-    top: '40%',
-    right: '50%',
+    display: 'flex',
+    alignSelf: 'center',
+    justifySelf: 'center',
+    marginLeft: '40%',
   },
   children: {
     zIndex: 2,

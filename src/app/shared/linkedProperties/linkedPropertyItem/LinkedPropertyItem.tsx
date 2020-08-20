@@ -31,6 +31,7 @@ export const LinkedPropertyItem = ({
   archived,
   linkedObjectTypeIds,
   projectId,
+  attentionNote,
 }: ListPim & { projectId: string }) => {
   const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
@@ -63,7 +64,7 @@ export const LinkedPropertyItem = ({
                   .replace(':id', id),
               )
             }
-            src={images?.[0]?.url ?? 'http://placeimg.com/176/112/arch'}
+            src={images?.[0]?.url || undefined}
             grayscale={archived ?? false}
             variant="blue"
           />
@@ -134,11 +135,13 @@ export const LinkedPropertyItem = ({
           </Typography>
           <ProgressFilling progress={completeness / 100} />
         </Grid>
-        <Grid item>
-          <Box className={classes.warning}>
-            <WarningIcon /> {formatMessage({ id: 'projects.no_more_scheduling' })}
-          </Box>
-        </Grid>
+        {!!attentionNote && (
+          <Grid item>
+            <Box className={classes.warning}>
+              <WarningIcon /> {attentionNote}
+            </Box>
+          </Grid>
+        )}
         <Grid onClick={() => setToggled(prevState => !prevState)} className={classes.rightItem} item>
           <IconButton>{toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}</IconButton>
           <Typography className={classes.grayText} variant="h5">

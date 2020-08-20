@@ -67,6 +67,7 @@ export const LIST_OBJECT_TYPES = gql`
           status
           developmentType
           linkedObjectTypeIds
+          attentionNote
         }
       }
     }

@@ -2,16 +2,23 @@ import React from 'react';
 
 import { Page } from 'ui/templates';
 import { InfoSection } from 'ui/molecules';
-import { Card, Grid, Box, Typography } from 'ui/atoms';
+import { Card, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
-export const MetersInfo = ({ hasMeters }: { hasMeters: boolean }) => {
+import { MeterInfoProps } from './MetersInfo.types';
+
+export const MetersInfo = ({ hasMeters, description, onSave }: MeterInfoProps) => {
   const { formatMessage } = useLocale();
 
   return (
-    <Page title={'meters'}>
+    <Page
+      title={formatMessage({ id: 'pim_details.meters.title' })}
+      name="description"
+      placeholder="pim_details.meters.description_placeholder"
+      initialValues={{ description }}
+      onSave={onSave}
+    >
       <Grid item xs={12}>
-        <Box mb={3} />
         <Card>
           <InfoSection emoji={hasMeters ? '📟' : '🚪'}>
             <Typography>

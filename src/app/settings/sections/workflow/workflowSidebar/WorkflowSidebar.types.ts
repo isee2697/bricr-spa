@@ -12,6 +12,7 @@ export type WorkflowSidebarGroup = {
 };
 
 export type WorkflowSidebarGroupItem = {
+  id: string;
   icon: ReactNode;
   title: string;
 };

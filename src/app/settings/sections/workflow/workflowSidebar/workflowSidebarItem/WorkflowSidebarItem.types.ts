@@ -1,13 +1,7 @@
-import { ReactNode } from 'react';
+import { Trigger, Action, WorkflowItemType } from '../../Workflow.types';
 
 export type WorkflowSidebarItemProps = {
-  type: WorkflowSidebarType;
-  icon: ReactNode;
-  title: string;
+  item: Trigger | Action;
+  type: WorkflowItemType;
   searchValue: string;
 };
-
-export enum WorkflowSidebarType {
-  TRIGGER = 'Trigger',
-  ACTION = 'Action',
-}

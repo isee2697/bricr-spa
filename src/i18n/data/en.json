@@ -532,6 +532,7 @@
   "pim_details.meters.empty_title": "You haven't added any meters yet",
   "pim_details.meters.info_description": "To add a new meter click the blue + button on the right top",
   "pim_details.meters.empty_description": "To add your first meter click the blue + button on the right top",
+  "pim_details.meters.description_placeholder": "Something about meters...",
   "pim_details.services.name": "Add name",
   "pim_details.services.description": "Add Description",
   "pim_details.services.add_new_meter": "Add new meter",

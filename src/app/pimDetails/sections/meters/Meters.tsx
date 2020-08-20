@@ -11,7 +11,7 @@ import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { MeterTypeContainer } from './metersType/MeterTypeContainer';
 import { AddMeterModalContainer } from './addMeterModal/AddMeterModalContainer';
-import { MetersInfo } from './info/MetersInfo';
+import { MetersInfoContainer } from './info/MetersInfoContainer';
 import { PimMetersProps } from './Meters.types';
 
 export const Meters = ({ title, isSidebarVisible, onSidebarOpen, data }: PimMetersProps) => {
@@ -76,7 +76,9 @@ export const Meters = ({ title, isSidebarVisible, onSidebarOpen, data }: PimMete
         <Route
           path={`${AppRoute.pimDetails}/meters`}
           exact
-          render={() => <MetersInfo hasMeters={meters.length > 0} />}
+          render={() => (
+            <MetersInfoContainer description={meterMeta?.description || undefined} hasMeters={meters.length > 0} />
+          )}
         />
       </Switch>
       <AddMeterModalContainer

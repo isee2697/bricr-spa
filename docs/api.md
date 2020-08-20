@@ -1,6 +1,6 @@
 ### Queries and Mutations
 
-Place queries and mutations inside `/src/api` directory in file according to business domain, ie. Login mutation should be places inside `/src/api/mutations/auth.ts` and exported as a const `export const LOGIN`
+Place queries and mutations inside `/src/api` directory in file according to business domain, ie. Login mutation should be places inside `/src/api/mutations/auth.ts` and exported as a const `export const LOGIN`. We copy files directly from backend project to keep this in sync. Be careful in `src/api/graphql/file.gql` because it has also custom definition for REST upload.
 
 ### API types and hooks
 

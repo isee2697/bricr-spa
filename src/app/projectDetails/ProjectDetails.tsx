@@ -43,7 +43,7 @@ export const ProjectDetails = ({ data }: NcpProps) => {
           title={data?.project.name ?? ''}
           linkedPropertiesNumber={data?.linkedProperties.linkedProperties.metadata?.total ?? 0}
         />
-        <Box flex={1}>
+        <Box flex={1} padding={3}>
           <Switch>
             <Route
               path={`${AppRoute.projectDetails}/dashboard`}

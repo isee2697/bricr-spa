@@ -523,6 +523,7 @@
   "pim_details.meters.empty_title": "Je hebt nog geen meters toegevoegd",
   "pim_details.meters.info_description": "Om een nieuwe toe te voegen klik rechts boven op de blauwe knop",
   "pim_details.meters.empty_description": "Om je eerste meter toe te voegen klik de + knop rechts bovenin",
+  "pim_details.meters.description_placeholder": "Iets over de meters",
   "pim_details.services.name": "Voeg naam toe",
   "pim_details.services.description": "Voeg omschrijving toe",
   "pim_details.services.add_new_meter": "Voeg nieuwe meter toe",

@@ -1,12 +1,14 @@
-import { Trigger } from '../Workflow.types';
+import { Trigger, AddItemData } from '../Workflow.types';
+
+export type WorkflowSection = {
+  id: string;
+  title: string;
+  trigger?: Trigger;
+};
 
 export type WorkflowSectionProps = {
   section: WorkflowSection;
   expanded: boolean;
   onExpanded: VoidFunction;
-};
-
-export type WorkflowSection = {
-  title: string;
-  trigger?: Trigger;
+  onAddItem: (data: AddItemData) => void;
 };

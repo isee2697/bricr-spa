@@ -7,7 +7,7 @@ import { WorkflowCanvas } from '../workflowCanvas/WorkflowCanvas';
 import { WorkflowSectionProps } from './WorkflowSection.types';
 import { useStyles } from './WorkflowSection.styles';
 
-export const WorkflowSection = ({ section, expanded, onExpanded }: WorkflowSectionProps) => {
+export const WorkflowSection = ({ section, expanded, onExpanded, onAddItem }: WorkflowSectionProps) => {
   const classes = useStyles();
 
   return (
@@ -28,7 +28,7 @@ export const WorkflowSection = ({ section, expanded, onExpanded }: WorkflowSecti
         </Box>
       </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <WorkflowCanvas trigger={section.trigger} />
+        <WorkflowCanvas trigger={section.trigger} onAddItem={data => onAddItem({ ...data, sectionId: section.id })} />
       </Collapse>
     </>
   );

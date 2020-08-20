@@ -5590,6 +5590,7 @@ export enum SectionWithDescriptionType {
   AogBuildings = 'AogBuildings',
   AogInstallations = 'AogInstallations',
   AogGrounds = 'AogGrounds',
+  MetersMetaInfo = 'MetersMetaInfo',
 }
 
 export type PropertyRelatedInput = {
@@ -6105,11 +6106,14 @@ export type MetersSharedData = {
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
-export type MetersMeta = {
+export type MetersMeta = LastUpdated & {
   __typename?: 'MetersMeta';
+  description?: Maybe<Scalars['String']>;
   Water?: Maybe<MetersSharedData>;
   Gas?: Maybe<MetersSharedData>;
   Electric?: Maybe<MetersSharedData>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+  lastEditedBy?: Maybe<Profile>;
 };
 
 export type LoginMutationVariables = {
@@ -8122,6 +8126,7 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'status'
               | 'developmentType'
               | 'linkedObjectTypeIds'
+              | 'attentionNote'
             > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
           >
         >;
@@ -8705,23 +8710,23 @@ export type PimMetersQueryVariables = {
 export type PimMetersQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & {
     metersMeta?: Maybe<
-      { __typename?: 'MetersMeta' } & {
-        Water?: Maybe<
-          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
-            }
-        >;
-        Gas?: Maybe<
-          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
-            }
-        >;
-        Electric?: Maybe<
-          { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
-            }
-        >;
-      }
+      { __typename?: 'MetersMeta' } & Pick<MetersMeta, 'description'> & {
+          Water?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Gas?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Electric?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+        }
     >;
     meters?: Maybe<
       Array<
@@ -13598,6 +13603,7 @@ export const ObjectTypeLinkedPimsDocument = gql`
           status
           developmentType
           linkedObjectTypeIds
+          attentionNote
         }
       }
     }
@@ -14416,6 +14422,7 @@ export const PimMetersDocument = gql`
   query PimMeters($id: ID!) {
     getPimServices(id: $id) {
       metersMeta {
+        description
         Water {
           description
           lastEditedBy {

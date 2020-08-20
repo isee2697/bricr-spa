@@ -1,4 +1,4 @@
-import { Trigger } from '../Workflow.types';
+import { Trigger, AddItemData } from '../Workflow.types';
 
 export type Point = {
   x: number;
@@ -7,4 +7,5 @@ export type Point = {
 
 export type WorkflowCanvasProps = {
   trigger?: Trigger;
+  onAddItem: (data: Pick<AddItemData, 'item' | 'type' | 'parentId'>) => void;
 };

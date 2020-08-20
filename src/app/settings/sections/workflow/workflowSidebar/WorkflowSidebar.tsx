@@ -4,11 +4,11 @@ import { Box, Collapse, Tab, Tabs, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { SimpleSearch } from 'ui/molecules';
+import { WorkflowItemType } from '../Workflow.types';
 
 import { WorkflowSidebarGroup, WorkflowSidebarProps } from './WorkflowSidebar.types';
 import { useStyles } from './WorkflowSidebar.styles';
 import { WorkflowSidebarItem } from './workflowSidebarItem/WorkflowSidebarItem';
-import { WorkflowSidebarType } from './workflowSidebarItem/WorkflowSidebarItem.types';
 
 export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }: WorkflowSidebarProps) => {
   const classes = useStyles({ isFullScreen });
@@ -17,7 +17,7 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
   const [value, setValue] = useState('');
   const [groups, setGroups] = useState<WorkflowSidebarGroup[]>(triggersGroups);
   const [filteredGroups, setFilteredGroups] = useState(triggersGroups);
-  const [activeTab, setActiveTab] = useState<WorkflowSidebarType>(WorkflowSidebarType.TRIGGER);
+  const [activeTab, setActiveTab] = useState<WorkflowItemType>(WorkflowItemType.TRIGGER);
 
   const handleChange = (v: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentValue = v.target.value;
@@ -55,11 +55,11 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
     return isGroupOpen[group.title];
   };
 
-  const handleTabChange = (tab: WorkflowSidebarType) => {
+  const handleTabChange = (tab: WorkflowItemType) => {
     setActiveTab(tab);
     setValue('');
 
-    if (tab === WorkflowSidebarType.TRIGGER) {
+    if (tab === WorkflowItemType.TRIGGER) {
       setGroups(triggersGroups);
       setFilteredGroups(triggersGroups);
     } else {
@@ -71,7 +71,7 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
   return (
     <>
       <Tabs
-        value={activeTab === WorkflowSidebarType.TRIGGER ? 0 : 1}
+        value={activeTab === WorkflowItemType.TRIGGER ? 0 : 1}
         indicatorColor="primary"
         textColor="primary"
         variant="fullWidth"
@@ -79,12 +79,12 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
         <Tab
           className={classes.root}
           label={formatMessage({ id: 'settings.workflow.triggers' })}
-          onClick={() => handleTabChange(WorkflowSidebarType.TRIGGER)}
+          onClick={() => handleTabChange(WorkflowItemType.TRIGGER)}
         />
         <Tab
           className={classes.root}
           label={formatMessage({ id: 'settings.workflow.actions' })}
-          onClick={() => handleTabChange(WorkflowSidebarType.ACTION)}
+          onClick={() => handleTabChange(WorkflowItemType.ACTION)}
         />
       </Tabs>
       <div className={classes.content}>
@@ -112,8 +112,7 @@ export const WorkflowSidebar = ({ isFullScreen, actionsGroups, triggersGroups }:
               {group.items.map((item, index) => (
                 <WorkflowSidebarItem
                   type={activeTab}
-                  icon={item.icon}
-                  title={item.title}
+                  item={item}
                   searchValue={value}
                   key={`${group.title}_item_${index}`}
                 />

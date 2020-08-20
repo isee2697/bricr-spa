@@ -35,7 +35,7 @@ export const MetersType = ({
   return (
     <Page
       title={title}
-      placeholder="pim_details.services.description_placeholder"
+      placeholder="pim_details.meters.description_placeholder"
       name="description"
       onSave={onDescriptionUpdate}
       initialValues={{ description: metersMeta.description }}

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useLayout } from 'context/layout';
 import { AppRoute } from 'routing/AppRoute.enum';
 
-import { WorkflowSection } from './workflowSection/WorkflowSection.types';
 import { Workflow } from './Workflow';
 import * as dictionaries from './dictionaries';
 
@@ -13,10 +12,6 @@ export const WorkflowContainer = () => {
   const { state } = useLocation<{ iconName: string }>();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
-  const [sections, setSections] = useState<WorkflowSection[]>([
-    { title: 'Workflow section 1', trigger: dictionaries.trigger },
-    { title: 'Workflow section 2' },
-  ]);
 
   useEffect(() => {
     setFullscreen(true);
@@ -31,14 +26,6 @@ export const WorkflowContainer = () => {
     setFullscreen(false);
   };
 
-  const handleAddSection = async () => {
-    setSections(s => {
-      return [...s, { title: `Workflow section ${s.length + 1}` }];
-    });
-
-    return undefined;
-  };
-
   return (
     <Workflow
       onToggleFullScreen={onToggleFullScreen}
@@ -47,8 +34,9 @@ export const WorkflowContainer = () => {
       goBack={goBack}
       actionsGroups={dictionaries.actionsGroups}
       triggersGroups={dictionaries.triggersGroups}
-      onAddSection={handleAddSection}
-      sections={sections}
+      initValues={dictionaries.sections}
+      onAddSection={() => Promise.resolve(undefined)}
+      onAddItem={() => Promise.resolve(undefined)}
     />
   );
 };

@@ -3,6 +3,18 @@ import { ReactNode } from 'react';
 import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
 import { WorkflowSection } from './workflowSection/WorkflowSection.types';
 
+export enum WorkflowItemType {
+  TRIGGER = 'Trigger',
+  ACTION = 'Action',
+}
+
+export type AddItemData = {
+  item: Trigger | Action;
+  type: WorkflowItemType;
+  parentId?: string;
+  sectionId: string;
+};
+
 export type Trigger = {
   id: string;
   title: string;
@@ -24,6 +36,7 @@ export type WorkflowProps = {
   goBack: VoidFunction;
   triggersGroups: WorkflowSidebarGroup[];
   actionsGroups: WorkflowSidebarGroup[];
+  initValues: WorkflowSection[];
   onAddSection: () => Promise<undefined | { error: boolean }>;
-  sections: WorkflowSection[];
+  onAddItem: (data: AddItemData) => Promise<undefined | { error: boolean }>;
 };

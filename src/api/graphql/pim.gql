@@ -90,6 +90,7 @@ enum SectionWithDescriptionType {
   AogBuildings,
   AogInstallations,
   AogGrounds
+  MetersMetaInfo
 }
 
 input PropertyRelatedInput {

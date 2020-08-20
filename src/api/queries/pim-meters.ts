@@ -4,6 +4,7 @@ export const PIM_METERS = gql`
   query PimMeters($id: ID!) {
     getPimServices(id: $id) {
       metersMeta {
+        description
         Water {
           description
           lastEditedBy {

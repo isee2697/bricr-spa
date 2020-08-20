@@ -1,24 +1,33 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core';
+import { useDrag } from 'react-dnd';
 
 import { Box } from 'ui/atoms';
 import { ActionItem, TriggerItem, DndItemState } from '../../workflowItems';
+import { WorkflowItemType } from '../../Workflow.types';
 
-import { WorkflowSidebarItemProps, WorkflowSidebarType } from './WorkflowSidebarItem.types';
+import { WorkflowSidebarItemProps } from './WorkflowSidebarItem.types';
+import { useStyles } from './WorkflowSidebarItem.styles';
 
-export const WorkflowSidebarItem = ({ icon, title, type, searchValue }: WorkflowSidebarItemProps) => {
-  const theme = useTheme();
+export const WorkflowSidebarItem = ({ type, item, searchValue }: WorkflowSidebarItemProps) => {
+  const classes = useStyles();
+
+  const [, drag, preview] = useDrag({
+    item: {
+      type,
+      ...item,
+    },
+  });
 
   const getHighlightedString = () => {
     if (!searchValue.trim()) {
-      return title;
+      return item.title;
     }
 
-    const parts = title?.split(new RegExp(`(${searchValue})`, 'gi'));
+    const parts = item.title?.split(new RegExp(`(${searchValue})`, 'gi'));
 
     return parts?.map((part, index) =>
       part.toLowerCase().match(searchValue.toLowerCase()) ? (
-        <Box key={index} component="span" color={theme.palette.red.main}>
+        <Box key={index} className={classes.highlightedText} component="span">
           {part}
         </Box>
       ) : (
@@ -27,17 +36,28 @@ export const WorkflowSidebarItem = ({ icon, title, type, searchValue }: Workflow
     );
   };
 
-  if (type === WorkflowSidebarType.ACTION) {
-    return (
-      <Box mb={2}>
-        <ActionItem icon={icon} title={getHighlightedString()} state={DndItemState.STATIC} />
-      </Box>
-    );
-  }
-
   return (
-    <Box mb={3}>
-      <TriggerItem icon={icon} title={getHighlightedString()} state={DndItemState.STATIC} />
-    </Box>
+    <div ref={drag}>
+      {type === WorkflowItemType.ACTION && (
+        <>
+          <Box mb={2}>
+            <ActionItem icon={item.icon} title={getHighlightedString()} state={DndItemState.STATIC} />
+          </Box>
+          <div ref={preview} className={classes.previewItem}>
+            <ActionItem icon={item.icon} title={item.title} state={DndItemState.DRAGGED} />
+          </div>
+        </>
+      )}
+      {type === WorkflowItemType.TRIGGER && (
+        <>
+          <Box mb={3}>
+            <TriggerItem icon={item.icon} title={getHighlightedString()} state={DndItemState.STATIC} />
+          </Box>
+          <div ref={preview} className={classes.previewItem}>
+            <TriggerItem icon={item.icon} title={item.title} state={DndItemState.DRAGGED} />
+          </div>
+        </>
+      )}
+    </div>
   );
 };
