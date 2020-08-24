@@ -17,6 +17,8 @@ import { ProjectItem } from './projectItem/ProjectItem';
 export const Project = ({
   status,
   onStatusChange,
+  pricingType,
+  onPricingTypeChange,
   type,
   isLoading,
   isError,
@@ -37,7 +39,12 @@ export const Project = ({
       {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
-          <PimSidebarMenu type={type} onTypeChange={() => {}} />
+          <PimSidebarMenu
+            type={type}
+            onTypeChange={() => {}}
+            pricingType={pricingType}
+            onPricingTypeChange={onPricingTypeChange}
+          />
         </Grid>
         <Grid item xs={12} md={9} lg={10}>
           <Grid container spacing={3} className={classes.content}>

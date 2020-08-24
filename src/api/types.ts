@@ -1876,6 +1876,7 @@ export type NcpLinkedPimsLinkedPropertiesArgs = {
 
 export type ListNcpsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
+  pricingType?: Maybe<PricingType>;
 };
 
 export type ListNcp = {
@@ -7493,7 +7494,9 @@ export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
   getNcpLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
-export type ListNcpsCountQueryVariables = {};
+export type ListNcpsCountQueryVariables = {
+  pricingType?: Maybe<PricingType>;
+};
 
 export type ListNcpsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'NcpListSearchResult' } & {
@@ -7505,6 +7508,7 @@ export type ListNcpsCountQuery = { __typename?: 'Query' } & {
 };
 
 export type ListNcpsQueryVariables = {
+  pricingType?: Maybe<PricingType>;
   archived: Scalars['Boolean'];
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
@@ -12403,13 +12407,13 @@ export type GetNcpLabelsQueryHookResult = ReturnType<typeof useGetNcpLabelsQuery
 export type GetNcpLabelsLazyQueryHookResult = ReturnType<typeof useGetNcpLabelsLazyQuery>;
 export type GetNcpLabelsQueryResult = ApolloReactCommon.QueryResult<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>;
 export const ListNcpsCountDocument = gql`
-  query ListNcpsCount {
-    activeCount: listNcps(filters: { archived: false }) {
+  query ListNcpsCount($pricingType: PricingType) {
+    activeCount: listNcps(filters: { archived: false, pricingType: $pricingType }) {
       metadata {
         total
       }
     }
-    archivedCount: listNcps(filters: { archived: true }) {
+    archivedCount: listNcps(filters: { archived: true, pricingType: $pricingType }) {
       metadata {
         total
       }
@@ -12433,9 +12437,16 @@ export type ListNcpsCountQueryHookResult = ReturnType<typeof useListNcpsCountQue
 export type ListNcpsCountLazyQueryHookResult = ReturnType<typeof useListNcpsCountLazyQuery>;
 export type ListNcpsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpsCountQuery, ListNcpsCountQueryVariables>;
 export const ListNcpsDocument = gql`
-  query ListNcps($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+  query ListNcps(
+    $pricingType: PricingType
+    $archived: Boolean!
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
     listNcps(
-      filters: { archived: $archived }
+      filters: { archived: $archived, pricingType: $pricingType }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {

@@ -2,36 +2,28 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { SideMenu } from 'ui/molecules';
-import { SideMenuItem } from 'ui/atoms';
+import { SideMenuItem, Select, MenuItem } from 'ui/atoms';
 import { SaleIcon } from 'ui/atoms/icons/sale/SaleIcon';
 import { RentIcon } from 'ui/atoms/icons/rent/RentIcon';
 import { NcSaleIcon } from 'ui/atoms/icons/ncSale/NcSaleIcon';
-import { NcRentIcon } from 'ui/atoms/icons/ncRent/NcRentIcon';
 import { MutationIcon } from 'ui/atoms/icons/mutation/MutationIcon';
 import { BogIcon } from 'ui/atoms/icons/bog/BogIcon';
 import { AogIcon } from 'ui/atoms/icons/aog/AogIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from '../../../routing/AppRoute.enum';
+import { SelectPriceType } from '../Pim.types';
 
 import { useStyles } from './PimSidebarMenu.styles';
 import { PimSidebarMenuProps } from './PimSidebarMenu.types';
 
 const types = [
   {
-    name: 'sale',
+    name: 'property',
     icon: <SaleIcon />,
   },
   {
-    name: 'rent',
-    icon: <RentIcon />,
-  },
-  {
-    name: 'nc_sale',
+    name: 'nc',
     icon: <NcSaleIcon />,
-  },
-  {
-    name: 'nc_rent',
-    icon: <NcRentIcon />,
   },
   {
     name: 'mutation',
@@ -40,6 +32,10 @@ const types = [
   {
     name: 'bog',
     icon: <BogIcon />,
+  },
+  {
+    name: 'bog_building',
+    icon: <RentIcon />,
   },
   {
     name: 'aog',
@@ -55,23 +51,41 @@ const types = [
   },
 ];
 
-export const PimSidebarMenu = ({ type, onTypeChange }: PimSidebarMenuProps) => {
+export const PimSidebarMenu = ({ type, onTypeChange, pricingType, onPricingTypeChange }: PimSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { push } = useHistory();
   const { pathname } = useLocation();
+
   const handleTypeChange = (name: string) => {
     onTypeChange(name);
 
-    if (name.includes('nc_')) {
+    if (name.includes('nc')) {
       push(`${AppRoute.project}?type=${name}`);
     } else if (pathname === AppRoute.project) {
       push(`${AppRoute.pim}?type=${name}`);
     }
   };
 
+  const handlePriceTypeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const priceType = event.target.value as string;
+
+    onPricingTypeChange(type);
+
+    if (pathname.includes('project')) {
+      push(`${AppRoute.project}?pricingType=${priceType}`);
+    } else if (pathname === AppRoute.project) {
+      push(`${AppRoute.pim}?pricingType=${priceType}`);
+    }
+  };
+
   return (
     <SideMenu className={classes.root}>
+      <Select variant="filled" value={pricingType} fullWidth onChange={handlePriceTypeChange}>
+        <MenuItem value={SelectPriceType.Rent}>Rent</MenuItem>
+        <MenuItem value={SelectPriceType.Sale}>Sale</MenuItem>
+        <MenuItem value="both">Rent and sale</MenuItem>
+      </Select>
       {types.map(t => (
         <SideMenuItem
           className="pim-side-menu-item"

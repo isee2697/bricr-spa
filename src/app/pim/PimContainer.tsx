@@ -1,11 +1,10 @@
 import React from 'react';
-import { useQueryParam } from 'use-query-params';
 
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
-import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
+import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
 import { Pim } from './Pim';
 
@@ -16,7 +15,9 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   switch (type) {
     case 'rent':
     case 'sale':
-      return { propertyTypes: [PropertyType.Apartment, PropertyType.House] };
+      return {
+        propertyTypes: [PropertyType.Apartment, PropertyType.House],
+      };
     case 'bog':
       return { propertyTypes: [PropertyType.Commercial] };
     case 'aog':
@@ -31,11 +32,11 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
 };
 
 export const PimContainer = () => {
-  const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
-  const [type = 'sale', setType] = useQueryParam<string>('type');
+  const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
 
   const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
     variables: {
+      ...priceTypeFilter,
       ...getPimFilterVariables(type),
     },
   });
@@ -58,6 +59,7 @@ export const PimContainer = () => {
 
   const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
     variables: {
+      ...priceTypeFilter,
       ...getPimFilterVariables(type),
       archived: status === 'archived',
       ...sortQuery,
@@ -72,6 +74,8 @@ export const PimContainer = () => {
       onStatusChange={setStatus}
       type={type}
       onTypeChange={setType}
+      pricingType={pricingType}
+      onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
       isError={!!countError || !!listError}
       amounts={amounts}

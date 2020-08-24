@@ -1,9 +1,7 @@
 import React from 'react';
-import { useQueryParam } from 'use-query-params';
 
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useLocale, usePagination, useSnackbar } from 'hooks';
-import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import {
   BulkEntities,
   BulkOperations,
@@ -17,6 +15,7 @@ import {
   useNcpBulkDetailsLazyQuery,
   useUndoEntityMutation,
 } from 'api/types';
+import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
 import { Project } from './Project';
 import { useProjectSorting } from './useProjectSorting/useProjectSorting';
@@ -27,14 +26,17 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 export const ProjectContainer = () => {
   const { formatMessage } = useLocale();
   const { open: openSnackbar } = useSnackbar();
-  const [status = 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
-  const [type = 'nc_sale', setType] = useQueryParam<string>('type');
+  const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({
+    type: 'nc',
+  });
 
   const [bulk] = useBulkMutation();
   const [getBulkData, { data: bulkData }] = useNcpBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
   const [undoEntity] = useUndoEntityMutation();
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListNcpsCountQuery({});
+  const { loading: isCountLoading, error: countError, data: countData } = useListNcpsCountQuery({
+    variables: priceTypeFilter,
+  });
 
   const amounts =
     (countData && {
@@ -53,7 +55,7 @@ export const ProjectContainer = () => {
   });
 
   const { loading: isListLoading, error: listError, data: listData } = useListNcpsQuery({
-    variables: { archived: status === 'archived', ...sortQuery, ...paginationQuery },
+    variables: { ...priceTypeFilter, archived: status === 'archived', ...sortQuery, ...paginationQuery },
     fetchPolicy: 'network-only',
   });
 
@@ -181,6 +183,8 @@ export const ProjectContainer = () => {
       <Project
         status={status}
         onStatusChange={setStatus}
+        pricingType={pricingType}
+        onPricingTypeChange={setPricingType}
         type={type}
         onTypeChange={setType}
         isLoading={isCountLoading || isListLoading}
