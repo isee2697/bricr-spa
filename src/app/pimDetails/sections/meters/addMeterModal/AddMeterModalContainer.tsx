@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { useAddMeterMutation, PimServicesDocument } from 'api/types';
+import { useAddMeterMutation, PimMetersDocument } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddMeterModalContainerProps, AddMeterSubmit } from './AddMeterModal.types';
@@ -24,7 +24,7 @@ export const AddMeterModalContainer = ({ isOpened, onClose, onAddMeter }: AddMet
         },
         refetchQueries: [
           {
-            query: PimServicesDocument,
+            query: PimMetersDocument,
             variables: {
               id,
             },
