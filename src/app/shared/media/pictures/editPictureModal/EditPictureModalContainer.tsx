@@ -58,7 +58,7 @@ export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture
             {
               query: PimMediaDocument,
               variables: { id },
-            },
+            }
           ],
         });
 

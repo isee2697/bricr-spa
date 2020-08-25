@@ -24,7 +24,7 @@ export const LinkedPropertyItem = ({
   city,
   dateCreated,
   livingArea,
-  images,
+  pictures,
   salePrice,
   rentPrice,
   completeness,
@@ -64,7 +64,7 @@ export const LinkedPropertyItem = ({
                   .replace(':id', id),
               )
             }
-            src={images?.[0]?.url || undefined}
+            src={pictures?.[0]?.file?.url || undefined}
             grayscale={archived ?? false}
             variant="blue"
           />

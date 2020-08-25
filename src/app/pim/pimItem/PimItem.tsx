@@ -21,7 +21,7 @@ export const PimItem = ({
   dateCreated,
   livingArea,
   propertyType,
-  images,
+  pictures,
   salePrice,
   rentPrice,
   completeness,
@@ -50,7 +50,7 @@ export const PimItem = ({
 
   return (
     <PropertyItem
-      image={(images && images[0] && images[0].url) ?? undefined}
+      image={(pictures && pictures[0] && pictures[0].file?.url) ?? undefined}
       date={dateCreated}
       title={title}
       labels={labels}
