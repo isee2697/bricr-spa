@@ -101,7 +101,7 @@
   "pim.type.sale": "Sale",
   "pim.type.rent": "Rent",
   "pim.type.nc": "New construction",
-  "pim.type.bog_building": "Bog building",
+  "pim.type.bog_building": "BOG building",
   "pim.type.nc_sale": "NC sale",
   "pim.type.nc_rent": "NC rent",
   "pim.type.mutation": "Relet building",

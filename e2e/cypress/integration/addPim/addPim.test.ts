@@ -10,7 +10,7 @@ context('Add Pim', () => {
 
     NavigationMenu.goToPim();
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findByText('Property').click();
+    cy.findAllByText('Property').last().click();
     cy.findAllByText('House')
       .last()
       .click();
@@ -30,7 +30,7 @@ context('Add Pim', () => {
   it('shows info about conflicts and allows to add PIM with existed address', () => {
     cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findByText('Property').click();
+    cy.findAllByText('Property').last().click();
     cy.findAllByText('House')
       .last()
       .click();
@@ -52,7 +52,7 @@ context('Add Pim', () => {
   it('shows unexpected errors during save', () => {
     cy.visit(NavigationMenu.pimLink);
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findByText('Property').click();
+    cy.findAllByText('Property').last().click();
     cy.findAllByText('House')
       .last()
       .click();

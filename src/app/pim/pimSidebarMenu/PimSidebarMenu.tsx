@@ -61,9 +61,9 @@ export const PimSidebarMenu = ({ type, onTypeChange, pricingType, onPricingTypeC
     onTypeChange(name);
 
     if (name.includes('nc')) {
-      push(`${AppRoute.project}?type=${name}`);
-    } else if (pathname === AppRoute.project) {
-      push(`${AppRoute.pim}?type=${name}`);
+      push(`${AppRoute.project}?pricingType=${pricingType}`);
+    } else {
+      push(`${AppRoute.pim}?type=${name}&pricingType=${pricingType}`);
     }
   };
 
@@ -71,20 +71,21 @@ export const PimSidebarMenu = ({ type, onTypeChange, pricingType, onPricingTypeC
     const priceType = event.target.value as string;
 
     onPricingTypeChange(type);
-
-    if (pathname.includes('project')) {
-      push(`${AppRoute.project}?pricingType=${priceType}`);
-    } else if (pathname === AppRoute.project) {
-      push(`${AppRoute.pim}?pricingType=${priceType}`);
-    }
+    push(`${pathname}?pricingType=${priceType}`);
   };
 
   return (
     <SideMenu className={classes.root}>
-      <Select variant="filled" value={pricingType} fullWidth onChange={handlePriceTypeChange}>
-        <MenuItem value={SelectPriceType.Rent}>Rent</MenuItem>
-        <MenuItem value={SelectPriceType.Sale}>Sale</MenuItem>
-        <MenuItem value="both">Rent and sale</MenuItem>
+      <Select
+        className={classes.dropdown}
+        variant="filled"
+        value={pricingType}
+        fullWidth
+        onChange={handlePriceTypeChange}
+      >
+        <MenuItem value="both">{formatMessage({ id: 'pim.type.both' })}</MenuItem>
+        <MenuItem value={SelectPriceType.Rent}>{formatMessage({ id: 'pim.type.rent' })}</MenuItem>
+        <MenuItem value={SelectPriceType.Sale}>{formatMessage({ id: 'pim.type.sale' })}</MenuItem>
       </Select>
       {types.map(t => (
         <SideMenuItem
