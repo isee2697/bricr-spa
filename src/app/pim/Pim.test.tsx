@@ -25,9 +25,6 @@ describe('Pim', () => {
       />,
     );
 
-    fireEvent.click(getByText('pim.type.rent'));
-    expect(onTypeChange).toHaveBeenCalledWith('rent');
-
     fireEvent.click(getByText('pim.status.active'));
     expect(onStatusChange).toHaveBeenCalledWith('active');
   });

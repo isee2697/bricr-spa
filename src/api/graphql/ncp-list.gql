@@ -1,5 +1,6 @@
 input ListNcpsFilters {
   archived: Boolean
+  pricingType: PricingType
 }
 
 type ListNcp {

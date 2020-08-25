@@ -26,6 +26,8 @@ export const ProjectMarketing = ({ isInitEditing, isInitExpanded }: FormProps) =
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const { entityType } = useEntityType();
+  const entity = entityWithFilesMap[entityType];
+  const removeEntity = entityWithMultipleFilesMap[entityType];
 
   return (
     <FormSection
@@ -50,12 +52,12 @@ export const ProjectMarketing = ({ isInitEditing, isInitExpanded }: FormProps) =
                 })}
               />
             </Box>
-            {entityWithFilesMap[entityType] && entityWithMultipleFilesMap[entityType] && (
+            {entity && removeEntity && (
               <UploadImageGroupField
                 name="projectMarketing.logos"
-                entity={entityWithFilesMap[entityType]!}
+                entity={entity}
                 entityID={id}
-                removeEntity={entityWithMultipleFilesMap[entityType]!}
+                removeEntity={removeEntity}
                 disabled={!inEditMode}
                 mainName="projectMarketing.mainLogoId"
               />

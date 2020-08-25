@@ -66,7 +66,14 @@ We use [PlopJS](https://plopjs.com/) for creating components and hooks. Configur
 ## E2E
 
 For E2E testing we are using the [Cypress](https://www.cypress.io/) framework. There is also separate repository with e2e testing. 
-
+### installing
+cd into e2e folder and run `npm i`
+add .env with contents:
+```
+CYPRESS_HOST=http://localhost:3000
+CYPRESS_USER_LOGIN=test
+CYPRESS_USER_PASSWORD=test
+```
 ## Available Scripts
 
 In the project directory, you can run:
