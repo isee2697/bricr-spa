@@ -140,10 +140,6 @@ const getCadastreItem = (data: PimOverallInfoQuery, formatMessage: (data: Messag
   return {
     ...cadastreItem,
     subItems: [
-      {
-        id: 'cadastreMap',
-        label: 'pim_details.cadastre.cadastre_map',
-      },
       ...Object.values(plotGroups).flatMap(values =>
         values.map((plot, key) =>
           createSubMenuData(
@@ -155,6 +151,10 @@ const getCadastreItem = (data: PimOverallInfoQuery, formatMessage: (data: Messag
           ),
         ),
       ),
+      {
+        id: 'cadastreMaps',
+        label: 'pim_details.cadastre.cadastre_map',
+      },
     ],
   };
 };
