@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 
+import emptyNotificationsImage from 'assets/images/empty_notifications.png';
 import { Menu, Box, Typography, Badge, IconButton, Emoji } from 'ui/atoms';
+// import { Menu, Box, Typography, Badge, IconButton } from 'ui/atoms';
 import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 
@@ -51,6 +53,7 @@ export const NotificationMenu = () => {
           <Typography variant="h3">Notifications</Typography>
           <Box className={classes.emptyNotificationsImage}>
             <Emoji className={classes.emptyNotificationsImageEmo}>🎉</Emoji>
+            {/* <img src={emptyNotificationsImage} alt="" /> */}
           </Box>
           <Box className={classes.emptyNotificationsText}>
             <p>Ta-da!</p>
