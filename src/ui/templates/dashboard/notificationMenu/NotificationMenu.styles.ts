@@ -5,23 +5,26 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: '#4444 !important',
   },
   notificationsMenu: {
-    minWidth: '360px',
+    minWidth: theme.spacing(45),
+  },
+  emptyNotificationsImageEmo: {
+    fontSize: 48,
   },
   emptyNotificationsImage: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: '32px',
-    marginBottom: '16px',
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
   },
   emptyNotificationsText: {
-    marginBottom: '16px',
+    marginBottom: theme.spacing(2),
     '& p': {
       textAlign: 'center',
       marginTop: '0px',
       marginBottom: '0px',
       fontWeight: '600',
       '&:first-child': {
-        marginBottom: '5px',
+        marginBottom: theme.spacing(1),
       },
     },
   },

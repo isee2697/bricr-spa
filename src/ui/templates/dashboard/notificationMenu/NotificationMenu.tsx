@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import classNames from 'classnames';
 
-import emptyNotificationsImage from 'assets/images/empty_notifications.png';
-import { Menu, Box, Typography, Badge, IconButton } from 'ui/atoms';
+import { Menu, Box, Typography, Badge, IconButton, Emoji } from 'ui/atoms';
 import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 
@@ -30,7 +30,7 @@ export const NotificationMenu = () => {
         aria-label="notifications"
         aria-haspopup="true"
         id="notifications-menu-button"
-        className={isOpened ? classes.activeNotificationIcon : ''}
+        className={classNames(isOpened ? classes.activeNotificationIcon : '')}
       >
         <Badge badgeContent={0} color="secondary">
           <BellIcon />
@@ -50,7 +50,7 @@ export const NotificationMenu = () => {
         <Box className={classes.notificationsMenu}>
           <Typography variant="h3">Notifications</Typography>
           <Box className={classes.emptyNotificationsImage}>
-            <img src={emptyNotificationsImage} alt="" />
+            <Emoji className={classes.emptyNotificationsImageEmo}>🎉</Emoji>
           </Box>
           <Box className={classes.emptyNotificationsText}>
             <p>Ta-da!</p>
