@@ -13,8 +13,7 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
   switch (type) {
-    case 'rent':
-    case 'sale':
+    case 'property':
       return {
         propertyTypes: [PropertyType.Apartment, PropertyType.House],
       };
