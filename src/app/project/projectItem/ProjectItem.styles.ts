@@ -42,6 +42,9 @@ export const useStyles = makeStyles(theme => ({
     backgroundPosition: 'center',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
+    position: 'absolute',
+    left: 0,
+    top: 0,
   },
   stats: {
     marginLeft: 'auto',

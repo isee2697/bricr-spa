@@ -8,6 +8,7 @@ type defaultValues = {
   type?: string;
   pricingType?: string;
 };
+
 export const usePimQueryParams = (defaults: defaultValues) => {
   const [status = defaults.status || 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
   const [type = defaults.type || 'property', setType] = useQueryParam<string>('type');

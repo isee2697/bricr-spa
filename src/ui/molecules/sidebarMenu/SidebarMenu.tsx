@@ -51,10 +51,10 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
     if (isGroupOpen[menuGroup.key] === undefined) {
       setGroupOpen(groups => ({
         ...groups,
-        [menuGroup.key as string]: true,
+        [menuGroup.key as string]: false,
       }));
 
-      return true;
+      return false;
     }
 
     return isGroupOpen[menuGroup.key];

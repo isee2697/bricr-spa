@@ -1479,7 +1479,7 @@ export type ListPim = {
   propertyType?: Maybe<PropertyType>;
   salePrice?: Maybe<Scalars['Float']>;
   rentPrice?: Maybe<Scalars['Float']>;
-  images?: Maybe<Array<File>>;
+  pictures?: Maybe<Array<Picture>>;
   livingArea?: Maybe<Scalars['Int']>;
   attentionNote?: Maybe<Scalars['String']>;
   dateCreated: Scalars['Date'];
@@ -7336,7 +7336,15 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'completeness'
           | 'archived'
           | 'attentionNote'
-        > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+        > & {
+            pictures?: Maybe<
+              Array<
+                { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+                    file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+                  }
+              >
+            >;
+          }
       >
     >;
   };
@@ -7727,7 +7735,15 @@ export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'status'
               | 'developmentType'
               | 'linkedObjectTypeIds'
-            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
           >
         >;
       };
@@ -8131,7 +8147,15 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'developmentType'
               | 'linkedObjectTypeIds'
               | 'attentionNote'
-            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
           >
         >;
       };
@@ -12103,8 +12127,18 @@ export const ListPimsDocument = gql`
         dateCreated
         livingArea
         propertyType
-        images {
-          url
+        pictures {
+          id
+          name
+          description
+          type
+          dateUpdated
+          file {
+            id
+            key
+            fileName
+            url
+          }
         }
         salePrice
         rentPrice
@@ -12818,8 +12852,11 @@ export const NcpLinkedPimsDocument = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice
@@ -13602,8 +13639,11 @@ export const ObjectTypeLinkedPimsDocument = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice

@@ -55,8 +55,11 @@ export const LIST_NCP_PROPERTIES = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice

@@ -25,7 +25,7 @@ type ListPim {
   propertyType: PropertyType
   salePrice: Float
   rentPrice: Float
-  images: [File!]
+  pictures: [Picture!]
   livingArea: Int
   attentionNote: String
   dateCreated: Date!

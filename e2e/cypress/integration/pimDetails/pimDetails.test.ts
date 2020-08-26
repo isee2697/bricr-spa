@@ -65,6 +65,7 @@ context('Pim Details', () => {
   });
 
   it('allows edit Inside general', () => {
+    cy.findByText('PIM intake').click();
     cy.findByText('Inside').click();
 
     cy.findAllByPlaceholderText('A few words about inside...')
@@ -140,6 +141,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside info', () => {
+    cy.findByText('PIM intake').click();
     cy.findByText('Outside').click();
     cy.contains('General information');
 
@@ -173,6 +175,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add an outside feature', () => {
+    cy.findByText('PIM intake').click();
     cy.findAllByText('Outside')
       .first()
       .click();
@@ -189,6 +192,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside feature', () => {
+    cy.findByText('PIM intake').click();
     cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 
