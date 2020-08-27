@@ -159,6 +159,7 @@ export const PimDetails = ({
                 />
                 {Object.values(AogSpaceType).map(aogSpaceType => (
                   <Route
+                    key={aogSpaceType}
                     path={`${path}/${aogSpaceType.toLowerCase()}`}
                     render={() => (
                       <AogSpacesContainer

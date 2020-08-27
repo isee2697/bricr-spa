@@ -88,6 +88,7 @@ input UpdateCadastreInput {
   id: String!
   pimId: String!
   description: String
+  mapsDescription: String
   plot: CadastrePlotInput
 }
 
@@ -169,6 +170,7 @@ input LeaseInput {
 type Cadastre implements LastUpdated {
   id: String!
   description: String
+  mapsDescription: String
   type: CadastreType!
   maps: [CadastreMap!]
   plot: CadastrePlot
