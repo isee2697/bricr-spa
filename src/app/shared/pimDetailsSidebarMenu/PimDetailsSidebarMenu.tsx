@@ -56,10 +56,10 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
       items.push(
         getMenuItem(SideBarItemTypes.General, data, formatMessage),
         getMenuItem(SideBarItemTypes.Cadastre, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Commercial, data, formatMessage),
         getMenuItem(SideBarItemTypes.Services, data, formatMessage),
         getMenuItem(SideBarItemTypes.Meters, data, formatMessage),
         getMenuItem(SideBarItemTypes.Specification, data, formatMessage),
-        getMenuItem(SideBarItemTypes.Commercial, data, formatMessage),
         getMenuItem(SideBarItemTypes.Media, data, formatMessage),
       );
       break;
@@ -67,13 +67,13 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
       items.push(
         getMenuItem(SideBarItemTypes.General, data, formatMessage),
         getMenuItem(SideBarItemTypes.Cadastre, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Ground, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Installations, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Buildings, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Animals, data, formatMessage),
         getMenuItem(SideBarItemTypes.Services, data, formatMessage),
         getMenuItem(SideBarItemTypes.Meters, data, formatMessage),
         getMenuItem(SideBarItemTypes.Specification, data, formatMessage),
-        getMenuItem(SideBarItemTypes.Ground, data, formatMessage),
-        getMenuItem(SideBarItemTypes.Installations, data, formatMessage),
-        getMenuItem(SideBarItemTypes.Animals, data, formatMessage),
-        getMenuItem(SideBarItemTypes.Buildings, data, formatMessage),
         getMenuItem(SideBarItemTypes.Media, data, formatMessage),
       );
       break;
