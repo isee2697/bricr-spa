@@ -30,7 +30,7 @@ export const NotificationMenu = () => {
         aria-label="notifications"
         aria-haspopup="true"
         id="notifications-menu-button"
-        className={classNames(isOpened ? classes.activeNotificationIcon : '')}
+        className={classNames(classes.notification, isOpened ? classes.activeNotificationIcon : '')}
       >
         <Badge badgeContent={0} color="secondary">
           <BellIcon />
