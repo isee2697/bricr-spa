@@ -3,13 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(theme => ({
   notification: {},
   activeNotificationIcon: {
-    backgroundColor: '#4444 !important',
+    backgroundColor: `${theme.palette.gray.main} !important`,
+    '& .MuiSvgIcon-root path': {
+      fill: theme.palette.white.main,
+    },
   },
   notificationsMenu: {
     minWidth: theme.spacing(45),
   },
   emptyNotificationsImageEmo: {
-    fontSize: 48,
+    fontSize: theme.typography.h1.fontSize,
   },
   emptyNotificationsImage: {
     display: 'flex',
@@ -21,9 +24,9 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     '& p': {
       textAlign: 'center',
-      marginTop: '0px',
-      marginBottom: '0px',
-      fontWeight: '600',
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(0),
+      fontWeight: theme.typography.fontWeightBold,
       '&:first-child': {
         marginBottom: theme.spacing(1),
       },

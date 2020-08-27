@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Menu, Box, Typography, Badge, IconButton, Emoji } from 'ui/atoms';
 import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
+import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './NotificationMenu.styles';
 
@@ -12,6 +13,7 @@ export const NotificationMenu = () => {
   const setOverlay = useOverlayDispatch();
   const menuRef = useRef(null);
   const classes = useStyles();
+  const { formatMessage } = useLocale();
 
   useEffect(() => {
     setOverlay(isOpened);
@@ -53,8 +55,8 @@ export const NotificationMenu = () => {
             <Emoji className={classes.emptyNotificationsImageEmo} children="🎉" />
           </Box>
           <Box className={classes.emptyNotificationsText}>
-            <p>Ta-da!</p>
-            <p>You’re up to date</p>
+            <p>{formatMessage({ id: 'notifications.emptyMessage.line1' })}</p>
+            <p>{formatMessage({ id: 'notifications.emptyMessage.line2' })}</p>
           </Box>
         </Box>
       </Menu>
