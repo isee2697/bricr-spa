@@ -27,7 +27,7 @@ export const Plot = ({ index, cadastre, onOwnershipChange }: PlotProps) => {
     <Page
       placeholder="pim_details.cadastre.description_placeholder"
       name="notes"
-      title={formatMessage({ id: 'pim_details.cadastre.title' })}
+      title={formatMessage({ id: 'pim_details.cadastre.plot.information' })}
       updatedBy={cadastre?.lastEditedBy}
       dateUpdated={cadastre?.dateUpdated}
     >
