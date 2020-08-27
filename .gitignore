@@ -5,7 +5,7 @@
 /e2e/node_modules
 /.pnp
 .pnp.js
-./idea
+.idea
 spa.iml
 
 # testing
