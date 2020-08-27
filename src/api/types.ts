@@ -3203,6 +3203,7 @@ export type UpdateCadastreInput = {
   id: Scalars['String'];
   pimId: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   plot?: Maybe<CadastrePlotInput>;
 };
 
@@ -3288,6 +3289,7 @@ export type Cadastre = LastUpdated & {
   __typename?: 'Cadastre';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   type: CadastreType;
   maps?: Maybe<Array<CadastreMap>>;
   plot?: Maybe<CadastrePlot>;
@@ -8412,7 +8414,7 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Cadastre' } & Pick<
             Cadastre,
-            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated'
+            'id' | 'description' | 'mapsDescription' | 'type' | 'dateCreated' | 'dateUpdated'
           > & {
               maps?: Maybe<
                 Array<
@@ -13971,6 +13973,7 @@ export const PimCadastreDocument = gql`
       cadastre {
         id
         description
+        mapsDescription
         type
         maps {
           id

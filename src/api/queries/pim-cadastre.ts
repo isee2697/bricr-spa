@@ -7,6 +7,7 @@ export const PIM_CADASTRE = gql`
       cadastre {
         id
         description
+        mapsDescription
         type
         maps {
           id

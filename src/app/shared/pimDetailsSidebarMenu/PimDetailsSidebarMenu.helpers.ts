@@ -153,7 +153,7 @@ const getCadastreItem = (data: PimOverallInfoQuery, formatMessage: (data: Messag
       ),
       {
         id: 'cadastreMaps',
-        label: 'pim_details.cadastre.cadastre_map',
+        label: 'pim_details.cadastre.cadastre_maps',
       },
     ],
   };

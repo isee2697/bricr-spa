@@ -14,7 +14,7 @@ import { CadastralMapsContainer } from './maps/CadastralMapsContainer';
 import { PlotContainer } from './plot/PlotContainer';
 import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
 import { CadastreProps } from './Cadastre.types';
-import { CadastreInfo } from './info/CadastreInfo';
+import { CadastreInfoContainer } from './info/CadastreInfoContainer';
 
 export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: CadastreProps) => {
   const { formatMessage } = useLocale();
@@ -58,7 +58,16 @@ export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: Cadas
         }
       />
       <Switch>
-        <Route path={`${baseUrl}/cadastre`} exact render={() => <CadastreInfo />} />
+        <Route
+          path={`${baseUrl}/cadastre`}
+          exact
+          render={() => (
+            <CadastreInfoContainer
+              hasPlots={!!cadastre.find(data => data.type === CadastreType.Plot)}
+              cadastreItem={cadastreMap}
+            />
+          )}
+        />
         <Route
           path={`${baseUrl}/cadastre/cadastreMaps`}
           exact
