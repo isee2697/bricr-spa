@@ -5,6 +5,8 @@
 /e2e/node_modules
 /.pnp
 .pnp.js
+./idea
+spa.iml
 
 # testing
 /coverage
