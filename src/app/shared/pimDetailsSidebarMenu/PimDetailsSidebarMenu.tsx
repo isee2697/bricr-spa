@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouteMatch, useParams } from 'react-router-dom';
+import { useParams, useRouteMatch } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
 import { SidebarMenu } from 'ui/molecules';
@@ -8,7 +8,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
-import { ComplexBuildingIcon, MailIcon, BuildingIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ComplexBuildingIcon, MailIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 import { PimDetailsSidebarMenuProps, SideBarItemTypes } from './PimDetailsSidebarMenu.types';
@@ -74,6 +74,13 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
         getMenuItem(SideBarItemTypes.Services, data, formatMessage),
         getMenuItem(SideBarItemTypes.Meters, data, formatMessage),
         getMenuItem(SideBarItemTypes.Specification, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Media, data, formatMessage),
+      );
+      break;
+    case PropertyType.BuildingPlot:
+      items.push(
+        getMenuItem(SideBarItemTypes.General, data, formatMessage),
+        getMenuItem(SideBarItemTypes.Cadastre, data, formatMessage),
         getMenuItem(SideBarItemTypes.Media, data, formatMessage),
       );
       break;
