@@ -176,6 +176,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add an outside feature', () => {
+    cy.findByText('PIM intake').click();
     cy.findAllByText('Outside')
       .first()
       .click();
