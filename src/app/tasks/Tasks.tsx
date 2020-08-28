@@ -6,7 +6,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksProps } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
-import { TasksBoard } from './tasksBoard/TasksBoard';
+import { TasksBody } from './tasksBody/TasksBody';
 
 export const Tasks = ({ isError }: TasksProps) => {
   const classes = useStyles();
@@ -21,7 +21,7 @@ export const Tasks = ({ isError }: TasksProps) => {
           <TasksHeader />
         </Grid>
         <Grid item xs={12}>
-          <TasksBoard />
+          <TasksBody />
         </Grid>
       </Grid>
     </>

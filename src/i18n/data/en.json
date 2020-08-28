@@ -2183,5 +2183,7 @@
   "tasks.today": "Today",
   "tasks.nextWeek": "Next week",
   "tasks.future": "Future",
-  "tasks.overdue": "Overdue"
+  "tasks.overdue": "Overdue",
+  "tasks.tada": "Ta-da!",
+  "tasks.upToDate": "You are up to date"
 }
