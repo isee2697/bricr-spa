@@ -27,7 +27,6 @@ export const NotificationMenu = () => {
         onClick={() => setOpened(true)}
         onKeyDown={() => setOpened(true)}
         innerRef={menuRef}
-        style={{ cursor: 'pointer' }}
         aria-controls="notifications-menu"
         aria-label="notifications"
         aria-haspopup="true"
