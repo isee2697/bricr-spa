@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -6,12 +6,12 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksProps } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
+import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
 
 export const Tasks = ({ isError }: TasksProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <>
@@ -19,6 +19,9 @@ export const Tasks = ({ isError }: TasksProps) => {
       <Grid container spacing={3} className={classes.content}>
         <Grid item xs={12}>
           <TasksHeader />
+        </Grid>
+        <Grid item xs={12}>
+          <TasksMemberList />
         </Grid>
         <Grid item xs={12}>
           <TasksBody />

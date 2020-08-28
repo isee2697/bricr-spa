@@ -15,7 +15,7 @@ export const TasksNoTaskMessage = () => {
         🎉
       </Grid>
       <Grid item className={classes.message}>
-        {formatMessage({ id: 'tasks.tadas' })}
+        {formatMessage({ id: 'tasks.tada' })}
       </Grid>
       <Grid item className={classes.message}>
         {formatMessage({ id: 'tasks.upToDate' })}

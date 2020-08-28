@@ -53,6 +53,7 @@ export { Avatar } from './avatar/Avatar';
 export { Menu } from './menu/Menu';
 export { UserAvatar } from './userAvatar/UserAvatar';
 export { Scrollable } from './scrollable/Scrollable';
+export { ScrollableHorizontal } from './scrollableHorizontal/ScrollableHorizontal';
 export { AgendaItem } from './agendaItem/AgendaItem';
 export { VisitedPage } from './visitedPage/VisitedPage';
 export { SideMenuItem } from './sideMenuItem/SideMenuItem';
