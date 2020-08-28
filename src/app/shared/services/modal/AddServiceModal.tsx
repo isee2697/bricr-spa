@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
-import { RadioGroupField, GenericField } from 'form/fields';
+import { RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions } from 'ui/atoms';
@@ -24,7 +24,6 @@ export const AddServiceModal = ({ types, nameLabel, title, isOpened, onClose, on
             )}
             <DialogContent>
               <RadioGroupField md={3} name="type" options={types} validate={[requireValidator]} />
-              <GenericField name="name" id="service.name" label={nameLabel} />
             </DialogContent>
             <DialogActions>
               <CancelButton variant="outlined" size="large" onClick={onClose}>
