@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
-import { useTheme } from '@material-ui/core';
 
 import { Card, CardContent, Tabs, Tab } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

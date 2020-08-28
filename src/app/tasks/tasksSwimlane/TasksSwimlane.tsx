@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, IconButton } from 'ui/atoms';
+import { Grid, IconButton, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 
 import { useStyles } from './TasksSwimlane.styles';
@@ -15,7 +15,7 @@ export const TasksSwimlane = () => {
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
               <Grid item className={classes.flexGrowOne}>
-                ⏱ To do
+                <Emoji>{'⏱ To do'}</Emoji>
               </Grid>
               <Grid item>
                 <IconButton className={classes.noPadding}>
@@ -31,7 +31,7 @@ export const TasksSwimlane = () => {
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
               <Grid item className={classes.flexGrowOne}>
-                🔥 In progress
+                <Emoji>{'🔥 In progress'}</Emoji>
               </Grid>
               <Grid item>
                 <IconButton className={classes.noPadding}>
@@ -47,7 +47,7 @@ export const TasksSwimlane = () => {
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
               <Grid item className={classes.flexGrowOne}>
-                ⛔️ Blocked
+                <Emoji>{'⛔️ Blocked'}</Emoji>
               </Grid>
               <Grid item>
                 <IconButton className={classes.noPadding}>
@@ -63,7 +63,7 @@ export const TasksSwimlane = () => {
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
               <Grid item className={classes.flexGrowOne}>
-                ✅ Done
+                <Emoji>{'✅ Done'}</Emoji>
               </Grid>
               <Grid item>
                 <IconButton className={classes.noPadding}>
