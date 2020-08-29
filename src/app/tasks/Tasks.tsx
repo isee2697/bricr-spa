@@ -9,7 +9,7 @@ import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
 
-export const Tasks = ({ isError }: TasksProps) => {
+export const Tasks = ({ isError, selectedUsers }: TasksProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 

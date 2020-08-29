@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { Grid, IconButton, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
@@ -11,13 +12,13 @@ export const TasksSwimlane = () => {
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xs={3}>
-        <Grid container spacing={1} className={classes.tasksSwimlaneColumn}>
-          <Grid item className={classes.flexGrowOne}>
+        <Grid container className={classes.tasksSwimlaneColumn}>
+          <Grid item className={clsx(classes.columnName, classes.flexGrowOne, 'grayLight')}>
             <Grid container justify="space-between">
-              <Grid item className={classes.flexGrowOne}>
+              <Grid item className={clsx(classes.columnName, classes.backGrayLight, classes.gray)}>
                 <Emoji>{'⏱ To do'}</Emoji>
               </Grid>
-              <Grid item>
+              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
                 <IconButton className={classes.noPadding}>
                   <MenuIcon />
                 </IconButton>
@@ -27,13 +28,13 @@ export const TasksSwimlane = () => {
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        <Grid container spacing={1} className={classes.tasksSwimlaneColumn}>
+        <Grid container className={classes.tasksSwimlaneColumn}>
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
-              <Grid item className={classes.flexGrowOne}>
+              <Grid item className={clsx(classes.columnName, classes.backYellowLight, classes.yellow)}>
                 <Emoji>{'🔥 In progress'}</Emoji>
               </Grid>
-              <Grid item>
+              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
                 <IconButton className={classes.noPadding}>
                   <MenuIcon />
                 </IconButton>
@@ -43,13 +44,13 @@ export const TasksSwimlane = () => {
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        <Grid container spacing={1} className={classes.tasksSwimlaneColumn}>
+        <Grid container className={classes.tasksSwimlaneColumn}>
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
-              <Grid item className={classes.flexGrowOne}>
+              <Grid item className={clsx(classes.columnName, classes.backRedLight, classes.red)}>
                 <Emoji>{'⛔️ Blocked'}</Emoji>
               </Grid>
-              <Grid item>
+              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
                 <IconButton className={classes.noPadding}>
                   <MenuIcon />
                 </IconButton>
@@ -59,13 +60,13 @@ export const TasksSwimlane = () => {
         </Grid>
       </Grid>
       <Grid item xs={3}>
-        <Grid container spacing={1} className={classes.tasksSwimlaneColumn}>
+        <Grid container className={classes.tasksSwimlaneColumn}>
           <Grid item className={classes.flexGrowOne}>
             <Grid container justify="space-between">
-              <Grid item className={classes.flexGrowOne}>
+              <Grid item className={clsx(classes.columnName, classes.backGreenLight, classes.green)}>
                 <Emoji>{'✅ Done'}</Emoji>
               </Grid>
-              <Grid item>
+              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
                 <IconButton className={classes.noPadding}>
                   <MenuIcon />
                 </IconButton>

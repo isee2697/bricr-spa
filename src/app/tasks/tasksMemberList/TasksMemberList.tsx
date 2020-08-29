@@ -41,7 +41,7 @@ export const TasksMemberList = () => {
       name: 'Caroline Zhang',
     },
   ];
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([users[0]]);
 
   const selectMember = (user: User) => () => {
     const index = selectedUsers.findIndex(u => user.id === u.id);
@@ -67,9 +67,11 @@ export const TasksMemberList = () => {
             onClick={selectMember(user)}
           >
             <Box className={clsx(classes.avatar, classes.inlineBlock)}>
-              <UserAvatar name={user.name} />
+              <UserAvatar size="small" name={user.name} />
             </Box>
-            <Typography className={classes.inlineBlock}>{user.name}</Typography>
+            <Typography variant="h5" className={clsx(classes.name, classes.inlineBlock)}>
+              {user.name}
+            </Typography>
           </Box>
         ))}
       </ScrollableHorizontal>
