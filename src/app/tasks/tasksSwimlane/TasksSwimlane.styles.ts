@@ -47,4 +47,7 @@ export const useStyles = makeStyles(theme => ({
   flexGrowOne: {
     flex: 1,
   },
+  flexGrowZero: {
+    flex: 0,
+  },
 }));

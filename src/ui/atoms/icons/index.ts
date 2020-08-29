@@ -78,4 +78,7 @@ export * from './back/BackIcon';
 export * from './undo/UndoIcon';
 export * from './redo/RedoIcon';
 export * from './swimlane/SwimlaneIcon';
-export * from './timer/TimerIcon';
+export * from './priorityLow/PriorityLowIcon';
+export * from './priorityHigh/PriorityHighIcon';
+export * from './priorityMedium/PriorityMediumIcon';
+export * from './userRectangle/UserRectangleIcon';
