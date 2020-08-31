@@ -1,5 +1,5 @@
 import { User } from './tasksMemberList/TasksMemberList.types';
-import { TaskPriority, TaskStatus } from './Tasks.enum';
+import { TaskPriority, TaskStatus, TaskLabel } from './Tasks.enum';
 
 export type TasksProps = {
   selectedUsers: string[];
@@ -11,6 +11,10 @@ export type Task = {
   title: string;
   priority: TaskPriority;
   assignedTo: User;
+  label: TaskLabel;
+  startDate: Date;
   expireDate: Date;
+  deadlineDate: Date;
+  deadlineTime: Date;
   status: TaskStatus;
 };

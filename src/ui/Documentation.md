@@ -423,6 +423,8 @@ import {
   PriorityHighIcon,
   PriorityMediumIcon,
   UserRectangleIcon,
+  LockRectangleIcon,
+  FollowUpRectangleIcon,
 } from "./atoms/icons";
 import { useTheme } from "@material-ui/core/styles";
 import { Box } from "ui/atoms";
@@ -522,7 +524,8 @@ const wrapperStyle = {
     <PriorityHighIcon color="inherit" />
     <PriorityMediumIcon color="inherit" />
     <UserRectangleIcon />
-    <Box width={375} />
+    <LockRectangleIcon />
+    <FollowUpRectangleIcon />
   </div>
 </>;
 ```

@@ -10,3 +10,9 @@ export enum TaskStatus {
   BLOCKED = 'blocked',
   DONE = 'done',
 }
+
+export enum TaskLabel {
+  FOLLOW_UP = 'followup',
+  BUSINESS = 'business',
+  PRIVATE = 'private',
+}

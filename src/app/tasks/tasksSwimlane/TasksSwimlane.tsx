@@ -4,7 +4,7 @@ import clsx from 'classnames';
 import { Grid, Box, IconButton, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { Task } from '../Tasks.types';
-import { TaskPriority, TaskStatus } from '../Tasks.enum';
+import { TaskPriority, TaskStatus, TaskLabel } from '../Tasks.enum';
 
 import { TasksSwimlaneItem } from './TasksSwimlaneItem';
 import { useStyles } from './TasksSwimlane.styles';
@@ -14,11 +14,16 @@ export const TasksSwimlane = () => {
 
   // Temporary code before API integration
   const date: Date = new Date();
+  const deadlineTime: Date = new Date();
   const dateAfterFourDays: Date = new Date(date.setDate(date.getDate() + 4));
   const tasks: Task[] = [
     {
       id: 'BRC-11',
       title: 'Rewrite Query Caching Logic',
+      label: TaskLabel.BUSINESS,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.TODO,
@@ -30,6 +35,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-12',
       title: 'Invalid Emails Throw an Error',
+      label: TaskLabel.PRIVATE,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.HIGH,
       status: TaskStatus.TODO,
@@ -41,6 +50,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-13',
       title: "New Emojis Don't Render",
+      label: TaskLabel.PRIVATE,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.TODO,
@@ -52,6 +65,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-12',
       title: 'Invalid Emails Throw an Error',
+      label: TaskLabel.PRIVATE,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.HIGH,
       status: TaskStatus.TODO,
@@ -63,6 +80,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-14',
       title: 'Excel Imports >20Mb Fail',
+      label: TaskLabel.BUSINESS,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.HIGH,
       status: TaskStatus.IN_PROGRESS,
@@ -74,6 +95,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-15',
       title: "New Emojis Don't Render",
+      label: TaskLabel.FOLLOW_UP,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.IN_PROGRESS,
@@ -85,6 +110,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-16',
       title: 'Rewrite Query Caching Logic',
+      label: TaskLabel.PRIVATE,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.IN_PROGRESS,
@@ -96,6 +125,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-17',
       title: 'Rewrite Query Caching Logic',
+      label: TaskLabel.FOLLOW_UP,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.IN_PROGRESS,
@@ -107,6 +140,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-18',
       title: 'Excel Imports >20Mb Fail',
+      label: TaskLabel.FOLLOW_UP,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.HIGH,
       status: TaskStatus.BLOCKED,
@@ -118,6 +155,10 @@ export const TasksSwimlane = () => {
     {
       id: 'BRC-19',
       title: 'Rewrite Query Caching Logic',
+      label: TaskLabel.BUSINESS,
+      startDate: date,
+      deadlineDate: dateAfterFourDays,
+      deadlineTime,
       expireDate: dateAfterFourDays,
       priority: TaskPriority.MEDIUM,
       status: TaskStatus.BLOCKED,
@@ -149,7 +190,7 @@ export const TasksSwimlane = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box>
+          <Box className={classes.tasksSwimlaneItemsContainer}>
             {todoTasks.map((task: Task) => (
               <TasksSwimlaneItem task={task} />
             ))}
@@ -170,7 +211,7 @@ export const TasksSwimlane = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box>
+          <Box className={classes.tasksSwimlaneItemsContainer}>
             {inProgressTasks.map((task: Task) => (
               <TasksSwimlaneItem task={task} />
             ))}
@@ -191,7 +232,7 @@ export const TasksSwimlane = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box>
+          <Box className={classes.tasksSwimlaneItemsContainer}>
             {blockedTasks.map((task: Task) => (
               <TasksSwimlaneItem task={task} />
             ))}
@@ -212,7 +253,7 @@ export const TasksSwimlane = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box>
+          <Box className={classes.tasksSwimlaneItemsContainer}>
             {completedTasks.map((task: Task) => (
               <TasksSwimlaneItem task={task} />
             ))}
