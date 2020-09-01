@@ -194,8 +194,8 @@ export const TasksSwimlane = () => {
               </Grid>
             </Box>
             <Box className={classes.tasksSwimlaneItemsContainer}>
-              {todoTasks.map((task: Task) => (
-                <TasksSwimlaneItem task={task} />
+              {todoTasks.map((task: Task, index: number) => (
+                <TasksSwimlaneItem key={index} task={task} />
               ))}
             </Box>
           </Box>
@@ -215,8 +215,8 @@ export const TasksSwimlane = () => {
               </Grid>
             </Box>
             <Box className={classes.tasksSwimlaneItemsContainer}>
-              {inProgressTasks.map((task: Task) => (
-                <TasksSwimlaneItem task={task} />
+              {inProgressTasks.map((task: Task, index: number) => (
+                <TasksSwimlaneItem key={index} task={task} />
               ))}
             </Box>
           </Box>
@@ -236,8 +236,8 @@ export const TasksSwimlane = () => {
               </Grid>
             </Box>
             <Box className={classes.tasksSwimlaneItemsContainer}>
-              {blockedTasks.map((task: Task) => (
-                <TasksSwimlaneItem task={task} />
+              {blockedTasks.map((task: Task, index: number) => (
+                <TasksSwimlaneItem key={index} task={task} />
               ))}
             </Box>
           </Box>
@@ -257,8 +257,8 @@ export const TasksSwimlane = () => {
               </Grid>
             </Box>
             <Box className={classes.tasksSwimlaneItemsContainer}>
-              {completedTasks.map((task: Task) => (
-                <TasksSwimlaneItem task={task} />
+              {completedTasks.map((task: Task, index: number) => (
+                <TasksSwimlaneItem key={index} task={task} />
               ))}
             </Box>
           </Box>
