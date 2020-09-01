@@ -7,6 +7,7 @@ import { ListIcon } from 'ui/atoms/icons/list/ListIcon';
 import { SwimlaneIcon } from 'ui/atoms/icons/swimlane/SwimlaneIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
+import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
 
 import { useStyles } from './TasksContent.styles';
@@ -19,7 +20,8 @@ export const TasksContent = () => {
     <Grid container spacing={2} className={classes.root} direction="column">
       <Grid item xs={12} container alignItems="center" justify="space-between" className={classes.flexGrowZero}>
         <Grid item xs={3}>
-          <TasksNoTaskMessage />
+          {/* <TasksNoTaskMessage /> */}
+          <TasksStatusMessage tasks={9} done={4} />
         </Grid>
         <Grid item>
           <Grid container>
