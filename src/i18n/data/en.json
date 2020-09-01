@@ -2178,6 +2178,8 @@
   "dictionaries.workflow_blueprint.PurchaseProperty": "Purchase property",
   "dictionaries.workflow_blueprint.ReletProcess": "Relet process",
   "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process",
+  "notifications.emptyMessage.line1": "Ta-da!",
+  "notifications.emptyMessage.line2": "You’re up to date",
   "tasks.title": "Tasks list",
   "tasks.add": "Create new task",
   "tasks.today": "Today",
