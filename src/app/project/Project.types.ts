@@ -6,6 +6,8 @@ import { BulkField, BulkOperations, ListNcp } from 'api/types';
 export type ProjectProps = {
   type: string;
   onTypeChange: (type: string) => void;
+  pricingType: string;
+  onPricingTypeChange: (type: string) => void;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;

@@ -53,8 +53,18 @@ export const LIST_PIMS = gql`
         dateCreated
         livingArea
         propertyType
-        images {
-          url
+        pictures {
+          id
+          name
+          description
+          type
+          dateUpdated
+          file {
+            id
+            key
+            fileName
+            url
+          }
         }
         salePrice
         rentPrice

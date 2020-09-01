@@ -12,7 +12,7 @@ context('Add Ncp', () => {
     cy.get('[aria-controls="add-menu"]').click();
     cy.wait(1000);
 
-    cy.findByText('Property').click();
+    cy.findAllByText('Property').last().click();
     cy.findByText('New Construction Project').click();
     cy.findAllByText('Houses')
       .last()
@@ -42,7 +42,7 @@ context('Add Ncp', () => {
     cy.userLogin();
 
     NavigationMenu.goToPim();
-    cy.findByRole('button', { name: 'NC sale' }).click();
+    cy.findByRole('button', { name: 'New construction' }).click();
     cy.findByText('Add NC project').click();
 
     cy.contains('What kind of project you want to add?');

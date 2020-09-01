@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLocale } from 'hooks';
-import { Pim } from 'api/types';
+import { PictureType, Pim } from 'api/types';
 import { PropertyItem } from 'ui/molecules';
 
 const generateNonemptyList = (obj: { [key: string]: unknown }) =>
@@ -21,7 +21,7 @@ export const PimItem = ({
   dateCreated,
   livingArea,
   propertyType,
-  images,
+  pictures,
   salePrice,
   rentPrice,
   completeness,
@@ -48,9 +48,12 @@ export const PimItem = ({
       })
     : [formatMessage({ id: 'property_item.sold' })];
 
+  const images = pictures || [];
+  const image = images.find(picture => picture.type === PictureType.General) || images[0];
+
   return (
     <PropertyItem
-      image={(images && images[0] && images[0].url) ?? undefined}
+      image={image?.file?.url ?? undefined}
       date={dateCreated}
       title={title}
       labels={labels}

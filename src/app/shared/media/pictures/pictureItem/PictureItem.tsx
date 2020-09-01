@@ -13,7 +13,6 @@ import { useStyles } from './PictureItem.styles';
 export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
-
   const { data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);
   const classes = useStyles({ src: data?.signedUrl });
 

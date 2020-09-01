@@ -31,7 +31,7 @@ export const AddPictureModalContainer = ({ isOpened, onClose, sortQuery }: AddMa
         input: {
           fileName: file.name,
           fileType: file.type,
-          permission: 'private',
+          permission: 'public',
           description: file.name,
         },
       },

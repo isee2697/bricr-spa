@@ -10,4 +10,16 @@ export const useStyles = makeStyles(theme => ({
     overflowY: 'auto',
     position: 'sticky',
   },
+  dropdown: {
+    marginRight: theme.spacing(3),
+    marginBottom: theme.spacing(1),
+    width: `calc(100% - ${theme.spacing(3)}px)`,
+    borderRadius: theme.spacing(0.5),
+    '& .MuiFilledInput-input': {
+      padding: theme.spacing(1.25, 1.5),
+    },
+    '&.MuiFilledInput-underline:after, &.MuiFilledInput-underline:before': {
+      border: 'none',
+    },
+  },
 }));

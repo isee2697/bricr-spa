@@ -1479,7 +1479,7 @@ export type ListPim = {
   propertyType?: Maybe<PropertyType>;
   salePrice?: Maybe<Scalars['Float']>;
   rentPrice?: Maybe<Scalars['Float']>;
-  images?: Maybe<Array<File>>;
+  pictures?: Maybe<Array<Picture>>;
   livingArea?: Maybe<Scalars['Int']>;
   attentionNote?: Maybe<Scalars['String']>;
   dateCreated: Scalars['Date'];
@@ -1876,6 +1876,7 @@ export type NcpLinkedPimsLinkedPropertiesArgs = {
 
 export type ListNcpsFilters = {
   archived?: Maybe<Scalars['Boolean']>;
+  pricingType?: Maybe<PricingType>;
 };
 
 export type ListNcp = {
@@ -3202,6 +3203,7 @@ export type UpdateCadastreInput = {
   id: Scalars['String'];
   pimId: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   plot?: Maybe<CadastrePlotInput>;
 };
 
@@ -3287,6 +3289,7 @@ export type Cadastre = LastUpdated & {
   __typename?: 'Cadastre';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   type: CadastreType;
   maps?: Maybe<Array<CadastreMap>>;
   plot?: Maybe<CadastrePlot>;
@@ -7335,7 +7338,15 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'completeness'
           | 'archived'
           | 'attentionNote'
-        > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+        > & {
+            pictures?: Maybe<
+              Array<
+                { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+                    file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+                  }
+              >
+            >;
+          }
       >
     >;
   };
@@ -7493,7 +7504,9 @@ export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
   getNcpLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
-export type ListNcpsCountQueryVariables = {};
+export type ListNcpsCountQueryVariables = {
+  pricingType?: Maybe<PricingType>;
+};
 
 export type ListNcpsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'NcpListSearchResult' } & {
@@ -7505,6 +7518,7 @@ export type ListNcpsCountQuery = { __typename?: 'Query' } & {
 };
 
 export type ListNcpsQueryVariables = {
+  pricingType?: Maybe<PricingType>;
   archived: Scalars['Boolean'];
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
@@ -7723,7 +7737,15 @@ export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'status'
               | 'developmentType'
               | 'linkedObjectTypeIds'
-            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
           >
         >;
       };
@@ -8127,7 +8149,15 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
               | 'developmentType'
               | 'linkedObjectTypeIds'
               | 'attentionNote'
-            > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
           >
         >;
       };
@@ -8384,7 +8414,7 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Cadastre' } & Pick<
             Cadastre,
-            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated'
+            'id' | 'description' | 'mapsDescription' | 'type' | 'dateCreated' | 'dateUpdated'
           > & {
               maps?: Maybe<
                 Array<
@@ -12099,8 +12129,18 @@ export const ListPimsDocument = gql`
         dateCreated
         livingArea
         propertyType
-        images {
-          url
+        pictures {
+          id
+          name
+          description
+          type
+          dateUpdated
+          file {
+            id
+            key
+            fileName
+            url
+          }
         }
         salePrice
         rentPrice
@@ -12403,13 +12443,13 @@ export type GetNcpLabelsQueryHookResult = ReturnType<typeof useGetNcpLabelsQuery
 export type GetNcpLabelsLazyQueryHookResult = ReturnType<typeof useGetNcpLabelsLazyQuery>;
 export type GetNcpLabelsQueryResult = ApolloReactCommon.QueryResult<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>;
 export const ListNcpsCountDocument = gql`
-  query ListNcpsCount {
-    activeCount: listNcps(filters: { archived: false }) {
+  query ListNcpsCount($pricingType: PricingType) {
+    activeCount: listNcps(filters: { archived: false, pricingType: $pricingType }) {
       metadata {
         total
       }
     }
-    archivedCount: listNcps(filters: { archived: true }) {
+    archivedCount: listNcps(filters: { archived: true, pricingType: $pricingType }) {
       metadata {
         total
       }
@@ -12433,9 +12473,16 @@ export type ListNcpsCountQueryHookResult = ReturnType<typeof useListNcpsCountQue
 export type ListNcpsCountLazyQueryHookResult = ReturnType<typeof useListNcpsCountLazyQuery>;
 export type ListNcpsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpsCountQuery, ListNcpsCountQueryVariables>;
 export const ListNcpsDocument = gql`
-  query ListNcps($archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
+  query ListNcps(
+    $pricingType: PricingType
+    $archived: Boolean!
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
     listNcps(
-      filters: { archived: $archived }
+      filters: { archived: $archived, pricingType: $pricingType }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
@@ -12807,8 +12854,11 @@ export const NcpLinkedPimsDocument = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice
@@ -13591,8 +13641,11 @@ export const ObjectTypeLinkedPimsDocument = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice
@@ -13920,6 +13973,7 @@ export const PimCadastreDocument = gql`
       cadastre {
         id
         description
+        mapsDescription
         type
         maps {
           id

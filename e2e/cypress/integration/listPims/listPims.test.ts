@@ -13,10 +13,10 @@ context('List Pims', () => {
 
   it('should show current tab title', () => {
     cy.get('.pim-side-menu-item')
-      .eq(1)
+      .eq(0)
       .click();
 
-    cy.get('.pim-list-header').contains('Rent');
+    cy.get('.pim-list-header').contains('Property');
   });
 
   it('should display count in tabs', () => {

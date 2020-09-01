@@ -13,8 +13,10 @@ export const readFileAsync = (file: File, asArrayBuffer = false): Promise<string
 
     if (asArrayBuffer) {
       reader.readAsArrayBuffer(file);
-    } else {
+    } else if (file instanceof Blob) {
       reader.readAsDataURL(file);
+    } else {
+      reject('Invalid file');
     }
   });
 

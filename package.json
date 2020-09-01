@@ -16,7 +16,7 @@
     "translations": "babelsheet generate --path ./src/i18n/data && node 'scripts/flatten-translations.js'",
     "serve": "./node_modules/.bin/http-server ./build --port 1338 --proxy http://localhost:1338?",
     "generate:api-types": "graphql-codegen & npm run lint:fix",
-    "e2e:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
+    "e2e:open": "cd e2e && npx cypress open && cd ..",
     "e2e:run:firefox": "cd e2e && ./node_modules/.bin/cypress run --browser firefox && cd ..",
     "e2e:run:chrome": "cd e2e && ./node_modules/.bin/cypress run --browser chrome && cd ..",
     "e2e:wait-and-run:firefox": "./node_modules/.bin/wait-on http://localhost:1338/ && npm run e2e:run:firefox",

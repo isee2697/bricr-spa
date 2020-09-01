@@ -14,18 +14,18 @@ export const CadastralMapsContainer = ({ cadastreItem }: MapsContainerProps) => 
   const [updateCadastre] = useUpdateCadastreMutation();
   const { formatMessage } = useLocale();
 
+  if (!cadastreItem) {
+    return <></>;
+  }
+
   const handleEdit = async (body: Cadastre) => {
     try {
-      if (!cadastreItem) {
-        throw new Error('No Cadastre item');
-      }
-
       const { data } = await updateCadastre({
         variables: {
           input: {
             pimId: id,
             id: cadastreItem.id,
-            description: body.description,
+            mapsDescription: body.mapsDescription,
           },
         },
         refetchQueries: [
@@ -48,18 +48,14 @@ export const CadastralMapsContainer = ({ cadastreItem }: MapsContainerProps) => 
     }
   };
 
-  if (!cadastreItem) {
-    return <></>;
-  }
-
   return (
     <>
       <Page
-        placeholder="pim_details.cadastre.description_placeholder"
-        name="description"
+        placeholder="pim_details.cadastre.maps_description_placeholder"
+        name="mapsDescription"
         onSave={handleEdit}
         initialValues={cadastreItem}
-        title={formatMessage({ id: 'pim_details.cadastre.title' })}
+        title={formatMessage({ id: 'pim_details.cadastre.cadastre_maps' })}
         updatedBy={cadastreItem.lastEditedBy}
         dateUpdated={cadastreItem.dateUpdated}
       >

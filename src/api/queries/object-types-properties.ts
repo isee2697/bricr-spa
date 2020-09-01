@@ -55,8 +55,11 @@ export const LIST_OBJECT_TYPES = gql`
           dateCreated
           livingArea
           propertyType
-          images {
-            url
+          pictures {
+            type
+            file {
+              url
+            }
           }
           salePrice
           rentPrice
