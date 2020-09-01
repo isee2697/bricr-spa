@@ -26,3 +26,4 @@ export { ActionTabs } from './actionTabs/ActionTabs';
 export { Snackbar } from './snackbar/Snackbar';
 export { SidebarMenu } from './sidebarMenu/SidebarMenu';
 export { ConfirmModal } from './confirmModal/ConfirmModal';
+export { ListOptionsMenu } from './listOptionsMenu/ListOptionsMenu';

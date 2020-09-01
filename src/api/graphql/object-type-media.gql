@@ -1,6 +1,7 @@
 type ObjectTypeMedia {
   id: String!
   pictures(sort: Sort): [Picture!]
+  mainPictureId: String
   mediaLinks: [MediaLink!]
   textChapters: [TextChapter!]
   usps: [Usp!]

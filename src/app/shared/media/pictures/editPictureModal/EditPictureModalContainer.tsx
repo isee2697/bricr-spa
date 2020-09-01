@@ -1,19 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  LabelProperty,
-  PictureType,
-  PimMediaDocument,
-  NcpMediaDocument,
-  ObjectTypeMediaDocument,
-  useUpdatePictureMutation,
-  useUpdateNcpPictureMutation,
-  useUpdateObjectTypePictureMutation,
-} from 'api/types';
+import { LabelProperty, PictureType } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels, useGetPrivateFile } from 'hooks';
-import { useEntityType, EntityType } from 'app/shared/entityType';
+import { useEntityType } from 'app/shared/entityType';
 import { getEntityFilesType, useUpdateImage } from '../Pictures.helpers';
 
 import { EditPictureModal } from './EditPictureModal';
@@ -28,7 +19,6 @@ const options = Object.values(PictureType).map(tagName => ({
 export const EditPictureModalContainer = ({ isModalOpened, onModalClose, picture }: EditPictureModalContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const { entityType } = useEntityType();
-
   const { save } = useUpdateImage(id);
 
   const { loading, data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);

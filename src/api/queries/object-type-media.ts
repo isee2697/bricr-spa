@@ -23,6 +23,7 @@ export const OBJECT_TYPE_MEDIA = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name

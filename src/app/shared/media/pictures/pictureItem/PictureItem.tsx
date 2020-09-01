@@ -2,8 +2,9 @@ import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 
-import { Chip, Grid, Typography, IconButton, Box, Menu, MenuItem } from 'ui/atoms';
-import { DeleteIcon, EditIcon, HomeIcon, MenuIcon, SaleIcon } from 'ui/atoms/icons';
+import { Chip, Grid, Typography, Box, MenuItem } from 'ui/atoms';
+import { ListOptionsMenu } from 'ui/molecules';
+import { HomeIcon, SaleIcon } from 'ui/atoms/icons';
 import { useGetPrivateFile, useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 import { getEntityFilesType, useUpdateImage } from '../Pictures.helpers';
@@ -11,15 +12,22 @@ import { getEntityFilesType, useUpdateImage } from '../Pictures.helpers';
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
+export const PictureItem = ({
+  picture,
+  editing,
+  checkbox,
+  onEdit,
+  customLabel,
+  isSelected,
+  isMainPicture,
+}: PictureItemProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
   const { data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);
   const classes = useStyles({ src: data?.signedUrl });
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { save } = useUpdateImage(id);
-  console.log(entityType);
+
   const handleEdit = () => {
     if (editing) {
       onEdit();
@@ -29,7 +37,10 @@ export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, i
   return (
     <Grid container spacing={0} className={classNames(classes.container, isSelected && classes.selected)}>
       <Grid item xs={3}>
-        <div className={classes.image}> {checkbox} </div>
+        <div className={classes.image}>
+          {isMainPicture && <div className={classes.mainPicture}>{formatMessage({ id: 'common.main_picture' })}</div>}
+          {checkbox}
+        </div>
       </Grid>
       <Grid item xs={8}>
         <Box className={classes.content}>
@@ -56,40 +67,12 @@ export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, i
       </Grid>
       <Grid item xs={1}>
         {editing && (
-          <>
-            <Box display="flex" justifyContent="flex-end" padding={0.5}>
-              <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="edit-picture-button">
-                <MenuIcon />
-              </IconButton>
-            </Box>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={() => setAnchorEl(null)}
-              offsetRight={12}
-            >
-              <MenuItem onClick={() => save({ ...picture, isMainPicture: true, signedUrl: '' })}>
-                {/*<IconButton data-testid="edit-picture-button">*/}
-                <HomeIcon />
-                {/*</IconButton>{' '}*/}
-                Set main picture
-              </MenuItem>
-              <MenuItem onClick={handleEdit}>
-                {/*<IconButton data-testid="edit-picture-button">*/}
-                <EditIcon />
-                {/*</IconButton>{' '}*/}
-                Edit
-              </MenuItem>
-              <MenuItem disabled onClick={handleEdit}>
-                {/*<IconButton data-testid="edit-picture-button">*/}
-                <DeleteIcon />
-                {/*</IconButton>{' '}*/}
-                Delete
-              </MenuItem>
-            </Menu>
-          </>
+          <ListOptionsMenu onEditClick={handleEdit}>
+            <MenuItem disabled={isMainPicture} onClick={() => save({ ...picture, isMainPicture: true })}>
+              <HomeIcon />
+              {formatMessage({ id: 'common.set_main_picture' })}
+            </MenuItem>
+          </ListOptionsMenu>
         )}
       </Grid>
     </Grid>

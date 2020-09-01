@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLocale } from 'hooks';
-import { PictureType, Pim } from 'api/types';
+import { Pim } from 'api/types';
 import { PropertyItem } from 'ui/molecules';
 
 const generateNonemptyList = (obj: { [key: string]: unknown }) =>
