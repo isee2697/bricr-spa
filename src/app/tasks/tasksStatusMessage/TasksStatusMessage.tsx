@@ -20,7 +20,7 @@ export const TasksStatusMessage = ({ tasks, done }: TasksStatusMessageProps) => 
             },
             { percentage: Math.floor((done / tasks) * 100) },
           )}{' '}
-          <Emoji className={classes.emoji}>🤓</Emoji>
+          <Emoji className={classes.emoji}>{'🤓'}</Emoji>
         </Typography>
       </Grid>
       <Grid item>
