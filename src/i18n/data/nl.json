@@ -2113,5 +2113,7 @@
   "dictionaries.workflow_blueprint.SaleRentProperty": "Onroerend goed te koop / te huur",
   "dictionaries.workflow_blueprint.PurchaseProperty": "Koop onroerend goed",
   "dictionaries.workflow_blueprint.ReletProcess": "Herhaal proces",
-  "dictionaries.workflow_blueprint.NewConstructionProcess": "Nieuw bouwproces"
+  "dictionaries.workflow_blueprint.NewConstructionProcess": "Nieuw bouwproces",
+  "notifications.emptyMessage.line1": "Ta-da!",
+  "notifications.emptyMessage.line2": "Je bent op de hoogte"
 }

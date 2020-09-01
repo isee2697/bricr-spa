@@ -2177,5 +2177,7 @@
   "dictionaries.workflow_blueprint.SaleRentProperty": "Property for sale/rent",
   "dictionaries.workflow_blueprint.PurchaseProperty": "Purchase property",
   "dictionaries.workflow_blueprint.ReletProcess": "Relet process",
-  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process"
+  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process",
+  "notifications.emptyMessage.line1": "Ta-da!",
+  "notifications.emptyMessage.line2": "You’re up to date"
 }
