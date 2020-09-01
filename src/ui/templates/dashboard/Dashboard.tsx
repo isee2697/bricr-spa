@@ -39,6 +39,10 @@ export const Dashboard = ({ children }: DashboardProps) => {
     }
   };
 
+  const handleNavigate = (path: AppRoute) => () => {
+    push(path);
+  };
+
   return (
     <>
       {isHeaderVisible && (
@@ -71,7 +75,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <IconButton variant="rounded" size="small" aria-label="calendar">
               <CalendarIcon />
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="tasks">
+            <IconButton variant="rounded" size="small" aria-label="tasks" onClick={handleNavigate(AppRoute.tasks)}>
               <TasksIcon />
             </IconButton>
             <IconButton variant="rounded" size="small" aria-label="stats">
