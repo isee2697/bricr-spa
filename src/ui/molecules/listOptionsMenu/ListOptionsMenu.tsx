@@ -15,7 +15,7 @@ export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children }: ListOp
   return (
     <>
       <Box display="flex" justifyContent="flex-end" padding={0.5}>
-        <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="edit-picture-button">
+        <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
           <MenuIcon />
         </IconButton>
       </Box>
@@ -29,11 +29,20 @@ export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children }: ListOp
       >
         <div className={classes.menu} onClick={() => setAnchorEl(null)}>
           {children}
-          <MenuItem disabled={!onEditClick} onClick={() => onEditClick && onEditClick()}>
+          <MenuItem
+            disabled={!onEditClick}
+            onClick={() => onEditClick && onEditClick()}
+            data-testid="edit-option-button"
+          >
             <EditIcon />
             <Typography>{formatMessage({ id: 'common.edit' })}</Typography>
           </MenuItem>
-          <MenuItem className="delete" disabled={!onDeleteClick} onClick={() => onDeleteClick && onDeleteClick()}>
+          <MenuItem
+            className="delete"
+            disabled={!onDeleteClick}
+            onClick={() => onDeleteClick && onDeleteClick()}
+            data-testid="delete-option-button"
+          >
             <DeleteIcon />
             <Typography>{formatMessage({ id: 'common.delete' })}</Typography>
           </MenuItem>
