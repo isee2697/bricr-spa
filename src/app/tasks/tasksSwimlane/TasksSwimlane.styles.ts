@@ -16,6 +16,7 @@ export const useStyles = makeStyles(theme => ({
   },
   columnName: {
     padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
+    borderRadius: 4,
   },
   backGrayLight: {
     backgroundColor: theme.palette.gray.light,

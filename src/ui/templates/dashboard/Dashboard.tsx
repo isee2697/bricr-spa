@@ -4,7 +4,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { IconButton, Badge, Sidebar } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
 import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
-import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
@@ -19,6 +18,7 @@ import { DashboardProps } from './Dashboard.types';
 import { useStyles } from './Dashboard.styles';
 import { ShortcutsMenu } from './shortcutsMenu/ShortcutsMenu';
 import { ProfileMenu } from './profileMenu/ProfileMenu';
+import { NotificationMenu } from './notificationMenu/NotificationMenu';
 import { AddMenu } from './addMenu/AddMenu';
 import { Search } from './search/Search';
 import { Overlay } from './overlay/Overlay';
@@ -55,11 +55,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <IconButton size="small" variant="roundedContained">
               <PinIcon />
             </IconButton>
-            <IconButton size="small" variant="roundedContained">
-              <Badge badgeContent={4} color="secondary">
-                <BellIcon />
-              </Badge>
-            </IconButton>
+            <NotificationMenu />
             <ProfileMenu />
             <AddMenu />
           </nav>

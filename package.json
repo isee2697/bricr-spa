@@ -10,6 +10,7 @@
     "lint": "eslint './src/**/*.{ts,tsx}' && stylelint './src/**/*.{css,pcss,scss}' && echo 'lint success'",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}' && stylelint --fix './src/**/*.{css,pcss,scss}' && echo 'lint success'",
     "start": "react-scripts start",
+    "dev-port": "PORT=3006 react-scripts start",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test",
     "plop": "plop",
     "translations": "babelsheet generate --path ./src/i18n/data && node 'scripts/flatten-translations.js'",

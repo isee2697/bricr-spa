@@ -4,14 +4,15 @@ export const useStyles = makeStyles(theme => ({
   root: {},
   member: {
     marginRight: theme.spacing(1),
-    padding: theme.spacing(0.5),
-    borderRadius: theme.spacing(3),
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
     cursor: 'pointer',
 
     '&.selected': {
-      backgroundColor: theme.palette.white.main,
+      background: theme.palette.white.main,
       color: theme.palette.primary.main,
       border: `1px solid ${theme.palette.primary.main}`,
+      boxShadow: `0px ${theme.spacing(0.5)}px ${theme.spacing(1)}px rgba(159, 192, 255, 0.5)`,
     },
   },
   avatar: {
