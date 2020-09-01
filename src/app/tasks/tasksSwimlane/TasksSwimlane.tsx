@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'classnames';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Grid, Box, IconButton, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
@@ -175,91 +177,93 @@ export const TasksSwimlane = () => {
   const completedTasks = tasks.filter((task: Task) => task.status === TaskStatus.DONE);
 
   return (
-    <Grid container spacing={2} className={classes.root}>
-      <Grid item xs={3}>
-        <Box className={classes.tasksSwimlaneColumn}>
-          <Box className={clsx(classes.flexGrowOne)}>
-            <Grid container justify="space-between">
-              <Grid item className={clsx(classes.columnName, classes.backGrayLight, classes.gray)}>
-                <Emoji>{'⏱ To do'}</Emoji>
+    <DndProvider backend={HTML5Backend}>
+      <Grid container spacing={2} className={classes.root}>
+        <Grid item xs={3}>
+          <Box className={classes.tasksSwimlaneColumn}>
+            <Box className={clsx(classes.flexGrowOne)}>
+              <Grid container justify="space-between">
+                <Grid item className={clsx(classes.columnName, classes.backGrayLight, classes.gray)}>
+                  <Emoji>{'⏱ To do'}</Emoji>
+                </Grid>
+                <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
+                  <IconButton className={classes.noPadding}>
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
-                <IconButton className={classes.noPadding}>
-                  <MenuIcon />
-                </IconButton>
+            </Box>
+            <Box className={classes.tasksSwimlaneItemsContainer}>
+              {todoTasks.map((task: Task) => (
+                <TasksSwimlaneItem task={task} />
+              ))}
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={3}>
+          <Box className={classes.tasksSwimlaneColumn}>
+            <Box className={clsx(classes.flexGrowOne)}>
+              <Grid container justify="space-between">
+                <Grid item className={clsx(classes.columnName, classes.backYellowLight, classes.yellow)}>
+                  <Emoji>{'🔥 In progress'}</Emoji>
+                </Grid>
+                <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
+                  <IconButton className={classes.noPadding}>
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
+            <Box className={classes.tasksSwimlaneItemsContainer}>
+              {inProgressTasks.map((task: Task) => (
+                <TasksSwimlaneItem task={task} />
+              ))}
+            </Box>
           </Box>
-          <Box className={classes.tasksSwimlaneItemsContainer}>
-            {todoTasks.map((task: Task) => (
-              <TasksSwimlaneItem task={task} />
-            ))}
+        </Grid>
+        <Grid item xs={3}>
+          <Box className={classes.tasksSwimlaneColumn}>
+            <Box className={clsx(classes.flexGrowOne)}>
+              <Grid container justify="space-between">
+                <Grid item className={clsx(classes.columnName, classes.backRedLight, classes.red)}>
+                  <Emoji>{'⛔️ Blocked'}</Emoji>
+                </Grid>
+                <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
+                  <IconButton className={classes.noPadding}>
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box className={classes.tasksSwimlaneItemsContainer}>
+              {blockedTasks.map((task: Task) => (
+                <TasksSwimlaneItem task={task} />
+              ))}
+            </Box>
           </Box>
-        </Box>
+        </Grid>
+        <Grid item xs={3}>
+          <Box className={classes.tasksSwimlaneColumn}>
+            <Box className={clsx(classes.flexGrowOne)}>
+              <Grid container justify="space-between">
+                <Grid item className={clsx(classes.columnName, classes.backGreenLight, classes.green)}>
+                  <Emoji>{'✅ Done'}</Emoji>
+                </Grid>
+                <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
+                  <IconButton className={classes.noPadding}>
+                    <MenuIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box className={classes.tasksSwimlaneItemsContainer}>
+              {completedTasks.map((task: Task) => (
+                <TasksSwimlaneItem task={task} />
+              ))}
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item xs={3}>
-        <Box className={classes.tasksSwimlaneColumn}>
-          <Box className={clsx(classes.flexGrowOne)}>
-            <Grid container justify="space-between">
-              <Grid item className={clsx(classes.columnName, classes.backYellowLight, classes.yellow)}>
-                <Emoji>{'🔥 In progress'}</Emoji>
-              </Grid>
-              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
-                <IconButton className={classes.noPadding}>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box className={classes.tasksSwimlaneItemsContainer}>
-            {inProgressTasks.map((task: Task) => (
-              <TasksSwimlaneItem task={task} />
-            ))}
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={3}>
-        <Box className={classes.tasksSwimlaneColumn}>
-          <Box className={clsx(classes.flexGrowOne)}>
-            <Grid container justify="space-between">
-              <Grid item className={clsx(classes.columnName, classes.backRedLight, classes.red)}>
-                <Emoji>{'⛔️ Blocked'}</Emoji>
-              </Grid>
-              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
-                <IconButton className={classes.noPadding}>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box className={classes.tasksSwimlaneItemsContainer}>
-            {blockedTasks.map((task: Task) => (
-              <TasksSwimlaneItem task={task} />
-            ))}
-          </Box>
-        </Box>
-      </Grid>
-      <Grid item xs={3}>
-        <Box className={classes.tasksSwimlaneColumn}>
-          <Box className={clsx(classes.flexGrowOne)}>
-            <Grid container justify="space-between">
-              <Grid item className={clsx(classes.columnName, classes.backGreenLight, classes.green)}>
-                <Emoji>{'✅ Done'}</Emoji>
-              </Grid>
-              <Grid item className={clsx(classes.flexGrowOne, classes.textAlignRight)}>
-                <IconButton className={classes.noPadding}>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box className={classes.tasksSwimlaneItemsContainer}>
-            {completedTasks.map((task: Task) => (
-              <TasksSwimlaneItem task={task} />
-            ))}
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+    </DndProvider>
   );
 };
