@@ -1490,6 +1490,7 @@ export type ListPim = {
   status: PimStatus;
   developmentType: DevelopmentType;
   linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mainPicture?: Maybe<Picture>;
 };
 
 export type PimListSearchResult = {
@@ -1595,6 +1596,7 @@ export type Picture = LastUpdated & {
   file?: Maybe<File>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type TextChapter = {
@@ -1635,6 +1637,7 @@ export type Tag = {
 
 export type CommonNewPictureInput = {
   fileID: Scalars['String'];
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type CommonAddPicturesInput = {
@@ -1708,6 +1711,7 @@ export type CommonUpdatePictureInput = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   fileId?: Maybe<Scalars['String']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type CommonUpdateMediaDescriptionInput = {
@@ -5709,6 +5713,7 @@ export type Pim = LastUpdated & {
   buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
   bogSpaces?: Maybe<Array<BogSpace>>;
   aogSpaces?: Maybe<Array<AogSpace>>;
+  mainPicture?: Maybe<Picture>;
 };
 
 export type PimSearchResult = {
@@ -7345,6 +7350,11 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
                     file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
                   }
               >
+            >;
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+                }
             >;
           }
       >
@@ -12130,6 +12140,19 @@ export const ListPimsDocument = gql`
         livingArea
         propertyType
         pictures {
+          id
+          name
+          description
+          type
+          dateUpdated
+          file {
+            id
+            key
+            fileName
+            url
+          }
+        }
+        mainPicture {
           id
           name
           description

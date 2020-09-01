@@ -205,6 +205,7 @@ type Pim implements LastUpdated {
   buildingPlotGeneral: BuildingPlotGeneral
   bogSpaces: [BogSpace!]
   aogSpaces: [AogSpace!]
+  mainPicture: Picture
 }
 
 type PimSearchResult {
