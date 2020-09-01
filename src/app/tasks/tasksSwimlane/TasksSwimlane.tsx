@@ -14,7 +14,7 @@ import {
 import { Grid, Box, IconButton, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { Task } from '../Tasks.types';
-import { TaskPriority, TaskStatus, TaskLabel } from '../Tasks.enum';
+import { TaskStatus } from '../Tasks.enum';
 
 import { TasksSwimlaneItem } from './TasksSwimlaneItem';
 import { useStyles } from './TasksSwimlane.styles';
