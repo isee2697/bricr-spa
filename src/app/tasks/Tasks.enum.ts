@@ -1,18 +1,18 @@
 export enum TaskPriority {
-  HIGH = 'high',
-  MEDIUM = 'medium',
-  LOW = 'low',
+  high = 'high',
+  medium = 'medium',
+  low = 'low',
 }
 
 export enum TaskStatus {
-  TODO = 'todo',
-  IN_PROGRESS = 'inprogress',
-  BLOCKED = 'blocked',
-  DONE = 'done',
+  todo = 'todo',
+  inProgress = 'inprogress',
+  blocked = 'blocked',
+  done = 'done',
 }
 
 export enum TaskLabel {
-  FOLLOW_UP = 'followup',
-  BUSINESS = 'business',
-  PRIVATE = 'private',
+  followUp = 'followup',
+  business = 'business',
+  private = 'private',
 }

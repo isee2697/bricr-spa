@@ -16,16 +16,16 @@ export const TasksSwimlaneColumn = ({ columnType, tasks }: TasksSwimlaneColumnPr
 
   const getEmojiClass = () => {
     switch (columnType) {
-      case TaskStatus.TODO:
+      case TaskStatus.todo:
         return clsx(classes.columnName, classes.backGrayLight, classes.gray);
 
-      case TaskStatus.IN_PROGRESS:
+      case TaskStatus.inProgress:
         return clsx(classes.columnName, classes.backYellowLight, classes.yellow);
 
-      case TaskStatus.BLOCKED:
+      case TaskStatus.blocked:
         return clsx(classes.columnName, classes.backRedLight, classes.red);
 
-      case TaskStatus.DONE:
+      case TaskStatus.done:
         return clsx(classes.columnName, classes.backGreenLight, classes.green);
 
       default:
@@ -35,16 +35,16 @@ export const TasksSwimlaneColumn = ({ columnType, tasks }: TasksSwimlaneColumnPr
 
   const getEmojiContent = () => {
     switch (columnType) {
-      case TaskStatus.TODO:
+      case TaskStatus.todo:
         return '⏱ To do';
 
-      case TaskStatus.IN_PROGRESS:
+      case TaskStatus.inProgress:
         return '🔥 In progress';
 
-      case TaskStatus.BLOCKED:
+      case TaskStatus.blocked:
         return '⛔️ Blocked';
 
-      case TaskStatus.DONE:
+      case TaskStatus.done:
         return '✅ Done';
 
       default:

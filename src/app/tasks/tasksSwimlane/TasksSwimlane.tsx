@@ -14,10 +14,10 @@ export const TasksSwimlane = ({ tasks: tasksList = [] }: TasksSwimlaneProps) => 
 
   const [tasks, setTasks] = useState<Task[]>(tasksList);
 
-  const todoTasks = tasks.filter((task: Task) => task.status === TaskStatus.TODO);
-  const inProgressTasks = tasks.filter((task: Task) => task.status === TaskStatus.IN_PROGRESS);
-  const blockedTasks = tasks.filter((task: Task) => task.status === TaskStatus.BLOCKED);
-  const completedTasks = tasks.filter((task: Task) => task.status === TaskStatus.DONE);
+  const todoTasks = tasks.filter((task: Task) => task.status === TaskStatus.todo);
+  const inProgressTasks = tasks.filter((task: Task) => task.status === TaskStatus.inProgress);
+  const blockedTasks = tasks.filter((task: Task) => task.status === TaskStatus.blocked);
+  const completedTasks = tasks.filter((task: Task) => task.status === TaskStatus.done);
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -43,16 +43,16 @@ export const TasksSwimlane = ({ tasks: tasksList = [] }: TasksSwimlaneProps) => 
     <DragDropContext onDragEnd={onDragEnd}>
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.TODO} tasks={todoTasks} />
+          <TasksSwimlaneColumn columnType={TaskStatus.todo} tasks={todoTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.IN_PROGRESS} tasks={inProgressTasks} />
+          <TasksSwimlaneColumn columnType={TaskStatus.inProgress} tasks={inProgressTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.BLOCKED} tasks={blockedTasks} />
+          <TasksSwimlaneColumn columnType={TaskStatus.blocked} tasks={blockedTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.DONE} tasks={completedTasks} />
+          <TasksSwimlaneColumn columnType={TaskStatus.done} tasks={completedTasks} />
         </Grid>
       </Grid>
     </DragDropContext>

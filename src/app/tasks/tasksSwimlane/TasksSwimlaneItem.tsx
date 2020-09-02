@@ -38,24 +38,24 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
             <Grid container>
               {/* TODO: Update this class name once provided info about this section */}
               <Grid item className={classes.taskLocked}>
-                {label === TaskLabel.BUSINESS && (
+                {label === TaskLabel.business && (
                   <UserRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
-                {label === TaskLabel.PRIVATE && (
+                {label === TaskLabel.private && (
                   <LockRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
-                {label === TaskLabel.FOLLOW_UP && (
+                {label === TaskLabel.followUp && (
                   <FollowUpRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
               </Grid>
               <Grid item>
-                {priority === TaskPriority.HIGH && (
+                {priority === TaskPriority.high && (
                   <PriorityHighIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
                 )}
-                {priority === TaskPriority.MEDIUM && (
+                {priority === TaskPriority.medium && (
                   <PriorityMediumIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
                 )}
-                {priority === TaskPriority.LOW && (
+                {priority === TaskPriority.low && (
                   <PriorityLowIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="action" />
                 )}
               </Grid>
