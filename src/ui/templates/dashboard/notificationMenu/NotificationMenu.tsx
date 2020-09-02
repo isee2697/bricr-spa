@@ -24,8 +24,8 @@ export const NotificationMenu = () => {
       <IconButton
         size="small"
         variant="roundedContained"
-        onClick={() => setOpened(true)}
-        onKeyDown={() => setOpened(true)}
+        onClick={() => setOpened(v => !v)}
+        onKeyDown={() => setOpened(v => !v)}
         innerRef={menuRef}
         aria-controls="notifications-menu"
         aria-label="notifications"
