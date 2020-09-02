@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
 import { Dashboard } from 'app/dashboard/Dashboard';
-import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
+import { Dashboard as DashboardTemplate, Authorization, Registration } from 'ui/templates';
 import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
 import { LoginContainer } from 'app/auth/login/LoginContainer';
 import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
@@ -18,6 +18,7 @@ import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContai
 import { TasksContainer } from 'app/tasks/TasksContainer';
 import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
 import { Settings } from 'app/settings/Settings';
+import { RegisterContainer } from '../app/register/RegisterContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -40,6 +41,11 @@ export const AppRoutes = () => {
           </Authorization>
         )}
       </Route>
+
+      <Registration>
+        <Route path={AppRoute.register} exact component={RegisterContainer} />
+        <Route path={AppRoute.setup} exact render={() => <>setup</>} />
+      </Registration>
 
       <Route path="/">
         {() => (
