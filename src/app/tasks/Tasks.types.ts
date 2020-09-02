@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import { User } from './tasksMemberList/TasksMemberList.types';
 import { TaskPriority, TaskStatus, TaskLabel } from './Tasks.enum';
 
@@ -7,14 +9,15 @@ export type TasksProps = {
 };
 
 export type Task = {
-  id: string;
+  id: number;
+  taskId: string;
   title: string;
   priority: TaskPriority;
   assignedTo: User;
   label: TaskLabel;
-  startDate: Date;
-  expireDate: Date;
-  deadlineDate: Date;
-  deadlineTime: Date;
+  startDate: DateTime;
+  expireDate: DateTime;
+  deadlineDate: DateTime;
+  deadlineTime: DateTime;
   status: TaskStatus;
 };

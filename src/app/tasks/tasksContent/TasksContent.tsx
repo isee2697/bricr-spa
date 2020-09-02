@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
+import { DateTime } from 'luxon';
 
 import { SimpleSearch } from 'ui/molecules';
 import { Grid, IconButton } from 'ui/atoms';
 import { ListIcon } from 'ui/atoms/icons/list/ListIcon';
 import { SwimlaneIcon } from 'ui/atoms/icons/swimlane/SwimlaneIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
-// import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
+import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
 import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
 import { TaskPriority, TaskStatus, TaskLabel, TasksViewMode } from '../Tasks.enum';
@@ -21,140 +22,149 @@ export const TasksContent = () => {
   const [viewMode, setViewMode] = useState(TasksViewMode.LIST);
 
   // Temporary code before API integration
-  const date: Date = new Date();
-  const deadlineTime: Date = new Date();
-  const dateAfterFourDays: Date = new Date(date.setDate(date.getDate() + 4));
+  const date: DateTime = DateTime.local();
+  const deadlineTime: DateTime = DateTime.local();
+  const dateAfterFourDays: DateTime = date.plus({ days: 4 });
   const tasks: Task[] = [
     {
-      id: 'BRC-11',
+      id: 11,
+      taskId: 'BRC-11',
       title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.BUSINESS,
+      label: TaskLabel.business,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.TODO,
+      priority: TaskPriority.medium,
+      status: TaskStatus.todo,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-12',
+      id: 12,
+      taskId: 'BRC-12',
       title: 'Invalid Emails Throw an Error',
-      label: TaskLabel.PRIVATE,
+      label: TaskLabel.private,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.HIGH,
-      status: TaskStatus.TODO,
+      priority: TaskPriority.high,
+      status: TaskStatus.todo,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-13',
+      id: 13,
+      taskId: 'BRC-13',
       title: "New Emojis Don't Render",
-      label: TaskLabel.PRIVATE,
+      label: TaskLabel.private,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.TODO,
+      priority: TaskPriority.medium,
+      status: TaskStatus.todo,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-14',
+      id: 14,
+      taskId: 'BRC-14',
       title: 'Excel Imports >20Mb Fail',
-      label: TaskLabel.BUSINESS,
+      label: TaskLabel.business,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.HIGH,
-      status: TaskStatus.IN_PROGRESS,
+      priority: TaskPriority.high,
+      status: TaskStatus.inProgress,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-15',
+      id: 15,
+      taskId: 'BRC-15',
       title: "New Emojis Don't Render",
-      label: TaskLabel.FOLLOW_UP,
+      label: TaskLabel.followUp,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.IN_PROGRESS,
+      priority: TaskPriority.medium,
+      status: TaskStatus.inProgress,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-16',
+      id: 16,
+      taskId: 'BRC-16',
       title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.PRIVATE,
+      label: TaskLabel.private,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.IN_PROGRESS,
+      priority: TaskPriority.medium,
+      status: TaskStatus.inProgress,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-17',
+      id: 17,
+      taskId: 'BRC-17',
       title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.FOLLOW_UP,
+      label: TaskLabel.followUp,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.IN_PROGRESS,
+      priority: TaskPriority.medium,
+      status: TaskStatus.inProgress,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-18',
+      id: 18,
+      taskId: 'BRC-18',
       title: 'Excel Imports >20Mb Fail',
-      label: TaskLabel.FOLLOW_UP,
+      label: TaskLabel.followUp,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.HIGH,
-      status: TaskStatus.BLOCKED,
+      priority: TaskPriority.high,
+      status: TaskStatus.blocked,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
       },
     },
     {
-      id: 'BRC-19',
+      id: 19,
+      taskId: 'BRC-19',
       title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.BUSINESS,
+      label: TaskLabel.business,
       startDate: date,
       deadlineDate: dateAfterFourDays,
       deadlineTime,
       expireDate: dateAfterFourDays,
-      priority: TaskPriority.MEDIUM,
-      status: TaskStatus.BLOCKED,
+      priority: TaskPriority.medium,
+      status: TaskStatus.blocked,
       assignedTo: {
         id: 1,
         name: 'Marius Nowak',
@@ -162,12 +172,15 @@ export const TasksContent = () => {
     },
   ];
 
+  const tasksCount = tasks.length;
+  const completedTasksCount = tasks.filter(task => task.status === TaskStatus.done).length;
+
   return (
     <Grid container spacing={2} className={classes.root} direction="column">
       <Grid item xs={12} container alignItems="center" justify="space-between" className={classes.flexGrowZero}>
         <Grid item xs={3}>
-          {/* <TasksNoTaskMessage /> */}
-          <TasksStatusMessage tasks={9} done={4} />
+          {tasksCount === completedTasksCount && <TasksNoTaskMessage />}
+          {tasksCount > completedTasksCount && <TasksStatusMessage tasks={tasksCount} done={completedTasksCount} />}
         </Grid>
         <Grid item>
           <Grid container>
