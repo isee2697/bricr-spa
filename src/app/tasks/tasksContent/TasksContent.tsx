@@ -170,8 +170,8 @@ export const TasksContent = () => {
     },
   ];
 
-  const tasksCount = 9;
-  const completedTasksCount = 4;
+  const tasksCount = tasks.length;
+  const completedTasksCount = tasks.filter(task => task.status === TaskStatus.DONE).length;
 
   return (
     <Grid container spacing={2} className={classes.root} direction="column">
