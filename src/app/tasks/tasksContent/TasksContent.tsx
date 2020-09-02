@@ -9,14 +9,16 @@ import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 // import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
 import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
-import { TaskPriority, TaskStatus, TaskLabel } from '../Tasks.enum';
+import { TaskPriority, TaskStatus, TaskLabel, TasksViewMode } from '../Tasks.enum';
 import { Task } from '../Tasks.types';
+import { TasksList } from '../tasksList/TasksList';
 
 import { useStyles } from './TasksContent.styles';
 
 export const TasksContent = () => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
+  const [viewMode, setViewMode] = useState(TasksViewMode.LIST);
 
   // Temporary code before API integration
   const date: Date = new Date();
@@ -170,11 +172,11 @@ export const TasksContent = () => {
         <Grid item>
           <Grid container>
             <SimpleSearch onChange={v => setSearchKey(v.currentTarget.value)} value={searchKey} />
-            <IconButton classes={{ root: classes.sortIcon }}>
-              <SwimlaneIcon color="inherit" />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.SWIMLANE)}>
+              <SwimlaneIcon color={viewMode === TasksViewMode.SWIMLANE ? 'primary' : 'inherit'} />
             </IconButton>
-            <IconButton classes={{ root: classes.sortIcon }}>
-              <ListIcon color="inherit" />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.LIST)}>
+              <ListIcon color={viewMode === TasksViewMode.LIST ? 'primary' : 'inherit'} />
             </IconButton>
             <IconButton classes={{ root: classes.sortIcon }}>
               <ManageIcon color="inherit" />
@@ -183,7 +185,8 @@ export const TasksContent = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} className={clsx(classes.flexGrowOne, classes.flexRow)}>
-        <TasksSwimlane tasks={tasks} />
+        {viewMode === TasksViewMode.SWIMLANE && <TasksSwimlane tasks={tasks} />}
+        {viewMode === TasksViewMode.LIST && <TasksList tasks={tasks} />}
       </Grid>
     </Grid>
   );
