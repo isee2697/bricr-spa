@@ -40,7 +40,7 @@ export const NotificationMenu = () => {
       <Menu
         id="notifications-menu"
         open={isOpened}
-        onClose={() => false}
+        onClose={() => setOpened(false)}
         anchorEl={menuRef.current}
         placement="bottom-end"
         arrow
