@@ -17,6 +17,7 @@ export type UploadImageFieldProps = {
   showCheckbox?: boolean;
   isChecked?: boolean;
   onCheck?: () => void;
+  permission?: 'private' | 'public';
 };
 
 export enum UploadImageFieldTypes {

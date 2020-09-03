@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLocale } from 'hooks';
-import { PictureType, Pim } from 'api/types';
+import { Pim } from 'api/types';
 import { PropertyItem } from 'ui/molecules';
 
 const generateNonemptyList = (obj: { [key: string]: unknown }) =>
@@ -27,6 +27,7 @@ export const PimItem = ({
   completeness,
   attentionNote,
   archived,
+  mainPicture,
 }: Pim) => {
   const { formatMessage } = useLocale();
 
@@ -48,12 +49,9 @@ export const PimItem = ({
       })
     : [formatMessage({ id: 'property_item.sold' })];
 
-  const images = pictures || [];
-  const image = images.find(picture => picture.type === PictureType.General) || images[0];
-
   return (
     <PropertyItem
-      image={image?.file?.url ?? undefined}
+      image={mainPicture?.file?.url ?? undefined}
       date={dateCreated}
       title={title}
       labels={labels}

@@ -10,7 +10,18 @@ export const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(2),
     },
   },
+  mainPicture: {
+    backgroundColor: theme.palette.blue.dark,
+    padding: theme.spacing(0.5, 1),
+    color: theme.palette.white.main,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: theme.spacing(0, 0, 1, 0),
+  },
   image: {
+    position: 'relative',
+    overflow: 'hidden',
     backgroundImage: ({ src }: { src?: string }) => `url(${src})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',

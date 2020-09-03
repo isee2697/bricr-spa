@@ -13,4 +13,4 @@ export type EditPictureModalProps = EditPictureModalContainerProps & {
   onSubmit: (values: EditPictureForm) => Promise<undefined | { error: boolean }>;
 };
 
-export type EditPictureForm = Picture & { signedUrl: string };
+export type EditPictureForm = Picture & { signedUrl?: string };

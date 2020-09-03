@@ -55,6 +55,7 @@ export const CadastreMap = ({
             entityID={mapFile?.entityID ?? ''}
             entity={EntityWithFiles.CadastreMap}
             disabled={!isEditMode}
+            permission="private"
           />
           <GenericField
             id={`description.${cadastreMap.id}`}

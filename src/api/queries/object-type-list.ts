@@ -40,7 +40,10 @@ export const LIST_OBJECT_TYPES = gql`
         numberOfRoomsFrom
         numberOfRoomsTo
         mainPicture {
-          url
+          id
+          file {
+            url
+          }
         }
         name
         salePriceFrom

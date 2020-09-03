@@ -89,6 +89,7 @@ type Picture implements LastUpdated {
   file: File
   lastEditedBy: Profile
   dateUpdated: Date
+  isMainPicture: Boolean
 }
 
 type TextChapter {
@@ -125,6 +126,7 @@ type Tag {
 
 input CommonNewPictureInput {
   fileID: String!
+  isMainPicture: Boolean
 }
 
 input CommonAddPicturesInput {
@@ -198,6 +200,7 @@ input CommonUpdatePictureInput {
   name: String
   description: String
   fileId: String
+  isMainPicture: Boolean
 }
 
 input CommonUpdateMediaDescriptionInput {
