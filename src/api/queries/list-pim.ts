@@ -68,14 +68,9 @@ export const LIST_PIMS = gql`
         }
         mainPicture {
           id
-          name
-          description
-          type
-          dateUpdated
           file {
             id
             key
-            fileName
             url
           }
         }
