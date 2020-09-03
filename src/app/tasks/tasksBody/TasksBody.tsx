@@ -26,8 +26,8 @@ export const TasksBody = () => {
         <Tab label={formatMessage({ id: 'tasks.future' })} />
         <Tab label={formatMessage({ id: 'tasks.overdue' })} />
       </Tabs>
-      <CardContent className={clsx(classes.flexColumn, classes.flexGrowOne)}>
-        <TasksContent />
+      <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
+        <TasksContent tab={activeTab} />
       </CardContent>
     </Card>
   );

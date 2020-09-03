@@ -13,10 +13,12 @@ import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
 import { TaskPriority, TaskStatus, TaskLabel, TasksViewMode } from '../Tasks.enum';
 import { Task } from '../Tasks.types';
 import { TasksList } from '../tasksList/TasksList';
+import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
 
 import { useStyles } from './TasksContent.styles';
+import { TasksContentProps } from './TasksContent.types';
 
-export const TasksContent = () => {
+export const TasksContent = ({ tab }: TasksContentProps) => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
   const [viewMode, setViewMode] = useState(TasksViewMode.LIST);
@@ -176,8 +178,15 @@ export const TasksContent = () => {
   const completedTasksCount = tasks.filter(task => task.status === TaskStatus.done).length;
 
   return (
-    <Grid container spacing={2} className={classes.root} direction="column">
-      <Grid item xs={12} container alignItems="center" justify="space-between" className={classes.flexGrowZero}>
+    <Grid container className={classes.root} direction="column">
+      <Grid
+        item
+        xs={12}
+        container
+        alignItems="center"
+        justify="space-between"
+        className={clsx(classes.flexGrowZero, classes.modeSelectorContainer)}
+      >
         <Grid item xs={3}>
           {tasksCount === completedTasksCount && <TasksNoTaskMessage />}
           {tasksCount > completedTasksCount && <TasksStatusMessage tasks={tasksCount} done={completedTasksCount} />}
@@ -196,6 +205,9 @@ export const TasksContent = () => {
             </IconButton>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <TasksDateSection tab={tab} />
       </Grid>
       <Grid item xs={12} className={clsx(classes.flexGrowOne, classes.flexRow)}>
         {viewMode === TasksViewMode.SWIMLANE && <TasksSwimlane tasks={tasks} />}

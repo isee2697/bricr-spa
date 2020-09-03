@@ -13,4 +13,7 @@ export const useStyles = makeStyles(theme => ({
   flexGrowOne: {
     flex: 1,
   },
+  noPadding: {
+    padding: 0,
+  },
 }));

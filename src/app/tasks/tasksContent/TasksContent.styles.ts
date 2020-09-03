@@ -14,6 +14,9 @@ export const useStyles = makeStyles(theme => ({
   flexGrowOne: {
     flex: 1,
   },
+  modeSelectorContainer: {
+    padding: theme.spacing(2),
+  },
   sortIcon: {
     marginLeft: theme.spacing(3),
   },

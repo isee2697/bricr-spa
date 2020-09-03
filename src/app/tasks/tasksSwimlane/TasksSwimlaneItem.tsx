@@ -10,6 +10,7 @@ import {
   LockRectangleIcon,
   FollowUpRectangleIcon,
 } from 'ui/atoms/icons';
+import { useLocale } from 'hooks/useLocale/useLocale';
 import { TaskPriority, TaskLabel } from '../Tasks.enum';
 
 import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
@@ -17,6 +18,8 @@ import { useStyles } from './TasksSwimlaneItem.styles';
 
 export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const classes = useStyles();
+  const { formatMessage } = useLocale();
+
   const { id, taskId, title, expireDate, label, priority, assignedTo } = task;
   const daysLeft = Math.round(expireDate.diffNow('days').days);
 
@@ -30,7 +33,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
         >
           <Box className={classes.root}>
             <Typography variant="h6" className={classes.expireInfo}>
-              {daysLeft} days Left
+              {formatMessage({ id: 'tasks.days_left' }, { daysLeft })}
             </Typography>
             <Typography variant="h5" className={classes.title}>
               {title}
