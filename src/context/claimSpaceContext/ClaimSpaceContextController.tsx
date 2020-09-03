@@ -1,4 +1,4 @@
-import React, { useReducer, ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import { ClaimSpaceDispatchContext, ClaimSpaceStateContext } from './ClaimSpaceContext';
 import { ClaimSpaceTypes } from './ClaimContext.types';

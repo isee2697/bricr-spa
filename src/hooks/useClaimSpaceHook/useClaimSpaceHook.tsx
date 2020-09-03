@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext } from 'react';
 
 import { ClaimSpaceDispatchContext, ClaimSpaceStateContext } from 'context/claimSpaceContext/ClaimSpaceContext';
 import { ClaimSpaceTypes } from 'context/claimSpaceContext/ClaimContext.types';
