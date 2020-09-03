@@ -21,16 +21,16 @@ export const TasksList = ({ tasks }: TasksListProps) => {
   const { formatMessage } = useLocale();
 
   const headCells = [
-    { id: 'name', disablePadding: true, label: 'Task name', icon: TasksIcon },
-    { id: 'assign', disablePadding: true, label: 'Assign', icon: UserIcon },
-    { id: 'number', disablePadding: true, label: 'Number', icon: BuildingIcon },
+    { id: 'name', disablePadding: true, label: formatMessage({ id: 'tasks.list.task_name' }), icon: TasksIcon },
+    { id: 'assign', disablePadding: true, label: formatMessage({ id: 'tasks.list.assign' }), icon: UserIcon },
+    { id: 'number', disablePadding: true, label: formatMessage({ id: 'tasks.list.number' }), icon: BuildingIcon },
     {
       id: 'deadline',
       disablePadding: true,
-      label: 'Deadline',
+      label: formatMessage({ id: 'tasks.list.deadline' }),
       icon: HistoryIcon,
     },
-    { id: 'status', disablePadding: true, label: 'Status', icon: StatusIcon },
+    { id: 'status', disablePadding: true, label: formatMessage({ id: 'tasks.list.status' }), icon: StatusIcon },
   ];
 
   const createSortHandler = (property: string) => (event: React.MouseEvent) => {
