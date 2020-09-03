@@ -7313,6 +7313,19 @@ export type ListPimsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type ListMyTeamMembersQueryVariables = {
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type ListMyTeamMembersQuery = { __typename?: 'Query' } & {
+  getMyTeamMembers: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'Profile' }>>;
+  };
+};
+
 export type ListPimsQueryVariables = {
   archived: Scalars['Boolean'];
   pricingType?: Maybe<PricingType>;

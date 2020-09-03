@@ -2191,5 +2191,7 @@
   "tasks.future": "Future",
   "tasks.overdue": "Overdue",
   "tasks.tada": "Ta-da!",
-  "tasks.upToDate": "You are up to date"
+  "tasks.upToDate": "You are up to date",
+  "tasks.status.completed": "{percentage}% Completed",
+  "tasks.status.items_completed_today": "{completed} of {todos} tasks are completed today"
 }
