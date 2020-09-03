@@ -1,1 +1,3 @@
-export type TasksContentProps = {};
+export type TasksContentProps = {
+  tab: number;
+};
