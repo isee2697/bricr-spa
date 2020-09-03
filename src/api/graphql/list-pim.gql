@@ -36,6 +36,7 @@ type ListPim {
   status: PimStatus!
   developmentType: DevelopmentType!
   linkedObjectTypeIds: [String]
+  mainPicture: Picture
 }
 
 type PimListSearchResult {

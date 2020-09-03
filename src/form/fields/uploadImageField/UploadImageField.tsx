@@ -28,6 +28,7 @@ export const UploadImageField = ({
   isChecked,
   showCheckbox,
   onCheck,
+  permission = 'public',
 }: UploadImageFieldProps) => {
   const [loading, setLoading] = useState(false);
   const [invalidFile, setInvalidFile] = useState(false);
@@ -78,7 +79,7 @@ export const UploadImageField = ({
           input: {
             fileName: file.name,
             fileType: file.type,
-            permission: 'public',
+            permission,
             description: file.name,
           },
         },

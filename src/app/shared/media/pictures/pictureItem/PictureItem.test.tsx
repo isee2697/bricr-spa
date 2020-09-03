@@ -1,10 +1,22 @@
 import React from 'react';
+import { act } from 'react-test-renderer';
 
 import { fireEvent, render } from 'tests';
 import { FilePermission } from 'api/types';
 import { EntityTypeProvider, EntityType } from 'app/shared/entityType';
 
 import { PictureItem } from './PictureItem';
+
+if (!global.document.createRange) {
+  global.document.createRange = () => ({
+    setStart: () => {},
+    setEnd: () => {},
+    commonAncestorContainer: {
+      nodeName: 'BODY',
+      ownerDocument: document,
+    },
+  });
+}
 
 const picture = {
   id: '1',
@@ -41,11 +53,23 @@ describe('PictureItem', () => {
     const onEdit = jest.fn();
     const { getByTestId } = render(
       <EntityTypeProvider entityType={EntityType.Project}>
-        <PictureItem checkbox={<></>} picture={picture} onEdit={onEdit} editing={true} isSelected={false} />
+        <PictureItem
+          checkbox={<></>}
+          picture={picture}
+          isMainPicture={false}
+          onEdit={onEdit}
+          editing={true}
+          isSelected={false}
+        />
       </EntityTypeProvider>,
     );
 
-    const editButton = getByTestId('edit-picture-button');
+    act(() => {
+      const optionsButton = getByTestId('open-options-menu');
+      fireEvent.click(optionsButton);
+    });
+
+    const editButton = getByTestId('edit-option-button');
     fireEvent.click(editButton);
 
     expect(onEdit).toBeCalled();

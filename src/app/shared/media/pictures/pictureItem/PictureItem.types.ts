@@ -10,4 +10,5 @@ export type PictureItemProps = {
   onEdit: () => void;
   isSelected: boolean;
   customLabel?: RadioDataType;
+  isMainPicture?: boolean;
 };

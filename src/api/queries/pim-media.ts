@@ -23,6 +23,7 @@ export const PIM_MEDIA = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name
