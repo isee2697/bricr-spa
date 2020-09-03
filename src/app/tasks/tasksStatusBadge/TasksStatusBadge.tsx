@@ -11,28 +11,28 @@ export const TasksStatusBadge = ({ status }: TasksStatusBadgeProps) => {
   const classes = useStyles();
 
   switch (status) {
-    case TaskStatus.TODO:
+    case TaskStatus.todo:
       return (
         <Typography variant="h5" className={clsx(classes.root, classes.backGrayLight, classes.gray)}>
           <Emoji>{'⏱ To do'}</Emoji>
         </Typography>
       );
 
-    case TaskStatus.IN_PROGRESS:
+    case TaskStatus.inProgress:
       return (
         <Typography variant="h5" className={clsx(classes.root, classes.backYellowLight, classes.yellow)}>
           <Emoji>{'🔥 In progress'}</Emoji>
         </Typography>
       );
 
-    case TaskStatus.BLOCKED:
+    case TaskStatus.blocked:
       return (
         <Typography variant="h5" className={clsx(classes.root, classes.backRedLight, classes.red)}>
           <Emoji>{'⛔️ Blocked'}</Emoji>
         </Typography>
       );
 
-    case TaskStatus.DONE:
+    case TaskStatus.done:
       return (
         <Typography variant="h5" className={clsx(classes.root, classes.backGreenLight, classes.green)}>
           <Emoji>{'✅ Done'}</Emoji>

@@ -83,7 +83,7 @@ export const TasksList = ({ tasks }: TasksListProps) => {
         {tasks.map((task, index) => {
           const labelId = `tasks-list-checkbox-${index}`;
           const { title, status, id, expireDate, assignedTo } = task;
-          const hoursLeft = dateDiffInHours(new Date(), expireDate);
+          const hoursLeft = Math.round(expireDate.diffNow('hours').hours);
 
           return (
             <TableRow key={index}>
@@ -113,16 +113,5 @@ export const TasksList = ({ tasks }: TasksListProps) => {
         })}
       </TableBody>
     </Table>
-  );
-};
-
-const dateDiffInHours = (date1: Date, date2: Date) => {
-  const dt1 = new Date(date1);
-  const dt2 = new Date(date2);
-
-  return Math.floor(
-    (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate(), dt2.getHours()) -
-      Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate(), dt1.getHours())) /
-      (1000 * 60 * 60),
   );
 };
