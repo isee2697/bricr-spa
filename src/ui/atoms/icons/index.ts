@@ -84,3 +84,4 @@ export * from './priorityMedium/PriorityMediumIcon';
 export * from './userRectangle/UserRectangleIcon';
 export * from './lockRectangle/LockRectangleIcon';
 export * from './followUpRectangle/FollowUpRectangleIcon';
+export * from './status/StatusIcon';

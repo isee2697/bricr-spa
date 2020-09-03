@@ -16,3 +16,8 @@ export enum TaskLabel {
   business = 'business',
   private = 'private',
 }
+
+export enum TasksViewMode {
+  LIST = 'list',
+  SWIMLANE = 'swimlane',
+}

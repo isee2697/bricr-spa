@@ -425,6 +425,7 @@ import {
   UserRectangleIcon,
   LockRectangleIcon,
   FollowUpRectangleIcon,
+  StatusIcon,
 } from "./atoms/icons";
 import { useTheme } from "@material-ui/core/styles";
 import { Box } from "ui/atoms";
@@ -526,6 +527,9 @@ const wrapperStyle = {
     <UserRectangleIcon />
     <LockRectangleIcon />
     <FollowUpRectangleIcon />
+  </div>
+  <div style={ wrapperStyle }>
+    <StatusIcon color="disabled" />
   </div>
 </>;
 ```
