@@ -40,6 +40,7 @@ export { default as FormHelperText } from '@material-ui/core/FormHelperText';
 export { default as Snackbar } from '@material-ui/core/Snackbar';
 export { default as Zoom } from '@material-ui/core/Zoom';
 export { default as Slide } from '@material-ui/core/Slide';
+export { default as Fade } from '@material-ui/core/Fade';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

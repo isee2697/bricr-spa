@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useClaimSpaceHook } from '../../hooks/useClaimSpaceHook/useClaimSpaceHook';
 
@@ -6,18 +6,33 @@ import { RegisterForm } from './forms/RegisterForm';
 import { RegisterFormFields } from './forms/RegisterForm.types';
 
 export const RegisterContainer = () => {
-  const { isClaimed, updateClaimSpace } = useClaimSpaceHook();
+  const { isClaimed, spaceName, updateClaimSpace } = useClaimSpaceHook();
+  const [timeout, setNewTimeout] = useState<NodeJS.Timeout>();
+  // let timeout: NodeJS.Timeout;
   // @ToDo implement logics
 
   const checkSpaceAvailable = async (space: string) => {
-    if (space.length > 4) {
-      await setTimeout(() => {
-        updateClaimSpace({
-          isClaimed: true,
-          spaceName: space,
-        });
-      }, 500);
+    const updated = {
+      isCheckingSpaceName: true,
+      isClaimed: undefined,
+      spaceName: space,
+    };
+    updateClaimSpace(updated);
+
+    if (timeout) {
+      clearTimeout(timeout);
     }
+
+    setNewTimeout(
+      setTimeout(() => {
+        updateClaimSpace({
+          ...updated,
+          isCheckingSpaceName: false,
+          isClaimed: space.length === 0 ? undefined : space === 'hendriks',
+          suggestions: space === 'hendriks' ? ['nl_hendriks', 'hendriks_nl', 'hendriks_realestate'] : undefined,
+        });
+      }, 1500),
+    );
 
     return undefined;
   };
@@ -31,6 +46,7 @@ export const RegisterContainer = () => {
       isSubmitEnabled={isClaimed !== undefined && !isClaimed}
       checkSpaceAvailable={checkSpaceAvailable}
       onSubmit={handleSave}
+      spaceName={spaceName}
     />
   );
 };
