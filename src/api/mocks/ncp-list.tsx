@@ -16,7 +16,7 @@ export const LIST_NCP_1: ListNcp = {
   archived: false,
   completeness: 70,
   logoPicture: { ...FILE_1, id: 'logo_1', url: 'http://placeimg.com/640/480/any' },
-  mainPicture: { ...FILE_1, id: 'mp_1', url: 'http://placeimg.com/176/112/arch' },
+  mainPicture: { file: { ...FILE_1, id: 'mp_1', url: 'http://placeimg.com/176/112/arch' }, id: 'pic_1' },
   rentLabel: 'under option',
   rentNumber: 123,
   rentPriceFrom: 775,

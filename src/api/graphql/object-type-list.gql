@@ -13,7 +13,7 @@ type ListObjectTypes {
   areaRangeTo: AbsoluteFloat
   numberOfRoomsFrom: Int
   numberOfRoomsTo: Int
-  mainPicture: File
+  mainPicture: Picture
   name: String
   salePriceFrom: AbsoluteFloat
   salePriceTo: AbsoluteFloat

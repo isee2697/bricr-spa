@@ -77,3 +77,5 @@ export * from './fullscreenOff/FullscreenOffIcon';
 export * from './back/BackIcon';
 export * from './undo/UndoIcon';
 export * from './redo/RedoIcon';
+export * from './swimlane/SwimlaneIcon';
+export * from './timer/TimerIcon';

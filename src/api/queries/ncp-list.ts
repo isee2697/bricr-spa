@@ -42,7 +42,10 @@ export const LIST_NCPS = gql`
           url
         }
         mainPicture {
-          url
+          id
+          file {
+            url
+          }
         }
         name
         salePriceFrom

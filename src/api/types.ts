@@ -1490,6 +1490,7 @@ export type ListPim = {
   status: PimStatus;
   developmentType: DevelopmentType;
   linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  mainPicture?: Maybe<Picture>;
 };
 
 export type PimListSearchResult = {
@@ -1595,6 +1596,7 @@ export type Picture = LastUpdated & {
   file?: Maybe<File>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type TextChapter = {
@@ -1635,6 +1637,7 @@ export type Tag = {
 
 export type CommonNewPictureInput = {
   fileID: Scalars['String'];
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type CommonAddPicturesInput = {
@@ -1708,6 +1711,7 @@ export type CommonUpdatePictureInput = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   fileId?: Maybe<Scalars['String']>;
+  isMainPicture?: Maybe<Scalars['Boolean']>;
 };
 
 export type CommonUpdateMediaDescriptionInput = {
@@ -1890,7 +1894,7 @@ export type ListNcp = {
   numberOfRoomsFrom?: Maybe<Scalars['Int']>;
   numberOfRoomsTo?: Maybe<Scalars['Int']>;
   logoPicture?: Maybe<File>;
-  mainPicture?: Maybe<File>;
+  mainPicture?: Maybe<Picture>;
   name?: Maybe<Scalars['String']>;
   salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
   salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
@@ -1930,6 +1934,7 @@ export type NcpMedia = LastUpdated & {
   __typename?: 'NcpMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
+  mainPictureId?: Maybe<Scalars['String']>;
   mediaLinks?: Maybe<Array<MediaLink>>;
   textChapters?: Maybe<Array<TextChapter>>;
   usps?: Maybe<Array<Usp>>;
@@ -2098,7 +2103,7 @@ export type ListObjectTypes = {
   areaRangeTo?: Maybe<Scalars['AbsoluteFloat']>;
   numberOfRoomsFrom?: Maybe<Scalars['Int']>;
   numberOfRoomsTo?: Maybe<Scalars['Int']>;
-  mainPicture?: Maybe<File>;
+  mainPicture?: Maybe<Picture>;
   name?: Maybe<Scalars['String']>;
   salePriceFrom?: Maybe<Scalars['AbsoluteFloat']>;
   salePriceTo?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2127,6 +2132,7 @@ export type ObjectTypeMedia = {
   __typename?: 'ObjectTypeMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
+  mainPictureId?: Maybe<Scalars['String']>;
   mediaLinks?: Maybe<Array<MediaLink>>;
   textChapters?: Maybe<Array<TextChapter>>;
   usps?: Maybe<Array<Usp>>;
@@ -3203,6 +3209,7 @@ export type UpdateCadastreInput = {
   id: Scalars['String'];
   pimId: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   plot?: Maybe<CadastrePlotInput>;
 };
 
@@ -3288,6 +3295,7 @@ export type Cadastre = LastUpdated & {
   __typename?: 'Cadastre';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  mapsDescription?: Maybe<Scalars['String']>;
   type: CadastreType;
   maps?: Maybe<Array<CadastreMap>>;
   plot?: Maybe<CadastrePlot>;
@@ -4014,6 +4022,7 @@ export type PimMedia = LastUpdated & {
   __typename?: 'PimMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
+  mainPictureId?: Maybe<Scalars['String']>;
   mediaLinks?: Maybe<Array<MediaLink>>;
   textChapters?: Maybe<Array<TextChapter>>;
   usps?: Maybe<Array<Usp>>;
@@ -5707,6 +5716,7 @@ export type Pim = LastUpdated & {
   buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
   bogSpaces?: Maybe<Array<BogSpace>>;
   aogSpaces?: Maybe<Array<AogSpace>>;
+  mainPicture?: Maybe<Picture>;
 };
 
 export type PimSearchResult = {
@@ -7344,6 +7354,11 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
                   }
               >
             >;
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+                }
+            >;
           }
       >
     >;
@@ -7561,7 +7576,11 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
           | 'attentionNote'
         > & {
             logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
-            mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
           }
       >
     >;
@@ -7582,7 +7601,10 @@ export type NcpMediaQueryVariables = {
 };
 
 export type NcpMediaQuery = { __typename?: 'Query' } & {
-  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id' | 'mediaDescription' | 'dateUpdated'> & {
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
+    NcpMedia,
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+  > & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pictures?: Maybe<
         Array<
@@ -7937,7 +7959,13 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
           | 'underOption'
           | 'soldOrRent'
           | 'attentionNote'
-        > & { mainPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+        > & {
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+          }
       >
     >;
   };
@@ -7964,7 +7992,7 @@ export type ObjectTypeMediaQueryVariables = {
 export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
   getObjectTypeMedia: { __typename?: 'ObjectTypeMedia' } & Pick<
     ObjectTypeMedia,
-    'id' | 'mediaDescription' | 'dateUpdated'
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
   > & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pictures?: Maybe<
@@ -8412,7 +8440,7 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Cadastre' } & Pick<
             Cadastre,
-            'id' | 'description' | 'type' | 'dateCreated' | 'dateUpdated'
+            'id' | 'description' | 'mapsDescription' | 'type' | 'dateCreated' | 'dateUpdated'
           > & {
               maps?: Maybe<
                 Array<
@@ -8715,7 +8743,7 @@ export type PimMediaQueryVariables = {
 };
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
-  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated'> & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'> & {
       lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
       pictures?: Maybe<
         Array<
@@ -12140,6 +12168,19 @@ export const ListPimsDocument = gql`
             url
           }
         }
+        mainPicture {
+          id
+          name
+          description
+          type
+          dateUpdated
+          file {
+            id
+            key
+            fileName
+            url
+          }
+        }
         salePrice
         rentPrice
         completeness
@@ -12497,7 +12538,10 @@ export const ListNcpsDocument = gql`
           url
         }
         mainPicture {
-          url
+          id
+          file {
+            url
+          }
         }
         name
         salePriceFrom
@@ -12589,6 +12633,7 @@ export const NcpMediaDocument = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name
@@ -13219,7 +13264,10 @@ export const ListObjectTypesDocument = gql`
         numberOfRoomsFrom
         numberOfRoomsTo
         mainPicture {
-          url
+          id
+          file {
+            url
+          }
         }
         name
         salePriceFrom
@@ -13327,6 +13375,7 @@ export const ObjectTypeMediaDocument = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name
@@ -13971,6 +14020,7 @@ export const PimCadastreDocument = gql`
       cadastre {
         id
         description
+        mapsDescription
         type
         maps {
           id
@@ -14429,6 +14479,7 @@ export const PimMediaDocument = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name

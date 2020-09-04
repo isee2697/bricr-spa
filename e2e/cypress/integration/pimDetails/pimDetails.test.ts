@@ -100,6 +100,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add floor', () => {
+    cy.findByText('PIM intake').click();
     cy.contains('Groundfloor');
 
     cy.findByText('Add new floor').click();

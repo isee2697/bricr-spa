@@ -52,7 +52,6 @@ context('Add Service', () => {
       .click();
 
     cy.findByText('Boiler').click();
-    cy.findByLabelText('Name of the hot water supply').type('My hot water supply');
     cy.findByRole('button', { name: 'Add type' }).click();
   });
 

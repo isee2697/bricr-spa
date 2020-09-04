@@ -15,6 +15,7 @@ import { ObjectTypeDetailsContainer } from 'app/objectTypeDetails/ObjectTypeDeta
 import { useScrollToTop } from 'hooks';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContainer';
+import { TasksContainer } from 'app/tasks/TasksContainer';
 import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
 import { Settings } from 'app/settings/Settings';
 
@@ -56,6 +57,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.crm} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.settings} component={Settings} />
+                <AuthorizedRoute path={AppRoute.tasks} component={TasksContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
               </Switch>

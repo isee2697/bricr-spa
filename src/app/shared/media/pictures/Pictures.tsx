@@ -13,7 +13,7 @@ import { PictureItem } from './pictureItem/PictureItem';
 import { PictureProps } from './Pictures.types';
 import { useStyles } from './Pictures.styles';
 
-export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: PictureProps) => {
+export const Pictures = ({ pictures, sorting, customLabels, sortQuery, mainPictureId }: PictureProps) => {
   const { formatMessage } = useLocale();
   const [picture, setPicture] = useState<Picture | null>();
   const [isAddModaVisible, setAddModalVisible] = useState(false);
@@ -54,6 +54,7 @@ export const Pictures = ({ pictures, sorting, customLabels, sortQuery }: Picture
                   onEdit={() => setPicture(item)}
                   customLabel={customLabels.find(label => label.value === item.type)}
                   isSelected={isSelected}
+                  isMainPicture={mainPictureId === item.id}
                 />
               )}
               loadingItem={<PropertyItemPlaceholder />}

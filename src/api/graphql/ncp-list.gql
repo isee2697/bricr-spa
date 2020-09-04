@@ -13,7 +13,7 @@ type ListNcp {
   numberOfRoomsFrom: Int
   numberOfRoomsTo: Int
   logoPicture: File
-  mainPicture: File
+  mainPicture: Picture
   name: String
   salePriceFrom: AbsoluteFloat
   salePriceTo: AbsoluteFloat

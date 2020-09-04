@@ -66,6 +66,14 @@ export const LIST_PIMS = gql`
             url
           }
         }
+        mainPicture {
+          id
+          file {
+            id
+            key
+            url
+          }
+        }
         salePrice
         rentPrice
         completeness
