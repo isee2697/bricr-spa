@@ -1,0 +1,68 @@
+enum TeamRight {
+    Residential,
+    Commercial,
+    Agricultural,
+    ParkingLot,
+    BuildingPlot,
+    NCP,
+    CRM,
+    Sales,
+    Documents
+}
+
+input PermissionsInTeamInput {
+  createPermission: Boolean!
+  readPermission: Boolean!
+  updatePermission: Boolean!
+  deletePermission: Boolean!
+}
+
+type TeamSearchResult {
+    metadata: SearchMetadata
+    items: [Team!]
+}
+
+input AddTeamInput {
+    name: String!
+    description: String
+    teamRights: [TeamRight!]    
+}
+
+input UpdateTeamInput {
+    teamId: ID!
+    name: String!
+    description: String
+    teamRights: [TeamRight!]    
+}
+
+input AddUserToTeamInput {
+    teamId: ID!
+    userId: ID!
+    permissions: PermissionsInTeamInput!
+    notes: String
+}
+
+input UpdateUserInTeamInput {
+    teamId: ID!
+    userId: ID!
+    permissions: PermissionsInTeamInput!
+    notes: String
+}
+
+input RemoveUserFromTeamInput {
+    teamId: ID!
+    userId: ID!
+}
+
+extend type Query {
+   getTeams(pagination: Pagination, search: String): TeamSearchResult @auth
+   getTeamDetails(id: ID!): Team @auth
+}
+
+extend type Mutation {
+    addTeam(input: AddTeamInput!): Team @auth
+    updateTeam(input: UpdateTeamInput!): Team @auth
+    addUserToTeam(input: AddUserToTeamInput!): Team @auth
+    updateUserInTeam(input: UpdateUserInTeamInput!): Team @auth
+    removeUserFromTeam(input: RemoveUserFromTeamInput!): Team @auth
+}

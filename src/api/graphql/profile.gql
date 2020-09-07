@@ -1,28 +1,166 @@
-type Profile {
+enum GenderType {
+  Male,
+  Female,
+  GenderNeutral
+}
+
+enum EmailAddressType {
+  Business,
+  Private
+}
+
+type EmailAddress {
   id: String!
+  emailAddress: String!
+  emailAddressType: EmailAddressType
+  isPublic: Boolean
+}
+
+input CreateEmailAddressInput {
+  profileId: String!
+  emailAddress: String!
+  emailAddressType: EmailAddressType
+  isPublic: Boolean
+}
+
+input UpdateEmailAddressInput {
+  id: String!
+  profileId: String!
+  emailAddress: String!
+  emailAddressType: EmailAddressType
+  isPublic: Boolean
+}
+
+enum PhoneNumberType {
+  Business,
+  Private
+}
+
+type PhoneNumber {
+  id: String!
+  phoneNumber: String!
+  phoneNumberType: PhoneNumberType
+  isPublic: Boolean
+}
+
+input CreatePhoneNumberInput {
+  profileId: String!
+  phoneNumber: String!
+  phoneNumberType: PhoneNumberType
+  isPublic: Boolean
+}
+
+input UpdatePhoneNumberInput {
+  id: String!
+  profileId: String!
+  phoneNumber: String!
+  phoneNumberType: PhoneNumberType
+  isPublic: Boolean
+}
+
+enum SocialMediaLinkType {
+  LinkedIn,
+  Twitter,
+  Facebook,
+  Pinterest,
+  Instagram,
+  WhatsApp,
+  PersonalWebsite
+}
+
+type SocialMediaLink {
+  id: String!
+  socialMediaLink: String!
+  socialMediaLinkType: SocialMediaLinkType
+  isPublic: Boolean
+}
+
+input CreateSocialMediaLinkInput {
+  profileId: String!
+  socialMediaLink: String!
+  socialMediaLinkType: SocialMediaLinkType
+  isPublic: Boolean
+}
+
+input UpdateSocialMediaLinkInput {
+  id: String!
+  profileId: String!
+  socialMediaLink: String!
+  socialMediaLinkType: SocialMediaLinkType
+  isPublic: Boolean
+}
+
+type Profile {
+  id: ID!
+  gender: GenderType
   firstName: String
   lastName: String
-  email: String
+  dateOfBirth: Date
+  functionDescription: String
+  email: String!
   avatar: String
   teams: [ProfileTeam!]
+  emailAddresses: [EmailAddress!]
+  phoneNumbers: [PhoneNumber!]
+  socialMediaLinks: [SocialMediaLink!]
+  company: Company
+}
+
+input CreateProfileInput {
+  gender: GenderType
+  firstName: String
+  lastName: String
+  dateOfBirth: Date
+  functionDescription: String
+  email: String!
+  avatar: String
+}
+
+input UpdateProfileInput {
+  id: String!
+  gender: GenderType
+  firstName: String
+  lastName: String
+  dateOfBirth: Date
+  functionDescription: String
+  email: String!
+  avatar: String
 }
 
 type ProfileTeam {
-  id: String!
+  id: ID!
   name: String
+  notes: String
+  createPermission: Boolean!
+  readPermission: Boolean!
+  updatePermission: Boolean!
+  deletePermission: Boolean!
 }
 
 type Company {
-  id: String!
+  id: ID!
   teams: [Team!]
+  users: [Profile!]
   name: String
 }
 
+type TeamMember {
+  id: ID!
+  notes: String
+  user: Profile!
+  createPermission: Boolean!
+  readPermission: Boolean!
+  updatePermission: Boolean!
+  deletePermission: Boolean!
+}
+
 type Team {
-  id: String!
-  members: [Profile!]
+  id: ID!
+  profileMembers: [TeamMember!]
   company: Company!
   name: String
+  description: String
+  teamRights: [TeamRight!]
 }
 
 type ProfileSearchResult {
@@ -33,9 +171,18 @@ type ProfileSearchResult {
 extend type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
-  getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult!
+  getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
+  getAllProfiles(pagination: Pagination, search: String): ProfileSearchResult! @auth
 }
 
 extend type Mutation {
-  deleteUser(id: String): String @auth
+  createProfile(input: CreateProfileInput!): Profile! @auth
+  updateProfile(input: UpdateProfileInput!): Profile! @auth
+  deleteProfile(id: String): String @auth
+  createEmailAddress(input: CreateEmailAddressInput!): Profile! @auth
+  updateEmailAddress(input: UpdateEmailAddressInput!): Profile! @auth
+  createPhoneNumber(input: CreatePhoneNumberInput!): Profile! @auth
+  updatePhoneNumber(input: UpdatePhoneNumberInput!): Profile! @auth
+  createSocialMediaLink(input: CreateSocialMediaLinkInput!): Profile! @auth
+  updateSocialMediaLink(input: UpdateSocialMediaLinkInput!): Profile! @auth
 }

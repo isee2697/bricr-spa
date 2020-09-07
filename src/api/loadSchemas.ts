@@ -20,6 +20,7 @@ const schemas = [
   loader('./graphql/pim-specification.gql'),
   loader('./graphql/pim-sales.gql'),
   loader('./graphql/pim-location.gql'),
+  loader('./graphql/team.gql'),
   loader('./graphql/profile.gql'),
   loader('./graphql/schema.gql'),
   loader('./graphql/ncp-general.gql'),
