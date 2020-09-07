@@ -11,8 +11,6 @@ export const RegisterContainer = () => {
   const { isClaimed, spaceName, updateClaimSpace } = useClaimSpaceHook();
   const [timeout, setNewTimeout] = useState<NodeJS.Timeout>();
   const { push } = useHistory();
-  // let timeout: NodeJS.Timeout;
-  // @ToDo implement logics
 
   const checkSpaceAvailable = async (space: string) => {
     const updated = {
