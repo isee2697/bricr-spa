@@ -1,12 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    // position: 'relative',
-  },
   title: {
     fontWeight: theme.typography.fontWeightMedium,
-    // lineHeight: `${theme.spacing(0.5)}px`,
     width: '100%',
   },
   name: {

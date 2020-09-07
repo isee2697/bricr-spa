@@ -54,7 +54,7 @@ export const Setup = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       {!isStepOne && (
         <Box className={classes.back} onClick={() => changeStep(SetupSteps.ClientType)}>
           <BackIcon />
@@ -96,6 +96,6 @@ export const Setup = () => {
           </form>
         )}
       </Form>
-    </div>
+    </>
   );
 };
