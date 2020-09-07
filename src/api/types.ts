@@ -96,7 +96,9 @@ export type Mutation = {
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
   addTag?: Maybe<PimWithNewTag>;
+  addTeam?: Maybe<Team>;
   addTextChapter?: Maybe<PimWithNewTextChapter>;
+  addUserToTeam?: Maybe<Team>;
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
@@ -117,6 +119,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
   setLinkedProperties: Pim;
@@ -187,6 +190,7 @@ export type Mutation = {
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
   updateTag?: Maybe<Pim>;
+  updateTeam?: Maybe<Team>;
   updateTextChapter?: Maybe<Pim>;
   updateUsp?: Maybe<Pim>;
   uploadFile?: Maybe<UploadFileResponse>;
@@ -348,8 +352,16 @@ export type MutationAddTagArgs = {
   input: AddTagInput;
 };
 
+export type MutationAddTeamArgs = {
+  input: AddTeamInput;
+};
+
 export type MutationAddTextChapterArgs = {
   input: AddTextChapterInput;
+};
+
+export type MutationAddUserToTeamArgs = {
+  input: AddUserToTeamInput;
 };
 
 export type MutationAddUspArgs = {
@@ -430,6 +442,10 @@ export type MutationRemovePimArgs = {
 
 export type MutationRemoveProjectPhaseArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationRemoveUserFromTeamArgs = {
+  input: RemoveUserFromTeamInput;
 };
 
 export type MutationRemoveViewingMomentArgs = {
@@ -713,6 +729,10 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
+export type MutationUpdateTeamArgs = {
+  input: UpdateTeamInput;
+};
+
 export type MutationUpdateTextChapterArgs = {
   input: UpdateTextChapterInput;
 };
@@ -808,6 +828,8 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getTeamDetails?: Maybe<Team>;
+  getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
   listNcps: NcpListSearchResult;
   listObjectTypes: ObjectTypeListSearchResult;
@@ -954,6 +976,15 @@ export type QueryGetProfileArgs = {
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
+};
+
+export type QueryGetTeamDetailsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetTeamsArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
 };
 
 export type QueryGetUndoIdArgs = {
@@ -6127,6 +6158,56 @@ export type MetersMeta = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
+export enum TeamRight {
+  Residential = 'Residential',
+  Commercial = 'Commercial',
+  Agricultural = 'Agricultural',
+  ParkingLot = 'ParkingLot',
+  BuildingPlot = 'BuildingPlot',
+  Ncp = 'NCP',
+  Crm = 'CRM',
+  Sales = 'Sales',
+  Documents = 'Documents',
+}
+
+export type PermissionsInTeamInput = {
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
+};
+
+export type TeamSearchResult = {
+  __typename?: 'TeamSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Team>>;
+};
+
+export type AddTeamInput = {
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
+};
+
+export type UpdateTeamInput = {
+  teamId: Scalars['ID'];
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
+};
+
+export type AddUserToTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+  permissions: PermissionsInTeamInput;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type RemoveUserFromTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+};
+
 export type LoginMutationVariables = {
   input?: Maybe<LoginInput>;
 };
@@ -7313,19 +7394,6 @@ export type ListPimsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListMyTeamMembersQueryVariables = {
-  sortColumn: Scalars['String'];
-  sortDirection: SortDirection;
-  from: Scalars['Int'];
-  limit?: Maybe<Scalars['Int']>;
-};
-
-export type ListMyTeamMembersQuery = { __typename?: 'Query' } & {
-  getMyTeamMembers: { __typename?: 'ProfileSearchResult' } & {
-    items?: Maybe<Array<{ __typename?: 'Profile' }>>;
-  };
-};
-
 export type ListPimsQueryVariables = {
   archived: Scalars['Boolean'];
   pricingType?: Maybe<PricingType>;
@@ -7368,8 +7436,8 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
               >
             >;
             mainPicture?: Maybe<
-              { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
                 }
             >;
           }
@@ -9204,7 +9272,11 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
 export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
-  me?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>;
+  me?: Maybe<
+    { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'> & {
+        teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+      }
+  >;
 };
 
 export type ProjectPhasesQueryVariables = {
@@ -9240,6 +9312,30 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
           }
       >
     >;
+  };
+};
+
+export type GetTeamDetailsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
+  getTeamDetails?: Maybe<
+    { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
+        members?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>>;
+      }
+  >;
+};
+
+export type GetMyTeamMembersQueryVariables = {
+  search?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
+  members: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>>;
   };
 };
 
@@ -12183,14 +12279,9 @@ export const ListPimsDocument = gql`
         }
         mainPicture {
           id
-          name
-          description
-          type
-          dateUpdated
           file {
             id
             key
-            fileName
             url
           }
         }
@@ -15190,6 +15281,10 @@ export const MeDocument = gql`
       lastName
       email
       avatar
+      teams {
+        id
+        name
+      }
     }
   }
 `;
@@ -15244,3 +15339,71 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const GetTeamDetailsDocument = gql`
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
+      id
+      name
+      members {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+export function useGetTeamDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export function useGetTeamDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export type GetTeamDetailsQueryHookResult = ReturnType<typeof useGetTeamDetailsQuery>;
+export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDetailsLazyQuery>;
+export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetTeamDetailsQuery,
+  GetTeamDetailsQueryVariables
+>;
+export const GetMyTeamMembersDocument = gql`
+  query GetMyTeamMembers($search: String, $from: Int, $limit: Int) {
+    members: getMyTeamMembers(pagination: { from: $from, limit: $limit }, search: $search) {
+      items {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+export function useGetMyTeamMembersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export function useGetMyTeamMembersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export type GetMyTeamMembersQueryHookResult = ReturnType<typeof useGetMyTeamMembersQuery>;
+export type GetMyTeamMembersLazyQueryHookResult = ReturnType<typeof useGetMyTeamMembersLazyQuery>;
+export type GetMyTeamMembersQueryResult = ApolloReactCommon.QueryResult<
+  GetMyTeamMembersQuery,
+  GetMyTeamMembersQueryVariables
+>;

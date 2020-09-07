@@ -2203,6 +2203,7 @@
   "tasks.in_progress": "In progress",
   "tasks.blocked": "Blocked",
   "tasks.done": "Done",
+  "tasks.members.me": "Me",
   "tasks.list.task_name": "Task name",
   "tasks.list.assign": "Assign",
   "tasks.list.number": "Number",

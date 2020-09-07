@@ -1,27 +1,35 @@
 import React from 'react';
 
-import { Grid, Alert } from 'ui/atoms';
+import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
-import { TasksProps } from './Tasks.types';
+import { TasksProps, TeamMemberItem } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
 
-export const Tasks = ({ isError, selectedUsers }: TasksProps) => {
+export const Tasks = ({ error, loading, data }: TasksProps) => {
+  const { user } = useAuthState();
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
+  if (loading || !user || !data) {
+    return <Loader />;
+  }
+
+  const members: TeamMemberItem[] = [user, ...(data.members.items || [])];
+
   return (
     <>
-      {!!isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
+      {!!error && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={3} className={classes.content}>
         <Grid item xs={12}>
           <TasksHeader />
         </Grid>
         <Grid item xs={12}>
-          <TasksMemberList />
+          <TasksMemberList members={members} />
         </Grid>
         <Grid item xs={12}>
           <TasksBody />

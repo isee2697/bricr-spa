@@ -8,6 +8,10 @@ export const CURRENT_USER = gql`
       lastName
       email
       avatar
+      teams {
+        id
+        name
+      }
     }
   }
 `;

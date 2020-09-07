@@ -9,7 +9,7 @@ export const useStyles = makeStyles(theme => ({
     lineHeight: `${theme.spacing(6)}px`,
   },
   checkbox: {
-    marginLeft: -theme.spacing(1.5),
+    marginLeft: -theme.spacing(1),
   },
   dateLabel: {
     lineHeight: `${theme.spacing(6)}px`,
