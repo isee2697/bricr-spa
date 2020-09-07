@@ -1,20 +1,32 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
+import { useParams } from 'react-router-dom';
 
-import { Chip, Grid, Typography, IconButton, Box } from 'ui/atoms';
-import { EditIcon, SaleIcon } from 'ui/atoms/icons';
+import { Chip, Grid, Typography, Box, MenuItem } from 'ui/atoms';
+import { ListOptionsMenu } from 'ui/molecules';
+import { HomeIcon, SaleIcon } from 'ui/atoms/icons';
 import { useGetPrivateFile, useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
-import { getEntityFilesType } from '../Pictures.helpers';
+import { getEntityFilesType, useUpdateImage } from '../Pictures.helpers';
 
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
+export const PictureItem = ({
+  picture,
+  editing,
+  checkbox,
+  onEdit,
+  customLabel,
+  isSelected,
+  isMainPicture,
+}: PictureItemProps) => {
+  const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
   const { data } = useGetPrivateFile(picture.file?.key || '', getEntityFilesType(entityType), picture.id);
   const classes = useStyles({ src: data?.signedUrl });
+  const { save } = useUpdateImage(id);
 
   const handleEdit = () => {
     if (editing) {
@@ -25,7 +37,10 @@ export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, i
   return (
     <Grid container spacing={0} className={classNames(classes.container, isSelected && classes.selected)}>
       <Grid item xs={3}>
-        <div className={classes.image}> {checkbox} </div>
+        <div className={classes.image}>
+          {isMainPicture && <div className={classes.mainPicture}>{formatMessage({ id: 'common.main_picture' })}</div>}
+          {checkbox}
+        </div>
       </Grid>
       <Grid item xs={8}>
         <Box className={classes.content}>
@@ -52,11 +67,12 @@ export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, i
       </Grid>
       <Grid item xs={1}>
         {editing && (
-          <Box display="flex" justifyContent="flex-end" padding={0.5}>
-            <IconButton onClick={handleEdit} data-testid="edit-picture-button">
-              <EditIcon />
-            </IconButton>
-          </Box>
+          <ListOptionsMenu onEditClick={handleEdit}>
+            <MenuItem disabled={isMainPicture} onClick={() => save({ ...picture, isMainPicture: true })}>
+              <HomeIcon />
+              {formatMessage({ id: 'common.set_main_picture' })}
+            </MenuItem>
+          </ListOptionsMenu>
         )}
       </Grid>
     </Grid>

@@ -11,8 +11,11 @@ export const useStyles = makeStyles(theme => ({
     height: '100%',
     padding: theme.spacing(1),
   },
+  tasksSwimlaneItemsContainer: {
+    marginTop: theme.spacing(3),
+  },
   columnName: {
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
+    padding: theme.spacing(0.5, 1),
     borderRadius: 4,
   },
   backGrayLight: {
@@ -47,5 +50,8 @@ export const useStyles = makeStyles(theme => ({
   },
   flexGrowOne: {
     flex: 1,
+  },
+  flexGrowZero: {
+    flex: 0,
   },
 }));

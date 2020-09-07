@@ -1,14 +1,20 @@
 ### Colors:
 
 ```jsx harmony
-import { Box, Grid } from 'ui/atoms';
-import { useTheme } from '@material-ui/core/styles';
+import { Box, Grid } from "ui/atoms";
+import { useTheme } from "@material-ui/core/styles";
 const theme = useTheme();
 
 <>
   <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box pb={6} pt={6} bgcolor={theme.palette.primary.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.primary.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Primary <br />
         {theme.palette.primary.main}
       </Box>
@@ -28,25 +34,49 @@ const theme = useTheme();
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={6} pt={6} bgcolor={theme.palette.secondary.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.secondary.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Secondary <br />
         {theme.palette.secondary.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={6} pt={6} bgcolor={theme.palette.black.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.black.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Black <br />
         {theme.palette.black.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={6} pt={6} bgcolor={theme.palette.gray.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.gray.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Gray <br />
         {theme.palette.gray.main}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box pb={6} pt={6} bgcolor={theme.palette.gray.light} color={theme.palette.black.main} textAlign="center">
+      <Box
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.gray.light}
+        color={theme.palette.black.main}
+        textAlign="center"
+      >
         Gray light <br />
         {theme.palette.gray.light}
       </Box>
@@ -54,17 +84,38 @@ const theme = useTheme();
   </Grid>
   <Grid container spacing={3}>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.red.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.red.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Red <br />
         {theme.palette.red.main}
       </Box>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.red.light} color={theme.palette.black.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.red.light}
+        color={theme.palette.black.main}
+        textAlign="center"
+      >
         Red light <br />
         {theme.palette.red.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.orange.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.orange.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Orange <br />
         {theme.palette.orange.main}
       </Box>
@@ -81,7 +132,14 @@ const theme = useTheme();
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.yellow.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.yellow.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Yellow <br />
         {theme.palette.yellow.main}
       </Box>
@@ -98,27 +156,62 @@ const theme = useTheme();
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.green.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.green.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Green <br />
         {theme.palette.green.main}
       </Box>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.green.light} color={theme.palette.black.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.green.light}
+        color={theme.palette.black.main}
+        textAlign="center"
+      >
         Green light <br />
         {theme.palette.green.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.blue.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.blue.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Blue <br />
         {theme.palette.blue.main}
       </Box>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.blue.light} color={theme.palette.black.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.blue.light}
+        color={theme.palette.black.main}
+        textAlign="center"
+      >
         Blue light <br />
         {theme.palette.blue.light}
       </Box>
     </Grid>
     <Grid item xs={6} lg={2}>
-      <Box mb={2} pb={6} pt={6} bgcolor={theme.palette.purple.main} color={theme.palette.white.main} textAlign="center">
+      <Box
+        mb={2}
+        pb={6}
+        pt={6}
+        bgcolor={theme.palette.purple.main}
+        color={theme.palette.white.main}
+        textAlign="center"
+      >
         Purple <br />
         {theme.palette.purple.main}
       </Box>
@@ -141,7 +234,7 @@ const theme = useTheme();
 ### Shadows:
 
 ```jsx harmony
-import { Grid, Box } from 'ui/atoms';
+import { Grid, Box } from "ui/atoms";
 
 <Grid container spacing={3}>
   <Grid item xs={6} lg={3}>
@@ -165,8 +258,8 @@ import { Grid, Box } from 'ui/atoms';
 ### Typography:
 
 ```jsx harmony
-import { Typography, Box } from 'ui/atoms';
-import { useTheme } from '@material-ui/core/styles';
+import { Typography, Box } from "ui/atoms";
+import { useTheme } from "@material-ui/core/styles";
 const theme = useTheme();
 
 <>
@@ -259,10 +352,12 @@ const theme = useTheme();
       Paragraph:
       <br />
     </Box>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem, corporis cumque dignissimos eligendi eveniet
-    exercitationem fugiat hic illum, impedit libero magni necessitatibus, numquam perspiciatis quia repellendus sit ut voluptatem.
-    Alias aperiam architecto asperiores, consectetur dolor esse harum ipsa ipsum laborum necessitatibus nesciunt officia
-    pariatur perspiciatis repellendus tenetur ut, veniam.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem, corporis
+    cumque dignissimos eligendi eveniet exercitationem fugiat hic illum, impedit
+    libero magni necessitatibus, numquam perspiciatis quia repellendus sit ut voluptatem.
+    Alias aperiam architecto asperiores, consectetur dolor esse harum ipsa ipsum
+    laborum necessitatibus nesciunt officia pariatur perspiciatis repellendus tenetur
+    ut, veniam.
   </Typography>
 </>;
 ```
@@ -323,16 +418,24 @@ import {
   WarningIcon,
   HistoryIcon,
   EuroIcon,
-} from './atoms/icons';
-import { useTheme } from '@material-ui/core/styles';
-import { Box } from 'ui/atoms';
+  SwimlaneIcon,
+  PriorityLowIcon,
+  PriorityHighIcon,
+  PriorityMediumIcon,
+  UserRectangleIcon,
+  LockRectangleIcon,
+  FollowUpRectangleIcon,
+  StatusIcon,
+} from "./atoms/icons";
+import { useTheme } from "@material-ui/core/styles";
+import { Box } from "ui/atoms";
 
 const theme = useTheme();
 
 const wrapperStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
+  display: "flex",
+  justifyContent: "space-between",
+  flexWrap: "wrap",
 };
 
 <>
@@ -372,7 +475,7 @@ const wrapperStyle = {
     <PinIcon color="disabled" />
   </div>
   <br />
-  <div style={{ ...wrapperStyle, color: 'orange' }}>
+  <div style={{ ...wrapperStyle, color: "orange" }}>
     <SearchIcon color="inherit" />
     <SettingsIcon color="inherit" />
     <ShortcutsIcon color="inherit" />
@@ -390,7 +493,7 @@ const wrapperStyle = {
     <ComplexBuildingIcon color="action" />
   </div>
   <br />
-  <div style={{ ...wrapperStyle, color: 'purple' }}>
+  <div style={{ ...wrapperStyle, color: "purple" }}>
     <CloseIcon color="inherit" />
     <SubtractIcon color="inherit" />
     <LockIcon color="inherit" />
@@ -414,7 +517,19 @@ const wrapperStyle = {
     <NcSaleIcon color="secondary" />
     <HistoryIcon color="secondary" />
     <EuroIcon color="secondary" />
-    <Box width={24} />
+    <SwimlaneIcon color="secondary" />
+  </div>
+  <br />
+  <div style={{ ...wrapperStyle, color: theme.palette.green.main }}>
+    <PriorityLowIcon color="inherit" />
+    <PriorityHighIcon color="inherit" />
+    <PriorityMediumIcon color="inherit" />
+    <UserRectangleIcon />
+    <LockRectangleIcon />
+    <FollowUpRectangleIcon />
+  </div>
+  <div style={ wrapperStyle }>
+    <StatusIcon color="disabled" />
   </div>
 </>;
 ```

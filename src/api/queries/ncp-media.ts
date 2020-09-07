@@ -23,6 +23,7 @@ export const NCP_MEDIA = gql`
           fileName
         }
       }
+      mainPictureId
       mediaLinks {
         id
         name

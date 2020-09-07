@@ -30,6 +30,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const { pathname } = useLocation();
   const { isSidebarVisible, isHeaderVisible } = useLayout();
 
+  const isOnTasksPage = pathname.startsWith(AppRoute.tasks);
   const isOnSettingsPage = pathname.startsWith(AppRoute.settings);
   const handleSettingsClick = () => {
     if (isOnSettingsPage) {
@@ -75,7 +76,13 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <IconButton variant="rounded" size="small" aria-label="calendar">
               <CalendarIcon />
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="tasks" onClick={handleNavigate(AppRoute.tasks)}>
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="tasks"
+              onClick={handleNavigate(AppRoute.tasks)}
+              selected={isOnTasksPage}
+            >
               <TasksIcon />
             </IconButton>
             <IconButton variant="rounded" size="small" aria-label="stats">
