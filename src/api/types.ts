@@ -5999,7 +5999,7 @@ export type Profile = {
   lastName?: Maybe<Scalars['String']>;
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<ProfileTeam>>;
   emailAddresses?: Maybe<Array<EmailAddress>>;

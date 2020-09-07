@@ -97,7 +97,7 @@ type Profile {
   lastName: String
   dateOfBirth: Date
   functionDescription: String
-  email: String!
+  email: String
   avatar: String
   teams: [ProfileTeam!]
   emailAddresses: [EmailAddress!]
