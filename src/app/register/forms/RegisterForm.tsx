@@ -30,23 +30,18 @@ export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, s
       {props => (
         <form onSubmit={props.handleSubmit}>
           <Typography>Claim your bricr space</Typography>
-          <GenericField
-            required
-            label={formatMessage({ id: 'register.name_label' })}
-            placeholder={formatMessage({ id: 'register.name_placeholder' })}
-            name="name"
-          />
+          <GenericField required label={'register.name_label'} placeholder={'register.name_placeholder'} name="name" />
           <GenericField
             type="email"
-            label={formatMessage({ id: 'register.email_label' })}
-            placeholder={formatMessage({ id: 'register.email_placeholder' })}
+            label={'register.email_label'}
+            placeholder={'register.email_placeholder'}
             onChange={e => changeSpaceName(e.target.value, true)}
             required
             name="email"
           />
           <GenericField
-            label={formatMessage({ id: 'register.space_label' })}
-            placeholder={formatMessage({ id: 'register.space_placeholder' })}
+            label={'register.space_label'}
+            placeholder={'register.space_placeholder'}
             required
             value={spaceName}
             onChange={e => changeSpaceName(e.target.value)}

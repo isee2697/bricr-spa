@@ -18,7 +18,8 @@ import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContai
 import { TasksContainer } from 'app/tasks/TasksContainer';
 import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
 import { Settings } from 'app/settings/Settings';
-import { RegisterContainer } from '../app/register/RegisterContainer';
+import { RegisterContainer } from 'app/register/RegisterContainer';
+import { SetupContainer } from 'app/register/setup/SetupContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -41,11 +42,20 @@ export const AppRoutes = () => {
           </Authorization>
         )}
       </Route>
-
-      <Authorization>
-        <Route path={AppRoute.register} exact component={RegisterContainer} />
-        <Route path={AppRoute.setup} exact render={() => <>setup</>} />
-      </Authorization>
+      <Route path={AppRoute.register} exact>
+        {() => (
+          <Authorization>
+            <RegisterContainer />
+          </Authorization>
+        )}
+      </Route>
+      <Route path={AppRoute.setup}>
+        {() => (
+          <Authorization>
+            <SetupContainer />
+          </Authorization>
+        )}
+      </Route>
 
       <Route path="/">
         {() => (

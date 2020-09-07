@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useClaimSpaceHook } from '../../hooks/useClaimSpaceHook/useClaimSpaceHook';
+import { AppRoute } from '../../routing/AppRoute.enum';
 
 import { RegisterForm } from './forms/RegisterForm';
 import { RegisterFormFields } from './forms/RegisterForm.types';
@@ -8,6 +10,7 @@ import { RegisterFormFields } from './forms/RegisterForm.types';
 export const RegisterContainer = () => {
   const { isClaimed, spaceName, updateClaimSpace } = useClaimSpaceHook();
   const [timeout, setNewTimeout] = useState<NodeJS.Timeout>();
+  const { push } = useHistory();
   // let timeout: NodeJS.Timeout;
   // @ToDo implement logics
 
@@ -37,7 +40,11 @@ export const RegisterContainer = () => {
     return undefined;
   };
 
-  const handleSave = async ({ name, email, space }: RegisterFormFields) => {
+  const handleSave = async ({ name, email }: RegisterFormFields) => {
+    if (name && email && spaceName) {
+      push(`${AppRoute.setup}/?name=${name}`);
+    }
+
     return undefined;
   };
 

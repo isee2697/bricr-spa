@@ -23,7 +23,11 @@ export const RegisterInfoScreen = () => {
           </Box>
         </Slide>
         <Box mb={3} className={classes.box}>
-          <img className={classNames(classes.logo, isCheckingSpaceName ? classes.loading : '')} src={logo} />
+          <img
+            alt="bricr logo"
+            className={classNames(classes.logo, isCheckingSpaceName ? classes.loading : '')}
+            src={logo}
+          />
         </Box>
         <Box mb={0.5} className={classes.box}>
           <Typography variant="h4" className={classes.spaceName}>
