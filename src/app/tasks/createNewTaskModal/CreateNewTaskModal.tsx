@@ -97,12 +97,10 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
 
   const handleChangeTime = (date: MaterialUiPickersDate, value: string | null | undefined) => {
     if (value) {
-      console.log(value);
       const tt: string = value.split(' ')[1];
       const timeSplit: string[] = value.split(' ')[0].split(':');
       const hour: number = parseInt(timeSplit[0], 10) + (tt === 'AM' ? 0 : 12);
       const minute: number = parseInt(timeSplit[1], 10);
-      console.log(tt, hour, minute);
       setDeadlineTime(DateTime.local().set({ hour, minute }));
     }
   };
