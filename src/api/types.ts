@@ -102,11 +102,15 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
+  createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
+  createProfile: Profile;
+  createSocialMediaLink: Profile;
   deleteEntity: Array<DeleteResult>;
-  deleteUser?: Maybe<Scalars['String']>;
+  deleteProfile?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -138,6 +142,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateDescription?: Maybe<Scalars['String']>;
+  updateEmailAddress: Profile;
   updateFloor: Pim;
   updateIdentificationNumberNcp: NcpCharacteristics;
   updateIdentificationNumberObjectType: ObjectTypeCharacteristics;
@@ -176,6 +181,7 @@ export type Mutation = {
   updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
   updateObjectTypesListDescription?: Maybe<NcpGeneral>;
   updateOutsideFeature: Pim;
+  updatePhoneNumber: Profile;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
   updatePimLocation: Pim;
@@ -184,14 +190,17 @@ export type Mutation = {
   updatePimReading?: Maybe<Pim>;
   updatePimService?: Maybe<Pim>;
   updatePricing: Pim;
+  updateProfile: Profile;
   updateProjectPhase: ProjectPhase;
   updateSalesSettings: Pim;
+  updateSocialMediaLink: Profile;
   updateSpace: Pim;
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
   updateTag?: Maybe<Pim>;
   updateTeam?: Maybe<Team>;
   updateTextChapter?: Maybe<Pim>;
+  updateUserInTeam?: Maybe<Team>;
   updateUsp?: Maybe<Pim>;
   uploadFile?: Maybe<UploadFileResponse>;
 };
@@ -376,6 +385,10 @@ export type MutationBulkArgs = {
   input: BulkOperationInput;
 };
 
+export type MutationCreateEmailAddressArgs = {
+  input: CreateEmailAddressInput;
+};
+
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
 };
@@ -384,15 +397,27 @@ export type MutationCreateObjectTypeArgs = {
   input: CreateObjectTypeInput;
 };
 
+export type MutationCreatePhoneNumberArgs = {
+  input: CreatePhoneNumberInput;
+};
+
 export type MutationCreatePimArgs = {
   input: CreatePimInput;
+};
+
+export type MutationCreateProfileArgs = {
+  input: CreateProfileInput;
+};
+
+export type MutationCreateSocialMediaLinkArgs = {
+  input: CreateSocialMediaLinkInput;
 };
 
 export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteProfileArgs = {
   id?: Maybe<Scalars['String']>;
 };
 
@@ -519,6 +544,10 @@ export type MutationUpdateCostArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateEmailAddressArgs = {
+  input: UpdateEmailAddressInput;
 };
 
 export type MutationUpdateFloorArgs = {
@@ -673,6 +702,10 @@ export type MutationUpdateOutsideFeatureArgs = {
   input: Scalars['UpdateFeatureInputConfiguration'];
 };
 
+export type MutationUpdatePhoneNumberArgs = {
+  input: UpdatePhoneNumberInput;
+};
+
 export type MutationUpdatePictureArgs = {
   input: UpdatePictureInput;
 };
@@ -705,12 +738,20 @@ export type MutationUpdatePricingArgs = {
   input: UpdatePricingInput;
 };
 
+export type MutationUpdateProfileArgs = {
+  input: UpdateProfileInput;
+};
+
 export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
+};
+
+export type MutationUpdateSocialMediaLinkArgs = {
+  input: UpdateSocialMediaLinkInput;
 };
 
 export type MutationUpdateSpaceArgs = {
@@ -735,6 +776,10 @@ export type MutationUpdateTeamArgs = {
 
 export type MutationUpdateTextChapterArgs = {
   input: UpdateTextChapterInput;
+};
+
+export type MutationUpdateUserInTeamArgs = {
+  input: UpdateUserInTeamInput;
 };
 
 export type MutationUpdateUspArgs = {
@@ -792,6 +837,7 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
+  getAllProfiles: ProfileSearchResult;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
@@ -835,6 +881,11 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
+};
+
+export type QueryGetAllProfilesArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
 };
 
 export type QueryGetBulkDetailsArgs = {
@@ -5845,35 +5896,177 @@ export type UpdateCommonPricingInput = {
   description?: Maybe<Scalars['String']>;
 };
 
+export enum GenderType {
+  Male = 'Male',
+  Female = 'Female',
+  GenderNeutral = 'GenderNeutral',
+}
+
+export enum EmailAddressType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type EmailAddress = {
+  __typename?: 'EmailAddress';
+  id: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateEmailAddressInput = {
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateEmailAddressInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum PhoneNumberType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type PhoneNumber = {
+  __typename?: 'PhoneNumber';
+  id: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreatePhoneNumberInput = {
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdatePhoneNumberInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum SocialMediaLinkType {
+  LinkedIn = 'LinkedIn',
+  Twitter = 'Twitter',
+  Facebook = 'Facebook',
+  Pinterest = 'Pinterest',
+  Instagram = 'Instagram',
+  WhatsApp = 'WhatsApp',
+  PersonalWebsite = 'PersonalWebsite',
+}
+
+export type SocialMediaLink = {
+  __typename?: 'SocialMediaLink';
+  id: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateSocialMediaLinkInput = {
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateSocialMediaLinkInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
 export type Profile = {
   __typename?: 'Profile';
-  id: Scalars['String'];
+  id: Scalars['ID'];
+  gender?: Maybe<GenderType>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<ProfileTeam>>;
+  emailAddresses?: Maybe<Array<EmailAddress>>;
+  phoneNumbers?: Maybe<Array<PhoneNumber>>;
+  socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
+  company?: Maybe<Company>;
+};
+
+export type CreateProfileInput = {
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
+};
+
+export type UpdateProfileInput = {
+  id: Scalars['String'];
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
 };
 
 export type ProfileTeam = {
   __typename?: 'ProfileTeam';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
 };
 
 export type Company = {
   __typename?: 'Company';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   teams?: Maybe<Array<Team>>;
+  users?: Maybe<Array<Profile>>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type TeamMember = {
+  __typename?: 'TeamMember';
+  id: Scalars['ID'];
+  notes?: Maybe<Scalars['String']>;
+  user: Profile;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
 };
 
 export type Team = {
   __typename?: 'Team';
-  id: Scalars['String'];
-  members?: Maybe<Array<Profile>>;
+  id: Scalars['ID'];
+  profileMembers?: Maybe<Array<TeamMember>>;
   company: Company;
   name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
 };
 
 export type ProfileSearchResult = {
@@ -6197,6 +6390,13 @@ export type UpdateTeamInput = {
 };
 
 export type AddUserToTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+  permissions: PermissionsInTeamInput;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type UpdateUserInTeamInput = {
   teamId: Scalars['ID'];
   userId: Scalars['ID'];
   permissions: PermissionsInTeamInput;
