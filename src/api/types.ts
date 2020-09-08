@@ -7553,6 +7553,14 @@ export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
+export type AddTeamMutationVariables = {
+  input: AddTeamInput;
+};
+
+export type AddTeamMutation = { __typename?: 'Mutation' } & {
+  addTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -9509,6 +9517,41 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type SettingInfoQueryVariables = {};
+
+export type SettingInfoQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
+  >;
+};
+
+export type GetTeamsQueryVariables = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetTeamsQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'description' | 'teamRights'> & {
+              profileMembers?: Maybe<
+                Array<
+                  { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                      user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+                    }
+                >
+              >;
+              company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+            }
+        >
+      >;
+    }
+  >;
 };
 
 export const LoginDocument = gql`
@@ -12303,6 +12346,22 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
 >;
+export const AddTeamDocument = gql`
+  mutation AddTeam($input: AddTeamInput!) {
+    addTeam(input: $input) {
+      id
+      name
+    }
+  }
+`;
+export function useAddTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTeamMutation, AddTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTeamMutation, AddTeamMutationVariables>(AddTeamDocument, baseOptions);
+}
+export type AddTeamMutationHookResult = ReturnType<typeof useAddTeamMutation>;
+export type AddTeamMutationResult = ApolloReactCommon.MutationResult<AddTeamMutation>;
+export type AddTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTeamMutation, AddTeamMutationVariables>;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
     getBulkDetails(input: $input) {
@@ -15507,3 +15566,63 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const SettingInfoDocument = gql`
+  query SettingInfo {
+    getTeams {
+      items {
+        id
+        name
+      }
+    }
+  }
+`;
+export function useSettingInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export function useSettingInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
+export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
+export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTeamsDocument = gql`
+  query GetTeams($from: Int, $limit: Int, $search: String) {
+    getTeams(pagination: { from: $from, limit: $limit }, search: $search) {
+      items {
+        id
+        profileMembers {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+        company {
+          id
+          name
+        }
+        name
+        description
+        teamRights
+      }
+    }
+  }
+`;
+export function useGetTeamsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
+export function useGetTeamsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
+export type GetTeamsQueryHookResult = ReturnType<typeof useGetTeamsQuery>;
+export type GetTeamsLazyQueryHookResult = ReturnType<typeof useGetTeamsLazyQuery>;
+export type GetTeamsQueryResult = ApolloReactCommon.QueryResult<GetTeamsQuery, GetTeamsQueryVariables>;

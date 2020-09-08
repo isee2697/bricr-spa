@@ -8,11 +8,19 @@ import { SidebarTitleTile } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
 import { useLayout } from 'context/layout';
+import { SettingsProps } from 'app/settings/Settings.types';
+import { MenuItem, SubMenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
-export const SettingsSidebarMenu = () => {
+export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
+  const { getTeams: teams } = data;
+
+  const teamItems = ((teams?.items && teams.items.map(team => ({ key: `team/${team.id}`, title: team.name }))) ||
+    []) as MenuItem[];
+
+  console.log(teamItems);
 
   const menu = {
     url: url,
@@ -25,6 +33,11 @@ export const SettingsSidebarMenu = () => {
         isCollapsable: true,
         key: 'settings.menu.general',
         items: [{ key: 'workflowTemplates' }],
+      },
+      {
+        isCollapsable: true,
+        key: 'settings.menu.teams',
+        items: [{ key: 'createTeam' }, ...teamItems],
       },
     ],
   };
