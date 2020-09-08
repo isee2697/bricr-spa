@@ -109,6 +109,7 @@ export type Mutation = {
   createPim?: Maybe<Pim>;
   createProfile: Profile;
   createSocialMediaLink: Profile;
+  createTask: Task;
   deleteEntity: Array<DeleteResult>;
   deleteProfile?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -198,6 +199,7 @@ export type Mutation = {
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
   updateTag?: Maybe<Pim>;
+  updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
   updateTextChapter?: Maybe<Pim>;
   updateUserInTeam?: Maybe<Team>;
@@ -411,6 +413,10 @@ export type MutationCreateProfileArgs = {
 
 export type MutationCreateSocialMediaLinkArgs = {
   input: CreateSocialMediaLinkInput;
+};
+
+export type MutationCreateTaskArgs = {
+  input: CreateTaskInput;
 };
 
 export type MutationDeleteEntityArgs = {
@@ -770,6 +776,10 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
+export type MutationUpdateTaskArgs = {
+  input: UpdateTaskInput;
+};
+
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
@@ -874,6 +884,7 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getTask?: Maybe<Task>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
@@ -1027,6 +1038,10 @@ export type QueryGetProfileArgs = {
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
+};
+
+export type QueryGetTaskArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetTeamDetailsArgs = {
@@ -6351,6 +6366,33 @@ export type MetersMeta = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
+export type Task = {
+  __typename?: 'Task';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  assignee: Scalars['String'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: Scalars['String'];
+};
+
+export type CreateTaskInput = {
+  title: Scalars['String'];
+  assignee: Scalars['String'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: Scalars['String'];
+};
+
+export type UpdateTaskInput = {
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  assignee?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
+  priority?: Maybe<Scalars['String']>;
+};
+
 export enum TeamRight {
   Residential = 'Residential',
   Commercial = 'Commercial',
@@ -7551,6 +7593,22 @@ export type LinkNcpToProjectPhaseMutationVariables = {
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type CreateTaskMutationVariables = {
+  input: CreateTaskInput;
+};
+
+export type CreateTaskMutation = { __typename?: 'Mutation' } & {
+  createTask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
+
+export type UpdateTaskMutationVariables = {
+  input: UpdateTaskInput;
+};
+
+export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
+  updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
 };
 
 export type BulkDetailsQueryVariables = {
@@ -9513,6 +9571,16 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type GetTaskQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTaskQuery = { __typename?: 'Query' } & {
+  getTask?: Maybe<
+    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+  >;
 };
 
 export type GetTeamDetailsQueryVariables = {
@@ -12336,6 +12404,42 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const CreateTaskDocument = gql`
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, baseOptions);
+}
+export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
+export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
+export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateTaskMutation,
+  CreateTaskMutationVariables
+>;
+export const UpdateTaskDocument = gql`
+  mutation UpdateTask($input: UpdateTaskInput!) {
+    updateTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTaskMutation, UpdateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTaskMutation, UpdateTaskMutationVariables>(UpdateTaskDocument, baseOptions);
+}
+export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
+export type UpdateTaskMutationResult = ApolloReactCommon.MutationResult<UpdateTaskMutation>;
+export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTaskMutation,
+  UpdateTaskMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
@@ -15545,6 +15649,29 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const GetTaskDocument = gql`
+  query GetTask($id: ID!) {
+    getTask(id: $id) {
+      id
+      title
+      assignee
+      startDate
+      deadline
+      priority
+    }
+  }
+`;
+export function useGetTaskQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+  return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export function useGetTaskLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
+export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
+export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
 export const GetTeamDetailsDocument = gql`
   query GetTeamDetails($id: ID!) {
     getTeamDetails(id: $id) {

@@ -1,0 +1,34 @@
+type Task {
+  id: ID!
+  title: String!
+  assignee: String!
+  startDate: Date!
+  deadline: Date!
+  priority: String!
+}
+
+input CreateTaskInput {
+  title: String!
+  assignee: String!
+  startDate: Date!
+  deadline: Date!
+  priority: String!
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  assignee: String
+  startDate: Date
+  deadline: Date
+  priority: String
+}
+
+extend type Mutation {
+  createTask(input: CreateTaskInput!): Task! @auth
+  updateTask(input: UpdateTaskInput!): Task @auth
+}
+
+extend type Query {
+  getTask(id: ID!): Task @auth
+}

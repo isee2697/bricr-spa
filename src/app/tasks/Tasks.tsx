@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -11,9 +11,16 @@ import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
 
 export const Tasks = ({ error, loading, data }: TasksProps) => {
+  const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([]);
   const { user } = useAuthState();
   const classes = useStyles();
   const { formatMessage } = useLocale();
+
+  useEffect(() => {
+    if (user) {
+      setSelectedMembers([user]);
+    }
+  }, [user]);
 
   if (loading || !user || !data) {
     return <Loader />;
@@ -29,7 +36,11 @@ export const Tasks = ({ error, loading, data }: TasksProps) => {
           <TasksHeader />
         </Grid>
         <Grid item xs={12}>
-          <TasksMemberList members={members} />
+          <TasksMemberList
+            members={members}
+            selectedMembers={selectedMembers}
+            onSelect={(selected: TeamMemberItem[]) => setSelectedMembers(selected)}
+          />
         </Grid>
         <Grid item xs={12}>
           <TasksBody />
