@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useClaimSpaceHook } from '../../hooks/useClaimSpaceHook/useClaimSpaceHook';
-import { AppRoute } from '../../routing/AppRoute.enum';
+import { useClaimSpaceHook } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { RegisterForm } from './forms/RegisterForm';
 import { RegisterFormFields } from './forms/RegisterForm.types';

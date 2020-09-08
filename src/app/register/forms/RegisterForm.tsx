@@ -29,7 +29,7 @@ export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, s
     <Form onSubmit={onSubmit}>
       {props => (
         <form onSubmit={props.handleSubmit}>
-          <Typography>Claim your bricr space</Typography>
+          <Typography>{formatMessage({ id: 'register.claim_space' })}</Typography>
           <GenericField required label={'register.name_label'} placeholder={'register.name_placeholder'} name="name" />
           <GenericField
             type="email"
@@ -52,7 +52,7 @@ export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, s
             <div dangerouslySetInnerHTML={{ __html: formatMessage({ id: 'register.terms' }) }} />
           </Typography>
           <Button type="submit" disabled={!isSubmitEnabled} variant="contained" color="primary">
-            I agree
+            {formatMessage({ id: 'register.agree' })}
           </Button>
           <Box mb={2} />
           <Typography variant="h4">{formatMessage({ id: 'register.no_credit_card' })}</Typography>
