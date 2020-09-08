@@ -22,7 +22,7 @@ export const TasksBody = () => {
         variant="fullWidth"
       >
         <Tab label={formatMessage({ id: 'tasks.today' })} />
-        <Tab label={formatMessage({ id: 'tasks.nextWeek' })} />
+        <Tab label={formatMessage({ id: 'tasks.next_week' })} />
         <Tab label={formatMessage({ id: 'tasks.future' })} />
         <Tab label={formatMessage({ id: 'tasks.overdue' })} />
       </Tabs>
