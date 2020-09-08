@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 
 import { Typography, Button, Box } from 'ui/atoms';
 import { GenericField } from 'form/fields';
-import { useLocale } from '../../../hooks';
+import { useLocale } from 'hooks';
 
 import { RegisterFormProps } from './RegisterForm.types';
 
@@ -14,10 +14,10 @@ export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, s
   const changeSpaceName = (name: string, isEmailField = false) => {
     if (isEmailField && !editedSpaceName) {
       const domainName = name.substring(name.lastIndexOf('@') + 1);
-      const domainWithouthExtenstion = domainName.substring(0, domainName.lastIndexOf('.'));
+      const domainWithouthExtension = domainName.substring(0, domainName.lastIndexOf('.'));
 
-      if (domainWithouthExtenstion.length > 0) {
-        checkSpaceAvailable(domainWithouthExtenstion);
+      if (domainWithouthExtension.length > 0) {
+        checkSpaceAvailable(domainWithouthExtension);
       }
     } else if (!isEmailField) {
       setEditedSpaceName(true);
