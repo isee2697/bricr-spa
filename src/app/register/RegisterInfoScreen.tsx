@@ -2,10 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Grid, Box, Typography, Fade, Slide, Emoji } from 'ui/atoms';
-import { useClaimSpaceHook } from '../../hooks/useClaimSpaceHook/useClaimSpaceHook';
 import logo from 'assets/images/logo_no_text.svg';
-import { CheckIcon } from '../../ui/atoms/icons';
-import { useLocale } from '../../hooks';
+import { CheckIcon } from 'ui/atoms/icons';
+import { useLocale, useClaimSpaceHook } from 'hooks';
 
 import { useStyles } from './RegisterInfoScreen.styles';
 
