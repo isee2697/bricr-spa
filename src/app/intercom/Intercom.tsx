@@ -15,7 +15,7 @@ export const Intercom = () => {
     };
 
     return <IntercomApp appID={appID} {...intercomUser} />;
-  } else {
-    return <></>;
   }
+
+  return <></>;
 };
