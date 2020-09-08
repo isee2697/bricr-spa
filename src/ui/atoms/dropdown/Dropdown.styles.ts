@@ -65,6 +65,14 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     color: palette.gray.main,
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
+    '&.alignLeft': {
+      justifyContent: 'flex-start',
+      paddingLeft: spacing(2),
+    },
+    '&.alignRight': {
+      justifyContent: 'flex-end',
+      paddingRight: spacing(2),
+    },
     '&:not(:last-child)': {
       marginBottom: spacing(0.5),
     },

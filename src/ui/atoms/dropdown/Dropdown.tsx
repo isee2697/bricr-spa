@@ -7,7 +7,7 @@ import { ArrowDownIcon } from 'ui/atoms/icons';
 import { DropdownProps } from './Dropdown.types';
 import { useStyles } from './Dropdown.styles';
 
-export const Dropdown = ({ items, placeholder, disabled, value, onChange }: DropdownProps) => {
+export const Dropdown = ({ items, placeholder, disabled, value, align, onChange }: DropdownProps) => {
   const classes = useStyles();
 
   const select = useRef<HTMLSelectElement | null>(null);
@@ -22,7 +22,12 @@ export const Dropdown = ({ items, placeholder, disabled, value, onChange }: Drop
         }}
         className={classNames(classes.input, { isOpened, disabled })}
       >
-        <Typography className={classNames(classes.value, { disabled, placeholder: !value })}>
+        <Typography
+          className={classNames(classes.value, {
+            disabled,
+            placeholder: !value,
+          })}
+        >
           {items.find(item => item.value === value)?.label ?? placeholder}
         </Typography>
         <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />
@@ -31,7 +36,12 @@ export const Dropdown = ({ items, placeholder, disabled, value, onChange }: Drop
         {items.map(item => (
           <Box
             key={`${item.value}`}
-            className={classNames(classes.item, { selected: value === item.value })}
+            className={classNames(
+              classes.item,
+              { selected: value === item.value },
+              align === 'left' && 'alignLeft',
+              align === 'right' && 'alignRight',
+            )}
             onClick={() => {
               setOpened(false);
               onChange(item.value);

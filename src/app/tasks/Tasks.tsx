@@ -3,16 +3,19 @@ import React from 'react';
 import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { TasksProps, TeamMemberItem } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
+import { CreateNewTaskModalContainer } from './createNewTaskModal/CreateNewTaskModalContainer';
 
 export const Tasks = ({ error, loading, data }: TasksProps) => {
   const { user } = useAuthState();
   const classes = useStyles();
+  const { open } = useModalDispatch();
   const { formatMessage } = useLocale();
 
   if (loading || !user || !data) {
@@ -26,7 +29,7 @@ export const Tasks = ({ error, loading, data }: TasksProps) => {
       {!!error && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={3} className={classes.content}>
         <Grid item xs={12}>
-          <TasksHeader />
+          <TasksHeader handleCreateTask={() => open('create-new-task', { members })} />
         </Grid>
         <Grid item xs={12}>
           <TasksMemberList members={members} />
@@ -35,6 +38,7 @@ export const Tasks = ({ error, loading, data }: TasksProps) => {
           <TasksBody />
         </Grid>
       </Grid>
+      <CreateNewTaskModalContainer members={members} />
     </>
   );
 };
