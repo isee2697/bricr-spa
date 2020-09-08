@@ -5,10 +5,12 @@ export const GET_TEAM_DETAILS = gql`
     getTeamDetails(id: $id) {
       id
       name
-      members {
+      profileMembers {
         id
-        firstName
-        lastName
+        user {
+          firstName
+          lastName
+        }
       }
     }
   }

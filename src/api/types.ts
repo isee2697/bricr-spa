@@ -9522,7 +9522,13 @@ export type GetTeamDetailsQueryVariables = {
 export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
   getTeamDetails?: Maybe<
     { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
-        members?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>>;
+        profileMembers?: Maybe<
+          Array<
+            { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                user: { __typename?: 'Profile' } & Pick<Profile, 'firstName' | 'lastName'>;
+              }
+          >
+        >;
       }
   >;
 };
@@ -15544,10 +15550,12 @@ export const GetTeamDetailsDocument = gql`
     getTeamDetails(id: $id) {
       id
       name
-      members {
+      profileMembers {
         id
-        firstName
-        lastName
+        user {
+          firstName
+          lastName
+        }
       }
     }
   }
