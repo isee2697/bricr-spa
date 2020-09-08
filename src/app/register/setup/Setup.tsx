@@ -8,7 +8,7 @@ import arrayMutators from 'final-form-arrays';
 import { Box, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
-import { BackIcon } from '../../../ui/atoms/icons';
+import { BackIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './Setup.styles';
 import { SetupStepOne } from './StepOne';
