@@ -4,6 +4,9 @@ export const useStyles = makeStyles(theme => ({
   root: {
     flex: 1,
   },
+  swimlaneWrapper: {
+    padding: theme.spacing(2),
+  },
   flexRow: {
     display: 'flex',
     flexDirection: 'row',

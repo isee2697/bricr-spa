@@ -42,6 +42,13 @@ input AddUserToTeamInput {
     notes: String
 }
 
+input UpdateUserInTeamInput {
+    teamId: ID!
+    userId: ID!
+    permissions: PermissionsInTeamInput!
+    notes: String
+}
+
 input RemoveUserFromTeamInput {
     teamId: ID!
     userId: ID!
@@ -56,5 +63,6 @@ extend type Mutation {
     addTeam(input: AddTeamInput!): Team @auth
     updateTeam(input: UpdateTeamInput!): Team @auth
     addUserToTeam(input: AddUserToTeamInput!): Team @auth
+    updateUserInTeam(input: UpdateUserInTeamInput!): Team @auth
     removeUserFromTeam(input: RemoveUserFromTeamInput!): Team @auth
 }

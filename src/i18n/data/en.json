@@ -90,6 +90,7 @@
   "register.email_placeholder": "example@bricr.com",
   "register.space_placeholder": "my space name",
   "register.no_credit_card": "NO CREDITCARD REQUIRED",
+  "register.claim_space": "Claim your bricr space",
   "setup.title": "Welcome to your bricr space",
   "setup.content": "Answering these quick questions will help us personlize your experience. We will keep your information safe in accordance with our <a href=\"#privacy\">Privacy Policy</a>.",
   "setup.client_type": "What type of client are you?",

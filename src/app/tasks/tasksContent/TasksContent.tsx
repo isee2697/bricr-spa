@@ -209,7 +209,15 @@ export const TasksContent = ({ tab }: TasksContentProps) => {
       <Grid item xs={12}>
         <TasksDateSection tab={tab} />
       </Grid>
-      <Grid item xs={12} className={clsx(classes.flexGrowOne, classes.flexRow)}>
+      <Grid
+        item
+        xs={12}
+        className={clsx(
+          classes.flexGrowOne,
+          classes.flexRow,
+          viewMode === TasksViewMode.SWIMLANE && classes.swimlaneWrapper,
+        )}
+      >
         {viewMode === TasksViewMode.SWIMLANE && <TasksSwimlane tasks={tasks} />}
         {viewMode === TasksViewMode.LIST && <TasksList tasks={tasks} />}
       </Grid>

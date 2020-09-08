@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Grid, Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -13,10 +13,17 @@ import { TasksBody } from './tasksBody/TasksBody';
 import { CreateNewTaskModalContainer } from './createNewTaskModal/CreateNewTaskModalContainer';
 
 export const Tasks = ({ error, loading, data }: TasksProps) => {
+  const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([]);
   const { user } = useAuthState();
   const classes = useStyles();
   const { open } = useModalDispatch();
   const { formatMessage } = useLocale();
+
+  useEffect(() => {
+    if (user) {
+      setSelectedMembers([user]);
+    }
+  }, [user]);
 
   if (loading || !user || !data) {
     return <Loader />;
@@ -32,7 +39,11 @@ export const Tasks = ({ error, loading, data }: TasksProps) => {
           <TasksHeader handleCreateTask={() => open('create-new-task', { members })} />
         </Grid>
         <Grid item xs={12}>
-          <TasksMemberList members={members} />
+          <TasksMemberList
+            members={members}
+            selectedMembers={selectedMembers}
+            onSelect={(selected: TeamMemberItem[]) => setSelectedMembers(selected)}
+          />
         </Grid>
         <Grid item xs={12}>
           <TasksBody />

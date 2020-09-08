@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'classnames';
 import { useTheme } from '@material-ui/core/styles';
 
@@ -9,20 +9,18 @@ import { TeamMemberItem } from '../Tasks.types';
 import { useStyles } from './TasksMemberList.styles';
 import { TasksMemberListProps } from './TasksMemberList.types';
 
-export const TasksMemberList = ({ members }: TasksMemberListProps) => {
+export const TasksMemberList = ({ members, selectedMembers, onSelect }: TasksMemberListProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const { formatMessage } = useLocale();
 
-  const [selectedUsers, setSelectedUsers] = useState<TeamMemberItem[]>([members[0]]);
-
   const selectMember = (user: TeamMemberItem) => () => {
-    const index = selectedUsers.findIndex(u => user.id === u.id);
+    const index = selectedMembers.findIndex((u: TeamMemberItem) => user.id === u.id);
 
     if (index >= 0) {
-      setSelectedUsers(selectedUsers.filter(u => u.id !== user.id));
+      onSelect(selectedMembers.filter(u => u.id !== user.id));
     } else {
-      setSelectedUsers([...selectedUsers, user]);
+      onSelect([...selectedMembers, user]);
     }
   };
 
@@ -35,7 +33,7 @@ export const TasksMemberList = ({ members }: TasksMemberListProps) => {
             className={clsx(
               classes.member,
               classes.inlineBlock,
-              selectedUsers.findIndex(u => u.id === member.id) >= 0 && 'selected',
+              selectedMembers.findIndex(u => u.id === member.id) >= 0 && 'selected',
             )}
             onClick={selectMember(member)}
           >

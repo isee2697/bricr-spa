@@ -15,6 +15,12 @@ describe('graphLink', () => {
         email: 'test',
         avatar: 'test',
         id: 'test',
+        teams: [
+          {
+            id: 'test',
+            name: 'test',
+          },
+        ],
       },
     };
 

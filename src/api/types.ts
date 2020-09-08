@@ -102,11 +102,16 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
+  createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
+  createProfile: Profile;
+  createSocialMediaLink: Profile;
+  createTask: Task;
   deleteEntity: Array<DeleteResult>;
-  deleteUser?: Maybe<Scalars['String']>;
+  deleteProfile?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -138,6 +143,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateDescription?: Maybe<Scalars['String']>;
+  updateEmailAddress: Profile;
   updateFloor: Pim;
   updateIdentificationNumberNcp: NcpCharacteristics;
   updateIdentificationNumberObjectType: ObjectTypeCharacteristics;
@@ -176,6 +182,7 @@ export type Mutation = {
   updateObjectTypeUsps?: Maybe<ObjectTypeMedia>;
   updateObjectTypesListDescription?: Maybe<NcpGeneral>;
   updateOutsideFeature: Pim;
+  updatePhoneNumber: Profile;
   updatePicture?: Maybe<Pim>;
   updatePimGeneralInfo: Pim;
   updatePimLocation: Pim;
@@ -184,14 +191,18 @@ export type Mutation = {
   updatePimReading?: Maybe<Pim>;
   updatePimService?: Maybe<Pim>;
   updatePricing: Pim;
+  updateProfile: Profile;
   updateProjectPhase: ProjectPhase;
   updateSalesSettings: Pim;
+  updateSocialMediaLink: Profile;
   updateSpace: Pim;
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
   updateTag?: Maybe<Pim>;
+  updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
   updateTextChapter?: Maybe<Pim>;
+  updateUserInTeam?: Maybe<Team>;
   updateUsp?: Maybe<Pim>;
   uploadFile?: Maybe<UploadFileResponse>;
 };
@@ -376,6 +387,10 @@ export type MutationBulkArgs = {
   input: BulkOperationInput;
 };
 
+export type MutationCreateEmailAddressArgs = {
+  input: CreateEmailAddressInput;
+};
+
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
 };
@@ -384,15 +399,31 @@ export type MutationCreateObjectTypeArgs = {
   input: CreateObjectTypeInput;
 };
 
+export type MutationCreatePhoneNumberArgs = {
+  input: CreatePhoneNumberInput;
+};
+
 export type MutationCreatePimArgs = {
   input: CreatePimInput;
+};
+
+export type MutationCreateProfileArgs = {
+  input: CreateProfileInput;
+};
+
+export type MutationCreateSocialMediaLinkArgs = {
+  input: CreateSocialMediaLinkInput;
+};
+
+export type MutationCreateTaskArgs = {
+  input: CreateTaskInput;
 };
 
 export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
 
-export type MutationDeleteUserArgs = {
+export type MutationDeleteProfileArgs = {
   id?: Maybe<Scalars['String']>;
 };
 
@@ -519,6 +550,10 @@ export type MutationUpdateCostArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateEmailAddressArgs = {
+  input: UpdateEmailAddressInput;
 };
 
 export type MutationUpdateFloorArgs = {
@@ -673,6 +708,10 @@ export type MutationUpdateOutsideFeatureArgs = {
   input: Scalars['UpdateFeatureInputConfiguration'];
 };
 
+export type MutationUpdatePhoneNumberArgs = {
+  input: UpdatePhoneNumberInput;
+};
+
 export type MutationUpdatePictureArgs = {
   input: UpdatePictureInput;
 };
@@ -705,12 +744,20 @@ export type MutationUpdatePricingArgs = {
   input: UpdatePricingInput;
 };
 
+export type MutationUpdateProfileArgs = {
+  input: UpdateProfileInput;
+};
+
 export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
+};
+
+export type MutationUpdateSocialMediaLinkArgs = {
+  input: UpdateSocialMediaLinkInput;
 };
 
 export type MutationUpdateSpaceArgs = {
@@ -729,12 +776,20 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
+export type MutationUpdateTaskArgs = {
+  input: UpdateTaskInput;
+};
+
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
 
 export type MutationUpdateTextChapterArgs = {
   input: UpdateTextChapterInput;
+};
+
+export type MutationUpdateUserInTeamArgs = {
+  input: UpdateUserInTeamInput;
 };
 
 export type MutationUpdateUspArgs = {
@@ -792,6 +847,7 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
+  getAllProfiles: ProfileSearchResult;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
@@ -828,6 +884,7 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getTask?: Maybe<Task>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
@@ -835,6 +892,11 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
+};
+
+export type QueryGetAllProfilesArgs = {
+  pagination?: Maybe<Pagination>;
+  search?: Maybe<Scalars['String']>;
 };
 
 export type QueryGetBulkDetailsArgs = {
@@ -976,6 +1038,10 @@ export type QueryGetProfileArgs = {
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
+};
+
+export type QueryGetTaskArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetTeamDetailsArgs = {
@@ -5845,35 +5911,177 @@ export type UpdateCommonPricingInput = {
   description?: Maybe<Scalars['String']>;
 };
 
+export enum GenderType {
+  Male = 'Male',
+  Female = 'Female',
+  GenderNeutral = 'GenderNeutral',
+}
+
+export enum EmailAddressType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type EmailAddress = {
+  __typename?: 'EmailAddress';
+  id: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateEmailAddressInput = {
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateEmailAddressInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  emailAddress: Scalars['String'];
+  emailAddressType?: Maybe<EmailAddressType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum PhoneNumberType {
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export type PhoneNumber = {
+  __typename?: 'PhoneNumber';
+  id: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreatePhoneNumberInput = {
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdatePhoneNumberInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  phoneNumberType?: Maybe<PhoneNumberType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export enum SocialMediaLinkType {
+  LinkedIn = 'LinkedIn',
+  Twitter = 'Twitter',
+  Facebook = 'Facebook',
+  Pinterest = 'Pinterest',
+  Instagram = 'Instagram',
+  WhatsApp = 'WhatsApp',
+  PersonalWebsite = 'PersonalWebsite',
+}
+
+export type SocialMediaLink = {
+  __typename?: 'SocialMediaLink';
+  id: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateSocialMediaLinkInput = {
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
+export type UpdateSocialMediaLinkInput = {
+  id: Scalars['String'];
+  profileId: Scalars['String'];
+  socialMediaLink: Scalars['String'];
+  socialMediaLinkType?: Maybe<SocialMediaLinkType>;
+  isPublic?: Maybe<Scalars['Boolean']>;
+};
+
 export type Profile = {
   __typename?: 'Profile';
-  id: Scalars['String'];
+  id: Scalars['ID'];
+  gender?: Maybe<GenderType>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<ProfileTeam>>;
+  emailAddresses?: Maybe<Array<EmailAddress>>;
+  phoneNumbers?: Maybe<Array<PhoneNumber>>;
+  socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
+  company?: Maybe<Company>;
+};
+
+export type CreateProfileInput = {
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
+};
+
+export type UpdateProfileInput = {
+  id: Scalars['String'];
+  gender?: Maybe<GenderType>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  functionDescription?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
 };
 
 export type ProfileTeam = {
   __typename?: 'ProfileTeam';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
 };
 
 export type Company = {
   __typename?: 'Company';
-  id: Scalars['String'];
+  id: Scalars['ID'];
   teams?: Maybe<Array<Team>>;
+  users?: Maybe<Array<Profile>>;
   name?: Maybe<Scalars['String']>;
+};
+
+export type TeamMember = {
+  __typename?: 'TeamMember';
+  id: Scalars['ID'];
+  notes?: Maybe<Scalars['String']>;
+  user: Profile;
+  createPermission: Scalars['Boolean'];
+  readPermission: Scalars['Boolean'];
+  updatePermission: Scalars['Boolean'];
+  deletePermission: Scalars['Boolean'];
 };
 
 export type Team = {
   __typename?: 'Team';
-  id: Scalars['String'];
-  members?: Maybe<Array<Profile>>;
+  id: Scalars['ID'];
+  profileMembers?: Maybe<Array<TeamMember>>;
   company: Company;
   name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  teamRights?: Maybe<Array<TeamRight>>;
 };
 
 export type ProfileSearchResult = {
@@ -6158,6 +6366,33 @@ export type MetersMeta = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
+export type Task = {
+  __typename?: 'Task';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  assignee: Scalars['String'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: Scalars['String'];
+};
+
+export type CreateTaskInput = {
+  title: Scalars['String'];
+  assignee: Scalars['String'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: Scalars['String'];
+};
+
+export type UpdateTaskInput = {
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  assignee?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
+  priority?: Maybe<Scalars['String']>;
+};
+
 export enum TeamRight {
   Residential = 'Residential',
   Commercial = 'Commercial',
@@ -6197,6 +6432,13 @@ export type UpdateTeamInput = {
 };
 
 export type AddUserToTeamInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
+  permissions: PermissionsInTeamInput;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type UpdateUserInTeamInput = {
   teamId: Scalars['ID'];
   userId: Scalars['ID'];
   permissions: PermissionsInTeamInput;
@@ -7351,6 +7593,22 @@ export type LinkNcpToProjectPhaseMutationVariables = {
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type CreateTaskMutationVariables = {
+  input: CreateTaskInput;
+};
+
+export type CreateTaskMutation = { __typename?: 'Mutation' } & {
+  createTask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
+
+export type UpdateTaskMutationVariables = {
+  input: UpdateTaskInput;
+};
+
+export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
+  updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
 };
 
 export type BulkDetailsQueryVariables = {
@@ -9315,6 +9573,16 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type GetTaskQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTaskQuery = { __typename?: 'Query' } & {
+  getTask?: Maybe<
+    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+  >;
+};
+
 export type GetTeamDetailsQueryVariables = {
   id: Scalars['ID'];
 };
@@ -9322,7 +9590,13 @@ export type GetTeamDetailsQueryVariables = {
 export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
   getTeamDetails?: Maybe<
     { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
-        members?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>>;
+        profileMembers?: Maybe<
+          Array<
+            { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                user: { __typename?: 'Profile' } & Pick<Profile, 'firstName' | 'lastName'>;
+              }
+          >
+        >;
       }
   >;
 };
@@ -12130,6 +12404,42 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const CreateTaskDocument = gql`
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, baseOptions);
+}
+export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
+export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
+export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateTaskMutation,
+  CreateTaskMutationVariables
+>;
+export const UpdateTaskDocument = gql`
+  mutation UpdateTask($input: UpdateTaskInput!) {
+    updateTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTaskMutation, UpdateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTaskMutation, UpdateTaskMutationVariables>(UpdateTaskDocument, baseOptions);
+}
+export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
+export type UpdateTaskMutationResult = ApolloReactCommon.MutationResult<UpdateTaskMutation>;
+export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTaskMutation,
+  UpdateTaskMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
@@ -15339,15 +15649,40 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const GetTaskDocument = gql`
+  query GetTask($id: ID!) {
+    getTask(id: $id) {
+      id
+      title
+      assignee
+      startDate
+      deadline
+      priority
+    }
+  }
+`;
+export function useGetTaskQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+  return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export function useGetTaskLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
+export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
+export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
 export const GetTeamDetailsDocument = gql`
   query GetTeamDetails($id: ID!) {
     getTeamDetails(id: $id) {
       id
       name
-      members {
+      profileMembers {
         id
-        firstName
-        lastName
+        user {
+          firstName
+          lastName
+        }
       }
     }
   }
