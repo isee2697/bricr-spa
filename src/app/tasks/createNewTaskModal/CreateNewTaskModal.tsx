@@ -39,12 +39,13 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
     close('create-new-task');
   };
 
-  const assignees: DropdownItem[] = members.map((member: TeamMemberItem) => ({
+  const assignees: DropdownItem[] = members.map((member: TeamMemberItem, index: number) => ({
     label: (
       <span className={classes.assignee}>
         <UserAvatar size="small" name={member.firstName + ' ' + member.lastName} className={classes.assigneeAvatar} />
         <span>
           {member.firstName} {member.lastName}
+          {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
         </span>
       </span>
     ),
