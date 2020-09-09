@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 
-import { Box, Typography } from 'ui/atoms';
+import { Box } from 'ui/atoms';
 import { ArrowDownIcon } from 'ui/atoms/icons';
 
 import { DropdownProps } from './Dropdown.types';
@@ -22,14 +22,14 @@ export const Dropdown = ({ items, placeholder, disabled, value, align, onChange 
         }}
         className={classNames(classes.input, { isOpened, disabled })}
       >
-        <Typography
+        <span
           className={classNames(classes.value, {
             disabled,
             placeholder: !value,
           })}
         >
           {items.find(item => item.value === value)?.label ?? placeholder}
-        </Typography>
+        </span>
         <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />
       </Box>
       <Box className={classNames(classes.menu, { isOpened })}>

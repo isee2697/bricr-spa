@@ -1,4 +1,4 @@
-import { AnyObject } from 'final-form';
+import { DateTime } from 'luxon';
 
 import { TeamMemberItem } from '../Tasks.types';
 
@@ -8,7 +8,7 @@ export type CreateNewTaskModalProps = {
   members: TeamMemberItem[];
 };
 
-export type CreateNewTaskSubmit<T = AnyObject> = (
+export type CreateNewTaskSubmit<T = CreateNewTaskBody> = (
   body: T,
 ) => Promise<
   | undefined
@@ -17,3 +17,12 @@ export type CreateNewTaskSubmit<T = AnyObject> = (
       conflictsCount?: number;
     }
 >;
+
+export type CreateNewTaskBody = {
+  title: string;
+  assignee: string;
+  label: string;
+  startDate: DateTime;
+  deadline: DateTime;
+  priority: string;
+};

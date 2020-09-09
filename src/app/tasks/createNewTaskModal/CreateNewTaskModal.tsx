@@ -162,7 +162,7 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <DatePickerField
-                    name="start_date"
+                    name="startDate"
                     placeholder="tasks.create_new.details.start_date.placeholder"
                     label="tasks.create_new.details.start_date.label"
                   />
@@ -181,7 +181,7 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <DatePickerField
-                    name="deadline_date"
+                    name="deadline"
                     placeholder="tasks.create_new.details.deadline_date.placeholder"
                     label="tasks.create_new.details.deadline_date.label"
                   />
