@@ -8,3 +8,11 @@ export const ADD_TEAM = gql`
     }
   }
 `;
+
+export const UPDATE_TEAM = gql`
+  mutation UpdateTeam($input: UpdateTeamInput!) {
+    updateTeam(input: $input) {
+      id
+    }
+  }
+`;

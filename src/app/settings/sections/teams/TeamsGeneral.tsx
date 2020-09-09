@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { InfoCardPage } from 'ui/templates';
-import { Typography } from 'ui/atoms';
+import { NavBreadcrumb, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { CreateTeamModalContainer } from 'app/settings/sections/teams/modals/CreateTeamModalContainer';
 
@@ -20,7 +20,7 @@ export const TeamsGeneral = ({ hasTeams }: { hasTeams: boolean }) => {
         infoTextSecond={formatMessage({ id: 'settings.teams.info_description' })}
         emptyEmoji="😢"
         isEmpty={!hasTeams}
-        title={formatMessage({ id: 'settings.teams.title' })}
+        title={formatMessage({ id: 'settings.teams.add' })}
         showHeader
         headerProps={{ actionText: formatMessage({ id: 'settings.teams.add' }), onAction: () => setModalOpen(true) }}
         titleActions={<></>}

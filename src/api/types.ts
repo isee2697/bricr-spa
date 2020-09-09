@@ -7561,6 +7561,14 @@ export type AddTeamMutation = { __typename?: 'Mutation' } & {
   addTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>;
 };
 
+export type UpdateTeamMutationVariables = {
+  input: UpdateTeamInput;
+};
+
+export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
+  updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -12381,6 +12389,24 @@ export function useAddTeamMutation(
 export type AddTeamMutationHookResult = ReturnType<typeof useAddTeamMutation>;
 export type AddTeamMutationResult = ApolloReactCommon.MutationResult<AddTeamMutation>;
 export type AddTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTeamMutation, AddTeamMutationVariables>;
+export const UpdateTeamDocument = gql`
+  mutation UpdateTeam($input: UpdateTeamInput!) {
+    updateTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTeamMutation, UpdateTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTeamMutation, UpdateTeamMutationVariables>(UpdateTeamDocument, baseOptions);
+}
+export type UpdateTeamMutationHookResult = ReturnType<typeof useUpdateTeamMutation>;
+export type UpdateTeamMutationResult = ApolloReactCommon.MutationResult<UpdateTeamMutation>;
+export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTeamMutation,
+  UpdateTeamMutationVariables
+>;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
     getBulkDetails(input: $input) {

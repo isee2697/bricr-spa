@@ -24,7 +24,9 @@ export const CreateTeamModalContainer = ({ isOpened, onClose }: ModalContainerPr
       });
 
       if (response && response.data?.addTeam?.id) {
-        push(AppRoute.teams.replace(':id', response.data?.addTeam?.id));
+        push(AppRoute.teams.replace(':id', response.data?.addTeam?.id), {
+          newlyAdded: true,
+        });
       }
 
       return undefined;
