@@ -14,6 +14,7 @@ export const SubSectionHeader = ({
   onToggleClick,
   className,
   counter,
+  customOption,
 }: SubSectionHeaderProps) => {
   const classes = useStyles();
 
@@ -26,9 +27,7 @@ export const SubSectionHeader = ({
       )}
       <Grid item>{children}</Grid>
       <Grid className={classes.menu} item>
-        <IconButton onClick={onOptionsClick}>
-          <MenuIcon />
-        </IconButton>
+        <IconButton onClick={onOptionsClick}>{customOption ?? <MenuIcon />}</IconButton>
         <IconButton onClick={onToggleClick} className="sub-section-header-toggle">
           {toggled ? <ArrowUpIcon /> : <ArrowDownIcon />}
         </IconButton>

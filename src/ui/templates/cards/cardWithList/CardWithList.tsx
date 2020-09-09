@@ -18,6 +18,7 @@ export const CardWithList: <T extends Type>(p: CardWithListProps<T>) => ReactEle
   isInitExpanded = false,
   items,
   onSave,
+  customSubOption,
   ...props
 }) => {
   const [toggledKey, setToggledKey] = useState<string>();
@@ -50,6 +51,7 @@ export const CardWithList: <T extends Type>(p: CardWithListProps<T>) => ReactEle
                 initiallyOpened={false}
                 title={item.name}
                 onOptionsClick={() => {}}
+                customOption={customSubOption}
                 counter={key + 1}
               >
                 <AutosaveForm initialValues={item} mutators={{ ...arrayMutators }} onSave={onSave}>

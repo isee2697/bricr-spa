@@ -7,7 +7,13 @@ import { useLocale } from 'hooks';
 import { ListOptionsMenuProps } from './ListOptionsMenu.types';
 import { useStyles } from './ListOptionsMenu.styles';
 
-export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children, editText }: ListOptionsMenuProps) => {
+export const ListOptionsMenu = ({
+  onEditClick,
+  onDeleteClick,
+  children,
+  editText,
+  hideEditButton,
+}: ListOptionsMenuProps) => {
   const { formatMessage } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
@@ -29,14 +35,16 @@ export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children, editText
       >
         <div className={classes.menu} onClick={() => setAnchorEl(null)}>
           {children}
-          <MenuItem
-            disabled={!onEditClick}
-            onClick={() => onEditClick && onEditClick()}
-            data-testid="edit-option-button"
-          >
-            <EditIcon />
-            <Typography>{editText ?? formatMessage({ id: 'common.edit' })}</Typography>
-          </MenuItem>
+          {!hideEditButton && (
+            <MenuItem
+              disabled={!onEditClick}
+              onClick={() => onEditClick && onEditClick()}
+              data-testid="edit-option-button"
+            >
+              <EditIcon />
+              <Typography>{editText ?? formatMessage({ id: 'common.edit' })}</Typography>
+            </MenuItem>
+          )}
           <MenuItem
             className="delete"
             disabled={!onDeleteClick}

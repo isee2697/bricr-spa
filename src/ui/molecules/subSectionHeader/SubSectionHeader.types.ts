@@ -7,4 +7,5 @@ export type SubSectionHeaderProps = {
   toggled?: boolean;
   className?: string;
   counter?: number;
+  customOption?: ReactNode;
 };

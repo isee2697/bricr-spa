@@ -4,6 +4,7 @@ import { TeamMember } from 'api/types';
 import { CardWithList } from 'ui/templates';
 import { useLocale } from 'hooks';
 import { AddMemberModalContainer } from 'app/settings/sections/teams/modals/AddMemberModalContainer';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { TeamMemberProps } from './Team.types';
 
@@ -24,6 +25,13 @@ export const TeamMembers = ({ data, onSave, onAdd }: TeamMemberProps) => {
         }}
         items={data}
         onSave={onSave}
+        customSubOption={
+          <ListOptionsMenu
+            // editText={formatMessage({ id: 'settings.teams.members.delete' })}
+            onDeleteClick={() => setOpen(true)}
+            hideEditButton
+          />
+        }
       />
       <AddMemberModalContainer teamMembers={data} isOpened={isOpen} onClose={() => setOpen(false)} />
     </>
