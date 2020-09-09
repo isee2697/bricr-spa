@@ -16,4 +16,7 @@ export enum AppRoute {
   workflow = '/settings/workflow/:id',
   teams = '/settings/teams/:id',
   tasks = '/tasks',
+  register = '/register',
+  setup = '/setup',
+  propertiesSetup = '/setup/properties',
 }

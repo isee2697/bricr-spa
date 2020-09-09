@@ -18,6 +18,8 @@ import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContai
 import { TasksContainer } from 'app/tasks/TasksContainer';
 import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
 import { SettingsContainer } from 'app/settings/SettingsContainer';
+import { RegisterContainer } from 'app/register/RegisterContainer';
+import { SetupContainer } from 'app/register/setup/SetupContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -37,6 +39,20 @@ export const AppRoutes = () => {
               <Route path={AppRoute.resetPassword} exact component={ResetPasswordContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
+          </Authorization>
+        )}
+      </Route>
+      <Route path={AppRoute.register} exact>
+        {() => (
+          <Authorization>
+            <RegisterContainer />
+          </Authorization>
+        )}
+      </Route>
+      <Route path={AppRoute.setup}>
+        {() => (
+          <Authorization>
+            <SetupContainer />
           </Authorization>
         )}
       </Route>
