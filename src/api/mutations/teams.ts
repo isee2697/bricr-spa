@@ -16,3 +16,11 @@ export const UPDATE_TEAM = gql`
     }
   }
 `;
+
+export const ADD_USER_TO_TEAM = gql`
+  mutation AddUserToTeam($input: AddUserToTeamInput!) {
+    addUserToTeam(input: $input) {
+      id
+    }
+  }
+`;

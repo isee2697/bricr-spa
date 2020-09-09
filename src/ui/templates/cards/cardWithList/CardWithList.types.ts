@@ -6,7 +6,7 @@ import { AutosaveProps } from 'ui/organisms/autosaveForm/AutosaveForm.types';
 type RenderItem<T> = (item: T, isEditing: boolean) => ReactElement;
 
 export type BaseCardListItemType = {
-  name: string;
+  name?: string;
   id: string;
 };
 

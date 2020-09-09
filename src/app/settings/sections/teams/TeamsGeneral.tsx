@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { InfoCardPage } from 'ui/templates';
-import { NavBreadcrumb, Typography } from 'ui/atoms';
+import { Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { CreateTeamModalContainer } from 'app/settings/sections/teams/modals/CreateTeamModalContainer';
 

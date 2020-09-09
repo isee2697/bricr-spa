@@ -7569,6 +7569,14 @@ export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
   updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
+export type AddUserToTeamMutationVariables = {
+  input: AddUserToTeamInput;
+};
+
+export type AddUserToTeamMutation = { __typename?: 'Mutation' } & {
+  addUserToTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -9491,6 +9499,20 @@ export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>;
 };
 
+export type GetUsersQueryVariables = {
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetUsersQuery = { __typename?: 'Query' } & {
+  getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>
+    >;
+  };
+};
+
 export type ProjectPhasesQueryVariables = {
   name?: Maybe<Scalars['String']>;
   ncpId?: Maybe<Scalars['ID']>;
@@ -9573,7 +9595,7 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
         profileMembers?: Maybe<
           Array<
             { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
-                user: { __typename?: 'Profile' } & Pick<Profile, 'firstName' | 'lastName'>;
+                user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'>;
               }
           >
         >;
@@ -12406,6 +12428,27 @@ export type UpdateTeamMutationResult = ApolloReactCommon.MutationResult<UpdateTe
 export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateTeamMutation,
   UpdateTeamMutationVariables
+>;
+export const AddUserToTeamDocument = gql`
+  mutation AddUserToTeam($input: AddUserToTeamInput!) {
+    addUserToTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddUserToTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUserToTeamMutation, AddUserToTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddUserToTeamMutation, AddUserToTeamMutationVariables>(
+    AddUserToTeamDocument,
+    baseOptions,
+  );
+}
+export type AddUserToTeamMutationHookResult = ReturnType<typeof useAddUserToTeamMutation>;
+export type AddUserToTeamMutationResult = ApolloReactCommon.MutationResult<AddUserToTeamMutation>;
+export type AddUserToTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddUserToTeamMutation,
+  AddUserToTeamMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
@@ -15569,6 +15612,32 @@ export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptio
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const GetUsersDocument = gql`
+  query GetUsers($from: Int!, $limit: Int, $search: String) {
+    getAllProfiles(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        avatar
+      }
+    }
+  }
+`;
+export function useGetUsersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const ProjectPhasesDocument = gql`
   query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
     getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {
@@ -15684,6 +15753,8 @@ export const GetTeamDetailsDocument = gql`
       profileMembers {
         id
         user {
+          id
+          email
           firstName
           lastName
         }

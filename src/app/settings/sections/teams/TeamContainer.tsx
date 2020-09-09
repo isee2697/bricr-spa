@@ -1,7 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { SettingInfoDocument, Team as TeamData, useGetTeamDetailsQuery, useUpdateTeamMutation } from 'api/types';
+import {
+  GetTeamDetailsDocument,
+  SettingInfoDocument,
+  Team as TeamData,
+  useGetTeamDetailsQuery,
+  useUpdateTeamMutation,
+} from 'api/types';
 import { Loader } from 'ui/atoms';
 
 import { Team } from './Team';
@@ -26,6 +32,7 @@ export const TeamContainer = () => {
           {
             query: SettingInfoDocument,
           },
+          { query: GetTeamDetailsDocument, variables: { id } },
         ],
       });
 

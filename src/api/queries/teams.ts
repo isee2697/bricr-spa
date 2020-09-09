@@ -38,6 +38,8 @@ export const GET_TEAM_DETAILS = gql`
       profileMembers {
         id
         user {
+          id
+          email
           firstName
           lastName
         }
