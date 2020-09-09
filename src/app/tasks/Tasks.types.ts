@@ -5,7 +5,9 @@ import { Profile, GetMyTeamMembersQueryHookResult } from 'api/types';
 import { User } from './tasksMemberList/TasksMemberList.types';
 import { TaskPriority, TaskStatus, TaskLabel } from './Tasks.enum';
 
-export type TasksProps = Pick<GetMyTeamMembersQueryHookResult, 'loading' | 'error' | 'data'>;
+export type TasksProps = Pick<GetMyTeamMembersQueryHookResult, 'error' | 'data'> & {
+  user: Profile;
+};
 
 export type Task = {
   id: number;

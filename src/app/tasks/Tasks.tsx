@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { Grid, Alert, Loader } from 'ui/atoms';
+import { Grid, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
 import { TasksProps, TeamMemberItem } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
@@ -10,23 +9,12 @@ import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
 import { TasksBody } from './tasksBody/TasksBody';
 
-export const Tasks = ({ error, loading, data }: TasksProps) => {
-  const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([]);
-  const { user } = useAuthState();
+export const Tasks = ({ error, data, user }: TasksProps) => {
+  const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([user]);
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  useEffect(() => {
-    if (user) {
-      setSelectedMembers([user]);
-    }
-  }, [user]);
-
-  if (loading || !user || !data) {
-    return <Loader />;
-  }
-
-  const members: TeamMemberItem[] = [user, ...(data.members.items || [])];
+  const members: TeamMemberItem[] = [user, ...(data?.members.items || [])];
 
   return (
     <>
