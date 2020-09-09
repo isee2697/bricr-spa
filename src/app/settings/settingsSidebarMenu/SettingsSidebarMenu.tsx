@@ -9,7 +9,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
 import { useLayout } from 'context/layout';
 import { SettingsProps } from 'app/settings/Settings.types';
-import { MenuItem, SubMenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
+import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -17,10 +17,8 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const { getTeams: teams } = data;
 
-  const teamItems = ((teams?.items && teams.items.map(team => ({ key: `team/${team.id}`, title: team.name }))) ||
+  const teamItems = ((teams?.items && teams.items.map(team => ({ key: `teams/${team.id}`, title: team.name }))) ||
     []) as MenuItem[];
-
-  console.log(teamItems);
 
   const menu = {
     url: url,

@@ -24,3 +24,24 @@ export const GET_TEAMS = gql`
     }
   }
 `;
+
+export const GET_TEAM_DETAILS = gql`
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
+      id
+      name
+      teamRights
+      company {
+        id
+        name
+      }
+      profileMembers {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;

@@ -7,6 +7,7 @@ import { AutosaveForm } from 'ui/organisms';
 import { useStyles } from 'ui/templates/page/Page.styles';
 
 import { PageProps } from './Page.types';
+import { PageHeader } from './header/PageHeader';
 
 export const Page = ({
   children,
@@ -21,6 +22,8 @@ export const Page = ({
   afterTitle,
   hideBreadcrumb,
   titleActions,
+  showHeader,
+  headerProps,
 }: PageProps) => {
   const classes = useStyles();
 
@@ -39,6 +42,7 @@ export const Page = ({
   return (
     <>
       {!hideBreadcrumb && title && <NavBreadcrumb title={title} />}
+      {showHeader && <PageHeader {...headerProps} />}
       <Grid container className={classes.container}>
         {!withoutHeader && (
           <>

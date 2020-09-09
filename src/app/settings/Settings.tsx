@@ -6,10 +6,11 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { useLayout } from 'context/layout';
 
+import { TeamsGeneral } from './sections/teams/TeamsGeneral';
+import { TeamContainer } from './sections/teams/TeamContainer';
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 import { WorkflowTemplatesContainer } from './sections/workflowTemplates/WorkflowTemplatesContainer';
 import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
-import { TeamsGeneralContainer } from './sections/teams/TeamsGeneralContainer';
 import { SettingsProps } from './Settings.types';
 
 export const Settings = ({ data }: SettingsProps) => {
@@ -30,11 +31,10 @@ export const Settings = ({ data }: SettingsProps) => {
             <Route
               path={`${AppRoute.settings}/createTeam`}
               render={() => (
-                <TeamsGeneralContainer
-                  hasTeams={!!(data.getTeams && data.getTeams.items && data.getTeams.items.length > 0)}
-                />
+                <TeamsGeneral hasTeams={!!(data.getTeams && data.getTeams.items && data.getTeams.items.length > 0)} />
               )}
             />
+            <Route path={`${AppRoute.teams}`} render={() => <TeamContainer />} />
             <Redirect to={{ pathname: `${AppRoute.settings}/workflowTemplates` }} />
           </Switch>
         </Box>

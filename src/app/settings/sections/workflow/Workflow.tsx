@@ -5,8 +5,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { FullscreenOnIcon, FullscreenOffIcon } from 'ui/atoms/icons';
-import { SettingsHeader } from 'app/settings/settingsHeader/SettingsHeader';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { PageHeader } from 'ui/templates/page/header/PageHeader';
 
 import { WorkflowProps, AddItemData } from './Workflow.types';
 import { useStyles } from './Workflow.styles';
@@ -57,7 +57,7 @@ export const Workflow = ({
       <NavBreadcrumb title={name} urlBase={AppRoute.workflow.replace(':id', id)} />
       {!fullScreen && (
         <Box paddingBottom={2}>
-          <SettingsHeader />
+          <PageHeader />
         </Box>
       )}
       <WorkflowHeader

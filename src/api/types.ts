@@ -9554,6 +9554,25 @@ export type GetTeamsQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetTeamDetailsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
+  getTeamDetails?: Maybe<
+    { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'teamRights'> & {
+        company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+        profileMembers?: Maybe<
+          Array<
+            { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                user: { __typename?: 'Profile' } & Pick<Profile, 'firstName' | 'lastName'>;
+              }
+          >
+        >;
+      }
+  >;
+};
+
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
     login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
@@ -15626,3 +15645,45 @@ export function useGetTeamsLazyQuery(
 export type GetTeamsQueryHookResult = ReturnType<typeof useGetTeamsQuery>;
 export type GetTeamsLazyQueryHookResult = ReturnType<typeof useGetTeamsLazyQuery>;
 export type GetTeamsQueryResult = ApolloReactCommon.QueryResult<GetTeamsQuery, GetTeamsQueryVariables>;
+export const GetTeamDetailsDocument = gql`
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
+      id
+      name
+      teamRights
+      company {
+        id
+        name
+      }
+      profileMembers {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+export function useGetTeamDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export function useGetTeamDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export type GetTeamDetailsQueryHookResult = ReturnType<typeof useGetTeamDetailsQuery>;
+export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDetailsLazyQuery>;
+export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetTeamDetailsQuery,
+  GetTeamDetailsQueryVariables
+>;

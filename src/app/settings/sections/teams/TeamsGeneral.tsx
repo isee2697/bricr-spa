@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 import { InfoCardPage } from 'ui/templates';
-import { Button, NavBreadcrumb, Typography } from 'ui/atoms';
+import { Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { CreateTeamModalContainer } from 'app/settings/sections/teams/modals/CreateTeamModalContainer';
 
-export const TeamsGeneralContainer = ({ hasTeams }: { hasTeams: boolean }) => {
+export const TeamsGeneral = ({ hasTeams }: { hasTeams: boolean }) => {
   const { formatMessage } = useLocale();
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -21,11 +21,9 @@ export const TeamsGeneralContainer = ({ hasTeams }: { hasTeams: boolean }) => {
         emptyEmoji="😢"
         isEmpty={!hasTeams}
         title={formatMessage({ id: 'settings.teams.title' })}
-        titleActions={
-          <Button onClick={() => setModalOpen(true)} color={'primary'} variant="contained">
-            {formatMessage({ id: 'settings.teams.add' })}
-          </Button>
-        }
+        showHeader
+        headerProps={{ actionText: formatMessage({ id: 'settings.teams.add' }), onAction: () => setModalOpen(true) }}
+        titleActions={<></>}
       >
         {hasTeams && <Typography>{formatMessage({ id: 'settings.teams.info_explenation' })}</Typography>}
       </InfoCardPage>
