@@ -33,15 +33,15 @@ export const TasksMemberList = ({ members, selectedMembers, onSelect }: TasksMem
             className={clsx(
               classes.member,
               classes.inlineBlock,
-              selectedMembers.findIndex(u => u.id === member.id) >= 0 && 'selected',
+              selectedMembers.findIndex(u => u?.id === member?.id) >= 0 && 'selected',
             )}
             onClick={selectMember(member)}
           >
             <Box className={clsx(classes.avatar, classes.inlineBlock)}>
-              <UserAvatar size="small" name={member.firstName + ' ' + member.lastName} />
+              <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />
             </Box>
             <Typography variant="h5" className={clsx(classes.name, classes.inlineBlock)}>
-              {member.firstName} {member.lastName}
+              {member?.firstName} {member?.lastName}
               {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
             </Typography>
           </Box>
