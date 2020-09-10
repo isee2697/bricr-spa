@@ -24,3 +24,11 @@ export const ADD_USER_TO_TEAM = gql`
     }
   }
 `;
+
+export const REMOVE_USER_FROM_TEAM = gql`
+  mutation RemoveUserFromTeam($input: RemoveUserFromTeamInput!) {
+    removeUserFromTeam(input: $input) {
+      id
+    }
+  }
+`;

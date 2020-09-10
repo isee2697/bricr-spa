@@ -6,5 +6,5 @@ export type TeamMemberContainerProps = {
 };
 
 export type TeamMemberProps = DataHandlerProps<TeamMember[]> & {
-  onAdd: PromiseFunction<TeamMember>;
+  onRemove: PromiseFunction<string>;
 };

@@ -20,11 +20,9 @@ export const ListOptionsMenu = ({
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" padding={0.5}>
-        <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
-          <MenuIcon />
-        </IconButton>
-      </Box>
+      <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
+        <MenuIcon />
+      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

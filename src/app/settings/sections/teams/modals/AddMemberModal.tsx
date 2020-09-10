@@ -1,10 +1,8 @@
 import React from 'react';
-import { Field, FieldInputProps, Form } from 'react-final-form';
+import { Field, FieldInputProps } from 'react-final-form';
 
-import { Avatar, Box, DialogActions, DialogContent, TileCheckbox } from 'ui/atoms';
-import { SearchList } from 'ui/organisms';
-import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
-import { LinkIcon } from 'ui/atoms/icons';
+import { Avatar, Box, TileCheckbox } from 'ui/atoms';
+import { FormModal, SearchList } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { AddMemberModalProps } from 'app/settings/sections/teams/modals/TeamsModals.types';
 import { Profile } from 'api/types';
@@ -34,68 +32,37 @@ export const AddMemberModal = ({ isOpened, onClose, onSubmit, userList }: AddMem
   };
 
   return (
-    <Modal
-      fullWidth
+    <FormModal
+      title={formatMessage({ id: 'settings.teams.add_members.title' })}
       isOpened={isOpened}
       onClose={onClose}
-      title={formatMessage({ id: 'project_details.properties.modal.title' })}
+      onSubmit={onSubmit}
     >
-      <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting, valid, values }) => (
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <DialogContent>
-              <Field name="profileIds">
-                {({ input }) => (
-                  <SearchList<Profile>
-                    items={userList}
-                    selectedItemsIds={[]}
-                    item={({ item, highlightString }) => (
-                      <Box mb={2}>
-                        <TileCheckbox
-                          onClick={() => handleSelect(input, item.id)}
-                          isSelected={input.value.includes(item.id)}
-                          title={highlightString(formatTitle(item))}
-                          orientation="horizontal"
-                        >
-                          <Avatar
-                            className={classes.avatar}
-                            src={item.avatar ?? undefined}
-                            alt={item.firstName ?? 'No avatar'}
-                          />
-                        </TileCheckbox>
-                      </Box>
-                    )}
-                    filterItem={filterItem}
-                  />
-                )}
-              </Field>
-            </DialogContent>
-            <DialogActions className={classes.actions}>
-              <CancelButton variant="outlined" size="large" onClick={onClose}>
-                {formatMessage({ id: 'common.cancel' })}
-              </CancelButton>
-              <Box display="flex">
-                <Box mr={0.625}>
-                  {/*<CancelButton variant="outlined" size="large" onClick={onAdd}>*/}
-                  {/*  {formatMessage({ id: 'project_details.properties.modal.create' })}*/}
-                  {/*</CancelButton>*/}
-                </Box>
-                <SubmitButton
-                  type="submit"
-                  startIcon={<LinkIcon color="inherit" />}
-                  size="large"
-                  color="primary"
-                  variant="contained"
-                  isLoading={submitting}
-                  disabled={!valid || userList.length === 0}
+      <Field name="profileIds">
+        {({ input }) => (
+          <SearchList<Profile>
+            items={userList}
+            selectedItemsIds={[]}
+            item={({ item, highlightString }) => (
+              <Box mb={2}>
+                <TileCheckbox
+                  onClick={() => handleSelect(input, item.id)}
+                  isSelected={input.value.includes(item.id)}
+                  title={highlightString(formatTitle(item))}
+                  orientation="horizontal"
                 >
-                  {formatMessage({ id: 'project_details.properties.modal.confirm' })}
-                </SubmitButton>
+                  <Avatar
+                    className={classes.avatar}
+                    src={item.avatar ?? undefined}
+                    alt={item.firstName ?? 'No avatar'}
+                  />
+                </TileCheckbox>
               </Box>
-            </DialogActions>
-          </form>
+            )}
+            filterItem={filterItem}
+          />
         )}
-      </Form>
-    </Modal>
+      </Field>
+    </FormModal>
   );
 };

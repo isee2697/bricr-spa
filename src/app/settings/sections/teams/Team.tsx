@@ -17,6 +17,11 @@ export const Team = ({ data, onSave }: DataHandlerProps<TeamData>) => {
   const [isOpen, setOpen] = useState(false);
   const { formatMessage } = useLocale();
 
+  const persons = data.profileMembers?.map(person => ({
+    ...person,
+    name: `${person.user?.firstName} ${person.user?.lastName}`,
+  }));
+
   return (
     <>
       <AutosaveForm
@@ -39,7 +44,7 @@ export const Team = ({ data, onSave }: DataHandlerProps<TeamData>) => {
           <FormSection isExpandable title={formatMessage({ id: 'settings.teams.rights' })}>
             <CheckboxGroupField xs={2} name="teamRights" options={TeamRightsOptions} />
           </FormSection>
-          <TeamMembersContainer data={data.profileMembers ?? []} />
+          <TeamMembersContainer data={persons ?? []} />
         </Page>
       </AutosaveForm>
       <UpdateTeamNameModal

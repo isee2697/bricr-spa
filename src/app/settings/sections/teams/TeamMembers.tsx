@@ -8,7 +8,7 @@ import { ListOptionsMenu } from 'ui/molecules';
 
 import { TeamMemberProps } from './Team.types';
 
-export const TeamMembers = ({ data, onSave, onAdd }: TeamMemberProps) => {
+export const TeamMembers = ({ data, onSave, onRemove }: TeamMemberProps) => {
   const [isOpen, setOpen] = useState(false);
   const { formatMessage } = useLocale();
 
@@ -21,17 +21,11 @@ export const TeamMembers = ({ data, onSave, onAdd }: TeamMemberProps) => {
         emptyStateTextSecond={formatMessage({ id: 'settings.teams.members.empty_description' })}
         emoji="😥"
         renderItem={(teamMember, isEditing) => {
-          return <>{teamMember?.user?.firstName}</>;
+          return <>{teamMember?.user?.firstName}ja</>;
         }}
         items={data}
         onSave={onSave}
-        customSubOption={
-          <ListOptionsMenu
-            // editText={formatMessage({ id: 'settings.teams.members.delete' })}
-            onDeleteClick={() => setOpen(true)}
-            hideEditButton
-          />
-        }
+        renderSubOptions={profile => <ListOptionsMenu onDeleteClick={() => onRemove(profile.user.id)} hideEditButton />}
       />
       <AddMemberModalContainer teamMembers={data} isOpened={isOpen} onClose={() => setOpen(false)} />
     </>

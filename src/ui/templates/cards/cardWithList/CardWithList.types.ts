@@ -17,5 +17,5 @@ export type CardWithListProps<T extends BaseCardListItemType> = FormSectionBaseP
   renderItem: RenderItem<T>;
   items: T[];
   onSave: AutosaveProps['onSave'];
-  customSubOption?: ReactNode;
+  renderSubOptions?: (data: T) => ReactNode;
 };

@@ -7577,6 +7577,14 @@ export type AddUserToTeamMutation = { __typename?: 'Mutation' } & {
   addUserToTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
+export type RemoveUserFromTeamMutationVariables = {
+  input: RemoveUserFromTeamInput;
+};
+
+export type RemoveUserFromTeamMutation = { __typename?: 'Mutation' } & {
+  removeUserFromTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -12449,6 +12457,27 @@ export type AddUserToTeamMutationResult = ApolloReactCommon.MutationResult<AddUs
 export type AddUserToTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddUserToTeamMutation,
   AddUserToTeamMutationVariables
+>;
+export const RemoveUserFromTeamDocument = gql`
+  mutation RemoveUserFromTeam($input: RemoveUserFromTeamInput!) {
+    removeUserFromTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useRemoveUserFromTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>(
+    RemoveUserFromTeamDocument,
+    baseOptions,
+  );
+}
+export type RemoveUserFromTeamMutationHookResult = ReturnType<typeof useRemoveUserFromTeamMutation>;
+export type RemoveUserFromTeamMutationResult = ApolloReactCommon.MutationResult<RemoveUserFromTeamMutation>;
+export type RemoveUserFromTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveUserFromTeamMutation,
+  RemoveUserFromTeamMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
