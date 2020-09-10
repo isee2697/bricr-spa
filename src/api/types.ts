@@ -123,6 +123,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTeam?: Maybe<Scalars['String']>;
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
@@ -467,6 +468,10 @@ export type MutationRemovePimArgs = {
 
 export type MutationRemoveProjectPhaseArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationRemoveTeamArgs = {
+  id: Scalars['String'];
 };
 
 export type MutationRemoveUserFromTeamArgs = {
@@ -7569,6 +7574,12 @@ export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
   updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
+export type RemoveTeamMutationVariables = {
+  id: Scalars['String'];
+};
+
+export type RemoveTeamMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'removeTeam'>;
+
 export type AddUserToTeamMutationVariables = {
   input: AddUserToTeamInput;
 };
@@ -7583,6 +7594,14 @@ export type RemoveUserFromTeamMutationVariables = {
 
 export type RemoveUserFromTeamMutation = { __typename?: 'Mutation' } & {
   removeUserFromTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type UpdateUserInTeamMutationVariables = {
+  input: UpdateUserInTeamInput;
+};
+
+export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
+  updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
 export type BulkDetailsQueryVariables = {
@@ -9602,9 +9621,10 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
         company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
         profileMembers?: Maybe<
           Array<
-            { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
-                user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'>;
-              }
+            { __typename?: 'TeamMember' } & Pick<
+              TeamMember,
+              'id' | 'notes' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
+            > & { user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'> }
           >
         >;
       }
@@ -12437,6 +12457,22 @@ export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateTeamMutation,
   UpdateTeamMutationVariables
 >;
+export const RemoveTeamDocument = gql`
+  mutation RemoveTeam($id: String!) {
+    removeTeam(id: $id)
+  }
+`;
+export function useRemoveTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveTeamMutation, RemoveTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveTeamMutation, RemoveTeamMutationVariables>(RemoveTeamDocument, baseOptions);
+}
+export type RemoveTeamMutationHookResult = ReturnType<typeof useRemoveTeamMutation>;
+export type RemoveTeamMutationResult = ApolloReactCommon.MutationResult<RemoveTeamMutation>;
+export type RemoveTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveTeamMutation,
+  RemoveTeamMutationVariables
+>;
 export const AddUserToTeamDocument = gql`
   mutation AddUserToTeam($input: AddUserToTeamInput!) {
     addUserToTeam(input: $input) {
@@ -12478,6 +12514,27 @@ export type RemoveUserFromTeamMutationResult = ApolloReactCommon.MutationResult<
 export type RemoveUserFromTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   RemoveUserFromTeamMutation,
   RemoveUserFromTeamMutationVariables
+>;
+export const UpdateUserInTeamDocument = gql`
+  mutation UpdateUserInTeam($input: UpdateUserInTeamInput!) {
+    updateUserInTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateUserInTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>(
+    UpdateUserInTeamDocument,
+    baseOptions,
+  );
+}
+export type UpdateUserInTeamMutationHookResult = ReturnType<typeof useUpdateUserInTeamMutation>;
+export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<UpdateUserInTeamMutation>;
+export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUserInTeamMutation,
+  UpdateUserInTeamMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
@@ -15787,6 +15844,11 @@ export const GetTeamDetailsDocument = gql`
           firstName
           lastName
         }
+        notes
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
       }
     }
   }

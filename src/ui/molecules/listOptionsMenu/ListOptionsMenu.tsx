@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { DeleteIcon, EditIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 
@@ -12,6 +12,7 @@ export const ListOptionsMenu = ({
   onDeleteClick,
   children,
   editText,
+  deleteText,
   hideEditButton,
 }: ListOptionsMenuProps) => {
   const { formatMessage } = useLocale();
@@ -50,7 +51,7 @@ export const ListOptionsMenu = ({
             data-testid="delete-option-button"
           >
             <DeleteIcon />
-            <Typography>{formatMessage({ id: 'common.delete' })}</Typography>
+            <Typography>{deleteText ?? formatMessage({ id: 'common.delete' })}</Typography>
           </MenuItem>
         </div>
       </Menu>

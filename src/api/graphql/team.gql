@@ -62,6 +62,7 @@ extend type Query {
 extend type Mutation {
     addTeam(input: AddTeamInput!): Team @auth
     updateTeam(input: UpdateTeamInput!): Team @auth
+    removeTeam(id: String!): String @auth
     addUserToTeam(input: AddUserToTeamInput!): Team @auth
     updateUserInTeam(input: UpdateUserInTeamInput!): Team @auth
     removeUserFromTeam(input: RemoveUserFromTeamInput!): Team @auth

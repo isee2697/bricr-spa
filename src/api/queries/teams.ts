@@ -43,6 +43,11 @@ export const GET_TEAM_DETAILS = gql`
           firstName
           lastName
         }
+        notes
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
       }
     }
   }

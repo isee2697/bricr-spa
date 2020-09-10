@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import arrayMutators from 'final-form-arrays';
 
 import { AutosaveForm, FormSection } from 'ui/organisms';
-import { Team as TeamData } from 'api/types';
-import { DataHandlerProps } from 'app/shared/types';
 import { Page } from 'ui/templates';
 import { CheckboxGroupField } from 'form/fields';
 import { ListOptionsMenu } from 'ui/molecules';
@@ -12,8 +10,9 @@ import { UpdateTeamNameModal } from 'app/settings/sections/teams/modals/UpdateTe
 import { TeamMembersContainer } from 'app/settings/sections/teams/TeamMembersContainer';
 
 import { TeamRightsOptions } from './dictionaries';
+import { TeamProps } from './Team.types';
 
-export const Team = ({ data, onSave }: DataHandlerProps<TeamData>) => {
+export const Team = ({ data, onSave, onRemove }: TeamProps) => {
   const [isOpen, setOpen] = useState(false);
   const { formatMessage } = useLocale();
 
@@ -36,6 +35,7 @@ export const Team = ({ data, onSave }: DataHandlerProps<TeamData>) => {
             <ListOptionsMenu
               editText={formatMessage({ id: 'settings.teams.change_name' })}
               onEditClick={() => setOpen(true)}
+              onDeleteClick={() => onRemove(data.id)}
             />
           }
           showHeader

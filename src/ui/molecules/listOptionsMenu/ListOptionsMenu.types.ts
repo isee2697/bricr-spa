@@ -5,5 +5,6 @@ export type ListOptionsMenuProps = {
   hideEditButton?: boolean;
   onDeleteClick?: VoidFunction;
   editText?: string;
+  deleteText?: string;
   children?: ReactNode;
 };

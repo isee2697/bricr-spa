@@ -7,6 +7,7 @@ import { AddMemberModalContainer } from 'app/settings/sections/teams/modals/AddM
 import { ListOptionsMenu } from 'ui/molecules';
 
 import { TeamMemberProps } from './Team.types';
+import { TeammemberItemForm } from './item/TeamMemberItemForm';
 
 export const TeamMembers = ({ data, onSave, onRemove }: TeamMemberProps) => {
   const [isOpen, setOpen] = useState(false);
@@ -21,11 +22,17 @@ export const TeamMembers = ({ data, onSave, onRemove }: TeamMemberProps) => {
         emptyStateTextSecond={formatMessage({ id: 'settings.teams.members.empty_description' })}
         emoji="😥"
         renderItem={(teamMember, isEditing) => {
-          return <>{teamMember?.user?.firstName}ja</>;
+          return <TeammemberItemForm />;
         }}
         items={data}
         onSave={onSave}
-        renderSubOptions={profile => <ListOptionsMenu onDeleteClick={() => onRemove(profile.user.id)} hideEditButton />}
+        renderSubOptions={profile => (
+          <ListOptionsMenu
+            deleteText={formatMessage({ id: 'settings.teams.members.delete' })}
+            onDeleteClick={() => onRemove(profile.user.id)}
+            hideEditButton
+          />
+        )}
       />
       <AddMemberModalContainer teamMembers={data} isOpened={isOpen} onClose={() => setOpen(false)} />
     </>
