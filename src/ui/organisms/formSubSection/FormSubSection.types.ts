@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type FormSubSectionProps = {
   title: React.ReactNode;
   children: React.ReactNode;
@@ -6,4 +8,5 @@ export type FormSubSectionProps = {
   initiallyOpened?: boolean;
   isExpanded?: boolean;
   onExpand?: VoidFunction;
+  customOption?: ReactNode;
 };

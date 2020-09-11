@@ -14,6 +14,7 @@ export type MenuItem = {
   subItems?: SubMenuItem[];
   count?: number;
   icon?: ReactNode;
+  title?: string;
 };
 
 export type MenuGroup = {

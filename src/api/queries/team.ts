@@ -1,28 +1,53 @@
 import { gql } from 'apollo-boost';
 
-export const GET_TEAM_DETAILS = gql`
-  query GetTeamDetails($id: ID!) {
-    getTeamDetails(id: $id) {
-      id
-      name
-      profileMembers {
+export const GET_TEAMS = gql`
+  query GetTeams($from: Int, $limit: Int, $search: String) {
+    getTeams(pagination: { from: $from, limit: $limit }, search: $search) {
+      items {
         id
-        user {
-          firstName
-          lastName
+        profileMembers {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
         }
+        company {
+          id
+          name
+        }
+        name
+        description
+        teamRights
       }
     }
   }
 `;
 
-export const GET_TEAM_MEMBERS = gql`
-  query GetMyTeamMembers($search: String, $from: Int, $limit: Int) {
-    members: getMyTeamMembers(pagination: { from: $from, limit: $limit }, search: $search) {
-      items {
+export const GET_TEAM_DETAILS = gql`
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
+      id
+      name
+      teamRights
+      company {
         id
-        firstName
-        lastName
+        name
+      }
+      profileMembers {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+        }
+        notes
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
       }
     }
   }

@@ -18,7 +18,6 @@ context('Add buildimg', () => {
     cy.findByRole('button', { name: 'Add new building' }).click();
 
     cy.contains('Sheds');
-    cy.findByLabelText('Edit mode').click();
 
     cy.findByText('Machine shed').click();
     cy.findByLabelText('Amount of this same type of building').type('5');
@@ -29,7 +28,6 @@ context('Add buildimg', () => {
     cy.findByLabelText('Height').type('10');
     cy.findByLabelText('Volume').type('10000');
     cy.findByLabelText('Construction year').type('2020');
-
 
     cy.wait(1500);
     cy.contains('Autosaving');

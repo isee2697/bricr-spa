@@ -14,6 +14,7 @@ export const FormSubSection = ({
   initiallyOpened = true,
   onExpand,
   isExpanded,
+  customOption,
 }: FormSubSectionProps) => {
   const [isOpened, setOpened] = useState(initiallyOpened);
   const classes = useStyles();
@@ -32,6 +33,7 @@ export const FormSubSection = ({
         toggled={isExpanded || isOpened}
         onToggleClick={handleToggleClick}
         onOptionsClick={onOptionsClick}
+        customOption={customOption}
       >
         <Box display="flex">
           {counter && <div className={classes.counter}>{counter}</div>}
