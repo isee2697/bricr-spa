@@ -40,3 +40,47 @@ export const GET_USERS_COUNT = gql`
     }
   }
 `;
+
+export const GET_USER_PROFILE = gql`
+  query GetUserProfile($id: ID!) {
+    getProfile(id: $id) {
+      id
+      firstName
+      lastName
+      email
+      gender
+      dateOfBirth
+      functionDescription
+      avatar
+      teams {
+        name
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
+      }
+      emailAddresses {
+        id
+        emailAddress
+        emailAddressType
+        isPublic
+      }
+      phoneNumbers {
+        id
+        phoneNumber
+        phoneNumberType
+        isPublic
+      }
+      socialMediaLinks {
+        id
+        socialMediaLink
+        socialMediaLinkType
+        isPublic
+      }
+      company {
+        id
+        name
+      }
+    }
+  }
+`;

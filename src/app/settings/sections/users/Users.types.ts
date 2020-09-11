@@ -1,6 +1,10 @@
 import { Profile } from 'api/types';
-import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { DataHandlerProps, PromiseFunction } from 'app/shared/types';
 
 export type UserProps = {
   data: Profile[];
+  total?: number;
+  onDelete: PromiseFunction<string>;
 };
+
+export type UserDetailsProps = DataHandlerProps<Profile>;

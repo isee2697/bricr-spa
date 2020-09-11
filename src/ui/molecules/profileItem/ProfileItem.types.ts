@@ -10,4 +10,5 @@ export type ProfileItemProps = {
   rights?: string[];
   functionDescription?: string;
   button?: ReactNode;
+  onClick?: VoidFunction;
 };

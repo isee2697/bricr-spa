@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { usePagination } from 'hooks';
-import { Profile, useGetUsersCountQuery, useGetUsersQuery } from 'api/types';
+import {
+  GetUsersDocument,
+  Profile,
+  useDeleteProfileMutation,
+  useGetUsersCountQuery,
+  useGetUsersQuery,
+} from 'api/types';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { Loader } from 'ui/atoms';
 
@@ -11,6 +17,7 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const UsersContainer = () => {
   const { data: count } = useGetUsersCountQuery();
+  const [deleteProfile] = useDeleteProfileMutation();
 
   const { query: paginationQuery } = usePagination({
     itemsCount: count?.getAllProfiles.metadata?.total ?? 0,
@@ -22,8 +29,33 @@ export const UsersContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
+  const handleDelete = async (userId: string) => {
+    try {
+      const response = await deleteProfile({
+        variables: {
+          id: userId,
+        },
+        refetchQueries: [{ query: GetUsersDocument }],
+      });
+
+      if (!response) {
+        throw Error();
+      }
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
+
   if (listData) {
-    return <Users data={(listData.getAllProfiles?.items ?? []) as Profile[]} />;
+    return (
+      <Users
+        total={count?.getAllProfiles.metadata?.total ?? undefined}
+        data={(listData.getAllProfiles?.items ?? []) as Profile[]}
+        onDelete={handleDelete}
+      />
+    );
   }
 
   return <Loader />;

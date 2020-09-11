@@ -7542,6 +7542,76 @@ export type UpdateDescriptionMutationVariables = {
 
 export type UpdateDescriptionMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateDescription'>;
 
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput;
+};
+
+export type CreateProfileMutation = { __typename?: 'Mutation' } & {
+  createProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput;
+};
+
+export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
+  updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type DeleteProfileMutationVariables = {
+  id: Scalars['String'];
+};
+
+export type DeleteProfileMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProfile'>;
+
+export type CreateEmailAddressMutationVariables = {
+  input: CreateEmailAddressInput;
+};
+
+export type CreateEmailAddressMutation = { __typename?: 'Mutation' } & {
+  createEmailAddress: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type UpdateEmailAddressMutationVariables = {
+  input: UpdateEmailAddressInput;
+};
+
+export type UpdateEmailAddressMutation = { __typename?: 'Mutation' } & {
+  updateEmailAddress: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type CreatePhoneNumberMutationVariables = {
+  input: CreatePhoneNumberInput;
+};
+
+export type CreatePhoneNumberMutation = { __typename?: 'Mutation' } & {
+  createPhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type UpdatePhoneNumberMutationVariables = {
+  input: UpdatePhoneNumberInput;
+};
+
+export type UpdatePhoneNumberMutation = { __typename?: 'Mutation' } & {
+  updatePhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type CreateSocialMediaLinkMutationVariables = {
+  input: CreatePhoneNumberInput;
+};
+
+export type CreateSocialMediaLinkMutation = { __typename?: 'Mutation' } & {
+  createPhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type UpdateSocialMediaLinkMutationVariables = {
+  input: UpdateSocialMediaLinkInput;
+};
+
+export type UpdateSocialMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateSocialMediaLink: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
 export type AddProjectPhaseMutationVariables = {
   input: CreateProjectPhaseInput;
 };
@@ -9551,6 +9621,50 @@ export type GetUsersCountQuery = { __typename?: 'Query' } & {
   getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
+};
+
+export type GetUserProfileQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetUserProfileQuery = { __typename?: 'Query' } & {
+  getProfile?: Maybe<
+    { __typename?: 'Profile' } & Pick<
+      Profile,
+      'id' | 'firstName' | 'lastName' | 'email' | 'gender' | 'dateOfBirth' | 'functionDescription' | 'avatar'
+    > & {
+        teams?: Maybe<
+          Array<
+            { __typename?: 'ProfileTeam' } & Pick<
+              ProfileTeam,
+              'name' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
+            >
+          >
+        >;
+        emailAddresses?: Maybe<
+          Array<
+            { __typename?: 'EmailAddress' } & Pick<
+              EmailAddress,
+              'id' | 'emailAddress' | 'emailAddressType' | 'isPublic'
+            >
+          >
+        >;
+        phoneNumbers?: Maybe<
+          Array<
+            { __typename?: 'PhoneNumber' } & Pick<PhoneNumber, 'id' | 'phoneNumber' | 'phoneNumberType' | 'isPublic'>
+          >
+        >;
+        socialMediaLinks?: Maybe<
+          Array<
+            { __typename?: 'SocialMediaLink' } & Pick<
+              SocialMediaLink,
+              'id' | 'socialMediaLink' | 'socialMediaLinkType' | 'isPublic'
+            >
+          >
+        >;
+        company?: Maybe<{ __typename?: 'Company' } & Pick<Company, 'id' | 'name'>>;
+      }
+  >;
 };
 
 export type ProjectPhasesQueryVariables = {
@@ -12390,6 +12504,199 @@ export type UpdateDescriptionMutationResult = ApolloReactCommon.MutationResult<U
 export type UpdateDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateDescriptionMutation,
   UpdateDescriptionMutationVariables
+>;
+export const CreateProfileDocument = gql`
+  mutation CreateProfile($input: CreateProfileInput!) {
+    createProfile(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateProfileMutation, CreateProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateProfileMutation, CreateProfileMutationVariables>(
+    CreateProfileDocument,
+    baseOptions,
+  );
+}
+export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
+export type CreateProfileMutationResult = ApolloReactCommon.MutationResult<CreateProfileMutation>;
+export type CreateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateProfileMutation,
+  CreateProfileMutationVariables
+>;
+export const UpdateProfileDocument = gql`
+  mutation UpdateProfile($input: UpdateProfileInput!) {
+    updateProfile(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(
+    UpdateProfileDocument,
+    baseOptions,
+  );
+}
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = ApolloReactCommon.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateProfileMutation,
+  UpdateProfileMutationVariables
+>;
+export const DeleteProfileDocument = gql`
+  mutation DeleteProfile($id: String!) {
+    deleteProfile(id: $id)
+  }
+`;
+export function useDeleteProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteProfileMutation, DeleteProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteProfileMutation, DeleteProfileMutationVariables>(
+    DeleteProfileDocument,
+    baseOptions,
+  );
+}
+export type DeleteProfileMutationHookResult = ReturnType<typeof useDeleteProfileMutation>;
+export type DeleteProfileMutationResult = ApolloReactCommon.MutationResult<DeleteProfileMutation>;
+export type DeleteProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteProfileMutation,
+  DeleteProfileMutationVariables
+>;
+export const CreateEmailAddressDocument = gql`
+  mutation CreateEmailAddress($input: CreateEmailAddressInput!) {
+    createEmailAddress(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateEmailAddressMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateEmailAddressMutation, CreateEmailAddressMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateEmailAddressMutation, CreateEmailAddressMutationVariables>(
+    CreateEmailAddressDocument,
+    baseOptions,
+  );
+}
+export type CreateEmailAddressMutationHookResult = ReturnType<typeof useCreateEmailAddressMutation>;
+export type CreateEmailAddressMutationResult = ApolloReactCommon.MutationResult<CreateEmailAddressMutation>;
+export type CreateEmailAddressMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateEmailAddressMutation,
+  CreateEmailAddressMutationVariables
+>;
+export const UpdateEmailAddressDocument = gql`
+  mutation UpdateEmailAddress($input: UpdateEmailAddressInput!) {
+    updateEmailAddress(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateEmailAddressMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateEmailAddressMutation, UpdateEmailAddressMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateEmailAddressMutation, UpdateEmailAddressMutationVariables>(
+    UpdateEmailAddressDocument,
+    baseOptions,
+  );
+}
+export type UpdateEmailAddressMutationHookResult = ReturnType<typeof useUpdateEmailAddressMutation>;
+export type UpdateEmailAddressMutationResult = ApolloReactCommon.MutationResult<UpdateEmailAddressMutation>;
+export type UpdateEmailAddressMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateEmailAddressMutation,
+  UpdateEmailAddressMutationVariables
+>;
+export const CreatePhoneNumberDocument = gql`
+  mutation CreatePhoneNumber($input: CreatePhoneNumberInput!) {
+    createPhoneNumber(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreatePhoneNumberMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePhoneNumberMutation, CreatePhoneNumberMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreatePhoneNumberMutation, CreatePhoneNumberMutationVariables>(
+    CreatePhoneNumberDocument,
+    baseOptions,
+  );
+}
+export type CreatePhoneNumberMutationHookResult = ReturnType<typeof useCreatePhoneNumberMutation>;
+export type CreatePhoneNumberMutationResult = ApolloReactCommon.MutationResult<CreatePhoneNumberMutation>;
+export type CreatePhoneNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreatePhoneNumberMutation,
+  CreatePhoneNumberMutationVariables
+>;
+export const UpdatePhoneNumberDocument = gql`
+  mutation UpdatePhoneNumber($input: UpdatePhoneNumberInput!) {
+    updatePhoneNumber(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdatePhoneNumberMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePhoneNumberMutation, UpdatePhoneNumberMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePhoneNumberMutation, UpdatePhoneNumberMutationVariables>(
+    UpdatePhoneNumberDocument,
+    baseOptions,
+  );
+}
+export type UpdatePhoneNumberMutationHookResult = ReturnType<typeof useUpdatePhoneNumberMutation>;
+export type UpdatePhoneNumberMutationResult = ApolloReactCommon.MutationResult<UpdatePhoneNumberMutation>;
+export type UpdatePhoneNumberMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePhoneNumberMutation,
+  UpdatePhoneNumberMutationVariables
+>;
+export const CreateSocialMediaLinkDocument = gql`
+  mutation CreateSocialMediaLink($input: CreatePhoneNumberInput!) {
+    createPhoneNumber(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateSocialMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateSocialMediaLinkMutation,
+    CreateSocialMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<CreateSocialMediaLinkMutation, CreateSocialMediaLinkMutationVariables>(
+    CreateSocialMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type CreateSocialMediaLinkMutationHookResult = ReturnType<typeof useCreateSocialMediaLinkMutation>;
+export type CreateSocialMediaLinkMutationResult = ApolloReactCommon.MutationResult<CreateSocialMediaLinkMutation>;
+export type CreateSocialMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateSocialMediaLinkMutation,
+  CreateSocialMediaLinkMutationVariables
+>;
+export const UpdateSocialMediaLinkDocument = gql`
+  mutation UpdateSocialMediaLink($input: UpdateSocialMediaLinkInput!) {
+    updateSocialMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSocialMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateSocialMediaLinkMutation,
+    UpdateSocialMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateSocialMediaLinkMutation, UpdateSocialMediaLinkMutationVariables>(
+    UpdateSocialMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateSocialMediaLinkMutationHookResult = ReturnType<typeof useUpdateSocialMediaLinkMutation>;
+export type UpdateSocialMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateSocialMediaLinkMutation>;
+export type UpdateSocialMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSocialMediaLinkMutation,
+  UpdateSocialMediaLinkMutationVariables
 >;
 export const AddProjectPhaseDocument = gql`
   mutation AddProjectPhase($input: CreateProjectPhaseInput!) {
@@ -15767,6 +16074,71 @@ export function useGetUsersCountLazyQuery(
 export type GetUsersCountQueryHookResult = ReturnType<typeof useGetUsersCountQuery>;
 export type GetUsersCountLazyQueryHookResult = ReturnType<typeof useGetUsersCountLazyQuery>;
 export type GetUsersCountQueryResult = ApolloReactCommon.QueryResult<GetUsersCountQuery, GetUsersCountQueryVariables>;
+export const GetUserProfileDocument = gql`
+  query GetUserProfile($id: ID!) {
+    getProfile(id: $id) {
+      id
+      firstName
+      lastName
+      email
+      gender
+      dateOfBirth
+      functionDescription
+      avatar
+      teams {
+        name
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
+      }
+      emailAddresses {
+        id
+        emailAddress
+        emailAddressType
+        isPublic
+      }
+      phoneNumbers {
+        id
+        phoneNumber
+        phoneNumberType
+        isPublic
+      }
+      socialMediaLinks {
+        id
+        socialMediaLink
+        socialMediaLinkType
+        isPublic
+      }
+      company {
+        id
+        name
+      }
+    }
+  }
+`;
+export function useGetUserProfileQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserProfileQuery, GetUserProfileQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetUserProfileQuery, GetUserProfileQueryVariables>(
+    GetUserProfileDocument,
+    baseOptions,
+  );
+}
+export function useGetUserProfileLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserProfileQuery, GetUserProfileQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUserProfileQuery, GetUserProfileQueryVariables>(
+    GetUserProfileDocument,
+    baseOptions,
+  );
+}
+export type GetUserProfileQueryHookResult = ReturnType<typeof useGetUserProfileQuery>;
+export type GetUserProfileLazyQueryHookResult = ReturnType<typeof useGetUserProfileLazyQuery>;
+export type GetUserProfileQueryResult = ApolloReactCommon.QueryResult<
+  GetUserProfileQuery,
+  GetUserProfileQueryVariables
+>;
 export const ProjectPhasesDocument = gql`
   query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
     getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {

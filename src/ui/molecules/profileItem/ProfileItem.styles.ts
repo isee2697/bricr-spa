@@ -6,9 +6,11 @@ export const useStyles = makeStyles(theme => ({
     '& .MuiGrid-item:first-child': {
       paddingLeft: 0,
     },
+    cursor: 'pointer',
   },
   right: {
     marginLeft: 'auto',
+    marginRight: theme.spacing(3),
   },
   contain: {
     flexGrow: 1,
@@ -39,7 +41,6 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   info: {
-    marginRight: theme.spacing(3),
     fontSize: theme.typography.h5.fontSize,
     color: theme.palette.gray.main,
   },
