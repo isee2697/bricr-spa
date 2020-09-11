@@ -5,7 +5,6 @@ import { NavBreadcrumb, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { CreateTeamModalContainer } from 'app/settings/sections/teams/modals/CreateTeamModalContainer';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AutosaveForm } from 'ui/organisms';
 
 export const TeamsGeneral = ({ hasTeams }: { hasTeams: boolean }) => {
   const { formatMessage } = useLocale();

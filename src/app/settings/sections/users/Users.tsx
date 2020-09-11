@@ -42,7 +42,7 @@ export const Users = ({ data, total, onDelete }: UserProps) => {
             items={data}
             itemIndex={'id'}
             renderItem={(item, isEditing, checkbox) => (
-              <Grid container>
+              <Grid key={item.id} container>
                 <Grid item>{checkbox}</Grid>
                 <Grid item style={{ flexGrow: 1 }}>
                   <ProfileItem

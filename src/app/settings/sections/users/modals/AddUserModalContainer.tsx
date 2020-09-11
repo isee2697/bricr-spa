@@ -35,8 +35,6 @@ export const AddUserModalContainer = ({ isOpened, onClose }: ModalContainerProps
         throw Error();
       }
 
-      console.log(response);
-
       return undefined;
     } catch {
       return { error: true };

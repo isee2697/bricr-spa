@@ -1278,6 +1278,14 @@
   "settings.users.title_count": "Gebruikers {count}",
   "settings.users.add_title": "Nieuwe gebruiker",
   "settings.users.add_button": "Voeg gebruiker toe",
+  "settings.users.team_rights": "Rechten voor teams",
+  "settings.users.information": "Persoonlijke informatie",
+  "settings.users.first_name": "Voornaam",
+  "settings.users.last_name": "Achternaam",
+  "settings.users.date_of_birth": "Geboortedatum",
+  "settings.users.function_description": "Functie omschrijving",
+  "settings.users.date_of_birth_placeholder": "1-1-1997",
+  "settings.users.gender": "Geslacht",
   "settings.teams.add": "Voeg team toe",
   "settings.teams.name_label": "Team naam",
   "settings.teams.name_placeholder": "Bijv. team naam",
@@ -2190,5 +2198,8 @@
   "dictionaries.workflow_blueprint.SaleRentProperty": "Onroerend goed te koop / te huur",
   "dictionaries.workflow_blueprint.PurchaseProperty": "Koop onroerend goed",
   "dictionaries.workflow_blueprint.ReletProcess": "Herhaal proces",
-  "dictionaries.workflow_blueprint.NewConstructionProcess": "Nieuw bouwproces"
+  "dictionaries.workflow_blueprint.NewConstructionProcess": "Nieuw bouwproces",
+  "dictionaries.gender.Male": "Man",
+  "dictionaries.gender.Female": "Vrouw",
+  "dictionaries.gender.GenderNeutral": "Anders"
 }

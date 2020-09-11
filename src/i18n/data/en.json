@@ -1363,6 +1363,14 @@
   "settings.users.title_count": "Users {count}",
   "settings.users.add_title": "New user",
   "settings.users.add_button": "Add user",
+  "settings.users.team_rights": "Rights for teams",
+  "settings.users.information": "Personal Information",
+  "settings.users.first_name": "First name",
+  "settings.users.last_name": "Last name",
+  "settings.users.date_of_birth": "Date of birth",
+  "settings.users.function_description": "Function Description",
+  "settings.users.date_of_birth_placeholder": "1-1-1997",
+  "settings.users.gender": "Gender",
   "settings.teams.add": "Create team",
   "settings.teams.name_label": "Team name",
   "settings.teams.name_placeholder": "E.G. my team",
@@ -2298,5 +2306,8 @@
   "dictionaries.workflow_blueprint.SaleRentProperty": "Property for sale/rent",
   "dictionaries.workflow_blueprint.PurchaseProperty": "Purchase property",
   "dictionaries.workflow_blueprint.ReletProcess": "Relet process",
-  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process"
+  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process",
+  "dictionaries.gender.Male": "Male",
+  "dictionaries.gender.Female": "Female",
+  "dictionaries.gender.GenderNeutral": "Gender neutral"
 }

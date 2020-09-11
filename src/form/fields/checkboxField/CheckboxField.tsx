@@ -26,7 +26,7 @@ export const CheckboxField = ({
   return (
     <FormControlLabel
       control={<Checkbox color="primary" id={name} size="medium" {...input} {...props} />}
-      label={formatMessage({ id: label })}
+      label={label && formatMessage({ id: label })}
       className={containerClassName}
     />
   );

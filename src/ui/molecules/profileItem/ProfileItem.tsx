@@ -56,12 +56,12 @@ export const ProfileItem = ({
         </Grid>
         <Grid container className={classes.infoContainer}>
           {teamNames?.map(name => (
-            <Chip label={name} size="small" variant="outlined" color="primary" />
+            <Chip key={name} label={name} size="small" variant="outlined" color="primary" />
           ))}
         </Grid>
         <Grid container className={classes.infoContainer}>
           {rights?.map(name => (
-            <Chip className={classes.chip} label={name} size="small" />
+            <Chip key={name} className={classes.chip} label={name} size="small" />
           ))}
         </Grid>
         {notes && (

@@ -1,4 +1,3 @@
-import { ModalProps } from 'ui/molecules/modal/Modal.types';
 import { Profile } from 'api/types';
 
 export type AddMemberModalProps = {

@@ -1348,6 +1348,7 @@ export enum EntityWithFiles {
   NcpProjectMarketing = 'NcpProjectMarketing',
   ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
   ProjectPhase = 'ProjectPhase',
+  Profile = 'Profile',
 }
 
 export enum EntityWithMultipleFiles {
@@ -9637,7 +9638,7 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
           Array<
             { __typename?: 'ProfileTeam' } & Pick<
               ProfileTeam,
-              'name' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
+              'id' | 'name' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
             >
           >
         >;
@@ -16086,6 +16087,7 @@ export const GetUserProfileDocument = gql`
       functionDescription
       avatar
       teams {
+        id
         name
         createPermission
         readPermission
