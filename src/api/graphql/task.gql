@@ -1,27 +1,68 @@
+enum TaskLabel {
+  FollowUp
+  Business
+  Private
+}
+
+enum TaskPriority {
+  High
+  Medium
+  Low
+}
+
+enum TaskStatus {
+  ToDo
+  InProgress
+  Blocked
+  Done
+}
+
 type Task {
   id: ID!
   title: String!
-  assignee: String!
+  assignee: ID!
   startDate: Date!
   deadline: Date!
-  priority: String!
+  priority: TaskPriority!
+  label: TaskLabel!
+  status: TaskStatus!
+}
+
+type TaskSearchResult {
+  metadata: SearchMetadata
+  items: [Task!]
 }
 
 input CreateTaskInput {
   title: String!
-  assignee: String!
+  assignee: ID!
   startDate: Date!
   deadline: Date!
-  priority: String!
+  priority: TaskPriority!
+  label: TaskLabel!
 }
 
 input UpdateTaskInput {
   id: ID!
   title: String
-  assignee: String
+  assignee: ID
   startDate: Date
   deadline: Date
-  priority: String
+  priority: TaskPriority
+  label: TaskLabel
+  status: TaskStatus
+}
+
+input DateRange {
+  from: Date
+  to: Date
+}
+
+input TaskFilters {
+  search: String
+  assignees: [ID!]
+  startDate: DateRange
+  deadline: DateRange
 }
 
 extend type Mutation {
@@ -31,4 +72,5 @@ extend type Mutation {
 
 extend type Query {
   getTask(id: ID!): Task @auth
+  getTasks(filters: TaskFilters, sort: [Sort!]): TaskSearchResult @auth
 }

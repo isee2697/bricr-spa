@@ -13,13 +13,7 @@ export const CreateNewTaskModalContainer = ({ members }: CreateNewTaskModalConta
   const [createTask] = useCreateTaskMutation();
   const { close } = useModalDispatch();
 
-  const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({
-    label,
-    assignee,
-    startDate,
-    deadline,
-    ...body
-  }) => {
+  const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({ assignee, startDate, deadline, ...body }) => {
     try {
       const { data: result } = await createTask({
         variables: {

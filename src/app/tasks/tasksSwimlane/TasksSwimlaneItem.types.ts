@@ -1,4 +1,4 @@
-import { Task } from '../Tasks.types';
+import { Task } from 'api/types';
 
 export type TasksSwimlaneItemProps = {
   task: Task;

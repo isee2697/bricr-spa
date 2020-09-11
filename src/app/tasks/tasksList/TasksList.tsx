@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 import clsx from 'classnames';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -82,8 +83,9 @@ export const TasksList = ({ tasks }: TasksListProps) => {
       <TableBody>
         {tasks.map((task, index) => {
           const labelId = `tasks-list-checkbox-${index}`;
-          const { title, status, id, expireDate, assignedTo } = task;
-          const hoursLeft = Math.round(expireDate.diffNow('hours').hours);
+          const { title, status, id, assignee, deadline } = task;
+          const deadlineDate = DateTime.fromISO(deadline);
+          const hoursLeft = Math.round(deadlineDate.diffNow('hours').hours);
 
           return (
             <TableRow key={index}>
@@ -94,7 +96,7 @@ export const TasksList = ({ tasks }: TasksListProps) => {
                 {title}
               </TableCell>
               <TableCell>
-                <UserAvatar name={assignedTo.name} className={classes.avatar} />
+                <UserAvatar name={assignee} className={classes.avatar} />
               </TableCell>
               <TableCell>{id}</TableCell>
               <TableCell>

@@ -1,28 +1,54 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
-import { Form } from 'react-final-form';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import React, { useState } from "react";
+import { DateTime } from "luxon";
+import { Form } from "react-final-form";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
-import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography } from 'ui/atoms';
-import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';
-import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
-import { requireValidator } from 'form/validators';
-import { GenericField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { TeamMemberItem } from '../Tasks.types';
+import { Modal, SubmitButton } from "ui/molecules";
+import {
+  Alert,
+  DialogContent,
+  DialogActions,
+  Grid,
+  Button,
+  UserAvatar,
+  Typography,
+} from "ui/atoms";
+import {
+  FollowUpRectangleIcon,
+  UserRectangleIcon,
+  LockRectangleIcon,
+  AddIcon,
+} from "ui/atoms/icons";
+import { DropdownItem } from "ui/atoms/dropdown/Dropdown.types";
+import { requireValidator } from "form/validators";
+import {
+  GenericField,
+  DropdownField,
+  DatePickerField,
+  TimePickerField,
+} from "form/fields";
+import { useLocale } from "hooks/useLocale/useLocale";
+import { useModalDispatch } from "hooks/useModalDispatch/useModalDispatch";
+import { TeamMemberItem } from "../Tasks.types";
 
-import { CreateNewTaskModalProps, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
-import { useStyles } from './CreateNewTaskModal.styles';
+import {
+  CreateNewTaskModalProps,
+  CreateNewTaskSubmit,
+} from "./CreateNewTaskModal.types";
+import { useStyles } from "./CreateNewTaskModal.styles";
+import { TaskPriority, TaskLabel } from "api/types";
 
-export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNewTaskModalProps) => {
+export const CreateNewTaskModal = ({
+  isOpen,
+  onSubmit,
+  members = [],
+}: CreateNewTaskModalProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
   const [deadlineTime, setDeadlineTime] = useState(DateTime.local());
 
-  const handleSubmit: CreateNewTaskSubmit = async body => {
+  const handleSubmit: CreateNewTaskSubmit = async (body) => {
     const response = await onSubmit(body);
 
     if (!response) {
@@ -36,71 +62,83 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
   };
 
   const handleClose = () => {
-    close('create-new-task');
+    close("create-new-task");
   };
 
-  const assignees: DropdownItem[] = members.map((member: TeamMemberItem, index: number) => ({
-    label: (
-      <span className={classes.assignee}>
-        <UserAvatar size="small" name={member.firstName + ' ' + member.lastName} className={classes.assigneeAvatar} />
-        <span>
-          {member.firstName} {member.lastName}
-          {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
+  const assignees: DropdownItem[] = members.map(
+    (member: TeamMemberItem, index: number) => ({
+      label: (
+        <span className={classes.assignee}>
+          <UserAvatar
+            size="small"
+            name={member?.firstName + " " + member?.lastName}
+            className={classes.assigneeAvatar}
+          />
+          <span>
+            {member?.firstName} {member?.lastName}
+            {index === 0 && ` (${formatMessage({ id: "tasks.members.me" })})`}
+          </span>
         </span>
-      </span>
-    ),
-    value: member.id,
-  }));
+      ),
+      value: member?.id,
+    })
+  );
 
   const labels: DropdownItem[] = [
     {
       label: (
         <span className={classes.label}>
-          <FollowUpRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.follow_up' })}
+          <FollowUpRectangleIcon viewBox="0 0 20 20" />{" "}
+          {formatMessage({ id: "tasks.label.follow_up" })}
         </span>
       ),
-      value: 'followup',
+      value: TaskLabel.FollowUp,
     },
     {
       label: (
         <span className={classes.label}>
-          <UserRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.business' })}
+          <UserRectangleIcon viewBox="0 0 20 20" />{" "}
+          {formatMessage({ id: "tasks.label.business" })}
         </span>
       ),
-      value: 'business',
+      value: TaskLabel.Business,
     },
     {
       label: (
         <span className={classes.label}>
-          <LockRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.private' })}
+          <LockRectangleIcon viewBox="0 0 20 20" />{" "}
+          {formatMessage({ id: "tasks.label.private" })}
         </span>
       ),
-      value: 'private',
+      value: TaskLabel.Private,
     },
   ];
 
   const priorities: DropdownItem[] = [
     {
-      label: formatMessage({ id: 'tasks.priorities.high' }),
-      value: 'high',
+      label: formatMessage({ id: "tasks.priorities.high" }),
+      value: TaskPriority.High,
     },
     {
-      label: formatMessage({ id: 'tasks.priorities.medium' }),
-      value: 'medium',
+      label: formatMessage({ id: "tasks.priorities.medium" }),
+      value: TaskPriority.Medium,
     },
     {
-      label: formatMessage({ id: 'tasks.priorities.low' }),
-      value: 'low',
+      label: formatMessage({ id: "tasks.priorities.low" }),
+      value: TaskPriority.Low,
     },
   ];
 
   const handleAssignToMe = () => {};
 
-  const handleChangeTime = (date: MaterialUiPickersDate, value: string | null | undefined) => {
+  const handleChangeTime = (
+    date: MaterialUiPickersDate,
+    value: string | null | undefined
+  ) => {
     if (value) {
-      const tt: string = value.split(' ')[1];
-      const timeSplit: string[] = value.split(' ')[0].split(':');
-      const hour: number = parseInt(timeSplit[0], 10) + (tt === 'AM' ? 0 : 12);
+      const tt: string = value.split(" ")[1];
+      const timeSplit: string[] = value.split(" ")[0].split(":");
+      const hour: number = parseInt(timeSplit[0], 10) + (tt === "AM" ? 0 : 12);
       const minute: number = parseInt(timeSplit[1], 10);
       setDeadlineTime(DateTime.local().set({ hour, minute }));
     }
@@ -113,12 +151,14 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
           fullWidth
           isOpened={isOpen}
           onClose={handleClose}
-          title={formatMessage({ id: 'tasks.create_new.title' })}
+          title={formatMessage({ id: "tasks.create_new.title" })}
         >
           <form onSubmit={handleSubmit} autoComplete="off">
-            {submitErrors && submitErrors.error === 'unknown' && (
+            {submitErrors && submitErrors.error === "unknown" && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: 'tasks.create_new.error.unknown' })}</Alert>
+                <Alert severity="error">
+                  {formatMessage({ id: "tasks.create_new.error.unknown" })}
+                </Alert>
               </DialogContent>
             )}
             <DialogContent>
@@ -143,9 +183,13 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
                     label="tasks.create_new.details.assignee.label"
                     align="left"
                   />
-                  <Typography variant="h5" onClick={() => handleAssignToMe()} className={classes.assignToMeButton}>
+                  <Typography
+                    variant="h5"
+                    onClick={() => handleAssignToMe()}
+                    className={classes.assignToMeButton}
+                  >
                     {formatMessage({
-                      id: 'tasks.create_new.details.assignee.assign_to_me',
+                      id: "tasks.create_new.details.assignee.assign_to_me",
                     })}
                   </Typography>
                 </Grid>
@@ -201,7 +245,7 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
             </DialogContent>
             <DialogActions>
               <Button color="ghost" size="small">
-                {formatMessage({ id: 'common.cancel' })}
+                {formatMessage({ id: "common.cancel" })}
               </Button>
               <SubmitButton
                 type="submit"
@@ -210,7 +254,7 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
                 color="primary"
                 variant="contained"
               >
-                {formatMessage({ id: 'tasks.create_new.title' })}
+                {formatMessage({ id: "tasks.create_new.title" })}
               </SubmitButton>
             </DialogActions>
           </form>

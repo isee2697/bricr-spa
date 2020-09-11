@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
 
@@ -7,175 +7,58 @@ import { Grid, IconButton } from 'ui/atoms';
 import { ListIcon } from 'ui/atoms/icons/list/ListIcon';
 import { SwimlaneIcon } from 'ui/atoms/icons/swimlane/SwimlaneIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+import { Task, TaskStatus, DateRange } from 'api/types';
 import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
 import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
-import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
-import { TaskPriority, TaskStatus, TaskLabel, TasksViewMode } from '../Tasks.enum';
-import { Task } from '../Tasks.types';
-import { TasksList } from '../tasksList/TasksList';
+import { TasksViewMode } from '../Tasks.enum';
 import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
 
 import { useStyles } from './TasksContent.styles';
 import { TasksContentProps } from './TasksContent.types';
+import { TaskViewContainer } from '../taskView/TaskViewContainer';
 
-export const TasksContent = ({ tab }: TasksContentProps) => {
+export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
   const classes = useStyles();
   const [searchKey, setSearchKey] = useState('');
-  const [viewMode, setViewMode] = useState(TasksViewMode.LIST);
+  const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
+  const [dateRange, setDateRange] = useState<DateRange>({
+    to: DateTime.local().toISO(),
+  });
+
+  useEffect(() => {
+    if (tab === 0) {
+      setDateRange({
+        to: DateTime.local().toISO(),
+      });
+    } else if (tab === 1) {
+      setDateRange({
+        from: DateTime.local()
+          .plus(1)
+          .toISO(),
+        to: DateTime.local()
+          .plus(7)
+          .toISO(),
+      });
+    } else if (tab === 2) {
+      setDateRange({
+        from: DateTime.local()
+          .plus(8)
+          .toISO(),
+      });
+    } else if (tab === 3) {
+      setDateRange({
+        to: DateTime.local()
+          .minus(1)
+          .toISO(),
+      });
+    }
+  }, [tab]);
 
   // Temporary code before API integration
-  const date: DateTime = DateTime.local();
-  const deadlineTime: DateTime = DateTime.local();
-  const dateAfterFourDays: DateTime = date.plus({ days: 4 });
-  const tasks: Task[] = [
-    {
-      id: 11,
-      taskId: 'BRC-11',
-      title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.business,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.todo,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 12,
-      taskId: 'BRC-12',
-      title: 'Invalid Emails Throw an Error',
-      label: TaskLabel.private,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.high,
-      status: TaskStatus.todo,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 13,
-      taskId: 'BRC-13',
-      title: "New Emojis Don't Render",
-      label: TaskLabel.private,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.todo,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 14,
-      taskId: 'BRC-14',
-      title: 'Excel Imports >20Mb Fail',
-      label: TaskLabel.business,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.high,
-      status: TaskStatus.inProgress,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 15,
-      taskId: 'BRC-15',
-      title: "New Emojis Don't Render",
-      label: TaskLabel.followUp,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.inProgress,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 16,
-      taskId: 'BRC-16',
-      title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.private,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.inProgress,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 17,
-      taskId: 'BRC-17',
-      title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.followUp,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.inProgress,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 18,
-      taskId: 'BRC-18',
-      title: 'Excel Imports >20Mb Fail',
-      label: TaskLabel.followUp,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.high,
-      status: TaskStatus.blocked,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-    {
-      id: 19,
-      taskId: 'BRC-19',
-      title: 'Rewrite Query Caching Logic',
-      label: TaskLabel.business,
-      startDate: date,
-      deadlineDate: dateAfterFourDays,
-      deadlineTime,
-      expireDate: dateAfterFourDays,
-      priority: TaskPriority.medium,
-      status: TaskStatus.blocked,
-      assignedTo: {
-        id: 1,
-        name: 'Marius Nowak',
-      },
-    },
-  ];
+  const tasks: Task[] = [];
 
   const tasksCount = tasks.length;
-  const completedTasksCount = tasks.filter(task => task.status === TaskStatus.done).length;
+  const completedTasksCount = tasks.filter(task => task.status === TaskStatus.Done).length;
 
   return (
     <Grid container className={classes.root} direction="column">
@@ -194,11 +77,11 @@ export const TasksContent = ({ tab }: TasksContentProps) => {
         <Grid item>
           <Grid container>
             <SimpleSearch onChange={v => setSearchKey(v.currentTarget.value)} value={searchKey} />
-            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.SWIMLANE)}>
-              <SwimlaneIcon color={viewMode === TasksViewMode.SWIMLANE ? 'primary' : 'inherit'} />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.Swimlane)}>
+              <SwimlaneIcon color={viewMode === TasksViewMode.Swimlane ? 'primary' : 'inherit'} />
             </IconButton>
-            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.LIST)}>
-              <ListIcon color={viewMode === TasksViewMode.LIST ? 'primary' : 'inherit'} />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.List)}>
+              <ListIcon color={viewMode === TasksViewMode.List ? 'primary' : 'inherit'} />
             </IconButton>
             <IconButton classes={{ root: classes.sortIcon }}>
               <ManageIcon color="inherit" />
@@ -207,7 +90,7 @@ export const TasksContent = ({ tab }: TasksContentProps) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <TasksDateSection tab={tab} />
+        <TasksDateSection tab={tab} handleSetDateRange={(range: DateRange) => setDateRange(range)} />
       </Grid>
       <Grid
         item
@@ -215,11 +98,10 @@ export const TasksContent = ({ tab }: TasksContentProps) => {
         className={clsx(
           classes.flexGrowOne,
           classes.flexRow,
-          viewMode === TasksViewMode.SWIMLANE && classes.swimlaneWrapper,
+          viewMode === TasksViewMode.Swimlane && classes.swimlaneWrapper,
         )}
       >
-        {viewMode === TasksViewMode.SWIMLANE && <TasksSwimlane tasks={tasks} />}
-        {viewMode === TasksViewMode.LIST && <TasksList tasks={tasks} />}
+        <TaskViewContainer viewMode={viewMode} search={searchKey} selectedMembers={selectedMembers} dateRange={dateRange} />
       </Grid>
     </Grid>
   );

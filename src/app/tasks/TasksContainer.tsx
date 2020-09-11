@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { useGetMyTeamMembersQuery } from 'api/types';
-import { Loader } from 'ui/atoms';
+import { useAuthState } from "hooks/useAuthState/useAuthState";
+import { useGetMyTeamMembersQuery } from "api/types";
+import { Loader } from "ui/atoms";
 
-import { Tasks } from './Tasks';
+import { Tasks } from "./Tasks";
 
 export const TasksContainer = () => {
   const { isAuthorized, user } = useAuthState();
@@ -16,5 +16,11 @@ export const TasksContainer = () => {
     return <Loader />;
   }
 
-  return <Tasks user={user} error={error} data={data} />;
+  return (
+    <Tasks
+      user={user}
+      error={error}
+      members={data?.members.items || []}
+    />
+  );
 };

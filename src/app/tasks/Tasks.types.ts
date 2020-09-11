@@ -1,26 +1,11 @@
-import { DateTime } from 'luxon';
+import { ApolloError } from "apollo-boost";
 
-import { Profile, GetMyTeamMembersQueryHookResult } from 'api/types';
+import { Profile } from "api/types";
 
-import { User } from './tasksMemberList/TasksMemberList.types';
-import { TaskPriority, TaskStatus, TaskLabel } from './Tasks.enum';
-
-export type TasksProps = Pick<GetMyTeamMembersQueryHookResult, 'error' | 'data'> & {
+export type TasksProps = {
   user: Profile;
+  error: ApolloError | undefined;
+  members: TeamMemberItem[];
 };
 
-export type Task = {
-  id: number;
-  taskId: string;
-  title: string;
-  priority: TaskPriority;
-  assignedTo: User;
-  label: TaskLabel;
-  startDate: DateTime;
-  expireDate: DateTime;
-  deadlineDate: DateTime;
-  deadlineTime: DateTime;
-  status: TaskStatus;
-};
-
-export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+export type TeamMemberItem = Pick<Profile, "id" | "firstName" | "lastName">;

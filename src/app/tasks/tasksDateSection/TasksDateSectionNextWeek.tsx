@@ -1,23 +1,45 @@
-import React, { useState } from 'react';
-import clsx from 'classnames';
-import { DateTime } from 'luxon';
+import React, { useState } from "react";
+import clsx from "classnames";
+import { DateTime } from "luxon";
 
-import { Grid, Typography, Box } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
+import { Grid, Typography, Box } from "ui/atoms";
+import { useLocale } from "hooks/useLocale/useLocale";
 
-import { useStyles } from './TasksDateSectionNextWeek.styles';
+import { useStyles } from "./TasksDateSectionNextWeek.styles";
+import { TasksDateSectionNextWeekProps } from "./TasksDateSectionNextWeek.types";
+import { isUndefined } from "lodash";
 
-export const TasksDateSectionNextWeek = () => {
+export const TasksDateSectionNextWeek = ({
+  onSelectDate,
+}: TasksDateSectionNextWeekProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const [selectedDates, setSelectedDates] = useState<number[]>([]);
+  const [selectedDate, setSelectedDate] = useState<number | undefined>(
+    undefined
+  );
 
   const selectDate = (index: number) => {
-    if (selectedDates.findIndex(date => date === index) >= 0) {
-      setSelectedDates([...selectedDates.filter(date => date !== index)]);
+    if (!isUndefined(selectedDate) && selectedDate === index) {
+      setSelectedDate(undefined);
+      onSelectDate({
+        from: DateTime.local()
+          .plus(1)
+          .toISO(),
+        to: DateTime.local()
+          .plus(7)
+          .toISO(),
+      });
     } else {
-      setSelectedDates([...selectedDates, index]);
+      setSelectedDate(index);
+      onSelectDate({
+        from: DateTime.local()
+          .plus(index + 1)
+          .toISO(),
+        to: DateTime.local()
+          .plus(index + 1)
+          .toISO(),
+      });
     }
   };
 
@@ -28,18 +50,24 @@ export const TasksDateSectionNextWeek = () => {
     <Grid container justify="space-between" className={classes.root}>
       <Grid item>
         <Box className={classes.title}>
-          {selectedDates.length === 0 && (
+          {isUndefined(selectedDate) && (
             <Typography variant="h3" className={classes.inlineBlock}>
-              {formatMessage({ id: 'tasks.tasks_next_week' })}
+              {formatMessage({ id: "tasks.tasks_next_week" })}
             </Typography>
           )}
-          {selectedDates.length > 0 && (
+          {!isUndefined(selectedDate) && (
             <>
-              <Typography variant="h3" className={clsx(classes.inlineBlock, classes.marginRightHalf)}>
-                {formatMessage({ id: 'tasks.tasks_for' })}{' '}
+              <Typography
+                variant="h3"
+                className={clsx(classes.inlineBlock, classes.marginRightHalf)}
+              >
+                {formatMessage({ id: "tasks.tasks_for" })}{" "}
               </Typography>
-              <Typography variant="h3" className={clsx(classes.inlineBlock, classes.fontWeightBold)}>
-                {formatMessage({ id: 'tasks.selected_days' }, { count: selectedDates.length })}
+              <Typography
+                variant="h3"
+                className={clsx(classes.inlineBlock, classes.fontWeightBold)}
+              >
+                {formatMessage({ id: "tasks.selected_days" }, { count: 1 })}
               </Typography>
             </>
           )}
@@ -47,14 +75,21 @@ export const TasksDateSectionNextWeek = () => {
       </Grid>
       <Grid item>
         <Grid container>
-          {days.map(index => (
+          {days.map((index) => (
             <Grid
               key={index}
               item
-              className={clsx(classes.dayBox, selectedDates.findIndex(date => date === index) >= 0 && 'selected')}
+              className={clsx(
+                classes.dayBox,
+                !isUndefined(selectedDate) &&
+                  selectedDate === index &&
+                  "selected"
+              )}
               onClick={() => selectDate(index)}
             >
-              <Typography variant="h3">{today.plus({ days: index + 1 }).day}</Typography>
+              <Typography variant="h3">
+                {today.plus({ days: index + 1 }).day}
+              </Typography>
               <Typography variant="h6" className={classes.weekDay}>
                 {today.plus({ days: index + 1 }).weekdayShort}
               </Typography>

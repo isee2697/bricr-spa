@@ -885,6 +885,7 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   getTask?: Maybe<Task>;
+  getTasks?: Maybe<TaskSearchResult>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
@@ -1042,6 +1043,11 @@ export type QueryGetProjectPhasesArgs = {
 
 export type QueryGetTaskArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetTasksArgs = {
+  filters?: Maybe<TaskFilters>;
+  sort?: Maybe<Array<Sort>>;
 };
 
 export type QueryGetTeamDetailsArgs = {
@@ -6366,31 +6372,73 @@ export type MetersMeta = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
+export enum TaskLabel {
+  FollowUp = 'FollowUp',
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export enum TaskPriority {
+  High = 'High',
+  Medium = 'Medium',
+  Low = 'Low',
+}
+
+export enum TaskStatus {
+  ToDo = 'ToDo',
+  InProgress = 'InProgress',
+  Blocked = 'Blocked',
+  Done = 'Done',
+}
+
 export type Task = {
   __typename?: 'Task';
   id: Scalars['ID'];
   title: Scalars['String'];
-  assignee: Scalars['String'];
+  assignee: Scalars['ID'];
   startDate: Scalars['Date'];
   deadline: Scalars['Date'];
-  priority: Scalars['String'];
+  priority: TaskPriority;
+  label: TaskLabel;
+  status: TaskStatus;
+};
+
+export type TaskSearchResult = {
+  __typename?: 'TaskSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Task>>;
 };
 
 export type CreateTaskInput = {
   title: Scalars['String'];
-  assignee: Scalars['String'];
+  assignee: Scalars['ID'];
   startDate: Scalars['Date'];
   deadline: Scalars['Date'];
-  priority: Scalars['String'];
+  priority: TaskPriority;
+  label: TaskLabel;
 };
 
 export type UpdateTaskInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
-  assignee?: Maybe<Scalars['String']>;
+  assignee?: Maybe<Scalars['ID']>;
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
-  priority?: Maybe<Scalars['String']>;
+  priority?: Maybe<TaskPriority>;
+  label?: Maybe<TaskLabel>;
+  status?: Maybe<TaskStatus>;
+};
+
+export type DateRange = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type TaskFilters = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  startDate?: Maybe<DateRange>;
+  deadline?: Maybe<DateRange>;
 };
 
 export enum TeamRight {
@@ -9580,6 +9628,30 @@ export type GetTaskQueryVariables = {
 export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
     { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+  >;
+};
+
+export type GetTasksQueryVariables = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+};
+
+export type GetTasksQuery = { __typename?: 'Query' } & {
+  getTasks?: Maybe<
+    { __typename?: 'TaskSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Task' } & Pick<
+            Task,
+            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+          >
+        >
+      >;
+    }
   >;
 };
 
@@ -15672,6 +15744,45 @@ export function useGetTaskLazyQuery(
 export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
 export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
 export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
+export const GetTasksDocument = gql`
+  query GetTasks(
+    $search: String
+    $assignees: [ID!]
+    $from: Date
+    $to: Date
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+  ) {
+    getTasks(
+      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        title
+        assignee
+        startDate
+        deadline
+        priority
+        label
+        status
+      }
+    }
+  }
+`;
+export function useGetTasksQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export function useGetTasksLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
 export const GetTeamDetailsDocument = gql`
   query GetTeamDetails($id: ID!) {
     getTeamDetails(id: $id) {

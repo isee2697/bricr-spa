@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
 import { TeamMemberItem } from '../Tasks.types';
+import { TaskLabel, TaskPriority } from 'api/types';
 
 export type CreateNewTaskModalProps = {
   onSubmit: CreateNewTaskSubmit;
@@ -21,8 +22,8 @@ export type CreateNewTaskSubmit<T = CreateNewTaskBody> = (
 export type CreateNewTaskBody = {
   title: string;
   assignee: string;
-  label: string;
+  label: TaskLabel;
+  priority: TaskPriority;
   startDate: DateTime;
   deadline: DateTime;
-  priority: string;
 };
