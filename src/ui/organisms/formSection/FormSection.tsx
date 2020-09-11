@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
+import { useLocation } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
@@ -29,8 +30,11 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
     ref,
   ) => {
     const { formatMessage } = useLocale();
-    const [expanded, setExpanded] = useState(!isExpandable || (isExpandable && isInitExpanded) || isInitEditing);
-    const [editing, setEditing] = useState(isInitEditing);
+    const { state } = useLocation<{ newlyAdded?: boolean }>();
+    const [expanded, setExpanded] = useState(
+      !isExpandable || (isExpandable && isInitExpanded) || (isExpandable && !!state?.newlyAdded) || isInitEditing,
+    );
+    const [editing, setEditing] = useState(isInitEditing || !!state?.newlyAdded);
     const classes = useStyles({ bordered: editing });
 
     const handleSetEdit = (isEdititng: boolean) => {

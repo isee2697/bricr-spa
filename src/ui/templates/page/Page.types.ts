@@ -2,9 +2,10 @@ import { ReactNode } from 'react';
 import { AnyObject } from 'react-final-form';
 
 import { Profile } from 'api/types';
+import { CardWithInfoProps } from 'ui/templates/cards/cardWithInfo/CardWithInfo.types';
+import { PageHeaderProps } from 'ui/templates/page/header/PageHeader.types';
 
-export type PageProps = {
-  children: ReactNode;
+type BasePageProps = {
   title?: string;
   onSave?(values: unknown): Promise<undefined | { error: boolean }>;
   initialValues?: AnyObject;
@@ -16,4 +17,15 @@ export type PageProps = {
   afterTitle?: ReactNode;
   hideBreadcrumb?: boolean;
   titleActions?: ReactNode;
+  showHeader?: boolean;
+  headerProps?: PageHeaderProps;
+  headerAction?: ReactNode;
 };
+export type PageProps = BasePageProps & {
+  children: ReactNode;
+};
+
+export type InfoPageProps = BasePageProps &
+  CardWithInfoProps & {
+    children?: ReactNode;
+  };

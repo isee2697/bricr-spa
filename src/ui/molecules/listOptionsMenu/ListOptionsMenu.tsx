@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 
-import { Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { DeleteIcon, EditIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 
 import { ListOptionsMenuProps } from './ListOptionsMenu.types';
 import { useStyles } from './ListOptionsMenu.styles';
 
-export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children }: ListOptionsMenuProps) => {
+export const ListOptionsMenu = ({
+  onEditClick,
+  onDeleteClick,
+  children,
+  editText,
+  deleteText,
+  hideEditButton,
+}: ListOptionsMenuProps) => {
   const { formatMessage } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" padding={0.5}>
-        <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
-          <MenuIcon />
-        </IconButton>
-      </Box>
+      <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
+        <MenuIcon />
+      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -29,14 +34,16 @@ export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children }: ListOp
       >
         <div className={classes.menu} onClick={() => setAnchorEl(null)}>
           {children}
-          <MenuItem
-            disabled={!onEditClick}
-            onClick={() => onEditClick && onEditClick()}
-            data-testid="edit-option-button"
-          >
-            <EditIcon />
-            <Typography>{formatMessage({ id: 'common.edit' })}</Typography>
-          </MenuItem>
+          {!hideEditButton && (
+            <MenuItem
+              disabled={!onEditClick}
+              onClick={() => onEditClick && onEditClick()}
+              data-testid="edit-option-button"
+            >
+              <EditIcon />
+              <Typography>{editText ?? formatMessage({ id: 'common.edit' })}</Typography>
+            </MenuItem>
+          )}
           <MenuItem
             className="delete"
             disabled={!onDeleteClick}
@@ -44,7 +51,7 @@ export const ListOptionsMenu = ({ onEditClick, onDeleteClick, children }: ListOp
             data-testid="delete-option-button"
           >
             <DeleteIcon />
-            <Typography>{formatMessage({ id: 'common.delete' })}</Typography>
+            <Typography>{deleteText ?? formatMessage({ id: 'common.delete' })}</Typography>
           </MenuItem>
         </div>
       </Menu>
