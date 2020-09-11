@@ -38,29 +38,29 @@ export const UserDetails = ({ data, onSave }: UserDetailsProps) => {
                 <Grid item xs={5}>
                   <GenericField
                     disabled={!isEditing}
-                    label={formatMessage({ id: 'settings.users.first_name' })}
-                    placeholder={formatMessage({ id: 'settings.users.first_name' })}
+                    label="settings.users.first_name"
+                    placeholder="settings.users.first_name"
                     name="firstName"
                   />
                   <DatePickerField
                     disabled={!isEditing}
                     name="dateOfBirth"
-                    label={formatMessage({ id: 'settings.users.date_of_birth' })}
-                    placeholder={formatMessage({ id: 'settings.users.date_of_birth_placeholder' })}
+                    label="settings.users.date_of_birth"
+                    placeholder="settings.users.date_of_birth_placeholder"
                   />
                 </Grid>
                 <Grid item xs={5}>
                   <GenericField
                     disabled={!isEditing}
                     name="lastName"
-                    label={formatMessage({ id: 'settings.users.last_name' })}
-                    placeholder={formatMessage({ id: 'settings.users.last_name' })}
+                    label="settings.users.last_name"
+                    placeholder="settings.users.last_name"
                   />
                   <GenericField
                     disabled={!isEditing}
                     name="functionDescription"
-                    label={formatMessage({ id: 'settings.users.function_description' })}
-                    placeholder={formatMessage({ id: 'settings.users.function-description' })}
+                    label="settings.users.function_description"
+                    placeholder="settings.users.function_description"
                   />
                 </Grid>
                 <Grid item xs={12}>
