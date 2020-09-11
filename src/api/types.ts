@@ -23,15 +23,13 @@ export type Scalars = {
   ServiceConfigurationInput: any;
 };
 
-
-
 export type LoginInput = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
 
 export type LoginResponse = {
-   __typename?: 'LoginResponse';
+  __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
   refreshToken: Scalars['String'];
 };
@@ -41,7 +39,7 @@ export type ForgotPasswordInput = {
 };
 
 export type ForgotPasswordResponse = {
-   __typename?: 'ForgotPasswordResponse';
+  __typename?: 'ForgotPasswordResponse';
   error?: Maybe<Scalars['String']>;
   stack?: Maybe<Scalars['String']>;
 };
@@ -51,13 +49,13 @@ export type ResetPasswordInput = {
 };
 
 export type ResetPasswordResponse = {
-   __typename?: 'ResetPasswordResponse';
+  __typename?: 'ResetPasswordResponse';
   error?: Maybe<Scalars['String']>;
   stack?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
-   __typename?: 'Mutation';
+  __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
   addAllocationCriteria: AddAllocationCriteriaResult;
   addAogSpace: PimWithNewAogSpace;
@@ -210,747 +208,598 @@ export type Mutation = {
   uploadFile?: Maybe<UploadFileResponse>;
 };
 
-
 export type MutationAddAllocationCriteriaArgs = {
   input: AddAllocationCriteriaInput;
 };
-
 
 export type MutationAddAogSpaceArgs = {
   input: AddAogSpaceInput;
 };
 
-
 export type MutationAddBogSpaceArgs = {
   input: AddBogSpaceInput;
 };
-
 
 export type MutationAddCadastreArgs = {
   input: AddCadastreInput;
 };
 
-
 export type MutationAddCadastreMapsArgs = {
   input: AddCadastreMapsInput;
 };
-
 
 export type MutationAddCostArgs = {
   input: AddCostInput;
 };
 
-
 export type MutationAddFilesArgs = {
   input: AddFilesInput;
 };
-
 
 export type MutationAddFloorToPimArgs = {
   input: AddNewFloorInput;
 };
 
-
 export type MutationAddIdentificationNumberNcpArgs = {
   input: AddIdentificationNumberInput;
 };
-
 
 export type MutationAddIdentificationNumberObjectTypeArgs = {
   input: AddIdentificationNumberInput;
 };
 
-
 export type MutationAddIdentificationNumberPimArgs = {
   input: AddIdentificationNumberInput;
 };
-
 
 export type MutationAddInspectionArgs = {
   input: AddInspectionInput;
 };
 
-
 export type MutationAddLabelArgs = {
   input: LabelInput;
 };
-
 
 export type MutationAddMediaLinkArgs = {
   input: AddMediaLinkInput;
 };
 
-
 export type MutationAddNcpCostArgs = {
   input: AddCommonCostInput;
 };
-
 
 export type MutationAddNcpIdentificationNumberArgs = {
   input: AddIdentificationNumberInput;
 };
 
-
 export type MutationAddNcpLabelArgs = {
   input: LabelInput;
 };
-
 
 export type MutationAddNcpMediaLinkArgs = {
   input: CommonAddMediaLinkInput;
 };
 
-
 export type MutationAddNcpPicturesArgs = {
   input: CommonAddPicturesInput;
 };
-
 
 export type MutationAddNcpServiceArgs = {
   input: AddServiceInput;
 };
 
-
 export type MutationAddNcpTagArgs = {
   input: CommonAddTagInput;
 };
-
 
 export type MutationAddNcpTextChapterArgs = {
   input: CommonAddTextChapterInput;
 };
 
-
 export type MutationAddNcpUspsArgs = {
   input: CommonAddUspsInput;
 };
-
 
 export type MutationAddObjectTypeCostArgs = {
   input: AddCommonCostInput;
 };
 
-
 export type MutationAddObjectTypeLabelArgs = {
   input: LabelInput;
 };
-
 
 export type MutationAddObjectTypeMediaLinkArgs = {
   input: CommonAddMediaLinkInput;
 };
 
-
 export type MutationAddObjectTypePicturesArgs = {
   input: CommonAddPicturesInput;
 };
-
 
 export type MutationAddObjectTypeServiceArgs = {
   input: AddServiceInput;
 };
 
-
 export type MutationAddObjectTypeTagArgs = {
   input: CommonAddTagInput;
 };
-
 
 export type MutationAddObjectTypeTextChapterArgs = {
   input: CommonAddTextChapterInput;
 };
 
-
 export type MutationAddObjectTypeUspsArgs = {
   input: CommonAddUspsInput;
 };
-
 
 export type MutationAddOutsideFeatureArgs = {
   input: AddOutsideFeatureInput;
 };
 
-
 export type MutationAddPicturesArgs = {
   input: AddPicturesInput;
 };
-
 
 export type MutationAddPimMeterArgs = {
   input: AddMeterInput;
 };
 
-
 export type MutationAddPimReadingArgs = {
   input: AddReadingInput;
 };
-
 
 export type MutationAddPimServiceArgs = {
   input: AddServiceInput;
 };
 
-
 export type MutationAddProjectPhaseArgs = {
   input: CreateProjectPhaseInput;
 };
-
 
 export type MutationAddSpaceToFloorArgs = {
   input: AddSpaceInput;
 };
 
-
 export type MutationAddTagArgs = {
   input: AddTagInput;
 };
-
 
 export type MutationAddTeamArgs = {
   input: AddTeamInput;
 };
 
-
 export type MutationAddTextChapterArgs = {
   input: AddTextChapterInput;
 };
-
 
 export type MutationAddUserToTeamArgs = {
   input: AddUserToTeamInput;
 };
 
-
 export type MutationAddUspArgs = {
   input: AddUspInput;
 };
-
 
 export type MutationAddViewingMomentArgs = {
   input: AddViewingMomentInput;
 };
 
-
 export type MutationBulkArgs = {
   input: BulkOperationInput;
 };
-
 
 export type MutationCreateEmailAddressArgs = {
   input: CreateEmailAddressInput;
 };
 
-
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
 };
-
 
 export type MutationCreateObjectTypeArgs = {
   input: CreateObjectTypeInput;
 };
 
-
 export type MutationCreatePhoneNumberArgs = {
   input: CreatePhoneNumberInput;
 };
-
 
 export type MutationCreatePimArgs = {
   input: CreatePimInput;
 };
 
-
 export type MutationCreateProfileArgs = {
   input: CreateProfileInput;
 };
-
 
 export type MutationCreateSocialMediaLinkArgs = {
   input: CreateSocialMediaLinkInput;
 };
 
-
 export type MutationCreateTaskArgs = {
   input: CreateTaskInput;
 };
-
 
 export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
 
-
 export type MutationDeleteProfileArgs = {
   id?: Maybe<Scalars['String']>;
 };
-
 
 export type MutationForgotPasswordArgs = {
   input?: Maybe<ForgotPasswordInput>;
 };
 
-
 export type MutationInitSendFileArgs = {
   input: InitSendFileInput;
 };
-
 
 export type MutationLinkNcpToProjectPhaseArgs = {
   input: LinkNcpToProjectPhaseInput;
 };
 
-
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
 };
-
 
 export type MutationRemoveAllocationCriteriaArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationRemoveFilesArgs = {
   input: RemoveFilesInput;
 };
-
 
 export type MutationRemoveInspectionArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationRemoveLabelArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationRemoveNcpLabelArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationRemoveObjectTypeLabelArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationRemovePimArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationRemoveProjectPhaseArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationRemoveTeamArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationRemoveUserFromTeamArgs = {
   input: RemoveUserFromTeamInput;
 };
 
-
 export type MutationRemoveViewingMomentArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationResetPasswordArgs = {
   input?: Maybe<ResetPasswordInput>;
   token: Scalars['String'];
 };
 
-
 export type MutationSetLinkedPropertiesArgs = {
   input: LinkedPimInput;
 };
-
 
 export type MutationSetNcpCharacteristicsArgs = {
   input: SetCharacteristicsSectionsInput;
 };
 
-
 export type MutationSetNcpLinkedPimsArgs = {
   input: SetLinkedPimsInput;
 };
-
 
 export type MutationSetObjectTypeCharacteristicsSectionsArgs = {
   input: SetCharacteristicsSectionsInput;
 };
 
-
 export type MutationSetObjectTypeLinkedPimsArgs = {
   input: SetLinkedPimsInput;
 };
-
 
 export type MutationToggleNcpPricingArgs = {
   input: ToggleCommonPricingInput;
 };
 
-
 export type MutationToggleObjectTypePricingArgs = {
   input: ToggleCommonPricingInput;
 };
-
 
 export type MutationTogglePricingArgs = {
   input: TogglePricingInput;
 };
 
-
 export type MutationUndoEntityArgs = {
   input: UndoEntityInput;
 };
-
 
 export type MutationUpdateAllocationCriteriaArgs = {
   input: AllocationCriteriaInput;
 };
 
-
 export type MutationUpdateAogSpaceArgs = {
   input: UpdateAogSpaceInput;
 };
-
 
 export type MutationUpdateBogSpaceArgs = {
   input: UpdateBogSpaceInput;
 };
 
-
 export type MutationUpdateCadastreArgs = {
   input: UpdateCadastreInput;
 };
-
 
 export type MutationUpdateCadastreMapArgs = {
   input: UpdateCadastreMapInput;
 };
 
-
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
 };
-
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
 };
 
-
 export type MutationUpdateEmailAddressArgs = {
   input: UpdateEmailAddressInput;
 };
-
 
 export type MutationUpdateFloorArgs = {
   input: UpdateFloorInput;
 };
 
-
 export type MutationUpdateIdentificationNumberNcpArgs = {
   input: UpdateIdentificationNumberInput;
 };
-
 
 export type MutationUpdateIdentificationNumberObjectTypeArgs = {
   input: UpdateIdentificationNumberInput;
 };
 
-
 export type MutationUpdateIdentificationNumberPimArgs = {
   input: UpdateIdentificationNumberInput;
 };
-
 
 export type MutationUpdateInsideGeneralArgs = {
   input: InsideGeneralInput;
 };
 
-
 export type MutationUpdateInspectionArgs = {
   input: UpdateInspectionInput;
 };
-
 
 export type MutationUpdateInvestmentArgs = {
   input: InvestmentInput;
 };
 
-
 export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
   input: UpdateLinkedPropertiesListDescription;
 };
-
 
 export type MutationUpdateMediaLinkArgs = {
   input: UpdateMediaLinkInput;
 };
 
-
 export type MutationUpdateNcpArgs = {
   input: UpdateNcpInput;
 };
-
 
 export type MutationUpdateNcpCharacteristicsArgs = {
   input: NcpCharacteristicsInput;
 };
 
-
 export type MutationUpdateNcpCostArgs = {
   input: UpdateCommonCostInput;
 };
-
 
 export type MutationUpdateNcpCostsDetailsArgs = {
   input: UpdateCommonCostsDetailsInput;
 };
 
-
 export type MutationUpdateNcpInterestsArgs = {
   input: InterestsInput;
 };
-
 
 export type MutationUpdateNcpLinkedPropertiesListDescriptionArgs = {
   input: UpdateLinkedPropertiesListDescription;
 };
 
-
 export type MutationUpdateNcpMediaDescriptionArgs = {
   input: CommonUpdateMediaDescriptionInput;
 };
-
 
 export type MutationUpdateNcpMediaLinkArgs = {
   input: CommonUpdateMediaLinkInput;
 };
 
-
 export type MutationUpdateNcpPictureArgs = {
   input: CommonUpdatePictureInput;
 };
-
 
 export type MutationUpdateNcpPricingArgs = {
   input: UpdateCommonPricingInput;
 };
 
-
 export type MutationUpdateNcpServiceArgs = {
   input: UpdateServiceInput;
 };
-
 
 export type MutationUpdateNcpServiceDescriptionArgs = {
   input: ServiceDescriptionInput;
 };
 
-
 export type MutationUpdateNcpTagArgs = {
   input: CommonUpdateTagInput;
 };
-
 
 export type MutationUpdateNcpTextChapterArgs = {
   input: CommonUpdateTextChapterInput;
 };
 
-
 export type MutationUpdateNcpUspsArgs = {
   input: CommonUpdateUspsInput;
 };
-
 
 export type MutationUpdateObjectTypeCharacteristicsArgs = {
   input: ObjectTypeCharacteristicsInput;
 };
 
-
 export type MutationUpdateObjectTypeCostArgs = {
   input: UpdateCommonCostInput;
 };
-
 
 export type MutationUpdateObjectTypeCostsDetailsArgs = {
   input: UpdateCommonCostsDetailsInput;
 };
 
-
 export type MutationUpdateObjectTypeMediaDescriptionArgs = {
   input: CommonUpdateMediaDescriptionInput;
 };
-
 
 export type MutationUpdateObjectTypeMediaLinkArgs = {
   input: CommonUpdateMediaLinkInput;
 };
 
-
 export type MutationUpdateObjectTypePictureArgs = {
   input: CommonUpdatePictureInput;
 };
-
 
 export type MutationUpdateObjectTypePricingArgs = {
   input: UpdateCommonPricingInput;
 };
 
-
 export type MutationUpdateObjectTypeServiceArgs = {
   input: UpdateServiceInput;
 };
-
 
 export type MutationUpdateObjectTypeServiceDescriptionArgs = {
   input: ServiceDescriptionInput;
 };
 
-
 export type MutationUpdateObjectTypeTagArgs = {
   input: CommonUpdateTagInput;
 };
-
 
 export type MutationUpdateObjectTypeTextChapterArgs = {
   input: CommonUpdateTextChapterInput;
 };
 
-
 export type MutationUpdateObjectTypeUspsArgs = {
   input: CommonUpdateUspsInput;
 };
-
 
 export type MutationUpdateObjectTypesListDescriptionArgs = {
   input: UpdateObjectTypesListDescription;
 };
 
-
 export type MutationUpdateOutsideFeatureArgs = {
   input: Scalars['UpdateFeatureInputConfiguration'];
 };
-
 
 export type MutationUpdatePhoneNumberArgs = {
   input: UpdatePhoneNumberInput;
 };
 
-
 export type MutationUpdatePictureArgs = {
   input: UpdatePictureInput;
 };
-
 
 export type MutationUpdatePimGeneralInfoArgs = {
   input: PimGeneralInput;
 };
 
-
 export type MutationUpdatePimLocationArgs = {
   input: UpdatePimLocationInput;
 };
-
 
 export type MutationUpdatePimMeterArgs = {
   input: UpdateMeterInput;
 };
 
-
 export type MutationUpdatePimOutsideInfoArgs = {
   input: PimOutsideInput;
 };
-
 
 export type MutationUpdatePimReadingArgs = {
   input: UpdateReadingInput;
 };
 
-
 export type MutationUpdatePimServiceArgs = {
   input: UpdateServiceInput;
 };
-
 
 export type MutationUpdatePricingArgs = {
   input: UpdatePricingInput;
 };
 
-
 export type MutationUpdateProfileArgs = {
   input: UpdateProfileInput;
 };
-
 
 export type MutationUpdateProjectPhaseArgs = {
   input: UpdateProjectPhaseInput;
 };
 
-
 export type MutationUpdateSalesSettingsArgs = {
   input: SalesSettingsInput;
 };
-
 
 export type MutationUpdateSocialMediaLinkArgs = {
   input: UpdateSocialMediaLinkInput;
 };
 
-
 export type MutationUpdateSpaceArgs = {
   input: UpdateSpaceInput;
 };
-
 
 export type MutationUpdateSpecificationArgs = {
   input: SpecificationInput;
 };
 
-
 export type MutationUpdateSpecificationAdvancedArgs = {
   input: SpecificationAdvancedInput;
 };
-
 
 export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
-
 export type MutationUpdateTaskArgs = {
   input: UpdateTaskInput;
 };
-
 
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
 
-
 export type MutationUpdateTextChapterArgs = {
   input: UpdateTextChapterInput;
 };
-
 
 export type MutationUpdateUserInTeamArgs = {
   input: UpdateUserInTeamInput;
 };
 
-
 export type MutationUpdateUspArgs = {
   input: UpdateUspInput;
 };
-
 
 export type MutationUploadFileArgs = {
   input: Scalars['UploadFileInput'];
@@ -959,19 +808,19 @@ export type MutationUploadFileArgs = {
 
 export enum BulkField {
   City = 'city',
-  Status = 'status'
+  Status = 'status',
 }
 
 export enum BulkEntities {
   Pim = 'Pim',
   ObjectType = 'ObjectType',
-  Ncp = 'Ncp'
+  Ncp = 'Ncp',
 }
 
 export enum BulkOperations {
   SetField = 'SetField',
   Delete = 'Delete',
-  Archive = 'Archive'
+  Archive = 'Archive',
 }
 
 export type GetBulkDetailsInput = {
@@ -988,20 +837,19 @@ export type BulkOperationInput = {
   value?: Maybe<Scalars['BulkFieldValue']>;
 };
 
-
 export type GetBulkResult = {
-   __typename?: 'GetBulkResult';
+  __typename?: 'GetBulkResult';
   id: Scalars['ID'];
   value?: Maybe<Scalars['BulkFieldValue']>;
 };
 
 export type BulkOperationResult = {
-   __typename?: 'BulkOperationResult';
+  __typename?: 'BulkOperationResult';
   undoIds: Array<Scalars['ID']>;
 };
 
 export type Query = {
-   __typename?: 'Query';
+  __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
@@ -1052,187 +900,151 @@ export type Query = {
   me?: Maybe<Profile>;
 };
 
-
 export type QueryGetAllProfilesArgs = {
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryGetBulkDetailsArgs = {
   input: GetBulkDetailsInput;
 };
 
-
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
 };
-
 
 export type QueryGetLabelsArgs = {
   parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
 export type QueryGetMyTeamMembersArgs = {
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryGetNcpArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetNcpCharacteristicsArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetNcpLabelsArgs = {
   parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
 export type QueryGetNcpLinkedPimsArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetNcpMediaArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetNcpPricesArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetNcpServicesArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetNcpWithSameAddressArgs = {
   input: NcpWithSameAddressInput;
 };
-
 
 export type QueryGetObjectTypeCharacteristicsArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetObjectTypeGeneralArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetObjectTypeLabelsArgs = {
   parentId: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
 export type QueryGetObjectTypeLinkedPimsArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetObjectTypeMediaArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetObjectTypePricesArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetObjectTypeServicesArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimCadastreArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimGeneralArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimInsideArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimLocationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimMediaArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimMetersArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimOutsideArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimSalesArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimServicesArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetPimSpecificationArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetPimsGeneralWithSameAddressArgs = {
   input: PimWithSameAddressInput;
 };
 
-
 export type QueryGetPricingArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryGetProfileArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
 };
-
 
 export type QueryGetTaskArgs = {
   id: Scalars['ID'];
@@ -1247,17 +1059,14 @@ export type QueryGetTeamDetailsArgs = {
   id: Scalars['ID'];
 };
 
-
 export type QueryGetTeamsArgs = {
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
 };
 
-
 export type QueryGetUndoIdArgs = {
   filters?: Maybe<UndoIdQueryFilters>;
 };
-
 
 export type QueryListNcpsArgs = {
   filters?: Maybe<ListNcpsFilters>;
@@ -1265,13 +1074,11 @@ export type QueryListNcpsArgs = {
   sort?: Maybe<Array<Sort>>;
 };
 
-
 export type QueryListObjectTypesArgs = {
   filters: ListObjectTypesFilters;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
 };
-
 
 export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
@@ -1289,7 +1096,7 @@ export enum CharacteristicsSections {
   AccountManagers = 'AccountManagers',
   ProjectMarketing = 'ProjectMarketing',
   AttentionField = 'AttentionField',
-  ObjectTypes = 'ObjectTypes'
+  ObjectTypes = 'ObjectTypes',
 }
 
 export type HasCharacteristicsSections = {
@@ -1310,7 +1117,7 @@ export type ProjectMarketingInput = {
 };
 
 export type ProjectMarketing = {
-   __typename?: 'ProjectMarketing';
+  __typename?: 'ProjectMarketing';
   logos?: Maybe<Array<File>>;
   mainLogoId?: Maybe<Scalars['String']>;
   emailAddress?: Maybe<Scalars['String']>;
@@ -1330,7 +1137,7 @@ export type MeasurementsInput = {
 };
 
 export type Measurements = {
-   __typename?: 'Measurements';
+  __typename?: 'Measurements';
   volumeFrom?: Maybe<Scalars['AbsoluteFloat']>;
   volumeTo?: Maybe<Scalars['AbsoluteFloat']>;
   livingSpaceFrom?: Maybe<Scalars['AbsoluteFloat']>;
@@ -1353,7 +1160,7 @@ export type InvoiceDetailsInput = {
 };
 
 export type InvoiceDetails = {
-   __typename?: 'InvoiceDetails';
+  __typename?: 'InvoiceDetails';
   street?: Maybe<Scalars['String']>;
   houseNumber?: Maybe<Scalars['String']>;
   additionalNumber?: Maybe<Scalars['String']>;
@@ -1379,11 +1186,11 @@ export enum CommonCostType {
   HomeownerAssociation = 'HomeownerAssociation',
   OzbUserPart = 'OzbUserPart',
   OzbBusinessPart = 'OzbBusinessPart',
-  Custom = 'Custom'
+  Custom = 'Custom',
 }
 
 export type CommonCost = {
-   __typename?: 'CommonCost';
+  __typename?: 'CommonCost';
   id: Scalars['ID'];
   serviceCostsFrom?: Maybe<Scalars['AbsoluteFloat']>;
   serviceCostsTill?: Maybe<Scalars['AbsoluteFloat']>;
@@ -1398,7 +1205,7 @@ export type CommonCost = {
 };
 
 export type CommonCosts = LastUpdated & {
-   __typename?: 'CommonCosts';
+  __typename?: 'CommonCosts';
   costs?: Maybe<Array<CommonCost>>;
   description?: Maybe<Scalars['String']>;
   lastEditedBy?: Maybe<Profile>;
@@ -1429,14 +1236,14 @@ export type UpdateCommonCostsDetailsInput = {
 };
 
 export type CostsDetails = LastUpdated & {
-   __typename?: 'CostsDetails';
+  __typename?: 'CostsDetails';
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
 };
 
 export type Energy = {
-   __typename?: 'Energy';
+  __typename?: 'Energy';
   label?: Maybe<EnergyType>;
   energyIndex?: Maybe<Scalars['String']>;
   endDateEnergyLabel?: Maybe<Scalars['Date']>;
@@ -1477,24 +1284,23 @@ export enum EventEntityType {
   Tags = 'Tags',
   TextChapters = 'TextChapters',
   Usps = 'Usps',
-  ViewingMoment = 'ViewingMoment'
+  ViewingMoment = 'ViewingMoment',
 }
 
 export enum EventParentType {
   Pim = 'Pim',
   ObjectType = 'ObjectType',
-  Ncp = 'Ncp'
+  Ncp = 'Ncp',
 }
 
 export enum EventAction {
   Created = 'Created',
   Removed = 'Removed',
-  Updated = 'Updated'
+  Updated = 'Updated',
 }
 
-
 export type Event = {
-   __typename?: 'Event';
+  __typename?: 'Event';
   id: Scalars['String'];
   entityType: EventEntityType;
   relatedEntityId?: Maybe<Scalars['String']>;
@@ -1526,7 +1332,7 @@ export type DeleteEntityInput = {
 };
 
 export type UndoResult = {
-   __typename?: 'UndoResult';
+  __typename?: 'UndoResult';
   successful?: Maybe<Scalars['Boolean']>;
   message?: Maybe<Scalars['String']>;
   entityId?: Maybe<Scalars['ID']>;
@@ -1534,7 +1340,7 @@ export type UndoResult = {
 };
 
 export type DeleteResult = {
-   __typename?: 'DeleteResult';
+  __typename?: 'DeleteResult';
   successful?: Maybe<Scalars['Boolean']>;
   message?: Maybe<Scalars['String']>;
   undoId?: Maybe<Scalars['String']>;
@@ -1542,7 +1348,7 @@ export type DeleteResult = {
 
 export enum FilePermission {
   Public = 'public',
-  Private = 'private'
+  Private = 'private',
 }
 
 export enum EntityWithFiles {
@@ -1562,7 +1368,7 @@ export enum EntityWithFiles {
   ObjectTypeMediaPicture = 'ObjectTypeMediaPicture',
   NcpProjectMarketing = 'NcpProjectMarketing',
   ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
-  ProjectPhase = 'ProjectPhase'
+  ProjectPhase = 'ProjectPhase',
 }
 
 export enum EntityWithMultipleFiles {
@@ -1577,7 +1383,7 @@ export enum EntityWithMultipleFiles {
   OutsidePropertyRelated = 'OutsidePropertyRelated',
   RoofInformation = 'RoofInformation',
   NcpProjectMarketing = 'NcpProjectMarketing',
-  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing'
+  ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
 }
 
 export type CreateFileInput = {
@@ -1600,7 +1406,7 @@ export type RemoveFilesInput = {
 };
 
 export type File = {
-   __typename?: 'File';
+  __typename?: 'File';
   id: Scalars['ID'];
   fileName: Scalars['String'];
   description?: Maybe<Scalars['String']>;
@@ -1624,11 +1430,9 @@ export type InitSendFileInput = {
 };
 
 export type UploadFileResponse = {
-   __typename?: 'UploadFileResponse';
+  __typename?: 'UploadFileResponse';
   id?: Maybe<Scalars['String']>;
 };
-
-
 
 export type GetPrivateFileInput = {
   key: Scalars['ID'];
@@ -1638,11 +1442,11 @@ export type GetPrivateFileInput = {
 
 export enum IdentificationNumberType {
   Sap = 'Sap',
-  Form = 'Form'
+  Form = 'Form',
 }
 
 export type IdentificationNumber = {
-   __typename?: 'IdentificationNumber';
+  __typename?: 'IdentificationNumber';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   number?: Maybe<Scalars['String']>;
@@ -1683,11 +1487,11 @@ export enum LabelProperty {
   TankInspection = 'TankInspection',
   PollutionInspection = 'PollutionInspection',
   MaintenanceInspection = 'MaintenanceInspection',
-  Cost = 'Cost'
+  Cost = 'Cost',
 }
 
 export type Label = {
-   __typename?: 'Label';
+  __typename?: 'Label';
   id: Scalars['ID'];
   icon?: Maybe<Scalars['String']>;
   text: Scalars['String'];
@@ -1715,7 +1519,6 @@ export type EntityLinkedWithPims = {
   description?: Maybe<Scalars['String']>;
 };
 
-
 export type EntityLinkedWithPimsLinkedPropertiesArgs = {
   filters?: Maybe<LinkedPimFilters>;
   sort?: Maybe<Array<Sort>>;
@@ -1728,7 +1531,7 @@ export type SetLinkedPimsInput = {
 };
 
 export type LinkedPim = {
-   __typename?: 'LinkedPim';
+  __typename?: 'LinkedPim';
   id: Scalars['ID'];
   houseNumberPrefix?: Maybe<Scalars['String']>;
   houseNumber: Scalars['String'];
@@ -1749,23 +1552,23 @@ export type LinkedPim = {
 };
 
 export type LinkedPimSearchResult = {
-   __typename?: 'LinkedPimSearchResult';
+  __typename?: 'LinkedPimSearchResult';
   metadata: SearchMetadata;
   items?: Maybe<Array<LinkedPim>>;
 };
 
 export type ListPimPropertyRelated = {
-   __typename?: 'ListPimPropertyRelated';
+  __typename?: 'ListPimPropertyRelated';
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
 };
 
 export type ListPimHouseOutside = {
-   __typename?: 'ListPimHouseOutside';
+  __typename?: 'ListPimHouseOutside';
   propertyRelated?: Maybe<ListPimPropertyRelated>;
 };
 
 export type ListPim = {
-   __typename?: 'ListPim';
+  __typename?: 'ListPim';
   id: Scalars['String'];
   houseNumberPrefix?: Maybe<Scalars['String']>;
   houseNumber: Scalars['String'];
@@ -1799,7 +1602,7 @@ export type ListPim = {
 };
 
 export type PimListSearchResult = {
-   __typename?: 'PimListSearchResult';
+  __typename?: 'PimListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListPim>>;
 };
@@ -1815,14 +1618,14 @@ export enum PictureType {
   Garage = 'Garage',
   Terrain = 'Terrain',
   Surroundings = 'Surroundings',
-  Attic = 'Attic'
+  Attic = 'Attic',
 }
 
 export enum MediaLinkType {
   YouTube = 'YouTube',
   ThreeSixtyDegree = 'ThreeSixtyDegree',
   Floorplanner = 'Floorplanner',
-  FacebookTrackingCode = 'FacebookTrackingCode'
+  FacebookTrackingCode = 'FacebookTrackingCode',
 }
 
 export enum ChapterOrUspType {
@@ -1839,7 +1642,7 @@ export enum ChapterOrUspType {
   Attic = 'Attic',
   Floor = 'Floor',
   Basement = 'Basement',
-  GroundFloor = 'GroundFloor'
+  GroundFloor = 'GroundFloor',
 }
 
 export enum TagType {
@@ -1872,11 +1675,11 @@ export enum TagType {
   Courtyard = 'Courtyard',
   NationWide = 'NationWide',
   Quit = 'Quit',
-  Shopping = 'Shopping'
+  Shopping = 'Shopping',
 }
 
 export type CommonMedia = LastUpdated & {
-   __typename?: 'CommonMedia';
+  __typename?: 'CommonMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
   mediaLinks?: Maybe<Array<MediaLink>>;
@@ -1888,13 +1691,12 @@ export type CommonMedia = LastUpdated & {
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
-
 export type CommonMediaPicturesArgs = {
   sort?: Maybe<Sort>;
 };
 
 export type Picture = LastUpdated & {
-   __typename?: 'Picture';
+  __typename?: 'Picture';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -1906,7 +1708,7 @@ export type Picture = LastUpdated & {
 };
 
 export type TextChapter = {
-   __typename?: 'TextChapter';
+  __typename?: 'TextChapter';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -1915,7 +1717,7 @@ export type TextChapter = {
 };
 
 export type Usp = {
-   __typename?: 'Usp';
+  __typename?: 'Usp';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -1924,7 +1726,7 @@ export type Usp = {
 };
 
 export type MediaLink = {
-   __typename?: 'MediaLink';
+  __typename?: 'MediaLink';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -1933,7 +1735,7 @@ export type MediaLink = {
 };
 
 export type Tag = {
-   __typename?: 'Tag';
+  __typename?: 'Tag';
   id: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -2036,25 +1838,26 @@ export type NcpCharacteristicsInput = {
   characteristicsDescription?: Maybe<Scalars['String']>;
 };
 
-export type NcpCharacteristics = LastUpdated & HasCharacteristicsSections & {
-   __typename?: 'NcpCharacteristics';
-  id: Scalars['ID'];
-  characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
-  projectMarketing?: Maybe<ProjectMarketing>;
-  measurements?: Maybe<Measurements>;
-  energy?: Maybe<Energy>;
-  accountManagers?: Maybe<Array<Profile>>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-  attentionNote?: Maybe<Scalars['String']>;
-  invoiceDetails?: Maybe<InvoiceDetails>;
-  lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  characteristicsDescription?: Maybe<Scalars['String']>;
-};
+export type NcpCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'NcpCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    invoiceDetails?: Maybe<InvoiceDetails>;
+    lastEditedBy?: Maybe<Profile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+  };
 
 export type NcpWithNewIdentificationNumber = {
-   __typename?: 'NcpWithNewIdentificationNumber';
+  __typename?: 'NcpWithNewIdentificationNumber';
   ncp: NcpGeneral;
   newIdentificationNumber: IdentificationNumber;
 };
@@ -2062,7 +1865,7 @@ export type NcpWithNewIdentificationNumber = {
 export enum NcpType {
   Houses = 'Houses',
   Apartments = 'Apartments',
-  BuildingPlots = 'BuildingPlots'
+  BuildingPlots = 'BuildingPlots',
 }
 
 export enum ProgressStatus {
@@ -2070,13 +1873,13 @@ export enum ProgressStatus {
   InPreparation = 'InPreparation',
   InPresale = 'InPresale',
   InProgress = 'InProgress',
-  Delivered = 'Delivered'
+  Delivered = 'Delivered',
 }
 
 export enum ProjectRisk {
   Low = 'Low',
   Middle = 'Middle',
-  High = 'High'
+  High = 'High',
 }
 
 export type CreateNcpInput = {
@@ -2117,7 +1920,7 @@ export type UpdateNcpInput = {
 };
 
 export type NcpGeneral = LastUpdated & {
-   __typename?: 'NcpGeneral';
+  __typename?: 'NcpGeneral';
   id: Scalars['ID'];
   type: NcpType;
   dateCreated?: Maybe<Scalars['Date']>;
@@ -2154,7 +1957,7 @@ export type NcpGeneral = LastUpdated & {
 };
 
 export type NcpSearchResult = {
-   __typename?: 'NcpSearchResult';
+  __typename?: 'NcpSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<NcpGeneral>>;
 };
@@ -2168,7 +1971,7 @@ export type NcpWithSameAddressInput = {
 };
 
 export type NcpLinkedPims = EntityLinkedWithPims & {
-   __typename?: 'NcpLinkedPims';
+  __typename?: 'NcpLinkedPims';
   id: Scalars['ID'];
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -2176,7 +1979,6 @@ export type NcpLinkedPims = EntityLinkedWithPims & {
   linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
   description?: Maybe<Scalars['String']>;
 };
-
 
 export type NcpLinkedPimsLinkedPropertiesArgs = {
   filters?: Maybe<LinkedPimFilters>;
@@ -2190,7 +1992,7 @@ export type ListNcpsFilters = {
 };
 
 export type ListNcp = {
-   __typename?: 'ListNcp';
+  __typename?: 'ListNcp';
   id: Scalars['ID'];
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
@@ -2231,13 +2033,13 @@ export type UpdateObjectTypesListDescription = {
 };
 
 export type NcpListSearchResult = {
-   __typename?: 'NcpListSearchResult';
+  __typename?: 'NcpListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListNcp>>;
 };
 
 export type NcpMedia = LastUpdated & {
-   __typename?: 'NcpMedia';
+  __typename?: 'NcpMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
   mainPictureId?: Maybe<Scalars['String']>;
@@ -2250,13 +2052,12 @@ export type NcpMedia = LastUpdated & {
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
-
 export type NcpMediaPicturesArgs = {
   sort?: Maybe<Sort>;
 };
 
 export type NcpPrices = {
-   __typename?: 'NcpPrices';
+  __typename?: 'NcpPrices';
   id: Scalars['ID'];
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<Array<CommonCost>>;
@@ -2265,7 +2066,7 @@ export type NcpPrices = {
 };
 
 export type NcpPricesResult = {
-   __typename?: 'NcpPricesResult';
+  __typename?: 'NcpPricesResult';
   id: Scalars['ID'];
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<CommonCosts>;
@@ -2282,7 +2083,7 @@ export type InterestsInput = {
 };
 
 export type Interests = LastUpdated & {
-   __typename?: 'Interests';
+  __typename?: 'Interests';
   groundInterest?: Maybe<Scalars['AbsoluteFloat']>;
   buildingInterest?: Maybe<Scalars['AbsoluteFloat']>;
   rentedagen?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2293,19 +2094,20 @@ export type Interests = LastUpdated & {
   lastEditedBy?: Maybe<Profile>;
 };
 
-export type NcpServices = LastUpdated & Services & {
-   __typename?: 'NcpServices';
-  id: Scalars['ID'];
-  hotWaterSupplies?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  additionalServices?: Maybe<Array<Service>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
-  servicesDescription?: Maybe<Scalars['String']>;
-};
+export type NcpServices = LastUpdated &
+  Services & {
+    __typename?: 'NcpServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
 
 export type NcpWithNewService = {
-   __typename?: 'NcpWithNewService';
+  __typename?: 'NcpWithNewService';
   ncp: NcpServices;
   newService: Service;
 };
@@ -2313,7 +2115,7 @@ export type NcpWithNewService = {
 export enum TypeOfObjectType {
   House = 'House',
   Apartament = 'Apartament',
-  BuildingPlot = 'BuildingPlot'
+  BuildingPlot = 'BuildingPlot',
 }
 
 export type ObjectTypeCharacteristicsInput = {
@@ -2328,32 +2130,33 @@ export type ObjectTypeCharacteristicsInput = {
   automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
 };
 
-export type ObjectTypeCharacteristics = LastUpdated & HasCharacteristicsSections & {
-   __typename?: 'ObjectTypeCharacteristics';
-  id: Scalars['ID'];
-  characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
-  projectMarketing?: Maybe<ProjectMarketing>;
-  measurements?: Maybe<Measurements>;
-  energy?: Maybe<Energy>;
-  accountManagers?: Maybe<Array<Profile>>;
-  accountManagersIds?: Maybe<Array<Scalars['ID']>>;
-  identificationNumbers?: Maybe<Array<IdentificationNumber>>;
-  attentionNote?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<Profile>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  characteristicsDescription?: Maybe<Scalars['String']>;
-  type?: Maybe<TypeOfObjectType>;
-  automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
-};
+export type ObjectTypeCharacteristics = LastUpdated &
+  HasCharacteristicsSections & {
+    __typename?: 'ObjectTypeCharacteristics';
+    id: Scalars['ID'];
+    characteristicsSections?: Maybe<Array<CharacteristicsSections>>;
+    projectMarketing?: Maybe<ProjectMarketing>;
+    measurements?: Maybe<Measurements>;
+    energy?: Maybe<Energy>;
+    accountManagers?: Maybe<Array<Profile>>;
+    accountManagersIds?: Maybe<Array<Scalars['ID']>>;
+    identificationNumbers?: Maybe<Array<IdentificationNumber>>;
+    attentionNote?: Maybe<Scalars['String']>;
+    lastEditedBy?: Maybe<Profile>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    characteristicsDescription?: Maybe<Scalars['String']>;
+    type?: Maybe<TypeOfObjectType>;
+    automaticallySetObjectTypes?: Maybe<Scalars['Boolean']>;
+  };
 
 export type ObjectTypeWithNewIdentificationNumber = {
-   __typename?: 'ObjectTypeWithNewIdentificationNumber';
+  __typename?: 'ObjectTypeWithNewIdentificationNumber';
   objectType: ObjectTypeCharacteristics;
   newIdentificationNumber: IdentificationNumber;
 };
 
 export type ObjectTypeGeneral = LastUpdated & {
-   __typename?: 'ObjectTypeGeneral';
+  __typename?: 'ObjectTypeGeneral';
   id: Scalars['ID'];
   name: Scalars['String'];
   archived?: Maybe<Scalars['Boolean']>;
@@ -2372,7 +2175,7 @@ export type CreateObjectTypeInput = {
 };
 
 export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
-   __typename?: 'ObjectTypeLinkedPims';
+  __typename?: 'ObjectTypeLinkedPims';
   id: Scalars['ID'];
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<Profile>;
@@ -2380,7 +2183,6 @@ export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
   linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
   description?: Maybe<Scalars['String']>;
 };
-
 
 export type ObjectTypeLinkedPimsLinkedPropertiesArgs = {
   filters?: Maybe<LinkedPimFilters>;
@@ -2399,7 +2201,7 @@ export type ListObjectTypesFilters = {
 };
 
 export type ListObjectTypes = {
-   __typename?: 'ListObjectTypes';
+  __typename?: 'ListObjectTypes';
   id: Scalars['ID'];
   ncpId: Scalars['ID'];
   dateCreated: Scalars['Date'];
@@ -2429,13 +2231,13 @@ export type ListObjectTypes = {
 };
 
 export type ObjectTypeListSearchResult = {
-   __typename?: 'ObjectTypeListSearchResult';
+  __typename?: 'ObjectTypeListSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ListObjectTypes>>;
 };
 
 export type ObjectTypeMedia = {
-   __typename?: 'ObjectTypeMedia';
+  __typename?: 'ObjectTypeMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
   mainPictureId?: Maybe<Scalars['String']>;
@@ -2448,13 +2250,12 @@ export type ObjectTypeMedia = {
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
-
 export type ObjectTypeMediaPicturesArgs = {
   sort?: Maybe<Sort>;
 };
 
 export type ObjectTypePricing = LastUpdated & {
-   __typename?: 'ObjectTypePricing';
+  __typename?: 'ObjectTypePricing';
   rent?: Maybe<CommonRentInformations>;
   sale?: Maybe<CommonSaleInformations>;
   lastEditedBy?: Maybe<Profile>;
@@ -2463,7 +2264,7 @@ export type ObjectTypePricing = LastUpdated & {
 };
 
 export type ObjectTypePrices = {
-   __typename?: 'ObjectTypePrices';
+  __typename?: 'ObjectTypePrices';
   id: Scalars['ID'];
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<Array<CommonCost>>;
@@ -2471,25 +2272,26 @@ export type ObjectTypePrices = {
 };
 
 export type ObjectTypePricesResult = {
-   __typename?: 'ObjectTypePricesResult';
+  __typename?: 'ObjectTypePricesResult';
   id: Scalars['ID'];
   pricing?: Maybe<CommonPricing>;
   costs?: Maybe<CommonCosts>;
 };
 
-export type ObjectTypeServices = LastUpdated & Services & {
-   __typename?: 'ObjectTypeServices';
-  id: Scalars['ID'];
-  hotWaterSupplies?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  additionalServices?: Maybe<Array<Service>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
-  servicesDescription?: Maybe<Scalars['String']>;
-};
+export type ObjectTypeServices = LastUpdated &
+  Services & {
+    __typename?: 'ObjectTypeServices';
+    id: Scalars['ID'];
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    servicesDescription?: Maybe<Scalars['String']>;
+  };
 
 export type ObjectTypeWithNewService = {
-   __typename?: 'ObjectTypeWithNewService';
+  __typename?: 'ObjectTypeWithNewService';
   objectType: ObjectTypeServices;
   newService: Service;
 };
@@ -2498,7 +2300,7 @@ export enum AogSpaceType {
   Ground = 'Ground',
   Buildings = 'Buildings',
   Installations = 'Installations',
-  Animals = 'Animals'
+  Animals = 'Animals',
 }
 
 export enum AogGeneralType {
@@ -2530,7 +2332,7 @@ export enum AogGeneralType {
   SawsAndFatteningPigFarm = 'SawsAndFatteningPigFarm',
   SowFarm = 'SowFarm',
   SucklerCowFarm = 'SucklerCowFarm',
-  LooseGround = 'LooseGround'
+  LooseGround = 'LooseGround',
 }
 
 export enum AdditionalPositionNotArgaic {
@@ -2539,19 +2341,19 @@ export enum AdditionalPositionNotArgaic {
   Recreation = 'Recreation',
   Living = 'Living',
   CareFunction = 'CareFunction',
-  CaravanStorage = 'CaravanStorage'
+  CaravanStorage = 'CaravanStorage',
 }
 
 export enum AogSpecificationsType {
   EnvironmentalPermit = 'EnvironmentalPermit',
   Drainage = 'Drainage',
-  ProductionRights = 'ProductionRights'
+  ProductionRights = 'ProductionRights',
 }
 
 export enum LooseGroundType {
   ForestPlot = 'ForestPlot',
   ArableLand = 'ArableLand',
-  Grassland = 'Grassland'
+  Grassland = 'Grassland',
 }
 
 export enum AogSoilType {
@@ -2559,7 +2361,7 @@ export enum AogSoilType {
   Peat = 'Peat',
   Gravel = 'Gravel',
   Sand = 'Sand',
-  Loam = 'Loam'
+  Loam = 'Loam',
 }
 
 export enum CultivationTypes {
@@ -2568,13 +2370,13 @@ export enum CultivationTypes {
   Plants = 'Plants',
   Vegetables = 'Vegetables',
   Flowers = 'Flowers',
-  Trees = 'Trees'
+  Trees = 'Trees',
 }
 
 export enum FenceTypes {
   Wood = 'Wood',
   Plastic = 'Plastic',
-  PlasticBand = 'PlasticBand'
+  PlasticBand = 'PlasticBand',
 }
 
 export enum BuildingType {
@@ -2590,7 +2392,7 @@ export enum BuildingType {
   Cubicles = 'Cubicles',
   FatteningPigsty = 'FatteningPigsty',
   BreedingPigsty = 'BreedingPigsty',
-  PigletStable = 'PigletStable'
+  PigletStable = 'PigletStable',
 }
 
 export enum InstallationsType {
@@ -2598,7 +2400,7 @@ export enum InstallationsType {
   MilkingParlorSystem = 'MilkingParlorSystem',
   MilkingRobot = 'MilkingRobot',
   HerringBoneStable = 'HerringBoneStable',
-  SideBySideMilkingSystem = 'SideBySideMilkingSystem'
+  SideBySideMilkingSystem = 'SideBySideMilkingSystem',
 }
 
 export enum AnimalsType {
@@ -2614,11 +2416,11 @@ export enum AnimalsType {
   VealCalves = 'VealCalves',
   Broilers = 'Broilers',
   MeatBulls = 'MeatBulls',
-  Worms = 'Worms'
+  Worms = 'Worms',
 }
 
 export type AogHouseLot = {
-   __typename?: 'AogHouseLot';
+  __typename?: 'AogHouseLot';
   length?: Maybe<Scalars['AbsoluteFloat']>;
   width?: Maybe<Scalars['AbsoluteFloat']>;
   surface?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2633,7 +2435,7 @@ export type AogHouseLotInput = {
 };
 
 export type AogSpecifications = {
-   __typename?: 'AogSpecifications';
+  __typename?: 'AogSpecifications';
   type?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -2644,7 +2446,7 @@ export type AogSpecificationsInput = {
 };
 
 export type AogGeneral = {
-   __typename?: 'AogGeneral';
+  __typename?: 'AogGeneral';
   generalType?: Maybe<Scalars['String']>;
   additionalPosition?: Maybe<Array<Scalars['String']>>;
   houseLot?: Maybe<AogHouseLot>;
@@ -2659,7 +2461,7 @@ export type AogGeneralInput = {
 };
 
 export type GroundMeasurements = {
-   __typename?: 'GroundMeasurements';
+  __typename?: 'GroundMeasurements';
   length?: Maybe<Scalars['AbsoluteFloat']>;
   width?: Maybe<Scalars['AbsoluteFloat']>;
   surface?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2678,7 +2480,7 @@ export type GroundMeasurementsInput = {
 };
 
 export type BuildingMeasurements = {
-   __typename?: 'BuildingMeasurements';
+  __typename?: 'BuildingMeasurements';
   length?: Maybe<Scalars['AbsoluteFloat']>;
   width?: Maybe<Scalars['AbsoluteFloat']>;
   surface?: Maybe<Scalars['AbsoluteFloat']>;
@@ -2697,7 +2499,7 @@ export type BuildingMeasurementsInput = {
 };
 
 export type GroundSpace = {
-   __typename?: 'GroundSpace';
+  __typename?: 'GroundSpace';
   typeOfLooseGround?: Maybe<Scalars['String']>;
   soilType?: Maybe<Array<Scalars['String']>>;
   soilTypeNotes?: Maybe<Scalars['String']>;
@@ -2718,7 +2520,7 @@ export type GroundSpaceInput = {
 };
 
 export type BuildingsSpace = {
-   __typename?: 'BuildingsSpace';
+  __typename?: 'BuildingsSpace';
   buildingType?: Maybe<Scalars['String']>;
   numberOfSameBuilding?: Maybe<Scalars['Int']>;
   buildingTypeNotes?: Maybe<Scalars['String']>;
@@ -2733,7 +2535,7 @@ export type BuildingsSpaceInput = {
 };
 
 export type Installations = {
-   __typename?: 'Installations';
+  __typename?: 'Installations';
   type?: Maybe<Scalars['String']>;
   numberOfSameInstallations?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
@@ -2746,7 +2548,7 @@ export type InstallationsInput = {
 };
 
 export type Animals = {
-   __typename?: 'Animals';
+  __typename?: 'Animals';
   type?: Maybe<Scalars['String']>;
   numberOfSameAnimals?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
@@ -2761,7 +2563,7 @@ export type AnimalsInput = {
 };
 
 export type AogSpace = LastUpdated & {
-   __typename?: 'AogSpace';
+  __typename?: 'AogSpace';
   id: Scalars['ID'];
   type: AogSpaceType;
   name?: Maybe<Scalars['String']>;
@@ -2792,7 +2594,7 @@ export type AddAogSpaceInput = {
 };
 
 export type PimWithNewAogSpace = {
-   __typename?: 'PimWithNewAogSpace';
+  __typename?: 'PimWithNewAogSpace';
   newSpace?: Maybe<AogSpace>;
   pim?: Maybe<Pim>;
 };
@@ -2802,7 +2604,7 @@ export enum GeneralBogType {
   Offices = 'Offices',
   RetailSpace = 'RetailSpace',
   SocialRealEstate = 'SocialRealEstate',
-  Horeca = 'Horeca'
+  Horeca = 'Horeca',
 }
 
 export enum GeneralCharacteristicsBog {
@@ -2810,7 +2612,7 @@ export enum GeneralCharacteristicsBog {
   BuildingPlot = 'BuildingPlot',
   Investment = 'Investment',
   PavedOutsideArea = 'PavedOutsideArea',
-  LogisticsFunction = 'LogisticsFunction'
+  LogisticsFunction = 'LogisticsFunction',
 }
 
 export type BogGeneralInput = {
@@ -2822,7 +2624,7 @@ export type BogGeneralInput = {
 };
 
 export type BogGeneral = {
-   __typename?: 'BogGeneral';
+  __typename?: 'BogGeneral';
   type?: Maybe<GeneralBogType>;
   characteristics?: Maybe<GeneralCharacteristicsBog>;
   startsOnFloor?: Maybe<Scalars['Int']>;
@@ -2838,20 +2640,20 @@ export enum BogSpaceType {
   HorecaSpace = 'HorecaSpace',
   SocialRealEstateSpace = 'SocialRealEstateSpace',
   Terrain = 'Terrain',
-  Storage = 'Storage'
+  Storage = 'Storage',
 }
 
 export enum AirTreatmentType {
   AirCondition = 'AirCondition',
   MechanicalVentilation = 'MechanicalVentilation',
-  TopCooling = 'TopCooling'
+  TopCooling = 'TopCooling',
 }
 
 export enum SocialRealEstateSpecificationType {
   PracticeSpace = 'PracticeSpace',
   RedesignationPossible = 'RedesignationPossible',
   HousingAvailable = 'HousingAvailable',
-  ReturnServices = 'ReturnServices'
+  ReturnServices = 'ReturnServices',
 }
 
 export enum SocialRealEstateServicesType {
@@ -2863,7 +2665,7 @@ export enum SocialRealEstateServicesType {
   PrivateParkingFacilities = 'PrivateParkingFacilities',
   OutdoorSpaceAvailable = 'OutdoorSpaceAvailable',
   OutOfSchoolChildcare = 'OutOfSchoolChildcare',
-  FireAlarmSystem = 'FireAlarmSystem'
+  FireAlarmSystem = 'FireAlarmSystem',
 }
 
 export enum HorecaSpecificationType {
@@ -2871,7 +2673,7 @@ export enum HorecaSpecificationType {
   CateringArea = 'CateringArea',
   ResidentialObjectAvailable = 'ResidentialObjectAvailable',
   Terrace = 'Terrace',
-  Luxery = 'Luxery'
+  Luxery = 'Luxery',
 }
 
 export enum OfficeServicesType {
@@ -2888,7 +2690,7 @@ export enum OfficeServicesType {
   Elevators = 'Elevators',
   OpenableWindows = 'OpenableWindows',
   RoomLayout = 'RoomLayout',
-  FlexDesk = 'FlexDesk'
+  FlexDesk = 'FlexDesk',
 }
 
 export enum BusinessServicesType {
@@ -2903,14 +2705,14 @@ export enum BusinessServicesType {
   Toilet = 'Toilet',
   RecessedLuminaires = 'RecessedLuminaires',
   Elevators = 'Elevators',
-  OpenableWindows = 'OpenableWindows'
+  OpenableWindows = 'OpenableWindows',
 }
 
 export enum LeisureSpecificationType {
   TakeoverPersonnel = 'TakeoverPersonnel',
   AnnualPitches = 'AnnualPitches',
   ResidentialObjectAvailable = 'ResidentialObjectAvailable',
-  ReturnServices = 'ReturnServices'
+  ReturnServices = 'ReturnServices',
 }
 
 export enum RetailSpecificationType {
@@ -2919,7 +2721,7 @@ export enum RetailSpecificationType {
   IndustryLimitation = 'IndustryLimitation',
   PublicOrientedServices = 'PublicOrientedServices',
   Retail = 'Retail',
-  Showroom = 'Showroom'
+  Showroom = 'Showroom',
 }
 
 export enum LeisureServicesType {
@@ -2929,12 +2731,12 @@ export enum LeisureServicesType {
   SwimmingPool = 'SwimmingPool',
   SewageSystem = 'SewageSystem',
   CateringAvailable = 'CateringAvailable',
-  CampShop = 'CampShop'
+  CampShop = 'CampShop',
 }
 
 export enum TerrainSpecificationsType {
   Fenced = 'Fenced',
-  Lockable = 'Lockable'
+  Lockable = 'Lockable',
 }
 
 export enum WealthClassType {
@@ -2943,12 +2745,12 @@ export enum WealthClassType {
   B1 = 'B1',
   B2 = 'B2',
   C1 = 'C1',
-  C2 = 'C2'
+  C2 = 'C2',
 }
 
 export enum TermsOfCostsType {
   Monthly = 'Monthly',
-  Yearly = 'Yearly'
+  Yearly = 'Yearly',
 }
 
 export enum CommonRoomsType {
@@ -2957,7 +2759,7 @@ export enum CommonRoomsType {
   Kitchen = 'Kitchen',
   FrontDesk = 'FrontDesk',
   Sanitary = 'Sanitary',
-  ConferenceRoom = 'ConferenceRoom'
+  ConferenceRoom = 'ConferenceRoom',
 }
 
 export enum HorecaType {
@@ -2976,7 +2778,7 @@ export enum HorecaType {
   FastFood = 'FastFood',
   RoadHouse = 'RoadHouse',
   IceCreamParlour = 'IceCreamParlour',
-  SandwichShop = 'SandwichShop'
+  SandwichShop = 'SandwichShop',
 }
 
 export enum LegalFormType {
@@ -2988,7 +2790,7 @@ export enum LegalFormType {
   Nv = 'NV',
   Vof = 'VOF',
   Foundation = 'Foundation',
-  Association = 'Association'
+  Association = 'Association',
 }
 
 export enum SocialRealEstateSpaceType {
@@ -2996,28 +2798,28 @@ export enum SocialRealEstateSpaceType {
   Education = 'Education',
   Religious = 'Religious',
   Sport = 'Sport',
-  Care = 'Care'
+  Care = 'Care',
 }
 
 export enum DestinationType {
   Socially = 'Socially',
-  Living = 'Living'
+  Living = 'Living',
 }
 
 export enum TypeOfPavement {
   Asphalt = 'Asphalt',
   ClinkerBricks = 'ClinkerBricks',
   StelconPlates = 'StelconPlates',
-  FloorTiles = 'FloorTiles'
+  FloorTiles = 'FloorTiles',
 }
 
 export enum TypeOfStorage {
   StorageRoom = 'StorageRoom',
-  StorageArea = 'StorageArea'
+  StorageArea = 'StorageArea',
 }
 
 export type RetailMeasurements = {
-   __typename?: 'RetailMeasurements';
+  __typename?: 'RetailMeasurements';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
   frontWidth?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3034,7 +2836,7 @@ export type RetailMeasurementsInput = {
 };
 
 export type LeisureMeasurements = {
-   __typename?: 'LeisureMeasurements';
+  __typename?: 'LeisureMeasurements';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   numberOfPitches?: Maybe<Scalars['Int']>;
   numberOfStays?: Maybe<Scalars['Int']>;
@@ -3049,7 +2851,7 @@ export type LeisureMeasurementsInput = {
 };
 
 export type HorecaMeasurements = {
-   __typename?: 'HorecaMeasurements';
+  __typename?: 'HorecaMeasurements';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   salesFloorArea?: Maybe<Scalars['AbsoluteFloat']>;
   amountOfFloors?: Maybe<Scalars['Int']>;
@@ -3068,7 +2870,7 @@ export type HorecaMeasurementsInput = {
 };
 
 export type BusinessSpaceMeasurements = {
-   __typename?: 'BusinessSpaceMeasurements';
+  __typename?: 'BusinessSpaceMeasurements';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   freeHeight?: Maybe<Scalars['AbsoluteFloat']>;
   freeSpan?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3087,7 +2889,7 @@ export type BusinessSpaceMeasurementsInput = {
 };
 
 export type OfficeSpaceMeasurements = {
-   __typename?: 'OfficeSpaceMeasurements';
+  __typename?: 'OfficeSpaceMeasurements';
   length?: Maybe<Scalars['AbsoluteFloat']>;
   width?: Maybe<Scalars['AbsoluteFloat']>;
   height?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3110,7 +2912,7 @@ export type OfficeSpaceMeasurementsInput = {
 };
 
 export type StorageMeasurements = {
-   __typename?: 'StorageMeasurements';
+  __typename?: 'StorageMeasurements';
   length?: Maybe<Scalars['AbsoluteFloat']>;
   width?: Maybe<Scalars['AbsoluteFloat']>;
   height?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3127,7 +2929,7 @@ export type StorageMeasurementsInput = {
 };
 
 export type SocialRealEstateSpaceMeasurements = {
-   __typename?: 'SocialRealEstateSpaceMeasurements';
+  __typename?: 'SocialRealEstateSpaceMeasurements';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   numberOfCareUnits?: Maybe<Scalars['Int']>;
   numberOfSeats?: Maybe<Scalars['Int']>;
@@ -3140,7 +2942,7 @@ export type SocialRealEstateSpaceMeasurementsInput = {
 };
 
 export type GoodWillPrices = {
-   __typename?: 'GoodWillPrices';
+  __typename?: 'GoodWillPrices';
   priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
   vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3157,7 +2959,7 @@ export type GoodWillPricesInput = {
 };
 
 export type HorecaPrices = {
-   __typename?: 'HorecaPrices';
+  __typename?: 'HorecaPrices';
   priceInventoryGoodwill?: Maybe<Scalars['AbsoluteFloat']>;
   vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   priceInventoryGoodwillVat?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3178,7 +2980,7 @@ export type HorecaPricesInput = {
 };
 
 export type BogPrices = {
-   __typename?: 'BogPrices';
+  __typename?: 'BogPrices';
   price?: Maybe<Scalars['AbsoluteFloat']>;
   vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   priceVat?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3193,7 +2995,7 @@ export type BogPricesInput = {
 };
 
 export type SocialRealEstateSpacePrices = {
-   __typename?: 'SocialRealEstateSpacePrices';
+  __typename?: 'SocialRealEstateSpacePrices';
   vatRate?: Maybe<Scalars['AbsoluteFloat']>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -3204,7 +3006,7 @@ export type SocialRealEstateSpacePricesInput = {
 };
 
 export type RetailerAssociationContribution = {
-   __typename?: 'RetailerAssociationContribution';
+  __typename?: 'RetailerAssociationContribution';
   contribution?: Maybe<Scalars['AbsoluteFloat']>;
   termsOfCosts?: Maybe<Scalars['String']>;
   vatPercentage?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3221,7 +3023,7 @@ export type RetailerAssociationContributionInput = {
 };
 
 export type TerrainSpecifications = {
-   __typename?: 'TerrainSpecifications';
+  __typename?: 'TerrainSpecifications';
   surface?: Maybe<Scalars['AbsoluteFloat']>;
   buildingHeightTerrain?: Maybe<Scalars['AbsoluteFloat']>;
   extensionTerrainPercent?: Maybe<Scalars['AbsoluteFloat']>;
@@ -3238,7 +3040,7 @@ export type TerrainSpecificationsInput = {
 };
 
 export type RetailSpace = {
-   __typename?: 'RetailSpace';
+  __typename?: 'RetailSpace';
   measurements?: Maybe<RetailMeasurements>;
   airTreatment?: Maybe<Array<Scalars['String']>>;
   specifications?: Maybe<Array<Scalars['String']>>;
@@ -3259,7 +3061,7 @@ export type RetailSpaceInput = {
 };
 
 export type LeisureSpace = {
-   __typename?: 'LeisureSpace';
+  __typename?: 'LeisureSpace';
   measurements?: Maybe<LeisureMeasurements>;
   specifications?: Maybe<Array<Scalars['String']>>;
   prices?: Maybe<GoodWillPrices>;
@@ -3274,7 +3076,7 @@ export type LeisureSpaceInput = {
 };
 
 export type HorecaSpace = {
-   __typename?: 'HorecaSpace';
+  __typename?: 'HorecaSpace';
   measurements?: Maybe<HorecaMeasurements>;
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
@@ -3295,7 +3097,7 @@ export type HorecaSpaceInput = {
 };
 
 export type BusinessSpace = {
-   __typename?: 'BusinessSpace';
+  __typename?: 'BusinessSpace';
   measurements?: Maybe<BusinessSpaceMeasurements>;
   airTreatment?: Maybe<Array<Scalars['String']>>;
   services?: Maybe<Array<Scalars['String']>>;
@@ -3310,7 +3112,7 @@ export type BusinessSpaceInput = {
 };
 
 export type OfficeSpace = {
-   __typename?: 'OfficeSpace';
+  __typename?: 'OfficeSpace';
   measurements?: Maybe<OfficeSpaceMeasurements>;
   airTreatment?: Maybe<Array<Scalars['String']>>;
   services?: Maybe<Array<Scalars['String']>>;
@@ -3329,7 +3131,7 @@ export type OfficeSpaceInput = {
 };
 
 export type SocialRealEstateSpace = {
-   __typename?: 'SocialRealEstateSpace';
+  __typename?: 'SocialRealEstateSpace';
   measurements?: Maybe<SocialRealEstateSpaceMeasurements>;
   type?: Maybe<Scalars['String']>;
   notesAboutType?: Maybe<Scalars['String']>;
@@ -3350,7 +3152,7 @@ export type SocialRealEstateSpaceInput = {
 };
 
 export type Terrain = {
-   __typename?: 'Terrain';
+  __typename?: 'Terrain';
   terrainSpecifications?: Maybe<TerrainSpecifications>;
   specifications?: Maybe<Array<Scalars['String']>>;
   typeOfPavement?: Maybe<Array<Scalars['String']>>;
@@ -3365,7 +3167,7 @@ export type TerrainInput = {
 };
 
 export type Storage = {
-   __typename?: 'Storage';
+  __typename?: 'Storage';
   measurements?: Maybe<StorageMeasurements>;
   type?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
@@ -3378,7 +3180,7 @@ export type StorageInput = {
 };
 
 export type BogSpace = LastUpdated & {
-   __typename?: 'BogSpace';
+  __typename?: 'BogSpace';
   id: Scalars['ID'];
   type: BogSpaceType;
   name?: Maybe<Scalars['String']>;
@@ -3421,14 +3223,14 @@ export type AddBogSpaceInput = {
 };
 
 export type PimWithNewBogSpace = {
-   __typename?: 'PimWithNewBogSpace';
+  __typename?: 'PimWithNewBogSpace';
   newSpace: BogSpace;
   pim: Pim;
 };
 
 export enum CadastreMapType {
   Map = 'Map',
-  Register = 'Register'
+  Register = 'Register',
 }
 
 export enum CodeSizeType {
@@ -3436,29 +3238,29 @@ export enum CodeSizeType {
   Tightness = 'Tightness',
   PartLot = 'PartLot',
   InWholePlot = 'InWholePlot',
-  MembershipRight = 'MembershipRight'
+  MembershipRight = 'MembershipRight',
 }
 
 export enum LeaseholderType {
   Different = 'Different',
   Township = 'Township',
-  Private = 'Private'
+  Private = 'Private',
 }
 
 export enum CadastreType {
   CadastreMap = 'CadastreMap',
-  Plot = 'Plot'
+  Plot = 'Plot',
 }
 
 export enum LeaseInformationType {
   Virable = 'Virable',
-  Fixed = 'Fixed'
+  Fixed = 'Fixed',
 }
 
 export enum LeaseDurationType {
   Forever = 'Forever',
   Temporary = 'Temporary',
-  Constantly = 'Constantly'
+  Constantly = 'Constantly',
 }
 
 export enum CadastreOwnershipType {
@@ -3467,7 +3269,7 @@ export enum CadastreOwnershipType {
   AnnualLeaseholdChargedWith = 'AnnualLeaseholdChargedWith',
   LeaseholdAndBuildingChargedWith = 'LeaseholdAndBuildingChargedWith',
   BuildingChargedWith = 'BuildingChargedWith',
-  Other = 'Other'
+  Other = 'Other',
 }
 
 export enum OwnershipChoiceType {
@@ -3491,7 +3293,7 @@ export enum OwnershipChoiceType {
   PerpetualLease = 'PerpetualLease',
   PerpetualSublease = 'PerpetualSublease',
   Subleasehold = 'Subleasehold',
-  RightOfOverhang = 'RightOfOverhang'
+  RightOfOverhang = 'RightOfOverhang',
 }
 
 export type CadastrePlotInput = {
@@ -3531,7 +3333,7 @@ export type AddCadastreMapsInput = {
 };
 
 export type BoughtOff = {
-   __typename?: 'BoughtOff';
+  __typename?: 'BoughtOff';
   date?: Maybe<Scalars['Date']>;
   perpetually?: Maybe<Scalars['Boolean']>;
   notes?: Maybe<Scalars['String']>;
@@ -3544,7 +3346,7 @@ export type BoughtOffInput = {
 };
 
 export type CadastrePlot = {
-   __typename?: 'CadastrePlot';
+  __typename?: 'CadastrePlot';
   notes?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   municipalCode?: Maybe<Scalars['String']>;
@@ -3562,7 +3364,7 @@ export type CadastrePlot = {
 };
 
 export type CadastreMap = {
-   __typename?: 'CadastreMap';
+  __typename?: 'CadastreMap';
   id: Scalars['String'];
   mapName: Scalars['String'];
   name?: Maybe<Scalars['String']>;
@@ -3573,7 +3375,7 @@ export type CadastreMap = {
 };
 
 export type Lease = {
-   __typename?: 'Lease';
+  __typename?: 'Lease';
   leaseholder?: Maybe<LeaseholderType>;
   information?: Maybe<LeaseInformationType>;
   duration?: Maybe<LeaseDurationType>;
@@ -3598,7 +3400,7 @@ export type LeaseInput = {
 };
 
 export type Cadastre = LastUpdated & {
-   __typename?: 'Cadastre';
+  __typename?: 'Cadastre';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   mapsDescription?: Maybe<Scalars['String']>;
@@ -3611,13 +3413,13 @@ export type Cadastre = LastUpdated & {
 };
 
 export type PimCadastre = {
-   __typename?: 'PimCadastre';
+  __typename?: 'PimCadastre';
   id: Scalars['ID'];
   cadastre?: Maybe<Array<Cadastre>>;
 };
 
 export type PimWithNewCadastre = {
-   __typename?: 'PimWithNewCadastre';
+  __typename?: 'PimWithNewCadastre';
   pim?: Maybe<Pim>;
   cadastre?: Maybe<Cadastre>;
 };
@@ -3677,14 +3479,14 @@ export enum ApartmentType {
   TwoBedroomApartment = 'TwoBedroomApartment',
   ThreeBedroomApartment = 'ThreeBedroomApartment',
   FourBedroomApartment = 'FourBedroomApartment',
-  FiveBedroomApartment = 'FiveBedroomApartment'
+  FiveBedroomApartment = 'FiveBedroomApartment',
 }
 
 export enum SoilType {
   Clay = 'Clay',
   Peat = 'Peat',
   Sand = 'Sand',
-  Loam = 'Loam'
+  Loam = 'Loam',
 }
 
 export enum CharacteristicsApartment {
@@ -3702,7 +3504,7 @@ export enum CharacteristicsApartment {
   UpstairsApartment = 'UpstairsApartment',
   DownstairsApartment = 'DownstairsApartment',
   DoubleUpstairsApartment = 'DoubleUpstairsApartment',
-  DoubleDownstairsApartment = 'DoubleDownstairsApartment'
+  DoubleDownstairsApartment = 'DoubleDownstairsApartment',
 }
 
 export type ApartmentPropertyDetailsInput = {
@@ -3714,7 +3516,7 @@ export type ApartmentPropertyDetailsInput = {
 };
 
 export type ApartmentPropertyDetails = {
-   __typename?: 'ApartmentPropertyDetails';
+  __typename?: 'ApartmentPropertyDetails';
   groundfloorApartmentStartsOnFloor?: Maybe<Scalars['Int']>;
   amountOfTotalFloors?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
@@ -3723,7 +3525,7 @@ export type ApartmentPropertyDetails = {
 };
 
 export type BuildingPlotPropertyDetails = {
-   __typename?: 'BuildingPlotPropertyDetails';
+  __typename?: 'BuildingPlotPropertyDetails';
   plotReadyForConstruction?: Maybe<Scalars['Boolean']>;
   buildingPlotNumber?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
@@ -3752,7 +3554,7 @@ export type BuildingPlotGeneralInput = {
 };
 
 export type PropertyAvailabilityInformation = {
-   __typename?: 'PropertyAvailabilityInformation';
+  __typename?: 'PropertyAvailabilityInformation';
   availability?: Maybe<PropertyAvailability>;
   from?: Maybe<Scalars['Date']>;
   notes?: Maybe<Scalars['String']>;
@@ -3762,7 +3564,7 @@ export type PropertyAvailabilityInformation = {
 };
 
 export type ConstructionInformation = {
-   __typename?: 'ConstructionInformation';
+  __typename?: 'ConstructionInformation';
   type?: Maybe<ConstructionType>;
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
@@ -3770,21 +3572,21 @@ export type ConstructionInformation = {
 };
 
 export type ApartmentGeneral = {
-   __typename?: 'ApartmentGeneral';
+  __typename?: 'ApartmentGeneral';
   availability?: Maybe<PropertyAvailabilityInformation>;
   construction?: Maybe<ConstructionInformation>;
   propertyDetails?: Maybe<ApartmentPropertyDetails>;
 };
 
 export type BuildingPlotGeneral = {
-   __typename?: 'BuildingPlotGeneral';
+  __typename?: 'BuildingPlotGeneral';
   availability?: Maybe<PropertyAvailabilityInformation>;
   construction?: Maybe<ConstructionInformation>;
   propertyDetails?: Maybe<BuildingPlotPropertyDetails>;
 };
 
 export type HouseGeneral = {
-   __typename?: 'HouseGeneral';
+  __typename?: 'HouseGeneral';
   availability?: Maybe<PropertyAvailabilityInformation>;
   construction?: Maybe<ConstructionInformation>;
   floor?: Maybe<FloorType>;
@@ -3817,7 +3619,7 @@ export type ConstructionInformationInput = {
 };
 
 export type ExtraAddress = {
-   __typename?: 'ExtraAddress';
+  __typename?: 'ExtraAddress';
   plotNumber?: Maybe<Scalars['String']>;
   plotNumberAddition?: Maybe<Scalars['String']>;
   houseNumberStart?: Maybe<Scalars['String']>;
@@ -3832,7 +3634,7 @@ export type ExtraAddressInput = {
 };
 
 export type PimGeneral = LastUpdated & {
-   __typename?: 'PimGeneral';
+  __typename?: 'PimGeneral';
   id: Scalars['ID'];
   realEstateType: RealEstateType;
   street: Scalars['String'];
@@ -3876,13 +3678,13 @@ export type PimGeneral = LastUpdated & {
 };
 
 export type PimWithNewIdentificationNumber = {
-   __typename?: 'PimWithNewIdentificationNumber';
+  __typename?: 'PimWithNewIdentificationNumber';
   pim: Pim;
   newIdentificationNumber: IdentificationNumber;
 };
 
 export type GeneralPimSearchResult = {
-   __typename?: 'GeneralPimSearchResult';
+  __typename?: 'GeneralPimSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<PimGeneral>>;
 };
@@ -3915,7 +3717,7 @@ export enum SpaceServiceHeating {
   UnderfloorHeatingEntirely = 'UnderfloorHeatingEntirely',
   PossibilityForFireplaceHeat = 'PossibilityForFireplaceHeat',
   UnderfloorHeatingPartly = 'UnderfloorHeatingPartly',
-  RecoveryInstalation = 'RecoveryInstalation'
+  RecoveryInstalation = 'RecoveryInstalation',
 }
 
 export enum WindowType {
@@ -3929,19 +3731,19 @@ export enum WindowType {
   MirroredGlass = 'MirroredGlass',
   LowEglass = 'LowEglass',
   WiredGlass = 'WiredGlass',
-  HeatStrengthenedGlass = 'HeatStrengthenedGlass'
+  HeatStrengthenedGlass = 'HeatStrengthenedGlass',
 }
 
 export enum KitchenType {
   MainKitchen = 'MainKitchen',
-  Scullery = 'Scullery'
+  Scullery = 'Scullery',
 }
 
 export enum LivingRoomType {
   ThroughRoom = 'ThroughRoom',
   FormerEnSuite = 'FormerEnSuite',
   RoomAndSuite = 'RoomAndSuite',
-  Conservatory = 'Conservatory'
+  Conservatory = 'Conservatory',
 }
 
 export enum KitchenAppliances {
@@ -3949,7 +3751,7 @@ export enum KitchenAppliances {
   Microwave = 'Microwave',
   Dishwasher = 'Dishwasher',
   Oven = 'Oven',
-  Stove = 'Stove'
+  Stove = 'Stove',
 }
 
 export enum KitchenHob {
@@ -3957,12 +3759,12 @@ export enum KitchenHob {
   InductionHob = 'InductionHob',
   ElectricHob = 'ElectricHob',
   CeramicHob = 'CeramicHob',
-  HalogenHob = 'HalogenHob'
+  HalogenHob = 'HalogenHob',
 }
 
 export enum KitchenServices {
   KitchenIsland = 'KitchenIsland',
-  WashIsland = 'WashIsland'
+  WashIsland = 'WashIsland',
 }
 
 export enum BathroomServices {
@@ -3980,11 +3782,11 @@ export enum BathroomServices {
   Whirlpool = 'Whirlpool',
   Jacuzzi = 'Jacuzzi',
   SitzBath = 'SitzBath',
-  Bathtub = 'Bathtub'
+  Bathtub = 'Bathtub',
 }
 
 export type KitchenAppliance = {
-   __typename?: 'KitchenAppliance';
+  __typename?: 'KitchenAppliance';
   name: KitchenAppliances;
   quantity: Scalars['Int'];
   notes?: Maybe<Scalars['String']>;
@@ -3994,7 +3796,7 @@ export enum KitchenConstruction {
   ClosedKitchen = 'ClosedKitchen',
   EatInKitchen = 'EatInKitchen',
   HalfOpenKitchen = 'HalfOpenKitchen',
-  OpenKitchen = 'OpenKitchen'
+  OpenKitchen = 'OpenKitchen',
 }
 
 export type RectangleMeasurementInput = {
@@ -4004,14 +3806,14 @@ export type RectangleMeasurementInput = {
 };
 
 export type RectangleMeasurement = {
-   __typename?: 'RectangleMeasurement';
+  __typename?: 'RectangleMeasurement';
   length?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Float']>;
   surface?: Maybe<Scalars['Float']>;
 };
 
 export type CuboidMeasurement = {
-   __typename?: 'CuboidMeasurement';
+  __typename?: 'CuboidMeasurement';
   length?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
@@ -4024,7 +3826,7 @@ export enum FloorType {
   Floor = 'Floor',
   Basement = 'Basement',
   GroundFloor = 'GroundFloor',
-  Loft = 'Loft'
+  Loft = 'Loft',
 }
 
 export enum SpaceType {
@@ -4033,7 +3835,7 @@ export enum SpaceType {
   LivingRoom = 'LivingRoom',
   Bedroom = 'Bedroom',
   HomeOffice = 'HomeOffice',
-  Other = 'Other'
+  Other = 'Other',
 }
 
 export enum SpaceShape {
@@ -4042,11 +3844,11 @@ export enum SpaceShape {
   LType = 'LType',
   TType = 'TType',
   UType = 'UType',
-  ZType = 'ZType'
+  ZType = 'ZType',
 }
 
 export type KitchenSpace = {
-   __typename?: 'KitchenSpace';
+  __typename?: 'KitchenSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   type?: Maybe<KitchenType>;
@@ -4062,7 +3864,7 @@ export type KitchenSpace = {
 };
 
 export type BathroomSpace = {
-   __typename?: 'BathroomSpace';
+  __typename?: 'BathroomSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   services?: Maybe<Array<Maybe<BathroomServices>>>;
@@ -4074,7 +3876,7 @@ export type BathroomSpace = {
 };
 
 export type LivingRoomSpace = {
-   __typename?: 'LivingRoomSpace';
+  __typename?: 'LivingRoomSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   type?: Maybe<Array<Maybe<LivingRoomType>>>;
@@ -4086,7 +3888,7 @@ export type LivingRoomSpace = {
 };
 
 export type BedroomSpace = {
-   __typename?: 'BedroomSpace';
+  __typename?: 'BedroomSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
@@ -4096,7 +3898,7 @@ export type BedroomSpace = {
 };
 
 export type HomeOfficeSpace = {
-   __typename?: 'HomeOfficeSpace';
+  __typename?: 'HomeOfficeSpace';
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
   shape?: Maybe<SpaceShape>;
@@ -4106,7 +3908,7 @@ export type HomeOfficeSpace = {
 };
 
 export type OtherSpace = {
-   __typename?: 'OtherSpace';
+  __typename?: 'OtherSpace';
   name?: Maybe<Scalars['String']>;
   constructionYear?: Maybe<Scalars['Float']>;
   notes?: Maybe<Scalars['String']>;
@@ -4117,7 +3919,7 @@ export type OtherSpace = {
 };
 
 export type Floor = LastUpdated & {
-   __typename?: 'Floor';
+  __typename?: 'Floor';
   id: Scalars['String'];
   floorDescription?: Maybe<Scalars['String']>;
   level: Scalars['Int'];
@@ -4128,10 +3930,16 @@ export type Floor = LastUpdated & {
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
-export type SpaceConfiguration = KitchenSpace | BathroomSpace | LivingRoomSpace | BedroomSpace | HomeOfficeSpace | OtherSpace;
+export type SpaceConfiguration =
+  | KitchenSpace
+  | BathroomSpace
+  | LivingRoomSpace
+  | BedroomSpace
+  | HomeOfficeSpace
+  | OtherSpace;
 
 export type Space = {
-   __typename?: 'Space';
+  __typename?: 'Space';
   id: Scalars['String'];
   spaceType: SpaceType;
   spaceName?: Maybe<Scalars['String']>;
@@ -4141,7 +3949,7 @@ export type Space = {
 };
 
 export type PimInside = LastUpdated & {
-   __typename?: 'PimInside';
+  __typename?: 'PimInside';
   id: Scalars['String'];
   floors?: Maybe<Array<Floor>>;
   bogSpaces?: Maybe<Array<BogSpace>>;
@@ -4157,7 +3965,7 @@ export type PimInside = LastUpdated & {
 };
 
 export type PimWithUpdatedSpace = {
-   __typename?: 'PimWithUpdatedSpace';
+  __typename?: 'PimWithUpdatedSpace';
   newSpace: Space;
   pim: Pim;
 };
@@ -4175,7 +3983,6 @@ export type AddSpaceInput = {
   floorId: Scalars['String'];
   spaceName?: Maybe<Scalars['String']>;
 };
-
 
 export type UpdateSpaceInput = {
   pimId: Scalars['String'];
@@ -4197,7 +4004,7 @@ export type InsideWindowsInput = {
 };
 
 export type InsideWindows = {
-   __typename?: 'InsideWindows';
+  __typename?: 'InsideWindows';
   types?: Maybe<Array<WindowType>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4208,7 +4015,7 @@ export type RenovationInput = {
 };
 
 export type Renovation = {
-   __typename?: 'Renovation';
+  __typename?: 'Renovation';
   yearOfRenovation?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4219,7 +4026,7 @@ export type ExtensionInput = {
 };
 
 export type Extension = {
-   __typename?: 'Extension';
+  __typename?: 'Extension';
   yearOfExtension?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4233,7 +4040,7 @@ export type InsideGeneralInput = {
 };
 
 export type InsideGeneral = LastUpdated & {
-   __typename?: 'InsideGeneral';
+  __typename?: 'InsideGeneral';
   windows?: Maybe<InsideWindows>;
   extension?: Maybe<Extension>;
   renovation?: Maybe<Renovation>;
@@ -4243,7 +4050,7 @@ export type InsideGeneral = LastUpdated & {
 };
 
 export type PimWithNewFloor = {
-   __typename?: 'PimWithNewFloor';
+  __typename?: 'PimWithNewFloor';
   newFloor: Floor;
   pim: Pim;
 };
@@ -4260,7 +4067,7 @@ export enum LocationType {
   InWoodedArea = 'InWoodedArea',
   InCenter = 'InCenter',
   InResidentialArea = 'InResidentialArea',
-  OpenLocation = 'OpenLocation'
+  OpenLocation = 'OpenLocation',
 }
 
 export enum LocationGoodToKnowType {
@@ -4271,16 +4078,16 @@ export enum LocationGoodToKnowType {
   Train = 'Train',
   School = 'School',
   Highway = 'Highway',
-  Sport = 'Sport'
+  Sport = 'Sport',
 }
 
 export enum DistanceUnit {
   Meters = 'Meters',
-  Kilometers = 'Kilometers'
+  Kilometers = 'Kilometers',
 }
 
 export type GoodToKnow = {
-   __typename?: 'GoodToKnow';
+  __typename?: 'GoodToKnow';
   type?: Maybe<Scalars['String']>;
   distance?: Maybe<Scalars['Int']>;
   units?: Maybe<DistanceUnit>;
@@ -4288,7 +4095,7 @@ export type GoodToKnow = {
 };
 
 export type PimLocation = LastUpdated & {
-   __typename?: 'PimLocation';
+  __typename?: 'PimLocation';
   id: Scalars['String'];
   latitude?: Maybe<Scalars['Float']>;
   longitude?: Maybe<Scalars['Float']>;
@@ -4320,7 +4127,7 @@ export type GoodToKnowInput = {
 };
 
 export type PimMedia = LastUpdated & {
-   __typename?: 'PimMedia';
+  __typename?: 'PimMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
   mainPictureId?: Maybe<Scalars['String']>;
@@ -4333,37 +4140,36 @@ export type PimMedia = LastUpdated & {
   description?: Maybe<Scalars['String']>;
 };
 
-
 export type PimMediaPicturesArgs = {
   sort?: Maybe<Sort>;
 };
 
 export type PimWithNewPictures = {
-   __typename?: 'PimWithNewPictures';
+  __typename?: 'PimWithNewPictures';
   pim: Pim;
   newPictures?: Maybe<Array<Picture>>;
 };
 
 export type PimWithNewTextChapter = {
-   __typename?: 'PimWithNewTextChapter';
+  __typename?: 'PimWithNewTextChapter';
   pim: Pim;
   newChapter: TextChapter;
 };
 
 export type PimWithNewUsp = {
-   __typename?: 'PimWithNewUsp';
+  __typename?: 'PimWithNewUsp';
   pim: Pim;
   newUsp: Usp;
 };
 
 export type PimWithNewMediaLink = {
-   __typename?: 'PimWithNewMediaLink';
+  __typename?: 'PimWithNewMediaLink';
   pim: Pim;
   newMediaLink: MediaLink;
 };
 
 export type PimWithNewTag = {
-   __typename?: 'PimWithNewTag';
+  __typename?: 'PimWithNewTag';
   pim: Pim;
   newTag: Tag;
 };
@@ -4446,7 +4252,7 @@ export type UpdatePictureInput = {
 };
 
 export type PimMeters = LastUpdated & {
-   __typename?: 'PimMeters';
+  __typename?: 'PimMeters';
   id: Scalars['String'];
   meters?: Maybe<Array<Meter>>;
   metersMeta?: Maybe<MetersMeta>;
@@ -4466,7 +4272,7 @@ export enum QualityInformations {
   ModerateToFairRedelijik = 'ModerateToFairRedelijik',
   Moderate = 'Moderate',
   BadToModerate = 'BadToModerate',
-  Bad = 'Bad'
+  Bad = 'Bad',
 }
 
 export enum RoofTypes {
@@ -4477,7 +4283,7 @@ export enum RoofTypes {
   HippedRoof = 'HippedRoof',
   TentRoof = 'TentRoof',
   SaddleRoof = 'SaddleRoof',
-  CompositeRoof = 'CompositeRoof'
+  CompositeRoof = 'CompositeRoof',
 }
 
 export enum RoofMaterials {
@@ -4487,7 +4293,7 @@ export enum RoofMaterials {
   Slate = 'Slate',
   Metal = 'Metal',
   Pans = 'Pans',
-  Other = 'Other'
+  Other = 'Other',
 }
 
 export enum RoofInsulations {
@@ -4497,14 +4303,14 @@ export enum RoofInsulations {
   GlassRock = 'GlassRock',
   MineralWool = 'MineralWool',
   LooseFill = 'LooseFill',
-  StructuralPanels = 'StructuralPanels'
+  StructuralPanels = 'StructuralPanels',
 }
 
 export enum PropertyRelatedItems {
   Balcony = 'Balcony',
   Terrace = 'Terrace',
   RoofTerrace = 'RoofTerrace',
-  Porch = 'Porch'
+  Porch = 'Porch',
 }
 
 export enum OutsideFeatureType {
@@ -4512,7 +4318,7 @@ export enum OutsideFeatureType {
   Garage = 'Garage',
   Storage = 'Storage',
   Terrain = 'Terrain',
-  ParkingLot = 'ParkingLot'
+  ParkingLot = 'ParkingLot',
 }
 
 export enum GardenType {
@@ -4522,7 +4328,7 @@ export enum GardenType {
   AllGroundGarden = 'AllGroundGarden',
   FrontGarden = 'FrontGarden',
   SunTerrace = 'SunTerrace',
-  BackGarden = 'BackGarden'
+  BackGarden = 'BackGarden',
 }
 
 export enum GardenQualityType {
@@ -4530,7 +4336,7 @@ export enum GardenQualityType {
   BeautifullyConstructed = 'BeautifullyConstructed',
   Normal = 'Normal',
   Neglected = 'Neglected',
-  TakenCareOf = 'TakenCareOf'
+  TakenCareOf = 'TakenCareOf',
 }
 
 export enum GardenShapeType {
@@ -4538,14 +4344,14 @@ export enum GardenShapeType {
   Rectangle = 'Rectangle',
   LShape = 'LShape',
   UShape = 'UShape',
-  TShape = 'TShape'
+  TShape = 'TShape',
 }
 
 export enum Location {
   North = 'North',
   South = 'South',
   East = 'East',
-  West = 'West'
+  West = 'West',
 }
 
 export enum GarageType {
@@ -4561,7 +4367,7 @@ export enum GarageType {
   ParkingSpace = 'ParkingSpace',
   Basement = 'Basement',
   FreestandingWood = 'FreestandingWood',
-  FreestandingStone = 'FreestandingStone'
+  FreestandingStone = 'FreestandingStone',
 }
 
 export enum GarageAndStorageMaterial {
@@ -4569,7 +4375,7 @@ export enum GarageAndStorageMaterial {
   Wood = 'Wood',
   Plastic = 'Plastic',
   Metal = 'Metal',
-  Other = 'Other'
+  Other = 'Other',
 }
 
 export enum GarageInsulation {
@@ -4580,21 +4386,21 @@ export enum GarageInsulation {
   PartlyDoubleGlazing = 'PartlyDoubleGlazing',
   WallInsulation = 'WallInsulation',
   FloorInsulation = 'FloorInsulation',
-  FullyInsulated = 'FullyInsulated'
+  FullyInsulated = 'FullyInsulated',
 }
 
 export enum GarageService {
   ElectricDoor = 'ElectricDoor',
   Loft = 'Loft',
   Electricity = 'Electricity',
-  HeatingWater = 'HeatingWater'
+  HeatingWater = 'HeatingWater',
 }
 
 export enum StorageType {
   StorageBox = 'StorageBox',
   Shed = 'Shed',
   TeaHouse = 'TeaHouse',
-  WithAttic = 'WithAttic'
+  WithAttic = 'WithAttic',
 }
 
 export enum StorageInsulation {
@@ -4606,7 +4412,7 @@ export enum StorageInsulation {
   PartlyDoubleGlazing = 'PartlyDoubleGlazing',
   WallInsulation = 'WallInsulation',
   FloorInsulation = 'FloorInsulation',
-  FullyInsulated = 'FullyInsulated'
+  FullyInsulated = 'FullyInsulated',
 }
 
 export enum StorageService {
@@ -4614,14 +4420,14 @@ export enum StorageService {
   WithLoft = 'WithLoft',
   EquippedWithElectricity = 'EquippedWithElectricity',
   ProvidedWithHeating = 'ProvidedWithHeating',
-  ProvidedWithWater = 'ProvidedWithWater'
+  ProvidedWithWater = 'ProvidedWithWater',
 }
 
 export enum TerrainParking {
   PaidParking = 'PaidParking',
   PublicParking = 'PublicParking',
   ParkingGarage = 'ParkingGarage',
-  ParkingPermits = 'ParkingPermits'
+  ParkingPermits = 'ParkingPermits',
 }
 
 export enum FoundationType {
@@ -4631,20 +4437,20 @@ export enum FoundationType {
   SpreadLooting = 'SpreadLooting',
   RaftOrMatFoundations = 'RaftOrMatFoundations',
   PileFoundations = 'PileFoundations',
-  DrilledShafts = 'DrilledShafts'
+  DrilledShafts = 'DrilledShafts',
 }
 
 export enum FoundationMaterialType {
   Concrete = 'Concrete',
   Timber = 'Timber',
   Steel = 'Steel',
-  Plastic = 'Plastic'
+  Plastic = 'Plastic',
 }
 
 export enum GutterType {
   HalfRound = 'HalfRound',
   Flatbottom = 'Flatbottom',
-  NoGutter = 'NoGutter'
+  NoGutter = 'NoGutter',
 }
 
 export enum GutterMaterial {
@@ -4653,7 +4459,7 @@ export enum GutterMaterial {
   Aluminium = 'Aluminium',
   Copper = 'Copper',
   Zinc = 'Zinc',
-  Steel = 'Steel'
+  Steel = 'Steel',
 }
 
 export type RoofInformationInput = {
@@ -4682,7 +4488,7 @@ export type GutterMaterialInformationsInput = {
 };
 
 export type GutterMaterialInformations = {
-   __typename?: 'GutterMaterialInformations';
+  __typename?: 'GutterMaterialInformations';
   material?: Maybe<GutterMaterial>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4693,7 +4499,7 @@ export type GutterInformationsInput = {
 };
 
 export type GutterInformations = {
-   __typename?: 'GutterInformations';
+  __typename?: 'GutterInformations';
   type?: Maybe<GutterType>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4704,39 +4510,39 @@ export type RoofInsulationInput = {
 };
 
 export type GeneralInformation = {
-   __typename?: 'GeneralInformation';
+  __typename?: 'GeneralInformation';
   qualityInformation?: Maybe<Array<Maybe<QualityInformations>>>;
   images?: Maybe<Array<File>>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type PropertyRelated = {
-   __typename?: 'PropertyRelated';
+  __typename?: 'PropertyRelated';
   items?: Maybe<Array<Maybe<PropertyRelatedItems>>>;
   notes?: Maybe<Scalars['String']>;
   images?: Maybe<Array<File>>;
 };
 
 export type RoofType = {
-   __typename?: 'RoofType';
+  __typename?: 'RoofType';
   name?: Maybe<RoofTypes>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type RoofMaterial = {
-   __typename?: 'RoofMaterial';
+  __typename?: 'RoofMaterial';
   name?: Maybe<RoofMaterials>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type RoofInsulation = {
-   __typename?: 'RoofInsulation';
+  __typename?: 'RoofInsulation';
   name?: Maybe<RoofInsulations>;
   notes?: Maybe<Scalars['String']>;
 };
 
 export type RoofInformation = {
-   __typename?: 'RoofInformation';
+  __typename?: 'RoofInformation';
   type?: Maybe<RoofType>;
   material?: Maybe<RoofMaterial>;
   insulation?: Maybe<RoofInsulation>;
@@ -4752,7 +4558,7 @@ export type FoundationTypeInformationsInput = {
 };
 
 export type FoundationTypeInformations = {
-   __typename?: 'FoundationTypeInformations';
+  __typename?: 'FoundationTypeInformations';
   type?: Maybe<FoundationType>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4763,7 +4569,7 @@ export type FoundationMaterialInformationsInput = {
 };
 
 export type FoundationMaterialInformations = {
-   __typename?: 'FoundationMaterialInformations';
+  __typename?: 'FoundationMaterialInformations';
   type?: Maybe<Array<FoundationMaterialType>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4774,7 +4580,7 @@ export type FoundationInput = {
 };
 
 export type Foundation = {
-   __typename?: 'Foundation';
+  __typename?: 'Foundation';
   type?: Maybe<FoundationTypeInformations>;
   material?: Maybe<FoundationMaterialInformations>;
 };
@@ -4788,7 +4594,7 @@ export type HouseOutsideInput = {
 };
 
 export type HouseOutside = {
-   __typename?: 'HouseOutside';
+  __typename?: 'HouseOutside';
   generalInformation?: Maybe<GeneralInformation>;
   foundation?: Maybe<Foundation>;
   propertyRelated?: Maybe<PropertyRelated>;
@@ -4797,7 +4603,7 @@ export type HouseOutside = {
 };
 
 export type GardenFeature = {
-   __typename?: 'GardenFeature';
+  __typename?: 'GardenFeature';
   main?: Maybe<Scalars['Boolean']>;
   type?: Maybe<GardenType>;
   notes?: Maybe<Scalars['String']>;
@@ -4809,7 +4615,7 @@ export type GardenFeature = {
 };
 
 export type GarageFeature = {
-   __typename?: 'GarageFeature';
+  __typename?: 'GarageFeature';
   main?: Maybe<Scalars['Boolean']>;
   types?: Maybe<Array<Maybe<GarageType>>>;
   attached?: Maybe<Scalars['Boolean']>;
@@ -4824,7 +4630,7 @@ export type GarageFeature = {
 };
 
 export type StorageFeature = {
-   __typename?: 'StorageFeature';
+  __typename?: 'StorageFeature';
   main?: Maybe<Scalars['Boolean']>;
   attached?: Maybe<Scalars['Boolean']>;
   types?: Maybe<Array<Maybe<StorageType>>>;
@@ -4838,7 +4644,7 @@ export type StorageFeature = {
 };
 
 export type TerrainFeature = {
-   __typename?: 'TerrainFeature';
+  __typename?: 'TerrainFeature';
   parking?: Maybe<TerrainParking>;
   measurement?: Maybe<RectangleMeasurement>;
   notes?: Maybe<Scalars['String']>;
@@ -4846,7 +4652,7 @@ export type TerrainFeature = {
 };
 
 export type ParkingLotFeature = {
-   __typename?: 'ParkingLotFeature';
+  __typename?: 'ParkingLotFeature';
   number?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
   cost?: Maybe<Scalars['Float']>;
@@ -4854,10 +4660,15 @@ export type ParkingLotFeature = {
   images?: Maybe<Array<File>>;
 };
 
-export type OutsideFeatureConfiguration = GardenFeature | GarageFeature | StorageFeature | TerrainFeature | ParkingLotFeature;
+export type OutsideFeatureConfiguration =
+  | GardenFeature
+  | GarageFeature
+  | StorageFeature
+  | TerrainFeature
+  | ParkingLotFeature;
 
 export type OutsideFeature = LastUpdated & {
-   __typename?: 'OutsideFeature';
+  __typename?: 'OutsideFeature';
   id: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   type: OutsideFeatureType;
@@ -4868,7 +4679,7 @@ export type OutsideFeature = LastUpdated & {
 };
 
 export type PimOutside = LastUpdated & {
-   __typename?: 'PimOutside';
+  __typename?: 'PimOutside';
   id: Scalars['ID'];
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
@@ -4881,7 +4692,6 @@ export type PimOutsideInput = {
   houseOutside?: Maybe<HouseOutsideInput>;
 };
 
-
 export type AddOutsideFeatureInput = {
   pimId: Scalars['String'];
   type: OutsideFeatureType;
@@ -4889,7 +4699,7 @@ export type AddOutsideFeatureInput = {
 };
 
 export type PimWithNewOutside = {
-   __typename?: 'PimWithNewOutside';
+  __typename?: 'PimWithNewOutside';
   pim: Pim;
   newOutsideFeature: OutsideFeature;
 };
@@ -4900,7 +4710,7 @@ export enum TypeOfParkingType {
   ParkingLot = 'ParkingLot',
   Berth = 'Berth',
   MobileHomePitch = 'MobileHomePitch',
-  CaravanSite = 'CaravanSite'
+  CaravanSite = 'CaravanSite',
 }
 
 export enum ParkingLotSpecificationsType {
@@ -4912,14 +4722,14 @@ export enum ParkingLotSpecificationsType {
   Freestanding = 'Freestanding',
   ElectricDoor = 'ElectricDoor',
   Water = 'Water',
-  Heating = 'Heating'
+  Heating = 'Heating',
 }
 
 export enum ParkingMaterialType {
   Wood = 'Wood',
   Stone = 'Stone',
   Plastic = 'Plastic',
-  Metal = 'Metal'
+  Metal = 'Metal',
 }
 
 export enum ParkingInsulationType {
@@ -4930,7 +4740,7 @@ export enum ParkingInsulationType {
   DoubleGalzing = 'DoubleGalzing',
   EcoConstruction = 'EcoConstruction',
   PartlyDoubleGalzing = 'PartlyDoubleGalzing',
-  SecondaryWindows = 'SecondaryWindows'
+  SecondaryWindows = 'SecondaryWindows',
 }
 
 export type TypeOfParkingInput = {
@@ -4940,7 +4750,7 @@ export type TypeOfParkingInput = {
 };
 
 export type TypeOfParking = {
-   __typename?: 'TypeOfParking';
+  __typename?: 'TypeOfParking';
   type?: Maybe<Scalars['String']>;
   parkingNumber?: Maybe<Scalars['Int']>;
   notes?: Maybe<Scalars['String']>;
@@ -4952,7 +4762,7 @@ export type ParkingLotSpecificationsInput = {
 };
 
 export type ParkingLotSpecifications = {
-   __typename?: 'ParkingLotSpecifications';
+  __typename?: 'ParkingLotSpecifications';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4963,7 +4773,7 @@ export type ParkingMaterialInput = {
 };
 
 export type ParkingMaterial = {
-   __typename?: 'ParkingMaterial';
+  __typename?: 'ParkingMaterial';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4974,7 +4784,7 @@ export type ParkingInsulationInput = {
 };
 
 export type ParkingInsulation = {
-   __typename?: 'ParkingInsulation';
+  __typename?: 'ParkingInsulation';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -4989,7 +4799,7 @@ export type ParkingMeasurementsInput = {
 };
 
 export type ParkingMeasurements = {
-   __typename?: 'ParkingMeasurements';
+  __typename?: 'ParkingMeasurements';
   length?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Float']>;
   surface?: Maybe<Scalars['Float']>;
@@ -5007,7 +4817,7 @@ export type ParkingLotGeneralInput = {
 };
 
 export type ParkingLotGeneral = {
-   __typename?: 'ParkingLotGeneral';
+  __typename?: 'ParkingLotGeneral';
   type?: Maybe<TypeOfParking>;
   measurements?: Maybe<ParkingMeasurements>;
   specifications?: Maybe<ParkingLotSpecifications>;
@@ -5015,16 +4825,14 @@ export type ParkingLotGeneral = {
   insulation?: Maybe<ParkingInsulation>;
 };
 
-
-
 export enum CostPaymentFrequency {
   Monthly = 'Monthly',
-  Yearly = 'Yearly'
+  Yearly = 'Yearly',
 }
 
 export enum PricingType {
   Sale = 'Sale',
-  Rent = 'Rent'
+  Rent = 'Rent',
 }
 
 export enum CostType {
@@ -5038,25 +4846,25 @@ export enum CostType {
   HomeownerAssociation = 'HomeownerAssociation',
   OzbUserPart = 'OzbUserPart',
   OzbBusinessPart = 'OzbBusinessPart',
-  Custom = 'Custom'
+  Custom = 'Custom',
 }
 
 export enum SalePriceSuffix {
   CostsBuyer = 'CostsBuyer',
   FreeInName = 'FreeInName',
-  NoneOfThem = 'NoneOfThem'
+  NoneOfThem = 'NoneOfThem',
 }
 
 export enum RentPaymentFrequency {
   PerMonth = 'PerMonth',
   Annual = 'Annual',
-  Custom = 'Custom'
+  Custom = 'Custom',
 }
 
 export enum SaleCondition {
   VatTaxed = 'VatTaxed',
   IncludingVat = 'IncludingVat',
-  ExcludingConstructionInterest = 'ExcludingConstructionInterest'
+  ExcludingConstructionInterest = 'ExcludingConstructionInterest',
 }
 
 export enum RentCondition {
@@ -5064,14 +4872,14 @@ export enum RentCondition {
   ExcludingServiceCosts = 'ExcludingServiceCosts',
   Furnished = 'Furnished',
   IncludingServiceCosts = 'IncludingServiceCosts',
-  Indexed = 'Indexed'
+  Indexed = 'Indexed',
 }
 
 export enum PurchaseMix {
   MgeConstruction = 'MgeConstruction',
   PartOfIndividualProject = 'PartOfIndividualProject',
   PurchaseGuarantee = 'PurchaseGuarantee',
-  MixedFormPurchaseRent = 'MixedFormPurchaseRent'
+  MixedFormPurchaseRent = 'MixedFormPurchaseRent',
 }
 
 export type SaleGeneralInput = {
@@ -5086,7 +4894,7 @@ export type SaleGeneralInput = {
 };
 
 export type SaleGeneral = {
-   __typename?: 'SaleGeneral';
+  __typename?: 'SaleGeneral';
   prefix?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['AbsoluteFloat']>;
   suffix?: Maybe<Scalars['String']>;
@@ -5104,7 +4912,7 @@ export type SaleWozInput = {
 };
 
 export type SaleWoz = {
-   __typename?: 'SaleWOZ';
+  __typename?: 'SaleWOZ';
   wozPrice?: Maybe<Scalars['AbsoluteFloat']>;
   referenceDateWoz?: Maybe<Scalars['Date']>;
   notes?: Maybe<Scalars['String']>;
@@ -5116,7 +4924,7 @@ export type SaleInformationsInput = {
 };
 
 export type SaleInformations = {
-   __typename?: 'SaleInformations';
+  __typename?: 'SaleInformations';
   general?: Maybe<SaleGeneral>;
   woz?: Maybe<SaleWoz>;
   isEnabled?: Maybe<Scalars['Boolean']>;
@@ -5131,7 +4939,7 @@ export type RentInformationsInput = {
 };
 
 export type RentInformations = {
-   __typename?: 'RentInformations';
+  __typename?: 'RentInformations';
   rentalPrice?: Maybe<Scalars['AbsoluteFloat']>;
   paymentFrequency?: Maybe<RentPaymentFrequency>;
   suffix?: Maybe<Scalars['String']>;
@@ -5141,7 +4949,7 @@ export type RentInformations = {
 };
 
 export type PimPrices = LastUpdated & {
-   __typename?: 'PimPrices';
+  __typename?: 'PimPrices';
   id: Scalars['ID'];
   pricing?: Maybe<Pricing>;
   costs?: Maybe<Array<Cost>>;
@@ -5165,7 +4973,7 @@ export type UpdatePricingInput = {
 };
 
 export type Pricing = LastUpdated & {
-   __typename?: 'Pricing';
+  __typename?: 'Pricing';
   rent?: Maybe<RentInformations>;
   sale?: Maybe<SaleInformations>;
   lastEditedBy?: Maybe<Profile>;
@@ -5174,7 +4982,7 @@ export type Pricing = LastUpdated & {
 };
 
 export type Cost = {
-   __typename?: 'Cost';
+  __typename?: 'Cost';
   id: Scalars['ID'];
   serviceCosts?: Maybe<Scalars['AbsoluteFloat']>;
   paymentsFrequency?: Maybe<CostPaymentFrequency>;
@@ -5203,7 +5011,7 @@ export type UpdateCostInput = {
 };
 
 export type CostResult = {
-   __typename?: 'CostResult';
+  __typename?: 'CostResult';
   pim: Pim;
   cost: Cost;
 };
@@ -5226,7 +5034,7 @@ export type InvestmentInput = {
 };
 
 export type Investment = LastUpdated & {
-   __typename?: 'Investment';
+  __typename?: 'Investment';
   netRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
   grossRentalIncome?: Maybe<Scalars['AbsoluteFloat']>;
   economicRentalValue?: Maybe<Scalars['AbsoluteFloat']>;
@@ -5247,7 +5055,7 @@ export type Investment = LastUpdated & {
 
 export enum MomentGeneralSetting {
   ScheduleOnline = 'ScheduleOnline',
-  DoNotScheduleOnline = 'DoNotScheduleOnline'
+  DoNotScheduleOnline = 'DoNotScheduleOnline',
 }
 
 export enum MomentScheduleDay {
@@ -5257,22 +5065,22 @@ export enum MomentScheduleDay {
   Thu = 'Thu',
   Fri = 'Fri',
   Sat = 'Sat',
-  Sun = 'Sun'
+  Sun = 'Sun',
 }
 
 export enum TypeOfAppointment {
   Viewing = 'Viewing',
-  OnlineViewing = 'OnlineViewing'
+  OnlineViewing = 'OnlineViewing',
 }
 
 export enum AllocationCriteriaType {
   MatchProfile = 'MatchProfile',
-  Allocation = 'Allocation'
+  Allocation = 'Allocation',
 }
 
 export enum PropertyPublishedExternally {
   Yes = 'Yes',
-  No = 'No'
+  No = 'No',
 }
 
 export enum CriteriaOrder {
@@ -5280,14 +5088,14 @@ export enum CriteriaOrder {
   MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
   NumberOfPreferenceInterest = 'NumberOfPreferenceInterest',
   DateOfRegistrationInterest = 'DateOfRegistrationInterest',
-  AdditionalWork = 'AdditionalWork'
+  AdditionalWork = 'AdditionalWork',
 }
 
 export enum HomeSituation {
   LivingIn = 'LivingIn',
   OwnerOccupiedHome = 'OwnerOccupiedHome',
   SocialHousing = 'SocialHousing',
-  FreeSectorRentalHome = 'FreeSectorRentalHome'
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
 }
 
 export enum TypeOfEmployment {
@@ -5295,18 +5103,18 @@ export enum TypeOfEmployment {
   SalariedEmployment = 'SalariedEmployment',
   Entrepreneur = 'Entrepreneur',
   Benefits = 'Benefits',
-  None = 'None'
+  None = 'None',
 }
 
 export enum PersonRole {
   Reservation = 'Reservation',
   Candidate = 'Candidate',
   Optant = 'Optant',
-  Tenant = 'Tenant'
+  Tenant = 'Tenant',
 }
 
 export type MomentSchedule = {
-   __typename?: 'MomentSchedule';
+  __typename?: 'MomentSchedule';
   day?: Maybe<MomentScheduleDay>;
   startAt?: Maybe<Scalars['String']>;
   endAt?: Maybe<Scalars['String']>;
@@ -5319,7 +5127,7 @@ export type MomentScheduleInput = {
 };
 
 export type ViewingMoment = {
-   __typename?: 'ViewingMoment';
+  __typename?: 'ViewingMoment';
   id: Scalars['ID'];
   typeOfAppointment?: Maybe<TypeOfAppointment>;
   schedules?: Maybe<Array<MomentSchedule>>;
@@ -5357,13 +5165,13 @@ export type SalesSettingsInput = {
 };
 
 export type SalesSettings = {
-   __typename?: 'SalesSettings';
+  __typename?: 'SalesSettings';
   generalSettings?: Maybe<MomentGeneralSetting>;
   amountOfViewings?: Maybe<Scalars['Int']>;
 };
 
 export type PimSales = LastUpdated & {
-   __typename?: 'PimSales';
+  __typename?: 'PimSales';
   id: Scalars['ID'];
   salesSettings?: Maybe<SalesSettings>;
   viewingMoments?: Maybe<Array<ViewingMoment>>;
@@ -5373,13 +5181,13 @@ export type PimSales = LastUpdated & {
 };
 
 export type AddViewingMomentResult = {
-   __typename?: 'AddViewingMomentResult';
+  __typename?: 'AddViewingMomentResult';
   pim: Pim;
   moment: ViewingMoment;
 };
 
 export type AddAllocationCriteriaResult = {
-   __typename?: 'AddAllocationCriteriaResult';
+  __typename?: 'AddAllocationCriteriaResult';
   pim: Pim;
   criteria: AllocationCriteria;
 };
@@ -5390,7 +5198,7 @@ export type PersonCapitalInput = {
 };
 
 export type PersonCapital = {
-   __typename?: 'PersonCapital';
+  __typename?: 'PersonCapital';
   deductMonthlyObligations?: Maybe<Scalars['AbsoluteFloat']>;
   availableCapitalCount?: Maybe<Scalars['AbsoluteFloat']>;
 };
@@ -5434,7 +5242,7 @@ export type AllocationCriteriaInput = {
 };
 
 export type AllocationCriteria = {
-   __typename?: 'AllocationCriteria';
+  __typename?: 'AllocationCriteria';
   id: Scalars['ID'];
   description?: Maybe<Scalars['String']>;
   type?: Maybe<AllocationCriteriaType>;
@@ -5473,21 +5281,22 @@ export type AllocationCriteria = {
   segmentationProfileIds?: Maybe<Array<Scalars['String']>>;
 };
 
-export type PimServices = LastUpdated & Services & {
-   __typename?: 'PimServices';
-  id: Scalars['String'];
-  meters?: Maybe<Array<Meter>>;
-  metersMeta?: Maybe<MetersMeta>;
-  hotWaterSupplies?: Maybe<Array<Service>>;
-  heatingSources?: Maybe<Array<Service>>;
-  additionalServices?: Maybe<Array<Service>>;
-  dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
-  description?: Maybe<Scalars['String']>;
-};
+export type PimServices = LastUpdated &
+  Services & {
+    __typename?: 'PimServices';
+    id: Scalars['String'];
+    meters?: Maybe<Array<Meter>>;
+    metersMeta?: Maybe<MetersMeta>;
+    hotWaterSupplies?: Maybe<Array<Service>>;
+    heatingSources?: Maybe<Array<Service>>;
+    additionalServices?: Maybe<Array<Service>>;
+    dateUpdated?: Maybe<Scalars['Date']>;
+    lastEditedBy?: Maybe<Profile>;
+    description?: Maybe<Scalars['String']>;
+  };
 
 export type PimWithNewService = {
-   __typename?: 'PimWithNewService';
+  __typename?: 'PimWithNewService';
   pim: Pim;
   newService: Service;
 };
@@ -5504,13 +5313,13 @@ export enum EnergyType {
   D = 'D',
   E = 'E',
   F = 'F',
-  G = 'G'
+  G = 'G',
 }
 
 export enum InspectionType {
   Tanks = 'Tanks',
   Pollution = 'Pollution',
-  Maintenance = 'Maintenance'
+  Maintenance = 'Maintenance',
 }
 
 export enum ParkingFacilities {
@@ -5519,7 +5328,7 @@ export enum ParkingFacilities {
   ParkingGarage = 'ParkingGarage',
   OnClosedTerrain = 'OnClosedTerrain',
   PublicParking = 'PublicParking',
-  ParkingPermits = 'ParkingPermits'
+  ParkingPermits = 'ParkingPermits',
 }
 
 export enum MonumentType {
@@ -5527,13 +5336,13 @@ export enum MonumentType {
   MonumentalProperty = 'MonumentalProperty',
   ProtectedCityOrVillageView = 'ProtectedCityOrVillageView',
   NationalMonument = 'NationalMonument',
-  MunciapalMonument = 'MunciapalMonument'
+  MunciapalMonument = 'MunciapalMonument',
 }
 
 export enum InsideType {
   Furnished = 'Furnished',
   Upholstered = 'Upholstered',
-  PartialyUpholstered = 'PartialyUpholstered'
+  PartialyUpholstered = 'PartialyUpholstered',
 }
 
 export enum HousingType {
@@ -5541,7 +5350,7 @@ export enum HousingType {
   DoubleOccupancyAvailable = 'DoubleOccupancyAvailable',
   DoubleOccupancyPossible = 'DoubleOccupancyPossible',
   AccessibleToDisabledPeople = 'AccessibleToDisabledPeople',
-  AcessibleToTheEldery = 'AcessibleToTheEldery'
+  AcessibleToTheEldery = 'AcessibleToTheEldery',
 }
 
 export enum SpecialTagsType {
@@ -5554,7 +5363,7 @@ export enum SpecialTagsType {
   ExclusiveProperty = 'ExclusiveProperty',
   Turnkey = 'Turnkey',
   ReadyToUse = 'ReadyToUse',
-  StarterProperty = 'StarterProperty'
+  StarterProperty = 'StarterProperty',
 }
 
 export enum PropertyRightType {
@@ -5562,7 +5371,7 @@ export enum PropertyRightType {
   Easements = 'Easements',
   RightOfSuperficies = 'RightOfSuperficies',
   Cooperative = 'Cooperative',
-  Horizontal = 'Horizontal'
+  Horizontal = 'Horizontal',
 }
 
 export enum GoodToKnowType {
@@ -5573,30 +5382,30 @@ export enum GoodToKnowType {
   Meeting = 'Meeting',
   RegistrationChamberOfCommerce = 'RegistrationChamberOfCommerce',
   ChecklistPresent = 'ChecklistPresent',
-  Active = 'Active'
+  Active = 'Active',
 }
 
 export enum TankType {
   Septic = 'Septic',
   Oil = 'Oil',
-  Underground = 'Underground'
+  Underground = 'Underground',
 }
 
 export enum PollutionType {
   Asbestos = 'Asbestos',
-  Soil = 'Soil'
+  Soil = 'Soil',
 }
 
 export enum MaintenanceType {
   Paintwork = 'Paintwork',
   ElectricityConnections = 'ElectricityConnections',
-  WindowFrames = 'WindowFrames'
+  WindowFrames = 'WindowFrames',
 }
 
 export enum EnergyCharasteristicType {
   Beng = 'Beng',
   NaturalEnergy = 'NaturalEnergy',
-  ZeroOnMeter = 'ZeroOnMeter'
+  ZeroOnMeter = 'ZeroOnMeter',
 }
 
 export enum ApprovalType {
@@ -5611,7 +5420,7 @@ export enum ApprovalType {
   HousingGuaranteeCertificate = 'HousingGuaranteeCertificate',
   FireSafety = 'FireSafety',
   KiwaSafeLiving = 'KiwaSafeLiving',
-  QualityMarkCertificate = 'QualityMarkCertificate'
+  QualityMarkCertificate = 'QualityMarkCertificate',
 }
 
 export enum ObligationToProvideInformationType {
@@ -5619,7 +5428,7 @@ export enum ObligationToProvideInformationType {
   BwLetter = 'BwLetter',
   SoilPollution = 'SoilPollution',
   Asbestos = 'Asbestos',
-  OwnSake = 'OwnSake'
+  OwnSake = 'OwnSake',
 }
 
 export type LinkedPimInput = {
@@ -5628,7 +5437,7 @@ export type LinkedPimInput = {
 };
 
 export type Inspection = {
-   __typename?: 'Inspection';
+  __typename?: 'Inspection';
   id: Scalars['ID'];
   inspectionType: InspectionType;
   type: Scalars['String'];
@@ -5648,7 +5457,7 @@ export type UpdateInspectionInput = {
 };
 
 export type Approvals = {
-   __typename?: 'Approvals';
+  __typename?: 'Approvals';
   label?: Maybe<Array<ApprovalType>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5664,7 +5473,7 @@ export type ObligationToProvideInformationInput = {
 };
 
 export type ObligationToProvideInformation = {
-   __typename?: 'ObligationToProvideInformation';
+  __typename?: 'ObligationToProvideInformation';
   label?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5678,7 +5487,7 @@ export type SpecificationInput = {
 };
 
 export type Specification = LastUpdated & {
-   __typename?: 'Specification';
+  __typename?: 'Specification';
   energy?: Maybe<Energy>;
   approvals?: Maybe<Approvals>;
   obligation?: Maybe<ObligationToProvideInformation>;
@@ -5688,7 +5497,7 @@ export type Specification = LastUpdated & {
 };
 
 export type PimSpecification = {
-   __typename?: 'PimSpecification';
+  __typename?: 'PimSpecification';
   id: Scalars['ID'];
   specification?: Maybe<Specification>;
   specificationAdvanced?: Maybe<SpecificationAdvanced>;
@@ -5703,13 +5512,13 @@ export type PimSpecification = {
 };
 
 export type AddInspectionResult = {
-   __typename?: 'AddInspectionResult';
+  __typename?: 'AddInspectionResult';
   inspection: Inspection;
   pim: Pim;
 };
 
 export type ParkingSpecification = {
-   __typename?: 'ParkingSpecification';
+  __typename?: 'ParkingSpecification';
   description?: Maybe<Scalars['String']>;
   parkingCapacity?: Maybe<Scalars['String']>;
   parkingFacilities?: Maybe<Array<Scalars['String']>>;
@@ -5722,7 +5531,7 @@ export type ParkingSpecificationInput = {
 };
 
 export type MonumentSpecification = {
-   __typename?: 'MonumentSpecification';
+  __typename?: 'MonumentSpecification';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5733,7 +5542,7 @@ export type MonumentSpecificationInput = {
 };
 
 export type InsideSpecification = {
-   __typename?: 'InsideSpecification';
+  __typename?: 'InsideSpecification';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5744,7 +5553,7 @@ export type InsideSpecificationInput = {
 };
 
 export type HousingOptions = {
-   __typename?: 'HousingOptions';
+  __typename?: 'HousingOptions';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5755,7 +5564,7 @@ export type HousingOptionsInput = {
 };
 
 export type SpecialTags = {
-   __typename?: 'SpecialTags';
+  __typename?: 'SpecialTags';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5766,7 +5575,7 @@ export type SpecialTagsInput = {
 };
 
 export type PropertyRights = {
-   __typename?: 'PropertyRights';
+  __typename?: 'PropertyRights';
   type?: Maybe<Array<Scalars['String']>>;
   notes?: Maybe<Scalars['String']>;
 };
@@ -5777,7 +5586,7 @@ export type PropertyRightsInput = {
 };
 
 export type HomeOwnerAssociation = {
-   __typename?: 'HomeOwnerAssociation';
+  __typename?: 'HomeOwnerAssociation';
   name?: Maybe<Scalars['String']>;
   monthlyContribution?: Maybe<Scalars['AbsoluteFloat']>;
   goodToKnow?: Maybe<Array<Scalars['String']>>;
@@ -5792,7 +5601,7 @@ export type HomeOwnerAssociationInput = {
 };
 
 export type SpecificationAdvanced = LastUpdated & {
-   __typename?: 'SpecificationAdvanced';
+  __typename?: 'SpecificationAdvanced';
   parking?: Maybe<ParkingSpecification>;
   monument?: Maybe<MonumentSpecification>;
   inside?: Maybe<InsideSpecification>;
@@ -5819,12 +5628,12 @@ export type SpecificationAdvancedInput = {
 
 export enum RealEstateType {
   Residential = 'Residential',
-  Business = 'Business'
+  Business = 'Business',
 }
 
 export enum DevelopmentType {
   New = 'New',
-  Existing = 'Existing'
+  Existing = 'Existing',
 }
 
 export enum PimStatus {
@@ -5835,7 +5644,7 @@ export enum PimStatus {
   SoldWithReservation = 'SoldWithReservation',
   RentedWithReservation = 'RentedWithReservation',
   Sold = 'Sold',
-  Rented = 'Rented'
+  Rented = 'Rented',
 }
 
 export enum PropertyType {
@@ -5845,7 +5654,7 @@ export enum PropertyType {
   Agricultural = 'Agricultural',
   ParkingLot = 'ParkingLot',
   BuildingPlot = 'BuildingPlot',
-  Other = 'Other'
+  Other = 'Other',
 }
 
 export enum PropertyTypeDetailed {
@@ -5865,7 +5674,7 @@ export enum PropertyTypeDetailed {
   BusinessOrServiceHome = 'BusinessOrServiceHome',
   Estate = 'Estate',
   CountryHouse = 'CountryHouse',
-  Mansion = 'Mansion'
+  Mansion = 'Mansion',
 }
 
 export enum PropertyConnection {
@@ -5873,18 +5682,18 @@ export enum PropertyConnection {
   FinalHouse = 'FinalHouse',
   CornerHouse = 'CornerHouse',
   TerracedHouse = 'TerracedHouse',
-  DetachedHouse = 'DetachedHouse'
+  DetachedHouse = 'DetachedHouse',
 }
 
 export enum PropertyAvailability {
   InConsultation = 'InConsultation',
   Immediatelly = 'Immediatelly',
-  ByDate = 'ByDate'
+  ByDate = 'ByDate',
 }
 
 export enum PropertyHabitation {
   RecreationalHome = 'RecreationalHome',
-  PermanentOccupation = 'PermanentOccupation'
+  PermanentOccupation = 'PermanentOccupation',
 }
 
 export enum SectionWithDescriptionType {
@@ -5899,7 +5708,7 @@ export enum SectionWithDescriptionType {
   AogBuildings = 'AogBuildings',
   AogInstallations = 'AogInstallations',
   AogGrounds = 'AogGrounds',
-  MetersMetaInfo = 'MetersMetaInfo'
+  MetersMetaInfo = 'MetersMetaInfo',
 }
 
 export type PropertyRelatedInput = {
@@ -5916,7 +5725,7 @@ export type GeneralInformationInput = {
 
 export enum ConstructionType {
   UnderConstruction = 'UnderConstruction',
-  InDevelopment = 'InDevelopment'
+  InDevelopment = 'InDevelopment',
 }
 
 export type CreatePimInput = {
@@ -5945,7 +5754,7 @@ export type CreatePimInput = {
 };
 
 export type Pim = LastUpdated & {
-   __typename?: 'Pim';
+  __typename?: 'Pim';
   id: Scalars['ID'];
   realEstateType: RealEstateType;
   street: Scalars['String'];
@@ -6019,7 +5828,7 @@ export type Pim = LastUpdated & {
 };
 
 export type PimSearchResult = {
-   __typename?: 'PimSearchResult';
+  __typename?: 'PimSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Pim>>;
 };
@@ -6058,14 +5867,13 @@ export type UpdateDescriptionInput = {
   meterType?: Maybe<MeterType>;
 };
 
-
 export enum CommonPricingType {
   Sale = 'Sale',
-  Rent = 'Rent'
+  Rent = 'Rent',
 }
 
 export type CommonPricing = LastUpdated & {
-   __typename?: 'CommonPricing';
+  __typename?: 'CommonPricing';
   rent?: Maybe<CommonRentInformations>;
   sale?: Maybe<CommonSaleInformations>;
   lastEditedBy?: Maybe<Profile>;
@@ -6080,7 +5888,7 @@ export type CommonSaleInformationsInput = {
 };
 
 export type CommonSaleInformations = {
-   __typename?: 'CommonSaleInformations';
+  __typename?: 'CommonSaleInformations';
   minPrice?: Maybe<Scalars['AbsoluteFloat']>;
   maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
   isEnabled?: Maybe<Scalars['Boolean']>;
@@ -6094,7 +5902,7 @@ export type CommonRentInformationsInput = {
 };
 
 export type CommonRentInformations = {
-   __typename?: 'CommonRentInformations';
+  __typename?: 'CommonRentInformations';
   minPrice?: Maybe<Scalars['AbsoluteFloat']>;
   maxPrice?: Maybe<Scalars['AbsoluteFloat']>;
   isEnabled?: Maybe<Scalars['Boolean']>;
@@ -6117,16 +5925,16 @@ export type UpdateCommonPricingInput = {
 export enum GenderType {
   Male = 'Male',
   Female = 'Female',
-  GenderNeutral = 'GenderNeutral'
+  GenderNeutral = 'GenderNeutral',
 }
 
 export enum EmailAddressType {
   Business = 'Business',
-  Private = 'Private'
+  Private = 'Private',
 }
 
 export type EmailAddress = {
-   __typename?: 'EmailAddress';
+  __typename?: 'EmailAddress';
   id: Scalars['String'];
   emailAddress: Scalars['String'];
   emailAddressType?: Maybe<EmailAddressType>;
@@ -6150,11 +5958,11 @@ export type UpdateEmailAddressInput = {
 
 export enum PhoneNumberType {
   Business = 'Business',
-  Private = 'Private'
+  Private = 'Private',
 }
 
 export type PhoneNumber = {
-   __typename?: 'PhoneNumber';
+  __typename?: 'PhoneNumber';
   id: Scalars['String'];
   phoneNumber: Scalars['String'];
   phoneNumberType?: Maybe<PhoneNumberType>;
@@ -6183,11 +5991,11 @@ export enum SocialMediaLinkType {
   Pinterest = 'Pinterest',
   Instagram = 'Instagram',
   WhatsApp = 'WhatsApp',
-  PersonalWebsite = 'PersonalWebsite'
+  PersonalWebsite = 'PersonalWebsite',
 }
 
 export type SocialMediaLink = {
-   __typename?: 'SocialMediaLink';
+  __typename?: 'SocialMediaLink';
   id: Scalars['String'];
   socialMediaLink: Scalars['String'];
   socialMediaLinkType?: Maybe<SocialMediaLinkType>;
@@ -6210,7 +6018,7 @@ export type UpdateSocialMediaLinkInput = {
 };
 
 export type Profile = {
-   __typename?: 'Profile';
+  __typename?: 'Profile';
   id: Scalars['ID'];
   gender?: Maybe<GenderType>;
   firstName?: Maybe<Scalars['String']>;
@@ -6248,7 +6056,7 @@ export type UpdateProfileInput = {
 };
 
 export type ProfileTeam = {
-   __typename?: 'ProfileTeam';
+  __typename?: 'ProfileTeam';
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
@@ -6259,7 +6067,7 @@ export type ProfileTeam = {
 };
 
 export type Company = {
-   __typename?: 'Company';
+  __typename?: 'Company';
   id: Scalars['ID'];
   teams?: Maybe<Array<Team>>;
   users?: Maybe<Array<Profile>>;
@@ -6267,7 +6075,7 @@ export type Company = {
 };
 
 export type TeamMember = {
-   __typename?: 'TeamMember';
+  __typename?: 'TeamMember';
   id: Scalars['ID'];
   notes?: Maybe<Scalars['String']>;
   user: Profile;
@@ -6278,7 +6086,7 @@ export type TeamMember = {
 };
 
 export type Team = {
-   __typename?: 'Team';
+  __typename?: 'Team';
   id: Scalars['ID'];
   profileMembers?: Maybe<Array<TeamMember>>;
   company: Company;
@@ -6288,13 +6096,13 @@ export type Team = {
 };
 
 export type ProfileSearchResult = {
-   __typename?: 'ProfileSearchResult';
+  __typename?: 'ProfileSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Profile>>;
 };
 
 export type ProjectPhase = {
-   __typename?: 'ProjectPhase';
+  __typename?: 'ProjectPhase';
   id: Scalars['ID'];
   name: Scalars['String'];
   logo?: Maybe<File>;
@@ -6320,7 +6128,7 @@ export type ProjectPhaseFilters = {
 };
 
 export type ProjectPhaseSearchResult = {
-   __typename?: 'ProjectPhaseSearchResult';
+  __typename?: 'ProjectPhaseSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<ProjectPhase>>;
 };
@@ -6330,9 +6138,8 @@ export type LinkNcpToProjectPhaseInput = {
   projectPhaseId: Scalars['ID'];
 };
 
-
 export type SearchMetadata = {
-   __typename?: 'SearchMetadata';
+  __typename?: 'SearchMetadata';
   total: Scalars['Int'];
 };
 
@@ -6343,7 +6150,7 @@ export type LastUpdated = {
 
 export enum SortDirection {
   Asc = 'asc',
-  Desc = 'desc'
+  Desc = 'desc',
 }
 
 export type Sort = {
@@ -6357,29 +6164,28 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-
 export type Subscription = {
-   __typename?: 'Subscription';
+  __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
 };
 
 export enum MeterType {
   Water = 'Water',
   Gas = 'Gas',
-  Electric = 'Electric'
+  Electric = 'Electric',
 }
 
 export enum HotWaterSupplyType {
   CentralHeatingBoiler = 'CentralHeatingBoiler',
   Boiler = 'Boiler',
   Geyser = 'Geyser',
-  SolarWaterHeater = 'SolarWaterHeater'
+  SolarWaterHeater = 'SolarWaterHeater',
 }
 
 export enum HotWaterSupplyFuelType {
   Gas = 'Gas',
   Electric = 'Electric',
-  Oil = 'Oil'
+  Oil = 'Oil',
 }
 
 export enum HeatingSourceType {
@@ -6402,7 +6208,7 @@ export enum HeatingSourceType {
   HotAirHeating = 'HotAirHeating',
   UnderfloorHeating = 'UnderfloorHeating',
   UnderfloorHeatingCompletely = 'UnderfloorHeatingCompletely',
-  WallHeating = 'WallHeating'
+  WallHeating = 'WallHeating',
 }
 
 export enum AdditionalServiceType {
@@ -6420,19 +6226,19 @@ export enum AdditionalServiceType {
   MechanicalVentilation = 'MechanicalVentilation',
   Elevator = 'Elevator',
   Flue = 'Flue',
-  Shutters = 'Shutters'
+  Shutters = 'Shutters',
 }
 
 export enum OwnershipType {
   Rent = 'Rent',
   Leased = 'Leased',
-  Owned = 'Owned'
+  Owned = 'Owned',
 }
 
 export enum ServiceType {
   HotWaterSupplies = 'HotWaterSupplies',
   HeatingSources = 'HeatingSources',
-  AdditionalServices = 'AdditionalServices'
+  AdditionalServices = 'AdditionalServices',
 }
 
 export type AddMeterInput = {
@@ -6464,7 +6270,6 @@ export type UpdateReadingInput = {
   feedInId?: Maybe<Scalars['String']>;
 };
 
-
 export type AddServiceInput = {
   parentId: Scalars['ID'];
   name: Scalars['String'];
@@ -6483,7 +6288,7 @@ export type UpdateServiceInput = {
 };
 
 export type Reading = {
-   __typename?: 'Reading';
+  __typename?: 'Reading';
   id: Scalars['String'];
   value?: Maybe<Scalars['Int']>;
   dateOfReading?: Maybe<Scalars['Date']>;
@@ -6493,7 +6298,7 @@ export type Reading = {
 };
 
 export type Meter = LastUpdated & {
-   __typename?: 'Meter';
+  __typename?: 'Meter';
   id: Scalars['String'];
   type: MeterType;
   name: Scalars['String'];
@@ -6505,32 +6310,35 @@ export type Meter = LastUpdated & {
 };
 
 export type HeatingSourceMaintenanceContract = {
-   __typename?: 'HeatingSourceMaintenanceContract';
+  __typename?: 'HeatingSourceMaintenanceContract';
   enabled: Scalars['Boolean'];
   endDate?: Maybe<Scalars['Date']>;
 };
 
 export type HotWaterSupplyConfiguration = {
-   __typename?: 'HotWaterSupplyConfiguration';
+  __typename?: 'HotWaterSupplyConfiguration';
   type: HotWaterSupplyType;
   fuel?: Maybe<HotWaterSupplyFuelType>;
 };
 
 export type HeatingSourceConfiguration = {
-   __typename?: 'HeatingSourceConfiguration';
+  __typename?: 'HeatingSourceConfiguration';
   type: HeatingSourceType;
   maintenanceContract?: Maybe<HeatingSourceMaintenanceContract>;
 };
 
 export type AdditionalServiceConfiguration = {
-   __typename?: 'AdditionalServiceConfiguration';
+  __typename?: 'AdditionalServiceConfiguration';
   type: AdditionalServiceType;
 };
 
-export type ServiceConfiguration = HotWaterSupplyConfiguration | HeatingSourceConfiguration | AdditionalServiceConfiguration;
+export type ServiceConfiguration =
+  | HotWaterSupplyConfiguration
+  | HeatingSourceConfiguration
+  | AdditionalServiceConfiguration;
 
 export type Service = {
-   __typename?: 'Service';
+  __typename?: 'Service';
   id: Scalars['String'];
   type: ServiceType;
   name: Scalars['String'];
@@ -6553,14 +6361,14 @@ export type Services = {
 };
 
 export type MetersSharedData = {
-   __typename?: 'MetersSharedData';
+  __typename?: 'MetersSharedData';
   description?: Maybe<Scalars['String']>;
   lastEditedBy?: Maybe<Profile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type MetersMeta = LastUpdated & {
-   __typename?: 'MetersMeta';
+  __typename?: 'MetersMeta';
   description?: Maybe<Scalars['String']>;
   Water?: Maybe<MetersSharedData>;
   Gas?: Maybe<MetersSharedData>;
@@ -6589,7 +6397,7 @@ export enum TaskStatus {
 }
 
 export type Task = {
-   __typename?: 'Task';
+  __typename?: 'Task';
   id: Scalars['ID'];
   title: Scalars['String'];
   assignee: Scalars['ID'];
@@ -6647,7 +6455,7 @@ export enum TeamRight {
   Ncp = 'NCP',
   Crm = 'CRM',
   Sales = 'Sales',
-  Documents = 'Documents'
+  Documents = 'Documents',
 }
 
 export type PermissionsInTeamInput = {
@@ -6658,7 +6466,7 @@ export type PermissionsInTeamInput = {
 };
 
 export type TeamSearchResult = {
-   __typename?: 'TeamSearchResult';
+  __typename?: 'TeamSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Team>>;
 };
@@ -6699,1875 +6507,1249 @@ export type LoginMutationVariables = {
   input?: Maybe<LoginInput>;
 };
 
-
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login?: Maybe<(
-    { __typename?: 'LoginResponse' }
-    & Pick<LoginResponse, 'accessToken' | 'refreshToken'>
-  )> }
-);
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
+};
 
 export type ForgotPasswordMutationVariables = {
   input?: Maybe<ForgotPasswordInput>;
 };
 
-
-export type ForgotPasswordMutation = (
-  { __typename?: 'Mutation' }
-  & { forgotPassword?: Maybe<(
-    { __typename?: 'ForgotPasswordResponse' }
-    & Pick<ForgotPasswordResponse, 'error'>
-  )> }
-);
+export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
+  forgotPassword?: Maybe<{ __typename?: 'ForgotPasswordResponse' } & Pick<ForgotPasswordResponse, 'error'>>;
+};
 
 export type ResetPasswordMutationVariables = {
   input?: Maybe<ResetPasswordInput>;
   token: Scalars['String'];
 };
 
-
-export type ResetPasswordMutation = (
-  { __typename?: 'Mutation' }
-  & { resetPassword?: Maybe<(
-    { __typename?: 'ResetPasswordResponse' }
-    & Pick<ResetPasswordResponse, 'error'>
-  )> }
-);
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
+  resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
+};
 
 export type BulkMutationVariables = {
   input: BulkOperationInput;
 };
 
-
-export type BulkMutation = (
-  { __typename?: 'Mutation' }
-  & { bulk: (
-    { __typename?: 'BulkOperationResult' }
-    & Pick<BulkOperationResult, 'undoIds'>
-  ) }
-);
+export type BulkMutation = { __typename?: 'Mutation' } & {
+  bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
+};
 
 export type DeleteEntityMutationVariables = {
   input: DeleteEntityInput;
 };
 
-
-export type DeleteEntityMutation = (
-  { __typename?: 'Mutation' }
-  & { deleteEntity: Array<(
-    { __typename?: 'DeleteResult' }
-    & Pick<DeleteResult, 'successful' | 'message' | 'undoId'>
-  )> }
-);
+export type DeleteEntityMutation = { __typename?: 'Mutation' } & {
+  deleteEntity: Array<{ __typename?: 'DeleteResult' } & Pick<DeleteResult, 'successful' | 'message' | 'undoId'>>;
+};
 
 export type UndoEntityMutationVariables = {
   input: UndoEntityInput;
 };
 
-
-export type UndoEntityMutation = (
-  { __typename?: 'Mutation' }
-  & { undoEntity: Array<(
-    { __typename?: 'UndoResult' }
-    & Pick<UndoResult, 'successful' | 'entityId'>
-  )> }
-);
+export type UndoEntityMutation = { __typename?: 'Mutation' } & {
+  undoEntity: Array<{ __typename?: 'UndoResult' } & Pick<UndoResult, 'successful' | 'entityId'>>;
+};
 
 export type InitSendFileMutationVariables = {
   input: InitSendFileInput;
 };
 
-
-export type InitSendFileMutation = (
-  { __typename?: 'Mutation' }
-  & { initSendFile: (
-    { __typename?: 'File' }
-    & Pick<File, 'signedUrl' | 'id'>
-  ) }
-);
+export type InitSendFileMutation = { __typename?: 'Mutation' } & {
+  initSendFile: { __typename?: 'File' } & Pick<File, 'signedUrl' | 'id'>;
+};
 
 export type UploadFileMutationVariables = {
   input: Scalars['UploadFileInput'];
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
-
-export type UploadFileMutation = (
-  { __typename?: 'Mutation' }
-  & { uploadFile?: Maybe<(
-    { __typename?: 'UploadFileResponse' }
-    & Pick<UploadFileResponse, 'id'>
-  )> }
-);
+export type UploadFileMutation = { __typename?: 'Mutation' } & {
+  uploadFile?: Maybe<{ __typename?: 'UploadFileResponse' } & Pick<UploadFileResponse, 'id'>>;
+};
 
 export type AddFilesMutationVariables = {
   input: AddFilesInput;
 };
 
-
-export type AddFilesMutation = (
-  { __typename?: 'Mutation' }
-  & { addFiles: Array<(
-    { __typename?: 'File' }
-    & Pick<File, 'url'>
-  )> }
-);
+export type AddFilesMutation = { __typename?: 'Mutation' } & {
+  addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
+};
 
 export type RemoveFilesMutationVariables = {
   input: RemoveFilesInput;
 };
 
-
-export type RemoveFilesMutation = (
-  { __typename?: 'Mutation' }
-  & { removeFiles: Array<Maybe<(
-    { __typename?: 'File' }
-    & Pick<File, 'id'>
-  )>> }
-);
+export type RemoveFilesMutation = { __typename?: 'Mutation' } & {
+  removeFiles: Array<Maybe<{ __typename?: 'File' } & Pick<File, 'id'>>>;
+};
 
 export type AddIdentificationNumberPimMutationVariables = {
   input: AddIdentificationNumberInput;
 };
 
-
-export type AddIdentificationNumberPimMutation = (
-  { __typename?: 'Mutation' }
-  & { addIdentificationNumberPim: (
-    { __typename?: 'PimWithNewIdentificationNumber' }
-    & { newIdentificationNumber: (
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id'>
-    ) }
-  ) }
-);
+export type AddIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberPim: { __typename?: 'PimWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
 
 export type UpdateIdentificationNumberPimMutationVariables = {
   input: UpdateIdentificationNumberInput;
 };
 
-
-export type UpdateIdentificationNumberPimMutation = (
-  { __typename?: 'Mutation' }
-  & { updateIdentificationNumberPim: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberPim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddIdentificationNumberNcpMutationVariables = {
   input: AddIdentificationNumberInput;
 };
 
-
-export type AddIdentificationNumberNcpMutation = (
-  { __typename?: 'Mutation' }
-  & { addIdentificationNumberNcp: (
-    { __typename?: 'NcpWithNewIdentificationNumber' }
-    & { newIdentificationNumber: (
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id'>
-    ) }
-  ) }
-);
+export type AddIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberNcp: { __typename?: 'NcpWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
 
 export type UpdateIdentificationNumberNcpMutationVariables = {
   input: UpdateIdentificationNumberInput;
 };
 
-
-export type UpdateIdentificationNumberNcpMutation = (
-  { __typename?: 'Mutation' }
-  & { updateIdentificationNumberNcp: (
-    { __typename?: 'NcpCharacteristics' }
-    & Pick<NcpCharacteristics, 'id'>
-  ) }
-);
+export type UpdateIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberNcp: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
+};
 
 export type AddIdentificationNumberObjectTypeMutationVariables = {
   input: AddIdentificationNumberInput;
 };
 
-
-export type AddIdentificationNumberObjectTypeMutation = (
-  { __typename?: 'Mutation' }
-  & { addIdentificationNumberObjectType: (
-    { __typename?: 'ObjectTypeWithNewIdentificationNumber' }
-    & { newIdentificationNumber: (
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id'>
-    ) }
-  ) }
-);
+export type AddIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
+  addIdentificationNumberObjectType: { __typename?: 'ObjectTypeWithNewIdentificationNumber' } & {
+    newIdentificationNumber: { __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id'>;
+  };
+};
 
 export type UpdateIdentificationNumberObjectTypeMutationVariables = {
   input: UpdateIdentificationNumberInput;
 };
 
-
-export type UpdateIdentificationNumberObjectTypeMutation = (
-  { __typename?: 'Mutation' }
-  & { updateIdentificationNumberObjectType: (
-    { __typename?: 'ObjectTypeCharacteristics' }
-    & Pick<ObjectTypeCharacteristics, 'id'>
-  ) }
-);
+export type UpdateIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
+  updateIdentificationNumberObjectType: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  >;
+};
 
 export type AddLabelMutationVariables = {
   input: LabelInput;
 };
 
-
-export type AddLabelMutation = (
-  { __typename?: 'Mutation' }
-  & { addLabel: (
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'text' | 'icon'>
-  ) }
-);
+export type AddLabelMutation = { __typename?: 'Mutation' } & {
+  addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
 
 export type UpdateNcpCharacteristicsMutationVariables = {
   input: NcpCharacteristicsInput;
 };
 
-
-export type UpdateNcpCharacteristicsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpCharacteristics: (
-    { __typename?: 'NcpCharacteristics' }
-    & Pick<NcpCharacteristics, 'id'>
-    & { measurements?: Maybe<(
-      { __typename?: 'Measurements' }
-      & Pick<Measurements, 'volumeFrom' | 'volumeTo' | 'livingSpaceFrom' | 'livingSpaceTo' | 'plotAreaFrom' | 'plotAreaTo' | 'calculateAutomatically'>
-    )> }
-  ) }
-);
+export type UpdateNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  updateNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'> & {
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+    };
+};
 
 export type SetNcpCharacteristicsMutationVariables = {
   input: SetCharacteristicsSectionsInput;
 };
 
-
-export type SetNcpCharacteristicsMutation = (
-  { __typename?: 'Mutation' }
-  & { setNcpCharacteristics: (
-    { __typename?: 'NcpCharacteristics' }
-    & Pick<NcpCharacteristics, 'id'>
-  ) }
-);
+export type SetNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  setNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
+};
 
 export type CreateNcpMutationVariables = {
   input: CreateNcpInput;
 };
 
-
-export type CreateNcpMutation = (
-  { __typename?: 'Mutation' }
-  & { createNcp: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id'>
-  ) }
-);
+export type CreateNcpMutation = { __typename?: 'Mutation' } & {
+  createNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
+};
 
 export type UpdateNcpMutationVariables = {
   input: UpdateNcpInput;
 };
 
-
-export type UpdateNcpMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcp: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id' | 'objectTypesCount' | 'automaticallyCalculateQuantity' | 'properties'>
-  ) }
-);
+export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
+  updateNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'id' | 'objectTypesCount' | 'automaticallyCalculateQuantity' | 'properties'
+  >;
+};
 
 export type AddNcpLabelMutationVariables = {
   input: LabelInput;
 };
 
-
-export type AddNcpLabelMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpLabel: (
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'text' | 'icon'>
-  ) }
-);
+export type AddNcpLabelMutation = { __typename?: 'Mutation' } & {
+  addNcpLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
 
 export type UpdateNcpMediaDescriptionMutationVariables = {
   input: CommonUpdateMediaDescriptionInput;
 };
 
-
-export type UpdateNcpMediaDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpMediaDescription?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpMediaDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpMediaDescription?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type AddNcpPicturesMutationVariables = {
   input: CommonAddPicturesInput;
 };
 
-
-export type AddNcpPicturesMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpPictures?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type AddNcpPicturesMutation = { __typename?: 'Mutation' } & {
+  addNcpPictures?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type UpdateNcpPictureMutationVariables = {
   input: CommonUpdatePictureInput;
 };
 
-
-export type UpdateNcpPictureMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpPicture?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpPictureMutation = { __typename?: 'Mutation' } & {
+  updateNcpPicture?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type AddNcpMediaLinkMutationVariables = {
   input: CommonAddMediaLinkInput;
 };
 
-
-export type AddNcpMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpMediaLink?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-    & { mediaLinks?: Maybe<Array<(
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id'>
-    )>> }
-  )> }
-);
+export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addNcpMediaLink?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateNcpMediaLinkMutationVariables = {
   input: CommonUpdateMediaLinkInput;
 };
 
-
-export type UpdateNcpMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpMediaLink?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateNcpMediaLink?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type AddNcpTextChapterMutationVariables = {
   input: CommonAddTextChapterInput;
 };
 
-
-export type AddNcpTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpTextChapter?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-    & { textChapters?: Maybe<Array<(
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id'>
-    )>> }
-  )> }
-);
+export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
+  addNcpTextChapter?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateNcpTextChapterMutationVariables = {
   input: CommonUpdateTextChapterInput;
 };
 
-
-export type UpdateNcpTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpTextChapter?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateNcpTextChapter?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type AddNcpUspsMutationVariables = {
   input: CommonAddUspsInput;
 };
 
-
-export type AddNcpUspsMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpUsps?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-    & { usps?: Maybe<Array<(
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id'>
-    )>> }
-  )> }
-);
+export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
+  addNcpUsps?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateNcpUspsMutationVariables = {
   input: CommonUpdateUspsInput;
 };
 
-
-export type UpdateNcpUspsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpUsps?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpUspsMutation = { __typename?: 'Mutation' } & {
+  updateNcpUsps?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type AddNcpTagMutationVariables = {
   input: CommonAddTagInput;
 };
 
-
-export type AddNcpTagMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpTag?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-    & { tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id'>
-    )>> }
-  )> }
-);
+export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
+  addNcpTag?: Maybe<
+    { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'> & {
+        tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateNcpTagMutationVariables = {
   input: CommonUpdateTagInput;
 };
 
-
-export type UpdateNcpTagMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpTag?: Maybe<(
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id'>
-  )> }
-);
+export type UpdateNcpTagMutation = { __typename?: 'Mutation' } & {
+  updateNcpTag?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
+};
 
 export type ToggleNcpPricingMutationVariables = {
   input: ToggleCommonPricingInput;
 };
 
-
-export type ToggleNcpPricingMutation = (
-  { __typename?: 'Mutation' }
-  & { toggleNcpPricing: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type ToggleNcpPricingMutation = { __typename?: 'Mutation' } & {
+  toggleNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type UpdateNcpPricingMutationVariables = {
   input: UpdateCommonPricingInput;
 };
 
-
-export type UpdateNcpPricingMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpPricing: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type UpdateNcpPricingMutation = { __typename?: 'Mutation' } & {
+  updateNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type AddNcpCostMutationVariables = {
   input: AddCommonCostInput;
 };
 
-
-export type AddNcpCostMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpCost: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type AddNcpCostMutation = { __typename?: 'Mutation' } & {
+  addNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type UpdateNcpCostMutationVariables = {
   input: UpdateCommonCostInput;
 };
 
-
-export type UpdateNcpCostMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpCost: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type UpdateNcpCostMutation = { __typename?: 'Mutation' } & {
+  updateNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type UpdateNcpCostsDetailsMutationVariables = {
   input: UpdateCommonCostsDetailsInput;
 };
 
-
-export type UpdateNcpCostsDetailsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpCostsDetails: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type UpdateNcpCostsDetailsMutation = { __typename?: 'Mutation' } & {
+  updateNcpCostsDetails: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type UpdateNcpInterestsMutationVariables = {
   input: InterestsInput;
 };
 
-
-export type UpdateNcpInterestsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpInterests: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-  ) }
-);
+export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
+  updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
+};
 
 export type UpdateNcpLinkedPropertiesListDescriptionMutationVariables = {
   input: UpdateLinkedPropertiesListDescription;
 };
 
-
-export type UpdateNcpLinkedPropertiesListDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpLinkedPropertiesListDescription?: Maybe<(
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id'>
-  )> }
-);
+export type UpdateNcpLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpLinkedPropertiesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
+};
 
 export type AddNcpServiceMutationVariables = {
   input: AddServiceInput;
 };
 
-
-export type AddNcpServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { addNcpService: (
-    { __typename?: 'NcpWithNewService' }
-    & { ncp: (
-      { __typename?: 'NcpServices' }
-      & Pick<NcpServices, 'id'>
-    ), newService: (
-      { __typename?: 'Service' }
-      & Pick<Service, 'id'>
-    ) }
-  ) }
-);
+export type AddNcpServiceMutation = { __typename?: 'Mutation' } & {
+  addNcpService: { __typename?: 'NcpWithNewService' } & {
+    ncp: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
+    newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
+  };
+};
 
 export type UpdateNcpServiceMutationVariables = {
   input: UpdateServiceInput;
 };
 
-
-export type UpdateNcpServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpService: (
-    { __typename?: 'NcpServices' }
-    & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'>
-    & { hotWaterSupplies?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: (
-        { __typename?: 'HotWaterSupplyConfiguration' }
-        & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>
-      ) | { __typename?: 'HeatingSourceConfiguration' } | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, heatingSources?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | (
-        { __typename?: 'HeatingSourceConfiguration' }
-        & Pick<HeatingSourceConfiguration, 'type'>
-      ) | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, additionalServices?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | { __typename?: 'HeatingSourceConfiguration' } | (
-        { __typename?: 'AdditionalServiceConfiguration' }
-        & Pick<AdditionalServiceConfiguration, 'type'>
-      ) }
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
+  updateNcpService: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type UpdateNcpServiceDescriptionMutationVariables = {
   input: ServiceDescriptionInput;
 };
 
-
-export type UpdateNcpServiceDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateNcpServiceDescription: (
-    { __typename?: 'NcpServices' }
-    & Pick<NcpServices, 'id'>
-  ) }
-);
+export type UpdateNcpServiceDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateNcpServiceDescription: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
+};
 
 export type UpdateObjectTypeCharacteristicsMutationVariables = {
   input: ObjectTypeCharacteristicsInput;
 };
 
-
-export type UpdateObjectTypeCharacteristicsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeCharacteristics: (
-    { __typename?: 'ObjectTypeCharacteristics' }
-    & Pick<ObjectTypeCharacteristics, 'id'>
-    & { measurements?: Maybe<(
-      { __typename?: 'Measurements' }
-      & Pick<Measurements, 'volumeFrom' | 'volumeTo' | 'livingSpaceFrom' | 'livingSpaceTo' | 'plotAreaFrom' | 'plotAreaTo' | 'calculateAutomatically'>
-    )> }
-  ) }
-);
+export type UpdateObjectTypeCharacteristicsMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  > & {
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+    };
+};
 
 export type SetObjectTypeCharacteristicsSectionsMutationVariables = {
   input: SetCharacteristicsSectionsInput;
 };
 
-
-export type SetObjectTypeCharacteristicsSectionsMutation = (
-  { __typename?: 'Mutation' }
-  & { setObjectTypeCharacteristicsSections: (
-    { __typename?: 'ObjectTypeCharacteristics' }
-    & Pick<ObjectTypeCharacteristics, 'id'>
-  ) }
-);
+export type SetObjectTypeCharacteristicsSectionsMutation = { __typename?: 'Mutation' } & {
+  setObjectTypeCharacteristicsSections: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    'id'
+  >;
+};
 
 export type CreateObjectTypeMutationVariables = {
   input: CreateObjectTypeInput;
 };
 
-
-export type CreateObjectTypeMutation = (
-  { __typename?: 'Mutation' }
-  & { createObjectType: (
-    { __typename?: 'ObjectTypeGeneral' }
-    & Pick<ObjectTypeGeneral, 'name' | 'dateUpdated' | 'ncpId' | 'id'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
+  createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<
+    ObjectTypeGeneral,
+    'name' | 'dateUpdated' | 'ncpId' | 'id'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
 
 export type AddObjectTypeLabelMutationVariables = {
   input: LabelInput;
 };
 
-
-export type AddObjectTypeLabelMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeLabel: (
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'text' | 'icon'>
-  ) }
-);
+export type AddObjectTypeLabelMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
+};
 
 export type UpdateObjectTypesListDescriptionMutationVariables = {
   input: UpdateObjectTypesListDescription;
 };
 
-
-export type UpdateObjectTypesListDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypesListDescription?: Maybe<(
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id'>
-  )> }
-);
+export type UpdateObjectTypesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
+};
 
 export type UpdateObjectTypeMediaDescriptionMutationVariables = {
   input: CommonUpdateMediaDescriptionInput;
 };
 
-
-export type UpdateObjectTypeMediaDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeMediaDescription?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypeMediaDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeMediaDescription?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type AddObjectTypePicturesMutationVariables = {
   input: CommonAddPicturesInput;
 };
 
-
-export type AddObjectTypePicturesMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypePictures?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type AddObjectTypePicturesMutation = { __typename?: 'Mutation' } & {
+  addObjectTypePictures?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type UpdateObjectTypePictureMutationVariables = {
   input: CommonUpdatePictureInput;
 };
 
-
-export type UpdateObjectTypePictureMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypePicture?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypePictureMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypePicture?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type AddObjectTypeMediaLinkMutationVariables = {
   input: CommonAddMediaLinkInput;
 };
 
-
-export type AddObjectTypeMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeMediaLink?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-    & { mediaLinks?: Maybe<Array<(
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id'>
-    )>> }
-  )> }
-);
+export type AddObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeMediaLink?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateObjectTypeMediaLinkMutationVariables = {
   input: CommonUpdateMediaLinkInput;
 };
 
-
-export type UpdateObjectTypeMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeMediaLink?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeMediaLink?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type AddObjectTypeTextChapterMutationVariables = {
   input: CommonAddTextChapterInput;
 };
 
-
-export type AddObjectTypeTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeTextChapter?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-    & { textChapters?: Maybe<Array<(
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id'>
-    )>> }
-  )> }
-);
+export type AddObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeTextChapter?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateObjectTypeTextChapterMutationVariables = {
   input: CommonUpdateTextChapterInput;
 };
 
-
-export type UpdateObjectTypeTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeTextChapter?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeTextChapter?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type AddObjectTypeUspsMutationVariables = {
   input: CommonAddUspsInput;
 };
 
-
-export type AddObjectTypeUspsMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeUsps?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-    & { usps?: Maybe<Array<(
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id'>
-    )>> }
-  )> }
-);
+export type AddObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeUsps?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateObjectTypeUspsMutationVariables = {
   input: CommonUpdateUspsInput;
 };
 
-
-export type UpdateObjectTypeUspsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeUsps?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeUsps?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type AddObjectTypeTagMutationVariables = {
   input: CommonAddTagInput;
 };
 
-
-export type AddObjectTypeTagMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeTag?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-    & { tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id'>
-    )>> }
-  )> }
-);
+export type AddObjectTypeTagMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeTag?: Maybe<
+    { __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'> & {
+        tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id'>>>;
+      }
+  >;
+};
 
 export type UpdateObjectTypeTagMutationVariables = {
   input: CommonUpdateTagInput;
 };
 
-
-export type UpdateObjectTypeTagMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeTag?: Maybe<(
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id'>
-  )> }
-);
+export type UpdateObjectTypeTagMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeTag?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
+};
 
 export type ToggleObjectTypePricingMutationVariables = {
   input: ToggleCommonPricingInput;
 };
 
-
-export type ToggleObjectTypePricingMutation = (
-  { __typename?: 'Mutation' }
-  & { toggleObjectTypePricing: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-  ) }
-);
+export type ToggleObjectTypePricingMutation = { __typename?: 'Mutation' } & {
+  toggleObjectTypePricing: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
 
 export type UpdateObjectTypePricingMutationVariables = {
   input: UpdateCommonPricingInput;
 };
 
-
-export type UpdateObjectTypePricingMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypePricing: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-  ) }
-);
+export type UpdateObjectTypePricingMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypePricing: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
 
 export type AddObjectTypeCostMutationVariables = {
   input: AddCommonCostInput;
 };
 
-
-export type AddObjectTypeCostMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeCost: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-  ) }
-);
+export type AddObjectTypeCostMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
 
 export type UpdateObjectTypeCostMutationVariables = {
   input: UpdateCommonCostInput;
 };
 
-
-export type UpdateObjectTypeCostMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeCost: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-  ) }
-);
+export type UpdateObjectTypeCostMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
 
 export type UpdateObjectTypeCostsDetailsMutationVariables = {
   input: UpdateCommonCostsDetailsInput;
 };
 
-
-export type UpdateObjectTypeCostsDetailsMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeCostsDetails: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-  ) }
-);
+export type UpdateObjectTypeCostsDetailsMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeCostsDetails: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
+};
 
 export type SetObjectTypeLinkedPimsMutationVariables = {
   input: SetLinkedPimsInput;
 };
 
-
-export type SetObjectTypeLinkedPimsMutation = (
-  { __typename?: 'Mutation' }
-  & { setObjectTypeLinkedPims: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { items?: Maybe<Array<(
-        { __typename?: 'ListPim' }
-        & Pick<ListPim, 'id'>
-      )>> }
-    ) }
-  ) }
-);
+export type SetObjectTypeLinkedPimsMutation = { __typename?: 'Mutation' } & {
+  setObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      items?: Maybe<Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id'>>>;
+    };
+  };
+};
 
 export type UpdateLinkedPropertiesListDescriptionMutationVariables = {
   input: UpdateLinkedPropertiesListDescription;
 };
 
-
-export type UpdateLinkedPropertiesListDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateLinkedPropertiesListDescription?: Maybe<(
-    { __typename?: 'ObjectTypeGeneral' }
-    & Pick<ObjectTypeGeneral, 'id'>
-  )> }
-);
+export type UpdateLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateLinkedPropertiesListDescription?: Maybe<{ __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id'>>;
+};
 
 export type AddObjectTypeServiceMutationVariables = {
   input: AddServiceInput;
 };
 
-
-export type AddObjectTypeServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { addObjectTypeService: (
-    { __typename?: 'ObjectTypeWithNewService' }
-    & { objectType: (
-      { __typename?: 'ObjectTypeServices' }
-      & Pick<ObjectTypeServices, 'id'>
-    ), newService: (
-      { __typename?: 'Service' }
-      & Pick<Service, 'id'>
-    ) }
-  ) }
-);
+export type AddObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
+  addObjectTypeService: { __typename?: 'ObjectTypeWithNewService' } & {
+    objectType: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
+    newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
+  };
+};
 
 export type UpdateObjectTypeServiceMutationVariables = {
   input: UpdateServiceInput;
 };
 
-
-export type UpdateObjectTypeServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeService: (
-    { __typename?: 'ObjectTypeServices' }
-    & Pick<ObjectTypeServices, 'id' | 'dateUpdated' | 'servicesDescription'>
-    & { hotWaterSupplies?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: (
-        { __typename?: 'HotWaterSupplyConfiguration' }
-        & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>
-      ) | { __typename?: 'HeatingSourceConfiguration' } | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, heatingSources?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | (
-        { __typename?: 'HeatingSourceConfiguration' }
-        & Pick<HeatingSourceConfiguration, 'type'>
-      ) | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, additionalServices?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | { __typename?: 'HeatingSourceConfiguration' } | (
-        { __typename?: 'AdditionalServiceConfiguration' }
-        & Pick<AdditionalServiceConfiguration, 'type'>
-      ) }
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeService: { __typename?: 'ObjectTypeServices' } & Pick<
+    ObjectTypeServices,
+    'id' | 'dateUpdated' | 'servicesDescription'
+  > & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type UpdateObjectTypeServiceDescriptionMutationVariables = {
   input: ServiceDescriptionInput;
 };
 
-
-export type UpdateObjectTypeServiceDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateObjectTypeServiceDescription: (
-    { __typename?: 'ObjectTypeServices' }
-    & Pick<ObjectTypeServices, 'id'>
-  ) }
-);
+export type UpdateObjectTypeServiceDescriptionMutation = { __typename?: 'Mutation' } & {
+  updateObjectTypeServiceDescription: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
+};
 
 export type AddAogSpaceMutationVariables = {
   input: AddAogSpaceInput;
 };
 
-
-export type AddAogSpaceMutation = (
-  { __typename?: 'Mutation' }
-  & { addAogSpace: (
-    { __typename?: 'PimWithNewAogSpace' }
-    & { newSpace?: Maybe<(
-      { __typename?: 'AogSpace' }
-      & Pick<AogSpace, 'id'>
-    )> }
-  ) }
-);
+export type AddAogSpaceMutation = { __typename?: 'Mutation' } & {
+  addAogSpace: { __typename?: 'PimWithNewAogSpace' } & {
+    newSpace?: Maybe<{ __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>>;
+  };
+};
 
 export type UpdateAogSpaceMutationVariables = {
   input: UpdateAogSpaceInput;
 };
 
-
-export type UpdateAogSpaceMutation = (
-  { __typename?: 'Mutation' }
-  & { updateAogSpace: (
-    { __typename?: 'AogSpace' }
-    & Pick<AogSpace, 'id'>
-  ) }
-);
+export type UpdateAogSpaceMutation = { __typename?: 'Mutation' } & {
+  updateAogSpace: { __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>;
+};
 
 export type AddBogSpaceMutationVariables = {
   input: AddBogSpaceInput;
 };
 
-
-export type AddBogSpaceMutation = (
-  { __typename?: 'Mutation' }
-  & { addBogSpace: (
-    { __typename?: 'PimWithNewBogSpace' }
-    & { newSpace: (
-      { __typename?: 'BogSpace' }
-      & Pick<BogSpace, 'id' | 'type' | 'name'>
-    ) }
-  ) }
-);
+export type AddBogSpaceMutation = { __typename?: 'Mutation' } & {
+  addBogSpace: { __typename?: 'PimWithNewBogSpace' } & {
+    newSpace: { __typename?: 'BogSpace' } & Pick<BogSpace, 'id' | 'type' | 'name'>;
+  };
+};
 
 export type UpdateBogSpaceMutationVariables = {
   input: UpdateBogSpaceInput;
 };
 
-
-export type UpdateBogSpaceMutation = (
-  { __typename?: 'Mutation' }
-  & { updateBogSpace: (
-    { __typename?: 'BogSpace' }
-    & Pick<BogSpace, 'id'>
-  ) }
-);
+export type UpdateBogSpaceMutation = { __typename?: 'Mutation' } & {
+  updateBogSpace: { __typename?: 'BogSpace' } & Pick<BogSpace, 'id'>;
+};
 
 export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
 };
 
-
-export type AddCadastreMutation = (
-  { __typename?: 'Mutation' }
-  & { addCadastre?: Maybe<(
-    { __typename?: 'PimWithNewCadastre' }
-    & { pim?: Maybe<(
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    )>, cadastre?: Maybe<(
-      { __typename?: 'Cadastre' }
-      & Pick<Cadastre, 'id' | 'type'>
-    )> }
-  )> }
-);
+export type AddCadastreMutation = { __typename?: 'Mutation' } & {
+  addCadastre?: Maybe<
+    { __typename?: 'PimWithNewCadastre' } & {
+      pim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+      cadastre?: Maybe<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>;
+    }
+  >;
+};
 
 export type UpdateCadastreMutationVariables = {
   input: UpdateCadastreInput;
 };
 
-
-export type UpdateCadastreMutation = (
-  { __typename?: 'Mutation' }
-  & { updateCadastre?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateCadastreMutation = { __typename?: 'Mutation' } & {
+  updateCadastre?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddCadastreMapsMutationVariables = {
   input: AddCadastreMapsInput;
 };
 
-
-export type AddCadastreMapsMutation = (
-  { __typename?: 'Mutation' }
-  & { addCadastreMaps?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
+  addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdateMapMutationVariables = {
   input: UpdateCadastreMapInput;
 };
 
-
-export type UpdateMapMutation = (
-  { __typename?: 'Mutation' }
-  & { updateCadastreMap?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateMapMutation = { __typename?: 'Mutation' } & {
+  updateCadastreMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdatePimGeneralInfoMutationVariables = {
   input: PimGeneralInput;
 };
 
-
-export type UpdatePimGeneralInfoMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimGeneralInfo: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
+  updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddFloorToPimMutationVariables = {
   input: AddNewFloorInput;
 };
 
-
-export type AddFloorToPimMutation = (
-  { __typename?: 'Mutation' }
-  & { addFloorToPim: (
-    { __typename?: 'PimWithNewFloor' }
-    & { newFloor: (
-      { __typename?: 'Floor' }
-      & Pick<Floor, 'id'>
-    ) }
-  ) }
-);
+export type AddFloorToPimMutation = { __typename?: 'Mutation' } & {
+  addFloorToPim: { __typename?: 'PimWithNewFloor' } & { newFloor: { __typename?: 'Floor' } & Pick<Floor, 'id'> };
+};
 
 export type AddSpaceToFloorMutationVariables = {
   input: AddSpaceInput;
 };
 
-
-export type AddSpaceToFloorMutation = (
-  { __typename?: 'Mutation' }
-  & { addSpaceToFloor: (
-    { __typename?: 'PimWithUpdatedSpace' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newSpace: (
-      { __typename?: 'Space' }
-      & Pick<Space, 'id'>
-    ) }
-  ) }
-);
+export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
+  addSpaceToFloor: { __typename?: 'PimWithUpdatedSpace' } & {
+    pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+    newSpace: { __typename?: 'Space' } & Pick<Space, 'id'>;
+  };
+};
 
 export type UpdateSpaceMutationVariables = {
   input: UpdateSpaceInput;
 };
 
-
-export type UpdateSpaceMutation = (
-  { __typename?: 'Mutation' }
-  & { updateSpace: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateSpaceMutation = { __typename?: 'Mutation' } & {
+  updateSpace: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type UpdateFloorMutationVariables = {
   input: UpdateFloorInput;
 };
 
-
-export type UpdateFloorMutation = (
-  { __typename?: 'Mutation' }
-  & { updateFloor: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
+  updateFloor: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type UpdateInsideGeneralMutationVariables = {
   input: InsideGeneralInput;
 };
 
-
-export type UpdateInsideGeneralMutation = (
-  { __typename?: 'Mutation' }
-  & { updateInsideGeneral?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateInsideGeneralMutation = { __typename?: 'Mutation' } & {
+  updateInsideGeneral?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdatePimLocationMutationVariables = {
   input: UpdatePimLocationInput;
 };
 
-
-export type UpdatePimLocationMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimLocation: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdatePimLocationMutation = { __typename?: 'Mutation' } & {
+  updatePimLocation: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddTagMutationVariables = {
   input: AddTagInput;
 };
 
-
-export type AddTagMutation = (
-  { __typename?: 'Mutation' }
-  & { addTag?: Maybe<(
-    { __typename?: 'PimWithNewTag' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newTag: (
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id'>
-    ) }
-  )> }
-);
+export type AddTagMutation = { __typename?: 'Mutation' } & {
+  addTag?: Maybe<
+    { __typename?: 'PimWithNewTag' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newTag: { __typename?: 'Tag' } & Pick<Tag, 'id'>;
+    }
+  >;
+};
 
 export type UpdateTagMutationVariables = {
   input: UpdateTagInput;
 };
 
-
-export type UpdateTagMutation = (
-  { __typename?: 'Mutation' }
-  & { updateTag?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateTagMutation = { __typename?: 'Mutation' } & {
+  updateTag?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddUspMutationVariables = {
   input: AddUspInput;
 };
 
-
-export type AddUspMutation = (
-  { __typename?: 'Mutation' }
-  & { addUsp?: Maybe<(
-    { __typename?: 'PimWithNewUsp' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newUsp: (
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id'>
-    ) }
-  )> }
-);
+export type AddUspMutation = { __typename?: 'Mutation' } & {
+  addUsp?: Maybe<
+    { __typename?: 'PimWithNewUsp' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newUsp: { __typename?: 'Usp' } & Pick<Usp, 'id'>;
+    }
+  >;
+};
 
 export type UpdateUspMutationVariables = {
   input: UpdateUspInput;
 };
 
-
-export type UpdateUspMutation = (
-  { __typename?: 'Mutation' }
-  & { updateUsp?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateUspMutation = { __typename?: 'Mutation' } & {
+  updateUsp?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddMediaLinkMutationVariables = {
   input: AddMediaLinkInput;
 };
 
-
-export type AddMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { addMediaLink?: Maybe<(
-    { __typename?: 'PimWithNewMediaLink' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newMediaLink: (
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id'>
-    ) }
-  )> }
-);
+export type AddMediaLinkMutation = { __typename?: 'Mutation' } & {
+  addMediaLink?: Maybe<
+    { __typename?: 'PimWithNewMediaLink' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newMediaLink: { __typename?: 'MediaLink' } & Pick<MediaLink, 'id'>;
+    }
+  >;
+};
 
 export type UpdateMediaLinkMutationVariables = {
   input: UpdateMediaLinkInput;
 };
 
-
-export type UpdateMediaLinkMutation = (
-  { __typename?: 'Mutation' }
-  & { updateMediaLink?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateMediaLinkMutation = { __typename?: 'Mutation' } & {
+  updateMediaLink?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddTextChapterMutationVariables = {
   input: AddTextChapterInput;
 };
 
-
-export type AddTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { addTextChapter?: Maybe<(
-    { __typename?: 'PimWithNewTextChapter' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newChapter: (
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id'>
-    ) }
-  )> }
-);
+export type AddTextChapterMutation = { __typename?: 'Mutation' } & {
+  addTextChapter?: Maybe<
+    { __typename?: 'PimWithNewTextChapter' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newChapter: { __typename?: 'TextChapter' } & Pick<TextChapter, 'id'>;
+    }
+  >;
+};
 
 export type UpdateTextChapterMutationVariables = {
   input: UpdateTextChapterInput;
 };
 
-
-export type UpdateTextChapterMutation = (
-  { __typename?: 'Mutation' }
-  & { updateTextChapter?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateTextChapterMutation = { __typename?: 'Mutation' } & {
+  updateTextChapter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddPicturesMutationVariables = {
   input: AddPicturesInput;
 };
 
-
-export type AddPicturesMutation = (
-  { __typename?: 'Mutation' }
-  & { addPictures?: Maybe<(
-    { __typename?: 'PimWithNewPictures' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ) }
-  )> }
-);
+export type AddPicturesMutation = { __typename?: 'Mutation' } & {
+  addPictures?: Maybe<{ __typename?: 'PimWithNewPictures' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
+};
 
 export type UpdatePictureMutationVariables = {
   input: UpdatePictureInput;
 };
 
-
-export type UpdatePictureMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePicture?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdatePictureMutation = { __typename?: 'Mutation' } & {
+  updatePicture?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddOutsideFeatureMutationVariables = {
   input: AddOutsideFeatureInput;
 };
 
-
-export type AddOutsideFeatureMutation = (
-  { __typename?: 'Mutation' }
-  & { addOutsideFeature: (
-    { __typename?: 'PimWithNewOutside' }
-    & { newOutsideFeature: (
-      { __typename?: 'OutsideFeature' }
-      & Pick<OutsideFeature, 'id'>
-    ) }
-  ) }
-);
+export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
+  addOutsideFeature: { __typename?: 'PimWithNewOutside' } & {
+    newOutsideFeature: { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id'>;
+  };
+};
 
 export type UpdateOutsideFeatureMutationVariables = {
   input: Scalars['UpdateFeatureInputConfiguration'];
 };
 
-
-export type UpdateOutsideFeatureMutation = (
-  { __typename?: 'Mutation' }
-  & { updateOutsideFeature: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateOutsideFeatureMutation = { __typename?: 'Mutation' } & {
+  updateOutsideFeature: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type UpdatePimOutsideInfoMutationVariables = {
   input: PimOutsideInput;
 };
 
-
-export type UpdatePimOutsideInfoMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimOutsideInfo: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
+  updatePimOutsideInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type TogglePricingMutationVariables = {
   input: TogglePricingInput;
 };
 
-
-export type TogglePricingMutation = (
-  { __typename?: 'Mutation' }
-  & { togglePricing: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type TogglePricingMutation = { __typename?: 'Mutation' } & {
+  togglePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddCostsMutationVariables = {
   input: AddCostInput;
 };
 
-
-export type AddCostsMutation = (
-  { __typename?: 'Mutation' }
-  & { addCost: (
-    { __typename?: 'CostResult' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ) }
-  ) }
-);
+export type AddCostsMutation = { __typename?: 'Mutation' } & {
+  addCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
+};
 
 export type UpdateCostMutationVariables = {
   input: UpdateCostInput;
 };
 
-
-export type UpdateCostMutation = (
-  { __typename?: 'Mutation' }
-  & { updateCost: (
-    { __typename?: 'CostResult' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ) }
-  ) }
-);
+export type UpdateCostMutation = { __typename?: 'Mutation' } & {
+  updateCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
+};
 
 export type UpdateInvestmentMutationVariables = {
   input: InvestmentInput;
 };
 
-
-export type UpdateInvestmentMutation = (
-  { __typename?: 'Mutation' }
-  & { updateInvestment: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateInvestmentMutation = { __typename?: 'Mutation' } & {
+  updateInvestment: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type UpdatePricingMutationVariables = {
   input: UpdatePricingInput;
 };
 
-
-export type UpdatePricingMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePricing: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdatePricingMutation = { __typename?: 'Mutation' } & {
+  updatePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddServiceMutationVariables = {
   input: AddServiceInput;
 };
 
-
-export type AddServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { addPimService?: Maybe<(
-    { __typename?: 'PimWithNewService' }
-    & { pim: (
-      { __typename?: 'Pim' }
-      & Pick<Pim, 'id'>
-    ), newService: (
-      { __typename?: 'Service' }
-      & Pick<Service, 'id'>
-    ) }
-  )> }
-);
+export type AddServiceMutation = { __typename?: 'Mutation' } & {
+  addPimService?: Maybe<
+    { __typename?: 'PimWithNewService' } & {
+      pim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+      newService: { __typename?: 'Service' } & Pick<Service, 'id'>;
+    }
+  >;
+};
 
 export type UpdateServiceMutationVariables = {
   input: UpdateServiceInput;
 };
 
-
-export type UpdateServiceMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimService?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateServiceMutation = { __typename?: 'Mutation' } & {
+  updatePimService?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddMeterMutationVariables = {
   input: AddMeterInput;
 };
 
-
-export type AddMeterMutation = (
-  { __typename?: 'Mutation' }
-  & { addPimMeter?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type AddMeterMutation = { __typename?: 'Mutation' } & {
+  addPimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdateMeterMutationVariables = {
   input: UpdateMeterInput;
 };
 
-
-export type UpdateMeterMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimMeter?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateMeterMutation = { __typename?: 'Mutation' } & {
+  updatePimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type AddReadingMutationVariables = {
   input: AddReadingInput;
 };
 
-
-export type AddReadingMutation = (
-  { __typename?: 'Mutation' }
-  & { addPimReading?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type AddReadingMutation = { __typename?: 'Mutation' } & {
+  addPimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdateReadingMutationVariables = {
   input: UpdateReadingInput;
 };
 
-
-export type UpdateReadingMutation = (
-  { __typename?: 'Mutation' }
-  & { updatePimReading?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type UpdateReadingMutation = { __typename?: 'Mutation' } & {
+  updatePimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdateSpecificationMutationVariables = {
   input: SpecificationInput;
 };
 
-
-export type UpdateSpecificationMutation = (
-  { __typename?: 'Mutation' }
-  & { updateSpecification: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateSpecificationMutation = { __typename?: 'Mutation' } & {
+  updateSpecification: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type UpdateSpecificationAdvancedMutationVariables = {
   input: SpecificationAdvancedInput;
 };
 
-
-export type UpdateSpecificationAdvancedMutation = (
-  { __typename?: 'Mutation' }
-  & { updateSpecificationAdvanced: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateSpecificationAdvancedMutation = { __typename?: 'Mutation' } & {
+  updateSpecificationAdvanced: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type SetLinkedPropertiesMutationVariables = {
   input: LinkedPimInput;
 };
 
-
-export type SetLinkedPropertiesMutation = (
-  { __typename?: 'Mutation' }
-  & { setLinkedProperties: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type SetLinkedPropertiesMutation = { __typename?: 'Mutation' } & {
+  setLinkedProperties: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type AddInspectionMutationVariables = {
   input: AddInspectionInput;
 };
 
-
-export type AddInspectionMutation = (
-  { __typename?: 'Mutation' }
-  & { addInspection: (
-    { __typename?: 'AddInspectionResult' }
-    & { inspection: (
-      { __typename?: 'Inspection' }
-      & Pick<Inspection, 'id'>
-    ) }
-  ) }
-);
+export type AddInspectionMutation = { __typename?: 'Mutation' } & {
+  addInspection: { __typename?: 'AddInspectionResult' } & {
+    inspection: { __typename?: 'Inspection' } & Pick<Inspection, 'id'>;
+  };
+};
 
 export type UpdateInspectionMutationVariables = {
   input: UpdateInspectionInput;
 };
 
-
-export type UpdateInspectionMutation = (
-  { __typename?: 'Mutation' }
-  & { updateInspection: (
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  ) }
-);
+export type UpdateInspectionMutation = { __typename?: 'Mutation' } & {
+  updateInspection: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
+};
 
 export type CreatePimMutationVariables = {
   input: CreatePimInput;
 };
 
-
-export type CreatePimMutation = (
-  { __typename?: 'Mutation' }
-  & { createPim?: Maybe<(
-    { __typename?: 'Pim' }
-    & Pick<Pim, 'id'>
-  )> }
-);
+export type CreatePimMutation = { __typename?: 'Mutation' } & {
+  createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
+};
 
 export type UpdateDescriptionMutationVariables = {
   input: UpdateDescriptionInput;
 };
 
-
-export type UpdateDescriptionMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'updateDescription'>
-);
+export type UpdateDescriptionMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateDescription'>;
 
 export type AddProjectPhaseMutationVariables = {
   input: CreateProjectPhaseInput;
 };
 
-
-export type AddProjectPhaseMutation = (
-  { __typename?: 'Mutation' }
-  & { addProjectPhase: (
-    { __typename?: 'ProjectPhase' }
-    & Pick<ProjectPhase, 'id'>
-  ) }
-);
+export type AddProjectPhaseMutation = { __typename?: 'Mutation' } & {
+  addProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
 
 export type LinkNcpToProjectPhaseMutationVariables = {
   input: LinkNcpToProjectPhaseInput;
 };
 
-
-export type LinkNcpToProjectPhaseMutation = (
-  { __typename?: 'Mutation' }
-  & { linkNcpToProjectPhase: (
-    { __typename?: 'ProjectPhase' }
-    & Pick<ProjectPhase, 'id'>
-  ) }
-);
+export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
+  linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
 
 export type CreateTaskMutationVariables = {
   input: CreateTaskInput;
 };
 
-
-export type CreateTaskMutation = (
-  { __typename?: 'Mutation' }
-  & { createTask: (
-    { __typename?: 'Task' }
-    & Pick<Task, 'id'>
-  ) }
-);
+export type CreateTaskMutation = { __typename?: 'Mutation' } & {
+  createTask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
 
 export type UpdateTaskMutationVariables = {
   input: UpdateTaskInput;
 };
 
-
-export type UpdateTaskMutation = (
-  { __typename?: 'Mutation' }
-  & { updateTask?: Maybe<(
-    { __typename?: 'Task' }
-    & Pick<Task, 'id'>
-  )> }
-);
+export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
+  updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
 
 export type AddTeamMutationVariables = {
   input: AddTeamInput;
 };
 
-
-export type AddTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { addTeam?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id' | 'name'>
-  )> }
-);
+export type AddTeamMutation = { __typename?: 'Mutation' } & {
+  addTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>;
+};
 
 export type UpdateTeamMutationVariables = {
   input: UpdateTeamInput;
 };
 
-
-export type UpdateTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { updateTeam?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id'>
-  )> }
-);
+export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
+  updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
 
 export type RemoveTeamMutationVariables = {
   id: Scalars['String'];
 };
 
-
-export type RemoveTeamMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'removeTeam'>
-);
+export type RemoveTeamMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'removeTeam'>;
 
 export type AddUserToTeamMutationVariables = {
   input: AddUserToTeamInput;
 };
 
-
-export type AddUserToTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { addUserToTeam?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id'>
-  )> }
-);
+export type AddUserToTeamMutation = { __typename?: 'Mutation' } & {
+  addUserToTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
 
 export type RemoveUserFromTeamMutationVariables = {
   input: RemoveUserFromTeamInput;
 };
 
-
-export type RemoveUserFromTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { removeUserFromTeam?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id'>
-  )> }
-);
+export type RemoveUserFromTeamMutation = { __typename?: 'Mutation' } & {
+  removeUserFromTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
 
 export type UpdateUserInTeamMutationVariables = {
   input: UpdateUserInTeamInput;
 };
 
-
-export type UpdateUserInTeamMutation = (
-  { __typename?: 'Mutation' }
-  & { updateUserInTeam?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id'>
-  )> }
-);
+export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
+  updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
 
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
 
-
-export type BulkDetailsQuery = (
-  { __typename?: 'Query' }
-  & { getBulkDetails?: Maybe<Array<(
-    { __typename?: 'GetBulkResult' }
-    & Pick<GetBulkResult, 'id' | 'value'>
-  )>> }
-);
+export type BulkDetailsQuery = { __typename?: 'Query' } & {
+  getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
 
 export type GetLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
-export type GetLabelsQuery = (
-  { __typename?: 'Query' }
-  & { getLabels?: Maybe<Array<(
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'icon' | 'text'>
-  )>> }
-);
+export type GetLabelsQuery = { __typename?: 'Query' } & {
+  getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
 
 export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
 };
 
-
-export type CountPimsByParamsQuery = (
-  { __typename?: 'Query' }
-  & { listPims: (
-    { __typename?: 'PimListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ) }
-);
+export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
+  listPims: { __typename?: 'PimListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
 
 export type ListPimsCountQueryVariables = {
   pricingType?: Maybe<PricingType>;
   propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
 };
 
-
-export type ListPimsCountQuery = (
-  { __typename?: 'Query' }
-  & { activeCount: (
-    { __typename?: 'PimListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ), archivedCount: (
-    { __typename?: 'PimListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ) }
-);
+export type ListPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'PimListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'PimListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
 
 export type ListPimsQueryVariables = {
   archived: Scalars['Boolean'];
@@ -8579,32 +7761,47 @@ export type ListPimsQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type ListPimsQuery = (
-  { __typename?: 'Query' }
-  & { listPims: (
-    { __typename?: 'PimListSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'ListPim' }
-      & Pick<ListPim, 'id' | 'street' | 'houseNumberPrefix' | 'houseNumber' | 'houseNumberAddition' | 'constructionNumberPrefix' | 'constructionNumber' | 'constructionNumberAddition' | 'city' | 'dateCreated' | 'livingArea' | 'propertyType' | 'salePrice' | 'rentPrice' | 'completeness' | 'archived' | 'attentionNote'>
-      & { pictures?: Maybe<Array<(
-        { __typename?: 'Picture' }
-        & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'>
-        & { file?: Maybe<(
-          { __typename?: 'File' }
-          & Pick<File, 'id' | 'key' | 'fileName' | 'url'>
-        )> }
-      )>>, mainPicture?: Maybe<(
-        { __typename?: 'Picture' }
-        & Pick<Picture, 'id'>
-        & { file?: Maybe<(
-          { __typename?: 'File' }
-          & Pick<File, 'id' | 'key' | 'url'>
-        )> }
-      )> }
-    )>> }
-  ) }
-);
+export type ListPimsQuery = { __typename?: 'Query' } & {
+  listPims: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListPim' } & Pick<
+          ListPim,
+          | 'id'
+          | 'street'
+          | 'houseNumberPrefix'
+          | 'houseNumber'
+          | 'houseNumberAddition'
+          | 'constructionNumberPrefix'
+          | 'constructionNumber'
+          | 'constructionNumberAddition'
+          | 'city'
+          | 'dateCreated'
+          | 'livingArea'
+          | 'propertyType'
+          | 'salePrice'
+          | 'rentPrice'
+          | 'completeness'
+          | 'archived'
+          | 'attentionNote'
+        > & {
+            pictures?: Maybe<
+              Array<
+                { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+                    file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+                  }
+              >
+            >;
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+                }
+            >;
+          }
+      >
+    >;
+  };
+};
 
 export type LinkedPimsListQueryVariables = {
   from: Scalars['Int'];
@@ -8612,159 +7809,164 @@ export type LinkedPimsListQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type LinkedPimsListQuery = (
-  { __typename?: 'Query' }
-  & { pims: (
-    { __typename?: 'PimListSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'ListPim' }
-      & Pick<ListPim, 'id' | 'street' | 'houseNumber' | 'city' | 'postalCode'>
-    )>> }
-  ), linkedObjectIds: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & Pick<ObjectTypeLinkedPims, 'linkedPropertiesIds'>
-  ) }
-);
+export type LinkedPimsListQuery = { __typename?: 'Query' } & {
+  pims: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id' | 'street' | 'houseNumber' | 'city' | 'postalCode'>>
+    >;
+  };
+  linkedObjectIds: { __typename?: 'ObjectTypeLinkedPims' } & Pick<ObjectTypeLinkedPims, 'linkedPropertiesIds'>;
+};
 
 export type NcpCharacteristicsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpCharacteristicsQuery = (
-  { __typename?: 'Query' }
-  & { getNcpCharacteristics: (
-    { __typename?: 'NcpCharacteristics' }
-    & Pick<NcpCharacteristics, 'id' | 'characteristicsSections' | 'accountManagersIds' | 'attentionNote' | 'dateUpdated' | 'characteristicsDescription'>
-    & { projectMarketing?: Maybe<(
-      { __typename?: 'ProjectMarketing' }
-      & Pick<ProjectMarketing, 'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'>
-      & { logos?: Maybe<Array<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'url'>
-      )>> }
-    )>, measurements?: Maybe<(
-      { __typename?: 'Measurements' }
-      & Pick<Measurements, 'volumeFrom' | 'volumeTo' | 'livingSpaceFrom' | 'livingSpaceTo' | 'plotAreaFrom' | 'plotAreaTo' | 'calculateAutomatically'>
-    )>, energy?: Maybe<(
-      { __typename?: 'Energy' }
-      & Pick<Energy, 'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'>
-    )>, accountManagers?: Maybe<Array<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id'>
-    )>>, identificationNumbers?: Maybe<Array<(
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type' | 'dateCreated'>
-    )>>, invoiceDetails?: Maybe<(
-      { __typename?: 'InvoiceDetails' }
-      & Pick<InvoiceDetails, 'street' | 'houseNumber' | 'additionalNumber' | 'zipCode' | 'city' | 'country' | 'projectInvoiceNumber' | 'contactPerson' | 'description'>
-    )>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type NcpCharacteristicsQuery = { __typename?: 'Query' } & {
+  getNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<
+    NcpCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      invoiceDetails?: Maybe<
+        { __typename?: 'InvoiceDetails' } & Pick<
+          InvoiceDetails,
+          | 'street'
+          | 'houseNumber'
+          | 'additionalNumber'
+          | 'zipCode'
+          | 'city'
+          | 'country'
+          | 'projectInvoiceNumber'
+          | 'contactPerson'
+          | 'description'
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type NcpGeneralQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpGeneralQuery = (
-  { __typename?: 'Query' }
-  & { getNcp: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id' | 'type' | 'dateCreated' | 'dateUpdated' | 'name' | 'additionalName' | 'street' | 'houseNumber' | 'additionalHouseNumber' | 'zipCode' | 'city' | 'country' | 'objectTypesCount' | 'automaticallyCalculateQuantity' | 'properties' | 'progressStatus' | 'startConstruction' | 'noteStartConstruction' | 'startSale' | 'noteStartSale' | 'startDelivery' | 'noteStartDelivery' | 'startConstructionAfterPresalePercentage' | 'projectRisk' | 'notes' | 'archived'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type NcpGeneralQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    | 'id'
+    | 'type'
+    | 'dateCreated'
+    | 'dateUpdated'
+    | 'name'
+    | 'additionalName'
+    | 'street'
+    | 'houseNumber'
+    | 'additionalHouseNumber'
+    | 'zipCode'
+    | 'city'
+    | 'country'
+    | 'objectTypesCount'
+    | 'automaticallyCalculateQuantity'
+    | 'properties'
+    | 'progressStatus'
+    | 'startConstruction'
+    | 'noteStartConstruction'
+    | 'startSale'
+    | 'noteStartSale'
+    | 'startDelivery'
+    | 'noteStartDelivery'
+    | 'startConstructionAfterPresalePercentage'
+    | 'projectRisk'
+    | 'notes'
+    | 'archived'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
 
 export type NcpWithSameAddressQueryVariables = {
   input: NcpWithSameAddressInput;
 };
 
-
-export type NcpWithSameAddressQuery = (
-  { __typename?: 'Query' }
-  & { getNcpWithSameAddress: (
-    { __typename?: 'NcpSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )>, items?: Maybe<Array<(
-      { __typename?: 'NcpGeneral' }
-      & Pick<NcpGeneral, 'id'>
-    )>> }
-  ) }
-);
+export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
+  getNcpWithSameAddress: { __typename?: 'NcpSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>>;
+  };
+};
 
 export type NcpGeneralOverallInfoQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpGeneralOverallInfoQuery = (
-  { __typename?: 'Query' }
-  & { project: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id' | 'name'>
-  ), objectTypes: (
-    { __typename?: 'ObjectTypeListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ), linkedProperties: (
-    { __typename?: 'NcpLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ) }
-);
+export type NcpGeneralOverallInfoQuery = { __typename?: 'Query' } & {
+  project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
+  objectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  linkedProperties: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
 
 export type GetNcpLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
-export type GetNcpLabelsQuery = (
-  { __typename?: 'Query' }
-  & { getNcpLabels?: Maybe<Array<(
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'icon' | 'text'>
-  )>> }
-);
+export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
+  getNcpLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
 
 export type ListNcpsCountQueryVariables = {
   pricingType?: Maybe<PricingType>;
 };
 
-
-export type ListNcpsCountQuery = (
-  { __typename?: 'Query' }
-  & { activeCount: (
-    { __typename?: 'NcpListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ), archivedCount: (
-    { __typename?: 'NcpListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ) }
-);
+export type ListNcpsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'NcpListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'NcpListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
 
 export type ListNcpsQueryVariables = {
   pricingType?: Maybe<PricingType>;
@@ -8775,178 +7977,182 @@ export type ListNcpsQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type ListNcpsQuery = (
-  { __typename?: 'Query' }
-  & { listNcps: (
-    { __typename?: 'NcpListSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'ListNcp' }
-      & Pick<ListNcp, 'id' | 'dateCreated' | 'dateUpdated' | 'archived' | 'areaRangeFrom' | 'areaRangeTo' | 'numberOfRoomsFrom' | 'numberOfRoomsTo' | 'name' | 'salePriceFrom' | 'salePriceTo' | 'rentPriceFrom' | 'rentPriceTo' | 'saleLabel' | 'rentLabel' | 'partOfPhase' | 'soldNumber' | 'rentNumber' | 'completeness' | 'available' | 'underOption' | 'soldOrRent' | 'matches' | 'interests' | 'candidates' | 'optants' | 'properties' | 'objectTypesCount' | 'attentionNote'>
-      & { logoPicture?: Maybe<(
-        { __typename?: 'File' }
-        & Pick<File, 'url'>
-      )>, mainPicture?: Maybe<(
-        { __typename?: 'Picture' }
-        & Pick<Picture, 'id'>
-        & { file?: Maybe<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )> }
-      )> }
-    )>> }
-  ) }
-);
+export type ListNcpsQuery = { __typename?: 'Query' } & {
+  listNcps: { __typename?: 'NcpListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListNcp' } & Pick<
+          ListNcp,
+          | 'id'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'soldNumber'
+          | 'rentNumber'
+          | 'completeness'
+          | 'available'
+          | 'underOption'
+          | 'soldOrRent'
+          | 'matches'
+          | 'interests'
+          | 'candidates'
+          | 'optants'
+          | 'properties'
+          | 'objectTypesCount'
+          | 'attentionNote'
+        > & {
+            logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+          }
+      >
+    >;
+  };
+};
 
 export type NcpBulkDetailsQueryVariables = {
   ids: Array<Scalars['ID']>;
 };
 
-
-export type NcpBulkDetailsQuery = (
-  { __typename?: 'Query' }
-  & { city?: Maybe<Array<(
-    { __typename?: 'GetBulkResult' }
-    & Pick<GetBulkResult, 'value'>
-  )>> }
-);
+export type NcpBulkDetailsQuery = { __typename?: 'Query' } & {
+  city?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
 
 export type NcpMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
 };
 
-
-export type NcpMediaQuery = (
-  { __typename?: 'Query' }
-  & { getNcpMedia: (
-    { __typename?: 'NcpMedia' }
-    & Pick<NcpMedia, 'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, pictures?: Maybe<Array<(
-      { __typename?: 'Picture' }
-      & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'>
-      & { file?: Maybe<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'key' | 'fileName'>
-      )> }
-    )>>, mediaLinks?: Maybe<Array<(
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>
-    )>>, textChapters?: Maybe<Array<(
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>
-    )>>, usps?: Maybe<Array<(
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id' | 'name' | 'description' | 'type'>
-    )>>, tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id' | 'name' | 'description' | 'type'>
-    )>> }
-  ) }
-);
+export type NcpMediaQuery = { __typename?: 'Query' } & {
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
+    NcpMedia,
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+};
 
 export type NcpPricesPricingQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpPricesPricingQuery = (
-  { __typename?: 'Query' }
-  & { getNcpPrices: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-    & { pricing?: Maybe<(
-      { __typename?: 'CommonPricing' }
-      & Pick<CommonPricing, 'dateUpdated' | 'description'>
-      & { rent?: Maybe<(
-        { __typename?: 'CommonRentInformations' }
-        & Pick<CommonRentInformations, 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'>
-      )>, sale?: Maybe<(
-        { __typename?: 'CommonSaleInformations' }
-        & Pick<CommonSaleInformations, 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'>
-      )>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type NcpPricesPricingQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      pricing?: Maybe<
+        { __typename?: 'CommonPricing' } & Pick<CommonPricing, 'dateUpdated' | 'description'> & {
+            rent?: Maybe<
+              { __typename?: 'CommonRentInformations' } & Pick<
+                CommonRentInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            sale?: Maybe<
+              { __typename?: 'CommonSaleInformations' } & Pick<
+                CommonSaleInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
 
 export type NcpPricesCostsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpPricesCostsQuery = (
-  { __typename?: 'Query' }
-  & { getNcpPrices: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-    & { costs?: Maybe<(
-      { __typename?: 'CommonCosts' }
-      & Pick<CommonCosts, 'description' | 'dateUpdated'>
-      & { costs?: Maybe<Array<(
-        { __typename?: 'CommonCost' }
-        & Pick<CommonCost, 'id' | 'serviceCostsFrom' | 'serviceCostsTill' | 'paymentsFrequency' | 'vatTaxedServiceCostsFrom' | 'vatTaxedServiceCostsTill' | 'vatPercentage' | 'notes' | 'type' | 'name' | 'dateCreated'>
-      )>>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type NcpPricesCostsQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      costs?: Maybe<
+        { __typename?: 'CommonCosts' } & Pick<CommonCosts, 'description' | 'dateUpdated'> & {
+            costs?: Maybe<
+              Array<
+                { __typename?: 'CommonCost' } & Pick<
+                  CommonCost,
+                  | 'id'
+                  | 'serviceCostsFrom'
+                  | 'serviceCostsTill'
+                  | 'paymentsFrequency'
+                  | 'vatTaxedServiceCostsFrom'
+                  | 'vatTaxedServiceCostsTill'
+                  | 'vatPercentage'
+                  | 'notes'
+                  | 'type'
+                  | 'name'
+                  | 'dateCreated'
+                >
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
 
 export type NcpPricesInterestsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type NcpPricesInterestsQuery = (
-  { __typename?: 'Query' }
-  & { getNcpPrices: (
-    { __typename?: 'NcpPricesResult' }
-    & Pick<NcpPricesResult, 'id'>
-    & { interests?: Maybe<(
-      { __typename?: 'Interests' }
-      & Pick<Interests, 'groundInterest' | 'buildingInterest' | 'rentedagen' | 'suspensiveCondition' | 'description' | 'dateCreated' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
+      interests?: Maybe<
+        { __typename?: 'Interests' } & Pick<
+          Interests,
+          | 'groundInterest'
+          | 'buildingInterest'
+          | 'rentedagen'
+          | 'suspensiveCondition'
+          | 'description'
+          | 'dateCreated'
+          | 'dateUpdated'
+        > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
+      >;
+    };
+};
 
 export type ListNcpLinkedPimsCountQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ListNcpLinkedPimsCountQuery = (
-  { __typename?: 'Query' }
-  & { activeCount: (
-    { __typename?: 'NcpLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ), archivedCount: (
-    { __typename?: 'NcpLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ) }
-);
+export type ListNcpLinkedPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+  archivedCount: { __typename?: 'NcpLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
 
 export type NcpLinkedPimsQueryVariables = {
   id: Scalars['ID'];
@@ -8957,185 +8163,199 @@ export type NcpLinkedPimsQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type NcpLinkedPimsQuery = (
-  { __typename?: 'Query' }
-  & { getNcpLinkedPims: (
-    { __typename?: 'NcpLinkedPims' }
-    & Pick<NcpLinkedPims, 'linkedPropertiesIds' | 'description' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { items?: Maybe<Array<(
-        { __typename?: 'ListPim' }
-        & Pick<ListPim, 'id' | 'street' | 'houseNumberPrefix' | 'houseNumber' | 'houseNumberAddition' | 'constructionNumberPrefix' | 'constructionNumber' | 'constructionNumberAddition' | 'city' | 'dateCreated' | 'livingArea' | 'propertyType' | 'salePrice' | 'rentPrice' | 'completeness' | 'archived' | 'postalCode' | 'country' | 'status' | 'developmentType' | 'linkedObjectTypeIds'>
-        & { pictures?: Maybe<Array<(
-          { __typename?: 'Picture' }
-          & Pick<Picture, 'type'>
-          & { file?: Maybe<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )> }
-        )>> }
-      )>> }
-    ) }
-  ) }
-);
+export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
+  getNcpLinkedPims: { __typename?: 'NcpLinkedPims' } & Pick<
+    NcpLinkedPims,
+    'linkedPropertiesIds' | 'description' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      linkedProperties: { __typename?: 'PimListSearchResult' } & {
+        items?: Maybe<
+          Array<
+            { __typename?: 'ListPim' } & Pick<
+              ListPim,
+              | 'id'
+              | 'street'
+              | 'houseNumberPrefix'
+              | 'houseNumber'
+              | 'houseNumberAddition'
+              | 'constructionNumberPrefix'
+              | 'constructionNumber'
+              | 'constructionNumberAddition'
+              | 'city'
+              | 'dateCreated'
+              | 'livingArea'
+              | 'propertyType'
+              | 'salePrice'
+              | 'rentPrice'
+              | 'completeness'
+              | 'archived'
+              | 'postalCode'
+              | 'country'
+              | 'status'
+              | 'developmentType'
+              | 'linkedObjectTypeIds'
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
+          >
+        >;
+      };
+    };
+};
 
 export type GetNcpServicesQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type GetNcpServicesQuery = (
-  { __typename?: 'Query' }
-  & { getNcpServices: (
-    { __typename?: 'NcpServices' }
-    & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'>
-    & { hotWaterSupplies?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: (
-        { __typename?: 'HotWaterSupplyConfiguration' }
-        & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>
-      ) | { __typename?: 'HeatingSourceConfiguration' } | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, heatingSources?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | (
-        { __typename?: 'HeatingSourceConfiguration' }
-        & Pick<HeatingSourceConfiguration, 'type'>
-      ) | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, additionalServices?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | { __typename?: 'HeatingSourceConfiguration' } | (
-        { __typename?: 'AdditionalServiceConfiguration' }
-        & Pick<AdditionalServiceConfiguration, 'type'>
-      ) }
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type GetNcpServicesQuery = { __typename?: 'Query' } & {
+  getNcpServices: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type ObjectTypeCharacteristicsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ObjectTypeCharacteristicsQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeCharacteristics: (
-    { __typename?: 'ObjectTypeCharacteristics' }
-    & Pick<ObjectTypeCharacteristics, 'id' | 'characteristicsSections' | 'accountManagersIds' | 'attentionNote' | 'dateUpdated' | 'characteristicsDescription' | 'type' | 'automaticallySetObjectTypes'>
-    & { projectMarketing?: Maybe<(
-      { __typename?: 'ProjectMarketing' }
-      & Pick<ProjectMarketing, 'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'>
-      & { logos?: Maybe<Array<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'url'>
-      )>> }
-    )>, measurements?: Maybe<(
-      { __typename?: 'Measurements' }
-      & Pick<Measurements, 'volumeFrom' | 'volumeTo' | 'livingSpaceFrom' | 'livingSpaceTo' | 'plotAreaFrom' | 'plotAreaTo' | 'calculateAutomatically'>
-    )>, energy?: Maybe<(
-      { __typename?: 'Energy' }
-      & Pick<Energy, 'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'>
-    )>, accountManagers?: Maybe<Array<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id'>
-    )>>, identificationNumbers?: Maybe<Array<(
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type' | 'dateCreated'>
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type ObjectTypeCharacteristicsQuery = { __typename?: 'Query' } & {
+  getObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
+    ObjectTypeCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+    | 'type'
+    | 'automaticallySetObjectTypes'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type GetObjectTypeGeneralQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type GetObjectTypeGeneralQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeGeneral: (
-    { __typename?: 'ObjectTypeGeneral' }
-    & Pick<ObjectTypeGeneral, 'id' | 'name' | 'dateUpdated' | 'ncpId'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
+  getObjectTypeGeneral: { __typename?: 'ObjectTypeGeneral' } & Pick<
+    ObjectTypeGeneral,
+    'id' | 'name' | 'dateUpdated' | 'ncpId'
+  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+};
 
 export type ObjectTypeOverallInfoQueryVariables = {
   id: Scalars['ID'];
   projectId: Scalars['ID'];
 };
 
-
-export type ObjectTypeOverallInfoQuery = (
-  { __typename?: 'Query' }
-  & { objectType: (
-    { __typename?: 'ObjectTypeGeneral' }
-    & Pick<ObjectTypeGeneral, 'id' | 'name'>
-  ), project: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'id' | 'name'>
-  ), linkedProperty: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ) }
-);
+export type ObjectTypeOverallInfoQuery = { __typename?: 'Query' } & {
+  objectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id' | 'name'>;
+  project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
+  linkedProperty: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
 
 export type GetObjectTypeLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
 };
 
-
-export type GetObjectTypeLabelsQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeLabels?: Maybe<Array<(
-    { __typename?: 'Label' }
-    & Pick<Label, 'id' | 'property' | 'icon' | 'text'>
-  )>> }
-);
+export type GetObjectTypeLabelsQuery = { __typename?: 'Query' } & {
+  getObjectTypeLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
 
 export type ListObjectTypesCountQueryVariables = {
   ncpId: Scalars['ID'];
 };
 
-
-export type ListObjectTypesCountQuery = (
-  { __typename?: 'Query' }
-  & { activeCount: (
-    { __typename?: 'ObjectTypeListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ), archivedCount: (
-    { __typename?: 'ObjectTypeListSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )> }
-  ) }
-);
+export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  archivedCount: { __typename?: 'ObjectTypeListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
 
 export type ListObjectTypesQueryVariables = {
   ncpId: Scalars['ID'];
@@ -9146,196 +8366,210 @@ export type ListObjectTypesQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type ListObjectTypesQuery = (
-  { __typename?: 'Query' }
-  & { listObjectTypes: (
-    { __typename?: 'ObjectTypeListSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'ListObjectTypes' }
-      & Pick<ListObjectTypes, 'id' | 'ncpId' | 'dateCreated' | 'dateUpdated' | 'archived' | 'areaRangeFrom' | 'areaRangeTo' | 'numberOfRoomsFrom' | 'numberOfRoomsTo' | 'name' | 'salePriceFrom' | 'salePriceTo' | 'rentPriceFrom' | 'rentPriceTo' | 'saleLabel' | 'rentLabel' | 'partOfPhase' | 'completeness' | 'matches' | 'interests' | 'propertiesConnected' | 'propertiesAvailable' | 'underOption' | 'soldOrRent' | 'attentionNote'>
-      & { mainPicture?: Maybe<(
-        { __typename?: 'Picture' }
-        & Pick<Picture, 'id'>
-        & { file?: Maybe<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )> }
-      )> }
-    )>> }
-  ) }
-);
+export type ListObjectTypesQuery = { __typename?: 'Query' } & {
+  listObjectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListObjectTypes' } & Pick<
+          ListObjectTypes,
+          | 'id'
+          | 'ncpId'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'completeness'
+          | 'matches'
+          | 'interests'
+          | 'propertiesConnected'
+          | 'propertiesAvailable'
+          | 'underOption'
+          | 'soldOrRent'
+          | 'attentionNote'
+        > & {
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+          }
+      >
+    >;
+  };
+};
 
 export type ObjectTypeListDescriptionQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ObjectTypeListDescriptionQuery = (
-  { __typename?: 'Query' }
-  & { getNcp: (
-    { __typename?: 'NcpGeneral' }
-    & Pick<NcpGeneral, 'objectTypesListDescription' | 'objectTypesListLastUpdatedOn'>
-    & { objectTypesListLastUpdatedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type ObjectTypeListDescriptionQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'objectTypesListDescription' | 'objectTypesListLastUpdatedOn'
+  > & {
+      objectTypesListLastUpdatedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type ObjectTypeMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
 };
 
-
-export type ObjectTypeMediaQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeMedia: (
-    { __typename?: 'ObjectTypeMedia' }
-    & Pick<ObjectTypeMedia, 'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, pictures?: Maybe<Array<(
-      { __typename?: 'Picture' }
-      & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'>
-      & { file?: Maybe<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'key' | 'fileName'>
-      )> }
-    )>>, mediaLinks?: Maybe<Array<(
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>
-    )>>, textChapters?: Maybe<Array<(
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>
-    )>>, usps?: Maybe<Array<(
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id' | 'name' | 'description' | 'type'>
-    )>>, tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id' | 'name' | 'description' | 'type'>
-    )>> }
-  ) }
-);
+export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
+  getObjectTypeMedia: { __typename?: 'ObjectTypeMedia' } & Pick<
+    ObjectTypeMedia,
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+};
 
 export type ObjectTypePricesPricingQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ObjectTypePricesPricingQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypePrices: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-    & { pricing?: Maybe<(
-      { __typename?: 'CommonPricing' }
-      & Pick<CommonPricing, 'dateUpdated' | 'description'>
-      & { rent?: Maybe<(
-        { __typename?: 'CommonRentInformations' }
-        & Pick<CommonRentInformations, 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'>
-      )>, sale?: Maybe<(
-        { __typename?: 'CommonSaleInformations' }
-        & Pick<CommonSaleInformations, 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'>
-      )>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type ObjectTypePricesPricingQuery = { __typename?: 'Query' } & {
+  getObjectTypePrices: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'> & {
+      pricing?: Maybe<
+        { __typename?: 'CommonPricing' } & Pick<CommonPricing, 'dateUpdated' | 'description'> & {
+            rent?: Maybe<
+              { __typename?: 'CommonRentInformations' } & Pick<
+                CommonRentInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            sale?: Maybe<
+              { __typename?: 'CommonSaleInformations' } & Pick<
+                CommonSaleInformations,
+                'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
 
 export type ObjectTypePricesCostsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ObjectTypePricesCostsQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypePrices: (
-    { __typename?: 'ObjectTypePricesResult' }
-    & Pick<ObjectTypePricesResult, 'id'>
-    & { costs?: Maybe<(
-      { __typename?: 'CommonCosts' }
-      & Pick<CommonCosts, 'description' | 'dateUpdated'>
-      & { costs?: Maybe<Array<(
-        { __typename?: 'CommonCost' }
-        & Pick<CommonCost, 'id' | 'serviceCostsFrom' | 'serviceCostsTill' | 'paymentsFrequency' | 'vatTaxedServiceCostsFrom' | 'vatTaxedServiceCostsTill' | 'vatPercentage' | 'notes' | 'type' | 'name' | 'dateCreated'>
-      )>>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type ObjectTypePricesCostsQuery = { __typename?: 'Query' } & {
+  getObjectTypePrices: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'> & {
+      costs?: Maybe<
+        { __typename?: 'CommonCosts' } & Pick<CommonCosts, 'description' | 'dateUpdated'> & {
+            costs?: Maybe<
+              Array<
+                { __typename?: 'CommonCost' } & Pick<
+                  CommonCost,
+                  | 'id'
+                  | 'serviceCostsFrom'
+                  | 'serviceCostsTill'
+                  | 'paymentsFrequency'
+                  | 'vatTaxedServiceCostsFrom'
+                  | 'vatTaxedServiceCostsTill'
+                  | 'vatPercentage'
+                  | 'notes'
+                  | 'type'
+                  | 'name'
+                  | 'dateCreated'
+                >
+              >
+            >;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
 
 export type GetObjectTypeServicesQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type GetObjectTypeServicesQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeServices: (
-    { __typename?: 'ObjectTypeServices' }
-    & Pick<ObjectTypeServices, 'id' | 'dateUpdated' | 'servicesDescription'>
-    & { hotWaterSupplies?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: (
-        { __typename?: 'HotWaterSupplyConfiguration' }
-        & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>
-      ) | { __typename?: 'HeatingSourceConfiguration' } | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, heatingSources?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | (
-        { __typename?: 'HeatingSourceConfiguration' }
-        & Pick<HeatingSourceConfiguration, 'type'>
-      ) | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, additionalServices?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | { __typename?: 'HeatingSourceConfiguration' } | (
-        { __typename?: 'AdditionalServiceConfiguration' }
-        & Pick<AdditionalServiceConfiguration, 'type'>
-      ) }
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
+  getObjectTypeServices: { __typename?: 'ObjectTypeServices' } & Pick<
+    ObjectTypeServices,
+    'id' | 'dateUpdated' | 'servicesDescription'
+  > & {
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+            }
+        >
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type ListObjectTypeLinkedPimsCountQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type ListObjectTypeLinkedPimsCountQuery = (
-  { __typename?: 'Query' }
-  & { activeCount: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ), archivedCount: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & { linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { metadata?: Maybe<(
-        { __typename?: 'SearchMetadata' }
-        & Pick<SearchMetadata, 'total'>
-      )> }
-    ) }
-  ) }
-);
+export type ListObjectTypeLinkedPimsCountQuery = { __typename?: 'Query' } & {
+  activeCount: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+  archivedCount: { __typename?: 'ObjectTypeLinkedPims' } & {
+    linkedProperties: { __typename?: 'PimListSearchResult' } & {
+      metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    };
+  };
+};
 
 export type ObjectTypeLinkedPimsQueryVariables = {
   id: Scalars['ID'];
@@ -9346,916 +8580,1061 @@ export type ObjectTypeLinkedPimsQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type ObjectTypeLinkedPimsQuery = (
-  { __typename?: 'Query' }
-  & { getObjectTypeLinkedPims: (
-    { __typename?: 'ObjectTypeLinkedPims' }
-    & Pick<ObjectTypeLinkedPims, 'linkedPropertiesIds' | 'description' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, linkedProperties: (
-      { __typename?: 'PimListSearchResult' }
-      & { items?: Maybe<Array<(
-        { __typename?: 'ListPim' }
-        & Pick<ListPim, 'id' | 'street' | 'houseNumberPrefix' | 'houseNumber' | 'houseNumberAddition' | 'constructionNumberPrefix' | 'constructionNumber' | 'constructionNumberAddition' | 'city' | 'dateCreated' | 'livingArea' | 'propertyType' | 'salePrice' | 'rentPrice' | 'completeness' | 'archived' | 'postalCode' | 'country' | 'status' | 'developmentType' | 'linkedObjectTypeIds' | 'attentionNote'>
-        & { pictures?: Maybe<Array<(
-          { __typename?: 'Picture' }
-          & Pick<Picture, 'type'>
-          & { file?: Maybe<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )> }
-        )>> }
-      )>> }
-    ) }
-  ) }
-);
+export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
+  getObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & Pick<
+    ObjectTypeLinkedPims,
+    'linkedPropertiesIds' | 'description' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      linkedProperties: { __typename?: 'PimListSearchResult' } & {
+        items?: Maybe<
+          Array<
+            { __typename?: 'ListPim' } & Pick<
+              ListPim,
+              | 'id'
+              | 'street'
+              | 'houseNumberPrefix'
+              | 'houseNumber'
+              | 'houseNumberAddition'
+              | 'constructionNumberPrefix'
+              | 'constructionNumber'
+              | 'constructionNumberAddition'
+              | 'city'
+              | 'dateCreated'
+              | 'livingArea'
+              | 'propertyType'
+              | 'salePrice'
+              | 'rentPrice'
+              | 'completeness'
+              | 'archived'
+              | 'postalCode'
+              | 'country'
+              | 'status'
+              | 'developmentType'
+              | 'linkedObjectTypeIds'
+              | 'attentionNote'
+            > & {
+                pictures?: Maybe<
+                  Array<
+                    { __typename?: 'Picture' } & Pick<Picture, 'type'> & {
+                        file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                      }
+                  >
+                >;
+              }
+          >
+        >;
+      };
+    };
+};
 
 export type PimAogSpacesQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimAogSpacesQuery = (
-  { __typename?: 'Query' }
-  & { getPimInside: (
-    { __typename?: 'PimInside' }
-    & Pick<PimInside, 'id' | 'aogAnimalsDescription' | 'aogBuildingsDescription' | 'aogInstallationsDescription' | 'aogGroundsDescription'>
-    & { aogSpaces?: Maybe<Array<(
-      { __typename?: 'AogSpace' }
-      & Pick<AogSpace, 'id' | 'name' | 'type' | 'dateUpdated' | 'dateCreated'>
-      & { groundConfiguration?: Maybe<(
-        { __typename?: 'GroundSpace' }
-        & Pick<GroundSpace, 'typeOfLooseGround' | 'soilType' | 'soilTypeNotes' | 'cultivationTypes' | 'fenceTypes'>
-        & { measurements?: Maybe<(
-          { __typename?: 'GroundMeasurements' }
-          & Pick<GroundMeasurements, 'length' | 'width' | 'surface' | 'fullBuiltWidth' | 'currentNumberOfSeats' | 'housingArea'>
-        )>, specifications?: Maybe<Array<(
-          { __typename?: 'AogSpecifications' }
-          & Pick<AogSpecifications, 'type' | 'notes'>
-        )>> }
-      )>, buildingsConfiguration?: Maybe<(
-        { __typename?: 'BuildingsSpace' }
-        & Pick<BuildingsSpace, 'buildingType' | 'numberOfSameBuilding' | 'buildingTypeNotes'>
-        & { measurements?: Maybe<(
-          { __typename?: 'BuildingMeasurements' }
-          & Pick<BuildingMeasurements, 'length' | 'width' | 'surface' | 'height' | 'volume' | 'constructionYear'>
-        )> }
-      )>, installationsConfiguration?: Maybe<(
-        { __typename?: 'Installations' }
-        & Pick<Installations, 'type' | 'numberOfSameInstallations' | 'notes'>
-      )>, animalsConfiguration?: Maybe<(
-        { __typename?: 'Animals' }
-        & Pick<Animals, 'type' | 'numberOfSameAnimals' | 'notes'>
-        & { specifications?: Maybe<Array<(
-          { __typename?: 'AogSpecifications' }
-          & Pick<AogSpecifications, 'type' | 'notes'>
-        )>> }
-      )>, images?: Maybe<Array<(
-        { __typename?: 'File' }
-        & Pick<File, 'key' | 'id' | 'fileName' | 'url'>
-      )>>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )>> }
-  ) }
-);
+export type PimAogSpacesQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<
+    PimInside,
+    'id' | 'aogAnimalsDescription' | 'aogBuildingsDescription' | 'aogInstallationsDescription' | 'aogGroundsDescription'
+  > & {
+      aogSpaces?: Maybe<
+        Array<
+          { __typename?: 'AogSpace' } & Pick<AogSpace, 'id' | 'name' | 'type' | 'dateUpdated' | 'dateCreated'> & {
+              groundConfiguration?: Maybe<
+                { __typename?: 'GroundSpace' } & Pick<
+                  GroundSpace,
+                  'typeOfLooseGround' | 'soilType' | 'soilTypeNotes' | 'cultivationTypes' | 'fenceTypes'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'GroundMeasurements' } & Pick<
+                        GroundMeasurements,
+                        'length' | 'width' | 'surface' | 'fullBuiltWidth' | 'currentNumberOfSeats' | 'housingArea'
+                      >
+                    >;
+                    specifications?: Maybe<
+                      Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+                    >;
+                  }
+              >;
+              buildingsConfiguration?: Maybe<
+                { __typename?: 'BuildingsSpace' } & Pick<
+                  BuildingsSpace,
+                  'buildingType' | 'numberOfSameBuilding' | 'buildingTypeNotes'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'BuildingMeasurements' } & Pick<
+                        BuildingMeasurements,
+                        'length' | 'width' | 'surface' | 'height' | 'volume' | 'constructionYear'
+                      >
+                    >;
+                  }
+              >;
+              installationsConfiguration?: Maybe<
+                { __typename?: 'Installations' } & Pick<Installations, 'type' | 'numberOfSameInstallations' | 'notes'>
+              >;
+              animalsConfiguration?: Maybe<
+                { __typename?: 'Animals' } & Pick<Animals, 'type' | 'numberOfSameAnimals' | 'notes'> & {
+                    specifications?: Maybe<
+                      Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+                    >;
+                  }
+              >;
+              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'key' | 'id' | 'fileName' | 'url'>>>;
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >
+      >;
+    };
+};
 
 export type PimBogSpacesQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimBogSpacesQuery = (
-  { __typename?: 'Query' }
-  & { getPimInside: (
-    { __typename?: 'PimInside' }
-    & Pick<PimInside, 'id'>
-    & { bogSpaces?: Maybe<Array<(
-      { __typename?: 'BogSpace' }
-      & Pick<BogSpace, 'id' | 'type' | 'name' | 'notes' | 'description' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, retailSpaceConfiguration?: Maybe<(
-        { __typename?: 'RetailSpace' }
-        & Pick<RetailSpace, 'airTreatment' | 'specifications' | 'wealthClass' | 'commonRooms'>
-        & { measurements?: Maybe<(
-          { __typename?: 'RetailMeasurements' }
-          & Pick<RetailMeasurements, 'surface' | 'salesFloorArea' | 'frontWidth' | 'inUnitsFrom' | 'amountOfFloors'>
-        )>, prices?: Maybe<(
-          { __typename?: 'GoodWillPrices' }
-          & Pick<GoodWillPrices, 'priceInventoryGoodwill' | 'vatRate' | 'priceInventoryGoodwillVat' | 'priceInventoryGoodwillIncludedVat' | 'notes'>
-        )>, retailerAssociationContribution?: Maybe<(
-          { __typename?: 'RetailerAssociationContribution' }
-          & Pick<RetailerAssociationContribution, 'contribution' | 'termsOfCosts' | 'vatPercentage' | 'vatTaxedContribution' | 'notes'>
-        )> }
-      )>, leisureSpaceConfiguration?: Maybe<(
-        { __typename?: 'LeisureSpace' }
-        & Pick<LeisureSpace, 'specifications' | 'services'>
-        & { measurements?: Maybe<(
-          { __typename?: 'LeisureMeasurements' }
-          & Pick<LeisureMeasurements, 'surface' | 'numberOfPitches' | 'numberOfStays' | 'capacityOfPersons'>
-        )>, prices?: Maybe<(
-          { __typename?: 'GoodWillPrices' }
-          & Pick<GoodWillPrices, 'priceInventoryGoodwill' | 'vatRate' | 'priceInventoryGoodwillVat' | 'priceInventoryGoodwillIncludedVat' | 'notes'>
-        )> }
-      )>, horecaSpaceConfiguration?: Maybe<(
-        { __typename?: 'HorecaSpace' }
-        & Pick<HorecaSpace, 'type' | 'notes' | 'specifications' | 'wealthClass' | 'legalForm'>
-        & { measurements?: Maybe<(
-          { __typename?: 'HorecaMeasurements' }
-          & Pick<HorecaMeasurements, 'surface' | 'salesFloorArea' | 'amountOfFloors' | 'amountOfRooms' | 'currentNumberOfSeats' | 'housingArea'>
-        )>, prices?: Maybe<(
-          { __typename?: 'HorecaPrices' }
-          & Pick<HorecaPrices, 'priceInventoryGoodwill' | 'vatRate' | 'priceInventoryGoodwillVat' | 'priceInventoryGoodwillIncludedVat' | 'revenueLastFiscalYear' | 'rentalIncomeHomeYear' | 'notes'>
-        )> }
-      )>, businessSpaceConfiguration?: Maybe<(
-        { __typename?: 'BusinessSpace' }
-        & Pick<BusinessSpace, 'airTreatment' | 'services'>
-        & { measurements?: Maybe<(
-          { __typename?: 'BusinessSpaceMeasurements' }
-          & Pick<BusinessSpaceMeasurements, 'surface' | 'freeHeight' | 'freeSpan' | 'floorLoad' | 'inUnitsFrom' | 'amountOfFloors'>
-        )>, prices?: Maybe<(
-          { __typename?: 'BogPrices' }
-          & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
-        )> }
-      )>, officeSpaceConfiguration?: Maybe<(
-        { __typename?: 'OfficeSpace' }
-        & Pick<OfficeSpace, 'airTreatment' | 'services' | 'turnKey' | 'commonRooms'>
-        & { measurements?: Maybe<(
-          { __typename?: 'OfficeSpaceMeasurements' }
-          & Pick<OfficeSpaceMeasurements, 'length' | 'width' | 'height' | 'surface' | 'volume' | 'measurementsCertificateAvailable' | 'inUnitsFrom' | 'amountOfFloors'>
-        )>, prices?: Maybe<(
-          { __typename?: 'BogPrices' }
-          & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
-        )> }
-      )>, socialRealEstateSpaceConfiguration?: Maybe<(
-        { __typename?: 'SocialRealEstateSpace' }
-        & Pick<SocialRealEstateSpace, 'type' | 'notesAboutType' | 'destinationType' | 'specifications' | 'services'>
-        & { measurements?: Maybe<(
-          { __typename?: 'SocialRealEstateSpaceMeasurements' }
-          & Pick<SocialRealEstateSpaceMeasurements, 'surface' | 'numberOfCareUnits' | 'numberOfSeats'>
-        )>, prices?: Maybe<(
-          { __typename?: 'SocialRealEstateSpacePrices' }
-          & Pick<SocialRealEstateSpacePrices, 'vatRate' | 'notes'>
-        )> }
-      )>, terrainConfiguration?: Maybe<(
-        { __typename?: 'Terrain' }
-        & Pick<Terrain, 'specifications' | 'typeOfPavement'>
-        & { terrainSpecifications?: Maybe<(
-          { __typename?: 'TerrainSpecifications' }
-          & Pick<TerrainSpecifications, 'surface' | 'buildingHeightTerrain' | 'extensionTerrainPercent' | 'extensionTerrainM2' | 'pavedPercentage'>
-        )>, prices?: Maybe<(
-          { __typename?: 'BogPrices' }
-          & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
-        )> }
-      )>, storageConfiguration?: Maybe<(
-        { __typename?: 'Storage' }
-        & Pick<Storage, 'type' | 'notes'>
-        & { measurements?: Maybe<(
-          { __typename?: 'StorageMeasurements' }
-          & Pick<StorageMeasurements, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-        )> }
-      )>, images?: Maybe<Array<(
-        { __typename?: 'File' }
-        & Pick<File, 'url'>
-      )>> }
-    )>> }
-  ) }
-);
+export type PimBogSpacesQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
+      bogSpaces?: Maybe<
+        Array<
+          { __typename?: 'BogSpace' } & Pick<
+            BogSpace,
+            'id' | 'type' | 'name' | 'notes' | 'description' | 'dateUpdated'
+          > & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              retailSpaceConfiguration?: Maybe<
+                { __typename?: 'RetailSpace' } & Pick<
+                  RetailSpace,
+                  'airTreatment' | 'specifications' | 'wealthClass' | 'commonRooms'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'RetailMeasurements' } & Pick<
+                        RetailMeasurements,
+                        'surface' | 'salesFloorArea' | 'frontWidth' | 'inUnitsFrom' | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'GoodWillPrices' } & Pick<
+                        GoodWillPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'notes'
+                      >
+                    >;
+                    retailerAssociationContribution?: Maybe<
+                      { __typename?: 'RetailerAssociationContribution' } & Pick<
+                        RetailerAssociationContribution,
+                        'contribution' | 'termsOfCosts' | 'vatPercentage' | 'vatTaxedContribution' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              leisureSpaceConfiguration?: Maybe<
+                { __typename?: 'LeisureSpace' } & Pick<LeisureSpace, 'specifications' | 'services'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'LeisureMeasurements' } & Pick<
+                        LeisureMeasurements,
+                        'surface' | 'numberOfPitches' | 'numberOfStays' | 'capacityOfPersons'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'GoodWillPrices' } & Pick<
+                        GoodWillPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              horecaSpaceConfiguration?: Maybe<
+                { __typename?: 'HorecaSpace' } & Pick<
+                  HorecaSpace,
+                  'type' | 'notes' | 'specifications' | 'wealthClass' | 'legalForm'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'HorecaMeasurements' } & Pick<
+                        HorecaMeasurements,
+                        | 'surface'
+                        | 'salesFloorArea'
+                        | 'amountOfFloors'
+                        | 'amountOfRooms'
+                        | 'currentNumberOfSeats'
+                        | 'housingArea'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'HorecaPrices' } & Pick<
+                        HorecaPrices,
+                        | 'priceInventoryGoodwill'
+                        | 'vatRate'
+                        | 'priceInventoryGoodwillVat'
+                        | 'priceInventoryGoodwillIncludedVat'
+                        | 'revenueLastFiscalYear'
+                        | 'rentalIncomeHomeYear'
+                        | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              businessSpaceConfiguration?: Maybe<
+                { __typename?: 'BusinessSpace' } & Pick<BusinessSpace, 'airTreatment' | 'services'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'BusinessSpaceMeasurements' } & Pick<
+                        BusinessSpaceMeasurements,
+                        'surface' | 'freeHeight' | 'freeSpan' | 'floorLoad' | 'inUnitsFrom' | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              officeSpaceConfiguration?: Maybe<
+                { __typename?: 'OfficeSpace' } & Pick<
+                  OfficeSpace,
+                  'airTreatment' | 'services' | 'turnKey' | 'commonRooms'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'OfficeSpaceMeasurements' } & Pick<
+                        OfficeSpaceMeasurements,
+                        | 'length'
+                        | 'width'
+                        | 'height'
+                        | 'surface'
+                        | 'volume'
+                        | 'measurementsCertificateAvailable'
+                        | 'inUnitsFrom'
+                        | 'amountOfFloors'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              socialRealEstateSpaceConfiguration?: Maybe<
+                { __typename?: 'SocialRealEstateSpace' } & Pick<
+                  SocialRealEstateSpace,
+                  'type' | 'notesAboutType' | 'destinationType' | 'specifications' | 'services'
+                > & {
+                    measurements?: Maybe<
+                      { __typename?: 'SocialRealEstateSpaceMeasurements' } & Pick<
+                        SocialRealEstateSpaceMeasurements,
+                        'surface' | 'numberOfCareUnits' | 'numberOfSeats'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'SocialRealEstateSpacePrices' } & Pick<
+                        SocialRealEstateSpacePrices,
+                        'vatRate' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+              terrainConfiguration?: Maybe<
+                { __typename?: 'Terrain' } & Pick<Terrain, 'specifications' | 'typeOfPavement'> & {
+                    terrainSpecifications?: Maybe<
+                      { __typename?: 'TerrainSpecifications' } & Pick<
+                        TerrainSpecifications,
+                        | 'surface'
+                        | 'buildingHeightTerrain'
+                        | 'extensionTerrainPercent'
+                        | 'extensionTerrainM2'
+                        | 'pavedPercentage'
+                      >
+                    >;
+                    prices?: Maybe<
+                      { __typename?: 'BogPrices' } & Pick<BogPrices, 'price' | 'vatRate' | 'priceVat' | 'priceIncVat'>
+                    >;
+                  }
+              >;
+              storageConfiguration?: Maybe<
+                { __typename?: 'Storage' } & Pick<Storage, 'type' | 'notes'> & {
+                    measurements?: Maybe<
+                      { __typename?: 'StorageMeasurements' } & Pick<
+                        StorageMeasurements,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                  }
+              >;
+              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+            }
+        >
+      >;
+    };
+};
 
 export type PimCadastreQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimCadastreQuery = (
-  { __typename?: 'Query' }
-  & { getPimCadastre: (
-    { __typename?: 'PimCadastre' }
-    & Pick<PimCadastre, 'id'>
-    & { cadastre?: Maybe<Array<(
-      { __typename?: 'Cadastre' }
-      & Pick<Cadastre, 'id' | 'description' | 'mapsDescription' | 'type' | 'dateCreated' | 'dateUpdated'>
-      & { maps?: Maybe<Array<(
-        { __typename?: 'CadastreMap' }
-        & Pick<CadastreMap, 'id' | 'mapName' | 'name' | 'description' | 'type'>
-        & { file?: Maybe<(
-          { __typename?: 'File' }
-          & Pick<File, 'key' | 'id' | 'fileName'>
-        )> }
-      )>>, plot?: Maybe<(
-        { __typename?: 'CadastrePlot' }
-        & Pick<CadastrePlot, 'notes' | 'name' | 'municipalCode' | 'sectionCode' | 'plot' | 'indexNumber' | 'surface' | 'share' | 'codeSize' | 'ownershipChoice' | 'ownershipType'>
-        & { lease?: Maybe<(
-          { __typename?: 'Lease' }
-          & Pick<Lease, 'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'>
-        )>, boughtOff?: Maybe<(
-          { __typename?: 'BoughtOff' }
-          & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
-        )> }
-      )>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )>> }
-  ) }
-);
+export type PimCadastreQuery = { __typename?: 'Query' } & {
+  getPimCadastre: { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
+      cadastre?: Maybe<
+        Array<
+          { __typename?: 'Cadastre' } & Pick<
+            Cadastre,
+            'id' | 'description' | 'mapsDescription' | 'type' | 'dateCreated' | 'dateUpdated'
+          > & {
+              maps?: Maybe<
+                Array<
+                  { __typename?: 'CadastreMap' } & Pick<
+                    CadastreMap,
+                    'id' | 'mapName' | 'name' | 'description' | 'type'
+                  > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'key' | 'id' | 'fileName'>> }
+                >
+              >;
+              plot?: Maybe<
+                { __typename?: 'CadastrePlot' } & Pick<
+                  CadastrePlot,
+                  | 'notes'
+                  | 'name'
+                  | 'municipalCode'
+                  | 'sectionCode'
+                  | 'plot'
+                  | 'indexNumber'
+                  | 'surface'
+                  | 'share'
+                  | 'codeSize'
+                  | 'ownershipChoice'
+                  | 'ownershipType'
+                > & {
+                    lease?: Maybe<
+                      { __typename?: 'Lease' } & Pick<
+                        Lease,
+                        'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                      >
+                    >;
+                    boughtOff?: Maybe<{ __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>>;
+                  }
+              >;
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            }
+        >
+      >;
+    };
+};
 
 export type PimGeneralQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimGeneralQuery = (
-  { __typename?: 'Query' }
-  & { getPimGeneral: (
-    { __typename?: 'PimGeneral' }
-    & Pick<PimGeneral, 'id' | 'street' | 'houseNumber' | 'postalCode' | 'district' | 'city' | 'state' | 'county' | 'country' | 'propertyType' | 'showExtraAddress' | 'showIdentificationNumber' | 'attentionNote' | 'showAttentionNote' | 'dateUpdated'>
-    & { houseGeneral?: Maybe<(
-      { __typename?: 'HouseGeneral' }
-      & Pick<HouseGeneral, 'propertyConnection' | 'propertyDetails'>
-      & { construction?: Maybe<(
-        { __typename?: 'ConstructionInformation' }
-        & Pick<ConstructionInformation, 'type' | 'from' | 'to' | 'notes'>
-      )>, availability?: Maybe<(
-        { __typename?: 'PropertyAvailabilityInformation' }
-        & Pick<PropertyAvailabilityInformation, 'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'>
-      )> }
-    )>, apartmentGeneral?: Maybe<(
-      { __typename?: 'ApartmentGeneral' }
-      & { propertyDetails?: Maybe<(
-        { __typename?: 'ApartmentPropertyDetails' }
-        & Pick<ApartmentPropertyDetails, 'groundfloorApartmentStartsOnFloor' | 'amountOfTotalFloors' | 'notes' | 'apartmentType' | 'characteristicsApartment'>
-      )> }
-    )>, bogGeneral?: Maybe<(
-      { __typename?: 'BogGeneral' }
-      & Pick<BogGeneral, 'type' | 'characteristics' | 'startsOnFloor' | 'totalFloors' | 'notes'>
-    )>, aogGeneral?: Maybe<(
-      { __typename?: 'AogGeneral' }
-      & Pick<AogGeneral, 'generalType' | 'additionalPosition'>
-      & { houseLot?: Maybe<(
-        { __typename?: 'AogHouseLot' }
-        & Pick<AogHouseLot, 'length' | 'width' | 'surface' | 'amountOfHouses'>
-      )>, specifications?: Maybe<Array<(
-        { __typename?: 'AogSpecifications' }
-        & Pick<AogSpecifications, 'type' | 'notes'>
-      )>> }
-    )>, parkingGeneral?: Maybe<(
-      { __typename?: 'ParkingLotGeneral' }
-      & { type?: Maybe<(
-        { __typename?: 'TypeOfParking' }
-        & Pick<TypeOfParking, 'type' | 'parkingNumber' | 'notes'>
-      )>, measurements?: Maybe<(
-        { __typename?: 'ParkingMeasurements' }
-        & Pick<ParkingMeasurements, 'length' | 'width' | 'surface' | 'capacity' | 'height' | 'volume'>
-      )>, specifications?: Maybe<(
-        { __typename?: 'ParkingLotSpecifications' }
-        & Pick<ParkingLotSpecifications, 'type' | 'notes'>
-      )>, material?: Maybe<(
-        { __typename?: 'ParkingMaterial' }
-        & Pick<ParkingMaterial, 'type' | 'notes'>
-      )>, insulation?: Maybe<(
-        { __typename?: 'ParkingInsulation' }
-        & Pick<ParkingInsulation, 'type' | 'notes'>
-      )> }
-    )>, buildingPlotGeneral?: Maybe<(
-      { __typename?: 'BuildingPlotGeneral' }
-      & { propertyDetails?: Maybe<(
-        { __typename?: 'BuildingPlotPropertyDetails' }
-        & Pick<BuildingPlotPropertyDetails, 'plotReadyForConstruction' | 'buildingPlotNumber' | 'notes' | 'soilType'>
-        & { measurements?: Maybe<(
-          { __typename?: 'RectangleMeasurement' }
-          & Pick<RectangleMeasurement, 'length' | 'width' | 'surface'>
-        )> }
-      )> }
-    )>, extraAddress?: Maybe<(
-      { __typename?: 'ExtraAddress' }
-      & Pick<ExtraAddress, 'plotNumber' | 'plotNumberAddition' | 'houseNumberStart' | 'houseNumberEnd'>
-    )>, identificationNumbers?: Maybe<Array<(
-      { __typename?: 'IdentificationNumber' }
-      & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type'>
-    )>>, lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )> }
-  ) }
-);
+export type PimGeneralQuery = { __typename?: 'Query' } & {
+  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
+    PimGeneral,
+    | 'id'
+    | 'street'
+    | 'houseNumber'
+    | 'postalCode'
+    | 'district'
+    | 'city'
+    | 'state'
+    | 'county'
+    | 'country'
+    | 'propertyType'
+    | 'showExtraAddress'
+    | 'showIdentificationNumber'
+    | 'attentionNote'
+    | 'showAttentionNote'
+    | 'dateUpdated'
+  > & {
+      houseGeneral?: Maybe<
+        { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'propertyConnection' | 'propertyDetails'> & {
+            construction?: Maybe<
+              { __typename?: 'ConstructionInformation' } & Pick<
+                ConstructionInformation,
+                'type' | 'from' | 'to' | 'notes'
+              >
+            >;
+            availability?: Maybe<
+              { __typename?: 'PropertyAvailabilityInformation' } & Pick<
+                PropertyAvailabilityInformation,
+                'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
+              >
+            >;
+          }
+      >;
+      apartmentGeneral?: Maybe<
+        { __typename?: 'ApartmentGeneral' } & {
+          propertyDetails?: Maybe<
+            { __typename?: 'ApartmentPropertyDetails' } & Pick<
+              ApartmentPropertyDetails,
+              | 'groundfloorApartmentStartsOnFloor'
+              | 'amountOfTotalFloors'
+              | 'notes'
+              | 'apartmentType'
+              | 'characteristicsApartment'
+            >
+          >;
+        }
+      >;
+      bogGeneral?: Maybe<
+        { __typename?: 'BogGeneral' } & Pick<
+          BogGeneral,
+          'type' | 'characteristics' | 'startsOnFloor' | 'totalFloors' | 'notes'
+        >
+      >;
+      aogGeneral?: Maybe<
+        { __typename?: 'AogGeneral' } & Pick<AogGeneral, 'generalType' | 'additionalPosition'> & {
+            houseLot?: Maybe<
+              { __typename?: 'AogHouseLot' } & Pick<AogHouseLot, 'length' | 'width' | 'surface' | 'amountOfHouses'>
+            >;
+            specifications?: Maybe<
+              Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+            >;
+          }
+      >;
+      parkingGeneral?: Maybe<
+        { __typename?: 'ParkingLotGeneral' } & {
+          type?: Maybe<{ __typename?: 'TypeOfParking' } & Pick<TypeOfParking, 'type' | 'parkingNumber' | 'notes'>>;
+          measurements?: Maybe<
+            { __typename?: 'ParkingMeasurements' } & Pick<
+              ParkingMeasurements,
+              'length' | 'width' | 'surface' | 'capacity' | 'height' | 'volume'
+            >
+          >;
+          specifications?: Maybe<
+            { __typename?: 'ParkingLotSpecifications' } & Pick<ParkingLotSpecifications, 'type' | 'notes'>
+          >;
+          material?: Maybe<{ __typename?: 'ParkingMaterial' } & Pick<ParkingMaterial, 'type' | 'notes'>>;
+          insulation?: Maybe<{ __typename?: 'ParkingInsulation' } & Pick<ParkingInsulation, 'type' | 'notes'>>;
+        }
+      >;
+      buildingPlotGeneral?: Maybe<
+        { __typename?: 'BuildingPlotGeneral' } & {
+          propertyDetails?: Maybe<
+            { __typename?: 'BuildingPlotPropertyDetails' } & Pick<
+              BuildingPlotPropertyDetails,
+              'plotReadyForConstruction' | 'buildingPlotNumber' | 'notes' | 'soilType'
+            > & {
+                measurements?: Maybe<
+                  { __typename?: 'RectangleMeasurement' } & Pick<RectangleMeasurement, 'length' | 'width' | 'surface'>
+                >;
+              }
+          >;
+        }
+      >;
+      extraAddress?: Maybe<
+        { __typename?: 'ExtraAddress' } & Pick<
+          ExtraAddress,
+          'plotNumber' | 'plotNumberAddition' | 'houseNumberStart' | 'houseNumberEnd'
+        >
+      >;
+      identificationNumbers?: Maybe<
+        Array<{ __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type'>>
+      >;
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+    };
+};
 
 export type PimWithSameAddressQueryVariables = {
   input: PimWithSameAddressInput;
 };
 
-
-export type PimWithSameAddressQuery = (
-  { __typename?: 'Query' }
-  & { getPimsGeneralWithSameAddress: (
-    { __typename?: 'GeneralPimSearchResult' }
-    & { metadata?: Maybe<(
-      { __typename?: 'SearchMetadata' }
-      & Pick<SearchMetadata, 'total'>
-    )>, items?: Maybe<Array<(
-      { __typename?: 'PimGeneral' }
-      & Pick<PimGeneral, 'id'>
-    )>> }
-  ) }
-);
+export type PimWithSameAddressQuery = { __typename?: 'Query' } & {
+  getPimsGeneralWithSameAddress: { __typename?: 'GeneralPimSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'PimGeneral' } & Pick<PimGeneral, 'id'>>>;
+  };
+};
 
 export type PimInsideQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimInsideQuery = (
-  { __typename?: 'Query' }
-  & { getPimInside: (
-    { __typename?: 'PimInside' }
-    & Pick<PimInside, 'id'>
-    & { floors?: Maybe<Array<(
-      { __typename?: 'Floor' }
-      & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, spaces?: Maybe<Array<(
-        { __typename?: 'Space' }
-        & Pick<Space, 'id' | 'spaceType' | 'spaceName'>
-        & { configuration?: Maybe<(
-          { __typename?: 'KitchenSpace' }
-          & Pick<KitchenSpace, 'constructionYear' | 'notes' | 'constructionType' | 'servicesNotes' | 'hob' | 'shape' | 'serviceHeating'>
-          & { kitchenType: KitchenSpace['type'], kitchenServices: KitchenSpace['services'] }
-          & { appliances?: Maybe<Array<Maybe<(
-            { __typename?: 'KitchenAppliance' }
-            & Pick<KitchenAppliance, 'name' | 'quantity' | 'notes'>
-          )>>>, measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        ) | (
-          { __typename?: 'BathroomSpace' }
-          & Pick<BathroomSpace, 'constructionYear' | 'shape' | 'serviceHeating'>
-          & { bathroomServices: BathroomSpace['services'] }
-          & { measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        ) | (
-          { __typename?: 'LivingRoomSpace' }
-          & Pick<LivingRoomSpace, 'shape' | 'stairs' | 'serviceHeating'>
-          & { livingRoomType: LivingRoomSpace['type'] }
-          & { measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        ) | (
-          { __typename?: 'BedroomSpace' }
-          & Pick<BedroomSpace, 'notes' | 'shape' | 'serviceHeating'>
-          & { measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        ) | (
-          { __typename?: 'HomeOfficeSpace' }
-          & Pick<HomeOfficeSpace, 'notes' | 'shape' | 'serviceHeating'>
-          & { measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        ) | (
-          { __typename?: 'OtherSpace' }
-          & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'>
-          & { measurement?: Maybe<(
-            { __typename?: 'CuboidMeasurement' }
-            & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-          )>, images?: Maybe<Array<(
-            { __typename?: 'File' }
-            & Pick<File, 'url'>
-          )>> }
-        )> }
-      )>> }
-    )>>, insideGeneral?: Maybe<(
-      { __typename?: 'InsideGeneral' }
-      & Pick<InsideGeneral, 'notes' | 'dateUpdated'>
-      & { extension?: Maybe<(
-        { __typename?: 'Extension' }
-        & Pick<Extension, 'notes' | 'yearOfExtension'>
-      )>, renovation?: Maybe<(
-        { __typename?: 'Renovation' }
-        & Pick<Renovation, 'notes' | 'yearOfRenovation'>
-      )>, windows?: Maybe<(
-        { __typename?: 'InsideWindows' }
-        & Pick<InsideWindows, 'notes' | 'types'>
-      )>, lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type PimInsideQuery = { __typename?: 'Query' } & {
+  getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
+      floors?: Maybe<
+        Array<
+          { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription' | 'dateUpdated'> & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              spaces?: Maybe<
+                Array<
+                  { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
+                      configuration?: Maybe<
+                        | ({ __typename?: 'KitchenSpace' } & Pick<
+                            KitchenSpace,
+                            | 'constructionYear'
+                            | 'notes'
+                            | 'constructionType'
+                            | 'servicesNotes'
+                            | 'hob'
+                            | 'shape'
+                            | 'serviceHeating'
+                          > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
+                              appliances?: Maybe<
+                                Array<
+                                  Maybe<
+                                    { __typename?: 'KitchenAppliance' } & Pick<
+                                      KitchenAppliance,
+                                      'name' | 'quantity' | 'notes'
+                                    >
+                                  >
+                                >
+                              >;
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'BathroomSpace' } & Pick<
+                            BathroomSpace,
+                            'constructionYear' | 'shape' | 'serviceHeating'
+                          > & { bathroomServices: BathroomSpace['services'] } & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'LivingRoomSpace' } & Pick<
+                            LivingRoomSpace,
+                            'shape' | 'stairs' | 'serviceHeating'
+                          > & { livingRoomType: LivingRoomSpace['type'] } & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'BedroomSpace' } & Pick<
+                            BedroomSpace,
+                            'notes' | 'shape' | 'serviceHeating'
+                          > & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'HomeOfficeSpace' } & Pick<
+                            HomeOfficeSpace,
+                            'notes' | 'shape' | 'serviceHeating'
+                          > & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                        | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
+                              measurement?: Maybe<
+                                { __typename?: 'CuboidMeasurement' } & Pick<
+                                  CuboidMeasurement,
+                                  'length' | 'width' | 'height' | 'surface' | 'volume'
+                                >
+                              >;
+                              images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                            })
+                      >;
+                    }
+                >
+              >;
+            }
+        >
+      >;
+      insideGeneral?: Maybe<
+        { __typename?: 'InsideGeneral' } & Pick<InsideGeneral, 'notes' | 'dateUpdated'> & {
+            extension?: Maybe<{ __typename?: 'Extension' } & Pick<Extension, 'notes' | 'yearOfExtension'>>;
+            renovation?: Maybe<{ __typename?: 'Renovation' } & Pick<Renovation, 'notes' | 'yearOfRenovation'>>;
+            windows?: Maybe<{ __typename?: 'InsideWindows' } & Pick<InsideWindows, 'notes' | 'types'>>;
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+          }
+      >;
+    };
+};
 
 export type PimLocationQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimLocationQuery = (
-  { __typename?: 'Query' }
-  & { getPimLocation: (
-    { __typename?: 'PimLocation' }
-    & Pick<PimLocation, 'id' | 'latitude' | 'longitude' | 'type' | 'notes' | 'description' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, goodToKnows?: Maybe<Array<(
-      { __typename?: 'GoodToKnow' }
-      & Pick<GoodToKnow, 'type' | 'distance' | 'units' | 'checked'>
-    )>> }
-  ) }
-);
+export type PimLocationQuery = { __typename?: 'Query' } & {
+  getPimLocation: { __typename?: 'PimLocation' } & Pick<
+    PimLocation,
+    'id' | 'latitude' | 'longitude' | 'type' | 'notes' | 'description' | 'dateUpdated'
+  > & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      goodToKnows?: Maybe<
+        Array<{ __typename?: 'GoodToKnow' } & Pick<GoodToKnow, 'type' | 'distance' | 'units' | 'checked'>>
+      >;
+    };
+};
 
 export type PimMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
 };
 
-
-export type PimMediaQuery = (
-  { __typename?: 'Query' }
-  & { getPimMedia: (
-    { __typename?: 'PimMedia' }
-    & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, pictures?: Maybe<Array<(
-      { __typename?: 'Picture' }
-      & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'>
-      & { file?: Maybe<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'key' | 'fileName'>
-      )> }
-    )>>, mediaLinks?: Maybe<Array<(
-      { __typename?: 'MediaLink' }
-      & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>
-    )>>, textChapters?: Maybe<Array<(
-      { __typename?: 'TextChapter' }
-      & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>
-    )>>, usps?: Maybe<Array<(
-      { __typename?: 'Usp' }
-      & Pick<Usp, 'id' | 'name' | 'description' | 'type'>
-    )>>, tags?: Maybe<Array<(
-      { __typename?: 'Tag' }
-      & Pick<Tag, 'id' | 'name' | 'description' | 'type'>
-    )>> }
-  ) }
-);
+export type PimMediaQuery = { __typename?: 'Query' } & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+};
 
 export type PimMetersQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimMetersQuery = (
-  { __typename?: 'Query' }
-  & { getPimServices: (
-    { __typename?: 'PimServices' }
-    & { metersMeta?: Maybe<(
-      { __typename?: 'MetersMeta' }
-      & Pick<MetersMeta, 'description'>
-      & { Water?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )>, Gas?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )>, Electric?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )> }
-    )>, meters?: Maybe<Array<(
-      { __typename?: 'Meter' }
-      & Pick<Meter, 'id' | 'type' | 'name' | 'description'>
-      & { readings?: Maybe<Array<(
-        { __typename?: 'Reading' }
-        & Pick<Reading, 'id' | 'value' | 'description' | 'feedInId' | 'dateOfReading'>
-      )>> }
-    )>> }
-  ) }
-);
+export type PimMetersQuery = { __typename?: 'Query' } & {
+  getPimServices: { __typename?: 'PimServices' } & {
+    metersMeta?: Maybe<
+      { __typename?: 'MetersMeta' } & Pick<MetersMeta, 'description'> & {
+          Water?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Gas?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Electric?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+        }
+    >;
+    meters?: Maybe<
+      Array<
+        { __typename?: 'Meter' } & Pick<Meter, 'id' | 'type' | 'name' | 'description'> & {
+            readings?: Maybe<
+              Array<
+                { __typename?: 'Reading' } & Pick<
+                  Reading,
+                  'id' | 'value' | 'description' | 'feedInId' | 'dateOfReading'
+                >
+              >
+            >;
+          }
+      >
+    >;
+  };
+};
 
 export type PimOutsideQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimOutsideQuery = (
-  { __typename?: 'Query' }
-  & { getPimOutside: (
-    { __typename?: 'PimOutside' }
-    & Pick<PimOutside, 'id' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, houseOutside?: Maybe<(
-      { __typename?: 'HouseOutside' }
-      & Pick<HouseOutside, 'notes'>
-      & { foundation?: Maybe<(
-        { __typename?: 'Foundation' }
-        & { material?: Maybe<(
-          { __typename?: 'FoundationMaterialInformations' }
-          & Pick<FoundationMaterialInformations, 'notes' | 'type'>
-        )>, type?: Maybe<(
-          { __typename?: 'FoundationTypeInformations' }
-          & Pick<FoundationTypeInformations, 'notes' | 'type'>
-        )> }
-      )>, generalInformation?: Maybe<(
-        { __typename?: 'GeneralInformation' }
-        & Pick<GeneralInformation, 'qualityInformation' | 'notes'>
-        & { images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'id' | 'url'>
-        )>> }
-      )>, propertyRelated?: Maybe<(
-        { __typename?: 'PropertyRelated' }
-        & Pick<PropertyRelated, 'items' | 'notes'>
-        & { images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'id' | 'url'>
-        )>> }
-      )>, roofInformation?: Maybe<(
-        { __typename?: 'RoofInformation' }
-        & Pick<RoofInformation, 'yearOfRoof'>
-        & { type?: Maybe<(
-          { __typename?: 'RoofType' }
-          & Pick<RoofType, 'name' | 'notes'>
-        )>, material?: Maybe<(
-          { __typename?: 'RoofMaterial' }
-          & Pick<RoofMaterial, 'name' | 'notes'>
-        )>, insulation?: Maybe<(
-          { __typename?: 'RoofInsulation' }
-          & Pick<RoofInsulation, 'name' | 'notes'>
-        )>, images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'id' | 'url'>
-        )>>, gutter?: Maybe<(
-          { __typename?: 'GutterInformations' }
-          & Pick<GutterInformations, 'notes' | 'type'>
-        )>, gutterMaterial?: Maybe<(
-          { __typename?: 'GutterMaterialInformations' }
-          & Pick<GutterMaterialInformations, 'material' | 'notes'>
-        )> }
-      )> }
-    )>, outsideFeatures?: Maybe<Array<(
-      { __typename?: 'OutsideFeature' }
-      & Pick<OutsideFeature, 'id' | 'type' | 'dateCreated' | 'dateUpdated' | 'description'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, configuration?: Maybe<(
-        { __typename?: 'GardenFeature' }
-        & Pick<GardenFeature, 'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'>
-        & { measurement?: Maybe<(
-          { __typename?: 'RectangleMeasurement' }
-          & Pick<RectangleMeasurement, 'length' | 'width' | 'surface'>
-        )>, images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )>> }
-      ) | (
-        { __typename?: 'GarageFeature' }
-        & Pick<GarageFeature, 'main' | 'notes' | 'attached' | 'attic' | 'secondaryWindows' | 'materials'>
-        & { garageTypes: GarageFeature['types'], garageInsulations: GarageFeature['insulations'], garageServices: GarageFeature['services'] }
-        & { measurement?: Maybe<(
-          { __typename?: 'CuboidMeasurement' }
-          & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-        )>, images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )>> }
-      ) | (
-        { __typename?: 'StorageFeature' }
-        & Pick<StorageFeature, 'main' | 'notes' | 'attached' | 'secondaryWindows' | 'materials'>
-        & { storageTypes: StorageFeature['types'], storageInsulations: StorageFeature['insulations'], storageServices: StorageFeature['services'] }
-        & { measurement?: Maybe<(
-          { __typename?: 'CuboidMeasurement' }
-          & Pick<CuboidMeasurement, 'length' | 'width' | 'height' | 'surface' | 'volume'>
-        )>, images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )>> }
-      ) | (
-        { __typename?: 'TerrainFeature' }
-        & Pick<TerrainFeature, 'parking' | 'notes'>
-        & { measurement?: Maybe<(
-          { __typename?: 'RectangleMeasurement' }
-          & Pick<RectangleMeasurement, 'length' | 'width' | 'surface'>
-        )>, images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )>> }
-      ) | (
-        { __typename?: 'ParkingLotFeature' }
-        & Pick<ParkingLotFeature, 'number' | 'price' | 'cost' | 'notes'>
-        & { images?: Maybe<Array<(
-          { __typename?: 'File' }
-          & Pick<File, 'url'>
-        )>> }
-      )> }
-    )>> }
-  ) }
-);
+export type PimOutsideQuery = { __typename?: 'Query' } & {
+  getPimOutside: { __typename?: 'PimOutside' } & Pick<PimOutside, 'id' | 'dateUpdated'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      houseOutside?: Maybe<
+        { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
+            foundation?: Maybe<
+              { __typename?: 'Foundation' } & {
+                material?: Maybe<
+                  { __typename?: 'FoundationMaterialInformations' } & Pick<
+                    FoundationMaterialInformations,
+                    'notes' | 'type'
+                  >
+                >;
+                type?: Maybe<
+                  { __typename?: 'FoundationTypeInformations' } & Pick<FoundationTypeInformations, 'notes' | 'type'>
+                >;
+              }
+            >;
+            generalInformation?: Maybe<
+              { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'qualityInformation' | 'notes'> & {
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                }
+            >;
+            propertyRelated?: Maybe<
+              { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                }
+            >;
+            roofInformation?: Maybe<
+              { __typename?: 'RoofInformation' } & Pick<RoofInformation, 'yearOfRoof'> & {
+                  type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
+                  material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
+                  insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                  images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  gutter?: Maybe<{ __typename?: 'GutterInformations' } & Pick<GutterInformations, 'notes' | 'type'>>;
+                  gutterMaterial?: Maybe<
+                    { __typename?: 'GutterMaterialInformations' } & Pick<
+                      GutterMaterialInformations,
+                      'material' | 'notes'
+                    >
+                  >;
+                }
+            >;
+          }
+      >;
+      outsideFeatures?: Maybe<
+        Array<
+          { __typename?: 'OutsideFeature' } & Pick<
+            OutsideFeature,
+            'id' | 'type' | 'dateCreated' | 'dateUpdated' | 'description'
+          > & {
+              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              configuration?: Maybe<
+                | ({ __typename?: 'GardenFeature' } & Pick<
+                    GardenFeature,
+                    'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
+                  > & {
+                      measurement?: Maybe<
+                        { __typename?: 'RectangleMeasurement' } & Pick<
+                          RectangleMeasurement,
+                          'length' | 'width' | 'surface'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'GarageFeature' } & Pick<
+                    GarageFeature,
+                    'main' | 'notes' | 'attached' | 'attic' | 'secondaryWindows' | 'materials'
+                  > & {
+                      garageTypes: GarageFeature['types'];
+                      garageInsulations: GarageFeature['insulations'];
+                      garageServices: GarageFeature['services'];
+                    } & {
+                      measurement?: Maybe<
+                        { __typename?: 'CuboidMeasurement' } & Pick<
+                          CuboidMeasurement,
+                          'length' | 'width' | 'height' | 'surface' | 'volume'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'StorageFeature' } & Pick<
+                    StorageFeature,
+                    'main' | 'notes' | 'attached' | 'secondaryWindows' | 'materials'
+                  > & {
+                      storageTypes: StorageFeature['types'];
+                      storageInsulations: StorageFeature['insulations'];
+                      storageServices: StorageFeature['services'];
+                    } & {
+                      measurement?: Maybe<
+                        { __typename?: 'CuboidMeasurement' } & Pick<
+                          CuboidMeasurement,
+                          'length' | 'width' | 'height' | 'surface' | 'volume'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                      measurement?: Maybe<
+                        { __typename?: 'RectangleMeasurement' } & Pick<
+                          RectangleMeasurement,
+                          'length' | 'width' | 'surface'
+                        >
+                      >;
+                      images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                    })
+                | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                    ParkingLotFeature,
+                    'number' | 'price' | 'cost' | 'notes'
+                  > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> })
+              >;
+            }
+        >
+      >;
+    };
+};
 
 export type PimPricingQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimPricingQuery = (
-  { __typename?: 'Query' }
-  & { getPricing: (
-    { __typename?: 'PimPrices' }
-    & Pick<PimPrices, 'id' | 'costsDescription' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, pricing?: Maybe<(
-      { __typename?: 'Pricing' }
-      & Pick<Pricing, 'description' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, rent?: Maybe<(
-        { __typename?: 'RentInformations' }
-        & Pick<RentInformations, 'isEnabled' | 'rentalPrice' | 'paymentFrequency' | 'suffix' | 'notes' | 'conditions'>
-      )>, sale?: Maybe<(
-        { __typename?: 'SaleInformations' }
-        & Pick<SaleInformations, 'isEnabled'>
-        & { general?: Maybe<(
-          { __typename?: 'SaleGeneral' }
-          & Pick<SaleGeneral, 'prefix' | 'price' | 'suffix' | 'executionSale' | 'dateOfExecutionSale' | 'conditions' | 'purchaseMix' | 'notes'>
-        )>, woz?: Maybe<(
-          { __typename?: 'SaleWOZ' }
-          & Pick<SaleWoz, 'wozPrice' | 'referenceDateWoz' | 'notes'>
-        )> }
-      )> }
-    )>, costs?: Maybe<Array<(
-      { __typename?: 'Cost' }
-      & Pick<Cost, 'id' | 'serviceCosts' | 'paymentsFrequency' | 'vatTaxedServiceCosts' | 'vatPercentage' | 'notes' | 'type' | 'name'>
-    )>>, investment?: Maybe<(
-      { __typename?: 'Investment' }
-      & Pick<Investment, 'description' | 'netRentalIncome' | 'grossRentalIncome' | 'economicRentalValue' | 'averageMaturity' | 'rentIndexed' | 'splitApartment' | 'averageVacancyPercentage' | 'numberOfRentableUnits' | 'amountOfTenants' | 'remainingTermContacts' | 'vacancySquareMeters' | 'notes' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )> }
-    )> }
-  ) }
-);
+export type PimPricingQuery = { __typename?: 'Query' } & {
+  getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id' | 'costsDescription' | 'dateUpdated'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      pricing?: Maybe<
+        { __typename?: 'Pricing' } & Pick<Pricing, 'description' | 'dateUpdated'> & {
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            rent?: Maybe<
+              { __typename?: 'RentInformations' } & Pick<
+                RentInformations,
+                'isEnabled' | 'rentalPrice' | 'paymentFrequency' | 'suffix' | 'notes' | 'conditions'
+              >
+            >;
+            sale?: Maybe<
+              { __typename?: 'SaleInformations' } & Pick<SaleInformations, 'isEnabled'> & {
+                  general?: Maybe<
+                    { __typename?: 'SaleGeneral' } & Pick<
+                      SaleGeneral,
+                      | 'prefix'
+                      | 'price'
+                      | 'suffix'
+                      | 'executionSale'
+                      | 'dateOfExecutionSale'
+                      | 'conditions'
+                      | 'purchaseMix'
+                      | 'notes'
+                    >
+                  >;
+                  woz?: Maybe<{ __typename?: 'SaleWOZ' } & Pick<SaleWoz, 'wozPrice' | 'referenceDateWoz' | 'notes'>>;
+                }
+            >;
+          }
+      >;
+      costs?: Maybe<
+        Array<
+          { __typename?: 'Cost' } & Pick<
+            Cost,
+            | 'id'
+            | 'serviceCosts'
+            | 'paymentsFrequency'
+            | 'vatTaxedServiceCosts'
+            | 'vatPercentage'
+            | 'notes'
+            | 'type'
+            | 'name'
+          >
+        >
+      >;
+      investment?: Maybe<
+        { __typename?: 'Investment' } & Pick<
+          Investment,
+          | 'description'
+          | 'netRentalIncome'
+          | 'grossRentalIncome'
+          | 'economicRentalValue'
+          | 'averageMaturity'
+          | 'rentIndexed'
+          | 'splitApartment'
+          | 'averageVacancyPercentage'
+          | 'numberOfRentableUnits'
+          | 'amountOfTenants'
+          | 'remainingTermContacts'
+          | 'vacancySquareMeters'
+          | 'notes'
+          | 'dateUpdated'
+        > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
+      >;
+    };
+};
 
 export type PimServicesQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimServicesQuery = (
-  { __typename?: 'Query' }
-  & { getPimServices: (
-    { __typename?: 'PimServices' }
-    & Pick<PimServices, 'description' | 'dateUpdated'>
-    & { lastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, metersMeta?: Maybe<(
-      { __typename?: 'MetersMeta' }
-      & { Water?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )>, Gas?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )>, Electric?: Maybe<(
-        { __typename?: 'MetersSharedData' }
-        & Pick<MetersSharedData, 'description' | 'dateUpdated'>
-        & { lastEditedBy?: Maybe<(
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        )> }
-      )> }
-    )>, meters?: Maybe<Array<(
-      { __typename?: 'Meter' }
-      & Pick<Meter, 'id' | 'type' | 'name' | 'description'>
-      & { readings?: Maybe<Array<(
-        { __typename?: 'Reading' }
-        & Pick<Reading, 'id' | 'value' | 'description' | 'feedInId' | 'dateOfReading'>
-      )>> }
-    )>>, hotWaterSupplies?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: (
-        { __typename?: 'HotWaterSupplyConfiguration' }
-        & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>
-      ) | { __typename?: 'HeatingSourceConfiguration' } | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, heatingSources?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | (
-        { __typename?: 'HeatingSourceConfiguration' }
-        & Pick<HeatingSourceConfiguration, 'type'>
-      ) | { __typename?: 'AdditionalServiceConfiguration' } }
-    )>>, additionalServices?: Maybe<Array<(
-      { __typename?: 'Service' }
-      & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'>
-      & { configuration: { __typename?: 'HotWaterSupplyConfiguration' } | { __typename?: 'HeatingSourceConfiguration' } | (
-        { __typename?: 'AdditionalServiceConfiguration' }
-        & Pick<AdditionalServiceConfiguration, 'type'>
-      ) }
-    )>> }
-  ) }
-);
+export type PimServicesQuery = { __typename?: 'Query' } & {
+  getPimServices: { __typename?: 'PimServices' } & Pick<PimServices, 'description' | 'dateUpdated'> & {
+      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      metersMeta?: Maybe<
+        { __typename?: 'MetersMeta' } & {
+          Water?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Gas?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+          Electric?: Maybe<
+            { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              }
+          >;
+        }
+      >;
+      meters?: Maybe<
+        Array<
+          { __typename?: 'Meter' } & Pick<Meter, 'id' | 'type' | 'name' | 'description'> & {
+              readings?: Maybe<
+                Array<
+                  { __typename?: 'Reading' } & Pick<
+                    Reading,
+                    'id' | 'value' | 'description' | 'feedInId' | 'dateOfReading'
+                  >
+                >
+              >;
+            }
+        >
+      >;
+      hotWaterSupplies?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | ({ __typename?: 'HotWaterSupplyConfiguration' } & Pick<HotWaterSupplyConfiguration, 'type' | 'fuel'>)
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      heatingSources?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<Service, 'id' | 'type' | 'name' | 'description' | 'yearOfInstallation'> & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | ({ __typename?: 'HeatingSourceConfiguration' } & Pick<HeatingSourceConfiguration, 'type'>)
+                | { __typename?: 'AdditionalServiceConfiguration' };
+            }
+        >
+      >;
+      additionalServices?: Maybe<
+        Array<
+          { __typename?: 'Service' } & Pick<
+            Service,
+            'id' | 'type' | 'name' | 'description' | 'yearOfInstallation' | 'ownership'
+          > & {
+              configuration:
+                | { __typename?: 'HotWaterSupplyConfiguration' }
+                | { __typename?: 'HeatingSourceConfiguration' }
+                | ({ __typename?: 'AdditionalServiceConfiguration' } & Pick<AdditionalServiceConfiguration, 'type'>);
+            }
+        >
+      >;
+    };
+};
 
 export type PimSpecificationQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimSpecificationQuery = (
-  { __typename?: 'Query' }
-  & { getPimSpecification: (
-    { __typename?: 'PimSpecification' }
-    & Pick<PimSpecification, 'linkedPropertiesDescription' | 'inspectionsDescription' | 'linkedPropertiesDateUpdated' | 'inspectionsDateUpdated'>
-    & { linkedPropertiesLastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, inspectionsLastEditedBy?: Maybe<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-    )>, specification?: Maybe<(
-      { __typename?: 'Specification' }
-      & Pick<Specification, 'description' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, energy?: Maybe<(
-        { __typename?: 'Energy' }
-        & Pick<Energy, 'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'>
-      )>, approvals?: Maybe<(
-        { __typename?: 'Approvals' }
-        & Pick<Approvals, 'notes' | 'label'>
-      )>, obligation?: Maybe<(
-        { __typename?: 'ObligationToProvideInformation' }
-        & Pick<ObligationToProvideInformation, 'label' | 'notes'>
-      )> }
-    )>, specificationAdvanced?: Maybe<(
-      { __typename?: 'SpecificationAdvanced' }
-      & Pick<SpecificationAdvanced, 'description' | 'dateUpdated'>
-      & { lastEditedBy?: Maybe<(
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-      )>, parking?: Maybe<(
-        { __typename?: 'ParkingSpecification' }
-        & Pick<ParkingSpecification, 'description' | 'parkingCapacity' | 'parkingFacilities'>
-      )>, monument?: Maybe<(
-        { __typename?: 'MonumentSpecification' }
-        & Pick<MonumentSpecification, 'notes' | 'type'>
-      )>, inside?: Maybe<(
-        { __typename?: 'InsideSpecification' }
-        & Pick<InsideSpecification, 'notes' | 'type'>
-      )>, housingOptions?: Maybe<(
-        { __typename?: 'HousingOptions' }
-        & Pick<HousingOptions, 'notes' | 'type'>
-      )>, specialTags?: Maybe<(
-        { __typename?: 'SpecialTags' }
-        & Pick<SpecialTags, 'notes' | 'type'>
-      )>, propertyRights?: Maybe<(
-        { __typename?: 'PropertyRights' }
-        & Pick<PropertyRights, 'notes' | 'type'>
-      )>, homeOwnerAssociation?: Maybe<(
-        { __typename?: 'HomeOwnerAssociation' }
-        & Pick<HomeOwnerAssociation, 'name' | 'monthlyContribution' | 'goodToKnow' | 'notes'>
-      )> }
-    )>, linkedProperties?: Maybe<Array<(
-      { __typename?: 'LinkedPim' }
-      & Pick<LinkedPim, 'id' | 'houseNumberPrefix' | 'houseNumber' | 'houseNumberAddition' | 'postalCode' | 'district' | 'city' | 'state' | 'county' | 'country' | 'propertyType' | 'attention' | 'plotNumber' | 'salePrice' | 'rentPrice' | 'status'>
-      & { images?: Maybe<Array<(
-        { __typename?: 'File' }
-        & Pick<File, 'url'>
-      )>> }
-    )>>, inspections?: Maybe<Array<(
-      { __typename?: 'Inspection' }
-      & Pick<Inspection, 'id' | 'inspectionType' | 'type' | 'description'>
-    )>> }
-  ) }
-);
+export type PimSpecificationQuery = { __typename?: 'Query' } & {
+  getPimSpecification: { __typename?: 'PimSpecification' } & Pick<
+    PimSpecification,
+    'linkedPropertiesDescription' | 'inspectionsDescription' | 'linkedPropertiesDateUpdated' | 'inspectionsDateUpdated'
+  > & {
+      linkedPropertiesLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      inspectionsLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      specification?: Maybe<
+        { __typename?: 'Specification' } & Pick<Specification, 'description' | 'dateUpdated'> & {
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            energy?: Maybe<
+              { __typename?: 'Energy' } & Pick<
+                Energy,
+                'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+              >
+            >;
+            approvals?: Maybe<{ __typename?: 'Approvals' } & Pick<Approvals, 'notes' | 'label'>>;
+            obligation?: Maybe<
+              { __typename?: 'ObligationToProvideInformation' } & Pick<
+                ObligationToProvideInformation,
+                'label' | 'notes'
+              >
+            >;
+          }
+      >;
+      specificationAdvanced?: Maybe<
+        { __typename?: 'SpecificationAdvanced' } & Pick<SpecificationAdvanced, 'description' | 'dateUpdated'> & {
+            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            parking?: Maybe<
+              { __typename?: 'ParkingSpecification' } & Pick<
+                ParkingSpecification,
+                'description' | 'parkingCapacity' | 'parkingFacilities'
+              >
+            >;
+            monument?: Maybe<{ __typename?: 'MonumentSpecification' } & Pick<MonumentSpecification, 'notes' | 'type'>>;
+            inside?: Maybe<{ __typename?: 'InsideSpecification' } & Pick<InsideSpecification, 'notes' | 'type'>>;
+            housingOptions?: Maybe<{ __typename?: 'HousingOptions' } & Pick<HousingOptions, 'notes' | 'type'>>;
+            specialTags?: Maybe<{ __typename?: 'SpecialTags' } & Pick<SpecialTags, 'notes' | 'type'>>;
+            propertyRights?: Maybe<{ __typename?: 'PropertyRights' } & Pick<PropertyRights, 'notes' | 'type'>>;
+            homeOwnerAssociation?: Maybe<
+              { __typename?: 'HomeOwnerAssociation' } & Pick<
+                HomeOwnerAssociation,
+                'name' | 'monthlyContribution' | 'goodToKnow' | 'notes'
+              >
+            >;
+          }
+      >;
+      linkedProperties?: Maybe<
+        Array<
+          { __typename?: 'LinkedPim' } & Pick<
+            LinkedPim,
+            | 'id'
+            | 'houseNumberPrefix'
+            | 'houseNumber'
+            | 'houseNumberAddition'
+            | 'postalCode'
+            | 'district'
+            | 'city'
+            | 'state'
+            | 'county'
+            | 'country'
+            | 'propertyType'
+            | 'attention'
+            | 'plotNumber'
+            | 'salePrice'
+            | 'rentPrice'
+            | 'status'
+          > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>> }
+        >
+      >;
+      inspections?: Maybe<
+        Array<{ __typename?: 'Inspection' } & Pick<Inspection, 'id' | 'inspectionType' | 'type' | 'description'>>
+      >;
+    };
+};
 
 export type PimOverallInfoQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type PimOverallInfoQuery = (
-  { __typename?: 'Query' }
-  & { getPimGeneral: (
-    { __typename?: 'PimGeneral' }
-    & Pick<PimGeneral, 'street' | 'houseNumber' | 'postalCode' | 'city' | 'propertyType'>
-  ), getPimInside: (
-    { __typename?: 'PimInside' }
-    & { floors?: Maybe<Array<(
-      { __typename?: 'Floor' }
-      & Pick<Floor, 'id' | 'floorType' | 'level'>
-    )>>, bogSpaces?: Maybe<Array<(
-      { __typename?: 'BogSpace' }
-      & Pick<BogSpace, 'id' | 'type'>
-    )>>, aogSpaces?: Maybe<Array<(
-      { __typename?: 'AogSpace' }
-      & Pick<AogSpace, 'id' | 'type' | 'name'>
-      & { animalsConfiguration?: Maybe<(
-        { __typename?: 'Animals' }
-        & Pick<Animals, 'type'>
-      )>, groundConfiguration?: Maybe<(
-        { __typename?: 'GroundSpace' }
-        & Pick<GroundSpace, 'typeOfLooseGround'>
-      )>, buildingsConfiguration?: Maybe<(
-        { __typename?: 'BuildingsSpace' }
-        & Pick<BuildingsSpace, 'buildingType'>
-      )>, installationsConfiguration?: Maybe<(
-        { __typename?: 'Installations' }
-        & Pick<Installations, 'type'>
-      )> }
-    )>> }
-  ), getPimOutside: (
-    { __typename?: 'PimOutside' }
-    & { outsideFeatures?: Maybe<Array<(
-      { __typename?: 'OutsideFeature' }
-      & Pick<OutsideFeature, 'id' | 'type'>
-    )>> }
-  ), getPimCadastre: (
-    { __typename?: 'PimCadastre' }
-    & { cadastre?: Maybe<Array<(
-      { __typename?: 'Cadastre' }
-      & Pick<Cadastre, 'id' | 'type'>
-    )>> }
-  ), getPimServices: (
-    { __typename?: 'PimServices' }
-    & { meters?: Maybe<Array<(
-      { __typename?: 'Meter' }
-      & Pick<Meter, 'id' | 'type'>
-    )>> }
-  ) }
-);
+export type PimOverallInfoQuery = { __typename?: 'Query' } & {
+  getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
+    PimGeneral,
+    'street' | 'houseNumber' | 'postalCode' | 'city' | 'propertyType'
+  >;
+  getPimInside: { __typename?: 'PimInside' } & {
+    floors?: Maybe<Array<{ __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorType' | 'level'>>>;
+    bogSpaces?: Maybe<Array<{ __typename?: 'BogSpace' } & Pick<BogSpace, 'id' | 'type'>>>;
+    aogSpaces?: Maybe<
+      Array<
+        { __typename?: 'AogSpace' } & Pick<AogSpace, 'id' | 'type' | 'name'> & {
+            animalsConfiguration?: Maybe<{ __typename?: 'Animals' } & Pick<Animals, 'type'>>;
+            groundConfiguration?: Maybe<{ __typename?: 'GroundSpace' } & Pick<GroundSpace, 'typeOfLooseGround'>>;
+            buildingsConfiguration?: Maybe<{ __typename?: 'BuildingsSpace' } & Pick<BuildingsSpace, 'buildingType'>>;
+            installationsConfiguration?: Maybe<{ __typename?: 'Installations' } & Pick<Installations, 'type'>>;
+          }
+      >
+    >;
+  };
+  getPimOutside: { __typename?: 'PimOutside' } & {
+    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
+  };
+  getPimCadastre: { __typename?: 'PimCadastre' } & {
+    cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
+  };
+  getPimServices: { __typename?: 'PimServices' } & {
+    meters?: Maybe<Array<{ __typename?: 'Meter' } & Pick<Meter, 'id' | 'type'>>>;
+  };
+};
 
 export type MeQueryVariables = {};
 
-
-export type MeQuery = (
-  { __typename?: 'Query' }
-  & { me?: Maybe<(
-    { __typename?: 'Profile' }
-    & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
-    & { teams?: Maybe<Array<(
-      { __typename?: 'ProfileTeam' }
-      & Pick<ProfileTeam, 'id' | 'name'>
-    )>> }
-  )> }
-);
+export type MeQuery = { __typename?: 'Query' } & {
+  me?: Maybe<
+    { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'> & {
+        teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+      }
+  >;
+};
 
 export type GetUsersQueryVariables = {
   from: Scalars['Int'];
@@ -10263,17 +9642,27 @@ export type GetUsersQueryVariables = {
   search?: Maybe<Scalars['String']>;
 };
 
+export type GetUsersQuery = { __typename?: 'Query' } & {
+  getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>
+    >;
+  };
+};
 
-export type GetUsersQuery = (
-  { __typename?: 'Query' }
-  & { getAllProfiles: (
-    { __typename?: 'ProfileSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'Profile' }
-      & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>
-    )>> }
-  ) }
-);
+export type GetMyTeamMembersQueryVariables = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
+  members: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>
+    >;
+  };
+};
 
 export type ProjectPhasesQueryVariables = {
   name?: Maybe<Scalars['String']>;
@@ -10282,53 +9671,51 @@ export type ProjectPhasesQueryVariables = {
   limit?: Maybe<Scalars['Int']>;
 };
 
-
-export type ProjectPhasesQuery = (
-  { __typename?: 'Query' }
-  & { getProjectPhases: (
-    { __typename?: 'ProjectPhaseSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'ProjectPhase' }
-      & Pick<ProjectPhase, 'id' | 'name' | 'ncpIds'>
-      & { logo?: Maybe<(
-        { __typename?: 'File' }
-        & Pick<File, 'id' | 'fileName' | 'description' | 'status' | 'fileType' | 'permission' | 'key' | 'createdAt' | 'signedUrl' | 'url' | 'bucket' | 'entityID' | 'entity'>
-      )> }
-    )>> }
-  ) }
-);
+export type ProjectPhasesQuery = { __typename?: 'Query' } & {
+  getProjectPhases: { __typename?: 'ProjectPhaseSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id' | 'name' | 'ncpIds'> & {
+            logo?: Maybe<
+              { __typename?: 'File' } & Pick<
+                File,
+                | 'id'
+                | 'fileName'
+                | 'description'
+                | 'status'
+                | 'fileType'
+                | 'permission'
+                | 'key'
+                | 'createdAt'
+                | 'signedUrl'
+                | 'url'
+                | 'bucket'
+                | 'entityID'
+                | 'entity'
+              >
+            >;
+          }
+      >
+    >;
+  };
+};
 
 export type SettingInfoQueryVariables = {};
 
-
-export type SettingInfoQuery = (
-  { __typename?: 'Query' }
-  & { getTeams?: Maybe<(
-    { __typename?: 'TeamSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'Team' }
-      & Pick<Team, 'id' | 'name'>
-    )>> }
-  )> }
-);
+export type SettingInfoQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
+  >;
+};
 
 export type GetTaskQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type GetTaskQuery = (
-  { __typename?: 'Query' }
-  & { getTask?: Maybe<(
-    { __typename?: 'Task' }
-    & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
-  )> }
-);
-
-export type GetTeamsQueryVariables = {
-  from?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  search?: Maybe<Scalars['String']>;
+export type GetTaskQuery = { __typename?: 'Query' } & {
+  getTask?: Maybe<
+    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+  >;
 };
 
 export type GetTasksQueryVariables = {
@@ -10355,2553 +9742,3114 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTeamsQuery = (
-  { __typename?: 'Query' }
-  & { getTeams?: Maybe<(
-    { __typename?: 'TeamSearchResult' }
-    & { items?: Maybe<Array<(
-      { __typename?: 'Team' }
-      & Pick<Team, 'id' | 'name' | 'description' | 'teamRights'>
-      & { profileMembers?: Maybe<Array<(
-        { __typename?: 'TeamMember' }
-        & Pick<TeamMember, 'id'>
-        & { user: (
-          { __typename?: 'Profile' }
-          & Pick<Profile, 'id' | 'firstName' | 'lastName'>
-        ) }
-      )>>, company: (
-        { __typename?: 'Company' }
-        & Pick<Company, 'id' | 'name'>
-      ) }
-    )>> }
-  )> }
-);
+export type GetTeamsQueryVariables = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetTeamsQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'description' | 'teamRights'> & {
+              profileMembers?: Maybe<
+                Array<
+                  { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                      user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+                    }
+                >
+              >;
+              company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+            }
+        >
+      >;
+    }
+  >;
+};
 
 export type GetTeamDetailsQueryVariables = {
   id: Scalars['ID'];
 };
 
-
-export type GetTeamDetailsQuery = (
-  { __typename?: 'Query' }
-  & { getTeamDetails?: Maybe<(
-    { __typename?: 'Team' }
-    & Pick<Team, 'id' | 'name' | 'teamRights'>
-    & { company: (
-      { __typename?: 'Company' }
-      & Pick<Company, 'id' | 'name'>
-    ), profileMembers?: Maybe<Array<(
-      { __typename?: 'TeamMember' }
-      & Pick<TeamMember, 'id' | 'notes' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'>
-      & { user: (
-        { __typename?: 'Profile' }
-        & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'>
-      ) }
-    )>> }
-  )> }
-);
-
+export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
+  getTeamDetails?: Maybe<
+    { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'teamRights'> & {
+        company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+        profileMembers?: Maybe<
+          Array<
+            { __typename?: 'TeamMember' } & Pick<
+              TeamMember,
+              'id' | 'notes' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
+            > & { user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'> }
+          >
+        >;
+      }
+  >;
+};
 
 export const LoginDocument = gql`
-    mutation Login($input: LoginInput) {
-  login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
-    accessToken
-    refreshToken
+  mutation Login($input: LoginInput) {
+    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
+      accessToken
+      refreshToken
+    }
   }
+`;
+export function useLoginMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
 }
-    `;
-export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
-      }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const ForgotPasswordDocument = gql`
-    mutation ForgotPassword($input: ForgotPasswordInput) {
-  forgotPassword(input: $input) @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
-    error
+  mutation ForgotPassword($input: ForgotPasswordInput) {
+    forgotPassword(input: $input)
+      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
+      error
+    }
   }
+`;
+export function useForgotPasswordMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ForgotPasswordMutation, ForgotPasswordMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(
+    ForgotPasswordDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useForgotPasswordMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ForgotPasswordMutation, ForgotPasswordMutationVariables>) {
-        return ApolloReactHooks.useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(ForgotPasswordDocument, baseOptions);
-      }
 export type ForgotPasswordMutationHookResult = ReturnType<typeof useForgotPasswordMutation>;
 export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<ForgotPasswordMutation>;
-export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<ForgotPasswordMutation, ForgotPasswordMutationVariables>;
+export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>;
 export const ResetPasswordDocument = gql`
-    mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
-  resetPassword(input: $input, token: $token) @rest(type: "ResetPasswordResponse", path: "/public/auth/reset-password/{args.token}", method: "POST", endpoint: "default") {
-    error
+  mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
+    resetPassword(input: $input, token: $token)
+      @rest(
+        type: "ResetPasswordResponse"
+        path: "/public/auth/reset-password/{args.token}"
+        method: "POST"
+        endpoint: "default"
+      ) {
+      error
+    }
   }
+`;
+export function useResetPasswordMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(
+    ResetPasswordDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useResetPasswordMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>) {
-        return ApolloReactHooks.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, baseOptions);
-      }
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
 export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<ResetPasswordMutation>;
-export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>;
 export const BulkDocument = gql`
-    mutation Bulk($input: BulkOperationInput!) {
-  bulk(input: $input) {
-    undoIds
+  mutation Bulk($input: BulkOperationInput!) {
+    bulk(input: $input) {
+      undoIds
+    }
   }
+`;
+export function useBulkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<BulkMutation, BulkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<BulkMutation, BulkMutationVariables>(BulkDocument, baseOptions);
 }
-    `;
-export function useBulkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<BulkMutation, BulkMutationVariables>) {
-        return ApolloReactHooks.useMutation<BulkMutation, BulkMutationVariables>(BulkDocument, baseOptions);
-      }
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
 export const DeleteEntityDocument = gql`
-    mutation DeleteEntity($input: DeleteEntityInput!) {
-  deleteEntity(input: $input) {
-    successful
-    message
-    undoId
+  mutation DeleteEntity($input: DeleteEntityInput!) {
+    deleteEntity(input: $input) {
+      successful
+      message
+      undoId
+    }
   }
+`;
+export function useDeleteEntityMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteEntityMutation, DeleteEntityMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteEntityMutation, DeleteEntityMutationVariables>(
+    DeleteEntityDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useDeleteEntityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteEntityMutation, DeleteEntityMutationVariables>) {
-        return ApolloReactHooks.useMutation<DeleteEntityMutation, DeleteEntityMutationVariables>(DeleteEntityDocument, baseOptions);
-      }
 export type DeleteEntityMutationHookResult = ReturnType<typeof useDeleteEntityMutation>;
 export type DeleteEntityMutationResult = ApolloReactCommon.MutationResult<DeleteEntityMutation>;
-export type DeleteEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteEntityMutation, DeleteEntityMutationVariables>;
+export type DeleteEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteEntityMutation,
+  DeleteEntityMutationVariables
+>;
 export const UndoEntityDocument = gql`
-    mutation UndoEntity($input: UndoEntityInput!) {
-  undoEntity(input: $input) {
-    successful
-    entityId
+  mutation UndoEntity($input: UndoEntityInput!) {
+    undoEntity(input: $input) {
+      successful
+      entityId
+    }
   }
+`;
+export function useUndoEntityMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UndoEntityMutation, UndoEntityMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UndoEntityMutation, UndoEntityMutationVariables>(UndoEntityDocument, baseOptions);
 }
-    `;
-export function useUndoEntityMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UndoEntityMutation, UndoEntityMutationVariables>) {
-        return ApolloReactHooks.useMutation<UndoEntityMutation, UndoEntityMutationVariables>(UndoEntityDocument, baseOptions);
-      }
 export type UndoEntityMutationHookResult = ReturnType<typeof useUndoEntityMutation>;
 export type UndoEntityMutationResult = ApolloReactCommon.MutationResult<UndoEntityMutation>;
-export type UndoEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<UndoEntityMutation, UndoEntityMutationVariables>;
+export type UndoEntityMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UndoEntityMutation,
+  UndoEntityMutationVariables
+>;
 export const InitSendFileDocument = gql`
-    mutation InitSendFile($input: InitSendFileInput!) {
-  initSendFile(input: $input) @rest(type: "File!", method: "POST", path: "", endpoint: "upload") {
-    signedUrl
-    id
+  mutation InitSendFile($input: InitSendFileInput!) {
+    initSendFile(input: $input) @rest(type: "File!", method: "POST", path: "", endpoint: "upload") {
+      signedUrl
+      id
+    }
   }
+`;
+export function useInitSendFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<InitSendFileMutation, InitSendFileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<InitSendFileMutation, InitSendFileMutationVariables>(
+    InitSendFileDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useInitSendFileMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<InitSendFileMutation, InitSendFileMutationVariables>) {
-        return ApolloReactHooks.useMutation<InitSendFileMutation, InitSendFileMutationVariables>(InitSendFileDocument, baseOptions);
-      }
 export type InitSendFileMutationHookResult = ReturnType<typeof useInitSendFileMutation>;
 export type InitSendFileMutationResult = ApolloReactCommon.MutationResult<InitSendFileMutation>;
-export type InitSendFileMutationOptions = ApolloReactCommon.BaseMutationOptions<InitSendFileMutation, InitSendFileMutationVariables>;
+export type InitSendFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  InitSendFileMutation,
+  InitSendFileMutationVariables
+>;
 export const UploadFileDocument = gql`
-    mutation UploadFile($input: UploadFileInput!, $pathBuilder: PathBuilder) {
-  uploadFile(input: $input, pathBuilder: $pathBuilder) @rest(type: "UploadFileResponse!", pathBuilder: $pathBuilder, method: "PUT", bodySerializer: "fileEncode") {
-    id
+  mutation UploadFile($input: UploadFileInput!, $pathBuilder: PathBuilder) {
+    uploadFile(input: $input, pathBuilder: $pathBuilder)
+      @rest(type: "UploadFileResponse!", pathBuilder: $pathBuilder, method: "PUT", bodySerializer: "fileEncode") {
+      id
+    }
   }
+`;
+export function useUploadFileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, baseOptions);
 }
-    `;
-export function useUploadFileMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>) {
-        return ApolloReactHooks.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, baseOptions);
-      }
 export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
 export type UploadFileMutationResult = ApolloReactCommon.MutationResult<UploadFileMutation>;
-export type UploadFileMutationOptions = ApolloReactCommon.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
+export type UploadFileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UploadFileMutation,
+  UploadFileMutationVariables
+>;
 export const AddFilesDocument = gql`
-    mutation AddFiles($input: AddFilesInput!) {
-  addFiles(input: $input) {
-    url
+  mutation AddFiles($input: AddFilesInput!) {
+    addFiles(input: $input) {
+      url
+    }
   }
+`;
+export function useAddFilesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddFilesMutation, AddFilesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddFilesMutation, AddFilesMutationVariables>(AddFilesDocument, baseOptions);
 }
-    `;
-export function useAddFilesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFilesMutation, AddFilesMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddFilesMutation, AddFilesMutationVariables>(AddFilesDocument, baseOptions);
-      }
 export type AddFilesMutationHookResult = ReturnType<typeof useAddFilesMutation>;
 export type AddFilesMutationResult = ApolloReactCommon.MutationResult<AddFilesMutation>;
-export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFilesMutation, AddFilesMutationVariables>;
+export type AddFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddFilesMutation,
+  AddFilesMutationVariables
+>;
 export const RemoveFilesDocument = gql`
-    mutation RemoveFiles($input: RemoveFilesInput!) {
-  removeFiles(input: $input) {
-    id
+  mutation RemoveFiles($input: RemoveFilesInput!) {
+    removeFiles(input: $input) {
+      id
+    }
   }
+`;
+export function useRemoveFilesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFilesMutation, RemoveFilesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveFilesMutation, RemoveFilesMutationVariables>(
+    RemoveFilesDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useRemoveFilesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveFilesMutation, RemoveFilesMutationVariables>) {
-        return ApolloReactHooks.useMutation<RemoveFilesMutation, RemoveFilesMutationVariables>(RemoveFilesDocument, baseOptions);
-      }
 export type RemoveFilesMutationHookResult = ReturnType<typeof useRemoveFilesMutation>;
 export type RemoveFilesMutationResult = ApolloReactCommon.MutationResult<RemoveFilesMutation>;
-export type RemoveFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveFilesMutation, RemoveFilesMutationVariables>;
+export type RemoveFilesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveFilesMutation,
+  RemoveFilesMutationVariables
+>;
 export const AddIdentificationNumberPimDocument = gql`
-    mutation AddIdentificationNumberPim($input: AddIdentificationNumberInput!) {
-  addIdentificationNumberPim(input: $input) {
-    newIdentificationNumber {
-      id
-    }
-  }
-}
-    `;
-export function useAddIdentificationNumberPimMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddIdentificationNumberPimMutation, AddIdentificationNumberPimMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddIdentificationNumberPimMutation, AddIdentificationNumberPimMutationVariables>(AddIdentificationNumberPimDocument, baseOptions);
-      }
-export type AddIdentificationNumberPimMutationHookResult = ReturnType<typeof useAddIdentificationNumberPimMutation>;
-export type AddIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<AddIdentificationNumberPimMutation>;
-export type AddIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<AddIdentificationNumberPimMutation, AddIdentificationNumberPimMutationVariables>;
-export const UpdateIdentificationNumberPimDocument = gql`
-    mutation UpdateIdentificationNumberPim($input: UpdateIdentificationNumberInput!) {
-  updateIdentificationNumberPim(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateIdentificationNumberPimMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateIdentificationNumberPimMutation, UpdateIdentificationNumberPimMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateIdentificationNumberPimMutation, UpdateIdentificationNumberPimMutationVariables>(UpdateIdentificationNumberPimDocument, baseOptions);
-      }
-export type UpdateIdentificationNumberPimMutationHookResult = ReturnType<typeof useUpdateIdentificationNumberPimMutation>;
-export type UpdateIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<UpdateIdentificationNumberPimMutation>;
-export type UpdateIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateIdentificationNumberPimMutation, UpdateIdentificationNumberPimMutationVariables>;
-export const AddIdentificationNumberNcpDocument = gql`
-    mutation AddIdentificationNumberNcp($input: AddIdentificationNumberInput!) {
-  addIdentificationNumberNcp(input: $input) {
-    newIdentificationNumber {
-      id
-    }
-  }
-}
-    `;
-export function useAddIdentificationNumberNcpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddIdentificationNumberNcpMutation, AddIdentificationNumberNcpMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddIdentificationNumberNcpMutation, AddIdentificationNumberNcpMutationVariables>(AddIdentificationNumberNcpDocument, baseOptions);
-      }
-export type AddIdentificationNumberNcpMutationHookResult = ReturnType<typeof useAddIdentificationNumberNcpMutation>;
-export type AddIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<AddIdentificationNumberNcpMutation>;
-export type AddIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<AddIdentificationNumberNcpMutation, AddIdentificationNumberNcpMutationVariables>;
-export const UpdateIdentificationNumberNcpDocument = gql`
-    mutation UpdateIdentificationNumberNcp($input: UpdateIdentificationNumberInput!) {
-  updateIdentificationNumberNcp(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateIdentificationNumberNcpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateIdentificationNumberNcpMutation, UpdateIdentificationNumberNcpMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateIdentificationNumberNcpMutation, UpdateIdentificationNumberNcpMutationVariables>(UpdateIdentificationNumberNcpDocument, baseOptions);
-      }
-export type UpdateIdentificationNumberNcpMutationHookResult = ReturnType<typeof useUpdateIdentificationNumberNcpMutation>;
-export type UpdateIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<UpdateIdentificationNumberNcpMutation>;
-export type UpdateIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateIdentificationNumberNcpMutation, UpdateIdentificationNumberNcpMutationVariables>;
-export const AddIdentificationNumberObjectTypeDocument = gql`
-    mutation AddIdentificationNumberObjectType($input: AddIdentificationNumberInput!) {
-  addIdentificationNumberObjectType(input: $input) {
-    newIdentificationNumber {
-      id
-    }
-  }
-}
-    `;
-export function useAddIdentificationNumberObjectTypeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddIdentificationNumberObjectTypeMutation, AddIdentificationNumberObjectTypeMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddIdentificationNumberObjectTypeMutation, AddIdentificationNumberObjectTypeMutationVariables>(AddIdentificationNumberObjectTypeDocument, baseOptions);
-      }
-export type AddIdentificationNumberObjectTypeMutationHookResult = ReturnType<typeof useAddIdentificationNumberObjectTypeMutation>;
-export type AddIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<AddIdentificationNumberObjectTypeMutation>;
-export type AddIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<AddIdentificationNumberObjectTypeMutation, AddIdentificationNumberObjectTypeMutationVariables>;
-export const UpdateIdentificationNumberObjectTypeDocument = gql`
-    mutation UpdateIdentificationNumberObjectType($input: UpdateIdentificationNumberInput!) {
-  updateIdentificationNumberObjectType(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateIdentificationNumberObjectTypeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateIdentificationNumberObjectTypeMutation, UpdateIdentificationNumberObjectTypeMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateIdentificationNumberObjectTypeMutation, UpdateIdentificationNumberObjectTypeMutationVariables>(UpdateIdentificationNumberObjectTypeDocument, baseOptions);
-      }
-export type UpdateIdentificationNumberObjectTypeMutationHookResult = ReturnType<typeof useUpdateIdentificationNumberObjectTypeMutation>;
-export type UpdateIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<UpdateIdentificationNumberObjectTypeMutation>;
-export type UpdateIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateIdentificationNumberObjectTypeMutation, UpdateIdentificationNumberObjectTypeMutationVariables>;
-export const AddLabelDocument = gql`
-    mutation AddLabel($input: LabelInput!) {
-  addLabel(input: $input) {
-    id
-    property
-    text
-    icon
-  }
-}
-    `;
-export function useAddLabelMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddLabelMutation, AddLabelMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddLabelMutation, AddLabelMutationVariables>(AddLabelDocument, baseOptions);
-      }
-export type AddLabelMutationHookResult = ReturnType<typeof useAddLabelMutation>;
-export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMutation>;
-export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<AddLabelMutation, AddLabelMutationVariables>;
-export const UpdateNcpCharacteristicsDocument = gql`
-    mutation UpdateNcpCharacteristics($input: NcpCharacteristicsInput!) {
-  updateNcpCharacteristics(input: $input) {
-    id
-    measurements {
-      volumeFrom
-      volumeTo
-      livingSpaceFrom
-      livingSpaceTo
-      plotAreaFrom
-      plotAreaTo
-      calculateAutomatically
-    }
-  }
-}
-    `;
-export function useUpdateNcpCharacteristicsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpCharacteristicsMutation, UpdateNcpCharacteristicsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpCharacteristicsMutation, UpdateNcpCharacteristicsMutationVariables>(UpdateNcpCharacteristicsDocument, baseOptions);
-      }
-export type UpdateNcpCharacteristicsMutationHookResult = ReturnType<typeof useUpdateNcpCharacteristicsMutation>;
-export type UpdateNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCharacteristicsMutation>;
-export type UpdateNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpCharacteristicsMutation, UpdateNcpCharacteristicsMutationVariables>;
-export const SetNcpCharacteristicsDocument = gql`
-    mutation SetNcpCharacteristics($input: SetCharacteristicsSectionsInput!) {
-  setNcpCharacteristics(input: $input) {
-    id
-  }
-}
-    `;
-export function useSetNcpCharacteristicsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SetNcpCharacteristicsMutation, SetNcpCharacteristicsMutationVariables>) {
-        return ApolloReactHooks.useMutation<SetNcpCharacteristicsMutation, SetNcpCharacteristicsMutationVariables>(SetNcpCharacteristicsDocument, baseOptions);
-      }
-export type SetNcpCharacteristicsMutationHookResult = ReturnType<typeof useSetNcpCharacteristicsMutation>;
-export type SetNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<SetNcpCharacteristicsMutation>;
-export type SetNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<SetNcpCharacteristicsMutation, SetNcpCharacteristicsMutationVariables>;
-export const CreateNcpDocument = gql`
-    mutation CreateNcp($input: CreateNcpInput!) {
-  createNcp(input: $input) {
-    id
-  }
-}
-    `;
-export function useCreateNcpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateNcpMutation, CreateNcpMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreateNcpMutation, CreateNcpMutationVariables>(CreateNcpDocument, baseOptions);
-      }
-export type CreateNcpMutationHookResult = ReturnType<typeof useCreateNcpMutation>;
-export type CreateNcpMutationResult = ApolloReactCommon.MutationResult<CreateNcpMutation>;
-export type CreateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateNcpMutation, CreateNcpMutationVariables>;
-export const UpdateNcpDocument = gql`
-    mutation updateNcp($input: UpdateNcpInput!) {
-  updateNcp(input: $input) {
-    id
-    objectTypesCount
-    automaticallyCalculateQuantity
-    properties
-  }
-}
-    `;
-export function useUpdateNcpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMutation, UpdateNcpMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpMutation, UpdateNcpMutationVariables>(UpdateNcpDocument, baseOptions);
-      }
-export type UpdateNcpMutationHookResult = ReturnType<typeof useUpdateNcpMutation>;
-export type UpdateNcpMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMutation>;
-export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpMutation, UpdateNcpMutationVariables>;
-export const AddNcpLabelDocument = gql`
-    mutation AddNcpLabel($input: LabelInput!) {
-  addNcpLabel(input: $input) {
-    id
-    property
-    text
-    icon
-  }
-}
-    `;
-export function useAddNcpLabelMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpLabelMutation, AddNcpLabelMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpLabelMutation, AddNcpLabelMutationVariables>(AddNcpLabelDocument, baseOptions);
-      }
-export type AddNcpLabelMutationHookResult = ReturnType<typeof useAddNcpLabelMutation>;
-export type AddNcpLabelMutationResult = ApolloReactCommon.MutationResult<AddNcpLabelMutation>;
-export type AddNcpLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpLabelMutation, AddNcpLabelMutationVariables>;
-export const UpdateNcpMediaDescriptionDocument = gql`
-    mutation UpdateNcpMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
-  updateNcpMediaDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpMediaDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMediaDescriptionMutation, UpdateNcpMediaDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpMediaDescriptionMutation, UpdateNcpMediaDescriptionMutationVariables>(UpdateNcpMediaDescriptionDocument, baseOptions);
-      }
-export type UpdateNcpMediaDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpMediaDescriptionMutation>;
-export type UpdateNcpMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMediaDescriptionMutation>;
-export type UpdateNcpMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpMediaDescriptionMutation, UpdateNcpMediaDescriptionMutationVariables>;
-export const AddNcpPicturesDocument = gql`
-    mutation AddNcpPictures($input: CommonAddPicturesInput!) {
-  addNcpPictures(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddNcpPicturesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>(AddNcpPicturesDocument, baseOptions);
-      }
-export type AddNcpPicturesMutationHookResult = ReturnType<typeof useAddNcpPicturesMutation>;
-export type AddNcpPicturesMutationResult = ApolloReactCommon.MutationResult<AddNcpPicturesMutation>;
-export type AddNcpPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>;
-export const UpdateNcpPictureDocument = gql`
-    mutation UpdateNcpPicture($input: CommonUpdatePictureInput!) {
-  updateNcpPicture(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpPictureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>(UpdateNcpPictureDocument, baseOptions);
-      }
-export type UpdateNcpPictureMutationHookResult = ReturnType<typeof useUpdateNcpPictureMutation>;
-export type UpdateNcpPictureMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPictureMutation>;
-export type UpdateNcpPictureMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>;
-export const AddNcpMediaLinkDocument = gql`
-    mutation AddNcpMediaLink($input: CommonAddMediaLinkInput!) {
-  addNcpMediaLink(input: $input) {
-    id
-    mediaLinks {
-      id
-    }
-  }
-}
-    `;
-export function useAddNcpMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>(AddNcpMediaLinkDocument, baseOptions);
-      }
-export type AddNcpMediaLinkMutationHookResult = ReturnType<typeof useAddNcpMediaLinkMutation>;
-export type AddNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddNcpMediaLinkMutation>;
-export type AddNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>;
-export const UpdateNcpMediaLinkDocument = gql`
-    mutation UpdateNcpMediaLink($input: CommonUpdateMediaLinkInput!) {
-  updateNcpMediaLink(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>(UpdateNcpMediaLinkDocument, baseOptions);
-      }
-export type UpdateNcpMediaLinkMutationHookResult = ReturnType<typeof useUpdateNcpMediaLinkMutation>;
-export type UpdateNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMediaLinkMutation>;
-export type UpdateNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>;
-export const AddNcpTextChapterDocument = gql`
-    mutation AddNcpTextChapter($input: CommonAddTextChapterInput!) {
-  addNcpTextChapter(input: $input) {
-    id
-    textChapters {
-      id
-    }
-  }
-}
-    `;
-export function useAddNcpTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>(AddNcpTextChapterDocument, baseOptions);
-      }
-export type AddNcpTextChapterMutationHookResult = ReturnType<typeof useAddNcpTextChapterMutation>;
-export type AddNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<AddNcpTextChapterMutation>;
-export type AddNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>;
-export const UpdateNcpTextChapterDocument = gql`
-    mutation UpdateNcpTextChapter($input: CommonUpdateTextChapterInput!) {
-  updateNcpTextChapter(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpTextChapterMutation, UpdateNcpTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpTextChapterMutation, UpdateNcpTextChapterMutationVariables>(UpdateNcpTextChapterDocument, baseOptions);
-      }
-export type UpdateNcpTextChapterMutationHookResult = ReturnType<typeof useUpdateNcpTextChapterMutation>;
-export type UpdateNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTextChapterMutation>;
-export type UpdateNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpTextChapterMutation, UpdateNcpTextChapterMutationVariables>;
-export const AddNcpUspsDocument = gql`
-    mutation AddNcpUsps($input: CommonAddUspsInput!) {
-  addNcpUsps(input: $input) {
-    id
-    usps {
-      id
-    }
-  }
-}
-    `;
-export function useAddNcpUspsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpUspsMutation, AddNcpUspsMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpUspsMutation, AddNcpUspsMutationVariables>(AddNcpUspsDocument, baseOptions);
-      }
-export type AddNcpUspsMutationHookResult = ReturnType<typeof useAddNcpUspsMutation>;
-export type AddNcpUspsMutationResult = ApolloReactCommon.MutationResult<AddNcpUspsMutation>;
-export type AddNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpUspsMutation, AddNcpUspsMutationVariables>;
-export const UpdateNcpUspsDocument = gql`
-    mutation UpdateNcpUsps($input: CommonUpdateUspsInput!) {
-  updateNcpUsps(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpUspsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>(UpdateNcpUspsDocument, baseOptions);
-      }
-export type UpdateNcpUspsMutationHookResult = ReturnType<typeof useUpdateNcpUspsMutation>;
-export type UpdateNcpUspsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpUspsMutation>;
-export type UpdateNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>;
-export const AddNcpTagDocument = gql`
-    mutation AddNcpTag($input: CommonAddTagInput!) {
-  addNcpTag(input: $input) {
-    id
-    tags {
-      id
-    }
-  }
-}
-    `;
-export function useAddNcpTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTagMutation, AddNcpTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpTagMutation, AddNcpTagMutationVariables>(AddNcpTagDocument, baseOptions);
-      }
-export type AddNcpTagMutationHookResult = ReturnType<typeof useAddNcpTagMutation>;
-export type AddNcpTagMutationResult = ApolloReactCommon.MutationResult<AddNcpTagMutation>;
-export type AddNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpTagMutation, AddNcpTagMutationVariables>;
-export const UpdateNcpTagDocument = gql`
-    mutation UpdateNcpTag($input: CommonUpdateTagInput!) {
-  updateNcpTag(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>(UpdateNcpTagDocument, baseOptions);
-      }
-export type UpdateNcpTagMutationHookResult = ReturnType<typeof useUpdateNcpTagMutation>;
-export type UpdateNcpTagMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTagMutation>;
-export type UpdateNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>;
-export const ToggleNcpPricingDocument = gql`
-    mutation ToggleNcpPricing($input: ToggleCommonPricingInput!) {
-  toggleNcpPricing(input: $input) {
-    id
-  }
-}
-    `;
-export function useToggleNcpPricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>(ToggleNcpPricingDocument, baseOptions);
-      }
-export type ToggleNcpPricingMutationHookResult = ReturnType<typeof useToggleNcpPricingMutation>;
-export type ToggleNcpPricingMutationResult = ApolloReactCommon.MutationResult<ToggleNcpPricingMutation>;
-export type ToggleNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>;
-export const UpdateNcpPricingDocument = gql`
-    mutation UpdateNcpPricing($input: UpdateCommonPricingInput!) {
-  updateNcpPricing(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpPricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>(UpdateNcpPricingDocument, baseOptions);
-      }
-export type UpdateNcpPricingMutationHookResult = ReturnType<typeof useUpdateNcpPricingMutation>;
-export type UpdateNcpPricingMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPricingMutation>;
-export type UpdateNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>;
-export const AddNcpCostDocument = gql`
-    mutation AddNcpCost($input: AddCommonCostInput!) {
-  addNcpCost(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddNcpCostMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpCostMutation, AddNcpCostMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpCostMutation, AddNcpCostMutationVariables>(AddNcpCostDocument, baseOptions);
-      }
-export type AddNcpCostMutationHookResult = ReturnType<typeof useAddNcpCostMutation>;
-export type AddNcpCostMutationResult = ApolloReactCommon.MutationResult<AddNcpCostMutation>;
-export type AddNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpCostMutation, AddNcpCostMutationVariables>;
-export const UpdateNcpCostDocument = gql`
-    mutation UpdateNcpCost($input: UpdateCommonCostInput!) {
-  updateNcpCost(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpCostMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>(UpdateNcpCostDocument, baseOptions);
-      }
-export type UpdateNcpCostMutationHookResult = ReturnType<typeof useUpdateNcpCostMutation>;
-export type UpdateNcpCostMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostMutation>;
-export type UpdateNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>;
-export const UpdateNcpCostsDetailsDocument = gql`
-    mutation UpdateNcpCostsDetails($input: UpdateCommonCostsDetailsInput!) {
-  updateNcpCostsDetails(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpCostsDetailsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpCostsDetailsMutation, UpdateNcpCostsDetailsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpCostsDetailsMutation, UpdateNcpCostsDetailsMutationVariables>(UpdateNcpCostsDetailsDocument, baseOptions);
-      }
-export type UpdateNcpCostsDetailsMutationHookResult = ReturnType<typeof useUpdateNcpCostsDetailsMutation>;
-export type UpdateNcpCostsDetailsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostsDetailsMutation>;
-export type UpdateNcpCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpCostsDetailsMutation, UpdateNcpCostsDetailsMutationVariables>;
-export const UpdateNcpInterestsDocument = gql`
-    mutation UpdateNcpInterests($input: InterestsInput!) {
-  updateNcpInterests(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpInterestsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>(UpdateNcpInterestsDocument, baseOptions);
-      }
-export type UpdateNcpInterestsMutationHookResult = ReturnType<typeof useUpdateNcpInterestsMutation>;
-export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpInterestsMutation>;
-export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>;
-export const UpdateNcpLinkedPropertiesListDescriptionDocument = gql`
-    mutation UpdateNcpLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
-  updateNcpLinkedPropertiesListDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpLinkedPropertiesListDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpLinkedPropertiesListDescriptionMutation, UpdateNcpLinkedPropertiesListDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpLinkedPropertiesListDescriptionMutation, UpdateNcpLinkedPropertiesListDescriptionMutationVariables>(UpdateNcpLinkedPropertiesListDescriptionDocument, baseOptions);
-      }
-export type UpdateNcpLinkedPropertiesListDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpLinkedPropertiesListDescriptionMutation>;
-export type UpdateNcpLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateNcpLinkedPropertiesListDescriptionMutation>;
-export type UpdateNcpLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpLinkedPropertiesListDescriptionMutation, UpdateNcpLinkedPropertiesListDescriptionMutationVariables>;
-export const AddNcpServiceDocument = gql`
-    mutation AddNcpService($input: AddServiceInput!) {
-  addNcpService(input: $input) {
-    ncp {
-      id
-    }
-    newService {
-      id
-    }
-  }
-}
-    `;
-export function useAddNcpServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpServiceMutation, AddNcpServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddNcpServiceMutation, AddNcpServiceMutationVariables>(AddNcpServiceDocument, baseOptions);
-      }
-export type AddNcpServiceMutationHookResult = ReturnType<typeof useAddNcpServiceMutation>;
-export type AddNcpServiceMutationResult = ApolloReactCommon.MutationResult<AddNcpServiceMutation>;
-export type AddNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<AddNcpServiceMutation, AddNcpServiceMutationVariables>;
-export const UpdateNcpServiceDocument = gql`
-    mutation UpdateNcpService($input: UpdateServiceInput!) {
-  updateNcpService(input: $input) {
-    id
-    hotWaterSupplies {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HotWaterSupplyConfiguration {
-          type
-          fuel
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    heatingSources {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HeatingSourceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-    }
-    additionalServices {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on AdditionalServiceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    dateUpdated
-    servicesDescription
-  }
-}
-    `;
-export function useUpdateNcpServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>(UpdateNcpServiceDocument, baseOptions);
-      }
-export type UpdateNcpServiceMutationHookResult = ReturnType<typeof useUpdateNcpServiceMutation>;
-export type UpdateNcpServiceMutationResult = ApolloReactCommon.MutationResult<UpdateNcpServiceMutation>;
-export type UpdateNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>;
-export const UpdateNcpServiceDescriptionDocument = gql`
-    mutation UpdateNcpServiceDescription($input: ServiceDescriptionInput!) {
-  updateNcpServiceDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateNcpServiceDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpServiceDescriptionMutation, UpdateNcpServiceDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateNcpServiceDescriptionMutation, UpdateNcpServiceDescriptionMutationVariables>(UpdateNcpServiceDescriptionDocument, baseOptions);
-      }
-export type UpdateNcpServiceDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpServiceDescriptionMutation>;
-export type UpdateNcpServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateNcpServiceDescriptionMutation>;
-export type UpdateNcpServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNcpServiceDescriptionMutation, UpdateNcpServiceDescriptionMutationVariables>;
-export const UpdateObjectTypeCharacteristicsDocument = gql`
-    mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
-  updateObjectTypeCharacteristics(input: $input) {
-    id
-    measurements {
-      volumeFrom
-      volumeTo
-      livingSpaceFrom
-      livingSpaceTo
-      plotAreaFrom
-      plotAreaTo
-      calculateAutomatically
-    }
-  }
-}
-    `;
-export function useUpdateObjectTypeCharacteristicsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeCharacteristicsMutation, UpdateObjectTypeCharacteristicsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeCharacteristicsMutation, UpdateObjectTypeCharacteristicsMutationVariables>(UpdateObjectTypeCharacteristicsDocument, baseOptions);
-      }
-export type UpdateObjectTypeCharacteristicsMutationHookResult = ReturnType<typeof useUpdateObjectTypeCharacteristicsMutation>;
-export type UpdateObjectTypeCharacteristicsMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeCharacteristicsMutation>;
-export type UpdateObjectTypeCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeCharacteristicsMutation, UpdateObjectTypeCharacteristicsMutationVariables>;
-export const SetObjectTypeCharacteristicsSectionsDocument = gql`
-    mutation SetObjectTypeCharacteristicsSections($input: SetCharacteristicsSectionsInput!) {
-  setObjectTypeCharacteristicsSections(input: $input) {
-    id
-  }
-}
-    `;
-export function useSetObjectTypeCharacteristicsSectionsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SetObjectTypeCharacteristicsSectionsMutation, SetObjectTypeCharacteristicsSectionsMutationVariables>) {
-        return ApolloReactHooks.useMutation<SetObjectTypeCharacteristicsSectionsMutation, SetObjectTypeCharacteristicsSectionsMutationVariables>(SetObjectTypeCharacteristicsSectionsDocument, baseOptions);
-      }
-export type SetObjectTypeCharacteristicsSectionsMutationHookResult = ReturnType<typeof useSetObjectTypeCharacteristicsSectionsMutation>;
-export type SetObjectTypeCharacteristicsSectionsMutationResult = ApolloReactCommon.MutationResult<SetObjectTypeCharacteristicsSectionsMutation>;
-export type SetObjectTypeCharacteristicsSectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<SetObjectTypeCharacteristicsSectionsMutation, SetObjectTypeCharacteristicsSectionsMutationVariables>;
-export const CreateObjectTypeDocument = gql`
-    mutation CreateObjectType($input: CreateObjectTypeInput!) {
-  createObjectType(input: $input) {
-    name
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    ncpId
-    id
-  }
-}
-    `;
-export function useCreateObjectTypeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>(CreateObjectTypeDocument, baseOptions);
-      }
-export type CreateObjectTypeMutationHookResult = ReturnType<typeof useCreateObjectTypeMutation>;
-export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<CreateObjectTypeMutation>;
-export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>;
-export const AddObjectTypeLabelDocument = gql`
-    mutation AddObjectTypeLabel($input: LabelInput!) {
-  addObjectTypeLabel(input: $input) {
-    id
-    property
-    text
-    icon
-  }
-}
-    `;
-export function useAddObjectTypeLabelMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>(AddObjectTypeLabelDocument, baseOptions);
-      }
-export type AddObjectTypeLabelMutationHookResult = ReturnType<typeof useAddObjectTypeLabelMutation>;
-export type AddObjectTypeLabelMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeLabelMutation>;
-export type AddObjectTypeLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>;
-export const UpdateObjectTypesListDescriptionDocument = gql`
-    mutation UpdateObjectTypesListDescription($input: UpdateObjectTypesListDescription!) {
-  updateObjectTypesListDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypesListDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypesListDescriptionMutation, UpdateObjectTypesListDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypesListDescriptionMutation, UpdateObjectTypesListDescriptionMutationVariables>(UpdateObjectTypesListDescriptionDocument, baseOptions);
-      }
-export type UpdateObjectTypesListDescriptionMutationHookResult = ReturnType<typeof useUpdateObjectTypesListDescriptionMutation>;
-export type UpdateObjectTypesListDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypesListDescriptionMutation>;
-export type UpdateObjectTypesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypesListDescriptionMutation, UpdateObjectTypesListDescriptionMutationVariables>;
-export const UpdateObjectTypeMediaDescriptionDocument = gql`
-    mutation UpdateObjectTypeMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
-  updateObjectTypeMediaDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeMediaDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeMediaDescriptionMutation, UpdateObjectTypeMediaDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeMediaDescriptionMutation, UpdateObjectTypeMediaDescriptionMutationVariables>(UpdateObjectTypeMediaDescriptionDocument, baseOptions);
-      }
-export type UpdateObjectTypeMediaDescriptionMutationHookResult = ReturnType<typeof useUpdateObjectTypeMediaDescriptionMutation>;
-export type UpdateObjectTypeMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeMediaDescriptionMutation>;
-export type UpdateObjectTypeMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeMediaDescriptionMutation, UpdateObjectTypeMediaDescriptionMutationVariables>;
-export const AddObjectTypePicturesDocument = gql`
-    mutation addObjectTypePictures($input: CommonAddPicturesInput!) {
-  addObjectTypePictures(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddObjectTypePicturesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypePicturesMutation, AddObjectTypePicturesMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypePicturesMutation, AddObjectTypePicturesMutationVariables>(AddObjectTypePicturesDocument, baseOptions);
-      }
-export type AddObjectTypePicturesMutationHookResult = ReturnType<typeof useAddObjectTypePicturesMutation>;
-export type AddObjectTypePicturesMutationResult = ApolloReactCommon.MutationResult<AddObjectTypePicturesMutation>;
-export type AddObjectTypePicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypePicturesMutation, AddObjectTypePicturesMutationVariables>;
-export const UpdateObjectTypePictureDocument = gql`
-    mutation UpdateObjectTypePicture($input: CommonUpdatePictureInput!) {
-  updateObjectTypePicture(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypePictureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypePictureMutation, UpdateObjectTypePictureMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypePictureMutation, UpdateObjectTypePictureMutationVariables>(UpdateObjectTypePictureDocument, baseOptions);
-      }
-export type UpdateObjectTypePictureMutationHookResult = ReturnType<typeof useUpdateObjectTypePictureMutation>;
-export type UpdateObjectTypePictureMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypePictureMutation>;
-export type UpdateObjectTypePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypePictureMutation, UpdateObjectTypePictureMutationVariables>;
-export const AddObjectTypeMediaLinkDocument = gql`
-    mutation AddObjectTypeMediaLink($input: CommonAddMediaLinkInput!) {
-  addObjectTypeMediaLink(input: $input) {
-    id
-    mediaLinks {
-      id
-    }
-  }
-}
-    `;
-export function useAddObjectTypeMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeMediaLinkMutation, AddObjectTypeMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeMediaLinkMutation, AddObjectTypeMediaLinkMutationVariables>(AddObjectTypeMediaLinkDocument, baseOptions);
-      }
-export type AddObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useAddObjectTypeMediaLinkMutation>;
-export type AddObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeMediaLinkMutation>;
-export type AddObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeMediaLinkMutation, AddObjectTypeMediaLinkMutationVariables>;
-export const UpdateObjectTypeMediaLinkDocument = gql`
-    mutation UpdateObjectTypeMediaLink($input: CommonUpdateMediaLinkInput!) {
-  updateObjectTypeMediaLink(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeMediaLinkMutation, UpdateObjectTypeMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeMediaLinkMutation, UpdateObjectTypeMediaLinkMutationVariables>(UpdateObjectTypeMediaLinkDocument, baseOptions);
-      }
-export type UpdateObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useUpdateObjectTypeMediaLinkMutation>;
-export type UpdateObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeMediaLinkMutation>;
-export type UpdateObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeMediaLinkMutation, UpdateObjectTypeMediaLinkMutationVariables>;
-export const AddObjectTypeTextChapterDocument = gql`
-    mutation AddObjectTypeTextChapter($input: CommonAddTextChapterInput!) {
-  addObjectTypeTextChapter(input: $input) {
-    id
-    textChapters {
-      id
-    }
-  }
-}
-    `;
-export function useAddObjectTypeTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeTextChapterMutation, AddObjectTypeTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeTextChapterMutation, AddObjectTypeTextChapterMutationVariables>(AddObjectTypeTextChapterDocument, baseOptions);
-      }
-export type AddObjectTypeTextChapterMutationHookResult = ReturnType<typeof useAddObjectTypeTextChapterMutation>;
-export type AddObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTextChapterMutation>;
-export type AddObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeTextChapterMutation, AddObjectTypeTextChapterMutationVariables>;
-export const UpdateObjectTypeTextChapterDocument = gql`
-    mutation UpdateObjectTypeTextChapter($input: CommonUpdateTextChapterInput!) {
-  updateObjectTypeTextChapter(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeTextChapterMutation, UpdateObjectTypeTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeTextChapterMutation, UpdateObjectTypeTextChapterMutationVariables>(UpdateObjectTypeTextChapterDocument, baseOptions);
-      }
-export type UpdateObjectTypeTextChapterMutationHookResult = ReturnType<typeof useUpdateObjectTypeTextChapterMutation>;
-export type UpdateObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeTextChapterMutation>;
-export type UpdateObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeTextChapterMutation, UpdateObjectTypeTextChapterMutationVariables>;
-export const AddObjectTypeUspsDocument = gql`
-    mutation AddObjectTypeUsps($input: CommonAddUspsInput!) {
-  addObjectTypeUsps(input: $input) {
-    id
-    usps {
-      id
-    }
-  }
-}
-    `;
-export function useAddObjectTypeUspsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>(AddObjectTypeUspsDocument, baseOptions);
-      }
-export type AddObjectTypeUspsMutationHookResult = ReturnType<typeof useAddObjectTypeUspsMutation>;
-export type AddObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeUspsMutation>;
-export type AddObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>;
-export const UpdateObjectTypeUspsDocument = gql`
-    mutation UpdateObjectTypeUsps($input: CommonUpdateUspsInput!) {
-  updateObjectTypeUsps(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeUspsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeUspsMutation, UpdateObjectTypeUspsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeUspsMutation, UpdateObjectTypeUspsMutationVariables>(UpdateObjectTypeUspsDocument, baseOptions);
-      }
-export type UpdateObjectTypeUspsMutationHookResult = ReturnType<typeof useUpdateObjectTypeUspsMutation>;
-export type UpdateObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeUspsMutation>;
-export type UpdateObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeUspsMutation, UpdateObjectTypeUspsMutationVariables>;
-export const AddObjectTypeTagDocument = gql`
-    mutation AddObjectTypeTag($input: CommonAddTagInput!) {
-  addObjectTypeTag(input: $input) {
-    id
-    tags {
-      id
-    }
-  }
-}
-    `;
-export function useAddObjectTypeTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>(AddObjectTypeTagDocument, baseOptions);
-      }
-export type AddObjectTypeTagMutationHookResult = ReturnType<typeof useAddObjectTypeTagMutation>;
-export type AddObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTagMutation>;
-export type AddObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>;
-export const UpdateObjectTypeTagDocument = gql`
-    mutation UpdateObjectTypeTag($input: CommonUpdateTagInput!) {
-  updateObjectTypeTag(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>(UpdateObjectTypeTagDocument, baseOptions);
-      }
-export type UpdateObjectTypeTagMutationHookResult = ReturnType<typeof useUpdateObjectTypeTagMutation>;
-export type UpdateObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeTagMutation>;
-export type UpdateObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>;
-export const ToggleObjectTypePricingDocument = gql`
-    mutation ToggleObjectTypePricing($input: ToggleCommonPricingInput!) {
-  toggleObjectTypePricing(input: $input) {
-    id
-  }
-}
-    `;
-export function useToggleObjectTypePricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ToggleObjectTypePricingMutation, ToggleObjectTypePricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<ToggleObjectTypePricingMutation, ToggleObjectTypePricingMutationVariables>(ToggleObjectTypePricingDocument, baseOptions);
-      }
-export type ToggleObjectTypePricingMutationHookResult = ReturnType<typeof useToggleObjectTypePricingMutation>;
-export type ToggleObjectTypePricingMutationResult = ApolloReactCommon.MutationResult<ToggleObjectTypePricingMutation>;
-export type ToggleObjectTypePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleObjectTypePricingMutation, ToggleObjectTypePricingMutationVariables>;
-export const UpdateObjectTypePricingDocument = gql`
-    mutation UpdateObjectTypePricing($input: UpdateCommonPricingInput!) {
-  updateObjectTypePricing(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypePricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypePricingMutation, UpdateObjectTypePricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypePricingMutation, UpdateObjectTypePricingMutationVariables>(UpdateObjectTypePricingDocument, baseOptions);
-      }
-export type UpdateObjectTypePricingMutationHookResult = ReturnType<typeof useUpdateObjectTypePricingMutation>;
-export type UpdateObjectTypePricingMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypePricingMutation>;
-export type UpdateObjectTypePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypePricingMutation, UpdateObjectTypePricingMutationVariables>;
-export const AddObjectTypeCostDocument = gql`
-    mutation AddObjectTypeCost($input: AddCommonCostInput!) {
-  addObjectTypeCost(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddObjectTypeCostMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeCostMutation, AddObjectTypeCostMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeCostMutation, AddObjectTypeCostMutationVariables>(AddObjectTypeCostDocument, baseOptions);
-      }
-export type AddObjectTypeCostMutationHookResult = ReturnType<typeof useAddObjectTypeCostMutation>;
-export type AddObjectTypeCostMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeCostMutation>;
-export type AddObjectTypeCostMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeCostMutation, AddObjectTypeCostMutationVariables>;
-export const UpdateObjectTypeCostDocument = gql`
-    mutation UpdateObjectTypeCost($input: UpdateCommonCostInput!) {
-  updateObjectTypeCost(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeCostMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeCostMutation, UpdateObjectTypeCostMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeCostMutation, UpdateObjectTypeCostMutationVariables>(UpdateObjectTypeCostDocument, baseOptions);
-      }
-export type UpdateObjectTypeCostMutationHookResult = ReturnType<typeof useUpdateObjectTypeCostMutation>;
-export type UpdateObjectTypeCostMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeCostMutation>;
-export type UpdateObjectTypeCostMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeCostMutation, UpdateObjectTypeCostMutationVariables>;
-export const UpdateObjectTypeCostsDetailsDocument = gql`
-    mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostsDetailsInput!) {
-  updateObjectTypeCostsDetails(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeCostsDetailsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeCostsDetailsMutation, UpdateObjectTypeCostsDetailsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeCostsDetailsMutation, UpdateObjectTypeCostsDetailsMutationVariables>(UpdateObjectTypeCostsDetailsDocument, baseOptions);
-      }
-export type UpdateObjectTypeCostsDetailsMutationHookResult = ReturnType<typeof useUpdateObjectTypeCostsDetailsMutation>;
-export type UpdateObjectTypeCostsDetailsMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeCostsDetailsMutation>;
-export type UpdateObjectTypeCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeCostsDetailsMutation, UpdateObjectTypeCostsDetailsMutationVariables>;
-export const SetObjectTypeLinkedPimsDocument = gql`
-    mutation SetObjectTypeLinkedPims($input: SetLinkedPimsInput!) {
-  setObjectTypeLinkedPims(input: $input) {
-    linkedProperties(pagination: {from: 0}) {
-      items {
+  mutation AddIdentificationNumberPim($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberPim(input: $input) {
+      newIdentificationNumber {
         id
       }
     }
   }
+`;
+export function useAddIdentificationNumberPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberPimMutation,
+    AddIdentificationNumberPimMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddIdentificationNumberPimMutation, AddIdentificationNumberPimMutationVariables>(
+    AddIdentificationNumberPimDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useSetObjectTypeLinkedPimsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SetObjectTypeLinkedPimsMutation, SetObjectTypeLinkedPimsMutationVariables>) {
-        return ApolloReactHooks.useMutation<SetObjectTypeLinkedPimsMutation, SetObjectTypeLinkedPimsMutationVariables>(SetObjectTypeLinkedPimsDocument, baseOptions);
+export type AddIdentificationNumberPimMutationHookResult = ReturnType<typeof useAddIdentificationNumberPimMutation>;
+export type AddIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberPimMutation
+>;
+export type AddIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberPimMutation,
+  AddIdentificationNumberPimMutationVariables
+>;
+export const UpdateIdentificationNumberPimDocument = gql`
+  mutation UpdateIdentificationNumberPim($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberPim(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberPimMutation,
+    UpdateIdentificationNumberPimMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberPimMutation,
+    UpdateIdentificationNumberPimMutationVariables
+  >(UpdateIdentificationNumberPimDocument, baseOptions);
+}
+export type UpdateIdentificationNumberPimMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberPimMutation
+>;
+export type UpdateIdentificationNumberPimMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberPimMutation
+>;
+export type UpdateIdentificationNumberPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberPimMutation,
+  UpdateIdentificationNumberPimMutationVariables
+>;
+export const AddIdentificationNumberNcpDocument = gql`
+  mutation AddIdentificationNumberNcp($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberNcp(input: $input) {
+      newIdentificationNumber {
+        id
       }
+    }
+  }
+`;
+export function useAddIdentificationNumberNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberNcpMutation,
+    AddIdentificationNumberNcpMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddIdentificationNumberNcpMutation, AddIdentificationNumberNcpMutationVariables>(
+    AddIdentificationNumberNcpDocument,
+    baseOptions,
+  );
+}
+export type AddIdentificationNumberNcpMutationHookResult = ReturnType<typeof useAddIdentificationNumberNcpMutation>;
+export type AddIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberNcpMutation
+>;
+export type AddIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberNcpMutation,
+  AddIdentificationNumberNcpMutationVariables
+>;
+export const UpdateIdentificationNumberNcpDocument = gql`
+  mutation UpdateIdentificationNumberNcp($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberNcp(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberNcpMutation,
+    UpdateIdentificationNumberNcpMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberNcpMutation,
+    UpdateIdentificationNumberNcpMutationVariables
+  >(UpdateIdentificationNumberNcpDocument, baseOptions);
+}
+export type UpdateIdentificationNumberNcpMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberNcpMutation
+>;
+export type UpdateIdentificationNumberNcpMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberNcpMutation
+>;
+export type UpdateIdentificationNumberNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberNcpMutation,
+  UpdateIdentificationNumberNcpMutationVariables
+>;
+export const AddIdentificationNumberObjectTypeDocument = gql`
+  mutation AddIdentificationNumberObjectType($input: AddIdentificationNumberInput!) {
+    addIdentificationNumberObjectType(input: $input) {
+      newIdentificationNumber {
+        id
+      }
+    }
+  }
+`;
+export function useAddIdentificationNumberObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddIdentificationNumberObjectTypeMutation,
+    AddIdentificationNumberObjectTypeMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    AddIdentificationNumberObjectTypeMutation,
+    AddIdentificationNumberObjectTypeMutationVariables
+  >(AddIdentificationNumberObjectTypeDocument, baseOptions);
+}
+export type AddIdentificationNumberObjectTypeMutationHookResult = ReturnType<
+  typeof useAddIdentificationNumberObjectTypeMutation
+>;
+export type AddIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<
+  AddIdentificationNumberObjectTypeMutation
+>;
+export type AddIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddIdentificationNumberObjectTypeMutation,
+  AddIdentificationNumberObjectTypeMutationVariables
+>;
+export const UpdateIdentificationNumberObjectTypeDocument = gql`
+  mutation UpdateIdentificationNumberObjectType($input: UpdateIdentificationNumberInput!) {
+    updateIdentificationNumberObjectType(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateIdentificationNumberObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateIdentificationNumberObjectTypeMutation,
+    UpdateIdentificationNumberObjectTypeMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateIdentificationNumberObjectTypeMutation,
+    UpdateIdentificationNumberObjectTypeMutationVariables
+  >(UpdateIdentificationNumberObjectTypeDocument, baseOptions);
+}
+export type UpdateIdentificationNumberObjectTypeMutationHookResult = ReturnType<
+  typeof useUpdateIdentificationNumberObjectTypeMutation
+>;
+export type UpdateIdentificationNumberObjectTypeMutationResult = ApolloReactCommon.MutationResult<
+  UpdateIdentificationNumberObjectTypeMutation
+>;
+export type UpdateIdentificationNumberObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateIdentificationNumberObjectTypeMutation,
+  UpdateIdentificationNumberObjectTypeMutationVariables
+>;
+export const AddLabelDocument = gql`
+  mutation AddLabel($input: LabelInput!) {
+    addLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddLabelMutation, AddLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddLabelMutation, AddLabelMutationVariables>(AddLabelDocument, baseOptions);
+}
+export type AddLabelMutationHookResult = ReturnType<typeof useAddLabelMutation>;
+export type AddLabelMutationResult = ApolloReactCommon.MutationResult<AddLabelMutation>;
+export type AddLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddLabelMutation,
+  AddLabelMutationVariables
+>;
+export const UpdateNcpCharacteristicsDocument = gql`
+  mutation UpdateNcpCharacteristics($input: NcpCharacteristicsInput!) {
+    updateNcpCharacteristics(input: $input) {
+      id
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+    }
+  }
+`;
+export function useUpdateNcpCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpCharacteristicsMutation,
+    UpdateNcpCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCharacteristicsMutation, UpdateNcpCharacteristicsMutationVariables>(
+    UpdateNcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCharacteristicsMutationHookResult = ReturnType<typeof useUpdateNcpCharacteristicsMutation>;
+export type UpdateNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCharacteristicsMutation>;
+export type UpdateNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCharacteristicsMutation,
+  UpdateNcpCharacteristicsMutationVariables
+>;
+export const SetNcpCharacteristicsDocument = gql`
+  mutation SetNcpCharacteristics($input: SetCharacteristicsSectionsInput!) {
+    setNcpCharacteristics(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetNcpCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetNcpCharacteristicsMutation,
+    SetNcpCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<SetNcpCharacteristicsMutation, SetNcpCharacteristicsMutationVariables>(
+    SetNcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type SetNcpCharacteristicsMutationHookResult = ReturnType<typeof useSetNcpCharacteristicsMutation>;
+export type SetNcpCharacteristicsMutationResult = ApolloReactCommon.MutationResult<SetNcpCharacteristicsMutation>;
+export type SetNcpCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetNcpCharacteristicsMutation,
+  SetNcpCharacteristicsMutationVariables
+>;
+export const CreateNcpDocument = gql`
+  mutation CreateNcp($input: CreateNcpInput!) {
+    createNcp(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateNcpMutation, CreateNcpMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateNcpMutation, CreateNcpMutationVariables>(CreateNcpDocument, baseOptions);
+}
+export type CreateNcpMutationHookResult = ReturnType<typeof useCreateNcpMutation>;
+export type CreateNcpMutationResult = ApolloReactCommon.MutationResult<CreateNcpMutation>;
+export type CreateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateNcpMutation,
+  CreateNcpMutationVariables
+>;
+export const UpdateNcpDocument = gql`
+  mutation updateNcp($input: UpdateNcpInput!) {
+    updateNcp(input: $input) {
+      id
+      objectTypesCount
+      automaticallyCalculateQuantity
+      properties
+    }
+  }
+`;
+export function useUpdateNcpMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMutation, UpdateNcpMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMutation, UpdateNcpMutationVariables>(UpdateNcpDocument, baseOptions);
+}
+export type UpdateNcpMutationHookResult = ReturnType<typeof useUpdateNcpMutation>;
+export type UpdateNcpMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMutation>;
+export type UpdateNcpMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMutation,
+  UpdateNcpMutationVariables
+>;
+export const AddNcpLabelDocument = gql`
+  mutation AddNcpLabel($input: LabelInput!) {
+    addNcpLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddNcpLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpLabelMutation, AddNcpLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpLabelMutation, AddNcpLabelMutationVariables>(
+    AddNcpLabelDocument,
+    baseOptions,
+  );
+}
+export type AddNcpLabelMutationHookResult = ReturnType<typeof useAddNcpLabelMutation>;
+export type AddNcpLabelMutationResult = ApolloReactCommon.MutationResult<AddNcpLabelMutation>;
+export type AddNcpLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpLabelMutation,
+  AddNcpLabelMutationVariables
+>;
+export const UpdateNcpMediaDescriptionDocument = gql`
+  mutation UpdateNcpMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
+    updateNcpMediaDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpMediaDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpMediaDescriptionMutation,
+    UpdateNcpMediaDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMediaDescriptionMutation, UpdateNcpMediaDescriptionMutationVariables>(
+    UpdateNcpMediaDescriptionDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpMediaDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpMediaDescriptionMutation>;
+export type UpdateNcpMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpMediaDescriptionMutation
+>;
+export type UpdateNcpMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMediaDescriptionMutation,
+  UpdateNcpMediaDescriptionMutationVariables
+>;
+export const AddNcpPicturesDocument = gql`
+  mutation AddNcpPictures($input: CommonAddPicturesInput!) {
+    addNcpPictures(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddNcpPicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpPicturesMutation, AddNcpPicturesMutationVariables>(
+    AddNcpPicturesDocument,
+    baseOptions,
+  );
+}
+export type AddNcpPicturesMutationHookResult = ReturnType<typeof useAddNcpPicturesMutation>;
+export type AddNcpPicturesMutationResult = ApolloReactCommon.MutationResult<AddNcpPicturesMutation>;
+export type AddNcpPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpPicturesMutation,
+  AddNcpPicturesMutationVariables
+>;
+export const UpdateNcpPictureDocument = gql`
+  mutation UpdateNcpPicture($input: CommonUpdatePictureInput!) {
+    updateNcpPicture(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpPictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpPictureMutation, UpdateNcpPictureMutationVariables>(
+    UpdateNcpPictureDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpPictureMutationHookResult = ReturnType<typeof useUpdateNcpPictureMutation>;
+export type UpdateNcpPictureMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPictureMutation>;
+export type UpdateNcpPictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpPictureMutation,
+  UpdateNcpPictureMutationVariables
+>;
+export const AddNcpMediaLinkDocument = gql`
+  mutation AddNcpMediaLink($input: CommonAddMediaLinkInput!) {
+    addNcpMediaLink(input: $input) {
+      id
+      mediaLinks {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpMediaLinkMutation, AddNcpMediaLinkMutationVariables>(
+    AddNcpMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type AddNcpMediaLinkMutationHookResult = ReturnType<typeof useAddNcpMediaLinkMutation>;
+export type AddNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddNcpMediaLinkMutation>;
+export type AddNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpMediaLinkMutation,
+  AddNcpMediaLinkMutationVariables
+>;
+export const UpdateNcpMediaLinkDocument = gql`
+  mutation UpdateNcpMediaLink($input: CommonUpdateMediaLinkInput!) {
+    updateNcpMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpMediaLinkMutation, UpdateNcpMediaLinkMutationVariables>(
+    UpdateNcpMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpMediaLinkMutationHookResult = ReturnType<typeof useUpdateNcpMediaLinkMutation>;
+export type UpdateNcpMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateNcpMediaLinkMutation>;
+export type UpdateNcpMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpMediaLinkMutation,
+  UpdateNcpMediaLinkMutationVariables
+>;
+export const AddNcpTextChapterDocument = gql`
+  mutation AddNcpTextChapter($input: CommonAddTextChapterInput!) {
+    addNcpTextChapter(input: $input) {
+      id
+      textChapters {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpTextChapterMutation, AddNcpTextChapterMutationVariables>(
+    AddNcpTextChapterDocument,
+    baseOptions,
+  );
+}
+export type AddNcpTextChapterMutationHookResult = ReturnType<typeof useAddNcpTextChapterMutation>;
+export type AddNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<AddNcpTextChapterMutation>;
+export type AddNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpTextChapterMutation,
+  AddNcpTextChapterMutationVariables
+>;
+export const UpdateNcpTextChapterDocument = gql`
+  mutation UpdateNcpTextChapter($input: CommonUpdateTextChapterInput!) {
+    updateNcpTextChapter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpTextChapterMutation,
+    UpdateNcpTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpTextChapterMutation, UpdateNcpTextChapterMutationVariables>(
+    UpdateNcpTextChapterDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpTextChapterMutationHookResult = ReturnType<typeof useUpdateNcpTextChapterMutation>;
+export type UpdateNcpTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTextChapterMutation>;
+export type UpdateNcpTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpTextChapterMutation,
+  UpdateNcpTextChapterMutationVariables
+>;
+export const AddNcpUspsDocument = gql`
+  mutation AddNcpUsps($input: CommonAddUspsInput!) {
+    addNcpUsps(input: $input) {
+      id
+      usps {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpUspsMutation, AddNcpUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpUspsMutation, AddNcpUspsMutationVariables>(AddNcpUspsDocument, baseOptions);
+}
+export type AddNcpUspsMutationHookResult = ReturnType<typeof useAddNcpUspsMutation>;
+export type AddNcpUspsMutationResult = ApolloReactCommon.MutationResult<AddNcpUspsMutation>;
+export type AddNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpUspsMutation,
+  AddNcpUspsMutationVariables
+>;
+export const UpdateNcpUspsDocument = gql`
+  mutation UpdateNcpUsps($input: CommonUpdateUspsInput!) {
+    updateNcpUsps(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpUspsMutation, UpdateNcpUspsMutationVariables>(
+    UpdateNcpUspsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpUspsMutationHookResult = ReturnType<typeof useUpdateNcpUspsMutation>;
+export type UpdateNcpUspsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpUspsMutation>;
+export type UpdateNcpUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpUspsMutation,
+  UpdateNcpUspsMutationVariables
+>;
+export const AddNcpTagDocument = gql`
+  mutation AddNcpTag($input: CommonAddTagInput!) {
+    addNcpTag(input: $input) {
+      id
+      tags {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpTagMutation, AddNcpTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpTagMutation, AddNcpTagMutationVariables>(AddNcpTagDocument, baseOptions);
+}
+export type AddNcpTagMutationHookResult = ReturnType<typeof useAddNcpTagMutation>;
+export type AddNcpTagMutationResult = ApolloReactCommon.MutationResult<AddNcpTagMutation>;
+export type AddNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpTagMutation,
+  AddNcpTagMutationVariables
+>;
+export const UpdateNcpTagDocument = gql`
+  mutation UpdateNcpTag($input: CommonUpdateTagInput!) {
+    updateNcpTag(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpTagMutation, UpdateNcpTagMutationVariables>(
+    UpdateNcpTagDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpTagMutationHookResult = ReturnType<typeof useUpdateNcpTagMutation>;
+export type UpdateNcpTagMutationResult = ApolloReactCommon.MutationResult<UpdateNcpTagMutation>;
+export type UpdateNcpTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpTagMutation,
+  UpdateNcpTagMutationVariables
+>;
+export const ToggleNcpPricingDocument = gql`
+  mutation ToggleNcpPricing($input: ToggleCommonPricingInput!) {
+    toggleNcpPricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useToggleNcpPricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ToggleNcpPricingMutation, ToggleNcpPricingMutationVariables>(
+    ToggleNcpPricingDocument,
+    baseOptions,
+  );
+}
+export type ToggleNcpPricingMutationHookResult = ReturnType<typeof useToggleNcpPricingMutation>;
+export type ToggleNcpPricingMutationResult = ApolloReactCommon.MutationResult<ToggleNcpPricingMutation>;
+export type ToggleNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ToggleNcpPricingMutation,
+  ToggleNcpPricingMutationVariables
+>;
+export const UpdateNcpPricingDocument = gql`
+  mutation UpdateNcpPricing($input: UpdateCommonPricingInput!) {
+    updateNcpPricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpPricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpPricingMutation, UpdateNcpPricingMutationVariables>(
+    UpdateNcpPricingDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpPricingMutationHookResult = ReturnType<typeof useUpdateNcpPricingMutation>;
+export type UpdateNcpPricingMutationResult = ApolloReactCommon.MutationResult<UpdateNcpPricingMutation>;
+export type UpdateNcpPricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpPricingMutation,
+  UpdateNcpPricingMutationVariables
+>;
+export const AddNcpCostDocument = gql`
+  mutation AddNcpCost($input: AddCommonCostInput!) {
+    addNcpCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddNcpCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpCostMutation, AddNcpCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpCostMutation, AddNcpCostMutationVariables>(AddNcpCostDocument, baseOptions);
+}
+export type AddNcpCostMutationHookResult = ReturnType<typeof useAddNcpCostMutation>;
+export type AddNcpCostMutationResult = ApolloReactCommon.MutationResult<AddNcpCostMutation>;
+export type AddNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpCostMutation,
+  AddNcpCostMutationVariables
+>;
+export const UpdateNcpCostDocument = gql`
+  mutation UpdateNcpCost($input: UpdateCommonCostInput!) {
+    updateNcpCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCostMutation, UpdateNcpCostMutationVariables>(
+    UpdateNcpCostDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCostMutationHookResult = ReturnType<typeof useUpdateNcpCostMutation>;
+export type UpdateNcpCostMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostMutation>;
+export type UpdateNcpCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCostMutation,
+  UpdateNcpCostMutationVariables
+>;
+export const UpdateNcpCostsDetailsDocument = gql`
+  mutation UpdateNcpCostsDetails($input: UpdateCommonCostsDetailsInput!) {
+    updateNcpCostsDetails(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpCostsDetailsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpCostsDetailsMutation,
+    UpdateNcpCostsDetailsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpCostsDetailsMutation, UpdateNcpCostsDetailsMutationVariables>(
+    UpdateNcpCostsDetailsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpCostsDetailsMutationHookResult = ReturnType<typeof useUpdateNcpCostsDetailsMutation>;
+export type UpdateNcpCostsDetailsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpCostsDetailsMutation>;
+export type UpdateNcpCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpCostsDetailsMutation,
+  UpdateNcpCostsDetailsMutationVariables
+>;
+export const UpdateNcpInterestsDocument = gql`
+  mutation UpdateNcpInterests($input: InterestsInput!) {
+    updateNcpInterests(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpInterestsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpInterestsMutation, UpdateNcpInterestsMutationVariables>(
+    UpdateNcpInterestsDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpInterestsMutationHookResult = ReturnType<typeof useUpdateNcpInterestsMutation>;
+export type UpdateNcpInterestsMutationResult = ApolloReactCommon.MutationResult<UpdateNcpInterestsMutation>;
+export type UpdateNcpInterestsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpInterestsMutation,
+  UpdateNcpInterestsMutationVariables
+>;
+export const UpdateNcpLinkedPropertiesListDescriptionDocument = gql`
+  mutation UpdateNcpLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
+    updateNcpLinkedPropertiesListDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpLinkedPropertiesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpLinkedPropertiesListDescriptionMutation,
+    UpdateNcpLinkedPropertiesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateNcpLinkedPropertiesListDescriptionMutation,
+    UpdateNcpLinkedPropertiesListDescriptionMutationVariables
+  >(UpdateNcpLinkedPropertiesListDescriptionDocument, baseOptions);
+}
+export type UpdateNcpLinkedPropertiesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateNcpLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateNcpLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateNcpLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpLinkedPropertiesListDescriptionMutation,
+  UpdateNcpLinkedPropertiesListDescriptionMutationVariables
+>;
+export const AddNcpServiceDocument = gql`
+  mutation AddNcpService($input: AddServiceInput!) {
+    addNcpService(input: $input) {
+      ncp {
+        id
+      }
+      newService {
+        id
+      }
+    }
+  }
+`;
+export function useAddNcpServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNcpServiceMutation, AddNcpServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNcpServiceMutation, AddNcpServiceMutationVariables>(
+    AddNcpServiceDocument,
+    baseOptions,
+  );
+}
+export type AddNcpServiceMutationHookResult = ReturnType<typeof useAddNcpServiceMutation>;
+export type AddNcpServiceMutationResult = ApolloReactCommon.MutationResult<AddNcpServiceMutation>;
+export type AddNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNcpServiceMutation,
+  AddNcpServiceMutationVariables
+>;
+export const UpdateNcpServiceDocument = gql`
+  mutation UpdateNcpService($input: UpdateServiceInput!) {
+    updateNcpService(input: $input) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      servicesDescription
+    }
+  }
+`;
+export function useUpdateNcpServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateNcpServiceMutation, UpdateNcpServiceMutationVariables>(
+    UpdateNcpServiceDocument,
+    baseOptions,
+  );
+}
+export type UpdateNcpServiceMutationHookResult = ReturnType<typeof useUpdateNcpServiceMutation>;
+export type UpdateNcpServiceMutationResult = ApolloReactCommon.MutationResult<UpdateNcpServiceMutation>;
+export type UpdateNcpServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpServiceMutation,
+  UpdateNcpServiceMutationVariables
+>;
+export const UpdateNcpServiceDescriptionDocument = gql`
+  mutation UpdateNcpServiceDescription($input: ServiceDescriptionInput!) {
+    updateNcpServiceDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateNcpServiceDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateNcpServiceDescriptionMutation,
+    UpdateNcpServiceDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateNcpServiceDescriptionMutation,
+    UpdateNcpServiceDescriptionMutationVariables
+  >(UpdateNcpServiceDescriptionDocument, baseOptions);
+}
+export type UpdateNcpServiceDescriptionMutationHookResult = ReturnType<typeof useUpdateNcpServiceDescriptionMutation>;
+export type UpdateNcpServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateNcpServiceDescriptionMutation
+>;
+export type UpdateNcpServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateNcpServiceDescriptionMutation,
+  UpdateNcpServiceDescriptionMutationVariables
+>;
+export const UpdateObjectTypeCharacteristicsDocument = gql`
+  mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
+    updateObjectTypeCharacteristics(input: $input) {
+      id
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+    }
+  }
+`;
+export function useUpdateObjectTypeCharacteristicsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeCharacteristicsMutation,
+    UpdateObjectTypeCharacteristicsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeCharacteristicsMutation,
+    UpdateObjectTypeCharacteristicsMutationVariables
+  >(UpdateObjectTypeCharacteristicsDocument, baseOptions);
+}
+export type UpdateObjectTypeCharacteristicsMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeCharacteristicsMutation
+>;
+export type UpdateObjectTypeCharacteristicsMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeCharacteristicsMutation
+>;
+export type UpdateObjectTypeCharacteristicsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeCharacteristicsMutation,
+  UpdateObjectTypeCharacteristicsMutationVariables
+>;
+export const SetObjectTypeCharacteristicsSectionsDocument = gql`
+  mutation SetObjectTypeCharacteristicsSections($input: SetCharacteristicsSectionsInput!) {
+    setObjectTypeCharacteristicsSections(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetObjectTypeCharacteristicsSectionsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetObjectTypeCharacteristicsSectionsMutation,
+    SetObjectTypeCharacteristicsSectionsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    SetObjectTypeCharacteristicsSectionsMutation,
+    SetObjectTypeCharacteristicsSectionsMutationVariables
+  >(SetObjectTypeCharacteristicsSectionsDocument, baseOptions);
+}
+export type SetObjectTypeCharacteristicsSectionsMutationHookResult = ReturnType<
+  typeof useSetObjectTypeCharacteristicsSectionsMutation
+>;
+export type SetObjectTypeCharacteristicsSectionsMutationResult = ApolloReactCommon.MutationResult<
+  SetObjectTypeCharacteristicsSectionsMutation
+>;
+export type SetObjectTypeCharacteristicsSectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetObjectTypeCharacteristicsSectionsMutation,
+  SetObjectTypeCharacteristicsSectionsMutationVariables
+>;
+export const CreateObjectTypeDocument = gql`
+  mutation CreateObjectType($input: CreateObjectTypeInput!) {
+    createObjectType(input: $input) {
+      name
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      ncpId
+      id
+    }
+  }
+`;
+export function useCreateObjectTypeMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateObjectTypeMutation, CreateObjectTypeMutationVariables>(
+    CreateObjectTypeDocument,
+    baseOptions,
+  );
+}
+export type CreateObjectTypeMutationHookResult = ReturnType<typeof useCreateObjectTypeMutation>;
+export type CreateObjectTypeMutationResult = ApolloReactCommon.MutationResult<CreateObjectTypeMutation>;
+export type CreateObjectTypeMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateObjectTypeMutation,
+  CreateObjectTypeMutationVariables
+>;
+export const AddObjectTypeLabelDocument = gql`
+  mutation AddObjectTypeLabel($input: LabelInput!) {
+    addObjectTypeLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddObjectTypeLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeLabelMutation, AddObjectTypeLabelMutationVariables>(
+    AddObjectTypeLabelDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeLabelMutationHookResult = ReturnType<typeof useAddObjectTypeLabelMutation>;
+export type AddObjectTypeLabelMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeLabelMutation>;
+export type AddObjectTypeLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeLabelMutation,
+  AddObjectTypeLabelMutationVariables
+>;
+export const UpdateObjectTypesListDescriptionDocument = gql`
+  mutation UpdateObjectTypesListDescription($input: UpdateObjectTypesListDescription!) {
+    updateObjectTypesListDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypesListDescriptionMutation,
+    UpdateObjectTypesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypesListDescriptionMutation,
+    UpdateObjectTypesListDescriptionMutationVariables
+  >(UpdateObjectTypesListDescriptionDocument, baseOptions);
+}
+export type UpdateObjectTypesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypesListDescriptionMutation
+>;
+export type UpdateObjectTypesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypesListDescriptionMutation
+>;
+export type UpdateObjectTypesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypesListDescriptionMutation,
+  UpdateObjectTypesListDescriptionMutationVariables
+>;
+export const UpdateObjectTypeMediaDescriptionDocument = gql`
+  mutation UpdateObjectTypeMediaDescription($input: CommonUpdateMediaDescriptionInput!) {
+    updateObjectTypeMediaDescription(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeMediaDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeMediaDescriptionMutation,
+    UpdateObjectTypeMediaDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeMediaDescriptionMutation,
+    UpdateObjectTypeMediaDescriptionMutationVariables
+  >(UpdateObjectTypeMediaDescriptionDocument, baseOptions);
+}
+export type UpdateObjectTypeMediaDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeMediaDescriptionMutation
+>;
+export type UpdateObjectTypeMediaDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeMediaDescriptionMutation
+>;
+export type UpdateObjectTypeMediaDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeMediaDescriptionMutation,
+  UpdateObjectTypeMediaDescriptionMutationVariables
+>;
+export const AddObjectTypePicturesDocument = gql`
+  mutation addObjectTypePictures($input: CommonAddPicturesInput!) {
+    addObjectTypePictures(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddObjectTypePicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypePicturesMutation,
+    AddObjectTypePicturesMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypePicturesMutation, AddObjectTypePicturesMutationVariables>(
+    AddObjectTypePicturesDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypePicturesMutationHookResult = ReturnType<typeof useAddObjectTypePicturesMutation>;
+export type AddObjectTypePicturesMutationResult = ApolloReactCommon.MutationResult<AddObjectTypePicturesMutation>;
+export type AddObjectTypePicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypePicturesMutation,
+  AddObjectTypePicturesMutationVariables
+>;
+export const UpdateObjectTypePictureDocument = gql`
+  mutation UpdateObjectTypePicture($input: CommonUpdatePictureInput!) {
+    updateObjectTypePicture(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypePictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypePictureMutation,
+    UpdateObjectTypePictureMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypePictureMutation, UpdateObjectTypePictureMutationVariables>(
+    UpdateObjectTypePictureDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypePictureMutationHookResult = ReturnType<typeof useUpdateObjectTypePictureMutation>;
+export type UpdateObjectTypePictureMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypePictureMutation>;
+export type UpdateObjectTypePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypePictureMutation,
+  UpdateObjectTypePictureMutationVariables
+>;
+export const AddObjectTypeMediaLinkDocument = gql`
+  mutation AddObjectTypeMediaLink($input: CommonAddMediaLinkInput!) {
+    addObjectTypeMediaLink(input: $input) {
+      id
+      mediaLinks {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeMediaLinkMutation,
+    AddObjectTypeMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeMediaLinkMutation, AddObjectTypeMediaLinkMutationVariables>(
+    AddObjectTypeMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useAddObjectTypeMediaLinkMutation>;
+export type AddObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeMediaLinkMutation>;
+export type AddObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeMediaLinkMutation,
+  AddObjectTypeMediaLinkMutationVariables
+>;
+export const UpdateObjectTypeMediaLinkDocument = gql`
+  mutation UpdateObjectTypeMediaLink($input: CommonUpdateMediaLinkInput!) {
+    updateObjectTypeMediaLink(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeMediaLinkMutation,
+    UpdateObjectTypeMediaLinkMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeMediaLinkMutation, UpdateObjectTypeMediaLinkMutationVariables>(
+    UpdateObjectTypeMediaLinkDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeMediaLinkMutationHookResult = ReturnType<typeof useUpdateObjectTypeMediaLinkMutation>;
+export type UpdateObjectTypeMediaLinkMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeMediaLinkMutation
+>;
+export type UpdateObjectTypeMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeMediaLinkMutation,
+  UpdateObjectTypeMediaLinkMutationVariables
+>;
+export const AddObjectTypeTextChapterDocument = gql`
+  mutation AddObjectTypeTextChapter($input: CommonAddTextChapterInput!) {
+    addObjectTypeTextChapter(input: $input) {
+      id
+      textChapters {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeTextChapterMutation,
+    AddObjectTypeTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeTextChapterMutation, AddObjectTypeTextChapterMutationVariables>(
+    AddObjectTypeTextChapterDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeTextChapterMutationHookResult = ReturnType<typeof useAddObjectTypeTextChapterMutation>;
+export type AddObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTextChapterMutation>;
+export type AddObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeTextChapterMutation,
+  AddObjectTypeTextChapterMutationVariables
+>;
+export const UpdateObjectTypeTextChapterDocument = gql`
+  mutation UpdateObjectTypeTextChapter($input: CommonUpdateTextChapterInput!) {
+    updateObjectTypeTextChapter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeTextChapterMutation,
+    UpdateObjectTypeTextChapterMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeTextChapterMutation,
+    UpdateObjectTypeTextChapterMutationVariables
+  >(UpdateObjectTypeTextChapterDocument, baseOptions);
+}
+export type UpdateObjectTypeTextChapterMutationHookResult = ReturnType<typeof useUpdateObjectTypeTextChapterMutation>;
+export type UpdateObjectTypeTextChapterMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeTextChapterMutation
+>;
+export type UpdateObjectTypeTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeTextChapterMutation,
+  UpdateObjectTypeTextChapterMutationVariables
+>;
+export const AddObjectTypeUspsDocument = gql`
+  mutation AddObjectTypeUsps($input: CommonAddUspsInput!) {
+    addObjectTypeUsps(input: $input) {
+      id
+      usps {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeUspsMutation, AddObjectTypeUspsMutationVariables>(
+    AddObjectTypeUspsDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeUspsMutationHookResult = ReturnType<typeof useAddObjectTypeUspsMutation>;
+export type AddObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeUspsMutation>;
+export type AddObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeUspsMutation,
+  AddObjectTypeUspsMutationVariables
+>;
+export const UpdateObjectTypeUspsDocument = gql`
+  mutation UpdateObjectTypeUsps($input: CommonUpdateUspsInput!) {
+    updateObjectTypeUsps(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeUspsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeUspsMutation,
+    UpdateObjectTypeUspsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeUspsMutation, UpdateObjectTypeUspsMutationVariables>(
+    UpdateObjectTypeUspsDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeUspsMutationHookResult = ReturnType<typeof useUpdateObjectTypeUspsMutation>;
+export type UpdateObjectTypeUspsMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeUspsMutation>;
+export type UpdateObjectTypeUspsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeUspsMutation,
+  UpdateObjectTypeUspsMutationVariables
+>;
+export const AddObjectTypeTagDocument = gql`
+  mutation AddObjectTypeTag($input: CommonAddTagInput!) {
+    addObjectTypeTag(input: $input) {
+      id
+      tags {
+        id
+      }
+    }
+  }
+`;
+export function useAddObjectTypeTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeTagMutation, AddObjectTypeTagMutationVariables>(
+    AddObjectTypeTagDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeTagMutationHookResult = ReturnType<typeof useAddObjectTypeTagMutation>;
+export type AddObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeTagMutation>;
+export type AddObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeTagMutation,
+  AddObjectTypeTagMutationVariables
+>;
+export const UpdateObjectTypeTagDocument = gql`
+  mutation UpdateObjectTypeTag($input: CommonUpdateTagInput!) {
+    updateObjectTypeTag(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeTagMutation, UpdateObjectTypeTagMutationVariables>(
+    UpdateObjectTypeTagDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeTagMutationHookResult = ReturnType<typeof useUpdateObjectTypeTagMutation>;
+export type UpdateObjectTypeTagMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeTagMutation>;
+export type UpdateObjectTypeTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeTagMutation,
+  UpdateObjectTypeTagMutationVariables
+>;
+export const ToggleObjectTypePricingDocument = gql`
+  mutation ToggleObjectTypePricing($input: ToggleCommonPricingInput!) {
+    toggleObjectTypePricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useToggleObjectTypePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    ToggleObjectTypePricingMutation,
+    ToggleObjectTypePricingMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<ToggleObjectTypePricingMutation, ToggleObjectTypePricingMutationVariables>(
+    ToggleObjectTypePricingDocument,
+    baseOptions,
+  );
+}
+export type ToggleObjectTypePricingMutationHookResult = ReturnType<typeof useToggleObjectTypePricingMutation>;
+export type ToggleObjectTypePricingMutationResult = ApolloReactCommon.MutationResult<ToggleObjectTypePricingMutation>;
+export type ToggleObjectTypePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ToggleObjectTypePricingMutation,
+  ToggleObjectTypePricingMutationVariables
+>;
+export const UpdateObjectTypePricingDocument = gql`
+  mutation UpdateObjectTypePricing($input: UpdateCommonPricingInput!) {
+    updateObjectTypePricing(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypePricingMutation,
+    UpdateObjectTypePricingMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypePricingMutation, UpdateObjectTypePricingMutationVariables>(
+    UpdateObjectTypePricingDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypePricingMutationHookResult = ReturnType<typeof useUpdateObjectTypePricingMutation>;
+export type UpdateObjectTypePricingMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypePricingMutation>;
+export type UpdateObjectTypePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypePricingMutation,
+  UpdateObjectTypePricingMutationVariables
+>;
+export const AddObjectTypeCostDocument = gql`
+  mutation AddObjectTypeCost($input: AddCommonCostInput!) {
+    addObjectTypeCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddObjectTypeCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeCostMutation, AddObjectTypeCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeCostMutation, AddObjectTypeCostMutationVariables>(
+    AddObjectTypeCostDocument,
+    baseOptions,
+  );
+}
+export type AddObjectTypeCostMutationHookResult = ReturnType<typeof useAddObjectTypeCostMutation>;
+export type AddObjectTypeCostMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeCostMutation>;
+export type AddObjectTypeCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeCostMutation,
+  AddObjectTypeCostMutationVariables
+>;
+export const UpdateObjectTypeCostDocument = gql`
+  mutation UpdateObjectTypeCost($input: UpdateCommonCostInput!) {
+    updateObjectTypeCost(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeCostMutation,
+    UpdateObjectTypeCostMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeCostMutation, UpdateObjectTypeCostMutationVariables>(
+    UpdateObjectTypeCostDocument,
+    baseOptions,
+  );
+}
+export type UpdateObjectTypeCostMutationHookResult = ReturnType<typeof useUpdateObjectTypeCostMutation>;
+export type UpdateObjectTypeCostMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeCostMutation>;
+export type UpdateObjectTypeCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeCostMutation,
+  UpdateObjectTypeCostMutationVariables
+>;
+export const UpdateObjectTypeCostsDetailsDocument = gql`
+  mutation UpdateObjectTypeCostsDetails($input: UpdateCommonCostsDetailsInput!) {
+    updateObjectTypeCostsDetails(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateObjectTypeCostsDetailsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeCostsDetailsMutation,
+    UpdateObjectTypeCostsDetailsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeCostsDetailsMutation,
+    UpdateObjectTypeCostsDetailsMutationVariables
+  >(UpdateObjectTypeCostsDetailsDocument, baseOptions);
+}
+export type UpdateObjectTypeCostsDetailsMutationHookResult = ReturnType<typeof useUpdateObjectTypeCostsDetailsMutation>;
+export type UpdateObjectTypeCostsDetailsMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeCostsDetailsMutation
+>;
+export type UpdateObjectTypeCostsDetailsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeCostsDetailsMutation,
+  UpdateObjectTypeCostsDetailsMutationVariables
+>;
+export const SetObjectTypeLinkedPimsDocument = gql`
+  mutation SetObjectTypeLinkedPims($input: SetLinkedPimsInput!) {
+    setObjectTypeLinkedPims(input: $input) {
+      linkedProperties(pagination: { from: 0 }) {
+        items {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useSetObjectTypeLinkedPimsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    SetObjectTypeLinkedPimsMutation,
+    SetObjectTypeLinkedPimsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<SetObjectTypeLinkedPimsMutation, SetObjectTypeLinkedPimsMutationVariables>(
+    SetObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
 export type SetObjectTypeLinkedPimsMutationHookResult = ReturnType<typeof useSetObjectTypeLinkedPimsMutation>;
 export type SetObjectTypeLinkedPimsMutationResult = ApolloReactCommon.MutationResult<SetObjectTypeLinkedPimsMutation>;
-export type SetObjectTypeLinkedPimsMutationOptions = ApolloReactCommon.BaseMutationOptions<SetObjectTypeLinkedPimsMutation, SetObjectTypeLinkedPimsMutationVariables>;
+export type SetObjectTypeLinkedPimsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetObjectTypeLinkedPimsMutation,
+  SetObjectTypeLinkedPimsMutationVariables
+>;
 export const UpdateLinkedPropertiesListDescriptionDocument = gql`
-    mutation UpdateLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
-  updateLinkedPropertiesListDescription(input: $input) {
-    id
+  mutation UpdateLinkedPropertiesListDescription($input: UpdateLinkedPropertiesListDescription!) {
+    updateLinkedPropertiesListDescription(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateLinkedPropertiesListDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateLinkedPropertiesListDescriptionMutation,
+    UpdateLinkedPropertiesListDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateLinkedPropertiesListDescriptionMutation,
+    UpdateLinkedPropertiesListDescriptionMutationVariables
+  >(UpdateLinkedPropertiesListDescriptionDocument, baseOptions);
 }
-    `;
-export function useUpdateLinkedPropertiesListDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateLinkedPropertiesListDescriptionMutation, UpdateLinkedPropertiesListDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateLinkedPropertiesListDescriptionMutation, UpdateLinkedPropertiesListDescriptionMutationVariables>(UpdateLinkedPropertiesListDescriptionDocument, baseOptions);
-      }
-export type UpdateLinkedPropertiesListDescriptionMutationHookResult = ReturnType<typeof useUpdateLinkedPropertiesListDescriptionMutation>;
-export type UpdateLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateLinkedPropertiesListDescriptionMutation>;
-export type UpdateLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateLinkedPropertiesListDescriptionMutation, UpdateLinkedPropertiesListDescriptionMutationVariables>;
+export type UpdateLinkedPropertiesListDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateLinkedPropertiesListDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateLinkedPropertiesListDescriptionMutation
+>;
+export type UpdateLinkedPropertiesListDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateLinkedPropertiesListDescriptionMutation,
+  UpdateLinkedPropertiesListDescriptionMutationVariables
+>;
 export const AddObjectTypeServiceDocument = gql`
-    mutation AddObjectTypeService($input: AddServiceInput!) {
-  addObjectTypeService(input: $input) {
-    objectType {
-      id
-    }
-    newService {
-      id
+  mutation AddObjectTypeService($input: AddServiceInput!) {
+    addObjectTypeService(input: $input) {
+      objectType {
+        id
+      }
+      newService {
+        id
+      }
     }
   }
+`;
+export function useAddObjectTypeServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddObjectTypeServiceMutation,
+    AddObjectTypeServiceMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AddObjectTypeServiceMutation, AddObjectTypeServiceMutationVariables>(
+    AddObjectTypeServiceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddObjectTypeServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddObjectTypeServiceMutation, AddObjectTypeServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddObjectTypeServiceMutation, AddObjectTypeServiceMutationVariables>(AddObjectTypeServiceDocument, baseOptions);
-      }
 export type AddObjectTypeServiceMutationHookResult = ReturnType<typeof useAddObjectTypeServiceMutation>;
 export type AddObjectTypeServiceMutationResult = ApolloReactCommon.MutationResult<AddObjectTypeServiceMutation>;
-export type AddObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<AddObjectTypeServiceMutation, AddObjectTypeServiceMutationVariables>;
+export type AddObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddObjectTypeServiceMutation,
+  AddObjectTypeServiceMutationVariables
+>;
 export const UpdateObjectTypeServiceDocument = gql`
-    mutation UpdateObjectTypeService($input: UpdateServiceInput!) {
-  updateObjectTypeService(input: $input) {
-    id
-    hotWaterSupplies {
+  mutation UpdateObjectTypeService($input: UpdateServiceInput!) {
+    updateObjectTypeService(input: $input) {
       id
-      type
-      name
-      description
-      configuration {
-        ... on HotWaterSupplyConfiguration {
-          type
-          fuel
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
         }
+        yearOfInstallation
+        ownership
       }
-      yearOfInstallation
-      ownership
-    }
-    heatingSources {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HeatingSourceConfiguration {
-          type
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
         }
+        yearOfInstallation
       }
-      yearOfInstallation
-    }
-    additionalServices {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on AdditionalServiceConfiguration {
-          type
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
         }
+        yearOfInstallation
+        ownership
       }
-      yearOfInstallation
-      ownership
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      servicesDescription
     }
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    dateUpdated
-    servicesDescription
   }
+`;
+export function useUpdateObjectTypeServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeServiceMutation,
+    UpdateObjectTypeServiceMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateObjectTypeServiceMutation, UpdateObjectTypeServiceMutationVariables>(
+    UpdateObjectTypeServiceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateObjectTypeServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeServiceMutation, UpdateObjectTypeServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeServiceMutation, UpdateObjectTypeServiceMutationVariables>(UpdateObjectTypeServiceDocument, baseOptions);
-      }
 export type UpdateObjectTypeServiceMutationHookResult = ReturnType<typeof useUpdateObjectTypeServiceMutation>;
 export type UpdateObjectTypeServiceMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeServiceMutation>;
-export type UpdateObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeServiceMutation, UpdateObjectTypeServiceMutationVariables>;
+export type UpdateObjectTypeServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeServiceMutation,
+  UpdateObjectTypeServiceMutationVariables
+>;
 export const UpdateObjectTypeServiceDescriptionDocument = gql`
-    mutation UpdateObjectTypeServiceDescription($input: ServiceDescriptionInput!) {
-  updateObjectTypeServiceDescription(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateObjectTypeServiceDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateObjectTypeServiceDescriptionMutation, UpdateObjectTypeServiceDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateObjectTypeServiceDescriptionMutation, UpdateObjectTypeServiceDescriptionMutationVariables>(UpdateObjectTypeServiceDescriptionDocument, baseOptions);
-      }
-export type UpdateObjectTypeServiceDescriptionMutationHookResult = ReturnType<typeof useUpdateObjectTypeServiceDescriptionMutation>;
-export type UpdateObjectTypeServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateObjectTypeServiceDescriptionMutation>;
-export type UpdateObjectTypeServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateObjectTypeServiceDescriptionMutation, UpdateObjectTypeServiceDescriptionMutationVariables>;
-export const AddAogSpaceDocument = gql`
-    mutation AddAogSpace($input: AddAogSpaceInput!) {
-  addAogSpace(input: $input) {
-    newSpace {
+  mutation UpdateObjectTypeServiceDescription($input: ServiceDescriptionInput!) {
+    updateObjectTypeServiceDescription(input: $input) {
       id
     }
   }
+`;
+export function useUpdateObjectTypeServiceDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateObjectTypeServiceDescriptionMutation,
+    UpdateObjectTypeServiceDescriptionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateObjectTypeServiceDescriptionMutation,
+    UpdateObjectTypeServiceDescriptionMutationVariables
+  >(UpdateObjectTypeServiceDescriptionDocument, baseOptions);
 }
-    `;
-export function useAddAogSpaceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddAogSpaceMutation, AddAogSpaceMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddAogSpaceMutation, AddAogSpaceMutationVariables>(AddAogSpaceDocument, baseOptions);
+export type UpdateObjectTypeServiceDescriptionMutationHookResult = ReturnType<
+  typeof useUpdateObjectTypeServiceDescriptionMutation
+>;
+export type UpdateObjectTypeServiceDescriptionMutationResult = ApolloReactCommon.MutationResult<
+  UpdateObjectTypeServiceDescriptionMutation
+>;
+export type UpdateObjectTypeServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateObjectTypeServiceDescriptionMutation,
+  UpdateObjectTypeServiceDescriptionMutationVariables
+>;
+export const AddAogSpaceDocument = gql`
+  mutation AddAogSpace($input: AddAogSpaceInput!) {
+    addAogSpace(input: $input) {
+      newSpace {
+        id
       }
+    }
+  }
+`;
+export function useAddAogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddAogSpaceMutation, AddAogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddAogSpaceMutation, AddAogSpaceMutationVariables>(
+    AddAogSpaceDocument,
+    baseOptions,
+  );
+}
 export type AddAogSpaceMutationHookResult = ReturnType<typeof useAddAogSpaceMutation>;
 export type AddAogSpaceMutationResult = ApolloReactCommon.MutationResult<AddAogSpaceMutation>;
-export type AddAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<AddAogSpaceMutation, AddAogSpaceMutationVariables>;
+export type AddAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAogSpaceMutation,
+  AddAogSpaceMutationVariables
+>;
 export const UpdateAogSpaceDocument = gql`
-    mutation UpdateAogSpace($input: UpdateAogSpaceInput!) {
-  updateAogSpace(input: $input) {
-    id
+  mutation UpdateAogSpace($input: UpdateAogSpaceInput!) {
+    updateAogSpace(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateAogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>(
+    UpdateAogSpaceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateAogSpaceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>(UpdateAogSpaceDocument, baseOptions);
-      }
 export type UpdateAogSpaceMutationHookResult = ReturnType<typeof useUpdateAogSpaceMutation>;
 export type UpdateAogSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateAogSpaceMutation>;
-export type UpdateAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAogSpaceMutation, UpdateAogSpaceMutationVariables>;
+export type UpdateAogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateAogSpaceMutation,
+  UpdateAogSpaceMutationVariables
+>;
 export const AddBogSpaceDocument = gql`
-    mutation AddBogSpace($input: AddBogSpaceInput!) {
-  addBogSpace(input: $input) {
-    newSpace {
-      id
-      type
-      name
+  mutation AddBogSpace($input: AddBogSpaceInput!) {
+    addBogSpace(input: $input) {
+      newSpace {
+        id
+        type
+        name
+      }
     }
   }
+`;
+export function useAddBogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddBogSpaceMutation, AddBogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddBogSpaceMutation, AddBogSpaceMutationVariables>(
+    AddBogSpaceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddBogSpaceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddBogSpaceMutation, AddBogSpaceMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddBogSpaceMutation, AddBogSpaceMutationVariables>(AddBogSpaceDocument, baseOptions);
-      }
 export type AddBogSpaceMutationHookResult = ReturnType<typeof useAddBogSpaceMutation>;
 export type AddBogSpaceMutationResult = ApolloReactCommon.MutationResult<AddBogSpaceMutation>;
-export type AddBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<AddBogSpaceMutation, AddBogSpaceMutationVariables>;
+export type AddBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddBogSpaceMutation,
+  AddBogSpaceMutationVariables
+>;
 export const UpdateBogSpaceDocument = gql`
-    mutation UpdateBogSpace($input: UpdateBogSpaceInput!) {
-  updateBogSpace(input: $input) {
-    id
+  mutation UpdateBogSpace($input: UpdateBogSpaceInput!) {
+    updateBogSpace(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateBogSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>(
+    UpdateBogSpaceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateBogSpaceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>(UpdateBogSpaceDocument, baseOptions);
-      }
 export type UpdateBogSpaceMutationHookResult = ReturnType<typeof useUpdateBogSpaceMutation>;
 export type UpdateBogSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateBogSpaceMutation>;
-export type UpdateBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateBogSpaceMutation, UpdateBogSpaceMutationVariables>;
+export type UpdateBogSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateBogSpaceMutation,
+  UpdateBogSpaceMutationVariables
+>;
 export const AddCadastreDocument = gql`
-    mutation AddCadastre($input: AddCadastreInput!) {
-  addCadastre(input: $input) {
-    pim {
-      id
-    }
-    cadastre {
-      id
-      type
+  mutation AddCadastre($input: AddCadastreInput!) {
+    addCadastre(input: $input) {
+      pim {
+        id
+      }
+      cadastre {
+        id
+        type
+      }
     }
   }
+`;
+export function useAddCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMutation, AddCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMutation, AddCadastreMutationVariables>(
+    AddCadastreDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddCadastreMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMutation, AddCadastreMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddCadastreMutation, AddCadastreMutationVariables>(AddCadastreDocument, baseOptions);
-      }
 export type AddCadastreMutationHookResult = ReturnType<typeof useAddCadastreMutation>;
 export type AddCadastreMutationResult = ApolloReactCommon.MutationResult<AddCadastreMutation>;
-export type AddCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<AddCadastreMutation, AddCadastreMutationVariables>;
+export type AddCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMutation,
+  AddCadastreMutationVariables
+>;
 export const UpdateCadastreDocument = gql`
-    mutation UpdateCadastre($input: UpdateCadastreInput!) {
-  updateCadastre(input: $input) {
-    id
+  mutation UpdateCadastre($input: UpdateCadastreInput!) {
+    updateCadastre(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateCadastreMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCadastreMutation, UpdateCadastreMutationVariables>(
+    UpdateCadastreDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateCadastreMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateCadastreMutation, UpdateCadastreMutationVariables>(UpdateCadastreDocument, baseOptions);
-      }
 export type UpdateCadastreMutationHookResult = ReturnType<typeof useUpdateCadastreMutation>;
 export type UpdateCadastreMutationResult = ApolloReactCommon.MutationResult<UpdateCadastreMutation>;
-export type UpdateCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateCadastreMutation, UpdateCadastreMutationVariables>;
+export type UpdateCadastreMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCadastreMutation,
+  UpdateCadastreMutationVariables
+>;
 export const AddCadastreMapsDocument = gql`
-    mutation AddCadastreMaps($input: AddCadastreMapsInput!) {
-  addCadastreMaps(input: $input) {
-    id
+  mutation AddCadastreMaps($input: AddCadastreMapsInput!) {
+    addCadastreMaps(input: $input) {
+      id
+    }
   }
+`;
+export function useAddCadastreMapsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>(
+    AddCadastreMapsDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddCadastreMapsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>(AddCadastreMapsDocument, baseOptions);
-      }
 export type AddCadastreMapsMutationHookResult = ReturnType<typeof useAddCadastreMapsMutation>;
 export type AddCadastreMapsMutationResult = ApolloReactCommon.MutationResult<AddCadastreMapsMutation>;
-export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptions<AddCadastreMapsMutation, AddCadastreMapsMutationVariables>;
+export type AddCadastreMapsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCadastreMapsMutation,
+  AddCadastreMapsMutationVariables
+>;
 export const UpdateMapDocument = gql`
-    mutation UpdateMap($input: UpdateCadastreMapInput!) {
-  updateCadastreMap(input: $input) {
-    id
+  mutation UpdateMap($input: UpdateCadastreMapInput!) {
+    updateCadastreMap(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateMapMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMapMutation, UpdateMapMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMapMutation, UpdateMapMutationVariables>(UpdateMapDocument, baseOptions);
 }
-    `;
-export function useUpdateMapMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMapMutation, UpdateMapMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateMapMutation, UpdateMapMutationVariables>(UpdateMapDocument, baseOptions);
-      }
 export type UpdateMapMutationHookResult = ReturnType<typeof useUpdateMapMutation>;
 export type UpdateMapMutationResult = ApolloReactCommon.MutationResult<UpdateMapMutation>;
-export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateMapMutation, UpdateMapMutationVariables>;
+export type UpdateMapMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMapMutation,
+  UpdateMapMutationVariables
+>;
 export const UpdatePimGeneralInfoDocument = gql`
-    mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
-  updatePimGeneralInfo(input: $input) {
-    id
+  mutation UpdatePimGeneralInfo($input: PimGeneralInput!) {
+    updatePimGeneralInfo(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdatePimGeneralInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdatePimGeneralInfoMutation,
+    UpdatePimGeneralInfoMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>(
+    UpdatePimGeneralInfoDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdatePimGeneralInfoMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>(UpdatePimGeneralInfoDocument, baseOptions);
-      }
 export type UpdatePimGeneralInfoMutationHookResult = ReturnType<typeof useUpdatePimGeneralInfoMutation>;
 export type UpdatePimGeneralInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimGeneralInfoMutation>;
-export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePimGeneralInfoMutation, UpdatePimGeneralInfoMutationVariables>;
+export type UpdatePimGeneralInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimGeneralInfoMutation,
+  UpdatePimGeneralInfoMutationVariables
+>;
 export const AddFloorToPimDocument = gql`
-    mutation AddFloorToPim($input: AddNewFloorInput!) {
-  addFloorToPim(input: $input) {
-    newFloor {
-      id
+  mutation AddFloorToPim($input: AddNewFloorInput!) {
+    addFloorToPim(input: $input) {
+      newFloor {
+        id
+      }
     }
   }
+`;
+export function useAddFloorToPimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddFloorToPimMutation, AddFloorToPimMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddFloorToPimMutation, AddFloorToPimMutationVariables>(
+    AddFloorToPimDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddFloorToPimMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFloorToPimMutation, AddFloorToPimMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddFloorToPimMutation, AddFloorToPimMutationVariables>(AddFloorToPimDocument, baseOptions);
-      }
 export type AddFloorToPimMutationHookResult = ReturnType<typeof useAddFloorToPimMutation>;
 export type AddFloorToPimMutationResult = ApolloReactCommon.MutationResult<AddFloorToPimMutation>;
-export type AddFloorToPimMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFloorToPimMutation, AddFloorToPimMutationVariables>;
+export type AddFloorToPimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddFloorToPimMutation,
+  AddFloorToPimMutationVariables
+>;
 export const AddSpaceToFloorDocument = gql`
-    mutation AddSpaceToFloor($input: AddSpaceInput!) {
-  addSpaceToFloor(input: $input) {
-    pim {
-      id
-    }
-    newSpace {
-      id
+  mutation AddSpaceToFloor($input: AddSpaceInput!) {
+    addSpaceToFloor(input: $input) {
+      pim {
+        id
+      }
+      newSpace {
+        id
+      }
     }
   }
+`;
+export function useAddSpaceToFloorMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>(
+    AddSpaceToFloorDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddSpaceToFloorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>(AddSpaceToFloorDocument, baseOptions);
-      }
 export type AddSpaceToFloorMutationHookResult = ReturnType<typeof useAddSpaceToFloorMutation>;
 export type AddSpaceToFloorMutationResult = ApolloReactCommon.MutationResult<AddSpaceToFloorMutation>;
-export type AddSpaceToFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSpaceToFloorMutation, AddSpaceToFloorMutationVariables>;
+export type AddSpaceToFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddSpaceToFloorMutation,
+  AddSpaceToFloorMutationVariables
+>;
 export const UpdateSpaceDocument = gql`
-    mutation UpdateSpace($input: UpdateSpaceInput!) {
-  updateSpace(input: $input) {
-    id
+  mutation UpdateSpace($input: UpdateSpaceInput!) {
+    updateSpace(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateSpaceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpaceMutation, UpdateSpaceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSpaceMutation, UpdateSpaceMutationVariables>(
+    UpdateSpaceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateSpaceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpaceMutation, UpdateSpaceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateSpaceMutation, UpdateSpaceMutationVariables>(UpdateSpaceDocument, baseOptions);
-      }
 export type UpdateSpaceMutationHookResult = ReturnType<typeof useUpdateSpaceMutation>;
 export type UpdateSpaceMutationResult = ApolloReactCommon.MutationResult<UpdateSpaceMutation>;
-export type UpdateSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateSpaceMutation, UpdateSpaceMutationVariables>;
+export type UpdateSpaceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpaceMutation,
+  UpdateSpaceMutationVariables
+>;
 export const UpdateFloorDocument = gql`
-    mutation UpdateFloor($input: UpdateFloorInput!) {
-  updateFloor(input: $input) {
-    id
+  mutation UpdateFloor($input: UpdateFloorInput!) {
+    updateFloor(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateFloorMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateFloorMutation, UpdateFloorMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateFloorMutation, UpdateFloorMutationVariables>(
+    UpdateFloorDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateFloorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateFloorMutation, UpdateFloorMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateFloorMutation, UpdateFloorMutationVariables>(UpdateFloorDocument, baseOptions);
-      }
 export type UpdateFloorMutationHookResult = ReturnType<typeof useUpdateFloorMutation>;
 export type UpdateFloorMutationResult = ApolloReactCommon.MutationResult<UpdateFloorMutation>;
-export type UpdateFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateFloorMutation, UpdateFloorMutationVariables>;
+export type UpdateFloorMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateFloorMutation,
+  UpdateFloorMutationVariables
+>;
 export const UpdateInsideGeneralDocument = gql`
-    mutation UPDATEInsideGeneral($input: InsideGeneralInput!) {
-  updateInsideGeneral(input: $input) {
-    id
+  mutation UPDATEInsideGeneral($input: InsideGeneralInput!) {
+    updateInsideGeneral(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateInsideGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>(
+    UpdateInsideGeneralDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateInsideGeneralMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>(UpdateInsideGeneralDocument, baseOptions);
-      }
 export type UpdateInsideGeneralMutationHookResult = ReturnType<typeof useUpdateInsideGeneralMutation>;
 export type UpdateInsideGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateInsideGeneralMutation>;
-export type UpdateInsideGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateInsideGeneralMutation, UpdateInsideGeneralMutationVariables>;
+export type UpdateInsideGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInsideGeneralMutation,
+  UpdateInsideGeneralMutationVariables
+>;
 export const UpdatePimLocationDocument = gql`
-    mutation UpdatePimLocation($input: UpdatePimLocationInput!) {
-  updatePimLocation(input: $input) {
-    id
+  mutation UpdatePimLocation($input: UpdatePimLocationInput!) {
+    updatePimLocation(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdatePimLocationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>(
+    UpdatePimLocationDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdatePimLocationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>(UpdatePimLocationDocument, baseOptions);
-      }
 export type UpdatePimLocationMutationHookResult = ReturnType<typeof useUpdatePimLocationMutation>;
 export type UpdatePimLocationMutationResult = ApolloReactCommon.MutationResult<UpdatePimLocationMutation>;
-export type UpdatePimLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePimLocationMutation, UpdatePimLocationMutationVariables>;
+export type UpdatePimLocationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimLocationMutation,
+  UpdatePimLocationMutationVariables
+>;
 export const AddTagDocument = gql`
-    mutation AddTag($input: AddTagInput!) {
-  addTag(input: $input) {
-    pim {
-      id
-    }
-    newTag {
-      id
+  mutation AddTag($input: AddTagInput!) {
+    addTag(input: $input) {
+      pim {
+        id
+      }
+      newTag {
+        id
+      }
     }
   }
+`;
+export function useAddTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTagMutation, AddTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, baseOptions);
 }
-    `;
-export function useAddTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddTagMutation, AddTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddTagMutation, AddTagMutationVariables>(AddTagDocument, baseOptions);
-      }
 export type AddTagMutationHookResult = ReturnType<typeof useAddTagMutation>;
 export type AddTagMutationResult = ApolloReactCommon.MutationResult<AddTagMutation>;
 export type AddTagMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTagMutation, AddTagMutationVariables>;
 export const UpdateTagDocument = gql`
-    mutation UpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input) {
-    id
+  mutation UpdateTag($input: UpdateTagInput!) {
+    updateTag(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateTagMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTagMutation, UpdateTagMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(UpdateTagDocument, baseOptions);
 }
-    `;
-export function useUpdateTagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTagMutation, UpdateTagMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(UpdateTagDocument, baseOptions);
-      }
 export type UpdateTagMutationHookResult = ReturnType<typeof useUpdateTagMutation>;
 export type UpdateTagMutationResult = ApolloReactCommon.MutationResult<UpdateTagMutation>;
-export type UpdateTagMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateTagMutation, UpdateTagMutationVariables>;
+export type UpdateTagMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTagMutation,
+  UpdateTagMutationVariables
+>;
 export const AddUspDocument = gql`
-    mutation AddUsp($input: AddUspInput!) {
-  addUsp(input: $input) {
-    pim {
-      id
-    }
-    newUsp {
-      id
+  mutation AddUsp($input: AddUspInput!) {
+    addUsp(input: $input) {
+      pim {
+        id
+      }
+      newUsp {
+        id
+      }
     }
   }
+`;
+export function useAddUspMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUspMutation, AddUspMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddUspMutation, AddUspMutationVariables>(AddUspDocument, baseOptions);
 }
-    `;
-export function useAddUspMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddUspMutation, AddUspMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddUspMutation, AddUspMutationVariables>(AddUspDocument, baseOptions);
-      }
 export type AddUspMutationHookResult = ReturnType<typeof useAddUspMutation>;
 export type AddUspMutationResult = ApolloReactCommon.MutationResult<AddUspMutation>;
 export type AddUspMutationOptions = ApolloReactCommon.BaseMutationOptions<AddUspMutation, AddUspMutationVariables>;
 export const UpdateUspDocument = gql`
-    mutation UpdateUsp($input: UpdateUspInput!) {
-  updateUsp(input: $input) {
-    id
+  mutation UpdateUsp($input: UpdateUspInput!) {
+    updateUsp(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateUspMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUspMutation, UpdateUspMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateUspMutation, UpdateUspMutationVariables>(UpdateUspDocument, baseOptions);
 }
-    `;
-export function useUpdateUspMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUspMutation, UpdateUspMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateUspMutation, UpdateUspMutationVariables>(UpdateUspDocument, baseOptions);
-      }
 export type UpdateUspMutationHookResult = ReturnType<typeof useUpdateUspMutation>;
 export type UpdateUspMutationResult = ApolloReactCommon.MutationResult<UpdateUspMutation>;
-export type UpdateUspMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUspMutation, UpdateUspMutationVariables>;
+export type UpdateUspMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUspMutation,
+  UpdateUspMutationVariables
+>;
 export const AddMediaLinkDocument = gql`
-    mutation AddMediaLink($input: AddMediaLinkInput!) {
-  addMediaLink(input: $input) {
-    pim {
-      id
-    }
-    newMediaLink {
-      id
+  mutation AddMediaLink($input: AddMediaLinkInput!) {
+    addMediaLink(input: $input) {
+      pim {
+        id
+      }
+      newMediaLink {
+        id
+      }
     }
   }
+`;
+export function useAddMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddMediaLinkMutation, AddMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddMediaLinkMutation, AddMediaLinkMutationVariables>(
+    AddMediaLinkDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddMediaLinkMutation, AddMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddMediaLinkMutation, AddMediaLinkMutationVariables>(AddMediaLinkDocument, baseOptions);
-      }
 export type AddMediaLinkMutationHookResult = ReturnType<typeof useAddMediaLinkMutation>;
 export type AddMediaLinkMutationResult = ApolloReactCommon.MutationResult<AddMediaLinkMutation>;
-export type AddMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<AddMediaLinkMutation, AddMediaLinkMutationVariables>;
+export type AddMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddMediaLinkMutation,
+  AddMediaLinkMutationVariables
+>;
 export const UpdateMediaLinkDocument = gql`
-    mutation UpdateMediaLink($input: UpdateMediaLinkInput!) {
-  updateMediaLink(input: $input) {
-    id
+  mutation UpdateMediaLink($input: UpdateMediaLinkInput!) {
+    updateMediaLink(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateMediaLinkMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>(
+    UpdateMediaLinkDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateMediaLinkMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>(UpdateMediaLinkDocument, baseOptions);
-      }
 export type UpdateMediaLinkMutationHookResult = ReturnType<typeof useUpdateMediaLinkMutation>;
 export type UpdateMediaLinkMutationResult = ApolloReactCommon.MutationResult<UpdateMediaLinkMutation>;
-export type UpdateMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateMediaLinkMutation, UpdateMediaLinkMutationVariables>;
+export type UpdateMediaLinkMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMediaLinkMutation,
+  UpdateMediaLinkMutationVariables
+>;
 export const AddTextChapterDocument = gql`
-    mutation AddTextChapter($input: AddTextChapterInput!) {
-  addTextChapter(input: $input) {
-    pim {
-      id
-    }
-    newChapter {
-      id
+  mutation AddTextChapter($input: AddTextChapterInput!) {
+    addTextChapter(input: $input) {
+      pim {
+        id
+      }
+      newChapter {
+        id
+      }
     }
   }
+`;
+export function useAddTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTextChapterMutation, AddTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTextChapterMutation, AddTextChapterMutationVariables>(
+    AddTextChapterDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddTextChapterMutation, AddTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddTextChapterMutation, AddTextChapterMutationVariables>(AddTextChapterDocument, baseOptions);
-      }
 export type AddTextChapterMutationHookResult = ReturnType<typeof useAddTextChapterMutation>;
 export type AddTextChapterMutationResult = ApolloReactCommon.MutationResult<AddTextChapterMutation>;
-export type AddTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTextChapterMutation, AddTextChapterMutationVariables>;
+export type AddTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddTextChapterMutation,
+  AddTextChapterMutationVariables
+>;
 export const UpdateTextChapterDocument = gql`
-    mutation UpdateTextChapter($input: UpdateTextChapterInput!) {
-  updateTextChapter(input: $input) {
-    id
+  mutation UpdateTextChapter($input: UpdateTextChapterInput!) {
+    updateTextChapter(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateTextChapterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>(
+    UpdateTextChapterDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateTextChapterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>(UpdateTextChapterDocument, baseOptions);
-      }
 export type UpdateTextChapterMutationHookResult = ReturnType<typeof useUpdateTextChapterMutation>;
 export type UpdateTextChapterMutationResult = ApolloReactCommon.MutationResult<UpdateTextChapterMutation>;
-export type UpdateTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateTextChapterMutation, UpdateTextChapterMutationVariables>;
+export type UpdateTextChapterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTextChapterMutation,
+  UpdateTextChapterMutationVariables
+>;
 export const AddPicturesDocument = gql`
-    mutation AddPictures($input: AddPicturesInput!) {
-  addPictures(input: $input) {
-    pim {
-      id
+  mutation AddPictures($input: AddPicturesInput!) {
+    addPictures(input: $input) {
+      pim {
+        id
+      }
     }
   }
+`;
+export function useAddPicturesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddPicturesMutation, AddPicturesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddPicturesMutation, AddPicturesMutationVariables>(
+    AddPicturesDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddPicturesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddPicturesMutation, AddPicturesMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddPicturesMutation, AddPicturesMutationVariables>(AddPicturesDocument, baseOptions);
-      }
 export type AddPicturesMutationHookResult = ReturnType<typeof useAddPicturesMutation>;
 export type AddPicturesMutationResult = ApolloReactCommon.MutationResult<AddPicturesMutation>;
-export type AddPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<AddPicturesMutation, AddPicturesMutationVariables>;
+export type AddPicturesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddPicturesMutation,
+  AddPicturesMutationVariables
+>;
 export const UpdatePictureDocument = gql`
-    mutation UpdatePicture($input: UpdatePictureInput!) {
-  updatePicture(input: $input) {
-    id
+  mutation UpdatePicture($input: UpdatePictureInput!) {
+    updatePicture(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdatePictureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePictureMutation, UpdatePictureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePictureMutation, UpdatePictureMutationVariables>(
+    UpdatePictureDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdatePictureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePictureMutation, UpdatePictureMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePictureMutation, UpdatePictureMutationVariables>(UpdatePictureDocument, baseOptions);
-      }
 export type UpdatePictureMutationHookResult = ReturnType<typeof useUpdatePictureMutation>;
 export type UpdatePictureMutationResult = ApolloReactCommon.MutationResult<UpdatePictureMutation>;
-export type UpdatePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePictureMutation, UpdatePictureMutationVariables>;
+export type UpdatePictureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePictureMutation,
+  UpdatePictureMutationVariables
+>;
 export const AddOutsideFeatureDocument = gql`
-    mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
-  addOutsideFeature(input: $input) {
-    newOutsideFeature {
-      id
+  mutation AddOutsideFeature($input: AddOutsideFeatureInput!) {
+    addOutsideFeature(input: $input) {
+      newOutsideFeature {
+        id
+      }
     }
   }
+`;
+export function useAddOutsideFeatureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>(
+    AddOutsideFeatureDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddOutsideFeatureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>(AddOutsideFeatureDocument, baseOptions);
-      }
 export type AddOutsideFeatureMutationHookResult = ReturnType<typeof useAddOutsideFeatureMutation>;
 export type AddOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<AddOutsideFeatureMutation>;
-export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<AddOutsideFeatureMutation, AddOutsideFeatureMutationVariables>;
+export type AddOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddOutsideFeatureMutation,
+  AddOutsideFeatureMutationVariables
+>;
 export const UpdateOutsideFeatureDocument = gql`
-    mutation UpdateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
-  updateOutsideFeature(input: $input) {
-    id
+  mutation UpdateOutsideFeature($input: UpdateFeatureInputConfiguration!) {
+    updateOutsideFeature(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateOutsideFeatureMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateOutsideFeatureMutation,
+    UpdateOutsideFeatureMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateOutsideFeatureMutation, UpdateOutsideFeatureMutationVariables>(
+    UpdateOutsideFeatureDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateOutsideFeatureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateOutsideFeatureMutation, UpdateOutsideFeatureMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateOutsideFeatureMutation, UpdateOutsideFeatureMutationVariables>(UpdateOutsideFeatureDocument, baseOptions);
-      }
 export type UpdateOutsideFeatureMutationHookResult = ReturnType<typeof useUpdateOutsideFeatureMutation>;
 export type UpdateOutsideFeatureMutationResult = ApolloReactCommon.MutationResult<UpdateOutsideFeatureMutation>;
-export type UpdateOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateOutsideFeatureMutation, UpdateOutsideFeatureMutationVariables>;
+export type UpdateOutsideFeatureMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateOutsideFeatureMutation,
+  UpdateOutsideFeatureMutationVariables
+>;
 export const UpdatePimOutsideInfoDocument = gql`
-    mutation UpdatePimOutsideInfo($input: PimOutsideInput!) {
-  updatePimOutsideInfo(input: $input) {
-    id
+  mutation UpdatePimOutsideInfo($input: PimOutsideInput!) {
+    updatePimOutsideInfo(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdatePimOutsideInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdatePimOutsideInfoMutation,
+    UpdatePimOutsideInfoMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdatePimOutsideInfoMutation, UpdatePimOutsideInfoMutationVariables>(
+    UpdatePimOutsideInfoDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdatePimOutsideInfoMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePimOutsideInfoMutation, UpdatePimOutsideInfoMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePimOutsideInfoMutation, UpdatePimOutsideInfoMutationVariables>(UpdatePimOutsideInfoDocument, baseOptions);
-      }
 export type UpdatePimOutsideInfoMutationHookResult = ReturnType<typeof useUpdatePimOutsideInfoMutation>;
 export type UpdatePimOutsideInfoMutationResult = ApolloReactCommon.MutationResult<UpdatePimOutsideInfoMutation>;
-export type UpdatePimOutsideInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePimOutsideInfoMutation, UpdatePimOutsideInfoMutationVariables>;
+export type UpdatePimOutsideInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePimOutsideInfoMutation,
+  UpdatePimOutsideInfoMutationVariables
+>;
 export const TogglePricingDocument = gql`
-    mutation TogglePricing($input: TogglePricingInput!) {
-  togglePricing(input: $input) {
-    id
+  mutation TogglePricing($input: TogglePricingInput!) {
+    togglePricing(input: $input) {
+      id
+    }
   }
+`;
+export function useTogglePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<TogglePricingMutation, TogglePricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<TogglePricingMutation, TogglePricingMutationVariables>(
+    TogglePricingDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useTogglePricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<TogglePricingMutation, TogglePricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<TogglePricingMutation, TogglePricingMutationVariables>(TogglePricingDocument, baseOptions);
-      }
 export type TogglePricingMutationHookResult = ReturnType<typeof useTogglePricingMutation>;
 export type TogglePricingMutationResult = ApolloReactCommon.MutationResult<TogglePricingMutation>;
-export type TogglePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<TogglePricingMutation, TogglePricingMutationVariables>;
+export type TogglePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  TogglePricingMutation,
+  TogglePricingMutationVariables
+>;
 export const AddCostsDocument = gql`
-    mutation AddCosts($input: AddCostInput!) {
-  addCost(input: $input) {
-    pim {
-      id
+  mutation AddCosts($input: AddCostInput!) {
+    addCost(input: $input) {
+      pim {
+        id
+      }
     }
   }
+`;
+export function useAddCostsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddCostsMutation, AddCostsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddCostsMutation, AddCostsMutationVariables>(AddCostsDocument, baseOptions);
 }
-    `;
-export function useAddCostsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddCostsMutation, AddCostsMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddCostsMutation, AddCostsMutationVariables>(AddCostsDocument, baseOptions);
-      }
 export type AddCostsMutationHookResult = ReturnType<typeof useAddCostsMutation>;
 export type AddCostsMutationResult = ApolloReactCommon.MutationResult<AddCostsMutation>;
-export type AddCostsMutationOptions = ApolloReactCommon.BaseMutationOptions<AddCostsMutation, AddCostsMutationVariables>;
+export type AddCostsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddCostsMutation,
+  AddCostsMutationVariables
+>;
 export const UpdateCostDocument = gql`
-    mutation UpdateCost($input: UpdateCostInput!) {
-  updateCost(input: $input) {
-    pim {
-      id
+  mutation UpdateCost($input: UpdateCostInput!) {
+    updateCost(input: $input) {
+      pim {
+        id
+      }
     }
   }
+`;
+export function useUpdateCostMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCostMutation, UpdateCostMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCostMutation, UpdateCostMutationVariables>(UpdateCostDocument, baseOptions);
 }
-    `;
-export function useUpdateCostMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCostMutation, UpdateCostMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateCostMutation, UpdateCostMutationVariables>(UpdateCostDocument, baseOptions);
-      }
 export type UpdateCostMutationHookResult = ReturnType<typeof useUpdateCostMutation>;
 export type UpdateCostMutationResult = ApolloReactCommon.MutationResult<UpdateCostMutation>;
-export type UpdateCostMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateCostMutation, UpdateCostMutationVariables>;
+export type UpdateCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCostMutation,
+  UpdateCostMutationVariables
+>;
 export const UpdateInvestmentDocument = gql`
-    mutation UpdateInvestment($input: InvestmentInput!) {
-  updateInvestment(input: $input) {
-    id
+  mutation UpdateInvestment($input: InvestmentInput!) {
+    updateInvestment(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateInvestmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>(
+    UpdateInvestmentDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateInvestmentMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>(UpdateInvestmentDocument, baseOptions);
-      }
 export type UpdateInvestmentMutationHookResult = ReturnType<typeof useUpdateInvestmentMutation>;
 export type UpdateInvestmentMutationResult = ApolloReactCommon.MutationResult<UpdateInvestmentMutation>;
-export type UpdateInvestmentMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateInvestmentMutation, UpdateInvestmentMutationVariables>;
+export type UpdateInvestmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInvestmentMutation,
+  UpdateInvestmentMutationVariables
+>;
 export const UpdatePricingDocument = gql`
-    mutation UpdatePricing($input: UpdatePricingInput!) {
-  updatePricing(input: $input) {
-    id
+  mutation UpdatePricing($input: UpdatePricingInput!) {
+    updatePricing(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdatePricingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePricingMutation, UpdatePricingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdatePricingMutation, UpdatePricingMutationVariables>(
+    UpdatePricingDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdatePricingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePricingMutation, UpdatePricingMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdatePricingMutation, UpdatePricingMutationVariables>(UpdatePricingDocument, baseOptions);
-      }
 export type UpdatePricingMutationHookResult = ReturnType<typeof useUpdatePricingMutation>;
 export type UpdatePricingMutationResult = ApolloReactCommon.MutationResult<UpdatePricingMutation>;
-export type UpdatePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePricingMutation, UpdatePricingMutationVariables>;
+export type UpdatePricingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdatePricingMutation,
+  UpdatePricingMutationVariables
+>;
 export const AddServiceDocument = gql`
-    mutation AddService($input: AddServiceInput!) {
-  addPimService(input: $input) {
-    pim {
-      id
-    }
-    newService {
-      id
+  mutation AddService($input: AddServiceInput!) {
+    addPimService(input: $input) {
+      pim {
+        id
+      }
+      newService {
+        id
+      }
     }
   }
+`;
+export function useAddServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddServiceMutation, AddServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddServiceMutation, AddServiceMutationVariables>(AddServiceDocument, baseOptions);
 }
-    `;
-export function useAddServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddServiceMutation, AddServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddServiceMutation, AddServiceMutationVariables>(AddServiceDocument, baseOptions);
-      }
 export type AddServiceMutationHookResult = ReturnType<typeof useAddServiceMutation>;
 export type AddServiceMutationResult = ApolloReactCommon.MutationResult<AddServiceMutation>;
-export type AddServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<AddServiceMutation, AddServiceMutationVariables>;
+export type AddServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddServiceMutation,
+  AddServiceMutationVariables
+>;
 export const UpdateServiceDocument = gql`
-    mutation UpdateService($input: UpdateServiceInput!) {
-  updatePimService(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateServiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateServiceMutation, UpdateServiceMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateServiceMutation, UpdateServiceMutationVariables>(UpdateServiceDocument, baseOptions);
-      }
-export type UpdateServiceMutationHookResult = ReturnType<typeof useUpdateServiceMutation>;
-export type UpdateServiceMutationResult = ApolloReactCommon.MutationResult<UpdateServiceMutation>;
-export type UpdateServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateServiceMutation, UpdateServiceMutationVariables>;
-export const AddMeterDocument = gql`
-    mutation AddMeter($input: AddMeterInput!) {
-  addPimMeter(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddMeterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddMeterMutation, AddMeterMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddMeterMutation, AddMeterMutationVariables>(AddMeterDocument, baseOptions);
-      }
-export type AddMeterMutationHookResult = ReturnType<typeof useAddMeterMutation>;
-export type AddMeterMutationResult = ApolloReactCommon.MutationResult<AddMeterMutation>;
-export type AddMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<AddMeterMutation, AddMeterMutationVariables>;
-export const UpdateMeterDocument = gql`
-    mutation UpdateMeter($input: UpdateMeterInput!) {
-  updatePimMeter(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateMeterMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMeterMutation, UpdateMeterMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateMeterMutation, UpdateMeterMutationVariables>(UpdateMeterDocument, baseOptions);
-      }
-export type UpdateMeterMutationHookResult = ReturnType<typeof useUpdateMeterMutation>;
-export type UpdateMeterMutationResult = ApolloReactCommon.MutationResult<UpdateMeterMutation>;
-export type UpdateMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateMeterMutation, UpdateMeterMutationVariables>;
-export const AddReadingDocument = gql`
-    mutation AddReading($input: AddReadingInput!) {
-  addPimReading(input: $input) {
-    id
-  }
-}
-    `;
-export function useAddReadingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddReadingMutation, AddReadingMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddReadingMutation, AddReadingMutationVariables>(AddReadingDocument, baseOptions);
-      }
-export type AddReadingMutationHookResult = ReturnType<typeof useAddReadingMutation>;
-export type AddReadingMutationResult = ApolloReactCommon.MutationResult<AddReadingMutation>;
-export type AddReadingMutationOptions = ApolloReactCommon.BaseMutationOptions<AddReadingMutation, AddReadingMutationVariables>;
-export const UpdateReadingDocument = gql`
-    mutation UpdateReading($input: UpdateReadingInput!) {
-  updatePimReading(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateReadingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateReadingMutation, UpdateReadingMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateReadingMutation, UpdateReadingMutationVariables>(UpdateReadingDocument, baseOptions);
-      }
-export type UpdateReadingMutationHookResult = ReturnType<typeof useUpdateReadingMutation>;
-export type UpdateReadingMutationResult = ApolloReactCommon.MutationResult<UpdateReadingMutation>;
-export type UpdateReadingMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateReadingMutation, UpdateReadingMutationVariables>;
-export const UpdateSpecificationDocument = gql`
-    mutation UpdateSpecification($input: SpecificationInput!) {
-  updateSpecification(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateSpecificationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>(UpdateSpecificationDocument, baseOptions);
-      }
-export type UpdateSpecificationMutationHookResult = ReturnType<typeof useUpdateSpecificationMutation>;
-export type UpdateSpecificationMutationResult = ApolloReactCommon.MutationResult<UpdateSpecificationMutation>;
-export type UpdateSpecificationMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>;
-export const UpdateSpecificationAdvancedDocument = gql`
-    mutation UpdateSpecificationAdvanced($input: SpecificationAdvancedInput!) {
-  updateSpecificationAdvanced(input: $input) {
-    id
-  }
-}
-    `;
-export function useUpdateSpecificationAdvancedMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpecificationAdvancedMutation, UpdateSpecificationAdvancedMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateSpecificationAdvancedMutation, UpdateSpecificationAdvancedMutationVariables>(UpdateSpecificationAdvancedDocument, baseOptions);
-      }
-export type UpdateSpecificationAdvancedMutationHookResult = ReturnType<typeof useUpdateSpecificationAdvancedMutation>;
-export type UpdateSpecificationAdvancedMutationResult = ApolloReactCommon.MutationResult<UpdateSpecificationAdvancedMutation>;
-export type UpdateSpecificationAdvancedMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateSpecificationAdvancedMutation, UpdateSpecificationAdvancedMutationVariables>;
-export const SetLinkedPropertiesDocument = gql`
-    mutation SetLinkedProperties($input: LinkedPimInput!) {
-  setLinkedProperties(input: $input) {
-    id
-  }
-}
-    `;
-export function useSetLinkedPropertiesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>) {
-        return ApolloReactHooks.useMutation<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>(SetLinkedPropertiesDocument, baseOptions);
-      }
-export type SetLinkedPropertiesMutationHookResult = ReturnType<typeof useSetLinkedPropertiesMutation>;
-export type SetLinkedPropertiesMutationResult = ApolloReactCommon.MutationResult<SetLinkedPropertiesMutation>;
-export type SetLinkedPropertiesMutationOptions = ApolloReactCommon.BaseMutationOptions<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>;
-export const AddInspectionDocument = gql`
-    mutation AddInspection($input: AddInspectionInput!) {
-  addInspection(input: $input) {
-    inspection {
+  mutation UpdateService($input: UpdateServiceInput!) {
+    updatePimService(input: $input) {
       id
     }
   }
+`;
+export function useUpdateServiceMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateServiceMutation, UpdateServiceMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateServiceMutation, UpdateServiceMutationVariables>(
+    UpdateServiceDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddInspectionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddInspectionMutation, AddInspectionMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddInspectionMutation, AddInspectionMutationVariables>(AddInspectionDocument, baseOptions);
+export type UpdateServiceMutationHookResult = ReturnType<typeof useUpdateServiceMutation>;
+export type UpdateServiceMutationResult = ApolloReactCommon.MutationResult<UpdateServiceMutation>;
+export type UpdateServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateServiceMutation,
+  UpdateServiceMutationVariables
+>;
+export const AddMeterDocument = gql`
+  mutation AddMeter($input: AddMeterInput!) {
+    addPimMeter(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddMeterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddMeterMutation, AddMeterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddMeterMutation, AddMeterMutationVariables>(AddMeterDocument, baseOptions);
+}
+export type AddMeterMutationHookResult = ReturnType<typeof useAddMeterMutation>;
+export type AddMeterMutationResult = ApolloReactCommon.MutationResult<AddMeterMutation>;
+export type AddMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddMeterMutation,
+  AddMeterMutationVariables
+>;
+export const UpdateMeterDocument = gql`
+  mutation UpdateMeter($input: UpdateMeterInput!) {
+    updatePimMeter(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateMeterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMeterMutation, UpdateMeterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateMeterMutation, UpdateMeterMutationVariables>(
+    UpdateMeterDocument,
+    baseOptions,
+  );
+}
+export type UpdateMeterMutationHookResult = ReturnType<typeof useUpdateMeterMutation>;
+export type UpdateMeterMutationResult = ApolloReactCommon.MutationResult<UpdateMeterMutation>;
+export type UpdateMeterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateMeterMutation,
+  UpdateMeterMutationVariables
+>;
+export const AddReadingDocument = gql`
+  mutation AddReading($input: AddReadingInput!) {
+    addPimReading(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddReadingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddReadingMutation, AddReadingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddReadingMutation, AddReadingMutationVariables>(AddReadingDocument, baseOptions);
+}
+export type AddReadingMutationHookResult = ReturnType<typeof useAddReadingMutation>;
+export type AddReadingMutationResult = ApolloReactCommon.MutationResult<AddReadingMutation>;
+export type AddReadingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddReadingMutation,
+  AddReadingMutationVariables
+>;
+export const UpdateReadingDocument = gql`
+  mutation UpdateReading($input: UpdateReadingInput!) {
+    updatePimReading(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateReadingMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateReadingMutation, UpdateReadingMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateReadingMutation, UpdateReadingMutationVariables>(
+    UpdateReadingDocument,
+    baseOptions,
+  );
+}
+export type UpdateReadingMutationHookResult = ReturnType<typeof useUpdateReadingMutation>;
+export type UpdateReadingMutationResult = ApolloReactCommon.MutationResult<UpdateReadingMutation>;
+export type UpdateReadingMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateReadingMutation,
+  UpdateReadingMutationVariables
+>;
+export const UpdateSpecificationDocument = gql`
+  mutation UpdateSpecification($input: SpecificationInput!) {
+    updateSpecification(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSpecificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSpecificationMutation, UpdateSpecificationMutationVariables>(
+    UpdateSpecificationDocument,
+    baseOptions,
+  );
+}
+export type UpdateSpecificationMutationHookResult = ReturnType<typeof useUpdateSpecificationMutation>;
+export type UpdateSpecificationMutationResult = ApolloReactCommon.MutationResult<UpdateSpecificationMutation>;
+export type UpdateSpecificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpecificationMutation,
+  UpdateSpecificationMutationVariables
+>;
+export const UpdateSpecificationAdvancedDocument = gql`
+  mutation UpdateSpecificationAdvanced($input: SpecificationAdvancedInput!) {
+    updateSpecificationAdvanced(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateSpecificationAdvancedMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateSpecificationAdvancedMutation,
+    UpdateSpecificationAdvancedMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateSpecificationAdvancedMutation,
+    UpdateSpecificationAdvancedMutationVariables
+  >(UpdateSpecificationAdvancedDocument, baseOptions);
+}
+export type UpdateSpecificationAdvancedMutationHookResult = ReturnType<typeof useUpdateSpecificationAdvancedMutation>;
+export type UpdateSpecificationAdvancedMutationResult = ApolloReactCommon.MutationResult<
+  UpdateSpecificationAdvancedMutation
+>;
+export type UpdateSpecificationAdvancedMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSpecificationAdvancedMutation,
+  UpdateSpecificationAdvancedMutationVariables
+>;
+export const SetLinkedPropertiesDocument = gql`
+  mutation SetLinkedProperties($input: LinkedPimInput!) {
+    setLinkedProperties(input: $input) {
+      id
+    }
+  }
+`;
+export function useSetLinkedPropertiesMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<SetLinkedPropertiesMutation, SetLinkedPropertiesMutationVariables>(
+    SetLinkedPropertiesDocument,
+    baseOptions,
+  );
+}
+export type SetLinkedPropertiesMutationHookResult = ReturnType<typeof useSetLinkedPropertiesMutation>;
+export type SetLinkedPropertiesMutationResult = ApolloReactCommon.MutationResult<SetLinkedPropertiesMutation>;
+export type SetLinkedPropertiesMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SetLinkedPropertiesMutation,
+  SetLinkedPropertiesMutationVariables
+>;
+export const AddInspectionDocument = gql`
+  mutation AddInspection($input: AddInspectionInput!) {
+    addInspection(input: $input) {
+      inspection {
+        id
       }
+    }
+  }
+`;
+export function useAddInspectionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddInspectionMutation, AddInspectionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddInspectionMutation, AddInspectionMutationVariables>(
+    AddInspectionDocument,
+    baseOptions,
+  );
+}
 export type AddInspectionMutationHookResult = ReturnType<typeof useAddInspectionMutation>;
 export type AddInspectionMutationResult = ApolloReactCommon.MutationResult<AddInspectionMutation>;
-export type AddInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<AddInspectionMutation, AddInspectionMutationVariables>;
+export type AddInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddInspectionMutation,
+  AddInspectionMutationVariables
+>;
 export const UpdateInspectionDocument = gql`
-    mutation UpdateInspection($input: UpdateInspectionInput!) {
-  updateInspection(input: $input) {
-    id
+  mutation UpdateInspection($input: UpdateInspectionInput!) {
+    updateInspection(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateInspectionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInspectionMutation, UpdateInspectionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateInspectionMutation, UpdateInspectionMutationVariables>(
+    UpdateInspectionDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateInspectionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateInspectionMutation, UpdateInspectionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateInspectionMutation, UpdateInspectionMutationVariables>(UpdateInspectionDocument, baseOptions);
-      }
 export type UpdateInspectionMutationHookResult = ReturnType<typeof useUpdateInspectionMutation>;
 export type UpdateInspectionMutationResult = ApolloReactCommon.MutationResult<UpdateInspectionMutation>;
-export type UpdateInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateInspectionMutation, UpdateInspectionMutationVariables>;
+export type UpdateInspectionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateInspectionMutation,
+  UpdateInspectionMutationVariables
+>;
 export const CreatePimDocument = gql`
-    mutation CreatePim($input: CreatePimInput!) {
-  createPim(input: $input) {
-    id
+  mutation CreatePim($input: CreatePimInput!) {
+    createPim(input: $input) {
+      id
+    }
   }
+`;
+export function useCreatePimMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePimMutation, CreatePimMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreatePimMutation, CreatePimMutationVariables>(CreatePimDocument, baseOptions);
 }
-    `;
-export function useCreatePimMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePimMutation, CreatePimMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreatePimMutation, CreatePimMutationVariables>(CreatePimDocument, baseOptions);
-      }
 export type CreatePimMutationHookResult = ReturnType<typeof useCreatePimMutation>;
 export type CreatePimMutationResult = ApolloReactCommon.MutationResult<CreatePimMutation>;
-export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePimMutation, CreatePimMutationVariables>;
+export type CreatePimMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreatePimMutation,
+  CreatePimMutationVariables
+>;
 export const UpdateDescriptionDocument = gql`
-    mutation UpdateDescription($input: UpdateDescriptionInput!) {
-  updateDescription(input: $input)
+  mutation UpdateDescription($input: UpdateDescriptionInput!) {
+    updateDescription(input: $input)
+  }
+`;
+export function useUpdateDescriptionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>(
+    UpdateDescriptionDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateDescriptionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>(UpdateDescriptionDocument, baseOptions);
-      }
 export type UpdateDescriptionMutationHookResult = ReturnType<typeof useUpdateDescriptionMutation>;
 export type UpdateDescriptionMutationResult = ApolloReactCommon.MutationResult<UpdateDescriptionMutation>;
-export type UpdateDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateDescriptionMutation, UpdateDescriptionMutationVariables>;
+export type UpdateDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateDescriptionMutation,
+  UpdateDescriptionMutationVariables
+>;
 export const AddProjectPhaseDocument = gql`
-    mutation AddProjectPhase($input: CreateProjectPhaseInput!) {
-  addProjectPhase(input: $input) {
-    id
+  mutation AddProjectPhase($input: CreateProjectPhaseInput!) {
+    addProjectPhase(input: $input) {
+      id
+    }
   }
+`;
+export function useAddProjectPhaseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>(
+    AddProjectPhaseDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddProjectPhaseMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>(AddProjectPhaseDocument, baseOptions);
-      }
 export type AddProjectPhaseMutationHookResult = ReturnType<typeof useAddProjectPhaseMutation>;
 export type AddProjectPhaseMutationResult = ApolloReactCommon.MutationResult<AddProjectPhaseMutation>;
-export type AddProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<AddProjectPhaseMutation, AddProjectPhaseMutationVariables>;
+export type AddProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddProjectPhaseMutation,
+  AddProjectPhaseMutationVariables
+>;
 export const LinkNcpToProjectPhaseDocument = gql`
-    mutation LinkNcpToProjectPhase($input: LinkNcpToProjectPhaseInput!) {
-  linkNcpToProjectPhase(input: $input) {
-    id
+  mutation LinkNcpToProjectPhase($input: LinkNcpToProjectPhaseInput!) {
+    linkNcpToProjectPhase(input: $input) {
+      id
+    }
   }
+`;
+export function useLinkNcpToProjectPhaseMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    LinkNcpToProjectPhaseMutation,
+    LinkNcpToProjectPhaseMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<LinkNcpToProjectPhaseMutation, LinkNcpToProjectPhaseMutationVariables>(
+    LinkNcpToProjectPhaseDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useLinkNcpToProjectPhaseMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LinkNcpToProjectPhaseMutation, LinkNcpToProjectPhaseMutationVariables>) {
-        return ApolloReactHooks.useMutation<LinkNcpToProjectPhaseMutation, LinkNcpToProjectPhaseMutationVariables>(LinkNcpToProjectPhaseDocument, baseOptions);
-      }
 export type LinkNcpToProjectPhaseMutationHookResult = ReturnType<typeof useLinkNcpToProjectPhaseMutation>;
 export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResult<LinkNcpToProjectPhaseMutation>;
-export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<LinkNcpToProjectPhaseMutation, LinkNcpToProjectPhaseMutationVariables>;
+export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LinkNcpToProjectPhaseMutation,
+  LinkNcpToProjectPhaseMutationVariables
+>;
 export const CreateTaskDocument = gql`
-    mutation CreateTask($input: CreateTaskInput!) {
-  createTask(input: $input) {
-    id
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      id
+    }
   }
+`;
+export function useCreateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, baseOptions);
 }
-    `;
-export function useCreateTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, baseOptions);
-      }
 export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
 export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
-export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
+export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateTaskMutation,
+  CreateTaskMutationVariables
+>;
 export const UpdateTaskDocument = gql`
-    mutation UpdateTask($input: UpdateTaskInput!) {
-  updateTask(input: $input) {
-    id
+  mutation UpdateTask($input: UpdateTaskInput!) {
+    updateTask(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTaskMutation, UpdateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTaskMutation, UpdateTaskMutationVariables>(UpdateTaskDocument, baseOptions);
 }
-    `;
-export function useUpdateTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTaskMutation, UpdateTaskMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateTaskMutation, UpdateTaskMutationVariables>(UpdateTaskDocument, baseOptions);
-      }
 export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
 export type UpdateTaskMutationResult = ApolloReactCommon.MutationResult<UpdateTaskMutation>;
-export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateTaskMutation, UpdateTaskMutationVariables>;
+export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTaskMutation,
+  UpdateTaskMutationVariables
+>;
 export const AddTeamDocument = gql`
-    mutation AddTeam($input: AddTeamInput!) {
-  addTeam(input: $input) {
-    id
-    name
+  mutation AddTeam($input: AddTeamInput!) {
+    addTeam(input: $input) {
+      id
+      name
+    }
   }
+`;
+export function useAddTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTeamMutation, AddTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTeamMutation, AddTeamMutationVariables>(AddTeamDocument, baseOptions);
 }
-    `;
-export function useAddTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddTeamMutation, AddTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddTeamMutation, AddTeamMutationVariables>(AddTeamDocument, baseOptions);
-      }
 export type AddTeamMutationHookResult = ReturnType<typeof useAddTeamMutation>;
 export type AddTeamMutationResult = ApolloReactCommon.MutationResult<AddTeamMutation>;
 export type AddTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTeamMutation, AddTeamMutationVariables>;
 export const UpdateTeamDocument = gql`
-    mutation UpdateTeam($input: UpdateTeamInput!) {
-  updateTeam(input: $input) {
-    id
+  mutation UpdateTeam($input: UpdateTeamInput!) {
+    updateTeam(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTeamMutation, UpdateTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTeamMutation, UpdateTeamMutationVariables>(UpdateTeamDocument, baseOptions);
 }
-    `;
-export function useUpdateTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTeamMutation, UpdateTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateTeamMutation, UpdateTeamMutationVariables>(UpdateTeamDocument, baseOptions);
-      }
 export type UpdateTeamMutationHookResult = ReturnType<typeof useUpdateTeamMutation>;
 export type UpdateTeamMutationResult = ApolloReactCommon.MutationResult<UpdateTeamMutation>;
-export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateTeamMutation, UpdateTeamMutationVariables>;
+export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTeamMutation,
+  UpdateTeamMutationVariables
+>;
 export const RemoveTeamDocument = gql`
-    mutation RemoveTeam($id: String!) {
-  removeTeam(id: $id)
+  mutation RemoveTeam($id: String!) {
+    removeTeam(id: $id)
+  }
+`;
+export function useRemoveTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveTeamMutation, RemoveTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveTeamMutation, RemoveTeamMutationVariables>(RemoveTeamDocument, baseOptions);
 }
-    `;
-export function useRemoveTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveTeamMutation, RemoveTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<RemoveTeamMutation, RemoveTeamMutationVariables>(RemoveTeamDocument, baseOptions);
-      }
 export type RemoveTeamMutationHookResult = ReturnType<typeof useRemoveTeamMutation>;
 export type RemoveTeamMutationResult = ApolloReactCommon.MutationResult<RemoveTeamMutation>;
-export type RemoveTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveTeamMutation, RemoveTeamMutationVariables>;
+export type RemoveTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveTeamMutation,
+  RemoveTeamMutationVariables
+>;
 export const AddUserToTeamDocument = gql`
-    mutation AddUserToTeam($input: AddUserToTeamInput!) {
-  addUserToTeam(input: $input) {
-    id
+  mutation AddUserToTeam($input: AddUserToTeamInput!) {
+    addUserToTeam(input: $input) {
+      id
+    }
   }
+`;
+export function useAddUserToTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUserToTeamMutation, AddUserToTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddUserToTeamMutation, AddUserToTeamMutationVariables>(
+    AddUserToTeamDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useAddUserToTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddUserToTeamMutation, AddUserToTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddUserToTeamMutation, AddUserToTeamMutationVariables>(AddUserToTeamDocument, baseOptions);
-      }
 export type AddUserToTeamMutationHookResult = ReturnType<typeof useAddUserToTeamMutation>;
 export type AddUserToTeamMutationResult = ApolloReactCommon.MutationResult<AddUserToTeamMutation>;
-export type AddUserToTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<AddUserToTeamMutation, AddUserToTeamMutationVariables>;
+export type AddUserToTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddUserToTeamMutation,
+  AddUserToTeamMutationVariables
+>;
 export const RemoveUserFromTeamDocument = gql`
-    mutation RemoveUserFromTeam($input: RemoveUserFromTeamInput!) {
-  removeUserFromTeam(input: $input) {
-    id
+  mutation RemoveUserFromTeam($input: RemoveUserFromTeamInput!) {
+    removeUserFromTeam(input: $input) {
+      id
+    }
   }
+`;
+export function useRemoveUserFromTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>(
+    RemoveUserFromTeamDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useRemoveUserFromTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>(RemoveUserFromTeamDocument, baseOptions);
-      }
 export type RemoveUserFromTeamMutationHookResult = ReturnType<typeof useRemoveUserFromTeamMutation>;
 export type RemoveUserFromTeamMutationResult = ApolloReactCommon.MutationResult<RemoveUserFromTeamMutation>;
-export type RemoveUserFromTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>;
+export type RemoveUserFromTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveUserFromTeamMutation,
+  RemoveUserFromTeamMutationVariables
+>;
 export const UpdateUserInTeamDocument = gql`
-    mutation UpdateUserInTeam($input: UpdateUserInTeamInput!) {
-  updateUserInTeam(input: $input) {
-    id
+  mutation UpdateUserInTeam($input: UpdateUserInTeamInput!) {
+    updateUserInTeam(input: $input) {
+      id
+    }
   }
+`;
+export function useUpdateUserInTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>(
+    UpdateUserInTeamDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useUpdateUserInTeamMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>(UpdateUserInTeamDocument, baseOptions);
-      }
 export type UpdateUserInTeamMutationHookResult = ReturnType<typeof useUpdateUserInTeamMutation>;
 export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<UpdateUserInTeamMutation>;
-export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>;
+export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUserInTeamMutation,
+  UpdateUserInTeamMutationVariables
+>;
 export const BulkDetailsDocument = gql`
-    query BulkDetails($input: GetBulkDetailsInput!) {
-  getBulkDetails(input: $input) {
-    id
-    value
+  query BulkDetails($input: GetBulkDetailsInput!) {
+    getBulkDetails(input: $input) {
+      id
+      value
+    }
   }
+`;
+export function useBulkDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
 }
-    `;
-export function useBulkDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
-      }
-export function useBulkDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
-        }
+export function useBulkDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BulkDetailsQuery, BulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<BulkDetailsQuery, BulkDetailsQueryVariables>(BulkDetailsDocument, baseOptions);
+}
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
 export const GetLabelsDocument = gql`
-    query GetLabels($id: ID!, $properties: [LabelProperty!]) {
-  getLabels(parentId: $id, properties: $properties) {
-    id
-    property
-    icon
-    text
+  query GetLabels($id: ID!, $properties: [LabelProperty!]) {
+    getLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
   }
+`;
+export function useGetLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
 }
-    `;
-export function useGetLabelsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
-      }
-export function useGetLabelsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
-        }
+export function useGetLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetLabelsQuery, GetLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetLabelsQuery, GetLabelsQueryVariables>(GetLabelsDocument, baseOptions);
+}
 export type GetLabelsQueryHookResult = ReturnType<typeof useGetLabelsQuery>;
 export type GetLabelsLazyQueryHookResult = ReturnType<typeof useGetLabelsLazyQuery>;
 export type GetLabelsQueryResult = ApolloReactCommon.QueryResult<GetLabelsQuery, GetLabelsQueryVariables>;
 export const CountPimsByParamsDocument = gql`
-    query CountPimsByParams($filters: ListPimsFilters) {
-  listPims(filters: $filters) {
-    metadata {
-      total
+  query CountPimsByParams($filters: ListPimsFilters) {
+    listPims(filters: $filters) {
+      metadata {
+        total
+      }
     }
   }
+`;
+export function useCountPimsByParamsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>(
+    CountPimsByParamsDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useCountPimsByParamsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>) {
-        return ApolloReactHooks.useQuery<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>(CountPimsByParamsDocument, baseOptions);
-      }
-export function useCountPimsByParamsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>(CountPimsByParamsDocument, baseOptions);
-        }
+export function useCountPimsByParamsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>(
+    CountPimsByParamsDocument,
+    baseOptions,
+  );
+}
 export type CountPimsByParamsQueryHookResult = ReturnType<typeof useCountPimsByParamsQuery>;
 export type CountPimsByParamsLazyQueryHookResult = ReturnType<typeof useCountPimsByParamsLazyQuery>;
-export type CountPimsByParamsQueryResult = ApolloReactCommon.QueryResult<CountPimsByParamsQuery, CountPimsByParamsQueryVariables>;
+export type CountPimsByParamsQueryResult = ApolloReactCommon.QueryResult<
+  CountPimsByParamsQuery,
+  CountPimsByParamsQueryVariables
+>;
 export const ListPimsCountDocument = gql`
-    query ListPimsCount($pricingType: PricingType, $propertyTypes: [PropertyType]) {
-  activeCount: listPims(filters: {archived: false, pricingType: $pricingType, propertyTypes: $propertyTypes}) {
-    metadata {
-      total
-    }
-  }
-  archivedCount: listPims(filters: {archived: true, pricingType: $pricingType, propertyTypes: $propertyTypes}) {
-    metadata {
-      total
-    }
-  }
-}
-    `;
-export function useListPimsCountQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(ListPimsCountDocument, baseOptions);
+  query ListPimsCount($pricingType: PricingType, $propertyTypes: [PropertyType]) {
+    activeCount: listPims(filters: { archived: false, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
+      metadata {
+        total
       }
-export function useListPimsCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(ListPimsCountDocument, baseOptions);
-        }
+    }
+    archivedCount: listPims(filters: { archived: true, pricingType: $pricingType, propertyTypes: $propertyTypes }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(ListPimsCountDocument, baseOptions);
+}
+export function useListPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsCountQuery, ListPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListPimsCountQuery, ListPimsCountQueryVariables>(
+    ListPimsCountDocument,
+    baseOptions,
+  );
+}
 export type ListPimsCountQueryHookResult = ReturnType<typeof useListPimsCountQuery>;
 export type ListPimsCountLazyQueryHookResult = ReturnType<typeof useListPimsCountLazyQuery>;
 export type ListPimsCountQueryResult = ApolloReactCommon.QueryResult<ListPimsCountQuery, ListPimsCountQueryVariables>;
 export const ListPimsDocument = gql`
-    query ListPims($archived: Boolean!, $pricingType: PricingType, $propertyTypes: [PropertyType], $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-  listPims(filters: {archived: $archived, pricingType: $pricingType, propertyTypes: $propertyTypes}, pagination: {from: $from, limit: $limit}, sort: {column: $sortColumn, direction: $sortDirection}) {
-    items {
-      id
-      street
-      houseNumberPrefix
-      houseNumber
-      houseNumberAddition
-      constructionNumberPrefix
-      constructionNumber
-      constructionNumberAddition
-      city
-      dateCreated
-      livingArea
-      propertyType
-      pictures {
-        id
-        name
-        description
-        type
-        dateUpdated
-        file {
-          id
-          key
-          fileName
-          url
-        }
-      }
-      mainPicture {
-        id
-        file {
-          id
-          key
-          url
-        }
-      }
-      salePrice
-      rentPrice
-      completeness
-      archived
-      attentionNote
-    }
-  }
-}
-    `;
-export function useListPimsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsQuery, ListPimsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
-      }
-export function useListPimsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsQuery, ListPimsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
-        }
-export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
-export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
-export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
-export const LinkedPimsListDocument = gql`
-    query LinkedPimsList($from: Int!, $limit: Int, $id: ID!) {
-  pims: listPims(filters: {archived: false}, pagination: {from: $from, limit: $limit}) {
-    items {
-      id
-      street
-      houseNumber
-      city
-      postalCode
-    }
-  }
-  linkedObjectIds: getObjectTypeLinkedPims(id: $id) {
-    linkedPropertiesIds
-  }
-}
-    `;
-export function useLinkedPimsListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>) {
-        return ApolloReactHooks.useQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(LinkedPimsListDocument, baseOptions);
-      }
-export function useLinkedPimsListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(LinkedPimsListDocument, baseOptions);
-        }
-export type LinkedPimsListQueryHookResult = ReturnType<typeof useLinkedPimsListQuery>;
-export type LinkedPimsListLazyQueryHookResult = ReturnType<typeof useLinkedPimsListLazyQuery>;
-export type LinkedPimsListQueryResult = ApolloReactCommon.QueryResult<LinkedPimsListQuery, LinkedPimsListQueryVariables>;
-export const NcpCharacteristicsDocument = gql`
-    query NcpCharacteristics($id: ID!) {
-  getNcpCharacteristics(id: $id) {
-    id
-    characteristicsSections
-    projectMarketing {
-      logos {
-        id
-        url
-      }
-      emailAddress
-      website
-      firstColor
-      secondColor
-      mainLogoId
-    }
-    measurements {
-      volumeFrom
-      volumeTo
-      livingSpaceFrom
-      livingSpaceTo
-      plotAreaFrom
-      plotAreaTo
-      calculateAutomatically
-    }
-    energy {
-      label
-      energyIndex
-      endDateEnergyLabel
-      EPC
-      characteristicType
-      notes
-    }
-    accountManagers {
-      id
-    }
-    accountManagersIds
-    identificationNumbers {
-      id
-      name
-      number
-      type
-      dateCreated
-    }
-    attentionNote
-    invoiceDetails {
-      street
-      houseNumber
-      additionalNumber
-      zipCode
-      city
-      country
-      projectInvoiceNumber
-      contactPerson
-      description
-    }
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    dateUpdated
-    characteristicsDescription
-  }
-}
-    `;
-export function useNcpCharacteristicsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(NcpCharacteristicsDocument, baseOptions);
-      }
-export function useNcpCharacteristicsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(NcpCharacteristicsDocument, baseOptions);
-        }
-export type NcpCharacteristicsQueryHookResult = ReturnType<typeof useNcpCharacteristicsQuery>;
-export type NcpCharacteristicsLazyQueryHookResult = ReturnType<typeof useNcpCharacteristicsLazyQuery>;
-export type NcpCharacteristicsQueryResult = ApolloReactCommon.QueryResult<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>;
-export const NcpGeneralDocument = gql`
-    query NcpGeneral($id: ID!) {
-  getNcp(id: $id) {
-    id
-    type
-    dateCreated
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    name
-    additionalName
-    street
-    houseNumber
-    additionalHouseNumber
-    zipCode
-    city
-    country
-    objectTypesCount
-    automaticallyCalculateQuantity
-    properties
-    progressStatus
-    startConstruction
-    noteStartConstruction
-    startSale
-    noteStartSale
-    startDelivery
-    noteStartDelivery
-    startConstructionAfterPresalePercentage
-    projectRisk
-    notes
-    archived
-  }
-}
-    `;
-export function useNcpGeneralQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
-      }
-export function useNcpGeneralLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
-        }
-export type NcpGeneralQueryHookResult = ReturnType<typeof useNcpGeneralQuery>;
-export type NcpGeneralLazyQueryHookResult = ReturnType<typeof useNcpGeneralLazyQuery>;
-export type NcpGeneralQueryResult = ApolloReactCommon.QueryResult<NcpGeneralQuery, NcpGeneralQueryVariables>;
-export const NcpWithSameAddressDocument = gql`
-    query NcpWithSameAddress($input: NcpWithSameAddressInput!) {
-  getNcpWithSameAddress(input: $input) {
-    metadata {
-      total
-    }
-    items {
-      id
-    }
-  }
-}
-    `;
-export function useNcpWithSameAddressQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(NcpWithSameAddressDocument, baseOptions);
-      }
-export function useNcpWithSameAddressLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(NcpWithSameAddressDocument, baseOptions);
-        }
-export type NcpWithSameAddressQueryHookResult = ReturnType<typeof useNcpWithSameAddressQuery>;
-export type NcpWithSameAddressLazyQueryHookResult = ReturnType<typeof useNcpWithSameAddressLazyQuery>;
-export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>;
-export const NcpGeneralOverallInfoDocument = gql`
-    query NcpGeneralOverallInfo($id: ID!) {
-  project: getNcp(id: $id) {
-    id
-    name
-  }
-  objectTypes: listObjectTypes(filters: {ncpId: $id, archived: false}) {
-    metadata {
-      total
-    }
-  }
-  linkedProperties: getNcpLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: false}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-}
-    `;
-export function useNcpGeneralOverallInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(NcpGeneralOverallInfoDocument, baseOptions);
-      }
-export function useNcpGeneralOverallInfoLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(NcpGeneralOverallInfoDocument, baseOptions);
-        }
-export type NcpGeneralOverallInfoQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoQuery>;
-export type NcpGeneralOverallInfoLazyQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoLazyQuery>;
-export type NcpGeneralOverallInfoQueryResult = ApolloReactCommon.QueryResult<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>;
-export const GetNcpLabelsDocument = gql`
-    query GetNcpLabels($id: ID!, $properties: [LabelProperty!]) {
-  getNcpLabels(parentId: $id, properties: $properties) {
-    id
-    property
-    icon
-    text
-  }
-}
-    `;
-export function useGetNcpLabelsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(GetNcpLabelsDocument, baseOptions);
-      }
-export function useGetNcpLabelsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(GetNcpLabelsDocument, baseOptions);
-        }
-export type GetNcpLabelsQueryHookResult = ReturnType<typeof useGetNcpLabelsQuery>;
-export type GetNcpLabelsLazyQueryHookResult = ReturnType<typeof useGetNcpLabelsLazyQuery>;
-export type GetNcpLabelsQueryResult = ApolloReactCommon.QueryResult<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>;
-export const ListNcpsCountDocument = gql`
-    query ListNcpsCount($pricingType: PricingType) {
-  activeCount: listNcps(filters: {archived: false, pricingType: $pricingType}) {
-    metadata {
-      total
-    }
-  }
-  archivedCount: listNcps(filters: {archived: true, pricingType: $pricingType}) {
-    metadata {
-      total
-    }
-  }
-}
-    `;
-export function useListNcpsCountQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(ListNcpsCountDocument, baseOptions);
-      }
-export function useListNcpsCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(ListNcpsCountDocument, baseOptions);
-        }
-export type ListNcpsCountQueryHookResult = ReturnType<typeof useListNcpsCountQuery>;
-export type ListNcpsCountLazyQueryHookResult = ReturnType<typeof useListNcpsCountLazyQuery>;
-export type ListNcpsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpsCountQuery, ListNcpsCountQueryVariables>;
-export const ListNcpsDocument = gql`
-    query ListNcps($pricingType: PricingType, $archived: Boolean!, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-  listNcps(filters: {archived: $archived, pricingType: $pricingType}, pagination: {from: $from, limit: $limit}, sort: {column: $sortColumn, direction: $sortDirection}) {
-    items {
-      id
-      dateCreated
-      dateUpdated
-      archived
-      areaRangeFrom
-      areaRangeTo
-      numberOfRoomsFrom
-      numberOfRoomsTo
-      logoPicture {
-        url
-      }
-      mainPicture {
-        id
-        file {
-          url
-        }
-      }
-      name
-      salePriceFrom
-      salePriceTo
-      rentPriceFrom
-      rentPriceTo
-      saleLabel
-      rentLabel
-      partOfPhase
-      soldNumber
-      rentNumber
-      completeness
-      available
-      underOption
-      soldOrRent
-      matches
-      interests
-      candidates
-      optants
-      properties
-      objectTypesCount
-      attentionNote
-    }
-  }
-}
-    `;
-export function useListNcpsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
-      }
-export function useListNcpsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
-        }
-export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
-export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
-export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
-export const NcpBulkDetailsDocument = gql`
-    query NcpBulkDetails($ids: [ID!]!) {
-  city: getBulkDetails(input: {ids: $ids, field: city, entity: Ncp}) {
-    value
-  }
-}
-    `;
-export function useNcpBulkDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(NcpBulkDetailsDocument, baseOptions);
-      }
-export function useNcpBulkDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(NcpBulkDetailsDocument, baseOptions);
-        }
-export type NcpBulkDetailsQueryHookResult = ReturnType<typeof useNcpBulkDetailsQuery>;
-export type NcpBulkDetailsLazyQueryHookResult = ReturnType<typeof useNcpBulkDetailsLazyQuery>;
-export type NcpBulkDetailsQueryResult = ApolloReactCommon.QueryResult<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>;
-export const NcpMediaDocument = gql`
-    query NcpMedia($id: ID!, $picturesSort: Sort) {
-  getNcpMedia(id: $id) {
-    id
-    mediaDescription
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    pictures(sort: $picturesSort) {
-      id
-      name
-      description
-      type
-      dateUpdated
-      file {
-        id
-        key
-        fileName
-      }
-    }
-    mainPictureId
-    mediaLinks {
-      id
-      name
-      type
-      url
-    }
-    textChapters {
-      id
-      name
-      type
-      text
-    }
-    usps {
-      id
-      name
-      description
-      type
-    }
-    tags {
-      id
-      name
-      description
-      type
-    }
-  }
-}
-    `;
-export function useNcpMediaQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
-      }
-export function useNcpMediaLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
-        }
-export type NcpMediaQueryHookResult = ReturnType<typeof useNcpMediaQuery>;
-export type NcpMediaLazyQueryHookResult = ReturnType<typeof useNcpMediaLazyQuery>;
-export type NcpMediaQueryResult = ApolloReactCommon.QueryResult<NcpMediaQuery, NcpMediaQueryVariables>;
-export const NcpPricesPricingDocument = gql`
-    query NcpPricesPricing($id: ID!) {
-  getNcpPrices(id: $id) {
-    id
-    pricing {
-      rent {
-        minPrice
-        maxPrice
-        isEnabled
-        calculateAutomatically
-      }
-      sale {
-        minPrice
-        maxPrice
-        isEnabled
-        calculateAutomatically
-      }
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      dateUpdated
-      description
-    }
-  }
-}
-    `;
-export function useNcpPricesPricingQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(NcpPricesPricingDocument, baseOptions);
-      }
-export function useNcpPricesPricingLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(NcpPricesPricingDocument, baseOptions);
-        }
-export type NcpPricesPricingQueryHookResult = ReturnType<typeof useNcpPricesPricingQuery>;
-export type NcpPricesPricingLazyQueryHookResult = ReturnType<typeof useNcpPricesPricingLazyQuery>;
-export type NcpPricesPricingQueryResult = ApolloReactCommon.QueryResult<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>;
-export const NcpPricesCostsDocument = gql`
-    query NcpPricesCosts($id: ID!) {
-  getNcpPrices(id: $id) {
-    id
-    costs {
-      costs {
-        id
-        serviceCostsFrom
-        serviceCostsTill
-        paymentsFrequency
-        vatTaxedServiceCostsFrom
-        vatTaxedServiceCostsTill
-        vatPercentage
-        notes
-        type
-        name
-        dateCreated
-      }
-      description
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      dateUpdated
-    }
-  }
-}
-    `;
-export function useNcpPricesCostsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(NcpPricesCostsDocument, baseOptions);
-      }
-export function useNcpPricesCostsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(NcpPricesCostsDocument, baseOptions);
-        }
-export type NcpPricesCostsQueryHookResult = ReturnType<typeof useNcpPricesCostsQuery>;
-export type NcpPricesCostsLazyQueryHookResult = ReturnType<typeof useNcpPricesCostsLazyQuery>;
-export type NcpPricesCostsQueryResult = ApolloReactCommon.QueryResult<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>;
-export const NcpPricesInterestsDocument = gql`
-    query NcpPricesInterests($id: ID!) {
-  getNcpPrices(id: $id) {
-    id
-    interests {
-      groundInterest
-      buildingInterest
-      rentedagen
-      suspensiveCondition
-      description
-      dateCreated
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-}
-    `;
-export function useNcpPricesInterestsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(NcpPricesInterestsDocument, baseOptions);
-      }
-export function useNcpPricesInterestsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(NcpPricesInterestsDocument, baseOptions);
-        }
-export type NcpPricesInterestsQueryHookResult = ReturnType<typeof useNcpPricesInterestsQuery>;
-export type NcpPricesInterestsLazyQueryHookResult = ReturnType<typeof useNcpPricesInterestsLazyQuery>;
-export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>;
-export const ListNcpLinkedPimsCountDocument = gql`
-    query ListNcpLinkedPimsCount($id: ID!) {
-  activeCount: getNcpLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: false}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-  archivedCount: getNcpLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: true}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-}
-    `;
-export function useListNcpLinkedPimsCountQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(ListNcpLinkedPimsCountDocument, baseOptions);
-      }
-export function useListNcpLinkedPimsCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(ListNcpLinkedPimsCountDocument, baseOptions);
-        }
-export type ListNcpLinkedPimsCountQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountQuery>;
-export type ListNcpLinkedPimsCountLazyQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountLazyQuery>;
-export type ListNcpLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>;
-export const NcpLinkedPimsDocument = gql`
-    query NcpLinkedPims($id: ID!, $archived: Boolean, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-  getNcpLinkedPims(id: $id) {
-    linkedPropertiesIds
-    description
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    linkedProperties(filters: {archived: $archived}, pagination: {from: $from, limit: $limit}, sort: {column: $sortColumn, direction: $sortDirection}) {
+  query ListPims(
+    $archived: Boolean!
+    $pricingType: PricingType
+    $propertyTypes: [PropertyType]
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    listPims(
+      filters: { archived: $archived, pricingType: $pricingType, propertyTypes: $propertyTypes }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
       items {
         id
         street
@@ -12916,8 +12864,23 @@ export const NcpLinkedPimsDocument = gql`
         livingArea
         propertyType
         pictures {
+          id
+          name
+          description
           type
+          dateUpdated
           file {
+            id
+            key
+            fileName
+            url
+          }
+        }
+        mainPicture {
+          id
+          file {
+            id
+            key
             url
           }
         }
@@ -12925,1782 +12888,86 @@ export const NcpLinkedPimsDocument = gql`
         rentPrice
         completeness
         archived
-        postalCode
-        country
-        status
-        developmentType
-        linkedObjectTypeIds
-      }
-    }
-  }
-}
-    `;
-export function useNcpLinkedPimsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>) {
-        return ApolloReactHooks.useQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(NcpLinkedPimsDocument, baseOptions);
-      }
-export function useNcpLinkedPimsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(NcpLinkedPimsDocument, baseOptions);
-        }
-export type NcpLinkedPimsQueryHookResult = ReturnType<typeof useNcpLinkedPimsQuery>;
-export type NcpLinkedPimsLazyQueryHookResult = ReturnType<typeof useNcpLinkedPimsLazyQuery>;
-export type NcpLinkedPimsQueryResult = ApolloReactCommon.QueryResult<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>;
-export const GetNcpServicesDocument = gql`
-    query GetNcpServices($id: ID!) {
-  getNcpServices(id: $id) {
-    id
-    hotWaterSupplies {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HotWaterSupplyConfiguration {
-          type
-          fuel
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    heatingSources {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HeatingSourceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-    }
-    additionalServices {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on AdditionalServiceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    servicesDescription
-  }
-}
-    `;
-export function useGetNcpServicesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(GetNcpServicesDocument, baseOptions);
-      }
-export function useGetNcpServicesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(GetNcpServicesDocument, baseOptions);
-        }
-export type GetNcpServicesQueryHookResult = ReturnType<typeof useGetNcpServicesQuery>;
-export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServicesLazyQuery>;
-export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<GetNcpServicesQuery, GetNcpServicesQueryVariables>;
-export const ObjectTypeCharacteristicsDocument = gql`
-    query ObjectTypeCharacteristics($id: ID!) {
-  getObjectTypeCharacteristics(id: $id) {
-    id
-    characteristicsSections
-    projectMarketing {
-      logos {
-        id
-        url
-      }
-      emailAddress
-      website
-      firstColor
-      secondColor
-      mainLogoId
-    }
-    measurements {
-      volumeFrom
-      volumeTo
-      livingSpaceFrom
-      livingSpaceTo
-      plotAreaFrom
-      plotAreaTo
-      calculateAutomatically
-    }
-    energy {
-      label
-      energyIndex
-      endDateEnergyLabel
-      EPC
-      characteristicType
-      notes
-    }
-    accountManagers {
-      id
-    }
-    accountManagersIds
-    identificationNumbers {
-      id
-      name
-      number
-      type
-      dateCreated
-    }
-    attentionNote
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    dateUpdated
-    characteristicsDescription
-    type
-    automaticallySetObjectTypes
-  }
-}
-    `;
-export function useObjectTypeCharacteristicsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(ObjectTypeCharacteristicsDocument, baseOptions);
-      }
-export function useObjectTypeCharacteristicsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(ObjectTypeCharacteristicsDocument, baseOptions);
-        }
-export type ObjectTypeCharacteristicsQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsQuery>;
-export type ObjectTypeCharacteristicsLazyQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsLazyQuery>;
-export type ObjectTypeCharacteristicsQueryResult = ApolloReactCommon.QueryResult<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>;
-export const GetObjectTypeGeneralDocument = gql`
-    query GetObjectTypeGeneral($id: ID!) {
-  getObjectTypeGeneral(id: $id) {
-    id
-    name
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    ncpId
-  }
-}
-    `;
-export function useGetObjectTypeGeneralQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(GetObjectTypeGeneralDocument, baseOptions);
-      }
-export function useGetObjectTypeGeneralLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(GetObjectTypeGeneralDocument, baseOptions);
-        }
-export type GetObjectTypeGeneralQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralQuery>;
-export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralLazyQuery>;
-export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>;
-export const ObjectTypeOverallInfoDocument = gql`
-    query ObjectTypeOverallInfo($id: ID!, $projectId: ID!) {
-  objectType: getObjectTypeGeneral(id: $id) {
-    id
-    name
-  }
-  project: getNcp(id: $projectId) {
-    id
-    name
-  }
-  linkedProperty: getObjectTypeLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: false}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-}
-    `;
-export function useObjectTypeOverallInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(ObjectTypeOverallInfoDocument, baseOptions);
-      }
-export function useObjectTypeOverallInfoLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(ObjectTypeOverallInfoDocument, baseOptions);
-        }
-export type ObjectTypeOverallInfoQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoQuery>;
-export type ObjectTypeOverallInfoLazyQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoLazyQuery>;
-export type ObjectTypeOverallInfoQueryResult = ApolloReactCommon.QueryResult<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>;
-export const GetObjectTypeLabelsDocument = gql`
-    query GetObjectTypeLabels($id: ID!, $properties: [LabelProperty!]) {
-  getObjectTypeLabels(parentId: $id, properties: $properties) {
-    id
-    property
-    icon
-    text
-  }
-}
-    `;
-export function useGetObjectTypeLabelsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(GetObjectTypeLabelsDocument, baseOptions);
-      }
-export function useGetObjectTypeLabelsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(GetObjectTypeLabelsDocument, baseOptions);
-        }
-export type GetObjectTypeLabelsQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsQuery>;
-export type GetObjectTypeLabelsLazyQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsLazyQuery>;
-export type GetObjectTypeLabelsQueryResult = ApolloReactCommon.QueryResult<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>;
-export const ListObjectTypesCountDocument = gql`
-    query ListObjectTypesCount($ncpId: ID!) {
-  activeCount: listObjectTypes(filters: {ncpId: $ncpId, archived: null}) {
-    metadata {
-      total
-    }
-  }
-  archivedCount: listObjectTypes(filters: {ncpId: $ncpId, archived: true}) {
-    metadata {
-      total
-    }
-  }
-}
-    `;
-export function useListObjectTypesCountQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(ListObjectTypesCountDocument, baseOptions);
-      }
-export function useListObjectTypesCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(ListObjectTypesCountDocument, baseOptions);
-        }
-export type ListObjectTypesCountQueryHookResult = ReturnType<typeof useListObjectTypesCountQuery>;
-export type ListObjectTypesCountLazyQueryHookResult = ReturnType<typeof useListObjectTypesCountLazyQuery>;
-export type ListObjectTypesCountQueryResult = ApolloReactCommon.QueryResult<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>;
-export const ListObjectTypesDocument = gql`
-    query ListObjectTypes($ncpId: ID!, $archived: Boolean, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-  listObjectTypes(filters: {ncpId: $ncpId, archived: $archived}, pagination: {from: $from, limit: $limit}, sort: {column: $sortColumn, direction: $sortDirection}) {
-    items {
-      id
-      ncpId
-      dateCreated
-      dateUpdated
-      archived
-      areaRangeFrom
-      areaRangeTo
-      numberOfRoomsFrom
-      numberOfRoomsTo
-      mainPicture {
-        id
-        file {
-          url
-        }
-      }
-      name
-      salePriceFrom
-      salePriceTo
-      rentPriceFrom
-      rentPriceTo
-      saleLabel
-      rentLabel
-      partOfPhase
-      completeness
-      matches
-      interests
-      propertiesConnected
-      propertiesAvailable
-      underOption
-      soldOrRent
-      attentionNote
-    }
-  }
-}
-    `;
-export function useListObjectTypesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(ListObjectTypesDocument, baseOptions);
-      }
-export function useListObjectTypesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(ListObjectTypesDocument, baseOptions);
-        }
-export type ListObjectTypesQueryHookResult = ReturnType<typeof useListObjectTypesQuery>;
-export type ListObjectTypesLazyQueryHookResult = ReturnType<typeof useListObjectTypesLazyQuery>;
-export type ListObjectTypesQueryResult = ApolloReactCommon.QueryResult<ListObjectTypesQuery, ListObjectTypesQueryVariables>;
-export const ObjectTypeListDescriptionDocument = gql`
-    query ObjectTypeListDescription($id: ID!) {
-  getNcp(id: $id) {
-    objectTypesListDescription
-    objectTypesListLastUpdatedBy {
-      id
-      firstName
-      lastName
-    }
-    objectTypesListLastUpdatedOn
-  }
-}
-    `;
-export function useObjectTypeListDescriptionQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(ObjectTypeListDescriptionDocument, baseOptions);
-      }
-export function useObjectTypeListDescriptionLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(ObjectTypeListDescriptionDocument, baseOptions);
-        }
-export type ObjectTypeListDescriptionQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionQuery>;
-export type ObjectTypeListDescriptionLazyQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionLazyQuery>;
-export type ObjectTypeListDescriptionQueryResult = ApolloReactCommon.QueryResult<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>;
-export const ObjectTypeMediaDocument = gql`
-    query ObjectTypeMedia($id: ID!, $picturesSort: Sort) {
-  getObjectTypeMedia(id: $id) {
-    id
-    mediaDescription
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    pictures(sort: $picturesSort) {
-      id
-      name
-      description
-      type
-      dateUpdated
-      file {
-        id
-        key
-        fileName
-      }
-    }
-    mainPictureId
-    mediaLinks {
-      id
-      name
-      type
-      url
-    }
-    textChapters {
-      id
-      name
-      type
-      text
-    }
-    usps {
-      id
-      name
-      description
-      type
-    }
-    tags {
-      id
-      name
-      description
-      type
-    }
-  }
-}
-    `;
-export function useObjectTypeMediaQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(ObjectTypeMediaDocument, baseOptions);
-      }
-export function useObjectTypeMediaLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(ObjectTypeMediaDocument, baseOptions);
-        }
-export type ObjectTypeMediaQueryHookResult = ReturnType<typeof useObjectTypeMediaQuery>;
-export type ObjectTypeMediaLazyQueryHookResult = ReturnType<typeof useObjectTypeMediaLazyQuery>;
-export type ObjectTypeMediaQueryResult = ApolloReactCommon.QueryResult<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>;
-export const ObjectTypePricesPricingDocument = gql`
-    query ObjectTypePricesPricing($id: ID!) {
-  getObjectTypePrices(id: $id) {
-    id
-    pricing {
-      rent {
-        minPrice
-        maxPrice
-        isEnabled
-        calculateAutomatically
-      }
-      sale {
-        minPrice
-        maxPrice
-        isEnabled
-        calculateAutomatically
-      }
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      dateUpdated
-      description
-    }
-  }
-}
-    `;
-export function useObjectTypePricesPricingQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>(ObjectTypePricesPricingDocument, baseOptions);
-      }
-export function useObjectTypePricesPricingLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>(ObjectTypePricesPricingDocument, baseOptions);
-        }
-export type ObjectTypePricesPricingQueryHookResult = ReturnType<typeof useObjectTypePricesPricingQuery>;
-export type ObjectTypePricesPricingLazyQueryHookResult = ReturnType<typeof useObjectTypePricesPricingLazyQuery>;
-export type ObjectTypePricesPricingQueryResult = ApolloReactCommon.QueryResult<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>;
-export const ObjectTypePricesCostsDocument = gql`
-    query ObjectTypePricesCosts($id: ID!) {
-  getObjectTypePrices(id: $id) {
-    id
-    costs {
-      costs {
-        id
-        serviceCostsFrom
-        serviceCostsTill
-        paymentsFrequency
-        vatTaxedServiceCostsFrom
-        vatTaxedServiceCostsTill
-        vatPercentage
-        notes
-        type
-        name
-        dateCreated
-      }
-      description
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      dateUpdated
-    }
-  }
-}
-    `;
-export function useObjectTypePricesCostsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>(ObjectTypePricesCostsDocument, baseOptions);
-      }
-export function useObjectTypePricesCostsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>(ObjectTypePricesCostsDocument, baseOptions);
-        }
-export type ObjectTypePricesCostsQueryHookResult = ReturnType<typeof useObjectTypePricesCostsQuery>;
-export type ObjectTypePricesCostsLazyQueryHookResult = ReturnType<typeof useObjectTypePricesCostsLazyQuery>;
-export type ObjectTypePricesCostsQueryResult = ApolloReactCommon.QueryResult<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>;
-export const GetObjectTypeServicesDocument = gql`
-    query GetObjectTypeServices($id: ID!) {
-  getObjectTypeServices(id: $id) {
-    id
-    hotWaterSupplies {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HotWaterSupplyConfiguration {
-          type
-          fuel
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    heatingSources {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HeatingSourceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-    }
-    additionalServices {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on AdditionalServiceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    servicesDescription
-  }
-}
-    `;
-export function useGetObjectTypeServicesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(GetObjectTypeServicesDocument, baseOptions);
-      }
-export function useGetObjectTypeServicesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(GetObjectTypeServicesDocument, baseOptions);
-        }
-export type GetObjectTypeServicesQueryHookResult = ReturnType<typeof useGetObjectTypeServicesQuery>;
-export type GetObjectTypeServicesLazyQueryHookResult = ReturnType<typeof useGetObjectTypeServicesLazyQuery>;
-export type GetObjectTypeServicesQueryResult = ApolloReactCommon.QueryResult<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>;
-export const ListObjectTypeLinkedPimsCountDocument = gql`
-    query ListObjectTypeLinkedPimsCount($id: ID!) {
-  activeCount: getObjectTypeLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: false}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-  archivedCount: getObjectTypeLinkedPims(id: $id) {
-    linkedProperties(filters: {archived: true}, pagination: {from: 0}) {
-      metadata {
-        total
-      }
-    }
-  }
-}
-    `;
-export function useListObjectTypeLinkedPimsCountQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>) {
-        return ApolloReactHooks.useQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(ListObjectTypeLinkedPimsCountDocument, baseOptions);
-      }
-export function useListObjectTypeLinkedPimsCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(ListObjectTypeLinkedPimsCountDocument, baseOptions);
-        }
-export type ListObjectTypeLinkedPimsCountQueryHookResult = ReturnType<typeof useListObjectTypeLinkedPimsCountQuery>;
-export type ListObjectTypeLinkedPimsCountLazyQueryHookResult = ReturnType<typeof useListObjectTypeLinkedPimsCountLazyQuery>;
-export type ListObjectTypeLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>;
-export const ObjectTypeLinkedPimsDocument = gql`
-    query ObjectTypeLinkedPims($id: ID!, $archived: Boolean, $sortColumn: String!, $sortDirection: SortDirection!, $from: Int!, $limit: Int) {
-  getObjectTypeLinkedPims(id: $id) {
-    linkedPropertiesIds
-    description
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    linkedProperties(filters: {archived: $archived}, pagination: {from: $from, limit: $limit}, sort: {column: $sortColumn, direction: $sortDirection}) {
-      items {
-        id
-        street
-        houseNumberPrefix
-        houseNumber
-        houseNumberAddition
-        constructionNumberPrefix
-        constructionNumber
-        constructionNumberAddition
-        city
-        dateCreated
-        livingArea
-        propertyType
-        pictures {
-          type
-          file {
-            url
-          }
-        }
-        salePrice
-        rentPrice
-        completeness
-        archived
-        postalCode
-        country
-        status
-        developmentType
-        linkedObjectTypeIds
         attentionNote
       }
     }
   }
+`;
+export function useListPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListPimsQuery, ListPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
 }
-    `;
-export function useObjectTypeLinkedPimsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>) {
-        return ApolloReactHooks.useQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(ObjectTypeLinkedPimsDocument, baseOptions);
-      }
-export function useObjectTypeLinkedPimsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(ObjectTypeLinkedPimsDocument, baseOptions);
-        }
-export type ObjectTypeLinkedPimsQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsQuery>;
-export type ObjectTypeLinkedPimsLazyQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsLazyQuery>;
-export type ObjectTypeLinkedPimsQueryResult = ApolloReactCommon.QueryResult<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>;
-export const PimAogSpacesDocument = gql`
-    query PimAogSpaces($id: ID!) {
-  getPimInside(id: $id) {
-    id
-    aogAnimalsDescription
-    aogBuildingsDescription
-    aogInstallationsDescription
-    aogGroundsDescription
-    aogSpaces {
-      id
-      name
-      type
-      groundConfiguration {
-        typeOfLooseGround
-        soilType
-        soilTypeNotes
-        measurements {
-          length
-          width
-          surface
-          fullBuiltWidth
-          currentNumberOfSeats
-          housingArea
-        }
-        specifications {
-          type
-          notes
-        }
-        cultivationTypes
-        fenceTypes
-      }
-      buildingsConfiguration {
-        buildingType
-        numberOfSameBuilding
-        buildingTypeNotes
-        measurements {
-          length
-          width
-          surface
-          height
-          volume
-          constructionYear
-        }
-      }
-      installationsConfiguration {
-        type
-        numberOfSameInstallations
-        notes
-      }
-      animalsConfiguration {
-        type
-        numberOfSameAnimals
-        notes
-        specifications {
-          type
-          notes
-        }
-      }
-      images {
-        key
-        id
-        fileName
-        url
-      }
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      dateCreated
-    }
-  }
+export function useListPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListPimsQuery, ListPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListPimsQuery, ListPimsQueryVariables>(ListPimsDocument, baseOptions);
 }
-    `;
-export function usePimAogSpacesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(PimAogSpacesDocument, baseOptions);
-      }
-export function usePimAogSpacesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(PimAogSpacesDocument, baseOptions);
-        }
-export type PimAogSpacesQueryHookResult = ReturnType<typeof usePimAogSpacesQuery>;
-export type PimAogSpacesLazyQueryHookResult = ReturnType<typeof usePimAogSpacesLazyQuery>;
-export type PimAogSpacesQueryResult = ApolloReactCommon.QueryResult<PimAogSpacesQuery, PimAogSpacesQueryVariables>;
-export const PimBogSpacesDocument = gql`
-    query PimBogSpaces($id: ID!) {
-  getPimInside(id: $id) {
-    id
-    bogSpaces {
-      id
-      type
-      name
-      notes
-      description
-      dateUpdated
-      lastEditedBy {
+export type ListPimsQueryHookResult = ReturnType<typeof useListPimsQuery>;
+export type ListPimsLazyQueryHookResult = ReturnType<typeof useListPimsLazyQuery>;
+export type ListPimsQueryResult = ApolloReactCommon.QueryResult<ListPimsQuery, ListPimsQueryVariables>;
+export const LinkedPimsListDocument = gql`
+  query LinkedPimsList($from: Int!, $limit: Int, $id: ID!) {
+    pims: listPims(filters: { archived: false }, pagination: { from: $from, limit: $limit }) {
+      items {
         id
-        firstName
-        lastName
-      }
-      retailSpaceConfiguration {
-        measurements {
-          surface
-          salesFloorArea
-          frontWidth
-          inUnitsFrom
-          amountOfFloors
-        }
-        airTreatment
-        specifications
-        prices {
-          priceInventoryGoodwill
-          vatRate
-          priceInventoryGoodwillVat
-          priceInventoryGoodwillIncludedVat
-          notes
-        }
-        wealthClass
-        retailerAssociationContribution {
-          contribution
-          termsOfCosts
-          vatPercentage
-          vatTaxedContribution
-          notes
-        }
-        commonRooms
-      }
-      leisureSpaceConfiguration {
-        measurements {
-          surface
-          numberOfPitches
-          numberOfStays
-          capacityOfPersons
-        }
-        specifications
-        prices {
-          priceInventoryGoodwill
-          vatRate
-          priceInventoryGoodwillVat
-          priceInventoryGoodwillIncludedVat
-          notes
-        }
-        services
-      }
-      horecaSpaceConfiguration {
-        measurements {
-          surface
-          salesFloorArea
-          amountOfFloors
-          amountOfRooms
-          currentNumberOfSeats
-          housingArea
-        }
-        type
-        notes
-        specifications
-        prices {
-          priceInventoryGoodwill
-          vatRate
-          priceInventoryGoodwillVat
-          priceInventoryGoodwillIncludedVat
-          revenueLastFiscalYear
-          rentalIncomeHomeYear
-          notes
-        }
-        wealthClass
-        legalForm
-      }
-      businessSpaceConfiguration {
-        measurements {
-          surface
-          freeHeight
-          freeSpan
-          floorLoad
-          inUnitsFrom
-          amountOfFloors
-        }
-        airTreatment
-        services
-        prices {
-          price
-          vatRate
-          priceVat
-          priceIncVat
-        }
-      }
-      officeSpaceConfiguration {
-        measurements {
-          length
-          width
-          height
-          surface
-          volume
-          measurementsCertificateAvailable
-          inUnitsFrom
-          amountOfFloors
-        }
-        airTreatment
-        services
-        prices {
-          price
-          vatRate
-          priceVat
-          priceIncVat
-        }
-        turnKey
-        commonRooms
-      }
-      socialRealEstateSpaceConfiguration {
-        measurements {
-          surface
-          numberOfCareUnits
-          numberOfSeats
-        }
-        type
-        notesAboutType
-        destinationType
-        specifications
-        services
-        prices {
-          vatRate
-          notes
-        }
-      }
-      terrainConfiguration {
-        terrainSpecifications {
-          surface
-          buildingHeightTerrain
-          extensionTerrainPercent
-          extensionTerrainM2
-          pavedPercentage
-        }
-        specifications
-        typeOfPavement
-        prices {
-          price
-          vatRate
-          priceVat
-          priceIncVat
-        }
-      }
-      storageConfiguration {
-        measurements {
-          length
-          width
-          height
-          surface
-          volume
-        }
-        type
-        notes
-      }
-      images {
-        url
+        street
+        houseNumber
+        city
+        postalCode
       }
     }
+    linkedObjectIds: getObjectTypeLinkedPims(id: $id) {
+      linkedPropertiesIds
+    }
   }
+`;
+export function useLinkedPimsListQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(
+    LinkedPimsListDocument,
+    baseOptions,
+  );
 }
-    `;
-export function usePimBogSpacesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(PimBogSpacesDocument, baseOptions);
-      }
-export function usePimBogSpacesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(PimBogSpacesDocument, baseOptions);
-        }
-export type PimBogSpacesQueryHookResult = ReturnType<typeof usePimBogSpacesQuery>;
-export type PimBogSpacesLazyQueryHookResult = ReturnType<typeof usePimBogSpacesLazyQuery>;
-export type PimBogSpacesQueryResult = ApolloReactCommon.QueryResult<PimBogSpacesQuery, PimBogSpacesQueryVariables>;
-export const PimCadastreDocument = gql`
-    query PimCadastre($id: ID!) {
-  getPimCadastre(id: $id) {
-    id
-    cadastre {
+export function useLinkedPimsListLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LinkedPimsListQuery, LinkedPimsListQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<LinkedPimsListQuery, LinkedPimsListQueryVariables>(
+    LinkedPimsListDocument,
+    baseOptions,
+  );
+}
+export type LinkedPimsListQueryHookResult = ReturnType<typeof useLinkedPimsListQuery>;
+export type LinkedPimsListLazyQueryHookResult = ReturnType<typeof useLinkedPimsListLazyQuery>;
+export type LinkedPimsListQueryResult = ApolloReactCommon.QueryResult<
+  LinkedPimsListQuery,
+  LinkedPimsListQueryVariables
+>;
+export const NcpCharacteristicsDocument = gql`
+  query NcpCharacteristics($id: ID!) {
+    getNcpCharacteristics(id: $id) {
       id
-      description
-      mapsDescription
-      type
-      maps {
-        id
-        mapName
-        name
-        file {
-          key
+      characteristicsSections
+      projectMarketing {
+        logos {
           id
-          fileName
+          url
         }
-        description
-        type
-      }
-      plot {
-        notes
-        name
-        municipalCode
-        sectionCode
-        plot
-        indexNumber
-        surface
-        share
-        codeSize
-        ownershipChoice
-        ownershipType
-        lease {
-          leaseholder
-          information
-          duration
-          yearlyPrice
-          endDate
-        }
-        boughtOff {
-          date
-          perpetually
-          notes
-        }
-      }
-      dateCreated
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-}
-    `;
-export function usePimCadastreQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
-      }
-export function usePimCadastreLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
-        }
-export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
-export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
-export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
-export const PimGeneralDocument = gql`
-    query PimGeneral($id: ID!) {
-  getPimGeneral(id: $id) {
-    id
-    street
-    houseNumber
-    postalCode
-    district
-    city
-    state
-    county
-    country
-    propertyType
-    houseGeneral {
-      propertyConnection
-      propertyDetails
-      construction {
-        type
-        from
-        to
-        notes
-      }
-      availability {
-        availability
-        from
-        notes
-        habitation
-        currentUse
-        currentDestination
-      }
-    }
-    apartmentGeneral {
-      propertyDetails {
-        groundfloorApartmentStartsOnFloor
-        amountOfTotalFloors
-        notes
-        apartmentType
-        characteristicsApartment
-      }
-    }
-    bogGeneral {
-      type
-      characteristics
-      startsOnFloor
-      totalFloors
-      notes
-    }
-    aogGeneral {
-      generalType
-      additionalPosition
-      houseLot {
-        length
-        width
-        surface
-        amountOfHouses
-      }
-      specifications {
-        type
-        notes
-      }
-    }
-    parkingGeneral {
-      type {
-        type
-        parkingNumber
-        notes
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
       }
       measurements {
-        length
-        width
-        surface
-        capacity
-        height
-        volume
-      }
-      specifications {
-        type
-        notes
-      }
-      material {
-        type
-        notes
-      }
-      insulation {
-        type
-        notes
-      }
-    }
-    buildingPlotGeneral {
-      propertyDetails {
-        plotReadyForConstruction
-        buildingPlotNumber
-        notes
-        soilType
-        measurements {
-          length
-          width
-          surface
-        }
-      }
-    }
-    extraAddress {
-      plotNumber
-      plotNumberAddition
-      houseNumberStart
-      houseNumberEnd
-    }
-    identificationNumbers {
-      id
-      name
-      number
-      type
-    }
-    showExtraAddress
-    showIdentificationNumber
-    attentionNote
-    showAttentionNote
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-  }
-}
-    `;
-export function usePimGeneralQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
-      }
-export function usePimGeneralLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
-        }
-export type PimGeneralQueryHookResult = ReturnType<typeof usePimGeneralQuery>;
-export type PimGeneralLazyQueryHookResult = ReturnType<typeof usePimGeneralLazyQuery>;
-export type PimGeneralQueryResult = ApolloReactCommon.QueryResult<PimGeneralQuery, PimGeneralQueryVariables>;
-export const PimWithSameAddressDocument = gql`
-    query PimWithSameAddress($input: PimWithSameAddressInput!) {
-  getPimsGeneralWithSameAddress(input: $input) {
-    metadata {
-      total
-    }
-    items {
-      id
-    }
-  }
-}
-    `;
-export function usePimWithSameAddressQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(PimWithSameAddressDocument, baseOptions);
-      }
-export function usePimWithSameAddressLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(PimWithSameAddressDocument, baseOptions);
-        }
-export type PimWithSameAddressQueryHookResult = ReturnType<typeof usePimWithSameAddressQuery>;
-export type PimWithSameAddressLazyQueryHookResult = ReturnType<typeof usePimWithSameAddressLazyQuery>;
-export type PimWithSameAddressQueryResult = ApolloReactCommon.QueryResult<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>;
-export const PimInsideDocument = gql`
-    query PimInside($id: ID!) {
-  getPimInside(id: $id) {
-    id
-    floors {
-      id
-      level
-      floorType
-      floorDescription
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      spaces {
-        id
-        spaceType
-        spaceName
-        configuration {
-          ... on KitchenSpace {
-            constructionYear
-            notes
-            kitchenType: type
-            constructionType
-            servicesNotes
-            kitchenServices: services
-            appliances {
-              name
-              quantity
-              notes
-            }
-            hob
-            shape
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-          ... on LivingRoomSpace {
-            livingRoomType: type
-            shape
-            stairs
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-          ... on BathroomSpace {
-            constructionYear
-            shape
-            bathroomServices: services
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-          ... on BedroomSpace {
-            notes
-            shape
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-          ... on HomeOfficeSpace {
-            notes
-            shape
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-          ... on OtherSpace {
-            notes
-            shape
-            measurement {
-              length
-              width
-              height
-              surface
-              volume
-            }
-            serviceHeating
-            images {
-              url
-            }
-          }
-        }
-      }
-    }
-    insideGeneral {
-      extension {
-        notes
-        yearOfExtension
-      }
-      renovation {
-        notes
-        yearOfRenovation
-      }
-      windows {
-        notes
-        types
-      }
-      notes
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-}
-    `;
-export function usePimInsideQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimInsideQuery, PimInsideQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
-      }
-export function usePimInsideLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimInsideQuery, PimInsideQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
-        }
-export type PimInsideQueryHookResult = ReturnType<typeof usePimInsideQuery>;
-export type PimInsideLazyQueryHookResult = ReturnType<typeof usePimInsideLazyQuery>;
-export type PimInsideQueryResult = ApolloReactCommon.QueryResult<PimInsideQuery, PimInsideQueryVariables>;
-export const PimLocationDocument = gql`
-    query PimLocation($id: ID!) {
-  getPimLocation(id: $id) {
-    id
-    latitude
-    longitude
-    type
-    notes
-    description
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    goodToKnows {
-      type
-      distance
-      units
-      checked
-    }
-  }
-}
-    `;
-export function usePimLocationQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimLocationQuery, PimLocationQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
-      }
-export function usePimLocationLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimLocationQuery, PimLocationQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
-        }
-export type PimLocationQueryHookResult = ReturnType<typeof usePimLocationQuery>;
-export type PimLocationLazyQueryHookResult = ReturnType<typeof usePimLocationLazyQuery>;
-export type PimLocationQueryResult = ApolloReactCommon.QueryResult<PimLocationQuery, PimLocationQueryVariables>;
-export const PimMediaDocument = gql`
-    query PimMedia($id: ID!, $picturesSort: Sort) {
-  getPimMedia(id: $id) {
-    id
-    description
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    pictures(sort: $picturesSort) {
-      id
-      name
-      description
-      type
-      dateUpdated
-      file {
-        id
-        key
-        fileName
-      }
-    }
-    mainPictureId
-    mediaLinks {
-      id
-      name
-      type
-      url
-    }
-    textChapters {
-      id
-      name
-      type
-      text
-    }
-    usps {
-      id
-      name
-      description
-      type
-    }
-    tags {
-      id
-      name
-      description
-      type
-    }
-  }
-}
-    `;
-export function usePimMediaQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimMediaQuery, PimMediaQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
-      }
-export function usePimMediaLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMediaQuery, PimMediaQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
-        }
-export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
-export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
-export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
-export const PimMetersDocument = gql`
-    query PimMeters($id: ID!) {
-  getPimServices(id: $id) {
-    metersMeta {
-      description
-      Water {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-      Gas {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-      Electric {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-    }
-    meters {
-      id
-      type
-      name
-      description
-      readings {
-        id
-        value
-        description
-        feedInId
-        dateOfReading
-      }
-    }
-  }
-}
-    `;
-export function usePimMetersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimMetersQuery, PimMetersQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
-      }
-export function usePimMetersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMetersQuery, PimMetersQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
-        }
-export type PimMetersQueryHookResult = ReturnType<typeof usePimMetersQuery>;
-export type PimMetersLazyQueryHookResult = ReturnType<typeof usePimMetersLazyQuery>;
-export type PimMetersQueryResult = ApolloReactCommon.QueryResult<PimMetersQuery, PimMetersQueryVariables>;
-export const PimOutsideDocument = gql`
-    query PimOutside($id: ID!) {
-  getPimOutside(id: $id) {
-    id
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    houseOutside {
-      foundation {
-        material {
-          notes
-          type
-        }
-        type {
-          notes
-          type
-        }
-      }
-      generalInformation {
-        qualityInformation
-        images {
-          id
-          url
-        }
-        notes
-      }
-      propertyRelated {
-        items
-        notes
-        images {
-          id
-          url
-        }
-      }
-      roofInformation {
-        type {
-          name
-          notes
-        }
-        material {
-          name
-          notes
-        }
-        insulation {
-          name
-          notes
-        }
-        images {
-          id
-          url
-        }
-        gutter {
-          notes
-          type
-        }
-        gutterMaterial {
-          material
-          notes
-        }
-        yearOfRoof
-      }
-      notes
-    }
-    outsideFeatures {
-      id
-      type
-      dateCreated
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      description
-      configuration {
-        ... on GardenFeature {
-          main
-          type
-          notes
-          quality
-          location
-          shape
-          measurement {
-            length
-            width
-            surface
-          }
-          images {
-            url
-          }
-        }
-        ... on GarageFeature {
-          main
-          garageTypes: types
-          notes
-          attached
-          attic
-          garageInsulations: insulations
-          garageServices: services
-          secondaryWindows
-          materials
-          measurement {
-            length
-            width
-            height
-            surface
-            volume
-          }
-          images {
-            url
-          }
-        }
-        ... on StorageFeature {
-          main
-          storageTypes: types
-          notes
-          attached
-          storageInsulations: insulations
-          storageServices: services
-          secondaryWindows
-          materials
-          measurement {
-            length
-            width
-            height
-            surface
-            volume
-          }
-          images {
-            url
-          }
-        }
-        ... on TerrainFeature {
-          parking
-          notes
-          measurement {
-            length
-            width
-            surface
-          }
-          images {
-            url
-          }
-        }
-        ... on ParkingLotFeature {
-          number
-          price
-          cost
-          notes
-          images {
-            url
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-export function usePimOutsideQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
-      }
-export function usePimOutsideLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
-        }
-export type PimOutsideQueryHookResult = ReturnType<typeof usePimOutsideQuery>;
-export type PimOutsideLazyQueryHookResult = ReturnType<typeof usePimOutsideLazyQuery>;
-export type PimOutsideQueryResult = ApolloReactCommon.QueryResult<PimOutsideQuery, PimOutsideQueryVariables>;
-export const PimPricingDocument = gql`
-    query PimPricing($id: ID!) {
-  getPricing(id: $id) {
-    id
-    costsDescription
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    pricing {
-      description
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-      rent {
-        isEnabled
-        rentalPrice
-        paymentFrequency
-        suffix
-        notes
-        conditions
-      }
-      sale {
-        isEnabled
-        general {
-          prefix
-          price
-          suffix
-          executionSale
-          dateOfExecutionSale
-          conditions
-          purchaseMix
-          notes
-        }
-        woz {
-          wozPrice
-          referenceDateWoz
-          notes
-        }
-      }
-    }
-    costs {
-      id
-      serviceCosts
-      paymentsFrequency
-      vatTaxedServiceCosts
-      vatPercentage
-      notes
-      type
-      name
-    }
-    investment {
-      description
-      netRentalIncome
-      grossRentalIncome
-      economicRentalValue
-      averageMaturity
-      rentIndexed
-      splitApartment
-      averageVacancyPercentage
-      numberOfRentableUnits
-      amountOfTenants
-      remainingTermContacts
-      vacancySquareMeters
-      notes
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-}
-    `;
-export function usePimPricingQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimPricingQuery, PimPricingQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
-      }
-export function usePimPricingLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimPricingQuery, PimPricingQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
-        }
-export type PimPricingQueryHookResult = ReturnType<typeof usePimPricingQuery>;
-export type PimPricingLazyQueryHookResult = ReturnType<typeof usePimPricingLazyQuery>;
-export type PimPricingQueryResult = ApolloReactCommon.QueryResult<PimPricingQuery, PimPricingQueryVariables>;
-export const PimServicesDocument = gql`
-    query PimServices($id: ID!) {
-  getPimServices(id: $id) {
-    description
-    dateUpdated
-    lastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    metersMeta {
-      Water {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-      Gas {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-      Electric {
-        description
-        lastEditedBy {
-          id
-          firstName
-          lastName
-        }
-        dateUpdated
-      }
-    }
-    meters {
-      id
-      type
-      name
-      description
-      readings {
-        id
-        value
-        description
-        feedInId
-        dateOfReading
-      }
-    }
-    hotWaterSupplies {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HotWaterSupplyConfiguration {
-          type
-          fuel
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-    heatingSources {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on HeatingSourceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-    }
-    additionalServices {
-      id
-      type
-      name
-      description
-      configuration {
-        ... on AdditionalServiceConfiguration {
-          type
-        }
-      }
-      yearOfInstallation
-      ownership
-    }
-  }
-}
-    `;
-export function usePimServicesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimServicesQuery, PimServicesQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
-      }
-export function usePimServicesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimServicesQuery, PimServicesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
-        }
-export type PimServicesQueryHookResult = ReturnType<typeof usePimServicesQuery>;
-export type PimServicesLazyQueryHookResult = ReturnType<typeof usePimServicesLazyQuery>;
-export type PimServicesQueryResult = ApolloReactCommon.QueryResult<PimServicesQuery, PimServicesQueryVariables>;
-export const PimSpecificationDocument = gql`
-    query PimSpecification($id: ID!) {
-  getPimSpecification(id: $id) {
-    linkedPropertiesDescription
-    inspectionsDescription
-    linkedPropertiesDateUpdated
-    linkedPropertiesLastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    inspectionsDateUpdated
-    inspectionsLastEditedBy {
-      id
-      firstName
-      lastName
-    }
-    specification {
-      description
-      dateUpdated
-      lastEditedBy {
-        id
-        firstName
-        lastName
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
       }
       energy {
         label
@@ -14710,16 +12977,604 @@ export const PimSpecificationDocument = gql`
         characteristicType
         notes
       }
-      approvals {
-        notes
-        label
+      accountManagers {
+        id
       }
-      obligation {
-        label
-        notes
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      invoiceDetails {
+        street
+        houseNumber
+        additionalNumber
+        zipCode
+        city
+        country
+        projectInvoiceNumber
+        contactPerson
+        description
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+    }
+  }
+`;
+export function useNcpCharacteristicsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(
+    NcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export function useNcpCharacteristicsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpCharacteristicsQuery, NcpCharacteristicsQueryVariables>(
+    NcpCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type NcpCharacteristicsQueryHookResult = ReturnType<typeof useNcpCharacteristicsQuery>;
+export type NcpCharacteristicsLazyQueryHookResult = ReturnType<typeof useNcpCharacteristicsLazyQuery>;
+export type NcpCharacteristicsQueryResult = ApolloReactCommon.QueryResult<
+  NcpCharacteristicsQuery,
+  NcpCharacteristicsQueryVariables
+>;
+export const NcpGeneralDocument = gql`
+  query NcpGeneral($id: ID!) {
+    getNcp(id: $id) {
+      id
+      type
+      dateCreated
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      name
+      additionalName
+      street
+      houseNumber
+      additionalHouseNumber
+      zipCode
+      city
+      country
+      objectTypesCount
+      automaticallyCalculateQuantity
+      properties
+      progressStatus
+      startConstruction
+      noteStartConstruction
+      startSale
+      noteStartSale
+      startDelivery
+      noteStartDelivery
+      startConstructionAfterPresalePercentage
+      projectRisk
+      notes
+      archived
+    }
+  }
+`;
+export function useNcpGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
+}
+export function useNcpGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralQuery, NcpGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpGeneralQuery, NcpGeneralQueryVariables>(NcpGeneralDocument, baseOptions);
+}
+export type NcpGeneralQueryHookResult = ReturnType<typeof useNcpGeneralQuery>;
+export type NcpGeneralLazyQueryHookResult = ReturnType<typeof useNcpGeneralLazyQuery>;
+export type NcpGeneralQueryResult = ApolloReactCommon.QueryResult<NcpGeneralQuery, NcpGeneralQueryVariables>;
+export const NcpWithSameAddressDocument = gql`
+  query NcpWithSameAddress($input: NcpWithSameAddressInput!) {
+    getNcpWithSameAddress(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
       }
     }
-    specificationAdvanced {
+  }
+`;
+export function useNcpWithSameAddressQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(
+    NcpWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export function useNcpWithSameAddressLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpWithSameAddressQuery, NcpWithSameAddressQueryVariables>(
+    NcpWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export type NcpWithSameAddressQueryHookResult = ReturnType<typeof useNcpWithSameAddressQuery>;
+export type NcpWithSameAddressLazyQueryHookResult = ReturnType<typeof useNcpWithSameAddressLazyQuery>;
+export type NcpWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
+  NcpWithSameAddressQuery,
+  NcpWithSameAddressQueryVariables
+>;
+export const NcpGeneralOverallInfoDocument = gql`
+  query NcpGeneralOverallInfo($id: ID!) {
+    project: getNcp(id: $id) {
+      id
+      name
+    }
+    objectTypes: listObjectTypes(filters: { ncpId: $id, archived: false }) {
+      metadata {
+        total
+      }
+    }
+    linkedProperties: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useNcpGeneralOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(
+    NcpGeneralOverallInfoDocument,
+    baseOptions,
+  );
+}
+export function useNcpGeneralOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpGeneralOverallInfoQuery, NcpGeneralOverallInfoQueryVariables>(
+    NcpGeneralOverallInfoDocument,
+    baseOptions,
+  );
+}
+export type NcpGeneralOverallInfoQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoQuery>;
+export type NcpGeneralOverallInfoLazyQueryHookResult = ReturnType<typeof useNcpGeneralOverallInfoLazyQuery>;
+export type NcpGeneralOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  NcpGeneralOverallInfoQuery,
+  NcpGeneralOverallInfoQueryVariables
+>;
+export const GetNcpLabelsDocument = gql`
+  query GetNcpLabels($id: ID!, $properties: [LabelProperty!]) {
+    getNcpLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetNcpLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(GetNcpLabelsDocument, baseOptions);
+}
+export function useGetNcpLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>(
+    GetNcpLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetNcpLabelsQueryHookResult = ReturnType<typeof useGetNcpLabelsQuery>;
+export type GetNcpLabelsLazyQueryHookResult = ReturnType<typeof useGetNcpLabelsLazyQuery>;
+export type GetNcpLabelsQueryResult = ApolloReactCommon.QueryResult<GetNcpLabelsQuery, GetNcpLabelsQueryVariables>;
+export const ListNcpsCountDocument = gql`
+  query ListNcpsCount($pricingType: PricingType) {
+    activeCount: listNcps(filters: { archived: false, pricingType: $pricingType }) {
+      metadata {
+        total
+      }
+    }
+    archivedCount: listNcps(filters: { archived: true, pricingType: $pricingType }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListNcpsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(ListNcpsCountDocument, baseOptions);
+}
+export function useListNcpsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsCountQuery, ListNcpsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpsCountQuery, ListNcpsCountQueryVariables>(
+    ListNcpsCountDocument,
+    baseOptions,
+  );
+}
+export type ListNcpsCountQueryHookResult = ReturnType<typeof useListNcpsCountQuery>;
+export type ListNcpsCountLazyQueryHookResult = ReturnType<typeof useListNcpsCountLazyQuery>;
+export type ListNcpsCountQueryResult = ApolloReactCommon.QueryResult<ListNcpsCountQuery, ListNcpsCountQueryVariables>;
+export const ListNcpsDocument = gql`
+  query ListNcps(
+    $pricingType: PricingType
+    $archived: Boolean!
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    listNcps(
+      filters: { archived: $archived, pricingType: $pricingType }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        logoPicture {
+          url
+        }
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        soldNumber
+        rentNumber
+        completeness
+        available
+        underOption
+        soldOrRent
+        matches
+        interests
+        candidates
+        optants
+        properties
+        objectTypesCount
+        attentionNote
+      }
+    }
+  }
+`;
+export function useListNcpsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
+}
+export function useListNcpsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNcpsQuery, ListNcpsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpsQuery, ListNcpsQueryVariables>(ListNcpsDocument, baseOptions);
+}
+export type ListNcpsQueryHookResult = ReturnType<typeof useListNcpsQuery>;
+export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery>;
+export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
+export const NcpBulkDetailsDocument = gql`
+  query NcpBulkDetails($ids: [ID!]!) {
+    city: getBulkDetails(input: { ids: $ids, field: city, entity: Ncp }) {
+      value
+    }
+  }
+`;
+export function useNcpBulkDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(
+    NcpBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export function useNcpBulkDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpBulkDetailsQuery, NcpBulkDetailsQueryVariables>(
+    NcpBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export type NcpBulkDetailsQueryHookResult = ReturnType<typeof useNcpBulkDetailsQuery>;
+export type NcpBulkDetailsLazyQueryHookResult = ReturnType<typeof useNcpBulkDetailsLazyQuery>;
+export type NcpBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
+  NcpBulkDetailsQuery,
+  NcpBulkDetailsQueryVariables
+>;
+export const NcpMediaDocument = gql`
+  query NcpMedia($id: ID!, $picturesSort: Sort) {
+    getNcpMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mainPictureId
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function useNcpMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
+}
+export function useNcpMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpMediaQuery, NcpMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpMediaQuery, NcpMediaQueryVariables>(NcpMediaDocument, baseOptions);
+}
+export type NcpMediaQueryHookResult = ReturnType<typeof useNcpMediaQuery>;
+export type NcpMediaLazyQueryHookResult = ReturnType<typeof useNcpMediaLazyQuery>;
+export type NcpMediaQueryResult = ApolloReactCommon.QueryResult<NcpMediaQuery, NcpMediaQueryVariables>;
+export const NcpPricesPricingDocument = gql`
+  query NcpPricesPricing($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      pricing {
+        rent {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        sale {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+        description
+      }
+    }
+  }
+`;
+export function useNcpPricesPricingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(
+    NcpPricesPricingDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesPricingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesPricingQuery, NcpPricesPricingQueryVariables>(
+    NcpPricesPricingDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesPricingQueryHookResult = ReturnType<typeof useNcpPricesPricingQuery>;
+export type NcpPricesPricingLazyQueryHookResult = ReturnType<typeof useNcpPricesPricingLazyQuery>;
+export type NcpPricesPricingQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesPricingQuery,
+  NcpPricesPricingQueryVariables
+>;
+export const NcpPricesCostsDocument = gql`
+  query NcpPricesCosts($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      costs {
+        costs {
+          id
+          serviceCostsFrom
+          serviceCostsTill
+          paymentsFrequency
+          vatTaxedServiceCostsFrom
+          vatTaxedServiceCostsTill
+          vatPercentage
+          notes
+          type
+          name
+          dateCreated
+        }
+        description
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
+    }
+  }
+`;
+export function useNcpPricesCostsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(
+    NcpPricesCostsDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesCostsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesCostsQuery, NcpPricesCostsQueryVariables>(
+    NcpPricesCostsDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesCostsQueryHookResult = ReturnType<typeof useNcpPricesCostsQuery>;
+export type NcpPricesCostsLazyQueryHookResult = ReturnType<typeof useNcpPricesCostsLazyQuery>;
+export type NcpPricesCostsQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesCostsQuery,
+  NcpPricesCostsQueryVariables
+>;
+export const NcpPricesInterestsDocument = gql`
+  query NcpPricesInterests($id: ID!) {
+    getNcpPrices(id: $id) {
+      id
+      interests {
+        groundInterest
+        buildingInterest
+        rentedagen
+        suspensiveCondition
+        description
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+export function useNcpPricesInterestsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(
+    NcpPricesInterestsDocument,
+    baseOptions,
+  );
+}
+export function useNcpPricesInterestsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpPricesInterestsQuery, NcpPricesInterestsQueryVariables>(
+    NcpPricesInterestsDocument,
+    baseOptions,
+  );
+}
+export type NcpPricesInterestsQueryHookResult = ReturnType<typeof useNcpPricesInterestsQuery>;
+export type NcpPricesInterestsLazyQueryHookResult = ReturnType<typeof useNcpPricesInterestsLazyQuery>;
+export type NcpPricesInterestsQueryResult = ApolloReactCommon.QueryResult<
+  NcpPricesInterestsQuery,
+  NcpPricesInterestsQueryVariables
+>;
+export const ListNcpLinkedPimsCountDocument = gql`
+  query ListNcpLinkedPimsCount($id: ID!) {
+    activeCount: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+    archivedCount: getNcpLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: true }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useListNcpLinkedPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(
+    ListNcpLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export function useListNcpLinkedPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListNcpLinkedPimsCountQuery,
+    ListNcpLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNcpLinkedPimsCountQuery, ListNcpLinkedPimsCountQueryVariables>(
+    ListNcpLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export type ListNcpLinkedPimsCountQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountQuery>;
+export type ListNcpLinkedPimsCountLazyQueryHookResult = ReturnType<typeof useListNcpLinkedPimsCountLazyQuery>;
+export type ListNcpLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<
+  ListNcpLinkedPimsCountQuery,
+  ListNcpLinkedPimsCountQueryVariables
+>;
+export const NcpLinkedPimsDocument = gql`
+  query NcpLinkedPims(
+    $id: ID!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    getNcpLinkedPims(id: $id) {
+      linkedPropertiesIds
       description
       dateUpdated
       lastEditedBy {
@@ -14727,43 +13582,1216 @@ export const PimSpecificationDocument = gql`
         firstName
         lastName
       }
-      parking {
-        description
-        parkingCapacity
-        parkingFacilities
-      }
-      monument {
-        notes
-        type
-      }
-      inside {
-        notes
-        type
-      }
-      housingOptions {
-        notes
-        type
-      }
-      specialTags {
-        notes
-        type
-      }
-      propertyRights {
-        notes
-        type
-      }
-      homeOwnerAssociation {
-        name
-        monthlyContribution
-        goodToKnow
-        notes
+      linkedProperties(
+        filters: { archived: $archived }
+        pagination: { from: $from, limit: $limit }
+        sort: { column: $sortColumn, direction: $sortDirection }
+      ) {
+        items {
+          id
+          street
+          houseNumberPrefix
+          houseNumber
+          houseNumberAddition
+          constructionNumberPrefix
+          constructionNumber
+          constructionNumberAddition
+          city
+          dateCreated
+          livingArea
+          propertyType
+          pictures {
+            type
+            file {
+              url
+            }
+          }
+          salePrice
+          rentPrice
+          completeness
+          archived
+          postalCode
+          country
+          status
+          developmentType
+          linkedObjectTypeIds
+        }
       }
     }
-    linkedProperties {
+  }
+`;
+export function useNcpLinkedPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(NcpLinkedPimsDocument, baseOptions);
+}
+export function useNcpLinkedPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>(
+    NcpLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export type NcpLinkedPimsQueryHookResult = ReturnType<typeof useNcpLinkedPimsQuery>;
+export type NcpLinkedPimsLazyQueryHookResult = ReturnType<typeof useNcpLinkedPimsLazyQuery>;
+export type NcpLinkedPimsQueryResult = ApolloReactCommon.QueryResult<NcpLinkedPimsQuery, NcpLinkedPimsQueryVariables>;
+export const GetNcpServicesDocument = gql`
+  query GetNcpServices($id: ID!) {
+    getNcpServices(id: $id) {
       id
-      houseNumberPrefix
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      servicesDescription
+    }
+  }
+`;
+export function useGetNcpServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(
+    GetNcpServicesDocument,
+    baseOptions,
+  );
+}
+export function useGetNcpServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNcpServicesQuery, GetNcpServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNcpServicesQuery, GetNcpServicesQueryVariables>(
+    GetNcpServicesDocument,
+    baseOptions,
+  );
+}
+export type GetNcpServicesQueryHookResult = ReturnType<typeof useGetNcpServicesQuery>;
+export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServicesLazyQuery>;
+export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
+  GetNcpServicesQuery,
+  GetNcpServicesQueryVariables
+>;
+export const ObjectTypeCharacteristicsDocument = gql`
+  query ObjectTypeCharacteristics($id: ID!) {
+    getObjectTypeCharacteristics(id: $id) {
+      id
+      characteristicsSections
+      projectMarketing {
+        logos {
+          id
+          url
+        }
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
+      }
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+      energy {
+        label
+        energyIndex
+        endDateEnergyLabel
+        EPC
+        characteristicType
+        notes
+      }
+      accountManagers {
+        id
+      }
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+      type
+      automaticallySetObjectTypes
+    }
+  }
+`;
+export function useObjectTypeCharacteristicsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ObjectTypeCharacteristicsQuery,
+    ObjectTypeCharacteristicsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(
+    ObjectTypeCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeCharacteristicsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ObjectTypeCharacteristicsQuery,
+    ObjectTypeCharacteristicsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeCharacteristicsQuery, ObjectTypeCharacteristicsQueryVariables>(
+    ObjectTypeCharacteristicsDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeCharacteristicsQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsQuery>;
+export type ObjectTypeCharacteristicsLazyQueryHookResult = ReturnType<typeof useObjectTypeCharacteristicsLazyQuery>;
+export type ObjectTypeCharacteristicsQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeCharacteristicsQuery,
+  ObjectTypeCharacteristicsQueryVariables
+>;
+export const GetObjectTypeGeneralDocument = gql`
+  query GetObjectTypeGeneral($id: ID!) {
+    getObjectTypeGeneral(id: $id) {
+      id
+      name
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      ncpId
+    }
+  }
+`;
+export function useGetObjectTypeGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(
+    GetObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeGeneralQuery, GetObjectTypeGeneralQueryVariables>(
+    GetObjectTypeGeneralDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeGeneralQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralQuery>;
+export type GetObjectTypeGeneralLazyQueryHookResult = ReturnType<typeof useGetObjectTypeGeneralLazyQuery>;
+export type GetObjectTypeGeneralQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeGeneralQuery,
+  GetObjectTypeGeneralQueryVariables
+>;
+export const ObjectTypeOverallInfoDocument = gql`
+  query ObjectTypeOverallInfo($id: ID!, $projectId: ID!) {
+    objectType: getObjectTypeGeneral(id: $id) {
+      id
+      name
+    }
+    project: getNcp(id: $projectId) {
+      id
+      name
+    }
+    linkedProperty: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useObjectTypeOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(
+    ObjectTypeOverallInfoDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeOverallInfoQuery, ObjectTypeOverallInfoQueryVariables>(
+    ObjectTypeOverallInfoDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeOverallInfoQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoQuery>;
+export type ObjectTypeOverallInfoLazyQueryHookResult = ReturnType<typeof useObjectTypeOverallInfoLazyQuery>;
+export type ObjectTypeOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeOverallInfoQuery,
+  ObjectTypeOverallInfoQueryVariables
+>;
+export const GetObjectTypeLabelsDocument = gql`
+  query GetObjectTypeLabels($id: ID!, $properties: [LabelProperty!]) {
+    getObjectTypeLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetObjectTypeLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(
+    GetObjectTypeLabelsDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeLabelsQuery, GetObjectTypeLabelsQueryVariables>(
+    GetObjectTypeLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeLabelsQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsQuery>;
+export type GetObjectTypeLabelsLazyQueryHookResult = ReturnType<typeof useGetObjectTypeLabelsLazyQuery>;
+export type GetObjectTypeLabelsQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeLabelsQuery,
+  GetObjectTypeLabelsQueryVariables
+>;
+export const ListObjectTypesCountDocument = gql`
+  query ListObjectTypesCount($ncpId: ID!) {
+    activeCount: listObjectTypes(filters: { ncpId: $ncpId, archived: null }) {
+      metadata {
+        total
+      }
+    }
+    archivedCount: listObjectTypes(filters: { ncpId: $ncpId, archived: true }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListObjectTypesCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(
+    ListObjectTypesCountDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypesCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypesCountQuery, ListObjectTypesCountQueryVariables>(
+    ListObjectTypesCountDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypesCountQueryHookResult = ReturnType<typeof useListObjectTypesCountQuery>;
+export type ListObjectTypesCountLazyQueryHookResult = ReturnType<typeof useListObjectTypesCountLazyQuery>;
+export type ListObjectTypesCountQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypesCountQuery,
+  ListObjectTypesCountQueryVariables
+>;
+export const ListObjectTypesDocument = gql`
+  query ListObjectTypes(
+    $ncpId: ID!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    listObjectTypes(
+      filters: { ncpId: $ncpId, archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        ncpId
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        completeness
+        matches
+        interests
+        propertiesConnected
+        propertiesAvailable
+        underOption
+        soldOrRent
+        attentionNote
+      }
+    }
+  }
+`;
+export function useListObjectTypesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(
+    ListObjectTypesDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListObjectTypesQuery, ListObjectTypesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypesQuery, ListObjectTypesQueryVariables>(
+    ListObjectTypesDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypesQueryHookResult = ReturnType<typeof useListObjectTypesQuery>;
+export type ListObjectTypesLazyQueryHookResult = ReturnType<typeof useListObjectTypesLazyQuery>;
+export type ListObjectTypesQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypesQuery,
+  ListObjectTypesQueryVariables
+>;
+export const ObjectTypeListDescriptionDocument = gql`
+  query ObjectTypeListDescription($id: ID!) {
+    getNcp(id: $id) {
+      objectTypesListDescription
+      objectTypesListLastUpdatedBy {
+        id
+        firstName
+        lastName
+      }
+      objectTypesListLastUpdatedOn
+    }
+  }
+`;
+export function useObjectTypeListDescriptionQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ObjectTypeListDescriptionQuery,
+    ObjectTypeListDescriptionQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(
+    ObjectTypeListDescriptionDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeListDescriptionLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ObjectTypeListDescriptionQuery,
+    ObjectTypeListDescriptionQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeListDescriptionQuery, ObjectTypeListDescriptionQueryVariables>(
+    ObjectTypeListDescriptionDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeListDescriptionQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionQuery>;
+export type ObjectTypeListDescriptionLazyQueryHookResult = ReturnType<typeof useObjectTypeListDescriptionLazyQuery>;
+export type ObjectTypeListDescriptionQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeListDescriptionQuery,
+  ObjectTypeListDescriptionQueryVariables
+>;
+export const ObjectTypeMediaDocument = gql`
+  query ObjectTypeMedia($id: ID!, $picturesSort: Sort) {
+    getObjectTypeMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mainPictureId
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function useObjectTypeMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(
+    ObjectTypeMediaDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeMediaQuery, ObjectTypeMediaQueryVariables>(
+    ObjectTypeMediaDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeMediaQueryHookResult = ReturnType<typeof useObjectTypeMediaQuery>;
+export type ObjectTypeMediaLazyQueryHookResult = ReturnType<typeof useObjectTypeMediaLazyQuery>;
+export type ObjectTypeMediaQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeMediaQuery,
+  ObjectTypeMediaQueryVariables
+>;
+export const ObjectTypePricesPricingDocument = gql`
+  query ObjectTypePricesPricing($id: ID!) {
+    getObjectTypePrices(id: $id) {
+      id
+      pricing {
+        rent {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        sale {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+        description
+      }
+    }
+  }
+`;
+export function useObjectTypePricesPricingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>(
+    ObjectTypePricesPricingDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypePricesPricingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ObjectTypePricesPricingQuery,
+    ObjectTypePricesPricingQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypePricesPricingQuery, ObjectTypePricesPricingQueryVariables>(
+    ObjectTypePricesPricingDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypePricesPricingQueryHookResult = ReturnType<typeof useObjectTypePricesPricingQuery>;
+export type ObjectTypePricesPricingLazyQueryHookResult = ReturnType<typeof useObjectTypePricesPricingLazyQuery>;
+export type ObjectTypePricesPricingQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypePricesPricingQuery,
+  ObjectTypePricesPricingQueryVariables
+>;
+export const ObjectTypePricesCostsDocument = gql`
+  query ObjectTypePricesCosts($id: ID!) {
+    getObjectTypePrices(id: $id) {
+      id
+      costs {
+        costs {
+          id
+          serviceCostsFrom
+          serviceCostsTill
+          paymentsFrequency
+          vatTaxedServiceCostsFrom
+          vatTaxedServiceCostsTill
+          vatPercentage
+          notes
+          type
+          name
+          dateCreated
+        }
+        description
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
+    }
+  }
+`;
+export function useObjectTypePricesCostsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>(
+    ObjectTypePricesCostsDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypePricesCostsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypePricesCostsQuery, ObjectTypePricesCostsQueryVariables>(
+    ObjectTypePricesCostsDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypePricesCostsQueryHookResult = ReturnType<typeof useObjectTypePricesCostsQuery>;
+export type ObjectTypePricesCostsLazyQueryHookResult = ReturnType<typeof useObjectTypePricesCostsLazyQuery>;
+export type ObjectTypePricesCostsQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypePricesCostsQuery,
+  ObjectTypePricesCostsQueryVariables
+>;
+export const GetObjectTypeServicesDocument = gql`
+  query GetObjectTypeServices($id: ID!) {
+    getObjectTypeServices(id: $id) {
+      id
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      servicesDescription
+    }
+  }
+`;
+export function useGetObjectTypeServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(
+    GetObjectTypeServicesDocument,
+    baseOptions,
+  );
+}
+export function useGetObjectTypeServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetObjectTypeServicesQuery, GetObjectTypeServicesQueryVariables>(
+    GetObjectTypeServicesDocument,
+    baseOptions,
+  );
+}
+export type GetObjectTypeServicesQueryHookResult = ReturnType<typeof useGetObjectTypeServicesQuery>;
+export type GetObjectTypeServicesLazyQueryHookResult = ReturnType<typeof useGetObjectTypeServicesLazyQuery>;
+export type GetObjectTypeServicesQueryResult = ApolloReactCommon.QueryResult<
+  GetObjectTypeServicesQuery,
+  GetObjectTypeServicesQueryVariables
+>;
+export const ListObjectTypeLinkedPimsCountDocument = gql`
+  query ListObjectTypeLinkedPimsCount($id: ID!) {
+    activeCount: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: false }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+    archivedCount: getObjectTypeLinkedPims(id: $id) {
+      linkedProperties(filters: { archived: true }, pagination: { from: 0 }) {
+        metadata {
+          total
+        }
+      }
+    }
+  }
+`;
+export function useListObjectTypeLinkedPimsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ListObjectTypeLinkedPimsCountQuery,
+    ListObjectTypeLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(
+    ListObjectTypeLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export function useListObjectTypeLinkedPimsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ListObjectTypeLinkedPimsCountQuery,
+    ListObjectTypeLinkedPimsCountQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<ListObjectTypeLinkedPimsCountQuery, ListObjectTypeLinkedPimsCountQueryVariables>(
+    ListObjectTypeLinkedPimsCountDocument,
+    baseOptions,
+  );
+}
+export type ListObjectTypeLinkedPimsCountQueryHookResult = ReturnType<typeof useListObjectTypeLinkedPimsCountQuery>;
+export type ListObjectTypeLinkedPimsCountLazyQueryHookResult = ReturnType<
+  typeof useListObjectTypeLinkedPimsCountLazyQuery
+>;
+export type ListObjectTypeLinkedPimsCountQueryResult = ApolloReactCommon.QueryResult<
+  ListObjectTypeLinkedPimsCountQuery,
+  ListObjectTypeLinkedPimsCountQueryVariables
+>;
+export const ObjectTypeLinkedPimsDocument = gql`
+  query ObjectTypeLinkedPims(
+    $id: ID!
+    $archived: Boolean
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    getObjectTypeLinkedPims(id: $id) {
+      linkedPropertiesIds
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      linkedProperties(
+        filters: { archived: $archived }
+        pagination: { from: $from, limit: $limit }
+        sort: { column: $sortColumn, direction: $sortDirection }
+      ) {
+        items {
+          id
+          street
+          houseNumberPrefix
+          houseNumber
+          houseNumberAddition
+          constructionNumberPrefix
+          constructionNumber
+          constructionNumberAddition
+          city
+          dateCreated
+          livingArea
+          propertyType
+          pictures {
+            type
+            file {
+              url
+            }
+          }
+          salePrice
+          rentPrice
+          completeness
+          archived
+          postalCode
+          country
+          status
+          developmentType
+          linkedObjectTypeIds
+          attentionNote
+        }
+      }
+    }
+  }
+`;
+export function useObjectTypeLinkedPimsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(
+    ObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export function useObjectTypeLinkedPimsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ObjectTypeLinkedPimsQuery, ObjectTypeLinkedPimsQueryVariables>(
+    ObjectTypeLinkedPimsDocument,
+    baseOptions,
+  );
+}
+export type ObjectTypeLinkedPimsQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsQuery>;
+export type ObjectTypeLinkedPimsLazyQueryHookResult = ReturnType<typeof useObjectTypeLinkedPimsLazyQuery>;
+export type ObjectTypeLinkedPimsQueryResult = ApolloReactCommon.QueryResult<
+  ObjectTypeLinkedPimsQuery,
+  ObjectTypeLinkedPimsQueryVariables
+>;
+export const PimAogSpacesDocument = gql`
+  query PimAogSpaces($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      aogAnimalsDescription
+      aogBuildingsDescription
+      aogInstallationsDescription
+      aogGroundsDescription
+      aogSpaces {
+        id
+        name
+        type
+        groundConfiguration {
+          typeOfLooseGround
+          soilType
+          soilTypeNotes
+          measurements {
+            length
+            width
+            surface
+            fullBuiltWidth
+            currentNumberOfSeats
+            housingArea
+          }
+          specifications {
+            type
+            notes
+          }
+          cultivationTypes
+          fenceTypes
+        }
+        buildingsConfiguration {
+          buildingType
+          numberOfSameBuilding
+          buildingTypeNotes
+          measurements {
+            length
+            width
+            surface
+            height
+            volume
+            constructionYear
+          }
+        }
+        installationsConfiguration {
+          type
+          numberOfSameInstallations
+          notes
+        }
+        animalsConfiguration {
+          type
+          numberOfSameAnimals
+          notes
+          specifications {
+            type
+            notes
+          }
+        }
+        images {
+          key
+          id
+          fileName
+          url
+        }
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateCreated
+      }
+    }
+  }
+`;
+export function usePimAogSpacesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(PimAogSpacesDocument, baseOptions);
+}
+export function usePimAogSpacesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimAogSpacesQuery, PimAogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimAogSpacesQuery, PimAogSpacesQueryVariables>(
+    PimAogSpacesDocument,
+    baseOptions,
+  );
+}
+export type PimAogSpacesQueryHookResult = ReturnType<typeof usePimAogSpacesQuery>;
+export type PimAogSpacesLazyQueryHookResult = ReturnType<typeof usePimAogSpacesLazyQuery>;
+export type PimAogSpacesQueryResult = ApolloReactCommon.QueryResult<PimAogSpacesQuery, PimAogSpacesQueryVariables>;
+export const PimBogSpacesDocument = gql`
+  query PimBogSpaces($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      bogSpaces {
+        id
+        type
+        name
+        notes
+        description
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        retailSpaceConfiguration {
+          measurements {
+            surface
+            salesFloorArea
+            frontWidth
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            notes
+          }
+          wealthClass
+          retailerAssociationContribution {
+            contribution
+            termsOfCosts
+            vatPercentage
+            vatTaxedContribution
+            notes
+          }
+          commonRooms
+        }
+        leisureSpaceConfiguration {
+          measurements {
+            surface
+            numberOfPitches
+            numberOfStays
+            capacityOfPersons
+          }
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            notes
+          }
+          services
+        }
+        horecaSpaceConfiguration {
+          measurements {
+            surface
+            salesFloorArea
+            amountOfFloors
+            amountOfRooms
+            currentNumberOfSeats
+            housingArea
+          }
+          type
+          notes
+          specifications
+          prices {
+            priceInventoryGoodwill
+            vatRate
+            priceInventoryGoodwillVat
+            priceInventoryGoodwillIncludedVat
+            revenueLastFiscalYear
+            rentalIncomeHomeYear
+            notes
+          }
+          wealthClass
+          legalForm
+        }
+        businessSpaceConfiguration {
+          measurements {
+            surface
+            freeHeight
+            freeSpan
+            floorLoad
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          services
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+        }
+        officeSpaceConfiguration {
+          measurements {
+            length
+            width
+            height
+            surface
+            volume
+            measurementsCertificateAvailable
+            inUnitsFrom
+            amountOfFloors
+          }
+          airTreatment
+          services
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+          turnKey
+          commonRooms
+        }
+        socialRealEstateSpaceConfiguration {
+          measurements {
+            surface
+            numberOfCareUnits
+            numberOfSeats
+          }
+          type
+          notesAboutType
+          destinationType
+          specifications
+          services
+          prices {
+            vatRate
+            notes
+          }
+        }
+        terrainConfiguration {
+          terrainSpecifications {
+            surface
+            buildingHeightTerrain
+            extensionTerrainPercent
+            extensionTerrainM2
+            pavedPercentage
+          }
+          specifications
+          typeOfPavement
+          prices {
+            price
+            vatRate
+            priceVat
+            priceIncVat
+          }
+        }
+        storageConfiguration {
+          measurements {
+            length
+            width
+            height
+            surface
+            volume
+          }
+          type
+          notes
+        }
+        images {
+          url
+        }
+      }
+    }
+  }
+`;
+export function usePimBogSpacesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(PimBogSpacesDocument, baseOptions);
+}
+export function usePimBogSpacesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimBogSpacesQuery, PimBogSpacesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimBogSpacesQuery, PimBogSpacesQueryVariables>(
+    PimBogSpacesDocument,
+    baseOptions,
+  );
+}
+export type PimBogSpacesQueryHookResult = ReturnType<typeof usePimBogSpacesQuery>;
+export type PimBogSpacesLazyQueryHookResult = ReturnType<typeof usePimBogSpacesLazyQuery>;
+export type PimBogSpacesQueryResult = ApolloReactCommon.QueryResult<PimBogSpacesQuery, PimBogSpacesQueryVariables>;
+export const PimCadastreDocument = gql`
+  query PimCadastre($id: ID!) {
+    getPimCadastre(id: $id) {
+      id
+      cadastre {
+        id
+        description
+        mapsDescription
+        type
+        maps {
+          id
+          mapName
+          name
+          file {
+            key
+            id
+            fileName
+          }
+          description
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownershipChoice
+          ownershipType
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
+            notes
+          }
+        }
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+export function usePimCadastreQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export function usePimCadastreLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimCadastreQuery, PimCadastreQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimCadastreQuery, PimCadastreQueryVariables>(PimCadastreDocument, baseOptions);
+}
+export type PimCadastreQueryHookResult = ReturnType<typeof usePimCadastreQuery>;
+export type PimCadastreLazyQueryHookResult = ReturnType<typeof usePimCadastreLazyQuery>;
+export type PimCadastreQueryResult = ApolloReactCommon.QueryResult<PimCadastreQuery, PimCadastreQueryVariables>;
+export const PimGeneralDocument = gql`
+  query PimGeneral($id: ID!) {
+    getPimGeneral(id: $id) {
+      id
+      street
       houseNumber
-      houseNumberAddition
       postalCode
       district
       city
@@ -14771,286 +14799,1374 @@ export const PimSpecificationDocument = gql`
       county
       country
       propertyType
-      attention
-      plotNumber
-      salePrice
-      rentPrice
-      status
-      images {
-        url
-      }
-    }
-    inspections {
-      id
-      inspectionType
-      type
-      description
-    }
-  }
-}
-    `;
-export function usePimSpecificationQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(PimSpecificationDocument, baseOptions);
-      }
-export function usePimSpecificationLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(PimSpecificationDocument, baseOptions);
+      houseGeneral {
+        propertyConnection
+        propertyDetails
+        construction {
+          type
+          from
+          to
+          notes
         }
-export type PimSpecificationQueryHookResult = ReturnType<typeof usePimSpecificationQuery>;
-export type PimSpecificationLazyQueryHookResult = ReturnType<typeof usePimSpecificationLazyQuery>;
-export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<PimSpecificationQuery, PimSpecificationQueryVariables>;
-export const PimOverallInfoDocument = gql`
-    query PimOverallInfo($id: ID!) {
-  getPimGeneral(id: $id) {
-    street
-    houseNumber
-    postalCode
-    city
-    propertyType
-  }
-  getPimInside(id: $id) {
-    floors {
-      id
-      floorType
-      level
-    }
-    bogSpaces {
-      id
-      type
-    }
-    aogSpaces {
-      id
-      type
-      name
-      animalsConfiguration {
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+      }
+      apartmentGeneral {
+        propertyDetails {
+          groundfloorApartmentStartsOnFloor
+          amountOfTotalFloors
+          notes
+          apartmentType
+          characteristicsApartment
+        }
+      }
+      bogGeneral {
+        type
+        characteristics
+        startsOnFloor
+        totalFloors
+        notes
+      }
+      aogGeneral {
+        generalType
+        additionalPosition
+        houseLot {
+          length
+          width
+          surface
+          amountOfHouses
+        }
+        specifications {
+          type
+          notes
+        }
+      }
+      parkingGeneral {
+        type {
+          type
+          parkingNumber
+          notes
+        }
+        measurements {
+          length
+          width
+          surface
+          capacity
+          height
+          volume
+        }
+        specifications {
+          type
+          notes
+        }
+        material {
+          type
+          notes
+        }
+        insulation {
+          type
+          notes
+        }
+      }
+      buildingPlotGeneral {
+        propertyDetails {
+          plotReadyForConstruction
+          buildingPlotNumber
+          notes
+          soilType
+          measurements {
+            length
+            width
+            surface
+          }
+        }
+      }
+      extraAddress {
+        plotNumber
+        plotNumberAddition
+        houseNumberStart
+        houseNumberEnd
+      }
+      identificationNumbers {
+        id
+        name
+        number
         type
       }
-      groundConfiguration {
-        typeOfLooseGround
-      }
-      buildingsConfiguration {
-        buildingType
-      }
-      installationsConfiguration {
-        type
-      }
-    }
-  }
-  getPimOutside(id: $id) {
-    outsideFeatures {
-      id
-      type
-    }
-  }
-  getPimCadastre(id: $id) {
-    cadastre {
-      id
-      type
-    }
-  }
-  getPimServices(id: $id) {
-    meters {
-      id
-      type
-    }
-  }
-}
-    `;
-export function usePimOverallInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>) {
-        return ApolloReactHooks.useQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(PimOverallInfoDocument, baseOptions);
-      }
-export function usePimOverallInfoLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(PimOverallInfoDocument, baseOptions);
-        }
-export type PimOverallInfoQueryHookResult = ReturnType<typeof usePimOverallInfoQuery>;
-export type PimOverallInfoLazyQueryHookResult = ReturnType<typeof usePimOverallInfoLazyQuery>;
-export type PimOverallInfoQueryResult = ApolloReactCommon.QueryResult<PimOverallInfoQuery, PimOverallInfoQueryVariables>;
-export const MeDocument = gql`
-    query Me {
-  me {
-    id
-    firstName
-    lastName
-    email
-    avatar
-    teams {
-      id
-      name
-    }
-  }
-}
-    `;
-export function useMeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-      }
-export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-        }
-export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
-export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
-export const GetUsersDocument = gql`
-    query GetUsers($from: Int!, $limit: Int, $search: String) {
-  getAllProfiles(search: $search, pagination: {from: $from, limit: $limit}) {
-    items {
-      id
-      firstName
-      lastName
-      email
-      avatar
-    }
-  }
-}
-    `;
-export function useGetUsersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
-      }
-export function useGetUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
-        }
-export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
-export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
-export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
-export const ProjectPhasesDocument = gql`
-    query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
-  getProjectPhases(filters: {name: $name, ncpId: $ncpId}, pagination: {from: $from, limit: $limit}) {
-    items {
-      id
-      name
-      logo {
+      showExtraAddress
+      showIdentificationNumber
+      attentionNote
+      showAttentionNote
+      dateUpdated
+      lastEditedBy {
         id
-        fileName
-        description
-        status
-        fileType
-        permission
-        key
-        createdAt
-        signedUrl
-        url
-        bucket
-        entityID
-        entity
+        firstName
+        lastName
       }
-      ncpIds
     }
   }
+`;
+export function usePimGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
 }
-    `;
-export function useProjectPhasesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>) {
-        return ApolloReactHooks.useQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(ProjectPhasesDocument, baseOptions);
-      }
-export function useProjectPhasesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(ProjectPhasesDocument, baseOptions);
-        }
-export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
-export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
-export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
-export const SettingInfoDocument = gql`
-    query SettingInfo {
-  getTeams {
-    items {
-      id
-      name
-    }
-  }
+export function usePimGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimGeneralQuery, PimGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimGeneralQuery, PimGeneralQueryVariables>(PimGeneralDocument, baseOptions);
 }
-    `;
-export function useSettingInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>) {
-        return ApolloReactHooks.useQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+export type PimGeneralQueryHookResult = ReturnType<typeof usePimGeneralQuery>;
+export type PimGeneralLazyQueryHookResult = ReturnType<typeof usePimGeneralLazyQuery>;
+export type PimGeneralQueryResult = ApolloReactCommon.QueryResult<PimGeneralQuery, PimGeneralQueryVariables>;
+export const PimWithSameAddressDocument = gql`
+  query PimWithSameAddress($input: PimWithSameAddressInput!) {
+    getPimsGeneralWithSameAddress(input: $input) {
+      metadata {
+        total
       }
-export function useSettingInfoLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
-        }
-export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
-export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
-export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
-export const GetTaskDocument = gql`
-    query GetTask($id: ID!) {
-  getTask(id: $id) {
-    id
-    title
-    assignee
-    startDate
-    deadline
-    priority
-  }
-}
-    `;
-export function useGetTaskQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
-      }
-export function useGetTaskLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
-        }
-export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
-export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
-export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
-export const GetTeamsDocument = gql`
-    query GetTeams($from: Int, $limit: Int, $search: String) {
-  getTeams(pagination: {from: $from, limit: $limit}, search: $search) {
-    items {
-      id
-      profileMembers {
+      items {
         id
-        user {
+      }
+    }
+  }
+`;
+export function usePimWithSameAddressQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(
+    PimWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export function usePimWithSameAddressLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimWithSameAddressQuery, PimWithSameAddressQueryVariables>(
+    PimWithSameAddressDocument,
+    baseOptions,
+  );
+}
+export type PimWithSameAddressQueryHookResult = ReturnType<typeof usePimWithSameAddressQuery>;
+export type PimWithSameAddressLazyQueryHookResult = ReturnType<typeof usePimWithSameAddressLazyQuery>;
+export type PimWithSameAddressQueryResult = ApolloReactCommon.QueryResult<
+  PimWithSameAddressQuery,
+  PimWithSameAddressQueryVariables
+>;
+export const PimInsideDocument = gql`
+  query PimInside($id: ID!) {
+    getPimInside(id: $id) {
+      id
+      floors {
+        id
+        level
+        floorType
+        floorDescription
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        spaces {
+          id
+          spaceType
+          spaceName
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              kitchenType: type
+              constructionType
+              servicesNotes
+              kitchenServices: services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+          }
+        }
+      }
+      insideGeneral {
+        extension {
+          notes
+          yearOfExtension
+        }
+        renovation {
+          notes
+          yearOfRenovation
+        }
+        windows {
+          notes
+          types
+        }
+        notes
+        dateUpdated
+        lastEditedBy {
           id
           firstName
           lastName
         }
       }
-      company {
+    }
+  }
+`;
+export function usePimInsideQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimInsideQuery, PimInsideQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
+}
+export function usePimInsideLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimInsideQuery, PimInsideQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimInsideQuery, PimInsideQueryVariables>(PimInsideDocument, baseOptions);
+}
+export type PimInsideQueryHookResult = ReturnType<typeof usePimInsideQuery>;
+export type PimInsideLazyQueryHookResult = ReturnType<typeof usePimInsideLazyQuery>;
+export type PimInsideQueryResult = ApolloReactCommon.QueryResult<PimInsideQuery, PimInsideQueryVariables>;
+export const PimLocationDocument = gql`
+  query PimLocation($id: ID!) {
+    getPimLocation(id: $id) {
+      id
+      latitude
+      longitude
+      type
+      notes
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      goodToKnows {
+        type
+        distance
+        units
+        checked
+      }
+    }
+  }
+`;
+export function usePimLocationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimLocationQuery, PimLocationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
+}
+export function usePimLocationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimLocationQuery, PimLocationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimLocationQuery, PimLocationQueryVariables>(PimLocationDocument, baseOptions);
+}
+export type PimLocationQueryHookResult = ReturnType<typeof usePimLocationQuery>;
+export type PimLocationLazyQueryHookResult = ReturnType<typeof usePimLocationLazyQuery>;
+export type PimLocationQueryResult = ApolloReactCommon.QueryResult<PimLocationQuery, PimLocationQueryVariables>;
+export const PimMediaDocument = gql`
+  query PimMedia($id: ID!, $picturesSort: Sort) {
+    getPimMedia(id: $id) {
+      id
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+        }
+      }
+      mainPictureId
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+`;
+export function usePimMediaQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimMediaQuery, PimMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
+}
+export function usePimMediaLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMediaQuery, PimMediaQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimMediaQuery, PimMediaQueryVariables>(PimMediaDocument, baseOptions);
+}
+export type PimMediaQueryHookResult = ReturnType<typeof usePimMediaQuery>;
+export type PimMediaLazyQueryHookResult = ReturnType<typeof usePimMediaLazyQuery>;
+export type PimMediaQueryResult = ApolloReactCommon.QueryResult<PimMediaQuery, PimMediaQueryVariables>;
+export const PimMetersDocument = gql`
+  query PimMeters($id: ID!) {
+    getPimServices(id: $id) {
+      metersMeta {
+        description
+        Water {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Gas {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Electric {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+      }
+      meters {
+        id
+        type
+        name
+        description
+        readings {
+          id
+          value
+          description
+          feedInId
+          dateOfReading
+        }
+      }
+    }
+  }
+`;
+export function usePimMetersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimMetersQuery, PimMetersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
+}
+export function usePimMetersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimMetersQuery, PimMetersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimMetersQuery, PimMetersQueryVariables>(PimMetersDocument, baseOptions);
+}
+export type PimMetersQueryHookResult = ReturnType<typeof usePimMetersQuery>;
+export type PimMetersLazyQueryHookResult = ReturnType<typeof usePimMetersLazyQuery>;
+export type PimMetersQueryResult = ApolloReactCommon.QueryResult<PimMetersQuery, PimMetersQueryVariables>;
+export const PimOutsideDocument = gql`
+  query PimOutside($id: ID!) {
+    getPimOutside(id: $id) {
+      id
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      houseOutside {
+        foundation {
+          material {
+            notes
+            type
+          }
+          type {
+            notes
+            type
+          }
+        }
+        generalInformation {
+          qualityInformation
+          images {
+            id
+            url
+          }
+          notes
+        }
+        propertyRelated {
+          items
+          notes
+          images {
+            id
+            url
+          }
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+          images {
+            id
+            url
+          }
+          gutter {
+            notes
+            type
+          }
+          gutterMaterial {
+            material
+            notes
+          }
+          yearOfRoof
+        }
+        notes
+      }
+      outsideFeatures {
+        id
+        type
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        description
+        configuration {
+          ... on GardenFeature {
+            main
+            type
+            notes
+            quality
+            location
+            shape
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            notes
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            storageTypes: types
+            notes
+            attached
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            images {
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            notes
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export function usePimOutsideQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
+}
+export function usePimOutsideLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOutsideQuery, PimOutsideQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimOutsideQuery, PimOutsideQueryVariables>(PimOutsideDocument, baseOptions);
+}
+export type PimOutsideQueryHookResult = ReturnType<typeof usePimOutsideQuery>;
+export type PimOutsideLazyQueryHookResult = ReturnType<typeof usePimOutsideLazyQuery>;
+export type PimOutsideQueryResult = ApolloReactCommon.QueryResult<PimOutsideQuery, PimOutsideQueryVariables>;
+export const PimPricingDocument = gql`
+  query PimPricing($id: ID!) {
+    getPricing(id: $id) {
+      id
+      costsDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pricing {
+        description
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        rent {
+          isEnabled
+          rentalPrice
+          paymentFrequency
+          suffix
+          notes
+          conditions
+        }
+        sale {
+          isEnabled
+          general {
+            prefix
+            price
+            suffix
+            executionSale
+            dateOfExecutionSale
+            conditions
+            purchaseMix
+            notes
+          }
+          woz {
+            wozPrice
+            referenceDateWoz
+            notes
+          }
+        }
+      }
+      costs {
+        id
+        serviceCosts
+        paymentsFrequency
+        vatTaxedServiceCosts
+        vatPercentage
+        notes
+        type
+        name
+      }
+      investment {
+        description
+        netRentalIncome
+        grossRentalIncome
+        economicRentalValue
+        averageMaturity
+        rentIndexed
+        splitApartment
+        averageVacancyPercentage
+        numberOfRentableUnits
+        amountOfTenants
+        remainingTermContacts
+        vacancySquareMeters
+        notes
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+export function usePimPricingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimPricingQuery, PimPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
+}
+export function usePimPricingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimPricingQuery, PimPricingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimPricingQuery, PimPricingQueryVariables>(PimPricingDocument, baseOptions);
+}
+export type PimPricingQueryHookResult = ReturnType<typeof usePimPricingQuery>;
+export type PimPricingLazyQueryHookResult = ReturnType<typeof usePimPricingLazyQuery>;
+export type PimPricingQueryResult = ApolloReactCommon.QueryResult<PimPricingQuery, PimPricingQueryVariables>;
+export const PimServicesDocument = gql`
+  query PimServices($id: ID!) {
+    getPimServices(id: $id) {
+      description
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      metersMeta {
+        Water {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Gas {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+        Electric {
+          description
+          lastEditedBy {
+            id
+            firstName
+            lastName
+          }
+          dateUpdated
+        }
+      }
+      meters {
+        id
+        type
+        name
+        description
+        readings {
+          id
+          value
+          description
+          feedInId
+          dateOfReading
+        }
+      }
+      hotWaterSupplies {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HotWaterSupplyConfiguration {
+            type
+            fuel
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+      heatingSources {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on HeatingSourceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+      }
+      additionalServices {
+        id
+        type
+        name
+        description
+        configuration {
+          ... on AdditionalServiceConfiguration {
+            type
+          }
+        }
+        yearOfInstallation
+        ownership
+      }
+    }
+  }
+`;
+export function usePimServicesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimServicesQuery, PimServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
+}
+export function usePimServicesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimServicesQuery, PimServicesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimServicesQuery, PimServicesQueryVariables>(PimServicesDocument, baseOptions);
+}
+export type PimServicesQueryHookResult = ReturnType<typeof usePimServicesQuery>;
+export type PimServicesLazyQueryHookResult = ReturnType<typeof usePimServicesLazyQuery>;
+export type PimServicesQueryResult = ApolloReactCommon.QueryResult<PimServicesQuery, PimServicesQueryVariables>;
+export const PimSpecificationDocument = gql`
+  query PimSpecification($id: ID!) {
+    getPimSpecification(id: $id) {
+      linkedPropertiesDescription
+      inspectionsDescription
+      linkedPropertiesDateUpdated
+      linkedPropertiesLastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      inspectionsDateUpdated
+      inspectionsLastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      specification {
+        description
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        energy {
+          label
+          energyIndex
+          endDateEnergyLabel
+          EPC
+          characteristicType
+          notes
+        }
+        approvals {
+          notes
+          label
+        }
+        obligation {
+          label
+          notes
+        }
+      }
+      specificationAdvanced {
+        description
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        parking {
+          description
+          parkingCapacity
+          parkingFacilities
+        }
+        monument {
+          notes
+          type
+        }
+        inside {
+          notes
+          type
+        }
+        housingOptions {
+          notes
+          type
+        }
+        specialTags {
+          notes
+          type
+        }
+        propertyRights {
+          notes
+          type
+        }
+        homeOwnerAssociation {
+          name
+          monthlyContribution
+          goodToKnow
+          notes
+        }
+      }
+      linkedProperties {
+        id
+        houseNumberPrefix
+        houseNumber
+        houseNumberAddition
+        postalCode
+        district
+        city
+        state
+        county
+        country
+        propertyType
+        attention
+        plotNumber
+        salePrice
+        rentPrice
+        status
+        images {
+          url
+        }
+      }
+      inspections {
+        id
+        inspectionType
+        type
+        description
+      }
+    }
+  }
+`;
+export function usePimSpecificationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(
+    PimSpecificationDocument,
+    baseOptions,
+  );
+}
+export function usePimSpecificationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimSpecificationQuery, PimSpecificationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimSpecificationQuery, PimSpecificationQueryVariables>(
+    PimSpecificationDocument,
+    baseOptions,
+  );
+}
+export type PimSpecificationQueryHookResult = ReturnType<typeof usePimSpecificationQuery>;
+export type PimSpecificationLazyQueryHookResult = ReturnType<typeof usePimSpecificationLazyQuery>;
+export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<
+  PimSpecificationQuery,
+  PimSpecificationQueryVariables
+>;
+export const PimOverallInfoDocument = gql`
+  query PimOverallInfo($id: ID!) {
+    getPimGeneral(id: $id) {
+      street
+      houseNumber
+      postalCode
+      city
+      propertyType
+    }
+    getPimInside(id: $id) {
+      floors {
+        id
+        floorType
+        level
+      }
+      bogSpaces {
+        id
+        type
+      }
+      aogSpaces {
+        id
+        type
+        name
+        animalsConfiguration {
+          type
+        }
+        groundConfiguration {
+          typeOfLooseGround
+        }
+        buildingsConfiguration {
+          buildingType
+        }
+        installationsConfiguration {
+          type
+        }
+      }
+    }
+    getPimOutside(id: $id) {
+      outsideFeatures {
+        id
+        type
+      }
+    }
+    getPimCadastre(id: $id) {
+      cadastre {
+        id
+        type
+      }
+    }
+    getPimServices(id: $id) {
+      meters {
+        id
+        type
+      }
+    }
+  }
+`;
+export function usePimOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(
+    PimOverallInfoDocument,
+    baseOptions,
+  );
+}
+export function usePimOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimOverallInfoQuery, PimOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimOverallInfoQuery, PimOverallInfoQueryVariables>(
+    PimOverallInfoDocument,
+    baseOptions,
+  );
+}
+export type PimOverallInfoQueryHookResult = ReturnType<typeof usePimOverallInfoQuery>;
+export type PimOverallInfoLazyQueryHookResult = ReturnType<typeof usePimOverallInfoLazyQuery>;
+export type PimOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  PimOverallInfoQuery,
+  PimOverallInfoQueryVariables
+>;
+export const MeDocument = gql`
+  query Me {
+    me {
+      id
+      firstName
+      lastName
+      email
+      avatar
+      teams {
         id
         name
       }
-      name
-      description
-      teamRights
     }
   }
+`;
+export function useMeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>) {
+  return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
 }
-    `;
-export function useGetTeamsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+  return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const GetUsersDocument = gql`
+  query GetUsers($from: Int!, $limit: Int, $search: String) {
+    getAllProfiles(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        avatar
       }
-export function useGetTeamsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+    }
+  }
+`;
+export function useGetUsersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export const GetMyTeamMembersDocument = gql`
+  query GetMyTeamMembers($from: Int, $limit: Int, $search: String) {
+    members: getMyTeamMembers(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        avatar
+      }
+    }
+  }
+`;
+export function useGetMyTeamMembersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export function useGetMyTeamMembersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export type GetMyTeamMembersQueryHookResult = ReturnType<typeof useGetMyTeamMembersQuery>;
+export type GetMyTeamMembersLazyQueryHookResult = ReturnType<typeof useGetMyTeamMembersLazyQuery>;
+export type GetMyTeamMembersQueryResult = ApolloReactCommon.QueryResult<
+  GetMyTeamMembersQuery,
+  GetMyTeamMembersQueryVariables
+>;
+export const ProjectPhasesDocument = gql`
+  query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
+    getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        name
+        logo {
+          id
+          fileName
+          description
+          status
+          fileType
+          permission
+          key
+          createdAt
+          signedUrl
+          url
+          bucket
+          entityID
+          entity
         }
+        ncpIds
+      }
+    }
+  }
+`;
+export function useProjectPhasesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(ProjectPhasesDocument, baseOptions);
+}
+export function useProjectPhasesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProjectPhasesQuery, ProjectPhasesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ProjectPhasesQuery, ProjectPhasesQueryVariables>(
+    ProjectPhasesDocument,
+    baseOptions,
+  );
+}
+export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
+export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
+export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const SettingInfoDocument = gql`
+  query SettingInfo {
+    getTeams {
+      items {
+        id
+        name
+      }
+    }
+  }
+`;
+export function useSettingInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export function useSettingInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
+export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
+export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTaskDocument = gql`
+  query GetTask($id: ID!) {
+    getTask(id: $id) {
+      id
+      title
+      assignee
+      startDate
+      deadline
+      priority
+    }
+  }
+`;
+export function useGetTaskQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+  return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export function useGetTaskLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
+export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
+export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
+export const GetTasksDocument = gql`
+  query GetTasks(
+    $search: String
+    $assignees: [ID!]
+    $from: Date
+    $to: Date
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+  ) {
+    getTasks(
+      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        title
+        assignee
+        startDate
+        deadline
+        priority
+        label
+        status
+      }
+    }
+  }
+`;
+export function useGetTasksQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export function useGetTasksLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
+export const GetTeamsDocument = gql`
+  query GetTeams($from: Int, $limit: Int, $search: String) {
+    getTeams(pagination: { from: $from, limit: $limit }, search: $search) {
+      items {
+        id
+        profileMembers {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+        company {
+          id
+          name
+        }
+        name
+        description
+        teamRights
+      }
+    }
+  }
+`;
+export function useGetTeamsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
+export function useGetTeamsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
 export type GetTeamsQueryHookResult = ReturnType<typeof useGetTeamsQuery>;
 export type GetTeamsLazyQueryHookResult = ReturnType<typeof useGetTeamsLazyQuery>;
 export type GetTeamsQueryResult = ApolloReactCommon.QueryResult<GetTeamsQuery, GetTeamsQueryVariables>;
 export const GetTeamDetailsDocument = gql`
-    query GetTeamDetails($id: ID!) {
-  getTeamDetails(id: $id) {
-    id
-    name
-    teamRights
-    company {
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
       id
       name
-    }
-    profileMembers {
-      id
-      user {
+      teamRights
+      company {
         id
-        email
-        firstName
-        lastName
+        name
       }
-      notes
-      createPermission
-      readPermission
-      updatePermission
-      deletePermission
+      profileMembers {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+        }
+        notes
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
+      }
     }
   }
+`;
+export function useGetTeamDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
 }
-    `;
-export function useGetTeamDetailsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(GetTeamDetailsDocument, baseOptions);
-      }
-export function useGetTeamDetailsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(GetTeamDetailsDocument, baseOptions);
-        }
+export function useGetTeamDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
 export type GetTeamDetailsQueryHookResult = ReturnType<typeof useGetTeamDetailsQuery>;
 export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDetailsLazyQuery>;
-export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>;
+export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetTeamDetailsQuery,
+  GetTeamDetailsQueryVariables
+>;

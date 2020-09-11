@@ -27,7 +27,7 @@ export const TaskViewContainer = ({ viewMode, search, selectedMembers = [], date
   useEffect(() => {
     getTasks({
       variables: {
-        sortColumn: viewMode === TasksViewMode.Swimlane ? 'title.keyword' : 'title.keyword',
+        sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
         sortDirection: SortDirection.Desc,
         search,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),

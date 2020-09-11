@@ -10,8 +10,8 @@ import { useStyles } from './TasksDateSectionFuture.styles';
 import { TasksDateSectionFutureProps } from './TasksDateSectionFuture.types';
 
 export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureProps) => {
-  const [from, setFrom] = useState(DateTime.local().plus({ days: 8 }));
-  const [to, setTo] = useState(DateTime.local().plus({ days: 8 }));
+  const [from, setFrom] = useState<DateTime | null>(null);
+  const [to, setTo] = useState<DateTime | null>(null);
   const [withoutDeadline, setWithoutDeadline] = useState(false);
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -19,10 +19,6 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
   const onChangeFrom = (date: MaterialUiPickersDate) => {
     if (date) {
       setFrom(date);
-
-      if (date.diff(to, 'days').days > 0) {
-        setTo(date);
-      }
     }
   };
 
@@ -34,10 +30,10 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
 
   useEffect(() => {
     onSelectDate({
-      from: from.toISO(),
-      to: to.toISO(),
+      from: from ? from.toISO() : null,
+      to: to ? to.toISO() : null,
     });
-  }, [from, to, onSelectDate]);
+  }, [from, onSelectDate, to]);
 
   return (
     <Grid container justify="space-between" className={classes.root}>
@@ -58,10 +54,12 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
               {formatMessage({ id: 'common.from' })}
             </Typography>
             <KeyboardDatePicker
+              clearable
               InputProps={{ classes: { root: classes.datePickerInput } }}
               onChange={date => onChangeFrom(date)}
               value={from}
               className={classes.inlineBlock}
+              format="MM.dd.yyyy"
               minDate={DateTime.local()
                 .plus({ days: 8 })
                 .toISO()}
@@ -72,11 +70,18 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
               {formatMessage({ id: 'common.to' })}
             </Typography>
             <KeyboardDatePicker
+              clearable
               InputProps={{ classes: { root: classes.datePickerInput } }}
               onChange={date => onChangeTo(date)}
               value={to}
               className={classes.inlineBlock}
-              minDate={from.toISO()}
+              format="MM.dd.yyyy"
+              minDate={
+                from?.toISO() ||
+                DateTime.local()
+                  .plus({ days: 8 })
+                  .toISO()
+              }
             />
           </Grid>
         </Grid>

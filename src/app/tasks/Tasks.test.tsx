@@ -6,6 +6,6 @@ import { Tasks } from './Tasks';
 
 describe('Tasks', () => {
   test('renders correctly', () => {
-    // render(<Tasks user={undefined} data={{members: []}} />);
+    render(<Tasks user={{ id: 'test', firstName: 'test', lastName: 'test' }} members={[]} error={undefined} />);
   });
 });

@@ -29,3 +29,17 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const GET_MY_TEAMMEMBERS = gql`
+  query GetMyTeamMembers($from: Int, $limit: Int, $search: String) {
+    members: getMyTeamMembers(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        avatar
+      }
+    }
+  }
+`;
