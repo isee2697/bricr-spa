@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { Page } from 'ui/templates';
-import { SettingsHeader } from 'app/settings/settingsHeader/SettingsHeader';
 import { useLocale } from 'hooks';
-import { Button, Card, CardContent, Grid, Typography } from 'ui/atoms';
+import { Card, CardContent, Grid, Typography } from 'ui/atoms';
 import { AddIcon, HelpIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 import { CheckboxField } from 'form/fields';
@@ -20,20 +19,13 @@ export const WorkflowTemplates = ({ updatedBy, dateUpdated, onAdd }: WorkflowTem
 
   return (
     <>
-      <SettingsHeader
-        action={
-          <Button
-            color="primary"
-            variant="contained"
-            startIcon={<AddIcon color="inherit" />}
-            onClick={() => setModalVisible(true)}
-            size="small"
-          >
-            {formatMessage({ id: 'settings.workflow_templates.add_new_workflow_template' })}
-          </Button>
-        }
-      />
       <Page
+        showHeader
+        headerProps={{
+          actionText: formatMessage({ id: 'settings.workflow_templates.add_new_workflow_template' }),
+          actionIcon: <AddIcon color="inherit" />,
+          onAction: () => setModalVisible(true),
+        }}
         title={formatMessage({ id: 'settings.workflow_templates.title' })}
         placeholder="settings.workflow_templates.description_placeholder"
         name="description"

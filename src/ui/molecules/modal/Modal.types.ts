@@ -7,3 +7,8 @@ export type ModalProps = Omit<DialogProps, 'open' | 'title'> & {
   children: ReactNode;
   titleClassName?: string;
 };
+
+export type ModalContainerProps = {
+  isOpened: boolean;
+  onClose: VoidFunction;
+};

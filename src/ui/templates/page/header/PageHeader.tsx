@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Box, IconButton, Grid, NavBreadcrumbs } from 'ui/atoms';
+import { Box, IconButton, Grid, NavBreadcrumbs, Button } from 'ui/atoms';
 import { HideIcon } from 'ui/atoms/icons';
 import { useLayout } from 'context/layout';
 
-import { SettingsHeaderProps } from './SettingsHeader.types';
-import { useStyles } from './SettingsHeader.styles';
+import { PageHeaderProps } from './PageHeader.types';
+import { useStyles } from './PageHeader.styles';
 
-export const SettingsHeader = ({ action }: SettingsHeaderProps) => {
+export const PageHeader = ({ customAction, onAction, actionText, actionIcon }: PageHeaderProps) => {
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
 
@@ -27,7 +27,19 @@ export const SettingsHeader = ({ action }: SettingsHeaderProps) => {
           )}
           <NavBreadcrumbs />
         </Box>
-        {action}
+        {!!customAction ? (
+          customAction
+        ) : (
+          <Button
+            color="primary"
+            variant="contained"
+            startIcon={actionIcon}
+            onClick={() => onAction && onAction()}
+            size="small"
+          >
+            {actionText}
+          </Button>
+        )}
       </Box>
     </Grid>
   );

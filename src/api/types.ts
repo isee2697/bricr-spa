@@ -123,6 +123,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTeam?: Maybe<Scalars['String']>;
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
@@ -467,6 +468,10 @@ export type MutationRemovePimArgs = {
 
 export type MutationRemoveProjectPhaseArgs = {
   id: Scalars['ID'];
+};
+
+export type MutationRemoveTeamArgs = {
+  id: Scalars['String'];
 };
 
 export type MutationRemoveUserFromTeamArgs = {
@@ -7553,6 +7558,52 @@ export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
+export type AddTeamMutationVariables = {
+  input: AddTeamInput;
+};
+
+export type AddTeamMutation = { __typename?: 'Mutation' } & {
+  addTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>;
+};
+
+export type UpdateTeamMutationVariables = {
+  input: UpdateTeamInput;
+};
+
+export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
+  updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type RemoveTeamMutationVariables = {
+  id: Scalars['String'];
+};
+
+export type RemoveTeamMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'removeTeam'>;
+
+export type AddUserToTeamMutationVariables = {
+  input: AddUserToTeamInput;
+};
+
+export type AddUserToTeamMutation = { __typename?: 'Mutation' } & {
+  addUserToTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type RemoveUserFromTeamMutationVariables = {
+  input: RemoveUserFromTeamInput;
+};
+
+export type RemoveUserFromTeamMutation = { __typename?: 'Mutation' } & {
+  removeUserFromTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type UpdateUserInTeamMutationVariables = {
+  input: UpdateUserInTeamInput;
+};
+
+export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
+  updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -9475,6 +9526,20 @@ export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>;
 };
 
+export type GetUsersQueryVariables = {
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetUsersQuery = { __typename?: 'Query' } & {
+  getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<
+      Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>
+    >;
+  };
+};
+
 export type ProjectPhasesQueryVariables = {
   name?: Maybe<Scalars['String']>;
   ncpId?: Maybe<Scalars['ID']>;
@@ -9509,6 +9574,61 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type SettingInfoQueryVariables = {};
+
+export type SettingInfoQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
+  >;
+};
+
+export type GetTeamsQueryVariables = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetTeamsQuery = { __typename?: 'Query' } & {
+  getTeams?: Maybe<
+    { __typename?: 'TeamSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'description' | 'teamRights'> & {
+              profileMembers?: Maybe<
+                Array<
+                  { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
+                      user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+                    }
+                >
+              >;
+              company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+            }
+        >
+      >;
+    }
+  >;
+};
+
+export type GetTeamDetailsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
+  getTeamDetails?: Maybe<
+    { __typename?: 'Team' } & Pick<Team, 'id' | 'name' | 'teamRights'> & {
+        company: { __typename?: 'Company' } & Pick<Company, 'id' | 'name'>;
+        profileMembers?: Maybe<
+          Array<
+            { __typename?: 'TeamMember' } & Pick<
+              TeamMember,
+              'id' | 'notes' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
+            > & { user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'> }
+          >
+        >;
+      }
+  >;
 };
 
 export const LoginDocument = gql`
@@ -12302,6 +12422,119 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const AddTeamDocument = gql`
+  mutation AddTeam($input: AddTeamInput!) {
+    addTeam(input: $input) {
+      id
+      name
+    }
+  }
+`;
+export function useAddTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTeamMutation, AddTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTeamMutation, AddTeamMutationVariables>(AddTeamDocument, baseOptions);
+}
+export type AddTeamMutationHookResult = ReturnType<typeof useAddTeamMutation>;
+export type AddTeamMutationResult = ApolloReactCommon.MutationResult<AddTeamMutation>;
+export type AddTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<AddTeamMutation, AddTeamMutationVariables>;
+export const UpdateTeamDocument = gql`
+  mutation UpdateTeam($input: UpdateTeamInput!) {
+    updateTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTeamMutation, UpdateTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTeamMutation, UpdateTeamMutationVariables>(UpdateTeamDocument, baseOptions);
+}
+export type UpdateTeamMutationHookResult = ReturnType<typeof useUpdateTeamMutation>;
+export type UpdateTeamMutationResult = ApolloReactCommon.MutationResult<UpdateTeamMutation>;
+export type UpdateTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTeamMutation,
+  UpdateTeamMutationVariables
+>;
+export const RemoveTeamDocument = gql`
+  mutation RemoveTeam($id: String!) {
+    removeTeam(id: $id)
+  }
+`;
+export function useRemoveTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveTeamMutation, RemoveTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveTeamMutation, RemoveTeamMutationVariables>(RemoveTeamDocument, baseOptions);
+}
+export type RemoveTeamMutationHookResult = ReturnType<typeof useRemoveTeamMutation>;
+export type RemoveTeamMutationResult = ApolloReactCommon.MutationResult<RemoveTeamMutation>;
+export type RemoveTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveTeamMutation,
+  RemoveTeamMutationVariables
+>;
+export const AddUserToTeamDocument = gql`
+  mutation AddUserToTeam($input: AddUserToTeamInput!) {
+    addUserToTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useAddUserToTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUserToTeamMutation, AddUserToTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddUserToTeamMutation, AddUserToTeamMutationVariables>(
+    AddUserToTeamDocument,
+    baseOptions,
+  );
+}
+export type AddUserToTeamMutationHookResult = ReturnType<typeof useAddUserToTeamMutation>;
+export type AddUserToTeamMutationResult = ApolloReactCommon.MutationResult<AddUserToTeamMutation>;
+export type AddUserToTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddUserToTeamMutation,
+  AddUserToTeamMutationVariables
+>;
+export const RemoveUserFromTeamDocument = gql`
+  mutation RemoveUserFromTeam($input: RemoveUserFromTeamInput!) {
+    removeUserFromTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useRemoveUserFromTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RemoveUserFromTeamMutation, RemoveUserFromTeamMutationVariables>(
+    RemoveUserFromTeamDocument,
+    baseOptions,
+  );
+}
+export type RemoveUserFromTeamMutationHookResult = ReturnType<typeof useRemoveUserFromTeamMutation>;
+export type RemoveUserFromTeamMutationResult = ApolloReactCommon.MutationResult<RemoveUserFromTeamMutation>;
+export type RemoveUserFromTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RemoveUserFromTeamMutation,
+  RemoveUserFromTeamMutationVariables
+>;
+export const UpdateUserInTeamDocument = gql`
+  mutation UpdateUserInTeam($input: UpdateUserInTeamInput!) {
+    updateUserInTeam(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateUserInTeamMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateUserInTeamMutation, UpdateUserInTeamMutationVariables>(
+    UpdateUserInTeamDocument,
+    baseOptions,
+  );
+}
+export type UpdateUserInTeamMutationHookResult = ReturnType<typeof useUpdateUserInTeamMutation>;
+export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<UpdateUserInTeamMutation>;
+export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUserInTeamMutation,
+  UpdateUserInTeamMutationVariables
 >;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
@@ -15465,6 +15698,32 @@ export function useMeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptio
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
+export const GetUsersDocument = gql`
+  query GetUsers($from: Int!, $limit: Int, $search: String) {
+    getAllProfiles(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        avatar
+      }
+    }
+  }
+`;
+export function useGetUsersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+}
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const ProjectPhasesDocument = gql`
   query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
     getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {
@@ -15507,3 +15766,112 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const SettingInfoDocument = gql`
+  query SettingInfo {
+    getTeams {
+      items {
+        id
+        name
+      }
+    }
+  }
+`;
+export function useSettingInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export function useSettingInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SettingInfoQuery, SettingInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<SettingInfoQuery, SettingInfoQueryVariables>(SettingInfoDocument, baseOptions);
+}
+export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
+export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
+export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTeamsDocument = gql`
+  query GetTeams($from: Int, $limit: Int, $search: String) {
+    getTeams(pagination: { from: $from, limit: $limit }, search: $search) {
+      items {
+        id
+        profileMembers {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+        company {
+          id
+          name
+        }
+        name
+        description
+        teamRights
+      }
+    }
+  }
+`;
+export function useGetTeamsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
+export function useGetTeamsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamsQuery, GetTeamsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamsQuery, GetTeamsQueryVariables>(GetTeamsDocument, baseOptions);
+}
+export type GetTeamsQueryHookResult = ReturnType<typeof useGetTeamsQuery>;
+export type GetTeamsLazyQueryHookResult = ReturnType<typeof useGetTeamsLazyQuery>;
+export type GetTeamsQueryResult = ApolloReactCommon.QueryResult<GetTeamsQuery, GetTeamsQueryVariables>;
+export const GetTeamDetailsDocument = gql`
+  query GetTeamDetails($id: ID!) {
+    getTeamDetails(id: $id) {
+      id
+      name
+      teamRights
+      company {
+        id
+        name
+      }
+      profileMembers {
+        id
+        user {
+          id
+          email
+          firstName
+          lastName
+        }
+        notes
+        createPermission
+        readPermission
+        updatePermission
+        deletePermission
+      }
+    }
+  }
+`;
+export function useGetTeamDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export function useGetTeamDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTeamDetailsQuery, GetTeamDetailsQueryVariables>(
+    GetTeamDetailsDocument,
+    baseOptions,
+  );
+}
+export type GetTeamDetailsQueryHookResult = ReturnType<typeof useGetTeamDetailsQuery>;
+export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDetailsLazyQuery>;
+export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetTeamDetailsQuery,
+  GetTeamDetailsQueryVariables
+>;

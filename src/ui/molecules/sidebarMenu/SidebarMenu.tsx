@@ -93,7 +93,7 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
                       <SideMenuItem
                         key={item.key}
                         icon={item.icon ? item.icon : <SaleIcon />}
-                        title={formatMessage({ id: `${translationPrefix}.${item.key}` })}
+                        title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
                         selected={pathname.startsWith(`${menu.url}/${item.key}`)}
                         badge={item.count}
                         onClick={() => push(`${menu.url}/${item.key}`)}
