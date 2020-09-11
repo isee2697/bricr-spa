@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import clsx from "classnames";
+import React, { useState } from 'react';
+import clsx from 'classnames';
 
-import { Card, CardContent, Tabs, Tab } from "ui/atoms";
-import { useLocale } from "hooks/useLocale/useLocale";
+import { Card, CardContent, Tabs, Tab } from 'ui/atoms';
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { TasksContent } from '../tasksContent/TasksContent';
 
-import { TasksContent } from "../tasksContent/TasksContent";
-import { useStyles } from "./TasksBody.styles";
-import { TasksBodyProps } from "./TasksBody.types";
+import { useStyles } from './TasksBody.styles';
+import { TasksBodyProps } from './TasksBody.types';
 
 export const TasksBody = ({ selectedMembers }: TasksBodyProps) => {
   const classes = useStyles();
@@ -22,18 +22,12 @@ export const TasksBody = ({ selectedMembers }: TasksBodyProps) => {
         textColor="primary"
         variant="fullWidth"
       >
-        <Tab label={formatMessage({ id: "tasks.today" })} />
-        <Tab label={formatMessage({ id: "tasks.next_week" })} />
-        <Tab label={formatMessage({ id: "tasks.future" })} />
-        <Tab label={formatMessage({ id: "tasks.overdue" })} />
+        <Tab label={formatMessage({ id: 'tasks.today' })} />
+        <Tab label={formatMessage({ id: 'tasks.next_week' })} />
+        <Tab label={formatMessage({ id: 'tasks.future' })} />
+        <Tab label={formatMessage({ id: 'tasks.overdue' })} />
       </Tabs>
-      <CardContent
-        className={clsx(
-          classes.noPadding,
-          classes.flexColumn,
-          classes.flexGrowOne
-        )}
-      >
+      <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
         <TasksContent tab={activeTab} selectedMembers={selectedMembers} />
       </CardContent>
     </Card>

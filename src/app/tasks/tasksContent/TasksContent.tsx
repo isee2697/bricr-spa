@@ -12,10 +12,10 @@ import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
 import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksViewMode } from '../Tasks.enum';
 import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
+import { TaskViewContainer } from '../taskView/TaskViewContainer';
 
 import { useStyles } from './TasksContent.styles';
 import { TasksContentProps } from './TasksContent.types';
-import { TaskViewContainer } from '../taskView/TaskViewContainer';
 
 export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
   const classes = useStyles();
@@ -101,7 +101,12 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
           viewMode === TasksViewMode.Swimlane && classes.swimlaneWrapper,
         )}
       >
-        <TaskViewContainer viewMode={viewMode} search={searchKey} selectedMembers={selectedMembers} dateRange={dateRange} />
+        <TaskViewContainer
+          viewMode={viewMode}
+          search={searchKey}
+          selectedMembers={selectedMembers}
+          dateRange={dateRange}
+        />
       </Grid>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import { TeamMemberItem } from "../Tasks.types";
+import { TeamMemberItem } from '../Tasks.types';
 
 export type TasksContentProps = {
   tab: number;

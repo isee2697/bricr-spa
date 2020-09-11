@@ -1,4 +1,4 @@
-import { DateRange } from "api/types";
+import { DateRange } from 'api/types';
 
 export type TasksDateSectionProps = {
   tab: number;

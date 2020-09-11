@@ -1,31 +1,20 @@
-import React from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import React from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
-import { Grid } from "ui/atoms";
-import { TaskStatus, Task } from "api/types";
+import { Grid } from 'ui/atoms';
+import { TaskStatus, Task } from 'api/types';
 
-import { TasksSwimlaneColumn } from "./TasksSwimlaneColumn";
-import { useStyles } from "./TasksSwimlane.styles";
-import { TasksSwimlaneProps } from "./TasksSwimlane.types";
+import { TasksSwimlaneColumn } from './TasksSwimlaneColumn';
+import { useStyles } from './TasksSwimlane.styles';
+import { TasksSwimlaneProps } from './TasksSwimlane.types';
 
-export const TasksSwimlane = ({
-  tasks: tasksList = [],
-  onUpdateTaskStatus,
-}: TasksSwimlaneProps) => {
+export const TasksSwimlane = ({ tasks: tasksList = [], onUpdateTaskStatus }: TasksSwimlaneProps) => {
   const classes = useStyles();
 
-  const todoTasks = tasksList.filter(
-    (task: Task) => task.status === TaskStatus.ToDo
-  );
-  const inProgressTasks = tasksList.filter(
-    (task: Task) => task.status === TaskStatus.InProgress
-  );
-  const blockedTasks = tasksList.filter(
-    (task: Task) => task.status === TaskStatus.Blocked
-  );
-  const completedTasks = tasksList.filter(
-    (task: Task) => task.status === TaskStatus.Done
-  );
+  const todoTasks = tasksList.filter((task: Task) => task.status === TaskStatus.ToDo);
+  const inProgressTasks = tasksList.filter((task: Task) => task.status === TaskStatus.InProgress);
+  const blockedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Blocked);
+  const completedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Done);
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -36,7 +25,7 @@ export const TasksSwimlane = ({
     const dInd = destination.droppableId;
 
     if (sInd !== dInd) {
-      const draggableTask = tasksList.find((task) => task.id === draggableId);
+      const draggableTask = tasksList.find(task => task.id === draggableId);
 
       if (draggableTask) {
         onUpdateTaskStatus(draggableId, dInd as TaskStatus);
@@ -51,22 +40,13 @@ export const TasksSwimlane = ({
           <TasksSwimlaneColumn columnType={TaskStatus.ToDo} tasks={todoTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn
-            columnType={TaskStatus.InProgress}
-            tasks={inProgressTasks}
-          />
+          <TasksSwimlaneColumn columnType={TaskStatus.InProgress} tasks={inProgressTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn
-            columnType={TaskStatus.Blocked}
-            tasks={blockedTasks}
-          />
+          <TasksSwimlaneColumn columnType={TaskStatus.Blocked} tasks={blockedTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn
-            columnType={TaskStatus.Done}
-            tasks={completedTasks}
-          />
+          <TasksSwimlaneColumn columnType={TaskStatus.Done} tasks={completedTasks} />
         </Grid>
       </Grid>
     </DragDropContext>

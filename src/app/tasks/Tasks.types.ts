@@ -1,6 +1,6 @@
-import { ApolloError } from "apollo-boost";
+import { ApolloError } from 'apollo-boost';
 
-import { Profile } from "api/types";
+import { Profile } from 'api/types';
 
 export type TasksProps = {
   user: Profile;
@@ -8,4 +8,4 @@ export type TasksProps = {
   members: TeamMemberItem[];
 };
 
-export type TeamMemberItem = Pick<Profile, "id" | "firstName" | "lastName">;
+export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName'>;
