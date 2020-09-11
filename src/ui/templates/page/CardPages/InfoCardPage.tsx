@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardWithInfo, Page } from 'ui/templates';
+import { CardWithInfo, Page } from 'ui/templates/index';
 import { InfoPageProps } from 'ui/templates/page/Page.types';
 
 export const InfoCardPage = ({

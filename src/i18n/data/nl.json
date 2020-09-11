@@ -1272,6 +1272,8 @@
   "bulk_actions.archive.confirm": "Archive {count, plural,\n    one {item}\n    other {{count} items}\n}",
   "settings.menu.teams": "Team opties",
   "settings.menu.createTeam": "Maak teams",
+  "settings.menu.user_options": "Gebruikers opties",
+  "settings.menu.users": "Gebruikers",
   "settings.teams.add": "Voeg team toe",
   "settings.teams.name_label": "Team naam",
   "settings.teams.name_placeholder": "Bijv. team naam",

@@ -9535,8 +9535,21 @@ export type GetUsersQueryVariables = {
 export type GetUsersQuery = { __typename?: 'Query' } & {
   getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
     items?: Maybe<
-      Array<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>
+      Array<
+        { __typename?: 'Profile' } & Pick<
+          Profile,
+          'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'functionDescription'
+        > & { teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>> }
+      >
     >;
+  };
+};
+
+export type GetUsersCountQueryVariables = {};
+
+export type GetUsersCountQuery = { __typename?: 'Query' } & {
+  getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
 };
 
@@ -15707,6 +15720,11 @@ export const GetUsersDocument = gql`
         lastName
         email
         avatar
+        functionDescription
+        teams {
+          id
+          name
+        }
       }
     }
   }
@@ -15724,6 +15742,31 @@ export function useGetUsersLazyQuery(
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export const GetUsersCountDocument = gql`
+  query GetUsersCount {
+    getAllProfiles {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useGetUsersCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersCountQuery, GetUsersCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetUsersCountQuery, GetUsersCountQueryVariables>(GetUsersCountDocument, baseOptions);
+}
+export function useGetUsersCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersCountQuery, GetUsersCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetUsersCountQuery, GetUsersCountQueryVariables>(
+    GetUsersCountDocument,
+    baseOptions,
+  );
+}
+export type GetUsersCountQueryHookResult = ReturnType<typeof useGetUsersCountQuery>;
+export type GetUsersCountLazyQueryHookResult = ReturnType<typeof useGetUsersCountLazyQuery>;
+export type GetUsersCountQueryResult = ApolloReactCommon.QueryResult<GetUsersCountQuery, GetUsersCountQueryVariables>;
 export const ProjectPhasesDocument = gql`
   query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
     getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {

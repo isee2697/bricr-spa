@@ -6,6 +6,8 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { useLayout } from 'context/layout';
 
+import { UsersContainer } from './sections/users/UsersContainer';
+import { UserDetailsContainer } from './sections/users/UserDetailsContainer';
 import { TeamsGeneral } from './sections/teams/TeamsGeneral';
 import { TeamContainer } from './sections/teams/TeamContainer';
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
@@ -26,16 +28,24 @@ export const Settings = ({ data }: SettingsProps) => {
         <SettingsSidebarMenu data={data} />
         <Box flex={1} padding={isFullScreen ? 0 : 3}>
           <Switch>
-            <Route path={`${AppRoute.settings}/workflowTemplates`} render={() => <WorkflowTemplatesContainer />} />
-            <Route path={AppRoute.workflow} render={() => <WorkflowContainer />} />
             <Route
+              exact
+              path={`${AppRoute.settings}/workflowTemplates`}
+              render={() => <WorkflowTemplatesContainer />}
+            />
+            <Route exact path={AppRoute.workflow} render={() => <WorkflowContainer />} />
+            <Route
+              exact
               path={`${AppRoute.settings}/createTeam`}
               render={() => (
                 <TeamsGeneral hasTeams={!!(data.getTeams && data.getTeams.items && data.getTeams.items.length > 0)} />
               )}
             />
-            <Route path={`${AppRoute.teams}`} render={() => <TeamContainer />} />
-            <Redirect to={{ pathname: `${AppRoute.settings}/workflowTemplates` }} />
+            <Route exact path={`${AppRoute.teams}`} render={() => <TeamContainer />} />
+            <Route exact path={AppRoute.users} render={() => <UsersContainer />} />
+            <Route exact path={AppRoute.userDetails} render={() => <UserDetailsContainer />} />
+            <Route exact path={`${AppRoute.settings}`} render={() => <>Dashboard</>} />
+            <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>
       </Grid>

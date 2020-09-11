@@ -21,6 +21,21 @@ export const GET_USERS = gql`
         lastName
         email
         avatar
+        functionDescription
+        teams {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USERS_COUNT = gql`
+  query GetUsersCount {
+    getAllProfiles {
+      metadata {
+        total
       }
     }
   }
