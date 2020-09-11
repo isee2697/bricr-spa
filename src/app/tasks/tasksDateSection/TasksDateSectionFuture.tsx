@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
@@ -19,21 +19,23 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
   const onChangeFrom = (date: MaterialUiPickersDate) => {
     if (date) {
       setFrom(date);
+      handleSelect();
     }
   };
 
   const onChangeTo = (date: MaterialUiPickersDate) => {
     if (date) {
       setTo(date);
+      handleSelect();
     }
   };
 
-  useEffect(() => {
+  const handleSelect = () => {
     onSelectDate({
-      from: from ? from.toISO() : null,
+    from: from ? from.toISO() : null,
       to: to ? to.toISO() : null,
     });
-  }, [from, onSelectDate, to]);
+  }
 
   return (
     <Grid container justify="space-between" className={classes.root}>
