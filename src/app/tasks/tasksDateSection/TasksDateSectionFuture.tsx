@@ -32,10 +32,10 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
 
   const handleSelect = () => {
     onSelectDate({
-    from: from ? from.toISO() : null,
+      from: from ? from.toISO() : null,
       to: to ? to.toISO() : null,
     });
-  }
+  };
 
   return (
     <Grid container justify="space-between" className={classes.root}>

@@ -1,12 +1,8 @@
-import React from "react";
-import { DateTime } from "luxon";
-import {
-  Draggable,
-  DraggableProvided,
-  DraggableStateSnapshot,
-} from "react-beautiful-dnd";
+import React from 'react';
+import { DateTime } from 'luxon';
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
-import { Box, Typography, Grid, UserAvatar } from "ui/atoms";
+import { Box, Typography, Grid, UserAvatar } from 'ui/atoms';
 import {
   UserRectangleIcon,
   PriorityHighIcon,
@@ -14,12 +10,12 @@ import {
   PriorityLowIcon,
   LockRectangleIcon,
   FollowUpRectangleIcon,
-} from "ui/atoms/icons";
-import { useLocale } from "hooks/useLocale/useLocale";
-import { TaskPriority, TaskLabel } from "api/types";
+} from 'ui/atoms/icons';
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { TaskPriority, TaskLabel } from 'api/types';
 
-import { TasksSwimlaneItemProps } from "./TasksSwimlaneItem.types";
-import { useStyles } from "./TasksSwimlaneItem.styles";
+import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
+import { useStyles } from './TasksSwimlaneItem.styles';
 
 export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const classes = useStyles();
@@ -27,14 +23,11 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
 
   const { id, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
-  const daysLeft = Math.round(deadlineDate.diffNow("days").days);
+  const daysLeft = Math.round(deadlineDate.diffNow('days').days);
 
   return (
     <Draggable draggableId={id} index={0}>
-      {(
-        draggableProvided: DraggableProvided,
-        draggableSnapshot: DraggableStateSnapshot
-      ) => (
+      {(draggableProvided: DraggableProvided, draggableSnapshot: DraggableStateSnapshot) => (
         <div
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
@@ -42,7 +35,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
         >
           <Box className={classes.root}>
             <Typography variant="h6" className={classes.expireInfo}>
-              {formatMessage({ id: "tasks.days_left" }, { daysLeft })}
+              {formatMessage({ id: 'tasks.days_left' }, { daysLeft })}
             </Typography>
             <Typography variant="h5" className={classes.title}>
               {title}
@@ -51,45 +44,24 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
               {/* TODO: Update this class name once provided info about this section */}
               <Grid item className={classes.taskLocked}>
                 {label === TaskLabel.Business && (
-                  <UserRectangleIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.taskLockedIcon }}
-                  />
+                  <UserRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
                 {label === TaskLabel.Private && (
-                  <LockRectangleIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.taskLockedIcon }}
-                  />
+                  <LockRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
                 {label === TaskLabel.FollowUp && (
-                  <FollowUpRectangleIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.taskLockedIcon }}
-                  />
+                  <FollowUpRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
                 )}
               </Grid>
               <Grid item>
                 {priority === TaskPriority.High && (
-                  <PriorityHighIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.priorityIcon }}
-                    color="error"
-                  />
+                  <PriorityHighIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
                 )}
                 {priority === TaskPriority.Medium && (
-                  <PriorityMediumIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.priorityIcon }}
-                    color="error"
-                  />
+                  <PriorityMediumIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
                 )}
                 {priority === TaskPriority.Low && (
-                  <PriorityLowIcon
-                    viewBox="0 0 16 16"
-                    classes={{ root: classes.priorityIcon }}
-                    color="action"
-                  />
+                  <PriorityLowIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="action" />
                 )}
               </Grid>
               <Grid item className={classes.flexGrowOne} />
@@ -100,11 +72,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
               </Grid>
               <Grid item>
                 <UserAvatar
-                  name={
-                    assigneeDetail
-                      ? `${assigneeDetail.firstName} ${assigneeDetail.lastName}`
-                      : "User"
-                  }
+                  name={assigneeDetail ? `${assigneeDetail.firstName} ${assigneeDetail.lastName}` : 'User'}
                   className={classes.avatar}
                 />
               </Grid>
