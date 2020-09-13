@@ -3,5 +3,5 @@ import { TaskItem } from '../Tasks.types';
 
 export type TasksSwimlaneProps = {
   tasks: TaskItem[];
-  onUpdateTaskStatus: (taskId: string, status: TaskStatus) => any;
+  onUpdateTaskStatus: (taskId: string, status: TaskStatus) => void;
 };
