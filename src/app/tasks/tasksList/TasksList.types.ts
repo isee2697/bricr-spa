@@ -1,5 +1,5 @@
-import { Task } from 'api/types';
+import { TaskItem } from '../Tasks.types';
 
 export type TasksListProps = {
-  tasks: Task[];
+  tasks: TaskItem[];
 };

@@ -1,6 +1,7 @@
-import { Task, TaskStatus } from 'api/types';
+import { TaskStatus } from 'api/types';
+import { TaskItem } from '../Tasks.types';
 
 export type TasksSwimlaneProps = {
-  tasks: Task[];
+  tasks: TaskItem[];
   onUpdateTaskStatus: (taskId: string, status: TaskStatus) => any;
 };
