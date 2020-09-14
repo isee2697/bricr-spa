@@ -13,3 +13,10 @@ export type TaskItem = Task & {
 };
 
 export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+
+export enum TasksTab {
+  Today = 0,
+  NextWeek = 1,
+  Future = 2,
+  Overdue = 3,
+}

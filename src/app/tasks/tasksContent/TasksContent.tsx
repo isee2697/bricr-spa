@@ -13,6 +13,7 @@ import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksViewMode } from '../Tasks.enum';
 import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
 import { TaskViewContainer } from '../taskView/TaskViewContainer';
+import { TasksTab } from '../Tasks.types';
 
 import { useStyles } from './TasksContent.styles';
 import { TasksContentProps } from './TasksContent.types';
@@ -26,31 +27,42 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
   });
 
   useEffect(() => {
-    if (tab === 0) {
-      setDateRange({
-        to: DateTime.local().toISO(),
-      });
-    } else if (tab === 1) {
-      setDateRange({
-        from: DateTime.local()
-          .plus({ days: 1 })
-          .toISO(),
-        to: DateTime.local()
-          .plus({ days: 7 })
-          .toISO(),
-      });
-    } else if (tab === 2) {
-      setDateRange({
-        from: DateTime.local()
-          .plus({ days: 8 })
-          .toISO(),
-      });
-    } else if (tab === 3) {
-      setDateRange({
-        to: DateTime.local()
-          .minus({ days: 1 })
-          .toISO(),
-      });
+    switch (tab) {
+      case TasksTab.Today:
+        setDateRange({
+          to: DateTime.local().toISO(),
+        });
+        break;
+
+      case TasksTab.NextWeek:
+        setDateRange({
+          from: DateTime.local()
+            .plus({ days: 1 })
+            .toISO(),
+          to: DateTime.local()
+            .plus({ days: 7 })
+            .toISO(),
+        });
+        break;
+
+      case TasksTab.Future:
+        setDateRange({
+          from: DateTime.local()
+            .plus({ days: 8 })
+            .toISO(),
+        });
+        break;
+
+      case TasksTab.Overdue:
+        setDateRange({
+          to: DateTime.local()
+            .minus({ days: 1 })
+            .toISO(),
+        });
+        break;
+
+      default:
+        return;
     }
   }, [tab]);
 
