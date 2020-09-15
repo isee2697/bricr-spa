@@ -1,5 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router-dom';
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
 import { Box, Typography, Grid, UserAvatar } from 'ui/atoms';
@@ -13,6 +14,7 @@ import {
 } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TaskPriority, TaskLabel } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
 import { useStyles } from './TasksSwimlaneItem.styles';
@@ -20,6 +22,7 @@ import { useStyles } from './TasksSwimlaneItem.styles';
 export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const { id, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
@@ -32,6 +35,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
+          onClick={() => push(AppRoute.taskDetails.replace(':id', id))}
         >
           <Box className={classes.root}>
             <Typography variant="h6" className={classes.expireInfo}>

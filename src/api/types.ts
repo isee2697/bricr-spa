@@ -9714,7 +9714,10 @@ export type GetTaskQueryVariables = {
 
 export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
-    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+    { __typename?: 'Task' } & Pick<
+      Task,
+      'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+    >
   >;
 };
 
@@ -16031,6 +16034,8 @@ export const GetTaskDocument = gql`
       startDate
       deadline
       priority
+      label
+      status
     }
   }
 `;

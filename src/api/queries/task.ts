@@ -9,6 +9,8 @@ export const GET_TASK = gql`
       startDate
       deadline
       priority
+      label
+      status
     }
   }
 `;
