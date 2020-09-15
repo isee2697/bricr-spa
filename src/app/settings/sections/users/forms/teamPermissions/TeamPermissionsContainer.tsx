@@ -2,9 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { GetUserProfileDocument, ProfileTeam, useUpdateUserInTeamMutation } from 'api/types';
-
-import { TeamPermissionsContainerProps } from './TeamPermissions.types';
-import { TeamPermissions } from './TeamPermissions';
+import { TeamPermissionsContainerProps } from 'app/settings/sections/users/forms/teamPermissions/TeamPermissions.types';
+import { TeamPermissions } from 'app/settings/sections/users/forms/teamPermissions/TeamPermissions';
 
 export const TeamPermissionsContainer = ({ data, index, isEditing }: TeamPermissionsContainerProps) => {
   const { id } = useParams<{ id: string }>();

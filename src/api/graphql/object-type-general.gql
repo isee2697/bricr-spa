@@ -4,7 +4,7 @@ type ObjectTypeGeneral implements LastUpdated{
   archived: Boolean
   dateUpdated: Date
   dateCreated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   ncpId: ID!
   linkedPropertiesListDescription: String
   linkedPropertiesListLastUpdatedBy: Profile

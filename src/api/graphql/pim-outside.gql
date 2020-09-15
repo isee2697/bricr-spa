@@ -392,7 +392,7 @@ type OutsideFeature implements LastUpdated{
   configuration: OutsideFeatureConfiguration
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type PimOutside implements LastUpdated {
@@ -400,7 +400,7 @@ type PimOutside implements LastUpdated {
   houseOutside: HouseOutside
   outsideFeatures: [OutsideFeature!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 input PimOutsideInput {

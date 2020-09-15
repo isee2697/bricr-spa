@@ -8,13 +8,15 @@ export const CURRENT_USER = gql`
       lastName
       email
       avatar
+      adminSettings
+      isActive
     }
   }
 `;
 
 export const GET_USERS = gql`
-  query GetUsers($from: Int!, $limit: Int, $search: String) {
-    getAllProfiles(search: $search, pagination: { from: $from, limit: $limit }) {
+  query GetUsers($from: Int!, $limit: Int, $search: String, $isActive: Boolean) {
+    getAllProfiles(filters: { isActive: $isActive }, search: $search, pagination: { from: $from, limit: $limit }) {
       items {
         id
         firstName
@@ -22,6 +24,8 @@ export const GET_USERS = gql`
         email
         avatar
         functionDescription
+        adminSettings
+        isActive
         teams {
           id
           name
@@ -33,7 +37,12 @@ export const GET_USERS = gql`
 
 export const GET_USERS_COUNT = gql`
   query GetUsersCount {
-    getAllProfiles {
+    activeCount: getAllProfiles(filters: { isActive: true }) {
+      metadata {
+        total
+      }
+    }
+    inActiveCount: getAllProfiles(filters: { isActive: false }) {
       metadata {
         total
       }
@@ -51,7 +60,9 @@ export const GET_USER_PROFILE = gql`
       gender
       dateOfBirth
       functionDescription
+      adminSettings
       avatar
+      isActive
       teams {
         id
         name

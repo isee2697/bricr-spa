@@ -265,7 +265,7 @@ type AogSpace implements LastUpdated {
   animalsConfiguration: Animals
   images: [File!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateCreated: Date
 }
 

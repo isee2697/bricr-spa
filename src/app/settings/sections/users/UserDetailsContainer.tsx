@@ -26,6 +26,7 @@ export const UserDetailsContainer = () => {
             functionDescription: update.functionDescription,
             dateOfBirth: update.dateOfBirth,
             gender: update.gender,
+            adminSettings: update.adminSettings,
           },
         },
         refetchQueries: [{ query: GetUserProfileDocument, variables: { id } }],

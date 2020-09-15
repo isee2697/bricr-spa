@@ -1,41 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { usePagination } from 'hooks';
 import {
+  GetUsersCountDocument,
   GetUsersDocument,
+  GetUsersQueryVariables,
   Profile,
-  useDeleteProfileMutation,
+  useDeactivateProfileMutation,
   useGetUsersCountQuery,
   useGetUsersQuery,
+  useReactivateProfileMutation,
 } from 'api/types';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { Loader } from 'ui/atoms';
+import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 
 import { Users } from './Users';
 
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const UsersContainer = () => {
+  const [status = 'active', setStatus] = useState<ActionTabStatus>();
   const { data: count } = useGetUsersCountQuery();
-  const [deleteProfile] = useDeleteProfileMutation();
+  const [deactivateProfile] = useDeactivateProfileMutation();
+  const [reactivateProfile] = useReactivateProfileMutation();
 
-  const { query: paginationQuery } = usePagination({
-    itemsCount: count?.getAllProfiles.metadata?.total ?? 0,
+  const { pagination, query: paginationQuery } = usePagination({
+    itemsCount: count?.activeCount.metadata?.total ?? 0,
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
+  const variables: GetUsersQueryVariables = { ...paginationQuery };
+
+  if (status !== 'actionRequired') {
+    variables.isActive = status === 'active';
+  }
+
   const { data: listData } = useGetUsersQuery({
-    variables: { ...paginationQuery },
+    variables,
     fetchPolicy: 'no-cache',
   });
 
-  const handleDelete = async (userId: string) => {
+  const handleActivation = async (profile: Profile) => {
+    const callFunction = profile.isActive ? deactivateProfile : reactivateProfile;
+
     try {
-      const response = await deleteProfile({
+      const response = await callFunction({
         variables: {
-          id: userId,
+          id: profile.id,
         },
-        refetchQueries: [{ query: GetUsersDocument }],
+        refetchQueries: [{ query: GetUsersDocument, variables }, { query: GetUsersCountDocument }],
       });
 
       if (!response) {
@@ -51,9 +65,12 @@ export const UsersContainer = () => {
   if (listData) {
     return (
       <Users
-        total={count?.getAllProfiles.metadata?.total ?? undefined}
+        total={count ?? undefined}
         data={(listData.getAllProfiles?.items ?? []) as Profile[]}
-        onDelete={handleDelete}
+        onActivationChange={handleActivation}
+        status={status}
+        setStatus={newStatus => setStatus(newStatus)}
+        pagination={pagination}
       />
     );
   }

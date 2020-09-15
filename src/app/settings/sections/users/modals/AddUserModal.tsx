@@ -24,16 +24,20 @@ export const AddUserModal = ({
     >
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <GenericField name="firstName" />
+          <GenericField placeholder="settings.users.first_name" label="settings.users.first_name" name="firstName" />
         </Grid>
         <Grid item xs={6}>
-          <GenericField name="lastName" />
+          <GenericField placeholder="settings.users.last_name" label="settings.users.last_name" name="lastName" />
         </Grid>
         <Grid item xs={12}>
-          <GenericField name="email" />
+          <GenericField placeholder="settings.users.email" label="settings.users.email" name="email" />
         </Grid>
         <Grid item xs={12}>
-          <GenericField name="functionDescription" />
+          <GenericField
+            placeholder="settings.users.function_description"
+            label="settings.users.function_description_placeholder"
+            name="functionDescription"
+          />
         </Grid>
       </Grid>
     </FormModal>

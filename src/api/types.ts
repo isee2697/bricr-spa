@@ -109,12 +109,13 @@ export type Mutation = {
   createPim?: Maybe<Pim>;
   createProfile: Profile;
   createSocialMediaLink: Profile;
+  deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
-  deleteProfile?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
+  reactivateProfile: Profile;
   removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
@@ -414,12 +415,12 @@ export type MutationCreateSocialMediaLinkArgs = {
   input: CreateSocialMediaLinkInput;
 };
 
-export type MutationDeleteEntityArgs = {
-  input: DeleteEntityInput;
+export type MutationDeactivateProfileArgs = {
+  id: Scalars['String'];
 };
 
-export type MutationDeleteProfileArgs = {
-  id?: Maybe<Scalars['String']>;
+export type MutationDeleteEntityArgs = {
+  input: DeleteEntityInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -436,6 +437,10 @@ export type MutationLinkNcpToProjectPhaseArgs = {
 
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
+};
+
+export type MutationReactivateProfileArgs = {
+  id: Scalars['String'];
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
@@ -889,6 +894,7 @@ export type Query = {
 };
 
 export type QueryGetAllProfilesArgs = {
+  filters?: Maybe<ProfileFilters>;
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
 };
@@ -1187,7 +1193,7 @@ export type CommonCosts = LastUpdated & {
   __typename?: 'CommonCosts';
   costs?: Maybe<Array<CommonCost>>;
   description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
@@ -1218,7 +1224,7 @@ export type CostsDetails = LastUpdated & {
   __typename?: 'CostsDetails';
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type Energy = {
@@ -1494,7 +1500,7 @@ export type EntityLinkedWithPims = {
   id: Scalars['ID'];
   linkedProperties: PimListSearchResult;
   linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
 };
@@ -1572,7 +1578,7 @@ export type ListPim = {
   attentionNote?: Maybe<Scalars['String']>;
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   houseOutside?: Maybe<ListPimHouseOutside>;
   archived?: Maybe<Scalars['Boolean']>;
   status: PimStatus;
@@ -1667,7 +1673,7 @@ export type CommonMedia = LastUpdated & {
   usps?: Maybe<Array<Usp>>;
   tags?: Maybe<Array<Tag>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
@@ -1682,7 +1688,7 @@ export type Picture = LastUpdated & {
   type?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   file?: Maybe<File>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   isMainPicture?: Maybe<Scalars['Boolean']>;
 };
@@ -1831,7 +1837,7 @@ export type NcpCharacteristics = LastUpdated &
     identificationNumbers?: Maybe<Array<IdentificationNumber>>;
     attentionNote?: Maybe<Scalars['String']>;
     invoiceDetails?: Maybe<InvoiceDetails>;
-    lastEditedBy?: Maybe<Profile>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
     dateUpdated?: Maybe<Scalars['Date']>;
     characteristicsDescription?: Maybe<Scalars['String']>;
   };
@@ -1905,7 +1911,7 @@ export type NcpGeneral = LastUpdated & {
   type: NcpType;
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   name: Scalars['String'];
   additionalName?: Maybe<Scalars['String']>;
   street: Scalars['String'];
@@ -1954,7 +1960,7 @@ export type NcpLinkedPims = EntityLinkedWithPims & {
   __typename?: 'NcpLinkedPims';
   id: Scalars['ID'];
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   linkedProperties: PimListSearchResult;
   linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
   description?: Maybe<Scalars['String']>;
@@ -2028,7 +2034,7 @@ export type NcpMedia = LastUpdated & {
   usps?: Maybe<Array<Usp>>;
   tags?: Maybe<Array<Tag>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
@@ -2071,7 +2077,7 @@ export type Interests = LastUpdated & {
   description?: Maybe<Scalars['String']>;
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type NcpServices = LastUpdated &
@@ -2082,7 +2088,7 @@ export type NcpServices = LastUpdated &
     heatingSources?: Maybe<Array<Service>>;
     additionalServices?: Maybe<Array<Service>>;
     dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<Profile>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
     servicesDescription?: Maybe<Scalars['String']>;
   };
 
@@ -2122,7 +2128,7 @@ export type ObjectTypeCharacteristics = LastUpdated &
     accountManagersIds?: Maybe<Array<Scalars['ID']>>;
     identificationNumbers?: Maybe<Array<IdentificationNumber>>;
     attentionNote?: Maybe<Scalars['String']>;
-    lastEditedBy?: Maybe<Profile>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
     dateUpdated?: Maybe<Scalars['Date']>;
     characteristicsDescription?: Maybe<Scalars['String']>;
     type?: Maybe<TypeOfObjectType>;
@@ -2142,7 +2148,7 @@ export type ObjectTypeGeneral = LastUpdated & {
   archived?: Maybe<Scalars['Boolean']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   dateCreated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   ncpId: Scalars['ID'];
   linkedPropertiesListDescription?: Maybe<Scalars['String']>;
   linkedPropertiesListLastUpdatedBy?: Maybe<Profile>;
@@ -2158,7 +2164,7 @@ export type ObjectTypeLinkedPims = EntityLinkedWithPims & {
   __typename?: 'ObjectTypeLinkedPims';
   id: Scalars['ID'];
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   linkedProperties: PimListSearchResult;
   linkedPropertiesIds?: Maybe<Array<Scalars['ID']>>;
   description?: Maybe<Scalars['String']>;
@@ -2226,7 +2232,7 @@ export type ObjectTypeMedia = {
   usps?: Maybe<Array<Usp>>;
   tags?: Maybe<Array<Tag>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   mediaDescription?: Maybe<Scalars['String']>;
 };
 
@@ -2238,7 +2244,7 @@ export type ObjectTypePricing = LastUpdated & {
   __typename?: 'ObjectTypePricing';
   rent?: Maybe<CommonRentInformations>;
   sale?: Maybe<CommonSaleInformations>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
 };
@@ -2266,7 +2272,7 @@ export type ObjectTypeServices = LastUpdated &
     heatingSources?: Maybe<Array<Service>>;
     additionalServices?: Maybe<Array<Service>>;
     dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<Profile>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
     servicesDescription?: Maybe<Scalars['String']>;
   };
 
@@ -2553,7 +2559,7 @@ export type AogSpace = LastUpdated & {
   animalsConfiguration?: Maybe<Animals>;
   images?: Maybe<Array<File>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
@@ -3176,7 +3182,7 @@ export type BogSpace = LastUpdated & {
   storageConfiguration?: Maybe<Storage>;
   images?: Maybe<Array<File>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateCreated?: Maybe<Scalars['Date']>;
 };
 
@@ -3389,7 +3395,7 @@ export type Cadastre = LastUpdated & {
   plot?: Maybe<CadastrePlot>;
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimCadastre = {
@@ -3644,7 +3650,7 @@ export type PimGeneral = LastUpdated & {
   archived: Scalars['Boolean'];
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   houseGeneral?: Maybe<HouseGeneral>;
   bogGeneral?: Maybe<BogGeneral>;
   parkingGeneral?: Maybe<ParkingLotGeneral>;
@@ -3905,7 +3911,7 @@ export type Floor = LastUpdated & {
   level: Scalars['Int'];
   floorType: FloorType;
   spaces?: Maybe<Array<Space>>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   dateCreated?: Maybe<Scalars['Date']>;
 };
@@ -3941,7 +3947,7 @@ export type PimInside = LastUpdated & {
   aogGroundsDescription?: Maybe<Scalars['String']>;
   insideGeneral?: Maybe<InsideGeneral>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimWithUpdatedSpace = {
@@ -4026,7 +4032,7 @@ export type InsideGeneral = LastUpdated & {
   renovation?: Maybe<Renovation>;
   notes?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimWithNewFloor = {
@@ -4083,7 +4089,7 @@ export type PimLocation = LastUpdated & {
   type?: Maybe<Array<Maybe<Scalars['String']>>>;
   notes?: Maybe<Scalars['String']>;
   goodToKnows?: Maybe<Array<GoodToKnow>>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
 };
@@ -4116,7 +4122,7 @@ export type PimMedia = LastUpdated & {
   usps?: Maybe<Array<Usp>>;
   tags?: Maybe<Array<Tag>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   description?: Maybe<Scalars['String']>;
 };
 
@@ -4237,7 +4243,7 @@ export type PimMeters = LastUpdated & {
   meters?: Maybe<Array<Meter>>;
   metersMeta?: Maybe<MetersMeta>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export enum QualityInformations {
@@ -4655,7 +4661,7 @@ export type OutsideFeature = LastUpdated & {
   configuration?: Maybe<OutsideFeatureConfiguration>;
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimOutside = LastUpdated & {
@@ -4664,7 +4670,7 @@ export type PimOutside = LastUpdated & {
   houseOutside?: Maybe<HouseOutside>;
   outsideFeatures?: Maybe<Array<OutsideFeature>>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimOutsideInput = {
@@ -4936,7 +4942,7 @@ export type PimPrices = LastUpdated & {
   investment?: Maybe<Investment>;
   costsDescription?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type TogglePricingInput = {
@@ -4956,7 +4962,7 @@ export type Pricing = LastUpdated & {
   __typename?: 'Pricing';
   rent?: Maybe<RentInformations>;
   sale?: Maybe<SaleInformations>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
 };
@@ -5030,7 +5036,7 @@ export type Investment = LastUpdated & {
   dateCreated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export enum MomentGeneralSetting {
@@ -5155,7 +5161,7 @@ export type PimSales = LastUpdated & {
   id: Scalars['ID'];
   salesSettings?: Maybe<SalesSettings>;
   viewingMoments?: Maybe<Array<ViewingMoment>>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   allocationCriterias?: Maybe<Array<AllocationCriteria>>;
 };
@@ -5271,7 +5277,7 @@ export type PimServices = LastUpdated &
     heatingSources?: Maybe<Array<Service>>;
     additionalServices?: Maybe<Array<Service>>;
     dateUpdated?: Maybe<Scalars['Date']>;
-    lastEditedBy?: Maybe<Profile>;
+    lastEditedBy?: Maybe<LastUpdatedProfile>;
     description?: Maybe<Scalars['String']>;
   };
 
@@ -5473,7 +5479,7 @@ export type Specification = LastUpdated & {
   obligation?: Maybe<ObligationToProvideInformation>;
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type PimSpecification = {
@@ -5484,10 +5490,10 @@ export type PimSpecification = {
   linkedProperties?: Maybe<Array<LinkedPim>>;
   inspections?: Maybe<Array<Inspection>>;
   linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
-  linkedPropertiesLastEditedBy?: Maybe<Profile>;
+  linkedPropertiesLastEditedBy?: Maybe<LastUpdatedProfile>;
   linkedPropertiesDescription?: Maybe<Scalars['String']>;
   inspectionsDateUpdated?: Maybe<Scalars['Date']>;
-  inspectionsLastEditedBy?: Maybe<Profile>;
+  inspectionsLastEditedBy?: Maybe<LastUpdatedProfile>;
   inspectionsDescription?: Maybe<Scalars['String']>;
 };
 
@@ -5590,7 +5596,7 @@ export type SpecificationAdvanced = LastUpdated & {
   propertyRights?: Maybe<PropertyRights>;
   homeOwnerAssociation?: Maybe<HomeOwnerAssociation>;
   description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
@@ -5782,7 +5788,7 @@ export type Pim = LastUpdated & {
   tags?: Maybe<Array<Tag>>;
   pricing?: Maybe<Pricing>;
   costs?: Maybe<Array<Cost>>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   investment?: Maybe<Investment>;
   specification?: Maybe<Specification>;
@@ -5795,9 +5801,9 @@ export type Pim = LastUpdated & {
   viewingMoments?: Maybe<Array<ViewingMoment>>;
   location?: Maybe<PimLocation>;
   linkedPropertiesDateUpdated?: Maybe<Scalars['Date']>;
-  linkedPropertiesLastEditedBy?: Maybe<Profile>;
+  linkedPropertieslastEditedBy?: Maybe<LastUpdatedProfile>;
   inspectionsDateUpdated?: Maybe<Scalars['Date']>;
-  inspectionsLastEditedBy?: Maybe<Profile>;
+  inspectionslastEditedBy?: Maybe<LastUpdatedProfile>;
   metersMeta?: Maybe<MetersMeta>;
   allocationCriterias?: Maybe<Array<AllocationCriteria>>;
   apartmentGeneral?: Maybe<ApartmentGeneral>;
@@ -5856,7 +5862,7 @@ export type CommonPricing = LastUpdated & {
   __typename?: 'CommonPricing';
   rent?: Maybe<CommonRentInformations>;
   sale?: Maybe<CommonSaleInformations>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
 };
@@ -5997,6 +6003,25 @@ export type UpdateSocialMediaLinkInput = {
   isPublic?: Maybe<Scalars['Boolean']>;
 };
 
+export enum AdminSettings {
+  General = 'General',
+  Users = 'Users',
+  Teams = 'Teams',
+  Options = 'Options',
+  Workflows = 'Workflows',
+  Matching = 'Matching',
+  Pim = 'PIM',
+  Crm = 'CRM',
+  Sales = 'SALES',
+  Email = 'Email',
+  Documents = 'Documents',
+  Calendar = 'Calendar',
+  Marketing = 'Marketing',
+  KpiTargets = 'KPITargets',
+  Notifications = 'Notifications',
+  Tasks = 'Tasks',
+}
+
 export type Profile = {
   __typename?: 'Profile';
   id: Scalars['ID'];
@@ -6005,13 +6030,15 @@ export type Profile = {
   lastName?: Maybe<Scalars['String']>;
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<ProfileTeam>>;
   emailAddresses?: Maybe<Array<EmailAddress>>;
   phoneNumbers?: Maybe<Array<PhoneNumber>>;
   socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
   company?: Maybe<Company>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
+  isActive: Scalars['Boolean'];
 };
 
 export type CreateProfileInput = {
@@ -6022,6 +6049,7 @@ export type CreateProfileInput = {
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
 };
 
 export type UpdateProfileInput = {
@@ -6033,6 +6061,7 @@ export type UpdateProfileInput = {
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   avatar?: Maybe<Scalars['String']>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
 };
 
 export type ProfileTeam = {
@@ -6081,6 +6110,10 @@ export type ProfileSearchResult = {
   items?: Maybe<Array<Profile>>;
 };
 
+export type ProfileFilters = {
+  isActive?: Maybe<Scalars['Boolean']>;
+};
+
 export type ProjectPhase = {
   __typename?: 'ProjectPhase';
   id: Scalars['ID'];
@@ -6123,9 +6156,17 @@ export type SearchMetadata = {
   total: Scalars['Int'];
 };
 
+export type LastUpdatedProfile = {
+  __typename?: 'LastUpdatedProfile';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
 export type LastUpdated = {
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export enum SortDirection {
@@ -6286,7 +6327,7 @@ export type Meter = LastUpdated & {
   readings?: Maybe<Array<Reading>>;
   dateCreated?: Maybe<Scalars['Date']>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export type HeatingSourceMaintenanceContract = {
@@ -6343,7 +6384,7 @@ export type Services = {
 export type MetersSharedData = {
   __typename?: 'MetersSharedData';
   description?: Maybe<Scalars['String']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
 
@@ -6354,7 +6395,7 @@ export type MetersMeta = LastUpdated & {
   Gas?: Maybe<MetersSharedData>;
   Electric?: Maybe<MetersSharedData>;
   dateUpdated?: Maybe<Scalars['Date']>;
-  lastEditedBy?: Maybe<Profile>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
 export enum TeamRight {
@@ -6830,7 +6871,9 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
             }
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -6885,7 +6928,11 @@ export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
   createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<
     ObjectTypeGeneral,
     'name' | 'dateUpdated' | 'ncpId' | 'id'
-  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+  > & {
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+    };
 };
 
 export type AddObjectTypeLabelMutationVariables = {
@@ -7124,7 +7171,9 @@ export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
             }
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -7559,11 +7608,21 @@ export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
   updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type DeleteProfileMutationVariables = {
+export type DeactivateProfileMutationVariables = {
   id: Scalars['String'];
 };
 
-export type DeleteProfileMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProfile'>;
+export type DeactivateProfileMutation = { __typename?: 'Mutation' } & {
+  deactivateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type ReactivateProfileMutationVariables = {
+  id: Scalars['String'];
+};
+
+export type ReactivateProfileMutation = { __typename?: 'Mutation' } & {
+  reactivateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
 
 export type CreateEmailAddressMutationVariables = {
   input: CreateEmailAddressInput;
@@ -7844,7 +7903,9 @@ export type NcpCharacteristicsQuery = { __typename?: 'Query' } & {
           | 'description'
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -7881,7 +7942,11 @@ export type NcpGeneralQuery = { __typename?: 'Query' } & {
     | 'projectRisk'
     | 'notes'
     | 'archived'
-  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+  > & {
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+    };
 };
 
 export type NcpWithSameAddressQueryVariables = {
@@ -8008,7 +8073,9 @@ export type NcpMediaQuery = { __typename?: 'Query' } & {
     NcpMedia,
     'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
   > & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
@@ -8043,7 +8110,9 @@ export type NcpPricesPricingQuery = { __typename?: 'Query' } & {
                 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
               >
             >;
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
           }
       >;
     };
@@ -8075,7 +8144,9 @@ export type NcpPricesCostsQuery = { __typename?: 'Query' } & {
                 >
               >
             >;
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
           }
       >;
     };
@@ -8097,7 +8168,11 @@ export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
           | 'description'
           | 'dateCreated'
           | 'dateUpdated'
-        > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
+        > & {
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
+          }
       >;
     };
 };
@@ -8133,7 +8208,9 @@ export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
     NcpLinkedPims,
     'linkedPropertiesIds' | 'description' | 'dateUpdated'
   > & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       linkedProperties: { __typename?: 'PimListSearchResult' } & {
         items?: Maybe<
           Array<
@@ -8217,7 +8294,9 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
             }
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -8270,7 +8349,9 @@ export type ObjectTypeCharacteristicsQuery = { __typename?: 'Query' } & {
           >
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -8282,7 +8363,11 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
   getObjectTypeGeneral: { __typename?: 'ObjectTypeGeneral' } & Pick<
     ObjectTypeGeneral,
     'id' | 'name' | 'dateUpdated' | 'ncpId'
-  > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> };
+  > & {
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+    };
 };
 
 export type ObjectTypeOverallInfoQueryVariables = {
@@ -8397,7 +8482,9 @@ export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
     ObjectTypeMedia,
     'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
   > & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
@@ -8432,7 +8519,9 @@ export type ObjectTypePricesPricingQuery = { __typename?: 'Query' } & {
                 'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
               >
             >;
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
           }
       >;
     };
@@ -8464,7 +8553,9 @@ export type ObjectTypePricesCostsQuery = { __typename?: 'Query' } & {
                 >
               >
             >;
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
           }
       >;
     };
@@ -8515,7 +8606,9 @@ export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
             }
         >
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -8550,7 +8643,9 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
     ObjectTypeLinkedPims,
     'linkedPropertiesIds' | 'description' | 'dateUpdated'
   > & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       linkedProperties: { __typename?: 'PimListSearchResult' } & {
         items?: Maybe<
           Array<
@@ -8645,7 +8740,9 @@ export type PimAogSpacesQuery = { __typename?: 'Query' } & {
                   }
               >;
               images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'key' | 'id' | 'fileName' | 'url'>>>;
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
             }
         >
       >;
@@ -8664,7 +8761,9 @@ export type PimBogSpacesQuery = { __typename?: 'Query' } & {
             BogSpace,
             'id' | 'type' | 'name' | 'notes' | 'description' | 'dateUpdated'
           > & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
               retailSpaceConfiguration?: Maybe<
                 { __typename?: 'RetailSpace' } & Pick<
                   RetailSpace,
@@ -8877,7 +8976,9 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
                     boughtOff?: Maybe<{ __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>>;
                   }
               >;
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
             }
         >
       >;
@@ -8992,7 +9093,9 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
       identificationNumbers?: Maybe<
         Array<{ __typename?: 'IdentificationNumber' } & Pick<IdentificationNumber, 'id' | 'name' | 'number' | 'type'>>
       >;
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
     };
 };
 
@@ -9016,7 +9119,9 @@ export type PimInsideQuery = { __typename?: 'Query' } & {
       floors?: Maybe<
         Array<
           { __typename?: 'Floor' } & Pick<Floor, 'id' | 'level' | 'floorType' | 'floorDescription' | 'dateUpdated'> & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
               spaces?: Maybe<
                 Array<
                   { __typename?: 'Space' } & Pick<Space, 'id' | 'spaceType' | 'spaceName'> & {
@@ -9118,7 +9223,9 @@ export type PimInsideQuery = { __typename?: 'Query' } & {
             extension?: Maybe<{ __typename?: 'Extension' } & Pick<Extension, 'notes' | 'yearOfExtension'>>;
             renovation?: Maybe<{ __typename?: 'Renovation' } & Pick<Renovation, 'notes' | 'yearOfRenovation'>>;
             windows?: Maybe<{ __typename?: 'InsideWindows' } & Pick<InsideWindows, 'notes' | 'types'>>;
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
           }
       >;
     };
@@ -9133,7 +9240,9 @@ export type PimLocationQuery = { __typename?: 'Query' } & {
     PimLocation,
     'id' | 'latitude' | 'longitude' | 'type' | 'notes' | 'description' | 'dateUpdated'
   > & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       goodToKnows?: Maybe<
         Array<{ __typename?: 'GoodToKnow' } & Pick<GoodToKnow, 'type' | 'distance' | 'units' | 'checked'>>
       >;
@@ -9147,7 +9256,9 @@ export type PimMediaQueryVariables = {
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
   getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'> & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
@@ -9172,17 +9283,23 @@ export type PimMetersQuery = { __typename?: 'Query' } & {
       { __typename?: 'MetersMeta' } & Pick<MetersMeta, 'description'> & {
           Water?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
           Gas?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
           Electric?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
         }
@@ -9210,7 +9327,9 @@ export type PimOutsideQueryVariables = {
 
 export type PimOutsideQuery = { __typename?: 'Query' } & {
   getPimOutside: { __typename?: 'PimOutside' } & Pick<PimOutside, 'id' | 'dateUpdated'> & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       houseOutside?: Maybe<
         { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
             foundation?: Maybe<
@@ -9259,7 +9378,9 @@ export type PimOutsideQuery = { __typename?: 'Query' } & {
             OutsideFeature,
             'id' | 'type' | 'dateCreated' | 'dateUpdated' | 'description'
           > & {
-              lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
               configuration?: Maybe<
                 | ({ __typename?: 'GardenFeature' } & Pick<
                     GardenFeature,
@@ -9331,10 +9452,14 @@ export type PimPricingQueryVariables = {
 
 export type PimPricingQuery = { __typename?: 'Query' } & {
   getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id' | 'costsDescription' | 'dateUpdated'> & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       pricing?: Maybe<
         { __typename?: 'Pricing' } & Pick<Pricing, 'description' | 'dateUpdated'> & {
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
             rent?: Maybe<
               { __typename?: 'RentInformations' } & Pick<
                 RentInformations,
@@ -9393,7 +9518,11 @@ export type PimPricingQuery = { __typename?: 'Query' } & {
           | 'vacancySquareMeters'
           | 'notes'
           | 'dateUpdated'
-        > & { lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>> }
+        > & {
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
+          }
       >;
     };
 };
@@ -9404,22 +9533,30 @@ export type PimServicesQueryVariables = {
 
 export type PimServicesQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & Pick<PimServices, 'description' | 'dateUpdated'> & {
-      lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       metersMeta?: Maybe<
         { __typename?: 'MetersMeta' } & {
           Water?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
           Gas?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
           Electric?: Maybe<
             { __typename?: 'MetersSharedData' } & Pick<MetersSharedData, 'description' | 'dateUpdated'> & {
-                lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
               }
           >;
         }
@@ -9486,11 +9623,17 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
     PimSpecification,
     'linkedPropertiesDescription' | 'inspectionsDescription' | 'linkedPropertiesDateUpdated' | 'inspectionsDateUpdated'
   > & {
-      linkedPropertiesLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
-      inspectionsLastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+      linkedPropertiesLastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+      inspectionsLastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
       specification?: Maybe<
         { __typename?: 'Specification' } & Pick<Specification, 'description' | 'dateUpdated'> & {
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
             energy?: Maybe<
               { __typename?: 'Energy' } & Pick<
                 Energy,
@@ -9508,7 +9651,9 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
       >;
       specificationAdvanced?: Maybe<
         { __typename?: 'SpecificationAdvanced' } & Pick<SpecificationAdvanced, 'description' | 'dateUpdated'> & {
-            lastEditedBy?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>>;
+            lastEditedBy?: Maybe<
+              { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+            >;
             parking?: Maybe<
               { __typename?: 'ParkingSpecification' } & Pick<
                 ParkingSpecification,
@@ -9594,13 +9739,19 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
 export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
-  me?: Maybe<{ __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email' | 'avatar'>>;
+  me?: Maybe<
+    { __typename?: 'Profile' } & Pick<
+      Profile,
+      'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'adminSettings' | 'isActive'
+    >
+  >;
 };
 
 export type GetUsersQueryVariables = {
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
   search?: Maybe<Scalars['String']>;
+  isActive?: Maybe<Scalars['Boolean']>;
 };
 
 export type GetUsersQuery = { __typename?: 'Query' } & {
@@ -9609,7 +9760,7 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
       Array<
         { __typename?: 'Profile' } & Pick<
           Profile,
-          'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'functionDescription'
+          'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'functionDescription' | 'adminSettings' | 'isActive'
         > & { teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>> }
       >
     >;
@@ -9619,7 +9770,10 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
 export type GetUsersCountQueryVariables = {};
 
 export type GetUsersCountQuery = { __typename?: 'Query' } & {
-  getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
+  activeCount: { __typename?: 'ProfileSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  inActiveCount: { __typename?: 'ProfileSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
   };
 };
@@ -9632,7 +9786,16 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
   getProfile?: Maybe<
     { __typename?: 'Profile' } & Pick<
       Profile,
-      'id' | 'firstName' | 'lastName' | 'email' | 'gender' | 'dateOfBirth' | 'functionDescription' | 'avatar'
+      | 'id'
+      | 'firstName'
+      | 'lastName'
+      | 'email'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'functionDescription'
+      | 'adminSettings'
+      | 'avatar'
+      | 'isActive'
     > & {
         teams?: Maybe<
           Array<
@@ -9727,7 +9890,7 @@ export type GetTeamsQuery = { __typename?: 'Query' } & {
               profileMembers?: Maybe<
                 Array<
                   { __typename?: 'TeamMember' } & Pick<TeamMember, 'id'> & {
-                      user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+                      user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'isActive'>;
                     }
                 >
               >;
@@ -9752,7 +9915,12 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
             { __typename?: 'TeamMember' } & Pick<
               TeamMember,
               'id' | 'notes' | 'createPermission' | 'readPermission' | 'updatePermission' | 'deletePermission'
-            > & { user: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'firstName' | 'lastName'> }
+            > & {
+                user: { __typename?: 'Profile' } & Pick<
+                  Profile,
+                  'id' | 'email' | 'firstName' | 'lastName' | 'isActive'
+                >;
+              }
           >
         >;
       }
@@ -12548,24 +12716,47 @@ export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions
   UpdateProfileMutation,
   UpdateProfileMutationVariables
 >;
-export const DeleteProfileDocument = gql`
-  mutation DeleteProfile($id: String!) {
-    deleteProfile(id: $id)
+export const DeactivateProfileDocument = gql`
+  mutation DeactivateProfile($id: String!) {
+    deactivateProfile(id: $id) {
+      id
+    }
   }
 `;
-export function useDeleteProfileMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteProfileMutation, DeleteProfileMutationVariables>,
+export function useDeactivateProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeactivateProfileMutation, DeactivateProfileMutationVariables>,
 ) {
-  return ApolloReactHooks.useMutation<DeleteProfileMutation, DeleteProfileMutationVariables>(
-    DeleteProfileDocument,
+  return ApolloReactHooks.useMutation<DeactivateProfileMutation, DeactivateProfileMutationVariables>(
+    DeactivateProfileDocument,
     baseOptions,
   );
 }
-export type DeleteProfileMutationHookResult = ReturnType<typeof useDeleteProfileMutation>;
-export type DeleteProfileMutationResult = ApolloReactCommon.MutationResult<DeleteProfileMutation>;
-export type DeleteProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  DeleteProfileMutation,
-  DeleteProfileMutationVariables
+export type DeactivateProfileMutationHookResult = ReturnType<typeof useDeactivateProfileMutation>;
+export type DeactivateProfileMutationResult = ApolloReactCommon.MutationResult<DeactivateProfileMutation>;
+export type DeactivateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeactivateProfileMutation,
+  DeactivateProfileMutationVariables
+>;
+export const ReactivateProfileDocument = gql`
+  mutation ReactivateProfile($id: String!) {
+    reactivateProfile(id: $id) {
+      id
+    }
+  }
+`;
+export function useReactivateProfileMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ReactivateProfileMutation, ReactivateProfileMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ReactivateProfileMutation, ReactivateProfileMutationVariables>(
+    ReactivateProfileDocument,
+    baseOptions,
+  );
+}
+export type ReactivateProfileMutationHookResult = ReturnType<typeof useReactivateProfileMutation>;
+export type ReactivateProfileMutationResult = ApolloReactCommon.MutationResult<ReactivateProfileMutation>;
+export type ReactivateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ReactivateProfileMutation,
+  ReactivateProfileMutationVariables
 >;
 export const CreateEmailAddressDocument = gql`
   mutation CreateEmailAddress($input: CreateEmailAddressInput!) {
@@ -16007,6 +16198,8 @@ export const MeDocument = gql`
       lastName
       email
       avatar
+      adminSettings
+      isActive
     }
   }
 `;
@@ -16020,8 +16213,8 @@ export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
 export const GetUsersDocument = gql`
-  query GetUsers($from: Int!, $limit: Int, $search: String) {
-    getAllProfiles(search: $search, pagination: { from: $from, limit: $limit }) {
+  query GetUsers($from: Int!, $limit: Int, $search: String, $isActive: Boolean) {
+    getAllProfiles(filters: { isActive: $isActive }, search: $search, pagination: { from: $from, limit: $limit }) {
       items {
         id
         firstName
@@ -16029,6 +16222,8 @@ export const GetUsersDocument = gql`
         email
         avatar
         functionDescription
+        adminSettings
+        isActive
         teams {
           id
           name
@@ -16052,7 +16247,12 @@ export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetUsersCountDocument = gql`
   query GetUsersCount {
-    getAllProfiles {
+    activeCount: getAllProfiles(filters: { isActive: true }) {
+      metadata {
+        total
+      }
+    }
+    inActiveCount: getAllProfiles(filters: { isActive: false }) {
       metadata {
         total
       }
@@ -16085,7 +16285,9 @@ export const GetUserProfileDocument = gql`
       gender
       dateOfBirth
       functionDescription
+      adminSettings
       avatar
+      isActive
       teams {
         id
         name
@@ -16217,6 +16419,7 @@ export const GetTeamsDocument = gql`
             id
             firstName
             lastName
+            isActive
           }
         }
         company {
@@ -16260,6 +16463,7 @@ export const GetTeamDetailsDocument = gql`
           email
           firstName
           lastName
+          isActive
         }
         notes
         createPermission

@@ -90,6 +90,25 @@ input UpdateSocialMediaLinkInput {
   isPublic: Boolean
 }
 
+enum AdminSettings {
+  General
+  Users
+  Teams
+  Options
+  Workflows
+  Matching
+  PIM
+  CRM
+  SALES
+  Email
+  Documents
+  Calendar
+  Marketing
+  KPITargets
+  Notifications
+  Tasks
+}
+
 type Profile {
   id: ID!
   gender: GenderType
@@ -97,13 +116,15 @@ type Profile {
   lastName: String
   dateOfBirth: Date
   functionDescription: String
-  email: String
+  email: String!
   avatar: String
   teams: [ProfileTeam!]
   emailAddresses: [EmailAddress!]
   phoneNumbers: [PhoneNumber!]
   socialMediaLinks: [SocialMediaLink!]
   company: Company
+  adminSettings: [AdminSettings!]
+  isActive: Boolean!
 }
 
 input CreateProfileInput {
@@ -114,6 +135,7 @@ input CreateProfileInput {
   functionDescription: String
   email: String!
   avatar: String
+  adminSettings: [AdminSettings!]
 }
 
 input UpdateProfileInput {
@@ -125,6 +147,7 @@ input UpdateProfileInput {
   functionDescription: String
   email: String!
   avatar: String
+  adminSettings: [AdminSettings!]
 }
 
 type ProfileTeam {
@@ -168,17 +191,22 @@ type ProfileSearchResult {
   items: [Profile!]
 }
 
+input ProfileFilters {
+    isActive: Boolean
+}
+
 extend type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
   getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
-  getAllProfiles(pagination: Pagination, search: String): ProfileSearchResult! @auth
+  getAllProfiles(filters: ProfileFilters, pagination: Pagination, search: String): ProfileSearchResult! @auth
 }
 
 extend type Mutation {
   createProfile(input: CreateProfileInput!): Profile! @auth
   updateProfile(input: UpdateProfileInput!): Profile! @auth
-  deleteProfile(id: String): String @auth
+  deactivateProfile(id: String!): Profile! @auth
+  reactivateProfile(id: String!): Profile! @auth
   createEmailAddress(input: CreateEmailAddressInput!): Profile! @auth
   updateEmailAddress(input: UpdateEmailAddressInput!): Profile! @auth
   createPhoneNumber(input: CreatePhoneNumberInput!): Profile! @auth

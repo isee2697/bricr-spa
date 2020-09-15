@@ -183,7 +183,7 @@ type Pim implements LastUpdated {
   tags: [Tag!]
   pricing: Pricing
   costs: [Cost!]
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   investment: Investment
   specification: Specification
@@ -196,9 +196,9 @@ type Pim implements LastUpdated {
   viewingMoments: [ViewingMoment!]
   location: PimLocation
   linkedPropertiesDateUpdated: Date
-  linkedPropertiesLastEditedBy: Profile
+  linkedPropertieslastEditedBy: LastUpdatedProfile
   inspectionsDateUpdated: Date
-  inspectionsLastEditedBy: Profile
+  inspectionslastEditedBy: LastUpdatedProfile
   metersMeta: MetersMeta
   allocationCriterias: [AllocationCriteria!]
   apartmentGeneral: ApartmentGeneral

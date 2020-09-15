@@ -11,6 +11,7 @@ export const GET_TEAMS = gql`
             id
             firstName
             lastName
+            isActive
           }
         }
         company {
@@ -42,6 +43,7 @@ export const GET_TEAM_DETAILS = gql`
           email
           firstName
           lastName
+          isActive
         }
         notes
         createPermission

@@ -16,9 +16,19 @@ export const UPDATE_PROFILE = gql`
   }
 `;
 
-export const DELETE_PROFILE = gql`
-  mutation DeleteProfile($id: String!) {
-    deleteProfile(id: $id)
+export const DEACTIVATE_PROFILE = gql`
+  mutation DeactivateProfile($id: String!) {
+    deactivateProfile(id: $id) {
+      id
+    }
+  }
+`;
+
+export const REACTIVATE_PROFILE = gql`
+  mutation ReactivateProfile($id: String!) {
+    reactivateProfile(id: $id) {
+      id
+    }
   }
 `;
 

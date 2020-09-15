@@ -14,6 +14,7 @@ export const ListOptionsMenu = ({
   editText,
   deleteText,
   hideEditButton,
+  hideDeleteButton = false,
 }: ListOptionsMenuProps) => {
   const { formatMessage } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -52,15 +53,17 @@ export const ListOptionsMenu = ({
                 <Typography>{editText ?? formatMessage({ id: 'common.edit' })}</Typography>
               </MenuItem>
             )}
-            <MenuItem
-              className="delete"
-              disabled={!onDeleteClick}
-              onClick={() => onDeleteClick && onDeleteClick()}
-              data-testid="delete-option-button"
-            >
-              <DeleteIcon />
-              <Typography>{deleteText ?? formatMessage({ id: 'common.delete' })}</Typography>
-            </MenuItem>
+            {!hideDeleteButton && (
+              <MenuItem
+                className="delete"
+                disabled={!onDeleteClick}
+                onClick={() => onDeleteClick && onDeleteClick()}
+                data-testid="delete-option-button"
+              >
+                <DeleteIcon />
+                <Typography>{deleteText ?? formatMessage({ id: 'common.delete' })}</Typography>
+              </MenuItem>
+            )}
           </div>
         </Menu>
       )}

@@ -71,7 +71,7 @@ export const ProfileItem = ({
           </Grid>
         )}
       </Grid>
-      <Grid className={classes.right} item>
+      <Grid xs={1} lg="auto" className={classes.right} item>
         {button ?? <MenuIcon />}
       </Grid>
     </Grid>

@@ -1,7 +1,7 @@
 type ObjectTypeLinkedPims implements EntityLinkedWithPims {
   id: ID!
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   linkedProperties(filters: LinkedPimFilters, sort: [Sort!], pagination: Pagination!): PimListSearchResult! @auth
   linkedPropertiesIds: [ID!]
   description: String

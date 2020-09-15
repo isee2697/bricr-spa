@@ -176,7 +176,7 @@ type Cadastre implements LastUpdated {
   plot: CadastrePlot
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type PimCadastre {

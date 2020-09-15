@@ -130,7 +130,7 @@ type PimPrices implements LastUpdated {
   investment: Investment
   costsDescription: String
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 input TogglePricingInput {
@@ -149,7 +149,7 @@ input UpdatePricingInput {
 type Pricing implements LastUpdated {
   rent: RentInformations
   sale: SaleInformations
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   description: String
 }
@@ -220,7 +220,7 @@ type Investment implements LastUpdated {
   dateCreated: Date
   description: String
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 extend type Mutation {

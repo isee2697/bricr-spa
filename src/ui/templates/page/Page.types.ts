@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { AnyObject } from 'react-final-form';
 
-import { Profile } from 'api/types';
+import { LastUpdatedProfile } from 'api/types';
 import { CardWithInfoProps } from 'ui/templates/cards/cardWithInfo/CardWithInfo.types';
 import { PageHeaderProps } from 'ui/templates/page/header/PageHeader.types';
 import { BaseCardListItemType, CardWithListProps } from 'ui/templates/cards/cardWithList/CardWithList.types';
@@ -13,7 +13,7 @@ type BasePageProps = {
   name?: string;
   placeholder?: string;
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
   withoutHeader?: boolean;
   afterTitle?: ReactNode;
   hideBreadcrumb?: boolean;

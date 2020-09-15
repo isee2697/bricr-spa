@@ -1,6 +1,6 @@
-import { Profile } from 'api/types';
+import { LastUpdatedProfile } from 'api/types';
 
 export type AdvancedProps = {
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
 };

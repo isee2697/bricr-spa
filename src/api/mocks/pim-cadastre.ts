@@ -53,6 +53,7 @@ export const CADASTRE_1 = {
     firstName: 'fooName',
     lastName: 'fooLastName',
     email: 'a@b.c',
+    isActive: true,
   },
 };
 
@@ -68,6 +69,7 @@ export const CADASTRE_2 = {
     firstName: 'fooName',
     lastName: 'fooLastName',
     email: 'a@b.c',
+    isActive: true,
   },
 };
 
@@ -83,6 +85,7 @@ export const CADASTRE_3 = {
     firstName: 'fooName',
     lastName: 'fooLastName',
     email: 'a@b.c',
+    isActive: true,
   },
 };
 

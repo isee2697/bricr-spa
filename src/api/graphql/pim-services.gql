@@ -6,7 +6,7 @@ type PimServices implements LastUpdated & Services {
   heatingSources: [Service!]
   additionalServices: [Service!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   description: String
 }
 
