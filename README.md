@@ -115,7 +115,7 @@ Fetch translations and place files into `./src/i18n/data`
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run genereate:api-types`
+### `npm run generate:api-types`
 
 Generates TS types based on src/api/graphql/*, src/api/mutations/* and src/api/queries/* files. It creates all the required query and mutation hooks and writes them in src/api/types.ts file.
 

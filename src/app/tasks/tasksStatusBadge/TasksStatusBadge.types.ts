@@ -1,4 +1,4 @@
-import { TaskStatus } from '../Tasks.enum';
+import { TaskStatus } from 'api/types';
 
 export type TasksStatusBadgeProps = {
   status: TaskStatus;
