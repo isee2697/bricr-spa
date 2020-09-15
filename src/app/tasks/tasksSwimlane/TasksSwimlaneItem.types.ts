@@ -1,10 +1,10 @@
-import { Task } from '../Tasks.types';
+import { TaskItem } from '../Tasks.types';
 
 export type TasksSwimlaneItemProps = {
-  task: Task;
+  task: TaskItem;
 };
 
 export type TasksSwimlaneItemDnd = {
   id: string;
-  task: Task;
+  task: TaskItem;
 };

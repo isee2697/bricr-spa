@@ -3,14 +3,13 @@ import React from 'react';
 import { Grid, IconButton, Typography, Button } from 'ui/atoms';
 import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { useStyles } from './TasksHeader.styles';
+import { TasksHeaderProps } from './TasksHeader.types';
 
-export const TasksHeader = () => {
+export const TasksHeader = ({ handleCreateTask }: TasksHeaderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { open } = useModalDispatch();
 
   return (
     <Grid container className={classes.root}>
@@ -25,7 +24,7 @@ export const TasksHeader = () => {
       <Button
         color="primary"
         variant="contained"
-        onClick={() => open('create-new-task')}
+        onClick={() => handleCreateTask()}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >
