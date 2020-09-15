@@ -12,6 +12,7 @@ import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 import { WorkflowTemplatesContainer } from './sections/workflowTemplates/WorkflowTemplatesContainer';
 import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 import { SettingsProps } from './Settings.types';
+import { BillingContainer } from './sections/billing/BillingContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -28,6 +29,7 @@ export const Settings = ({ data }: SettingsProps) => {
           <Switch>
             <Route path={`${AppRoute.settings}/workflowTemplates`} render={() => <WorkflowTemplatesContainer />} />
             <Route path={AppRoute.workflow} render={() => <WorkflowContainer />} />
+            <Route path={`${AppRoute.settings}/billing`} render={() => <BillingContainer />} />
             <Route
               path={`${AppRoute.settings}/createTeam`}
               render={() => (

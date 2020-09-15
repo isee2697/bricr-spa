@@ -796,46 +796,13 @@ export type MutationUploadFileArgs = {
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
-export enum BulkField {
-  City = 'city',
-  Status = 'status',
-}
-
-export enum BulkEntities {
-  Pim = 'Pim',
-  ObjectType = 'ObjectType',
-  Ncp = 'Ncp',
-}
-
-export enum BulkOperations {
-  SetField = 'SetField',
-  Delete = 'Delete',
-  Archive = 'Archive',
-}
-
-export type GetBulkDetailsInput = {
-  ids: Array<Scalars['ID']>;
-  field: BulkField;
-  entity: BulkEntities;
+export type BillingResponse = {
+  url: Scalars['String'];
 };
 
-export type BulkOperationInput = {
-  operation: BulkOperations;
-  ids: Array<Scalars['ID']>;
-  entity: BulkEntities;
-  field?: Maybe<BulkField>;
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type GetBulkResult = {
-  __typename?: 'GetBulkResult';
-  id: Scalars['ID'];
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type BulkOperationResult = {
-  __typename?: 'BulkOperationResult';
-  undoIds: Array<Scalars['ID']>;
+export type Billing = {
+  __typename?: 'Billing';
+  url: Scalars['String'];
 };
 
 export type Query = {
@@ -843,6 +810,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
+  getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
@@ -1063,6 +1031,48 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export enum BulkField {
+  City = 'city',
+  Status = 'status',
+}
+
+export enum BulkEntities {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+}
+
+export enum BulkOperations {
+  SetField = 'SetField',
+  Delete = 'Delete',
+  Archive = 'Archive',
+}
+
+export type GetBulkDetailsInput = {
+  ids: Array<Scalars['ID']>;
+  field: BulkField;
+  entity: BulkEntities;
+};
+
+export type BulkOperationInput = {
+  operation: BulkOperations;
+  ids: Array<Scalars['ID']>;
+  entity: BulkEntities;
+  field?: Maybe<BulkField>;
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type GetBulkResult = {
+  __typename?: 'GetBulkResult';
+  id: Scalars['ID'];
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type BulkOperationResult = {
+  __typename?: 'BulkOperationResult';
+  undoIds: Array<Scalars['ID']>;
 };
 
 export enum CharacteristicsSections {
@@ -7604,6 +7614,12 @@ export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
+export type GetBillingQueryVariables = {};
+
+export type GetBillingQuery = { __typename?: 'Query' } & {
+  getBilling?: Maybe<{ __typename?: 'Billing' } & Pick<Billing, 'url'>>;
+};
+
 export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
 };
@@ -12536,6 +12552,26 @@ export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
 >;
+export const GetBillingDocument = gql`
+  query GetBilling {
+    getBilling {
+      url
+    }
+  }
+`;
+export function useGetBillingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetBillingQuery, GetBillingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetBillingQuery, GetBillingQueryVariables>(GetBillingDocument, baseOptions);
+}
+export function useGetBillingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetBillingQuery, GetBillingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetBillingQuery, GetBillingQueryVariables>(GetBillingDocument, baseOptions);
+}
+export type GetBillingQueryHookResult = ReturnType<typeof useGetBillingQuery>;
+export type GetBillingLazyQueryHookResult = ReturnType<typeof useGetBillingLazyQuery>;
+export type GetBillingQueryResult = ApolloReactCommon.QueryResult<GetBillingQuery, GetBillingQueryVariables>;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
     getBulkDetails(input: $input) {
