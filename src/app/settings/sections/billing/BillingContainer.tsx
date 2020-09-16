@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Page } from 'ui/templates';
-import { Grid, Typography, Box, Card, CardContent } from 'ui/atoms';
-import { HelpIcon } from 'ui/atoms/icons';
+import { Grid, Box, Card, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { useGetBillingQuery } from 'api/types';
 
