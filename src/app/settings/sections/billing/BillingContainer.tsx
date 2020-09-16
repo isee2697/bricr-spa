@@ -29,10 +29,7 @@ export const BillingContainer = () => {
                   src={data?.getBilling?.url}
                   width="100%"
                   height="669"
-                  style={{
-                    overflow: 'hidden',
-                    border: 'none',
-                  }}
+                  className={classes.iFrame}
                 />
               </CardContent>
             </Box>

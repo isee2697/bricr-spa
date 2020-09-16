@@ -34,5 +34,9 @@ export const useStyles = makeStyles(theme => {
       fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.primary.main,
     },
+    iFrame: {
+      overflow: 'hidden',
+      border: 'none',
+    },
   };
 });
