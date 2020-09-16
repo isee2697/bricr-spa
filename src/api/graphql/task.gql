@@ -26,6 +26,7 @@ type Task {
   priority: TaskPriority!
   label: TaskLabel!
   status: TaskStatus!
+  description: String
 }
 
 type TaskSearchResult {
@@ -51,6 +52,7 @@ input UpdateTaskInput {
   priority: TaskPriority
   label: TaskLabel
   status: TaskStatus
+  description: String
 }
 
 input DateRange {

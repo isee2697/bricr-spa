@@ -11,6 +11,7 @@ export const GET_TASK = gql`
       priority
       label
       status
+      description
     }
   }
 `;
@@ -37,6 +38,7 @@ export const GET_TASKS = gql`
         priority
         label
         status
+        description
       }
     }
   }

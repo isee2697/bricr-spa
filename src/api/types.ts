@@ -6406,6 +6406,7 @@ export type Task = {
   priority: TaskPriority;
   label: TaskLabel;
   status: TaskStatus;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type TaskSearchResult = {
@@ -6432,6 +6433,7 @@ export type UpdateTaskInput = {
   priority?: Maybe<TaskPriority>;
   label?: Maybe<TaskLabel>;
   status?: Maybe<TaskStatus>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -9716,7 +9718,7 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
     { __typename?: 'Task' } & Pick<
       Task,
-      'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+      'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status' | 'description'
     >
   >;
 };
@@ -9737,7 +9739,7 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Task' } & Pick<
             Task,
-            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status' | 'description'
           >
         >
       >;
@@ -16036,6 +16038,7 @@ export const GetTaskDocument = gql`
       priority
       label
       status
+      description
     }
   }
 `;
@@ -16072,6 +16075,7 @@ export const GetTasksDocument = gql`
         priority
         label
         status
+        description
       }
     }
   }

@@ -26,7 +26,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
 
   const { id, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
-  const daysLeft = Math.round(deadlineDate.diffNow('days').days);
+  const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
 
   return (
     <Draggable draggableId={id} index={0}>
@@ -39,7 +39,22 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
         >
           <Box className={classes.root}>
             <Typography variant="h6" className={classes.expireInfo}>
-              {formatMessage({ id: 'tasks.days_left' }, { daysLeft })}
+              {remainingMinutes < 60 * 24
+                ? remainingMinutes < 60
+                  ? formatMessage({ id: 'tasks.details.remainingMinutes' }, { minutes: remainingMinutes })
+                  : formatMessage(
+                      { id: 'tasks.details.remainingHours' },
+                      {
+                        hours: Math.floor(remainingMinutes / 60),
+                        minutes: remainingMinutes % 60,
+                      },
+                    )
+                : formatMessage(
+                    { id: 'tasks.details.remainingDays' },
+                    {
+                      days: Math.floor(remainingMinutes / 60 / 24),
+                    },
+                  )}
             </Typography>
             <Typography variant="h5" className={classes.title}>
               {title}

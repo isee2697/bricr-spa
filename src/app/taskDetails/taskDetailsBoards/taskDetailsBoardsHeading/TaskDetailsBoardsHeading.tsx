@@ -17,7 +17,7 @@ export const TaskDetailsBoardsHeading = ({ task }: TaskDetailsBoardsHeadingProps
   const { startDate, deadline, priority } = task;
   const startDateObject = DateTime.fromISO(startDate);
   const deadlineObject = DateTime.fromISO(deadline);
-  const remainingMinutes = deadlineObject.diffNow('minutes').minutes;
+  const remainingMinutes = Math.floor(deadlineObject.diffNow('minutes').minutes);
 
   return (
     <Paper className={classes.root}>
@@ -45,7 +45,7 @@ export const TaskDetailsBoardsHeading = ({ task }: TaskDetailsBoardsHeadingProps
           <Typography variant="h5" className={clsx(classes.value, classes.yellow)}>
             {remainingMinutes < 60 * 24
               ? remainingMinutes < 60
-                ? formatMessage({ id: 'tasks.details.remainingMinutes' }, { mins: remainingMinutes })
+                ? formatMessage({ id: 'tasks.details.remainingMinutes' }, { minutes: remainingMinutes })
                 : formatMessage(
                     { id: 'tasks.details.remainingHours' },
                     {

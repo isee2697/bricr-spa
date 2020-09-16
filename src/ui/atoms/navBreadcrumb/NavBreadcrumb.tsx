@@ -9,7 +9,6 @@ export const NavBreadcrumb = ({ title, to, urlBase }: NavBreadcrumbProps) => {
   const { id } = useParams<{ id: string }>();
 
   const path = urlBase ? `${urlBase.replace(':id', id)}${to ?? ''}` : to;
-  console.log(path, pathname, id);
 
   return <BreadcrumbsItem to={path ? path : pathname}>{title}</BreadcrumbsItem>;
 };
