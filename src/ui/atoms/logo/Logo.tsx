@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logoImage from 'ui/atoms/icons/svg/logo.svg';
+import logoImage from 'assets/images/logo.svg';
 
 import { LogoProps } from './Logo.types';
 
