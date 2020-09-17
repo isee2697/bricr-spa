@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 
 import { GetTaskQuery, GetTaskQueryHookResult, Profile, Task } from 'api/types';
 
-export type TaskDetailsProps = Pick<GetTaskQueryHookResult, 'error' | 'data'> & {
-  data?: GetTaskQuery;
+export type TaskDetailsProps = Pick<GetTaskQueryHookResult, 'error'> & {
+  taskData: GetTaskQuery;
   breadcrumbs: ReactNode;
   onUpdateTask: (taskId: string, task: Pick<Task, 'status'>) => void;
   user: Profile;

@@ -10,18 +10,18 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { TaskDetails } from './TaskDetails';
 
 export const TaskDetailsContainer = () => {
-  const { isAuthorized, user } = useAuthState();
-  const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery({
-    skip: !isAuthorized,
-  });
+  const { user } = useAuthState();
+  const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery();
 
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
 
-  const { loading, error, data } = useGetTaskQuery({ variables: { id } });
+  const { loading, error, data: taskData } = useGetTaskQuery({
+    variables: { id },
+  });
 
-  const task = data?.getTask;
-  const title = task ? task.id : '';
+  const task = taskData?.getTask;
+  const title = task ? `BRICR-${task.taskIndex}` : '';
 
   const breadcrumbs = (
     <>
@@ -55,14 +55,14 @@ export const TaskDetailsContainer = () => {
     }
   };
 
-  if (loading || updateTaskLoading || !isAuthorized || !user || loadingTeam || !teamData || !teamData.members) {
+  if (loading || updateTaskLoading || !user || loadingTeam || !teamData || !teamData.members || !taskData) {
     return <Loader />;
   }
 
   return (
     <TaskDetails
       error={error}
-      data={data}
+      taskData={taskData}
       breadcrumbs={breadcrumbs}
       onUpdateTask={handleUpdateTask}
       user={user}

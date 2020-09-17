@@ -9,15 +9,15 @@ import { TaskDetailsHeader } from './taskDetailsHeader/TaskDetailsHeader';
 import { TaskDetailsBoards } from './taskDetailsBoards/TaskDetailsBoards';
 import { TaskDetailsFooter } from './taskDetailsFooter/TaskDetailsFooter';
 
-export const TaskDetails = ({ error, data, breadcrumbs, user, members, onUpdateTask }: TaskDetailsProps) => {
+export const TaskDetails = ({ error, taskData, breadcrumbs, user, members, onUpdateTask }: TaskDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  if (!data || !data.getTask || !user || !members) {
+  if (!taskData.getTask) {
     return <Loader />;
   }
 
-  const task = data.getTask;
+  const task = taskData.getTask;
 
   return (
     <>

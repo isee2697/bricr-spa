@@ -24,7 +24,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
 
-  const { id, title, assigneeDetail, deadline, label, priority } = task;
+  const { id, taskIndex, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
   const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
 
@@ -86,7 +86,7 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
               <Grid item className={classes.flexGrowOne} />
               <Grid item>
                 <Typography variant="h5" className={classes.taskId}>
-                  {id}
+                  {`BRICR-${taskIndex}`}
                 </Typography>
               </Grid>
               <Grid item>

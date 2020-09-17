@@ -19,6 +19,7 @@ enum TaskStatus {
 
 type Task {
   id: ID!
+  taskIndex: Int!
   title: String!
   assignee: ID!
   startDate: Date!
