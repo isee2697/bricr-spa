@@ -8,10 +8,13 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
 import { TaskDetails } from './TaskDetails';
+import { useStyles } from './TaskDetails.style';
+import { TaskLabelIcon } from './taskLabelIcon/TaskLabelIcon';
 
 export const TaskDetailsContainer = () => {
   const { user } = useAuthState();
   const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery();
+  const classes = useStyles();
 
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
@@ -21,7 +24,14 @@ export const TaskDetailsContainer = () => {
   });
 
   const task = taskData?.getTask;
-  const title = task ? `BRICR-${task.taskIndex}` : '';
+
+  const title = task ? (
+    <>
+      <TaskLabelIcon type={task.label} className={classes.taskLabelIcon} /> {`BRICR-${task.taskIndex}`}
+    </>
+  ) : (
+    ''
+  );
 
   const breadcrumbs = (
     <>

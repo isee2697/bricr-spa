@@ -4,4 +4,7 @@ export const useStyles = makeStyles(theme => ({
   content: {
     padding: theme.spacing(3),
   },
+  taskLabelIcon: {
+    verticalAlign: 'middle',
+  },
 }));
