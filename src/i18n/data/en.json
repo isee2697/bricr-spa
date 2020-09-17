@@ -2294,5 +2294,10 @@
   "dictionaries.workflow_blueprint.SaleRentProperty": "Property for sale/rent",
   "dictionaries.workflow_blueprint.PurchaseProperty": "Purchase property",
   "dictionaries.workflow_blueprint.ReletProcess": "Relet process",
-  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process"
+  "dictionaries.workflow_blueprint.NewConstructionProcess": "New construction process",
+  "crm.type.relations": "Relations",
+  "crm.type.businesses": "Businesses",
+  "crm.title": "Customer Relationship Management",
+  "crm.add.relations": "Add relation",
+  "crm.add.businesses": "Add business"
 }
