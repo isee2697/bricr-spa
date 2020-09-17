@@ -1,0 +1,17 @@
+# REST - don't remove
+
+input BillingResponse {
+  url: String!
+}
+type Billing {
+  url: String!
+}
+
+# END REST
+
+
+extend type Query {
+  #REST don't remove
+  getBilling: Billing
+  #END REST
+}
