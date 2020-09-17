@@ -2296,6 +2296,22 @@
   "crm.type.relations": "Relations",
   "crm.type.businesses": "Businesses",
   "crm.title": "Customer Relationship Management",
+  "crm.menu.relations": "Relations",
+  "crm.menu.businesses": "Businesses",
   "crm.add.relations": "Add relation",
-  "crm.add.businesses": "Add business"
+  "crm.add.businesses": "Add business",
+  "crm.status.action_required": "Action required",
+  "crm.status.active": "Active",
+  "crm.status.inactive": "Inactive",
+  "crm.list.empty_title": "You don’t have any added properties yet.",
+  "crm.list.empty_description": "To change that, click the “{buttonName}” button at the top of the screen.",
+  "crm.item.partner": "Partner",
+  "crm.item.manager": "Manager",
+  "crm.item.meta.matches": "Matches",
+  "crm.item.meta.interests": "interests",
+  "crm.item.meta.viewings": "viewings",
+  "crm.item.meta.biddings": "biddings",
+  "crm.item.meta.candidate": "candidate",
+  "crm.item.meta.optant": "optant",
+  "crm.item.category.seller": "Seller"
 }

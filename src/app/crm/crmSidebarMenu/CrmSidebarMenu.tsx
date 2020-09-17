@@ -1,44 +1,23 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
-import { SideMenu } from 'ui/molecules';
-import { SideMenuItem } from 'ui/atoms';
-import { CrmIcon } from 'ui/atoms/icons';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { CrmType } from '../Crm.types';
+import { SidebarMenu } from 'ui/molecules';
 
-import { useStyles } from './CrmSidebarMenu.style';
 import { CrmSidebarMenuProps } from './CrmSidebarMenu.types';
 
-const types = [
-  {
-    name: CrmType.Relations,
-    icon: <CrmIcon />,
-  },
-  {
-    name: CrmType.Businesses,
-    icon: <CrmIcon />,
-  },
-];
+export const CrmSidebarMenu = ({ type, isVisible, onHide, onTypeChange }: CrmSidebarMenuProps) => {
+  const { url } = useRouteMatch();
 
-export const CrmSidebarMenu = ({ type, onTypeChange }: CrmSidebarMenuProps) => {
-  const classes = useStyles();
-  const { formatMessage } = useLocale();
-
-  const handleTypeChange = (name: CrmType) => {
-    onTypeChange(name);
+  const menu = {
+    url,
+    groups: [
+      {
+        items: [{ key: 'relations' }, { key: 'businesses' }],
+      },
+    ],
   };
 
   return (
-    <SideMenu className={classes.root}>
-      {types.map(t => (
-        <SideMenuItem
-          key={t.name}
-          icon={t.icon}
-          title={formatMessage({ id: `crm.type.${t.name}` })}
-          selected={type === t.name}
-          onClick={() => handleTypeChange(t.name)}
-        />
-      ))}
-    </SideMenu>
+    <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="crm.menu" menu={menu} menuTitle={undefined} />
   );
 };
