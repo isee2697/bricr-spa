@@ -7,6 +7,9 @@ export const CURRENT_USER = gql`
       firstName
       lastName
       email
+      company {
+        id
+      }
       image {
         id
         key
