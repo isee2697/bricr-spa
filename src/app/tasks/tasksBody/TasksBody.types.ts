@@ -1,1 +1,5 @@
-export type TasksBodyProps = {};
+import { TeamMemberItem } from '../Tasks.types';
+
+export type TasksBodyProps = {
+  selectedMembers: TeamMemberItem[];
+};

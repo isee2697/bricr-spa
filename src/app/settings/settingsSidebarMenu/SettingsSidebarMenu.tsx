@@ -30,7 +30,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       {
         isCollapsable: true,
         key: 'settings.menu.general',
-        items: [{ key: 'workflowTemplates' }],
+        items: [{ key: 'workflowTemplates' }, { key: 'billing' }],
       },
       {
         isCollapsable: true,

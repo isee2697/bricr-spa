@@ -1,23 +1,22 @@
-import { DateTime } from 'luxon';
+import { ApolloError } from 'apollo-boost';
 
-import { User } from './tasksMemberList/TasksMemberList.types';
-import { TaskPriority, TaskStatus, TaskLabel } from './Tasks.enum';
+import { Profile, Task } from 'api/types';
 
 export type TasksProps = {
-  selectedUsers: string[];
-  isError: boolean;
+  user: Profile;
+  error: ApolloError | undefined;
+  members: TeamMemberItem[];
 };
 
-export type Task = {
-  id: number;
-  taskId: string;
-  title: string;
-  priority: TaskPriority;
-  assignedTo: User;
-  label: TaskLabel;
-  startDate: DateTime;
-  expireDate: DateTime;
-  deadlineDate: DateTime;
-  deadlineTime: DateTime;
-  status: TaskStatus;
+export type TaskItem = Task & {
+  assigneeDetail?: TeamMemberItem;
 };
+
+export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+
+export enum TasksTab {
+  Today = 0,
+  NextWeek = 1,
+  Future = 2,
+  Overdue = 3,
+}

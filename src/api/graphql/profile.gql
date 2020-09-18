@@ -202,9 +202,6 @@ type ProfileSearchResult {
   metadata: SearchMetadata
   items: [Profile!]
 }
-type BillingResult {
-  url: String!
-}
 
 input ProfileFilters {
     isActive: Boolean
@@ -215,7 +212,6 @@ extend type Query {
   getProfile(id: ID!): Profile @auth
   getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
   getAllProfiles(filters: ProfileFilters, pagination: Pagination, search: String): ProfileSearchResult! @auth
-  getBilling: BillingResult! @auth
 }
 
 extend type Mutation {

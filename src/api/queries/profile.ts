@@ -12,6 +12,10 @@ export const CURRENT_USER = gql`
         key
         url
       }
+      teams {
+        id
+        name
+      }
       adminSettings
       isActive
     }
@@ -108,6 +112,24 @@ export const GET_USER_PROFILE = gql`
       company {
         id
         name
+      }
+    }
+  }
+`;
+
+export const GET_MY_TEAMMEMBERS = gql`
+  query GetMyTeamMembers($from: Int, $limit: Int, $search: String) {
+    members: getMyTeamMembers(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        image {
+          id
+          key
+          url
+        }
       }
     }
   }

@@ -110,6 +110,7 @@ export type Mutation = {
   createPim?: Maybe<Pim>;
   createProfile: Profile;
   createSocialMediaLink: Profile;
+  createTask: Task;
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
@@ -201,6 +202,7 @@ export type Mutation = {
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
   updateTag?: Maybe<Pim>;
+  updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
   updateTextChapter?: Maybe<Pim>;
   updateUserInTeam?: Maybe<Team>;
@@ -418,6 +420,10 @@ export type MutationCreateProfileArgs = {
 
 export type MutationCreateSocialMediaLinkArgs = {
   input: CreateSocialMediaLinkInput;
+};
+
+export type MutationCreateTaskArgs = {
+  input: CreateTaskInput;
 };
 
 export type MutationDeactivateProfileArgs = {
@@ -785,6 +791,10 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
 
+export type MutationUpdateTaskArgs = {
+  input: UpdateTaskInput;
+};
+
 export type MutationUpdateTeamArgs = {
   input: UpdateTeamInput;
 };
@@ -806,46 +816,13 @@ export type MutationUploadFileArgs = {
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
-export enum BulkField {
-  City = 'city',
-  Status = 'status',
-}
-
-export enum BulkEntities {
-  Pim = 'Pim',
-  ObjectType = 'ObjectType',
-  Ncp = 'Ncp',
-}
-
-export enum BulkOperations {
-  SetField = 'SetField',
-  Delete = 'Delete',
-  Archive = 'Archive',
-}
-
-export type GetBulkDetailsInput = {
-  ids: Array<Scalars['ID']>;
-  field: BulkField;
-  entity: BulkEntities;
+export type BillingResponse = {
+  url: Scalars['String'];
 };
 
-export type BulkOperationInput = {
-  operation: BulkOperations;
-  ids: Array<Scalars['ID']>;
-  entity: BulkEntities;
-  field?: Maybe<BulkField>;
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type GetBulkResult = {
-  __typename?: 'GetBulkResult';
-  id: Scalars['ID'];
-  value?: Maybe<Scalars['BulkFieldValue']>;
-};
-
-export type BulkOperationResult = {
-  __typename?: 'BulkOperationResult';
-  undoIds: Array<Scalars['ID']>;
+export type Billing = {
+  __typename?: 'Billing';
+  url: Scalars['String'];
 };
 
 export type Query = {
@@ -853,7 +830,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
-  getBilling: BillingResult;
+  getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
@@ -890,6 +867,8 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getTask?: Maybe<Task>;
+  getTasks?: Maybe<TaskSearchResult>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
@@ -1046,6 +1025,15 @@ export type QueryGetProjectPhasesArgs = {
   pagination: Pagination;
 };
 
+export type QueryGetTaskArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetTasksArgs = {
+  filters?: Maybe<TaskFilters>;
+  sort?: Maybe<Array<Sort>>;
+};
+
 export type QueryGetTeamDetailsArgs = {
   id: Scalars['ID'];
 };
@@ -1075,6 +1063,48 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export enum BulkField {
+  City = 'city',
+  Status = 'status',
+}
+
+export enum BulkEntities {
+  Pim = 'Pim',
+  ObjectType = 'ObjectType',
+  Ncp = 'Ncp',
+}
+
+export enum BulkOperations {
+  SetField = 'SetField',
+  Delete = 'Delete',
+  Archive = 'Archive',
+}
+
+export type GetBulkDetailsInput = {
+  ids: Array<Scalars['ID']>;
+  field: BulkField;
+  entity: BulkEntities;
+};
+
+export type BulkOperationInput = {
+  operation: BulkOperations;
+  ids: Array<Scalars['ID']>;
+  entity: BulkEntities;
+  field?: Maybe<BulkField>;
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type GetBulkResult = {
+  __typename?: 'GetBulkResult';
+  id: Scalars['ID'];
+  value?: Maybe<Scalars['BulkFieldValue']>;
+};
+
+export type BulkOperationResult = {
+  __typename?: 'BulkOperationResult';
+  undoIds: Array<Scalars['ID']>;
 };
 
 export enum CharacteristicsSections {
@@ -6128,11 +6158,6 @@ export type ProfileSearchResult = {
   items?: Maybe<Array<Profile>>;
 };
 
-export type BillingResult = {
-  __typename?: 'BillingResult';
-  url: Scalars['String'];
-};
-
 export type ProfileFilters = {
   isActive?: Maybe<Scalars['Boolean']>;
 };
@@ -6419,6 +6444,75 @@ export type MetersMeta = LastUpdated & {
   Electric?: Maybe<MetersSharedData>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum TaskLabel {
+  FollowUp = 'FollowUp',
+  Business = 'Business',
+  Private = 'Private',
+}
+
+export enum TaskPriority {
+  High = 'High',
+  Medium = 'Medium',
+  Low = 'Low',
+}
+
+export enum TaskStatus {
+  ToDo = 'ToDo',
+  InProgress = 'InProgress',
+  Blocked = 'Blocked',
+  Done = 'Done',
+}
+
+export type Task = {
+  __typename?: 'Task';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  assignee: Scalars['ID'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: TaskPriority;
+  label: TaskLabel;
+  status: TaskStatus;
+};
+
+export type TaskSearchResult = {
+  __typename?: 'TaskSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Task>>;
+};
+
+export type CreateTaskInput = {
+  title: Scalars['String'];
+  assignee: Scalars['ID'];
+  startDate: Scalars['Date'];
+  deadline: Scalars['Date'];
+  priority: TaskPriority;
+  label: TaskLabel;
+};
+
+export type UpdateTaskInput = {
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  assignee?: Maybe<Scalars['ID']>;
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
+  priority?: Maybe<TaskPriority>;
+  label?: Maybe<TaskLabel>;
+  status?: Maybe<TaskStatus>;
+};
+
+export type DateRange = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type TaskFilters = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  startDate?: Maybe<DateRange>;
+  deadline?: Maybe<DateRange>;
 };
 
 export enum TeamRight {
@@ -7711,6 +7805,22 @@ export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
+export type CreateTaskMutationVariables = {
+  input: CreateTaskInput;
+};
+
+export type CreateTaskMutation = { __typename?: 'Mutation' } & {
+  createTask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
+
+export type UpdateTaskMutationVariables = {
+  input: UpdateTaskInput;
+};
+
+export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
+  updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
+
 export type AddTeamMutationVariables = {
   input: AddTeamInput;
 };
@@ -7755,6 +7865,12 @@ export type UpdateUserInTeamMutationVariables = {
 
 export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
+};
+
+export type GetBillingQueryVariables = {};
+
+export type GetBillingQuery = { __typename?: 'Query' } & {
+  getBilling?: Maybe<{ __typename?: 'Billing' } & Pick<Billing, 'url'>>;
 };
 
 export type BulkDetailsQueryVariables = {
@@ -9766,7 +9882,10 @@ export type MeQuery = { __typename?: 'Query' } & {
     { __typename?: 'Profile' } & Pick<
       Profile,
       'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive'
-    > & { image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>> }
+    > & {
+        image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+        teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+      }
   >;
 };
 
@@ -9861,6 +9980,24 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetMyTeamMembersQueryVariables = {
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  search?: Maybe<Scalars['String']>;
+};
+
+export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
+  members: { __typename?: 'ProfileSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email'> & {
+            image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+          }
+      >
+    >;
+  };
+};
+
 export type ProjectPhasesQueryVariables = {
   name?: Maybe<Scalars['String']>;
   ncpId?: Maybe<Scalars['ID']>;
@@ -9902,6 +10039,40 @@ export type SettingInfoQueryVariables = {};
 export type SettingInfoQuery = { __typename?: 'Query' } & {
   getTeams?: Maybe<
     { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
+  >;
+};
+
+export type GetTaskQueryVariables = {
+  id: Scalars['ID'];
+};
+
+export type GetTaskQuery = { __typename?: 'Query' } & {
+  getTask?: Maybe<
+    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+  >;
+};
+
+export type GetTasksQueryVariables = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+};
+
+export type GetTasksQuery = { __typename?: 'Query' } & {
+  getTasks?: Maybe<
+    { __typename?: 'TaskSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Task' } & Pick<
+            Task,
+            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+          >
+        >
+      >;
+    }
   >;
 };
 
@@ -12965,6 +13136,42 @@ export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutatio
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
 >;
+export const CreateTaskDocument = gql`
+  mutation CreateTask($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, baseOptions);
+}
+export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
+export type CreateTaskMutationResult = ApolloReactCommon.MutationResult<CreateTaskMutation>;
+export type CreateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateTaskMutation,
+  CreateTaskMutationVariables
+>;
+export const UpdateTaskDocument = gql`
+  mutation UpdateTask($input: UpdateTaskInput!) {
+    updateTask(input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateTaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateTaskMutation, UpdateTaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateTaskMutation, UpdateTaskMutationVariables>(UpdateTaskDocument, baseOptions);
+}
+export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
+export type UpdateTaskMutationResult = ApolloReactCommon.MutationResult<UpdateTaskMutation>;
+export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateTaskMutation,
+  UpdateTaskMutationVariables
+>;
 export const AddTeamDocument = gql`
   mutation AddTeam($input: AddTeamInput!) {
     addTeam(input: $input) {
@@ -13078,6 +13285,26 @@ export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOpti
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
 >;
+export const GetBillingDocument = gql`
+  query GetBilling {
+    getBilling {
+      url
+    }
+  }
+`;
+export function useGetBillingQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetBillingQuery, GetBillingQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetBillingQuery, GetBillingQueryVariables>(GetBillingDocument, baseOptions);
+}
+export function useGetBillingLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetBillingQuery, GetBillingQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetBillingQuery, GetBillingQueryVariables>(GetBillingDocument, baseOptions);
+}
+export type GetBillingQueryHookResult = ReturnType<typeof useGetBillingQuery>;
+export type GetBillingLazyQueryHookResult = ReturnType<typeof useGetBillingLazyQuery>;
+export type GetBillingQueryResult = ApolloReactCommon.QueryResult<GetBillingQuery, GetBillingQueryVariables>;
 export const BulkDetailsDocument = gql`
   query BulkDetails($input: GetBulkDetailsInput!) {
     getBulkDetails(input: $input) {
@@ -16232,6 +16459,10 @@ export const MeDocument = gql`
         key
         url
       }
+      teams {
+        id
+        name
+      }
       adminSettings
       isActive
     }
@@ -16389,6 +16620,45 @@ export type GetUserProfileQueryResult = ApolloReactCommon.QueryResult<
   GetUserProfileQuery,
   GetUserProfileQueryVariables
 >;
+export const GetMyTeamMembersDocument = gql`
+  query GetMyTeamMembers($from: Int, $limit: Int, $search: String) {
+    members: getMyTeamMembers(search: $search, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        firstName
+        lastName
+        email
+        image {
+          id
+          key
+          url
+        }
+      }
+    }
+  }
+`;
+export function useGetMyTeamMembersQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export function useGetMyTeamMembersLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetMyTeamMembersQuery, GetMyTeamMembersQueryVariables>(
+    GetMyTeamMembersDocument,
+    baseOptions,
+  );
+}
+export type GetMyTeamMembersQueryHookResult = ReturnType<typeof useGetMyTeamMembersQuery>;
+export type GetMyTeamMembersLazyQueryHookResult = ReturnType<typeof useGetMyTeamMembersLazyQuery>;
+export type GetMyTeamMembersQueryResult = ApolloReactCommon.QueryResult<
+  GetMyTeamMembersQuery,
+  GetMyTeamMembersQueryVariables
+>;
 export const ProjectPhasesDocument = gql`
   query ProjectPhases($name: String, $ncpId: ID, $from: Int!, $limit: Int) {
     getProjectPhases(filters: { name: $name, ncpId: $ncpId }, pagination: { from: $from, limit: $limit }) {
@@ -16454,6 +16724,68 @@ export function useSettingInfoLazyQuery(
 export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
 export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
 export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTaskDocument = gql`
+  query GetTask($id: ID!) {
+    getTask(id: $id) {
+      id
+      title
+      assignee
+      startDate
+      deadline
+      priority
+    }
+  }
+`;
+export function useGetTaskQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskQuery, GetTaskQueryVariables>) {
+  return ApolloReactHooks.useQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export function useGetTaskLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskQuery, GetTaskQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskQuery, GetTaskQueryVariables>(GetTaskDocument, baseOptions);
+}
+export type GetTaskQueryHookResult = ReturnType<typeof useGetTaskQuery>;
+export type GetTaskLazyQueryHookResult = ReturnType<typeof useGetTaskLazyQuery>;
+export type GetTaskQueryResult = ApolloReactCommon.QueryResult<GetTaskQuery, GetTaskQueryVariables>;
+export const GetTasksDocument = gql`
+  query GetTasks(
+    $search: String
+    $assignees: [ID!]
+    $from: Date
+    $to: Date
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+  ) {
+    getTasks(
+      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        title
+        assignee
+        startDate
+        deadline
+        priority
+        label
+        status
+      }
+    }
+  }
+`;
+export function useGetTasksQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export function useGetTasksLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksQuery, GetTasksQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTasksQuery, GetTasksQueryVariables>(GetTasksDocument, baseOptions);
+}
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
 export const GetTeamsDocument = gql`
   query GetTeams($from: Int, $limit: Int, $search: String) {
     getTeams(pagination: { from: $from, limit: $limit }, search: $search) {

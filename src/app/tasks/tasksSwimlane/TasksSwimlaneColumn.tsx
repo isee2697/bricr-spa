@@ -4,7 +4,7 @@ import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beau
 
 import { Box, Grid, IconButton } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons';
-import { Task } from '../Tasks.types';
+import { Task } from 'api/types';
 import { TasksStatusBadge } from '../tasksStatusBadge/TasksStatusBadge';
 
 import { TasksSwimlaneColumnProps } from './TasksSwimlaneColumn.types';

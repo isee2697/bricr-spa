@@ -1,3 +1,0 @@
-describe('TasksHeader', () => {
-  test('renders', () => {});
-});
