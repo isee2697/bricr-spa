@@ -10,6 +10,7 @@ import { AddUserModal } from './AddUserModal';
 export const AddUserModalContainer = ({ isOpened, onClose }: ModalContainerProps) => {
   const [addUser] = useCreateProfileMutation();
   const { push } = useHistory();
+
   const handleSave = async (data: Profile) => {
     try {
       if (!data.email) {
@@ -25,7 +26,7 @@ export const AddUserModalContainer = ({ isOpened, onClose }: ModalContainerProps
             email: data.email,
           },
         },
-        refetchQueries: [{ query: GetUsersDocument }],
+        refetchQueries: [{ query: GetUsersDocument, variables: { from: 0 } }],
       });
 
       if (response && response?.data?.createProfile?.id) {

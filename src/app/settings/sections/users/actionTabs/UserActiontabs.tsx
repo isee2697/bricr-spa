@@ -27,7 +27,7 @@ export const UserActionTabs = ({ status, onStatusChange, amounts }: UserActionTa
       className: 'pim-tab-archived',
       value: 'archived',
       amount: amounts && amounts.archived,
-      label: formatMessage({ id: 'inactive' }),
+      label: formatMessage({ id: 'settings.users.inactive' }),
     },
   ];
 

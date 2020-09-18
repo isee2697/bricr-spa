@@ -38,7 +38,6 @@ export const UsersContainer = () => {
 
   const { data: listData } = useGetUsersQuery({
     variables,
-    fetchPolicy: 'no-cache',
   });
 
   const handleActivation = async (profile: Profile) => {
