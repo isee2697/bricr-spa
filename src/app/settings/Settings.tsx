@@ -43,7 +43,7 @@ export const Settings = ({ data }: SettingsProps) => {
                 <TeamsGeneral hasTeams={!!(data.getTeams && data.getTeams.items && data.getTeams.items.length > 0)} />
               )}
             />
-            <Route exact path={`${AppRoute.teams}`} render={() => <TeamContainer />} />
+            <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
             <Route exact path={AppRoute.users} render={() => <UsersContainer />} />
             <Route exact path={AppRoute.userDetails} render={() => <UserDetailsContainer />} />
             <Route exact path={AppRoute.settings} render={() => <>Dashboard</>} />
