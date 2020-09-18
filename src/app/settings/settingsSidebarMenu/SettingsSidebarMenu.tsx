@@ -34,6 +34,11 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       },
       {
         isCollapsable: true,
+        key: 'settings.menu.user_options',
+        items: [{ key: 'users' }],
+      },
+      {
+        isCollapsable: true,
         key: 'settings.menu.teams',
         items: [{ key: 'createTeam' }, ...teamItems],
       },

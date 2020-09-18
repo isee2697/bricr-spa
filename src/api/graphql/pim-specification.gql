@@ -186,7 +186,7 @@ type Specification implements LastUpdated {
   obligation: ObligationToProvideInformation
   description: String
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type PimSpecification {
@@ -196,10 +196,10 @@ type PimSpecification {
   linkedProperties: [LinkedPim!]
   inspections: [Inspection!]
   linkedPropertiesDateUpdated: Date
-  linkedPropertiesLastEditedBy: Profile
+  linkedPropertiesLastEditedBy: LastUpdatedProfile
   linkedPropertiesDescription: String
   inspectionsDateUpdated: Date
-  inspectionsLastEditedBy: Profile
+  inspectionsLastEditedBy: LastUpdatedProfile
   inspectionsDescription: String
 }
 
@@ -293,7 +293,7 @@ type SpecificationAdvanced implements LastUpdated{
   propertyRights: PropertyRights
   homeOwnerAssociation: HomeOwnerAssociation
   description: String
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
 }
 

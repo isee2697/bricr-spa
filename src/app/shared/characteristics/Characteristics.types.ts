@@ -1,10 +1,10 @@
-import { CharacteristicsSections, IdentificationNumber, Profile, ProjectPhase } from 'api/types';
+import { CharacteristicsSections, IdentificationNumber, LastUpdatedProfile, ProjectPhase } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 export type CharacteristicsProps = PimDetailsSectionProps & {
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
   characteristicsSections: CharacteristicsSections[];
   identificationNumbers: IdentificationNumber[];
   projectPhase?: ProjectPhase | null;

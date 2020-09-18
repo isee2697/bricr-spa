@@ -1,4 +1,4 @@
-import { Profile } from 'api/types';
+import { LastUpdatedProfile } from 'api/types';
 
 export type SpecificationGeneralFormProps = {
   onAddPropertyClick: () => void;
@@ -6,5 +6,5 @@ export type SpecificationGeneralFormProps = {
 
 export type SpecificationGeneralProps = {
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
 };

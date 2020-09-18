@@ -32,7 +32,7 @@ type CommonCost {
 type CommonCosts implements LastUpdated {
   costs: [CommonCost!]
   description: String
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
 }
 
@@ -62,5 +62,5 @@ input UpdateCommonCostsDetailsInput {
 type CostsDetails implements LastUpdated {
   description: String
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }

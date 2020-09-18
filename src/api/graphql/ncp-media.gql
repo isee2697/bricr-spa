@@ -7,7 +7,7 @@ type NcpMedia implements LastUpdated {
   usps: [Usp!]
   tags: [Tag!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   mediaDescription: String
 }
 

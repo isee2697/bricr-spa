@@ -135,7 +135,7 @@ type Meter implements LastUpdated {
   readings: [Reading!]
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type HeatingSourceMaintenanceContract {
@@ -183,7 +183,7 @@ interface Services {
 
 type MetersSharedData {
   description: String
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
 }
 
@@ -193,5 +193,5 @@ type MetersMeta implements LastUpdated {
   Gas: MetersSharedData
   Electric: MetersSharedData
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }

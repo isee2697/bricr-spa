@@ -20,7 +20,7 @@ type NcpCharacteristics implements LastUpdated & HasCharacteristicsSections {
   identificationNumbers: [IdentificationNumber!]
   attentionNote: String
   invoiceDetails: InvoiceDetails
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   characteristicsDescription: String
 }

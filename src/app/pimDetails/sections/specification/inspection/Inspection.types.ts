@@ -1,10 +1,10 @@
-import { Inspection, Profile } from 'api/types';
+import { Inspection, LastUpdatedProfile } from 'api/types';
 
 export type InspectionProps = {
   inspections: Inspection[];
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
   onDescriptionUpdate(values: unknown): Promise<undefined | { error: boolean }>;
   description: string;
 };

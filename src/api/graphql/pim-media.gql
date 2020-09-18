@@ -7,7 +7,7 @@ type PimMedia implements LastUpdated {
   usps: [Usp!]
   tags: [Tag!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   description: String
 }
 

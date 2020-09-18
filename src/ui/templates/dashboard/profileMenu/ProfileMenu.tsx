@@ -31,7 +31,7 @@ export const ProfileMenu = () => {
         <UserAvatar
           onClick={() => setOpened(true)}
           onKeyDown={() => setOpened(true)}
-          avatar={user?.avatar || ''}
+          avatar={user?.image?.url || ''}
           name={user?.firstName || ''}
           innerRef={menuRef}
           style={{ cursor: 'pointer' }}

@@ -1,5 +1,5 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { DistanceUnit, Profile } from 'api/types';
+import { DistanceUnit, LastUpdatedProfile } from 'api/types';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 
 export type LocationProps = PimDetailsSectionProps & {
@@ -7,7 +7,7 @@ export type LocationProps = PimDetailsSectionProps & {
   typeOptions: RadioDataType[];
   onSave: (values: LocationForm) => Promise<undefined | { error: boolean }>;
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
 };
 
 export type LocationForm = {

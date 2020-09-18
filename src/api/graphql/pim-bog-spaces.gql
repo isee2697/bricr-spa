@@ -540,7 +540,7 @@ type BogSpace implements LastUpdated {
   storageConfiguration: Storage
   images: [File!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateCreated: Date
 }
 

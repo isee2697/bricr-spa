@@ -8,6 +8,8 @@ import { ListOptionsMenu } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { UpdateTeamNameModal } from 'app/settings/sections/teams/modals/UpdateTeamNameModal';
 import { TeamMembersContainer } from 'app/settings/sections/teams/TeamMembersContainer';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { NavBreadcrumb } from 'ui/atoms';
 
 import { TeamRightsOptions } from './dictionaries';
 import { TeamProps } from './Team.types';
@@ -23,6 +25,7 @@ export const Team = ({ data, onSave, onRemove }: TeamProps) => {
 
   return (
     <>
+      <NavBreadcrumb to={AppRoute.teams} title={formatMessage({ id: 'settings.teams.card_title' })} />
       <AutosaveForm
         key={`${data.id}-${data.name}`}
         onSave={onSave}
@@ -42,7 +45,9 @@ export const Team = ({ data, onSave, onRemove }: TeamProps) => {
           headerProps={{ customAction: <></> }}
         >
           <FormSection isExpandable title={formatMessage({ id: 'settings.teams.rights' })}>
-            <CheckboxGroupField xs={2} name="teamRights" options={TeamRightsOptions} />
+            {isEditing => (
+              <CheckboxGroupField disabled={!isEditing} xs={2} name="teamRights" options={TeamRightsOptions} />
+            )}
           </FormSection>
           <TeamMembersContainer data={persons ?? []} />
         </Page>
