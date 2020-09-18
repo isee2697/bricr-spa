@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert, Box, Grid, Loader } from 'ui/atoms';
+import { Alert, Box, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { TaskDetailsProps } from './TaskDetails.types';
@@ -13,12 +13,6 @@ export const TaskDetails = ({ error, taskData, breadcrumbs, user, members, onUpd
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  if (!taskData.getTask) {
-    return <Loader />;
-  }
-
-  const task = taskData.getTask;
-
   return (
     <>
       {breadcrumbs}
@@ -28,8 +22,8 @@ export const TaskDetails = ({ error, taskData, breadcrumbs, user, members, onUpd
             <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
           </Grid>
         )}
-        <TaskDetailsHeader title={task.title || ''} />
-        <TaskDetailsBoards task={task} user={user} members={members} onUpdateTask={onUpdateTask} />
+        <TaskDetailsHeader title={taskData.title || ''} />
+        <TaskDetailsBoards task={taskData} user={user} members={members} onUpdateTask={onUpdateTask} />
         <TaskDetailsFooter />
       </Box>
     </>

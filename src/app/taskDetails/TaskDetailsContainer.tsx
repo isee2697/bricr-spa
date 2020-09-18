@@ -65,18 +65,27 @@ export const TaskDetailsContainer = () => {
     }
   };
 
-  if (loading || updateTaskLoading || !user || loadingTeam || !teamData || !teamData.members || !taskData) {
+  if (
+    loading ||
+    updateTaskLoading ||
+    !user ||
+    loadingTeam ||
+    !teamData ||
+    !teamData.members ||
+    !taskData ||
+    !taskData.getTask
+  ) {
     return <Loader />;
   }
 
   return (
     <TaskDetails
       error={error}
-      taskData={taskData}
+      taskData={taskData.getTask}
       breadcrumbs={breadcrumbs}
       onUpdateTask={handleUpdateTask}
       user={user}
-      members={teamData?.members.items || []}
+      members={teamData.members.items || []}
     />
   );
 };

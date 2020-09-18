@@ -1,9 +1,21 @@
 import { ReactNode } from 'react';
 
-import { GetTaskQuery, GetTaskQueryHookResult, Profile, Task } from 'api/types';
+import { GetTaskQueryHookResult, Profile, Task } from 'api/types';
 
 export type TaskDetailsProps = Pick<GetTaskQueryHookResult, 'error'> & {
-  taskData: GetTaskQuery;
+  taskData: Pick<
+    Task,
+    | 'id'
+    | 'taskIndex'
+    | 'title'
+    | 'assignee'
+    | 'startDate'
+    | 'deadline'
+    | 'priority'
+    | 'label'
+    | 'status'
+    | 'description'
+  >;
   breadcrumbs: ReactNode;
   onUpdateTask: (taskId: string, task: Pick<Task, 'status'>) => void;
   user: Profile;
