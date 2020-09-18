@@ -12,7 +12,6 @@ export const useStyles = makeStyles(theme => ({
   status: {
     display: 'flex',
   },
-  member: {},
   avatar: {
     marginRight: theme.spacing(1),
   },

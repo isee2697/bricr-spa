@@ -53,7 +53,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
 
   const assignees: DropdownItem[] = [user, ...members].map((member, index) => ({
     label: (
-      <Box className={classes.member}>
+      <Box>
         <Box className={clsx(classes.avatar, classes.inlineBlock)}>
           <UserAvatar name={`${member.firstName} ${member.lastName}`} />
         </Box>
