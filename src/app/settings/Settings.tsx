@@ -46,7 +46,7 @@ export const Settings = ({ data }: SettingsProps) => {
             <Route exact path={`${AppRoute.teams}`} render={() => <TeamContainer />} />
             <Route exact path={AppRoute.users} render={() => <UsersContainer />} />
             <Route exact path={AppRoute.userDetails} render={() => <UserDetailsContainer />} />
-            <Route exact path={`${AppRoute.settings}`} render={() => <>Dashboard</>} />
+            <Route exact path={AppRoute.settings} render={() => <>Dashboard</>} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>
