@@ -215,6 +215,11 @@ export const mockServer = () => {
           getProfile() {
             return USERS.find(user => user.id === variables.id);
           },
+          updateProfile() {
+            const user = { ...USERS.find(user => user.id === variables.input.id), ...variables.input };
+
+            return user;
+          },
           getPim() {
             if (variables.id === 'test') {
               throw new Error();

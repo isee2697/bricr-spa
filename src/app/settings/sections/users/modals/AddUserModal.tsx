@@ -34,8 +34,8 @@ export const AddUserModal = ({
         </Grid>
         <Grid item xs={12}>
           <GenericField
-            placeholder="settings.users.function_description"
-            label="settings.users.function_description_placeholder"
+            label="settings.users.function_description"
+            placeholder="settings.users.function_description_placeholder"
             name="functionDescription"
           />
         </Grid>
