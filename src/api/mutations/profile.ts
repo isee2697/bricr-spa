@@ -65,8 +65,8 @@ export const UPDATE_PHONE_NUMBER = gql`
 `;
 
 export const CREATE_SOCIAL_MEDIA_LINK = gql`
-  mutation CreateSocialMediaLink($input: CreatePhoneNumberInput!) {
-    createPhoneNumber(input: $input) {
+  mutation CreateSocialMediaLink($input: CreateSocialMediaLinkInput!) {
+    createSocialMediaLink(input: $input) {
       id
     }
   }

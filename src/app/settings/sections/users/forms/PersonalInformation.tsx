@@ -1,18 +1,17 @@
 import React from 'react';
 
 import { Grid } from 'ui/atoms';
-import { CheckboxGroupField, DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
-import { AdminSettings, EntityWithFiles, Profile } from 'api/types';
+import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
+import { EntityWithFiles, Profile } from 'api/types';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenderOptions } from 'app/settings/sections/users/dictionaries';
-import { UserIcon } from 'ui/atoms/icons';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'app/settings/sections/users/User.styles';
 
-export const PersonalInformation = ({ avatar, id }: Profile) => {
+export const PersonalInformation = ({ id, image }: Profile) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles(avatar ?? undefined);
+  const classes = useStyles(image?.url ?? undefined);
 
   return (
     <FormSection isExpandable title={formatMessage({ id: 'settings.users.information' })}>
@@ -20,7 +19,7 @@ export const PersonalInformation = ({ avatar, id }: Profile) => {
         <Grid container spacing={3}>
           <Grid item xs={4} lg={2}>
             <div className={classes.uploadImage}>
-              <UploadImageField disabled={!isEditing} name="avatar" entity={EntityWithFiles.Profile} entityID={id} />
+              <UploadImageField disabled={!isEditing} name="image" entity={EntityWithFiles.Profile} entityID={id} />
             </div>
           </Grid>
           <Grid item xs={4} lg={5}>
@@ -58,16 +57,6 @@ export const PersonalInformation = ({ avatar, id }: Profile) => {
               title={formatMessage({ id: 'settings.users.gender' })}
             />
             <RadioGroupField xs={3} lg={2} name="gender" options={GenderOptions} />
-          </Grid>
-          <Grid item xs={12}>
-            <CheckboxGroupField
-              options={Object.values(AdminSettings).map((val, key) => ({
-                label: val,
-                icon: <UserIcon />,
-                value: val,
-              }))}
-              name={'adminSettings'}
-            />
           </Grid>
         </Grid>
       )}

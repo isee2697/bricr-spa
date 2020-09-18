@@ -8,6 +8,9 @@ export const useStyles = makeStyles(theme => ({
     },
     cursor: 'pointer',
   },
+  inActive: {
+    filter: 'grayscale(1)',
+  },
   right: {
     marginLeft: 'auto',
     marginRight: theme.spacing(3),

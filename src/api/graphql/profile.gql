@@ -117,7 +117,6 @@ type Profile {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  avatar: String
   teams: [ProfileTeam!]
   emailAddresses: [EmailAddress!]
   phoneNumbers: [PhoneNumber!]
@@ -125,6 +124,11 @@ type Profile {
   company: Company
   adminSettings: [AdminSettings!]
   isActive: Boolean!
+  initials: String
+  costUnit: String
+  hideOnMemos: Boolean
+  isAccountmanager: Boolean
+  image: File
 }
 
 input CreateProfileInput {
@@ -134,7 +138,6 @@ input CreateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  avatar: String
   adminSettings: [AdminSettings!]
 }
 
@@ -146,8 +149,12 @@ input UpdateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  avatar: String
   adminSettings: [AdminSettings!]
+  initials: String
+  costUnit: String
+  hideOnMemos: Boolean
+  isAccountmanager: Boolean
+  imageId: ID
 }
 
 type ProfileTeam {
@@ -158,6 +165,11 @@ type ProfileTeam {
   readPermission: Boolean!
   updatePermission: Boolean!
   deletePermission: Boolean!
+}
+
+input CreateCompanyInput {
+  name: String!
+  email: String!
 }
 
 type Company {
@@ -190,6 +202,9 @@ type ProfileSearchResult {
   metadata: SearchMetadata
   items: [Profile!]
 }
+type BillingResult {
+  url: String!
+}
 
 input ProfileFilters {
     isActive: Boolean
@@ -200,9 +215,11 @@ extend type Query {
   getProfile(id: ID!): Profile @auth
   getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
   getAllProfiles(filters: ProfileFilters, pagination: Pagination, search: String): ProfileSearchResult! @auth
+  getBilling: BillingResult! @auth
 }
 
 extend type Mutation {
+  createCompany(input: CreateCompanyInput!): Company!
   createProfile(input: CreateProfileInput!): Profile! @auth
   updateProfile(input: UpdateProfileInput!): Profile! @auth
   deactivateProfile(id: String!): Profile! @auth

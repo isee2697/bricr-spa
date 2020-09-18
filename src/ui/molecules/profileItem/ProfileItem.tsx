@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { Avatar, Chip, Grid, Typography } from 'ui/atoms';
 import { MailIcon, MenuIcon, WarningIcon } from 'ui/atoms/icons';
@@ -17,11 +18,12 @@ export const ProfileItem = ({
   notes,
   functionDescription,
   onClick,
+  inActive,
 }: ProfileItemProps) => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.root} container spacing={3}>
+    <Grid className={classNames(classes.root, !!inActive && classes.inActive)} container spacing={3}>
       <Grid onClick={() => onClick && onClick()} className={classes.avatarContainer} item>
         <Avatar className={classes.avatar} src={avatar} />
         {functionDescription && (

@@ -1,25 +1,23 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
-import { AutosaveForm, FormSection } from 'ui/organisms';
+import { AutosaveForm } from 'ui/organisms';
 import { Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { Grid, NavBreadcrumb } from 'ui/atoms';
+import { NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { DatePickerField, GenericField, RadioGroupField, UploadImageField, CheckboxGroupField } from 'form/fields';
-import { AdminSettings, EntityWithFiles } from 'api/types';
-import { GenderOptions } from 'app/settings/sections/users/dictionaries';
-import { FormSubSectionHeader } from 'ui/molecules';
-import { UserIcon } from 'ui/atoms/icons';
-import { PersonalInformation } from 'app/settings/sections/users/forms/PersonalInformation';
-import { AdminPermissions } from 'app/settings/sections/users/forms/AdminPermissions';
-import { TeamPermissionsSection } from 'app/settings/sections/users/forms/TeamPermissionsSection';
+import { PhoneNumbersContainer } from 'app/settings/sections/users/forms/phone/PhoneNumbersContainer';
+import { SocialLinksContainer } from 'app/settings/sections/users/forms/social/SocialLinksContainer';
 
+import { PersonalInformation } from './forms/PersonalInformation';
+import { AdminPermissions } from './forms/AdminPermissions';
+import { TeamPermissionsSection } from './forms/TeamPermissionsSection';
+import { EmailAddressesContainer } from './forms/email/EmailAddressesContainer';
+import { CharacteristicsSection } from './forms/CharacteristicsSection';
 import { UserDetailsProps } from './Users.types';
-import { useStyles } from './User.styles';
+
 export const UserDetails = ({ data, onSave }: UserDetailsProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles(data?.avatar ?? undefined);
 
   return (
     <>
@@ -27,8 +25,12 @@ export const UserDetails = ({ data, onSave }: UserDetailsProps) => {
       <Page titleActions={<></>} showHeader title={`${data.firstName} ${data.lastName}`}>
         <AutosaveForm key={data.id} mutators={{ ...arrayMutators }} onSave={onSave} initialValues={data}>
           <PersonalInformation {...data} />
-          <AdminPermissions />
+          <AdminPermissions data={data?.adminSettings ?? []} />
           <TeamPermissionsSection data={data?.teams ?? []} />
+          <EmailAddressesContainer data={data.emailAddresses ?? []} />
+          <PhoneNumbersContainer data={data.phoneNumbers ?? []} />
+          <SocialLinksContainer data={data.socialMediaLinks ?? []} />
+          <CharacteristicsSection />
         </AutosaveForm>
       </Page>
     </>

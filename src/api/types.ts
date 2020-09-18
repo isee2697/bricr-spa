@@ -102,6 +102,7 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  createCompany: Company;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
@@ -385,6 +386,10 @@ export type MutationAddViewingMomentArgs = {
 
 export type MutationBulkArgs = {
   input: BulkOperationInput;
+};
+
+export type MutationCreateCompanyArgs = {
+  input: CreateCompanyInput;
 };
 
 export type MutationCreateEmailAddressArgs = {
@@ -848,6 +853,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
+  getBilling: BillingResult;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getLabels?: Maybe<Array<Label>>;
@@ -6031,7 +6037,6 @@ export type Profile = {
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  avatar?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<ProfileTeam>>;
   emailAddresses?: Maybe<Array<EmailAddress>>;
   phoneNumbers?: Maybe<Array<PhoneNumber>>;
@@ -6039,6 +6044,11 @@ export type Profile = {
   company?: Maybe<Company>;
   adminSettings?: Maybe<Array<AdminSettings>>;
   isActive: Scalars['Boolean'];
+  initials?: Maybe<Scalars['String']>;
+  costUnit?: Maybe<Scalars['String']>;
+  hideOnMemos?: Maybe<Scalars['Boolean']>;
+  isAccountmanager?: Maybe<Scalars['Boolean']>;
+  image?: Maybe<File>;
 };
 
 export type CreateProfileInput = {
@@ -6048,7 +6058,6 @@ export type CreateProfileInput = {
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  avatar?: Maybe<Scalars['String']>;
   adminSettings?: Maybe<Array<AdminSettings>>;
 };
 
@@ -6060,8 +6069,12 @@ export type UpdateProfileInput = {
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  avatar?: Maybe<Scalars['String']>;
   adminSettings?: Maybe<Array<AdminSettings>>;
+  initials?: Maybe<Scalars['String']>;
+  costUnit?: Maybe<Scalars['String']>;
+  hideOnMemos?: Maybe<Scalars['Boolean']>;
+  isAccountmanager?: Maybe<Scalars['Boolean']>;
+  imageId?: Maybe<Scalars['ID']>;
 };
 
 export type ProfileTeam = {
@@ -6073,6 +6086,11 @@ export type ProfileTeam = {
   readPermission: Scalars['Boolean'];
   updatePermission: Scalars['Boolean'];
   deletePermission: Scalars['Boolean'];
+};
+
+export type CreateCompanyInput = {
+  name: Scalars['String'];
+  email: Scalars['String'];
 };
 
 export type Company = {
@@ -6108,6 +6126,11 @@ export type ProfileSearchResult = {
   __typename?: 'ProfileSearchResult';
   metadata?: Maybe<SearchMetadata>;
   items?: Maybe<Array<Profile>>;
+};
+
+export type BillingResult = {
+  __typename?: 'BillingResult';
+  url: Scalars['String'];
 };
 
 export type ProfileFilters = {
@@ -7657,11 +7680,11 @@ export type UpdatePhoneNumberMutation = { __typename?: 'Mutation' } & {
 };
 
 export type CreateSocialMediaLinkMutationVariables = {
-  input: CreatePhoneNumberInput;
+  input: CreateSocialMediaLinkInput;
 };
 
 export type CreateSocialMediaLinkMutation = { __typename?: 'Mutation' } & {
-  createPhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+  createSocialMediaLink: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
 export type UpdateSocialMediaLinkMutationVariables = {
@@ -9742,8 +9765,8 @@ export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
     { __typename?: 'Profile' } & Pick<
       Profile,
-      'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'adminSettings' | 'isActive'
-    >
+      'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive'
+    > & { image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>> }
   >;
 };
 
@@ -9760,8 +9783,11 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
       Array<
         { __typename?: 'Profile' } & Pick<
           Profile,
-          'id' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'functionDescription' | 'adminSettings' | 'isActive'
-        > & { teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>> }
+          'id' | 'firstName' | 'lastName' | 'email' | 'functionDescription' | 'adminSettings' | 'isActive'
+        > & {
+            image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+            teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+          }
       >
     >;
   };
@@ -9793,10 +9819,14 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
       | 'gender'
       | 'dateOfBirth'
       | 'functionDescription'
+      | 'initials'
+      | 'costUnit'
+      | 'hideOnMemos'
+      | 'isAccountmanager'
       | 'adminSettings'
-      | 'avatar'
       | 'isActive'
     > & {
+        image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
         teams?: Maybe<
           Array<
             { __typename?: 'ProfileTeam' } & Pick<
@@ -12843,8 +12873,8 @@ export type UpdatePhoneNumberMutationOptions = ApolloReactCommon.BaseMutationOpt
   UpdatePhoneNumberMutationVariables
 >;
 export const CreateSocialMediaLinkDocument = gql`
-  mutation CreateSocialMediaLink($input: CreatePhoneNumberInput!) {
-    createPhoneNumber(input: $input) {
+  mutation CreateSocialMediaLink($input: CreateSocialMediaLinkInput!) {
+    createSocialMediaLink(input: $input) {
       id
     }
   }
@@ -16197,7 +16227,11 @@ export const MeDocument = gql`
       firstName
       lastName
       email
-      avatar
+      image {
+        id
+        key
+        url
+      }
       adminSettings
       isActive
     }
@@ -16220,7 +16254,11 @@ export const GetUsersDocument = gql`
         firstName
         lastName
         email
-        avatar
+        image {
+          id
+          key
+          url
+        }
         functionDescription
         adminSettings
         isActive
@@ -16285,8 +16323,16 @@ export const GetUserProfileDocument = gql`
       gender
       dateOfBirth
       functionDescription
+      initials
+      costUnit
+      hideOnMemos
+      isAccountmanager
       adminSettings
-      avatar
+      image {
+        id
+        key
+        url
+      }
       isActive
       teams {
         id

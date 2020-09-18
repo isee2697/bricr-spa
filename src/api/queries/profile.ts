@@ -7,7 +7,11 @@ export const CURRENT_USER = gql`
       firstName
       lastName
       email
-      avatar
+      image {
+        id
+        key
+        url
+      }
       adminSettings
       isActive
     }
@@ -22,7 +26,11 @@ export const GET_USERS = gql`
         firstName
         lastName
         email
-        avatar
+        image {
+          id
+          key
+          url
+        }
         functionDescription
         adminSettings
         isActive
@@ -60,8 +68,16 @@ export const GET_USER_PROFILE = gql`
       gender
       dateOfBirth
       functionDescription
+      initials
+      costUnit
+      hideOnMemos
+      isAccountmanager
       adminSettings
-      avatar
+      image {
+        id
+        key
+        url
+      }
       isActive
       teams {
         id

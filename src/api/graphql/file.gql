@@ -21,7 +21,7 @@ enum EntityWithFiles {
   NcpProjectMarketing,
   ObjectTypeProjectMarketing,
   ProjectPhase,
-  Profile,
+  Profile
 }
 
 enum EntityWithMultipleFiles {

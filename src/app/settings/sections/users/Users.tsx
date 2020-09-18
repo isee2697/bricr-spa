@@ -53,13 +53,14 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
                 </Grid>
                 <Grid xs={11} lg="auto" item style={{ flexGrow: 1 }}>
                   <ProfileItem
+                    inActive={status === 'archived'}
                     onClick={() => goToItem(item.id)}
                     name={`${item.firstName} ${item.lastName}`}
-                    avatar={item.avatar ?? ''}
+                    avatar={item?.image?.url ?? ''}
                     email={item.email ?? ''}
                     teamNames={item?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
                     phone={item?.phoneNumbers?.[0].phoneNumber ?? undefined}
-                    rights={item.adminSettings ?? undefined}
+                    rights={item.adminSettings?.slice(0, 4) ?? undefined}
                     functionDescription={item?.functionDescription || undefined}
                     button={
                       <ListOptionsMenu

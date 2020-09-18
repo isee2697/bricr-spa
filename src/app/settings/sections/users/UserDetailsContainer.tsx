@@ -8,13 +8,14 @@ import { UserDetails } from 'app/settings/sections/users/UserDetails';
 export const UserDetailsContainer = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: profile } = useGetUserProfileQuery({ variables: { id }, fetchPolicy: 'no-cache' });
+  const { data: profile } = useGetUserProfileQuery({ variables: { id } });
   const [updateProfile] = useUpdateProfileMutation();
 
   const handleSave = async (update: Profile) => {
     if (!update.email) {
       throw Error();
     }
+
     try {
       const response = await updateProfile({
         variables: {
@@ -27,6 +28,11 @@ export const UserDetailsContainer = () => {
             dateOfBirth: update.dateOfBirth,
             gender: update.gender,
             adminSettings: update.adminSettings,
+            imageId: update?.image?.id,
+            initials: update?.initials,
+            costUnit: update.costUnit,
+            hideOnMemos: update.hideOnMemos,
+            isAccountmanager: update.isAccountmanager,
           },
         },
         refetchQueries: [{ query: GetUserProfileDocument, variables: { id } }],

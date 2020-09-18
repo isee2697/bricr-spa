@@ -11,4 +11,5 @@ export type ProfileItemProps = {
   functionDescription?: string;
   button?: ReactNode;
   onClick?: VoidFunction;
+  inActive?: boolean;
 };
