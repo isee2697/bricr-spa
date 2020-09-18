@@ -15,6 +15,7 @@ describe('graphLink', () => {
         email: 'test',
         avatar: 'test',
         id: 'test',
+        isActive: true,
         teams: [
           {
             id: 'test',
