@@ -80,7 +80,7 @@ class Navigation {
     return `${Cypress.env().baseUrl}${AppRoute.projectDetails}`;
   }
 
-  get projectUserDetails(): string {
+  get userDetails(): string {
     return `${Cypress.env().baseUrl}${AppRoute.userDetails}`;
   }
 
