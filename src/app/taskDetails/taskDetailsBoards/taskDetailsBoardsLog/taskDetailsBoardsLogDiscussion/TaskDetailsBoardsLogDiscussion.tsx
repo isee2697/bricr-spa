@@ -8,7 +8,7 @@ export const TaskDetailsBoardsLogDiscussion = () => {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.root}>
+    <Grid container>
       <Grid container spacing={2}>
         <Grid item>
           <UserAvatar name={'Mariusz Nowak'} size="medium" />
