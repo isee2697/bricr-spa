@@ -216,7 +216,7 @@ type Floor implements LastUpdated {
   level: Int!
   floorType: FloorType!
   spaces: [Space!]
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   dateCreated: Date
 }
@@ -244,7 +244,7 @@ type PimInside implements LastUpdated {
   aogGroundsDescription: String
   insideGeneral: InsideGeneral
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type PimWithUpdatedSpace {
@@ -326,7 +326,7 @@ type InsideGeneral implements LastUpdated {
   renovation: Renovation
   notes: String
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 type PimWithNewFloor {

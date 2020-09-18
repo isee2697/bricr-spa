@@ -27,16 +27,10 @@ export const PageHeader = ({ customAction, onAction, actionText, actionIcon }: P
           )}
           <NavBreadcrumbs />
         </Box>
-        {!!customAction ? (
+        {!!customAction || !onAction ? (
           customAction
         ) : (
-          <Button
-            color="primary"
-            variant="contained"
-            startIcon={actionIcon}
-            onClick={() => onAction && onAction()}
-            size="small"
-          >
+          <Button color="primary" variant="contained" startIcon={actionIcon} onClick={() => onAction()} size="small">
             {actionText}
           </Button>
         )}

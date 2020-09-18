@@ -32,8 +32,8 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
     email,
     avatar,
     property,
-    partner: { avatar: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
-    manager: { avatar: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
+    partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
+    manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     informationCompletedStatus,
     meta: { matches, interests, viewings, biddings, candidate, optant },
   } = crm;
@@ -110,7 +110,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
                   <Box display="flex" alignItems="center">
                     <UserAvatar
                       name={`${partnerFirstName} ${partnerLastName}`}
-                      avatar={partnerAvatar || undefined}
+                      avatar={partnerAvatar?.url || undefined}
                       className={classes.avatarIcon}
                     />{' '}
                     {partnerFirstName} {partnerLastName}
@@ -123,7 +123,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
                   <Box display="flex" alignItems="center">
                     <UserAvatar
                       name={`${managerFirstName} ${managerLastName}`}
-                      avatar={managerAvatar || undefined}
+                      avatar={managerAvatar?.url || undefined}
                       className={classes.avatarIcon}
                     />{' '}
                     {managerFirstName} {managerLastName}

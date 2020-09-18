@@ -44,7 +44,7 @@ type PimLocation implements LastUpdated {
   type: [String] @uuidOrEnum(enum: ["LocationType"])
   notes: String
   goodToKnows: [GoodToKnow!]
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   description: String
 }

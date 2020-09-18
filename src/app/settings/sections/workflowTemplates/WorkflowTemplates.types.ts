@@ -1,8 +1,8 @@
-import { LabelInput, Profile } from 'api/types';
+import { LabelInput, LastUpdatedProfile } from 'api/types';
 
 export type WorkflowTemplatesProps = {
   dateUpdated: string | null | undefined;
-  updatedBy: Profile | null | undefined;
+  updatedBy: LastUpdatedProfile | null | undefined;
   onAdd: (input: Pick<LabelInput, 'text' | 'icon'>) => Promise<undefined | { error: boolean }>;
 };
 

@@ -10,9 +10,16 @@ type SearchMetadata {
   total: Int!
 }
 
+type LastUpdatedProfile {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String
+}
+
 interface LastUpdated {
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 enum SortDirection {

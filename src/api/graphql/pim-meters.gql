@@ -3,7 +3,7 @@ type PimMeters implements LastUpdated {
   meters: [Meter!]
   metersMeta: MetersMeta
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
 }
 
 extend type Query {

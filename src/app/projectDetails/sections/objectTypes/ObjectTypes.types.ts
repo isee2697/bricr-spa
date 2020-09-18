@@ -1,7 +1,7 @@
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { ListObjectTypes, Profile } from 'api/types';
+import { ListObjectTypes, LastUpdatedProfile } from 'api/types';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
 export type ObjectTypesProps = ProjectDetailsProps & {
@@ -23,5 +23,5 @@ export type ObjectTypesProps = ProjectDetailsProps & {
   description: string;
   onDescriptionSave: (values: { description: string }) => Promise<undefined | { error: boolean }>;
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
 };

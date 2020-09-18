@@ -60,7 +60,7 @@ type NcpGeneral implements LastUpdated {
   type: NcpType!
   dateCreated: Date
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   name: String!
   additionalName: String
   street: String!

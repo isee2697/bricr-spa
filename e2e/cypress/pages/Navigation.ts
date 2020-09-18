@@ -20,6 +20,10 @@ class Navigation {
       .click();
   }
 
+  goToUsers(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.users);
+  }
+
   goToLogin(): void {
     cy.get(`a[href*="${AppRoute.login}"]`)
       .first()
@@ -74,6 +78,10 @@ class Navigation {
 
   get projectDetailsLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.projectDetails}`;
+  }
+
+  get userDetails(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.userDetails}`;
   }
 
   get loginLink(): string {

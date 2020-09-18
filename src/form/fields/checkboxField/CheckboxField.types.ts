@@ -3,7 +3,7 @@ import { FieldValidator } from 'final-form';
 
 export type CheckboxFieldProps = Omit<CheckboxProps, 'variant'> & {
   name: string;
-  label: string;
+  label?: string;
   validate?: FieldValidator<boolean>[];
   validateFields?: string[];
   containerClassName?: string;
