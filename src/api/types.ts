@@ -9883,6 +9883,7 @@ export type MeQuery = { __typename?: 'Query' } & {
       Profile,
       'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive'
     > & {
+        company?: Maybe<{ __typename?: 'Company' } & Pick<Company, 'id'>>;
         image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
         teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
       }
@@ -16454,6 +16455,9 @@ export const MeDocument = gql`
       firstName
       lastName
       email
+      company {
+        id
+      }
       image {
         id
         key
