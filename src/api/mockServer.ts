@@ -202,8 +202,6 @@ export const mockServer = () => {
             };
           },
           getAllProfiles() {
-            console.log(variables);
-
             return { items: USERS };
           },
           createProfile() {
