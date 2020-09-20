@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { useCrmQueryParams } from 'app/shared/useCrmQueryParams/useCrmQueryParams';
 
 import { Crm } from './Crm';
-import { CrmType } from './Crm.types';
 
 export const CrmContainer = () => {
-  const [type, setType] = useState<CrmType>(CrmType.Relations);
+  const { status, type, setStatus, setType } = useCrmQueryParams({});
 
-  return <Crm type={type} onTypeChange={setType}></Crm>;
+  return <Crm type={type} onTypeChange={setType} status={status} onStatusChange={setStatus}></Crm>;
 };

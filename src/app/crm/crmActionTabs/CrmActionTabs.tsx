@@ -23,7 +23,7 @@ export const CrmActionTabs = ({ status, onStatusChange, amounts }: CrmActionTabs
       label: formatMessage({ id: 'crm.status.active' }),
     },
     {
-      value: 'inactive',
+      value: 'archived',
       amount: amounts && amounts.inactive,
       label: formatMessage({ id: 'crm.status.inactive' }),
     },

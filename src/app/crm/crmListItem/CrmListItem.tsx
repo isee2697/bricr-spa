@@ -150,6 +150,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
         <Box display="flex">
           {metaAsArray.map(meta => (
             <CrmListItemMetaBox
+              key={meta.label}
               label={formatMessage({ id: `crm.item.meta.${meta.label}` })}
               count={meta.count}
               crm={crm}
