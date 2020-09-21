@@ -3,6 +3,7 @@ import { TeamMemberItem } from '../Tasks.types';
 import { TasksViewMode } from '../Tasks.enum';
 
 export type TaskViewContainerProps = {
+  tab: number;
   viewMode: TasksViewMode;
   search: string;
   selectedMembers: TeamMemberItem[];

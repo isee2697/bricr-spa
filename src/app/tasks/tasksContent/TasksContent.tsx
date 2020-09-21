@@ -30,7 +30,10 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
     switch (tab) {
       case TasksTab.Today:
         setDateRange({
-          to: DateTime.local().toISO(),
+          from: DateTime.local().toISO(),
+          to: DateTime.local()
+            .endOf('day')
+            .toISO(),
         });
         break;
 
@@ -38,9 +41,11 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
         setDateRange({
           from: DateTime.local()
             .plus({ days: 1 })
+            .startOf('day')
             .toISO(),
           to: DateTime.local()
             .plus({ days: 7 })
+            .endOf('day')
             .toISO(),
         });
         break;
@@ -49,15 +54,14 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
         setDateRange({
           from: DateTime.local()
             .plus({ days: 8 })
+            .startOf('day')
             .toISO(),
         });
         break;
 
       case TasksTab.Overdue:
         setDateRange({
-          to: DateTime.local()
-            .minus({ days: 1 })
-            .toISO(),
+          to: DateTime.local().toISO(),
         });
         break;
 
@@ -114,6 +118,7 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
         )}
       >
         <TaskViewContainer
+          tab={tab}
           viewMode={viewMode}
           search={searchKey}
           selectedMembers={selectedMembers}

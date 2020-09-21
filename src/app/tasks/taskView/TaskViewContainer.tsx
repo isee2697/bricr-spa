@@ -17,7 +17,7 @@ import { TeamMemberItem } from '../Tasks.types';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
-export const TaskViewContainer = ({ viewMode, search, selectedMembers = [], dateRange }: TaskViewContainerProps) => {
+export const TaskViewContainer = ({ tab, viewMode, search, selectedMembers = [], dateRange }: TaskViewContainerProps) => {
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
   });
@@ -78,7 +78,7 @@ export const TaskViewContainer = ({ viewMode, search, selectedMembers = [], date
     <>
       {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       {viewMode === TasksViewMode.Swimlane && (
-        <TasksSwimlane tasks={tasks} onUpdateTaskStatus={handleUpdateTaskStatus} />
+        <TasksSwimlane tab={tab} tasks={tasks} onUpdateTaskStatus={handleUpdateTaskStatus} />
       )}
       {viewMode === TasksViewMode.List && <TasksList tasks={tasks} />}
     </>

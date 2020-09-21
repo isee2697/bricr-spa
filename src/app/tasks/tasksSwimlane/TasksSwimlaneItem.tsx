@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
@@ -19,7 +20,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
 import { useStyles } from './TasksSwimlaneItem.styles';
 
-export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
+export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -27,6 +28,24 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const { id, taskIndex, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
   const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
+  const expireInfo =
+    tab === 3
+      ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
+      : Math.abs(remainingMinutes) < 60 * 24
+      ? Math.abs(remainingMinutes) < 60
+        ? formatMessage({ id: 'tasks.less_than_one_hour' })
+        : formatMessage(
+            { id: 'tasks.details.remainingHours' },
+            {
+              hours: Math.floor(remainingMinutes / 60),
+            },
+          )
+      : formatMessage(
+          { id: 'tasks.details.remainingDays' },
+          {
+            days: Math.floor(remainingMinutes / 60 / 24),
+          },
+        );
 
   return (
     <Draggable draggableId={id} index={0}>
@@ -38,23 +57,11 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
           onClick={() => push(AppRoute.taskDetails.replace(':id', id))}
         >
           <Box className={classes.root}>
-            <Typography variant="h6" className={classes.expireInfo}>
-              {remainingMinutes < 60 * 24
-                ? remainingMinutes < 60
-                  ? formatMessage({ id: 'tasks.details.remainingMinutes' }, { minutes: remainingMinutes })
-                  : formatMessage(
-                      { id: 'tasks.details.remainingHours' },
-                      {
-                        hours: Math.floor(remainingMinutes / 60),
-                        minutes: remainingMinutes % 60,
-                      },
-                    )
-                : formatMessage(
-                    { id: 'tasks.details.remainingDays' },
-                    {
-                      days: Math.floor(remainingMinutes / 60 / 24),
-                    },
-                  )}
+            <Typography
+              variant="h6"
+              className={clsx(classes.expireInfo, tab === 3 && 'overdue', remainingMinutes < 60 && 'lessThanOneHour')}
+            >
+              {expireInfo}
             </Typography>
             <Typography variant="h5" className={classes.title}>
               {title}

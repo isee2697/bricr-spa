@@ -1,6 +1,7 @@
 import { TaskItem } from '../Tasks.types';
 
 export type TasksSwimlaneItemProps = {
+  tab: number;
   task: TaskItem;
 };
 

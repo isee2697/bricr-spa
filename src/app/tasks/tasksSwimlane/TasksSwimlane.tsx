@@ -8,7 +8,7 @@ import { TasksSwimlaneColumn } from './TasksSwimlaneColumn';
 import { useStyles } from './TasksSwimlane.styles';
 import { TasksSwimlaneProps } from './TasksSwimlane.types';
 
-export const TasksSwimlane = ({ tasks: tasksList = [], onUpdateTaskStatus }: TasksSwimlaneProps) => {
+export const TasksSwimlane = ({ tab, tasks: tasksList = [], onUpdateTaskStatus }: TasksSwimlaneProps) => {
   const classes = useStyles();
 
   const todoTasks = tasksList.filter((task: Task) => task.status === TaskStatus.ToDo);
@@ -37,16 +37,16 @@ export const TasksSwimlane = ({ tasks: tasksList = [], onUpdateTaskStatus }: Tas
     <DragDropContext onDragEnd={onDragEnd}>
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.ToDo} tasks={todoTasks} />
+          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.ToDo} tasks={todoTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.InProgress} tasks={inProgressTasks} />
+          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.InProgress} tasks={inProgressTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.Blocked} tasks={blockedTasks} />
+          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.Blocked} tasks={blockedTasks} />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn columnType={TaskStatus.Done} tasks={completedTasks} />
+          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.Done} tasks={completedTasks} />
         </Grid>
       </Grid>
     </DragDropContext>

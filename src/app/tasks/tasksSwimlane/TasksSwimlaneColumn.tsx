@@ -11,7 +11,7 @@ import { TasksSwimlaneColumnProps } from './TasksSwimlaneColumn.types';
 import { useStyles } from './TasksSwimlaneColumn.styles';
 import { TasksSwimlaneItem } from './TasksSwimlaneItem';
 
-export const TasksSwimlaneColumn = ({ columnType, tasks }: TasksSwimlaneColumnProps) => {
+export const TasksSwimlaneColumn = ({ tab, columnType, tasks }: TasksSwimlaneColumnProps) => {
   const classes = useStyles();
 
   return (
@@ -32,7 +32,7 @@ export const TasksSwimlaneColumn = ({ columnType, tasks }: TasksSwimlaneColumnPr
           </Box>
           <Box className={classes.tasksSwimlaneItemsContainer}>
             {tasks.map((task: Task, index: number) => (
-              <TasksSwimlaneItem key={index} task={task} />
+              <TasksSwimlaneItem tab={tab} key={index} task={task} />
             ))}
           </Box>
           {droppableProvided.placeholder}

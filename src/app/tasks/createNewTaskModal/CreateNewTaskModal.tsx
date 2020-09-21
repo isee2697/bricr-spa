@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import React from 'react';
 import { Form } from 'react-final-form';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 import { Modal, SubmitButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography } from 'ui/atoms';
@@ -21,7 +19,6 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
-  const [deadlineTime, setDeadlineTime] = useState(DateTime.local());
 
   const handleSubmit: CreateNewTaskSubmit = async body => {
     const response = await onSubmit(body);
@@ -96,16 +93,6 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
   ];
 
   const handleAssignToMe = () => {};
-
-  const handleChangeTime = (date: MaterialUiPickersDate, value: string | null | undefined) => {
-    if (value) {
-      const tt: string = value.split(' ')[1];
-      const timeSplit: string[] = value.split(' ')[0].split(':');
-      const hour: number = parseInt(timeSplit[0], 10) + (tt === 'AM' ? 0 : 12);
-      const minute: number = parseInt(timeSplit[1], 10);
-      setDeadlineTime(DateTime.local().set({ hour, minute }));
-    }
-  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -196,12 +183,10 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
                 </Grid>
                 <Grid item xs={6}>
                   <TimePickerField
-                    name="deadline_time"
+                    name="deadlineTime"
                     placeholder="tasks.create_new.details.deadline_time.placeholder"
                     label="tasks.create_new.details.deadline_time.label"
                     disableToolbar={false}
-                    value={deadlineTime}
-                    onChange={handleChangeTime}
                   />
                 </Grid>
               </Grid>

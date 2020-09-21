@@ -1142,7 +1142,7 @@
   "tasks.details.deadline": "Deadline",
   "tasks.details.remainingTime": "Remaining time",
   "tasks.details.priority": "Priority",
-  "tasks.details.remainingHours": "{hours} hours {minutes} minutes",
+  "tasks.details.remainingHours": "{hours} hours",
   "tasks.details.remainingMinutes": "{minutes} minutes",
   "tasks.details.remainingDays": "{days} days",
   "tasks.details.description": "Description",

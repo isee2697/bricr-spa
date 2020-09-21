@@ -13,15 +13,23 @@ export const CreateNewTaskModalContainer = ({ members }: CreateNewTaskModalConta
   const [createTask] = useCreateTaskMutation();
   const { close } = useModalDispatch();
 
-  const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({ assignee, startDate, deadline, ...body }) => {
+  const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({
+    assignee,
+    startDate,
+    deadline,
+    deadlineTime,
+    ...body
+  }) => {
     try {
+      const { hour, minute } = deadlineTime;
+
       const { data: result } = await createTask({
         variables: {
           input: {
             ...body,
             assignee,
             startDate: startDate.toISO(),
-            deadline: deadline.toISO(),
+            deadline: deadline.set({ hour, minute }).toISO(),
           },
         },
       });
