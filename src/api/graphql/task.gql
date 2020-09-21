@@ -19,6 +19,7 @@ enum TaskStatus {
 
 type Task {
   id: ID!
+  taskIndex: Int!
   title: String!
   assignee: ID!
   startDate: Date!
@@ -26,6 +27,7 @@ type Task {
   priority: TaskPriority!
   label: TaskLabel!
   status: TaskStatus!
+  description: String
 }
 
 type TaskSearchResult {
@@ -51,6 +53,7 @@ input UpdateTaskInput {
   priority: TaskPriority
   label: TaskLabel
   status: TaskStatus
+  description: String
 }
 
 input DateRange {

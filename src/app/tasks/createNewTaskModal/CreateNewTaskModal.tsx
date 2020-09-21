@@ -109,14 +109,20 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
 
   return (
     <Form onSubmit={handleSubmit}>
-      {({ handleSubmit, submitErrors, values }) => (
+      {({ handleSubmit, form, submitErrors, values }) => (
         <Modal
           fullWidth
           isOpened={isOpen}
           onClose={handleClose}
           title={formatMessage({ id: 'tasks.create_new.title' })}
         >
-          <form onSubmit={handleSubmit} autoComplete="off">
+          <form
+            onSubmit={async event => {
+              await handleSubmit(event);
+              form.reset();
+            }}
+            autoComplete="off"
+          >
             {submitErrors && submitErrors.error === 'unknown' && (
               <DialogContent>
                 <Alert severity="error">{formatMessage({ id: 'tasks.create_new.error.unknown' })}</Alert>

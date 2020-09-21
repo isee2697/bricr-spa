@@ -6468,6 +6468,7 @@ export enum TaskStatus {
 export type Task = {
   __typename?: 'Task';
   id: Scalars['ID'];
+  taskIndex: Scalars['Int'];
   title: Scalars['String'];
   assignee: Scalars['ID'];
   startDate: Scalars['Date'];
@@ -6475,6 +6476,7 @@ export type Task = {
   priority: TaskPriority;
   label: TaskLabel;
   status: TaskStatus;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type TaskSearchResult = {
@@ -6501,6 +6503,7 @@ export type UpdateTaskInput = {
   priority?: Maybe<TaskPriority>;
   label?: Maybe<TaskLabel>;
   status?: Maybe<TaskStatus>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -10049,7 +10052,19 @@ export type GetTaskQueryVariables = {
 
 export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
-    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+    { __typename?: 'Task' } & Pick<
+      Task,
+      | 'id'
+      | 'taskIndex'
+      | 'title'
+      | 'assignee'
+      | 'startDate'
+      | 'deadline'
+      | 'priority'
+      | 'label'
+      | 'status'
+      | 'description'
+    >
   >;
 };
 
@@ -10069,7 +10084,16 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Task' } & Pick<
             Task,
-            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+            | 'id'
+            | 'taskIndex'
+            | 'title'
+            | 'assignee'
+            | 'startDate'
+            | 'deadline'
+            | 'priority'
+            | 'label'
+            | 'status'
+            | 'description'
           >
         >
       >;
@@ -16732,11 +16756,15 @@ export const GetTaskDocument = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {
       id
+      taskIndex
       title
       assignee
       startDate
       deadline
       priority
+      label
+      status
+      description
     }
   }
 `;
@@ -16766,6 +16794,7 @@ export const GetTasksDocument = gql`
     ) {
       items {
         id
+        taskIndex
         title
         assignee
         startDate
@@ -16773,6 +16802,7 @@ export const GetTasksDocument = gql`
         priority
         label
         status
+        description
       }
     }
   }
