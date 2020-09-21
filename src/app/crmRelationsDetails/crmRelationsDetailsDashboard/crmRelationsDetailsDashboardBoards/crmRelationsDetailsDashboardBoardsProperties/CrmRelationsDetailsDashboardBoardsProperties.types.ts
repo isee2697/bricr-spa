@@ -4,7 +4,7 @@ export type CrmReleation = {
   id: string;
   property: string;
   avatar: string;
-  document: number;
+  documents: number;
   informationCompletedStatus: number;
 };
 
