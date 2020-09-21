@@ -21,6 +21,7 @@ import { SettingsContainer } from 'app/settings/SettingsContainer';
 import { RegisterContainer } from 'app/register/RegisterContainer';
 import { SetupContainer } from 'app/register/setup/SetupContainer';
 import { CrmContainer } from 'app/crm/CrmContainer';
+import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelationsDetailsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -72,6 +73,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crm} exact component={CrmContainer} />
+                <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.settings} component={SettingsContainer} />
                 <AuthorizedRoute path={AppRoute.tasks} component={TasksContainer} />

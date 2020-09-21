@@ -2389,5 +2389,20 @@
   "crm.add.businesses": "Add businesses",
   "crm.item.category.seller": "Seller",
   "crm.list.empty_title": "You don’t have any added properties yet.",
-  "crm.list.empty_description": "To change that, click the “{buttonName}” button at the top of the screen."
+  "crm.list.empty_description": "To change that, click the “{buttonName}” button at the top of the screen.",
+  "crm.details.menu.dashboard": "Dashboard",
+  "crm.details.menu.timeline": "Timeline",
+  "crm.details.menu.summary": "Summary",
+  "crm.details.menu.customerJourney": "Customer journey",
+  "crm.details.menu.personal_information": "Personal information",
+  "crm.details.menu.documents": "Documents",
+  "crm.details.menu.orders": "Orders",
+  "crm.details.menu.back_to_relations_list": "Back to relations list",
+  "crm.details.dashboard.title": "Dashboard",
+  "crm.details.dashboard.properties": "Properties",
+  "crm.details.dashboard.properties.documents": "Documents",
+  "crm.details.dashboard.timeline": "Timeline",
+  "crm.details.dashboard.brokers": "Brokers",
+  "crm.details.dashboard.timeline.done": "Done",
+  "crm.details.dashboard.timeline.expired": "Expired"
 }

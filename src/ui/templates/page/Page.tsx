@@ -74,9 +74,11 @@ export const Page = ({
         <Grid container item xs={12} className={classes.childContainer}>
           {children}
         </Grid>
-        <Grid item xs={12} className={classes.lastUpdated}>
-          <LastUpdated dateUpdated={dateUpdated} updatedBy={updatedBy} withIcon />
-        </Grid>
+        {updatedBy && dateUpdated && (
+          <Grid item xs={12} className={classes.lastUpdated}>
+            <LastUpdated dateUpdated={dateUpdated} updatedBy={updatedBy} withIcon />
+          </Grid>
+        )}
       </Grid>
     </>
   );
