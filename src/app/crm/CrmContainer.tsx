@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CRMS } from 'api/mocks/crm';
 import { useCrmQueryParams } from 'app/shared/useCrmQueryParams/useCrmQueryParams';
 
 import { Crm } from './Crm';
@@ -7,5 +8,7 @@ import { Crm } from './Crm';
 export const CrmContainer = () => {
   const { status, type, setStatus, setType } = useCrmQueryParams({});
 
-  return <Crm type={type} onTypeChange={setType} status={status} onStatusChange={setStatus}></Crm>;
+  const crms = CRMS;
+
+  return <Crm crms={crms} type={type} onTypeChange={setType} status={status} onStatusChange={setStatus}></Crm>;
 };
