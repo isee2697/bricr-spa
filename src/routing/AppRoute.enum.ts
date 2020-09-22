@@ -21,6 +21,7 @@ export enum AppRoute {
   users = '/settings/users',
   userDetails = '/settings/users/:id',
   tasks = '/tasks',
+  taskDetails = '/tasks/:id',
   register = '/register',
   setup = '/setup',
   propertiesSetup = '/setup/properties',

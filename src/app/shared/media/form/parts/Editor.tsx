@@ -12,7 +12,7 @@ export const Editor = ({ titleId, disabled }: EditorProps) => {
 
   return (
     <Grid item xs={12}>
-      <FormSubSectionHeader noBorder title={formatMessage({ id: titleId })} />
+      {titleId && <FormSubSectionHeader noBorder title={formatMessage({ id: titleId })} />}
       <Box paddingTop={2} mb={2}>
         <RichTextField disabled={disabled} name="chapter" />
       </Box>

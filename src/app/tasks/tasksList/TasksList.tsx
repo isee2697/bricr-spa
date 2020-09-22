@@ -103,7 +103,7 @@ export const TasksList = ({ tasks }: TasksListProps) => {
       <TableBody>
         {tasks.map((task, index) => {
           const labelId = `tasks-list-checkbox-${index}`;
-          const { title, status, id, assigneeDetail, deadline } = task;
+          const { title, status, taskIndex, assigneeDetail, deadline } = task;
           const deadlineDate = DateTime.fromISO(deadline);
           const hoursLeft = Math.round(deadlineDate.diffNow('hours').hours);
 
@@ -121,7 +121,7 @@ export const TasksList = ({ tasks }: TasksListProps) => {
                   className={classes.avatar}
                 />
               </TableCell>
-              <TableCell>{id}</TableCell>
+              <TableCell>{`BRICR-${taskIndex}`}</TableCell>
               <TableCell>
                 {hoursLeft < 0 && '-'}
                 {hoursLeft >= 24 && formatMessage({ id: 'tasks.days_left' }, { daysLeft: Math.floor(hoursLeft / 24) })}
