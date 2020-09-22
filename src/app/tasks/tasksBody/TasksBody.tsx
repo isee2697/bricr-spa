@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
 
-import { Card, CardContent, Tabs, Tab } from 'ui/atoms';
+import { Badge, Card, CardContent, Tab, Tabs } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksContent } from '../tasksContent/TasksContent';
 import { TasksTab } from '../Tasks.types';
@@ -9,10 +9,17 @@ import { TasksTab } from '../Tasks.types';
 import { useStyles } from './TasksBody.styles';
 import { TasksBodyProps } from './TasksBody.types';
 
-export const TasksBody = ({ selectedMembers }: TasksBodyProps) => {
+export const TasksBody = ({ selectedMembers, tasksFullSummary }: TasksBodyProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [activeTab, setActiveTab] = useState(TasksTab.Today);
+
+  const {
+    today: todayTaskCount,
+    nextWeek: nextWeekTaskCount,
+    future: futureTaskCount,
+    overdue: overdueTaskCount,
+  } = tasksFullSummary;
 
   return (
     <Card className={clsx(classes.root, classes.flexColumn)}>
@@ -23,10 +30,46 @@ export const TasksBody = ({ selectedMembers }: TasksBodyProps) => {
         textColor="primary"
         variant="fullWidth"
       >
-        <Tab value={TasksTab.Today} label={formatMessage({ id: 'tasks.today' })} />
-        <Tab value={TasksTab.NextWeek} label={formatMessage({ id: 'tasks.next_week' })} />
-        <Tab value={TasksTab.Future} label={formatMessage({ id: 'tasks.future' })} />
-        <Tab value={TasksTab.Overdue} label={formatMessage({ id: 'tasks.overdue' })} />
+        <Tab
+          value={TasksTab.Today}
+          label={
+            todayTaskCount > 0 ? (
+              <Badge badgeContent={`${todayTaskCount}`} color="error" classes={{ badge: classes.badge }}>
+                {formatMessage({ id: 'tasks.today' })}
+              </Badge>
+            ) : (
+              formatMessage({ id: 'tasks.today' })
+            )
+          }
+        />
+        <Tab
+          value={TasksTab.NextWeek}
+          label={
+            <Badge badgeContent={`${nextWeekTaskCount}`} color="primary" classes={{ badge: classes.badge }}>
+              {formatMessage({ id: 'tasks.next_week' })}
+            </Badge>
+          }
+        />
+        <Tab
+          value={TasksTab.Future}
+          label={
+            <Badge badgeContent={`${futureTaskCount}`} color="primary" classes={{ badge: classes.badge }}>
+              {formatMessage({ id: 'tasks.future' })}
+            </Badge>
+          }
+        />
+        <Tab
+          value={TasksTab.Overdue}
+          label={
+            <Badge
+              badgeContent={`${overdueTaskCount}`}
+              color="error"
+              classes={{ badge: clsx(classes.badge, activeTab !== TasksTab.Overdue && 'default') }}
+            >
+              {formatMessage({ id: 'tasks.overdue' })}
+            </Badge>
+          }
+        />
       </Tabs>
       <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
         <TasksContent tab={activeTab} selectedMembers={selectedMembers} />

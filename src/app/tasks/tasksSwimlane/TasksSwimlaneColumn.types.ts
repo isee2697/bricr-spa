@@ -4,4 +4,5 @@ export type TasksSwimlaneColumnProps = {
   tab: number;
   columnType: TaskStatus;
   tasks: Task[];
+  count: number;
 };

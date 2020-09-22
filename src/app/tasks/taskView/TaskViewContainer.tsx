@@ -12,13 +12,26 @@ import {
   TaskStatus,
   useUpdateTaskMutation,
   GetTasksDocument,
+  useGetTasksSummaryByStatusLazyQuery,
 } from 'api/types';
 import { TeamMemberItem } from '../Tasks.types';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
-export const TaskViewContainer = ({ tab, viewMode, search, selectedMembers = [], dateRange }: TaskViewContainerProps) => {
+export const TaskViewContainer = ({
+  tab,
+  viewMode,
+  search,
+  selectedMembers = [],
+  dateRange,
+}: TaskViewContainerProps) => {
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
+    fetchPolicy: 'network-only',
+  });
+  const [
+    getTaskSummaryByStatus,
+    { data: taskSummaryByStatusData, loading: taskSummaryByStatusLoading },
+  ] = useGetTasksSummaryByStatusLazyQuery({
     fetchPolicy: 'network-only',
   });
   const [updateTask, { loading: updateTaskLoading, error: updateTaskError }] = useUpdateTaskMutation();
@@ -34,9 +47,16 @@ export const TaskViewContainer = ({ tab, viewMode, search, selectedMembers = [],
         ...dateRange,
       },
     });
-  }, [viewMode, search, selectedMembers, dateRange, getTasks]);
+    getTaskSummaryByStatus({
+      variables: {
+        search,
+        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
+        ...dateRange,
+      },
+    });
+  }, [viewMode, search, selectedMembers, dateRange, getTasks, getTaskSummaryByStatus]);
 
-  if (loading || updateTaskLoading) {
+  if (loading || taskSummaryByStatusLoading || updateTaskLoading) {
     return <Loader />;
   }
 
@@ -46,6 +66,13 @@ export const TaskViewContainer = ({ tab, viewMode, search, selectedMembers = [],
       ...(selectedMembers.find(member => member.id === item.assignee) || {}),
     },
   }));
+
+  const tasksSummaryByStatus = taskSummaryByStatusData?.getTasksSummaryByStatus || {
+    todo: 0,
+    inProgress: 0,
+    blocked: 0,
+    done: 0,
+  };
 
   const handleUpdateTaskStatus = async (taskId: string, status: TaskStatus) => {
     const { data: result, errors } = await updateTask({
@@ -78,7 +105,12 @@ export const TaskViewContainer = ({ tab, viewMode, search, selectedMembers = [],
     <>
       {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       {viewMode === TasksViewMode.Swimlane && (
-        <TasksSwimlane tab={tab} tasks={tasks} onUpdateTaskStatus={handleUpdateTaskStatus} />
+        <TasksSwimlane
+          tab={tab}
+          tasks={tasks}
+          onUpdateTaskStatus={handleUpdateTaskStatus}
+          tasksSummaryByStatus={tasksSummaryByStatus}
+        />
       )}
       {viewMode === TasksViewMode.List && <TasksList tasks={tasks} />}
     </>
