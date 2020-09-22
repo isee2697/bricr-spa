@@ -4,11 +4,15 @@ export const GET_TASK = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {
       id
+      taskIndex
       title
       assignee
       startDate
       deadline
       priority
+      label
+      status
+      description
     }
   }
 `;
@@ -28,6 +32,7 @@ export const GET_TASKS = gql`
     ) {
       items {
         id
+        taskIndex
         title
         assignee
         startDate
@@ -35,6 +40,7 @@ export const GET_TASKS = gql`
         priority
         label
         status
+        description
       }
     }
   }
