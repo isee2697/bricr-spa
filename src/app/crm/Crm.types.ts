@@ -3,7 +3,9 @@ import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 
 export type CrmProps = {
   type: CrmType;
+  status: ActionTabStatus;
   onTypeChange: (type: CrmType) => void;
+  onStatusChange: (status: ActionTabStatus) => void;
 };
 
 export enum CrmType {
