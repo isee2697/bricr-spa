@@ -5,8 +5,16 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   propertyItem: {
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+
+    '&:first-of-type': {
+      paddingTop: 0,
+    },
+
+    '&:last-of-type': {
+      paddingBottom: 0,
+    },
   },
   propertyImage: {
     width: 80,

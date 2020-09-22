@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
+  scrollable: {
+    right: -theme.spacing(1),
+  },
   checkIcon: {
     width: 24,
     height: 24,
@@ -14,6 +17,13 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: 12,
     color: theme.palette.white.main,
     background: theme.palette.red.main,
+  },
+  stepperWrapper: {
+    paddingBottom: '0px !important',
+  },
+  stepper: {
+    paddingLeft: 0,
+    marginRight: theme.spacing(2),
   },
   stepConnector: {
     padding: 0,
