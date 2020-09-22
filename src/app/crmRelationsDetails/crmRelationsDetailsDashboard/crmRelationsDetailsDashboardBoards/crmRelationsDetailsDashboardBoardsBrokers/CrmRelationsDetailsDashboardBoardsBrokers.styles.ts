@@ -14,8 +14,8 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   brokerImage: {
-    width: 80,
-    height: 64,
+    width: theme.spacing(10),
+    height: theme.spacing(8),
   },
   brokerTitle: {
     fontWeight: theme.typography.fontWeightMedium,
