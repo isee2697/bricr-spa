@@ -1,6 +1,6 @@
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { SetPriceForm } from 'app/shared/prices/setPricesModal/SetPricesModal.types';
-import { Profile, RentInformations, SaleInformations } from 'api/types';
+import { LastUpdatedProfile, RentInformations, SaleInformations } from 'api/types';
 import { PriceForm } from 'app/pimDetails/sections/prices/price/Price.types';
 
 export type PriceType = 'Rent' | 'Sale';
@@ -15,6 +15,6 @@ export type PricesGeneralContainerProps = PimDetailsSectionProps & {
   rent?: RentInformations;
   sale?: SaleInformations;
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
   description: string;
 };

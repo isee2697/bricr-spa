@@ -77,7 +77,7 @@ type CommonMedia implements LastUpdated {
   usps: [Usp!]
   tags: [Tag!]
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   mediaDescription: String
 }
 
@@ -87,7 +87,7 @@ type Picture implements LastUpdated {
   type: String @uuidOrEnum(enum: ["PictureType"])
   name: String
   file: File
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   isMainPicture: Boolean
 }

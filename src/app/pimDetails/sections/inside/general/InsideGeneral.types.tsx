@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { InsideGeneral, Profile } from 'api/types';
+import { InsideGeneral, LastUpdatedProfile } from 'api/types';
 
 export type InsideGeneralBody = Partial<InsideGeneral> & {
   extension: {
@@ -13,5 +13,5 @@ export type InsideGeneralBody = Partial<InsideGeneral> & {
 
 export type InsideGeneralProps = {
   dateUpdated?: string | null;
-  updatedBy?: Profile | null;
+  updatedBy?: LastUpdatedProfile | null;
 };

@@ -116,7 +116,7 @@ type PimSales implements LastUpdated {
   id: ID!
   salesSettings: SalesSettings
   viewingMoments: [ViewingMoment!]
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   allocationCriterias: [AllocationCriteria!]
 }

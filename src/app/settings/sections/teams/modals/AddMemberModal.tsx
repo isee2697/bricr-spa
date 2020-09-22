@@ -53,7 +53,7 @@ export const AddMemberModal = ({ isOpened, onClose, onSubmit, userList }: AddMem
                 >
                   <Avatar
                     className={classes.avatar}
-                    src={item.avatar ?? undefined}
+                    src={item?.image?.url ?? undefined}
                     alt={item.firstName ?? 'No avatar'}
                   />
                 </TileCheckbox>

@@ -90,6 +90,25 @@ input UpdateSocialMediaLinkInput {
   isPublic: Boolean
 }
 
+enum AdminSettings {
+  General
+  Users
+  Teams
+  Options
+  Workflows
+  Matching
+  PIM
+  CRM
+  SALES
+  Email
+  Documents
+  Calendar
+  Marketing
+  KPITargets
+  Notifications
+  Tasks
+}
+
 type Profile {
   id: ID!
   gender: GenderType
@@ -97,13 +116,19 @@ type Profile {
   lastName: String
   dateOfBirth: Date
   functionDescription: String
-  email: String
-  avatar: String
+  email: String!
   teams: [ProfileTeam!]
   emailAddresses: [EmailAddress!]
   phoneNumbers: [PhoneNumber!]
   socialMediaLinks: [SocialMediaLink!]
   company: Company
+  adminSettings: [AdminSettings!]
+  isActive: Boolean!
+  initials: String
+  costUnit: String
+  hideOnMemos: Boolean
+  isAccountmanager: Boolean
+  image: File
 }
 
 input CreateProfileInput {
@@ -113,7 +138,7 @@ input CreateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  avatar: String
+  adminSettings: [AdminSettings!]
 }
 
 input UpdateProfileInput {
@@ -124,7 +149,12 @@ input UpdateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  avatar: String
+  adminSettings: [AdminSettings!]
+  initials: String
+  costUnit: String
+  hideOnMemos: Boolean
+  isAccountmanager: Boolean
+  imageId: ID
 }
 
 type ProfileTeam {
@@ -135,6 +165,11 @@ type ProfileTeam {
   readPermission: Boolean!
   updatePermission: Boolean!
   deletePermission: Boolean!
+}
+
+input CreateCompanyInput {
+  name: String!
+  email: String!
 }
 
 type Company {
@@ -168,17 +203,23 @@ type ProfileSearchResult {
   items: [Profile!]
 }
 
+input ProfileFilters {
+    isActive: Boolean
+}
+
 extend type Query {
   me: Profile @auth
   getProfile(id: ID!): Profile @auth
   getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
-  getAllProfiles(pagination: Pagination, search: String): ProfileSearchResult! @auth
+  getAllProfiles(filters: ProfileFilters, pagination: Pagination, search: String): ProfileSearchResult! @auth
 }
 
 extend type Mutation {
+  createCompany(input: CreateCompanyInput!): Company!
   createProfile(input: CreateProfileInput!): Profile! @auth
   updateProfile(input: UpdateProfileInput!): Profile! @auth
-  deleteProfile(id: String): String @auth
+  deactivateProfile(id: String!): Profile! @auth
+  reactivateProfile(id: String!): Profile! @auth
   createEmailAddress(input: CreateEmailAddressInput!): Profile! @auth
   updateEmailAddress(input: UpdateEmailAddressInput!): Profile! @auth
   createPhoneNumber(input: CreatePhoneNumberInput!): Profile! @auth

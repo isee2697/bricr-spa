@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import { InfoCardPage } from 'ui/templates';
-import { Typography } from 'ui/atoms';
+import { NavBreadcrumb, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { CreateTeamModalContainer } from 'app/settings/sections/teams/modals/CreateTeamModalContainer';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 export const TeamsGeneral = ({ hasTeams }: { hasTeams: boolean }) => {
   const { formatMessage } = useLocale();
@@ -11,6 +12,7 @@ export const TeamsGeneral = ({ hasTeams }: { hasTeams: boolean }) => {
 
   return (
     <>
+      <NavBreadcrumb to={AppRoute.teams} title={formatMessage({ id: 'settings.teams.card_title' })} />
       <InfoCardPage
         cardTitle={formatMessage({ id: 'settings.teams.card_title' })}
         infoEmoji="👨‍👦‍👦"
