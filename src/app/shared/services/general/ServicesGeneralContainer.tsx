@@ -40,6 +40,8 @@ const routeUrlBaseMap: Record<EntityType, AppRoute> = {
   [EntityType.ObjectType]: AppRoute.objectTypeDetails,
   [EntityType.Property]: AppRoute.pimDetails,
   [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
+  [EntityType.CrmRelations]: AppRoute.crmRelationsDetails,
+  [EntityType.CrmBusinesses]: AppRoute.crmBusinessesDetails,
 };
 
 export const ServicesGeneralContainer = ({ isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
