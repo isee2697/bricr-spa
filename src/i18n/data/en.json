@@ -2414,5 +2414,12 @@
   "crm.details.timeline.sent_to": "Sent to",
   "crm.details.timeline.location": "Location",
   "crm.details.timeline.bog_object": "BOG Object",
-  "crm.details.timleine.posted_by": "Posted by"
+  "crm.details.timleine.posted_by": "Posted by",
+  "crm.details.customer_journey.title": "Custom Journey",
+  "crm.details.customer_journey.matches": "Matches",
+  "crm.details.customer_journey.interests": "Interests",
+  "crm.details.customer_journey.viewings": "Viewings",
+  "crm.details.customer_journey.biddings": "Biddings",
+  "crm.details.customer_journey.candidate": "Candidate",
+  "crm.details.customer_journey.optant": "Optant"
 }

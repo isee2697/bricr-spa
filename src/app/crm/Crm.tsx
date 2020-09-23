@@ -32,62 +32,55 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
   return (
-    <>
-      <Grid container spacing={0}>
-        <CrmSidebarMenu
-          type={type}
-          onTypeChange={onTypeChange}
-          onHide={handleSidebarHide}
-          isVisible={isSidebarVisible}
-        />
-        <Box flex={1}>
-          <Grid container spacing={3} className={classes.content}>
-            <CrmHeader type={type} onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
-            <Grid item xs={12}>
-              <Card>
-                <CardHeader title={formatMessage({ id: `crm.type.${type}` })} action={<CrmSubHeader />} />
-                <CardContent>
-                  <Box mx={2}>
-                    <CrmActionTabs
-                      status={status}
-                      onStatusChange={onStatusChange}
-                      amounts={{
-                        actionRequired: 3,
-                        active: 287,
-                        inactive: 239,
-                      }}
-                    />
-                  </Box>
-                  <List
-                    className="crm-list"
-                    items={crmItemsFiltered as CrmItem[]}
-                    itemIndex={'id'}
-                    loadingItem={<PropertyItemPlaceholder />}
-                    emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
-                    emptyDescription={formatMessage(
-                      { id: 'crm.list.empty_description' },
-                      { buttonName: formatMessage({ id: `crm.add.${type}` }) },
-                    )}
-                    renderItem={(crm, checked, checkbox) => (
-                      <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
-                        {checkbox}
-                        <Box component="span" className={classes.rowItem}>
-                          <Box
-                            className={classes.itemButton}
-                            onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
-                          >
-                            <CrmListItem crm={crm} />
-                          </Box>
+    <Grid container spacing={0}>
+      <CrmSidebarMenu type={type} onTypeChange={onTypeChange} onHide={handleSidebarHide} isVisible={isSidebarVisible} />
+      <Box flex={1}>
+        <Grid container spacing={3} className={classes.content}>
+          <CrmHeader type={type} onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+          <Grid item xs={12}>
+            <Card>
+              <CardHeader title={formatMessage({ id: `crm.type.${type}` })} action={<CrmSubHeader />} />
+              <CardContent>
+                <Box mx={2}>
+                  <CrmActionTabs
+                    status={status}
+                    onStatusChange={onStatusChange}
+                    amounts={{
+                      actionRequired: 3,
+                      active: 287,
+                      inactive: 239,
+                    }}
+                  />
+                </Box>
+                <List
+                  className="crm-list"
+                  items={crmItemsFiltered as CrmItem[]}
+                  itemIndex={'id'}
+                  loadingItem={<PropertyItemPlaceholder />}
+                  emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
+                  emptyDescription={formatMessage(
+                    { id: 'crm.list.empty_description' },
+                    { buttonName: formatMessage({ id: `crm.add.${type}` }) },
+                  )}
+                  renderItem={(crm, checked, checkbox) => (
+                    <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
+                      {checkbox}
+                      <Box component="span" className={classes.rowItem}>
+                        <Box
+                          className={classes.itemButton}
+                          onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
+                        >
+                          <CrmListItem crm={crm} />
                         </Box>
                       </Box>
-                    )}
-                  />
-                </CardContent>
-              </Card>
-            </Grid>
+                    </Box>
+                  )}
+                />
+              </CardContent>
+            </Card>
           </Grid>
-        </Box>
-      </Grid>
-    </>
+        </Grid>
+      </Box>
+    </Grid>
   );
 };
