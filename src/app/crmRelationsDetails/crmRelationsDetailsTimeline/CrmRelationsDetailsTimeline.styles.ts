@@ -34,6 +34,10 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: 12,
     color: theme.palette.white.main,
     background: theme.palette.green.main,
+
+    '& path': {
+      fill: theme.palette.white.main,
+    },
   },
   closeIcon: {
     width: 24,
@@ -41,6 +45,10 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: 12,
     color: theme.palette.white.main,
     background: theme.palette.red.main,
+
+    '& path': {
+      fill: theme.palette.white.main,
+    },
   },
   stepperWrapper: {
     paddingBottom: '0px !important',
@@ -56,7 +64,6 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   stepLabelContainer: {
-    // position: 'absolute',
     top: theme.spacing(0.5),
     left: 40,
   },
