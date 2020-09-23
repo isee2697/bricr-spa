@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 
-import { Loader, Alert } from 'ui/atoms';
+import { Alert, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksViewMode } from '../Tasks.enum';
-import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
-import { TasksList } from '../tasksList/TasksList';
 import {
   Task,
   useGetTasksLazyQuery,
@@ -13,18 +12,20 @@ import {
   useUpdateTaskMutation,
   GetTasksDocument,
   useGetTasksSummaryByStatusLazyQuery,
+  DateRange,
 } from 'api/types';
-import { TeamMemberItem } from '../Tasks.types';
+import { TasksTab, TeamMemberItem } from '../Tasks.types';
+import { TasksContent } from '../tasksContent/TasksContent';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
-export const TaskViewContainer = ({
-  tab,
-  viewMode,
-  search,
-  selectedMembers = [],
-  dateRange,
-}: TaskViewContainerProps) => {
+export const TaskViewContainer = ({ tab, selectedMembers = [] }: TaskViewContainerProps) => {
+  const [searchKey, setSearchKey] = useState('');
+  const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
+  const [dateRange, setDateRange] = useState<DateRange>({
+    to: DateTime.local().toISO(),
+  });
+
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
   });
@@ -34,7 +35,7 @@ export const TaskViewContainer = ({
   ] = useGetTasksSummaryByStatusLazyQuery({
     fetchPolicy: 'network-only',
   });
-  const [updateTask, { loading: updateTaskLoading, error: updateTaskError }] = useUpdateTaskMutation();
+  const [updateTask, { error: updateTaskError }] = useUpdateTaskMutation();
   const { formatMessage } = useLocale();
 
   useEffect(() => {
@@ -42,23 +43,19 @@ export const TaskViewContainer = ({
       variables: {
         sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
         sortDirection: SortDirection.Desc,
-        search,
+        search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
         ...dateRange,
       },
     });
     getTaskSummaryByStatus({
       variables: {
-        search,
+        search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
         ...dateRange,
       },
     });
-  }, [viewMode, search, selectedMembers, dateRange, getTasks, getTaskSummaryByStatus]);
-
-  if (loading || taskSummaryByStatusLoading || updateTaskLoading) {
-    return <Loader />;
-  }
+  }, [viewMode, searchKey, selectedMembers, dateRange, getTasks, getTaskSummaryByStatus]);
 
   const tasks: Task[] = (data ? data.getTasks?.items || [] : []).map(item => ({
     ...item,
@@ -66,6 +63,50 @@ export const TaskViewContainer = ({
       ...(selectedMembers.find(member => member.id === item.assignee) || {}),
     },
   }));
+
+  useEffect(() => {
+    switch (tab) {
+      case TasksTab.Today:
+        setDateRange({
+          from: DateTime.local().toISO(),
+          to: DateTime.local()
+            .endOf('day')
+            .toISO(),
+        });
+        break;
+
+      case TasksTab.NextWeek:
+        setDateRange({
+          from: DateTime.local()
+            .plus({ days: 1 })
+            .startOf('day')
+            .toISO(),
+          to: DateTime.local()
+            .plus({ days: 7 })
+            .endOf('day')
+            .toISO(),
+        });
+        break;
+
+      case TasksTab.Future:
+        setDateRange({
+          from: DateTime.local()
+            .plus({ days: 8 })
+            .startOf('day')
+            .toISO(),
+        });
+        break;
+
+      case TasksTab.Overdue:
+        setDateRange({
+          to: DateTime.local().toISO(),
+        });
+        break;
+
+      default:
+        return;
+    }
+  }, [tab]);
 
   const tasksSummaryByStatus = taskSummaryByStatusData?.getTasksSummaryByStatus || {
     todo: 0,
@@ -88,7 +129,7 @@ export const TaskViewContainer = ({
           variables: {
             sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
             sortDirection: SortDirection.Desc,
-            search,
+            search: searchKey,
             assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
             ...dateRange,
           },
@@ -101,18 +142,26 @@ export const TaskViewContainer = ({
     }
   };
 
+  if (loading || taskSummaryByStatusLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
-      {viewMode === TasksViewMode.Swimlane && (
-        <TasksSwimlane
-          tab={tab}
-          tasks={tasks}
-          onUpdateTaskStatus={handleUpdateTaskStatus}
-          tasksSummaryByStatus={tasksSummaryByStatus}
-        />
-      )}
-      {viewMode === TasksViewMode.List && <TasksList tasks={tasks} />}
+      <TasksContent
+        tab={tab}
+        tasks={tasks}
+        tasksSummaryByStatus={tasksSummaryByStatus}
+        selectedMembers={selectedMembers}
+        searchKey={searchKey}
+        viewMode={viewMode}
+        dateRange={dateRange}
+        onChangeSearchKey={setSearchKey}
+        onChangeViewMode={setViewMode}
+        onChangeDateRange={setDateRange}
+        onUpdateTaskStatus={handleUpdateTaskStatus}
+      />
     </>
   );
 };

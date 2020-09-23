@@ -92,15 +92,16 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
     },
   ];
 
-  const handleAssignToMe = () => {};
-
   return (
     <Form onSubmit={handleSubmit}>
       {({ handleSubmit, form, submitErrors, values }) => (
         <Modal
           fullWidth
           isOpened={isOpen}
-          onClose={handleClose}
+          onClose={() => {
+            form.reset();
+            handleClose();
+          }}
           title={formatMessage({ id: 'tasks.create_new.title' })}
         >
           <form
@@ -137,7 +138,13 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
                     label="tasks.create_new.details.assignee.label"
                     align="left"
                   />
-                  <Typography variant="h5" onClick={() => handleAssignToMe()} className={classes.assignToMeButton}>
+                  <Typography
+                    variant="h5"
+                    onClick={() => {
+                      form.change('assignee', assignees[0].value);
+                    }}
+                    className={classes.assignToMeButton}
+                  >
                     {formatMessage({
                       id: 'tasks.create_new.details.assignee.assign_to_me',
                     })}

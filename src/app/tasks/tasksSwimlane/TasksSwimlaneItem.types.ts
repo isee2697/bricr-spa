@@ -1,7 +1,7 @@
-import { TaskItem } from '../Tasks.types';
+import { TaskItem, TasksTab } from '../Tasks.types';
 
 export type TasksSwimlaneItemProps = {
-  tab: number;
+  tab: TasksTab;
   task: TaskItem;
 };
 

@@ -3,8 +3,8 @@ import clsx from 'classnames';
 
 import { Badge, Card, CardContent, Tab, Tabs } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { TasksContent } from '../tasksContent/TasksContent';
 import { TasksTab } from '../Tasks.types';
+import { TaskViewContainer } from '../taskView/TaskViewContainer';
 
 import { useStyles } from './TasksBody.styles';
 import { TasksBodyProps } from './TasksBody.types';
@@ -72,7 +72,7 @@ export const TasksBody = ({ selectedMembers, tasksFullSummary }: TasksBodyProps)
         />
       </Tabs>
       <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
-        <TasksContent tab={activeTab} selectedMembers={selectedMembers} />
+        <TaskViewContainer tab={activeTab} selectedMembers={selectedMembers} />
       </CardContent>
     </Card>
   );

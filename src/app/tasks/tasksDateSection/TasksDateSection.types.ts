@@ -1,6 +1,7 @@
 import { DateRange } from 'api/types';
+import { TasksTab } from '../Tasks.types';
 
 export type TasksDateSectionProps = {
-  tab: number;
+  tab: TasksTab;
   handleSetDateRange: (range: DateRange) => void;
 };

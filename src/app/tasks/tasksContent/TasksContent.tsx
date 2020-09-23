@@ -1,77 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import clsx from 'classnames';
-import { DateTime } from 'luxon';
 
 import { SimpleSearch } from 'ui/molecules';
 import { Grid, IconButton } from 'ui/atoms';
 import { ListIcon } from 'ui/atoms/icons/list/ListIcon';
 import { SwimlaneIcon } from 'ui/atoms/icons/swimlane/SwimlaneIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
-import { Task, TaskStatus, DateRange } from 'api/types';
+import { DateRange, TaskStatus } from 'api/types';
 import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
 import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
 import { TasksViewMode } from '../Tasks.enum';
 import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
-import { TaskViewContainer } from '../taskView/TaskViewContainer';
-import { TasksTab } from '../Tasks.types';
+import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
+import { TasksList } from '../tasksList/TasksList';
 
 import { useStyles } from './TasksContent.styles';
 import { TasksContentProps } from './TasksContent.types';
 
-export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
+export const TasksContent = ({
+  tab,
+  tasks,
+  tasksSummaryByStatus,
+  searchKey,
+  viewMode,
+  onChangeSearchKey,
+  onChangeViewMode,
+  onChangeDateRange,
+  onUpdateTaskStatus,
+}: TasksContentProps) => {
   const classes = useStyles();
-  const [searchKey, setSearchKey] = useState('');
-  const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
-  const [dateRange, setDateRange] = useState<DateRange>({
-    to: DateTime.local().toISO(),
-  });
-
-  useEffect(() => {
-    switch (tab) {
-      case TasksTab.Today:
-        setDateRange({
-          from: DateTime.local().toISO(),
-          to: DateTime.local()
-            .endOf('day')
-            .toISO(),
-        });
-        break;
-
-      case TasksTab.NextWeek:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 1 })
-            .startOf('day')
-            .toISO(),
-          to: DateTime.local()
-            .plus({ days: 7 })
-            .endOf('day')
-            .toISO(),
-        });
-        break;
-
-      case TasksTab.Future:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 8 })
-            .startOf('day')
-            .toISO(),
-        });
-        break;
-
-      case TasksTab.Overdue:
-        setDateRange({
-          to: DateTime.local().toISO(),
-        });
-        break;
-
-      default:
-        return;
-    }
-  }, [tab]);
-
-  // Temporary code before API integration
-  const tasks: Task[] = [];
 
   const tasksCount = tasks.length;
   const completedTasksCount = tasks.filter(task => task.status === TaskStatus.Done).length;
@@ -92,11 +49,11 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
         </Grid>
         <Grid item>
           <Grid container>
-            <SimpleSearch onChange={v => setSearchKey(v.currentTarget.value)} value={searchKey} />
-            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.Swimlane)}>
+            <SimpleSearch onChange={v => onChangeSearchKey(v.currentTarget.value)} value={searchKey} />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => onChangeViewMode(TasksViewMode.Swimlane)}>
               <SwimlaneIcon color={viewMode === TasksViewMode.Swimlane ? 'primary' : 'inherit'} />
             </IconButton>
-            <IconButton classes={{ root: classes.sortIcon }} onClick={() => setViewMode(TasksViewMode.List)}>
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => onChangeViewMode(TasksViewMode.List)}>
               <ListIcon color={viewMode === TasksViewMode.List ? 'primary' : 'inherit'} />
             </IconButton>
             <IconButton classes={{ root: classes.sortIcon }}>
@@ -106,7 +63,7 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <TasksDateSection tab={tab} handleSetDateRange={(range: DateRange) => setDateRange(range)} />
+        <TasksDateSection tab={tab} handleSetDateRange={(range: DateRange) => onChangeDateRange(range)} />
       </Grid>
       <Grid
         item
@@ -117,13 +74,15 @@ export const TasksContent = ({ tab, selectedMembers }: TasksContentProps) => {
           viewMode === TasksViewMode.Swimlane && classes.swimlaneWrapper,
         )}
       >
-        <TaskViewContainer
-          tab={tab}
-          viewMode={viewMode}
-          search={searchKey}
-          selectedMembers={selectedMembers}
-          dateRange={dateRange}
-        />
+        {viewMode === TasksViewMode.Swimlane && (
+          <TasksSwimlane
+            tab={tab}
+            tasks={tasks}
+            onUpdateTaskStatus={onUpdateTaskStatus}
+            tasksSummaryByStatus={tasksSummaryByStatus}
+          />
+        )}
+        {viewMode === TasksViewMode.List && <TasksList tasks={tasks} />}
       </Grid>
     </Grid>
   );

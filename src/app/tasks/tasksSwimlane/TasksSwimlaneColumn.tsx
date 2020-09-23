@@ -34,8 +34,8 @@ export const TasksSwimlaneColumn = ({ tab, columnType, tasks, count }: TasksSwim
             </Grid>
           </Box>
           <Box className={classes.tasksSwimlaneItemsContainer}>
-            {tasks.map((task: Task, index: number) => (
-              <TasksSwimlaneItem tab={tab} key={index} task={task} />
+            {tasks.map((task: Task) => (
+              <TasksSwimlaneItem tab={tab} key={task.id} task={task} />
             ))}
           </Box>
           {droppableProvided.placeholder}
