@@ -1,30 +1,14 @@
-import React from 'react';
-import { GridSize } from '@material-ui/core';
+import React, { useState } from 'react';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Box, Grid, SidebarTitleTile } from 'ui/atoms';
-import { HomeIcon, SettingsIcon, UserIcon } from 'ui/atoms/icons';
+import { HomeIcon, SettingsIcon, UserIcon, BuildingIcon } from 'ui/atoms/icons';
 import { Modal } from '../modal/Modal';
 import { SidebarMenu } from '../sidebarMenu/SidebarMenu';
 
 import { Checkboxes } from './filter-types/Checkboxes';
 import { Range } from './filter-types/Range';
 import { filtersTypes } from './Filters.types';
-
-const menu = {
-  url: '/',
-  back: {
-    url: AppRoute.home,
-    title: 'Go Back',
-  },
-  groups: [
-    {
-      isCollapsable: false,
-      key: 'settings.menu.general',
-      items: [{ key: 'workflowTemplates' }],
-    },
-  ],
-};
 
 const sizeM = 6;
 const sizeL = 12;
@@ -40,10 +24,10 @@ const filters: filtersTypes[] = [
     type: 'checkbox',
     size: sizeM,
     options: [
-      { label: 'Custom name of object type 1', value: '1', icon: <HomeIcon /> },
-      { label: 'Custom name of object type 2', value: '2', icon: <HomeIcon /> },
-      { label: 'Custom name of object type 3', value: '3', icon: <HomeIcon /> },
-      { label: 'Custom name of object type 4', value: '4', icon: <HomeIcon /> },
+      { label: 'Custom name of object type 1', value: '1', icon: <BuildingIcon /> },
+      { label: 'Custom name of object type 2', value: '2', icon: <BuildingIcon /> },
+      { label: 'Custom name of object type 3', value: '3', icon: <BuildingIcon /> },
+      { label: 'Custom name of object type 4', value: '4', icon: <BuildingIcon /> },
     ],
   },
   {
@@ -59,18 +43,12 @@ const filters: filtersTypes[] = [
 ];
 
 export const Filters = () => {
-  console.log(filters);
+  const [isOpened, toggleOpen] = useState(true);
 
   return (
-    <Modal fullWidth title="Filters for property list" isOpened={true}>
+    <Modal title="Filters for property list" isOpened={isOpened}>
       <Grid container spacing={0}>
-        <SidebarMenu
-          onHide={() => false}
-          isVisible={true}
-          menu={menu}
-          translationPrefix="settings.menu"
-          menuTitle={<SidebarTitleTile title={'Title'} icon={<SettingsIcon color="inherit" />} />}
-        />
+        <SidebarMenu filters={filters} />
         <Box flex={1} padding={3}>
           <Grid item xs={12}>
             {filters.map(filter => {
@@ -86,8 +64,6 @@ export const Filters = () => {
                   />
                 );
               } else if (filter.type === 'checkbox' && filter.options && filter.size) {
-                console.log(typeof filter.size, typeof 12);
-
                 return (
                   <Checkboxes
                     key={filter.key}
@@ -98,6 +74,8 @@ export const Filters = () => {
                   />
                 );
               }
+
+              return null;
             })}
           </Grid>
         </Box>

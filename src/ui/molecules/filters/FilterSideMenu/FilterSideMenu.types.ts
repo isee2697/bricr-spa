@@ -1,46 +1,18 @@
 import { ReactNode } from 'react';
-import { ChangeEvent } from 'react';
 
-export type SubMenuItem =
-  | {
-      id: string;
-      label?: string;
-      title?: string;
-      number?: number;
-    }
-  | string;
+export type CheckboxDataType = {
+  label: string;
+  icon: ReactNode;
+  value: string;
+};
 
-export type MenuItem = {
+export type filtersTypes = {
   key: string;
-  subItems?: SubMenuItem[];
-  count?: number;
-  icon?: ReactNode;
-  title?: string;
+  type: string;
+  size: boolean | 2 | 'auto' | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
+  options?: CheckboxDataType[];
 };
 
-export type MenuGroup = {
-  isCollapsable?: boolean;
-  key?: string;
-  items: MenuItem[];
-};
-
-export type ChangeValue = {
-  menu: object;
-  submenu: object;
-};
-
-export type SidebarMenuProps = {
-  onHide: VoidFunction;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  isVisible: boolean;
-  menuTitle?: ReactNode;
-  translationPrefix: string;
-  menu: {
-    url: string;
-    back?: {
-      url: string;
-      title: string;
-    };
-    groups: MenuGroup[];
-  };
+export type FilterSidenavProps = {
+  filters: filtersTypes[];
 };

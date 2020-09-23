@@ -17,10 +17,9 @@ export const Checkboxes = ({
   lg,
   disabled,
   actionElement,
-  orientation,
+  orientation = 'horizontal',
   onChange,
 }: CheckboxGroupFieldProps) => {
-  console.log(xs);
   const initFields: string[] = [];
   const [fields, updateFields] = useState(initFields);
 
