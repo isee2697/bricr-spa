@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ChangeEvent } from 'react';
 
 export type SubMenuItem =
   | {
@@ -30,7 +31,7 @@ export type ChangeValue = {
 
 export type SidebarMenuProps = {
   onHide: VoidFunction;
-  onChange: VoidFunction;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   isVisible: boolean;
   menuTitle?: ReactNode;
   translationPrefix: string;

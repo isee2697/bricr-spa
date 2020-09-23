@@ -30,7 +30,7 @@ export const FilterSideMenu = ({
           key={subItem}
           title={formatMessage({ id: `${translationPrefix}.${subItem}` })}
           selected={pathname === `${menu.url}/${menuItem.key}/${subItem}`}
-          onClick={() => onChange({ menu, subItem })}
+          onClick={() => console.log(menu, subItem)}
         />
       );
     }
