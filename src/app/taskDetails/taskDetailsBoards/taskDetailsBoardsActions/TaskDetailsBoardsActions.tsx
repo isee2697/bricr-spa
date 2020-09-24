@@ -1,11 +1,12 @@
 import React from 'react';
-import clsx from 'classnames';
 
 import { Task, TaskLabel, TaskStatus } from 'api/types';
 import { Paper, Emoji, Dropdown, UserAvatar, Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon } from 'ui/atoms/icons';
+import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
+import { AdvancedSearch as AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
@@ -51,19 +52,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     },
   ];
 
-  const assignees: DropdownItem[] = [user, ...members].map((member, index) => ({
-    label: (
-      <Box>
-        <Box className={clsx(classes.avatar, classes.inlineBlock)}>
-          <UserAvatar name={`${member.firstName} ${member.lastName}`} />
-        </Box>
-        <Typography variant="h5" className={clsx(classes.name, classes.inlineBlock)}>
-          {member.firstName} {member.lastName}
-          {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
-        </Typography>
-      </Box>
-    ),
-    value: member.id,
+  const assignees: AdvancedSearchItem[] = [user, ...members].map((member, index) => ({
+    key: member.id,
+    title: `${member.firstName} ${member.lastName}${index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}`,
+    icon: <UserAvatar name={`${member.firstName} ${member.lastName}`} className={classes.avagarIcon} />,
   }));
 
   const labels: DropdownItem[] = [
@@ -109,15 +101,11 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
         />
       </Box>
       <Box className={classes.marginTopThree}>
-        <Typography variant="h5" className={classes.dropdownLabel}>
-          {formatMessage({ id: 'tasks.details.status' })}
-        </Typography>
-        <Dropdown
-          value={assignee}
-          items={assignees}
-          placeholder="tasks.details.status"
-          onChange={value => handleChange('assignee', value as string)}
-          align="left"
+        <AdvancedSearch
+          inputItem={assignees.find(a => a.key === assignee)}
+          label={formatMessage({ id: 'tasks.details.assignee' })}
+          options={assignees}
+          onChange={value => handleChange('assignee', value)}
         />
       </Box>
       <Box className={classes.marginTopThree}>
