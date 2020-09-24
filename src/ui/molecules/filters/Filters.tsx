@@ -16,21 +16,28 @@ import { FilterProps, FiltersTypes } from './Filters.types';
 import { FilterTabPanel } from './filterTabPanel/FilterTabPanel';
 import { useStyles } from './Filters.styles';
 
-const sizeM = 6;
-const sizeL = 12;
+enum Sizes {
+  M = 6,
+  L = 12,
+}
+
+enum Types {
+  Range = 'range',
+  Checkbox = 'checkbox',
+}
 
 const filters: FiltersTypes[] = [
   {
     key: 'filters.price_range',
     value: 0,
-    type: 'range',
-    size: sizeL,
+    type: Types.Range,
+    size: Sizes.L,
   },
   {
     key: 'filter.object_type',
     value: 1,
-    type: 'checkbox',
-    size: sizeM,
+    type: Types.Checkbox,
+    size: Sizes.M,
     options: [
       { label: 'Custom name of object type 1', value: '1', icon: <BuildingIcon /> },
       { label: 'Custom name of object type 2', value: '2', icon: <BuildingIcon /> },
@@ -41,8 +48,8 @@ const filters: FiltersTypes[] = [
   {
     key: 'filter.account_managers',
     value: 2,
-    type: 'checkbox',
-    size: sizeL,
+    type: Types.Checkbox,
+    size: Sizes.L,
     options: [
       { label: 'Victor Martin Brochner', value: '1', icon: <UserIcon /> },
       { label: 'Victor Martin Brochner', value: '2', icon: <UserIcon /> },
@@ -67,7 +74,7 @@ export const Filters = ({ isOpened, onClose, onSubmit }: FilterProps) => {
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
-                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
+                <Alert severity="error">{formatMessage({ id: 'filter.error.unknown' })}</Alert>
               </DialogContent>
             )}
             <Grid container spacing={0} className={classes.filter}>

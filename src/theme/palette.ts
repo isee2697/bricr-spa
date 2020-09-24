@@ -10,6 +10,7 @@ const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
 const grayLight = '#F3F5FA';
+const grayLighter = '#EDEDED';
 const red = '#EB5F60';
 const redLight = '#F9ECED';
 const orange = '#FFAD21';
@@ -46,6 +47,7 @@ export const palette: PaletteOptions = {
   gray: {
     main: gray,
     light: grayLight,
+    lighter: grayLighter,
   },
   red: {
     main: red,

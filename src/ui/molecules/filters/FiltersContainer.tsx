@@ -5,9 +5,7 @@ import { FilterContainerProps } from './Filters.types';
 import { Filters } from './Filters';
 
 export const FiltersContainer = ({ isOpened, onClose }: FilterContainerProps) => {
-  const handleSubmit = async (body: AnyObject) => {
-    // console.log(body);
-  };
+  const handleSubmit = async (body: AnyObject) => {};
 
   return <Filters isOpened={isOpened} onClose={onClose} onSubmit={handleSubmit} />;
 };

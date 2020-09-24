@@ -1,17 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const gray = '#ededed';
-
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(({ palette }) => ({
   filter: {
-    borderTop: `1px solid ${gray}`,
+    borderTop: `1px solid ${palette.gray.lighter}`,
   },
 
   filterSider: {
-    borderRight: `1px solid ${gray}`,
+    borderRight: `1px solid ${palette.gray.lighter}`,
   },
 
   filterSiderTab: {
-    borderBottom: `1px solid ${gray}`,
+    borderBottom: `1px solid ${palette.gray.lighter}`,
   },
 }));
