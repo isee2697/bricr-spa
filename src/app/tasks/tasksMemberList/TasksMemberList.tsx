@@ -26,7 +26,7 @@ export const TasksMemberList = ({ members, selectedMembers, onSelect }: TasksMem
 
   return (
     <>
-      <ScrollableHorizontal width="100%" maxWidth="100%" height={theme.spacing(8)} className={classes.root}>
+      <ScrollableHorizontal width="100%" maxWidth="100%" height={theme.spacing(8)}>
         {members.map((member, index) => (
           <Box
             key={index}

@@ -10,6 +10,14 @@ export const useStyles = makeStyles(theme => ({
   expireInfo: {
     color: theme.palette.gray.main,
     marginBottom: theme.spacing(1),
+
+    '&.overdue': {
+      color: theme.palette.error.main,
+    },
+
+    '&.lessThanOneHour': {
+      color: theme.palette.error.main,
+    },
   },
   title: {
     marginBottom: theme.spacing(1.5),

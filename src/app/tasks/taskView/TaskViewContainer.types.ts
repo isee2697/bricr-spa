@@ -1,10 +1,6 @@
-import { DateRange } from 'api/types';
-import { TeamMemberItem } from '../Tasks.types';
-import { TasksViewMode } from '../Tasks.enum';
+import { TasksTab, TeamMemberItem } from '../Tasks.types';
 
 export type TaskViewContainerProps = {
-  viewMode: TasksViewMode;
-  search: string;
+  tab: TasksTab;
   selectedMembers: TeamMemberItem[];
-  dateRange: DateRange;
 };

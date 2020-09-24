@@ -1,25 +1,27 @@
 import React from 'react';
+import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
-import { Box, Typography, Grid, UserAvatar } from 'ui/atoms';
+import { Box, Grid, Typography, UserAvatar } from 'ui/atoms';
 import {
-  UserRectangleIcon,
-  PriorityHighIcon,
-  PriorityMediumIcon,
-  PriorityLowIcon,
-  LockRectangleIcon,
   FollowUpRectangleIcon,
+  LockRectangleIcon,
+  PriorityHighIcon,
+  PriorityLowIcon,
+  PriorityMediumIcon,
+  UserRectangleIcon,
 } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { TaskPriority, TaskLabel } from 'api/types';
+import { TaskLabel, TaskPriority } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { TasksTab } from '../Tasks.types';
 
 import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
 import { useStyles } from './TasksSwimlaneItem.styles';
 
-export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
+export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -27,9 +29,27 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
   const { id, taskIndex, title, assigneeDetail, deadline, label, priority } = task;
   const deadlineDate = DateTime.fromISO(deadline);
   const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
+  const expireInfo =
+    tab === TasksTab.Overdue
+      ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
+      : Math.abs(remainingMinutes) < 60 * 24
+      ? Math.abs(remainingMinutes) < 60
+        ? formatMessage({ id: 'tasks.less_than_one_hour' })
+        : formatMessage(
+            { id: 'tasks.details.remainingHours' },
+            {
+              hours: Math.floor(remainingMinutes / 60),
+            },
+          )
+      : formatMessage(
+          { id: 'tasks.details.remainingDays' },
+          {
+            days: Math.floor(remainingMinutes / 60 / 24),
+          },
+        );
 
   return (
-    <Draggable draggableId={id} index={0}>
+    <Draggable key={id} draggableId={id} index={taskIndex}>
       {(draggableProvided: DraggableProvided, draggableSnapshot: DraggableStateSnapshot) => (
         <div
           ref={draggableProvided.innerRef}
@@ -38,23 +58,15 @@ export const TasksSwimlaneItem = ({ task }: TasksSwimlaneItemProps) => {
           onClick={() => push(AppRoute.taskDetails.replace(':id', id))}
         >
           <Box className={classes.root}>
-            <Typography variant="h6" className={classes.expireInfo}>
-              {remainingMinutes < 60 * 24
-                ? remainingMinutes < 60
-                  ? formatMessage({ id: 'tasks.details.remainingMinutes' }, { minutes: remainingMinutes })
-                  : formatMessage(
-                      { id: 'tasks.details.remainingHours' },
-                      {
-                        hours: Math.floor(remainingMinutes / 60),
-                        minutes: remainingMinutes % 60,
-                      },
-                    )
-                : formatMessage(
-                    { id: 'tasks.details.remainingDays' },
-                    {
-                      days: Math.floor(remainingMinutes / 60 / 24),
-                    },
-                  )}
+            <Typography
+              variant="h6"
+              className={clsx(
+                classes.expireInfo,
+                tab === TasksTab.Overdue && 'overdue',
+                remainingMinutes < 60 && 'lessThanOneHour',
+              )}
+            >
+              {expireInfo}
             </Typography>
             <Typography variant="h5" className={classes.title}>
               {title}
