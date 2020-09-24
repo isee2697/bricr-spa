@@ -15,7 +15,7 @@ export const IconButton: React.ComponentType<IconButtonProps> = withStyles(theme
 
       return ['circleContained', 'roundedContained'].includes(props.variant || '')
         ? theme.palette.gray.light
-        : undefined;
+        : 'inherit';
     },
     '&:disabled': {
       backgroundColor: (props: IconButtonProps) =>
@@ -28,7 +28,7 @@ export const IconButton: React.ComponentType<IconButtonProps> = withStyles(theme
           return theme.palette.white.main;
         }
 
-        return undefined;
+        return 'inherit';
       },
     },
     '&:hover svg path': {
@@ -37,7 +37,7 @@ export const IconButton: React.ComponentType<IconButtonProps> = withStyles(theme
           return theme.palette.gray.main;
         }
 
-        return undefined;
+        return 'inherit';
       },
     },
   },

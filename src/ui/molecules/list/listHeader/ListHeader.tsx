@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
-import { Box, Checkbox, Typography, Select, MenuItem, IconButton } from 'ui/atoms';
+import { Box, Checkbox, IconButton, MenuItem, Select, Typography } from 'ui/atoms';
 import { ArchiveIcon, DeleteIcon, MenuIcon } from 'ui/atoms/icons';
 import { ListHeaderProps } from '../List.types';
 import { useStyles } from '../List.styles';

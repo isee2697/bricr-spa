@@ -30,6 +30,20 @@ type Task {
   description: String
 }
 
+type TaskFullSummaryResult {
+  today: Int!
+  nextWeek: Int!
+  future: Int!
+  overdue: Int!
+}
+
+type TaskSummaryByStatusResult {
+  todo: Int!
+  inProgress: Int!
+  blocked: Int!
+  done: Int!
+}
+
 type TaskSearchResult {
   metadata: SearchMetadata
   items: [Task!]
@@ -68,6 +82,17 @@ input TaskFilters {
   deadline: DateRange
 }
 
+input TaskFullSummaryFilters {
+  assignees: [ID!]
+}
+
+input TaskSummaryByStatusFilters {
+  search: String
+  assignees: [ID!]
+  startDate: DateRange
+  deadline: DateRange
+}
+
 extend type Mutation {
   createTask(input: CreateTaskInput!): Task! @auth
   updateTask(input: UpdateTaskInput!): Task @auth
@@ -76,4 +101,6 @@ extend type Mutation {
 extend type Query {
   getTask(id: ID!): Task @auth
   getTasks(filters: TaskFilters, sort: [Sort!]): TaskSearchResult @auth
+  getTasksFullSummary(filters: TaskFullSummaryFilters): TaskFullSummaryResult @auth
+  getTasksSummaryByStatus(filters: TaskSummaryByStatusFilters): TaskSummaryByStatusResult @auth
 }
