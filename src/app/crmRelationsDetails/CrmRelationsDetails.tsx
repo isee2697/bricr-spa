@@ -10,6 +10,7 @@ import { CrmRelationsDetailsSidebarMenu } from './crmRelationsDetailsSidebarMenu
 import { CrmRelationsDetailsHeader } from './crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/CrmRelationsDetailsDashboard';
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
+import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -36,6 +37,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
               <Switch>
                 <Route path={`${path}/dashboard`} render={() => <CrmRelationsDetailsDashboard crm={crm} />} />
                 <Route path={`${path}/summary`} render={() => <CrmRelationsDetailsSummary />} />
+                <Route path={`${path}/timeline`} render={() => <CrmRelationsDetailsTimeline crm={crm} />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
