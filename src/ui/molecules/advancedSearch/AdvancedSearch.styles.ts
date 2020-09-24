@@ -39,11 +39,6 @@ export const useStyles = makeStyles(theme => ({
       paddingRight: theme.spacing(0.5),
       borderRadius: theme.spacing(0.5),
     },
-
-    '&:not(.selected)': {
-      // background: 'transparent',
-    },
-
     '&:not(.selected) .MuiInput-underline': {
       borderColor: 'transparent',
     },

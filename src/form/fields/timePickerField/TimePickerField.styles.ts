@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 export const useStyles = makeStyles(theme => ({
   timePicker: {
     '& .MuiPickersToolbar-toolbar': {
-      background: 'linear-gradient(315deg, #0A57E9 0%, #9FC0FF 100%)',
+      background: theme.palette.gradientPrimary.main,
       display: 'flex',
       justifyContent: 'space-between',
       paddingLeft: theme.spacing(3),
@@ -22,14 +22,14 @@ export const useStyles = makeStyles(theme => ({
       marginBottom: theme.spacing(1.5),
     },
     '& .MuiDialogActions-root': {
-      paddingTop: 16,
+      paddingTop: theme.spacing(2),
       borderTop: '1px solid #E2F5EC',
     },
     '& .MuiButton-textPrimary:first-child': {
       border: `1px solid ${theme.palette.primary.main}`,
     },
     '& .MuiButton-textPrimary:last-child': {
-      background: 'linear-gradient(315deg, #0A57E9 0%, #9FC0FF 100%)',
+      background: theme.palette.gradientPrimary.main,
     },
     '& .MuiButton-textPrimary:last-child .MuiButton-label': {
       color: theme.palette.white.main,
