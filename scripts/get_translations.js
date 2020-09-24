@@ -4,8 +4,8 @@ const fs = require('fs');
 require('dotenv').config();
 
 const directoryPath = path.join(__dirname, '..', 'src', 'i18n', 'data');
-const apiParam = `?access_token=:accessToken`;
-const baseUrl = `https://api.phrase.com/v2/projects/:projectID/locales`
+const apiParam = '?access_token=:accessToken';
+const baseUrl = 'https://api.phrase.com/v2/projects/:projectID/locales';
 
 
 const getVariables = () => {
@@ -37,10 +37,8 @@ const getVariables = () => {
 }
 
 const saveLocaleFunction = async (id, name, variables) => {
-
     const url = `${baseUrl.replace(':projectID', variables.projectID)}/${id}/download${apiParam.replace(':accessToken', variables.accessToken)}&file_format=react_simple_json`;
-    // const url = baseUrl.replace(':projectID', variables.projectID) `${baseUrl}/${id}/download${apiParam}&file_format=react_simple_json`;
-    console.log(url);
+
     try {
         await fetch(url).then(res => res.json()).then(body => {
             const filePath = path.join(directoryPath, `${name}.json`);
