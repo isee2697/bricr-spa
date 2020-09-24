@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Box, Grid, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, Tab, Tabs, Typography } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb, Tab, Tabs, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
 import { AddIcon, CardsIcon, HelpIcon, LocationIcon, ManageIcon, MenuIcon, SearchIcon } from '../../../ui/atoms/icons';
 import { joinUrlParams } from '../../../routing/AppRoute.utils';
 import { useEntityType } from '../../shared/entityType';
 
-import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import {
   CrmRelationsDetailsCustomerJourneyProps,
   CrmRelationsDetailsCustomerJourneyTab,
 } from './CrmRelationsDetailsCustomerJourney.types';
+import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 
 export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsCustomerJourneyProps) => {
   const customerJourneyTabs = [
@@ -110,6 +110,7 @@ export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsC
                   />
                 ))}
               </Tabs>
+              <Box>{customerJourneyTab === CrmRelationsDetailsCustomerJourneyTab.Matches && <>Matches</>}</Box>
             </Box>
           </CardContent>
         </Card>
