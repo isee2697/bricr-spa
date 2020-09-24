@@ -4,7 +4,6 @@ import { Grid } from 'ui/atoms';
 import { DashboardHeader } from 'ui/molecules';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Filters } from 'ui/molecules/filters/Filters';
 
 import { DashboardEmailsContainer } from './dashboardEmails/DashboardEmailsContainer';
 import { DashboardOrdersContainer } from './dashboardOrders/DashboardOrdersContainer';
@@ -50,7 +49,6 @@ export const Dashboard = () => {
           </Grid>
         </Grid>
       </div>
-      <Filters />
     </>
   );
 };

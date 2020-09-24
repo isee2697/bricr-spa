@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { useStyles } from '../Filters.styles';
 import { Tabs, Tab } from 'ui/atoms';
-import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
-import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
-import { filtersTypes } from '../Filters.types';
+import { FilterSidenavProps, FiltersTypes } from '../Filters.types';
 
-import { FilterSidenavProps } from './FilterSideMenu.types';
+export const FilterSideMenu = ({ filters, onChange }: FilterSidenavProps) => {
+  const classes = useStyles();
+  const [value, setValue] = useState(filters[0].value);
 
-export const FilterSideMenu = ({ filters }: FilterSidenavProps) => {
+  const handleTabChange = (tab: FiltersTypes) => {
+    setValue(tab.value);
+    onChange(tab);
+  };
+
   return (
-    <Tabs value={0} indicatorColor="primary" textColor="primary" orientation="vertical">
-      {filters.map((item: filtersTypes) => {
-        return <Tab key={item.key} label={item.key} icon={<HomeIcon color="inherit" />} />;
+    <Tabs value={value} indicatorColor="primary" textColor="primary" orientation="vertical">
+      {filters.map((item: FiltersTypes) => {
+        return (
+          <Tab
+            className={classes.filterSiderTab}
+            key={item.key}
+            label={item.key}
+            onClick={() => handleTabChange(item)}
+          />
+        );
       })}
     </Tabs>
   );

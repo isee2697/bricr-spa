@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
+import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 
-import { AppRoute } from 'routing/AppRoute.enum';
-import { Box, Grid, SidebarTitleTile } from 'ui/atoms';
-import { HomeIcon, SettingsIcon, UserIcon, BuildingIcon } from 'ui/atoms/icons';
+import { UserIcon, BuildingIcon } from 'ui/atoms/icons';
+import { Box, Grid, Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { Modal } from '../modal/Modal';
-import { SidebarMenu } from '../sidebarMenu/SidebarMenu';
+import { CancelButton } from '../cancelButton/CancelButton.styles';
+import { SubmitButton } from '../submitButton/SubmitButton';
+import { useLocale } from 'hooks';
+import { CheckboxGroupField } from 'form/fields';
 
-import { Checkboxes } from './filter-types/Checkboxes';
-import { Range } from './filter-types/Range';
-import { filtersTypes } from './Filters.types';
+import { FilterSideMenu } from './filterSideMenu/FilterSideMenu';
+import { Range } from './range/Range';
+import { FilterProps, FiltersTypes } from './Filters.types';
+import { FilterTabPanel } from './filterTabPanel/FilterTabPanel';
+import { useStyles } from './Filters.styles';
 
 const sizeM = 6;
 const sizeL = 12;
 
-const filters: filtersTypes[] = [
+const filters: FiltersTypes[] = [
   {
     key: 'filters.price_range',
+    value: 0,
     type: 'range',
     size: sizeL,
   },
   {
-    key: 'filter.object_type.title',
+    key: 'filter.object_type',
+    value: 1,
     type: 'checkbox',
     size: sizeM,
     options: [
@@ -31,7 +39,8 @@ const filters: filtersTypes[] = [
     ],
   },
   {
-    key: 'filter.account_managers.title',
+    key: 'filter.account_managers',
+    value: 2,
     type: 'checkbox',
     size: sizeL,
     options: [
@@ -42,44 +51,83 @@ const filters: filtersTypes[] = [
   },
 ];
 
-export const Filters = () => {
-  const [isOpened, toggleOpen] = useState(true);
+export const Filters = ({ isOpened, onClose, onSubmit }: FilterProps) => {
+  const { formatMessage } = useLocale();
+  const classes = useStyles();
+  const [activeTab, setActiveTab] = useState(filters[0].value);
+
+  const handleTabChange = (tab: FiltersTypes) => {
+    setActiveTab(tab.value);
+  };
 
   return (
-    <Modal title="Filters for property list" isOpened={isOpened}>
-      <Grid container spacing={0}>
-        <SidebarMenu filters={filters} />
-        <Box flex={1} padding={3}>
-          <Grid item xs={12}>
-            {filters.map(filter => {
-              if (filter.type === 'range') {
-                return (
-                  <Range
-                    key={filter.key}
-                    title={filter.key}
-                    valueStart={0}
-                    valueEnd={500000}
-                    suffix={'€'}
-                    onChange={e => console.log(e)}
-                  />
-                );
-              } else if (filter.type === 'checkbox' && filter.options && filter.size) {
-                return (
-                  <Checkboxes
-                    key={filter.key}
-                    name={filter.key}
-                    options={filter.options}
-                    onChange={e => console.log(e)}
-                    xs={filter.size}
-                  />
-                );
-              }
+    <Modal fullWidth title={formatMessage({ id: 'filter.title' })} isOpened={isOpened}>
+      <Form onSubmit={onSubmit} mutators={{ ...arrayMutators }}>
+        {({ handleSubmit, submitErrors, submitting, valid }) => (
+          <form onSubmit={handleSubmit} autoComplete="off">
+            {submitErrors && submitErrors.error && (
+              <DialogContent>
+                <Alert severity="error">{formatMessage({ id: 'add_pim.error.unknown' })}</Alert>
+              </DialogContent>
+            )}
+            <Grid container spacing={0} className={classes.filter}>
+              <Grid item xs={4} className={classes.filterSider}>
+                <FilterSideMenu filters={filters} onChange={handleTabChange} />
+              </Grid>
+              <Grid item xs={8}>
+                <Box p={3}>
+                  {filters.map(filter => {
+                    if (filter.type === 'range') {
+                      return (
+                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
+                          <>
+                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
+                            <Range name={filter.key} startValue={0} endValue={500000} suffix={'€'} />
+                          </>
+                        </FilterTabPanel>
+                      );
+                    } else if (filter.type === 'checkbox' && filter.options && filter.size) {
+                      return (
+                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
+                          <>
+                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
+                            <CheckboxGroupField
+                              options={filter.options}
+                              name={filter.key}
+                              orientation="horizontal"
+                              xs={filter.size}
+                            />
+                          </>
+                        </FilterTabPanel>
+                      );
+                    }
 
-              return null;
-            })}
-          </Grid>
-        </Box>
-      </Grid>
+                    return null;
+                  })}
+                </Box>
+              </Grid>
+              <Grid container justify="flex-end">
+                <DialogActions>
+                  <CancelButton variant="outlined" size="large" onClick={onClose}>
+                    {formatMessage({ id: 'common.cancel' })}
+                  </CancelButton>
+                  <SubmitButton
+                    type="submit"
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    onClick={handleSubmit}
+                    isLoading={submitting}
+                    disabled={!valid}
+                  >
+                    Filter list
+                  </SubmitButton>
+                </DialogActions>
+              </Grid>
+            </Grid>
+          </form>
+        )}
+      </Form>
     </Modal>
   );
 };

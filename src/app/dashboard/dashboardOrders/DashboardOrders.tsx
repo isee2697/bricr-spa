@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Tabs, Tab } from 'ui/atoms';
 import { Order } from 'ui/molecules';
 import { Orders } from 'ui/organisms';
+import { FiltersContainer } from 'ui/molecules/filters/FiltersContainer';
 
 import { DashboardOrdersProps } from './DashboardOrders.types';
 
 export const DashboardOrders = ({ orders, tabs, currentTab, onChangeTab }: DashboardOrdersProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const handleTabChange = (event: React.ChangeEvent<{}>, tabIndex: number) => {
     onChangeTab(tabIndex);
   };
@@ -15,7 +18,7 @@ export const DashboardOrders = ({ orders, tabs, currentTab, onChangeTab }: Dashb
     <Orders
       onAddClick={() => {}}
       onMoreClick={() => {}}
-      onManageClick={() => {}}
+      onManageClick={() => setModalOpen(true)}
       tabs={
         <Tabs value={currentTab} onChange={handleTabChange} indicatorColor="primary">
           {tabs.map(tab => (
@@ -38,6 +41,8 @@ export const DashboardOrders = ({ orders, tabs, currentTab, onChangeTab }: Dashb
           <div>{order.addressSecondLine}</div>
         </Order>
       ))}
+
+      <FiltersContainer onClose={() => setModalOpen(false)} isOpened={isModalOpen} />
     </Orders>
   );
 };
