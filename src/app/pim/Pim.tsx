@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { Pim as PimEntity } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
+import { Box, Grid, Card, CardHeader, CardContent, Alert, IconButton } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+import { FiltersContainer } from 'ui/molecules/filters/FiltersContainer';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';
@@ -29,6 +31,7 @@ export const Pim = ({
   sorting,
   pagination,
 }: PimProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -50,7 +53,24 @@ export const Pim = ({
             <PimHeader type={type} />
             <Grid item xs={12}>
               <Card>
-                <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
+                <CardHeader
+                  className="pim-list-header"
+                  title={formatMessage({ id: `pim.type.${type}` })}
+                  action={
+                    <Box display="flex">
+                      <Box mr={3}>
+                        <IconButton
+                          aria-label="manage"
+                          size="small"
+                          variant="roundedContained"
+                          onClick={() => setModalOpen(true)}
+                        >
+                          <ManageIcon color="inherit" />
+                        </IconButton>
+                      </Box>
+                    </Box>
+                  }
+                />
                 <CardContent className={classes.listContent}>
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
@@ -88,6 +108,7 @@ export const Pim = ({
             </Grid>
           </Grid>
         </Grid>
+        <FiltersContainer data={listData} onClose={() => setModalOpen(false)} isOpened={isModalOpen} />
       </Grid>
     </>
   );

@@ -25,6 +25,8 @@ const filters: FiltersTypes[] = [
     value: 0,
     type: 'range',
     size: sizeL,
+    from: 0,
+    to: 5000,
   },
   {
     key: 'filter.object_type',
@@ -51,7 +53,7 @@ const filters: FiltersTypes[] = [
   },
 ];
 
-export const Filters = ({ isOpened, onClose, onSubmit }: FilterProps) => {
+export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(filters[0].value);

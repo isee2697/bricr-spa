@@ -13,17 +13,21 @@ export type FiltersTypes = {
   type: string;
   size: boolean | 2 | 'auto' | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
   options?: CheckboxDataType[];
+  from?: number;
+  to?: number;
 };
 
 export type FilterProps = {
   isOpened: boolean;
   onClose: () => void;
   onSubmit: (body: AnyObject) => void;
+  data?: AnyObject;
 };
 
 export type FilterContainerProps = {
   isOpened: boolean;
   onClose: () => void;
+  data?: AnyObject;
 };
 
 export type FilterSidenavProps = {
