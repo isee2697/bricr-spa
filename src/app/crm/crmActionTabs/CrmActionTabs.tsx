@@ -15,7 +15,7 @@ export const CrmActionTabs = ({ status, onStatusChange, amounts }: CrmActionTabs
       amount: amounts && amounts.actionRequired,
       hasBadge: true,
       badgeColor: 'secondary',
-      label: formatMessage({ id: 'crm.status.action_required' }) + 'asdasdasd',
+      label: formatMessage({ id: 'crm.status.action_required' }),
     },
     {
       value: 'active',
