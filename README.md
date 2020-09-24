@@ -7,6 +7,15 @@
 - run application using `npm start`
 - Open [http://localhost:3000](http://localhost:3000) to view app in the browser
 
+## ENV file
+- everything you could need is in .env.dist
+- to connect to local backend:
+```
+REACT_APP_API_URL=http://localhost:1337/graphql
+REACT_APP_SECURITY_URL=http://localhost:50050/api
+REACT_APP_FILE_URL=http://localhost:1338/dev
+```
+
 ## Quick info about project
 - was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 - uses NPM Package Manager

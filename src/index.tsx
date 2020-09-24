@@ -2,11 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
 import { setDefaultOptions } from 'esri-loader';
+import { initializePhraseAppEditor } from 'react-intl-phraseapp';
 
 import { AppProviders } from 'providers/AppProviders';
 
 import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
+
+initializePhraseAppEditor({
+  projectId: process.env.REACT_APP_PHRASE_PROJECT,
+  phraseEnabled:
+    process.env.REACT_APP_PHRASE_ENABLED &&
+    !!process.env.REACT_APP_PHRASE_PROJECT &&
+    process.env.REACT_APP_API_URL !== '/mock',
+  prefix: '[[__',
+  suffix: '__]]',
+});
 
 // configure esri-loader to lazy load the CSS
 // the fisrt time any react-arcgis components are rendered
