@@ -16,4 +16,12 @@ export const useStyles = makeStyles(theme => ({
   noPadding: {
     padding: 0,
   },
+  badge: {
+    right: -theme.spacing(1),
+
+    '&.default': {
+      color: theme.palette.gray.main,
+      background: theme.palette.gray.light,
+    },
+  },
 }));

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GetTaskDocument, Task, useGetMyTeamMembersQuery, useGetTaskQuery, useUpdateTaskMutation } from 'api/types';
-import { Loader, NavBreadcrumb } from 'ui/atoms';
+import { Alert, Loader, NavBreadcrumb, Snackbar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
@@ -13,6 +13,7 @@ import { TaskLabelIcon } from './taskLabelIcon/TaskLabelIcon';
 
 export const TaskDetailsContainer = () => {
   const { user } = useAuthState();
+  const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
   const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery();
   const classes = useStyles();
 
@@ -40,7 +41,7 @@ export const TaskDetailsContainer = () => {
     </>
   );
 
-  const [updateTask, { loading: updateTaskLoading }] = useUpdateTaskMutation();
+  const [updateTask] = useUpdateTaskMutation();
 
   const handleUpdateTask = async (taskId: string, task: Pick<Task, 'status'>) => {
     const { data: result, errors } = await updateTask({
@@ -61,31 +62,36 @@ export const TaskDetailsContainer = () => {
     });
 
     if (!result || !result.updateTask || errors) {
-      throw new Error();
+      setIndicatorState('error');
+    } else {
+      setIndicatorState('success');
     }
   };
 
-  if (
-    loading ||
-    updateTaskLoading ||
-    !user ||
-    loadingTeam ||
-    !teamData ||
-    !teamData.members ||
-    !taskData ||
-    !taskData.getTask
-  ) {
+  if (loading || !user || loadingTeam || !teamData || !teamData.members || !taskData || !taskData.getTask) {
     return <Loader />;
   }
 
   return (
-    <TaskDetails
-      error={error}
-      taskData={taskData.getTask}
-      breadcrumbs={breadcrumbs}
-      onUpdateTask={handleUpdateTask}
-      user={user}
-      members={teamData.members.items || []}
-    />
+    <>
+      <TaskDetails
+        error={error}
+        taskData={taskData.getTask}
+        breadcrumbs={breadcrumbs}
+        onUpdateTask={handleUpdateTask}
+        user={user}
+        members={teamData.members.items || []}
+      />
+      <Snackbar
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        open={!!indicatorState}
+        autoHideDuration={6000}
+        onClose={() => setIndicatorState(undefined)}
+      >
+        <Alert variant="filled" severity={indicatorState}>
+          {formatMessage({ id: 'common.autosaving' })}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
