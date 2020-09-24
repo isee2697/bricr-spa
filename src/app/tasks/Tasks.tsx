@@ -8,8 +8,8 @@ import { TasksProps, TeamMemberItem } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
-import { TasksBody } from './tasksBody/TasksBody';
 import { CreateNewTaskModalContainer } from './createNewTaskModal/CreateNewTaskModalContainer';
+import { TasksBodyContainer } from './tasksBody/TasksBodyContainer';
 
 export const Tasks = ({ error, members = [], user }: TasksProps) => {
   const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([user]);
@@ -34,7 +34,7 @@ export const Tasks = ({ error, members = [], user }: TasksProps) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TasksBody selectedMembers={selectedMembers} />
+          <TasksBodyContainer selectedMembers={selectedMembers} />
         </Grid>
       </Grid>
       <CreateNewTaskModalContainer members={teamMembers} />

@@ -41,6 +41,13 @@ export const useStyles = makeStyles(theme => ({
   textAlignRight: {
     textAlign: 'right',
   },
+  count: {
+    display: 'inline-block',
+    minWidth: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.gray.main,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
   noPadding: {
     padding: 0,
   },
