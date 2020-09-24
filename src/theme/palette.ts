@@ -1,4 +1,4 @@
-import { PaletteOptions as DefaultPalette, SimplePaletteColorOptions } from '@material-ui/core/styles/createPalette';
+import { PaletteOptions } from '@material-ui/core/styles/createPalette';
 
 const primary = '#0A57E9';
 const primaryLight = '#e2ecfd';
@@ -10,7 +10,6 @@ const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
 const grayLight = '#F3F5FA';
-const grayLighter = '#EDEDED';
 const red = '#EB5F60';
 const redLight = '#F9ECED';
 const orange = '#FFAD21';
@@ -27,10 +26,6 @@ const purpleLight = '#F2EEFC';
 const gradientPrimary = 'linear-gradient(354.85deg, #0A57E9 0%, #9FC0FF 100%)';
 const gradientBlue = 'linear-gradient(339deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientLightBlue = 'linear-gradient(354deg, #0a57e91a 0%, #9fc0ff1a 100%)';
-
-export type PaletteOptions = DefaultPalette & {
-  softGray: SimplePaletteColorOptions;
-};
 
 export const palette: PaletteOptions = {
   primary: {
@@ -49,11 +44,6 @@ export const palette: PaletteOptions = {
     light: whiteLight,
   },
   gray: {
-    main: gray,
-    light: grayLight,
-    lighter: grayLighter,
-  },
-  softGray: {
     main: gray,
     light: grayLight,
   },
