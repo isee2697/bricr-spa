@@ -37,8 +37,8 @@ import {
   NewConstructionIcon,
   SearchIcon,
 } from 'ui/atoms/icons';
+import { FilePermission } from 'api/types';
 import { Timeline } from '../crmRelationsDetailsDashboard/crmRelationsDetailsDashboardBoards/crmRelationsDetailsDashboardBoardsTimeline/CrmRelationsDetailsDashboardBoardsTimeline.types';
-import { FilePermission } from '../../../api/types';
 
 import { CrmRelationsDetailsTimelineProps } from './CrmRelationsDetailsTimeline.types';
 import { useStyles } from './CrmRelationsDetailsTimeline.styles';
