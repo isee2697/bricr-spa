@@ -9,6 +9,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { timeValidator } from '../../validators/timeValidator/timeValidator';
 
 import { TimePickerFieldProps } from './TimePickerField.types';
+import { useStyles } from './TimePickerField.styles';
 
 export const TimePickerField = ({
   name,
@@ -20,6 +21,7 @@ export const TimePickerField = ({
   ...props
 }: TimePickerFieldProps) => {
   const { formatMessage } = useLocale();
+  const classes = useStyles();
 
   const { input, meta } = useField<string | null>(name, {
     validate: validate ? validatorsChain(...validate, timeValidator) : timeValidator,
@@ -33,6 +35,7 @@ export const TimePickerField = ({
 
   return (
     <KeyboardTimePicker
+      className={classes.timePicker}
       disableToolbar
       variant="dialog"
       margin="normal"
@@ -53,18 +56,7 @@ export const TimePickerField = ({
       KeyboardButtonProps={{
         'aria-label': formatMessage({ id: 'time_picker.aria_label' }),
       }}
-      ToolbarComponent={({ date = DateTime.local(), setOpenView, onChange, openView, ...props }) => {
-        const dateObject = date || DateTime.local();
-
-        const hour = dateObject.hour;
-        const minute = dateObject.minute;
-
-        return (
-          <>
-            {hour}:{minute}
-          </>
-        );
-      }}
+      DialogProps={{ className: classes.timePicker }}
       {...input}
       {...props}
       value={input.value ? DateTime.fromISO(input.value) : null}
