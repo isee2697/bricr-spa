@@ -26,4 +26,5 @@ export type CreateNewTaskBody = {
   priority: TaskPriority;
   startDate: DateTime;
   deadline: DateTime;
+  deadlineTime: DateTime;
 };

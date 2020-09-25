@@ -4,11 +4,15 @@ export const GET_TASK = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {
       id
+      taskIndex
       title
       assignee
       startDate
       deadline
       priority
+      label
+      status
+      description
     }
   }
 `;
@@ -28,6 +32,7 @@ export const GET_TASKS = gql`
     ) {
       items {
         id
+        taskIndex
         title
         assignee
         startDate
@@ -35,7 +40,30 @@ export const GET_TASKS = gql`
         priority
         label
         status
+        description
       }
+    }
+  }
+`;
+
+export const GET_TASKS_FULL_SUMMARY = gql`
+  query GetTasksFullSummary($assignees: [ID!]) {
+    getTasksFullSummary(filters: { assignees: $assignees }) {
+      today
+      nextWeek
+      future
+      overdue
+    }
+  }
+`;
+
+export const GET_TASKS_SUMMARY_BY_STATUS = gql`
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+      todo
+      inProgress
+      blocked
+      done
     }
   }
 `;

@@ -869,6 +869,8 @@ export type Query = {
   getPropertyTypes: Array<Scalars['String']>;
   getTask?: Maybe<Task>;
   getTasks?: Maybe<TaskSearchResult>;
+  getTasksFullSummary?: Maybe<TaskFullSummaryResult>;
+  getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getUndoId: Scalars['ID'];
@@ -1032,6 +1034,14 @@ export type QueryGetTaskArgs = {
 export type QueryGetTasksArgs = {
   filters?: Maybe<TaskFilters>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryGetTasksFullSummaryArgs = {
+  filters?: Maybe<TaskFullSummaryFilters>;
+};
+
+export type QueryGetTasksSummaryByStatusArgs = {
+  filters?: Maybe<TaskSummaryByStatusFilters>;
 };
 
 export type QueryGetTeamDetailsArgs = {
@@ -6468,6 +6478,7 @@ export enum TaskStatus {
 export type Task = {
   __typename?: 'Task';
   id: Scalars['ID'];
+  taskIndex: Scalars['Int'];
   title: Scalars['String'];
   assignee: Scalars['ID'];
   startDate: Scalars['Date'];
@@ -6475,6 +6486,23 @@ export type Task = {
   priority: TaskPriority;
   label: TaskLabel;
   status: TaskStatus;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type TaskFullSummaryResult = {
+  __typename?: 'TaskFullSummaryResult';
+  today: Scalars['Int'];
+  nextWeek: Scalars['Int'];
+  future: Scalars['Int'];
+  overdue: Scalars['Int'];
+};
+
+export type TaskSummaryByStatusResult = {
+  __typename?: 'TaskSummaryByStatusResult';
+  todo: Scalars['Int'];
+  inProgress: Scalars['Int'];
+  blocked: Scalars['Int'];
+  done: Scalars['Int'];
 };
 
 export type TaskSearchResult = {
@@ -6501,6 +6529,7 @@ export type UpdateTaskInput = {
   priority?: Maybe<TaskPriority>;
   label?: Maybe<TaskLabel>;
   status?: Maybe<TaskStatus>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -6509,6 +6538,17 @@ export type DateRange = {
 };
 
 export type TaskFilters = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  startDate?: Maybe<DateRange>;
+  deadline?: Maybe<DateRange>;
+};
+
+export type TaskFullSummaryFilters = {
+  assignees?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type TaskSummaryByStatusFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
   startDate?: Maybe<DateRange>;
@@ -10049,7 +10089,19 @@ export type GetTaskQueryVariables = {
 
 export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
-    { __typename?: 'Task' } & Pick<Task, 'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority'>
+    { __typename?: 'Task' } & Pick<
+      Task,
+      | 'id'
+      | 'taskIndex'
+      | 'title'
+      | 'assignee'
+      | 'startDate'
+      | 'deadline'
+      | 'priority'
+      | 'label'
+      | 'status'
+      | 'description'
+    >
   >;
 };
 
@@ -10069,11 +10121,46 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Task' } & Pick<
             Task,
-            'id' | 'title' | 'assignee' | 'startDate' | 'deadline' | 'priority' | 'label' | 'status'
+            | 'id'
+            | 'taskIndex'
+            | 'title'
+            | 'assignee'
+            | 'startDate'
+            | 'deadline'
+            | 'priority'
+            | 'label'
+            | 'status'
+            | 'description'
           >
         >
       >;
     }
+  >;
+};
+
+export type GetTasksFullSummaryQueryVariables = {
+  assignees?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
+  getTasksFullSummary?: Maybe<
+    { __typename?: 'TaskFullSummaryResult' } & Pick<TaskFullSummaryResult, 'today' | 'nextWeek' | 'future' | 'overdue'>
+  >;
+};
+
+export type GetTasksSummaryByStatusQueryVariables = {
+  search?: Maybe<Scalars['String']>;
+  assignees?: Maybe<Array<Scalars['ID']>>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
+  getTasksSummaryByStatus?: Maybe<
+    { __typename?: 'TaskSummaryByStatusResult' } & Pick<
+      TaskSummaryByStatusResult,
+      'todo' | 'inProgress' | 'blocked' | 'done'
+    >
   >;
 };
 
@@ -16732,11 +16819,15 @@ export const GetTaskDocument = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {
       id
+      taskIndex
       title
       assignee
       startDate
       deadline
       priority
+      label
+      status
+      description
     }
   }
 `;
@@ -16766,6 +16857,7 @@ export const GetTasksDocument = gql`
     ) {
       items {
         id
+        taskIndex
         title
         assignee
         startDate
@@ -16773,6 +16865,7 @@ export const GetTasksDocument = gql`
         priority
         label
         status
+        description
       }
     }
   }
@@ -16790,6 +16883,73 @@ export function useGetTasksLazyQuery(
 export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
 export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
 export type GetTasksQueryResult = ApolloReactCommon.QueryResult<GetTasksQuery, GetTasksQueryVariables>;
+export const GetTasksFullSummaryDocument = gql`
+  query GetTasksFullSummary($assignees: [ID!]) {
+    getTasksFullSummary(filters: { assignees: $assignees }) {
+      today
+      nextWeek
+      future
+      overdue
+    }
+  }
+`;
+export function useGetTasksFullSummaryQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksFullSummaryQuery, GetTasksFullSummaryQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTasksFullSummaryQuery, GetTasksFullSummaryQueryVariables>(
+    GetTasksFullSummaryDocument,
+    baseOptions,
+  );
+}
+export function useGetTasksFullSummaryLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTasksFullSummaryQuery, GetTasksFullSummaryQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTasksFullSummaryQuery, GetTasksFullSummaryQueryVariables>(
+    GetTasksFullSummaryDocument,
+    baseOptions,
+  );
+}
+export type GetTasksFullSummaryQueryHookResult = ReturnType<typeof useGetTasksFullSummaryQuery>;
+export type GetTasksFullSummaryLazyQueryHookResult = ReturnType<typeof useGetTasksFullSummaryLazyQuery>;
+export type GetTasksFullSummaryQueryResult = ApolloReactCommon.QueryResult<
+  GetTasksFullSummaryQuery,
+  GetTasksFullSummaryQueryVariables
+>;
+export const GetTasksSummaryByStatusDocument = gql`
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+      todo
+      inProgress
+      blocked
+      done
+    }
+  }
+`;
+export function useGetTasksSummaryByStatusQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTasksSummaryByStatusQuery, GetTasksSummaryByStatusQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTasksSummaryByStatusQuery, GetTasksSummaryByStatusQueryVariables>(
+    GetTasksSummaryByStatusDocument,
+    baseOptions,
+  );
+}
+export function useGetTasksSummaryByStatusLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetTasksSummaryByStatusQuery,
+    GetTasksSummaryByStatusQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTasksSummaryByStatusQuery, GetTasksSummaryByStatusQueryVariables>(
+    GetTasksSummaryByStatusDocument,
+    baseOptions,
+  );
+}
+export type GetTasksSummaryByStatusQueryHookResult = ReturnType<typeof useGetTasksSummaryByStatusQuery>;
+export type GetTasksSummaryByStatusLazyQueryHookResult = ReturnType<typeof useGetTasksSummaryByStatusLazyQuery>;
+export type GetTasksSummaryByStatusQueryResult = ApolloReactCommon.QueryResult<
+  GetTasksSummaryByStatusQuery,
+  GetTasksSummaryByStatusQueryVariables
+>;
 export const GetTeamsDocument = gql`
   query GetTeams($from: Int, $limit: Int, $search: String) {
     getTeams(pagination: { from: $from, limit: $limit }, search: $search) {

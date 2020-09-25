@@ -25,7 +25,7 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.fontWeightMedium,
-      padding: '8px 36px 8px 8px',
+      padding: `${theme.spacing(1)} ${theme.spacing(4.5)} ${theme.spacing(1)} ${theme.spacing(1)}`,
     },
   },
   noBorder: {
