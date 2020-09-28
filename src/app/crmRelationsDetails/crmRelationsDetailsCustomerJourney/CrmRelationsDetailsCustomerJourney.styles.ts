@@ -14,7 +14,7 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   activeTabIndicator: {
-    background: 'linear-gradient(315deg, #0ABE67 0%, #00E174 100%)',
+    background: theme.palette.gradientGreen.main,
   },
   badge: {
     '& .MuiBadge-badge': {
@@ -53,7 +53,7 @@ export const useStyles = makeStyles(theme => ({
     background: `${theme.palette.primary.main}08`,
   },
   rowItem: {
-    padding: `22px 16px 22px 0`,
+    padding: `${theme.spacing(2.75)}px ${theme.spacing(2)}px ${theme.spacing(2.75)}px 0`,
     width: '100%',
   },
   itemButton: {

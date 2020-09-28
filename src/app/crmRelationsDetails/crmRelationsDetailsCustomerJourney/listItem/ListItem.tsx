@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'classnames';
 
 import { Avatar, Box, Emoji, IconButton, ProgressFilling, Typography } from 'ui/atoms';
-import { MenuIcon } from '../../../../ui/atoms/icons';
-import { useLocale } from '../../../../hooks';
+import { MenuIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmRelationsDetailsCustomerJourneyTab } from '../CrmRelationsDetailsCustomerJourney.types';
 
 import { useStyles } from './ListItem.styles';

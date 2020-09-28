@@ -15,7 +15,7 @@ export const useStyles = makeStyles(theme => ({
   },
   avatarWithName: {
     display: 'inline-block',
-    background: 'linear-gradient(315deg, rgba(10, 87, 233, 0.1) 0%, rgba(159, 192, 255, 0.1) 100%)',
+    background: theme.palette.gradientBlue.light,
     borderRadius: theme.spacing(0.5),
     paddingRight: theme.spacing(0.5),
   },

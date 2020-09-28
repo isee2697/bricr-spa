@@ -17,9 +17,9 @@ import {
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { AddIcon, CardsIcon, HelpIcon, LocationIcon, ManageIcon, MenuIcon, SearchIcon } from '../../../ui/atoms/icons';
-import { joinUrlParams } from '../../../routing/AppRoute.utils';
-import { useEntityType } from '../../shared/entityType';
+import { AddIcon, CardsIcon, HelpIcon, LocationIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
+import { joinUrlParams } from 'routing/AppRoute.utils';
+import { useEntityType } from 'app/shared/entityType';
 
 import {
   CrmRelationsDetailsCustomerJourneyProps,

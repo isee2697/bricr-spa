@@ -82,7 +82,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     height: theme.spacing(4),
     borderRadius: theme.spacing(1),
-    background: 'linear-gradient(315deg, rgba(10, 87, 233, 0.1) 0%, rgba(159, 192, 255, 0.1) 100%)',
+    background: theme.palette.gradientBlue.light,
     overflow: 'hidden',
   },
   sentToItemAvatar: {
