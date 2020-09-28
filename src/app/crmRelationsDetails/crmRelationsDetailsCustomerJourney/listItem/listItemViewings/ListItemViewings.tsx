@@ -1,13 +1,8 @@
 import React from 'react';
 import clsx from 'classnames';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Box, Button, Typography, UserAvatar } from 'ui/atoms';
+import { Box, Button, Typography, UserAvatar, Table, TableHead, TableRow, TableCell, TableBody } from 'ui/atoms';
 
 import { ListItemViewingsProps } from './ListItemViewings.types';
 import { useStyles } from './ListItemViewings.styles';

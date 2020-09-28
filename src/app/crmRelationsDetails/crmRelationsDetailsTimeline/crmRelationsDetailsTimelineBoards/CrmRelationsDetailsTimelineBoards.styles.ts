@@ -2,9 +2,9 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export const useStyles = makeStyles(theme => ({
   checkIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    borderRadius: theme.spacing(1.5),
     color: theme.palette.white.main,
     background: theme.palette.green.main,
 
@@ -13,9 +13,9 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   closeIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    borderRadius: theme.spacing(1.5),
     color: theme.palette.white.main,
     background: theme.palette.red.main,
 
@@ -38,7 +38,7 @@ export const useStyles = makeStyles(theme => ({
   },
   stepLabelContainer: {
     top: theme.spacing(0.5),
-    left: 40,
+    left: theme.spacing(5),
   },
   stepContent: {
     marginTop: -theme.spacing(3),
