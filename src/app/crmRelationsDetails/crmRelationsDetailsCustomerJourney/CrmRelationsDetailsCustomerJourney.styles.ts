@@ -16,6 +16,18 @@ export const useStyles = makeStyles(theme => ({
   activeTabIndicator: {
     background: 'linear-gradient(315deg, #0ABE67 0%, #00E174 100%)',
   },
+  badge: {
+    '& .MuiBadge-badge': {
+      right: -theme.spacing(1.25),
+      minWidth: theme.spacing(1),
+      padding: theme.spacing(0.25, 0.5, 0, 0.5),
+      height: theme.spacing(2),
+      textAlign: 'center',
+      borderRadius: theme.spacing(1),
+      background: theme.palette.green.main,
+      color: theme.palette.white.main,
+    },
+  },
   noMargin: {
     paddingRight: 0,
     paddingLeft: 0,
@@ -43,5 +55,8 @@ export const useStyles = makeStyles(theme => ({
   rowItem: {
     padding: `22px 16px 22px 0`,
     width: '100%',
+  },
+  itemButton: {
+    cursor: 'pointer',
   },
 }));

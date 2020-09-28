@@ -14,8 +14,16 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     fontWeight: theme.typography.fontWeightBold,
   },
+  inlineBlock: {
+    display: 'inline-block',
+  },
   label: {
     marginBottom: theme.spacing(0.5),
+  },
+  avatarWithName: {
+    background: 'linear-gradient(315deg, rgba(10, 87, 233, 0.1) 0%, rgba(159, 192, 255, 0.1) 100%)',
+    borderRadius: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
   },
   avatarIcon: {
     marginRight: theme.spacing(0.5),

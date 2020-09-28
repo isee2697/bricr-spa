@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Box, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb, Tab, Tabs, Typography } from 'ui/atoms';
+import {
+  Badge,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  NavBreadcrumb,
+  Tab,
+  Tabs,
+  Typography,
+} from 'ui/atoms';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
 import { AddIcon, CardsIcon, HelpIcon, LocationIcon, ManageIcon, MenuIcon, SearchIcon } from '../../../ui/atoms/icons';
@@ -13,20 +26,30 @@ import {
   CrmRelationsDetailsCustomerJourneyTab,
 } from './CrmRelationsDetailsCustomerJourney.types';
 import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
+import { ListItem } from './listItem/ListItem';
 
-export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsCustomerJourneyProps) => {
+export const CrmRelationsDetailsCustomerJourney = ({
+  crm: { name },
+  items,
+  status,
+  onStatusChange,
+}: CrmRelationsDetailsCustomerJourneyProps) => {
   const customerJourneyTabs = [
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Matches,
+      hasBadge: true,
     },
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Interests,
+      hasBadge: true,
     },
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Viewings,
+      hasBadge: true,
     },
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Biddings,
+      hasBadge: true,
     },
     {
       key: CrmRelationsDetailsCustomerJourneyTab.Candidate,
@@ -36,15 +59,13 @@ export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsC
     },
   ];
 
-  const [customerJourneyTab, setCustomerJourneyTab] = useState<CrmRelationsDetailsCustomerJourneyTab>(
-    CrmRelationsDetailsCustomerJourneyTab.Matches,
-  );
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
-
-  const { name } = crm;
+  const isShowListHeader =
+    status === CrmRelationsDetailsCustomerJourneyTab.Matches ||
+    status === CrmRelationsDetailsCustomerJourneyTab.Interests;
 
   return (
     <>
@@ -95,8 +116,8 @@ export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsC
             <Box>
               <Tabs
                 className={classes.tabs}
-                value={customerJourneyTab}
-                onChange={(event, value) => setCustomerJourneyTab(value)}
+                value={status}
+                onChange={(event, value) => onStatusChange(value)}
                 indicatorColor="primary"
                 textColor="inherit"
                 variant="fullWidth"
@@ -106,11 +127,40 @@ export const CrmRelationsDetailsCustomerJourney = ({ crm }: CrmRelationsDetailsC
                   <Tab
                     key={tab.key}
                     value={tab.key}
-                    label={formatMessage({ id: `crm.details.customer_journey.${tab.key}` })}
+                    label={
+                      tab.hasBadge ? (
+                        <Badge className={classes.badge} badgeContent={4}>
+                          {formatMessage({ id: `crm.details.customer_journey.${tab.key}` })}
+                        </Badge>
+                      ) : (
+                        <>{formatMessage({ id: `crm.details.customer_journey.${tab.key}` })}</>
+                      )
+                    }
                   />
                 ))}
               </Tabs>
-              <Box>{customerJourneyTab === CrmRelationsDetailsCustomerJourneyTab.Matches && <>Matches</>}</Box>
+              <List
+                items={items.map((item, index) => ({ ...item, index }))}
+                itemIndex={'id'}
+                loadingItem={<PropertyItemPlaceholder />}
+                isShowHeader={isShowListHeader}
+                emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
+                emptyDescription={formatMessage(
+                  { id: 'crm.list.empty_description' },
+                  { buttonName: formatMessage({ id: 'crm.details.customer_journey.add' }) },
+                )}
+                renderItem={(item, checked, checkbox) => (
+                  <ListItem
+                    key={item.id}
+                    isShowListHeader={isShowListHeader}
+                    isShowNumber={!isShowListHeader}
+                    status={status}
+                    item={item}
+                    checkbox={checkbox}
+                    checked={checked}
+                  />
+                )}
+              />
             </Box>
           </CardContent>
         </Card>
