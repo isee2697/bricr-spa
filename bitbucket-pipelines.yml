@@ -93,9 +93,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - echo PHRASE_ACCESS_TOKEN= $PHRASE_ACCES_TOKEN >> .env.develop
-            - cat .env.develop
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
+            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID --build-arg PHRASE_ACCES_TOKEN=$PHRASE_ACCES_TOKEN -f devops/docker/Dockerfile.dev .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
