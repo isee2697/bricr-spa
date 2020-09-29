@@ -2461,7 +2461,17 @@
   "crm.details.customer_journey.actions.accept": "Accept",
   "crm.details.customer_journey.actions.counter_or_reject_offer": "Counter or reject offer",
   "crm.details.customer_journey.actions.accept_offer": "Accept Offer",
+  "crm.details.customer_journey.actions.reject_candidate": "Reject candidate",
+  "crm.details.customer_journey.actions.accept_candidate": "Accept candidate",
+  "crm.details.customer_journey.actions.reject_optant": "Reject optant",
+  "crm.details.customer_journey.actions.accept_optant": "Accept optant",
   "crm.details.customer_journey.condition.take_over_list_of_cases": "Take over list of cases",
   "crm.details.customer_journey.condition.technical_building_inspection": "Technical building inspection",
-  "crm.details.customer_journey.condition.reservation_of_funding": "Reservation of funding"
+  "crm.details.customer_journey.condition.reservation_of_funding": "Reservation of funding",
+  "crm.details.customer_journey.document.sales_contract": "Take over list of cases",
+  "crm.details.customer_journey.document.driver_license": "Driver's license",
+  "crm.details.customer_journey.document.employment_confirmation": "Employment confirmation",
+  "crm.details.customer_journey.final_price": "Final price",
+  "crm.details.customer_journey.required_documents": "Required documents",
+  "crm.details.customer_journey.dossier_completion": "Dossier completion"
 }

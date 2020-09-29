@@ -10,17 +10,16 @@ export const useStyles = makeStyles(theme => ({
   tableCellNoBorderBottom: {
     borderBottom: 'none',
   },
-  offerDiff: {
-    fontSize: theme.typography.h6.fontSize,
-  },
-  tableCellStatus: {
-    '&.error': {
-      color: theme.palette.error.main,
-    },
-  },
   conditionUnavailable: {
     color: theme.palette.gray.main,
     textDecoration: 'line-through',
+  },
+  documentsUnavailable: {
+    color: theme.palette.gray.main,
+    textDecoration: 'line-through',
+  },
+  dossierCompletePercentage: {
+    color: theme.palette.orange.main,
   },
   actions: {
     marginTop: theme.spacing(3),
@@ -37,14 +36,5 @@ export const useStyles = makeStyles(theme => ({
   },
   gray: {
     color: theme.palette.gray.main,
-  },
-  red: {
-    color: theme.palette.red.main,
-  },
-  green: {
-    color: theme.palette.green.main,
-  },
-  primary: {
-    color: theme.palette.primary.main,
   },
 }));

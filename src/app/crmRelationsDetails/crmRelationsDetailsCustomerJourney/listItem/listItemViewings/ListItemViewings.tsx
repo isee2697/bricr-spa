@@ -33,11 +33,23 @@ export const ListItemViewings = ({ brokerages }: ListItemViewingsProps) => {
         <TableBody>
           {brokerages.map((brokerage, index) => (
             <TableRow key={index}>
-              <TableCell className={classes.tableCellDate}>
+              <TableCell
+                className={clsx(
+                  classes.tableCellDate,
+                  index === brokerages.length - 1 && classes.tableCellNoBorderBottom,
+                )}
+              >
                 {brokerage.dateCreated.toFormat('dd-MM-yyyy HH:mm')}
               </TableCell>
-              <TableCell className={classes.tableCellLocation}>{brokerage.location}</TableCell>
-              <TableCell>
+              <TableCell
+                className={clsx(
+                  classes.tableCellLocation,
+                  index === brokerages.length - 1 && classes.tableCellNoBorderBottom,
+                )}
+              >
+                {brokerage.location}
+              </TableCell>
+              <TableCell className={clsx(index === brokerages.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Box className={classes.avatarWithName}>
                   <UserAvatar
                     name={brokerage.broker.username}
@@ -47,7 +59,7 @@ export const ListItemViewings = ({ brokerages }: ListItemViewingsProps) => {
                   {brokerage.broker?.username}
                 </Box>
               </TableCell>
-              <TableCell>
+              <TableCell className={clsx(index === brokerages.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Typography className={clsx(classes.tableCellStatus, brokerage.status !== 'approved' && 'error')}>
                   {formatMessage({ id: `crm.details.customer_journey.status.${brokerage.status}` })}
                 </Typography>

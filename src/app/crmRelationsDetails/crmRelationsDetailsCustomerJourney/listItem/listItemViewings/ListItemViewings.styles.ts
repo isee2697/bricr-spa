@@ -7,6 +7,9 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium,
     borderBottom: 'none',
   },
+  tableCellNoBorderBottom: {
+    borderBottom: 'none',
+  },
   tableCellDate: {
     fontSize: theme.typography.h4.fontSize,
   },

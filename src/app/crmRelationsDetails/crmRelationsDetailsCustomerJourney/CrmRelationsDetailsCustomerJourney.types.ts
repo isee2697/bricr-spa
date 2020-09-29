@@ -73,6 +73,8 @@ export type CrmRelationsDetailsCustomerJourneyCounter = {
 
 export type CrmRelationsDetailsCustomerJourneyCandidate = {
   id: string;
+  finalPrice: number;
+  finalPriceDate: DateTime;
   conditions: {
     takeOverListOfCases: boolean;
     technicalBuildingInspection: boolean;
