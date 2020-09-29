@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
+import { AnyObject } from 'final-form';
 
 import { Pim as PimEntity } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Alert, IconButton } from 'ui/atoms';
+import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
-import { FiltersContainer } from 'ui/molecules/filters/FiltersContainer';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';
@@ -30,11 +31,21 @@ export const Pim = ({
   listData,
   sorting,
   pagination,
+  onFilter,
+  activeFilters,
 }: PimProps) => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState<AnyObject>({});
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
+
+  const handleActiveFilters = (filters: AnyObject) => {
+    setSelectedFilters(filters);
+
+    if (onFilter) {
+      onFilter(filters);
+    }
+  };
 
   return (
     <>
@@ -59,14 +70,7 @@ export const Pim = ({
                   action={
                     <Box display="flex">
                       <Box mr={3}>
-                        <IconButton
-                          aria-label="manage"
-                          size="small"
-                          variant="roundedContained"
-                          onClick={() => setModalOpen(true)}
-                        >
-                          <ManageIcon color="inherit" />
-                        </IconButton>
+                        <FiltersButton data={activeFilters} getActiveFilters={handleActiveFilters} />
                       </Box>
                     </Box>
                   }
@@ -75,6 +79,7 @@ export const Pim = ({
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   </Box>
+                  <ActiveFilters activeFilters={selectedFilters} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}
@@ -108,7 +113,6 @@ export const Pim = ({
             </Grid>
           </Grid>
         </Grid>
-        <FiltersContainer data={listData} onClose={() => setModalOpen(false)} isOpened={isModalOpen} />
       </Grid>
     </>
   );

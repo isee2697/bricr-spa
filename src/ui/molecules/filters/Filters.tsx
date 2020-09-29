@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import { UserIcon, BuildingIcon } from 'ui/atoms/icons';
+import { PropertyType } from 'api/types';
+import { BuildingIcon } from 'ui/atoms/icons';
 import { Box, Grid, Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { Modal } from '../modal/Modal';
 import { CancelButton } from '../cancelButton/CancelButton.styles';
@@ -27,37 +28,51 @@ enum Types {
 }
 
 const filters: FiltersTypes[] = [
+  // {
+  //   key: 'filters.price_range',
+  //   value: 0,
+  //   type: Types.Range,
+  //   size: Sizes.L,
+  //   from: 0,
+  //   to: 5000,
+  // },
   {
-    key: 'filters.price_range',
-    value: 0,
-    type: Types.Range,
-    size: Sizes.L,
-    from: 0,
-    to: 5000,
-  },
-  {
-    key: 'filter.object_type',
+    key: 'filter.propertyTypes',
     value: 1,
     type: Types.Checkbox,
     size: Sizes.M,
     options: [
-      { label: 'Custom name of object type 1', value: '1', icon: <BuildingIcon /> },
-      { label: 'Custom name of object type 2', value: '2', icon: <BuildingIcon /> },
-      { label: 'Custom name of object type 3', value: '3', icon: <BuildingIcon /> },
-      { label: 'Custom name of object type 4', value: '4', icon: <BuildingIcon /> },
+      { label: PropertyType.Apartment, value: PropertyType.Apartment, icon: <BuildingIcon /> },
+      { label: PropertyType.House, value: PropertyType.House, icon: <BuildingIcon /> },
+      { label: PropertyType.Commercial, value: PropertyType.Commercial, icon: <BuildingIcon /> },
+      { label: PropertyType.Agricultural, value: PropertyType.Agricultural, icon: <BuildingIcon /> },
+      { label: PropertyType.ParkingLot, value: PropertyType.ParkingLot, icon: <BuildingIcon /> },
+      { label: PropertyType.BuildingPlot, value: PropertyType.BuildingPlot, icon: <BuildingIcon /> },
     ],
   },
-  {
-    key: 'filter.account_managers',
-    value: 2,
-    type: Types.Checkbox,
-    size: Sizes.L,
-    options: [
-      { label: 'Victor Martin Brochner', value: '1', icon: <UserIcon /> },
-      { label: 'Victor Martin Brochner', value: '2', icon: <UserIcon /> },
-      { label: 'Victor Martin Brochner', value: '3', icon: <UserIcon /> },
-    ],
-  },
+  // {
+  //   key: 'filter.object_type',
+  //   value: 1,
+  //   type: Types.Checkbox,
+  //   size: Sizes.M,
+  //   options: [
+  //     { label: 'Custom name of object type 1', value: '1', icon: <BuildingIcon /> },
+  //     { label: 'Custom name of object type 2', value: '2', icon: <BuildingIcon /> },
+  //     { label: 'Custom name of object type 3', value: '3', icon: <BuildingIcon /> },
+  //     { label: 'Custom name of object type 4', value: '4', icon: <BuildingIcon /> },
+  //   ],
+  // },
+  // {
+  //   key: 'filter.account_managers',
+  //   value: 2,
+  //   type: Types.Checkbox,
+  //   size: Sizes.L,
+  //   options: [
+  //     { label: 'Victor Martin Brochner', value: '1', icon: <UserIcon /> },
+  //     { label: 'Victor Martin Brochner', value: '2', icon: <UserIcon /> },
+  //     { label: 'Victor Martin Brochner', value: '3', icon: <UserIcon /> },
+  //   ],
+  // },
 ];
 
 export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
@@ -71,7 +86,7 @@ export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
 
   return (
     <Modal fullWidth title={formatMessage({ id: 'filter.title' })} isOpened={isOpened}>
-      <Form onSubmit={onSubmit} mutators={{ ...arrayMutators }}>
+      <Form onSubmit={onSubmit} initialValues={data} mutators={{ ...arrayMutators }}>
         {({ handleSubmit, submitErrors, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (

@@ -29,6 +29,12 @@ export type FilterContainerProps = {
   isOpened: boolean;
   onClose: () => void;
   data?: AnyObject;
+  getFilteredAmount?: (amount: number) => void;
+};
+
+export type FilterButtonProps = {
+  data?: AnyObject;
+  getActiveFilters?: (filters: AnyObject) => void;
 };
 
 export type FilterSidenavProps = {

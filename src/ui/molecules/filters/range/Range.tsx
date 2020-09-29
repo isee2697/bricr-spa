@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { GenericField } from 'form/fields';
 import { Grid, InputAdornment } from 'ui/atoms';
@@ -7,6 +7,8 @@ import { useLocale } from 'hooks';
 import { RangeProps } from './Range.types';
 
 export const Range = ({ name, startValue, endValue, suffix = '' }: RangeProps) => {
+  const [fromValue, setFromValue] = useState(startValue);
+  const [toValue, setToValue] = useState(endValue);
   const { formatMessage } = useLocale();
 
   return (
@@ -18,7 +20,8 @@ export const Range = ({ name, startValue, endValue, suffix = '' }: RangeProps) =
           placeholder={formatMessage({ id: `${name}.from.placeholder` })}
           size="medium"
           type="number"
-          defaultValue={startValue}
+          onChange={(e: ChangeEvent) => setFromValue(e.value)}
+          value={fromValue}
           InputProps={{
             endAdornment: <InputAdornment position="end">{suffix}</InputAdornment>,
           }}
@@ -30,7 +33,8 @@ export const Range = ({ name, startValue, endValue, suffix = '' }: RangeProps) =
           placeholder={formatMessage({ id: `${name}.to.placeholder` })}
           size="medium"
           type="number"
-          defaultValue={endValue}
+          value={toValue}
+          onChange={(e: ChangeEvent) => setToValue(e.value)}
           InputProps={{
             endAdornment: <InputAdornment position="end">{suffix}</InputAdornment>,
           }}

@@ -1,3 +1,5 @@
+import { AnyObject } from 'final-form';
+
 import { ListPimsQuery, PricingType } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
@@ -16,6 +18,8 @@ export type PimProps = {
   onPricingTypeChange: (type: PricingType | string) => void;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
+  onFilter?: (filters: AnyObject) => void;
+  activeFilters: AnyObject;
   isLoading: boolean;
   isError: boolean;
   amounts?: {
