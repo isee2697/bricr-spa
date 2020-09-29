@@ -45,3 +45,25 @@ export const GET_TASKS = gql`
     }
   }
 `;
+
+export const GET_TASKS_FULL_SUMMARY = gql`
+  query GetTasksFullSummary($assignees: [ID!]) {
+    getTasksFullSummary(filters: { assignees: $assignees }) {
+      today
+      nextWeek
+      future
+      overdue
+    }
+  }
+`;
+
+export const GET_TASKS_SUMMARY_BY_STATUS = gql`
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+      todo
+      inProgress
+      blocked
+      done
+    }
+  }
+`;

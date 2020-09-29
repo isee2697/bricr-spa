@@ -18,35 +18,37 @@ export const Dashboard = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.content}>
-      <DashboardHeader onFilterClick={() => {}}>
-        {formatMessage({ id: 'dashboard.welcome' })} {user?.firstName} 👋
-      </DashboardHeader>
+    <>
+      <div className={classes.content}>
+        <DashboardHeader onFilterClick={() => {}}>
+          {formatMessage({ id: 'dashboard.welcome' })} {user?.firstName} 👋
+        </DashboardHeader>
 
-      <DashboardStatsContainer />
+        <DashboardStatsContainer />
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <DashboardEmailsContainer />
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <DashboardEmailsContainer />
+              </Grid>
+              <Grid item xs={12}>
+                <DashboardOrdersContainer />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <DashboardOrdersContainer />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <DashboardAgendaContainer />
+              </Grid>
+              <Grid item xs={12}>
+                <DashboardVisitedPagesContainer />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <DashboardAgendaContainer />
-            </Grid>
-            <Grid item xs={12}>
-              <DashboardVisitedPagesContainer />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 };

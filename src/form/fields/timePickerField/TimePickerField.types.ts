@@ -1,10 +1,9 @@
 import { FieldValidator } from 'final-form';
 import { KeyboardTimePickerProps } from '@material-ui/pickers';
-import { DateTime } from 'luxon';
 
-type FieldValue = DateTime | null;
+type FieldValue = string | null;
 
-export type TimePickerFieldProps = KeyboardTimePickerProps & {
+export type TimePickerFieldProps = Omit<KeyboardTimePickerProps, 'value' | 'onChange'> & {
   name: string;
   validate?: FieldValidator<FieldValue>[];
   validateFields?: string[];
