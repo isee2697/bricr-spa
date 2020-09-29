@@ -21,9 +21,7 @@ export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
     }
   };
 
-  console.log({ activeFilters });
-
-  if (Object.values(activeFilters).length > 0) {
+  if (activeFilters && Object.values(activeFilters).length > 0) {
     for (const key in activeFilters) {
       let value = activeFilters[key];
 
