@@ -31,7 +31,7 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
     for (const key in result) {
       const value = result[key];
 
-      if (value.length > 0) {
+      if (typeof value === 'object') {
         updateFilterAmount(value);
       } else {
         filterAmount += 1;
