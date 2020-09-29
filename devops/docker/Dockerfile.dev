@@ -6,7 +6,7 @@ ARG PHRASE_PROJECT_ID
 
 WORKDIR /usr/src/app
 
-RUN echo "USING DEV FILE $DOCKER_PHRASE_PROJECT_ID"
+RUN echo "USING DEV FILE $PHRASE_PROJECT_ID"
 
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
 
