@@ -259,6 +259,8 @@ export const CRM_RELATIONS_CUSTOMER_JOURNEY_CANDIDATES: CrmRelationsDetailsCusto
     candidates: [
       {
         id: '00-0000',
+        finalPrice: 350000,
+        finalPriceDate: DateTime.fromISO('2020-05-17T15:26:40.317Z'),
         conditions: {
           takeOverListOfCases: true,
           technicalBuildingInspection: true,

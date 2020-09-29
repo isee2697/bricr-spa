@@ -34,7 +34,7 @@ export const ListItemBiddings = ({ counters }: ListItemBiddingsProps) => {
         <TableBody>
           {counters.map((counter, index) => (
             <TableRow key={index}>
-              <TableCell className={classes.currentOffer}>
+              <TableCell className={clsx(index === counters.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Typography variant="h4" className={classes.fontWeightMedium}>
                   € {counter.offer}
                 </Typography>
@@ -46,13 +46,14 @@ export const ListItemBiddings = ({ counters }: ListItemBiddingsProps) => {
                 className={clsx(
                   classes.offerDiff,
                   counter.offer - counter.counterOffer > 0 ? classes.red : classes.green,
+                  index === counters.length - 1 && classes.tableCellNoBorderBottom,
                 )}
               >
                 {counter.counterOffer - counter.offer > 0
                   ? `- € ${counter.counterOffer - counter.offer}`
                   : `+ € ${counter.offer - counter.counterOffer}`}
               </TableCell>
-              <TableCell>
+              <TableCell className={clsx(index === counters.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Typography variant="h4" className={clsx(classes.primary, classes.fontWeightMedium)}>
                   € {counter.counterOffer}
                 </Typography>
@@ -60,35 +61,27 @@ export const ListItemBiddings = ({ counters }: ListItemBiddingsProps) => {
                   {counter.counterOfferDate.toFormat('dd-MM-yyyy')}
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell className={clsx(index === counters.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Typography
                   variant="h6"
-                  className={
-                    counter.conditions.takeOverListOfCases ? classes.conditionAvailable : classes.conditionUnavailable
-                  }
+                  className={clsx(counter.conditions.takeOverListOfCases && classes.conditionUnavailable)}
                 >
                   {formatMessage({ id: 'crm.details.customer_journey.condition.take_over_list_of_cases' })}
                 </Typography>
                 <Typography
                   variant="h6"
-                  className={
-                    counter.conditions.technicalBuildingInspection
-                      ? classes.conditionAvailable
-                      : classes.conditionUnavailable
-                  }
+                  className={clsx(counter.conditions.technicalBuildingInspection && classes.conditionUnavailable)}
                 >
                   {formatMessage({ id: 'crm.details.customer_journey.condition.technical_building_inspection' })}
                 </Typography>
                 <Typography
                   variant="h6"
-                  className={
-                    counter.conditions.reservationOfFunding ? classes.conditionAvailable : classes.conditionUnavailable
-                  }
+                  className={clsx(counter.conditions.reservationOfFunding && classes.conditionUnavailable)}
                 >
                   {formatMessage({ id: 'crm.details.customer_journey.condition.reservation_of_funding' })}
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell className={clsx(index === counters.length - 1 && classes.tableCellNoBorderBottom)}>
                 <Typography className={clsx(classes.tableCellStatus, counter.status === 'counter' && 'error')}>
                   {formatMessage({ id: `crm.details.customer_journey.status.${counter.status}` })}
                 </Typography>

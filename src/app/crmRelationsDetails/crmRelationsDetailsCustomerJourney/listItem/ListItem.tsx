@@ -10,6 +10,8 @@ import { useStyles } from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
 import { ListItemViewings } from './listItemViewings/ListItemViewings';
 import { ListItemBiddings } from './listItemBiddings/ListItemBiddings';
+import { ListItemCandidates } from './listItemCandidates/ListItemCandidates';
+import { ListItemOptants } from './listItemOptants/ListItemOptants';
 
 export const ListItem = ({ isShowListHeader, isShowNumber, checked, checkbox, status, item }: ListItemProps) => {
   const classes = useStyles();
@@ -88,6 +90,12 @@ export const ListItem = ({ isShowListHeader, isShowNumber, checked, checkbox, st
               item.brokerages.length > 0 && <ListItemViewings brokerages={item.brokerages} />}
             {status === CrmRelationsDetailsCustomerJourneyTab.Biddings && item.counters && item.counters.length > 0 && (
               <ListItemBiddings counters={item.counters} />
+            )}
+            {status === CrmRelationsDetailsCustomerJourneyTab.Candidate &&
+              item.candidates &&
+              item.candidates.length > 0 && <ListItemCandidates candidates={item.candidates} />}
+            {status === CrmRelationsDetailsCustomerJourneyTab.Optant && item.optants && item.optants.length > 0 && (
+              <ListItemOptants optants={item.optants} />
             )}
           </Box>
         </Box>
