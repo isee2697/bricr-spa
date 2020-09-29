@@ -2,6 +2,8 @@
 ARG PHRASE_ACCES_TOKEN
 ARG PHRASE_PROJECT_ID
 
+RUN echo "USING PROD FILE $PHRASE_PROJECT_ID"
+
 FROM node:12.16.3-alpine3.11 AS build-deps
 WORKDIR /usr/src/app
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./

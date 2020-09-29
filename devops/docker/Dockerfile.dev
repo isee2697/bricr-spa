@@ -2,6 +2,7 @@
 ARG PHRASE_ACCES_TOKEN
 ARG PHRASE_PROJECT_ID
 
+RUN echo "USING DEV FILE $PHRASE_PROJECT_ID"
 FROM node:12.16.3-alpine3.11 AS build-deps
 WORKDIR /usr/src/app
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
@@ -12,7 +13,7 @@ COPY scripts ./scripts
 COPY plop-templates ./plop-templates
 
 RUN npm install
-RUN echo "Oh dang look at that $some_variable_name"
+RUN echo "Oh dang look at that $PHRASE_PROJECT_ID"
 RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCES_TOKEN --projectID=$PHRASE_PROJECT_ID
 
 COPY .env.develop .env
