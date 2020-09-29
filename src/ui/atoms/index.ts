@@ -24,6 +24,7 @@ export { default as FormControlLabel } from '@material-ui/core/FormControlLabel'
 export { default as Stepper } from '@material-ui/core/Stepper';
 export { default as Step } from '@material-ui/core/Step';
 export { default as StepLabel } from '@material-ui/core/StepLabel';
+export { default as StepContent } from '@material-ui/core/StepContent';
 export { default as StepConnector } from '@material-ui/core/StepConnector';
 export { default as Container } from '@material-ui/core/Container';
 export { default as Collapse } from '@material-ui/core/Collapse';

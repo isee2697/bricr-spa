@@ -2421,5 +2421,13 @@
   "crm.details.dashboard.timeline.done": "Done",
   "crm.details.dashboard.timeline.expired": "Expired",
   "crm.details.dashboard.agenda.appointments": "Appointments",
-  "crm.details.dashboard.agenda.action_required": "Action required"
+  "crm.details.dashboard.agenda.action_required": "Action required",
+  "crm.details.timeline.title": "Timeline",
+  "crm.details.timeline.sort_options.last_edited": "Last edited",
+  "crm.details.timeline.complete": "Complete",
+  "crm.details.timeline.memo": "Memo",
+  "crm.details.timeline.sent_to": "Sent to",
+  "crm.details.timeline.location": "Location",
+  "crm.details.timeline.bog_object": "BOG Object",
+  "crm.details.timleine.posted_by": "Posted by"
 }
