@@ -9,6 +9,8 @@ const baseUrl = 'https://api.phrase.com/v2/projects/:projectID/locales';
 const encoding = 'UTF-8';
 
 const getVariables = () => {
+    console.log(process.env);
+    console.log(process.argv);
     let accessToken = process.env.PHRASE_ACCESS_TOKEN;
     let projectID = process.env.REACT_APP_PHRASE_PROJECT;
     if (!accessToken && process.argv.length > 0) {
@@ -56,7 +58,6 @@ const getLocalesList = async () => {
     try {
         const variables = getVariables();
 
-        console.log('vasr', variables);
         const url = `${baseUrl.replace(':projectID', variables.projectID)}${apiParam.replace(':accessToken', variables.accessToken)}`;
 
         await fetch(url).then(
