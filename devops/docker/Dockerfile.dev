@@ -1,14 +1,13 @@
 #Stage 1 - build process
 FROM node:12.16.3-alpine3.11 AS build-deps
 
-ARG PHRASE_ACCES_TOKEN
-ARG PHRASE_PROJECT_ID
-ARG TEST
+ENV PHRASE_ACCES_TOKEN
+ENV PHRASE_PROJECT_ID
 
 WORKDIR /usr/src/app
 
 RUN echo "USING DEV FILE $PHRASE_PROJECT_ID"
-RUN echo "USING DEV TEST $TEST"
+
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
 
 COPY public ./public
@@ -17,7 +16,7 @@ COPY scripts ./scripts
 COPY plop-templates ./plop-templates
 
 RUN npm install
-RUN echo "Oh dang look at that $PHRASE_PROJECT_ID"
+
 RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCES_TOKEN --projectID=$PHRASE_PROJECT_ID
 
 COPY .env.develop .env
