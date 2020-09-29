@@ -58,6 +58,7 @@ const getLocalesList = async () => {
     try {
         const variables = getVariables();
 
+        console.log(variables);
         const url = `${baseUrl.replace(':projectID', variables.projectID)}${apiParam.replace(':accessToken', variables.accessToken)}`;
 
         await fetch(url).then(
