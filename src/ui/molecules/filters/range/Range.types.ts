@@ -1,6 +1,13 @@
+import { ReactNode } from 'react';
+
+export type OptionDataType = {
+  label: string;
+  icon: ReactNode;
+  value: string;
+};
+
 export type RangeProps = {
   name: string;
-  startValue: number;
-  endValue: number;
   suffix?: string;
+  options: OptionDataType[];
 };

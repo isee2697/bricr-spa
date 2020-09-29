@@ -34,7 +34,7 @@ export const Pim = ({
   onFilter,
   activeFilters,
 }: PimProps) => {
-  const [selectedFilters, setSelectedFilters] = useState<AnyObject>({});
+  const [selectedFilters, setSelectedFilters] = useState<AnyObject>(activeFilters);
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -70,7 +70,7 @@ export const Pim = ({
                   action={
                     <Box display="flex">
                       <Box mr={3}>
-                        <FiltersButton data={activeFilters} getActiveFilters={handleActiveFilters} />
+                        <FiltersButton data={selectedFilters} getActiveFilters={handleActiveFilters} />
                       </Box>
                     </Box>
                   }
@@ -79,7 +79,7 @@ export const Pim = ({
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   </Box>
-                  <ActiveFilters activeFilters={selectedFilters} />
+                  <ActiveFilters activeFilters={selectedFilters} onDelete={handleActiveFilters} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}

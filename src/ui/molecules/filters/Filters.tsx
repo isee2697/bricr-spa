@@ -28,16 +28,18 @@ enum Types {
 }
 
 const filters: FiltersTypes[] = [
-  // {
-  //   key: 'filters.price_range',
-  //   value: 0,
-  //   type: Types.Range,
-  //   size: Sizes.L,
-  //   from: 0,
-  //   to: 5000,
-  // },
   {
-    key: 'filter.propertyTypes',
+    key: 'price_range',
+    value: 0,
+    type: Types.Range,
+    size: Sizes.L,
+    options: [
+      { label: 'from', value: '0', icon: <></> },
+      { label: 'to', value: '5000', icon: <></> },
+    ],
+  },
+  {
+    key: 'propertyTypes',
     value: 1,
     type: Types.Checkbox,
     size: Sizes.M,
@@ -50,29 +52,6 @@ const filters: FiltersTypes[] = [
       { label: PropertyType.BuildingPlot, value: PropertyType.BuildingPlot, icon: <BuildingIcon /> },
     ],
   },
-  // {
-  //   key: 'filter.object_type',
-  //   value: 1,
-  //   type: Types.Checkbox,
-  //   size: Sizes.M,
-  //   options: [
-  //     { label: 'Custom name of object type 1', value: '1', icon: <BuildingIcon /> },
-  //     { label: 'Custom name of object type 2', value: '2', icon: <BuildingIcon /> },
-  //     { label: 'Custom name of object type 3', value: '3', icon: <BuildingIcon /> },
-  //     { label: 'Custom name of object type 4', value: '4', icon: <BuildingIcon /> },
-  //   ],
-  // },
-  // {
-  //   key: 'filter.account_managers',
-  //   value: 2,
-  //   type: Types.Checkbox,
-  //   size: Sizes.L,
-  //   options: [
-  //     { label: 'Victor Martin Brochner', value: '1', icon: <UserIcon /> },
-  //     { label: 'Victor Martin Brochner', value: '2', icon: <UserIcon /> },
-  //     { label: 'Victor Martin Brochner', value: '3', icon: <UserIcon /> },
-  //   ],
-  // },
 ];
 
 export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
@@ -101,16 +80,16 @@ export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
               <Grid item xs={8}>
                 <Box p={3}>
                   {filters.map(filter => {
-                    if (filter.type === 'range') {
+                    if (filter.type === Types.Range && filter.options) {
                       return (
                         <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
                           <>
                             <p>{formatMessage({ id: `${filter.key}.title` })}</p>
-                            <Range name={filter.key} startValue={0} endValue={500000} suffix={'€'} />
+                            <Range name={filter.key} options={filter.options} suffix={'€'} />
                           </>
                         </FilterTabPanel>
                       );
-                    } else if (filter.type === 'checkbox' && filter.options && filter.size) {
+                    } else if (filter.type === Types.Checkbox && filter.options && filter.size) {
                       return (
                         <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
                           <>

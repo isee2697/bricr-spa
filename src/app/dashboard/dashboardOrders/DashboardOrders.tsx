@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Tabs, Tab } from 'ui/atoms';
 import { Order } from 'ui/molecules';

@@ -6,17 +6,33 @@ import { Box } from 'ui/atoms';
 
 import { useStyles } from './ActiveFilters.styles';
 
-export const ActiveFilters = ({ activeFilters }: AnyObject) => {
-  const classes = useStyles();
+type Filter = {
+  key: string;
+  filter: string;
+};
 
-  const filters: { key: string; filter: string }[] = [];
+export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
+  const classes = useStyles();
+  const filters: Filter[] = [];
+
+  const handleDelete = (filter: { [key: string]: Filter[] }) => {
+    if (onDelete) {
+      onDelete(filter);
+    }
+  };
+
+  console.log({ activeFilters });
 
   if (Object.values(activeFilters).length > 0) {
     for (const key in activeFilters) {
-      const value = activeFilters[key];
+      let value = activeFilters[key];
+
+      if (typeof value !== 'object') {
+        value = [value];
+      }
 
       filters.push(
-        value.map((filter: { key: string; filter: string }) => (
+        value.map((filter: Filter) => (
           <>
             <Chip
               variant="outlined"
@@ -26,7 +42,7 @@ export const ActiveFilters = ({ activeFilters }: AnyObject) => {
                   <span className={classes.dimmed}>{key}</span> <strong>{filter}</strong>
                 </>
               }
-              onDelete={() => {}}
+              onDelete={() => handleDelete({ [key]: value.filter((item: Filter) => filter !== item) })}
             />
           </>
         )),

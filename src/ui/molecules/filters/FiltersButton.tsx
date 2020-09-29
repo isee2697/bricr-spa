@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnyObject } from 'final-form';
 import Badge from '@material-ui/core/Badge';
 
@@ -13,7 +13,13 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
   const [filterAmount, setFilterAmount] = useState(0);
 
   const handleSubmit = async (body: AnyObject) => {
-    const result = body.filters || body.filter;
+    const result = body;
+    handleUpdate(result);
+
+    setModalOpen(false);
+  };
+
+  const handleUpdate = (result: AnyObject) => {
     let filterAmount = 0;
 
     const updateFilterAmount = (value: string[]) => {
@@ -24,16 +30,26 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
 
     for (const key in result) {
       const value = result[key];
-      updateFilterAmount(value);
+
+      if (value.length > 0) {
+        updateFilterAmount(value);
+      } else {
+        filterAmount += 1;
+      }
     }
 
     setFilterAmount(filterAmount);
-    setModalOpen(false);
 
     if (getActiveFilters) {
       getActiveFilters(result);
     }
   };
+
+  useEffect(() => {
+    if (data) {
+      handleUpdate(data);
+    }
+  });
 
   return (
     <>
