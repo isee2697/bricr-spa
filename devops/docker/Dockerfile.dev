@@ -9,8 +9,9 @@ COPY scripts ./scripts
 COPY plop-templates ./plop-templates
 
 RUN npm install
-
 COPY .env.develop .env
+
+RUN npm run translations
 
 RUN npm run build
 

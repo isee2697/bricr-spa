@@ -12,6 +12,8 @@ RUN npm install
 
 COPY .env.prod .env
 
+RUN npm run translations
+
 RUN npm run build
 
 #Stage 2 - production image
