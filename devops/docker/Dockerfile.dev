@@ -16,10 +16,12 @@ COPY scripts ./scripts
 COPY plop-templates ./plop-templates
 
 RUN npm install
-RUN echo "Oh dang look at that $PHRASE_PROJECT_ID"
-RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCES_TOKEN --projectID=$PHRASE_PROJECT_ID
 
 COPY .env.develop .env
+
+RUN npm run translations
+
+
 
 RUN npm run build
 
