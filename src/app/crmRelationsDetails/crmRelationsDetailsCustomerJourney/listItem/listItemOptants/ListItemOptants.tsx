@@ -1,18 +1,8 @@
 import React from 'react';
 import clsx from 'classnames';
 
-import { useLocale } from '../../../../../hooks';
-import {
-  Box,
-  Button,
-  ProgressFilling,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from '../../../../../ui/atoms';
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { Box, Button, ProgressFilling, Table, TableBody, TableCell, TableHead, TableRow, Typography } from 'ui/atoms';
 
 import { ListItemOptantsProps } from './ListItemOptants.types';
 import { useStyles } from './ListItemOptants.styles';
