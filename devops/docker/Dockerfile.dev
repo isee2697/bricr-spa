@@ -1,8 +1,8 @@
 #Stage 1 - build process
 FROM node:12.16.3-alpine3.11 AS build-deps
 
-ENV PHRASE_ACCES_TOKEN
-ENV PHRASE_PROJECT_ID
+ENV PHRASE_ACCES_TOKEN testtoken
+ENV PHRASE_PROJECT_ID testid
 
 WORKDIR /usr/src/app
 
