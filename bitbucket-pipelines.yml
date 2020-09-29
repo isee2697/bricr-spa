@@ -93,8 +93,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - echo 'PHRASE_ACCESS_TOKEN=' $PHRASE_ACCES_TOKEN >> .env.develop
-            - echo REACT_APP_PHRASE_PROJECT=$PHRASE_ACCES_TOKEN >> .env.develop
+            - echo PHRASE_ACCESS_TOKEN= $PHRASE_ACCES_TOKEN >> .env.develop
             - cat .env.develop
             - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
             #Variables
