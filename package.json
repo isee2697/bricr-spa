@@ -13,7 +13,7 @@
     "dev-port": "PORT=3006 react-scripts start",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test",
     "plop": "plop",
-    "translations": "node 'scripts/get_translations.js'  --lala=boe",
+    "translations": "node 'scripts/get_translations.js'",
     "serve": "./node_modules/.bin/http-server ./build --port 1338 --proxy http://localhost:1338?",
     "generate:api-types": "graphql-codegen & npm run lint:fix",
     "e2e:open": "cd e2e && npx cypress open && cd ..",

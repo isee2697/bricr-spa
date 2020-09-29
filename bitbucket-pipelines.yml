@@ -9,7 +9,7 @@ pipelines:
         script:
           - cp .env.dist .env
           - npm install
-#          - npm run translations
+          - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCES_TOKEN --projectID=$PHRASE_PROJECT_ID
           - npm run lint
           - npm run coverage
           - npm run build
