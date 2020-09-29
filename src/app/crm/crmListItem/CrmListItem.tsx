@@ -99,34 +99,39 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
               <Typography variant="h6" className={classes.label}>
                 {formatMessage({ id: 'common.sidebar_category.property' })}
               </Typography>
-              <Box display="flex" alignItems="center" mb={1}>
-                <UserAvatar name={property} avatar={avatar} className={classes.avatarIcon} /> {property}
-              </Box>
-              <Box display="flex">
-                <Box mr={2}>
-                  <Typography variant="h6" className={classes.label}>
-                    {formatMessage({ id: 'crm.item.partner' })}
-                  </Typography>
-                  <Box display="flex" alignItems="center">
-                    <UserAvatar
-                      name={`${partnerFirstName} ${partnerLastName}`}
-                      avatar={partnerAvatar?.url || undefined}
-                      className={classes.avatarIcon}
-                    />{' '}
-                    {partnerFirstName} {partnerLastName}
-                  </Box>
+              <Box className={classes.inlineBlock}>
+                <Box display="flex" alignItems="center" mb={1} className={classes.avatarWithName}>
+                  <UserAvatar name={property} avatar={avatar} className={classes.avatarIcon} /> {property}
                 </Box>
-                <Box>
-                  <Typography variant="h6" className={classes.label}>
-                    {formatMessage({ id: 'crm.item.manager' })}
-                  </Typography>
-                  <Box display="flex" alignItems="center">
-                    <UserAvatar
-                      name={`${managerFirstName} ${managerLastName}`}
-                      avatar={managerAvatar?.url || undefined}
-                      className={classes.avatarIcon}
-                    />{' '}
-                    {managerFirstName} {managerLastName}
+              </Box>
+              <br />
+              <Box className={classes.inlineBlock}>
+                <Box display="flex">
+                  <Box mr={2}>
+                    <Typography variant="h6" className={classes.label}>
+                      {formatMessage({ id: 'crm.item.partner' })}
+                    </Typography>
+                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                      <UserAvatar
+                        name={`${partnerFirstName} ${partnerLastName}`}
+                        avatar={partnerAvatar?.url || undefined}
+                        className={classes.avatarIcon}
+                      />{' '}
+                      {partnerFirstName} {partnerLastName}
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" className={classes.label}>
+                      {formatMessage({ id: 'crm.item.manager' })}
+                    </Typography>
+                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                      <UserAvatar
+                        name={`${managerFirstName} ${managerLastName}`}
+                        avatar={managerAvatar?.url || undefined}
+                        className={classes.avatarIcon}
+                      />{' '}
+                      {managerFirstName} {managerLastName}
+                    </Box>
                   </Box>
                 </Box>
               </Box>
