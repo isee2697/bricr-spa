@@ -93,10 +93,10 @@ pipelines:
             - docker
           size: 2x
           script:
-            - export TEST_ID=$AWS_ACCESS_KEY_ID:1234
-            - echo $TEST_ID
-            - echo $PHRASE_PROJECT_ID
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev --build-arg DOCKER_PHRASE_PROJECT_ID=$TEST_ID -f devops/docker/Dockerfile.dev .
+            - export PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID
+            - export PHRASE_ACCES_TOKEN=$PHRASE_ACCES_TOKEN
+            - chmod +x ./devops/scripts/build-docker-dev.sh
+            - ./devops/scripts/build-docker-dev.sh
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
