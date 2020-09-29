@@ -1,12 +1,12 @@
 #Stage 1 - build process
 FROM node:12.16.3-alpine3.11 AS build-deps
 
-ARG PHRASE_ACCES_TOKEN $PHRASE_ACCES_TOKEN
-ARG PHRASE_PROJECT_ID $PHRASE_PROJECT_ID
+ARG PHRASE_ACCES_TOKEN
+ARG PHRASE_PROJECT_ID
 
 WORKDIR /usr/src/app
 
-RUN echo "USING DEV FILE $PHRASE_ACCES_TOKEN"
+RUN echo "USING DEV FILE $DOCKER_PHRASE_PROJECT_ID"
 
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
 
