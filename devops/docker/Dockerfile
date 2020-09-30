@@ -2,6 +2,8 @@
 
 FROM node:12.16.3-alpine3.11 AS build-deps
 WORKDIR /usr/src/app
+ENV PHRASE_ACCESS_TOKEN ''
+ENV PHRASE_PROJECT_ID ''
 
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
 
