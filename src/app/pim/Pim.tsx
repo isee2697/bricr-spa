@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import { AnyObject } from 'final-form';
 
 import { Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
@@ -34,18 +33,9 @@ export const Pim = ({
   onFilter,
   activeFilters,
 }: PimProps) => {
-  const [selectedFilters, setSelectedFilters] = useState<AnyObject>(activeFilters);
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
-
-  const handleActiveFilters = (filters: AnyObject) => {
-    setSelectedFilters(filters);
-
-    if (onFilter) {
-      onFilter(filters);
-    }
-  };
 
   return (
     <>
@@ -70,7 +60,7 @@ export const Pim = ({
                   action={
                     <Box display="flex">
                       <Box mr={3}>
-                        <FiltersButton data={selectedFilters} getActiveFilters={handleActiveFilters} />
+                        <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
                       </Box>
                     </Box>
                   }
@@ -79,7 +69,7 @@ export const Pim = ({
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   </Box>
-                  <ActiveFilters activeFilters={selectedFilters} onDelete={handleActiveFilters} />
+                  <ActiveFilters activeFilters={activeFilters} onDelete={onFilter} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AnyObject } from 'final-form';
 import Badge from '@material-ui/core/Badge';
 
@@ -11,6 +11,7 @@ import { Filters } from './Filters';
 export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [filterAmount, setFilterAmount] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleSubmit = async (body: AnyObject) => {
     const result = body;
@@ -19,37 +20,44 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
     setModalOpen(false);
   };
 
-  const handleUpdate = (result: AnyObject) => {
-    let filterAmount = 0;
-
-    const updateFilterAmount = (value: string[]) => {
-      value.forEach((filter: string) => {
-        filterAmount += 1;
-      });
-    };
-
-    for (const key in result) {
-      const value = result[key];
-
-      if (typeof value === 'object') {
-        updateFilterAmount(value);
-      } else {
-        filterAmount += 1;
-      }
-    }
-
-    setFilterAmount(filterAmount);
-
-    if (getActiveFilters) {
-      getActiveFilters(result);
-    }
+  const handleTabChange = (index: number) => {
+    setActiveTab(index);
   };
+
+  const handleUpdate = useCallback(
+    (result: AnyObject) => {
+      let filterAmount = 0;
+
+      const updateFilterAmount = (value: string[]) => {
+        value.forEach((filter: string) => {
+          filterAmount += 1;
+        });
+      };
+
+      for (const key in result) {
+        const value = result[key];
+
+        if (typeof value === 'object') {
+          updateFilterAmount(value);
+        } else {
+          filterAmount += 1;
+        }
+      }
+
+      setFilterAmount(filterAmount);
+
+      if (getActiveFilters) {
+        getActiveFilters(result);
+      }
+    },
+    [getActiveFilters],
+  );
 
   useEffect(() => {
     if (data) {
       handleUpdate(data);
     }
-  });
+  }, [data, handleUpdate]);
 
   return (
     <>
@@ -58,7 +66,14 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
           <ManageIcon color="inherit" />
         </Badge>
       </IconButton>
-      <Filters data={data} isOpened={isModalOpen} onSubmit={handleSubmit} onClose={() => setModalOpen(false)} />
+      <Filters
+        data={data}
+        isOpened={isModalOpen}
+        activeTab={activeTab}
+        onSubmit={handleSubmit}
+        onTabChange={handleTabChange}
+        onClose={() => setModalOpen(false)}
+      />
     </>
   );
 };

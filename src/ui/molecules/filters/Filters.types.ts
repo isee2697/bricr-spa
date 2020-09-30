@@ -10,7 +10,6 @@ export type CheckboxDataType = {
 
 export type FiltersTypes = {
   key: string;
-  value: number;
   type: string;
   size: GridSize;
   options?: CheckboxDataType[];
@@ -20,8 +19,10 @@ export type FiltersTypes = {
 
 export type FilterProps = {
   isOpened: boolean;
+  activeTab: number;
   onClose: () => void;
   onSubmit: (body: AnyObject) => void;
+  onTabChange: (index: number) => void;
   data?: AnyObject;
 };
 
@@ -39,7 +40,7 @@ export type FilterButtonProps = {
 
 export type FilterSidenavProps = {
   filters: FiltersTypes[];
-  onChange: (tab: FiltersTypes) => void;
+  onChange: (index: number) => void;
 };
 
 export type FilterTabPanelProps = {

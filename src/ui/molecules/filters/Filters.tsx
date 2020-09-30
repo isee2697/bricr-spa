@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import EuroIcon from '@material-ui/icons/Euro';
 
-import { PricingType, PropertyType } from 'api/types';
-import { BuildingIcon } from 'ui/atoms/icons';
+import { DevelopmentType, PricingType, PropertyType } from 'api/types';
+import { BuildingIcon, NewConstructionIcon } from 'ui/atoms/icons';
 import { Box, Grid, Alert, DialogContent, DialogActions } from 'ui/atoms';
 import { Modal } from '../modal/Modal';
 import { CancelButton } from '../cancelButton/CancelButton.styles';
 import { SubmitButton } from '../submitButton/SubmitButton';
 import { useLocale } from 'hooks';
-import { CheckboxGroupField } from 'form/fields';
+import { CheckboxGroupField, RadioGroupField } from 'form/fields';
 
 import { FilterSideMenu } from './filterSideMenu/FilterSideMenu';
 import { Range } from './range/Range';
@@ -26,22 +26,21 @@ enum Sizes {
 enum Types {
   Range = 'range',
   Checkbox = 'checkbox',
+  RadioButton = 'radioButton',
 }
 
 const filters: FiltersTypes[] = [
-  // {
-  //   key: 'price_range',
-  //   value: 0,
-  //   type: Types.Range,
-  //   size: Sizes.L,
-  //   options: [
-  //     { label: 'from', value: '0', icon: <></> },
-  //     { label: 'to', value: '5000', icon: <></> },
-  //   ],
-  // },
+  {
+    key: 'price_range',
+    type: Types.Range,
+    size: Sizes.L,
+    options: [
+      { label: 'from', value: '0', icon: <></> },
+      { label: 'to', value: '5000', icon: <></> },
+    ],
+  },
   {
     key: 'propertyTypes',
-    value: 0,
     type: Types.Checkbox,
     size: Sizes.M,
     options: [
@@ -55,24 +54,27 @@ const filters: FiltersTypes[] = [
   },
   {
     key: 'pricingType',
-    value: 1,
-    type: Types.Checkbox,
+    type: Types.RadioButton,
     size: Sizes.M,
     options: [
       { label: PricingType.Sale, value: PricingType.Sale, icon: <EuroIcon /> },
       { label: PricingType.Rent, value: PricingType.Rent, icon: <EuroIcon /> },
     ],
   },
+  {
+    key: 'developmentType',
+    type: Types.RadioButton,
+    size: Sizes.M,
+    options: [
+      { label: DevelopmentType.New, value: DevelopmentType.New, icon: <NewConstructionIcon /> },
+      { label: DevelopmentType.Existing, value: DevelopmentType.Existing, icon: <NewConstructionIcon /> },
+    ],
+  },
 ];
 
-export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
+export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, activeTab }: FilterProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(filters[0].value);
-
-  const handleTabChange = (tab: FiltersTypes) => {
-    setActiveTab(tab.value);
-  };
 
   return (
     <Modal fullWidth title={formatMessage({ id: 'filter.title' })} isOpened={isOpened}>
@@ -86,14 +88,14 @@ export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
             )}
             <Grid container spacing={0} className={classes.filter}>
               <Grid item xs={4} className={classes.filterSider}>
-                <FilterSideMenu filters={filters} onChange={handleTabChange} />
+                <FilterSideMenu filters={filters} onChange={onTabChange} />
               </Grid>
               <Grid item xs={8}>
                 <Box p={3}>
                   {filters.map((filter, i) => {
                     if (filter.type === Types.Range && filter.options) {
                       return (
-                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
+                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
                           <>
                             <p>{formatMessage({ id: `${filter.key}.title` })}</p>
                             <Range name={filter.key} options={filter.options} suffix={'€'} />
@@ -102,7 +104,7 @@ export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
                       );
                     } else if (filter.type === Types.Checkbox && filter.options && filter.size) {
                       return (
-                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={filter.value}>
+                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
                           <>
                             <p>{formatMessage({ id: `${filter.key}.title` })}</p>
                             <CheckboxGroupField
@@ -111,6 +113,15 @@ export const Filters = ({ data, isOpened, onClose, onSubmit }: FilterProps) => {
                               orientation="horizontal"
                               xs={filter.size}
                             />
+                          </>
+                        </FilterTabPanel>
+                      );
+                    } else if (filter.type === Types.RadioButton && filter.options && filter.size) {
+                      return (
+                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
+                          <>
+                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
+                            <RadioGroupField options={filter.options} name={filter.key} xs={filter.size} />
                           </>
                         </FilterTabPanel>
                       );

@@ -11,40 +11,61 @@ type Filter = {
   filter: string;
 };
 
+type ChipProps = {
+  index: string;
+  filter: Filter | string;
+  classes: AnyObject;
+  onDelete: (key: string, filter: Filter | string) => void;
+};
+
+const ChipComponent = ({ index, filter, classes, onDelete }: ChipProps) => {
+  return (
+    <>
+      <Chip
+        variant="outlined"
+        key={index}
+        label={
+          <>
+            <span className={classes.dimmed}>{index}</span> <strong>{filter}</strong>
+          </>
+        }
+        onDelete={() => onDelete(index, filter)}
+      />
+    </>
+  );
+};
+
 export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
   const classes = useStyles();
-  const filters: Filter[] = [];
+  const filters: React.ReactNode[] = [];
 
-  const handleDelete = (filter: { [key: string]: Filter[] }) => {
+  const handleDelete = (key: string, filter: Filter | string) => {
+    const newFilters = { ...activeFilters };
+
+    if (typeof newFilters[key] === 'object' && newFilters[key].length > 0) {
+      newFilters[key] = newFilters[key].filter((item: Filter) => filter !== item);
+    } else {
+      delete newFilters[key];
+    }
+
     if (onDelete) {
-      onDelete(filter);
+      onDelete(newFilters);
     }
   };
 
   if (activeFilters && Object.values(activeFilters).length > 0) {
     for (const key in activeFilters) {
-      let value = activeFilters[key];
+      const value = activeFilters[key];
 
       if (typeof value !== 'object') {
-        value = [value];
+        filters.push(<ChipComponent key={key} index={key} classes={classes} filter={value} onDelete={handleDelete} />);
+      } else {
+        value.forEach((filter: Filter) =>
+          filters.push(
+            <ChipComponent key={key} index={key} classes={classes} filter={filter} onDelete={handleDelete} />,
+          ),
+        );
       }
-
-      filters.push(
-        value.map((filter: Filter) => (
-          <>
-            <Chip
-              variant="outlined"
-              key={key}
-              label={
-                <>
-                  <span className={classes.dimmed}>{key}</span> <strong>{filter}</strong>
-                </>
-              }
-              onDelete={() => handleDelete({ [key]: value.filter((item: Filter) => filter !== item) })}
-            />
-          </>
-        )),
-      );
     }
   }
 
