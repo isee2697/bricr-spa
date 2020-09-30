@@ -34,6 +34,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   bulkData = null,
   bulkSubmitText,
   bulkTitle,
+  isShowHeader = true,
 }) => {
   const classes = useStyles();
   const [isActionModalOpened, setActionModalOpened] = useState(false);
@@ -104,17 +105,19 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
 
   return (
     <Box className={classNames(classes.container, className)}>
-      <ListHeader
-        sortOptions={sortOptions ?? []}
-        checkedKeys={checkedKeys}
-        checkAllStatus={checkAllStatus}
-        disabled={disabled}
-        onCheckAll={handleCheckAll}
-        onArchive={() => handleOperation(BulkOperations.Archive)}
-        onDelete={() => handleOperation(BulkOperations.Delete)}
-        onBulk={handleBulk}
-        onSort={!!onSort ? onSort : () => {}}
-      />
+      {isShowHeader && (
+        <ListHeader
+          sortOptions={sortOptions ?? []}
+          checkedKeys={checkedKeys}
+          checkAllStatus={checkAllStatus}
+          disabled={disabled}
+          onCheckAll={handleCheckAll}
+          onArchive={() => handleOperation(BulkOperations.Archive)}
+          onDelete={() => handleOperation(BulkOperations.Delete)}
+          onBulk={handleBulk}
+          onSort={!!onSort ? onSort : () => {}}
+        />
+      )}
       {!loading &&
         items.length > 0 &&
         items.map(item => {

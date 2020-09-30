@@ -1,7 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
-import clsx from 'classnames';
 import { DateTime } from 'luxon';
 
 import { useEntityType } from 'app/shared/entityType';
@@ -12,44 +10,21 @@ import {
   CardHeader,
   Grid,
   IconButton,
-  Button,
   MenuItem,
   NavBreadcrumb,
   Select,
-  Step,
-  StepConnector,
-  StepLabel,
-  StepContent,
-  Stepper,
   Typography,
-  UserAvatar,
 } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { Page } from 'ui/templates';
-import {
-  AddIcon,
-  CheckIcon,
-  CloseIcon,
-  HelpIcon,
-  ManageIcon,
-  MenuIcon,
-  NewConstructionIcon,
-  SearchIcon,
-} from 'ui/atoms/icons';
+import { AddIcon, HelpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
 import { FilePermission } from 'api/types';
 import { Timeline } from '../crmRelationsDetailsDashboard/crmRelationsDetailsDashboardBoards/crmRelationsDetailsDashboardBoardsTimeline/CrmRelationsDetailsDashboardBoardsTimeline.types';
 
 import { CrmRelationsDetailsTimelineProps } from './CrmRelationsDetailsTimeline.types';
 import { useStyles } from './CrmRelationsDetailsTimeline.styles';
-
-const TimelineStepConnector = withStyles(theme => ({
-  line: {
-    borderColor: theme.palette.green.main,
-    borderLeftWidth: 2,
-    minHeight: theme.spacing(4),
-  },
-}))(StepConnector);
+import { CrmRelationsDetailsTimelineBoards } from './crmRelationsDetailsTimelineBoards/CrmRelationsDetailsTimelineBoards';
 
 export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimelineProps) => {
   const { formatMessage } = useLocale();
@@ -304,144 +279,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
               </Select>
             </Box>
             <Box>
-              <Stepper
-                orientation="vertical"
-                className={classes.stepper}
-                connector={<TimelineStepConnector className={classes.stepConnector} />}
-              >
-                {timelineItems.map((timeline, index) => (
-                  <Step key={index} active={true}>
-                    <StepLabel
-                      StepIconComponent={() =>
-                        timeline.status === 'done' ? (
-                          <CheckIcon className={classes.checkIcon} color="inherit" />
-                        ) : (
-                          <CloseIcon className={classes.closeIcon} color="inherit" />
-                        )
-                      }
-                      className={classes.stepLabel}
-                      classes={{ labelContainer: classes.stepLabelContainer }}
-                    />
-                    <StepContent className={classes.stepContent} classes={{ last: classes.noBorder }}>
-                      <Box className={classes.stepLabelContent}>
-                        <Box display="flex">
-                          <Box mr={3}>
-                            <Typography
-                              variant="h5"
-                              className={clsx(
-                                classes.timelineStatus,
-                                timeline.status === 'done' ? classes.green : classes.red,
-                              )}
-                            >
-                              {timeline.status === 'done'
-                                ? formatMessage({
-                                    id: 'crm.details.dashboard.timeline.done',
-                                  })
-                                : formatMessage({
-                                    id: 'crm.details.dashboard.timeline.expired',
-                                  })}
-                            </Typography>
-                            <Typography variant="h6" className={classes.timelineDate}>
-                              {timeline.date.toLocaleString(DateTime.DATETIME_SHORT).split(', ')[0]}
-                            </Typography>
-                            <Typography variant="h6" className={classes.timelineTime}>
-                              {timeline.date.toLocaleString(DateTime.DATETIME_SHORT).split(', ')[1]}
-                            </Typography>
-                          </Box>
-                          <Box className={classes.flexGridGrow}>
-                            <Box display="flex" className={classes.flexGridGrow}>
-                              <NewConstructionIcon className={classes.timelineTitleIcon} />
-                              <Typography variant="h3" className={classes.timelineTitle}>
-                                {timeline.title}
-                              </Typography>
-                              <Box className={classes.flexGridGrow} />
-                              {timeline.status === 'done' && !timeline.isComplete && (
-                                <Button variant="outlined" size="small" color="primary" className={classes.btnComplete}>
-                                  {formatMessage({ id: 'crm.details.timeline.complete' })}
-                                </Button>
-                              )}
-                            </Box>
-                            {timeline.memo && (
-                              <Box mt={3}>
-                                <Typography variant="h6">
-                                  {formatMessage({ id: 'crm.details.timeline.memo' })}:
-                                </Typography>
-                                <Typography variant="h5">{timeline.memo}</Typography>
-                              </Box>
-                            )}
-                            {timeline.sentTo && timeline.sentTo.length > 0 && (
-                              <Box mt={2}>
-                                <Typography variant="h6">
-                                  {formatMessage({ id: 'crm.details.timeline.sent_to' })}:
-                                </Typography>
-                                <Box>
-                                  {timeline.sentTo.map(sentTo => (
-                                    <Box mr={2} className={classes.sentToItem}>
-                                      <UserAvatar
-                                        variant="square"
-                                        name={`${sentTo.firstName} ${sentTo.lastName}`}
-                                        avatar={sentTo.image?.url || ''}
-                                        className={classes.sentToItemAvatar}
-                                      />
-                                      <Typography variant="h4" className={classes.sentToItemName}>
-                                        {sentTo.firstName} {sentTo.lastName}
-                                      </Typography>
-                                    </Box>
-                                  ))}
-                                </Box>
-                              </Box>
-                            )}
-                            {timeline.location && (
-                              <Box mt={2}>
-                                <Typography variant="h6">
-                                  {formatMessage({ id: 'crm.details.timeline.location' })}:
-                                </Typography>
-                                <Box className={classes.sentToItem}>
-                                  <UserAvatar
-                                    variant="square"
-                                    name={timeline.location?.address}
-                                    avatar={timeline.location?.image || ''}
-                                    className={classes.sentToItemAvatar}
-                                  />
-                                  <Typography variant="h4" className={classes.sentToItemName}>
-                                    {timeline.location.address}
-                                  </Typography>
-                                </Box>
-                              </Box>
-                            )}
-                            {timeline.bog && (
-                              <Box mt={2}>
-                                <Typography variant="h6">
-                                  {formatMessage({ id: 'crm.details.timeline.location' })}:
-                                </Typography>
-                                <Box className={classes.sentToItem}>
-                                  <UserAvatar
-                                    variant="square"
-                                    name={timeline.bog?.address}
-                                    avatar={timeline.bog?.image || ''}
-                                    className={classes.sentToItemAvatar}
-                                  />
-                                  <Typography variant="h4" className={classes.sentToItemName}>
-                                    {timeline.bog.address}
-                                  </Typography>
-                                </Box>
-                              </Box>
-                            )}
-                            <Box display="flex" justifyContent="flex-end">
-                              <Typography variant="h5" className={classes.timelinePoster}>
-                                {formatMessage({ id: 'crm.details.timleine.posted_by' })}{' '}
-                                <b>
-                                  {timeline.postedBy?.firstName} {timeline.postedBy?.lastName}
-                                </b>
-                              </Typography>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </StepContent>
-                  </Step>
-                ))}
-              </Stepper>
+              <CrmRelationsDetailsTimelineBoards timelineItems={timelineItems} />
             </Box>
           </CardContent>
         </Card>

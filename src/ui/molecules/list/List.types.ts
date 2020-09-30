@@ -34,6 +34,7 @@ export type ListProps<T> = {
   bulkData?: Record<string, string | string[]> | null;
   bulkTitle?: string;
   bulkSubmitText?: string;
+  isShowHeader?: boolean;
 };
 
 export type ListHeaderProps = {

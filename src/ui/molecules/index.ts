@@ -28,3 +28,4 @@ export { SidebarMenu } from './sidebarMenu/SidebarMenu';
 export { ConfirmModal } from './confirmModal/ConfirmModal';
 export { ListOptionsMenu } from './listOptionsMenu/ListOptionsMenu';
 export { ProfileItem } from './profileItem/ProfileItem';
+export { VerticalTimeline } from './verticalTimeline/VerticalTimeline';

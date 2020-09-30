@@ -9,7 +9,7 @@ type defaultValues = {
 };
 
 export const useCrmQueryParams = (defaults: defaultValues) => {
-  const [status = defaults.status || 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
+  const [status = defaults.status || 'active', setStatus] = useQueryParam<ActionTabStatus>('active');
   const [type = defaults.type || CrmType.Relations, setType] = useQueryParam<CrmType>('type');
 
   return {
