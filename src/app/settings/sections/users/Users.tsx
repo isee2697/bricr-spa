@@ -5,7 +5,7 @@ import { UserProps } from 'app/settings/sections/users/Users.types';
 import { Page } from 'ui/templates';
 import { Profile } from 'api/types';
 import { ProfileItem, List, ListOptionsMenu } from 'ui/molecules';
-import { Grid, Card, NavBreadcrumb, MenuItem, Typography, Box } from 'ui/atoms';
+import { Grid, Card, MenuItem, Typography, Box } from 'ui/atoms';
 import { UserActionTabs } from 'app/settings/sections/users/actionTabs/UserActiontabs';
 import { useAuthState, useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -33,10 +33,8 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
 
   return (
     <>
-      <NavBreadcrumb to={AppRoute.users} title={formatMessage({ id: 'settings.users.title' })} />
       <Page
         titleActions={<></>}
-        title={formatMessage({ id: 'settings.users.title_count' }, { count: amounts[status] })}
         showHeader
         headerProps={{ actionText: 'Add user', onAction: () => setModalOpen(true) }}
       >
