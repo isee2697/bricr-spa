@@ -18,7 +18,7 @@ COPY plop-templates ./plop-templates
 RUN npm install
 
 RUN node ./scripts/get_translations.js
-# RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
 
 COPY .env.develop .env
 
