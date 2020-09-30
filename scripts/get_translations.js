@@ -9,8 +9,6 @@ const baseUrl = 'https://api.phrase.com/v2/projects/:projectID/locales';
 const encoding = 'UTF-8';
 
 const getVariables = () => {
-    console.log(process.env);
-    console.log(process.argv);
     let accessToken = process.env.PHRASE_ACCESS_TOKEN;
     let projectID = process.env.REACT_APP_PHRASE_PROJECT;
     if (!accessToken && process.argv.length > 0) {
@@ -46,12 +44,11 @@ const saveLocaleFunction = async (value, variables) => {
     await fetch(url).then(
         res => res.status === 200 ? res.json() : console.error('Failed to retrieve:', res.message)
     ).then(body => {
-        console.log(body);
         const filePath = path.join(directoryPath, `${value.code}.json`);
         fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
         console.log(`Succesfully generated language: ${value.name}`);
     }).catch((e) => {
-        console.log(`Retrieving locale: ${name} with id: ${id} failed`, e);
+        console.error(`Retrieving locale: ${name} with id: ${id} failed`, e);
     });
 }
 
