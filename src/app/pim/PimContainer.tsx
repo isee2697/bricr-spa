@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnyObject } from 'final-form';
 
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
@@ -72,6 +72,10 @@ export const PimContainer = () => {
   const handleFilterChange = (filters: AnyObject) => {
     setActiveFilters(filters);
   };
+
+  useEffect(() => {
+    setActiveFilters(getPimFilterVariables(type));
+  }, [type]);
 
   return (
     <Pim
