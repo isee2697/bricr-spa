@@ -16,6 +16,7 @@ export type UserProps = {
   data: Profile[];
   total?: GetUsersCountQuery;
   onActivationChange: PromiseFunction<Profile>;
+  onUpdate: PromiseFunction<Profile>;
   status: ActionTabStatus;
   setStatus: (status: ActionTabStatus) => void;
   pagination: PaginationProps;
