@@ -9,7 +9,6 @@ pipelines:
         script:
           - cp .env.dist .env
           - npm install
-          - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCES_TOKEN --projectID=$PHRASE_PROJECT_ID
           - npm run lint
           - npm run coverage
           - npm run build
@@ -93,6 +92,10 @@ pipelines:
             - docker
           size: 2x
           script:
+            - echo $PHRASE_ACCESS_TOKEN
+            - echo $PHRASE_TEST_ACCESS
+            - chmod +x ./scripts/get_translations.js
+            - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=PHRASE_PROJECT_ID
             - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID

@@ -44,8 +44,9 @@ const saveLocaleFunction = async (value, variables) => {
     const url = `${urlWithIds}${downloadParams}`;
 
     await fetch(url).then(
-        res => res.status === 200 ? res.json() : console.error('Failed to retrieve:'. res.message())
+        res => res.status === 200 ? res.json() : console.error('Failed to retrieve:', res.message)
     ).then(body => {
+        console.log(body);
         const filePath = path.join(directoryPath, `${value.code}.json`);
         fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
         console.log(`Succesfully generated language: ${value.name}`);
@@ -62,10 +63,12 @@ const getLocalesList = async () => {
         const url = `${baseUrl.replace(':projectID', variables.projectID)}${apiParam.replace(':accessToken', variables.accessToken)}`;
 
         await fetch(url).then(
-            res => res.status === 200 ? res.json() : console.error(res.message()) )
+            res => res.status === 200 ? res.json() : console.error(res.message) )
             .then(body => {
                 if (typeof body === 'object') {
                     Object.values(body).forEach(value => saveLocaleFunction(value, variables));
+                } else {
+                    throw new Error();
                 }
             }).catch((e) => {
                 console.error('failed to retrieve locales', e);
