@@ -23,7 +23,7 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const UsersContainer = () => {
   const [status = 'active', setStatus] = useState<ActionTabStatus>();
-  const { data: count, stopPolling: stopPollingUserCount } = useGetUsersCountQuery();
+  const { data: count } = useGetUsersCountQuery();
   const [deactivateProfile] = useDeactivateProfileMutation();
   const [reactivateProfile] = useReactivateProfileMutation();
   const [updateProfile] = useUpdateProfileMutation();
