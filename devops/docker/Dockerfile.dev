@@ -1,6 +1,12 @@
 #Stage 1 - build process
 FROM node:12.16.3-alpine3.11 AS build-deps
+
 WORKDIR /usr/src/app
+
+ARG PHRASE_ACCESS_TOKEN
+ARG PHRASE_PROJECT_ID
+ARG PHRASE_ENABLED
+
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
 
 COPY public ./public
@@ -10,7 +16,11 @@ COPY plop-templates ./plop-templates
 
 RUN npm install
 
+RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+
 COPY .env.develop .env
+
+RUN if [ $PHRASE_ENABLED = "true" ] ; then echo "REACT_APP_PHRASE_PROJECT=$PHRASE_ENABLED" >> .env ; fi ;
 
 RUN npm run build
 

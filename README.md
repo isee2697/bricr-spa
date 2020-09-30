@@ -7,6 +7,15 @@
 - run application using `npm start`
 - Open [http://localhost:3000](http://localhost:3000) to view app in the browser
 
+## ENV file
+- everything you could need is in .env.dist
+- to connect to local backend:
+```
+REACT_APP_API_URL=http://localhost:1337/graphql
+REACT_APP_SECURITY_URL=http://localhost:50050/api
+REACT_APP_FILE_URL=http://localhost:1338/dev
+```
+
 ## Quick info about project
 - was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 - uses NPM Package Manager
@@ -52,7 +61,7 @@ We use bitbucket pipelines as CI. Configuration is in `bitbucket-pipelines.yml`.
 
 ## Generating translations
 
-We are using [Babelsheet](https://thesoftwarehouse.github.io/babelsheet-js/) to generate translations from GoogleSheet. To start using this you need to copy `.env.babelsheet.dist` to `.env.babelsheet` and fill with credentials. If you don't have credentials you can use this [instruction](https://thesoftwarehouse.github.io/babelsheet-js/configuration/). If you have all credentials use `npm run translations`.
+We are using [PHRASE](https://phrase.com//) to generate translations. To start using this you need to add `REACT_APP_PHRASE_PROJECT=value PHRASE_ACCESS_TOKEN=value` to `.env` and fill with credentials. where now the word value is  do not run the app when using mockserver values are set  however can be ran always `npm run translations`.
 
 ## Plops
 
