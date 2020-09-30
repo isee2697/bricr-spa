@@ -25,6 +25,7 @@ export const RadioGroupField = ({
   actionElement,
   justify,
   onChange,
+  classes: propsClasses,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -55,18 +56,19 @@ export const RadioGroupField = ({
   const hasError =
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
-    (meta.initial !== undefined && meta.initial !== undefined && meta.initial !== null && !!meta.error);
+    (meta.initial !== undefined && true && meta.initial !== null && !!meta.error);
 
   return (
     <>
-      <Grid container spacing={spacing} justify={justify} ref={containerRef}>
+      <Grid container spacing={spacing} justify={justify} ref={containerRef} className={propsClasses?.group}>
         {options.map((item: RadioDataType) => (
-          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
+          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value} className={propsClasses?.groupItem}>
             <TileRadio
               onClick={() => handleClick(item)}
               isSelected={input.value === item.value}
               title={item.isCustom ? item.label : formatMessage({ id: item.label })}
               isDisabled={disabled}
+              className={propsClasses?.option}
             >
               {item.icon}
             </TileRadio>

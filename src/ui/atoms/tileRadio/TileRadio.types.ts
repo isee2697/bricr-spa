@@ -6,4 +6,5 @@ export type TileRadioProps = {
   isDisabled?: boolean;
   children?: ReactNode;
   title: string;
+  className?: string;
 };
