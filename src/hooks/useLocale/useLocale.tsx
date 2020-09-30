@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { IntlShape, MessageDescriptor, useIntl } from 'react-intl';
-import { FormattedMessage } from 'react-intl-phraseapp';
 import { PrimitiveType } from 'intl-messageformat';
+import { FormattedMessage } from 'react-intl-phraseapp';
 
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { LocaleContextValueType } from 'context/locale/localeContext/LocaleContext.types';
@@ -25,7 +25,7 @@ export const useLocale = (): IntlShape & LocaleContextValueType => {
     () => ({
       ...intl,
       ...localeContext,
-      formatMessage: process.env.REACT_APP_PHRASE_ENABLED ? formatMessage : intl.formatMessage,
+      formatMessage: Boolean(process.env.REACT_APP_PHRASE_PROJECT) ? formatMessage : intl.formatMessage,
     }),
     [intl, localeContext],
   );

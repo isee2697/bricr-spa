@@ -1,54 +1,6 @@
 pipelines:
-  default:
-
-    - step:
-        image: node:12.14.1
-        caches:
-          - node
-        name: Run linter and tests
-        script:
-          - cp .env.dist .env
-          - npm install
-          - npm run lint
-          - npm run coverage
-          - npm run build
 
   custom:
-
-    staging:
-      - step:
-          image: tshio/node-pipelines:node-12
-          name: Build image
-          services:
-            - docker
-          size: 2x
-          script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg -f devops/docker/Dockerfile .
-            #Variables
-            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            - export AWS_REGION=eu-west-1
-            #Dependencies
-            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            - unzip awscliv2.zip
-            - ./aws/install
-            #Push commands
-            - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
-            - docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg
-
-      - step:
-          image: wojtaszczykkamil/terraform:0.12.24
-          name: Deploy
-          script:
-            #Variables
-            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            - export PACKAGE=bricr-spa
-            - export URL=https://staging.dev-domain.nl
-            #Deploy
-            - export TF_VAR_docker_tag=$BITBUCKET_COMMIT-stg
-            - chmod +x ./devops/scripts/deploy-and-notify.sh
-            - ./devops/scripts/deploy-and-notify.sh
 
     develop:
       - step:
@@ -58,7 +10,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
+            - docker build --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -94,7 +46,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg -f devops/docker/Dockerfile .
+            - docker build --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-stg -f devops/docker/Dockerfile .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -128,7 +80,7 @@ pipelines:
             - docker
           size: 2x
           script:
-            - docker build -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
+            - docker build --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
             #Variables
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
@@ -160,6 +112,18 @@ pipelines:
   pull-requests:
     '**':
       - step:
+          image: node:12.14.1
+          caches:
+            - node
+          name: Run linter and tests
+          script:
+            - cp .env.dist .env
+            - npm install
+            - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+            - npm run lint
+            - npm run coverage
+            - npm run build
+      - step:
           name: build and install
           image: tshio/e2e-runner:v4.0.2.2
           caches:
@@ -169,6 +133,7 @@ pipelines:
           script:
             - cp .env.dist .env
             - npm install
+            - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
             - npm run build:ci
             - cd e2e && npm install && cd ..
           artifacts:

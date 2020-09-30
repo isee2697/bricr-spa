@@ -11,10 +11,7 @@ import * as serviceWorker from './serviceWorker';
 
 initializePhraseAppEditor({
   projectId: process.env.REACT_APP_PHRASE_PROJECT,
-  phraseEnabled:
-    process.env.REACT_APP_PHRASE_ENABLED &&
-    !!process.env.REACT_APP_PHRASE_PROJECT &&
-    process.env.REACT_APP_API_URL !== '/mock',
+  phraseEnabled: Boolean(process.env.REACT_APP_PHRASE_PROJECT),
   prefix: '[[__',
   suffix: '__]]',
 });
