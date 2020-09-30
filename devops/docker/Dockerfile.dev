@@ -4,8 +4,8 @@ FROM node:12.16.3-alpine3.11 AS build-deps
 WORKDIR /usr/src/app
 # ENV PHRASE_ACCESS_TOKEN 67675c5dd09d9029945e9e9c4227b3be69a945e0ed505f338ac38d28e2afbfc9
 # ENV PHRASE_PROJECT_ID 51e7e9fe1df6e781d7a6458516088bfb
-ARG PHRASE_ACCESS_TOKEN
-ARG PHRASE_PROJECT_ID
+# ARG PHRASE_ACCESS_TOKEN
+# ARG PHRASE_PROJECT_ID
 
 
 COPY package.json plopfile.js styleguide.config.js codegen.yml tsconfig.json types.d.ts ./
@@ -17,7 +17,6 @@ COPY plop-templates ./plop-templates
 
 RUN npm install
 
-RUN node ./scripts/get_translations.js
 RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
 
 COPY .env.develop .env
