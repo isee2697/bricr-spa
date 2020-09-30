@@ -21,9 +21,10 @@ export const useStyles = makeStyles(theme => ({
     height: 64,
   },
   propertyTitle: {
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: theme.typography.fontWeightBold,
   },
   propertyLabel: {
     color: theme.palette.gray.main,
+    fontWeight: theme.typography.fontWeightBold,
   },
 }));

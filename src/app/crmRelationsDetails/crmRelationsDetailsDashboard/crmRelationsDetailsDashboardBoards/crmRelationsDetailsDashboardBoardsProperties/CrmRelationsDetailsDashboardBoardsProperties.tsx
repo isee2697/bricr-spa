@@ -21,10 +21,10 @@ const PropertyItem = ({
         </Avatar>
       </Box>
       <Box width="100%">
-        <Typography variant="h3" className={classes.propertyTitle}>
+        <Typography variant="h5" className={classes.propertyTitle}>
           {property}
         </Typography>
-        <Box display="flex">
+        <Box display="flex" mt={2}>
           <Box mr={3.5}>
             <Typography variant="h6" className={classes.propertyLabel}>
               {formatMessage({

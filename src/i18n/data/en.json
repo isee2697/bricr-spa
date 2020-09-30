@@ -2368,5 +2368,6 @@
   "validation.required": "Field is required",
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",
-  "visited_pages.view_more": "View more"
+  "visited_pages.view_more": "View more",
+  "crm.relation": "Relation"
 }
