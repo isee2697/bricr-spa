@@ -10,6 +10,7 @@ import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ContactInformation.styles';
 import { Addresses } from './addresses/Addresses';
+import { PhoneNumbers } from './phoneNumbers/PhoneNumbers';
 
 export const ContactInformation = () => {
   const classes = useStyles();
@@ -40,6 +41,7 @@ export const ContactInformation = () => {
         </Grid>
 
         <Addresses />
+        <PhoneNumbers />
       </Page>
     </>
   );

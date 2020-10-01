@@ -15,7 +15,7 @@ export const Addresses = () => {
 
   const addresses = [
     {
-      key: 'homeAddresses',
+      key: 'homeAddress',
       title: 'Home address',
       country: '',
       city: '',
@@ -91,7 +91,7 @@ export const Addresses = () => {
                       placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={5}>
                     <Typography variant="h5">
                       {formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.city' })}
                     </Typography>
@@ -102,7 +102,7 @@ export const Addresses = () => {
                       placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={3}>
                     <Typography variant="h5">
                       {formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.zip_code' })}
                     </Typography>
@@ -167,7 +167,7 @@ export const Addresses = () => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} className={classes.addressFormFields}>
-                  <Grid item xs={3}>
+                  <Grid item xs={4}>
                     <Typography variant="h5">
                       {formatMessage({
                         id: 'crm.details.personal_information_contact_information.addresses.address_available_from',
