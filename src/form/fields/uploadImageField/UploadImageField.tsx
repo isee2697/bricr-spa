@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
-import { useField } from 'react-final-form';
+import { useField, useFormState } from 'react-final-form';
 import classNames from 'classnames';
 
 import { Badge, Checkbox, CircularProgress, Grid } from 'ui/atoms';
@@ -120,6 +120,7 @@ export const UploadImageField = ({
     setLoading(false);
     setBackgroundImage('');
     setInvalidFile(false);
+    input.onChange({ id: 'delete-img' });
     onRemove && onRemove();
   };
 
