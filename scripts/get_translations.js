@@ -45,8 +45,16 @@ const saveLocaleFunction = async (value, variables) => {
         res => res.status === 200 ? res.json() : console.error('Failed to retrieve:', res.message)
     ).then(body => {
         const filePath = path.join(directoryPath, `${value.code}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
-        console.log(`Succesfully generated language: ${value.name}`);
+
+        console.log('FilePath', filePath);
+
+        if(body){
+            fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
+            console.log(`Succesfully generated language: ${value.name}`);
+        } else {
+            throw new Error('No language body found');
+        }
+
     }).catch((e) => {
         console.error(`Retrieving locale: ${name} with id: ${id} failed`, e);
     });

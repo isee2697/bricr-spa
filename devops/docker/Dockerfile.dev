@@ -18,6 +18,12 @@ RUN npm install
 
 RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
 
+RUN ls ./src/i18n/data
+RUN cat ./src/i18n/data/en.json
+
+RUN ls src/i18n/data
+RUN cat src/i18n/data/en.json
+
 COPY .env.develop .env
 
 RUN if [ $PHRASE_ENABLED = "true" ] ; then echo "REACT_APP_PHRASE_PROJECT=$PHRASE_ENABLED" >> .env ; fi ;
