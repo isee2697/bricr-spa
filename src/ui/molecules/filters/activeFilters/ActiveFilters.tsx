@@ -4,6 +4,7 @@ import Chip from '@material-ui/core/Chip';
 
 import { Box } from 'ui/atoms';
 import { ListPimsFilters } from 'api/types';
+import { ListProps } from 'ui/molecules/list/List.types';
 
 import { useStyles } from './ActiveFilters.styles';
 
@@ -18,9 +19,9 @@ type ChipProps = {
   onDelete: (key: string, filter: Filter | string) => void;
 };
 
-type ActiveFiltersProps = {
-  activeFilters: ListPimsFilters;
-  onDelete: (filters: ListPimsFilters) => void;
+type ActiveFiltersProps<T> = {
+  activeFilters: T;
+  onDelete: (filters: T) => void;
 };
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
@@ -41,17 +42,19 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
     </>
   );
 };
-
-export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
+export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<ActiveFiltersProps<T>> = ({
+  activeFilters,
+  onDelete,
+}) => {
   const classes = useStyles();
   const handleDelete = (key: string, filter: Filter | string) => {
     const newFilters = { ...activeFilters };
 
-    if (typeof newFilters[key] === 'object' && newFilters[key].length > 0) {
-      newFilters[key] = newFilters[key].filter((item: Filter) => filter !== item);
-    } else {
-      delete newFilters[key];
-    }
+    // if (typeof newFilters[key] === 'object' && newFilters[key].length > 0) {
+    //   newFilters[key] = newFilters[key].filter((item: Filter) => filter !== item);
+    // } else {
+    //   delete newFilters[key];
+    // }
 
     if (onDelete) {
       onDelete(newFilters);
@@ -62,17 +65,31 @@ export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
     const filters: React.ReactNode[] = [];
 
     if (activeFilters && Object.values(activeFilters).length > 0) {
-      for (const key in activeFilters) {
-        const value = activeFilters[key];
+      Object.entries(activeFilters).forEach(filter => {
+        const [name, value] = filter;
 
-        if (typeof value !== 'object') {
-          filters.push(<ChipComponent key={key} index={key} filter={value} onDelete={handleDelete} />);
+        if (Array.isArray(value)) {
+          value.forEach(filter =>
+            filters.push(
+              <ChipComponent
+                key={name}
+                index={name}
+                filter={(filter && filter.toString()) ?? ''}
+                onDelete={handleDelete}
+              />,
+            ),
+          );
         } else {
-          value.forEach((filter: Filter) =>
-            filters.push(<ChipComponent key={key} index={key} filter={filter} onDelete={handleDelete} />),
+          filters.push(
+            <ChipComponent
+              key={name}
+              index={name}
+              filter={(value && value.toString()) || ''}
+              onDelete={handleDelete}
+            />,
           );
         }
-      }
+      });
     }
 
     return filters;

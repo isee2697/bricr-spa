@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { Pim as PimEntity } from 'api/types';
+import { ListPimsFilters, Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -69,7 +69,7 @@ export const Pim = ({
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   </Box>
-                  <ActiveFilters activeFilters={activeFilters} onDelete={onFilter} />
+                  <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}
