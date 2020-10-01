@@ -12,6 +12,7 @@ export const useStyles = makeStyles(theme => ({
   },
   metaCount: {
     textAlign: 'center',
+    fontWeight: theme.typography.fontWeightMedium,
   },
   metaLabel: {
     textAlign: 'center',

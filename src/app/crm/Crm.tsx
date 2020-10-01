@@ -6,6 +6,7 @@ import { Grid, Box, Card, CardHeader, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { SortOption } from '../../ui/molecules/list/List.types';
 
 import { CrmItem, CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
@@ -30,6 +31,13 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
   }, []);
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
+
+  const sortOptions: SortOption[] = [
+    {
+      name: formatMessage({ id: 'crm.list.sort_option.newest' }),
+      key: 'newest',
+    },
+  ];
 
   return (
     <Grid container spacing={0}>
@@ -75,6 +83,7 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
                       </Box>
                     </Box>
                   )}
+                  sortOptions={sortOptions}
                 />
               </CardContent>
             </Card>
