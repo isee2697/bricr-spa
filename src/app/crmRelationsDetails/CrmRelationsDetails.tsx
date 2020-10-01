@@ -12,6 +12,7 @@ import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/Crm
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
+import { PersonalInformationGeneral } from './personalInformation/general/General';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -40,9 +41,10 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route path={`${path}/summary`} render={() => <CrmRelationsDetailsSummary />} />
                 <Route path={`${path}/timeline`} render={() => <CrmRelationsDetailsTimeline crm={crm} />} />
                 <Route
-                  path={`${path}/customerJourney`}
+                  path={`${path}/customer_journey`}
                   render={() => <CrmRelationsDetailsCustomerJourneyContaienr crm={crm} />}
                 />
+                <Route path={`${path}/personal_information_general`} render={() => <PersonalInformationGeneral />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
