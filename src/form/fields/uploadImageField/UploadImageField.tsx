@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
-import { useField, useFormState } from 'react-final-form';
+import { useField } from 'react-final-form';
 import classNames from 'classnames';
 
 import { Badge, Checkbox, CircularProgress, Grid } from 'ui/atoms';
