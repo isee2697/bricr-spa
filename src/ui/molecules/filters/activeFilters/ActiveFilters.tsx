@@ -42,22 +42,33 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
     </>
   );
 };
+
+function prop<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
 export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<ActiveFiltersProps<T>> = ({
   activeFilters,
   onDelete,
 }) => {
   const classes = useStyles();
   const handleDelete = (key: string, filter: Filter | string) => {
-    const newFilters = { ...activeFilters };
+    const data = Object.entries(activeFilters).find(item => item[0] === key);
 
-    // if (typeof newFilters[key] === 'object' && newFilters[key].length > 0) {
-    //   newFilters[key] = newFilters[key].filter((item: Filter) => filter !== item);
-    // } else {
-    //   delete newFilters[key];
-    // }
+    if (data) {
+      const [name, value] = data;
 
-    if (onDelete) {
-      onDelete(newFilters);
+      if (Array.isArray(value)) {
+        activeFilters = Object.assign(activeFilters, {
+          [name]: value.filter((item: string) => filter.toString() !== item.toString()),
+        });
+      } else {
+        activeFilters = JSON.parse(JSON.stringify(Object.assign(activeFilters, { [name]: undefined })));
+      }
+
+      if (onDelete) {
+        onDelete(activeFilters);
+      }
     }
   };
 
