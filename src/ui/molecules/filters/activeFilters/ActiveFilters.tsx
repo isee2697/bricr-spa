@@ -3,6 +3,7 @@ import { AnyObject } from 'final-form';
 import Chip from '@material-ui/core/Chip';
 
 import { Box } from 'ui/atoms';
+import { ListPimsFilters } from 'api/types';
 
 import { useStyles } from './ActiveFilters.styles';
 
@@ -14,11 +15,17 @@ type Filter = {
 type ChipProps = {
   index: string;
   filter: Filter | string;
-  classes: AnyObject;
   onDelete: (key: string, filter: Filter | string) => void;
 };
 
-const ChipComponent = ({ index, filter, classes, onDelete }: ChipProps) => {
+type ActiveFiltersProps = {
+  activeFilters: ListPimsFilters;
+  onDelete: (filters: ListPimsFilters) => void;
+};
+
+const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
+  const classes = useStyles();
+
   return (
     <>
       <Chip
@@ -37,8 +44,6 @@ const ChipComponent = ({ index, filter, classes, onDelete }: ChipProps) => {
 
 export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
   const classes = useStyles();
-  const filters: React.ReactNode[] = [];
-
   const handleDelete = (key: string, filter: Filter | string) => {
     const newFilters = { ...activeFilters };
 
@@ -53,25 +58,29 @@ export const ActiveFilters = ({ activeFilters, onDelete }: AnyObject) => {
     }
   };
 
-  if (activeFilters && Object.values(activeFilters).length > 0) {
-    for (const key in activeFilters) {
-      const value = activeFilters[key];
+  const generateFilters = () => {
+    const filters: React.ReactNode[] = [];
 
-      if (typeof value !== 'object') {
-        filters.push(<ChipComponent key={key} index={key} classes={classes} filter={value} onDelete={handleDelete} />);
-      } else {
-        value.forEach((filter: Filter) =>
-          filters.push(
-            <ChipComponent key={key} index={key} classes={classes} filter={filter} onDelete={handleDelete} />,
-          ),
-        );
+    if (activeFilters && Object.values(activeFilters).length > 0) {
+      for (const key in activeFilters) {
+        const value = activeFilters[key];
+
+        if (typeof value !== 'object') {
+          filters.push(<ChipComponent key={key} index={key} filter={value} onDelete={handleDelete} />);
+        } else {
+          value.forEach((filter: Filter) =>
+            filters.push(<ChipComponent key={key} index={key} filter={filter} onDelete={handleDelete} />),
+          );
+        }
       }
     }
-  }
+
+    return filters;
+  };
 
   return (
     <Box className={classes.root} p={2}>
-      {filters}
+      {generateFilters()}
     </Box>
   );
 };

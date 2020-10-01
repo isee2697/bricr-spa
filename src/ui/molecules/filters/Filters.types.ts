@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import { AnyObject } from 'final-form';
 import { GridSize } from '@material-ui/core';
 
+import { ListPimsFilters } from './../../../api/types';
+
 export type CheckboxDataType = {
   label: string;
   icon: ReactNode;
@@ -35,7 +37,7 @@ export type FilterContainerProps = {
 
 export type FilterButtonProps = {
   data?: AnyObject;
-  getActiveFilters?: (filters: AnyObject) => void;
+  getActiveFilters?: (filters: ListPimsFilters) => void;
 };
 
 export type FilterSidenavProps = {

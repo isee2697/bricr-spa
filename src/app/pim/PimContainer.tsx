@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { AnyObject } from 'final-form';
 
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
@@ -69,7 +68,7 @@ export const PimContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const handleFilterChange = (filters: AnyObject) => {
+  const handleFilterChange = (filters: ListPimsFilters) => {
     setActiveFilters(filters);
   };
 
