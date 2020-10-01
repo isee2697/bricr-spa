@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core';
 import { CrmListItemProps } from './CrmListItem.types';
 
 export const useStyles = makeStyles(theme => ({
+  inactive: {
+    filter: 'grayscale(1)',
+  },
   image: {
     width: 160,
     height: 152,

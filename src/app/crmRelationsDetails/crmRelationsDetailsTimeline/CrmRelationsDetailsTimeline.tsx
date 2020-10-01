@@ -265,10 +265,20 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
             title={formatMessage({ id: 'crm.details.timeline.title' })}
             action={
               <>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-                  <ManageIcon />
+                <IconButton
+                  variant="roundedContained"
+                  size="small"
+                  onClick={() => {}}
+                  className={classes.marginRightTwo}
+                >
+                  <ManageIcon color="inherit" />
                 </IconButton>
-                <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
+                <IconButton
+                  variant="roundedContained"
+                  size="small"
+                  onClick={() => {}}
+                  className={classes.marginRightTwo}
+                >
                   <SearchIcon />
                 </IconButton>
                 <IconButton aria-label="add" color="primary" size="small" onClick={() => {}}>
