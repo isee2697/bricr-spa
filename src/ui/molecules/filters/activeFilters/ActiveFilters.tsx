@@ -1,10 +1,7 @@
 import React from 'react';
-import { AnyObject } from 'final-form';
 import Chip from '@material-ui/core/Chip';
 
 import { Box } from 'ui/atoms';
-import { ListPimsFilters } from 'api/types';
-import { ListProps } from 'ui/molecules/list/List.types';
 
 import { useStyles } from './ActiveFilters.styles';
 
@@ -42,10 +39,6 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
     </>
   );
 };
-
-function prop<T, K extends keyof T>(obj: T, key: K) {
-  return obj[key];
-}
 
 export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<ActiveFiltersProps<T>> = ({
   activeFilters,
