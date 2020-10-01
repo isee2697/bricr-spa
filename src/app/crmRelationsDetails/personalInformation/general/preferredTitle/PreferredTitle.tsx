@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, FormControlLabel, Switch, Grid, Typograp
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';
-import { SquareIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './PreferredTitle.styles';
 import { preferredLetterSalutations, prefixes, suffixes } from './dictionaries';
