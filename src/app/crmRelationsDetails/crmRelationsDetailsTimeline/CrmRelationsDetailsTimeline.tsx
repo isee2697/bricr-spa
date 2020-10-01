@@ -56,6 +56,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
             permission: FilePermission.Public,
           },
           isActive: true,
+          isAdmin: false,
         },
       ],
       location: {
@@ -83,6 +84,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
     {
@@ -108,6 +110,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
             permission: FilePermission.Public,
           },
           isActive: true,
+          isAdmin: false,
         },
         {
           id: '0000-00000001',
@@ -124,6 +127,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
             permission: FilePermission.Public,
           },
           isActive: true,
+          isAdmin: false,
         },
       ],
       postedBy: {
@@ -141,6 +145,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
     {
@@ -162,6 +167,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
     {
@@ -183,6 +189,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
     {
@@ -204,6 +211,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
     {
@@ -225,6 +233,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
           permission: FilePermission.Public,
         },
         isActive: true,
+        isAdmin: false,
       },
     },
   ];

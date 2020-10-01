@@ -62,9 +62,10 @@ export const ProfileItem = ({
           ))}
         </Grid>
         <Grid container className={classes.infoContainer}>
-          {rights?.map(name => (
+          {rights?.slice(0, 4).map(name => (
             <Chip key={name} className={classes.chip} label={name} size="small" />
           ))}
+          {rights && rights?.length > 4 && <>...</>}
         </Grid>
         {notes && (
           <Grid alignItems="center" container className={classes.notesContainer}>

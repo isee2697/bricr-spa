@@ -6083,6 +6083,7 @@ export type Profile = {
   socialMediaLinks?: Maybe<Array<SocialMediaLink>>;
   company?: Maybe<Company>;
   adminSettings?: Maybe<Array<AdminSettings>>;
+  isAdmin: Scalars['Boolean'];
   isActive: Scalars['Boolean'];
   initials?: Maybe<Scalars['String']>;
   costUnit?: Maybe<Scalars['String']>;
@@ -6110,6 +6111,7 @@ export type UpdateProfileInput = {
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   adminSettings?: Maybe<Array<AdminSettings>>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
   initials?: Maybe<Scalars['String']>;
   costUnit?: Maybe<Scalars['String']>;
   hideOnMemos?: Maybe<Scalars['Boolean']>;
@@ -9921,7 +9923,7 @@ export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
     { __typename?: 'Profile' } & Pick<
       Profile,
-      'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive'
+      'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive' | 'isAdmin'
     > & {
         company?: Maybe<{ __typename?: 'Company' } & Pick<Company, 'id'>>;
         image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
@@ -9943,7 +9945,7 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
       Array<
         { __typename?: 'Profile' } & Pick<
           Profile,
-          'id' | 'firstName' | 'lastName' | 'email' | 'functionDescription' | 'adminSettings' | 'isActive'
+          'id' | 'firstName' | 'lastName' | 'email' | 'functionDescription' | 'adminSettings' | 'isActive' | 'isAdmin'
         > & {
             image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
             teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
@@ -9984,6 +9986,7 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
       | 'hideOnMemos'
       | 'isAccountmanager'
       | 'adminSettings'
+      | 'isAdmin'
       | 'isActive'
     > & {
         image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
@@ -10031,7 +10034,7 @@ export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
   members: { __typename?: 'ProfileSearchResult' } & {
     items?: Maybe<
       Array<
-        { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'email'> & {
+        { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName' | 'isAdmin' | 'email'> & {
             image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
           }
       >
@@ -16556,6 +16559,7 @@ export const MeDocument = gql`
       }
       adminSettings
       isActive
+      isAdmin
     }
   }
 `;
@@ -16584,6 +16588,7 @@ export const GetUsersDocument = gql`
         functionDescription
         adminSettings
         isActive
+        isAdmin
         teams {
           id
           name
@@ -16650,6 +16655,7 @@ export const GetUserProfileDocument = gql`
       hideOnMemos
       isAccountmanager
       adminSettings
+      isAdmin
       image {
         id
         key
@@ -16718,6 +16724,7 @@ export const GetMyTeamMembersDocument = gql`
         id
         firstName
         lastName
+        isAdmin
         email
         image {
           id
