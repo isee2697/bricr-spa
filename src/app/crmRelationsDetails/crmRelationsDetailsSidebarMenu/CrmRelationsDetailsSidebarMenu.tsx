@@ -4,6 +4,8 @@ import { useParams, useRouteMatch } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';
+import { SidebarTitleTile, UserAvatar } from 'ui/atoms';
+import { CRM_RELATIONS } from 'api/mocks/crm-relation';
 
 import { CrmRelationsDetailsSidebarMenuProps } from './CrmRelationsDetailsSidebarMenu.types';
 
@@ -57,5 +59,23 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
     ],
   };
 
-  return <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="crm.details.menu" menu={menu} />;
+  const selectedCrmRelation = CRM_RELATIONS[0];
+
+  return (
+    <SidebarMenu
+      onHide={onHide}
+      isVisible={isVisible}
+      translationPrefix="crm.details.menu"
+      menu={menu}
+      menuTitle={
+        <SidebarTitleTile
+          title={selectedCrmRelation.property}
+          subtitle={formatMessage({ id: 'crm.relation' })}
+          icon={
+            <UserAvatar name={selectedCrmRelation.property} avatar={selectedCrmRelation.avatar} variant="rounded" />
+          }
+        />
+      }
+    />
+  );
 };

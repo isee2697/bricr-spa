@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Grid, Typography, Box } from 'ui/atoms';
+import { Grid, Typography, Card, CardContent } from 'ui/atoms';
 
 import { useStyles } from './CrmRelationsDetailsDashboardMetaHeader.styles';
 import {
@@ -13,14 +13,16 @@ const CrmRelationsDetailsDashboardMetaBox = ({ label, count }: CrmRelationsDetai
   const classes = useStyles();
 
   return (
-    <Box className={classes.meta}>
-      <Typography className={classes.metaCount} variant="h3">
-        {count}
-      </Typography>
-      <Typography className={classes.metaLabel} variant="h6">
-        {label}
-      </Typography>
-    </Box>
+    <Card className={classes.meta}>
+      <CardContent>
+        <Typography className={classes.metaCount} variant="h3">
+          {count}
+        </Typography>
+        <Typography className={classes.metaLabel} variant="h6">
+          {label}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

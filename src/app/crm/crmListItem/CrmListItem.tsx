@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, Emoji, ProgressFilling, IconButton, Chip } from 'ui/atoms';
@@ -66,7 +67,12 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
   ];
 
   return (
-    <Box display="flex" width="100%" flexDirection="column">
+    <Box
+      display="flex"
+      width="100%"
+      flexDirection="column"
+      className={clsx(crm.status === 'archived' && classes.inactive)}
+    >
       <Box display="flex" mb={3}>
         <Box>
           <Avatar variant="rounded" src={avatar} className={classes.image}>

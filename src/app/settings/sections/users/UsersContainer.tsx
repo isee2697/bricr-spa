@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { usePagination } from 'hooks';
 import {
+  GetUserProfileDocument,
   GetUsersCountDocument,
   GetUsersDocument,
   GetUsersQueryVariables,
@@ -10,6 +11,7 @@ import {
   useGetUsersCountQuery,
   useGetUsersQuery,
   useReactivateProfileMutation,
+  useUpdateProfileMutation,
 } from 'api/types';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { Loader } from 'ui/atoms';
@@ -24,6 +26,7 @@ export const UsersContainer = () => {
   const { data: count } = useGetUsersCountQuery();
   const [deactivateProfile] = useDeactivateProfileMutation();
   const [reactivateProfile] = useReactivateProfileMutation();
+  const [updateProfile] = useUpdateProfileMutation();
 
   const { pagination, query: paginationQuery } = usePagination({
     itemsCount: count?.activeCount.metadata?.total ?? 0,
@@ -39,6 +42,33 @@ export const UsersContainer = () => {
   const { data: listData } = useGetUsersQuery({
     variables,
   });
+
+  const handleSave = async (update: Profile) => {
+    if (!update.email) {
+      throw Error();
+    }
+
+    try {
+      const response = await updateProfile({
+        variables: {
+          input: {
+            id: update.id,
+            email: update.email,
+            isAdmin: update.isAdmin,
+          },
+        },
+        refetchQueries: [{ query: GetUserProfileDocument, variables: { id: update.id } }],
+      });
+
+      if (!response) {
+        throw Error();
+      }
+
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
 
   const handleActivation = async (profile: Profile) => {
     const callFunction = profile.isActive ? deactivateProfile : reactivateProfile;
@@ -70,6 +100,7 @@ export const UsersContainer = () => {
         status={status}
         setStatus={newStatus => setStatus(newStatus)}
         pagination={pagination}
+        onUpdate={handleSave}
       />
     );
   }
