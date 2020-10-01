@@ -123,6 +123,7 @@ type Profile {
   socialMediaLinks: [SocialMediaLink!]
   company: Company
   adminSettings: [AdminSettings!]
+  isAdmin: Boolean!
   isActive: Boolean!
   initials: String
   costUnit: String
@@ -150,6 +151,7 @@ input UpdateProfileInput {
   functionDescription: String
   email: String!
   adminSettings: [AdminSettings!]
+  isAdmin: Boolean
   initials: String
   costUnit: String
   hideOnMemos: Boolean

@@ -5,15 +5,15 @@ import { UserProps } from 'app/settings/sections/users/Users.types';
 import { Page } from 'ui/templates';
 import { Profile } from 'api/types';
 import { ProfileItem, List, ListOptionsMenu } from 'ui/molecules';
-import { Grid, Card, NavBreadcrumb, MenuItem, Typography } from 'ui/atoms';
+import { Grid, Card, MenuItem, Typography, Box } from 'ui/atoms';
 import { UserActionTabs } from 'app/settings/sections/users/actionTabs/UserActiontabs';
 import { useAuthState, useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { UserIcon } from 'ui/atoms/icons';
+import { CheckIcon, UserIcon } from 'ui/atoms/icons';
 
 import { AddUserModalContainer } from './modals/AddUserModalContainer';
 
-export const Users = ({ data, total, onActivationChange, status, setStatus, pagination }: UserProps) => {
+export const Users = ({ data, total, onActivationChange, status, setStatus, pagination, onUpdate }: UserProps) => {
   const { user: currentUser } = useAuthState();
   const [isModalOpen, setModalOpen] = useState(false);
   const { formatMessage } = useLocale();
@@ -33,10 +33,8 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
 
   return (
     <>
-      <NavBreadcrumb to={AppRoute.users} title={formatMessage({ id: 'settings.users.title' })} />
       <Page
         titleActions={<></>}
-        title={formatMessage({ id: 'settings.users.title_count' }, { count: amounts[status] })}
         showHeader
         headerProps={{ actionText: 'Add user', onAction: () => setModalOpen(true) }}
       >
@@ -60,7 +58,7 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
                     email={item.email ?? ''}
                     teamNames={item?.teams?.filter(team => !!team.name).map(team => team?.name ?? '')}
                     phone={item?.phoneNumbers?.[0].phoneNumber ?? undefined}
-                    rights={item.adminSettings?.slice(0, 4) ?? undefined}
+                    rights={item.isAdmin ? [formatMessage({ id: 'common.admin' })] : item.adminSettings ?? undefined}
                     functionDescription={item?.functionDescription || undefined}
                     button={
                       <ListOptionsMenu
@@ -75,6 +73,19 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
                             <Typography>{formatMessage({ id: 'settings.users.reactivate' })}</Typography>
                           </MenuItem>
                         )}
+                        <MenuItem
+                          onClick={() => onUpdate({ ...item, isAdmin: !item.isAdmin })}
+                          data-testid="change-admin"
+                        >
+                          <UserIcon />
+                          <Typography>{formatMessage({ id: 'common.admin' })}</Typography>
+                          {item.isAdmin && (
+                            <>
+                              <Box ml={2} />
+                              <CheckIcon color="primary" fontSize="small" />
+                            </>
+                          )}
+                        </MenuItem>
                       </ListOptionsMenu>
                     }
                   />

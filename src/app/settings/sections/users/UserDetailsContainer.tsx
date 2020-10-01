@@ -7,7 +7,6 @@ import { UserDetails } from 'app/settings/sections/users/UserDetails';
 
 export const UserDetailsContainer = () => {
   const { id } = useParams<{ id: string }>();
-
   const { data: profile } = useGetUserProfileQuery({ variables: { id } });
   const [updateProfile] = useUpdateProfileMutation();
 
@@ -33,6 +32,7 @@ export const UserDetailsContainer = () => {
             costUnit: update.costUnit,
             hideOnMemos: update.hideOnMemos,
             isAccountmanager: update.isAccountmanager,
+            isAdmin: update.isAdmin,
           },
         },
         refetchQueries: [{ query: GetUserProfileDocument, variables: { id } }],
@@ -48,8 +48,8 @@ export const UserDetailsContainer = () => {
     }
   };
 
-  if (profile && profile.getProfile) {
-    return <UserDetails onSave={handleSave} data={profile.getProfile} />;
+  if (profile && !!profile.getProfile) {
+    return <UserDetails key={id} onSave={handleSave} data={profile.getProfile as Profile} />;
   }
 
   return <Loader />;
