@@ -60,7 +60,7 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
       }
 
       if (onDelete) {
-        onDelete(activeFilters);
+        onDelete({ ...activeFilters });
       }
     }
   };
