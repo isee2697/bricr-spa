@@ -10,7 +10,7 @@ export const useStyles = makeStyles(theme => ({
   },
   textFieldAbout: {
     '& .MuiInputBase-input': {
-      padding: `${theme.spacing(1.5)}px ${theme.spacing(2)}px`,
+      padding: theme.spacing(1.5, 2),
     },
   },
   marginRightTwo: {

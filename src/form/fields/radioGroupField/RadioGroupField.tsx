@@ -56,7 +56,7 @@ export const RadioGroupField = ({
   const hasError =
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
-    (meta.initial !== undefined && true && meta.initial !== null && !!meta.error);
+    (meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
     <>
