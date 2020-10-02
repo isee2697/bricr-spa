@@ -5,19 +5,9 @@ import { Page } from 'ui/templates';
 import { Grid, Tab, Tabs } from 'ui/atoms';
 import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments } from 'ui/organisms';
 
-const currentDate = '2018-11-01';
-const schedulerData = [
-  { startDate: '2018-11-01T09:45', endDate: '2018-11-01T11:00', title: 'Meeting' },
-  { startDate: '2018-11-01T12:00', endDate: '2018-11-01T13:30', title: 'Go to a gym' },
-  { startDate: '2018-11-01T12:01', endDate: '2018-11-01T13:35', title: 'Go to Cubiceyes' },
-];
+import { DateView, CalendarProps } from './Calandar.types';
 
-enum DateView {
-  Week = 'Week',
-  Day = 'Day',
-  Month = 'Month',
-}
-export const Calendar = () => {
+export const Calendar = ({ data, currentDate }: CalendarProps) => {
   const [currentView, setView] = useState(DateView.Week);
 
   return (
@@ -31,30 +21,26 @@ export const Calendar = () => {
           </Tabs>
 
           {currentView === DateView.Day && (
-            <Scheduler data={schedulerData}>
+            <Scheduler data={data}>
               <ViewState currentDate={currentDate} />
               <DayView startDayHour={9} endDayHour={14} />
               <Appointments />
             </Scheduler>
           )}
           {currentView === DateView.Week && (
-            <Scheduler data={schedulerData}>
+            <Scheduler data={data}>
               <ViewState currentDate={currentDate} />
               <WeekView startDayHour={9} endDayHour={14} />
               <Appointments />
             </Scheduler>
           )}
           {currentView === DateView.Month && (
-            <Scheduler data={schedulerData}>
+            <Scheduler data={data}>
               <ViewState currentDate={currentDate} />
               <MonthView />
               <Appointments />
             </Scheduler>
           )}
-          {/*<ViewState currentDate={currentDate} />*/}
-          {/*{currentView === DateView.Day && <DayView startDayHour={9} endDayHour={14} />}*/}
-          {/*{currentView === DateView.Week && <WeekView startDayHour={9} endDayHour={14} />}*/}
-          {/*{currentView === DateView.Month && <MonthView />}*/}
         </FormSection>
       </Page>
     </Grid>
