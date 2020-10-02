@@ -8,6 +8,8 @@ import {
   useAddNcpServiceMutation,
   GetObjectTypeServicesDocument,
   useAddObjectTypeServiceMutation,
+  useAddServiceMutation,
+  PimServicesDocument,
 } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
 
@@ -23,9 +25,48 @@ export const AddServiceModalContainer = ({
 
   const [addNcpService] = useAddNcpServiceMutation();
   const [addObjectType] = useAddObjectTypeServiceMutation();
+  const [addPimService] = useAddServiceMutation();
 
   const handleSubmit: AddServiceSubmit = async body => {
     try {
+      if (entityType === EntityType.Property) {
+        try {
+          const { data: result } = await addPimService({
+            variables: {
+              input: {
+                parentId: id,
+                name: body.name || '',
+                type: type,
+                configuration: {
+                  type: body.type,
+                },
+              },
+            },
+            refetchQueries: [
+              {
+                query: PimServicesDocument,
+                variables: {
+                  id,
+                },
+              },
+            ],
+          });
+
+          if (!result) {
+            throw new Error();
+          }
+
+          onAddService();
+          onClose(result?.addPimService?.newService.id);
+
+          return undefined;
+        } catch {
+          return {
+            error: true,
+          };
+        }
+      }
+
       if (entityType === EntityType.Project) {
         const { data: result } = await addNcpService({
           variables: {
