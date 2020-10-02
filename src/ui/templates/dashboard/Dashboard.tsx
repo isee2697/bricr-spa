@@ -73,7 +73,12 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="calendar">
+            <IconButton
+              onClick={handleNavigate(AppRoute.calendar)}
+              variant="rounded"
+              size="small"
+              aria-label="calendar"
+            >
               <CalendarIcon />
             </IconButton>
             <IconButton
