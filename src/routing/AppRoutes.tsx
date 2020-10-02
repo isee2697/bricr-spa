@@ -23,6 +23,7 @@ import { RegisterContainer } from 'app/register/RegisterContainer';
 import { SetupContainer } from 'app/register/setup/SetupContainer';
 import { CrmContainer } from 'app/crm/CrmContainer';
 import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelationsDetailsContainer';
+import { NotificationsContainer } from '../app/notifications/NotificationsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -79,6 +80,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.settings} component={SettingsContainer} />
                 <AuthorizedRoute path={AppRoute.tasks} exact component={TasksContainer} />
                 <AuthorizedRoute path={AppRoute.taskDetails} component={TaskDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.notifications} exact component={NotificationsContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
               </Switch>
