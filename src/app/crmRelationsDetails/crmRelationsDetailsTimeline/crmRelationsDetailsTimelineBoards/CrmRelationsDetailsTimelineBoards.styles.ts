@@ -97,6 +97,7 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium,
   },
   timelinePoster: {
+    color: theme.palette.gray.main,
     marginTop: theme.spacing(4),
   },
   flexGridGrow: {

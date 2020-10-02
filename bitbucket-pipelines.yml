@@ -125,7 +125,7 @@ pipelines:
             - npm run build
       - step:
           name: build and install
-          image: tshio/e2e-runner:v4.0.2.2
+          image: cypress/browsers:node13.6.0-chrome80-ff72
           caches:
             - node
             - cypress
@@ -133,6 +133,7 @@ pipelines:
           script:
             - cp .env.dist .env
             - npm install
+            - npm install --save-dev cypress@4.0.2
             - node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
             - npm run build:ci
             - cd e2e && npm install && cd ..
@@ -142,18 +143,20 @@ pipelines:
       - parallel:
           - step:
               name: e2e - firefox
-              image: tshio/e2e-runner:v4.0.2.2
+              image: cypress/browsers:node13.6.0-chrome80-ff72
               caches:
                 - node
               script:
+                - npm install --save-dev cypress@4.0.2
                 - cp .env.e2e.dist ./e2e/.env
                 - npm run e2e:ci:firefox
           - step:
               name: e2e - chrome
-              image: tshio/e2e-runner:v4.0.2.2
+              image: cypress/browsers:node13.6.0-chrome80-ff72
               caches:
                 - node
               script:
+                - npm install --save-dev cypress@4.0.2
                 - cp .env.e2e.dist ./e2e/.env
                 - npm run e2e:ci:chrome
 

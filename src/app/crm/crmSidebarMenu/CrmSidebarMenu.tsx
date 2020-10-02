@@ -36,7 +36,7 @@ export const CrmSidebarMenu = ({ type, isVisible, onHide, onTypeChange }: CrmSid
             <SidebarHideButton />
           </div>
           <div className={classes.menuWrapper}>
-            <SideMenu className={classes.root}>
+            <SideMenu className={classes.sideMenu}>
               {types.map(t => (
                 <SideMenuItem
                   key={t.name}

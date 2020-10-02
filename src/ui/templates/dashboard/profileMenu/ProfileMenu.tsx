@@ -57,7 +57,13 @@ export const ProfileMenu = () => {
         <Box display="flex" mb={2}>
           <Typography variant="h3">Profile menu</Typography>
         </Box>
-        <Link component={RouterLink} to="/" color="inherit" role="menuitem">
+        <Link
+          component={RouterLink}
+          to={AppRoute.users + '/' + user?.id}
+          color="inherit"
+          role="menuitem"
+          onClick={() => setOpened(false)}
+        >
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
               <Box color={theme.palette.green.main}>

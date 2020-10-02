@@ -2,11 +2,13 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { Pim as PimEntity } from 'api/types';
+import { ListPimsFilters, Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';
@@ -28,6 +30,8 @@ export const Pim = ({
   listData,
   sorting,
   pagination,
+  onFilter,
+  activeFilters,
 }: PimProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -50,11 +54,22 @@ export const Pim = ({
             <PimHeader type={type} />
             <Grid item xs={12}>
               <Card>
-                <CardHeader className="pim-list-header" title={formatMessage({ id: `pim.type.${type}` })} />
+                <CardHeader
+                  className="pim-list-header"
+                  title={formatMessage({ id: `pim.type.${type}` })}
+                  action={
+                    <Box display="flex">
+                      <Box mr={3}>
+                        <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+                      </Box>
+                    </Box>
+                  }
+                />
                 <CardContent className={classes.listContent}>
                   <Box mx={2}>
                     <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
                   </Box>
+                  <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
                   <List
                     className="pim-list"
                     items={(listData?.listPims?.items ?? []) as PimEntity[]}
