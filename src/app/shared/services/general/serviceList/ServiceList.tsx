@@ -26,10 +26,10 @@ export const ServiceList: <T extends Service>(p: ServiceTypeListProps<T>) => Rea
 
   const itemsWithYear = items.map(item => ({
     ...item,
-    name: `${item.configuration.type &&
+    title: `${item.configuration.type &&
       formatMessage({
         id: `dictionaries.service.${type.toLowerCase()}.${item.configuration.type}`,
-      })} ${item?.name ?? '-'} ${item.name}`,
+      })} ${item?.name && '-'} ${item.name}`,
     yearOfInstallation: yearToDate(item.yearOfInstallation),
   }));
 
