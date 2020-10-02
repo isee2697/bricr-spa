@@ -1,4 +1,5 @@
 export { Scheduler, MonthView, Appointments } from '@devexpress/dx-react-scheduler-material-ui';
+export { ViewState } from '@devexpress/dx-react-scheduler';
 
 export { StatsSection } from './statsSection/StatsSection';
 export { Orders } from './orders/Orders';

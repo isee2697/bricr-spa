@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ViewState } from '@devexpress/dx-react-scheduler';
 
 import { Page } from 'ui/templates';
 import { Grid, Tab, Tabs } from 'ui/atoms';
-import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments } from 'ui/organisms';
+import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments, ViewState } from 'ui/organisms';
 
 import { DateView, CalendarProps } from './Calandar.types';
 
