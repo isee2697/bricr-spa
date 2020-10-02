@@ -46,7 +46,7 @@ const saveLocaleFunction = async (value, variables) => {
     ).then(body => {
         const filePath = path.join(directoryPath, `${value.code}.json`);
 
-        if(body){
+        if (body) {
             fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
             console.log(`Succesfully generated language: ${value.name}`);
         } else {
