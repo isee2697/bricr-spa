@@ -120,7 +120,7 @@ export const UploadImageField = ({
     setLoading(false);
     setBackgroundImage('');
     setInvalidFile(false);
-    input.onChange({ id: 'delete-img' });
+    input.onChange(null);
     onRemove && onRemove();
   };
 
