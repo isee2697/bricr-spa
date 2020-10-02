@@ -121,6 +121,7 @@ export const UploadImageField = ({
     setLoading(false);
     setBackgroundImage('');
     setInvalidFile(false);
+    input.onChange(null);
     onRemove && onRemove();
   };
 
