@@ -30,7 +30,11 @@ export const NotificationsList = ({
 }: NotificationsListProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { checkedKeys, checkAllStatus, handleCheck, handleCheckAll } = useSelect(notifications, 'id', disabled);
+  const { checkedKeys, checkAllStatus, handleCheck, handleCheckAll, handleClearAll } = useSelect(
+    notifications,
+    'id',
+    disabled,
+  );
 
   const sortOptions: NotificationsListSortOption[] = [
     {
@@ -77,10 +81,12 @@ export const NotificationsList = ({
   const handleSort = (key: string) => {};
   const handleBulkReadNotifications = () => {
     onBulkReadNotifications(checkedKeys);
+    handleClearAll();
   };
 
   const handleBulkDeleteNotifications = () => {
     onBulkDeleteNotifications(checkedKeys);
+    handleClearAll();
   };
 
   return (
