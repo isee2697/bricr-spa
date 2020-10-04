@@ -6,7 +6,7 @@ import { Loader } from 'ui/atoms';
 import { TasksBody } from './TasksBody';
 import { TasksBodyContianerProps } from './TasksBody.types';
 
-export const TasksBodyContainer = ({ selectedMembers }: TasksBodyContianerProps) => {
+export const TasksBodyContainer = ({ members, selectedMembers }: TasksBodyContianerProps) => {
   const [
     getTasksFullSummary,
     { data: tasksFullSummaryData, loading: loadingTasksFullSummary },
@@ -24,5 +24,11 @@ export const TasksBodyContainer = ({ selectedMembers }: TasksBodyContianerProps)
     return <Loader />;
   }
 
-  return <TasksBody selectedMembers={selectedMembers} tasksFullSummary={tasksFullSummaryData.getTasksFullSummary} />;
+  return (
+    <TasksBody
+      members={members}
+      selectedMembers={selectedMembers}
+      tasksFullSummary={tasksFullSummaryData.getTasksFullSummary}
+    />
+  );
 };

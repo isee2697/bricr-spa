@@ -13,18 +13,22 @@ import {
   GetTasksDocument,
   useGetTasksSummaryByStatusLazyQuery,
   DateRange,
+  GetTasksSummaryByStatusDocument,
 } from 'api/types';
 import { TasksTab, TeamMemberItem } from '../Tasks.types';
 import { TasksContent } from '../tasksContent/TasksContent';
+import { CreateNewTaskModalContainer } from '../createNewTaskModal/CreateNewTaskModalContainer';
+import { useModalDispatch } from '../../../hooks';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
-export const TaskViewContainer = ({ tab, selectedMembers = [] }: TaskViewContainerProps) => {
+export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskViewContainerProps) => {
   const [searchKey, setSearchKey] = useState('');
   const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
   const [dateRange, setDateRange] = useState<DateRange>({
     to: DateTime.local().toISO(),
   });
+  const { close } = useModalDispatch();
 
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
@@ -134,12 +138,40 @@ export const TaskViewContainer = ({ tab, selectedMembers = [] }: TaskViewContain
             ...dateRange,
           },
         },
+        {
+          query: GetTasksSummaryByStatusDocument,
+          variables: {
+            search: searchKey,
+            assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
+            ...dateRange,
+          },
+        },
       ],
     });
 
     if (!result || !result.updateTask || errors) {
       throw new Error();
     }
+  };
+
+  const handleAddNewTask = () => {
+    close('create-new-task');
+    getTasks({
+      variables: {
+        sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
+        sortDirection: SortDirection.Desc,
+        search: searchKey,
+        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
+        ...dateRange,
+      },
+    });
+    getTaskSummaryByStatus({
+      variables: {
+        search: searchKey,
+        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
+        ...dateRange,
+      },
+    });
   };
 
   if (loading || taskSummaryByStatusLoading) {
@@ -162,6 +194,7 @@ export const TaskViewContainer = ({ tab, selectedMembers = [] }: TaskViewContain
         onChangeDateRange={setDateRange}
         onUpdateTaskStatus={handleUpdateTaskStatus}
       />
+      <CreateNewTaskModalContainer members={members} onAddNewTask={handleAddNewTask} />
     </>
   );
 };
