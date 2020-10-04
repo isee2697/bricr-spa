@@ -33,7 +33,7 @@ export const Tasks = ({ error, members = [], user }: TasksProps) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TasksBodyContainer members={members} selectedMembers={selectedMembers} />
+          <TasksBodyContainer members={teamMembers} selectedMembers={selectedMembers} />
         </Grid>
       </Grid>
     </>
