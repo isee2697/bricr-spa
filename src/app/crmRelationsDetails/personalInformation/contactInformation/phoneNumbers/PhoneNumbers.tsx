@@ -14,8 +14,8 @@ import {
 } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AddIcon, ArrowUpIcon, MenuIcon } from '../../../../../ui/atoms/icons';
-import { DatePickerField, GenericField } from '../../../../../form/fields';
+import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
+import { DatePickerField, GenericField } from 'form/fields';
 
 import { useStyles } from './PhoneNumbers.styles';
 

@@ -5,7 +5,7 @@ import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Gr
 import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
 import { AutosaveForm } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
-import { GenericField } from '../../../../../form/fields';
+import { GenericField } from 'form/fields';
 
 import { useStyles } from './SocialMedia.styles';
 import { SocialMediaType } from './SocialMedia.types';
