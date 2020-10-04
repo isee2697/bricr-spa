@@ -18,7 +18,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
         <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.shape' })}
-          subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+          subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
         />
         <Box paddingTop={2}>
           <RadioGroupField

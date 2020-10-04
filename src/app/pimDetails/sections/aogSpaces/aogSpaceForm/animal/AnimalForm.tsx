@@ -39,7 +39,7 @@ export const AnimalsForm = ({ data }: AogTypeSpecificFormProps) => {
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.animals.type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <RadioGroupField sm={2} disabled={!editing} name="animalsConfiguration.type" options={ANIMAL_TYPES} />
               <Box mb={3} />

@@ -49,7 +49,7 @@ export const EnergyForm = ({
                   <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.specification.label_title' })}
-                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                   />
                 </Box>
                 <RadioGroupField disabled={!editing} xs={2} name={`${namePrefix}.label`} options={energy} />
@@ -96,7 +96,7 @@ export const EnergyForm = ({
                 <FormSubSectionHeader
                   noBorder
                   title={formatMessage({ id: 'pim_details.specification.energy.select_type' })}
-                  subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 />
               </Box>
               <RadioGroupField

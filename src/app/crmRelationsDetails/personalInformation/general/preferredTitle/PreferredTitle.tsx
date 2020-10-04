@@ -45,7 +45,7 @@ export const PreferredTitle = () => {
                 </Typography>
                 <Typography variant="h5" className={classes.gray}>
                   {formatMessage({
-                    id: 'crm.details.personal_information_general.personal_info.choose_one_option_below',
+                    id: 'common.choose_one_option_below',
                   })}
                 </Typography>
               </Box>
@@ -65,7 +65,7 @@ export const PreferredTitle = () => {
                 </Typography>
                 <Typography variant="h5" className={classes.gray}>
                   {formatMessage({
-                    id: 'crm.details.personal_information_general.personal_info.choose_one_option_below',
+                    id: 'common.choose_one_option_below',
                   })}
                 </Typography>
               </Box>
@@ -87,7 +87,7 @@ export const PreferredTitle = () => {
                 </Typography>
                 <Typography variant="h5" className={classes.gray}>
                   {formatMessage({
-                    id: 'crm.details.personal_information_general.personal_info.choose_one_option_below',
+                    id: 'common.choose_one_option_below',
                   })}
                 </Typography>
               </Box>

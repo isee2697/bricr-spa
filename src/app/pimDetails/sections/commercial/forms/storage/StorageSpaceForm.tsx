@@ -137,7 +137,7 @@ export const StorageSpaceForm = ({ commercialSpace, index }: CommercialSpaceForm
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <RadioGroupField disabled={!editing} name="storageConfiguration.type" options={STORAGE_TYPES} />
               <Box mb={1} />
