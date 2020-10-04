@@ -9,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
   },
   phoneNumberHeader: {
     marginBottom: theme.spacing(3),
+    borderBottom: `2px solid ${theme.palette.gray.light}`,
   },
   phoneNumberIndex: {
     color: theme.palette.gray.main,

@@ -4,7 +4,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Box, Typography } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';
 import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
-import { DatePickerField, GenericField } from '../../../../../form/fields';
+import { DatePickerField, GenericField } from 'form/fields';
 
 import { useStyles } from './Addresses.styles';
 

@@ -7,11 +7,11 @@ export const useStyles = makeStyles(theme => ({
   editSwitcher: {
     marginRight: theme.spacing(3),
   },
-  addressHeader: {
+  emailAddressHeader: {
     marginBottom: theme.spacing(3),
     borderBottom: `2px solid ${theme.palette.gray.light}`,
   },
-  addressIndex: {
+  emailAddressIndex: {
     color: theme.palette.gray.main,
     fontWeight: theme.typography.fontWeightMedium,
     borderRadius: theme.spacing(3),
@@ -21,11 +21,11 @@ export const useStyles = makeStyles(theme => ({
     lineHeight: `${theme.spacing(3)}px`,
     textAlign: 'center',
   },
-  addressTitle: {
+  emailAddressTitle: {
     marginLeft: theme.spacing(1),
     flex: 1,
   },
-  addressFormFields: {
+  emailAddressFormFields: {
     marginBottom: theme.spacing(4),
 
     '&:last-of-type': {

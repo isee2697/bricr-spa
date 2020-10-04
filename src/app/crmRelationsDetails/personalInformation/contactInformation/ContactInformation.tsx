@@ -11,6 +11,8 @@ import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 import { useStyles } from './ContactInformation.styles';
 import { Addresses } from './addresses/Addresses';
 import { PhoneNumbers } from './phoneNumbers/PhoneNumbers';
+import { EmailAddresses } from './emailAddresses/EmailAddresses';
+import { SocialMedia } from './socialMedia/SocialMedia';
 
 export const ContactInformation = () => {
   const classes = useStyles();
@@ -42,6 +44,8 @@ export const ContactInformation = () => {
 
         <Addresses />
         <PhoneNumbers />
+        <EmailAddresses />
+        <SocialMedia />
       </Page>
     </>
   );
