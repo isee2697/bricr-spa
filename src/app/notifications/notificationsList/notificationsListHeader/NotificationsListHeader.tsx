@@ -4,7 +4,7 @@ import { ReferenceObject } from 'popper.js';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox, IconButton, Menu, MenuItem, Select, Typography } from 'ui/atoms';
-import { ArchiveIcon, DeleteIcon, ManageIcon, MenuIcon } from 'ui/atoms/icons';
+import { ManageIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './NotificationsListHeader.styles';
 import { NotificationsListHeaderProps } from './NotificationsListHeader.types';
@@ -15,10 +15,9 @@ export const NotificationsListHeader = ({
   checkAllStatus,
   onCheckAll,
   onSort,
-  onArchive,
-  onDelete,
-  onBulk,
   disabled,
+  onBulkReadNotifications,
+  onBulkDeleteNotifications,
 }: NotificationsListHeaderProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -86,30 +85,11 @@ export const NotificationsListHeader = ({
         </Box>
       )}
       {!!checkedKeys.length && (
-        <>
-          <Box className={classes.iconPanel}>
-            {onArchive && (
-              <IconButton className={classes.icon} variant="rounded" size="small" onClick={onArchive}>
-                <ArchiveIcon color="inherit" />
-              </IconButton>
-            )}
-            {onDelete && (
-              <IconButton className={classes.icon} variant="rounded" size="small" onClick={onDelete}>
-                <DeleteIcon color="inherit" />
-              </IconButton>
-            )}
-            {onBulk && (
-              <IconButton
-                className={classes.icon}
-                variant="rounded"
-                size="small"
-                onClick={handleClickBulkActionsButton}
-              >
-                <MenuIcon color="inherit" />
-              </IconButton>
-            )}
-          </Box>
-        </>
+        <Box className={classes.iconPanel}>
+          <IconButton className={classes.icon} variant="rounded" size="small" onClick={handleClickBulkActionsButton}>
+            <MenuIcon color="inherit" />
+          </IconButton>
+        </Box>
       )}
       <Menu
         id="notifications-list-bulk-action-meu"
@@ -119,8 +99,12 @@ export const NotificationsListHeader = ({
         arrow={true}
       >
         <div className={classes.menu} onClick={() => handleCloseBulkActionsMenu()}>
-          <MenuItem onClick={() => {}}>{formatMessage({ id: 'notifications.read_all' })}</MenuItem>
-          <MenuItem onClick={() => {}}>{formatMessage({ id: 'notifications.delete_all' })}</MenuItem>
+          <MenuItem onClick={() => onBulkReadNotifications()}>
+            {formatMessage({ id: 'notifications.read_all' })}
+          </MenuItem>
+          <MenuItem onClick={() => onBulkDeleteNotifications()}>
+            {formatMessage({ id: 'notifications.delete_all' })}
+          </MenuItem>
         </div>
       </Menu>
     </Box>

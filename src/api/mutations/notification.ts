@@ -11,3 +11,15 @@ export const DELETE_NOTIFICATION = gql`
     deleteNotification(input: $input)
   }
 `;
+
+export const BULK_READ_NOTIFICATIONS = gql`
+  mutation BulkReadNotifications($input: BulkReadNotificationsInput!) {
+    bulkReadNotifications(input: $input)
+  }
+`;
+
+export const BULK_DELETE_NOTIFICATIONS = gql`
+  mutation BulkDeleteNotifications($input: BulkDeleteNotificationsInput!) {
+    bulkDeleteNotifications(input: $input)
+  }
+`;

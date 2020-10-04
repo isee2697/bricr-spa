@@ -14,15 +14,6 @@ export const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
 
-    '&:after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      width: `calc(100% - ${theme.spacing(4)}px)`,
-      margin: theme.spacing(0, 2),
-      borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
-    },
-
     '&.checked': {
       background: `${theme.palette.primary.main}08`,
     },

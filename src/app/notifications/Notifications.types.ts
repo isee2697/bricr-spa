@@ -9,4 +9,6 @@ export type NotificationsProps = {
   error: ApolloError | undefined;
   onReadNotification: (notificationId: string) => void;
   onDeleteNotification: (notificationId: string) => void;
+  onBulkReadNotifications: (notificationIds: string[]) => void;
+  onBulkDeleteNotifications: (notificationIds: string[]) => void;
 };

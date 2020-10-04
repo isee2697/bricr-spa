@@ -21,6 +21,8 @@ export const NotificationsList = ({
   notifications,
   onReadNotification,
   onDeleteNotification,
+  onBulkReadNotifications,
+  onBulkDeleteNotifications,
   className,
   loading,
   loadingItem,
@@ -73,9 +75,13 @@ export const NotificationsList = ({
   const notificationsGroups: NotificationsGroup[] = getNotificationGroups(notifications);
 
   const handleSort = (key: string) => {};
-  const handleArchive = () => {};
-  const handleDelete = () => {};
-  const handleBulk = () => {};
+  const handleBulkReadNotifications = () => {
+    onBulkReadNotifications(checkedKeys);
+  };
+
+  const handleBulkDeleteNotifications = () => {
+    onBulkDeleteNotifications(checkedKeys);
+  };
 
   return (
     <Box className={clsx(classes.root, className)}>
@@ -85,9 +91,8 @@ export const NotificationsList = ({
         checkAllStatus={checkAllStatus}
         onCheckAll={handleCheckAll}
         onSort={handleSort}
-        onArchive={handleArchive}
-        onDelete={handleDelete}
-        onBulk={handleBulk}
+        onBulkReadNotifications={handleBulkReadNotifications}
+        onBulkDeleteNotifications={handleBulkDeleteNotifications}
       />
       {!loading &&
         notificationsGroups.length > 0 &&

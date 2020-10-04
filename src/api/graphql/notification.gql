@@ -37,9 +37,19 @@ input DeleteNotificationInput {
   id: ID!
 }
 
+input BulkReadNotificationsInput {
+  ids: [ID!]!
+}
+
+input BulkDeleteNotificationsInput {
+  ids: [ID!]!
+}
+
 extend type Mutation {
   readNotification(input: ReadNotificationInput!): String @auth
   deleteNotification(input: DeleteNotificationInput!): String @auth
+  bulkReadNotifications(input: BulkReadNotificationsInput!): String @auth
+  bulkDeleteNotifications(input: BulkDeleteNotificationsInput!): String @auth
 }
 
 extend type Query {

@@ -102,6 +102,8 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  bulkDeleteNotifications?: Maybe<Scalars['String']>;
+  bulkReadNotifications?: Maybe<Scalars['String']>;
   createCompany: Company;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
@@ -390,6 +392,14 @@ export type MutationAddViewingMomentArgs = {
 
 export type MutationBulkArgs = {
   input: BulkOperationInput;
+};
+
+export type MutationBulkDeleteNotificationsArgs = {
+  input: BulkDeleteNotificationsInput;
+};
+
+export type MutationBulkReadNotificationsArgs = {
+  input: BulkReadNotificationsInput;
 };
 
 export type MutationCreateCompanyArgs = {
@@ -2195,6 +2205,14 @@ export type ReadNotificationInput = {
 
 export type DeleteNotificationInput = {
   id: Scalars['ID'];
+};
+
+export type BulkReadNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type BulkDeleteNotificationsInput = {
+  ids: Array<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -7110,6 +7128,18 @@ export type DeleteNotificationMutationVariables = {
 
 export type DeleteNotificationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteNotification'>;
 
+export type BulkReadNotificationsMutationVariables = {
+  input: BulkReadNotificationsInput;
+};
+
+export type BulkReadNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkReadNotifications'>;
+
+export type BulkDeleteNotificationsMutationVariables = {
+  input: BulkDeleteNotificationsInput;
+};
+
+export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkDeleteNotifications'>;
+
 export type UpdateObjectTypeCharacteristicsMutationVariables = {
   input: ObjectTypeCharacteristicsInput;
 };
@@ -11370,6 +11400,50 @@ export type DeleteNotificationMutationResult = ApolloReactCommon.MutationResult<
 export type DeleteNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   DeleteNotificationMutation,
   DeleteNotificationMutationVariables
+>;
+export const BulkReadNotificationsDocument = gql`
+  mutation BulkReadNotifications($input: BulkReadNotificationsInput!) {
+    bulkReadNotifications(input: $input)
+  }
+`;
+export function useBulkReadNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkReadNotificationsMutation,
+    BulkReadNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkReadNotificationsMutation, BulkReadNotificationsMutationVariables>(
+    BulkReadNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkReadNotificationsMutationHookResult = ReturnType<typeof useBulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkReadNotificationsMutation,
+  BulkReadNotificationsMutationVariables
+>;
+export const BulkDeleteNotificationsDocument = gql`
+  mutation BulkDeleteNotifications($input: BulkDeleteNotificationsInput!) {
+    bulkDeleteNotifications(input: $input)
+  }
+`;
+export function useBulkDeleteNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkDeleteNotificationsMutation,
+    BulkDeleteNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkDeleteNotificationsMutation, BulkDeleteNotificationsMutationVariables>(
+    BulkDeleteNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkDeleteNotificationsMutationHookResult = ReturnType<typeof useBulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkDeleteNotificationsMutation,
+  BulkDeleteNotificationsMutationVariables
 >;
 export const UpdateObjectTypeCharacteristicsDocument = gql`
   mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {

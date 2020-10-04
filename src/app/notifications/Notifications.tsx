@@ -14,6 +14,8 @@ export const Notifications = ({
   error,
   onReadNotification,
   onDeleteNotification,
+  onBulkReadNotifications,
+  onBulkDeleteNotifications,
 }: NotificationsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -39,6 +41,8 @@ export const Notifications = ({
                   notifications={notifications}
                   onReadNotification={onReadNotification}
                   onDeleteNotification={onDeleteNotification}
+                  onBulkReadNotifications={onBulkReadNotifications}
+                  onBulkDeleteNotifications={onBulkDeleteNotifications}
                 />
               )}
             </CardContent>

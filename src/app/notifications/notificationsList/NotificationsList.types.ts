@@ -20,6 +20,8 @@ export type NotificationsListProps = {
   notifications: NotificationRow[];
   onReadNotification: (notificationId: string) => void;
   onDeleteNotification: (notificationId: string) => void;
+  onBulkReadNotifications: (notificationIds: string[]) => void;
+  onBulkDeleteNotifications: (notificationIds: string[]) => void;
   className?: string;
   loading?: boolean;
   loadingItem?: ReactElement;

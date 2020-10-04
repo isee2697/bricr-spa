@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import {
   GetNotificationsDocument,
+  useBulkDeleteNotificationsMutation,
+  useBulkReadNotificationsMutation,
   useDeleteNotificationMutation,
   useGetNotificationsQuery,
   useReadNotificationMutation,
@@ -18,6 +20,8 @@ export const NotificationsContainer = () => {
   const [updateInfo, setUpdateInfo] = useState<'read' | 'delete'>();
   const [deleteNotification] = useDeleteNotificationMutation();
   const [readNotification] = useReadNotificationMutation();
+  const [bulkReadNotifications] = useBulkReadNotificationsMutation();
+  const [bulkDeleteNotifications] = useBulkDeleteNotificationsMutation();
 
   const handleDeleteNotification = async (notificationId: string) => {
     const { data: result, errors } = await deleteNotification({
@@ -63,6 +67,50 @@ export const NotificationsContainer = () => {
     setSuccess(true);
   };
 
+  const handleBulkDeleteNotifications = async (notificationIds: string[]) => {
+    const { data: result, errors } = await bulkDeleteNotifications({
+      variables: {
+        input: {
+          ids: notificationIds,
+        },
+      },
+      refetchQueries: [
+        {
+          query: GetNotificationsDocument,
+        },
+      ],
+    });
+
+    if (!result || !result.bulkDeleteNotifications || errors) {
+      throw new Error();
+    }
+
+    setUpdateInfo('delete');
+    setSuccess(true);
+  };
+
+  const handleBulkReadNotifications = async (notificationIds: string[]) => {
+    const { data: result, errors } = await bulkReadNotifications({
+      variables: {
+        input: {
+          ids: notificationIds,
+        },
+      },
+      refetchQueries: [
+        {
+          query: GetNotificationsDocument,
+        },
+      ],
+    });
+
+    if (!result || !result.bulkReadNotifications || errors) {
+      throw new Error();
+    }
+
+    setUpdateInfo('read');
+    setSuccess(true);
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -86,6 +134,8 @@ export const NotificationsContainer = () => {
         error={error}
         onReadNotification={handleReadNotification}
         onDeleteNotification={handleDeleteNotification}
+        onBulkReadNotifications={handleBulkReadNotifications}
+        onBulkDeleteNotifications={handleBulkDeleteNotifications}
       />
     </>
   );

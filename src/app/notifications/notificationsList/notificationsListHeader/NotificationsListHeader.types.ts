@@ -6,9 +6,8 @@ export type NotificationsListHeaderProps = {
   disabled?: boolean;
   onCheckAll: VoidFunction;
   onSort: (key: string) => void;
-  onArchive?: VoidFunction;
-  onDelete?: VoidFunction;
-  onBulk: VoidFunction;
+  onBulkReadNotifications: () => void;
+  onBulkDeleteNotifications: () => void;
   checkAllStatus: {
     indeterminate: boolean;
     checked: boolean;
