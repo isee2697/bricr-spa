@@ -8,6 +8,10 @@ const apiParam = '?access_token=:accessToken';
 const baseUrl = 'https://api.phrase.com/v2/projects/:projectID/locales';
 const encoding = 'UTF-8';
 
+const localesMessagesPath = path.join(__dirname, '..', 'src', 'i18n', 'messages.ts');
+const localeEnumFilePath = path.join(__dirname, '..', 'src', 'context', 'locale', 'AppLocale.enum.ts');
+const localesEnum = [];
+
 const getVariables = () => {
     let accessToken = process.env.PHRASE_ACCESS_TOKEN;
     let projectID = process.env.REACT_APP_PHRASE_PROJECT;
@@ -47,15 +51,38 @@ const saveLocaleFunction = async (value, variables) => {
         const filePath = path.join(directoryPath, `${value.code}.json`);
 
         if (body) {
+            localesEnum.push(value.code);
+
             fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
             console.log(`Succesfully generated language: ${value.name}`);
         } else {
             throw new Error('No language body found');
         }
 
+        writeLocaleFiles();
+
     }).catch((e) => {
-        console.error(`Retrieving locale: ${name} with id: ${id} failed`, e);
+        console.error(`Retrieving locale: ${value.name} with id: ${value.id} failed`, e);
     });
+}
+
+const writeLocaleFiles = () => {
+    let localeFileContents = `export enum AppLocale {`;
+    let messageFileContents = `import { AppLocale } from 'context/locale/AppLocale.enum';\n\r`;
+    let messageTranslations = `export const translations: Record<AppLocale, Record<string, string>> = {\n`;
+
+    if(localesEnum.length > 0){
+        localesEnum.forEach(value => {
+            localeFileContents += `\n  ${value} = '${value}',`;
+            messageFileContents += `import ${value} from './data/${value}.json';\n`;
+            messageTranslations += `  [AppLocale.${value}]: ${value},\n`;
+        });
+        localeFileContents += `\n}\n`;
+        messageTranslations += `};\n`;
+
+        fs.writeFileSync(localeEnumFilePath, localeFileContents, { encoding, flag: 'w'});
+        fs.writeFileSync(localesMessagesPath, `${messageFileContents}\n${messageTranslations}`, { encoding, flag: 'w'});
+    }
 }
 
 const getLocalesList = async () => {
@@ -71,9 +98,13 @@ const getLocalesList = async () => {
                 } else {
                     throw new Error();
                 }
+
+
             }).catch((e) => {
                 console.error('failed to retrieve locales', e);
             });
+
+
     } catch (e) {
         console.error('Something went wrong getting the variables', e);
     }
