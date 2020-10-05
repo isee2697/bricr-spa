@@ -15,6 +15,7 @@ import { useStyles } from './UploadImageField.styles';
 import { UploadImageFieldProps, UploadImageFieldTypes } from './UploadImageField.types';
 
 export const UploadImageField = ({
+  classes: propsClasses,
   validate,
   validateFields,
   name,
@@ -120,6 +121,7 @@ export const UploadImageField = ({
     setLoading(false);
     setBackgroundImage('');
     setInvalidFile(false);
+    input.onChange(null);
     onRemove && onRemove();
   };
 
@@ -144,7 +146,7 @@ export const UploadImageField = ({
     }
 
     return (
-      <Grid item className={classNames(classes.root, { enabled: !disabled })}>
+      <Grid item className={classNames(propsClasses?.root, classes.root, { enabled: !disabled })}>
         {showCheckbox && !disabled && !loading && !!backgroundImage && (
           <Checkbox
             color="primary"
@@ -169,7 +171,7 @@ export const UploadImageField = ({
           onClick={openInput}
           container
           style={{ backgroundImage: !hasError && !!backgroundImage ? `url(${backgroundImage})` : '' }}
-          className={classes.item}
+          className={classNames(propsClasses?.item, classes.item)}
         >
           {loading && !hasError && (
             <Grid container className={classes.loading}>
@@ -183,7 +185,7 @@ export const UploadImageField = ({
             </Grid>
           )}
           {!loading && !hasError && !input.value && (
-            <Grid container className={classNames(classes.empty, { enabled: !disabled })}>
+            <Grid container className={classNames(propsClasses?.empty, classes.empty, { enabled: !disabled })}>
               <AddIcon viewBox="5 5 14 14" />
             </Grid>
           )}

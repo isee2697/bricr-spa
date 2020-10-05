@@ -16,5 +16,6 @@ export const MAIN_USER: Profile = {
   },
   email: 'test@example.com',
   isActive: true,
+  isAdmin: false,
   adminSettings: Object.values(AdminSettings),
 };
