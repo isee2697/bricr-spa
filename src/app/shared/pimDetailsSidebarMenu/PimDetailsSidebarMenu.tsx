@@ -109,7 +109,20 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
     },
     groups: [
       {
-        items: [{ key: 'dashboard' }, { key: 'summary' }, { key: 'propertyJourney' }, { key: 'salesSettings' }],
+        items: [
+          { key: 'dashboard' },
+          {
+            key: 'summary',
+            subItems: [
+              {
+                id: 'inside',
+                label: 'pim_details.summary.inside.title',
+              },
+            ],
+          },
+          { key: 'propertyJourney' },
+          { key: 'salesSettings' },
+        ],
       },
       {
         isCollapsable: true,
