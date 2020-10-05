@@ -17,3 +17,4 @@ export { BulkActionConfirmModal } from './bulkActionConfirmModal/BulkActionConfi
 export { ActionModal } from './actionModal/ActionModal';
 export { AddCustomPropertyModal } from './addCustomPropertyModal/AddCustomPropertyModal';
 export { FormModal } from './formModal/FormModal';
+export { LocaleSwitch } from './localeSwitch/LocaleSwitch';
