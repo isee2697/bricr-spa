@@ -98,13 +98,9 @@ const getLocalesList = async () => {
                 } else {
                     throw new Error();
                 }
-
-
             }).catch((e) => {
                 console.error('failed to retrieve locales', e);
             });
-
-
     } catch (e) {
         console.error('Something went wrong getting the variables', e);
     }
