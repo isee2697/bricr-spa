@@ -14,6 +14,7 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientPrimary: createPalette.SimplePaletteColorOptions;
     gradientBlue: createPalette.SimplePaletteColorOptions;
     gradientGreen: createPalette.SimplePaletteColorOptions;
+    gradientWhite: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 
@@ -30,6 +31,7 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientPrimary: createPalette.SimplePaletteColorOptions;
     gradientBlue: createPalette.SimplePaletteColorOptions;
     gradientGreen: createPalette.SimplePaletteColorOptions;
+    gradientWhite: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 }
