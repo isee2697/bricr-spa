@@ -1,5 +1,5 @@
 #Stage 1 - build process
-FROM node:12.16.3-alpine3.11 AS build-deps
+FROM node:12.18.4-alpine3.11 AS build-deps
 
 WORKDIR /usr/src/app
 
@@ -21,8 +21,6 @@ RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --proj
 COPY .env.develop .env
 
 RUN if [ $PHRASE_ENABLED = "true" ] ; then echo "REACT_APP_PHRASE_PROJECT=$PHRASE_PROJECT_ID" >> .env ; fi ;
-
-RUN cat .env
 
 RUN npm run build
 
