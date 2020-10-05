@@ -17,7 +17,11 @@ export const TasksSwimlaneColumn = ({ tab, columnType, tasks, count }: TasksSwim
   return (
     <Droppable droppableId={columnType}>
       {(droppableProvided: DroppableProvided, droppableSnapshot: DroppableStateSnapshot) => (
-        <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className={classes.root}>
+        <div
+          ref={droppableProvided.innerRef}
+          {...droppableProvided.droppableProps}
+          className={clsx(classes.root, droppableSnapshot.isDraggingOver && 'draggingOver')}
+        >
           <Box className={classes.flexGrowOne}>
             <Grid container justify="space-between">
               <Grid item className={classes.columnName}>
