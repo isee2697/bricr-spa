@@ -1,13 +1,4 @@
-import {
-  CreateEmailAddressInput,
-  CreatePhoneNumberInput,
-  CreateSocialMediaLinkInput,
-  EmailAddressType,
-  GetUsersCountQuery,
-  Profile,
-  PhoneNumberType,
-  SocialMediaLinkType,
-} from 'api/types';
+import { EmailAddressType, GetUsersCountQuery, Profile, PhoneNumberType, SocialMediaLinkType } from 'api/types';
 import { DataHandlerProps, PromiseFunction } from 'app/shared/types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
