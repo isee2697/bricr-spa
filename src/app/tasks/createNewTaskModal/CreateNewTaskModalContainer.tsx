@@ -1,17 +1,15 @@
 import React from 'react';
 
 import { useModalState } from 'hooks/useModalState/useModalState';
-import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { useCreateTaskMutation } from 'api/types';
 
 import { CreateNewTaskModalContainerProps } from './CreateNewTaskModalContainer.types';
 import { CreateNewTaskModal } from './CreateNewTaskModal';
 import { CreateNewTaskBody, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
 
-export const CreateNewTaskModalContainer = ({ members }: CreateNewTaskModalContainerProps) => {
+export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNewTaskModalContainerProps) => {
   const { isOpen: isModalOpen } = useModalState('create-new-task');
   const [createTask] = useCreateTaskMutation();
-  const { close } = useModalDispatch();
 
   const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({
     assignee,
@@ -38,7 +36,7 @@ export const CreateNewTaskModalContainer = ({ members }: CreateNewTaskModalConta
         throw new Error();
       }
 
-      close('create-new-task');
+      onAddNewTask();
 
       return undefined;
     } catch (error) {
