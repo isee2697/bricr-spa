@@ -4,9 +4,9 @@ import { useGetTasksFullSummaryLazyQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 
 import { TasksBody } from './TasksBody';
-import { TasksBodyContianerProps } from './TasksBody.types';
+import { TasksBodyContainerProps } from './TasksBody.types';
 
-export const TasksBodyContainer = ({ members, selectedMembers }: TasksBodyContianerProps) => {
+export const TasksBodyContainer = ({ members, selectedMembers }: TasksBodyContainerProps) => {
   const [
     getTasksFullSummary,
     { data: tasksFullSummaryData, loading: loadingTasksFullSummary },
