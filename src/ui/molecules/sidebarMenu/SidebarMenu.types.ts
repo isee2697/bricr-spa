@@ -23,17 +23,19 @@ export type MenuGroup = {
   items: MenuItem[];
 };
 
+export type SidebarMenuType = {
+  url: string;
+  back?: {
+    url: string;
+    title: string;
+  };
+  groups: MenuGroup[];
+};
+
 export type SidebarMenuProps = {
   onHide: VoidFunction;
   isVisible: boolean;
   menuTitle?: ReactNode;
   translationPrefix: string;
-  menu: {
-    url: string;
-    back?: {
-      url: string;
-      title: string;
-    };
-    groups: MenuGroup[];
-  };
+  menu: SidebarMenuType;
 };
