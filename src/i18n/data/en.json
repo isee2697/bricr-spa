@@ -2099,6 +2099,7 @@
   "pim_details.summary.inspection.foundation_type": "Foundation type",
   "pim_details.summary.inspection.type_of_glass": "Type of glass",
   "pim_details.summary.inspection.insulation": "Insulation",
+  "pim_details.summary.inside.title": "Inside",
   "pim.add": "Add property",
   "pim.list.empty_description": "To change that, click the “Add property” button at the top of the screen.",
   "pim.list.empty_title": "You don’t have any added properties yet.",
