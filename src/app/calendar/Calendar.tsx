@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Page } from 'ui/templates';
-import { Grid, Tab, Tabs } from 'ui/atoms';
+import { Tab, Tabs, Box } from 'ui/atoms';
 import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments, ViewState } from 'ui/organisms';
 
 import { DateView, CalendarProps } from './Calandar.types';
@@ -10,7 +10,7 @@ export const Calendar = ({ data, currentDate }: CalendarProps) => {
   const [currentView, setView] = useState(DateView.Week);
 
   return (
-    <Grid container spacing={3} style={{ padding: '24px' }}>
+    <Box p={3}>
       <Page title="calendar.title">
         <FormSection title="calendar.week.title" isEditable={false}>
           <Tabs value={currentView}>
@@ -42,6 +42,6 @@ export const Calendar = ({ data, currentDate }: CalendarProps) => {
           )}
         </FormSection>
       </Page>
-    </Grid>
+    </Box>
   );
 };
