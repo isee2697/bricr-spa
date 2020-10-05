@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
@@ -32,11 +32,12 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
 
 export const PimContainer = () => {
   const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
+  const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
 
   const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
     variables: {
       ...priceTypeFilter,
-      ...getPimFilterVariables(type),
+      ...activeFilters,
     },
   });
 
@@ -59,7 +60,7 @@ export const PimContainer = () => {
   const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
     variables: {
       ...priceTypeFilter,
-      ...getPimFilterVariables(type),
+      ...activeFilters,
       archived: status === 'archived',
       ...sortQuery,
       ...paginationQuery,
@@ -67,12 +68,22 @@ export const PimContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
+  const handleFilterChange = (filters: ListPimsFilters) => {
+    setActiveFilters(filters);
+  };
+
+  useEffect(() => {
+    setActiveFilters(getPimFilterVariables(type));
+  }, [type]);
+
   return (
     <Pim
       status={status}
       onStatusChange={setStatus}
       type={type}
       onTypeChange={setType}
+      onFilter={handleFilterChange}
+      activeFilters={activeFilters}
       pricingType={pricingType}
       onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}

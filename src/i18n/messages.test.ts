@@ -1,13 +1,7 @@
-import { AppLocale } from '../context/locale/AppLocale.enum';
-
 import { translations } from './messages';
 
 test('has object entries for all locales', () => {
-  const value = Object.fromEntries(Object.entries(translations).map(entry => [entry[0], typeof entry[1]]));
-  const expectedValue: Record<AppLocale, 'object'> = {
-    [AppLocale.en]: 'object',
-    [AppLocale.nl]: 'object',
-  };
-
-  expect(value).toEqual(expectedValue);
+  Object.values(translations).map(language => {
+    expect(Object.values(language).length > 50).toBeTruthy();
+  });
 });

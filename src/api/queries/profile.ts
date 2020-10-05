@@ -22,6 +22,7 @@ export const CURRENT_USER = gql`
       adminSettings
       isActive
       isAdmin
+      language
     }
   }
 `;
@@ -119,6 +120,7 @@ export const GET_USER_PROFILE = gql`
         id
         name
       }
+      language
     }
   }
 `;

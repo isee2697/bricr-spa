@@ -22,3 +22,4 @@ export { AddCustomPropertyModal } from './addCustomPropertyModal/AddCustomProper
 export { FormModal } from './formModal/FormModal';
 export { WeekView } from './weekView/WeekView';
 export { DayView } from './dayView/DayView';
+export { LocaleSwitch } from './localeSwitch/LocaleSwitch';

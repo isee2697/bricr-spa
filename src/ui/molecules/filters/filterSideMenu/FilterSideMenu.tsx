@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useStyles } from '../Filters.styles';
 import { Tabs, Tab } from 'ui/atoms';
@@ -6,24 +6,24 @@ import { FilterSidenavProps, FiltersTypes } from '../Filters.types';
 
 export const FilterSideMenu = ({ filters, onChange }: FilterSidenavProps) => {
   const classes = useStyles();
-  const [value, setValue] = useState(filters[0].value);
+  const [value, setValue] = useState(0);
 
-  const handleTabChange = (tab: FiltersTypes) => {
-    setValue(tab.value);
-    onChange(tab);
-  };
+  const handleTabChange = useCallback(
+    (index: number) => {
+      setValue(index);
+      onChange(index);
+    },
+    [onChange, setValue],
+  );
+
+  useEffect(() => {
+    handleTabChange(value);
+  }, [value, handleTabChange]);
 
   return (
     <Tabs value={value} indicatorColor="primary" textColor="primary" orientation="vertical">
-      {filters.map((item: FiltersTypes) => {
-        return (
-          <Tab
-            className={classes.filterSiderTab}
-            key={item.key}
-            label={item.key}
-            onClick={() => handleTabChange(item)}
-          />
-        );
+      {filters.map((item: FiltersTypes, i) => {
+        return <Tab className={classes.filterSiderTab} key={i} label={item.key} onClick={() => handleTabChange(i)} />;
       })}
     </Tabs>
   );
