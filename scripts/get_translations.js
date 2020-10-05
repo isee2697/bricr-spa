@@ -68,20 +68,20 @@ const saveLocaleFunction = async (value, variables) => {
 
 const writeLocaleFiles = () => {
     let localeFileContents = `export enum AppLocale {`;
-    let messageFileContents = `import { AppLocale } from 'context/locale/AppLocale.enum';\n\r`;
-    let messageTranslations = `export const translations: Record<AppLocale, Record<string, string>> = {\n`;
+    let messageFileContents = `import { AppLocale } from 'context/locale/AppLocale.enum';\r\r`;
+    let messageTranslations = `export const translations: Record<AppLocale, Record<string, string>> = {\r`;
 
     if(localesEnum.length > 0){
         localesEnum.forEach(value => {
-            localeFileContents += `\n  ${value} = '${value}',`;
-            messageFileContents += `import ${value} from './data/${value}.json';\n`;
-            messageTranslations += `  [AppLocale.${value}]: ${value},\n`;
+            localeFileContents += `\r  ${value} = '${value}',`;
+            messageFileContents += `import ${value} from './data/${value}.json';\r`;
+            messageTranslations += `  [AppLocale.${value}]: ${value},\r`;
         });
-        localeFileContents += `\n}\n`;
-        messageTranslations += `};\n`;
+        localeFileContents += `\r}\r`;
+        messageTranslations += `};\r`;
 
         fs.writeFileSync(localeEnumFilePath, localeFileContents, { encoding, flag: 'w'});
-        fs.writeFileSync(localesMessagesPath, `${messageFileContents}\n${messageTranslations}`, { encoding, flag: 'w'});
+        fs.writeFileSync(localesMessagesPath, `${messageFileContents}\r${messageTranslations}`, { encoding, flag: 'w'});
     }
 }
 
