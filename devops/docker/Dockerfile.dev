@@ -20,7 +20,9 @@ RUN node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --proj
 
 COPY .env.develop .env
 
-RUN if [ $PHRASE_ENABLED = "true" ] ; then echo "REACT_APP_PHRASE_PROJECT=$PHRASE_ENABLED" >> .env ; fi ;
+RUN if [ $PHRASE_ENABLED = "true" ] ; then echo "REACT_APP_PHRASE_PROJECT=$PHRASE_PROJECT_ID" >> .env ; fi ;
+
+RUN cat .env
 
 RUN npm run build
 
