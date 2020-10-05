@@ -33,14 +33,14 @@ export const useStyles = makeStyles(theme => ({
   },
   stepLabelContainer: {
     position: 'absolute',
-    top: -theme.spacing(1),
+    top: 0,
     left: 40,
   },
   stepLabelContent: {
     color: theme.palette.black.main,
   },
   timelineStatus: {
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: theme.typography.fontWeightBold,
   },
   green: {
     color: theme.palette.green.main,
@@ -61,5 +61,6 @@ export const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     height: theme.spacing(3),
     lineHeight: `${theme.spacing(3)}px`,
+    fontWeight: theme.typography.fontWeightBold,
   },
 }));

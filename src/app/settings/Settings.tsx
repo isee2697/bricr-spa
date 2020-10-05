@@ -5,9 +5,8 @@ import { Box, Grid, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { useLayout } from 'context/layout';
+import { UsersRouter } from 'app/settings/sections/users/UsersRouter';
 
-import { UsersContainer } from './sections/users/UsersContainer';
-import { UserDetailsContainer } from './sections/users/UserDetailsContainer';
 import { TeamsGeneral } from './sections/teams/TeamsGeneral';
 import { TeamContainer } from './sections/teams/TeamContainer';
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
@@ -44,8 +43,7 @@ export const Settings = ({ data }: SettingsProps) => {
               )}
             />
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
-            <Route exact path={AppRoute.users} render={() => <UsersContainer />} />
-            <Route exact path={AppRoute.userDetails} render={() => <UserDetailsContainer />} />
+            <Route path={AppRoute.users} render={() => <UsersRouter />} />
             <Route exact path={AppRoute.settings} render={() => <>Dashboard</>} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>

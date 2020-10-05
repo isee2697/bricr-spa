@@ -20,8 +20,12 @@ context('Pim Details', () => {
     cy.findByText('Add price').click();
 
     cy.contains('The property is for...');
-    cy.findByText('Sale').click();
-    cy.findByText('Rent').click();
+    cy.get('.MuiDialog-paper')
+      .findByText('Sale')
+      .click();
+    cy.get('.MuiDialog-paper')
+      .findByText('Rent')
+      .click();
 
     cy.findByText('Set prices').click();
 

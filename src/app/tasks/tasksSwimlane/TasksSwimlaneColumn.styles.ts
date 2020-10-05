@@ -6,6 +6,10 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: 8,
     height: '100%',
     padding: theme.spacing(1),
+
+    '&.draggingOver': {
+      backgroundColor: theme.palette.blue.light,
+    },
   },
   tasksSwimlaneItemsContainer: {
     marginTop: theme.spacing(3),

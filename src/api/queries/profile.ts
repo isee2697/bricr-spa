@@ -21,6 +21,7 @@ export const CURRENT_USER = gql`
       }
       adminSettings
       isActive
+      isAdmin
     }
   }
 `;
@@ -41,6 +42,7 @@ export const GET_USERS = gql`
         functionDescription
         adminSettings
         isActive
+        isAdmin
         teams {
           id
           name
@@ -80,6 +82,7 @@ export const GET_USER_PROFILE = gql`
       hideOnMemos
       isAccountmanager
       adminSettings
+      isAdmin
       image {
         id
         key
@@ -127,6 +130,7 @@ export const GET_MY_TEAMMEMBERS = gql`
         id
         firstName
         lastName
+        isAdmin
         email
         image {
           id

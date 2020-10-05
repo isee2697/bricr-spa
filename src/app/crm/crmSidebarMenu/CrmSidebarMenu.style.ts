@@ -5,6 +5,9 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
     marginBottom: theme.spacing(2.25),
   },
+  sideMenu: {
+    top: theme.spacing(6),
+  },
   menuWrapper: {
     background: theme.palette.white.main,
     boxShadow: 'inset -2px 0px 4px rgba(130, 141, 184, 0.2)',
