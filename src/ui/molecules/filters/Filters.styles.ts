@@ -1,8 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(({ palette }) => ({
+import { fontWeight } from './../../../theme/typography';
+
+export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   modalFooter: {
-    paddingTop: '14px',
+    paddingTop: spacing(1.5),
     borderTop: `2px solid ${palette.gray.light}`,
   },
 
@@ -19,10 +21,10 @@ export const useStyles = makeStyles(({ palette }) => ({
   },
 
   tabContentHeader: {
-    fontWeight: 500,
+    fontWeight: fontWeight.medium,
     fontSize: '12px',
     lineHeight: '16px',
-    marginBottom: '32px',
+    marginBottom: spacing(4),
 
     '& .linked_selector': {
       cursor: 'pointer',
@@ -30,21 +32,21 @@ export const useStyles = makeStyles(({ palette }) => ({
     },
     '& .delete_filter': {
       cursor: 'pointer',
-      color: '#0A57E9',
+      color: palette.primary.main,
     },
   },
 
   tabSearchWrapper: {
-    marginBottom: '32px',
+    marginBottom: spacing(4),
   },
 
   filterTab: {
     flexDirection: 'row-reverse',
-    paddingRight: '14px',
+    paddingRight: spacing(1.5),
   },
 
   titleBadge: {
-    marginLeft: '8px',
+    marginLeft: spacing(1),
     display: 'inline-block',
     color: 'white',
     fontSize: '14px',
@@ -53,17 +55,17 @@ export const useStyles = makeStyles(({ palette }) => ({
     alignSelf: 'center',
     textAlign: 'center',
     flexGrow: 0,
-    backgroundColor: '#0A57E9',
+    backgroundColor: palette.primary.main,
     borderRadius: '100%',
-    width: '24px',
+    width: spacing(3),
     verticalAlign: 'middle',
   },
 
   infoTitle: {
-    fontWeight: 600,
+    fontWeight: fontWeight.bold,
     fontSize: '10px',
     lineHeight: '16px',
     color: `${palette.gray}`,
-    margin: '16px 0',
+    margin: spacing(2, 0),
   },
 }));

@@ -31,7 +31,7 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
         key={index}
         label={
           <>
-            <span className={classes.dimmed}>{index}</span> <strong>{filter}</strong>
+            <span className={classes.dimmed}>{index}</span> <strong className={classes.filter}>{filter}</strong>
           </>
         }
         onDelete={() => onDelete(index, filter)}
