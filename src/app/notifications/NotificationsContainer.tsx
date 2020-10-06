@@ -15,7 +15,7 @@ import { Notifications } from './Notifications';
 
 export const NotificationsContainer = () => {
   const { formatMessage } = useLocale();
-  const { loading, error, data } = useGetNotificationsQuery();
+  const { loading, error, data } = useGetNotificationsQuery({ fetchPolicy: 'no-cache' });
   const [isSuccess, setSuccess] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<'read' | 'delete'>();
   const [deleteNotification] = useDeleteNotificationMutation();

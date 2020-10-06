@@ -10,7 +10,6 @@ export const useStyles = makeStyles(theme => ({
   },
   loading: {
     display: 'flex',
-    padding: `${theme.spacing()}px 0`,
     alignItems: 'flex-start',
     '& .MuiIconButton-root.Mui-disabled': {
       paddingTop: 0,

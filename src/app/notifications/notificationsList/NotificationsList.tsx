@@ -80,12 +80,20 @@ export const NotificationsList = ({
 
   const handleSort = (key: string) => {};
   const handleBulkReadNotifications = () => {
-    onBulkReadNotifications(checkedKeys);
+    if (checkedKeys.length > 0) {
+      onBulkReadNotifications(checkedKeys);
+    } else {
+      onBulkReadNotifications(notifications.map(notification => notification.id));
+    }
     handleClearAll();
   };
 
   const handleBulkDeleteNotifications = () => {
-    onBulkDeleteNotifications(checkedKeys);
+    if (checkedKeys.length > 0) {
+      onBulkDeleteNotifications(checkedKeys);
+    } else {
+      onBulkDeleteNotifications(notifications.map(notification => notification.id));
+    }
     handleClearAll();
   };
 
