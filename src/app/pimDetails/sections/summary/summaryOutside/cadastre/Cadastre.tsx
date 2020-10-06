@@ -107,7 +107,7 @@ export const Cadastre = () => {
           </Grid>
           <Grid item xs={6}>
             <Box width="100%" className={classes.map}>
-              <LoadScript googleMapsApiKey={'AIzaSyDOiSKrGgdo3qVzKq579nQSK2UO6pBPVAY'}>
+              <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
                 <GoogleMap mapContainerStyle={mapStyles} zoom={13} center={defaultCenter} />
               </LoadScript>
             </Box>
