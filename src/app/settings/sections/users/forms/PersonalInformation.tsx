@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, InputLabel, FormControlLabel } from 'ui/atoms';
+import { Grid, InputLabel } from 'ui/atoms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
 import { EntityWithFiles, Profile } from 'api/types';
 import { FormSubSectionHeader } from 'ui/molecules';
