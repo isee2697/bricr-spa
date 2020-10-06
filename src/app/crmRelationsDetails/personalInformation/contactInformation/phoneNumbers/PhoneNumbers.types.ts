@@ -12,3 +12,11 @@ export type PhoneNumbersObject = {
 };
 
 export type PhoneNumbersProps = {};
+
+export enum PhoneNumberType {
+  MobileNumber = 'MobileNumber',
+  PrivateNumber = 'PrivateNumber',
+  BusinessNumber = 'BusinessNumber',
+  FaxNumber = 'FaxNumber',
+  Custom = 'Custom',
+}

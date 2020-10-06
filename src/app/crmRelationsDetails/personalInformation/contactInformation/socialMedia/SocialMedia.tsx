@@ -1,43 +1,59 @@
 import React, { useState } from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography, Box } from 'ui/atoms';
-import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
-import { AutosaveForm } from 'ui/organisms';
+import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { GenericField } from 'form/fields';
+import { useModalState } from 'hooks/useModalState/useModalState';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { AddNewSocialMediaBody, AddNewSocialMediaSubmit } from '../addNewSocialMediaModal/AddNewSocialMediaModal.types';
+import { AddNewSocialMediaModal } from '../addNewSocialMediaModal/AddNewSocialMediaModal';
 
-import { useStyles } from './SocialMedia.styles';
 import { SocialMediaType } from './SocialMedia.types';
+import { useStyles } from './SocialMedia.styles';
 
 export const SocialMedia = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-  // Temporary code for add new social media before data integrating
-  const [socialMedias, setSocialmedias] = useState<SocialMediaType[]>([]);
+  const { open, close } = useModalDispatch();
+  const { isOpen: isModalOpen } = useModalState('add-new-social-media');
+  const [socialMedias, setSocialMedias] = useState([
+    {
+      key: SocialMediaType.Facebook,
+      url: '',
+    },
+  ]);
 
-  const getInitialValues = (socialMediasArray: SocialMediaType[]) => {
-    return socialMediasArray.reduce((accu, currentValue) => {
-      return {
-        ...accu,
-        [currentValue.key]: {
-          ...currentValue,
+  const handleAddNewSocialMedia: AddNewSocialMediaSubmit<AddNewSocialMediaBody> = async ({ socialMediaType }) => {
+    try {
+      setSocialMedias([
+        ...socialMedias,
+        {
+          key: socialMediaType,
+          url: '',
         },
+      ]);
+
+      close('add-new-social-media');
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: 'unknown',
       };
-    }, {});
+    }
   };
 
-  const handleAddNewSocialMedia = () => {
-    setSocialmedias([
-      ...socialMedias,
-      {
-        key: 'facebook',
-        title: 'Facebook',
-        url: '',
+  const initialValues = socialMedias.reduce((accu, currentValue) => {
+    return {
+      ...accu,
+      [currentValue.key]: {
+        ...currentValue,
       },
-    ]);
-  };
+    };
+  }, {});
 
   const onSave = async (values: unknown) => {
     return { error: false };
@@ -55,14 +71,14 @@ export const SocialMedia = () => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={handleAddNewSocialMedia}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('add-new-social-media')}>
               <AddIcon color="inherit" />
             </IconButton>
           </>
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={getInitialValues(socialMedias)}>
+        <AutosaveForm onSave={onSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {socialMedias.length === 0 && (
               <InfoSection emoji="🤔">
@@ -80,21 +96,20 @@ export const SocialMedia = () => {
             )}
             {socialMedias.length > 0 &&
               socialMedias.map((socialMedia, index) => (
-                <React.Fragment key={index}>
-                  <Box display="flex" className={classes.socialMediaHeader}>
-                    <Typography variant="h5" className={classes.socialMediaIndex}>
-                      {index + 1}
-                    </Typography>
-                    <Typography variant="h3" className={classes.socialMediaTitle}>
-                      {socialMedia.title}
-                    </Typography>
-                    <IconButton size="small" variant="rounded" className={classes.marginRightThree}>
-                      <MenuIcon />
-                    </IconButton>
-                    <IconButton size="small" variant="rounded">
-                      <ArrowUpIcon />
-                    </IconButton>
-                  </Box>
+                <FormSubSection
+                  key={index}
+                  title={
+                    <>
+                      <Typography variant="h5" className={classes.socialMediaIndex}>
+                        {index + 1}
+                      </Typography>
+                      <Typography variant="h3" className={classes.socialMediaTitle}>
+                        {formatMessage({ id: `dictionaries.contact_information.social_media_type.${socialMedia.key}` })}
+                      </Typography>
+                    </>
+                  }
+                  onOptionsClick={() => {}}
+                >
                   <Grid container spacing={1} className={classes.socialMediaFormFields}>
                     <Grid item xs={4}>
                       <Typography variant="h5">
@@ -110,10 +125,11 @@ export const SocialMedia = () => {
                       />
                     </Grid>
                   </Grid>
-                </React.Fragment>
+                </FormSubSection>
               ))}
           </Grid>
         </AutosaveForm>
+        <AddNewSocialMediaModal onSubmit={handleAddNewSocialMedia} isOpen={isModalOpen} />
       </CardContent>
     </Card>
   );
