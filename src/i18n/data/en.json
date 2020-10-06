@@ -2477,5 +2477,7 @@
   "notifications.list_item.task_assigned": "{user} assigned task {title} to you",
   "notifications.read_all": "Read all",
   "notifications.delete_all": "Delete all",
+  "notifications.menu.mark_all_as_read": "Mark all as read",
+  "notifications.menu.view_all": "View all",
   "visited_pages.view_more": "View more"
 }

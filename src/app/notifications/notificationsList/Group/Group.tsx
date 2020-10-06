@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
-import useTheme from '@material-ui/core/styles/useTheme';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox, IconButton, Typography, UserAvatar } from 'ui/atoms';
@@ -20,7 +19,6 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
   } = data;
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <Box display="flex" width="100%">
@@ -36,13 +34,9 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
             size="small"
             variant="rounded"
             onClick={() => onNavigate(AppRoute.taskDetails.replace(':id', id))}
+            className={classes.btnFollowUp}
           >
-            <FollowUpIcon
-              width={`${theme.spacing(2)}px`}
-              height={`${theme.spacing(1.5)}px`}
-              viewBox={`0 0 ${theme.spacing(2)}px ${theme.spacing(1.5)}px`}
-              className={classes.followUpIcon}
-            />
+            <FollowUpIcon className={classes.followUpIcon} />
           </IconButton>
         </Box>
         <Typography variant="h5">

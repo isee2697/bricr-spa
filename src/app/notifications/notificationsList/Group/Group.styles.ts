@@ -41,9 +41,11 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(2.5),
     lineHeight: `${theme.spacing(2.5)}px`,
   },
+  btnFollowUp: {
+    padding: 0,
+  },
   followUpIcon: {
-    width: theme.spacing(2),
-    height: theme.spacing(1.5),
+    fontSize: theme.spacing(3),
   },
   fontWeightMedium: {
     fontWeight: theme.typography.fontWeightMedium,

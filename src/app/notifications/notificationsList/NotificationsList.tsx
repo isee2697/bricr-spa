@@ -102,8 +102,9 @@ export const NotificationsList = ({
       />
       {!loading &&
         notificationsGroups.length > 0 &&
-        notificationsGroups.map(group => (
+        notificationsGroups.map((group, index) => (
           <Group
+            key={index}
             group={group}
             checkedKeys={checkedKeys}
             onCheck={handleCheck}
