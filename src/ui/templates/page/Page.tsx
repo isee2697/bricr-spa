@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { Box, Grid, LastUpdated, NavBreadcrumb, Typography } from 'ui/atoms';
 import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
@@ -24,6 +25,7 @@ export const Page = ({
   titleActions,
   showHeader,
   headerProps,
+  classes: pageClasses,
 }: PageProps) => {
   const classes = useStyles();
 
@@ -43,7 +45,7 @@ export const Page = ({
     <>
       {!hideBreadcrumb && title && <NavBreadcrumb title={title} />}
       {showHeader && <PageHeader {...headerProps} />}
-      <Grid container className={classes.container}>
+      <Grid container className={clsx(pageClasses && pageClasses.container, classes.container)}>
         {!withoutHeader && (
           <>
             <Grid item xs={12} className={classes.titleContainer}>

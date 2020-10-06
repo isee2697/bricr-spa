@@ -21,7 +21,13 @@ type BasePageProps = {
   showHeader?: boolean;
   headerProps?: PageHeaderProps;
   headerAction?: ReactNode;
+  classes?: PageClasses;
 };
+
+export type PageClasses = {
+  container: string;
+};
+
 export type PageProps = BasePageProps & {
   children: ReactNode;
 };

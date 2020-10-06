@@ -130,6 +130,7 @@ type Profile {
   hideOnMemos: Boolean
   isAccountmanager: Boolean
   image: File
+  language: String
 }
 
 input CreateProfileInput {
@@ -139,7 +140,9 @@ input CreateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
+  isAdmin: Boolean
   adminSettings: [AdminSettings!]
+  language: String
 }
 
 input UpdateProfileInput {
@@ -150,13 +153,14 @@ input UpdateProfileInput {
   dateOfBirth: Date
   functionDescription: String
   email: String!
-  adminSettings: [AdminSettings!]
   isAdmin: Boolean
+  adminSettings: [AdminSettings!]
   initials: String
   costUnit: String
   hideOnMemos: Boolean
   isAccountmanager: Boolean
   imageId: ID
+  language: String
 }
 
 type ProfileTeam {
@@ -198,6 +202,7 @@ type Team {
   name: String
   description: String
   teamRights: [TeamRight!]
+  isInitTeam: Boolean
 }
 
 type ProfileSearchResult {

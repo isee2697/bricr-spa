@@ -104,7 +104,7 @@ export const SocialMedia = () => {
                       </Typography>
                       <GenericField
                         className={classes.formField}
-                        name={`${socialMedia.key}.country`}
+                        name={`${socialMedia.key}.url`}
                         disabled={!isEditing}
                         placeholder="crm.details.personal_information_contact_information.social_medias.facebook_placeholder"
                       />

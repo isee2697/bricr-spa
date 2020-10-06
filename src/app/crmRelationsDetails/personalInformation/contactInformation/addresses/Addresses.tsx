@@ -23,7 +23,7 @@ export const Addresses = () => {
       street: '',
       houseNumber: '',
       addition: '',
-      extraAddressInformatoin: '',
+      extraAddressInformation: '',
       addressAvailableDate: '',
       note: '',
     },
@@ -160,7 +160,7 @@ export const Addresses = () => {
                     </Typography>
                     <GenericField
                       className={classes.formField}
-                      name={`${address.key}.extraAddressInformatoin`}
+                      name={`${address.key}.extraAddressInformation`}
                       disabled={!isEditing}
                       placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
                     />

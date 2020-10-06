@@ -5,7 +5,7 @@ import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from
 import { EntityWithFiles, Profile } from 'api/types';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenderOptions } from 'app/settings/sections/users/dictionaries';
-import { FormSection } from 'ui/organisms';
+import { FormSection, LocaleSwitch } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'app/settings/sections/users/User.styles';
 
@@ -49,6 +49,7 @@ export const PersonalInformation = ({ id, image }: Profile) => {
               label="settings.users.function_description"
               placeholder="settings.users.function_description"
             />
+            <LocaleSwitch disabled={!isEditing} />
           </Grid>
           <Grid item xs={12}>
             <FormSubSectionHeader

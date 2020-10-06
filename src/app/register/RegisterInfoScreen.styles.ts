@@ -14,7 +14,7 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(6, 6, 0, 6),
     backgroundColor: theme.palette.gray.light,
     borderRadius: theme.spacing(1),
-    padding: theme.spacing(2),
+    padding: theme.spacing(5, 2),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

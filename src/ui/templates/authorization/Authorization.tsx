@@ -8,6 +8,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ClaimSpaceContextController } from '../../../context/claimSpaceContext/ClaimSpaceContextController';
 import { RegisterInfoScreen } from '../../../app/register/RegisterInfoScreen';
+import { LocaleSwitch } from 'ui/organisms';
 
 import { AuthorizationProps } from './Authorization.types';
 import { useStyles } from './Authorization.styles';
@@ -32,6 +33,9 @@ export const Authorization = ({ children }: AuthorizationProps) => {
               </Link>
             )}
           </Grid>
+        </Grid>
+        <Grid className={classes.language} item xs={2}>
+          <LocaleSwitch isFormField={false} />
         </Grid>
         <Grid item xs={false} sm={4} md={5} lg={8} className={classes.image}>
           {pathname === AppRoute.register && <RegisterInfoScreen />}
