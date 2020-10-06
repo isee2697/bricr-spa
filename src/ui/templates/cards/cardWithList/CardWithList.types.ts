@@ -7,6 +7,7 @@ type RenderItem<T> = (item: T, isEditing: boolean) => ReactElement;
 
 export type BaseCardListItemType = {
   name?: string;
+  title?: string;
   id: string;
 };
 

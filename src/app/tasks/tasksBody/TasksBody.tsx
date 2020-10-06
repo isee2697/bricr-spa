@@ -9,7 +9,7 @@ import { TaskViewContainer } from '../taskView/TaskViewContainer';
 import { useStyles } from './TasksBody.styles';
 import { TasksBodyProps } from './TasksBody.types';
 
-export const TasksBody = ({ selectedMembers, tasksFullSummary }: TasksBodyProps) => {
+export const TasksBody = ({ members, selectedMembers, tasksFullSummary }: TasksBodyProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [activeTab, setActiveTab] = useState(TasksTab.Today);
@@ -72,7 +72,7 @@ export const TasksBody = ({ selectedMembers, tasksFullSummary }: TasksBodyProps)
         />
       </Tabs>
       <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
-        <TaskViewContainer tab={activeTab} selectedMembers={selectedMembers} />
+        <TaskViewContainer tab={activeTab} members={members} selectedMembers={selectedMembers} />
       </CardContent>
     </Card>
   );

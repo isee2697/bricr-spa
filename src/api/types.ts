@@ -6167,6 +6167,7 @@ export type Profile = {
   hideOnMemos?: Maybe<Scalars['Boolean']>;
   isAccountmanager?: Maybe<Scalars['Boolean']>;
   image?: Maybe<File>;
+  language?: Maybe<Scalars['String']>;
 };
 
 export type CreateProfileInput = {
@@ -6176,7 +6177,9 @@ export type CreateProfileInput = {
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  isAdmin?: Maybe<Scalars['Boolean']>;
   adminSettings?: Maybe<Array<AdminSettings>>;
+  language?: Maybe<Scalars['String']>;
 };
 
 export type UpdateProfileInput = {
@@ -6187,13 +6190,14 @@ export type UpdateProfileInput = {
   dateOfBirth?: Maybe<Scalars['Date']>;
   functionDescription?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  adminSettings?: Maybe<Array<AdminSettings>>;
   isAdmin?: Maybe<Scalars['Boolean']>;
+  adminSettings?: Maybe<Array<AdminSettings>>;
   initials?: Maybe<Scalars['String']>;
   costUnit?: Maybe<Scalars['String']>;
   hideOnMemos?: Maybe<Scalars['Boolean']>;
   isAccountmanager?: Maybe<Scalars['Boolean']>;
   imageId?: Maybe<Scalars['ID']>;
+  language?: Maybe<Scalars['String']>;
 };
 
 export type ProfileTeam = {
@@ -6239,6 +6243,7 @@ export type Team = {
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   teamRights?: Maybe<Array<TeamRight>>;
+  isInitTeam?: Maybe<Scalars['Boolean']>;
 };
 
 export type ProfileSearchResult = {
@@ -10036,7 +10041,7 @@ export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
     { __typename?: 'Profile' } & Pick<
       Profile,
-      'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive' | 'isAdmin'
+      'id' | 'firstName' | 'lastName' | 'email' | 'adminSettings' | 'isActive' | 'isAdmin' | 'language'
     > & {
         company?: Maybe<{ __typename?: 'Company' } & Pick<Company, 'id'>>;
         image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
@@ -10101,6 +10106,7 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
       | 'adminSettings'
       | 'isAdmin'
       | 'isActive'
+      | 'language'
     > & {
         image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
         teams?: Maybe<
@@ -16792,6 +16798,7 @@ export const MeDocument = gql`
       adminSettings
       isActive
       isAdmin
+      language
     }
   }
 `;
@@ -16924,6 +16931,7 @@ export const GetUserProfileDocument = gql`
         id
         name
       }
+      language
     }
   }
 `;

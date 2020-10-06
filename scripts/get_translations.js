@@ -8,6 +8,10 @@ const apiParam = '?access_token=:accessToken';
 const baseUrl = 'https://api.phrase.com/v2/projects/:projectID/locales';
 const encoding = 'UTF-8';
 
+const localesMessagesPath = path.join(__dirname, '..', 'src', 'i18n', 'messages.ts');
+const localeEnumFilePath = path.join(__dirname, '..', 'src', 'context', 'locale', 'AppLocale.enum.ts');
+const localesEnum = [];
+
 const getVariables = () => {
     let accessToken = process.env.PHRASE_ACCESS_TOKEN;
     let projectID = process.env.REACT_APP_PHRASE_PROJECT;
@@ -45,11 +49,40 @@ const saveLocaleFunction = async (value, variables) => {
         res => res.status === 200 ? res.json() : console.error('Failed to retrieve:', res.message)
     ).then(body => {
         const filePath = path.join(directoryPath, `${value.code}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
-        console.log(`Succesfully generated language: ${value.name}`);
+
+        if (body) {
+            localesEnum.push(value.code);
+
+            fs.writeFileSync(filePath, JSON.stringify(body, null, 2), { encoding, flag: 'w'});
+            console.log(`Succesfully generated language: ${value.name}`);
+        } else {
+            throw new Error('No language body found');
+        }
+
+        writeLocaleFiles();
+
     }).catch((e) => {
-        console.error(`Retrieving locale: ${name} with id: ${id} failed`, e);
+        console.error(`Retrieving locale: ${value.name} with id: ${value.id} failed`, e);
     });
+}
+
+const writeLocaleFiles = () => {
+    let localeFileContents = `export enum AppLocale {`;
+    let messageFileContents = `import { AppLocale } from 'context/locale/AppLocale.enum';\r\r`;
+    let messageTranslations = `export const translations: Record<AppLocale, Record<string, string>> = {\r`;
+
+    if(localesEnum.length > 0){
+        localesEnum.forEach(value => {
+            localeFileContents += `\r  ${value} = '${value}',`;
+            messageFileContents += `import ${value} from './data/${value}.json';\r`;
+            messageTranslations += `  [AppLocale.${value}]: ${value},\r`;
+        });
+        localeFileContents += `\r}\r`;
+        messageTranslations += `};\r`;
+
+        fs.writeFileSync(localeEnumFilePath, localeFileContents, { encoding, flag: 'w'});
+        fs.writeFileSync(localesMessagesPath, `${messageFileContents}\r${messageTranslations}`, { encoding, flag: 'w'});
+    }
 }
 
 const getLocalesList = async () => {
