@@ -2,6 +2,7 @@ import React from 'react';
 import Chip from '@material-ui/core/Chip';
 
 import { Box } from 'ui/atoms';
+import { CloseIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ActiveFilters.styles';
 
@@ -29,6 +30,7 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
       <Chip
         variant="outlined"
         key={index}
+        deleteIcon={<CloseIcon />}
         label={
           <>
             <span className={classes.dimmed}>{index}</span> <strong className={classes.filter}>{filter}</strong>
