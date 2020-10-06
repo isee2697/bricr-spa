@@ -10,4 +10,9 @@ export const useStyles = (image?: string) =>
         width: '100%',
       },
     },
+    label: {
+      fontSize: theme.typography.h5.fontSize,
+      fontWeight: theme.typography.fontWeightMedium,
+      margin: theme.spacing(1, 0, 1, 0),
+    },
   }))();

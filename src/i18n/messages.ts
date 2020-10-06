@@ -1,9 +1,1 @@
-import { AppLocale } from '../context/locale/AppLocale.enum';
-
-import enMessages from './data/en.json';
-import nlMessages from './data/nl.json';
-
-export const translations: Record<AppLocale, Record<string, string>> = {
-  [AppLocale.en]: enMessages,
-  [AppLocale.nl]: nlMessages,
-};
+import { AppLocale } from 'context/locale/AppLocale.enum';import en from './data/en.json';import de from './data/de.json';import zh from './data/zh.json';import nl from './data/nl.json';import es from './data/es.json';export const translations: Record<AppLocale, Record<string, string>> = {  [AppLocale.en]: en,  [AppLocale.de]: de,  [AppLocale.zh]: zh,  [AppLocale.nl]: nl,  [AppLocale.es]: es,};

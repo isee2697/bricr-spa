@@ -21,10 +21,10 @@ import { AppProvidersProps } from './AppProviders.types';
 export const AppProviders = ({ children }: AppProvidersProps) => (
   <ThroughProvider>
     <Theme>
-      <LocaleContextController>
-        <MuiPickersUtilsProvider utils={LuxonUtils}>
-          <ErrorBoundary>
-            <AuthContextController>
+      <AuthContextController>
+        <LocaleContextController>
+          <MuiPickersUtilsProvider utils={LuxonUtils}>
+            <ErrorBoundary>
               <ApiClientContextController>
                 <UserController>
                   <OverlayContextController>
@@ -40,10 +40,10 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
                   </OverlayContextController>
                 </UserController>
               </ApiClientContextController>
-            </AuthContextController>
-          </ErrorBoundary>
-        </MuiPickersUtilsProvider>
-      </LocaleContextController>
+            </ErrorBoundary>
+          </MuiPickersUtilsProvider>
+        </LocaleContextController>
+      </AuthContextController>
     </Theme>
   </ThroughProvider>
 );

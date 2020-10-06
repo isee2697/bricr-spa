@@ -4,6 +4,7 @@ import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { LocaleContext } from '../localeContext/LocaleContext';
 import { render } from 'tests';
+import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 
 import { LocaleContextController } from './LocaleContextController';
 
@@ -23,9 +24,11 @@ describe('LocaleContextController', () => {
 
   test('renders its children', () => {
     const { getByText } = render(
-      <LocaleContextController>
-        <span>TEST</span>
-      </LocaleContextController>,
+      <AuthContextController>
+        <LocaleContextController>
+          <span>TEST</span>
+        </LocaleContextController>
+      </AuthContextController>,
       { wrapper },
     );
 
@@ -34,9 +37,11 @@ describe('LocaleContextController', () => {
 
   test('provides functioning locale context', () => {
     const { getByTitle, getByText } = render(
-      <LocaleContextController>
-        <TestComponent />
-      </LocaleContextController>,
+      <AuthContextController>
+        <LocaleContextController>
+          <TestComponent />
+        </LocaleContextController>
+      </AuthContextController>,
       { wrapper },
     );
 

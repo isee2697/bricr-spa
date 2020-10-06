@@ -1,33 +1,65 @@
 import React, { useState } from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Box, Typography } from 'ui/atoms';
-import { AutosaveForm } from 'ui/organisms';
-import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
+import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
+import { AddIcon } from 'ui/atoms/icons';
 import { DatePickerField, GenericField } from 'form/fields';
+import { AddNewAddressModal } from '../addNewAddressModal/AddNewAddressModal';
+import { AddNewAddressBody, AddNewAddressSubmit } from '../addNewAddressModal/AddNewAddressModal.types';
+import { useModalState } from 'hooks/useModalState/useModalState';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
+import { AddressType } from './Addresses.types';
 import { useStyles } from './Addresses.styles';
 
 export const Addresses = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const addresses = [
+  const { open, close } = useModalDispatch();
+  const { isOpen: isModalOpen } = useModalState('add-new-address');
+  const [addresses, setAddresses] = useState([
     {
-      key: 'homeAddress',
-      title: 'Home address',
+      key: AddressType.HomeAddress,
       country: '',
       city: '',
       zipCode: '',
       street: '',
       houseNumber: '',
       addition: '',
-      extraAddressInformatoin: '',
+      extraAddressInformation: '',
       addressAvailableDate: '',
       note: '',
     },
-  ];
+  ]);
+
+  const handleAddNewAddress: AddNewAddressSubmit<AddNewAddressBody> = async ({ addressType }) => {
+    try {
+      setAddresses([
+        ...addresses,
+        {
+          key: addressType,
+          country: '',
+          city: '',
+          zipCode: '',
+          street: '',
+          houseNumber: '',
+          addition: '',
+          extraAddressInformation: '',
+          addressAvailableDate: '',
+          note: '',
+        },
+      ]);
+
+      close('add-new-address');
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: 'unknown',
+      };
+    }
+  };
 
   const initialValues = addresses.reduce((accu, currentValue) => {
     return {
@@ -54,7 +86,7 @@ export const Addresses = () => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={() => {}}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('add-new-address')}>
               <AddIcon color="inherit" />
             </IconButton>
           </>
@@ -64,21 +96,20 @@ export const Addresses = () => {
         <AutosaveForm onSave={onSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {addresses.map((address, index) => (
-              <React.Fragment key={index}>
-                <Box display="flex" className={classes.addressHeader}>
-                  <Typography variant="h5" className={classes.addressIndex}>
-                    {index + 1}
-                  </Typography>
-                  <Typography variant="h3" className={classes.addressTitle}>
-                    {address.title}
-                  </Typography>
-                  <IconButton size="small" variant="rounded" className={classes.marginRightThree}>
-                    <MenuIcon />
-                  </IconButton>
-                  <IconButton size="small" variant="rounded">
-                    <ArrowUpIcon />
-                  </IconButton>
-                </Box>
+              <FormSubSection
+                key={index}
+                title={
+                  <>
+                    <Typography variant="h5" className={classes.addressIndex}>
+                      {index + 1}
+                    </Typography>
+                    <Typography variant="h3" className={classes.addressTitle}>
+                      {formatMessage({ id: `dictionaries.contact_information.address_type.${address.key}` })}
+                    </Typography>
+                  </>
+                }
+                onOptionsClick={() => {}}
+              >
                 <Grid container spacing={1} className={classes.addressFormFields}>
                   <Grid item xs={4}>
                     <Typography variant="h5">
@@ -160,7 +191,7 @@ export const Addresses = () => {
                     </Typography>
                     <GenericField
                       className={classes.formField}
-                      name={`${address.key}.extraAddressInformatoin`}
+                      name={`${address.key}.extraAddressInformation`}
                       disabled={!isEditing}
                       placeholder="crm.details.personal_information_contact_information.addresses.put_information_here"
                     />
@@ -196,10 +227,11 @@ export const Addresses = () => {
                     />
                   </Grid>
                 </Grid>
-              </React.Fragment>
+              </FormSubSection>
             ))}
           </Grid>
         </AutosaveForm>
+        <AddNewAddressModal onSubmit={handleAddNewAddress} isOpen={isModalOpen} />
       </CardContent>
     </Card>
   );
