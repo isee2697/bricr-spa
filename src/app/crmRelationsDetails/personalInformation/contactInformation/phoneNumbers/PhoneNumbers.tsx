@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { CountryCode, AsYouType } from 'libphonenumber-js';
+import Flag from 'react-flagkit';
 
 import {
   Card,
@@ -18,13 +20,15 @@ import { AddIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
 import { DatePickerField, GenericField } from 'form/fields';
 
 import { useStyles } from './PhoneNumbers.styles';
+import { PhoneNumber, PhoneNumbersObject } from './PhoneNumbers.types';
 
 export const PhoneNumbers = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
+  const [countryCodes, setCountryCodes] = useState<string[]>(['PL']);
 
-  const phoneNumbers = [
+  const phoneNumbers: PhoneNumber[] = [
     {
       key: 'mainNumber',
       title: 'Main number',
@@ -35,7 +39,7 @@ export const PhoneNumbers = () => {
     },
   ];
 
-  const initialValues = phoneNumbers.reduce((accu, currentValue) => {
+  const initialValues: PhoneNumbersObject = phoneNumbers.reduce((accu, currentValue) => {
     return {
       ...accu,
       [currentValue.key]: {
@@ -44,7 +48,18 @@ export const PhoneNumbers = () => {
     };
   }, {});
 
-  const onSave = async (values: unknown) => {
+  const onSave = async (values: PhoneNumbersObject) => {
+    const countryCodes: string[] = Object.keys(values).reduce((accu: string[], key) => {
+      const { countryCode, phoneNumber } = values[key];
+      const asYouTube = new AsYouType('PL');
+      asYouTube.input(countryCode + phoneNumber);
+      const country = asYouTube.country as CountryCode;
+
+      return [...accu, country];
+    }, []);
+
+    setCountryCodes(countryCodes);
+
     return { error: false };
   };
 
@@ -97,7 +112,13 @@ export const PhoneNumbers = () => {
                       name={`${phoneNumber.key}.countryCode`}
                       disabled={!isEditing}
                       placeholder="crm.details.personal_information_contact_information.phone_numbers.country_code_placeholder"
-                      InputProps={{ endAdornment: <InputAdornment position="end">PO</InputAdornment> }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Flag country={countryCodes[index]} />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={5}>
