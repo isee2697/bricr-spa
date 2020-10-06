@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-
 import { IconButton, Badge, Sidebar } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
 import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
@@ -73,7 +72,12 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="calendar">
+            <IconButton
+              onClick={handleNavigate(AppRoute.calendar)}
+              variant="rounded"
+              size="small"
+              aria-label="calendar"
+            >
               <CalendarIcon />
             </IconButton>
             <IconButton

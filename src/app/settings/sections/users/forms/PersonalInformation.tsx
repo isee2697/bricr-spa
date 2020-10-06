@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Grid } from 'ui/atoms';
+import { Grid, InputLabel } from 'ui/atoms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
 import { EntityWithFiles, Profile } from 'api/types';
 import { FormSubSectionHeader } from 'ui/molecules';
@@ -49,6 +48,10 @@ export const PersonalInformation = ({ id, image }: Profile) => {
               label="settings.users.function_description"
               placeholder="settings.users.function_description"
             />
+
+            <InputLabel className={classes.label} disabled={!isEditing} variant={'standard'}>
+              {formatMessage({ id: 'language.label' })}
+            </InputLabel>
             <LocaleSwitch disabled={!isEditing} />
           </Grid>
           <Grid item xs={12}>
