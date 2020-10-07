@@ -17,7 +17,7 @@ import {
   MenuItem,
 } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { ArchiveIcon, ArrowDownIcon, ArrowUpIcon, NewConstructionIcon, UserIcon, WarningIcon } from 'ui/atoms/icons';
+import { ArchiveIcon, ArrowDownIcon, ArrowUpIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
 import { ListOptionsMenu } from 'ui/molecules';
 
 import { ProjectItemProps } from './ProjectItem.types';
