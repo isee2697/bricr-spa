@@ -10,4 +10,5 @@ export type MenuProps = PopperProps & {
   offsetLeft?: number;
   arrow?: boolean;
   onClose: () => void;
+  actions?: React.ReactNode;
 };
