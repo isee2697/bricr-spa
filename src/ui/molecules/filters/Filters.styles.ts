@@ -62,7 +62,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   infoTitle: {
     ...typography.h6,
     fontWeight: fontWeight.bold,
-    color: `${palette.gray}`,
+    color: palette.gray.main,
     margin: spacing(2, 0),
   },
 }));
