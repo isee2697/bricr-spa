@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+
 import { Dashboard } from 'app/dashboard/Dashboard';
 import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
 import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
@@ -22,6 +23,7 @@ import { RegisterContainer } from 'app/register/RegisterContainer';
 import { SetupContainer } from 'app/register/setup/SetupContainer';
 import { CrmContainer } from 'app/crm/CrmContainer';
 import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelationsDetailsContainer';
+import { NotificationsContainer } from '../app/notifications/NotificationsContainer';
 import { CalendarContainer } from 'app/calendar/CalendarContainer';
 
 import { AppRoute } from './AppRoute.enum';
@@ -79,6 +81,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.settings} component={SettingsContainer} />
                 <AuthorizedRoute path={AppRoute.tasks} exact component={TasksContainer} />
                 <AuthorizedRoute path={AppRoute.taskDetails} component={TaskDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.notifications} exact component={NotificationsContainer} />
                 <AuthorizedRoute path={AppRoute.calendar} component={CalendarContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />

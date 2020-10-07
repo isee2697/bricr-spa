@@ -1,13 +1,8 @@
 import { PhoneNumberType } from '../phoneNumbers/PhoneNumbers.types';
+import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
+import { PromiseFunction } from 'app/shared/types';
 
-export type AddNewPhoneNumberModalProps = {
-  onSubmit: AddNewPhoneNumberSubmit;
-  isOpen: boolean;
-};
-
-export type AddNewPhoneNumberSubmit<T = AddNewPhoneNumberBody> = (
-  body: T,
-) => Promise<undefined | { error: 'conflict' | 'unknown'; conflictsCount?: number }>;
+export type AddNewPhoneNumberModalProps = ModalContainerProps & { onSubmit: PromiseFunction<AddNewPhoneNumberBody> };
 
 export type AddNewPhoneNumberBody = {
   phoneNumberType: PhoneNumberType;

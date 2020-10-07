@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CountryCode, AsYouType } from 'libphonenumber-js';
 import Flag from 'react-flagkit';
+import { DateTime } from 'luxon';
+
 import {
   Card,
   CardHeader,
@@ -18,11 +20,13 @@ import { AddIcon } from 'ui/atoms/icons';
 import { DatePickerField, GenericField } from 'form/fields';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { AddNewPhoneNumberBody, AddNewPhoneNumberSubmit } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal.types';
+import { AddNewPhoneNumberBody } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal.types';
 import { AddNewPhoneNumberModal } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal';
+import { PromiseFunction } from 'app/shared/types';
+import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './PhoneNumbers.styles';
-import { PhoneNumbersObject, PhoneNumberType } from './PhoneNumbers.types';
+import { PhoneNumber, PhoneNumbersObject } from './PhoneNumbers.types';
 
 export const PhoneNumbers = () => {
   const classes = useStyles();
@@ -31,17 +35,9 @@ export const PhoneNumbers = () => {
   const [countryCodes, setCountryCodes] = useState<string[]>(['PL']);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-phone-number');
-  const [phoneNumbers, setPhoneNumbers] = useState([
-    {
-      key: PhoneNumberType.MobileNumber,
-      countryCode: '',
-      phoneNumber: '',
-      numberAvailableDate: '',
-      note: '',
-    },
-  ]);
+  const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumber[]>([]);
 
-  const handleAddNewPhoneNumber: AddNewPhoneNumberSubmit<AddNewPhoneNumberBody> = async ({ phoneNumberType }) => {
+  const handleAddNewPhoneNumber: PromiseFunction<AddNewPhoneNumberBody> = async ({ phoneNumberType }) => {
     try {
       setPhoneNumbers([
         ...phoneNumbers,
@@ -49,7 +45,7 @@ export const PhoneNumbers = () => {
           key: phoneNumberType,
           countryCode: '',
           phoneNumber: '',
-          numberAvailableDate: '',
+          numberAvailableDate: DateTime.local(),
           note: '',
         },
       ]);
@@ -59,7 +55,7 @@ export const PhoneNumbers = () => {
       return undefined;
     } catch (error) {
       return {
-        error: 'unknown',
+        error: true,
       };
     }
   };
@@ -75,7 +71,7 @@ export const PhoneNumbers = () => {
 
   const onSave = async (values: PhoneNumbersObject) => {
     const countryCodes: string[] = Object.keys(values).reduce((accu: string[], key) => {
-      const { countryCode, phoneNumber } = values[key];
+      const { countryCode = '', phoneNumber = '' } = values[key];
       const asYouTube = new AsYouType('PL');
       asYouTube.input(countryCode + phoneNumber);
       const country = asYouTube.country as CountryCode;
@@ -109,92 +105,112 @@ export const PhoneNumbers = () => {
       <CardContent>
         <AutosaveForm onSave={onSave} initialValues={initialValues}>
           <Grid item xs={12}>
-            {phoneNumbers.map((phoneNumber, index) => (
-              <FormSubSection
-                key={index}
-                title={
-                  <>
-                    <Typography variant="h5" className={classes.phoneNumberIndex}>
-                      {index + 1}
-                    </Typography>
-                    <Typography variant="h3" className={classes.phoneNumberTitle}>
-                      {formatMessage({ id: `dictionaries.contact_information.phone_number_type.${phoneNumber.key}` })}
-                    </Typography>
-                  </>
-                }
-                onOptionsClick={() => {}}
-              >
-                <Grid container spacing={1} className={classes.phoneNumberFormFields}>
-                  <Grid item xs={4}>
-                    <Typography variant="h5">
-                      {formatMessage({
-                        id: 'crm.details.personal_information_contact_information.phone_numbers.country_code',
-                      })}
-                    </Typography>
-                    <GenericField
-                      className={classes.formField}
-                      name={`${phoneNumber.key}.countryCode`}
-                      disabled={!isEditing}
-                      placeholder="crm.details.personal_information_contact_information.phone_numbers.country_code_placeholder"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Flag country={countryCodes[index]} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+            {phoneNumbers.length === 0 && (
+              <InfoSection emoji="🤔">
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'crm.details.personal_information_contact_information.phone_numbers.empty_title',
+                  })}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'crm.details.personal_information_contact_information.phone_numbers.empty_description',
+                  })}
+                </Typography>
+              </InfoSection>
+            )}
+            {phoneNumbers.length > 0 &&
+              phoneNumbers.map((phoneNumber, index) => (
+                <FormSubSection
+                  key={index}
+                  title={
+                    <>
+                      <Typography variant="h5" className={classes.phoneNumberIndex}>
+                        {index + 1}
+                      </Typography>
+                      <Typography variant="h3" className={classes.phoneNumberTitle}>
+                        {formatMessage({ id: `dictionaries.contact_information.phone_number_type.${phoneNumber.key}` })}
+                      </Typography>
+                    </>
+                  }
+                  onOptionsClick={() => {}}
+                >
+                  <Grid container spacing={1} className={classes.phoneNumberFormFields}>
+                    <Grid item xs={4}>
+                      <Typography variant="h5">
+                        {formatMessage({
+                          id: 'crm.details.personal_information_contact_information.phone_numbers.country_code',
+                        })}
+                      </Typography>
+                      <GenericField
+                        className={classes.formField}
+                        name={`${phoneNumber.key}.countryCode`}
+                        disabled={!isEditing}
+                        placeholder="crm.details.personal_information_contact_information.phone_numbers.country_code_placeholder"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Flag country={countryCodes[index]} />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={5}>
+                      <Typography variant="h5">
+                        {formatMessage({
+                          id: 'crm.details.personal_information_contact_information.phone_numbers.phone_number',
+                        })}
+                      </Typography>
+                      <GenericField
+                        className={classes.formField}
+                        name={`${phoneNumber.key}.phoneNumber`}
+                        disabled={!isEditing}
+                        placeholder="crm.details.personal_information_contact_information.phone_numbers.placeholder"
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={5}>
-                    <Typography variant="h5">
-                      {formatMessage({
-                        id: 'crm.details.personal_information_contact_information.phone_numbers.phone_number',
-                      })}
-                    </Typography>
-                    <GenericField
-                      className={classes.formField}
-                      name={`${phoneNumber.key}.phoneNumber`}
-                      disabled={!isEditing}
-                      placeholder="crm.details.personal_information_contact_information.phone_numbers.placeholder"
-                    />
+                  <Grid container spacing={1} className={classes.phoneNumberFormFields}>
+                    <Grid item xs={4}>
+                      <Typography variant="h5">
+                        {formatMessage({
+                          id:
+                            'crm.details.personal_information_contact_information.phone_numbers.number_available_from',
+                        })}
+                      </Typography>
+                      <DatePickerField
+                        className={classes.formField}
+                        disabled={!isEditing}
+                        name={`${phoneNumber.key}.numberAvailableDate`}
+                        placeholder="crm.details.personal_information_contact_information.phone_numbers.placeholder"
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container spacing={1} className={classes.phoneNumberFormFields}>
-                  <Grid item xs={4}>
-                    <Typography variant="h5">
-                      {formatMessage({
-                        id: 'crm.details.personal_information_contact_information.phone_numbers.number_available_from',
-                      })}
-                    </Typography>
-                    <DatePickerField
-                      className={classes.formField}
-                      disabled={!isEditing}
-                      name={`${phoneNumber.key}.numberAvailableDate`}
-                      placeholder="crm.details.personal_information_contact_information.phone_numbers.placeholder"
-                    />
+                  <Grid container spacing={1} className={classes.phoneNumberFormFields}>
+                    <Grid item xs={12}>
+                      <Typography variant="h5">
+                        {formatMessage({
+                          id:
+                            'crm.details.personal_information_contact_information.phone_numbers.note_about_the_phone_number',
+                        })}
+                      </Typography>
+                      <GenericField
+                        className={classes.formField}
+                        name={`${phoneNumber.key}.note`}
+                        disabled={!isEditing}
+                        placeholder="crm.details.personal_information_contact_information.phone_numbers.put_information_here"
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container spacing={1} className={classes.phoneNumberFormFields}>
-                  <Grid item xs={12}>
-                    <Typography variant="h5">
-                      {formatMessage({
-                        id:
-                          'crm.details.personal_information_contact_information.phone_numbers.note_about_the_phone_number',
-                      })}
-                    </Typography>
-                    <GenericField
-                      className={classes.formField}
-                      name={`${phoneNumber.key}.note`}
-                      disabled={!isEditing}
-                      placeholder="crm.details.personal_information_contact_information.phone_numbers.put_information_here"
-                    />
-                  </Grid>
-                </Grid>
-              </FormSubSection>
-            ))}
+                </FormSubSection>
+              ))}
           </Grid>
         </AutosaveForm>
-        <AddNewPhoneNumberModal onSubmit={handleAddNewPhoneNumber} isOpen={isModalOpen} />
+        <AddNewPhoneNumberModal
+          onSubmit={handleAddNewPhoneNumber}
+          isOpened={isModalOpen}
+          onClose={() => close('add-new-phone-number')}
+        />
       </CardContent>
     </Card>
   );

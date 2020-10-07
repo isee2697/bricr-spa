@@ -1,9 +1,10 @@
+import { DateTime } from 'luxon';
+
 export type PhoneNumber = {
   key: string;
-  title: string;
   countryCode: string;
   phoneNumber: string;
-  numberAvailableDate: string;
+  numberAvailableDate: DateTime;
   note: string;
 };
 

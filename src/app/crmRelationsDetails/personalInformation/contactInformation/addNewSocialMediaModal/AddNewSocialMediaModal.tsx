@@ -1,31 +1,17 @@
 import React from 'react';
-import { Form } from 'react-final-form';
-import { Modal, SubmitButton } from 'ui/molecules';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { Alert, DialogContent, DialogActions, Button } from 'ui/atoms';
 import { RadioGroupField } from 'form/fields';
 import { SocialMediaType } from '../socialMedia/SocialMedia.types';
-import { AddIcon, SquareIcon } from 'ui/atoms/icons';
+import { SquareIcon } from 'ui/atoms/icons';
+import { FormModal } from 'ui/organisms';
 
-import { AddNewSocialMediaModalProps, AddNewSocialMediaSubmit } from './AddNewSocialMediaModal.types';
+import { AddNewSocialMediaModalProps } from './AddNewSocialMediaModal.types';
 
-export const AddNewSocialMediaModal = ({ isOpen, onSubmit }: AddNewSocialMediaModalProps) => {
+export const AddNewSocialMediaModal = ({ isOpened, onSubmit }: AddNewSocialMediaModalProps) => {
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
-
-  const handleSubmit: AddNewSocialMediaSubmit = async body => {
-    const response = await onSubmit(body);
-
-    if (!response) {
-      return;
-    }
-
-    if (!response.error) {
-    }
-
-    return response;
-  };
 
   const handleClose = () => {
     close('add-new-social-media');
@@ -38,53 +24,15 @@ export const AddNewSocialMediaModal = ({ isOpen, onSubmit }: AddNewSocialMediaMo
   }));
 
   return (
-    <Form onSubmit={handleSubmit}>
-      {({ handleSubmit, form, submitErrors, values }) => (
-        <Modal
-          fullWidth
-          isOpened={isOpen}
-          onClose={() => {
-            form.reset();
-            handleClose();
-          }}
-          title={formatMessage({
-            id: 'crm.details.personal_information_contact_information.addresses.add_new_social_media.title',
-          })}
-        >
-          <form
-            onSubmit={async event => {
-              await handleSubmit(event);
-              form.reset();
-            }}
-            autoComplete="off"
-          >
-            {submitErrors && submitErrors.error === 'unknown' && (
-              <DialogContent>
-                <Alert severity="error">
-                  {formatMessage({ id: 'crm.details.personal_information_contact_information.add_new.error.unknown' })}
-                </Alert>
-              </DialogContent>
-            )}
-            <DialogContent>
-              <RadioGroupField name="socialMediaType" options={addressTypes} />
-            </DialogContent>
-            <DialogActions>
-              <Button color="ghost" size="small">
-                {formatMessage({ id: 'common.cancel' })}
-              </Button>
-              <SubmitButton
-                type="submit"
-                startIcon={<AddIcon color="inherit" />}
-                size="large"
-                color="primary"
-                variant="contained"
-              >
-                {formatMessage({ id: 'common.add' })}
-              </SubmitButton>
-            </DialogActions>
-          </form>
-        </Modal>
-      )}
-    </Form>
+    <FormModal
+      isOpened={isOpened}
+      onClose={handleClose}
+      onSubmit={onSubmit}
+      title={formatMessage({
+        id: 'crm.details.personal_information_contact_information.addresses.add_new_social_media.title',
+      })}
+    >
+      <RadioGroupField name="socialMediaType" options={addressTypes} />
+    </FormModal>
   );
 };

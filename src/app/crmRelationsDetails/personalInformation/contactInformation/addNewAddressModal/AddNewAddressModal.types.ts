@@ -1,13 +1,10 @@
 import { AddressType } from '../addresses/Addresses.types';
+import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
+import { PromiseFunction } from 'app/shared/types';
 
-export type AddNewAddressModalProps = {
-  onSubmit: AddNewAddressSubmit;
-  isOpen: boolean;
+export type AddNewAddressModalProps = ModalContainerProps & {
+  onSubmit: PromiseFunction<AddNewAddressBody>;
 };
-
-export type AddNewAddressSubmit<T = AddNewAddressBody> = (
-  body: T,
-) => Promise<undefined | { error: 'conflict' | 'unknown'; conflictsCount?: number }>;
 
 export type AddNewAddressBody = {
   addressType: AddressType;
