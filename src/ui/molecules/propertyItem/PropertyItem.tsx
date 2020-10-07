@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
+
 import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button, Price, Chip, Emoji } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';

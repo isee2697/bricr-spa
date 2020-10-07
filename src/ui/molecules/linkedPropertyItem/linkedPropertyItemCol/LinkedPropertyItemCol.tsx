@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { LinkedPropertyItemColProps } from '../LinkedPropertyItem.types';

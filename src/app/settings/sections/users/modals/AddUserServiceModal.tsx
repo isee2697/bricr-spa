@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import { PromiseFunction } from 'app/shared/types';
 import { FormModal } from 'ui/organisms';

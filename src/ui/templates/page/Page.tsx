@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
+
 import { Box, Grid, LastUpdated, NavBreadcrumb, Typography } from 'ui/atoms';
 import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 import { GenericField } from 'form/fields';

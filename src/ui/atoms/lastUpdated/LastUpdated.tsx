@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
+
 import { Typography, Grid } from '../';
 import { HistoryIcon } from '../icons';
 import { useLocale } from 'hooks';

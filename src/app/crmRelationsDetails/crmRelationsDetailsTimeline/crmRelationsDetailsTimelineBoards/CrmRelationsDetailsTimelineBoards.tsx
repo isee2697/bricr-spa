@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
+
 import { VerticalTimeline } from 'ui/molecules';
 import { Box, Button, Typography, UserAvatar } from 'ui/atoms';
 import { VerticalTimelineItem } from 'ui/molecules/verticalTimeline/VerticalTimeline.types';

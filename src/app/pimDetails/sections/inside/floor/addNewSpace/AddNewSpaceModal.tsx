@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+
 import { SpaceType } from 'api/types';
 import { Modal, SubmitButton, SelectCard, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Grid, Switch } from 'ui/atoms';

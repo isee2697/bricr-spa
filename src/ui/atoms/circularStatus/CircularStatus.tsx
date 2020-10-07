@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Typography, Box, CircularProgress } from 'ui/atoms';
 
 import { CircularStatusProps } from './CircularStatus.types';

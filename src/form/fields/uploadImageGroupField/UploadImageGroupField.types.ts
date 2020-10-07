@@ -1,4 +1,5 @@
 import { FieldValidator } from 'final-form';
+
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 
 type FieldValue = File[];

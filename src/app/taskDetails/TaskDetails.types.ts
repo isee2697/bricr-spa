@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { GetTaskQueryHookResult, Profile, Task } from 'api/types';
 
 export type TaskDetailsProps = Pick<GetTaskQueryHookResult, 'error'> & {

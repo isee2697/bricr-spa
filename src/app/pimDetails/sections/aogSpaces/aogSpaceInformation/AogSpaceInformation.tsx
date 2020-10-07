@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 import { Box, Card, Grid, Typography } from 'ui/atoms';

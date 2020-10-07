@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
+
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SquareMeterIcon } from 'ui/atoms/icons';

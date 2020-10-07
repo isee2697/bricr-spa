@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
+
 import { WorkflowItemType } from '../../Workflow.types';
 
 import { AddPlaceholder } from './addPlaceholder/AddPlaceholder';

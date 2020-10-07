@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { FullscreenOnIcon, FullscreenOffIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';

@@ -1,6 +1,5 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { ChromePickerStylesProps } from 'react-color/lib/components/chrome/Chrome';
-
 import { Classes } from 'reactcss';
 
 export const useStyles = makeStyles(theme => ({

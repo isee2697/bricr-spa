@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, CardContent, Box, Avatar, Emoji, Typography, ProgressFilling } from 'ui/atoms';
 import { CRM_RELATIONS } from 'api/mocks/crm-relation';

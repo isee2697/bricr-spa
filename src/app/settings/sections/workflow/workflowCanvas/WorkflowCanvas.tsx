@@ -1,6 +1,6 @@
 import { useTheme } from '@material-ui/core/styles';
-
 import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
+
 import { useLocale } from 'hooks';
 import { Box, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';

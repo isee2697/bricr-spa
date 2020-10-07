@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { logout } from 'context/auth/authActionCreators/authActionCreators';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';

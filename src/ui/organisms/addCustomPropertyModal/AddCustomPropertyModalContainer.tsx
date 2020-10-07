@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { LabelInput, useAddLabelMutation, useAddNcpLabelMutation, useAddObjectTypeLabelMutation } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 

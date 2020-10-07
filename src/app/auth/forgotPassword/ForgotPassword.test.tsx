@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act, fireEvent, render, wait } from 'tests';
 
 import { ForgotPassword } from './ForgotPassword';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { PercentIcon } from 'ui/atoms/icons';

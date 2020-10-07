@@ -7,6 +7,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
 import { QueryParamProvider } from 'use-query-params';
 import { ThroughProvider } from 'react-through';
+
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
 import { LocaleContext } from '../context/locale/localeContext/LocaleContext';

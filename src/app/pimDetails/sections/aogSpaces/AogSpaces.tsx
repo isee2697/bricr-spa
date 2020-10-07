@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+
 import { useEntityType } from 'app/shared/entityType';
 import { Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';

@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox, IconButton, Typography, UserAvatar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';

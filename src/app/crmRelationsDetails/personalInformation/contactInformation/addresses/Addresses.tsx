@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
@@ -10,7 +12,6 @@ import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { PromiseFunction } from 'app/shared/types';
 import { InfoSection } from 'ui/molecules';
-import { DateTime } from 'luxon';
 
 import { AddressItem } from './Addresses.types';
 import { useStyles } from './Addresses.styles';

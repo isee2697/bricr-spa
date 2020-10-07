@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+
 import { CrmItem } from '../../crm/Crm.types';
 
 export type CrmRelationsDetailsCustomerJourneyContainerProps = {

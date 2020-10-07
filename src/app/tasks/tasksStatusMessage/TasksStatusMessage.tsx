@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Grid, Emoji, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

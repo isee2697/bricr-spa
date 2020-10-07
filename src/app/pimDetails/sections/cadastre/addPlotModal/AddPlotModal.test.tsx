@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, fireEvent, wait } from 'tests';
 
 import { AddPlotModal } from './AddPlotModal';

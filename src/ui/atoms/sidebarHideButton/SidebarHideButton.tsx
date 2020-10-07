@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ArrowLeftIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './SidebarHideButton.styles';

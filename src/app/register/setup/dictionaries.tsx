@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BuildingIcon } from '../../../ui/atoms/icons';
 import { PropertyType } from '../../../api/types';
 

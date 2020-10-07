@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
+
 import { Box, IconButton, Typography, UserAvatar } from 'ui/atoms';
 import { NotificationType } from 'api/types';
 import { useLocale } from 'hooks/useLocale/useLocale';

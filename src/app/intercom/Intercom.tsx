@@ -1,5 +1,6 @@
 import React from 'react';
 import { default as IntercomApp } from 'react-intercom';
+
 import { useAuthState } from 'hooks';
 
 export const Intercom = () => {

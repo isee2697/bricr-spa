@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Grid, Box, Typography, Fade, Slide, Emoji } from 'ui/atoms';
 import logo from 'assets/images/logo_no_text.svg';
 import { CheckIcon } from 'ui/atoms/icons';

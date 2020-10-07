@@ -1,7 +1,7 @@
 import groupBy from 'lodash/groupBy';
-
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
+
 import { Card, CardContent, CardActions, IconButton, Button, Tabs, Tab, AgendaItem, Scrollable } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';

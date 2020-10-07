@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { useParams } from 'react-router';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Grid, Typography, Box, Chip, IconButton, Collapse, ProgressFilling, ColoredImage, InfoItem } from 'ui/atoms';
 import { useLocale } from 'hooks';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
 
 import { SummaryInside } from './SummaryInside';

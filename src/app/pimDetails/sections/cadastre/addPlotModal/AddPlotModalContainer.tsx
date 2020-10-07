@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+
 import { useEntityType } from 'app/shared/entityType';
 import { CadastreType, useAddCadastreMutation, PimOverallInfoDocument, PimCadastreDocument } from 'api/types';
 import { joinUrlParams } from 'routing/AppRoute.utils';

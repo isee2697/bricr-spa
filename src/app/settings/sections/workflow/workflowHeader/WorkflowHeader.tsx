@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AppBar, Button, IconButton, Typography } from 'ui/atoms';
 import { AddIcon, BackIcon, MenuIcon, RedoIcon, SquareIcon, UndoIcon } from 'ui/atoms/icons';
 import { iconPickerIcons, useLocale } from 'hooks';

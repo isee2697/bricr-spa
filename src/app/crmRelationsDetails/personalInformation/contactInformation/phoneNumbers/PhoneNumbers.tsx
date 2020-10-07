@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CountryCode, AsYouType } from 'libphonenumber-js';
 import Flag from 'react-flagkit';
+import { DateTime } from 'luxon';
+
 import {
   Card,
   CardHeader,
@@ -21,7 +23,6 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AddNewPhoneNumberBody } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal.types';
 import { AddNewPhoneNumberModal } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal';
 import { PromiseFunction } from 'app/shared/types';
-import { DateTime } from 'luxon';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './PhoneNumbers.styles';

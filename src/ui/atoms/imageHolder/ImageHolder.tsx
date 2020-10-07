@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Grid } from '../';
 
 import { ImageHolderProps } from './ImageHolder.types';

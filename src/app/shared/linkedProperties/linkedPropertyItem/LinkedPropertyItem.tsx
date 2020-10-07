@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Grid, Typography, Box, Chip, IconButton, Collapse, ProgressFilling, ColoredImage } from 'ui/atoms';
 import { useLocale } from 'hooks';

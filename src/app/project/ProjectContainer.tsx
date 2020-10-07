@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useLocale, usePagination, useSnackbar } from 'hooks';
 import {

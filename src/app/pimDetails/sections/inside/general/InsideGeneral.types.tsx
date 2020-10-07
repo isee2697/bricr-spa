@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+
 import { InsideGeneral, LastUpdatedProfile } from 'api/types';
 
 export type InsideGeneralBody = Partial<InsideGeneral> & {

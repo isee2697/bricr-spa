@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+
 import { Grid, IconButton, Typography } from 'ui/atoms';
 import { UploadIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';

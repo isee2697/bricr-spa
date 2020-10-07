@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
+
 import { Badge, Card, CardContent, Tab, Tabs } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksTab } from '../Tasks.types';

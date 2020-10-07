@@ -1,4 +1,5 @@
 import { MutableState, Tools } from 'final-form';
+
 import { SpaceConfiguration, Space, OutsideFeature, CuboidMeasurement } from 'api/types';
 
 export const calculateSurface = (state: MutableState<CuboidMeasurement>, utils: Tools<CuboidMeasurement>) => {

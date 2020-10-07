@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Button, Grid, Typography } from 'ui/atoms';
 import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';

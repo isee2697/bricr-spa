@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+
 import { CURRENT_USER } from 'api/queries/profile';
 import { AdminSettings } from 'api/types';
 

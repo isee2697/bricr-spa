@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { AddCustomPropertyModalContainer } from 'ui/organisms';

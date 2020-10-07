@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { InfoSection, Modal, SubmitButton } from 'ui/molecules';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';

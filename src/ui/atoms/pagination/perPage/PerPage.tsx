@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { useStyles } from '../Pagination.styles';
 import { PaginationProps } from '../Pagination.types';
 import { useLocale } from 'hooks/useLocale/useLocale';

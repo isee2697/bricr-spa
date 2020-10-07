@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useField } from 'react-final-form';
+
 import { useLocale } from 'hooks';
 import { validatorsChain } from 'form/validators';
 import { InputAdornment, TextField as BaseFormField } from 'ui/atoms';

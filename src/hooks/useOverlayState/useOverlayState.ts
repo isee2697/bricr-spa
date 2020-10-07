@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { OverlayStateContextType } from 'context/overlay/overlayContext/OverlayContext.types';
 import { OverlayStateContext } from 'context/overlay/overlayContext/OverlayContext';
 

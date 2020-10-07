@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
+
 import { SidebarMenu } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { Box } from 'ui/atoms';

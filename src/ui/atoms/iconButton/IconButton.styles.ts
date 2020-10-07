@@ -1,6 +1,5 @@
 import IconButtonBase from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
-
 import React from 'react';
 
 import { IconButtonProps } from './IconButton.types';

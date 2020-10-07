@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
+
 import { useLocale } from 'hooks';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { CheckboxGroupField } from 'form/fields';

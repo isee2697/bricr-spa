@@ -1,5 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
 import { Summary } from './Summary';

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { InspectionType } from 'api/types';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';

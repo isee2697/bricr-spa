@@ -1,6 +1,5 @@
 import SwitchBase, { SwitchProps } from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
-
 import React from 'react';
 
 export const Switch: React.ComponentType<SwitchProps> = withStyles(theme => ({

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ApolloError } from '@apollo/client';
 import { MemoryRouter as Router } from 'react-router-dom';
+
 import '@babel/polyfill';
 import { render } from 'tests';
 import { EntityType } from '../shared/entityType';

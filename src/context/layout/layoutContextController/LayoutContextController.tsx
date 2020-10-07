@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+
 import { LayoutDispatchContext, LayoutStateContext } from '../layoutContext/LayoutContext';
 import { layoutReducer } from '../layoutReducer/layoutReducer';
 

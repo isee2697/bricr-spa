@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useResetPasswordMutation } from 'api/types';
 
 import { ResetPassword } from './ResetPassword';
