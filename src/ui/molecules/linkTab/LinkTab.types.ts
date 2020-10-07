@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { ReactElement } from 'react';
 
 export type LinkTabProps = {
   label: string;

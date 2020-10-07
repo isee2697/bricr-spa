@@ -1,13 +1,8 @@
 import { SocialMediaType } from '../socialMedia/SocialMedia.types';
+import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
+import { PromiseFunction } from 'app/shared/types';
 
-export type AddNewSocialMediaModalProps = {
-  onSubmit: AddNewSocialMediaSubmit;
-  isOpen: boolean;
-};
-
-export type AddNewSocialMediaSubmit<T = AddNewSocialMediaBody> = (
-  body: T,
-) => Promise<undefined | { error: 'conflict' | 'unknown'; conflictsCount?: number }>;
+export type AddNewSocialMediaModalProps = ModalContainerProps & { onSubmit: PromiseFunction<AddNewSocialMediaBody> };
 
 export type AddNewSocialMediaBody = {
   socialMediaType: SocialMediaType;

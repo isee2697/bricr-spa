@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { BulkActionConfirmModal } from 'ui/organisms';
@@ -6,6 +6,7 @@ import { Box, Checkbox, Pagination, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
 import { ActionModalForm } from 'ui/organisms/actionModal/ActionModalForm';
 import { BulkOperations } from 'api/types';
+import { SelectState } from 'ui/molecules/list/useSelect/useSelect.types';
 
 import { ListProps } from './List.types';
 import { useStyles } from './List.styles';
@@ -38,7 +39,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
 }) => {
   const classes = useStyles();
   const [isActionModalOpened, setActionModalOpened] = useState(false);
-
+  const [amountItems, setAmountItems] = useState<number>();
   const [bulkActionProps, setBulkActionProps] = useState({
     itemName: '',
     type: BulkOperations.Delete,
@@ -53,6 +54,25 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
     itemIndex,
     disabled,
   );
+
+  useEffect(() => {
+    if (items.length > 0 && (!amountItems || amountItems !== items.length)) {
+      setAmountItems(items.length);
+    }
+
+    if (amountItems === checkedKeys.length && amountItems !== items.length) {
+      handleCheckAll();
+    } else if (!!amountItems && amountItems !== items.length) {
+      const newKeys: SelectState = [];
+      checkedKeys.forEach(key => {
+        if (items.find(item => `${item[itemIndex]}` === key)) {
+          newKeys.push(key);
+        }
+      });
+      handleClearAll();
+      newKeys.forEach(key => handleCheck(key));
+    }
+  }, [items, amountItems, setAmountItems, checkedKeys, handleClearAll, itemIndex, handleCheck, handleCheckAll]);
 
   if (!loading && !items.length && emptyTitle && emptyDescription) {
     return (

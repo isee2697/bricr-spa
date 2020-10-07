@@ -85,4 +85,5 @@ export * from './userRectangle/UserRectangleIcon';
 export * from './lockRectangle/LockRectangleIcon';
 export * from './followUpRectangle/FollowUpRectangleIcon';
 export * from './status/StatusIcon';
+export * from './followUp/FollowUpIcon';
 export * from './share/ShareIcon';

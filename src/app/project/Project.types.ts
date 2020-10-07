@@ -31,5 +31,5 @@ export type ProjectProps = {
 
 export type BulkForm = {
   operation: BulkField.City;
-  city: string;
+  City: string;
 };
