@@ -9,4 +9,23 @@ const WeekTimeTableCell = ({ ...props }: Week.TimeTableCellProps) => {
   return <Week.TimeTableCell {...props} className={classes.root} />;
 };
 
-export const WeekView = (props: WeekViewProps) => <Week {...props} timeTableCellComponent={WeekTimeTableCell} />;
+const WeekTimeScaleLabel = ({ ...props }: Week.TimeScaleLabelProps) => {
+  const classes = useStyles();
+
+  return <Week.TimeScaleLabel {...props} className={classes.root} />;
+};
+
+const WeekTimeScaleLayoutProps = ({ ...props }: Week.TimeScaleLayoutProps) => {
+  const classes = useStyles();
+
+  return <Week.TimeScaleLayout {...props} className={classes.root} />;
+};
+
+export const WeekView = (props: WeekViewProps) => (
+  <Week
+    {...props}
+    // timeScaleLayoutComponent={WeekTimeScaleLayoutProps}
+    timeScaleLabelComponent={WeekTimeScaleLabel}
+    timeTableCellComponent={WeekTimeTableCell}
+  />
+);
