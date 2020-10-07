@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
+import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -103,6 +102,8 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  bulkDeleteNotifications?: Maybe<Scalars['String']>;
+  bulkReadNotifications?: Maybe<Scalars['String']>;
   createCompany: Company;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
@@ -114,11 +115,13 @@ export type Mutation = {
   createTask: Task;
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
+  deleteNotification?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
   reactivateProfile: Profile;
+  readNotification?: Maybe<Scalars['String']>;
   removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
@@ -391,6 +394,14 @@ export type MutationBulkArgs = {
   input: BulkOperationInput;
 };
 
+export type MutationBulkDeleteNotificationsArgs = {
+  input: BulkDeleteNotificationsInput;
+};
+
+export type MutationBulkReadNotificationsArgs = {
+  input: BulkReadNotificationsInput;
+};
+
 export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
@@ -435,6 +446,10 @@ export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
 
+export type MutationDeleteNotificationArgs = {
+  input: DeleteNotificationInput;
+};
+
 export type MutationForgotPasswordArgs = {
   input?: Maybe<ForgotPasswordInput>;
 };
@@ -453,6 +468,10 @@ export type MutationLoginArgs = {
 
 export type MutationReactivateProfileArgs = {
   id: Scalars['String'];
+};
+
+export type MutationReadNotificationArgs = {
+  input: ReadNotificationInput;
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
@@ -844,6 +863,7 @@ export type Query = {
   getNcpPrices: NcpPricesResult;
   getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
+  getNotifications?: Maybe<NotificationSearchResult>;
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeLabels?: Maybe<Array<Label>>;
@@ -2145,6 +2165,62 @@ export type NcpWithNewService = {
   __typename?: 'NcpWithNewService';
   ncp: NcpServices;
   newService: Service;
+};
+
+export enum NotificationType {
+  TaskAssigned = 'TaskAssigned',
+  InvitedToProject = 'InvitedToProject',
+  RemovedUserFromProject = 'RemovedUserFromProject',
+  AcceptedInviteToProject = 'AcceptedInviteToProject',
+}
+
+export type Notification = {
+  __typename?: 'Notification';
+  id: Scalars['ID'];
+  receiver: Scalars['ID'];
+  type: NotificationType;
+  description: Scalars['String'];
+  isRead: Scalars['Boolean'];
+  isDeleted: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+};
+
+export type NotificationSearchResult = {
+  __typename?: 'NotificationSearchResult';
+  items?: Maybe<Array<Notification>>;
+};
+
+export type NotificationAdded = {
+  __typename?: 'NotificationAdded';
+  notification: Notification;
+};
+
+export type CreateNotificationInput = {
+  type: NotificationType;
+  receiver: Scalars['ID'];
+  description: Scalars['String'];
+};
+
+export type ReadNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type DeleteNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type BulkReadNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type BulkDeleteNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  _?: Maybe<Scalars['Boolean']>;
+  notificationAdded: NotificationAdded;
 };
 
 export enum TypeOfObjectType {
@@ -6253,11 +6329,6 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  _?: Maybe<Scalars['Boolean']>;
-};
-
 export enum MeterType {
   Water = 'Water',
   Gas = 'Gas',
@@ -6622,91 +6693,91 @@ export type RemoveUserFromTeamInput = {
   userId: Scalars['ID'];
 };
 
-export type LoginMutationVariables = Exact<{
+export type LoginMutationVariables = {
   input?: Maybe<LoginInput>;
-}>;
+};
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
   login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
 };
 
-export type ForgotPasswordMutationVariables = Exact<{
+export type ForgotPasswordMutationVariables = {
   input?: Maybe<ForgotPasswordInput>;
-}>;
+};
 
 export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
   forgotPassword?: Maybe<{ __typename?: 'ForgotPasswordResponse' } & Pick<ForgotPasswordResponse, 'error'>>;
 };
 
-export type ResetPasswordMutationVariables = Exact<{
+export type ResetPasswordMutationVariables = {
   input?: Maybe<ResetPasswordInput>;
   token: Scalars['String'];
-}>;
+};
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
 };
 
-export type BulkMutationVariables = Exact<{
+export type BulkMutationVariables = {
   input: BulkOperationInput;
-}>;
+};
 
 export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
-export type DeleteEntityMutationVariables = Exact<{
+export type DeleteEntityMutationVariables = {
   input: DeleteEntityInput;
-}>;
+};
 
 export type DeleteEntityMutation = { __typename?: 'Mutation' } & {
   deleteEntity: Array<{ __typename?: 'DeleteResult' } & Pick<DeleteResult, 'successful' | 'message' | 'undoId'>>;
 };
 
-export type UndoEntityMutationVariables = Exact<{
+export type UndoEntityMutationVariables = {
   input: UndoEntityInput;
-}>;
+};
 
 export type UndoEntityMutation = { __typename?: 'Mutation' } & {
   undoEntity: Array<{ __typename?: 'UndoResult' } & Pick<UndoResult, 'successful' | 'entityId'>>;
 };
 
-export type InitSendFileMutationVariables = Exact<{
+export type InitSendFileMutationVariables = {
   input: InitSendFileInput;
-}>;
+};
 
 export type InitSendFileMutation = { __typename?: 'Mutation' } & {
   initSendFile: { __typename?: 'File' } & Pick<File, 'signedUrl' | 'id'>;
 };
 
-export type UploadFileMutationVariables = Exact<{
+export type UploadFileMutationVariables = {
   input: Scalars['UploadFileInput'];
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
-}>;
+};
 
 export type UploadFileMutation = { __typename?: 'Mutation' } & {
   uploadFile?: Maybe<{ __typename?: 'UploadFileResponse' } & Pick<UploadFileResponse, 'id'>>;
 };
 
-export type AddFilesMutationVariables = Exact<{
+export type AddFilesMutationVariables = {
   input: AddFilesInput;
-}>;
+};
 
 export type AddFilesMutation = { __typename?: 'Mutation' } & {
   addFiles: Array<{ __typename?: 'File' } & Pick<File, 'url'>>;
 };
 
-export type RemoveFilesMutationVariables = Exact<{
+export type RemoveFilesMutationVariables = {
   input: RemoveFilesInput;
-}>;
+};
 
 export type RemoveFilesMutation = { __typename?: 'Mutation' } & {
   removeFiles: Array<Maybe<{ __typename?: 'File' } & Pick<File, 'id'>>>;
 };
 
-export type AddIdentificationNumberPimMutationVariables = Exact<{
+export type AddIdentificationNumberPimMutationVariables = {
   input: AddIdentificationNumberInput;
-}>;
+};
 
 export type AddIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
   addIdentificationNumberPim: { __typename?: 'PimWithNewIdentificationNumber' } & {
@@ -6714,17 +6785,17 @@ export type AddIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateIdentificationNumberPimMutationVariables = Exact<{
+export type UpdateIdentificationNumberPimMutationVariables = {
   input: UpdateIdentificationNumberInput;
-}>;
+};
 
 export type UpdateIdentificationNumberPimMutation = { __typename?: 'Mutation' } & {
   updateIdentificationNumberPim: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddIdentificationNumberNcpMutationVariables = Exact<{
+export type AddIdentificationNumberNcpMutationVariables = {
   input: AddIdentificationNumberInput;
-}>;
+};
 
 export type AddIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
   addIdentificationNumberNcp: { __typename?: 'NcpWithNewIdentificationNumber' } & {
@@ -6732,17 +6803,17 @@ export type AddIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateIdentificationNumberNcpMutationVariables = Exact<{
+export type UpdateIdentificationNumberNcpMutationVariables = {
   input: UpdateIdentificationNumberInput;
-}>;
+};
 
 export type UpdateIdentificationNumberNcpMutation = { __typename?: 'Mutation' } & {
   updateIdentificationNumberNcp: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
 };
 
-export type AddIdentificationNumberObjectTypeMutationVariables = Exact<{
+export type AddIdentificationNumberObjectTypeMutationVariables = {
   input: AddIdentificationNumberInput;
-}>;
+};
 
 export type AddIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
   addIdentificationNumberObjectType: { __typename?: 'ObjectTypeWithNewIdentificationNumber' } & {
@@ -6750,9 +6821,9 @@ export type AddIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation
   };
 };
 
-export type UpdateIdentificationNumberObjectTypeMutationVariables = Exact<{
+export type UpdateIdentificationNumberObjectTypeMutationVariables = {
   input: UpdateIdentificationNumberInput;
-}>;
+};
 
 export type UpdateIdentificationNumberObjectTypeMutation = { __typename?: 'Mutation' } & {
   updateIdentificationNumberObjectType: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
@@ -6761,17 +6832,17 @@ export type UpdateIdentificationNumberObjectTypeMutation = { __typename?: 'Mutat
   >;
 };
 
-export type AddLabelMutationVariables = Exact<{
+export type AddLabelMutationVariables = {
   input: LabelInput;
-}>;
+};
 
 export type AddLabelMutation = { __typename?: 'Mutation' } & {
   addLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
-export type UpdateNcpCharacteristicsMutationVariables = Exact<{
+export type UpdateNcpCharacteristicsMutationVariables = {
   input: NcpCharacteristicsInput;
-}>;
+};
 
 export type UpdateNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
   updateNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'> & {
@@ -6790,25 +6861,25 @@ export type UpdateNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export type SetNcpCharacteristicsMutationVariables = Exact<{
+export type SetNcpCharacteristicsMutationVariables = {
   input: SetCharacteristicsSectionsInput;
-}>;
+};
 
 export type SetNcpCharacteristicsMutation = { __typename?: 'Mutation' } & {
   setNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<NcpCharacteristics, 'id'>;
 };
 
-export type CreateNcpMutationVariables = Exact<{
+export type CreateNcpMutationVariables = {
   input: CreateNcpInput;
-}>;
+};
 
 export type CreateNcpMutation = { __typename?: 'Mutation' } & {
   createNcp: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>;
 };
 
-export type UpdateNcpMutationVariables = Exact<{
+export type UpdateNcpMutationVariables = {
   input: UpdateNcpInput;
-}>;
+};
 
 export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
   updateNcp: { __typename?: 'NcpGeneral' } & Pick<
@@ -6817,41 +6888,41 @@ export type UpdateNcpMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type AddNcpLabelMutationVariables = Exact<{
+export type AddNcpLabelMutationVariables = {
   input: LabelInput;
-}>;
+};
 
 export type AddNcpLabelMutation = { __typename?: 'Mutation' } & {
   addNcpLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
-export type UpdateNcpMediaDescriptionMutationVariables = Exact<{
+export type UpdateNcpMediaDescriptionMutationVariables = {
   input: CommonUpdateMediaDescriptionInput;
-}>;
+};
 
 export type UpdateNcpMediaDescriptionMutation = { __typename?: 'Mutation' } & {
   updateNcpMediaDescription?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type AddNcpPicturesMutationVariables = Exact<{
+export type AddNcpPicturesMutationVariables = {
   input: CommonAddPicturesInput;
-}>;
+};
 
 export type AddNcpPicturesMutation = { __typename?: 'Mutation' } & {
   addNcpPictures?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type UpdateNcpPictureMutationVariables = Exact<{
+export type UpdateNcpPictureMutationVariables = {
   input: CommonUpdatePictureInput;
-}>;
+};
 
 export type UpdateNcpPictureMutation = { __typename?: 'Mutation' } & {
   updateNcpPicture?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type AddNcpMediaLinkMutationVariables = Exact<{
+export type AddNcpMediaLinkMutationVariables = {
   input: CommonAddMediaLinkInput;
-}>;
+};
 
 export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
   addNcpMediaLink?: Maybe<
@@ -6861,17 +6932,17 @@ export type AddNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateNcpMediaLinkMutationVariables = Exact<{
+export type UpdateNcpMediaLinkMutationVariables = {
   input: CommonUpdateMediaLinkInput;
-}>;
+};
 
 export type UpdateNcpMediaLinkMutation = { __typename?: 'Mutation' } & {
   updateNcpMediaLink?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type AddNcpTextChapterMutationVariables = Exact<{
+export type AddNcpTextChapterMutationVariables = {
   input: CommonAddTextChapterInput;
-}>;
+};
 
 export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
   addNcpTextChapter?: Maybe<
@@ -6881,17 +6952,17 @@ export type AddNcpTextChapterMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateNcpTextChapterMutationVariables = Exact<{
+export type UpdateNcpTextChapterMutationVariables = {
   input: CommonUpdateTextChapterInput;
-}>;
+};
 
 export type UpdateNcpTextChapterMutation = { __typename?: 'Mutation' } & {
   updateNcpTextChapter?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type AddNcpUspsMutationVariables = Exact<{
+export type AddNcpUspsMutationVariables = {
   input: CommonAddUspsInput;
-}>;
+};
 
 export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
   addNcpUsps?: Maybe<
@@ -6901,17 +6972,17 @@ export type AddNcpUspsMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateNcpUspsMutationVariables = Exact<{
+export type UpdateNcpUspsMutationVariables = {
   input: CommonUpdateUspsInput;
-}>;
+};
 
 export type UpdateNcpUspsMutation = { __typename?: 'Mutation' } & {
   updateNcpUsps?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type AddNcpTagMutationVariables = Exact<{
+export type AddNcpTagMutationVariables = {
   input: CommonAddTagInput;
-}>;
+};
 
 export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
   addNcpTag?: Maybe<
@@ -6921,73 +6992,73 @@ export type AddNcpTagMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateNcpTagMutationVariables = Exact<{
+export type UpdateNcpTagMutationVariables = {
   input: CommonUpdateTagInput;
-}>;
+};
 
 export type UpdateNcpTagMutation = { __typename?: 'Mutation' } & {
   updateNcpTag?: Maybe<{ __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id'>>;
 };
 
-export type ToggleNcpPricingMutationVariables = Exact<{
+export type ToggleNcpPricingMutationVariables = {
   input: ToggleCommonPricingInput;
-}>;
+};
 
 export type ToggleNcpPricingMutation = { __typename?: 'Mutation' } & {
   toggleNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type UpdateNcpPricingMutationVariables = Exact<{
+export type UpdateNcpPricingMutationVariables = {
   input: UpdateCommonPricingInput;
-}>;
+};
 
 export type UpdateNcpPricingMutation = { __typename?: 'Mutation' } & {
   updateNcpPricing: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type AddNcpCostMutationVariables = Exact<{
+export type AddNcpCostMutationVariables = {
   input: AddCommonCostInput;
-}>;
+};
 
 export type AddNcpCostMutation = { __typename?: 'Mutation' } & {
   addNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type UpdateNcpCostMutationVariables = Exact<{
+export type UpdateNcpCostMutationVariables = {
   input: UpdateCommonCostInput;
-}>;
+};
 
 export type UpdateNcpCostMutation = { __typename?: 'Mutation' } & {
   updateNcpCost: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type UpdateNcpCostsDetailsMutationVariables = Exact<{
+export type UpdateNcpCostsDetailsMutationVariables = {
   input: UpdateCommonCostsDetailsInput;
-}>;
+};
 
 export type UpdateNcpCostsDetailsMutation = { __typename?: 'Mutation' } & {
   updateNcpCostsDetails: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type UpdateNcpInterestsMutationVariables = Exact<{
+export type UpdateNcpInterestsMutationVariables = {
   input: InterestsInput;
-}>;
+};
 
 export type UpdateNcpInterestsMutation = { __typename?: 'Mutation' } & {
   updateNcpInterests: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'>;
 };
 
-export type UpdateNcpLinkedPropertiesListDescriptionMutationVariables = Exact<{
+export type UpdateNcpLinkedPropertiesListDescriptionMutationVariables = {
   input: UpdateLinkedPropertiesListDescription;
-}>;
+};
 
 export type UpdateNcpLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
   updateNcpLinkedPropertiesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
 };
 
-export type AddNcpServiceMutationVariables = Exact<{
+export type AddNcpServiceMutationVariables = {
   input: AddServiceInput;
-}>;
+};
 
 export type AddNcpServiceMutation = { __typename?: 'Mutation' } & {
   addNcpService: { __typename?: 'NcpWithNewService' } & {
@@ -6996,9 +7067,9 @@ export type AddNcpServiceMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateNcpServiceMutationVariables = Exact<{
+export type UpdateNcpServiceMutationVariables = {
   input: UpdateServiceInput;
-}>;
+};
 
 export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
   updateNcpService: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
@@ -7044,17 +7115,41 @@ export type UpdateNcpServiceMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export type UpdateNcpServiceDescriptionMutationVariables = Exact<{
+export type UpdateNcpServiceDescriptionMutationVariables = {
   input: ServiceDescriptionInput;
-}>;
+};
 
 export type UpdateNcpServiceDescriptionMutation = { __typename?: 'Mutation' } & {
   updateNcpServiceDescription: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
 };
 
-export type UpdateObjectTypeCharacteristicsMutationVariables = Exact<{
+export type ReadNotificationMutationVariables = {
+  input: ReadNotificationInput;
+};
+
+export type ReadNotificationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'readNotification'>;
+
+export type DeleteNotificationMutationVariables = {
+  input: DeleteNotificationInput;
+};
+
+export type DeleteNotificationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteNotification'>;
+
+export type BulkReadNotificationsMutationVariables = {
+  input: BulkReadNotificationsInput;
+};
+
+export type BulkReadNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkReadNotifications'>;
+
+export type BulkDeleteNotificationsMutationVariables = {
+  input: BulkDeleteNotificationsInput;
+};
+
+export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkDeleteNotifications'>;
+
+export type UpdateObjectTypeCharacteristicsMutationVariables = {
   input: ObjectTypeCharacteristicsInput;
-}>;
+};
 
 export type UpdateObjectTypeCharacteristicsMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
@@ -7076,9 +7171,9 @@ export type UpdateObjectTypeCharacteristicsMutation = { __typename?: 'Mutation' 
     };
 };
 
-export type SetObjectTypeCharacteristicsSectionsMutationVariables = Exact<{
+export type SetObjectTypeCharacteristicsSectionsMutationVariables = {
   input: SetCharacteristicsSectionsInput;
-}>;
+};
 
 export type SetObjectTypeCharacteristicsSectionsMutation = { __typename?: 'Mutation' } & {
   setObjectTypeCharacteristicsSections: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
@@ -7087,9 +7182,9 @@ export type SetObjectTypeCharacteristicsSectionsMutation = { __typename?: 'Mutat
   >;
 };
 
-export type CreateObjectTypeMutationVariables = Exact<{
+export type CreateObjectTypeMutationVariables = {
   input: CreateObjectTypeInput;
-}>;
+};
 
 export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
   createObjectType: { __typename?: 'ObjectTypeGeneral' } & Pick<
@@ -7102,49 +7197,49 @@ export type CreateObjectTypeMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export type AddObjectTypeLabelMutationVariables = Exact<{
+export type AddObjectTypeLabelMutationVariables = {
   input: LabelInput;
-}>;
+};
 
 export type AddObjectTypeLabelMutation = { __typename?: 'Mutation' } & {
   addObjectTypeLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
-export type UpdateObjectTypesListDescriptionMutationVariables = Exact<{
+export type UpdateObjectTypesListDescriptionMutationVariables = {
   input: UpdateObjectTypesListDescription;
-}>;
+};
 
 export type UpdateObjectTypesListDescriptionMutation = { __typename?: 'Mutation' } & {
   updateObjectTypesListDescription?: Maybe<{ __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id'>>;
 };
 
-export type UpdateObjectTypeMediaDescriptionMutationVariables = Exact<{
+export type UpdateObjectTypeMediaDescriptionMutationVariables = {
   input: CommonUpdateMediaDescriptionInput;
-}>;
+};
 
 export type UpdateObjectTypeMediaDescriptionMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeMediaDescription?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type AddObjectTypePicturesMutationVariables = Exact<{
+export type AddObjectTypePicturesMutationVariables = {
   input: CommonAddPicturesInput;
-}>;
+};
 
 export type AddObjectTypePicturesMutation = { __typename?: 'Mutation' } & {
   addObjectTypePictures?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type UpdateObjectTypePictureMutationVariables = Exact<{
+export type UpdateObjectTypePictureMutationVariables = {
   input: CommonUpdatePictureInput;
-}>;
+};
 
 export type UpdateObjectTypePictureMutation = { __typename?: 'Mutation' } & {
   updateObjectTypePicture?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type AddObjectTypeMediaLinkMutationVariables = Exact<{
+export type AddObjectTypeMediaLinkMutationVariables = {
   input: CommonAddMediaLinkInput;
-}>;
+};
 
 export type AddObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
   addObjectTypeMediaLink?: Maybe<
@@ -7154,17 +7249,17 @@ export type AddObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateObjectTypeMediaLinkMutationVariables = Exact<{
+export type UpdateObjectTypeMediaLinkMutationVariables = {
   input: CommonUpdateMediaLinkInput;
-}>;
+};
 
 export type UpdateObjectTypeMediaLinkMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeMediaLink?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type AddObjectTypeTextChapterMutationVariables = Exact<{
+export type AddObjectTypeTextChapterMutationVariables = {
   input: CommonAddTextChapterInput;
-}>;
+};
 
 export type AddObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
   addObjectTypeTextChapter?: Maybe<
@@ -7174,17 +7269,17 @@ export type AddObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateObjectTypeTextChapterMutationVariables = Exact<{
+export type UpdateObjectTypeTextChapterMutationVariables = {
   input: CommonUpdateTextChapterInput;
-}>;
+};
 
 export type UpdateObjectTypeTextChapterMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeTextChapter?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type AddObjectTypeUspsMutationVariables = Exact<{
+export type AddObjectTypeUspsMutationVariables = {
   input: CommonAddUspsInput;
-}>;
+};
 
 export type AddObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
   addObjectTypeUsps?: Maybe<
@@ -7194,17 +7289,17 @@ export type AddObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateObjectTypeUspsMutationVariables = Exact<{
+export type UpdateObjectTypeUspsMutationVariables = {
   input: CommonUpdateUspsInput;
-}>;
+};
 
 export type UpdateObjectTypeUspsMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeUsps?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type AddObjectTypeTagMutationVariables = Exact<{
+export type AddObjectTypeTagMutationVariables = {
   input: CommonAddTagInput;
-}>;
+};
 
 export type AddObjectTypeTagMutation = { __typename?: 'Mutation' } & {
   addObjectTypeTag?: Maybe<
@@ -7214,57 +7309,57 @@ export type AddObjectTypeTagMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateObjectTypeTagMutationVariables = Exact<{
+export type UpdateObjectTypeTagMutationVariables = {
   input: CommonUpdateTagInput;
-}>;
+};
 
 export type UpdateObjectTypeTagMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeTag?: Maybe<{ __typename?: 'ObjectTypeMedia' } & Pick<ObjectTypeMedia, 'id'>>;
 };
 
-export type ToggleObjectTypePricingMutationVariables = Exact<{
+export type ToggleObjectTypePricingMutationVariables = {
   input: ToggleCommonPricingInput;
-}>;
+};
 
 export type ToggleObjectTypePricingMutation = { __typename?: 'Mutation' } & {
   toggleObjectTypePricing: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
-export type UpdateObjectTypePricingMutationVariables = Exact<{
+export type UpdateObjectTypePricingMutationVariables = {
   input: UpdateCommonPricingInput;
-}>;
+};
 
 export type UpdateObjectTypePricingMutation = { __typename?: 'Mutation' } & {
   updateObjectTypePricing: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
-export type AddObjectTypeCostMutationVariables = Exact<{
+export type AddObjectTypeCostMutationVariables = {
   input: AddCommonCostInput;
-}>;
+};
 
 export type AddObjectTypeCostMutation = { __typename?: 'Mutation' } & {
   addObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
-export type UpdateObjectTypeCostMutationVariables = Exact<{
+export type UpdateObjectTypeCostMutationVariables = {
   input: UpdateCommonCostInput;
-}>;
+};
 
 export type UpdateObjectTypeCostMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeCost: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
-export type UpdateObjectTypeCostsDetailsMutationVariables = Exact<{
+export type UpdateObjectTypeCostsDetailsMutationVariables = {
   input: UpdateCommonCostsDetailsInput;
-}>;
+};
 
 export type UpdateObjectTypeCostsDetailsMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeCostsDetails: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'>;
 };
 
-export type SetObjectTypeLinkedPimsMutationVariables = Exact<{
+export type SetObjectTypeLinkedPimsMutationVariables = {
   input: SetLinkedPimsInput;
-}>;
+};
 
 export type SetObjectTypeLinkedPimsMutation = { __typename?: 'Mutation' } & {
   setObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & {
@@ -7274,17 +7369,17 @@ export type SetObjectTypeLinkedPimsMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateLinkedPropertiesListDescriptionMutationVariables = Exact<{
+export type UpdateLinkedPropertiesListDescriptionMutationVariables = {
   input: UpdateLinkedPropertiesListDescription;
-}>;
+};
 
 export type UpdateLinkedPropertiesListDescriptionMutation = { __typename?: 'Mutation' } & {
   updateLinkedPropertiesListDescription?: Maybe<{ __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id'>>;
 };
 
-export type AddObjectTypeServiceMutationVariables = Exact<{
+export type AddObjectTypeServiceMutationVariables = {
   input: AddServiceInput;
-}>;
+};
 
 export type AddObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
   addObjectTypeService: { __typename?: 'ObjectTypeWithNewService' } & {
@@ -7293,9 +7388,9 @@ export type AddObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateObjectTypeServiceMutationVariables = Exact<{
+export type UpdateObjectTypeServiceMutationVariables = {
   input: UpdateServiceInput;
-}>;
+};
 
 export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeService: { __typename?: 'ObjectTypeServices' } & Pick<
@@ -7344,17 +7439,17 @@ export type UpdateObjectTypeServiceMutation = { __typename?: 'Mutation' } & {
     };
 };
 
-export type UpdateObjectTypeServiceDescriptionMutationVariables = Exact<{
+export type UpdateObjectTypeServiceDescriptionMutationVariables = {
   input: ServiceDescriptionInput;
-}>;
+};
 
 export type UpdateObjectTypeServiceDescriptionMutation = { __typename?: 'Mutation' } & {
   updateObjectTypeServiceDescription: { __typename?: 'ObjectTypeServices' } & Pick<ObjectTypeServices, 'id'>;
 };
 
-export type AddAogSpaceMutationVariables = Exact<{
+export type AddAogSpaceMutationVariables = {
   input: AddAogSpaceInput;
-}>;
+};
 
 export type AddAogSpaceMutation = { __typename?: 'Mutation' } & {
   addAogSpace: { __typename?: 'PimWithNewAogSpace' } & {
@@ -7362,17 +7457,17 @@ export type AddAogSpaceMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateAogSpaceMutationVariables = Exact<{
+export type UpdateAogSpaceMutationVariables = {
   input: UpdateAogSpaceInput;
-}>;
+};
 
 export type UpdateAogSpaceMutation = { __typename?: 'Mutation' } & {
   updateAogSpace: { __typename?: 'AogSpace' } & Pick<AogSpace, 'id'>;
 };
 
-export type AddBogSpaceMutationVariables = Exact<{
+export type AddBogSpaceMutationVariables = {
   input: AddBogSpaceInput;
-}>;
+};
 
 export type AddBogSpaceMutation = { __typename?: 'Mutation' } & {
   addBogSpace: { __typename?: 'PimWithNewBogSpace' } & {
@@ -7380,17 +7475,17 @@ export type AddBogSpaceMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateBogSpaceMutationVariables = Exact<{
+export type UpdateBogSpaceMutationVariables = {
   input: UpdateBogSpaceInput;
-}>;
+};
 
 export type UpdateBogSpaceMutation = { __typename?: 'Mutation' } & {
   updateBogSpace: { __typename?: 'BogSpace' } & Pick<BogSpace, 'id'>;
 };
 
-export type AddCadastreMutationVariables = Exact<{
+export type AddCadastreMutationVariables = {
   input: AddCadastreInput;
-}>;
+};
 
 export type AddCadastreMutation = { __typename?: 'Mutation' } & {
   addCadastre?: Maybe<
@@ -7401,49 +7496,49 @@ export type AddCadastreMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateCadastreMutationVariables = Exact<{
+export type UpdateCadastreMutationVariables = {
   input: UpdateCadastreInput;
-}>;
+};
 
 export type UpdateCadastreMutation = { __typename?: 'Mutation' } & {
   updateCadastre?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddCadastreMapsMutationVariables = Exact<{
+export type AddCadastreMapsMutationVariables = {
   input: AddCadastreMapsInput;
-}>;
+};
 
 export type AddCadastreMapsMutation = { __typename?: 'Mutation' } & {
   addCadastreMaps?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateMapMutationVariables = Exact<{
+export type UpdateMapMutationVariables = {
   input: UpdateCadastreMapInput;
-}>;
+};
 
 export type UpdateMapMutation = { __typename?: 'Mutation' } & {
   updateCadastreMap?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdatePimGeneralInfoMutationVariables = Exact<{
+export type UpdatePimGeneralInfoMutationVariables = {
   input: PimGeneralInput;
-}>;
+};
 
 export type UpdatePimGeneralInfoMutation = { __typename?: 'Mutation' } & {
   updatePimGeneralInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddFloorToPimMutationVariables = Exact<{
+export type AddFloorToPimMutationVariables = {
   input: AddNewFloorInput;
-}>;
+};
 
 export type AddFloorToPimMutation = { __typename?: 'Mutation' } & {
   addFloorToPim: { __typename?: 'PimWithNewFloor' } & { newFloor: { __typename?: 'Floor' } & Pick<Floor, 'id'> };
 };
 
-export type AddSpaceToFloorMutationVariables = Exact<{
+export type AddSpaceToFloorMutationVariables = {
   input: AddSpaceInput;
-}>;
+};
 
 export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
   addSpaceToFloor: { __typename?: 'PimWithUpdatedSpace' } & {
@@ -7452,41 +7547,41 @@ export type AddSpaceToFloorMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateSpaceMutationVariables = Exact<{
+export type UpdateSpaceMutationVariables = {
   input: UpdateSpaceInput;
-}>;
+};
 
 export type UpdateSpaceMutation = { __typename?: 'Mutation' } & {
   updateSpace: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdateFloorMutationVariables = Exact<{
+export type UpdateFloorMutationVariables = {
   input: UpdateFloorInput;
-}>;
+};
 
 export type UpdateFloorMutation = { __typename?: 'Mutation' } & {
   updateFloor: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdateInsideGeneralMutationVariables = Exact<{
+export type UpdateInsideGeneralMutationVariables = {
   input: InsideGeneralInput;
-}>;
+};
 
 export type UpdateInsideGeneralMutation = { __typename?: 'Mutation' } & {
   updateInsideGeneral?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdatePimLocationMutationVariables = Exact<{
+export type UpdatePimLocationMutationVariables = {
   input: UpdatePimLocationInput;
-}>;
+};
 
 export type UpdatePimLocationMutation = { __typename?: 'Mutation' } & {
   updatePimLocation: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddTagMutationVariables = Exact<{
+export type AddTagMutationVariables = {
   input: AddTagInput;
-}>;
+};
 
 export type AddTagMutation = { __typename?: 'Mutation' } & {
   addTag?: Maybe<
@@ -7497,17 +7592,17 @@ export type AddTagMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateTagMutationVariables = Exact<{
+export type UpdateTagMutationVariables = {
   input: UpdateTagInput;
-}>;
+};
 
 export type UpdateTagMutation = { __typename?: 'Mutation' } & {
   updateTag?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddUspMutationVariables = Exact<{
+export type AddUspMutationVariables = {
   input: AddUspInput;
-}>;
+};
 
 export type AddUspMutation = { __typename?: 'Mutation' } & {
   addUsp?: Maybe<
@@ -7518,17 +7613,17 @@ export type AddUspMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateUspMutationVariables = Exact<{
+export type UpdateUspMutationVariables = {
   input: UpdateUspInput;
-}>;
+};
 
 export type UpdateUspMutation = { __typename?: 'Mutation' } & {
   updateUsp?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddMediaLinkMutationVariables = Exact<{
+export type AddMediaLinkMutationVariables = {
   input: AddMediaLinkInput;
-}>;
+};
 
 export type AddMediaLinkMutation = { __typename?: 'Mutation' } & {
   addMediaLink?: Maybe<
@@ -7539,17 +7634,17 @@ export type AddMediaLinkMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateMediaLinkMutationVariables = Exact<{
+export type UpdateMediaLinkMutationVariables = {
   input: UpdateMediaLinkInput;
-}>;
+};
 
 export type UpdateMediaLinkMutation = { __typename?: 'Mutation' } & {
   updateMediaLink?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddTextChapterMutationVariables = Exact<{
+export type AddTextChapterMutationVariables = {
   input: AddTextChapterInput;
-}>;
+};
 
 export type AddTextChapterMutation = { __typename?: 'Mutation' } & {
   addTextChapter?: Maybe<
@@ -7560,33 +7655,33 @@ export type AddTextChapterMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateTextChapterMutationVariables = Exact<{
+export type UpdateTextChapterMutationVariables = {
   input: UpdateTextChapterInput;
-}>;
+};
 
 export type UpdateTextChapterMutation = { __typename?: 'Mutation' } & {
   updateTextChapter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddPicturesMutationVariables = Exact<{
+export type AddPicturesMutationVariables = {
   input: AddPicturesInput;
-}>;
+};
 
 export type AddPicturesMutation = { __typename?: 'Mutation' } & {
   addPictures?: Maybe<{ __typename?: 'PimWithNewPictures' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> }>;
 };
 
-export type UpdatePictureMutationVariables = Exact<{
+export type UpdatePictureMutationVariables = {
   input: UpdatePictureInput;
-}>;
+};
 
 export type UpdatePictureMutation = { __typename?: 'Mutation' } & {
   updatePicture?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddOutsideFeatureMutationVariables = Exact<{
+export type AddOutsideFeatureMutationVariables = {
   input: AddOutsideFeatureInput;
-}>;
+};
 
 export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
   addOutsideFeature: { __typename?: 'PimWithNewOutside' } & {
@@ -7594,65 +7689,65 @@ export type AddOutsideFeatureMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateOutsideFeatureMutationVariables = Exact<{
+export type UpdateOutsideFeatureMutationVariables = {
   input: Scalars['UpdateFeatureInputConfiguration'];
-}>;
+};
 
 export type UpdateOutsideFeatureMutation = { __typename?: 'Mutation' } & {
   updateOutsideFeature: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdatePimOutsideInfoMutationVariables = Exact<{
+export type UpdatePimOutsideInfoMutationVariables = {
   input: PimOutsideInput;
-}>;
+};
 
 export type UpdatePimOutsideInfoMutation = { __typename?: 'Mutation' } & {
   updatePimOutsideInfo: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type TogglePricingMutationVariables = Exact<{
+export type TogglePricingMutationVariables = {
   input: TogglePricingInput;
-}>;
+};
 
 export type TogglePricingMutation = { __typename?: 'Mutation' } & {
   togglePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddCostsMutationVariables = Exact<{
+export type AddCostsMutationVariables = {
   input: AddCostInput;
-}>;
+};
 
 export type AddCostsMutation = { __typename?: 'Mutation' } & {
   addCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
 };
 
-export type UpdateCostMutationVariables = Exact<{
+export type UpdateCostMutationVariables = {
   input: UpdateCostInput;
-}>;
+};
 
 export type UpdateCostMutation = { __typename?: 'Mutation' } & {
   updateCost: { __typename?: 'CostResult' } & { pim: { __typename?: 'Pim' } & Pick<Pim, 'id'> };
 };
 
-export type UpdateInvestmentMutationVariables = Exact<{
+export type UpdateInvestmentMutationVariables = {
   input: InvestmentInput;
-}>;
+};
 
 export type UpdateInvestmentMutation = { __typename?: 'Mutation' } & {
   updateInvestment: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdatePricingMutationVariables = Exact<{
+export type UpdatePricingMutationVariables = {
   input: UpdatePricingInput;
-}>;
+};
 
 export type UpdatePricingMutation = { __typename?: 'Mutation' } & {
   updatePricing: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddServiceMutationVariables = Exact<{
+export type AddServiceMutationVariables = {
   input: AddServiceInput;
-}>;
+};
 
 export type AddServiceMutation = { __typename?: 'Mutation' } & {
   addPimService?: Maybe<
@@ -7663,73 +7758,73 @@ export type AddServiceMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type UpdateServiceMutationVariables = Exact<{
+export type UpdateServiceMutationVariables = {
   input: UpdateServiceInput;
-}>;
+};
 
 export type UpdateServiceMutation = { __typename?: 'Mutation' } & {
   updatePimService?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddMeterMutationVariables = Exact<{
+export type AddMeterMutationVariables = {
   input: AddMeterInput;
-}>;
+};
 
 export type AddMeterMutation = { __typename?: 'Mutation' } & {
   addPimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateMeterMutationVariables = Exact<{
+export type UpdateMeterMutationVariables = {
   input: UpdateMeterInput;
-}>;
+};
 
 export type UpdateMeterMutation = { __typename?: 'Mutation' } & {
   updatePimMeter?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type AddReadingMutationVariables = Exact<{
+export type AddReadingMutationVariables = {
   input: AddReadingInput;
-}>;
+};
 
 export type AddReadingMutation = { __typename?: 'Mutation' } & {
   addPimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateReadingMutationVariables = Exact<{
+export type UpdateReadingMutationVariables = {
   input: UpdateReadingInput;
-}>;
+};
 
 export type UpdateReadingMutation = { __typename?: 'Mutation' } & {
   updatePimReading?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateSpecificationMutationVariables = Exact<{
+export type UpdateSpecificationMutationVariables = {
   input: SpecificationInput;
-}>;
+};
 
 export type UpdateSpecificationMutation = { __typename?: 'Mutation' } & {
   updateSpecification: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type UpdateSpecificationAdvancedMutationVariables = Exact<{
+export type UpdateSpecificationAdvancedMutationVariables = {
   input: SpecificationAdvancedInput;
-}>;
+};
 
 export type UpdateSpecificationAdvancedMutation = { __typename?: 'Mutation' } & {
   updateSpecificationAdvanced: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type SetLinkedPropertiesMutationVariables = Exact<{
+export type SetLinkedPropertiesMutationVariables = {
   input: LinkedPimInput;
-}>;
+};
 
 export type SetLinkedPropertiesMutation = { __typename?: 'Mutation' } & {
   setLinkedProperties: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type AddInspectionMutationVariables = Exact<{
+export type AddInspectionMutationVariables = {
   input: AddInspectionInput;
-}>;
+};
 
 export type AddInspectionMutation = { __typename?: 'Mutation' } & {
   addInspection: { __typename?: 'AddInspectionResult' } & {
@@ -7737,212 +7832,212 @@ export type AddInspectionMutation = { __typename?: 'Mutation' } & {
   };
 };
 
-export type UpdateInspectionMutationVariables = Exact<{
+export type UpdateInspectionMutationVariables = {
   input: UpdateInspectionInput;
-}>;
+};
 
 export type UpdateInspectionMutation = { __typename?: 'Mutation' } & {
   updateInspection: { __typename?: 'Pim' } & Pick<Pim, 'id'>;
 };
 
-export type CreatePimMutationVariables = Exact<{
+export type CreatePimMutationVariables = {
   input: CreatePimInput;
-}>;
+};
 
 export type CreatePimMutation = { __typename?: 'Mutation' } & {
   createPim?: Maybe<{ __typename?: 'Pim' } & Pick<Pim, 'id'>>;
 };
 
-export type UpdateDescriptionMutationVariables = Exact<{
+export type UpdateDescriptionMutationVariables = {
   input: UpdateDescriptionInput;
-}>;
+};
 
 export type UpdateDescriptionMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateDescription'>;
 
-export type CreateProfileMutationVariables = Exact<{
+export type CreateProfileMutationVariables = {
   input: CreateProfileInput;
-}>;
+};
 
 export type CreateProfileMutation = { __typename?: 'Mutation' } & {
   createProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type UpdateProfileMutationVariables = Exact<{
+export type UpdateProfileMutationVariables = {
   input: UpdateProfileInput;
-}>;
+};
 
 export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
   updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type DeactivateProfileMutationVariables = Exact<{
+export type DeactivateProfileMutationVariables = {
   id: Scalars['String'];
-}>;
+};
 
 export type DeactivateProfileMutation = { __typename?: 'Mutation' } & {
   deactivateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type ReactivateProfileMutationVariables = Exact<{
+export type ReactivateProfileMutationVariables = {
   id: Scalars['String'];
-}>;
+};
 
 export type ReactivateProfileMutation = { __typename?: 'Mutation' } & {
   reactivateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type CreateEmailAddressMutationVariables = Exact<{
+export type CreateEmailAddressMutationVariables = {
   input: CreateEmailAddressInput;
-}>;
+};
 
 export type CreateEmailAddressMutation = { __typename?: 'Mutation' } & {
   createEmailAddress: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type UpdateEmailAddressMutationVariables = Exact<{
+export type UpdateEmailAddressMutationVariables = {
   input: UpdateEmailAddressInput;
-}>;
+};
 
 export type UpdateEmailAddressMutation = { __typename?: 'Mutation' } & {
   updateEmailAddress: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type CreatePhoneNumberMutationVariables = Exact<{
+export type CreatePhoneNumberMutationVariables = {
   input: CreatePhoneNumberInput;
-}>;
+};
 
 export type CreatePhoneNumberMutation = { __typename?: 'Mutation' } & {
   createPhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type UpdatePhoneNumberMutationVariables = Exact<{
+export type UpdatePhoneNumberMutationVariables = {
   input: UpdatePhoneNumberInput;
-}>;
+};
 
 export type UpdatePhoneNumberMutation = { __typename?: 'Mutation' } & {
   updatePhoneNumber: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type CreateSocialMediaLinkMutationVariables = Exact<{
+export type CreateSocialMediaLinkMutationVariables = {
   input: CreateSocialMediaLinkInput;
-}>;
+};
 
 export type CreateSocialMediaLinkMutation = { __typename?: 'Mutation' } & {
   createSocialMediaLink: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type UpdateSocialMediaLinkMutationVariables = Exact<{
+export type UpdateSocialMediaLinkMutationVariables = {
   input: UpdateSocialMediaLinkInput;
-}>;
+};
 
 export type UpdateSocialMediaLinkMutation = { __typename?: 'Mutation' } & {
   updateSocialMediaLink: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
-export type AddProjectPhaseMutationVariables = Exact<{
+export type AddProjectPhaseMutationVariables = {
   input: CreateProjectPhaseInput;
-}>;
+};
 
 export type AddProjectPhaseMutation = { __typename?: 'Mutation' } & {
   addProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
-export type LinkNcpToProjectPhaseMutationVariables = Exact<{
+export type LinkNcpToProjectPhaseMutationVariables = {
   input: LinkNcpToProjectPhaseInput;
-}>;
+};
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
 };
 
-export type CreateTaskMutationVariables = Exact<{
+export type CreateTaskMutationVariables = {
   input: CreateTaskInput;
-}>;
+};
 
 export type CreateTaskMutation = { __typename?: 'Mutation' } & {
   createTask: { __typename?: 'Task' } & Pick<Task, 'id'>;
 };
 
-export type UpdateTaskMutationVariables = Exact<{
+export type UpdateTaskMutationVariables = {
   input: UpdateTaskInput;
-}>;
+};
 
 export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
   updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
 };
 
-export type AddTeamMutationVariables = Exact<{
+export type AddTeamMutationVariables = {
   input: AddTeamInput;
-}>;
+};
 
 export type AddTeamMutation = { __typename?: 'Mutation' } & {
   addTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>;
 };
 
-export type UpdateTeamMutationVariables = Exact<{
+export type UpdateTeamMutationVariables = {
   input: UpdateTeamInput;
-}>;
+};
 
 export type UpdateTeamMutation = { __typename?: 'Mutation' } & {
   updateTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
-export type RemoveTeamMutationVariables = Exact<{
+export type RemoveTeamMutationVariables = {
   id: Scalars['String'];
-}>;
+};
 
 export type RemoveTeamMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'removeTeam'>;
 
-export type AddUserToTeamMutationVariables = Exact<{
+export type AddUserToTeamMutationVariables = {
   input: AddUserToTeamInput;
-}>;
+};
 
 export type AddUserToTeamMutation = { __typename?: 'Mutation' } & {
   addUserToTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
-export type RemoveUserFromTeamMutationVariables = Exact<{
+export type RemoveUserFromTeamMutationVariables = {
   input: RemoveUserFromTeamInput;
-}>;
+};
 
 export type RemoveUserFromTeamMutation = { __typename?: 'Mutation' } & {
   removeUserFromTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
-export type UpdateUserInTeamMutationVariables = Exact<{
+export type UpdateUserInTeamMutationVariables = {
   input: UpdateUserInTeamInput;
-}>;
+};
 
 export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
 
-export type GetBillingQueryVariables = Exact<{ [key: string]: never }>;
+export type GetBillingQueryVariables = {};
 
 export type GetBillingQuery = { __typename?: 'Query' } & {
   getBilling?: Maybe<{ __typename?: 'Billing' } & Pick<Billing, 'url'>>;
 };
 
-export type BulkDetailsQueryVariables = Exact<{
+export type BulkDetailsQueryVariables = {
   input: GetBulkDetailsInput;
-}>;
+};
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
 };
 
-export type GetLabelsQueryVariables = Exact<{
+export type GetLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
-}>;
+};
 
 export type GetLabelsQuery = { __typename?: 'Query' } & {
   getLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
-export type CountPimsByParamsQueryVariables = Exact<{
+export type CountPimsByParamsQueryVariables = {
   filters?: Maybe<ListPimsFilters>;
-}>;
+};
 
 export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
   listPims: { __typename?: 'PimListSearchResult' } & {
@@ -7950,10 +8045,10 @@ export type CountPimsByParamsQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListPimsCountQueryVariables = Exact<{
+export type ListPimsCountQueryVariables = {
   pricingType?: Maybe<PricingType>;
   propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
-}>;
+};
 
 export type ListPimsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'PimListSearchResult' } & {
@@ -7964,7 +8059,7 @@ export type ListPimsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListPimsQueryVariables = Exact<{
+export type ListPimsQueryVariables = {
   archived: Scalars['Boolean'];
   pricingType?: Maybe<PricingType>;
   propertyTypes?: Maybe<Array<Maybe<PropertyType>>>;
@@ -7972,7 +8067,7 @@ export type ListPimsQueryVariables = Exact<{
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type ListPimsQuery = { __typename?: 'Query' } & {
   listPims: { __typename?: 'PimListSearchResult' } & {
@@ -8016,11 +8111,11 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type LinkedPimsListQueryVariables = Exact<{
+export type LinkedPimsListQueryVariables = {
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
   id: Scalars['ID'];
-}>;
+};
 
 export type LinkedPimsListQuery = { __typename?: 'Query' } & {
   pims: { __typename?: 'PimListSearchResult' } & {
@@ -8031,9 +8126,9 @@ export type LinkedPimsListQuery = { __typename?: 'Query' } & {
   linkedObjectIds: { __typename?: 'ObjectTypeLinkedPims' } & Pick<ObjectTypeLinkedPims, 'linkedPropertiesIds'>;
 };
 
-export type NcpCharacteristicsQueryVariables = Exact<{
+export type NcpCharacteristicsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpCharacteristicsQuery = { __typename?: 'Query' } & {
   getNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<
@@ -8098,9 +8193,9 @@ export type NcpCharacteristicsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type NcpGeneralQueryVariables = Exact<{
+export type NcpGeneralQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpGeneralQuery = { __typename?: 'Query' } & {
   getNcp: { __typename?: 'NcpGeneral' } & Pick<
@@ -8138,9 +8233,9 @@ export type NcpGeneralQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type NcpWithSameAddressQueryVariables = Exact<{
+export type NcpWithSameAddressQueryVariables = {
   input: NcpWithSameAddressInput;
-}>;
+};
 
 export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
   getNcpWithSameAddress: { __typename?: 'NcpSearchResult' } & {
@@ -8149,9 +8244,9 @@ export type NcpWithSameAddressQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type NcpGeneralOverallInfoQueryVariables = Exact<{
+export type NcpGeneralOverallInfoQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpGeneralOverallInfoQuery = { __typename?: 'Query' } & {
   project: { __typename?: 'NcpGeneral' } & Pick<NcpGeneral, 'id' | 'name'>;
@@ -8165,18 +8260,18 @@ export type NcpGeneralOverallInfoQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type GetNcpLabelsQueryVariables = Exact<{
+export type GetNcpLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
-}>;
+};
 
 export type GetNcpLabelsQuery = { __typename?: 'Query' } & {
   getNcpLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
-export type ListNcpsCountQueryVariables = Exact<{
+export type ListNcpsCountQueryVariables = {
   pricingType?: Maybe<PricingType>;
-}>;
+};
 
 export type ListNcpsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'NcpListSearchResult' } & {
@@ -8187,14 +8282,14 @@ export type ListNcpsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListNcpsQueryVariables = Exact<{
+export type ListNcpsQueryVariables = {
   pricingType?: Maybe<PricingType>;
   archived: Scalars['Boolean'];
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type ListNcpsQuery = { __typename?: 'Query' } & {
   listNcps: { __typename?: 'NcpListSearchResult' } & {
@@ -8244,18 +8339,18 @@ export type ListNcpsQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type NcpBulkDetailsQueryVariables = Exact<{
+export type NcpBulkDetailsQueryVariables = {
   ids: Array<Scalars['ID']>;
-}>;
+};
 
 export type NcpBulkDetailsQuery = { __typename?: 'Query' } & {
   city?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
 };
 
-export type NcpMediaQueryVariables = Exact<{
+export type NcpMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
-}>;
+};
 
 export type NcpMediaQuery = { __typename?: 'Query' } & {
   getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
@@ -8279,9 +8374,9 @@ export type NcpMediaQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type NcpPricesPricingQueryVariables = Exact<{
+export type NcpPricesPricingQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpPricesPricingQuery = { __typename?: 'Query' } & {
   getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
@@ -8307,9 +8402,9 @@ export type NcpPricesPricingQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type NcpPricesCostsQueryVariables = Exact<{
+export type NcpPricesCostsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpPricesCostsQuery = { __typename?: 'Query' } & {
   getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
@@ -8341,9 +8436,9 @@ export type NcpPricesCostsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type NcpPricesInterestsQueryVariables = Exact<{
+export type NcpPricesInterestsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
   getNcpPrices: { __typename?: 'NcpPricesResult' } & Pick<NcpPricesResult, 'id'> & {
@@ -8366,9 +8461,9 @@ export type NcpPricesInterestsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ListNcpLinkedPimsCountQueryVariables = Exact<{
+export type ListNcpLinkedPimsCountQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ListNcpLinkedPimsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'NcpLinkedPims' } & {
@@ -8383,14 +8478,14 @@ export type ListNcpLinkedPimsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type NcpLinkedPimsQueryVariables = Exact<{
+export type NcpLinkedPimsQueryVariables = {
   id: Scalars['ID'];
   archived?: Maybe<Scalars['Boolean']>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
   getNcpLinkedPims: { __typename?: 'NcpLinkedPims' } & Pick<
@@ -8441,9 +8536,9 @@ export type NcpLinkedPimsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type GetNcpServicesQueryVariables = Exact<{
+export type GetNcpServicesQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetNcpServicesQuery = { __typename?: 'Query' } & {
   getNcpServices: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id' | 'dateUpdated' | 'servicesDescription'> & {
@@ -8489,9 +8584,26 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ObjectTypeCharacteristicsQueryVariables = Exact<{
+export type GetNotificationsQueryVariables = {};
+
+export type GetNotificationsQuery = { __typename?: 'Query' } & {
+  getNotifications?: Maybe<
+    { __typename?: 'NotificationSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Notification' } & Pick<
+            Notification,
+            'id' | 'type' | 'receiver' | 'isRead' | 'isDeleted' | 'description' | 'dateCreated'
+          >
+        >
+      >;
+    }
+  >;
+};
+
+export type ObjectTypeCharacteristicsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ObjectTypeCharacteristicsQuery = { __typename?: 'Query' } & {
   getObjectTypeCharacteristics: { __typename?: 'ObjectTypeCharacteristics' } & Pick<
@@ -8544,9 +8656,9 @@ export type ObjectTypeCharacteristicsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type GetObjectTypeGeneralQueryVariables = Exact<{
+export type GetObjectTypeGeneralQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
   getObjectTypeGeneral: { __typename?: 'ObjectTypeGeneral' } & Pick<
@@ -8559,10 +8671,10 @@ export type GetObjectTypeGeneralQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ObjectTypeOverallInfoQueryVariables = Exact<{
+export type ObjectTypeOverallInfoQueryVariables = {
   id: Scalars['ID'];
   projectId: Scalars['ID'];
-}>;
+};
 
 export type ObjectTypeOverallInfoQuery = { __typename?: 'Query' } & {
   objectType: { __typename?: 'ObjectTypeGeneral' } & Pick<ObjectTypeGeneral, 'id' | 'name'>;
@@ -8574,18 +8686,18 @@ export type ObjectTypeOverallInfoQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type GetObjectTypeLabelsQueryVariables = Exact<{
+export type GetObjectTypeLabelsQueryVariables = {
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
-}>;
+};
 
 export type GetObjectTypeLabelsQuery = { __typename?: 'Query' } & {
   getObjectTypeLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
-export type ListObjectTypesCountQueryVariables = Exact<{
+export type ListObjectTypesCountQueryVariables = {
   ncpId: Scalars['ID'];
-}>;
+};
 
 export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'ObjectTypeListSearchResult' } & {
@@ -8596,14 +8708,14 @@ export type ListObjectTypesCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ListObjectTypesQueryVariables = Exact<{
+export type ListObjectTypesQueryVariables = {
   ncpId: Scalars['ID'];
   archived?: Maybe<Scalars['Boolean']>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type ListObjectTypesQuery = { __typename?: 'Query' } & {
   listObjectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
@@ -8648,9 +8760,9 @@ export type ListObjectTypesQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ObjectTypeListDescriptionQueryVariables = Exact<{
+export type ObjectTypeListDescriptionQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ObjectTypeListDescriptionQuery = { __typename?: 'Query' } & {
   getNcp: { __typename?: 'NcpGeneral' } & Pick<
@@ -8661,10 +8773,10 @@ export type ObjectTypeListDescriptionQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ObjectTypeMediaQueryVariables = Exact<{
+export type ObjectTypeMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
-}>;
+};
 
 export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
   getObjectTypeMedia: { __typename?: 'ObjectTypeMedia' } & Pick<
@@ -8688,9 +8800,9 @@ export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ObjectTypePricesPricingQueryVariables = Exact<{
+export type ObjectTypePricesPricingQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ObjectTypePricesPricingQuery = { __typename?: 'Query' } & {
   getObjectTypePrices: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'> & {
@@ -8716,9 +8828,9 @@ export type ObjectTypePricesPricingQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ObjectTypePricesCostsQueryVariables = Exact<{
+export type ObjectTypePricesCostsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ObjectTypePricesCostsQuery = { __typename?: 'Query' } & {
   getObjectTypePrices: { __typename?: 'ObjectTypePricesResult' } & Pick<ObjectTypePricesResult, 'id'> & {
@@ -8750,9 +8862,9 @@ export type ObjectTypePricesCostsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type GetObjectTypeServicesQueryVariables = Exact<{
+export type GetObjectTypeServicesQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
   getObjectTypeServices: { __typename?: 'ObjectTypeServices' } & Pick<
@@ -8801,9 +8913,9 @@ export type GetObjectTypeServicesQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type ListObjectTypeLinkedPimsCountQueryVariables = Exact<{
+export type ListObjectTypeLinkedPimsCountQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type ListObjectTypeLinkedPimsCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'ObjectTypeLinkedPims' } & {
@@ -8818,14 +8930,14 @@ export type ListObjectTypeLinkedPimsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ObjectTypeLinkedPimsQueryVariables = Exact<{
+export type ObjectTypeLinkedPimsQueryVariables = {
   id: Scalars['ID'];
   archived?: Maybe<Scalars['Boolean']>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
   getObjectTypeLinkedPims: { __typename?: 'ObjectTypeLinkedPims' } & Pick<
@@ -8877,9 +8989,9 @@ export type ObjectTypeLinkedPimsQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimAogSpacesQueryVariables = Exact<{
+export type PimAogSpacesQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimAogSpacesQuery = { __typename?: 'Query' } & {
   getPimInside: { __typename?: 'PimInside' } & Pick<
@@ -8938,9 +9050,9 @@ export type PimAogSpacesQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimBogSpacesQueryVariables = Exact<{
+export type PimBogSpacesQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimBogSpacesQuery = { __typename?: 'Query' } & {
   getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
@@ -9121,9 +9233,9 @@ export type PimBogSpacesQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimCadastreQueryVariables = Exact<{
+export type PimCadastreQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimCadastreQuery = { __typename?: 'Query' } & {
   getPimCadastre: { __typename?: 'PimCadastre' } & Pick<PimCadastre, 'id'> & {
@@ -9174,9 +9286,9 @@ export type PimCadastreQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimGeneralQueryVariables = Exact<{
+export type PimGeneralQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimGeneralQuery = { __typename?: 'Query' } & {
   getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
@@ -9288,9 +9400,9 @@ export type PimGeneralQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimWithSameAddressQueryVariables = Exact<{
+export type PimWithSameAddressQueryVariables = {
   input: PimWithSameAddressInput;
-}>;
+};
 
 export type PimWithSameAddressQuery = { __typename?: 'Query' } & {
   getPimsGeneralWithSameAddress: { __typename?: 'GeneralPimSearchResult' } & {
@@ -9299,9 +9411,9 @@ export type PimWithSameAddressQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type PimInsideQueryVariables = Exact<{
+export type PimInsideQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimInsideQuery = { __typename?: 'Query' } & {
   getPimInside: { __typename?: 'PimInside' } & Pick<PimInside, 'id'> & {
@@ -9420,9 +9532,9 @@ export type PimInsideQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimLocationQueryVariables = Exact<{
+export type PimLocationQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimLocationQuery = { __typename?: 'Query' } & {
   getPimLocation: { __typename?: 'PimLocation' } & Pick<
@@ -9438,10 +9550,10 @@ export type PimLocationQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimMediaQueryVariables = Exact<{
+export type PimMediaQueryVariables = {
   id: Scalars['ID'];
   picturesSort?: Maybe<Sort>;
-}>;
+};
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
   getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'> & {
@@ -9462,9 +9574,9 @@ export type PimMediaQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimMetersQueryVariables = Exact<{
+export type PimMetersQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimMetersQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & {
@@ -9510,9 +9622,9 @@ export type PimMetersQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type PimOutsideQueryVariables = Exact<{
+export type PimOutsideQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimOutsideQuery = { __typename?: 'Query' } & {
   getPimOutside: { __typename?: 'PimOutside' } & Pick<PimOutside, 'id' | 'dateUpdated'> & {
@@ -9635,9 +9747,9 @@ export type PimOutsideQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimPricingQueryVariables = Exact<{
+export type PimPricingQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimPricingQuery = { __typename?: 'Query' } & {
   getPricing: { __typename?: 'PimPrices' } & Pick<PimPrices, 'id' | 'costsDescription' | 'dateUpdated'> & {
@@ -9716,9 +9828,9 @@ export type PimPricingQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimServicesQueryVariables = Exact<{
+export type PimServicesQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimServicesQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & Pick<PimServices, 'description' | 'dateUpdated'> & {
@@ -9803,9 +9915,9 @@ export type PimServicesQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimSpecificationQueryVariables = Exact<{
+export type PimSpecificationQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimSpecificationQuery = { __typename?: 'Query' } & {
   getPimSpecification: { __typename?: 'PimSpecification' } & Pick<
@@ -9891,9 +10003,9 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
     };
 };
 
-export type PimOverallInfoQueryVariables = Exact<{
+export type PimOverallInfoQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   getPimGeneral: { __typename?: 'PimGeneral' } & Pick<
@@ -9925,7 +10037,7 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type MeQueryVariables = Exact<{ [key: string]: never }>;
+export type MeQueryVariables = {};
 
 export type MeQuery = { __typename?: 'Query' } & {
   me?: Maybe<
@@ -9940,12 +10052,12 @@ export type MeQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetUsersQueryVariables = Exact<{
+export type GetUsersQueryVariables = {
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
   search?: Maybe<Scalars['String']>;
   isActive?: Maybe<Scalars['Boolean']>;
-}>;
+};
 
 export type GetUsersQuery = { __typename?: 'Query' } & {
   getAllProfiles: { __typename?: 'ProfileSearchResult' } & {
@@ -9963,7 +10075,7 @@ export type GetUsersQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type GetUsersCountQueryVariables = Exact<{ [key: string]: never }>;
+export type GetUsersCountQueryVariables = {};
 
 export type GetUsersCountQuery = { __typename?: 'Query' } & {
   activeCount: { __typename?: 'ProfileSearchResult' } & {
@@ -9974,9 +10086,9 @@ export type GetUsersCountQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type GetUserProfileQueryVariables = Exact<{
+export type GetUserProfileQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetUserProfileQuery = { __typename?: 'Query' } & {
   getProfile?: Maybe<
@@ -10033,11 +10145,11 @@ export type GetUserProfileQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetMyTeamMembersQueryVariables = Exact<{
+export type GetMyTeamMembersQueryVariables = {
   from?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   search?: Maybe<Scalars['String']>;
-}>;
+};
 
 export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
   members: { __typename?: 'ProfileSearchResult' } & {
@@ -10051,12 +10163,12 @@ export type GetMyTeamMembersQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type ProjectPhasesQueryVariables = Exact<{
+export type ProjectPhasesQueryVariables = {
   name?: Maybe<Scalars['String']>;
   ncpId?: Maybe<Scalars['ID']>;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
-}>;
+};
 
 export type ProjectPhasesQuery = { __typename?: 'Query' } & {
   getProjectPhases: { __typename?: 'ProjectPhaseSearchResult' } & {
@@ -10087,7 +10199,7 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
   };
 };
 
-export type SettingInfoQueryVariables = Exact<{ [key: string]: never }>;
+export type SettingInfoQueryVariables = {};
 
 export type SettingInfoQuery = { __typename?: 'Query' } & {
   getTeams?: Maybe<
@@ -10095,9 +10207,9 @@ export type SettingInfoQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTaskQueryVariables = Exact<{
+export type GetTaskQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetTaskQuery = { __typename?: 'Query' } & {
   getTask?: Maybe<
@@ -10117,14 +10229,14 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTasksQueryVariables = Exact<{
+export type GetTasksQueryVariables = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
-}>;
+};
 
 export type GetTasksQuery = { __typename?: 'Query' } & {
   getTasks?: Maybe<
@@ -10150,9 +10262,9 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTasksFullSummaryQueryVariables = Exact<{
+export type GetTasksFullSummaryQueryVariables = {
   assignees?: Maybe<Array<Scalars['ID']>>;
-}>;
+};
 
 export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
   getTasksFullSummary?: Maybe<
@@ -10160,12 +10272,12 @@ export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTasksSummaryByStatusQueryVariables = Exact<{
+export type GetTasksSummaryByStatusQueryVariables = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
-}>;
+};
 
 export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
   getTasksSummaryByStatus?: Maybe<
@@ -10176,11 +10288,11 @@ export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTeamsQueryVariables = Exact<{
+export type GetTeamsQueryVariables = {
   from?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   search?: Maybe<Scalars['String']>;
-}>;
+};
 
 export type GetTeamsQuery = { __typename?: 'Query' } & {
   getTeams?: Maybe<
@@ -10203,9 +10315,9 @@ export type GetTeamsQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type GetTeamDetailsQueryVariables = Exact<{
+export type GetTeamDetailsQueryVariables = {
   id: Scalars['ID'];
-}>;
+};
 
 export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
   getTeamDetails?: Maybe<
@@ -11258,6 +11370,88 @@ export type UpdateNcpServiceDescriptionMutationResult = ApolloReactCommon.Mutati
 export type UpdateNcpServiceDescriptionMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateNcpServiceDescriptionMutation,
   UpdateNcpServiceDescriptionMutationVariables
+>;
+export const ReadNotificationDocument = gql`
+  mutation ReadNotification($input: ReadNotificationInput!) {
+    readNotification(input: $input)
+  }
+`;
+export function useReadNotificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ReadNotificationMutation, ReadNotificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ReadNotificationMutation, ReadNotificationMutationVariables>(
+    ReadNotificationDocument,
+    baseOptions,
+  );
+}
+export type ReadNotificationMutationHookResult = ReturnType<typeof useReadNotificationMutation>;
+export type ReadNotificationMutationResult = ApolloReactCommon.MutationResult<ReadNotificationMutation>;
+export type ReadNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ReadNotificationMutation,
+  ReadNotificationMutationVariables
+>;
+export const DeleteNotificationDocument = gql`
+  mutation DeleteNotification($input: DeleteNotificationInput!) {
+    deleteNotification(input: $input)
+  }
+`;
+export function useDeleteNotificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteNotificationMutation, DeleteNotificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteNotificationMutation, DeleteNotificationMutationVariables>(
+    DeleteNotificationDocument,
+    baseOptions,
+  );
+}
+export type DeleteNotificationMutationHookResult = ReturnType<typeof useDeleteNotificationMutation>;
+export type DeleteNotificationMutationResult = ApolloReactCommon.MutationResult<DeleteNotificationMutation>;
+export type DeleteNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteNotificationMutation,
+  DeleteNotificationMutationVariables
+>;
+export const BulkReadNotificationsDocument = gql`
+  mutation BulkReadNotifications($input: BulkReadNotificationsInput!) {
+    bulkReadNotifications(input: $input)
+  }
+`;
+export function useBulkReadNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkReadNotificationsMutation,
+    BulkReadNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkReadNotificationsMutation, BulkReadNotificationsMutationVariables>(
+    BulkReadNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkReadNotificationsMutationHookResult = ReturnType<typeof useBulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkReadNotificationsMutation,
+  BulkReadNotificationsMutationVariables
+>;
+export const BulkDeleteNotificationsDocument = gql`
+  mutation BulkDeleteNotifications($input: BulkDeleteNotificationsInput!) {
+    bulkDeleteNotifications(input: $input)
+  }
+`;
+export function useBulkDeleteNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkDeleteNotificationsMutation,
+    BulkDeleteNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkDeleteNotificationsMutation, BulkDeleteNotificationsMutationVariables>(
+    BulkDeleteNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkDeleteNotificationsMutationHookResult = ReturnType<typeof useBulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkDeleteNotificationsMutation,
+  BulkDeleteNotificationsMutationVariables
 >;
 export const UpdateObjectTypeCharacteristicsDocument = gql`
   mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
@@ -14385,6 +14579,43 @@ export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServi
 export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
   GetNcpServicesQuery,
   GetNcpServicesQueryVariables
+>;
+export const GetNotificationsDocument = gql`
+  query GetNotifications {
+    getNotifications {
+      items {
+        id
+        type
+        receiver
+        isRead
+        isDeleted
+        description
+        dateCreated
+      }
+    }
+  }
+`;
+export function useGetNotificationsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(
+    GetNotificationsDocument,
+    baseOptions,
+  );
+}
+export function useGetNotificationsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(
+    GetNotificationsDocument,
+    baseOptions,
+  );
+}
+export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificationsQuery>;
+export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
+export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
+  GetNotificationsQuery,
+  GetNotificationsQueryVariables
 >;
 export const ObjectTypeCharacteristicsDocument = gql`
   query ObjectTypeCharacteristics($id: ID!) {

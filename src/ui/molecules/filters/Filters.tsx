@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import EuroIcon from '@material-ui/icons/Euro';
+import { Chip } from '@material-ui/core';
 
 import { DevelopmentType, PricingType, PropertyType } from 'api/types';
 import { BuildingIcon, NewConstructionIcon } from 'ui/atoms/icons';
@@ -55,7 +56,7 @@ const filters: FiltersTypes[] = [
   {
     key: 'pricingType',
     type: Types.RadioButton,
-    size: Sizes.M,
+    size: Sizes.L,
     options: [
       { label: PricingType.Sale, value: PricingType.Sale, icon: <EuroIcon /> },
       { label: PricingType.Rent, value: PricingType.Rent, icon: <EuroIcon /> },
@@ -72,12 +73,22 @@ const filters: FiltersTypes[] = [
   },
 ];
 
-export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, activeTab }: FilterProps) => {
+export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, activeTab, filterAmount }: FilterProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
-    <Modal fullWidth title={formatMessage({ id: 'filter.title' })} isOpened={isOpened}>
+    <Modal
+      fullWidth
+      onClose={onClose}
+      title={
+        <span>
+          {formatMessage({ id: 'filter.title' })}{' '}
+          <Chip label={filterAmount} size="small" color="primary" className={classes.titleBadge} />
+        </span>
+      }
+      isOpened={isOpened}
+    >
       <Form onSubmit={onSubmit} initialValues={data} mutators={{ ...arrayMutators }}>
         {({ handleSubmit, submitErrors, submitting, valid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
@@ -88,25 +99,23 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
             )}
             <Grid container spacing={0} className={classes.filter}>
               <Grid item xs={4} className={classes.filterSider}>
-                <FilterSideMenu filters={filters} onChange={onTabChange} />
+                <FilterSideMenu selectedFilters={data} filters={filters} onChange={onTabChange} />
               </Grid>
               <Grid item xs={8}>
                 <Box p={3}>
                   {filters.map((filter, i) => {
                     if (filter.type === Types.Range && filter.options) {
                       return (
-                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
                           <>
-                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
                             <Range name={filter.key} options={filter.options} suffix={'€'} />
                           </>
                         </FilterTabPanel>
                       );
                     } else if (filter.type === Types.Checkbox && filter.options && filter.size) {
                       return (
-                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
                           <>
-                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
                             <CheckboxGroupField
                               options={filter.options}
                               name={filter.key}
@@ -118,9 +127,8 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
                       );
                     } else if (filter.type === Types.RadioButton && filter.options && filter.size) {
                       return (
-                        <FilterTabPanel key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
                           <>
-                            <p>{formatMessage({ id: `${filter.key}.title` })}</p>
                             <RadioGroupField options={filter.options} name={filter.key} xs={filter.size} />
                           </>
                         </FilterTabPanel>
@@ -130,24 +138,24 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
                     return null;
                   })}
                 </Box>
-              </Grid>
-              <Grid container justify="flex-end">
-                <DialogActions>
-                  <CancelButton variant="outlined" size="large" onClick={onClose}>
-                    {formatMessage({ id: 'common.cancel' })}
-                  </CancelButton>
-                  <SubmitButton
-                    type="submit"
-                    size="large"
-                    color="primary"
-                    variant="contained"
-                    onClick={handleSubmit}
-                    isLoading={submitting}
-                    disabled={!valid}
-                  >
-                    Filter list
-                  </SubmitButton>
-                </DialogActions>
+                <Grid item xs={12} justify="space-between" className={classes.modalFooter}>
+                  <DialogActions>
+                    <CancelButton variant="outlined" size="large" onClick={onClose}>
+                      {formatMessage({ id: 'common.cancel' })}
+                    </CancelButton>
+                    <SubmitButton
+                      type="submit"
+                      size="large"
+                      color="primary"
+                      variant="contained"
+                      onClick={handleSubmit}
+                      isLoading={submitting}
+                      disabled={!valid}
+                    >
+                      {formatMessage({ id: 'common.filter_list' })}
+                    </SubmitButton>
+                  </DialogActions>
+                </Grid>
               </Grid>
             </Grid>
           </form>

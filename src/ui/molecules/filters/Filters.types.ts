@@ -26,6 +26,7 @@ export type FilterProps = {
   onSubmit: (body: AnyObject) => void;
   onTabChange: (index: number) => void;
   data?: AnyObject;
+  filterAmount?: number;
 };
 
 export type FilterContainerProps = {
@@ -42,10 +43,12 @@ export type FilterButtonProps = {
 
 export type FilterSidenavProps = {
   filters: FiltersTypes[];
+  selectedFilters?: AnyObject;
   onChange: (index: number) => void;
 };
 
 export type FilterTabPanelProps = {
+  filterType: string;
   children: ReactNode;
   activeTab: number;
   id: number;
