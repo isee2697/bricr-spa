@@ -47,15 +47,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   titleBadge: {
     ...typography.h4,
     marginLeft: spacing(1),
-    display: 'inline-block',
-    color: palette.white.main,
-    flex: 'none',
-    alignSelf: 'center',
-    textAlign: 'center',
-    flexGrow: 0,
-    backgroundColor: palette.primary.main,
-    borderRadius: '100%',
-    width: spacing(3),
     verticalAlign: 'middle',
   },
 

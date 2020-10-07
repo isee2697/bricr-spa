@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import EuroIcon from '@material-ui/icons/Euro';
+import { Chip } from '@material-ui/core';
 
 import { DevelopmentType, PricingType, PropertyType } from 'api/types';
 import { BuildingIcon, NewConstructionIcon } from 'ui/atoms/icons';
@@ -82,7 +83,8 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
       onClose={onClose}
       title={
         <span>
-          {formatMessage({ id: 'filter.title' })} <span className={classes.titleBadge}>{filterAmount}</span>
+          {formatMessage({ id: 'filter.title' })}{' '}
+          <Chip label={filterAmount} size="small" color="primary" className={classes.titleBadge} />
         </span>
       }
       isOpened={isOpened}
@@ -150,7 +152,7 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
                       isLoading={submitting}
                       disabled={!valid}
                     >
-                      Filter list
+                      {formatMessage({ id: 'common.filter_list' })}
                     </SubmitButton>
                   </DialogActions>
                 </Grid>

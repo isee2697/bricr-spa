@@ -16,13 +16,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     dimmed: {
+      ...theme.typography.h5,
       opacity: 0.5,
-      fontSize: '12px',
-      lineHeight: '16px',
     },
     filter: {
-      fontSize: '12px',
-      lineHeight: '16px',
+      ...theme.typography.h5,
     },
   }),
 );

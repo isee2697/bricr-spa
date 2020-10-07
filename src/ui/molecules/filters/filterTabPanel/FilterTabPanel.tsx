@@ -11,9 +11,9 @@ export const FilterTabPanel = ({ children, activeTab, id, filterType }: FilterTa
   const { formatMessage } = useLocale();
   const [search, updateSearch] = useState('');
 
-  const handleDeleteFilter = () => {};
+  const handleDeleteFilter = async () => {};
 
-  const handleLinkedSelector = () => {};
+  const handleLinkedSelector = async () => {};
 
   return (
     <div role="tabpanel" hidden={activeTab !== id} id={`simple-tabpanel-${id}`} aria-labelledby={`simple-tab-${id}`}>
@@ -32,7 +32,6 @@ export const FilterTabPanel = ({ children, activeTab, id, filterType }: FilterTa
             value={search}
             onChange={e => {
               updateSearch(e.target.value);
-              console.log(search);
             }}
           />
         </Grid>

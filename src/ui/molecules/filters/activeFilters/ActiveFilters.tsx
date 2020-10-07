@@ -75,10 +75,10 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
         const [name, value] = filter;
 
         if (Array.isArray(value)) {
-          value.forEach((filter, i) =>
+          value.forEach((filter, index) =>
             filters.push(
               <ChipComponent
-                key={i}
+                key={index}
                 index={name}
                 filter={(filter && filter.toString()) ?? ''}
                 onDelete={handleDelete}
