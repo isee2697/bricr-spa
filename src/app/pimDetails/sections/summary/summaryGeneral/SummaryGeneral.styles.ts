@@ -10,11 +10,8 @@ export const useStyles = makeStyles(theme => ({
     width: `calc(100% + ${theme.spacing(6)}px)`,
   },
   summaryContent: {
-    backgroundImage: (props: PimSummary) =>
-      `linear-gradient(180deg, ${theme.palette.gray.light} ${theme.spacing(
-        13,
-      )}px, rgba(243, 245, 250, 0) ${theme.spacing(39)}px), url('${props.image}')`,
-    backgroundSize: 'contain',
+    backgroundImage: (props: PimSummary) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
+    backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
     padding: theme.spacing(2, 3),
   },

@@ -1,5 +1,5 @@
-import React from 'react';
 import { ButtonProps } from '@material-ui/core/Button/Button';
+import React from 'react';
 
 import { InfoSection, Modal, SubmitButton } from 'ui/molecules';
 import { DialogActions, Typography } from 'ui/atoms';

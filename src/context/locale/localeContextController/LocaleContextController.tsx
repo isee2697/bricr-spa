@@ -1,6 +1,6 @@
+import countries from 'i18n-iso-countries';
 import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import countries from 'i18n-iso-countries';
 
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';

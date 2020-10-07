@@ -1,6 +1,6 @@
-import * as React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
+import * as React from 'react';
 
 import { palette } from 'theme/palette';
 

@@ -1,5 +1,5 @@
-import React from 'react';
 import { usePagination } from '@material-ui/lab/Pagination';
+import React from 'react';
 
 import { Box } from 'ui/atoms';
 
