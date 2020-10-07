@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { AnyObject } from 'final-form';
 import Badge from '@material-ui/core/Badge';
 
+import React, { useCallback, useEffect, useState } from 'react';
+import { AnyObject } from 'final-form';
 import { IconButton } from 'ui/atoms';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 
@@ -62,12 +62,13 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
   return (
     <>
       <IconButton aria-label="manage" size="small" variant="roundedContained" onClick={() => setModalOpen(true)}>
-        <Badge badgeContent={filterAmount} color="primary">
+        <Badge badgeContent={filterAmount} color="secondary">
           <ManageIcon color="inherit" />
         </Badge>
       </IconButton>
       <Filters
         data={data}
+        filterAmount={filterAmount}
         isOpened={isModalOpen}
         activeTab={activeTab}
         onSubmit={handleSubmit}
