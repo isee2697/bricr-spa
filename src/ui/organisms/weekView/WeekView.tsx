@@ -15,16 +15,23 @@ const WeekTimeScaleLabel = ({ ...props }: Week.TimeScaleLabelProps) => {
   return <Week.TimeScaleLabel {...props} className={classes.root} />;
 };
 
-const WeekTimeScaleLayoutProps = ({ ...props }: Week.TimeScaleLayoutProps) => {
+const WeekDayScale = ({ ...props }: Week.DayScaleLayoutProps) => {
   const classes = useStyles();
 
-  return <Week.TimeScaleLayout {...props} className={classes.root} />;
+  return <Week.DayScaleLayout {...props} className={classes.root} />;
+};
+
+const WeekLayout = ({ ...props }: Week.LayoutProps) => {
+  const classes = useStyles();
+
+  return <Week.Layout {...props} className={classes.week} />;
 };
 
 export const WeekView = (props: WeekViewProps) => (
   <Week
     {...props}
-    // timeScaleLayoutComponent={WeekTimeScaleLayoutProps}
+    layoutComponent={WeekLayout}
+    dayScaleLayoutComponent={WeekDayScale}
     timeScaleLabelComponent={WeekTimeScaleLabel}
     timeTableCellComponent={WeekTimeTableCell}
   />

@@ -4,22 +4,44 @@ import { DateTime } from 'luxon';
 import { Calendar } from './Calendar';
 
 export const CalendarContainer = () => {
-  const currentDate = DateTime.fromISO('2018-11-01T09:45').toJSDate();
+  const now = new Date();
+  const currentDate = now;
   const schedulerData = [
     {
-      startDate: DateTime.fromISO('2018-11-01T09:45').toJSDate(),
-      endDate: DateTime.fromISO('2018-11-01T11:00').toJSDate(),
+      startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
       title: 'Meeting',
     },
     {
-      startDate: DateTime.fromISO('2018-11-01T12:00').toJSDate(),
-      endDate: DateTime.fromISO('2018-11-01T13:30').toJSDate(),
+      startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
+      title: 'Meeting overlap',
+    },
+    {
+      startDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
       title: 'Go to a gym',
     },
     {
-      startDate: DateTime.fromISO('2018-11-01T12:01').toJSDate(),
-      endDate: DateTime.fromISO('2018-11-01T13:35').toJSDate(),
+      startDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(11)).toISOString()).toJSDate(),
       title: 'Go to Cubiceyes',
+    },
+    {
+      title: 'Birthday of our CEO',
+      startDate: DateTime.fromISO(new Date(now.setHours(2)).toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
+      allDay: true,
+      id: 1,
+      location: 'Room 1',
+    },
+    {
+      title: 'Birthday of our Dev',
+      startDate: DateTime.fromISO(now.toISOString()).toJSDate(),
+      endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
+      allDay: true,
+      id: 1,
+      location: 'Room 1',
     },
   ];
 

@@ -2,7 +2,19 @@ import React, { useState } from 'react';
 
 import { Page } from 'ui/templates';
 import { Tab, Tabs, Box } from 'ui/atoms';
-import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments, ViewState } from 'ui/organisms';
+import {
+  FormSection,
+  WeekView,
+  DayView,
+  Scheduler,
+  MonthView,
+  Appointments,
+  ViewState,
+  AllDayPanel,
+  AppointmentTooltip,
+  AppointmentForm,
+  CurrentTimeIndicator,
+} from 'ui/organisms';
 
 import { DateView, CalendarProps } from './Calandar.types';
 
@@ -19,27 +31,17 @@ export const Calendar = ({ data, currentDate }: CalendarProps) => {
             <Tab onClick={() => setView(DateView.Month)} label="Month" />
           </Tabs>
 
-          {currentView === DateView.Day && (
-            <Scheduler data={data}>
-              <ViewState currentDate={currentDate} />
-              <DayView startDayHour={9} endDayHour={14} />
-              <Appointments />
-            </Scheduler>
-          )}
-          {currentView === DateView.Week && (
-            <Scheduler data={data}>
-              <ViewState currentDate={currentDate} />
-              <WeekView startDayHour={9} endDayHour={14} />
-              <Appointments />
-            </Scheduler>
-          )}
-          {currentView === DateView.Month && (
-            <Scheduler data={data}>
-              <ViewState currentDate={currentDate} />
-              <MonthView />
-              <Appointments />
-            </Scheduler>
-          )}
+          <Scheduler data={data}>
+            <ViewState currentDate={currentDate} currentViewName={currentView} />
+            <DayView startDayHour={9} endDayHour={14} />
+            <WeekView startDayHour={9} endDayHour={14} />
+            <MonthView />
+            <AllDayPanel />
+            <Appointments />
+            <CurrentTimeIndicator updateInterval={1} />
+            <AppointmentTooltip showCloseButton />
+            <AppointmentForm readOnly />
+          </Scheduler>
         </FormSection>
       </Page>
     </Box>
