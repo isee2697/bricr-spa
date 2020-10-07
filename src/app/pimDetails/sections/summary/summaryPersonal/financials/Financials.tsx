@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardContent, CardHeader, Grid, Typography, Box } from 'ui/atoms';
+import { Card, CardContent, CardHeader, Typography, Box } from 'ui/atoms';
 import { EuroIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './Financials.styles';

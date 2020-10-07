@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Avatar, Box, Emoji, Typography, Grid } from 'ui/atoms';
-import { EditIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { PersonalInformationItemProps } from './PersonalInformation.types';
