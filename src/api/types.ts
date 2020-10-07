@@ -1097,8 +1097,10 @@ export type QueryListPimsArgs = {
 };
 
 export enum BulkField {
-  City = 'city',
-  Status = 'status',
+  City = 'City',
+  Status = 'Status',
+  RentPrice = 'RentPrice',
+  SalePrice = 'SalePrice',
 }
 
 export enum BulkEntities {
@@ -14153,7 +14155,7 @@ export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery
 export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
 export const NcpBulkDetailsDocument = gql`
   query NcpBulkDetails($ids: [ID!]!) {
-    city: getBulkDetails(input: { ids: $ids, field: city, entity: Ncp }) {
+    city: getBulkDetails(input: { ids: $ids, field: City, entity: Ncp }) {
       value
     }
   }

@@ -6,7 +6,7 @@ import { PimSidebarMenu } from 'app/pim/pimSidebarMenu/PimSidebarMenu';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { BulkField, ListNcp } from 'api/types';
+import { BulkField, BulkOperations, ListNcp } from 'api/types';
 import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
 
 import { useStyles } from './Project.styles';
@@ -67,7 +67,11 @@ export const Project = ({
                       >
                         {checkbox}
                         <Box component="span" className={classes.rowItem}>
-                          <ProjectItem {...project} />
+                          <ProjectItem
+                            onArchive={() => onOperation(BulkOperations.Archive, [project])}
+                            onDelete={() => onOperation(BulkOperations.Delete, [project])}
+                            {...project}
+                          />
                         </Box>
                       </Box>
                     )}
