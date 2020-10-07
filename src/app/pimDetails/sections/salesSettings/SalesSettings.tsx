@@ -67,14 +67,15 @@ export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen }: PimDet
   return (
     <>
       <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+
       <Page
         title={formatMessage({ id: 'pim_details.sales_settings.title' })}
         onSave={onDescriptionUpdate}
         placeholder="pim_details.media.description_placeholder"
-        // name="description"
+        name="description"
         // initialValues={{ description }}
-        // dateUpdated={media.dateUpdated}
         // updatedBy={media.lastEditedBy}
+        // dateUpdated={media.dateUpdated}
       >
         <Grid item xs={12}>
           <MomentsContainer
