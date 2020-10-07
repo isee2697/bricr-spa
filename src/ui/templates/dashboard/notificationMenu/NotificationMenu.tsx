@@ -41,6 +41,7 @@ export const NotificationMenu = () => {
       .toFormat('dd-MM-yyyy');
 
     const groups: NotificationsGroupObject = notifications
+      .slice()
       .sort((n1, n2) => (n1.dateCreated > n2.dateCreated ? 1 : -1))
       .reduce((accum: NotificationsGroupObject, notification: NotificationRow) => {
         const date = DateTime.fromISO(notification.dateCreated).toFormat('dd-MM-yyyy');
