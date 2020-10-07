@@ -21,14 +21,13 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
 
   tabContentHeader: {
+    ...typography.h5,
     fontWeight: fontWeight.medium,
-    fontSize: '12px',
-    lineHeight: '16px',
     marginBottom: spacing(4),
 
     '& .linked_selector': {
       cursor: 'pointer',
-      color: '#2F1F5B',
+      color: palette.black.main,
     },
     '& .delete_filter': {
       cursor: 'pointer',
@@ -46,11 +45,10 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
 
   titleBadge: {
+    ...typography.h4,
     marginLeft: spacing(1),
     display: 'inline-block',
-    color: 'white',
-    fontSize: '14px',
-    lineHeight: '24px',
+    color: palette.white.main,
     flex: 'none',
     alignSelf: 'center',
     textAlign: 'center',
@@ -62,9 +60,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
 
   infoTitle: {
+    ...typography.h6,
     fontWeight: fontWeight.bold,
-    fontSize: '10px',
-    lineHeight: '16px',
     color: `${palette.gray}`,
     margin: spacing(2, 0),
   },
