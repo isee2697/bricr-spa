@@ -1,8 +1,11 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { PimSummary } from './SummaryGeneral.types';
+import { PimSummaryInside } from './SummaryInside.types';
 
 export const useStyles = makeStyles(theme => ({
+  btnHeader: {
+    fontSize: theme.spacing(3),
+  },
   summaryContainer: {
     marginTop: 0,
     marginLeft: -theme.spacing(3),
@@ -10,7 +13,7 @@ export const useStyles = makeStyles(theme => ({
     width: `calc(100% + ${theme.spacing(6)}px)`,
   },
   summaryContent: {
-    backgroundImage: (props: PimSummary) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
+    backgroundImage: (props: PimSummaryInside) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
     backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
     padding: theme.spacing(2, 3),
@@ -23,14 +26,8 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(4),
     verticalAlign: 'middle',
   },
-  summaryHeader: {
+  groundfloorsSpacesSection: {
     marginTop: theme.spacing(29),
-    padding: theme.spacing(2),
-    background: theme.palette.white.main,
-    borderRadius: theme.spacing(1),
-  },
-  importantBrokerBadge: {
-    right: -theme.spacing(1),
   },
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,
@@ -40,5 +37,8 @@ export const useStyles = makeStyles(theme => ({
   },
   marginTopTwo: {
     marginTop: theme.spacing(2),
+  },
+  marginTopThree: {
+    marginTop: theme.spacing(3),
   },
 }));

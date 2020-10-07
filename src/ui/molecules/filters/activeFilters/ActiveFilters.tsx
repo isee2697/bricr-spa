@@ -2,6 +2,7 @@ import Chip from '@material-ui/core/Chip';
 
 import React from 'react';
 import { Box } from 'ui/atoms';
+import { CloseIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ActiveFilters.styles';
 
@@ -29,9 +30,10 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
       <Chip
         variant="outlined"
         key={index}
+        deleteIcon={<CloseIcon />}
         label={
           <>
-            <span className={classes.dimmed}>{index}</span> <strong>{filter}</strong>
+            <span className={classes.dimmed}>{index}</span> <strong className={classes.filter}>{filter}</strong>
           </>
         }
         onDelete={() => onDelete(index, filter)}
@@ -73,10 +75,10 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
         const [name, value] = filter;
 
         if (Array.isArray(value)) {
-          value.forEach(filter =>
+          value.forEach((filter, index) =>
             filters.push(
               <ChipComponent
-                key={name}
+                key={index}
                 index={name}
                 filter={(filter && filter.toString()) ?? ''}
                 onDelete={handleDelete}
