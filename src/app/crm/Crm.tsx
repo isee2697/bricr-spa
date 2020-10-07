@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
-
 import { Grid, Box, Card, CardHeader, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';

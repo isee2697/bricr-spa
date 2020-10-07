@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Button, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
 import { LinkIcon } from 'ui/atoms/icons';

@@ -1,5 +1,4 @@
 import { ApolloError } from 'apollo-boost';
-
 import { Profile, Task } from 'api/types';
 
 export type TasksProps = {

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { AnyObject } from 'react-final-form';
-
 import { LastUpdatedProfile } from 'api/types';
 import { CardWithInfoProps } from 'ui/templates/cards/cardWithInfo/CardWithInfo.types';
 import { PageHeaderProps } from 'ui/templates/page/header/PageHeader.types';

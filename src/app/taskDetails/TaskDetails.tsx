@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Alert, Box, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

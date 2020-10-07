@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Card, Collapse, IconButton, Typography } from 'ui/atoms';
 import { ArrowDownIcon, ArrowUpIcon, MenuIcon } from 'ui/atoms/icons';
 import { WorkflowCanvas } from '../workflowCanvas/WorkflowCanvas';

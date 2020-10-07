@@ -2,7 +2,6 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
-
 import { useUpdateCadastreMutation, usePimCadastreQuery, PimCadastreDocument, CadastreType } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 

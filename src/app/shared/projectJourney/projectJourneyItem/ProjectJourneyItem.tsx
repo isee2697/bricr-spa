@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ProjectJourneyItemData } from '../ProjectJourney.types';
 import { Avatar, Grid, Typography, Chip, PersonChip, Box } from 'ui/atoms';
 import { MenuIcon, HelpIcon, MailIcon } from 'ui/atoms/icons';

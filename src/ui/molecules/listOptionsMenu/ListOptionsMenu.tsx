@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { DeleteIcon, EditIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';

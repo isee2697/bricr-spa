@@ -1,7 +1,8 @@
-import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
 import { useTheme } from '@material-ui/core/styles';
+
+import React from 'react';
 
 export const FollowUpIcon = (props: DefaultSvgIconProps) => {
   const theme = useTheme();

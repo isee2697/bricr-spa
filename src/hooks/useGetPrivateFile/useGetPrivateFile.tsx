@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { EntityWithFiles, File } from 'api/types';
 import { useAuthState } from 'hooks';
 

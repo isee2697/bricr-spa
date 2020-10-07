@@ -7,10 +7,11 @@ import { InfoSection } from 'ui/molecules';
 import { GenericField } from 'form/fields';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { AddNewSocialMediaBody, AddNewSocialMediaSubmit } from '../addNewSocialMediaModal/AddNewSocialMediaModal.types';
+import { AddNewSocialMediaBody } from '../addNewSocialMediaModal/AddNewSocialMediaModal.types';
 import { AddNewSocialMediaModal } from '../addNewSocialMediaModal/AddNewSocialMediaModal';
+import { PromiseFunction } from 'app/shared/types';
 
-import { SocialMediaType } from './SocialMedia.types';
+import { SocialMediaItem } from './SocialMedia.types';
 import { useStyles } from './SocialMedia.styles';
 
 export const SocialMedia = () => {
@@ -19,14 +20,9 @@ export const SocialMedia = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-social-media');
-  const [socialMedias, setSocialMedias] = useState([
-    {
-      key: SocialMediaType.Facebook,
-      url: '',
-    },
-  ]);
+  const [socialMedias, setSocialMedias] = useState<SocialMediaItem[]>([]);
 
-  const handleAddNewSocialMedia: AddNewSocialMediaSubmit<AddNewSocialMediaBody> = async ({ socialMediaType }) => {
+  const handleAddNewSocialMedia: PromiseFunction<AddNewSocialMediaBody> = async ({ socialMediaType }) => {
     try {
       setSocialMedias([
         ...socialMedias,
@@ -41,7 +37,7 @@ export const SocialMedia = () => {
       return undefined;
     } catch (error) {
       return {
-        error: 'unknown',
+        error: true,
       };
     }
   };
@@ -129,7 +125,11 @@ export const SocialMedia = () => {
               ))}
           </Grid>
         </AutosaveForm>
-        <AddNewSocialMediaModal onSubmit={handleAddNewSocialMedia} isOpen={isModalOpen} />
+        <AddNewSocialMediaModal
+          onSubmit={handleAddNewSocialMedia}
+          isOpened={isModalOpen}
+          onClose={() => close('add-new-social-media')}
+        />
       </CardContent>
     </Card>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { Typography, Emoji } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TaskStatus } from 'api/types';

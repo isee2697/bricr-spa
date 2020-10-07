@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { useLocale } from 'hooks';
 import { Alert, Box, DialogActions, DialogContent, Typography } from 'ui/atoms';
 import { UploadIcon } from 'ui/atoms/icons';

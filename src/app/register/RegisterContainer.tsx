@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { useClaimSpaceHook } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 

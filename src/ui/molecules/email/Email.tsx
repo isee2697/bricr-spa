@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { UserAvatar, Box, Typography } from '../../atoms';
 
 import { EmailProps } from './Email.types';

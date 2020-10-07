@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { CheckboxField, CheckboxGroupField } from 'form/fields';

@@ -2,7 +2,6 @@ import React from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { AnyObject } from 'react-final-form';
-
 import {
   useCreatePimMutation,
   RealEstateType,

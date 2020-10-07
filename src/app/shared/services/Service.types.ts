@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import {
   AddServiceInput,

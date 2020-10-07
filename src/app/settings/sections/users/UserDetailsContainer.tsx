@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { GetUserProfileDocument, Profile, useGetUserProfileQuery, useUpdateProfileMutation } from 'api/types';
 import { Loader } from 'ui/atoms';
 import { UserDetails } from 'app/settings/sections/users/UserDetails';

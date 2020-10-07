@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-
 import { useStyles } from '../Filters.styles';
 import { Tabs, Tab } from 'ui/atoms';
 import { FilterSidenavProps, FiltersTypes } from '../Filters.types';

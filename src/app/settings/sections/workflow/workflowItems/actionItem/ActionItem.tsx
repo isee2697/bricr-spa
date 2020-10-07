@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Typography, IconButton, Box } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons';
 import { DndItemProps, DndItemState } from '../WorkflowItems.types';

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { Badge, Box } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons';
 import { readFileAsync } from '../uploadModal/UploadModal.helpers';

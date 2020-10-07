@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { AddTeamInput } from 'api/types';
 import { GenericField } from 'form/fields';
 import { FormModal } from 'ui/organisms';

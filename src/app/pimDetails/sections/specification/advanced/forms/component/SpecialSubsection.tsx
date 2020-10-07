@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
-
 import { useLocale, useCustomLabels } from 'hooks';
 import { Box } from 'ui/atoms';
 import { TileButton, FormSubSectionHeader } from 'ui/molecules';

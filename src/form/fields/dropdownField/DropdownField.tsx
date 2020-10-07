@@ -1,6 +1,5 @@
 import React from 'react';
 import { useField } from 'react-final-form';
-
 import { useLocale } from 'hooks';
 import { validatorsChain } from 'form/validators';
 import { Dropdown, FormControl, InputLabel, FormHelperText } from 'ui/atoms';

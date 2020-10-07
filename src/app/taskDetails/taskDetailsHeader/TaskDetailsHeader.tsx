@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { NavBreadcrumbs, Typography } from 'ui/atoms';
 
 import { TaskDetailsHeaderProps } from './TaskDetailsHeader.types';

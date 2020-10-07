@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Box } from 'ui/atoms';
 import { WorkflowItemType } from '../../../Workflow.types';
 

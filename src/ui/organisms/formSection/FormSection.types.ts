@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
 import { ExpansionPanelSummaryProps } from '@material-ui/core/ExpansionPanelSummary';
+
+import { ReactNode } from 'react';
 
 export type FormSectionHeaderProps = ExpansionPanelSummaryProps & { editing: string };
 

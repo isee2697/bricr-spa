@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, Box, IconButton, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';

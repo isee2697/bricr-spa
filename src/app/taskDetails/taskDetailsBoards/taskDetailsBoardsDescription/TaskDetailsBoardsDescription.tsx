@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Card, CardHeader, CardContent, Switch, FormControlLabel } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm } from 'ui/organisms';

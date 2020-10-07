@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { useParams } from 'react-router-dom';
-
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { GeneralMainContainer } from 'app/pimDetails/sections/general/generalMain/GeneralMainContainer';
 import { LocationContainer } from 'app/pimDetails/sections/general/location/LocationContainer';

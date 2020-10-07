@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-
 import { EntityTypeContext } from '../entityTypeContext/EntityTypeContext';
 import { EntityType } from '../EntityType.types';
 import { AppRoute } from 'routing/AppRoute.enum';

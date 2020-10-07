@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
-
 import { Modal, SubmitButton, CancelButton, TileButton } from 'ui/molecules';
 import { DialogActions, DialogContent } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';

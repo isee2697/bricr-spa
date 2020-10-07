@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { GenericField } from 'form/fields';
 import { AutosaveForm } from 'ui/organisms';
 import { PimInsideDocument, useUpdateFloorMutation } from 'api/types';

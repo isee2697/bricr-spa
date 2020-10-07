@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
-
 import { FormSubSectionHeader, Modal, SubmitButton, TileButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { Box, Button, DialogActions, Grid, ImageHolder } from 'ui/atoms';

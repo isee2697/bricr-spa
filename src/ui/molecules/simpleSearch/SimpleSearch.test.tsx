@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/dom';
-
 import { render } from 'tests';
 
 import { SimpleSearch } from './SimpleSearch';

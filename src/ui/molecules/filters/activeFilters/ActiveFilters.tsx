@@ -1,6 +1,6 @@
-import React from 'react';
 import Chip from '@material-ui/core/Chip';
 
+import React from 'react';
 import { Box } from 'ui/atoms';
 
 import { useStyles } from './ActiveFilters.styles';

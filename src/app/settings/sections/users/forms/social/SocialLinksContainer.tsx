@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { GetUserProfileDocument, SocialMediaLink, useUpdateSocialMediaLinkMutation } from 'api/types';
 
 import { SocialLinks } from './SocialLinks';

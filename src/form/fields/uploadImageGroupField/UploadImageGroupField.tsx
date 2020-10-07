@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator } from 'final-form';
 import { useField } from 'react-final-form';
-
 import { File, useRemoveFilesMutation } from 'api/types';
 import { Grid } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';

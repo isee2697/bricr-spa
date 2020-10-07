@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
-
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { AddIcon } from 'ui/atoms/icons';

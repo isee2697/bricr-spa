@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';

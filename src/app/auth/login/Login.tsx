@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl-phraseapp';
-
 import { Alert, Box, Button, Checkbox, FormControlLabel, InputAdornment, Link, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GenericField } from 'form/fields';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-
 import { AddServiceModal } from 'app/shared/services/modal/AddServiceModal';
 import { AddServiceModalContainerProps, AddServiceSubmit } from 'app/shared/services/Service.types';
 import {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-
 import { render, fireEvent } from 'tests';
 import { UploadImageField } from 'form/fields/uploadImageField/UploadImageField';
 import { EntityWithFiles } from 'api/types';

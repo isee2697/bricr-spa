@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FilterTabPanelProps } from '../Filters.types';
 
 export const FilterTabPanel = ({ children, activeTab, id }: FilterTabPanelProps) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { EmailAddress, GetUserProfileDocument, useUpdateEmailAddressMutation } from 'api/types';
 
 import { EmailAddresses } from './EmailAddresses';

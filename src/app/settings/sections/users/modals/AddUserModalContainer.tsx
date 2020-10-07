@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import { GetUsersDocument, Profile, useCreateProfileMutation } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';

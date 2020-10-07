@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
-
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Button, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSection, AddCustomPropertyModalContainer } from 'ui/organisms';

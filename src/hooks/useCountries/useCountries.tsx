@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import countries from 'i18n-iso-countries';
 
+import { useMemo } from 'react';
 import { useLocale } from 'hooks';
 
 import { useCountriesType } from './useCountries.types';

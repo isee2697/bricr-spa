@@ -1,6 +1,5 @@
 import React from 'react';
 import { createHttpLink } from '@apollo/client';
-
 import { setTokens } from 'context/auth/authActionCreators/authActionCreators';
 import { AuthAction } from 'context/auth/authReducer/authReducer.types';
 import { AppRoute } from 'routing/AppRoute.enum';

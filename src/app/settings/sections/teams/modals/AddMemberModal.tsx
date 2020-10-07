@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, FieldInputProps } from 'react-final-form';
-
 import { Avatar, Box, TileCheckbox } from 'ui/atoms';
 import { FormModal, SearchList } from 'ui/organisms';
 import { useLocale } from 'hooks';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-
 import { fireEvent, render } from 'tests';
 import { FilePermission } from 'api/types';
 import { EntityTypeProvider, EntityType } from 'app/shared/entityType';

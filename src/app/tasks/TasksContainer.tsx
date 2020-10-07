@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { useGetMyTeamMembersQuery } from 'api/types';
 import { Loader } from 'ui/atoms';

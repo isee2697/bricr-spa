@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { GetUserProfileDocument, ProfileTeam, useUpdateUserInTeamMutation } from 'api/types';
 import { TeamPermissionsContainerProps } from 'app/settings/sections/users/forms/teamPermissions/TeamPermissions.types';
 import { TeamPermissions } from 'app/settings/sections/users/forms/teamPermissions/TeamPermissions';

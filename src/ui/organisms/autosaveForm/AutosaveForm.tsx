@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useMemo, useState } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-
 import { Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-
 import { useObjectTypeOverallInfoQuery } from 'api/types';
 
 import { ObjectTypeDetails } from './ObjectTypeDetails';

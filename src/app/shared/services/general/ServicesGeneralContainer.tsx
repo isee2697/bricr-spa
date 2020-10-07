@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router';
-
 import { dateToYear } from 'form/fields';
 import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';

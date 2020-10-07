@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Box, Collapse } from 'ui/atoms';
 import { SubSectionHeader } from 'ui/molecules';
 

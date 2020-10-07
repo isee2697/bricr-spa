@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid } from 'ui/atoms';
 import { DashboardHeader } from 'ui/molecules';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';

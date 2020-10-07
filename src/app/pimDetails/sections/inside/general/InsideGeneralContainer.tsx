@@ -1,7 +1,6 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
-
 import { InsideGeneral, PimInsideDocument, useUpdateInsideGeneralMutation } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { dateToYear, yearToDate } from 'form/fields';

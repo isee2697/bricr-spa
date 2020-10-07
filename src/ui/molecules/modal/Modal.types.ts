@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
 import { DialogProps } from '@material-ui/core/Dialog';
+
+import { ReactNode } from 'react';
 
 export type ModalProps = Omit<DialogProps, 'open' | 'title'> & {
   isOpened: boolean;

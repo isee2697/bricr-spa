@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { Card, CardHeader, CardContent, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmIcon, EuroIcon, MutationIcon } from 'ui/atoms/icons';

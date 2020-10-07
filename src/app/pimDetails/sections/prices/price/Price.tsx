@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-
 import { Typography, Grid } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
 import { FormSection } from 'ui/organisms';

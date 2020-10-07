@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GetTaskDocument, Task, useGetMyTeamMembersQuery, useGetTaskQuery, useUpdateTaskMutation } from 'api/types';
 import { Alert, Loader, NavBreadcrumb, Snackbar } from 'ui/atoms';

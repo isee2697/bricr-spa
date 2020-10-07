@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator, AnyObject } from 'final-form';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, TileCheckbox, FormHelperText } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';

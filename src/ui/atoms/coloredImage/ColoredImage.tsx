@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Box, Emoji } from 'ui/atoms';
 
 import { ImageContainerProps } from './ColoredImage.types';

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 

@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Breadcrumbs as MuiBreadcrumbs } from '@material-ui/core';
-
 import { Collapsed } from '../collapsed/Collapsed';
 
 import { CollapsedItems, NavContainerProps } from './NavContainer.types';

@@ -1,7 +1,7 @@
-import React from 'react';
 import useTheme from '@material-ui/core/styles/useTheme';
-import clsx from 'classnames';
 
+import React from 'react';
+import clsx from 'classnames';
 import { Badge, Box, Button, Grid, Typography } from 'ui/atoms';
 import { BuildingIcon, SeeIcon, ShareIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';

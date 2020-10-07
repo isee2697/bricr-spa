@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FormSection } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { Button, Typography, Box } from 'ui/atoms';

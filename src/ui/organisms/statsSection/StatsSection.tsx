@@ -1,6 +1,6 @@
-import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
+import React from 'react';
 import { Scrollable } from 'ui/atoms';
 
 import { StatsSectionProps } from './StatsSection.types';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, Typography } from 'ui/atoms';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';

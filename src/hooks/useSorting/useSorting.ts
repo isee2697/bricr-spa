@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { useLocale } from 'hooks';
 
 import { Options } from './useSorting.types';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { LabelProperty, PictureType } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { useCustomLabels, useGetPrivateFile } from 'hooks';

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Box, Typography } from 'ui/atoms';
 import { CheckMarkIcon } from 'ui/atoms/icons';
 import { SelectCard } from 'ui/molecules';

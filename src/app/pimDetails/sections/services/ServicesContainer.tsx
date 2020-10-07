@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
-
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';

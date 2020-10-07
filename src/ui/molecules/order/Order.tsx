@@ -1,7 +1,7 @@
-import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import { FormattedNumber } from 'react-intl';
 
+import React from 'react';
+import { FormattedNumber } from 'react-intl';
 import { Box, Typography, Chip, Avatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import arrayMutators from 'final-form-arrays';
-
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { Page } from 'ui/templates';
 import { CheckboxGroupField } from 'form/fields';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { TaskLabel } from 'api/types';
 import { UserRectangleIcon, FollowUpRectangleIcon, LockRectangleIcon } from 'ui/atoms/icons';
 

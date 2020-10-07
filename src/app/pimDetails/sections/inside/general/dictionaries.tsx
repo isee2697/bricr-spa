@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { BellIcon } from 'ui/atoms/icons';
 import { WindowType } from 'api/types';
 

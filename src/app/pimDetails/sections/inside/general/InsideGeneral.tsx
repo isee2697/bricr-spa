@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FormSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { useLocale } from 'hooks';

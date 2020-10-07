@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { List } from 'ui/molecules';
 import { Box, Grid, IconButton } from 'ui/atoms';

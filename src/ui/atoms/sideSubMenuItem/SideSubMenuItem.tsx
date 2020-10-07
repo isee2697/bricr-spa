@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { SideMenuItem } from 'ui/atoms';
 
 import { SideSubMenuItemProps } from './SideSubMenuItem.types';

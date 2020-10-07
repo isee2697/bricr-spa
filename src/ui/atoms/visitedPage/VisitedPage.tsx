@@ -1,6 +1,6 @@
-import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
+import React from 'react';
 import { Avatar, Box } from 'ui/atoms';
 import { SiteIcon } from 'ui/atoms/icons/site/SiteIcon';
 

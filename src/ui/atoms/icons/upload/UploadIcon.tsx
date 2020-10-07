@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
 
+import * as React from 'react';
 import { BaseIcon } from '../baseIcon/BaseIcon';
 
 export const UploadIcon = (props: DefaultSvgIconProps) => (

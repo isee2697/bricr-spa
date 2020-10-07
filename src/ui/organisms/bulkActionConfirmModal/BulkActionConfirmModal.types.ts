@@ -1,5 +1,4 @@
 import { ReactNodeArray } from 'react';
-
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { BulkOperations } from 'api/types';
 

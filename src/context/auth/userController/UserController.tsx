@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import { Loader } from 'ui/atoms/loader/Loader';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { setAuthorized, setUnauthorized } from '../authActionCreators/authActionCreators';

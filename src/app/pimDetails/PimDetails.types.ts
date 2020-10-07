@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { PimOverallInfoQueryHookResult, PimOverallInfoQuery } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 

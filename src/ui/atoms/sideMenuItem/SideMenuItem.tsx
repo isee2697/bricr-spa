@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { List, ListItem, Collapse, Box, Typography } from 'ui/atoms';
 
 import { SideMenuItemProps } from './SideMenuItem.types';

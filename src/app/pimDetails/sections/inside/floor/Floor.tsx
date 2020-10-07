@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
 import groupBy from 'lodash/groupBy';
 
+import React, { useRef, useState } from 'react';
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';

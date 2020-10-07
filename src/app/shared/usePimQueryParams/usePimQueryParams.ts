@@ -1,5 +1,4 @@
 import { useQueryParam } from 'use-query-params';
-
 import { ActionTabStatus } from '../../../ui/molecules/actionTabs/ActionTabs.types';
 import { ListPimsFilters, PricingType } from '../../../api/types';
 

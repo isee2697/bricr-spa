@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from 'react';
-
 import { Box, Collapse, Tab, Tabs, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';

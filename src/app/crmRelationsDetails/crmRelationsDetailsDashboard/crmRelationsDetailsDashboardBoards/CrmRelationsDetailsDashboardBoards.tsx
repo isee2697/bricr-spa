@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid } from 'ui/atoms';
 
 import { useStyles } from './CrmRelationsDetailsDashboardBoards.styles';

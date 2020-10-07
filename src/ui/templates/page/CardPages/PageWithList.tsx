@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-
 import { Page } from 'ui/templates/page/Page';
 import { PageWithListProps } from 'ui/templates/page/Page.types';
 import { CardWithList } from 'ui/templates';

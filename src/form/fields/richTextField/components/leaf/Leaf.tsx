@@ -1,5 +1,6 @@
-import React from 'react';
 import { RenderLeafProps } from 'slate-react/dist/components/editable';
+
+import React from 'react';
 
 import { LeafTypes } from './Leaf.types';
 

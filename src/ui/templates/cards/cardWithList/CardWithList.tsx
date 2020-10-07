@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import arrayMutators from 'final-form-arrays';
-
 import { AutosaveForm, FormSection, FormSubSection } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { Typography } from 'ui/atoms';

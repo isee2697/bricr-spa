@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Page } from 'ui/templates';
 import { InfoSection } from 'ui/molecules';
 import { Card, Grid, Typography } from 'ui/atoms';

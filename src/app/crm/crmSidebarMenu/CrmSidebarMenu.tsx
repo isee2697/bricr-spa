@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { SideMenu } from 'ui/molecules';
 import { Slide, Grid, SideMenuItem, SidebarHideButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

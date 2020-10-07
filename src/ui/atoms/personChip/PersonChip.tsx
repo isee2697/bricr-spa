@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Avatar, Chip, Typography } from 'ui/atoms';
 
 import { PersonChipProps } from './PersonChip.types';

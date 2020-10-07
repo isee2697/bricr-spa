@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-
 import { usePimAogSpacesQuery } from 'api/types';
 
 import { AogSpaces } from './AogSpaces';

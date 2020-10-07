@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { ColorPickerField, GenericField, UploadImageGroupField } from 'form/fields';
 import { Box, Grid } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';

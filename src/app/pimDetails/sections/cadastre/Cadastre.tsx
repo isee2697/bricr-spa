@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-
 import { useEntityType } from 'app/shared/entityType';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Form } from 'react-final-form';
-
 import { InspectionType } from 'api/types';
 import { Modal, SubmitButton, TileButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Box } from 'ui/atoms';

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
 import MuiSnackbar from '@material-ui/core/Snackbar/Snackbar';
 
+import React, { useContext, useState } from 'react';
 import { Box, DialogActions, IconButton, Typography, Button } from 'ui/atoms';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
 import { CloseIcon } from 'ui/atoms/icons';

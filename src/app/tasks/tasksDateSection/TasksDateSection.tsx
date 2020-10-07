@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { TasksTab } from '../Tasks.types';
 
 import { TasksDateSectionProps } from './TasksDateSection.types';

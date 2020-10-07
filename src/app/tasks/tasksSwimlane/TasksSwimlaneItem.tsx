@@ -3,7 +3,6 @@ import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
-
 import { Box, Grid, Typography, UserAvatar } from 'ui/atoms';
 import {
   FollowUpRectangleIcon,

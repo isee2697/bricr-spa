@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
-
 import { Box, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { GenericField } from 'form/fields';

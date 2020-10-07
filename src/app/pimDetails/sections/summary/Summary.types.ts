@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
 export enum PricingAcceptance {

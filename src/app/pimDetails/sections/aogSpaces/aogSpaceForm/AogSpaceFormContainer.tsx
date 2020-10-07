@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router';
-
 import { AogSpacesDataProps } from '../AogSpaces.types';
 import { AogSpace, PimAogSpacesDocument, PimOverallInfoDocument, useUpdateAogSpaceMutation } from 'api/types';
 

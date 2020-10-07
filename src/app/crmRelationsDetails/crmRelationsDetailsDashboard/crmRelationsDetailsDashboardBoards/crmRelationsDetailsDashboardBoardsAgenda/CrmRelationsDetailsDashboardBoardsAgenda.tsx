@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import groupBy from 'lodash/groupBy';
-import { DateTime } from 'luxon';
 
+import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 import { GroupTitle } from 'ui/organisms';
 import { AgendaItem, Button, Card, CardActions, CardContent, IconButton, Scrollable, Tab, Tabs } from 'ui/atoms';
 import { AddIcon } from '../../../../../ui/atoms/icons';

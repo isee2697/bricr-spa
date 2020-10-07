@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { useLocale } from 'hooks';
 import { Section } from '../section/Section';
 import { SingleChoose } from '../form/parts/SingleChoose';

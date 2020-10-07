@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
-
 import { Menu, Box, Typography, Badge, IconButton, Emoji, Button } from 'ui/atoms';
 import { BellIcon } from 'ui/atoms/icons/bell/BellIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
 import { ReferenceObject } from 'popper.js';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox, IconButton, Menu, MenuItem, Select, Typography } from 'ui/atoms';
 import { ManageIcon, MenuIcon } from 'ui/atoms/icons';

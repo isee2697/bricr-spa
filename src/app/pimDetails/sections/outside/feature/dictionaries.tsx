@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { LinkIcon, SquareIcon } from 'ui/atoms/icons';
 import {
   GarageType,

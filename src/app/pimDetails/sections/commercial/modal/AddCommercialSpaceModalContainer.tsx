@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
 import { PimOverallInfoDocument, useAddBogSpaceMutation, PimBogSpacesDocument } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { AddCommercialSpaceInput, AddCommercialSpaceModalContainerProps } from '../CommercialSpaces.types';
