@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-final-form';
+
 import { Modal, SubmitButton } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
