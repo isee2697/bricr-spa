@@ -33,6 +33,7 @@ export const UserDetailsContainer = () => {
             hideOnMemos: update.hideOnMemos,
             isAccountmanager: update.isAccountmanager,
             isAdmin: update.isAdmin,
+            language: update.language,
           },
         },
         refetchQueries: [{ query: GetUserProfileDocument, variables: { id } }],

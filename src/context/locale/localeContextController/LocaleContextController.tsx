@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import countries from 'i18n-iso-countries';
 
@@ -6,6 +6,7 @@ import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { translations } from '../../../i18n/messages';
 import { LocaleContext } from '../localeContext/LocaleContext';
+import { useAuthState } from 'hooks';
 
 import { LocaleContextControllerProps } from './LocaleContextController.types';
 
@@ -25,12 +26,21 @@ const formats = {
 
 export const LocaleContextController = ({ children }: LocaleContextControllerProps) => {
   const [locale, setLocale] = useState<AppLocale>(defaultLocale);
+  const { user } = useAuthState();
+
+  const currentLocale = (user?.language as AppLocale) || locale;
+
+  useEffect(() => {
+    if (!!user?.language && user?.language !== locale) {
+      setLocale(user?.language as AppLocale);
+    }
+  }, [locale, user]);
 
   return (
     <IntlProvider
       defaultLocale={defaultLocale}
-      locale={locale}
-      messages={translations[locale]}
+      locale={currentLocale}
+      messages={translations[currentLocale]}
       formats={formats}
       defaultFormats={formats}
     >
