@@ -13,6 +13,9 @@ export const useStyles = makeStyles(theme => ({
   notificationsMenu: {
     minWidth: theme.spacing(45),
   },
+  notificationMenuHeader: {
+    marginBottom: theme.spacing(2),
+  },
   emptyNotificationsImageEmo: {
     fontSize: theme.typography.h1.fontSize,
   },
@@ -33,5 +36,8 @@ export const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(1),
       },
     },
+  },
+  btnMarkAllRead: {
+    padding: 0,
   },
 }));
