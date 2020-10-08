@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
+import { Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { AddNewIncomeInformationModal } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -11,7 +11,8 @@ import { AutosaveForm, FormSubSection } from '../../../../../ui/organisms';
 import { InfoSection } from '../../../../../ui/molecules';
 
 import { useStyles } from './IncomeInformation.styles';
-import { IncomeInformationItem } from './IncomeInformation.types';
+import { IncomeInformationItem, IncomeInformationType } from './IncomeInformation.types';
+import { Employer } from './employer/Employer';
 
 export const IncomeInformation = () => {
   const classes = useStyles();
@@ -112,7 +113,7 @@ export const IncomeInformation = () => {
                   }
                   onOptionsClick={() => {}}
                 >
-                  <Grid container></Grid>
+                  <Grid container>{incomeInformation.key === IncomeInformationType.Employer && <Employer />}</Grid>
                 </FormSubSection>
               ))}
           </Grid>
