@@ -11,7 +11,11 @@ export const WorkflowTemplatesContainer = () => {
   const { push } = useHistory();
 
   const handleAddTemplate = async (values: Pick<LabelInput, 'text' | 'icon'>) => {
-    push(AppRoute.workflow.replace(':id', values.text), { iconName: values.icon, name: values.text });
+    push(AppRoute.workflow.replace(':id', values.text), {
+      iconName: values.icon,
+      name: values.text,
+      isNew: true,
+    });
 
     return undefined;
   };

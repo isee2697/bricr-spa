@@ -13,12 +13,15 @@ import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
 import { WorkflowSection } from './workflowSection/WorkflowSection';
+import { WorkflowSection as WorkflowSectionType } from './workflowSection/WorkflowSection.types';
+import { WorkflowSectionSettings } from './workflowSectionSettings/WorkflowSectionSettings';
 import { useSections } from './useSections';
 
 export const Workflow = ({
   onToggleFullScreen,
   name,
   iconName,
+  isNew,
   goBack,
   actionsGroups,
   triggersGroups,
@@ -32,6 +35,7 @@ export const Workflow = ({
 
   const [sections, addSection, addItem] = useSections(initValues);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [sectionSettings, showSettingsDialog] = useState<string | null>(isNew ? sections[0].id : null);
 
   const handleFullScreenToggle = () => {
     onToggleFullScreen(!fullScreen);
@@ -81,6 +85,7 @@ export const Workflow = ({
                 expanded
                 onExpanded={() => setExpandedSection(null)}
                 onAddItem={handleAddItem}
+                onSettings={() => showSettingsDialog(expandedSection)}
               />
             )}
             {!expandedSection &&
@@ -91,6 +96,7 @@ export const Workflow = ({
                   expanded={false}
                   onExpanded={() => setExpandedSection(section.id)}
                   onAddItem={handleAddItem}
+                  onSettings={() => showSettingsDialog(section.id)}
                 />
               ))}
           </Box>
@@ -102,6 +108,17 @@ export const Workflow = ({
           {fullScreen ? <FullscreenOffIcon /> : <FullscreenOnIcon />}
         </IconButton>
       </div>
+
+      {sectionSettings && (
+        <WorkflowSectionSettings
+          onClose={() => showSettingsDialog(null)}
+          isOpened={!!sectionSettings}
+          workflowSection={sections.find(({ id }) => id === sectionSettings)}
+          onSubmit={(section: WorkflowSectionType) => {
+            showSettingsDialog(null);
+          }}
+        />
+      )}
     </div>
   );
 };
