@@ -1,11 +1,11 @@
 export {
   Scheduler,
   MonthView,
-  Appointments,
   AllDayPanel,
   AppointmentTooltip,
   AppointmentForm,
   CurrentTimeIndicator,
+  Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 export { ViewState } from '@devexpress/dx-react-scheduler';
 
@@ -30,4 +30,5 @@ export { AddCustomPropertyModal } from './addCustomPropertyModal/AddCustomProper
 export { FormModal } from './formModal/FormModal';
 export { WeekView } from './weekView/WeekView';
 export { DayView } from './dayView/DayView';
+export { Appointments } from './appointments/Appointments';
 export { LocaleSwitch } from './localeSwitch/LocaleSwitch';

@@ -14,11 +14,12 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   CurrentTimeIndicator,
+  Resources,
 } from 'ui/organisms';
 
 import { DateView, CalendarProps } from './Calandar.types';
 
-export const Calendar = ({ data, currentDate }: CalendarProps) => {
+export const Calendar = ({ data, currentDate, resources }: CalendarProps) => {
   const [currentView, setView] = useState(DateView.Week);
 
   return (
@@ -33,14 +34,15 @@ export const Calendar = ({ data, currentDate }: CalendarProps) => {
 
           <Scheduler data={data}>
             <ViewState currentDate={currentDate} currentViewName={currentView} />
-            <DayView startDayHour={9} endDayHour={14} />
-            <WeekView startDayHour={9} endDayHour={14} />
+            <DayView />
+            <WeekView />
             <MonthView />
             <AllDayPanel />
             <Appointments />
             <CurrentTimeIndicator updateInterval={1} />
             <AppointmentTooltip showCloseButton />
             <AppointmentForm readOnly />
+            <Resources data={resources} mainResourceName="type" />
           </Scheduler>
         </FormSection>
       </Page>
