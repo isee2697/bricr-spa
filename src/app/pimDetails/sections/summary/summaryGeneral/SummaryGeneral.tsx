@@ -1,8 +1,8 @@
 import useTheme from '@material-ui/core/styles/useTheme';
-import React from 'react';
-import clsx from 'classnames';
 
-import { Badge, Box, Button, Grid, Typography } from 'ui/atoms';
+import React, { useState } from 'react';
+import clsx from 'classnames';
+import { Badge, Box, Button, Grid, IconButton, Typography } from 'ui/atoms';
 import { BuildingIcon, SeeIcon, ShareIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
@@ -20,6 +20,7 @@ import { Specifications } from './specifications/Specifications';
 import { SummaryGeneralProps } from './SummaryGeneral.types';
 
 export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: SummaryGeneralProps) => {
+  const [isShowImportantBrokerContent, setIsShowImportantBrokerContent] = useState(false);
   const { formatMessage } = useLocale();
   const { address } = summary;
   const classes = useStyles(summary);
@@ -49,11 +50,58 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
           <Typography variant="h1" className={clsx(classes.marginTopTwo, classes.fontWeightMedium)}>
             <BuildingIcon className={classes.addressIcon} color="error" /> {address}
           </Typography>
-          <Box display="flex" alignItems="center" justifyContent="space-between" className={classes.summaryHeader}>
-            <Badge badgeContent={2} color="error" classes={{ badge: classes.importantBrokerBadge }}>
-              <Typography variant="h2">{formatMessage({ id: 'pim_details.summary.important_broker' })}</Typography>
-            </Badge>
-            <SeeIcon />
+          <Box className={classes.summaryHeader}>
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <Badge badgeContent={2} color="error" classes={{ badge: classes.importantBrokerBadge }}>
+                <Typography variant="h2">{formatMessage({ id: 'pim_details.summary.important_broker' })}</Typography>
+              </Badge>
+              <IconButton
+                variant="roundedContained"
+                onClick={() => setIsShowImportantBrokerContent(!isShowImportantBrokerContent)}
+              >
+                <SeeIcon />
+              </IconButton>
+            </Box>
+            {isShowImportantBrokerContent && (
+              <Grid container spacing={1} className={classes.summaryHeaderDescription}>
+                <Grid item xs={6}>
+                  <Box className={classes.importantBrokerItem}>
+                    <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+                      {formatMessage({ id: 'pim_details.summary.important_broker.house' })}
+                    </Typography>
+                    <Typography variant="h4" className={classes.importantBrokerValue}>
+                      Proin rhoncus neque vel ligula pellentesque elementum. Integer volutpat purus vitae mi lobortis.
+                    </Typography>
+                  </Box>
+                  <Box className={classes.importantBrokerItem}>
+                    <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+                      {formatMessage({ id: 'pim_details.summary.important_broker.key_number' })}
+                    </Typography>
+                    <Typography variant="h4" className={classes.importantBrokerValue}>
+                      21
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box className={classes.importantBrokerItem}>
+                    <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+                      {formatMessage({ id: 'pim_details.summary.important_broker.asking_price' })}
+                    </Typography>
+                    <Typography variant="h4" className={classes.importantBrokerValue}>
+                      Proin rhoncus neque vel ligula pellentesque elementum. Integer volutpat purus vitae mi lobortis.
+                    </Typography>
+                  </Box>
+                  <Box className={classes.importantBrokerItem}>
+                    <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+                      {formatMessage({ id: 'pim_details.summary.important_broker.defects_or_particulars' })}
+                    </Typography>
+                    <Typography variant="h4" className={classes.importantBrokerValue}>
+                      Proin rhoncus neque vel ligula pellentesque elementum. Integer volutpat purus vitae mi lobortis.
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={6}>
