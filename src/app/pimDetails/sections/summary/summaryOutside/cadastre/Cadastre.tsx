@@ -1,8 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
 import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
+import { Map as EsriMap } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { EuroIcon } from 'ui/atoms/icons';
 
@@ -11,14 +10,6 @@ import { useStyles } from './Cadastre.styles';
 export const Cadastre = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const mapStyles = {
-    width: '100%',
-    height: '100%',
-  };
-  const defaultCenter = {
-    lat: 52.3676,
-    lng: 4.9041,
-  };
 
   return (
     <Card className={classes.root}>
@@ -107,9 +98,7 @@ export const Cadastre = () => {
           </Grid>
           <Grid item xs={6}>
             <Box width="100%" className={classes.map}>
-              <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-                <GoogleMap mapContainerStyle={mapStyles} zoom={13} center={defaultCenter} />
-              </LoadScript>
+              <EsriMap />
             </Box>
           </Grid>
         </Grid>
