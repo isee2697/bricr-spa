@@ -1,5 +1,5 @@
-import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
 
 import { useLocale } from 'hooks';
 import { Box, Typography } from 'ui/atoms';

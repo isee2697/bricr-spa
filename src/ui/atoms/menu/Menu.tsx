@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { CardContent, Popper, Card, Box } from '../';
+import { CardContent, Popper, Card, CardActions, Box } from '../';
 import { useOnClickOutside } from 'hooks/useOnClickOutside/useOnClickOutside';
 
 import { MenuProps } from './Menu.types';
@@ -20,6 +20,7 @@ export const Menu = ({
   offsetLeft,
   arrow,
   onClose,
+  actions,
 }: MenuProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [arrRef, setArrRef] = useState<HTMLDivElement | null>(null);
@@ -47,6 +48,7 @@ export const Menu = ({
         >
           <Card className={classes.card}>
             <CardContent>{children}</CardContent>
+            {actions && <CardActions>{actions}</CardActions>}
           </Card>
         </Box>
       </div>

@@ -107,7 +107,6 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
           <form
             onSubmit={async event => {
               await handleSubmit(event);
-              form.reset();
             }}
             autoComplete="off"
           >

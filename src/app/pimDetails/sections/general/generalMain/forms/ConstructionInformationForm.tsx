@@ -37,7 +37,7 @@ export const ConstructionInformationForm = () => {
           <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.construction_information.status_construction' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
           <Grid container spacing={1} className={classes.tilesContainer}>
             <RadioGroupField sm={3} options={CONSTRUCTIONS} name="houseGeneral.construction.type" disabled={!editing} />

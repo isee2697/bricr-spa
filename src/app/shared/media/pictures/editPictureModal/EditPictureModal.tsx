@@ -65,7 +65,7 @@ export const EditPictureModal = ({
                   <FormSubSectionHeader
                     noBorder
                     title={formatMessage({ id: 'pim_details.media.add_picture_modal.type' })}
-                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                   />
                   <Box paddingTop={2} mb={2}>
                     <RadioGroupField

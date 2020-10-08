@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { AutocompleteProps } from '@material-ui/lab/Autocomplete';
+import { ReactNode } from 'react';
 
 import { Scalars } from '../../../api/types';
 

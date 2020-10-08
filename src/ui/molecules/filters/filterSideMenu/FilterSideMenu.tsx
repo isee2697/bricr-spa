@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useStyles } from '../Filters.styles';
-import { Tabs, Tab } from 'ui/atoms';
+import { SideMenuItem } from 'ui/atoms';
 import { FilterSidenavProps, FiltersTypes } from '../Filters.types';
+import { CheckIcon } from 'ui/atoms/icons';
+import { SideMenu } from 'ui/molecules/sideMenu/SideMenu';
 
-export const FilterSideMenu = ({ filters, onChange }: FilterSidenavProps) => {
+export const FilterSideMenu = ({ filters, onChange, selectedFilters }: FilterSidenavProps) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -21,10 +23,19 @@ export const FilterSideMenu = ({ filters, onChange }: FilterSidenavProps) => {
   }, [value, handleTabChange]);
 
   return (
-    <Tabs value={value} indicatorColor="primary" textColor="primary" orientation="vertical">
+    <SideMenu>
       {filters.map((item: FiltersTypes, i) => {
-        return <Tab className={classes.filterSiderTab} key={i} label={item.key} onClick={() => handleTabChange(i)} />;
+        return (
+          <SideMenuItem
+            className={classes.filterTab + ' pim-side-menu-item'}
+            key={i}
+            title={item.key}
+            icon={selectedFilters && selectedFilters[item.key] && <CheckIcon />}
+            selected={i === value}
+            onClick={() => handleTabChange(i)}
+          />
+        );
       })}
-    </Tabs>
+    </SideMenu>
   );
 };
