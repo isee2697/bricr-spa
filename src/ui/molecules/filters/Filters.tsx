@@ -1,7 +1,7 @@
+import EuroIcon from '@material-ui/icons/Euro';
 import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import EuroIcon from '@material-ui/icons/Euro';
 import { Chip } from '@material-ui/core';
 
 import { DevelopmentType, PricingType, PropertyType } from 'api/types';
