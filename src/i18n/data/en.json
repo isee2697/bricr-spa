@@ -1337,6 +1337,7 @@
   "settings.menu.workflow_templates": "Workflow templates",
   "settings.menu.bricr_templates": "Bricr templates",
   "settings.menu.custom_templates": "Custom templates",
+  "settings.menu.billing": "Billing",
   "settings.menu.teams": "Team Options",
   "settings.menu.createTeam": "Create teams",
   "settings.menu.user_options": "User options",

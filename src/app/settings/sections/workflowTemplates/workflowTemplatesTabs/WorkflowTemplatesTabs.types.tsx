@@ -4,7 +4,7 @@ export type WorkflowTemplatesTabsProps = {
   status: ActiveTabStatus;
   onStatusChange: (status: ActiveTabStatus) => void;
   amounts?: {
-    active: number | string;
-    inactive: number | string;
+    active: number;
+    inactive: number;
   };
 };

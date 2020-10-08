@@ -4,8 +4,8 @@ import { WorkflowItem } from '../WorkflowTemplates.types';
 
 export const useStyles = makeStyles(theme => ({
   image: {
-    width: 314,
-    height: 204,
+    width: theme.spacing(39.25),
+    height: theme.spacing(25.5),
     marginRight: theme.spacing(2),
     filter: ({ status }: WorkflowItem) => (status === 'inactive' ? 'grayscale(1)' : ''),
     fontSize: '3em',
@@ -53,8 +53,8 @@ export const useStyles = makeStyles(theme => ({
   },
   statItem: {
     alignItems: 'center',
-    width: 75,
-    height: 40,
+    width: theme.spacing(9.375),
+    height: theme.spacing(5),
     borderLeft: `1px solid ${theme.palette.gray.light}`,
     '&:last-of-type': {
       borderRight: `1px solid ${theme.palette.gray.light}`,
@@ -83,5 +83,19 @@ export const useStyles = makeStyles(theme => ({
   menuIcon: {
     color: theme.palette.gray.main,
   },
-  menuText: {},
+  inactiveWrapper: {
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+    background: theme.palette.white.light,
+  },
+  inactiveChip: {
+    color: theme.palette.white.main,
+    backgroundColor: theme.palette.gray.main,
+  },
 }));

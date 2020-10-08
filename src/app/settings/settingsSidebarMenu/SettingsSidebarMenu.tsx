@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { SidebarMenu } from 'ui/molecules';
-import { SettingsIcon } from 'ui/atoms/icons';
+import { SettingsIcon, AogIcon } from 'ui/atoms/icons';
 import { SidebarTitleTile } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
@@ -39,12 +39,22 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
             key: 'workflow_templates',
             subItems: [
               {
-                id: 'bricr_templates',
+                id: 'bricr',
                 label: 'settings.menu.bricr_templates',
+                icon: (
+                  <div style={{ marginLeft: 30 }}>
+                    <AogIcon color="primary" />
+                  </div>
+                ),
               },
               {
-                id: 'custom_templates',
+                id: 'custom',
                 label: 'settings.menu.custom_templates',
+                icon: (
+                  <div style={{ color: 'orange', marginLeft: 30 }}>
+                    <AogIcon color="inherit" />
+                  </div>
+                ),
               },
             ],
           },

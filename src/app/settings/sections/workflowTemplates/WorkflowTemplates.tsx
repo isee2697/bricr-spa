@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
+import { useHistory } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
-// import { AppRoute } from "routing/AppRoute.enum";
+import { AppRoute } from 'routing/AppRoute.enum';
 import { Card, CardContent, Grid, Box, Typography, Badge, CardHeader, IconButton } from 'ui/atoms';
-// import { useHistory } from "react-router-dom";
 import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { AddCustomPropertyModal } from 'ui/organisms';
 import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 
-import {
-  ActiveTabStatus,
-  TemplateType,
-  // WorkflowBluePrints,
-  WorkflowTemplatesProps,
-} from './WorkflowTemplates.types';
+import { ActiveTabStatus, WorkflowTemplatesProps } from './WorkflowTemplates.types';
 import { useStyles } from './WorkflowTemplates.styles';
 import { WorkflowTemplatesTabs } from './workflowTemplatesTabs/WorkflowTemplatesTabs';
 import { WorkflowTemplatesItem } from './workflowTemplatesItem/WorkflowTemplatesItem';
 
 const mockData = {
-  notifications: ['', ''],
+  notifications: [],
 };
 
 export const WorkflowTemplates = ({
@@ -30,17 +25,18 @@ export const WorkflowTemplates = ({
   updatedBy,
   dateUpdated,
   onAdd,
-  templateType = TemplateType.custom,
+  onUpdate,
+  templateType = 'bricr',
 }: WorkflowTemplatesProps) => {
   const { formatMessage } = useLocale();
   const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
-  // const { push } = useHistory();
+  const { push } = useHistory();
   const [status, setStatus] = useState<ActiveTabStatus>('active');
   const { notifications } = mockData;
 
-  const activeTemplates = templates.filter(item => item.status === 'active');
-  const inactiveTemplates = templates.filter(item => item.status === 'inactive');
+  const activeTemplates = templates.filter(item => item.status === 'active' && item.type === templateType);
+  const inactiveTemplates = templates.filter(item => item.status === 'inactive' && item.type === templateType);
 
   return (
     <>
@@ -60,7 +56,7 @@ export const WorkflowTemplates = ({
         title={formatMessage({
           id: `settings.workflow_templates.${templateType}_title`,
         })}
-        titleActions={null}
+        titleActions={[]}
         placeholder="settings.workflow_templates.description_placeholder"
         name="description"
         dateUpdated={dateUpdated}
@@ -90,26 +86,15 @@ export const WorkflowTemplates = ({
                   status={status}
                   onStatusChange={setStatus}
                   amounts={{
-                    active: activeTemplates?.length || '-',
-                    inactive: inactiveTemplates?.length || '-',
+                    active: activeTemplates?.length,
+                    inactive: inactiveTemplates?.length,
                   }}
                 />
               </Box>
-              {/* <div className={classes.blueprintCheckboxContainer}>
-                {Object.keys(WorkflowBluePrints).map((key) => (
-                  <CheckboxField
-                    key={key}
-                    label={`dictionaries.workflow_blueprint.${key}`}
-                    name={key}
-                    containerClassName={classes.blueprintCheckbox}
-                  />
-                ))}
-              </div> */}
               <List
                 className="workflow-template-list"
                 items={status === 'active' ? activeTemplates : inactiveTemplates}
                 itemIndex="id"
-                // onBulk={(selectedItems) => alert(JSON.stringify(selectedItems))}
                 sortOptions={[
                   { key: 'lastEdited', name: 'Last edited' },
                   { key: 'firstEdited', name: 'First edited' },
@@ -140,13 +125,22 @@ export const WorkflowTemplates = ({
                       <Box
                         className={classes.itemButton}
                         onClick={() => {
-                          // push(AppRoute.workflow.replace(":id", template.id))
+                          if (template.type === 'custom' && template.status === 'active') {
+                            push(AppRoute.workflow.replace(':id', template.id), {
+                              icon: template.icon,
+                              name: template.name,
+                            });
+                          }
                         }}
                       >
                         <WorkflowTemplatesItem
                           template={template}
-                          onCopyToCustom={() => {}}
-                          onStatusChange={() => {}}
+                          onCopyToCustom={() => {
+                            onUpdate({ ...template, type: 'custom' });
+                          }}
+                          onStatusChange={status => {
+                            onUpdate({ ...template, status });
+                          }}
                         />
                       </Box>
                     </Box>

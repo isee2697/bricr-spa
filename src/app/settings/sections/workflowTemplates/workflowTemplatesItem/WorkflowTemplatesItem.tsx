@@ -41,10 +41,22 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
-        <Box>
+        <Box position="relative">
           <Avatar variant="rounded" src={avatar} className={classes.image}>
             {!avatar && <Emoji>{'📷'}</Emoji>}
           </Avatar>
+          {status === 'inactive' && (
+            <Box className={classes.inactiveWrapper}>
+              <Chip
+                color="secondary"
+                label={formatMessage({
+                  id: 'settings.workflow_templates.inactive',
+                })}
+                className={classes.inactiveChip}
+                size="small"
+              />
+            </Box>
+          )}
         </Box>
         <Box width="100%" display="flex" flexDirection="column" alignItems="space-between">
           <Box display="flex" justifyContent="space-between" mb={2}>
@@ -104,7 +116,7 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
                   className={classes.menuItem}
                   onClick={(event: React.MouseEvent) => {
                     event.stopPropagation();
-                    onStatusChange();
+                    onStatusChange(status === 'active' ? 'inactive' : 'active');
                   }}
                 >
                   <EditIcon classes={{ root: classes.menuIcon }} />
@@ -116,7 +128,7 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
                     </Typography>
                   </Box>
                   <Box ml="auto">
-                    <Checkbox color="primary" checked={status === 'active'} onChange={() => {}} name="checkedA" />
+                    <Checkbox color="primary" checked={status === 'active'} name="checkedA" />
                   </Box>
                 </MenuItem>
               </Menu>

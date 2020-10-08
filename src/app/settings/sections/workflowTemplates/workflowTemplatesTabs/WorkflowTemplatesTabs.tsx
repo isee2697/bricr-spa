@@ -12,14 +12,12 @@ export const WorkflowTemplatesTabs = ({ status, onStatusChange, amounts }: Workf
   const tabs: ActionTab[] = [
     {
       value: 'active',
-      // amount: amounts && amounts.active,
-      amount: 14,
+      amount: amounts && amounts.active,
       label: formatMessage({ id: 'settings.workflow_templates.active' }),
     },
     {
       value: 'inactive',
-      // amount: amounts && amounts.inactive,
-      amount: 1,
+      amount: amounts && amounts.inactive,
       label: formatMessage({ id: 'settings.workflow_templates.inactive' }),
     },
   ];

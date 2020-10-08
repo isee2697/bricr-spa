@@ -6,6 +6,7 @@ export type SubMenuItem =
       label?: string;
       title?: string;
       number?: number;
+      icon?: ReactNode;
     }
   | string;
 
