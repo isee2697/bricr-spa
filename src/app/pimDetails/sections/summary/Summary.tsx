@@ -8,6 +8,7 @@ import { useEntityType } from 'app/shared/entityType';
 import { SummaryProps } from './Summary.types';
 import { SummaryGeneralContainer } from './summaryGeneral/SummaryGeneralContainer';
 import { SummaryInsideContainer } from './summaryInside/SummaryInsideContainer';
+import { SummaryOutsideContainer } from './summaryOutside/SummaryOutsideContainer';
 
 export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: SummaryProps) => {
   const { formatMessage } = useLocale();
@@ -15,7 +16,7 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
 
   return (
     <>
-      <NavBreadcrumb title={formatMessage({ id: 'pim_details.summary.details' })} urlBase={baseUrl} to="/summary" />
+      <NavBreadcrumb title={formatMessage({ id: 'pim_details.summary.title' })} urlBase={baseUrl} to="/summary" />
       <Switch>
         <Route
           default
@@ -27,6 +28,11 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
           path={`${baseUrl}/summary/inside`}
           exact
           render={() => <SummaryInsideContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />}
+        />
+        <Route
+          path={`${baseUrl}/summary/outside`}
+          exact
+          render={() => <SummaryOutsideContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />}
         />
         <Redirect to={`${baseUrl}/summary`} />
       </Switch>
