@@ -186,7 +186,7 @@ export const RetailSpaceForm = ({ commercialSpace, index }: CommercialSpaceFormP
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.wealth_class' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <Box mb={1} />
               <RadioGroupField

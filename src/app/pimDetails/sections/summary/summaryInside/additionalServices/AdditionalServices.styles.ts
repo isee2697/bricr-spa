@@ -6,7 +6,7 @@ export const useStyles = makeStyles(theme => ({
   },
   index: {
     color: theme.palette.gray.main,
-    border: `2px solid ${theme.palette.gray.light}`,
+    border: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     borderRadius: theme.spacing(1.5),
     width: theme.spacing(3),
     height: theme.spacing(3),

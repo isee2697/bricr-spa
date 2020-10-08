@@ -1,6 +1,6 @@
+import { useTheme } from '@material-ui/core/styles';
 import React from 'react';
 import clsx from 'classnames';
-import { useTheme } from '@material-ui/core/styles';
 
 import { Box, UserAvatar, Typography, ScrollableHorizontal } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

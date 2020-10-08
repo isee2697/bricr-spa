@@ -17,7 +17,7 @@ export const BogPropertyDetailsForm = ({ editing }: DetailsFormProps) => {
       <FormSubSectionHeader
         className={classes.subHeader}
         title={formatMessage({ id: 'pim_details.general.bog_details.bog_type' })}
-        subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+        subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
       />
       <RadioGroupField sm={3} options={BOG_TYPES} name="bogGeneral.type" disabled={!editing} />
 

@@ -18,7 +18,7 @@ export const Foundation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_foundation_type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <Box pl={2}>

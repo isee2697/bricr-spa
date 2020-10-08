@@ -1,7 +1,7 @@
+import withStyles from '@material-ui/core/styles/withStyles';
 import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import {
