@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { FormSection } from 'ui/organisms';
 import { Button, Box, Grid, Typography } from 'ui/atoms';
 import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
@@ -152,7 +151,7 @@ export const Moments = () => {
                   </Box>
                   <Box mb={4}>
                     <Box mb={3} px={2}>
-                      <FormSubSectionHeader noBorder title="Account managers" subtitle="Choose one option below" />
+                      <FormSubSectionHeader noBorder title="Moment schedule" subtitle="Choose one option below" />
                     </Box>
                     <Box px={2}>
                       <AvailabilityPicker days={days} />
