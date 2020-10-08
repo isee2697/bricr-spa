@@ -1,5 +1,5 @@
-import React from 'react';
 import Input from '@material-ui/core/Input/Input';
+import React from 'react';
 
 import { useLocale } from 'hooks';
 import { SearchIcon } from 'ui/atoms/icons';

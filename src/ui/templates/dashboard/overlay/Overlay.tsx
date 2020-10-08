@@ -1,5 +1,5 @@
-import React from 'react';
 import Fade from '@material-ui/core/Fade';
+import React from 'react';
 
 import { useOverlayState } from 'hooks/useOverlayState/useOverlayState';
 

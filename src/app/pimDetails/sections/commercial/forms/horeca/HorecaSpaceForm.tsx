@@ -113,7 +113,7 @@ export const HorecaSpaceForm = ({ commercialSpace, index }: CommercialSpaceFormP
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.horeca_type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <Box mb={1} />
               <RadioGroupField disabled={!editing} name="horecaSpaceConfiguration.type" options={HORECA_TYPES} />
@@ -210,7 +210,7 @@ export const HorecaSpaceForm = ({ commercialSpace, index }: CommercialSpaceFormP
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.wealth_class' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <Box mb={1} />
               <RadioGroupField
@@ -222,7 +222,7 @@ export const HorecaSpaceForm = ({ commercialSpace, index }: CommercialSpaceFormP
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.legal_form' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <Box mb={1} />
               <RadioGroupField

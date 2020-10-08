@@ -27,7 +27,7 @@ export const SubSectionHeader = ({
       )}
       <Grid item>{children}</Grid>
       <Grid className={classes.menu} item>
-        {customOption ?? (
+        {customOption && (
           <IconButton onClick={onOptionsClick}>
             <MenuIcon />
           </IconButton>

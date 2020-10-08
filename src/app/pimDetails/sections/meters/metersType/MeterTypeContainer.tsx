@@ -1,6 +1,6 @@
+import upperFirst from 'lodash/upperFirst';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import upperFirst from 'lodash/upperFirst';
 
 import {
   useUpdateMeterMutation,

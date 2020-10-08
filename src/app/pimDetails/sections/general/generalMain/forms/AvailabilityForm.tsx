@@ -56,7 +56,7 @@ export const AvailabilityForm = () => {
           <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.availability.title' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
           <Box mb={2} mt={2}>
             <Grid container spacing={1} className={classes.tilesContainer}>
@@ -97,7 +97,7 @@ export const AvailabilityForm = () => {
           <FormSubSectionHeader
             className={classes.subHeader}
             title={formatMessage({ id: 'pim_details.general.availability.habitation' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
           <Box mb={2} mt={2}>
             <Grid container spacing={1} className={classes.tilesContainer}>
