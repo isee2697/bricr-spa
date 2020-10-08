@@ -8,6 +8,7 @@ import { Page } from 'ui/templates';
 import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './FinancialProfile.styles';
+import { IncomeInformation } from './incomeInformation/IncomeInformation';
 
 export const FinancialProfile = () => {
   const classes = useStyles();
@@ -36,6 +37,8 @@ export const FinancialProfile = () => {
             <MenuIcon />
           </IconButton>
         </Grid>
+
+        <IncomeInformation />
       </Page>
     </>
   );
