@@ -49,7 +49,6 @@ export const PersonalInformation = ({ id, image }: Profile) => {
               label="settings.users.function_description"
               placeholder="settings.users.function_description"
             />
-
             <InputLabel className={classes.label} disabled={!isEditing} variant={'standard'}>
               {formatMessage({ id: 'language.label' })}
             </InputLabel>
