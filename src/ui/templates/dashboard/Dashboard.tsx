@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import { IconButton, Badge, Sidebar } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
 import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
