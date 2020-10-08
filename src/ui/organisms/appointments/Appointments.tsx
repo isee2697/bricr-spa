@@ -1,10 +1,11 @@
 import React from 'react';
 import { Appointments as App, AppointmentsProps, WeekView as Week } from '@devexpress/dx-react-scheduler-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
-import { Color } from '@material-ui/core';
 import classNames from 'classnames';
 
-export const useStyles = (color: Color) =>
+import { palette } from 'theme/palette';
+
+export const useStyles = (color: string = palette.blue.main) =>
   makeStyles(({ spacing }) => ({
     root: {
       backgroundColor: `${color}99`,
@@ -18,9 +19,8 @@ export const useStyles = (color: Color) =>
   }))();
 
 const AppointmentWeekLayout = ({ ...props }: App.AppointmentProps) => {
-  const classes = useStyles(props?.resources?.[0].color as Color);
-
-  console.log(props.data.allDay);
+  const color = props.resources.find(item => item.id === props.data.type)?.color as string;
+  const classes = useStyles(color);
 
   return <App.Appointment {...props} className={classNames(classes.root, classes.allDay)} />;
 };
