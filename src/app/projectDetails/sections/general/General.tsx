@@ -91,7 +91,7 @@ export const General = ({ data, isSidebarVisible, onSidebarOpen }: GeneralProps)
 
                 <FormSubSectionHeader
                   title={formatMessage({ id: 'project_details.general.construction.progress_project' })}
-                  subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 />
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
@@ -173,7 +173,7 @@ export const General = ({ data, isSidebarVisible, onSidebarOpen }: GeneralProps)
 
                 <FormSubSectionHeader
                   title={formatMessage({ id: 'project_details.general.construction.project_risk' })}
-                  subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 />
                 <Box mt={2}>
                   <RadioGroupField

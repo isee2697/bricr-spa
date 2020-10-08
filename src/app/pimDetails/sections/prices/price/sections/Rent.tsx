@@ -58,7 +58,7 @@ export const Rent = ({ isInitExpanded }: PropertyTypeProps) => {
 
           <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.prices.conditions' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
             noBorder
           />
           <Box mb={2} />

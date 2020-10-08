@@ -67,7 +67,7 @@ export const TerrainForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPr
         <Box mb={3}>
           <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.terrain.parking' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
         </Box>
         <Box mb={1}>

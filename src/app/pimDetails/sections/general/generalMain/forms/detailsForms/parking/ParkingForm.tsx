@@ -45,7 +45,7 @@ export const ParkingForm = ({ editing }: DetailsFormProps) => {
       <FormSubSectionHeader
         className={classes.subHeader}
         title={formatMessage({ id: 'pim_details.parking.parking_type' })}
-        subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+        subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
       />
       <Grid container spacing={1} className={classes.tilesContainer}>
         <RadioGroupField options={PARKING_TYPES} name="parkingGeneral.type.type" disabled={!editing} />
@@ -184,7 +184,7 @@ export const ParkingForm = ({ editing }: DetailsFormProps) => {
       <Box mb={2} />
       <FormSubSectionHeader
         title={formatMessage({ id: 'pim_details.parking.insulation' })}
-        subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+        subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
       />
       <Box mb={2} />
       <RadioGroupField disabled={!editing} name="parkingGeneral.insulation.type" options={PARKING_INSULATION} />

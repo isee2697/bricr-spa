@@ -14,6 +14,7 @@ import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRe
 import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
 import { PersonalInformationGeneral } from './personalInformation/general/General';
 import { ContactInformation } from './personalInformation/contactInformation/ContactInformation';
+import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -50,6 +51,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   path={`${path}/personal_information_contact_information`}
                   render={() => <ContactInformation />}
                 />
+                <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
