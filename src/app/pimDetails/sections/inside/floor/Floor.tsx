@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
 import groupBy from 'lodash/groupBy';
+import React, { useRef, useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';

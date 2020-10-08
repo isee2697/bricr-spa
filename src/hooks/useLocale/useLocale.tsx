@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import React, { useContext, useMemo } from 'react';
 import { IntlShape, MessageDescriptor, useIntl } from 'react-intl';
 import { PrimitiveType } from 'intl-messageformat';
 import { FormattedMessage } from 'react-intl-phraseapp';

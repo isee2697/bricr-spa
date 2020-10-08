@@ -16,7 +16,7 @@ export const PropertyDetailsForm = ({ editing }: DetailsFormProps) => {
       <FormSubSectionHeader
         className={classes.subHeader}
         title={formatMessage({ id: 'pim_details.general.property_details.pick_type_of_property' })}
-        subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+        subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
       />
       <div className={classes.tilesContainer}>
         <RadioGroupField
@@ -31,7 +31,7 @@ export const PropertyDetailsForm = ({ editing }: DetailsFormProps) => {
       <FormSubSectionHeader
         className={classes.subHeader}
         title={formatMessage({ id: 'pim_details.general.property_details.property_connection' })}
-        subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+        subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
       />
       <div className={classes.tilesContainer}>
         <RadioGroupField

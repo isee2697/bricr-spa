@@ -29,8 +29,22 @@ export const useStyles = makeStyles(theme => ({
     background: theme.palette.white.main,
     borderRadius: theme.spacing(1),
   },
+  summaryHeaderDescription: {
+    marginTop: theme.spacing(3),
+  },
   importantBrokerBadge: {
     right: -theme.spacing(1),
+  },
+  importantBrokerItem: {
+    marginBottom: theme.spacing(2),
+
+    '&:last-child': {
+      marginBottom: 0,
+    },
+  },
+  importantBrokerValue: {
+    marginTop: theme.spacing(0.5),
+    fontWeight: theme.typography.fontWeightMedium,
   },
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,
@@ -40,5 +54,8 @@ export const useStyles = makeStyles(theme => ({
   },
   marginTopTwo: {
     marginTop: theme.spacing(2),
+  },
+  gray: {
+    color: theme.palette.gray.main,
   },
 }));

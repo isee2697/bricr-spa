@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import groupBy from 'lodash/groupBy';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { GroupTitle } from 'ui/organisms';

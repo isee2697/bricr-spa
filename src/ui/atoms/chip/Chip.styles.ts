@@ -1,6 +1,6 @@
-import React from 'react';
 import MaterialChip from '@material-ui/core/Chip';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
 import { ChipProps } from './Chip.types';
 

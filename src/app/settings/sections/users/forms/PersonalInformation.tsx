@@ -49,7 +49,6 @@ export const PersonalInformation = ({ id, image }: Profile) => {
               label="settings.users.function_description"
               placeholder="settings.users.function_description"
             />
-
             <InputLabel className={classes.label} disabled={!isEditing} variant={'standard'}>
               {formatMessage({ id: 'language.label' })}
             </InputLabel>
@@ -58,7 +57,7 @@ export const PersonalInformation = ({ id, image }: Profile) => {
           <Grid item xs={12}>
             <FormSubSectionHeader
               noBorder
-              subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               title={formatMessage({ id: 'settings.users.gender' })}
             />
             <RadioGroupField xs={3} lg={2} name="gender" options={GenderOptions} />
