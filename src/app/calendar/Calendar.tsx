@@ -39,7 +39,7 @@ export const Calendar = ({ data, currentDate, resources }: CalendarProps) => {
             <MonthView />
             <AllDayPanel />
             <Appointments />
-            <CurrentTimeIndicator updateInterval={1} />
+            <CurrentTimeIndicator updateInterval={1000} />
             <AppointmentTooltip showCloseButton />
             <AppointmentForm readOnly />
             <Resources data={resources} mainResourceName="type" />
