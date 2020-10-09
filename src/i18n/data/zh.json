@@ -43,7 +43,7 @@
   "common.delete": "删除",
   "common.done": "做",
   "common.edit": "改变",
-  "common.error": "出问题了",
+  "common.error": "出问题了 {message}",
   "common.failed": "失败",
   "common.from": "的",
   "common.from_placeholder": "例如 14-06-1991",

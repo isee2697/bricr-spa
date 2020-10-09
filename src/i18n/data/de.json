@@ -43,7 +43,7 @@
   "common.delete": "Entfernen",
   "common.done": "fertig",
   "common.edit": "Veränderung",
-  "common.error": "Irgendetwas ist schief gelaufen.",
+  "common.error": "Irgendetwas ist schief gelaufen {message}",
   "common.failed": "Fehlgeschlagen",
   "common.from": "von",
   "common.from_placeholder": "z.B. 14-06-1991",

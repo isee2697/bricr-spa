@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
@@ -65,7 +64,9 @@ export const PimDetails = ({
           <Grid container className={classes.content}>
             {!!error && (
               <Grid item xs={12}>
-                <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
+                <Alert severity="error">
+                  {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
+                </Alert>
               </Grid>
             )}
             {!error && !!pim && (

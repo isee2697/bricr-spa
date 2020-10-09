@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useIntl } from 'react-intl';
-
 import { Dashboard } from 'app/dashboard/Dashboard';
 import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
 import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
@@ -17,7 +16,7 @@ import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContainer';
 import { TasksContainer } from 'app/tasks/TasksContainer';
 import { TaskDetailsContainer } from 'app/taskDetails/TaskDetailsContainer';
-import { LinkedPropertiesDetailsContainer } from 'app/likedPropertiesDetails/LinkedPropertiesDetailsContainer';
+import { LinkedPropertiesDetailsContainer } from 'app/linkedPropertiesDetails/LinkedPropertiesDetailsContainer';
 import { SettingsContainer } from 'app/settings/SettingsContainer';
 import { RegisterContainer } from 'app/register/RegisterContainer';
 import { SetupContainer } from 'app/register/setup/SetupContainer';

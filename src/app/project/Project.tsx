@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
 import { PimSidebarMenu } from 'app/pim/pimSidebarMenu/PimSidebarMenu';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';
@@ -22,6 +21,7 @@ export const Project = ({
   type,
   isLoading,
   isError,
+  error,
   amounts,
   listData,
   sorting,
@@ -36,7 +36,11 @@ export const Project = ({
 
   return (
     <>
-      {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
+      {isError && (
+        <Alert severity="error">
+          {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
+        </Alert>
+      )}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
           <PimSidebarMenu

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useObjectTypeOverallInfoQuery, usePimOverallInfoQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -20,7 +19,9 @@ export const LinkedPropertiesDetailsContainer = () => {
     .replace(':objectTypeId', objectTypeId);
 
   const { loading, error, data } = usePimOverallInfoQuery({ variables: { id } });
-  const { data: objectTypeData } = useObjectTypeOverallInfoQuery({ variables: { id: objectTypeId, projectId } });
+  const { data: objectTypeData, error: objectTypeError } = useObjectTypeOverallInfoQuery({
+    variables: { id: objectTypeId, projectId },
+  });
 
   const pim = data?.getPimGeneral;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
@@ -37,7 +38,7 @@ export const LinkedPropertiesDetailsContainer = () => {
   return (
     <PimDetails
       loading={loading}
-      error={error}
+      error={error || objectTypeError}
       data={data}
       breadcrumbs={breadcrumbs}
       path={AppRoute.linkedPropertyDetails}

@@ -43,7 +43,7 @@
   "common.delete": "eliminar",
   "common.done": "Hecho",
   "common.edit": "cambio",
-  "common.error": "Algo salió mal",
+  "common.error": "Algo salió mal {message}",
   "common.failed": "Fallado",
   "common.from": "De",
   "common.from_placeholder": "por ejemplo, 14-06-1991",

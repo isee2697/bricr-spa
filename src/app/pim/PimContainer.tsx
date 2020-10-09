@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
@@ -88,6 +87,7 @@ export const PimContainer = () => {
       onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
       isError={!!countError || !!listError}
+      error={countError || listError}
       amounts={amounts}
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}

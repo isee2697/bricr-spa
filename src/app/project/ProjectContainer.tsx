@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useLocale, usePagination, useSnackbar } from 'hooks';
 import {
@@ -189,6 +188,7 @@ export const ProjectContainer = () => {
         onTypeChange={setType}
         isLoading={isCountLoading || isListLoading}
         isError={!!countError || !!listError}
+        error={countError || listError}
         amounts={amounts}
         listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
         sorting={sorting}

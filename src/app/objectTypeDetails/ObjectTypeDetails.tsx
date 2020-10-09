@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Switch, Redirect, Route, useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks';
-import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
+import { Grid, NavBreadcrumb, Box, Loader, Alert } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { Dashboard } from 'app/objectTypeDetails/sections/dashboard/Dashboard';
 import { Prices } from 'app/objectTypeDetails/sections/prices/Prices';
@@ -16,7 +15,7 @@ import { CharacteristicsContainer } from './sections/characteristics/Characteris
 import { ObjectTypeDetailsSidebarMenu } from './objectTypeDetailsSidebarMenu/ObjectTypeDetailsSidebarMenu';
 import { ObjectTypeDetailsProps } from './ObjectTypeDetails.types';
 
-export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
+export const ObjectTypeDetails = ({ data, loading, error }: ObjectTypeDetailsProps) => {
   const { formatMessage } = useLocale();
   const { id, projectId } = useParams<{ id: string; projectId: string }>();
   const [isSidebarVisible, setSidebarVisiblity] = useState(true);
@@ -32,6 +31,10 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
     setSidebarVisiblity(true);
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <EntityTypeProvider entityType={EntityType.ObjectType}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
@@ -41,52 +44,61 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
         <ObjectTypeDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} data={data} />
 
         <Box flex={1} padding={3}>
-          <Switch>
-            <Route
-              path={`${AppRoute.objectTypeDetails}/dashboard`}
-              render={() => <Dashboard isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/prices`}
-              render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
-              isSidebarVisible={isSidebarVisible}
-              onSidebarOpen={handleSidebarOpen}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/services`}
-              render={() => (
-                <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-              )}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/media`}
-              render={() => <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/objectJourney`}
-              render={() => (
-                <ProjectJourneyContainer
-                  titleId="project_details.object_type.project_journey.title"
-                  subtitleId="project_details.object_type.project_journey.subtitle"
-                  isSidebarVisible={isSidebarVisible}
-                  onSidebarOpen={handleSidebarOpen}
-                />
-              )}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/characteristics`}
-              render={() => (
-                <CharacteristicsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-              )}
-            />
-            <Route
-              path={`${AppRoute.objectTypeDetails}/properties`}
-              render={() => (
-                <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-              )}
-            />
-            <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
-          </Switch>
+          {!!error && (
+            <Grid item xs={12}>
+              <Alert severity="error">
+                {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
+              </Alert>
+            </Grid>
+          )}
+          {!error && !!data?.objectType && (
+            <Switch>
+              <Route
+                path={`${AppRoute.objectTypeDetails}/dashboard`}
+                render={() => <Dashboard isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/prices`}
+                render={() => <Prices isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+                isSidebarVisible={isSidebarVisible}
+                onSidebarOpen={handleSidebarOpen}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/services`}
+                render={() => (
+                  <ServicesGeneralContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/media`}
+                render={() => <MediaContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/objectJourney`}
+                render={() => (
+                  <ProjectJourneyContainer
+                    titleId="project_details.object_type.project_journey.title"
+                    subtitleId="project_details.object_type.project_journey.subtitle"
+                    isSidebarVisible={isSidebarVisible}
+                    onSidebarOpen={handleSidebarOpen}
+                  />
+                )}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/characteristics`}
+                render={() => (
+                  <CharacteristicsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Route
+                path={`${AppRoute.objectTypeDetails}/properties`}
+                render={() => (
+                  <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                )}
+              />
+              <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />
+            </Switch>
+          )}
         </Box>
       </Grid>
     </EntityTypeProvider>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { useGetMyTeamMembersQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
@@ -12,7 +11,7 @@ export const TasksContainer = () => {
     skip: !isAuthorized,
   });
 
-  if (!isAuthorized || !user || loading || !data) {
+  if (!isAuthorized || !user || loading || (!data && !error)) {
     return <Loader />;
   }
 

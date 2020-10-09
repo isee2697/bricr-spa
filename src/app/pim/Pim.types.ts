@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-boost';
 import { ListPimsQuery, PricingType } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
@@ -22,6 +23,7 @@ export type PimProps = {
   activeFilters: ListPimsFilters;
   isLoading: boolean;
   isError: boolean;
+  error: ApolloError | undefined;
   amounts?: {
     actionRequired: number;
     active: number;

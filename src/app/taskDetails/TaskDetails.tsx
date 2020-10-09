@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Alert, Box, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
@@ -19,7 +18,9 @@ export const TaskDetails = ({ error, taskData, breadcrumbs, user, members, onUpd
       <Box className={classes.content}>
         {!!error && (
           <Grid item xs={12}>
-            <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
+            <Alert severity="error">
+              {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
+            </Alert>
           </Grid>
         )}
         <TaskDetailsHeader title={taskData.title || ''} />

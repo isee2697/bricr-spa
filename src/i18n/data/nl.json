@@ -43,7 +43,7 @@
   "common.delete": "Verwijder",
   "common.done": "Gedaan",
   "common.edit": "Wijzig",
-  "common.error": "Er is iets fout gegaan",
+  "common.error": "Er is iets fout gegaan {message}",
   "common.failed": "Mislukt",
   "common.from": "Van",
   "common.from_placeholder": "b.v. 14-06-1991",
