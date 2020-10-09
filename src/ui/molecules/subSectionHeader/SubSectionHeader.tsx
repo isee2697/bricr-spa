@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { MenuIcon, ArrowUpIcon, ArrowDownIcon } from 'ui/atoms/icons';
 import { Grid, IconButton } from 'ui/atoms';
 
@@ -27,7 +26,7 @@ export const SubSectionHeader = ({
       )}
       <Grid item>{children}</Grid>
       <Grid className={classes.menu} item>
-        {customOption && (
+        {customOption ?? (
           <IconButton onClick={onOptionsClick}>
             <MenuIcon />
           </IconButton>
