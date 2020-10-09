@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { AddNewIncomeInformationModal } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -7,12 +7,16 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { PromiseFunction } from 'app/shared/types';
 import { AddNewIncomeInformationBody } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal.types';
-import { AutosaveForm, FormSubSection } from '../../../../../ui/organisms';
-import { InfoSection } from '../../../../../ui/molecules';
+import { AutosaveForm, FormSubSection } from 'ui/organisms';
+import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './IncomeInformation.styles';
 import { IncomeInformationItem, IncomeInformationType } from './IncomeInformation.types';
 import { Employer } from './employer/Employer';
+import { IncomeEquity } from './incomeEquity/IncomeEquity';
+import { Pension } from './pension/Pension';
+import { Entrepreneur } from './entrepreneur/Entrepreneur';
+import { SocialBenefit } from './socialBenefit/SocialBenefit';
 
 export const IncomeInformation = () => {
   const classes = useStyles();
@@ -113,7 +117,13 @@ export const IncomeInformation = () => {
                   }
                   onOptionsClick={() => {}}
                 >
-                  <Grid container>{incomeInformation.key === IncomeInformationType.Employer && <Employer />}</Grid>
+                  <Box>
+                    {incomeInformation.key === IncomeInformationType.Employer && <Employer />}
+                    {incomeInformation.key === IncomeInformationType.IncomeFromEquity && <IncomeEquity />}
+                    {incomeInformation.key === IncomeInformationType.Pension && <Pension />}
+                    {incomeInformation.key === IncomeInformationType.SocialBenefit && <SocialBenefit />}
+                    {incomeInformation.key === IncomeInformationType.Entrepreneur && <Entrepreneur />}
+                  </Box>
                 </FormSubSection>
               ))}
           </Grid>

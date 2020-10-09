@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { PromiseFunction } from 'app/shared/types';
 import { AddNewBankAccountBody } from '../addNewBankAccountModal/AddNewBankAccountModal.types';
@@ -8,7 +9,6 @@ import { AddNewBankAccountModal } from '../addNewBankAccountModal/AddNewBankAcco
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { GenericField, RadioGroupField } from 'form/fields';
-import clsx from 'clsx';
 
 import { useStyles } from './BankAccounts.styles';
 import { BankAccount, BankAccountPurpose } from './BankAccounts.types';

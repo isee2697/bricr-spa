@@ -10,6 +10,7 @@ import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 import { useStyles } from './FinancialProfile.styles';
 import { IncomeInformation } from './incomeInformation/IncomeInformation';
 import { BankAccounts } from './bankAccounts/BankAccounts';
+import { FinancialObligations } from './financialObligations/FInancialObligations';
 
 export const FinancialProfile = () => {
   const classes = useStyles();
@@ -40,6 +41,7 @@ export const FinancialProfile = () => {
         </Grid>
 
         <IncomeInformation />
+        <FinancialObligations />
         <BankAccounts />
       </Page>
     </>

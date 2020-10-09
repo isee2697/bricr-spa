@@ -27,7 +27,47 @@ export type IncomeInformationItem = {
     extraInformation: string;
     typeOfEmployment: IncomeInformationTypeOfEmployment;
   };
+  pension?: {
+    grossAowBenefit: number;
+    grossAowBenefitPeriod: number;
+    grossPreRetirementBenefit: number;
+    grossPreRetirementBenefitPeriod: number;
+    extraInformation: string;
+  };
+  socialBenefit?: {
+    grossIncome: number;
+    period: number;
+    extraInformation: number;
+    typeOfSocialBenefit: TypeOfSocialBenefit;
+  };
+  incomeEquity?: {
+    income: number;
+    extraInformation: string;
+  };
+  entrepeneur?: {
+    typeOfEntrepeneur: TypeOfEntrepeneur;
+    companyCar: boolean;
+    companyBicycle: boolean;
+    passedPensionedAge: boolean;
+    rightToAnSmeProfitExemption: boolean;
+    incomeFromBusinessPerYear: number;
+    workingHoursPerMonth: number;
+    yearsAsIndependent: number;
+    extraInformation: string;
+  };
 };
+
+export enum TypeOfSocialBenefit {
+  SocialBenefit = 'SocialBenefit',
+  Wajong = 'Wajong',
+  WiaWao = 'WiaWao',
+  IoawIow = 'IoawIow',
+}
+
+export enum TypeOfEntrepeneur {
+  IbEntrepeneur = 'IbEntrepeneur',
+  Dga = 'Dga',
+}
 
 export enum IncomeInformationTypeOfEmployment {
   FixedTermEmployment = 'FixedTermEmployment',
