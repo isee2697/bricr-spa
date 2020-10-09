@@ -13,13 +13,13 @@ export const StartPointStart = () => {
 
   return (
     <Box display="flex" alignItems="center">
-      <Typography variant="h5" style={{ textTransform: 'uppercase' }}>
+      <Typography variant="h5" className={classes.uppercase}>
         {formatMessage({ id: 'settings.workflow.start' })}
       </Typography>
       <Box ml={1} className={classes.line} />
       <Box className={classes.dashedLine} />
       <Box className={clsx(classes.icon, 'left')}>
-        <StartIcon width="30px" height="30px" color="inherit" />
+        <StartIcon className={classes.startIcon} color="inherit" />
       </Box>
     </Box>
   );
@@ -38,7 +38,7 @@ export const StartPointOutside = () => {
       <Box ml={1} className={classes.line} />
       <Box className={classes.dashedLine} />
       <Box className={clsx(classes.icon, 'left')}>
-        <StartIcon width="30px" height="30px" color="inherit" />
+        <StartIcon className={classes.startIcon} color="inherit" />
       </Box>
     </Box>
   );
@@ -53,7 +53,7 @@ export const StartPointPrevious = () => {
       <Box className={classes.startCurvedLine} />
       <Box display="flex" alignItems="center">
         <Box className={clsx(classes.icon, 'top')}>
-          <StartIcon width="30px" height="30px" color="inherit" />
+          <StartIcon className={classes.startIcon} color="inherit" />
         </Box>
         <Box ml={3} flex={1}>
           <Typography variant="h5">{formatMessage({ id: 'settings.workflow.previous_workflow' })}</Typography>
@@ -70,11 +70,11 @@ export const EndPointEnd = () => {
   return (
     <Box display="flex" alignItems="center">
       <Box className={clsx(classes.icon, 'right')}>
-        <EndIcon width="36px" height="36px" color="inherit" />
+        <EndIcon className={classes.endIcon} color="inherit" />
       </Box>
       <Box className={classes.dashedLine} />
       <Box mr={1} className={classes.line} />
-      <Typography variant="h5" style={{ textTransform: 'uppercase' }}>
+      <Typography variant="h5" className={classes.uppercase}>
         {formatMessage({ id: 'settings.workflow.end' })}
       </Typography>
     </Box>
@@ -88,7 +88,7 @@ export const EndPointOutside = () => {
   return (
     <Box display="flex" alignItems="center">
       <Box className={clsx(classes.icon, 'right')}>
-        <EndIcon width="36px" height="36px" color="inherit" />
+        <EndIcon className={classes.endIcon} color="inherit" />
       </Box>
       <Box className={classes.dashedLine} />
       <Box mr={1} className={classes.line} />
@@ -111,7 +111,7 @@ export const EndPointNext = () => {
           <Typography variant="h5">{formatMessage({ id: 'settings.workflow.next_workflow' })}</Typography>
         </Box>
         <Box className={clsx(classes.icon, 'bottom')}>
-          <EndIcon width="36px" height="36px" color="inherit" />
+          <EndIcon className={classes.endIcon} color="inherit" />
         </Box>
       </Box>
       <Box className={classes.endCurvedLine} />

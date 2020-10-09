@@ -9,7 +9,6 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(27),
     border: `1px solid ${theme.palette.gray.main}`,
     borderRadius: theme.spacing(1),
-    // padding: theme.spacing(0.75),
   },
 
   select: {

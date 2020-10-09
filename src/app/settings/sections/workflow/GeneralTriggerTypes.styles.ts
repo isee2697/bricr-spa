@@ -5,9 +5,8 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
     width: theme.spacing(6),
     height: theme.spacing(6),
-    // background: theme.palette.orange.main,
-    background: '#FDE9D7',
-    color: '#F59236',
+    background: theme.palette.orange.light,
+    color: theme.palette.orange.main,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -19,8 +18,7 @@ export const useStyles = makeStyles(theme => ({
       width: theme.spacing(1),
       height: theme.spacing(1),
       border: `1px solid ${theme.palette.gray.light}`,
-      // background: theme.palette.orange.light,
-      background: '#F59236',
+      background: theme.palette.orange.main,
       borderRadius: '50%',
     },
 
@@ -43,6 +41,20 @@ export const useStyles = makeStyles(theme => ({
       right: -theme.spacing(0.5),
       top: `calc(50% - ${theme.spacing(0.5)}px)`,
     },
+  },
+
+  startIcon: {
+    width: theme.spacing(3.75),
+    height: theme.spacing(3.75),
+  },
+
+  endIcon: {
+    width: theme.spacing(4.5),
+    height: theme.spacing(4.5),
+  },
+
+  uppercase: {
+    textTransform: 'uppercase',
   },
 
   line: {
