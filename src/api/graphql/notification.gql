@@ -7,7 +7,7 @@ enum NotificationType {
 
 type Notification {
   id: ID!
-  receiver: ID!
+  receiver: Profile!
   type: NotificationType!
   description: String!
   isRead: Boolean!
@@ -46,10 +46,10 @@ input BulkDeleteNotificationsInput {
 }
 
 extend type Mutation {
-  readNotification(input: ReadNotificationInput!): String @auth
-  deleteNotification(input: DeleteNotificationInput!): String @auth
-  bulkReadNotifications(input: BulkReadNotificationsInput!): String @auth
-  bulkDeleteNotifications(input: BulkDeleteNotificationsInput!): String @auth
+  readNotification(input: ReadNotificationInput!): Boolean @auth
+  deleteNotification(input: DeleteNotificationInput!): Boolean @auth
+  bulkReadNotifications(input: BulkReadNotificationsInput!): Boolean @auth
+  bulkDeleteNotifications(input: BulkDeleteNotificationsInput!): Boolean @auth
 }
 
 extend type Query {
