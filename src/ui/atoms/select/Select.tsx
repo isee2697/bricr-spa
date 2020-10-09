@@ -1,5 +1,5 @@
-import React from 'react';
 import { default as SelectBase, SelectProps } from '@material-ui/core/Select';
+import React from 'react';
 
 import { FormControl, InputLabel } from 'ui/atoms';
 

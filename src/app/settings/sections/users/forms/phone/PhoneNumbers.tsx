@@ -46,7 +46,7 @@ export const PhoneNumbers = ({
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'settings.users.choose_phone_type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <RadioGroupField xs={3} disabled={!isEditing} name="phoneNumberType" options={PhoneNumberTypes} />
             </Grid>

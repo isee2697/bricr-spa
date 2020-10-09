@@ -18,10 +18,6 @@ export const Tasks = ({ error, members = [], user }: TasksProps) => {
 
   const teamMembers: TeamMemberItem[] = [user, ...members];
 
-  if (!!error) {
-    setIndicatorState('error');
-  }
-
   return (
     <>
       {!!error && (

@@ -14,11 +14,13 @@ import {
   ProgressFilling,
   ColoredImage,
   InfoItem,
+  MenuItem,
 } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { ArrowDownIcon, ArrowUpIcon, MenuIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
-import { ListNcp } from 'api/types';
+import { ArchiveIcon, ArrowDownIcon, ArrowUpIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
+import { ListOptionsMenu } from 'ui/molecules';
 
+import { ProjectItemProps } from './ProjectItem.types';
 import { useStyles } from './ProjectItem.styles';
 
 export const ProjectItem = ({
@@ -48,12 +50,20 @@ export const ProjectItem = ({
   objectTypesCount,
   archived,
   attentionNote,
-}: ListNcp) => {
+  onDelete,
+  onArchive,
+}: ProjectItemProps) => {
   const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
   const classes = useStyles();
   const [toggled, setToggled] = useState(false);
   const percentage = soldOrRent && properties ? (soldOrRent / properties) * 100 : 0;
+
+  const goToItem = (edit?: boolean) => {
+    push(`${AppRoute.projectDetails.replace(':id', id)}${!!edit ? '/general' : ''}`, {
+      newlyAdded: !!edit,
+    });
+  };
 
   return (
     <>
@@ -79,12 +89,19 @@ export const ProjectItem = ({
           </Typography>
         </Grid>
         <Grid className={classes.rightItem} item>
-          <MenuIcon />
+          <ListOptionsMenu onEditClick={() => goToItem(true)} onDeleteClick={onDelete}>
+            {!archived && (
+              <MenuItem onClick={() => onArchive()} data-testid="delete-option-button">
+                <ArchiveIcon />
+                <Typography>{formatMessage({ id: 'projects.archive' })}</Typography>
+              </MenuItem>
+            )}
+          </ListOptionsMenu>
         </Grid>
       </Grid>
       <ColoredImage
         className={classes.image}
-        onClick={() => push(AppRoute.projectDetails.replace(':id', id))}
+        onClick={() => goToItem()}
         src={mainPicture?.file?.url || undefined}
         grayscale={archived}
         variant="green"

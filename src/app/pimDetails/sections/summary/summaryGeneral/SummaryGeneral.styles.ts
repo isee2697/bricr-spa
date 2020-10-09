@@ -10,11 +10,8 @@ export const useStyles = makeStyles(theme => ({
     width: `calc(100% + ${theme.spacing(6)}px)`,
   },
   summaryContent: {
-    backgroundImage: (props: PimSummary) =>
-      `linear-gradient(180deg, ${theme.palette.gray.light} ${theme.spacing(
-        13,
-      )}px, rgba(243, 245, 250, 0) ${theme.spacing(39)}px), url('${props.image}')`,
-    backgroundSize: 'contain',
+    backgroundImage: (props: PimSummary) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
+    backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
     padding: theme.spacing(2, 3),
   },
@@ -32,8 +29,22 @@ export const useStyles = makeStyles(theme => ({
     background: theme.palette.white.main,
     borderRadius: theme.spacing(1),
   },
+  summaryHeaderDescription: {
+    marginTop: theme.spacing(3),
+  },
   importantBrokerBadge: {
     right: -theme.spacing(1),
+  },
+  importantBrokerItem: {
+    marginBottom: theme.spacing(2),
+
+    '&:last-child': {
+      marginBottom: 0,
+    },
+  },
+  importantBrokerValue: {
+    marginTop: theme.spacing(0.5),
+    fontWeight: theme.typography.fontWeightMedium,
   },
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,
@@ -43,5 +54,8 @@ export const useStyles = makeStyles(theme => ({
   },
   marginTopTwo: {
     marginTop: theme.spacing(2),
+  },
+  gray: {
+    color: theme.palette.gray.main,
   },
 }));

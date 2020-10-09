@@ -103,6 +103,8 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
+  bulkDeleteNotifications?: Maybe<Scalars['String']>;
+  bulkReadNotifications?: Maybe<Scalars['String']>;
   createCompany: Company;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
@@ -114,11 +116,13 @@ export type Mutation = {
   createTask: Task;
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
+  deleteNotification?: Maybe<Scalars['String']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
   reactivateProfile: Profile;
+  readNotification?: Maybe<Scalars['String']>;
   removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
@@ -391,6 +395,14 @@ export type MutationBulkArgs = {
   input: BulkOperationInput;
 };
 
+export type MutationBulkDeleteNotificationsArgs = {
+  input: BulkDeleteNotificationsInput;
+};
+
+export type MutationBulkReadNotificationsArgs = {
+  input: BulkReadNotificationsInput;
+};
+
 export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
@@ -435,6 +447,10 @@ export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
 
+export type MutationDeleteNotificationArgs = {
+  input: DeleteNotificationInput;
+};
+
 export type MutationForgotPasswordArgs = {
   input?: Maybe<ForgotPasswordInput>;
 };
@@ -453,6 +469,10 @@ export type MutationLoginArgs = {
 
 export type MutationReactivateProfileArgs = {
   id: Scalars['String'];
+};
+
+export type MutationReadNotificationArgs = {
+  input: ReadNotificationInput;
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
@@ -844,6 +864,7 @@ export type Query = {
   getNcpPrices: NcpPricesResult;
   getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
+  getNotifications?: Maybe<NotificationSearchResult>;
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeLabels?: Maybe<Array<Label>>;
@@ -1077,8 +1098,10 @@ export type QueryListPimsArgs = {
 };
 
 export enum BulkField {
-  City = 'city',
-  Status = 'status',
+  City = 'City',
+  Status = 'Status',
+  RentPrice = 'RentPrice',
+  SalePrice = 'SalePrice',
 }
 
 export enum BulkEntities {
@@ -2143,6 +2166,62 @@ export type NcpWithNewService = {
   __typename?: 'NcpWithNewService';
   ncp: NcpServices;
   newService: Service;
+};
+
+export enum NotificationType {
+  TaskAssigned = 'TaskAssigned',
+  InvitedToProject = 'InvitedToProject',
+  RemovedUserFromProject = 'RemovedUserFromProject',
+  AcceptedInviteToProject = 'AcceptedInviteToProject',
+}
+
+export type Notification = {
+  __typename?: 'Notification';
+  id: Scalars['ID'];
+  receiver: Scalars['ID'];
+  type: NotificationType;
+  description: Scalars['String'];
+  isRead: Scalars['Boolean'];
+  isDeleted: Scalars['Boolean'];
+  dateCreated: Scalars['Date'];
+};
+
+export type NotificationSearchResult = {
+  __typename?: 'NotificationSearchResult';
+  items?: Maybe<Array<Notification>>;
+};
+
+export type NotificationAdded = {
+  __typename?: 'NotificationAdded';
+  notification: Notification;
+};
+
+export type CreateNotificationInput = {
+  type: NotificationType;
+  receiver: Scalars['ID'];
+  description: Scalars['String'];
+};
+
+export type ReadNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type DeleteNotificationInput = {
+  id: Scalars['ID'];
+};
+
+export type BulkReadNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type BulkDeleteNotificationsInput = {
+  ids: Array<Scalars['ID']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  _?: Maybe<Scalars['Boolean']>;
+  notificationAdded: NotificationAdded;
 };
 
 export enum TypeOfObjectType {
@@ -6251,11 +6330,6 @@ export type Pagination = {
   searchAfter?: Maybe<Array<Scalars['String']>>;
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  _?: Maybe<Scalars['Boolean']>;
-};
-
 export enum MeterType {
   Water = 'Water',
   Gas = 'Gas',
@@ -7049,6 +7123,30 @@ export type UpdateNcpServiceDescriptionMutationVariables = Exact<{
 export type UpdateNcpServiceDescriptionMutation = { __typename?: 'Mutation' } & {
   updateNcpServiceDescription: { __typename?: 'NcpServices' } & Pick<NcpServices, 'id'>;
 };
+
+export type ReadNotificationMutationVariables = Exact<{
+  input: ReadNotificationInput;
+}>;
+
+export type ReadNotificationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'readNotification'>;
+
+export type DeleteNotificationMutationVariables = Exact<{
+  input: DeleteNotificationInput;
+}>;
+
+export type DeleteNotificationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteNotification'>;
+
+export type BulkReadNotificationsMutationVariables = Exact<{
+  input: BulkReadNotificationsInput;
+}>;
+
+export type BulkReadNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkReadNotifications'>;
+
+export type BulkDeleteNotificationsMutationVariables = Exact<{
+  input: BulkDeleteNotificationsInput;
+}>;
+
+export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkDeleteNotifications'>;
 
 export type UpdateObjectTypeCharacteristicsMutationVariables = Exact<{
   input: ObjectTypeCharacteristicsInput;
@@ -8485,6 +8583,23 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
     };
+};
+
+export type GetNotificationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetNotificationsQuery = { __typename?: 'Query' } & {
+  getNotifications?: Maybe<
+    { __typename?: 'NotificationSearchResult' } & {
+      items?: Maybe<
+        Array<
+          { __typename?: 'Notification' } & Pick<
+            Notification,
+            'id' | 'type' | 'receiver' | 'isRead' | 'isDeleted' | 'description' | 'dateCreated'
+          >
+        >
+      >;
+    }
+  >;
 };
 
 export type ObjectTypeCharacteristicsQueryVariables = Exact<{
@@ -11257,6 +11372,88 @@ export type UpdateNcpServiceDescriptionMutationOptions = ApolloReactCommon.BaseM
   UpdateNcpServiceDescriptionMutation,
   UpdateNcpServiceDescriptionMutationVariables
 >;
+export const ReadNotificationDocument = gql`
+  mutation ReadNotification($input: ReadNotificationInput!) {
+    readNotification(input: $input)
+  }
+`;
+export function useReadNotificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ReadNotificationMutation, ReadNotificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ReadNotificationMutation, ReadNotificationMutationVariables>(
+    ReadNotificationDocument,
+    baseOptions,
+  );
+}
+export type ReadNotificationMutationHookResult = ReturnType<typeof useReadNotificationMutation>;
+export type ReadNotificationMutationResult = ApolloReactCommon.MutationResult<ReadNotificationMutation>;
+export type ReadNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ReadNotificationMutation,
+  ReadNotificationMutationVariables
+>;
+export const DeleteNotificationDocument = gql`
+  mutation DeleteNotification($input: DeleteNotificationInput!) {
+    deleteNotification(input: $input)
+  }
+`;
+export function useDeleteNotificationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteNotificationMutation, DeleteNotificationMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteNotificationMutation, DeleteNotificationMutationVariables>(
+    DeleteNotificationDocument,
+    baseOptions,
+  );
+}
+export type DeleteNotificationMutationHookResult = ReturnType<typeof useDeleteNotificationMutation>;
+export type DeleteNotificationMutationResult = ApolloReactCommon.MutationResult<DeleteNotificationMutation>;
+export type DeleteNotificationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteNotificationMutation,
+  DeleteNotificationMutationVariables
+>;
+export const BulkReadNotificationsDocument = gql`
+  mutation BulkReadNotifications($input: BulkReadNotificationsInput!) {
+    bulkReadNotifications(input: $input)
+  }
+`;
+export function useBulkReadNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkReadNotificationsMutation,
+    BulkReadNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkReadNotificationsMutation, BulkReadNotificationsMutationVariables>(
+    BulkReadNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkReadNotificationsMutationHookResult = ReturnType<typeof useBulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkReadNotificationsMutation>;
+export type BulkReadNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkReadNotificationsMutation,
+  BulkReadNotificationsMutationVariables
+>;
+export const BulkDeleteNotificationsDocument = gql`
+  mutation BulkDeleteNotifications($input: BulkDeleteNotificationsInput!) {
+    bulkDeleteNotifications(input: $input)
+  }
+`;
+export function useBulkDeleteNotificationsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    BulkDeleteNotificationsMutation,
+    BulkDeleteNotificationsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<BulkDeleteNotificationsMutation, BulkDeleteNotificationsMutationVariables>(
+    BulkDeleteNotificationsDocument,
+    baseOptions,
+  );
+}
+export type BulkDeleteNotificationsMutationHookResult = ReturnType<typeof useBulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationResult = ApolloReactCommon.MutationResult<BulkDeleteNotificationsMutation>;
+export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  BulkDeleteNotificationsMutation,
+  BulkDeleteNotificationsMutationVariables
+>;
 export const UpdateObjectTypeCharacteristicsDocument = gql`
   mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
     updateObjectTypeCharacteristics(input: $input) {
@@ -13959,7 +14156,7 @@ export type ListNcpsLazyQueryHookResult = ReturnType<typeof useListNcpsLazyQuery
 export type ListNcpsQueryResult = ApolloReactCommon.QueryResult<ListNcpsQuery, ListNcpsQueryVariables>;
 export const NcpBulkDetailsDocument = gql`
   query NcpBulkDetails($ids: [ID!]!) {
-    city: getBulkDetails(input: { ids: $ids, field: city, entity: Ncp }) {
+    city: getBulkDetails(input: { ids: $ids, field: City, entity: Ncp }) {
       value
     }
   }
@@ -14383,6 +14580,43 @@ export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServi
 export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
   GetNcpServicesQuery,
   GetNcpServicesQueryVariables
+>;
+export const GetNotificationsDocument = gql`
+  query GetNotifications {
+    getNotifications {
+      items {
+        id
+        type
+        receiver
+        isRead
+        isDeleted
+        description
+        dateCreated
+      }
+    }
+  }
+`;
+export function useGetNotificationsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(
+    GetNotificationsDocument,
+    baseOptions,
+  );
+}
+export function useGetNotificationsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(
+    GetNotificationsDocument,
+    baseOptions,
+  );
+}
+export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificationsQuery>;
+export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
+export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
+  GetNotificationsQuery,
+  GetNotificationsQueryVariables
 >;
 export const ObjectTypeCharacteristicsDocument = gql`
   query ObjectTypeCharacteristics($id: ID!) {

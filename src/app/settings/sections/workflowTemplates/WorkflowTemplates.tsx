@@ -1,66 +1,152 @@
 import React, { useState } from 'react';
+import clsx from 'classnames';
+import { useHistory } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
-import { Card, CardContent, Grid, Typography } from 'ui/atoms';
-import { AddIcon, HelpIcon } from 'ui/atoms/icons';
-import { InfoSection } from 'ui/molecules';
-import { CheckboxField } from 'form/fields';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { Card, CardContent, Grid, Box, Typography, Badge, CardHeader, IconButton } from 'ui/atoms';
+import { AddIcon, ManageIcon } from 'ui/atoms/icons';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { AddCustomPropertyModal } from 'ui/organisms';
 import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
 
-import { WorkflowBluePrints, WorkflowTemplatesProps } from './WorkflowTemplates.types';
+import { ActiveTabStatus, WorkflowTemplatesProps } from './WorkflowTemplates.types';
 import { useStyles } from './WorkflowTemplates.styles';
+import { WorkflowTemplatesTabs } from './workflowTemplatesTabs/WorkflowTemplatesTabs';
+import { WorkflowTemplatesItem } from './workflowTemplatesItem/WorkflowTemplatesItem';
 
-export const WorkflowTemplates = ({ updatedBy, dateUpdated, onAdd }: WorkflowTemplatesProps) => {
+const mockData = {
+  notifications: [],
+};
+
+export const WorkflowTemplates = ({
+  templates,
+  updatedBy,
+  dateUpdated,
+  onAdd,
+  onUpdate,
+  templateType = 'bricr',
+}: WorkflowTemplatesProps) => {
   const { formatMessage } = useLocale();
   const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
+  const { push } = useHistory();
+  const [status, setStatus] = useState<ActiveTabStatus>('active');
+  const { notifications } = mockData;
+
+  const activeTemplates = templates.filter(item => item.status === 'active' && item.type === templateType);
+  const inactiveTemplates = templates.filter(item => item.status === 'inactive' && item.type === templateType);
 
   return (
     <>
       <Page
         showHeader
-        headerProps={{
-          actionText: formatMessage({ id: 'settings.workflow_templates.add_new_workflow_template' }),
-          actionIcon: <AddIcon color="inherit" />,
-          onAction: () => setModalVisible(true),
-        }}
-        title={formatMessage({ id: 'settings.workflow_templates.title' })}
+        headerProps={
+          templateType === 'custom'
+            ? {
+                actionText: formatMessage({
+                  id: 'settings.workflow_templates.add_new_workflow_template',
+                }),
+                actionIcon: <AddIcon color="inherit" />,
+                onAction: () => setModalVisible(true),
+              }
+            : undefined
+        }
+        title={formatMessage({
+          id: `settings.workflow_templates.${templateType}_title`,
+        })}
+        titleActions={[]}
         placeholder="settings.workflow_templates.description_placeholder"
         name="description"
         dateUpdated={dateUpdated}
         updatedBy={updatedBy}
-        titleActions={
-          <Grid item className={classes.infoContainer}>
-            <HelpIcon color="primary" />
-            <Typography variant="h5" className={classes.info}>
-              {formatMessage({ id: 'settings.workflow_templates.see_blue_pint_workflow' })}
-            </Typography>
-          </Grid>
-        }
       >
         <Grid item xs={12}>
           <Card>
-            <div className={classes.blueprintCheckboxContainer}>
-              {Object.keys(WorkflowBluePrints).map(key => (
-                <CheckboxField
-                  key={key}
-                  label={`dictionaries.workflow_blueprint.${key}`}
-                  name={key}
-                  containerClassName={classes.blueprintCheckbox}
-                />
-              ))}
-            </div>
+            <CardHeader
+              title={
+                <Typography variant="h2">
+                  {formatMessage({
+                    id: `settings.workflow_templates.card_${templateType}_title`,
+                  })}
+                </Typography>
+              }
+              action={
+                <IconButton variant="rounded" size="small" onClick={() => {}} aria-label="adjust">
+                  <Badge badgeContent={notifications?.length} color="primary">
+                    <ManageIcon />
+                  </Badge>
+                </IconButton>
+              }
+            />
             <CardContent>
-              <InfoSection emoji="🤔">
-                <Typography variant="h3">
-                  {formatMessage({ id: 'settings.workflow_templates.empty_line_1' })}
-                </Typography>
-                <Typography variant="h3">
-                  {formatMessage({ id: 'settings.workflow_templates.empty_line_2' })}
-                </Typography>
-              </InfoSection>
+              <Box mb={2}>
+                <WorkflowTemplatesTabs
+                  status={status}
+                  onStatusChange={setStatus}
+                  amounts={{
+                    active: activeTemplates?.length,
+                    inactive: inactiveTemplates?.length,
+                  }}
+                />
+              </Box>
+              <List
+                className="workflow-template-list"
+                items={status === 'active' ? activeTemplates : inactiveTemplates}
+                itemIndex="id"
+                sortOptions={[
+                  { key: 'lastEdited', name: 'Last edited' },
+                  { key: 'firstEdited', name: 'First edited' },
+                ]}
+                onSort={key => alert(key)}
+                pagination={{
+                  count: 8,
+                  currentPerPage: 10,
+                  perPageOptions: [10, 25, 'All'],
+                  onPerPageChange: value => {
+                    alert(value);
+                  },
+                }}
+                loadingItem={<PropertyItemPlaceholder />}
+                emptyTitle={formatMessage({
+                  id: 'settings.workflow_templates.empty_line_1',
+                })}
+                emptyDescription={formatMessage({
+                  id: 'settings.workflow_templates.empty_line_2',
+                })}
+                renderItem={(template, checked, checkbox) => (
+                  <Box
+                    key={template.id}
+                    className={clsx(classes.row, { [classes.rowChecked]: checked }, 'workflow-template-row')}
+                  >
+                    {checkbox}
+                    <Box component="span" className={classes.rowItem}>
+                      <Box
+                        className={classes.itemButton}
+                        onClick={() => {
+                          if (template.type === 'custom' && template.status === 'active') {
+                            push(AppRoute.workflow.replace(':id', template.id), {
+                              icon: template.icon,
+                              name: template.name,
+                            });
+                          }
+                        }}
+                      >
+                        <WorkflowTemplatesItem
+                          template={template}
+                          onCopyToCustom={() => {
+                            onUpdate({ ...template, type: 'custom' });
+                          }}
+                          onStatusChange={status => {
+                            onUpdate({ ...template, status });
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                  </Box>
+                )}
+              />
             </CardContent>
           </Card>
         </Grid>

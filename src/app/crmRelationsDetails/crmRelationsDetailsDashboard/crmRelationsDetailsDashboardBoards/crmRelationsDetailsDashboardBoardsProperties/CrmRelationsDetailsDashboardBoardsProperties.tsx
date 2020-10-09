@@ -57,8 +57,8 @@ export const CrmRelationsDetailsDashboardBoardsProperties = () => {
     <Card className={classes.root}>
       <CardHeader title={formatMessage({ id: 'crm.details.dashboard.properties' })} />
       <CardContent>
-        {crmRelations.map(crmRelation => (
-          <PropertyItem property={crmRelation} />
+        {crmRelations.map((crmRelation, index) => (
+          <PropertyItem key={index} property={crmRelation} />
         ))}
       </CardContent>
     </Card>

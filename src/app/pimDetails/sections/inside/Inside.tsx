@@ -1,6 +1,6 @@
+import groupBy from 'lodash/groupBy';
 import React from 'react';
 import { Route, Switch, useParams } from 'react-router-dom';
-import groupBy from 'lodash/groupBy';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';

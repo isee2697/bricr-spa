@@ -35,6 +35,7 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
         selected={pathname === `${menu.url}/${menuItem.key}/${subItem.id}`}
         onClick={() => push(`${menu.url}/${menuItem.key}/${subItem.id}`)}
         badge={subItem.number}
+        icon={subItem.icon}
       />
     );
   };

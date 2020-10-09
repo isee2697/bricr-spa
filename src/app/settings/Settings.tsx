@@ -31,8 +31,11 @@ export const Settings = ({ data }: SettingsProps) => {
             <Route path={`${AppRoute.settings}/billing`} render={() => <BillingContainer />} />
             <Route
               exact
-              path={`${AppRoute.settings}/workflowTemplates`}
-              render={() => <WorkflowTemplatesContainer />}
+              path={[
+                `${AppRoute.settings}/workflow_templates`,
+                `${AppRoute.settings}/workflow_templates/:templateType`,
+              ]}
+              render={path => <WorkflowTemplatesContainer templateType={path.match.params.templateType} />}
             />
             <Route exact path={AppRoute.workflow} render={() => <WorkflowContainer />} />
             <Route

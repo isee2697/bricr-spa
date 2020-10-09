@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useModalState } from 'hooks/useModalState/useModalState';
-import { useCreateTaskMutation } from 'api/types';
+import { GetNotificationsDocument, useCreateTaskMutation } from 'api/types';
 
 import { CreateNewTaskModalContainerProps } from './CreateNewTaskModalContainer.types';
 import { CreateNewTaskModal } from './CreateNewTaskModal';
@@ -30,6 +30,11 @@ export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNew
             deadline: deadline.set({ hour, minute }).toISO(),
           },
         },
+        refetchQueries: [
+          {
+            query: GetNotificationsDocument,
+          },
+        ],
       });
 
       if (!result || !result.createTask) {

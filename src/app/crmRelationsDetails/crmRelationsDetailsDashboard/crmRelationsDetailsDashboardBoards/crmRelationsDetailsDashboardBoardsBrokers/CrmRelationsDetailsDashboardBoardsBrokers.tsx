@@ -62,7 +62,7 @@ export const CrmRelationsDetailsDashboardBoardsBrokers = () => {
       />
       <CardContent>
         {brokers.map((broker, index) => (
-          <BrokerItem broker={broker} />
+          <BrokerItem key={index} broker={broker} />
         ))}
       </CardContent>
     </Card>
