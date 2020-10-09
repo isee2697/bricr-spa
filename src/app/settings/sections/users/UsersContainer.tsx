@@ -41,6 +41,7 @@ export const UsersContainer = () => {
 
   const { data: listData } = useGetUsersQuery({
     variables,
+    fetchPolicy: 'no-cache',
   });
 
   const handleSave = async (update: Profile) => {
