@@ -12,7 +12,7 @@ export type SnackbarStateProps = {
   message: ReactNode;
   modalTitle: ReactNode;
   modalContent: ReactNode;
-  onUndo: VoidFunction;
+  onUndo?: VoidFunction;
 };
 
 export type SnackbarStateType = {

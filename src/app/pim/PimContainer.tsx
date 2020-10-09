@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
-import { usePagination } from 'hooks';
+import { usePagination, useShowError } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
@@ -30,8 +31,10 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
 };
 
 export const PimContainer = () => {
+  const [hasError, setHasError] = useState(false);
   const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
   const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
+  const showError = useShowError();
 
   const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
     variables: {
@@ -75,6 +78,13 @@ export const PimContainer = () => {
     setActiveFilters(getPimFilterVariables(type));
   }, [type]);
 
+  useEffect(() => {
+    if (!hasError && (!!listError || !!countError)) {
+      setHasError(true);
+      showError(listError?.message || countError?.message);
+    }
+  }, [countError, hasError, listError, showError]);
+
   return (
     <Pim
       status={status}
@@ -86,8 +96,6 @@ export const PimContainer = () => {
       pricingType={pricingType}
       onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
-      isError={!!countError || !!listError}
-      error={countError || listError}
       amounts={amounts}
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}
