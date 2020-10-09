@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { AddNewIncomeInformationModal } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal';

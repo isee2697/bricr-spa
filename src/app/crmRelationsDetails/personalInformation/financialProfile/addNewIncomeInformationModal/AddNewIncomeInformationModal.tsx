@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { IncomeInformationType } from '../incomeInformation/IncomeInformation.types';

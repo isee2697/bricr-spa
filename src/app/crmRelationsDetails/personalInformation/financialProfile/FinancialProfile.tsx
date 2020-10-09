@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';
 import { Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';

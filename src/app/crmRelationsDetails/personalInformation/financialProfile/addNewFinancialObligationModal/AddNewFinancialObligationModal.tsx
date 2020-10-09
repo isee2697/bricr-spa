@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale, useModalDispatch } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FinancialObligationType } from '../financialObligations/FinancialObligations.types';

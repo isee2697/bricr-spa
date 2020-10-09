@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale, useModalDispatch } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
 import { BankAccountType } from '../bankAccounts/BankAccounts.types';
