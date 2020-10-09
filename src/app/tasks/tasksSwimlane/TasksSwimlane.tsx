@@ -1,5 +1,6 @@
 import React from 'react';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Grid } from 'ui/atoms';
 import { TaskStatus, Task } from 'api/types';
@@ -21,28 +22,17 @@ export const TasksSwimlane = ({
   const blockedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Blocked);
   const completedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Done);
 
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination, draggableId } = result;
-
-    if (!destination) return;
-
-    const sInd = source.droppableId;
-    const dInd = destination.droppableId;
-
-    if (sInd !== dInd) {
-      const draggableTask = tasksList.find(task => task.id === draggableId);
-
-      if (draggableTask) {
-        onUpdateTaskStatus(draggableId, dInd as TaskStatus);
-      }
-    }
-  };
-
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DndProvider backend={HTML5Backend}>
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.ToDo} tasks={todoTasks} count={todoCount} />
+          <TasksSwimlaneColumn
+            tab={tab}
+            columnType={TaskStatus.ToDo}
+            tasks={todoTasks}
+            count={todoCount}
+            onUpdateTaskStatus={onUpdateTaskStatus}
+          />
         </Grid>
         <Grid item xs={3}>
           <TasksSwimlaneColumn
@@ -50,15 +40,28 @@ export const TasksSwimlane = ({
             columnType={TaskStatus.InProgress}
             tasks={inProgressTasks}
             count={inProgressCount}
+            onUpdateTaskStatus={onUpdateTaskStatus}
           />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.Blocked} tasks={blockedTasks} count={blockedCount} />
+          <TasksSwimlaneColumn
+            tab={tab}
+            columnType={TaskStatus.Blocked}
+            tasks={blockedTasks}
+            count={blockedCount}
+            onUpdateTaskStatus={onUpdateTaskStatus}
+          />
         </Grid>
         <Grid item xs={3}>
-          <TasksSwimlaneColumn tab={tab} columnType={TaskStatus.Done} tasks={completedTasks} count={doneCount} />
+          <TasksSwimlaneColumn
+            tab={tab}
+            columnType={TaskStatus.Done}
+            tasks={completedTasks}
+            count={doneCount}
+            onUpdateTaskStatus={onUpdateTaskStatus}
+          />
         </Grid>
       </Grid>
-    </DragDropContext>
+    </DndProvider>
   );
 };

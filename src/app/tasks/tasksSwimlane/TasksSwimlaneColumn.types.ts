@@ -6,4 +6,9 @@ export type TasksSwimlaneColumnProps = {
   columnType: TaskStatus;
   tasks: Task[];
   count: number;
+  onUpdateTaskStatus: (taskId: string, status: TaskStatus) => void;
+};
+
+export type TasksSwimlaneItemDragObject = Task & {
+  type: string;
 };
