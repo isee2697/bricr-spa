@@ -22,7 +22,7 @@ const AppointmentWeekLayout = ({ ...props }: App.AppointmentProps) => {
   const color = props.resources.find(item => item.id === props.data.type)?.color as string;
   const classes = useStyles(color);
 
-  return <App.Appointment {...props} className={classNames(classes.root, classes.allDay)} />;
+  return <App.Appointment {...props} className={classNames(classes.root, props.data.allDay && classes.allDay)} />;
 };
 
 export const Appointments = (props: AppointmentsProps) => {

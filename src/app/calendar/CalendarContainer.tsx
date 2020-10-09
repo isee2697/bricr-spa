@@ -30,6 +30,12 @@ const schedulerData = [
     type: CalendarTypes.Meeting,
   },
   {
+    startDate: DateTime.fromISO(new Date(now.setHours(7)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),
+    title: 'Travel to the office',
+    type: CalendarTypes.Appointment,
+  },
+  {
     startDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
     title: 'Go to a gym',
@@ -57,6 +63,14 @@ const schedulerData = [
     allDay: true,
     id: 1,
     type: CalendarTypes.Birthday,
+    location: 'Room 1',
+  },
+  {
+    title: 'Do the dishes',
+    startDate: DateTime.fromISO(new Date(now.setHours(2)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
+    id: 1,
+    type: CalendarTypes.Task,
     location: 'Room 1',
   },
 ];
