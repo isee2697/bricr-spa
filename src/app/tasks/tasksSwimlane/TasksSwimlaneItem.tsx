@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { Box, Grid, Typography, UserAvatar } from 'ui/atoms';
+import { Box, Grid, Loader, Typography, UserAvatar } from 'ui/atoms';
 import {
   FollowUpRectangleIcon,
   LockRectangleIcon,
@@ -41,7 +41,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
   const { formatMessage } = useLocale();
   const { push } = useHistory();
 
-  const { id, taskIndex, title, assigneeDetail, deadline, label, priority } = task;
+  const { id, taskIndex, title, assigneeDetail, deadline, label, priority, isUpdating } = task;
   const deadlineDate = DateTime.fromISO(deadline);
   const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
   const expireInfo =
@@ -65,7 +65,8 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
 
   return (
     <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
-      <div ref={drop}>
+      <div ref={isUpdating ? drop : undefined}>
+        {isUpdating && <Loader />}
         <Box className={classes.root}>
           <Typography
             variant="h6"

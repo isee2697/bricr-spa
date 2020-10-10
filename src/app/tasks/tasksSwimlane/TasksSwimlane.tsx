@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Grid } from 'ui/atoms';
-import { TaskStatus, Task } from 'api/types';
+import { Task, TaskStatus } from 'api/types';
 
 import { TasksSwimlaneColumn } from './TasksSwimlaneColumn';
 import { useStyles } from './TasksSwimlane.styles';
-import { TasksSwimlaneProps } from './TasksSwimlane.types';
+import { GroupTaskItem, GroupTasks, TasksSwimlaneProps } from './TasksSwimlane.types';
 
 export const TasksSwimlane = ({
   tab,
@@ -15,12 +15,31 @@ export const TasksSwimlane = ({
   tasksSummaryByStatus: { todo: todoCount, inProgress: inProgressCount, blocked: blockedCount, done: doneCount },
   onUpdateTaskStatus,
 }: TasksSwimlaneProps) => {
-  const classes = useStyles();
+  const groupTasks = (tasks: GroupTaskItem[]): GroupTasks => {
+    return {
+      [TaskStatus.ToDo]: tasks.filter((task: Task) => task.status === TaskStatus.ToDo),
+      [TaskStatus.InProgress]: tasks.filter((task: Task) => task.status === TaskStatus.InProgress),
+      [TaskStatus.Blocked]: tasks.filter((task: Task) => task.status === TaskStatus.Blocked),
+      [TaskStatus.Done]: tasks.filter((task: Task) => task.status === TaskStatus.Done),
+    };
+  };
 
-  const todoTasks = tasksList.filter((task: Task) => task.status === TaskStatus.ToDo);
-  const inProgressTasks = tasksList.filter((task: Task) => task.status === TaskStatus.InProgress);
-  const blockedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Blocked);
-  const completedTasks = tasksList.filter((task: Task) => task.status === TaskStatus.Done);
+  const classes = useStyles();
+  const [tasks, setTasks] = useState<GroupTasks>(groupTasks(tasksList));
+
+  const handleUpdateTaskStatus = (id: string, status: TaskStatus) => {
+    const taskItem: Task = tasksList.find(task => task.id === id) as Task;
+    setTasks(
+      groupTasks([
+        ...tasksList.filter(task => task.id !== id),
+        {
+          ...taskItem,
+          status,
+        },
+      ]),
+    );
+    onUpdateTaskStatus(id, status);
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -29,36 +48,36 @@ export const TasksSwimlane = ({
           <TasksSwimlaneColumn
             tab={tab}
             columnType={TaskStatus.ToDo}
-            tasks={todoTasks}
+            tasks={tasks[TaskStatus.ToDo]}
             count={todoCount}
-            onUpdateTaskStatus={onUpdateTaskStatus}
+            onUpdateTaskStatus={handleUpdateTaskStatus}
           />
         </Grid>
         <Grid item xs={3}>
           <TasksSwimlaneColumn
             tab={tab}
             columnType={TaskStatus.InProgress}
-            tasks={inProgressTasks}
+            tasks={tasks[TaskStatus.InProgress]}
             count={inProgressCount}
-            onUpdateTaskStatus={onUpdateTaskStatus}
+            onUpdateTaskStatus={handleUpdateTaskStatus}
           />
         </Grid>
         <Grid item xs={3}>
           <TasksSwimlaneColumn
             tab={tab}
             columnType={TaskStatus.Blocked}
-            tasks={blockedTasks}
+            tasks={tasks[TaskStatus.Blocked]}
             count={blockedCount}
-            onUpdateTaskStatus={onUpdateTaskStatus}
+            onUpdateTaskStatus={handleUpdateTaskStatus}
           />
         </Grid>
         <Grid item xs={3}>
           <TasksSwimlaneColumn
             tab={tab}
             columnType={TaskStatus.Done}
-            tasks={completedTasks}
+            tasks={tasks[TaskStatus.Done]}
             count={doneCount}
-            onUpdateTaskStatus={onUpdateTaskStatus}
+            onUpdateTaskStatus={handleUpdateTaskStatus}
           />
         </Grid>
       </Grid>

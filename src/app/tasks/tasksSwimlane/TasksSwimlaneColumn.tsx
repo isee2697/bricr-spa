@@ -4,13 +4,13 @@ import { useDrop } from 'react-dnd';
 
 import { Box, Grid, IconButton, Typography } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons';
-import { Task } from 'api/types';
 import { TasksStatusBadge } from '../tasksStatusBadge/TasksStatusBadge';
 
 import { TasksSwimlaneColumnProps, TasksSwimlaneItemDragObject } from './TasksSwimlaneColumn.types';
 import { useStyles } from './TasksSwimlaneColumn.styles';
 import { TasksSwimlaneItem } from './TasksSwimlaneItem';
 import { TasksSwimlanePlaceholder } from './TasksSwimlanePlaceholder';
+import { GroupTaskItem } from './TasksSwimlane.types';
 
 export const TasksSwimlaneColumn = ({
   tab,
@@ -51,7 +51,7 @@ export const TasksSwimlaneColumn = ({
         </Grid>
       </Box>
       <Box className={classes.tasksSwimlaneItemsContainer}>
-        {tasks.map((task: Task) => (
+        {tasks.map((task: GroupTaskItem) => (
           <TasksSwimlaneItem tab={tab} key={task.id} task={task} />
         ))}
       </Box>
