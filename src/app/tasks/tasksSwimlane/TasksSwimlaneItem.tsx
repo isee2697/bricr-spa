@@ -65,7 +65,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
 
   return (
     <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
-      <div ref={isUpdating ? drop : undefined}>
+      <div ref={!isUpdating ? drop : undefined}>
         {isUpdating && <Loader />}
         <Box className={classes.root}>
           <Typography
