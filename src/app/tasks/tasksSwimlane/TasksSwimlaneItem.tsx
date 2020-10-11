@@ -32,8 +32,8 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
   const [{ isOver, isDrag }, drop] = useDrop({
     accept: 'UpdateTaskStatus',
     collect: monitor => ({
-      isOver: !!monitor.isOver(),
-      isDrag: !!monitor.canDrop(),
+      isOver: monitor.isOver(),
+      isDrag: monitor.canDrop(),
     }),
   });
 
