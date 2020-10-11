@@ -9,33 +9,23 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { useStyles } from './TasksDateSectionFuture.styles';
 import { TasksDateSectionFutureProps } from './TasksDateSectionFuture.types';
 
-export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureProps) => {
-  const [from, setFrom] = useState<DateTime | null>(null);
-  const [to, setTo] = useState<DateTime | null>(null);
+export const TasksDateSectionFuture = ({ deadlines, onSelectDate }: TasksDateSectionFutureProps) => {
+  const from = deadlines[0].from;
+  const to = deadlines[0].to;
   const [withoutDeadline, setWithoutDeadline] = useState(false);
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const onChangeFrom = (date: MaterialUiPickersDate) => {
-    if (date) {
-      setFrom(date);
-      handleSelect();
-    }
+  const handleSelect = (date: MaterialUiPickersDate, key: 'from' | 'to') => {
+    onSelectDate([
+      {
+        from: key === 'from' ? date?.startOf('day').toISO() : from,
+        to: key === 'to' ? date?.endOf('day').toISO() : to,
+      },
+    ]);
   };
 
-  const onChangeTo = (date: MaterialUiPickersDate) => {
-    if (date) {
-      setTo(date);
-      handleSelect();
-    }
-  };
-
-  const handleSelect = () => {
-    onSelectDate({
-      from: from ? from.toISO() : null,
-      to: to ? to.toISO() : null,
-    });
-  };
+  console.log(from, to);
 
   return (
     <Grid container justify="space-between" className={classes.root}>
@@ -58,8 +48,8 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
             <KeyboardDatePicker
               clearable
               InputProps={{ classes: { root: classes.datePickerInput } }}
-              onChange={date => onChangeFrom(date)}
-              value={from}
+              onChange={date => handleSelect(date, 'from')}
+              value={from ? DateTime.fromISO(from) : null}
               className={classes.inlineBlock}
               format="MM.dd.yyyy"
               minDate={DateTime.local()
@@ -74,12 +64,12 @@ export const TasksDateSectionFuture = ({ onSelectDate }: TasksDateSectionFutureP
             <KeyboardDatePicker
               clearable
               InputProps={{ classes: { root: classes.datePickerInput } }}
-              onChange={date => onChangeTo(date)}
-              value={to}
+              onChange={date => handleSelect(date, 'to')}
+              value={to ? DateTime.fromISO(to) : null}
               className={classes.inlineBlock}
               format="MM.dd.yyyy"
               minDate={
-                from?.toISO() ||
+                from ||
                 DateTime.local()
                   .plus({ days: 8 })
                   .toISO()

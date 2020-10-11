@@ -6,13 +6,13 @@ import { TasksDateSectionProps } from './TasksDateSection.types';
 import { TasksDateSectionNextWeek } from './TasksDateSectionNextWeek';
 import { TasksDateSectionFuture } from './TasksDateSectionFuture';
 
-export const TasksDateSection = ({ tab, handleSetDateRange }: TasksDateSectionProps) => {
+export const TasksDateSection = ({ tab, deadlines, handleSetDateRange }: TasksDateSectionProps) => {
   switch (tab) {
     case TasksTab.NextWeek:
-      return <TasksDateSectionNextWeek onSelectDate={handleSetDateRange} />;
+      return <TasksDateSectionNextWeek deadlines={deadlines} onSelectDate={handleSetDateRange} />;
 
     case TasksTab.Future:
-      return <TasksDateSectionFuture onSelectDate={handleSetDateRange} />;
+      return <TasksDateSectionFuture deadlines={deadlines} onSelectDate={handleSetDateRange} />;
 
     default:
       return null;
