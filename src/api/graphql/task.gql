@@ -78,8 +78,8 @@ input DateRange {
 input TaskFilters {
   search: String
   assignees: [ID!]
-  startDate: DateRange
-  deadline: DateRange
+  startDates: [DateRange!]
+  deadlines: [DateRange!]
 }
 
 input TaskFullSummaryFilters {
@@ -89,8 +89,8 @@ input TaskFullSummaryFilters {
 input TaskSummaryByStatusFilters {
   search: String
   assignees: [ID!]
-  startDate: DateRange
-  deadline: DateRange
+  startDates: [DateRange!]
+  deadlines: [DateRange!]
 }
 
 extend type Mutation {

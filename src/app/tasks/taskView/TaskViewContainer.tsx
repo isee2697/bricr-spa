@@ -18,16 +18,18 @@ import {
 import { TasksTab, TeamMemberItem } from '../Tasks.types';
 import { TasksContent } from '../tasksContent/TasksContent';
 import { CreateNewTaskModalContainer } from '../createNewTaskModal/CreateNewTaskModalContainer';
-import { useModalDispatch } from '../../../hooks';
+import { useModalDispatch } from 'hooks';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
 export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskViewContainerProps) => {
   const [searchKey, setSearchKey] = useState('');
   const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
-  const [dateRange, setDateRange] = useState<DateRange>({
-    to: DateTime.local().toISO(),
-  });
+  const [dateRanges, setDateRanges] = useState<DateRange[]>([
+    {
+      to: DateTime.local().toISO(),
+    },
+  ]);
   const { close } = useModalDispatch();
 
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
@@ -49,17 +51,17 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
         sortDirection: SortDirection.Desc,
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
     getTaskSummaryByStatus({
       variables: {
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
-  }, [viewMode, searchKey, selectedMembers, dateRange, getTasks, getTaskSummaryByStatus]);
+  }, [viewMode, searchKey, selectedMembers, getTasks, getTaskSummaryByStatus, dateRanges]);
 
   const tasks: Task[] = (data ? data.getTasks?.items || [] : []).map(item => ({
     ...item,
@@ -71,40 +73,48 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   useEffect(() => {
     switch (tab) {
       case TasksTab.Today:
-        setDateRange({
-          from: DateTime.local().toISO(),
-          to: DateTime.local()
-            .endOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local().toISO(),
+            to: DateTime.local()
+              .endOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.NextWeek:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 1 })
-            .startOf('day')
-            .toISO(),
-          to: DateTime.local()
-            .plus({ days: 7 })
-            .endOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local()
+              .plus({ days: 1 })
+              .startOf('day')
+              .toISO(),
+            to: DateTime.local()
+              .plus({ days: 7 })
+              .endOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.Future:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 8 })
-            .startOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local()
+              .plus({ days: 8 })
+              .startOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.Overdue:
-        setDateRange({
-          to: DateTime.local().toISO(),
-        });
+        setDateRanges([
+          {
+            to: DateTime.local().toISO(),
+          },
+        ]);
         break;
 
       default:
@@ -135,7 +145,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
             sortDirection: SortDirection.Desc,
             search: searchKey,
             assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-            ...dateRange,
+            deadlines: dateRanges,
           },
         },
         {
@@ -143,7 +153,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
           variables: {
             search: searchKey,
             assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-            ...dateRange,
+            deadlines: dateRanges,
           },
         },
       ],
@@ -162,14 +172,14 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
         sortDirection: SortDirection.Desc,
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
     getTaskSummaryByStatus({
       variables: {
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
   };
@@ -188,10 +198,10 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
         selectedMembers={selectedMembers}
         searchKey={searchKey}
         viewMode={viewMode}
-        dateRange={dateRange}
+        deadlines={dateRanges}
         onChangeSearchKey={setSearchKey}
         onChangeViewMode={setViewMode}
-        onChangeDateRange={setDateRange}
+        onChangeDateRange={setDateRanges}
         onUpdateTaskStatus={handleUpdateTaskStatus}
       />
       <CreateNewTaskModalContainer members={members} onAddNewTask={handleAddNewTask} />
