@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
-
 import { Card, CardContent, CardHeader, FormControlLabel, Switch, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm } from 'ui/organisms';
 import { DatePickerField, GenericField } from 'form/fields';
 
 import { useStyles } from './Identification.styles';
+import { IdentificationProps } from './Identification.types';
 
-export const Identification = () => {
+export const Identification = ({ data, onSave }: IdentificationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const initialValues = {
-    id: '',
-    number: '',
-    cityIssue: '',
-    issueDate: '',
-  };
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
-  };
 
   return (
     <Card className={classes.root}>
@@ -36,7 +25,7 @@ export const Identification = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={onSave} initialValues={data}>
           <Grid item xs={12}>
             <Grid container spacing={1}>
               <Grid item xs={4}>
@@ -45,7 +34,7 @@ export const Identification = () => {
                 </Typography>
                 <GenericField
                   className={classes.formField}
-                  name="id"
+                  name="identification"
                   disabled={!isEditing}
                   placeholder="crm.details.personal_information_general.identification.passport"
                 />
@@ -56,7 +45,7 @@ export const Identification = () => {
                 </Typography>
                 <GenericField
                   className={classes.formField}
-                  name="number"
+                  name="identificationNumber"
                   disabled={!isEditing}
                   placeholder="crm.details.personal_information_general.identification.placeholder"
                 />
@@ -67,7 +56,7 @@ export const Identification = () => {
                 </Typography>
                 <GenericField
                   className={classes.formField}
-                  name="cityIssue"
+                  name="identificationIssueCity"
                   disabled={!isEditing}
                   placeholder="crm.details.personal_information_general.identification.placeholder"
                 />
@@ -79,7 +68,7 @@ export const Identification = () => {
                 <DatePickerField
                   className={classes.formField}
                   disabled={!isEditing}
-                  name="issueDate"
+                  name="identificationIssueDate"
                   placeholder="crm.details.personal_information_general.identification.date_picker"
                 />
               </Grid>

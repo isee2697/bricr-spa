@@ -106,6 +106,7 @@ export type Mutation = {
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   createCompany: Company;
+  createCrm: CrmGeneral;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
@@ -150,6 +151,11 @@ export type Mutation = {
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
+  updateCrmContactInformation?: Maybe<CrmContactInformation>;
+  updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  updateCrmFinancial?: Maybe<CrmFinancial>;
+  updateCrmGeneral?: Maybe<CrmGeneral>;
+  updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -407,6 +413,10 @@ export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
 
+export type MutationCreateCrmArgs = {
+  input: CreateCrmInput;
+};
+
 export type MutationCreateEmailAddressArgs = {
   input: CreateEmailAddressInput;
 };
@@ -582,6 +592,26 @@ export type MutationUpdateCadastreMapArgs = {
 
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
+};
+
+export type MutationUpdateCrmContactInformationArgs = {
+  input: UpdateCrmContactInformationInput;
+};
+
+export type MutationUpdateCrmFamilyContactsArgs = {
+  input: UpdateCrmFamilyContactsInput;
+};
+
+export type MutationUpdateCrmFinancialArgs = {
+  input: UpdateCrmFinancialInput;
+};
+
+export type MutationUpdateCrmGeneralArgs = {
+  input: UpdateCrmGeneralInput;
+};
+
+export type MutationUpdateCrmHomeSituationArgs = {
+  input: UpdateCrmHomeSituationInput;
 };
 
 export type MutationUpdateDescriptionArgs = {
@@ -854,6 +884,11 @@ export type Query = {
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
+  getCrmContactInformation?: Maybe<CrmContactInformation>;
+  getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
+  getCrmFinancial?: Maybe<CrmFinancial>;
+  getCrmGeneral?: Maybe<CrmGeneral>;
+  getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -914,6 +949,26 @@ export type QueryGetBulkDetailsArgs = {
 
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetCrmContactInformationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmFamilyContactsArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmFinancialArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmHomeSituationArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetLabelsArgs = {
@@ -1297,6 +1352,571 @@ export type CostsDetails = LastUpdated & {
   lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
+export enum ContactAddressType {
+  HomeAddress = 'HomeAddress',
+  SalesAddress = 'SalesAddress',
+  MailingAddress = 'MailingAddress',
+  VisitingAddress = 'VisitingAddress',
+  BillingAddress = 'BillingAddress',
+  FutureAddress = 'FutureAddress',
+  PreviousAddress = 'PreviousAddress',
+  SecondAddress = 'SecondAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactPhoneNumberType {
+  MobileNumber = 'MobileNumber',
+  PrivateNumber = 'PrivateNumber',
+  BusinessNumber = 'BusinessNumber',
+  FaxNumber = 'FaxNumber',
+  Custom = 'Custom',
+}
+
+export enum ContactEmailAddressType {
+  AddressForMatches = 'AddressForMatches',
+  AddressForInvoices = 'AddressForInvoices',
+  Private = 'Private',
+  Business = 'Business',
+  PreviousAddress = 'PreviousAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactSocialMediaType {
+  Facebook = 'Facebook',
+  Twitter = 'Twitter',
+  LinkedIn = 'LinkedIn',
+  Custom = 'Custom',
+}
+
+export type CrmContactInformation = {
+  __typename?: 'CrmContactInformation';
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddress>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddress>>;
+  socialMedia?: Maybe<Array<CrmSocialMedia>>;
+};
+
+export type UpdateCrmContactInformationInput = {
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddressInput>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
+  socialMedia?: Maybe<Array<CrmSocialMediaInput>>;
+};
+
+export type CrmAddress = {
+  __typename?: 'CrmAddress';
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumber = {
+  __typename?: 'CrmPhoneNumber';
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['Int'];
+  phoneNumber: Scalars['Int'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddress = {
+  __typename?: 'CrmEmailAddress';
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMedia = {
+  __typename?: 'CrmSocialMedia';
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
+};
+
+export type CrmAddressInput = {
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumberInput = {
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['Int'];
+  phoneNumber: Scalars['Int'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddressInput = {
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMediaInput = {
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
+};
+
+export enum MaritalStatusType {
+  Single = 'Single',
+  MarriedCommunityOfProperty = 'MarriedCommunityOfProperty',
+  MarriedPrenuptialAgreements = 'MarriedPrenuptialAgreements',
+  RegisteredPartner = 'RegisteredPartner',
+  Unmarried = 'Unmarried',
+  LivingTogether = 'LivingTogether',
+  Widow = 'Widow',
+  Widower = 'Widower',
+}
+
+export type LinkedCrm = {
+  __typename?: 'LinkedCrm';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+};
+
+export type CrmContact = {
+  __typename?: 'CrmContact';
+  type: Scalars['String'];
+  contact: LinkedCrm;
+};
+
+export type CrmFamilyContacts = {
+  __typename?: 'CrmFamilyContacts';
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partner?: Maybe<LinkedCrm>;
+  contacts?: Maybe<Array<CrmContact>>;
+};
+
+export type UpdateCrmFamilyContactsInput = {
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partnerId?: Maybe<Scalars['ID']>;
+  contacts?: Maybe<Array<CrmContactInput>>;
+};
+
+export type CrmContactInput = {
+  type: Scalars['String'];
+  contactId: Scalars['ID'];
+};
+
+export enum IncomeType {
+  Employer = 'Employer',
+  Equity = 'Equity',
+  Pension = 'Pension',
+  SocialBenefit = 'SocialBenefit',
+  Entrepreneur = 'Entrepreneur',
+}
+
+export enum PeriodType {
+  PerMonth = 'PerMonth',
+  PerWeek = 'PerWeek',
+  PerFourWeeks = 'PerFourWeeks',
+  PerYear = 'PerYear',
+}
+
+export enum EmploymentType {
+  FixedTerm = 'FixedTerm',
+  Indefinitely = 'Indefinitely',
+}
+
+export enum SocialBenefitType {
+  SocialBenefit = 'SocialBenefit',
+  Wajong = 'Wajong',
+  WiaWao = 'WiaWao',
+  IoawIow = 'IoawIow',
+}
+
+export enum EntrepreneurType {
+  IbEntrepreneur = 'IBEntrepreneur',
+  Dga = 'DGA',
+}
+
+export enum FinancialObligationType {
+  Obligation1 = 'Obligation1',
+  Obligation2 = 'Obligation2',
+  Obligation3 = 'Obligation3',
+}
+
+export enum BankType {
+  Ing = 'Ing',
+  Rabobank = 'Rabobank',
+  AbnAmro = 'AbnAmro',
+}
+
+export enum BankAccountPurposeType {
+  AutomaticIncasso = 'AutomaticIncasso',
+  ServiceCosts = 'ServiceCosts',
+  FirstInvoice = 'FirstInvoice',
+}
+
+export type CrmFinancial = {
+  __typename?: 'CrmFinancial';
+  id: Scalars['ID'];
+  income?: Maybe<Array<CrmIncome>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligation>>;
+  bankAccounts?: Maybe<Array<CrmBankAccount>>;
+};
+
+export type UpdateCrmFinancialInput = {
+  id: Scalars['ID'];
+  income?: Maybe<Array<CrmIncomeInput>>;
+  financialObligations?: Maybe<Array<CrmFinancialObligationInput>>;
+  bankAccounts?: Maybe<Array<CrmBankAccountInput>>;
+};
+
+export type CrmIncome = {
+  __typename?: 'CrmIncome';
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncome>;
+  equityIncome?: Maybe<CrmEquityIncome>;
+  pensionIncome?: Maybe<CrmPensionIncome>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncome>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncome>;
+};
+
+export type CrmEmployerInformation = {
+  __typename?: 'CrmEmployerInformation';
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncome = {
+  __typename?: 'CrmEmployerIncome';
+  profession?: Maybe<Scalars['String']>;
+  employer?: Maybe<LinkedCrm>;
+  employerInformation?: Maybe<CrmEmployerInformation>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncome = {
+  __typename?: 'CrmEquityIncome';
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncome = {
+  __typename?: 'CrmPensionIncome';
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncome = {
+  __typename?: 'CrmSocialBenefitIncome';
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncome = {
+  __typename?: 'CrmEntrepreneurIncome';
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligation = {
+  __typename?: 'CrmFinancialObligation';
+  type: Scalars['String'];
+  financialObligation: Scalars['Int'];
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccount = {
+  __typename?: 'CrmBankAccount';
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export type CrmIncomeInput = {
+  type: IncomeType;
+  information?: Maybe<Scalars['String']>;
+  employerIncome?: Maybe<CrmEmployerIncomeInput>;
+  equityIncome?: Maybe<CrmEquityIncomeInput>;
+  pensionIncome?: Maybe<CrmPensionIncomeInput>;
+  socialBenefitIncome?: Maybe<CrmSocialBenefitIncomeInput>;
+  entrepreneurIncome?: Maybe<CrmEntrepreneurIncomeInput>;
+};
+
+export type CrmEmployerInformationInput = {
+  name?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmployerIncomeInput = {
+  profession?: Maybe<Scalars['String']>;
+  employerId?: Maybe<Scalars['ID']>;
+  employerInformation?: Maybe<CrmEmployerInformationInput>;
+  employmentType?: Maybe<Scalars['String']>;
+  grossIncome?: Maybe<Scalars['Int']>;
+  grossIncomePeriod?: Maybe<PeriodType>;
+  holidayBonus?: Maybe<Scalars['Boolean']>;
+  fixedThirteenthMonth?: Maybe<Scalars['Boolean']>;
+  irregularityAllowance?: Maybe<Scalars['Int']>;
+  irregularityAllowancePeriod?: Maybe<PeriodType>;
+  profitDistribution?: Maybe<Scalars['Int']>;
+  profitDistributionPeriod?: Maybe<PeriodType>;
+  commission?: Maybe<Scalars['Int']>;
+  commissionPeriod?: Maybe<PeriodType>;
+  overtime?: Maybe<Scalars['Int']>;
+  overtimePeriod?: Maybe<PeriodType>;
+};
+
+export type CrmEquityIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+};
+
+export type CrmPensionIncomeInput = {
+  aowBenefit?: Maybe<Scalars['Int']>;
+  aowBenefitPeriod?: Maybe<PeriodType>;
+  retirementBenefit?: Maybe<Scalars['Int']>;
+  retirementBenefitPeriod?: Maybe<PeriodType>;
+};
+
+export type CrmSocialBenefitIncomeInput = {
+  income?: Maybe<Scalars['Int']>;
+  incomePeriod?: Maybe<PeriodType>;
+  socialBenefitType?: Maybe<Scalars['String']>;
+};
+
+export type CrmEntrepreneurIncomeInput = {
+  entrepreneurType?: Maybe<EntrepreneurType>;
+  companyCar?: Maybe<Scalars['Boolean']>;
+  companyBike?: Maybe<Scalars['Boolean']>;
+  pastPensionAge?: Maybe<Scalars['Boolean']>;
+  smeProfitExemption?: Maybe<Scalars['Boolean']>;
+  incomePerYear?: Maybe<Scalars['Int']>;
+  workingHoursPerMonth?: Maybe<Scalars['Int']>;
+  yearsAsIndependent?: Maybe<Scalars['Int']>;
+};
+
+export type CrmFinancialObligationInput = {
+  type: Scalars['String'];
+  financialObligation: Scalars['Int'];
+  information?: Maybe<Scalars['String']>;
+};
+
+export type CrmBankAccountInput = {
+  type: Scalars['String'];
+  accountNumber?: Maybe<Scalars['String']>;
+  bic?: Maybe<Scalars['String']>;
+  iban?: Maybe<Scalars['String']>;
+  swift?: Maybe<Scalars['String']>;
+  purpose?: Maybe<Scalars['String']>;
+};
+
+export enum PreferredLanguageType {
+  Dutch = 'Dutch',
+  English = 'English',
+  Polish = 'Polish',
+  German = 'German',
+  French = 'French',
+  Italian = 'Italian',
+  Spanish = 'Spanish',
+  Portuguese = 'Portuguese',
+}
+
+export enum PreferredTitlePrefixType {
+  Dr = 'Dr',
+  Mr = 'Mr',
+  Ir = 'Ir',
+  Ing = 'Ing',
+  Drs = 'Drs',
+}
+
+export enum PreferredTitleSuffixType {
+  Msc = 'Msc',
+  Ma = 'MA',
+  Mre = 'MRE',
+  Mba = 'MBA',
+  Bc = 'Bc',
+}
+
+export enum PreferredLetterSalutationType {
+  Family = 'Family',
+  Lord = 'Lord',
+  Mylady = 'Mylady',
+  LordMylady = 'LordMylady',
+}
+
+export type CrmGeneral = {
+  __typename?: 'CrmGeneral';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+};
+
+export type CrmIdentificationNumber = {
+  __typename?: 'CrmIdentificationNumber';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CrmIdentificationNumberInput = {
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CreateCrmInput = {
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+};
+
+export type UpdateCrmGeneralInput = {
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  avatarId?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+};
+
+export enum CurrentHomeSituationType {
+  LiveIn = 'LiveIn',
+  HomeForSale = 'HomeForSale',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+  StudentHouse = 'StudentHouse',
+  HouseSold = 'HouseSold',
+  AvailableForSale = 'AvailableForSale',
+}
+
+export enum ReasonToMoveType {
+  Health = 'Health',
+  Age = 'Age',
+  HousingCosts = 'HousingCosts',
+  ResidentialEnvironment = 'ResidentialEnvironment',
+  LiveTogether = 'LiveTogether',
+  ChangeOfIncome = 'ChangeOfIncome',
+  HouseholdComposition = 'HouseholdComposition',
+  Work = 'Work',
+  Study = 'Study',
+  LivingOnYourOwn = 'LivingOnYourOwn',
+  Wedding = 'Wedding',
+}
+
+export type CrmHomeSituation = {
+  __typename?: 'CrmHomeSituation';
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Scalars['String']>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCrmHomeSituationInput = {
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Scalars['String']>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
+};
+
 export type Energy = {
   __typename?: 'Energy';
   label?: Maybe<EnergyType>;
@@ -1425,6 +2045,7 @@ export enum EntityWithFiles {
   ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
   ProjectPhase = 'ProjectPhase',
   Profile = 'Profile',
+  Crm = 'Crm',
 }
 
 export enum EntityWithMultipleFiles {
@@ -6727,6 +7348,41 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type UpdateCrmGeneralMutationVariables = Exact<{
+  input: UpdateCrmGeneralInput;
+}>;
+
+export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
+  updateCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8025,6 +8681,41 @@ export type BulkDetailsQueryVariables = Exact<{
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
+export type GetCrmGeneralQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
+  getCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
 };
 
 export type GetLabelsQueryVariables = Exact<{
@@ -10421,6 +11112,54 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const UpdateCrmGeneralDocument = gql`
+  mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
+    updateCrmGeneral(input: $input) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useUpdateCrmGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>(
+    UpdateCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmGeneralMutationHookResult = ReturnType<typeof useUpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmGeneralMutation,
+  UpdateCrmGeneralMutationVariables
+>;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
     deleteEntity(input: $input) {
@@ -13621,6 +14360,56 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const GetCrmGeneralDocument = gql`
+  query getCrmGeneral($id: ID!) {
+    getCrmGeneral(id: $id) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useGetCrmGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(GetCrmGeneralDocument, baseOptions);
+}
+export function useGetCrmGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(
+    GetCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type GetCrmGeneralQueryHookResult = ReturnType<typeof useGetCrmGeneralQuery>;
+export type GetCrmGeneralLazyQueryHookResult = ReturnType<typeof useGetCrmGeneralLazyQuery>;
+export type GetCrmGeneralQueryResult = ApolloReactCommon.QueryResult<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

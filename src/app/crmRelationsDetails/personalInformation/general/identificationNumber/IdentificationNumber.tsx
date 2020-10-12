@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm } from 'ui/organisms';
@@ -7,28 +6,12 @@ import { AddIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './IdentificationNumber.styles';
+import { IdentificationNumberProps } from './IdentificationNumber.types';
 
-export const IdentificationNumber = () => {
+export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const initialValues = {
-    avatar: '',
-    firstName: '',
-    extraNames: '',
-    insertion: '',
-    additional: '',
-    gender: 'female',
-    birthday: '',
-    birthPlace: '',
-    nationality: '',
-    preferredLanguage: 'dutch',
-  };
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
-  };
 
   return (
     <Card className={classes.root}>
@@ -49,7 +32,7 @@ export const IdentificationNumber = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={onSave} initialValues={data}>
           <Grid item xs={12}>
             <InfoSection emoji="🛰">
               <Typography variant="h3">

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useEntityType } from 'app/shared/entityType';
 import { Grid, IconButton, NavBreadcrumb, Typography, TextField } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
@@ -13,8 +12,9 @@ import { PersonalInformation } from './personalInformation/PersonalInformation';
 import { Identification } from './identification/Identification';
 import { PreferredTitle } from './preferredTitle/PreferredTitle';
 import { IdentificationNumber } from './identificationNumber/IdentificationNumber';
+import { PersonalInformationGeneralProps } from './General.types';
 
-export const PersonalInformationGeneral = () => {
+export const PersonalInformationGeneral = ({ data, onSave }: PersonalInformationGeneralProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -49,10 +49,10 @@ export const PersonalInformationGeneral = () => {
           />
         </Grid>
 
-        <PersonalInformation />
-        <Identification />
-        <PreferredTitle />
-        <IdentificationNumber />
+        <PersonalInformation data={data} onSave={onSave} />
+        <Identification data={data} onSave={onSave} />
+        <PreferredTitle data={data} onSave={onSave} />
+        <IdentificationNumber data={data} onSave={onSave} />
       </Page>
     </>
   );
