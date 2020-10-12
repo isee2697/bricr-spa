@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-
 import { usePagination } from 'hooks';
 import {
-  GetUserProfileDocument,
   GetUsersCountDocument,
   GetUsersDocument,
   GetUsersQueryVariables,
@@ -58,7 +56,7 @@ export const UsersContainer = () => {
             isAdmin: update.isAdmin,
           },
         },
-        refetchQueries: [{ query: GetUserProfileDocument, variables: { id: update.id } }],
+        refetchQueries: [{ query: GetUsersDocument, variables }],
       });
 
       if (!response) {
