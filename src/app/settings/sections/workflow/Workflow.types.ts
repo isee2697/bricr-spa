@@ -33,6 +33,7 @@ export type WorkflowProps = {
   onToggleFullScreen: (isFullScreen: boolean) => void;
   name: string;
   iconName: string;
+  isNew?: boolean;
   goBack: VoidFunction;
   triggersGroups: WorkflowSidebarGroup[];
   actionsGroups: WorkflowSidebarGroup[];

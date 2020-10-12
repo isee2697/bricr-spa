@@ -7,7 +7,7 @@ import { WorkflowCanvas } from '../workflowCanvas/WorkflowCanvas';
 import { WorkflowSectionProps } from './WorkflowSection.types';
 import { useStyles } from './WorkflowSection.styles';
 
-export const WorkflowSection = ({ section, expanded, onExpanded, onAddItem }: WorkflowSectionProps) => {
+export const WorkflowSection = ({ section, expanded, onExpanded, onAddItem, onSettings }: WorkflowSectionProps) => {
   const classes = useStyles();
 
   return (
@@ -17,7 +17,7 @@ export const WorkflowSection = ({ section, expanded, onExpanded, onAddItem }: Wo
           <Box className={classes.header}>
             <Typography variant="h2">{section.title}</Typography>
             <Box className={classes.actions}>
-              <IconButton className={classes.options} variant="rounded" size="small" onClick={() => {}}>
+              <IconButton className={classes.options} variant="rounded" size="small" onClick={onSettings}>
                 <MenuIcon color="inherit" />
               </IconButton>
               <IconButton className={classes.options} variant="roundedContained" size="small" onClick={onExpanded}>
