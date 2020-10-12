@@ -21,13 +21,12 @@ export const GET_TASKS = gql`
   query GetTasks(
     $search: String
     $assignees: [ID!]
-    $from: Date
-    $to: Date
+    $deadlines: [DateRange!]
     $sortColumn: String!
     $sortDirection: SortDirection!
   ) {
     getTasks(
-      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      filters: { search: $search, assignees: $assignees, deadlines: $deadlines }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
       items {
@@ -58,8 +57,8 @@ export const GET_TASKS_FULL_SUMMARY = gql`
 `;
 
 export const GET_TASKS_SUMMARY_BY_STATUS = gql`
-  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
-    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRange!]) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadlines: $deadlines }) {
       todo
       inProgress
       blocked
