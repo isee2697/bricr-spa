@@ -12,7 +12,6 @@ export const useStyles = makeStyles(({ spacing }) => ({
     height: spacing(3.75),
   },
   day: {
-    // height: spacing(7.5),
     '& td[class*="TickCell-cell"]': {
       height: spacing(7.5),
     },

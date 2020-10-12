@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { WeekView as Week, WeekViewProps } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { useStyles } from './WeekView.styles';
+import { useStyles } from 'ui/organisms/calendar/weekView/WeekView.styles';
 
 const WeekTimeTableCell = ({ ...props }: Week.TimeTableCellProps) => {
   const classes = useStyles();

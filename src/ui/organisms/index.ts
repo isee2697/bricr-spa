@@ -1,14 +1,3 @@
-export {
-  Scheduler,
-  MonthView,
-  AllDayPanel,
-  AppointmentTooltip,
-  AppointmentForm,
-  CurrentTimeIndicator,
-  Resources,
-} from '@devexpress/dx-react-scheduler-material-ui';
-export { ViewState } from '@devexpress/dx-react-scheduler';
-
 export { StatsSection } from './statsSection/StatsSection';
 export { Orders } from './orders/Orders';
 export { VisitedPages } from './visitedPages/VisitedPages';
@@ -28,7 +17,8 @@ export { BulkActionConfirmModal } from './bulkActionConfirmModal/BulkActionConfi
 export { ActionModal } from './actionModal/ActionModal';
 export { AddCustomPropertyModal } from './addCustomPropertyModal/AddCustomPropertyModal';
 export { FormModal } from './formModal/FormModal';
-export { WeekView } from './weekView/WeekView';
-export { DayView } from './dayView/DayView';
-export { Appointments } from './appointments/Appointments';
+
 export { LocaleSwitch } from './localeSwitch/LocaleSwitch';
+export { AllDayPanel } from './calendar/allDayPanel/AllDayPanel';
+
+export * from './calendar';

@@ -52,16 +52,69 @@ const schedulerData = [
     startDate: DateTime.fromISO(new Date(now.setHours(2)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
     allDay: true,
-    id: 1,
+    id: 2,
     location: 'Room 1',
     type: CalendarTypes.Birthday,
   },
+
   {
-    title: 'Birthday of our Dev',
+    title: 'Birthday of our manager',
     startDate: DateTime.fromISO(now.toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
     allDay: true,
-    id: 1,
+    id: 3,
+    type: CalendarTypes.Birthday,
+    location: 'Room 1',
+  },
+  {
+    title: 'Birthday of our manager',
+    startDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    allDay: true,
+    id: 4,
+    type: CalendarTypes.Birthday,
+    location: 'Room 1',
+  },
+  {
+    title: 'Birthday of our dev 2',
+    startDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    allDay: true,
+    id: 5,
+    type: CalendarTypes.Birthday,
+    location: 'Room 1',
+  },
+  {
+    title: 'Birthday of our dev 2',
+    startDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    allDay: true,
+    id: 7,
+    type: CalendarTypes.Birthday,
+    location: 'Room 1',
+  },
+  {
+    title: 'Birthday of our cpo',
+    startDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .plus({ days: 1 })
+      .toJSDate(),
+    allDay: true,
+    id: 6,
     type: CalendarTypes.Birthday,
     location: 'Room 1',
   },
@@ -107,6 +160,7 @@ const CalendarResources = [
     color: palette.orange.main,
   },
 ];
+
 export const CalendarContainer = () => {
   const currentDate = now;
 

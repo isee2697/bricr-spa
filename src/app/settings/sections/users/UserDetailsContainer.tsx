@@ -27,7 +27,7 @@ export const UserDetailsContainer = () => {
             dateOfBirth: update.dateOfBirth,
             gender: update.gender,
             adminSettings: update.adminSettings,
-            imageId: update?.image?.id,
+            imageId: update?.image?.id ?? null,
             initials: update?.initials,
             costUnit: update.costUnit,
             hideOnMemos: update.hideOnMemos,

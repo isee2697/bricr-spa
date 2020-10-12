@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { DayView as Day, DayViewProps, WeekView as Week } from '@devexpress/dx-react-scheduler-material-ui';
+import { DayView as Day, DayViewProps } from '@devexpress/dx-react-scheduler-material-ui';
 
-import { useStyles } from './DayView.styles';
+import { useStyles } from 'ui/organisms/calendar/dayView/DayView.styles';
 
 const DayTimeTableCell = ({ ...props }: Day.TimeTableCellProps) => {
   const classes = useStyles();
