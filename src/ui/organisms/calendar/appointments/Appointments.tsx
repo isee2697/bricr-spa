@@ -24,13 +24,13 @@ const AppointmentContainer = (props: App.ContainerProps & { children?: ReactNode
 
   if (isAllDay) {
     const transformHeight = parseInt(props.style.transform.match(/\d+/)[0]);
-    const itemNumber = Math.round(transformHeight / props.style.height);
-    const height = spacing(3);
+    const devideHeight = props.style.height < spacing(2) ? spacing(2) : spacing(3);
+    const itemNumber = Math.floor(transformHeight / devideHeight);
 
     if (itemNumber > 3) {
       props.style.display = 'none';
     } else {
-      props.style.height = height;
+      props.style.height = spacing(3);
       props.style.transform = `unset`;
       props.style.msTransform = `unset`;
       props.style.top = spacing(3.1) * (itemNumber - 1) + 'px';
