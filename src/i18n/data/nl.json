@@ -15,7 +15,7 @@
   "add_pim.conflict.title": "Voer adresgegevens in",
   "add_pim.conflict.yes_add_the_same": "Ja, voeg hetzelfde adres toe",
   "add_pim.controls.previously_step": "Eerder stap",
-  "add_pim.error.unknown": "Er is een fout opgetreden. Probeer het later opnieuw.",
+  "add_pim.error.unknown": "Er is een fout opgetreden. Probeer het later opnieuw. {message}",
   "add_pim.type.title": "Wat voor soort woning wilt u toevoegen?",
   "add_pim.type.title_Project": "Wat voor soort project wil je toevoegen?",
   "authorization.back_to_login": "Terug naar Inloggen",

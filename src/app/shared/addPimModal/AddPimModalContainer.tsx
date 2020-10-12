@@ -2,7 +2,6 @@ import React from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import { AnyObject } from 'react-final-form';
-
 import {
   useCreatePimMutation,
   RealEstateType,
@@ -54,8 +53,8 @@ export const AddPimModalContainer = () => {
           },
         });
 
-        if (errors) {
-          throw new Error();
+        if (!!errors) {
+          throw new Error(errors[0].message);
         }
 
         if (pimWithSameAddress?.getPimsGeneralWithSameAddress.items?.length) {
@@ -66,7 +65,7 @@ export const AddPimModalContainer = () => {
         }
       }
 
-      const { data: result } = await createPim({
+      const { data: result, errors: createErrors } = await createPim({
         variables: {
           input: {
             ...body,
@@ -79,12 +78,16 @@ export const AddPimModalContainer = () => {
         },
       });
 
+      if (!!createErrors) {
+        throw new Error(createErrors[0].message);
+      }
+
       if (!result || !result.createPim) {
         throw new Error();
       }
 
       if (options?.projectId && options?.objectTypeId) {
-        const { data: setResult } = await setLinked({
+        const { data: setResult, errors: setErrors } = await setLinked({
           variables: {
             input: {
               id: options.objectTypeId as string,
@@ -106,6 +109,10 @@ export const AddPimModalContainer = () => {
           ],
         });
 
+        if (!!setErrors) {
+          throw new Error(setErrors[0].message);
+        }
+
         if (!setResult || !setResult.setObjectTypeLinkedPims) {
           throw new Error();
         }
@@ -124,9 +131,10 @@ export const AddPimModalContainer = () => {
       close('add-new-pim');
 
       return undefined;
-    } catch {
+    } catch (e) {
       return {
         error: 'unknown',
+        errorMessage: e.message,
       };
     }
   };
@@ -150,8 +158,8 @@ export const AddPimModalContainer = () => {
           },
         });
 
-        if (errors) {
-          throw new Error();
+        if (!!errors) {
+          throw new Error(errors[0].message);
         }
 
         if (pimWithSameAddress?.getNcpWithSameAddress.items?.length) {
@@ -162,7 +170,7 @@ export const AddPimModalContainer = () => {
         }
       }
 
-      const { data: result } = await createNcp({
+      const { data: result, errors: createErrors } = await createNcp({
         variables: {
           input: {
             type: propertyType,
@@ -170,6 +178,10 @@ export const AddPimModalContainer = () => {
           },
         },
       });
+
+      if (!!createErrors) {
+        throw new Error(createErrors[0].message);
+      }
 
       if (!result || !result.createNcp) {
         throw new Error();
@@ -179,9 +191,10 @@ export const AddPimModalContainer = () => {
       close('add-new-pim');
 
       return undefined;
-    } catch {
+    } catch (e) {
       return {
         error: 'unknown',
+        errorMessage: e.message,
       };
     }
   };

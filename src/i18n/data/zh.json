@@ -15,7 +15,7 @@
   "add_pim.conflict.title": "输入地址信息",
   "add_pim.conflict.yes_add_the_same": "是，添加相同的地址",
   "add_pim.controls.previously_step": "较早步骤",
-  "add_pim.error.unknown": "发生错误。请稍后再试。",
+  "add_pim.error.unknown": "发生错误。请稍后再试。 {message}",
   "add_pim.type.title": "要添加哪种属性？",
   "add_pim.type.title_Project": "您要添加什么样的项目？",
   "authorization.back_to_login": "返回登录",

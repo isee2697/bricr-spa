@@ -1,15 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-
 import { ListPimsFilters, Pim as PimEntity } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
+import { Box, Grid, Card, CardHeader, CardContent } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { useShowError, useSnackbar } from 'hooks';
 
 import { PimSidebarMenu } from './pimSidebarMenu/PimSidebarMenu';
 import { PimHeader } from './pimHeader/PimHeader';

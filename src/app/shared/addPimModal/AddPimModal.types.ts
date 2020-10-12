@@ -1,5 +1,4 @@
 import { AnyObject } from 'react-final-form';
-
 import { NcpType, PropertyType } from 'api/types';
 import { ModalStateOptions } from 'context/modal/modalContext/ModalContext.types';
 
@@ -34,6 +33,7 @@ export type AddPimSubmit<T = AnyObject> = (
   | {
       error: 'conflict' | 'unknown';
       conflictsCount?: number;
+      errorMessage?: string;
     }
 >;
 
