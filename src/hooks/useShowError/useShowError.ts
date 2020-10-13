@@ -9,7 +9,7 @@ export const useShowError = () => {
   const { formatMessage } = useLocale();
 
   const showError = (message?: string) => {
-    message = message ?? formatMessage({ id: 'common.unknow_error' });
+    message = message ?? formatMessage({ id: 'common.unknown_error' });
 
     // wait for 5 seconds before showing same error again
     // this prevents invisible new errors and to many re-rendering
