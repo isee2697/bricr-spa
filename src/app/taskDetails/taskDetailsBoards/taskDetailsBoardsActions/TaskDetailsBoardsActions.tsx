@@ -1,9 +1,10 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { Task, TaskLabel, TaskStatus } from 'api/types';
-import { Paper, Emoji, Dropdown, UserAvatar, Box, Typography } from 'ui/atoms';
+import { Paper, Emoji, SelectBox, UserAvatar, Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
+import { SelectBoxItem } from 'ui/atoms/selectBox/SelectBox.types';
 import { FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon } from 'ui/atoms/icons';
 import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
 import { AdvancedSearch as AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
@@ -17,10 +18,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
 
   const { id, status, assignee, label } = task;
 
-  const statusItems: DropdownItem[] = [
+  const statusItems: SelectBoxItem[] = [
     {
       label: (
-        <span className={classes.status}>
+        <span className={clsx(classes.status, classes.backgroundBlue)}>
           <Emoji>{`⏱ ${formatMessage({ id: 'tasks.todo' })}`}</Emoji>
         </span>
       ),
@@ -28,7 +29,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     },
     {
       label: (
-        <span className={classes.status}>
+        <span className={clsx(classes.status, classes.backgroundYellow)}>
           <Emoji>{`🔥 ${formatMessage({ id: 'tasks.in_progress' })}`}</Emoji>
         </span>
       ),
@@ -36,7 +37,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     },
     {
       label: (
-        <span className={classes.status}>
+        <span className={clsx(classes.status, classes.backgroundRed)}>
           <Emoji>{`⛔️ ${formatMessage({ id: 'tasks.blocked' })}`}</Emoji>
         </span>
       ),
@@ -44,7 +45,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     },
     {
       label: (
-        <span className={classes.status}>
+        <span className={clsx(classes.status, classes.backgroundGreen)}>
           <Emoji>{`✅ ${formatMessage({ id: 'tasks.done' })}`}</Emoji>
         </span>
       ),
@@ -58,11 +59,14 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     icon: <UserAvatar name={`${member.firstName} ${member.lastName}`} className={classes.avagarIcon} />,
   }));
 
-  const labels: DropdownItem[] = [
+  const labels: SelectBoxItem[] = [
     {
       label: (
         <span className={classes.label}>
-          <UserRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.business' })}
+          <UserRectangleIcon viewBox="0 0 16 16" />
+          <Typography variant="h5" className={classes.labelText}>
+            {formatMessage({ id: 'tasks.label.business' })}
+          </Typography>
         </span>
       ),
       value: TaskLabel.Business,
@@ -70,7 +74,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     {
       label: (
         <span className={classes.label}>
-          <FollowUpRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.follow_up' })}
+          <FollowUpRectangleIcon viewBox="0 0 16 16" />
+          <Typography variant="h5" className={classes.labelText}>
+            {formatMessage({ id: 'tasks.label.follow_up' })}
+          </Typography>
         </span>
       ),
       value: TaskLabel.FollowUp,
@@ -78,7 +85,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     {
       label: (
         <span className={classes.label}>
-          <LockRectangleIcon viewBox="0 0 20 20" /> {formatMessage({ id: 'tasks.label.private' })}
+          <LockRectangleIcon viewBox="0 0 16 16" />
+          <Typography variant="h5" className={classes.labelText}>
+            {formatMessage({ id: 'tasks.label.private' })}
+          </Typography>
         </span>
       ),
       value: TaskLabel.Private,
@@ -90,14 +100,28 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper>
       <Box>
-        <Dropdown
+        <SelectBox
           value={status}
           items={statusItems}
           placeholder="tasks.details.status"
+          showSelected={false}
           onChange={value => handleChange('status', value as TaskStatus)}
           align="left"
+          classes={{
+            input: classes.dropdown,
+            inputInner:
+              status === TaskStatus.ToDo
+                ? classes.backgroundBlue
+                : status === TaskStatus.InProgress
+                ? classes.backgroundYellow
+                : status === TaskStatus.Blocked
+                ? classes.backgroundRed
+                : classes.backgroundGreen,
+            menu: classes.dropdownMenu,
+            menuItem: classes.dropdownMenuItem,
+          }}
         />
       </Box>
       <Box className={classes.marginTopThree}>
@@ -109,15 +133,21 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
         />
       </Box>
       <Box className={classes.marginTopThree}>
-        <Typography variant="h5" className={classes.dropdownLabel}>
-          {formatMessage({ id: 'tasks.details.label' })}
-        </Typography>
-        <Dropdown
+        <SelectBox
+          title={formatMessage({ id: 'tasks.details.label' })}
           value={label}
           items={labels}
           placeholder="tasks.details.label"
           onChange={value => handleChange('label', value as string)}
           align="left"
+          showSelected={false}
+          classes={{
+            input: classes.labelDropdown,
+            inputInner: classes.labelDropdownInner,
+            menu: classes.dropdownMenu,
+            menuItem: classes.labelDropdownMenuItem,
+            menuItemInner: classes.labelDropdownMenuItemInner,
+          }}
         />
       </Box>
     </Paper>

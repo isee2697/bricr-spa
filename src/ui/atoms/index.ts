@@ -89,3 +89,4 @@ export { InfoItem } from './infoItem/InfoItem';
 export { PersonChip } from './personChip/PersonChip';
 export { SidebarHideButton } from './sidebarHideButton/SidebarHideButton';
 export { SidebarTitleTile } from './sidebarTitleTile/SidebarTitleTile';
+export { SelectBox } from './selectBox/SelectBox';
