@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SquareIcon } from '../../../../../ui/atoms/icons';
 
 export const prefixes = [

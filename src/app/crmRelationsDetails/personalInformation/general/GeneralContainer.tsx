@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { UpdateCrmGeneralInput, useGetCrmGeneralQuery } from 'api/types';
 import { useUpdateCrmGeneralMutation } from 'api/types';
 
@@ -24,8 +25,6 @@ export const PersonalInformationGeneralContainer = () => {
   if (!crm) {
     return null;
   }
-
-  console.log(crm);
 
   return <PersonalInformationGeneral data={crm} onSave={handleSave} />;
 };

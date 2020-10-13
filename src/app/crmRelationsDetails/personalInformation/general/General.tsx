@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useEntityType } from 'app/shared/entityType';
 import { Grid, IconButton, NavBreadcrumb, Typography, TextField } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
