@@ -1,0 +1,26 @@
+type PimServices implements LastUpdated & Services {
+  id: String!
+  meters: [Meter!]
+  metersMeta: MetersMeta
+  hotWaterSupplies: [Service!]
+  heatingSources: [Service!]
+  additionalServices: [Service!]
+  dateUpdated: Date
+  lastEditedBy: LastUpdatedProfile
+  description: String
+}
+
+type PimWithNewService {
+  pim: Pim!
+  newService: Service!
+}
+
+extend type Query {
+  getPimServices(id: ID!): PimServices! @auth
+}
+
+extend type Mutation {
+  addPimService(input: AddServiceInput!): PimWithNewService @auth
+  updatePimService(input: UpdateServiceInput!): Pim @auth
+}
+

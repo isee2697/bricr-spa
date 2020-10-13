@@ -1,102 +1,77 @@
 import React, { useState } from 'react';
 import { FormSection } from 'ui/organisms';
-import { Button, Box, Grid, Typography } from 'ui/atoms';
-import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
-import { GenericField, RadioGroupField, DatePickerField, TimePickerField } from 'form/fields';
-import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
-import { SeeIcon } from 'ui/atoms/icons/see/SeeIcon';
+import { Box, Grid } from 'ui/atoms';
+import { FormSubSectionHeader } from 'ui/molecules';
+import { GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { Form } from 'app/shared/media/form/Form';
-import { LinkIcon } from 'ui/atoms/icons';
-import { AvailabilityPicker } from '../availabilityPicker/AvailabilityPicker';
+import { SquareIcon } from 'ui/atoms/icons';
+import { AddMomentmodalContainer } from '../addMomentModal/AddMomentModalContainer';
+import { AddModalSubmit, LinkedPersonType } from '../addMomentModal/AddMomentModal.types';
+import { MomentForm } from '../momentForm/MomentForm';
 
-const moments = [
-  { id: 1, name: 'test' },
-  { id: 2, name: 'test2' },
+const baseName = 'sales_settings.general';
+
+type MomentArrayType = {
+  id: number;
+  name: string;
+  persons: LinkedPersonType[];
+};
+
+const momentsArray: MomentArrayType[] = [
+  { id: 1, name: 'Viewing moment  1', persons: [] },
+  { id: 2, name: 'Viewing moment  2', persons: [] },
 ];
 
 const onlineSchedule = [
   {
     label: 'dictionaries.kitchen_construction.DenseKitchen',
-    icon: <HomeIcon color="inherit" />,
+    icon: <SquareIcon color="inherit" />,
     value: 'DenseKitchen',
   },
   {
     label: 'dictionaries.kitchen_construction.EatInKitchen',
-    icon: <SeeIcon color="inherit" />,
-    value: 'EatInKitchen',
-  },
-];
-
-const days = [
-  {
-    label: 'Mon',
-    icon: <></>,
-    value: 'mon',
-  },
-  {
-    label: 'Tue',
-    icon: <></>,
-    value: 'tue',
-  },
-  {
-    label: 'Wed',
-    icon: <></>,
-    value: 'wed',
-  },
-  {
-    label: 'Thu',
-    icon: <></>,
-    value: 'thu',
-  },
-  {
-    label: 'Fri',
-    icon: <></>,
-    value: 'fri',
-  },
-  {
-    label: 'Sat',
-    icon: <></>,
-    value: 'sat',
-  },
-  {
-    label: 'Sun',
-    icon: <></>,
-    value: 'sun',
-  },
-];
-
-const appointmentType = [
-  {
-    label: 'dictionaries.kitchen_construction.DenseKitchen',
-    icon: <HomeIcon color="inherit" />,
-    value: 'DenseKitchen',
-  },
-  {
-    label: 'dictionaries.kitchen_construction.EatInKitchen',
-    icon: <SeeIcon color="inherit" />,
+    icon: <SquareIcon color="inherit" />,
     value: 'EatInKitchen',
   },
 ];
 
 export const Moments = () => {
-  const [toggled, setToggled] = useState<number | undefined>(0);
+  const [currentModal, setCurrentModal] = useState<number>(0);
+  const [moments, updateMoments] = useState(momentsArray);
+  const [isAddModaVisible, setAddModalVisible] = useState(false);
   const { formatMessage } = useLocale();
-  const baseName = 'sales_settings.general';
 
-  const onSave = async (values: unknown) => {
+  const onModalSubmit: AddModalSubmit = async (index, persons) => {
     try {
-      console.log(await values);
+      momentsArray[index].persons = persons;
 
-      return { error: false };
-    } catch (error) {
+      updateMoments(momentsArray);
+      setAddModalVisible(false);
+
+      return undefined;
+    } catch {
       return { error: true };
     }
   };
 
+  const onSave = async (values: unknown) => {
+    try {
+      return undefined;
+    } catch {
+      return { error: true };
+    }
+  };
+
+  const handleAddMoment = () => {
+    updateMoments([
+      ...moments,
+      { id: moments.length + 1, name: 'Viewing moment ' + (moments.length + 1), persons: [] },
+    ]);
+  };
+
   return (
     <>
-      <FormSection title="Moments" onAdd={() => {}}>
+      <FormSection title={formatMessage({ id: baseName + 'title' })} onAdd={handleAddMoment}>
         {editing => (
           <>
             <Grid container>
@@ -131,63 +106,27 @@ export const Moments = () => {
               </Grid>
             </Grid>
             {moments.map((moment, index) => (
-              <Form
-                key={moment.id}
-                title={moment.name ?? formatMessage({ id: 'pim_details.media.links.default_name' })}
+              <MomentForm
+                moment={moment}
                 onSave={onSave}
-                initialValues={moment}
-                onExpand={() => setToggled(toggled => (toggled !== moment.id ? moment.id : undefined))}
-                counter={index + 1}
-                isExpanded={toggled === moment.id}
-              >
-                <Grid item xs={12}>
-                  <Box mb={4}>
-                    <Box mb={3} px={2}>
-                      <FormSubSectionHeader noBorder title="Type of appointment" subtitle="Choose one option below" />
-                    </Box>
-                    <Box px={2}>
-                      <RadioGroupField disabled={!editing} name={`${baseName}.schedule`} options={appointmentType} />
-                    </Box>
-                  </Box>
-                  <Box mb={4}>
-                    <Box mb={3} px={2}>
-                      <FormSubSectionHeader noBorder title="Moment schedule" subtitle="Choose one option below" />
-                    </Box>
-                    <Box px={2}>
-                      <AvailabilityPicker days={days} />
-                    </Box>
-                  </Box>
-                  <Box mb={4}>
-                    <Box mb={3} px={2}>
-                      <FormSubSectionHeader noBorder title="Account managers" subtitle="Choose one option below" />
-                    </Box>
-                    <Box px={2}>
-                      <InfoSection color="gradient" emoji="🤔">
-                        <Box mb={4}>
-                          <Typography variant="h3">You don't have any links</Typography>
-                          <Typography variant="h3">You don't have any links</Typography>
-                        </Box>
-                        <Box display="inline-block">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            fullWidth
-                            type="submit"
-                            // disabled={submitting || isSuccess}
-                            size="large"
-                          >
-                            <LinkIcon color="inherit" /> Link user
-                          </Button>
-                        </Box>
-                      </InfoSection>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Form>
+                onAddMoment={() => {
+                  setCurrentModal(index);
+                  setAddModalVisible(true);
+                }}
+                index={index}
+                isEditing={editing}
+              />
             ))}
           </>
         )}
       </FormSection>
+      <AddMomentmodalContainer
+        onAddMoment={onModalSubmit}
+        type={'person'}
+        isOpened={isAddModaVisible}
+        currentModalIndex={currentModal}
+        onClose={() => setAddModalVisible(false)}
+      />
     </>
   );
 };
