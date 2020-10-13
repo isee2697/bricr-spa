@@ -1,6 +1,7 @@
 export type SelectBoxItem = {
   label: string | React.ReactElement;
   value: string | number;
+  color?: string;
 };
 
 export type SelectBoxClasses = {

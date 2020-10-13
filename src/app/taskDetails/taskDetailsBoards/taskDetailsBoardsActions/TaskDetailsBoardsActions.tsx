@@ -21,35 +21,39 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   const statusItems: SelectBoxItem[] = [
     {
       label: (
-        <span className={clsx(classes.status, classes.backgroundBlue)}>
+        <span className={clsx(classes.status)}>
           <Emoji>{`⏱ ${formatMessage({ id: 'tasks.todo' })}`}</Emoji>
         </span>
       ),
       value: TaskStatus.ToDo,
+      color: 'blue',
     },
     {
       label: (
-        <span className={clsx(classes.status, classes.backgroundYellow)}>
+        <span className={clsx(classes.status)}>
           <Emoji>{`🔥 ${formatMessage({ id: 'tasks.in_progress' })}`}</Emoji>
         </span>
       ),
       value: TaskStatus.InProgress,
+      color: 'yellow',
     },
     {
       label: (
-        <span className={clsx(classes.status, classes.backgroundRed)}>
+        <span className={clsx(classes.status)}>
           <Emoji>{`⛔️ ${formatMessage({ id: 'tasks.blocked' })}`}</Emoji>
         </span>
       ),
       value: TaskStatus.Blocked,
+      color: 'red',
     },
     {
       label: (
-        <span className={clsx(classes.status, classes.backgroundGreen)}>
+        <span className={clsx(classes.status)}>
           <Emoji>{`✅ ${formatMessage({ id: 'tasks.done' })}`}</Emoji>
         </span>
       ),
       value: TaskStatus.Done,
+      color: 'green',
     },
   ];
 
@@ -111,7 +115,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
           align="left"
           classes={{
             input: classes.dropdown,
-            inputInner:
+            inputInner: clsx(
               status === TaskStatus.ToDo
                 ? classes.backgroundBlue
                 : status === TaskStatus.InProgress
@@ -119,6 +123,8 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
                 : status === TaskStatus.Blocked
                 ? classes.backgroundRed
                 : classes.backgroundGreen,
+              classes.dropdownInner,
+            ),
             menu: classes.dropdownMenu,
             menuItem: classes.dropdownMenuItem,
           }}

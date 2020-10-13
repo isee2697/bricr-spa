@@ -49,6 +49,12 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.5),
     height: theme.spacing(9),
   },
+  dropdownInner: {
+    '&.selected': {
+      border: `1px solid ${theme.palette.primary.main}`,
+      background: theme.palette.primary.light,
+    },
+  },
   dropdownMenu: {
     marginTop: theme.spacing(0.5),
     backgroundColor: theme.palette.white.main,
@@ -56,6 +62,22 @@ export const useStyles = makeStyles(theme => ({
   dropdownMenuItem: {
     height: theme.spacing(6),
     margin: theme.spacing(2),
+
+    '&.blue': {
+      background: theme.palette.blue.light,
+    },
+
+    '&.yellow': {
+      background: theme.palette.yellow.light,
+    },
+
+    '&.red': {
+      background: theme.palette.red.light,
+    },
+
+    '&.green': {
+      background: theme.palette.green.light,
+    },
   },
   labelDropdown: {
     backgroundColor: theme.palette.white.main,

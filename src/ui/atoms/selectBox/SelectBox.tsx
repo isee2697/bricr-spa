@@ -58,6 +58,7 @@ export const SelectBox = ({
             className={classNames(
               propsClasses?.menuItem,
               classes.item,
+              item.color,
               { selected: value === item.value },
               align === 'left' && 'alignLeft',
               align === 'right' && 'alignRight',
