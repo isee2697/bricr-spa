@@ -7,6 +7,10 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
 
+    '&:hover': {
+      background: theme.palette.gradientBlue.light,
+    },
+
     '&.dragging': {
       display: 'none',
     },
