@@ -67,6 +67,7 @@ export { SideMenuItem } from './sideMenuItem/SideMenuItem';
 export { SideSubMenuItem } from './sideSubMenuItem/SideSubMenuItem';
 export { ProgressFilling } from './progressFillig/ProgressFilling';
 export { Checkbox } from './checkbox/Checkbox';
+export { Radio } from './radio/Radio';
 export { Pagination } from './pagination/Pagination';
 export { Price } from './price/Price';
 export { Placeholder } from './placeholder/Placeholder';
