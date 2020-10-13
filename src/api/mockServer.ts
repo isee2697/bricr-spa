@@ -295,7 +295,6 @@ export const mockServer = () => {
             return { newSpace };
           },
           updateAogSpace() {
-            console.log(variables.input);
             let returnSpace = {};
             PIM_AOG.aogSpaces?.map(space => {
               if (variables.input.spaceId === space.id) {
