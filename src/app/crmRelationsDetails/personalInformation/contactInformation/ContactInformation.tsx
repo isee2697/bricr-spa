@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
@@ -13,8 +12,9 @@ import { Addresses } from './addresses/Addresses';
 import { PhoneNumbers } from './phoneNumbers/PhoneNumbers';
 import { EmailAddresses } from './emailAddresses/EmailAddresses';
 import { SocialMedia } from './socialMedia/SocialMedia';
+import { ContactInformationProps } from './ContactInformation.types';
 
-export const ContactInformation = () => {
+export const ContactInformation = ({ data, onSave }: ContactInformationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -42,10 +42,10 @@ export const ContactInformation = () => {
           </IconButton>
         </Grid>
 
-        <Addresses />
-        <PhoneNumbers />
-        <EmailAddresses />
-        <SocialMedia />
+        <Addresses data={data} onSave={onSave} />
+        <PhoneNumbers data={data} onSave={onSave} />
+        <EmailAddresses data={data} onSave={onSave} />
+        <SocialMedia data={data} onSave={onSave} />
       </Page>
     </>
   );

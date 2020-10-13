@@ -1,8 +1,8 @@
+import * as uuid from 'uuid';
+
 import React, { useState } from 'react';
 import { CountryCode, AsYouType } from 'libphonenumber-js';
 import Flag from 'react-flagkit';
-import { DateTime } from 'luxon';
-
 import {
   Card,
   CardHeader,
@@ -26,27 +26,28 @@ import { PromiseFunction } from 'app/shared/types';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './PhoneNumbers.styles';
-import { PhoneNumber, PhoneNumbersObject } from './PhoneNumbers.types';
+import { PhoneNumber, PhoneNumbersObject, PhoneNumbersProps } from './PhoneNumbers.types';
 
-export const PhoneNumbers = () => {
+export const PhoneNumbers = ({ data, onSave }: PhoneNumbersProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
   const [countryCodes, setCountryCodes] = useState<string[]>(['PL']);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-phone-number');
-  const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumber[]>([]);
+  const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumber[]>(
+    (data.phoneNumbers || []).map(phoneNumber => ({ ...phoneNumber, key: uuid.v4() })),
+  );
 
   const handleAddNewPhoneNumber: PromiseFunction<AddNewPhoneNumberBody> = async ({ phoneNumberType }) => {
     try {
       setPhoneNumbers([
         ...phoneNumbers,
         {
-          key: phoneNumberType,
+          key: uuid.v4(),
+          type: phoneNumberType,
           countryCode: '',
-          phoneNumber: '',
-          numberAvailableDate: DateTime.local(),
-          note: '',
+          phoneNumber:'',
         },
       ]);
 
@@ -69,11 +70,17 @@ export const PhoneNumbers = () => {
     };
   }, {});
 
-  const onSave = async (values: PhoneNumbersObject) => {
+  const handleSave = async (values: PhoneNumbersObject) => {
+    const removeKeyAndAddType = (key: string, value: PhoneNumber) => {
+      const { key: myKey, ...rest } = value;
+
+      return { ...rest, type: phoneNumbers.find(phoneNumber => phoneNumber.key === key)?.type };
+    };
+
     const countryCodes: string[] = Object.keys(values).reduce((accu: string[], key) => {
       const { countryCode = '', phoneNumber = '' } = values[key];
       const asYouTube = new AsYouType('PL');
-      asYouTube.input(countryCode + phoneNumber);
+      asYouTube.input(`${countryCode}${phoneNumber}`);
       const country = asYouTube.country as CountryCode;
 
       return [...accu, country];
@@ -81,7 +88,11 @@ export const PhoneNumbers = () => {
 
     setCountryCodes(countryCodes);
 
-    return { error: false };
+    const newData = {
+      phoneNumbers: Object.entries(values).map(([key, value]) => removeKeyAndAddType(key, value)),
+    };
+
+    return await onSave(newData);
   };
 
   return (
@@ -103,7 +114,7 @@ export const PhoneNumbers = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {phoneNumbers.length === 0 && (
               <InfoSection emoji="🤔">
@@ -129,7 +140,9 @@ export const PhoneNumbers = () => {
                         {index + 1}
                       </Typography>
                       <Typography variant="h3" className={classes.phoneNumberTitle}>
-                        {formatMessage({ id: `dictionaries.contact_information.phone_number_type.${phoneNumber.key}` })}
+                        {formatMessage({
+                          id: `dictionaries.contact_information.phone_number_type.${phoneNumber.type}`,
+                        })}
                       </Typography>
                     </>
                   }
@@ -181,7 +194,7 @@ export const PhoneNumbers = () => {
                       <DatePickerField
                         className={classes.formField}
                         disabled={!isEditing}
-                        name={`${phoneNumber.key}.numberAvailableDate`}
+                        name={`${phoneNumber.key}.availableFrom`}
                         placeholder="crm.details.personal_information_contact_information.phone_numbers.placeholder"
                       />
                     </Grid>

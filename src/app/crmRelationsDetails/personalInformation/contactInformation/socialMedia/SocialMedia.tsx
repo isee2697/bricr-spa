@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import * as uuid from 'uuid';
 
+import React, { useState } from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
@@ -12,23 +13,26 @@ import { AddNewSocialMediaBody } from '../addNewSocialMediaModal/AddNewSocialMed
 import { AddNewSocialMediaModal } from '../addNewSocialMediaModal/AddNewSocialMediaModal';
 import { PromiseFunction } from 'app/shared/types';
 
-import { SocialMediaItem } from './SocialMedia.types';
+import { SocialMediaItem, SocialMediaProps } from './SocialMedia.types';
 import { useStyles } from './SocialMedia.styles';
 
-export const SocialMedia = () => {
+export const SocialMedia = ({ data, onSave }: SocialMediaProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-social-media');
-  const [socialMedias, setSocialMedias] = useState<SocialMediaItem[]>([]);
+  const [socialMedias, setSocialMedias] = useState<SocialMediaItem[]>(
+    (data.socialMedia || []).map(socialMedia => ({ ...socialMedia, key: uuid.v4() })),
+  );
 
   const handleAddNewSocialMedia: PromiseFunction<AddNewSocialMediaBody> = async ({ socialMediaType }) => {
     try {
       setSocialMedias([
         ...socialMedias,
         {
-          key: socialMediaType,
+          key: uuid.v4(),
+          type: socialMediaType,
           url: '',
         },
       ]);
@@ -52,14 +56,24 @@ export const SocialMedia = () => {
     };
   }, {});
 
-  const onSave = async (values: unknown) => {
-    return { error: false };
+  const handleSave = async (values: Record<string, any>) => {
+    const removeKeyAndAddType = (key: string, value: SocialMediaItem) => {
+      const { key: myKey, ...rest } = value;
+
+      return { ...rest, type: socialMedias.find(socialMedia => socialMedia.key === key)?.type };
+    };
+
+    const newData = {
+      socialMedia: Object.entries(values).map(([key, value]) => removeKeyAndAddType(key, value)),
+    };
+
+    return await onSave(newData);
   };
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={formatMessage({ id: 'crm.details.personal_information_contact_information.addresses.title' })}
+        title={formatMessage({ id: 'crm.details.personal_information_contact_information.social_medias.title' })}
         action={
           <>
             <FormControlLabel
@@ -75,7 +89,7 @@ export const SocialMedia = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {socialMedias.length === 0 && (
               <InfoSection emoji="🤔">
@@ -101,7 +115,9 @@ export const SocialMedia = () => {
                         {index + 1}
                       </Typography>
                       <Typography variant="h3" className={classes.socialMediaTitle}>
-                        {formatMessage({ id: `dictionaries.contact_information.social_media_type.${socialMedia.key}` })}
+                        {formatMessage({
+                          id: `dictionaries.contact_information.social_media_type.${socialMedia.type}`,
+                        })}
                       </Typography>
                     </>
                   }

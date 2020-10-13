@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import * as uuid from 'uuid';
 
+import React, { useState } from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
@@ -13,32 +13,26 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { PromiseFunction } from 'app/shared/types';
 import { InfoSection } from 'ui/molecules';
 
-import { AddressItem } from './Addresses.types';
+import { AddressesProps, AddressItem } from './Addresses.types';
 import { useStyles } from './Addresses.styles';
 
-export const Addresses = () => {
+export const Addresses = ({ data, onSave }: AddressesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-address');
-  const [addresses, setAddresses] = useState<AddressItem[]>([]);
+  const [addresses, setAddresses] = useState<AddressItem[]>(
+    (data.addresses || []).map(address => ({ ...address, key: uuid.v4() })),
+  );
 
   const handleAddNewAddress: PromiseFunction<AddNewAddressBody> = async ({ addressType }) => {
     try {
       setAddresses([
         ...addresses,
         {
-          key: addressType,
-          country: '',
-          city: '',
-          zipCode: '',
-          street: '',
-          houseNumber: '',
-          addition: '',
-          extraAddressInformation: '',
-          addressAvailableDate: DateTime.local(),
-          note: '',
+          key: uuid.v4(),
+          type: addressType,
         },
       ]);
 
@@ -61,8 +55,15 @@ export const Addresses = () => {
     };
   }, {});
 
-  const onSave = async (values: unknown) => {
-    return { error: false };
+  const handleSave = async (values: Record<string, any>) => {
+    const removeKeyAndAddType = (key: string, value: AddressItem) => {
+      const { key: myKey, ...rest } = value;
+
+      return { ...rest, type: addresses.find(address => address.key === key)?.type };
+    };
+    const newData = { addresses: Object.entries(values).map(([key, value]) => removeKeyAndAddType(key, value)) };
+
+    return await onSave(newData);
   };
 
   return (
@@ -84,7 +85,7 @@ export const Addresses = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {addresses.length === 0 && (
               <InfoSection emoji="🤔">
@@ -110,7 +111,7 @@ export const Addresses = () => {
                         {index + 1}
                       </Typography>
                       <Typography variant="h3" className={classes.addressTitle}>
-                        {formatMessage({ id: `dictionaries.contact_information.address_type.${address.key}` })}
+                        {formatMessage({ id: `dictionaries.contact_information.address_type.${address.type}` })}
                       </Typography>
                     </>
                   }
@@ -175,6 +176,7 @@ export const Addresses = () => {
                       </Typography>
                       <GenericField
                         className={classes.formField}
+                        type="number"
                         name={`${address.key}.houseNumber`}
                         disabled={!isEditing}
                         placeholder="crm.details.personal_information_contact_information.addresses.placeholder"

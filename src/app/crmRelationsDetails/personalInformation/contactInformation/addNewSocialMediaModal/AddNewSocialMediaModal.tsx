@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { SocialMediaType } from '../socialMedia/SocialMedia.types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
+import { ContactSocialMediaType } from 'api/types';
 
 import { AddNewSocialMediaModalProps } from './AddNewSocialMediaModal.types';
 
@@ -17,7 +16,7 @@ export const AddNewSocialMediaModal = ({ isOpened, onSubmit }: AddNewSocialMedia
     close('add-new-social-media');
   };
 
-  const addressTypes = Object.keys(SocialMediaType).map(addressType => ({
+  const addressTypes = Object.keys(ContactSocialMediaType).map(addressType => ({
     label: `dictionaries.contact_information.social_media_type.${addressType}`,
     icon: <SquareIcon />,
     value: addressType,

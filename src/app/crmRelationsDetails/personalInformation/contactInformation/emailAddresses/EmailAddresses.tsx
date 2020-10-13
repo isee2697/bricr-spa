@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import * as uuid from 'uuid';
 
+import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -14,25 +14,26 @@ import { PromiseFunction } from 'app/shared/types';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './EmailAddresses.styles';
-import { EmailAddressItem } from './EmailAddresses.types';
+import { EmailAddressesProps, EmailAddressItem } from './EmailAddresses.types';
 
-export const EmailAddresses = () => {
+export const EmailAddresses = ({ data, onSave }: EmailAddressesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-email-address');
-  const [emailAddresses, setEmailAddresses] = useState<EmailAddressItem[]>([]);
+  const [emailAddresses, setEmailAddresses] = useState<EmailAddressItem[]>(
+    (data.emailAddresses || []).map(emailAddress => ({ ...emailAddress, key: uuid.v4() })),
+  );
 
   const handleAddNewEmailAddress: PromiseFunction<AddNewEmailAddressBody> = async ({ emailAddressType }) => {
     try {
       setEmailAddresses([
         ...emailAddresses,
         {
-          key: emailAddressType,
-          emailAvailableDate: DateTime.local(),
-          emailAddress: '',
-          note: '',
+          key: uuid.v4(),
+          type: emailAddressType,
+          email: '',
         },
       ]);
 
@@ -55,8 +56,18 @@ export const EmailAddresses = () => {
     };
   }, {});
 
-  const onSave = async (values: unknown) => {
-    return { error: false };
+  const handleSave = async (values: Record<string, any>) => {
+    const removeKeyAndAddType = (key: string, value: EmailAddressItem) => {
+      const { key: myKey, ...rest } = value;
+
+      return { ...rest, type: emailAddresses.find(emailAddress => emailAddress.key === key)?.type };
+    };
+
+    const newData = {
+      emailAddresses: Object.entries(values).map(([key, value]) => removeKeyAndAddType(key, value)),
+    };
+
+    return await onSave(newData);
   };
 
   return (
@@ -78,7 +89,7 @@ export const EmailAddresses = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
           <Grid item xs={12}>
             {emailAddresses.length === 0 && (
               <InfoSection emoji="🤔">
@@ -105,7 +116,7 @@ export const EmailAddresses = () => {
                       </Typography>
                       <Typography variant="h3" className={classes.emailAddressTitle}>
                         {formatMessage({
-                          id: `dictionaries.contact_information.email_address_type.${emailAddress.key}`,
+                          id: `dictionaries.contact_information.email_address_type.${emailAddress.type}`,
                         })}
                       </Typography>
                     </>
@@ -123,7 +134,7 @@ export const EmailAddresses = () => {
                       <DatePickerField
                         className={classes.formField}
                         disabled={!isEditing}
-                        name={`${emailAddress.key}.emailAvailableDate`}
+                        name={`${emailAddress.key}.availableFrom`}
                         placeholder="crm.details.personal_information_contact_information.email_addresses.placeholder"
                       />
                     </Grid>
@@ -135,7 +146,7 @@ export const EmailAddresses = () => {
                       </Typography>
                       <GenericField
                         className={classes.formField}
-                        name={`${emailAddress.key}.emailAddress`}
+                        name={`${emailAddress.key}.email`}
                         disabled={!isEditing}
                         placeholder="crm.details.personal_information_contact_information.email_addresses.placeholder"
                       />

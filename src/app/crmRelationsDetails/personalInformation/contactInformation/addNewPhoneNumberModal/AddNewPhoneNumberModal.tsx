@@ -1,11 +1,10 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { PhoneNumberType } from '../phoneNumbers/PhoneNumbers.types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
+import { ContactPhoneNumberType } from 'api/types';
 
 import { AddNewPhoneNumberModalProps } from './AddNewPhoneNumberModal.types';
 
@@ -17,7 +16,7 @@ export const AddNewPhoneNumberModal = ({ isOpened, onSubmit }: AddNewPhoneNumber
     close('add-new-phone-number');
   };
 
-  const phoneNumberTypes = Object.keys(PhoneNumberType).map(phoneNumberType => ({
+  const phoneNumberTypes = Object.keys(ContactPhoneNumberType).map(phoneNumberType => ({
     label: `dictionaries.contact_information.phone_number_type.${phoneNumberType}`,
     icon: <SquareIcon />,
     value: phoneNumberType,
