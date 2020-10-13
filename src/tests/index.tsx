@@ -17,6 +17,7 @@ import { Theme } from 'theme/Theme';
 import { OverlayContextController } from 'context/overlay/overlayContextController/OverlayContextController';
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
+import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
@@ -26,21 +27,23 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
       <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
         <Theme>
           <AuthContextController>
-            <ApiClientContextController>
-              <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-                <OverlayContextController>
-                  <ModalContextController>
-                    <LayoutContextController>
-                      <MuiPickersUtilsProvider utils={LuxonUtils}>
-                        <Router>
-                          <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                        </Router>
-                      </MuiPickersUtilsProvider>
-                    </LayoutContextController>
-                  </ModalContextController>
-                </OverlayContextController>
-              </LocaleContext.Provider>
-            </ApiClientContextController>
+            <SnackbarContextController>
+              <ApiClientContextController>
+                <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+                  <OverlayContextController>
+                    <ModalContextController>
+                      <LayoutContextController>
+                        <MuiPickersUtilsProvider utils={LuxonUtils}>
+                          <Router>
+                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                          </Router>
+                        </MuiPickersUtilsProvider>
+                      </LayoutContextController>
+                    </ModalContextController>
+                  </OverlayContextController>
+                </LocaleContext.Provider>
+              </ApiClientContextController>
+            </SnackbarContextController>
           </AuthContextController>
         </Theme>
       </IntlProvider>
