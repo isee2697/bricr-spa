@@ -38,7 +38,7 @@ export const AddPimModalContainer = () => {
   const handlePimSubmit: AddPimSubmit<AddPimBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           PimWithSameAddressQuery,
           PimWithSameAddressQueryVariables
         >({
@@ -54,10 +54,6 @@ export const AddPimModalContainer = () => {
           },
         });
 
-        if (!!errors) {
-          throw new Error(errors[0].message);
-        }
-
         if (pimWithSameAddress?.getPimsGeneralWithSameAddress.items?.length) {
           return {
             error: 'conflict',
@@ -66,7 +62,7 @@ export const AddPimModalContainer = () => {
         }
       }
 
-      const { data: result, errors: createErrors } = await createPim({
+      const { data: result } = await createPim({
         variables: {
           input: {
             ...body,
@@ -79,16 +75,12 @@ export const AddPimModalContainer = () => {
         },
       });
 
-      if (!!createErrors) {
-        throw new Error(createErrors[0].message);
-      }
-
       if (!result || !result.createPim) {
         throw new Error();
       }
 
       if (options?.projectId && options?.objectTypeId) {
-        const { data: setResult, errors: setErrors } = await setLinked({
+        const { data: setResult } = await setLinked({
           variables: {
             input: {
               id: options.objectTypeId as string,
@@ -110,10 +102,6 @@ export const AddPimModalContainer = () => {
           ],
         });
 
-        if (!!setErrors) {
-          throw new Error(setErrors[0].message);
-        }
-
         if (!setResult || !setResult.setObjectTypeLinkedPims) {
           throw new Error();
         }
@@ -132,10 +120,9 @@ export const AddPimModalContainer = () => {
       close('add-new-pim');
 
       return undefined;
-    } catch (e) {
+    } catch {
       return {
         error: 'unknown',
-        errorMessage: e.message,
       };
     }
   };
@@ -143,7 +130,7 @@ export const AddPimModalContainer = () => {
   const handleNcpSubmit: AddPimSubmit<AddNcpBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           NcpWithSameAddressQuery,
           NcpWithSameAddressQueryVariables
         >({
@@ -159,10 +146,6 @@ export const AddPimModalContainer = () => {
           },
         });
 
-        if (!!errors) {
-          throw new Error(errors[0].message);
-        }
-
         if (pimWithSameAddress?.getNcpWithSameAddress.items?.length) {
           return {
             error: 'conflict',
@@ -171,7 +154,7 @@ export const AddPimModalContainer = () => {
         }
       }
 
-      const { data: result, errors: createErrors } = await createNcp({
+      const { data: result } = await createNcp({
         variables: {
           input: {
             type: propertyType,
@@ -179,10 +162,6 @@ export const AddPimModalContainer = () => {
           },
         },
       });
-
-      if (!!createErrors) {
-        throw new Error(createErrors[0].message);
-      }
 
       if (!result || !result.createNcp) {
         throw new Error();
@@ -192,10 +171,9 @@ export const AddPimModalContainer = () => {
       close('add-new-pim');
 
       return undefined;
-    } catch (e) {
+    } catch {
       return {
         error: 'unknown',
-        errorMessage: e.message,
       };
     }
   };

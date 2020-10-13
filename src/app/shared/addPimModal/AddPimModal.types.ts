@@ -34,7 +34,6 @@ export type AddPimSubmit<T = AnyObject> = (
   | {
       error: 'conflict' | 'unknown';
       conflictsCount?: number;
-      errorMessage?: string;
     }
 >;
 

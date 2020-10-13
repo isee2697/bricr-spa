@@ -8,13 +8,13 @@ import { Tasks } from './Tasks';
 
 export const TasksContainer = () => {
   const { isAuthorized, user } = useAuthState();
-  const { loading, data, error } = useGetMyTeamMembersQuery({
+  const { loading, data } = useGetMyTeamMembersQuery({
     skip: !isAuthorized,
   });
 
-  if (!isAuthorized || !user || loading || (!data && !error)) {
+  if (!isAuthorized || !user || loading || !data) {
     return <Loader />;
   }
 
-  return <Tasks user={user} error={error} members={data?.members.items || []} />;
+  return <Tasks user={user} members={data?.members.items || []} />;
 };
