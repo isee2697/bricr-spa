@@ -1,10 +1,10 @@
 import EuroIcon from '@material-ui/icons/Euro';
-
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { Chip } from '@material-ui/core';
 import { AnyObject } from 'final-form';
+
 import { DevelopmentType, PricingType, PropertyType } from 'api/types';
 import { BuildingIcon, NewConstructionIcon } from 'ui/atoms/icons';
 import { Box, Grid, Alert, DialogContent, DialogActions } from 'ui/atoms';
@@ -85,7 +85,7 @@ export const Filters = ({
   onDeleteFilter,
 }: FilterProps) => {
   const { formatMessage } = useLocale();
-  const [defaultFilters, setDefaultFilters] = useState(filters);
+  const [defaultFilters] = useState(filters);
   const classes = useStyles();
 
   const AmountChip =

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useLocale } from 'hooks';
 import { Grid } from 'ui/atoms';
 import { useStyles } from '../Filters.styles';
