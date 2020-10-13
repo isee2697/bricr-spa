@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { PromiseFunction } from 'app/shared/types';
 import { AddNewFinancialObligationBody } from '../addNewFinancialObligationModal/AddNewFinancialObligationModal.types';
-import { AddIcon, SquareIcon } from 'ui/atoms/icons';
-import { Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography, Box } from 'ui/atoms';
-import { AutosaveForm, FormSubSection } from 'ui/organisms';
+import { SquareIcon } from 'ui/atoms/icons';
+import { Grid, Typography, Box } from 'ui/atoms';
+import { AutosaveForm, FormSection, FormSubSection } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { AddNewFinancialObligationModal } from '../addNewFinancialObligationModal/AddNewFinancialObligationModal';
@@ -17,7 +16,6 @@ import { FinancialObligation, KindOfObligation } from './FinancialObligations.ty
 export const FinancialObligations = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isEditing, setIsEditing] = useState(false);
   const { open, close } = useModalDispatch();
   const { isOpen: isModalOpen } = useModalState('add-new-financial-obligation');
   const [obligations, setObligations] = useState<FinancialObligation[]>([]);
@@ -31,9 +29,9 @@ export const FinancialObligations = () => {
           key: obligationType,
           typeIndex,
           title: `${formatMessage({
-            id: `dictionaries.financial_profile.obligation_type.${obligationType}`,
+            id: `dictionaries.financial_profile.financial_obligation_type.${obligationType}`,
           })} ${typeIndex}`,
-          kindOfObligation: KindOfObligation.Kind1,
+          kindOfObligation: KindOfObligation.OverdraftFacilityOnPaymentAccount,
           obligation: 0,
           extraInformation: '',
         },
@@ -69,125 +67,109 @@ export const FinancialObligations = () => {
   }));
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
+    <>
+      <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_financial_profile.financial_obligations.title' })}
-        action={
-          <>
-            <FormControlLabel
-              control={<Switch checked={isEditing} onChange={() => setIsEditing(!isEditing)} color="primary" />}
-              label={formatMessage({ id: 'form_section.edit_mode' })}
-              labelPlacement="start"
-              className={classes.editSwitcher}
-            />
-            <IconButton
-              aria-label="add"
-              color="primary"
-              size="small"
-              onClick={() => open('add-new-financial-obligation')}
-            >
-              <AddIcon color="inherit" />
-            </IconButton>
-          </>
-        }
-      />
-      <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
-          <Grid item xs={12}>
-            {obligations.length === 0 && (
-              <InfoSection emoji="🤔">
-                <Typography variant="h3">
-                  {formatMessage({
-                    id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_title',
-                  })}
-                </Typography>
-                <Typography variant="h3">
-                  {formatMessage({
-                    id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_description',
-                  })}
-                </Typography>
-              </InfoSection>
-            )}
-            {obligations.length > 0 &&
-              obligations.map((obligation, index) => (
-                <FormSubSection
-                  title={
-                    <>
-                      <Typography variant="h5" className={classes.obligationIndex}>
-                        {index + 1}
-                      </Typography>
-                      <Typography variant="h3" className={classes.obligationIndex}>
-                        {obligation.title}
-                      </Typography>
-                    </>
-                  }
-                  onOptionsClick={() => {}}
-                >
-                  >
-                  <Box className={clsx(index < obligations.length - 1 && classes.marginBottomFour)}>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      className={classes.marginBottomTwo}
-                    >
-                      <Typography variant="h3">
-                        {formatMessage({
-                          id:
-                            'crm.details.personal_information_financial_profile.financial_obligations.kind_of_obligation',
-                        })}
-                      </Typography>
-                      <Typography variant="h5" className={classes.gray}>
-                        {formatMessage({
-                          id: 'common.choose_one_option_below',
-                        })}
-                      </Typography>
-                    </Box>
-                    <RadioGroupField
-                      disabled={!isEditing}
-                      name={`${obligation.key + obligation.typeIndex}.kindOfObligation`}
-                      options={kindOfObligations}
-                    />
-                    <Grid container spacing={1} className={classes.obligationInfo}>
-                      <Grid item xs={4}>
-                        <Typography variant="h5">
-                          {formatMessage({
-                            id: 'crm.details.personal_information_financial_profile.financial_obligations.obligation',
-                          })}
+        isEditable
+        onAdd={() => open('add-new-financial-obligation')}
+      >
+        {isEditing => (
+          <AutosaveForm onSave={onSave} initialValues={initialValues}>
+            <Grid item xs={12}>
+              {obligations.length === 0 && (
+                <InfoSection emoji="🤔">
+                  <Typography variant="h3">
+                    {formatMessage({
+                      id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_title',
+                    })}
+                  </Typography>
+                  <Typography variant="h3">
+                    {formatMessage({
+                      id: 'crm.details.personal_information_financial_profile.bank_accounts.empty_description',
+                    })}
+                  </Typography>
+                </InfoSection>
+              )}
+              {obligations.length > 0 &&
+                obligations.map((obligation, index) => (
+                  <FormSubSection
+                    title={
+                      <>
+                        <Typography variant="h5" className={classes.obligationIndex}>
+                          {index + 1}
                         </Typography>
-                        <GenericField
-                          className={classes.formField}
-                          name={`${obligation.key + obligation.typeIndex}.obligation`}
-                          disabled={!isEditing}
-                          placeholder="crm.details.personal_information_financial_profile.financial_obligations.obligation"
-                        />
-                      </Grid>
-                      <Grid item xs={8}>
-                        <Typography variant="h5">
+                        <Typography variant="h3" className={classes.obligationTitle}>
+                          {obligation.title}
+                        </Typography>
+                      </>
+                    }
+                    onOptionsClick={() => {}}
+                  >
+                    <Box className={clsx(index < obligations.length - 1 && classes.marginBottomFour)}>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        className={classes.marginBottomTwo}
+                      >
+                        <Typography variant="h3">
                           {formatMessage({
                             id:
-                              'crm.details.personal_information_financial_profile.financial_obligations.extra_information',
+                              'crm.details.personal_information_financial_profile.financial_obligations.kind_of_obligation',
                           })}
                         </Typography>
-                        <GenericField
-                          className={classes.formField}
-                          name={`${obligation.key + obligation.typeIndex}.extraInformation`}
-                          disabled={!isEditing}
-                          placeholder="crm.details.personal_information_financial_profile.financial_obligations.extra_information"
-                        />
+                        <Typography variant="h5" className={classes.gray}>
+                          {formatMessage({
+                            id: 'common.choose_one_option_below',
+                          })}
+                        </Typography>
+                      </Box>
+                      <RadioGroupField
+                        disabled={!isEditing}
+                        name={`${obligation.key + obligation.typeIndex}.kindOfObligation`}
+                        options={kindOfObligations}
+                      />
+                      <Grid container spacing={1} className={classes.obligationInfo}>
+                        <Grid item xs={4}>
+                          <Typography variant="h5">
+                            {formatMessage({
+                              id: 'crm.details.personal_information_financial_profile.financial_obligations.obligation',
+                            })}
+                          </Typography>
+                          <GenericField
+                            className={classes.formField}
+                            name={`${obligation.key + obligation.typeIndex}.obligation`}
+                            disabled={!isEditing}
+                            placeholder="crm.details.personal_information_financial_profile.financial_obligations.obligation"
+                          />
+                        </Grid>
+                        <Grid item xs={8}>
+                          <Typography variant="h5">
+                            {formatMessage({
+                              id:
+                                'crm.details.personal_information_financial_profile.financial_obligations.extra_information',
+                            })}
+                          </Typography>
+                          <GenericField
+                            className={classes.formField}
+                            name={`${obligation.key + obligation.typeIndex}.extraInformation`}
+                            disabled={!isEditing}
+                            placeholder="crm.details.personal_information_financial_profile.financial_obligations.extra_information"
+                          />
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Box>
-                </FormSubSection>
-              ))}
-          </Grid>
-        </AutosaveForm>
-        <AddNewFinancialObligationModal
-          isOpened={isModalOpen}
-          onClose={() => close('add-new-financial-obligation')}
-          onSubmit={handleAddNewObligation}
-        />
-      </CardContent>
-    </Card>
+                    </Box>
+                  </FormSubSection>
+                ))}
+            </Grid>
+          </AutosaveForm>
+        )}
+      </FormSection>
+      <AddNewFinancialObligationModal
+        isOpened={isModalOpen}
+        onClose={() => close('add-new-financial-obligation')}
+        onSubmit={handleAddNewObligation}
+      />
+    </>
   );
 };

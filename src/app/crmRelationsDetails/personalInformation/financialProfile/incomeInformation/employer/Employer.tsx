@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-
 import { Grid, Box, Button, Typography, Avatar, Emoji } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { DropdownField, GenericField, RadioGroupField } from 'form/fields';
 import { InfoSection } from 'ui/molecules';
 import { EditIcon, LinkIcon, SquareIcon } from 'ui/atoms/icons';
-import { IncomeInformationTypeOfEmployment } from '../IncomeInformation.types';
+import { EmployerProps, IncomeInformationTypeOfEmployment } from '../IncomeInformation.types';
 
 import { useStyles } from './Employer.styles';
 
-export const Employer = () => {
+export const Employer = ({ isEditing }: EmployerProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEmployeeLinked, setIsEmployeeLinked] = useState(false);
@@ -39,6 +38,7 @@ export const Employer = () => {
             placeholder="crm.details.personal_information_financial_profile.income_information.profession"
             label="crm.details.personal_information_financial_profile.income_information.profession"
             name="employer.profession"
+            disabled={!isEditing}
           />
         </Grid>
       </Grid>
@@ -97,6 +97,7 @@ export const Employer = () => {
               startIcon={<LinkIcon color="inherit" />}
               size="small"
               className={classes.marginTopTwo}
+              disabled={!isEditing}
             >
               {formatMessage({
                 id: 'crm.details.personal_information_financial_profile.income_information.employer.link_business',
@@ -113,9 +114,10 @@ export const Employer = () => {
               className={classes.formField}
               name="employer.employer"
               placeholder="crm.details.personal_information_financial_profile.income_information.employer.employer.placeholder"
+              disabled={!isEditing}
             />
           </Box>
-          <Grid container className={classes.marginTopFour}>
+          <Grid container spacing={1} className={classes.marginTopFour}>
             <Grid item xs={4}>
               <Typography variant="h5">
                 {formatMessage({
@@ -126,6 +128,7 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.country"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.country.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
             <Grid item xs={5}>
@@ -138,6 +141,7 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.city"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.city.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
             <Grid item xs={3}>
@@ -150,10 +154,11 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.zipCode"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.zip_code.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
           </Grid>
-          <Grid container className={classes.marginTopFour}>
+          <Grid container spacing={1} className={classes.marginTopFour}>
             <Grid item xs={6}>
               <Typography variant="h5">
                 {formatMessage({
@@ -164,6 +169,7 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.street"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.street.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
             <Grid item xs={5}>
@@ -176,6 +182,7 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.houseNumber"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.house_number.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
             <Grid item xs={3}>
@@ -188,6 +195,7 @@ export const Employer = () => {
                 className={classes.formField}
                 name="employer.addition"
                 placeholder="crm.details.personal_information_financial_profile.income_information.employer.addition.placeholder"
+                disabled={!isEditing}
               />
             </Grid>
           </Grid>
@@ -206,7 +214,7 @@ export const Employer = () => {
             })}
           </Typography>
         </Box>
-        <RadioGroupField name="employer.typeOfEmployment" options={typeOfEmployments} />
+        <RadioGroupField name="employer.typeOfEmployment" options={typeOfEmployments} disabled={!isEditing} />
       </Box>
     </>
   );

@@ -1,9 +1,8 @@
 import React, { useCallback, useRef } from 'react';
 import { useField } from 'react-final-form';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useHighestElementHeight } from 'hooks/useHighestElementHeight/useHighestElementHeight';
-import { Grid, TileRadio, FormHelperText } from 'ui/atoms';
+import { Grid, TileRadio, FormHelperText, InputLabel } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 
 import { RadioDataType, RadioGroupFieldProps } from './RadioGroupField.types';
@@ -11,6 +10,7 @@ import { useStyles } from './RadioGroupField.styles';
 
 export const RadioGroupField = ({
   name,
+  label,
   disabled,
   options,
   validate,
@@ -60,6 +60,11 @@ export const RadioGroupField = ({
 
   return (
     <>
+      {label && (
+        <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
+          {formatMessage({ id: label })}
+        </InputLabel>
+      )}
       <Grid container spacing={spacing} justify={justify} ref={containerRef} className={propsClasses?.group}>
         {options.map((item: RadioDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value} className={propsClasses?.groupItem}>

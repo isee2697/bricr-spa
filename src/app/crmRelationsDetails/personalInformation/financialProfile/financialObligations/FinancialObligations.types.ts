@@ -10,9 +10,26 @@ export type FinancialObligation = {
 };
 
 export enum KindOfObligation {
-  Kind1 = 'Kind1',
-  Kind2 = 'Kind2',
-  Kind3 = 'Kind3',
+  OverdraftFacilityOnPaymentAccount = 'OverdraftFacilityOnPaymentAccount',
+  PersonalLoan = 'PersonalLoan',
+  LeaseAgreement = 'LeaseAgreement',
+  RevolvingCredit = 'RevolvingCredit',
+  CurrentAccountCredit = 'CurrentAccountCredit',
+  CreditAlreadyRepaid = 'CreditAlreadyRepaid',
+  BusinessCredit = 'BusinessCredit',
+  PrivateLoan = 'PrivateLoan',
+  StudentDebt = 'StudentDebt',
+  TaxPayables = 'TaxPayables',
+  CreditCard = 'CreditCard',
+  ResidualDebtForTheSaleOfAHouse = 'ResidualDebtForTheSaleOfAHouse',
+  BkrRegistration = 'BkrRegistration',
+  SignedRequestForCreditFacilityReduction = 'SignedRequestForCreditFacilityReduction',
+  EvidenceForTheReduction = 'EvidenceForTheReduction',
+  ShoppingCard = 'ShoppingCard',
+  RentalPurchase = 'RentalPurchase',
+  Alimony = 'Alimony',
+  GroundLease = 'GroundLease',
+  MortgageWithoutInterestDeduction = 'MortgageWithoutInterestDeduction',
 }
 
 export enum FinancialObligationType {

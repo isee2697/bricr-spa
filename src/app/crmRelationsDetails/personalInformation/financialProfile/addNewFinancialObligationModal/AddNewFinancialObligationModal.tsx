@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { useLocale, useModalDispatch } from 'hooks';
+import { useLocale } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FinancialObligationType } from '../financialObligations/FinancialObligations.types';
 import { FormModal } from 'ui/organisms';
@@ -8,13 +7,12 @@ import { RadioGroupField } from 'form/fields';
 
 import { AddNewFinancialObligationModalProps } from './AddNewFinancialObligationModal.types';
 
-export const AddNewFinancialObligationModal = ({ isOpened, onSubmit }: AddNewFinancialObligationModalProps) => {
+export const AddNewFinancialObligationModal = ({
+  isOpened,
+  onSubmit,
+  onClose,
+}: AddNewFinancialObligationModalProps) => {
   const { formatMessage } = useLocale();
-  const { close } = useModalDispatch();
-
-  const handleClose = () => {
-    close('add-new-address');
-  };
 
   const obligationTypes = Object.keys(FinancialObligationType).map(obligationType => ({
     label: `dictionaries.financial_profile.financial_obligation_type.${obligationType}`,
@@ -25,7 +23,7 @@ export const AddNewFinancialObligationModal = ({ isOpened, onSubmit }: AddNewFin
   return (
     <FormModal
       isOpened={isOpened}
-      onClose={handleClose}
+      onClose={onClose}
       onSubmit={onSubmit}
       title={formatMessage({
         id:

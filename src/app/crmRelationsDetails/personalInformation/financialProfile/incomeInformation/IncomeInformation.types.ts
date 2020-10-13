@@ -57,6 +57,10 @@ export type IncomeInformationItem = {
   };
 };
 
+export type EmployerProps = {
+  isEditing: boolean;
+};
+
 export enum TypeOfSocialBenefit {
   SocialBenefit = 'SocialBenefit',
   Wajong = 'Wajong',
@@ -67,6 +71,16 @@ export enum TypeOfSocialBenefit {
 export enum TypeOfEntrepeneur {
   IbEntrepeneur = 'IbEntrepeneur',
   Dga = 'Dga',
+}
+
+export enum CompanyTraffic {
+  CompanyCar = 'CompanyCar',
+  CompanyBicycle = 'CompanyBicycle',
+}
+
+export enum EntrepreneurOption {
+  PassedPensionedAge = 'PassedPensionedAge',
+  RightToSmeProfitExemption = 'RightToSmeProfitExemption',
 }
 
 export enum IncomeInformationTypeOfEmployment {
