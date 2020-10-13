@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { useLocale, useSnackbar } from 'hooks';
 
-const shownErrors: { [key: string]: DateTime } = {};
-
 export const useShowError = () => {
   const { open: openSnackbar } = useSnackbar();
-  const [currentMessage, setCurrentMessage] = useState();
+  const [messageHistory, setHistory] = useState<{ [key: string]: DateTime }>({});
   const { formatMessage } = useLocale();
 
   const showError = (message?: string) => {
-    if (message) {
-      const showError = shownErrors[message].diffNow().milliseconds;
-      console.log(showError);
-    }
+    message = message ?? formatMessage({ id: 'common.unknow_error' });
 
-    if (currentMessage !== message) {
-      setCurrentMessage(message);
+    // wait for 5 seconds before showing same error again
+    // this prevents invisible new errors and to many re-rendering
+    const showMessage =
+      !messageHistory[message] || (messageHistory[message] && messageHistory[message].diffNow('seconds').seconds < -5);
+
+    if (showMessage) {
+      setHistory(history => ({ ...history, [message as string]: DateTime.local() }));
 
       message = formatMessage({ id: 'common.error' }, { message: message?.replace('GraphQL error: ', '') });
       openSnackbar({
@@ -28,8 +28,6 @@ export const useShowError = () => {
       });
     }
   };
-
-  useEffect(() => {}, [currentMessage]);
 
   return showError;
 };
