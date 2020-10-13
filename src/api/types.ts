@@ -150,6 +150,7 @@ export type Mutation = {
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
+  updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -584,6 +585,10 @@ export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
 };
 
+export type MutationUpdateCrmHomeSituationArgs = {
+  input: UpdateCrmHomeSituationInput;
+};
+
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
 };
@@ -854,6 +859,7 @@ export type Query = {
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
+  getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -914,6 +920,10 @@ export type QueryGetBulkDetailsArgs = {
 
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetCrmHomeSituationArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetLabelsArgs = {
@@ -1295,6 +1305,58 @@ export type CostsDetails = LastUpdated & {
   description?: Maybe<Scalars['String']>;
   dateUpdated?: Maybe<Scalars['Date']>;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
+};
+
+export enum CurrentHomeSituationType {
+  LiveIn = 'LiveIn',
+  HomeForSale = 'HomeForSale',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+  StudentHouse = 'StudentHouse',
+}
+
+export enum CurrentHomeStatusType {
+  HouseSold = 'HouseSold',
+  AvailableForSale = 'AvailableForSale',
+}
+
+export enum ReasonToMoveType {
+  Health = 'Health',
+  Age = 'Age',
+  HousingCosts = 'HousingCosts',
+  ResidentialEnvironment = 'ResidentialEnvironment',
+  LiveTogether = 'LiveTogether',
+  ChangeOfIncome = 'ChangeOfIncome',
+  HouseholdComposition = 'HouseholdComposition',
+  Work = 'Work',
+  Study = 'Study',
+  LivingOnYourOwn = 'LivingOnYourOwn',
+  Wedding = 'Wedding',
+}
+
+export type CrmHomeSituation = {
+  __typename?: 'CrmHomeSituation';
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCrmHomeSituationInput = {
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
 };
 
 export type Energy = {
@@ -6727,6 +6789,27 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type UpdateCrmHomeSituationMutationVariables = Exact<{
+  input: UpdateCrmHomeSituationInput;
+}>;
+
+export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
+  updateCrmHomeSituation?: Maybe<
+    { __typename?: 'CrmHomeSituation' } & Pick<
+      CrmHomeSituation,
+      | 'id'
+      | 'currentHomeSituation'
+      | 'currentHomeStatus'
+      | 'currentHomeSalesValue'
+      | 'currentHomeMortgage'
+      | 'currentHomeInformation'
+      | 'reasonToMove'
+      | 'movingDate'
+      | 'movingInformation'
+    >
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8025,6 +8108,27 @@ export type BulkDetailsQueryVariables = Exact<{
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
+export type GetCrmHomeSituationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmHomeSituationQuery = { __typename?: 'Query' } & {
+  getCrmHomeSituation?: Maybe<
+    { __typename?: 'CrmHomeSituation' } & Pick<
+      CrmHomeSituation,
+      | 'id'
+      | 'currentHomeSituation'
+      | 'currentHomeStatus'
+      | 'currentHomeSalesValue'
+      | 'currentHomeMortgage'
+      | 'currentHomeInformation'
+      | 'reasonToMove'
+      | 'movingDate'
+      | 'movingInformation'
+    >
+  >;
 };
 
 export type GetLabelsQueryVariables = Exact<{
@@ -10421,6 +10525,38 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const UpdateCrmHomeSituationDocument = gql`
+  mutation UpdateCrmHomeSituation($input: UpdateCrmHomeSituationInput!) {
+    updateCrmHomeSituation(input: $input) {
+      id
+      currentHomeSituation
+      currentHomeStatus
+      currentHomeSalesValue
+      currentHomeMortgage
+      currentHomeInformation
+      reasonToMove
+      movingDate
+      movingInformation
+    }
+  }
+`;
+export function useUpdateCrmHomeSituationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmHomeSituationMutation,
+    UpdateCrmHomeSituationMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmHomeSituationMutation, UpdateCrmHomeSituationMutationVariables>(
+    UpdateCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmHomeSituationMutationHookResult = ReturnType<typeof useUpdateCrmHomeSituationMutation>;
+export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationResult<UpdateCrmHomeSituationMutation>;
+export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmHomeSituationMutation,
+  UpdateCrmHomeSituationMutationVariables
+>;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
     deleteEntity(input: $input) {
@@ -13621,6 +13757,43 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const GetCrmHomeSituationDocument = gql`
+  query GetCrmHomeSituation($id: ID!) {
+    getCrmHomeSituation(id: $id) {
+      id
+      currentHomeSituation
+      currentHomeStatus
+      currentHomeSalesValue
+      currentHomeMortgage
+      currentHomeInformation
+      reasonToMove
+      movingDate
+      movingInformation
+    }
+  }
+`;
+export function useGetCrmHomeSituationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>(
+    GetCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmHomeSituationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>(
+    GetCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export type GetCrmHomeSituationQueryHookResult = ReturnType<typeof useGetCrmHomeSituationQuery>;
+export type GetCrmHomeSituationLazyQueryHookResult = ReturnType<typeof useGetCrmHomeSituationLazyQuery>;
+export type GetCrmHomeSituationQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmHomeSituationQuery,
+  GetCrmHomeSituationQueryVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

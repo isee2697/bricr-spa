@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
 
@@ -15,7 +14,7 @@ import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetai
 import { PersonalInformationGeneral } from './personalInformation/general/General';
 import { ContactInformation } from './personalInformation/contactInformation/ContactInformation';
 import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
-import { HomeSituation } from './personalInformation/homeSituation/HomeSituation';
+import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -53,7 +52,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => <ContactInformation />}
                 />
                 <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
-                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituation />} />
+                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituationContainer />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

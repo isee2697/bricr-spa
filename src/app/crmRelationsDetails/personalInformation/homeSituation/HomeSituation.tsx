@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';
 import { Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';
@@ -10,8 +9,9 @@ import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './HomeSituation.styles';
 import { CurrentSituation } from './currentSituation/CurrentSituation';
+import { HomeSituationProps } from './HomeSituation.types';
 
-export const HomeSituation = () => {
+export const HomeSituation = ({ data, onSave }: HomeSituationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -39,7 +39,7 @@ export const HomeSituation = () => {
           </IconButton>
         </Grid>
 
-        <CurrentSituation />
+        <CurrentSituation data={data} onSave={onSave} />
       </Page>
     </>
   );
