@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-
 import { Profile } from 'api/types';
 
 export type Timeline = {

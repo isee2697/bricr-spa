@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 import { useForm, FormSpy } from 'react-final-form';
 import { FormState } from 'final-form';
-
 import { useLocale } from 'hooks';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';

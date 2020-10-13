@@ -1,6 +1,7 @@
 import MaterialAvatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
 import { Spacing } from '@material-ui/core/styles/createSpacing';
+
 import React from 'react';
 
 import { AvatarProps, AvatarSize } from './Avatar.types';

@@ -1,6 +1,7 @@
 import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
 import { useTheme } from '@material-ui/core/styles';
+
 import * as React from 'react';
 
 export const HomeIcon = (props: DefaultSvgIconProps) => {

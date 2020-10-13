@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-
 import { ListPimsFilters, Pim as PimEntity } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent, Alert } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';

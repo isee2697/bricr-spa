@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Breadcrumbs } from 'react-breadcrumbs-dynamic';
-
 import { Link, Typography } from 'ui/atoms/index';
 
 import { BreadcrumbsItemProps } from './NavBreadcrumbs.types';

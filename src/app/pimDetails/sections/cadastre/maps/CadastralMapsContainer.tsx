@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useUpdateCadastreMutation, PimCadastreDocument, Cadastre } from 'api/types';
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';

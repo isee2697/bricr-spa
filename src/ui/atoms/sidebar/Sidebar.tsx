@@ -1,6 +1,5 @@
 import React from 'react';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-
 import { useOverlayState } from 'hooks/useOverlayState/useOverlayState';
 
 import * as S from './Sidebar.styles';

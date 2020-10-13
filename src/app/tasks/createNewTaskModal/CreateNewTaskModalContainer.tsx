@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { GetNotificationsDocument, useCreateTaskMutation } from 'api/types';
 

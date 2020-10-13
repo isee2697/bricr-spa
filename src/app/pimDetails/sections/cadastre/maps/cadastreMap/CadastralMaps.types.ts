@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { CadastreMap, File } from 'api/types';
 
 type CadastreMapCommonProps = {

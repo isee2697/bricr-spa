@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-
 import { RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';

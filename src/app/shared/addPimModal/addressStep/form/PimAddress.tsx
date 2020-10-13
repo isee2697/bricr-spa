@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';

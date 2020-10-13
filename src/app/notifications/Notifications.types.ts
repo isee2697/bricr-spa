@@ -1,5 +1,4 @@
 import { ApolloError } from '@apollo/client';
-
 import { Notification } from '../../api/types';
 
 export type NotificationRow = Pick<Notification, 'id' | 'type' | 'description' | 'isRead' | 'dateCreated'>;

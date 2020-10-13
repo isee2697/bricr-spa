@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { useFormState } from 'react-final-form';
-
 import { GenericField } from 'form/fields';
 import { Grid } from 'ui/atoms';
 import { AutoCalculateForm, FormSection } from 'ui/organisms';

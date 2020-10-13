@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { HomeIcon, SquareIcon } from 'ui/atoms/icons';
 
 export const currentHomes1 = [

@@ -1,6 +1,6 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { PimSummary } from './SummaryGeneral.types';
+import { PimSummary } from '../Summary.types';
 
 export const useStyles = makeStyles(theme => ({
   summaryContainer: {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import arrayMutators from 'final-form-arrays';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, Switch, Typography } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';

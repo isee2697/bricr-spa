@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
-
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
 import { Box, SideMenuItem, SideSubMenuItem, SidebarHideButton, Collapse, Typography, Slide, Grid } from 'ui/atoms';

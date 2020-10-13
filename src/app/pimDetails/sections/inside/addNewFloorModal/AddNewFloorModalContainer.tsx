@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useAddFloorToPimMutation, PimInsideDocument } from 'api/types';
 

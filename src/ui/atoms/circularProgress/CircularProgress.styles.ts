@@ -1,5 +1,6 @@
 import CircularProgressBase from '@material-ui/core/CircularProgress';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+
 import React from 'react';
 import { CircularProgressProps } from '@material-ui/core';
 

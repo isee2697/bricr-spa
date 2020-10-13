@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Switch, Route, Redirect, useParams } from 'react-router-dom';
-
 import { useLocale } from 'hooks';
 import { Grid, NavBreadcrumb, Box } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -17,6 +16,7 @@ import { Prices } from './sections/prices/Prices';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
+import { SummaryContainer } from './sections/summary/SummaryContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -98,6 +98,10 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               render={() => (
                 <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
               )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/summary`}
+              render={() => <SummaryContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
             />
             <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
           </Switch>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks';
 import { ActionTabs } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';

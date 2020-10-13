@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { TeamMember } from 'api/types';
 import { CardWithList } from 'ui/templates';
 import { useLocale } from 'hooks';

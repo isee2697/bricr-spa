@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { SimpleSearch } from 'ui/molecules';
 import { Grid, IconButton } from 'ui/atoms';
 import { ListIcon } from 'ui/atoms/icons/list/ListIcon';

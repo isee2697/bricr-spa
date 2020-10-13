@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Page } from 'ui/templates';
 import { Grid, Box, Card, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks';

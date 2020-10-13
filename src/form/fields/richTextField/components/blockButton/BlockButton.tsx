@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
 import { Editor, Transforms } from 'slate';
-
 import { BulletListIcon, HeadingOneIcon, HeadingTwoIcon, NumberListIcon, QuoteIcon } from 'ui/atoms/icons';
 import { ToolbarButton } from '../toolbarButton/ToolbarButton';
 import { ElementTypes } from '../element/Element.types';

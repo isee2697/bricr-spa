@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { IconPickerIcon } from '../../ui/molecules/iconPicker/IconPicker.types';
 import {
   AddIcon,

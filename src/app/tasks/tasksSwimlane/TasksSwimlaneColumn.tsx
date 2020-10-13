@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
 import { Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
-
 import { Box, Grid, IconButton, Typography } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons';
 import { Task } from 'api/types';

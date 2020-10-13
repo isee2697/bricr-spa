@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, Typography } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './AdditionalServices.styles';
+import { AdditionalServicesProps } from './AdditionalServices.types';
 
-export const AdditionalServices = () => {
+export const AdditionalServices = ({}: AdditionalServicesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 

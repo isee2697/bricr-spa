@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { UserServiceType, CreateUserServiceType } from 'app/settings/sections/users/Users.types';
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import {

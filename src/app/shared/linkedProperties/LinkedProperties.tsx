@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-
 import { Alert, Box, Grid, Button } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';

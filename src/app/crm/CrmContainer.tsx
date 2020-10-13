@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { CRMS } from 'api/mocks/crm';
 import { useCrmQueryParams } from 'app/shared/useCrmQueryParams/useCrmQueryParams';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { PictureContainerProps } from 'app/shared/media/pictures/Pictures.types';
 import { useCustomLabels } from 'hooks/useCustomLabels';
 import { LabelProperty } from 'api/types';

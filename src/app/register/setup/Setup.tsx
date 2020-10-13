@@ -4,7 +4,6 @@ import { useQueryParam } from 'use-query-params';
 import classNames from 'classnames';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-
 import { Box, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';

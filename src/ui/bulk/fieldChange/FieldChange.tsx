@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormState } from 'react-final-form';
-
 import { Box, InputLabel, Typography } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 

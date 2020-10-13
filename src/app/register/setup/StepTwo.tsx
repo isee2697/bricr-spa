@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { CheckboxGroupField } from 'form/fields';
 import { Box, Button, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';

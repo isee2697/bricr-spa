@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { SnackbarSeverity } from 'ui/molecules/snackbar/Snackbar.types';
 
 export type ModalContextType = {

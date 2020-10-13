@@ -28,7 +28,6 @@ export const useStyles = makeStyles(theme => ({
     fontSize: theme.spacing(3),
   },
   detailItemIconSmall: {
-    verticalAlign: 'top',
     fontSize: theme.spacing(1.5),
   },
   fontWeightMedium: {

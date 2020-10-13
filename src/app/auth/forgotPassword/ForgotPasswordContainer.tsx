@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-
 import { useForgotPasswordMutation, ForgotPasswordInput } from 'api/types';
 
 import { ForgotPassword } from './ForgotPassword';

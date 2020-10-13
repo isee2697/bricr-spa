@@ -1,15 +1,36 @@
 import React from 'react';
-
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
+import { Picture, usePimInfoQuery, usePimInsideQuery, usePimServicesQuery } from 'api/types';
+import { useParams } from 'react-router-dom';
+import { Loader } from 'ui/atoms';
 
 import { SummaryInside } from './SummaryInside';
-import { PimSummaryInside } from './SummaryInside.types';
+import { PimSummaryInside, SummaryInsideContainerProps } from './SummaryInside.types';
 
-export const SummaryInsideContainer = (props: PimDetailsSectionProps) => {
-  const summary: PimSummaryInside = {
-    address: 'Isenburgstraat 36 4813 NC Breda NL',
-    image: 'https://img.freepik.com/free-photo/light-trails-modern-building_1417-6693.jpg?size=626&ext=jpg',
-  };
+export const SummaryInsideContainer = ({ summary, ...props }: SummaryInsideContainerProps) => {
+  const { id } = useParams<{ id: string }>();
+  const { data: pimInsideData } = usePimInsideQuery({ variables: { id } });
+  const { data: pimServicesData } = usePimServicesQuery({ variables: { id } });
 
-  return <SummaryInside summaryInside={summary} {...props} />;
+  if (!pimInsideData || !pimServicesData) {
+    return <Loader />;
+  }
+
+  const {
+    getPimInside: { floors, insideGeneral },
+  } = pimInsideData;
+  const {
+    getPimServices: { heatingSources, hotWaterSupplies, additionalServices },
+  } = pimServicesData;
+
+  return (
+    <SummaryInside
+      floors={floors || []}
+      heatingSources={heatingSources || []}
+      hotWaterSupplies={hotWaterSupplies || []}
+      additionalServices={additionalServices || []}
+      summaryInside={summary}
+      {...props}
+    />
+  );
 };

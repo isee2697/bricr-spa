@@ -2,7 +2,6 @@ import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { AnyObject } from 'final-form';
-
 import { AutosaveForm } from 'ui/organisms';
 import { PimCadastreDocument, useUpdateMapMutation, EntityWithFiles } from 'api/types';
 import { useGetPrivateFile } from 'hooks';

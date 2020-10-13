@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';

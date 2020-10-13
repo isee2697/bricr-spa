@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-
 import { NotificationRow } from '../Notifications.types';
 
 export type NotificationsListSortOption = {

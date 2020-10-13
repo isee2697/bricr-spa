@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Grid, Box, Typography } from 'ui/atoms';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader, InfoSection } from 'ui/molecules';

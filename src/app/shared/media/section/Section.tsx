@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-
 import { FormSection } from 'ui/organisms';
 import { Avatar, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';

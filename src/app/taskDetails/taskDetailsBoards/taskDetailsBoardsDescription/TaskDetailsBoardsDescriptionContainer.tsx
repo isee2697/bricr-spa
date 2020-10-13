@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Chapter } from 'app/shared/media/textChapters/TextChapters.types';
 import { GetTaskDocument, useUpdateTaskMutation } from 'api/types';
 

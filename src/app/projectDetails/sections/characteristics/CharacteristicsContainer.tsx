@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useParams } from 'react-router-dom';
 import { FormRenderProps } from 'react-final-form';
-
 import { AutosaveForm } from 'ui/organisms';
 import {
   CharacteristicsSections,

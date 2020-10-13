@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox } from 'ui/atoms';
 import { NotificationRow } from '../Notifications.types';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';

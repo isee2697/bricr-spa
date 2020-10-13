@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, FieldInputProps, Form } from 'react-final-form';
-
 import { Box, DialogActions, DialogContent, TileCheckbox } from 'ui/atoms';
 import { SearchList } from 'ui/organisms';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';

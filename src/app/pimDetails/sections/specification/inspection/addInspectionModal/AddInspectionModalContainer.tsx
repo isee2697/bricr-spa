@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useAddInspectionMutation, PimSpecificationDocument } from 'api/types';
 
 import { AddInspectionModalContainerProps, AddInspectionValues } from './AddInspectionModal.types';

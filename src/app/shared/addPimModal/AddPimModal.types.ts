@@ -1,5 +1,4 @@
 import { AnyObject } from 'react-final-form';
-
 import { NcpType, PropertyType } from 'api/types';
 import { ModalStateOptions } from 'context/modal/modalContext/ModalContext.types';
 

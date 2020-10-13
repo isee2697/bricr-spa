@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
-
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Button } from 'ui/atoms';

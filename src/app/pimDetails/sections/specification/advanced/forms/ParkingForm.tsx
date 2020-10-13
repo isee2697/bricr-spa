@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Grid } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { GenericField, RadioGroupField } from 'form/fields';

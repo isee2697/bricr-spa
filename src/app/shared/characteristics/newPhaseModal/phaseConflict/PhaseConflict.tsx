@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks';
 import { ConflictInfo } from 'ui/organisms';
 

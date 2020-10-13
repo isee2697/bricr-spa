@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useFormState } from 'react-final-form';
-
 import { useLocale } from 'hooks';
 import { AddPimStepProps } from '../AddPimModal.types';
 import { ConflictInfo } from 'ui/organisms';

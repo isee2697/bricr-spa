@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-
 import { WorkflowItem } from '../WorkflowTemplates.types';
 
 export const useStyles = makeStyles(theme => ({

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, VisitedPage } from 'ui/atoms';
 import { VisitedPages } from 'ui/organisms';
 

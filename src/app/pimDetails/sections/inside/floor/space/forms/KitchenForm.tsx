@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FormSubSectionHeader } from 'ui/molecules';
 import { Grid, Box } from 'ui/atoms';
 import { GenericField, RadioGroupField, CheckboxGroupField, DatePickerField } from 'form/fields';

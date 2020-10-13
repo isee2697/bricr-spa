@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, Emoji, IconButton, Chip, Menu, MenuItem, Checkbox } from 'ui/atoms';
 import { MenuIcon, EditIcon } from 'ui/atoms/icons';

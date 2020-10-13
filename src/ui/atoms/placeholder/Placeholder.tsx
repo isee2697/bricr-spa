@@ -1,4 +1,5 @@
 import Skeleton from '@material-ui/lab/Skeleton';
+
 import React from 'react';
 
 import { PlaceholderProps } from './Placeholder.types';

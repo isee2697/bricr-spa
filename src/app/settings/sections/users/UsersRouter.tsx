@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import { AppRoute } from 'routing/AppRoute.enum';
 import { UsersContainer } from 'app/settings/sections/users/UsersContainer';
 import { NavBreadcrumb } from 'ui/atoms';

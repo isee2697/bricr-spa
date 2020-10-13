@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { NewPhaseModalContainer } from '../newPhaseModal/NewPhaseModalContainer';
 import {
   NcpCharacteristicsDocument,

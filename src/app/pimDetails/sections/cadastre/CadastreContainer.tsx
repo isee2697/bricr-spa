@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { usePimCadastreQuery } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 

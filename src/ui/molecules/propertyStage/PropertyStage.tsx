@@ -1,6 +1,6 @@
 import { useTheme } from '@material-ui/core/styles';
-import React from 'react';
 
+import React from 'react';
 import { Scrollable, Stepper, Step, Typography } from 'ui/atoms';
 
 import { PropertyStageProps } from './PropertyStage.types';

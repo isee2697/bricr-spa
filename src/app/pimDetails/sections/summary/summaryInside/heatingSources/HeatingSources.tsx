@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, Typography } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './HeatingSources.styles';
+import { HeatingSourcesProps } from './HeatingSources.types';
 
-export const HeatingSources = () => {
+export const HeatingSources = ({}: HeatingSourcesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 

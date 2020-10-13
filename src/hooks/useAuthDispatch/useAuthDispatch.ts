@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-
 import { AuthDispatchContextType } from 'context/auth/authContext/AuthContext.types';
 import { AuthDispatchContext } from 'context/auth/authContext/AuthContext';
 

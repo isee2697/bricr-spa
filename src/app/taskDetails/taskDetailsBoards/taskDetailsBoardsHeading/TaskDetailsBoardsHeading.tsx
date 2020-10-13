@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
-
 import { Paper, Grid, Typography } from 'ui/atoms';
 import { PriorityHighIcon, PriorityLowIcon, PriorityMediumIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';

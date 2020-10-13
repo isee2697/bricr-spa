@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { LocaleContext } from '../localeContext/LocaleContext';

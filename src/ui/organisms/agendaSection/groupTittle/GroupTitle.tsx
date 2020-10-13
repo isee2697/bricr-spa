@@ -1,6 +1,5 @@
 import React from 'react';
 import { DateTime, Duration } from 'luxon';
-
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

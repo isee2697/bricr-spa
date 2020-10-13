@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { useAddSpaceToFloorMutation, PimOverallInfoDocument, PimInsideDocument } from 'api/types';
 
 import { AddNewSpaceModal } from './AddNewSpaceModal';

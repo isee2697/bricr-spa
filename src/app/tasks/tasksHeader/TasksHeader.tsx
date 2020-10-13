@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid, IconButton, Typography, Button } from 'ui/atoms';
 import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';

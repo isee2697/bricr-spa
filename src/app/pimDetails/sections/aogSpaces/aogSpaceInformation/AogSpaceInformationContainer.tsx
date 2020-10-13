@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Typography } from 'ui/atoms';
 import { AogSpaceDescriptionContainer } from '../aogSpaceDescription/AogSpaceDescriptionContainer';
 import { useLocale } from 'hooks';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Typography } from 'ui/atoms';
 import { CardWithInfoProps } from 'ui/templates/cards/cardWithInfo/CardWithInfo.types';
 import { FormSection } from 'ui/organisms';

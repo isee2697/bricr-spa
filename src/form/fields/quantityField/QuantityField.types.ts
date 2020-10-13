@@ -1,5 +1,4 @@
 import { FieldValidator } from 'final-form';
-
 import { QuantityInputProps } from 'ui/molecules/quantityInput/QuantityInput.types';
 
 type FieldValue = string | number;

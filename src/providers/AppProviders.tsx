@@ -4,7 +4,6 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import LuxonUtils from '@date-io/luxon';
 import { QueryParamProvider } from 'use-query-params';
 import { ThroughProvider } from 'react-through';
-
 import { Theme } from 'theme/Theme';
 import { ErrorBoundary } from 'app/errorBoundary/ErrorBoundary';
 import { UserController } from 'context/auth/userController/UserController';

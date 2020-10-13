@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Counter } from 'ui/molecules/counter/Counter';

@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-
 import { OverlayDispatchContext } from 'context/overlay/overlayContext/OverlayContext';
 
 import { useOverlayDispatch } from './useOverlayDispatch';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ServiceType } from 'api/types';

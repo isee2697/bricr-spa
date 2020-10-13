@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
-
 import { Box, Grid } from 'ui/atoms';
 
 import { ApplianceField } from './applianceField/ApplianceField';

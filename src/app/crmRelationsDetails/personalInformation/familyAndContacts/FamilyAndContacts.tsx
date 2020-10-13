@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';

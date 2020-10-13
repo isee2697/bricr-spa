@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { useFormState } from 'react-final-form';
-
 import { DialogContent, DialogActions, Button } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';

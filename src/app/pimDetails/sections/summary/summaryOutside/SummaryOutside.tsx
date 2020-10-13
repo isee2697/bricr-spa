@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Button, Grid, Typography } from 'ui/atoms';
 import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';
@@ -15,10 +14,10 @@ import { Location } from './location/Location';
 import { Roof } from './roof/Roof';
 import { OutsideSpaces } from './outsideSpaces/OutsideSpaces';
 
-export const SummaryOutside = ({ summaryOutside, isSidebarVisible, onSidebarOpen }: SummaryOutsideProps) => {
+export const SummaryOutside = ({ summary, isSidebarVisible, onSidebarOpen }: SummaryOutsideProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles(summaryOutside);
-  const { address } = summaryOutside;
+  const classes = useStyles(summary);
+  const { address, outside, cadastre } = summary;
 
   return (
     <>
@@ -51,7 +50,7 @@ export const SummaryOutside = ({ summaryOutside, isSidebarVisible, onSidebarOpen
             </Grid>
             <Grid item xs={6}>
               <Location />
-              <Roof />
+              {outside && outside.roofInformation && <Roof roof={outside.roofInformation} />}
               <OutsideSpaces />
             </Grid>
           </Grid>

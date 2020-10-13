@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Avatar, Box, Emoji, IconButton, Typography } from 'ui/atoms';
 import { EditIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';

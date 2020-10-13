@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
-
 import { Chip, Grid, Typography, Box, MenuItem } from 'ui/atoms';
 import { ListOptionsMenu } from 'ui/molecules';
 import { HomeIcon, SaleIcon } from 'ui/atoms/icons';

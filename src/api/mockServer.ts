@@ -1,6 +1,6 @@
 import { buildSchema, graphql } from 'graphql';
-import { Model, Server } from 'miragejs';
 
+import { Model, Server } from 'miragejs';
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
 import { NCP_GENERAL_1 } from 'api/mocks/ncp-general';

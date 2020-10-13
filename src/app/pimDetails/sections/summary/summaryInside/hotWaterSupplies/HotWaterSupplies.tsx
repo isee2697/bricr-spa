@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, Typography } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './HotWaterSupplies.styles';
+import { HotWaterSuppliesProps } from './HotWaterSupplies.types';
 
-export const HotWaterSupplies = () => {
+export const HotWaterSupplies = ({}: HotWaterSuppliesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 

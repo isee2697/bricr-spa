@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { ConfirmModal } from 'ui/molecules';
 import { useLocale } from 'hooks';

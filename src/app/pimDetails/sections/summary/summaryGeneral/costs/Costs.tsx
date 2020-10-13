@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';

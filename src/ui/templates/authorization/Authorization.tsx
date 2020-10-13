@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
-
 import { Grid, Paper, Link } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
 import { AppRoute } from 'routing/AppRoute.enum';

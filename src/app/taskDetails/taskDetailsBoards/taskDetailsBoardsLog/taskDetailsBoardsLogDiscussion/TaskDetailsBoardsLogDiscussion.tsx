@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid, UserAvatar, Typography } from 'ui/atoms';
 
 import { useStyles } from './TaskDetailsBoardsLogDiscussion.styles';

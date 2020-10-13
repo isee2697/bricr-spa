@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useField } from 'react-final-form';
-
 import { FormControlLabel, Checkbox, Box } from 'ui/atoms';
 
 import { AutoCalculateFormProps } from './AutoCalculateForm.types';

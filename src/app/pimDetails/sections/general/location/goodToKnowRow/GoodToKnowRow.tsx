@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useField } from 'react-final-form';
-
 import { Grid, TileCheckbox, Box } from 'ui/atoms';
 import { BellIcon } from 'ui/atoms/icons';
 import { DropdownField, GenericField } from 'form/fields';

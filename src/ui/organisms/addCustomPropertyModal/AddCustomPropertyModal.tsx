@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-
 import { GenericField } from 'form/fields';
 import { CancelButton, IconPicker, Modal, SubmitButton } from 'ui/molecules';
 import { Alert, Box, DialogActions, DialogContent, Grid } from 'ui/atoms';

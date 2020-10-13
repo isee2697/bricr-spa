@@ -1,7 +1,7 @@
 import groupBy from 'lodash/groupBy';
+
 import React from 'react';
 import { Route, Switch, useParams } from 'react-router-dom';
-
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Button, Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';

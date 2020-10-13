@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { useLocale } from 'hooks';
 import { GenericField, UploadImageGroupField } from 'form/fields';

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-
 import { LabelProperty } from 'api/types';
 import { useLocale, useToggleOnNewlyCreatedFromArray } from 'hooks';
 import { Typography, Box, IconButton } from 'ui/atoms';

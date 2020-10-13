@@ -1,6 +1,6 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { PimSummaryOutside } from './SummaryOutside.types';
+import { PimSummary } from '../Summary.types';
 
 export const useStyles = makeStyles(theme => ({
   btnHeader: {
@@ -13,7 +13,7 @@ export const useStyles = makeStyles(theme => ({
     width: `calc(100% + ${theme.spacing(6)}px)`,
   },
   summaryContent: {
-    backgroundImage: (props: PimSummaryOutside) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
+    backgroundImage: (props: PimSummary) => `${theme.palette.gradientWhite.main}, url('${props.image}')`,
     backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
     padding: theme.spacing(2, 3),

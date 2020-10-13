@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { useIntl } from 'react-intl';
-
 import { Dashboard } from 'app/dashboard/Dashboard';
 import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
 import { LogoutContainer } from 'app/auth/logout/LogoutContainer';

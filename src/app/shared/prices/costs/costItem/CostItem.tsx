@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { CostPaymentFrequency, LabelProperty } from 'api/types';
 import { useLocale, useCustomLabels } from 'hooks';
 import { Grid, Box } from 'ui/atoms';

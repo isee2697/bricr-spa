@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { IconButton, Box, Grid } from 'ui/atoms';
 import { HideIcon } from 'ui/atoms/icons/hide/HideIcon';
 import { NavBreadcrumbs } from 'ui/atoms/navBreadcrumbs/NavBreadcrumbs';

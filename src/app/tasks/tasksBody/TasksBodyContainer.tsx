@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import { useGetTasksFullSummaryLazyQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 

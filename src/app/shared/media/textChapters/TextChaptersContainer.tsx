@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { Chapter, TextChaptersContainerProps } from 'app/shared/media/textChapters/TextChapters.types';
 import {
   ChapterOrUspType,

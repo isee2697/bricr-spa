@@ -2,7 +2,6 @@ import React from 'react';
 import { KeyboardTimePicker } from '@material-ui/pickers';
 import { useField } from 'react-final-form';
 import { DateTime } from 'luxon';
-
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { validatorsChain } from 'form/validators';
 import { useLocale } from 'hooks/useLocale/useLocale';

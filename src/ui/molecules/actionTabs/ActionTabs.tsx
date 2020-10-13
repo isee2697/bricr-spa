@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-
 import { Tabs, Tab, Badge } from 'ui/atoms';
 
 import { ActionTabsProps } from './ActionTabs.types';

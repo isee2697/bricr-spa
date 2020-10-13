@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
-
 import { Box } from 'ui/atoms';
 import { ArrowDownIcon } from 'ui/atoms/icons';
 

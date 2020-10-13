@@ -1,6 +1,5 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-
 import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { Map as EsriMap } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';

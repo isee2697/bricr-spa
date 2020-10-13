@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ProgressStatus, ProjectRisk } from 'api/types';
 import { SquareIcon } from 'ui/atoms/icons';
 

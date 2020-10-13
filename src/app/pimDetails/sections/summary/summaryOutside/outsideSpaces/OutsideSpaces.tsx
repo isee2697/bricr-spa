@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { MeterIcon, MutationIcon, SquareMeterIcon } from 'ui/atoms/icons';

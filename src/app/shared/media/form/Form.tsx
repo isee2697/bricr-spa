@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useStyles } from 'app/pimDetails/sections/inside/floor/space/Space.styles';
 import { Box, Grid } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';

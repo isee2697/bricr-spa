@@ -1,6 +1,5 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-
 import { PimOutsideDocument, PimOverallInfoDocument, useUpdatePimOutsideInfoMutation, PimOutside } from 'api/types';
 
 import { Main } from './Main';

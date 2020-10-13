@@ -1,5 +1,4 @@
 import { Dispatch } from 'react';
-
 import { AuthAction } from '../authReducer/authReducer.types';
 import { Profile } from 'api/types';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Table, TableHead, TableRow, TableCell, TableBody, Typography, ProgressFilling, Box, Button } from 'ui/atoms';
 

@@ -1,6 +1,6 @@
 import withStyles from '@material-ui/core/styles/withStyles';
-import React from 'react';
 
+import React from 'react';
 import { Stepper, Step, StepLabel, StepContent, StepConnector } from 'ui/atoms';
 
 import { useStyles } from './VerticalTimeline.styles';

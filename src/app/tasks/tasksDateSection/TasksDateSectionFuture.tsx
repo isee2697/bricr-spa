@@ -1,8 +1,8 @@
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-
 import { Grid, Typography, Checkbox } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

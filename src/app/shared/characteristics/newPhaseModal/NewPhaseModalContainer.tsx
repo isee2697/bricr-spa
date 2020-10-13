@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
-
 import {
   NcpCharacteristicsDocument,
   ProjectPhasesDocument,

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Button } from 'ui/atoms';
 
 import { ToolbarButtonProps } from './ToolbarButton.types';

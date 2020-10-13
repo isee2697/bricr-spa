@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-
 import { EntityType } from 'app/shared/entityType';
 
 export type SidebarTitleTileProps = {

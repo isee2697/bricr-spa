@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, Typography, Card, CardContent } from 'ui/atoms';
 

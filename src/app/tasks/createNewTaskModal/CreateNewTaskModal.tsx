@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-
 import { Modal, SubmitButton } from 'ui/molecules';
 import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography } from 'ui/atoms';
 import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';

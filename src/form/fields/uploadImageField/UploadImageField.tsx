@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useField } from 'react-final-form';
 import classNames from 'classnames';
-
 import { Badge, Checkbox, CircularProgress, Grid } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { CloseIcon } from 'ui/atoms/icons/close/CloseIcon';

@@ -1,7 +1,7 @@
 import countries from 'i18n-iso-countries';
+
 import React, { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
-
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { translations } from '../../../i18n/messages';

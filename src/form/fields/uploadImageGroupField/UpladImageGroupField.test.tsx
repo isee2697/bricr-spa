@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-
 import { render, fireEvent } from 'tests';
 import { EntityWithFiles, EntityWithMultipleFiles } from 'api/types';
 import { UploadImageGroupField } from 'form/fields/uploadImageGroupField/UploadImageGroupField';

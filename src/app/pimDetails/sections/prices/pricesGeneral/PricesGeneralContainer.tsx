@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { PimPricingDocument, useTogglePricingMutation, useUpdatePricingMutation } from 'api/types';
 import { PricesGeneral } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneral';
 import { SetPriceForm } from 'app/shared/prices/setPricesModal/SetPricesModal.types';

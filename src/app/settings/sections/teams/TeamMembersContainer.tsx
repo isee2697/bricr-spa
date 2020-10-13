@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { TeamMembers } from 'app/settings/sections/teams/TeamMembers';
 import {
   GetTeamDetailsDocument,

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Section } from '../section/Section';
 import { useLocale } from 'hooks';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';

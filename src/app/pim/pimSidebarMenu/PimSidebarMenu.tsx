@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-
 import { SideMenu } from 'ui/molecules';
 import { SideMenuItem, Select, MenuItem } from 'ui/atoms';
 import { SaleIcon } from 'ui/atoms/icons/sale/SaleIcon';

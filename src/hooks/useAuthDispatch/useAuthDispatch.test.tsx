@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-
 import { AuthDispatchContext } from 'context/auth/authContext/AuthContext';
 
 import { useAuthDispatch } from './useAuthDispatch';

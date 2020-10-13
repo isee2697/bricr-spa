@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useUpdatePimGeneralInfoMutation, PimGeneralDocument } from 'api/types';
 
 import {

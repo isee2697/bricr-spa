@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Page } from 'ui/templates';
 import { Tab, Tabs, Box } from 'ui/atoms';
 import { FormSection, WeekView, DayView, Scheduler, MonthView, Appointments, ViewState } from 'ui/organisms';

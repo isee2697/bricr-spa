@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ClickAwayListener, ListItemText } from '@material-ui/core';
 import classNames from 'classnames';
-
 import { Button, List, ListItem } from 'ui/atoms';
 
 import { useStyles, WhiteTooltip } from './Collapsed.styles';

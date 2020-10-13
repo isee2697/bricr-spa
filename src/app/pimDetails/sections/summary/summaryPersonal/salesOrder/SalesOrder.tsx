@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Typography, Box } from 'ui/atoms';
 

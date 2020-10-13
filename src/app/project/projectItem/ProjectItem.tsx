@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
-
 import { AppRoute } from 'routing/AppRoute.enum';
 import {
   Grid,

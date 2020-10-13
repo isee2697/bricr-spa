@@ -1,6 +1,5 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
-
 import { useLocale } from 'hooks';
 import { Grid } from 'ui/atoms';
 import { AutosaveForm } from 'ui/organisms';

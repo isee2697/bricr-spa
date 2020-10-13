@@ -1,10 +1,15 @@
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
+import { PimSummary } from '../Summary.types';
+import { RoofInformation } from 'api/types';
 
-export type PimSummaryOutside = {
-  address: string;
-  image: string;
+export type SummaryOutsideContainerProps = PimDetailsSectionProps & {
+  summary: PimSummary;
+};
+
+export type RoofProps = {
+  roof: RoofInformation;
 };
 
 export type SummaryOutsideProps = PimDetailsSectionProps & {
-  summaryOutside: PimSummaryOutside;
+  summary: PimSummary;
 };

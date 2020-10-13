@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
-
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';

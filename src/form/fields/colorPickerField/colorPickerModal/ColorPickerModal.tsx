@@ -1,7 +1,7 @@
 import { useTheme } from '@material-ui/core/styles';
+
 import React, { useState } from 'react';
 import { ChromePicker, RGBColor } from 'react-color';
-
 import { Button, Dialog, DialogActions, Zoom } from 'ui/atoms';
 import { useLocale } from 'hooks';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'classnames';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Button, Grid, Typography } from 'ui/atoms';
 import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
+import { FloorType } from 'api/types';
 
 import { SummaryInsideProps } from './SummaryInside.types';
 import { useStyles } from './SummaryInside.styles';
@@ -15,7 +15,15 @@ import { HeatingSources } from './heatingSources/HeatingSources';
 import { HotWaterSupplies } from './hotWaterSupplies/HotWaterSupplies';
 import { AdditionalServices } from './additionalServices/AdditionalServices';
 
-export const SummaryInside = ({ summaryInside, isSidebarVisible, onSidebarOpen }: SummaryInsideProps) => {
+export const SummaryInside = ({
+  floors,
+  heatingSources,
+  hotWaterSupplies,
+  additionalServices,
+  summaryInside,
+  isSidebarVisible,
+  onSidebarOpen,
+}: SummaryInsideProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles(summaryInside);
   const { address } = summaryInside;
@@ -44,15 +52,23 @@ export const SummaryInside = ({ summaryInside, isSidebarVisible, onSidebarOpen }
           <Typography variant="h1" className={clsx(classes.marginTopTwo, classes.fontWeightMedium)}>
             <BuildingIcon className={classes.addressIcon} color="error" /> {address}
           </Typography>
-          <GroundfloorSpaces className={classes.groundfloorsSpacesSection} />
-          <Floor />
+          {floors
+            .filter(floor => floor.floorType === FloorType.GroundFloor)
+            .map((floor, index) => (
+              <GroundfloorSpaces key={index} floor={floor} className={classes.groundFloorSpacesSection} />
+            ))}
+          {floors
+            .filter(floor => floor.floorType === FloorType.Floor)
+            .map((floor, index) => (
+              <Floor key={index} floor={floor} />
+            ))}
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <HeatingSources />
-              <HotWaterSupplies />
+              <HeatingSources heatingSources={heatingSources} />
+              <HotWaterSupplies hotWaterSupplies={hotWaterSupplies} />
             </Grid>
             <Grid item xs={6}>
-              <AdditionalServices />
+              <AdditionalServices additionalServices={additionalServices} />
             </Grid>
           </Grid>
         </Grid>

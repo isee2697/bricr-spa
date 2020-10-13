@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useSettingInfoQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 

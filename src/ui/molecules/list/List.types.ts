@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-
 import { ActionModalAction } from 'ui/organisms/actionModal/ActionModal.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { CheckboxProps } from 'ui/atoms/checkbox/Checkbox.types';

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { RadioGroupField } from 'form/fields';
 import { Box } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';

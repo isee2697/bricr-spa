@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
 import { setDefaultOptions } from 'esri-loader';
 import { initializePhraseAppEditor } from 'react-intl-phraseapp';
-
 import { AppProviders } from 'providers/AppProviders';
 
 import { App } from './app/App';

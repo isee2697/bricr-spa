@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'classnames';
-
 import { Autocomplete, TextField, Typography, Box, Paper, InputAdornment } from 'ui/atoms';
 
 import { AdvancedSearch as AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';

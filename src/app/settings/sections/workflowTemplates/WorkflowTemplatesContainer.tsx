@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { AutosaveForm } from 'ui/organisms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { LabelInput } from 'api/types';

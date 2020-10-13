@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { UploadModal } from 'ui/organisms';
 import { AddMapModalProps } from 'app/shared/media/pictures/addPictureModal/AddPictureModal.types';
 import {

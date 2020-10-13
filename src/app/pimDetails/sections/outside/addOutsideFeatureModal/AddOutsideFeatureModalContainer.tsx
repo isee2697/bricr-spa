@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useAddOutsideFeatureMutation, PimOverallInfoDocument, PimOutsideDocument } from 'api/types';
 

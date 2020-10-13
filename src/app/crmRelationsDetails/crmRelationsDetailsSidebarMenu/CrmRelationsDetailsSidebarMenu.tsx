@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';

@@ -1,5 +1,6 @@
 import CheckboxBase from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
+
 import React from 'react';
 
 import { CheckboxProps } from './Checkbox.types';

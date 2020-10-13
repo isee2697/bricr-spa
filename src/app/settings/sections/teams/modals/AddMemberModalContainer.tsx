@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import { GetTeamDetailsDocument, Profile, TeamMember, useAddUserToTeamMutation, useGetUsersQuery } from 'api/types';
 import { usePagination } from 'hooks';

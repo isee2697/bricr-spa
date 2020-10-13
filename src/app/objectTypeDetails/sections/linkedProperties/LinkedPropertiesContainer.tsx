@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQueryParam } from 'use-query-params';
 import { useParams } from 'react-router';
-
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { usePagination } from 'hooks';

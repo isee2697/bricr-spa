@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { render, fireEvent, act, wait } from 'tests';
 
 import { AddNewSpaceModal } from './AddNewSpaceModal';

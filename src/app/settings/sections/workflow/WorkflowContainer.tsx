@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-
 import { useLayout } from 'context/layout';
 import { AppRoute } from 'routing/AppRoute.enum';
 
