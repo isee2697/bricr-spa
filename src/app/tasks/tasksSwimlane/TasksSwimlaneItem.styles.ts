@@ -6,6 +6,10 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
+
+    '&.dragging': {
+      display: 'none',
+    },
   },
   expireInfo: {
     color: theme.palette.gray.main,

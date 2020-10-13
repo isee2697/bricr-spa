@@ -22,11 +22,14 @@ import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
 import { useStyles } from './TasksSwimlaneItem.styles';
 
 export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
-  const [, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     item: {
       type: 'UpdateTaskStatus',
       ...task,
     },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const [{ isOver, isDrag }, drop] = useDrop({
@@ -67,7 +70,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
     <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
       <div ref={!isUpdating ? drop : undefined}>
         {isUpdating && <Loader />}
-        <Box className={classes.root}>
+        <Box className={clsx(classes.root, isDragging && 'dragging')}>
           <Typography
             variant="h6"
             className={clsx(
