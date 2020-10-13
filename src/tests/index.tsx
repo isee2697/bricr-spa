@@ -27,9 +27,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
       <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
         <Theme>
           <AuthContextController>
-            <SnackbarContextController>
-              <ApiClientContextController>
-                <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+            <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+              <SnackbarContextController>
+                <ApiClientContextController>
                   <OverlayContextController>
                     <ModalContextController>
                       <LayoutContextController>
@@ -41,9 +41,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
                       </LayoutContextController>
                     </ModalContextController>
                   </OverlayContextController>
-                </LocaleContext.Provider>
-              </ApiClientContextController>
-            </SnackbarContextController>
+                </ApiClientContextController>
+              </SnackbarContextController>
+            </LocaleContext.Provider>
           </AuthContextController>
         </Theme>
       </IntlProvider>
