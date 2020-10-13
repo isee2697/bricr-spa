@@ -1,102 +1,105 @@
-import React, { useEffect, useState } from 'react';
-import clsx from 'classnames';
+import React, { useState, useRef } from 'react';
+import classNames from 'classnames';
 
-import { Autocomplete, TextField, Typography, Box, Paper, InputAdornment } from 'ui/atoms';
+import { Box, TextField, Typography } from 'ui/atoms';
 
-import { AdvancedSearch as AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
+import { AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
 import { useStyles } from './AdvancedSearch.styles';
 
 export const AdvancedSearch = ({
-  label,
-  options,
-  inputItem,
-  hasFocus: hasFocusProp,
-  setFocus: setFocusProp,
-  inputValue = '',
+  title,
+  items,
+  placeholder,
+  disabled,
+  value,
+  align,
+  showSelected = true,
+  classes: propsClasses,
   onChange,
-  ...props
 }: AdvancedSearchProps) => {
-  const [hasFocus, setFocus] = useState(!!hasFocusProp);
-  const [value, setValue] = useState(inputValue ? inputValue : '');
   const classes = useStyles();
 
-  useEffect(() => {
-    if (setFocusProp) {
-      setFocusProp(hasFocus);
-    }
-  }, [hasFocus, setFocusProp]);
+  const select = useRef<HTMLSelectElement | null>(null);
+  const [isOpened, setOpened] = useState(false);
+  const [key, setKey] = useState(items.find(item => item.value === value)?.label || '');
 
-  const highlightString = (title: string) => {
-    if (!value.trim()) {
-      return title;
-    }
-
-    const parts = title.split(new RegExp(`(${value})`, 'gi'));
-
-    return parts.map((part, index) =>
-      part.toLowerCase().match(value.toLowerCase()) ? (
-        <span key={index} className={classes.highlight}>
-          {part}
-        </span>
-      ) : (
-        part
-      ),
-    );
-  };
-
-  const Results = (props: Parameters<typeof Paper>[0]) => {
-    return (
-      <Paper {...props} className={classes.paper}>
-        {props.children}
-      </Paper>
-    );
-  };
+  const selectedItem: AdvancedSearchItem | undefined = items.find(item => item.value === value);
+  const listItems: AdvancedSearchItem[] = showSelected ? [...items] : items.filter(item => item.value !== value);
+  const handleChangeSearchKey = (e: React.ChangeEvent<HTMLInputElement>) => setKey(e.target.value);
 
   return (
-    <Box className={clsx(classes.root, hasFocus && 'selected')}>
-      <Typography variant="h6" className={clsx(classes.label, hasFocus && 'selected')}>
-        {label}
-      </Typography>
-      <Autocomplete
-        {...props}
-        onChange={(event: React.ChangeEvent<{}>, value: AdvancedSearchItem | null) => {
-          if (onChange && value) {
-            onChange(value.key);
+    <div className={classes.root}>
+      <Box
+        onClick={() => {
+          if (!disabled) {
+            setOpened(opened => !opened);
+            setKey(selectedItem?.label || '');
           }
+
+          select.current?.focus();
         }}
-        value={inputItem}
-        open={hasFocus}
-        renderInput={params => (
-          <TextField
-            {...params}
-            onFocus={() => setFocus(true)}
-            onBlur={() => {
-              setFocus(false);
-            }}
-            className={clsx(classes.textField, hasFocus && 'selected')}
-            onChange={e => setValue(e.target.value)}
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: inputItem && inputItem.icon && (
-                <InputAdornment position="start">{inputItem.icon}</InputAdornment>
-              ),
-            }}
-          />
+        className={classNames(propsClasses?.input, classes.input, { isOpened, disabled })}
+      >
+        {title && (
+          <Typography variant="h6" className={classNames(classes.label, isOpened && classes.blue)}>
+            {title}
+          </Typography>
         )}
-        PaperComponent={Results}
-        options={options}
-        getOptionLabel={option => option.title}
-        freeSolo
-        blurOnSelect
-        renderOption={(option: AdvancedSearchItem) => (
-          <>
-            <Box className={classes.optionIcon}>{option.icon}</Box>
-            <Box className={classes.optionTitle}>{highlightString(option.title)}</Box>
-          </>
-        )}
-        classes={{ root: classes.autocompleteRoot, option: classes.option }}
-      />
-      <Box className={clsx(hasFocus && classes.autocompleteBack)} />
-    </Box>
+        <Box className={classNames(propsClasses?.inputInner, classes.inputInner, isOpened && 'selected')}>
+          {!isOpened && (
+            <Box display="flex" alignItems="center" className={classes.itemLabelWrapper}>
+              {selectedItem?.icon}
+              <span className={classes.itemLabel}>{selectedItem?.label}</span>
+            </Box>
+          )}
+          {isOpened && (
+            <TextField
+              autoFocus
+              value={key}
+              classes={{ root: classes.searchField }}
+              InputProps={{ classes: { root: classes.searchFieldInput } }}
+              onChange={handleChangeSearchKey}
+            />
+          )}
+        </Box>
+      </Box>
+      <Box className={classNames(propsClasses?.menu, classes.menu, { isOpened })}>
+        {listItems
+          .filter(item => item.label.includes(key))
+          .map((item, index) => (
+            <Box
+              key={`${item.value}`}
+              className={classNames(
+                propsClasses?.menuItem,
+                classes.item,
+                item.color,
+                { selected: value === item.value },
+                align === 'left' && 'alignLeft',
+                align === 'right' && 'alignRight',
+              )}
+              onClick={() => {
+                setOpened(false);
+                onChange(item.value);
+              }}
+            >
+              <Box
+                display="flex"
+                width="100%"
+                alignItems="center"
+                className={classNames(
+                  propsClasses?.menuItemInner,
+                  classes.itemContent,
+                  value === item.value && 'selected',
+                  listItems.length === index + 1 && 'last',
+                )}
+              >
+                {item.icon}
+                <span className={classes.itemLabel}>{item.label}</span>
+              </Box>
+            </Box>
+          ))}
+      </Box>
+      <Box className={classNames(isOpened && classes.autocompleteBack)} />
+    </div>
   );
 };

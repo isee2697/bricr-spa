@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { SelectBoxItem } from 'ui/atoms/selectBox/SelectBox.types';
 import { FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon } from 'ui/atoms/icons';
 import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
-import { AdvancedSearch as AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
+import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
@@ -58,8 +58,8 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   ];
 
   const assignees: AdvancedSearchItem[] = [user, ...members].map((member, index) => ({
-    key: member.id,
-    title: `${member.firstName} ${member.lastName}${index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}`,
+    label: `${member.firstName} ${member.lastName}${index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}`,
+    value: member.id,
     icon: <UserAvatar name={`${member.firstName} ${member.lastName}`} className={classes.avagarIcon} />,
   }));
 
@@ -132,10 +132,11 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
       </Box>
       <Box className={classes.marginTopThree}>
         <AdvancedSearch
-          inputItem={assignees.find(a => a.key === assignee)}
-          label={formatMessage({ id: 'tasks.details.assignee' })}
-          options={assignees}
-          onChange={value => handleChange('assignee', value)}
+          title={formatMessage({ id: 'tasks.details.assignee' })}
+          items={assignees}
+          placeholder=""
+          value={assignee}
+          onChange={value => handleChange('assignee', value as TaskStatus)}
         />
       </Box>
       <Box className={classes.marginTopThree}>

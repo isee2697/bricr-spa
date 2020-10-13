@@ -1,21 +1,26 @@
-import { AutocompleteProps } from '@material-ui/lab/Autocomplete';
-import { ReactNode } from 'react';
-
-import { Scalars } from '../../../api/types';
-
-export type AdvancedSearch = {
-  key: Scalars['ID'];
-  title: string;
-  icon: ReactNode;
+export type AdvancedSearchItem = {
+  label: string;
+  value: string | number;
+  icon?: React.ReactElement;
+  color?: string;
 };
 
-interface AdvancedSearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
-  label: string;
-  options: T[];
-  hasFocus?: boolean;
-  setFocus?: (value: boolean) => void;
-  inputItem?: AdvancedSearch;
-  onChange?: (value: string) => void;
-}
+export type AdvancedSearchClasses = {
+  input?: string;
+  inputInner?: string;
+  menu?: string;
+  menuItem?: string;
+  menuItemInner?: string;
+};
 
-export type AdvancedSearchProps = AdvancedSearchPropsInterface<AdvancedSearch>;
+export type AdvancedSearchProps = {
+  title?: string;
+  items: AdvancedSearchItem[];
+  placeholder: string;
+  disabled?: boolean;
+  value?: string;
+  align?: 'left' | 'center' | 'right';
+  showSelected?: boolean;
+  classes?: AdvancedSearchClasses;
+  onChange: (value: string | number) => void;
+};
