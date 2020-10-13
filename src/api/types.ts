@@ -154,6 +154,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
+  updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
@@ -606,6 +607,10 @@ export type MutationUpdateCrmContactInformationArgs = {
   input: UpdateCrmContactInformationInput;
 };
 
+export type MutationUpdateCrmFamilyContactsArgs = {
+  input: UpdateCrmFamilyContactsInput;
+};
+
 export type MutationUpdateCrmGeneralArgs = {
   input: UpdateCrmGeneralInput;
 };
@@ -886,6 +891,7 @@ export type Query = {
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
+  getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getLabels?: Maybe<Array<Label>>;
@@ -952,6 +958,10 @@ export type QueryGetChangesHistoryArgs = {
 };
 
 export type QueryGetCrmContactInformationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmFamilyContactsArgs = {
   id: Scalars['ID'];
 };
 
@@ -1527,6 +1537,65 @@ export type CrmEmailAddressInput = {
 export type CrmSocialMediaInput = {
   type: ContactSocialMediaType;
   url: Scalars['String'];
+};
+
+export enum MaritalStatusType {
+  Single = 'Single',
+  MarriedCommunityOfProperty = 'MarriedCommunityOfProperty',
+  MarriedPrenuptialAgreements = 'MarriedPrenuptialAgreements',
+  RegisteredPartner = 'RegisteredPartner',
+  Unmarried = 'Unmarried',
+  LivingTogether = 'LivingTogether',
+  Widow = 'Widow',
+  Widower = 'Widower',
+}
+
+export type LinkedCrm = {
+  __typename?: 'LinkedCrm';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+};
+
+export type CrmContact = {
+  __typename?: 'CrmContact';
+  type: Scalars['String'];
+  contact: LinkedCrm;
+};
+
+export type CrmFamilyContacts = {
+  __typename?: 'CrmFamilyContacts';
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partner?: Maybe<LinkedCrm>;
+  contacts?: Maybe<Array<CrmContact>>;
+};
+
+export type UpdateCrmFamilyContactsInput = {
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partnerId?: Maybe<Scalars['ID']>;
+  contacts?: Maybe<Array<CrmContactInput>>;
+};
+
+export type CrmContactInput = {
+  type: Scalars['String'];
+  contactId: Scalars['ID'];
 };
 
 export enum CrmType {
@@ -7172,6 +7241,34 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
   >;
 };
 
+export type UpdateCrmFamilyContactsMutationVariables = Exact<{
+  input: UpdateCrmFamilyContactsInput;
+}>;
+
+export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
+  updateCrmFamilyContacts?: Maybe<
+    { __typename?: 'CrmFamilyContacts' } & Pick<
+      CrmFamilyContacts,
+      | 'id'
+      | 'maritalStatus'
+      | 'maritalStatusDate'
+      | 'maritalStatusInformation'
+      | 'familyCompositionChildren'
+      | 'familyCompositionAdults'
+      | 'familyCompositionInformation'
+    > & {
+        partner?: Maybe<{ __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>>;
+        contacts?: Maybe<
+          Array<
+            { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
+                contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
+              }
+          >
+        >;
+      }
+  >;
+};
+
 export type CreateCrmMutationVariables = Exact<{
   input: CreateCrmInput;
 }>;
@@ -8588,6 +8685,38 @@ export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
           >
         >;
         socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+      }
+  >;
+};
+
+export type GetCrmFamilyContactsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
+  getCrmFamilyContacts?: Maybe<
+    { __typename?: 'CrmFamilyContacts' } & Pick<
+      CrmFamilyContacts,
+      | 'id'
+      | 'maritalStatus'
+      | 'maritalStatusDate'
+      | 'maritalStatusInformation'
+      | 'familyCompositionChildren'
+      | 'familyCompositionAdults'
+      | 'familyCompositionInformation'
+    > & {
+        partner?: Maybe<
+          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'insertion' | 'lastName' | 'email'> & {
+              avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            }
+        >;
+        contacts?: Maybe<
+          Array<
+            { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
+                contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
+              }
+          >
+        >;
       }
   >;
 };
@@ -11763,6 +11892,45 @@ export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.Mutati
 export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmContactInformationMutation,
   UpdateCrmContactInformationMutationVariables
+>;
+export const UpdateCrmFamilyContactsDocument = gql`
+  mutation UpdateCrmFamilyContacts($input: UpdateCrmFamilyContactsInput!) {
+    updateCrmFamilyContacts(input: $input) {
+      id
+      maritalStatus
+      maritalStatusDate
+      maritalStatusInformation
+      familyCompositionChildren
+      familyCompositionAdults
+      familyCompositionInformation
+      partner {
+        id
+      }
+      contacts {
+        type
+        contact {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useUpdateCrmFamilyContactsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmFamilyContactsMutation,
+    UpdateCrmFamilyContactsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmFamilyContactsMutation, UpdateCrmFamilyContactsMutationVariables>(
+    UpdateCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmFamilyContactsMutationHookResult = ReturnType<typeof useUpdateCrmFamilyContactsMutation>;
+export type UpdateCrmFamilyContactsMutationResult = ApolloReactCommon.MutationResult<UpdateCrmFamilyContactsMutation>;
+export type UpdateCrmFamilyContactsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmFamilyContactsMutation,
+  UpdateCrmFamilyContactsMutationVariables
 >;
 export const CreateCrmDocument = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
@@ -15170,6 +15338,57 @@ export type GetCrmContactInformationLazyQueryHookResult = ReturnType<typeof useG
 export type GetCrmContactInformationQueryResult = ApolloReactCommon.QueryResult<
   GetCrmContactInformationQuery,
   GetCrmContactInformationQueryVariables
+>;
+export const GetCrmFamilyContactsDocument = gql`
+  query getCrmFamilyContacts($id: ID!) {
+    getCrmFamilyContacts(id: $id) {
+      id
+      maritalStatus
+      maritalStatusDate
+      maritalStatusInformation
+      familyCompositionChildren
+      familyCompositionAdults
+      familyCompositionInformation
+      partner {
+        id
+        firstName
+        insertion
+        lastName
+        email
+        avatar {
+          url
+        }
+      }
+      contacts {
+        type
+        contact {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useGetCrmFamilyContactsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>(
+    GetCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmFamilyContactsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>(
+    GetCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export type GetCrmFamilyContactsQueryHookResult = ReturnType<typeof useGetCrmFamilyContactsQuery>;
+export type GetCrmFamilyContactsLazyQueryHookResult = ReturnType<typeof useGetCrmFamilyContactsLazyQuery>;
+export type GetCrmFamilyContactsQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmFamilyContactsQuery,
+  GetCrmFamilyContactsQueryVariables
 >;
 export const GetCrmGeneralDocument = gql`
   query getCrmGeneral($id: ID!) {

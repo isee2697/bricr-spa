@@ -7,18 +7,15 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { useStyles } from './PartnerItem.styles';
 import { PartnerItemProps } from './PartnerItem.types';
 
-export const PartnerItem = ({
-  className,
-  partner: { firstName, lastName, email, emailAddresses = [], phoneNumbers = [], image },
-}: PartnerItemProps) => {
+export const PartnerItem = ({ className, partner: { firstName, lastName, email, avatar } }: PartnerItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
     <Box display="flex" className={className}>
       <Box>
-        <Avatar variant="square" src={image?.url || ''} className={classes.image}>
-          {!image?.url && <Emoji>{'📷'}</Emoji>}
+        <Avatar variant="square" src={avatar?.url || ''} className={classes.image}>
+          {!avatar?.url && <Emoji>{'📷'}</Emoji>}
         </Avatar>
       </Box>
       <Box width="100%" className={classes.paddingTwo}>
@@ -44,15 +41,6 @@ export const PartnerItem = ({
             <Typography variant="h6" className={classes.fontWeightBold}>
               {formatMessage({ id: 'crm.details.personal_information_family_and_contacts.partner.contact' })}
             </Typography>
-            {phoneNumbers &&
-              phoneNumbers.map((phoneNumber, index) => (
-                <Typography variant="h5">T: {phoneNumber.phoneNumber}</Typography>
-              ))}
-            <Typography variant="h5">E: {email}</Typography>
-            {emailAddresses &&
-              emailAddresses.map((emailAddress, index) => (
-                <Typography variant="h5">E: {emailAddress.emailAddress}</Typography>
-              ))}
           </Box>
         </Box>
       </Box>
