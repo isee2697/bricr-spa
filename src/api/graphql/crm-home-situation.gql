@@ -28,7 +28,7 @@ enum ReasonToMoveType {
 type CrmHomeSituation {
   id: ID!
   currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
-  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatusTypw"])
+  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatuse"])
   currentHomeSalesValue: Int
   currentHomeMortgage: Int
   currentHomeInformation: String
@@ -40,7 +40,7 @@ type CrmHomeSituation {
 input UpdateCrmHomeSituationInput {
   id: ID!
   currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
-  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatusTypw"])
+  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatusType"])
   currentHomeSalesValue: Int
   currentHomeMortgage: Int
   currentHomeInformation: String
