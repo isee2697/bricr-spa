@@ -29,3 +29,4 @@ export { ConfirmModal } from './confirmModal/ConfirmModal';
 export { ListOptionsMenu } from './listOptionsMenu/ListOptionsMenu';
 export { ProfileItem } from './profileItem/ProfileItem';
 export { VerticalTimeline } from './verticalTimeline/VerticalTimeline';
+export { Map } from './map/Map';

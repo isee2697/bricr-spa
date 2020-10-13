@@ -23,6 +23,7 @@ export const TasksContent = ({
   tasksSummaryByStatus,
   searchKey,
   viewMode,
+  deadlines,
   onChangeSearchKey,
   onChangeViewMode,
   onChangeDateRange,
@@ -63,7 +64,11 @@ export const TasksContent = ({
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <TasksDateSection tab={tab} handleSetDateRange={(range: DateRange) => onChangeDateRange(range)} />
+        <TasksDateSection
+          tab={tab}
+          deadlines={deadlines}
+          handleSetDateRange={(deadlines: DateRange[]) => onChangeDateRange(deadlines)}
+        />
       </Grid>
       <Grid
         item

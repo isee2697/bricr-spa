@@ -9,7 +9,10 @@ import * as dictionaries from './dictionaries';
 
 export const WorkflowContainer = () => {
   const { setFullscreen } = useLayout();
-  const { state } = useLocation<{ iconName: string }>();
+  const { state } = useLocation<{
+    iconName: string;
+    isNew: boolean | undefined;
+  }>();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
 
@@ -31,6 +34,7 @@ export const WorkflowContainer = () => {
       onToggleFullScreen={onToggleFullScreen}
       name={id}
       iconName={state.iconName}
+      isNew={state.isNew}
       goBack={goBack}
       actionsGroups={dictionaries.actionsGroups}
       triggersGroups={dictionaries.triggersGroups}
