@@ -31,8 +31,7 @@ export const graphLink = (
         const copyResponse = response.clone();
         const json = await copyResponse.json();
 
-        if (!response.ok) {
-          console.log('showsnackbar', json);
+        if (json.errors) {
           showError(json.errors[0].message);
         }
 
