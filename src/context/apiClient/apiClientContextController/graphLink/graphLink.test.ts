@@ -6,7 +6,7 @@ import { AdminSettings } from 'api/types';
 import { graphLink } from './graphLink';
 
 describe('graphLink', () => {
-  test('andreas', async () => {
+  test('call set error when error from api returned', async () => {
     const expectedString = 'myError';
     const cache = new InMemoryCache();
     const dispatch = jest.fn();
