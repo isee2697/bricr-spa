@@ -8,16 +8,18 @@ import { LinkIcon, SquareIcon } from 'ui/atoms/icons';
 import { AvailabilityPicker } from '../availabilityPicker/AvailabilityPicker';
 import { LinkedPersonType, MomentFormProps } from '../addMomentModal/AddMomentModal.types';
 
+const baseName = 'sales_settings.general';
+
 const appointmentType = [
   {
-    label: 'dictionaries.kitchen_construction.DenseKitchen',
+    label: baseName + 'appointment_type.viewing.label',
     icon: <SquareIcon color="inherit" />,
-    value: 'DenseKitchen',
+    value: baseName + 'appointment_type.viewing.value',
   },
   {
-    label: 'dictionaries.kitchen_construction.EatInKitchen',
+    label: baseName + 'appointment_type.online_viewing.label',
     icon: <SquareIcon color="inherit" />,
-    value: 'EatInKitchen',
+    value: baseName + 'appointment_type.online_viewing.value',
   },
 ];
 
@@ -49,7 +51,11 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
       <Grid item xs={12}>
         <Box mb={4}>
           <Box mb={3} px={2}>
-            <FormSubSectionHeader noBorder title="Type of appointment" subtitle="Choose one option below" />
+            <FormSubSectionHeader
+              noBorder
+              title={formatMessage({ id: 'pim_details.appointment_type' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            />
           </Box>
           <Box px={2}>
             <RadioGroupField disabled={!isEditing} name={`${baseName}.schedule`} options={appointmentType} />
@@ -57,7 +63,11 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
         </Box>
         <Box mb={4}>
           <Box mb={3} px={2}>
-            <FormSubSectionHeader noBorder title="Moment schedule" subtitle="Choose one option below" />
+            <FormSubSectionHeader
+              noBorder
+              title={formatMessage({ id: 'pim_details.moment_schedule' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            />
           </Box>
           <Box px={2}>
             <AvailabilityPicker days={days} />
@@ -65,7 +75,11 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
         </Box>
         <Box mb={4}>
           <Box mb={3} px={2}>
-            <FormSubSectionHeader noBorder title="Account managers" subtitle="Choose one option below" />
+            <FormSubSectionHeader
+              noBorder
+              title={formatMessage({ id: 'pim_details.account_managers' })}
+              subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            />
           </Box>
           <Box px={2}>
             {moment.persons.length > 0 ? (
@@ -77,8 +91,12 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
             ) : (
               <InfoSection color="gradient" emoji="🤔">
                 <Box mb={4}>
-                  <Typography variant="h3">You don't have any links</Typography>
-                  <Typography variant="h3">You don't have any links</Typography>
+                  <Typography variant="h3">
+                    {formatMessage({ id: 'pim_details.account_managers.empty_title' })}
+                  </Typography>
+                  <Typography variant="h3">
+                    {formatMessage({ id: 'pim_details.account_managers.empty_description' })}
+                  </Typography>
                 </Box>
                 <Box display="inline-block">
                   <Button
@@ -89,7 +107,7 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
                     onClick={onAddMoment}
                     size="large"
                   >
-                    <LinkIcon color="inherit" /> Link user
+                    <LinkIcon color="inherit" /> {formatMessage({ id: 'pim_details.account_managers.add' })}
                   </Button>
                 </Box>
               </InfoSection>

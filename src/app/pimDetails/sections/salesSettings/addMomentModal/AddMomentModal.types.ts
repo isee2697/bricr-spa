@@ -1,6 +1,11 @@
+import { ReactNode } from 'react';
 import { AnyObject } from 'react-final-form';
-// import { ServiceRadioType } from 'app/shared/services/Service.types';
-// import { AddServiceInput, ServiceType } from 'api/types';
+
+export type CheckboxDataType = {
+  label: string;
+  icon: ReactNode;
+  value: string;
+};
 
 export type MomentArrayType = {
   id: number;
@@ -30,7 +35,7 @@ export type AddModalSubmit = (
 export type AddMomentModalContainerProps = {
   onAddMoment: AddModalSubmit;
   isOpened: boolean;
-  type: AnyObject;
+  type: string;
   onClose: (id?: string) => void;
   currentModalIndex: number;
 };
@@ -54,9 +59,9 @@ export type MomentFormProps = {
 
 export type AddMomentModalProps = {
   isOpened: boolean;
-  onSubmit: VoidFunction;
+  onSubmit: AddMomentSubmit;
   onClose: VoidFunction;
-  persons: LinkedPersonType[];
+  persons: CheckboxDataType[];
   title: string;
   nameLabel: string;
 };

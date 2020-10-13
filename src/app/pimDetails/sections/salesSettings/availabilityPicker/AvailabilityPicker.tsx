@@ -54,7 +54,7 @@ export const AvailabilityPicker = ({ days }: AvailabilityPickerType) => {
               </Grid>
               {days.map((day, index) => {
                 return (
-                  <Grid item xs={2} className={classes.col}>
+                  <Grid item xs={1} className={classes.col}>
                     <div className={classes.row}>
                       <CheckboxButtonField
                         name={day.value}
@@ -65,14 +65,14 @@ export const AvailabilityPicker = ({ days }: AvailabilityPickerType) => {
                     </div>
                     <div className={classes.row}>
                       <TimePickerField
-                        placeholder="Type number"
+                        placeholder={`${day.value}.placeholder`}
                         name={`${day.value}.from`}
                         disabled={!selectedDays.includes(day.value)}
                       />
                     </div>
                     <div className={classes.row}>
                       <TimePickerField
-                        placeholder="Type number"
+                        placeholder={`${day.value}.placeholder`}
                         name={`${day.value}.to`}
                         disabled={!selectedDays.includes(day.value)}
                       />

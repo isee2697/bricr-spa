@@ -26,6 +26,7 @@ export const AddMomentmodalContainer = ({
   type,
   currentModalIndex,
 }: AddMomentModalContainerProps) => {
+  console.log(personsList);
   const [persons, updatePersons] = useState(personsArray);
 
   const handleSubmit: AddMomentSubmit = async body => {

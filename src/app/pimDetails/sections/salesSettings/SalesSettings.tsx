@@ -1,6 +1,5 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
-
 import { AutosaveForm } from 'ui/organisms';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -15,9 +14,7 @@ export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen }: PimDet
 
   const onSave = async (values: unknown) => {
     try {
-      console.log(await values);
-
-      return { error: false };
+      return undefined;
     } catch (error) {
       return { error: true };
     }
@@ -32,8 +29,6 @@ export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen }: PimDet
           title={formatMessage({ id: 'pim_details.sales_settings.title' })}
           placeholder="pim_details.sales_settings.description_placeholder"
           name="description"
-          // updatedBy={media.lastEditedBy}
-          // dateUpdated={media.dateUpdated}
         >
           <Grid item xs={12}>
             <Moments />

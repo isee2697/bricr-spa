@@ -6,16 +6,11 @@ import { GenericField, RadioGroupField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { SquareIcon } from 'ui/atoms/icons';
 import { AddMomentmodalContainer } from '../addMomentModal/AddMomentModalContainer';
-import { AddModalSubmit, LinkedPersonType } from '../addMomentModal/AddMomentModal.types';
+import { AddModalSubmit } from '../addMomentModal/AddMomentModal.types';
 import { MomentForm } from '../momentForm/MomentForm';
+import { MomentArrayType } from '../addMomentModal/AddMomentModal.types';
 
 const baseName = 'sales_settings.general';
-
-type MomentArrayType = {
-  id: number;
-  name: string;
-  persons: LinkedPersonType[];
-};
 
 const momentsArray: MomentArrayType[] = [
   { id: 1, name: 'Viewing moment  1', persons: [] },
@@ -24,14 +19,14 @@ const momentsArray: MomentArrayType[] = [
 
 const onlineSchedule = [
   {
-    label: 'dictionaries.kitchen_construction.DenseKitchen',
+    label: baseName + 'online_schedule.online.label',
     icon: <SquareIcon color="inherit" />,
-    value: 'DenseKitchen',
+    value: baseName + 'online_schedule.online.value',
   },
   {
-    label: 'dictionaries.kitchen_construction.EatInKitchen',
+    label: baseName + 'online_schedule.not_online.label',
     icon: <SquareIcon color="inherit" />,
-    value: 'EatInKitchen',
+    value: baseName + 'online_schedule.not_online.value',
   },
 ];
 
