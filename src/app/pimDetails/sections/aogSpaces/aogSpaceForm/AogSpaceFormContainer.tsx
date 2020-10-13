@@ -22,7 +22,10 @@ export const AogSpaceFormContainer = ({ data }: AogSpacesDataProps) => {
             animalsConfiguration: body.animalsConfiguration,
             installationsConfiguration: body.installationsConfiguration,
             buildingsConfiguration: body.buildingsConfiguration,
-            groundConfiguration: body.groundConfiguration,
+            groundConfiguration: {
+              ...body.groundConfiguration,
+              specifications: body.groundConfiguration?.specifications?.filter(spec => !!spec && !!spec.type),
+            },
           },
         },
         refetchQueries: [
