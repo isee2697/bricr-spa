@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useNcpGeneralOverallInfoQuery } from 'api/types';
 
 import { ProjectDetails } from './ProjectDetails';
