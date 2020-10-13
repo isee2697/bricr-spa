@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { useLocale, useSnackbar } from 'hooks';
+
+const shownErrors: { [key: string]: DateTime } = {};
 
 export const useShowError = () => {
   const { open: openSnackbar } = useSnackbar();
@@ -8,7 +11,12 @@ export const useShowError = () => {
   const { formatMessage } = useLocale();
 
   const showError = (message?: string) => {
-    if (message !== currentMessage) {
+    if (message) {
+      const showError = shownErrors[message].diffNow().milliseconds;
+      console.log(showError);
+    }
+
+    if (currentMessage !== message) {
       setCurrentMessage(message);
 
       message = formatMessage({ id: 'common.error' }, { message: message?.replace('GraphQL error: ', '') });
