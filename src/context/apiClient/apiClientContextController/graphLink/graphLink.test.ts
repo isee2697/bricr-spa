@@ -32,10 +32,14 @@ describe('graphLink', () => {
       },
     };
 
-    const link = graphLink(dispatch, {
-      accessToken: 'test',
-      refreshToken: 'test',
-    });
+    const link = graphLink(
+      dispatch,
+      {
+        accessToken: 'test',
+        refreshToken: 'test',
+      },
+      (message: string) => {},
+    );
 
     const client = new ApolloClient({
       link,

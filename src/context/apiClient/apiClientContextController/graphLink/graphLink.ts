@@ -10,6 +10,7 @@ let refreshTokenPromise: Promise<Response> | null = null;
 export const graphLink = (
   dispatch: React.Dispatch<AuthAction>,
   tokens: { accessToken: null | string; refreshToken: null | string },
+  showError: (message: string) => void,
 ) =>
   createHttpLink({
     uri: process.env.REACT_APP_API_URL,
@@ -27,10 +28,15 @@ export const graphLink = (
       };
 
       return fetch(endpoint, newOptions).then(async response => {
-        if (tokens.accessToken && tokens.refreshToken && response.status === 401) {
-          const copyResponse = response.clone();
-          const json = await copyResponse.json();
+        const copyResponse = response.clone();
+        const json = await copyResponse.json();
 
+        if (!response.ok) {
+          console.log('showsnackbar', json);
+          showError(json.errors[0].message);
+        }
+
+        if (tokens.accessToken && tokens.refreshToken && response.status === 401) {
           if (json && json.error && json.error.id === 'Invalid token provided') {
             if (!refreshTokenPromise) {
               refreshTokenPromise = fetch(process.env.REACT_APP_SECURITY_URL + '/public/auth/refresh-token', {
