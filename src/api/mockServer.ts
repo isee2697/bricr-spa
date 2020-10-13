@@ -218,6 +218,9 @@ export const mockServer = () => {
 
             return user;
           },
+          getNotifications() {
+            return null;
+          },
           getPim() {
             if (variables.id === 'test') {
               throw new Error();
@@ -292,6 +295,7 @@ export const mockServer = () => {
             return { newSpace };
           },
           updateAogSpace() {
+            console.log(variables.input);
             let returnSpace = {};
             PIM_AOG.aogSpaces?.map(space => {
               if (variables.input.spaceId === space.id) {
