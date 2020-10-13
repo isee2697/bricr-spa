@@ -121,7 +121,7 @@ export const useStyles = makeStyles(theme => ({
   inlineBlock: {
     display: 'inline-block',
   },
-  marginTopThree: {
-    marginTop: theme.spacing(3),
+  marginTopOneHalf: {
+    marginTop: theme.spacing(1.5),
   },
 }));

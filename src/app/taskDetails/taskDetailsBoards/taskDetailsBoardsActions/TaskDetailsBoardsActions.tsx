@@ -130,7 +130,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
           }}
         />
       </Box>
-      <Box className={classes.marginTopThree}>
+      <Box className={classes.marginTopOneHalf}>
         <AdvancedSearch
           title={formatMessage({ id: 'tasks.details.assignee' })}
           items={assignees}
@@ -139,7 +139,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
           onChange={value => handleChange('assignee', value as TaskStatus)}
         />
       </Box>
-      <Box className={classes.marginTopThree}>
+      <Box>
         <SelectBox
           title={formatMessage({ id: 'tasks.details.label' })}
           value={label}
