@@ -16,7 +16,7 @@ import { CheckboxGroupField, RadioGroupField } from 'form/fields';
 
 import { FilterSideMenu } from './filterSideMenu/FilterSideMenu';
 import { Range } from './range/Range';
-import { CheckboxDataType, FilterProps, FiltersTypes } from './Filters.types';
+import { FilterProps, FiltersTypes } from './Filters.types';
 import { FilterTabPanel } from './filterTabPanel/FilterTabPanel';
 import { useStyles } from './Filters.styles';
 
