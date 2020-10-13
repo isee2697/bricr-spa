@@ -22,7 +22,6 @@ export const Project = ({
   type,
   isLoading,
   isError,
-  error,
   amounts,
   listData,
   sorting,
@@ -37,11 +36,7 @@ export const Project = ({
 
   return (
     <>
-      {isError && (
-        <Alert severity="error">
-          {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
-        </Alert>
-      )}
+      {isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <Grid container spacing={0}>
         <Grid item xs={12} md={3} lg={2}>
           <PimSidebarMenu

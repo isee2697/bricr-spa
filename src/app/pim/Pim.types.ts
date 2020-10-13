@@ -21,6 +21,7 @@ export type PimProps = {
   onFilter: (filters: ListPimsFilters) => void;
   activeFilters: ListPimsFilters;
   isLoading: boolean;
+  isError: boolean;
   amounts?: {
     actionRequired: number;
     active: number;

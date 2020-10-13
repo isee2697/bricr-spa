@@ -189,7 +189,6 @@ export const ProjectContainer = () => {
         onTypeChange={setType}
         isLoading={isCountLoading || isListLoading}
         isError={!!countError || !!listError}
-        error={countError || listError}
         amounts={amounts}
         listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
         sorting={sorting}

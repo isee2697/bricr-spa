@@ -1,5 +1,3 @@
-import { ApolloError } from 'apollo-boost';
-
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -14,7 +12,6 @@ export type ProjectProps = {
   onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;
   isError: boolean;
-  error: ApolloError | undefined;
   amounts?: {
     actionRequired: number;
     active: number;

@@ -8,7 +8,7 @@ import { ProjectDetails } from './ProjectDetails';
 export const ProjectDetailsContainer = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { loading, data, error } = useNcpGeneralOverallInfoQuery({ variables: { id } });
+  const { data } = useNcpGeneralOverallInfoQuery({ variables: { id } });
 
-  return <ProjectDetails data={data} error={error} loading={loading} />;
+  return <ProjectDetails data={data} />;
 };

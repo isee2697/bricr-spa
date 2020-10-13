@@ -34,7 +34,7 @@ export const PimContainer = () => {
   const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
   const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
 
-  const { loading: isCountLoading, data: countData } = useListPimsCountQuery({
+  const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -57,7 +57,7 @@ export const PimContainer = () => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, data: listData } = useListPimsQuery({
+  const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -87,6 +87,7 @@ export const PimContainer = () => {
       pricingType={pricingType}
       onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
+      isError={!!countError || !!listError}
       amounts={amounts}
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}

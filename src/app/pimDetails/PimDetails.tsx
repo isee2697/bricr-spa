@@ -65,9 +65,7 @@ export const PimDetails = ({
           <Grid container className={classes.content}>
             {!!error && (
               <Grid item xs={12}>
-                <Alert severity="error">
-                  {formatMessage({ id: 'common.error' }, { message: error?.message?.replace('GraphQL error: ', '') })}
-                </Alert>
+                <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
               </Grid>
             )}
             {!error && !!pim && (
