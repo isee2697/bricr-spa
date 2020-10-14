@@ -218,6 +218,9 @@ export const mockServer = () => {
 
             return user;
           },
+          getNotifications() {
+            return null;
+          },
           getPim() {
             if (variables.id === 'test') {
               throw new Error();
@@ -592,7 +595,6 @@ export const mockServer = () => {
             PIM_DETAILS = {
               ...PIM_DETAILS,
               outsideFeatures: [
-                ...(PIM_DETAILS.outsideFeatures ?? []),
                 {
                   __typename: 'OutsideFeature',
                   type: variables.input.type,
@@ -603,6 +605,7 @@ export const mockServer = () => {
                     main: true,
                   },
                 },
+                ...(PIM_DETAILS.outsideFeatures ?? []),
               ],
             };
 

@@ -25,21 +25,21 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
         <LocaleContextController>
           <MuiPickersUtilsProvider utils={LuxonUtils}>
             <ErrorBoundary>
-              <ApiClientContextController>
-                <UserController>
-                  <OverlayContextController>
-                    <ModalContextController>
-                      <LayoutContextController>
-                        <SnackbarContextController>
+              <SnackbarContextController>
+                <ApiClientContextController>
+                  <UserController>
+                    <OverlayContextController>
+                      <ModalContextController>
+                        <LayoutContextController>
                           <Router>
                             <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
                           </Router>
-                        </SnackbarContextController>
-                      </LayoutContextController>
-                    </ModalContextController>
-                  </OverlayContextController>
-                </UserController>
-              </ApiClientContextController>
+                        </LayoutContextController>
+                      </ModalContextController>
+                    </OverlayContextController>
+                  </UserController>
+                </ApiClientContextController>
+              </SnackbarContextController>
             </ErrorBoundary>
           </MuiPickersUtilsProvider>
         </LocaleContextController>
