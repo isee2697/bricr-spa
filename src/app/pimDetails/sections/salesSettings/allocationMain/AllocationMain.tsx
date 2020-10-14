@@ -8,6 +8,7 @@ import { AutosaveForm } from 'ui/organisms';
 
 import { CriteriaTypeForm } from './criteriaTypeForm/CriteriaTypeForm';
 import { SegmentationFrom } from './segmentationForm/SegmentationForm';
+import { PeopleForm } from './peopleForm/PeopleForm';
 
 export const AllocationMain = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const onSave = async () => {
@@ -30,6 +31,10 @@ export const AllocationMain = ({ title, isSidebarVisible, onSidebarOpen }: PimDe
         <AutosaveForm mutators={{ ...arrayMutators }} onSave={onSave}>
           <Grid item xs={12}>
             <CriteriaTypeForm />
+          </Grid>
+
+          <Grid item xs={12}>
+            <PeopleForm />
           </Grid>
 
           <Grid item xs={12}>
