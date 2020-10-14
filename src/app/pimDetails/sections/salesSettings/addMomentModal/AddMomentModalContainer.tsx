@@ -30,18 +30,18 @@ export const AddMomentmodalContainer = ({
   const [persons, updatePersons] = useState(personsArray);
 
   const handleSubmit: AddMomentSubmit = async body => {
-    const person: LinkedPersonType = {
-      name: 'Victor Martin Brochner',
+    const personsMapped: LinkedPersonType[] = body.linked_managers.map((managerId: string) => ({
+      name: 'Victor Martin Brochner ' + managerId,
       avatar: 'https://source.unsplash.com/featured/?person',
       office: 'Vesteging Weert',
       company: 'Hendriks Makelaardij',
       phone: '06-48764044',
       email: 'christian@cubiceyes.com',
-    };
+    }));
 
     try {
-      updatePersons([...persons, person]);
-      onAddMoment(currentModalIndex, [...persons, person]);
+      updatePersons(personsMapped);
+      onAddMoment(currentModalIndex, personsMapped);
 
       return undefined;
     } catch {
