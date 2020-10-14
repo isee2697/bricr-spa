@@ -45,6 +45,12 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(3),
     fontSize: theme.typography.h5.fontSize,
   },
+  placeholder: {
+    height: theme.spacing(13),
+    background: theme.palette.gradientBlue.light,
+    border: `1px dashed ${theme.palette.primary.main}`,
+    borderRadius: theme.spacing(1),
+  },
   flexGrowOne: {
     flexGrow: 1,
   },

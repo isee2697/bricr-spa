@@ -6684,8 +6684,8 @@ export type DateRange = {
 export type TaskFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDate?: Maybe<DateRange>;
-  deadline?: Maybe<DateRange>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
 };
 
 export type TaskFullSummaryFilters = {
@@ -6695,8 +6695,8 @@ export type TaskFullSummaryFilters = {
 export type TaskSummaryByStatusFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDate?: Maybe<DateRange>;
-  deadline?: Maybe<DateRange>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
 };
 
 export enum TeamRight {
@@ -10337,8 +10337,7 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
 export type GetTasksQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+  deadlines?: Maybe<Array<DateRange>>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
 }>;
@@ -10380,8 +10379,7 @@ export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
 export type GetTasksSummaryByStatusQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+  deadlines?: Maybe<Array<DateRange>>;
 }>;
 
 export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
@@ -17274,13 +17272,12 @@ export const GetTasksDocument = gql`
   query GetTasks(
     $search: String
     $assignees: [ID!]
-    $from: Date
-    $to: Date
+    $deadlines: [DateRange!]
     $sortColumn: String!
     $sortDirection: SortDirection!
   ) {
     getTasks(
-      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      filters: { search: $search, assignees: $assignees, deadlines: $deadlines }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
       items {
@@ -17344,8 +17341,8 @@ export type GetTasksFullSummaryQueryResult = ApolloReactCommon.QueryResult<
   GetTasksFullSummaryQueryVariables
 >;
 export const GetTasksSummaryByStatusDocument = gql`
-  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
-    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRange!]) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadlines: $deadlines }) {
       todo
       inProgress
       blocked
