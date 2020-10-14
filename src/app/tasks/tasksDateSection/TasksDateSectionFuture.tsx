@@ -25,8 +25,6 @@ export const TasksDateSectionFuture = ({ deadlines, onSelectDate }: TasksDateSec
     ]);
   };
 
-  console.log(from, to);
-
   return (
     <Grid container justify="space-between" className={classes.root}>
       <Grid item>
