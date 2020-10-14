@@ -1141,6 +1141,15 @@ export type BulkOperationResult = {
   undoIds: Array<Scalars['ID']>;
 };
 
+export enum CalendarTypes {
+  Meeting = 'Meeting',
+  Appointment = 'Appointment',
+  Birthday = 'Birthday',
+  Travel = 'Travel',
+  Private = 'Private',
+  Task = 'Task',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',

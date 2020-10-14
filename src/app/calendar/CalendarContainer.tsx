@@ -1,18 +1,9 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import { palette } from 'theme/palette';
+import { CalendarTypes } from 'api/types';
 
 import { Calendar } from './Calendar';
-
-enum CalendarTypes {
-  Meeting = 'Meeting',
-  Appointment = 'Appointment',
-  Birthday = 'Birthday',
-  Travel = 'Travel',
-  Private = 'Private',
-  Task = 'Task',
-}
 
 const now = new Date();
 
@@ -128,52 +119,6 @@ const schedulerData = [
   },
 ];
 
-const CalendarResources = [
-  {
-    id: 1,
-    text: CalendarTypes.Meeting,
-    color: palette.blue.main,
-  },
-  {
-    id: 2,
-    text: CalendarTypes.Appointment,
-    color: palette.green.main,
-  },
-  {
-    id: 3,
-    text: CalendarTypes.Birthday,
-    color: palette.orange.main,
-  },
-  {
-    id: 4,
-    text: CalendarTypes.Travel,
-    color: palette.purple.main,
-  },
-  {
-    id: 5,
-    text: CalendarTypes.Private,
-    color: palette.red.main,
-  },
-  {
-    id: 6,
-    text: CalendarTypes.Task,
-    color: palette.orange.main,
-  },
-];
-
 export const CalendarContainer = () => {
-  const currentDate = now;
-
-  const data = schedulerData.map(item => ({
-    ...item,
-    type: CalendarResources.find(type => type.text === item.type)?.id,
-  }));
-
-  return (
-    <Calendar
-      resources={[{ fieldName: 'type', title: 'type', instances: CalendarResources }]}
-      currentDate={currentDate}
-      data={data}
-    />
-  );
+  return <Calendar data={schedulerData} />;
 };

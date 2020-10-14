@@ -9,16 +9,22 @@ import { requireValidator } from 'form/validators';
 import { GenericField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { TeamMemberItem } from '../Tasks.types';
+import { TeamMemberItem } from 'app/tasks/Tasks.types';
 import { TaskPriority, TaskLabel } from 'api/types';
-
-import { CreateNewTaskModalProps, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
-import { useStyles } from './CreateNewTaskModal.styles';
+import { CreateNewTaskModalProps, CreateNewTaskSubmit } from 'app/shared/createNewTaskModal/CreateNewTaskModal.types';
+import { useStyles } from 'app/shared/createNewTaskModal/CreateNewTaskModal.styles';
+import { useAuthState } from 'hooks';
 
 export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNewTaskModalProps) => {
   const classes = useStyles();
+  const { user } = useAuthState();
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
+  const showMembers = [...members];
+
+  if (user && !showMembers.find(profile => profile.id === user.id)) {
+    showMembers.push(user);
+  }
 
   const handleSubmit: CreateNewTaskSubmit = async body => {
     const response = await onSubmit(body);
@@ -37,13 +43,13 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
     close('create-new-task');
   };
 
-  const assignees: DropdownItem[] = members.map((member: TeamMemberItem, index: number) => ({
+  const assignees: DropdownItem[] = showMembers.map((member: TeamMemberItem, index: number) => ({
     label: (
       <span className={classes.assignee}>
         <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} className={classes.assigneeAvatar} />
         <span>
           {member?.firstName} {member?.lastName}
-          {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
+          {member.id === user?.id && ` (${formatMessage({ id: 'tasks.members.me' })})`}
         </span>
       </span>
     ),

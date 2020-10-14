@@ -12,6 +12,7 @@ import { NoteIcon } from 'ui/atoms/icons/note/NoteIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 export const AddMenu = () => {
   const theme = useTheme();
@@ -49,19 +50,24 @@ export const AddMenu = () => {
           <Typography variant="h3">Create new</Typography>
         </Box>
 
-        <Link component={RouterLink} to="/" color="inherit">
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar variant="rounded" bgcolor={theme.palette.blue.light}>
-              <Box color={theme.palette.blue.main}>
-                <TasksIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">Task</Typography>
+        <Box
+          onClick={() => open('create-new-task')}
+          display="flex"
+          style={{ cursor: 'pointer' }}
+          alignItems="center"
+          mb={2}
+        >
+          <Avatar variant="rounded" bgcolor={theme.palette.blue.light}>
+            <Box color={theme.palette.blue.main}>
+              <TasksIcon color="inherit" />
             </Box>
+          </Avatar>
+          <Box ml={2}>
+            <Typography variant="subtitle1">Task</Typography>
           </Box>
-        </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        </Box>
+        {/*</Link>*/}
+        <Link component={RouterLink} to={AppRoute.newAppointment} color="inherit">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
               <Box color={theme.palette.green.main}>

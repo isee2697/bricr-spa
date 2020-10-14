@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { Page } from 'ui/templates';
-import { Tab, Tabs, Box } from 'ui/atoms';
-import {
-  FormSection,
-  WeekView,
-  DayView,
-  Scheduler,
-  MonthView,
-  Appointments,
-  ViewState,
-  AllDayPanel,
-  AppointmentTooltip,
-  AppointmentForm,
-  CurrentTimeIndicator,
-  Resources,
-} from 'ui/organisms';
+import { Tab, Tabs, Box, Button } from 'ui/atoms';
+import { FormSection } from 'ui/organisms';
+import { Calendar as CalendarMolecule } from 'ui/molecules';
+import { AddIcon, SettingsIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
+import { DateView } from 'ui/molecules/calendar/Calandar.types';
 
-import { DateView, CalendarProps } from './Calandar.types';
+import { CalendarProps } from './Calendar.types';
 
-export const Calendar = ({ data, currentDate, resources }: CalendarProps) => {
+export const Calendar = ({ data }: CalendarProps) => {
   const [currentView, setView] = useState(DateView.Week);
+  const { formatMessage } = useLocale();
+  const currentDate = DateTime.local().toJSDate();
 
   return (
     <Box p={3}>
-      <Page title="calendar.title">
+      <Page
+        title="calendar.title"
+        afterTitle={currentView === DateView.Week && <>buttons</>}
+        titleActions={
+          <>
+            <Box mt={1} mr={5}>
+              <SettingsIcon />
+            </Box>
+            <Button variant="contained" color="primary">
+              <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointment.add' })}
+            </Button>
+          </>
+        }
+      >
         <FormSection title="calendar.week.title" isEditable={false}>
           <Tabs value={currentView}>
             <Tab onClick={() => setView(DateView.Day)} label="Day" />
@@ -32,18 +39,7 @@ export const Calendar = ({ data, currentDate, resources }: CalendarProps) => {
             <Tab onClick={() => setView(DateView.Month)} label="Month" />
           </Tabs>
 
-          <Scheduler data={data}>
-            <ViewState currentDate={currentDate} currentViewName={currentView} />
-            <DayView />
-            <WeekView />
-            <MonthView />
-            <AllDayPanel />
-            <Appointments />
-            <CurrentTimeIndicator updateInterval={1000} />
-            <AppointmentTooltip showCloseButton />
-            <AppointmentForm readOnly />
-            <Resources data={resources} mainResourceName="type" />
-          </Scheduler>
+          <CalendarMolecule view={currentView} currentDate={currentDate} data={data} />
         </FormSection>
       </Page>
     </Box>

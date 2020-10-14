@@ -1,14 +1,21 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useModalState } from 'hooks/useModalState/useModalState';
-import { GetNotificationsDocument, useCreateTaskMutation } from 'api/types';
+import { GetNotificationsDocument, useCreateTaskMutation, useGetMyTeamMembersQuery } from 'api/types';
+import { CreateNewTaskModal } from 'app/shared/createNewTaskModal/CreateNewTaskModal';
+import { CreateNewTaskBody, CreateNewTaskSubmit } from 'app/shared/createNewTaskModal/CreateNewTaskModal.types';
+import { useAuthState, useModalDispatch } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
 
-import { CreateNewTaskModalContainerProps } from './CreateNewTaskModalContainer.types';
-import { CreateNewTaskModal } from './CreateNewTaskModal';
-import { CreateNewTaskBody, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
-
-export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNewTaskModalContainerProps) => {
+export const CreateNewTaskModalContainer = () => {
+  const { isAuthorized } = useAuthState();
   const { isOpen: isModalOpen } = useModalState('create-new-task');
+  const { close } = useModalDispatch();
+  const { push } = useHistory();
+  const { data } = useGetMyTeamMembersQuery({
+    skip: !isAuthorized,
+  });
   const [createTask] = useCreateTaskMutation();
 
   const handleSubmit: CreateNewTaskSubmit<CreateNewTaskBody> = async ({
@@ -41,7 +48,10 @@ export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNew
         throw new Error();
       }
 
-      onAddNewTask();
+      if (result && result.createTask) {
+        push(`${AppRoute.tasks}/${result.createTask.id}`, { newlyAdded: true });
+        close('create-new-task');
+      }
 
       return undefined;
     } catch (error) {
@@ -51,5 +61,5 @@ export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNew
     }
   };
 
-  return <CreateNewTaskModal onSubmit={handleSubmit} isOpen={isModalOpen} members={members} />;
+  return <CreateNewTaskModal onSubmit={handleSubmit} isOpen={isModalOpen} members={data?.members.items ?? []} />;
 };

@@ -1,0 +1,8 @@
+enum CalendarTypes {
+  Meeting
+  Appointment
+  Birthday
+  Travel
+  Private
+  Task
+}
