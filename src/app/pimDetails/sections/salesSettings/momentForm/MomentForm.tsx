@@ -105,6 +105,7 @@ export const MomentForm = ({ moment, onSave, onAddMoment, index, isEditing }: Mo
                     color="primary"
                     fullWidth
                     type="submit"
+                    disabled={!isEditing}
                     onClick={onAddMoment}
                     size="large"
                   >

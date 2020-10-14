@@ -18,8 +18,6 @@ const personsList = [
   },
 ];
 
-const personsArray: LinkedPersonType[] = [];
-
 export const AddMomentmodalContainer = ({
   isOpened,
   onClose,
@@ -27,8 +25,6 @@ export const AddMomentmodalContainer = ({
   type,
   currentModalIndex,
 }: AddMomentModalContainerProps) => {
-  const [persons, updatePersons] = useState(personsArray);
-
   const handleSubmit: AddMomentSubmit = async body => {
     const personsMapped: LinkedPersonType[] = body.linked_managers.map((managerId: string) => ({
       name: 'Victor Martin Brochner ' + managerId,
@@ -40,7 +36,6 @@ export const AddMomentmodalContainer = ({
     }));
 
     try {
-      updatePersons(personsMapped);
       onAddMoment(currentModalIndex, personsMapped);
 
       return undefined;

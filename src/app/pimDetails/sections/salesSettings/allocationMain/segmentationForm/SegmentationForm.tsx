@@ -14,7 +14,7 @@ export const SegmentationFrom = () => {
 
   const handleAddSegment: AddModalSubmit = async (index, persons) => {
     try {
-      updatePersonSegments([...personSegments, ...persons]);
+      updatePersonSegments(persons);
       setModalOpen(false);
 
       return undefined;
@@ -44,10 +44,10 @@ export const SegmentationFrom = () => {
                 <InfoSection color="gradient" emoji="🤔">
                   <Box mb={4}>
                     <Typography variant="h3">
-                      {formatMessage({ id: 'pim_details.account_managers.empty_title' })}
+                      {formatMessage({ id: 'pim_details.sales_settings.segmentation.empty_title' })}
                     </Typography>
                     <Typography variant="h3">
-                      {formatMessage({ id: 'pim_details.account_managers.empty_description' })}
+                      {formatMessage({ id: 'pim_details.sales_settings.segmentation.empty_description' })}
                     </Typography>
                   </Box>
                   <Box display="inline-block">
@@ -56,6 +56,7 @@ export const SegmentationFrom = () => {
                       color="primary"
                       fullWidth
                       type="submit"
+                      disabled={!editing}
                       onClick={() => setModalOpen(true)}
                       size="large"
                     >
