@@ -32,6 +32,7 @@ export const GET_CRM_CONTACT_INFORMATION = gql`
       socialMedia {
         type
         url
-      }  }
+      }
+    }
   }
 `;

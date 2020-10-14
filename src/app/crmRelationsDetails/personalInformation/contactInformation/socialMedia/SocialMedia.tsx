@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
-
 import React, { useState } from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';

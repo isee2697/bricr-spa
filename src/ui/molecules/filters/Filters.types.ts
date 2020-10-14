@@ -27,6 +27,7 @@ export type FilterProps = {
   onTabChange: (index: number) => void;
   data?: AnyObject;
   filterAmount?: number;
+  onDeleteFilter: (filters: ListPimsFilters) => void;
 };
 
 export type FilterContainerProps = {
@@ -52,4 +53,6 @@ export type FilterTabPanelProps = {
   children: ReactNode;
   activeTab: number;
   id: number;
+  onDeleteFilter?: () => void;
+  onSearch?: (value: string) => void;
 };

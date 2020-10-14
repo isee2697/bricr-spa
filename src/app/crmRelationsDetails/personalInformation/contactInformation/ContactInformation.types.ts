@@ -1,4 +1,4 @@
-import { CrmContactInformation  } from 'api/types';
+import { CrmContactInformation } from 'api/types';
 
 export type ContactInformationProps = {
   data: CrmContactInformation;
