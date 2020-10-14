@@ -1,4 +1,4 @@
-import { AppointmentModel } from '@devexpress/dx-react-scheduler';
+import { AppointmentModel, Resource } from '@devexpress/dx-react-scheduler';
 
 export enum DateView {
   Week = 'Week',
@@ -15,4 +15,5 @@ export type CalendarItem = {
 export type CalendarProps = {
   data: AppointmentModel[];
   currentDate: Date;
+  resources: Resource[];
 };

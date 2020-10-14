@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
-import { isUndefined } from 'lodash';
 
 import { Grid, Typography, Box } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -9,33 +8,66 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { useStyles } from './TasksDateSectionNextWeek.styles';
 import { TasksDateSectionNextWeekProps } from './TasksDateSectionNextWeek.types';
 
-export const TasksDateSectionNextWeek = ({ onSelectDate }: TasksDateSectionNextWeekProps) => {
+export const TasksDateSectionNextWeek = ({ deadlines, onSelectDate }: TasksDateSectionNextWeekProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const [selectedDate, setSelectedDate] = useState<number | undefined>(undefined);
+  const selectedDates: number[] = [];
+
+  for (let dateIndex = 0; dateIndex < 7; dateIndex++) {
+    const deadline = deadlines.find(
+      dateRange =>
+        DateTime.fromISO(dateRange.from as string).startOf('day') <= DateTime.local().plus({ day: dateIndex + 1 }) &&
+        DateTime.fromISO(dateRange.to as string).endOf('day') > DateTime.local().plus({ day: dateIndex + 1 }),
+    );
+
+    if (deadline) {
+      selectedDates.push(dateIndex);
+    }
+  }
 
   const selectDate = (index: number) => {
-    if (!isUndefined(selectedDate) && selectedDate === index) {
-      setSelectedDate(undefined);
-      onSelectDate({
-        from: DateTime.local()
-          .plus({ days: 1 })
-          .toISO(),
-        to: DateTime.local()
-          .plus({ days: 7 })
-          .toISO(),
-      });
+    if (selectedDates.includes(index) && selectedDates.length > 1) {
+      onSelectDate(
+        selectedDates
+          .filter(selectedDate => selectedDate !== index)
+          .map(index => ({
+            from: DateTime.local()
+              .plus({ days: index + 1 })
+              .startOf('day')
+              .toISO(),
+            to: DateTime.local()
+              .plus({ days: index + 1 })
+              .endOf('day')
+              .toISO(),
+          })),
+      );
+    } else if (selectedDates.includes(index) && selectedDates.length === 1) {
+      onSelectDate([
+        {
+          from: DateTime.local()
+            .plus({ days: 1 })
+            .startOf('day')
+            .toISO(),
+          to: DateTime.local()
+            .plus({ days: 7 })
+            .endOf('day')
+            .toISO(),
+        },
+      ]);
     } else {
-      setSelectedDate(index);
-      onSelectDate({
-        from: DateTime.local()
-          .plus({ days: index + 1 })
-          .toISO(),
-        to: DateTime.local()
-          .plus({ days: index + 1 })
-          .toISO(),
-      });
+      onSelectDate(
+        [...selectedDates, index].map(index => ({
+          from: DateTime.local()
+            .plus({ days: index + 1 })
+            .startOf('day')
+            .toISO(),
+          to: DateTime.local()
+            .plus({ days: index + 1 })
+            .endOf('day')
+            .toISO(),
+        })),
+      );
     }
   };
 
@@ -46,18 +78,18 @@ export const TasksDateSectionNextWeek = ({ onSelectDate }: TasksDateSectionNextW
     <Grid container justify="space-between" className={classes.root}>
       <Grid item>
         <Box className={classes.title}>
-          {isUndefined(selectedDate) && (
+          {selectedDates.length === 7 && (
             <Typography variant="h3" className={classes.inlineBlock}>
               {formatMessage({ id: 'tasks.tasks_next_week' })}
             </Typography>
           )}
-          {!isUndefined(selectedDate) && (
+          {selectedDates.length < 7 && (
             <>
               <Typography variant="h3" className={clsx(classes.inlineBlock, classes.marginRightHalf)}>
                 {formatMessage({ id: 'tasks.tasks_for' })}{' '}
               </Typography>
               <Typography variant="h3" className={clsx(classes.inlineBlock, classes.fontWeightBold)}>
-                {formatMessage({ id: 'tasks.selected_days' }, { count: 1 })}
+                {formatMessage({ id: 'tasks.selected_days' }, { count: selectedDates.length })}
               </Typography>
             </>
           )}
@@ -69,7 +101,7 @@ export const TasksDateSectionNextWeek = ({ onSelectDate }: TasksDateSectionNextW
             <Grid
               key={index}
               item
-              className={clsx(classes.dayBox, !isUndefined(selectedDate) && selectedDate === index && 'selected')}
+              className={clsx(classes.dayBox, selectedDates.includes(index) && 'selected')}
               onClick={() => selectDate(index)}
             >
               <Typography variant="h3">{today.plus({ days: index + 1 }).day}</Typography>

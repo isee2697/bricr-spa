@@ -9,9 +9,9 @@ export type TasksContentProps = {
   selectedMembers: TeamMemberItem[];
   searchKey: string;
   viewMode: TasksViewMode;
-  dateRange: DateRange;
+  deadlines: DateRange[];
   onChangeSearchKey: (value: string) => void;
   onChangeViewMode: (value: TasksViewMode) => void;
-  onChangeDateRange: (value: DateRange) => void;
+  onChangeDateRange: (value: DateRange[]) => void;
   onUpdateTaskStatus: (taskId: string, status: TaskStatus) => void;
 };

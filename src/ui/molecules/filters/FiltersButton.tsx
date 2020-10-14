@@ -73,6 +73,7 @@ export const FiltersButton = ({ data, getActiveFilters }: FilterButtonProps) => 
         activeTab={activeTab}
         onSubmit={handleSubmit}
         onTabChange={handleTabChange}
+        onDeleteFilter={handleUpdate}
         onClose={() => setModalOpen(false)}
       />
     </>
