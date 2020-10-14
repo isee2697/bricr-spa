@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
-import clsx from 'classnames';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell, { SortDirection } from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import clsx from 'classnames';
+import { DateTime } from 'luxon';
+import React, { useState } from 'react';
 
 import { Checkbox, Typography, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

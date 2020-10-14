@@ -1,11 +1,16 @@
-import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
+import { useDrop } from 'react-dnd';
 
 import { useLocale } from 'hooks';
 import { Box, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 import { DropablePlaceholder, TriggerItem, ActionItem, DndItemState } from '../workflowItems';
+import {
+  DragObjectType,
+  DropablePlaceholderCollectProps,
+} from '../workflowItems/dropablePlaceholder/DropablePlaceholder.types';
 import { Action, WorkflowItemType, Trigger } from '../Workflow.types';
 
 import { WorkflowCanvasProps, Point } from './WorkflowCanvas.types';
@@ -69,6 +74,15 @@ export const WorkflowCanvas = ({ trigger, onAddItem }: WorkflowCanvasProps) => {
 
   const [width, height] = useWindowSize();
   const [topCanvasOffset, setTopCanvasOffset] = useState(0);
+  const [{ isDrag: isDragAction }] = useDrop<DragObjectType, void, DropablePlaceholderCollectProps>({
+    accept: WorkflowItemType.ACTION,
+    canDrop: () => true,
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+      isDrag: !!monitor.canDrop(),
+    }),
+  });
+  const error = isDragAction && !trigger;
 
   const maxWidth = useRef(0);
 
@@ -152,7 +166,7 @@ export const WorkflowCanvas = ({ trigger, onAddItem }: WorkflowCanvasProps) => {
   const canvasWidth = width - 216;
 
   return (
-    <Box height={canvasHeight} width={canvasWidth} overflow="scroll">
+    <Box height={canvasHeight} width={canvasWidth} overflow="scroll" position="relative">
       <div ref={ref => setTopCanvasOffset(ref?.offsetTop ?? 0)} />
 
       <Box
@@ -163,6 +177,9 @@ export const WorkflowCanvas = ({ trigger, onAddItem }: WorkflowCanvasProps) => {
           width - 216,
         )}
       >
+        <Box className={classes.imageContainer} />
+        {error && <Box className={classes.errorContainer} />}
+
         {!trigger && (
           <>
             <Box position="absolute" top={2.5 * STEP} left={1.5 * STEP}>
@@ -172,6 +189,11 @@ export const WorkflowCanvas = ({ trigger, onAddItem }: WorkflowCanvasProps) => {
               />
             </Box>
             <InfoSection emoji="👈">
+              {error && (
+                <Typography variant="h3" color="error">
+                  {formatMessage({ id: 'settings.workflow.add_trigger.wrong' })}
+                </Typography>
+              )}
               <Typography variant="h3">{formatMessage({ id: 'settings.workflow.add_trigger' })}</Typography>
             </InfoSection>
           </>
@@ -198,16 +220,28 @@ export const WorkflowCanvas = ({ trigger, onAddItem }: WorkflowCanvasProps) => {
             {trigger.actions.map((action, index) => (
               <div key={`${action.id}_${index}`}>
                 {renderLine(
-                  { x: TRIGGER_OFFSET.left + 5 * STEP, y: TRIGGER_OFFSET.top + 2.5 * STEP },
-                  { x: TRIGGER_OFFSET.left + 9 * STEP, y: ACTION_OFFSET.top + STEP + 7 * index * STEP },
+                  {
+                    x: TRIGGER_OFFSET.left + 5 * STEP,
+                    y: TRIGGER_OFFSET.top + 2.5 * STEP,
+                  },
+                  {
+                    x: TRIGGER_OFFSET.left + 9 * STEP,
+                    y: ACTION_OFFSET.top + STEP + 7 * index * STEP,
+                  },
                 )}
                 {renderAction(action, ACTION_OFFSET.top + index * ACTION_STEP.top, ACTION_OFFSET.left)}
               </div>
             ))}
 
             {renderLine(
-              { x: TRIGGER_OFFSET.left + 5 * STEP, y: TRIGGER_OFFSET.top + 2.5 * STEP },
-              { x: TRIGGER_OFFSET.left + 9 * STEP, y: ACTION_OFFSET.top + STEP + 7 * trigger.actions.length * STEP },
+              {
+                x: TRIGGER_OFFSET.left + 5 * STEP,
+                y: TRIGGER_OFFSET.top + 2.5 * STEP,
+              },
+              {
+                x: TRIGGER_OFFSET.left + 9 * STEP,
+                y: ACTION_OFFSET.top + STEP + 7 * trigger.actions.length * STEP,
+              },
             )}
             {renderAddPlaceholder(
               ACTION_OFFSET.top + trigger.actions.length * ACTION_STEP.top,

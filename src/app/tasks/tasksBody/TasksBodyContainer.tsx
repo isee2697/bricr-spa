@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 
 import { useGetTasksFullSummaryLazyQuery } from 'api/types';
-import { Loader } from 'ui/atoms';
 
 import { TasksBody } from './TasksBody';
-import { TasksBodyContianerProps } from './TasksBody.types';
+import { TasksBodyContainerProps } from './TasksBody.types';
 
-export const TasksBodyContainer = ({ selectedMembers }: TasksBodyContianerProps) => {
+export const TasksBodyContainer = ({ members, selectedMembers }: TasksBodyContainerProps) => {
   const [
     getTasksFullSummary,
     { data: tasksFullSummaryData, loading: loadingTasksFullSummary },
@@ -20,9 +19,12 @@ export const TasksBodyContainer = ({ selectedMembers }: TasksBodyContianerProps)
     });
   }, [getTasksFullSummary, selectedMembers]);
 
-  if (loadingTasksFullSummary || !tasksFullSummaryData?.getTasksFullSummary) {
-    return <Loader />;
-  }
-
-  return <TasksBody selectedMembers={selectedMembers} tasksFullSummary={tasksFullSummaryData.getTasksFullSummary} />;
+  return (
+    <TasksBody
+      loading={loadingTasksFullSummary}
+      members={members}
+      selectedMembers={selectedMembers}
+      tasksFullSummary={tasksFullSummaryData?.getTasksFullSummary}
+    />
+  );
 };

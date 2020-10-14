@@ -32,7 +32,7 @@ export const ObjectType = ({ isInitEditing, isInitExpanded }: FormProps) => {
                   id: 'project_details.characteristics.object_type.subtitle',
                 })}
                 subtitle={formatMessage({
-                  id: 'pim_details.choose_one_option_below',
+                  id: 'common.choose_one_option_below',
                 })}
               />
             </Box>

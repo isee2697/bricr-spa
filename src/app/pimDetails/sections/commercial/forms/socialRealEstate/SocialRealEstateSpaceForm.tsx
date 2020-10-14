@@ -86,7 +86,7 @@ export const SocialEstateForm = ({ commercialSpace, index }: CommercialSpaceForm
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.commercial_spaces.social_type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <Box mb={1} />
               <RadioGroupField

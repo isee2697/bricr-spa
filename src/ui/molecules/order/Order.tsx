@@ -1,5 +1,5 @@
-import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import React from 'react';
 import { FormattedNumber } from 'react-intl';
 
 import { Box, Typography, Chip, Avatar } from 'ui/atoms';

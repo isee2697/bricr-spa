@@ -27,6 +27,7 @@ export const useStyles = ({ isAuthPath }: { isAuthPath: boolean }) =>
       marginTop: theme.spacing(4),
     },
     image: {
+      paddingTop: theme.spacing(4),
       backgroundImage: () => `url(${isAuthPath ? AuthBackground : RegisterBackground})`,
       backgroundRepeat: 'no-repeat',
       backgroundColor: theme.palette.gray.light,
@@ -44,5 +45,10 @@ export const useStyles = ({ isAuthPath }: { isAuthPath: boolean }) =>
       '& form': {
         width: '100%',
       },
+    },
+    language: {
+      position: 'absolute',
+      top: theme.spacing(2),
+      right: theme.spacing(2),
     },
   }))();

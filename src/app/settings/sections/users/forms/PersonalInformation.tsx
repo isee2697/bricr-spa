@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Grid } from 'ui/atoms';
+import { Grid, InputLabel } from 'ui/atoms';
 import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
 import { EntityWithFiles, Profile } from 'api/types';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenderOptions } from 'app/settings/sections/users/dictionaries';
-import { FormSection } from 'ui/organisms';
+import { FormSection, LocaleSwitch } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { useStyles } from 'app/settings/sections/users/User.styles';
 
@@ -49,11 +49,15 @@ export const PersonalInformation = ({ id, image }: Profile) => {
               label="settings.users.function_description"
               placeholder="settings.users.function_description"
             />
+            <InputLabel className={classes.label} disabled={!isEditing} variant={'standard'}>
+              {formatMessage({ id: 'language.label' })}
+            </InputLabel>
+            <LocaleSwitch disabled={!isEditing} />
           </Grid>
           <Grid item xs={12}>
             <FormSubSectionHeader
               noBorder
-              subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               title={formatMessage({ id: 'settings.users.gender' })}
             />
             <RadioGroupField xs={3} lg={2} name="gender" options={GenderOptions} />

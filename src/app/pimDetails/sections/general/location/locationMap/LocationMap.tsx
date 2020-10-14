@@ -1,7 +1,7 @@
+import { EventProperties } from '@esri/react-arcgis/dist/esm/components/ArcBase';
 import React from 'react';
 import { useForm, useFormState } from 'react-final-form';
 import { Map } from '@esri/react-arcgis';
-import { EventProperties } from '@esri/react-arcgis/dist/esm/components/ArcBase';
 
 import { LocationMapProps } from './LocationMap.types';
 import { useStyles } from './LocationMap.styles';

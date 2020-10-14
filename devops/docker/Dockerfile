@@ -1,6 +1,6 @@
 #Stage 1 - build process
 
-FROM node:12.16.3-alpine3.11 AS build-deps
+FROM node:12.18.4-alpine3.11 AS build-deps
 WORKDIR /usr/src/app
 
 ARG PHRASE_ACCESS_TOKEN

@@ -31,7 +31,7 @@ export const ObligationForm = ({ onAddPropertyClick }: SpecificationGeneralFormP
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.specification.label_title' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField

@@ -66,8 +66,8 @@ export const CrmRelationsDetailsDashboardMetaHeader = ({
 
   return (
     <Grid container spacing={1} className={classes.root}>
-      {metaAsArray.map(meta => (
-        <Grid item xs={2}>
+      {metaAsArray.map((meta, index) => (
+        <Grid key={index} item xs={2}>
           <CrmRelationsDetailsDashboardMetaBox
             key={meta.label}
             label={formatMessage({ id: `crm.item.meta.${meta.label}` })}

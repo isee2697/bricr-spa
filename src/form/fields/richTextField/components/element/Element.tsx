@@ -1,5 +1,5 @@
-import React from 'react';
 import { RenderElementProps } from 'slate-react/dist/components/editable';
+import React from 'react';
 
 import { Typography } from 'ui/atoms';
 

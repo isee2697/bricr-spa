@@ -75,7 +75,7 @@ export const LIST_NCPS = gql`
 
 export const NCP_BULK_DETAILS = gql`
   query NcpBulkDetails($ids: [ID!]!) {
-    city: getBulkDetails(input: { ids: $ids, field: city, entity: Ncp }) {
+    city: getBulkDetails(input: { ids: $ids, field: City, entity: Ncp }) {
       value
     }
   }

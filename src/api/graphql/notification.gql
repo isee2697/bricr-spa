@@ -1,0 +1,61 @@
+enum NotificationType {
+  TaskAssigned
+  InvitedToProject
+  RemovedUserFromProject
+  AcceptedInviteToProject
+}
+
+type Notification {
+  id: ID!
+  receiver: Profile!
+  type: NotificationType!
+  description: String!
+  isRead: Boolean!
+  isDeleted: Boolean!
+  dateCreated: Date!
+}
+
+type NotificationSearchResult {
+  items: [Notification!]
+}
+
+type NotificationAdded {
+  notification: Notification!
+}
+
+input CreateNotificationInput {
+  type: NotificationType!
+  receiver: ID!
+  description: String!
+}
+
+input ReadNotificationInput {
+  id: ID!
+}
+
+input DeleteNotificationInput {
+  id: ID!
+}
+
+input BulkReadNotificationsInput {
+  ids: [ID!]!
+}
+
+input BulkDeleteNotificationsInput {
+  ids: [ID!]!
+}
+
+extend type Mutation {
+  readNotification(input: ReadNotificationInput!): Boolean @auth
+  deleteNotification(input: DeleteNotificationInput!): Boolean @auth
+  bulkReadNotifications(input: BulkReadNotificationsInput!): Boolean @auth
+  bulkDeleteNotifications(input: BulkDeleteNotificationsInput!): Boolean @auth
+}
+
+extend type Query {
+  getNotifications: NotificationSearchResult @auth
+}
+
+extend type Subscription {
+  notificationAdded: NotificationAdded!
+}

@@ -21,7 +21,7 @@ export const RoofInformation = () => {
             <Box>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.general_info' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <Box width="33%">
@@ -36,7 +36,7 @@ export const RoofInformation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField
@@ -57,7 +57,7 @@ export const RoofInformation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_material' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField
@@ -78,7 +78,7 @@ export const RoofInformation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.select_roof_insulation' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField
@@ -99,7 +99,7 @@ export const RoofInformation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.type_of_gutter' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField
@@ -120,7 +120,7 @@ export const RoofInformation = () => {
             <Box mb={3}>
               <FormSubSectionHeader
                 title={formatMessage({ id: 'pim_details.outside.main.gutter_material' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
             </Box>
             <RadioGroupField
