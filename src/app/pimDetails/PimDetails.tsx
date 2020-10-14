@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
