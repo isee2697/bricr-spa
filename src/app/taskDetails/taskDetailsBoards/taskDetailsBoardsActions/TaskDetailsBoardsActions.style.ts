@@ -60,9 +60,10 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.white.main,
   },
   dropdownMenuItem: {
-    height: theme.spacing(6),
-    margin: theme.spacing(2),
-
+    padding: theme.spacing(1),
+    height: theme.spacing(8),
+  },
+  dropdownMenuItemInner: {
     '&.blue': {
       background: theme.palette.blue.light,
     },

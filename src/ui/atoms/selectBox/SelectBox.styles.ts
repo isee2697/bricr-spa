@@ -3,20 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   root: {
     position: 'relative',
-    '& *': {
-      userSelect: 'none',
-    },
   },
   input: {
-    position: 'relative',
     cursor: 'pointer',
     paddingLeft: spacing(2),
     paddingRight: spacing(1),
     backgroundColor: palette.gray.light,
     borderRadius: spacing(1),
-    '&.isOpened': {
-      zIndex: 1500,
-    },
     '&.disabled': {
       cursor: 'default',
       background: 'rgba(243, 245, 250, .5)',
@@ -44,17 +37,14 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     transform: 'rotate(180deg)',
     transition: 'all 0.2s',
   },
-  menu: {
-    display: 'none',
-    position: 'absolute',
+  popper: {
     width: '100%',
-    backgroundColor: palette.gray.light,
-    borderRadius: spacing(1),
-    '&.isOpened': {
-      display: 'block',
-    },
     zIndex: 1500,
-    overflowY: 'auto',
+  },
+  menu: {
+    backgroundColor: palette.gray.light,
+    marginTop: spacing(0.5),
+    borderRadius: spacing(1),
   },
   item: {
     cursor: 'pointer',
@@ -82,15 +72,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&:hover': {
       background: palette.gray.light,
     },
-  },
-  autocompleteBack: {
-    position: 'fixed',
-    left: 0,
-    top: 0,
-    width: '100vw',
-    height: '100vh',
-    background: `rgba(130, 141, 184, 0.3)`,
-    zIndex: 1200,
   },
   blue: {
     color: palette.primary.main,

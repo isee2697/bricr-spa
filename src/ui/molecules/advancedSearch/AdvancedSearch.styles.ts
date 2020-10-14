@@ -14,7 +14,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     borderRadius: spacing(1),
     '&.isOpened': {
       background: palette.white.main,
-      zIndex: 1500,
     },
     '&.disabled': {
       cursor: 'default',
@@ -62,19 +61,14 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     transform: 'rotate(180deg)',
     transition: 'all 0.2s',
   },
-  menu: {
-    display: 'none',
-    position: 'absolute',
+  popper: {
     width: '100%',
-    borderRadius: spacing(1),
     zIndex: 1500,
-    overflowY: 'auto',
+  },
+  menu: {
+    borderRadius: spacing(1),
     marginTop: spacing(0.5),
     background: palette.white.main,
-
-    '&.isOpened': {
-      display: 'block',
-    },
   },
   item: {
     cursor: 'pointer',
@@ -133,7 +127,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     width: '100vw',
     height: '100vh',
     background: `rgba(130, 141, 184, 0.3)`,
-    zIndex: 1200,
   },
   blue: {
     color: palette.primary.main,

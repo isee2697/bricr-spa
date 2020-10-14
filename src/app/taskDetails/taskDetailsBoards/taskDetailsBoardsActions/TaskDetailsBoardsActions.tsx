@@ -127,6 +127,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
             ),
             menu: classes.dropdownMenu,
             menuItem: classes.dropdownMenuItem,
+            menuItemInner: classes.dropdownMenuItemInner,
           }}
         />
       </Box>
