@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { PromiseFunction } from 'app/shared/types';
 import { AddNewFinancialObligationBody } from '../addNewFinancialObligationModal/AddNewFinancialObligationModal.types';

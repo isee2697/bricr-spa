@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import arrayMutators from 'final-form-arrays';
+
 import { Box, Grid, Typography } from 'ui/atoms';
 import { AddNewIncomeInformationModal } from '../addNewIncomeInformationModal/AddNewIncomeInformationModal';
 import { useLocale } from 'hooks/useLocale/useLocale';

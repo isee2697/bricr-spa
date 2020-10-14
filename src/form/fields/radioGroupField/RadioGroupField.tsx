@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { useField } from 'react-final-form';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useHighestElementHeight } from 'hooks/useHighestElementHeight/useHighestElementHeight';
 import { Grid, TileRadio, FormHelperText, InputLabel } from 'ui/atoms';

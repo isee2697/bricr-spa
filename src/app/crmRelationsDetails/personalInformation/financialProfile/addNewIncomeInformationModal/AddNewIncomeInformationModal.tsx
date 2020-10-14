@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { IncomeInformationType } from '../incomeInformation/IncomeInformation.types';
 import { SquareIcon } from 'ui/atoms/icons';

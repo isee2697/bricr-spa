@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { PromiseFunction } from 'app/shared/types';
 import { AddNewBankAccountBody } from '../addNewBankAccountModal/AddNewBankAccountModal.types';
-import { Box,  Grid, Typography } from 'ui/atoms';
+import { Box, Grid, Typography } from 'ui/atoms';
 import { SquareIcon } from 'ui/atoms/icons';
 import { AddNewBankAccountModal } from '../addNewBankAccountModal/AddNewBankAccountModal';
 import { AutosaveForm, FormSection, FormSubSection } from 'ui/organisms';
