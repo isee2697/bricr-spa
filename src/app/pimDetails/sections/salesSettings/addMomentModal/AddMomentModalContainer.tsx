@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { UserIcon } from 'ui/atoms/icons';
 
 import { AddMomentModal } from './AddMomentModal';
@@ -26,7 +27,6 @@ export const AddMomentmodalContainer = ({
   type,
   currentModalIndex,
 }: AddMomentModalContainerProps) => {
-  console.log(personsList);
   const [persons, updatePersons] = useState(personsArray);
 
   const handleSubmit: AddMomentSubmit = async body => {
