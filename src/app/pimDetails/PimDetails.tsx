@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
@@ -20,6 +19,7 @@ import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
 import { CommercialSpacesContainer } from './sections/commercial/CommercialSpacesContainer';
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
+import { SalesSettings } from './sections/salesSettings/SalesSettings';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 
 export const PimDetails = ({
@@ -127,6 +127,10 @@ export const PimDetails = ({
                       title={title}
                     />
                   )}
+                />
+                <Route
+                  path={`${path}/salesSettings`}
+                  render={() => <SalesSettings isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
                 />
                 <Route
                   path={`${path}/specification`}
