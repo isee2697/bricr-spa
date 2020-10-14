@@ -56,7 +56,7 @@ export const EmailAddresses = ({ data, onSave }: EmailAddressesProps) => {
     };
   }, {});
 
-  const handleSave = async (values: Record<string, any>) => {
+  const handleSave = async (values: Record<string, EmailAddressItem>) => {
     const removeKeyAndAddType = (key: string, value: EmailAddressItem) => {
       const { key: myKey, ...rest } = value;
 

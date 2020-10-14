@@ -55,7 +55,7 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
     };
   }, {});
 
-  const handleSave = async (values: Record<string, any>) => {
+  const handleSave = async (values: Record<string, AddressItem>) => {
     const removeKeyAndAddType = (key: string, value: AddressItem) => {
       const { key: myKey, ...rest } = value;
 
