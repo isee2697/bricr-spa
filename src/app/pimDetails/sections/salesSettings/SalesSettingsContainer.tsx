@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch, useParams } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -9,6 +9,7 @@ import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
 
 import { SalesSettings } from './SalesSettings';
+import { AllocationMain } from './allocationMain/AllocationMain';
 
 export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { baseUrl } = useEntityType();
@@ -35,7 +36,16 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
 
       <Switch>
         <Route default path={`${baseUrl}/salesSettings`} exact render={() => <SalesSettings />} />
-        <Route path={`${baseUrl}/salesSettings/:allocId`} render={() => <h1>asd</h1>} />
+        <Route
+          path={`${baseUrl}/salesSettings/:allocId`}
+          render={() => (
+            <AllocationMain
+              title="Alocation and Match Criteria"
+              isSidebarVisible={isSidebarVisible}
+              onSidebarOpen={onSidebarOpen}
+            />
+          )}
+        />
         <Redirect to={`${baseUrl}/salesSettings`} />
       </Switch>
     </>
