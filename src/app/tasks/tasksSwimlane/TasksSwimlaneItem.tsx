@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { Box, Grid, Loader, Typography, UserAvatar } from 'ui/atoms';
+import { Box, Grid, Loader, Typography, UserAvatar, Card, CardContent } from 'ui/atoms';
 import {
   FollowUpRectangleIcon,
   LockRectangleIcon,
@@ -70,46 +70,48 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
     <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
       <div ref={!isUpdating ? drop : undefined}>
         {isUpdating && <Loader />}
-        <Box className={clsx(classes.root, isDragging && 'dragging')}>
-          <Typography
-            variant="h6"
-            className={clsx(
-              classes.expireInfo,
-              tab === TasksTab.Overdue && 'overdue',
-              remainingMinutes < 60 && 'lessThanOneHour',
-            )}
-          >
-            {expireInfo}
-          </Typography>
-          <Typography variant="h5" className={classes.title}>
-            {title}
-          </Typography>
-          <Grid container>
-            {/* TODO: Update this class name once provided info about this section */}
-            <Grid item className={classes.taskLocked}>
-              {label === TaskLabel.Business && <UserRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
-              {label === TaskLabel.Private && <LockRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
-              {label === TaskLabel.FollowUp && <FollowUpRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+        <Card className={clsx(classes.root, isDragging && 'dragging')}>
+          <CardContent className={classes.card}>
+            <Typography
+              variant="h6"
+              className={clsx(
+                classes.expireInfo,
+                tab === TasksTab.Overdue && 'overdue',
+                remainingMinutes < 60 && 'lessThanOneHour',
+              )}
+            >
+              {expireInfo}
+            </Typography>
+            <Typography variant="h5" className={classes.title}>
+              {title}
+            </Typography>
+            <Grid container>
+              {/* TODO: Update this class name once provided info about this section */}
+              <Grid item className={classes.taskLocked}>
+                {label === TaskLabel.Business && <UserRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+                {label === TaskLabel.Private && <LockRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+                {label === TaskLabel.FollowUp && <FollowUpRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+              </Grid>
+              <Grid item>
+                {priority === TaskPriority.High && <PriorityHighIcon classes={{ root: classes.priorityIcon }} />}
+                {priority === TaskPriority.Medium && <PriorityMediumIcon classes={{ root: classes.priorityIcon }} />}
+                {priority === TaskPriority.Low && <PriorityLowIcon classes={{ root: classes.priorityIcon }} />}
+              </Grid>
+              <Grid item className={classes.flexGrowOne} />
+              <Grid item>
+                <Typography variant="h5" className={classes.taskId}>
+                  {`BRICR-${taskIndex}`}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <UserAvatar
+                  name={assigneeDetail ? `${assigneeDetail.firstName} ${assigneeDetail.lastName}` : 'User'}
+                  className={classes.avatar}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              {priority === TaskPriority.High && <PriorityHighIcon classes={{ root: classes.priorityIcon }} />}
-              {priority === TaskPriority.Medium && <PriorityMediumIcon classes={{ root: classes.priorityIcon }} />}
-              {priority === TaskPriority.Low && <PriorityLowIcon classes={{ root: classes.priorityIcon }} />}
-            </Grid>
-            <Grid item className={classes.flexGrowOne} />
-            <Grid item>
-              <Typography variant="h5" className={classes.taskId}>
-                {`BRICR-${taskIndex}`}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <UserAvatar
-                name={assigneeDetail ? `${assigneeDetail.firstName} ${assigneeDetail.lastName}` : 'User'}
-                className={classes.avatar}
-              />
-            </Grid>
-          </Grid>
-        </Box>
+          </CardContent>
+        </Card>
         {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}
       </div>
     </div>
