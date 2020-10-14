@@ -81,22 +81,17 @@ export const GroundsForm = ({ data }: AogTypeSpecificFormProps) => {
                     }
                   }
 
-                  if (active === 'groundConfiguration.specifications[0].type') {
-                    form.change(
-                      'groundConfiguration.specifications[0].type',
-                      values?.groundConfiguration?.specifications?.[0].type
-                        ? AogSpecificationsType.Drainage
-                        : undefined,
-                    );
-                  }
+                  if (values && values?.groundConfiguration?.specifications) {
+                    const availableValues = [AogSpecificationsType.Drainage, AogSpecificationsType.ProductionRights];
 
-                  if (active === 'groundConfiguration.specifications[1].type') {
-                    form.change(
-                      'groundConfiguration.specifications[1].type',
-                      values?.groundConfiguration?.specifications?.[1].type
-                        ? AogSpecificationsType.ProductionRights
-                        : undefined,
-                    );
+                    values?.groundConfiguration?.specifications.forEach((specification, index) => {
+                      if (typeof specification?.type === 'boolean') {
+                        form.change(
+                          `groundConfiguration.specifications[${index}].type`,
+                          specification?.type ? availableValues[index] : undefined,
+                        );
+                      }
+                    });
                   }
                 }}
               />

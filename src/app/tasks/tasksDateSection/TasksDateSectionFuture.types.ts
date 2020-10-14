@@ -1,5 +1,6 @@
 import { DateRange } from 'api/types';
 
 export type TasksDateSectionFutureProps = {
-  onSelectDate: (range: DateRange) => void;
+  deadlines: DateRange[];
+  onSelectDate: (deadlines: DateRange[]) => void;
 };

@@ -18,6 +18,7 @@ export const WorkflowTemplatesContainer = ({ templateType }: WorkflowTemplatesCo
     push(AppRoute.workflow.replace(':id', values.text), {
       iconName: values.icon,
       name: values.text,
+      isNew: true,
     });
 
     return undefined;

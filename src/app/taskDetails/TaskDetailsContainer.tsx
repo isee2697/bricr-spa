@@ -20,7 +20,7 @@ export const TaskDetailsContainer = () => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
 
-  const { loading, error, data: taskData } = useGetTaskQuery({
+  const { loading, data: taskData } = useGetTaskQuery({
     variables: { id },
   });
 
@@ -75,7 +75,6 @@ export const TaskDetailsContainer = () => {
   return (
     <>
       <TaskDetails
-        error={error}
         taskData={taskData.getTask}
         breadcrumbs={breadcrumbs}
         onUpdateTask={handleUpdateTask}
