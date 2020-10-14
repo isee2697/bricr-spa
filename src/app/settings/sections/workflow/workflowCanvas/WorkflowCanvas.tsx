@@ -5,7 +5,8 @@ import { AnyObject } from 'final-form';
 
 import { useLocale } from 'hooks';
 import { Box, Typography } from 'ui/atoms';
-import { InfoSection } from 'ui/molecules';
+import { InfoSection, ConfirmModal } from 'ui/molecules';
+import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { DropablePlaceholder, TriggerItem, ActionItem, DndItemState } from '../workflowItems';
 import {
   DragObjectType,
@@ -75,8 +76,10 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
   const classes = useStyles();
 
   const [state, setState] = useState(false);
+  const [confirmModal, setConfirmModal] = useState<ReactNode | null>(null);
   const [triggerCondition, setTriggerCondition] = useState<number | null>(null);
   const [conditionTab, setConditionTab] = useState<number>(0);
+
   const [width, height] = useWindowSize();
   const [topCanvasOffset, setTopCanvasOffset] = useState(0);
   const [{ isDrag: isDragAction }] = useDrop<DragObjectType, void, DropablePlaceholderCollectProps>({
@@ -97,6 +100,38 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
       setState(!state);
     }
   };
+
+  const handleShowConfirmModal = useCallback(
+    (type: string, onConfirm: () => void) => {
+      setConfirmModal(
+        <ConfirmModal
+          emoji="😬"
+          isOpened={true}
+          title={formatMessage({
+            id: `settings.workflow.${type}.remove.title`,
+          })}
+          onCancel={() => {
+            setConfirmModal(null);
+          }}
+          onConfirm={() => {
+            onConfirm();
+            setConfirmModal(null);
+          }}
+          messageLineFirst={formatMessage({
+            id: `settings.workflow.${type}.remove.confirm_message`,
+          })}
+          cancelText={formatMessage({
+            id: `settings.workflow.${type}.remove.cancel`,
+          })}
+          confirmText={formatMessage({
+            id: `settings.workflow.${type}.remove.confirm`,
+          })}
+          confirmButtonType={ConfirmButtonType.ERROR}
+        />,
+      );
+    },
+    [formatMessage, setConfirmModal],
+  );
 
   const handleRemoveTrigger = (index: number) => {
     if (triggers?.length) {
@@ -250,7 +285,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
               handleToggleActionStatus(action);
             }}
             onDelete={() => {
-              handleRemoveAction(actionGroup, index, action);
+              handleShowConfirmModal('action', () => handleRemoveAction(actionGroup, index, action));
             }}
             // onShowSettings={() => {
             //   handleShowActionSettings(action);
@@ -273,7 +308,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
         )}
       </>
     ),
-    [handleToggleActionStatus, handleRemoveAction, renderAddPlaceholder, renderLine],
+    [handleToggleActionStatus, handleRemoveAction, handleShowConfirmModal, renderAddPlaceholder, renderLine],
   );
 
   const renderActionGroup = useCallback(
@@ -403,7 +438,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
                       handleToggleTriggerStatus(index);
                     }}
                     onDelete={() => {
-                      handleRemoveTrigger(index);
+                      handleShowConfirmModal('trigger', () => handleRemoveTrigger(index));
                     }}
                     onShowConditions={() => {
                       handleShowTriggerConditions(index);
@@ -468,6 +503,9 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
           />
         </Box>
       </Box>
+
+      {/** Show confirm dialog */}
+      {confirmModal}
 
       {/** Show Trigger conditions dialog */}
       <TriggerConditions
