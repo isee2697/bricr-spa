@@ -73,46 +73,54 @@ export const actionsGroups: WorkflowSidebarGroup[] = [
 ];
 
 export const sections: WorkflowSection[] = [
-  { id: 's1', title: 'Workflow section 1' },
+  { id: 's1', title: 'Workflow section 1', startpoint: 'outside' },
   {
     id: 's2',
     title: 'Workflow section 2',
-    trigger: {
-      id: 't1234',
-      title: 'Make an appointment',
-      icon: <SearchIcon color="inherit" />,
-      actions: [
-        {
-          id: 'a1234',
-          title: 'Send email',
-          icon: <UploadIcon color="inherit" />,
+    startpoint: 'start',
+    triggers: [
+      {
+        id: 't1234',
+        title: 'Make an appointment',
+        icon: <SearchIcon color="inherit" />,
+        newActions: {
+          id: 't1234-new',
+          actions: [
+            {
+              id: 'a1234',
+              title: 'Send email',
+              icon: <UploadIcon color="inherit" />,
+            },
+            {
+              id: 'a1234',
+              title: 'Send email',
+              icon: <UploadIcon color="inherit" />,
+            },
+            {
+              id: 'a5678',
+              title: 'Action 1',
+              icon: <NoteIcon color="inherit" />,
+              nextAction: {
+                id: 'a0123',
+                title: 'Action 3',
+                icon: <ListIcon color="inherit" />,
+              },
+            },
+            {
+              id: 'a1234',
+              title: 'Send email',
+              icon: <UploadIcon color="inherit" />,
+            },
+            {
+              id: 'a1234',
+              title: 'Send email',
+              icon: <UploadIcon color="inherit" />,
+            },
+          ],
         },
-        {
-          id: 'a1234',
-          title: 'Send email',
-          icon: <UploadIcon color="inherit" />,
-        },
-        {
-          id: 'a5678',
-          title: 'Action 1',
-          icon: <NoteIcon color="inherit" />,
-          nextAction: {
-            id: 'a0123',
-            title: 'Action 3',
-            icon: <ListIcon color="inherit" />,
-          },
-        },
-        {
-          id: 'a1234',
-          title: 'Send email',
-          icon: <UploadIcon color="inherit" />,
-        },
-        {
-          id: 'a1234',
-          title: 'Send email',
-          icon: <UploadIcon color="inherit" />,
-        },
-      ],
-    },
+        deleteActions: { id: 't1234-delete' },
+        updateActions: { id: 't1234-update' },
+      },
+    ],
   },
 ];
