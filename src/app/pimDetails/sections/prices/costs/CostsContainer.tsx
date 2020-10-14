@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { CostContainerProps } from 'app/pimDetails/sections/prices/costs/Costs.types';
 import {
   PimPricingDocument,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+
 import { useLocale } from 'hooks';
 import { Box, Checkbox, IconButton, MenuItem, Select, Typography } from 'ui/atoms';
 import { ArchiveIcon, DeleteIcon, MenuIcon } from 'ui/atoms/icons';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Grid, Typography, Box } from 'ui/atoms';
 import { FilePermission, PhoneNumberType, Profile } from 'api/types';

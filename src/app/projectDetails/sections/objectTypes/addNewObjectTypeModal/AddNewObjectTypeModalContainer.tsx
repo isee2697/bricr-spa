@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+
 import {
   ObjectTypeGeneral,
   useCreateObjectTypeMutation,

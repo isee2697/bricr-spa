@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { GenericField } from 'form/fields';
 import { Grid, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks';

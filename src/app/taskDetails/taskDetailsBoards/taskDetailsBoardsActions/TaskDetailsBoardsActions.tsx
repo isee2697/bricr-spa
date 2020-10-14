@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Task, TaskLabel, TaskStatus } from 'api/types';
 import { Paper, Emoji, Dropdown, UserAvatar, Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

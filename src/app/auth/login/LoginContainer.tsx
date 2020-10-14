@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { startAuthorizing, setTokens, setUnauthorized } from 'context/auth/authActionCreators/authActionCreators';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { Search as BaseSearch } from 'ui/molecules';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 

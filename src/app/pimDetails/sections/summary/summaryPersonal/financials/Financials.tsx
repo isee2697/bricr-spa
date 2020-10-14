@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Typography, Box } from 'ui/atoms';
 import { EuroIcon } from 'ui/atoms/icons';

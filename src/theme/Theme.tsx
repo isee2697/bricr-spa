@@ -1,6 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, SimplePaletteColorOptions } from '@material-ui/core/styles';
-
 import React, { ReactNode } from 'react';
 
 import { typography, fontWeight } from './typography';

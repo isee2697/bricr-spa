@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { LinkIcon, FilterIcon, BuildingIcon, ComplexBuildingIcon, SettingsIcon } from 'ui/atoms/icons';
 import {
   CodeSizeType,

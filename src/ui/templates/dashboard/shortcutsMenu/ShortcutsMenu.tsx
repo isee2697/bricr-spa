@@ -1,7 +1,7 @@
 import { useTheme } from '@material-ui/core/styles';
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+
 import { IconButton, Avatar, Menu, Box, Typography, Link, CardHeader } from 'ui/atoms';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 import { ShortcutsIcon } from 'ui/atoms/icons/shortcuts/ShortcutsIcon';

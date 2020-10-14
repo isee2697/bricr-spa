@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+
 import { PricesGeneralContainer } from 'app/pimDetails/sections/prices/pricesGeneral/PricesGeneralContainer';
 import { PricesProps } from 'app/pimDetails/sections/prices/Prices.types';
 import { InvestmentsContainer } from 'app/pimDetails/sections/prices/investments/InvestmentsContainer';

@@ -1,6 +1,6 @@
 import { StepIconProps } from '@material-ui/core/StepIcon';
-
 import React from 'react';
+
 import { Typography } from 'ui/atoms';
 import { CheckIcon } from 'ui/atoms/icons/check/CheckIcon';
 

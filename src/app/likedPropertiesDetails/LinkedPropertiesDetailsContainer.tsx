@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useObjectTypeOverallInfoQuery, usePimOverallInfoQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';

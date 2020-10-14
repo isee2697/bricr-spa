@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act, fireEvent, render, wait } from 'tests';
 import { ModalContext } from 'context/modal/modalContext/ModalContext';
 import { AddPimModal } from 'app/shared/addPimModal/AddPimModal';

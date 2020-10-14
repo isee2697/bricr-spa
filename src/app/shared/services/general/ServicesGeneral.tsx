@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Page } from 'ui/templates';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';

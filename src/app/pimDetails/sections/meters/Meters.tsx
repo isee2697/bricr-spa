@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';

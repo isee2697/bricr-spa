@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { useCrmRelationsCustomerJourneyQueryParams } from '../../shared/useCrmRelationsCustomerJourneyQueryParams/useCrmRelationsCustomerJourneyQueryParams';
 import {
   CRM_RELATIONS_CUSTOMER_JOURNEY_BIDDINGS,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import { useParams } from 'react-router-dom';
+
 import { usePimInfoQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 import { PimDetailsSectionProps } from '../../PimDetails.types';

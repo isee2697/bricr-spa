@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { OverlayDispatchContext, OverlayStateContext } from 'context/overlay/overlayContext/OverlayContext';
 
 import { OverlayContextControllerProps } from './OverlayContextController.types';

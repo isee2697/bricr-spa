@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
+
 import { Avatar, Box } from '../index';
 import { EntityType } from 'app/shared/entityType';
 

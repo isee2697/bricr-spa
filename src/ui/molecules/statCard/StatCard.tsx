@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import { FormattedNumber } from 'react-intl';
+
 import { Card, CardContent, Typography } from 'ui/atoms';
 import { ArrowUpIcon } from 'ui/atoms/icons/arrowUp/ArrowUpIcon';
 import { ArrowRightIcon } from 'ui/atoms/icons/arrowRight/ArrowRightIcon';

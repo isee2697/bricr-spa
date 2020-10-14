@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+
 import { useStyles } from '../Pagination.styles';
 
 import { PaginationItemProps } from './Pagination.types';

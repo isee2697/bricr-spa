@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Box, Typography } from 'ui/atoms';
 
 import { FormSubSectionHeaderProps } from './FormSubSectionHeader.types';

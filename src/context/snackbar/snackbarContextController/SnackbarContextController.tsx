@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { SnackbarContext } from '../snackbarContext/SnackbarContext';
 import { SnackbarStateType } from '../snackbarContext/SnackbarContext.types';
 

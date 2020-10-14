@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { AppProviders } from 'providers/AppProviders';
 
 // eslint-disable-next-line import/no-default-export

@@ -1,7 +1,8 @@
 import React from 'react';
+import clsx from 'classnames';
+
 import { KitchenProps } from '../GroundfloorSpaces.types';
 import { Grid, Typography } from '../../../../../../../ui/atoms';
-import clsx from 'classnames';
 import { CrmIcon, MeterIcon, MutationIcon, SquareMeterIcon } from '../../../../../../../ui/atoms/icons';
 import { useStyles } from '../GroundfloorSpaces.styles';
 import { useLocale } from '../../../../../../../hooks';

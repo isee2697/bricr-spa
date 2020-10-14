@@ -1,4 +1,5 @@
 import { useQueryParam } from 'use-query-params';
+
 import { CrmRelationsDetailsCustomerJourneyTab } from '../../crmRelationsDetails/crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourney.types';
 
 type defaultValues = {

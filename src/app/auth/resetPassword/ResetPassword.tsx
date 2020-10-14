@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from 'react-final-form';
+
 import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
 import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';

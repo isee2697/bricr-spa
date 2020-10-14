@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
+
 import { BulkActionConfirmModal } from 'ui/organisms';
 import { Box, Checkbox, Pagination, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';

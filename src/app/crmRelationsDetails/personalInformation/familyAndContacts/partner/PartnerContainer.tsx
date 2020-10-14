@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useGetUsersQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 import { usePagination } from 'hooks/usePagination/usePagination';

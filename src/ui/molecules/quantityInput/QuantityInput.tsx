@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Box, Typography, IconButton } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { SubtractIcon } from 'ui/atoms/icons/subtract/SubtractIcon';

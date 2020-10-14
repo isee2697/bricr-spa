@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 import { Cadastre, Floor, HouseGeneral, HouseOutside } from '../../../../api/types';
 

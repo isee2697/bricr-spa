@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState, Fragment } from 'react';
+
 import { Box, Grid, Typography } from 'ui/atoms';
 import { InfoSection, SimpleSearch } from 'ui/molecules';
 import { useLocale } from 'hooks';

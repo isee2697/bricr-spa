@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Avatar, Chip, Grid, Typography } from 'ui/atoms';
 import { MailIcon, MenuIcon, WarningIcon } from 'ui/atoms/icons';
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import { UserProps } from 'app/settings/sections/users/Users.types';
 import { Page } from 'ui/templates';
 import { Profile } from 'api/types';

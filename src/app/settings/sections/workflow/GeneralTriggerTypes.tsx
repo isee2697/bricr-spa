@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import { Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { StartIcon, EndIcon } from 'ui/atoms/icons';

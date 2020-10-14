@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
+
 import { Box } from 'ui/atoms';
 import { ActionItem, TriggerItem, DndItemState } from '../../workflowItems';
 import { WorkflowItemType } from '../../Workflow.types';

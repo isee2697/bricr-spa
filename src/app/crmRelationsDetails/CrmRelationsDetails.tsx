@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+
 import { Grid, Box } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
 

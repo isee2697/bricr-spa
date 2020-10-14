@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Alert, Box, Card, CardContent, CardHeader, Grid } from 'ui/atoms';
 import { PimSidebarMenu } from 'app/pim/pimSidebarMenu/PimSidebarMenu';
 import { PimActionTabs } from 'app/pim/pimActionTabs/PimActionTabs';

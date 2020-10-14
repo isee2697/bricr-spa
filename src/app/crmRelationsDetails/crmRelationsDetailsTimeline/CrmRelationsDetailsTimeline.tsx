@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
+
 import { useEntityType } from 'app/shared/entityType';
 import {
   Box,

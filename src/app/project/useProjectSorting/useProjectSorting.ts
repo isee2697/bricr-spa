@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useState } from 'react';
+
 import { SortDirection } from 'api/types';
 import { useLocale } from 'hooks';
 

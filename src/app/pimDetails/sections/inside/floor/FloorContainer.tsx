@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { PimInsideDocument, useUpdateFloorMutation } from 'api/types';
 import { FloorContainerProps } from 'app/pimDetails/sections/inside/floor/Floor.types';
 import { Floor } from 'app/pimDetails/sections/inside/floor/Floor';

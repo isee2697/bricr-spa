@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { Typography, Box } from 'ui/atoms';
 import { useLocale, useCustomLabels } from 'hooks';
 import { InfoSection } from 'ui/molecules';

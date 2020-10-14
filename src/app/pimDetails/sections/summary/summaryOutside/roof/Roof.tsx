@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { RoofProps } from '../SummaryOutside.types';

@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
 import { PimSummary } from '../Summary.types';
 

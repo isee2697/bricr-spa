@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProjectDetailsHeader } from 'app/projectDetails/projectDetailsHeader/ProjectDetailsHeader';
 import { Typography } from 'ui/atoms';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';

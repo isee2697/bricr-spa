@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CardWithInfo, Page } from 'ui/templates';
 import { InfoPageProps } from 'ui/templates/page/Page.types';
 

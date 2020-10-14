@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Card, CardHeader, CardContent, Grid, UserAvatar, Typography } from 'ui/atoms';
 import { LinkIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';

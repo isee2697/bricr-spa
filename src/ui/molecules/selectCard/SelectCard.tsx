@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { Card, Button } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 

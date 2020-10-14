@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Placeholder } from 'ui/atoms';
 
 export const PropertyItemPlaceholder = () => (

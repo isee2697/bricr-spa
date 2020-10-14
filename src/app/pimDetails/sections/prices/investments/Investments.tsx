@@ -1,5 +1,6 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
+
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Grid, Typography } from 'ui/atoms';
 import { AutosaveForm, FormSection } from 'ui/organisms';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm, useFormState } from 'react-final-form';
+
 import { InfoSection, SubmitButton } from 'ui/molecules';
 import { DialogActions, Typography } from 'ui/atoms';
 import { ConflictInfoProps } from 'ui/organisms/conflictInfo/ConflictInfo.types';

@@ -1,7 +1,8 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
 import { Picture, usePimInfoQuery, usePimInsideQuery, usePimServicesQuery } from 'api/types';
-import { useParams } from 'react-router-dom';
 import { Loader } from 'ui/atoms';
 
 import { SummaryInside } from './SummaryInside';

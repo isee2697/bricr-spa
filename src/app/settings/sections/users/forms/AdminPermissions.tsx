@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FormSpy, useForm } from 'react-final-form';
 import { FormState } from 'final-form';
+
 import { Checkbox, FormControlLabel, Grid } from 'ui/atoms';
 import { CheckboxGroupField } from 'form/fields';
 import { FormSection } from 'ui/organisms';

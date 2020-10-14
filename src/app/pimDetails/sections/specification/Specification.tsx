@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+
 import { Grid } from 'ui/atoms';
 import { PimDetailsHeader } from '../../pimDetailsHeader/PimDetailsHeader';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSlate } from 'slate-react';
 import { Editor } from 'slate';
+
 import { BoldIcon, ItalicIcon, UnderlineIcon } from 'ui/atoms/icons';
 import { ToolbarButton } from '../toolbarButton/ToolbarButton';
 import { LeafTypes } from '../leaf/Leaf.types';

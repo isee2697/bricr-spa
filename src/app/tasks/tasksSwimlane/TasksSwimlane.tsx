@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+
 import { Grid } from 'ui/atoms';
 import { TaskStatus, Task } from 'api/types';
 

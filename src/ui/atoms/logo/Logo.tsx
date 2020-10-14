@@ -1,4 +1,5 @@
 import React from 'react';
+
 import logoImage from 'assets/images/logo.svg';
 
 import { LogoProps } from './Logo.types';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks';
 import { Pim } from 'api/types';
 import { PropertyItem } from 'ui/molecules';

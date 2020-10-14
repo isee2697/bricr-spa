@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CostsContainer } from 'app/shared/prices';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';

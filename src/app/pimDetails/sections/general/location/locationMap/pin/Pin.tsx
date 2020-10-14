@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { loadModules } from 'esri-loader';
+
 import { Pin as PinType } from '../LocationMap.types';
 
 import pinSvg from './pin.svg';

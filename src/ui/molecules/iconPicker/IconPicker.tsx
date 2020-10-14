@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useField } from 'react-final-form';
+
 import { Box, Grid, IconButton } from 'ui/atoms';
 
 import { useStyles } from './IconPicker.styles';

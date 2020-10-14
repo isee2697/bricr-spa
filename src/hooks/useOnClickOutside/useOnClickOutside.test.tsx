@@ -1,5 +1,6 @@
 import React, { useRef, RefObject } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
+
 import { act, fireEvent, render, wait } from 'tests';
 
 import { useOnClickOutside } from './useOnClickOutside';

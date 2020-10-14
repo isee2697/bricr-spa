@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProjectDetailsProps } from '../../ProjectDetails.types';
 
 import { Summary } from './Summary';

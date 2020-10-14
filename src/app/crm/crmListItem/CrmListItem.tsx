@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'classnames';
+
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, Emoji, ProgressFilling, IconButton, Chip } from 'ui/atoms';
 import { MailIcon, HelpIcon, MenuIcon } from 'ui/atoms/icons';

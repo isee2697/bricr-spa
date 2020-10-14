@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TeamRight } from 'api/types';
 import { AddIcon, DeleteIcon, LockIcon, EditIcon, SeeIcon } from 'ui/atoms/icons';
 

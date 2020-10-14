@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BuildingIcon, FilesIcon, FilterIcon, GraphIcon, HelpIcon, LockIcon, PinIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 

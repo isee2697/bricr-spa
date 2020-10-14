@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';

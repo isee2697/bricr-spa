@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, fireEvent } from 'tests';
 
 import { Modal } from './Modal';

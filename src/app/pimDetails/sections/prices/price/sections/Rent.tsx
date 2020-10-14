@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLocale } from 'hooks';
 import { Grid, Box } from 'ui/atoms';
 import { EuroIcon, SquareIcon } from 'ui/atoms/icons';

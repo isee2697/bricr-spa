@@ -1,5 +1,4 @@
 import { EventProperties } from '@esri/react-arcgis/dist/esm/components/ArcBase';
-
 import React from 'react';
 import { useForm, useFormState } from 'react-final-form';
 import { Map } from '@esri/react-arcgis';

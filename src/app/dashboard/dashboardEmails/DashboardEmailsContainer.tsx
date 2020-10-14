@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Emails } from 'ui/organisms/emails/Emails';
 
 // @TODO - replace with real data

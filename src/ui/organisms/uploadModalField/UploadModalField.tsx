@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+
 import { UploadIcon } from 'ui/atoms/icons';
 import { Box, Typography } from 'ui/atoms';
 import { pdfToImages } from '../uploadModal/UploadModal.helpers';

@@ -1,6 +1,7 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { Form } from 'react-final-form';
+
 import { render } from 'tests';
 import { SpaceType } from 'api/types';
 

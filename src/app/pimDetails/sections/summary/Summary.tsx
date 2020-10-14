@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+
 import { NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { GenericField } from 'form/fields';
 import { FormModal } from 'ui/organisms';
 import { FormModalProps } from 'ui/organisms/formModal/FormModal.types';

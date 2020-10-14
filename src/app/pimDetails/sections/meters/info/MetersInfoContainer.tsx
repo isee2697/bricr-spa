@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router';
+
 import { PimMetersDocument, SectionWithDescriptionType, useUpdateDescriptionMutation } from 'api/types';
 
 import { MetersInfo } from './MetersInfo';
