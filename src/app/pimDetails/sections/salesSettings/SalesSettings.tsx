@@ -1,6 +1,8 @@
 import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
+import { Button } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
 import { AutosaveForm } from 'ui/organisms';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -10,7 +12,7 @@ import { Page } from 'ui/templates';
 
 import { Moments } from './moments/Moments';
 
-export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
+export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen, onAddAllocation }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
   const onSave = async (values: unknown) => {
@@ -23,7 +25,22 @@ export const SalesSettings = ({ title, isSidebarVisible, onSidebarOpen }: PimDet
 
   return (
     <>
-      <PimDetailsHeader title={title} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+      <PimDetailsHeader
+        title={title}
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
+        action={
+          <Button
+            color="primary"
+            startIcon={<AddIcon color="inherit" />}
+            variant="contained"
+            onClick={onAddAllocation}
+            size="small"
+          >
+            {formatMessage({ id: `pim_details.sales_settings.add_new_allocation` })}
+          </Button>
+        }
+      />
 
       <AutosaveForm initialValues={{}} onSave={onSave} mutators={{ ...arrayMutators }} subscription={{}}>
         <Page
