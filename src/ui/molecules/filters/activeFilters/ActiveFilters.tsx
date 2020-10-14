@@ -1,7 +1,6 @@
-import Chip from '@material-ui/core/Chip';
 import React from 'react';
 
-import { Box } from 'ui/atoms';
+import { Box, Chip } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ActiveFilters.styles';
@@ -102,7 +101,12 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
   };
 
   return (
-    <Box className={classes.root} p={2}>
+    <Box
+      className={`${classes.root} ${
+        activeFilters && Object.values(activeFilters).length > 0 ? classes.hasfilters : ''
+      }`}
+      p={2}
+    >
       {generateFilters()}
     </Box>
   );
