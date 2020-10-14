@@ -12,7 +12,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     borderRadius: spacing(1),
     '&.disabled': {
       cursor: 'default',
-      background: 'rgba(243, 245, 250, .5)',
+      background: palette.white.light,
     },
   },
   inputInner: {
@@ -30,7 +30,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       color: palette.gray.main,
     },
     '&.placeholder': {
-      color: 'rgba(130, 141, 184, .5)',
+      color: palette.info.dark,
     },
   },
   reversedArrow: {

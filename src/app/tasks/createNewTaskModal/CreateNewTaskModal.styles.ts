@@ -18,7 +18,7 @@ export const useStyles = makeStyles(theme => ({
   },
   assigneePlaceholderMessage: {
     marginLeft: theme.spacing(1),
-    color: 'rgba(130, 141, 184, .5)',
+    color: theme.palette.info.dark,
   },
   assigneeInput: {
     padding: 0,
