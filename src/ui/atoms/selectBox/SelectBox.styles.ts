@@ -62,10 +62,11 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: spacing(7),
-    color: palette.gray.main,
+    color: palette.black.main,
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
     padding: spacing(0, 2),
+
     '&.alignLeft': {
       justifyContent: 'flex-start',
     },

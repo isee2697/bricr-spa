@@ -39,6 +39,7 @@ export const useStyles = makeStyles(theme => ({
     padding: 0,
   },
   searchFieldInput: {
+    fontWeight: theme.typography.fontWeightMedium,
     height: theme.spacing(6),
 
     '&:before': {
