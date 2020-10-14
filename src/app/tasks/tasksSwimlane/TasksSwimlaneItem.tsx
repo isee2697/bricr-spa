@@ -87,26 +87,14 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
           <Grid container>
             {/* TODO: Update this class name once provided info about this section */}
             <Grid item className={classes.taskLocked}>
-              {label === TaskLabel.Business && (
-                <UserRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-              )}
-              {label === TaskLabel.Private && (
-                <LockRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-              )}
-              {label === TaskLabel.FollowUp && (
-                <FollowUpRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-              )}
+              {label === TaskLabel.Business && <UserRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+              {label === TaskLabel.Private && <LockRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+              {label === TaskLabel.FollowUp && <FollowUpRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
             </Grid>
             <Grid item>
-              {priority === TaskPriority.High && (
-                <PriorityHighIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
-              )}
-              {priority === TaskPriority.Medium && (
-                <PriorityMediumIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
-              )}
-              {priority === TaskPriority.Low && (
-                <PriorityLowIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="action" />
-              )}
+              {priority === TaskPriority.High && <PriorityHighIcon classes={{ root: classes.priorityIcon }} />}
+              {priority === TaskPriority.Medium && <PriorityMediumIcon classes={{ root: classes.priorityIcon }} />}
+              {priority === TaskPriority.Low && <PriorityLowIcon classes={{ root: classes.priorityIcon }} />}
             </Grid>
             <Grid item className={classes.flexGrowOne} />
             <Grid item>

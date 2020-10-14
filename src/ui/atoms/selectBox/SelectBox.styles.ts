@@ -65,6 +65,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     color: palette.gray.main,
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
+    padding: spacing(0, 2),
     '&.alignLeft': {
       justifyContent: 'flex-start',
     },

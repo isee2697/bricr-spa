@@ -77,7 +77,7 @@ export const SelectBox = ({
           </Box>
         ))}
       </Box>
-      <Box className={classNames(isOpened && classes.autocompleteBack)} />
+      <Box className={classNames(isOpened && classes.autocompleteBack)} onClick={() => setOpened(false)} />
     </div>
   );
 };

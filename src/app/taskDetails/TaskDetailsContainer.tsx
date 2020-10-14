@@ -43,7 +43,7 @@ export const TaskDetailsContainer = () => {
 
   const [updateTask] = useUpdateTaskMutation();
 
-  const handleUpdateTask = async (taskId: string, task: Pick<Task, 'status'>) => {
+  const handleUpdateTask = async (taskId: string, task: Partial<Task>) => {
     const { data: result, errors } = await updateTask({
       variables: {
         input: {
