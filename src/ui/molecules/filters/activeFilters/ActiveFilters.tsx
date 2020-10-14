@@ -34,7 +34,7 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
         deleteIcon={<CloseIcon />}
         label={
           <>
-            <span className={classes.dimmed}>{formatMessage({ id: 'filters.' + index + '.title' })}</span> <strong className={classes.filter}>{filter}</strong>
+            <span className={classes.dimmed}>{formatMessage({ id: 'filters.' + index + '.title' })}</span>{' '}<strong className={classes.filter}>{filter}</strong>
           </>
         }
         onDelete={() => onDelete(index, filter)}
