@@ -29,6 +29,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged"
     }
   },
   "auto-changelog": {
@@ -159,6 +160,7 @@
     "auto-changelog": "1.16.2",
     "cross-env": "6.0.3",
     "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-import": "2.20.0",
     "eslint-plugin-prettier": "3.1.2",
     "full-icu": "1.3.0",
     "http-server": "0.12.3",

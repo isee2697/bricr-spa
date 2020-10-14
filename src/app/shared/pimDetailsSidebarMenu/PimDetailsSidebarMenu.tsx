@@ -129,7 +129,19 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
             ],
           },
           { key: 'propertyJourney' },
-          { key: 'salesSettings' },
+          {
+            key: 'salesSettings',
+            subItems: [
+              {
+                id: 'allocation1',
+                label: 'pim_details.sales_settings.allocation.title',
+              },
+              {
+                id: 'allocation2',
+                label: 'pim_details.sales_settings.allocation.title',
+              },
+            ],
+          },
         ],
       },
       {
