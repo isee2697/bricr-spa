@@ -27,6 +27,26 @@ export const AdvancedSearch = ({
   const listItems: AdvancedSearchItem[] = showSelected ? [...items] : items.filter(item => item.value !== value);
   const handleChangeSearchKey = (e: React.ChangeEvent<HTMLInputElement>) => setKey(e.target.value);
 
+  const highlightString = (title: string) => {
+    if (!key.trim()) {
+      return title;
+    }
+
+    const parts = title.split(new RegExp(`(${key})`, 'gi'));
+
+    return parts.map((part, index) =>
+      part.toLowerCase().match(key.toLowerCase()) ? (
+        <span key={index} className={classNames(classes.itemLabelPart, 'highlight')}>
+          {part}
+        </span>
+      ) : (
+        <span key={index} className={classes.itemLabelPart}>
+          {part}
+        </span>
+      ),
+    );
+  };
+
   return (
     <div className={classes.root}>
       <Box
@@ -47,17 +67,26 @@ export const AdvancedSearch = ({
         )}
         <Box className={classNames(propsClasses?.inputInner, classes.inputInner, isOpened && 'selected')}>
           {!isOpened && (
-            <Box display="flex" alignItems="center" className={classes.itemLabelWrapper}>
-              {selectedItem?.icon}
-              <span className={classes.itemLabel}>{selectedItem?.label}</span>
+            <Box
+              display="flex"
+              alignItems="center"
+              className={classNames(propsClasses?.itemLabelWrapper, classes.itemLabelWrapper)}
+            >
+              {!selectedItem && placeholder}
+              {selectedItem && (
+                <>
+                  {selectedItem.icon}
+                  <span className={classes.itemLabel}>{selectedItem.label}</span>
+                </>
+              )}
             </Box>
           )}
           {isOpened && (
             <TextField
               autoFocus
               value={key}
-              classes={{ root: classes.searchField }}
-              InputProps={{ classes: { root: classes.searchFieldInput } }}
+              classes={{ root: classNames(propsClasses?.searchField, classes.searchField) }}
+              InputProps={{ classes: { root: classNames(propsClasses?.searchFieldInput, classes.searchFieldInput) } }}
               onChange={handleChangeSearchKey}
             />
           )}
@@ -65,7 +94,7 @@ export const AdvancedSearch = ({
       </Box>
       <Box className={classNames(propsClasses?.menu, classes.menu, { isOpened })}>
         {listItems
-          .filter(item => item.label.includes(key))
+          .filter(item => item.label.toLowerCase().includes(key.toLowerCase()))
           .map((item, index) => (
             <Box
               key={`${item.value}`}
@@ -94,7 +123,7 @@ export const AdvancedSearch = ({
                 )}
               >
                 {item.icon}
-                <span className={classes.itemLabel}>{item.label}</span>
+                <span className={classes.itemLabel}>{highlightString(item.label)}</span>
               </Box>
             </Box>
           ))}

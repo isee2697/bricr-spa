@@ -2,15 +2,16 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography } from 'ui/atoms';
+import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography, Box, Avatar } from 'ui/atoms';
 import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { requireValidator } from 'form/validators';
-import { GenericField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
+import { GenericField, DropdownField, DatePickerField, TimePickerField, AdvancedSearchField } from 'form/fields';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { TeamMemberItem } from '../Tasks.types';
 import { TaskPriority, TaskLabel } from 'api/types';
+import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 
 import { CreateNewTaskModalProps, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
 import { useStyles } from './CreateNewTaskModal.styles';
@@ -37,17 +38,12 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
     close('create-new-task');
   };
 
-  const assignees: DropdownItem[] = members.map((member: TeamMemberItem, index: number) => ({
-    label: (
-      <span className={classes.assignee}>
-        <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} className={classes.assigneeAvatar} />
-        <span>
-          {member?.firstName} {member?.lastName}
-          {index === 0 && ` (${formatMessage({ id: 'tasks.members.me' })})`}
-        </span>
-      </span>
-    ),
+  const assignees: AdvancedSearchItem[] = members.map((member: TeamMemberItem, index: number) => ({
+    label: `${member?.firstName} ${member?.lastName} ${
+      index === 0 ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
+    }`,
     value: member?.id,
+    icon: <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />,
   }));
 
   const labels: DropdownItem[] = [
@@ -129,13 +125,30 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               </Grid>
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <DropdownField
+                  <AdvancedSearchField
                     validate={[requireValidator]}
                     items={assignees}
-                    placeholder="tasks.create_new.details.assignee.placeholder"
+                    placeholder={
+                      <Box display="flex" alignItems="center" className={classes.assigneePlaceholder}>
+                        <Avatar />
+                        <span className={classes.assigneePlaceholderMessage}>
+                          {formatMessage({ id: 'tasks.create_new.details.assignee.placeholder' })}
+                        </span>
+                      </Box>
+                    }
                     name="assignee"
                     label="tasks.create_new.details.assignee.label"
                     align="left"
+                    classes={{
+                      input: classes.assigneeInput,
+                      inputInner: classes.assigneeInputInner,
+                      searchField: classes.searchField,
+                      searchFieldInput: classes.searchFieldInput,
+                      itemLabelWrapper: classes.assigneeItemLabelWrapper,
+                      menu: classes.assigneeMenu,
+                      menuItem: classes.assigneeMenuItem,
+                      menuItemInner: classes.assigneeMenuItemInner,
+                    }}
                   />
                   <Typography
                     variant="h5"

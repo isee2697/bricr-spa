@@ -8,6 +8,9 @@ export type AdvancedSearchItem = {
 export type AdvancedSearchClasses = {
   input?: string;
   inputInner?: string;
+  searchField?: string;
+  searchFieldInput?: string;
+  itemLabelWrapper?: string;
   menu?: string;
   menuItem?: string;
   menuItemInner?: string;
@@ -16,7 +19,7 @@ export type AdvancedSearchClasses = {
 export type AdvancedSearchProps = {
   title?: string;
   items: AdvancedSearchItem[];
-  placeholder: string;
+  placeholder: string | React.ReactElement;
   disabled?: boolean;
   value?: string;
   align?: 'left' | 'center' | 'right';

@@ -1,9 +1,12 @@
 import { FieldValidator } from 'final-form';
 import { PropTypes } from '@material-ui/core';
 
-import { DropdownProps } from 'ui/atoms/dropdown/Dropdown.types';
+import { AdvancedSearchProps } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 
-export type DropdownFieldProps = Pick<DropdownProps, 'items' | 'placeholder' | 'disabled' | 'align'> & {
+export type AdvancedSearchFieldProps = Pick<
+  AdvancedSearchProps,
+  'items' | 'placeholder' | 'disabled' | 'align' | 'classes'
+> & {
   label: string;
   name: string;
   validate?: FieldValidator<string>[];

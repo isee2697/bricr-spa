@@ -121,6 +121,11 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   itemLabel: {
     marginLeft: spacing(1),
   },
+  itemLabelPart: {
+    '&.highlight': {
+      color: palette.red.main,
+    },
+  },
   autocompleteBack: {
     position: 'fixed',
     left: 0,
