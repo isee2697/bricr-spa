@@ -3,13 +3,13 @@ import { useRouteMatch } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { SidebarMenu } from 'ui/molecules';
-import { SettingsIcon } from 'ui/atoms/icons';
+import { SettingsIcon, AogIcon } from 'ui/atoms/icons';
 import { SidebarTitleTile } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
 import { useLayout } from 'context/layout';
 import { SettingsProps } from 'app/settings/Settings.types';
-import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
+import { MenuItem, SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -17,10 +17,14 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const { getTeams: teams } = data;
 
-  const teamItems = ((teams?.items && teams.items.map(team => ({ key: `teams/${team.id}`, title: team.name }))) ||
+  const teamItems = ((teams?.items &&
+    teams.items.map(team => ({
+      key: `teams/${team.id}`,
+      title: team.name,
+    }))) ||
     []) as MenuItem[];
 
-  const menu = {
+  const menu: SidebarMenuType = {
     url: url,
     back: {
       url: AppRoute.home,
@@ -30,7 +34,32 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       {
         isCollapsable: true,
         key: 'settings.menu.general',
-        items: [{ key: 'workflowTemplates' }, { key: 'billing' }],
+        items: [
+          {
+            key: 'workflow_templates',
+            subItems: [
+              {
+                id: 'bricr',
+                label: 'settings.menu.bricr_templates',
+                icon: (
+                  <div style={{ marginLeft: 30 }}>
+                    <AogIcon color="primary" />
+                  </div>
+                ),
+              },
+              {
+                id: 'custom',
+                label: 'settings.menu.custom_templates',
+                icon: (
+                  <div style={{ color: 'orange', marginLeft: 30 }}>
+                    <AogIcon color="inherit" />
+                  </div>
+                ),
+              },
+            ],
+          },
+          { key: 'billing' },
+        ],
       },
       {
         isCollapsable: true,

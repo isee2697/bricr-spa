@@ -103,8 +103,8 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   bulk: BulkOperationResult;
-  bulkDeleteNotifications?: Maybe<Scalars['String']>;
-  bulkReadNotifications?: Maybe<Scalars['String']>;
+  bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
+  bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   createCompany: Company;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
@@ -116,13 +116,13 @@ export type Mutation = {
   createTask: Task;
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
-  deleteNotification?: Maybe<Scalars['String']>;
+  deleteNotification?: Maybe<Scalars['Boolean']>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
   login?: Maybe<LoginResponse>;
   reactivateProfile: Profile;
-  readNotification?: Maybe<Scalars['String']>;
+  readNotification?: Maybe<Scalars['Boolean']>;
   removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
@@ -2178,7 +2178,7 @@ export enum NotificationType {
 export type Notification = {
   __typename?: 'Notification';
   id: Scalars['ID'];
-  receiver: Scalars['ID'];
+  receiver: Profile;
   type: NotificationType;
   description: Scalars['String'];
   isRead: Scalars['Boolean'];
@@ -6622,8 +6622,8 @@ export type DateRange = {
 export type TaskFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDate?: Maybe<DateRange>;
-  deadline?: Maybe<DateRange>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
 };
 
 export type TaskFullSummaryFilters = {
@@ -6633,8 +6633,8 @@ export type TaskFullSummaryFilters = {
 export type TaskSummaryByStatusFilters = {
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  startDate?: Maybe<DateRange>;
-  deadline?: Maybe<DateRange>;
+  startDates?: Maybe<Array<DateRange>>;
+  deadlines?: Maybe<Array<DateRange>>;
 };
 
 export enum TeamRight {
@@ -8594,8 +8594,8 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Notification' } & Pick<
             Notification,
-            'id' | 'type' | 'receiver' | 'isRead' | 'isDeleted' | 'description' | 'dateCreated'
-          >
+            'id' | 'type' | 'isRead' | 'isDeleted' | 'description' | 'dateCreated'
+          > & { receiver: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'isAdmin' | 'isActive'> }
         >
       >;
     }
@@ -10233,8 +10233,7 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
 export type GetTasksQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+  deadlines?: Maybe<Array<DateRange>>;
   sortColumn: Scalars['String'];
   sortDirection: SortDirection;
 }>;
@@ -10276,8 +10275,7 @@ export type GetTasksFullSummaryQuery = { __typename?: 'Query' } & {
 export type GetTasksSummaryByStatusQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   assignees?: Maybe<Array<Scalars['ID']>>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
+  deadlines?: Maybe<Array<DateRange>>;
 }>;
 
 export type GetTasksSummaryByStatusQuery = { __typename?: 'Query' } & {
@@ -14587,7 +14585,12 @@ export const GetNotificationsDocument = gql`
       items {
         id
         type
-        receiver
+        receiver {
+          id
+          email
+          isAdmin
+          isActive
+        }
         isRead
         isDeleted
         description
@@ -17096,13 +17099,12 @@ export const GetTasksDocument = gql`
   query GetTasks(
     $search: String
     $assignees: [ID!]
-    $from: Date
-    $to: Date
+    $deadlines: [DateRange!]
     $sortColumn: String!
     $sortDirection: SortDirection!
   ) {
     getTasks(
-      filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }
+      filters: { search: $search, assignees: $assignees, deadlines: $deadlines }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
       items {
@@ -17166,8 +17168,8 @@ export type GetTasksFullSummaryQueryResult = ApolloReactCommon.QueryResult<
   GetTasksFullSummaryQueryVariables
 >;
 export const GetTasksSummaryByStatusDocument = gql`
-  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $from: Date, $to: Date) {
-    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadline: { from: $from, to: $to } }) {
+  query GetTasksSummaryByStatus($search: String, $assignees: [ID!], $deadlines: [DateRange!]) {
+    getTasksSummaryByStatus(filters: { search: $search, assignees: $assignees, deadlines: $deadlines }) {
       todo
       inProgress
       blocked

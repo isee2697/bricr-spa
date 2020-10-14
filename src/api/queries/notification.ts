@@ -6,7 +6,12 @@ export const GET_NOTIFICATIONS = gql`
       items {
         id
         type
-        receiver
+        receiver {
+          id
+          email
+          isAdmin
+          isActive
+        }
         isRead
         isDeleted
         description

@@ -1,8 +1,9 @@
 import EuroIcon from '@material-ui/icons/Euro';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { Chip } from '@material-ui/core';
+import { AnyObject } from 'final-form';
 
 import { DevelopmentType, PricingType, PropertyType } from 'api/types';
 import { BuildingIcon, NewConstructionIcon } from 'ui/atoms/icons';
@@ -73,9 +74,50 @@ const filters: FiltersTypes[] = [
   },
 ];
 
-export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, activeTab, filterAmount }: FilterProps) => {
+export const Filters = ({
+  data,
+  isOpened,
+  onClose,
+  onSubmit,
+  onTabChange,
+  activeTab,
+  filterAmount,
+  onDeleteFilter,
+}: FilterProps) => {
   const { formatMessage } = useLocale();
+  const [defaultFilters] = useState(filters);
   const classes = useStyles();
+
+  const AmountChip =
+    filterAmount && filterAmount > 0 ? (
+      <Chip label={filterAmount} size="small" color="primary" className={classes.titleBadge} />
+    ) : null;
+
+  const handleDeleteFilter = (deletedFilter: FiltersTypes, values: AnyObject) => {
+    if (values) {
+      delete values[deletedFilter.key];
+      onDeleteFilter(values);
+    }
+  };
+
+  const handleSearch = (targetFilter: FiltersTypes, values: AnyObject, searchValue: string) => {
+    /* NOTE: updating state is breaking the entire app
+     * I have no Idea why
+     */
+    // const filtersCopy = JSON.parse(JSON.stringify(filters));
+    // let newFilters = [];
+    // if (filtersCopy) {
+    //   newFilters = filtersCopy.map((filter: FiltersTypes) => {
+    //     if (filter.options && filter.key === targetFilter.key) {
+    //       filter.options = filter.options.filter((item: CheckboxDataType) =>
+    //         item.label.toLowerCase().includes(searchValue),
+    //       );
+    //     }
+    //     return filter;
+    //   });
+    //   setDefaultFilters(newFilters);
+    // }
+  };
 
   return (
     <Modal
@@ -83,14 +125,16 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
       onClose={onClose}
       title={
         <span>
-          {formatMessage({ id: 'filter.title' })}{' '}
-          <Chip label={filterAmount} size="small" color="primary" className={classes.titleBadge} />
+          {formatMessage({ id: 'filter.title' })} {AmountChip}
         </span>
       }
       isOpened={isOpened}
     >
-      <Form onSubmit={onSubmit} initialValues={data} mutators={{ ...arrayMutators }}>
-        {({ handleSubmit, submitErrors, submitting, valid }) => (
+      <Form
+        onSubmit={onSubmit}
+        initialValues={data}
+        mutators={{ ...arrayMutators }}
+        render={({ handleSubmit, submitErrors, submitting, valid, values }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
               <DialogContent>
@@ -103,10 +147,16 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
               </Grid>
               <Grid item xs={8}>
                 <Box p={3}>
-                  {filters.map((filter, i) => {
+                  {defaultFilters.map((filter, i) => {
                     if (filter.type === Types.Range && filter.options) {
                       return (
-                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel
+                          filterType={filter.type}
+                          key={filter.key}
+                          activeTab={activeTab}
+                          id={i}
+                          onDeleteFilter={() => handleDeleteFilter(filter, values)}
+                        >
                           <>
                             <Range name={filter.key} options={filter.options} suffix={'€'} />
                           </>
@@ -114,7 +164,14 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
                       );
                     } else if (filter.type === Types.Checkbox && filter.options && filter.size) {
                       return (
-                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel
+                          filterType={filter.type}
+                          key={filter.key}
+                          activeTab={activeTab}
+                          id={i}
+                          onDeleteFilter={() => handleDeleteFilter(filter, values)}
+                          onSearch={(value: string) => handleSearch(filter, values, value)}
+                        >
                           <>
                             <CheckboxGroupField
                               options={filter.options}
@@ -127,7 +184,13 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
                       );
                     } else if (filter.type === Types.RadioButton && filter.options && filter.size) {
                       return (
-                        <FilterTabPanel filterType={filter.type} key={filter.key} activeTab={activeTab} id={i}>
+                        <FilterTabPanel
+                          filterType={filter.type}
+                          key={filter.key}
+                          activeTab={activeTab}
+                          id={i}
+                          onDeleteFilter={() => handleDeleteFilter(filter, values)}
+                        >
                           <>
                             <RadioGroupField options={filter.options} name={filter.key} xs={filter.size} />
                           </>
@@ -160,7 +223,7 @@ export const Filters = ({ data, isOpened, onClose, onSubmit, onTabChange, active
             </Grid>
           </form>
         )}
-      </Form>
+      />
     </Modal>
   );
 };
