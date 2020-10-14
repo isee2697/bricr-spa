@@ -4,6 +4,7 @@ export const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
+    cursor: 'pointer',
 
     '&:hover': {
       background: theme.palette.gradientBlue.light,
