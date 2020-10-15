@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { FormSubSectionHeader, Search } from 'ui/molecules';
+import { FormSubSectionHeader, Search, SimpleSearch } from 'ui/molecules';
 import { CheckboxField, CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
@@ -93,6 +93,7 @@ const residenceOptions = [
 ];
 
 export const PeopleForm = () => {
+  const [residence, setResidence] = useState<string>('');
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -101,7 +102,7 @@ export const PeopleForm = () => {
       <FormSection
         title={formatMessage({ id: 'pim_details.sales_settings.people.title' })}
         isExpandable
-        isInitExpanded={true} // TODO: should be false
+        isInitExpanded={false}
       >
         {editing => (
           <Grid className={classes.textFields} container spacing={3}>
@@ -342,6 +343,7 @@ export const PeopleForm = () => {
                   <label>{formatMessage({ id: 'pim_details.sales_settings.people.residence' })}</label>
                 </Box>
                 <Box>
+                  <SimpleSearch onChange={v => setResidence(v.currentTarget.value)} value={residence} />
                   <Search options={residenceOptions} fullWidth />
                 </Box>
               </Box>

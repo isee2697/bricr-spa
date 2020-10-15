@@ -10,6 +10,8 @@ import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMa
 import { FormSubSectionHeader } from 'ui/molecules';
 import { SquareIcon } from 'ui/atoms/icons';
 
+import { ReOrderableList } from './ReorderableList';
+
 const allocationCheckboxes = [
   {
     label: 'dictionaries.allocation.Allocation',
@@ -45,7 +47,7 @@ export const CriteriaTypeForm = () => {
       <FormSection
         title={formatMessage({ id: 'pim_details.sales_settings.criteria_type.title' })}
         isExpandable
-        isInitExpanded={false}
+        isInitExpanded={true} // TODO set to false
       >
         {editing => (
           <Grid className={classes.textFields} container spacing={3}>
@@ -291,7 +293,7 @@ export const CriteriaTypeForm = () => {
                   />
                 </Box>
                 <Box px={2}>
-                  <p>Order</p>
+                  <ReOrderableList />
                 </Box>
               </Box>
             </Grid>
