@@ -5,6 +5,8 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   taskLabelIcon: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
     verticalAlign: 'middle',
   },
 }));

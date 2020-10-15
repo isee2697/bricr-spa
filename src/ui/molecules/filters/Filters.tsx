@@ -33,7 +33,7 @@ enum Types {
 
 const filters: FiltersTypes[] = [
   {
-    key: 'price_range',
+    key: 'pricingRange',
     type: Types.Range,
     size: Sizes.L,
     options: [
@@ -95,7 +95,14 @@ export const Filters = ({
 
   const handleDeleteFilter = (deletedFilter: FiltersTypes, values: AnyObject) => {
     if (values) {
-      delete values[deletedFilter.key];
+      if (values[deletedFilter.key + '_from']) {
+        delete values[deletedFilter.key + '_from'];
+      } else if (values[deletedFilter.key + '_to']) {
+        delete values[deletedFilter.key + '_to'];
+      } else {
+        delete values[deletedFilter.key];
+      }
+
       onDeleteFilter(values);
     }
   };
