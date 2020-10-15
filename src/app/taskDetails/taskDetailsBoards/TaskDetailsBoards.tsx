@@ -15,7 +15,7 @@ export const TaskDetailsBoards = ({ task, user, members, onUpdateTask }: TaskDet
   return (
     <Grid container spacing={3} className={classes.root}>
       <Grid item xs={12} md={8}>
-        <TaskDetailsBoardsHeading task={task} />
+        <TaskDetailsBoardsHeading task={task} onUpdateTask={onUpdateTask} />
         <TaskDetailsBoardsDescriptionContainer task={task} />
         <TaskDetailsBoardsLogContainer task={task} />
       </Grid>

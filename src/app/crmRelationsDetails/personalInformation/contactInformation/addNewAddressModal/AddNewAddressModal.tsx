@@ -3,9 +3,9 @@ import React from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { RadioGroupField } from 'form/fields';
-import { AddressType } from '../addresses/Addresses.types';
 import { SquareIcon } from 'ui/atoms/icons';
 import { FormModal } from 'ui/organisms';
+import { ContactAddressType } from 'api/types';
 
 import { AddNewAddressModalProps } from './AddNewAddressModal.types';
 
@@ -17,7 +17,7 @@ export const AddNewAddressModal = ({ isOpened, onSubmit }: AddNewAddressModalPro
     close('add-new-address');
   };
 
-  const addressTypes = Object.keys(AddressType).map(addressType => ({
+  const addressTypes = Object.keys(ContactAddressType).map(addressType => ({
     label: `dictionaries.contact_information.address_type.${addressType}`,
     icon: <SquareIcon />,
     value: addressType,

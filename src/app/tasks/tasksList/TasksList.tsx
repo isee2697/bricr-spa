@@ -104,8 +104,8 @@ export const TasksList = ({ tasks }: TasksListProps) => {
         {tasks.map((task, index) => {
           const labelId = `tasks-list-checkbox-${index}`;
           const { title, status, taskIndex, assigneeDetail, deadline } = task;
-          const deadlineDate = DateTime.fromISO(deadline);
-          const hoursLeft = Math.round(deadlineDate.diffNow('hours').hours);
+          const deadlineDate = deadline && DateTime.fromISO(deadline);
+          const hoursLeft = deadlineDate && Math.round(deadlineDate.diffNow('hours').hours);
 
           return (
             <TableRow key={index}>
@@ -123,10 +123,15 @@ export const TasksList = ({ tasks }: TasksListProps) => {
               </TableCell>
               <TableCell>{`BRICR-${taskIndex}`}</TableCell>
               <TableCell>
-                {hoursLeft < 0 && '-'}
-                {hoursLeft >= 24 && formatMessage({ id: 'tasks.days_left' }, { daysLeft: Math.floor(hoursLeft / 24) })}
-                {hoursLeft >= 1 && hoursLeft < 24 && formatMessage({ id: 'tasks.hours_left' }, { hoursLeft })}
-                {hoursLeft === 0 && (
+                {(!hoursLeft || hoursLeft < 0) && '-'}
+                {hoursLeft &&
+                  hoursLeft >= 24 &&
+                  formatMessage({ id: 'tasks.days_left' }, { daysLeft: Math.floor(hoursLeft / 24) })}
+                {hoursLeft &&
+                  hoursLeft >= 1 &&
+                  hoursLeft < 24 &&
+                  formatMessage({ id: 'tasks.hours_left' }, { hoursLeft })}
+                {hoursLeft && hoursLeft === 0 && (
                   <span className={classes.orange}>{formatMessage({ id: 'tasks.less_than_one_hour' })}</span>
                 )}
               </TableCell>
