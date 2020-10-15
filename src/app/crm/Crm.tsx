@@ -8,7 +8,6 @@ import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
-import { useModalDispatch, useModalState } from 'hooks';
 
 import { CrmItem, CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
@@ -17,15 +16,12 @@ import { CrmSidebarMenu } from './crmSidebarMenu/CrmSidebarMenu';
 import { CrmActionTabs } from './crmActionTabs/CrmActionTabs';
 import { CrmSubHeader } from './crmSubHeader/CrmSubHeader';
 import { CrmListItem } from './crmListItem/CrmListItem';
-import { AddRelationModal } from './addRelationModal/AddRelationModal';
 
 export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const { push } = useHistory();
-  const { close } = useModalDispatch();
-  const { isOpen: isModalOpened } = useModalState('add-relation');
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -46,7 +42,7 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
 
   return (
     <>
-      <Grid container spacing={0}>
+      <Grid container>
         <CrmSidebarMenu
           type={type}
           onTypeChange={onTypeChange}
@@ -104,12 +100,6 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
           </Grid>
         </Box>
       </Grid>
-      <AddRelationModal
-        isOpened={isModalOpened}
-        onClose={() => close('add-relation')}
-        onCreateNewRelation={() => {}}
-        onRequestBricrData={() => {}}
-      />
     </>
   );
 };
