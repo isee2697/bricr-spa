@@ -9,8 +9,7 @@ import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { SquareIcon } from 'ui/atoms/icons';
-
-import { ReOrderableList } from './ReorderableList';
+import { ReorderableList } from '../reorderableList/ReorderableList';
 
 const allocationCheckboxes = [
   {
@@ -293,7 +292,7 @@ export const CriteriaTypeForm = () => {
                   />
                 </Box>
                 <Box px={2}>
-                  <ReOrderableList />
+                  <ReorderableList />
                 </Box>
               </Box>
             </Grid>
