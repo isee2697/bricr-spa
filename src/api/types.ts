@@ -1150,6 +1150,22 @@ export enum CalendarTypes {
   Task = 'Task',
 }
 
+export type AppointmentTerm = {
+  __typename?: 'AppointmentTerm';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export enum AppointmentRepeat {
+  NoRepeat = 'NoRepeat',
+  Daily = 'Daily',
+  WorkDays = 'WorkDays',
+  Weekly = 'Weekly',
+  Monthly = 'Monthly',
+  Hourly = 'Hourly',
+  Yearly = 'Yearly',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',

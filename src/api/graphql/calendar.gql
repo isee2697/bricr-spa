@@ -6,3 +6,18 @@ enum CalendarTypes {
   Private
   Task
 }
+
+type AppointmentTerm {
+  from: Date
+  to: Date
+}
+
+enum AppointmentRepeat {
+    NoRepeat
+    Daily
+    WorkDays
+    Weekly
+    Monthly
+    Hourly
+    Yearly
+}

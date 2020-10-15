@@ -6,7 +6,7 @@ import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typograp
 import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { requireValidator } from 'form/validators';
-import { GenericField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
+import { GenericField, MembersDropdownField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { TeamMemberItem } from 'app/tasks/Tasks.types';
@@ -42,19 +42,6 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
   const handleClose = () => {
     close('create-new-task');
   };
-
-  const assignees: DropdownItem[] = showMembers.map((member: TeamMemberItem, index: number) => ({
-    label: (
-      <span className={classes.assignee}>
-        <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} className={classes.assigneeAvatar} />
-        <span>
-          {member?.firstName} {member?.lastName}
-          {member.id === user?.id && ` (${formatMessage({ id: 'tasks.members.me' })})`}
-        </span>
-      </span>
-    ),
-    value: member?.id,
-  }));
 
   const labels: DropdownItem[] = [
     {
@@ -135,9 +122,9 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               </Grid>
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <DropdownField
+                  <MembersDropdownField
                     validate={[requireValidator]}
-                    items={assignees}
+                    members={showMembers}
                     placeholder="tasks.create_new.details.assignee.placeholder"
                     name="assignee"
                     label="tasks.create_new.details.assignee.label"
@@ -146,7 +133,7 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
                   <Typography
                     variant="h5"
                     onClick={() => {
-                      form.change('assignee', assignees[0].value);
+                      form.change('assignee', user?.id);
                     }}
                     className={classes.assignToMeButton}
                   >

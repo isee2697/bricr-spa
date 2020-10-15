@@ -1,5 +1,5 @@
-import { AppointmentModel } from '@devexpress/dx-react-scheduler';
+import { Profile } from 'api/types';
 
 export type CalendarProps = {
-  data: AppointmentModel[];
+  data: Profile[];
 };
