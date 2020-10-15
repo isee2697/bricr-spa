@@ -54,9 +54,11 @@ export const AdvancedSearch = ({
 
   return (
     <Box className={clsx(classes.root, hasFocus && 'selected')}>
-      <Typography variant="h6" className={clsx(classes.label, hasFocus && 'selected')}>
-        {label}
-      </Typography>
+      {label && (
+        <Typography variant="h6" className={clsx(classes.label, hasFocus && 'selected')}>
+          {label}
+        </Typography>
+      )}
       <Autocomplete
         {...props}
         onChange={(event: React.ChangeEvent<{}>, value: AdvancedSearchItem | null) => {

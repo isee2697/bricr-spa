@@ -10,7 +10,7 @@ export type AdvancedSearch = {
 };
 
 interface AdvancedSearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
-  label: string;
+  label?: string;
   options: T[];
   hasFocus?: boolean;
   setFocus?: (value: boolean) => void;
