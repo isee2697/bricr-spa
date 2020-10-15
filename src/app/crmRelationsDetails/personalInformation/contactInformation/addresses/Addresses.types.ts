@@ -1,28 +1,10 @@
-import { DateTime } from 'luxon';
+import { CrmAddress, CrmContactInformation } from 'api/types';
 
-export type AddressesProps = {};
-
-export type AddressItem = {
-  key: AddressType;
-  country: string;
-  city: string;
-  zipCode: string;
-  street: string;
-  houseNumber: string;
-  addition: string;
-  extraAddressInformation: string;
-  addressAvailableDate: DateTime;
-  note: string;
+export type AddressesProps = {
+  data: CrmContactInformation;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
-export enum AddressType {
-  HomeAddress = 'HomeAddress',
-  SalesAddress = 'SalesAddress',
-  MailingAddress = 'MailingAddress',
-  VisitingAddress = 'VisitingAddress',
-  BillingAddress = 'BillingAddress',
-  FutureAddress = 'FutureAddress',
-  PreviousAddress = 'PreviousAddress',
-  SecondAddress = 'SecondAddress',
-  Custom = 'Custom',
-}
+export type AddressItem = CrmAddress & {
+  key: string;
+};

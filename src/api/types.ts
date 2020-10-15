@@ -152,6 +152,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateCrmGeneral?: Maybe<CrmGeneral>;
+  updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -594,6 +595,10 @@ export type MutationUpdateCrmGeneralArgs = {
   input: UpdateCrmGeneralInput;
 };
 
+export type MutationUpdateCrmContactInformationArgs = {
+  input: UpdateCrmContactInformationInput;
+};
+
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
 };
@@ -865,6 +870,7 @@ export type Query = {
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getCrmGeneral?: Maybe<CrmGeneral>;
+  getCrmContactInformation?: Maybe<CrmContactInformation>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -928,6 +934,10 @@ export type QueryGetChangesHistoryArgs = {
 };
 
 export type QueryGetCrmGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmContactInformationArgs = {
   id: Scalars['ID'];
 };
 
@@ -1411,6 +1421,129 @@ export type UpdateCrmGeneralInput = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+};
+
+export enum ContactAddressType {
+  HomeAddress = 'HomeAddress',
+  SalesAddress = 'SalesAddress',
+  MailingAddress = 'MailingAddress',
+  VisitingAddress = 'VisitingAddress',
+  BillingAddress = 'BillingAddress',
+  FutureAddress = 'FutureAddress',
+  PreviousAddress = 'PreviousAddress',
+  SecondAddress = 'SecondAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactPhoneNumberType {
+  MobileNumber = 'MobileNumber',
+  PrivateNumber = 'PrivateNumber',
+  BusinessNumber = 'BusinessNumber',
+  FaxNumber = 'FaxNumber',
+  Custom = 'Custom',
+}
+
+export enum ContactEmailAddressType {
+  AddressForMatches = 'AddressForMatches',
+  AddressForInvoices = 'AddressForInvoices',
+  Private = 'Private',
+  Business = 'Business',
+  PreviousAddress = 'PreviousAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactSocialMediaType {
+  Facebook = 'Facebook',
+  Twitter = 'Twitter',
+  LinkedIn = 'LinkedIn',
+  Custom = 'Custom',
+}
+
+export type CrmContactInformation = {
+  __typename?: 'CrmContactInformation';
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddress>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddress>>;
+  socialMedia?: Maybe<Array<CrmSocialMedia>>;
+};
+
+export type UpdateCrmContactInformationInput = {
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddressInput>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
+  socialMedia?: Maybe<Array<CrmSocialMediaInput>>;
+};
+
+export type CrmAddress = {
+  __typename?: 'CrmAddress';
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumber = {
+  __typename?: 'CrmPhoneNumber';
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddress = {
+  __typename?: 'CrmEmailAddress';
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMedia = {
+  __typename?: 'CrmSocialMedia';
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
+};
+
+export type CrmAddressInput = {
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumberInput = {
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddressInput = {
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMediaInput = {
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
 };
 
 export type Energy = {
@@ -6879,6 +7012,46 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type UpdateCrmContactInformationMutationVariables = Exact<{
+  input: UpdateCrmContactInformationInput;
+}>;
+
+export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & {
+  updateCrmContactInformation?: Maybe<
+    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+        addresses?: Maybe<
+          Array<
+            { __typename?: 'CrmAddress' } & Pick<
+              CrmAddress,
+              | 'type'
+              | 'street'
+              | 'houseNumber'
+              | 'addition'
+              | 'zipcode'
+              | 'city'
+              | 'country'
+              | 'extraInformation'
+              | 'availableFrom'
+              | 'note'
+            >
+          >
+        >;
+        emailAddresses?: Maybe<
+          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+        >;
+        phoneNumbers?: Maybe<
+          Array<
+            { __typename?: 'CrmPhoneNumber' } & Pick<
+              CrmPhoneNumber,
+              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+            >
+          >
+        >;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+      }
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8210,6 +8383,46 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
+};
+
+export type GetCrmContactInformationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
+  getCrmContactInformation?: Maybe<
+    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+        addresses?: Maybe<
+          Array<
+            { __typename?: 'CrmAddress' } & Pick<
+              CrmAddress,
+              | 'type'
+              | 'street'
+              | 'houseNumber'
+              | 'addition'
+              | 'zipcode'
+              | 'city'
+              | 'country'
+              | 'extraInformation'
+              | 'availableFrom'
+              | 'note'
+            >
+          >
+        >;
+        emailAddresses?: Maybe<
+          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+        >;
+        phoneNumbers?: Maybe<
+          Array<
+            { __typename?: 'CrmPhoneNumber' } & Pick<
+              CrmPhoneNumber,
+              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+            >
+          >
+        >;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
       }
   >;
 };
@@ -10653,6 +10866,61 @@ export type UpdateCrmGeneralMutationResult = ApolloReactCommon.MutationResult<Up
 export type UpdateCrmGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmGeneralMutation,
   UpdateCrmGeneralMutationVariables
+>;
+export const UpdateCrmContactInformationDocument = gql`
+  mutation UpdateCrmContactInformation($input: UpdateCrmContactInformationInput!) {
+    updateCrmContactInformation(input: $input) {
+      id
+      addresses {
+        type
+        street
+        houseNumber
+        addition
+        zipcode
+        city
+        country
+        extraInformation
+        availableFrom
+        note
+      }
+      emailAddresses {
+        type
+        email
+        availableFrom
+        note
+      }
+      phoneNumbers {
+        type
+        countryCode
+        phoneNumber
+        availableFrom
+        note
+      }
+      socialMedia {
+        type
+        url
+      }
+    }
+  }
+`;
+export function useUpdateCrmContactInformationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmContactInformationMutation,
+    UpdateCrmContactInformationMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateCrmContactInformationMutation,
+    UpdateCrmContactInformationMutationVariables
+  >(UpdateCrmContactInformationDocument, baseOptions);
+}
+export type UpdateCrmContactInformationMutationHookResult = ReturnType<typeof useUpdateCrmContactInformationMutation>;
+export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.MutationResult<
+  UpdateCrmContactInformationMutation
+>;
+export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmContactInformationMutation,
+  UpdateCrmContactInformationMutationVariables
 >;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
@@ -13904,6 +14172,70 @@ export function useGetCrmGeneralLazyQuery(
 export type GetCrmGeneralQueryHookResult = ReturnType<typeof useGetCrmGeneralQuery>;
 export type GetCrmGeneralLazyQueryHookResult = ReturnType<typeof useGetCrmGeneralLazyQuery>;
 export type GetCrmGeneralQueryResult = ApolloReactCommon.QueryResult<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>;
+export const GetCrmContactInformationDocument = gql`
+  query GetCrmContactInformation($id: ID!) {
+    getCrmContactInformation(id: $id) {
+      id
+      addresses {
+        type
+        street
+        houseNumber
+        addition
+        zipcode
+        city
+        country
+        extraInformation
+        availableFrom
+        note
+      }
+      emailAddresses {
+        type
+        email
+        availableFrom
+        note
+      }
+      phoneNumbers {
+        type
+        countryCode
+        phoneNumber
+        availableFrom
+        note
+      }
+      socialMedia {
+        type
+        url
+      }
+    }
+  }
+`;
+export function useGetCrmContactInformationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetCrmContactInformationQuery,
+    GetCrmContactInformationQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetCrmContactInformationQuery, GetCrmContactInformationQueryVariables>(
+    GetCrmContactInformationDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmContactInformationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetCrmContactInformationQuery,
+    GetCrmContactInformationQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmContactInformationQuery, GetCrmContactInformationQueryVariables>(
+    GetCrmContactInformationDocument,
+    baseOptions,
+  );
+}
+export type GetCrmContactInformationQueryHookResult = ReturnType<typeof useGetCrmContactInformationQuery>;
+export type GetCrmContactInformationLazyQueryHookResult = ReturnType<typeof useGetCrmContactInformationLazyQuery>;
+export type GetCrmContactInformationQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmContactInformationQuery,
+  GetCrmContactInformationQueryVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {
