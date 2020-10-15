@@ -106,6 +106,7 @@ export type Mutation = {
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   createCompany: Company;
+  createCrm: CrmGeneral;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
@@ -150,6 +151,8 @@ export type Mutation = {
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
+  updateCrmGeneral?: Maybe<CrmGeneral>;
+  updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -407,6 +410,10 @@ export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
 
+export type MutationCreateCrmArgs = {
+  input: CreateCrmInput;
+};
+
 export type MutationCreateEmailAddressArgs = {
   input: CreateEmailAddressInput;
 };
@@ -582,6 +589,14 @@ export type MutationUpdateCadastreMapArgs = {
 
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
+};
+
+export type MutationUpdateCrmGeneralArgs = {
+  input: UpdateCrmGeneralInput;
+};
+
+export type MutationUpdateCrmContactInformationArgs = {
+  input: UpdateCrmContactInformationInput;
 };
 
 export type MutationUpdateDescriptionArgs = {
@@ -854,6 +869,8 @@ export type Query = {
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
+  getCrmGeneral?: Maybe<CrmGeneral>;
+  getCrmContactInformation?: Maybe<CrmContactInformation>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -914,6 +931,14 @@ export type QueryGetBulkDetailsArgs = {
 
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetCrmGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmContactInformationArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetLabelsArgs = {
@@ -1297,6 +1322,230 @@ export type CostsDetails = LastUpdated & {
   lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
+export enum PreferredLanguageType {
+  Dutch = 'Dutch',
+  English = 'English',
+  Polish = 'Polish',
+  German = 'German',
+  French = 'French',
+  Italian = 'Italian',
+  Spanish = 'Spanish',
+  Portuguese = 'Portuguese',
+}
+
+export enum PreferredTitlePrefixType {
+  Dr = 'Dr',
+  Mr = 'Mr',
+  Ir = 'Ir',
+  Ing = 'Ing',
+  Drs = 'Drs',
+}
+
+export enum PreferredTitleSuffixType {
+  Msc = 'Msc',
+  Ma = 'MA',
+  Mre = 'MRE',
+  Mba = 'MBA',
+  Bc = 'Bc',
+}
+
+export enum PreferredLetterSalutationType {
+  Family = 'Family',
+  Lord = 'Lord',
+  Mylady = 'Mylady',
+  LordMylady = 'LordMylady',
+}
+
+export type CrmGeneral = {
+  __typename?: 'CrmGeneral';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+};
+
+export type CrmIdentificationNumber = {
+  __typename?: 'CrmIdentificationNumber';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CrmIdentificationNumberInput = {
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CreateCrmInput = {
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+};
+
+export type UpdateCrmGeneralInput = {
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  avatarId?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+};
+
+export enum ContactAddressType {
+  HomeAddress = 'HomeAddress',
+  SalesAddress = 'SalesAddress',
+  MailingAddress = 'MailingAddress',
+  VisitingAddress = 'VisitingAddress',
+  BillingAddress = 'BillingAddress',
+  FutureAddress = 'FutureAddress',
+  PreviousAddress = 'PreviousAddress',
+  SecondAddress = 'SecondAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactPhoneNumberType {
+  MobileNumber = 'MobileNumber',
+  PrivateNumber = 'PrivateNumber',
+  BusinessNumber = 'BusinessNumber',
+  FaxNumber = 'FaxNumber',
+  Custom = 'Custom',
+}
+
+export enum ContactEmailAddressType {
+  AddressForMatches = 'AddressForMatches',
+  AddressForInvoices = 'AddressForInvoices',
+  Private = 'Private',
+  Business = 'Business',
+  PreviousAddress = 'PreviousAddress',
+  Custom = 'Custom',
+}
+
+export enum ContactSocialMediaType {
+  Facebook = 'Facebook',
+  Twitter = 'Twitter',
+  LinkedIn = 'LinkedIn',
+  Custom = 'Custom',
+}
+
+export type CrmContactInformation = {
+  __typename?: 'CrmContactInformation';
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddress>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumber>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddress>>;
+  socialMedia?: Maybe<Array<CrmSocialMedia>>;
+};
+
+export type UpdateCrmContactInformationInput = {
+  id: Scalars['ID'];
+  addresses?: Maybe<Array<CrmAddressInput>>;
+  phoneNumbers?: Maybe<Array<CrmPhoneNumberInput>>;
+  emailAddresses?: Maybe<Array<CrmEmailAddressInput>>;
+  socialMedia?: Maybe<Array<CrmSocialMediaInput>>;
+};
+
+export type CrmAddress = {
+  __typename?: 'CrmAddress';
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumber = {
+  __typename?: 'CrmPhoneNumber';
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddress = {
+  __typename?: 'CrmEmailAddress';
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMedia = {
+  __typename?: 'CrmSocialMedia';
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
+};
+
+export type CrmAddressInput = {
+  type: ContactAddressType;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  addition?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  extraInformation?: Maybe<Scalars['String']>;
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmPhoneNumberInput = {
+  type: ContactPhoneNumberType;
+  countryCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmEmailAddressInput = {
+  type: ContactEmailAddressType;
+  email: Scalars['String'];
+  availableFrom?: Maybe<Scalars['Date']>;
+  note?: Maybe<Scalars['String']>;
+};
+
+export type CrmSocialMediaInput = {
+  type: ContactSocialMediaType;
+  url: Scalars['String'];
+};
+
 export type Energy = {
   __typename?: 'Energy';
   label?: Maybe<EnergyType>;
@@ -1425,6 +1674,7 @@ export enum EntityWithFiles {
   ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
   ProjectPhase = 'ProjectPhase',
   Profile = 'Profile',
+  Crm = 'Crm',
 }
 
 export enum EntityWithMultipleFiles {
@@ -6727,6 +6977,81 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type UpdateCrmGeneralMutationVariables = Exact<{
+  input: UpdateCrmGeneralInput;
+}>;
+
+export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
+  updateCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
+};
+
+export type UpdateCrmContactInformationMutationVariables = Exact<{
+  input: UpdateCrmContactInformationInput;
+}>;
+
+export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & {
+  updateCrmContactInformation?: Maybe<
+    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+        addresses?: Maybe<
+          Array<
+            { __typename?: 'CrmAddress' } & Pick<
+              CrmAddress,
+              | 'type'
+              | 'street'
+              | 'houseNumber'
+              | 'addition'
+              | 'zipcode'
+              | 'city'
+              | 'country'
+              | 'extraInformation'
+              | 'availableFrom'
+              | 'note'
+            >
+          >
+        >;
+        emailAddresses?: Maybe<
+          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+        >;
+        phoneNumbers?: Maybe<
+          Array<
+            { __typename?: 'CrmPhoneNumber' } & Pick<
+              CrmPhoneNumber,
+              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+            >
+          >
+        >;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+      }
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8025,6 +8350,81 @@ export type BulkDetailsQueryVariables = Exact<{
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
+export type GetCrmGeneralQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
+  getCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
+};
+
+export type GetCrmContactInformationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
+  getCrmContactInformation?: Maybe<
+    { __typename?: 'CrmContactInformation' } & Pick<CrmContactInformation, 'id'> & {
+        addresses?: Maybe<
+          Array<
+            { __typename?: 'CrmAddress' } & Pick<
+              CrmAddress,
+              | 'type'
+              | 'street'
+              | 'houseNumber'
+              | 'addition'
+              | 'zipcode'
+              | 'city'
+              | 'country'
+              | 'extraInformation'
+              | 'availableFrom'
+              | 'note'
+            >
+          >
+        >;
+        emailAddresses?: Maybe<
+          Array<{ __typename?: 'CrmEmailAddress' } & Pick<CrmEmailAddress, 'type' | 'email' | 'availableFrom' | 'note'>>
+        >;
+        phoneNumbers?: Maybe<
+          Array<
+            { __typename?: 'CrmPhoneNumber' } & Pick<
+              CrmPhoneNumber,
+              'type' | 'countryCode' | 'phoneNumber' | 'availableFrom' | 'note'
+            >
+          >
+        >;
+        socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
+      }
+  >;
 };
 
 export type GetLabelsQueryVariables = Exact<{
@@ -10419,6 +10819,109 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const UpdateCrmGeneralDocument = gql`
+  mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
+    updateCrmGeneral(input: $input) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useUpdateCrmGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>(
+    UpdateCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmGeneralMutationHookResult = ReturnType<typeof useUpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmGeneralMutation,
+  UpdateCrmGeneralMutationVariables
+>;
+export const UpdateCrmContactInformationDocument = gql`
+  mutation UpdateCrmContactInformation($input: UpdateCrmContactInformationInput!) {
+    updateCrmContactInformation(input: $input) {
+      id
+      addresses {
+        type
+        street
+        houseNumber
+        addition
+        zipcode
+        city
+        country
+        extraInformation
+        availableFrom
+        note
+      }
+      emailAddresses {
+        type
+        email
+        availableFrom
+        note
+      }
+      phoneNumbers {
+        type
+        countryCode
+        phoneNumber
+        availableFrom
+        note
+      }
+      socialMedia {
+        type
+        url
+      }
+    }
+  }
+`;
+export function useUpdateCrmContactInformationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmContactInformationMutation,
+    UpdateCrmContactInformationMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateCrmContactInformationMutation,
+    UpdateCrmContactInformationMutationVariables
+  >(UpdateCrmContactInformationDocument, baseOptions);
+}
+export type UpdateCrmContactInformationMutationHookResult = ReturnType<typeof useUpdateCrmContactInformationMutation>;
+export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.MutationResult<
+  UpdateCrmContactInformationMutation
+>;
+export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmContactInformationMutation,
+  UpdateCrmContactInformationMutationVariables
+>;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
     deleteEntity(input: $input) {
@@ -13619,6 +14122,120 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const GetCrmGeneralDocument = gql`
+  query getCrmGeneral($id: ID!) {
+    getCrmGeneral(id: $id) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useGetCrmGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(GetCrmGeneralDocument, baseOptions);
+}
+export function useGetCrmGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(
+    GetCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type GetCrmGeneralQueryHookResult = ReturnType<typeof useGetCrmGeneralQuery>;
+export type GetCrmGeneralLazyQueryHookResult = ReturnType<typeof useGetCrmGeneralLazyQuery>;
+export type GetCrmGeneralQueryResult = ApolloReactCommon.QueryResult<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>;
+export const GetCrmContactInformationDocument = gql`
+  query GetCrmContactInformation($id: ID!) {
+    getCrmContactInformation(id: $id) {
+      id
+      addresses {
+        type
+        street
+        houseNumber
+        addition
+        zipcode
+        city
+        country
+        extraInformation
+        availableFrom
+        note
+      }
+      emailAddresses {
+        type
+        email
+        availableFrom
+        note
+      }
+      phoneNumbers {
+        type
+        countryCode
+        phoneNumber
+        availableFrom
+        note
+      }
+      socialMedia {
+        type
+        url
+      }
+    }
+  }
+`;
+export function useGetCrmContactInformationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetCrmContactInformationQuery,
+    GetCrmContactInformationQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useQuery<GetCrmContactInformationQuery, GetCrmContactInformationQueryVariables>(
+    GetCrmContactInformationDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmContactInformationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetCrmContactInformationQuery,
+    GetCrmContactInformationQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmContactInformationQuery, GetCrmContactInformationQueryVariables>(
+    GetCrmContactInformationDocument,
+    baseOptions,
+  );
+}
+export type GetCrmContactInformationQueryHookResult = ReturnType<typeof useGetCrmContactInformationQuery>;
+export type GetCrmContactInformationLazyQueryHookResult = ReturnType<typeof useGetCrmContactInformationLazyQuery>;
+export type GetCrmContactInformationQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmContactInformationQuery,
+  GetCrmContactInformationQueryVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {
