@@ -3,9 +3,19 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
-    padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
+    cursor: 'pointer',
+
+    '&:hover': {
+      background: theme.palette.gradientBlue.light,
+    },
+
+    '&.dragging': {
+      display: 'none',
+    },
+  },
+  card: {
+    paddingBottom: theme.spacing(1.5),
   },
   expireInfo: {
     color: theme.palette.gray.main,

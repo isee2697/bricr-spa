@@ -22,8 +22,8 @@ type Task {
   taskIndex: Int!
   title: String!
   assignee: ID!
-  startDate: Date!
-  deadline: Date!
+  startDate: Date
+  deadline: Date
   priority: TaskPriority!
   label: TaskLabel!
   status: TaskStatus!
@@ -52,8 +52,8 @@ type TaskSearchResult {
 input CreateTaskInput {
   title: String!
   assignee: ID!
-  startDate: Date!
-  deadline: Date!
+  startDate: Date
+  deadline: Date
   priority: TaskPriority!
   label: TaskLabel!
 }
