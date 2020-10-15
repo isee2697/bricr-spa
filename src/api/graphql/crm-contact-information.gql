@@ -1,0 +1,126 @@
+
+enum ContactAddressType {
+  HomeAddress,
+  SalesAddress,
+  MailingAddress,
+  VisitingAddress,
+  BillingAddress,
+  FutureAddress,
+  PreviousAddress,
+  SecondAddress,
+  Custom
+}
+
+enum ContactPhoneNumberType {
+  MobileNumber,
+  PrivateNumber,
+  BusinessNumber,
+  FaxNumber,
+  Custom
+}
+
+enum ContactEmailAddressType {
+  AddressForMatches,
+  AddressForInvoices,
+  Private,
+  Business,
+  PreviousAddress
+  Custom
+}
+
+enum ContactSocialMediaType {
+  Facebook,
+  Twitter,
+  LinkedIn,
+  Custom
+}
+
+type CrmContactInformation {
+  id: ID!
+  addresses: [CrmAddress!]
+  phoneNumbers: [CrmPhoneNumber!]
+  emailAddresses: [CrmEmailAddress!]
+  socialMedia: [CrmSocialMedia!]
+}
+
+input UpdateCrmContactInformationInput {
+  id: ID!
+  addresses: [CrmAddressInput!]
+  phoneNumbers: [CrmPhoneNumberInput!]
+  emailAddresses: [CrmEmailAddressInput!]
+  socialMedia: [CrmSocialMediaInput!]
+}
+
+type CrmAddress {
+  type: ContactAddressType!
+  street: String
+  houseNumber: Int
+  addition: String
+  zipcode: String
+  city: String
+  country: String
+  extraInformation: String
+  availableFrom: Date
+  note: String
+}
+
+type CrmPhoneNumber {
+  type: ContactPhoneNumberType!
+  countryCode: String!
+  phoneNumber: String!
+  availableFrom: Date
+  note: String
+}
+
+type CrmEmailAddress {
+  type: ContactEmailAddressType!
+  email: String!
+  availableFrom: Date
+  note: String
+}
+
+type CrmSocialMedia {
+  type: ContactSocialMediaType!
+  url: String!
+}
+
+input CrmAddressInput {
+  type: ContactAddressType!
+  street: String
+  houseNumber: Int
+  addition: String
+  zipcode: String
+  city: String
+  country: String
+  extraInformation: String
+  availableFrom: Date
+  note: String
+}
+
+input CrmPhoneNumberInput {
+  type: ContactPhoneNumberType!
+  countryCode: String!
+  phoneNumber: String!
+  availableFrom: Date
+  note: String
+}
+
+input CrmEmailAddressInput {
+  type: ContactEmailAddressType!
+  email: String!
+  availableFrom: Date
+  note: String
+}
+
+input CrmSocialMediaInput {
+  type: ContactSocialMediaType!
+  url: String!
+}
+
+extend type Mutation {
+  updateCrmContactInformation(input: UpdateCrmContactInformationInput!): CrmContactInformation @auth
+}
+
+extend type Query {
+  getCrmContactInformation(id: ID!): CrmContactInformation @auth
+}

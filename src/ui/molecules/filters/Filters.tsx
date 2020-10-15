@@ -33,7 +33,7 @@ enum Types {
 
 const filters: FiltersTypes[] = [
   {
-    key: 'price_range',
+    key: 'pricingRange',
     type: Types.Range,
     size: Sizes.L,
     options: [
