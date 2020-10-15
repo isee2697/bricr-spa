@@ -74,7 +74,11 @@ export const Moments = () => {
               <Grid item xs={12}>
                 <Box mb={4}>
                   <Box mb={3} px={2}>
-                    <FormSubSectionHeader noBorder title="general settings" subtitle="Choose one option below" />
+                    <FormSubSectionHeader
+                      noBorder
+                      title={formatMessage({ id: `${baseName}.general.settings.title` })}
+                      subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                    />
                   </Box>
                   <Box px={2}>
                     <RadioGroupField
@@ -96,6 +100,7 @@ export const Moments = () => {
                       placeholder={formatMessage({ id: `${baseName}.viewing_amount.placeholder` })}
                       size="medium"
                       type="number"
+                      disabled={!editing}
                     />
                   </Box>
                 </Box>
