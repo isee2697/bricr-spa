@@ -19,12 +19,17 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing() + 'px',
     flex: 1,
     userSelect: 'none',
-    pointerEvents: 'none',
+
+    '& .MuiFormControlLabel-root': {
+      display: 'flex',
+      flexDirection: 'row-reverse',
+      justifyContent: 'space-between',
+      margin: 0,
+    },
   },
   itemCounter: {
     marginBottom: theme.spacing(2) + 'px',
     marginRight: theme.spacing(2),
-    pointerEvents: 'none',
     '& .MuiChip-label': {
       padding: 0,
     },
