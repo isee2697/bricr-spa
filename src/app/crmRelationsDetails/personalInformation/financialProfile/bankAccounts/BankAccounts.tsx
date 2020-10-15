@@ -23,11 +23,11 @@ export const BankAccounts = () => {
 
   const handleAddNewBankAccount: PromiseFunction<AddNewBankAccountBody> = async ({ bankAccountType }) => {
     try {
-      const typeIndex: number = bankAccounts.filter(account => account.key === bankAccountType).length + 1;
+      const typeIndex: number = bankAccounts.filter(account => account.type === bankAccountType).length + 1;
       setBankAccounts([
         ...bankAccounts,
         {
-          key: bankAccountType,
+          type: bankAccountType,
           typeIndex,
           title: `${formatMessage({
             id: `dictionaries.financial_profile.bank_account_type.${bankAccountType}`,
@@ -53,7 +53,7 @@ export const BankAccounts = () => {
   const initialValues = bankAccounts.reduce((accu, currentValue) => {
     return {
       ...accu,
-      [`${currentValue.key}${currentValue.typeIndex}`]: {
+      [`${currentValue.type}${currentValue.typeIndex}`]: {
         ...currentValue,
       },
     };
@@ -119,7 +119,7 @@ export const BankAccounts = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${bankAccount.key + bankAccount.typeIndex}.accountNumber`}
+                            name={`${bankAccount.type + bankAccount.typeIndex}.accountNumber`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.bank_accounts.account_number_placeholder"
                           />
@@ -134,7 +134,7 @@ export const BankAccounts = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${bankAccount.key + bankAccount.typeIndex}.bic`}
+                            name={`${bankAccount.type + bankAccount.typeIndex}.bic`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.bank_accounts.bic"
                           />
@@ -149,7 +149,7 @@ export const BankAccounts = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${bankAccount.key + bankAccount.typeIndex}.iban`}
+                            name={`${bankAccount.type + bankAccount.typeIndex}.iban`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.bank_accounts.iban"
                           />
@@ -164,7 +164,7 @@ export const BankAccounts = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${bankAccount.key + bankAccount.typeIndex}.swift`}
+                            name={`${bankAccount.type + bankAccount.typeIndex}.swift`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.bank_accounts.swift"
                           />
@@ -190,7 +190,7 @@ export const BankAccounts = () => {
                         </Typography>
                       </Box>
                       <RadioGroupField
-                        name={`${bankAccount.key + bankAccount.typeIndex}.purpose`}
+                        name={`${bankAccount.type + bankAccount.typeIndex}.purpose`}
                         options={bankAccountPurposes}
                       />
                     </Box>

@@ -33,7 +33,7 @@ export const IncomeInformation = () => {
       setIncomeInformationItems([
         ...incomeInformationItems,
         {
-          key: incomeInformationType,
+          type: incomeInformationType,
         },
       ]);
 
@@ -50,7 +50,7 @@ export const IncomeInformation = () => {
   const initialValues = incomeInformationItems.reduce((accu, currentValue) => {
     return {
       ...accu,
-      [currentValue.key]: {
+      [currentValue.type]: {
         ...currentValue,
       },
     };
@@ -94,7 +94,7 @@ export const IncomeInformation = () => {
                         </Typography>
                         <Typography variant="h3" className={classes.incomeInformationTitle}>
                           {formatMessage({
-                            id: `dictionaries.financial_profile.income_information.${incomeInformation.key}`,
+                            id: `dictionaries.financial_profile.income_information.${incomeInformation.type}`,
                           })}
                         </Typography>
                       </>
@@ -102,11 +102,11 @@ export const IncomeInformation = () => {
                     onOptionsClick={() => {}}
                   >
                     <Box>
-                      {incomeInformation.key === IncomeInformationType.Employer && <Employer isEditing={isEditing} />}
-                      {incomeInformation.key === IncomeInformationType.IncomeFromEquity && <IncomeEquity />}
-                      {incomeInformation.key === IncomeInformationType.Pension && <Pension />}
-                      {incomeInformation.key === IncomeInformationType.SocialBenefit && <SocialBenefit />}
-                      {incomeInformation.key === IncomeInformationType.Entrepreneur && <Entrepreneur />}
+                      {incomeInformation.type === IncomeInformationType.Employer && <Employer isEditing={isEditing} />}
+                      {incomeInformation.type === IncomeInformationType.IncomeFromEquity && <IncomeEquity />}
+                      {incomeInformation.type === IncomeInformationType.Pension && <Pension />}
+                      {incomeInformation.type === IncomeInformationType.SocialBenefit && <SocialBenefit />}
+                      {incomeInformation.type === IncomeInformationType.Entrepreneur && <Entrepreneur />}
                     </Box>
                   </FormSubSection>
                 ))}

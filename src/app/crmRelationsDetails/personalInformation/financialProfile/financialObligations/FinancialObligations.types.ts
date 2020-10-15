@@ -1,7 +1,7 @@
 export type FinancialObligationsProps = {};
 
 export type FinancialObligation = {
-  key: FinancialObligationType;
+  type: FinancialObligationType;
   typeIndex: number;
   title: string;
   kindOfObligation: KindOfObligation;

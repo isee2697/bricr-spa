@@ -23,11 +23,11 @@ export const FinancialObligations = () => {
 
   const handleAddNewObligation: PromiseFunction<AddNewFinancialObligationBody> = async ({ obligationType }) => {
     try {
-      const typeIndex: number = obligations.filter(obligation => obligation.key === obligationType).length + 1;
+      const typeIndex: number = obligations.filter(obligation => obligation.type === obligationType).length + 1;
       setObligations([
         ...obligations,
         {
-          key: obligationType,
+          type: obligationType,
           typeIndex,
           title: `${formatMessage({
             id: `dictionaries.financial_profile.financial_obligation_type.${obligationType}`,
@@ -51,7 +51,7 @@ export const FinancialObligations = () => {
   const initialValues = obligations.reduce((accu, currentValue) => {
     return {
       ...accu,
-      [`${currentValue.key}${currentValue.typeIndex}`]: {
+      [`${currentValue.type}${currentValue.typeIndex}`]: {
         ...currentValue,
       },
     };
@@ -127,7 +127,7 @@ export const FinancialObligations = () => {
                       </Box>
                       <RadioGroupField
                         disabled={!isEditing}
-                        name={`${obligation.key + obligation.typeIndex}.kindOfObligation`}
+                        name={`${obligation.type + obligation.typeIndex}.kindOfObligation`}
                         options={kindOfObligations}
                       />
                       <Grid container spacing={1} className={classes.obligationInfo}>
@@ -139,7 +139,7 @@ export const FinancialObligations = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${obligation.key + obligation.typeIndex}.obligation`}
+                            name={`${obligation.type + obligation.typeIndex}.obligation`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.financial_obligations.obligation"
                           />
@@ -153,7 +153,7 @@ export const FinancialObligations = () => {
                           </Typography>
                           <GenericField
                             className={classes.formField}
-                            name={`${obligation.key + obligation.typeIndex}.extraInformation`}
+                            name={`${obligation.type + obligation.typeIndex}.extraInformation`}
                             disabled={!isEditing}
                             placeholder="crm.details.personal_information_financial_profile.financial_obligations.extra_information"
                           />

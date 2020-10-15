@@ -1,7 +1,7 @@
 export type BankAccountsProps = {};
 
 export type BankAccount = {
-  key: BankAccountType;
+  type: BankAccountType;
   typeIndex: number;
   title: string;
   accountNumber: string;

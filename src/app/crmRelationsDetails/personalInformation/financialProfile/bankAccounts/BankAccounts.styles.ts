@@ -11,7 +11,7 @@ export const useStyles = makeStyles(theme => ({
     color: theme.palette.gray.main,
     fontWeight: theme.typography.fontWeightMedium,
     borderRadius: theme.spacing(3),
-    border: `2px solid ${theme.palette.gray.light}`,
+    border: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     width: theme.spacing(3),
     height: theme.spacing(3),
     lineHeight: `${theme.spacing(3)}px`,

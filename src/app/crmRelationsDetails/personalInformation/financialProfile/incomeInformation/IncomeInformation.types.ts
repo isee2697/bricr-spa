@@ -1,7 +1,7 @@
 import { Profile } from 'api/types';
 
 export type IncomeInformationItem = {
-  key: IncomeInformationType;
+  type: IncomeInformationType;
   employer?: {
     profession: string;
     user: Profile;
