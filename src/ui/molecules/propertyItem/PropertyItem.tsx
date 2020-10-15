@@ -8,7 +8,7 @@ import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { PropertyStage } from '..';
+import { PropertyStage } from 'ui/molecules';
 
 import { PropertyItemProps } from './PropertyItem.types';
 import { useStyles } from './PropertyItem.styles';
