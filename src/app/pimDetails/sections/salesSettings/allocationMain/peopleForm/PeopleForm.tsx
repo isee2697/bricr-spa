@@ -3,8 +3,8 @@ import React from 'react';
 import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { FormSubSectionHeader } from 'ui/molecules';
-import { CheckboxGroupField, GenericField } from 'form/fields';
+import { FormSubSectionHeader, Search } from 'ui/molecules';
+import { CheckboxField, CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { PercentIcon, SquareIcon } from 'ui/atoms/icons';
@@ -30,6 +30,66 @@ const homeSituationCheckboxes = [
     icon: <SquareIcon color="inherit" />,
     value: 'FreeSectorRentalHome',
   },
+];
+
+const employementCheckboxes = [
+  {
+    label: 'dictionaries.employment.IncomeFromEquity',
+    icon: <SquareIcon color="inherit" />,
+    value: 'IncomeFromEquity',
+  },
+  {
+    label: 'dictionaries.employment.SalariedEmployment',
+    icon: <SquareIcon color="inherit" />,
+    value: 'SalariedEmployment',
+  },
+  {
+    label: 'dictionaries.employment.Entrepreneur',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Entrepreneur',
+  },
+  {
+    label: 'dictionaries.employment.Benefits',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Benefits',
+  },
+  {
+    label: 'dictionaries.employment.None',
+    icon: <SquareIcon color="inherit" />,
+    value: 'None',
+  },
+];
+
+const rolesCheckboxes = [
+  {
+    label: 'dictionaries.roles.Renevation',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Renevation',
+  },
+  {
+    label: 'dictionaries.roles.Candidate',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Candidate',
+  },
+  {
+    label: 'dictionaries.roles.Optant',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Optant',
+  },
+  {
+    label: 'dictionaries.roles.Tenant',
+    icon: <SquareIcon color="inherit" />,
+    value: 'Tenant',
+  },
+];
+
+const residenceOptions = [
+  { title: 'Stationstraat 25, Amsterdam', type: 'Property' },
+  { title: 'The Software House', type: 'Email', subline: 'Marcin Piela', date: new Date() },
+  { title: 'CubicEyes', type: 'Email', subline: 'Christian van Gils', date: new Date() },
+  { title: 'Amsterdam bezichtiging inpannen', type: 'Note', date: new Date() },
+  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
+  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
 ];
 
 export const PeopleForm = () => {
@@ -242,6 +302,7 @@ export const PeopleForm = () => {
                     validate={[() => ({ id: 'common.error' })]}
                     name="home_situation"
                     options={homeSituationCheckboxes}
+                    disabled={!editing}
                   />
                 </Box>
 
@@ -275,7 +336,16 @@ export const PeopleForm = () => {
               </Box>
             </Grid>
 
-            {/* TODO add current residence search */}
+            <Grid item xs={12}>
+              <Box mb={4} px={2}>
+                <Box mb={2}>
+                  <label>{formatMessage({ id: 'pim_details.sales_settings.people.residence' })}</label>
+                </Box>
+                <Box>
+                  <Search options={residenceOptions} fullWidth />
+                </Box>
+              </Box>
+            </Grid>
 
             <Grid item xs={12}>
               <Box mb={4}>
@@ -286,11 +356,59 @@ export const PeopleForm = () => {
                     subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                   />
                 </Box>
-                <Box mb={2} px={2}>
-                  <CheckboxGroupField
+                <Box px={2}>
+                  <RadioGroupField
                     validate={[() => ({ id: 'common.error' })]}
                     name="employment_type_1"
-                    options={homeSituationCheckboxes}
+                    options={employementCheckboxes}
+                    disabled={!editing}
+                  />
+                </Box>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Box mb={4}>
+                <Box mb={3} px={2}>
+                  <FormSubSectionHeader
+                    noBorder
+                    title={formatMessage({ id: 'pim_details.sales_settings.people.employment_second_person' })}
+                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  />
+                </Box>
+                <Box px={2}>
+                  <RadioGroupField
+                    validate={[() => ({ id: 'common.error' })]}
+                    name="employment_type_2"
+                    options={employementCheckboxes}
+                    disabled={!editing}
+                  />
+                </Box>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Box mb={4}>
+                <Box mb={3} px={2}>
+                  <FormSubSectionHeader
+                    noBorder
+                    title={formatMessage({ id: 'pim_details.sales_settings.people.persons_role' })}
+                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                  />
+                </Box>
+                <Box mb={2} px={2}>
+                  <RadioGroupField
+                    validate={[() => ({ id: 'common.error' })]}
+                    name="employment_type_2"
+                    options={rolesCheckboxes}
+                    disabled={!editing}
+                  />
+                </Box>
+                <Box px={2}>
+                  <CheckboxField
+                    name="assign_max_calculated_joint_income"
+                    label="pim_details.sales_settings.criteria_type.assign_max_calculated_joint_income"
+                    disabled={!editing}
                   />
                 </Box>
               </Box>

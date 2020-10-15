@@ -63,6 +63,7 @@ export const CriteriaTypeForm = () => {
                     validate={[() => ({ id: 'common.error' })]}
                     name="type"
                     options={allocationCheckboxes}
+                    disabled={!editing}
                   />
                 </Box>
               </Box>
@@ -130,6 +131,7 @@ export const CriteriaTypeForm = () => {
                       label="pim_details.sales_settings.criteria_type.assigned_candidates"
                       min={0}
                       max={99}
+                      disabled={!editing}
                     />
                   </Grid>
                 </Box>
@@ -198,6 +200,7 @@ export const CriteriaTypeForm = () => {
                     validate={[() => ({ id: 'common.error' })]}
                     name="published_externally"
                     options={publishMethodCheckboxes}
+                    disabled={!editing}
                   />
                 </Box>
               </Box>
@@ -227,12 +230,14 @@ export const CriteriaTypeForm = () => {
                       <DatePickerField
                         name="registration_from"
                         label="pim_details.sales_settings.criteria_type.registration_from"
+                        disabled={!editing}
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <DatePickerField
                         name="registration_to"
                         label="pim_details.sales_settings.criteria_type.registration_to"
+                        disabled={!editing}
                       />
                     </Grid>
                   </Grid>
@@ -241,6 +246,7 @@ export const CriteriaTypeForm = () => {
                   <CheckboxField
                     name="assign_to_people_with_property"
                     label="pim_details.sales_settings.criteria_type.assign_to_people_with_property"
+                    disabled={!editing}
                   />
                 </Box>
               </Box>
@@ -261,6 +267,7 @@ export const CriteriaTypeForm = () => {
                       label="pim_details.sales_settings.criteria_type.number_of_missing_documents"
                       min={0}
                       max={99}
+                      disabled={!editing}
                     />
                   </Grid>
                 </Box>
@@ -268,6 +275,7 @@ export const CriteriaTypeForm = () => {
                   <CheckboxField
                     name="only_accepted_documents"
                     label="pim_details.sales_settings.criteria_type.only_accepted_documents"
+                    disabled={!editing}
                   />
                 </Box>
               </Box>
