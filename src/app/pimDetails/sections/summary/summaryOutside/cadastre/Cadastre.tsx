@@ -1,11 +1,11 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-
 import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { Map as EsriMap } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { EuroIcon } from 'ui/atoms/icons';
 import { LeaseDurationType, LeaseholderType, LeaseInformationType, OwnershipType } from 'api/types';
+import { leaseholder } from '../../../cadastre/plot/dictionaries';
 
 import { useStyles } from './Cadastre.styles';
 import { CadastreProps } from './Cadastre.types';
@@ -17,12 +17,25 @@ export const Cadastre = ({ plots }: CadastreProps) => {
   const totalSurface = plots.reduce((sum, { surface }) => {
     return sum + (surface || 0);
   }, 0);
-  const typesOfOwnership = plots.map(plot => plot.ownershipType || OwnershipType.Leased).join(', ');
-  const leaseholders = plots.map(plot => plot.lease?.leaseholder || LeaseholderType.Different).join(', ');
-  const leaseInformation = plots.map(plot => plot.lease?.information || LeaseInformationType.Fixed).join(', ');
-  const leaseDuration = plots.map(plot => plot.lease?.duration || LeaseDurationType.Constantly).join(', ');
+  const typesOfOwnership = plots
+    .map(plot => plot.ownershipType)
+    .filter(ownershipType => !!ownershipType)
+    .join(', ');
+  const leaseholders = plots
+    .map(plot => plot.lease?.leaseholder)
+    .filter(leaseholder => !!leaseholder)
+    .join(', ');
+  const leaseInformation = plots
+    .map(plot => plot.lease?.information)
+    .filter(info => !!info)
+    .join(', ');
+  const leaseDuration = plots
+    .map(plot => plot.lease?.duration)
+    .filter(duration => !!duration)
+    .join(', ');
   const leaseEndDate = plots
     .map(plot => plot.lease?.endDate)
+    .filter(endDate => !!endDate)
     .map(endDate =>
       endDate ? DateTime.fromISO(endDate as string).toFormat('dd-MM-yyyy') : DateTime.local().toFormat('dd-MM-yyyy'),
     )
@@ -30,9 +43,13 @@ export const Cadastre = ({ plots }: CadastreProps) => {
   const leasePriceYear = plots.reduce((sum, { lease }) => {
     return sum + (lease?.yearlyPrice || 0);
   }, 0);
-  const leaseShare = plots.map(plot => plot.share || 0).join('/');
+  const leaseShare = plots
+    .map(plot => plot.share)
+    .filter(share => !!share)
+    .join('/');
   const boughtOffDate = plots
     .map(plot => plot.boughtOff?.date)
+    .filter(date => !!date)
     .map(date =>
       date ? DateTime.fromISO(date as string).toFormat('dd-MM-yyyy') : DateTime.local().toFormat('dd-MM-yyyy'),
     )
