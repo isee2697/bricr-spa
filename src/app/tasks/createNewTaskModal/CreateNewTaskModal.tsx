@@ -12,11 +12,13 @@ import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { TeamMemberItem } from '../Tasks.types';
 import { TaskPriority, TaskLabel } from 'api/types';
 import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 
 import { CreateNewTaskModalProps, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
 import { useStyles } from './CreateNewTaskModal.styles';
 
 export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNewTaskModalProps) => {
+  const { user } = useAuthState();
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
@@ -38,9 +40,9 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
     close('create-new-task');
   };
 
-  const assignees: AdvancedSearchItem[] = members.map((member: TeamMemberItem, index: number) => ({
+  const assignees: AdvancedSearchItem[] = members.map((member: TeamMemberItem) => ({
     label: `${member?.firstName} ${member?.lastName} ${
-      index === 0 ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
+      member.id === user?.id ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
     }`,
     value: member?.id,
     icon: <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />,
