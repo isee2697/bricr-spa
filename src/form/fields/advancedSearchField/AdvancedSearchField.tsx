@@ -3,11 +3,12 @@ import { useField } from 'react-final-form';
 
 import { useLocale } from 'hooks';
 import { validatorsChain } from 'form/validators';
-import { SelectBox, FormControl, InputLabel, FormHelperText } from 'ui/atoms';
+import { FormControl, InputLabel, FormHelperText } from 'ui/atoms';
+import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
 
-import { DropdownFieldProps } from './DropdownField.types';
+import { AdvancedSearchFieldProps } from './AdvancedSearchField.types';
 
-export const DropdownField = ({
+export const AdvancedSearchField = ({
   label,
   placeholder,
   name,
@@ -16,7 +17,7 @@ export const DropdownField = ({
   disabled,
   margin,
   ...props
-}: DropdownFieldProps) => {
+}: AdvancedSearchFieldProps) => {
   const { formatMessage } = useLocale();
 
   const { input, meta } = useField(name, {
@@ -34,10 +35,10 @@ export const DropdownField = ({
       <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
         {formatMessage({ id: label })}
       </InputLabel>
-      <SelectBox
+      <AdvancedSearch
         value={input.value}
         onChange={input.onChange}
-        placeholder={formatMessage({ id: placeholder })}
+        placeholder={placeholder}
         disabled={disabled}
         {...props}
       />

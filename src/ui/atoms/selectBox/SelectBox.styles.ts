@@ -3,49 +3,25 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   root: {
     position: 'relative',
-    '& *': {
-      userSelect: 'none',
-    },
   },
   input: {
-    position: 'relative',
     cursor: 'pointer',
-    padding: spacing(1.5),
+    paddingLeft: spacing(2),
+    paddingRight: spacing(1),
+    backgroundColor: palette.gray.light,
     borderRadius: spacing(1),
-    '&.isOpened': {
-      background: palette.white.main,
-    },
     '&.disabled': {
       cursor: 'default',
-      background: 'rgba(243, 245, 250, .5)',
+      background: palette.white.light,
     },
-  },
-  label: {
-    marginBottom: spacing(0.5),
   },
   inputInner: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: spacing(6),
     width: '100%',
     borderRadius: spacing(1),
-  },
-  searchField: {
-    border: `1px solid ${palette.primary.main}`,
-    borderRadius: spacing(1),
-    height: spacing(4),
-    paddingLeft: spacing(0.5),
-    paddingRight: spacing(0.5),
-    width: '100%',
-    background: palette.gray.light,
-  },
-  searchFieldInput: {
-    '&:before': {
-      content: 'none',
-    },
-    '&:after': {
-      content: 'none',
-    },
   },
   value: {
     fontSize: typography.h4.fontSize,
@@ -57,14 +33,18 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       color: palette.info.dark,
     },
   },
+  reversedArrow: {
+    transform: 'rotate(180deg)',
+    transition: 'all 0.2s',
+  },
   popper: {
     width: '100%',
     zIndex: 1500,
   },
   menu: {
-    borderRadius: spacing(1),
+    backgroundColor: palette.gray.light,
     marginTop: spacing(0.5),
-    background: palette.white.main,
+    borderRadius: spacing(1),
   },
   item: {
     cursor: 'pointer',
@@ -72,11 +52,10 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: spacing(7),
-    color: palette.gray.main,
+    color: palette.black.main,
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
-    paddingLeft: spacing(2),
-    paddingRight: spacing(2),
+    padding: spacing(0, 2),
 
     '&.alignLeft': {
       justifyContent: 'flex-start',
@@ -92,28 +71,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     },
     '&:hover': {
       background: palette.gray.light,
-    },
-  },
-  itemContent: {
-    height: '100%',
-    borderBottom: `2px solid ${palette.gray.light}`,
-
-    '&.selected': {
-      borderBottom: 'none',
-    },
-    '&.last': {
-      borderBottom: 'none',
-    },
-  },
-  itemLabelWrapper: {
-    height: spacing(4),
-  },
-  itemLabel: {
-    marginLeft: spacing(1),
-  },
-  itemLabelPart: {
-    '&.highlight': {
-      color: palette.red.main,
     },
   },
   blue: {
