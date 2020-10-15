@@ -17,10 +17,10 @@ export const TaskDetailsUpdateModal = ({ isOpen, task, onUpdateTask, onClose }: 
   const classes = useStyles();
 
   const initialValues = {
-    startDate: DateTime.fromISO(task.startDate),
-    startTime: DateTime.fromISO(task.startDate),
-    deadlineDate: DateTime.fromISO(task.deadline),
-    deadlineTime: DateTime.fromISO(task.deadline),
+    startDate: task.startDate ? DateTime.fromISO(task.startDate) : new DateTime(),
+    startTime: task.startDate ? DateTime.fromISO(task.startDate) : new DateTime(),
+    deadlineDate: task.deadline ? DateTime.fromISO(task.deadline) : new DateTime(),
+    deadlineTime: task.deadline ? DateTime.fromISO(task.deadline) : new DateTime(),
     priority: task.priority,
   };
 

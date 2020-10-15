@@ -45,26 +45,28 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
   const { push } = useHistory();
 
   const { id, taskIndex, title, assigneeDetail, deadline, label, priority, isUpdating } = task;
-  const deadlineDate = DateTime.fromISO(deadline);
-  const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
+  const deadlineDate = deadline && DateTime.fromISO(deadline);
+  const remainingMinutes = deadlineDate && Math.floor(deadlineDate.diffNow('minutes').minutes);
   const expireInfo =
-    tab === TasksTab.Overdue
-      ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
-      : Math.abs(remainingMinutes) < 60 * 24
-      ? Math.abs(remainingMinutes) < 60
-        ? formatMessage({ id: 'tasks.less_than_one_hour' })
+    deadlineDate && remainingMinutes
+      ? tab === TasksTab.Overdue
+        ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
+        : Math.abs(remainingMinutes) < 60 * 24
+        ? Math.abs(remainingMinutes) < 60
+          ? formatMessage({ id: 'tasks.less_than_one_hour' })
+          : formatMessage(
+              { id: 'tasks.details.remainingHours' },
+              {
+                hours: Math.floor(remainingMinutes / 60),
+              },
+            )
         : formatMessage(
-            { id: 'tasks.details.remainingHours' },
+            { id: 'tasks.details.remainingDays' },
             {
-              hours: Math.floor(remainingMinutes / 60),
+              days: Math.floor(remainingMinutes / 60 / 24),
             },
           )
-      : formatMessage(
-          { id: 'tasks.details.remainingDays' },
-          {
-            days: Math.floor(remainingMinutes / 60 / 24),
-          },
-        );
+      : '-';
 
   return (
     <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
@@ -77,7 +79,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
               className={clsx(
                 classes.expireInfo,
                 tab === TasksTab.Overdue && 'overdue',
-                remainingMinutes < 60 && 'lessThanOneHour',
+                remainingMinutes && remainingMinutes < 60 && 'lessThanOneHour',
               )}
             >
               {expireInfo}

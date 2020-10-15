@@ -6563,8 +6563,8 @@ export type Task = {
   taskIndex: Scalars['Int'];
   title: Scalars['String'];
   assignee: Scalars['ID'];
-  startDate: Scalars['Date'];
-  deadline: Scalars['Date'];
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
   label: TaskLabel;
   status: TaskStatus;
@@ -6596,8 +6596,8 @@ export type TaskSearchResult = {
 export type CreateTaskInput = {
   title: Scalars['String'];
   assignee: Scalars['ID'];
-  startDate: Scalars['Date'];
-  deadline: Scalars['Date'];
+  startDate?: Maybe<Scalars['Date']>;
+  deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
   label: TaskLabel;
 };
