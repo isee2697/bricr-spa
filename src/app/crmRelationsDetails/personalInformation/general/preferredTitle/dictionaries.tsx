@@ -6,27 +6,27 @@ export const prefixes = [
   {
     label: 'crm.details.personal_information_general.preferred_title.dr',
     icon: <SquareIcon color="inherit" />,
-    value: 'dr',
+    value: 'Dr',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.mr',
     icon: <SquareIcon color="inherit" />,
-    value: 'mr',
+    value: 'Mr',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.ir',
     icon: <SquareIcon color="inherit" />,
-    value: 'ir',
+    value: 'Ir',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.ing',
     icon: <SquareIcon color="inherit" />,
-    value: 'ing',
+    value: 'Ing',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.drs',
     icon: <SquareIcon color="inherit" />,
-    value: 'drs',
+    value: 'Drs',
   },
 ];
 
@@ -34,27 +34,27 @@ export const suffixes = [
   {
     label: 'crm.details.personal_information_general.preferred_title.msc',
     icon: <SquareIcon color="inherit" />,
-    value: 'msc',
+    value: 'Msc',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.ma',
     icon: <SquareIcon color="inherit" />,
-    value: 'ma',
+    value: 'MA',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.mre',
     icon: <SquareIcon color="inherit" />,
-    value: 'mre',
+    value: 'MRE',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.mba',
     icon: <SquareIcon color="inherit" />,
-    value: 'mba',
+    value: 'MBA',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.bc',
     icon: <SquareIcon color="inherit" />,
-    value: 'bc',
+    value: 'Bc',
   },
 ];
 
@@ -62,21 +62,21 @@ export const preferredLetterSalutations = [
   {
     label: 'crm.details.personal_information_general.preferred_title.family',
     icon: <SquareIcon color="inherit" />,
-    value: 'family',
+    value: 'Family',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.lord',
     icon: <SquareIcon color="inherit" />,
-    value: 'lord',
+    value: 'Lord',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.mylady',
     icon: <SquareIcon color="inherit" />,
-    value: 'mylady',
+    value: 'Mylady',
   },
   {
     label: 'crm.details.personal_information_general.preferred_title.lord_mylady',
     icon: <SquareIcon color="inherit" />,
-    value: 'lord_mylady',
+    value: 'LordMylady',
   },
 ];

@@ -106,6 +106,7 @@ export type Mutation = {
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   createCompany: Company;
+  createCrm: CrmGeneral;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
   createObjectType: ObjectTypeGeneral;
@@ -150,6 +151,7 @@ export type Mutation = {
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
+  updateCrmGeneral?: Maybe<CrmGeneral>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -407,6 +409,10 @@ export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
 
+export type MutationCreateCrmArgs = {
+  input: CreateCrmInput;
+};
+
 export type MutationCreateEmailAddressArgs = {
   input: CreateEmailAddressInput;
 };
@@ -582,6 +588,10 @@ export type MutationUpdateCadastreMapArgs = {
 
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
+};
+
+export type MutationUpdateCrmGeneralArgs = {
+  input: UpdateCrmGeneralInput;
 };
 
 export type MutationUpdateDescriptionArgs = {
@@ -854,6 +864,7 @@ export type Query = {
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
+  getCrmGeneral?: Maybe<CrmGeneral>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -914,6 +925,10 @@ export type QueryGetBulkDetailsArgs = {
 
 export type QueryGetChangesHistoryArgs = {
   filters?: Maybe<ChangesHistoryFilters>;
+};
+
+export type QueryGetCrmGeneralArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetLabelsArgs = {
@@ -1297,6 +1312,107 @@ export type CostsDetails = LastUpdated & {
   lastEditedBy?: Maybe<LastUpdatedProfile>;
 };
 
+export enum PreferredLanguageType {
+  Dutch = 'Dutch',
+  English = 'English',
+  Polish = 'Polish',
+  German = 'German',
+  French = 'French',
+  Italian = 'Italian',
+  Spanish = 'Spanish',
+  Portuguese = 'Portuguese',
+}
+
+export enum PreferredTitlePrefixType {
+  Dr = 'Dr',
+  Mr = 'Mr',
+  Ir = 'Ir',
+  Ing = 'Ing',
+  Drs = 'Drs',
+}
+
+export enum PreferredTitleSuffixType {
+  Msc = 'Msc',
+  Ma = 'MA',
+  Mre = 'MRE',
+  Mba = 'MBA',
+  Bc = 'Bc',
+}
+
+export enum PreferredLetterSalutationType {
+  Family = 'Family',
+  Lord = 'Lord',
+  Mylady = 'Mylady',
+  LordMylady = 'LordMylady',
+}
+
+export type CrmGeneral = {
+  __typename?: 'CrmGeneral';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+};
+
+export type CrmIdentificationNumber = {
+  __typename?: 'CrmIdentificationNumber';
+  id: Scalars['ID'];
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CrmIdentificationNumberInput = {
+  type: Scalars['String'];
+  number: Scalars['String'];
+};
+
+export type CreateCrmInput = {
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+};
+
+export type UpdateCrmGeneralInput = {
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  avatarId?: Maybe<Scalars['String']>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  preferredLanguage?: Maybe<Scalars['String']>;
+  identification?: Maybe<Scalars['String']>;
+  identificationNumber?: Maybe<Scalars['String']>;
+  identificationIssueCity?: Maybe<Scalars['String']>;
+  identificationIssueDate?: Maybe<Scalars['Date']>;
+  preferredTitlePrefix?: Maybe<Scalars['String']>;
+  preferredTitleSuffix?: Maybe<Scalars['String']>;
+  preferredLetterSalutation?: Maybe<Scalars['String']>;
+  preferredTitleInformation?: Maybe<Scalars['String']>;
+  identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+};
+
 export type Energy = {
   __typename?: 'Energy';
   label?: Maybe<EnergyType>;
@@ -1425,6 +1541,7 @@ export enum EntityWithFiles {
   ObjectTypeProjectMarketing = 'ObjectTypeProjectMarketing',
   ProjectPhase = 'ProjectPhase',
   Profile = 'Profile',
+  Crm = 'Crm',
 }
 
 export enum EntityWithMultipleFiles {
@@ -6727,6 +6844,41 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type UpdateCrmGeneralMutationVariables = Exact<{
+  input: UpdateCrmGeneralInput;
+}>;
+
+export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
+  updateCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8025,6 +8177,41 @@ export type BulkDetailsQueryVariables = Exact<{
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
+export type GetCrmGeneralQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
+  getCrmGeneral?: Maybe<
+    { __typename?: 'CrmGeneral' } & Pick<
+      CrmGeneral,
+      | 'id'
+      | 'firstName'
+      | 'extraNames'
+      | 'insertion'
+      | 'lastName'
+      | 'gender'
+      | 'dateOfBirth'
+      | 'placeOfBirth'
+      | 'nationality'
+      | 'preferredLanguage'
+      | 'identification'
+      | 'identificationNumber'
+      | 'identificationIssueCity'
+      | 'identificationIssueDate'
+      | 'preferredTitlePrefix'
+      | 'preferredTitleSuffix'
+      | 'preferredLetterSalutation'
+      | 'preferredTitleInformation'
+    > & {
+        identificationNumbers?: Maybe<
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+        >;
+        avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+      }
+  >;
 };
 
 export type GetLabelsQueryVariables = Exact<{
@@ -10419,6 +10606,54 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const UpdateCrmGeneralDocument = gql`
+  mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
+    updateCrmGeneral(input: $input) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useUpdateCrmGeneralMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmGeneralMutation, UpdateCrmGeneralMutationVariables>(
+    UpdateCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmGeneralMutationHookResult = ReturnType<typeof useUpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationResult = ApolloReactCommon.MutationResult<UpdateCrmGeneralMutation>;
+export type UpdateCrmGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmGeneralMutation,
+  UpdateCrmGeneralMutationVariables
+>;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
     deleteEntity(input: $input) {
@@ -13619,6 +13854,56 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const GetCrmGeneralDocument = gql`
+  query getCrmGeneral($id: ID!) {
+    getCrmGeneral(id: $id) {
+      id
+      firstName
+      extraNames
+      insertion
+      lastName
+      gender
+      dateOfBirth
+      placeOfBirth
+      nationality
+      preferredLanguage
+      identification
+      identificationNumber
+      identificationIssueCity
+      identificationIssueDate
+      preferredTitlePrefix
+      preferredTitleSuffix
+      preferredLetterSalutation
+      preferredTitleInformation
+      identificationNumbers {
+        type
+        number
+      }
+      avatar {
+        id
+        key
+        fileName
+        url
+      }
+    }
+  }
+`;
+export function useGetCrmGeneralQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(GetCrmGeneralDocument, baseOptions);
+}
+export function useGetCrmGeneralLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>(
+    GetCrmGeneralDocument,
+    baseOptions,
+  );
+}
+export type GetCrmGeneralQueryHookResult = ReturnType<typeof useGetCrmGeneralQuery>;
+export type GetCrmGeneralLazyQueryHookResult = ReturnType<typeof useGetCrmGeneralLazyQuery>;
+export type GetCrmGeneralQueryResult = ApolloReactCommon.QueryResult<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

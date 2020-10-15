@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useLocale } from 'hooks';
 import { Box, Chip } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons';
 
@@ -22,6 +23,7 @@ type ActiveFiltersProps<T> = {
 };
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
+  const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
@@ -32,7 +34,8 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
         deleteIcon={<CloseIcon />}
         label={
           <>
-            <span className={classes.dimmed}>{index}</span> <strong className={classes.filter}>{filter}</strong>
+            <span className={classes.dimmed}>{formatMessage({ id: 'filters.' + index + '.title' })}</span>{' '}
+            <strong className={classes.filter}>{filter}</strong>
           </>
         }
         onDelete={() => onDelete(index, filter)}
