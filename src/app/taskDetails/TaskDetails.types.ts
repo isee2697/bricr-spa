@@ -17,7 +17,7 @@ export type TaskDetailsProps = Pick<GetTaskQueryHookResult, 'error'> & {
     | 'description'
   >;
   breadcrumbs: ReactNode;
-  onUpdateTask: (taskId: string, task: Pick<Task, 'status'>) => void;
+  onUpdateTask: (taskId: string, task: Partial<Task>) => void;
   user: Profile;
   members: Pick<Profile, 'id' | 'firstName' | 'lastName'>[];
 };
