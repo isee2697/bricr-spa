@@ -54,12 +54,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       color: palette.gray.main,
     },
     '&.placeholder': {
-      color: 'rgba(130, 141, 184, .5)',
+      color: palette.info.dark,
     },
-  },
-  reversedArrow: {
-    transform: 'rotate(180deg)',
-    transition: 'all 0.2s',
   },
   popper: {
     width: '100%',
@@ -119,14 +115,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&.highlight': {
       color: palette.red.main,
     },
-  },
-  autocompleteBack: {
-    position: 'fixed',
-    left: 0,
-    top: 0,
-    width: '100vw',
-    height: '100vh',
-    background: `rgba(130, 141, 184, 0.3)`,
   },
   blue: {
     color: palette.primary.main,

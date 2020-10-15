@@ -60,8 +60,6 @@ export const Dropdown = ({ items, placeholder, disabled, value, align, onChange 
           </Grow>
         )}
       </Popper>
-      {/* <Box className={classNames(classes.menu, { isOpened })}>
-      </Box> */}
     </div>
   );
 };

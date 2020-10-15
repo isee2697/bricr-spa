@@ -92,8 +92,6 @@ export const SelectBox = ({
           </Grow>
         )}
       </Popper>
-      {/* <Box className={classNames(propsClasses?.menu, classes.menu, { isOpened })}> */}
-      {/* <Box className={classNames(isOpened && classes.autocompleteBack)} onClick={() => setOpened(false)} /> */}
     </div>
   );
 };
