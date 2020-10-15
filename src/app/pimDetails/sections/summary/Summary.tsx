@@ -7,9 +7,9 @@ import { useEntityType } from 'app/shared/entityType';
 
 import { SummaryProps } from './Summary.types';
 import { SummaryGeneralContainer } from './summaryGeneral/SummaryGeneralContainer';
-import { SummaryInsideContainer } from './summaryInside/SummaryInsideContainer';
 import { SummaryPersonalContainer } from './summaryPersonal/SummaryPersonalContainer';
 import { SummaryOutside } from './summaryOutside/SummaryOutside';
+import { SummaryInside } from './summaryInside/SummaryInside';
 
 export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: SummaryProps) => {
   const { formatMessage } = useLocale();
@@ -35,11 +35,7 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
           path={`${baseUrl}/summary/inside`}
           exact
           render={() => (
-            <SummaryInsideContainer
-              summary={summary}
-              isSidebarVisible={isSidebarVisible}
-              onSidebarOpen={onSidebarOpen}
-            />
+            <SummaryInside summary={summary} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
           )}
         />
         <Route

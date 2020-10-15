@@ -14,7 +14,11 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   detailItem: {
-    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
+
+    '&:last-child': {
+      marginBottom: 0,
+    },
   },
   detailItemLabel: {
     fontWeight: theme.typography.fontWeightMedium,

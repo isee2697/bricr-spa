@@ -6,28 +6,28 @@ import { Button, Grid, Typography } from 'ui/atoms';
 import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
-import { FloorType } from 'api/types';
+import { Space } from 'api/types';
 
 import { SummaryInsideProps } from './SummaryInside.types';
 import { useStyles } from './SummaryInside.styles';
-import { GroundfloorSpaces } from './groundfloorSpaces/GroundfloorSpaces';
-import { Floor } from './floor/Floor';
+import { FloorSpaces } from './floorSpaces/FloorSpaces';
 import { HeatingSources } from './heatingSources/HeatingSources';
 import { HotWaterSupplies } from './hotWaterSupplies/HotWaterSupplies';
 import { AdditionalServices } from './additionalServices/AdditionalServices';
 
-export const SummaryInside = ({
-  floors,
-  heatingSources,
-  hotWaterSupplies,
-  additionalServices,
-  summaryInside,
-  isSidebarVisible,
-  onSidebarOpen,
-}: SummaryInsideProps) => {
+export const SummaryInside = ({ summary, isSidebarVisible, onSidebarOpen }: SummaryInsideProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles(summaryInside);
-  const { address } = summaryInside;
+  const classes = useStyles(summary);
+  const { address, floors, services } = summary;
+
+  const floorSpaces =
+    floors
+      ?.filter(floor => !!floor.spaces)
+      .sort((floor1, floor2) => floor1.level - floor2.level)
+      .map(({ floorType, spaces }) => ({
+        floorType,
+        spaces,
+      })) || [];
 
   return (
     <>
@@ -50,26 +50,19 @@ export const SummaryInside = ({
           <Typography variant="h1" className={classes.fontWeightBold}>
             {formatMessage({ id: 'pim_details.summary.inside.title' })}
           </Typography>
-          <Typography variant="h1" className={clsx(classes.marginTopTwo, classes.fontWeightMedium)}>
+          <Typography variant="h1" className={clsx(classes.marginTopTwo, classes.fontWeightMedium, classes.address)}>
             <BuildingIcon className={classes.addressIcon} color="error" /> {address}
           </Typography>
-          {floors
-            .filter(floor => floor.floorType === FloorType.GroundFloor)
-            .map((floor, index) => (
-              <GroundfloorSpaces key={index} floor={floor} className={classes.groundFloorSpacesSection} />
-            ))}
-          {floors
-            .filter(floor => floor.floorType === FloorType.Floor)
-            .map((floor, index) => (
-              <Floor key={index} floor={floor} />
-            ))}
+          {floorSpaces.map(({ floorType, spaces }, index) => (
+            <FloorSpaces key={index} floorIndex={index} floorType={floorType} spaces={spaces as Space[]} />
+          ))}
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <HeatingSources heatingSources={heatingSources} />
-              <HotWaterSupplies hotWaterSupplies={hotWaterSupplies} />
+              <HeatingSources heatingSources={services?.heatingSources || []} />
+              <HotWaterSupplies hotWaterSupplies={services?.hotWaterSupplies || []} />
             </Grid>
             <Grid item xs={6}>
-              <AdditionalServices additionalServices={additionalServices} />
+              <AdditionalServices additionalServices={services?.additionalServices || []} />
             </Grid>
           </Grid>
         </Grid>

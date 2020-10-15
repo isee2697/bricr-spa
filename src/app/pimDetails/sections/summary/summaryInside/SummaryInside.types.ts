@@ -21,9 +21,5 @@ export type PimSummaryInside = {
 };
 
 export type SummaryInsideProps = PimDetailsSectionProps & {
-  summaryInside: PimSummary;
-  floors: Floor[];
-  heatingSources: PimServices[];
-  hotWaterSupplies: PimServices[];
-  additionalServices: PimServices[];
+  summary: PimSummary;
 };

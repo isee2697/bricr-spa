@@ -1,13 +1,25 @@
 import React from 'react';
 import clsx from 'classnames';
 
-import { KitchenProps } from '../GroundfloorSpaces.types';
-import { Grid, Typography } from '../../../../../../../ui/atoms';
-import { CrmIcon, MeterIcon, MutationIcon, SquareMeterIcon } from '../../../../../../../ui/atoms/icons';
-import { useStyles } from '../GroundfloorSpaces.styles';
-import { useLocale } from '../../../../../../../hooks';
+import { Grid, Typography } from 'ui/atoms';
+import { CubicMeterIcon, MeterIcon, MutationIcon, SquareMeterIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
+import { KitchenProps } from '../FloorSpaces.types';
+import { useStyles } from '../FloorSpaces.styles';
 
-export const Kitchen = ({ space: {} }: KitchenProps) => {
+export const Kitchen = ({
+  space: {
+    constructionYear,
+    type,
+    constructionType: constructionTypes,
+    services,
+    hob,
+    appliances,
+    shape,
+    measurement,
+    serviceHeating,
+  },
+}: KitchenProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -15,56 +27,70 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
     <>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+          {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.year_of_construction' })}
+        </Typography>
+        <Typography variant="h4" className={classes.detailItemValue}>
+          <MutationIcon className={classes.detailItemIcon} /> {constructionYear}
+        </Typography>
+      </Grid>
+      <Grid item xs={4} className={classes.detailItem}>
+        <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.type_of_kitchen' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} />
+          <MutationIcon className={classes.detailItemIcon} />{' '}
+          {formatMessage({ id: `dictionaries.type_of_kitchen.${type}` })}
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.type_of_construction' })}
         </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Dense kitchen
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <CrmIcon className={classes.detailItemIcon} /> Half open kitchen
-        </Typography>
+        {constructionTypes?.map((constructionType, index) => (
+          <Typography key={index} variant="h4" className={classes.detailItemValue}>
+            <MutationIcon className={classes.detailItemIcon} />{' '}
+            {formatMessage({ id: `dictionaries.type_of_construction.${constructionType}` })}
+          </Typography>
+        ))}
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.services' })}
         </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Rectangle
-        </Typography>
+        {services?.map((service, index) => (
+          <Typography key={index} variant="h4" className={classes.detailItemValue}>
+            <MutationIcon className={classes.detailItemIcon} />{' '}
+            {formatMessage({ id: `dictionaries.service.${service}` })}
+          </Typography>
+        ))}
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.kind_of_hob' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Electric hob
+          <MutationIcon className={classes.detailItemIcon} /> {formatMessage({ id: `dictionaries.kind_of_hob.${hob}` })}
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.built_in_appliances' })}
         </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Refrigerator x 1
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Stove x 1
-        </Typography>
+        {appliances?.map((appliance, index) => (
+          <Typography key={index} variant="h4" className={classes.detailItemValue}>
+            <MutationIcon className={classes.detailItemIcon} />{' '}
+            {appliance?.name && formatMessage({ id: `dictionaries.built_in_appliance.${appliance?.name}` })} x{' '}
+            {appliance?.quantity || 0}
+          </Typography>
+        ))}
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.shape_of_room' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Rectangle
+          <MutationIcon className={classes.detailItemIcon} />{' '}
+          {formatMessage({ id: `dictionaries.shape_of_room.${shape}` })}
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
@@ -72,7 +98,7 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.surface' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          453 <SquareMeterIcon className={classes.detailItemIconSmall} />
+          {measurement?.surface} <SquareMeterIcon className={classes.detailItemIcon} />
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
@@ -80,7 +106,7 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.volume' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          Volume <SquareMeterIcon className={classes.detailItemIconSmall} />
+          {measurement?.volume} <CubicMeterIcon className={classes.detailItemIcon} />
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
@@ -88,7 +114,7 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.length' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          12 <MeterIcon className={classes.detailItemIconSmall} />
+          {measurement?.length} <MeterIcon className={classes.detailItemIcon} />
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
@@ -96,7 +122,7 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.width' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          9 <MeterIcon className={classes.detailItemIconSmall} />
+          {measurement?.width} <MeterIcon className={classes.detailItemIcon} />
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
@@ -104,33 +130,19 @@ export const Kitchen = ({ space: {} }: KitchenProps) => {
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.height' })}
         </Typography>
         <Typography variant="h4" className={classes.detailItemValue}>
-          3 <MeterIcon className={classes.detailItemIconSmall} />
+          {measurement?.height} <MeterIcon className={classes.detailItemIcon} />
         </Typography>
       </Grid>
       <Grid item xs={4} className={classes.detailItem}>
         <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
           {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.services_heating' })}
         </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Hot air heating
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> District heating
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Central heating boiler
-        </Typography>
-      </Grid>
-      <Grid item xs={4} className={classes.detailItem}>
-        <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
-          {formatMessage({ id: 'pim_details.summary.inside.groundfloors_spaces.type_of_insolation' })}
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Floor insulation
-        </Typography>
-        <Typography variant="h4" className={classes.detailItemValue}>
-          <MutationIcon className={classes.detailItemIcon} /> Largely double glazing
-        </Typography>
+        {serviceHeating?.map((heating, index) => (
+          <Typography key={index} variant="h4" className={classes.detailItemValue}>
+            <MutationIcon className={classes.detailItemIcon} />{' '}
+            {formatMessage({ id: `dictionaries.service_heating.${heating}` })}
+          </Typography>
+        ))}
       </Grid>
     </>
   );

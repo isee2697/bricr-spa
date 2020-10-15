@@ -1,23 +1,22 @@
 import {
   BathroomSpace,
   BedroomSpace,
-  Floor,
+  FloorType,
   HomeOfficeSpace,
   KitchenSpace,
-  KitchenType,
   LivingRoomSpace,
   OtherSpace,
+  Space,
 } from 'api/types';
 
-export type GroundfloorSpacesProps = {
-  className?: string;
-  floor: Floor;
+export type FloorSpacesProps = {
+  floorIndex: number;
+  floorType: FloorType;
+  spaces: Space[];
 };
 
 export type KitchenProps = {
-  space: KitchenSpace & {
-    kitchenType: KitchenType;
-  };
+  space: KitchenSpace;
 };
 
 export type BathroomProps = {

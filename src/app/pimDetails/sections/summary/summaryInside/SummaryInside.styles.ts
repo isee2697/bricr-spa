@@ -18,6 +18,9 @@ export const useStyles = makeStyles(theme => ({
     backgroundRepeat: 'no-repeat',
     padding: theme.spacing(2, 3),
   },
+  address: {
+    marginBottom: theme.spacing(29),
+  },
   addressIcon: {
     borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.red.light,
@@ -25,9 +28,6 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
     verticalAlign: 'middle',
-  },
-  groundFloorSpacesSection: {
-    marginTop: theme.spacing(29),
   },
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,

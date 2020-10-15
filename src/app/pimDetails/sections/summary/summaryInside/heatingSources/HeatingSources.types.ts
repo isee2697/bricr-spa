@@ -1,5 +1,5 @@
-import { PimServices } from 'api/types';
+import { Service } from 'api/types';
 
 export type HeatingSourcesProps = {
-  heatingSources: PimServices[];
+  heatingSources: Service[];
 };
