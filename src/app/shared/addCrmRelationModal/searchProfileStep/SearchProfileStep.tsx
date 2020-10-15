@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import { AddRelationStepProps } from '../AddRelationModal.types';
+import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { SubmitButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { useStyles } from '../AddRelationModal.styles';
+import { useStyles } from '../AddCrmRelationModal.styles';
 import { Button, DialogActions, Box, DialogContent, TextField, InputAdornment, Typography } from 'ui/atoms';
 import { AddIcon, SearchIcon, UserIcon } from 'ui/atoms/icons';
 import { CheckboxGroupField } from 'form/fields';
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
 
-export const SearchProfileStep = ({ onClose, onCreateNewRelation, onNext }: AddRelationStepProps) => {
+export const SearchProfileStep = ({ onClose, onCreateNewRelation, onNext }: AddCrmRelationStepProps) => {
   const [keyword, setKeyword] = useState('');
   const { formatMessage } = useLocale();
   const classes = useStyles();

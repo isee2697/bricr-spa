@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Modal } from 'ui/molecules';
 import { useLocale } from 'hooks';
 
-import { AddRelationModalProps } from './AddRelationModal.types';
+import { AddCrmRelationModalProps } from './AddCrmRelationModal.types';
 import { SearchProfileStep } from './searchProfileStep/SearchProfileStep';
 import { RequestInformationStep } from './requestInformationStep/RequestInformationStep';
-import { useStyles } from './AddRelationModal.styles';
+import { useStyles } from './AddCrmRelationModal.styles';
 
 const steps = [
   {
@@ -19,12 +19,12 @@ const steps = [
   },
 ];
 
-export const AddRelationModal = ({
+export const AddCrmRelationModal = ({
   isOpened,
   onClose,
   onCreateNewRelation,
   onRequestBricrData,
-}: AddRelationModalProps) => {
+}: AddCrmRelationModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [step, setStep] = useState(0);

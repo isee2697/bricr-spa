@@ -1,11 +1,11 @@
-export type AddRelationModalProps = {
+export type AddCrmRelationModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
   onCreateNewRelation: VoidFunction;
   onRequestBricrData: VoidFunction;
 };
 
-export type AddRelationStepProps = {
+export type AddCrmRelationStepProps = {
   onNext: () => void;
   onCreateNewRelation: () => void;
   onRequestBricrData: () => void;

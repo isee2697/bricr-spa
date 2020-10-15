@@ -2,14 +2,14 @@ import React from 'react';
 
 import { useModalDispatch, useModalState } from 'hooks';
 
-import { AddRelationModal } from './AddRelationModal';
+import { AddCrmRelationModal } from './AddCrmRelationModal';
 
-export const AddRelationModalContainer = () => {
+export const AddCrmRelationModalContainer = () => {
   const { close } = useModalDispatch();
   const { isOpen: isModalOpened } = useModalState('add-relation');
 
   return (
-    <AddRelationModal
+    <AddCrmRelationModal
       isOpened={isModalOpened}
       onClose={() => close('add-relation')}
       onCreateNewRelation={() => {}}

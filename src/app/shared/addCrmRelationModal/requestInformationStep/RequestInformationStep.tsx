@@ -1,16 +1,16 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
-import { AddRelationStepProps } from '../AddRelationModal.types';
+import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { SubmitButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { useStyles } from '../AddRelationModal.styles';
+import { useStyles } from '../AddCrmRelationModal.styles';
 import { Button, DialogActions, DialogContent } from 'ui/atoms';
 import { RadioGroupField } from 'form/fields';
 
 import { InformationTypes } from './dictionaries';
 
-export const RequestInformationStep = ({ onClose, onRequestBricrData }: AddRelationStepProps) => {
+export const RequestInformationStep = ({ onClose, onRequestBricrData }: AddCrmRelationStepProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 

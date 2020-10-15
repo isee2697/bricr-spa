@@ -5,12 +5,12 @@ import { Snackbar } from 'ui/molecules';
 import { Intercom } from 'app/intercom/Intercom';
 
 import { AddPimModalContainer } from './shared/addPimModal/AddPimModalContainer';
-import { AddRelationModalContainer } from './shared/addRelationModal/AddRelationModalContainer';
+import { AddCrmRelationModalContainer } from './shared/addCrmRelationModal/AddCrmRelationModalContainer';
 export const App = () => (
   <>
     <AppRoutes />
     <AddPimModalContainer />
-    <AddRelationModalContainer />
+    <AddCrmRelationModalContainer />
     <Snackbar />
     <Intercom />
   </>
