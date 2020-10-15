@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import {
@@ -16,10 +16,11 @@ import { Team } from './Team';
 
 export const TeamContainer = () => {
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetTeamDetailsQuery({ variables: { id } });
+  const { data } = useGetTeamDetailsQuery({ variables: { id }, fetchPolicy: 'no-cache' });
   const { push } = useHistory();
   const [updateTeam] = useUpdateTeamMutation();
   const [removeTeam] = useRemoveTeamMutation();
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const refetchQueries = [
     {
@@ -30,6 +31,8 @@ export const TeamContainer = () => {
 
   const handleRemove = async (teamId: string) => {
     try {
+      setIsRemoving(true);
+
       const response = await removeTeam({ variables: { id: teamId }, refetchQueries });
 
       if (!response) {
@@ -38,8 +41,12 @@ export const TeamContainer = () => {
 
       push(`${AppRoute.settings}/createTeam`);
 
+      setIsRemoving(false);
+
       return undefined;
     } catch {
+      setIsRemoving(false);
+
       return { error: true };
     }
   };
@@ -67,6 +74,10 @@ export const TeamContainer = () => {
       return { error: true };
     }
   };
+
+  if (isRemoving) {
+    return <Loader />;
+  }
 
   if (data && !!data.getTeamDetails) {
     return <Team data={data.getTeamDetails as TeamData} onRemove={handleRemove} onSave={handleSave} />;
