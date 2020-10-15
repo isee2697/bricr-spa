@@ -6,10 +6,6 @@ export type SummaryOutsideContainerProps = PimDetailsSectionProps & {
   summary: PimSummary;
 };
 
-export type RoofProps = {
-  roof: RoofInformation;
-};
-
 export type SummaryOutsideProps = PimDetailsSectionProps & {
   summary: PimSummary;
 };

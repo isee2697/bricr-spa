@@ -1,14 +1,27 @@
 import React from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
-import { MeterIcon, MutationIcon, SquareMeterIcon } from 'ui/atoms/icons';
+import { Box, Card, CardContent, CardHeader, Typography } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
+import {
+  GarageFeature,
+  GardenFeature,
+  OutsideFeatureType,
+  ParkingLotFeature,
+  StorageFeature,
+  TerrainFeature,
+} from 'api/types';
 
 import { useStyles } from './OutsideSpaces.styles';
+import { OutsideSpacesProps } from './OutsideSpaces.types';
+import { Garage } from './garage/Garage';
+import { Garden } from './garden/Garden';
+import { ParkingLot } from './parkingLot/ParkingLot';
+import { Storage } from './storage/Storage';
+import { Terrain } from './terrain/Terrain';
 
-export const OutsideSpaces = () => {
+export const OutsideSpaces = ({ outsideFeatures }: OutsideSpacesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -25,118 +38,39 @@ export const OutsideSpaces = () => {
         }
       />
       <CardContent>
-        <FormSubSection
-          title={
-            <>
-              <Typography variant="h4" className={classes.detailPanelIndex}>
-                1
-              </Typography>
-              <Typography variant="h3">Garden back</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.type_of_garden' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              <MutationIcon className={classes.detailItemIcon} /> Patro/atrium
-            </Typography>
-          </Box>
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.quality_of_garden' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              <MutationIcon className={classes.detailItemIcon} /> Beautifully constructed
-            </Typography>
-          </Box>
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.location' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              <MutationIcon className={classes.detailItemIcon} /> North, West
-            </Typography>
-          </Box>
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.shape_of_garden' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              <MutationIcon className={classes.detailItemIcon} /> Rectangle
-            </Typography>
-          </Box>
-          <Grid container spacing={1} className={classes.detailItem}>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.length' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                12 <MeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.width' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                9 <MeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.outside.outside_spaces.surface' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                453 <SquareMeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-          </Grid>
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.detailPanelIndex}>
-                1
-              </Typography>
-              <Typography variant="h3">Garden front</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          Garden front content
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.detailPanelIndex}>
-                1
-              </Typography>
-              <Typography variant="h3">Garage 1</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          Garage 1 content
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.detailPanelIndex}>
-                1
-              </Typography>
-              <Typography variant="h3">Garage 2</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          Garage 2 content
-        </FormSubSection>
+        {outsideFeatures.map((outsideFeature, index) => (
+          <FormSubSection
+            key={index}
+            title={
+              <>
+                <Typography variant="h4" className={classes.detailPanelIndex}>
+                  {index + 1}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({ id: `dictionaries.outside_feature.${outsideFeature.type}` })}
+                </Typography>
+              </>
+            }
+            initiallyOpened={false}
+            onOptionsClick={() => {}}
+          >
+            {outsideFeature.type === OutsideFeatureType.Garage && (
+              <Garage configuration={outsideFeature.configuration as GarageFeature} />
+            )}
+            {outsideFeature.type === OutsideFeatureType.Garden && (
+              <Garden configuration={outsideFeature.configuration as GardenFeature} />
+            )}
+            {outsideFeature.type === OutsideFeatureType.ParkingLot && (
+              <ParkingLot configuration={outsideFeature.configuration as ParkingLotFeature} />
+            )}
+            {outsideFeature.type === OutsideFeatureType.Storage && (
+              <Storage configuration={outsideFeature.configuration as StorageFeature} />
+            )}
+            {outsideFeature.type === OutsideFeatureType.Terrain && (
+              <Terrain configuration={outsideFeature.configuration as TerrainFeature} />
+            )}
+          </FormSubSection>
+        ))}
       </CardContent>
     </Card>
   );

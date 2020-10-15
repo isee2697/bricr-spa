@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
-import { RoofProps } from '../SummaryOutside.types';
 
 import { useStyles } from './Roof.styles';
+import { RoofProps } from './Roof.types';
 
 export const Roof = ({ roof: { type, yearOfRoof, material, insulation, gutter, gutterMaterial } }: RoofProps) => {
   const classes = useStyles();

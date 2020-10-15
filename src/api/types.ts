@@ -10379,7 +10379,71 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
     >;
   };
   getPimOutside: { __typename?: 'PimOutside' } & {
-    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
+    outsideFeatures?: Maybe<
+      Array<
+        { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type' | 'description'> & {
+            configuration?: Maybe<
+              | ({ __typename?: 'GardenFeature' } & Pick<
+                  GardenFeature,
+                  'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
+                > & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'GarageFeature' } & Pick<
+                  GarageFeature,
+                  'main' | 'attached' | 'attic' | 'secondaryWindows' | 'materials' | 'notes'
+                > & {
+                    garageTypes: GarageFeature['types'];
+                    garageInsulations: GarageFeature['insulations'];
+                    garageServices: GarageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'StorageFeature' } & Pick<
+                  StorageFeature,
+                  'main' | 'attached' | 'materials' | 'secondaryWindows' | 'notes'
+                > & {
+                    storageTypes: StorageFeature['types'];
+                    storageInsulations: StorageFeature['insulations'];
+                    storageServices: StorageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                  ParkingLotFeature,
+                  'number' | 'price' | 'cost' | 'notes'
+                > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> })
+            >;
+          }
+      >
+    >;
   };
   getPimCadastre: { __typename?: 'PimCadastre' } & {
     cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
@@ -17475,6 +17539,92 @@ export const PimOverallInfoDocument = gql`
       outsideFeatures {
         id
         type
+        description
+        configuration {
+          ... on GardenFeature {
+            main
+            type
+            notes
+            quality
+            location
+            shape
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              id
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            attached
+            storageTypes: types
+            materials
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            measurement {
+              length
+              width
+              surface
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              id
+              url
+            }
+          }
+        }
       }
     }
     getPimCadastre(id: $id) {

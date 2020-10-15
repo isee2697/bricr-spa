@@ -411,6 +411,92 @@ export const PIM_OVERALL_INFO = gql`
       outsideFeatures {
         id
         type
+        description
+        configuration {
+          ... on GardenFeature {
+            main
+            type
+            notes
+            quality
+            location
+            shape
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              id
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            attached
+            storageTypes: types
+            materials
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            measurement {
+              length
+              width
+              surface
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              id
+              url
+            }
+          }
+        }
       }
     }
     getPimCadastre(id: $id) {

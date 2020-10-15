@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { useParams } from 'react-router-dom';
 
-import { usePimInfoQuery } from 'api/types';
+import { usePimInfoQuery, usePimLocationQuery, usePimOutsideQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
@@ -13,8 +13,17 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
 
   const { data: pimInfo } = usePimInfoQuery({ variables: { id } });
+  const { data: pimOutsideInfo } = usePimOutsideQuery({ variables: { id } });
+  const { data: pimLocationInfo } = usePimLocationQuery({ variables: { id } });
 
-  if (!pimInfo || !pimInfo.getPim) {
+  if (
+    !pimInfo ||
+    !pimInfo.getPim ||
+    !pimOutsideInfo ||
+    !pimOutsideInfo.getPimOutside ||
+    !pimLocationInfo ||
+    !pimLocationInfo.getPimLocation
+  ) {
     return <Loader />;
   }
 
@@ -35,6 +44,7 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     cadastre,
     pictures = [],
   } = pimInfo.getPim;
+  const { outsideFeatures } = pimOutsideInfo.getPimOutside;
 
   const summary: PimSummary = {
     address: `${street} ${houseNumberPrefix ?? ''}${houseNumber}${houseNumberAddition ?? ''}${
@@ -48,6 +58,7 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     floors: floors || [],
     general: houseGeneral || undefined,
     outside: houseOutside || undefined,
+    outsideFeatures: outsideFeatures || [],
     cadastre: cadastre || [],
     pricing: {
       askingPrice: 25000,
@@ -60,6 +71,7 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
       realEstateTaxBusiness: 1275,
       realEstateTaxBusinessPaymentsFrequency: PricingPaymentsFrequency.PerYear,
     },
+    location: pimLocationInfo.getPimLocation,
   };
 
   return <Summary summary={summary} {...props} />;
