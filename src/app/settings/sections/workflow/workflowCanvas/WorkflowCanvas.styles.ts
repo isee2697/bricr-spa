@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(({ typography, palette }) => ({
+export const useStyles = makeStyles(({ typography, palette, spacing }) => ({
   container: {
     position: 'relative',
   },
@@ -27,6 +27,32 @@ export const useStyles = makeStyles(({ typography, palette }) => ({
   title: {
     fontSize: typography.h4.fontSize,
     fontWeight: typography.fontWeightBold,
+    color: palette.gray.main,
+  },
+  triggerNo: {
+    width: spacing(3),
+    height: spacing(3),
+    borderRadius: '50%',
+    background: palette.white.main,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: -spacing(4),
+    left: spacing(1),
+  },
+  triggerRule: {
+    border: `1px solid ${palette.purple.main}`,
+    borderRadius: 99999,
+    background: palette.white.main,
+    color: palette.purple.main,
+    textTransform: 'uppercase',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 9,
+    lineHeight: '9px',
   },
   ruleButton: {
     display: 'flex',
@@ -35,5 +61,18 @@ export const useStyles = makeStyles(({ typography, palette }) => ({
     fontWeight: typography.fontWeightMedium,
     color: palette.primary.main,
     cursor: 'pointer',
+  },
+  entryDot: {
+    position: 'relative',
+    '&:after': {
+      content: '" "',
+      position: 'absolute',
+      top: -spacing(0.5),
+      left: -spacing(0.5),
+      background: palette.purple.main,
+      borderRadius: '50%',
+      width: spacing(1),
+      height: spacing(1),
+    },
   },
 }));

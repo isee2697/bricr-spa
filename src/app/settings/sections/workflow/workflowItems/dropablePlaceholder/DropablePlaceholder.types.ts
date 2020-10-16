@@ -11,5 +11,6 @@ export type DropablePlaceholderCollectProps = {
 
 export type DropablePlaceholderProps = {
   type: WorkflowItemType;
+  hidePlaceholder?: boolean;
   onDrop: (item: Trigger | Action) => void | undefined;
 };
