@@ -17,13 +17,14 @@ export const FormModal: <T>(p: FormModalProps<T>) => React.ReactElement<FormModa
   title,
   addText,
   initialValues,
+  mutators,
 }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <Modal fullWidth isOpened={isOpened} onClose={onClose} title={title} className={classes.modal}>
-      <Form initialValues={initialValues} onSubmit={onSubmit}>
+      <Form initialValues={initialValues} onSubmit={onSubmit} mutators={mutators}>
         {({ handleSubmit, submitErrors, submitting, valid, values }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             {submitErrors && submitErrors.error && (
