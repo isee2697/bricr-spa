@@ -1,8 +1,12 @@
-import { AnyObject } from 'react-final-form';
+import { Mutator } from 'final-form';
 import { ReactNode } from 'react';
 
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import { PromiseFunction } from 'app/shared/types';
+
+export type MutatorType<T> = {
+  [key: string]: Mutator<T>;
+};
 
 export type FormModalProps<T> = ModalContainerProps & {
   title?: string;
@@ -10,5 +14,5 @@ export type FormModalProps<T> = ModalContainerProps & {
   onSubmit: PromiseFunction<T>;
   addText?: string;
   initialValues?: T;
-  mutators?: AnyObject;
+  mutators?: MutatorType<T>;
 };

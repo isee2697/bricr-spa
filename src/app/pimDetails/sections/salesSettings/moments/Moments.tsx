@@ -50,7 +50,7 @@ export const Moments = () => {
     }
   };
 
-  const onSave = async (values: unknown) => {
+  const onSave = async () => {
     try {
       return undefined;
     } catch {

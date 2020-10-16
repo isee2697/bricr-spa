@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { AnyObject } from 'react-final-form';
 
 export type CheckboxDataType = {
   label: string;
@@ -40,9 +39,7 @@ export type AddMomentModalContainerProps = {
   currentModalIndex: number;
 };
 
-export type AddMomentSubmit = (
-  body: AnyObject,
-) => Promise<
+export type AddMomentSubmit = () => Promise<
   | undefined
   | {
       error: boolean;

@@ -29,7 +29,7 @@ export const AddMomentmodalContainer = ({
 }: AddMomentModalContainerProps) => {
   const [persons, updatePersons] = useState(personsArray);
 
-  const handleSubmit: AddMomentSubmit = async body => {
+  const handleSubmit: AddMomentSubmit = async () => {
     const person: LinkedPersonType = {
       name: 'Victor Martin Brochner',
       avatar: 'https://source.unsplash.com/featured/?person',
