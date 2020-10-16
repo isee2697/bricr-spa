@@ -26,8 +26,8 @@ export const AddMomentmodalContainer = ({
   currentModalIndex,
 }: AddMomentModalContainerProps) => {
   const handleSubmit: AddMomentSubmit = async body => {
-    const personsMapped: LinkedPersonType[] = body.linked_managers.map((managerId: string) => ({
-      name: 'Victor Martin Brochner ' + managerId,
+    const personsMapped: LinkedPersonType[] = body.linked_managers.map((id: string) => ({
+      name: 'Victor Martin Brochner ' + id,
       avatar: 'https://source.unsplash.com/featured/?person',
       office: 'Vesteging Weert',
       company: 'Hendriks Makelaardij',
