@@ -22,6 +22,7 @@ export const AppointmentBaseInfoCard = () => {
   );
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const amountOfTerms = alternativeTerms.length;
 
   return (
     <Card>
@@ -51,7 +52,7 @@ export const AppointmentBaseInfoCard = () => {
             <DatePickerChip name={`alternativeTerms[${index}].to`} className={classes.date} />
             <TimePickerChip name={`alternativeTerms[${index}].to`} />
           </Grid>
-          {index !== 0 && (
+          {amountOfTerms > 1 && (
             <Grid item className="right">
               <IconButton onClick={() => setAlternativeTerms(terms => terms.filter((__item, idx) => index !== idx))}>
                 <CloseIcon />

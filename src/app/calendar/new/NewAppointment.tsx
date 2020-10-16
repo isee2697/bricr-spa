@@ -9,6 +9,7 @@ import { Page } from 'ui/templates';
 import { AppointmentBaseInfoCard } from 'app/calendar/new/cards/baseInfo/BaseInfo';
 import { ParticipantsLocation } from 'app/calendar/new/cards/participantsLocation/ParticipantsLocation';
 import { CalendarProps } from 'app/calendar/Calendar.types';
+import { Editor } from 'app/shared/media/form/parts/Editor';
 
 import { useStyles } from './NewAppointment.styles';
 
@@ -30,7 +31,10 @@ export const NewAppointment = ({ data }: CalendarProps) => {
               <Grid item xs={12} md={8}>
                 <AppointmentBaseInfoCard />
 
-                <Card>fdsf</Card>
+                <Card>
+                  <Editor disabled={false} />
+                </Card>
+
                 <Card>fdsf</Card>
               </Grid>
               <Grid item xs={12} md={4}>

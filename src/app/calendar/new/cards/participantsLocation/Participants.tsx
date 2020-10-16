@@ -13,6 +13,9 @@ export const Participants = ({ members }: { members: Profile[] }) => {
 
   return (
     <>
+      <Field name="invitedUsers" value={assignedUsers.map(member => member.id)}>
+        {props => <input type="hidden" {...props.input} />}
+      </Field>
       <MembersDropdownField
         onChange={profileId => {
           const profile = members.find(member => member.id === profileId);
@@ -25,9 +28,6 @@ export const Participants = ({ members }: { members: Profile[] }) => {
       <Box mt={2} mb={2}>
         <Typography variant="h5">{formatMessage({ id: 'appointment.invited_users.label' })}</Typography>
       </Box>
-      {/*<Field name="invitedUsers" value={assignedUsers}>*/}
-      {/*  {props => <input {...props.input} />}*/}
-      {/*</Field>*/}
       <>
         {assignedUsers.map(member => (
           <Grid container alignItems="center">
