@@ -1,23 +1,14 @@
-import { DateTime } from 'luxon';
+import { CrmContactInformation, CrmPhoneNumber } from 'api/types';
 
-export type PhoneNumber = {
+export type PhoneNumber = CrmPhoneNumber & {
   key: string;
-  countryCode: string;
-  phoneNumber: string;
-  numberAvailableDate: DateTime;
-  note: string;
 };
 
 export type PhoneNumbersObject = {
   [key: string]: PhoneNumber;
 };
 
-export type PhoneNumbersProps = {};
-
-export enum PhoneNumberType {
-  MobileNumber = 'MobileNumber',
-  PrivateNumber = 'PrivateNumber',
-  BusinessNumber = 'BusinessNumber',
-  FaxNumber = 'FaxNumber',
-  Custom = 'Custom',
-}
+export type PhoneNumbersProps = {
+  data: CrmContactInformation;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
+};
