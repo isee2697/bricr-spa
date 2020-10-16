@@ -19,7 +19,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
   bottom: {
     marginTop: spacing(1),
-    marginBottom: spacing(0.5),
     '& .MuiButton-root': {
       color: palette.blue.dark,
       marginLeft: -spacing(1.5),

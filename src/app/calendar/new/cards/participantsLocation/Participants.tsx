@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
-import { Field, useField, useForm } from 'react-final-form';
+import React from 'react';
+import { useForm } from 'react-final-form';
 
-import { Grid, UserAvatar, Typography, IconButton, Box } from 'ui/atoms';
+import { Typography, Box } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { MembersDropdownField } from 'form/fields';
 import { Profile } from 'api/types';
-import { CloseIcon } from 'ui/atoms/icons';
-import { size } from 'app/pimDetails/sections/cadastre/plot/dictionaries';
 import { AvatarRowItem } from 'ui/atoms/avatarRowItem/AvatarRowItem';
 
 export const Participants = ({ members }: { members: Profile[] }) => {
   const fieldName = 'invitedPersons';
+  const membersSelectField = 'members_no_submit_value';
   const { formatMessage } = useLocale();
   const form = useForm();
+  const inviteUserId = form.getState().values?.[membersSelectField];
   const assignedUsers: string[] = form.getState().values?.[fieldName] ?? [];
+
+  //empty select and add value to form array
+  if (!!inviteUserId && !assignedUsers.includes(inviteUserId)) {
+    form.change(fieldName, [...assignedUsers, inviteUserId]);
+    form.change(membersSelectField, undefined);
+  }
 
   return (
     <>
       <MembersDropdownField
-        onChange={profileId => form.change(fieldName, [...assignedUsers, profileId])}
         members={members.filter(member => !assignedUsers.find(id => member.id === id))}
         label={undefined}
-        name="member_select"
+        name={membersSelectField}
       />
-      <Box mt={2} mb={2}>
-        <Typography variant="h5">{formatMessage({ id: 'appointment.invited_users.label' })}</Typography>
-      </Box>
+      {assignedUsers.length > 0 && (
+        <Box mt={2} mb={2}>
+          <Typography variant="h5">{formatMessage({ id: 'appointment.invited_users.label' })}</Typography>
+        </Box>
+      )}
       <>
         {assignedUsers.map(memberId => {
           const member = members.find(item => item.id === memberId);

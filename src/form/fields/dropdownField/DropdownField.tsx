@@ -15,7 +15,6 @@ export const DropdownField = ({
   validateFields,
   disabled,
   margin,
-  onChange,
   ...props
 }: DropdownFieldProps) => {
   const { formatMessage } = useLocale();
@@ -30,11 +29,6 @@ export const DropdownField = ({
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
     (meta.initial !== undefined && meta.initial !== '' && meta.initial !== null && !!meta.error);
 
-  const change = (value: string | number) => {
-    input.onChange(value);
-    onChange && onChange(value);
-  };
-
   return (
     <FormControl margin={margin ?? 'normal'} style={{ width: '100%' }}>
       {label && (
@@ -44,7 +38,7 @@ export const DropdownField = ({
       )}
       <Dropdown
         value={input.value}
-        onChange={change}
+        onChange={input.onChange}
         placeholder={formatMessage({ id: placeholder })}
         disabled={disabled}
         {...props}

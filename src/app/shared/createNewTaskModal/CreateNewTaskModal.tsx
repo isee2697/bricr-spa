@@ -2,14 +2,13 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography } from 'ui/atoms';
+import { Alert, DialogContent, DialogActions, Grid, Button, Typography } from 'ui/atoms';
 import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { requireValidator } from 'form/validators';
 import { GenericField, MembersDropdownField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { TeamMemberItem } from 'app/tasks/Tasks.types';
 import { TaskPriority, TaskLabel } from 'api/types';
 import { CreateNewTaskModalProps, CreateNewTaskSubmit } from 'app/shared/createNewTaskModal/CreateNewTaskModal.types';
 import { useStyles } from 'app/shared/createNewTaskModal/CreateNewTaskModal.styles';

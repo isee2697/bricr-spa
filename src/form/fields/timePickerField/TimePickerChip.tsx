@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useField } from 'react-final-form';
-import { DatePicker } from '@material-ui/pickers';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 

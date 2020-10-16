@@ -3,10 +3,10 @@ import { useForm } from 'react-final-form';
 import classNames from 'classnames';
 
 import { AppointmentLocation, TravelTime } from 'api/types';
-import { DropdownField, GenericField, SelectField } from 'form/fields';
-import { ConferenceRoomIcon, EuroIcon, LocationIcon, UserIcon } from 'ui/atoms/icons';
+import { DropdownField, GenericField } from 'form/fields';
+import { ConferenceRoomIcon, LocationIcon, UserIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
-import { Grid, Box, Typography, Button, Collapse, MenuItem } from 'ui/atoms';
+import { Grid, Box, Typography, Button, Collapse } from 'ui/atoms';
 import { AvatarRowItem } from 'ui/atoms/avatarRowItem/AvatarRowItem';
 import { useStyles } from 'app/calendar/new/cards/participantsLocation/ParticipantsLocation.styles';
 import { useLocale } from 'hooks';
@@ -30,6 +30,11 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
         </Box>
       </Box>
     ),
+  }));
+
+  const timeDropdownItems: DropdownItem[] = Object.keys(TravelTime).map((item, key) => ({
+    label: formatMessage({ id: `dictionaries.appointment.travel.${item}` }),
+    value: item,
   }));
 
   return (
@@ -89,34 +94,18 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
               placeholder="appointment.location.placeholder"
             />
           </Box>
-          <Box mb={2}>
-            <SelectField
-              label="appointment.travel.label_before"
-              placeholder="appointment.travel.placeholder_before"
-              className={classes.select}
-              name="travelBeforeAppointment"
-            >
-              {Object.keys(TravelTime).map((item, key) => (
-                <MenuItem key={key} value={item}>
-                  {formatMessage({ id: `dictionaries.appointment.travel.${item}` })}
-                </MenuItem>
-              ))}
-            </SelectField>
-          </Box>
-          <Box>
-            <SelectField
-              label="appointment.travel.label_after"
-              placeholder="appointment.travel.placeholder_after"
-              className={classes.select}
-              name="travelAfterAppointment"
-            >
-              {Object.keys(TravelTime).map((item, key) => (
-                <MenuItem key={key} value={item}>
-                  {formatMessage({ id: `dictionaries.appointment.travel.${item}` })}
-                </MenuItem>
-              ))}
-            </SelectField>
-          </Box>
+          <DropdownField
+            items={timeDropdownItems}
+            label="appointment.travel.label_before"
+            placeholder="appointment.travel.placeholder_before"
+            name="travelBeforeAppointment"
+          />
+          <DropdownField
+            items={timeDropdownItems}
+            label="appointment.travel.label_After"
+            placeholder="appointment.travel.placeholder_After"
+            name="travelAfterAppointment"
+          />
         </Collapse>
       </Grid>
     </Grid>

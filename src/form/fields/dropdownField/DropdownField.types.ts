@@ -9,5 +9,4 @@ export type DropdownFieldProps = Pick<DropdownProps, 'items' | 'placeholder' | '
   validate?: FieldValidator<string>[];
   validateFields?: string[];
   margin?: PropTypes.Margin;
-  onChange?: (value: string | number) => void;
 };

@@ -3,8 +3,8 @@ import { DateTime } from 'luxon';
 import { useForm } from 'react-final-form';
 
 import { AppointmentRepeat } from 'api/types';
-import { Button, Card, Grid, IconButton, Box, Typography, MenuItem } from 'ui/atoms';
-import { CheckboxField, DatePickerChip, GenericField, SelectField, TimePickerChip } from 'form/fields';
+import { Button, Card, Grid, IconButton, Box, Typography } from 'ui/atoms';
+import { CheckboxField, DatePickerChip, DropdownField, GenericField, TimePickerChip } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
@@ -78,17 +78,14 @@ export const AppointmentBaseInfoCard = () => {
           </Button>
         </Grid>
         <Grid item className="right">
-          <SelectField
-            value={values?.[repeatFieldName] ?? AppointmentRepeat.NoRepeat}
-            className={classes.select}
+          <DropdownField
+            items={Object.keys(AppointmentRepeat).map(item => ({
+              label: formatMessage({ id: `dictionaries.appointment.repeat.${item}` }),
+              value: item,
+            }))}
+            placeholder="appointment.repeat.placeholder"
             name={repeatFieldName}
-          >
-            {Object.keys(AppointmentRepeat).map((item, key) => (
-              <MenuItem key={key} value={item}>
-                {formatMessage({ id: `dictionaries.appointment.repeat.${item}` })}
-              </MenuItem>
-            ))}
-          </SelectField>
+          />
         </Grid>
       </Grid>
     </Card>
