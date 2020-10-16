@@ -25,7 +25,13 @@ export const MembersDropdownField = ({
       member.id === user?.id ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
     }`,
     value: member?.id,
-    icon: <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />,
+    icon: (
+      <UserAvatar
+        size="small"
+        avatar={member?.image?.url ?? undefined}
+        name={member?.firstName + ' ' + member?.lastName}
+      />
+    ),
   }));
 
   return (
@@ -41,7 +47,7 @@ export const MembersDropdownField = ({
           </span>
         </Box>
       }
-      name="assignee"
+      name={name}
       label="tasks.create_new.details.assignee.label"
       align="left"
       classes={{
