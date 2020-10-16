@@ -1,8 +1,8 @@
-import { ActionSetting, ActionStatus } from '../../Workflow.types';
+import { ActionSetting, WorkflowItemStatus } from '../../Workflow.types';
 import { DndItemProps } from '../WorkflowItems.types';
 
 export interface ActionItemProps extends DndItemProps {
-  status?: ActionStatus;
+  status?: WorkflowItemStatus;
   settings?: ActionSetting[];
   onStatusChange?: () => void;
   onDelete?: () => void;

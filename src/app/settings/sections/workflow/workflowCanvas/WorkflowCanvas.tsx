@@ -1,7 +1,6 @@
 import { useTheme } from '@material-ui/core/styles';
 import React, { useState, useLayoutEffect, useCallback, useRef, ReactNode } from 'react';
 import { useDrop } from 'react-dnd';
-import { AnyObject } from 'final-form';
 
 import { useLocale } from 'hooks';
 import { Box, Typography } from 'ui/atoms';
@@ -14,7 +13,8 @@ import {
 } from '../workflowItems/dropablePlaceholder/DropablePlaceholder.types';
 import { Action, TriggerActionGroup, WorkflowItemType } from '../Workflow.types';
 import { TriggerConditions } from '../workflowConditions/triggerConditions/TriggerConditions';
-import { generalConditionsTypes } from '../workflowConditions/triggerConditions/TriggerConditionsTypes';
+import { generalConditionsTypes } from '../dictionaries';
+import { TriggerConditionValuesType } from '../workflowConditions/triggerConditions/TriggerConditions.types';
 
 import { WorkflowCanvasProps, Point } from './WorkflowCanvas.types';
 import { useStyles } from './WorkflowCanvas.styles';
@@ -143,10 +143,9 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
     setTriggerCondition(index);
   };
 
-  const handleUpdateTriggerConditions = (conditions: AnyObject, conditionAmount: number) => {
+  const handleUpdateTriggerConditions = (conditions: TriggerConditionValuesType) => {
     if (triggerCondition !== null && triggers?.[triggerCondition]) {
       triggers[triggerCondition].conditions = conditions;
-      triggers[triggerCondition].conditionAmount = conditionAmount;
       setState(!state);
     }
   };
@@ -176,8 +175,6 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
     },
     [setState],
   );
-
-  // const handleShowActionSettings = (action: Action) => {};
 
   const renderAddPlaceholder = useCallback(
     (topOffset: number, leftOffset: number, parentId: string) => {
@@ -279,7 +276,6 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
             icon={action.icon}
             title={action.title}
             state={DndItemState.DROPPED}
-            // settings={action.settings}
             status={action.status}
             onStatusChange={() => {
               handleToggleActionStatus(action);
@@ -287,9 +283,6 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
             onDelete={() => {
               handleShowConfirmModal('action', () => handleRemoveAction(actionGroup, index, action));
             }}
-            // onShowSettings={() => {
-            //   handleShowActionSettings(action);
-            // }}
           />
         </Box>
         {action.status !== 'inactive' && (
@@ -433,7 +426,6 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
                     state={DndItemState.DROPPED}
                     status={trigger.status}
                     conditions={trigger.conditions}
-                    conditionAmount={trigger.conditionAmount}
                     onStatusChange={() => {
                       handleToggleTriggerStatus(index);
                     }}
@@ -509,8 +501,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
 
       {/** Show Trigger conditions dialog */}
       <TriggerConditions
-        data={triggerCondition !== null ? triggers?.[triggerCondition]?.conditions : []}
-        conditionAmount={triggerCondition !== null ? triggers?.[triggerCondition]?.conditionAmount || 0 : 0}
+        data={triggerCondition !== null ? triggers?.[triggerCondition]?.conditions : {}}
         isOpened={triggerCondition !== null}
         activeTab={conditionTab}
         onSubmit={handleUpdateTriggerConditions}

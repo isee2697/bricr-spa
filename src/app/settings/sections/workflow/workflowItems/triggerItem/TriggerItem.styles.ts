@@ -22,9 +22,9 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     },
   },
   inactive: {
-    color: '#C4C4C4',
+    color: palette.warmgray.main,
     '&.purple-border': {
-      borderColor: '#C4C4C4',
+      borderColor: palette.warmgray.main,
     },
   },
   itemIcon: {
@@ -43,17 +43,17 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     },
   },
   inactiveIcon: {
-    background: '#E5E5E530',
+    background: `${palette.warmgray.light}30`,
 
     '& svg': {
-      color: '#C4C4C4',
+      color: palette.warmgray.main,
     },
   },
   badge: {
     position: 'absolute',
     top: -spacing(2),
     right: -spacing(2),
-    border: `1px solid ${palette.gray.light}`,
+    border: `${spacing(0.125)}px solid ${palette.gray.light}`,
     borderRadius: spacing(10),
     backgroundColor: palette.white.main,
   },
@@ -66,7 +66,7 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
     marginBottom: spacing(1),
-    borderBottom: `2px solid ${palette.gray.light}`,
+    borderBottom: `${spacing(0.25)}px solid ${palette.gray.light}`,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

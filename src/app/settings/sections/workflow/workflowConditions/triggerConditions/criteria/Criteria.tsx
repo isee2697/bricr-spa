@@ -13,7 +13,7 @@ export const Criteria = ({ name, label, options }: CriteriaProps) => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <DropdownField
-          name={`${name}_criteria`}
+          name={`${name}.criteria`}
           items={options}
           label={label}
           placeholder="settings.workflow.trigger_condition.trigger_type.placeholder"
@@ -22,7 +22,7 @@ export const Criteria = ({ name, label, options }: CriteriaProps) => {
       </Grid>
       <Grid item xs={12}>
         <GenericField
-          name={`${name}_value`}
+          name={`${name}.value`}
           label={formatMessage({
             id: 'settings.workflow.trigger_condition.value',
           })}
@@ -36,7 +36,7 @@ export const Criteria = ({ name, label, options }: CriteriaProps) => {
       <Grid item xs={12}>
         <Box mt={2}>
           <CheckboxField
-            name={`${name}_is_exact_same`}
+            name={`${name}.is_exact_same`}
             label={formatMessage({
               id: 'settings.workflow.trigger_condition.criteria.exact_same',
             })}

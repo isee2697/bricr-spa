@@ -1,12 +1,10 @@
 import { ReactNode } from 'react';
-import { AnyObject } from 'final-form';
 
 import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
 import { WorkflowSection } from './workflowSection/WorkflowSection.types';
+import { TriggerConditionValuesType } from './workflowConditions/triggerConditions/TriggerConditions.types';
 
-export type TriggerStatus = 'active' | 'inactive';
-
-export type ActionStatus = 'active' | 'inactive';
+export type WorkflowItemStatus = 'active' | 'inactive';
 
 export enum WorkflowItemType {
   TRIGGER = 'Trigger',
@@ -30,12 +28,11 @@ export type Trigger = {
   id: string;
   title: string;
   icon: ReactNode;
-  status?: TriggerStatus;
+  status?: WorkflowItemStatus;
   newActions?: TriggerActionGroup;
   updateActions?: TriggerActionGroup;
   deleteActions?: TriggerActionGroup;
-  conditions?: AnyObject;
-  conditionAmount?: number;
+  conditions?: TriggerConditionValuesType;
 };
 
 export type ActionSetting = {
@@ -46,7 +43,7 @@ export type Action = {
   id: string;
   title: string;
   icon: ReactNode;
-  status?: ActionStatus;
+  status?: WorkflowItemStatus;
   nextAction?: Action;
   settings?: ActionSetting[];
 };

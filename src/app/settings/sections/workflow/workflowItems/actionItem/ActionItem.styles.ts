@@ -25,9 +25,9 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     },
   },
   inactive: {
-    color: '#E5E5E5',
+    color: palette.warmgray.light,
     '&.dropped': {
-      borderColor: '#E5E5E5',
+      borderColor: palette.warmgray.light,
     },
   },
   itemIcon: {
@@ -48,7 +48,7 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     },
   },
   inactiveIcon: {
-    background: '#E5E5E5',
+    background: palette.warmgray.light,
 
     '& svg': {
       color: palette.white.main,

@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   modalFooter: {
     paddingTop: spacing(1.5),
-    borderTop: `2px solid ${palette.gray.light}`,
+    borderTop: `${spacing(0.25)}px solid ${palette.gray.light}`,
   },
 
   condition: {
-    borderTop: `1px solid ${palette.gray.light}`,
+    borderTop: `${spacing(0.125)}px solid ${palette.gray.light}`,
   },
 
   conditionSider: {

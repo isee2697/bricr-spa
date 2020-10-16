@@ -15,7 +15,6 @@ export const TriggerItem = ({
   state,
   status,
   conditions,
-  conditionAmount,
   onShowConditions,
   onStatusChange,
   onDelete,
@@ -48,7 +47,7 @@ export const TriggerItem = ({
         <>
           <Box className={classes.badge}>
             <IconButton onClick={onMenuClick} className={classes.badgeButton} selected={Boolean(menuEl)}>
-              <Badge badgeContent={conditionAmount || '-'} color="primary">
+              <Badge badgeContent={Object.keys(conditions || {}).length || '-'} color="primary">
                 <MenuIcon />
               </Badge>
             </IconButton>
