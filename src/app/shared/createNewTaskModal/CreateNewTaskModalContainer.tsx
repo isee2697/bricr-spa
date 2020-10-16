@@ -53,8 +53,6 @@ export const CreateNewTaskModalContainer = () => {
 
       return undefined;
     } catch (error) {
-      console.log(error);
-
       return {
         error: 'unknown',
       };

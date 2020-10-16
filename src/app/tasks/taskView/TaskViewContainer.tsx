@@ -168,20 +168,20 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   }
 
   return (
-      <TasksContent
-          tab={tab}
-          tasks={dateRanges.length === 0 ? [] : tasks}
-          tasksSummaryByStatus={
-            dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
-          }
-          selectedMembers={selectedMembers}
-          searchKey={searchKey}
-          viewMode={viewMode}
-          deadlines={dateRanges}
-          onChangeSearchKey={setSearchKey}
-          onChangeViewMode={setViewMode}
-          onChangeDateRange={setDateRanges}
-          onUpdateTaskStatus={handleUpdateTaskStatus}
-      />
+    <TasksContent
+      tab={tab}
+      tasks={dateRanges.length === 0 ? [] : tasks}
+      tasksSummaryByStatus={
+        dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
+      }
+      selectedMembers={selectedMembers}
+      searchKey={searchKey}
+      viewMode={viewMode}
+      deadlines={dateRanges}
+      onChangeSearchKey={setSearchKey}
+      onChangeViewMode={setViewMode}
+      onChangeDateRange={setDateRanges}
+      onUpdateTaskStatus={handleUpdateTaskStatus}
+    />
   );
 };
