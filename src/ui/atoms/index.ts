@@ -94,3 +94,4 @@ export { SidebarHideButton } from './sidebarHideButton/SidebarHideButton';
 export { SidebarTitleTile } from './sidebarTitleTile/SidebarTitleTile';
 export { SelectBox } from './selectBox/SelectBox';
 export { ExitButton } from './exitButton/ExitButton';
+export { AvatarRowItem } from './avatarRowItem/AvatarRowItem';

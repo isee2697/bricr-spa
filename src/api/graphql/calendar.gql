@@ -58,3 +58,16 @@ type AppointmentTerm {
     from: Date
     to: Date
 }
+
+enum AppointmentMeetingType {
+    ExternalAgreement
+    Collegial
+    CompleteArgeement
+    RedirectAppointment
+    FollowUpJob
+}
+
+enum AppointmeentAddressType {
+     LinkedPersonAddress
+     NewAcquisitionAddress
+}

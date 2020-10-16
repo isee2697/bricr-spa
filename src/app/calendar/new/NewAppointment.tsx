@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import { ExitButton, Grid, Card } from 'ui/atoms';
+import { ExitButton, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 
@@ -11,6 +11,7 @@ import { ParticipantsLocation } from './cards/participantsLocation/ParticipantsL
 import { EditorCard } from './cards/editor/Editor';
 import { NewAppointmentProps } from './NewAppointment.types';
 import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
+import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 
 export const NewAppointment = ({ members, locations }: NewAppointmentProps) => {
@@ -37,7 +38,7 @@ export const NewAppointment = ({ members, locations }: NewAppointmentProps) => {
                 <ParticipantsLocation members={members} locations={locations} />
               </Grid>
               <Grid item xs={12}>
-                <Card>asds</Card>
+                <CheckboxesCard />
               </Grid>
             </Grid>
           </form>

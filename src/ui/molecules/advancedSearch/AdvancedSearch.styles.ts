@@ -60,7 +60,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   popper: {
     width: '100%',
     zIndex: 1500,
-    // position: 'static',
   },
   menu: {
     borderRadius: spacing(1),
@@ -120,5 +119,17 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   },
   blue: {
     color: palette.primary.main,
+  },
+  defaultInput: {
+    padding: 0,
+    height: spacing(6),
+    background: palette.gray.light,
+  },
+  defaultInputInner: {
+    height: spacing(6),
+  },
+  defaultItemLabelWrapper: {
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
   },
 }));

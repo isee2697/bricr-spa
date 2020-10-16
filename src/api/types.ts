@@ -1234,6 +1234,19 @@ export enum AppointmentType {
   PersonalShowing = 'PersonalShowing',
 }
 
+export enum AppointmentMeetingType {
+  ExternalAgreement = 'ExternalAgreement',
+  Collegial = 'Collegial',
+  CompleteArgeement = 'CompleteArgeement',
+  RedirectAppointment = 'RedirectAppointment',
+  FollowUpJob = 'FollowUpJob',
+}
+
+export enum AppointmeentAddressType {
+  LinkedPersonAddress = 'LinkedPersonAddress',
+  NewAcquisitionAddress = 'NewAcquisitionAddress',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',

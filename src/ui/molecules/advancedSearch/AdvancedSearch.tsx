@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Box, TextField, Typography, Popper, Grow, Paper, ClickAwayListener } from 'ui/atoms';
 
-import { AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
+import { AdvancedSearchClasses, AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
 import { useStyles } from './AdvancedSearch.styles';
 
 export const AdvancedSearch = ({
@@ -14,10 +14,21 @@ export const AdvancedSearch = ({
   value,
   align,
   showSelected = true,
-  classes: propsClasses,
+  classes: passedClasses,
   onChange,
 }: AdvancedSearchProps) => {
   const classes = useStyles();
+
+  const propsClasses: AdvancedSearchClasses = {
+    input: classes.defaultInput,
+    inputInner: classes.defaultInputInner,
+    searchField: classes.searchField,
+    searchFieldInput: classes.searchFieldInput,
+    itemLabelWrapper: classes.defaultItemLabelWrapper,
+    menu: '',
+    menuItem: '',
+    ...passedClasses,
+  };
 
   const select = useRef(null);
   const item = ((select?.current as unknown) as HTMLDivElement) ?? undefined;
@@ -108,7 +119,6 @@ export const AdvancedSearch = ({
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
             <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-              {console.log(TransitionProps)}
               <ClickAwayListener onClickAway={() => setOpened(false)}>
                 <>
                   {listItems
