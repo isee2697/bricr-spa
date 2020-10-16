@@ -6,10 +6,10 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { useEntityType } from 'app/shared/entityType';
 
 import { SummaryProps } from './Summary.types';
-import { SummaryGeneralContainer } from './summaryGeneral/SummaryGeneralContainer';
-import { SummaryPersonalContainer } from './summaryPersonal/SummaryPersonalContainer';
+import { SummaryGeneral } from './summaryGeneral/SummaryGeneral';
 import { SummaryOutside } from './summaryOutside/SummaryOutside';
 import { SummaryInside } from './summaryInside/SummaryInside';
+import { SummaryPersonal } from './summaryPersonal/SummaryPersonal';
 
 export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: SummaryProps) => {
   const { formatMessage } = useLocale();
@@ -24,11 +24,7 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
           path={`${baseUrl}/summary`}
           exact
           render={() => (
-            <SummaryGeneralContainer
-              summary={summary}
-              isSidebarVisible={isSidebarVisible}
-              onSidebarOpen={onSidebarOpen}
-            />
+            <SummaryGeneral summary={summary} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
           )}
         />
         <Route
@@ -49,11 +45,7 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
           path={`${baseUrl}/summary/personal`}
           exact
           render={() => (
-            <SummaryPersonalContainer
-              summary={summary}
-              isSidebarVisible={isSidebarVisible}
-              onSidebarOpen={onSidebarOpen}
-            />
+            <SummaryPersonal summary={summary} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
           )}
         />
         <Redirect to={`${baseUrl}/summary`} />

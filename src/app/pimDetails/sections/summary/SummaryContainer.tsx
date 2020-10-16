@@ -1,13 +1,20 @@
 import React from 'react';
-import { DateTime } from 'luxon';
 import { useParams } from 'react-router-dom';
 
-import { PimServices, usePimInfoQuery, usePimLocationQuery, usePimOutsideQuery, usePimServicesQuery } from 'api/types';
+import {
+  PimServices,
+  usePimInfoQuery,
+  usePimLocationQuery,
+  usePimOutsideQuery,
+  usePimPricingQuery,
+  usePimServicesQuery,
+  usePimSpecificationQuery,
+} from 'api/types';
 import { Loader } from 'ui/atoms';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
 import { Summary } from './Summary';
-import { PimSummary, PricingAcceptance, PricingPaymentsFrequency } from './Summary.types';
+import { PimSummary } from './Summary.types';
 
 export const SummaryContainer = (props: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +23,8 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
   const { data: pimOutsideInfo } = usePimOutsideQuery({ variables: { id } });
   const { data: pimLocationInfo } = usePimLocationQuery({ variables: { id } });
   const { data: pimServicesInfo } = usePimServicesQuery({ variables: { id } });
+  const { data: pimSpecificationInfo } = usePimSpecificationQuery({ variables: { id } });
+  const { data: pimPricingInfo } = usePimPricingQuery({ variables: { id } });
 
   if (
     !pimInfo ||
@@ -25,7 +34,11 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     !pimLocationInfo ||
     !pimLocationInfo.getPimLocation ||
     !pimServicesInfo ||
-    !pimServicesInfo.getPimServices
+    !pimServicesInfo.getPimServices ||
+    !pimSpecificationInfo ||
+    !pimSpecificationInfo.getPimSpecification ||
+    !pimPricingInfo ||
+    !pimPricingInfo.getPricing
   ) {
     return <Loader />;
   }
@@ -44,8 +57,11 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     houseOutside,
     cadastre,
     pictures = [],
+    insideGeneral,
   } = pimInfo.getPim;
   const { outsideFeatures } = pimOutsideInfo.getPimOutside;
+  const { specificationAdvanced, inspections } = pimSpecificationInfo.getPimSpecification;
+  const { costs, pricing } = pimPricingInfo.getPricing;
 
   const summary: PimSummary = {
     address: `${street} ${houseNumberPrefix ?? ''}${houseNumber}${houseNumberAddition ?? ''}${
@@ -62,18 +78,12 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     outsideFeatures: outsideFeatures || [],
     cadastre: cadastre || [],
     services: pimServicesInfo.getPimServices as PimServices,
-    pricing: {
-      askingPrice: 25000,
-      acceptance: PricingAcceptance.InConstruction,
-      perDate: DateTime.local(),
-      wozValue: 24500,
-      referenceDate: DateTime.local(),
-      realEstateTaxUser: 675000,
-      realEstateTaxUserPaymentsFrequency: PricingPaymentsFrequency.PerYear,
-      realEstateTaxBusiness: 1275,
-      realEstateTaxBusinessPaymentsFrequency: PricingPaymentsFrequency.PerYear,
-    },
+    pricing: pricing || undefined,
     location: pimLocationInfo.getPimLocation,
+    specification: specificationAdvanced || undefined,
+    inspections: inspections || [],
+    insideGeneral: insideGeneral || undefined,
+    costs: costs || [],
   };
 
   return <Summary summary={summary} {...props} />;

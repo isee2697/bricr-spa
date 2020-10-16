@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'classnames';
 
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -17,7 +16,7 @@ export const Numbers = () => {
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={6} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.construction_year' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -25,7 +24,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.years_old' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -33,7 +32,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.total_living_space' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -41,7 +40,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={6} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.total_other_space_inside' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -49,7 +48,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.total_space_inside' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -57,7 +56,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.volume' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -65,7 +64,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.external_storage_space' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
@@ -73,7 +72,7 @@ export const Numbers = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} className={classes.detailItem}>
-            <Typography variant="h5" className={clsx(classes.fontWeightMedium, classes.gray)}>
+            <Typography variant="h5" className={classes.detailItemLabel}>
               {formatMessage({ id: 'pim_details.summary.numbers.amount_of_bedrooms' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>

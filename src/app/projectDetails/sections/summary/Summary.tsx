@@ -1,13 +1,12 @@
 import useTheme from '@material-ui/core/styles/useTheme';
 import React, { useState } from 'react';
-import clsx from 'classnames';
 
-import { Badge, Box, Button, Grid, IconButton, NavBreadcrumb, Typography } from '../../../../ui/atoms';
-import { useLocale } from '../../../../hooks';
-import { useEntityType } from '../../../shared/entityType';
+import { useEntityType } from 'app/shared/entityType';
+import { Badge, Box, Button, Grid, IconButton, NavBreadcrumb, Typography } from 'ui/atoms';
+import { useLocale } from 'hooks';
 import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
-import { BuildingIcon, MenuIcon, SeeIcon, ShareIcon, UnseeIcon } from '../../../../ui/atoms/icons';
-import { Page } from '../../../../ui/templates';
+import { MenuIcon, SeeIcon, ShareIcon, UnseeIcon } from 'ui/atoms/icons';
+import { Page } from 'ui/templates';
 
 import { SummaryProps } from './Summary.types';
 import { useStyles } from './Summary.styles';

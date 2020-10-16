@@ -5,8 +5,6 @@ import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { Map as EsriMap } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { EuroIcon } from 'ui/atoms/icons';
-import { LeaseDurationType, LeaseholderType, LeaseInformationType, OwnershipType } from 'api/types';
-import { leaseholder } from '../../../cadastre/plot/dictionaries';
 
 import { useStyles } from './Cadastre.styles';
 import { CadastreProps } from './Cadastre.types';

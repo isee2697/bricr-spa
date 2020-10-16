@@ -1,1 +1,5 @@
-export type TanksProps = {};
+import { Inspection } from 'api/types';
+
+export type TanksProps = {
+  tanks: Inspection[];
+};
