@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { TeamMemberItem } from 'app/tasks/Tasks.types';
-import { UserAvatar } from 'ui/atoms';
+import { UserAvatar, Box, Avatar } from 'ui/atoms';
 import { useAuthState, useLocale } from 'hooks';
-import { DropdownFieldProps } from 'form/fields/dropdownField/DropdownField.types';
-import { DropdownField } from 'form/fields';
+import { AdvancedSearchField } from 'form/fields';
 import { requireValidator } from 'form/validators';
+import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
+import { AdvancedSearchFieldProps } from 'form/fields/advancedSearchField/AdvancedSearchField.types';
 
 import { useStyles } from './MembersDropdownField.styles';
 
@@ -15,37 +15,45 @@ export const MembersDropdownField = ({
   placeholder,
   name = 'members',
   ...props
-}: Partial<DropdownFieldProps> & { members: TeamMemberItem[] }) => {
+}: Partial<AdvancedSearchFieldProps> & { members: TeamMemberItem[] }) => {
   const { user } = useAuthState();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const assignees: DropdownItem[] = members.map((member: TeamMemberItem) => ({
-    label: (
-      <span className={classes.assignee}>
-        <UserAvatar
-          avatar={member?.image?.url ?? undefined}
-          size="small"
-          name={member?.firstName + ' ' + member?.lastName}
-          className={classes.assigneeAvatar}
-        />
-        <span>
-          {member?.firstName} {member?.lastName}
-          {member.id === user?.id && ` (${formatMessage({ id: 'tasks.members.me' })})`}
-        </span>
-      </span>
-    ),
+  const assignees: AdvancedSearchItem[] = members.map((member: TeamMemberItem) => ({
+    label: `${member?.firstName} ${member?.lastName} ${
+      member.id === user?.id ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
+    }`,
     value: member?.id,
+    icon: <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />,
   }));
 
   return (
-    <DropdownField
+    <AdvancedSearchField
       {...props}
-      name={name}
       validate={[requireValidator]}
-      placeholder={placeholder ?? 'tasks.create_new.details.assignee.placeholder'}
-      align="left"
       items={assignees}
+      placeholder={
+        <Box display="flex" alignItems="center" className={classes.assigneePlaceholder}>
+          <Avatar />
+          <span className={classes.assigneePlaceholderMessage}>
+            {formatMessage({ id: 'tasks.create_new.details.assignee.placeholder' })}
+          </span>
+        </Box>
+      }
+      name="assignee"
+      label="tasks.create_new.details.assignee.label"
+      align="left"
+      classes={{
+        input: classes.assigneeInput,
+        inputInner: classes.assigneeInputInner,
+        searchField: classes.searchField,
+        searchFieldInput: classes.searchFieldInput,
+        itemLabelWrapper: classes.assigneeItemLabelWrapper,
+        menu: classes.assigneeMenu,
+        menuItem: classes.assigneeMenuItem,
+        menuItemInner: classes.assigneeMenuItemInner,
+      }}
     />
   );
 };

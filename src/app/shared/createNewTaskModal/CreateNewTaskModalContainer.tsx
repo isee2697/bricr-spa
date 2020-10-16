@@ -26,15 +26,13 @@ export const CreateNewTaskModalContainer = () => {
     ...body
   }) => {
     try {
-      const { hour, minute } = deadlineTime;
-
       const { data: result } = await createTask({
         variables: {
           input: {
             ...body,
             assignee,
-            startDate: startDate.toISO(),
-            deadline: deadline.set({ hour, minute }).toISO(),
+            startDate: startDate && startDate.toISO(),
+            deadline: deadline && deadline.set({ hour: deadlineTime.hour, minute: deadlineTime.minute }).toISO(),
           },
         },
         refetchQueries: [
@@ -55,6 +53,8 @@ export const CreateNewTaskModalContainer = () => {
 
       return undefined;
     } catch (error) {
+      console.log(error);
+
       return {
         error: 'unknown',
       };

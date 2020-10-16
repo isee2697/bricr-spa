@@ -15,7 +15,7 @@
   "add_pim.conflict.title": "Introduzca la información de la dirección",
   "add_pim.conflict.yes_add_the_same": "Sí, agregue la misma dirección",
   "add_pim.controls.previously_step": "Paso anterior",
-  "add_pim.error.unknown": "Error. Inténtalo de nuevo más tarde.",
+  "add_pim.error.unknown": "Error. Inténtalo de nuevo más tarde. {message}",
   "add_pim.type.title": "¿Qué tipo de propiedad desea agregar?",
   "add_pim.type.title_Project": "¿Qué tipo de proyecto quieres añadir?",
   "appointment.from.label": "De",

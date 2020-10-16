@@ -14,4 +14,5 @@ export * from './selectField/SelectField';
 export * from './cardField/CardField';
 export * from './dropdownField/DropdownField';
 export * from './colorPickerField/ColorPickerField';
+export * from './advancedSearchField/AdvancedSearchField';
 export * from './membersDropdownField/MembersDropDownField';

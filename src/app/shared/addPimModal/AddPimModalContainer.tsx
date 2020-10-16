@@ -38,7 +38,7 @@ export const AddPimModalContainer = () => {
   const handlePimSubmit: AddPimSubmit<AddPimBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           PimWithSameAddressQuery,
           PimWithSameAddressQueryVariables
         >({
@@ -53,10 +53,6 @@ export const AddPimModalContainer = () => {
             },
           },
         });
-
-        if (errors) {
-          throw new Error();
-        }
 
         if (pimWithSameAddress?.getPimsGeneralWithSameAddress.items?.length) {
           return {
@@ -134,7 +130,7 @@ export const AddPimModalContainer = () => {
   const handleNcpSubmit: AddPimSubmit<AddNcpBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           NcpWithSameAddressQuery,
           NcpWithSameAddressQueryVariables
         >({
@@ -149,10 +145,6 @@ export const AddPimModalContainer = () => {
             },
           },
         });
-
-        if (errors) {
-          throw new Error();
-        }
 
         if (pimWithSameAddress?.getNcpWithSameAddress.items?.length) {
           return {

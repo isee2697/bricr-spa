@@ -47,6 +47,8 @@ export { default as TableHead } from '@material-ui/core/TableHead';
 export { default as TableRow } from '@material-ui/core/TableRow';
 export { default as TableCell } from '@material-ui/core/TableCell';
 export { default as TableBody } from '@material-ui/core/TableBody';
+export { default as Grow } from '@material-ui/core/Grow';
+export { default as ClickAwayListener } from '@material-ui/core/ClickAwayListener';
 export { default as Tooltip } from '@material-ui/core/Tooltip';
 
 export { Button } from './button/Button';
@@ -90,4 +92,5 @@ export { InfoItem } from './infoItem/InfoItem';
 export { PersonChip } from './personChip/PersonChip';
 export { SidebarHideButton } from './sidebarHideButton/SidebarHideButton';
 export { SidebarTitleTile } from './sidebarTitleTile/SidebarTitleTile';
+export { SelectBox } from './selectBox/SelectBox';
 export { ExitButton } from './exitButton/ExitButton';
