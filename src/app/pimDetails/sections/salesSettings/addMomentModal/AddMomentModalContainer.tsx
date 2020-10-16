@@ -31,7 +31,7 @@ export const AddMomentmodalContainer = ({
 
   const handleSubmit: AddMomentSubmit = async () => {
     const person: LinkedPersonType = {
-      name: 'Victor Martin Brochner ',
+      name: 'Victor Martin Brochner',
       avatar: 'https://source.unsplash.com/featured/?person',
       office: 'Vesteging Weert',
       company: 'Hendriks Makelaardij',
