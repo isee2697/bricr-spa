@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-import { DateTime } from 'luxon';
 import arrayMutators from 'final-form-arrays';
 
 import { ExitButton, Grid, Card } from 'ui/atoms';
@@ -9,7 +8,7 @@ import { Page } from 'ui/templates';
 import { AppointmentBaseInfoCard } from 'app/calendar/new/cards/baseInfo/BaseInfo';
 import { ParticipantsLocation } from 'app/calendar/new/cards/participantsLocation/ParticipantsLocation';
 import { CalendarProps } from 'app/calendar/Calendar.types';
-import { Editor } from 'app/shared/media/form/parts/Editor';
+import { RichTextField } from 'form/fields/richTextField/RichTextField';
 
 import { useStyles } from './NewAppointment.styles';
 
@@ -31,8 +30,8 @@ export const NewAppointment = ({ data }: CalendarProps) => {
               <Grid item xs={12} md={8}>
                 <AppointmentBaseInfoCard />
 
-                <Card>
-                  <Editor disabled={false} />
+                <Card className={classes.textEditor}>
+                  <RichTextField fullWidth withouthBorder disabled={false} name="chapter" />
                 </Card>
 
                 <Card>fdsf</Card>

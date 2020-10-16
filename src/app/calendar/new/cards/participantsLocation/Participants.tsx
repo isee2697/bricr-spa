@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Field } from 'react-final-form';
+import { Field, useField, useForm } from 'react-final-form';
 
 import { Grid, UserAvatar, Typography, IconButton, Box } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -8,20 +8,16 @@ import { Profile } from 'api/types';
 import { CloseIcon } from 'ui/atoms/icons';
 
 export const Participants = ({ members }: { members: Profile[] }) => {
+  const fieldName = 'invitedPersons';
   const { formatMessage } = useLocale();
-  const [assignedUsers, setAssignedUsers] = useState<Profile[]>([]);
+  const form = useForm();
+  const assignedUsers: string[] = form.getState().values?.[fieldName] ?? [];
 
   return (
     <>
-      <Field name="invitedUsers" value={assignedUsers.map(member => member.id)}>
-        {props => <input type="hidden" {...props.input} />}
-      </Field>
       <MembersDropdownField
-        onChange={profileId => {
-          const profile = members.find(member => member.id === profileId);
-          profile && setAssignedUsers(assigned => [...assigned, profile]);
-        }}
-        members={members.filter(member => !assignedUsers.includes(member))}
+        onChange={profileId => form.change(fieldName, [...assignedUsers, profileId])}
+        members={members.filter(member => !assignedUsers.find(id => member.id === id))}
         label={undefined}
         name="member_select"
       />
@@ -29,25 +25,34 @@ export const Participants = ({ members }: { members: Profile[] }) => {
         <Typography variant="h5">{formatMessage({ id: 'appointment.invited_users.label' })}</Typography>
       </Box>
       <>
-        {assignedUsers.map(member => (
-          <Grid container alignItems="center">
-            <Box mr={2}>
-              <UserAvatar
-                avatar={member?.image?.url ?? undefined}
-                size="small"
-                name={`${member?.firstName} ${member?.lastName}`}
-              />
-            </Box>
-            <Typography>{`${member?.firstName} ${member?.lastName}`}</Typography>
-            <Grid item className="right">
-              <IconButton
-                onClick={() => setAssignedUsers(assigned => assigned.filter(assignee => assignee.id !== member.id))}
-              >
-                <CloseIcon />
-              </IconButton>
+        {assignedUsers.map(memberId => {
+          const member = members.find(item => item.id === memberId);
+
+          return (
+            <Grid container alignItems="center">
+              <Box mr={2}>
+                <UserAvatar
+                  avatar={member?.image?.url ?? undefined}
+                  size="small"
+                  name={`${member?.firstName} ${member?.lastName}`}
+                />
+              </Box>
+              <Typography>{`${member?.firstName} ${member?.lastName}`}</Typography>
+              <Grid item className="right">
+                <IconButton
+                  onClick={() =>
+                    form.change(
+                      fieldName,
+                      assignedUsers.filter(profileId => profileId !== memberId),
+                    )
+                  }
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
             </Grid>
-          </Grid>
-        ))}
+          );
+        })}
       </>
     </>
   );

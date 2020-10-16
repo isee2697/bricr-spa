@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DateTime } from 'luxon';
 import { useForm } from 'react-final-form';
 
@@ -15,14 +15,14 @@ type Term = {
 };
 
 export const AppointmentBaseInfoCard = () => {
+  const fieldName = 'alternativeTerms';
   const form = useForm();
-  const baseItem: Term = { from: DateTime.local().plus({ day: 1 }), to: DateTime.local().plus({ day: 1, hour: 1 }) };
-  const [alternativeTerms, setAlternativeTerms] = useState(
-    (form.getState().initialValues?.alternativeTerms as Term[]) ?? [baseItem],
-  );
-  const { formatMessage } = useLocale();
   const classes = useStyles();
-  const amountOfTerms = alternativeTerms.length;
+  const { formatMessage } = useLocale();
+  const baseItem: Term = { from: DateTime.local().plus({ day: 1 }), to: DateTime.local().plus({ day: 1, hour: 1 }) };
+
+  const alternativeTerms: Term[] = form.getState().values?.[fieldName] ?? [baseItem];
+  const amountOfTerms = alternativeTerms?.length ?? 0;
 
   return (
     <Card>
@@ -40,21 +40,28 @@ export const AppointmentBaseInfoCard = () => {
         </Grid>
       </Grid>
       {alternativeTerms?.map((term, index) => (
-        <Grid key={index} container spacing={3} className={classes.term}>
+        <Grid key={index} container className={classes.term}>
           <Grid item className={classes.item}>
             <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
             <DatePickerChip name={`alternativeTerms[${index}].from`} className={classes.date} />
             <TimePickerChip name={`alternativeTerms[${index}].from`} />
           </Grid>
           <Grid item className={classes.item}>
-            <Box mr={1} />
+            <Box mr={1.5} />
             <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
             <DatePickerChip name={`alternativeTerms[${index}].to`} className={classes.date} />
             <TimePickerChip name={`alternativeTerms[${index}].to`} />
           </Grid>
           {amountOfTerms > 1 && (
             <Grid item className="right">
-              <IconButton onClick={() => setAlternativeTerms(terms => terms.filter((__item, idx) => index !== idx))}>
+              <IconButton
+                onClick={() => {
+                  form.change(
+                    'alternativeTerms',
+                    alternativeTerms.filter((__item, idx) => index !== idx),
+                  );
+                }}
+              >
                 <CloseIcon />
               </IconButton>
             </Grid>
@@ -64,7 +71,7 @@ export const AppointmentBaseInfoCard = () => {
 
       <Grid container spacing={3} alignItems="center" className={classes.bottom}>
         <Grid item>
-          <Button onClick={() => setAlternativeTerms(terms => [...terms, baseItem])}>
+          <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), baseItem])}>
             <AddIcon /> {formatMessage({ id: 'appointment.alternative_term.label' })}
           </Button>
         </Grid>

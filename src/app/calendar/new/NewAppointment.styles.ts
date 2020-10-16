@@ -15,4 +15,11 @@ export const useStyles = makeStyles(theme => ({
       },
     },
   },
+  textEditor: {
+    padding: `${theme.spacing(2, 0)} !important`,
+    '& div[role="textbox"]': {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+  },
 }));
