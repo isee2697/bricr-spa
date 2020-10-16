@@ -60,6 +60,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   popper: {
     width: '100%',
     zIndex: 1500,
+    // position: 'static',
   },
   menu: {
     borderRadius: spacing(1),
@@ -115,6 +116,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&.highlight': {
       color: palette.red.main,
     },
+    overflow: 'hidden',
   },
   blue: {
     color: palette.primary.main,

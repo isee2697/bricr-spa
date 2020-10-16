@@ -20,6 +20,7 @@ export const AdvancedSearch = ({
   const classes = useStyles();
 
   const select = useRef(null);
+  const item = ((select?.current as unknown) as HTMLDivElement) ?? undefined;
   const [isOpened, setOpened] = useState(false);
   const [key, setKey] = useState(items.find(item => item.value === value)?.label || '');
 
@@ -90,13 +91,24 @@ export const AdvancedSearch = ({
           )}
         </Box>
       </Box>
-      <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
+
+      <Popper
+        style={{
+          width: item?.clientWidth,
+          left: item?.getBoundingClientRect().left,
+        }}
+        className={classes.popper}
+        open={isOpened}
+        anchorEl={select.current}
+        transition
+      >
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
             <Paper className={classNames(propsClasses?.menu, classes.menu)}>
+              {console.log(TransitionProps)}
               <ClickAwayListener onClickAway={() => setOpened(false)}>
                 <>
                   {listItems

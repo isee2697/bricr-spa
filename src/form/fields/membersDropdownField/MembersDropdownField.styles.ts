@@ -52,7 +52,4 @@ export const useStyles = makeStyles(theme => ({
       content: 'none',
     },
   },
-  assigneeMenu: {},
-  assigneeMenuItem: {},
-  assigneeMenuItemInner: {},
 }));

@@ -50,9 +50,6 @@ export const MembersDropdownField = ({
         searchField: classes.searchField,
         searchFieldInput: classes.searchFieldInput,
         itemLabelWrapper: classes.assigneeItemLabelWrapper,
-        menu: classes.assigneeMenu,
-        menuItem: classes.assigneeMenuItem,
-        menuItemInner: classes.assigneeMenuItemInner,
       }}
     />
   );
