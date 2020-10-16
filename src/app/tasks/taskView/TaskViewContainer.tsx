@@ -45,6 +45,10 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   const { formatMessage } = useLocale();
 
   useEffect(() => {
+    if (dateRanges.length === 0) {
+      return;
+    }
+
     getTasks({
       variables: {
         sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
@@ -193,8 +197,10 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
       {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
       <TasksContent
         tab={tab}
-        tasks={tasks}
-        tasksSummaryByStatus={tasksSummaryByStatus}
+        tasks={dateRanges.length === 0 ? [] : tasks}
+        tasksSummaryByStatus={
+          dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
+        }
         selectedMembers={selectedMembers}
         searchKey={searchKey}
         viewMode={viewMode}

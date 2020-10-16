@@ -24,4 +24,7 @@ export const useStyles = makeStyles(theme => ({
       background: theme.palette.gray.light,
     },
   },
+  red: {
+    color: theme.palette.red.main,
+  },
 }));

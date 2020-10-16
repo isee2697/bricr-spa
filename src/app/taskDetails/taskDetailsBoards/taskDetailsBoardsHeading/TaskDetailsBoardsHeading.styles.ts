@@ -17,6 +17,8 @@ export const useStyles = makeStyles(theme => ({
     color: theme.palette.orange.main,
   },
   priorityIcon: {
+    fontSize: theme.typography.h5.fontSize,
     verticalAlign: 'top',
+    marginRight: theme.spacing(1),
   },
 }));
