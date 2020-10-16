@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import { TeamMemberItem } from 'api/types';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { TeamMemberItem } from 'app/tasks/Tasks.types';
 import { UserAvatar } from 'ui/atoms';
