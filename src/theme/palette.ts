@@ -6,6 +6,7 @@ const primaryInfo = 'rgba(10, 88, 233, 0.02)';
 const secondary = '#EE2F57';
 const black = '#2F1F5B';
 const blackLight = 'rgba(47, 31, 91, 0.6)';
+const blackInfo = 'rgba(130, 141, 184, .5)';
 const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
@@ -115,5 +116,6 @@ export const palette: PaletteOptions = {
   },
   info: {
     main: primaryInfo,
+    dark: blackInfo,
   },
 };
