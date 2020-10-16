@@ -16,12 +16,14 @@ type Term = {
 
 export const AppointmentBaseInfoCard = () => {
   const fieldName = 'alternativeTerms';
+  const repeatFieldName = 'repeatAppointment';
   const form = useForm();
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const baseItem: Term = { from: DateTime.local().plus({ day: 1 }), to: DateTime.local().plus({ day: 1, hour: 1 }) };
 
-  const alternativeTerms: Term[] = form.getState().values?.[fieldName] ?? [baseItem];
+  const values = form.getState().values;
+  const alternativeTerms: Term[] = values?.[fieldName] ?? [baseItem];
   const amountOfTerms = alternativeTerms?.length ?? 0;
 
   return (
@@ -76,7 +78,11 @@ export const AppointmentBaseInfoCard = () => {
           </Button>
         </Grid>
         <Grid item className="right">
-          <SelectField value={AppointmentRepeat.NoRepeat} className={classes.select} name="repeat">
+          <SelectField
+            value={values?.[repeatFieldName] ?? AppointmentRepeat.NoRepeat}
+            className={classes.select}
+            name={repeatFieldName}
+          >
             {Object.keys(AppointmentRepeat).map((item, key) => (
               <MenuItem key={key} value={item}>
                 {formatMessage({ id: `dictionaries.appointment.repeat.${item}` })}

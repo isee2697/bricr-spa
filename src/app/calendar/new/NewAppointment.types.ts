@@ -1,6 +1,6 @@
 import { Profile, AppointmentLocation } from 'api/types';
 
-export type ParticipantsLocationProps = {
-  members: Profile[];
+export type NewAppointmentProps = {
   locations: AppointmentLocation[];
+  members: Profile[];
 };

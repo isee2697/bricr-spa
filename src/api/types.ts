@@ -1166,6 +1166,39 @@ export enum AppointmentRepeat {
   Yearly = 'Yearly',
 }
 
+export type AppointmentLocation = {
+  __typename?: 'AppointmentLocation';
+  id: Scalars['ID'];
+  availableSeats?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  suggest?: Maybe<Scalars['Boolean']>;
+};
+
+export enum TravelTime {
+  Minutes15 = 'Minutes15',
+  Minutes30 = 'Minutes30',
+  Minutes45 = 'Minutes45',
+  OneHour = 'OneHour',
+  OneHour15Minutes = 'OneHour15Minutes',
+  OneHour30Minutes = 'OneHour30Minutes',
+  OneHour45Minutes = 'OneHour45Minutes',
+  TwoHour = 'TwoHour',
+  OneHours15Minutes = 'OneHours15Minutes',
+  TwoHours30Minutes = 'TwoHours30Minutes',
+  TwoHours45Minutes = 'TwoHours45Minutes',
+  ThreeHour = 'ThreeHour',
+  PlusThreeHour = 'PlusThreeHour',
+}
+
+export enum AppointmentType {
+  Aquisition = 'Aquisition',
+  SigningContract = 'SigningContract',
+  Openhouse = 'Openhouse',
+  Purchase = 'Purchase',
+  Inspection = 'Inspection',
+  PersonalShowing = 'PersonalShowing',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',

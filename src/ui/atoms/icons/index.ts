@@ -91,3 +91,4 @@ export * from './status/StatusIcon';
 export * from './followUp/FollowUpIcon';
 export * from './share/ShareIcon';
 export * from './exit/ExitIcon';
+export * from './conferenceRoom/ConferenceRoomIcon';

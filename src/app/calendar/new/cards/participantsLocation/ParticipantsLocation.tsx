@@ -5,6 +5,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Collapse } from 'ui/atoms';
 
 import { Participants } from './Participants';
+import { Locations } from './Location';
 import { useStyles } from './ParticipantsLocation.styles';
 import { ParticipantsLocationProps } from './ParticipantsLocation.types';
 
@@ -30,7 +31,7 @@ export const ParticipantsLocation = ({ members, locations }: ParticipantsLocatio
           <Participants members={members} />
         </Collapse>
         <Collapse in={activeTab === 1}>
-          <>locs</>
+          <Locations locations={locations} />
         </Collapse>
       </CardContent>
     </Card>

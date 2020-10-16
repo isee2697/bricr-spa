@@ -21,3 +21,35 @@ enum AppointmentRepeat {
     Hourly
     Yearly
 }
+
+type AppointmentLocation {
+    id: ID!
+    availableSeats: Float
+    name: String
+    suggest: Boolean
+}
+
+enum TravelTime {
+    Minutes15
+    Minutes30
+    Minutes45
+    OneHour
+    OneHour15Minutes
+    OneHour30Minutes
+    OneHour45Minutes
+    TwoHour
+    OneHours15Minutes
+    TwoHours30Minutes
+    TwoHours45Minutes
+    ThreeHour
+    PlusThreeHour
+}
+
+enum AppointmentType {
+    Aquisition
+    SigningContract
+    Openhouse
+    Purchase
+    Inspection
+    PersonalShowing
+}

@@ -6,6 +6,8 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { MembersDropdownField } from 'form/fields';
 import { Profile } from 'api/types';
 import { CloseIcon } from 'ui/atoms/icons';
+import { size } from 'app/pimDetails/sections/cadastre/plot/dictionaries';
+import { AvatarRowItem } from 'ui/atoms/avatarRowItem/AvatarRowItem';
 
 export const Participants = ({ members }: { members: Profile[] }) => {
   const fieldName = 'invitedPersons';
@@ -29,28 +31,16 @@ export const Participants = ({ members }: { members: Profile[] }) => {
           const member = members.find(item => item.id === memberId);
 
           return (
-            <Grid container alignItems="center">
-              <Box mr={2}>
-                <UserAvatar
-                  avatar={member?.image?.url ?? undefined}
-                  size="small"
-                  name={`${member?.firstName} ${member?.lastName}`}
-                />
-              </Box>
-              <Typography>{`${member?.firstName} ${member?.lastName}`}</Typography>
-              <Grid item className="right">
-                <IconButton
-                  onClick={() =>
-                    form.change(
-                      fieldName,
-                      assignedUsers.filter(profileId => profileId !== memberId),
-                    )
-                  }
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
+            <AvatarRowItem
+              name={`${member?.firstName} ${member?.lastName}`}
+              src={member?.image?.url ?? undefined}
+              onDelete={() =>
+                form.change(
+                  fieldName,
+                  assignedUsers.filter(profileId => profileId !== memberId),
+                )
+              }
+            />
           );
         })}
       </>
