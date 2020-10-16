@@ -53,3 +53,8 @@ enum AppointmentType {
     Inspection
     PersonalShowing
 }
+
+type AppointmentTerm {
+    from: Date
+    to: Date
+}

@@ -2,16 +2,20 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { useForm } from 'react-final-form';
 
-import { AppointmentRepeat } from 'api/types';
+import { AppointmentRepeat, AppointmentTerm } from 'api/types';
 import { Button, Card, Grid, IconButton, Box, Typography } from 'ui/atoms';
 import { CheckboxField, DatePickerChip, DropdownField, GenericField, TimePickerChip } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
 
-type Term = {
-  from: DateTime;
-  to: DateTime;
+const DEFAULT_TERM_ITEM: AppointmentTerm = {
+  from: DateTime.local()
+    .plus({ day: 1 })
+    .toISODate(),
+  to: DateTime.local()
+    .plus({ day: 1, hour: 1 })
+    .toISODate(),
 };
 
 export const AppointmentBaseInfoCard = () => {
@@ -20,10 +24,9 @@ export const AppointmentBaseInfoCard = () => {
   const form = useForm();
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const baseItem: Term = { from: DateTime.local().plus({ day: 1 }), to: DateTime.local().plus({ day: 1, hour: 1 }) };
 
   const values = form.getState().values;
-  const alternativeTerms: Term[] = values?.[fieldName] ?? [baseItem];
+  const alternativeTerms: AppointmentTerm[] = values?.[fieldName] ?? [DEFAULT_TERM_ITEM];
   const amountOfTerms = alternativeTerms?.length ?? 0;
 
   return (
@@ -73,7 +76,7 @@ export const AppointmentBaseInfoCard = () => {
 
       <Grid container spacing={3} alignItems="center" className={classes.bottom}>
         <Grid item>
-          <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), baseItem])}>
+          <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}>
             <AddIcon /> {formatMessage({ id: 'appointment.alternative_term.label' })}
           </Button>
         </Grid>
