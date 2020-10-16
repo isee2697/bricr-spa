@@ -9,28 +9,12 @@ import { TileButton } from 'ui/molecules';
 
 import { useStyles } from './PersonalInformation.styles';
 import { genders, preferredLanguages } from './dictionaries';
+import { PersonalInformationProps } from './PersonalInformation.types';
 
-export const PersonalInformation = () => {
+export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const initialValues = {
-    avatar: '',
-    firstName: '',
-    extraNames: '',
-    insertion: '',
-    additional: '',
-    gender: 'female',
-    birthday: '',
-    birthPlace: '',
-    nationality: '',
-    preferredLanguage: 'dutch',
-  };
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
-  };
 
   return (
     <Card className={classes.root}>
@@ -45,15 +29,15 @@ export const PersonalInformation = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={onSave} initialValues={data}>
           <Grid item xs={12}>
             <Box display="flex">
               <Box className={classes.avatarContainer}>
                 <UploadImageField
                   disabled={!isEditing}
                   name="avatar"
-                  entity={EntityWithFiles.Profile}
-                  entityID={'test'}
+                  entity={EntityWithFiles.Crm}
+                  entityID={data.id}
                   classes={{
                     item: classes.avatarItem,
                     empty: classes.avatarEmpty,
@@ -139,7 +123,7 @@ export const PersonalInformation = () => {
                   <Typography variant="h5">
                     {formatMessage({ id: 'crm.details.personal_information_general.personal_info.date_of_birth' })}
                   </Typography>
-                  <DatePickerField className={classes.formField} disabled={!isEditing} name="birthday" />
+                  <DatePickerField className={classes.formField} disabled={!isEditing} name="dateOfBirth" />
                 </Grid>
                 <Grid item xs={4}>
                   <Typography variant="h5">
@@ -147,7 +131,7 @@ export const PersonalInformation = () => {
                   </Typography>
                   <GenericField
                     className={classes.formField}
-                    name="birthPlace"
+                    name="placeOfBirth"
                     disabled={!isEditing}
                     placeholder="crm.details.personal_information_general.personal_info.placeholder"
                   />

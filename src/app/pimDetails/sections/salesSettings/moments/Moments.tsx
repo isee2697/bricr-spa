@@ -50,7 +50,7 @@ export const Moments = () => {
     }
   };
 
-  const onSave = async (values: unknown) => {
+  const onSave = async () => {
     try {
       return undefined;
     } catch {
@@ -76,7 +76,7 @@ export const Moments = () => {
                   <Box mb={3} px={2}>
                     <FormSubSectionHeader
                       noBorder
-                      title={formatMessage({ id: 'pim_details.general_settings' })}
+                      title={formatMessage({ id: `${baseName}.general.settings.title` })}
                       subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
                     />
                   </Box>
@@ -100,6 +100,7 @@ export const Moments = () => {
                       placeholder={formatMessage({ id: `${baseName}.viewing_amount.placeholder` })}
                       size="medium"
                       type="number"
+                      disabled={!editing}
                     />
                   </Box>
                 </Box>
