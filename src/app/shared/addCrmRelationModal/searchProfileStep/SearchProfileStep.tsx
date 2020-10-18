@@ -3,7 +3,6 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
-import { SubmitButton } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { useStyles } from '../AddCrmRelationModal.styles';
 import { Button, DialogActions, Box, DialogContent, TextField, InputAdornment, Typography } from 'ui/atoms';
@@ -11,7 +10,7 @@ import { AddIcon, SearchIcon, UserIcon } from 'ui/atoms/icons';
 import { CheckboxGroupField } from 'form/fields';
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
 
-export const SearchProfileStep = ({ onClose, onCreateNewRelation, onNext }: AddCrmRelationStepProps) => {
+export const SearchProfileStep = ({ onClose, onCreateNewRelation, handleGoTo }: AddCrmRelationStepProps) => {
   const [keyword, setKeyword] = useState('');
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -56,21 +55,22 @@ export const SearchProfileStep = ({ onClose, onCreateNewRelation, onNext }: AddC
               {formatMessage({ id: 'common.cancel' })}
             </Button>
             <Box display="flex">
-              <SubmitButton
+              <Button
                 type="submit"
                 size="large"
                 color="primary"
                 variant="outlined"
                 className={classes.marginRightHalf}
+                onClick={() => handleGoTo(1)}
               >
                 {formatMessage({ id: 'crm.relation.add_relation.create_new' })}
-              </SubmitButton>
+              </Button>
               <Button
                 color="primary"
                 size="large"
                 startIcon={<AddIcon color="inherit" />}
                 variant="contained"
-                onClick={onNext}
+                onClick={() => handleGoTo(2)}
               >
                 {formatMessage({ id: 'crm.relation.add_relation.request_mybricr_data' })}
               </Button>

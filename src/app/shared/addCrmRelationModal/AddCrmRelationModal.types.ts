@@ -6,7 +6,7 @@ export type AddCrmRelationModalProps = {
 };
 
 export type AddCrmRelationStepProps = {
-  onNext: () => void;
+  handleGoTo: (step: number) => void;
   onCreateNewRelation: () => void;
   onRequestBricrData: () => void;
   onClose: () => void;
