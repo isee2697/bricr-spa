@@ -28,9 +28,7 @@
     "styleguidist:build": "styleguidist build"
   },
   "husky": {
-    "hooks": {
-      
-    }
+    "hooks": {}
   },
   "auto-changelog": {
     "issueUrl": "https://headstart.atlassian.net/browse/{id}",

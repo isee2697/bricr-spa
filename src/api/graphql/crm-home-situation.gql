@@ -1,0 +1,58 @@
+enum CurrentHomeSituationType {
+  LiveIn,
+  HomeForSale,
+  SocialHousing,
+  FreeSectorRentalHome,
+  StudentHouse
+}
+
+enum CurrentHomeStatusType {
+  HouseSold,
+  AvailableForSale
+}
+
+enum ReasonToMoveType {
+  Health,
+  Age,
+  HousingCosts,
+  ResidentialEnvironment,
+  LiveTogether,
+  ChangeOfIncome,
+  HouseholdComposition,
+  Work,
+  Study,
+  LivingOnYourOwn,
+  Wedding
+}
+
+type CrmHomeSituation {
+  id: ID!
+  currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
+  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatusType"])
+  currentHomeSalesValue: Int
+  currentHomeMortgage: Int
+  currentHomeInformation: String
+  reasonToMove: [String!] @uuidOrEnum(enum: ["ReasonToMoveType"])
+  movingDate: Date
+  movingInformation: String
+}
+
+input UpdateCrmHomeSituationInput {
+  id: ID!
+  currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
+  currentHomeStatus: String @uuidOrEnum(enum: ["CurrentHomeStatusType"])
+  currentHomeSalesValue: Int
+  currentHomeMortgage: Int
+  currentHomeInformation: String
+  reasonToMove: [String!] @uuidOrEnum(enum: ["ReasonToMoveType"])
+  movingDate: Date
+  movingInformation: String
+}
+
+extend type Mutation {
+  updateCrmHomeSituation(input: UpdateCrmHomeSituationInput!): CrmHomeSituation @auth
+}
+
+extend type Query {
+  getCrmHomeSituation(id: ID!): CrmHomeSituation @auth
+}

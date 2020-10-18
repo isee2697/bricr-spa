@@ -1,5 +1,5 @@
-import { useTheme } from '@material-ui/core';
 import SvgIcon, { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
+import { useTheme } from '@material-ui/core';
 import * as React from 'react';
 
 export const PriorityLowIcon = (props: DefaultSvgIconProps) => {

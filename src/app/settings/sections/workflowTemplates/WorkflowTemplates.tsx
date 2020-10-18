@@ -32,125 +32,129 @@ export const WorkflowTemplates = ({
   const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
   const { push } = useHistory();
-  const [status, setStatus] = useState<ActiveTabStatus>('active');
+  const [status, setStatus] = useState<ActiveTabStatus>('inactive');
   const { notifications } = mockData;
 
   const activeTemplates = templates.filter(item => item.status === 'active' && item.type === templateType);
   const inactiveTemplates = templates.filter(item => item.status === 'inactive' && item.type === templateType);
 
   return (
-    <>
-      <Page
-        showHeader
-        headerProps={
-          templateType === 'custom'
-            ? {
-                actionText: formatMessage({
-                  id: 'settings.workflow_templates.add_new_workflow_template',
-                }),
-                actionIcon: <AddIcon color="inherit" />,
-                onAction: () => setModalVisible(true),
-              }
-            : undefined
-        }
-        title={formatMessage({
-          id: `settings.workflow_templates.${templateType}_title`,
-        })}
-        titleActions={[]}
-        placeholder="settings.workflow_templates.description_placeholder"
-        name="description"
-        dateUpdated={dateUpdated}
-        updatedBy={updatedBy}
-      >
+    <Box flex={1}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Card>
-            <CardHeader
-              title={
-                <Typography variant="h2">
-                  {formatMessage({
-                    id: `settings.workflow_templates.card_${templateType}_title`,
-                  })}
-                </Typography>
-              }
-              action={
-                <IconButton variant="rounded" size="small" onClick={() => {}} aria-label="adjust">
-                  <Badge badgeContent={notifications?.length} color="primary">
-                    <ManageIcon />
-                  </Badge>
-                </IconButton>
-              }
-            />
-            <CardContent>
-              <Box mb={2}>
-                <WorkflowTemplatesTabs
-                  status={status}
-                  onStatusChange={setStatus}
-                  amounts={{
-                    active: activeTemplates?.length,
-                    inactive: inactiveTemplates?.length,
-                  }}
+          <Page
+            showHeader
+            headerProps={
+              templateType === 'custom'
+                ? {
+                    actionText: formatMessage({
+                      id: 'settings.workflow_templates.add_new_workflow_template',
+                    }),
+                    actionIcon: <AddIcon color="inherit" />,
+                    onAction: () => setModalVisible(true),
+                  }
+                : undefined
+            }
+            title={formatMessage({
+              id: `settings.workflow_templates.${templateType}_title`,
+            })}
+            titleActions={[]}
+            placeholder="settings.workflow_templates.description_placeholder"
+            name="description"
+            dateUpdated={dateUpdated}
+            updatedBy={updatedBy}
+          >
+            <Grid item xs={12}>
+              <Card>
+                <CardHeader
+                  title={
+                    <Typography variant="h2">
+                      {formatMessage({
+                        id: `settings.workflow_templates.card_${templateType}_title`,
+                      })}
+                    </Typography>
+                  }
+                  action={
+                    <IconButton variant="rounded" size="small" onClick={() => {}} aria-label="adjust">
+                      <Badge badgeContent={notifications?.length} color="primary">
+                        <ManageIcon />
+                      </Badge>
+                    </IconButton>
+                  }
                 />
-              </Box>
-              <List
-                className="workflow-template-list"
-                items={status === 'active' ? activeTemplates : inactiveTemplates}
-                itemIndex="id"
-                sortOptions={[
-                  { key: 'lastEdited', name: 'Last edited' },
-                  { key: 'firstEdited', name: 'First edited' },
-                ]}
-                onSort={key => alert(key)}
-                pagination={{
-                  count: 8,
-                  currentPerPage: 10,
-                  perPageOptions: [10, 25, 'All'],
-                  onPerPageChange: value => {
-                    alert(value);
-                  },
-                }}
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({
-                  id: 'settings.workflow_templates.empty_line_1',
-                })}
-                emptyDescription={formatMessage({
-                  id: 'settings.workflow_templates.empty_line_2',
-                })}
-                renderItem={(template, checked, checkbox) => (
-                  <Box
-                    key={template.id}
-                    className={clsx(classes.row, { [classes.rowChecked]: checked }, 'workflow-template-row')}
-                  >
-                    {checkbox}
-                    <Box component="span" className={classes.rowItem}>
-                      <Box
-                        className={classes.itemButton}
-                        onClick={() => {
-                          if (template.type === 'custom' && template.status === 'active') {
-                            push(AppRoute.workflow.replace(':id', template.id), {
-                              icon: template.icon,
-                              name: template.name,
-                            });
-                          }
-                        }}
-                      >
-                        <WorkflowTemplatesItem
-                          template={template}
-                          onCopyToCustom={() => {
-                            onUpdate({ ...template, type: 'custom' });
-                          }}
-                          onStatusChange={status => {
-                            onUpdate({ ...template, status });
-                          }}
-                        />
-                      </Box>
-                    </Box>
+                <CardContent>
+                  <Box mb={2}>
+                    <WorkflowTemplatesTabs
+                      status={status}
+                      onStatusChange={setStatus}
+                      amounts={{
+                        active: activeTemplates?.length,
+                        inactive: inactiveTemplates?.length,
+                      }}
+                    />
                   </Box>
-                )}
-              />
-            </CardContent>
-          </Card>
+                  <List
+                    className="workflow-template-list"
+                    items={status === 'active' ? activeTemplates : inactiveTemplates}
+                    itemIndex="id"
+                    sortOptions={[
+                      { key: 'lastEdited', name: 'Last edited' },
+                      { key: 'firstEdited', name: 'First edited' },
+                    ]}
+                    onSort={key => alert(key)}
+                    pagination={{
+                      count: 8,
+                      currentPerPage: 10,
+                      perPageOptions: [10, 25, 'All'],
+                      onPerPageChange: value => {
+                        alert(value);
+                      },
+                    }}
+                    loadingItem={<PropertyItemPlaceholder />}
+                    emptyTitle={formatMessage({
+                      id: 'settings.workflow_templates.empty_line_1',
+                    })}
+                    emptyDescription={formatMessage({
+                      id: 'settings.workflow_templates.empty_line_2',
+                    })}
+                    renderItem={(template, checked, checkbox) => (
+                      <Box
+                        key={template.id}
+                        className={clsx(classes.row, { [classes.rowChecked]: checked }, 'workflow-template-row')}
+                      >
+                        {checkbox}
+                        <Box component="span" className={classes.rowItem}>
+                          <Box
+                            className={classes.itemButton}
+                            onClick={() => {
+                              if (template.type === 'custom' && template.status === 'active') {
+                                push(AppRoute.workflow.replace(':id', template.id), {
+                                  icon: template.icon,
+                                  name: template.name,
+                                });
+                              }
+                            }}
+                          >
+                            <WorkflowTemplatesItem
+                              template={template}
+                              onCopyToCustom={() => {
+                                onUpdate({ ...template, type: 'custom' });
+                              }}
+                              onStatusChange={status => {
+                                onUpdate({ ...template, status });
+                              }}
+                            />
+                          </Box>
+                        </Box>
+                      </Box>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+          </Page>
         </Grid>
-      </Page>
+      </Grid>
       {isModalVisible && (
         <AddCustomPropertyModal
           onClose={() => setModalVisible(false)}
@@ -163,6 +167,6 @@ export const WorkflowTemplates = ({
           onSubmit={onAdd}
         />
       )}
-    </>
+    </Box>
   );
 };
