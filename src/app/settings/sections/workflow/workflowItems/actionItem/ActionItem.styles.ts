@@ -6,6 +6,7 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     display: 'flex',
     alignItems: 'center',
     textAlign: 'center',
+    boxShadow: `0px 3px 6px ${palette.gray.main}30`,
 
     '&.background': {
       height: spacing(8),
@@ -21,6 +22,12 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
       backgroundColor: palette.white.main,
       borderRadius: spacing(1),
       border: `1px solid ${palette.blue.main}`,
+    },
+  },
+  inactive: {
+    color: palette.warmgray.light,
+    '&.dropped': {
+      borderColor: palette.warmgray.light,
     },
   },
   itemIcon: {
@@ -39,5 +46,34 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
       fontSize: spacing(4),
       color: palette.blue.main,
     },
+  },
+  inactiveIcon: {
+    background: palette.warmgray.light,
+
+    '& svg': {
+      color: palette.white.main,
+    },
+  },
+  badge: {
+    border: `1px solid ${palette.gray.light}`,
+    borderRadius: spacing(10),
+    backgroundColor: palette.white.main,
+  },
+  badgeButton: {
+    width: spacing(5),
+    height: spacing(5),
+  },
+  menuItem: {
+    padding: 0,
+    paddingTop: spacing(1),
+    paddingBottom: spacing(1),
+    marginBottom: spacing(1),
+    borderBottom: `2px solid ${palette.gray.light}`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuIcon: {
+    color: palette.gray.main,
   },
 }));

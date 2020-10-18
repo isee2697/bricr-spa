@@ -9,26 +9,12 @@ import { EuroIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './CurrentSituation.styles';
 import { currentHomes1, currentHomes2, reasonToMove } from './dictionaries';
+import { CurrentSituationProps } from './CurrentSituation.types';
 
-export const CurrentSituation = () => {
+export const CurrentSituation = ({ data, onSave }: CurrentSituationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const initialValues = {
-    currentHome1: 'live_in',
-    currentHome2: 'house_sold',
-    estimatedSalesValue: 0,
-    mortgage: 0,
-    extraInformation: '',
-    reasonToMove: ['health'],
-    dateOfMoving: '',
-    extraInformationOfMoving: '',
-  };
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
-  };
 
   return (
     <Card className={classes.root}>
@@ -43,7 +29,7 @@ export const CurrentSituation = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues} mutators={{ ...arrayMutators }}>
+        <AutosaveForm onSave={onSave} initialValues={data} mutators={{ ...arrayMutators }}>
           <Grid item xs={12}>
             <Box className={classes.marginTopFour}>
               <Box display="flex" justifyContent="space-between">
@@ -61,7 +47,7 @@ export const CurrentSituation = () => {
               <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
-                  name="currentHome1"
+                  name="currentHomeSituation"
                   options={currentHomes1}
                   classes={{ groupItem: classes.radioItem }}
                 />
@@ -83,7 +69,7 @@ export const CurrentSituation = () => {
               <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
-                  name="currentHome2"
+                  name="currentHomeStatus"
                   options={currentHomes2}
                   classes={{ groupItem: classes.radioItem }}
                 />
@@ -97,7 +83,8 @@ export const CurrentSituation = () => {
                   })}
                 </Typography>
                 <GenericField
-                  name="estimatedSalesValue"
+                  name="currentHomeSalesValue"
+                  type="number"
                   InputProps={{ endAdornment: <EuroIcon /> }}
                   disabled={!isEditing}
                 />
@@ -108,7 +95,12 @@ export const CurrentSituation = () => {
                     id: 'crm.details.personal_information_home_situation.current_situation.mortgage',
                   })}
                 </Typography>
-                <GenericField name="mortgage" InputProps={{ endAdornment: <EuroIcon /> }} disabled={!isEditing} />
+                <GenericField
+                  name="currentHomeMortgage"
+                  type="number"
+                  InputProps={{ endAdornment: <EuroIcon /> }}
+                  disabled={!isEditing}
+                />
               </Grid>
             </Grid>
             <Box className={classes.marginTopFour}>
@@ -117,7 +109,11 @@ export const CurrentSituation = () => {
                   id: 'crm.details.personal_information_home_situation.current_situation.extra_information',
                 })}
               </Typography>
-              <GenericField name="extraInformation" disabled={!isEditing} placeholder="common.put_information_here" />
+              <GenericField
+                name="currentHomeInformation"
+                disabled={!isEditing}
+                placeholder="common.put_information_here"
+              />
             </Box>
           </Grid>
           <Grid className={classes.marginTopFour}>
@@ -143,7 +139,7 @@ export const CurrentSituation = () => {
                     id: 'crm.details.personal_information_home_situation.current_situation.date_of_moving',
                   })}
                 </Typography>
-                <DatePickerField placeholder="date_picker.aria_label" name="dateOfMoving" disabled={!isEditing} />
+                <DatePickerField placeholder="date_picker.aria_label" name="movingDate" disabled={!isEditing} />
               </Grid>
             </Grid>
             <Box className={classes.marginTopFour}>
@@ -152,11 +148,7 @@ export const CurrentSituation = () => {
                   id: 'crm.details.personal_information_home_situation.current_situation.extra_information',
                 })}
               </Typography>
-              <GenericField
-                name="extraInformationOfMoving"
-                disabled={!isEditing}
-                placeholder="common.put_information_here"
-              />
+              <GenericField name="movingInformation" disabled={!isEditing} placeholder="common.put_information_here" />
             </Box>
           </Grid>
         </AutosaveForm>

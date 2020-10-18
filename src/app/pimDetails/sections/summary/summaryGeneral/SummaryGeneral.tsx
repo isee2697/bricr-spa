@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 
 import { Badge, Box, Button, Grid, IconButton, Typography } from 'ui/atoms';
-import { BuildingIcon, SeeIcon, ShareIcon } from 'ui/atoms/icons';
+import { BuildingIcon, SeeIcon, ShareIcon, UnseeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -64,7 +64,8 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
                 variant="roundedContained"
                 onClick={() => setIsShowImportantBrokerContent(!isShowImportantBrokerContent)}
               >
-                <SeeIcon />
+                {isShowImportantBrokerContent && <UnseeIcon />}
+                {!isShowImportantBrokerContent && <SeeIcon />}
               </IconButton>
             </Box>
             {isShowImportantBrokerContent && (
