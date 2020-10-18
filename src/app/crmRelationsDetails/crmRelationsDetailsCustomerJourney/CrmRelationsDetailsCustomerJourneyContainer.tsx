@@ -9,6 +9,7 @@ import {
   CRM_RELATIONS_CUSTOMER_JOURNEY_OPTANTS,
   CRM_RELATIONS_CUSTOMER_JOURNEY_VIEWINGS,
 } from 'api/mocks/crm-relation';
+import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 
 import { CrmRelationsDetailsCustomerJourney } from './CrmRelationsDetailsCustomerJourney';
 import {
@@ -19,6 +20,8 @@ import {
 
 export const CrmRelationsDetailsCustomerJourneyContaienr = ({
   crm,
+  isSidebarVisible,
+  onSidebarOpen,
 }: CrmRelationsDetailsCustomerJourneyContainerProps) => {
   const { status, setStatus } = useCrmRelationsCustomerJourneyQueryParams({});
   const [data, setData] = useState<CrmRelationsDetailsCustomerJourneyType[]>(CRM_RELATIONS_CUSTOMER_JOURNEY_MATCHING);
@@ -48,5 +51,10 @@ export const CrmRelationsDetailsCustomerJourneyContaienr = ({
     }
   }, [status]);
 
-  return <CrmRelationsDetailsCustomerJourney crm={crm} status={status} onStatusChange={setStatus} items={data} />;
+  return (
+    <>
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+      <CrmRelationsDetailsCustomerJourney crm={crm} status={status} onStatusChange={setStatus} items={data} />
+    </>
+  );
 };

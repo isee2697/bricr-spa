@@ -21,12 +21,17 @@ import { Page } from 'ui/templates';
 import { AddIcon, HelpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
 import { FilePermission } from 'api/types';
 import { Timeline } from '../crmRelationsDetailsDashboard/crmRelationsDetailsDashboardBoards/crmRelationsDetailsDashboardBoardsTimeline/CrmRelationsDetailsDashboardBoardsTimeline.types';
+import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 
 import { CrmRelationsDetailsTimelineProps } from './CrmRelationsDetailsTimeline.types';
 import { useStyles } from './CrmRelationsDetailsTimeline.styles';
 import { CrmRelationsDetailsTimelineBoards } from './crmRelationsDetailsTimelineBoards/CrmRelationsDetailsTimelineBoards';
 
-export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimelineProps) => {
+export const CrmRelationsDetailsTimeline = ({
+  crm,
+  isSidebarVisible,
+  onSidebarOpen,
+}: CrmRelationsDetailsTimelineProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -242,9 +247,10 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
     <>
       <NavBreadcrumb
         urlBase={joinUrlParams(baseUrl, urlParams)}
-        to="/dashboard"
-        title={formatMessage({ id: 'crm.details.dashboard.title' })}
+        to="/timeline"
+        title={formatMessage({ id: 'crm.details.timeline.title' })}
       />
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
       <Page withoutHeader>
         <Grid xs={12} item container className={classes.header}>
           <Typography variant="h1" className={classes.title}>

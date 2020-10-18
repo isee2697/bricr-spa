@@ -4,6 +4,8 @@ import { CrmItem } from '../../crm/Crm.types';
 
 export type CrmRelationsDetailsCustomerJourneyContainerProps = {
   crm: CrmItem;
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
 };
 
 export type CrmRelationsDetailsCustomerJourneyProps = {

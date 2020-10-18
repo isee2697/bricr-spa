@@ -16,6 +16,7 @@ import { FamilyAndContacts } from './personalInformation/familyAndContacts/Famil
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
+import { MatchProfile } from './personalInformation/matchProfile/MatchProfile';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -37,26 +38,88 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
         <CrmRelationsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
         <Box flex={1}>
           <Grid container className={classes.content}>
-            <CrmRelationsDetailsHeader onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
             {!!crm && (
               <Switch>
-                <Route path={`${path}/dashboard`} render={() => <CrmRelationsDetailsDashboard crm={crm} />} />
-                <Route path={`${path}/summary`} render={() => <CrmRelationsDetailsSummary />} />
-                <Route path={`${path}/timeline`} render={() => <CrmRelationsDetailsTimeline crm={crm} />} />
+                <Route
+                  path={`${path}/dashboard`}
+                  render={() => (
+                    <CrmRelationsDetailsDashboard
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/summary`}
+                  render={() => (
+                    <CrmRelationsDetailsSummary
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/timeline`}
+                  render={() => (
+                    <CrmRelationsDetailsTimeline
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    />
+                  )}
+                />
                 <Route
                   path={`${path}/customer_journey`}
-                  render={() => <CrmRelationsDetailsCustomerJourneyContaienr crm={crm} />}
+                  render={() => (
+                    <CrmRelationsDetailsCustomerJourneyContaienr
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    />
+                  )}
                 />
                 <Route
                   path={`${path}/personal_information_general`}
-                  render={() => <PersonalInformationGeneralContainer />}
+                  render={() => (
+                    <PersonalInformationGeneralContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
                 />
                 <Route
                   path={`${path}/personal_information_contact_information`}
-                  render={() => <ContactInformationContainer />}
+                  render={() => (
+                    <ContactInformationContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
                 />
-                <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
-                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituationContainer />} />
+                <Route
+                  path={`${path}/personal_information_family_and_contacts`}
+                  render={() => (
+                    <FamilyAndContacts onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_home_situation`}
+                  render={() => (
+                    <HomeSituationContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_match_profile`}
+                  render={() => (
+                    <MatchProfile
+                      path={`${path}/personal_information_match_profile`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
