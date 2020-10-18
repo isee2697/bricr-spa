@@ -20,6 +20,7 @@ import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
 import { CommercialSpacesContainer } from './sections/commercial/CommercialSpacesContainer';
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
+import { SalesSettings } from './sections/salesSettings/SalesSettings';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 
 export const PimDetails = ({
@@ -127,6 +128,10 @@ export const PimDetails = ({
                       title={title}
                     />
                   )}
+                />
+                <Route
+                  path={`${path}/salesSettings`}
+                  render={() => <SalesSettings isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
                 />
                 <Route
                   path={`${path}/specification`}

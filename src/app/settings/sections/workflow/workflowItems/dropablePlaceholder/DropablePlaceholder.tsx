@@ -1,13 +1,10 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 
-import { WorkflowItemType } from '../../Workflow.types';
-
-import { AddPlaceholder } from './addPlaceholder/AddPlaceholder';
 import { DropablePlaceholderProps, DragObjectType, DropablePlaceholderCollectProps } from './DropablePlaceholder.types';
 import { ItemPlaceholder } from './itemPlaceholder/ItemPlaceholder';
 
-export const DropablePlaceholder = ({ type, onDrop }: DropablePlaceholderProps) => {
+export const DropablePlaceholder = ({ type, onDrop, hidePlaceholder }: DropablePlaceholderProps) => {
   const [{ isOver, isDrag }, drop] = useDrop<DragObjectType, void, DropablePlaceholderCollectProps>({
     accept: type,
     drop: onDrop,
@@ -18,13 +15,11 @@ export const DropablePlaceholder = ({ type, onDrop }: DropablePlaceholderProps) 
     }),
   });
 
-  if (!isDrag) {
-    return type === WorkflowItemType.ACTION ? <AddPlaceholder /> : null;
-  }
+  if (!isDrag && hidePlaceholder) return null;
 
   return (
     <div ref={drop}>
-      <ItemPlaceholder type={type} hovered={isOver} />
+      <ItemPlaceholder type={type} hovered={isOver} isDrag={isDrag} />
     </div>
   );
 };
