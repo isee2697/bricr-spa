@@ -43,8 +43,6 @@ export const CreateNewTaskModalContainer = ({ members, onAddNewTask }: CreateNew
 
       return undefined;
     } catch (error) {
-      console.log(error);
-
       return {
         error: 'unknown',
       };

@@ -10,8 +10,9 @@ import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './HomeSituation.styles';
 import { CurrentSituation } from './currentSituation/CurrentSituation';
+import { HomeSituationProps } from './HomeSituation.types';
 
-export const HomeSituation = () => {
+export const HomeSituation = ({ data, onSave }: HomeSituationProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -39,7 +40,7 @@ export const HomeSituation = () => {
           </IconButton>
         </Grid>
 
-        <CurrentSituation />
+        <CurrentSituation data={data} onSave={onSave} />
       </Page>
     </>
   );
