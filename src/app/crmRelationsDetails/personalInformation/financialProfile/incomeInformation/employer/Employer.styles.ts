@@ -19,7 +19,6 @@ export const useStyles = makeStyles(theme => ({
     borderBottomLeftRadius: theme.spacing(1),
     width: theme.spacing(20),
     height: theme.spacing(17),
-    fontSize: '3em',
   },
   employerRowDetail: {
     padding: theme.spacing(2),

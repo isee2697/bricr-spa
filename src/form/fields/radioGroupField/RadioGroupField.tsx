@@ -11,7 +11,7 @@ import { useStyles } from './RadioGroupField.styles';
 
 export const RadioGroupField = ({
   name,
-  label,
+  labelId,
   disabled,
   options,
   validate,
@@ -61,9 +61,9 @@ export const RadioGroupField = ({
 
   return (
     <>
-      {label && (
+      {labelId && (
         <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
-          {formatMessage({ id: label })}
+          {formatMessage({ id: labelId })}
         </InputLabel>
       )}
       <Grid container spacing={spacing} justify={justify} ref={containerRef} className={propsClasses?.group}>

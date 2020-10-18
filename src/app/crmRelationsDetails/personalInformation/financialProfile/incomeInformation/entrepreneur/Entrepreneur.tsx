@@ -38,10 +38,9 @@ export const Entrepreneur = () => {
         <Grid item xs={12}>
           <RadioGroupField
             name="entrepreneur.typeOfEntrepreneur"
-            label={formatMessage({
-              id:
-                'crm.details.personal_information_financial_profile.income_information.entrepreneur.type_of_entrepreneur',
-            })}
+            labelId={
+              'crm.details.personal_information_financial_profile.income_information.entrepreneur.type_of_entrepreneur'
+            }
             options={typeOfEntrepeneurs}
           />
         </Grid>

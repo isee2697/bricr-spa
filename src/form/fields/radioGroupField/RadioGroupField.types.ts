@@ -20,7 +20,7 @@ export type RadioGroupFieldClasses = {
 };
 
 export type RadioGroupFieldProps = {
-  label?: string;
+  labelId?: string;
   validate?: FieldValidator<FieldValue>[];
   validateFields?: string[];
   name: string;

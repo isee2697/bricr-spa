@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
+import clsx from 'classnames';
 
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { PromiseFunction } from 'app/shared/types';
