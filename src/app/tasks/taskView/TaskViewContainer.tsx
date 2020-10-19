@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { Alert, Loader } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
+import { Loader } from 'ui/atoms';
 import { TasksViewMode } from '../Tasks.enum';
 import {
   Task,
@@ -17,8 +16,6 @@ import {
 } from 'api/types';
 import { TasksTab, TeamMemberItem } from '../Tasks.types';
 import { TasksContent } from '../tasksContent/TasksContent';
-import { CreateNewTaskModalContainer } from '../createNewTaskModal/CreateNewTaskModalContainer';
-import { useModalDispatch } from 'hooks';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
@@ -30,7 +27,6 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
       to: DateTime.local().toISO(),
     },
   ]);
-  const { close } = useModalDispatch();
 
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
@@ -41,8 +37,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   ] = useGetTasksSummaryByStatusLazyQuery({
     fetchPolicy: 'network-only',
   });
-  const [updateTask, { error: updateTaskError }] = useUpdateTaskMutation();
-  const { formatMessage } = useLocale();
+  const [updateTask] = useUpdateTaskMutation();
 
   useEffect(() => {
     if (dateRanges.length === 0) {
@@ -168,49 +163,25 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
     }
   };
 
-  const handleAddNewTask = () => {
-    close('create-new-task');
-    getTasks({
-      variables: {
-        sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
-        sortDirection: SortDirection.Desc,
-        search: searchKey,
-        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        deadlines: dateRanges,
-      },
-    });
-    getTaskSummaryByStatus({
-      variables: {
-        search: searchKey,
-        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        deadlines: dateRanges,
-      },
-    });
-  };
-
   if (loading || taskSummaryByStatusLoading) {
     return <Loader />;
   }
 
   return (
-    <>
-      {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
-      <TasksContent
-        tab={tab}
-        tasks={dateRanges.length === 0 ? [] : tasks}
-        tasksSummaryByStatus={
-          dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
-        }
-        selectedMembers={selectedMembers}
-        searchKey={searchKey}
-        viewMode={viewMode}
-        deadlines={dateRanges}
-        onChangeSearchKey={setSearchKey}
-        onChangeViewMode={setViewMode}
-        onChangeDateRange={setDateRanges}
-        onUpdateTaskStatus={handleUpdateTaskStatus}
-      />
-      <CreateNewTaskModalContainer members={members} onAddNewTask={handleAddNewTask} />
-    </>
+    <TasksContent
+      tab={tab}
+      tasks={dateRanges.length === 0 ? [] : tasks}
+      tasksSummaryByStatus={
+        dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
+      }
+      selectedMembers={selectedMembers}
+      searchKey={searchKey}
+      viewMode={viewMode}
+      deadlines={dateRanges}
+      onChangeSearchKey={setSearchKey}
+      onChangeViewMode={setViewMode}
+      onChangeDateRange={setDateRanges}
+      onUpdateTaskStatus={handleUpdateTaskStatus}
+    />
   );
 };
