@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
