@@ -2,6 +2,6 @@ export type RichTextFieldProps = {
   name: string;
   placeholder?: string;
   disabled?: boolean;
-  withouthBorder?: boolean;
+  withoutBorder?: boolean;
   fullWidth?: boolean;
 };

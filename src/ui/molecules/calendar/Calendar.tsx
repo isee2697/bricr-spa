@@ -32,7 +32,7 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
       <MonthView />
       <AllDayPanel />
       <Appointments />
-      <CurrentTimeIndicator updateInterval={1000} />
+      <CurrentTimeIndicator updateInterval={60000} />
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />
       <Resources

@@ -132,7 +132,7 @@ export const AppointmentTypeCard = () => {
         <Box mt={2}>
           <Typography variant="h5">{formatMessage({ id: 'appointment.link_properties_label' })}</Typography>
           <Button className={classes.button} variant="contained" color="primary" onClick={() => setModalOpened(true)}>
-            Search properties
+            {formatMessage({ id: 'appointment.search.properties' })}
           </Button>
         </Box>
         {assignedPims?.length > 0 && (
