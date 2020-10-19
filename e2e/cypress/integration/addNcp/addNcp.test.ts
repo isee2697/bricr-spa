@@ -12,7 +12,7 @@ context('Add Ncp', () => {
     cy.get('[aria-controls="add-menu"]').click();
     cy.wait(1000);
 
-    cy.findAllByText('Property').last().click();
+    cy.findByTestId('add-menu-property').click();
     cy.findByText('New Construction Project').click();
     cy.findAllByText('Houses')
       .last()

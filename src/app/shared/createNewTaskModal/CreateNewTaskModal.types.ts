@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { TeamMemberItem } from '../Tasks.types';
+import { TeamMemberItem } from 'app/tasks/Tasks.types';
 import { TaskLabel, TaskPriority } from 'api/types';
 
 export type CreateNewTaskModalProps = {

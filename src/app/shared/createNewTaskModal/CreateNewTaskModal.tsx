@@ -2,26 +2,28 @@ import React from 'react';
 import { Form } from 'react-final-form';
 
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Alert, DialogContent, DialogActions, Grid, Button, UserAvatar, Typography, Box, Avatar } from 'ui/atoms';
+import { Alert, DialogContent, DialogActions, Grid, Button, Typography } from 'ui/atoms';
 import { FollowUpRectangleIcon, UserRectangleIcon, LockRectangleIcon, AddIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { requireValidator } from 'form/validators';
-import { GenericField, DropdownField, DatePickerField, TimePickerField, AdvancedSearchField } from 'form/fields';
+import { GenericField, MembersDropdownField, DropdownField, DatePickerField, TimePickerField } from 'form/fields';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { TeamMemberItem } from '../Tasks.types';
 import { TaskPriority, TaskLabel } from 'api/types';
-import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
-import { useAuthState } from 'hooks/useAuthState/useAuthState';
-
-import { CreateNewTaskModalProps, CreateNewTaskSubmit } from './CreateNewTaskModal.types';
-import { useStyles } from './CreateNewTaskModal.styles';
+import { CreateNewTaskModalProps, CreateNewTaskSubmit } from 'app/shared/createNewTaskModal/CreateNewTaskModal.types';
+import { useStyles } from 'app/shared/createNewTaskModal/CreateNewTaskModal.styles';
+import { useAuthState } from 'hooks';
 
 export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNewTaskModalProps) => {
-  const { user } = useAuthState();
   const classes = useStyles();
+  const { user } = useAuthState();
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
+  const showMembers = [...members];
+
+  if (user && !showMembers.find(profile => profile.id === user.id)) {
+    showMembers.push(user);
+  }
 
   const handleSubmit: CreateNewTaskSubmit = async body => {
     const response = await onSubmit(body);
@@ -39,14 +41,6 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
   const handleClose = () => {
     close('create-new-task');
   };
-
-  const assignees: AdvancedSearchItem[] = members.map((member: TeamMemberItem) => ({
-    label: `${member?.firstName} ${member?.lastName} ${
-      member.id === user?.id ? `(${formatMessage({ id: 'tasks.members.me' })})` : ''
-    }`,
-    value: member?.id,
-    icon: <UserAvatar size="small" name={member?.firstName + ' ' + member?.lastName} />,
-  }));
 
   const labels: DropdownItem[] = [
     {
@@ -127,35 +121,18 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               </Grid>
               <Grid container spacing={1}>
                 <Grid item xs={6}>
-                  <AdvancedSearchField
+                  <MembersDropdownField
                     validate={[requireValidator]}
-                    items={assignees}
-                    placeholder={
-                      <Box display="flex" alignItems="center" className={classes.assigneePlaceholder}>
-                        <Avatar />
-                        <span className={classes.assigneePlaceholderMessage}>
-                          {formatMessage({ id: 'tasks.create_new.details.assignee.placeholder' })}
-                        </span>
-                      </Box>
-                    }
+                    members={showMembers}
+                    placeholder="tasks.create_new.details.assignee.placeholder"
                     name="assignee"
                     label="tasks.create_new.details.assignee.label"
                     align="left"
-                    classes={{
-                      input: classes.assigneeInput,
-                      inputInner: classes.assigneeInputInner,
-                      searchField: classes.searchField,
-                      searchFieldInput: classes.searchFieldInput,
-                      itemLabelWrapper: classes.assigneeItemLabelWrapper,
-                      menu: classes.assigneeMenu,
-                      menuItem: classes.assigneeMenuItem,
-                      menuItemInner: classes.assigneeMenuItemInner,
-                    }}
                   />
                   <Typography
                     variant="h5"
                     onClick={() => {
-                      form.change('assignee', assignees[0].value);
+                      form.change('assignee', user?.id);
                     }}
                     className={classes.assignToMeButton}
                   >

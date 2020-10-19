@@ -302,6 +302,13 @@ const theme = createMuiTheme({
         fontWeight: typography.fontWeightMedium,
       },
     },
+    MuiGrid: {
+      item: {
+        '&.right': {
+          marginLeft: 'auto',
+        },
+      },
+    },
     MuiTab: {
       root: {
         fontSize: '0.75rem',
