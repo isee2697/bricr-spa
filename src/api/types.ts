@@ -155,6 +155,7 @@ export type Mutation = {
   updateCost: CostResult;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateCrmGeneral?: Maybe<CrmGeneral>;
+  updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
@@ -609,6 +610,10 @@ export type MutationUpdateCrmGeneralArgs = {
   input: UpdateCrmGeneralInput;
 };
 
+export type MutationUpdateCrmHomeSituationArgs = {
+  input: UpdateCrmHomeSituationInput;
+};
+
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
 };
@@ -881,6 +886,7 @@ export type Query = {
   getChangesHistory: Array<Event>;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
   getCrmGeneral?: Maybe<CrmGeneral>;
+  getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -949,6 +955,10 @@ export type QueryGetCrmContactInformationArgs = {
 };
 
 export type QueryGetCrmGeneralArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
 };
 
@@ -1560,6 +1570,58 @@ export type UpdateCrmGeneralInput = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+};
+
+export enum CurrentHomeSituationType {
+  LiveIn = 'LiveIn',
+  HomeForSale = 'HomeForSale',
+  SocialHousing = 'SocialHousing',
+  FreeSectorRentalHome = 'FreeSectorRentalHome',
+  StudentHouse = 'StudentHouse',
+}
+
+export enum CurrentHomeStatusType {
+  HouseSold = 'HouseSold',
+  AvailableForSale = 'AvailableForSale',
+}
+
+export enum ReasonToMoveType {
+  Health = 'Health',
+  Age = 'Age',
+  HousingCosts = 'HousingCosts',
+  ResidentialEnvironment = 'ResidentialEnvironment',
+  LiveTogether = 'LiveTogether',
+  ChangeOfIncome = 'ChangeOfIncome',
+  HouseholdComposition = 'HouseholdComposition',
+  Work = 'Work',
+  Study = 'Study',
+  LivingOnYourOwn = 'LivingOnYourOwn',
+  Wedding = 'Wedding',
+}
+
+export type CrmHomeSituation = {
+  __typename?: 'CrmHomeSituation';
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
+};
+
+export type UpdateCrmHomeSituationInput = {
+  id: Scalars['ID'];
+  currentHomeSituation?: Maybe<Scalars['String']>;
+  currentHomeStatus?: Maybe<Scalars['String']>;
+  currentHomeSalesValue?: Maybe<Scalars['Int']>;
+  currentHomeMortgage?: Maybe<Scalars['Int']>;
+  currentHomeInformation?: Maybe<Scalars['String']>;
+  reasonToMove?: Maybe<Array<Scalars['String']>>;
+  movingDate?: Maybe<Scalars['Date']>;
+  movingInformation?: Maybe<Scalars['String']>;
 };
 
 export type Energy = {
@@ -7069,6 +7131,27 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type UpdateCrmHomeSituationMutationVariables = Exact<{
+  input: UpdateCrmHomeSituationInput;
+}>;
+
+export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
+  updateCrmHomeSituation?: Maybe<
+    { __typename?: 'CrmHomeSituation' } & Pick<
+      CrmHomeSituation,
+      | 'id'
+      | 'currentHomeSituation'
+      | 'currentHomeStatus'
+      | 'currentHomeSalesValue'
+      | 'currentHomeMortgage'
+      | 'currentHomeInformation'
+      | 'reasonToMove'
+      | 'movingDate'
+      | 'movingInformation'
+    >
+  >;
+};
+
 export type DeleteEntityMutationVariables = Exact<{
   input: DeleteEntityInput;
 }>;
@@ -8449,6 +8532,27 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
       }
+  >;
+};
+
+export type GetCrmHomeSituationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmHomeSituationQuery = { __typename?: 'Query' } & {
+  getCrmHomeSituation?: Maybe<
+    { __typename?: 'CrmHomeSituation' } & Pick<
+      CrmHomeSituation,
+      | 'id'
+      | 'currentHomeSituation'
+      | 'currentHomeStatus'
+      | 'currentHomeSalesValue'
+      | 'currentHomeMortgage'
+      | 'currentHomeInformation'
+      | 'reasonToMove'
+      | 'movingDate'
+      | 'movingInformation'
+    >
   >;
 };
 
@@ -10946,6 +11050,38 @@ export type UpdateCrmGeneralMutationResult = ApolloReactCommon.MutationResult<Up
 export type UpdateCrmGeneralMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmGeneralMutation,
   UpdateCrmGeneralMutationVariables
+>;
+export const UpdateCrmHomeSituationDocument = gql`
+  mutation UpdateCrmHomeSituation($input: UpdateCrmHomeSituationInput!) {
+    updateCrmHomeSituation(input: $input) {
+      id
+      currentHomeSituation
+      currentHomeStatus
+      currentHomeSalesValue
+      currentHomeMortgage
+      currentHomeInformation
+      reasonToMove
+      movingDate
+      movingInformation
+    }
+  }
+`;
+export function useUpdateCrmHomeSituationMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmHomeSituationMutation,
+    UpdateCrmHomeSituationMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmHomeSituationMutation, UpdateCrmHomeSituationMutationVariables>(
+    UpdateCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmHomeSituationMutationHookResult = ReturnType<typeof useUpdateCrmHomeSituationMutation>;
+export type UpdateCrmHomeSituationMutationResult = ApolloReactCommon.MutationResult<UpdateCrmHomeSituationMutation>;
+export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmHomeSituationMutation,
+  UpdateCrmHomeSituationMutationVariables
 >;
 export const DeleteEntityDocument = gql`
   mutation DeleteEntity($input: DeleteEntityInput!) {
@@ -14285,6 +14421,43 @@ export function useGetCrmGeneralLazyQuery(
 export type GetCrmGeneralQueryHookResult = ReturnType<typeof useGetCrmGeneralQuery>;
 export type GetCrmGeneralLazyQueryHookResult = ReturnType<typeof useGetCrmGeneralLazyQuery>;
 export type GetCrmGeneralQueryResult = ApolloReactCommon.QueryResult<GetCrmGeneralQuery, GetCrmGeneralQueryVariables>;
+export const GetCrmHomeSituationDocument = gql`
+  query GetCrmHomeSituation($id: ID!) {
+    getCrmHomeSituation(id: $id) {
+      id
+      currentHomeSituation
+      currentHomeStatus
+      currentHomeSalesValue
+      currentHomeMortgage
+      currentHomeInformation
+      reasonToMove
+      movingDate
+      movingInformation
+    }
+  }
+`;
+export function useGetCrmHomeSituationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>(
+    GetCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmHomeSituationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmHomeSituationQuery, GetCrmHomeSituationQueryVariables>(
+    GetCrmHomeSituationDocument,
+    baseOptions,
+  );
+}
+export type GetCrmHomeSituationQueryHookResult = ReturnType<typeof useGetCrmHomeSituationQuery>;
+export type GetCrmHomeSituationLazyQueryHookResult = ReturnType<typeof useGetCrmHomeSituationLazyQuery>;
+export type GetCrmHomeSituationQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmHomeSituationQuery,
+  GetCrmHomeSituationQueryVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

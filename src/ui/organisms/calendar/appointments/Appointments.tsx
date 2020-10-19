@@ -1,6 +1,6 @@
+import { useTheme } from '@material-ui/core/styles';
 import React, { ReactNode } from 'react';
 import { Appointments as App, AppointmentsProps } from '@devexpress/dx-react-scheduler-material-ui';
-import { useTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 import { AppointmentNodeProps } from './Appointment.types';
