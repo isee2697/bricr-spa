@@ -21,7 +21,6 @@ export const SelectBox = ({
   const classes = useStyles();
 
   const select = useRef(null);
-  const item = ((select?.current as unknown) as HTMLDivElement) ?? undefined;
   const [isOpened, setOpened] = useState(false);
 
   const listItems: SelectBoxItem[] = showSelected ? [...items] : items.filter(item => item.value !== value);
@@ -51,55 +50,44 @@ export const SelectBox = ({
           <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />
         </Box>
       </Box>
-      <Popper
-        style={{
-          width: item?.clientWidth,
-          left: item?.getBoundingClientRect().left,
-        }}
-        className={classes.popper}
-        open={isOpened}
-        anchorEl={select.current}
-        transition
-      >
+      <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
         {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{ position: 'static', transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
-            <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-              <ClickAwayListener onClickAway={() => setOpened(false)}>
-                <>
-                  {listItems.map((item, index) => (
+          <ClickAwayListener onClickAway={() => setOpened(false)}>
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper className={classNames(propsClasses?.menu, classes.menu)}>
+                {listItems.map((item, index) => (
+                  <Box
+                    key={`${item.value}`}
+                    className={classNames(
+                      propsClasses?.menuItem,
+                      classes.item,
+                      { selected: value === item.value },
+                      align === 'left' && 'alignLeft',
+                      align === 'right' && 'alignRight',
+                    )}
+                    onClick={() => {
+                      setOpened(false);
+                      onChange(item.value);
+                    }}
+                  >
                     <Box
-                      key={`${item.value}`}
+                      width="100%"
                       className={classNames(
-                        propsClasses?.menuItem,
-                        classes.item,
-                        { selected: value === item.value },
-                        align === 'left' && 'alignLeft',
-                        align === 'right' && 'alignRight',
+                        propsClasses?.menuItemInner,
+                        item.color,
+                        listItems.length === index + 1 && 'last',
                       )}
-                      onClick={() => {
-                        setOpened(false);
-                        onChange(item.value);
-                      }}
                     >
-                      <Box
-                        width="100%"
-                        className={classNames(
-                          propsClasses?.menuItemInner,
-                          item.color,
-                          listItems.length === index + 1 && 'last',
-                        )}
-                      >
-                        {item.label}
-                      </Box>
+                      {item.label}
                     </Box>
-                  ))}
-                </>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
+                  </Box>
+                ))}
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
         )}
       </Popper>
     </div>
