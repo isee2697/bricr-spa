@@ -5,8 +5,7 @@ import arrayMutators from 'final-form-arrays';
 import { useLocale } from 'hooks';
 import { SubmitButton } from 'ui/molecules';
 import { useStyles } from '../AddCrmRelationModal.styles';
-import { Button, DialogActions, Box, DialogContent, Grid, InputAdornment, Typography } from 'ui/atoms';
-import { AddIcon, SearchIcon, UserIcon } from 'ui/atoms/icons';
+import { Button, DialogActions, DialogContent, Grid } from 'ui/atoms';
 import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { GenericField } from 'form/fields';
 

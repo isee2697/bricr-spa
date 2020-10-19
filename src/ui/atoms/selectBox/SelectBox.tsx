@@ -52,44 +52,42 @@ export const SelectBox = ({
       </Box>
       <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
         {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
-            <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-              <ClickAwayListener onClickAway={() => setOpened(false)}>
-                <>
-                  {listItems.map((item, index) => (
+          <ClickAwayListener onClickAway={() => setOpened(false)}>
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper className={classNames(propsClasses?.menu, classes.menu)}>
+                {listItems.map((item, index) => (
+                  <Box
+                    key={`${item.value}`}
+                    className={classNames(
+                      propsClasses?.menuItem,
+                      classes.item,
+                      { selected: value === item.value },
+                      align === 'left' && 'alignLeft',
+                      align === 'right' && 'alignRight',
+                    )}
+                    onClick={() => {
+                      setOpened(false);
+                      onChange(item.value);
+                    }}
+                  >
                     <Box
-                      key={`${item.value}`}
+                      width="100%"
                       className={classNames(
-                        propsClasses?.menuItem,
-                        classes.item,
-                        { selected: value === item.value },
-                        align === 'left' && 'alignLeft',
-                        align === 'right' && 'alignRight',
+                        propsClasses?.menuItemInner,
+                        item.color,
+                        listItems.length === index + 1 && 'last',
                       )}
-                      onClick={() => {
-                        setOpened(false);
-                        onChange(item.value);
-                      }}
                     >
-                      <Box
-                        width="100%"
-                        className={classNames(
-                          propsClasses?.menuItemInner,
-                          item.color,
-                          listItems.length === index + 1 && 'last',
-                        )}
-                      >
-                        {item.label}
-                      </Box>
+                      {item.label}
                     </Box>
-                  ))}
-                </>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
+                  </Box>
+                ))}
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
         )}
       </Popper>
     </div>
