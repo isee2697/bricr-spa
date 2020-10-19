@@ -3,9 +3,19 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(1),
-    padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
+    cursor: 'pointer',
+
+    '&:hover': {
+      background: theme.palette.gradientBlue.light,
+    },
+
+    '&.dragging': {
+      display: 'none',
+    },
+  },
+  card: {
+    paddingBottom: theme.spacing(1.5),
   },
   expireInfo: {
     color: theme.palette.gray.main,
@@ -44,6 +54,12 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
     fontSize: theme.typography.h5.fontSize,
+  },
+  placeholder: {
+    height: theme.spacing(13),
+    background: theme.palette.gradientBlue.light,
+    border: `1px dashed ${theme.palette.primary.main}`,
+    borderRadius: theme.spacing(1),
   },
   flexGrowOne: {
     flexGrow: 1,

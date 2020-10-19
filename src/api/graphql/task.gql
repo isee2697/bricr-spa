@@ -22,8 +22,8 @@ type Task {
   taskIndex: Int!
   title: String!
   assignee: ID!
-  startDate: Date!
-  deadline: Date!
+  startDate: Date
+  deadline: Date
   priority: TaskPriority!
   label: TaskLabel!
   status: TaskStatus!
@@ -52,8 +52,8 @@ type TaskSearchResult {
 input CreateTaskInput {
   title: String!
   assignee: ID!
-  startDate: Date!
-  deadline: Date!
+  startDate: Date
+  deadline: Date
   priority: TaskPriority!
   label: TaskLabel!
 }
@@ -78,8 +78,8 @@ input DateRange {
 input TaskFilters {
   search: String
   assignees: [ID!]
-  startDate: DateRange
-  deadline: DateRange
+  startDates: [DateRange!]
+  deadlines: [DateRange!]
 }
 
 input TaskFullSummaryFilters {
@@ -89,8 +89,8 @@ input TaskFullSummaryFilters {
 input TaskSummaryByStatusFilters {
   search: String
   assignees: [ID!]
-  startDate: DateRange
-  deadline: DateRange
+  startDates: [DateRange!]
+  deadlines: [DateRange!]
 }
 
 extend type Mutation {

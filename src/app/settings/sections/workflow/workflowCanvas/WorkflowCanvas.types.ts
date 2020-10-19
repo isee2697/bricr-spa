@@ -6,6 +6,6 @@ export type Point = {
 };
 
 export type WorkflowCanvasProps = {
-  trigger?: Trigger;
+  triggers?: Trigger[];
   onAddItem: (data: Pick<AddItemData, 'item' | 'type' | 'parentId'>) => void;
 };

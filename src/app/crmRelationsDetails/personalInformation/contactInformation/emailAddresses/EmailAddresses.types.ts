@@ -1,19 +1,10 @@
-import { DateTime } from 'luxon';
+import { CrmContactInformation, CrmEmailAddress } from 'api/types';
 
-export type EmailAddressesProps = {};
-
-export type EmailAddressItem = {
-  key: EmailAddressType;
-  emailAvailableDate: DateTime;
-  emailAddress: string;
-  note: string;
+export type EmailAddressesProps = {
+  data: CrmContactInformation;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
-export enum EmailAddressType {
-  AddressForMatches = 'AddressForMatches',
-  AddressForInvoices = 'AddressForInvoices',
-  Private = 'Private',
-  Business = 'Business',
-  PreviousAddress = 'PreviousAddress',
-  Custom = 'Custom',
-}
+export type EmailAddressItem = CrmEmailAddress & {
+  key: string;
+};

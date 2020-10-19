@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
 
+import { TaskFullSummaryResult } from 'api/types';
 import { Badge, Card, CardContent, Tab, Tabs } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksTab } from '../Tasks.types';
@@ -9,7 +10,16 @@ import { TaskViewContainer } from '../taskView/TaskViewContainer';
 import { useStyles } from './TasksBody.styles';
 import { TasksBodyProps } from './TasksBody.types';
 
-export const TasksBody = ({ members, selectedMembers, tasksFullSummary }: TasksBodyProps) => {
+export const TasksBody = ({
+  members,
+  selectedMembers,
+  tasksFullSummary = {
+    today: 0,
+    nextWeek: 0,
+    overdue: 0,
+    future: 0,
+  },
+}: TasksBodyProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [activeTab, setActiveTab] = useState(TasksTab.Today);
@@ -19,7 +29,7 @@ export const TasksBody = ({ members, selectedMembers, tasksFullSummary }: TasksB
     nextWeek: nextWeekTaskCount,
     future: futureTaskCount,
     overdue: overdueTaskCount,
-  } = tasksFullSummary;
+  } = tasksFullSummary as TaskFullSummaryResult;
 
   return (
     <Card className={clsx(classes.root, classes.flexColumn)}>
@@ -66,7 +76,9 @@ export const TasksBody = ({ members, selectedMembers, tasksFullSummary }: TasksB
               color="error"
               classes={{ badge: clsx(classes.badge, activeTab !== TasksTab.Overdue && 'default') }}
             >
-              {formatMessage({ id: 'tasks.overdue' })}
+              <span className={clsx(activeTab === TasksTab.Overdue && classes.red)}>
+                {formatMessage({ id: 'tasks.overdue' })}
+              </span>
             </Badge>
           }
         />

@@ -1,7 +1,7 @@
-import Chip from '@material-ui/core/Chip';
 import React from 'react';
 
-import { Box } from 'ui/atoms';
+import { useLocale } from 'hooks';
+import { Box, Chip } from 'ui/atoms';
 import { CloseIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ActiveFilters.styles';
@@ -23,6 +23,7 @@ type ActiveFiltersProps<T> = {
 };
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
+  const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
@@ -33,7 +34,8 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
         deleteIcon={<CloseIcon />}
         label={
           <>
-            <span className={classes.dimmed}>{index}</span> <strong className={classes.filter}>{filter}</strong>
+            <span className={classes.dimmed}>{formatMessage({ id: 'filters.' + index + '.title' })}</span>{' '}
+            <strong className={classes.filter}>{filter}</strong>
           </>
         }
         onDelete={() => onDelete(index, filter)}
@@ -102,7 +104,12 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
   };
 
   return (
-    <Box className={classes.root} p={2}>
+    <Box
+      className={`${classes.root} ${
+        activeFilters && Object.values(activeFilters).length > 0 ? classes.hasfilters : ''
+      }`}
+      p={2}
+    >
       {generateFilters()}
     </Box>
   );

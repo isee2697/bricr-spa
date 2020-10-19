@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
-import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 
-import { Box, Grid, Typography, UserAvatar } from 'ui/atoms';
+import { Box, Grid, Loader, Typography, UserAvatar, Card, CardContent } from 'ui/atoms';
 import {
   FollowUpRectangleIcon,
   LockRectangleIcon,
@@ -22,48 +22,64 @@ import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
 import { useStyles } from './TasksSwimlaneItem.styles';
 
 export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
+  const [{ isDragging }, drag] = useDrag({
+    item: {
+      type: 'UpdateTaskStatus',
+      ...task,
+    },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const [{ isOver, isDrag }, drop] = useDrop({
+    accept: 'UpdateTaskStatus',
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      isDrag: monitor.canDrop(),
+    }),
+  });
+
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
 
-  const { id, taskIndex, title, assigneeDetail, deadline, label, priority } = task;
-  const deadlineDate = DateTime.fromISO(deadline);
-  const remainingMinutes = Math.floor(deadlineDate.diffNow('minutes').minutes);
+  const { id, taskIndex, title, assigneeDetail, deadline, label, priority, isUpdating } = task;
+  const deadlineDate = deadline && DateTime.fromISO(deadline);
+  const remainingMinutes = deadlineDate && Math.floor(deadlineDate.diffNow('minutes').minutes);
   const expireInfo =
-    tab === TasksTab.Overdue
-      ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
-      : Math.abs(remainingMinutes) < 60 * 24
-      ? Math.abs(remainingMinutes) < 60
-        ? formatMessage({ id: 'tasks.less_than_one_hour' })
+    deadlineDate && remainingMinutes
+      ? tab === TasksTab.Overdue
+        ? deadlineDate.toLocaleString(DateTime.DATETIME_MED)
+        : Math.abs(remainingMinutes) < 60 * 24
+        ? Math.abs(remainingMinutes) < 60
+          ? formatMessage({ id: 'tasks.less_than_one_hour' })
+          : formatMessage(
+              { id: 'tasks.details.remainingHours' },
+              {
+                hours: Math.floor(remainingMinutes / 60),
+              },
+            )
         : formatMessage(
-            { id: 'tasks.details.remainingHours' },
+            { id: 'tasks.details.remainingDays' },
             {
-              hours: Math.floor(remainingMinutes / 60),
+              days: Math.floor(remainingMinutes / 60 / 24),
             },
           )
-      : formatMessage(
-          { id: 'tasks.details.remainingDays' },
-          {
-            days: Math.floor(remainingMinutes / 60 / 24),
-          },
-        );
+      : '-';
 
   return (
-    <Draggable key={id} draggableId={id} index={taskIndex}>
-      {(draggableProvided: DraggableProvided, draggableSnapshot: DraggableStateSnapshot) => (
-        <div
-          ref={draggableProvided.innerRef}
-          {...draggableProvided.draggableProps}
-          {...draggableProvided.dragHandleProps}
-          onClick={() => push(AppRoute.taskDetails.replace(':id', id))}
-        >
-          <Box className={classes.root}>
+    <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
+      <div ref={!isUpdating ? drop : undefined}>
+        {isUpdating && <Loader />}
+        <Card className={clsx(classes.root, isDragging && 'dragging')}>
+          <CardContent className={classes.card}>
             <Typography
               variant="h6"
               className={clsx(
                 classes.expireInfo,
                 tab === TasksTab.Overdue && 'overdue',
-                remainingMinutes < 60 && 'lessThanOneHour',
+                remainingMinutes && remainingMinutes < 60 && 'lessThanOneHour',
               )}
             >
               {expireInfo}
@@ -74,26 +90,14 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
             <Grid container>
               {/* TODO: Update this class name once provided info about this section */}
               <Grid item className={classes.taskLocked}>
-                {label === TaskLabel.Business && (
-                  <UserRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-                )}
-                {label === TaskLabel.Private && (
-                  <LockRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-                )}
-                {label === TaskLabel.FollowUp && (
-                  <FollowUpRectangleIcon viewBox="0 0 16 16" classes={{ root: classes.taskLockedIcon }} />
-                )}
+                {label === TaskLabel.Business && <UserRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+                {label === TaskLabel.Private && <LockRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
+                {label === TaskLabel.FollowUp && <FollowUpRectangleIcon classes={{ root: classes.taskLockedIcon }} />}
               </Grid>
               <Grid item>
-                {priority === TaskPriority.High && (
-                  <PriorityHighIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
-                )}
-                {priority === TaskPriority.Medium && (
-                  <PriorityMediumIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="error" />
-                )}
-                {priority === TaskPriority.Low && (
-                  <PriorityLowIcon viewBox="0 0 16 16" classes={{ root: classes.priorityIcon }} color="action" />
-                )}
+                {priority === TaskPriority.High && <PriorityHighIcon classes={{ root: classes.priorityIcon }} />}
+                {priority === TaskPriority.Medium && <PriorityMediumIcon classes={{ root: classes.priorityIcon }} />}
+                {priority === TaskPriority.Low && <PriorityLowIcon classes={{ root: classes.priorityIcon }} />}
               </Grid>
               <Grid item className={classes.flexGrowOne} />
               <Grid item>
@@ -108,9 +112,10 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
                 />
               </Grid>
             </Grid>
-          </Box>
-        </div>
-      )}
-    </Draggable>
+          </CardContent>
+        </Card>
+        {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}
+      </div>
+    </div>
   );
 };

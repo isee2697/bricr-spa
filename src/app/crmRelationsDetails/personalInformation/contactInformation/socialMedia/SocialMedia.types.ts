@@ -1,12 +1,10 @@
-export type SocialMediaProps = {};
+import { CrmContactInformation, CrmSocialMedia } from 'api/types';
 
-export type SocialMediaItem = {
-  key: SocialMediaType;
-  url: string;
+export type SocialMediaProps = {
+  data: CrmContactInformation;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
 
-export enum SocialMediaType {
-  Facebook = 'Facebook',
-  LinkedIn = 'LinkedIn',
-  Twitter = 'Twitter',
-}
+export type SocialMediaItem = CrmSocialMedia & {
+  key: string;
+};

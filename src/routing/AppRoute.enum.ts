@@ -23,6 +23,7 @@ export enum AppRoute {
   tasks = '/tasks',
   taskDetails = '/tasks/:id',
   calendar = '/calendar',
+  newAppointment = '/calendar/new',
   register = '/register',
   setup = '/setup',
   propertiesSetup = '/setup/properties',

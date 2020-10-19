@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { Alert, Loader } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
+import { Loader } from 'ui/atoms';
 import { TasksViewMode } from '../Tasks.enum';
 import {
   Task,
@@ -17,18 +16,17 @@ import {
 } from 'api/types';
 import { TasksTab, TeamMemberItem } from '../Tasks.types';
 import { TasksContent } from '../tasksContent/TasksContent';
-import { CreateNewTaskModalContainer } from '../createNewTaskModal/CreateNewTaskModalContainer';
-import { useModalDispatch } from '../../../hooks';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
 export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskViewContainerProps) => {
   const [searchKey, setSearchKey] = useState('');
   const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
-  const [dateRange, setDateRange] = useState<DateRange>({
-    to: DateTime.local().toISO(),
-  });
-  const { close } = useModalDispatch();
+  const [dateRanges, setDateRanges] = useState<DateRange[]>([
+    {
+      to: DateTime.local().toISO(),
+    },
+  ]);
 
   const [getTasks, { data, loading }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
@@ -39,27 +37,30 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   ] = useGetTasksSummaryByStatusLazyQuery({
     fetchPolicy: 'network-only',
   });
-  const [updateTask, { error: updateTaskError }] = useUpdateTaskMutation();
-  const { formatMessage } = useLocale();
+  const [updateTask] = useUpdateTaskMutation();
 
   useEffect(() => {
+    if (dateRanges.length === 0) {
+      return;
+    }
+
     getTasks({
       variables: {
         sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
         sortDirection: SortDirection.Desc,
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
     getTaskSummaryByStatus({
       variables: {
         search: searchKey,
         assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
+        deadlines: dateRanges,
       },
     });
-  }, [viewMode, searchKey, selectedMembers, dateRange, getTasks, getTaskSummaryByStatus]);
+  }, [viewMode, searchKey, selectedMembers, getTasks, getTaskSummaryByStatus, dateRanges]);
 
   const tasks: Task[] = (data ? data.getTasks?.items || [] : []).map(item => ({
     ...item,
@@ -71,40 +72,48 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
   useEffect(() => {
     switch (tab) {
       case TasksTab.Today:
-        setDateRange({
-          from: DateTime.local().toISO(),
-          to: DateTime.local()
-            .endOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local().toISO(),
+            to: DateTime.local()
+              .endOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.NextWeek:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 1 })
-            .startOf('day')
-            .toISO(),
-          to: DateTime.local()
-            .plus({ days: 7 })
-            .endOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local()
+              .plus({ days: 1 })
+              .startOf('day')
+              .toISO(),
+            to: DateTime.local()
+              .plus({ days: 7 })
+              .endOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.Future:
-        setDateRange({
-          from: DateTime.local()
-            .plus({ days: 8 })
-            .startOf('day')
-            .toISO(),
-        });
+        setDateRanges([
+          {
+            from: DateTime.local()
+              .plus({ days: 8 })
+              .startOf('day')
+              .toISO(),
+          },
+        ]);
         break;
 
       case TasksTab.Overdue:
-        setDateRange({
-          to: DateTime.local().toISO(),
-        });
+        setDateRanges([
+          {
+            to: DateTime.local().toISO(),
+          },
+        ]);
         break;
 
       default:
@@ -135,7 +144,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
             sortDirection: SortDirection.Desc,
             search: searchKey,
             assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-            ...dateRange,
+            deadlines: dateRanges,
           },
         },
         {
@@ -143,7 +152,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
           variables: {
             search: searchKey,
             assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-            ...dateRange,
+            deadlines: dateRanges,
           },
         },
       ],
@@ -154,47 +163,25 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
     }
   };
 
-  const handleAddNewTask = () => {
-    close('create-new-task');
-    getTasks({
-      variables: {
-        sortColumn: viewMode === TasksViewMode.Swimlane ? 'title' : 'title',
-        sortDirection: SortDirection.Desc,
-        search: searchKey,
-        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
-      },
-    });
-    getTaskSummaryByStatus({
-      variables: {
-        search: searchKey,
-        assignees: selectedMembers.map((member: TeamMemberItem) => member.id),
-        ...dateRange,
-      },
-    });
-  };
-
   if (loading || taskSummaryByStatusLoading) {
     return <Loader />;
   }
 
   return (
-    <>
-      {!!updateTaskError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
-      <TasksContent
-        tab={tab}
-        tasks={tasks}
-        tasksSummaryByStatus={tasksSummaryByStatus}
-        selectedMembers={selectedMembers}
-        searchKey={searchKey}
-        viewMode={viewMode}
-        dateRange={dateRange}
-        onChangeSearchKey={setSearchKey}
-        onChangeViewMode={setViewMode}
-        onChangeDateRange={setDateRange}
-        onUpdateTaskStatus={handleUpdateTaskStatus}
-      />
-      <CreateNewTaskModalContainer members={members} onAddNewTask={handleAddNewTask} />
-    </>
+    <TasksContent
+      tab={tab}
+      tasks={dateRanges.length === 0 ? [] : tasks}
+      tasksSummaryByStatus={
+        dateRanges.length === 0 ? { todo: 0, inProgress: 0, blocked: 0, done: 0 } : tasksSummaryByStatus
+      }
+      selectedMembers={selectedMembers}
+      searchKey={searchKey}
+      viewMode={viewMode}
+      deadlines={dateRanges}
+      onChangeSearchKey={setSearchKey}
+      onChangeViewMode={setViewMode}
+      onChangeDateRange={setDateRanges}
+      onUpdateTaskStatus={handleUpdateTaskStatus}
+    />
   );
 };
