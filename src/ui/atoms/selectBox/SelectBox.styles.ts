@@ -10,6 +10,10 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     paddingRight: spacing(1),
     backgroundColor: palette.gray.light,
     borderRadius: spacing(1),
+    position: 'relative',
+    '&.selected': {
+      zIndex: 1200,
+    },
     '&.disabled': {
       cursor: 'default',
       background: palette.white.light,
@@ -23,7 +27,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     width: '100%',
     borderRadius: spacing(1),
   },
-  value: {
+  inputValue: {
     fontSize: typography.h4.fontSize,
     color: palette.black.main,
     '&.disabled': {
@@ -37,14 +41,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     transform: 'rotate(180deg)',
     transition: 'all 0.2s',
   },
-  popper: {
-    width: '100%',
-    zIndex: 1500,
-  },
-  menu: {
-    backgroundColor: palette.gray.light,
-    marginTop: spacing(0.5),
-    borderRadius: spacing(1),
+  menuList: {
+    padding: 0,
   },
   item: {
     cursor: 'pointer',
@@ -72,6 +70,15 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&:hover': {
       background: palette.gray.light,
     },
+  },
+  autocompleteBack: {
+    position: 'fixed',
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: palette.info.dark,
+    left: 0,
+    top: 0,
+    zIndex: 1100,
   },
   blue: {
     color: palette.primary.main,

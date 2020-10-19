@@ -20,6 +20,7 @@ export type SelectBoxProps = {
   value?: string;
   align?: 'left' | 'center' | 'right';
   showSelected?: boolean;
+  showBackDrop?: boolean;
   classes?: SelectBoxClasses;
   onChange: (value: string | number) => void;
 };

@@ -115,6 +115,16 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  labelIcon: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    padding: theme.spacing(0.125),
+    borderRadius: theme.spacing(0.5),
+    border: `2px solid ${theme.palette.gray.main}`,
+    '& svg': {
+      fontSize: theme.spacing(2.25),
+    },
+  },
   labelText: {
     marginLeft: theme.spacing(1),
     fontWeight: theme.typography.fontWeightBold,

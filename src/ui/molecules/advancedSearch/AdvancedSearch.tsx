@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 
-import { Box, TextField, Typography, Popper, Grow, Paper, ClickAwayListener } from 'ui/atoms';
+import { Box, TextField, Typography, NativeMenu } from 'ui/atoms';
 
 import { AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
 import { useStyles } from './AdvancedSearch.styles';
@@ -14,13 +14,15 @@ export const AdvancedSearch = ({
   value,
   align,
   showSelected = true,
+  showBackDrop = true,
   classes: propsClasses,
   onChange,
 }: AdvancedSearchProps) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+  const select = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
 
-  const select = useRef(null);
-  const [isOpened, setOpened] = useState(false);
   const [key, setKey] = useState(items.find(item => item.value === value)?.label || '');
 
   const selectedItem: AdvancedSearchItem | undefined = items.find(item => item.value === value);
@@ -47,24 +49,27 @@ export const AdvancedSearch = ({
     );
   };
 
+  const handleOpenSelect = (e: React.MouseEvent) => {
+    setAnchorEl(e.currentTarget);
+    input.current?.focus();
+    setKey(selectedItem?.label || '');
+  };
+
   return (
     <div className={classes.root} ref={select}>
       <Box
-        onClick={() => {
-          if (!disabled) {
-            setOpened(opened => !opened);
-            setKey(selectedItem?.label || '');
-          }
-        }}
-        className={classNames(propsClasses?.input, classes.input, { isOpened, disabled })}
+        onClick={handleOpenSelect}
+        className={classNames(propsClasses?.input, classes.input, !!anchorEl && showBackDrop && 'selected', {
+          disabled,
+        })}
       >
         {title && (
-          <Typography variant="h6" className={classNames(classes.label, isOpened && classes.blue)}>
+          <Typography variant="h6" className={classNames(classes.label, !!anchorEl && classes.blue)}>
             {title}
           </Typography>
         )}
-        <Box className={classNames(propsClasses?.inputInner, classes.inputInner, isOpened && 'selected')}>
-          {!isOpened && (
+        <Box className={classNames(propsClasses?.inputInner, classes.inputInner, !!anchorEl && 'selected')}>
+          {!anchorEl && (
             <Box
               display="flex"
               alignItems="center"
@@ -79,8 +84,9 @@ export const AdvancedSearch = ({
               )}
             </Box>
           )}
-          {isOpened && (
+          {!!anchorEl && (
             <TextField
+              ref={input}
               autoFocus
               value={key}
               classes={{ root: classNames(propsClasses?.searchField, classes.searchField) }}
@@ -90,55 +96,61 @@ export const AdvancedSearch = ({
           )}
         </Box>
       </Box>
-      <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
-            <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-              <ClickAwayListener onClickAway={() => setOpened(false)}>
-                <>
-                  {listItems
-                    .filter(item => item.label.toLowerCase().includes(key.toLowerCase()))
-                    .map((item, index) => (
-                      <Box
-                        key={`${item.value}`}
-                        className={classNames(
-                          propsClasses?.menuItem,
-                          classes.item,
-                          item.color,
-                          { selected: value === item.value },
-                          align === 'left' && 'alignLeft',
-                          align === 'right' && 'alignRight',
-                        )}
-                        onClick={() => {
-                          setOpened(false);
-                          onChange(item.value);
-                        }}
-                      >
-                        <Box
-                          display="flex"
-                          width="100%"
-                          alignItems="center"
-                          className={classNames(
-                            propsClasses?.menuItemInner,
-                            classes.itemContent,
-                            value === item.value && 'selected',
-                            listItems.length === index + 1 && 'last',
-                          )}
-                        >
-                          {item.icon}
-                          <span className={classes.itemLabel}>{highlightString(item.label)}</span>
-                        </Box>
-                      </Box>
-                    ))}
-                </>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
+      <NativeMenu
+        id="select-menu"
+        anchorEl={anchorEl}
+        open={!!anchorEl}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        disableAutoFocus
+        disableEnforceFocus
+        keepMounted
+        autoFocus={false}
+        elevation={0}
+        getContentAnchorEl={null}
+        onClose={() => setAnchorEl(null)}
+        PaperProps={{ style: { width: select.current?.clientWidth } }}
+        MenuListProps={{ style: { padding: 0 } }}
+      >
+        {listItems
+          .filter(item => item.label.toLowerCase().includes(key.toLowerCase()))
+          .map((item, index) => (
+            <Box
+              key={`${item.value}`}
+              className={classNames(
+                propsClasses?.menuItem,
+                classes.item,
+                item.color,
+                { selected: value === item.value },
+                align === 'left' && 'alignLeft',
+                align === 'right' && 'alignRight',
+              )}
+              onClick={() => {
+                setAnchorEl(null);
+                onChange(item.value);
+              }}
+            >
+              <Box
+                display="flex"
+                width="100%"
+                alignItems="center"
+                className={classNames(
+                  propsClasses?.menuItemInner,
+                  classes.itemContent,
+                  value === item.value && 'selected',
+                  listItems.length === index + 1 && 'last',
+                )}
+              >
+                {item.icon}
+                <span className={classes.itemLabel}>{highlightString(item.label)}</span>
+              </Box>
+            </Box>
+          ))}
+      </NativeMenu>
+      <Box className={classNames(!!anchorEl && classes.autocompleteBack)} onClick={() => setAnchorEl(null)} />
     </div>
   );
 };
