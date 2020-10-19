@@ -21,7 +21,7 @@ export const RICH_TEXT_DEFAULT = [
   },
 ];
 
-export const RichTextField = ({ name, placeholder, disabled, withouthBorder, fullWidth }: RichTextFieldProps) => {
+export const RichTextField = ({ name, placeholder, disabled, withoutBorder, fullWidth }: RichTextFieldProps) => {
   const classes = useStyles();
   const renderElement = useCallback((props: RenderElementProps) => <Element {...props} />, []);
   const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, []);
@@ -31,7 +31,7 @@ export const RichTextField = ({ name, placeholder, disabled, withouthBorder, ful
 
   return (
     <Slate editor={editor} value={input.value} onChange={input.onChange}>
-      <div className={!withouthBorder ? classes.container : ''}>
+      <div className={!withoutBorder ? classes.container : ''}>
         <Toolbar disabled={disabled}>
           <ToolbarSection>
             <MarkButton format={LeafTypes.BOLD} />

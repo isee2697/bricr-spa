@@ -1185,12 +1185,6 @@ export enum CalendarTypes {
   Task = 'Task',
 }
 
-export type AppointmentTerm = {
-  __typename?: 'AppointmentTerm';
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-};
-
 export enum AppointmentRepeat {
   NoRepeat = 'NoRepeat',
   Daily = 'Daily',
@@ -1204,26 +1198,10 @@ export enum AppointmentRepeat {
 export type AppointmentLocation = {
   __typename?: 'AppointmentLocation';
   id: Scalars['ID'];
-  availableSeats?: Maybe<Scalars['Float']>;
+  availablePlaces?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   suggest?: Maybe<Scalars['Boolean']>;
 };
-
-export enum TravelTime {
-  Minutes15 = 'Minutes15',
-  Minutes30 = 'Minutes30',
-  Minutes45 = 'Minutes45',
-  OneHour = 'OneHour',
-  OneHour15Minutes = 'OneHour15Minutes',
-  OneHour30Minutes = 'OneHour30Minutes',
-  OneHour45Minutes = 'OneHour45Minutes',
-  TwoHour = 'TwoHour',
-  OneHours15Minutes = 'OneHours15Minutes',
-  TwoHours30Minutes = 'TwoHours30Minutes',
-  TwoHours45Minutes = 'TwoHours45Minutes',
-  ThreeHour = 'ThreeHour',
-  PlusThreeHour = 'PlusThreeHour',
-}
 
 export enum AppointmentType {
   Aquisition = 'Aquisition',
@@ -1234,6 +1212,12 @@ export enum AppointmentType {
   PersonalShowing = 'PersonalShowing',
 }
 
+export type AppointmentTerm = {
+  __typename?: 'AppointmentTerm';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
 export enum AppointmentMeetingType {
   ExternalAgreement = 'ExternalAgreement',
   Collegial = 'Collegial',
@@ -1242,7 +1226,7 @@ export enum AppointmentMeetingType {
   FollowUpJob = 'FollowUpJob',
 }
 
-export enum AppointmeentAddressType {
+export enum AppointmentAddressType {
   LinkedPersonAddress = 'LinkedPersonAddress',
   NewAcquisitionAddress = 'NewAcquisitionAddress',
 }

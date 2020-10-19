@@ -6,7 +6,7 @@ import { BuildingIcon } from 'ui/atoms/icons';
 import { requireValidator } from 'form/validators';
 import { AdvancedSearchField, CheckboxField, GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppointmentType, SortDirection, AppointmeentAddressType } from 'api/types';
+import { AppointmentType, SortDirection, AppointmentAddressType } from 'api/types';
 import { PimListItem } from 'app/shared/linkedProperties/linkedPropertyModal/LinkedPropertyModal.types';
 
 import { LinkPropertyModalContainer } from './ModalContainer';
@@ -47,9 +47,9 @@ export const AppointmentTypeCard = () => {
             <FormControlLabel
               control={
                 <Radio
-                  checked={selectedAddressType === AppointmeentAddressType.LinkedPersonAddress}
-                  value={AppointmeentAddressType.LinkedPersonAddress}
-                  onChange={() => form.change(acquissitionAddressField, AppointmeentAddressType.LinkedPersonAddress)}
+                  checked={selectedAddressType === AppointmentAddressType.LinkedPersonAddress}
+                  value={AppointmentAddressType.LinkedPersonAddress}
+                  onChange={() => form.change(acquissitionAddressField, AppointmentAddressType.LinkedPersonAddress)}
                   color="primary"
                 />
               }
@@ -101,9 +101,9 @@ export const AppointmentTypeCard = () => {
             <FormControlLabel
               control={
                 <Radio
-                  checked={selectedAddressType === AppointmeentAddressType.NewAcquisitionAddress}
-                  value={AppointmeentAddressType.NewAcquisitionAddress}
-                  onChange={() => form.change(acquissitionAddressField, AppointmeentAddressType.NewAcquisitionAddress)}
+                  checked={selectedAddressType === AppointmentAddressType.NewAcquisitionAddress}
+                  value={AppointmentAddressType.NewAcquisitionAddress}
+                  onChange={() => form.change(acquissitionAddressField, AppointmentAddressType.NewAcquisitionAddress)}
                   color="primary"
                 />
               }
@@ -115,13 +115,13 @@ export const AppointmentTypeCard = () => {
                 <GenericField label="common.street" name="appointmentStreet" />
               </Grid>
               <Grid item xs={12} md={8}>
-                <GenericField label="common.hous_number" name="appointmentHouseNumber" />
+                <GenericField label="common.house_number" name="appointmentHouseNumber" />
               </Grid>
               <Grid item xs={12} md={4}>
-                <GenericField label="common.hous_number_addition" name="appointmentHouseNumberAddition" />
+                <GenericField label="common.house_number_addition" name="appointmentHouseNumberAddition" />
               </Grid>
               <Grid item xs={12} md={4}>
-                <GenericField label="common.zippcode" name="appointmentZippcode" />
+                <GenericField label="common.zipcode" name="appointmentZipcode" />
               </Grid>
               <Grid item xs={12} md={8}>
                 <GenericField label="common.city" name="appointmentCity" />
@@ -132,7 +132,7 @@ export const AppointmentTypeCard = () => {
         <Box mt={2}>
           <Typography variant="h5">{formatMessage({ id: 'appointment.link_properties_label' })}</Typography>
           <Button className={classes.button} variant="contained" color="primary" onClick={() => setModalOpened(true)}>
-            Search properties
+            {formatMessage({ id: 'appointment.search.properties' })}
           </Button>
         </Box>
         {assignedPims?.length > 0 && (

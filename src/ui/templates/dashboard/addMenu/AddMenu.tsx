@@ -36,6 +36,7 @@ export const AddMenu = () => {
       color="primary"
       onClick={() => setOpened(v => !v)}
       innerRef={menuRef}
+      data-testid="add-menu-property"
     >
       <AddIcon color="inherit" />
       <Menu
@@ -49,7 +50,7 @@ export const AddMenu = () => {
         role="menu"
       >
         <Box display="flex" mb={2}>
-          <Typography variant="h3">Create new</Typography>
+          <Typography variant="h3">{formatMessage({ id: 'common.create_new' })}</Typography>
         </Box>
 
         <Box
@@ -58,6 +59,7 @@ export const AddMenu = () => {
           style={{ cursor: 'pointer' }}
           alignItems="center"
           mb={2}
+          data-testid="add-menu-task"
         >
           <Avatar variant="rounded" bgcolor={theme.palette.blue.light}>
             <Box color={theme.palette.blue.main}>
@@ -68,8 +70,7 @@ export const AddMenu = () => {
             <Typography variant="subtitle1">{formatMessage({ id: 'common.task' })}</Typography>
           </Box>
         </Box>
-        {/*</Link>*/}
-        <Link component={RouterLink} to={AppRoute.newAppointment} color="inherit">
+        <Link component={RouterLink} to={AppRoute.newAppointment} color="inherit" data-testid="add-menu-appointment">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
               <Box color={theme.palette.green.main}>
@@ -81,7 +82,7 @@ export const AddMenu = () => {
             </Box>
           </Box>
         </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-mail">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
               <Box color={theme.palette.yellow.main}>
@@ -93,7 +94,7 @@ export const AddMenu = () => {
             </Box>
           </Box>
         </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-note">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
               <Box color={theme.palette.purple.main}>
@@ -111,6 +112,7 @@ export const AddMenu = () => {
           mb={2}
           onClick={() => open('add-new-pim')}
           style={{ cursor: 'pointer' }}
+          data-testid="add-menu-property"
         >
           <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
             <Box color={theme.palette.red.main}>
@@ -121,7 +123,7 @@ export const AddMenu = () => {
             <Typography variant="subtitle1">{formatMessage({ id: 'common.property' })}</Typography>
           </Box>
         </Box>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-contact">
           <Box display="flex" alignItems="center">
             <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
               <Box color={theme.palette.orange.main}>

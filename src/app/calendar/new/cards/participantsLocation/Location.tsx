@@ -2,14 +2,16 @@ import React from 'react';
 import { useForm } from 'react-final-form';
 import classNames from 'classnames';
 
-import { AppointmentLocation, TravelTime } from 'api/types';
+import { AppointmentLocation } from 'api/types';
 import { DropdownField, GenericField } from 'form/fields';
 import { ConferenceRoomIcon, LocationIcon, UserIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { Grid, Box, Typography, Button, Collapse } from 'ui/atoms';
 import { AvatarRowItem } from 'ui/atoms/avatarRowItem/AvatarRowItem';
-import { useStyles } from 'app/calendar/new/cards/participantsLocation/ParticipantsLocation.styles';
 import { useLocale } from 'hooks';
+
+import { useStyles } from './ParticipantsLocation.styles';
+import { TravelTime } from './ParticipantsLocation.types';
 
 export const Locations = ({ locations }: { locations: AppointmentLocation[] }) => {
   const fieldName = 'location';
@@ -74,7 +76,7 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
                           {item.name}
                         </Typography>
                         <Box className={classes.iconBox} display="flex" alignItems="center">
-                          <UserIcon fontSize="small" /> {item.availableSeats}
+                          <UserIcon fontSize="small" /> {item.availablePlaces}
                         </Box>
                       </Box>
                     }

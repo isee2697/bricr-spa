@@ -8,34 +8,34 @@ const locations: AppointmentLocation[] = [
   {
     id: 'Loc1',
     name: 'White room',
-    availableSeats: 8,
+    availablePlaces: 8,
     suggest: true,
   },
   {
     id: 'Loc2',
     name: 'Green room',
-    availableSeats: 8,
+    availablePlaces: 8,
   },
   {
     id: 'Loc3',
     name: 'Red room',
-    availableSeats: 8,
+    availablePlaces: 8,
     suggest: true,
   },
   {
     id: 'Loc4',
     name: 'Blue room',
-    availableSeats: 8,
+    availablePlaces: 8,
   },
   {
     id: 'Loc5',
     name: 'Purple room',
-    availableSeats: 8,
+    availablePlaces: 8,
   },
   {
     id: 'Loc6',
     name: 'Dark room',
-    availableSeats: 8,
+    availablePlaces: 8,
     suggest: true,
   },
 ];
