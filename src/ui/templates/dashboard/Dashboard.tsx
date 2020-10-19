@@ -8,8 +8,7 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
-import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
-import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
+import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLayout } from 'context/layout';
@@ -40,6 +39,15 @@ export const Dashboard = ({ children }: DashboardProps) => {
     }
   };
 
+  const isOnDMSPage = pathname.startsWith(AppRoute.dms);
+  const handleDMSClick = () => {
+    if (isOnDMSPage) {
+      push(AppRoute.home);
+    } else {
+      push(AppRoute.dms);
+    }
+  };
+
   const handleNavigate = (path: AppRoute) => () => {
     push(path);
   };
@@ -53,7 +61,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <TopMenu />
           </nav>
           <nav className={classes.actions}>
-            <IconButton size="small" variant="roundedContained">
+            <IconButton size='small' variant='roundedContained'>
               <PinIcon />
             </IconButton>
             <NotificationMenu />
@@ -68,44 +76,47 @@ export const Dashboard = ({ children }: DashboardProps) => {
         {isSidebarVisible && (
           <Sidebar>
             <ShortcutsMenu />
-            <IconButton variant="rounded" size="small" aria-label="mail">
-              <Badge badgeContent={2} color="secondary">
+            <IconButton variant='rounded' size='small' aria-label='mail'>
+              <Badge badgeContent={2} color='secondary'>
                 <MailIcon />
               </Badge>
             </IconButton>
             <IconButton
               onClick={handleNavigate(AppRoute.calendar)}
-              variant="rounded"
-              size="small"
-              aria-label="calendar"
+              variant='rounded'
+              size='small'
+              aria-label='calendar'
             >
               <CalendarIcon />
             </IconButton>
             <IconButton
-              variant="rounded"
-              size="small"
-              aria-label="tasks"
+              variant='rounded'
+              size='small'
+              aria-label='tasks'
               onClick={handleNavigate(AppRoute.tasks)}
               selected={isOnTasksPage}
             >
               <TasksIcon />
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="stats">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton variant='rounded' size='small' aria-label='stats'>
+              <Badge badgeContent={4} color='secondary'>
                 <GraphArrowIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="comments">
-              <CommentIcon />
+            <IconButton
+              variant='rounded'
+              size='small'
+              aria-label='dms'
+              onClick={handleDMSClick}
+              selected={isOnDMSPage}
+            >
+              <FolderIcon />
             </IconButton>
             <Sidebar.Divider />
-            <IconButton variant="rounded" size="small" aria-label="help">
-              <HelpIcon />
-            </IconButton>
             <IconButton
-              variant="rounded"
-              size="small"
-              aria-label="settings"
+              variant='rounded'
+              size='small'
+              aria-label='settings'
               onClick={handleSettingsClick}
               selected={isOnSettingsPage}
               key={pathname}

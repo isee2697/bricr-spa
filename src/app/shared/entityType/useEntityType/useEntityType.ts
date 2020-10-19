@@ -13,13 +13,16 @@ const baseUrls = {
   [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
   [EntityType.CrmRelations]: AppRoute.crmRelationsDetails,
   [EntityType.CrmBusinesses]: AppRoute.crmBusinessesDetails,
+  [EntityType.Dms]: AppRoute.dms,
 };
 
 export const useEntityType = (): useEntityTypeProps => {
   const entityType = useContext(EntityTypeContext);
 
   if (entityType === undefined) {
-    throw new Error('EntityTypeContext is unavailable, make sure you are using EntityTypeProvider');
+    throw new Error(
+      'EntityTypeContext is unavailable, make sure you are using EntityTypeProvider'
+    );
   }
 
   return {

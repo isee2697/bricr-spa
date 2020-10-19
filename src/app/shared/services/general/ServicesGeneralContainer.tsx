@@ -42,24 +42,33 @@ const routeUrlBaseMap: Record<EntityType, AppRoute> = {
   [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
   [EntityType.CrmRelations]: AppRoute.crmRelationsDetails,
   [EntityType.CrmBusinesses]: AppRoute.crmBusinessesDetails,
+  [EntityType.Dms]: AppRoute.dms,
 };
 
-export const ServicesGeneralContainer = ({ isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
+export const ServicesGeneralContainer = ({
+  isSidebarVisible,
+  onSidebarOpen,
+}: PimDetailsSectionProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
   const useQuery = getQuery(entityType);
   const { data } = useQuery({ variables: { id } });
   const dataResult = useMemo<ObjectTypeServices | NcpServices | undefined>(
-    () => (data ? (Object.values(data)[0] as ObjectTypeServices | NcpServices) : undefined),
-    [data],
+    () =>
+      data
+        ? (Object.values(data)[0] as ObjectTypeServices | NcpServices)
+        : undefined,
+    [data]
   );
 
   const [updateNcpServices] = useUpdateNcpServiceMutation();
   const [updateNcpDescription] = useUpdateNcpServiceDescriptionMutation();
 
   const [updateObjectTypeServices] = useUpdateObjectTypeServiceMutation();
-  const [updateObjectTypeDescription] = useUpdateObjectTypeServiceDescriptionMutation();
+  const [
+    updateObjectTypeDescription,
+  ] = useUpdateObjectTypeServiceDescriptionMutation();
 
   const onDescriptionUpdate = async (body: { description: string }) => {
     try {
@@ -179,10 +188,13 @@ export const ServicesGeneralContainer = ({ isSidebarVisible, onSidebarOpen }: Pi
     <>
       <NavBreadcrumb
         urlBase={routeUrlBaseMap[entityType]}
-        to="/services"
+        to='/services'
         title={formatMessage({ id: 'pim_details.services.title' })}
       />
-      <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+      <ProjectDetailsHeader
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
+      />
       <Switch>
         <Route
           default
