@@ -8,6 +8,9 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  assigneeAvatar: {
+    marginRight: theme.spacing(1.5),
+  },
   assignToMeButton: {
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
@@ -49,7 +52,4 @@ export const useStyles = makeStyles(theme => ({
       content: 'none',
     },
   },
-  assigneeMenu: {},
-  assigneeMenuItem: {},
-  assigneeMenuItemInner: {},
 }));

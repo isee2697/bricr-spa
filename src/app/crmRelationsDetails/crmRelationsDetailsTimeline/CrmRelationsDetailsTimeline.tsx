@@ -21,6 +21,7 @@ import { Page } from 'ui/templates';
 import { AddIcon, HelpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
 import { FilePermission } from 'api/types';
 import { Timeline } from '../crmRelationsDetailsDashboard/crmRelationsDetailsDashboardBoards/crmRelationsDetailsDashboardBoardsTimeline/CrmRelationsDetailsDashboardBoardsTimeline.types';
+import { useModalDispatch } from 'hooks';
 
 import { CrmRelationsDetailsTimelineProps } from './CrmRelationsDetailsTimeline.types';
 import { useStyles } from './CrmRelationsDetailsTimeline.styles';
@@ -28,6 +29,7 @@ import { CrmRelationsDetailsTimelineBoards } from './crmRelationsDetailsTimeline
 
 export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimelineProps) => {
   const { formatMessage } = useLocale();
+  const { open } = useModalDispatch();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
   const classes = useStyles();
@@ -281,7 +283,7 @@ export const CrmRelationsDetailsTimeline = ({ crm }: CrmRelationsDetailsTimeline
                 >
                   <SearchIcon />
                 </IconButton>
-                <IconButton aria-label="add" color="primary" size="small" onClick={() => {}}>
+                <IconButton aria-label="add" color="primary" size="small" onClick={() => open('add-crm-timeline')}>
                   <AddIcon color="inherit" />
                 </IconButton>
               </>

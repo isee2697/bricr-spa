@@ -218,6 +218,9 @@ export const mockServer = () => {
 
             return user;
           },
+          getMyTeamMembers() {
+            return { items: [MAIN_USER] };
+          },
           getNotifications() {
             return null;
           },

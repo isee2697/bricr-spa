@@ -1176,6 +1176,61 @@ export type BulkOperationResult = {
   undoIds: Array<Scalars['ID']>;
 };
 
+export enum CalendarTypes {
+  Meeting = 'Meeting',
+  Appointment = 'Appointment',
+  Birthday = 'Birthday',
+  Travel = 'Travel',
+  Private = 'Private',
+  Task = 'Task',
+}
+
+export enum AppointmentRepeat {
+  NoRepeat = 'NoRepeat',
+  Daily = 'Daily',
+  WorkDays = 'WorkDays',
+  Weekly = 'Weekly',
+  Monthly = 'Monthly',
+  Hourly = 'Hourly',
+  Yearly = 'Yearly',
+}
+
+export type AppointmentLocation = {
+  __typename?: 'AppointmentLocation';
+  id: Scalars['ID'];
+  availablePlaces?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  suggest?: Maybe<Scalars['Boolean']>;
+};
+
+export enum AppointmentType {
+  Aquisition = 'Aquisition',
+  SigningContract = 'SigningContract',
+  Openhouse = 'Openhouse',
+  Purchase = 'Purchase',
+  Inspection = 'Inspection',
+  PersonalShowing = 'PersonalShowing',
+}
+
+export type AppointmentTerm = {
+  __typename?: 'AppointmentTerm';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export enum AppointmentMeetingType {
+  ExternalAgreement = 'ExternalAgreement',
+  Collegial = 'Collegial',
+  CompleteArgeement = 'CompleteArgeement',
+  RedirectAppointment = 'RedirectAppointment',
+  FollowUpJob = 'FollowUpJob',
+}
+
+export enum AppointmentAddressType {
+  LinkedPersonAddress = 'LinkedPersonAddress',
+  NewAcquisitionAddress = 'NewAcquisitionAddress',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',
