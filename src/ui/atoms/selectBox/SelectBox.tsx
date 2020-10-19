@@ -62,7 +62,6 @@ export const SelectBox = ({
         transition
       >
         {({ TransitionProps, placement }) => (
-<<<<<<<<< Temporary merge branch 1
           <Grow
             {...TransitionProps}
             style={{ position: 'static', transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
@@ -71,44 +70,36 @@ export const SelectBox = ({
               <ClickAwayListener onClickAway={() => setOpened(false)}>
                 <>
                   {listItems.map((item, index) => (
-=========
-          <ClickAwayListener onClickAway={() => setOpened(false)}>
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-            >
-              <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-                {listItems.map((item, index) => (
-                  <Box
-                    key={`${item.value}`}
-                    className={classNames(
-                      propsClasses?.menuItem,
-                      classes.item,
-                      { selected: value === item.value },
-                      align === 'left' && 'alignLeft',
-                      align === 'right' && 'alignRight',
-                    )}
-                    onClick={() => {
-                      setOpened(false);
-                      onChange(item.value);
-                    }}
-                  >
->>>>>>>>> Temporary merge branch 2
                     <Box
-                      width="100%"
+                      key={`${item.value}`}
                       className={classNames(
-                        propsClasses?.menuItemInner,
-                        item.color,
-                        listItems.length === index + 1 && 'last',
+                        propsClasses?.menuItem,
+                        classes.item,
+                        { selected: value === item.value },
+                        align === 'left' && 'alignLeft',
+                        align === 'right' && 'alignRight',
                       )}
+                      onClick={() => {
+                        setOpened(false);
+                        onChange(item.value);
+                      }}
                     >
-                      {item.label}
+                      <Box
+                        width="100%"
+                        className={classNames(
+                          propsClasses?.menuItemInner,
+                          item.color,
+                          listItems.length === index + 1 && 'last',
+                        )}
+                      >
+                        {item.label}
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
-              </Paper>
-            </Grow>
-          </ClickAwayListener>
+                  ))}
+                </>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
         )}
       </Popper>
     </div>
