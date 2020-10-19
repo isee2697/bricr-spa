@@ -21,17 +21,17 @@ export const RICH_TEXT_DEFAULT = [
   },
 ];
 
-export const RichTextField = ({ name, placeholder, disabled }: RichTextFieldProps) => {
+export const RichTextField = ({ name, placeholder, disabled, withoutBorder, fullWidth }: RichTextFieldProps) => {
   const classes = useStyles();
   const renderElement = useCallback((props: RenderElementProps) => <Element {...props} />, []);
   const renderLeaf = useCallback((props: RenderLeafProps) => <Leaf {...props} />, []);
   const editor = useMemo(() => withReact(createEditor()), []);
 
-  const { input } = useField(name);
+  const { input } = useField(name, { defaultValue: RICH_TEXT_DEFAULT });
 
   return (
     <Slate editor={editor} value={input.value} onChange={input.onChange}>
-      <div className={classes.container}>
+      <div className={!withoutBorder ? classes.container : ''}>
         <Toolbar disabled={disabled}>
           <ToolbarSection>
             <MarkButton format={LeafTypes.BOLD} />
@@ -48,7 +48,7 @@ export const RichTextField = ({ name, placeholder, disabled }: RichTextFieldProp
             <BlockButton format={ElementTypes.BULLET_LIST} />
           </ToolbarSection>
         </Toolbar>
-        <div className={classNames(classes.editor, disabled && classes.disabled)}>
+        <div className={classNames(!fullWidth && classes.editor, disabled && classes.disabled)}>
           <Editable
             renderElement={renderElement}
             renderLeaf={renderLeaf}

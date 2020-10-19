@@ -40,6 +40,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
   popper: {
     width: '100%',
     zIndex: 1500,
+    position: 'static',
+    transform: 'translate3D(0, 0 ,0)',
   },
   menu: {
     backgroundColor: palette.gray.light,
@@ -56,6 +58,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
     padding: spacing(0, 2),
+    overflow: 'hidden',
 
     '&.alignLeft': {
       justifyContent: 'flex-start',
