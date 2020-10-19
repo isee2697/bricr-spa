@@ -36,7 +36,7 @@ export const AddMenu = () => {
       color="primary"
       onClick={() => setOpened(v => !v)}
       innerRef={menuRef}
-      data-testid="add-menu-property"
+      data-testid="add-menu-open"
     >
       <AddIcon color="inherit" />
       <Menu
