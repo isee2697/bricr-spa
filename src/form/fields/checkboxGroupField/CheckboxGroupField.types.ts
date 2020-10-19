@@ -23,4 +23,5 @@ export type CheckboxGroupFieldProps = {
   disabled?: boolean;
   actionElement?: ReactNode;
   orientation?: 'vertical' | 'horizontal';
+  match?: string;
 };
