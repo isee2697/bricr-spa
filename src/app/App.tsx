@@ -12,8 +12,8 @@ export const App = () => (
   <>
     <AppRoutes />
     <AddPimModalContainer />
-    <AddCrmTimelineModalContainer />
     <CreateNewTaskModalContainer />
+    <AddCrmTimelineModalContainer />
     <Snackbar />
     <Intercom />
   </>

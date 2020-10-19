@@ -21,6 +21,7 @@ export const SelectBox = ({
   const classes = useStyles();
 
   const select = useRef(null);
+  const item = ((select?.current as unknown) as HTMLDivElement) ?? undefined;
   const [isOpened, setOpened] = useState(false);
 
   const listItems: SelectBoxItem[] = showSelected ? [...items] : items.filter(item => item.value !== value);
@@ -50,8 +51,27 @@ export const SelectBox = ({
           <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />
         </Box>
       </Box>
-      <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
+      <Popper
+        style={{
+          width: item?.clientWidth,
+          left: item?.getBoundingClientRect().left,
+        }}
+        className={classes.popper}
+        open={isOpened}
+        anchorEl={select.current}
+        transition
+      >
         {({ TransitionProps, placement }) => (
+<<<<<<<<< Temporary merge branch 1
+          <Grow
+            {...TransitionProps}
+            style={{ position: 'static', transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
+            <Paper className={classNames(propsClasses?.menu, classes.menu)}>
+              <ClickAwayListener onClickAway={() => setOpened(false)}>
+                <>
+                  {listItems.map((item, index) => (
+=========
           <ClickAwayListener onClickAway={() => setOpened(false)}>
             <Grow
               {...TransitionProps}
@@ -73,6 +93,7 @@ export const SelectBox = ({
                       onChange(item.value);
                     }}
                   >
+>>>>>>>>> Temporary merge branch 2
                     <Box
                       width="100%"
                       className={classNames(
