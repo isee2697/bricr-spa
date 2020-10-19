@@ -7,7 +7,7 @@ import { SummaryCardProps } from '../Summary.types';
 
 import { useStyles } from './Specifications.styles';
 
-export const Specifications = ({ summary}: SummaryCardProps) => {
+export const Specifications = ({ summary }: SummaryCardProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
