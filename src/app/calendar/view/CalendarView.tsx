@@ -1,45 +1,61 @@
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
-import { ArrowBack } from '@material-ui/icons';
 
 import { Page } from 'ui/templates';
-import { Tab, Tabs, Box, Button } from 'ui/atoms';
+import { Box, Button, Tab, Tabs, Typography } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
-import { AddIcon, ArrowLeftIcon, ArrowRightIcon, BackIcon, SettingsIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowLeftIcon, ArrowRightIcon, SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { CalendarViewProps } from './CalendarView.types';
+import { useStyles } from './CalendarView.styles';
+
+const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (data: { id: string }) => string) => {
+  switch (view) {
+    default:
+    case DateView.Week:
+      return (
+        <Typography variant="h1">
+          {`${currentDate.startOf('week').day} - ${currentDate.endOf('week').day} ${currentDate.monthLong} (${
+            currentDate.weekNumber
+          } 
+          ${formatMessage({ id: 'common.week' })})`}
+        </Typography>
+      );
+  }
+};
 
 export const CalendarView = ({ data }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
-
+  const classes = useStyles();
   const [showDate, setShowDate] = useState(DateTime.local());
   const { formatMessage } = useLocale();
 
   const { push } = useHistory();
 
   const switchStartDate = (status: 'next' | 'prev') => {
-    setShowDate(current => current.plus({ [currentView]: status === 'next' ? 1 : -1 }));
+    setShowDate(showDate.plus({ [currentView]: status === 'next' ? 1 : -1 }));
   };
 
   return (
     <Box p={3}>
       <Page
         showHeader
-        title="calendar.title"
+        // title={formatMessage({ id: `calendar.${currentView.toLowerCase()}.title` })}
         afterTitle={
-          <>
-            <Button onClick={() => switchStartDate('prev')}>
+          <div className={classes.buttons}>
+            <>{getViewTitle(currentView, showDate, formatMessage)}</>
+            <Button variant="contained" onClick={() => switchStartDate('prev')}>
               <ArrowLeftIcon />
             </Button>
-            <Button onClick={() => switchStartDate('next')}>
+            <Button variant="contained" onClick={() => switchStartDate('next')}>
               <ArrowRightIcon />
             </Button>
-          </>
+          </div>
         }
         headerProps={{
           customAction: (
