@@ -54,6 +54,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     backgroundColor: palette.white.main,
     borderRadius: spacing(1),
     padding: spacing(0, 2),
+    overflow: 'hidden',
 
     '&.alignLeft': {
       justifyContent: 'flex-start',

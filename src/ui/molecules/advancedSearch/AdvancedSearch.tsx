@@ -15,7 +15,7 @@ export const AdvancedSearch = ({
   align,
   showSelected = true,
   showBackDrop = true,
-  classes: propsClasses,
+  classes: passedClasses,
   onChange,
 }: AdvancedSearchProps) => {
   const classes = useStyles();
@@ -59,7 +59,7 @@ export const AdvancedSearch = ({
     <div className={classes.root} ref={select}>
       <Box
         onClick={handleOpenSelect}
-        className={classNames(propsClasses?.input, classes.input, !!anchorEl && showBackDrop && 'selected', {
+        className={classNames(passedClasses?.input, classes.input, !!anchorEl && showBackDrop && 'selected', {
           disabled,
         })}
       >
@@ -68,12 +68,12 @@ export const AdvancedSearch = ({
             {title}
           </Typography>
         )}
-        <Box className={classNames(propsClasses?.inputInner, classes.inputInner, !!anchorEl && 'selected')}>
+        <Box className={classNames(passedClasses?.inputInner, classes.inputInner, !!anchorEl && 'selected')}>
           {!anchorEl && (
             <Box
               display="flex"
               alignItems="center"
-              className={classNames(propsClasses?.itemLabelWrapper, classes.itemLabelWrapper)}
+              className={classNames(passedClasses?.itemLabelWrapper, classes.itemLabelWrapper)}
             >
               {!selectedItem && placeholder}
               {selectedItem && (
@@ -89,8 +89,8 @@ export const AdvancedSearch = ({
               ref={input}
               autoFocus
               value={key}
-              classes={{ root: classNames(propsClasses?.searchField, classes.searchField) }}
-              InputProps={{ classes: { root: classNames(propsClasses?.searchFieldInput, classes.searchFieldInput) } }}
+              classes={{ root: classNames(passedClasses?.searchField, classes.searchField) }}
+              InputProps={{ classes: { root: classNames(passedClasses?.searchFieldInput, classes.searchFieldInput) } }}
               onChange={handleChangeSearchKey}
             />
           )}
@@ -121,7 +121,7 @@ export const AdvancedSearch = ({
             <Box
               key={`${item.value}`}
               className={classNames(
-                propsClasses?.menuItem,
+                passedClasses?.menuItem,
                 classes.item,
                 item.color,
                 { selected: value === item.value },
@@ -138,7 +138,7 @@ export const AdvancedSearch = ({
                 width="100%"
                 alignItems="center"
                 className={classNames(
-                  propsClasses?.menuItemInner,
+                  passedClasses?.menuItemInner,
                   classes.itemContent,
                   value === item.value && 'selected',
                   listItems.length === index + 1 && 'last',
