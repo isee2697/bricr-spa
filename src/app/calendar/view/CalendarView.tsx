@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
+import { ArrowBack } from '@material-ui/icons';
 
 import { Page } from 'ui/templates';
 import { Tab, Tabs, Box, Button } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
-import { AddIcon, SettingsIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowLeftIcon, ArrowRightIcon, BackIcon, SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -15,16 +16,31 @@ import { CalendarViewProps } from './CalendarView.types';
 
 export const CalendarView = ({ data }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
+
+  const [showDate, setShowDate] = useState(DateTime.local());
   const { formatMessage } = useLocale();
-  const currentDate = DateTime.local().toJSDate();
+
   const { push } = useHistory();
+
+  const switchStartDate = (status: 'next' | 'prev') => {
+    setShowDate(current => current.plus({ [currentView]: status === 'next' ? 1 : -1 }));
+  };
 
   return (
     <Box p={3}>
       <Page
         showHeader
         title="calendar.title"
-        afterTitle={currentView === DateView.Week && <>buttons</>}
+        afterTitle={
+          <>
+            <Button onClick={() => switchStartDate('prev')}>
+              <ArrowLeftIcon />
+            </Button>
+            <Button onClick={() => switchStartDate('next')}>
+              <ArrowRightIcon />
+            </Button>
+          </>
+        }
         headerProps={{
           customAction: (
             <>
@@ -46,7 +62,7 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
             <Tab onClick={() => setView(DateView.Month)} label="Month" />
           </Tabs>
 
-          <CalendarMolecule view={currentView} currentDate={currentDate} data={data} />
+          <CalendarMolecule view={currentView} currentDate={showDate.toJSDate()} data={data} />
         </FormSection>
       </Page>
     </Box>

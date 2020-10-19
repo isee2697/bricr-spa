@@ -13,6 +13,7 @@ import {
   ViewState,
   WeekView,
 } from 'ui/organisms';
+import { useLocale } from 'hooks';
 
 import { CalendarProps, ConvertDataFunction, CalendarTypeResource } from './Calandar.types';
 
@@ -24,8 +25,10 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
 };
 
 export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
+  const { locale } = useLocale();
+
   return (
-    <Scheduler data={connectDataToResources(data)}>
+    <Scheduler locale={locale} firstDayOfWeek={1} data={connectDataToResources(data)}>
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
       <WeekView />
