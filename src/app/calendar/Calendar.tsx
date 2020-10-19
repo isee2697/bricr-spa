@@ -5,13 +5,16 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { CalendarViewContainer } from 'app/calendar/view/CalendarViewContainer';
 import { NewAppointmentContainer } from 'app/calendar/new/NewAppointmentContainer';
 import { NavBreadcrumb } from 'ui/atoms';
+import { useLocale } from 'hooks';
 
 import { CalendarProps } from './Calendar.types';
 
 export const Calendar = ({ data }: CalendarProps) => {
+  const { formatMessage } = useLocale();
+
   return (
     <>
-      <NavBreadcrumb title={'calendar'} />
+      <NavBreadcrumb title={formatMessage({ id: 'common.calendar' })} />
       <Switch>
         <Route exact path={AppRoute.calendar} render={() => <CalendarViewContainer />} />
         <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer />} />

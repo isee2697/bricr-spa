@@ -13,6 +13,7 @@ import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useLocale } from 'hooks';
 
 export const AddMenu = () => {
   const theme = useTheme();
@@ -20,6 +21,7 @@ export const AddMenu = () => {
   const [isOpened, setOpened] = useState(false);
   const setOverlay = useOverlayDispatch();
   const { open } = useModalDispatch();
+  const { formatMessage } = useLocale();
 
   useEffect(() => {
     setOverlay(isOpened);
@@ -63,7 +65,7 @@ export const AddMenu = () => {
             </Box>
           </Avatar>
           <Box ml={2}>
-            <Typography variant="subtitle1">Task</Typography>
+            <Typography variant="subtitle1">{formatMessage({ id: 'common.task' })}</Typography>
           </Box>
         </Box>
         {/*</Link>*/}
@@ -75,7 +77,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Event</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.calendar' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -87,7 +89,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">E-mail</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.mail' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -99,7 +101,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Note</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.note' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -116,7 +118,7 @@ export const AddMenu = () => {
             </Box>
           </Avatar>
           <Box ml={2}>
-            <Typography variant="subtitle1">Property</Typography>
+            <Typography variant="subtitle1">{formatMessage({ id: 'common.property' })}</Typography>
           </Box>
         </Box>
         <Link component={RouterLink} to="/" color="inherit">
@@ -127,7 +129,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Contact</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.contact' })}</Typography>
             </Box>
           </Box>
         </Link>
