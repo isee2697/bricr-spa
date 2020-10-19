@@ -1,12 +1,14 @@
 import React, { useCallback } from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator, AnyObject } from 'final-form';
+import clsx from 'classnames';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, TileCheckbox, FormHelperText } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 
 import { CheckboxDataType, CheckboxGroupFieldProps } from './CheckboxGroupField.types';
+import { useStyles } from './CheckboxGroupField.styles';
 
 export const CheckboxGroupField = ({
   name,
@@ -20,12 +22,34 @@ export const CheckboxGroupField = ({
   disabled,
   actionElement,
   orientation,
+  match,
 }: CheckboxGroupFieldProps) => {
+  const classes = useStyles();
   const { formatMessage } = useLocale();
   const { fields, meta } = useFieldArray<string>(name, {
     validate: validate ? ((validatorsChain(...validate) as unknown) as FieldValidator<string>) : undefined,
     validateFields,
   });
+
+  const highlightString = (title: string) => {
+    if (!match || !match.trim()) {
+      return title;
+    }
+
+    const parts = title.split(new RegExp(`(${match})`, 'gi'));
+
+    return parts.map((part, index) =>
+      part.toLowerCase().match(match.toLowerCase()) ? (
+        <span key={index} className={clsx(classes.itemLabelPart, 'highlight')}>
+          {part}
+        </span>
+      ) : (
+        <span key={index} className={classes.itemLabelPart}>
+          {part}
+        </span>
+      ),
+    );
+  };
 
   const handleClick = useCallback(
     (item: CheckboxDataType) => {
@@ -51,7 +75,7 @@ export const CheckboxGroupField = ({
             <TileCheckbox
               onClick={() => handleClick(item)}
               isSelected={fields.value && fields.value.includes(item.value)}
-              title={formatMessage({ id: item.label, defaultMessage: item.label })}
+              title={highlightString(formatMessage({ id: item.label, defaultMessage: item.label }))}
               isDisabled={disabled}
               orientation={orientation}
             >
