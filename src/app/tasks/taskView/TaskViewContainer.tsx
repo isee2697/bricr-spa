@@ -22,7 +22,7 @@ import { useModalDispatch } from 'hooks';
 
 import { TaskViewContainerProps } from './TaskViewContainer.types';
 
-export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskViewContainerProps) => {
+export const TaskViewContainer = ({ tab, members, selectedMembers = [], onAddNewTask }: TaskViewContainerProps) => {
   const [searchKey, setSearchKey] = useState('');
   const [viewMode, setViewMode] = useState(TasksViewMode.Swimlane);
   const [dateRanges, setDateRanges] = useState<DateRange[]>([
@@ -186,6 +186,7 @@ export const TaskViewContainer = ({ tab, members, selectedMembers = [] }: TaskVi
         deadlines: dateRanges,
       },
     });
+    onAddNewTask();
   };
 
   if (loading || taskSummaryByStatusLoading) {
