@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
+
 import { DmsMeta } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
 
 export const DMSMeta: DmsMeta = {
-  for_approval: 127,
+  forApproval: 127,
   sent: 64,
   viewed: 18,
   completed: 15,

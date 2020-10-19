@@ -20,9 +20,7 @@ export const useEntityType = (): useEntityTypeProps => {
   const entityType = useContext(EntityTypeContext);
 
   if (entityType === undefined) {
-    throw new Error(
-      'EntityTypeContext is unavailable, make sure you are using EntityTypeProvider'
-    );
+    throw new Error('EntityTypeContext is unavailable, make sure you are using EntityTypeProvider');
   }
 
   return {

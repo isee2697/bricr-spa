@@ -1,3 +1,1 @@
-export type DmsImageLibraryProps = {
-
-};
+export type DmsImageLibraryProps = {};

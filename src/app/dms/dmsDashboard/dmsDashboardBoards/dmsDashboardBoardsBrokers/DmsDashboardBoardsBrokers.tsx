@@ -4,10 +4,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardHeader, CardContent, IconButton, Box, Avatar, Emoji, Typography } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 
-import {
-  Broker,
-  DmsDashboardBoardsBrokerItemProps,
-} from './DmsDashboardBoardsBrokers.types';
+import { Broker, DmsDashboardBoardsBrokerItemProps } from './DmsDashboardBoardsBrokers.types';
 import { useStyles } from './DmsDashboardBoardsBrokers.styles';
 
 const BrokerItem = ({ broker: { avatar, name, id } }: DmsDashboardBoardsBrokerItemProps) => {

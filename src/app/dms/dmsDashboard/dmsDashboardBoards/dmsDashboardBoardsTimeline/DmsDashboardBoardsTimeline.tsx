@@ -18,16 +18,12 @@ import {
   StepConnector,
   Scrollable,
 } from 'ui/atoms';
-import {
-  AddIcon,
-  CheckIcon,
-  CloseIcon,
-  NewConstructionIcon,
-} from 'ui/atoms/icons';
+import { AddIcon, CheckIcon, CloseIcon, NewConstructionIcon } from 'ui/atoms/icons';
 import { DMSTimelineItems } from 'api/mocks/dms';
+
 import { useStyles } from './DmsDashboardBoardsTimeline.styles';
 
-const TimelineStepConnector = withStyles((theme) => ({
+const TimelineStepConnector = withStyles(theme => ({
   line: {
     borderColor: theme.palette.green.main,
     borderLeftWidth: 2,
@@ -47,57 +43,42 @@ export const DmsDashboardBoardsTimeline = () => {
         title={
           <>
             {formatMessage({ id: 'dms.dashboard.timeline' })}
-            <Chip size='small' label={136} color='primary' />
+            <Chip size="small" label={136} color="primary" />
           </>
         }
         action={
-          <IconButton aria-label='add' color='primary' size='small'>
-            <AddIcon color='inherit' />
+          <IconButton aria-label="add" color="primary" size="small">
+            <AddIcon color="inherit" />
           </IconButton>
         }
       />
       <CardContent className={classes.stepperWrapper}>
-        <Scrollable
-          className={classes.scrollable}
-          width='auto'
-          height={421}
-          noBottomScroller={true}
-        >
+        <Scrollable className={classes.scrollable} width="auto" height={421} noBottomScroller={true}>
           <Stepper
-            orientation='vertical'
+            orientation="vertical"
             className={classes.stepper}
-            connector={
-              <TimelineStepConnector className={classes.stepConnector} />
-            }
+            connector={<TimelineStepConnector className={classes.stepConnector} />}
           >
             {timelineItems.map((timeline, index) => (
               <Step key={index}>
                 <StepLabel
                   StepIconComponent={() =>
                     timeline.status === 'done' ? (
-                      <CheckIcon
-                        className={classes.checkIcon}
-                        color='inherit'
-                      />
+                      <CheckIcon className={classes.checkIcon} color="inherit" />
                     ) : (
-                      <CloseIcon
-                        className={classes.closeIcon}
-                        color='inherit'
-                      />
+                      <CloseIcon className={classes.closeIcon} color="inherit" />
                     )
                   }
                   className={classes.stepLabel}
                   classes={{ labelContainer: classes.stepLabelContainer }}
                 >
-                  <Box display='flex' className={classes.stepLabelContent}>
+                  <Box display="flex" className={classes.stepLabelContent}>
                     <Box mr={3}>
                       <Typography
-                        variant='h5'
+                        variant="h5"
                         className={clsx(
                           classes.timelineStatus,
-                          timeline.status === 'done'
-                            ? classes.green
-                            : classes.red
+                          timeline.status === 'done' ? classes.green : classes.red,
                         )}
                       >
                         {timeline.status === 'done'
@@ -108,25 +89,16 @@ export const DmsDashboardBoardsTimeline = () => {
                               id: 'dms.dashboard.timeline.expired',
                             })}
                       </Typography>
-                      <Typography variant='h6' className={classes.timelineDate}>
-                        {timeline.date
-                          .toLocaleString(DateTime.DATE_SHORT)
-                          .replace('/', '-')}
+                      <Typography variant="h6" className={classes.timelineDate}>
+                        {timeline.date.toLocaleString(DateTime.DATE_SHORT).replace('/', '-')}
                       </Typography>
-                      <Typography variant='h6' className={classes.timelineTime}>
-                        {timeline.date.toLocaleString(
-                          DateTime.TIME_WITH_SECONDS
-                        )}
+                      <Typography variant="h6" className={classes.timelineTime}>
+                        {timeline.date.toLocaleString(DateTime.TIME_WITH_SECONDS)}
                       </Typography>
                     </Box>
-                    <Box display='flex'>
-                      <NewConstructionIcon
-                        className={classes.timelineTitleIcon}
-                      />
-                      <Typography
-                        variant='h5'
-                        className={classes.timelineTitle}
-                      >
+                    <Box display="flex">
+                      <NewConstructionIcon className={classes.timelineTitleIcon} />
+                      <Typography variant="h5" className={classes.timelineTitle}>
                         {timeline.title}
                       </Typography>
                     </Box>

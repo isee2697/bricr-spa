@@ -10,7 +10,6 @@ import { useEntityType } from 'app/shared/entityType';
 
 import { DmsDashboardMetaHeader } from './dmsDashboardMetaHeader/DmsDashboardMetaHeader';
 import { DmsDashboardBoards } from './dmsDashboardBoards/DmsDashboardBoards';
-
 import { DmsDashboardProps } from './DmsDashboard.types';
 
 export const DmsDashboard = ({ dms }: DmsDashboardProps) => {
@@ -22,14 +21,12 @@ export const DmsDashboard = ({ dms }: DmsDashboardProps) => {
     <>
       <NavBreadcrumb
         urlBase={joinUrlParams(baseUrl, urlParams)}
-        to='/dashboard'
+        to="/dashboard"
         title={formatMessage({ id: 'dms.dashboard.title' })}
       />
       <Page withoutHeader>
         <Grid xs={12} item>
-          <Typography variant='h1'>
-            {formatMessage({ id: 'dms.title' })}
-          </Typography>
+          <Typography variant="h1">{formatMessage({ id: 'dms.title' })}</Typography>
         </Grid>
         <DmsDashboardMetaHeader meta={dms} />
         <DmsDashboardBoards />

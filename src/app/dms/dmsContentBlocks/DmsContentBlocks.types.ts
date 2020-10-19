@@ -1,3 +1,1 @@
-export type DmsContentBlocksProps = {
-
-};
+export type DmsContentBlocksProps = {};

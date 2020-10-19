@@ -61,7 +61,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <TopMenu />
           </nav>
           <nav className={classes.actions}>
-            <IconButton size='small' variant='roundedContained'>
+            <IconButton size="small" variant="roundedContained">
               <PinIcon />
             </IconButton>
             <NotificationMenu />
@@ -76,47 +76,41 @@ export const Dashboard = ({ children }: DashboardProps) => {
         {isSidebarVisible && (
           <Sidebar>
             <ShortcutsMenu />
-            <IconButton variant='rounded' size='small' aria-label='mail'>
-              <Badge badgeContent={2} color='secondary'>
+            <IconButton variant="rounded" size="small" aria-label="mail">
+              <Badge badgeContent={2} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>
             <IconButton
               onClick={handleNavigate(AppRoute.calendar)}
-              variant='rounded'
-              size='small'
-              aria-label='calendar'
+              variant="rounded"
+              size="small"
+              aria-label="calendar"
             >
               <CalendarIcon />
             </IconButton>
             <IconButton
-              variant='rounded'
-              size='small'
-              aria-label='tasks'
+              variant="rounded"
+              size="small"
+              aria-label="tasks"
               onClick={handleNavigate(AppRoute.tasks)}
               selected={isOnTasksPage}
             >
               <TasksIcon />
             </IconButton>
-            <IconButton variant='rounded' size='small' aria-label='stats'>
-              <Badge badgeContent={4} color='secondary'>
+            <IconButton variant="rounded" size="small" aria-label="stats">
+              <Badge badgeContent={4} color="secondary">
                 <GraphArrowIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              variant='rounded'
-              size='small'
-              aria-label='dms'
-              onClick={handleDMSClick}
-              selected={isOnDMSPage}
-            >
+            <IconButton variant="rounded" size="small" aria-label="dms" onClick={handleDMSClick} selected={isOnDMSPage}>
               <FolderIcon />
             </IconButton>
             <Sidebar.Divider />
             <IconButton
-              variant='rounded'
-              size='small'
-              aria-label='settings'
+              variant="rounded"
+              size="small"
+              aria-label="settings"
               onClick={handleSettingsClick}
               selected={isOnSettingsPage}
               key={pathname}

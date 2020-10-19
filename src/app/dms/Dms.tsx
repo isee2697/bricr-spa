@@ -31,38 +31,17 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
     <EntityTypeProvider entityType={entityType}>
       <Grid container spacing={0}>
         {breadcrumbs}
-        <DmsSidebarMenu
-          onHide={handleSidebarHide}
-          isVisible={isSidebarVisible}
-        />
+        <DmsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
         <Box flex={1}>
           <Grid container className={classes.content}>
-            <DmsHeader
-              onSidebarOpen={handleSidebarOpen}
-              isSidebarVisible={isSidebarVisible}
-            />
+            <DmsHeader onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
             {!!dms && (
               <Switch>
-                <Route
-                  path={`${path}/dashboard`}
-                  render={() => <DmsDashboard dms={dms} />}
-                />
-                <Route
-                  path={`${path}/documents`}
-                  render={() => <DmsDocuments />}
-                />
-                <Route
-                  path={`${path}/templates`}
-                  render={() => <DmsTemplates />}
-                />
-                <Route
-                  path={`${path}/content-blocks`}
-                  render={() => <DmsContentBlocks />}
-                />
-                <Route
-                  path={`${path}/image-library`}
-                  render={() => <DmsImageLibrary />}
-                />
+                <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
+                <Route path={`${path}/documents`} render={() => <DmsDocuments />} />
+                <Route path={`${path}/templates`} render={() => <DmsTemplates />} />
+                <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
+                <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

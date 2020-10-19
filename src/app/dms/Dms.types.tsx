@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { EntityType } from 'app/shared/entityType';
 
 export type DmsMeta = {
-  for_approval: number;
+  forApproval: number;
   sent: number;
   viewed: number;
   completed: number;

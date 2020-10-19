@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
+
 import { SidebarMenu } from 'ui/molecules';
 import { CrmIcon, FolderIcon, AddIcon } from 'ui/atoms/icons';
 
@@ -23,7 +24,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
                 label: 'dms.menu.pim',
                 icon: (
                   <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color='inherit' />
+                    <FolderIcon color="inherit" />
                   </div>
                 ),
               },
@@ -32,7 +33,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
                 label: 'dms.menu.crm',
                 icon: (
                   <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color='inherit' />
+                    <FolderIcon color="inherit" />
                   </div>
                 ),
               },
@@ -41,7 +42,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
                 label: 'dms.menu.sales',
                 icon: (
                   <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color='inherit' />
+                    <FolderIcon color="inherit" />
                   </div>
                 ),
               },
@@ -50,7 +51,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
                 label: 'dms.menu.add_folder',
                 icon: (
                   <div style={{ marginLeft: 30 }}>
-                    <AddIcon color='inherit' />
+                    <AddIcon color="inherit" />
                   </div>
                 ),
               },
@@ -64,12 +65,5 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
     ],
   };
 
-  return (
-    <SidebarMenu
-      onHide={onHide}
-      isVisible={isVisible}
-      translationPrefix='dms.menu'
-      menu={menu}
-    />
-  );
+  return <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="dms.menu" menu={menu} />;
 };
