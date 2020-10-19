@@ -6,8 +6,9 @@ import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './Tanks.styles';
+import { TanksProps } from './Tanks.types';
 
-export const Tanks = () => {
+export const Tanks = ({ tanks }: TanksProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -17,39 +18,34 @@ export const Tanks = () => {
         title={
           <Box display="flex" alignItems="center">
             <Typography variant="h2">{formatMessage({ id: 'pim_details.summary.tanks.title' })}</Typography>
-            <Counter count={5} hasMarginLeft />
+            <Counter count={tanks.length} hasMarginLeft />
           </Box>
         }
       />
       <CardContent>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+        {tanks.map((tank, index) => (
+          <FormSubSection
+            initiallyOpened={false}
+            title={
+              <>
+                <Typography variant="h4" className={classes.index}>
+                  {index + 1}
+                </Typography>
+                <Typography variant="h3">{tank.type}</Typography>
+              </>
+            }
+            onOptionsClick={() => {}}
+          >
+            <Box className={classes.detailItem}>
+              <Typography variant="h5" className={classes.detailItemLabel}>
+                {formatMessage({ id: 'pim_details.summary.tank.inspection' })}
               </Typography>
-              <Typography variant="h3">Oil tank</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Oil tank content</div>
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+              <Typography variant="h4" className={classes.detailItemValue}>
+                {tank.description}
               </Typography>
-              <Typography variant="h3">Underground tank</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Underground tank content</div>
-        </FormSubSection>
+            </Box>
+          </FormSubSection>
+        ))}
       </CardContent>
     </Card>
   );

@@ -16,10 +16,10 @@ import { DeedOfPurchaseHouse } from './deedOfPurchaseHouse/DeedOfPurchaseHouse';
 import { SalesOrder } from './salesOrder/SalesOrder';
 import { Questionnaire } from './questionnaire/Questionnaire';
 
-export const SummaryPersonal = ({ summaryPersonal, isSidebarVisible, onSidebarOpen }: SummaryPersonalProps) => {
+export const SummaryPersonal = ({ summary, isSidebarVisible, onSidebarOpen }: SummaryPersonalProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles(summaryPersonal);
-  const { address } = summaryPersonal;
+  const classes = useStyles(summary);
+  const { address } = summary;
 
   return (
     <>

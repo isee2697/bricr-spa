@@ -6,8 +6,9 @@ import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './AdditionalServices.styles';
+import { AdditionalServicesProps } from './AdditionalServices.types';
 
-export const AdditionalServices = () => {
+export const AdditionalServices = ({ additionalServices }: AdditionalServicesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -19,68 +20,48 @@ export const AdditionalServices = () => {
             <Typography variant="h2">
               {formatMessage({ id: 'pim_details.summary.inside.additional_services.title' })}
             </Typography>
-            <Counter count={2} hasMarginLeft />
+            <Counter count={additionalServices.length} hasMarginLeft />
           </Box>
         }
       />
       <CardContent>
-        <FormSubSection
-          title={
+        {additionalServices.map((additionalService, index) => (
+          <FormSubSection
+            key={index}
+            title={
+              <>
+                <Typography variant="h4" className={classes.index}>
+                  {index}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: `dictionaries.additional_service_type.${additionalService.configuration.type}`,
+                  })}
+                </Typography>
+              </>
+            }
+            onOptionsClick={() => {}}
+          >
             <>
-              <Typography variant="h4" className={classes.index}>
-                1
-              </Typography>
-              <Typography variant="h3">Air conditioning</Typography>
+              <Box className={classes.detailItem}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.inside.additional_service.name' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  {additionalService.name}
+                </Typography>
+              </Box>
+              <Box className={classes.detailItem}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.inside.additional_service.year_of_installation' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  {additionalService.yearOfInstallation}
+                </Typography>
+              </Box>
             </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.inside.additional_services.name' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              Ericson
-            </Typography>
-          </Box>
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.inside.additional_services.year_of_installation' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              1991
-            </Typography>
-          </Box>
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
-              </Typography>
-              <Typography variant="h3">Alarm system</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.inside.additional_services.name' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              Ericson
-            </Typography>
-          </Box>
-          <Box className={classes.detailItem}>
-            <Typography variant="h5" className={classes.detailItemLabel}>
-              {formatMessage({ id: 'pim_details.summary.inside.additional_services.year_of_installation' })}
-            </Typography>
-            <Typography variant="h4" className={classes.detailItemValue}>
-              1991
-            </Typography>
-          </Box>
-        </FormSubSection>
+          </FormSubSection>
+        ))}
       </CardContent>
     </Card>
   );

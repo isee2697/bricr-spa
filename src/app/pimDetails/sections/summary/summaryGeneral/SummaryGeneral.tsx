@@ -7,6 +7,7 @@ import { BuildingIcon, SeeIcon, ShareIcon, UnseeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { InspectionType } from 'api/types';
 
 import { useStyles } from './SummaryGeneral.styles';
 import { Pricing } from './pricing/Pricing';
@@ -22,9 +23,13 @@ import { SummaryGeneralProps } from './SummaryGeneral.types';
 export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: SummaryGeneralProps) => {
   const [isShowImportantBrokerContent, setIsShowImportantBrokerContent] = useState(false);
   const { formatMessage } = useLocale();
-  const { address } = summary;
+  const { address, specification, insideGeneral, outside, costs, inspections, pricing } = summary;
   const classes = useStyles(summary);
   const theme = useTheme();
+
+  const tanks = inspections?.filter(inspection => inspection.inspectionType === InspectionType.Tanks);
+  const pollutions = inspections?.filter(inspection => inspection.inspectionType === InspectionType.Pollution);
+  const maintenances = inspections?.filter(inspection => inspection.inspectionType === InspectionType.Maintenance);
 
   return (
     <>
@@ -106,16 +111,16 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <Pricing pricing={summary.pricing} />
-              <Specifications />
-              <Tanks />
-              <Pollution />
-              <Maintenance />
+              {pricing && <Pricing pricing={pricing} />}
+              {specification && <Specifications specification={specification} />}
+              {tanks && tanks.length > 0 && <Tanks tanks={tanks} />}
+              {pollutions && pollutions.length > 0 && <Pollution pollutions={pollutions} />}
+              {maintenances && maintenances.length > 0 && <Maintenance maintenances={maintenances} />}
             </Grid>
             <Grid item xs={6}>
               <Numbers />
-              <Costs />
-              <Inspection />
+              {costs && costs.length > 0 && <Costs costs={costs} />}
+              {outside && insideGeneral && <Inspection houseOutside={outside} insideGeneral={insideGeneral} />}
             </Grid>
           </Grid>
         </Grid>

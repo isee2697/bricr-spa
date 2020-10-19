@@ -1,26 +1,89 @@
 import React from 'react';
-import { DateTime } from 'luxon';
+import { useParams } from 'react-router-dom';
 
+import {
+  PimServices,
+  usePimInfoQuery,
+  usePimLocationQuery,
+  usePimOutsideQuery,
+  usePimPricingQuery,
+  usePimServicesQuery,
+  usePimSpecificationQuery,
+} from 'api/types';
+import { Loader } from 'ui/atoms';
 import { PimDetailsSectionProps } from '../../PimDetails.types';
 
 import { Summary } from './Summary';
-import { PimSummary, PricingAcceptance, PricingPaymentsFrequency } from './Summary.types';
+import { PimSummary } from './Summary.types';
 
 export const SummaryContainer = (props: PimDetailsSectionProps) => {
+  const { id } = useParams<{ id: string }>();
+
+  const { data: pimInfo } = usePimInfoQuery({ variables: { id } });
+  const { data: pimOutsideInfo } = usePimOutsideQuery({ variables: { id } });
+  const { data: pimLocationInfo } = usePimLocationQuery({ variables: { id } });
+  const { data: pimServicesInfo } = usePimServicesQuery({ variables: { id } });
+  const { data: pimSpecificationInfo } = usePimSpecificationQuery({ variables: { id } });
+  const { data: pimPricingInfo } = usePimPricingQuery({ variables: { id } });
+
+  if (
+    !pimInfo ||
+    !pimInfo.getPim ||
+    !pimOutsideInfo ||
+    !pimOutsideInfo.getPimOutside ||
+    !pimLocationInfo ||
+    !pimLocationInfo.getPimLocation ||
+    !pimServicesInfo ||
+    !pimServicesInfo.getPimServices ||
+    !pimSpecificationInfo ||
+    !pimSpecificationInfo.getPimSpecification ||
+    !pimPricingInfo ||
+    !pimPricingInfo.getPricing
+  ) {
+    return <Loader />;
+  }
+
+  const {
+    street,
+    houseNumber,
+    houseNumberAddition,
+    houseNumberPrefix,
+    constructionNumber,
+    constructionNumberAddition,
+    constructionNumberPrefix,
+    city,
+    floors = [],
+    houseGeneral,
+    houseOutside,
+    cadastre,
+    pictures = [],
+    insideGeneral,
+  } = pimInfo.getPim;
+  const { outsideFeatures } = pimOutsideInfo.getPimOutside;
+  const { specificationAdvanced, inspections } = pimSpecificationInfo.getPimSpecification;
+  const { costs, pricing } = pimPricingInfo.getPricing;
+
   const summary: PimSummary = {
-    address: 'Isenburgstraat 36 4813 NC Breda NL',
-    image: 'https://img.freepik.com/free-photo/light-trails-modern-building_1417-6693.jpg?size=626&ext=jpg',
-    pricing: {
-      askingPrice: 25000,
-      acceptance: PricingAcceptance.InConstruction,
-      perDate: DateTime.local(),
-      wozValue: 24500,
-      referenceDate: DateTime.local(),
-      realEstateTaxUser: 675000,
-      realEstateTaxUserPaymentsFrequency: PricingPaymentsFrequency.PerYear,
-      realEstateTaxBusiness: 1275,
-      realEstateTaxBusinessPaymentsFrequency: PricingPaymentsFrequency.PerYear,
-    },
+    address: `${street} ${houseNumberPrefix ?? ''}${houseNumber}${houseNumberAddition ?? ''}${
+      constructionNumber
+        ? ` (${constructionNumberPrefix ?? ''}${constructionNumber}${constructionNumberAddition ?? ''})`
+        : ''
+    }, ${city}`,
+    image:
+      (pictures && pictures.length > 0 && (pictures.find(picture => picture.isMainPicture) || pictures[0]).file?.url) ||
+      undefined,
+    floors: floors || [],
+    general: houseGeneral || undefined,
+    outside: houseOutside || undefined,
+    outsideFeatures: outsideFeatures || [],
+    cadastre: cadastre || [],
+    services: pimServicesInfo.getPimServices as PimServices,
+    pricing: pricing || undefined,
+    location: pimLocationInfo.getPimLocation,
+    specification: specificationAdvanced || undefined,
+    inspections: inspections || [],
+    insideGeneral: insideGeneral || undefined,
+    costs: costs || [],
   };
 
   return <Summary summary={summary} {...props} />;

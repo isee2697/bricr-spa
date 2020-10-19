@@ -13,6 +13,7 @@ import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRela
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
 import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
+import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
@@ -120,6 +121,9 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
+                <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
+                <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituationContainer />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

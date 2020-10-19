@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Box, TextField, Typography, Popper, Grow, Paper, ClickAwayListener } from 'ui/atoms';
 
-import { AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
+import { AdvancedSearchClasses, AdvancedSearchItem, AdvancedSearchProps } from './AdvancedSearch.types';
 import { useStyles } from './AdvancedSearch.styles';
 
 export const AdvancedSearch = ({
@@ -14,12 +14,24 @@ export const AdvancedSearch = ({
   value,
   align,
   showSelected = true,
-  classes: propsClasses,
+  classes: passedClasses,
   onChange,
 }: AdvancedSearchProps) => {
   const classes = useStyles();
 
+  const propsClasses: AdvancedSearchClasses = {
+    input: classes.defaultInput,
+    inputInner: classes.defaultInputInner,
+    searchField: classes.searchField,
+    searchFieldInput: classes.searchFieldInput,
+    itemLabelWrapper: classes.defaultItemLabelWrapper,
+    menu: '',
+    menuItem: '',
+    ...passedClasses,
+  };
+
   const select = useRef(null);
+  const item = ((select?.current as unknown) as HTMLDivElement) ?? undefined;
   const [isOpened, setOpened] = useState(false);
   const [key, setKey] = useState(items.find(item => item.value === value)?.label || '');
 
@@ -90,53 +102,61 @@ export const AdvancedSearch = ({
           )}
         </Box>
       </Box>
-      <Popper className={classes.popper} open={isOpened} anchorEl={select.current} transition disablePortal>
+
+      <Popper
+        style={{
+          width: item?.clientWidth,
+          left: item?.getBoundingClientRect().left,
+        }}
+        className={classes.popper}
+        open={isOpened}
+        anchorEl={select.current}
+        transition
+      >
         {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
-            <Paper className={classNames(propsClasses?.menu, classes.menu)}>
-              <ClickAwayListener onClickAway={() => setOpened(false)}>
-                <>
-                  {listItems
-                    .filter(item => item.label.toLowerCase().includes(key.toLowerCase()))
-                    .map((item, index) => (
+          <ClickAwayListener onClickAway={() => setOpened(false)}>
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper className={classNames(propsClasses?.menu, classes.menu)}>
+                {listItems
+                  .filter(item => item.label.toLowerCase().includes(key.toLowerCase()))
+                  .map((item, index) => (
+                    <Box
+                      key={`${item.value}`}
+                      className={classNames(
+                        propsClasses?.menuItem,
+                        classes.item,
+                        item.color,
+                        { selected: value === item.value },
+                        align === 'left' && 'alignLeft',
+                        align === 'right' && 'alignRight',
+                      )}
+                      onClick={() => {
+                        setOpened(false);
+                        onChange(item.value);
+                      }}
+                    >
                       <Box
-                        key={`${item.value}`}
+                        display="flex"
+                        width="100%"
+                        alignItems="center"
                         className={classNames(
-                          propsClasses?.menuItem,
-                          classes.item,
-                          item.color,
-                          { selected: value === item.value },
-                          align === 'left' && 'alignLeft',
-                          align === 'right' && 'alignRight',
+                          propsClasses?.menuItemInner,
+                          classes.itemContent,
+                          value === item.value && 'selected',
+                          listItems.length === index + 1 && 'last',
                         )}
-                        onClick={() => {
-                          setOpened(false);
-                          onChange(item.value);
-                        }}
                       >
-                        <Box
-                          display="flex"
-                          width="100%"
-                          alignItems="center"
-                          className={classNames(
-                            propsClasses?.menuItemInner,
-                            classes.itemContent,
-                            value === item.value && 'selected',
-                            listItems.length === index + 1 && 'last',
-                          )}
-                        >
-                          {item.icon}
-                          <span className={classes.itemLabel}>{highlightString(item.label)}</span>
-                        </Box>
+                        {item.icon}
+                        <span className={classes.itemLabel}>{highlightString(item.label)}</span>
                       </Box>
-                    ))}
-                </>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
+                    </Box>
+                  ))}
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
         )}
       </Popper>
     </div>

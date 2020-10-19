@@ -1,6 +1,20 @@
 import { DateTime } from 'luxon';
 
 import { PimDetailsSectionProps } from '../../PimDetails.types';
+import {
+  Cadastre,
+  Cost,
+  Floor,
+  HouseGeneral,
+  HouseOutside,
+  InsideGeneral,
+  Inspection,
+  OutsideFeature,
+  PimLocation,
+  PimServices,
+  Pricing,
+  SpecificationAdvanced,
+} from 'api/types';
 
 export enum PricingAcceptance {
   InConstruction = 'in_construction',
@@ -24,8 +38,19 @@ export type PimSummaryPricing = {
 
 export type PimSummary = {
   address: string;
-  image: string;
-  pricing: PimSummaryPricing;
+  image?: string;
+  floors?: Floor[];
+  general?: HouseGeneral;
+  outside?: HouseOutside;
+  outsideFeatures?: OutsideFeature[];
+  cadastre?: Cadastre[];
+  services?: PimServices;
+  pricing?: Pricing;
+  location: PimLocation;
+  specification?: SpecificationAdvanced;
+  inspections?: Inspection[];
+  insideGeneral?: InsideGeneral;
+  costs?: Cost[];
 };
 
 export type SummaryProps = PimDetailsSectionProps & {

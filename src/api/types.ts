@@ -1176,6 +1176,61 @@ export type BulkOperationResult = {
   undoIds: Array<Scalars['ID']>;
 };
 
+export enum CalendarTypes {
+  Meeting = 'Meeting',
+  Appointment = 'Appointment',
+  Birthday = 'Birthday',
+  Travel = 'Travel',
+  Private = 'Private',
+  Task = 'Task',
+}
+
+export enum AppointmentRepeat {
+  NoRepeat = 'NoRepeat',
+  Daily = 'Daily',
+  WorkDays = 'WorkDays',
+  Weekly = 'Weekly',
+  Monthly = 'Monthly',
+  Hourly = 'Hourly',
+  Yearly = 'Yearly',
+}
+
+export type AppointmentLocation = {
+  __typename?: 'AppointmentLocation';
+  id: Scalars['ID'];
+  availablePlaces?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  suggest?: Maybe<Scalars['Boolean']>;
+};
+
+export enum AppointmentType {
+  Aquisition = 'Aquisition',
+  SigningContract = 'SigningContract',
+  Openhouse = 'Openhouse',
+  Purchase = 'Purchase',
+  Inspection = 'Inspection',
+  PersonalShowing = 'PersonalShowing',
+}
+
+export type AppointmentTerm = {
+  __typename?: 'AppointmentTerm';
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export enum AppointmentMeetingType {
+  ExternalAgreement = 'ExternalAgreement',
+  Collegial = 'Collegial',
+  CompleteArgeement = 'CompleteArgeement',
+  RedirectAppointment = 'RedirectAppointment',
+  FollowUpJob = 'FollowUpJob',
+}
+
+export enum AppointmentAddressType {
+  LinkedPersonAddress = 'LinkedPersonAddress',
+  NewAcquisitionAddress = 'NewAcquisitionAddress',
+}
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',
@@ -10508,6 +10563,357 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimInfoQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type PimInfoQuery = { __typename?: 'Query' } & {
+  getPim?: Maybe<
+    { __typename?: 'Pim' } & Pick<
+      Pim,
+      | 'street'
+      | 'houseNumberPrefix'
+      | 'houseNumber'
+      | 'houseNumberAddition'
+      | 'constructionNumber'
+      | 'constructionNumberPrefix'
+      | 'constructionNumberAddition'
+      | 'city'
+      | 'developmentType'
+      | 'status'
+      | 'salePrice'
+      | 'rentPrice'
+      | 'description'
+      | 'livingArea'
+      | 'propertyType'
+      | 'attentionNote'
+      | 'completeness'
+      | 'archived'
+    > & {
+        houseGeneral?: Maybe<
+          { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'floor' | 'propertyConnection' | 'propertyDetails'> & {
+              availability?: Maybe<
+                { __typename?: 'PropertyAvailabilityInformation' } & Pick<
+                  PropertyAvailabilityInformation,
+                  'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
+                >
+              >;
+              construction?: Maybe<
+                { __typename?: 'ConstructionInformation' } & Pick<
+                  ConstructionInformation,
+                  'type' | 'from' | 'to' | 'notes'
+                >
+              >;
+            }
+        >;
+        parkingGeneral?: Maybe<
+          { __typename?: 'ParkingLotGeneral' } & {
+            type?: Maybe<{ __typename?: 'TypeOfParking' } & Pick<TypeOfParking, 'type' | 'parkingNumber' | 'notes'>>;
+            measurements?: Maybe<
+              { __typename?: 'ParkingMeasurements' } & Pick<
+                ParkingMeasurements,
+                'length' | 'width' | 'surface' | 'capacity' | 'height' | 'volume'
+              >
+            >;
+            specifications?: Maybe<
+              { __typename?: 'ParkingLotSpecifications' } & Pick<ParkingLotSpecifications, 'type' | 'notes'>
+            >;
+            material?: Maybe<{ __typename?: 'ParkingMaterial' } & Pick<ParkingMaterial, 'type' | 'notes'>>;
+            insulation?: Maybe<{ __typename?: 'ParkingInsulation' } & Pick<ParkingInsulation, 'type' | 'notes'>>;
+          }
+        >;
+        bogGeneral?: Maybe<
+          { __typename?: 'BogGeneral' } & Pick<
+            BogGeneral,
+            'type' | 'characteristics' | 'startsOnFloor' | 'totalFloors' | 'notes'
+          >
+        >;
+        aogGeneral?: Maybe<
+          { __typename?: 'AogGeneral' } & Pick<AogGeneral, 'generalType' | 'additionalPosition'> & {
+              houseLot?: Maybe<
+                { __typename?: 'AogHouseLot' } & Pick<AogHouseLot, 'length' | 'width' | 'surface' | 'amountOfHouses'>
+              >;
+              specifications?: Maybe<
+                Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+              >;
+            }
+        >;
+        houseOutside?: Maybe<
+          { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
+              generalInformation?: Maybe<
+                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'qualityInformation' | 'notes'> & {
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                  }
+              >;
+              foundation?: Maybe<
+                { __typename?: 'Foundation' } & {
+                  type?: Maybe<
+                    { __typename?: 'FoundationTypeInformations' } & Pick<FoundationTypeInformations, 'type' | 'notes'>
+                  >;
+                  material?: Maybe<
+                    { __typename?: 'FoundationMaterialInformations' } & Pick<
+                      FoundationMaterialInformations,
+                      'type' | 'notes'
+                    >
+                  >;
+                }
+              >;
+              propertyRelated?: Maybe<
+                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                  }
+              >;
+              roofInformation?: Maybe<
+                { __typename?: 'RoofInformation' } & Pick<RoofInformation, 'yearOfRoof'> & {
+                    type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
+                    material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
+                    insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                    gutter?: Maybe<{ __typename?: 'GutterInformations' } & Pick<GutterInformations, 'type' | 'notes'>>;
+                    gutterMaterial?: Maybe<
+                      { __typename?: 'GutterMaterialInformations' } & Pick<
+                        GutterMaterialInformations,
+                        'material' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+            }
+        >;
+        floors?: Maybe<
+          Array<
+            { __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorDescription' | 'level' | 'floorType'> & {
+                spaces?: Maybe<
+                  Array<
+                    { __typename?: 'Space' } & Pick<
+                      Space,
+                      'id' | 'spaceType' | 'spaceName' | 'extraRoomPossibility'
+                    > & {
+                        configuration?: Maybe<
+                          | ({ __typename?: 'KitchenSpace' } & Pick<
+                              KitchenSpace,
+                              | 'constructionYear'
+                              | 'notes'
+                              | 'constructionType'
+                              | 'servicesNotes'
+                              | 'hob'
+                              | 'shape'
+                              | 'serviceHeating'
+                            > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
+                                appliances?: Maybe<
+                                  Array<
+                                    Maybe<
+                                      { __typename?: 'KitchenAppliance' } & Pick<
+                                        KitchenAppliance,
+                                        'name' | 'quantity' | 'notes'
+                                      >
+                                    >
+                                  >
+                                >;
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'BathroomSpace' } & Pick<
+                              BathroomSpace,
+                              'constructionYear' | 'shape' | 'serviceHeating'
+                            > & { bathroomServices: BathroomSpace['services'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'LivingRoomSpace' } & Pick<
+                              LivingRoomSpace,
+                              'shape' | 'stairs' | 'serviceHeating'
+                            > & { livingRoomType: LivingRoomSpace['type'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'BedroomSpace' } & Pick<
+                              BedroomSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'HomeOfficeSpace' } & Pick<
+                              HomeOfficeSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                        >;
+                      }
+                  >
+                >;
+              }
+          >
+        >;
+        insideGeneral?: Maybe<
+          { __typename?: 'InsideGeneral' } & Pick<InsideGeneral, 'notes'> & {
+              windows?: Maybe<{ __typename?: 'InsideWindows' } & Pick<InsideWindows, 'types' | 'notes'>>;
+              extension?: Maybe<{ __typename?: 'Extension' } & Pick<Extension, 'yearOfExtension' | 'notes'>>;
+              renovation?: Maybe<{ __typename?: 'Renovation' } & Pick<Renovation, 'yearOfRenovation'>>;
+            }
+        >;
+        cadastre?: Maybe<
+          Array<
+            { __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'description' | 'mapsDescription' | 'type'> & {
+                maps?: Maybe<
+                  Array<
+                    { __typename?: 'CadastreMap' } & Pick<CadastreMap, 'id' | 'mapName' | 'name' | 'type'> & {
+                        file?: Maybe<
+                          { __typename?: 'File' } & Pick<
+                            File,
+                            | 'id'
+                            | 'fileName'
+                            | 'description'
+                            | 'status'
+                            | 'fileType'
+                            | 'permission'
+                            | 'key'
+                            | 'signedUrl'
+                            | 'url'
+                            | 'bucket'
+                          >
+                        >;
+                      }
+                  >
+                >;
+                plot?: Maybe<
+                  { __typename?: 'CadastrePlot' } & Pick<
+                    CadastrePlot,
+                    | 'notes'
+                    | 'name'
+                    | 'municipalCode'
+                    | 'sectionCode'
+                    | 'plot'
+                    | 'indexNumber'
+                    | 'surface'
+                    | 'share'
+                    | 'codeSize'
+                    | 'ownershipChoice'
+                    | 'ownershipType'
+                  > & {
+                      lease?: Maybe<
+                        { __typename?: 'Lease' } & Pick<
+                          Lease,
+                          'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                        >
+                      >;
+                      boughtOff?: Maybe<
+                        { __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
+                      >;
+                    }
+                >;
+              }
+          >
+        >;
+        pictures?: Maybe<
+          Array<
+            { __typename?: 'Picture' } & Pick<Picture, 'id' | 'description' | 'type' | 'name' | 'isMainPicture'> & {
+                file?: Maybe<
+                  { __typename?: 'File' } & Pick<
+                    File,
+                    | 'id'
+                    | 'fileName'
+                    | 'description'
+                    | 'fileType'
+                    | 'permission'
+                    | 'key'
+                    | 'signedUrl'
+                    | 'url'
+                    | 'bucket'
+                  >
+                >;
+              }
+          >
+        >;
+      }
+  >;
+};
+
 export type PimOverallInfoQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -10532,7 +10938,71 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
     >;
   };
   getPimOutside: { __typename?: 'PimOutside' } & {
-    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
+    outsideFeatures?: Maybe<
+      Array<
+        { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type' | 'description'> & {
+            configuration?: Maybe<
+              | ({ __typename?: 'GardenFeature' } & Pick<
+                  GardenFeature,
+                  'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
+                > & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'GarageFeature' } & Pick<
+                  GarageFeature,
+                  'main' | 'attached' | 'attic' | 'secondaryWindows' | 'materials' | 'notes'
+                > & {
+                    garageTypes: GarageFeature['types'];
+                    garageInsulations: GarageFeature['insulations'];
+                    garageServices: GarageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'StorageFeature' } & Pick<
+                  StorageFeature,
+                  'main' | 'attached' | 'materials' | 'secondaryWindows' | 'notes'
+                > & {
+                    storageTypes: StorageFeature['types'];
+                    storageInsulations: StorageFeature['insulations'];
+                    storageServices: StorageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                  ParkingLotFeature,
+                  'number' | 'price' | 'cost' | 'notes'
+                > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> })
+            >;
+          }
+      >
+    >;
   };
   getPimCadastre: { __typename?: 'PimCadastre' } & {
     cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
@@ -17493,6 +17963,386 @@ export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<
   PimSpecificationQuery,
   PimSpecificationQueryVariables
 >;
+export const PimInfoDocument = gql`
+  query PimInfo($id: ID!) {
+    getPim(id: $id) {
+      street
+      houseNumberPrefix
+      houseNumber
+      houseNumberAddition
+      constructionNumber
+      constructionNumberPrefix
+      constructionNumberAddition
+      city
+      developmentType
+      status
+      salePrice
+      rentPrice
+      description
+      livingArea
+      propertyType
+      attentionNote
+      completeness
+      archived
+      houseGeneral {
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+        construction {
+          type
+          from
+          to
+          notes
+        }
+        floor
+        propertyConnection
+        propertyDetails
+      }
+      parkingGeneral {
+        type {
+          type
+          parkingNumber
+          notes
+        }
+        measurements {
+          length
+          width
+          surface
+          capacity
+          height
+          volume
+        }
+        specifications {
+          type
+          notes
+        }
+        material {
+          type
+          notes
+        }
+        insulation {
+          type
+          notes
+        }
+      }
+      bogGeneral {
+        type
+        characteristics
+        startsOnFloor
+        totalFloors
+        notes
+      }
+      aogGeneral {
+        generalType
+        additionalPosition
+        houseLot {
+          length
+          width
+          surface
+          amountOfHouses
+        }
+        specifications {
+          type
+          notes
+        }
+      }
+      houseOutside {
+        generalInformation {
+          qualityInformation
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          notes
+        }
+        foundation {
+          type {
+            type
+            notes
+          }
+          material {
+            type
+            notes
+          }
+        }
+        propertyRelated {
+          items
+          notes
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          yearOfRoof
+          gutter {
+            type
+            notes
+          }
+          gutterMaterial {
+            material
+            notes
+          }
+        }
+        notes
+      }
+      floors {
+        id
+        floorDescription
+        level
+        floorType
+        spaces {
+          id
+          spaceType
+          spaceName
+          extraRoomPossibility
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              kitchenType: type
+              constructionType
+              servicesNotes
+              kitchenServices: services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+          }
+        }
+      }
+      insideGeneral {
+        windows {
+          types
+          notes
+        }
+        extension {
+          yearOfExtension
+          notes
+        }
+        renovation {
+          yearOfRenovation
+        }
+        notes
+      }
+      cadastre {
+        id
+        description
+        mapsDescription
+        type
+        maps {
+          id
+          mapName
+          name
+          file {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownershipChoice
+          ownershipType
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
+            notes
+          }
+        }
+      }
+      pictures {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
+        isMainPicture
+      }
+    }
+  }
+`;
+export function usePimInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimInfoQuery, PimInfoQueryVariables>) {
+  return ApolloReactHooks.useQuery<PimInfoQuery, PimInfoQueryVariables>(PimInfoDocument, baseOptions);
+}
+export function usePimInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimInfoQuery, PimInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimInfoQuery, PimInfoQueryVariables>(PimInfoDocument, baseOptions);
+}
+export type PimInfoQueryHookResult = ReturnType<typeof usePimInfoQuery>;
+export type PimInfoLazyQueryHookResult = ReturnType<typeof usePimInfoLazyQuery>;
+export type PimInfoQueryResult = ApolloReactCommon.QueryResult<PimInfoQuery, PimInfoQueryVariables>;
 export const PimOverallInfoDocument = gql`
   query PimOverallInfo($id: ID!) {
     getPimGeneral(id: $id) {
@@ -17534,6 +18384,92 @@ export const PimOverallInfoDocument = gql`
       outsideFeatures {
         id
         type
+        description
+        configuration {
+          ... on GardenFeature {
+            main
+            type
+            notes
+            quality
+            location
+            shape
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              id
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            attached
+            storageTypes: types
+            materials
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            measurement {
+              length
+              width
+              surface
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              id
+              url
+            }
+          }
+        }
       }
     }
     getPimCadastre(id: $id) {
