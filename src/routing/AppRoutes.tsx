@@ -36,21 +36,13 @@ export const AppRoutes = () => {
 
   return (
     <Switch>
-      <Route path='/auth'>
+      <Route path="/auth">
         {() => (
           <Authorization>
             <Switch>
               <Route path={AppRoute.login} exact component={LoginContainer} />
-              <Route
-                path={AppRoute.forgotPassword}
-                exact
-                component={ForgotPasswordContainer}
-              />
-              <Route
-                path={AppRoute.resetPassword}
-                exact
-                component={ResetPasswordContainer}
-              />
+              <Route path={AppRoute.forgotPassword} exact component={ForgotPasswordContainer} />
+              <Route path={AppRoute.resetPassword} exact component={ResetPasswordContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
           </Authorization>
@@ -71,82 +63,27 @@ export const AppRoutes = () => {
         )}
       </Route>
 
-      <Route path='/'>
+      <Route path="/">
         {() => (
           <>
-            <NavBreadcrumb
-              title={formatMessage({ id: 'header.links.home' })}
-              to={'/'}
-            />
+            <NavBreadcrumb title={formatMessage({ id: 'header.links.home' })} to={'/'} />
             <DashboardTemplate>
               <Switch>
-                <AuthorizedRoute
-                  path={AppRoute.home}
-                  exact
-                  component={Dashboard}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.pim}
-                  exact
-                  component={PimContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.project}
-                  exact
-                  component={ProjectContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.pimDetails}
-                  component={PimDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.linkedPropertyDetails}
-                  component={LinkedPropertiesDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.objectTypeDetails}
-                  component={ObjectTypeDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.projectDetails}
-                  component={ProjectDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.crm}
-                  exact
-                  component={CrmContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.crmRelationsDetails}
-                  component={CrmRelationsDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.sales}
-                  exact
-                  component={Dashboard}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.settings}
-                  component={SettingsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.tasks}
-                  exact
-                  component={TasksContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.taskDetails}
-                  component={TaskDetailsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.notifications}
-                  exact
-                  component={NotificationsContainer}
-                />
-                <AuthorizedRoute
-                  path={AppRoute.calendar}
-                  component={CalendarContainer}
-                />
+                <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.pim} exact component={PimContainer} />
+                <AuthorizedRoute path={AppRoute.project} exact component={ProjectContainer} />
+                <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.linkedPropertyDetails} component={LinkedPropertiesDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.crm} exact component={CrmContainer} />
+                <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.sales} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.settings} component={SettingsContainer} />
+                <AuthorizedRoute path={AppRoute.tasks} exact component={TasksContainer} />
+                <AuthorizedRoute path={AppRoute.taskDetails} component={TaskDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.notifications} exact component={NotificationsContainer} />
+                <AuthorizedRoute path={AppRoute.calendar} component={CalendarContainer} />
                 <AuthorizedRoute path={AppRoute.dms} component={DmsContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
