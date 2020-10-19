@@ -1,5 +1,5 @@
-import { PimSummaryPricing } from '../../Summary.types';
+import { Pricing } from 'api/types';
 
 export type PricingProps = {
-  pricing: PimSummaryPricing;
+  pricing: Pricing;
 };

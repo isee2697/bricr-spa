@@ -1,6 +1,11 @@
 import { DateTime } from 'luxon';
 
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
+import { PimSummary } from '../Summary.types';
+
+export type SummaryGeneralContainerProps = PimDetailsSectionProps & {
+  summary: PimSummary;
+};
 
 export enum PricingAcceptance {
   InConstruction = 'in_construction',
@@ -20,12 +25,6 @@ export type PimSummaryPricing = {
   realEstateTaxUserPaymentsFrequency: PricingPaymentsFrequency.PerYear;
   realEstateTaxBusiness: number;
   realEstateTaxBusinessPaymentsFrequency: PricingPaymentsFrequency.PerYear;
-};
-
-export type PimSummary = {
-  address: string;
-  image: string;
-  pricing: PimSummaryPricing;
 };
 
 export type SummaryGeneralProps = PimDetailsSectionProps & {

@@ -7,7 +7,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { SortOption } from '../../ui/molecules/list/List.types';
+import { SortOption } from 'ui/molecules/list/List.types';
 
 import { CrmItem, CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
@@ -41,7 +41,7 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
   ];
 
   return (
-    <Grid container spacing={0}>
+    <Grid container>
       <CrmSidebarMenu type={type} onTypeChange={onTypeChange} onHide={handleSidebarHide} isVisible={isSidebarVisible} />
       <Box flex={1}>
         <Grid container spacing={3} className={classes.content}>

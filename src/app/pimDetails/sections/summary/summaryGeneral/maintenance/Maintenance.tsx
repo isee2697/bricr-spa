@@ -6,8 +6,9 @@ import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './Maintenance.styles';
+import { MaintenanceProps } from './Maintenance.types';
 
-export const Maintenance = () => {
+export const Maintenance = ({ maintenances }: MaintenanceProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -22,34 +23,29 @@ export const Maintenance = () => {
         }
       />
       <CardContent>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+        {maintenances.map((maintenance, index) => (
+          <FormSubSection
+            initiallyOpened={false}
+            title={
+              <>
+                <Typography variant="h4" className={classes.index}>
+                  {index + 1}
+                </Typography>
+                <Typography variant="h3">{maintenance.type}</Typography>
+              </>
+            }
+            onOptionsClick={() => {}}
+          >
+            <Box className={classes.detailItem}>
+              <Typography variant="h5" className={classes.detailItemLabel}>
+                {formatMessage({ id: 'pim_details.summary.maintenance.inspection' })}
               </Typography>
-              <Typography variant="h3">Paintwork</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Paintwork content</div>
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+              <Typography variant="h4" className={classes.detailItemValue}>
+                {maintenance.description}
               </Typography>
-              <Typography variant="h3">Window frames</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Window frames content</div>
-        </FormSubSection>
+            </Box>
+          </FormSubSection>
+        ))}
       </CardContent>
     </Card>
   );

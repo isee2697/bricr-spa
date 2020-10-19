@@ -19,7 +19,7 @@ export const AgendaItem = ({ isAllDay, startDate, endDate, title }: AgendaItemPr
     ) : null;
 
   return (
-    <Grid alignItems="center" container>
+    <Grid alignItems="center" container wrap="nowrap">
       <Grid className={classes.date} item>
         <Typography className={classes.startDate} variant="h5">
           {isAllDay ? formatMessage({ id: 'date.all_day' }) : startTime}
