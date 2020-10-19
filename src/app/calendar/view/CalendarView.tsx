@@ -11,6 +11,7 @@ import { useLocale } from 'hooks';
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from '../sidebarMenu/SidebarMenu';
+import { useLayout } from 'context/layout';
 
 import { CalendarViewProps } from './CalendarView.types';
 import { useStyles } from './CalendarView.styles';
@@ -36,6 +37,7 @@ const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (dat
 
 export const CalendarView = ({ data }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
+  const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
   const [showDate, setShowDate] = useState(DateTime.local());
   const { formatMessage } = useLocale();
@@ -48,8 +50,13 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
 
   return (
     <Grid container>
-      <SidebarMenu isVisible={true} onHide={() => {}} />
-      <Grid item lg={10}>
+      <SidebarMenu
+        currentDate={showDate}
+        onChangeDate={newDate => newDate && setShowDate(newDate)}
+        isVisible={isSidebarMenuVisible}
+        onHide={() => setSidebarMenuVisible(!isSidebarMenuVisible)}
+      />
+      <Grid item className={classes.content}>
         <Page
           showHeader
           afterTitle={

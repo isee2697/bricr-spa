@@ -1,19 +1,57 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   root: {
     position: 'relative',
-    marginBottom: theme.spacing(2.25),
+    marginBottom: spacing(2.25),
   },
   sideMenu: {
-    top: theme.spacing(6),
+    top: spacing(6),
+  },
+  banner: {
+    width: '100%',
+    backgroundColor: palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    '& .MuiSvgIcon-root': {
+      backgroundColor: palette.white.main,
+      padding: spacing(0.5),
+      margin: spacing(1, 2),
+      borderRadius: spacing(1),
+      width: spacing(4),
+      height: spacing(4),
+    },
+    '& .MuiTypography-h5': {
+      fontWeight: typography.fontWeightBold,
+    },
+  },
+  pickers: {
+    '& .MuiPickersStaticWrapper-staticWrapperRoot': {
+      minWidth: 0,
+      backgroundColor: 'transparent',
+    },
+    '& .MuiPickersBasePicker-pickerView': {
+      minWidth: 0,
+      maxWidth: `calc(100% - ${spacing(1)}px`,
+      minHeight: spacing(18),
+    },
+    '& .MuiPickersDay-day': {
+      width: spacing(3.2),
+      height: spacing(3.2),
+    },
+    '& .MuiPickersCalendarHeader-dayLabel': {
+      width: spacing(3.2),
+    },
+    '& .MuiPickersCalendar-transitionContainer': {
+      minHeight: spacing(18),
+    },
   },
   menuWrapper: {
-    background: theme.palette.white.main,
+    background: palette.white.main,
     boxShadow: 'inset -2px 0px 4px rgba(130, 141, 184, 0.2)',
-    height: `calc(100vh - ${theme.spacing(6)}px)`,
-    top: theme.spacing(6),
-    paddingTop: theme.spacing(2),
+    height: `calc(100vh - ${spacing(6)}px)`,
+    top: spacing(6),
+    paddingTop: spacing(2),
     overflowY: 'auto',
     position: 'sticky',
     '& a': {
@@ -22,11 +60,11 @@ export const useStyles = makeStyles(theme => ({
       alignItems: 'center',
       width: '100%',
       height: '100%',
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: theme.typography.h3.fontSize,
-      color: theme.palette.gray.main,
+      fontWeight: typography.fontWeightMedium,
+      fontSize: typography.h3.fontSize,
+      color: palette.gray.main,
       '& svg': {
-        marginRight: theme.spacing(1),
+        marginRight: spacing(1),
       },
     },
   },
