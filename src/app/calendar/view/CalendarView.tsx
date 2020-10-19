@@ -39,7 +39,7 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
         }}
         titleActions={<></>}
       >
-        <FormSection title="calendar.week.title" isEditable={false}>
+        <FormSection title={formatMessage({ id: 'calendar.week.title' })} isEditable={false}>
           <Tabs value={currentView}>
             <Tab onClick={() => setView(DateView.Day)} label="Day" />
             <Tab onClick={() => setView(DateView.Week)} label="Week" />
