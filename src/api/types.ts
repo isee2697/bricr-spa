@@ -8923,7 +8923,7 @@ export type NcpMediaQuery = { __typename?: 'Query' } & {
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
             }
         >
       >;
@@ -15462,6 +15462,7 @@ export const NcpMediaDocument = gql`
           id
           key
           fileName
+          url
         }
       }
       mainPictureId

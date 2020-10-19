@@ -3,10 +3,11 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 import { EuroIcon } from 'ui/atoms/icons';
+import { SummaryCardProps } from '../Summary.types';
 
 import { useStyles } from './Specifications.styles';
 
-export const Specifications = () => {
+export const Specifications = ({ summary}: SummaryCardProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 

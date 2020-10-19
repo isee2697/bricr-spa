@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { useEntityType } from 'app/shared/entityType';
-import { Badge, Box, Grid, IconButton, NavBreadcrumb, Typography, Paper } from 'ui/atoms';
+import { Badge, Box, Grid, IconButton, NavBreadcrumb, Typography, Paper, Logo } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
 import { ManageIcon, SeeIcon, UnseeIcon } from 'ui/atoms/icons';
@@ -22,6 +22,7 @@ export const Summary = ({ isSidebarVisible, onSidebarOpen, summary }: SummaryPro
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const classes = useStyles(summary);
+  const { projectMarketing } = summary;
 
   return (
     <>
@@ -43,9 +44,11 @@ export const Summary = ({ isSidebarVisible, onSidebarOpen, summary }: SummaryPro
                 </IconButton>
               </Box>
             </Box>
-            <Paper className={classes.summaryHeaderLabel}>
-              <Box className={classes.bubble}>De Wateringen</Box>
-            </Paper>
+            {projectMarketing && projectMarketing.logos && projectMarketing.logos.length > 0 && (
+              <Paper className={classes.summaryHeaderLabel}>
+                <Logo src={projectMarketing.logos[0].url as string} className={classes.summaryLogo} />
+              </Paper>
+            )}
             <Box className={classes.summaryHeader}>
               <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Badge badgeContent={2} color="error" classes={{ badge: classes.importantBrokerBadge }}>
@@ -65,14 +68,14 @@ export const Summary = ({ isSidebarVisible, onSidebarOpen, summary }: SummaryPro
             </Box>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <Pricing />
-                <Costs />
-                <Specifications />
+                <Pricing summary={summary} />
+                <Costs summary={summary} />
+                <Specifications summary={summary} />
               </Grid>
               <Grid item xs={6}>
-                <Project />
-                <Objecttypes />
-                <Energy />
+                <Project summary={summary} />
+                <Objecttypes summary={summary} />
+                <Energy summary={summary} />
               </Grid>
             </Grid>
           </Grid>

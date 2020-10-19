@@ -5,10 +5,11 @@ import { Box, Card, CardContent, CardHeader, Typography, Grid } from 'ui/atoms';
 import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 import { CubicMeterIcon, EuroIcon, SquareMeterIcon } from 'ui/atoms/icons';
+import { SummaryCardProps } from '../Summary.types';
 
 import { useStyles } from './Objecttypes.styles';
 
-export const Objecttypes = () => {
+export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -23,6 +24,40 @@ export const Objecttypes = () => {
         }
       />
       <CardContent>
+        {objecttypes.map((objecttype, index) => (
+          <FormSubSection
+            key={index}
+            initiallyOpened={false}
+            title={
+              <>
+                <Typography variant="h4" className={classes.index}>
+                  {index + 1}
+                </Typography>
+                <Typography variant="h3">{objecttype.name}</Typography>
+              </>
+            }
+            onOptionsClick={() => {}}
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.price_from' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  {objecttype.salePriceFrom || 0} <EuroIcon className={classes.detailItemIcon} />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.price_till' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  {objecttype.salePriceTo || 0} <EuroIcon className={classes.detailItemIcon} />
+                </Typography>
+              </Grid>
+            </Grid>
+          </FormSubSection>
+        ))}
         <FormSubSection
           initiallyOpened={false}
           title={

@@ -57,10 +57,12 @@ export const useStyles = makeStyles(theme => ({
   },
   summaryHeaderLabel: {
     width: theme.spacing(29.5),
-    height: theme.spacing(10.25),
     padding: theme.spacing(0.75, 2.5),
     float: 'right',
     marginTop: theme.spacing(1.25),
+  },
+  summaryLogo: {
+    width: '100%',
   },
   summaryHeader: {
     marginTop: theme.spacing(41),
