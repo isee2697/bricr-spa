@@ -7,19 +7,21 @@ export const useStyles = makeStyles(theme => ({
   priceIcon: {
     verticalAlign: 'middle',
   },
-  pricingDetailItem: {
-    marginTop: theme.spacing(1.5),
+  detailItem: {
+    marginBottom: theme.spacing(1.5),
+
+    '&:last-child': {
+      marginBottom: 0,
+    },
   },
-  pricingDetailItemValue: {
+  detailItemLabel: {
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.gray.main,
+  },
+  detailItemValue: {
     marginTop: theme.spacing(0.5),
     height: theme.spacing(3),
     lineHeight: `${theme.spacing(3)}px`,
     fontWeight: theme.typography.fontWeightMedium,
-  },
-  fontWeightMedium: {
-    fontWeight: theme.typography.fontWeightMedium,
-  },
-  gray: {
-    color: theme.palette.gray.main,
   },
 }));

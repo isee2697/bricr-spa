@@ -4,8 +4,9 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Card, CardContent, CardHeader, Grid, Typography } from 'ui/atoms';
 
 import { useStyles } from './Roof.styles';
+import { RoofProps } from './Roof.types';
 
-export const Roof = () => {
+export const Roof = ({ roof: { type, yearOfRoof, material, insulation, gutter, gutterMaterial } }: RoofProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -19,7 +20,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.roof_type' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              Class roof
+              {type?.name}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -27,7 +28,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.year_of_roof' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              1991
+              {yearOfRoof}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -35,7 +36,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.roof_material' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              Pans, Copper
+              {material?.name}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -43,7 +44,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.roof_insulation' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              Spray foam
+              {insulation?.name}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -51,7 +52,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.gutter_type' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              Half-round
+              {gutter?.type}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -59,7 +60,7 @@ export const Roof = () => {
               {formatMessage({ id: 'pim_details.summary.outside.roof.gutter_material' })}
             </Typography>
             <Typography variant="h4" className={classes.detailItemValue}>
-              Vinyl
+              {gutterMaterial?.material}
             </Typography>
           </Grid>
         </Grid>

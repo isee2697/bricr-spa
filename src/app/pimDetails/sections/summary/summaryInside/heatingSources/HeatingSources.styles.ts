@@ -13,4 +13,21 @@ export const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginRight: theme.spacing(1),
   },
+  detailItem: {
+    marginBottom: theme.spacing(1.5),
+
+    '&:last-child': {
+      marginBottom: 0,
+    },
+  },
+  detailItemLabel: {
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.gray.main,
+  },
+  detailItemValue: {
+    marginTop: theme.spacing(0.5),
+    height: theme.spacing(3),
+    lineHeight: `${theme.spacing(3)}px`,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
 }));
