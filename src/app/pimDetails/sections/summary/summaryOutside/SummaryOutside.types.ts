@@ -1,10 +1,6 @@
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
-
-export type PimSummaryOutside = {
-  address: string;
-  image: string;
-};
+import { PimSummary } from '../Summary.types';
 
 export type SummaryOutsideProps = PimDetailsSectionProps & {
-  summaryOutside: PimSummaryOutside;
+  summary: PimSummary;
 };

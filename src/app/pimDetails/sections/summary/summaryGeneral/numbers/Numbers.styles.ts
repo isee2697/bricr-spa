@@ -11,6 +11,10 @@ export const useStyles = makeStyles(theme => ({
       marginBottom: 0,
     },
   },
+  detailItemLabel: {
+    fontWeight: theme.typography.fontWeightMedium,
+    color: theme.palette.gray.main,
+  },
   detailItemValue: {
     marginTop: theme.spacing(0.5),
     height: theme.spacing(3),
@@ -19,11 +23,5 @@ export const useStyles = makeStyles(theme => ({
   },
   detailItemIcon: {
     fontSize: theme.spacing(1.5),
-  },
-  fontWeightMedium: {
-    fontWeight: theme.typography.fontWeightMedium,
-  },
-  gray: {
-    color: theme.palette.gray.main,
   },
 }));

@@ -94,7 +94,7 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
           titleActions={<></>}
         >
           <FormSection title={formatMessage({ id: 'calendar.week.title' })} isEditable={false}>
-            <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view == currentView)}>
+            <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view === currentView)}>
               {dateValues.map(dateView => (
                 <Tab
                   key={dateView}

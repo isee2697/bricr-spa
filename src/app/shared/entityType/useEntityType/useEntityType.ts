@@ -13,6 +13,7 @@ const baseUrls = {
   [EntityType.LinkedProperty]: AppRoute.linkedPropertyDetails,
   [EntityType.CrmRelations]: AppRoute.crmRelationsDetails,
   [EntityType.CrmBusinesses]: AppRoute.crmBusinessesDetails,
+  [EntityType.Dms]: AppRoute.dms,
 };
 
 export const useEntityType = (): useEntityTypeProps => {
