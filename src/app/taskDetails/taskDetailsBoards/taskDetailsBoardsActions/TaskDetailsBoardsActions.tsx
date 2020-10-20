@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 
 import { LabelProperty, Task, TaskLabel, TaskStatus } from 'api/types';
-import { Paper, Emoji, SelectBox, UserAvatar, Box, Typography } from 'ui/atoms';
+import { Box, Emoji, Paper, SelectBox, Typography, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SelectBoxItem } from 'ui/atoms/selectBox/SelectBox.types';
-import { FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon, AddIcon } from 'ui/atoms/icons';
+import { AddIcon, FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon } from 'ui/atoms/icons';
 import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
 import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 import { AddCustomTaskLabelModalContainer } from '../addCustomTaskLabelModal/AddCustomTaskLabelModalContainer';
+import { useCustomLabels } from '../../../../hooks/useCustomLabels';
+import { EntityType } from '../../../shared/entityType';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
@@ -17,6 +19,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isModalOpened, setModalOpened] = useState(false);
+  const customLabels = useCustomLabels(task.id, [LabelProperty.Task], EntityType.Task);
 
   const { id, status, assignee, label } = task;
 
@@ -99,6 +102,17 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
       ),
       value: TaskLabel.Private,
     },
+    ...(customLabels[LabelProperty.Task] ?? []).map(label => ({
+      label: (
+        <span className={classes.label}>
+          {label.icon}
+          <Typography variant="h5" className={classes.labelText}>
+            {formatMessage({ id: 'tasks.label.private' })}
+          </Typography>
+        </span>
+      ),
+      value: label.value,
+    })),
     {
       label: (
         <span className={classes.label}>
@@ -110,7 +124,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
           </Typography>
         </span>
       ),
-      value: 'custom',
+      value: 'add_new_label',
     },
   ];
 
@@ -119,10 +133,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   };
 
   const handleChangeLabel = (value: string) => {
-    if (value === TaskLabel.Business || value === TaskLabel.FollowUp || value === TaskLabel.Private) {
-      onUpdateTask(id, { label: value });
-    } else {
+    if (value === 'add_new_label') {
       setModalOpened(true);
+    } else {
+      onUpdateTask(id, { label: value });
     }
   };
 
