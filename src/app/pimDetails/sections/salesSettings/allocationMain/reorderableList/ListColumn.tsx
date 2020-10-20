@@ -4,16 +4,13 @@ import { useDrop } from 'react-dnd';
 
 import { ListItem } from './ListItem';
 import { useStyles } from './ReorderableList.styles';
-import { ListType, ListColumnProps, ListTypeDragObject } from './ReorderableList.types';
+import { ListType, ListColumnProps } from './ReorderableList.types';
 
 export const ListColumn = ({ items, hasCheckbox, onUpdateList }: ListColumnProps) => {
   const classes = useStyles();
 
   const [{ isOver }, drop] = useDrop({
     accept: 'ListType',
-    drop: (item: ListTypeDragObject, monitor) => {
-      // onUpdateList(item);
-    },
     canDrop: () => true,
     collect: monitor => ({
       isOver: monitor.isOver(),
