@@ -16,7 +16,7 @@ import { FinancialProfile } from './personalInformation/financialProfile/Financi
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
-import { MatchProfile } from './personalInformation/matchProfile/MatchProfile';
+import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -33,7 +33,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
 
   return (
     <EntityTypeProvider entityType={entityType}>
-      <Grid container spacing={0}>
+      <Grid container spacing={0} wrap="nowrap">
         {breadcrumbs}
         <CrmRelationsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
         <Box flex={1}>
@@ -113,7 +113,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route
                   path={`${path}/personal_information_match_profile`}
                   render={() => (
-                    <MatchProfile
+                    <MatchProfileContainer
                       path={`${path}/personal_information_match_profile`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}

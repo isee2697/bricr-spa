@@ -22,18 +22,6 @@ export const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(2.75)}px ${theme.spacing(2)}px ${theme.spacing(2.75)}px 0`,
     width: '100%',
   },
-  itemNo: {
-    color: theme.palette.gray.main,
-    border: `2px solid ${theme.palette.gray.light}`,
-    borderRadius: '50%',
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    lineHeight: `${theme.spacing(2.5)}px`,
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    textAlign: 'center',
-    fontWeight: theme.typography.fontWeightMedium,
-  },
   image: {
     width: theme.spacing(22),
     height: theme.spacing(14),
@@ -56,7 +44,6 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     marginRight: theme.spacing(1),
   },
-  viewings: {},
   fontWeightMedium: {
     fontWeight: theme.typography.fontWeightMedium,
   },
