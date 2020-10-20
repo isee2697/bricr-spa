@@ -1,4 +1,3 @@
-import useTheme from '@material-ui/core/styles/useTheme';
 import React, { useState } from 'react';
 import clsx from 'classnames';
 
@@ -25,7 +24,6 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
   const { formatMessage } = useLocale();
   const { address, specification, insideGeneral, outside, costs, inspections, pricing } = summary;
   const classes = useStyles(summary);
-  const theme = useTheme();
 
   const tanks = inspections?.filter(inspection => inspection.inspectionType === InspectionType.Tanks);
   const pollutions = inspections?.filter(inspection => inspection.inspectionType === InspectionType.Pollution);
@@ -39,7 +37,7 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
         action={
           <Button
             color="primary"
-            startIcon={<ShareIcon style={{ fontSize: theme.spacing(3) }} />}
+            startIcon={<ShareIcon className={classes.btnHeader} />}
             variant="contained"
             size="small"
           >

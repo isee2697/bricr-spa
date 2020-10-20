@@ -28,7 +28,9 @@
     "styleguidist:build": "styleguidist build"
   },
   "husky": {
-    "hooks": {}
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "auto-changelog": {
     "issueUrl": "https://headstart.atlassian.net/browse/{id}",

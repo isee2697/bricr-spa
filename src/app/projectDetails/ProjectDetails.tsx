@@ -8,7 +8,7 @@ import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
-import { SalesSettings } from 'app/pimDetails/sections/salesSettings/SalesSettings';
+import { SalesSettingsContainer } from 'app/pimDetails/sections/salesSettings/SalesSettingsContainer';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -109,7 +109,9 @@ export const ProjectDetails = ({ data }: NcpProps) => {
             />
             <Route
               path={`${AppRoute.projectDetails}/salesSettings`}
-              render={() => <SalesSettings isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+              render={() => (
+                <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
             />
             <Route
               path={`${AppRoute.projectDetails}/allocateResults`}

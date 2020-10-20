@@ -3,7 +3,7 @@ import { Palette } from '@material-ui/core/styles/createPalette';
 
 import { IconSelectedTheme } from './IconPicker.types';
 
-const getSelectedThemeColors = (palette: Palette, theme: IconSelectedTheme) => {
+export const getSelectedThemeColors = (palette: Palette, theme: IconSelectedTheme) => {
   const colorsMap = {
     [IconSelectedTheme.DEFAULT]: {
       color: palette.primary.main,
@@ -12,6 +12,26 @@ const getSelectedThemeColors = (palette: Palette, theme: IconSelectedTheme) => {
     [IconSelectedTheme.ORANGE]: {
       color: palette.orange.main,
       backgroundColor: palette.orange.light,
+    },
+    [IconSelectedTheme.BLUE]: {
+      color: palette.blue.main,
+      backgroundColor: palette.blue.light,
+    },
+    [IconSelectedTheme.GREEN]: {
+      color: palette.green.main,
+      backgroundColor: palette.green.light,
+    },
+    [IconSelectedTheme.YELLOW]: {
+      color: palette.yellow.main,
+      backgroundColor: palette.yellow.light,
+    },
+    [IconSelectedTheme.RED]: {
+      color: palette.red.main,
+      backgroundColor: palette.red.light,
+    },
+    [IconSelectedTheme.PURPLE]: {
+      color: palette.purple.main,
+      backgroundColor: palette.purple.light,
     },
   };
 
