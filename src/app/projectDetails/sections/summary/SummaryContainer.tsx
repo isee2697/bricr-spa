@@ -3,17 +3,7 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { ProjectDetailsProps } from '../../ProjectDetails.types';
-import {
-  SortDirection,
-  useListObjectTypesQuery,
-  useNcpCharacteristicsQuery,
-  useNcpGeneralQuery,
-  useNcpMediaQuery,
-  useNcpPricesCostsQuery,
-  useNcpPricesInterestsQuery,
-  useNcpPricesPricingQuery,
-  useProjectPhasesQuery,
-} from 'api/types';
+import { SortDirection, useNcpOverallInfoQuery } from 'api/types';
 import { Loader } from 'ui/atoms';
 
 import { Summary } from './Summary';
@@ -22,47 +12,30 @@ import { ProjectDetailsSummary } from './Summary.types';
 export const SummaryContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDetailsProps) => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: ncpGeneralInfo } = useNcpGeneralQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpPricingInfo } = useNcpPricesPricingQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpObjecttypesInfo } = useListObjectTypesQuery({
-    variables: { ncpId: id, sortDirection: SortDirection.Desc, from: 0, sortColumn: 'dateCreated' },
-    fetchPolicy: 'no-cache',
+  const { data: ncpOverallInfo } = useNcpOverallInfoQuery({
+    variables: { id, sortColumn: 'dateCreated', sortDirection: SortDirection.Desc },
   });
-  const { data: ncpMediaInfo } = useNcpMediaQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpCharacteristicsInfo } = useNcpCharacteristicsQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpCostsInfo } = useNcpPricesCostsQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpInterestsInfo } = useNcpPricesInterestsQuery({ variables: { id }, fetchPolicy: 'no-cache' });
-  const { data: ncpPhaseInfo } = useProjectPhasesQuery({ variables: { ncpId: id, from: 0 }, fetchPolicy: 'no-cache' });
 
   if (
-    !ncpGeneralInfo ||
-    !ncpGeneralInfo.getNcp ||
-    !ncpPricingInfo ||
-    !ncpPricingInfo.getNcpPrices ||
-    !ncpObjecttypesInfo ||
-    !ncpObjecttypesInfo.listObjectTypes ||
-    !ncpMediaInfo ||
-    !ncpMediaInfo.getNcpMedia ||
-    !ncpCharacteristicsInfo ||
-    !ncpCharacteristicsInfo.getNcpCharacteristics ||
-    !ncpCostsInfo ||
-    !ncpCostsInfo.getNcpPrices ||
-    !ncpInterestsInfo ||
-    !ncpInterestsInfo.getNcpPrices ||
-    !ncpPhaseInfo ||
-    !ncpPhaseInfo.getProjectPhases
+    !ncpOverallInfo ||
+    !ncpOverallInfo.getNcp ||
+    !ncpOverallInfo.getNcpPrices ||
+    !ncpOverallInfo.getNcpMedia ||
+    !ncpOverallInfo.getNcpCharacteristics ||
+    !ncpOverallInfo.listObjectTypes ||
+    !ncpOverallInfo.getProjectPhases
   ) {
     return <Loader />;
   }
 
-  const { startSale, startDelivery, properties, objectTypesCount } = ncpGeneralInfo.getNcp;
-  const { pricing } = ncpPricingInfo.getNcpPrices;
-  const { items: objectTypes } = ncpObjecttypesInfo.listObjectTypes;
-  const { energy, projectMarketing, measurements } = ncpCharacteristicsInfo.getNcpCharacteristics;
-  const { pictures = [], mainPictureId } = ncpMediaInfo.getNcpMedia;
-  const { costs } = ncpCostsInfo.getNcpPrices;
-  const { interests } = ncpInterestsInfo.getNcpPrices;
-  const { items: phases } = ncpPhaseInfo.getProjectPhases;
+  const { startSale, startDelivery, properties, objectTypesCount } = ncpOverallInfo.getNcp;
+  const { pricing } = ncpOverallInfo.getNcpPrices;
+  const { items: objectTypes } = ncpOverallInfo.listObjectTypes;
+  const { energy, projectMarketing, measurements } = ncpOverallInfo.getNcpCharacteristics;
+  const { pictures = [], mainPictureId } = ncpOverallInfo.getNcpMedia;
+  const { costs } = ncpOverallInfo.getNcpPrices;
+  const { interests } = ncpOverallInfo.getNcpPrices;
+  const { items: phases } = ncpOverallInfo.getProjectPhases;
 
   const mainPicture =
     pictures && pictures.length > 0
@@ -76,7 +49,7 @@ export const SummaryContainer = ({ isSidebarVisible, onSidebarOpen }: ProjectDet
     pricing: pricing || undefined,
     costs: costs || undefined,
     interests: interests || undefined,
-    objecttypes: objectTypes || [],
+    objectTypes: objectTypes || [],
     energy: energy || undefined,
     projectMarketing: projectMarketing || undefined,
     phases: phases || [],

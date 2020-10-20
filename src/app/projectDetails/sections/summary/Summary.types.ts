@@ -20,7 +20,7 @@ export type ProjectDetailsSummary = {
   pricing?: CommonPricing;
   costs?: CommonCosts;
   interests?: Interests;
-  objecttypes?: ListObjectTypes[];
+  objectTypes?: ListObjectTypes[];
   energy?: Energy;
   image?: string;
   projectMarketing?: ProjectMarketing;

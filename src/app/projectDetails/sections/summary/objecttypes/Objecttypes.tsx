@@ -9,7 +9,7 @@ import { SummaryCardProps } from '../Summary.types';
 
 import { useStyles } from './Objecttypes.styles';
 
-export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps) => {
+export const Objecttypes = ({ summary: { objectTypes = [] } }: SummaryCardProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -19,12 +19,12 @@ export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps)
         title={
           <Box display="flex" alignItems="center">
             <Typography variant="h2">{formatMessage({ id: 'pim_details.summary.objecttypes.title' })}</Typography>
-            <Counter count={5} hasMarginLeft />
+            <Counter count={objectTypes.length} hasMarginLeft />
           </Box>
         }
       />
       <CardContent>
-        {objecttypes.map((objecttype, index) => (
+        {objectTypes.map((objectType, index) => (
           <FormSubSection
             key={index}
             initiallyOpened={false}
@@ -33,7 +33,7 @@ export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps)
                 <Typography variant="h4" className={classes.index}>
                   {index + 1}
                 </Typography>
-                <Typography variant="h3">{objecttype.name}</Typography>
+                <Typography variant="h3">{objectType.name}</Typography>
               </>
             }
             onOptionsClick={() => {}}
@@ -44,7 +44,7 @@ export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps)
                   {formatMessage({ id: 'pim_details.summary.objecttypes.price_from' })}
                 </Typography>
                 <Typography variant="h4" className={classes.detailItemValue}>
-                  {objecttype.salePriceFrom || 0} <EuroIcon className={classes.detailItemIcon} />
+                  {objectType.salePriceFrom || 0} <EuroIcon className={classes.detailItemIcon} />
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -52,75 +52,44 @@ export const Objecttypes = ({ summary: { objecttypes = [] } }: SummaryCardProps)
                   {formatMessage({ id: 'pim_details.summary.objecttypes.price_till' })}
                 </Typography>
                 <Typography variant="h4" className={classes.detailItemValue}>
-                  {objecttype.salePriceTo || 0} <EuroIcon className={classes.detailItemIcon} />
+                  {objectType.salePriceTo || 0} <EuroIcon className={classes.detailItemIcon} />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.service_from' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  85 <SquareMeterIcon className={classes.detailItemIconSmall} />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.service_till' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  85 <SquareMeterIcon className={classes.detailItemIconSmall} />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.volume_from' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  85 <CubicMeterIcon className={classes.detailItemIconSmall} />
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="h5" className={classes.detailItemLabel}>
+                  {formatMessage({ id: 'pim_details.summary.objecttypes.volume_till' })}
+                </Typography>
+                <Typography variant="h4" className={classes.detailItemValue}>
+                  85 <CubicMeterIcon className={classes.detailItemIconSmall} />
                 </Typography>
               </Grid>
             </Grid>
           </FormSubSection>
         ))}
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
-              </Typography>
-              <Typography variant="h3">Service</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.price_from' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                24500000 <EuroIcon className={classes.detailItemIcon} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.price_till' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                24500000 <EuroIcon className={classes.detailItemIcon} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.service_from' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                85 <SquareMeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.service_till' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                85 <SquareMeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.volume_from' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                85 <CubicMeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h5" className={classes.detailItemLabel}>
-                {formatMessage({ id: 'pim_details.summary.objecttypes.volume_till' })}
-              </Typography>
-              <Typography variant="h4" className={classes.detailItemValue}>
-                85 <CubicMeterIcon className={classes.detailItemIconSmall} />
-              </Typography>
-            </Grid>
-          </Grid>
-        </FormSubSection>
       </CardContent>
     </Card>
   );
