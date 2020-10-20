@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 
 import {
+  GetLabelsQuery,
+  GetNcpLabelsQuery,
+  GetObjectTypeLabelsQuery,
+  GetTaskLabelsQuery,
   LabelProperty,
   useGetLabelsQuery,
   useGetNcpLabelsQuery,
   useGetObjectTypeLabelsQuery,
-  GetLabelsQuery,
-  GetNcpLabelsQuery,
-  GetObjectTypeLabelsQuery,
+  useGetTaskLabelsQuery,
 } from 'api/types';
 import { iconPickerIcons } from 'hooks/useCustomLabels/icons';
 import { SquareIcon } from 'ui/atoms/icons';
@@ -23,6 +25,8 @@ const getQuery = (entityType: EntityType) => {
       return useGetLabelsQuery;
     case EntityType.Project:
       return useGetNcpLabelsQuery;
+    case EntityType.Task:
+      return useGetTaskLabelsQuery;
     case EntityType.ObjectType:
       return useGetObjectTypeLabelsQuery;
     default:
@@ -48,6 +52,7 @@ export const useCustomLabels = (
       (
         (data as GetLabelsQuery)?.getLabels ||
         (data as GetNcpLabelsQuery)?.getNcpLabels ||
+        (data as GetTaskLabelsQuery)?.getTaskLabels ||
         (data as GetObjectTypeLabelsQuery)?.getObjectTypeLabels
       )?.map(
         (label): CustomRadioDataType => ({

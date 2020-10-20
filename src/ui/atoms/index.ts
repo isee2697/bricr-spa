@@ -49,6 +49,7 @@ export { default as TableCell } from '@material-ui/core/TableCell';
 export { default as TableBody } from '@material-ui/core/TableBody';
 export { default as Grow } from '@material-ui/core/Grow';
 export { default as ClickAwayListener } from '@material-ui/core/ClickAwayListener';
+export { default as NativeMenu } from '@material-ui/core/Menu';
 export { default as Tooltip } from '@material-ui/core/Tooltip';
 
 export { Button } from './button/Button';

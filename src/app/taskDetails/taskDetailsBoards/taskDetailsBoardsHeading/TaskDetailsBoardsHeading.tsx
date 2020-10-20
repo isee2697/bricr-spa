@@ -3,7 +3,7 @@ import clsx from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Paper, Grid, Typography } from 'ui/atoms';
-import { PriorityHighIcon, PriorityLowIcon, PriorityMediumIcon } from 'ui/atoms/icons';
+import { EditIcon, PriorityHighIcon, PriorityLowIcon, PriorityMediumIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TaskPriority } from 'api/types';
 import { useModalDispatch, useModalState } from 'hooks';
@@ -66,7 +66,7 @@ export const TaskDetailsBoardsHeading = ({ task, onUpdateTask }: TaskDetailsBoar
                 : '-'}
             </Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Typography variant="h6" className={classes.title}>
               {formatMessage({ id: 'tasks.details.priority' })}
             </Typography>
@@ -90,6 +90,9 @@ export const TaskDetailsBoardsHeading = ({ task, onUpdateTask }: TaskDetailsBoar
                 </>
               )}
             </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <EditIcon />
           </Grid>
         </Grid>
       </Paper>

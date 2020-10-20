@@ -4,7 +4,9 @@ import { PimSummary } from '../Summary.types';
 
 export const useStyles = makeStyles(theme => ({
   btnHeader: {
-    fontSize: theme.spacing(3),
+    '&.MuiSvgIcon-root': {
+      fontSize: theme.spacing(3),
+    },
   },
   summaryContainer: {
     marginTop: 0,
