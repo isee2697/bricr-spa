@@ -7,7 +7,6 @@ import { EntityTypeProvider } from 'app/shared/entityType';
 import { CrmRelationsDetailsProps } from './CrmRelationsDetails.type';
 import { useStyles } from './CrmRelationsDetails.styles';
 import { CrmRelationsDetailsSidebarMenu } from './crmRelationsDetailsSidebarMenu/CrmRelationsDetailsSidebarMenu';
-import { CrmRelationsDetailsHeader } from './crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/CrmRelationsDetailsDashboard';
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
@@ -121,9 +120,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
-                <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
                 <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
-                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituationContainer />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
