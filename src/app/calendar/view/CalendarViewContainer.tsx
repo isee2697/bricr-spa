@@ -2,7 +2,6 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import { CalendarTypes } from 'api/types';
-import { CalendarProps } from '../Calendar.types';
 
 import { CalendarView } from './CalendarView';
 
@@ -120,6 +119,6 @@ const schedulerData = [
   },
 ];
 
-export const CalendarViewContainer = ({ data }: CalendarProps) => {
+export const CalendarViewContainer = () => {
   return <CalendarView data={schedulerData} />;
 };
