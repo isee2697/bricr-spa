@@ -1087,6 +1087,7 @@
   "tasks.details.detailed_information.deadline_date": "Deadline date",
   "tasks.details.detailed_information.deadline_time": "Deadline time",
   "tasks.details.detailed_information.priority": "Priority",
+  "tasks.details.custom_label.add_new_label": "Add new label",
   "time_picker.aria_label": "Pick a time",
   "upload_image.invalid_file": "only images allowed",
   "upload_modal.upload_file": "Upload file",

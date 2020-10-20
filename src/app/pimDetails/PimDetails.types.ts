@@ -7,6 +7,7 @@ export type PimDetailsSectionProps = {
   isSidebarVisible: boolean;
   onSidebarOpen: VoidFunction;
   title?: string;
+  onAddAllocation?: () => void;
 };
 
 export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error' | 'data'> & {

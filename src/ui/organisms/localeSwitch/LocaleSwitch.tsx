@@ -3,7 +3,7 @@ import { Field } from 'react-final-form';
 
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { useAuthDispatch, useAuthState, useLocale } from 'hooks';
-import { Dropdown } from 'ui/atoms';
+import { SelectBox } from 'ui/atoms';
 import { SET_AUTHORIZED } from 'context/auth/authReducer/authReducer';
 
 import { LocaleOptions } from './dictionaries';
@@ -20,7 +20,7 @@ export const LocaleSwitch = ({ name = 'language', isFormField = true, ...props }
       {isFormField && (
         <Field name={name} value={locale}>
           {inputProps => (
-            <Dropdown
+            <SelectBox
               placeholder={formatMessage({ id: 'language.placeholder' })}
               {...props}
               {...inputProps.input}
@@ -34,7 +34,7 @@ export const LocaleSwitch = ({ name = 'language', isFormField = true, ...props }
         </Field>
       )}
       {!isFormField && (
-        <Dropdown
+        <SelectBox
           {...props}
           items={options}
           placeholder={formatMessage({ id: 'language.placeholder' })}

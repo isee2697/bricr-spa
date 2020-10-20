@@ -11,4 +11,5 @@ export type TasksBodyProps = {
   members: TeamMemberItem[];
   selectedMembers: TeamMemberItem[];
   tasksFullSummary: TaskFullSummaryResult | undefined | null;
+  onAddNewTask: VoidFunction;
 };

@@ -39,7 +39,13 @@ export type AddMomentModalContainerProps = {
   currentModalIndex: number;
 };
 
-export type AddMomentSubmit = () => Promise<
+export type LinkedManagers = {
+  linked_managers: string[];
+};
+
+export type AddMomentSubmit = (
+  body: LinkedManagers,
+) => Promise<
   | undefined
   | {
       error: boolean;

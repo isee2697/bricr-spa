@@ -97,6 +97,7 @@ export type Mutation = {
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
   addTag?: Maybe<PimWithNewTag>;
+  addTaskLabel: Label;
   addTeam?: Maybe<Team>;
   addTextChapter?: Maybe<PimWithNewTextChapter>;
   addUserToTeam?: Maybe<Team>;
@@ -132,6 +133,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTaskLabel: Scalars['Boolean'];
   removeTeam?: Maybe<Scalars['String']>;
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
@@ -375,6 +377,10 @@ export type MutationAddTagArgs = {
   input: AddTagInput;
 };
 
+export type MutationAddTaskLabelArgs = {
+  input: LabelInput;
+};
+
 export type MutationAddTeamArgs = {
   input: AddTeamInput;
 };
@@ -512,6 +518,10 @@ export type MutationRemovePimArgs = {
 };
 
 export type MutationRemoveProjectPhaseArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveTaskLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -913,6 +923,7 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   getTask?: Maybe<Task>;
+  getTaskLabels?: Maybe<Array<Label>>;
   getTasks?: Maybe<TaskSearchResult>;
   getTasksFullSummary?: Maybe<TaskFullSummaryResult>;
   getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
@@ -1086,6 +1097,11 @@ export type QueryGetProjectPhasesArgs = {
 
 export type QueryGetTaskArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetTaskLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetTasksArgs = {
@@ -1911,6 +1927,7 @@ export enum LabelProperty {
   PollutionInspection = 'PollutionInspection',
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
+  Task = 'Task',
 }
 
 export type Label = {
@@ -6933,7 +6950,7 @@ export type Task = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
 };
@@ -6966,7 +6983,7 @@ export type CreateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
 };
 
 export type UpdateTaskInput = {
@@ -6976,7 +6993,7 @@ export type UpdateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority?: Maybe<TaskPriority>;
-  label?: Maybe<TaskLabel>;
+  label?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
   description?: Maybe<Scalars['String']>;
 };
@@ -8412,6 +8429,14 @@ export type LinkNcpToProjectPhaseMutationVariables = Exact<{
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type AddTaskLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddTaskLabelMutation = { __typename?: 'Mutation' } & {
+  addTaskLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type CreateTaskMutationVariables = Exact<{
@@ -11180,6 +11205,15 @@ export type SettingInfoQuery = { __typename?: 'Query' } & {
   getTeams?: Maybe<
     { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
   >;
+};
+
+export type GetTaskLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetTaskLabelsQuery = { __typename?: 'Query' } & {
+  getTaskLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type GetTaskQueryVariables = Exact<{
@@ -14537,6 +14571,30 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const AddTaskLabelDocument = gql`
+  mutation AddTaskLabel($input: LabelInput!) {
+    addTaskLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddTaskLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTaskLabelMutation, AddTaskLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTaskLabelMutation, AddTaskLabelMutationVariables>(
+    AddTaskLabelDocument,
+    baseOptions,
+  );
+}
+export type AddTaskLabelMutationHookResult = ReturnType<typeof useAddTaskLabelMutation>;
+export type AddTaskLabelMutationResult = ApolloReactCommon.MutationResult<AddTaskLabelMutation>;
+export type AddTaskLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddTaskLabelMutation,
+  AddTaskLabelMutationVariables
 >;
 export const CreateTaskDocument = gql`
   mutation CreateTask($input: CreateTaskInput!) {
@@ -18794,6 +18852,32 @@ export function useSettingInfoLazyQuery(
 export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
 export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
 export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTaskLabelsDocument = gql`
+  query GetTaskLabels($id: ID!, $properties: [LabelProperty!]) {
+    getTaskLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetTaskLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(GetTaskLabelsDocument, baseOptions);
+}
+export function useGetTaskLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(
+    GetTaskLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetTaskLabelsQueryHookResult = ReturnType<typeof useGetTaskLabelsQuery>;
+export type GetTaskLabelsLazyQueryHookResult = ReturnType<typeof useGetTaskLabelsLazyQuery>;
+export type GetTaskLabelsQueryResult = ApolloReactCommon.QueryResult<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>;
 export const GetTaskDocument = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {

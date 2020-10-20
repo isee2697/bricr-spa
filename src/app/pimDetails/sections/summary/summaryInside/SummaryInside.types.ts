@@ -1,5 +1,5 @@
 import { PimDetailsSectionProps } from '../../../PimDetails.types';
-import { Floor, FloorType, PimServices, Space } from 'api/types';
+import { FloorType, Space } from 'api/types';
 import { PimSummary } from '../Summary.types';
 
 export type SummaryInsideContainerProps = PimDetailsSectionProps & {

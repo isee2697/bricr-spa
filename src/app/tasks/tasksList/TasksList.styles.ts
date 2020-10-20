@@ -15,6 +15,13 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(2),
     height: theme.spacing(2),
   },
+  row: {
+    cursor: 'pointer',
+
+    '&:hover': {
+      background: theme.palette.gray.light,
+    },
+  },
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
