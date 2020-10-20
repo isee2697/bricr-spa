@@ -115,7 +115,7 @@ const schedulerData = [
     endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
     id: 1,
     type: CalendarTypes.Task,
-    location: 'Room 1',
+    location: 'Room 2',
   },
 ];
 
