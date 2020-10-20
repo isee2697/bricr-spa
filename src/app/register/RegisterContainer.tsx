@@ -41,6 +41,7 @@ export const RegisterContainer = () => {
   const handleSave = async ({ name, email }: RegisterFormFields) => {
     if (name && email && spaceName) {
       push(`${AppRoute.setup}/?name=${name}`);
+      console.log('asd');
     }
 
     return undefined;
