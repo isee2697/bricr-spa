@@ -9,8 +9,8 @@ import { AddIcon, FollowUpRectangleIcon, LockRectangleIcon, UserRectangleIcon } 
 import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
 import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 import { AddCustomTaskLabelModalContainer } from '../addCustomTaskLabelModal/AddCustomTaskLabelModalContainer';
-import { useCustomLabels } from '../../../../hooks/useCustomLabels';
-import { EntityType } from '../../../shared/entityType';
+import { useCustomLabels } from 'hooks/useCustomLabels';
+import { EntityType } from 'app/shared/entityType';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
