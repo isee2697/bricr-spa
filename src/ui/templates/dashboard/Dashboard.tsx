@@ -8,8 +8,7 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
-import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
-import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
+import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLayout } from 'context/layout';
@@ -37,6 +36,15 @@ export const Dashboard = ({ children }: DashboardProps) => {
       push(AppRoute.home);
     } else {
       push(AppRoute.settings);
+    }
+  };
+
+  const isOnDMSPage = pathname.startsWith(AppRoute.dms);
+  const handleDMSClick = () => {
+    if (isOnDMSPage) {
+      push(AppRoute.home);
+    } else {
+      push(AppRoute.dms);
     }
   };
 
@@ -95,13 +103,10 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 <GraphArrowIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="comments">
-              <CommentIcon />
+            <IconButton variant="rounded" size="small" aria-label="dms" onClick={handleDMSClick} selected={isOnDMSPage}>
+              <FolderIcon />
             </IconButton>
             <Sidebar.Divider />
-            <IconButton variant="rounded" size="small" aria-label="help">
-              <HelpIcon />
-            </IconButton>
             <IconButton
               variant="rounded"
               size="small"

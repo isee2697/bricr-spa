@@ -7,6 +7,7 @@ declare module '@material-ui/core/styles/createPalette' {
     black: createPalette.SimplePaletteColorOptions;
     white: createPalette.SimplePaletteColorOptions;
     gray: createPalette.SimplePaletteColorOptions;
+    warmgray: createPalette.SimplePaletteColorOptions;
     orange: createPalette.SimplePaletteColorOptions;
     yellow: createPalette.SimplePaletteColorOptions;
     blue: createPalette.SimplePaletteColorOptions;
@@ -24,6 +25,7 @@ declare module '@material-ui/core/styles/createPalette' {
     black: createPalette.SimplePaletteColorOptions;
     white: createPalette.SimplePaletteColorOptions;
     gray: createPalette.SimplePaletteColorOptions;
+    warmgray: createPalette.SimplePaletteColorOptions;
     orange: createPalette.SimplePaletteColorOptions;
     yellow: createPalette.SimplePaletteColorOptions;
     blue: createPalette.SimplePaletteColorOptions;

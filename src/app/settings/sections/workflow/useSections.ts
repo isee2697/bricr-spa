@@ -28,27 +28,60 @@ export const useSections = (
     }
 
     if (type === WorkflowItemType.TRIGGER) {
-      section.trigger = { ...item, actions: [] };
+      // Add trigger
+      if (!section.triggers) section.triggers = [];
+      section.triggers.push({
+        ...item,
+        newActions: { id: item.id + '-new' },
+        updateActions: { id: item.id + '-update' },
+        deleteActions: { id: item.id + '-delete' },
+      });
     }
 
     if (type === WorkflowItemType.ACTION) {
-      if (!section.trigger) {
+      if (!section.triggers?.length) {
         return;
       }
 
-      if (section.trigger.id === parentId) {
-        section.trigger.actions = [...section.trigger.actions, item];
-      } else {
-        const action = section.trigger.actions
-          .map(action => getLastAction(action))
-          .find(action => action.id === parentId);
+      section.triggers.forEach(trigger => {
+        if (trigger.newActions && trigger.newActions?.id === parentId) {
+          // Right after if rule
+          trigger.newActions.actions = [...(trigger.newActions.actions || []), item];
+        } else if (trigger.updateActions && trigger.updateActions?.id === parentId) {
+          // Right after update rule
+          trigger.updateActions.actions = [...(trigger.updateActions.actions || []), item];
+        } else if (trigger.deleteActions && trigger.deleteActions?.id === parentId) {
+          // Right after delete rule
+          trigger.deleteActions.actions = [...(trigger.deleteActions.actions || []), item];
+        } else {
+          // After action
+          let action = trigger.newActions?.actions
+            ?.map(action => getLastAction(action))
+            .find(action => action.id === parentId);
 
-        if (!action) {
+          if (action) {
+            action.nextAction = item;
+          }
+
+          action = trigger.updateActions?.actions
+            ?.map(action => getLastAction(action))
+            .find(action => action.id === parentId);
+
+          if (action) {
+            action.nextAction = item;
+          }
+
+          action = trigger.deleteActions?.actions
+            ?.map(action => getLastAction(action))
+            .find(action => action.id === parentId);
+
+          if (action) {
+            action.nextAction = item;
+          }
+
           return;
         }
-
-        action.nextAction = item;
-      }
+      });
     }
 
     setSections(sections => [...sections]);

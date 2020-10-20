@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import classNames from 'classnames';
 
-import { Box } from 'ui/atoms';
+import { Box, Popper, Grow, Paper } from 'ui/atoms';
 import { ArrowDownIcon } from 'ui/atoms/icons';
 
 import { DropdownProps } from './Dropdown.types';
@@ -32,25 +32,34 @@ export const Dropdown = ({ items, placeholder, disabled, value, align, onChange 
         </span>
         <ArrowDownIcon className={classNames(isOpened && classes.reversedArrow)} />
       </Box>
-      <Box className={classNames(classes.menu, { isOpened })}>
-        {items.map(item => (
-          <Box
-            key={`${item.value}`}
-            className={classNames(
-              classes.item,
-              { selected: value === item.value },
-              align === 'left' && 'alignLeft',
-              align === 'right' && 'alignRight',
-            )}
-            onClick={() => {
-              setOpened(false);
-              onChange(item.value);
-            }}
+      <Popper open={isOpened} anchorEl={select.current} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
-            {item.label}
-          </Box>
-        ))}
-      </Box>
+            <Paper>
+              {items.map(item => (
+                <Box
+                  key={`${item.value}`}
+                  className={classNames(
+                    classes.item,
+                    { selected: value === item.value },
+                    align === 'left' && 'alignLeft',
+                    align === 'right' && 'alignRight',
+                  )}
+                  onClick={() => {
+                    setOpened(false);
+                    onChange(item.value);
+                  }}
+                >
+                  {item.label}
+                </Box>
+              ))}
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </div>
   );
 };

@@ -1,1 +1,4 @@
-export type MapProps = {};
+export type MapProps = {
+  latitude?: number;
+  longitude?: number;
+};

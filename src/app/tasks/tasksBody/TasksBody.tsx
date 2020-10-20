@@ -76,7 +76,9 @@ export const TasksBody = ({
               color="error"
               classes={{ badge: clsx(classes.badge, activeTab !== TasksTab.Overdue && 'default') }}
             >
-              {formatMessage({ id: 'tasks.overdue' })}
+              <span className={clsx(activeTab === TasksTab.Overdue && classes.red)}>
+                {formatMessage({ id: 'tasks.overdue' })}
+              </span>
             </Badge>
           }
         />

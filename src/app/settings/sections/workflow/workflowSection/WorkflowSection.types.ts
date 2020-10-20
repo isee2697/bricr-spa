@@ -7,7 +7,7 @@ export type EndPointType = 'end' | 'outside' | 'next';
 export type WorkflowSection = {
   id: string;
   title: string;
-  trigger?: Trigger;
+  triggers?: Trigger[];
   startpoint?: StartPointType;
   startpointOutside?: string;
   endpoint?: EndPointType;

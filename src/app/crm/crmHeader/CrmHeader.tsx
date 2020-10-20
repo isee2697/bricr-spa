@@ -4,11 +4,13 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Grid, Box, IconButton, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { HideIcon } from 'ui/atoms/icons/hide/HideIcon';
+import { useModalDispatch } from 'hooks';
 
 import { CrmHeaderProps } from './CrmHeader.types';
 import { useStyles } from './CrmHeader.styles';
 
 export const CrmHeader = ({ type, isSidebarVisible, onSidebarOpen }: CrmHeaderProps) => {
+  const { open } = useModalDispatch();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -30,7 +32,7 @@ export const CrmHeader = ({ type, isSidebarVisible, onSidebarOpen }: CrmHeaderPr
       <Button
         color="primary"
         variant="contained"
-        onClick={() => {}}
+        onClick={() => open('add-relation')}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >

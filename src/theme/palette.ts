@@ -6,10 +6,13 @@ const primaryInfo = 'rgba(10, 88, 233, 0.02)';
 const secondary = '#EE2F57';
 const black = '#2F1F5B';
 const blackLight = 'rgba(47, 31, 91, 0.6)';
+const blackInfo = 'rgba(130, 141, 184, .5)';
 const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
 const grayLight = '#F3F5FA';
+const warmgray = '#C4C4C4';
+const warmgrayLight = '#E5E5E5';
 const red = '#EB5F60';
 const redLight = '#F9ECED';
 const orange = '#FFAD21';
@@ -48,6 +51,10 @@ export const palette: PaletteOptions = {
   gray: {
     main: gray,
     light: grayLight,
+  },
+  warmgray: {
+    main: warmgray,
+    light: warmgrayLight,
   },
   red: {
     main: red,
@@ -109,5 +116,6 @@ export const palette: PaletteOptions = {
   },
   info: {
     main: primaryInfo,
+    dark: blackInfo,
   },
 };

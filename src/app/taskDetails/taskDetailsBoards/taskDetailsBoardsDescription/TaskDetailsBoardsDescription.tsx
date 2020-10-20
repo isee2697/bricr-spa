@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Card, CardHeader, CardContent, Switch, FormControlLabel } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AutosaveForm } from 'ui/organisms';
+import { AutosaveForm, FormSection } from 'ui/organisms';
 import { Editor } from 'app/shared/media/form/parts/Editor';
 
 import { TaskDetailsBoardsDescriptionProps } from './TaskDetailsBoardsDescription.types';
@@ -11,7 +10,6 @@ import { useStyles } from './TaskDetailsBoardsDescription.styles';
 export const TaskDetailsBoardsDescription = ({ task, onSave }: TaskDetailsBoardsDescriptionProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isEditing, setIsEditing] = useState(false);
 
   const { description } = task;
 
@@ -29,22 +27,12 @@ export const TaskDetailsBoardsDescription = ({ task, onSave }: TaskDetailsBoards
       };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        title={formatMessage({ id: 'tasks.details.description' })}
-        action={
-          <FormControlLabel
-            control={<Switch checked={isEditing} onChange={() => setIsEditing(!isEditing)} color="primary" />}
-            label={formatMessage({ id: 'form_section.edit_mode' })}
-            labelPlacement="start"
-          />
-        }
-      />
-      <CardContent>
+    <FormSection title={formatMessage({ id: 'tasks.details.description' })} isEditable className={classes.root}>
+      {isEditing => (
         <AutosaveForm initialValues={initialValues} onSave={onSave}>
           <Editor disabled={!isEditing} />
         </AutosaveForm>
-      </CardContent>
-    </Card>
+      )}
+    </FormSection>
   );
 };

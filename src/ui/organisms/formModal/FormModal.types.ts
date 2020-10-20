@@ -1,5 +1,5 @@
-import { Mutator } from 'final-form';
 import { ReactNode } from 'react';
+import { Mutator } from 'final-form';
 
 import { ModalContainerProps } from 'ui/molecules/modal/Modal.types';
 import { PromiseFunction } from 'app/shared/types';

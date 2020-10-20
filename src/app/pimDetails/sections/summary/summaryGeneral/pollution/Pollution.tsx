@@ -6,8 +6,9 @@ import { Counter } from 'ui/molecules/counter/Counter';
 import { FormSubSection } from 'ui/organisms';
 
 import { useStyles } from './Pollution.styles';
+import { PollutionProps } from './Pollution.types';
 
-export const Pollution = () => {
+export const Pollution = ({ pollutions }: PollutionProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -17,39 +18,34 @@ export const Pollution = () => {
         title={
           <Box display="flex" alignItems="center">
             <Typography variant="h2">{formatMessage({ id: 'pim_details.summary.pollution.title' })}</Typography>
-            <Counter count={5} hasMarginLeft />
+            <Counter count={pollutions.length} hasMarginLeft />
           </Box>
         }
       />
       <CardContent>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+        {pollutions.map((pollution, index) => (
+          <FormSubSection
+            initiallyOpened={false}
+            title={
+              <>
+                <Typography variant="h4" className={classes.index}>
+                  {index + 1}
+                </Typography>
+                <Typography variant="h3">{pollution.type}</Typography>
+              </>
+            }
+            onOptionsClick={() => {}}
+          >
+            <Box className={classes.detailItem}>
+              <Typography variant="h5" className={classes.detailItemLabel}>
+                {formatMessage({ id: 'pim_details.summary.pollution.inspection' })}
               </Typography>
-              <Typography variant="h3">Soil</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Soil content</div>
-        </FormSubSection>
-        <FormSubSection
-          initiallyOpened={false}
-          title={
-            <>
-              <Typography variant="h4" className={classes.index}>
-                1
+              <Typography variant="h4" className={classes.detailItemValue}>
+                {pollution.description}
               </Typography>
-              <Typography variant="h3">Asbestos</Typography>
-            </>
-          }
-          onOptionsClick={() => {}}
-        >
-          <div>Asbestos content</div>
-        </FormSubSection>
+            </Box>
+          </FormSubSection>
+        ))}
       </CardContent>
     </Card>
   );

@@ -27,7 +27,7 @@ export const TasksDateSectionNextWeek = ({ deadlines, onSelectDate }: TasksDateS
   }
 
   const selectDate = (index: number) => {
-    if (selectedDates.includes(index) && selectedDates.length > 1) {
+    if (selectedDates.includes(index)) {
       onSelectDate(
         selectedDates
           .filter(selectedDate => selectedDate !== index)
@@ -42,19 +42,6 @@ export const TasksDateSectionNextWeek = ({ deadlines, onSelectDate }: TasksDateS
               .toISO(),
           })),
       );
-    } else if (selectedDates.includes(index) && selectedDates.length === 1) {
-      onSelectDate([
-        {
-          from: DateTime.local()
-            .plus({ days: 1 })
-            .startOf('day')
-            .toISO(),
-          to: DateTime.local()
-            .plus({ days: 7 })
-            .endOf('day')
-            .toISO(),
-        },
-      ]);
     } else {
       onSelectDate(
         [...selectedDates, index].map(index => ({

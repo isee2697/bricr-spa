@@ -1,51 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Page } from 'ui/templates';
-import { Tab, Tabs, Box } from 'ui/atoms';
-import {
-  FormSection,
-  WeekView,
-  DayView,
-  Scheduler,
-  MonthView,
-  Appointments,
-  ViewState,
-  AllDayPanel,
-  AppointmentTooltip,
-  AppointmentForm,
-  CurrentTimeIndicator,
-  Resources,
-} from 'ui/organisms';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { CalendarViewContainer } from 'app/calendar/view/CalendarViewContainer';
+import { NewAppointmentContainer } from 'app/calendar/new/NewAppointmentContainer';
+import { NavBreadcrumb } from 'ui/atoms';
+import { useLocale } from 'hooks';
 
-import { DateView, CalendarProps } from './Calandar.types';
+import { CalendarProps } from './Calendar.types';
 
-export const Calendar = ({ data, currentDate, resources }: CalendarProps) => {
-  const [currentView, setView] = useState(DateView.Week);
+export const Calendar = ({ data }: CalendarProps) => {
+  const { formatMessage } = useLocale();
 
   return (
-    <Box p={3}>
-      <Page title="calendar.title">
-        <FormSection title="calendar.week.title" isEditable={false}>
-          <Tabs value={currentView}>
-            <Tab onClick={() => setView(DateView.Day)} label="Day" />
-            <Tab onClick={() => setView(DateView.Week)} label="Week" />
-            <Tab onClick={() => setView(DateView.Month)} label="Month" />
-          </Tabs>
-
-          <Scheduler data={data}>
-            <ViewState currentDate={currentDate} currentViewName={currentView} />
-            <DayView />
-            <WeekView />
-            <MonthView />
-            <AllDayPanel />
-            <Appointments />
-            <CurrentTimeIndicator updateInterval={1000} />
-            <AppointmentTooltip showCloseButton />
-            <AppointmentForm readOnly />
-            <Resources data={resources} mainResourceName="type" />
-          </Scheduler>
-        </FormSection>
-      </Page>
-    </Box>
+    <>
+      <NavBreadcrumb title={formatMessage({ id: 'common.calendar' })} />
+      <Switch>
+        <Route exact path={AppRoute.calendar} render={() => <CalendarViewContainer />} />
+        <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer />} />
+        <Redirect to={AppRoute.calendar} />
+      </Switch>
+    </>
   );
 };

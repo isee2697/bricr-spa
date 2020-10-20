@@ -22,6 +22,7 @@ import { SettingsContainer } from 'app/settings/SettingsContainer';
 import { RegisterContainer } from 'app/register/RegisterContainer';
 import { SetupContainer } from 'app/register/setup/SetupContainer';
 import { CrmContainer } from 'app/crm/CrmContainer';
+import { DmsContainer } from 'app/dms/DmsContainer';
 import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelationsDetailsContainer';
 import { NotificationsContainer } from '../app/notifications/NotificationsContainer';
 import { CalendarContainer } from 'app/calendar/CalendarContainer';
@@ -83,6 +84,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.taskDetails} component={TaskDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.notifications} exact component={NotificationsContainer} />
                 <AuthorizedRoute path={AppRoute.calendar} component={CalendarContainer} />
+                <AuthorizedRoute path={AppRoute.dms} component={DmsContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
               </Switch>

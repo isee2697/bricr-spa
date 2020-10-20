@@ -12,10 +12,11 @@ import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/Crm
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
-import { ContactInformation } from './personalInformation/contactInformation/ContactInformation';
 import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
-import { HomeSituation } from './personalInformation/homeSituation/HomeSituation';
+import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
+import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
+import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -53,10 +54,11 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 />
                 <Route
                   path={`${path}/personal_information_contact_information`}
-                  render={() => <ContactInformation />}
+                  render={() => <ContactInformationContainer />}
                 />
                 <Route path={`${path}/personal_information_family_and_contacts`} render={() => <FamilyAndContacts />} />
-                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituation />} />
+                <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route path={`${path}/personal_information_home_situation`} render={() => <HomeSituationContainer />} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

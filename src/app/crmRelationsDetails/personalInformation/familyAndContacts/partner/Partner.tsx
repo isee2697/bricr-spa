@@ -15,6 +15,7 @@ import {
 import { AddIcon, LinkIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 import { Profile } from 'api/types';
+import { useModalDispatch } from 'hooks';
 
 import { useStyles } from './Partner.styles';
 import { PartnerProps } from './Partner.types';
@@ -22,6 +23,7 @@ import { PartnerItem } from './partnerItem/PartnerItem';
 
 export const Partner = ({ users }: PartnerProps) => {
   const classes = useStyles();
+  const { open } = useModalDispatch();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
   const [partners, setPartners] = useState<Profile[]>([]);
@@ -42,7 +44,7 @@ export const Partner = ({ users }: PartnerProps) => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={handleAddNewPartner}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('link-partner')}>
               <AddIcon color="inherit" />
             </IconButton>
           </>

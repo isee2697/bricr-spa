@@ -14,7 +14,7 @@ import {
   Typography,
 } from 'ui/atoms';
 import { AddIcon, ArrowUpIcon, LinkIcon, MenuIcon } from 'ui/atoms/icons';
-import { useLocale } from 'hooks';
+import { useLocale, useModalDispatch } from 'hooks';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './People.styles';
@@ -22,6 +22,7 @@ import { Contact, ContactType, PeopleProps } from './People.types';
 import { ContactItem } from './contactItem/ContactItem';
 
 export const People = ({ users }: PeopleProps) => {
+  const { open } = useModalDispatch();
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
@@ -66,7 +67,7 @@ export const People = ({ users }: PeopleProps) => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={handleAddNewPerson}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('link-profile')}>
               <AddIcon color="inherit" />
             </IconButton>
           </>

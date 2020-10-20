@@ -18,6 +18,7 @@ import { Prices } from './sections/prices/Prices';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
+import { SummaryContainer } from './sections/summary/SummaryContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -99,6 +100,10 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               render={() => (
                 <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
               )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/summary`}
+              render={() => <SummaryContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
             />
             <Route
               path={`${AppRoute.projectDetails}/salesSettings`}

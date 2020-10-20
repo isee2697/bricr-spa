@@ -9,7 +9,7 @@ export type TaskItem = Task & {
   assigneeDetail?: TeamMemberItem;
 };
 
-export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName'>;
+export type TeamMemberItem = Pick<Profile, 'id' | 'firstName' | 'lastName' | 'image'>;
 
 export enum TasksTab {
   Today = 'today',
