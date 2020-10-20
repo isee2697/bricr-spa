@@ -29,5 +29,6 @@ export { ConfirmModal } from './confirmModal/ConfirmModal';
 export { ListOptionsMenu } from './listOptionsMenu/ListOptionsMenu';
 export { ProfileItem } from './profileItem/ProfileItem';
 export { VerticalTimeline } from './verticalTimeline/VerticalTimeline';
+export { DatePickerCalendar } from './datePickerCalendar/DatePickerCalendar';
 export { Map } from './map/Map';
 export * from './calendar/Calendar';
