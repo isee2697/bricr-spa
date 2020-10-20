@@ -10,7 +10,7 @@ import { CrmRelationsDetailsSidebarMenu } from './crmRelationsDetailsSidebarMenu
 import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/CrmRelationsDetailsDashboard';
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
-import { CrmRelationsDetailsCustomerJourneyContaienr } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
+import { CrmRelationsDetailsCustomerJourneyContainer } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
 import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
 import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
@@ -73,7 +73,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route
                   path={`${path}/customer_journey`}
                   render={() => (
-                    <CrmRelationsDetailsCustomerJourneyContaienr
+                    <CrmRelationsDetailsCustomerJourneyContainer
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                       crm={crm}

@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 export const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTab-root': {
-      // minWidth: 90,
+      minWidth: 90,
     },
   },
   tab: {

@@ -18,7 +18,7 @@ import {
   CrmRelationsDetailsCustomerJourneyType,
 } from './CrmRelationsDetailsCustomerJourney.types';
 
-export const CrmRelationsDetailsCustomerJourneyContaienr = ({
+export const CrmRelationsDetailsCustomerJourneyContainer = ({
   crm,
   isSidebarVisible,
   onSidebarOpen,
