@@ -1,8 +1,6 @@
-import { DateTime } from 'luxon';
+import { DatePickerCalendarProps } from 'ui/molecules/datePickerCalendar/DatePickerCalendar.types';
 
-export type SidebarMenuProps = {
+export type SidebarMenuProps = DatePickerCalendarProps & {
   isVisible: boolean;
   onHide: () => void;
-  currentDate: DateTime;
-  onChangeDate: (date?: DateTime | null) => void;
 };

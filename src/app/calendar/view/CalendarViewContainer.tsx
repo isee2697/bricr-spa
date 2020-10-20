@@ -2,6 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import { CalendarTypes } from 'api/types';
+import { CalendarProps } from '../Calendar.types';
 
 import { CalendarView } from './CalendarView';
 
@@ -115,10 +116,10 @@ const schedulerData = [
     endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
     id: 1,
     type: CalendarTypes.Task,
-    location: 'Room 1',
+    location: 'Room 2',
   },
 ];
 
-export const CalendarViewContainer = () => {
+export const CalendarViewContainer = ({ data }: CalendarProps) => {
   return <CalendarView data={schedulerData} />;
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 
 import {
   AllDayPanel,
@@ -26,9 +27,15 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
 
 export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
   const { locale } = useLocale();
+  const { spacing, breakpoints } = useTheme();
 
   return (
-    <Scheduler locale={locale} firstDayOfWeek={1} data={connectDataToResources(data)}>
+    <Scheduler
+      height={spacing(breakpoints.up('xl') ? 70 : 60)}
+      locale={locale}
+      firstDayOfWeek={1}
+      data={connectDataToResources(data)}
+    >
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
       <WeekView />

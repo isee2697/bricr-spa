@@ -16,7 +16,7 @@ export const Calendar = ({ data }: CalendarProps) => {
     <>
       <NavBreadcrumb title={formatMessage({ id: 'common.calendar' })} />
       <Switch>
-        <Route exact path={AppRoute.calendar} render={() => <CalendarViewContainer />} />
+        <Route exact path={AppRoute.calendar} render={() => <CalendarViewContainer data={data} />} />
         <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer />} />
         <Redirect to={AppRoute.calendar} />
       </Switch>

@@ -37,6 +37,7 @@ const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (dat
 
 export const CalendarView = ({ data }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
+  const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
   const [showDate, setShowDate] = useState(DateTime.local());
@@ -56,7 +57,13 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
         isVisible={isSidebarMenuVisible}
         onHide={() => setSidebarMenuVisible(!isSidebarMenuVisible)}
       />
-      <Grid item className={classes.content}>
+      <Grid
+        item
+        xs={isSidebarMenuVisible ? false : 12}
+        md={isSidebarMenuVisible ? 9 : 12}
+        lg={isSidebarMenuVisible ? 10 : 12}
+        className={classes.content}
+      >
         <Page
           showHeader
           afterTitle={
@@ -87,10 +94,14 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
           titleActions={<></>}
         >
           <FormSection title={formatMessage({ id: 'calendar.week.title' })} isEditable={false}>
-            <Tabs value={currentView}>
-              <Tab onClick={() => setView(DateView.Day)} label="Day" />
-              <Tab onClick={() => setView(DateView.Week)} label="Week" />
-              <Tab onClick={() => setView(DateView.Month)} label="Month" />
+            <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view == currentView)}>
+              {dateValues.map(dateView => (
+                <Tab
+                  key={dateView}
+                  onClick={() => setView(dateView)}
+                  label={formatMessage({ id: `common.${dateView.toLowerCase()}` })}
+                />
+              ))}
             </Tabs>
 
             <CalendarMolecule view={currentView} currentDate={showDate.toJSDate()} data={data} />
