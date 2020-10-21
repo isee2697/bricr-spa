@@ -8,6 +8,14 @@ export const CREATE_PROFILE = gql`
   }
 `;
 
+export const CREATE_COMPANY = gql`
+  mutation CreateCompany($input: CreateCompanyInput!) {
+    createCompany(input: $input) {
+      id
+    }
+  }
+`;
+
 export const UPDATE_PROFILE = gql`
   mutation UpdateProfile($input: UpdateProfileInput!) {
     updateProfile(input: $input) {
