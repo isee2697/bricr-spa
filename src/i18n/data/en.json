@@ -1294,6 +1294,8 @@
   "project_details.properties.modal.title": "Link existing PIM's to object type",
   "project_details.properties.modal.create": "Create new property",
   "project_details.properties.modal.confirm": "Link property",
+  "project_details.allocate_results.settings.title": "Settings",
+  "project_details.allocate_results.settings.use_sales_settings": "Use sales settings",
   "bulk_actions.delete.title": "Deleting {count, plural,\n    one {item}\n    other {items}\n}",
   "bulk_actions.delete.message_line_1": "Are you sure you want to delete <span>{count, plural,\n    one {{name}}\n    other {{count} items}\n}</span>?",
   "bulk_actions.delete.message_line_2": "All entered data will be lost. This operation cannot be undone",

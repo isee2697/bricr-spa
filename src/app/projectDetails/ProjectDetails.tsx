@@ -38,7 +38,7 @@ export const ProjectDetails = ({ data }: NcpProps) => {
     <EntityTypeProvider entityType={EntityType.Project}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
       <NavBreadcrumb title={data?.project.name ?? ''} urlBase={AppRoute.projectDetails} />
-      <Grid container spacing={0}>
+      <Grid container spacing={0} wrap="nowrap">
         <ProjectDetailsSidebarMenu
           onHide={handleSidebarHide}
           isVisible={isSidebarVisible}
