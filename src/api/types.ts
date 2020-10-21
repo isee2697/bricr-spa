@@ -1416,6 +1416,7 @@ export enum ContactAddressType {
 }
 
 export enum ContactPhoneNumberType {
+  MainNumber = 'MainNumber',
   MobileNumber = 'MobileNumber',
   PrivateNumber = 'PrivateNumber',
   BusinessNumber = 'BusinessNumber',
@@ -1424,6 +1425,7 @@ export enum ContactPhoneNumberType {
 }
 
 export enum ContactEmailAddressType {
+  MainAddress = 'MainAddress',
   AddressForMatches = 'AddressForMatches',
   AddressForInvoices = 'AddressForInvoices',
   Private = 'Private',
@@ -1598,10 +1600,10 @@ export type CrmIdentificationNumberInput = {
 
 export type CreateCrmInput = {
   firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
-  gender?: Maybe<GenderType>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type UpdateCrmGeneralInput = {
@@ -7151,6 +7153,14 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
   >;
 };
 
+export type CreateCrmMutationVariables = Exact<{
+  input: CreateCrmInput;
+}>;
+
+export type CreateCrmMutation = { __typename?: 'Mutation' } & {
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
+};
+
 export type UpdateCrmGeneralMutationVariables = Exact<{
   input: UpdateCrmGeneralInput;
 }>;
@@ -11703,6 +11713,24 @@ export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.Mutati
 export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmContactInformationMutation,
   UpdateCrmContactInformationMutationVariables
+>;
+export const CreateCrmDocument = gql`
+  mutation CreateCrm($input: CreateCrmInput!) {
+    createCrm(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCrmMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCrmMutation, CreateCrmMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCrmMutation, CreateCrmMutationVariables>(CreateCrmDocument, baseOptions);
+}
+export type CreateCrmMutationHookResult = ReturnType<typeof useCreateCrmMutation>;
+export type CreateCrmMutationResult = ApolloReactCommon.MutationResult<CreateCrmMutation>;
+export type CreateCrmMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCrmMutation,
+  CreateCrmMutationVariables
 >;
 export const UpdateCrmGeneralDocument = gql`
   mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
