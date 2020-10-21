@@ -16,7 +16,7 @@ import {
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-import { CalendarProps, ConvertDataFunction, CalendarTypeResource } from './Calandar.types';
+import { CalendarProps, ConvertDataFunction, CalendarTypeResource, DateView } from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
   return schedulerData.map(item => ({
@@ -35,13 +35,14 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
       locale={locale}
       firstDayOfWeek={1}
       data={connectDataToResources(data)}
+      currentView={view}
     >
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
       <WeekView />
       <MonthView />
       <AllDayPanel />
-      <Appointments />
+      <Appointments view={view} />
       <CurrentTimeIndicator updateInterval={60000} />
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />

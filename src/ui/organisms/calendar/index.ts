@@ -1,6 +1,4 @@
 export {
-  Scheduler,
-  MonthView,
   AppointmentTooltip,
   AppointmentForm,
   CurrentTimeIndicator,
@@ -12,3 +10,5 @@ export { AllDayPanel } from './allDayPanel/AllDayPanel';
 export { Appointments } from './appointments/Appointments';
 export { WeekView } from './weekView/WeekView';
 export { DayView } from './dayView/DayView';
+export { MonthView } from './monthView/MonthView';
+export { Scheduler } from './scheduler/Scheduler';
