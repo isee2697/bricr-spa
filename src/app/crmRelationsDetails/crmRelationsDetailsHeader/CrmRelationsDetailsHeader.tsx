@@ -7,7 +7,11 @@ import { NavBreadcrumbs } from 'ui/atoms/navBreadcrumbs/NavBreadcrumbs';
 import { CrmRelationsDetailsHeaderProps } from './CrmRelationsDetailsHeader.types';
 import { useStyles } from './CrmRelationsDetailsHeader.styles';
 
-export const CrmRelationsDetailsHeader = ({ isSidebarVisible, onSidebarOpen }: CrmRelationsDetailsHeaderProps) => {
+export const CrmRelationsDetailsHeader = ({
+  isSidebarVisible,
+  onSidebarOpen,
+  actions,
+}: CrmRelationsDetailsHeaderProps) => {
   const classes = useStyles();
 
   return (
@@ -26,6 +30,7 @@ export const CrmRelationsDetailsHeader = ({ isSidebarVisible, onSidebarOpen }: C
           )}
           <NavBreadcrumbs />
         </Box>
+        {actions}
       </Box>
     </Grid>
   );
