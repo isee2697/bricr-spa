@@ -24,15 +24,18 @@ export const PimHeader = ({ type }: { type?: string }) => {
   return (
     <Grid container xs={12} item justify="space-between">
       <Typography variant="h1">{formatMessage({ id: 'pim.title' })}</Typography>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => open('add-new-pim', { propertyCategory: mapTypeToPropertyCategory(type) })}
-        startIcon={<AddIcon color="inherit" />}
-        size="small"
-      >
-        {formatMessage({ id: 'pim.add' })}
-      </Button>
+      <Grid>
+        <Button onClick={() => open('move-pim')}>{formatMessage({ id: 'pim.move' })}</Button>{' '}
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => open('add-new-pim', { propertyCategory: mapTypeToPropertyCategory(type) })}
+          startIcon={<AddIcon color="inherit" />}
+          size="small"
+        >
+          {formatMessage({ id: 'pim.add' })}
+        </Button>
+      </Grid>
     </Grid>
   );
 };
