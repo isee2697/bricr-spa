@@ -26,6 +26,7 @@ export { default as Step } from '@material-ui/core/Step';
 export { default as StepLabel } from '@material-ui/core/StepLabel';
 export { default as StepContent } from '@material-ui/core/StepContent';
 export { default as StepConnector } from '@material-ui/core/StepConnector';
+export { default as StepButton } from '@material-ui/core/StepButton';
 export { default as Container } from '@material-ui/core/Container';
 export { default as Collapse } from '@material-ui/core/Collapse';
 export { default as Dialog } from '@material-ui/core/Dialog';
