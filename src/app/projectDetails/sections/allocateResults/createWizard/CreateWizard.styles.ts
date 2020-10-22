@@ -3,6 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 export const useStyles = makeStyles(theme => ({
   stepper: {
     background: 'transparent',
+    width: '100%',
   },
   step: {
     '&.completed .MuiStepConnector-line': {
