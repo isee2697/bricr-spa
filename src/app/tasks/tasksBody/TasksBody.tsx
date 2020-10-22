@@ -19,6 +19,7 @@ export const TasksBody = ({
     overdue: 0,
     future: 0,
   },
+  onAddNewTask,
 }: TasksBodyProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -84,7 +85,12 @@ export const TasksBody = ({
         />
       </Tabs>
       <CardContent className={clsx(classes.noPadding, classes.flexColumn, classes.flexGrowOne)}>
-        <TaskViewContainer tab={activeTab} members={members} selectedMembers={selectedMembers} />
+        <TaskViewContainer
+          tab={activeTab}
+          members={members}
+          selectedMembers={selectedMembers}
+          onAddNewTask={onAddNewTask}
+        />
       </CardContent>
     </Card>
   );

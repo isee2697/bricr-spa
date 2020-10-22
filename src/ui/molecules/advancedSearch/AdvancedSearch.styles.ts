@@ -12,7 +12,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     cursor: 'pointer',
     padding: spacing(1.5),
     borderRadius: spacing(1),
-    '&.isOpened': {
+    '&.selected': {
+      zIndex: 1200,
       background: palette.white.main,
     },
     '&.disabled': {
@@ -46,25 +47,6 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     '&:after': {
       content: 'none',
     },
-  },
-  value: {
-    fontSize: typography.h4.fontSize,
-    color: palette.black.main,
-    '&.disabled': {
-      color: palette.gray.main,
-    },
-    '&.placeholder': {
-      color: palette.info.dark,
-    },
-  },
-  popper: {
-    width: '100%',
-    zIndex: 1500,
-  },
-  menu: {
-    borderRadius: spacing(1),
-    marginTop: spacing(0.5),
-    background: palette.white.main,
   },
   item: {
     cursor: 'pointer',
@@ -116,6 +98,15 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       color: palette.red.main,
     },
     overflow: 'hidden',
+  },
+  autocompleteBack: {
+    position: 'fixed',
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: palette.info.dark,
+    left: 0,
+    top: 0,
+    zIndex: 1100,
   },
   blue: {
     color: palette.primary.main,

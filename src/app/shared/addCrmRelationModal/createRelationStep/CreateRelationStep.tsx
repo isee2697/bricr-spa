@@ -16,20 +16,20 @@ export const CreateRelationStep = ({ handleGoTo, onClose, onCreateNewRelation }:
   return (
     <Form onSubmit={onCreateNewRelation} mutators={{ ...arrayMutators }}>
       {({ handleSubmit, submitErrors, values }) => (
-        <>
+        <form onSubmit={handleSubmit}>
           <DialogContent>
             <Grid container spacing={1}>
               <Grid item xs={3}>
                 <GenericField name="firstName" label="crm.relations.first_name" />
               </Grid>
               <Grid item xs={3}>
-                <GenericField name="middleName" label="crm.relations.middle_name" />
+                <GenericField name="insertion" label="crm.relations.middle_name" />
               </Grid>
               <Grid item xs={6}>
                 <GenericField name="lastName" label="crm.relations.last_name" />
               </Grid>
               <Grid item xs={6}>
-                <GenericField name="emailAddress" label="crm.relations.email_address" />
+                <GenericField name="email" label="crm.relations.email_address" />
               </Grid>
               <Grid item xs={6}>
                 <GenericField name="phoneNumber" label="crm.relations.phone_number" />
@@ -44,7 +44,7 @@ export const CreateRelationStep = ({ handleGoTo, onClose, onCreateNewRelation }:
               {formatMessage({ id: 'crm.relation.add_relation.create_new' })}
             </SubmitButton>
           </DialogActions>
-        </>
+        </form>
       )}
     </Form>
   );
