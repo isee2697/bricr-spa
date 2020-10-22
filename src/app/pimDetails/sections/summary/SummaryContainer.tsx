@@ -58,6 +58,7 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
     cadastre,
     pictures = [],
     insideGeneral,
+    mainPicture,
   } = pimInfo.getPim;
   const { outsideFeatures } = pimOutsideInfo.getPimOutside;
   const { specificationAdvanced, inspections } = pimSpecificationInfo.getPimSpecification;
@@ -69,9 +70,12 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
         ? ` (${constructionNumberPrefix ?? ''}${constructionNumber}${constructionNumberAddition ?? ''})`
         : ''
     }, ${city}`,
-    image:
-      (pictures && pictures.length > 0 && (pictures.find(picture => picture.isMainPicture) || pictures[0]).file?.url) ||
-      undefined,
+    image: mainPicture
+      ? mainPicture.file?.url || undefined
+      : (pictures &&
+          pictures.length > 0 &&
+          (pictures.find(picture => picture.isMainPicture) || pictures[0]).file?.url) ||
+        undefined,
     floors: floors || [],
     general: houseGeneral || undefined,
     outside: houseOutside || undefined,

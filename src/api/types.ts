@@ -11175,6 +11175,16 @@ export type PimInfoQuery = { __typename?: 'Query' } & {
               }
           >
         >;
+        mainPicture?: Maybe<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'description' | 'type' | 'name'> & {
+              file?: Maybe<
+                { __typename?: 'File' } & Pick<
+                  File,
+                  'id' | 'fileName' | 'description' | 'fileType' | 'permission' | 'key' | 'signedUrl' | 'url' | 'bucket'
+                >
+              >;
+            }
+        >;
       }
   >;
 };
@@ -18930,6 +18940,23 @@ export const PimInfoDocument = gql`
           bucket
         }
         isMainPicture
+      }
+      mainPicture {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
       }
     }
   }
