@@ -36,7 +36,7 @@ export const MatchProfileList = () => {
       <Page withoutHeader>
         <Grid xs={12} item container className={classes.header}>
           <Typography variant="h1" className={classes.title}>
-            {formatMessage({ id: 'crm.details.perso                            nal_information_match_profile.title' })}
+            {formatMessage({ id: 'crm.details.personal_information_match_profile.title' })}
           </Typography>
 
           <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
