@@ -8353,6 +8353,14 @@ export type CreateProfileMutation = { __typename?: 'Mutation' } & {
   createProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
+export type CreateCompanyMutationVariables = Exact<{
+  input: CreateCompanyInput;
+}>;
+
+export type CreateCompanyMutation = { __typename?: 'Mutation' } & {
+  createCompany: { __typename?: 'Company' } & Pick<Company, 'id'>;
+};
+
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateProfileInput;
 }>;
@@ -11166,6 +11174,16 @@ export type PimInfoQuery = { __typename?: 'Query' } & {
                 >;
               }
           >
+        >;
+        mainPicture?: Maybe<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'description' | 'type' | 'name'> & {
+              file?: Maybe<
+                { __typename?: 'File' } & Pick<
+                  File,
+                  'id' | 'fileName' | 'description' | 'fileType' | 'permission' | 'key' | 'signedUrl' | 'url' | 'bucket'
+                >
+              >;
+            }
         >;
       }
   >;
@@ -14581,6 +14599,27 @@ export type CreateProfileMutationResult = ApolloReactCommon.MutationResult<Creat
 export type CreateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreateProfileMutation,
   CreateProfileMutationVariables
+>;
+export const CreateCompanyDocument = gql`
+  mutation CreateCompany($input: CreateCompanyInput!) {
+    createCompany(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCompanyMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCompanyMutation, CreateCompanyMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCompanyMutation, CreateCompanyMutationVariables>(
+    CreateCompanyDocument,
+    baseOptions,
+  );
+}
+export type CreateCompanyMutationHookResult = ReturnType<typeof useCreateCompanyMutation>;
+export type CreateCompanyMutationResult = ApolloReactCommon.MutationResult<CreateCompanyMutation>;
+export type CreateCompanyMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCompanyMutation,
+  CreateCompanyMutationVariables
 >;
 export const UpdateProfileDocument = gql`
   mutation UpdateProfile($input: UpdateProfileInput!) {
@@ -18901,6 +18940,23 @@ export const PimInfoDocument = gql`
           bucket
         }
         isMainPicture
+      }
+      mainPicture {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
       }
     }
   }

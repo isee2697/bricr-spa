@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(({ spacing, palette, typography, breakpoints }) => ({
   root: {
     '& .MuiPickersStaticWrapper-staticWrapperRoot': {
-      minWidth: 0,
+      minWidth: spacing(30),
       backgroundColor: 'transparent',
     },
     '& .MuiPickersBasePicker-pickerView': {
-      minWidth: 0,
+      minWidth: spacing(30),
     },
     '& .MuiPickersCalendar-transitionContainer': {
       marginTop: 0,
@@ -24,10 +24,6 @@ export const useStyles = makeStyles(({ spacing, palette, typography, breakpoints
       '& .MuiTypography-root ': {
         fontWeight: typography.fontWeightBold,
       },
-      [breakpoints.up('lg')]: {
-        width: spacing(3.6),
-        height: spacing(3.6),
-      },
     },
 
     '& .MuiTypography-h5': {
@@ -41,9 +37,6 @@ export const useStyles = makeStyles(({ spacing, palette, typography, breakpoints
       fontWeight: typography.fontWeightBold,
       paddingTop: spacing(1),
       paddingBottom: spacing(1.5),
-      [breakpoints.up('lg')]: {
-        width: spacing(3.6),
-      },
     },
     '& .MuiPickersCalendarHeader-daysHeader .MuiPickersCalendarHeader-dayLabel:last-child': {
       marginRight: spacing(3.6),
@@ -60,10 +53,6 @@ export const useStyles = makeStyles(({ spacing, palette, typography, breakpoints
         paddingTop: spacing(1),
         paddingBottom: spacing(1.5),
         borderRadius: spacing(1, 1, 0, 0),
-        [breakpoints.up('lg')]: {
-          width: spacing(3.7),
-          right: spacing(-3.8),
-        },
       },
     },
     '& .MuiPickersCalendar-week:last-child .MuiPickersDay-day.MuiPickersDay-dayDisabled:last-child': {

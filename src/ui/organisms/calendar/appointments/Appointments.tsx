@@ -1,45 +1,62 @@
-import { useTheme } from '@material-ui/core/styles';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Appointments as App, AppointmentsProps } from '@devexpress/dx-react-scheduler-material-ui';
 import classNames from 'classnames';
 
-import { AppointmentNodeProps } from './Appointment.types';
+import { DateView } from 'ui/molecules/calendar/Calandar.types';
+import { ShowMore } from 'ui/atoms/showMore/ShowMore';
+
+import {
+  AppointmentContainerProps,
+  AppointmentNodeProps as AppointmentProp,
+  ViewProps,
+  AppointmentComponentProps,
+} from './Appointment.types';
 import { useStyles } from './Appointments.styles';
 
-const AppointmentWeekLayout = (props: App.AppointmentProps) => {
+export const AppointmentComponent = ({ view, ...props }: AppointmentComponentProps) => {
   const color = props.resources.find(item => item.id === props.data.type)?.color as string;
   const classes = useStyles(color);
 
-  return <App.Appointment {...props} className={classNames(classes.root, props.data.allDay && classes.allDay)} />;
+  return (
+    <App.Appointment
+      {...props}
+      className={classNames(
+        classes.root,
+        view !== DateView.Month && props.data.allDay && classes.allDay,
+        view && classes?.[view],
+        props.className,
+      )}
+    />
+  );
 };
 
-const isAllDayAppointmentList = (data: AppointmentNodeProps[]) => {
-  return !!data.find(({ props }) => !!props.params.data?.allDay && props.params.type === 'horizontal');
+const getAppointmentData = (data: AppointmentProp[]) => {
+  return (data[0] || data[1] || data[2]).props.params.data;
 };
 
-const AppointmentContainer = (props: App.ContainerProps & { children?: ReactNode }) => {
-  const { spacing } = useTheme();
-  const children = (props.children ?? []) as AppointmentNodeProps[];
-  const isAllDay = isAllDayAppointmentList(children);
+const AppointmentContainer = ({ view = DateView.Week, ...props }: AppointmentContainerProps) => {
+  const data = getAppointmentData((props.children ?? []) as AppointmentProp[]);
 
-  if (isAllDay) {
-    const transformHeight = parseInt(props.style.transform.match(/\d+/)[0]);
-    const devideHeight = props.style.height < spacing(2) ? spacing(2) : spacing(3);
-    const itemNumber = Math.floor(transformHeight / devideHeight);
+  if (!!data.isShowMoreButton || !!data.isHidden) {
+    const child = !data.isHidden && <ShowMore amount={data.amount} data={data.appointments} />;
 
-    if (itemNumber > 3) {
-      props.style.display = 'none';
-    } else {
-      props.style.height = spacing(3);
-      props.style.transform = `unset`;
-      props.style.msTransform = `unset`;
-      props.style.top = spacing(3.1) * (itemNumber - 1) + 'px';
-    }
+    return <div style={{ ...props.style }}>{child}</div>;
   }
 
   return <App.Container {...props} />;
 };
 
-export const Appointments = (props: AppointmentsProps) => {
-  return <App {...props} containerComponent={AppointmentContainer} appointmentComponent={AppointmentWeekLayout} />;
+export const AppointmentContent = (props: App.AppointmentContentProps) => {
+  return <App.AppointmentContent {...props} />;
+};
+
+export const Appointments = ({ view = DateView.Week, ...props }: AppointmentsProps & ViewProps) => {
+  return (
+    <App
+      {...props}
+      containerComponent={props => <AppointmentContainer {...props} view={view} />}
+      appointmentComponent={props => <AppointmentComponent {...props} view={view} />}
+      appointmentContentComponent={AppointmentContent}
+    />
+  );
 };

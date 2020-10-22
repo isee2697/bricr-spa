@@ -35,13 +35,14 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
       locale={locale}
       firstDayOfWeek={1}
       data={connectDataToResources(data)}
+      currentView={view}
     >
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
       <WeekView />
       <MonthView />
       <AllDayPanel />
-      <Appointments />
+      <Appointments view={view} />
       <CurrentTimeIndicator updateInterval={60000} />
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />
