@@ -24,6 +24,7 @@ export type AdvancedSearchProps = {
   value?: string;
   align?: 'left' | 'center' | 'right';
   showSelected?: boolean;
+  showBackDrop?: boolean;
   classes?: AdvancedSearchClasses;
   onChange: (value: string | number) => void;
 };

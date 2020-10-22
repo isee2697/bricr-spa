@@ -5,5 +5,6 @@ export enum EntityType {
   'LinkedProperty',
   'CrmRelations',
   'CrmBusinesses',
+  'Task',
   'Dms',
 }

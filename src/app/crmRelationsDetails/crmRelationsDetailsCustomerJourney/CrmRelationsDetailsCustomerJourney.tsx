@@ -71,7 +71,7 @@ export const CrmRelationsDetailsCustomerJourney = ({
     <>
       <NavBreadcrumb
         title={formatMessage({ id: 'crm.details.customer_journey.title' })}
-        to="/dashboard"
+        to="/customer_journey"
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <Page withoutHeader>

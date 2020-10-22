@@ -15,6 +15,7 @@ export const ProjectDetailsSidebarMenu = ({
   objectTypeNumber,
   title,
   linkedPropertiesNumber,
+  allocateResultsNumber,
   isVisible,
 }: ProjectDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
@@ -39,6 +40,10 @@ export const ProjectDetailsSidebarMenu = ({
           { key: 'media' },
           { key: 'objectTypes', count: objectTypeNumber },
           { key: 'properties', count: linkedPropertiesNumber },
+          {
+            key: 'allocateResults',
+            count: allocateResultsNumber,
+          },
         ],
       },
     ],

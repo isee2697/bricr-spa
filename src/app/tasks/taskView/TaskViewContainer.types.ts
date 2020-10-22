@@ -4,4 +4,5 @@ export type TaskViewContainerProps = {
   tab: TasksTab;
   members: TeamMemberItem[];
   selectedMembers: TeamMemberItem[];
+  onAddNewTask: VoidFunction;
 };
