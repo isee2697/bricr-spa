@@ -19,6 +19,7 @@ import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContaine
 import { NcpProps } from './ProjectDetails.types';
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
+import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -37,11 +38,12 @@ export const ProjectDetails = ({ data }: NcpProps) => {
     <EntityTypeProvider entityType={EntityType.Project}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
       <NavBreadcrumb title={data?.project.name ?? ''} urlBase={AppRoute.projectDetails} />
-      <Grid container spacing={0}>
+      <Grid container spacing={0} wrap="nowrap">
         <ProjectDetailsSidebarMenu
           onHide={handleSidebarHide}
           isVisible={isSidebarVisible}
           objectTypeNumber={data?.objectTypes.metadata?.total ?? 0}
+          allocateResultsNumber={0}
           title={data?.project.name ?? ''}
           linkedPropertiesNumber={data?.linkedProperties.linkedProperties.metadata?.total ?? 0}
         />
@@ -109,6 +111,12 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               path={`${AppRoute.projectDetails}/salesSettings`}
               render={() => (
                 <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateResults`}
+              render={() => (
+                <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
               )}
             />
             <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />

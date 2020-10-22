@@ -97,6 +97,7 @@ export type Mutation = {
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
   addTag?: Maybe<PimWithNewTag>;
+  addTaskLabel: Label;
   addTeam?: Maybe<Team>;
   addTextChapter?: Maybe<PimWithNewTextChapter>;
   addUserToTeam?: Maybe<Team>;
@@ -132,6 +133,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTaskLabel: Scalars['Boolean'];
   removeTeam?: Maybe<Scalars['String']>;
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
@@ -375,6 +377,10 @@ export type MutationAddTagArgs = {
   input: AddTagInput;
 };
 
+export type MutationAddTaskLabelArgs = {
+  input: LabelInput;
+};
+
 export type MutationAddTeamArgs = {
   input: AddTeamInput;
 };
@@ -512,6 +518,10 @@ export type MutationRemovePimArgs = {
 };
 
 export type MutationRemoveProjectPhaseArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationRemoveTaskLabelArgs = {
   id: Scalars['ID'];
 };
 
@@ -913,6 +923,7 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   getTask?: Maybe<Task>;
+  getTaskLabels?: Maybe<Array<Label>>;
   getTasks?: Maybe<TaskSearchResult>;
   getTasksFullSummary?: Maybe<TaskFullSummaryResult>;
   getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
@@ -1086,6 +1097,11 @@ export type QueryGetProjectPhasesArgs = {
 
 export type QueryGetTaskArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetTaskLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
 };
 
 export type QueryGetTasksArgs = {
@@ -1400,6 +1416,7 @@ export enum ContactAddressType {
 }
 
 export enum ContactPhoneNumberType {
+  MainNumber = 'MainNumber',
   MobileNumber = 'MobileNumber',
   PrivateNumber = 'PrivateNumber',
   BusinessNumber = 'BusinessNumber',
@@ -1408,6 +1425,7 @@ export enum ContactPhoneNumberType {
 }
 
 export enum ContactEmailAddressType {
+  MainAddress = 'MainAddress',
   AddressForMatches = 'AddressForMatches',
   AddressForInvoices = 'AddressForInvoices',
   Private = 'Private',
@@ -1582,10 +1600,10 @@ export type CrmIdentificationNumberInput = {
 
 export type CreateCrmInput = {
   firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
-  gender?: Maybe<GenderType>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type UpdateCrmGeneralInput = {
@@ -1911,6 +1929,7 @@ export enum LabelProperty {
   PollutionInspection = 'PollutionInspection',
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
+  Task = 'Task',
 }
 
 export type Label = {
@@ -6933,7 +6952,7 @@ export type Task = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
 };
@@ -6966,7 +6985,7 @@ export type CreateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
 };
 
 export type UpdateTaskInput = {
@@ -6976,7 +6995,7 @@ export type UpdateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority?: Maybe<TaskPriority>;
-  label?: Maybe<TaskLabel>;
+  label?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
   description?: Maybe<Scalars['String']>;
 };
@@ -7132,6 +7151,14 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
         socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
       }
   >;
+};
+
+export type CreateCrmMutationVariables = Exact<{
+  input: CreateCrmInput;
+}>;
+
+export type CreateCrmMutation = { __typename?: 'Mutation' } & {
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -8326,6 +8353,14 @@ export type CreateProfileMutation = { __typename?: 'Mutation' } & {
   createProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
+export type CreateCompanyMutationVariables = Exact<{
+  input: CreateCompanyInput;
+}>;
+
+export type CreateCompanyMutation = { __typename?: 'Mutation' } & {
+  createCompany: { __typename?: 'Company' } & Pick<Company, 'id'>;
+};
+
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateProfileInput;
 }>;
@@ -8412,6 +8447,14 @@ export type LinkNcpToProjectPhaseMutationVariables = Exact<{
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type AddTaskLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddTaskLabelMutation = { __typename?: 'Mutation' } & {
+  addTaskLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type CreateTaskMutationVariables = Exact<{
@@ -8923,7 +8966,7 @@ export type NcpMediaQuery = { __typename?: 'Query' } & {
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
             }
         >
       >;
@@ -9142,6 +9185,228 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
     };
+};
+
+export type NcpOverallInfoQueryVariables = Exact<{
+  id: Scalars['ID'];
+  archived?: Maybe<Scalars['Boolean']>;
+  picturesSort?: Maybe<Sort>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+}>;
+
+export type NcpOverallInfoQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'startSale' | 'startDelivery' | 'properties' | 'objectTypesCount'
+  >;
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & {
+    pricing?: Maybe<
+      { __typename?: 'CommonPricing' } & {
+        rent?: Maybe<
+          { __typename?: 'CommonRentInformations' } & Pick<
+            CommonRentInformations,
+            'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+          >
+        >;
+        sale?: Maybe<
+          { __typename?: 'CommonSaleInformations' } & Pick<
+            CommonSaleInformations,
+            'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+          >
+        >;
+      }
+    >;
+    costs?: Maybe<
+      { __typename?: 'CommonCosts' } & Pick<CommonCosts, 'description' | 'dateUpdated'> & {
+          costs?: Maybe<
+            Array<
+              { __typename?: 'CommonCost' } & Pick<
+                CommonCost,
+                | 'id'
+                | 'serviceCostsFrom'
+                | 'serviceCostsTill'
+                | 'paymentsFrequency'
+                | 'vatTaxedServiceCostsFrom'
+                | 'vatTaxedServiceCostsTill'
+                | 'vatPercentage'
+                | 'notes'
+                | 'type'
+                | 'name'
+                | 'dateCreated'
+              >
+            >
+          >;
+          lastEditedBy?: Maybe<
+            { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+          >;
+        }
+    >;
+    interests?: Maybe<
+      { __typename?: 'Interests' } & Pick<
+        Interests,
+        | 'groundInterest'
+        | 'buildingInterest'
+        | 'rentedagen'
+        | 'suspensiveCondition'
+        | 'description'
+        | 'dateCreated'
+        | 'dateUpdated'
+      > & {
+          lastEditedBy?: Maybe<
+            { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+          >;
+        }
+    >;
+  };
+  listObjectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListObjectTypes' } & Pick<
+          ListObjectTypes,
+          | 'id'
+          | 'ncpId'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'completeness'
+          | 'matches'
+          | 'interests'
+          | 'propertiesConnected'
+          | 'propertiesAvailable'
+          | 'underOption'
+          | 'soldOrRent'
+          | 'attentionNote'
+        > & {
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+          }
+      >
+    >;
+  };
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
+    NcpMedia,
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+  > & {
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+  getNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<
+    NcpCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      invoiceDetails?: Maybe<
+        { __typename?: 'InvoiceDetails' } & Pick<
+          InvoiceDetails,
+          | 'street'
+          | 'houseNumber'
+          | 'additionalNumber'
+          | 'zipCode'
+          | 'city'
+          | 'country'
+          | 'projectInvoiceNumber'
+          | 'contactPerson'
+          | 'description'
+        >
+      >;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+    };
+  getProjectPhases: { __typename?: 'ProjectPhaseSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id' | 'name' | 'ncpIds'> & {
+            logo?: Maybe<
+              { __typename?: 'File' } & Pick<
+                File,
+                | 'id'
+                | 'fileName'
+                | 'description'
+                | 'status'
+                | 'fileType'
+                | 'permission'
+                | 'key'
+                | 'createdAt'
+                | 'signedUrl'
+                | 'url'
+                | 'bucket'
+                | 'entityID'
+                | 'entity'
+              >
+            >;
+          }
+      >
+    >;
+  };
 };
 
 export type GetNotificationsQueryVariables = Exact<{ [key: string]: never }>;
@@ -11182,6 +11447,15 @@ export type SettingInfoQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetTaskLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetTaskLabelsQuery = { __typename?: 'Query' } & {
+  getTaskLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
+};
+
 export type GetTaskQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -11447,6 +11721,24 @@ export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.Mutati
 export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmContactInformationMutation,
   UpdateCrmContactInformationMutationVariables
+>;
+export const CreateCrmDocument = gql`
+  mutation CreateCrm($input: CreateCrmInput!) {
+    createCrm(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCrmMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCrmMutation, CreateCrmMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCrmMutation, CreateCrmMutationVariables>(CreateCrmDocument, baseOptions);
+}
+export type CreateCrmMutationHookResult = ReturnType<typeof useCreateCrmMutation>;
+export type CreateCrmMutationResult = ApolloReactCommon.MutationResult<CreateCrmMutation>;
+export type CreateCrmMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCrmMutation,
+  CreateCrmMutationVariables
 >;
 export const UpdateCrmGeneralDocument = gql`
   mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
@@ -14298,6 +14590,27 @@ export type CreateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions
   CreateProfileMutation,
   CreateProfileMutationVariables
 >;
+export const CreateCompanyDocument = gql`
+  mutation CreateCompany($input: CreateCompanyInput!) {
+    createCompany(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCompanyMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCompanyMutation, CreateCompanyMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCompanyMutation, CreateCompanyMutationVariables>(
+    CreateCompanyDocument,
+    baseOptions,
+  );
+}
+export type CreateCompanyMutationHookResult = ReturnType<typeof useCreateCompanyMutation>;
+export type CreateCompanyMutationResult = ApolloReactCommon.MutationResult<CreateCompanyMutation>;
+export type CreateCompanyMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCompanyMutation,
+  CreateCompanyMutationVariables
+>;
 export const UpdateProfileDocument = gql`
   mutation UpdateProfile($input: UpdateProfileInput!) {
     updateProfile(input: $input) {
@@ -14537,6 +14850,30 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const AddTaskLabelDocument = gql`
+  mutation AddTaskLabel($input: LabelInput!) {
+    addTaskLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddTaskLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTaskLabelMutation, AddTaskLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTaskLabelMutation, AddTaskLabelMutationVariables>(
+    AddTaskLabelDocument,
+    baseOptions,
+  );
+}
+export type AddTaskLabelMutationHookResult = ReturnType<typeof useAddTaskLabelMutation>;
+export type AddTaskLabelMutationResult = ApolloReactCommon.MutationResult<AddTaskLabelMutation>;
+export type AddTaskLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddTaskLabelMutation,
+  AddTaskLabelMutationVariables
 >;
 export const CreateTaskDocument = gql`
   mutation CreateTask($input: CreateTaskInput!) {
@@ -15462,6 +15799,7 @@ export const NcpMediaDocument = gql`
           id
           key
           fileName
+          url
         }
       }
       mainPictureId
@@ -15838,6 +16176,270 @@ export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServi
 export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
   GetNcpServicesQuery,
   GetNcpServicesQueryVariables
+>;
+export const NcpOverallInfoDocument = gql`
+  query NcpOverallInfo(
+    $id: ID!
+    $archived: Boolean
+    $picturesSort: Sort
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int
+    $limit: Int
+    $name: String
+  ) {
+    getNcp(id: $id) {
+      startSale
+      startDelivery
+      properties
+      objectTypesCount
+    }
+    getNcpPrices(id: $id) {
+      pricing {
+        rent {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        sale {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+      }
+      costs {
+        costs {
+          id
+          serviceCostsFrom
+          serviceCostsTill
+          paymentsFrequency
+          vatTaxedServiceCostsFrom
+          vatTaxedServiceCostsTill
+          vatPercentage
+          notes
+          type
+          name
+          dateCreated
+        }
+        description
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
+      interests {
+        groundInterest
+        buildingInterest
+        rentedagen
+        suspensiveCondition
+        description
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    listObjectTypes(
+      filters: { ncpId: $id, archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        ncpId
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        completeness
+        matches
+        interests
+        propertiesConnected
+        propertiesAvailable
+        underOption
+        soldOrRent
+        attentionNote
+      }
+    }
+    getNcpMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+          url
+        }
+      }
+      mainPictureId
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+    getNcpCharacteristics(id: $id) {
+      id
+      characteristicsSections
+      projectMarketing {
+        logos {
+          id
+          url
+        }
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
+      }
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+      energy {
+        label
+        energyIndex
+        endDateEnergyLabel
+        EPC
+        characteristicType
+        notes
+      }
+      accountManagers {
+        id
+      }
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      invoiceDetails {
+        street
+        houseNumber
+        additionalNumber
+        zipCode
+        city
+        country
+        projectInvoiceNumber
+        contactPerson
+        description
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+    }
+    getProjectPhases(filters: { name: $name, ncpId: $id }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        name
+        logo {
+          id
+          fileName
+          description
+          status
+          fileType
+          permission
+          key
+          createdAt
+          signedUrl
+          url
+          bucket
+          entityID
+          entity
+        }
+        ncpIds
+      }
+    }
+  }
+`;
+export function useNcpOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>(
+    NcpOverallInfoDocument,
+    baseOptions,
+  );
+}
+export function useNcpOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>(
+    NcpOverallInfoDocument,
+    baseOptions,
+  );
+}
+export type NcpOverallInfoQueryHookResult = ReturnType<typeof useNcpOverallInfoQuery>;
+export type NcpOverallInfoLazyQueryHookResult = ReturnType<typeof useNcpOverallInfoLazyQuery>;
+export type NcpOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  NcpOverallInfoQuery,
+  NcpOverallInfoQueryVariables
 >;
 export const GetNotificationsDocument = gql`
   query GetNotifications {
@@ -18794,6 +19396,32 @@ export function useSettingInfoLazyQuery(
 export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
 export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
 export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTaskLabelsDocument = gql`
+  query GetTaskLabels($id: ID!, $properties: [LabelProperty!]) {
+    getTaskLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetTaskLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(GetTaskLabelsDocument, baseOptions);
+}
+export function useGetTaskLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(
+    GetTaskLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetTaskLabelsQueryHookResult = ReturnType<typeof useGetTaskLabelsQuery>;
+export type GetTaskLabelsLazyQueryHookResult = ReturnType<typeof useGetTaskLabelsLazyQuery>;
+export type GetTaskLabelsQueryResult = ApolloReactCommon.QueryResult<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>;
 export const GetTaskDocument = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {

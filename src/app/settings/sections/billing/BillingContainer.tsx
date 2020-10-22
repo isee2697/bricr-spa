@@ -1,41 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Page } from 'ui/templates';
-import { Grid, Box, Card, CardContent } from 'ui/atoms';
-import { useLocale } from 'hooks';
-import { useGetBillingQuery } from 'api/types';
+import { Loader } from 'ui/atoms';
 
-import { useStyles } from './BillingContainer.styles';
+import { Billing } from './Billing';
+import { BillingProps } from './BillingContainer.types';
 
-export const BillingContainer = () => {
-  const { formatMessage } = useLocale();
-  const classes = useStyles();
-  const { data } = useGetBillingQuery();
+export const BillingContainer = ({ billingUrl }: BillingProps) => {
+  const [string, updateString] = useState('');
+  const [loading, updateloading] = useState(true);
 
-  return (
-    <>
-      <Page
-        title={formatMessage({ id: 'settings.billing.title' })}
-        placeholder="settings.workflow_templates.description_placeholder"
-        showHeader
-        headerProps={{ customAction: <></> }}
-      >
-        <Grid item xs={12} className={classes.root}>
-          <Card>
-            <Box p={2}>
-              <CardContent>
-                <iframe
-                  title={formatMessage({ id: 'settings.billing.title' })}
-                  src={data?.getBilling?.url}
-                  width="100%"
-                  height="669"
-                  className={classes.iFrame}
-                />
-              </CardContent>
-            </Box>
-          </Card>
-        </Grid>
-      </Page>
-    </>
-  );
+  useEffect(() => {
+    updateString(billingUrl);
+    updateloading(false);
+  }, [string, billingUrl]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return <Billing billingUrl={string} />;
 };

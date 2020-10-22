@@ -68,10 +68,10 @@ input CrmIdentificationNumberInput {
 
 input CreateCrmInput {
   firstName: String
-  extraNames: String
   insertion: String
   lastName: String
-  gender: GenderType
+  email: String
+  phoneNumber: String
 }
 
 input UpdateCrmGeneralInput {

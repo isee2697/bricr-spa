@@ -3,10 +3,15 @@ import { useParams } from 'react-router-dom';
 
 import { UpdateCrmGeneralInput, useGetCrmGeneralQuery } from 'api/types';
 import { useUpdateCrmGeneralMutation } from 'api/types';
+import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 
 import { PersonalInformationGeneral } from './General';
+import { PersonalInformationGeneralContainerProps } from './General.types';
 
-export const PersonalInformationGeneralContainer = () => {
+export const PersonalInformationGeneralContainer = ({
+  isSidebarVisible,
+  onSidebarOpen,
+}: PersonalInformationGeneralContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const { data } = useGetCrmGeneralQuery({ variables: { id } });
   const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
@@ -26,5 +31,10 @@ export const PersonalInformationGeneralContainer = () => {
     return null;
   }
 
-  return <PersonalInformationGeneral data={crm} onSave={handleSave} />;
+  return (
+    <>
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+      <PersonalInformationGeneral data={crm} onSave={handleSave} />
+    </>
+  );
 };

@@ -4,6 +4,8 @@ import { CrmItem } from '../../crm/Crm.types';
 
 export type CrmRelationsDetailsCustomerJourneyContainerProps = {
   crm: CrmItem;
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
 };
 
 export type CrmRelationsDetailsCustomerJourneyProps = {
@@ -37,7 +39,7 @@ export type CrmRelationsDetailsCustomerJourneyType = {
   rooms: number;
   properties: CrmRelationsCustomerJourneyProperty[];
   price: number;
-  matchStrenth: number;
+  matchStrength: number;
   dateCreated: DateTime;
   brokerages?: CrmRelationsDetailsCustomerJourneyBrokerage[];
   counters?: CrmRelationsDetailsCustomerJourneyCounter[];
@@ -94,7 +96,7 @@ export type CrmRelationsDetailsCustomerJourneyOptant = {
   finalPriceDate: DateTime;
   properties: CrmRelationsCustomerJourneyProperty[];
   price: number;
-  matchStrenth: number;
+  matchStrength: number;
   dateCreated: DateTime;
   conditions: {
     takeOverListOfCases: boolean;

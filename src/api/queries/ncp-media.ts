@@ -21,6 +21,7 @@ export const NCP_MEDIA = gql`
           id
           key
           fileName
+          url
         }
       }
       mainPictureId

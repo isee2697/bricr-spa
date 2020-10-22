@@ -35,7 +35,7 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   popper: {
-    zIndex: 3,
+    zIndex: 1500,
     '&[x-placement*="bottom"] $arrow': {
       top: 0,
       left: 0,
