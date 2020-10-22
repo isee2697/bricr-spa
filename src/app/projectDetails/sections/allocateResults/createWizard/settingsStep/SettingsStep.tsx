@@ -8,10 +8,10 @@ import { CheckboxField, GenericField, QuantityField } from 'form/fields';
 import { ArrowRightIcon, EuroIcon, PercentIcon } from 'ui/atoms/icons';
 import { CreateWizardStepProps } from '../CreateWizard.types';
 
-import { useStyles } from './Settings.styles';
-import { PriceCondition } from './Settings.types';
+import { useStyles } from './SettingsStep.styles';
+import { PriceCondition } from './SettingsStep.types';
 
-export const Settings = ({ onNextStep }: CreateWizardStepProps) => {
+export const SettingsStep = ({ onNextStep }: CreateWizardStepProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isUsingSalesSettings, setIsUsingSalesSettings] = useState(false);

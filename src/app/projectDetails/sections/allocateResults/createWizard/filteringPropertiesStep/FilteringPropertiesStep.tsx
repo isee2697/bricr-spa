@@ -19,9 +19,9 @@ import { AutosaveForm } from 'ui/organisms';
 import { CheckboxField, GenericField } from 'form/fields';
 import { CreateWizardStepProps } from '../CreateWizard.types';
 
-import { useStyles } from './FilteringProperties.styles';
+import { useStyles } from './FilteringPropertiesStep.styles';
 
-export const FilteringProperties = ({ onNextStep, onPreviousStep }: CreateWizardStepProps) => {
+export const FilteringPropertiesStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);

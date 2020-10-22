@@ -5,30 +5,30 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Step, Stepper, StepButton, Typography, StepConnector } from 'ui/atoms';
 import { Page } from 'ui/templates';
 
-import { Settings } from './settings/Settings';
+import { SettingsStep } from './settingsStep/SettingsStep';
 import { useStyles } from './CreateWizard.styles';
-import { FilteringProperties } from './filteringProperties/FilteringProperties';
+import { FilteringPropertiesStep } from './filteringPropertiesStep/FilteringPropertiesStep';
 
 const steps = [
   {
     name: 'settings',
-    component: Settings,
+    component: SettingsStep,
   },
   {
     name: 'filteringProperties',
-    component: FilteringProperties,
+    component: FilteringPropertiesStep,
   },
   {
     name: 'filteringPeople',
-    component: Settings,
+    component: SettingsStep,
   },
   {
     name: 'sorting',
-    component: Settings,
+    component: SettingsStep,
   },
   {
     name: 'result',
-    component: Settings,
+    component: SettingsStep,
   },
 ];
 
