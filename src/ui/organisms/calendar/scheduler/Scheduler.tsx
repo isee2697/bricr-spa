@@ -29,8 +29,6 @@ const convertAppointmentsGroup = (data: AppointmentModel[], groupDate: string, i
     allDay: isAllDay,
   };
 
-  console.log(data);
-
   if (amount > displayMax) {
     data = [
       {
@@ -47,7 +45,6 @@ const convertAppointmentsGroup = (data: AppointmentModel[], groupDate: string, i
       data.push(baseGroupAppointment);
     }
   }
-  console.log('changed', data);
 
   return data;
 };
