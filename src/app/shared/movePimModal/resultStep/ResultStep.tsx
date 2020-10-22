@@ -1,31 +1,17 @@
 import React from 'react';
 import { Field } from 'react-final-form';
+import { DateTime } from 'luxon';
 
 import { useLocale } from 'hooks';
-import { DialogContent, Grid, DialogActions, Button } from 'ui/atoms';
+import { DialogContent, Grid, DialogActions, Button, Typography, Box } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
 import { SelectStepProps } from '../MovePimModal.types';
 import { Checkbox } from 'ui/atoms/checkbox/Checkbox';
 import { ResultTable } from '../resultTable/ResultTable';
+import { useStyles } from '../MovePimModal.styles';
 
-const data = [
-  {
-    selected: <Checkbox color="primary" name="isenburgstraat-36_1" />,
-    title: 'Isenburgstraat 36',
-    date: '11-04-2020',
-    location: 'Breda',
-    price: '€145.000,00',
-  },
-  {
-    selected: <Checkbox color="primary" name="isenburgstraat-36_2" />,
-    title: 'Isenburgstraat 36',
-    date: '11-04-2020',
-    location: 'Breda',
-    price: '€145.000,00',
-  },
-];
-
-export const ResultStep = ({ onPrev, onNext, objects }: SelectStepProps) => {
+export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
+  const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
@@ -34,20 +20,39 @@ export const ResultStep = ({ onPrev, onNext, objects }: SelectStepProps) => {
         <>
           <DialogContent>
             <Grid container>
-              <ResultTable data={data} />
+              {results &&
+                Object.entries(results).length > 0 &&
+                Object.entries(results).map(object => {
+                  return (
+                    <Box mb={4}>
+                      <Typography className={classes.resultTitles} variant="h5">
+                        <strong>{object[1].length}</strong> {object[0]}
+                      </Typography>
+                      <ResultTable
+                        data={object[1].map(item => ({
+                          selected: <Checkbox color="primary" name="isenburgstraat-36_2" />,
+                          title: item.street + ' ' + item.houseNumber,
+                          date: DateTime.fromISO(item.dateCreated).toLocaleString(),
+                          location: item.city,
+                          price: item.salePrice ? String(item.salePrice) : '€145.000,00',
+                        }))}
+                      />
+                    </Box>
+                  );
+                })}
             </Grid>
           </DialogContent>
 
           <DialogActions>
             <Grid container justify="space-between">
               <Grid>
-                <Button color="ghost" size="small" onClick={onPrev}>
-                  {formatMessage({ id: 'add_pim.controls.previous_step' })}
+                <Button variant="outlined" color="primary" size="small" onClick={onPrev}>
+                  {formatMessage({ id: 'move_pim.controls.goto.select_teams' })}
                 </Button>
               </Grid>
               <Grid>
                 <SubmitButton size="large" color="primary" variant="contained" onClick={onNext}>
-                  {formatMessage({ id: 'common.next' })}
+                  {formatMessage({ id: 'move_pim.controls.move_objects' })}
                 </SubmitButton>
               </Grid>
             </Grid>

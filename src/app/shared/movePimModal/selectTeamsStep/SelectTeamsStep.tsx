@@ -43,13 +43,13 @@ export const SelectTeamsStep = ({ onPrev, onNext, objects }: SelectStepProps) =>
           <DialogActions>
             <Grid container justify="space-between">
               <Grid>
-                <Button color="ghost" size="small" onClick={onPrev}>
-                  {formatMessage({ id: 'add_pim.controls.previous_step' })}
+                <Button variant="outlined" color="primary" size="small" onClick={onPrev}>
+                  {formatMessage({ id: 'move_pim.controls.goto.select_objects' })}
                 </Button>
               </Grid>
               <Grid>
                 <SubmitButton size="large" color="primary" variant="contained" onClick={onNext}>
-                  {formatMessage({ id: 'common.next' })}
+                  {formatMessage({ id: 'move_pim.controls.goto.select_results' })}
                 </SubmitButton>
               </Grid>
             </Grid>
