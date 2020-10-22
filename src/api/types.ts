@@ -879,6 +879,7 @@ export type Billing = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
+  crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
   getBilling?: Maybe<Billing>;
@@ -1528,6 +1529,11 @@ export type CrmSocialMediaInput = {
   url: Scalars['String'];
 };
 
+export enum CrmType {
+  Relation = 'Relation',
+  Business = 'Business',
+}
+
 export enum PreferredLanguageType {
   Dutch = 'Dutch',
   English = 'English',
@@ -1599,6 +1605,7 @@ export type CrmIdentificationNumberInput = {
 };
 
 export type CreateCrmInput = {
+  type: CrmType;
   firstName?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
@@ -1679,6 +1686,18 @@ export type UpdateCrmHomeSituationInput = {
   reasonToMove?: Maybe<Array<Scalars['String']>>;
   movingDate?: Maybe<Scalars['Date']>;
   movingInformation?: Maybe<Scalars['String']>;
+};
+
+export type CrmListItem = {
+  __typename?: 'CrmListItem';
+  id: Scalars['ID'];
+  type: CrmType;
+  firstName?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
 };
 
 export type Energy = {
@@ -8629,6 +8648,19 @@ export type GetCrmHomeSituationQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type CrmListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CrmListQuery = { __typename?: 'Query' } & {
+  crmList?: Maybe<
+    Array<
+      { __typename?: 'CrmListItem' } & Pick<
+        CrmListItem,
+        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+      > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+    >
+  >;
+};
+
 export type GetLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
@@ -15226,6 +15258,33 @@ export type GetCrmHomeSituationQueryResult = ApolloReactCommon.QueryResult<
   GetCrmHomeSituationQuery,
   GetCrmHomeSituationQueryVariables
 >;
+export const CrmListDocument = gql`
+  query crmList {
+    crmList {
+      id
+      type
+      firstName
+      insertion
+      lastName
+      phoneNumber
+      email
+      avatar {
+        url
+      }
+    }
+  }
+`;
+export function useCrmListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CrmListQuery, CrmListQueryVariables>) {
+  return ApolloReactHooks.useQuery<CrmListQuery, CrmListQueryVariables>(CrmListDocument, baseOptions);
+}
+export function useCrmListLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CrmListQuery, CrmListQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<CrmListQuery, CrmListQueryVariables>(CrmListDocument, baseOptions);
+}
+export type CrmListQueryHookResult = ReturnType<typeof useCrmListQuery>;
+export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
+export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

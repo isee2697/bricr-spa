@@ -1,0 +1,15 @@
+
+type CrmListItem {
+  id: ID!
+  type: CrmType!
+  firstName: String
+  insertion: String
+  lastName: String
+  phoneNumber: String
+  email: String
+  avatar: File
+}
+
+extend type Query {
+  crmList: [CrmListItem!]
+}
