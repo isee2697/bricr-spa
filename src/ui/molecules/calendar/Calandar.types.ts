@@ -54,4 +54,10 @@ export const CalendarTypeResource = [
     text: CalendarTypes.Task,
     color: palette.orange.main,
   },
-];
+].map(item => ({
+  ...item,
+  fieldName: item.color,
+  title: item.color,
+  isMain: false,
+  allowMultiple: false,
+}));

@@ -1,1 +1,4 @@
-export type FamilyAndContactsProps = {};
+export type FamilyAndContactsProps = {
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
+};

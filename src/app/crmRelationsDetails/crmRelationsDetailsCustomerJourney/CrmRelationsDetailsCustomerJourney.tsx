@@ -29,7 +29,7 @@ import { useStyles } from './CrmRelationsDetailsCustomerJourney.styles';
 import { ListItem } from './listItem/ListItem';
 
 export const CrmRelationsDetailsCustomerJourney = ({
-  crm: { name },
+  crm: { firstName, insertion, lastName },
   items,
   status,
   onStatusChange,
@@ -71,13 +71,13 @@ export const CrmRelationsDetailsCustomerJourney = ({
     <>
       <NavBreadcrumb
         title={formatMessage({ id: 'crm.details.customer_journey.title' })}
-        to="/dashboard"
+        to="/customer_journey"
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <Page withoutHeader>
         <Grid xs={12} item container className={classes.header}>
           <Typography variant="h1" className={classes.title}>
-            {name}
+            {firstName} {insertion} {lastName}
           </Typography>
 
           <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>

@@ -94,20 +94,16 @@ export const CriteriaTypeForm = () => {
                 <Box px={2}>
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
-                      <GenericField
+                      <DatePickerField
                         name="start_date"
                         label="pim_details.sales_settings.criteria_type.start_date"
-                        placeholder="pim_details.sales_settings.criteria_type.start_date_placeholder"
-                        validate={[requireValidator]}
                         disabled={!editing}
                       />
                     </Grid>
                     <Grid item xs={3}>
-                      <GenericField
+                      <DatePickerField
                         name="end_date"
                         label="pim_details.sales_settings.criteria_type.end_date"
-                        placeholder="pim_details.sales_settings.criteria_type.end_date_placeholder"
-                        validate={[requireValidator]}
                         disabled={!editing}
                       />
                     </Grid>

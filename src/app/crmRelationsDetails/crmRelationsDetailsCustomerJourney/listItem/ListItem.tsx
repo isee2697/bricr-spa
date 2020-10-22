@@ -17,7 +17,7 @@ export const ListItem = ({ isShowListHeader, isShowNumber, checked, checkbox, st
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const { index, image, name, price, size, rooms, properties, matchStrenth } = item;
+  const { index, image, name, price, size, rooms, properties, matchStrength } = item;
 
   return (
     <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
@@ -68,13 +68,13 @@ export const ListItem = ({ isShowListHeader, isShowNumber, checked, checkbox, st
                       € {price}
                     </Typography>
                     <Box>
-                      <Typography variant="h6" className={clsx(classes.matchStrenthLabel, classes.fontWeightMedium)}>
+                      <Typography variant="h6" className={clsx(classes.matchStrengthLabel, classes.fontWeightMedium)}>
                         {formatMessage(
                           { id: 'crm.details.customer_journey.match_strenth' },
-                          { percentage: Math.floor(matchStrenth * 100) },
+                          { percentage: Math.floor(matchStrength * 100) },
                         )}
                       </Typography>
-                      <ProgressFilling progress={matchStrenth ?? 0} />
+                      <ProgressFilling progress={matchStrength ?? 0} />
                     </Box>
                   </Box>
                   <Box>

@@ -51,7 +51,7 @@ export const useStyles = makeStyles(theme => ({
   price: {
     marginTop: theme.spacing(2),
   },
-  matchStrenthLabel: {
+  matchStrengthLabel: {
     color: theme.palette.gray.main,
     display: 'inline-block',
     marginRight: theme.spacing(1),
