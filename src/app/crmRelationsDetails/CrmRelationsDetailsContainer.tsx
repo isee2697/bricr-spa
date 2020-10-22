@@ -4,24 +4,29 @@ import { useParams } from 'react-router-dom';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Loader, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { CRMS } from 'api/mocks/crm';
-import { CrmType } from 'app/crm/Crm.types';
+import { CRM as mockCrm } from 'api/mocks/crm';
 import { EntityType } from 'app/shared/entityType';
+import { CrmType, useGetCrmGeneralQuery } from 'api/types';
 
 import { CrmRelationsDetails } from './CrmRelationsDetails';
 
 export const CrmRelationsDetailsContainer = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
+  const { data } = useGetCrmGeneralQuery({ variables: { id } });
 
-  const crm = CRMS.find(t => t.id === id);
-
-  if (!crm) {
+  if (!data?.getCrmGeneral) {
     return <Loader />;
   }
-  const crmType = CrmType.Relations;
+  const {
+    getCrmGeneral: { firstName, insertion, lastName },
+  } = data;
 
-  const title = crm.name;
+  const crm = { ...mockCrm, id, firstName, insertion, lastName };
+
+  const crmType = CrmType.Relation;
+
+  const title = `${firstName || ''} ${insertion || ''} ${lastName || ''}`;
 
   const breadcrumbs = (
     <>
