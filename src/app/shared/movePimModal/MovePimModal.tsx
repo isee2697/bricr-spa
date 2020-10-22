@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Form, AnyObject } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 
 import { Modal, PropertyStage } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { DialogContent, Grid } from 'ui/atoms';
+import { Pim as PimEntity } from 'api/types';
 
 import { MovePimModalProps } from './MovePimModal.types';
 import { SelectObjectStep } from './selectObjectStep/SelectObjectStep';
+import { SelectTeamsStep } from './selectTeamsStep/SelectTeamsStep';
+import { ResultStep } from './resultStep/ResultStep';
 
 const steps = [
   {
@@ -16,15 +20,15 @@ const steps = [
   },
   {
     name: 'select_teams',
-    component: SelectObjectStep,
+    component: SelectTeamsStep,
   },
   {
     name: 'result',
-    component: SelectObjectStep,
+    component: ResultStep,
   },
 ];
 
-export const MovePimModal = ({ onSubmit, isOpen, options }: MovePimModalProps) => {
+export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalProps) => {
   const [step, setStep] = useState(0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
@@ -36,6 +40,22 @@ export const MovePimModal = ({ onSubmit, isOpen, options }: MovePimModalProps) =
 
   const handlePrev = () => {
     setStep(i => i - 1);
+  };
+
+  const generateData = () => {
+    if (data) {
+      const newObjects = Object.entries(JSON.parse(JSON.stringify(data)));
+      const newData: { [key: string]: PimEntity[] } = {};
+
+      newObjects.forEach((object: AnyObject) => {
+        console.log(object[1]);
+        newData[object[0] as string] = object[1].listPims.items as PimEntity[];
+      });
+
+      return newData;
+    }
+
+    return {};
   };
 
   const handleSubmit = async (body: AnyObject) => {
@@ -62,7 +82,7 @@ export const MovePimModal = ({ onSubmit, isOpen, options }: MovePimModalProps) =
   };
 
   return (
-    <Form onSubmit={handleSubmit} initialValues={{}}>
+    <Form onSubmit={handleSubmit} initialValues={{}} mutators={{ ...arrayMutators }}>
       {({ handleSubmit, submitErrors, values }) => (
         <Modal
           fullWidth
@@ -84,6 +104,7 @@ export const MovePimModal = ({ onSubmit, isOpen, options }: MovePimModalProps) =
             {React.createElement(currentStep.component, {
               onNext: handleNext,
               onPrev: handlePrev,
+              objects: data && Object.entries(data).length > 0 ? generateData() : {},
               options,
             })}
           </form>
