@@ -16,7 +16,7 @@ import {
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-import { CalendarProps, ConvertDataFunction, CalendarTypeResource, DateView } from './Calandar.types';
+import { CalendarProps, ConvertDataFunction, CalendarTypeResource } from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
   return schedulerData.map(item => ({

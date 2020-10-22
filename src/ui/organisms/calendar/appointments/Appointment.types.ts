@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import { AnyObject } from 'final-form';
 
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
-import { DayView } from 'ui/organisms/calendar';
 
 export type AppointmentNodeProps = {
   type: (props: AnyObject) => AnyObject;
@@ -19,3 +18,4 @@ export type AppointmentNodeProps = {
 export type ViewProps = { view?: DateView };
 export type AppointmentBaseContainerProps = App.ContainerProps & { children?: ReactNode };
 export type AppointmentContainerProps = AppointmentBaseContainerProps & ViewProps;
+export type AppointmentComponentProps = App.AppointmentProps & ViewProps & { className?: string };

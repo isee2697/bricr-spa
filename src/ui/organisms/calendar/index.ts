@@ -7,7 +7,7 @@ export {
 export { ViewState } from '@devexpress/dx-react-scheduler';
 
 export { AllDayPanel } from './allDayPanel/AllDayPanel';
-export { Appointments } from './appointments/Appointments';
+export { Appointments, AppointmentComponent, AppointmentContent } from './appointments/Appointments';
 export { WeekView } from './weekView/WeekView';
 export { DayView } from './dayView/DayView';
 export { MonthView } from './monthView/MonthView';

@@ -35,7 +35,7 @@ const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (dat
 };
 
 export const CalendarView = ({ data }: CalendarViewProps) => {
-  const [currentView, setView] = useState(DateView.Month);
+  const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();

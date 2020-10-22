@@ -13,8 +13,6 @@ export const useStyles = (color: string = palette.blue.main) =>
     allDay: {
       border: 'none !important',
       borderRadius: spacing(0.5),
-      // marginTop: spacing(0.25),
-      // marginBottom: spacing(0.25),
       paddingTop: spacing(0.25),
       '& [class*="HorizontalAppointment-title"]': {
         fontWeight: typography.fontWeightBold,
@@ -27,7 +25,6 @@ export const useStyles = (color: string = palette.blue.main) =>
       borderTop: `${color} ${spacing(0.5)}px solid`,
     },
     Month: {
-      // height: 40,
       borderRadius: spacing(1),
     },
   }))();

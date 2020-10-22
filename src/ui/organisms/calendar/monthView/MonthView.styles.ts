@@ -9,9 +9,10 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       border: 'none',
     },
     '& [class*="Cell-dayOfWeek-"]': {
-      paddingTop: 0,
+      paddingTop: spacing(0.5),
       color: palette.text.primary,
       fontWeight: typography.fontWeightBold,
+      fontSize: typography.h6.fontSize,
     },
   },
   appointmentRoot: {
