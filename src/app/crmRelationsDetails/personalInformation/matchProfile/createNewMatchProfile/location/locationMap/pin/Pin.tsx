@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { loadModules } from 'esri-loader';
+import { useTheme } from '@material-ui/core';
 
 import { Pin as PinType } from '../LocationMap.types';
 
@@ -7,6 +8,8 @@ import pinSvg from './pin.svg';
 import { PinProps } from './Pin.types';
 
 export const Pin = ({ latitude, longitude, view }: PinProps) => {
+  const { spacing } = useTheme();
+
   useEffect(() => {
     if (!latitude || !longitude || !view) {
       return;
@@ -22,8 +25,8 @@ export const Pin = ({ latitude, longitude, view }: PinProps) => {
       const markerSymbol = {
         type: 'picture-marker',
         url: pinSvg,
-        width: '32px',
-        height: '40px',
+        width: spacing(4),
+        height: spacing(5),
       };
 
       const newPin = new Graphic({
@@ -35,7 +38,7 @@ export const Pin = ({ latitude, longitude, view }: PinProps) => {
       view.graphics.add(newPin);
       view.center = [longitude, latitude];
     });
-  }, [latitude, longitude, view]);
+  }, [latitude, longitude, spacing, view]);
 
   if (!latitude || longitude) {
     return null;

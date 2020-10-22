@@ -1,18 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(({ spacing, palette }) => ({
   map: {
     height: '100%',
   },
   container: {
     position: 'relative',
-    height: '350px',
+    height: spacing(43.75),
   },
   disabledOverlay: {
     position: 'absolute',
     width: '100%',
     height: '100%',
     zIndex: 2,
-    background: 'rgba(255,255,255,0.15)',
+    background: palette.white.light,
   },
 }));
