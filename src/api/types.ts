@@ -1202,6 +1202,14 @@ export enum CalendarTypes {
   Task = 'Task',
 }
 
+export type CalendarGroup = {
+  __typename?: 'CalendarGroup';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+  members?: Maybe<Array<Profile>>;
+};
+
 export enum AppointmentRepeat {
   NoRepeat = 'NoRepeat',
   Daily = 'Daily',

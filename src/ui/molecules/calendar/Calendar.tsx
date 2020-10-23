@@ -16,7 +16,7 @@ import {
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-import { CalendarProps, ConvertDataFunction, CalendarTypeResource } from './Calandar.types';
+import { CalendarProps, ConvertDataFunction, CalendarTypeResource, DateView } from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
   return schedulerData.map(item => ({
@@ -25,13 +25,13 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
   }));
 };
 
-export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
+export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => {
   const { locale } = useLocale();
   const { spacing, breakpoints } = useTheme();
 
   return (
     <Scheduler
-      height={spacing(breakpoints.up('xl') ? 70 : 60)}
+      height={height ?? spacing(breakpoints.up('xl') ? 70 : 60)}
       locale={locale}
       firstDayOfWeek={1}
       data={connectDataToResources(data)}
@@ -39,6 +39,7 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
     >
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
+      <DayView disableHead name={DateView.Group} />
       <WeekView />
       <MonthView />
       <AllDayPanel />
