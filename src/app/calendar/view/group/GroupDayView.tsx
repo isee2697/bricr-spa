@@ -15,22 +15,24 @@ export const GroupDayView = ({ currentDate, data, group }: CalendarGroupViewProp
   const height = spacing(breakpoints.up('xl') ? 70 : 60);
 
   return (
-    <Scrollable width={'100%'} height={height}>
-      <div className={classes.content}>
-        {group.members?.map(member => (
-          <div className="item">
-            <div className={classes.header}>{`${member.firstName} ${member.lastName}`}</div>
-            <div className={classes.borderRight}>
-              <CalendarMolecule
-                height={height - spacing(6)}
-                view={DateView.Group}
-                currentDate={currentDate}
-                data={data}
-              />
+    <div className={classes.root}>
+      <Scrollable width={'100%'} height={height}>
+        <div className="content">
+          {group.members?.map(member => (
+            <div className="item">
+              <div className="header">{`${member.firstName} ${member.lastName}`}</div>
+              <div className="borderRight">
+                <CalendarMolecule
+                  height={height - spacing(6)}
+                  view={DateView.Group}
+                  currentDate={currentDate}
+                  data={data}
+                />
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </Scrollable>
+          ))}
+        </div>
+      </Scrollable>
+    </div>
   );
 };
