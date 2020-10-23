@@ -5,29 +5,30 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Step, Stepper, StepButton, Typography, StepConnector } from 'ui/atoms';
 import { Page } from 'ui/templates';
 
-import { Settings } from './Settings/Settings';
+import { SettingsStep } from './settingsStep/SettingsStep';
 import { useStyles } from './CreateWizard.styles';
+import { FilteringPropertiesStep } from './filteringPropertiesStep/FilteringPropertiesStep';
 
 const steps = [
   {
     name: 'settings',
-    component: <Settings />,
+    component: SettingsStep,
   },
   {
     name: 'filteringProperties',
-    component: <Settings />,
+    component: FilteringPropertiesStep,
   },
   {
     name: 'filteringPeople',
-    component: <Settings />,
+    component: SettingsStep,
   },
   {
     name: 'sorting',
-    component: <Settings />,
+    component: SettingsStep,
   },
   {
     name: 'result',
-    component: <Settings />,
+    component: SettingsStep,
   },
 ];
 
@@ -55,8 +56,20 @@ const TimelineStepConnector = withStyles(theme => ({
 }))(StepConnector);
 
 export const CreateWizard = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const classes = useStyles();
+
+  const handleGoToNextStep = () => {
+    if (activeStep < steps.length - 1) {
+      setActiveStep(activeStep + 1);
+    }
+  };
+
+  const handleGoToPreviousStep = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
 
   return (
     <Page withoutHeader>
@@ -89,7 +102,10 @@ export const CreateWizard = () => {
           </Step>
         ))}
       </Stepper>
-      {steps[activeStep].component}
+      {React.createElement(steps[activeStep].component, {
+        onNextStep: handleGoToNextStep,
+        onPreviousStep: handleGoToPreviousStep,
+      })}
     </Page>
   );
 };
