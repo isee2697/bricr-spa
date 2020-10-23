@@ -38,8 +38,8 @@ const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (dat
 };
 
 export const CalendarView = ({ data, teamMembers, groups }: CalendarViewProps) => {
-  const [selectedGroup, setSelectedGroup] = useState<CalendarGroup | undefined>(groups[0]);
-  const [currentView, setView] = useState(DateView.Group);
+  const [selectedGroup, setSelectedGroup] = useState<CalendarGroup | undefined>();
+  const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
@@ -58,8 +58,8 @@ export const CalendarView = ({ data, teamMembers, groups }: CalendarViewProps) =
       <SidebarMenu
         selectedGroup={selectedGroup}
         onGroupSelect={group => {
-          const isSelected = group.id !== selectedGroup?.id;
-          setView(isSelected ? DateView.Group : DateView.Week);
+          const isSelected = group.id === selectedGroup?.id;
+          setView(isSelected ? DateView.Week : DateView.Group);
           setSelectedGroup(!isSelected ? group : undefined);
         }}
         currentDate={showDate}

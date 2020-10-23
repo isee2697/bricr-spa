@@ -29,6 +29,7 @@ export const CalendarContainer = () => {
   const profiles = (data?.getAllProfiles.items as Profile[]) ?? [];
 
   calendarGroups[0].members = profiles;
+  calendarGroups[1].members = profiles.length ? profiles.slice(0, Math.round(profiles.length / 2)) : null;
 
   return <Calendar groups={calendarGroups} data={profiles} />;
 };

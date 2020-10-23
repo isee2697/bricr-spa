@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { Form } from 'react-final-form';
 
 import {
   Slide,
@@ -15,7 +16,7 @@ import {
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ArrowDownIcon, ArrowUpIcon, CalendarIcon } from 'ui/atoms/icons';
 import { DatePickerCalendar } from 'ui/molecules';
-import { CalendarGroup } from 'api/types';
+import { MembersDropdownField } from 'form/fields';
 
 import { useStyles } from './SidebarMenu.styles';
 import { SidebarMenuProps } from './SidebarMenu.types';
@@ -69,6 +70,11 @@ export const SidebarMenu = ({
                     <DatePickerCalendar currentDate={currentDate.plus({ month: 1 })} onChangeDate={onChangeDate} />
                   </Collapse>
                 </div>
+                <div className={classes.groups}>
+                  <Form onSubmit={() => Promise.resolve(undefined)}>
+                    {() => <MembersDropdownField label="calendar.search.members" members={teamMembers} />}
+                  </Form>
+                </div>
               </>
             )}
             <Button className={classes.showHideButton} onClick={() => setShowGroups(current => !current)}>
@@ -91,7 +97,7 @@ export const SidebarMenu = ({
                       }
                       label={
                         <>
-                          {group?.name}{' '}
+                          {group?.name}
                           <Chip size="medium" className={classes.count} label={group.members?.length ?? '-'} />
                         </>
                       }
