@@ -23,7 +23,7 @@ export const AppointmentComponent = ({ view, ...props }: AppointmentComponentPro
       className={classNames(
         classes.root,
         view !== DateView.Month && props.data.allDay && classes.allDay,
-        view && classes && classes?.[view],
+        view && classes?.[view],
         props.className,
       )}
     />
