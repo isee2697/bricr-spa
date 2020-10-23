@@ -28,7 +28,7 @@ export const AddCrmRelationModalContainer = () => {
     }
 
     if (data) {
-      push(AppRoute.crmGeneral.replace(':id', data.createCrm.id));
+      push(AppRoute.crmRelationsDetails.replace(':id', data.createCrm.id), { newlyAdded: true });
     }
 
     close('add-relation');
