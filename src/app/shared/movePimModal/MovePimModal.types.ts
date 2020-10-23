@@ -30,7 +30,6 @@ export type MovePimSubmit<T = AnyObject> = (
 export type MovePimModalProps = {
   onSubmit: MovePimSubmit;
   isOpen: boolean;
-  // propertyCategory?: string;
   options?: ModalStateOptions;
   data?: { [key: string]: ListPimsQuery };
 };
