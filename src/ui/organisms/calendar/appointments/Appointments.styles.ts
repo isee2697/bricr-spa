@@ -27,5 +27,7 @@ export const useStyles = (color: string = palette.blue.main) =>
     Month: {
       borderRadius: spacing(1),
     },
-    Group: {},
+    Group: {
+      borderTop: `${color} ${spacing(0.5)}px solid`,
+    },
   }))();
