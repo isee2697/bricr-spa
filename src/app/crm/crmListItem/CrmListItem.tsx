@@ -28,9 +28,11 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
   const classes = useStyles({ crm });
 
   const {
-    id,
-    name,
+    firstName,
+    insertion,
+    lastName,
     email,
+    phoneNumber,
     avatar,
     property,
     partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
@@ -75,7 +77,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
     >
       <Box display="flex" mb={3}>
         <Box>
-          <Avatar variant="rounded" src={avatar} className={classes.image}>
+          <Avatar variant="rounded" src={avatar?.url || ''} className={classes.image}>
             {!avatar && <Emoji>{'📷'}</Emoji>}
           </Avatar>
         </Box>
@@ -83,11 +85,11 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
           <Box display="flex" justifyContent="space-between" mb={2}>
             <Box>
               <Typography variant="h3" className={classes.crmUserName}>
-                {name}
+                {firstName} {insertion} {lastName}
               </Typography>
               <Box display="flex">
                 <Box mr={4}>
-                  <HelpIcon className={classes.verticalAlignTop} /> {id}
+                  <HelpIcon className={classes.verticalAlignTop} /> {phoneNumber}
                 </Box>
                 <Box>
                   <MailIcon className={classes.verticalAlignTop} /> {email}
@@ -107,7 +109,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
               </Typography>
               <Box className={classes.inlineBlock}>
                 <Box display="flex" alignItems="center" mb={1} className={classes.avatarWithName}>
-                  <UserAvatar name={property} avatar={avatar} className={classes.avatarIcon} /> {property}
+                  <UserAvatar name={property} avatar={avatar?.url || ''} className={classes.avatarIcon} /> {property}
                 </Box>
               </Box>
               <br />

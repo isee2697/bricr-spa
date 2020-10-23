@@ -4,18 +4,18 @@ import { SideMenu } from 'ui/molecules';
 import { Slide, Grid, SideMenuItem, SidebarHideButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmIcon } from 'ui/atoms/icons';
-import { CrmType } from '../Crm.types';
+import { CrmType } from 'api/types';
 
 import { useStyles } from './CrmSidebarMenu.style';
 import { CrmSidebarMenuProps } from './CrmSidebarMenu.types';
 
 const types = [
   {
-    name: CrmType.Relations,
+    name: CrmType.Relation,
     icon: <CrmIcon />,
   },
   {
-    name: CrmType.Businesses,
+    name: CrmType.Business,
     icon: <CrmIcon />,
   },
 ];

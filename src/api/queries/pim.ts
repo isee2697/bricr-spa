@@ -366,6 +366,23 @@ export const PIM_INFO = gql`
         }
         isMainPicture
       }
+      mainPicture {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
+      }
     }
   }
 `;

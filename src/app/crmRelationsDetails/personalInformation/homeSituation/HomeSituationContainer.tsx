@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom';
 
 import { UpdateCrmHomeSituationInput, useGetCrmHomeSituationQuery } from 'api/types';
 import { useUpdateCrmHomeSituationMutation } from 'api/types';
+import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 
 import { HomeSituation } from './HomeSituation';
+import { HomeSituationContainerProps } from './HomeSituation.types';
 
-export const HomeSituationContainer = () => {
+export const HomeSituationContainer = ({ onSidebarOpen, isSidebarVisible }: HomeSituationContainerProps) => {
   const { id } = useParams<{ id: string }>();
   const { data } = useGetCrmHomeSituationQuery({ variables: { id } });
   const [updateCrmHomeSituation] = useUpdateCrmHomeSituationMutation();
@@ -25,5 +27,10 @@ export const HomeSituationContainer = () => {
     return null;
   }
 
-  return <HomeSituation data={crm} onSave={handleSave} />;
+  return (
+    <>
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+      <HomeSituation data={crm} onSave={handleSave} />
+    </>
+  );
 };

@@ -3,8 +3,7 @@ import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
-import { Box, Grid, Button, Tab, Tabs, Typography } from 'ui/atoms';
-import { FormSection } from 'ui/organisms';
+import { Box, Grid, Button, Tab, Tabs, Typography, Card } from 'ui/atoms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
@@ -31,7 +30,7 @@ const getViewTitle = (view: DateView, currentDate: DateTime, formatMessage: (dat
     case DateView.Day:
       return <Typography variant="h1">{currentDate.toFormat('DDDD')}</Typography>;
     case DateView.Month:
-      return <Typography variant="h1">{currentDate.toFormat('LLLL')}</Typography>;
+      return <Typography variant="h1">{currentDate.toFormat('LLLL yyyy')}</Typography>;
   }
 };
 
@@ -93,7 +92,7 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
           }}
           titleActions={<></>}
         >
-          <FormSection title={formatMessage({ id: 'calendar.week.title' })} isEditable={false}>
+          <Card className={classes.content}>
             <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view === currentView)}>
               {dateValues.map(dateView => (
                 <Tab
@@ -103,9 +102,9 @@ export const CalendarView = ({ data }: CalendarViewProps) => {
                 />
               ))}
             </Tabs>
-
+            <Box mt={2} />
             <CalendarMolecule view={currentView} currentDate={showDate.toJSDate()} data={data} />
-          </FormSection>
+          </Card>
         </Page>
       </Grid>
     </Grid>
