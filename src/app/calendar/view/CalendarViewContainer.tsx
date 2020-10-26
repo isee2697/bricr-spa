@@ -28,7 +28,7 @@ const schedulerData = [
     endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
     title: '',
     overlap: true,
-    type: CalendarTypes.Meeting,
+    allDay: false,
   },
   {
     id: 3,
