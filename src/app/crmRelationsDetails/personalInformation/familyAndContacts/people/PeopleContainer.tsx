@@ -5,20 +5,21 @@ import { Loader } from 'ui/atoms';
 import { usePagination } from 'hooks/usePagination/usePagination';
 
 import { People } from './People';
+import { PeopleProps } from './People.types';
 
-export const PeopleContainer = () => {
+export const PeopleContainer = ({ data, onSave }: PeopleProps) => {
   const { query: paginationQuery } = usePagination({
     itemsCount: 0,
     perPageOptions: ['All'],
   });
-  const { loading, data } = useGetUsersQuery({
+  const { loading, data: usersData } = useGetUsersQuery({
     variables: { ...paginationQuery },
     fetchPolicy: 'no-cache',
   });
 
-  if (loading || !data) {
+  if (loading || !usersData) {
     return <Loader />;
   }
 
-  return <People users={data.getAllProfiles.items || []} />;
+  return <People data={data} onSave={onSave} />;
 };

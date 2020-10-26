@@ -2,45 +2,45 @@ import React from 'react';
 
 import { SquareIcon } from 'ui/atoms/icons';
 
-export const martialStatuses = [
+export const maritalStatuses = [
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.single',
     icon: <SquareIcon color="inherit" />,
-    value: 'single',
+    value: 'Single',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.married_community_of_property',
     icon: <SquareIcon color="inherit" />,
-    value: 'married_community_of_property',
+    value: 'MarriedCommunityOfProperty',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.married_prenuptial_agreements',
     icon: <SquareIcon color="inherit" />,
-    value: 'married_prenuptial_agreements',
+    value: 'MarriedPrenuptialAgreements',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.registered_partner',
     icon: <SquareIcon color="inherit" />,
-    value: 'registered_partner',
+    value: 'RegisteredPartner',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.unmarried',
     icon: <SquareIcon color="inherit" />,
-    value: 'unmarried',
+    value: 'Unmarried',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.living_together',
     icon: <SquareIcon color="inherit" />,
-    value: 'living_together',
+    value: 'LivingTogether',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.widow',
     icon: <SquareIcon color="inherit" />,
-    value: 'widow',
+    value: 'Widow',
   },
   {
     label: 'crm.details.personal_information_family_and_contacts.family.martial_status.widower',
     icon: <SquareIcon color="inherit" />,
-    value: 'widower',
+    value: 'Widower',
   },
 ];

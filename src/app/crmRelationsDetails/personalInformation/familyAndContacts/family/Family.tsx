@@ -6,25 +6,13 @@ import { AutosaveForm } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField, QuantityField } from 'form/fields';
 
 import { useStyles } from './Family.styles';
-import { martialStatuses } from './dictionaries';
+import { maritalStatuses } from './dictionaries';
+import { FamilyProps } from './Family.types';
 
-export const Family = () => {
+export const Family = ({ data, onSave }: FamilyProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-
-  const initialValues = {
-    martialStatus: 'single',
-    martialStatusDate: '',
-    martialStatusExtraInformation: '',
-    compositionChildren: 0,
-    compositionAdults: 0,
-    compositionExtraInformation: '',
-  };
-
-  const onSave = async (values: unknown) => {
-    return { error: false };
-  };
 
   return (
     <Card className={classes.root}>
@@ -40,7 +28,7 @@ export const Family = () => {
         }
       />
       <CardContent>
-        <AutosaveForm onSave={onSave} initialValues={initialValues}>
+        <AutosaveForm onSave={onSave} initialValues={data}>
           <Grid item xs={12}>
             <Box className={classes.marginTopFour}>
               <Box display="flex" justifyContent="space-between">
@@ -56,8 +44,8 @@ export const Family = () => {
               <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
-                  name="martialStatus"
-                  options={martialStatuses}
+                  name="maritalStatus"
+                  options={maritalStatuses}
                   classes={{ groupItem: classes.radioItem }}
                 />
                 <Grid container spacing={1} className={classes.marginTopFour}>
@@ -67,7 +55,7 @@ export const Family = () => {
                         id: 'crm.details.personal_information_family_and_contacts.family.date_of_martial_status',
                       })}
                     </Typography>
-                    <DatePickerField className={classes.formField} disabled={!isEditing} name="martialStatusDate" />
+                    <DatePickerField className={classes.formField} disabled={!isEditing} name="maritalStatusDate" />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} className={classes.marginTopFour}>
@@ -79,7 +67,7 @@ export const Family = () => {
                     </Typography>
                     <GenericField
                       className={classes.formField}
-                      name="martialStatusExtraInformation"
+                      name="maritalStatusInformation"
                       disabled={!isEditing}
                       placeholder="common.put_information_here"
                     />
@@ -108,7 +96,12 @@ export const Family = () => {
                         id: 'crm.details.personal_information_family_and_contacts.family.children',
                       })}
                     </Typography>
-                    <QuantityField min={0} name="compositionChildren" label="quantity.label" disabled={!isEditing} />
+                    <QuantityField
+                      min={0}
+                      name="familyCompositionChildren"
+                      label="quantity.label"
+                      disabled={!isEditing}
+                    />
                   </Grid>
                   <Grid item xs={4}>
                     <Typography variant="h5">
@@ -116,7 +109,12 @@ export const Family = () => {
                         id: 'crm.details.personal_information_family_and_contacts.family.adults',
                       })}
                     </Typography>
-                    <QuantityField min={0} name="compositionAdults" label="quantity.label" disabled={!isEditing} />
+                    <QuantityField
+                      min={0}
+                      name="familyCompositionAdults"
+                      label="quantity.label"
+                      disabled={!isEditing}
+                    />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} className={classes.marginTopFour}>
@@ -128,7 +126,7 @@ export const Family = () => {
                     </Typography>
                     <GenericField
                       className={classes.formField}
-                      name="compositionExtraInformation"
+                      name="familyCompositionInformation"
                       disabled={!isEditing}
                       placeholder="common.put_information_here"
                     />
