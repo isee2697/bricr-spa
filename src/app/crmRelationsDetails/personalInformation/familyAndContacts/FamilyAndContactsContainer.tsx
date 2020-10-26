@@ -7,6 +7,7 @@ import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsD
 
 import { FamilyAndContacts } from './FamilyAndContacts';
 import { FamilyAndContactsContainerProps } from './FamilyAndContacts.types';
+import { Loader } from 'ui/atoms';
 
 export const FamilyAndContactsContainer = ({ isSidebarVisible, onSidebarOpen }: FamilyAndContactsContainerProps) => {
   const { id } = useParams<{ id: string }>();
@@ -24,7 +25,7 @@ export const FamilyAndContactsContainer = ({ isSidebarVisible, onSidebarOpen }: 
   const crm = data?.getCrmFamilyContacts;
 
   if (!crm) {
-    return null;
+    return <Loader />;
   }
 
   return (
