@@ -1,0 +1,63 @@
+enum MaritalStatusType {
+    Single,
+    MarriedCommunityOfProperty,
+    MarriedPrenuptialAgreements,
+    RegisteredPartner,
+    Unmarried,
+    LivingTogether,
+    Widow,
+    Widower
+}
+
+type LinkedCrm {
+  id: ID!
+  firstName: String
+  extraNames: String
+  insertion: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  avatar: File
+}
+
+type CrmContact {
+    type: String!
+    contact: LinkedCrm!
+}
+
+type CrmFamilyContacts {
+  id: ID!
+  maritalStatus: String @uuidOrEnum(enum: ["MaritalStatusType"])
+  maritalStatusDate: Date
+  maritalStatusInformation: String
+  familyCompositionChildren: Int
+  familyCompositionAdults: Int
+  familyCompositionInformation: String
+  partner: LinkedCrm
+  contacts: [CrmContact!]
+}
+
+input UpdateCrmFamilyContactsInput {
+  id: ID!
+  maritalStatus: String @uuidOrEnum(enum: ["MaritalStatusType"])
+  maritalStatusDate: Date
+  maritalStatusInformation: String
+  familyCompositionChildren: Int
+  familyCompositionAdults: Int
+  familyCompositionInformation: String
+  partnerId: ID
+  contacts: [CrmContactInput!]
+}
+
+input CrmContactInput {
+    type: String!
+    contactId: ID!
+}
+
+extend type Mutation {
+  updateCrmFamilyContacts(input: UpdateCrmFamilyContactsInput!): CrmFamilyContacts @auth
+}
+
+extend type Query {
+  getCrmFamilyContacts(id: ID!): CrmFamilyContacts @auth
+}

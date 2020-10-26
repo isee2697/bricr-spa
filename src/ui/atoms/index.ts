@@ -52,6 +52,7 @@ export { default as Grow } from '@material-ui/core/Grow';
 export { default as ClickAwayListener } from '@material-ui/core/ClickAwayListener';
 export { default as NativeMenu } from '@material-ui/core/Menu';
 export { default as Tooltip } from '@material-ui/core/Tooltip';
+export { default as RadioGroup } from '@material-ui/core/RadioGroup';
 
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';

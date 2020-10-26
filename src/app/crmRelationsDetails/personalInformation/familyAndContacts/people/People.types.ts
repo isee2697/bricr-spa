@@ -1,4 +1,4 @@
-import { Profile } from 'api/types';
+import { CrmFamilyContacts } from 'api/types';
 
 export enum ContactType {
   MainContact = 'main_contact',
@@ -7,11 +7,7 @@ export enum ContactType {
   Custom = 'custom',
 }
 
-export type Contact = {
-  profile: Profile;
-  type: ContactType;
-};
-
 export type PeopleProps = {
-  users: Profile[];
+  data: CrmFamilyContacts;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };

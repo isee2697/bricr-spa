@@ -7,6 +7,7 @@ export enum DateView {
   Day = 'Day',
   Week = 'Week',
   Month = 'Month',
+  Group = 'Group',
 }
 
 export type CalendarItem = {
@@ -19,6 +20,7 @@ export type CalendarProps = {
   data: AppointmentModel[];
   currentDate: Date;
   view: DateView;
+  height?: number;
 };
 
 export type ConvertDataFunction = (data: AppointmentModel[]) => AppointmentModel[];
