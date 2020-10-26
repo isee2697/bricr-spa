@@ -32,4 +32,12 @@ export const useStyles = makeStyles(theme => ({
       borderColor: 'transparent',
     },
   },
+  locationLabel: {
+    fontWeight: theme.typography.fontWeightBold,
+    marginLeft: theme.spacing(1),
+  },
+  radiusLabel: {
+    marginBottom: theme.spacing(1),
+    color: theme.palette.gray.main,
+  },
 }));
