@@ -12,7 +12,7 @@ export const useStyles = makeStyles(({ spacing }) => ({
     height: spacing(3.75),
   },
   week: {
-    '& td[class*="TickCell-cell"]': {
+    '& td:first-child': {
       height: spacing(7.5),
     },
   },

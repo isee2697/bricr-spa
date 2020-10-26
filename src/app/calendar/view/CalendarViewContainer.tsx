@@ -24,6 +24,13 @@ const schedulerData = [
     type: CalendarTypes.Meeting,
   },
   {
+    startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
+    title: '',
+    overlap: true,
+    type: CalendarTypes.Meeting,
+  },
+  {
     id: 3,
     startDate: DateTime.fromISO(new Date(now.setHours(7)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),

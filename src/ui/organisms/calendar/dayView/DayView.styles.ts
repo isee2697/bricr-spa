@@ -4,6 +4,8 @@ export const useStyles = makeStyles(({ spacing }) => ({
   root: {
     height: spacing(7.5),
     lineHeight: `${spacing(7.5)}px`,
+    width: spacing(11),
+    minWidth: spacing(11),
     '&[class*="Label-emptyLabel"]': {
       height: spacing(3.75),
     },
@@ -12,8 +14,11 @@ export const useStyles = makeStyles(({ spacing }) => ({
     height: spacing(3.75),
   },
   day: {
-    '& td[class*="TickCell-cell"]': {
+    '& td:first-child': {
       height: spacing(7.5),
+      '& div:first-child': {
+        height: spacing(3.75),
+      },
     },
   },
 }));
