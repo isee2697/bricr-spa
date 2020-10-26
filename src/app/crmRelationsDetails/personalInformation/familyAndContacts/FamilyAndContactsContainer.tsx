@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 import { UpdateCrmFamilyContactsInput, useGetCrmFamilyContactsQuery } from 'api/types';
 import { useUpdateCrmFamilyContactsMutation } from 'api/types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { Loader } from 'ui/atoms';
 
 import { FamilyAndContacts } from './FamilyAndContacts';
 import { FamilyAndContactsContainerProps } from './FamilyAndContacts.types';
-import { Loader } from 'ui/atoms';
 
 export const FamilyAndContactsContainer = ({ isSidebarVisible, onSidebarOpen }: FamilyAndContactsContainerProps) => {
   const { id } = useParams<{ id: string }>();
