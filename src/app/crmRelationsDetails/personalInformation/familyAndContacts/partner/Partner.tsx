@@ -71,7 +71,7 @@ export const Partner = ({ data, onSave }: PartnerProps) => {
               <Button
                 color="primary"
                 variant="contained"
-                //  onClick={() => handleAddNewPartner()}
+                onClick={() => open('link-partner')}
                 startIcon={<LinkIcon color="inherit" />}
                 size="small"
                 className={classes.marginTopTwo}

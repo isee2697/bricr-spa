@@ -92,7 +92,7 @@ export const People = ({ data, onSave }: PeopleProps) => {
               <Button
                 color="primary"
                 variant="contained"
-                //   onClick={() => handleAddNewContact()}
+                onClick={() => open('link-contact')}
                 startIcon={<LinkIcon color="inherit" />}
                 size="small"
                 className={classes.marginTopTwo}
