@@ -5,17 +5,18 @@ import arrayMutators from 'final-form-arrays';
 import { useLocale } from 'hooks';
 import { Modal, SubmitButton } from 'ui/molecules';
 import { Button, DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
-import { AddIcon, BogIcon } from 'ui/atoms/icons';
+import { AddIcon, BogIcon, SquareIcon } from 'ui/atoms/icons';
+import { RadioGroupField } from 'form/fields';
 import { SearchList } from 'ui/organisms';
 
-import { useStyles } from './LinkPartnerModal.styles';
-import { LinkPartnerModalCrmListItem, LinkPartnerModalProps } from './LinkPartnerModal.types';
+import { useStyles } from './LinkContactModal.styles';
+import { LinkContactModalCrmListItem, LinkContactModalProps, LinkProfileType } from './LinkContactModal.types';
 
-export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkPartnerModalProps) => {
+export const LinkContactModal = ({ isOpened, onClose, onSubmit, crmList }: LinkContactModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const filterItem = (item: LinkPartnerModalCrmListItem, currentValue: string) =>
+  const filterItem = (item: LinkContactModalCrmListItem, currentValue: string) =>
     `${item.firstName ?? ''} ${item.insertion ?? ''} ${item.lastName ?? ''}`
       .toLocaleLowerCase()
       .includes(currentValue.toLocaleLowerCase());
@@ -28,12 +29,18 @@ export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkP
     }
   };
 
+  const types = Object.keys(LinkProfileType).map(type => ({
+    label: formatMessage({ id: `crm.relation.link_profile.type.${type}` }),
+    icon: <SquareIcon />,
+    value: type,
+  }));
+
   return (
     <Modal
       fullWidth
       isOpened={isOpened}
       onClose={onClose}
-      title={formatMessage({ id: 'crm.partner.link_partner' })}
+      title={formatMessage({ id: 'crm.partner.link_person' })}
       className={classes.modal}
     >
       <Form onSubmit={onSubmit} mutators={{ ...arrayMutators }}>
@@ -43,9 +50,9 @@ export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkP
               <Typography variant="h6" className={classes.userList}>
                 {formatMessage({ id: 'crm.relation.search_results' })}
               </Typography>
-              <Field name="partner">
+              <Field name="contact">
                 {({ input }) => (
-                  <SearchList<LinkPartnerModalCrmListItem>
+                  <SearchList<LinkContactModalCrmListItem>
                     items={crmList}
                     selectedItemsIds={[]}
                     item={({ item, highlightString }) => (
@@ -66,6 +73,12 @@ export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkP
                   />
                 )}
               </Field>
+              <Box mt={4}>
+                <Typography variant="h2" className={classes.userList}>
+                  {formatMessage({ id: 'crm.relation.link_profile.select_type' })}
+                </Typography>
+                <RadioGroupField name="type" options={types} />
+              </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
               <Button color="ghost" size="small" onClick={onClose}>
