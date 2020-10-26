@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { CalendarTypes } from 'api/types';
-import { CalendarViewProps } from 'app/calendar/view/CalendarView.types';
+import { CalendarViewProps, CalendarFilters } from 'app/calendar/view/CalendarView.types';
 
 import { CalendarView } from './CalendarView';
 
@@ -178,5 +178,16 @@ const schedulerData = [
 ];
 
 export const CalendarViewContainer = ({ teamMembers, groups }: Pick<CalendarViewProps, 'teamMembers' | 'groups'>) => {
-  return <CalendarView data={schedulerData} teamMembers={teamMembers} groups={groups} />;
+  //@Todo when quering selected filters for calendar
+  const [filters, setAppliedFilters] = useState<CalendarFilters>({ selectedDate: DateTime.local() });
+
+  return (
+    <CalendarView
+      data={schedulerData}
+      teamMembers={teamMembers}
+      groups={groups}
+      filters={filters}
+      onFilterChange={setAppliedFilters}
+    />
+  );
 };

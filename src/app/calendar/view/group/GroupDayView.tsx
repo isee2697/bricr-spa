@@ -18,7 +18,7 @@ export const GroupDayView = ({ currentDate, data, group }: CalendarGroupViewProp
     <div className={classes.root}>
       <Scrollable width={'100%'} height={height}>
         <div className="content">
-          {group.members?.map(member => (
+          {group?.members?.map(member => (
             <div className="item">
               <div className="header">{`${member.firstName} ${member.lastName}`}</div>
               <div className="borderRight">

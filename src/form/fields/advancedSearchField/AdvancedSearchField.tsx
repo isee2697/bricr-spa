@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import { useField } from 'react-final-form';
 
 import { useLocale } from 'hooks';
@@ -16,6 +16,7 @@ export const AdvancedSearchField = ({
   validateFields,
   disabled,
   margin,
+  onChange,
   ...props
 }: AdvancedSearchFieldProps) => {
   const { formatMessage } = useLocale();
@@ -30,6 +31,11 @@ export const AdvancedSearchField = ({
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
     (meta.initial !== undefined && meta.initial !== '' && meta.initial !== null && !!meta.error);
 
+  const onChangeValue = (value: ReactText) => {
+    input.onChange(value);
+    onChange && onChange(value);
+  };
+
   return (
     <FormControl margin={margin ?? 'normal'} style={{ width: '100%' }}>
       <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
@@ -37,7 +43,7 @@ export const AdvancedSearchField = ({
       </InputLabel>
       <AdvancedSearch
         value={input.value}
-        onChange={input.onChange}
+        onChange={onChangeValue}
         placeholder={placeholder}
         disabled={disabled}
         {...props}

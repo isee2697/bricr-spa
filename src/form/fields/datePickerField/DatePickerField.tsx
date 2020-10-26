@@ -1,12 +1,11 @@
 import React from 'react';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 import { useField } from 'react-final-form';
 import { DateTime } from 'luxon';
 
-import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { validatorsChain } from 'form/validators';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { dateValidator } from 'form/validators/dateValidator/dateValidator';
+import { DatePicker } from 'ui/molecules';
 
 import { DatePickerFieldProps } from './DatePickerField.types';
 
@@ -33,29 +32,13 @@ export const DatePickerField = ({
     (meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
-    <KeyboardDatePicker
-      views={isYearPicker ? ['year'] : undefined}
-      disableToolbar
-      variant="dialog"
-      format={isYearPicker ? 'yyyy' : 'MM-dd-yyyy'}
-      margin="normal"
-      inputVariant="outlined"
-      fullWidth
-      InputLabelProps={{
-        shrink: true,
-      }}
+    <DatePicker
       error={hasError}
       helperText={
         hasError
           ? formatMessage(meta.error || meta.submitError, { ...meta.error?.values, ...meta.submitError?.values })
           : helperText
       }
-      placeholder={placeholder ? (formatMessage({ id: placeholder }) as string) : undefined}
-      label={typeof label === 'string' ? (formatMessage({ id: label }) as string) : undefined}
-      keyboardIcon={<CalendarIcon />}
-      KeyboardButtonProps={{
-        'aria-label': formatMessage({ id: 'date_picker.aria_label' }),
-      }}
       {...input}
       {...props}
       value={input.value ? DateTime.fromISO(input.value) : null}

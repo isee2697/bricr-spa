@@ -93,4 +93,22 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       top: 24,
       zIndex: 10,
     },
+    input: {
+      padding: 0,
+      height: spacing(6),
+      background: palette.gray.light,
+    },
+    inputInner: {
+      height: spacing(6),
+    },
+    itemLabelWrapper: {
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
+    },
+    searchField: {
+      paddingRight: spacing(1),
+      paddingLeft: spacing(1),
+      height: spacing(6),
+      padding: 0,
+    },
   }))();
