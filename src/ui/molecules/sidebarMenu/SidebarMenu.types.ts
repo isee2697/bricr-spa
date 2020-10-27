@@ -7,6 +7,7 @@ export type SubMenuItem =
       title?: string;
       number?: number;
       icon?: ReactNode;
+      onClick?: VoidFunction;
     }
   | string;
 
@@ -16,6 +17,7 @@ export type MenuItem = {
   count?: number;
   icon?: ReactNode;
   title?: string;
+  onClick?: VoidFunction;
 };
 
 export type MenuGroup = {

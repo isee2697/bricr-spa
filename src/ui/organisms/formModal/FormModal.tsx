@@ -16,6 +16,7 @@ export const FormModal: <T>(p: FormModalProps<T>) => React.ReactElement<FormModa
   children,
   title,
   addText,
+  addIcon,
   initialValues,
   mutators,
 }) => {
@@ -39,7 +40,7 @@ export const FormModal: <T>(p: FormModalProps<T>) => React.ReactElement<FormModa
               </CancelButton>
               <SubmitButton
                 type="submit"
-                startIcon={<AddIcon color="inherit" />}
+                startIcon={addIcon ?? <AddIcon color="inherit" />}
                 size="large"
                 color="primary"
                 variant="contained"

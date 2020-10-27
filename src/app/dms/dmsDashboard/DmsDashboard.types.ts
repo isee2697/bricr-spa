@@ -1,5 +1,5 @@
-import { DmsMeta } from '../Dms.types';
+import { DmsStats } from '../Dms.types';
 
 export type DmsDashboardProps = {
-  dms: DmsMeta;
+  dms: DmsStats;
 };
