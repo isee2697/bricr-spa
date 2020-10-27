@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { DateTime } from 'luxon';
 
 import { EntityType } from 'app/shared/entityType';
 
@@ -11,12 +12,18 @@ export type DmsMeta = {
   expired: number;
 };
 
-export type DmsRequestStatusType = 'request' | 'user_notified' | 'uploaded' | 'accepted';
+export enum DmsRequestStatusType {
+  REQUEST = 'Request',
+  USER_NOTIFIED = 'User Notified',
+  UPLOADED = 'Uploaded',
+  ACCEPTED = 'Accepted',
+}
 
 export type DmsDocument = {
   id: string;
   name?: string;
-  modifiedAt?: string;
+  avatar?: string;
+  modifiedAt?: DateTime;
   requestStatus: DmsRequestStatusType;
   isRejected?: boolean;
   filePath?: string;

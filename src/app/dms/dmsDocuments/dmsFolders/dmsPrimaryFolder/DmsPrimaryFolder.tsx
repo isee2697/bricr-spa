@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
@@ -14,6 +14,13 @@ import { DmsFolderTabs } from './dmsFolderTabs/DmsFolderTabs';
 import { useStyles } from './DmsPrimaryFolder.styles';
 import { DmsPrimaryFolderProps } from './DmsPrimaryFolder.types';
 
+const primaryFolderOptions = [
+  { title: 'Adriaan van Bergenstraat', type: '', value: 'Adriaan van Bergenstraat', icon: 'CH' },
+  { title: 'Adriaan van Hils', type: '', value: 'Adriaan van Hils', icon: 'CH' },
+  { title: 'Adriaan van Bils', type: '', value: 'Adriaan van Bils', icon: 'CH' },
+  { title: 'adriaanse', type: '', value: 'adriaanse', icon: 'CH' },
+];
+
 export const DmsPrimaryFolder = ({
   id,
   name,
@@ -22,22 +29,29 @@ export const DmsPrimaryFolder = ({
   activeFilters,
   onFilter,
   foldersData,
+  isLoading,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
-  const [loading] = useState(false);
 
   return (
     <Grid item xs={12}>
-      <Card>
+      <Card className={classes.root}>
         <CardHeader
           className="dms-primary-folder-header"
           title={[formatMessage({ id: 'dms.documents' }), name].join(' ')}
           action={
             <Box display="flex">
-              <Box mr={3}>
-                <Search options={[]} />
+              <Box mr={3} className={classes.searchBoxWrapper}>
+                <Search
+                  options={primaryFolderOptions}
+                  endAdornment={<></>}
+                  classes={{
+                    root: classes.searchBox,
+                    input: classes.searchBox,
+                  }}
+                />
               </Box>
               <Box mr={3}>
                 <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
@@ -45,14 +59,14 @@ export const DmsPrimaryFolder = ({
             </Box>
           }
         />
-        <CardContent className={classes.listContent}>
-          <Box mx={2}>
+        <CardContent>
+          <Box>
             <DmsFolderTabs status={status} onStatusChange={onStatusChange} />
           </Box>
           <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
-          <Box m={2} p={4}>
+          <Box my={2} p={4}>
             <Grid container>
-              {loading ? (
+              {isLoading ? (
                 <Grid item xs={12}>
                   <PropertyItemPlaceholder />
                 </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
@@ -9,9 +9,11 @@ import { ListPimsFilters, PropertyType, TeamRight } from 'api/types';
 import { DmsFoldersProps } from './DmsFolders.types';
 import { DmsPrimaryFolder } from './dmsPrimaryFolder/DmsPrimaryFolder';
 import { DmsSecondaryFolder } from './dmsSecondaryFolder/DmsSecondaryFolder';
+import { useStyles } from './DmsFolders.styles';
 
 export const DmsFolders = ({ data }: DmsFoldersProps) => {
-  const path = AppRoute.dms + '/documents/' + data.id;
+  const folderPath = AppRoute.dms + '/documents/' + data.id;
+  const classes = useStyles();
 
   const [status, setStatus] = useState(TeamRight.Residential);
   const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
@@ -30,12 +32,29 @@ export const DmsFolders = ({ data }: DmsFoldersProps) => {
 
   return (
     <>
-      <Page withoutHeader>
-        <NavBreadcrumb urlBase={AppRoute.dms + '/documents/'} to={data.id} title={data.name} />
+      <NavBreadcrumb urlBase={AppRoute.dms + '/documents/'} to={data.id} title={data.name} />
+      <Page withoutHeader classes={{ container: classes.page }}>
         <Switch>
-          <Route path={`${path}/:childId`} render={path => <DmsSecondaryFolder />} />
           <Route
-            path={`${path}`}
+            path={`${folderPath}/:childId`}
+            render={path => {
+              const item = data.folders?.find(item => item.id === path.match.params.childId);
+
+              return item ? (
+                <DmsSecondaryFolder
+                  id={item.id}
+                  name={item.name}
+                  isLoading={false}
+                  isError={false}
+                  foldersData={item.folders}
+                />
+              ) : (
+                <Redirect to={folderPath} />
+              );
+            }}
+          />
+          <Route
+            path={`${folderPath}`}
             render={() => (
               <DmsPrimaryFolder
                 id={data.id}

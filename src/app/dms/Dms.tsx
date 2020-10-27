@@ -39,18 +39,20 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
           }}
         />
         <Box flex={1}>
-          <Grid container className={classes.content}>
+          <Grid container className={classes.contentWrapper}>
             <DmsHeader onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
-            {!!dms && (
-              <Switch>
-                <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
-                <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
-                <Route path={`${path}/templates`} render={() => <DmsTemplates />} />
-                <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
-                <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
-                <Redirect to={{ pathname: `${path}/dashboard`, state }} />
-              </Switch>
-            )}
+            <Box className={classes.content}>
+              {!!dms && (
+                <Switch>
+                  <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
+                  <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
+                  <Route path={`${path}/templates`} render={() => <DmsTemplates />} />
+                  <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
+                  <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
+                  <Redirect to={{ pathname: `${path}/dashboard`, state }} />
+                </Switch>
+              )}
+            </Box>
           </Grid>
         </Box>
       </Grid>

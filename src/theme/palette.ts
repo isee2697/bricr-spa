@@ -24,6 +24,9 @@ const greenLight = '#E7F8F0';
 const blue = '#4CB9DF';
 const blueLight = '#ECF8FC';
 const blueDark = '#0A57E9';
+const aqua = '#4DBFF1';
+const aquaLight = '#97DCFD';
+const aquaDark = '#23B7FB';
 const purple = '#813FF6';
 const purpleLight = '#F2EEFC';
 const gradientPrimary = 'linear-gradient(354.85deg, #0A57E9 0%, #9FC0FF 100%)';
@@ -117,5 +120,10 @@ export const palette: PaletteOptions = {
   info: {
     main: primaryInfo,
     dark: blackInfo,
+  },
+  aqua: {
+    main: aqua,
+    light: aquaLight,
+    dark: aquaDark,
   },
 };

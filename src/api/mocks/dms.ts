@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { DmsStats } from 'app/dms/Dms.types';
+import { DmsRequestStatusType, DmsStats } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
 
 export const DMSStats: DmsStats = {
@@ -37,30 +37,33 @@ export const DMSStats: DmsStats = {
                   {
                     id: 'doc_1',
                     name: 'Akte van levering.pdf',
-                    modifiedAt: '22-09-2020',
-                    requestStatus: 'user_notified',
+                    modifiedAt: DateTime.fromJSDate(new Date('2020/09/22')),
+                    requestStatus: DmsRequestStatusType.USER_NOTIFIED,
                     filePath: '',
                     size: 34223,
                     type: 'pdf',
+                    avatar: '',
                   },
                   {
                     id: 'doc_2',
                     name: 'Bewijs van inschrijving.pdf',
-                    modifiedAt: '23-09-2020',
-                    requestStatus: 'request',
+                    modifiedAt: DateTime.fromJSDate(new Date('2020/09/23')),
+                    requestStatus: DmsRequestStatusType.REQUEST,
                     isRejected: true,
                     filePath: '',
                     size: 32223,
                     type: 'pdf',
+                    avatar: '',
                   },
                   {
                     id: 'doc_3',
                     name: 'Inschrijfformulier.docx',
-                    modifiedAt: '16-09-2010',
-                    requestStatus: 'uploaded',
+                    modifiedAt: DateTime.fromJSDate(new Date('2010/09/16')),
+                    requestStatus: DmsRequestStatusType.ACCEPTED,
                     filePath: '',
                     size: 4223,
-                    type: 'pdf',
+                    type: 'docx',
+                    avatar: '',
                   },
                 ],
               },
