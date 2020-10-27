@@ -1645,6 +1645,13 @@ export enum PreferredLetterSalutationType {
   LordMylady = 'LordMylady',
 }
 
+export enum CrmIdentificationNumberType {
+  Sap = 'Sap',
+  Woningnet = 'Woningnet',
+  DebtorNumber = 'DebtorNumber',
+  Custom = 'Custom',
+}
+
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
@@ -1671,14 +1678,15 @@ export type CrmGeneral = {
 
 export type CrmIdentificationNumber = {
   __typename?: 'CrmIdentificationNumber';
-  id: Scalars['ID'];
-  type: Scalars['String'];
+  type: CrmIdentificationNumberType;
   number: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type CrmIdentificationNumberInput = {
-  type: Scalars['String'];
+  type: CrmIdentificationNumberType;
   number: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type CreateCrmInput = {
@@ -7313,7 +7321,7 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'preferredTitleInformation'
     > & {
         identificationNumbers?: Maybe<
-          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
       }
@@ -8757,7 +8765,7 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredTitleInformation'
     > & {
         identificationNumbers?: Maybe<
-          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
       }
@@ -11982,6 +11990,7 @@ export const UpdateCrmGeneralDocument = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id
@@ -15422,6 +15431,7 @@ export const GetCrmGeneralDocument = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id
