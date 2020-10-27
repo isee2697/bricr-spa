@@ -26,8 +26,7 @@ import { useStyles } from './SidebarMenu.styles';
 import { SidebarMenuProps } from './SidebarMenu.types';
 
 export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, onFilterChange }: SidebarMenuProps) => {
-  const [showSecond, setShowSecond] = useState(false);
-  const [showGroups, setShowGroups] = useState(true);
+  const [toggledSections, setToggled] = useState<{ [key: string]: boolean }>({ showGroups: true });
   const currentTeamMember = teamMembers.find(member => member.id === filters.selectedUser);
   const selectedGroup = groups.find(group => group.id === filters.selectedGroup);
   const ref = useRef<HTMLDivElement>(null);
@@ -64,14 +63,21 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                 <div className={classes.pickers}>
                   <DatePickerCalendar currentDate={filters.selectedDate} onChangeDate={onChangeDate} />
                 </div>
-                <Button className={classes.showHideButton} onClick={() => setShowSecond(current => !current)}>
+                <Button
+                  className={classes.showHideButton}
+                  onClick={() =>
+                    setToggled(current => ({ ...current, showSecondCalendar: !current.showSecondCalendar }))
+                  }
+                >
                   <Typography variant="h5">
-                    {formatMessage({ id: `calendar.${showSecond ? 'hide' : 'show'}_second_calendar` })}
+                    {formatMessage({
+                      id: `calendar.${toggledSections.showSecondCalendar ? 'hide' : 'show'}_second_calendar`,
+                    })}
                   </Typography>
-                  {showSecond ? <ArrowDownIcon /> : <ArrowUpIcon />}
+                  {toggledSections.showSecondCalendar ? <ArrowUpIcon /> : <ArrowDownIcon />}
                 </Button>
                 <div className={classes.pickers}>
-                  <Collapse in={showSecond}>
+                  <Collapse in={toggledSections.showSecondCalendar}>
                     <DatePickerCalendar
                       currentDate={filters.selectedDate.plus({ month: 1 })}
                       onChangeDate={onChangeDate}
@@ -89,16 +95,31 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                     )}
                   </Form>
                 </div>
+                <Button
+                  className={classes.showHideButton}
+                  onClick={() => setToggled(current => ({ ...current, myCalendar: !current.myCalendar }))}
+                >
+                  <Typography variant="h5">
+                    {formatMessage({ id: `calendar.${toggledSections.myCalendar ? 'hide' : 'show'}_my_calendar` })}
+                  </Typography>
+                  {toggledSections.myCalendar ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                </Button>
+                <div className={classes.groups}>
+                  <Collapse in={toggledSections.myCalendar}>test</Collapse>
+                </div>
               </>
             )}
-            <Button className={classes.showHideButton} onClick={() => setShowGroups(current => !current)}>
+            <Button
+              className={classes.showHideButton}
+              onClick={() => setToggled(current => ({ ...current, showGroups: !current.showGroups }))}
+            >
               <Typography variant="h5">
-                {formatMessage({ id: `calendar.${showGroups ? 'hide' : 'show'}_groups` })}
+                {formatMessage({ id: `calendar.${toggledSections.showGroups ? 'hide' : 'show'}_groups` })}
               </Typography>
-              {showGroups ? <ArrowDownIcon /> : <ArrowUpIcon />}
+              {toggledSections.showGroups ? <ArrowUpIcon /> : <ArrowDownIcon />}
             </Button>
             <div className={classes.groups}>
-              <Collapse in={showGroups}>
+              <Collapse in={toggledSections.showGroups}>
                 <RadioGroup aria-label="group" name="group">
                   {groups.map(group => (
                     <FormControlLabel
@@ -143,6 +164,7 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                 value={filters.selectedAppointmentType}
               />
             </div>
+            <Box mb={5} />
           </div>
         </div>
       </Grid>
