@@ -17,7 +17,13 @@ enum TaskStatus {
   Done
 }
 
-type Task {
+type TaskLog {
+  timeSpent: Int!
+  dateStarted: Date
+  notes: String
+}
+
+type Task implements LastUpdated {
   id: ID!
   taskIndex: Int!
   title: String!
@@ -28,6 +34,10 @@ type Task {
   label: String! @uuidOrEnum(enum: ["TaskLabel"])
   status: TaskStatus!
   description: String
+  originalEstimate: Int
+  logs: [TaskLog!]
+  lastEditedBy: LastUpdatedProfile
+  dateUpdated: Date
 }
 
 type TaskFullSummaryResult {
@@ -58,6 +68,12 @@ input CreateTaskInput {
   label: String! @uuidOrEnum(enum: ["TaskLabel"])
 }
 
+input TaskLogInput {
+  timeSpent: Int!
+  dateStarted: Date
+  notes: String
+}
+
 input UpdateTaskInput {
   id: ID!
   title: String
@@ -68,6 +84,8 @@ input UpdateTaskInput {
   label: String @uuidOrEnum(enum: ["TaskLabel"])
   status: TaskStatus
   description: String
+  originalEstimate: Int
+  taskLog: TaskLogInput
 }
 
 input DateRange {

@@ -13,6 +13,18 @@ export const GET_TASK = gql`
       label
       status
       description
+      originalEstimate
+      logs {
+        timeSpent
+        dateStarted
+        notes
+      }
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -40,6 +52,18 @@ export const GET_TASKS = gql`
         label
         status
         description
+        originalEstimate
+        logs {
+          timeSpent
+          dateStarted
+          notes
+        }
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }
