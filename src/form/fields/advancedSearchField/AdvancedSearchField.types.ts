@@ -13,4 +13,5 @@ export type AdvancedSearchFieldProps = Pick<
   validateFields?: string[];
   margin?: PropTypes.Margin;
   searchEnabled?: boolean;
+  disableForm?: boolean;
 };

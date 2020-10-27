@@ -41,6 +41,6 @@ const locations: AppointmentLocation[] = [
   },
 ];
 
-export const NewAppointmentContainer = ({ data }: CalendarProps) => {
+export const NewAppointmentContainer = ({ data }: Pick<CalendarProps, 'data'>) => {
   return <NewAppointment locations={locations} members={data} />;
 };

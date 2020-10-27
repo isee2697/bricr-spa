@@ -1,32 +1,31 @@
-import React, { useState } from 'react';
-import { Form } from 'react-final-form';
+import React from 'react';
+import { Field, FieldInputProps, Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
 import { useLocale } from 'hooks';
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Button, DialogActions, DialogContent, TextField, InputAdornment, Typography } from 'ui/atoms';
-import { AddIcon, SearchIcon, UserIcon } from 'ui/atoms/icons';
-import { CheckboxGroupField } from 'form/fields';
-import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
+import { Button, DialogActions, DialogContent, Typography, Box, TileCheckbox } from 'ui/atoms';
+import { AddIcon, BogIcon } from 'ui/atoms/icons';
+import { SearchList } from 'ui/organisms';
 
 import { useStyles } from './LinkPartnerModal.styles';
-import { LinkPartnerModalProps } from './LinkPartnerModal.types';
+import { LinkPartnerModalCrmListItem, LinkPartnerModalProps } from './LinkPartnerModal.types';
 
-export const LinkPartnerModal = ({ isOpened, onClose }: LinkPartnerModalProps) => {
-  const [keyword, setKeyword] = useState('');
+export const LinkPartnerModal = ({ isOpened, onClose, onSubmit, crmList }: LinkPartnerModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
-  const options: CheckboxDataType[] = [
-    {
-      label: 'Anna Kowalska',
-      icon: <UserIcon />,
-      value: '0001',
-    },
-  ];
+  const filterItem = (item: LinkPartnerModalCrmListItem, currentValue: string) =>
+    `${item.firstName ?? ''} ${item.insertion ?? ''} ${item.lastName ?? ''}`
+      .toLocaleLowerCase()
+      .includes(currentValue.toLocaleLowerCase());
 
-  const handleChangeKey = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleSelect = (input: FieldInputProps<string[]>, value: string) => {
+    if (input.value.includes(value)) {
+      input.onChange(input.value.filter((v: string) => v !== value));
+    } else {
+      input.onChange([value]);
+    }
   };
 
   return (
@@ -37,27 +36,36 @@ export const LinkPartnerModal = ({ isOpened, onClose }: LinkPartnerModalProps) =
       title={formatMessage({ id: 'crm.partner.link_partner' })}
       className={classes.modal}
     >
-      <Form onSubmit={() => {}} mutators={{ ...arrayMutators }}>
+      <Form onSubmit={onSubmit} mutators={{ ...arrayMutators }}>
         {({ handleSubmit, submitErrors, values }) => (
-          <>
+          <form onSubmit={handleSubmit}>
             <DialogContent>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                placeholder={formatMessage({ id: 'common.search' })}
-                className={classes.searchField}
-                onChange={handleChangeKey}
-              />
               <Typography variant="h6" className={classes.userList}>
                 {formatMessage({ id: 'crm.relation.search_results' })}
               </Typography>
-              <CheckboxGroupField name="relations" options={options} xs={12} orientation="horizontal" match={keyword} />
+              <Field name="partner">
+                {({ input }) => (
+                  <SearchList<LinkPartnerModalCrmListItem>
+                    items={crmList}
+                    selectedItemsIds={[]}
+                    item={({ item, highlightString }) => (
+                      <Box mb={2}>
+                        <TileCheckbox
+                          onClick={() => handleSelect(input, item.id)}
+                          isSelected={input.value.includes(item.id)}
+                          title={highlightString(
+                            `${item.firstName ?? ''} ${item.insertion ?? ''} ${item.lastName ?? ''}`,
+                          )}
+                          orientation="horizontal"
+                        >
+                          <BogIcon />
+                        </TileCheckbox>
+                      </Box>
+                    )}
+                    filterItem={filterItem}
+                  />
+                )}
+              </Field>
             </DialogContent>
             <DialogActions className={classes.actions}>
               <Button color="ghost" size="small" onClick={onClose}>
@@ -73,7 +81,7 @@ export const LinkPartnerModal = ({ isOpened, onClose }: LinkPartnerModalProps) =
                 {formatMessage({ id: 'crm.relation.link_profile' })}
               </SubmitButton>
             </DialogActions>
-          </>
+          </form>
         )}
       </Form>
     </Modal>

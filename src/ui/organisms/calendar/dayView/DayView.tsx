@@ -27,11 +27,11 @@ const DayLayout = ({ ...props }: Day.LayoutProps) => {
   return <Day.Layout {...props} className={classes.day} />;
 };
 
-export const DayView = (props: DayViewProps) => (
+export const DayView = ({ disableHead, ...props }: DayViewProps & { disableHead?: boolean }) => (
   <Day
     {...props}
+    dayScaleLayoutComponent={disableHead ? () => <></> : DayScale}
     layoutComponent={DayLayout}
-    dayScaleLayoutComponent={DayScale}
     timeScaleLabelComponent={DayScaleLabel}
     timeTableCellComponent={DayTimeTableCell}
   />

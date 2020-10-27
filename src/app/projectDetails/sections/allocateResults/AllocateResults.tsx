@@ -13,7 +13,7 @@ import { CreateWizard } from './createWizard/CreateWizard';
 export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateResultsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isAllocating, setIsAllocating] = useState(false);
+  const [isAllocating, setIsAllocating] = useState(true);
 
   return (
     <div className={classes.root}>
