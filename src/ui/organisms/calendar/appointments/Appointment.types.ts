@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 import { Appointments as App } from '@devexpress/dx-react-scheduler-material-ui';
 import { ReactNode } from 'react';
@@ -13,6 +14,10 @@ export type AppointmentNodeProps = {
       type: 'horizontal' | 'vertical';
     };
   };
+};
+
+export type OverlapProps = {
+  style: CSSProperties;
 };
 
 export type ViewProps = { view?: DateView };
