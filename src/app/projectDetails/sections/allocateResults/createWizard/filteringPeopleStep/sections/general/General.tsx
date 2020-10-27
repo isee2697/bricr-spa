@@ -239,7 +239,7 @@ export const General = () => {
                   ),
                 }}
                 placeholder={formatMessage({
-                  id: 'common.sesarch',
+                  id: 'common.search',
                 })}
                 className={classes.searchField}
                 onChange={handleChangeResidenceKey}
