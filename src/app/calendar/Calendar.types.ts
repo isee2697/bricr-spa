@@ -1,5 +1,6 @@
-import { Profile } from 'api/types';
+import { Profile, CalendarGroup } from 'api/types';
 
 export type CalendarProps = {
   data: Profile[];
+  groups: CalendarGroup[];
 };

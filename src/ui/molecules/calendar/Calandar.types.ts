@@ -4,9 +4,10 @@ import { CalendarTypes } from 'api/types';
 import { palette } from 'theme/palette';
 
 export enum DateView {
-  Week = 'Week',
   Day = 'Day',
+  Week = 'Week',
   Month = 'Month',
+  Group = 'Group',
 }
 
 export type CalendarItem = {
@@ -19,6 +20,7 @@ export type CalendarProps = {
   data: AppointmentModel[];
   currentDate: Date;
   view: DateView;
+  height?: number;
 };
 
 export type ConvertDataFunction = (data: AppointmentModel[]) => AppointmentModel[];
@@ -54,4 +56,10 @@ export const CalendarTypeResource = [
     text: CalendarTypes.Task,
     color: palette.orange.main,
   },
-];
+].map(item => ({
+  ...item,
+  fieldName: item.color,
+  title: item.color,
+  isMain: false,
+  allowMultiple: false,
+}));

@@ -97,6 +97,7 @@ export type Mutation = {
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
   addTag?: Maybe<PimWithNewTag>;
+  addTaskLabel: Label;
   addTeam?: Maybe<Team>;
   addTextChapter?: Maybe<PimWithNewTextChapter>;
   addUserToTeam?: Maybe<Team>;
@@ -132,6 +133,7 @@ export type Mutation = {
   removeObjectTypeLabel: Scalars['Boolean'];
   removePim?: Maybe<Scalars['String']>;
   removeProjectPhase?: Maybe<Scalars['Boolean']>;
+  removeTaskLabel: Scalars['Boolean'];
   removeTeam?: Maybe<Scalars['String']>;
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
@@ -152,6 +154,7 @@ export type Mutation = {
   updateCadastreMap?: Maybe<Pim>;
   updateCost: CostResult;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
+  updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
@@ -375,6 +378,10 @@ export type MutationAddTagArgs = {
   input: AddTagInput;
 };
 
+export type MutationAddTaskLabelArgs = {
+  input: LabelInput;
+};
+
 export type MutationAddTeamArgs = {
   input: AddTeamInput;
 };
@@ -515,6 +522,10 @@ export type MutationRemoveProjectPhaseArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationRemoveTaskLabelArgs = {
+  id: Scalars['ID'];
+};
+
 export type MutationRemoveTeamArgs = {
   id: Scalars['String'];
 };
@@ -594,6 +605,10 @@ export type MutationUpdateCostArgs = {
 
 export type MutationUpdateCrmContactInformationArgs = {
   input: UpdateCrmContactInformationInput;
+};
+
+export type MutationUpdateCrmFamilyContactsArgs = {
+  input: UpdateCrmFamilyContactsInput;
 };
 
 export type MutationUpdateCrmGeneralArgs = {
@@ -869,12 +884,14 @@ export type Billing = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
+  crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
+  getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getLabels?: Maybe<Array<Label>>;
@@ -913,6 +930,7 @@ export type Query = {
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
   getTask?: Maybe<Task>;
+  getTaskLabels?: Maybe<Array<Label>>;
   getTasks?: Maybe<TaskSearchResult>;
   getTasksFullSummary?: Maybe<TaskFullSummaryResult>;
   getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
@@ -940,6 +958,10 @@ export type QueryGetChangesHistoryArgs = {
 };
 
 export type QueryGetCrmContactInformationArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetCrmFamilyContactsArgs = {
   id: Scalars['ID'];
 };
 
@@ -1088,6 +1110,11 @@ export type QueryGetTaskArgs = {
   id: Scalars['ID'];
 };
 
+export type QueryGetTaskLabelsArgs = {
+  parentId: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+};
+
 export type QueryGetTasksArgs = {
   filters?: Maybe<TaskFilters>;
   sort?: Maybe<Array<Sort>>;
@@ -1184,6 +1211,14 @@ export enum CalendarTypes {
   Private = 'Private',
   Task = 'Task',
 }
+
+export type CalendarGroup = {
+  __typename?: 'CalendarGroup';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+  members?: Maybe<Array<Profile>>;
+};
 
 export enum AppointmentRepeat {
   NoRepeat = 'NoRepeat',
@@ -1400,6 +1435,7 @@ export enum ContactAddressType {
 }
 
 export enum ContactPhoneNumberType {
+  MainNumber = 'MainNumber',
   MobileNumber = 'MobileNumber',
   PrivateNumber = 'PrivateNumber',
   BusinessNumber = 'BusinessNumber',
@@ -1408,6 +1444,7 @@ export enum ContactPhoneNumberType {
 }
 
 export enum ContactEmailAddressType {
+  MainAddress = 'MainAddress',
   AddressForMatches = 'AddressForMatches',
   AddressForInvoices = 'AddressForInvoices',
   Private = 'Private',
@@ -1510,6 +1547,70 @@ export type CrmSocialMediaInput = {
   url: Scalars['String'];
 };
 
+export enum MaritalStatusType {
+  Single = 'Single',
+  MarriedCommunityOfProperty = 'MarriedCommunityOfProperty',
+  MarriedPrenuptialAgreements = 'MarriedPrenuptialAgreements',
+  RegisteredPartner = 'RegisteredPartner',
+  Unmarried = 'Unmarried',
+  LivingTogether = 'LivingTogether',
+  Widow = 'Widow',
+  Widower = 'Widower',
+}
+
+export type LinkedCrm = {
+  __typename?: 'LinkedCrm';
+  id: Scalars['ID'];
+  firstName?: Maybe<Scalars['String']>;
+  extraNames?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
+};
+
+export type CrmContact = {
+  __typename?: 'CrmContact';
+  type: Scalars['String'];
+  contact: LinkedCrm;
+};
+
+export type CrmFamilyContacts = {
+  __typename?: 'CrmFamilyContacts';
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partner?: Maybe<LinkedCrm>;
+  contacts?: Maybe<Array<CrmContact>>;
+};
+
+export type UpdateCrmFamilyContactsInput = {
+  id: Scalars['ID'];
+  maritalStatus?: Maybe<Scalars['String']>;
+  maritalStatusDate?: Maybe<Scalars['Date']>;
+  maritalStatusInformation?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  familyCompositionInformation?: Maybe<Scalars['String']>;
+  partnerId?: Maybe<Scalars['ID']>;
+  contacts?: Maybe<Array<CrmContactInput>>;
+};
+
+export type CrmContactInput = {
+  type: Scalars['String'];
+  contactId: Scalars['ID'];
+};
+
+export enum CrmType {
+  Relation = 'Relation',
+  Business = 'Business',
+}
+
 export enum PreferredLanguageType {
   Dutch = 'Dutch',
   English = 'English',
@@ -1581,11 +1682,12 @@ export type CrmIdentificationNumberInput = {
 };
 
 export type CreateCrmInput = {
+  type: CrmType;
   firstName?: Maybe<Scalars['String']>;
-  extraNames?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
-  gender?: Maybe<GenderType>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type UpdateCrmGeneralInput = {
@@ -1661,6 +1763,18 @@ export type UpdateCrmHomeSituationInput = {
   reasonToMove?: Maybe<Array<Scalars['String']>>;
   movingDate?: Maybe<Scalars['Date']>;
   movingInformation?: Maybe<Scalars['String']>;
+};
+
+export type CrmListItem = {
+  __typename?: 'CrmListItem';
+  id: Scalars['ID'];
+  type: CrmType;
+  firstName?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  avatar?: Maybe<File>;
 };
 
 export type Energy = {
@@ -1911,6 +2025,7 @@ export enum LabelProperty {
   PollutionInspection = 'PollutionInspection',
   MaintenanceInspection = 'MaintenanceInspection',
   Cost = 'Cost',
+  Task = 'Task',
 }
 
 export type Label = {
@@ -6933,7 +7048,7 @@ export type Task = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
 };
@@ -6966,7 +7081,7 @@ export type CreateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority: TaskPriority;
-  label: TaskLabel;
+  label: Scalars['String'];
 };
 
 export type UpdateTaskInput = {
@@ -6976,7 +7091,7 @@ export type UpdateTaskInput = {
   startDate?: Maybe<Scalars['Date']>;
   deadline?: Maybe<Scalars['Date']>;
   priority?: Maybe<TaskPriority>;
-  label?: Maybe<TaskLabel>;
+  label?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
   description?: Maybe<Scalars['String']>;
 };
@@ -7132,6 +7247,42 @@ export type UpdateCrmContactInformationMutation = { __typename?: 'Mutation' } & 
         socialMedia?: Maybe<Array<{ __typename?: 'CrmSocialMedia' } & Pick<CrmSocialMedia, 'type' | 'url'>>>;
       }
   >;
+};
+
+export type UpdateCrmFamilyContactsMutationVariables = Exact<{
+  input: UpdateCrmFamilyContactsInput;
+}>;
+
+export type UpdateCrmFamilyContactsMutation = { __typename?: 'Mutation' } & {
+  updateCrmFamilyContacts?: Maybe<
+    { __typename?: 'CrmFamilyContacts' } & Pick<
+      CrmFamilyContacts,
+      | 'id'
+      | 'maritalStatus'
+      | 'maritalStatusDate'
+      | 'maritalStatusInformation'
+      | 'familyCompositionChildren'
+      | 'familyCompositionAdults'
+      | 'familyCompositionInformation'
+    > & {
+        partner?: Maybe<{ __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>>;
+        contacts?: Maybe<
+          Array<
+            { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
+                contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
+              }
+          >
+        >;
+      }
+  >;
+};
+
+export type CreateCrmMutationVariables = Exact<{
+  input: CreateCrmInput;
+}>;
+
+export type CreateCrmMutation = { __typename?: 'Mutation' } & {
+  createCrm: { __typename?: 'CrmGeneral' } & Pick<CrmGeneral, 'id'>;
 };
 
 export type UpdateCrmGeneralMutationVariables = Exact<{
@@ -8326,6 +8477,14 @@ export type CreateProfileMutation = { __typename?: 'Mutation' } & {
   createProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
+export type CreateCompanyMutationVariables = Exact<{
+  input: CreateCompanyInput;
+}>;
+
+export type CreateCompanyMutation = { __typename?: 'Mutation' } & {
+  createCompany: { __typename?: 'Company' } & Pick<Company, 'id'>;
+};
+
 export type UpdateProfileMutationVariables = Exact<{
   input: UpdateProfileInput;
 }>;
@@ -8412,6 +8571,14 @@ export type LinkNcpToProjectPhaseMutationVariables = Exact<{
 
 export type LinkNcpToProjectPhaseMutation = { __typename?: 'Mutation' } & {
   linkNcpToProjectPhase: { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id'>;
+};
+
+export type AddTaskLabelMutationVariables = Exact<{
+  input: LabelInput;
+}>;
+
+export type AddTaskLabelMutation = { __typename?: 'Mutation' } & {
+  addTaskLabel: { __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'text' | 'icon'>;
 };
 
 export type CreateTaskMutationVariables = Exact<{
@@ -8530,6 +8697,38 @@ export type GetCrmContactInformationQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetCrmFamilyContactsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetCrmFamilyContactsQuery = { __typename?: 'Query' } & {
+  getCrmFamilyContacts?: Maybe<
+    { __typename?: 'CrmFamilyContacts' } & Pick<
+      CrmFamilyContacts,
+      | 'id'
+      | 'maritalStatus'
+      | 'maritalStatusDate'
+      | 'maritalStatusInformation'
+      | 'familyCompositionChildren'
+      | 'familyCompositionAdults'
+      | 'familyCompositionInformation'
+    > & {
+        partner?: Maybe<
+          { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'insertion' | 'lastName' | 'email'> & {
+              avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+            }
+        >;
+        contacts?: Maybe<
+          Array<
+            { __typename?: 'CrmContact' } & Pick<CrmContact, 'type'> & {
+                contact: { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id'>;
+              }
+          >
+        >;
+      }
+  >;
+};
+
 export type GetCrmGeneralQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -8582,6 +8781,19 @@ export type GetCrmHomeSituationQuery = { __typename?: 'Query' } & {
       | 'reasonToMove'
       | 'movingDate'
       | 'movingInformation'
+    >
+  >;
+};
+
+export type CrmListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CrmListQuery = { __typename?: 'Query' } & {
+  crmList?: Maybe<
+    Array<
+      { __typename?: 'CrmListItem' } & Pick<
+        CrmListItem,
+        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+      > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
     >
   >;
 };
@@ -8923,7 +9135,7 @@ export type NcpMediaQuery = { __typename?: 'Query' } & {
       pictures?: Maybe<
         Array<
           { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
             }
         >
       >;
@@ -9142,6 +9354,228 @@ export type GetNcpServicesQuery = { __typename?: 'Query' } & {
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
     };
+};
+
+export type NcpOverallInfoQueryVariables = Exact<{
+  id: Scalars['ID'];
+  archived?: Maybe<Scalars['Boolean']>;
+  picturesSort?: Maybe<Sort>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+}>;
+
+export type NcpOverallInfoQuery = { __typename?: 'Query' } & {
+  getNcp: { __typename?: 'NcpGeneral' } & Pick<
+    NcpGeneral,
+    'startSale' | 'startDelivery' | 'properties' | 'objectTypesCount'
+  >;
+  getNcpPrices: { __typename?: 'NcpPricesResult' } & {
+    pricing?: Maybe<
+      { __typename?: 'CommonPricing' } & {
+        rent?: Maybe<
+          { __typename?: 'CommonRentInformations' } & Pick<
+            CommonRentInformations,
+            'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+          >
+        >;
+        sale?: Maybe<
+          { __typename?: 'CommonSaleInformations' } & Pick<
+            CommonSaleInformations,
+            'minPrice' | 'maxPrice' | 'isEnabled' | 'calculateAutomatically'
+          >
+        >;
+      }
+    >;
+    costs?: Maybe<
+      { __typename?: 'CommonCosts' } & Pick<CommonCosts, 'description' | 'dateUpdated'> & {
+          costs?: Maybe<
+            Array<
+              { __typename?: 'CommonCost' } & Pick<
+                CommonCost,
+                | 'id'
+                | 'serviceCostsFrom'
+                | 'serviceCostsTill'
+                | 'paymentsFrequency'
+                | 'vatTaxedServiceCostsFrom'
+                | 'vatTaxedServiceCostsTill'
+                | 'vatPercentage'
+                | 'notes'
+                | 'type'
+                | 'name'
+                | 'dateCreated'
+              >
+            >
+          >;
+          lastEditedBy?: Maybe<
+            { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+          >;
+        }
+    >;
+    interests?: Maybe<
+      { __typename?: 'Interests' } & Pick<
+        Interests,
+        | 'groundInterest'
+        | 'buildingInterest'
+        | 'rentedagen'
+        | 'suspensiveCondition'
+        | 'description'
+        | 'dateCreated'
+        | 'dateUpdated'
+      > & {
+          lastEditedBy?: Maybe<
+            { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+          >;
+        }
+    >;
+  };
+  listObjectTypes: { __typename?: 'ObjectTypeListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ListObjectTypes' } & Pick<
+          ListObjectTypes,
+          | 'id'
+          | 'ncpId'
+          | 'dateCreated'
+          | 'dateUpdated'
+          | 'archived'
+          | 'areaRangeFrom'
+          | 'areaRangeTo'
+          | 'numberOfRoomsFrom'
+          | 'numberOfRoomsTo'
+          | 'name'
+          | 'salePriceFrom'
+          | 'salePriceTo'
+          | 'rentPriceFrom'
+          | 'rentPriceTo'
+          | 'saleLabel'
+          | 'rentLabel'
+          | 'partOfPhase'
+          | 'completeness'
+          | 'matches'
+          | 'interests'
+          | 'propertiesConnected'
+          | 'propertiesAvailable'
+          | 'underOption'
+          | 'soldOrRent'
+          | 'attentionNote'
+        > & {
+            mainPicture?: Maybe<
+              { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                  file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
+          }
+      >
+    >;
+  };
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
+    NcpMedia,
+    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+  > & {
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
+            }
+        >
+      >;
+      mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
+      textChapters?: Maybe<Array<{ __typename?: 'TextChapter' } & Pick<TextChapter, 'id' | 'name' | 'type' | 'text'>>>;
+      usps?: Maybe<Array<{ __typename?: 'Usp' } & Pick<Usp, 'id' | 'name' | 'description' | 'type'>>>;
+      tags?: Maybe<Array<{ __typename?: 'Tag' } & Pick<Tag, 'id' | 'name' | 'description' | 'type'>>>;
+    };
+  getNcpCharacteristics: { __typename?: 'NcpCharacteristics' } & Pick<
+    NcpCharacteristics,
+    | 'id'
+    | 'characteristicsSections'
+    | 'accountManagersIds'
+    | 'attentionNote'
+    | 'dateUpdated'
+    | 'characteristicsDescription'
+  > & {
+      projectMarketing?: Maybe<
+        { __typename?: 'ProjectMarketing' } & Pick<
+          ProjectMarketing,
+          'emailAddress' | 'website' | 'firstColor' | 'secondColor' | 'mainLogoId'
+        > & { logos?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> }
+      >;
+      measurements?: Maybe<
+        { __typename?: 'Measurements' } & Pick<
+          Measurements,
+          | 'volumeFrom'
+          | 'volumeTo'
+          | 'livingSpaceFrom'
+          | 'livingSpaceTo'
+          | 'plotAreaFrom'
+          | 'plotAreaTo'
+          | 'calculateAutomatically'
+        >
+      >;
+      energy?: Maybe<
+        { __typename?: 'Energy' } & Pick<
+          Energy,
+          'label' | 'energyIndex' | 'endDateEnergyLabel' | 'EPC' | 'characteristicType' | 'notes'
+        >
+      >;
+      accountManagers?: Maybe<Array<{ __typename?: 'Profile' } & Pick<Profile, 'id'>>>;
+      identificationNumbers?: Maybe<
+        Array<
+          { __typename?: 'IdentificationNumber' } & Pick<
+            IdentificationNumber,
+            'id' | 'name' | 'number' | 'type' | 'dateCreated'
+          >
+        >
+      >;
+      invoiceDetails?: Maybe<
+        { __typename?: 'InvoiceDetails' } & Pick<
+          InvoiceDetails,
+          | 'street'
+          | 'houseNumber'
+          | 'additionalNumber'
+          | 'zipCode'
+          | 'city'
+          | 'country'
+          | 'projectInvoiceNumber'
+          | 'contactPerson'
+          | 'description'
+        >
+      >;
+      lastEditedBy?: Maybe<
+        { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+      >;
+    };
+  getProjectPhases: { __typename?: 'ProjectPhaseSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'ProjectPhase' } & Pick<ProjectPhase, 'id' | 'name' | 'ncpIds'> & {
+            logo?: Maybe<
+              { __typename?: 'File' } & Pick<
+                File,
+                | 'id'
+                | 'fileName'
+                | 'description'
+                | 'status'
+                | 'fileType'
+                | 'permission'
+                | 'key'
+                | 'createdAt'
+                | 'signedUrl'
+                | 'url'
+                | 'bucket'
+                | 'entityID'
+                | 'entity'
+              >
+            >;
+          }
+      >
+    >;
+  };
 };
 
 export type GetNotificationsQueryVariables = Exact<{ [key: string]: never }>;
@@ -10563,6 +10997,367 @@ export type PimSpecificationQuery = { __typename?: 'Query' } & {
     };
 };
 
+export type PimInfoQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type PimInfoQuery = { __typename?: 'Query' } & {
+  getPim?: Maybe<
+    { __typename?: 'Pim' } & Pick<
+      Pim,
+      | 'street'
+      | 'houseNumberPrefix'
+      | 'houseNumber'
+      | 'houseNumberAddition'
+      | 'constructionNumber'
+      | 'constructionNumberPrefix'
+      | 'constructionNumberAddition'
+      | 'city'
+      | 'developmentType'
+      | 'status'
+      | 'salePrice'
+      | 'rentPrice'
+      | 'description'
+      | 'livingArea'
+      | 'propertyType'
+      | 'attentionNote'
+      | 'completeness'
+      | 'archived'
+    > & {
+        houseGeneral?: Maybe<
+          { __typename?: 'HouseGeneral' } & Pick<HouseGeneral, 'floor' | 'propertyConnection' | 'propertyDetails'> & {
+              availability?: Maybe<
+                { __typename?: 'PropertyAvailabilityInformation' } & Pick<
+                  PropertyAvailabilityInformation,
+                  'availability' | 'from' | 'notes' | 'habitation' | 'currentUse' | 'currentDestination'
+                >
+              >;
+              construction?: Maybe<
+                { __typename?: 'ConstructionInformation' } & Pick<
+                  ConstructionInformation,
+                  'type' | 'from' | 'to' | 'notes'
+                >
+              >;
+            }
+        >;
+        parkingGeneral?: Maybe<
+          { __typename?: 'ParkingLotGeneral' } & {
+            type?: Maybe<{ __typename?: 'TypeOfParking' } & Pick<TypeOfParking, 'type' | 'parkingNumber' | 'notes'>>;
+            measurements?: Maybe<
+              { __typename?: 'ParkingMeasurements' } & Pick<
+                ParkingMeasurements,
+                'length' | 'width' | 'surface' | 'capacity' | 'height' | 'volume'
+              >
+            >;
+            specifications?: Maybe<
+              { __typename?: 'ParkingLotSpecifications' } & Pick<ParkingLotSpecifications, 'type' | 'notes'>
+            >;
+            material?: Maybe<{ __typename?: 'ParkingMaterial' } & Pick<ParkingMaterial, 'type' | 'notes'>>;
+            insulation?: Maybe<{ __typename?: 'ParkingInsulation' } & Pick<ParkingInsulation, 'type' | 'notes'>>;
+          }
+        >;
+        bogGeneral?: Maybe<
+          { __typename?: 'BogGeneral' } & Pick<
+            BogGeneral,
+            'type' | 'characteristics' | 'startsOnFloor' | 'totalFloors' | 'notes'
+          >
+        >;
+        aogGeneral?: Maybe<
+          { __typename?: 'AogGeneral' } & Pick<AogGeneral, 'generalType' | 'additionalPosition'> & {
+              houseLot?: Maybe<
+                { __typename?: 'AogHouseLot' } & Pick<AogHouseLot, 'length' | 'width' | 'surface' | 'amountOfHouses'>
+              >;
+              specifications?: Maybe<
+                Array<{ __typename?: 'AogSpecifications' } & Pick<AogSpecifications, 'type' | 'notes'>>
+              >;
+            }
+        >;
+        houseOutside?: Maybe<
+          { __typename?: 'HouseOutside' } & Pick<HouseOutside, 'notes'> & {
+              generalInformation?: Maybe<
+                { __typename?: 'GeneralInformation' } & Pick<GeneralInformation, 'qualityInformation' | 'notes'> & {
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                  }
+              >;
+              foundation?: Maybe<
+                { __typename?: 'Foundation' } & {
+                  type?: Maybe<
+                    { __typename?: 'FoundationTypeInformations' } & Pick<FoundationTypeInformations, 'type' | 'notes'>
+                  >;
+                  material?: Maybe<
+                    { __typename?: 'FoundationMaterialInformations' } & Pick<
+                      FoundationMaterialInformations,
+                      'type' | 'notes'
+                    >
+                  >;
+                }
+              >;
+              propertyRelated?: Maybe<
+                { __typename?: 'PropertyRelated' } & Pick<PropertyRelated, 'items' | 'notes'> & {
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                  }
+              >;
+              roofInformation?: Maybe<
+                { __typename?: 'RoofInformation' } & Pick<RoofInformation, 'yearOfRoof'> & {
+                    type?: Maybe<{ __typename?: 'RoofType' } & Pick<RoofType, 'name' | 'notes'>>;
+                    material?: Maybe<{ __typename?: 'RoofMaterial' } & Pick<RoofMaterial, 'name' | 'notes'>>;
+                    insulation?: Maybe<{ __typename?: 'RoofInsulation' } & Pick<RoofInsulation, 'name' | 'notes'>>;
+                    images?: Maybe<
+                      Array<
+                        { __typename?: 'File' } & Pick<
+                          File,
+                          | 'id'
+                          | 'fileName'
+                          | 'description'
+                          | 'status'
+                          | 'fileType'
+                          | 'permission'
+                          | 'key'
+                          | 'signedUrl'
+                          | 'url'
+                          | 'bucket'
+                        >
+                      >
+                    >;
+                    gutter?: Maybe<{ __typename?: 'GutterInformations' } & Pick<GutterInformations, 'type' | 'notes'>>;
+                    gutterMaterial?: Maybe<
+                      { __typename?: 'GutterMaterialInformations' } & Pick<
+                        GutterMaterialInformations,
+                        'material' | 'notes'
+                      >
+                    >;
+                  }
+              >;
+            }
+        >;
+        floors?: Maybe<
+          Array<
+            { __typename?: 'Floor' } & Pick<Floor, 'id' | 'floorDescription' | 'level' | 'floorType'> & {
+                spaces?: Maybe<
+                  Array<
+                    { __typename?: 'Space' } & Pick<
+                      Space,
+                      'id' | 'spaceType' | 'spaceName' | 'extraRoomPossibility'
+                    > & {
+                        configuration?: Maybe<
+                          | ({ __typename?: 'KitchenSpace' } & Pick<
+                              KitchenSpace,
+                              | 'constructionYear'
+                              | 'notes'
+                              | 'constructionType'
+                              | 'servicesNotes'
+                              | 'hob'
+                              | 'shape'
+                              | 'serviceHeating'
+                            > & { kitchenType: KitchenSpace['type']; kitchenServices: KitchenSpace['services'] } & {
+                                appliances?: Maybe<
+                                  Array<
+                                    Maybe<
+                                      { __typename?: 'KitchenAppliance' } & Pick<
+                                        KitchenAppliance,
+                                        'name' | 'quantity' | 'notes'
+                                      >
+                                    >
+                                  >
+                                >;
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'BathroomSpace' } & Pick<
+                              BathroomSpace,
+                              'constructionYear' | 'shape' | 'serviceHeating'
+                            > & { bathroomServices: BathroomSpace['services'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'LivingRoomSpace' } & Pick<
+                              LivingRoomSpace,
+                              'shape' | 'stairs' | 'serviceHeating'
+                            > & { livingRoomType: LivingRoomSpace['type'] } & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'BedroomSpace' } & Pick<
+                              BedroomSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'HomeOfficeSpace' } & Pick<
+                              HomeOfficeSpace,
+                              'notes' | 'shape' | 'serviceHeating'
+                            > & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                          | ({ __typename?: 'OtherSpace' } & Pick<OtherSpace, 'notes' | 'shape' | 'serviceHeating'> & {
+                                measurement?: Maybe<
+                                  { __typename?: 'CuboidMeasurement' } & Pick<
+                                    CuboidMeasurement,
+                                    'length' | 'width' | 'height' | 'surface' | 'volume'
+                                  >
+                                >;
+                                images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'url'>>>;
+                              })
+                        >;
+                      }
+                  >
+                >;
+              }
+          >
+        >;
+        insideGeneral?: Maybe<
+          { __typename?: 'InsideGeneral' } & Pick<InsideGeneral, 'notes'> & {
+              windows?: Maybe<{ __typename?: 'InsideWindows' } & Pick<InsideWindows, 'types' | 'notes'>>;
+              extension?: Maybe<{ __typename?: 'Extension' } & Pick<Extension, 'yearOfExtension' | 'notes'>>;
+              renovation?: Maybe<{ __typename?: 'Renovation' } & Pick<Renovation, 'yearOfRenovation'>>;
+            }
+        >;
+        cadastre?: Maybe<
+          Array<
+            { __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'description' | 'mapsDescription' | 'type'> & {
+                maps?: Maybe<
+                  Array<
+                    { __typename?: 'CadastreMap' } & Pick<CadastreMap, 'id' | 'mapName' | 'name' | 'type'> & {
+                        file?: Maybe<
+                          { __typename?: 'File' } & Pick<
+                            File,
+                            | 'id'
+                            | 'fileName'
+                            | 'description'
+                            | 'status'
+                            | 'fileType'
+                            | 'permission'
+                            | 'key'
+                            | 'signedUrl'
+                            | 'url'
+                            | 'bucket'
+                          >
+                        >;
+                      }
+                  >
+                >;
+                plot?: Maybe<
+                  { __typename?: 'CadastrePlot' } & Pick<
+                    CadastrePlot,
+                    | 'notes'
+                    | 'name'
+                    | 'municipalCode'
+                    | 'sectionCode'
+                    | 'plot'
+                    | 'indexNumber'
+                    | 'surface'
+                    | 'share'
+                    | 'codeSize'
+                    | 'ownershipChoice'
+                    | 'ownershipType'
+                  > & {
+                      lease?: Maybe<
+                        { __typename?: 'Lease' } & Pick<
+                          Lease,
+                          'leaseholder' | 'information' | 'duration' | 'yearlyPrice' | 'endDate'
+                        >
+                      >;
+                      boughtOff?: Maybe<
+                        { __typename?: 'BoughtOff' } & Pick<BoughtOff, 'date' | 'perpetually' | 'notes'>
+                      >;
+                    }
+                >;
+              }
+          >
+        >;
+        pictures?: Maybe<
+          Array<
+            { __typename?: 'Picture' } & Pick<Picture, 'id' | 'description' | 'type' | 'name' | 'isMainPicture'> & {
+                file?: Maybe<
+                  { __typename?: 'File' } & Pick<
+                    File,
+                    | 'id'
+                    | 'fileName'
+                    | 'description'
+                    | 'fileType'
+                    | 'permission'
+                    | 'key'
+                    | 'signedUrl'
+                    | 'url'
+                    | 'bucket'
+                  >
+                >;
+              }
+          >
+        >;
+        mainPicture?: Maybe<
+          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'description' | 'type' | 'name'> & {
+              file?: Maybe<
+                { __typename?: 'File' } & Pick<
+                  File,
+                  'id' | 'fileName' | 'description' | 'fileType' | 'permission' | 'key' | 'signedUrl' | 'url' | 'bucket'
+                >
+              >;
+            }
+        >;
+      }
+  >;
+};
+
 export type PimOverallInfoQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -10587,7 +11382,71 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
     >;
   };
   getPimOutside: { __typename?: 'PimOutside' } & {
-    outsideFeatures?: Maybe<Array<{ __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type'>>>;
+    outsideFeatures?: Maybe<
+      Array<
+        { __typename?: 'OutsideFeature' } & Pick<OutsideFeature, 'id' | 'type' | 'description'> & {
+            configuration?: Maybe<
+              | ({ __typename?: 'GardenFeature' } & Pick<
+                  GardenFeature,
+                  'main' | 'type' | 'notes' | 'quality' | 'location' | 'shape'
+                > & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'GarageFeature' } & Pick<
+                  GarageFeature,
+                  'main' | 'attached' | 'attic' | 'secondaryWindows' | 'materials' | 'notes'
+                > & {
+                    garageTypes: GarageFeature['types'];
+                    garageInsulations: GarageFeature['insulations'];
+                    garageServices: GarageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'StorageFeature' } & Pick<
+                  StorageFeature,
+                  'main' | 'attached' | 'materials' | 'secondaryWindows' | 'notes'
+                > & {
+                    storageTypes: StorageFeature['types'];
+                    storageInsulations: StorageFeature['insulations'];
+                    storageServices: StorageFeature['services'];
+                  } & {
+                    measurement?: Maybe<
+                      { __typename?: 'CuboidMeasurement' } & Pick<
+                        CuboidMeasurement,
+                        'length' | 'width' | 'height' | 'surface' | 'volume'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'TerrainFeature' } & Pick<TerrainFeature, 'parking' | 'notes'> & {
+                    measurement?: Maybe<
+                      { __typename?: 'RectangleMeasurement' } & Pick<
+                        RectangleMeasurement,
+                        'length' | 'width' | 'surface'
+                      >
+                    >;
+                    images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>>;
+                  })
+              | ({ __typename?: 'ParkingLotFeature' } & Pick<
+                  ParkingLotFeature,
+                  'number' | 'price' | 'cost' | 'notes'
+                > & { images?: Maybe<Array<{ __typename?: 'File' } & Pick<File, 'id' | 'url'>>> })
+            >;
+          }
+      >
+    >;
   };
   getPimCadastre: { __typename?: 'PimCadastre' } & {
     cadastre?: Maybe<Array<{ __typename?: 'Cadastre' } & Pick<Cadastre, 'id' | 'type'>>>;
@@ -10765,6 +11624,15 @@ export type SettingInfoQuery = { __typename?: 'Query' } & {
   getTeams?: Maybe<
     { __typename?: 'TeamSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Team' } & Pick<Team, 'id' | 'name'>>> }
   >;
+};
+
+export type GetTaskLabelsQueryVariables = Exact<{
+  id: Scalars['ID'];
+  properties?: Maybe<Array<LabelProperty>>;
+}>;
+
+export type GetTaskLabelsQuery = { __typename?: 'Query' } & {
+  getTaskLabels?: Maybe<Array<{ __typename?: 'Label' } & Pick<Label, 'id' | 'property' | 'icon' | 'text'>>>;
 };
 
 export type GetTaskQueryVariables = Exact<{
@@ -11032,6 +11900,63 @@ export type UpdateCrmContactInformationMutationResult = ApolloReactCommon.Mutati
 export type UpdateCrmContactInformationMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateCrmContactInformationMutation,
   UpdateCrmContactInformationMutationVariables
+>;
+export const UpdateCrmFamilyContactsDocument = gql`
+  mutation UpdateCrmFamilyContacts($input: UpdateCrmFamilyContactsInput!) {
+    updateCrmFamilyContacts(input: $input) {
+      id
+      maritalStatus
+      maritalStatusDate
+      maritalStatusInformation
+      familyCompositionChildren
+      familyCompositionAdults
+      familyCompositionInformation
+      partner {
+        id
+      }
+      contacts {
+        type
+        contact {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useUpdateCrmFamilyContactsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateCrmFamilyContactsMutation,
+    UpdateCrmFamilyContactsMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateCrmFamilyContactsMutation, UpdateCrmFamilyContactsMutationVariables>(
+    UpdateCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export type UpdateCrmFamilyContactsMutationHookResult = ReturnType<typeof useUpdateCrmFamilyContactsMutation>;
+export type UpdateCrmFamilyContactsMutationResult = ApolloReactCommon.MutationResult<UpdateCrmFamilyContactsMutation>;
+export type UpdateCrmFamilyContactsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateCrmFamilyContactsMutation,
+  UpdateCrmFamilyContactsMutationVariables
+>;
+export const CreateCrmDocument = gql`
+  mutation CreateCrm($input: CreateCrmInput!) {
+    createCrm(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCrmMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCrmMutation, CreateCrmMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCrmMutation, CreateCrmMutationVariables>(CreateCrmDocument, baseOptions);
+}
+export type CreateCrmMutationHookResult = ReturnType<typeof useCreateCrmMutation>;
+export type CreateCrmMutationResult = ApolloReactCommon.MutationResult<CreateCrmMutation>;
+export type CreateCrmMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCrmMutation,
+  CreateCrmMutationVariables
 >;
 export const UpdateCrmGeneralDocument = gql`
   mutation UpdateCrmGeneral($input: UpdateCrmGeneralInput!) {
@@ -13883,6 +14808,27 @@ export type CreateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions
   CreateProfileMutation,
   CreateProfileMutationVariables
 >;
+export const CreateCompanyDocument = gql`
+  mutation CreateCompany($input: CreateCompanyInput!) {
+    createCompany(input: $input) {
+      id
+    }
+  }
+`;
+export function useCreateCompanyMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCompanyMutation, CreateCompanyMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<CreateCompanyMutation, CreateCompanyMutationVariables>(
+    CreateCompanyDocument,
+    baseOptions,
+  );
+}
+export type CreateCompanyMutationHookResult = ReturnType<typeof useCreateCompanyMutation>;
+export type CreateCompanyMutationResult = ApolloReactCommon.MutationResult<CreateCompanyMutation>;
+export type CreateCompanyMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCompanyMutation,
+  CreateCompanyMutationVariables
+>;
 export const UpdateProfileDocument = gql`
   mutation UpdateProfile($input: UpdateProfileInput!) {
     updateProfile(input: $input) {
@@ -14122,6 +15068,30 @@ export type LinkNcpToProjectPhaseMutationResult = ApolloReactCommon.MutationResu
 export type LinkNcpToProjectPhaseMutationOptions = ApolloReactCommon.BaseMutationOptions<
   LinkNcpToProjectPhaseMutation,
   LinkNcpToProjectPhaseMutationVariables
+>;
+export const AddTaskLabelDocument = gql`
+  mutation AddTaskLabel($input: LabelInput!) {
+    addTaskLabel(input: $input) {
+      id
+      property
+      text
+      icon
+    }
+  }
+`;
+export function useAddTaskLabelMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddTaskLabelMutation, AddTaskLabelMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddTaskLabelMutation, AddTaskLabelMutationVariables>(
+    AddTaskLabelDocument,
+    baseOptions,
+  );
+}
+export type AddTaskLabelMutationHookResult = ReturnType<typeof useAddTaskLabelMutation>;
+export type AddTaskLabelMutationResult = ApolloReactCommon.MutationResult<AddTaskLabelMutation>;
+export type AddTaskLabelMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddTaskLabelMutation,
+  AddTaskLabelMutationVariables
 >;
 export const CreateTaskDocument = gql`
   mutation CreateTask($input: CreateTaskInput!) {
@@ -14377,6 +15347,57 @@ export type GetCrmContactInformationQueryResult = ApolloReactCommon.QueryResult<
   GetCrmContactInformationQuery,
   GetCrmContactInformationQueryVariables
 >;
+export const GetCrmFamilyContactsDocument = gql`
+  query getCrmFamilyContacts($id: ID!) {
+    getCrmFamilyContacts(id: $id) {
+      id
+      maritalStatus
+      maritalStatusDate
+      maritalStatusInformation
+      familyCompositionChildren
+      familyCompositionAdults
+      familyCompositionInformation
+      partner {
+        id
+        firstName
+        insertion
+        lastName
+        email
+        avatar {
+          url
+        }
+      }
+      contacts {
+        type
+        contact {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useGetCrmFamilyContactsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>(
+    GetCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmFamilyContactsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmFamilyContactsQuery, GetCrmFamilyContactsQueryVariables>(
+    GetCrmFamilyContactsDocument,
+    baseOptions,
+  );
+}
+export type GetCrmFamilyContactsQueryHookResult = ReturnType<typeof useGetCrmFamilyContactsQuery>;
+export type GetCrmFamilyContactsLazyQueryHookResult = ReturnType<typeof useGetCrmFamilyContactsLazyQuery>;
+export type GetCrmFamilyContactsQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmFamilyContactsQuery,
+  GetCrmFamilyContactsQueryVariables
+>;
 export const GetCrmGeneralDocument = gql`
   query getCrmGeneral($id: ID!) {
     getCrmGeneral(id: $id) {
@@ -14464,6 +15485,33 @@ export type GetCrmHomeSituationQueryResult = ApolloReactCommon.QueryResult<
   GetCrmHomeSituationQuery,
   GetCrmHomeSituationQueryVariables
 >;
+export const CrmListDocument = gql`
+  query crmList {
+    crmList {
+      id
+      type
+      firstName
+      insertion
+      lastName
+      phoneNumber
+      email
+      avatar {
+        url
+      }
+    }
+  }
+`;
+export function useCrmListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CrmListQuery, CrmListQueryVariables>) {
+  return ApolloReactHooks.useQuery<CrmListQuery, CrmListQueryVariables>(CrmListDocument, baseOptions);
+}
+export function useCrmListLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CrmListQuery, CrmListQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<CrmListQuery, CrmListQueryVariables>(CrmListDocument, baseOptions);
+}
+export type CrmListQueryHookResult = ReturnType<typeof useCrmListQuery>;
+export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
+export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {
@@ -15047,6 +16095,7 @@ export const NcpMediaDocument = gql`
           id
           key
           fileName
+          url
         }
       }
       mainPictureId
@@ -15423,6 +16472,270 @@ export type GetNcpServicesLazyQueryHookResult = ReturnType<typeof useGetNcpServi
 export type GetNcpServicesQueryResult = ApolloReactCommon.QueryResult<
   GetNcpServicesQuery,
   GetNcpServicesQueryVariables
+>;
+export const NcpOverallInfoDocument = gql`
+  query NcpOverallInfo(
+    $id: ID!
+    $archived: Boolean
+    $picturesSort: Sort
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int
+    $limit: Int
+    $name: String
+  ) {
+    getNcp(id: $id) {
+      startSale
+      startDelivery
+      properties
+      objectTypesCount
+    }
+    getNcpPrices(id: $id) {
+      pricing {
+        rent {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+        sale {
+          minPrice
+          maxPrice
+          isEnabled
+          calculateAutomatically
+        }
+      }
+      costs {
+        costs {
+          id
+          serviceCostsFrom
+          serviceCostsTill
+          paymentsFrequency
+          vatTaxedServiceCostsFrom
+          vatTaxedServiceCostsTill
+          vatPercentage
+          notes
+          type
+          name
+          dateCreated
+        }
+        description
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
+      interests {
+        groundInterest
+        buildingInterest
+        rentedagen
+        suspensiveCondition
+        description
+        dateCreated
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    listObjectTypes(
+      filters: { ncpId: $id, archived: $archived }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        ncpId
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        completeness
+        matches
+        interests
+        propertiesConnected
+        propertiesAvailable
+        underOption
+        soldOrRent
+        attentionNote
+      }
+    }
+    getNcpMedia(id: $id) {
+      id
+      mediaDescription
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      pictures(sort: $picturesSort) {
+        id
+        name
+        description
+        type
+        dateUpdated
+        file {
+          id
+          key
+          fileName
+          url
+        }
+      }
+      mainPictureId
+      mediaLinks {
+        id
+        name
+        type
+        url
+      }
+      textChapters {
+        id
+        name
+        type
+        text
+      }
+      usps {
+        id
+        name
+        description
+        type
+      }
+      tags {
+        id
+        name
+        description
+        type
+      }
+    }
+    getNcpCharacteristics(id: $id) {
+      id
+      characteristicsSections
+      projectMarketing {
+        logos {
+          id
+          url
+        }
+        emailAddress
+        website
+        firstColor
+        secondColor
+        mainLogoId
+      }
+      measurements {
+        volumeFrom
+        volumeTo
+        livingSpaceFrom
+        livingSpaceTo
+        plotAreaFrom
+        plotAreaTo
+        calculateAutomatically
+      }
+      energy {
+        label
+        energyIndex
+        endDateEnergyLabel
+        EPC
+        characteristicType
+        notes
+      }
+      accountManagers {
+        id
+      }
+      accountManagersIds
+      identificationNumbers {
+        id
+        name
+        number
+        type
+        dateCreated
+      }
+      attentionNote
+      invoiceDetails {
+        street
+        houseNumber
+        additionalNumber
+        zipCode
+        city
+        country
+        projectInvoiceNumber
+        contactPerson
+        description
+      }
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
+      dateUpdated
+      characteristicsDescription
+    }
+    getProjectPhases(filters: { name: $name, ncpId: $id }, pagination: { from: $from, limit: $limit }) {
+      items {
+        id
+        name
+        logo {
+          id
+          fileName
+          description
+          status
+          fileType
+          permission
+          key
+          createdAt
+          signedUrl
+          url
+          bucket
+          entityID
+          entity
+        }
+        ncpIds
+      }
+    }
+  }
+`;
+export function useNcpOverallInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>(
+    NcpOverallInfoDocument,
+    baseOptions,
+  );
+}
+export function useNcpOverallInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<NcpOverallInfoQuery, NcpOverallInfoQueryVariables>(
+    NcpOverallInfoDocument,
+    baseOptions,
+  );
+}
+export type NcpOverallInfoQueryHookResult = ReturnType<typeof useNcpOverallInfoQuery>;
+export type NcpOverallInfoLazyQueryHookResult = ReturnType<typeof useNcpOverallInfoLazyQuery>;
+export type NcpOverallInfoQueryResult = ApolloReactCommon.QueryResult<
+  NcpOverallInfoQuery,
+  NcpOverallInfoQueryVariables
 >;
 export const GetNotificationsDocument = gql`
   query GetNotifications {
@@ -17548,6 +18861,403 @@ export type PimSpecificationQueryResult = ApolloReactCommon.QueryResult<
   PimSpecificationQuery,
   PimSpecificationQueryVariables
 >;
+export const PimInfoDocument = gql`
+  query PimInfo($id: ID!) {
+    getPim(id: $id) {
+      street
+      houseNumberPrefix
+      houseNumber
+      houseNumberAddition
+      constructionNumber
+      constructionNumberPrefix
+      constructionNumberAddition
+      city
+      developmentType
+      status
+      salePrice
+      rentPrice
+      description
+      livingArea
+      propertyType
+      attentionNote
+      completeness
+      archived
+      houseGeneral {
+        availability {
+          availability
+          from
+          notes
+          habitation
+          currentUse
+          currentDestination
+        }
+        construction {
+          type
+          from
+          to
+          notes
+        }
+        floor
+        propertyConnection
+        propertyDetails
+      }
+      parkingGeneral {
+        type {
+          type
+          parkingNumber
+          notes
+        }
+        measurements {
+          length
+          width
+          surface
+          capacity
+          height
+          volume
+        }
+        specifications {
+          type
+          notes
+        }
+        material {
+          type
+          notes
+        }
+        insulation {
+          type
+          notes
+        }
+      }
+      bogGeneral {
+        type
+        characteristics
+        startsOnFloor
+        totalFloors
+        notes
+      }
+      aogGeneral {
+        generalType
+        additionalPosition
+        houseLot {
+          length
+          width
+          surface
+          amountOfHouses
+        }
+        specifications {
+          type
+          notes
+        }
+      }
+      houseOutside {
+        generalInformation {
+          qualityInformation
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          notes
+        }
+        foundation {
+          type {
+            type
+            notes
+          }
+          material {
+            type
+            notes
+          }
+        }
+        propertyRelated {
+          items
+          notes
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+        }
+        roofInformation {
+          type {
+            name
+            notes
+          }
+          material {
+            name
+            notes
+          }
+          insulation {
+            name
+            notes
+          }
+          images {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          yearOfRoof
+          gutter {
+            type
+            notes
+          }
+          gutterMaterial {
+            material
+            notes
+          }
+        }
+        notes
+      }
+      floors {
+        id
+        floorDescription
+        level
+        floorType
+        spaces {
+          id
+          spaceType
+          spaceName
+          extraRoomPossibility
+          configuration {
+            ... on KitchenSpace {
+              constructionYear
+              notes
+              kitchenType: type
+              constructionType
+              servicesNotes
+              kitchenServices: services
+              appliances {
+                name
+                quantity
+                notes
+              }
+              hob
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on LivingRoomSpace {
+              livingRoomType: type
+              shape
+              stairs
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BathroomSpace {
+              constructionYear
+              shape
+              bathroomServices: services
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on BedroomSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on HomeOfficeSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+            ... on OtherSpace {
+              notes
+              shape
+              measurement {
+                length
+                width
+                height
+                surface
+                volume
+              }
+              serviceHeating
+              images {
+                url
+              }
+            }
+          }
+        }
+      }
+      insideGeneral {
+        windows {
+          types
+          notes
+        }
+        extension {
+          yearOfExtension
+          notes
+        }
+        renovation {
+          yearOfRenovation
+        }
+        notes
+      }
+      cadastre {
+        id
+        description
+        mapsDescription
+        type
+        maps {
+          id
+          mapName
+          name
+          file {
+            id
+            fileName
+            description
+            status
+            fileType
+            permission
+            key
+            signedUrl
+            url
+            bucket
+          }
+          type
+        }
+        plot {
+          notes
+          name
+          municipalCode
+          sectionCode
+          plot
+          indexNumber
+          surface
+          share
+          codeSize
+          ownershipChoice
+          ownershipType
+          lease {
+            leaseholder
+            information
+            duration
+            yearlyPrice
+            endDate
+          }
+          boughtOff {
+            date
+            perpetually
+            notes
+          }
+        }
+      }
+      pictures {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
+        isMainPicture
+      }
+      mainPicture {
+        id
+        description
+        type
+        name
+        file {
+          id
+          fileName
+          description
+          fileType
+          permission
+          key
+          signedUrl
+          url
+          bucket
+        }
+      }
+    }
+  }
+`;
+export function usePimInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PimInfoQuery, PimInfoQueryVariables>) {
+  return ApolloReactHooks.useQuery<PimInfoQuery, PimInfoQueryVariables>(PimInfoDocument, baseOptions);
+}
+export function usePimInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PimInfoQuery, PimInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<PimInfoQuery, PimInfoQueryVariables>(PimInfoDocument, baseOptions);
+}
+export type PimInfoQueryHookResult = ReturnType<typeof usePimInfoQuery>;
+export type PimInfoLazyQueryHookResult = ReturnType<typeof usePimInfoLazyQuery>;
+export type PimInfoQueryResult = ApolloReactCommon.QueryResult<PimInfoQuery, PimInfoQueryVariables>;
 export const PimOverallInfoDocument = gql`
   query PimOverallInfo($id: ID!) {
     getPimGeneral(id: $id) {
@@ -17589,6 +19299,92 @@ export const PimOverallInfoDocument = gql`
       outsideFeatures {
         id
         type
+        description
+        configuration {
+          ... on GardenFeature {
+            main
+            type
+            notes
+            quality
+            location
+            shape
+            measurement {
+              length
+              width
+              surface
+            }
+            images {
+              id
+              url
+            }
+          }
+          ... on GarageFeature {
+            main
+            garageTypes: types
+            attached
+            attic
+            garageInsulations: insulations
+            garageServices: services
+            secondaryWindows
+            materials
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on StorageFeature {
+            main
+            attached
+            storageTypes: types
+            materials
+            storageInsulations: insulations
+            storageServices: services
+            secondaryWindows
+            measurement {
+              length
+              width
+              height
+              surface
+              volume
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on TerrainFeature {
+            parking
+            measurement {
+              length
+              width
+              surface
+            }
+            notes
+            images {
+              id
+              url
+            }
+          }
+          ... on ParkingLotFeature {
+            number
+            price
+            cost
+            notes
+            images {
+              id
+              url
+            }
+          }
+        }
       }
     }
     getPimCadastre(id: $id) {
@@ -17913,6 +19709,32 @@ export function useSettingInfoLazyQuery(
 export type SettingInfoQueryHookResult = ReturnType<typeof useSettingInfoQuery>;
 export type SettingInfoLazyQueryHookResult = ReturnType<typeof useSettingInfoLazyQuery>;
 export type SettingInfoQueryResult = ApolloReactCommon.QueryResult<SettingInfoQuery, SettingInfoQueryVariables>;
+export const GetTaskLabelsDocument = gql`
+  query GetTaskLabels($id: ID!, $properties: [LabelProperty!]) {
+    getTaskLabels(parentId: $id, properties: $properties) {
+      id
+      property
+      icon
+      text
+    }
+  }
+`;
+export function useGetTaskLabelsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(GetTaskLabelsDocument, baseOptions);
+}
+export function useGetTaskLabelsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>(
+    GetTaskLabelsDocument,
+    baseOptions,
+  );
+}
+export type GetTaskLabelsQueryHookResult = ReturnType<typeof useGetTaskLabelsQuery>;
+export type GetTaskLabelsLazyQueryHookResult = ReturnType<typeof useGetTaskLabelsLazyQuery>;
+export type GetTaskLabelsQueryResult = ApolloReactCommon.QueryResult<GetTaskLabelsQuery, GetTaskLabelsQueryVariables>;
 export const GetTaskDocument = gql`
   query GetTask($id: ID!) {
     getTask(id: $id) {

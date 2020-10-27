@@ -1,8 +1,13 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { PimSummary } from './SummaryGeneral.types';
+import { PimSummary } from '../Summary.types';
 
 export const useStyles = makeStyles(theme => ({
+  btnHeader: {
+    '&.MuiSvgIcon-root': {
+      fontSize: theme.spacing(3),
+    },
+  },
   summaryContainer: {
     marginTop: 0,
     marginLeft: -theme.spacing(3),

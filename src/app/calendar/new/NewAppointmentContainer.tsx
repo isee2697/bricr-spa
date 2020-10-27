@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Profile, useGetUsersQuery, AppointmentLocation } from 'api/types';
+import { AppointmentLocation } from 'api/types';
+import { CalendarProps } from '../Calendar.types';
 
 import { NewAppointment } from './NewAppointment';
 
@@ -40,8 +41,6 @@ const locations: AppointmentLocation[] = [
   },
 ];
 
-export const NewAppointmentContainer = () => {
-  const { data } = useGetUsersQuery({ variables: { from: 0, isActive: true } });
-
-  return <NewAppointment locations={locations} members={(data?.getAllProfiles?.items as Profile[]) ?? []} />;
+export const NewAppointmentContainer = ({ data }: Pick<CalendarProps, 'data'>) => {
+  return <NewAppointment locations={locations} members={data} />;
 };

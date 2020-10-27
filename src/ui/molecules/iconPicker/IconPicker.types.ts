@@ -15,5 +15,10 @@ export type IconPickerProps = {
 
 export enum IconSelectedTheme {
   DEFAULT = 'Default',
+  RED = 'Red',
   ORANGE = 'Orange',
+  YELLOW = 'Yellow',
+  PURPLE = 'Purple',
+  GREEN = 'Green',
+  BLUE = 'Blue',
 }

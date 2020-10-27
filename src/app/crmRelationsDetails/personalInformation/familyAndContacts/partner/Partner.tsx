@@ -14,20 +14,25 @@ import {
 } from 'ui/atoms';
 import { AddIcon, LinkIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
-import { Profile } from 'api/types';
+import { LinkedCrm } from 'api/types';
+import { useModalDispatch } from 'hooks';
+import { LinkPartnerModalContainer } from 'app/shared/linkPartnerModal/LinkPartnerModalContainer';
 
 import { useStyles } from './Partner.styles';
 import { PartnerProps } from './Partner.types';
 import { PartnerItem } from './partnerItem/PartnerItem';
 
-export const Partner = ({ users }: PartnerProps) => {
+export const Partner = ({ data, onSave }: PartnerProps) => {
   const classes = useStyles();
+  const { open, close } = useModalDispatch();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-  const [partners, setPartners] = useState<Profile[]>([]);
+  const [partner] = useState<LinkedCrm | undefined>(data.partner ? data.partner : undefined);
 
-  const handleAddNewPartner = () => {
-    setPartners([...partners, { ...users[0] }]);
+  const handleAddNewPartner = async (partnerId: string | null) => {
+    close('link-partner');
+
+    return await onSave({ id: data.id, partnerId });
   };
 
   return (
@@ -42,15 +47,16 @@ export const Partner = ({ users }: PartnerProps) => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={handleAddNewPartner}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('link-partner')}>
               <AddIcon color="inherit" />
             </IconButton>
+            <LinkPartnerModalContainer onSubmit={handleAddNewPartner} />
           </>
         }
       />
       <CardContent>
         <Grid item xs={12}>
-          {partners.length === 0 && (
+          {partner === undefined && (
             <InfoSection emoji="🤔" className={classes.content}>
               <Typography variant="h3">
                 {formatMessage({
@@ -65,7 +71,7 @@ export const Partner = ({ users }: PartnerProps) => {
               <Button
                 color="primary"
                 variant="contained"
-                onClick={() => handleAddNewPartner()}
+                onClick={() => open('link-partner')}
                 startIcon={<LinkIcon color="inherit" />}
                 size="small"
                 className={classes.marginTopTwo}
@@ -74,8 +80,7 @@ export const Partner = ({ users }: PartnerProps) => {
               </Button>
             </InfoSection>
           )}
-          {partners.length > 0 &&
-            partners.map((partner, index) => <PartnerItem className={classes.partnerItem} partner={partner} />)}
+          {partner && <PartnerItem className={classes.partnerItem} partner={partner} />}
         </Grid>
       </CardContent>
     </Card>

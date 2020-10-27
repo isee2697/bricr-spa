@@ -12,6 +12,7 @@ enum ContactAddressType {
 }
 
 enum ContactPhoneNumberType {
+  MainNumber,
   MobileNumber,
   PrivateNumber,
   BusinessNumber,
@@ -20,6 +21,7 @@ enum ContactPhoneNumberType {
 }
 
 enum ContactEmailAddressType {
+  MainAddress,
   AddressForMatches,
   AddressForInvoices,
   Private,

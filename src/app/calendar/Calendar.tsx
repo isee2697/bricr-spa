@@ -9,15 +9,19 @@ import { useLocale } from 'hooks';
 
 import { CalendarProps } from './Calendar.types';
 
-export const Calendar = ({ data }: CalendarProps) => {
+export const Calendar = ({ data, groups }: CalendarProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <>
       <NavBreadcrumb title={formatMessage({ id: 'common.calendar' })} />
       <Switch>
-        <Route exact path={AppRoute.calendar} render={() => <CalendarViewContainer />} />
-        <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer />} />
+        <Route
+          exact
+          path={AppRoute.calendar}
+          render={() => <CalendarViewContainer teamMembers={data} groups={groups} />}
+        />
+        <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer data={data} />} />
         <Redirect to={AppRoute.calendar} />
       </Switch>
     </>

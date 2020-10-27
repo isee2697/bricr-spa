@@ -12,8 +12,9 @@ import { useStyles } from './FamilyAndContacts.styles';
 import { Family } from './family/Family';
 import { PartnerContainer } from './partner/PartnerContainer';
 import { PeopleContainer } from './people/PeopleContainer';
+import { FamilyAndContactsProps } from './FamilyAndContacts.types';
 
-export const FamilyAndContacts = () => {
+export const FamilyAndContacts = ({ data, onSave }: FamilyAndContactsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -41,9 +42,9 @@ export const FamilyAndContacts = () => {
           </IconButton>
         </Grid>
 
-        <Family />
-        <PartnerContainer />
-        <PeopleContainer />
+        <Family data={data} onSave={onSave} />
+        <PartnerContainer data={data} onSave={onSave} />
+        <PeopleContainer data={data} onSave={onSave} />
       </Page>
     </>
   );

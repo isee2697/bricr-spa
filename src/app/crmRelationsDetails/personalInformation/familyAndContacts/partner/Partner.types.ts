@@ -1,5 +1,6 @@
-import { Profile } from 'api/types';
+import { CrmFamilyContacts } from 'api/types';
 
 export type PartnerProps = {
-  users: Profile[];
+  data: CrmFamilyContacts;
+  onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };

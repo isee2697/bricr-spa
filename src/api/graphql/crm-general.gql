@@ -1,3 +1,8 @@
+enum CrmType {
+  Relation,
+  Business
+}
+
 enum PreferredLanguageType {
   Dutch,
   English,
@@ -67,11 +72,12 @@ input CrmIdentificationNumberInput {
 }
 
 input CreateCrmInput {
+  type: CrmType!
   firstName: String
-  extraNames: String
   insertion: String
   lastName: String
-  gender: GenderType
+  email: String
+  phoneNumber: String
 }
 
 input UpdateCrmGeneralInput {

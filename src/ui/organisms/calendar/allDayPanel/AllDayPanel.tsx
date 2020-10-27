@@ -9,6 +9,12 @@ const Cell = (props: AllDay.CellProps) => {
   return <AllDay.Cell {...props} className={classes.root} />;
 };
 
+const Container = (props: AllDay.ContainerProps) => {
+  const classes = useStyles();
+
+  return <AllDay.Container {...props} className={classes.container} />;
+};
+
 export const AllDayPanel = (props: AllDayPanelProps) => {
-  return <AllDay {...props} cellComponent={Cell} />;
+  return <AllDay containerComponent={Container} {...props} cellComponent={Cell} />;
 };

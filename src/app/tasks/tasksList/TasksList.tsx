@@ -6,11 +6,13 @@ import TableBody from '@material-ui/core/TableBody';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Checkbox, Typography, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksIcon, UserIcon, BuildingIcon, HistoryIcon, StatusIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { TasksStatusBadge } from '../tasksStatusBadge/TasksStatusBadge';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { TasksListProps } from './TasksList.types';
 import { useStyles } from './TasksList.styles';
@@ -20,6 +22,7 @@ export const TasksList = ({ tasks }: TasksListProps) => {
   const [sort, setSort] = useState('desc');
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const headCells = [
     {
@@ -108,7 +111,11 @@ export const TasksList = ({ tasks }: TasksListProps) => {
           const hoursLeft = deadlineDate && Math.round(deadlineDate.diffNow('hours').hours);
 
           return (
-            <TableRow key={index}>
+            <TableRow
+              key={index}
+              onClick={() => push(AppRoute.taskDetails.replace(':id', task.id))}
+              className={classes.row}
+            >
               <TableCell padding="checkbox">
                 <Checkbox checked={false} inputProps={{ 'aria-labelledby': labelId }} />
               </TableCell>

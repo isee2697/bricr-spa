@@ -1,0 +1,8 @@
+extend type Mutation {
+  addTaskLabel(input: LabelInput!): Label! @auth
+  removeTaskLabel(id: ID!): Boolean! @auth
+}
+
+extend type Query {
+  getTaskLabels(parentId: ID!, properties: [LabelProperty!]): [Label!] @auth
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { UserIcon } from 'ui/atoms/icons';
 
@@ -18,8 +18,6 @@ const personsList = [
   },
 ];
 
-const personsArray: LinkedPersonType[] = [];
-
 export const AddMomentmodalContainer = ({
   isOpened,
   onClose,
@@ -27,21 +25,18 @@ export const AddMomentmodalContainer = ({
   type,
   currentModalIndex,
 }: AddMomentModalContainerProps) => {
-  const [persons, updatePersons] = useState(personsArray);
-
-  const handleSubmit: AddMomentSubmit = async () => {
-    const person: LinkedPersonType = {
-      name: 'Victor Martin Brochner ',
+  const handleSubmit: AddMomentSubmit = async body => {
+    const personsMapped: LinkedPersonType[] = body.linked_managers.map((id: string) => ({
+      name: 'Victor Martin Brochner ' + id,
       avatar: 'https://source.unsplash.com/featured/?person',
       office: 'Vesteging Weert',
       company: 'Hendriks Makelaardij',
       phone: '06-48764044',
       email: 'christian@cubiceyes.com',
-    };
+    }));
 
     try {
-      updatePersons([...persons, person]);
-      onAddMoment(currentModalIndex, [...persons, person]);
+      onAddMoment(currentModalIndex, personsMapped);
 
       return undefined;
     } catch {

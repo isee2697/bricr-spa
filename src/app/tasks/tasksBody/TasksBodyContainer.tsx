@@ -19,12 +19,21 @@ export const TasksBodyContainer = ({ members, selectedMembers }: TasksBodyContai
     });
   }, [getTasksFullSummary, selectedMembers]);
 
+  const handleAddedNewTask = () => {
+    getTasksFullSummary({
+      variables: {
+        assignees: selectedMembers.map(member => member.id),
+      },
+    });
+  };
+
   return (
     <TasksBody
       loading={loadingTasksFullSummary}
       members={members}
       selectedMembers={selectedMembers}
       tasksFullSummary={tasksFullSummaryData?.getTasksFullSummary}
+      onAddNewTask={handleAddedNewTask}
     />
   );
 };
