@@ -4,12 +4,14 @@ import classNames from 'classnames';
 
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { ShowMore } from 'ui/atoms/showMore/ShowMore';
+import { WarningIcon } from 'ui/atoms/icons';
 
 import {
+  AppointmentComponentProps,
   AppointmentContainerProps,
   AppointmentNodeProps as AppointmentProp,
   ViewProps,
-  AppointmentComponentProps,
+  OverlapProps,
 } from './Appointment.types';
 import { useStyles } from './Appointments.styles';
 
@@ -34,6 +36,16 @@ const getAppointmentData = (data: AppointmentProp[]) => {
   return (data[0] || data[1] || data[2]).props.params.data;
 };
 
+const AppointmentOverlap = ({ style }: OverlapProps) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.Warning} style={{ ...style }}>
+      <WarningIcon color="secondary" />
+    </div>
+  );
+};
+
 const AppointmentContainer = ({ view = DateView.Week, ...props }: AppointmentContainerProps) => {
   const data = getAppointmentData((props.children ?? []) as AppointmentProp[]);
 
@@ -41,6 +53,10 @@ const AppointmentContainer = ({ view = DateView.Week, ...props }: AppointmentCon
     const child = !data.isHidden && <ShowMore amount={data.amount} data={data.appointments} />;
 
     return <div style={{ ...props.style }}>{child}</div>;
+  }
+
+  if (!!data.overlap) {
+    return view === DateView.Day ? <AppointmentOverlap style={props.style} /> : <></>;
   }
 
   return <App.Container {...props} />;
