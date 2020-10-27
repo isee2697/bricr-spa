@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(({ spacing, palette }) => ({
+export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   resultTitles: {
     fontSize: `${spacing(1.4)}px`,
   },
@@ -14,17 +14,8 @@ export const useStyles = makeStyles(({ spacing, palette }) => ({
     },
 
     '& .MuiFormControlLabel-label': {
-      '& .MuiTypography-h5': {
-        fontSize: `${spacing(1.5)}px`,
-        fontWeight: 500,
-        lineHeight: `${spacing(2)}px`,
-      },
-      '& .MuiTypography-h6': {
-        fontSize: `${spacing(1.25)}px`,
-        fontWeight: 700,
-        lineHeight: `${spacing(2)}px`,
-        color: palette.gray.main,
-      },
+      '& .MuiTypography-h5': typography.h5,
+      '& .MuiTypography-h6': typography.h6,
     },
   },
   stepperWrapper: {
