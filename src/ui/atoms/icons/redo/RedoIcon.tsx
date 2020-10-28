@@ -1,29 +1,11 @@
-import SvgIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { SvgIconProps as DefaultSvgIconProps } from '@material-ui/core/SvgIcon';
-import { useTheme } from '@material-ui/core/styles';
 import * as React from 'react';
 
-export const RedoIcon = (props: DefaultSvgIconProps) => {
-  const theme = useTheme();
+import { BaseIcon } from '../baseIcon/BaseIcon';
 
-  return (
-    <SvgIcon {...props} viewBox="0 0 16 16">
-      <path
-        d="M1.40039 9.39935C3.14972 7.65002 5.52506 6.66602 7.99972 6.66602C10.4744 6.66602 12.8497 7.65002 14.5991 9.40002"
-        stroke={props.color ? props.color : theme.palette.gray.main}
-        strokeWidth="1.33333"
-        strokeMiterlimit="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.96094 10.2318L14.6009 9.39977L13.7696 4.75977"
-        stroke={props.color ? props.color : theme.palette.gray.main}
-        strokeWidth="1.33333"
-        strokeMiterlimit="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </SvgIcon>
-  );
-};
+export const RedoIcon = (props: DefaultSvgIconProps) => (
+  <BaseIcon
+    {...props}
+    d="M9.41155 0.384018C9.66066 0.280831 9.94741 0.337868 10.1381 0.528534L15.4714 5.86187C15.5964 5.98689 15.6667 6.15646 15.6667 6.33327C15.6667 6.51008 15.5964 6.67965 15.4714 6.80468L10.1381 12.138C9.94741 12.3287 9.66066 12.3857 9.41155 12.2825C9.16243 12.1793 9 11.9362 9 11.6666V9.00606C6.89769 9.04621 5.48592 9.28594 4.41609 9.787C3.26619 10.3256 2.43689 11.2022 1.57494 12.6707C1.42265 12.9302 1.11546 13.0555 0.825145 12.9766C0.534829 12.8977 0.333333 12.6341 0.333333 12.3333C0.333333 8.87227 1.65471 6.6571 3.55247 5.33611C5.20043 4.189 7.21501 3.76303 9 3.68169V0.999938C9 0.730297 9.16243 0.487206 9.41155 0.384018ZM10.3333 2.60941V4.33327C10.3333 4.70146 10.0349 4.99994 9.66667 4.99994C7.86824 4.99994 5.85729 5.35632 4.3142 6.43043C3.25507 7.16767 2.37337 8.27232 1.94537 9.93655C2.49603 9.37486 3.11425 8.9244 3.85057 8.57954C5.30473 7.89848 7.14346 7.6666 9.66667 7.6666C10.0349 7.6666 10.3333 7.96508 10.3333 8.33327V10.0571L14.0572 6.33327L10.3333 2.60941Z"
+  />
+);

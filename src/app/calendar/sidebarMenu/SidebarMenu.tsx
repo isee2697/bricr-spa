@@ -2,28 +2,30 @@ import React, { useRef, useState } from 'react';
 import { Form } from 'react-final-form';
 import { DateTime } from 'luxon';
 
-import { AdvancedSearch } from 'ui/molecules';
+import { AdvancedSearch, DatePicker, DatePickerCalendar } from 'ui/molecules';
 import {
-  Slide,
-  Grid,
-  SidebarHideButton,
-  Typography,
-  Collapse,
-  Button,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  Chip,
   Box,
+  Button,
+  CheckBox,
+  Chip,
+  Collapse,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  SidebarHideButton,
+  Slide,
+  Typography,
 } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ArrowDownIcon, ArrowUpIcon, CalendarIcon } from 'ui/atoms/icons';
-import { DatePicker, DatePickerCalendar } from 'ui/molecules';
 import { MembersDropdownField } from 'form/fields';
-import { AppointmentType } from 'api/types';
+import { AppointmentType, TaskLabel } from 'api/types';
 
 import { useStyles } from './SidebarMenu.styles';
 import { SidebarMenuProps } from './SidebarMenu.types';
+
+const taskTypes = Object.values(TaskLabel);
 
 export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, onFilterChange }: SidebarMenuProps) => {
   const [toggledSections, setToggled] = useState<{ [key: string]: boolean }>({ showGroups: true });
@@ -105,7 +107,106 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                   {toggledSections.myCalendar ? <ArrowUpIcon /> : <ArrowDownIcon />}
                 </Button>
                 <div className={classes.groups}>
-                  <Collapse in={toggledSections.myCalendar}>test</Collapse>
+                  <Collapse in={toggledSections.myCalendar}>
+                    <RadioGroup aria-label="myCalendars" name="myCalendars">
+                      <FormControlLabel
+                        control={
+                          <Radio
+                            onClick={() => {
+                              const value = filters.showItemType !== 'Appointments' ? 'Appointments' : undefined;
+                              onFilterChange(() => ({ ...filters, showItemType: value }));
+                            }}
+                            color="primary"
+                            checked={filters.showItemType === 'Appointments'}
+                          />
+                        }
+                        label={formatMessage({ id: 'calendar.appointments_label' })}
+                      />
+                      <FormControlLabel
+                        control={
+                          <Radio
+                            onClick={() => {
+                              const value = filters.showItemType !== 'Reminders' ? 'Reminders' : undefined;
+                              onFilterChange(() => ({ ...filters, showItemType: value }));
+                            }}
+                            className={classes.greenBox}
+                            checked={filters.showItemType === 'Reminders'}
+                          />
+                        }
+                        label={formatMessage({ id: 'calendar.reminders_label' })}
+                      />
+                      <FormControlLabel
+                        control={
+                          <CheckBox
+                            onClick={() => {
+                              onFilterChange(() => ({ ...filters, showHolidays: !filters.showHolidays }));
+                            }}
+                            className={classes.orangeBox}
+                            checked={!!filters.showHolidays}
+                          />
+                        }
+                        label={formatMessage({ id: 'calendar.national_holidays_label' })}
+                      />
+                      <FormControlLabel
+                        control={
+                          <CheckBox
+                            onClick={() => {
+                              onFilterChange(() => ({ ...filters, showBirthDays: !filters.showBirthDays }));
+                            }}
+                            className={classes.FollowUp}
+                            checked={!!filters.showBirthDays}
+                          />
+                        }
+                        label={formatMessage({ id: 'calendar.birthdays_label' })}
+                      />
+                    </RadioGroup>
+                  </Collapse>
+                </div>
+
+                <Button
+                  className={classes.showHideButton}
+                  onClick={() => setToggled(current => ({ ...current, tasks: !current.tasks }))}
+                >
+                  <Typography variant="h5">
+                    {formatMessage({ id: `calendar.${toggledSections.tasks ? 'hide' : 'show'}_tasks` })}
+                  </Typography>
+                  {toggledSections.myCalendar ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                </Button>
+                <div className={classes.groups}>
+                  <Collapse in={toggledSections.tasks}>
+                    <RadioGroup aria-label="task" name="tasks">
+                      <FormControlLabel
+                        control={
+                          <CheckBox
+                            onClick={() => {
+                              const value = filters.selectTaskType.length === taskTypes.length ? [] : taskTypes;
+                              onFilterChange(() => ({ ...filters, selectTaskType: value }));
+                            }}
+                            checked={filters.selectTaskType.length === taskTypes.length}
+                            className={classes.blueBox}
+                          />
+                        }
+                        label={formatMessage({ id: 'calendar.task_label.check_all' })}
+                      />
+                      {taskTypes.map(value => (
+                        <FormControlLabel
+                          control={
+                            <CheckBox
+                              onClick={() => {
+                                const newVal = filters.selectTaskType.includes(value)
+                                  ? filters.selectTaskType.filter(val => val !== value)
+                                  : [...filters.selectTaskType, value];
+                                onFilterChange(() => ({ ...filters, selectTaskType: newVal }));
+                              }}
+                              className={classes[value]}
+                              checked={filters.selectTaskType.includes(value)}
+                            />
+                          }
+                          label={formatMessage({ id: `calendar.task_label.${value.toLowerCase()}` })}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </Collapse>
                 </div>
               </>
             )}

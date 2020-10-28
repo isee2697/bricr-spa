@@ -111,4 +111,34 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       height: spacing(6),
       padding: 0,
     },
+    greenBox: {
+      '& .MuiIconButton-label': {
+        color: palette.green.main,
+      },
+    },
+    orangeBox: {
+      '& .MuiIconButton-label': {
+        color: palette.orange.main,
+      },
+    },
+    blueBox: {
+      '& .MuiIconButton-label': {
+        color: palette.blue.dark,
+      },
+    },
+    FollowUp: {
+      '& .MuiIconButton-label': {
+        color: palette.red.main,
+      },
+    },
+    Business: {
+      '& .MuiIconButton-label': {
+        color: palette.blue.main,
+      },
+    },
+    Private: {
+      '& .MuiIconButton-label': {
+        color: palette.purple.main,
+      },
+    },
   }))();
