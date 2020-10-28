@@ -6628,6 +6628,7 @@ export enum AdminSettings {
   KpiTargets = 'KPITargets',
   Notifications = 'Notifications',
   Tasks = 'Tasks',
+  Billing = 'Billing',
 }
 
 export type Profile = {

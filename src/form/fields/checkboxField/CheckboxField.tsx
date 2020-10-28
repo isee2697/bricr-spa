@@ -13,6 +13,7 @@ export const CheckboxField = ({
   name,
   validateFields,
   containerClassName,
+  labelPlacement = 'end',
   ...props
 }: CheckboxFieldProps) => {
   const { formatMessage } = useLocale();
@@ -28,6 +29,7 @@ export const CheckboxField = ({
       control={<Checkbox color="primary" id={name} size="medium" {...input} {...props} />}
       label={label && formatMessage({ id: label })}
       className={containerClassName}
+      labelPlacement={labelPlacement}
     />
   );
 };

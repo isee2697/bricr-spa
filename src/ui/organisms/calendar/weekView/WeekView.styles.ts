@@ -4,16 +4,16 @@ export const useStyles = makeStyles(({ spacing }) => ({
   root: {
     height: spacing(7.5),
     lineHeight: `${spacing(7.5)}px`,
-    '&[class*="Label-emptyLabel"]': {
-      height: spacing(3.75),
-    },
   },
   empty: {
     height: spacing(3.75),
   },
   week: {
-    '& td[class*="TickCell-cell"]': {
+    '& td:first-child': {
       height: spacing(7.5),
+      '& div:first-child': {
+        height: spacing(3.75),
+      },
     },
   },
 }));

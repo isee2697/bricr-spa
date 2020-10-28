@@ -8,6 +8,8 @@ import { Page } from 'ui/templates';
 import { SettingsStep } from './settingsStep/SettingsStep';
 import { useStyles } from './CreateWizard.styles';
 import { FilteringPropertiesStep } from './filteringPropertiesStep/FilteringPropertiesStep';
+import { FilteringPeopleStep } from './filteringPeopleStep/FilteringPeopleStep';
+import { SortingStep } from './sortingStep/SortingStep';
 
 const steps = [
   {
@@ -20,11 +22,11 @@ const steps = [
   },
   {
     name: 'filteringPeople',
-    component: SettingsStep,
+    component: FilteringPeopleStep,
   },
   {
     name: 'sorting',
-    component: SettingsStep,
+    component: SortingStep,
   },
   {
     name: 'result',
@@ -56,7 +58,7 @@ const TimelineStepConnector = withStyles(theme => ({
 }))(StepConnector);
 
 export const CreateWizard = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(2);
   const classes = useStyles();
 
   const handleGoToNextStep = () => {
