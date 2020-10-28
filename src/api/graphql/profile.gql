@@ -107,6 +107,7 @@ enum AdminSettings {
   KPITargets
   Notifications
   Tasks
+  Billing
 }
 
 type Profile {
