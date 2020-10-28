@@ -18,7 +18,7 @@ export const PersonalInformationGeneralContainer = ({
 
   const handleSave = async (input: UpdateCrmGeneralInput) => {
     try {
-      const inputWithoutAvatar = { ...input, avatar: undefined };
+      const inputWithoutAvatar = { ...input, id, avatar: undefined };
       await updateCrmGeneral({ variables: { input: inputWithoutAvatar } });
     } catch {
       return { error: true };

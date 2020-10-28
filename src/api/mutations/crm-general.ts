@@ -32,6 +32,7 @@ export const UPDATE_CRM_GENERAL = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id
