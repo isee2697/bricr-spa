@@ -9,6 +9,7 @@ import { AddIcon, HelpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/ic
 import { ListActionTabs } from '../listActionTabs/ListActionTabs';
 import { Document, DocumentRequestStatus, DocumentStatus } from '../Documents.types';
 import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { DocumentListItem } from '../listItem/ListItem';
 
 import { useStyles } from './List.styles';
 
@@ -16,73 +17,80 @@ export const DocumentsList = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [tabIndex, setTabIndex] = useState(0);
+  const [documents, setDocuments] = useState<Document[]>([]);
 
   const sortOptions: SortOption[] = [
     { key: 'last_edited', name: formatMessage({ id: 'common.sort_option.last_edited' }) },
   ];
 
-  const documents: Document[] = [
-    {
-      id: '0001',
-      name: 'Wojciech’s Drivers Licence',
-      image: 'http://placeimg.com/104/152/arch',
-      dateCreated: DateTime.local(),
-      stepsCompleted: [
+  const handleUpdateDocuments = () => {
+    if (documents.length === 0) {
+      setDocuments([
         {
-          status: DocumentRequestStatus.Request,
-          date: DateTime.local(),
+          id: '0001',
+          name: 'Wojciech’s Drivers Licence',
+          image: 'http://placeimg.com/104/152/arch',
+          dateCreated: DateTime.local(),
+          stepsCompleted: [
+            {
+              status: DocumentRequestStatus.Request,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.UserNotified,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.Uploaded,
+              date: DateTime.local(),
+            },
+          ],
         },
         {
-          status: DocumentRequestStatus.UserNotified,
-          date: DateTime.local(),
+          id: '0002',
+          name: 'Wojciech’s Passport',
+          image: 'http://placeimg.com/104/152/arch',
+          dateCreated: DateTime.local(),
+          stepsCompleted: [
+            {
+              status: DocumentRequestStatus.Request,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.RequestRejected,
+              date: DateTime.local(),
+            },
+          ],
         },
         {
-          status: DocumentRequestStatus.Uploaded,
-          date: DateTime.local(),
+          id: '0003',
+          name: 'Wojciech’s Drivers Licence',
+          image: 'http://placeimg.com/104/152/arch',
+          dateCreated: DateTime.local(),
+          stepsCompleted: [
+            {
+              status: DocumentRequestStatus.Request,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.UserNotified,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.Uploaded,
+              date: DateTime.local(),
+            },
+            {
+              status: DocumentRequestStatus.Accepted,
+              date: DateTime.local(),
+            },
+          ],
         },
-      ],
-    },
-    {
-      id: '0002',
-      name: 'Wojciech’s Passport',
-      image: 'http://placeimg.com/104/152/arch',
-      dateCreated: DateTime.local(),
-      stepsCompleted: [
-        {
-          status: DocumentRequestStatus.Request,
-          date: DateTime.local(),
-        },
-        {
-          status: DocumentRequestStatus.RequestRejected,
-          date: DateTime.local(),
-        },
-      ],
-    },
-    {
-      id: '0003',
-      name: 'Wojciech’s Drivers Licence',
-      image: 'http://placeimg.com/104/152/arch',
-      dateCreated: DateTime.local(),
-      stepsCompleted: [
-        {
-          status: DocumentRequestStatus.Request,
-          date: DateTime.local(),
-        },
-        {
-          status: DocumentRequestStatus.UserNotified,
-          date: DateTime.local(),
-        },
-        {
-          status: DocumentRequestStatus.Uploaded,
-          date: DateTime.local(),
-        },
-        {
-          status: DocumentRequestStatus.Accepted,
-          date: DateTime.local(),
-        },
-      ],
-    },
-  ];
+      ]);
+    } else {
+      setDocuments([]);
+    }
+  };
 
   return (
     <>
@@ -100,7 +108,7 @@ export const DocumentsList = () => {
             <MenuIcon />
           </IconButton>
         </Grid>
-        <Card>
+        <Card onClick={handleUpdateDocuments}>
           <CardHeader
             title={formatMessage({ id: 'crm.details.documents.title' })}
             action={
@@ -140,9 +148,14 @@ export const DocumentsList = () => {
                 isShowHeader
                 items={documents}
                 itemIndex={'id'}
-                renderItem={(match, checked, checkbox) => (
-                  <></>
-                  // <ListItem key={match.id} checked={checked} checkbox={checkbox} item={match} />
+                renderItem={(document, checked, checkbox) => (
+                  <DocumentListItem
+                    key={document.id}
+                    rowIndex={documents.findIndex(item => item.id === document.id)}
+                    checked={checked}
+                    checkbox={checkbox}
+                    item={document}
+                  />
                 )}
                 sortOptions={sortOptions}
               />

@@ -40,9 +40,9 @@ export type DocumentRequestStep = {
 };
 
 export enum DocumentRequestStatus {
-  Request,
-  UserNotified,
-  Uploaded,
-  Accepted,
-  RequestRejected,
+  Request = 'Request',
+  UserNotified = 'UserNotified',
+  Uploaded = 'Uploaded',
+  Accepted = 'Accepted',
+  RequestRejected = 'RequestRejected',
 }
