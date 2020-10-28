@@ -383,6 +383,7 @@ import {
   GraphIcon,
   GraphArrowIcon,
   HelpIcon,
+  HourglassIcon,
   HideIcon,
   HomeIcon,
   LinkIcon,
@@ -461,7 +462,7 @@ const wrapperStyle = {
     <FolderIcon color="inherit" />
     <GraphIcon color="inherit" />
     <GraphArrowIcon color="inherit" />
-    <HelpIcon color="inherit" />
+    <HourglassIcon color="inherit" />
     <HideIcon color="inherit" />
     <HomeIcon color="inherit" />
   </div>
@@ -530,6 +531,7 @@ const wrapperStyle = {
   </div>
   <div style={ wrapperStyle }>
     <StatusIcon color="disabled" />
+    <HelpIcon color="disabled" />
   </div>
 </>;
 ```

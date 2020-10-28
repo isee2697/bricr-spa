@@ -98,3 +98,4 @@ export { SidebarTitleTile } from './sidebarTitleTile/SidebarTitleTile';
 export { SelectBox } from './selectBox/SelectBox';
 export { ExitButton } from './exitButton/ExitButton';
 export { AvatarRowItem } from './avatarRowItem/AvatarRowItem';
+export { LinearProgress } from './linearProgress/LinearProgress';
