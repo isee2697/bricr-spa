@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { Card, CardContent, Tab, Tabs } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
-import { TaskDetailsBoardsResultTab } from './TaskDetailsBoardsResult.types';
+import { TaskDetailsBoardsResultProps, TaskDetailsBoardsResultTab } from './TaskDetailsBoardsResult.types';
 import { useStyles } from './TaskDetailsBoardsResult.styles';
 import { TaskDetailsBoardsResultIntern } from './taskDetailsBoardsResultIntern/TaskDetailsBoardsResultIntern';
+import { TaskDetailsBoardsResultClient } from './taskDetailsBoardsResultClient/TaskDetailsBoardsResultClient';
 
-export const TaskDetailsBoardsResult = () => {
+export const TaskDetailsBoardsResult = ({ task, onUpdateTask }: TaskDetailsBoardsResultProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [activeTab, setActiveTab] = useState(TaskDetailsBoardsResultTab.ResultIntern);
@@ -31,7 +32,12 @@ export const TaskDetailsBoardsResult = () => {
         />
       </Tabs>
       <CardContent className={classes.content}>
-        {activeTab === TaskDetailsBoardsResultTab.ResultIntern && <TaskDetailsBoardsResultIntern />}
+        {activeTab === TaskDetailsBoardsResultTab.ResultIntern && (
+          <TaskDetailsBoardsResultIntern task={task} onUpdateTask={onUpdateTask} />
+        )}
+        {activeTab === TaskDetailsBoardsResultTab.ResultClient && (
+          <TaskDetailsBoardsResultClient task={task} onUpdateTask={onUpdateTask} />
+        )}
       </CardContent>
     </Card>
   );

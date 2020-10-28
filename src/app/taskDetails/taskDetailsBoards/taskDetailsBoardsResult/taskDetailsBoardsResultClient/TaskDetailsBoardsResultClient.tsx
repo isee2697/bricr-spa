@@ -5,15 +5,15 @@ import { useLocale } from 'hooks';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
 
-import { useStyles } from './TaskDetailsBoardsResultIntern.styles';
-import { TaskDetailsBoardsResultInternProps } from './TaskDetailsBoardsResultIntern.types';
+import { useStyles } from './TaskDetailsBoardsResultClient.styles';
+import { TaskDetailsBoardsResultClientProps } from './TaskDetailsBoardsResultClient.types';
 
-export const TaskDetailsBoardsResultIntern = ({ task, onUpdateTask }: TaskDetailsBoardsResultInternProps) => {
+export const TaskDetailsBoardsResultClient = ({ task, onUpdateTask }: TaskDetailsBoardsResultClientProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   const initialValues = {
-    resultIntern: task.resultIntern,
+    resultClient: task.resultClient,
   };
 
   const handleChange = async (body: { resultIntern: string }) => {
@@ -25,7 +25,7 @@ export const TaskDetailsBoardsResultIntern = ({ task, onUpdateTask }: TaskDetail
   return (
     <AutosaveForm initialValues={initialValues} onSave={handleChange} mutators={{ ...arrayMutators }}>
       <GenericField
-        name="resultIntern"
+        name="resultClient"
         fullWidth
         multiline
         placeholder={formatMessage({ id: 'tasks.details.add_result.placeholder' })}

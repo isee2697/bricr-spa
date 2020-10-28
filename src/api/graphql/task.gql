@@ -36,6 +36,8 @@ type Task implements LastUpdated {
   description: String
   originalEstimate: Int
   logs: [TaskLog!]
+  resultIntern: String
+  resultClient: String
   lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
 }
@@ -86,6 +88,8 @@ input UpdateTaskInput {
   description: String
   originalEstimate: Int
   taskLog: TaskLogInput
+  resultIntern: String
+  resultClient: String
 }
 
 input DateRange {

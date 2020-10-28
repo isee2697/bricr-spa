@@ -19,6 +19,8 @@ export const GET_TASK = gql`
         dateStarted
         notes
       }
+      resultIntern
+      resultClient
       dateUpdated
       lastEditedBy {
         id
@@ -58,6 +60,8 @@ export const GET_TASKS = gql`
           dateStarted
           notes
         }
+        resultIntern
+        resultClient
         dateUpdated
         lastEditedBy {
           id

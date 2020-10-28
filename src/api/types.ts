@@ -7060,6 +7060,8 @@ export type Task = LastUpdated & {
   description?: Maybe<Scalars['String']>;
   originalEstimate?: Maybe<Scalars['Int']>;
   logs?: Maybe<Array<TaskLog>>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
@@ -7113,6 +7115,8 @@ export type UpdateTaskInput = {
   description?: Maybe<Scalars['String']>;
   originalEstimate?: Maybe<Scalars['Int']>;
   taskLog?: Maybe<TaskLogInput>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -11673,6 +11677,8 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
       | 'status'
       | 'description'
       | 'originalEstimate'
+      | 'resultIntern'
+      | 'resultClient'
       | 'dateUpdated'
     > & {
         logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
@@ -11709,6 +11715,8 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
             | 'status'
             | 'description'
             | 'originalEstimate'
+            | 'resultIntern'
+            | 'resultClient'
             | 'dateUpdated'
           > & {
               logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
@@ -19787,6 +19795,8 @@ export const GetTaskDocument = gql`
         dateStarted
         notes
       }
+      resultIntern
+      resultClient
       dateUpdated
       lastEditedBy {
         id
@@ -19836,6 +19846,8 @@ export const GetTasksDocument = gql`
           dateStarted
           notes
         }
+        resultIntern
+        resultClient
         dateUpdated
         lastEditedBy {
           id

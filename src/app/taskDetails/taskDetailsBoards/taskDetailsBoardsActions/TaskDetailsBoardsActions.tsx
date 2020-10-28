@@ -3,11 +3,19 @@ import clsx from 'classnames';
 import classNames from 'classnames';
 import useTheme from '@material-ui/core/styles/useTheme';
 
-import { LabelProperty, Task, TaskLabel, TaskLog, TaskStatus } from 'api/types';
+import { LabelProperty, Task, TaskLabel, TaskStatus } from 'api/types';
 import { Box, Chip, Emoji, Paper, SelectBox, Typography, UserAvatar, TextField, LinearProgress } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SelectBoxItem } from 'ui/atoms/selectBox/SelectBox.types';
-import { AddIcon, FollowUpRectangleIcon, HourglassIcon, LockRectangleIcon, UserRectangleIcon } from 'ui/atoms/icons';
+import {
+  AddIcon,
+  ComplexBuildingIcon,
+  FollowUpRectangleIcon,
+  HourglassIcon,
+  LockRectangleIcon,
+  NewConstructionIcon,
+  UserRectangleIcon,
+} from 'ui/atoms/icons';
 import { AdvancedSearch } from 'ui/molecules/advancedSearch/AdvancedSearch';
 import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.types';
 import { AddCustomTaskLabelModalContainer } from '../addCustomTaskLabelModal/AddCustomTaskLabelModalContainer';
@@ -196,13 +204,10 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
     return undefined;
   };
 
-  console.log(task.logs);
   const totalLogs =
     task.logs?.reduce((sum, log) => {
       return sum + log.timeSpent;
     }, 0) || 0;
-
-  console.log(totalLogs, task.originalEstimate);
 
   return (
     <>
@@ -289,10 +294,61 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
             onClick={handleChangeOriginalEstimate}
           />
         </Box>
-        <Box className={classes.loggedHours} onClick={() => setIsLogTimeModalOpened(true)}>
+        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+          <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_order' })}</Typography>
+          <Box mt={1}>
+            <Box>
+              <Typography variant="h5" className={classes.bold}>
+                -
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+          <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_object' })}</Typography>
+          <Box mt={1}>
+            <Box display="flex" alignItems="center">
+              <Box mr={1} className={classes.detailItemIcon}>
+                <NewConstructionIcon color="primary" width={theme.spacing(3)} height={theme.spacing(3)} />
+              </Box>
+              <Typography variant="h5" className={classes.bold}>
+                Living in the green
+              </Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Box mr={1} className={classes.detailItemIcon}>
+                <ComplexBuildingIcon color="secondary" width={theme.spacing(3)} height={theme.spacing(3)} />
+              </Box>
+              <Typography variant="h5" className={classes.bold}>
+                Custom name of object type
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+          <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_relation' })}</Typography>
+          <Box mt={1}>
+            <Box>
+              <Typography variant="h5" className={classes.bold}>
+                -
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+          <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_appointments' })}</Typography>
+          <Box mt={1}>
+            <Box>
+              <Typography variant="h5" className={classes.bold}>
+                -
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
           <Typography variant="h6">{formatMessage({ id: 'tasks.details.time_reports' })}</Typography>
           <Box display="flex" alignItems="center" mt={1} mb={1}>
-            <Box mr={1} className={classes.hourglassIcon}>
+            <Box mr={1} className={classes.detailItemIcon}>
               <HourglassIcon width={theme.spacing(3)} height={theme.spacing(3)} />
             </Box>
             <Typography variant="h5" className={classes.bold}>

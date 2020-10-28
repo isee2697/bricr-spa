@@ -22,7 +22,7 @@ export const TaskDetailsBoards = ({ task, user, members, onUpdateTask }: TaskDet
       </Grid>
       <Grid item xs={12} md={4}>
         <TaskDetailsBoardsActions task={task} user={user} members={members} onUpdateTask={onUpdateTask} />
-        <TaskDetailsBoardsResult />
+        <TaskDetailsBoardsResult task={task} onUpdateTask={onUpdateTask} />
       </Grid>
     </Grid>
   );

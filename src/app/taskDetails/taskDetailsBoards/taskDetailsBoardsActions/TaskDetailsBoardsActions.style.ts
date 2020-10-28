@@ -193,11 +193,11 @@ export const useStyles = makeStyles(theme => ({
       borderColor: 'transparent',
     },
   },
-  loggedHours: {
+  detailItem: {
     padding: theme.spacing(1.5),
     cursor: 'pointer',
   },
-  hourglassIcon: {
+  detailItemIcon: {
     height: theme.spacing(3),
   },
   inlineBlock: {
