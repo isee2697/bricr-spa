@@ -30,4 +30,8 @@ export const useStyles = (color: string = palette.blue.main) =>
     Group: {
       borderTop: `${color} ${spacing(0.5)}px solid`,
     },
+    Warning: {
+      left: `${spacing(-11.5)}px !important`,
+      zIndex: 3,
+    },
   }))();
