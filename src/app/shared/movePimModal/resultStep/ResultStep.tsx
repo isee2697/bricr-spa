@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 import { useFormState } from 'react-final-form';
 
+import { Pim as PimEntity } from 'api/types';
 import { useLocale } from 'hooks';
 import { DialogContent, Grid, DialogActions, Button, Typography, Box } from 'ui/atoms';
 import { SubmitButton } from 'ui/molecules';
@@ -19,33 +20,22 @@ export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
   });
   const { formatMessage } = useLocale();
 
-  const generateTables = () => {
-    // const output: ReactNode[] = [];
-    // if (results && values) {
-    //   const resultsArray = Object.entries(results);
-    //   Object.entries(values).forEach(([key, value]) => {
-    //     resultsArray.forEach(([resultKey, resultValues]) => {
-    //       if (key === resultKey) {
-    //         console.log({ key, resultKey, value, resultValues });
-    //         output.push(
-    //           resultValues
-    //             .filter(item => (item.id as string === value[0])
-    //             .map(item => {
-    //               return (
-    //                 <Box mb={4}>
-    //                   <Typography className={classes.resultTitles} variant="h5">
-    //                     <strong>{resultValues.length}</strong> {resultKey}
-    //                   </Typography>
-    //                 </Box>
-    //               );
-    //             }),
-    //         );
-    //       }
-    //     });
-    //   });
-    // }
-    // // console.log({ results, values, output });
-    // return output;
+  const handleFilter = (item: PimEntity) => {
+    let hasItem = false;
+
+    if (values) {
+      Object.entries(values).forEach(object => {
+        const value = object[1] as string[];
+
+        value.forEach(id => {
+          if (id === item.id) {
+            hasItem = true;
+          }
+        });
+      });
+    }
+
+    return hasItem;
   };
 
   return (
@@ -54,16 +44,14 @@ export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
         <Grid container>
           {results &&
             Object.entries(results).length > 0 &&
-            Object.entries(results).map(object => {
-              const [key, value] = object;
-
+            Object.entries(results).map(([key, value]) => {
               return (
                 <Box mb={4}>
                   <Typography className={classes.resultTitles} variant="h5">
-                    <strong>{value.length}</strong> {key}
+                    <strong>{value.filter(handleFilter).length}</strong> {key}
                   </Typography>
                   <ResultTable
-                    data={object[1].map(item => ({
+                    data={value.filter(handleFilter).map(item => ({
                       selected: <Checkbox color="primary" name="isenburgstraat-36_2" />,
                       title: item.street + ' ' + item.houseNumber,
                       date: DateTime.fromISO(item.dateCreated).toLocaleString(),
@@ -74,8 +62,6 @@ export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
                 </Box>
               );
             })}
-
-          {generateTables()}
         </Grid>
       </DialogContent>
 
