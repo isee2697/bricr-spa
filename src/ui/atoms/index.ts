@@ -99,3 +99,5 @@ export { SelectBox } from './selectBox/SelectBox';
 export { ExitButton } from './exitButton/ExitButton';
 export { AvatarRowItem } from './avatarRowItem/AvatarRowItem';
 export { LinearProgress } from './linearProgress/LinearProgress';
+export { DatePicker } from './datePicker/DatePicker';
+export { TimePicker } from './timePicker/TimePicker';
