@@ -7,7 +7,7 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   rowItem: {
-    padding: `${theme.spacing(2.75)}px ${theme.spacing(2)}px ${theme.spacing(2.75)}px 0`,
+    padding: theme.spacing(2.75, 2, 2.75, 0),
     width: '100%',
   },
   itemNo: {
