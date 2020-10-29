@@ -1164,6 +1164,7 @@ export enum BulkField {
   Status = 'Status',
   RentPrice = 'RentPrice',
   SalePrice = 'SalePrice',
+  Security = 'Security',
 }
 
 export enum BulkEntities {

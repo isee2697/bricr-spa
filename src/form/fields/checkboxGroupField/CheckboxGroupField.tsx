@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useFieldArray } from 'react-final-form-arrays';
 import { FieldValidator, AnyObject } from 'final-form';
 import clsx from 'classnames';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Grid, TileCheckbox, FormHelperText } from 'ui/atoms';
+import { Grid, TileCheckbox, FormHelperText, Box, FormControlLabel, Typography } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
+import { Checkbox } from 'ui/atoms/checkbox/Checkbox';
+import { SimpleSearch } from 'ui/molecules';
 
 import { CheckboxDataType, CheckboxGroupFieldProps } from './CheckboxGroupField.types';
 import { useStyles } from './CheckboxGroupField.styles';
@@ -23,7 +25,11 @@ export const CheckboxGroupField = ({
   actionElement,
   orientation,
   match,
+  allSelectable = false,
+  isSearchable = false,
 }: CheckboxGroupFieldProps) => {
+  const [isChecked, toggleIsChecked] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>(match as string);
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { fields, meta } = useFieldArray<string>(name, {
@@ -32,14 +38,14 @@ export const CheckboxGroupField = ({
   });
 
   const highlightString = (title: string) => {
-    if (!match || !match.trim()) {
+    if (!search || !search.trim()) {
       return title;
     }
 
-    const parts = title.split(new RegExp(`(${match})`, 'gi'));
+    const parts = title.split(new RegExp(`(${search})`, 'gi'));
 
     return parts.map((part, index) =>
-      part.toLowerCase().match(match.toLowerCase()) ? (
+      part.toLowerCase().match(search.toLowerCase()) ? (
         <span key={index} className={clsx(classes.itemLabelPart, 'highlight')}>
           {part}
         </span>
@@ -62,6 +68,21 @@ export const CheckboxGroupField = ({
     [fields],
   );
 
+  const handleSelectAll = useCallback(() => {
+    const checked = !isChecked;
+    toggleIsChecked(checked);
+
+    fields.forEach((item, index: number) => {
+      fields.pop();
+    });
+
+    if (checked) {
+      options.forEach((item: CheckboxDataType) => {
+        fields.push(item.value);
+      });
+    }
+  }, [fields, isChecked, options]);
+
   const hasError =
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
@@ -69,6 +90,26 @@ export const CheckboxGroupField = ({
 
   return (
     <>
+      {isSearchable && (
+        <Box mb={3}>
+          <SimpleSearch onChange={v => setSearch(v.currentTarget.value)} value={search} />
+        </Box>
+      )}
+
+      {allSelectable && (
+        <Box mb={3}>
+          <FormControlLabel
+            control={<Checkbox color="primary" checked={isChecked} onChange={() => handleSelectAll()} />}
+            value={name}
+            name={name}
+            label={
+              <>
+                <Typography variant="h5">{formatMessage({ id: `${name}.title.select.all` })}</Typography>
+              </>
+            }
+          />
+        </Box>
+      )}
       <Grid container spacing={3}>
         {options.map((item: CheckboxDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>

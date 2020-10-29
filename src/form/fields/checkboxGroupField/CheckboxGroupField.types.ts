@@ -24,4 +24,6 @@ export type CheckboxGroupFieldProps = {
   actionElement?: ReactNode;
   orientation?: 'vertical' | 'horizontal';
   match?: string;
+  allSelectable?: boolean;
+  isSearchable?: boolean;
 };

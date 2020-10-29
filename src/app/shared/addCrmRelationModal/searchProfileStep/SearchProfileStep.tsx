@@ -21,6 +21,16 @@ export const SearchProfileStep = ({ onClose, onCreateNewRelation, handleGoTo }: 
       icon: <UserIcon />,
       value: '0001',
     },
+    {
+      label: 'Victor Martin Brochner',
+      value: '2',
+      icon: <UserIcon />,
+    },
+    {
+      label: 'Martin Brochner',
+      value: '3',
+      icon: <UserIcon />,
+    },
   ];
 
   const handleChangeKey = (e: React.ChangeEvent<HTMLInputElement>) => {

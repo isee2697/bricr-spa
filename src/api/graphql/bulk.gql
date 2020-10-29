@@ -3,6 +3,7 @@ enum BulkField {
   Status
   RentPrice
   SalePrice
+  Security
 }
 
 enum BulkEntities {

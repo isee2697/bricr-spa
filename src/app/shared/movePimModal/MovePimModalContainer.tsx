@@ -1,7 +1,16 @@
 import React from 'react';
 import { AnyObject } from 'final-form';
 
-import { ListPimsFilters, PropertyType, useListPimsQuery } from 'api/types';
+import {
+  ListPimsFilters,
+  PropertyType,
+  useListPimsQuery,
+  useBulkMutation,
+  BulkOperations,
+  BulkEntities,
+  BulkField,
+  useListNcpsQuery,
+} from 'api/types';
 import { useModalState, usePagination } from 'hooks';
 import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
@@ -23,27 +32,14 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
     case 'plot':
       return { propertyTypes: [PropertyType.BuildingPlot] };
     default:
-      return {
-        propertyTypes: [
-          PropertyType.Apartment,
-          PropertyType.House,
-          PropertyType.Commercial,
-          PropertyType.Agricultural,
-          PropertyType.ParkingLot,
-          PropertyType.BuildingPlot,
-        ],
-      };
+      return {};
   }
 };
 
 export const MovePimModalContainer = () => {
+  const [bulk] = useBulkMutation();
   const { status } = usePimQueryParams({});
   const { isOpen: isModalOpen, options } = useModalState('move-pim');
-
-  const handleSubmit = async (values: AnyObject) => {
-    return undefined;
-  };
-
   const { query: sortQuery } = usePimsSorting();
 
   const { query: paginationQuery } = usePagination({
@@ -62,6 +58,15 @@ export const MovePimModalContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
+  const { loading: isNcListLoading, data: ncListData } = useListNcpsQuery({
+    variables: {
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
+    fetchPolicy: 'network-only',
+  });
+
   const { loading: isBogListLoading, data: bogListData } = useListPimsQuery({
     variables: {
       ...getPimFilterVariables('bog'),
@@ -71,6 +76,17 @@ export const MovePimModalContainer = () => {
     },
     fetchPolicy: 'no-cache',
   });
+
+  const { loading: isReletListLoading, data: reletListData } = useListPimsQuery({
+    variables: {
+      ...getPimFilterVariables('mutation'),
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
+    fetchPolicy: 'no-cache',
+  });
+
   const { loading: isAogListLoading, data: aogListData } = useListPimsQuery({
     variables: {
       ...getPimFilterVariables('aog'),
@@ -80,36 +96,54 @@ export const MovePimModalContainer = () => {
     },
     fetchPolicy: 'no-cache',
   });
-  const { loading: isParkinglotListLoading, data: parkinglotListData } = useListPimsQuery({
+
+  const { loading: isAllListLoading, data: allListData } = useListNcpsQuery({
     variables: {
-      ...getPimFilterVariables('parkinglot'),
       archived: status === 'archived',
       ...sortQuery,
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
   });
-  const { loading: isPlotListLoading, data: plotListData } = useListPimsQuery({
-    variables: {
-      ...getPimFilterVariables('plot'),
-      archived: status === 'archived',
-      ...sortQuery,
-      ...paginationQuery,
-    },
-    fetchPolicy: 'no-cache',
-  });
+
+  if (!isAllListLoading) {
+    // console.log(allListData);
+  }
 
   let listData = {};
 
-  if (!isListLoading && !isBogListLoading && !isAogListLoading && !isParkinglotListLoading && !isPlotListLoading) {
+  if (!isListLoading && !isNcListLoading && !isBogListLoading && !isReletListLoading && !isAogListLoading) {
     listData = {
-      propertyListData,
-      bogListData,
-      aogListData,
-      parkinglotListData,
-      plotListData,
+      properties: propertyListData,
+      nc: ncListData,
+      bog: bogListData,
+      relet: reletListData,
+      aog: aogListData,
     };
   }
+
+  const handleSubmit = async (values: AnyObject) => {
+    try {
+      const data = values;
+
+      const { data: result } = await bulk({
+        variables: {
+          input: {
+            operation: BulkOperations.SetField,
+            entity: BulkEntities.Pim,
+            ids: data.properties,
+            field: BulkField.Security,
+            value: values.teams.map((team: string) => 'team_' + team),
+          },
+        },
+        refetchQueries: [],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return undefined;
+  };
 
   return <MovePimModal onSubmit={handleSubmit} isOpen={isModalOpen} options={options} data={listData} />;
 };

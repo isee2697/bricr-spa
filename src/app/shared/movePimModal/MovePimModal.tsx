@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { Form, AnyObject } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import { Modal, PropertyStage } from 'ui/molecules';
+import { Modal } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
-import { DialogContent, Grid, Box, Typography } from 'ui/atoms';
 import { Pim as PimEntity } from 'api/types';
-import { PropertyStageItem } from 'ui/molecules/propertyStage/PropertyStage.types';
 
 import { MovePimModalProps, ObjectType } from './MovePimModal.types';
 import { SelectObjectStep } from './selectObjectStep/SelectObjectStep';
 import { SelectTeamsStep } from './selectTeamsStep/SelectTeamsStep';
 import { ResultStep } from './resultStep/ResultStep';
 import { useStyles } from './MovePimModal.styles';
+import { StepBar } from './stepsBar/StepsBar';
 
 const steps = [
   {
@@ -52,7 +51,13 @@ export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalPr
       const newData: { [key: string]: PimEntity[] } = {};
 
       newObjects.forEach((object: AnyObject) => {
-        newData[object[0] as string] = object[1].listPims.items as PimEntity[];
+        if (object[1].listPims) {
+          newData[object[0] as string] = object[1].listPims.items as PimEntity[];
+        }
+
+        if (object[1].listNcps) {
+          newData[object[0] as string] = object[1].listNcps.items as PimEntity[];
+        }
       });
 
       return newData;
@@ -98,34 +103,8 @@ export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalPr
           })}
         >
           <form onSubmit={handleSubmit} autoComplete="off">
-            <DialogContent>
-              <Grid container>
-                <Grid item xs={12}>
-                  <Box className={classes.stepperWrapper} width="100%" mt={3}>
-                    <PropertyStage
-                      baseSize={300}
-                      height="100%"
-                      items={steps.map((item, index) => {
-                        const result = { title: item.name, text: [] } as PropertyStageItem;
+            <StepBar steps={steps} step={step} results={results} />
 
-                        if (index === 0 && step === 1 && results && Object.entries(results).length > 0) {
-                          result.text = Object.entries(results).map((object: AnyObject) => {
-                            return (
-                              <Typography variant="h6">
-                                <strong>{object[1].length}</strong> {object[0]}
-                              </Typography>
-                            );
-                          });
-                        }
-
-                        return result;
-                      })}
-                      activeItem={step}
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-            </DialogContent>
             {React.createElement(currentStep.component, {
               onNext: handleNext,
               onPrev: handlePrev,

@@ -218,6 +218,16 @@ export const mockServer = () => {
 
             return user;
           },
+          getTeams() {
+            return {
+              items: [
+                {
+                  id: '1234-5678-9012',
+                  name: 'Mock team',
+                },
+              ],
+            };
+          },
           getMyTeamMembers() {
             return { items: [MAIN_USER] };
           },
