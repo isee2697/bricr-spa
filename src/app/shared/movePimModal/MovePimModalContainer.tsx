@@ -97,19 +97,6 @@ export const MovePimModalContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const { loading: isAllListLoading, data: allListData } = useListNcpsQuery({
-    variables: {
-      archived: status === 'archived',
-      ...sortQuery,
-      ...paginationQuery,
-    },
-    fetchPolicy: 'no-cache',
-  });
-
-  if (!isAllListLoading) {
-    // console.log(allListData);
-  }
-
   let listData = {};
 
   if (!isListLoading && !isNcListLoading && !isBogListLoading && !isReletListLoading && !isAogListLoading) {
@@ -126,7 +113,7 @@ export const MovePimModalContainer = () => {
     try {
       const data = values;
 
-      const { data: result } = await bulk({
+      await bulk({
         variables: {
           input: {
             operation: BulkOperations.SetField,
