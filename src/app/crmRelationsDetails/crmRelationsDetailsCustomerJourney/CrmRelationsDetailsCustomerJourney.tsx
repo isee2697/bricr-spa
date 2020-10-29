@@ -1,23 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  Badge,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  IconButton,
-  NavBreadcrumb,
-  Tab,
-  Tabs,
-  Typography,
-} from 'ui/atoms';
+import { Badge, Box, Card, CardContent, CardHeader, IconButton, NavBreadcrumb, Tab, Tabs } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { AddIcon, CardsIcon, HelpIcon, LocationIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
+import { AddIcon, CardsIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
 
@@ -75,20 +63,6 @@ export const CrmRelationsDetailsCustomerJourney = ({
         urlBase={joinUrlParams(baseUrl, urlParams)}
       />
       <Page withoutHeader>
-        <Grid xs={12} item container className={classes.header}>
-          <Typography variant="h1" className={classes.title}>
-            {firstName} {insertion} {lastName}
-          </Typography>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-            <HelpIcon />
-          </IconButton>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
-        </Grid>
-
         <Card>
           <CardHeader
             title={formatMessage({ id: 'crm.details.customer_journey.title' })}
