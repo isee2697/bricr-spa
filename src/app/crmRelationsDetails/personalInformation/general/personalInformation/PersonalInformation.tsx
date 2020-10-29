@@ -82,9 +82,12 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
                         />
                       </Grid>
                       <Grid item xs={6}>
+                        <Typography variant="h5">
+                          {formatMessage({ id: 'crm.details.personal_information_general.personal_info.last_name' })}
+                        </Typography>
                         <GenericField
                           className={classes.formField}
-                          name="additional"
+                          name="lastName"
                           disabled={!isEditing}
                           placeholder="crm.details.personal_information_general.personal_info.placeholder"
                         />

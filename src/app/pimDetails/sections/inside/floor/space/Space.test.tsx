@@ -19,22 +19,27 @@ describe('Space form', () => {
   test('form rendered correctly', () => {
     const SPACE_INDEX = 0;
 
-    const { getByText, getByPlaceholderText } = render(
+    const { getByText, getByPlaceholderText, getByTestId } = render(
       <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
         {() => <Space space={space} isEditMode index={SPACE_INDEX} isExpanded={true} onExpand={() => {}} />}
       </Form>,
     );
 
-    expect(getByText('dictionaries.space_type.Kitchen')).toBeInTheDocument();
-    expect(getByPlaceholderText('pim_details.inside.year_of_construction_placeholder')).toBeInTheDocument();
-    expect(getByPlaceholderText('pim_details.inside.space_notes_placeholder')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.type_of_kitchen')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.type_of_construction')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.services')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.built_in_appliances')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.hob')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.shape')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.measurements')).toBeInTheDocument();
-    expect(getByText('pim_details.inside.service_heating')).toBeInTheDocument();
+    expect(getByTestId('space-title')).toBeInTheDocument();
+    expect(getByTestId('inside-year_of_construction_placeholder')).toBeInTheDocument();
+    expect(getByTestId('kitchen-notes')).toBeInTheDocument();
+    expect(getByTestId('configuration.type')).toBeInTheDocument();
+    expect(getByTestId('configuration.constructionType')).toBeInTheDocument();
+    expect(getByTestId('configuration.services')).toBeInTheDocument();
+    expect(getByTestId('configuration.appliances')).toBeInTheDocument();
+    expect(getByTestId('configuration.hob')).toBeInTheDocument();
+    expect(getByTestId('configuration.shape')).toBeInTheDocument();
+    expect(getByTestId('space-width')).toBeInTheDocument();
+    expect(getByTestId('space-length')).toBeInTheDocument();
+    expect(getByTestId('space-height')).toBeInTheDocument();
+    expect(getByTestId('space-surface')).toBeInTheDocument();
+    expect(getByTestId('space-volume')).toBeInTheDocument();
+    expect(getByTestId('configuration.serviceHeating')).toBeInTheDocument();
+    expect(getByTestId('configuration.images')).toBeInTheDocument();
   });
 });

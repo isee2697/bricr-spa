@@ -1,3 +1,8 @@
+enum CrmType {
+  Relation,
+  Business
+}
+
 enum PreferredLanguageType {
   Dutch,
   English,
@@ -32,6 +37,13 @@ enum PreferredLetterSalutationType {
   LordMylady
 }
 
+enum CrmIdentificationNumberType {
+  Sap,
+  Woningnet,
+  DebtorNumber,
+  Custom
+}
+
 type CrmGeneral {
   id: ID!
   firstName: String
@@ -56,17 +68,19 @@ type CrmGeneral {
 }
 
 type CrmIdentificationNumber {
-  id: ID!
-  type: String!
+  type: CrmIdentificationNumberType!
   number: String!
+  name: String
 }
 
 input CrmIdentificationNumberInput {
-  type: String!
+  type: CrmIdentificationNumberType!
   number: String!
+  name: String
 }
 
 input CreateCrmInput {
+  type: CrmType!
   firstName: String
   insertion: String
   lastName: String

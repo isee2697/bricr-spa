@@ -2,50 +2,53 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 
-import { useLocale } from 'hooks';
 import { Modal, SubmitButton } from 'ui/molecules';
-import { Button, DialogActions, DialogContent, TextField, InputAdornment, Typography, Box } from 'ui/atoms';
-import { AddIcon, SearchIcon, SquareIcon, UserIcon } from 'ui/atoms/icons';
-import { CheckboxGroupField, RadioGroupField } from 'form/fields';
+import { Button, DialogActions, DialogContent, InputAdornment, TextField, Typography } from 'ui/atoms';
+import { CheckboxGroupField } from 'form/fields';
+import { AddIcon, HomeIcon, SearchIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
 import { CheckboxDataType } from 'form/fields/checkboxGroupField/CheckboxGroupField.types';
 
-import { useStyles } from './LinkProfileModal.styles';
-import { LinkProfileModalProps, LinkProfileType } from './LinkProfileModal.types';
+import { LinkRelationModalProps } from './LinkRelationModal.types';
+import { useStyles } from './LinkRelationModal.styles';
 
-export const LinkProfileModal = ({ isOpened, onClose }: LinkProfileModalProps) => {
-  const [keyword, setKeyword] = useState('');
+export const LinkRelationModal = ({ isOpened, onClose, onSubmit }: LinkRelationModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const [keyword, setKeyword] = useState('');
 
   const options: CheckboxDataType[] = [
     {
       label: 'Anna Kowalska',
-      icon: <UserIcon />,
+      icon: <HomeIcon />,
       value: '0001',
     },
+    {
+      label: 'Brian Smith',
+      icon: <HomeIcon />,
+      value: '0002',
+    },
+    {
+      label: 'Michael van der Roher',
+      icon: <HomeIcon />,
+      value: '0003',
+    },
   ];
-
-  const types = Object.keys(LinkProfileType).map(type => ({
-    label: formatMessage({ id: `crm.relation.link_profile.type.${type}` }),
-    icon: <SquareIcon />,
-    value: type,
-  }));
 
   const handleChangeKey = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
   return (
-    <Modal
-      fullWidth
-      isOpened={isOpened}
-      onClose={onClose}
-      title={formatMessage({ id: 'crm.partner.link_person' })}
-      className={classes.modal}
-    >
-      <Form onSubmit={() => {}} mutators={{ ...arrayMutators }}>
-        {({ handleSubmit, submitErrors, values }) => (
-          <>
+    <Form onSubmit={onSubmit} mutators={{ ...arrayMutators }}>
+      {({ handleSubmit, submitErrors, values }) => (
+        <Modal
+          fullWidth
+          isOpened={isOpened}
+          onClose={onClose}
+          title={formatMessage({ id: 'tasks.details.link_relation' })}
+        >
+          <form onSubmit={handleSubmit} autoComplete="off">
             <DialogContent>
               <TextField
                 fullWidth
@@ -61,33 +64,27 @@ export const LinkProfileModal = ({ isOpened, onClose }: LinkProfileModalProps) =
                 onChange={handleChangeKey}
               />
               <Typography variant="h6" className={classes.userList}>
-                {formatMessage({ id: 'crm.relation.search_results' })}
+                {formatMessage({ id: 'tasks.details.latest_in_your_portfolio' })}
               </Typography>
               <CheckboxGroupField name="relations" options={options} xs={12} orientation="horizontal" match={keyword} />
-              <Box mt={4}>
-                <Typography variant="h2" className={classes.userList}>
-                  {formatMessage({ id: 'crm.relation.link_profile.select_type' })}
-                </Typography>
-                <RadioGroupField name="type" options={types} />
-              </Box>
             </DialogContent>
             <DialogActions className={classes.actions}>
               <Button color="ghost" size="small" onClick={onClose}>
                 {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton
-                startIcon={<AddIcon color="inherit" />}
                 type="submit"
+                startIcon={<AddIcon color="inherit" />}
                 size="large"
                 color="primary"
-                variant="outlined"
+                variant="contained"
               >
-                {formatMessage({ id: 'crm.relation.link_profile' })}
+                {formatMessage({ id: 'tasks.details.link_relation' })}
               </SubmitButton>
             </DialogActions>
-          </>
-        )}
-      </Form>
-    </Modal>
+          </form>
+        </Modal>
+      )}
+    </Form>
   );
 };

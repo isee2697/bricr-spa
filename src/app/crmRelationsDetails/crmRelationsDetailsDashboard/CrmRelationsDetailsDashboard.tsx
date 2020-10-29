@@ -32,7 +32,9 @@ export const CrmRelationsDetailsDashboard = ({
       <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
       <Page withoutHeader>
         <Grid xs={12} item>
-          <Typography variant="h1">{crm.name}</Typography>
+          <Typography variant="h1">
+            {crm.firstName} {crm.insertion} {crm.lastName}
+          </Typography>
         </Grid>
         <CrmRelationsDetailsDashboardMetaHeader {...crm.meta} />
         <CrmRelationsDetailsDashboardBoards />

@@ -6,11 +6,12 @@ import { Box, Button, Card, CardContent, FormControlLabel, Grid, Switch, Typogra
 import { useLocale } from 'hooks';
 import { CheckboxField, GenericField, QuantityField } from 'form/fields';
 import { ArrowRightIcon, EuroIcon, PercentIcon } from 'ui/atoms/icons';
+import { CreateWizardStepProps } from '../CreateWizard.types';
 
-import { useStyles } from './Settings.styles';
-import { PriceCondition } from './Settings.types';
+import { useStyles } from './SettingsStep.styles';
+import { PriceCondition } from './SettingsStep.types';
 
-export const Settings = () => {
+export const SettingsStep = ({ onNextStep }: CreateWizardStepProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isUsingSalesSettings, setIsUsingSalesSettings] = useState(false);
@@ -68,6 +69,7 @@ export const Settings = () => {
                       placeholder={formatMessage({
                         id: 'project_details.allocate_results.settings.name_of_allocation.placeholder',
                       })}
+                      disabled={!isEditing}
                     />
                   </Box>
                 </Box>
@@ -88,6 +90,7 @@ export const Settings = () => {
                     <QuantityField
                       label={formatMessage({ id: 'project_details.allocate_results.settings.people' })}
                       name="candidatesPerProperty"
+                      disabled={!isEditing}
                     />
                   </Box>
                 </Box>
@@ -100,7 +103,11 @@ export const Settings = () => {
                   <Grid container>
                     {priceConditions.map((condition, index) => (
                       <Grid item xs={4} key={index}>
-                        <CheckboxField name={`priceConditions.${condition.value}`} label={condition.label} />
+                        <CheckboxField
+                          name={`priceConditions.${condition.value}`}
+                          label={condition.label}
+                          disabled={!isEditing}
+                        />
                       </Grid>
                     ))}
                   </Grid>
@@ -128,6 +135,7 @@ export const Settings = () => {
                         id: 'project_details.allocate_results.settings.joint_month_income.placeholder',
                       })}
                       InputProps={{ endAdornment: <EuroIcon /> }}
+                      disabled={!isEditing}
                     />
                     <ArrowRightIcon className={classes.arrowIcon} />
                     <GenericField
@@ -146,6 +154,7 @@ export const Settings = () => {
                         id: 'project_details.allocate_results.settings.joint_month_income.placeholder',
                       })}
                       InputProps={{ endAdornment: <EuroIcon /> }}
+                      disabled={!isEditing}
                     />
                     <Typography variant="h5" className={clsx(classes.gray, classes.equalIcon)}>
                       =
@@ -156,6 +165,7 @@ export const Settings = () => {
                       placeholder={formatMessage({
                         id: 'project_details.allocate_results.settings.factor.placeholder',
                       })}
+                      disabled={!isEditing}
                     />
                   </Box>
                   <Grid container>
@@ -177,6 +187,7 @@ export const Settings = () => {
                         })}
                         InputProps={{ endAdornment: <EuroIcon /> }}
                         className={classes.annualIncome}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -197,6 +208,7 @@ export const Settings = () => {
                         id: 'project_details.allocate_results.settings.joint_month_income.placeholder',
                       })}
                       InputProps={{ endAdornment: <EuroIcon /> }}
+                      disabled={!isEditing}
                     />
                     <ArrowRightIcon className={classes.arrowIcon} />
                     <GenericField
@@ -215,6 +227,7 @@ export const Settings = () => {
                         id: 'project_details.allocate_results.settings.joint_month_income.placeholder',
                       })}
                       InputProps={{ endAdornment: <EuroIcon /> }}
+                      disabled={!isEditing}
                     />
                     <Typography variant="h5" className={clsx(classes.gray, classes.equalIcon)}>
                       =
@@ -225,6 +238,7 @@ export const Settings = () => {
                       placeholder={formatMessage({
                         id: 'project_details.allocate_results.settings.factor.placeholder',
                       })}
+                      disabled={!isEditing}
                     />
                   </Box>
                   <Grid container>
@@ -246,6 +260,7 @@ export const Settings = () => {
                         })}
                         InputProps={{ endAdornment: <EuroIcon /> }}
                         className={classes.annualIncome}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -264,6 +279,7 @@ export const Settings = () => {
                         placeholder={formatMessage({
                           id: 'project_details.allocate_results.settings.factor.placeholder',
                         })}
+                        disabled={!isEditing}
                       />
                     </Grid>
                     <Grid item xs={5}>
@@ -274,6 +290,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.marge.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -295,6 +312,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.lowest_income_percentage.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                     <Grid item xs={5}>
@@ -307,6 +325,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.include_pension_income.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -328,6 +347,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.available_capital_count.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                     <Grid item xs={5}>
@@ -340,6 +360,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.deduct_monthly_obligations.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -361,6 +382,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.available_capital_count.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                     <Grid item xs={5}>
@@ -373,6 +395,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.deduct_monthly_obligations.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -383,6 +406,7 @@ export const Settings = () => {
                     label={formatMessage({
                       id: 'project_details.allocate_results.settings.assign_people_above_maximum_joint_income',
                     })}
+                    disabled={!isEditing}
                   />
                 </Box>
                 <Box className={classes.marginTopFour}>
@@ -412,6 +436,7 @@ export const Settings = () => {
                           id: 'project_details.allocate_results.settings.different_lowest_highest_income.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                     <Grid item xs={5}>
@@ -434,6 +459,7 @@ export const Settings = () => {
                             'project_details.allocate_results.settings.fictitious_income_with_highest_income.placeholder',
                         })}
                         InputProps={{ endAdornment: <PercentIcon /> }}
+                        disabled={!isEditing}
                       />
                     </Grid>
                   </Grid>
@@ -443,7 +469,7 @@ export const Settings = () => {
           </Box>
         </CardContent>
       </Card>
-      <Button variant="outlined" color="primary" className={classes.btnAction}>
+      <Button variant="outlined" color="primary" className={classes.btnAction} onClick={onNextStep}>
         {formatMessage({ id: 'project_details.allocate_results.settings.go_to_filtering_properties' })}
       </Button>
     </Box>

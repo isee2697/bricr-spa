@@ -56,9 +56,9 @@ export const Crm = ({ crms, type, onTypeChange, status, onStatusChange }: CrmPro
                       status={status}
                       onStatusChange={onStatusChange}
                       amounts={{
-                        actionRequired: 3,
-                        active: 287,
-                        inactive: 239,
+                        actionRequired: crms.filter(crmItem => crmItem.status === 'actionRequired').length,
+                        active: crms.filter(crmItem => crmItem.status === 'active').length,
+                        inactive: crms.filter(crmItem => crmItem.status === 'archived').length,
                       }}
                     />
                   </Box>

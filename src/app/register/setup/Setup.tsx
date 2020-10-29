@@ -13,6 +13,7 @@ import { BackIcon } from 'ui/atoms/icons';
 import { useStyles } from './Setup.styles';
 import { SetupStepOne } from './StepOne';
 import { SetupStepTwo } from './StepTwo';
+import { SetupStepThree } from './StepThree';
 import { SetupSteps, StepData } from './Setup.types';
 
 export const Setup = () => {
@@ -23,7 +24,9 @@ export const Setup = () => {
   const classes = useStyles();
   const { push } = useHistory();
 
-  const isStepOne = !pathname.includes('properties');
+  const isStepOne = pathname.endsWith('setup');
+  const isStepTwo = pathname.includes('properties');
+  const isStepThree = pathname.includes('confirmation');
 
   if (name && !fullName) {
     //redirect if ugly queryparam
@@ -38,7 +41,11 @@ export const Setup = () => {
       push(AppRoute.propertiesSetup);
     }
 
-    if (data.clientTypes && data.propertyTypes) {
+    if (isStepTwo) {
+      push(AppRoute.confirmationSetup);
+    }
+
+    if (isStepThree && data.clientTypes && data.propertyTypes) {
       push(AppRoute.login);
     }
 
@@ -46,17 +53,27 @@ export const Setup = () => {
   };
 
   const changeStep = (step: SetupSteps) => {
-    if (isStepOne && step === SetupSteps.PropertyTypes) {
+    if (step === SetupSteps.ClientType) {
+      push(AppRoute.setup);
+    } else if (step === SetupSteps.PropertyTypes) {
       push(AppRoute.propertiesSetup);
-    } else if (!isStepOne && step === SetupSteps.ClientType) {
+    } else if (step === SetupSteps.ConfirmationTypes) {
+      push(AppRoute.confirmationSetup);
+    } else {
       push(AppRoute.setup);
     }
   };
 
   return (
     <>
-      {!isStepOne && (
+      {isStepTwo && (
         <Box className={classes.back} onClick={() => changeStep(SetupSteps.ClientType)}>
+          <BackIcon />
+          {formatMessage({ id: 'setup.back' })}
+        </Box>
+      )}
+      {isStepThree && (
+        <Box className={classes.back} onClick={() => changeStep(SetupSteps.PropertyTypes)}>
           <BackIcon />
           {formatMessage({ id: 'setup.back' })}
         </Box>
@@ -80,6 +97,7 @@ export const Setup = () => {
             <Switch>
               <Route exact path={`${AppRoute.setup}`} render={() => <SetupStepOne />} />
               <Route exact path={`${AppRoute.setup}/properties`} render={() => <SetupStepTwo />} />
+              <Route exact path={`${AppRoute.setup}/confirmation`} render={() => <SetupStepThree />} />
               <Redirect to={`${AppRoute.setup}`} />
             </Switch>
 
@@ -90,7 +108,11 @@ export const Setup = () => {
               />
               <span
                 onClick={() => changeStep(SetupSteps.PropertyTypes)}
-                className={classNames(classes.step, !isStepOne ? classes.active : '')}
+                className={classNames(classes.step, isStepTwo ? classes.active : '')}
+              />
+              <span
+                onClick={() => changeStep(SetupSteps.ConfirmationTypes)}
+                className={classNames(classes.step, isStepThree ? classes.active : '')}
               />
             </Box>
           </form>

@@ -56,7 +56,7 @@ export const UploadImageGroupField = ({
   );
 
   return (
-    <Grid container spacing={1}>
+    <Grid data-testid={name} container spacing={1}>
       {fields.map((field, index) => (
         <UploadImageField
           disabled={disabled}

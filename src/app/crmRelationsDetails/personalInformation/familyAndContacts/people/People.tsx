@@ -16,38 +16,39 @@ import {
 import { AddIcon, ArrowUpIcon, LinkIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch } from 'hooks';
 import { InfoSection } from 'ui/molecules';
+import { LinkContactModalContainer } from 'app/shared/linkContactModal/LinkContactModalContainer';
+import { LinkContactModalForm } from 'app/shared/linkContactModal/LinkContactModal.types';
+import { CrmContact } from 'api/types';
 
 import { useStyles } from './People.styles';
-import { Contact, ContactType, PeopleProps } from './People.types';
+import { PeopleProps } from './People.types';
 import { ContactItem } from './contactItem/ContactItem';
 
-export const People = ({ users }: PeopleProps) => {
-  const { open } = useModalDispatch();
+export const People = ({ data, onSave }: PeopleProps) => {
+  const { open, close } = useModalDispatch();
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
-  const [people, setPeoples] = useState<Contact[]>([]);
+  const [contacts] = useState<CrmContact[]>(data.contacts || []);
 
-  const handleAddNewPerson = () => {
-    setPeoples([
-      ...people,
-      {
-        profile: users[0],
-        type: ContactType.MainContact,
-      },
-      {
-        profile: users[0],
-        type: ContactType.Broker,
-      },
-      {
-        profile: users[0],
-        type: ContactType.Broker,
-      },
-    ]);
+  const handleAddNewContact = async (values: LinkContactModalForm) => {
+    close('link-contact');
+
+    const contactId = values.contact?.[0];
+    const type = values.type;
+
+    if (contactId && type) {
+      return await onSave({
+        id: data.id,
+        contacts: [...contacts.map(({ contact, type }) => ({ contactId: contact.id, type })), { contactId, type }],
+      });
+    } else {
+      return undefined;
+    }
   };
 
   const groupPeople = () => {
-    const groups = groupBy(people, 'type');
+    const groups = groupBy(contacts, 'type');
 
     return Object.keys(groups).map(key => ({
       group: key,
@@ -67,15 +68,16 @@ export const People = ({ users }: PeopleProps) => {
               labelPlacement="start"
               className={classes.editSwitcher}
             />
-            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('link-profile')}>
+            <IconButton aria-label="add" color="primary" size="small" onClick={() => open('link-contact')}>
               <AddIcon color="inherit" />
             </IconButton>
+            <LinkContactModalContainer onSubmit={handleAddNewContact} />
           </>
         }
       />
       <CardContent>
         <Grid item xs={12}>
-          {people.length === 0 && (
+          {contacts.length === 0 && (
             <InfoSection emoji="🤔" className={classes.content}>
               <Typography variant="h3">
                 {formatMessage({
@@ -90,7 +92,7 @@ export const People = ({ users }: PeopleProps) => {
               <Button
                 color="primary"
                 variant="contained"
-                onClick={() => handleAddNewPerson()}
+                onClick={() => open('link-contact')}
                 startIcon={<LinkIcon color="inherit" />}
                 size="small"
                 className={classes.marginTopTwo}
@@ -99,7 +101,7 @@ export const People = ({ users }: PeopleProps) => {
               </Button>
             </InfoSection>
           )}
-          {people.length > 0 &&
+          {contacts.length > 0 &&
             groupPeople().map((group, index) => (
               <React.Fragment key={index}>
                 <Box display="flex" className={classes.groupHeader}>
@@ -119,7 +121,7 @@ export const People = ({ users }: PeopleProps) => {
                   </IconButton>
                 </Box>
                 {group.contacts.map((contact, contactIndex) => (
-                  <ContactItem key={contactIndex} className={classes.contactItem} contact={contact} />
+                  <ContactItem key={contactIndex} className={classes.contactItem} contact={contact.contact} />
                 ))}
               </React.Fragment>
             ))}

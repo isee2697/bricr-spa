@@ -11,12 +11,13 @@ import { CrmRelationsDetailsDashboard } from './crmRelationsDetailsDashboard/Crm
 import { CrmRelationsDetailsSummary } from './crmRelationsDetailsSummary/CrmRelationsDetailsSummary';
 import { CrmRelationsDetailsTimeline } from './crmRelationsDetailsTimeline/CrmRelationsDetailsTimeline';
 import { CrmRelationsDetailsCustomerJourneyContainer } from './crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourneyContainer';
-import { FamilyAndContacts } from './personalInformation/familyAndContacts/FamilyAndContacts';
+import { FamilyAndContactsContainer } from './personalInformation/familyAndContacts/FamilyAndContactsContainer';
 import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 import { HomeSituationContainer } from './personalInformation/homeSituation/HomeSituationContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
+import { DocumentsConatiner } from './documents/DocumentsContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -101,7 +102,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route
                   path={`${path}/personal_information_family_and_contacts`}
                   render={() => (
-                    <FamilyAndContacts onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                    <FamilyAndContactsContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
                   )}
                 />
                 <Route
@@ -121,6 +122,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   )}
                 />
                 <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route
+                  path={`${path}/documents`}
+                  render={() => (
+                    <DocumentsConatiner
+                      path={`${path}/documents`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

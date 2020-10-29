@@ -1,4 +1,4 @@
-import { CrmType } from '../Crm.types';
+import { CrmType } from 'api/types';
 
 export type CrmSidebarMenuProps = {
   isVisible: boolean;

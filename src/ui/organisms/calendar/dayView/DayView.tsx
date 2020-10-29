@@ -3,12 +3,6 @@ import { DayView as Day, DayViewProps } from '@devexpress/dx-react-scheduler-mat
 
 import { useStyles } from 'ui/organisms/calendar/dayView/DayView.styles';
 
-const DayTimeTableCell = ({ ...props }: Day.TimeTableCellProps) => {
-  const classes = useStyles();
-
-  return <Day.TimeTableCell {...props} className={classes.root} />;
-};
-
 const DayScale = ({ ...props }: Day.DayScaleLayoutProps) => {
   const classes = useStyles();
 
@@ -27,12 +21,18 @@ const DayLayout = ({ ...props }: Day.LayoutProps) => {
   return <Day.Layout {...props} className={classes.day} />;
 };
 
-export const DayView = (props: DayViewProps) => (
+const DayEmpty = ({ ...props }: Day.DayScaleEmptyCellProps) => {
+  const classes = useStyles();
+
+  return <Day.DayScaleEmptyCell {...props} className={classes.empty} />;
+};
+
+export const DayView = ({ disableHead, ...props }: DayViewProps & { disableHead?: boolean }) => (
   <Day
     {...props}
+    dayScaleLayoutComponent={disableHead ? () => <></> : DayScale}
     layoutComponent={DayLayout}
-    dayScaleLayoutComponent={DayScale}
     timeScaleLabelComponent={DayScaleLabel}
-    timeTableCellComponent={DayTimeTableCell}
+    dayScaleEmptyCellComponent={DayEmpty}
   />
 );

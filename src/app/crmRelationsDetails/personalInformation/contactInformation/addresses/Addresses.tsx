@@ -150,7 +150,7 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
                       </Typography>
                       <GenericField
                         className={classes.formField}
-                        name={`${address.key}.zipCode`}
+                        name={`${address.key}.zipcode`}
                         disabled={!isEditing}
                         placeholder="crm.details.personal_information_contact_information.addresses.placeholder"
                       />

@@ -1,6 +1,6 @@
-import { Profile } from 'api/types';
+import { LinkedCrm } from 'api/types';
 
 export type PartnerItemProps = {
   className: string;
-  partner: Profile;
+  partner: LinkedCrm;
 };

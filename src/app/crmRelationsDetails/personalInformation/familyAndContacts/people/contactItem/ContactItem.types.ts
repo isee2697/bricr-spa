@@ -1,6 +1,6 @@
-import { Contact } from '../People.types';
+import { LinkedCrm } from 'api/types';
 
 export type ContactItemProps = {
-  contact: Contact;
+  contact: LinkedCrm;
   className: string;
 };

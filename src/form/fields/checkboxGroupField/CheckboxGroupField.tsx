@@ -68,7 +68,7 @@ export const CheckboxGroupField = ({
     (meta.initial !== undefined && meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
-    <>
+    <div data-testid={name}>
       <Grid container spacing={3}>
         {options.map((item: CheckboxDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
@@ -96,6 +96,6 @@ export const CheckboxGroupField = ({
           })}
         </FormHelperText>
       )}
-    </>
+    </div>
   );
 };

@@ -60,7 +60,7 @@ export const RadioGroupField = ({
     (meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
-    <>
+    <div data-testid={name}>
       {labelId && (
         <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
           {formatMessage({ id: labelId })}
@@ -91,6 +91,6 @@ export const RadioGroupField = ({
           {formatMessage(meta.error || meta.submitError, { ...meta.error?.values })}
         </FormHelperText>
       )}
-    </>
+    </div>
   );
 };

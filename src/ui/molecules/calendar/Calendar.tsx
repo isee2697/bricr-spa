@@ -16,22 +16,29 @@ import {
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-import { CalendarProps, ConvertDataFunction, CalendarTypeResource } from './Calandar.types';
+import {
+  CalendarProps,
+  ConvertDataFunction,
+  CalendarTypeResource,
+  TaskLabelResource,
+  DateView,
+} from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
   return schedulerData.map(item => ({
     ...item,
     type: CalendarTypeResource.find(type => type.text === item.type)?.id,
+    taskLabel: TaskLabelResource.find(type => type.text === item.taskLabel)?.id,
   }));
 };
 
-export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
+export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => {
   const { locale } = useLocale();
   const { spacing, breakpoints } = useTheme();
 
   return (
     <Scheduler
-      height={spacing(breakpoints.up('xl') ? 70 : 60)}
+      height={height ?? spacing(breakpoints.up('xl') ? 70 : 60)}
       locale={locale}
       firstDayOfWeek={1}
       data={connectDataToResources(data)}
@@ -39,6 +46,7 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
     >
       <ViewState currentDate={currentDate} currentViewName={view} />
       <DayView />
+      <DayView disableHead name={DateView.Group} />
       <WeekView />
       <MonthView />
       <AllDayPanel />
@@ -47,7 +55,10 @@ export const Calendar = ({ data, currentDate, view }: CalendarProps) => {
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />
       <Resources
-        data={[{ fieldName: 'type', title: 'type', instances: CalendarTypeResource }]}
+        data={[
+          { fieldName: 'type', title: 'type', instances: CalendarTypeResource },
+          { fieldName: 'taskLabel', title: 'taskLabel', instances: TaskLabelResource },
+        ]}
         mainResourceName="type"
       />
     </Scheduler>

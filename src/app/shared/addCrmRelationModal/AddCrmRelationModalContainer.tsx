@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useModalDispatch, useModalState } from 'hooks';
-import { CreateCrmInput, useCreateCrmMutation } from 'api/types';
+import { CreateCrmInput, CrmType, useCreateCrmMutation } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddCrmRelationModal } from './AddCrmRelationModal';
@@ -16,7 +16,10 @@ export const AddCrmRelationModalContainer = () => {
   const createNewRelation = async (input: CreateCrmInput) => {
     const { data, errors } = await createCrm({
       variables: {
-        input,
+        input: {
+          ...input,
+          type: CrmType.Relation,
+        },
       },
     });
 
@@ -25,7 +28,7 @@ export const AddCrmRelationModalContainer = () => {
     }
 
     if (data) {
-      push(AppRoute.crmGeneral.replace(':id', data.createCrm.id));
+      push(AppRoute.crmRelationsDetails.replace(':id', data.createCrm.id), { newlyAdded: true });
     }
 
     close('add-relation');

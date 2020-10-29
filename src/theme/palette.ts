@@ -31,6 +31,7 @@ const gradientBlue = 'linear-gradient(339deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientLightBlue = 'linear-gradient(354deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientGreen = 'linear-gradient(315deg, #0ABE67 0%, #00E174 100%)';
 const gradientWhite = 'linear-gradient(180deg, #F3F5FA 104px, rgba(243, 245, 250, 0) 312px)';
+const gradientGreenRed = 'linear-gradient(90deg, #EB5F60 0%, #FFAD21 25.52%, #FCC616 52.6%, #0ABE67 100%)';
 
 export const palette: PaletteOptions = {
   primary: {
@@ -109,6 +110,9 @@ export const palette: PaletteOptions = {
   },
   gradientWhite: {
     main: gradientWhite,
+  },
+  gradientGreenRed: {
+    main: gradientGreenRed,
   },
   overlay: {
     main: 'rgba(130, 141, 185, 0.3)',
