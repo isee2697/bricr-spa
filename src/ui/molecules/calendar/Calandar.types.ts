@@ -1,6 +1,6 @@
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 
-import { CalendarTypes } from 'api/types';
+import { CalendarTypes, TaskLabel } from 'api/types';
 import { palette } from 'theme/palette';
 
 export enum DateView {
@@ -24,6 +24,30 @@ export type CalendarProps = {
 };
 
 export type ConvertDataFunction = (data: AppointmentModel[]) => AppointmentModel[];
+
+export const TaskLabelResource = [
+  {
+    id: 1,
+    text: TaskLabel.Private,
+    color: palette.purple.main,
+  },
+  {
+    id: 2,
+    text: TaskLabel.FollowUp,
+    color: palette.red.main,
+  },
+  {
+    id: 3,
+    text: TaskLabel.Business,
+    color: palette.blue.main,
+  },
+].map(item => ({
+  ...item,
+  fieldName: item.color,
+  title: item.color,
+  isMain: false,
+  allowMultiple: false,
+}));
 
 export const CalendarTypeResource = [
   {

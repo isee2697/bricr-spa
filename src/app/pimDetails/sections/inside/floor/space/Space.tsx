@@ -34,10 +34,10 @@ export const Space = ({
     <Box className={classes.container}>
       <FormSubSection
         title={
-          <>
+          <div data-testid="space-title">
             <Counter count={index + 1} hasMarginRight />
             {spaceName || formatMessage({ id: `dictionaries.space_type.${spaceType}` })} {groupedSpaceCount ?? ''}
-          </>
+          </div>
         }
         onOptionsClick={() => {}}
         initiallyOpened={false}

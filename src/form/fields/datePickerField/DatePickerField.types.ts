@@ -1,11 +1,11 @@
 import { FieldValidator } from 'final-form';
-import { KeyboardDatePickerProps } from '@material-ui/pickers';
+
+import { DatePickerProps } from 'ui/molecules/datePicker/DatePicker.types';
 
 type FieldValue = string | null;
 
-export type DatePickerFieldProps = Omit<KeyboardDatePickerProps, 'value' | 'onChange'> & {
+export type DatePickerFieldProps = Omit<DatePickerProps, 'value' | 'onChange'> & {
   name: string;
   validate?: FieldValidator<FieldValue>[];
   validateFields?: string[];
-  isYearPicker?: boolean;
 };

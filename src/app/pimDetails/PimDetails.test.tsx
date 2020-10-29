@@ -12,7 +12,7 @@ describe('PimDetails', () => {
   test('renders correctly with error message', () => {
     const error = new ApolloError({ errorMessage: 'test' });
 
-    const { getByText } = render(
+    const { getByTestId } = render(
       <Router initialEntries={['/pim/test/general']} initialIndex={0}>
         <PimDetails
           error={error}
@@ -24,6 +24,6 @@ describe('PimDetails', () => {
         />
       </Router>,
     );
-    expect(getByText('common.error')).toBeInTheDocument();
+    expect(getByTestId('pim-details-error')).toBeInTheDocument();
   });
 });
