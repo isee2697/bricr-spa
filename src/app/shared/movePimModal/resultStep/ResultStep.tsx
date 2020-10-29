@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useFormState } from 'react-final-form';
 
@@ -13,6 +13,7 @@ import { useStyles } from '../MovePimModal.styles';
 
 export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
   const classes = useStyles();
+  const [selected, setSelected] = useState<string[]>([]);
   const { values } = useFormState({
     subscription: {
       values: true,
@@ -38,6 +39,24 @@ export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
     return hasItem;
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, item: PimEntity, key: string) => {
+    const checked = e.target.checked;
+    let newSelected = selected;
+
+    if (checked) {
+      if (!selected.includes(item.id)) {
+        newSelected = [...selected, item.id];
+      }
+    } else {
+      if (selected.includes(item.id)) {
+        newSelected = selected.filter((id: string) => id !== item.id);
+      }
+    }
+
+    setSelected(newSelected);
+    values.ids = newSelected;
+  };
+
   return (
     <>
       <DialogContent>
@@ -52,7 +71,13 @@ export const ResultStep = ({ onPrev, onNext, results }: SelectStepProps) => {
                   </Typography>
                   <ResultTable
                     data={value.filter(handleFilter).map(item => ({
-                      selected: <Checkbox color="primary" name="isenburgstraat-36_2" />,
+                      selected: (
+                        <Checkbox
+                          color="primary"
+                          name="isenburgstraat-36_2"
+                          onChange={e => handleChange(e, item, key)}
+                        />
+                      ),
                       title: item.street + ' ' + item.houseNumber,
                       date: DateTime.fromISO(item.dateCreated).toLocaleString(),
                       location: item.city,

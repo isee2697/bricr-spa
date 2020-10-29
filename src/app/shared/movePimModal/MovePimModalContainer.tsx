@@ -9,7 +9,7 @@ import {
   BulkOperations,
   BulkEntities,
   BulkField,
-  useListNcpsQuery,
+  // useListNcpsQuery,
 } from 'api/types';
 import { useModalState, usePagination } from 'hooks';
 import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
@@ -58,14 +58,17 @@ export const MovePimModalContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const { loading: isNcListLoading, data: ncListData } = useListNcpsQuery({
-    variables: {
-      archived: status === 'archived',
-      ...sortQuery,
-      ...paginationQuery,
-    },
-    fetchPolicy: 'network-only',
-  });
+  /**
+   * useListNcpsQuery does return a list of new constructions but the properties are null
+   */
+  // const { loading: isNcListLoading, data: ncListData } = useListNcpsQuery({
+  //   variables: {
+  //     archived: status === 'archived',
+  //     ...sortQuery,
+  //     ...paginationQuery,
+  //   },
+  //   fetchPolicy: 'network-only',
+  // });
 
   const { loading: isBogListLoading, data: bogListData } = useListPimsQuery({
     variables: {
@@ -77,15 +80,18 @@ export const MovePimModalContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const { loading: isReletListLoading, data: reletListData } = useListPimsQuery({
-    variables: {
-      ...getPimFilterVariables('mutation'),
-      archived: status === 'archived',
-      ...sortQuery,
-      ...paginationQuery,
-    },
-    fetchPolicy: 'no-cache',
-  });
+  /**
+   * UseListPim does not return a list of relet
+   */
+  // const { loading: isReletListLoading, data: reletListData } = useListPimsQuery({
+  //   variables: {
+  //     ...getPimFilterVariables('mutation'),
+  //     archived: status === 'archived',
+  //     ...sortQuery,
+  //     ...paginationQuery,
+  //   },
+  //   fetchPolicy: 'no-cache',
+  // });
 
   const { loading: isAogListLoading, data: aogListData } = useListPimsQuery({
     variables: {
@@ -99,35 +105,34 @@ export const MovePimModalContainer = () => {
 
   let listData = {};
 
-  if (!isListLoading && !isNcListLoading && !isBogListLoading && !isReletListLoading && !isAogListLoading) {
+  if (!isListLoading && !isBogListLoading && !isAogListLoading) {
     listData = {
       properties: propertyListData,
-      nc: ncListData,
+      // nc: ncListData, ncListData does not return the correct property list
       bog: bogListData,
-      relet: reletListData,
+      // relet: reletListData, reletListData does not return the correct property list
       aog: aogListData,
     };
   }
 
   const handleSubmit = async (values: AnyObject) => {
     try {
-      const data = values;
+      const ids = values.ids;
+      const value = values.teams.map((team: string) => 'team_' + team);
 
       await bulk({
         variables: {
           input: {
+            ids,
+            value,
             operation: BulkOperations.SetField,
             entity: BulkEntities.Pim,
-            ids: data.properties,
             field: BulkField.Security,
-            value: values.teams.map((team: string) => 'team_' + team),
           },
         },
         refetchQueries: [],
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
 
     return undefined;
   };

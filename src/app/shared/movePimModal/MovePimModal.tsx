@@ -73,6 +73,8 @@ export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalPr
   const handleSubmit = async (body: AnyObject) => {
     const response = await onSubmit(body);
 
+    close('move-pim');
+
     if (!response) {
       return;
     }
