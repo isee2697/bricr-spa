@@ -24,6 +24,7 @@ import { EntityType } from 'app/shared/entityType';
 import { TaskLogSubmitBody } from '../taskDetailsLoggingTimeModal/TaskDetailsLoggingTimeModal.types';
 import { LinkPropertyModal } from '../linkPropertyModal/LinkPropertyModal';
 import { LinkOrderModal } from '../linkOrderModal/LinkOrderModal';
+import { TaskDetailsLoggingTimeModal } from '../taskDetailsLoggingTimeModal/TaskDetailsLoggingTimeModal';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
@@ -352,11 +353,19 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
           <LinearProgress value={totalLogs} max={task.originalEstimate || 0} />
         </Box>
       </Paper>
-      {isLogTimeModalOpened && (
+      {isModalOpened && (
         <AddCustomTaskLabelModalContainer
           isOpened={isModalOpened}
           property={LabelProperty.Task}
           onClose={() => setModalOpened(false)}
+        />
+      )}
+      {isLogTimeModalOpened && (
+        <TaskDetailsLoggingTimeModal
+          task={task}
+          isOpen={isLogTimeModalOpened}
+          onLogTime={handleLogTime}
+          onClose={() => setIsLogTimeModalOpened(false)}
         />
       )}
       {isLinkPropertyModalOpened && (
