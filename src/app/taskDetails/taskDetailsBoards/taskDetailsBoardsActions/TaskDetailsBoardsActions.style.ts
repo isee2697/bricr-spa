@@ -196,6 +196,10 @@ export const useStyles = makeStyles(theme => ({
   detailItem: {
     padding: theme.spacing(1.5),
     cursor: 'pointer',
+
+    '&:last-child': {
+      paddingBottom: theme.spacing(3),
+    },
   },
   detailItemIcon: {
     height: theme.spacing(3),

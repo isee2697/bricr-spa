@@ -21,8 +21,10 @@ import { AdvancedSearchItem } from 'ui/molecules/advancedSearch/AdvancedSearch.t
 import { AddCustomTaskLabelModalContainer } from '../addCustomTaskLabelModal/AddCustomTaskLabelModalContainer';
 import { useCustomLabels } from 'hooks/useCustomLabels';
 import { EntityType } from 'app/shared/entityType';
-import { TaskDetailsLoggingTimeModal } from '../taskDetailsLoggingTimeModal/TaskDetailsLoggingTimeModal';
 import { TaskLogSubmitBody } from '../taskDetailsLoggingTimeModal/TaskDetailsLoggingTimeModal.types';
+import { LinkPropertyModal } from '../linkPropertyModal/LinkPropertyModal';
+import { LinkOrderModal } from '../linkOrderModal/LinkOrderModal';
+import { TaskDetailsLoggingTimeModal } from '../taskDetailsLoggingTimeModal/TaskDetailsLoggingTimeModal';
 
 import { useStyles } from './TaskDetailsBoardsActions.style';
 import { TaskDetailsBoardsActionsProps } from './TaskDetailsBoardsActions.types';
@@ -56,6 +58,9 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
   const classes = useStyles();
   const [isModalOpened, setModalOpened] = useState(false);
   const [isLogTimeModalOpened, setIsLogTimeModalOpened] = useState(false);
+  const [isLinkPropertyModalOpened, setIsLinkPropertyModalOpened] = useState(false);
+  const [isLinkOrderModalOpened, setIsLinkOrderModalOpened] = useState(false);
+  const [isLinkRelationModalOpened, setIsLinkRelationModalOpened] = useState(false);
   const [isEditingOriginalEstimate, setIsEditingOriginalEstimate] = useState(false);
   const [originalEstimate, setOriginalEstimate] = useState(convertEtaToEtaString(task.originalEstimate || 0));
   const customLabels = useCustomLabels(task.id, [LabelProperty.Task], EntityType.Task);
@@ -294,7 +299,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
             onClick={handleChangeOriginalEstimate}
           />
         </Box>
-        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+        <Box className={classes.detailItem} onClick={() => setIsLinkOrderModalOpened(true)}>
           <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_order' })}</Typography>
           <Box mt={1}>
             <Box>
@@ -304,7 +309,7 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
             </Box>
           </Box>
         </Box>
-        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+        <Box className={classes.detailItem} onClick={() => setIsLinkPropertyModalOpened(true)}>
           <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_object' })}</Typography>
           <Box mt={1}>
             <Box display="flex" alignItems="center">
@@ -325,18 +330,8 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
             </Box>
           </Box>
         </Box>
-        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
+        <Box className={classes.detailItem} onClick={() => setIsLinkRelationModalOpened(true)}>
           <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_relation' })}</Typography>
-          <Box mt={1}>
-            <Box>
-              <Typography variant="h5" className={classes.bold}>
-                -
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-        <Box className={classes.detailItem} onClick={() => setIsLogTimeModalOpened(true)}>
-          <Typography variant="h6">{formatMessage({ id: 'tasks.details.linked_appointments' })}</Typography>
           <Box mt={1}>
             <Box>
               <Typography variant="h5" className={classes.bold}>
@@ -367,9 +362,31 @@ export const TaskDetailsBoardsActions = ({ task, user, members, onUpdateTask }: 
       )}
       {isLogTimeModalOpened && (
         <TaskDetailsLoggingTimeModal
+          task={task}
           isOpen={isLogTimeModalOpened}
           onLogTime={handleLogTime}
           onClose={() => setIsLogTimeModalOpened(false)}
+        />
+      )}
+      {isLinkPropertyModalOpened && (
+        <LinkPropertyModal
+          isOpened={isLinkPropertyModalOpened}
+          onClose={() => setIsLinkPropertyModalOpened(false)}
+          onSubmit={() => {}}
+        />
+      )}
+      {isLinkOrderModalOpened && (
+        <LinkOrderModal
+          isOpened={isLinkOrderModalOpened}
+          onClose={() => setIsLinkOrderModalOpened(false)}
+          onSubmit={() => {}}
+        />
+      )}
+      {isLinkRelationModalOpened && (
+        <LinkOrderModal
+          isOpened={isLinkRelationModalOpened}
+          onClose={() => setIsLinkRelationModalOpened(false)}
+          onSubmit={() => {}}
         />
       )}
     </>

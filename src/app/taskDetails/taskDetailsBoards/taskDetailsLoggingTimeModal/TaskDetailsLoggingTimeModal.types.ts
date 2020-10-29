@@ -1,3 +1,5 @@
+import { Task } from 'api/types';
+
 export type TaskLogSubmitBody = {
   timeSpent: string;
   dateStarted?: string;
@@ -5,6 +7,7 @@ export type TaskLogSubmitBody = {
 };
 
 export type TaskDetailsLoggingTimeModalProps = {
+  task: Task;
   isOpen: boolean;
   onLogTime: (
     log: TaskLogSubmitBody,
