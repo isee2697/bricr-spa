@@ -11,10 +11,10 @@ export const useShowError = () => {
   const showError = (message?: string) => {
     message = message ?? formatMessage({ id: 'common.unknown_error' });
 
-    // wait for 5 seconds before showing same error again
+    // wait for 10 seconds before showing same error again
     // this prevents invisible new errors and to many re-rendering
     const showMessage =
-      !messageHistory[message] || (messageHistory[message] && messageHistory[message].diffNow('seconds').seconds < -5);
+      !messageHistory[message] || (messageHistory[message] && messageHistory[message].diffNow('seconds').seconds < -10);
 
     if (showMessage) {
       setHistory(history => ({ ...history, [message as string]: DateTime.local() }));

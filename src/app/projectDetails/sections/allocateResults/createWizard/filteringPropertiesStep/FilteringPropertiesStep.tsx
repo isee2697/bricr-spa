@@ -354,10 +354,10 @@ export const FilteringPropertiesStep = ({ onNextStep, onPreviousStep }: CreateWi
       </Card>
       <Box display="flex" justifyContent="space-between" width="100%" onClick={onPreviousStep}>
         <Button variant="outlined" color="primary">
-          {formatMessage({ id: 'project_details.allocate_results.settings.go_to_settings' })}
+          {formatMessage({ id: 'project_details.allocate_results.filtering_properties.go_to_settings' })}
         </Button>
         <Button variant="outlined" color="primary" onClick={onNextStep}>
-          {formatMessage({ id: 'project_details.allocate_results.settings.go_to_filtering_people' })}
+          {formatMessage({ id: 'project_details.allocate_results.filtering_properties.go_to_filtering_people' })}
         </Button>
       </Box>
     </>

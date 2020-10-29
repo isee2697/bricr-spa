@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { CalendarTypes } from 'api/types';
-import { CalendarViewProps } from 'app/calendar/view/CalendarView.types';
+import { CalendarTypes, TaskLabel } from 'api/types';
+import { CalendarViewProps, CalendarFilters } from 'app/calendar/view/CalendarView.types';
 
 import { CalendarView } from './CalendarView';
 
 const now = new Date();
-
 const schedulerData = [
   {
     id: 1,
@@ -22,6 +21,13 @@ const schedulerData = [
     endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
     title: 'Meeting overlap',
     type: CalendarTypes.Meeting,
+  },
+  {
+    startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
+    title: '',
+    overlap: true,
+    allDay: false,
   },
   {
     id: 3,
@@ -121,6 +127,7 @@ const schedulerData = [
     endDate: DateTime.fromISO(new Date(now.setHours(3)).toISOString()).toJSDate(),
     id: 12,
     type: CalendarTypes.Task,
+    taskLabel: TaskLabel.Business,
     location: 'Room 2',
   },
   {
@@ -175,8 +182,66 @@ const schedulerData = [
     type: CalendarTypes.Birthday,
     location: 'Room 4',
   },
+  {
+    title: 'main private task!',
+    startDate: DateTime.local()
+      .minus({ days: 1, hours: 2 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 1, hours: 2, minutes: 5 })
+      .toJSDate(),
+    id: 17,
+    type: CalendarTypes.Task,
+    taskLabel: TaskLabel.Private,
+    location: 'Room 4',
+  },
+  {
+    title: 'follow-up task',
+    startDate: DateTime.local()
+      .minus({ days: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 1, minutes: 35 })
+      .toJSDate(),
+    id: 18,
+    type: CalendarTypes.Task,
+    taskLabel: TaskLabel.FollowUp,
+    location: 'Room 4',
+  },
+  {
+    title: 'Business task',
+    startDate: DateTime.local()
+      .minus({ days: 1, hours: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 1, hours: 1, minutes: 45 })
+      .toJSDate(),
+    id: 19,
+    type: CalendarTypes.Task,
+    taskLabel: TaskLabel.Business,
+    location: 'Room 4',
+  },
 ];
 
 export const CalendarViewContainer = ({ teamMembers, groups }: Pick<CalendarViewProps, 'teamMembers' | 'groups'>) => {
-  return <CalendarView data={schedulerData} teamMembers={teamMembers} groups={groups} />;
+  //@Todo when quering selected filters for calendar
+  const [filters, setAppliedFilters] = useState<CalendarFilters>({
+    selectTaskType: [],
+    selectedDate: DateTime.local(),
+  });
+  let data = [...schedulerData];
+
+  if (filters.selectTaskType.length > 0) {
+    data = data.filter(appointment => appointment.taskLabel && filters.selectTaskType.includes(appointment.taskLabel));
+  }
+
+  return (
+    <CalendarView
+      data={data}
+      teamMembers={teamMembers}
+      groups={groups}
+      filters={filters}
+      onFilterChange={setAppliedFilters}
+    />
+  );
 };

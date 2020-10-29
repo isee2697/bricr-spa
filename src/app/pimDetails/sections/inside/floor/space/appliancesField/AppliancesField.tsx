@@ -28,7 +28,7 @@ export const AppliancesField = ({ name, options, disabled }: AppliancesFieldProp
   );
 
   return (
-    <Box paddingTop={2}>
+    <Box data-testid={name} paddingTop={2}>
       <Grid container spacing={4}>
         {options.map((item: AppliancesFieldItem) => (
           <ApplianceField

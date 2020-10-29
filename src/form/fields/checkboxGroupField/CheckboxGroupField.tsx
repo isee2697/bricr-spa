@@ -89,7 +89,7 @@ export const CheckboxGroupField = ({
     (meta.initial !== undefined && meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
-    <>
+    <div data-testid={name}>
       {isSearchable && (
         <Box mb={3}>
           <SimpleSearch onChange={v => setSearch(v.currentTarget.value)} value={search} />
@@ -137,6 +137,6 @@ export const CheckboxGroupField = ({
           })}
         </FormHelperText>
       )}
-    </>
+    </div>
   );
 };
