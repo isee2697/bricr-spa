@@ -1,4 +1,8 @@
-import { CrmGeneral } from 'api/types';
+import { CrmGeneral, CrmIdentificationNumber } from 'api/types';
+
+export type IdentificationNumberItem = CrmIdentificationNumber & {
+  key: string;
+};
 
 export type IdentificationNumberProps = {
   data: CrmGeneral;
