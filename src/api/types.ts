@@ -7048,7 +7048,14 @@ export enum TaskStatus {
   Done = 'Done',
 }
 
-export type Task = {
+export type TaskLog = {
+  __typename?: 'TaskLog';
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Task = LastUpdated & {
   __typename?: 'Task';
   id: Scalars['ID'];
   taskIndex: Scalars['Int'];
@@ -7060,6 +7067,12 @@ export type Task = {
   label: Scalars['String'];
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
+  originalEstimate?: Maybe<Scalars['Int']>;
+  logs?: Maybe<Array<TaskLog>>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type TaskFullSummaryResult = {
@@ -7093,6 +7106,12 @@ export type CreateTaskInput = {
   label: Scalars['String'];
 };
 
+export type TaskLogInput = {
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type UpdateTaskInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
@@ -7103,6 +7122,10 @@ export type UpdateTaskInput = {
   label?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
   description?: Maybe<Scalars['String']>;
+  originalEstimate?: Maybe<Scalars['Int']>;
+  taskLog?: Maybe<TaskLogInput>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -11662,7 +11685,16 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
       | 'label'
       | 'status'
       | 'description'
-    >
+      | 'originalEstimate'
+      | 'resultIntern'
+      | 'resultClient'
+      | 'dateUpdated'
+    > & {
+        logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
+      }
   >;
 };
 
@@ -11691,7 +11723,16 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
             | 'label'
             | 'status'
             | 'description'
-          >
+            | 'originalEstimate'
+            | 'resultIntern'
+            | 'resultClient'
+            | 'dateUpdated'
+          > & {
+              logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
+            }
         >
       >;
     }
@@ -19759,6 +19800,20 @@ export const GetTaskDocument = gql`
       label
       status
       description
+      originalEstimate
+      logs {
+        timeSpent
+        dateStarted
+        notes
+      }
+      resultIntern
+      resultClient
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -19796,6 +19851,20 @@ export const GetTasksDocument = gql`
         label
         status
         description
+        originalEstimate
+        logs {
+          timeSpent
+          dateStarted
+          notes
+        }
+        resultIntern
+        resultClient
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

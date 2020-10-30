@@ -2,6 +2,7 @@ import { PropertyType } from '../../../api/types';
 export enum SetupSteps {
   ClientType = 'ClientType',
   PropertyTypes = 'PropertyTypes',
+  ConfirmationTypes = 'ConfirmationTypes',
 }
 export enum ClientType {
   Developer = 'Developer',

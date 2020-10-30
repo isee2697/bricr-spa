@@ -93,4 +93,52 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       top: 24,
       zIndex: 10,
     },
+    input: {
+      padding: 0,
+      height: spacing(6),
+      background: palette.gray.light,
+    },
+    inputInner: {
+      height: spacing(6),
+    },
+    itemLabelWrapper: {
+      paddingLeft: spacing(1),
+      paddingRight: spacing(1),
+    },
+    searchField: {
+      paddingRight: spacing(1),
+      paddingLeft: spacing(1),
+      height: spacing(6),
+      padding: 0,
+    },
+    greenBox: {
+      '& .MuiIconButton-label': {
+        color: palette.green.main,
+      },
+    },
+    orangeBox: {
+      '& .MuiIconButton-label': {
+        color: palette.orange.main,
+      },
+    },
+    blueBox: {
+      '& .MuiIconButton-label': {
+        color: palette.blue.dark,
+      },
+    },
+    FollowUp: {
+      '& .MuiIconButton-label': {
+        color: palette.red.main,
+      },
+    },
+    Business: {
+      '& .MuiIconButton-label': {
+        color: palette.blue.main,
+      },
+    },
+    Private: {
+      '& .MuiIconButton-label': {
+        color: palette.purple.main,
+      },
+    },
   }))();

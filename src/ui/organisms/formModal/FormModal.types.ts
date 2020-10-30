@@ -12,7 +12,7 @@ export type FormModalProps<T> = ModalContainerProps & {
   title?: string;
   children?: ReactNode;
   onSubmit: PromiseFunction<T>;
-  addText?: string;
+  addText?: string | ReactNode;
   addIcon?: ReactNode;
   initialValues?: T;
   mutators?: MutatorType<T>;

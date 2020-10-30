@@ -98,3 +98,4 @@ export * from './share/ShareIcon';
 export * from './own/OwnIcon';
 export * from './exit/ExitIcon';
 export * from './conferenceRoom/ConferenceRoomIcon';
+export * from './hourglass/HourglassIcon';

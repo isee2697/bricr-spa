@@ -3,6 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 export const useStyles = makeStyles(theme => ({
   header: {
     alignItems: 'center',
+    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
   },
   title: {

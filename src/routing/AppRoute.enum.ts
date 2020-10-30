@@ -28,6 +28,7 @@ export enum AppRoute {
   register = '/register',
   setup = '/setup',
   propertiesSetup = '/setup/properties',
+  confirmationSetup = '/setup/confirmation',
   notifications = '/notifications',
   dms = '/dms',
 }
