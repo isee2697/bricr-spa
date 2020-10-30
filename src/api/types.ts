@@ -143,6 +143,7 @@ export type Mutation = {
   setNcpLinkedPims: NcpLinkedPims;
   setObjectTypeCharacteristicsSections: ObjectTypeCharacteristics;
   setObjectTypeLinkedPims: ObjectTypeLinkedPims;
+  tiaraSendMessage?: Maybe<Scalars['Boolean']>;
   toggleNcpPricing: NcpPricesResult;
   toggleObjectTypePricing: ObjectTypePricesResult;
   togglePricing: Pim;
@@ -563,6 +564,10 @@ export type MutationSetObjectTypeLinkedPimsArgs = {
   input: SetLinkedPimsInput;
 };
 
+export type MutationTiaraSendMessageArgs = {
+  input: TiaraSendMessageInput;
+};
+
 export type MutationToggleNcpPricingArgs = {
   input: ToggleCommonPricingInput;
 };
@@ -936,6 +941,7 @@ export type Query = {
   getTasksSummaryByStatus?: Maybe<TaskSummaryByStatusResult>;
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
+  getTiaraMutations?: Maybe<Array<TiaraMutation>>;
   getUndoId: Scalars['ID'];
   listNcps: NcpListSearchResult;
   listObjectTypes: ObjectTypeListSearchResult;
@@ -1135,6 +1141,11 @@ export type QueryGetTeamDetailsArgs = {
 export type QueryGetTeamsArgs = {
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetTiaraMutationsArgs = {
+  entityId: Scalars['ID'];
+  entity?: Maybe<TiaraEntities>;
 };
 
 export type QueryGetUndoIdArgs = {
@@ -7208,6 +7219,40 @@ export type RemoveUserFromTeamInput = {
   userId: Scalars['ID'];
 };
 
+export enum TiaraMessageType {
+  Aanmelden = 'Aanmelden',
+  Wijzigen = 'Wijzigen',
+  Afmelden = 'Afmelden',
+  OpvragenStatus = 'OpvragenStatus',
+}
+
+export enum TiaraEntities {
+  Pim = 'pim',
+  Ncp = 'ncp',
+  ObjectType = 'objectType',
+}
+
+export enum TiaraMutationStatusType {
+  Success = 'Success',
+  Failure = 'Failure',
+  Open = 'Open',
+}
+
+export type TiaraMutation = {
+  __typename?: 'TiaraMutation';
+  id: Scalars['ID'];
+  messageType: TiaraMessageType;
+  date: Scalars['Date'];
+  status: TiaraMutationStatusType;
+  errors?: Maybe<Array<Scalars['String']>>;
+};
+
+export type TiaraSendMessageInput = {
+  entityId: Scalars['ID'];
+  entity: TiaraEntities;
+  messageType: TiaraMessageType;
+};
+
 export type LoginMutationVariables = Exact<{
   input?: Maybe<LoginInput>;
 }>;
@@ -8674,6 +8719,12 @@ export type UpdateUserInTeamMutationVariables = Exact<{
 export type UpdateUserInTeamMutation = { __typename?: 'Mutation' } & {
   updateUserInTeam?: Maybe<{ __typename?: 'Team' } & Pick<Team, 'id'>>;
 };
+
+export type TiaraSendMessageMutationVariables = Exact<{
+  input: TiaraSendMessageInput;
+}>;
+
+export type TiaraSendMessageMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'tiaraSendMessage'>;
 
 export type GetBillingQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -11813,6 +11864,17 @@ export type GetTeamDetailsQuery = { __typename?: 'Query' } & {
           >
         >;
       }
+  >;
+};
+
+export type GetTiaraMutationsQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+  entity: TiaraEntities;
+}>;
+
+export type GetTiaraMutationsQuery = { __typename?: 'Query' } & {
+  getTiaraMutations?: Maybe<
+    Array<{ __typename?: 'TiaraMutation' } & Pick<TiaraMutation, 'id' | 'status' | 'errors' | 'messageType' | 'date'>>
   >;
 };
 
@@ -15292,6 +15354,25 @@ export type UpdateUserInTeamMutationResult = ApolloReactCommon.MutationResult<Up
 export type UpdateUserInTeamMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateUserInTeamMutation,
   UpdateUserInTeamMutationVariables
+>;
+export const TiaraSendMessageDocument = gql`
+  mutation TiaraSendMessage($input: TiaraSendMessageInput!) {
+    tiaraSendMessage(input: $input)
+  }
+`;
+export function useTiaraSendMessageMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<TiaraSendMessageMutation, TiaraSendMessageMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<TiaraSendMessageMutation, TiaraSendMessageMutationVariables>(
+    TiaraSendMessageDocument,
+    baseOptions,
+  );
+}
+export type TiaraSendMessageMutationHookResult = ReturnType<typeof useTiaraSendMessageMutation>;
+export type TiaraSendMessageMutationResult = ApolloReactCommon.MutationResult<TiaraSendMessageMutation>;
+export type TiaraSendMessageMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  TiaraSendMessageMutation,
+  TiaraSendMessageMutationVariables
 >;
 export const GetBillingDocument = gql`
   query GetBilling {
@@ -20036,4 +20117,37 @@ export type GetTeamDetailsLazyQueryHookResult = ReturnType<typeof useGetTeamDeta
 export type GetTeamDetailsQueryResult = ApolloReactCommon.QueryResult<
   GetTeamDetailsQuery,
   GetTeamDetailsQueryVariables
+>;
+export const GetTiaraMutationsDocument = gql`
+  query GetTiaraMutations($entityId: ID!, $entity: TiaraEntities!) {
+    getTiaraMutations(entityId: $entityId, entity: $entity) {
+      id
+      status
+      errors
+      messageType
+      date
+    }
+  }
+`;
+export function useGetTiaraMutationsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTiaraMutationsQuery, GetTiaraMutationsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTiaraMutationsQuery, GetTiaraMutationsQueryVariables>(
+    GetTiaraMutationsDocument,
+    baseOptions,
+  );
+}
+export function useGetTiaraMutationsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTiaraMutationsQuery, GetTiaraMutationsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTiaraMutationsQuery, GetTiaraMutationsQueryVariables>(
+    GetTiaraMutationsDocument,
+    baseOptions,
+  );
+}
+export type GetTiaraMutationsQueryHookResult = ReturnType<typeof useGetTiaraMutationsQuery>;
+export type GetTiaraMutationsLazyQueryHookResult = ReturnType<typeof useGetTiaraMutationsLazyQuery>;
+export type GetTiaraMutationsQueryResult = ApolloReactCommon.QueryResult<
+  GetTiaraMutationsQuery,
+  GetTiaraMutationsQueryVariables
 >;
