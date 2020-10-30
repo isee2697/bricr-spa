@@ -86,7 +86,7 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
                       className={classes.collapseHeader}
                     >
                       <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>
-                      {isGroupCollapseOpen(group) ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                      {!group.hideArrowIcon && (isGroupCollapseOpen(group) ? <ArrowUpIcon /> : <ArrowDownIcon />)}
                     </Box>
                   )}
                   <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>

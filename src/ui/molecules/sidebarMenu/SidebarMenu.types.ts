@@ -21,6 +21,7 @@ export type MenuItem = {
 export type MenuGroup = {
   isCollapsable?: boolean;
   key?: string;
+  hideArrowIcon?: boolean;
   items: MenuItem[];
 };
 

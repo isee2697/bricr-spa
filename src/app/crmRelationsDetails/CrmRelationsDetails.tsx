@@ -18,6 +18,7 @@ import { PersonalInformationGeneralContainer } from './personalInformation/gener
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
 import { DocumentsConatiner } from './documents/DocumentsContainer';
+import { MarketingNewLetterContainer } from './marketingNewLetters/MarketingNewLettersContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -132,6 +133,18 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                     />
                   )}
                 />
+                <Route
+                  path={`${path}/marketing_news_letter`}
+                  render={() => (
+                    <MarketingNewLetterContainer
+                      path={`${path}/marketing_news_letter`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route path={`${path}/marketing_target_groups`} render={() => <></>} />
+                <Route path={`${path}/marketing_cross_sell`} render={() => <></>} />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
