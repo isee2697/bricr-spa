@@ -57,3 +57,23 @@ enum AppointmentAddressType {
      LinkedPersonAddress
      NewAcquisitionAddress
 }
+
+enum AppointmentState {
+    Pencil
+    Confirmed
+    Completed
+    Unconfirmed
+}
+
+type Appointment {
+  startDate: Date!
+  endDate: Date!
+  travelTime: Int
+  title: String
+  allDay: Boolean
+  id: ID!
+  type: CalendarTypes!
+  location: String
+  taskLabel: TaskLabel
+  state: AppointmentState
+}

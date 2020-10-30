@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { CalendarTypes, TaskLabel } from 'api/types';
-import { CalendarViewProps, CalendarFilters } from 'app/calendar/view/CalendarView.types';
+import { AppointmentState, CalendarTypes, TaskLabel } from 'api/types';
+import { CalendarFilters, CalendarViewProps } from 'app/calendar/view/CalendarView.types';
 
 import { CalendarView } from './CalendarView';
 
@@ -219,6 +219,59 @@ const schedulerData = [
     id: 19,
     type: CalendarTypes.Task,
     taskLabel: TaskLabel.Business,
+    location: 'Room 4',
+  },
+  {
+    title: 'Pencil appointment',
+    startDate: DateTime.local()
+      .minus({ days: 2, hours: 2 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 2, hours: 2, minutes: 5 })
+      .toJSDate(),
+    id: 20,
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Pencil,
+    location: 'Room 4',
+  },
+  {
+    title: 'Confirmed appointment',
+    startDate: DateTime.local()
+      .minus({ days: 2 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 2, minutes: 35 })
+      .toJSDate(),
+    id: 21,
+    state: AppointmentState.Confirmed,
+    type: CalendarTypes.Appointment,
+
+    location: 'Room 4',
+  },
+  {
+    title: 'Unconfirmed',
+    startDate: DateTime.local()
+      .minus({ days: 2, hours: 1 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 2, hours: 1, minutes: 45 })
+      .toJSDate(),
+    id: 22,
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Unconfirmed,
+    location: 'Room 4',
+  },
+  {
+    title: 'Completed appointment',
+    startDate: DateTime.local()
+      .minus({ days: 2, hours: 3 })
+      .toJSDate(),
+    endDate: DateTime.local()
+      .minus({ days: 2, hours: 3, minutes: 45 })
+      .toJSDate(),
+    id: 23,
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Completed,
     location: 'Room 4',
   },
 ];
