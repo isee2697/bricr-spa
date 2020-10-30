@@ -18,6 +18,7 @@ import { PersonalInformationGeneralContainer } from './personalInformation/gener
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
 import { DocumentsConatiner } from './documents/DocumentsContainer';
+import { OrdersContainer } from './orders/OrdersContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -127,6 +128,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => (
                     <DocumentsConatiner
                       path={`${path}/documents`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/orders`}
+                  render={() => (
+                    <OrdersContainer
+                      path={`${path}/orders`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
