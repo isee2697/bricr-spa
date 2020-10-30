@@ -5,6 +5,7 @@ export const useStyles = makeStyles(theme => ({
     flex: '1 1',
   },
   placeholder: {
+    marginTop: theme.spacing(2),
     height: theme.spacing(13),
     background: theme.palette.gradientBlue.light,
     border: `1px dashed ${theme.palette.primary.main}`,

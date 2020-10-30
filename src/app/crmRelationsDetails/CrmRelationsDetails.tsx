@@ -17,6 +17,8 @@ import { HomeSituationContainer } from './personalInformation/homeSituation/Home
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
+import { DocumentsConatiner } from './documents/DocumentsContainer';
+import { OrdersContainer } from './orders/OrdersContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -121,6 +123,26 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   )}
                 />
                 <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route
+                  path={`${path}/documents`}
+                  render={() => (
+                    <DocumentsConatiner
+                      path={`${path}/documents`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/orders`}
+                  render={() => (
+                    <OrdersContainer
+                      path={`${path}/orders`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
                 <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}

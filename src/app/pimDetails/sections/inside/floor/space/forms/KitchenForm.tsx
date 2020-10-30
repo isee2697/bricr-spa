@@ -22,6 +22,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
               label="pim_details.inside.year_of_construction"
               placeholder="pim_details.inside.year_of_construction_placeholder"
               disabled={!isEditMode}
+              data-testid="inside-year_of_construction_placeholder"
               isYearPicker
             />
           </Grid>
@@ -34,6 +35,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
                 placeholder="pim_details.inside.space_notes_placeholder"
                 size="medium"
                 disabled={!isEditMode}
+                data-testid="kitchen-notes"
               />
             </Box>
           </Grid>
@@ -94,6 +96,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
           placeholder="pim_details.inside.notes_placeholder"
           size="medium"
           disabled={!isEditMode}
+          data-testid="kitchen-service-notes"
         />
       </Grid>
 
@@ -107,6 +110,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
           disabled={!isEditMode}
           options={dictionaries.kitchenAppliances}
           name={`${fieldPrefix}.appliances`}
+          data-testid="kitchen-appliances"
         />
       </Grid>
 
@@ -123,6 +127,7 @@ export const KitchenForm = ({ fieldPrefix, isEditMode }: SpaceFormProps) => {
             md={2}
             name={`${fieldPrefix}.hob`}
             options={dictionaries.kitchenHob}
+            data-testid="kitchen-hob"
           />
         </Box>
       </Grid>

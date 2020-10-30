@@ -53,7 +53,7 @@ export { default as ClickAwayListener } from '@material-ui/core/ClickAwayListene
 export { default as NativeMenu } from '@material-ui/core/Menu';
 export { default as Tooltip } from '@material-ui/core/Tooltip';
 export { default as RadioGroup } from '@material-ui/core/RadioGroup';
-
+export { default as CheckBox } from '@material-ui/core/Checkbox';
 export { Button } from './button/Button';
 export { IconButton } from './iconButton/IconButton';
 export { Chip } from './chip/Chip';
@@ -99,3 +99,6 @@ export { SelectBox } from './selectBox/SelectBox';
 export { ExitButton } from './exitButton/ExitButton';
 export { AvatarRowItem } from './avatarRowItem/AvatarRowItem';
 export { RankingIcon } from './rankingIcon/RankingIcon';
+export { LinearProgress } from './linearProgress/LinearProgress';
+export { DatePicker } from './datePicker/DatePicker';
+export { TimePicker } from './timePicker/TimePicker';

@@ -16,12 +16,19 @@ import {
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
 
-import { CalendarProps, ConvertDataFunction, CalendarTypeResource, DateView } from './Calandar.types';
+import {
+  CalendarProps,
+  ConvertDataFunction,
+  CalendarTypeResource,
+  TaskLabelResource,
+  DateView,
+} from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
   return schedulerData.map(item => ({
     ...item,
     type: CalendarTypeResource.find(type => type.text === item.type)?.id,
+    taskLabel: TaskLabelResource.find(type => type.text === item.taskLabel)?.id,
   }));
 };
 
@@ -48,7 +55,10 @@ export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => 
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />
       <Resources
-        data={[{ fieldName: 'type', title: 'type', instances: CalendarTypeResource }]}
+        data={[
+          { fieldName: 'type', title: 'type', instances: CalendarTypeResource },
+          { fieldName: 'taskLabel', title: 'taskLabel', instances: TaskLabelResource },
+        ]}
         mainResourceName="type"
       />
     </Scheduler>

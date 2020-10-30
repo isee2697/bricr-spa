@@ -23,6 +23,7 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientGold: createPalette.SimplePaletteColorOptions;
     gradientSilver: createPalette.SimplePaletteColorOptions;
     gradientBronze: createPalette.SimplePaletteColorOptions;
+    gradientGreenRed: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 
@@ -48,6 +49,7 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientGold: createPalette.SimplePaletteColorOptions;
     gradientSilver: createPalette.SimplePaletteColorOptions;
     gradientBronze: createPalette.SimplePaletteColorOptions;
+    gradientGreenRed: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 }

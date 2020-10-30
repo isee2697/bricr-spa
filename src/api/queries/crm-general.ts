@@ -24,6 +24,7 @@ export const GET_CRM_GENERAL = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id

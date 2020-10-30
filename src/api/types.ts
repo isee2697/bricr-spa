@@ -1645,6 +1645,13 @@ export enum PreferredLetterSalutationType {
   LordMylady = 'LordMylady',
 }
 
+export enum CrmIdentificationNumberType {
+  Sap = 'Sap',
+  Woningnet = 'Woningnet',
+  DebtorNumber = 'DebtorNumber',
+  Custom = 'Custom',
+}
+
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
@@ -1671,14 +1678,15 @@ export type CrmGeneral = {
 
 export type CrmIdentificationNumber = {
   __typename?: 'CrmIdentificationNumber';
-  id: Scalars['ID'];
-  type: Scalars['String'];
+  type: CrmIdentificationNumberType;
   number: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type CrmIdentificationNumberInput = {
-  type: Scalars['String'];
+  type: CrmIdentificationNumberType;
   number: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type CreateCrmInput = {
@@ -6628,6 +6636,7 @@ export enum AdminSettings {
   KpiTargets = 'KPITargets',
   Notifications = 'Notifications',
   Tasks = 'Tasks',
+  Billing = 'Billing',
 }
 
 export type Profile = {
@@ -7039,7 +7048,14 @@ export enum TaskStatus {
   Done = 'Done',
 }
 
-export type Task = {
+export type TaskLog = {
+  __typename?: 'TaskLog';
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type Task = LastUpdated & {
   __typename?: 'Task';
   id: Scalars['ID'];
   taskIndex: Scalars['Int'];
@@ -7051,6 +7067,12 @@ export type Task = {
   label: Scalars['String'];
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
+  originalEstimate?: Maybe<Scalars['Int']>;
+  logs?: Maybe<Array<TaskLog>>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type TaskFullSummaryResult = {
@@ -7084,6 +7106,12 @@ export type CreateTaskInput = {
   label: Scalars['String'];
 };
 
+export type TaskLogInput = {
+  timeSpent: Scalars['Int'];
+  dateStarted?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
 export type UpdateTaskInput = {
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
@@ -7094,6 +7122,10 @@ export type UpdateTaskInput = {
   label?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
   description?: Maybe<Scalars['String']>;
+  originalEstimate?: Maybe<Scalars['Int']>;
+  taskLog?: Maybe<TaskLogInput>;
+  resultIntern?: Maybe<Scalars['String']>;
+  resultClient?: Maybe<Scalars['String']>;
 };
 
 export type DateRange = {
@@ -7313,7 +7345,7 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'preferredTitleInformation'
     > & {
         identificationNumbers?: Maybe<
-          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
       }
@@ -8757,7 +8789,7 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredTitleInformation'
     > & {
         identificationNumbers?: Maybe<
-          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number'>>
+          Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
         >;
         avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
       }
@@ -11653,7 +11685,16 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
       | 'label'
       | 'status'
       | 'description'
-    >
+      | 'originalEstimate'
+      | 'resultIntern'
+      | 'resultClient'
+      | 'dateUpdated'
+    > & {
+        logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+        lastEditedBy?: Maybe<
+          { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+        >;
+      }
   >;
 };
 
@@ -11682,7 +11723,16 @@ export type GetTasksQuery = { __typename?: 'Query' } & {
             | 'label'
             | 'status'
             | 'description'
-          >
+            | 'originalEstimate'
+            | 'resultIntern'
+            | 'resultClient'
+            | 'dateUpdated'
+          > & {
+              logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+              lastEditedBy?: Maybe<
+                { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+              >;
+            }
         >
       >;
     }
@@ -11982,6 +12032,7 @@ export const UpdateCrmGeneralDocument = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id
@@ -15422,6 +15473,7 @@ export const GetCrmGeneralDocument = gql`
       identificationNumbers {
         type
         number
+        name
       }
       avatar {
         id
@@ -19748,6 +19800,20 @@ export const GetTaskDocument = gql`
       label
       status
       description
+      originalEstimate
+      logs {
+        timeSpent
+        dateStarted
+        notes
+      }
+      resultIntern
+      resultClient
+      dateUpdated
+      lastEditedBy {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -19785,6 +19851,20 @@ export const GetTasksDocument = gql`
         label
         status
         description
+        originalEstimate
+        logs {
+          timeSpent
+          dateStarted
+          notes
+        }
+        resultIntern
+        resultClient
+        dateUpdated
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
       }
     }
   }

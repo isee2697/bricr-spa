@@ -1,3 +1,5 @@
+export { default as WarningIcon } from '@material-ui/icons/WarningRounded';
+
 export * from './add/AddIcon';
 export * from './aog/AogIcon';
 export * from './archive/ArchiveIcon';
@@ -93,3 +95,4 @@ export * from './share/ShareIcon';
 export * from './own/OwnIcon';
 export * from './exit/ExitIcon';
 export * from './conferenceRoom/ConferenceRoomIcon';
+export * from './hourglass/HourglassIcon';

@@ -1,42 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { DatePickerField, DropdownField, TimePickerField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { FormModal } from 'ui/organisms';
-import { Box, Grid } from 'ui/atoms';
+import {
+  Box,
+  Button,
+  DatePicker,
+  DialogActions,
+  DialogContent,
+  Grid,
+  InputLabel,
+  SelectBox,
+  TimePicker,
+} from 'ui/atoms';
 import { TaskPriority } from 'api/types';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
-import { PriorityHighIcon, PriorityLowIcon, PriorityMediumIcon } from 'ui/atoms/icons';
+import { AddIcon, PriorityHighIcon, PriorityLowIcon, PriorityMediumIcon } from 'ui/atoms/icons';
+import { CancelButton, Modal } from 'ui/molecules';
 
-import { TaskDetailsUpdateBody, TaskDetailsUpdateModalProps } from './TaskDetailsUpdateModal.types';
+import { TaskDetailsUpdateModalProps } from './TaskDetailsUpdateModal.types';
 import { useStyles } from './TaskDetailsUpdateModal.styles';
 
 export const TaskDetailsUpdateModal = ({ isOpen, task, onUpdateTask, onClose }: TaskDetailsUpdateModalProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const [startDate, setStartDate] = useState(task.startDate && DateTime.fromISO(task.startDate));
+  const [startTime, setStartTime] = useState(task.startDate && DateTime.fromISO(task.startDate));
+  const [deadlineDate, setDeadlineDate] = useState(task.deadline && DateTime.fromISO(task.deadline));
+  const [deadlineTime, setDeadlineTime] = useState(task.deadline && DateTime.fromISO(task.deadline));
+  const [priority, setPriority] = useState(task.priority);
 
-  const initialValues = {
-    startDate: task.startDate ? DateTime.fromISO(task.startDate) : new DateTime(),
-    startTime: task.startDate ? DateTime.fromISO(task.startDate) : new DateTime(),
-    deadlineDate: task.deadline ? DateTime.fromISO(task.deadline) : new DateTime(),
-    deadlineTime: task.deadline ? DateTime.fromISO(task.deadline) : new DateTime(),
-    priority: task.priority,
-  };
-
-  const handleUpdatetask = async ({
-    startDate,
-    startTime,
-    deadlineDate,
-    deadlineTime,
-    priority,
-  }: TaskDetailsUpdateBody) => {
-    const { hour: startHour, minute: startMinute } = startTime;
-    const { hour: deadlineHour, minute: deadlineMinute } = deadlineTime;
-
+  const handleUpdatetask = () => {
     onUpdateTask(task.id, {
-      startDate: startDate.set({ hour: startHour, minute: startMinute }).toISO(),
-      deadline: deadlineDate.set({ hour: deadlineHour, minute: deadlineMinute }).toISO(),
+      startDate:
+        startDate &&
+        startDate.set({ hour: startTime ? startTime.hour : 0, minute: startTime ? startTime.minute : 0 }).toISO(),
+      deadline:
+        deadlineDate &&
+        deadlineDate
+          .set({ hour: deadlineTime ? deadlineTime.hour : 0, minute: deadlineTime ? deadlineTime.minute : 0 })
+          .toISO(),
       priority,
     });
 
@@ -74,51 +77,74 @@ export const TaskDetailsUpdateModal = ({ isOpen, task, onUpdateTask, onClose }: 
   });
 
   return (
-    <FormModal
+    <Modal
+      fullWidth
       isOpened={isOpen}
       onClose={onClose}
-      onSubmit={handleUpdatetask}
       title={formatMessage({ id: 'tasks.details.detailed_information' })}
-      initialValues={initialValues}
+      className={classes.root}
     >
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <DatePickerField
-            label={formatMessage({ id: 'tasks.details.detailed_information.start_date' })}
-            name="startDate"
-            placeholder="tasks.details.detailed_information.start_date"
-          />
+      <DialogContent>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <DatePicker
+              label={formatMessage({ id: 'tasks.details.detailed_information.start_date' })}
+              placeholder="tasks.details.detailed_information.start_date"
+              onChange={date => setStartDate(date)}
+              value={startDate}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TimePicker
+              label={formatMessage({ id: 'tasks.details.detailed_information.start_time' })}
+              placeholder="tasks.details.detailed_information.start_time"
+              onChange={date => setStartTime(date)}
+              value={startTime}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <DatePicker
+              label={formatMessage({ id: 'tasks.details.detailed_information.deadline_date' })}
+              placeholder="tasks.details.detailed_information.deadline_date"
+              onChange={date => setDeadlineDate(date)}
+              value={deadlineDate}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TimePicker
+              label={formatMessage({ id: 'tasks.details.detailed_information.deadline_time' })}
+              placeholder="tasks.details.detailed_information.deadline_time"
+              onChange={date => setDeadlineTime(date)}
+              value={deadlineTime}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <InputLabel shrink variant="outlined" color="primary" htmlFor="priority">
+              {formatMessage({ id: 'tasks.details.detailed_information.priority' })}
+            </InputLabel>
+            <SelectBox
+              value={priority}
+              onChange={value => setPriority(value as TaskPriority)}
+              placeholder={formatMessage({ id: 'tasks.details.detailed_information.priority' })}
+              items={priorities}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <TimePickerField
-            label={formatMessage({ id: 'tasks.details.detailed_information.start_time' })}
-            name="startTime"
-            placeholder="tasks.details.detailed_information.start_time"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <DatePickerField
-            label={formatMessage({ id: 'tasks.details.detailed_information.deadline_date' })}
-            name="deadlineDate"
-            placeholder="tasks.details.detailed_information.deadline_date"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TimePickerField
-            label={formatMessage({ id: 'tasks.details.detailed_information.deadline_time' })}
-            name="deadlineTime"
-            placeholder="tasks.details.detailed_information.deadline_time"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <DropdownField
-            label={formatMessage({ id: 'tasks.details.detailed_information.priority' })}
-            name="priority"
-            items={priorities}
-            placeholder={formatMessage({ id: 'tasks.details.detailed_information.priority' })}
-          />
-        </Grid>
-      </Grid>
-    </FormModal>
+      </DialogContent>
+      <DialogActions className={classes.actions}>
+        <CancelButton variant="outlined" size="large" onClick={onClose}>
+          {formatMessage({ id: 'common.cancel' })}
+        </CancelButton>
+        <Button
+          startIcon={<AddIcon color="inherit" />}
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleUpdatetask}
+        >
+          {formatMessage({ id: 'common.add' })}
+        </Button>
+      </DialogActions>
+    </Modal>
   );
 };

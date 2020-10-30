@@ -8,6 +8,7 @@ import { TaskDetailsBoardsHeading } from './taskDetailsBoardsHeading/TaskDetails
 import { TaskDetailsBoardsDescriptionContainer } from './taskDetailsBoardsDescription/TaskDetailsBoardsDescriptionContainer';
 import { TaskDetailsBoardsLogContainer } from './taskDetailsBoardsLog/TaskDetailsBoardsLogContainer';
 import { TaskDetailsBoardsActions } from './taskDetailsBoardsActions/TaskDetailsBoardsActions';
+import { TaskDetailsBoardsResult } from './taskDetailsBoardsResult/TaskDetailsBoardsResult';
 
 export const TaskDetailsBoards = ({ task, user, members, onUpdateTask }: TaskDetailsBoardsProps) => {
   const classes = useStyles();
@@ -21,6 +22,7 @@ export const TaskDetailsBoards = ({ task, user, members, onUpdateTask }: TaskDet
       </Grid>
       <Grid item xs={12} md={4}>
         <TaskDetailsBoardsActions task={task} user={user} members={members} onUpdateTask={onUpdateTask} />
+        <TaskDetailsBoardsResult task={task} onUpdateTask={onUpdateTask} />
       </Grid>
     </Grid>
   );
