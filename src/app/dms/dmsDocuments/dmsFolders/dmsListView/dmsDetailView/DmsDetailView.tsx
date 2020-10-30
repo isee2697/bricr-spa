@@ -52,15 +52,6 @@ export const DmsDetailView = ({ data }: DmsDetailViewProps) => {
               }}
             >
               <DmsDetailViewItem data={doc} />
-              {/* <WorkflowTemplatesItem
-                    template={doc}
-                    onCopyToCustom={() => {
-                      onUpdate({ ...doc, type: 'custom' });
-                    }}
-                    onStatusChange={status => {
-                      onUpdate({ ...doc, status });
-                    }}
-                  /> */}
             </Box>
           </Box>
         </Box>

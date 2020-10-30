@@ -11,8 +11,13 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(9),
     display: 'flex',
     justifyContent: 'center',
-    backgroundSize: `${theme.spacing(11)}px ${theme.spacing(9)}px`,
     cursor: 'pointer',
+  },
+  icon: {
+    position: 'absolute',
+    zIndex: -1,
+    width: theme.spacing(11),
+    height: theme.spacing(9),
   },
   addWrapper: {
     alignItems: 'center',
@@ -21,7 +26,7 @@ export const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     color: theme.palette.white.main,
     background: theme.palette.primary.main,
-    borderRadius: 999,
+    borderRadius: theme.spacing(4),
     width: 'fit-content',
     height: 'fit-content',
     minWidth: theme.spacing(2),
@@ -30,11 +35,11 @@ export const useStyles = makeStyles(theme => ({
     ...theme.typography.h6,
 
     '&.primary': {
-      background: theme.palette.primary.main,
+      background: theme.palette.blueGradients[600],
     },
 
     '&.secondary': {
-      background: theme.palette.aqua.dark,
+      background: theme.palette.aquaGradients[500],
     },
   },
   addIcon: {
@@ -46,6 +51,5 @@ export const useStyles = makeStyles(theme => ({
     top: theme.spacing(-0.5),
     width: theme.spacing(10),
     height: theme.spacing(7),
-    backgroundSize: `${theme.spacing(10)}px ${theme.spacing(7)}px`,
   },
 }));

@@ -5,12 +5,19 @@ export const useStyles = makeStyles(theme => ({
     height: '100%',
   },
   backBtnWrapper: {
+    position: 'relative',
     width: theme.spacing(5.25),
     height: theme.spacing(5.25),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundSize: `${theme.spacing(5.25)}px ${theme.spacing(5.25)}px`,
+    zIndex: 1,
+  },
+  backBtn: {
+    position: 'absolute',
+    zIndex: -1,
+    width: theme.spacing(5.25),
+    height: theme.spacing(5.25),
   },
   backBtnIcon: {
     fontSize: theme.typography.h4.fontSize,

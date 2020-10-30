@@ -7,9 +7,9 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
 import { DmsFolderType } from 'app/dms/Dms.types';
-import Folder20 from 'ui/atoms/icons/svg/folderPrimary20.svg';
 import { DmsAddFolderDialog } from '../../dmsAddFolderDialog/DmsAddFolderDialog';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
+import { DirectoryIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
 import { DmsSecondaryFolderProps } from './DmsSecondaryFolder.types';
@@ -58,7 +58,6 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
           avatar={
             <Box
               className={classes.backBtnWrapper}
-              style={{ backgroundImage: `url(${Folder20})` }}
               onClick={() =>
                 history.push(
                   history.location.pathname
@@ -68,6 +67,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
                 )
               }
             >
+              <DirectoryIcon id={'back_primary'} variant="primary" weight={2} className={classes.backBtn} />
               <Box className={classes.backBtnIcon}>
                 <ArrowBack />
               </Box>
@@ -95,6 +95,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
                 foldersData.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
                     <DmsFolderIcon
+                      id={item.id}
                       name={item.name}
                       childCount={item.documents?.length || 0}
                       type="secondary"
@@ -108,6 +109,7 @@ export const DmsSecondaryFolder = ({ name, foldersData, isLoading, onAddFolder }
               ) : null}
               <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
                 <DmsFolderIcon
+                  id="add_folder"
                   name={formatMessage({ id: 'dms.documents.add_folder' })}
                   onClick={() => {
                     handleAdd();

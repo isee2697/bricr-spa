@@ -74,6 +74,7 @@ export const DmsPrimaryFolder = ({
                 foldersData.map((item, index) => (
                   <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
                     <DmsFolderIcon
+                      id={item.id}
                       name={item.name}
                       childCount={item.folders?.length || 0}
                       type="primary"

@@ -1,6 +1,7 @@
 export type DmsFolderIconType = 'primary' | 'secondary';
 
 export type DmsFolderIconProps = {
+  id: string;
   name: string;
   type?: DmsFolderIconType;
   childCount?: number;
