@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
@@ -14,6 +14,7 @@ import { AllocationMain } from './allocationMain/AllocationMain';
 export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { baseUrl } = useEntityType();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   return (
     <>
@@ -26,7 +27,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
             color="primary"
             startIcon={<AddIcon color="inherit" />}
             variant="contained"
-            onClick={() => alert('add')}
+            onClick={() => push('salesSettings/1')}
             size="small"
           >
             {formatMessage({ id: `pim_details.sales_settings.add_new_allocation` })}
