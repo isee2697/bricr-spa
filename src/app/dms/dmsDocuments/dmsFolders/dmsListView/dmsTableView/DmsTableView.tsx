@@ -48,7 +48,7 @@ export const DmsTableView = ({ data }: DmsTableViewProps) => {
               <Checkbox checked={false} inputProps={{ 'aria-labelledby': doc.id }} />
             </TableCell>
             <TableCell className={classes.tableCellFileName}>{doc.name}</TableCell>
-            <TableCell className={classes.tableCellDate}>{doc.modifiedAt?.toFormat('dd-MM-yyyy') || ''}</TableCell>
+            <TableCell className={classes.tableCellDate}>{doc.dateCreated?.toFormat('dd-MM-yyyy') || ''}</TableCell>
             <TableCell className={classes.tableCellSize}>{doc.size}</TableCell>
             <TableCell className={classes.tableCellType}>
               <Box className={classes.fileType}>

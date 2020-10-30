@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { DateTime } from 'luxon';
 
 import { EntityType } from 'app/shared/entityType';
+import { DocumentRequestStep } from 'app/crmRelationsDetails/documents/Documents.types';
 
 export type DmsMeta = {
   forApproval: number;
@@ -12,21 +13,12 @@ export type DmsMeta = {
   expired: number;
 };
 
-export enum DmsRequestStatusType {
-  REQUEST = 'Request',
-  USER_NOTIFIED = 'User Notified',
-  UPLOADED = 'Uploaded',
-  ACCEPTED = 'Accepted',
-}
-
 export type DmsDocument = {
   id: string;
   name?: string;
   avatar?: string;
-  modifiedAt?: DateTime;
-  requestStatus: DmsRequestStatusType;
-  isRejected?: boolean;
-  filePath?: string;
+  dateCreated: DateTime;
+  stepsCompleted: DocumentRequestStep[];
   size?: number;
   type?: string;
 };

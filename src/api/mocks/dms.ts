@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon';
 
-import { DmsRequestStatusType, DmsStats } from 'app/dms/Dms.types';
+import { DmsStats } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
+import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
 
 export const DMSStats: DmsStats = {
   total: {
@@ -37,33 +38,68 @@ export const DMSStats: DmsStats = {
                   {
                     id: 'doc_1',
                     name: 'Akte van levering.pdf',
-                    modifiedAt: DateTime.fromJSDate(new Date('2020/09/22')),
-                    requestStatus: DmsRequestStatusType.USER_NOTIFIED,
-                    filePath: '',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
                     size: 34223,
                     type: 'pdf',
-                    avatar: '',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                    ],
                   },
                   {
                     id: 'doc_2',
                     name: 'Bewijs van inschrijving.pdf',
-                    modifiedAt: DateTime.fromJSDate(new Date('2020/09/23')),
-                    requestStatus: DmsRequestStatusType.REQUEST,
-                    isRejected: true,
-                    filePath: '',
+                    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
                     size: 32223,
                     type: 'pdf',
-                    avatar: '',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.RequestRejected,
+                        date: DateTime.local(),
+                      },
+                    ],
                   },
                   {
                     id: 'doc_3',
                     name: 'Inschrijfformulier.docx',
-                    modifiedAt: DateTime.fromJSDate(new Date('2010/09/16')),
-                    requestStatus: DmsRequestStatusType.ACCEPTED,
-                    filePath: '',
+                    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
                     size: 4223,
                     type: 'docx',
-                    avatar: '',
+                    avatar: 'http://placeimg.com/104/152/arch',
+                    stepsCompleted: [
+                      {
+                        status: DocumentRequestStatus.Request,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.UserNotified,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Uploaded,
+                        date: DateTime.local(),
+                      },
+                      {
+                        status: DocumentRequestStatus.Accepted,
+                        date: DateTime.local(),
+                      },
+                    ],
                   },
                 ],
               },
