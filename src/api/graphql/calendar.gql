@@ -68,7 +68,8 @@ enum AppointmentState {
 type Appointment {
   startDate: Date!
   endDate: Date!
-  travelTime: Int
+  travelTimeBefore: Int
+  travelTimeAfter: Int
   title: String
   allDay: Boolean
   id: ID!

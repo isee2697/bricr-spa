@@ -6,8 +6,8 @@ import { ValidResourceInstance } from '@devexpress/dx-react-scheduler';
 
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { ShowMore } from 'ui/atoms/showMore/ShowMore';
-import { LockIcon, RedoIcon, UserIcon, WarningIcon } from 'ui/atoms/icons';
-import { TaskLabel } from 'api/types';
+import { LockIcon, RedoIcon, ReplayIcon, UserIcon, WarningIcon } from 'ui/atoms/icons';
+import { CalendarTypes, TaskLabel } from 'api/types';
 
 import {
   AppointmentComponentProps,
@@ -19,8 +19,10 @@ import {
 import { useStyles, useContentStyles } from './Appointments.styles';
 
 export const AppointmentComponent = ({ view, ...props }: AppointmentComponentProps) => {
-  const color = props.resources.find(item => item.id === (props.data.taskLabel ?? props.data.type))?.color as string;
+  const color = props.resources.find(item => item.id === (props.data.taskLabel || props.data.state || props.data.type))
+    ?.color as string;
   const classes = useStyles(color);
+  props.data.color = color;
 
   return (
     <App.Appointment
@@ -31,6 +33,7 @@ export const AppointmentComponent = ({ view, ...props }: AppointmentComponentPro
         view && classes?.[view],
         props.className,
         !!props.data.taskLabel && classes.task,
+        props.data.type === CalendarTypes.Travel && classes.travelTime,
       )}
     />
   );
@@ -66,33 +69,45 @@ const AppointmentContainer = ({ view = DateView.Week, ...props }: AppointmentCon
   return <App.Container {...props} />;
 };
 
-const TaskLabelIcon = ({ resource, className }: { resource: ValidResourceInstance; className: string }) => {
-  switch (resource.text as TaskLabel) {
-    case TaskLabel.FollowUp:
-      return <RedoIcon className={className} />;
-    case TaskLabel.Business:
-      return <UserIcon className={className} />;
-    case TaskLabel.Private:
-      return <LockIcon className={className} />;
-    default:
+const TaskLabelIcon = ({ resource, className }: { resource?: ValidResourceInstance; className: string }) => {
+  if (resource) {
+    switch (resource.text as TaskLabel) {
+      case TaskLabel.FollowUp:
+        return <RedoIcon className={className} />;
+      case TaskLabel.Business:
+        return <UserIcon className={className} />;
+      case TaskLabel.Private:
+        return <LockIcon className={className} />;
+      default:
+    }
   }
 
-  return <></>;
+  return <ReplayIcon className={className} />;
 };
 
 export const AppointmentContent = ({ ...props }: App.AppointmentContentProps) => {
   const taskResource = props.resources.find(resource => resource.fieldName === 'taskLabel');
-  const classes = useContentStyles(taskResource?.color as string);
+  const classes = useContentStyles(props.data.color);
 
   if (taskResource) {
     const date = DateTime.fromJSDate(props.data.startDate as Date);
-    props.recurringIconComponent = () => <TaskLabelIcon className={classes.icon} resource={taskResource} />;
+
     props.data.rRule = `RRULE:FREQ=DAILY;UNTIL=${date.toFormat(
-      'yyyymmdd',
+      'yyyyddmm',
     )}T080800Z;COUNT=30;INTERVAL=1;WKST=MO;BYDAY=${date.weekdayShort.toUpperCase().substring(0, 2)}`;
   }
+  const isRecurring = taskResource || props.data.rRule;
 
-  return <App.AppointmentContent {...props} className={taskResource ? classes.recurring : ''} />;
+  props.recurringIconComponent = () => (
+    <TaskLabelIcon className={taskResource ? classes.icon : classes.defaultIcon} resource={taskResource} />
+  );
+
+  return (
+    <App.AppointmentContent
+      {...props}
+      className={classNames(classes.root, isRecurring ? classes.recurring : '', !taskResource && 'appointment')}
+    />
+  );
 };
 
 export const Appointments = ({ view = DateView.Week, ...props }: AppointmentsProps & ViewProps) => {

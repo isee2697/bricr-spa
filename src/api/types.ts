@@ -1277,7 +1277,8 @@ export type Appointment = {
   __typename?: 'Appointment';
   startDate: Scalars['Date'];
   endDate: Scalars['Date'];
-  travelTime?: Maybe<Scalars['Int']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   allDay?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];

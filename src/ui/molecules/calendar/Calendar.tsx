@@ -21,7 +21,9 @@ import {
   ConvertDataFunction,
   CalendarTypeResource,
   TaskLabelResource,
+  AppointmentStateResource,
   DateView,
+  CalendarResources,
 } from './Calandar.types';
 
 export const connectDataToResources: ConvertDataFunction = schedulerData => {
@@ -29,6 +31,7 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
     ...item,
     type: CalendarTypeResource.find(type => type.text === item.type)?.id,
     taskLabel: TaskLabelResource.find(type => type.text === item.taskLabel)?.id,
+    state: AppointmentStateResource.find(type => type.text === item.state)?.id,
   }));
 };
 
@@ -54,13 +57,7 @@ export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => 
       <CurrentTimeIndicator updateInterval={60000} />
       <AppointmentTooltip showCloseButton />
       <AppointmentForm readOnly />
-      <Resources
-        data={[
-          { fieldName: 'type', title: 'type', instances: CalendarTypeResource },
-          { fieldName: 'taskLabel', title: 'taskLabel', instances: TaskLabelResource },
-        ]}
-        mainResourceName="type"
-      />
+      <Resources data={CalendarResources} mainResourceName="type" />
     </Scheduler>
   );
 };

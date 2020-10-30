@@ -1,6 +1,6 @@
-import { AppointmentModel } from '@devexpress/dx-react-scheduler';
+import { AppointmentModel, Resource, ResourceInstance, ValidResourceInstance } from '@devexpress/dx-react-scheduler';
 
-import { CalendarTypes, TaskLabel } from 'api/types';
+import { AppointmentState, CalendarTypes, TaskLabel } from 'api/types';
 import { palette } from 'theme/palette';
 
 export enum DateView {
@@ -25,7 +25,44 @@ export type CalendarProps = {
 
 export type ConvertDataFunction = (data: AppointmentModel[]) => AppointmentModel[];
 
-export const TaskLabelResource = [
+export const CalendarResources: Resource[] = [];
+
+const createNewResource = (fieldName: string, resource: ResourceInstance[]): ValidResourceInstance[] => {
+  CalendarResources.push({ fieldName, title: fieldName, instances: resource });
+
+  return resource.map(item => ({
+    ...item,
+    fieldName: fieldName,
+    title: item.color,
+    isMain: false,
+    allowMultiple: false,
+  })) as ValidResourceInstance[];
+};
+
+export const AppointmentStateResource = createNewResource('state', [
+  {
+    id: 1,
+    text: AppointmentState.Completed,
+    color: palette.blue.main,
+  },
+  {
+    id: 2,
+    text: AppointmentState.Unconfirmed,
+    color: palette.orange.main,
+  },
+  {
+    id: 3,
+    text: AppointmentState.Confirmed,
+    color: palette.green.main,
+  },
+  {
+    id: 4,
+    text: AppointmentState.Pencil,
+    color: palette.gray.main,
+  },
+]);
+
+export const TaskLabelResource = createNewResource('taskLabel', [
   {
     id: 1,
     text: TaskLabel.Private,
@@ -41,49 +78,32 @@ export const TaskLabelResource = [
     text: TaskLabel.Business,
     color: palette.blue.main,
   },
-].map(item => ({
-  ...item,
-  fieldName: item.color,
-  title: item.color,
-  isMain: false,
-  allowMultiple: false,
-}));
+]);
 
-export const CalendarTypeResource = [
+export const CalendarTypeResource = createNewResource('type', [
   {
     id: 1,
-    text: CalendarTypes.Meeting,
-    color: palette.blue.main,
-  },
-  {
-    id: 2,
     text: CalendarTypes.Appointment,
     color: palette.green.main,
   },
   {
-    id: 3,
+    id: 2,
     text: CalendarTypes.Birthday,
     color: palette.orange.main,
   },
   {
-    id: 4,
+    id: 3,
     text: CalendarTypes.Travel,
+    color: palette.blue.main,
+  },
+  {
+    id: 4,
+    text: CalendarTypes.Private,
     color: palette.purple.main,
   },
   {
     id: 5,
-    text: CalendarTypes.Private,
-    color: palette.red.main,
-  },
-  {
-    id: 6,
     text: CalendarTypes.Task,
     color: palette.orange.main,
   },
-].map(item => ({
-  ...item,
-  fieldName: item.color,
-  title: item.color,
-  isMain: false,
-  allowMultiple: false,
-}));
+]);

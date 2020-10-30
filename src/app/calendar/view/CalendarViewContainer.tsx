@@ -7,20 +7,24 @@ import { CalendarFilters, CalendarViewProps } from 'app/calendar/view/CalendarVi
 import { CalendarView } from './CalendarView';
 
 const now = new Date();
+
+const dateId26 = DateTime.fromISO(new Date(now.setHours(13)).toISOString());
 const schedulerData = [
   {
     id: 1,
     startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
     title: 'Meeting',
-    type: CalendarTypes.Meeting,
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Completed,
   },
   {
     id: 2,
     startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(10)).toISOString()).toJSDate(),
     title: 'Meeting overlap',
-    type: CalendarTypes.Meeting,
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Completed,
   },
   {
     startDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
@@ -34,12 +38,14 @@ const schedulerData = [
     startDate: DateTime.fromISO(new Date(now.setHours(7)).toISOString()).toJSDate(),
     endDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),
     title: 'Travel to the office',
+    travelTimeBefore: 45,
+    travelTimeAfter: 55,
     type: CalendarTypes.Appointment,
   },
   {
     id: 4,
-    startDate: DateTime.fromISO(new Date(now.setHours(8)).toISOString()).toJSDate(),
-    endDate: DateTime.fromISO(new Date(now.setHours(9)).toISOString()).toJSDate(),
+    startDate: DateTime.fromISO(new Date(now.setHours(5)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(6)).toISOString()).toJSDate(),
     title: 'Go to a gym',
     type: CalendarTypes.Private,
   },
@@ -262,7 +268,7 @@ const schedulerData = [
     location: 'Room 4',
   },
   {
-    title: 'Completed appointment',
+    title: 'Completed appointment example',
     startDate: DateTime.local()
       .minus({ days: 2, hours: 3 })
       .toJSDate(),
@@ -272,7 +278,35 @@ const schedulerData = [
     id: 23,
     type: CalendarTypes.Appointment,
     state: AppointmentState.Completed,
-    location: 'Room 4',
+  },
+  {
+    id: 24,
+    startDate: DateTime.fromISO(new Date(now.setHours(14)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(15)).toISOString()).toJSDate(),
+    title: 'Meeting',
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Pencil,
+  },
+  {
+    id: 25,
+    startDate: DateTime.fromISO(new Date(now.setHours(12)).toISOString()).toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(13)).toISOString()).toJSDate(),
+    title: 'unconfirmed Meeting',
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Unconfirmed,
+  },
+  {
+    id: 26,
+    startDate: dateId26.toJSDate(),
+    endDate: DateTime.fromISO(new Date(now.setHours(14)).toISOString()).toJSDate(),
+    title: 'Confirmed appointment ',
+    type: CalendarTypes.Appointment,
+    state: AppointmentState.Confirmed,
+    rRule: `RRULE:FREQ=DAILY;UNTIL=${dateId26
+      .plus({ days: 12 })
+      .toFormat('yyyyddmm')}T080800Z;COUNT=30;INTERVAL=1;WKST=MO;BYDAY=${dateId26.weekdayShort
+      .toUpperCase()
+      .substring(0, 2)}`,
   },
 ];
 

@@ -1,4 +1,5 @@
 export { default as WarningIcon } from '@material-ui/icons/WarningRounded';
+export { default as ReplayIcon } from '@material-ui/icons/Replay';
 
 export * from './add/AddIcon';
 export * from './aog/AogIcon';
