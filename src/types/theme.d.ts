@@ -12,10 +12,17 @@ declare module '@material-ui/core/styles/createPalette' {
     yellow: createPalette.SimplePaletteColorOptions;
     blue: createPalette.SimplePaletteColorOptions;
     purple: createPalette.SimplePaletteColorOptions;
+    pink: createPalette.SimplePaletteColorOptions;
+    gold: createPalette.SimplePaletteColorOptions;
+    silver: createPalette.SimplePaletteColorOptions;
+    bronze: createPalette.SimplePaletteColorOptions;
     gradientPrimary: createPalette.SimplePaletteColorOptions;
     gradientBlue: createPalette.SimplePaletteColorOptions;
     gradientGreen: createPalette.SimplePaletteColorOptions;
     gradientWhite: createPalette.SimplePaletteColorOptions;
+    gradientGold: createPalette.SimplePaletteColorOptions;
+    gradientSilver: createPalette.SimplePaletteColorOptions;
+    gradientBronze: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 
@@ -30,10 +37,17 @@ declare module '@material-ui/core/styles/createPalette' {
     yellow: createPalette.SimplePaletteColorOptions;
     blue: createPalette.SimplePaletteColorOptions;
     purple: createPalette.SimplePaletteColorOptions;
+    pink: createPalette.SimplePaletteColorOptions;
+    gold: createPalette.SimplePaletteColorOptions;
+    silver: createPalette.SimplePaletteColorOptions;
+    bronze: createPalette.SimplePaletteColorOptions;
     gradientPrimary: createPalette.SimplePaletteColorOptions;
     gradientBlue: createPalette.SimplePaletteColorOptions;
     gradientGreen: createPalette.SimplePaletteColorOptions;
     gradientWhite: createPalette.SimplePaletteColorOptions;
+    gradientGold: createPalette.SimplePaletteColorOptions;
+    gradientSilver: createPalette.SimplePaletteColorOptions;
+    gradientBronze: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
   }
 }
