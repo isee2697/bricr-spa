@@ -71,12 +71,20 @@ export const useStyles = makeStyles(theme => ({
     },
 
     '&.active': {
-      background: theme.palette.gradientBronze,
+      background: theme.palette.gradientBronze.main,
     },
   },
   label: {
     zIndex: 1,
     color: theme.palette.white.main,
     fontWeight: theme.typography.fontWeightBold,
+  },
+  count: {
+    width: theme.spacing(3),
+    textAlign: 'center',
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  gray: {
+    color: theme.palette.gray.main,
   },
 }));

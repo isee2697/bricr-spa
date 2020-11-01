@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { Page } from 'ui/templates';
 import { Box, Card, CardContent, CardHeader, IconButton, Tab, Tabs, Typography } from 'ui/atoms';
-import { InfoSection } from 'ui/molecules';
+import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
 import { ManageIcon } from 'ui/atoms/icons';
+import { AllocateResultsRelationRanking } from '../../allocateResultsDetails/AllocateResultsDetails.types';
+import { SortOption } from 'ui/molecules/list/List.types';
 
+import { ListItem } from './listItem/ListItem';
 import { useStyles } from './List.styles';
-export const List = () => {
+import { AllocateResultItem, AllocateResultSortOrder } from './List.types';
+
+export const AllocateResultsList = () => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [showAllocateResults, setShowAllocateResults] = useState(true);
   const tabs = [
     {
       key: 'ResultList',
@@ -18,12 +23,38 @@ export const List = () => {
   ];
   const [status, setStatus] = useState(tabs[0]);
 
-  const [] = useState([]);
+  const [allocateResults, setAllocateResults] = useState<AllocateResultItem[]>([]);
+
+  const handleAllocateResultsUpdate = () => {
+    setAllocateResults([
+      {
+        id: '0001',
+        assignee: 'M. Janssen',
+        date: DateTime.local(),
+        name: 'Name for this allocation possibility',
+        relations: [
+          {
+            id: '0001',
+            ranking: AllocateResultsRelationRanking.Gold,
+            allocated: true,
+          },
+        ],
+        sortOrders: [AllocateResultSortOrder.CollectiveIncome, AllocateResultSortOrder.RegistrationDate],
+      },
+    ]);
+  };
+
+  const sortOptions: SortOption[] = [
+    {
+      name: formatMessage({ id: 'common.sort_option.newest' }),
+      key: 'newest',
+    },
+  ];
 
   return (
     <Page withoutHeader>
-      <Card onClick={() => setShowAllocateResults(true)}>
-        {showAllocateResults && (
+      <Card onClick={() => handleAllocateResultsUpdate()}>
+        {allocateResults.length > 0 && (
           <>
             <CardHeader
               title={formatMessage({ id: 'project.details.allocate_results.title' })}
@@ -48,11 +79,23 @@ export const List = () => {
                     label={formatMessage({ id: `project.details.allocate_results.${status.key}` })}
                   />
                 </Tabs>
+                <List
+                  items={allocateResults}
+                  itemIndex={'id'}
+                  loadingItem={<PropertyItemPlaceholder />}
+                  isShowHeader
+                  emptyTitle={formatMessage({ id: 'project.details.allocate_results.empty_title' })}
+                  emptyDescription={formatMessage({ id: 'project.details.allocate_results.empty_description' })}
+                  renderItem={(item, checked, checkbox) => (
+                    <ListItem key={item.id} checked={checked} checkbox={checkbox} item={item} />
+                  )}
+                  sortOptions={sortOptions}
+                />
               </Box>
             </CardContent>
           </>
         )}
-        {!showAllocateResults && (
+        {allocateResults.length === 0 && (
           <CardContent>
             <InfoSection emoji="🤔">
               <Typography variant="h3">

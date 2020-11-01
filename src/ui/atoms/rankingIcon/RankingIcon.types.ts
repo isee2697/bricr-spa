@@ -2,4 +2,12 @@ import { AllocateResultsRelationRanking } from 'app/projectDetails/sections/allo
 
 export type RankingIconProps = {
   rankings: AllocateResultsRelationRanking[];
+  showCount?: boolean;
+  count?: RankingCount;
+};
+
+export type RankingCount = {
+  gold: number;
+  silver: number;
+  bronze: number;
 };
