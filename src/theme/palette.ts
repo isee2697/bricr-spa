@@ -26,11 +26,19 @@ const blueLight = '#ECF8FC';
 const blueDark = '#0A57E9';
 const purple = '#813FF6';
 const purpleLight = '#F2EEFC';
+const pink = '#E90AE0';
+const gold = '#FFCD50';
+const silver = '#828db8';
+const bronze = '#cd7732';
+const blueInfo = '#DEECF1';
 const gradientPrimary = 'linear-gradient(354.85deg, #0A57E9 0%, #9FC0FF 100%)';
 const gradientBlue = 'linear-gradient(339deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientLightBlue = 'linear-gradient(354deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientGreen = 'linear-gradient(315deg, #0ABE67 0%, #00E174 100%)';
 const gradientWhite = 'linear-gradient(180deg, #F3F5FA 104px, rgba(243, 245, 250, 0) 312px)';
+const gradientGold = 'linear-gradient(180deg, #C6A242 0%, rgba(198, 162, 66, 0) 100%)';
+const gradientSilver = 'linear-gradient(180deg, #828DB8 0%, rgba(130, 141, 184, 0) 100%)';
+const gradientBronze = 'linear-gradient(180deg, #CD7732 0%, rgba(205, 119, 50, 0) 100%)';
 const gradientGreenRed = 'linear-gradient(90deg, #EB5F60 0%, #FFAD21 25.52%, #FCC616 52.6%, #0ABE67 100%)';
 
 export const palette: PaletteOptions = {
@@ -82,6 +90,18 @@ export const palette: PaletteOptions = {
     main: purple,
     light: purpleLight,
   },
+  pink: {
+    main: pink,
+  },
+  gold: {
+    main: gold,
+  },
+  silver: {
+    main: silver,
+  },
+  bronze: {
+    main: bronze,
+  },
   error: {
     main: red,
   },
@@ -111,6 +131,15 @@ export const palette: PaletteOptions = {
   gradientWhite: {
     main: gradientWhite,
   },
+  gradientGold: {
+    main: gradientGold,
+  },
+  gradientSilver: {
+    main: gradientSilver,
+  },
+  gradientBronze: {
+    main: gradientBronze,
+  },
   gradientGreenRed: {
     main: gradientGreenRed,
   },
@@ -121,5 +150,6 @@ export const palette: PaletteOptions = {
   info: {
     main: primaryInfo,
     dark: blackInfo,
+    light: blueInfo,
   },
 };
