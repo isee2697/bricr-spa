@@ -19,6 +19,7 @@ import { ContactInformationContainer } from './personalInformation/contactInform
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
 import { DocumentsConatiner } from './documents/DocumentsContainer';
 import { MarketingNewLetterContainer } from './marketingNewLetters/MarketingNewLettersContainer';
+import { OrdersContainer } from './orders/OrdersContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -138,6 +139,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => (
                     <MarketingNewLetterContainer
                       path={`${path}/marketing_news_letter`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/orders`}
+                  render={() => (
+                    <OrdersContainer
+                      path={`${path}/orders`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
