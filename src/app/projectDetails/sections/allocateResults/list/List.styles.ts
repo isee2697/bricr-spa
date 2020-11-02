@@ -6,7 +6,7 @@ export const useStyles = makeStyles(theme => ({
   },
   tabs: {
     '& .MuiTab-root': {
-      minWidth: 90,
+      minWidth: theme.spacing(11.25),
     },
   },
 }));
