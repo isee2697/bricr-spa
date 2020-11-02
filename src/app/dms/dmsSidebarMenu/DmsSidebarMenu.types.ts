@@ -1,4 +1,5 @@
 export type DmsSidebarMenuProps = {
-  onHide: () => void;
+  onHide: VoidFunction;
   isVisible: boolean;
+  onAddFolder: (name: string) => void;
 };

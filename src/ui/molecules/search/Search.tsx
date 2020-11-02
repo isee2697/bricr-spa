@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 
 import { Avatar, Grid, Typography, CardActions, Autocomplete, TextField, Button, Paper } from 'ui/atoms';
 import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
@@ -26,7 +27,16 @@ const getIcon = (type: string) => {
   }
 };
 
-export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp, ...props }: SearchProps) => {
+export const Search = ({
+  options,
+  setFocus: setFocusProp,
+  hasFocus: hasFocusProp,
+  placeholder,
+  startAdornment,
+  endAdornment,
+  classes: passedClasses,
+  ...props
+}: SearchProps) => {
   const [hasFocus, setFocus] = useState(!!hasFocusProp);
   const [value, setValue] = useState(props.inputValue ? props.inputValue : '');
   const { formatMessage } = useLocale();
@@ -58,7 +68,7 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
 
   const Results = (props: Parameters<typeof Paper>[0]) => {
     return (
-      <Paper {...props} className={classes.paper}>
+      <Paper {...props} className={clsx(classes.paper, passedClasses?.paper)}>
         {props.children}
         <CardActions>
           <Button onClick={() => setValue('')} fullWidth>
@@ -72,20 +82,20 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
   return (
     <Autocomplete
       {...props}
-      className={classes.root}
+      className={clsx(classes.root, passedClasses?.root)}
       options={options}
       getOptionLabel={option => option.title}
       groupBy={(option: SearchType) =>
-        formatMessage({ id: `header.search.group.${option.type.toLowerCase()}`, defaultMessage: option.type })
+        option.type
+          ? formatMessage({ id: `header.search.group.${option.type.toLowerCase()}`, defaultMessage: option.type })
+          : ''
       }
       freeSolo
       PaperComponent={Results}
       open={hasFocus}
       renderOption={(option: SearchType) => (
         <Grid container alignItems="center" spacing={2}>
-          <Grid item>
-            <Avatar variant="rounded">{getIcon(option.type)}</Avatar>
-          </Grid>
+          <Grid item>{option.icon ?? <Avatar variant="rounded">{getIcon(option.type)}</Avatar>}</Grid>
           <Grid item>
             {highlightString(option.title)}
             <Typography variant="body2" color="textSecondary">
@@ -113,14 +123,14 @@ export const Search = ({ options, setFocus: setFocusProp, hasFocus: hasFocusProp
             setValue('');
           }}
           onChange={e => setValue(e.target.value)}
-          placeholder={formatMessage({ id: 'header.search.placeholder' })}
-          className={`${classes.textField} ${hasFocus ? classes.hasFocus : ''}`}
+          placeholder={formatMessage({ id: placeholder || 'common.search' })}
+          className={`${classes.textField} ${hasFocus ? classes.hasFocus : ''} ${passedClasses?.input}`}
           variant="outlined"
           InputProps={{
             ...params.InputProps,
             ...{
-              startAdornment: <SearchIcon />,
-              endAdornment: <FilterIcon className="MuiAutocomplete-endAdornment filter-icon" />,
+              startAdornment: startAdornment ?? <SearchIcon />,
+              endAdornment: endAdornment ?? <FilterIcon className="MuiAutocomplete-endAdornment filter-icon" />,
             },
           }}
         />

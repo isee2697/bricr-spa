@@ -24,6 +24,18 @@ const greenLight = '#E7F8F0';
 const blue = '#4CB9DF';
 const blueLight = '#ECF8FC';
 const blueDark = '#0A57E9';
+const blue100 = '#96BAFD';
+const blue200 = '#6A9CFB';
+const blue300 = '#538EFF';
+const blue400 = '#2E75FC';
+const blue500 = '#165FEA';
+const blue600 = '#0A57E9';
+const aqua100 = '#97DCFD';
+const aqua200 = '#4DBFF1';
+const aqua300 = '#3EA0E1';
+const aqua400 = '#267EC7';
+const aqua500 = '#23B7FB';
+const aqua600 = '#0959A9';
 const purple = '#813FF6';
 const purpleLight = '#F2EEFC';
 const pink = '#E90AE0';
@@ -151,5 +163,21 @@ export const palette: PaletteOptions = {
     main: primaryInfo,
     dark: blackInfo,
     light: blueInfo,
+  },
+  aquaGradients: {
+    '100': aqua100,
+    '200': aqua200,
+    '300': aqua300,
+    '400': aqua400,
+    '500': aqua500,
+    '600': aqua600,
+  },
+  blueGradients: {
+    '100': blue100,
+    '200': blue200,
+    '300': blue300,
+    '400': blue400,
+    '500': blue500,
+    '600': blue600,
   },
 };
