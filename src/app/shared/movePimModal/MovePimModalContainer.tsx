@@ -60,6 +60,7 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
 
   const { loading: isBogListLoading, data: bogListData } = useListPimsQuery({
@@ -70,7 +71,9 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
+
   const { loading: isAogListLoading, data: aogListData } = useListPimsQuery({
     variables: {
       ...getPimFilterVariables('aog'),
@@ -79,7 +82,9 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
+
   const { loading: isParkinglotListLoading, data: parkinglotListData } = useListPimsQuery({
     variables: {
       ...getPimFilterVariables('parkinglot'),
@@ -88,7 +93,9 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
+
   const { loading: isPlotListLoading, data: plotListData } = useListPimsQuery({
     variables: {
       ...getPimFilterVariables('plot'),
@@ -97,6 +104,7 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
 
   let listData = {};

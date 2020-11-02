@@ -73,19 +73,21 @@ export const Users = ({ data, total, onActivationChange, status, setStatus, pagi
                             <Typography>{formatMessage({ id: 'settings.users.reactivate' })}</Typography>
                           </MenuItem>
                         )}
-                        <MenuItem
-                          onClick={() => onUpdate({ ...item, isAdmin: !item.isAdmin })}
-                          data-testid="change-admin"
-                        >
-                          <UserIcon />
-                          <Typography>{formatMessage({ id: 'common.admin' })}</Typography>
-                          {item.isAdmin && (
-                            <>
-                              <Box ml={2} />
-                              <CheckIcon color="primary" fontSize="small" />
-                            </>
-                          )}
-                        </MenuItem>
+                        {!!currentUser?.isAdmin && (
+                          <MenuItem
+                            onClick={() => onUpdate({ ...item, isAdmin: !item.isAdmin })}
+                            data-testid="change-admin"
+                          >
+                            <UserIcon />
+                            <Typography>{formatMessage({ id: 'common.admin' })}</Typography>
+                            {item.isAdmin && (
+                              <>
+                                <Box ml={2} />
+                                <CheckIcon color="primary" fontSize="small" />
+                              </>
+                            )}
+                          </MenuItem>
+                        )}
                       </ListOptionsMenu>
                     }
                   />
