@@ -7,41 +7,62 @@ import { AllocateResultsRelationRanking } from 'app/projectDetails/sections/allo
 import { useStyles } from './RankingIcon.styles';
 import { RankingIconProps } from './RankingIcon.types';
 
-export const RankingIcon = ({ rankings }: RankingIconProps) => {
+export const RankingIcon = ({ rankings, showCount = false, count }: RankingIconProps) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box
-        className={clsx(
-          classes.silverItem,
-          rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Silver) >= 0 && 'active',
-        )}
-      >
-        <Typography variant="h2" className={classes.label}>
-          2
-        </Typography>
+    <Box>
+      <Box className={classes.root} mb={0.5}>
+        <Box
+          className={clsx(
+            classes.silverItem,
+            rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Silver) >= 0 && 'active',
+          )}
+        >
+          <Typography variant="h2" className={classes.label}>
+            2
+          </Typography>
+        </Box>
+        <Box
+          className={clsx(
+            classes.goldItem,
+            rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Gold) >= 0 && 'active',
+          )}
+        >
+          <Typography variant="h2" className={classes.label}>
+            1
+          </Typography>
+        </Box>
+        <Box
+          className={clsx(
+            classes.bronzeItem,
+            rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Bronze) >= 0 && 'active',
+          )}
+        >
+          <Typography variant="h2" className={classes.label}>
+            3
+          </Typography>
+        </Box>
       </Box>
-      <Box
-        className={clsx(
-          classes.goldItem,
-          rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Gold) >= 0 && 'active',
-        )}
-      >
-        <Typography variant="h2" className={classes.label}>
-          1
-        </Typography>
-      </Box>
-      <Box
-        className={clsx(
-          classes.bronzeItem,
-          rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Bronze) >= 0 && 'active',
-        )}
-      >
-        <Typography variant="h2" className={classes.label}>
-          3
-        </Typography>
-      </Box>
+      {showCount && (
+        <Box display="flex">
+          <Box className={classes.count}>
+            <Typography variant="h6" className={classes.gray}>
+              {count?.silver || 0}
+            </Typography>
+          </Box>
+          <Box className={classes.count}>
+            <Typography variant="h6" className={classes.gray}>
+              {count?.gold || 0}
+            </Typography>
+          </Box>
+          <Box className={classes.count}>
+            <Typography variant="h6" className={classes.gray}>
+              {count?.bronze || 0}
+            </Typography>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 };
