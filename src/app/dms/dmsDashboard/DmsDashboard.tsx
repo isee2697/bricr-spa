@@ -28,7 +28,7 @@ export const DmsDashboard = ({ dms }: DmsDashboardProps) => {
         <Grid xs={12} item>
           <Typography variant="h1">{formatMessage({ id: 'dms.title' })}</Typography>
         </Grid>
-        <DmsDashboardMetaHeader meta={dms} />
+        <DmsDashboardMetaHeader meta={dms.total} />
         <DmsDashboardBoards />
       </Page>
     </>

@@ -33,7 +33,7 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
         key={subItem.id}
         title={subItem.title ? subItem.title : formatMessage({ id: subItem.label })}
         selected={pathname === `${menu.url}/${menuItem.key}/${subItem.id}`}
-        onClick={() => push(`${menu.url}/${menuItem.key}/${subItem.id}`)}
+        onClick={() => (subItem.onClick ? subItem.onClick() : push(`${menu.url}/${menuItem.key}/${subItem.id}`))}
         badge={subItem.number}
         icon={subItem.icon}
       />
@@ -97,7 +97,7 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
                         title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
                         selected={pathname.startsWith(`${menu.url}/${item.key}`)}
                         badge={item.count}
-                        onClick={() => push(`${menu.url}/${item.key}`)}
+                        onClick={() => (item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`))}
                       >
                         {item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
                       </SideMenuItem>
