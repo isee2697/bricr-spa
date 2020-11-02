@@ -1,4 +1,4 @@
-import { BadgeProps, TabProps } from '@material-ui/core';
+import { BadgeProps, TabProps, TabsClassKey } from '@material-ui/core';
 
 export type ActionTabStatus = 'actionRequired' | 'active' | 'archived';
 
@@ -14,4 +14,8 @@ export type ActionTabsProps<T> = {
   status?: T;
   onStatusChange: (type: T) => void;
   tabs?: ActionTab[];
+  variant?: 'scrollable' | 'fullWidth' | 'standard';
+  classes?: {
+    [key in TabsClassKey]?: string;
+  };
 };

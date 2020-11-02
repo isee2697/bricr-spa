@@ -47,7 +47,7 @@ export const RegisterContainer = () => {
     const { data: result } = await createCompany({
       variables: {
         input: {
-          name: spaceName!,
+          name: spaceName ?? '',
           email,
         },
       },

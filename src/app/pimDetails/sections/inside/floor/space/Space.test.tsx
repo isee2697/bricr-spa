@@ -19,9 +19,18 @@ describe('Space form', () => {
   test('form rendered correctly', () => {
     const SPACE_INDEX = 0;
 
-    const { getByText, getByPlaceholderText, getByTestId } = render(
+    const { getByTestId } = render(
       <Form onSubmit={() => {}} mutators={{ ...arrayMutators }} subscription={{}}>
-        {() => <Space space={space} isEditMode index={SPACE_INDEX} isExpanded={true} onExpand={() => {}} />}
+        {() => (
+          <Space
+            space={space}
+            isEditMode
+            index={SPACE_INDEX}
+            isExpanded={true}
+            onExpand={() => {}}
+            onDimensionChange={(field: string) => {}}
+          />
+        )}
       </Form>,
     );
 

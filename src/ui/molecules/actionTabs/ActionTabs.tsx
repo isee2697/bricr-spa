@@ -6,19 +6,24 @@ import { ActionTabsProps } from './ActionTabs.types';
 import { useStyles } from './ActionTabs.styles';
 
 export const ActionTabs: <T>(p: ActionTabsProps<T>) => ReactElement<ActionTabsProps<T>> = ({
+  className,
   status,
   onStatusChange,
   tabs,
+  variant,
+  classes: tabsClasses,
 }) => {
   const classes = useStyles();
 
   return (
     <Tabs
-      className="pim-tabs"
+      className={className || 'pim-tabs'}
       value={status}
       onChange={(event, value) => onStatusChange(value)}
       indicatorColor="primary"
       textColor="primary"
+      variant={variant}
+      classes={tabsClasses ?? {}}
     >
       {(tabs || []).map(tab => {
         return (

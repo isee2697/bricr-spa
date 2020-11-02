@@ -25,6 +25,8 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientBronze: createPalette.SimplePaletteColorOptions;
     gradientGreenRed: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
+    aquaGradients: createPalette.ColorPartial;
+    blueGradients: createPalette.ColorPartial;
   }
 
   export interface Palette {
@@ -51,6 +53,8 @@ declare module '@material-ui/core/styles/createPalette' {
     gradientBronze: createPalette.SimplePaletteColorOptions;
     gradientGreenRed: createPalette.SimplePaletteColorOptions;
     overlay: createPalette.SimplePaletteColorOptions;
+    aquaGradients: createPalette.ColorPartial;
+    blueGradients: createPalette.ColorPartial;
   }
 }
 
