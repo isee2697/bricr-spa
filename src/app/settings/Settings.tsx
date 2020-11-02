@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { useGetBillingQuery } from 'api/types';
 import { Box, Grid, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
@@ -18,21 +17,9 @@ import { BillingContainer } from './sections/billing/BillingContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
-  const { data: billingData, refetch } = useGetBillingQuery();
   const { isSidebarMenuVisible, isHeaderVisible, isSidebarVisible } = useLayout();
-  const history = useHistory();
 
   const isFullScreen = !isSidebarMenuVisible && !isHeaderVisible && !isSidebarVisible;
-
-  const unlisten = history.listen(location => {
-    if (location.pathname === AppRoute.settings + '/billing') {
-      refetch();
-    }
-  });
-
-  useEffect(() => {
-    return () => unlisten();
-  });
 
   return (
     <>
@@ -41,10 +28,7 @@ export const Settings = ({ data }: SettingsProps) => {
         <SettingsSidebarMenu data={data} />
         <Box flex={1} padding={isFullScreen ? 0 : 3}>
           <Switch>
-            <Route
-              path={`${AppRoute.settings}/billing`}
-              render={() => <BillingContainer billingUrl={billingData?.getBilling?.url || ''} />}
-            />
+            <Route path={`${AppRoute.settings}/billing`} render={() => <BillingContainer />} />
             <Route
               exact
               path={[

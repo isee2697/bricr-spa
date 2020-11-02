@@ -1,4 +1,5 @@
 import { AuthStateContextType } from '../authContext/AuthContext.types';
+import { AdminSettings } from 'api/types';
 
 import { AuthAction } from './authReducer.types';
 
@@ -22,6 +23,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
       user,
       isAuthorizing: false,
       isAuthorized: true,
+      hasBillingAccess: !!user?.isAdmin || !!user?.adminSettings?.includes(AdminSettings.Billing),
     }),
     [SET_UNAUTHORIZED]: state => ({
       ...state,
@@ -33,6 +35,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
       user: undefined,
       isAuthorizing: false,
       isAuthorized: false,
+      hasBillingAccess: false,
       accessToken: null,
       refreshToken: null,
     }),

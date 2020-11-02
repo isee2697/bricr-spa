@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 
-import { useLocale, useSnackbar } from 'hooks';
+import { useAuthState, useLocale, useSnackbar } from 'hooks';
 
 export const useShowError = () => {
   const { open: openSnackbar } = useSnackbar();
+  const { isAuthorized } = useAuthState();
   const [messageHistory, setHistory] = useState<{ [key: string]: DateTime }>({});
   const { formatMessage } = useLocale();
 
@@ -16,7 +17,7 @@ export const useShowError = () => {
     const showMessage =
       !messageHistory[message] || (messageHistory[message] && messageHistory[message].diffNow('seconds').seconds < -10);
 
-    if (showMessage) {
+    if (showMessage && isAuthorized) {
       setHistory(history => ({ ...history, [message as string]: DateTime.local() }));
 
       message = formatMessage({ id: 'common.error' }, { message: message?.replace('GraphQL error: ', '') });
