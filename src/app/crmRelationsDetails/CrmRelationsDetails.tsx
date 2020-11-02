@@ -20,6 +20,7 @@ import { MatchProfileContainer } from './personalInformation/matchProfile/MatchP
 import { DocumentsConatiner } from './documents/DocumentsContainer';
 import { MarketingNewLetterContainer } from './marketingNewLetters/MarketingNewLettersContainer';
 import { OrdersContainer } from './orders/OrdersContainer';
+import { LinkedBusinessesContainer } from './linkedBusinesses/LinkedBusinessesContainer';
 import { MarketingTargetGroupsContainer } from './marketingTargetGroups/MarketingTargetGroupsContainer';
 import { MarketingCrossSellContainer } from './marketingCrossSell/MarketingCrossSellContainer';
 
@@ -171,6 +172,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   render={() => (
                     <MarketingCrossSellContainer
                       path={`${path}/marketing_cross_sell`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/linked_businesses`}
+                  render={() => (
+                    <LinkedBusinessesContainer
+                      path={`${path}/orders`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
