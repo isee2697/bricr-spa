@@ -1266,6 +1266,28 @@ export enum AppointmentAddressType {
   NewAcquisitionAddress = 'NewAcquisitionAddress',
 }
 
+export enum AppointmentState {
+  Pencil = 'Pencil',
+  Confirmed = 'Confirmed',
+  Completed = 'Completed',
+  Unconfirmed = 'Unconfirmed',
+}
+
+export type Appointment = {
+  __typename?: 'Appointment';
+  startDate: Scalars['Date'];
+  endDate: Scalars['Date'];
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  type: CalendarTypes;
+  location?: Maybe<Scalars['String']>;
+  taskLabel?: Maybe<TaskLabel>;
+  state?: Maybe<AppointmentState>;
+};
+
 export enum CharacteristicsSections {
   Measurements = 'Measurements',
   ClientInformation = 'ClientInformation',

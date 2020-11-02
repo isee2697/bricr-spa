@@ -5,6 +5,7 @@ import { AppointmentModel, SchedulerDateTime } from '@devexpress/dx-react-schedu
 import { DateTime } from 'luxon';
 
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
+import { CalendarTypes } from 'api/types';
 
 import { SchedulerProps } from './Scheduler.types';
 
@@ -49,6 +50,33 @@ const convertAppointmentsGroup = (data: AppointmentModel[], groupDate: string, i
   return data;
 };
 
+const addTravelTimes = (appointments: AppointmentModel[]) => {
+  //@ToDo move this to backend :)
+  [...appointments].forEach(app => {
+    if (app.travelTimeBefore) {
+      appointments.push({
+        type: CalendarTypes.Travel,
+        endDate: app.startDate,
+        startDate: toDateTime(app.startDate)
+          .minus({ minutes: app.travelTimeBefore })
+          .toJSDate(),
+      });
+    }
+
+    if (app.travelTimeAfter) {
+      appointments.push({
+        type: CalendarTypes.Travel,
+        startDate: app.endDate,
+        endDate: toDateTime(app.endDate)
+          .plus({ minutes: app.travelTimeAfter })
+          .toJSDate(),
+      });
+    }
+  });
+
+  return appointments;
+};
+
 export const Scheduler = ({ currentView, data, ...props }: SchedulerProps) => {
   const grouped = groupBy(data, appointment => {
     return toDateTime(appointment.startDate).toFormat('dd LL yyyy');
@@ -59,7 +87,9 @@ export const Scheduler = ({ currentView, data, ...props }: SchedulerProps) => {
   } else {
     data = Object.entries(grouped).flatMap(group => {
       const allDay = group[1].filter(appointment => !!appointment.allDay);
-      const moreAppointments = group[1].filter(appointment => !appointment.allDay);
+      let moreAppointments = group[1].filter(appointment => !appointment.allDay);
+
+      moreAppointments = addTravelTimes(moreAppointments);
 
       return [...convertAppointmentsGroup(allDay, group[0], true).reverse(), ...moreAppointments];
     });
