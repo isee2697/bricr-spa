@@ -4,7 +4,7 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
 import { Box, SideMenuItem, SideSubMenuItem, SidebarHideButton, Collapse, Typography, Slide, Grid } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, SaleIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, CalendarIcon, SaleIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './SidebarMenu.styles';
 import { MenuGroup, MenuItem, SidebarMenuProps, SubMenuItem } from './SidebarMenu.types';
@@ -13,6 +13,7 @@ export const SidebarMenu = ({
   onHide,
   isVisible = true,
   menuTitle,
+  menuTitleIcon,
   menu,
   translationPrefix,
   bannerColor,
@@ -24,7 +25,6 @@ export const SidebarMenu = ({
   const [isGroupOpen, setGroupOpen] = useState<Record<string, boolean>>({});
   const ref = useRef<HTMLDivElement>(null);
 
-  console.log(ref?.current?.clientWidth);
   const classes = useStyles({
     width: ref?.current?.clientWidth ?? 'auto',
     bannerColor,
@@ -92,7 +92,16 @@ export const SidebarMenu = ({
             </div>
           )}
           <div className={classes.menuWrapper}>
-            {!!menuTitle && <Box mb={2}>{menuTitle}</Box>}
+            <Box minHeight={48} mb={2}>
+              <div className={classes.banner}>
+                {!!menuTitle && menuTitleIcon}
+                {menuTitle && typeof menuTitle === 'string' ? (
+                  <Typography variant="h5">{menuTitle}</Typography>
+                ) : (
+                  menuTitle
+                )}
+              </div>
+            </Box>
             <SideMenu className={classes.root} disablePadding>
               {menu.groups.map((group, index) => (
                 <Box className={classes.group} key={`group_${index}`}>

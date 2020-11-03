@@ -16,7 +16,7 @@ export const Pim = () => {
       <PimSidebarMenu types={PimTypes} />
       <Grid item xs={12} md={9} lg={10}>
         <Switch>
-          <Route exact path={AppRoute.pim} component={PimDashboardContainer} />
+          <Route exact path={`${AppRoute.pim}/dashboard`} component={PimDashboardContainer} />
           {PimTypes.map(item => (
             <Route
               exact
@@ -24,7 +24,7 @@ export const Pim = () => {
               component={item.isProject ? ProjectContainer : PimListContainer}
             />
           ))}
-          <Redirect to={AppRoute.pim} />
+          <Redirect to={`${AppRoute.pim}/dashboard`} />
         </Switch>
       </Grid>
     </Grid>

@@ -4,10 +4,18 @@ import { useHistory } from 'react-router-dom';
 import { SidebarMenu } from 'ui/molecules';
 import { AppRoute } from '../../../routing/AppRoute.enum';
 import { DashboardIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
 
 import { PimSidebarMenuProps } from './PimSidebarMenu.types';
 export const PimSidebarMenu = ({ types }: PimSidebarMenuProps) => {
-  const { push } = useHistory();
+  const { push, location } = useHistory();
+  const { formatMessage } = useLocale();
+
+  const groupItems = types.map(type => ({
+    key: type.name,
+    icon: type.icon,
+    onClick: () => push(`${AppRoute.pim}/${type.name}`),
+  }));
 
   const menu = {
     url: AppRoute.pim,
@@ -17,19 +25,25 @@ export const PimSidebarMenu = ({ types }: PimSidebarMenuProps) => {
         key: 'pim',
         items: [
           {
-            key: 'portfolio_dashboard',
+            key: 'dashboard',
             icon: <DashboardIcon />,
             onClick: () => push(AppRoute.pim),
           },
-          ...types.map(type => ({
-            key: `type.${type.name}`,
-            icon: type.icon,
-            onClick: () => push(`${AppRoute.pim}/${type.name}`),
-          })),
+          ...groupItems,
         ],
       },
     ],
   };
 
-  return <SidebarMenu hasHideButton={false} translationPrefix={'pim'} menu={menu} />;
+  const activeItem = groupItems.find(item => location.pathname.includes(item.key));
+
+  return (
+    <SidebarMenu
+      hasHideButton={false}
+      translationPrefix="pim.type"
+      menuTitle={activeItem && formatMessage({ id: `pim.type.${activeItem.key}` })}
+      menuTitleIcon={activeItem?.icon}
+      menu={menu}
+    />
+  );
 };
