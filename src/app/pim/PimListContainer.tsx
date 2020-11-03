@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
@@ -6,14 +6,14 @@ import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
-import { Pim } from './Pim';
+import { PimList } from './PimList';
 
 const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
   switch (type) {
-    case 'property':
+    case 'residential':
       return {
         propertyTypes: [PropertyType.Apartment, PropertyType.House],
       };
@@ -30,11 +30,12 @@ const getPimFilterVariables = (type: string): ListPimsFilters => {
   }
 };
 
-export const PimContainer = () => {
-  const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
-  const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
+export const PimListContainer = () => {
+  const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
+  const [activeFilters, setActiveFilters] = useState(getPimFilterVariables('residential'));
+
+  const { loading: isCountLoading, data: countData } = useListPimsCountQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -57,7 +58,7 @@ export const PimContainer = () => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
+  const { loading: isListLoading, data: listData } = useListPimsQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -72,22 +73,14 @@ export const PimContainer = () => {
     setActiveFilters(filters);
   };
 
-  useEffect(() => {
-    setActiveFilters(getPimFilterVariables(type));
-  }, [type]);
-
   return (
-    <Pim
+    <PimList
       status={status}
       onStatusChange={setStatus}
-      type={type}
-      onTypeChange={setType}
+      type={'residential'}
       onFilter={handleFilterChange}
       activeFilters={activeFilters}
-      pricingType={pricingType}
-      onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
-      isError={!!countError || !!listError}
       amounts={amounts}
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}

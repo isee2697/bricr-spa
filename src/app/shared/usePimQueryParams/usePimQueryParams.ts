@@ -11,15 +11,13 @@ type defaultValues = {
 
 export const usePimQueryParams = (defaults: defaultValues) => {
   const [status = defaults.status || 'active', setStatus] = useQueryParam<ActionTabStatus>('status');
-  const [type = defaults.type || 'property', setType] = useQueryParam<string>('type');
+
   const [pricingType = defaults.pricingType || 'both', setPricingType] = useQueryParam<string>('pricingType');
   const priceTypeFilter: ListPimsFilters = pricingType !== 'both' ? { pricingType: pricingType as PricingType } : {};
 
   return {
     status,
     setStatus,
-    type,
-    setType,
     pricingType,
     setPricingType,
     priceTypeFilter,

@@ -13,15 +13,11 @@ export enum SelectPriceType {
 
 export type PimProps = {
   type: string;
-  onTypeChange: (type: string) => void;
-  pricingType: PricingType | string;
-  onPricingTypeChange: (type: PricingType | string) => void;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   onFilter: (filters: ListPimsFilters) => void;
   activeFilters: ListPimsFilters;
   isLoading: boolean;
-  isError: boolean;
   amounts?: {
     actionRequired: number;
     active: number;

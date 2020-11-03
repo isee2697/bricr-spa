@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, fireEvent } from 'tests';
 
-import { Pim } from './Pim';
+import { PimList } from './Pim';
 
 describe('Pim', () => {
   test('renders correctly', () => {
@@ -10,7 +10,7 @@ describe('Pim', () => {
     const onTypeChange = jest.fn();
 
     const { getByText } = render(
-      <Pim
+      <PimList
         status="archived"
         type="sale"
         onTypeChange={onTypeChange}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
@@ -9,12 +9,26 @@ import { ArrowDownIcon, ArrowUpIcon, SaleIcon } from 'ui/atoms/icons';
 import { useStyles } from './SidebarMenu.styles';
 import { MenuGroup, MenuItem, SidebarMenuProps, SubMenuItem } from './SidebarMenu.types';
 
-export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPrefix }: SidebarMenuProps) => {
+export const SidebarMenu = ({
+  onHide,
+  isVisible = true,
+  menuTitle,
+  menu,
+  translationPrefix,
+  bannerColor,
+  hasHideButton = true,
+}: SidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { pathname } = useLocation();
   const { push } = useHistory();
-  const classes = useStyles();
   const [isGroupOpen, setGroupOpen] = useState<Record<string, boolean>>({});
+  const ref = useRef<HTMLDivElement>(null);
+
+  console.log(ref?.current?.clientWidth);
+  const classes = useStyles({
+    width: ref?.current?.clientWidth ?? 'auto',
+    bannerColor,
+  });
 
   const renderSubItem = (subItem: SubMenuItem, menuItem: MenuItem) => {
     if (typeof subItem === 'string') {
@@ -64,12 +78,19 @@ export const SidebarMenu = ({ onHide, isVisible, menuTitle, menu, translationPre
   };
 
   return (
-    <Slide unmountOnExit mountOnEnter in={isVisible} direction="right">
-      <Grid item xs={12} md={3} lg={2}>
+    <Slide unmountOnExit mountOnEnter in={!hasHideButton || isVisible} direction="right">
+      <Grid ref={ref} item xs={12} md={3} lg={2} className={classes.container}>
         <div className={classes.root}>
-          <div className={classes.hideButton} onClick={onHide}>
-            <SidebarHideButton />
-          </div>
+          {hasHideButton && (
+            <div
+              className={classes.hideButton}
+              onClick={() => {
+                !!onHide && onHide();
+              }}
+            >
+              <SidebarHideButton />
+            </div>
+          )}
           <div className={classes.menuWrapper}>
             {!!menuTitle && <Box mb={2}>{menuTitle}</Box>}
             <SideMenu className={classes.root} disablePadding>
