@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { DmsStats } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
+import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 
 export const DMSStats: DmsStats = {
   total: {
@@ -389,5 +390,56 @@ export const DMSTimelineItems: Timeline[] = [
     status: 'expired',
     date: DateTime.local(),
     title: 'Sign a deed of purchase',
+  },
+];
+
+export const Templates: DmsTemplateItem[] = [
+  {
+    id: 'dms-template-1',
+    name: 'Contract for Sale',
+    labels: ['Residential', 'BOG'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    avatar: 'http://placeimg.com/104/152/arch',
+    meta: {
+      generated: 19,
+      sent: 11,
+      printed: 5,
+      download: 1,
+      declined: 0,
+      completed: 0,
+    },
+  },
+  {
+    id: 'dms-template-2',
+    name: 'Contract for Rent',
+    labels: ['Residential', 'BOG'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    avatar: 'http://placeimg.com/104/152/arch',
+    meta: {
+      generated: 19,
+      sent: 11,
+      printed: 5,
+      download: 1,
+      declined: 0,
+      completed: 0,
+    },
+  },
+  {
+    id: 'dms-template-3',
+    name: 'Key transfer',
+    labels: ['Residential', 'BOG'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    avatar: 'http://placeimg.com/104/152/arch',
+    meta: {
+      generated: 19,
+      sent: 11,
+      printed: 5,
+      download: 1,
+      declined: 0,
+      completed: 0,
+    },
   },
 ];

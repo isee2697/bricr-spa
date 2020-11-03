@@ -13,17 +13,19 @@ import {
   IconButton,
   Typography,
   InputAdornment,
+  Box,
 } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AddIcon } from 'ui/atoms/icons';
-import { DatePickerField, GenericField } from 'form/fields';
+import { AddIcon, SquareIcon } from 'ui/atoms/icons';
+import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AddNewPhoneNumberBody } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal.types';
 import { AddNewPhoneNumberModal } from '../addNewPhoneNumberModal/AddNewPhoneNumberModal';
 import { PromiseFunction } from 'app/shared/types';
-import { InfoSection } from 'ui/molecules';
+import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
+import { ContactPhoneNumberType } from '../../../../../api/types';
 
 import { useStyles } from './PhoneNumbers.styles';
 import { PhoneNumber, PhoneNumbersObject, PhoneNumbersProps } from './PhoneNumbers.types';
@@ -95,6 +97,12 @@ export const PhoneNumbers = ({ data, onSave }: PhoneNumbersProps) => {
     return await onSave(newData);
   };
 
+  const phoneNumberTypes = Object.keys(ContactPhoneNumberType).map(phoneNumberType => ({
+    label: `dictionaries.contact_information.phone_number_type.${phoneNumberType}`,
+    icon: <SquareIcon />,
+    value: phoneNumberType,
+  }));
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -147,6 +155,7 @@ export const PhoneNumbers = ({ data, onSave }: PhoneNumbersProps) => {
                     </>
                   }
                   onOptionsClick={() => {}}
+                  initiallyOpened={false}
                 >
                   <Grid container spacing={1} className={classes.phoneNumberFormFields}>
                     <Grid item xs={4}>
@@ -199,6 +208,24 @@ export const PhoneNumbers = ({ data, onSave }: PhoneNumbersProps) => {
                       />
                     </Grid>
                   </Grid>
+                  <FormSubSectionHeader
+                    title={formatMessage({
+                      id: 'crm.details.personal_information_contact_information.phone_numbers.type_of_phone_number',
+                    })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+                    noBorder
+                  />
+                  <Box mb={2} />
+                  <RadioGroupField
+                    spacing={1}
+                    disabled={!isEditing}
+                    xs={4}
+                    md={3}
+                    lg={2}
+                    name={`${phoneNumber.key}.phoneNumberType`}
+                    options={phoneNumberTypes}
+                  />
+                  <Box mb={2} />
                   <Grid container spacing={1} className={classes.phoneNumberFormFields}>
                     <Grid item xs={12}>
                       <Typography variant="h5">
