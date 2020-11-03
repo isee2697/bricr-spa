@@ -40,6 +40,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   };
 
   const isOnDMSPage = pathname.startsWith(AppRoute.dms);
+  const isOnEmailPage = pathname.startsWith(AppRoute.email);
   const handleDMSClick = () => {
     if (isOnDMSPage) {
       push(AppRoute.home);
@@ -76,7 +77,13 @@ export const Dashboard = ({ children }: DashboardProps) => {
         {isSidebarVisible && (
           <Sidebar>
             <ShortcutsMenu />
-            <IconButton variant="rounded" size="small" aria-label="mail">
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="mail"
+              onClick={handleNavigate(AppRoute.email)}
+              selected={isOnEmailPage}
+            >
               <Badge badgeContent={2} color="secondary">
                 <MailIcon />
               </Badge>
