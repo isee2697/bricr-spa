@@ -22,6 +22,7 @@ import { CommercialSpacesContainer } from './sections/commercial/CommercialSpace
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
+import { TiaraContainer } from './sections/tiara/TiaraContainer';
 
 export const PimDetails = ({
   loading,
@@ -171,6 +172,16 @@ export const PimDetails = ({
                   path={`${path}/summary`}
                   render={() => (
                     <SummaryContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/tiara`}
+                  render={() => (
+                    <TiaraContainer
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                       title={title}

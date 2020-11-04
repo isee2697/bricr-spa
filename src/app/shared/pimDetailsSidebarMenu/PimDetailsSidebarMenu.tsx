@@ -169,6 +169,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
           { key: 'contacts' },
           { key: 'marketing' },
           { key: 'reactions' },
+          { key: 'tiara' },
         ],
       },
     ],
