@@ -9,14 +9,12 @@ context('List Pims', () => {
     cy.userLogin();
 
     NavigationMenu.goToPim();
+    cy.visit(NavigationMenu.pimResidentialLink);
   });
 
   it('should show current tab title', () => {
-    cy.get('.pim-side-menu-item')
-      .eq(0)
-      .click();
-
-    cy.get('.pim-list-header').contains('Property');
+    cy.findByTestId('pim-list-residential');
+    // cy. contains('Property');
   });
 
   it('should display count in tabs', () => {
@@ -42,27 +40,27 @@ context('List Pims', () => {
   });
 
   it('should handle filter on sidemenu parking', () => {
-    cy.findAllByText('Parking lot').click();
+    cy.findByTestId('menu-item-parkinglot').click();
 
-    cy.contains('ParkingLot');
+    cy.findByTestId('pim-list-parkinglot');
   });
 
   it('should handle filter on sidemenu plot', () => {
-    cy.findAllByText('Building plot').click();
+    cy.findByTestId('menu-item-building_plot').click();
 
-    cy.contains('BuildingPlot');
+    cy.findByTestId('pim-list-building_plot');
   });
 
   it('should handle filter on sidemenu AOG', () => {
-    cy.findAllByText('AOG').click();
+    cy.findByTestId('menu-item-agricultural').click();
 
-    cy.contains('Agricultural');
+    cy.findByTestId('pim-list-agricultural');
   });
 
   it('should handle filter on sidemenu BOG', () => {
-    cy.findAllByText('BOG').click();
+    cy.findByTestId('menu-item-commercial').click({ force: true });
 
-    cy.contains('Commercial');
+    cy.findByTestId('pim-list-commercial');
   });
 
   it('should handle pagination', () => {

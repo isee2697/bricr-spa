@@ -33,7 +33,7 @@ export const PimList = ({
   const { push } = useHistory();
 
   return (
-    <Grid container spacing={3} className={classes.content}>
+    <Grid data-testid={`pim-list-${type}`} container spacing={3} className={classes.content}>
       <PimHeader type={type} />
       <Grid item xs={12}>
         <Card>

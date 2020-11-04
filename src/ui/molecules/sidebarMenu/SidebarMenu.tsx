@@ -167,6 +167,7 @@ export const SidebarMenu = ({
                       {group.items.map(item => (
                         <SideMenuItem
                           key={item.key}
+                          itemKey={item.key}
                           icon={item.icon ? item.icon : <SaleIcon />}
                           title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
                           selected={pathname.startsWith(`${menu.url}/${item.key}`)}

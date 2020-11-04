@@ -210,9 +210,10 @@ context('Pim Details', () => {
   });
 
   it('shows pim after change on list', () => {
-    cy.findAllByText('PIM')
-      .first()
-      .click();
+    // cy.findAllByText('PIM')
+    //   .first()
+    //   .click();
+    cy.visit(NavigationMenu.pimResidentialLink);
 
     cy.contains('BredaAmsterdam New');
   });
