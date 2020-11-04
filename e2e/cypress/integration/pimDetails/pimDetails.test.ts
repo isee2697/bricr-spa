@@ -64,6 +64,17 @@ context('Pim Details', () => {
     cy.findAllByText('Recreational home').click();
   });
 
+  it('toggles pim inside group', () => {
+    const id = 'toggle-group-pim_details.menu.pim_intake';
+    cy.openMenuGroupByTestIdWhenClosed(id);
+
+    cy.findByTestId('menu-item-general').should('exist');
+
+
+    cy.findByTestId(id).click();
+    cy.findByTestId('menu-item-general').should('not.exist');
+  });
+
   it('allows edit Inside general', () => {
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Inside').click();
