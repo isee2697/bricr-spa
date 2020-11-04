@@ -27,6 +27,7 @@ import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelatio
 import { NotificationsContainer } from '../app/notifications/NotificationsContainer';
 import { CalendarContainer } from 'app/calendar/CalendarContainer';
 import { SalesContainer } from '../app/sales/SalesContainer';
+import { EmailContainer } from '../app/email/EmailContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -86,6 +87,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.notifications} exact component={NotificationsContainer} />
                 <AuthorizedRoute path={AppRoute.calendar} component={CalendarContainer} />
                 <AuthorizedRoute path={AppRoute.dms} component={DmsContainer} />
+                <AuthorizedRoute path={AppRoute.email} component={EmailContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
               </Switch>

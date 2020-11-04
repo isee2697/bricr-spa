@@ -8,4 +8,5 @@ export enum EntityType {
   'Task',
   'Dms',
   'Sales',
+  'Email',
 }

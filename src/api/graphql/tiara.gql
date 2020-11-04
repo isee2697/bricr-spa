@@ -1,0 +1,40 @@
+enum TiaraMessageType {
+    Aanmelden,
+    Wijzigen,
+    Afmelden,
+    OpvragenStatus,
+}
+
+enum TiaraEntities {
+    pim,
+    ncp,
+    objectType
+}
+
+enum TiaraMutationStatusType {
+    Success,
+    Failure,
+    Open
+}
+
+type TiaraMutation {
+    id: ID!
+    messageType: TiaraMessageType!
+    date: Date!
+    status: TiaraMutationStatusType!
+    errors: [String!]
+}
+
+input TiaraSendMessageInput {
+    entityId: ID!
+    entity: TiaraEntities!
+    messageType: TiaraMessageType!
+}
+
+extend type Mutation {
+     tiaraSendMessage(input: TiaraSendMessageInput!): Boolean @auth
+}
+
+extend type Query {
+    getTiaraMutations(entityId: ID!, entity: TiaraEntities): [TiaraMutation!] @auth
+}

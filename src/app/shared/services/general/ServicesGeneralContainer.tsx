@@ -45,6 +45,7 @@ const routeUrlBaseMap: Record<EntityType, AppRoute> = {
   [EntityType.Task]: AppRoute.taskDetails,
   [EntityType.Dms]: AppRoute.dms,
   [EntityType.Sales]: AppRoute.sales,
+  [EntityType.Email]: AppRoute.email,
 };
 
 export const ServicesGeneralContainer = ({ isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
