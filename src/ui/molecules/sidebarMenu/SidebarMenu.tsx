@@ -158,7 +158,7 @@ export const SidebarMenu = ({
                           }))
                         }
                         className={classes.collapseHeader}
-                        data-toggled={isGroupOpen[group.key]}
+                        data-toggled={isGroupOpen[group.key as string]}
                         data-testid={`toggle-group-${group.key}`}
                       >
                         <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>

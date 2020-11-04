@@ -14,9 +14,7 @@ Cypress.Commands.add('clearSession', () => {
 
 Cypress.Commands.add('openMenuGroupByTestIdWhenClosed', (id: string) => {
   cy.findByTestId(id).then(item => {
-    const toggled = item.data('toggled');
-
-    if (!toggled) {
+    if (item.attr('data-toggled') === 'false') {
       cy.findByTestId(id).click();
     }
   });

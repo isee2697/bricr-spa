@@ -70,9 +70,10 @@ context('Pim Details', () => {
 
     cy.findByTestId('menu-item-general').should('exist');
 
-
     cy.findByTestId(id).click();
     cy.findByTestId('menu-item-general').should('not.exist');
+
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
   });
 
   it('allows edit Inside general', () => {
