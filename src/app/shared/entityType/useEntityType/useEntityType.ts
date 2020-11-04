@@ -15,6 +15,7 @@ const baseUrls = {
   [EntityType.CrmBusinesses]: AppRoute.crmBusinessesDetails,
   [EntityType.Task]: AppRoute.taskDetails,
   [EntityType.Dms]: AppRoute.dms,
+  [EntityType.Email]: AppRoute.email,
 };
 
 export const useEntityType = (): useEntityTypeProps => {

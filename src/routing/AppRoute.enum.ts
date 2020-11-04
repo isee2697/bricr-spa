@@ -31,4 +31,5 @@ export enum AppRoute {
   confirmationSetup = '/setup/confirmation',
   notifications = '/notifications',
   dms = '/dms',
+  email = '/email',
 }
