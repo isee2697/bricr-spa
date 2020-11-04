@@ -57,7 +57,7 @@ class Navigation {
   }
 
   goToPimMeters(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + 'pim_1/meters');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/pim_1/meters');
   }
 
   goToPimCadastre(): void {

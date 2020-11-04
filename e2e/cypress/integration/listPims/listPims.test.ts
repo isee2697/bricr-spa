@@ -14,7 +14,6 @@ context('List Pims', () => {
 
   it('should show current tab title', () => {
     cy.findByTestId('pim-list-residential');
-    // cy. contains('Property');
   });
 
   it('should display count in tabs', () => {

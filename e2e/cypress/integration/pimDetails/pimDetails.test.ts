@@ -65,7 +65,7 @@ context('Pim Details', () => {
   });
 
   it('allows edit Inside general', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Inside').click();
 
     cy.findAllByPlaceholderText('A few words about inside...')
@@ -100,7 +100,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add floor', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Groundfloor');
 
     cy.findByText('Add new floor').click();
@@ -142,7 +142,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside info', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Outside').click();
     cy.contains('General information');
 
@@ -176,7 +176,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add an outside feature', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findAllByText('Outside')
       .first()
       .click();
@@ -193,7 +193,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside feature', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 
@@ -210,10 +210,11 @@ context('Pim Details', () => {
   });
 
   it('shows pim after change on list', () => {
-    // cy.findAllByText('PIM')
-    //   .first()
-    //   .click();
-    cy.visit(NavigationMenu.pimResidentialLink);
+    cy.findAllByText('PIM')
+      .first()
+      .click();
+    // cy.visit(NavigationMenu.pimResidentialLink);
+    cy.findByTestId('menu-item-residential').click();
 
     cy.contains('BredaAmsterdam New');
   });
