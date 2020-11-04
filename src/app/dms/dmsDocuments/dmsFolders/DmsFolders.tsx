@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 
+import { useLocale } from 'hooks/useLocale/useLocale';
+import { joinUrlParams } from 'routing/AppRoute.utils';
+import { useEntityType } from 'app/shared/entityType';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { Page } from 'ui/templates';
@@ -12,6 +15,9 @@ import { DmsSecondaryFolder } from './dmsSecondaryFolder/DmsSecondaryFolder';
 import { useStyles } from './DmsFolders.styles';
 
 export const DmsFolders = ({ data }: DmsFoldersProps) => {
+  const { formatMessage } = useLocale();
+  const { baseUrl } = useEntityType();
+  const urlParams = useParams();
   const folderPath = AppRoute.dms + '/documents/' + data.id;
   const classes = useStyles();
 
@@ -32,8 +38,12 @@ export const DmsFolders = ({ data }: DmsFoldersProps) => {
 
   return (
     <>
-      <NavBreadcrumb urlBase={AppRoute.dms + '/documents/'} to={data.id} title={data.name} />
-      <Page withoutHeader classes={{ container: classes.page }}>
+      <NavBreadcrumb
+        urlBase={joinUrlParams(baseUrl, urlParams)}
+        to="/documents"
+        title={formatMessage({ id: 'dms.documents.title' })}
+      />
+      <Page showHeader withoutHeader title={data.name} titleActions={[]} classes={{ container: classes.page }}>
         <Switch>
           <Route
             path={`${folderPath}/:childId`}

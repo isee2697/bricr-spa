@@ -10,7 +10,7 @@ import { DmsSidebarMenu } from './dmsSidebarMenu/DmsSidebarMenu';
 import { DmsHeader } from './dmsHeader/DmsHeader';
 import { DmsDashboard } from './dmsDashboard/DmsDashboard';
 import { DmsDocumentsContainer } from './dmsDocuments/DmsDocumentsContainer';
-import { DmsTemplates } from './dmsTemplates/DmsTemplates';
+import { DmsTemplatesContainer } from './dmsTemplates/DmsTemplatesContainer';
 import { DmsContentBlocks } from './dmsContentBlocks/DmsContentBlocks';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
 
@@ -46,7 +46,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
-                  <Route path={`${path}/templates`} render={() => <DmsTemplates />} />
+                  <Route path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
                   <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
                   <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
                   <Redirect to={{ pathname: `${path}/dashboard`, state }} />
