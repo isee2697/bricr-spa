@@ -7,4 +7,5 @@ export enum EntityType {
   'CrmBusinesses',
   'Task',
   'Dms',
+  'Sales',
 }

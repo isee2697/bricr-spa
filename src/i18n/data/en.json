@@ -2936,5 +2936,10 @@
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",
   "visited_pages.view_more": "View more",
-  "wed.placeholder": "10:00"
+  "wed.placeholder": "10:00",
+  "sales.dashboard.meta.previous_last_7_days": "Previous last 7 days",
+  "sales.dashboard.meta.leads": "Leads",
+  "sales.dashboard.meta.acquisition": "Acquisition",
+  "sales.dashboard.meta.quotation": "Quotation",
+  "sales.dashboard.meta.orders": "Orders"
 }
