@@ -1,39 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
-import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import { ListPimsFilters, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
 import { PimList } from './PimList';
+import { PimTypes } from './dictionaries';
 
 const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
-  switch (type) {
-    case 'residential':
-      return {
-        propertyTypes: [PropertyType.Apartment, PropertyType.House],
-      };
-    case 'bog':
-      return { propertyTypes: [PropertyType.Commercial] };
-    case 'aog':
-      return { propertyTypes: [PropertyType.Agricultural] };
-    case 'parkinglot':
-      return { propertyTypes: [PropertyType.ParkingLot] };
-    case 'plot':
-      return { propertyTypes: [PropertyType.BuildingPlot] };
-    default:
-      return {};
-  }
+  return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
 export const PimListContainer = () => {
+  const { pathname } = useLocation();
+  const type = pathname.split('/').pop() ?? 'residential';
   const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
 
-  const [activeFilters, setActiveFilters] = useState(getPimFilterVariables('residential'));
+  const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
+
+  useEffect(() => {
+    setActiveFilters(current => ({ ...current, ...getPimFilterVariables(type) }));
+  }, [type, setActiveFilters]);
 
   const { loading: isCountLoading, data: countData } = useListPimsCountQuery({
     variables: {
@@ -69,16 +62,12 @@ export const PimListContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const handleFilterChange = (filters: ListPimsFilters) => {
-    setActiveFilters(filters);
-  };
-
   return (
     <PimList
       status={status}
       onStatusChange={setStatus}
-      type={'residential'}
-      onFilter={handleFilterChange}
+      type={type}
+      onFilter={filters => setActiveFilters(filters)}
       activeFilters={activeFilters}
       isLoading={isCountLoading || isListLoading}
       amounts={amounts}

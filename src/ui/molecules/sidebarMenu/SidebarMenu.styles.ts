@@ -2,24 +2,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = ({ width, bannerColor }: { width: number | string; bannerColor?: string | null }) =>
   makeStyles(({ spacing, palette, typography }) => ({
-    root: {
-      position: 'fixed',
-      marginBottom: spacing(2.25),
-      width: typeof width === 'number' ? `${width}px` : width,
-    },
     container: {
       position: 'relative',
-      height: `calc(100vh - ${spacing(6)}px)`,
-      width: '100%',
     },
     menuWrapper: {
       background: palette.white.main,
       boxShadow: 'inset -2px 0px 4px rgba(130, 141, 184, 0.2)',
-      height: `calc(100vh - ${spacing(6)}px)`,
-      top: spacing(6),
+      height: `calc(100vh - ${spacing(8)}px)`,
+      width: typeof width === 'number' ? `${width}px` : width,
+      top: spacing(8),
       paddingTop: spacing(2),
-      overflowY: 'auto',
-      position: 'sticky',
+      position: 'fixed',
+      overflowY: 'hidden',
       '& a': {
         textDecoration: 'none',
         display: 'flex',
@@ -68,20 +62,23 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       '& .MuiTypography-h5': {
         fontWeight: typography.fontWeightBold,
       },
+      '& .MuiTypography-root': {
+        width: '100%',
+      },
     },
     backToList: {
       height: 'auto',
       '& a': {
         display: 'flex',
-        justifyContent: 'center',
         padding: spacing(3, 2, 3, 2),
-        borderBottom: 0,
-        borderTop: `2px solid ${palette.gray.light}`,
         ...typography.h5,
         fontWeight: typography.fontWeightBold,
         '& h3, & svg': {
           color: palette.black.main,
         },
+      },
+      '&:after': {
+        borderBottomWidth: 0,
       },
     },
     hideButton: {
