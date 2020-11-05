@@ -8,13 +8,14 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
-import { BuildingIcon, ComplexBuildingIcon, MailIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ComplexBuildingIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
+import { PimTypes } from 'app/pim/dictionaries';
 
 import { PimDetailsSidebarMenuProps, SideBarItemTypes } from './PimDetailsSidebarMenu.types';
 import { getMenuItem } from './PimDetailsSidebarMenu.helpers';
 
-const getBackUrl = (routeParams: Record<string, string>) => {
+const getBackUrl = (routeParams: Record<string, string>, type?: PropertyType) => {
   if (routeParams.projectId && routeParams.objectTypeId) {
     return (
       AppRoute.objectTypeDetails.replace(':id', routeParams.objectTypeId).replace(':projectId', routeParams.projectId) +
@@ -22,7 +23,9 @@ const getBackUrl = (routeParams: Record<string, string>) => {
     );
   }
 
-  return AppRoute.pim;
+  const path = type && PimTypes.find(pimType => pimType.types?.includes(type))?.name;
+
+  return `${AppRoute.pim}${path && '/'}${path}`;
 };
 
 export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible }: PimDetailsSidebarMenuProps) => {
@@ -96,10 +99,19 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
       break;
   }
 
+  const pim = data?.getPimGeneral;
+  let title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
+  title = title.length > 25 ? `${title.slice(0, 25)}...` : title;
+
+  const type =
+    pim?.propertyType === PropertyType.House || pim?.propertyType === PropertyType.Apartment
+      ? 'residental'
+      : pim?.propertyType.toLowerCase();
+
   const menu = {
     url: url,
     back: {
-      url: getBackUrl(params),
+      url: getBackUrl(params, pim?.propertyType),
       title: formatMessage({
         id:
           entityType === EntityType.Property
@@ -175,15 +187,13 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
     ],
   };
 
-  const pim = data?.getPimGeneral;
-  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
-
   return (
     <SidebarMenu
       onHide={onHide}
       isVisible={isVisible}
       translationPrefix="pim_details.menu"
       menu={menu}
+      menuTitleIcon={<SaleIcon />}
       menuTitle={
         objectTypeName ? (
           <SidebarTitleTile
@@ -199,7 +209,9 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
             }
           />
         ) : (
-          undefined
+          formatMessage({
+            id: `pim.type.${type}`,
+          })
         )
       }
     />

@@ -59,7 +59,12 @@ export const PropertyTypeStep = ({ onNext, options }: AddPimStepProps) => {
         }));
       }
 
-      return Object.values(PropertyType).map(p => ({ label: `property_types.${p}`, value: p }));
+      const types =
+        options?.availableTypes && options.availableTypes.length > 1
+          ? options.availableTypes
+          : Object.values(PropertyType);
+
+      return types.map(p => ({ label: `property_types.${p}`, value: p }));
     } else if (category === PropertyCategory.PROJECT) {
       return Object.values(NcpType).map(p => ({ label: `dictionaries.ncp_type.${p}`, value: p }));
     }
