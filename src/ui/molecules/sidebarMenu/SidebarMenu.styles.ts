@@ -13,6 +13,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       top: spacing(8),
       paddingTop: spacing(2),
       position: 'fixed',
+      zIndex: 100,
       overflowY: 'hidden',
       '& a': {
         textDecoration: 'none',
