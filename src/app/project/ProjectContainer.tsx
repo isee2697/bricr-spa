@@ -9,7 +9,6 @@ import {
   ListNcpsCountDocument,
   ListNcpsDocument,
   NcpBulkDetailsDocument,
-  ProjectType,
   useBulkMutation,
   useListNcpsCountQuery,
   useListNcpsQuery,

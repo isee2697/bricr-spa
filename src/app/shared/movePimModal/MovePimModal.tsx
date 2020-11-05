@@ -46,24 +46,25 @@ export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalPr
   };
 
   const generateData = () => {
+    const newData: { [key: string]: PimEntity[] } = {};
+
     if (data) {
-      const newObjects = Object.entries(JSON.parse(JSON.stringify(data)));
-      const newData: { [key: string]: PimEntity[] } = {};
-
-      newObjects.forEach((object: AnyObject) => {
-        if (object[1].listPims) {
-          newData[object[0] as string] = object[1].listPims.items as PimEntity[];
-        }
-
-        if (object[1].listNcps) {
-          newData[object[0] as string] = object[1].listNcps.items as PimEntity[];
+      Object.keys(data).forEach((key: string) => {
+        switch (key) {
+          case 'aog':
+          case 'bog':
+          case 'properties':
+            newData[key] = data?.[key].items as PimEntity[];
+            break;
+          case 'relet':
+          case 'nc':
+            newData[key] = data?.[key].items?.map(item => ({ ...item, street: item.name })) as PimEntity[];
+            break;
         }
       });
-
-      return newData;
     }
 
-    return {};
+    return newData;
   };
 
   const handleUpdate = async (data: ObjectType) => {
@@ -110,7 +111,7 @@ export const MovePimModal = ({ onSubmit, isOpen, options, data }: MovePimModalPr
             {React.createElement(currentStep.component, {
               onNext: handleNext,
               onPrev: handlePrev,
-              objects: data && Object.entries(data).length > 0 ? generateData() : {},
+              objects: generateData(),
               onUpdate: handleUpdate,
               options,
               results,

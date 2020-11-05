@@ -1,10 +1,14 @@
 import { AnyObject } from 'react-final-form';
 
-import { ListPimsQuery, Pim as PimEntity } from 'api/types';
+import { ListPimsQuery, MovePimDataQuery, Pim as PimEntity } from 'api/types';
 import { ModalStateOptions } from 'context/modal/modalContext/ModalContext.types';
 
 export type ObjectType = {
   [key: string]: PimEntity[];
+};
+
+export type Objects = {
+  [key: string]: { items: PimEntity[] };
 };
 
 export type SelectStepProps = {
@@ -31,5 +35,5 @@ export type MovePimModalProps = {
   onSubmit: MovePimSubmit;
   isOpen: boolean;
   options?: ModalStateOptions;
-  data?: { [key: string]: ListPimsQuery };
+  data?: MovePimDataQuery;
 };

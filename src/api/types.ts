@@ -10665,6 +10665,31 @@ export type PimMetersQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type MovePimDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MovePimDataQuery = { __typename?: 'Query' } & {
+  properties: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id' | 'street'>>>;
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  bog: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id' | 'street'>>>;
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  aog: { __typename?: 'PimListSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'ListPim' } & Pick<ListPim, 'id' | 'street'>>>;
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  nc: { __typename?: 'NcpListSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'ListNcp' } & Pick<ListNcp, 'id' | 'name'>>>;
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  relet: { __typename?: 'NcpListSearchResult' } & {
+    items?: Maybe<Array<{ __typename?: 'ListNcp' } & Pick<ListNcp, 'id' | 'name'>>>;
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
+
 export type PimOutsideQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -18426,6 +18451,68 @@ export function usePimMetersLazyQuery(
 export type PimMetersQueryHookResult = ReturnType<typeof usePimMetersQuery>;
 export type PimMetersLazyQueryHookResult = ReturnType<typeof usePimMetersLazyQuery>;
 export type PimMetersQueryResult = ApolloReactCommon.QueryResult<PimMetersQuery, PimMetersQueryVariables>;
+export const MovePimDataDocument = gql`
+  query MovePimData {
+    properties: listPims(filters: { archived: false, propertyTypes: [Apartment, House] }) {
+      items {
+        id
+        street
+      }
+      metadata {
+        total
+      }
+    }
+    bog: listPims(filters: { archived: false, propertyTypes: [Commercial] }) {
+      items {
+        id
+        street
+      }
+      metadata {
+        total
+      }
+    }
+    aog: listPims(filters: { archived: false, propertyTypes: [Agricultural] }) {
+      items {
+        id
+        street
+      }
+      metadata {
+        total
+      }
+    }
+    nc: listNcps(filters: { archived: false, projectType: NewConstruction }) {
+      items {
+        id
+        name
+      }
+      metadata {
+        total
+      }
+    }
+    relet: listNcps(filters: { archived: false, projectType: Relet }) {
+      items {
+        id
+        name
+      }
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useMovePimDataQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<MovePimDataQuery, MovePimDataQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<MovePimDataQuery, MovePimDataQueryVariables>(MovePimDataDocument, baseOptions);
+}
+export function useMovePimDataLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MovePimDataQuery, MovePimDataQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<MovePimDataQuery, MovePimDataQueryVariables>(MovePimDataDocument, baseOptions);
+}
+export type MovePimDataQueryHookResult = ReturnType<typeof useMovePimDataQuery>;
+export type MovePimDataLazyQueryHookResult = ReturnType<typeof useMovePimDataLazyQuery>;
+export type MovePimDataQueryResult = ApolloReactCommon.QueryResult<MovePimDataQuery, MovePimDataQueryVariables>;
 export const PimOutsideDocument = gql`
   query PimOutside($id: ID!) {
     getPimOutside(id: $id) {
