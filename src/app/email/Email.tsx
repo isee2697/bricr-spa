@@ -9,7 +9,7 @@ import { useLocale } from 'hooks';
 import { EmailProps } from './Email.types';
 import { EmailSidebarMenu } from './emailSidebarMenu/EmailSidebarMenu';
 import { useStyles } from './Email.styles';
-import { EmailInbox } from './inbox/Inbox';
+import { EmailInboxContainer } from './inbox/InboxContainer';
 
 export const Email = ({ path, entityType }: EmailProps) => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -34,7 +34,9 @@ export const Email = ({ path, entityType }: EmailProps) => {
             <Switch>
               <Route
                 path={`${path}/inbox`}
-                render={() => <EmailInbox onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />}
+                render={() => (
+                  <EmailInboxContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                )}
               />
               <Redirect to={{ pathname: `${path}/inbox` }} />
             </Switch>

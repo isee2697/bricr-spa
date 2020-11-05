@@ -1,19 +1,6 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  header: {
-    alignItems: 'center',
-    marginBottom: theme.spacing(3),
-  },
-  title: {
-    flex: '1 1 auto',
-  },
-  marginRightTwo: {
-    marginRight: theme.spacing(2),
-  },
-  subheader: {
-    textAlign: 'right',
-  },
   sort: {
     marginTop: theme.spacing(2),
     backgroundColor: theme.palette.gray.light,
@@ -27,8 +14,5 @@ export const useStyles = makeStyles(theme => ({
       fontWeight: theme.typography.fontWeightMedium,
       padding: theme.spacing(1, 4.5, 1, 1),
     },
-  },
-  noBorder: {
-    border: 'none',
   },
 }));
