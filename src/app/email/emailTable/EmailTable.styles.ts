@@ -20,6 +20,17 @@ export const useStyles = makeStyles(theme => ({
     '&:nth-child(2n + 1)': {
       background: theme.palette.gray.light,
     },
+
+    '&.dragging': {
+      border: `1px solid ${theme.palette.primary.main}`,
+      borderRadius: theme.spacing(1),
+    },
+  },
+  cell: {
+    '&.dragging': {
+      borderTop: `1px solid ${theme.palette.primary.main}`,
+      borderBottom: `1px solid ${theme.palette.primary.main}`,
+    },
   },
   avatar: {
     width: theme.spacing(2),

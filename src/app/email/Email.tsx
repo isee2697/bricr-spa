@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { Box, Grid, NavBreadcrumb } from 'ui/atoms';
 import { EntityTypeProvider } from 'app/shared/entityType';
@@ -25,24 +27,27 @@ export const Email = ({ path, entityType }: EmailProps) => {
   }, []);
 
   return (
-    <EntityTypeProvider entityType={entityType}>
-      <Grid container spacing={0} wrap="nowrap">
-        <NavBreadcrumb title={formatMessage({ id: 'header.links.email' })} to={AppRoute.email} />
-        <EmailSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
-        <Box flex={1}>
-          <Grid container className={classes.content}>
-            <Switch>
-              <Route
-                path={`${path}/inbox`}
-                render={() => (
-                  <EmailInboxContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
-                )}
-              />
-              <Redirect to={{ pathname: `${path}/inbox` }} />
-            </Switch>
-          </Grid>
-        </Box>
-      </Grid>
-    </EntityTypeProvider>
+    <DndProvider backend={HTML5Backend}>
+      <EntityTypeProvider entityType={entityType}>
+        <Grid container spacing={0} wrap="nowrap">
+          <NavBreadcrumb title={formatMessage({ id: 'header.links.email' })} to={AppRoute.email} />
+          <EmailSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
+          <Box flex={1}>
+            <Grid container className={classes.content}>
+              <Switch>
+                <Route
+                  path={`${path}/inbox`}
+                  render={() => (
+                    <EmailInboxContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route path={`${path}/pinned`} render={() => <></>} />
+                <Redirect to={{ pathname: `${path}/inbox` }} />
+              </Switch>
+            </Grid>
+          </Box>
+        </Grid>
+      </EntityTypeProvider>
+    </DndProvider>
   );
 };
