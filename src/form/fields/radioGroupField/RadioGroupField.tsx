@@ -3,7 +3,7 @@ import { useField } from 'react-final-form';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useHighestElementHeight } from 'hooks/useHighestElementHeight/useHighestElementHeight';
-import { Grid, TileRadio, FormHelperText, InputLabel } from 'ui/atoms';
+import { Grid, TileRadio, FormHelperText, InputLabel, FormControlLabel, Typography, Radio } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 
 import { RadioDataType, RadioGroupFieldProps } from './RadioGroupField.types';
@@ -14,6 +14,7 @@ export const RadioGroupField = ({
   labelId,
   disabled,
   options,
+  optionType = 'tile',
   validate,
   validateFields,
   parse,
@@ -69,15 +70,34 @@ export const RadioGroupField = ({
       <Grid container spacing={spacing} justify={justify} ref={containerRef} className={propsClasses?.group}>
         {options.map((item: RadioDataType) => (
           <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value} className={propsClasses?.groupItem}>
-            <TileRadio
-              onClick={() => handleClick(item)}
-              isSelected={input.value === item.value}
-              title={item.isCustom ? item.label : formatMessage({ id: item.label })}
-              isDisabled={disabled}
-              className={propsClasses?.option}
-            >
-              {item.icon}
-            </TileRadio>
+            {optionType === 'tile' && (
+              <TileRadio
+                onClick={() => handleClick(item)}
+                isSelected={input.value === item.value}
+                title={item.isCustom ? item.label : formatMessage({ id: item.label })}
+                isDisabled={disabled}
+                className={propsClasses?.option}
+              >
+                {item.icon}
+              </TileRadio>
+            )}
+            {optionType === 'checkbox' && (
+              <FormControlLabel
+                control={
+                  <Radio
+                    color="primary"
+                    onClick={() => handleClick(item)}
+                    disabled={disabled}
+                    checked={input.value === item.value}
+                  />
+                }
+                label={
+                  <Typography variant="h4" color="textSecondary">
+                    {item.isCustom ? item.label : formatMessage({ id: item.label })}
+                  </Typography>
+                }
+              />
+            )}
           </Grid>
         ))}
         {actionElement && (

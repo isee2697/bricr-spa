@@ -36,6 +36,7 @@ export type RadioGroupFieldProps = {
   justify?: GridJustification;
   onChange?: (item: RadioDataType) => void;
   classes?: RadioGroupFieldClasses;
+  optionType?: 'tile' | 'checkbox';
 } & Pick<UseFieldConfig<string>, 'format'>;
 
 export type RadioGroupFieldStylesProps = {

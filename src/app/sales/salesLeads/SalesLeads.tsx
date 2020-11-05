@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
-import { useLocale } from 'hooks';
+import { useLocale, useModalDispatch } from 'hooks';
 import { SalesHeader } from '../salesHeader/SalesHeader';
 import { AddIcon, CardsIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { SortOption } from 'ui/molecules/list/List.types';
+import { AddSalesLeadModalContainer } from '../addSalesLeadModal/AddSalesLeadModalContainer';
 
 import { SalesLeadsProps } from './SalesLeads.types';
 import { SalesLeadsTabs } from './tabs/Tabs';
@@ -20,6 +21,7 @@ export const SalesLeads = (props: SalesLeadsProps) => {
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
   const { formatMessage } = useLocale();
+  const { open } = useModalDispatch();
 
   const sortOptions: SortOption[] = [
     {
@@ -42,7 +44,7 @@ export const SalesLeads = (props: SalesLeadsProps) => {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => {}}
+            onClick={() => open('add-sales-lead')}
             startIcon={<AddIcon color="inherit" />}
             size="small"
           >
@@ -112,6 +114,7 @@ export const SalesLeads = (props: SalesLeadsProps) => {
           </Card>
         </Grid>
       </Page>
+      <AddSalesLeadModalContainer />
     </>
   );
 };
