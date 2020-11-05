@@ -17,16 +17,17 @@ export type SalesLeadsProps = {
 
 export type SalesLead = {
   id: string;
-  image: string;
+  image?: string;
   name: string;
   number: string;
   email: string;
   partner?: {
     name: string;
-    image: string;
+    image?: string;
   };
   interests: SalesLeadInterest[];
   steps?: SalesLeadStep[];
+  isNewlyAdded?: boolean;
 };
 
 export type SalesLeadStep = {

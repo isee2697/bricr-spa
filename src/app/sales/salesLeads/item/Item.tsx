@@ -51,9 +51,9 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
   const classes = useStyles(props);
 
   return (
-    <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
+    <Box className={clsx(classes.row, !!salesLead.isNewlyAdded && 'new', { [classes.rowChecked]: checked })}>
       {checkbox}
-      <Box width="100%">
+      <Box width="100%" mt={2}>
         <Box display="flex" alignItems="flex-start">
           <Avatar variant="rounded" src={salesLead.image} className={classes.image}>
             {!salesLead.image && <Emoji>{'📷'}</Emoji>}
@@ -83,7 +83,7 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
                 {formatMessage({ id: 'sales.leads.partner' })}
               </Typography>
               {!salesLead.partner && <Typography variant="h6">-</Typography>}
-              {salesLead.partner && <PersonChip name={salesLead.partner.name} image={salesLead.partner.image} />}
+              {salesLead.partner && <PersonChip name={salesLead.partner.name} image={salesLead.partner.image || ''} />}
             </Box>
             <Box mt={1}>
               <Typography variant="h6" className={clsx(classes.fontWeightMedium, classes.gray)}>
