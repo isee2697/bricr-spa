@@ -1,5 +1,5 @@
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
-import { PropertyType } from 'api/types';
+import { ProjectType, PropertyType } from 'api/types';
 
 export type ModalContextType = {
   modalsState: ModalStateType[];
@@ -14,6 +14,7 @@ export type ModalStateOptions = {
   linkedPropertiesIds?: string[];
   disableChange?: boolean;
   isLinkedProperty?: boolean;
+  projectType?: ProjectType;
 };
 
 export type ModalStateType = {

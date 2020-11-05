@@ -22,13 +22,11 @@ import {
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { useModalState } from 'hooks';
-import { useGetProjectType } from 'app/project/useGetProjectType/useGetProjectType';
 
 import { AddPimModal } from './AddPimModal';
 import { AddNcpBody, AddPimBody, AddPimSubmit, PropertyCategory } from './AddPimModal.types';
 
 export const AddPimModalContainer = () => {
-  const projectType = useGetProjectType();
   const apiClient = useApolloClient();
   const [createPim] = useCreatePimMutation();
   const [createNcp] = useCreateNcpMutation();
@@ -160,7 +158,7 @@ export const AddPimModalContainer = () => {
         variables: {
           input: {
             type: propertyType,
-            projectType,
+            projectType: options?.projectType,
             ...body,
           },
         },
