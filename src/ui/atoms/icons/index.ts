@@ -100,3 +100,4 @@ export * from './own/OwnIcon';
 export * from './exit/ExitIcon';
 export * from './conferenceRoom/ConferenceRoomIcon';
 export * from './hourglass/HourglassIcon';
+export * from './sales/SalesIcon';
