@@ -225,7 +225,7 @@ context('Pim Details', () => {
     cy.findAllByText('PIM')
       .first()
       .click();
-    // cy.visit(NavigationMenu.pimResidentialLink);
+
     cy.findByTestId('menu-item-residential').click();
 
     cy.contains('BredaAmsterdam New');
