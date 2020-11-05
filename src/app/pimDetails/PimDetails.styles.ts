@@ -9,6 +9,5 @@ export const useStyles = makeStyles(theme => ({
   lastUpdated: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-    // marginBottom: theme.spacing(4),
   },
 }));
