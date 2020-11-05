@@ -16,6 +16,9 @@ export const useStyles = makeStyles(theme => ({
       margin: theme.spacing(0, 2),
       borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     },
+    '&.new': {
+      background: theme.palette.yellow.light,
+    },
   },
   rowChecked: {
     background: `${theme.palette.primary.main}08`,

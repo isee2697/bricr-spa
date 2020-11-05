@@ -1,6 +1,10 @@
+import { ReactNode } from 'react';
+
+export type PimType = {
+  name: string;
+  icon: ReactNode;
+  isProject?: boolean;
+};
 export type PimSidebarMenuProps = {
-  type: string;
-  onTypeChange: (type: string) => void;
-  pricingType: string;
-  onPricingTypeChange: (type: string) => void;
+  types: PimType[];
 };
