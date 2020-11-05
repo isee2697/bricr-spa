@@ -11,6 +11,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     isAuthorized: !!authStorage.accessToken,
     isAuthorizing: !!authStorage.accessToken,
     user: undefined,
+    hasBillingAccess: false,
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,
   });

@@ -18,7 +18,11 @@ import { PersonalInformationGeneralContainer } from './personalInformation/gener
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
 import { DocumentsConatiner } from './documents/DocumentsContainer';
+import { MarketingNewLetterContainer } from './marketingNewLetters/MarketingNewLettersContainer';
 import { OrdersContainer } from './orders/OrdersContainer';
+import { LinkedBusinessesContainer } from './linkedBusinesses/LinkedBusinessesContainer';
+import { MarketingTargetGroupsContainer } from './marketingTargetGroups/MarketingTargetGroupsContainer';
+import { MarketingCrossSellContainer } from './marketingCrossSell/MarketingCrossSellContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -134,9 +138,49 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   )}
                 />
                 <Route
+                  path={`${path}/marketing_news_letter`}
+                  render={() => (
+                    <MarketingNewLetterContainer
+                      path={`${path}/marketing_news_letter`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
                   path={`${path}/orders`}
                   render={() => (
                     <OrdersContainer
+                      path={`${path}/orders`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_target_groups`}
+                  render={() => (
+                    <MarketingTargetGroupsContainer
+                      path={`${path}/marketing_target_groups`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/marketing_cross_sell`}
+                  render={() => (
+                    <MarketingCrossSellContainer
+                      path={`${path}/marketing_cross_sell`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/linked_businesses`}
+                  render={() => (
+                    <LinkedBusinessesContainer
                       path={`${path}/orders`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}

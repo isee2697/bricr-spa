@@ -2,16 +2,17 @@ import * as uuid from 'uuid';
 import React, { useState } from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography } from 'ui/atoms';
+import { Card, CardHeader, CardContent, FormControlLabel, Switch, Grid, IconButton, Typography, Box } from 'ui/atoms';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
-import { AddIcon } from 'ui/atoms/icons';
-import { DatePickerField, GenericField } from 'form/fields';
+import { AddIcon, SquareIcon } from 'ui/atoms/icons';
+import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { AddNewAddressModal } from '../addNewAddressModal/AddNewAddressModal';
 import { AddNewAddressBody } from '../addNewAddressModal/AddNewAddressModal.types';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { PromiseFunction } from 'app/shared/types';
-import { InfoSection } from 'ui/molecules';
+import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
+import { ContactAddressType } from 'api/types';
 
 import { AddressesProps, AddressItem } from './Addresses.types';
 import { useStyles } from './Addresses.styles';
@@ -66,6 +67,12 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
     return await onSave(newData);
   };
 
+  const addressTypes = Object.keys(ContactAddressType).map(addressType => ({
+    label: `dictionaries.contact_information.address_type.${addressType}`,
+    icon: <SquareIcon />,
+    value: addressType,
+  }));
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -116,6 +123,7 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
                     </>
                   }
                   onOptionsClick={() => {}}
+                  initiallyOpened={false}
                 >
                   <Grid container spacing={1} className={classes.addressFormFields}>
                     <Grid item xs={4}>
@@ -212,6 +220,24 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
                       />
                     </Grid>
                   </Grid>
+                  <FormSubSectionHeader
+                    title={formatMessage({
+                      id: 'crm.details.personal_information_contact_information.addresses.type_of_address',
+                    })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+                    noBorder
+                  />
+                  <Box mb={2} />
+                  <RadioGroupField
+                    spacing={1}
+                    disabled={!isEditing}
+                    xs={4}
+                    md={3}
+                    lg={2}
+                    name={`${address.key}.addressType`}
+                    options={addressTypes}
+                  />
+                  <Box mb={2} />
                   <Grid container spacing={1} className={classes.addressFormFields}>
                     <Grid item xs={4}>
                       <Typography variant="h5">

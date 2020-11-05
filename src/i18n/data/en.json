@@ -2622,6 +2622,11 @@
   "project_details.properties.project_title": "Linked properties to project",
   "project_details.services.description_placeholder": "A few words about services...",
   "project_details.services.title": "Services",
+  "project_details.allocate_results_details.started_with": "Started with",
+  "project_details.allocate_results_details.ended_with": "Ended with",
+  "project_details.allocate_results_details.relations": "Relations",
+  "project_details.allocate_results_details.objecttypes": "Objecttypes",
+  "project_details.allocate_results_details.properties": "Properties",
   "project.Archive.details_title": "Archive details",
   "project.Archive.title": "Successful archive",
   "project.bulk.city.label": "New city for selected items",
@@ -2947,5 +2952,10 @@
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",
   "visited_pages.view_more": "View more",
-  "wed.placeholder": "10:00"
+  "wed.placeholder": "10:00",
+  "sales.dashboard.meta.previous_last_7_days": "Previous last 7 days",
+  "sales.dashboard.meta.leads": "Leads",
+  "sales.dashboard.meta.acquisition": "Acquisition",
+  "sales.dashboard.meta.quotation": "Quotation",
+  "sales.dashboard.meta.orders": "Orders"
 }

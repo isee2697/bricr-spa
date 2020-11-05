@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Loader } from 'ui/atoms';
+import { useGetBillingQuery } from 'api/types';
+import { useAuthState } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { Billing } from './Billing';
-import { BillingProps } from './BillingContainer.types';
+export const BillingContainer = () => {
+  const { hasBillingAccess } = useAuthState();
+  const { data } = useGetBillingQuery({ skip: !hasBillingAccess });
+  const { push } = useHistory();
 
-export const BillingContainer = ({ billingUrl }: BillingProps) => {
-  const [string, updateString] = useState('');
-  const [loading, updateloading] = useState(true);
+  if (!hasBillingAccess) {
+    push(AppRoute.settings);
+  }
 
-  useEffect(() => {
-    updateString(billingUrl);
-    updateloading(false);
-  }, [string, billingUrl]);
-
-  if (loading) {
+  if (!data?.getBilling?.url) {
     return <Loader />;
   }
 
-  return <Billing billingUrl={string} />;
+  return <Billing billingUrl={data?.getBilling?.url} />;
 };

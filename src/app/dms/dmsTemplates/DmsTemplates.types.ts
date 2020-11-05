@@ -1,4 +1,3 @@
-import { LabelInput, LastUpdatedProfile } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type ActiveTabStatus = 'active' | 'inactive';

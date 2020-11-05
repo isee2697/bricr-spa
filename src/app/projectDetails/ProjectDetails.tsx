@@ -20,6 +20,7 @@ import { NcpProps } from './ProjectDetails.types';
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
+import { AllocateResultsDetailsContainer } from './sections/allocateResultsDetails/AllocateResultsDetailsContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -115,9 +116,14 @@ export const ProjectDetails = ({ data }: NcpProps) => {
             />
             <Route
               path={`${AppRoute.projectDetails}/allocateResults`}
+              exact
               render={() => (
                 <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
               )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateResults/:id`}
+              render={() => <AllocateResultsDetailsContainer />}
             />
             <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
           </Switch>

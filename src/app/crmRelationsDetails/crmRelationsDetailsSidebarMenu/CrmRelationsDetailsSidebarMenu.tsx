@@ -63,6 +63,16 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
           },
         ],
       },
+      {
+        key: 'crm.details.menu.marketing',
+        isCollapsable: true,
+        items: [{ key: 'marketing_news_letter' }, { key: 'marketing_target_groups' }, { key: 'marketing_cross_sell' }],
+      },
+      {
+        key: 'crm.details.menu.business_info',
+        isCollapsable: true,
+        items: [{ key: 'linked_businesses' }],
+      },
     ],
   };
 
