@@ -26,7 +26,9 @@ const steps = [
 ];
 
 export const AddPimModal = ({ onSubmit, propertyCategory, isOpen, options }: AddPimModalProps) => {
-  const [step, setStep] = useState(0);
+  const propertyType = options?.availableTypes?.length === 1 && options?.availableTypes[0];
+  // @ToDo split values into other types which actually are subypes of e.g. comemrcial then initialstep should be 0 or the step you want to end
+  const [step, setStep] = useState(!!propertyType ? 1 : 0);
   const currentStep = steps[step];
   const { formatMessage } = useLocale();
   const { close } = useModalDispatch();
@@ -63,7 +65,13 @@ export const AddPimModal = ({ onSubmit, propertyCategory, isOpen, options }: Add
   };
 
   return (
-    <Form onSubmit={handleSubmit} initialValues={{ category: propertyCategory }}>
+    <Form
+      onSubmit={handleSubmit}
+      initialValues={{
+        category: propertyCategory,
+        propertyType,
+      }}
+    >
       {({ handleSubmit, submitErrors, values }) => (
         <Modal
           fullWidth

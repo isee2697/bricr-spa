@@ -11,3 +11,11 @@ Cypress.Commands.add('clearSession', () => {
     win.sessionStorage.clear();
   });
 });
+
+Cypress.Commands.add('openMenuGroupByTestIdWhenClosed', (id: string) => {
+  cy.findByTestId(id).then(item => {
+    if (item.attr('data-toggled') === 'false') {
+      cy.findByTestId(id).click();
+    }
+  });
+});

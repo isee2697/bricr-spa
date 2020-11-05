@@ -1,4 +1,4 @@
-import { ListPimsQuery, PricingType } from 'api/types';
+import { ListPimsQuery } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -13,15 +13,11 @@ export enum SelectPriceType {
 
 export type PimProps = {
   type: string;
-  onTypeChange: (type: string) => void;
-  pricingType: PricingType | string;
-  onPricingTypeChange: (type: PricingType | string) => void;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   onFilter: (filters: ListPimsFilters) => void;
   activeFilters: ListPimsFilters;
   isLoading: boolean;
-  isError: boolean;
   amounts?: {
     actionRequired: number;
     active: number;

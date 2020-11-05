@@ -37,9 +37,13 @@ export type SidebarMenuType = {
 };
 
 export type SidebarMenuProps = {
-  onHide: VoidFunction;
-  isVisible: boolean;
+  onHide?: VoidFunction;
+  isVisible?: boolean;
   menuTitle?: ReactNode;
+  menuSubTitle?: string;
+  menuTitleIcon?: ReactNode;
   translationPrefix: string;
   menu: SidebarMenuType;
+  bannerColor?: string;
+  hasHideButton?: boolean;
 };

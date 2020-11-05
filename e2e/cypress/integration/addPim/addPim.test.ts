@@ -3,16 +3,15 @@
 import { NavigationMenu } from '../../pages/Navigation';
 
 context('Add Pim', () => {
-  it('allows to add pim', () => {
+  it('allows to add pim/House', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
     NavigationMenu.goToPim();
+    cy.findByTestId('menu-item-residential').click();
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findAllByText('Property')
-      .last()
-      .click();
+
     cy.findAllByText('House')
       .last()
       .click();
@@ -30,11 +29,8 @@ context('Add Pim', () => {
   });
 
   it('shows info about conflicts and allows to add PIM with existed address', () => {
-    cy.visit(NavigationMenu.pimLink);
+    cy.visit(NavigationMenu.pimResidentialLink);
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findAllByText('Property')
-      .last()
-      .click();
     cy.findAllByText('House')
       .last()
       .click();
@@ -54,11 +50,9 @@ context('Add Pim', () => {
   });
 
   it('shows unexpected errors during save', () => {
-    cy.visit(NavigationMenu.pimLink);
+    cy.visit(NavigationMenu.pimResidentialLink);
     cy.findByRole('button', { name: 'Add property' }).click();
-    cy.findAllByText('Property')
-      .last()
-      .click();
+
     cy.findAllByText('House')
       .last()
       .click();

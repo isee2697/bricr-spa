@@ -8,6 +8,7 @@ context('Navigation', () => {
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
     NavigationMenu.goToPim();
+    cy.findByTestId('menu-item-residential').click();
     cy.contains('Property Information Management');
   });
 

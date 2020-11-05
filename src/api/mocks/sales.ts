@@ -87,4 +87,19 @@ export const SALES_LEADS: SalesLead[] = [
       },
     ],
   },
+  {
+    id: '0004',
+    name: 'Christian van Gils',
+    number: '06-48764044',
+    email: 'miesvanderrohe@gmail.com',
+    interests: [SalesLeadInterest.Appraisal, SalesLeadInterest.Mortgage],
+    steps: [
+      {
+        action: SalesLeadStepAction.FirstContact,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+    ],
+    isNewlyAdded: true,
+  },
 ];

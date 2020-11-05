@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
-import { ListPimsFilters, PropertyType, useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import { ListPimsFilters, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
-import { Pim } from './Pim';
+import { PimList } from './PimList';
+import { PimTypes } from './dictionaries';
 
 const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
-  switch (type) {
-    case 'property':
-      return {
-        propertyTypes: [PropertyType.Apartment, PropertyType.House],
-      };
-    case 'bog':
-      return { propertyTypes: [PropertyType.Commercial] };
-    case 'aog':
-      return { propertyTypes: [PropertyType.Agricultural] };
-    case 'parkinglot':
-      return { propertyTypes: [PropertyType.ParkingLot] };
-    case 'plot':
-      return { propertyTypes: [PropertyType.BuildingPlot] };
-    default:
-      return {};
-  }
+  return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
-export const PimContainer = () => {
-  const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({});
+export const PimListContainer = () => {
+  const { pathname } = useLocation();
+  const type = pathname.split('/').pop() ?? 'residential';
+  const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
+
   const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListPimsCountQuery({
+  useEffect(() => {
+    setActiveFilters(current => ({ ...current, ...getPimFilterVariables(type) }));
+  }, [type, setActiveFilters]);
+
+  const { loading: isCountLoading, data: countData } = useListPimsCountQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -57,7 +51,7 @@ export const PimContainer = () => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, error: listError, data: listData } = useListPimsQuery({
+  const { loading: isListLoading, data: listData } = useListPimsQuery({
     variables: {
       ...priceTypeFilter,
       ...activeFilters,
@@ -68,26 +62,14 @@ export const PimContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
-  const handleFilterChange = (filters: ListPimsFilters) => {
-    setActiveFilters(filters);
-  };
-
-  useEffect(() => {
-    setActiveFilters(getPimFilterVariables(type));
-  }, [type]);
-
   return (
-    <Pim
+    <PimList
       status={status}
       onStatusChange={setStatus}
       type={type}
-      onTypeChange={setType}
-      onFilter={handleFilterChange}
+      onFilter={filters => setActiveFilters(filters)}
       activeFilters={activeFilters}
-      pricingType={pricingType}
-      onPricingTypeChange={setPricingType}
       isLoading={isCountLoading || isListLoading}
-      isError={!!countError || !!listError}
       amounts={amounts}
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}
