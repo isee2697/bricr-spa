@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { SortDirection } from '@material-ui/core/TableCell';
 import clsx from 'classnames';
 import TableBody from '@material-ui/core/TableBody';
-import { DateTime } from 'luxon';
 
-import { Table, TableHead, TableRow, TableCell, Checkbox, Typography, UserAvatar, Box, IconButton } from 'ui/atoms';
+import { Table, TableHead, TableRow, TableCell, Checkbox, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { ArrowDownIcon, ArrowUpIcon, LinkIcon, MenuIcon, PinIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, LinkIcon, PinIcon } from 'ui/atoms/icons';
 
 import { EmailTableProps } from './EmailTable.types';
 import { useStyles } from './EmailTable.styles';
+import { EmailTableRow } from './EmailTableRow';
 
 export const EmailTable = ({ emails, checkedItems, onCheckItem, onCheckAllItems }: EmailTableProps) => {
   const classes = useStyles();
@@ -103,52 +103,9 @@ export const EmailTable = ({ emails, checkedItems, onCheckItem, onCheckAllItems 
         </TableRow>
       </TableHead>
       <TableBody>
-        {emails.map(({ id, from: { firstName, lastName, image }, pinned, subject, links, date }) => {
-          const emailId = `email-list-checkbox-${id}`;
-
-          return (
-            <TableRow key={id} className={classes.row}>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={checkedItems.findIndex(itemId => itemId === emailId) >= 0}
-                  color="primary"
-                  inputProps={{ 'aria-labelledby': emailId }}
-                  onChange={() => onCheckItem(emailId)}
-                />
-              </TableCell>
-              <TableCell padding="none">
-                <Box display="flex" alignItems="center">
-                  <UserAvatar avatar={image} name={`${firstName} ${lastName}`} className={classes.avatar} />
-                  <Box mr={0.5} />
-                  <Typography variant="h5">
-                    {firstName} {lastName}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell padding="none">
-                <PinIcon color={pinned ? 'error' : 'action'} />
-              </TableCell>
-              <TableCell>{subject}</TableCell>
-              <TableCell padding="none">
-                <Box display="flex" alignItems="center">
-                  <LinkIcon />
-                  <Typography variant="caption">{links > 0 ? links : '-'}</Typography>
-                </Box>
-              </TableCell>
-              <TableCell padding="none">
-                <Typography variant="h5" className={classes.fontWeightMedium}>
-                  {date.toLocaleString(DateTime.DATE_SHORT)}
-                </Typography>
-                <Typography variant="h6">{date.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
-              </TableCell>
-              <TableCell padding="none">
-                <IconButton size="small" variant="rounded">
-                  <MenuIcon />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          );
-        })}
+        {emails.map(email => (
+          <EmailTableRow key={email.id} email={email} checkedItems={checkedItems} onCheckItem={onCheckItem} />
+        ))}
       </TableBody>
     </Table>
   );

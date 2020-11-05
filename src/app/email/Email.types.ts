@@ -19,3 +19,7 @@ export type Email = {
   links: number;
   date: DateTime;
 };
+
+export type EmailDragObject = Email & {
+  type: string;
+};
