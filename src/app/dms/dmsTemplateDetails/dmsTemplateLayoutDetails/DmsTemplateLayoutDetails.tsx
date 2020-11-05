@@ -18,7 +18,7 @@ export const DmsTemplateLayoutDetails = ({ template }: DmsTemplateLayoutDetailsP
     <>
       <Page showHeader withoutHeader title={template.name} titleActions={[]}>
         <Box mt={1} width="100%">
-          <FormSection title={template.name} onSettingsClick={() => {}} onOptionsClick={() => {}}>
+          <FormSection title={template.name} onEditClick={() => {}} onOptionsClick={() => {}}>
             {editing => (
               <Box className={classes.pdfViewer} display="flex" flexDirection="column" alignItems="center">
                 {pages.map((canvasURL, index) => (
