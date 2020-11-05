@@ -1,13 +1,13 @@
 import { gql } from 'apollo-boost';
 
 export const LIST_NCPS_COUNT = gql`
-  query ListNcpsCount($pricingType: PricingType) {
-    activeCount: listNcps(filters: { archived: false, pricingType: $pricingType }) {
+  query ListNcpsCount($pricingType: PricingType, $projectType: ProjectType) {
+    activeCount: listNcps(filters: { archived: false, pricingType: $pricingType, projectType: $projectType }) {
       metadata {
         total
       }
     }
-    archivedCount: listNcps(filters: { archived: true, pricingType: $pricingType }) {
+    archivedCount: listNcps(filters: { archived: true, pricingType: $pricingType, projectType: $projectType }) {
       metadata {
         total
       }
@@ -18,6 +18,7 @@ export const LIST_NCPS_COUNT = gql`
 export const LIST_NCPS = gql`
   query ListNcps(
     $pricingType: PricingType
+    $projectType: ProjectType
     $archived: Boolean!
     $sortColumn: String!
     $sortDirection: SortDirection!
@@ -25,7 +26,7 @@ export const LIST_NCPS = gql`
     $limit: Int
   ) {
     listNcps(
-      filters: { archived: $archived, pricingType: $pricingType }
+      filters: { archived: $archived, pricingType: $pricingType, projectType: $projectType }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
@@ -68,6 +69,7 @@ export const LIST_NCPS = gql`
         properties
         objectTypesCount
         attentionNote
+        projectType
       }
     }
   }

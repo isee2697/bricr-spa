@@ -4,20 +4,21 @@ import { useHistory } from 'react-router-dom';
 import { AnyObject } from 'react-final-form';
 
 import {
-  useCreatePimMutation,
-  RealEstateType,
   DevelopmentType,
-  PimStatus,
-  PimWithSameAddressQueryVariables,
-  PimWithSameAddressQuery,
-  PimWithSameAddressDocument,
-  useCreateNcpMutation,
+  NcpGeneralOverallInfoDocument,
+  NcpWithSameAddressDocument,
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables,
-  NcpWithSameAddressDocument,
-  useSetObjectTypeLinkedPimsMutation,
   ObjectTypeOverallInfoDocument,
-  NcpGeneralOverallInfoDocument,
+  PimStatus,
+  PimWithSameAddressDocument,
+  PimWithSameAddressQuery,
+  PimWithSameAddressQueryVariables,
+  ProjectType,
+  RealEstateType,
+  useCreateNcpMutation,
+  useCreatePimMutation,
+  useSetObjectTypeLinkedPimsMutation,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -158,6 +159,7 @@ export const AddPimModalContainer = () => {
         variables: {
           input: {
             type: propertyType,
+            projectType: ProjectType.Relet,
             ...body,
           },
         },

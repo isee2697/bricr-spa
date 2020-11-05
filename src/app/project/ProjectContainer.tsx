@@ -53,7 +53,12 @@ export const ProjectContainer = () => {
   });
 
   const { loading: isListLoading, data: listData } = useListNcpsQuery({
-    variables: { ...priceTypeFilter, archived: status === 'archived', ...sortQuery, ...paginationQuery },
+    variables: {
+      ...priceTypeFilter,
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
     fetchPolicy: 'network-only',
   });
 
