@@ -4,8 +4,10 @@ import { Grid, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { useLocale, useModalDispatch } from 'hooks';
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
+import { useGetProjectType } from 'app/project/useGetProjectType/useGetProjectType';
 
 export const ProjectHeader = () => {
+  const projectType = useGetProjectType();
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
 
@@ -15,7 +17,7 @@ export const ProjectHeader = () => {
       <Button
         color="primary"
         variant="contained"
-        onClick={() => open('add-new-pim', { propertyCategory: PropertyCategory.PROJECT })}
+        onClick={() => open('add-new-pim', { propertyCategory: PropertyCategory.PROJECT, projectType })}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >

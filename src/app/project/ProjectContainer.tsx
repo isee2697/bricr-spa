@@ -17,6 +17,7 @@ import {
 } from 'api/types';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
+import { useGetProjectType } from './useGetProjectType/useGetProjectType';
 import { Project } from './Project';
 import { useProjectSorting } from './useProjectSorting/useProjectSorting';
 import { BulkForm } from './Project.types';
@@ -24,6 +25,7 @@ import { BulkForm } from './Project.types';
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const ProjectContainer = () => {
+  const projectType = useGetProjectType();
   const { formatMessage } = useLocale();
   const { open: openSnackbar } = useSnackbar();
   const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
@@ -33,7 +35,7 @@ export const ProjectContainer = () => {
   const [undoEntity] = useUndoEntityMutation();
 
   const { loading: isCountLoading, data: countData } = useListNcpsCountQuery({
-    variables: priceTypeFilter,
+    variables: { ...priceTypeFilter, projectType },
   });
 
   const amounts =
@@ -58,6 +60,7 @@ export const ProjectContainer = () => {
       archived: status === 'archived',
       ...sortQuery,
       ...paginationQuery,
+      projectType,
     },
     fetchPolicy: 'network-only',
   });
@@ -187,7 +190,7 @@ export const ProjectContainer = () => {
       onStatusChange={setStatus}
       isLoading={isCountLoading || isListLoading}
       amounts={amounts}
-      type={'nc_project'}
+      type={projectType}
       listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
       sorting={sorting}
       pagination={pagination}
