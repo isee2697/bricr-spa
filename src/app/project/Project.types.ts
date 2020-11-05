@@ -1,10 +1,10 @@
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { BulkField, BulkOperations, ListNcp } from 'api/types';
+import { BulkField, BulkOperations, ListNcp, ProjectType } from 'api/types';
 
 export type ProjectProps = {
-  type: string;
+  type: ProjectType;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;
