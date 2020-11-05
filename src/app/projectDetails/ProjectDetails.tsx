@@ -9,6 +9,8 @@ import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
 import { SalesSettingsContainer } from 'app/pimDetails/sections/salesSettings/SalesSettingsContainer';
+import { TiaraContainer } from '../shared/tiara/TiaraContainer';
+import { TiaraEntities } from 'api/types';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -124,6 +126,16 @@ export const ProjectDetails = ({ data }: NcpProps) => {
             <Route
               path={`${AppRoute.projectDetails}/allocateResults/:id`}
               render={() => <AllocateResultsDetailsContainer />}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/tiara`}
+              render={() => (
+                <TiaraContainer
+                  entity={TiaraEntities.Ncp}
+                  isSidebarVisible={isSidebarVisible}
+                  onSidebarOpen={handleSidebarOpen}
+                />
+              )}
             />
             <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />
           </Switch>

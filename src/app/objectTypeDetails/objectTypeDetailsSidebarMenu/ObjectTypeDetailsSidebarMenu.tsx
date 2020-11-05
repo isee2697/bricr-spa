@@ -35,6 +35,7 @@ export const ObjectTypeDetailsSidebarMenu = ({ onHide, isVisible, data }: Object
           { key: 'services' },
           { key: 'media' },
           { key: 'properties', count: data?.linkedProperty.linkedProperties.metadata?.total },
+          { key: 'tiara' },
         ],
       },
     ],

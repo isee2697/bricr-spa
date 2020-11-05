@@ -1,7 +1,11 @@
-import { TiaraMessageType, TiaraMutation } from 'api/types';
+import { TiaraEntities, TiaraMessageType, TiaraMutation } from 'api/types';
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
-export type TiaraProps = PimDetailsSectionProps & {
+export type TiaraContainerProps = PimDetailsSectionProps & {
+  entity: TiaraEntities;
+};
+
+export type TiaraProps = {
   mutations: TiaraMutation[];
   sendMessage(messageType: TiaraMessageType): Promise<undefined | { error: boolean }>;
 };
