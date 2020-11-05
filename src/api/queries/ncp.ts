@@ -16,6 +16,7 @@ export const NCP_OVERALL_INFO = gql`
       startDelivery
       properties
       objectTypesCount
+      projectType
     }
     getNcpPrices(id: $id) {
       pricing {

@@ -9,6 +9,7 @@ import {
   ListNcpsCountDocument,
   ListNcpsDocument,
   NcpBulkDetailsDocument,
+  ProjectType,
   useBulkMutation,
   useListNcpsCountQuery,
   useListNcpsQuery,
@@ -55,7 +56,12 @@ export const ProjectContainer = () => {
   });
 
   const { loading: isListLoading, error: listError, data: listData } = useListNcpsQuery({
-    variables: { ...priceTypeFilter, archived: status === 'archived', ...sortQuery, ...paginationQuery },
+    variables: {
+      ...priceTypeFilter,
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
     fetchPolicy: 'network-only',
   });
 

@@ -4,6 +4,12 @@ enum NcpType {
   BuildingPlots
 }
 
+enum ProjectType {
+    Commercial,
+    Relet,
+    NewConstruction,
+}
+
 enum ProgressStatus {
   Concept,
   InPreparation,
@@ -28,6 +34,7 @@ input CreateNcpInput {
   city: String!
   country: String!
   additionalHouseNumber: String
+  projectType: ProjectType
 }
 
 input UpdateNcpInput {
@@ -53,6 +60,7 @@ input UpdateNcpInput {
   startConstructionAfterPresalePercentage: Int
   projectRisk: ProjectRisk
   notes: String
+  projectType: ProjectType
 }
 
 type NcpGeneral implements LastUpdated {
@@ -89,6 +97,7 @@ type NcpGeneral implements LastUpdated {
   linkedPropertiesListDescription: String
   linkedPropertiesListLastUpdatedBy: Profile
   linkedPropertiesListLastUpdatedOn: Date
+  projectType: ProjectType
 }
 
 type NcpSearchResult {

@@ -9,7 +9,7 @@ import {
   BulkOperations,
   BulkEntities,
   BulkField,
-  // useListNcpsQuery,
+  useListNcpsQuery,
 } from 'api/types';
 import { useModalState, usePagination } from 'hooks';
 import { usePimsSorting } from 'app/shared/usePimsSorting/usePimsSorting';
@@ -56,19 +56,23 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
 
   /**
    * useListNcpsQuery does return a list of new constructions but the properties are null
    */
-  // const { loading: isNcListLoading, data: ncListData } = useListNcpsQuery({
-  //   variables: {
-  //     archived: status === 'archived',
-  //     ...sortQuery,
-  //     ...paginationQuery,
-  //   },
-  //   fetchPolicy: 'network-only',
-  // });
+  const { loading: isNcListLoading, data: ncListData } = useListNcpsQuery({
+    variables: {
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+    },
+    fetchPolicy: 'network-only',
+    skip: !isModalOpen,
+  });
+
+  console.log(ncListData);
 
   const { loading: isBogListLoading, data: bogListData } = useListPimsQuery({
     variables: {
@@ -78,6 +82,7 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
 
   /**
@@ -101,6 +106,7 @@ export const MovePimModalContainer = () => {
       ...paginationQuery,
     },
     fetchPolicy: 'no-cache',
+    skip: !isModalOpen,
   });
 
   let listData = {};
@@ -108,7 +114,7 @@ export const MovePimModalContainer = () => {
   if (!isListLoading && !isBogListLoading && !isAogListLoading) {
     listData = {
       properties: propertyListData,
-      // nc: ncListData, ncListData does not return the correct property list
+      nc: ncListData, //ncListData does not return the correct property list
       bog: bogListData,
       // relet: reletListData, reletListData does not return the correct property list
       aog: aogListData,
