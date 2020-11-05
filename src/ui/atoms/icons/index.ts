@@ -1,4 +1,5 @@
 export { default as WarningIcon } from '@material-ui/icons/WarningRounded';
+export { default as ReplayIcon } from '@material-ui/icons/Replay';
 
 export * from './add/AddIcon';
 export * from './aog/AogIcon';
@@ -26,6 +27,9 @@ export * from './euro/EuroIcon';
 export * from './files/FilesIcon';
 export * from './filter/FilterIcon';
 export * from './folder/FolderIcon';
+export * from './directory/DirectoryIcon';
+export * from './directoryOpened/DirectoryOpenedIcon';
+export * from './directoryBordered/DirectoryBorderedIcon';
 export * from './graph/GraphIcon';
 export * from './graphArrow/GraphArrowIcon';
 export * from './help/HelpIcon';
@@ -96,3 +100,4 @@ export * from './own/OwnIcon';
 export * from './exit/ExitIcon';
 export * from './conferenceRoom/ConferenceRoomIcon';
 export * from './hourglass/HourglassIcon';
+export * from './sales/SalesIcon';

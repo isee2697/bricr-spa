@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
-import { useLocale } from 'hooks';
+import { useAuthState, useLocale } from 'hooks';
 import { SidebarMenu } from 'ui/molecules';
 import { SettingsIcon, AogIcon } from 'ui/atoms/icons';
 import { SidebarTitleTile } from 'ui/atoms';
@@ -15,6 +15,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
+  const { hasBillingAccess } = useAuthState();
   const { getTeams: teams } = data;
 
   const teamItems = ((teams?.items &&
@@ -58,7 +59,6 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
               },
             ],
           },
-          { key: 'billing' },
         ],
       },
       {
@@ -73,6 +73,10 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       },
     ],
   };
+
+  if (hasBillingAccess) {
+    menu.groups[0].items.push({ key: 'billing' });
+  }
 
   return (
     <SidebarMenu

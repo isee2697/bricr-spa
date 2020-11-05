@@ -7,13 +7,13 @@ import { useLocale } from 'hooks';
 
 import { useStyles } from './AllocateResults.styles';
 import { AllocateResultsProps } from './AllocateResults.types';
-import { List } from './list/List';
+import { AllocateResultsList } from './list/List';
 import { CreateWizard } from './createWizard/CreateWizard';
 
 export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateResultsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isAllocating, setIsAllocating] = useState(true);
+  const [isAllocating, setIsAllocating] = useState(false);
 
   return (
     <div className={classes.root}>
@@ -40,7 +40,7 @@ export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateRes
         }
       />
       {isAllocating && <CreateWizard />}
-      {!isAllocating && <List />}
+      {!isAllocating && <AllocateResultsList />}
     </div>
   );
 };

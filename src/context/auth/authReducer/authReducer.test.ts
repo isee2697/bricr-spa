@@ -9,6 +9,7 @@ function AuthStateFactory(state: Partial<AuthStateContextType> = {}): AuthStateC
     refreshToken: null,
     isAuthorizing: false,
     isAuthorized: false,
+    hasBillingAccess: false,
     ...state,
   };
 }
@@ -25,6 +26,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: true,
       isAuthorized: false,
+      hasBillingAccess: false,
     });
   });
 
@@ -42,6 +44,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: false,
       isAuthorized: true,
+      hasBillingAccess: false,
       user: {
         foo: 'bar',
       },
@@ -62,6 +65,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: false,
       isAuthorized: false,
+      hasBillingAccess: false,
       user: undefined,
     });
   });
@@ -82,6 +86,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: false,
       isAuthorized: false,
+      hasBillingAccess: false,
       user: undefined,
     });
   });
@@ -99,6 +104,7 @@ describe('authReducer', () => {
       refreshToken: 'bar',
       isAuthorizing: false,
       isAuthorized: true,
+      hasBillingAccess: false,
     });
   });
 });

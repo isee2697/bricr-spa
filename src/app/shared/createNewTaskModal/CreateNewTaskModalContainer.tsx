@@ -14,7 +14,7 @@ export const CreateNewTaskModalContainer = () => {
   const { close } = useModalDispatch();
   const { push } = useHistory();
   const { data } = useGetMyTeamMembersQuery({
-    skip: !isAuthorized,
+    skip: !isAuthorized || !isModalOpen,
   });
   const [createTask] = useCreateTaskMutation();
 

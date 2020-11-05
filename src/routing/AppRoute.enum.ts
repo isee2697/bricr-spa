@@ -1,7 +1,7 @@
 export enum AppRoute {
   home = '/',
   pim = '/pim',
-  pimDetails = '/pim/:id',
+  pimDetails = '/pimDetails/:id',
   project = '/project',
   projectDetails = '/projectDetails/:id',
   objectTypeDetails = '/projectDetails/:projectId/objectTypeDetails/:id',
@@ -28,6 +28,8 @@ export enum AppRoute {
   register = '/register',
   setup = '/setup',
   propertiesSetup = '/setup/properties',
+  confirmationSetup = '/setup/confirmation',
   notifications = '/notifications',
   dms = '/dms',
+  email = '/email',
 }

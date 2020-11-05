@@ -30,7 +30,15 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
           { key: 'dashboard', selected: true },
           { key: 'timeline' },
           { key: 'summary' },
-          { key: 'customer_journey' },
+          {
+            key: 'customer_journey',
+            subItems: [
+              {
+                id: 'your_new_home',
+                label: 'crm.details.menu.customer_journey.your_new_home',
+              },
+            ],
+          },
         ],
       },
       {
@@ -49,12 +57,21 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
         items: [
           {
             key: 'documents',
-            // count: 0,
           },
           {
             key: 'orders',
           },
         ],
+      },
+      {
+        key: 'crm.details.menu.marketing',
+        isCollapsable: true,
+        items: [{ key: 'marketing_news_letter' }, { key: 'marketing_target_groups' }, { key: 'marketing_cross_sell' }],
+      },
+      {
+        key: 'crm.details.menu.business_info',
+        isCollapsable: true,
+        items: [{ key: 'linked_businesses' }],
       },
     ],
   };

@@ -42,7 +42,7 @@ context('Add Ncp', () => {
     cy.userLogin();
 
     NavigationMenu.goToPim();
-    cy.findByRole('button', { name: 'New construction' }).click();
+    cy.findByTestId('menu-item-new_construction').click();
     cy.findByText('Add NC project').click();
 
     cy.contains('What kind of project you want to add?');

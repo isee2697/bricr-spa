@@ -2,16 +2,17 @@ import * as uuid from 'uuid';
 import React, { useState } from 'react';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography } from 'ui/atoms';
-import { AddIcon } from 'ui/atoms/icons';
+import { Card, CardHeader, FormControlLabel, Switch, IconButton, CardContent, Grid, Typography, Box } from 'ui/atoms';
+import { AddIcon, SquareIcon } from 'ui/atoms/icons';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
-import { InfoSection } from 'ui/molecules';
-import { GenericField } from 'form/fields';
+import { FormSubSectionHeader, InfoSection } from 'ui/molecules';
+import { GenericField, RadioGroupField } from 'form/fields';
 import { useModalState } from 'hooks/useModalState/useModalState';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AddNewSocialMediaBody } from '../addNewSocialMediaModal/AddNewSocialMediaModal.types';
 import { AddNewSocialMediaModal } from '../addNewSocialMediaModal/AddNewSocialMediaModal';
 import { PromiseFunction } from 'app/shared/types';
+import { ContactSocialMediaType } from '../../../../../api/types';
 
 import { SocialMediaItem, SocialMediaProps } from './SocialMedia.types';
 import { useStyles } from './SocialMedia.styles';
@@ -70,6 +71,12 @@ export const SocialMedia = ({ data, onSave }: SocialMediaProps) => {
     return await onSave(newData);
   };
 
+  const addressTypes = Object.keys(ContactSocialMediaType).map(addressType => ({
+    label: `dictionaries.contact_information.social_media_type.${addressType}`,
+    icon: <SquareIcon />,
+    value: addressType,
+  }));
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -122,6 +129,7 @@ export const SocialMedia = ({ data, onSave }: SocialMediaProps) => {
                     </>
                   }
                   onOptionsClick={() => {}}
+                  initiallyOpened={false}
                 >
                   <Grid container spacing={1} className={classes.socialMediaFormFields}>
                     <Grid item xs={4}>
@@ -138,6 +146,23 @@ export const SocialMedia = ({ data, onSave }: SocialMediaProps) => {
                       />
                     </Grid>
                   </Grid>
+                  <FormSubSectionHeader
+                    title={formatMessage({
+                      id: 'crm.details.personal_information_contact_information.social_medias.type_of_social_media',
+                    })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+                    noBorder
+                  />
+                  <Box mb={2} />
+                  <RadioGroupField
+                    spacing={1}
+                    disabled={!isEditing}
+                    xs={4}
+                    md={3}
+                    lg={2}
+                    name={`${socialMedia.key}.addressType`}
+                    options={addressTypes}
+                  />
                 </FormSubSection>
               ))}
           </Grid>

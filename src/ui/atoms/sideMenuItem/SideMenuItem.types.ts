@@ -8,4 +8,5 @@ export type SideMenuItemProps = {
   onClick?: () => void;
   children?: ReactNodeArray;
   className?: string;
+  itemKey?: string | number;
 };

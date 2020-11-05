@@ -7,6 +7,7 @@ export type SubMenuItem =
       title?: string;
       number?: number;
       icon?: ReactNode;
+      onClick?: VoidFunction;
     }
   | string;
 
@@ -16,11 +17,13 @@ export type MenuItem = {
   count?: number;
   icon?: ReactNode;
   title?: string;
+  onClick?: VoidFunction;
 };
 
 export type MenuGroup = {
   isCollapsable?: boolean;
   key?: string;
+  hideArrowIcon?: boolean;
   items: MenuItem[];
 };
 
@@ -34,9 +37,13 @@ export type SidebarMenuType = {
 };
 
 export type SidebarMenuProps = {
-  onHide: VoidFunction;
-  isVisible: boolean;
+  onHide?: VoidFunction;
+  isVisible?: boolean;
   menuTitle?: ReactNode;
+  menuSubTitle?: string;
+  menuTitleIcon?: ReactNode;
   translationPrefix: string;
   menu: SidebarMenuType;
+  bannerColor?: string;
+  hasHideButton?: boolean;
 };

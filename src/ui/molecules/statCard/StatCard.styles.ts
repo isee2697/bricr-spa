@@ -14,12 +14,16 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     fontWeight: theme.typography.fontWeightMedium,
   },
+  optionalValue: {
+    color: theme.palette.gray.main,
+  },
   success: {
     color: theme.palette.green.main,
   },
   warning: {
     color: theme.palette.orange.main,
   },
+  info: { color: theme.palette.gray.main },
   error: {
     color: theme.palette.red.main,
   },

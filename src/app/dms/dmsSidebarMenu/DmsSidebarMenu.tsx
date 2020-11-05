@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, ReactNode } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import { SidebarMenu } from 'ui/molecules';
 import { CrmIcon, FolderIcon, AddIcon } from 'ui/atoms/icons';
+import { DmsAddFolderDialog } from '../dmsDocuments/dmsAddFolderDialog/DmsAddFolderDialog';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
 
-export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
+export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMenuProps) => {
   const { url } = useRouteMatch();
+  const [dialog, setDialog] = useState<ReactNode | null>(null);
+
+  const handleAddFolder = () => {
+    if (onAddFolder) {
+      setDialog(
+        <DmsAddFolderDialog
+          isOpened={true}
+          isAdd={true}
+          onClose={() => {
+            setDialog(null);
+          }}
+          onSubmit={({ folderName }) => {
+            onAddFolder(folderName);
+            setDialog(null);
+
+            return new Promise(resolve => {});
+          }}
+        />,
+      );
+    }
+  };
 
   const menu = {
     url,
@@ -54,6 +76,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
                     <AddIcon color="inherit" />
                   </div>
                 ),
+                onClick: handleAddFolder,
               },
             ],
           },
@@ -65,5 +88,10 @@ export const DmsSidebarMenu = ({ onHide, isVisible }: DmsSidebarMenuProps) => {
     ],
   };
 
-  return <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="dms.menu" menu={menu} />;
+  return (
+    <>
+      <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="dms.menu" menu={menu} />
+      {dialog}
+    </>
+  );
 };
