@@ -14,8 +14,8 @@ import { MetersContainer } from 'app/pimDetails/sections/meters/MetersContainer'
 import { Specification } from 'app/pimDetails/sections/specification/Specification';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
-import { AogSpaceType, TiaraEntities } from '../../api/types';
-import { TiaraContainer } from '../shared/tiara/TiaraContainer';
+import { AogSpaceType, TiaraEntities } from 'api/types';
+import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
