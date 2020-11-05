@@ -13,6 +13,8 @@ import { DmsDocumentsContainer } from './dmsDocuments/DmsDocumentsContainer';
 import { DmsTemplatesContainer } from './dmsTemplates/DmsTemplatesContainer';
 import { DmsContentBlocks } from './dmsContentBlocks/DmsContentBlocks';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
+import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDetailsContainer';
+import { DmsTemplatesSidebarMenu } from './dmsTemplatesSidebarMenu/dmsTemplatesSidebarMenu';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -31,13 +33,23 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
     <EntityTypeProvider entityType={entityType}>
       <Grid container spacing={0}>
         {breadcrumbs}
-        <DmsSidebarMenu
-          onHide={handleSidebarHide}
-          isVisible={isSidebarVisible}
-          onAddFolder={(name: string) => {
-            // TODO: add new folder
-          }}
-        />
+        <Switch>
+          <Route
+            path={`${path}/templates/:id`}
+            render={() => <DmsTemplatesSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
+          />
+          <Route
+            render={() => (
+              <DmsSidebarMenu
+                onHide={handleSidebarHide}
+                isVisible={isSidebarVisible}
+                onAddFolder={(name: string) => {
+                  // TODO: add new folder
+                }}
+              />
+            )}
+          />
+        </Switch>
         <Box flex={1}>
           <Grid container className={classes.contentWrapper}>
             <DmsHeader onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
@@ -46,6 +58,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
+                  <Route path={`${path}/templates/:id`} render={() => <DmsTemplateDetailsContainer />} />
                   <Route path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
                   <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
                   <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />

@@ -20,6 +20,7 @@ export interface DmsTemplateItem {
   status: ActiveTabStatus;
   labels: string[];
   meta: DmsTemplateMeta;
+  file?: string;
 }
 
 export type DmsTemplatesProps = {

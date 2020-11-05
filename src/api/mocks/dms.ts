@@ -401,6 +401,7 @@ export const Templates: DmsTemplateItem[] = [
     status: 'active',
     createdAt: '2020/09/22',
     avatar: 'http://placeimg.com/104/152/arch',
+    file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
     meta: {
       generated: 19,
       sent: 11,
@@ -417,6 +418,7 @@ export const Templates: DmsTemplateItem[] = [
     status: 'active',
     createdAt: '2020/09/22',
     avatar: 'http://placeimg.com/104/152/arch',
+    file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
     meta: {
       generated: 19,
       sent: 11,
@@ -433,6 +435,7 @@ export const Templates: DmsTemplateItem[] = [
     status: 'active',
     createdAt: '2020/09/22',
     avatar: 'http://placeimg.com/104/152/arch',
+    file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
     meta: {
       generated: 19,
       sent: 11,
