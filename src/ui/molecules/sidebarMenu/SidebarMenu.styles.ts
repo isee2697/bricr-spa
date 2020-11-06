@@ -13,7 +13,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       top: spacing(8),
       paddingTop: spacing(2),
       position: 'fixed',
-      zIndex: 100,
+      zIndex: 1,
       overflowY: 'hidden',
       '& a': {
         textDecoration: 'none',
@@ -86,7 +86,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       position: 'absolute',
       right: -14,
       top: 24,
-      zIndex: 101,
+      zIndex: 2,
     },
     group: {
       '& + &': {
