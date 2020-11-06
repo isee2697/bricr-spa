@@ -44,6 +44,7 @@ export const ProjectDetailsSidebarMenu = ({
             key: 'allocateResults',
             count: allocateResultsNumber,
           },
+          { key: 'tiara' },
         ],
       },
     ],
