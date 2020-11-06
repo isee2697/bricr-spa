@@ -86,7 +86,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       position: 'absolute',
       right: -14,
       top: 24,
-      zIndex: 10,
+      zIndex: 101,
     },
     group: {
       '& + &': {
