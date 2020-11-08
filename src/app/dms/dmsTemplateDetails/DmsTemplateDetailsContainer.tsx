@@ -12,27 +12,25 @@ import { DmsTemplateLayoutDetails } from './dmsTemplateLayoutDetails/DmsTemplate
 export const DmsTemplateDetailsContainer = () => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
-  // const { data } = useGetCrmGeneralQuery({ variables: { id } });
   const data = Templates.find(item => item.id === id);
 
-  // if (!data?.getCrmGeneral) {
   if (!data) {
     return <Loader />;
   }
 
   return (
     <>
-      <NavBreadcrumb title={formatMessage({ id: 'dms.links.templates' })} to={AppRoute.dms + '/templates'} />
+      <NavBreadcrumb title={formatMessage({ id: 'dms.templates.title' })} to={AppRoute.dms + '/templates'} />
       <Switch>
         <Route
-          path={AppRoute.dms + '/templates/' + id + '/general'}
+          path={`${AppRoute.dms}/templates/${id}/general`}
           render={() => <DmsTemplateGeneralDetails template={data} />}
         />
         <Route
-          path={AppRoute.dms + '/templates/' + id + '/layout'}
+          path={`${AppRoute.dms}/templates/${id}/layout`}
           render={() => <DmsTemplateLayoutDetails template={data} />}
         />
-        <Redirect to={AppRoute.dms + '/templates/' + id + '/general'} />
+        <Redirect to={`${AppRoute.dms}/templates/${id}/general`} />
       </Switch>
     </>
   );

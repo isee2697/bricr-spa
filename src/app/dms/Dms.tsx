@@ -31,7 +31,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
 
   return (
     <EntityTypeProvider entityType={entityType}>
-      <Grid container spacing={0}>
+      <Grid container wrap="nowrap">
         {breadcrumbs}
         <Switch>
           <Route
