@@ -14,7 +14,8 @@ import { MetersContainer } from 'app/pimDetails/sections/meters/MetersContainer'
 import { Specification } from 'app/pimDetails/sections/specification/Specification';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
-import { AogSpaceType } from '../../api/types';
+import { AogSpaceType, TiaraEntities } from 'api/types';
+import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
@@ -22,7 +23,6 @@ import { CommercialSpacesContainer } from './sections/commercial/CommercialSpace
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
-import { TiaraContainer } from './sections/tiara/TiaraContainer';
 
 export const PimDetails = ({
   loading,
@@ -182,6 +182,7 @@ export const PimDetails = ({
                   path={`${path}/tiara`}
                   render={() => (
                     <TiaraContainer
+                      entity={TiaraEntities.Pim}
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                       title={title}

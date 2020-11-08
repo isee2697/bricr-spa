@@ -14,7 +14,6 @@ import {
   PimWithSameAddressDocument,
   PimWithSameAddressQuery,
   PimWithSameAddressQueryVariables,
-  ProjectType,
   RealEstateType,
   useCreateNcpMutation,
   useCreatePimMutation,
@@ -159,7 +158,7 @@ export const AddPimModalContainer = () => {
         variables: {
           input: {
             type: propertyType,
-            projectType: ProjectType.Relet,
+            projectType: options?.projectType,
             ...body,
           },
         },

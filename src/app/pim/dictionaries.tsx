@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AogIcon, BogIcon, MutationIcon, NcSaleIcon, RentIcon, SaleIcon } from 'ui/atoms/icons';
-import { PropertyType } from 'api/types';
+import { ProjectType, PropertyType } from 'api/types';
 
 export const PimTypes = [
   {
@@ -13,11 +13,13 @@ export const PimTypes = [
     name: 'new_construction',
     icon: <NcSaleIcon />,
     isProject: true,
+    projectType: ProjectType.NewConstruction,
   },
   {
     name: 'relet',
     icon: <MutationIcon />,
     isProject: true,
+    projectType: ProjectType.Relet,
   },
   {
     name: 'commercial',
@@ -25,9 +27,10 @@ export const PimTypes = [
     types: [PropertyType.Commercial],
   },
   {
-    name: 'commercial_building',
+    name: 'building_commercial',
     icon: <RentIcon />,
     isProject: true,
+    projectType: ProjectType.Commercial,
   },
   {
     name: 'agricultural',

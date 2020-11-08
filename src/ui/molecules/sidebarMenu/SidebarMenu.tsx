@@ -107,7 +107,7 @@ export const SidebarMenu = ({
 
   return (
     <Slide unmountOnExit mountOnEnter in={!hasHideButton || isVisible} direction="right">
-      <Grid ref={ref} item xs={12} md={3} lg={2} className={classes.container}>
+      <Grid ref={ref} item xs={12} sm={4} md={3} lg={2} className={classes.container}>
         <div>
           {hasHideButton && (
             <div
