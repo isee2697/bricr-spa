@@ -137,7 +137,7 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
                     } else {
                       return (
                         <Typography variant="h5" className={clsx(classes.stepIcon, step.status)}>
-                          {index}
+                          {index + 1}
                         </Typography>
                       );
                     }
