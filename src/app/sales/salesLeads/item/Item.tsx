@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router-dom';
 
 import {
   Avatar,
@@ -18,6 +19,7 @@ import {
 } from 'ui/atoms';
 import { AddIcon, CheckIcon, CloseIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { AppRoute } from '../../../../routing/AppRoute.enum';
 
 import { useStyles } from './Item.styles';
 import { SalesLeadItemProps } from './Item.types';
@@ -49,11 +51,17 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
   const { salesLead, checkbox, checked } = props;
   const { formatMessage } = useLocale();
   const classes = useStyles(props);
+  const { push } = useHistory();
 
   return (
     <Box className={clsx(classes.row, !!salesLead.isNewlyAdded && 'new', { [classes.rowChecked]: checked })}>
       {checkbox}
-      <Box width="100%" mt={2}>
+      <Box
+        className={classes.rowContent}
+        width="100%"
+        mt={2}
+        onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', salesLead.id))}
+      >
         <Box display="flex" alignItems="flex-start">
           <Avatar variant="rounded" src={salesLead.image} className={classes.image}>
             {!salesLead.image && <Emoji>{'📷'}</Emoji>}
@@ -103,9 +111,6 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
               </Box>
             </Box>
           </Box>
-          <IconButton size="small" variant="rounded">
-            <MenuIcon />
-          </IconButton>
         </Box>
         <Box display="flex" alignItems="flex-start" mt={2} mb={1} className={classes.stepperWrapper}>
           <Stepper
@@ -163,6 +168,9 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
           <Box className={classes.grayConnector} />
         </Box>
       </Box>
+      <IconButton size="small" variant="rounded">
+        <MenuIcon />
+      </IconButton>
     </Box>
   );
 };

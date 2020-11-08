@@ -21,6 +21,9 @@ export const useStyles = makeStyles(theme => ({
       background: theme.palette.yellow.light,
     },
   },
+  rowContent: {
+    cursor: 'pointer',
+  },
   rowChecked: {
     background: `${theme.palette.primary.main}08`,
   },

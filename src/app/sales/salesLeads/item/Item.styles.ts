@@ -23,6 +23,9 @@ export const useStyles = makeStyles(theme => ({
   rowChecked: {
     background: `${theme.palette.primary.main}08`,
   },
+  rowContent: {
+    cursor: 'pointer',
+  },
   image: {
     width: theme.spacing(20),
     height: theme.spacing(19),
