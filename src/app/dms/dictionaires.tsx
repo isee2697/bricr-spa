@@ -82,3 +82,26 @@ export const TemplateRights = [
     icon: <ComplexBuildingIcon />,
   },
 ];
+
+export const ContentBlockRights = [
+  {
+    value: 'create',
+    label: 'dictionaries.settings.rights.Create',
+    icon: <AogIcon />,
+  },
+  {
+    value: 'read',
+    label: 'dictionaries.settings.rights.Read',
+    icon: <BogIcon />,
+  },
+  {
+    value: 'update',
+    label: 'dictionaries.settings.rights.Update',
+    icon: <CalendarIcon />,
+  },
+  {
+    value: 'delete',
+    label: 'dictionaries.settings.rights.Delete',
+    icon: <ComplexBuildingIcon />,
+  },
+];

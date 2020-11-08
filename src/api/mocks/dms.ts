@@ -4,6 +4,7 @@ import { DmsStats } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
+import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
 
 export const DMSStats: DmsStats = {
   total: {
@@ -444,5 +445,22 @@ export const Templates: DmsTemplateItem[] = [
       declined: 0,
       completed: 0,
     },
+  },
+];
+
+export const ContentBlocks: DmsBlockItem[] = [
+  {
+    id: 'dms-cb-1',
+    name: 'Pre-set pricing',
+    createdAt: '2020/09/22',
+    status: 'active',
+    file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+  },
+  {
+    id: 'dms-cb-2',
+    name: 'Payment',
+    createdAt: '2020/09/22',
+    status: 'active',
+    file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
   },
 ];

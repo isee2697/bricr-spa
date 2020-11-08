@@ -11,10 +11,11 @@ import { DmsHeader } from './dmsHeader/DmsHeader';
 import { DmsDashboard } from './dmsDashboard/DmsDashboard';
 import { DmsDocumentsContainer } from './dmsDocuments/DmsDocumentsContainer';
 import { DmsTemplatesContainer } from './dmsTemplates/DmsTemplatesContainer';
-import { DmsContentBlocks } from './dmsContentBlocks/DmsContentBlocks';
+import { DmsContentBlocksContainer } from './dmsContentBlocks/DmsContentBlocksContainer';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
 import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDetailsContainer';
-import { DmsTemplatesSidebarMenu } from './dmsTemplatesSidebarMenu/dmsTemplatesSidebarMenu';
+import { DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/dmsDetailsSidebarMenu';
+import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -35,8 +36,8 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         {breadcrumbs}
         <Switch>
           <Route
-            path={`${path}/templates/:id`}
-            render={() => <DmsTemplatesSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
+            path={[`${path}/templates/:id`, `${path}/content-blocks/:id`]}
+            render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
           <Route
             render={() => (
@@ -58,9 +59,10 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
+                  <Route exact path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
                   <Route path={`${path}/templates/:id`} render={() => <DmsTemplateDetailsContainer />} />
-                  <Route path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
-                  <Route path={`${path}/content-blocks`} render={() => <DmsContentBlocks />} />
+                  <Route exact path={`${path}/content-blocks`} render={() => <DmsContentBlocksContainer />} />
+                  <Route path={`${path}/content-blocks/:id`} render={() => <DmsContentBlockDetailsContainer />} />
                   <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
                   <Redirect to={{ pathname: `${path}/dashboard`, state }} />
                 </Switch>

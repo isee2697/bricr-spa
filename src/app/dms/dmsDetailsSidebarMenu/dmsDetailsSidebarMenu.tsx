@@ -3,16 +3,18 @@ import { useRouteMatch, Link as RouterLink } from 'react-router-dom';
 import { KeyboardBackspace } from '@material-ui/icons';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';
 import { CrmIcon } from 'ui/atoms/icons';
 import { Link, Typography, Box } from 'ui/atoms';
 
-import { DmsTemplatesSidebarMenuProps } from './dmsTemplatesSidebarMenu.types';
+import { DmsDetailsSidebarMenuProps } from './dmsDetailsSidebarMenu.types';
 
-export const DmsTemplatesSidebarMenu = ({ onHide, isVisible }: DmsTemplatesSidebarMenuProps) => {
+export const DmsDetailsSidebarMenu = ({ onHide, isVisible }: DmsDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
+  const urlPath = url.split('/');
+  urlPath.pop();
+  const parentUrl = urlPath.join('/');
 
   const menu = {
     url,
@@ -33,7 +35,7 @@ export const DmsTemplatesSidebarMenu = ({ onHide, isVisible }: DmsTemplatesSideb
       translationPrefix="dms.templates.menu"
       menu={menu}
       menuTitle={
-        <Link component={RouterLink} to={AppRoute.dms + '/templates'}>
+        <Link component={RouterLink} to={parentUrl}>
           <Box display="flex" alignItems="center" justifyContent="center" my={2} width="100%">
             <KeyboardBackspace />
             <Box ml={2}>
