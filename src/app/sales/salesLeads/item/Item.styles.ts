@@ -136,6 +136,19 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(1.5) - 1,
   },
+  menuItem: {
+    padding: 0,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    borderBottom: `2px solid ${theme.palette.gray.light}`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuIcon: {
+    color: theme.palette.gray.main,
+  },
   fontWeightMedium: {
     fontWeight: theme.typography.fontWeightMedium,
   },
@@ -147,5 +160,8 @@ export const useStyles = makeStyles(theme => ({
   },
   gray: {
     color: theme.palette.gray.main,
+  },
+  noPadding: {
+    padding: 0,
   },
 }));
