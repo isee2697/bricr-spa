@@ -1,4 +1,3 @@
-import { LabelInput, LastUpdatedProfile } from 'api/types';
 import { PromiseFunction } from 'app/shared/types';
 
 export type ActiveTabStatus = 'active' | 'inactive';
@@ -20,6 +19,7 @@ export interface DmsTemplateItem {
   status: ActiveTabStatus;
   labels: string[];
   meta: DmsTemplateMeta;
+  file?: string;
 }
 
 export type DmsTemplatesProps = {

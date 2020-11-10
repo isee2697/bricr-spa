@@ -1,4 +1,4 @@
-import { ListPimsQuery, PricingType } from 'api/types';
+import { ListPimsQuery } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';

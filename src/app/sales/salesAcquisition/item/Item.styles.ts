@@ -1,13 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-import { SalesLeadItemProps } from './Item.types';
+import { SalesAcquisitionItemProps } from './Item.types';
 
 export const useStyles = makeStyles(theme => ({
   row: {
     display: 'flex',
     alignItems: 'flex-start',
     position: 'relative',
-    filter: ({ status }: SalesLeadItemProps) => (status === 'withdrawn' ? 'grayscale(1)' : ''),
+    filter: ({ status }: SalesAcquisitionItemProps) => (status === 'withdrawn' ? 'grayscale(1)' : ''),
+
     '&:after': {
       content: '""',
       position: 'absolute',
@@ -20,16 +21,16 @@ export const useStyles = makeStyles(theme => ({
       background: theme.palette.yellow.light,
     },
   },
-  rowChecked: {
-    background: `${theme.palette.primary.main}08`,
-  },
   rowContent: {
     cursor: 'pointer',
   },
+  rowChecked: {
+    background: `${theme.palette.primary.main}08`,
+  },
   image: {
-    width: theme.spacing(20),
-    height: theme.spacing(19),
-    marginRight: theme.spacing(2),
+    width: theme.spacing(9),
+    height: theme.spacing(9),
+    marginRight: theme.spacing(2.5),
     fontSize: '3em',
   },
   stepperWrapper: {
@@ -136,19 +137,6 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(1.5) - 1,
   },
-  menuItem: {
-    padding: 0,
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    borderBottom: `2px solid ${theme.palette.gray.light}`,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  menuIcon: {
-    color: theme.palette.gray.main,
-  },
   fontWeightMedium: {
     fontWeight: theme.typography.fontWeightMedium,
   },
@@ -160,8 +148,5 @@ export const useStyles = makeStyles(theme => ({
   },
   gray: {
     color: theme.palette.gray.main,
-  },
-  noPadding: {
-    padding: 0,
   },
 }));

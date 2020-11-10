@@ -12,6 +12,7 @@ export type FormSectionBaseProps = {
   onAdd?: VoidFunction;
   onOptionsClick?: VoidFunction;
   onSettingsClick?: VoidFunction;
+  onEditClick?: VoidFunction;
   isExpandable?: boolean;
   isInitExpanded?: boolean;
   className?: string;
