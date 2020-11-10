@@ -1,15 +1,11 @@
-import { Email } from '../Email.types';
-
-export type EmailInboxContainerProps = {
+export type EmailSettingsProps = {
   onSidebarClose: VoidFunction;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
 };
 
-export type EmailInboxProps = {
+export type EmailSettingsContainerProps = {
   onSidebarClose: VoidFunction;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
-  emails: Email[];
-  onAddNewEmail: VoidFunction;
 };

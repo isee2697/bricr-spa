@@ -7,14 +7,14 @@ import { RichTextField } from 'form/fields/richTextField/RichTextField';
 
 import { EditorProps } from './FormParts.types';
 
-export const Editor = ({ titleId, disabled }: EditorProps) => {
+export const Editor = ({ titleId, disabled, noBorder = false }: EditorProps) => {
   const { formatMessage } = useLocale();
 
   return (
     <Grid item xs={12}>
       {titleId && <FormSubSectionHeader noBorder title={formatMessage({ id: titleId })} />}
       <Box paddingTop={2} mb={2}>
-        <RichTextField disabled={disabled} name="chapter" />
+        <RichTextField disabled={disabled} name="chapter" withoutBorder={noBorder} />
       </Box>
     </Grid>
   );
