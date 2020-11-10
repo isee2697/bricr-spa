@@ -6,6 +6,7 @@ import { Box, Collapse, Grid, SidebarHideButton, SideMenuItem, SideSubMenuItem, 
 import { MenuGroup, MenuItem, SidebarMenuType, SubMenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { useLocale } from 'hooks';
 import { SaleIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { EmailSidebarMenuProps } from './EmailSidebarMenu.types';
 import { useStyles } from './EmailSidebarMenu.styles';
@@ -13,15 +14,15 @@ import { EmailSidebarMenuItem } from './EmailSidebarMenuItem';
 import { EmailSidebarSubMenuItem } from './EmailSidebarSubMenuItem';
 
 export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) => {
-  const { url } = useRouteMatch();
+  const { params } = useRouteMatch();
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const { push } = useHistory();
   const [isGroupOpen, setGroupOpen] = useState<Record<string, boolean>>({});
 
   const menu: SidebarMenuType = {
-    url,
+    url: AppRoute.email.replace(':inboxId', params.inboxId),
     groups: [
       {
         items: [
@@ -31,7 +32,7 @@ export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) =
             subItems: [
               {
                 id: 'folder_1',
-                label: 'email.menu.inbox.folder_1',
+                label: 'email.menu.inbox.folder_abs1',
                 number: 1,
               },
               {
@@ -86,7 +87,7 @@ export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) =
           key={subItem}
           title={formatMessage({ id: `"email.menu".${subItem}` })}
           selected={pathname === `${menu.url}/${menuItem.key}/${subItem}`}
-          onClick={() => push(`${menu.url}/${menuItem.key}/${subItem}`)}
+          onClick={() => push(`${menu.url}/${menuItem.key}#${subItem}`)}
         />
       );
     }
@@ -97,12 +98,12 @@ export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) =
         title={
           <EmailSidebarSubMenuItem
             id={subItem.id}
-            selected={pathname === `${menu.url}/${menuItem.key}/${subItem.id}`}
+            selected={`${pathname}${hash}` === `${menu.url}/${menuItem.key}#${subItem.id}`}
             title={subItem.title ? subItem.title : formatMessage({ id: subItem.label })}
           />
         }
-        selected={pathname === `${menu.url}/${menuItem.key}/${subItem.id}`}
-        onClick={() => (subItem.onClick ? subItem.onClick() : push(`${menu.url}/${menuItem.key}/${subItem.id}`))}
+        selected={`${pathname}${hash}` === `${menu.url}/${menuItem.key}#${subItem.id}`}
+        onClick={() => (subItem.onClick ? subItem.onClick() : push(`${menu.url}/${menuItem.key}#${subItem.id}`))}
         badge={subItem.number}
         icon={subItem.icon}
       />

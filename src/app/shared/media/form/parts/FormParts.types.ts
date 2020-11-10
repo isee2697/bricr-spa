@@ -20,4 +20,5 @@ export type SingleChooseProps = {
 export type EditorProps = {
   titleId?: string;
   disabled: boolean;
+  noBorder?: boolean;
 };

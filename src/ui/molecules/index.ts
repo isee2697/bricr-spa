@@ -33,4 +33,5 @@ export { DatePickerCalendar } from './datePickerCalendar/DatePickerCalendar';
 export { DatePicker } from './datePicker/DatePicker';
 export { AdvancedSearch } from './advancedSearch/AdvancedSearch';
 export { Map } from './map/Map';
+export { MultiSearch } from './multiSearch/MultiSearch';
 export * from './calendar/Calendar';

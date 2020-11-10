@@ -2,14 +2,20 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { useDrag } from 'react-dnd';
 import clsx from 'classnames';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Box, Checkbox, IconButton, TableCell, TableRow, Typography, UserAvatar } from 'ui/atoms';
 import { LinkIcon, MenuIcon, PinIcon } from 'ui/atoms/icons';
+import { useEntityType } from 'app/shared/entityType';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { useStyles } from './EmailTable.styles';
 import { EmailTableRowProps } from './EmailTable.types';
 
 export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRowProps) => {
+  const { baseUrl } = useEntityType();
+  const urlParams = useParams();
+  const { push } = useHistory();
   const {
     id,
     from: { firstName, lastName, image },
@@ -32,7 +38,12 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
   const emailId = `email-list-checkbox-${id}`;
 
   return (
-    <TableRow key={id} ref={drag} className={clsx(classes.row, isDragging && 'dragging')}>
+    <TableRow
+      key={id}
+      ref={drag}
+      className={clsx(classes.row, isDragging && 'dragging')}
+      onClick={() => push(`${joinUrlParams(`${baseUrl}/:folder`, urlParams)}/${email.id}`)}
+    >
       <TableCell padding="checkbox" className={clsx(classes.cell, isDragging && 'dragging')}>
         <Checkbox
           checked={checkedItems.findIndex(itemId => itemId === emailId) >= 0}
