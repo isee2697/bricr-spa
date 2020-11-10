@@ -16,7 +16,7 @@ export const useStyles = makeStyles(theme => ({
       display: 'none',
     },
     '&.Mui-focused .MuiAutocomplete-endAdornment .MuiAutocomplete-clearIndicator': {
-      right: 20,
+      right: theme.spacing(2.5),
     },
   },
   paper: {
@@ -25,7 +25,9 @@ export const useStyles = makeStyles(theme => ({
     borderTopRightRadius: 0,
     '& .MuiAutocomplete-listbox': {
       maxHeight: '70vh',
-      boxShadow: 'inset 0 4px 4px -4px rgba(159, 192, 255, 0.5)',
+      boxShadow: `inset 0 ${theme.spacing(0.5)}px ${theme.spacing(0.5)}px -${theme.spacing(
+        0.5,
+      )}px rgba(159, 192, 255, 0.5)`,
     },
     [theme.breakpoints.down('sm')]: {
       top: theme.spacing(2),
@@ -75,7 +77,7 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   '.MuiAutocomplete-paper': {
-    minHeight: 2000,
+    minHeight: theme.spacing(250),
   },
   highlight: {
     color: theme.palette.red.main,
