@@ -11,3 +11,11 @@ export const GET_TIARA_MUTATIONS = gql`
     }
   }
 `;
+
+export const GET_TIARA_VALIDATION = gql`
+  query GetTiaraValidation($entityId: ID!, $entity: TiaraEntities!) {
+    getTiaraValidation(entityId: $entityId, entity: $entity) {
+      errors
+    }
+  }
+`;
