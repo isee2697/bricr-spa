@@ -141,6 +141,7 @@ pipelines:
           artifacts:
             - build/**
             - e2e/node_modules/**
+          size: 2x
       - parallel:
           - step:
               name: e2e - firefox
