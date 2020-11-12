@@ -11,4 +11,5 @@ export type SearchListProps<T> = {
   selectedItemsIds: string[];
   item: (values: SearchItemProps<T>) => ReactNode;
   filterItem: (item: T, currentValue: string) => boolean;
+  resultListLabel?: string;
 };
