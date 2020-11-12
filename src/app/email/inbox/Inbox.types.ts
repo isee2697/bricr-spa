@@ -11,5 +11,4 @@ export type EmailInboxProps = {
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
   emails: Email[];
-  onAddNewEmail: VoidFunction;
 };

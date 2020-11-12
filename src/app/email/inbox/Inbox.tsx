@@ -27,13 +27,7 @@ import { EmailSidebarMenu } from '../emailSidebarMenu/EmailSidebarMenu';
 import { EmailInboxProps } from './Inbox.types';
 import { useStyles } from './Inbox.styles';
 
-export const EmailInbox = ({
-  onSidebarOpen,
-  onSidebarClose,
-  isSidebarVisible,
-  emails,
-  onAddNewEmail,
-}: EmailInboxProps) => {
+export const EmailInbox = ({ onSidebarOpen, onSidebarClose, isSidebarVisible, emails }: EmailInboxProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [checkedEmails, setCheckedEmails] = useState<string[]>([]);
@@ -81,7 +75,9 @@ export const EmailInbox = ({
                   color="primary"
                   variant="contained"
                   startIcon={<AddIcon color="inherit" />}
-                  onClick={onAddNewEmail}
+                  onClick={() => {
+                    push(`${joinUrlParams(AppRoute.email, urlParams)}/new`);
+                  }}
                 >
                   {formatMessage({ id: 'email.inbox.new_email' })}
                 </Button>
