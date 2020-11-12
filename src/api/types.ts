@@ -942,6 +942,7 @@ export type Query = {
   getTeamDetails?: Maybe<Team>;
   getTeams?: Maybe<TeamSearchResult>;
   getTiaraMutations?: Maybe<Array<TiaraMutation>>;
+  getTiaraValidation: TiaraValidation;
   getUndoId: Scalars['ID'];
   listNcps: NcpListSearchResult;
   listObjectTypes: ObjectTypeListSearchResult;
@@ -1144,6 +1145,11 @@ export type QueryGetTeamsArgs = {
 };
 
 export type QueryGetTiaraMutationsArgs = {
+  entityId: Scalars['ID'];
+  entity?: Maybe<TiaraEntities>;
+};
+
+export type QueryGetTiaraValidationArgs = {
   entityId: Scalars['ID'];
   entity?: Maybe<TiaraEntities>;
 };
@@ -7282,6 +7288,11 @@ export type TiaraMutation = {
   errors?: Maybe<Array<Scalars['String']>>;
 };
 
+export type TiaraValidation = {
+  __typename?: 'TiaraValidation';
+  errors?: Maybe<Array<Scalars['String']>>;
+};
+
 export type TiaraSendMessageInput = {
   entityId: Scalars['ID'];
   entity: TiaraEntities;
@@ -11940,6 +11951,15 @@ export type GetTiaraMutationsQuery = { __typename?: 'Query' } & {
   getTiaraMutations?: Maybe<
     Array<{ __typename?: 'TiaraMutation' } & Pick<TiaraMutation, 'id' | 'status' | 'errors' | 'messageType' | 'date'>>
   >;
+};
+
+export type GetTiaraValidationQueryVariables = Exact<{
+  entityId: Scalars['ID'];
+  entity: TiaraEntities;
+}>;
+
+export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
+  getTiaraValidation: { __typename?: 'TiaraValidation' } & Pick<TiaraValidation, 'errors'>;
 };
 
 export const LoginDocument = gql`
@@ -20280,4 +20300,33 @@ export type GetTiaraMutationsLazyQueryHookResult = ReturnType<typeof useGetTiara
 export type GetTiaraMutationsQueryResult = ApolloReactCommon.QueryResult<
   GetTiaraMutationsQuery,
   GetTiaraMutationsQueryVariables
+>;
+export const GetTiaraValidationDocument = gql`
+  query GetTiaraValidation($entityId: ID!, $entity: TiaraEntities!) {
+    getTiaraValidation(entityId: $entityId, entity: $entity) {
+      errors
+    }
+  }
+`;
+export function useGetTiaraValidationQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetTiaraValidationQuery, GetTiaraValidationQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetTiaraValidationQuery, GetTiaraValidationQueryVariables>(
+    GetTiaraValidationDocument,
+    baseOptions,
+  );
+}
+export function useGetTiaraValidationLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetTiaraValidationQuery, GetTiaraValidationQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetTiaraValidationQuery, GetTiaraValidationQueryVariables>(
+    GetTiaraValidationDocument,
+    baseOptions,
+  );
+}
+export type GetTiaraValidationQueryHookResult = ReturnType<typeof useGetTiaraValidationQuery>;
+export type GetTiaraValidationLazyQueryHookResult = ReturnType<typeof useGetTiaraValidationLazyQuery>;
+export type GetTiaraValidationQueryResult = ApolloReactCommon.QueryResult<
+  GetTiaraValidationQuery,
+  GetTiaraValidationQueryVariables
 >;
