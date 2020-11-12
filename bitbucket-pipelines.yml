@@ -123,6 +123,7 @@ pipelines:
             - npm run lint
             - npm run coverage
             - npm run build
+          size: 2x
       - step:
           name: build and install
           image: cypress/browsers:node13.6.0-chrome80-ff72

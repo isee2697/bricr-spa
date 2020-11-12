@@ -4,19 +4,24 @@ import { DateTime } from 'luxon';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
-import { Button, Table, TableCell, TableBody, TableHead, TableRow, Typography } from 'ui/atoms';
+import { Button, Table, TableCell, TableBody, TableHead, TableRow, Typography, List, ListItem } from 'ui/atoms';
 import { TiaraMessageType, TiaraMutationStatusType } from 'api/types';
 import { InfoSection } from 'ui/molecules';
 
 import { TiaraProps } from './Tiara.types';
 
-export const Tiara = ({ mutations, sendMessage }: TiaraProps) => {
+export const Tiara = ({ mutations, validation, sendMessage }: TiaraProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
 
   return (
     <>
       <NavBreadcrumb urlBase={baseUrl} to="/tiara" title={formatMessage({ id: 'tiara.title' })} />
+      <List>
+        {validation.errors?.map(error => (
+          <ListItem>{error}</ListItem>
+        ))}
+      </List>
       {mutations.length === 0 && (
         <InfoSection>
           <Typography variant="h3">
@@ -57,18 +62,20 @@ export const Tiara = ({ mutations, sendMessage }: TiaraProps) => {
           </TableBody>
         </Table>
       )}
-      {mutations?.some(
-        ({ messageType, status }) =>
-          messageType === TiaraMessageType.Aanmelden && status === TiaraMutationStatusType.Success,
-      ) ? (
-        <Button onClick={() => sendMessage(TiaraMessageType.Wijzigen)}>
-          {formatMessage({ id: 'dictionaries.tiara.message_type.Wijzigen' })}
-        </Button>
-      ) : (
-        <Button onClick={() => sendMessage(TiaraMessageType.Aanmelden)}>
-          {formatMessage({ id: 'dictionaries.tiara.message_type.Aanmelden' })}
-        </Button>
-      )}
+      {validation.errors &&
+        validation.errors.length === 0 &&
+        (mutations?.some(
+          ({ messageType, status }) =>
+            messageType === TiaraMessageType.Aanmelden && status === TiaraMutationStatusType.Success,
+        ) ? (
+          <Button onClick={() => sendMessage(TiaraMessageType.Wijzigen)}>
+            {formatMessage({ id: 'dictionaries.tiara.message_type.Wijzigen' })}
+          </Button>
+        ) : (
+          <Button onClick={() => sendMessage(TiaraMessageType.Aanmelden)}>
+            {formatMessage({ id: 'dictionaries.tiara.message_type.Aanmelden' })}
+          </Button>
+        ))}
     </>
   );
 };

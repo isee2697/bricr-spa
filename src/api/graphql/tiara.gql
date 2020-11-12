@@ -25,6 +25,10 @@ type TiaraMutation {
     errors: [String!]
 }
 
+type TiaraValidation {
+    errors: [String!]
+}
+
 input TiaraSendMessageInput {
     entityId: ID!
     entity: TiaraEntities!
@@ -37,4 +41,5 @@ extend type Mutation {
 
 extend type Query {
     getTiaraMutations(entityId: ID!, entity: TiaraEntities): [TiaraMutation!] @auth
+    getTiaraValidation(entityId: ID!, entity: TiaraEntities): TiaraValidation! @auth
 }
