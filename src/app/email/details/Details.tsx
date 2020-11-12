@@ -18,7 +18,7 @@ import { Destinations } from './destinations/Destinations';
 export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { pinned, date } = email;
+  const { id, pinned, date } = email;
 
   const replies: EmailReply[] = [
     {
@@ -37,7 +37,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
     <Grid item xs={12}>
       <Grid container className={classes.content}>
         <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
-          <NavBreadcrumb title={formatMessage({ id: 'email.new_email' })} />
+          <NavBreadcrumb title={id} />
           <NavBreadcrumbs />
           <Box display="flex" alignItems="center">
             <IconButton variant="rounded" size="small" onClick={() => {}}>

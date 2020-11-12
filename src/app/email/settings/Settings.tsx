@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { EmailSidebarMenu } from '../emailSidebarMenu/EmailSidebarMenu';
-import { Box, Button, Card, Grid, IconButton } from 'ui/atoms';
+import { Box, Button, Card, CardContent, Grid, IconButton } from 'ui/atoms';
 import { EmailHeader } from '../emailHeader/EmailHeader';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -45,7 +45,9 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
             }
           />
           <Page withoutHeader>
-            <Card></Card>
+            <Card>
+              <CardContent></CardContent>
+            </Card>
           </Page>
         </Grid>
       </Box>

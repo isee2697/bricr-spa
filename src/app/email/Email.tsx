@@ -10,6 +10,7 @@ import { EmailProps } from './Email.types';
 import { EmailInboxContainer } from './inbox/InboxContainer';
 import { EmailSettingsContainer } from './settings/SettingsContainer';
 import { EmailDetailsContainer } from './details/DetailsContainer';
+import { EmailNewContainer } from './new/EmailNewContainer';
 
 export const Email = ({ breadcrumbs, path, entityType }: EmailProps) => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -39,6 +40,7 @@ export const Email = ({ breadcrumbs, path, entityType }: EmailProps) => {
                 />
               )}
             />
+            <Route exact path={`${path}/new`} render={() => <EmailNewContainer />} />
             <Route
               exact
               path={`${path}/:folder`}
