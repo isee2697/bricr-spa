@@ -5,7 +5,7 @@ import { Avatar, Chip, Typography } from 'ui/atoms';
 import { PersonChipProps } from './PersonChip.types';
 import { useStyles } from './PersonChip.styles';
 
-export const PersonChip = ({ name, image, label }: PersonChipProps) => {
+export const PersonChip = ({ name, image, label, onDelete }: PersonChipProps) => {
   const classes = useStyles();
 
   return (
@@ -15,9 +15,10 @@ export const PersonChip = ({ name, image, label }: PersonChipProps) => {
       </Typography>
       <Chip
         className={classes.chip}
-        avatar={<Avatar variant="square" alt={name} src={image} />}
+        avatar={image ? <Avatar variant="square" alt={name} src={image} /> : undefined}
         label={name}
         variant="outlined"
+        onDelete={onDelete}
       />
     </>
   );

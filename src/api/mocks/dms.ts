@@ -5,6 +5,7 @@ import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBo
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
+import { DmsImageItem } from 'app/dms/dmsImageLibrary/DmsImages.types';
 
 export const DMSStats: DmsStats = {
   total: {
@@ -462,5 +463,68 @@ export const ContentBlocks: DmsBlockItem[] = [
     createdAt: '2020/09/22',
     status: 'active',
     file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+  },
+];
+
+export const Images: DmsImageItem[] = [
+  {
+    id: 'dms-image-1',
+    name: 'Playground.jpg',
+    type: 'JPG',
+    size: 4000,
+    tags: ['Happy', 'Playground', 'Children'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    url: 'http://placeimg.com/104/152/arch',
+  },
+  {
+    id: 'dms-image-2',
+    name: 'River.jpg',
+    type: 'JPG',
+    size: 5000,
+    tags: ['River', 'Nature'],
+    status: 'active',
+    createdAt: '2020/09/21',
+    url: 'http://placeimg.com/104/152/arch',
+  },
+  {
+    id: 'dms-image-3',
+    name: 'Playground.jpg',
+    type: 'JPG',
+    size: 4000,
+    tags: ['Happy', 'Playground', 'Children'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    url: 'http://placeimg.com/104/152/arch',
+  },
+  {
+    id: 'dms-image-4',
+    name: 'River.jpg',
+    type: 'JPG',
+    size: 5000,
+    tags: ['River', 'Nature'],
+    status: 'active',
+    createdAt: '2020/09/21',
+    url: 'http://placeimg.com/104/152/arch',
+  },
+  {
+    id: 'dms-image-5',
+    name: 'Playground.jpg',
+    type: 'JPG',
+    size: 4000,
+    tags: ['Happy', 'Playground', 'Children'],
+    status: 'active',
+    createdAt: '2020/09/22',
+    url: 'http://placeimg.com/104/152/arch',
+  },
+  {
+    id: 'dms-image-6',
+    name: 'River.jpg',
+    type: 'JPG',
+    size: 5000,
+    tags: ['River', 'Nature'],
+    status: 'active',
+    createdAt: '2020/09/21',
+    url: 'http://placeimg.com/104/152/arch',
   },
 ];
