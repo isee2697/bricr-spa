@@ -33,7 +33,8 @@ enum ChapterOrUspType {
   Attic,
   Floor,
   Basement,
-  GroundFloor
+  GroundFloor,
+  Funda
 }
 
 enum TagType {
