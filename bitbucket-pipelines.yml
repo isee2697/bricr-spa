@@ -152,6 +152,7 @@ pipelines:
                 - npm install --save-dev cypress@4.0.2
                 - cp .env.e2e.dist ./e2e/.env
                 - npm run e2e:ci:firefox
+              size: 2x
           - step:
               name: e2e - chrome
               image: cypress/browsers:node13.6.0-chrome80-ff72
@@ -161,6 +162,7 @@ pipelines:
                 - npm install --save-dev cypress@4.0.2
                 - cp .env.e2e.dist ./e2e/.env
                 - npm run e2e:ci:chrome
+              size: 2x
 
 definitions:
   caches:
