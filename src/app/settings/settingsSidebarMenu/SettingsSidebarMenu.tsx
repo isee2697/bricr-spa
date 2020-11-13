@@ -71,6 +71,17 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         key: 'settings.menu.teams',
         items: [{ key: 'createTeam' }, ...teamItems],
       },
+      {
+        isCollapsable: true,
+        key: 'settings.menu.documents',
+        items: [
+          { key: 'lvzProperty' },
+          { key: 'lvzBog' },
+          { key: 'questionnaireProperty' },
+          { key: 'questionnaireBog' },
+          { key: 'contactTemplates' },
+        ],
+      },
     ],
   };
 
