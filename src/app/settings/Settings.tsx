@@ -14,6 +14,8 @@ import { WorkflowTemplatesContainer } from './sections/workflowTemplates/Workflo
 import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 import { SettingsProps } from './Settings.types';
 import { BillingContainer } from './sections/billing/BillingContainer';
+import { LvzPropertyContainer } from './sections/documents/lvzProperty/LvzPropertyContainer';
+import { QuestionnaireContainer } from './sections/documents/questionnaireProperty/QuestionnaireContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -44,6 +46,12 @@ export const Settings = ({ data }: SettingsProps) => {
               render={() => (
                 <TeamsGeneral hasTeams={!!(data.getTeams && data.getTeams.items && data.getTeams.items.length > 0)} />
               )}
+            />
+            <Route exact path={`${AppRoute.settings}/lvzProperty`} render={() => <LvzPropertyContainer />} />
+            <Route
+              exact
+              path={`${AppRoute.settings}/questionnaireProperty`}
+              render={() => <QuestionnaireContainer />}
             />
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
             <Route path={AppRoute.users} render={() => <UsersRouter />} />

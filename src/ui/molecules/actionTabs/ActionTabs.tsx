@@ -12,6 +12,7 @@ export const ActionTabs: <T>(p: ActionTabsProps<T>) => ReactElement<ActionTabsPr
   tabs,
   variant,
   classes: tabsClasses,
+  badgeClasses,
 }) => {
   const classes = useStyles();
 
@@ -33,7 +34,12 @@ export const ActionTabs: <T>(p: ActionTabsProps<T>) => ReactElement<ActionTabsPr
             className={tab.className}
             label={
               tab.hasBadge && tab.amount && tab.amount > 0 ? (
-                <Badge className={classes.badge} badgeContent={tab.amount} color={tab?.badgeColor || 'primary'}>
+                <Badge
+                  className={classes.badge}
+                  badgeContent={tab.amount}
+                  color={tab?.badgeColor || 'primary'}
+                  classes={{ badge: badgeClasses }}
+                >
                   {tab.label}
                 </Badge>
               ) : (

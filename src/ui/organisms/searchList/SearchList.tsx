@@ -12,6 +12,7 @@ export const SearchList = <T extends { id: string } | undefined>({
   selectedItemsIds,
   item,
   filterItem,
+  resultListLabel,
 }: SearchListProps<T>) => {
   const { formatMessage } = useLocale();
   const [value, setValue] = useState('');
@@ -81,7 +82,7 @@ export const SearchList = <T extends { id: string } | undefined>({
       )}
       <Grid item xs={12}>
         <label className={classes.listLabel}>
-          {formatMessage({ id: 'pim_details.specification.add_linked_property_modal.result_label' })}
+          {resultListLabel ?? formatMessage({ id: 'pim_details.specification.add_linked_property_modal.result_label' })}
         </label>
         <Box mt={2} className={classes.list}>
           {filteredItems.map((singleItem: T, index: number) => (

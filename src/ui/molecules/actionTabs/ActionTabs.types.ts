@@ -18,4 +18,5 @@ export type ActionTabsProps<T> = {
   classes?: {
     [key in TabsClassKey]?: string;
   };
+  badgeClasses?: string;
 };
