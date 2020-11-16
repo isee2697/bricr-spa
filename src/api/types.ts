@@ -2229,6 +2229,7 @@ export enum ChapterOrUspType {
   Floor = 'Floor',
   Basement = 'Basement',
   GroundFloor = 'GroundFloor',
+  Funda = 'Funda',
 }
 
 export enum TagType {
