@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Step, Stepper, StepButton, Typography, StepConnector } from 'ui/atoms';
 import { Page } from 'ui/templates';
+import { useLocale } from 'hooks';
 
 import { useStyles } from './CreateWizard.styles';
 import { SettingsStep } from './settingsStep/SettingsStep';
@@ -58,8 +59,9 @@ const TimelineStepConnector = withStyles(theme => ({
 }))(StepConnector);
 
 export const CreateWizard = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(3);
   const classes = useStyles();
+  const { formatMessage } = useLocale();
 
   const handleGoToNextStep = () => {
     if (activeStep < steps.length - 1) {
@@ -99,7 +101,7 @@ export const CreateWizard = () => {
               completed={index < activeStep}
               className={classes.stepLabel}
             >
-              {name}
+              {formatMessage({ id: `pim_details.allocate_results.wizard_step.${name}` })}
             </StepButton>
           </Step>
         ))}

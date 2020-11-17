@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { useLocale } from 'hooks';
 import { Box, Button, Card, CardContent, FormControlLabel, Grid, Switch, Typography } from 'ui/atoms';
 import { CreateWizardStepProps } from '../CreateWizard.types';
 import { AutosaveForm } from 'ui/organisms';
-import { CheckboxField } from 'form/fields';
 import { CriteriaOrder } from 'api/types';
 
 import { useStyles } from './SortingStep.styles';
+import { SortCriteriaItem } from './SortCriteriaItem';
 
 export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isUsingSalesSettings, setIsUsingSalesSettings] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  const sortCriterias = Object.keys(CriteriaOrder).map(key => ({
-    label: formatMessage({ id: `dictionaries.criteria_order.${key}` }),
-    value: key,
-  }));
+  const [sortCriteriaItems, setSortCriteriaItems] = useState(Object.keys(CriteriaOrder));
 
   const handleSave = async () => {
     return undefined;
+  };
+
+  const handleUpdateSortCriteriaOrder = (value: string, position: number) => {
+    const currentPosition = sortCriteriaItems.findIndex(item => item === value);
+    const items = [...sortCriteriaItems];
+    items.splice(currentPosition, 1);
+    items.splice(position, 0, value);
+    setSortCriteriaItems([...items]);
   };
 
   return (
@@ -29,9 +35,7 @@ export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProp
       <Card>
         <CardContent>
           <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap">
-            <Typography variant="h2">
-              {formatMessage({ id: 'project_details.allocate_results.sorting.title' })}
-            </Typography>
+            <Typography variant="h2">{formatMessage({ id: 'pim_details.allocate_results.sorting.title' })}</Typography>
             <FormControlLabel
               control={
                 <Switch
@@ -40,7 +44,7 @@ export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProp
                   color="primary"
                 />
               }
-              label={formatMessage({ id: 'project_details.allocate_results.sorting.use_sales_settings' })}
+              label={formatMessage({ id: 'pim_details.allocate_results.sorting.use_sales_settings' })}
               labelPlacement="start"
               className={classes.editSwitcher}
             />
@@ -58,37 +62,26 @@ export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProp
                   <Box display="flex" justifyContent="space-between">
                     <Typography variant="h3">
                       {formatMessage({
-                        id: 'project_details.allocate_results.sorting.sort_criteria_order',
+                        id: 'pim_details.allocate_results.sorting.sort_criteria_order',
                       })}
                     </Typography>
                     <Typography variant="h5" className={classes.gray}>
                       {formatMessage({
-                        id: 'project_details.allocate_results.sorting.drag_drop_in_preferred_order',
+                        id: 'pim_details.allocate_results.sorting.drag_drop_in_preferred_order',
                       })}
                     </Typography>
                   </Box>
                   <Box mt={2}>
-                    {sortCriterias.map((sortCriteria, index) => (
-                      <Box
-                        key={index}
-                        display="flex"
-                        alignItems="center"
-                        mb={sortCriterias.length - 1 === index ? 0 : 2}
-                      >
-                        <Typography variant="h4" className={classes.criteriaRowIndex}>
-                          {index + 1}
-                        </Typography>
-                        <Box width="100%" ml={2}>
-                          <CheckboxField
-                            labelPlacement="start"
-                            name="sortCriteriaOrder"
-                            label={sortCriteria.label}
-                            value={sortCriteria.value}
-                            containerClassName={classes.criteriaRow}
-                          />
-                        </Box>
-                      </Box>
-                    ))}
+                    <DndProvider backend={HTML5Backend}>
+                      {sortCriteriaItems.map((sortCriteria, index) => (
+                        <SortCriteriaItem
+                          sortCriteria={sortCriteria}
+                          index={index}
+                          disabled={!isEditing}
+                          onUpdateItemOrder={handleUpdateSortCriteriaOrder}
+                        />
+                      ))}
+                    </DndProvider>
                   </Box>
                 </Box>
               </Grid>
@@ -98,10 +91,10 @@ export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProp
       </Card>
       <Box mt={3} display="flex" justifyContent="space-between" width="100%" onClick={onPreviousStep}>
         <Button variant="outlined" color="primary">
-          {formatMessage({ id: 'project_details.allocate_results.sorting.go_to_filtering_people' })}
+          {formatMessage({ id: 'pim_details.allocate_results.sorting.go_to_conditions' })}
         </Button>
         <Button variant="outlined" color="primary" onClick={onNextStep}>
-          {formatMessage({ id: 'project_details.allocate_results.sorting.go_to_results' })}
+          {formatMessage({ id: 'pim_details.allocate_results.sorting.go_to_results' })}
         </Button>
       </Box>
     </>

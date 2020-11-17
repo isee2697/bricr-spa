@@ -70,7 +70,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   </Grid>
                 </Grid>
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id: 'pim_details.allocate_results.reservations_and_conditions.constructional_conditions',
@@ -88,7 +88,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   )}
                 />
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id:
@@ -103,7 +103,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   })}
                 />
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id: 'pim_details.allocate_results.reservations_and_conditions.financial_conditions',
@@ -121,7 +121,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   )}
                 />
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id: 'pim_details.allocate_results.reservations_and_conditions.bidding',
@@ -165,7 +165,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   </Grid>
                 </Box>
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id: 'pim_details.allocate_results.reservations_and_conditions.equity_current_home',
@@ -179,7 +179,7 @@ export const ReservationsAndConditionsStep = ({ onNextStep, onPreviousStep }: Cr
                   })}
                 />
               </Box>
-              <Box>
+              <Box mt={3}>
                 <Typography variant="h3">
                   {formatMessage({
                     id: 'pim_details.allocate_results.reservations_and_conditions.property_subject_to_mortgage',
