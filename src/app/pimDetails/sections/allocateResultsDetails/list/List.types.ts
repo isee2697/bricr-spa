@@ -18,10 +18,10 @@ export type AllocatedPropertyRelation = {
   monthlyIncomeTo: number;
   yearlyAggregateIncome: number;
   missingDocuments: string[];
-  maximumRentalPrice: number;
+  maximumMortgage: number;
   dateOfSubscription: DateTime;
-  typeOfInterest: string;
   preference: number;
+  houseForSale: boolean;
   relations: Pick<Profile, 'firstName' | 'lastName' | 'image'>[];
 };
 

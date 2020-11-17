@@ -11,6 +11,7 @@ import { SettingsStep } from './settingsStep/SettingsStep';
 import { FilteringPeopleStep } from './filteringPeopleStep/FilteringPeopleStep';
 import { SortingStep } from './sortingStep/SortingStep';
 import { ReservationsAndConditionsStep } from './reservationsAndConditionsStep/ReservationsAndConditionsStep';
+import { CreateWizardProps } from './CreateWizard.types';
 
 const steps = [
   {
@@ -58,8 +59,8 @@ const TimelineStepConnector = withStyles(theme => ({
   },
 }))(StepConnector);
 
-export const CreateWizard = () => {
-  const [activeStep, setActiveStep] = useState(3);
+export const CreateWizard = ({ onCloseWizard }: CreateWizardProps) => {
+  const [activeStep, setActiveStep] = useState(0);
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -72,6 +73,14 @@ export const CreateWizard = () => {
   const handleGoToPreviousStep = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
+    }
+  };
+
+  const handleNavigateStep = (step: number) => {
+    if (step === 4) {
+      onCloseWizard();
+    } else {
+      setActiveStep(step);
     }
   };
 
@@ -88,7 +97,7 @@ export const CreateWizard = () => {
         {steps.map(({ name }, index) => (
           <Step key={name} className={clsx(classes.step, index < activeStep && 'completed')}>
             <StepButton
-              onClick={() => setActiveStep(index)}
+              onClick={() => handleNavigateStep(index)}
               optional={
                 index <= activeStep && (
                   <>

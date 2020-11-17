@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
 
-import { Avatar, Box, Checkbox, Chip, Emoji, Grid, IconButton, PersonChip, Typography, RankingIcon } from 'ui/atoms';
+import { Avatar, Box, Checkbox, Emoji, Grid, IconButton, PersonChip, Typography, RankingIcon } from 'ui/atoms';
 import { AllocateResultsRelationRanking } from '../../AllocateResultsDetails.types';
 import { useLocale } from 'hooks';
 import { ArrowDownIcon, ArrowUpIcon, CheckIcon, MenuIcon } from 'ui/atoms/icons';
@@ -48,7 +48,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                   </Box>
                   <Box mr={2}>
                     <Typography variant="h6" className={clsx(classes.fontWeightBold, classes.gray)}>
-                      {formatMessage({ id: 'project_details.allocate_results_details.rooms' }, { count: item.rooms })}
+                      {formatMessage({ id: 'pim_details.allocate_results_details.rooms' }, { count: item.rooms })}
                     </Typography>
                   </Box>
                   {item.propertyTypes.map((property, index) => (
@@ -78,21 +78,13 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                 <MenuIcon />
               </IconButton>
             </Box>
-            <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
-              <Box display="flex" alignItems="flex-end">
-                <Box mr={1}>
-                  <RankingIcon rankings={highRankedRelations.map(relation => relation.ranking)} />
-                </Box>
-                <Typography variant="h6" className={classes.gray}>
-                  + {item.allocatedRelations.length}
-                </Typography>
+            <Box mt={1} display="flex" alignItems="flex-end">
+              <Box mr={1}>
+                <RankingIcon rankings={highRankedRelations.map(relation => relation.ranking)} />
               </Box>
-              <Chip
-                size="small"
-                variant="outlined"
-                label={formatMessage({ id: 'project_details.allocate_results_details.name_objecttype' })}
-                className={classes.gray}
-              />
+              <Typography variant="h6" className={classes.gray}>
+                + {item.allocatedRelations.length}
+              </Typography>
             </Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
               <Typography variant="h3" className={classes.fontWeightBold}>
@@ -127,7 +119,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                     <Grid item xs={4}>
                       <Box>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.relation' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.relation' })}
                         </Typography>
                         <PersonChip
                           name={`${relation.relation.firstName} ${relation.relation.lastName}`}
@@ -136,7 +128,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.monthly_income_from' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.monthly_income_from' })}
                         </Typography>
                         <Typography variant="h4">
                           {relation.monthlyIncomeFrom ? `€ ${relation.monthlyIncomeFrom}` : '-'}
@@ -144,15 +136,17 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.missing_documents' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.missing_documents' })}
                         </Typography>
                         <Typography variant="h4">
-                          {relation.missingDocuments ? `${relation.missingDocuments}` : '-'}
+                          {relation.missingDocuments && relation.missingDocuments.length > 0
+                            ? `${relation.missingDocuments.length}`
+                            : '-'}
                         </Typography>
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.missing_documents' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.date_of_subscription' })}
                         </Typography>
                         <Typography variant="h4">
                           {relation.dateOfSubscription
@@ -164,7 +158,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                     <Grid item xs={4}>
                       <Box>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.partner' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.partner' })}
                         </Typography>
                         <PersonChip
                           name={`${relation.partner.firstName} ${relation.partner.lastName}`}
@@ -173,7 +167,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.monthly_income_to' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.monthly_income_to' })}
                         </Typography>
                         <Typography variant="h4">
                           {relation.monthlyIncomeTo ? `€ ${relation.monthlyIncomeTo}` : '-'}
@@ -181,28 +175,26 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.missing_documents' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.missing_documents' })}
                         </Typography>
                         <Typography variant="h4">
-                          {relation.missingDocuments ? `${relation.missingDocuments}` : '-'}
+                          {relation.missingDocuments && relation.missingDocuments.length > 0
+                            ? `${relation.missingDocuments.length}`
+                            : '-'}
                         </Typography>
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.type_of_interest' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.preference_this_property' })}
                         </Typography>
-                        <Typography variant="h4">
-                          {relation.typeOfInterest
-                            ? formatMessage({ id: `dictionaries.type_of_interest.${relation.typeOfInterest}` })
-                            : '-'}
-                        </Typography>
+                        <Typography variant="h4">{relation.preference ? `${relation.preference}` : '-'}</Typography>
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
                       <Box display="flex" justifyContent="space-between">
                         <Box>
                           <Typography variant="h6" className={classes.gray}>
-                            {formatMessage({ id: 'project_details.allocate_results_details.role' })}
+                            {formatMessage({ id: 'pim_details.allocate_results_details.role' })}
                           </Typography>
                           <Typography variant="h4">
                             {relation.role ? formatMessage({ id: `dictionaries.person_role.${relation.role}` }) : '-'}
@@ -210,7 +202,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                         </Box>
                         <Box>
                           <Typography variant="h6" className={classes.gray}>
-                            {formatMessage({ id: 'project_details.allocate_results_details.accepted' })}
+                            {formatMessage({ id: 'pim_details.allocate_results_details.accepted' })}
                           </Typography>
                           {relation.accepted && (
                             <Box className={classes.checkIconWrapper}>
@@ -221,7 +213,7 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.yearly_aggregate_income' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.yearly_aggregate_income' })}
                         </Typography>
                         <Typography variant="h4">
                           {relation.yearlyAggregateIncome ? `€ ${relation.yearlyAggregateIncome}` : '-'}
@@ -229,17 +221,21 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.maximum_rental_price' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.maximum_mortgage' })}
                         </Typography>
                         <Typography variant="h4">
-                          {relation.maximumRentalPrice ? `${relation.maximumRentalPrice}` : '-'}
+                          {relation.maximumMortgage ? `€ ${relation.maximumMortgage}` : '-'}
                         </Typography>
                       </Box>
                       <Box mt={1.5}>
                         <Typography variant="h6" className={classes.gray}>
-                          {formatMessage({ id: 'project_details.allocate_results_details.preference_this_property' })}
+                          {formatMessage({ id: 'pim_details.allocate_results_details.type_of_interest' })}
                         </Typography>
-                        <Typography variant="h4">{relation.preference ? `${relation.preference}` : '-'}</Typography>
+                        <Typography variant="h4">
+                          {relation.houseForSale
+                            ? formatMessage({ id: 'common.yes' })
+                            : formatMessage({ id: 'common.no' })}
+                        </Typography>
                       </Box>
                     </Grid>
                   </Grid>
@@ -271,9 +267,11 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                       </Grid>
                       <Grid item xs={3}>
                         <Typography variant="h5">
-                          {relation.typeOfInterest
-                            ? formatMessage({ id: `dictionaries.type_of_interest.${relation.typeOfInterest}` })
-                            : '-'}
+                          {relation.houseForSale
+                            ? formatMessage({
+                                id: 'pim_details.allocate_results_details.house_for_sale.house_for_sale',
+                              })
+                            : formatMessage({ id: 'pim_details.allocate_results_details.house_for_sale.resident' })}
                         </Typography>
                       </Grid>
                       <Grid item xs={2}>
@@ -304,8 +302,8 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                   {formatMessage(
                     {
                       id: isShowLowRankedRelations
-                        ? 'project_details.allocate_results_details.show_relations'
-                        : 'project_details.allocate_results_details.hide_relations',
+                        ? 'pim_details.allocate_results_details.show_relations'
+                        : 'pim_details.allocate_results_details.hide_relations',
                     },
                     { count: lowRankedRelations.length },
                   )}
