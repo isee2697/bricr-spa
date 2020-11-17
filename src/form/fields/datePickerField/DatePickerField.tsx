@@ -33,6 +33,7 @@ export const DatePickerField = ({
 
   return (
     <DatePicker
+      label={label}
       error={hasError}
       helperText={
         hasError
