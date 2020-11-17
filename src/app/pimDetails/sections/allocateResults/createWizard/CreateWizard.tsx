@@ -54,7 +54,7 @@ const TimelineStepConnector = withStyles(theme => ({
   line: {
     borderColor: theme.palette.white.main,
     borderTopWidth: 2,
-    minHeight: 66,
+    minHeight: theme.spacing(8.25),
   },
 }))(StepConnector);
 
