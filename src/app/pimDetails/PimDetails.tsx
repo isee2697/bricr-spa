@@ -17,6 +17,8 @@ import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetai
 import { AogSpaceType, TiaraEntities } from 'api/types';
 import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
 
+import { AllocateResultsDetailsContainer } from './sections/allocateResultsDetails/AllocateResultsDetailsContainer';
+import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
 import { CommercialSpacesContainer } from './sections/commercial/CommercialSpacesContainer';
@@ -62,6 +64,7 @@ export const PimDetails = ({
           data={data}
           onHide={handleSidebarHide}
           objectTypeName={objectTypeName}
+          allocateResultsNumber={5}
         />
         <Box flex={1}>
           <Grid container className={classes.content}>
@@ -189,6 +192,13 @@ export const PimDetails = ({
                     />
                   )}
                 />
+                <Route
+                  path={`${path}/allocateResults`}
+                  render={() => (
+                    <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  )}
+                />
+                <Route path={`${path}/allocateResults/:id`} render={() => <AllocateResultsDetailsContainer />} />
                 {Object.values(AogSpaceType).map(aogSpaceType => (
                   <Route
                     key={aogSpaceType}
