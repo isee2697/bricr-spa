@@ -11,7 +11,7 @@ import { CreateWizard } from './createWizard/CreateWizard';
 
 export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateResultsProps) => {
   const { formatMessage } = useLocale();
-  const [isAllocating, setIsAllocating] = useState(true);
+  const [isAllocating, setIsAllocating] = useState(false);
 
   return (
     <Grid item xs={12}>
@@ -37,7 +37,7 @@ export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateRes
           )
         }
       />
-      {isAllocating && <CreateWizard />}
+      {isAllocating && <CreateWizard onCloseWizard={() => setIsAllocating(false)} />}
       {!isAllocating && <AllocateResultsList />}
     </Grid>
   );

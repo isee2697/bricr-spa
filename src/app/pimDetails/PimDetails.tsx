@@ -193,12 +193,21 @@ export const PimDetails = ({
                   )}
                 />
                 <Route
+                  exact
                   path={`${path}/allocateResults`}
                   render={() => (
                     <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                   )}
                 />
-                <Route path={`${path}/allocateResults/:id`} render={() => <AllocateResultsDetailsContainer />} />
+                <Route
+                  path={`${path}/allocateResults/:id`}
+                  render={() => (
+                    <AllocateResultsDetailsContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                    />
+                  )}
+                />
                 {Object.values(AogSpaceType).map(aogSpaceType => (
                   <Route
                     key={aogSpaceType}
