@@ -14,6 +14,10 @@ export const useStyles = makeStyles(theme => ({
       borderStyle: 'solid',
       borderWidth: theme.spacing(0.125),
     },
+
+    '&.noPadding': {
+      padding: 0,
+    },
   },
   emoji: {
     fontSize: 64,

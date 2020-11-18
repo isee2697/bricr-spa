@@ -79,7 +79,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
           { key: 'lvzBog' },
           { key: 'questionnaireProperty' },
           { key: 'questionnaireBog' },
-          { key: 'contactTemplates' },
+          { key: 'contractTemplates' },
         ],
       },
     ],

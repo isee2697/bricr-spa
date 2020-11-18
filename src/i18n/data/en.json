@@ -2957,5 +2957,9 @@
   "sales.dashboard.meta.leads": "Leads",
   "sales.dashboard.meta.acquisition": "Acquisition",
   "sales.dashboard.meta.quotation": "Quotation",
-  "sales.dashboard.meta.orders": "Orders"
+  "sales.dashboard.meta.orders": "Orders",
+  "settings.contract_templates_details.fields": "Fields",
+  "settings.contract_templates_details.search_placeholder": "Search",
+  "dictionaries.contract_templates_details.serviceCosts": "Service costs",
+  "dictionaries.contract_templates_details.exceptionalProvisions": "Exceptional provisions"
 }
