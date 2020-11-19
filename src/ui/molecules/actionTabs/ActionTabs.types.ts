@@ -7,6 +7,7 @@ export type ActionTab = TabProps & {
   hasBadge?: boolean;
   badgeColor?: BadgeProps['color'];
   label: string;
+  badgeClass?: string;
 };
 
 export type ActionTabsProps<T> = {

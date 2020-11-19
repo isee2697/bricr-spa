@@ -6,6 +6,12 @@ import {
   SalesAcquisitionInterest,
   SalesAcquisitionStepAction,
 } from 'app/sales/salesAcquisition/SalesAcquisition.types';
+import { SalesOrder, SalesOrderInterest } from 'app/sales/orders/Orders.types';
+import {
+  SalesQuotation,
+  SalesQuotationInterest,
+  SalesQuotationStepAction,
+} from 'app/sales/quotations/Quotations.types';
 
 export const SALES_LEADS: SalesLead[] = [
   {
@@ -181,6 +187,231 @@ export const SALES_ACQUISITION: SalesAcquisition[] = [
         action: SalesAcquisitionStepAction.Appointment,
         date: DateTime.local(),
         status: 'active',
+      },
+    ],
+  },
+];
+
+export const SALES_ORDERS: SalesOrder[] = [
+  {
+    id: '0001',
+    image: 'http://placeimg.com/160/152/people',
+    name: 'Christian van Gils',
+    number: '06-48764044',
+    email: 'miesvanderrohe@gmail.com',
+    partner: {
+      image: 'http://placeimg.com/160/152/people',
+      name: 'Anna Kowalska',
+    },
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    order: {
+      id: '987652',
+      image: 'http://placeimg.com/72/45/arch',
+      interests: [SalesOrderInterest.SellingHome],
+      address: 'Waterlooplein 887, Geldrop',
+    },
+  },
+];
+
+export const SALES_QUOTATIONS: SalesQuotation[] = [
+  {
+    id: '9002008',
+    image: 'http://placeimg.com/160/152/people',
+    address: 'Isenburgstraat 36, Breda',
+    version: 1,
+    partners: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Anna Kowalska',
+      },
+    ],
+    interest: SalesQuotationInterest.SellingHome,
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    steps: [
+      {
+        action: SalesQuotationStepAction.Created,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Sent,
+        date: DateTime.local(),
+        status: 'active',
+      },
+      {
+        action: SalesQuotationStepAction.Pending,
+        status: 'pending',
+      },
+    ],
+  },
+  {
+    id: '9002004',
+    image: 'http://placeimg.com/160/152/people',
+    address: 'Isenburgstraat 36, Breda',
+    version: 1,
+    partners: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Anna Kowalska',
+      },
+    ],
+    interest: SalesQuotationInterest.SellingHome,
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    steps: [
+      {
+        action: SalesQuotationStepAction.Created,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Sent,
+        date: DateTime.local(),
+        status: 'active',
+      },
+      {
+        action: SalesQuotationStepAction.Pending,
+        status: 'pending',
+      },
+    ],
+  },
+  {
+    id: '9002007',
+    image: 'http://placeimg.com/160/152/people',
+    address: 'Isenburgstraat 36, Breda',
+    version: 1,
+    partners: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Anna Kowalska',
+      },
+    ],
+    interest: SalesQuotationInterest.SellingHome,
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    steps: [
+      {
+        action: SalesQuotationStepAction.Created,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Sent,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Accepted,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+    ],
+  },
+  {
+    id: '9002006',
+    image: 'http://placeimg.com/160/152/people',
+    address: 'Isenburgstraat 36, Breda',
+    version: 1,
+    partners: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Anna Kowalska',
+      },
+    ],
+    interest: SalesQuotationInterest.SellingHome,
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    steps: [
+      {
+        action: SalesQuotationStepAction.Created,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Sent,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Declined,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+    ],
+  },
+  {
+    id: '9002005',
+    image: 'http://placeimg.com/160/152/people',
+    address: 'Isenburgstraat 36, Breda',
+    version: 1,
+    partners: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Anna Kowalska',
+      },
+    ],
+    interest: SalesQuotationInterest.SellingHome,
+    accountManagers: [
+      {
+        image: 'http://placeimg.com/160/152/people',
+        name: 'Christian van Gils',
+      },
+      {
+        name: 'Rens van Gils',
+      },
+    ],
+    steps: [
+      {
+        action: SalesQuotationStepAction.Created,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Sent,
+        date: DateTime.local(),
+        status: 'completed',
+      },
+      {
+        action: SalesQuotationStepAction.Declined,
+        date: DateTime.local(),
+        status: 'completed',
       },
     ],
   },

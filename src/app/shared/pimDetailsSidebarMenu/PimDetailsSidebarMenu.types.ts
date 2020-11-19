@@ -5,6 +5,7 @@ export type PimDetailsSidebarMenuProps = {
   isVisible: boolean;
   data?: PimOverallInfoQuery;
   objectTypeName?: string;
+  allocateResultsNumber?: number;
 };
 
 export type SubMenuItem = {

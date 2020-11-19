@@ -12,6 +12,8 @@ import { useStyles } from './Sales.styles';
 import { SalesDashboard } from './salesDashboard/SalesDashboard';
 import { SalesLeadsContainer } from './salesLeads/SalesLeadsContainer';
 import { SalesAcquisitionContainer } from './salesAcquisition/SalesAcquisitionContainer';
+import { OrdersContainer } from './orders/OrdersContainer';
+import { QuotationsContainer } from './quotations/QuotationsContainer';
 
 export const Sales = ({ path, entityType }: SalesProps) => {
   const { formatMessage } = useLocale();
@@ -49,6 +51,16 @@ export const Sales = ({ path, entityType }: SalesProps) => {
                 render={() => (
                   <SalesAcquisitionContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
                 )}
+              />
+              <Route
+                path={`${path}/quotation`}
+                render={() => (
+                  <QuotationsContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                )}
+              />
+              <Route
+                path={`${path}/orders`}
+                render={() => <OrdersContainer onSidebarOpen={handleSidebarHide} isSidebarVisible={isSidebarVisible} />}
               />
               <Redirect to={{ pathname: `${path}/dashboard` }} />
             </Switch>

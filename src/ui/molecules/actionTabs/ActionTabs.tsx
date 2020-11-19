@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import clsx from 'classnames';
 
 import { Tabs, Tab, Badge } from 'ui/atoms';
 
@@ -38,7 +39,7 @@ export const ActionTabs: <T>(p: ActionTabsProps<T>) => ReactElement<ActionTabsPr
                   className={classes.badge}
                   badgeContent={tab.amount}
                   color={tab?.badgeColor || 'primary'}
-                  classes={{ badge: badgeClasses }}
+                  classes={{ badge: clsx(badgeClasses, tab.badgeClass) }}
                 >
                   {tab.label}
                 </Badge>
