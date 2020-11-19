@@ -9,13 +9,16 @@ import { UsersRouter } from 'app/settings/sections/users/UsersRouter';
 
 import { TeamsGeneral } from './sections/teams/TeamsGeneral';
 import { TeamContainer } from './sections/teams/TeamContainer';
-import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 import { WorkflowTemplatesContainer } from './sections/workflowTemplates/WorkflowTemplatesContainer';
 import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 import { SettingsProps } from './Settings.types';
 import { BillingContainer } from './sections/billing/BillingContainer';
 import { LvzPropertyContainer } from './sections/documents/lvzProperty/LvzPropertyContainer';
 import { QuestionnaireContainer } from './sections/documents/questionnaireProperty/QuestionnaireContainer';
+import { ContractTemplatesContainer } from './sections/documents/contractTemplates/ContractTemplatesContainer';
+import { DashboardContainer } from './sections/dashboard/DashboardContainer';
+import { ContractTemplatesDetailsContainer } from './sections/documents/contractTemplatesDetails/ContractTemplatesDetailsContainer';
+import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -53,9 +56,15 @@ export const Settings = ({ data }: SettingsProps) => {
               path={`${AppRoute.settings}/questionnaireProperty`}
               render={() => <QuestionnaireContainer />}
             />
+            <Route
+              exact
+              path={`${AppRoute.settings}/contractTemplates`}
+              render={() => <ContractTemplatesContainer />}
+            />
+            <Route exact path={AppRoute.contractTemplates} render={() => <ContractTemplatesDetailsContainer />} />
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
             <Route path={AppRoute.users} render={() => <UsersRouter />} />
-            <Route exact path={AppRoute.settings} render={() => <>Dashboard</>} />
+            <Route exact path={AppRoute.settings} render={() => <DashboardContainer />} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>
