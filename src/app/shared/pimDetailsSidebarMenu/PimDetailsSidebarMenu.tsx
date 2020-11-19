@@ -8,7 +8,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
-import { BuildingIcon, ComplexBuildingIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ComplexBuildingIcon, CrmIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { PimTypes } from 'app/pim/dictionaries';
 
@@ -177,7 +177,20 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
             ],
             icon: <MailIcon />,
           },
-          { key: 'documents' },
+          {
+            key: 'documents',
+            subItems: [
+              {
+                id: 'checklist',
+                label: 'pim_details.documents.checklist.title',
+              },
+              {
+                id: 'audit_checklist',
+                label: 'pim_details.documents.audit_checklist.menu_title',
+              },
+            ],
+            icon: <CrmIcon />,
+          },
           { key: 'contacts' },
           { key: 'marketing' },
           { key: 'reactions' },

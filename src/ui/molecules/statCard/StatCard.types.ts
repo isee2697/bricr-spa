@@ -10,4 +10,5 @@ export type StatCardProps = {
   optionalValue?: number;
   optionalValueEndAdornment?: ReactNode;
   showStatIcon?: boolean;
+  placeholder?: string;
 };

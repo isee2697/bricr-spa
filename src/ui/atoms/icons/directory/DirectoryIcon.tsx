@@ -72,9 +72,9 @@ export const DirectoryIcon = (props: DirectoryIconProps) => {
           width="93"
           height="78"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
           <feOffset dy="4" />
           <feGaussianBlur stdDeviation="2" />
@@ -83,14 +83,10 @@ export const DirectoryIcon = (props: DirectoryIconProps) => {
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
         </filter>
         <linearGradient id={paintId} x1="12.5" y1="16" x2="84" y2="65" gradientUnits="userSpaceOnUse">
-          <stop stop-color={color[100]} />
-          <stop offset="1" stop-color={color[500]} />
+          <stop stopColor={color[100]} />
+          <stop offset="1" stopColor={color[500]} />
         </linearGradient>
       </defs>
     </SvgIcon>
   );
-
-  /* <svg width="93" height="74" viewBox="0 0 93 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-</svg> */
 };

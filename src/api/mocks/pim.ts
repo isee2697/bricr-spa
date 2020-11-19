@@ -16,6 +16,7 @@ import {
   RealEstateType,
   ServiceType,
 } from 'api/types';
+import { DocumentFolderType, DocumentMeta } from 'app/pimDetails/sections/documents/Documents.types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -226,4 +227,102 @@ export const EMPTY_READING = {
   feedInId: null,
   id: null,
   value: null,
+};
+
+export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: DocumentMeta[] } = {
+  documents: [
+    {
+      id: 'folder_1_1',
+      name: 'Contracts',
+      documents: [
+        {
+          id: 'doc_1',
+          name: 'Akte van levering.pdf',
+          dateCreated: new Date('2020/09/22'),
+          size: 34223,
+          type: 'pdf',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.0',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          contractType: 'Lijst van Zaken',
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+        },
+        {
+          id: 'doc_2',
+          name: 'Bewijs van inschrijving.pdf',
+          dateCreated: new Date('2020/09/23'),
+          size: 32223,
+          type: 'pdf',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.1',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          contractType: 'Sales contract',
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+          completeness: 70,
+        },
+        {
+          id: 'doc_3',
+          name: 'Inschrijfformulier.docx',
+          dateCreated: new Date('2010/09/16'),
+          size: 4223,
+          type: 'docx',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.2',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          contractType: 'Sales contract',
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+          completeness: 70,
+        },
+      ],
+    },
+    {
+      id: 'folder_1_2',
+      name: 'Documents',
+    },
+    {
+      id: 'folder_1_3',
+      name: 'Images',
+    },
+    {
+      id: 'folder_1_4',
+      name: 'Brochures',
+    },
+    {
+      id: 'folder_1_5',
+      name: 'New Folder',
+      isCustom: true,
+    },
+  ],
+  metaInfo: [
+    {
+      title: 'requested',
+      value: 231,
+      percent: 15,
+      type: 'success',
+    },
+    {
+      title: 'received',
+      value: 2,
+      percent: 0,
+      type: 'warning',
+    },
+    {
+      title: 'declined',
+      value: 2,
+      percent: 90,
+      type: 'error',
+    },
+    {
+      title: 'accepted',
+      value: 4,
+      percent: 5,
+      type: 'success',
+    },
+  ],
 };

@@ -27,4 +27,9 @@ export const useStyles = makeStyles(theme => ({
   error: {
     color: theme.palette.red.main,
   },
+  placeholder: {
+    color: theme.palette.gray.main,
+    width: '100%',
+    textAlign: 'right',
+  },
 }));

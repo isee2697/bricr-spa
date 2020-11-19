@@ -25,6 +25,7 @@ export const StatCard = ({
   optionalValueEndAdornment,
   variant = 'info',
   showStatIcon = true,
+  placeholder,
 }: StatCardProps) => {
   const classes = useStyles();
 
@@ -52,6 +53,11 @@ export const StatCard = ({
           </Typography>
           {showStatIcon && statIcon[variant]}
         </div>
+        {placeholder && (
+          <Typography component="div" variant="caption" className={classes.placeholder}>
+            {placeholder}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );
