@@ -63,7 +63,7 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
           className={classes.rowContent}
           width="100%"
           mt={2}
-          onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', salesAcquisition.id))}
+          onClick={() => push(AppRoute.salesDetails.replace(':id', salesAcquisition.id))}
         >
           <Box width="100%" display="flex" alignItems="flex-start">
             <Box width="100%" display="flex" alignItems="flex-start">

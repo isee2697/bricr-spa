@@ -10,6 +10,7 @@ import { AddIcon, LocationIcon, ManageIcon, SearchIcon, SettingsIcon } from 'ui/
 import { SalesHeader } from '../salesHeader/SalesHeader';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
+import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 
 import { SalesAcquisitionProps } from './SalesAcquisition.types';
 import { SalesAcquisitionTabs } from './tabs/Tabs';
@@ -48,7 +49,7 @@ export const SalesAcquisition = (props: SalesAcquisitionProps) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={() => open('add-sales-acquisition')}
+              onClick={() => open('add-sales-item', { salesItemType: SalesItemType.Acquisition })}
               startIcon={<AddIcon color="inherit" />}
               size="small"
             >
