@@ -16,6 +16,7 @@ export type MenuItem = {
   subItems?: SubMenuItem[];
   count?: number;
   icon?: ReactNode;
+  hideIcon?: boolean;
   title?: string;
   onClick?: VoidFunction;
 };

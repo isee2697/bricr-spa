@@ -9,6 +9,7 @@ import { MovePimModalContainer } from './shared/movePimModal/MovePimModalContain
 import { AddCrmRelationModalContainer } from './shared/addCrmRelationModal/AddCrmRelationModalContainer';
 import { CreateNewTaskModalContainer } from './shared/createNewTaskModal/CreateNewTaskModalContainer';
 import { AddCrmTimelineModalContainer } from './shared/addCrmTimelineModal/AddCrmTimelineModalContainer';
+import { AddSalesItemModalContainer } from './shared/addSalesItemModal/AddSalesItemModalContainer';
 
 export const App = () => (
   <>
@@ -18,6 +19,7 @@ export const App = () => (
     <AddCrmRelationModalContainer />
     <CreateNewTaskModalContainer />
     <AddCrmTimelineModalContainer />
+    <AddSalesItemModalContainer />
     <Snackbar />
     <Intercom />
   </>

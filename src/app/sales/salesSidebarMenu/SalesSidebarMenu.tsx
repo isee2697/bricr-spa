@@ -3,7 +3,6 @@ import { useRouteMatch } from 'react-router-dom';
 
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { SidebarMenu } from 'ui/molecules';
-import { Box } from 'ui/atoms';
 
 import { SalesSidebarMenuProps } from './SalesSidebarMenu.types';
 
@@ -42,13 +41,5 @@ export const SalesSidebarMenu = ({ onHide, isVisible }: SalesSidebarMenuProps) =
     ],
   };
 
-  return (
-    <SidebarMenu
-      onHide={onHide}
-      isVisible={isVisible}
-      translationPrefix="sales.menu"
-      menu={menu}
-      menuTitle={<Box mb={6} />}
-    />
-  );
+  return <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="sales.menu" menu={menu} />;
 };
