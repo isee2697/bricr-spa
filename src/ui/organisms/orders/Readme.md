@@ -1,9 +1,9 @@
-Example of Orders components
+Example of Quotations components
 
 ```jsx harmony
 import { Tabs, Tab } from 'ui/atoms';
 import { Order } from 'ui/molecules';
-import { Orders } from 'ui/organisms';
+import { Quotations } from 'ui/organisms';
 
 const ordersData = [
   {
@@ -34,7 +34,7 @@ const ordersData = [
 ];
 
 <>
-  <Orders 
+  <Quotations 
     onAddClick={() => {}} 
     onMoreClick={() => {}} 
     onManageClick={() => {}}
@@ -59,6 +59,6 @@ const ordersData = [
         <div>{order.addressSecondLine}</div>
       </Order>
     ))}
-  </Orders>
+  </Quotations>
 </>
 ```
