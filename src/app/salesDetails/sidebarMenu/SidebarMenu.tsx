@@ -29,39 +29,39 @@ export const SalesDetailsSidebarMenu = ({ onHide, isVisible }: SalesDetailsSideb
           },
           {
             key: 'general',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'client',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'contracts',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'acquisitionDetails',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'quotationDetails',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'salesDetails',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'brokerage',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'costs',
-            icon: <></>,
+            hideIcon: true,
           },
           {
             key: 'dates',
-            icon: <></>,
+            hideIcon: true,
           },
         ],
       },

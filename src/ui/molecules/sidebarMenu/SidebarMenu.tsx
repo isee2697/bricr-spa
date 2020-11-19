@@ -170,7 +170,7 @@ export const SidebarMenu = ({
                         <SideMenuItem
                           key={item.key}
                           itemKey={item.key}
-                          icon={item.icon ? item.icon : <SaleIcon />}
+                          icon={item.icon ? item.icon : item.hideIcon ? <></> : <SaleIcon />}
                           title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
                           selected={pathname.startsWith(`${menu.url}/${item.key}`)}
                           badge={item.count}
