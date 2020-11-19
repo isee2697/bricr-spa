@@ -110,6 +110,7 @@ export type Mutation = {
   createCrm: CrmGeneral;
   createEmailAddress: Profile;
   createNcp: NcpGeneral;
+  createNotification?: Maybe<Notification>;
   createObjectType: ObjectTypeGeneral;
   createPhoneNumber: Profile;
   createPim?: Maybe<Pim>;
@@ -429,6 +430,10 @@ export type MutationCreateEmailAddressArgs = {
 
 export type MutationCreateNcpArgs = {
   input: CreateNcpInput;
+};
+
+export type MutationCreateNotificationArgs = {
+  input: CreateNotificationInput;
 };
 
 export type MutationCreateObjectTypeArgs = {
@@ -2716,6 +2721,7 @@ export enum NotificationType {
   InvitedToProject = 'InvitedToProject',
   RemovedUserFromProject = 'RemovedUserFromProject',
   AcceptedInviteToProject = 'AcceptedInviteToProject',
+  TiaraMutationUpdate = 'TiaraMutationUpdate',
 }
 
 export type Notification = {

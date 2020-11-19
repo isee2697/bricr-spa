@@ -7,6 +7,7 @@ import { Box, Checkbox, IconButton, Typography, UserAvatar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { DeleteIcon, FollowUpIcon } from 'ui/atoms/icons';
 import { NotificationType } from 'api/types';
+import { TiaraMutationUpdatedNotificationsGroupItemContainer } from 'app/notifications/tiaraMutationUpdatedNotificationsGroupItem/TiaraMutationUpdatedNotificationsGroupItemContainer';
 
 import { useStyles } from './Group.styles';
 import { GroupProps, TaskAssignedNotificationGroupItemProps } from './Group.types';
@@ -101,6 +102,9 @@ export const Group = ({
             >
               {type === NotificationType.TaskAssigned && (
                 <TaskAssignedNotificationsGroupItem data={data} dateCreated={dateCreated} onNavigate={handleNavigate} />
+              )}
+              {type === NotificationType.TiaraMutationUpdate && (
+                <TiaraMutationUpdatedNotificationsGroupItemContainer data={data} />
               )}
             </Box>
             <IconButton size="small" variant="rounded" onClick={() => onDeleteNotification(id)}>
