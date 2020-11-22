@@ -28,6 +28,7 @@ export type DmsFolderType = {
   name: string;
   folders?: DmsFolderType[];
   documents?: DmsDocument[];
+  isCustom?: boolean;
 };
 
 export type DmsFolderStats = {

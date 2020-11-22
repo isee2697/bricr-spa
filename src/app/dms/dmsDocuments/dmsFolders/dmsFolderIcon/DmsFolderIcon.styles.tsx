@@ -12,6 +12,24 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     cursor: 'pointer',
+    '&:hover .MuiBadge-root': {
+      display: 'block',
+    },
+  },
+  removeBadge: {
+    position: 'absolute',
+    zIndex: 1,
+    top: theme.spacing(1),
+    right: theme.spacing(0.5),
+    cursor: 'pointer',
+    display: 'none',
+    '& svg': {
+      color: theme.palette.white.main,
+      fontSize: '0.75rem',
+    },
+    '& path': {
+      fill: theme.palette.white.main,
+    },
   },
   icon: {
     position: 'absolute',
@@ -51,5 +69,17 @@ export const useStyles = makeStyles(theme => ({
     top: theme.spacing(-0.5),
     width: theme.spacing(10),
     height: theme.spacing(7),
+  },
+  editBox: {
+    width: theme.spacing(11),
+    border: `${theme.spacing(0.125)}px solid #28B8FC`,
+    height: theme.spacing(2),
+    textAlign: 'center',
+    fontSize: theme.typography.h6.fontSize,
+    lineHeight: theme.typography.h6.lineHeight,
+    outline: 'none',
+  },
+  hidden: {
+    display: 'none',
   },
 }));

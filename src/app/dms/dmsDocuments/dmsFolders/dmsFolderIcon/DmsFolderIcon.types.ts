@@ -8,4 +8,6 @@ export type DmsFolderIconProps = {
   isOpened?: boolean;
   isAdd?: boolean;
   onClick?: (e: React.MouseEvent) => void;
+  onRemove?: VoidFunction;
+  onRename?: (name: string) => void;
 };
