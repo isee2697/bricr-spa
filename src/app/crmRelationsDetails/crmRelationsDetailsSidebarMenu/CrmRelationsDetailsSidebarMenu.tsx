@@ -5,6 +5,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';
 import { SidebarTitleTile, UserAvatar } from 'ui/atoms';
+import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { CRM_RELATIONS } from 'api/mocks/crm-relation';
 
 import { CrmRelationsDetailsSidebarMenuProps } from './CrmRelationsDetailsSidebarMenu.types';
@@ -18,7 +19,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
   const { url } = useRouteMatch();
   const params = useParams();
 
-  const menu = {
+  const menu: SidebarMenuType = {
     url,
     back: {
       url: getBackUrl(params),
@@ -27,7 +28,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
     groups: [
       {
         items: [
-          { key: 'dashboard', selected: true },
+          { key: 'dashboard' },
           { key: 'timeline' },
           { key: 'summary' },
           {
@@ -51,6 +52,31 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
           { key: 'personal_information_home_situation' },
           { key: 'personal_information_financial_profile' },
           { key: 'personal_information_match_profile' },
+        ],
+      },
+      {
+        items: [
+          {
+            key: 'sales',
+            subItems: [
+              {
+                id: 'acquisition',
+                label: 'crm.details.menu.sales.acquisition',
+              },
+              {
+                id: 'quotation',
+                label: 'crm.details.menu.sales.quotation',
+              },
+              {
+                id: 'orders',
+                label: 'crm.details.menu.sales.orders',
+              },
+              {
+                id: 'invoices',
+                label: 'crm.details.menu.sales.invoices',
+              },
+            ],
+          },
         ],
       },
       {
