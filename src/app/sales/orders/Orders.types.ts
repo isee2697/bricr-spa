@@ -28,8 +28,12 @@ export type SalesOrder = {
   email: string;
   partner?: SalesOrderProfile;
   accountManagers: SalesOrderProfile[];
+  interests?: SalesOrderInterest[];
   order: {
     id: string;
+    price?: number;
+    roomSize?: number;
+    rooms?: number;
     image?: string;
     address: string;
     interests: SalesOrderInterest[];
