@@ -23,6 +23,7 @@ import { OrdersContainer } from './orders/OrdersContainer';
 import { LinkedBusinessesContainer } from './linkedBusinesses/LinkedBusinessesContainer';
 import { MarketingTargetGroupsContainer } from './marketingTargetGroups/MarketingTargetGroupsContainer';
 import { MarketingCrossSellContainer } from './marketingCrossSell/MarketingCrossSellContainer';
+import { SalesContainer } from './sales/SalesContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -127,6 +128,16 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                   )}
                 />
                 <Route path={`${path}/personal_information_financial_profile`} render={() => <FinancialProfile />} />
+                <Route
+                  path={`${path}/sales`}
+                  render={() => (
+                    <SalesContainer
+                      path={`${path}/sales`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
                 <Route
                   path={`${path}/documents`}
                   render={() => (
