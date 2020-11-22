@@ -26,7 +26,9 @@ export const SelectBox = ({
   const listItems: SelectBoxItem[] = showSelected ? [...items] : items.filter(item => item.value !== value);
 
   const handleOpenSelect = (e: React.MouseEvent) => {
-    setAnchorEl(e.currentTarget);
+    if (!disabled) {
+      setAnchorEl(e.currentTarget);
+    }
   };
 
   return (

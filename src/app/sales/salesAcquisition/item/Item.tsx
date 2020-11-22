@@ -22,6 +22,7 @@ import {
 } from 'ui/atoms';
 import { AddIcon, CheckIcon, CloseIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { SalesAcquisitionItemProps } from './Item.types';
 import { useStyles } from './Item.styles';
@@ -63,7 +64,7 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
           className={classes.rowContent}
           width="100%"
           mt={2}
-          onClick={() => push(AppRoute.salesDetails.replace(':id', salesAcquisition.id))}
+          onClick={() => push(joinUrlParams(AppRoute.salesDetails, { type: 'acquisitions', id: salesAcquisition.id }))}
         >
           <Box width="100%" display="flex" alignItems="flex-start">
             <Box width="100%" display="flex" alignItems="flex-start">
