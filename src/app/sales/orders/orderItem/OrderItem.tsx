@@ -1,9 +1,12 @@
 import React from 'react';
 import clsx from 'classnames';
+import { useHistory } from 'react-router-dom';
 
 import { Avatar, Box, Chip, Emoji, Grid, IconButton, PersonChip, Typography, UserAvatar } from 'ui/atoms';
 import { HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { OrderItemProps } from './OrderItem.types';
 import { useStyles } from './OrderItem.styles';
@@ -12,16 +15,24 @@ export const OrderItem = (props: OrderItemProps) => {
   const {
     checkbox,
     checked,
-    order: { name, image, number, email, partner, accountManagers, order },
+    order: { id, name, image, number, email, partner, accountManagers, order },
   } = props;
   const classes = useStyles(props);
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   return (
     <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
       {checkbox}
       <Box display="flex" width="100%" alignItems="flex-start">
-        <Box className={classes.rowContent} width="100%" mt={2} onClick={() => {}}>
+        <Box
+          className={classes.rowContent}
+          width="100%"
+          mt={2}
+          onClick={() => {
+            push(joinUrlParams(AppRoute.salesDetails, { type: 'orders', id }));
+          }}
+        >
           <Box width="100%" display="flex" alignItems="flex-start">
             <Box mr={2} width="100%">
               <Grid container>

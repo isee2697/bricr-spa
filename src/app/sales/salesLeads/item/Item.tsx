@@ -23,6 +23,7 @@ import {
 import { AddIcon, CheckIcon, CloseIcon, EditIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { useStyles } from './Item.styles';
 import { SalesLeadItemProps } from './Item.types';
@@ -130,7 +131,7 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
         className={classes.rowContent}
         width="100%"
         mt={2}
-        onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', id))}
+        onClick={() => push(joinUrlParams(AppRoute.salesDetails, { type: 'leads', id }))}
       >
         <Box display="flex" alignItems="flex-start">
           <Avatar variant="rounded" src={image} className={classes.image}>

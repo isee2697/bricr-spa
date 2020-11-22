@@ -416,3 +416,5 @@ export const SALES_QUOTATIONS: SalesQuotation[] = [
     ],
   },
 ];
+
+export const SALES_ITEMS = [...SALES_LEADS, ...SALES_ACQUISITION, ...SALES_QUOTATIONS, ...SALES_ORDERS];

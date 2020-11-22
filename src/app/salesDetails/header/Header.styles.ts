@@ -6,4 +6,9 @@ export const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[1],
     marginRight: theme.spacing(1),
   },
+  textFieldAbout: {
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1.5, 2),
+    },
+  },
 }));
