@@ -12,6 +12,11 @@ import {
   SalesQuotationInterest,
   SalesQuotationStepAction,
 } from 'app/sales/quotations/Quotations.types';
+import {
+  SalesInvoice,
+  SalesInvoiceInterest,
+  SalesInvoiceType,
+} from 'app/crmRelationsDetails/sales/invoices/Invoices.types';
 
 export const SALES_LEADS: SalesLead[] = [
   {
@@ -414,6 +419,18 @@ export const SALES_QUOTATIONS: SalesQuotation[] = [
         status: 'completed',
       },
     ],
+  },
+];
+
+export const SALES_INVOICES: SalesInvoice[] = [
+  {
+    id: '0001',
+    image: 'http://placeimg.com/160/152/people',
+    type: SalesInvoiceType.StartUpInvoice,
+    amount: 350,
+    tax: 35,
+    interest: SalesInvoiceInterest.SellingHome,
+    address: 'Isenburgstraat 36, Breda',
   },
 ];
 
