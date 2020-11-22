@@ -11,6 +11,7 @@ import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { SalesItemType } from '../../shared/addSalesItemModal/AddSalesItemModal.types';
 
 import { OrdersProps, OrdersTabStatus } from './Orders.types';
 import { useStyles } from './Orders.styles';
@@ -83,7 +84,7 @@ export const Orders = ({
           <Button
             color="primary"
             variant="contained"
-            onClick={() => open('add-sales-order')}
+            onClick={() => open('add-sales-item', { salesItemType: SalesItemType.Order })}
             startIcon={<AddIcon color="inherit" />}
             size="small"
           >

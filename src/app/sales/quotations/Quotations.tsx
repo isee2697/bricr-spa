@@ -11,6 +11,7 @@ import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { SalesItemType, SalesOrderType } from '../../shared/addSalesItemModal/AddSalesItemModal.types';
 
 import { QuotationsProps, QuotationsTabStatus } from './Quotations.types';
 import { useStyles } from './Quotations.styles';
@@ -76,7 +77,12 @@ export const Quotations = ({
           <Button
             color="primary"
             variant="contained"
-            onClick={() => open('add-sales-quotation')}
+            onClick={() =>
+              open('add-sales-item', {
+                salesItemType: SalesItemType.Quotation,
+                salesItemOrderType: SalesOrderType.HouseForSale,
+              })
+            }
             startIcon={<AddIcon color="inherit" />}
             size="small"
           >
