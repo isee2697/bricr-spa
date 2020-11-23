@@ -11,6 +11,13 @@ export enum DocumentStatus {
   Uploaded = 'Uploaded',
 }
 
+export enum DocumentKind {
+  Questionnaire = 'questionnaire',
+  ListOfCase = 'list-of-case',
+  Contract = 'contract',
+  Custom = 'custom',
+}
+
 export type DocumentListViewType = {
   id: string;
   name?: string;
@@ -20,7 +27,7 @@ export type DocumentListViewType = {
   versionNumber: number | string;
   dateCreated: Date | string;
   sellers: string[];
-  contractType: string;
+  documentKind: DocumentKind;
   contractAddress: string;
   price: string;
   buyer: string;
@@ -32,7 +39,7 @@ export type DocumentFolderType = {
   id: string;
   name: string;
   documents?: DocumentListViewType[];
-  isCustom?: boolean;
+  kind?: DocumentKind;
 };
 
 export type DocumentMeta = {

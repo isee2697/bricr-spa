@@ -38,12 +38,13 @@ export const DocumentListViewItem = ({
   id,
   dateCreated,
   versionNumber,
-  contractType,
+  documentKind,
   contractAddress,
   price,
   sellers,
   buyer,
   completeness,
+  onClick,
   onPrint,
   onToggleLock,
   onSend,
@@ -66,7 +67,7 @@ export const DocumentListViewItem = ({
 
   return (
     <>
-      <Grid container className={classes.root} wrap="wrap" spacing={2}>
+      <Grid container className={classes.root} wrap="wrap" spacing={2} onClick={() => onClick?.(documentKind, id)}>
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="h3" component="span" className={classes.boldText}>
             {formatMessage({ id: 'pim_details.documents.version' })} {versionNumber}
@@ -77,7 +78,7 @@ export const DocumentListViewItem = ({
         </Grid>
         <Grid item xs={12} sm={6} md={7}>
           <Typography variant="h5" component="span" className={classes.boldText}>
-            {contractType}
+            {documentKind}
           </Typography>{' '}
           <Typography variant="h5" component="span">
             {contractAddress}
