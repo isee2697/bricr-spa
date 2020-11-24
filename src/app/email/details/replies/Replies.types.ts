@@ -1,4 +1,5 @@
-import { Email, EmailReply } from '../../Email.types';
+import { Email } from 'api/types';
+import { EmailReply } from '../../Email.types';
 
 export type RepliesProps = {
   email: Email;
