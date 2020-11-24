@@ -3,18 +3,21 @@ version: 2.1
 # Define the jobs we want to run for this project
 jobs:
   build:
+    machine:
+      docker_layer_caching: true
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     steps:
       - checkout
-      - run: npm install --save-dev cypress@4.0.2
+      - run: npm install --save-dev cypress@6.0.0
       - run: cp .env.dist .env
       - run: npm install
       - run: npm run build:ci
       - run: cd e2e && npm install && cd ..
       - run: cp .env.e2e.dist ./e2e/.env
-      - run: npm run e2e:ci:firefox
       - run: npm run e2e:ci:chrome
+      - run: npm run e2e:ci:firefox
+
   
 
 # Orchestrate our job run sequence
