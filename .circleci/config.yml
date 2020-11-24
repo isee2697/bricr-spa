@@ -5,6 +5,7 @@ jobs:
   cypressBuild:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
+    working_directory: ~/spa
     steps:
       - checkout
       - restore_cache:
@@ -16,13 +17,30 @@ jobs:
           paths:
             - node_modules
       - run: npm run build:ci
-      - run: npm run e2e:ci:chrome
-      - run: npm run e2e:ci:firefox
 
-  
+
+  cypresTestFireFox:
+    docker:
+      - image: cypress/browsers:node14.15.0-chrome86-ff82
+    working_directory: ~/spa
+    steps:
+      - run: npm run e2e:ci:firefox
+  cypresTestChrome:
+    docker:
+      - image: cypress/browsers:node14.15.0-chrome86-ff82
+    working_directory: ~/spa
+    steps:
+      - run: npm run e2e:ci:chrome
+
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - cypressBuild
+      - cypresTestFireFox:
+          requires:
+            - cypressBuild
+      - cypresTestChrome:
+          requires:
+            - cypressBuild
