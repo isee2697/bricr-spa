@@ -12,7 +12,7 @@ jobs:
       - run: npm install
       - run: npm run build:ci
       - run: cd e2e && npm install && cd ..
-      - run: ls
+      - run: cp .env.e2e.dist ./e2e/.env
       - run: npm run e2e:ci:firefox
       - run: npm run e2e:ci:chrome
   
