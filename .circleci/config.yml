@@ -8,8 +8,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-deps-{{ checksum "package-lock.json" }}
+          key: v1-deps-{{ checksum "package-lock.json" }}
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
       - run: npm install && cd e2e && npm install && cd ..
       - save_cache:
