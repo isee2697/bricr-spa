@@ -2,15 +2,20 @@ version: 2.1
 
 # Define the jobs we want to run for this project
 jobs:
-  build:
+  cypressBuild:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     steps:
       - checkout
-      - setup_remote_docker:
-          dcoker_layer_caching: true
+      - restore_cache:
+        keys:
+          - v1-deps-{{ checksum "package-lock.json" }}
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
       - run: npm install && cd e2e && npm install && cd ..
+      - save_cache:
+          key: v1-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
       - run: npm run build:ci
       - run: npm run e2e:ci:chrome
       - run: npm run e2e:ci:firefox
@@ -21,4 +26,4 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build
+      - cypressBuild
