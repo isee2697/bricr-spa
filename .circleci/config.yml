@@ -3,8 +3,6 @@ version: 2.1
 # Define the jobs we want to run for this project
 jobs:
   build:
-    machine:
-      docker_layer_caching: true
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     steps:
