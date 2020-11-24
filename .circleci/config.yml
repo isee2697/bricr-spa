@@ -6,19 +6,9 @@ jobs:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     steps:
-      - restore_cache:
-        keys:
-          # when lock file changes, use increasingly general patterns to restore cache
-          - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          - node-v1-{{ .Branch }}-
-          - node-v1-
-      - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules  # location depends on npm version
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-
       - checkout
-#      - run: npm install --save-dev cypress@6.0.0
+      - setup_remote_docker:
+          dcoker_layer_caching: true
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
       - run: npm install && cd e2e && npm install && cd ..
       - run: npm run build:ci
