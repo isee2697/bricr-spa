@@ -1,9 +1,10 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
+import { useLocation } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { Card, Collapse, Typography, Box, FormControlLabel, Switch, IconButton } from 'ui/atoms';
-import { AddIcon, MenuIcon, ManageIcon } from 'ui/atoms/icons';
+import { AddIcon, MenuIcon, ManageIcon, EditIcon } from 'ui/atoms/icons';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 
 import { FormSectionProps, FormSectionRef, FunctionChildren } from './FormSection.types';
@@ -17,6 +18,7 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
       onAdd,
       onOptionsClick,
       onSettingsClick,
+      onEditClick,
       isExpandable,
       isInitExpanded = false,
       children,
@@ -29,8 +31,11 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
     ref,
   ) => {
     const { formatMessage } = useLocale();
-    const [expanded, setExpanded] = useState(!isExpandable || (isExpandable && isInitExpanded) || isInitEditing);
-    const [editing, setEditing] = useState(isInitEditing);
+    const { state } = useLocation<{ newlyAdded?: boolean }>();
+    const [expanded, setExpanded] = useState(
+      !isExpandable || (isExpandable && isInitExpanded) || (isExpandable && !!state?.newlyAdded) || isInitEditing,
+    );
+    const [editing, setEditing] = useState(isInitEditing || !!state?.newlyAdded);
     const classes = useStyles({ bordered: editing });
 
     const handleSetEdit = (isEdititng: boolean) => {
@@ -67,6 +72,11 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                   label={formatMessage({ id: 'form_section.edit_mode' })}
                   labelPlacement="start"
                 />
+              )}
+              {onEditClick && (
+                <IconButton className={classes.options} variant="rounded" size="small" onClick={onEditClick}>
+                  <EditIcon color="inherit" />
+                </IconButton>
               )}
               {onOptionsClick && (
                 <IconButton className={classes.options} variant="rounded" size="small" onClick={onOptionsClick}>

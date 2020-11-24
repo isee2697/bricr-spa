@@ -4,8 +4,8 @@ import { Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ServiceType } from 'api/types';
 import { Page } from 'ui/templates';
+import { ServiceList } from 'app/shared/services/general/serviceList/ServiceList';
 
-import { ServiceTypeList } from './serviceTypeList/ServiceTypeList';
 import { ServicesProps } from './Services.types';
 
 export const Services = ({ pimServices, onSave, onDescriptionUpdate }: ServicesProps) => {
@@ -22,7 +22,7 @@ export const Services = ({ pimServices, onSave, onDescriptionUpdate }: ServicesP
       updatedBy={pimServices.lastEditedBy}
     >
       <Grid xs={12} item>
-        <ServiceTypeList
+        <ServiceList
           emptyEmoji="🚿"
           title="pim_details.services.hot_water"
           items={pimServices.hotWaterSupplies || []}
@@ -31,7 +31,7 @@ export const Services = ({ pimServices, onSave, onDescriptionUpdate }: ServicesP
         />
       </Grid>
       <Grid xs={12} item>
-        <ServiceTypeList
+        <ServiceList
           emptyEmoji="🔥"
           title="pim_details.services.heating"
           items={pimServices.heatingSources || []}
@@ -40,7 +40,7 @@ export const Services = ({ pimServices, onSave, onDescriptionUpdate }: ServicesP
         />
       </Grid>
       <Grid xs={12} item>
-        <ServiceTypeList
+        <ServiceList
           emptyEmoji="🤔"
           title="pim_details.services.additional"
           items={pimServices.additionalServices || []}

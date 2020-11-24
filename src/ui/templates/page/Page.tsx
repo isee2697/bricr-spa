@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { Box, Grid, LastUpdated, NavBreadcrumb, Typography } from 'ui/atoms';
 import { HelpIcon, MenuIcon } from 'ui/atoms/icons';
@@ -7,6 +8,7 @@ import { AutosaveForm } from 'ui/organisms';
 import { useStyles } from 'ui/templates/page/Page.styles';
 
 import { PageProps } from './Page.types';
+import { PageHeader } from './header/PageHeader';
 
 export const Page = ({
   children,
@@ -21,6 +23,9 @@ export const Page = ({
   afterTitle,
   hideBreadcrumb,
   titleActions,
+  showHeader,
+  headerProps,
+  classes: pageClasses,
 }: PageProps) => {
   const classes = useStyles();
 
@@ -39,7 +44,8 @@ export const Page = ({
   return (
     <>
       {!hideBreadcrumb && title && <NavBreadcrumb title={title} />}
-      <Grid container className={classes.container}>
+      {showHeader && <PageHeader {...headerProps} />}
+      <Grid container className={clsx(pageClasses && pageClasses.container, classes.container)}>
         {!withoutHeader && (
           <>
             <Grid item xs={12} className={classes.titleContainer}>
@@ -64,15 +70,19 @@ export const Page = ({
                 </Grid>
               </Box>
             </Grid>
-            {name && autosaveForm}
+            <Box mt={2} width="100%">
+              {name && autosaveForm}
+            </Box>
           </>
         )}
         <Grid container item xs={12} className={classes.childContainer}>
           {children}
         </Grid>
-        <Grid item xs={12} className={classes.lastUpdated}>
-          <LastUpdated dateUpdated={dateUpdated} updatedBy={updatedBy} withIcon />
-        </Grid>
+        {updatedBy && dateUpdated && (
+          <Grid item xs={12} className={classes.lastUpdated}>
+            <LastUpdated dateUpdated={dateUpdated} updatedBy={updatedBy} withIcon />
+          </Grid>
+        )}
       </Grid>
     </>
   );

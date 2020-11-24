@@ -37,6 +37,9 @@ export const Connector = withStyles(theme => ({
 export const Labels = withStyles(theme => ({
   root: {
     alignItems: 'flex-start',
+    '& .MuiStepLabel-iconContainer': {
+      zIndex: 999,
+    },
   },
   labelContainer: {
     marginTop: theme.spacing(1),

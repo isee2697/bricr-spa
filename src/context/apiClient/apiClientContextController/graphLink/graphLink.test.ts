@@ -1,10 +1,51 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 import { CURRENT_USER } from 'api/queries/profile';
+import { AdminSettings } from 'api/types';
 
 import { graphLink } from './graphLink';
 
 describe('graphLink', () => {
+  test('call set error when error from api returned', async () => {
+    const expectedString = 'myError';
+    const cache = new InMemoryCache();
+    const dispatch = jest.fn();
+    const setError = jest.fn();
+    const mockResponse = [{ message: expectedString }];
+
+    const link = graphLink(
+      dispatch,
+      {
+        accessToken: 'test',
+        refreshToken: 'test',
+      },
+      setError,
+    );
+
+    const client = new ApolloClient({
+      link,
+      cache,
+    });
+
+    jest.spyOn(window, 'fetch').mockImplementation(async () => {
+      return new Response(
+        JSON.stringify({
+          data: null,
+          errors: mockResponse,
+        }),
+        {
+          status: 200,
+        },
+      );
+    });
+
+    await client.query({
+      query: CURRENT_USER,
+      errorPolicy: 'all',
+    });
+    expect(setError).toHaveBeenCalledWith(expectedString);
+  });
+
   test('refresh token when expired and re-run fetch with new one token', async () => {
     const cache = new InMemoryCache();
     const dispatch = jest.fn();
@@ -13,15 +54,32 @@ describe('graphLink', () => {
         firstName: 'test',
         lastName: 'test',
         email: 'test',
-        avatar: 'test',
         id: 'test',
+        isActive: true,
+        image: null,
+        language: 'nl',
+        isAdmin: true,
+        company: {
+          id: 'testCompanyId',
+        },
+        adminSettings: [AdminSettings.General],
+        teams: [
+          {
+            id: 'test',
+            name: 'test',
+          },
+        ],
       },
     };
 
-    const link = graphLink(dispatch, {
-      accessToken: 'test',
-      refreshToken: 'test',
-    });
+    const link = graphLink(
+      dispatch,
+      {
+        accessToken: 'test',
+        refreshToken: 'test',
+      },
+      (message: string) => {},
+    );
 
     const client = new ApolloClient({
       link,

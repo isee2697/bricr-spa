@@ -19,6 +19,7 @@ enum LabelProperty {
   PollutionInspection
   MaintenanceInspection
   Cost
+  Task
 }
 
 type Label {

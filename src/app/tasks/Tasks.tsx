@@ -1,32 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Grid, Alert } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
+import { Grid } from 'ui/atoms';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
-import { TasksProps } from './Tasks.types';
+import { TasksProps, TeamMemberItem } from './Tasks.types';
 import { useStyles } from './Tasks.styles';
 import { TasksHeader } from './tasksHeader/TasksHeader';
 import { TasksMemberList } from './tasksMemberList/TasksMemberList';
-import { TasksBody } from './tasksBody/TasksBody';
+import { TasksBodyContainer } from './tasksBody/TasksBodyContainer';
 
-export const Tasks = ({ isError, selectedUsers }: TasksProps) => {
+export const Tasks = ({ members = [], user }: TasksProps) => {
+  const [selectedMembers, setSelectedMembers] = useState<TeamMemberItem[]>([user]);
   const classes = useStyles();
-  const { formatMessage } = useLocale();
+  const { open } = useModalDispatch();
+
+  const teamMembers: TeamMemberItem[] = [user, ...members];
 
   return (
-    <>
-      {!!isError && <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>}
-      <Grid container spacing={3} className={classes.content}>
-        <Grid item xs={12}>
-          <TasksHeader />
-        </Grid>
-        <Grid item xs={12}>
-          <TasksMemberList />
-        </Grid>
-        <Grid item xs={12}>
-          <TasksBody />
-        </Grid>
+    <Grid container spacing={3} className={classes.content}>
+      <Grid item xs={12}>
+        <TasksHeader handleCreateTask={() => open('create-new-task', { members: teamMembers })} />
       </Grid>
-    </>
+      <Grid item xs={12}>
+        <TasksMemberList
+          members={teamMembers}
+          selectedMembers={selectedMembers}
+          onSelect={(selected: TeamMemberItem[]) => setSelectedMembers(selected)}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TasksBodyContainer members={teamMembers} selectedMembers={selectedMembers} />
+      </Grid>
+    </Grid>
   );
 };

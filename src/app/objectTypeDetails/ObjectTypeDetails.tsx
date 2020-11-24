@@ -10,6 +10,8 @@ import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { ProjectJourneyContainer } from 'app/shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
+import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
+import { TiaraEntities } from 'api/types';
 
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
 import { CharacteristicsContainer } from './sections/characteristics/CharacteristicsContainer';
@@ -83,6 +85,16 @@ export const ObjectTypeDetails = ({ data }: ObjectTypeDetailsProps) => {
               path={`${AppRoute.objectTypeDetails}/properties`}
               render={() => (
                 <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.objectTypeDetails}/tiara`}
+              render={() => (
+                <TiaraContainer
+                  entity={TiaraEntities.ObjectType}
+                  isSidebarVisible={isSidebarVisible}
+                  onSidebarOpen={handleSidebarOpen}
+                />
               )}
             />
             <Redirect to={{ pathname: `${AppRoute.objectTypeDetails}/dashboard` }} />

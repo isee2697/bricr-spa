@@ -1,11 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
-  root: {},
   member: {
     marginRight: theme.spacing(1),
     padding: theme.spacing(1),
-    borderRadius: theme.spacing(1),
+    borderRadius: 38,
     cursor: 'pointer',
 
     '&.selected': {

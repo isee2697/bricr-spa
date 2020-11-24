@@ -3,4 +3,10 @@ export enum EntityType {
   'Project',
   'ObjectType',
   'LinkedProperty',
+  'CrmRelations',
+  'CrmBusinesses',
+  'Task',
+  'Dms',
+  'Sales',
+  'Email',
 }

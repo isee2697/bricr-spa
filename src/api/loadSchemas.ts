@@ -2,6 +2,7 @@ import { loader } from 'graphql.macro';
 
 const schemas = [
   loader('./graphql/auth.gql'),
+  loader('./graphql/billing.gql'),
   loader('./graphql/file.gql'),
   loader('./graphql/list-pim.gql'),
   loader('./graphql/pim.gql'),
@@ -20,6 +21,7 @@ const schemas = [
   loader('./graphql/pim-specification.gql'),
   loader('./graphql/pim-sales.gql'),
   loader('./graphql/pim-location.gql'),
+  loader('./graphql/team.gql'),
   loader('./graphql/profile.gql'),
   loader('./graphql/schema.gql'),
   loader('./graphql/ncp-general.gql'),
@@ -33,6 +35,7 @@ const schemas = [
   loader('./graphql/linked-pim.gql'),
   loader('./graphql/pim-bog-spaces.gql'),
   loader('./graphql/object-type-characteristics.gql'),
+  loader('./graphql/notification.gql'),
 ];
 
 export const loadSchemas = () => {

@@ -17,7 +17,16 @@ const statIcon: { [key in StatCardVariant]: ReactNode } = {
   error: <ArrowDownIcon color="inherit" />,
 };
 
-export const StatCard = ({ children, value, endAdornment, variant = 'info' }: StatCardProps) => {
+export const StatCard = ({
+  children,
+  value,
+  endAdornment,
+  optionalValue,
+  optionalValueEndAdornment,
+  variant = 'info',
+  showStatIcon = true,
+  placeholder,
+}: StatCardProps) => {
   const classes = useStyles();
 
   return (
@@ -31,14 +40,24 @@ export const StatCard = ({ children, value, endAdornment, variant = 'info' }: St
             [classes.success]: variant === 'success',
             [classes.warning]: variant === 'warning',
             [classes.error]: variant === 'error',
+            [classes.info]: variant === 'info',
           })}
         >
           <Typography variant="h3">
             <FormattedNumber value={value} />
             {endAdornment}
           </Typography>
-          {statIcon[variant]}
+          <Typography variant="h6" className={classes.optionalValue}>
+            {optionalValue}
+            {optionalValueEndAdornment}
+          </Typography>
+          {showStatIcon && statIcon[variant]}
         </div>
+        {placeholder && (
+          <Typography component="div" variant="caption" className={classes.placeholder}>
+            {placeholder}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );

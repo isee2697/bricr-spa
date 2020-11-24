@@ -6,7 +6,7 @@ interface EntityLinkedWithPims {
   id: ID!
   linkedProperties(filters: LinkedPimFilters, sort: [Sort!], pagination: Pagination!): PimListSearchResult! @auth
   linkedPropertiesIds: [ID!]
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   description: String
 }

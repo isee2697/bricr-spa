@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'classnames';
 
 import { SimpleSearch } from 'ui/molecules';
@@ -6,29 +6,56 @@ import { Grid, IconButton } from 'ui/atoms';
 import { ListIcon } from 'ui/atoms/icons/list/ListIcon';
 import { SwimlaneIcon } from 'ui/atoms/icons/swimlane/SwimlaneIcon';
 import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+import { DateRange, TaskStatus } from 'api/types';
 import { TasksNoTaskMessage } from '../tasksNoTaskMessage/TasksNoTaskMessage';
+import { TasksStatusMessage } from '../tasksStatusMessage/TasksStatusMessage';
+import { TasksViewMode } from '../Tasks.enum';
+import { TasksDateSection } from '../tasksDateSection/TasksDateSection';
 import { TasksSwimlane } from '../tasksSwimlane/TasksSwimlane';
+import { TasksList } from '../tasksList/TasksList';
 
 import { useStyles } from './TasksContent.styles';
+import { TasksContentProps } from './TasksContent.types';
 
-export const TasksContent = () => {
+export const TasksContent = ({
+  tab,
+  tasks,
+  tasksSummaryByStatus,
+  searchKey,
+  viewMode,
+  deadlines,
+  onChangeSearchKey,
+  onChangeViewMode,
+  onChangeDateRange,
+  onUpdateTaskStatus,
+}: TasksContentProps) => {
   const classes = useStyles();
-  const [searchKey, setSearchKey] = useState('');
+
+  const tasksCount = tasks.length;
+  const completedTasksCount = tasks.filter(task => task.status === TaskStatus.Done).length;
 
   return (
-    <Grid container spacing={2} className={classes.root} direction="column">
-      <Grid item xs={12} container alignItems="center" justify="space-between" className={classes.flexGrowZero}>
+    <Grid container className={classes.root} direction="column">
+      <Grid
+        item
+        xs={12}
+        container
+        alignItems="center"
+        justify="space-between"
+        className={clsx(classes.flexGrowZero, classes.modeSelectorContainer)}
+      >
         <Grid item xs={3}>
-          <TasksNoTaskMessage />
+          {tasksCount === completedTasksCount && <TasksNoTaskMessage />}
+          {tasksCount > completedTasksCount && <TasksStatusMessage tasks={tasksCount} done={completedTasksCount} />}
         </Grid>
         <Grid item>
           <Grid container>
-            <SimpleSearch onChange={v => setSearchKey(v.currentTarget.value)} value={searchKey} />
-            <IconButton classes={{ root: classes.sortIcon }}>
-              <SwimlaneIcon color="inherit" />
+            <SimpleSearch onChange={v => onChangeSearchKey(v.currentTarget.value)} value={searchKey} />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => onChangeViewMode(TasksViewMode.Swimlane)}>
+              <SwimlaneIcon color={viewMode === TasksViewMode.Swimlane ? 'primary' : 'inherit'} />
             </IconButton>
-            <IconButton classes={{ root: classes.sortIcon }}>
-              <ListIcon color="inherit" />
+            <IconButton classes={{ root: classes.sortIcon }} onClick={() => onChangeViewMode(TasksViewMode.List)}>
+              <ListIcon color={viewMode === TasksViewMode.List ? 'primary' : 'inherit'} />
             </IconButton>
             <IconButton classes={{ root: classes.sortIcon }}>
               <ManageIcon color="inherit" />
@@ -36,8 +63,31 @@ export const TasksContent = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} className={clsx(classes.flexGrowOne, classes.flexRow)}>
-        <TasksSwimlane />
+      <Grid item xs={12}>
+        <TasksDateSection
+          tab={tab}
+          deadlines={deadlines}
+          handleSetDateRange={(deadlines: DateRange[]) => onChangeDateRange(deadlines)}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        className={clsx(
+          classes.flexGrowOne,
+          classes.flexRow,
+          viewMode === TasksViewMode.Swimlane && classes.swimlaneWrapper,
+        )}
+      >
+        {viewMode === TasksViewMode.Swimlane && (
+          <TasksSwimlane
+            tab={tab}
+            tasks={tasks}
+            onUpdateTaskStatus={onUpdateTaskStatus}
+            tasksSummaryByStatus={tasksSummaryByStatus}
+          />
+        )}
+        {viewMode === TasksViewMode.List && <TasksList tasks={tasks} />}
       </Grid>
     </Grid>
   );

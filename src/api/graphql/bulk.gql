@@ -1,6 +1,9 @@
 enum BulkField {
-  city
-  status
+  City
+  Status
+  RentPrice
+  SalePrice
+  Security
 }
 
 enum BulkEntities {

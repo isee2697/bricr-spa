@@ -1,4 +1,6 @@
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
+import { ProjectType, PropertyType } from 'api/types';
+import { SalesItemType, SalesOrderType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 
 export type ModalContextType = {
   modalsState: ModalStateType[];
@@ -7,11 +9,15 @@ export type ModalContextType = {
 
 export type ModalStateOptions = {
   propertyCategory?: PropertyCategory;
+  availableTypes?: PropertyType[];
   projectId?: string;
   objectTypeId?: string;
   linkedPropertiesIds?: string[];
   disableChange?: boolean;
   isLinkedProperty?: boolean;
+  projectType?: ProjectType;
+  salesItemType?: SalesItemType;
+  salesItemOrderType?: string;
 };
 
 export type ModalStateType = {

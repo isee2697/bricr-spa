@@ -8,6 +8,9 @@ import { MediaContainer } from 'app/shared/media/MediaContainer';
 import { EntityType, EntityTypeProvider } from 'app/shared/entityType';
 import { ProjectJourneyContainer } from '../shared/projectJourney/ProjectJourneyContainer';
 import { ServicesGeneralContainer } from 'app/shared/services/general/ServicesGeneralContainer';
+import { SalesSettingsContainer } from 'app/pimDetails/sections/salesSettings/SalesSettingsContainer';
+import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
+import { TiaraEntities } from 'api/types';
 
 import { ProjectDetailsSidebarMenu } from './projectDetailsSidebarMenu/ProjectDetailsSidebarMenu';
 import { Dashboard } from './sections/dashboard/Dashboard';
@@ -17,6 +20,9 @@ import { Prices } from './sections/prices/Prices';
 import { ObjectTypesContainer } from './sections/objectTypes/ObjectTypesContainer';
 import { NcpProps } from './ProjectDetails.types';
 import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPropertiesContainer';
+import { SummaryContainer } from './sections/summary/SummaryContainer';
+import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
+import { AllocateResultsDetailsContainer } from './sections/allocateResultsDetails/AllocateResultsDetailsContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -35,11 +41,12 @@ export const ProjectDetails = ({ data }: NcpProps) => {
     <EntityTypeProvider entityType={EntityType.Project}>
       <NavBreadcrumb title={formatMessage({ id: 'header.links.nc_sale' })} to={AppRoute.project} />
       <NavBreadcrumb title={data?.project.name ?? ''} urlBase={AppRoute.projectDetails} />
-      <Grid container spacing={0}>
+      <Grid container spacing={0} wrap="nowrap">
         <ProjectDetailsSidebarMenu
           onHide={handleSidebarHide}
           isVisible={isSidebarVisible}
           objectTypeNumber={data?.objectTypes.metadata?.total ?? 0}
+          allocateResultsNumber={0}
           title={data?.project.name ?? ''}
           linkedPropertiesNumber={data?.linkedProperties.linkedProperties.metadata?.total ?? 0}
         />
@@ -97,6 +104,37 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               path={`${AppRoute.projectDetails}/properties`}
               render={() => (
                 <LinkedPropertiesContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/summary`}
+              render={() => <SummaryContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/salesSettings`}
+              render={() => (
+                <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateResults`}
+              exact
+              render={() => (
+                <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateResults/:id`}
+              render={() => <AllocateResultsDetailsContainer />}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/tiara`}
+              render={() => (
+                <TiaraContainer
+                  entity={TiaraEntities.Ncp}
+                  isSidebarVisible={isSidebarVisible}
+                  onSidebarOpen={handleSidebarOpen}
+                />
               )}
             />
             <Redirect to={{ pathname: `${AppRoute.projectDetails}/dashboard` }} />

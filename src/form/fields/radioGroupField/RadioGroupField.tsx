@@ -3,7 +3,7 @@ import { useField } from 'react-final-form';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useHighestElementHeight } from 'hooks/useHighestElementHeight/useHighestElementHeight';
-import { Grid, TileRadio, FormHelperText } from 'ui/atoms';
+import { Grid, TileRadio, FormHelperText, InputLabel, FormControlLabel, Typography, Radio } from 'ui/atoms';
 import { validatorsChain } from 'form/validators';
 
 import { RadioDataType, RadioGroupFieldProps } from './RadioGroupField.types';
@@ -11,8 +11,10 @@ import { useStyles } from './RadioGroupField.styles';
 
 export const RadioGroupField = ({
   name,
+  labelId,
   disabled,
   options,
+  optionType = 'tile',
   validate,
   validateFields,
   parse,
@@ -25,6 +27,7 @@ export const RadioGroupField = ({
   actionElement,
   justify,
   onChange,
+  classes: propsClasses,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -55,21 +58,46 @@ export const RadioGroupField = ({
   const hasError =
     (meta.touched && !!meta.error) ||
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
-    (meta.initial !== undefined && meta.initial !== undefined && meta.initial !== null && !!meta.error);
+    (meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
   return (
-    <>
-      <Grid container spacing={spacing} justify={justify} ref={containerRef}>
+    <div data-testid={name}>
+      {labelId && (
+        <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
+          {formatMessage({ id: labelId })}
+        </InputLabel>
+      )}
+      <Grid container spacing={spacing} justify={justify} ref={containerRef} className={propsClasses?.group}>
         {options.map((item: RadioDataType) => (
-          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value}>
-            <TileRadio
-              onClick={() => handleClick(item)}
-              isSelected={input.value === item.value}
-              title={item.isCustom ? item.label : formatMessage({ id: item.label })}
-              isDisabled={disabled}
-            >
-              {item.icon}
-            </TileRadio>
+          <Grid item xs={xs} sm={sm} md={md} lg={lg} key={item.value} className={propsClasses?.groupItem}>
+            {optionType === 'tile' && (
+              <TileRadio
+                onClick={() => handleClick(item)}
+                isSelected={input.value === item.value}
+                title={item.isCustom ? item.label : formatMessage({ id: item.label })}
+                isDisabled={disabled}
+                className={propsClasses?.option}
+              >
+                {item.icon}
+              </TileRadio>
+            )}
+            {optionType === 'checkbox' && (
+              <FormControlLabel
+                control={
+                  <Radio
+                    color="primary"
+                    onClick={() => handleClick(item)}
+                    disabled={disabled}
+                    checked={input.value === item.value}
+                  />
+                }
+                label={
+                  <Typography variant="h4" color="textSecondary">
+                    {item.isCustom ? item.label : formatMessage({ id: item.label })}
+                  </Typography>
+                }
+              />
+            )}
           </Grid>
         ))}
         {actionElement && (
@@ -83,6 +111,6 @@ export const RadioGroupField = ({
           {formatMessage(meta.error || meta.submitError, { ...meta.error?.values })}
         </FormHelperText>
       )}
-    </>
+    </div>
   );
 };

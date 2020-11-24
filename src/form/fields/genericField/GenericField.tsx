@@ -6,6 +6,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { validatorsChain } from 'form/validators';
 
 import { GenericFieldProps } from './GenericField.types';
+import { useStyles } from './GenericField.styles';
 
 export const GenericField = ({
   label,
@@ -18,6 +19,7 @@ export const GenericField = ({
   type,
   ...props
 }: GenericFieldProps) => {
+  const classes = useStyles();
   const { formatMessage } = useLocale();
   const { input, meta } = useField(name, {
     validate: validate ? validatorsChain(...validate) : undefined,
@@ -57,6 +59,9 @@ export const GenericField = ({
       type={type}
       InputLabelProps={{
         shrink: true,
+        classes: {
+          root: classes.label,
+        },
       }}
       {...input}
       {...props}

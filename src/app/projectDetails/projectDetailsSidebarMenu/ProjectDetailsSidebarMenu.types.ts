@@ -3,5 +3,6 @@ export type ProjectDetailsSidebarMenuProps = {
   isVisible: boolean;
   objectTypeNumber: number;
   linkedPropertiesNumber: number;
+  allocateResultsNumber: number;
   title?: string;
 };

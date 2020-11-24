@@ -21,29 +21,29 @@ import { AppProvidersProps } from './AppProviders.types';
 export const AppProviders = ({ children }: AppProvidersProps) => (
   <ThroughProvider>
     <Theme>
-      <LocaleContextController>
-        <MuiPickersUtilsProvider utils={LuxonUtils}>
-          <ErrorBoundary>
-            <AuthContextController>
-              <ApiClientContextController>
-                <UserController>
-                  <OverlayContextController>
-                    <ModalContextController>
-                      <LayoutContextController>
-                        <SnackbarContextController>
+      <AuthContextController>
+        <LocaleContextController>
+          <MuiPickersUtilsProvider utils={LuxonUtils}>
+            <ErrorBoundary>
+              <SnackbarContextController>
+                <ApiClientContextController>
+                  <UserController>
+                    <OverlayContextController>
+                      <ModalContextController>
+                        <LayoutContextController>
                           <Router>
                             <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
                           </Router>
-                        </SnackbarContextController>
-                      </LayoutContextController>
-                    </ModalContextController>
-                  </OverlayContextController>
-                </UserController>
-              </ApiClientContextController>
-            </AuthContextController>
-          </ErrorBoundary>
-        </MuiPickersUtilsProvider>
-      </LocaleContextController>
+                        </LayoutContextController>
+                      </ModalContextController>
+                    </OverlayContextController>
+                  </UserController>
+                </ApiClientContextController>
+              </SnackbarContextController>
+            </ErrorBoundary>
+          </MuiPickersUtilsProvider>
+        </LocaleContextController>
+      </AuthContextController>
     </Theme>
   </ThroughProvider>
 );

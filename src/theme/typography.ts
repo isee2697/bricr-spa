@@ -46,4 +46,8 @@ export const typography = {
     fontWeight: fontWeight.regular,
     lineHeight: '24px',
   },
+  caption: {
+    fontSize: 8,
+    fontWeight: fontWeight.regular,
+  },
 };

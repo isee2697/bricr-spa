@@ -20,6 +20,10 @@ class Navigation {
       .click();
   }
 
+  goToUsers(): void {
+    cy.visit(Cypress.env().baseUrl + AppRoute.users);
+  }
+
   goToLogin(): void {
     cy.get(`a[href*="${AppRoute.login}"]`)
       .first()
@@ -37,27 +41,27 @@ class Navigation {
   }
 
   goToPimServices(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/services');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_1/services');
   }
 
   goToPimBuildings(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/buildings');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/buildings');
   }
 
   goToPimGrounds(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/ground');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/ground');
   }
 
   goToPimAnimals(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/PIM_4_AOG/animals');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/PIM_4_AOG/animals');
   }
 
   goToPimMeters(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/meters');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/pim_1/meters');
   }
 
   goToPimCadastre(): void {
-    cy.visit(Cypress.env().baseUrl + AppRoute.pim + '/pim_1/cadastre');
+    cy.visit(Cypress.env().baseUrl + AppRoute.pimDetails.replace('/:id', '') + '/pim_1/cadastre');
   }
 
   get homeLink(): string {
@@ -68,12 +72,20 @@ class Navigation {
     return `${Cypress.env().baseUrl}${AppRoute.pim}`;
   }
 
+  get pimResidentialLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.pim}/residential`;
+  }
+
   get pimDetailsLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.pimDetails}`;
   }
 
   get projectDetailsLink(): string {
     return `${Cypress.env().baseUrl}${AppRoute.projectDetails}`;
+  }
+
+  get userDetails(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.userDetails}`;
   }
 
   get loginLink(): string {

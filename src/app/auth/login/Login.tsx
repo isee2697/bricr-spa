@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl-phraseapp';
 
-import { Button, Typography, Alert, InputAdornment, Link, Box, Checkbox, FormControlLabel } from 'ui/atoms';
+import { Alert, Box, Button, Checkbox, FormControlLabel, InputAdornment, Link, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
@@ -34,7 +35,9 @@ export const Login = ({ onSubmit }: LoginProps) => {
     <Form onSubmit={handleSubmit}>
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
-          <Typography variant="h1">{formatMessage({ id: 'login.title' })}</Typography>
+          <Typography variant="h1">
+            <FormattedMessage id="login.title" />
+          </Typography>
 
           {isError && <Alert severity="error">{formatMessage({ id: 'login.wrong_credentials' })}</Alert>}
 

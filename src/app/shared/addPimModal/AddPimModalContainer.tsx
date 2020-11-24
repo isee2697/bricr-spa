@@ -4,20 +4,20 @@ import { useHistory } from 'react-router-dom';
 import { AnyObject } from 'react-final-form';
 
 import {
-  useCreatePimMutation,
-  RealEstateType,
   DevelopmentType,
-  PimStatus,
-  PimWithSameAddressQueryVariables,
-  PimWithSameAddressQuery,
-  PimWithSameAddressDocument,
-  useCreateNcpMutation,
+  NcpGeneralOverallInfoDocument,
+  NcpWithSameAddressDocument,
   NcpWithSameAddressQuery,
   NcpWithSameAddressQueryVariables,
-  NcpWithSameAddressDocument,
-  useSetObjectTypeLinkedPimsMutation,
   ObjectTypeOverallInfoDocument,
-  NcpGeneralOverallInfoDocument,
+  PimStatus,
+  PimWithSameAddressDocument,
+  PimWithSameAddressQuery,
+  PimWithSameAddressQueryVariables,
+  RealEstateType,
+  useCreateNcpMutation,
+  useCreatePimMutation,
+  useSetObjectTypeLinkedPimsMutation,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -38,7 +38,7 @@ export const AddPimModalContainer = () => {
   const handlePimSubmit: AddPimSubmit<AddPimBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           PimWithSameAddressQuery,
           PimWithSameAddressQueryVariables
         >({
@@ -53,10 +53,6 @@ export const AddPimModalContainer = () => {
             },
           },
         });
-
-        if (errors) {
-          throw new Error();
-        }
 
         if (pimWithSameAddress?.getPimsGeneralWithSameAddress.items?.length) {
           return {
@@ -134,7 +130,7 @@ export const AddPimModalContainer = () => {
   const handleNcpSubmit: AddPimSubmit<AddNcpBody> = async ({ forceAdd, propertyType, category, ...body }) => {
     try {
       if (!forceAdd) {
-        const { data: pimWithSameAddress, errors } = await apiClient.query<
+        const { data: pimWithSameAddress } = await apiClient.query<
           NcpWithSameAddressQuery,
           NcpWithSameAddressQueryVariables
         >({
@@ -150,10 +146,6 @@ export const AddPimModalContainer = () => {
           },
         });
 
-        if (errors) {
-          throw new Error();
-        }
-
         if (pimWithSameAddress?.getNcpWithSameAddress.items?.length) {
           return {
             error: 'conflict',
@@ -166,6 +158,7 @@ export const AddPimModalContainer = () => {
         variables: {
           input: {
             type: propertyType,
+            projectType: options?.projectType,
             ...body,
           },
         },

@@ -18,6 +18,7 @@ export type SingleChooseProps = {
 };
 
 export type EditorProps = {
-  titleId: string;
+  titleId?: string;
   disabled: boolean;
+  noBorder?: boolean;
 };

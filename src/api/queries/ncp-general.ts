@@ -34,6 +34,7 @@ export const PIM_MEDIA = gql`
       projectRisk
       notes
       archived
+      projectType
     }
   }
 `;

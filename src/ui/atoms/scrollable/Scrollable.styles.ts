@@ -13,6 +13,9 @@ export const useStyles = makeStyles(theme => ({
       right: 0,
       overflow: 'hidden',
     },
+    '&.noBottomScroller .ScrollbarsCustom-Wrapper': {
+      bottom: 0,
+    },
     '& .ScrollbarsCustom-Scroller': {
       position: 'absolute',
       top: 0,

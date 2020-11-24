@@ -1,4 +1,1 @@
-export enum AppLocale {
-  en = 'en',
-  nl = 'nl',
-}
+export enum AppLocale {  es = 'es',  en = 'en',  nl = 'nl',  de = 'de',  zh = 'zh',}

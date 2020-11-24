@@ -6,6 +6,7 @@ import { Profile } from 'api/types';
 export type AuthStateContextType = {
   isAuthorized: boolean;
   isAuthorizing: boolean;
+  hasBillingAccess: boolean;
   accessToken: string | null;
   refreshToken: string | null;
   user?: Profile;

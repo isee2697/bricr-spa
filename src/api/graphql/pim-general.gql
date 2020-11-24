@@ -214,7 +214,7 @@ type PimGeneral implements LastUpdated {
   archived: Boolean!
   dateCreated: Date!
   dateUpdated: Date
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   houseGeneral: HouseGeneral
   bogGeneral: BogGeneral
   parkingGeneral: ParkingLotGeneral

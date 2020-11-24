@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { IconButton, Avatar, Menu, Box, Typography, Link } from 'ui/atoms';
@@ -12,6 +12,8 @@ import { NoteIcon } from 'ui/atoms/icons/note/NoteIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { useLocale } from 'hooks';
 
 export const AddMenu = () => {
   const theme = useTheme();
@@ -19,6 +21,7 @@ export const AddMenu = () => {
   const [isOpened, setOpened] = useState(false);
   const setOverlay = useOverlayDispatch();
   const { open } = useModalDispatch();
+  const { formatMessage } = useLocale();
 
   useEffect(() => {
     setOverlay(isOpened);
@@ -33,6 +36,7 @@ export const AddMenu = () => {
       color="primary"
       onClick={() => setOpened(v => !v)}
       innerRef={menuRef}
+      data-testid="add-menu-open"
     >
       <AddIcon color="inherit" />
       <Menu
@@ -46,22 +50,27 @@ export const AddMenu = () => {
         role="menu"
       >
         <Box display="flex" mb={2}>
-          <Typography variant="h3">Create new</Typography>
+          <Typography variant="h3">{formatMessage({ id: 'common.create_new' })}</Typography>
         </Box>
 
-        <Link component={RouterLink} to="/" color="inherit">
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar variant="rounded" bgcolor={theme.palette.blue.light}>
-              <Box color={theme.palette.blue.main}>
-                <TasksIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">Task</Typography>
+        <Box
+          onClick={() => open('create-new-task')}
+          display="flex"
+          style={{ cursor: 'pointer' }}
+          alignItems="center"
+          mb={2}
+          data-testid="add-menu-task"
+        >
+          <Avatar variant="rounded" bgcolor={theme.palette.blue.light}>
+            <Box color={theme.palette.blue.main}>
+              <TasksIcon color="inherit" />
             </Box>
+          </Avatar>
+          <Box ml={2}>
+            <Typography variant="subtitle1">{formatMessage({ id: 'common.task' })}</Typography>
           </Box>
-        </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        </Box>
+        <Link component={RouterLink} to={AppRoute.newAppointment} color="inherit" data-testid="add-menu-appointment">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
               <Box color={theme.palette.green.main}>
@@ -69,11 +78,11 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Event</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.calendar' })}</Typography>
             </Box>
           </Box>
         </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-mail">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
               <Box color={theme.palette.yellow.main}>
@@ -81,11 +90,11 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">E-mail</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.mail' })}</Typography>
             </Box>
           </Box>
         </Link>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-note">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
               <Box color={theme.palette.purple.main}>
@@ -93,7 +102,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Note</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.note' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -103,6 +112,7 @@ export const AddMenu = () => {
           mb={2}
           onClick={() => open('add-new-pim')}
           style={{ cursor: 'pointer' }}
+          data-testid="add-menu-property"
         >
           <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
             <Box color={theme.palette.red.main}>
@@ -110,10 +120,10 @@ export const AddMenu = () => {
             </Box>
           </Avatar>
           <Box ml={2}>
-            <Typography variant="subtitle1">Property</Typography>
+            <Typography variant="subtitle1">{formatMessage({ id: 'common.property' })}</Typography>
           </Box>
         </Box>
-        <Link component={RouterLink} to="/" color="inherit">
+        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-contact">
           <Box display="flex" alignItems="center">
             <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
               <Box color={theme.palette.orange.main}>
@@ -121,7 +131,7 @@ export const AddMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">Contact</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'common.contact' })}</Typography>
             </Box>
           </Box>
         </Link>

@@ -1,17 +1,13 @@
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { BulkField, BulkOperations, ListNcp } from 'api/types';
+import { BulkField, BulkOperations, ListNcp, ProjectType } from 'api/types';
 
 export type ProjectProps = {
-  type: string;
-  onTypeChange: (type: string) => void;
-  pricingType: string;
-  onPricingTypeChange: (type: string) => void;
+  type: ProjectType;
   status: ActionTabStatus;
   onStatusChange: (type: ActionTabStatus) => void;
   isLoading: boolean;
-  isError: boolean;
   amounts?: {
     actionRequired: number;
     active: number;
@@ -31,5 +27,5 @@ export type ProjectProps = {
 
 export type BulkForm = {
   operation: BulkField.City;
-  city: string;
+  City: string;
 };

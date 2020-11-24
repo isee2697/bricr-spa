@@ -7,4 +7,8 @@ export type StatCardProps = {
   value: number;
   variant?: StatCardVariant;
   endAdornment?: ReactNode;
+  optionalValue?: number;
+  optionalValueEndAdornment?: ReactNode;
+  showStatIcon?: boolean;
+  placeholder?: string;
 };

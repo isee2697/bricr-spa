@@ -6,7 +6,16 @@ import { List, ListItem, Collapse, Box, Typography } from 'ui/atoms';
 import { SideMenuItemProps } from './SideMenuItem.types';
 import { useStyles } from './SideMenuItem.styles';
 
-export const SideMenuItem = ({ icon, title, selected, badge, onClick, children, className }: SideMenuItemProps) => {
+export const SideMenuItem = ({
+  itemKey,
+  icon,
+  title,
+  selected,
+  badge,
+  onClick,
+  children,
+  className,
+}: SideMenuItemProps) => {
   const classes = useStyles();
 
   const handleClick = () => {
@@ -15,7 +24,13 @@ export const SideMenuItem = ({ icon, title, selected, badge, onClick, children, 
 
   return (
     <>
-      <ListItem button className={classNames(classes.item, className)} selected={selected} onClick={handleClick}>
+      <ListItem
+        data-testid={`menu-item-${itemKey}`}
+        button
+        className={classNames(classes.item, className)}
+        selected={selected}
+        onClick={handleClick}
+      >
         {typeof title === 'string' ? (
           <>
             {icon || <Box ml={3} />}

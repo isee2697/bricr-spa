@@ -1,4 +1,4 @@
-import { SET_AUTHORIZED, SET_TOKENS, SET_UNAUTHORIZED, START_AUTHORIZING, LOGOUT } from '../authReducer/authReducer';
+import { LOGOUT, SET_AUTHORIZED, SET_TOKENS, SET_UNAUTHORIZED, START_AUTHORIZING } from '../authReducer/authReducer';
 import { AuthAction } from '../authReducer/authReducer.types';
 import { Profile } from 'api/types';
 

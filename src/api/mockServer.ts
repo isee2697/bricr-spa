@@ -1,9 +1,10 @@
-import { Model, Server } from 'miragejs';
 import { buildSchema, graphql } from 'graphql';
+import { Model, Server } from 'miragejs';
 
 import { PIM_PRICING_1, PIM_PRICING_COST_1 } from 'api/mocks/pim-pricing';
 import { MEDIA_CHAPTER, MEDIA_LINK, MEDIA_PICTURE, MEDIA_TAG, MEDIA_USPS, PIM_MEDIA_1 } from 'api/mocks/pim-media';
 import { NCP_GENERAL_1 } from 'api/mocks/ncp-general';
+import { MAIN_USER } from 'api/mocks/profile';
 
 import { loadSchemas } from './loadSchemas';
 import { CadastreType, Floor, PimOutside, PropertyType, ServiceType, Space } from './types';
@@ -38,6 +39,8 @@ let NCP_GENERAL = NCP_GENERAL_1;
 const LIST_NCP = LIST_NCP_1;
 const LIST_NCP_ARCHIVED = LIST_NCP_ARCHIVED_1;
 const PIM_AOG = PIM_DETAILS_4_AOG;
+const ME = MAIN_USER;
+let USERS = [ME];
 
 export const mockServer = () => {
   new Server({
@@ -111,14 +114,7 @@ export const mockServer = () => {
         const resolver = {
           me() {
             if (request.requestHeaders?.authorization === 'Bearer MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3') {
-              return {
-                id: 'test',
-                firstName: 'test',
-                lastName: 'test',
-                avatar:
-                  'https://images.unsplash.com/photo-1476900966873-ab290e38e3f7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=fe0976a79ece0ee8effca4cab4527ae2',
-                email: 'test@example.com',
-              };
+              return ME;
             }
             throw new Error();
           },
@@ -204,6 +200,39 @@ export const mockServer = () => {
             return {
               id: PIM_DETAILS.id,
             };
+          },
+          getAllProfiles() {
+            return { items: USERS };
+          },
+          createProfile() {
+            const newUser = { ...ME, ...variables.input, id: ME.id + '1' };
+            USERS = [...USERS, newUser];
+
+            return newUser;
+          },
+          getProfile() {
+            return USERS.find(user => user.id === variables.id);
+          },
+          updateProfile() {
+            const user = { ...USERS.find(user => user.id === variables.input.id), ...variables.input };
+
+            return user;
+          },
+          getTeams() {
+            return {
+              items: [
+                {
+                  id: '1234-5678-9012',
+                  name: 'Mock team',
+                },
+              ],
+            };
+          },
+          getMyTeamMembers() {
+            return { items: [MAIN_USER] };
+          },
+          getNotifications() {
+            return null;
           },
           getPim() {
             if (variables.id === 'test') {
@@ -579,7 +608,6 @@ export const mockServer = () => {
             PIM_DETAILS = {
               ...PIM_DETAILS,
               outsideFeatures: [
-                ...(PIM_DETAILS.outsideFeatures ?? []),
                 {
                   __typename: 'OutsideFeature',
                   type: variables.input.type,
@@ -590,6 +618,7 @@ export const mockServer = () => {
                     main: true,
                   },
                 },
+                ...(PIM_DETAILS.outsideFeatures ?? []),
               ],
             };
 

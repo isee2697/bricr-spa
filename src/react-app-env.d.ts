@@ -7,5 +7,8 @@ declare namespace NodeJS {
     REACT_APP_SECURITY_URL: string;
     REACT_APP_CI: string;
     REACT_APP_FILE_URL: string;
+    REACT_APP_INTERCOM_ID: string;
+    REACT_APP_PHRASE_PROJECT_ID: string;
+    REACT_APP_PHRASE_ENABLED: boolean;
   }
 }

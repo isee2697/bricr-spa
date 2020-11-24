@@ -64,8 +64,20 @@ context('Pim Details', () => {
     cy.findAllByText('Recreational home').click();
   });
 
+  it('toggles pim inside group', () => {
+    const id = 'toggle-group-pim_details.menu.pim_intake';
+    cy.openMenuGroupByTestIdWhenClosed(id);
+
+    cy.findByTestId('menu-item-general').should('exist');
+
+    cy.findByTestId(id).click();
+    cy.findByTestId('menu-item-general').should('not.exist');
+
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
+  });
+
   it('allows edit Inside general', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Inside').click();
 
     cy.findAllByPlaceholderText('A few words about inside...')
@@ -100,7 +112,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add floor', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Groundfloor');
 
     cy.findByText('Add new floor').click();
@@ -142,7 +154,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside info', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Outside').click();
     cy.contains('General information');
 
@@ -176,7 +188,7 @@ context('Pim Details', () => {
   });
 
   it('allows to add an outside feature', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findAllByText('Outside')
       .first()
       .click();
@@ -193,7 +205,7 @@ context('Pim Details', () => {
   });
 
   it('allows to edit outside feature', () => {
-    cy.findByText('PIM intake').click();
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 
@@ -213,6 +225,8 @@ context('Pim Details', () => {
     cy.findAllByText('PIM')
       .first()
       .click();
+
+    cy.findByTestId('menu-item-residential').click();
 
     cy.contains('BredaAmsterdam New');
   });

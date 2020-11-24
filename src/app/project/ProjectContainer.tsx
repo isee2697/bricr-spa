@@ -17,6 +17,7 @@ import {
 } from 'api/types';
 import { usePimQueryParams } from 'app/shared/usePimQueryParams/usePimQueryParams';
 
+import { useGetProjectType } from './useGetProjectType/useGetProjectType';
 import { Project } from './Project';
 import { useProjectSorting } from './useProjectSorting/useProjectSorting';
 import { BulkForm } from './Project.types';
@@ -24,18 +25,17 @@ import { BulkForm } from './Project.types';
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const ProjectContainer = () => {
+  const projectType = useGetProjectType();
   const { formatMessage } = useLocale();
   const { open: openSnackbar } = useSnackbar();
-  const { status, setStatus, type, setType, pricingType, setPricingType, priceTypeFilter } = usePimQueryParams({
-    type: 'nc',
-  });
+  const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
 
   const [bulk] = useBulkMutation();
   const [getBulkData, { data: bulkData }] = useNcpBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
   const [undoEntity] = useUndoEntityMutation();
 
-  const { loading: isCountLoading, error: countError, data: countData } = useListNcpsCountQuery({
-    variables: priceTypeFilter,
+  const { loading: isCountLoading, data: countData } = useListNcpsCountQuery({
+    variables: { ...priceTypeFilter, projectType },
   });
 
   const amounts =
@@ -54,8 +54,14 @@ export const ProjectContainer = () => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { loading: isListLoading, error: listError, data: listData } = useListNcpsQuery({
-    variables: { ...priceTypeFilter, archived: status === 'archived', ...sortQuery, ...paginationQuery },
+  const { loading: isListLoading, data: listData } = useListNcpsQuery({
+    variables: {
+      ...priceTypeFilter,
+      archived: status === 'archived',
+      ...sortQuery,
+      ...paginationQuery,
+      projectType,
+    },
     fetchPolicy: 'network-only',
   });
 
@@ -179,31 +185,25 @@ export const ProjectContainer = () => {
   };
 
   return (
-    <>
-      <Project
-        status={status}
-        onStatusChange={setStatus}
-        pricingType={pricingType}
-        onPricingTypeChange={setPricingType}
-        type={type}
-        onTypeChange={setType}
-        isLoading={isCountLoading || isListLoading}
-        isError={!!countError || !!listError}
-        amounts={amounts}
-        listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
-        sorting={sorting}
-        pagination={pagination}
-        onOperation={handleOperation}
-        bulkData={
-          bulkData
-            ? {
-                cityValues: bulkData.city?.map(c => c.value as string) ?? [],
-              }
-            : null
-        }
-        onBulkOpen={fetchBulkDetails}
-        onBulk={handleBulk}
-      />
-    </>
+    <Project
+      status={status}
+      onStatusChange={setStatus}
+      isLoading={isCountLoading || isListLoading}
+      amounts={amounts}
+      type={projectType}
+      listData={status === 'actionRequired' ? ([] as ListNcp[]) : listData?.listNcps?.items ?? []}
+      sorting={sorting}
+      pagination={pagination}
+      onOperation={handleOperation}
+      bulkData={
+        bulkData
+          ? {
+              cityValues: bulkData.city?.map(c => c.value as string) ?? [],
+            }
+          : null
+      }
+      onBulkOpen={fetchBulkDetails}
+      onBulk={handleBulk}
+    />
   );
 };

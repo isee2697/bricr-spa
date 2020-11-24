@@ -5,11 +5,18 @@ import classNames from 'classnames';
 import { ScrollableHorizontalProps } from './ScrollableHorizontal.types';
 import { useStyles } from './ScrollableHorizontal.styles';
 
-export const ScrollableHorizontal = ({ children, width, maxWidth, height, className }: ScrollableHorizontalProps) => {
+export const ScrollableHorizontal = ({
+  children,
+  width,
+  maxWidth,
+  minHeight,
+  height,
+  className,
+}: ScrollableHorizontalProps) => {
   const classes = useStyles();
 
   return (
-    <RSC className={classNames(classes.root, className)} noDefaultStyles style={{ width, height, maxWidth }}>
+    <RSC className={classNames(classes.root, className)} noDefaultStyles style={{ width, height, maxWidth, minHeight }}>
       {children}
     </RSC>
   );

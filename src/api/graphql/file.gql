@@ -20,7 +20,9 @@ enum EntityWithFiles {
   ObjectTypeMediaPicture,
   NcpProjectMarketing,
   ObjectTypeProjectMarketing,
-  ProjectPhase
+  ProjectPhase,
+  Profile,
+  Crm
 }
 
 enum EntityWithMultipleFiles {

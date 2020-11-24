@@ -54,7 +54,7 @@ export const BuildingsForm = ({ data }: AogTypeSpecificFormProps) => {
               <FormSubSectionHeader
                 noBorder
                 title={formatMessage({ id: 'pim_details.buildings.type' })}
-                subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
               />
               <RadioGroupField
                 disabled={!editing}

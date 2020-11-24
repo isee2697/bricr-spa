@@ -8,8 +8,7 @@ import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { GraphArrowIcon } from 'ui/atoms/icons/graphArrow/GraphArrowIcon';
-import { CommentIcon } from 'ui/atoms/icons/comment/CommentIcon';
-import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
+import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { SettingsIcon } from 'ui/atoms/icons/settings/SettingsIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLayout } from 'context/layout';
@@ -30,6 +29,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   const { pathname } = useLocation();
   const { isSidebarVisible, isHeaderVisible } = useLayout();
 
+  const isOnTasksPage = pathname.startsWith(AppRoute.tasks);
   const isOnSettingsPage = pathname.startsWith(AppRoute.settings);
   const handleSettingsClick = () => {
     if (isOnSettingsPage) {
@@ -39,7 +39,17 @@ export const Dashboard = ({ children }: DashboardProps) => {
     }
   };
 
-  const handleNavigate = (path: AppRoute) => () => {
+  const isOnDMSPage = pathname.startsWith(AppRoute.dms);
+  const isOnEmailPage = pathname.startsWith(AppRoute.email.replace(':inboxId', ''));
+  const handleDMSClick = () => {
+    if (isOnDMSPage) {
+      push(AppRoute.home);
+    } else {
+      push(AppRoute.dms);
+    }
+  };
+
+  const handleNavigate = (path: string) => () => {
     push(path);
   };
 
@@ -67,15 +77,32 @@ export const Dashboard = ({ children }: DashboardProps) => {
         {isSidebarVisible && (
           <Sidebar>
             <ShortcutsMenu />
-            <IconButton variant="rounded" size="small" aria-label="mail">
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="mail"
+              onClick={handleNavigate(AppRoute.email.replace(':inboxId', '0'))}
+              selected={isOnEmailPage}
+            >
               <Badge badgeContent={2} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="calendar">
+            <IconButton
+              onClick={handleNavigate(AppRoute.calendar)}
+              variant="rounded"
+              size="small"
+              aria-label="calendar"
+            >
               <CalendarIcon />
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="tasks" onClick={handleNavigate(AppRoute.tasks)}>
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="tasks"
+              onClick={handleNavigate(AppRoute.tasks)}
+              selected={isOnTasksPage}
+            >
               <TasksIcon />
             </IconButton>
             <IconButton variant="rounded" size="small" aria-label="stats">
@@ -83,13 +110,10 @@ export const Dashboard = ({ children }: DashboardProps) => {
                 <GraphArrowIcon />
               </Badge>
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="comments">
-              <CommentIcon />
+            <IconButton variant="rounded" size="small" aria-label="dms" onClick={handleDMSClick} selected={isOnDMSPage}>
+              <FolderIcon />
             </IconButton>
             <Sidebar.Divider />
-            <IconButton variant="rounded" size="small" aria-label="help">
-              <HelpIcon />
-            </IconButton>
             <IconButton
               variant="rounded"
               size="small"

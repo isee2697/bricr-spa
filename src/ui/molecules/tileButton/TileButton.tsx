@@ -8,6 +8,7 @@ import { useStyles } from './TileButton.styles';
 import { TileButtonProps } from './TileButton.types';
 
 export const TileButton = ({
+  className,
   onClick,
   title,
   isDisabled,
@@ -19,7 +20,11 @@ export const TileButton = ({
   const classes = useStyles({ isSmallSize: !!title });
 
   return (
-    <Box className={classNames(classes.root, { [classes.preventClick]: isDisabled })} onClick={onClick} {...props}>
+    <Box
+      className={classNames(className, classes.root, { [classes.preventClick]: isDisabled })}
+      onClick={onClick}
+      {...props}
+    >
       <Box className={classNames(classes.tile, { [classes.disabled]: isDisabled })}>
         <Box className={classes.children}>{children}</Box>
       </Box>

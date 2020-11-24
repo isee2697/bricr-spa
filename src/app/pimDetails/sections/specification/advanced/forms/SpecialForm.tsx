@@ -26,7 +26,7 @@ export const SpecialForm = () => {
               <SpecialSubsection
                 title={formatMessage({ id: 'pim_details.specification.advanced.monument' })}
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.monument_type' })}
-                subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subSectionSubtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 actionGroupType="radio"
                 actionGroupName="specificationAdvanced.monument.type"
                 options={dictionaries.advancedMonument}
@@ -41,7 +41,7 @@ export const SpecialForm = () => {
               <SpecialSubsection
                 title={formatMessage({ id: 'pim_details.specification.advanced.inside' })}
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
-                subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subSectionSubtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 actionGroupType="radio"
                 actionGroupName="specificationAdvanced.inside.type"
                 options={dictionaries.advancedInside}
@@ -56,7 +56,7 @@ export const SpecialForm = () => {
               <SpecialSubsection
                 title={formatMessage({ id: 'pim_details.specification.advanced.housing_options' })}
                 subSectionTitle={formatMessage({ id: 'pim_details.specification.advanced.select_type' })}
-                subSectionSubtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                subSectionSubtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                 actionGroupType="radio"
                 actionGroupName="specificationAdvanced.housingOptions.type"
                 options={dictionaries.advancedOptions}

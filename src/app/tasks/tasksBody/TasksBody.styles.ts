@@ -13,4 +13,18 @@ export const useStyles = makeStyles(theme => ({
   flexGrowOne: {
     flex: 1,
   },
+  noPadding: {
+    padding: 0,
+  },
+  badge: {
+    right: -theme.spacing(1),
+
+    '&.default': {
+      color: theme.palette.gray.main,
+      background: theme.palette.gray.light,
+    },
+  },
+  red: {
+    color: theme.palette.red.main,
+  },
 }));

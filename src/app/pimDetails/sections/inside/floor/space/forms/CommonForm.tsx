@@ -18,7 +18,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
         <FormSubSectionHeader
           noBorder
           title={formatMessage({ id: 'pim_details.inside.shape' })}
-          subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+          subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
         />
         <Box paddingTop={2}>
           <RadioGroupField
@@ -49,6 +49,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
               }}
               disabled={!isEditMode}
               onChange={() => onDimensionChange(`${fieldPrefix}.measurement.length`)}
+              data-testid="space-length"
             />
           </Grid>
           <Grid item xs={4}>
@@ -62,6 +63,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
               }}
               disabled={!isEditMode}
               onChange={() => onDimensionChange(`${fieldPrefix}.measurement.width`)}
+              data-testid="space-width"
             />
           </Grid>
           <Grid item xs={4}>
@@ -75,6 +77,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
               }}
               disabled={!isEditMode}
               onChange={() => onDimensionChange(`${fieldPrefix}.measurement.height`)}
+              data-testid="space-height"
             />
           </Grid>
           <Grid item xs={4}>
@@ -87,6 +90,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
                 endAdornment: <SquareMeterIcon />,
               }}
               disabled={!isEditMode}
+              data-testid="space-surface"
             />
           </Grid>
           <Grid item xs={4}>
@@ -99,6 +103,7 @@ export const CommonForm = ({ fieldPrefix, isEditMode, id, onDimensionChange }: C
                 endAdornment: <CubicMeterIcon />,
               }}
               disabled={!isEditMode}
+              data-testid="space-volume"
             />
           </Grid>
         </Grid>

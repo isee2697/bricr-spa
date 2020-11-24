@@ -18,7 +18,6 @@ context('Add Ground', () => {
     cy.findByRole('button', { name: 'Add new ground' }).click();
 
     cy.contains('My grass land');
-    cy.findByLabelText('Edit mode').click();
 
     cy.findByLabelText('Name').type(' with some more naming');
     cy.findByText('Grass Land').click();

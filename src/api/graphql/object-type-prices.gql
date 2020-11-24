@@ -1,7 +1,7 @@
 type ObjectTypePricing implements LastUpdated {
   rent: CommonRentInformations
   sale: CommonSaleInformations
-  lastEditedBy: Profile
+  lastEditedBy: LastUpdatedProfile
   dateUpdated: Date
   description: String
 }

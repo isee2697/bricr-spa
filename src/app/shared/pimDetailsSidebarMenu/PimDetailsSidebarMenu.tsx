@@ -8,13 +8,14 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
-import { BuildingIcon, ComplexBuildingIcon, MailIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ComplexBuildingIcon, CrmIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
+import { PimTypes } from 'app/pim/dictionaries';
 
 import { PimDetailsSidebarMenuProps, SideBarItemTypes } from './PimDetailsSidebarMenu.types';
 import { getMenuItem } from './PimDetailsSidebarMenu.helpers';
 
-const getBackUrl = (routeParams: Record<string, string>) => {
+const getBackUrl = (routeParams: Record<string, string>, type?: PropertyType) => {
   if (routeParams.projectId && routeParams.objectTypeId) {
     return (
       AppRoute.objectTypeDetails.replace(':id', routeParams.objectTypeId).replace(':projectId', routeParams.projectId) +
@@ -22,10 +23,18 @@ const getBackUrl = (routeParams: Record<string, string>) => {
     );
   }
 
-  return AppRoute.pim;
+  const path = type && PimTypes.find(pimType => pimType.types?.includes(type))?.name;
+
+  return `${AppRoute.pim}${path && '/'}${path}`;
 };
 
-export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible }: PimDetailsSidebarMenuProps) => {
+export const PimDetailsSidebarMenu = ({
+  onHide,
+  data,
+  objectTypeName,
+  isVisible,
+  allocateResultsNumber = 0,
+}: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const params = useParams();
@@ -96,10 +105,19 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
       break;
   }
 
+  const pim = data?.getPimGeneral;
+  let title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
+  title = title.length > 25 ? `${title.slice(0, 25)}...` : title;
+
+  const type =
+    pim?.propertyType === PropertyType.House || pim?.propertyType === PropertyType.Apartment
+      ? 'residental'
+      : pim?.propertyType.toLowerCase();
+
   const menu = {
     url: url,
     back: {
-      url: getBackUrl(params),
+      url: getBackUrl(params, pim?.propertyType),
       title: formatMessage({
         id:
           entityType === EntityType.Property
@@ -109,7 +127,40 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
     },
     groups: [
       {
-        items: [{ key: 'dashboard' }, { key: 'summary' }, { key: 'propertyJourney' }, { key: 'salesSettings' }],
+        items: [
+          { key: 'dashboard' },
+          {
+            key: 'summary',
+            subItems: [
+              {
+                id: 'inside',
+                label: 'pim_details.summary.inside.title',
+              },
+              {
+                id: 'outside',
+                label: 'pim_details.summary.outside.title',
+              },
+              {
+                id: 'personal',
+                label: 'pim_details.summary.personal.title',
+              },
+            ],
+          },
+          { key: 'propertyJourney' },
+          {
+            key: 'salesSettings',
+            subItems: [
+              {
+                id: 'allocation1',
+                label: 'pim_details.sales_settings.allocation.title',
+              },
+              {
+                id: 'allocation2',
+                label: 'pim_details.sales_settings.allocation.title',
+              },
+            ],
+          },
+        ],
       },
       {
         isCollapsable: true,
@@ -132,17 +183,29 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
             ],
             icon: <MailIcon />,
           },
-          { key: 'documents' },
+          {
+            key: 'documents',
+            subItems: [
+              {
+                id: 'checklist',
+                label: 'pim_details.documents.checklist.title',
+              },
+              {
+                id: 'audit_checklist',
+                label: 'pim_details.documents.audit_checklist.menu_title',
+              },
+            ],
+            icon: <CrmIcon />,
+          },
           { key: 'contacts' },
           { key: 'marketing' },
           { key: 'reactions' },
+          { key: 'tiara' },
+          { key: 'allocateResults', count: allocateResultsNumber },
         ],
       },
     ],
   };
-
-  const pim = data?.getPimGeneral;
-  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   return (
     <SidebarMenu
@@ -150,6 +213,7 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
       isVisible={isVisible}
       translationPrefix="pim_details.menu"
       menu={menu}
+      menuTitleIcon={<SaleIcon />}
       menuTitle={
         objectTypeName ? (
           <SidebarTitleTile
@@ -165,7 +229,9 @@ export const PimDetailsSidebarMenu = ({ onHide, data, objectTypeName, isVisible 
             }
           />
         ) : (
-          undefined
+          formatMessage({
+            id: `pim.type.${type}`,
+          })
         )
       }
     />

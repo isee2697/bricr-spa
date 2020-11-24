@@ -4,6 +4,7 @@ import { EntityWithFiles, File } from 'api/types';
 
 export type UploadImageFieldProps = {
   name: string;
+  classes?: UploadImageFieldClasses;
   validate?: FieldValidator<File>[];
   validateFields?: string[];
   disabled?: boolean;
@@ -18,6 +19,12 @@ export type UploadImageFieldProps = {
   isChecked?: boolean;
   onCheck?: () => void;
   permission?: 'private' | 'public';
+};
+
+export type UploadImageFieldClasses = {
+  root?: string;
+  item?: string;
+  empty?: string;
 };
 
 export enum UploadImageFieldTypes {

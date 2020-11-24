@@ -1,0 +1,121 @@
+enum CrmType {
+  Relation,
+  Business
+}
+
+enum PreferredLanguageType {
+  Dutch,
+  English,
+  Polish,
+  German,
+  French,
+  Italian,
+  Spanish,
+  Portuguese
+}
+
+enum PreferredTitlePrefixType {
+  Dr,
+  Mr,
+  Ir,
+  Ing,
+  Drs
+}
+
+enum PreferredTitleSuffixType {
+  Msc,
+  MA,
+  MRE,
+  MBA,
+  Bc
+}
+
+enum PreferredLetterSalutationType {
+  Family,
+  Lord,
+  Mylady,
+  LordMylady
+}
+
+enum CrmIdentificationNumberType {
+  Sap,
+  Woningnet,
+  DebtorNumber,
+  Custom
+}
+
+type CrmGeneral {
+  id: ID!
+  firstName: String
+  extraNames: String
+  insertion: String
+  lastName: String
+  avatar: File
+  gender: GenderType
+  dateOfBirth: Date
+  placeOfBirth: String
+  nationality: String
+  preferredLanguage: String @uuidOrEnum(enum: ["PreferredLanguageType"])
+  identification: String
+  identificationNumber: String
+  identificationIssueCity: String
+  identificationIssueDate: Date
+  preferredTitlePrefix: String @uuidOrEnum(enum: ["PreferredTitlePrefixType"])
+  preferredTitleSuffix: String @uuidOrEnum(enum: ["PreferredTitleSuffixType"])
+  preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])
+  preferredTitleInformation: String
+  identificationNumbers: [CrmIdentificationNumber!]
+}
+
+type CrmIdentificationNumber {
+  type: CrmIdentificationNumberType!
+  number: String!
+  name: String
+}
+
+input CrmIdentificationNumberInput {
+  type: CrmIdentificationNumberType!
+  number: String!
+  name: String
+}
+
+input CreateCrmInput {
+  type: CrmType!
+  firstName: String
+  insertion: String
+  lastName: String
+  email: String
+  phoneNumber: String
+}
+
+input UpdateCrmGeneralInput {
+  id: ID!
+  firstName: String
+  extraNames: String
+  insertion: String
+  lastName: String
+  gender: GenderType
+  avatarId: String,
+  dateOfBirth: Date
+  placeOfBirth: String
+  nationality: String
+  preferredLanguage: String @uuidOrEnum(enum: ["PreferredLanguageType"])
+  identification: String
+  identificationNumber: String
+  identificationIssueCity: String
+  identificationIssueDate: Date
+  preferredTitlePrefix: String @uuidOrEnum(enum: ["PreferredTitlePrefixType"])
+  preferredTitleSuffix: String @uuidOrEnum(enum: ["PreferredTitleSuffixType"])
+  preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])
+  preferredTitleInformation: String
+  identificationNumbers: [CrmIdentificationNumberInput!]
+}
+
+extend type Mutation {
+  createCrm(input: CreateCrmInput!): CrmGeneral! @auth
+  updateCrmGeneral(input: UpdateCrmGeneralInput!): CrmGeneral @auth
+}
+
+extend type Query {
+  getCrmGeneral(id: ID!): CrmGeneral @auth
+}

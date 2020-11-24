@@ -1,0 +1,80 @@
+enum CalendarTypes {
+  Meeting
+  Appointment
+  Birthday
+  Travel
+  Private
+  Task
+}
+
+type CalendarGroup {
+    id: ID!
+    name: String!
+    color: String
+    members: [Profile!]
+}
+
+enum AppointmentRepeat {
+    NoRepeat
+    Daily
+    WorkDays
+    Weekly
+    Monthly
+    Hourly
+    Yearly
+}
+
+type AppointmentLocation {
+    id: ID!
+    availablePlaces: Int
+    name: String
+    suggest: Boolean
+}
+
+enum AppointmentType {
+    Aquisition
+    SigningContract
+    Openhouse
+    Purchase
+    Inspection
+    PersonalShowing
+}
+
+type AppointmentTerm {
+    from: Date
+    to: Date
+}
+
+enum AppointmentMeetingType {
+    ExternalAgreement
+    Collegial
+    CompleteArgeement
+    RedirectAppointment
+    FollowUpJob
+}
+
+enum AppointmentAddressType {
+     LinkedPersonAddress
+     NewAcquisitionAddress
+}
+
+enum AppointmentState {
+    Pencil
+    Confirmed
+    Completed
+    Unconfirmed
+}
+
+type Appointment {
+  startDate: Date!
+  endDate: Date!
+  travelTimeBefore: Int
+  travelTimeAfter: Int
+  title: String
+  allDay: Boolean
+  id: ID!
+  type: CalendarTypes!
+  location: String
+  taskLabel: TaskLabel
+  state: AppointmentState
+}

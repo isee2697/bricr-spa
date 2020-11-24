@@ -6,4 +6,5 @@ export type ScrollableProps = {
   height: string | number;
   maxWidth?: string | number;
   className?: string;
+  noBottomScroller?: boolean;
 };

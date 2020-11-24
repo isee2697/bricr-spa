@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import arrayMutators from 'final-form-arrays';
 
 import { Grid, Box, Avatar, Typography, Placeholder, Button } from 'ui/atoms';

@@ -14,12 +14,18 @@ import { MetersContainer } from 'app/pimDetails/sections/meters/MetersContainer'
 import { Specification } from 'app/pimDetails/sections/specification/Specification';
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
-import { AogSpaceType } from '../../api/types';
+import { AogSpaceType, TiaraEntities } from 'api/types';
+import { TiaraContainer } from 'app/shared/tiara/TiaraContainer';
 
+import { AllocateResultsDetailsContainer } from './sections/allocateResultsDetails/AllocateResultsDetailsContainer';
+import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
 import { CommercialSpacesContainer } from './sections/commercial/CommercialSpacesContainer';
 import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
+import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsContainer';
+import { SummaryContainer } from './sections/summary/SummaryContainer';
+import { DocumentsContainer } from './sections/documents/DocumentsContainer';
 
 export const PimDetails = ({
   loading,
@@ -59,12 +65,15 @@ export const PimDetails = ({
           data={data}
           onHide={handleSidebarHide}
           objectTypeName={objectTypeName}
+          allocateResultsNumber={5}
         />
         <Box flex={1}>
           <Grid container className={classes.content}>
             {!!error && (
               <Grid item xs={12}>
-                <Alert severity="error">{formatMessage({ id: 'common.error' })}</Alert>
+                <Alert data-testid="pim-details-error" severity="error">
+                  {formatMessage({ id: 'common.error' })}
+                </Alert>
               </Grid>
             )}
             {!error && !!pim && (
@@ -128,6 +137,12 @@ export const PimDetails = ({
                   )}
                 />
                 <Route
+                  path={`${path}/salesSettings`}
+                  render={() => (
+                    <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  )}
+                />
+                <Route
                   path={`${path}/specification`}
                   render={() => (
                     <Specification
@@ -154,6 +169,53 @@ export const PimDetails = ({
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                       title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/summary`}
+                  render={() => (
+                    <SummaryContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/tiara`}
+                  render={() => (
+                    <TiaraContainer
+                      entity={TiaraEntities.Pim}
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/documents`}
+                  render={() => (
+                    <DocumentsContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path={`${path}/allocateResults`}
+                  render={() => (
+                    <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                  )}
+                />
+                <Route
+                  path={`${path}/allocateResults/:id`}
+                  render={() => (
+                    <AllocateResultsDetailsContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
                     />
                   )}
                 />

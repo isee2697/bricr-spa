@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, SimplePaletteColorOptions } from '@material-ui/core/styles';
+import React, { ReactNode } from 'react';
 
 import { typography, fontWeight } from './typography';
 import { palette } from './palette';
@@ -300,6 +300,13 @@ const theme = createMuiTheme({
     MuiLink: {
       root: {
         fontWeight: typography.fontWeightMedium,
+      },
+    },
+    MuiGrid: {
+      item: {
+        '&.right': {
+          marginLeft: 'auto',
+        },
       },
     },
     MuiTab: {

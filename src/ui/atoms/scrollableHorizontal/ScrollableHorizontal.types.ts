@@ -5,5 +5,6 @@ export type ScrollableHorizontalProps = {
   width: string | number;
   height: string | number;
   maxWidth?: string | number;
+  minHeight?: string | number;
   className?: string;
 };

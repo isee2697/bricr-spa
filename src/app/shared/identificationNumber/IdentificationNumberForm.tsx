@@ -108,7 +108,7 @@ export const IdentificationNumberForm = ({
                     title={formatMessage({
                       id: 'pim_details.general.identification_number.type_of_identification_number',
                     })}
-                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+                    subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
                   />
                   <Box mt={2} mb={3}>
                     <RadioGroupField xs={2} options={identificationNumberTypes} name="type" disabled={!editing} />

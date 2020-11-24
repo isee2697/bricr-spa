@@ -17,6 +17,7 @@ export const useStyles = makeStyles(theme => ({
   },
   buttons: {
     marginLeft: 'auto',
+    marginRight: theme.spacing(0),
     width: 'auto',
   },
   inputField: {
@@ -24,8 +25,9 @@ export const useStyles = makeStyles(theme => ({
     marginTop: 0,
   },
   childContainer: {
-    '& > .MuiGrid-item + .MuiGrid-item': {
+    '& > .MuiGrid-item + .MuiGrid-item, & > .MuiPaper-root.MuiCard-root': {
       marginTop: theme.spacing(3),
+      width: '100%',
     },
   },
   lastUpdated: {

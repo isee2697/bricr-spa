@@ -18,7 +18,7 @@ export const GardenForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPro
         <Box mb={3}>
           <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.type' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
         </Box>
         <Grid item md={9} lg={7}>
@@ -36,7 +36,7 @@ export const GardenForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPro
         <Box mb={3}>
           <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.quality_of_garden' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
         </Box>
         <Grid item md={9} lg={7}>
@@ -71,7 +71,7 @@ export const GardenForm = ({ id, inEditMode, onDimensionChange }: FeatureFormPro
         <Box mb={3}>
           <FormSubSectionHeader
             title={formatMessage({ id: 'pim_details.outside.garden.shape_of_garden' })}
-            subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
+            subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
           />
         </Box>
         <Grid item md={9} lg={7}>

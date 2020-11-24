@@ -3,4 +3,5 @@ export type InfoSectionProps = {
   emoji?: string;
   className?: string;
   color?: 'default' | 'gradient';
+  noPadding?: boolean;
 };

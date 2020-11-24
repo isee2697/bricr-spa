@@ -13,7 +13,14 @@ export type RadioDataType = {
 export type Width = boolean | 2 | 'auto' | 1 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined;
 type FieldValue = string;
 
+export type RadioGroupFieldClasses = {
+  group?: string;
+  groupItem?: string;
+  option?: string;
+};
+
 export type RadioGroupFieldProps = {
+  labelId?: string;
   validate?: FieldValidator<FieldValue>[];
   validateFields?: string[];
   name: string;
@@ -28,6 +35,8 @@ export type RadioGroupFieldProps = {
   actionElement?: ReactNode;
   justify?: GridJustification;
   onChange?: (item: RadioDataType) => void;
+  classes?: RadioGroupFieldClasses;
+  optionType?: 'tile' | 'checkbox';
 } & Pick<UseFieldConfig<string>, 'format'>;
 
 export type RadioGroupFieldStylesProps = {

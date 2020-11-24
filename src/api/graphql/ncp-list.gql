@@ -1,6 +1,7 @@
 input ListNcpsFilters {
   archived: Boolean
   pricingType: PricingType
+  projectType: ProjectType
 }
 
 type ListNcp {
@@ -36,6 +37,8 @@ type ListNcp {
   color: String
   attentionNote: String
   objectTypesCount: Int
+  city: String
+  projectType: ProjectType
 }
 
 input UpdateObjectTypesListDescription {
