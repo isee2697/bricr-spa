@@ -24,9 +24,8 @@ context('Pim Details', () => {
   });
 
   it('allows to edit general info', () => {
-    cy.wait(3000);
     cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/general'));
-
+    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Isenburgstraat 36 4813 NC Breda');
 
     cy.findAllByText('Edit mode')
@@ -37,8 +36,6 @@ context('Pim Details', () => {
     cy.get('input[name="street"]').type('Bahnhoff');
     cy.get('input[name="houseNumber"]').type('20');
 
-    cy.wait(3000);
-
     cy.findAllByText('Edit mode')
       .eq(1)
       .click();
@@ -46,15 +43,11 @@ context('Pim Details', () => {
     cy.findAllByText('Single family').click();
     cy.findAllByText('Final house').click();
 
-    cy.wait(3000);
-
     cy.findAllByText('Edit mode')
       .eq(2)
       .click();
 
     cy.findAllByText('Under construction').click();
-
-    cy.wait(3000);
 
     cy.findAllByText('Edit mode')
       .eq(3)
@@ -72,14 +65,11 @@ context('Pim Details', () => {
 
     cy.findByTestId(id).click();
     cy.findByTestId('menu-item-general').should('not.exist');
-
-    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
   });
 
   it('allows edit Inside general', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/inside'));
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
-    cy.findByText('Inside').click();
-
     cy.findAllByPlaceholderText('A few words about inside...')
       .last()
       .type('Inside general description');
@@ -107,11 +97,10 @@ context('Pim Details', () => {
       .click();
 
     cy.findByPlaceholderText('A few words about windows...').type(' I prefer my computer to run windows xp');
-
-    cy.wait(3000);
   });
 
   it('allows to add floor', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/inside'));
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.contains('Groundfloor');
 
@@ -149,11 +138,10 @@ context('Pim Details', () => {
     cy.get('input[name="configuration.measurement.surface"]').type('12');
     cy.findByText('Coal stove').click();
     cy.findByText('Wall heating').click();
-
-    cy.wait(3000);
   });
 
   it('allows to edit outside info', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/outside'));
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findByText('Outside').click();
     cy.contains('General information');
@@ -183,11 +171,10 @@ context('Pim Details', () => {
     cy.get('input[name="houseOutside.roofInformation.material.notes"]').type('roof material note');
     cy.findByText('Spray foam').click();
     cy.get('input[name="houseOutside.roofInformation.insulation.notes"]').type('roof insulation note');
-
-    cy.wait(3000);
   });
 
   it('allows to add an outside feature', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/outside'));
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
     cy.findAllByText('Outside')
       .first()
@@ -217,11 +204,16 @@ context('Pim Details', () => {
     cy.get('input[name="configuration.measurement.width"]').type('200');
     cy.get('input[name="configuration.measurement.length"]').type('100');
     cy.get('input[name="configuration.measurement.surface"]').type('20000');
-
-    cy.wait(3000);
   });
 
   it('shows pim after change on list', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'PIM_1/general'));
+    cy.findAllByText('Edit mode')
+      .eq(0)
+      .click();
+    cy.get('input[name="city"]').type('Amsterdam New');
+
+    cy.wait(500);
     cy.findAllByText('PIM')
       .first()
       .click();

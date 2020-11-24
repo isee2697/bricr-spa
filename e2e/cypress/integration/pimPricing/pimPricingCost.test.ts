@@ -17,6 +17,7 @@ context('Pim Details Costs', () => {
     cy.contains('Add new costs');
   });
   it('allows to add costs', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/prices/costs'));
     cy.get('.form-section-add').click();
 
     cy.findByText('Electricity').click();
@@ -29,6 +30,14 @@ context('Pim Details Costs', () => {
     cy.contains('Electricity (Custom Name)');
   });
   it('allows to edit costs', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/prices/costs'));
+    cy.get('.form-section-add').click();
+
+    cy.findByText('Electricity').click();
+    cy.get('input[name="name"]').type('Custom Name');
+
+    cy.findByText('Add Type').click();
+
     cy.contains('Payments');
     cy.contains('VAT');
 
