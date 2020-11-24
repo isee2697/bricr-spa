@@ -4,21 +4,16 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: tshio/node-pipelines:node-12
+      - image: cypress/browsers:node14.15.0-chrome86-ff82
     steps:
       - checkout
-      - run: docker build --build-arg PHRASE_ENABLED=$PHRASE_ENABLED --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID -t 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev -f devops/docker/Dockerfile.dev .
-      #Variables
-      - run: export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-      - run: export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-      - run: export AWS_REGION=eu-west-1
-      #Dependencies
-      - run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - run: unzip awscliv2.zip
-      - run: ./aws/install
-      #Push commands
-      - run: aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 158856956003.dkr.ecr.eu-west-1.amazonaws.com
-      - run: docker push 158856956003.dkr.ecr.eu-west-1.amazonaws.com/bricr-spa:$BITBUCKET_COMMIT-dev
+      - run: npm install --save-dev cypress@4.0.2
+      - run: cp .env.dist .env
+      - run: npm install
+      - run: npm run build:ci
+      - run: cd e2e && npm install && cd ..
+      - run: npm run e2e:ci:firefox
+      - run: npm run e2e:ci:chrome
   
 
 # Orchestrate our job run sequence
