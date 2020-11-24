@@ -213,7 +213,7 @@ context('Pim Details', () => {
       .click();
     cy.get('input[name="city"]').type('Amsterdam New');
 
-    cy.wait(500);
+    cy.wait(1000);
     cy.findAllByText('PIM')
       .first()
       .click();
