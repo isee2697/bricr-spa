@@ -12,18 +12,14 @@ import { useStyles } from './Description.styles';
 export const Description = ({ email: { body } }: EmailSectionsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const initialValues = body
-    ? {
-        chapter: [...(JSON.parse(body) || [])],
-      }
-    : {
-        chapter: [
-          {
-            type: 'paragraph',
-            children: [{ text: '' }],
-          },
-        ],
-      };
+  const initialValues = {
+    chapter: [
+      {
+        type: 'paragraph',
+        children: [{ text: body }],
+      },
+    ],
+  };
 
   const handleSave = async () => {
     return undefined;

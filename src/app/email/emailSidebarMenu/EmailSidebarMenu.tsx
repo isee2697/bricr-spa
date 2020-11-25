@@ -13,7 +13,7 @@ import { useStyles } from './EmailSidebarMenu.styles';
 import { EmailSidebarMenuItem } from './EmailSidebarMenuItem';
 import { EmailSidebarSubMenuItem } from './EmailSidebarSubMenuItem';
 
-export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) => {
+export const EmailSidebarMenu = ({ onHide, isVisible, folders }: EmailSidebarMenuProps) => {
   const { params } = useRouteMatch();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -23,61 +23,15 @@ export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) =
 
   const menu: SidebarMenuType = {
     url: AppRoute.email.replace(':inboxId', params.inboxId),
-    groups: [
-      {
-        items: [
-          {
-            key: 'inbox',
-            count: 280,
-            subItems: [
-              {
-                id: 'folder_1',
-                label: 'email.menu.inbox.folder_abs1',
-                number: 1,
-              },
-              {
-                id: 'folder_2',
-                label: 'email.menu.inbox.folder_2',
-              },
-              {
-                id: 'folder_3',
-                label: 'email.menu.inbox.folder_3',
-                number: 2,
-              },
-              {
-                id: 'new_folder',
-                title: `+ ${formatMessage({ id: 'email.menu.inbox.new_folder' })}`,
-                onClick: () => {},
-              },
-            ],
-          },
-          {
-            key: 'pinned',
-            count: 30,
-          },
-          {
-            key: 'sent',
-            count: 0,
-          },
-          {
-            key: 'concepts',
-            count: 2,
-          },
-          {
-            key: 'spam',
-            count: 3,
-          },
-          {
-            key: 'bin',
-            count: 0,
-          },
-          {
-            key: 'archive',
-            count: 0,
-          },
-        ],
-      },
-    ],
+    groups: folders.map(folder => ({
+      items: [
+        {
+          key: folder.folder.name,
+          title: folder.folder.displayName || folder.folder.name,
+          count: folder.numberOfEmails,
+        },
+      ],
+    })),
   };
 
   const renderSubItem = (subItem: SubMenuItem, menuItem: MenuItem) => {
@@ -85,7 +39,7 @@ export const EmailSidebarMenu = ({ onHide, isVisible }: EmailSidebarMenuProps) =
       return (
         <SideSubMenuItem
           key={subItem}
-          title={formatMessage({ id: `"email.menu".${subItem}` })}
+          title={menuItem.title}
           selected={pathname === `${menu.url}/${menuItem.key}/${subItem}`}
           onClick={() => push(`${menu.url}/${menuItem.key}#${subItem}`)}
         />
