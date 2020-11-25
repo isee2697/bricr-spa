@@ -152,7 +152,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               </IconButton>
               <Box ml={6} />
               <Typography variant="h5" className={classes.fontWeightMedium}>
-                {date.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
+                {DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
               </Typography>
               <Box ml={4} />
               <IconButton

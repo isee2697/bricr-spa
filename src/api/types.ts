@@ -139,6 +139,7 @@ export type Mutation = {
   removeUserFromTeam?: Maybe<Team>;
   removeViewingMoment: Pim;
   resetPassword?: Maybe<ResetPasswordResponse>;
+  sendEmail: Scalars['Boolean'];
   setLinkedProperties: Pim;
   setNcpCharacteristics: NcpCharacteristics;
   setNcpLinkedPims: NcpLinkedPims;
@@ -549,6 +550,10 @@ export type MutationResetPasswordArgs = {
   token: Scalars['String'];
 };
 
+export type MutationSendEmailArgs = {
+  input: SendEmailInput;
+};
+
 export type MutationSetLinkedPropertiesArgs = {
   input: LinkedPimInput;
 };
@@ -949,6 +954,7 @@ export type Query = {
   getTiaraMutations?: Maybe<Array<TiaraMutation>>;
   getTiaraValidation: TiaraValidation;
   getUndoId: Scalars['ID'];
+  listEmail?: Maybe<Array<Email>>;
   listNcps: NcpListSearchResult;
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
@@ -1161,6 +1167,10 @@ export type QueryGetTiaraValidationArgs = {
 
 export type QueryGetUndoIdArgs = {
   filters?: Maybe<UndoIdQueryFilters>;
+};
+
+export type QueryListEmailArgs = {
+  folder: Scalars['String'];
 };
 
 export type QueryListNcpsArgs = {
@@ -1828,6 +1838,40 @@ export type CrmListItem = {
   phoneNumber?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+};
+
+export type EmailAndName = {
+  __typename?: 'EmailAndName';
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type EmailAndNameInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type EmailFolder = {
+  __typename?: 'EmailFolder';
+  name: Scalars['String'];
+  displayName?: Maybe<Scalars['String']>;
+};
+
+export type Email = {
+  __typename?: 'Email';
+  id: Scalars['ID'];
+  folder: EmailFolder;
+  from: Array<EmailAndName>;
+  to: Array<EmailAndName>;
+  subject: Scalars['String'];
+  body: Scalars['String'];
+  date: Scalars['Date'];
+};
+
+export type SendEmailInput = {
+  to: Array<EmailAndNameInput>;
+  subject: Scalars['String'];
+  body: Scalars['String'];
 };
 
 export type Energy = {
@@ -8934,6 +8978,22 @@ export type CrmListQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type ListEmailQueryVariables = Exact<{
+  folder: Scalars['String'];
+}>;
+
+export type ListEmailQuery = { __typename?: 'Query' } & {
+  listEmail?: Maybe<
+    Array<
+      { __typename?: 'Email' } & Pick<Email, 'id' | 'subject' | 'body' | 'date'> & {
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+          from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+          to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+        }
+    >
+  >;
+};
+
 export type GetLabelsQueryVariables = Exact<{
   id: Scalars['ID'];
   properties?: Maybe<Array<LabelProperty>>;
@@ -15736,6 +15796,41 @@ export function useCrmListLazyQuery(
 export type CrmListQueryHookResult = ReturnType<typeof useCrmListQuery>;
 export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
+export const ListEmailDocument = gql`
+  query ListEmail($folder: String!) {
+    listEmail(folder: $folder) {
+      id
+      folder {
+        name
+        displayName
+      }
+      from {
+        name
+        email
+      }
+      to {
+        name
+        email
+      }
+      subject
+      body
+      date
+    }
+  }
+`;
+export function useListEmailQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListEmailQuery, ListEmailQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListEmailQuery, ListEmailQueryVariables>(ListEmailDocument, baseOptions);
+}
+export function useListEmailLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListEmailQuery, ListEmailQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListEmailQuery, ListEmailQueryVariables>(ListEmailDocument, baseOptions);
+}
+export type ListEmailQueryHookResult = ReturnType<typeof useListEmailQuery>;
+export type ListEmailLazyQueryHookResult = ReturnType<typeof useListEmailLazyQuery>;
+export type ListEmailQueryResult = ApolloReactCommon.QueryResult<ListEmailQuery, ListEmailQueryVariables>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {

@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { ReactNode } from 'react';
 
+import { Email as ApiEmail } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type EmailProps = {
@@ -9,18 +10,10 @@ export type EmailProps = {
   breadcrumbs: ReactNode;
 };
 
-export type Email = {
-  id: string;
-  from: {
-    firstName: string;
-    lastName: string;
-    image: string;
-  };
-  pinned: boolean;
-  subject: string;
-  description?: string;
-  links: number;
-  date: DateTime;
+export type Email = ApiEmail & {
+  pinned?: boolean;
+  links?: number;
+  image?: string;
 };
 
 export type EmailReply = {

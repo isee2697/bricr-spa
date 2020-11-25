@@ -9,12 +9,12 @@ import { useLocale } from 'hooks';
 
 import { useStyles } from './Description.styles';
 
-export const Description = ({ email: { description } }: EmailSectionsProps) => {
+export const Description = ({ email: { body } }: EmailSectionsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const initialValues = description
+  const initialValues = body
     ? {
-        chapter: [...(JSON.parse(description) || [])],
+        chapter: [...(JSON.parse(body) || [])],
       }
     : {
         chapter: [

@@ -1,0 +1,38 @@
+type EmailAndName {
+    email: String!
+    name: String!
+}
+
+input EmailAndNameInput {
+    email: String!
+    name: String!
+}
+
+type EmailFolder {
+    name: String!
+    displayName: String
+}
+
+type Email {
+    id: ID!
+    folder: EmailFolder!
+    from: [EmailAndName!]!
+    to: [EmailAndName!]!
+    subject: String!
+    body: String!
+    date: Date!
+}
+
+input SendEmailInput {
+    to: [EmailAndNameInput!]!
+    subject: String!
+    body: String!
+}
+
+extend type Mutation {
+    sendEmail(input: SendEmailInput!): Boolean! @auth
+}
+
+extend type Query {
+    listEmail(folder: String!): [Email!] @auth
+}
