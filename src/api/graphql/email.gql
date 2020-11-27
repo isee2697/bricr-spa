@@ -13,18 +13,36 @@ type EmailFolder {
     displayName: String
 }
 
-type Email {
+type EmailListItem {
     id: ID!
     folder: EmailFolder!
     from: [EmailAndName!]!
     to: [EmailAndName!]!
     subject: String!
+    date: Date!
+}
+
+type Email {
+    id: ID!
+    folder: EmailFolder!
+    from: [EmailAndName!]!
+    to: [EmailAndName!]!
+    cc: [EmailAndName!]
+    bcc: [EmailAndName!]
+    subject: String!
     body: String!
     date: Date!
 }
 
+type EmailFolderListItem {
+    folder: EmailFolder!
+    numberOfEmails: Int!
+}
+
 input SendEmailInput {
     to: [EmailAndNameInput!]!
+    cc: [EmailAndNameInput!]
+    bcc: [EmailAndNameInput!]
     subject: String!
     body: String!
 }
@@ -34,5 +52,7 @@ extend type Mutation {
 }
 
 extend type Query {
-    listEmail(folder: String!): [Email!] @auth
+    listEmailFolders: [EmailFolderListItem!] @auth
+    listEmail(folder: String!): [EmailListItem!] @auth
+    getEmail(id: ID!): Email @auth
 }

@@ -22,7 +22,7 @@ import { InfoSection } from 'ui/molecules';
 import { EmailTable } from '../emailTable/EmailTable';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { EmailSidebarMenu } from '../emailSidebarMenu/EmailSidebarMenu';
+import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuContainer';
 
 import { EmailInboxProps } from './Inbox.types';
 import { useStyles } from './Inbox.styles';
@@ -54,7 +54,7 @@ export const EmailInbox = ({ onSidebarOpen, onSidebarClose, isSidebarVisible, em
 
   return (
     <>
-      <EmailSidebarMenu onHide={onSidebarClose} isVisible={isSidebarVisible} />
+      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} />
       <Grid item xs={12} md={9} lg={10}>
         <Grid container className={classes.content}>
           <EmailHeader

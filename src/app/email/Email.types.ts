@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { ReactNode } from 'react';
 
-import { Email as ApiEmail } from 'api/types';
+import { EmailListItem } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type EmailProps = {
@@ -10,7 +10,8 @@ export type EmailProps = {
   breadcrumbs: ReactNode;
 };
 
-export type Email = ApiEmail & {
+export type Email = Omit<EmailListItem, '__typename'> & {
+  body?: string;
   pinned?: boolean;
   links?: number;
   image?: string;
