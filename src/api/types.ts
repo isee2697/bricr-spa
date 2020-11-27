@@ -1879,8 +1879,8 @@ export type Email = {
   folder: EmailFolder;
   from: Array<EmailAndName>;
   to: Array<EmailAndName>;
-  cc: Array<EmailAndName>;
-  bcc: Array<EmailAndName>;
+  cc?: Maybe<Array<EmailAndName>>;
+  bcc?: Maybe<Array<EmailAndName>>;
   subject: Scalars['String'];
   body: Scalars['String'];
   date: Scalars['Date'];
@@ -1894,8 +1894,8 @@ export type EmailFolderListItem = {
 
 export type SendEmailInput = {
   to: Array<EmailAndNameInput>;
-  cc: Array<EmailAndNameInput>;
-  bcc: Array<EmailAndNameInput>;
+  cc?: Maybe<Array<EmailAndNameInput>>;
+  bcc?: Maybe<Array<EmailAndNameInput>>;
   subject: Scalars['String'];
   body: Scalars['String'];
 };

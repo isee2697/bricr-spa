@@ -27,8 +27,8 @@ type Email {
     folder: EmailFolder!
     from: [EmailAndName!]!
     to: [EmailAndName!]!
-    cc: [EmailAndName!]!
-    bcc: [EmailAndName!]!
+    cc: [EmailAndName!]
+    bcc: [EmailAndName!]
     subject: String!
     body: String!
     date: Date!
@@ -41,8 +41,8 @@ type EmailFolderListItem {
 
 input SendEmailInput {
     to: [EmailAndNameInput!]!
-    cc: [EmailAndNameInput!]!
-    bcc: [EmailAndNameInput!]!
+    cc: [EmailAndNameInput!]
+    bcc: [EmailAndNameInput!]
     subject: String!
     body: String!
 }
