@@ -35,7 +35,10 @@ export const RegisterInfoScreen = () => {
         </Box>
         <Box className={classes.box}>
           <Typography className={classes.textColor} variant="h4">
-            {spaceName}
+            {spaceName
+              ?.trim()
+              .toLowerCase()
+              .replace(/\s/g, '-')}
             {formatMessage({ id: 'register.url' })}
           </Typography>
         </Box>

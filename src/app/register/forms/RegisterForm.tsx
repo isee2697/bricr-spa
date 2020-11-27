@@ -1,35 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-final-form';
 
-import { Typography, Button, Box } from 'ui/atoms';
-import { GenericField } from 'form/fields';
+import { Typography, Button, Box, Alert } from 'ui/atoms';
+import { DropdownField, GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
+import { BricrPlans } from 'api/types';
+import { WarningIcon } from 'ui/atoms/icons';
 
 import { RegisterFormProps } from './RegisterForm.types';
 
-export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, spaceName }: RegisterFormProps) => {
+export const RegisterForm = ({
+  isSubmitEnabled,
+  onSubmit,
+  checkSpaceAvailable,
+  spaceName,
+  data,
+  error,
+}: RegisterFormProps) => {
   const { formatMessage } = useLocale();
-  const [editedSpaceName, setEditedSpaceName] = useState(false);
 
   const changeSpaceName = (name: string, isEmailField = false) => {
-    if (isEmailField && !editedSpaceName) {
+    console.log(data.space);
+
+    if (isEmailField && (!spaceName || spaceName === '')) {
       const domainName = name.substring(name.lastIndexOf('@') + 1);
       const domainWithouthExtension = domainName.substring(0, domainName.lastIndexOf('.'));
 
-      if (domainWithouthExtension.length > 0) {
+      console.log('domain', domainWithouthExtension);
+
+      if (domainWithouthExtension.length > 0 && data.space !== domainWithouthExtension) {
         checkSpaceAvailable(domainWithouthExtension);
       }
     } else if (!isEmailField) {
-      setEditedSpaceName(true);
       checkSpaceAvailable(name);
     }
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form initialValues={data} onSubmit={onSubmit}>
       {props => (
         <form onSubmit={props.handleSubmit}>
           <Typography>{formatMessage({ id: 'register.claim_space' })}</Typography>
+          {error && (
+            <Alert color="error" icon={<WarningIcon />}>
+              {error}
+            </Alert>
+          )}
           <GenericField required label={'register.name_label'} placeholder={'register.name_placeholder'} name="name" />
           <GenericField
             type="email"
@@ -46,6 +62,15 @@ export const RegisterForm = ({ isSubmitEnabled, onSubmit, checkSpaceAvailable, s
             value={spaceName}
             onChange={e => changeSpaceName(e.target.value)}
             name="space"
+          />
+          <DropdownField
+            name="plan"
+            label="common.plan.label"
+            placeholder="common.plan.placeholder"
+            items={Object.values(BricrPlans).map(item => ({
+              label: `common.plan.${item.toLowerCase()}`,
+              value: item,
+            }))}
           />
           <Box mb={2} />
           <Typography variant="h5">
