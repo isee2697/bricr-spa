@@ -30,13 +30,17 @@ workflows:
     jobs:
       - cypress/install:
           working_directory: ~/spa
-          pre-steps:
-            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
+#          pre-steps:
+#            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
 #          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
 #          pre-steps:
 #            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
           working_directory: ~/spa/e2e
+          environment:
+            CYPRESS_HOST: http://localhost:1338
+            CYPRESS_USER_LOGIN: login
+            CYPRESS_USER_PASSWORD: password
 
           requires:
             - cypress/install
