@@ -29,7 +29,7 @@ workflows:
   build:
     jobs:
       - cypress/install
-#          build: npm run build:ci
+#          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
           working_directory: e2e
           requires:
