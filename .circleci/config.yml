@@ -48,7 +48,7 @@ workflows:
 
           requires:
             - cypress/install
-          record: true
+#          record: true
 #          parallel: true
 #          parallelism: 3
 #          group: 3x
