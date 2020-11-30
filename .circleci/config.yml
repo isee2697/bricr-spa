@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  cypress: cypress-io/cypress
+
 # Define the jobs we want to run for this project
 jobs:
   cypress:
@@ -23,7 +26,18 @@ jobs:
 
 # Orchestrate our job run sequence
 workflows:
-  build_and_test:
+  build:
     jobs:
-      - cypress
+      - cypress/install:
+          build: npm run build:ci
+      - cypress/run:
+          requires:
+            - cypress/install
+          record: true
+          parallel: true
+          parallelism: 3
+          group: 3x
+#  build_and_test:
+#    jobs:
+#      - cypress
 
