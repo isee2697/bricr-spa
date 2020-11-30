@@ -28,8 +28,8 @@ jobs:
 workflows:
   build:
     jobs:
-      - cypress/install:
-          build: npm run build:ci
+      - cypress/install
+#          build: npm run build:ci
       - cypress/run:
           requires:
             - cypress/install
