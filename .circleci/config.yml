@@ -29,7 +29,8 @@ workflows:
   build:
     jobs:
       - cypress/install
-        - run: cp .env.dist .env && cp .env.e2e.dist
+        post-steps:
+          - run: cp .env.dist .env && cp .env.e2e.dist e2e/.env
 #          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
           working_directory: e2e
