@@ -20,13 +20,9 @@ export const RegisterForm = ({
   const { formatMessage } = useLocale();
 
   const changeSpaceName = (name: string, isEmailField = false) => {
-    console.log(data.space);
-
     if (isEmailField && (!spaceName || spaceName === '')) {
       const domainName = name.substring(name.lastIndexOf('@') + 1);
       const domainWithouthExtension = domainName.substring(0, domainName.lastIndexOf('.'));
-
-      console.log('domain', domainWithouthExtension);
 
       if (domainWithouthExtension.length > 0 && data.space !== domainWithouthExtension) {
         checkSpaceAvailable(domainWithouthExtension);
