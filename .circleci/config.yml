@@ -3,6 +3,14 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@1.26.0
 
+executors:
+  base10-foo-bar:
+    docker:
+      - image: cypress/base:10
+    environment:
+      CYPRESS_HOST: http://localhost:1338
+      CYPRESS_USER_LOGIN: login
+      CYPRESS_USER_PASSWORD: password
 # Define the jobs we want to run for this project
 jobs:
   cypress:
@@ -37,10 +45,7 @@ workflows:
 #          pre-steps:
 #            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
           working_directory: ~/spa/e2e
-          environment:
-            CYPRESS_HOST: http://localhost:1338
-            CYPRESS_USER_LOGIN: login
-            CYPRESS_USER_PASSWORD: password
+          executor: base10-foo-bar
 
           requires:
             - cypress/install
