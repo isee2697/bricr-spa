@@ -31,6 +31,7 @@ workflows:
       - cypress/install
 #          build: npm run build:ci
       - cypress/run:
+          working_directory: e2e
           requires:
             - cypress/install
           record: true
