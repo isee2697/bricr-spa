@@ -29,14 +29,14 @@ workflows:
   build:
     jobs:
       - cypress/install:
+          working_directory: ~/spa
           pre-steps:
-            - run: ls
             - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
 #          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
 #          pre-steps:
 #            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
-          working_directory: e2e
+          working_directory: ~/spa/e2e
 
           requires:
             - cypress/install
