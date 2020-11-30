@@ -28,13 +28,15 @@ jobs:
 workflows:
   build:
     jobs:
-      - cypress/install
-
+      - cypress/install:
+          pre-steps:
+            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
 #          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
-          pre-steps:
-            - run: cp ../.env.dist ../.env && cp ../.env.e2e.dist .env
+#          pre-steps:
+#            - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env && cd ./e2e
           working_directory: e2e
+
           requires:
             - cypress/install
           record: true
