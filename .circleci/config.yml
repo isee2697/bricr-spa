@@ -32,7 +32,7 @@ workflows:
 
 #          build: cp .env.dist .env && cp .env.e2e.dist e2e/.env && npm run build:ci
       - cypress/run:
-          post-steps:
+          pre-steps:
             - run: cp ../.env.dist ../.env && cp ../.env.e2e.dist .env
           working_directory: e2e
           requires:
