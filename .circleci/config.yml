@@ -5,15 +5,14 @@ jobs:
   build-tests:
     docker:
       - image: cypress/base:12
-#    working_directory: ~/spa
     steps:
       - checkout
       - restore_cache:
-          key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
       - run: npm install && cd e2e && npm install && cd ..
       - save_cache:
-          key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
+          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
           paths:
             - ~/node_modules
             - ~/.npm
@@ -29,14 +28,14 @@ jobs:
 
   run-chrome:
     docker:
-      - image: cypress/browsers:node12.0.0-chrome73-ff68
+      - image: cypress/browsers:node12.19.0-chrome86-ff82
     steps:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:chrome
   run-firefox:
     docker:
-      - image: cypress/browsers:node12.0.0-chrome73-ff68
+      - image: cypress/browsers:node12.19.0-chrome86-ff82
     steps:
       - attach_workspace:
           at: ~/
