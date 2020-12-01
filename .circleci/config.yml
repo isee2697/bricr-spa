@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   build-tests:
     docker:
-      - image: cypress/browsers:node14.15.0-chrome86-ff82
+      - image: cypress/base:12
 #    working_directory: ~/spa
     steps:
       - checkout
@@ -26,17 +26,21 @@ jobs:
           paths:
             - project
             - .cache/Cypress
-#          paths:
-#            - project
-#            - .cache/Cypress
+
   run-chrome:
     docker:
-      - image: cypress/browsers:node14.15.0-chrome86-ff82
-#    working_directory: ~/spa
+      - image: cypress/browsers:chrome
     steps:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:chrome
+  run-firefox:
+    docker:
+      - image: cypress/browsers:node12.6.0-ff82
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run e2e:ci:firefox
 
 # Orchestrate our job run sequence
 workflows:
@@ -44,6 +48,9 @@ workflows:
     jobs:
       - build-tests
       - run-chrome:
+          requires:
+            - build-tests
+      - run-firefox:
           requires:
             - build-tests
 
