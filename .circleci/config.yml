@@ -25,6 +25,7 @@ jobs:
           root: .
           paths:
             - .
+            - .cache/Cypress
 #          paths:
 #            - project
 #            - .cache/Cypress
