@@ -5,7 +5,7 @@ jobs:
   build-tests:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
-    working_directory: ~/spa
+#    working_directory: ~/spa
     steps:
       - checkout
       - restore_cache:
@@ -22,8 +22,9 @@ jobs:
 #      - run: npm run e2e:ci:chrome
 #      - run: npm run e2e:ci:firefox
       - persist_to_workspace:
-          root: ~/
-          paths: project
+          root: .
+          paths:
+            - .
 #          paths:
 #            - project
 #            - .cache/Cypress
@@ -33,7 +34,7 @@ jobs:
 #    working_directory: ~/spa
     steps:
       - attach_workspace:
-          at: ~/
+          at: .
       - run: npm run e2e:ci:chrome
 
 # Orchestrate our job run sequence
