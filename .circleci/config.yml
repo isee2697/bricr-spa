@@ -10,7 +10,7 @@ jobs:
       - restore_cache:
           key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
-      - run: npm install
+      - run: npm install && cd e2e && npm install && cd ..
       - save_cache:
           key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
           paths:
