@@ -11,16 +11,16 @@ jobs:
       - restore_cache:
           key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
-      - run: npm install
+      - run: npm install && cd e2e && npm install && cd ..
       - save_cache:
           key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
           paths:
-            - node_modules
+            - ~/node_modules
             - ~/.npm
             - ~/.cache
+            - ~/e2e/node_modules
+            - ~/e2e/.npm
       - run: npm run build:ci
-#      - run: npm run e2e:ci:chrome
-#      - run: npm run e2e:ci:firefox
       - persist_to_workspace:
           root: ~/
           paths:
@@ -29,14 +29,14 @@ jobs:
 
   run-chrome:
     docker:
-      - image: cypress/browsers:node14.15.0-chrome86-ff82
+      - image: cypress/browsers:node12.0.0-chrome73-ff68
     steps:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:chrome
   run-firefox:
     docker:
-      - image: cypress/browsers:node14.15.0-chrome86-ff82
+      - image: cypress/browsers:node12.0.0-chrome73-ff68
     steps:
       - attach_workspace:
           at: ~/
