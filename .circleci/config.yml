@@ -11,7 +11,7 @@ jobs:
       - restore_cache:
           key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
-      - run: npm install && cd e2e && npm install && cd ..
+      - run: npm install 
       - save_cache:
           key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}'
           paths:
@@ -29,7 +29,7 @@ jobs:
 
   run-chrome:
     docker:
-      - image: cypress/browsers:chrome
+      - image: cypress/browsers:node12.6.0-ff82
     steps:
       - attach_workspace:
           at: ~/
