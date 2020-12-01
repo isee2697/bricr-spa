@@ -22,11 +22,10 @@ jobs:
 #      - run: npm run e2e:ci:chrome
 #      - run: npm run e2e:ci:firefox
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - .
+            - project
             - .cache/Cypress
-            - /root/.cache/Cypress
 #          paths:
 #            - project
 #            - .cache/Cypress
@@ -36,7 +35,7 @@ jobs:
 #    working_directory: ~/spa
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
       - run: npm run e2e:ci:chrome
 
 # Orchestrate our job run sequence
