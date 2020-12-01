@@ -2,7 +2,7 @@ version: 2.1
 
 # Define the jobs we want to run for this project
 jobs:
-  cypress:
+  build-tests:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     working_directory: ~/spa
@@ -26,7 +26,7 @@ jobs:
           paths:
             - project
             - .cache/Cypress
-  chrome:
+  run-chrome:
     docker:
       - image: cypress/browsers:node14.15.0-chrome86-ff82
     working_directory: ~/spa
@@ -40,9 +40,9 @@ workflows:
   build_and_test:
     only: 'pull requests'
     jobs:
-      - cypress
-      - chrome:
+      - build-tests
+      - run-chrome:
           requires:
-            - cypress
+            - build-tests
 
 
