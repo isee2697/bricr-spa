@@ -8,7 +8,7 @@ executors:
     docker:
       - image: cypress/base:10
     environment:
-      CYPRESS_HOST: http://localhost:1338
+      CYPRESS_HOST: http://localhost:4200
       CYPRESS_USER_LOGIN: login
       CYPRESS_USER_PASSWORD: password
 # Define the jobs we want to run for this project
