@@ -1,8 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
-  list: {
+export const useStyles = makeStyles(({ palette, spacing }) => ({
+  uploadRoot: {
     width: '100%',
-    overflow: 'hidden',
   },
 }));
