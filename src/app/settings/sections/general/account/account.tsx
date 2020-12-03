@@ -8,15 +8,17 @@ import { GenericField, UploadImageField } from 'form/fields';
 import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 
 import { useStyles } from './Account.styles';
-export const Account = () => {
+import { AccountProps } from './Account.types';
+
+export const Account = ({ data }: AccountProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <Page title={formatMessage({ id: 'settings.account.title' })} titleActions={<></>} showHeader>
-      <AutosaveCard<Company & { domain: string }>
+      <AutosaveCard<Company>
         title={'test'}
-        data={{ name: 'hi', id: 'string', domain: 'test' }}
+        data={data}
         onSave={() => Promise.resolve(undefined)}
         isExpandable={false}
         renderChildren={editing => (
@@ -52,8 +54,8 @@ export const Account = () => {
               <GenericField
                 disabled={!editing}
                 name="city"
-                label={formatMessage({ id: 'settings.account.state.label' })}
-                placeholder={formatMessage({ id: 'settings.account.state.placeholder' })}
+                label={formatMessage({ id: 'settings.account.city.label' })}
+                placeholder={formatMessage({ id: 'settings.account.city.placeholder' })}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -75,9 +77,25 @@ export const Account = () => {
             <Grid item xs={12} md={6}>
               <GenericField
                 disabled={!editing}
-                name="state"
-                label={formatMessage({ id: 'settings.account.state.label' })}
-                placeholder={formatMessage({ id: 'settings.account.state.placeholder' })}
+                name="country"
+                label={formatMessage({ id: 'settings.account.country.label' })}
+                placeholder={formatMessage({ id: 'settings.account.country.placeholder' })}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <GenericField
+                disabled={!editing}
+                name="houseNumber"
+                label={formatMessage({ id: 'settings.account.houseNumber.label' })}
+                placeholder={formatMessage({ id: 'settings.account.houseNumber.placeholder' })}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <GenericField
+                disabled={!editing}
+                name="floor"
+                label={formatMessage({ id: 'settings.account.floor.label' })}
+                placeholder={formatMessage({ id: 'settings.account.floor.placeholder' })}
               />
             </Grid>
             <Grid item xs={12} md={6}>

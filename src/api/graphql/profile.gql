@@ -174,18 +174,6 @@ type ProfileTeam {
   deletePermission: Boolean!
 }
 
-input CreateCompanyInput {
-  name: String!
-  email: String!
-}
-
-type Company {
-  id: ID!
-  teams: [Team!]
-  users: [Profile!]
-  name: String
-}
-
 type TeamMember {
   id: ID!
   notes: String
@@ -223,7 +211,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  createCompany(input: CreateCompanyInput!): Company!
   createProfile(input: CreateProfileInput!): Profile! @auth
   updateProfile(input: UpdateProfileInput!): Profile! @auth
   deactivateProfile(id: String!): Profile! @auth

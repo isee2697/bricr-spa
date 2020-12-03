@@ -155,6 +155,7 @@ export type Mutation = {
   updateBogSpace: BogSpace;
   updateCadastre?: Maybe<Pim>;
   updateCadastreMap?: Maybe<Pim>;
+  updateCompany: Company;
   updateCost: CostResult;
   updateCrmContactInformation?: Maybe<CrmContactInformation>;
   updateCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
@@ -614,6 +615,10 @@ export type MutationUpdateCadastreMapArgs = {
   input: UpdateCadastreMapInput;
 };
 
+export type MutationUpdateCompanyArgs = {
+  input: UpdateCompanyInput;
+};
+
 export type MutationUpdateCostArgs = {
   input: UpdateCostInput;
 };
@@ -899,12 +904,14 @@ export type Billing = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
+  checkCompanyRegistered: CheckRegisteredResponse;
   crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
+  getCompanyDetails: Company;
   getCrmContactInformation?: Maybe<CrmContactInformation>;
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
@@ -961,6 +968,10 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
+};
+
+export type QueryCheckCompanyRegisteredArgs = {
+  name: Scalars['String'];
 };
 
 export type QueryGetAllProfilesArgs = {
@@ -1411,6 +1422,65 @@ export type InvoiceDetails = {
   projectInvoiceNumber?: Maybe<Scalars['String']>;
   contactPerson?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+};
+
+export enum BricrPlans {
+  Professional = 'Professional',
+  EnterPrise = 'EnterPrise',
+  Start = 'Start',
+}
+
+export type CreateCompanyInput = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  space: Scalars['String'];
+  amountUsers?: Maybe<Scalars['Int']>;
+  amountProperties?: Maybe<Scalars['Int']>;
+  plan?: Maybe<BricrPlans>;
+};
+
+export type UpdateCompanyInput = {
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  floor?: Maybe<Scalars['String']>;
+  chamberOfCommerce?: Maybe<Scalars['String']>;
+  vat?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+};
+
+export type CheckCompanyRegistereInput = {
+  name: Scalars['String'];
+};
+
+export type Company = {
+  __typename?: 'Company';
+  id: Scalars['ID'];
+  teams?: Maybe<Array<Team>>;
+  users?: Maybe<Array<Profile>>;
+  name?: Maybe<Scalars['String']>;
+  domain?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipcode?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  floor?: Maybe<Scalars['String']>;
+  chamberOfCommerce?: Maybe<Scalars['String']>;
+  vat?: Maybe<Scalars['String']>;
+  image?: Maybe<File>;
+};
+
+export type CheckRegisteredResponse = {
+  __typename?: 'CheckRegisteredResponse';
+  suggestions?: Maybe<Array<Scalars['String']>>;
+  taken: Scalars['Boolean'];
 };
 
 export enum CommonCostType {
@@ -6834,19 +6904,6 @@ export type ProfileTeam = {
   deletePermission: Scalars['Boolean'];
 };
 
-export type CreateCompanyInput = {
-  name: Scalars['String'];
-  email: Scalars['String'];
-};
-
-export type Company = {
-  __typename?: 'Company';
-  id: Scalars['ID'];
-  teams?: Maybe<Array<Team>>;
-  users?: Maybe<Array<Profile>>;
-  name?: Maybe<Scalars['String']>;
-};
-
 export type TeamMember = {
   __typename?: 'TeamMember';
   id: Scalars['ID'];
@@ -8867,6 +8924,37 @@ export type BulkDetailsQueryVariables = Exact<{
 
 export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
+};
+
+export type CheckCompanyRegisteredQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+export type CheckCompanyRegisteredQuery = { __typename?: 'Query' } & {
+  checkCompanyRegistered: { __typename?: 'CheckRegisteredResponse' } & Pick<
+    CheckRegisteredResponse,
+    'suggestions' | 'taken'
+  >;
+};
+
+export type GetCompanyDetailsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCompanyDetailsQuery = { __typename?: 'Query' } & {
+  getCompanyDetails: { __typename?: 'Company' } & Pick<
+    Company,
+    | 'id'
+    | 'name'
+    | 'domain'
+    | 'address'
+    | 'state'
+    | 'city'
+    | 'zipcode'
+    | 'country'
+    | 'houseNumber'
+    | 'floor'
+    | 'chamberOfCommerce'
+    | 'vat'
+  > & { image?: Maybe<{ __typename?: 'File' } & Pick<File, 'url' | 'id'>> };
 };
 
 export type GetCrmContactInformationQueryVariables = Exact<{
@@ -15640,6 +15728,83 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const CheckCompanyRegisteredDocument = gql`
+  query CheckCompanyRegistered($name: String!) {
+    checkCompanyRegistered(name: $name) {
+      suggestions
+      taken
+    }
+  }
+`;
+export function useCheckCompanyRegisteredQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<CheckCompanyRegisteredQuery, CheckCompanyRegisteredQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<CheckCompanyRegisteredQuery, CheckCompanyRegisteredQueryVariables>(
+    CheckCompanyRegisteredDocument,
+    baseOptions,
+  );
+}
+export function useCheckCompanyRegisteredLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    CheckCompanyRegisteredQuery,
+    CheckCompanyRegisteredQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<CheckCompanyRegisteredQuery, CheckCompanyRegisteredQueryVariables>(
+    CheckCompanyRegisteredDocument,
+    baseOptions,
+  );
+}
+export type CheckCompanyRegisteredQueryHookResult = ReturnType<typeof useCheckCompanyRegisteredQuery>;
+export type CheckCompanyRegisteredLazyQueryHookResult = ReturnType<typeof useCheckCompanyRegisteredLazyQuery>;
+export type CheckCompanyRegisteredQueryResult = ApolloReactCommon.QueryResult<
+  CheckCompanyRegisteredQuery,
+  CheckCompanyRegisteredQueryVariables
+>;
+export const GetCompanyDetailsDocument = gql`
+  query GetCompanyDetails {
+    getCompanyDetails {
+      id
+      name
+      domain
+      address
+      state
+      city
+      zipcode
+      country
+      houseNumber
+      floor
+      chamberOfCommerce
+      vat
+      image {
+        url
+        id
+      }
+    }
+  }
+`;
+export function useGetCompanyDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables>(
+    GetCompanyDetailsDocument,
+    baseOptions,
+  );
+}
+export function useGetCompanyDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables>(
+    GetCompanyDetailsDocument,
+    baseOptions,
+  );
+}
+export type GetCompanyDetailsQueryHookResult = ReturnType<typeof useGetCompanyDetailsQuery>;
+export type GetCompanyDetailsLazyQueryHookResult = ReturnType<typeof useGetCompanyDetailsLazyQuery>;
+export type GetCompanyDetailsQueryResult = ApolloReactCommon.QueryResult<
+  GetCompanyDetailsQuery,
+  GetCompanyDetailsQueryVariables
+>;
 export const GetCrmContactInformationDocument = gql`
   query GetCrmContactInformation($id: ID!) {
     getCrmContactInformation(id: $id) {

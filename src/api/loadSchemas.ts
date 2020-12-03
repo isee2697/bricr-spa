@@ -3,6 +3,7 @@ import { loader } from 'graphql.macro';
 const schemas = [
   loader('./graphql/auth.gql'),
   loader('./graphql/billing.gql'),
+  loader('./graphql/company.gql'),
   loader('./graphql/file.gql'),
   loader('./graphql/list-pim.gql'),
   loader('./graphql/pim.gql'),
