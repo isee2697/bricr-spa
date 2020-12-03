@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
 import { Box, Grid, Card, CardHeader, CardContent } from 'ui/atoms';
@@ -8,6 +9,7 @@ import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
 import { DocumentListViewType, DocumentStatus } from '../Documents.types';
+import { DocumentKind } from 'app/pimDetails/sections/documents/Documents.types';
 
 import { DocumentListViewTabs } from './documentListViewTabs/DocumentListViewTabs';
 import { useStyles } from './DocumentListView.styles';
@@ -25,6 +27,11 @@ export const DocumentListView = ({
 }: DocumentListViewProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const history = useHistory();
+
+  const handleNavigate = (documentKind: DocumentKind, id: string) => {
+    history.push(history.location.pathname + '/' + documentKind + '/' + id);
+  };
 
   return (
     <Grid item xs={12}>
@@ -36,10 +43,9 @@ export const DocumentListView = ({
           </Box>
           <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
           {status === DocumentStatus.Uploaded ? (
-            <DocumentTableView data={documents || []} />
+            <DocumentTableView data={documents || []} onClick={handleNavigate} />
           ) : (
             <List
-              className="pim-list"
               items={(documents ?? []) as DocumentListViewType[]}
               itemIndex={'id'}
               renderItem={(item, checked, checkbox) => (
@@ -47,7 +53,7 @@ export const DocumentListView = ({
                   {checkbox}
                   <Box component="span" className={classes.rowItem}>
                     <Box className={classes.itemButton} onClick={() => {}}>
-                      <DocumentListViewItem {...item} />
+                      <DocumentListViewItem onClick={handleNavigate} {...item} />
                     </Box>
                   </Box>
                 </Box>

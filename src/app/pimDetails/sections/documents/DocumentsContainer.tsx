@@ -9,7 +9,7 @@ import { useEntityType } from 'app/shared/entityType';
 import { PIM_DOCUMENTS } from 'api/mocks/pim';
 
 import { Documents } from './Documents';
-import { DocumentFolderType, DocumentMeta } from './Documents.types';
+import { DocumentFolderType, DocumentKind, DocumentMeta } from './Documents.types';
 
 export const DocumentsContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const [documents, setDocuments] = useState<DocumentFolderType[]>(PIM_DOCUMENTS.documents);
@@ -19,7 +19,7 @@ export const DocumentsContainer = ({ title, isSidebarVisible, onSidebarOpen }: P
   const urlParams = useParams();
 
   const handleAddFolder = async (name: string) => {
-    documents.push({ id: String(Math.floor(Math.random() * 10000)), name, isCustom: true });
+    documents.push({ id: String(Math.floor(Math.random() * 10000)), name, kind: DocumentKind.Custom });
     setDocuments([...documents]);
   };
 

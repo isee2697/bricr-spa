@@ -1,0 +1,58 @@
+type EmailAndName {
+    email: String!
+    name: String!
+}
+
+input EmailAndNameInput {
+    email: String!
+    name: String!
+}
+
+type EmailFolder {
+    name: String!
+    displayName: String
+}
+
+type EmailListItem {
+    id: ID!
+    folder: EmailFolder!
+    from: [EmailAndName!]!
+    to: [EmailAndName!]!
+    subject: String!
+    date: Date!
+}
+
+type Email {
+    id: ID!
+    folder: EmailFolder!
+    from: [EmailAndName!]!
+    to: [EmailAndName!]!
+    cc: [EmailAndName!]
+    bcc: [EmailAndName!]
+    subject: String!
+    body: String!
+    date: Date!
+}
+
+type EmailFolderListItem {
+    folder: EmailFolder!
+    numberOfEmails: Int!
+}
+
+input SendEmailInput {
+    to: [EmailAndNameInput!]!
+    cc: [EmailAndNameInput!]
+    bcc: [EmailAndNameInput!]
+    subject: String!
+    body: String!
+}
+
+extend type Mutation {
+    sendEmail(input: SendEmailInput!): Boolean! @auth
+}
+
+extend type Query {
+    listEmailFolders: [EmailFolderListItem!] @auth
+    listEmail(folder: String!): [EmailListItem!] @auth
+    getEmail(id: ID!): Email @auth
+}

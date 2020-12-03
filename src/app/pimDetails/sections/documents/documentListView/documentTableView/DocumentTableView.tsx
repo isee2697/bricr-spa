@@ -46,7 +46,14 @@ const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
   );
 };
 
-export const DocumentTableView = ({ data, onPreview, onSend, onArchive, onDelete }: DocumentTableViewProps) => {
+export const DocumentTableView = ({
+  data,
+  onClick,
+  onPreview,
+  onSend,
+  onArchive,
+  onDelete,
+}: DocumentTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
@@ -93,7 +100,7 @@ export const DocumentTableView = ({ data, onPreview, onSend, onArchive, onDelete
       </TableHead>
       <TableBody>
         {data.map((doc, index) => (
-          <TableRow key={index}>
+          <TableRow key={index} onClick={() => onClick?.(doc.documentKind, doc.id)}>
             <TableCell padding="checkbox">
               <Checkbox checked={false} inputProps={{ 'aria-labelledby': doc.id }} />
             </TableCell>
