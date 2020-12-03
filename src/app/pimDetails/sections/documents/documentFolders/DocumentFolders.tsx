@@ -7,8 +7,8 @@ import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
 import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { UploadModal } from 'ui/organisms';
-import { DocumentListViewContainer } from '../dmsPrimaryFolder/DocumentListViewContainer';
-import { DocumentFolderType } from '../Documents.types';
+import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
+import { DocumentFolderType, DocumentKind } from '../Documents.types';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';
@@ -97,9 +97,13 @@ export const DocumentFolders = ({
                       onClick={() => {
                         setSelectedFolder(item.id === selectedFolder?.id ? null : item);
                       }}
-                      onRemove={item.isCustom && onDeleteFolder ? () => onDeleteFolder(item.id) : undefined}
+                      onRemove={
+                        (!item.kind || item.kind === DocumentKind.Custom) && onDeleteFolder
+                          ? () => onDeleteFolder(item.id)
+                          : undefined
+                      }
                       onRename={
-                        item.isCustom && onUpdateFolder
+                        (!item.kind || item.kind === DocumentKind.Custom) && onUpdateFolder
                           ? (name: string) => onUpdateFolder({ ...item, name })
                           : undefined
                       }
@@ -138,26 +142,33 @@ export const DocumentFolders = ({
                 <SettingsIcon />
               </IconButton>
             </Box>
-            <Box mr={2}>
-              <Button
-                color="primary"
-                startIcon={<AddIcon color="inherit" />}
-                variant="contained"
-                onClick={handleUpload}
-                size="small"
-              >
-                {formatMessage({ id: 'pim_details.documents.upload_document' })}
-              </Button>
-            </Box>
             <Button
               color="primary"
               startIcon={<AddIcon color="inherit" />}
               variant="contained"
-              onClick={() => {}}
+              onClick={handleUpload}
               size="small"
             >
-              {formatMessage({ id: 'pim_details.documents.new_contract' })}
+              {formatMessage({ id: 'pim_details.documents.upload_document' })}
             </Button>
+            {selectedFolder.kind && selectedFolder.kind !== DocumentKind.Custom && (
+              <Box ml={2}>
+                <Button
+                  color="primary"
+                  startIcon={<AddIcon color="inherit" />}
+                  variant="contained"
+                  onClick={() => {}}
+                  size="small"
+                >
+                  {selectedFolder.kind === DocumentKind.Contract &&
+                    formatMessage({ id: 'pim_details.documents.new_contract' })}
+                  {selectedFolder.kind === DocumentKind.ListOfCase &&
+                    formatMessage({ id: 'pim_details.documents.new_list_of_case' })}
+                  {selectedFolder.kind === DocumentKind.Questionnaire &&
+                    formatMessage({ id: 'pim_details.documents.new_questionnaire' })}
+                </Button>
+              </Box>
+            )}
           </Box>
           <DocumentListViewContainer documents={selectedFolder.documents} />
         </>

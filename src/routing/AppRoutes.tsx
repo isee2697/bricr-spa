@@ -28,6 +28,7 @@ import { CalendarContainer } from 'app/calendar/CalendarContainer';
 import { SalesContainer } from '../app/sales/SalesContainer';
 import { EmailContainer } from '../app/email/EmailContainer';
 import { SalesDetailsContainer } from 'app/salesDetails/SalesDetailsContainer';
+import { DocumentDetailsContainer as PimDocumentDetailsContainer } from 'app/pimDetails/sections/documents/documentDetails/DocumentDetailsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -73,6 +74,7 @@ export const AppRoutes = () => {
               <Switch>
                 <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
                 <AuthorizedRoute path={AppRoute.pim} component={Pim} />
+                <AuthorizedRoute path={AppRoute.pimDocumentDetails} component={PimDocumentDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.linkedPropertyDetails} component={LinkedPropertiesDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />

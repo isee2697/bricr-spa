@@ -21,9 +21,16 @@ import {
   RealEstateType,
   ServiceType,
 } from 'api/types';
-import { DocumentFolderType, DocumentMeta } from 'app/pimDetails/sections/documents/Documents.types';
+import { DocumentFolderType, DocumentKind, DocumentMeta } from 'app/pimDetails/sections/documents/Documents.types';
 import { AllocatedProperty } from 'app/pimDetails/sections/allocateResultsDetails/list/List.types';
 import { AllocateResultsRelationRanking } from 'app/pimDetails/sections/allocateResultsDetails/AllocateResultsDetails.types';
+import { DocumentListOfCaseType } from 'app/pimDetails/sections/documents/documentDetails/documentListOfCase/DocumentListOfCase.types';
+import {
+  DocumentQuestionKind,
+  DocumentQuestionnaireType,
+  QuestionStepStatus,
+  YesNoType,
+} from 'app/pimDetails/sections/documents/documentDetails/documentQuestionnaire/DocumentQuestionnaire.types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -240,11 +247,12 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
   documents: [
     {
       id: 'folder_1_1',
-      name: 'Contracts',
+      name: 'Drawings',
+      kind: DocumentKind.Custom,
       documents: [
         {
           id: 'doc_1',
-          name: 'Akte van levering.pdf',
+          name: 'Akte van levering',
           dateCreated: new Date('2020/09/22'),
           size: 34223,
           type: 'pdf',
@@ -252,13 +260,13 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
           versionNumber: '1.0',
           buyer: 'H. Janssens',
           sellers: ['C. van Gils', 'S. Pit-van Gils'],
-          contractType: 'Lijst van Zaken',
+          documentKind: DocumentKind.Custom,
           contractAddress: 'Isenburgstraat 36, Breda',
           price: '€ 245.000,00 k.k',
         },
         {
           id: 'doc_2',
-          name: 'Bewijs van inschrijving.pdf',
+          name: 'Bewijs van inschrijving',
           dateCreated: new Date('2020/09/23'),
           size: 32223,
           type: 'pdf',
@@ -266,14 +274,14 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
           versionNumber: '1.1',
           buyer: 'H. Janssens',
           sellers: ['C. van Gils', 'S. Pit-van Gils'],
-          contractType: 'Sales contract',
+          documentKind: DocumentKind.Custom,
           contractAddress: 'Isenburgstraat 36, Breda',
           price: '€ 245.000,00 k.k',
           completeness: 70,
         },
         {
           id: 'doc_3',
-          name: 'Inschrijfformulier.docx',
+          name: 'Inschrijfformulier',
           dateCreated: new Date('2010/09/16'),
           size: 4223,
           type: 'docx',
@@ -281,7 +289,7 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
           versionNumber: '1.2',
           buyer: 'H. Janssens',
           sellers: ['C. van Gils', 'S. Pit-van Gils'],
-          contractType: 'Sales contract',
+          documentKind: DocumentKind.Custom,
           contractAddress: 'Isenburgstraat 36, Breda',
           price: '€ 245.000,00 k.k',
           completeness: 70,
@@ -290,20 +298,71 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
     },
     {
       id: 'folder_1_2',
-      name: 'Documents',
+      name: 'Questionnaires',
+      kind: DocumentKind.Questionnaire,
+      documents: [
+        {
+          id: 'doc_1',
+          name: 'Akte van levering',
+          dateCreated: new Date('2020/09/22'),
+          size: 34223,
+          type: 'pdf',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.0',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          documentKind: DocumentKind.Questionnaire,
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+        },
+      ],
     },
     {
       id: 'folder_1_3',
-      name: 'Images',
+      name: 'List of cases',
+      kind: DocumentKind.ListOfCase,
+      documents: [
+        {
+          id: 'doc_1',
+          name: 'Akte van levering',
+          dateCreated: new Date('2020/09/22'),
+          size: 34223,
+          type: 'pdf',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.0',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          documentKind: DocumentKind.ListOfCase,
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+        },
+      ],
     },
     {
       id: 'folder_1_4',
-      name: 'Brochures',
+      name: 'Contracts',
+      kind: DocumentKind.Contract,
+      documents: [
+        {
+          id: 'doc_1',
+          name: 'Akte van levering',
+          dateCreated: new Date('2020/09/22'),
+          size: 34223,
+          type: 'pdf',
+          avatar: 'http://placeimg.com/104/152/arch',
+          versionNumber: '1.0',
+          buyer: 'H. Janssens',
+          sellers: ['C. van Gils', 'S. Pit-van Gils'],
+          documentKind: DocumentKind.Contract,
+          contractAddress: 'Isenburgstraat 36, Breda',
+          price: '€ 245.000,00 k.k',
+        },
+      ],
     },
     {
       id: 'folder_1_5',
       name: 'New Folder',
-      isCustom: true,
+      kind: DocumentKind.Custom,
     },
   ],
   metaInfo: [
@@ -333,6 +392,184 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
     },
   ],
 };
+
+export const PIM_DOCUMENT_LISTOFCASE: DocumentListOfCaseType = {
+  id: 'doc_1',
+  name: 'Akte van levering',
+  documentKind: DocumentKind.ListOfCase,
+};
+
+export const PIM_DOCUMENT_QUESTIONNAIRE: DocumentQuestionnaireType = {
+  id: 'doc_1',
+  name: 'Akte van levering',
+  documentKind: DocumentKind.Questionnaire,
+  steps: [
+    {
+      id: 'step-1',
+      title: 'General',
+      status: QuestionStepStatus.Completed,
+      modifiedAt: new Date().toLocaleString(),
+    },
+    {
+      id: 'step-2',
+      title: 'Vragenlijst A',
+      status: QuestionStepStatus.Completed,
+      modifiedAt: new Date().toLocaleString(),
+      approved: 12,
+      declined: 0,
+      questions: [
+        {
+          id: 'question-1',
+          title: 'Questionaire item 1',
+          subtitle: 'Gehuwd/geregistreerd partnerschap',
+          type: DocumentQuestionKind.YesNo,
+          question: {
+            question: 'Bent u getrouwd?',
+            result: YesNoType.Yes,
+          },
+        },
+        {
+          id: 'question-2',
+          title: 'Samenwonend',
+          subtitle: 'Gehuwd/geregistreerd partnerschap',
+          type: DocumentQuestionKind.YesNo,
+          question: {
+            question: 'Bent u getrouwd?',
+            result: YesNoType.No,
+          },
+        },
+      ],
+    },
+    {
+      id: 'step-3',
+      title: 'Buren',
+      status: QuestionStepStatus.Completed,
+      modifiedAt: new Date().toLocaleString(),
+      approved: 0,
+      declined: 1,
+      questions: [
+        {
+          id: 'question-1',
+          title: 'Buren',
+          type: DocumentQuestionKind.YesNoWithNote,
+          question: {
+            question: 'Zijn er geschillen of overlast van de buren?',
+            result: YesNoType.Yes,
+            note: 'Note text',
+          },
+        },
+        {
+          id: 'question-2',
+          title: 'Buren',
+          type: DocumentQuestionKind.YesNoWithNote,
+          question: {
+            question: 'Zijn er geschillen of overlast van de buren?',
+            result: YesNoType.Yes,
+          },
+        },
+      ],
+    },
+    {
+      id: 'step-4',
+      title: 'Vragenlijst B',
+      status: QuestionStepStatus.InProgress,
+      modifiedAt: new Date().toLocaleString(),
+      approved: 22,
+      declined: 1,
+      questions: [
+        {
+          id: 'question-1',
+          title: 'Questionaire item 1',
+          subtitle: 'Bijzonderheden',
+          type: DocumentQuestionKind.MultiChoice,
+          question: {
+            question:
+              'Zijn er nadat u het perceel in eigendom hebt gekregen nog andere, eventuele aanvullende notariële of onderhandse akten opgesteld met betrekking tot het perceel?',
+            choices: [
+              {
+                title: 'Answer 1',
+                value: 'answer1',
+                selected: true,
+              },
+              {
+                title: 'Anser 2 could be longer',
+                value: 'answer2',
+              },
+              {
+                title: 'Answer 3 here',
+                value: 'answer3',
+                selected: true,
+              },
+              {
+                title: 'Answer 4 is the last one',
+                value: 'answer4',
+              },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: 'step-5',
+      title: 'Vragenlijst C',
+      status: QuestionStepStatus.InProgress,
+      approved: 1,
+      declined: 18,
+      questions: [
+        {
+          id: 'question-1',
+          title: 'Questionaire item 1',
+          subtitle: 'Bijzonderheden',
+          type: DocumentQuestionKind.MultiChoiceWithNote,
+          question: {
+            question:
+              'Zijn er nadat u het perceel in eigendom hebt gekregen nog andere, eventuele aanvullende notariële of onderhandse akten opgesteld met betrekking tot het perceel?',
+            choices: [
+              {
+                title: 'Answer 1',
+                value: 'answer1',
+                selected: true,
+              },
+              {
+                title: 'Anser 2 could be longer',
+                value: 'answer2',
+              },
+              {
+                title: 'Answer 3 here',
+                value: 'answer3',
+                selected: true,
+              },
+              {
+                title: 'Answer 4 is the last one',
+                value: 'answer4',
+              },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: 'step-6',
+      title: 'VVE-checklist',
+      status: QuestionStepStatus.InProgress,
+      approved: 1,
+      declined: 18,
+      questions: [
+        {
+          id: 'question-1',
+          title: 'Questionaire item 1',
+          subtitle: 'Algemene VvE kenmerken en gegevens',
+          type: DocumentQuestionKind.NoteOnly,
+          question: {
+            question:
+              'Zijn er nadat u het perceel in eigendom hebt gekregen nog andere, eventuele aanvullende notariële of onderhandse akten opgesteld met betrekking tot het perceel?',
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
   {
     id: '0001',
