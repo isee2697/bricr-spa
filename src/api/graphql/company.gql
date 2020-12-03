@@ -17,15 +17,16 @@ input UpdateCompanyInput {
   id: ID!
   name: String
   address: String
+  addressSecondLine: String
   state: String
   city: String
   zipcode: String
   country: String
   houseNumber: String
-  floor: String
+  floor: Int
   chamberOfCommerce: String
   vat: String
-  image: String
+  imageId: ID
 }
 
 input CheckCompanyRegistereInput {
@@ -39,12 +40,13 @@ type Company {
   name: String
   domain: String
   address: String
+  addressSecondLine: String
   state: String
   city: String
   zipcode: String
   country: String
   houseNumber: String
-  floor: String
+  floor: Int
   chamberOfCommerce: String
   vat: String
   image: File
@@ -62,5 +64,5 @@ extend type Query {
 
 extend type Mutation {
   createCompany(input: CreateCompanyInput!): Company!
-  updateCompany(input: UpdateCompanyInput!): Company! @auth
+  updateCompanyDetails(input: UpdateCompanyInput!): Company! @auth
 }

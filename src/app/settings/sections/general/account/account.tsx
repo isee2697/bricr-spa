@@ -10,7 +10,7 @@ import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageF
 import { useStyles } from './Account.styles';
 import { AccountProps } from './Account.types';
 
-export const Account = ({ data }: AccountProps) => {
+export const Account = ({ data, onSave }: AccountProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -19,7 +19,7 @@ export const Account = ({ data }: AccountProps) => {
       <AutosaveCard<Company>
         title={'test'}
         data={data}
-        onSave={() => Promise.resolve(undefined)}
+        onSave={onSave}
         isExpandable={false}
         renderChildren={editing => (
           <Grid container spacing={3}>
@@ -93,6 +93,7 @@ export const Account = ({ data }: AccountProps) => {
             <Grid item xs={12} md={6}>
               <GenericField
                 disabled={!editing}
+                type="number"
                 name="floor"
                 label={formatMessage({ id: 'settings.account.floor.label' })}
                 placeholder={formatMessage({ id: 'settings.account.floor.placeholder' })}
@@ -124,9 +125,9 @@ export const Account = ({ data }: AccountProps) => {
               <UploadImageField
                 disabled={!editing}
                 classes={{ item: classes.uploadRoot }}
-                name={'logo'}
-                entity={EntityWithFiles.Profile}
-                entityID={'id'}
+                name="image"
+                entity={EntityWithFiles.Company}
+                entityID={data.id}
               />
             </Grid>
           </Grid>
