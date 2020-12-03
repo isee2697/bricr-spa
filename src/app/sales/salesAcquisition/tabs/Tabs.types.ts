@@ -1,6 +1,8 @@
+import { SalesStatus } from 'api/types';
+
 export type SalesAcquisitionTabsProps = {
-  status: 'actionRequired' | 'active' | 'withdrawn';
-  onStatusChange: (status: 'actionRequired' | 'active' | 'withdrawn') => void;
+  status: SalesStatus;
+  onStatusChange: (status: SalesStatus) => void;
   amounts: {
     actionRequired: number;
     active: number;

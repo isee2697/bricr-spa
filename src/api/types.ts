@@ -2030,6 +2030,95 @@ export type GetPrivateFileInput = {
   entity?: Maybe<EntityWithFiles>;
 };
 
+export type History = {
+  __typename?: 'History';
+  id: Scalars['String'];
+  entity: Entities;
+  entityId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  data: Scalars['String'];
+  oldData: Scalars['String'];
+  createdAt: Scalars['Date'];
+  userId: Scalars['String'];
+  companyId: Scalars['String'];
+};
+
+export type CreateHistoryInput = {
+  __typename?: 'CreateHistoryInput';
+  entity: Entities;
+  entityId: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  data: Scalars['String'];
+  oldData: Scalars['String'];
+  userId: Scalars['String'];
+  companyId: Scalars['String'];
+};
+
+export type HistoryData = {
+  __typename?: 'HistoryData';
+  id: Scalars['String'];
+  data: Scalars['String'];
+};
+
+export type CreateHistoryDataInput = {
+  __typename?: 'CreateHistoryDataInput';
+  data: Scalars['String'];
+};
+
+export enum Entities {
+  Team = 'team',
+  Pim = 'pim',
+  ListPim = 'listPim',
+  GeneralPim = 'generalPim',
+  PimCadastre = 'pimCadastre',
+  PimPrices = 'pimPrices',
+  PimOutside = 'pimOutside',
+  PimInside = 'pimInside',
+  Profile = 'profile',
+  PimServices = 'pimServices',
+  PimMedia = 'pimMedia',
+  PimSpecification = 'pimSpecification',
+  PimSales = 'pimSales',
+  Label = 'label',
+  NcpLabel = 'ncpLabel',
+  TaskLabel = 'taskLabel',
+  PimLocation = 'pimLocation',
+  Event = 'event',
+  NcpGeneral = 'ncpGeneral',
+  ListNcp = 'listNcp',
+  Ncp = 'ncp',
+  NcpCharacteristics = 'ncpCharacteristics',
+  NcpPrices = 'ncpPrices',
+  NcpMedia = 'ncpMedia',
+  NcpServices = 'ncpServices',
+  NcpLinkedPims = 'ncpLinkedPims',
+  ProjectPhase = 'projectPhase',
+  ObjectType = 'objectType',
+  ObjectTypeGeneral = 'objectTypeGeneral',
+  ObjectTypePrices = 'objectTypePrices',
+  ObjectTypeMedia = 'objectTypeMedia',
+  ObjectTypeLinkedPims = 'objectTypeLinkedPims',
+  ObjectTypeCharacteristics = 'objectTypeCharacteristics',
+  ObjectTypeServices = 'objectTypeServices',
+  ObjectTypesList = 'objectTypesList',
+  ObjectTypeLabel = 'objectTypeLabel',
+  Company = 'company',
+  Task = 'task',
+  Notification = 'notification',
+  Crm = 'crm',
+  CrmList = 'crmList',
+  CrmGeneral = 'crmGeneral',
+  Plan = 'plan',
+  CrmFamilyContacts = 'crmFamilyContacts',
+  CrmHomeSituation = 'crmHomeSituation',
+  CrmFinancial = 'crmFinancial',
+  CrmContactInformation = 'crmContactInformation',
+  CrmMatchProfile = 'crmMatchProfile',
+  AddOn = 'addOn',
+  TiaraMutation = 'tiaraMutation',
+  Email = 'email',
+}
+
 export enum IdentificationNumberType {
   Sap = 'Sap',
   Form = 'Form',
@@ -6845,6 +6934,223 @@ export type LinkNcpToProjectPhaseInput = {
   ncpId: Scalars['ID'];
   projectPhaseId: Scalars['ID'];
 };
+
+export type Sales = {
+  __typename?: 'Sales';
+  id: Scalars['String'];
+  label: SalesLabel;
+  crmId: Scalars['ID'];
+  status?: Maybe<SalesStatus>;
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+  name: Scalars['String'];
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
+  attentionNote?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+};
+
+export type SalesStatusChange = {
+  __typename?: 'SalesStatusChange';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  status: SalesStatus;
+  createdAt: Scalars['Date'];
+  historyId: Scalars['ID'];
+};
+
+export type SalesAccountContact = {
+  __typename?: 'SalesAccountContact';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  userId: Scalars['ID'];
+  role: SalesRole;
+};
+
+export type SalesEntity = {
+  __typename?: 'SalesEntity';
+  cyclusId: Scalars['ID'];
+  entityType: Entities;
+  entityId: Scalars['ID'];
+};
+
+export type SalesFile = {
+  __typename?: 'SalesFile';
+  cyclusId: Scalars['ID'];
+  documentId: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type SalesPackage = {
+  __typename?: 'SalesPackage';
+  cyclusId: Scalars['ID'];
+  package: Scalars['String'];
+};
+
+export type SalesAddress = {
+  __typename?: 'SalesAddress';
+  cyclusId: Scalars['ID'];
+  country: Scalars['String'];
+  city: Scalars['String'];
+  zipCode: Scalars['String'];
+  street: Scalars['String'];
+  houseNumber: Scalars['String'];
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type SalesBrokerage = {
+  __typename?: 'SalesBrokerage';
+  cyclusId: Scalars['ID'];
+  type: SalesBrokerageType;
+  percentage?: Maybe<Scalars['Int']>;
+  fixedAmount?: Maybe<Scalars['Int']>;
+  amountValues?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['Int']>;
+  reservationRate?: Maybe<Scalars['String']>;
+  partialCommission?: Maybe<Scalars['Int']>;
+  bonusPercentage?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type CreateSalesInput = {
+  __typename?: 'CreateSalesInput';
+  label: SalesLabel;
+  type: SalesType;
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSalesInput = {
+  __typename?: 'UpdateSalesInput';
+  attentionNote?: Maybe<Scalars['String']>;
+  status?: Maybe<SalesStatus>;
+  date?: Maybe<Scalars['Date']>;
+  type?: Maybe<SalesType>;
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type CreateSalesStatusChangeInput = {
+  __typename?: 'CreateSalesStatusChangeInput';
+  cyclusId: Scalars['ID'];
+  label: SalesLabel;
+  status: SalesStatus;
+  historyId: Scalars['ID'];
+};
+
+export type CreateSalesAccountContactInput = {
+  __typename?: 'CreateSalesAccountContactInput';
+  cyclusId: Scalars['ID'];
+  userId: Scalars['ID'];
+  role: SalesRole;
+};
+
+export type UpdateSalesAccountContactInput = {
+  __typename?: 'UpdateSalesAccountContactInput';
+  cyclusId: Scalars['ID'];
+  userId: Scalars['ID'];
+  role: SalesRole;
+};
+
+export type CreateSalesEntityInput = {
+  __typename?: 'CreateSalesEntityInput';
+  cyclusId: Scalars['ID'];
+  entityType: Entities;
+  entityId: Scalars['ID'];
+};
+
+export type CreateSalesFileInput = {
+  __typename?: 'CreateSalesFileInput';
+  cyclusId: Scalars['ID'];
+  documentId: Scalars['ID'];
+  label: Scalars['String'];
+};
+
+export type CreateSalesPackageInput = {
+  __typename?: 'CreateSalesPackageInput';
+  cyclusId: Scalars['ID'];
+  package: Scalars['String'];
+};
+
+export type CreateSalesAddressInput = {
+  __typename?: 'CreateSalesAddressInput';
+  cyclusId: Scalars['ID'];
+  country?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSalesAddressInput = {
+  __typename?: 'UpdateSalesAddressInput';
+  country?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['String']>;
+  extraInfo?: Maybe<Scalars['String']>;
+};
+
+export type CreateSalesBrokerageInput = {
+  __typename?: 'CreateSalesBrokerageInput';
+  cyclusId: Scalars['ID'];
+  type: Scalars['Int'];
+  percentage?: Maybe<Scalars['Int']>;
+  fixedAmount?: Maybe<Scalars['Int']>;
+  amountValues?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['Int']>;
+  reservationRate?: Maybe<Scalars['String']>;
+  partialCommission?: Maybe<Scalars['Int']>;
+  bonusPercentage?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export type UpdateSalesBrokerageInput = {
+  __typename?: 'UpdateSalesBrokerageInput';
+  type?: Maybe<Scalars['Int']>;
+  percentage?: Maybe<Scalars['Int']>;
+  fixedAmount?: Maybe<Scalars['Int']>;
+  amountValues?: Maybe<Scalars['String']>;
+  vatPercentage?: Maybe<Scalars['Int']>;
+  reservationRate?: Maybe<Scalars['String']>;
+  partialCommission?: Maybe<Scalars['Int']>;
+  bonusPercentage?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  notes?: Maybe<Scalars['String']>;
+};
+
+export enum SalesBrokerageType {
+  Percentage = 'Percentage',
+  Fixed = 'Fixed',
+}
+
+export enum SalesLabel {
+  Lead = 'Lead',
+  Acquisition = 'Acquisition',
+  Quotation = 'Quotation',
+  Order = 'Order',
+}
+
+export enum SalesStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+  Complete = 'Complete',
+}
+
+export enum SalesType {
+  Taxation = 'Taxation',
+  Inspection = 'Inspection',
+  SaleOrder = 'SaleOrder',
+}
+
+export enum SalesRole {
+  Accountant = 'Accountant',
+  Concierge = 'Concierge',
+  Gardener = 'Gardener',
+}
 
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';

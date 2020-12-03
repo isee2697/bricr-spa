@@ -19,16 +19,16 @@ export const AddSalesItemModal = ({ isOpened, onClose, onSubmit, options }: AddS
       onSubmit={onSubmit}
       title={formatMessage({ id: `sales.add_new.${options?.salesItemType}.title` })}
       addText={formatMessage({ id: `sales.add_new.${options?.salesItemType}.add_new_button` })}
-      initialValues={{ orderType: options?.salesItemOrderType || '', extraDescription: '' }}
+      initialValues={{ type: options?.salesItemOrderType || '', extraInfo: '' }}
     >
       <FormSubSectionHeader
         title={formatMessage({ id: 'sales.add_new.type_of_order' })}
         subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
         noBorder
       />
-      <RadioGroupField name="orderType" options={TypeOfOrders} />
+      <RadioGroupField name="type" options={TypeOfOrders} />
       <Box mt={3}>
-        <GenericField name="extraDescription" label={formatMessage({ id: 'common.extra_description' })} />
+        <GenericField name="extraInfo" label={formatMessage({ id: 'common.extra_description' })} />
       </Box>
     </FormModal>
   );
