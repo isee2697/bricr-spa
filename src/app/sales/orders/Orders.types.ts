@@ -1,3 +1,6 @@
+import { SalesStatus } from 'api/types';
+import { GetSalesListData } from '../salesAcquisition/SalesAcquisition.types';
+
 export type OrdersContainerProps = {
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
@@ -6,11 +9,11 @@ export type OrdersContainerProps = {
 export type OrdersProps = {
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
-  status: OrdersTabStatus;
+  status: SalesStatus;
   sortType: string;
-  onChangeStatus: (status: OrdersTabStatus) => void;
+  onChangeStatus: (status: SalesStatus) => void;
   onChangeSortType: (sortType: string) => void;
-  orders: SalesOrder[];
+  orders?: GetSalesListData;
 };
 
 export enum OrdersTabStatus {

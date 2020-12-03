@@ -7,6 +7,7 @@ import { GetSalesListData } from 'app/sales/salesAcquisition/SalesAcquisition.ty
 
 export const useGetSalesList = (label?: SalesLabel) => {
   const { accessToken } = useAuthState();
+  const [sortType = '', setSortType] = useQueryParam<string>('sortType');
   const [status = SalesStatus.ActionRequired, setStatus] = useQueryParam<SalesStatus>('status');
   const [data, setData] = useState<GetSalesListData | undefined>(undefined);
   const [loading, setLoading] = useState(false);
@@ -44,5 +45,5 @@ export const useGetSalesList = (label?: SalesLabel) => {
     getSalesList();
   }, [accessToken, label, status]);
 
-  return { data, loading, error, status, setStatus };
+  return { data, loading, error, status, setStatus, sortType, setSortType };
 };

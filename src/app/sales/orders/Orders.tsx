@@ -11,9 +11,10 @@ import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
-import { SalesItemType } from '../../shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
+import { SalesStatus } from 'api/types';
 
-import { OrdersProps, OrdersTabStatus } from './Orders.types';
+import { OrdersProps } from './Orders.types';
 import { useStyles } from './Orders.styles';
 import { OrderItem } from './orderItem/OrderItem';
 
@@ -41,28 +42,28 @@ export const Orders = ({
 
   const tabs: ActionTab[] = [
     {
-      value: OrdersTabStatus.ActionRequired,
+      value: SalesStatus.ActionRequired,
       amount: 1,
       hasBadge: true,
       badgeColor: 'error',
       label: formatMessage({ id: 'common.status.action_required' }),
     },
     {
-      value: OrdersTabStatus.Active,
+      value: SalesStatus.Active,
       amount: 44,
       hasBadge: true,
       badgeClass: classes.grayBadge,
       label: formatMessage({ id: 'common.status.active' }),
     },
     {
-      value: OrdersTabStatus.Complete,
+      value: SalesStatus.Complete,
       amount: 77,
       hasBadge: true,
       badgeClass: classes.grayBadge,
       label: formatMessage({ id: 'common.status.complete' }),
     },
     {
-      value: OrdersTabStatus.Withdrawn,
+      value: SalesStatus.Inactive,
       amount: 12,
       hasBadge: true,
       badgeClass: classes.grayBadge,
@@ -110,7 +111,7 @@ export const Orders = ({
                 emptyTitle={formatMessage({ id: 'sales.orders.empty_title' })}
                 emptyDescription={formatMessage({ id: 'sales.orders.empty_description' })}
                 sortOptions={sortOptions}
-                items={orders}
+                items={orders?.salesItems || []}
                 itemIndex={'id'}
                 renderItem={(order, checked, checkbox) => (
                   <OrderItem status={status} order={order} checked={checked} checkbox={checkbox} />

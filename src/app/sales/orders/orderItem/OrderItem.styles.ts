@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-import { OrdersTabStatus } from '../Orders.types';
+import { SalesStatus } from 'api/types';
 
 import { OrderItemProps } from './OrderItem.types';
 
@@ -9,7 +9,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     position: 'relative',
-    filter: ({ status }: OrderItemProps) => (status === OrdersTabStatus.Withdrawn ? 'grayscale(1)' : ''),
+    filter: ({ status }: OrderItemProps) => (status === SalesStatus.Inactive ? 'grayscale(1)' : ''),
 
     '&:after': {
       content: '""',
