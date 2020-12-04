@@ -47,9 +47,11 @@ workflows:
     jobs:
       - build-tests
       - run-chrome:
+          parallelism: 2
           requires:
             - build-tests
       - run-firefox:
+          parallelism: 2
           requires:
             - build-tests
 
