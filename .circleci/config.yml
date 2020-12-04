@@ -44,8 +44,7 @@ jobs:
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
-    machine:
-      resource_class: medium+
+    resource_class: xlarge
     jobs:
       - build-tests
       - run-chrome:
