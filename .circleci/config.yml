@@ -47,11 +47,11 @@ workflows:
     jobs:
       - build-tests
       - run-chrome:
-          parallelism: 2
+          resource_class: medium+
           requires:
             - build-tests
       - run-firefox:
-          parallelism: 2
+          resource_class: medium+
           requires:
             - build-tests
 
