@@ -82,6 +82,11 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
           { key: 'contractTemplates' },
         ],
       },
+      {
+        isCollapsable: true,
+        key: 'settings.menu.cadastre',
+        items: [{ key: 'cadastre' }],
+      },
     ],
   };
 

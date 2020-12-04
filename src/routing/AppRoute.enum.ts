@@ -24,6 +24,7 @@ export enum AppRoute {
   users = '/settings/users',
   userDetails = '/settings/users/:id',
   contractTemplates = '/settings/contract_templates_details/:contractTemplateId',
+  cadastre = '/settings/cadastre',
   tasks = '/tasks',
   taskDetails = '/tasks/:id',
   calendar = '/calendar',
