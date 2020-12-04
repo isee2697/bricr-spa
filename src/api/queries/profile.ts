@@ -143,12 +143,3 @@ export const GET_MY_TEAMMEMBERS = gql`
     }
   }
 `;
-
-export const CHECK_COMPANY_REGISTERED = gql`
-  query CheckCompanyRegistered($name: String!) {
-    checkCompanyRegistered(name: $name) {
-      suggestions
-      taken
-    }
-  }
-`;

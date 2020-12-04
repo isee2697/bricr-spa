@@ -5,8 +5,7 @@ import { Loader } from 'ui/atoms';
 import { useGetBillingQuery } from 'api/types';
 import { useAuthState } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-
-import { Billing } from './Billing';
+import { Billing } from 'app/settings/sections/general/billing/Billing';
 export const BillingContainer = () => {
   const { hasBillingAccess } = useAuthState();
   const { data } = useGetBillingQuery({ skip: !hasBillingAccess });

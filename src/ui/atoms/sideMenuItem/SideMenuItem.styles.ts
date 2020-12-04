@@ -18,6 +18,8 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
     height: 52,
     padding: 0,
+    marginLeft: theme.spacing(3),
+    width: `calc(100% - ${theme.spacing(3)}px)`,
     '&::after': {
       content: '""',
       position: 'absolute',
