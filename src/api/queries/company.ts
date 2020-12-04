@@ -16,6 +16,7 @@ export const GET_COMPANY_DETAILS = gql`
       name
       domain
       address
+      addressSecondLine
       state
       city
       zipcode

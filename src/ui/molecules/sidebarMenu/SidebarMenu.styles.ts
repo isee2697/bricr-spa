@@ -106,4 +106,9 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       ...typography.h4,
       fontWeight: typography.fontWeightMedium,
     },
+    notCollapsable: {
+      marginLeft: 0,
+      padding: spacing(1.87),
+      width: '100%',
+    },
   }))();

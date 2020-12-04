@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AccountContainer } from 'app/settings/sections/general/account/account.container';
+import { AccountContainer } from 'app/settings/sections/general/account/Account.container';
 import { BillingContainer } from 'app/settings/sections/general/billing/BillingContainer';
 import { NavBreadcrumb } from 'ui/atoms';
 import { useLocale } from 'hooks';

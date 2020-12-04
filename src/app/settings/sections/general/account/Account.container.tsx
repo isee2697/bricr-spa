@@ -1,12 +1,22 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { Account } from 'app/settings/sections/general/account/account';
 import { Company, UpdateCompanyInput, useGetCompanyDetailsQuery, useUpdateCompanyDetailsMutation } from 'api/types';
 import { Loader } from 'ui/atoms';
+import { useAuthState } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
+
+import { Account } from './Account';
 
 export const AccountContainer = () => {
-  const { data, refetch } = useGetCompanyDetailsQuery();
+  const { user } = useAuthState();
+  const { push } = useHistory();
+  const { data, refetch } = useGetCompanyDetailsQuery({ skip: !user?.isAdmin });
   const [updateCompany] = useUpdateCompanyDetailsMutation();
+
+  if (!user?.isAdmin) {
+    push(AppRoute.settings);
+  }
 
   if (!data?.getCompanyDetails) {
     return <Loader />;

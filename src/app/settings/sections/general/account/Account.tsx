@@ -5,7 +5,6 @@ import { useLocale } from 'hooks';
 import { Company, EntityWithFiles } from 'api/types';
 import { Box, Grid, InputLabel } from 'ui/atoms';
 import { GenericField, UploadImageField } from 'form/fields';
-import { UploadImageFieldTypes } from 'form/fields/uploadImageField/UploadImageField.types';
 
 import { useStyles } from './Account.styles';
 import { AccountProps } from './Account.types';
@@ -17,7 +16,7 @@ export const Account = ({ data, onSave }: AccountProps) => {
   return (
     <Page title={formatMessage({ id: 'settings.account.title' })} titleActions={<></>} showHeader>
       <AutosaveCard<Company>
-        title={'test'}
+        title={formatMessage({ id: 'settings.account.card_title' })}
         data={data}
         onSave={onSave}
         isExpandable={false}
@@ -115,7 +114,7 @@ export const Account = ({ data, onSave }: AccountProps) => {
                 placeholder={formatMessage({ id: 'settings.account.vat.placeholder' })}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={6}>
               <Box mt={2} mb={1}>
                 <InputLabel shrink variant="outlined" disabled={!editing}>
                   {formatMessage({ id: 'settings.account.logo' })}

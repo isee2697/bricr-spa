@@ -15,7 +15,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
-  const { hasBillingAccess } = useAuthState();
+  const { user, hasBillingAccess } = useAuthState();
   const { getTeams: teams } = data;
 
   const teamItems = ((teams?.items &&
@@ -36,11 +36,6 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         isCollapsable: true,
         key: 'settings.menu.general',
         items: [
-          {
-            key: 'general/account',
-            title: formatMessage({ id: 'settings.menu.general.account' }),
-            icon: <AogIcon />,
-          },
           {
             key: 'general/payment_methods',
             title: formatMessage({ id: 'settings.menu.general.payment_methods' }),
@@ -92,6 +87,14 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       },
     ],
   };
+
+  if (user?.isAdmin) {
+    menu.groups[0].items.splice(0, 0, {
+      key: 'general/account',
+      title: formatMessage({ id: 'settings.menu.general.account' }),
+      icon: <AogIcon />,
+    });
+  }
 
   if (hasBillingAccess) {
     menu.groups[0].items.splice(2, 0, { key: 'general/billing', title: 'settings.menu.billing' });
