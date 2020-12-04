@@ -44,14 +44,13 @@ jobs:
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
+    resource_class: medium+
     jobs:
       - build-tests
       - run-chrome:
-          resource_class: medium+
           requires:
             - build-tests
       - run-firefox:
-          resource_class: medium+
           requires:
             - build-tests
 
