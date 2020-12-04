@@ -3,6 +3,7 @@ version: 2.1
 # Define the jobs we want to run for this project
 jobs:
   build-tests:
+    resource_class: medium+
     docker:
       - image: cypress/base:12
     steps:
@@ -44,7 +45,6 @@ jobs:
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
-    resource_class: xlarge
     jobs:
       - build-tests
       - run-chrome:
