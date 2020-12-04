@@ -93,7 +93,7 @@ export const UploadImageField = ({
             pathBuilder: () => initUploadResponse.initSendFile.signedUrl,
           },
         });
-        console.log(entityID, entity);
+
         const { data: addFilesResponse } = await addFiles({
           variables: {
             input: {
