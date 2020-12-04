@@ -36,6 +36,7 @@ import {
   ContractStepType,
   DocumentContractType,
 } from 'app/pimDetails/sections/documents/documentDetails/documentContract/DocumentContract.types';
+import { DocumentUploadedType } from 'app/pimDetails/sections/documents/documentDetails/documentUploaded/DocumentUploaded.types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -396,6 +397,13 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
       type: 'success',
     },
   ],
+};
+
+export const PIM_DOCUMENT_UPLOADED: DocumentUploadedType = {
+  id: 'doc_1',
+  name: 'Akte van levering',
+  documentKind: DocumentKind.ListOfCase,
+  file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
 };
 
 export const PIM_DOCUMENT_LISTOFCASE: DocumentListOfCaseType = {
