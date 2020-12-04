@@ -30,11 +30,13 @@ jobs:
   run-chrome:
     docker:
       - image: cypress/browsers:node12.19.0-chrome86-ff82
+    resource_class: medium+
     steps:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:chrome
   run-firefox:
+    resource_class: medium+
     docker:
       - image: cypress/browsers:node12.19.0-chrome86-ff82
     steps:
