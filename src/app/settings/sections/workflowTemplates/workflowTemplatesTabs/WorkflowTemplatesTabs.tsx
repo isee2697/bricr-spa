@@ -3,6 +3,7 @@ import React from 'react';
 import { ActionTabs } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { WorkflowTemplateStatus } from 'api/types';
 
 import { WorkflowTemplatesTabsProps } from './WorkflowTemplatesTabs.types';
 
@@ -11,12 +12,12 @@ export const WorkflowTemplatesTabs = ({ status, onStatusChange, amounts }: Workf
 
   const tabs: ActionTab[] = [
     {
-      value: 'active',
+      value: WorkflowTemplateStatus.Active,
       amount: amounts && amounts.active,
       label: formatMessage({ id: 'settings.workflow_templates.active' }),
     },
     {
-      value: 'inactive',
+      value: WorkflowTemplateStatus.Inactive,
       amount: amounts && amounts.inactive,
       label: formatMessage({ id: 'settings.workflow_templates.inactive' }),
     },

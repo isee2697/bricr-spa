@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, Emoji, IconButton, Chip, Menu, MenuItem, Checkbox } from 'ui/atoms';
 import { MenuIcon, EditIcon } from 'ui/atoms/icons';
+import { WorkflowTemplateStatus } from 'api/types';
 
 import { WorkflowTemplatesItemProps } from './WorkflowTemplatesItem.types';
 import { useStyles } from './WorkflowTemplatesItem.styles';
@@ -19,13 +20,13 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
     id,
     name,
     createdAt,
-    avatar,
-    workflowSections,
-    startPoints,
-    labels,
-    started,
-    inProgress,
-    completed,
+    image,
+    // workflowSections,
+    // startPoints,
+    // labels,
+    // started,
+    // inProgress,
+    // completed,
     status,
   } = template;
 
@@ -42,10 +43,10 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex">
         <Box position="relative">
-          <Avatar variant="rounded" src={avatar} className={classes.image}>
-            {!avatar && <Emoji>{'📷'}</Emoji>}
+          <Avatar variant="rounded" src={image || ''} className={classes.image}>
+            {!image && <Emoji>{'📷'}</Emoji>}
           </Avatar>
-          {status === 'inactive' && (
+          {status === WorkflowTemplateStatus.Active && (
             <Box className={classes.inactiveWrapper}>
               <Chip
                 color="secondary"
@@ -69,20 +70,23 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
               <Typography className={classes.title}>{name}</Typography>
               <div className={classes.labels}>
                 <Box component="span">
-                  {formatMessage({ id: 'settings.workflow_templates.workflow_sections' }, { count: workflowSections })}
+                  {formatMessage({ id: 'settings.workflow_templates.workflow_sections' }, { count: 20 })}
                 </Box>
                 <Box component="span">
-                  {formatMessage({ id: 'settings.workflow_templates.startpoints' }, { count: startPoints })}
+                  {formatMessage({ id: 'settings.workflow_templates.startpoints' }, { count: 10 })}
                 </Box>
               </div>
               <Box mt={2}>
-                {labels.length
+                <Box component="span" key={'BOG'}>
+                  <Chip variant="outlined" color="primary" label={'BOG'} size="small" />
+                </Box>
+                {/* {labels.length
                   ? labels.map(label => (
                       <Box component="span" key={label}>
                         <Chip variant="outlined" color="primary" label={label} size="small" />
                       </Box>
                     ))
-                  : null}
+                  : null} */}
               </Box>
             </div>
             <div>
@@ -116,7 +120,11 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
                   className={classes.menuItem}
                   onClick={(event: React.MouseEvent) => {
                     event.stopPropagation();
-                    onStatusChange(status === 'active' ? 'inactive' : 'active');
+                    onStatusChange(
+                      status === WorkflowTemplateStatus.Active
+                        ? WorkflowTemplateStatus.Inactive
+                        : WorkflowTemplateStatus.Active,
+                    );
                   }}
                 >
                   <EditIcon classes={{ root: classes.menuIcon }} />
@@ -128,7 +136,7 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
                     </Typography>
                   </Box>
                   <Box ml="auto">
-                    <Checkbox color="primary" checked={status === 'active'} name="checkedA" />
+                    <Checkbox color="primary" checked={status === WorkflowTemplateStatus.Active} name="checkedA" />
                   </Box>
                 </MenuItem>
               </Menu>
@@ -136,13 +144,13 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
           </Box>
           <Box display="flex" className={classes.stats}>
             <Box display="flex" flexDirection="column" className={classes.statItem}>
-              <Typography className={classes.statInfo}>{started}</Typography>
+              <Typography className={classes.statInfo}>2670</Typography>
               <Typography className={classes.statLabel}>
                 {formatMessage({ id: 'settings.workflow_templates.started' })}
               </Typography>
             </Box>
             <Box display="flex" flexDirection="column" className={classes.statItem}>
-              <Typography className={classes.statInfo}>{inProgress}</Typography>
+              <Typography className={classes.statInfo}>970</Typography>
               <Typography className={classes.statLabel}>
                 {formatMessage({
                   id: 'settings.workflow_templates.in_progress',
@@ -150,7 +158,7 @@ export const WorkflowTemplatesItem = ({ template, onCopyToCustom, onStatusChange
               </Typography>
             </Box>
             <Box display="flex" flexDirection="column" className={classes.statItem}>
-              <Typography className={classes.statInfo}>{completed}</Typography>
+              <Typography className={classes.statInfo}>1700</Typography>
               <Typography className={classes.statLabel}>
                 {formatMessage({ id: 'settings.workflow_templates.completed' })}
               </Typography>

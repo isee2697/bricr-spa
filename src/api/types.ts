@@ -7401,6 +7401,90 @@ export type TiaraSendMessageInput = {
   messageType: TiaraMessageType;
 };
 
+export type WorkflowTemplate = {
+  __typename?: 'WorkflowTemplate';
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  icon: Scalars['String'];
+  status: WorkflowTemplateStatus;
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+};
+
+export type CreateWorkflowTemplateInput = {
+  __typename?: 'CreateWorkflowTemplateInput';
+  name: Scalars['String'];
+  icon: Scalars['String'];
+};
+
+export type WorkflowSection = {
+  __typename?: 'WorkflowSection';
+  id: Scalars['ID'];
+  workflowTemplateId: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  startpoint?: Maybe<WorkflowSectionStartpoint>;
+  endpoint?: Maybe<WorkflowSectionEndpoint>;
+};
+
+export type WorkflowSectionGroup = {
+  __typename?: 'WorkflowSectionGroup';
+  id: Scalars['ID'];
+  workflowSectionId: Scalars['ID'];
+  trigger: WorkflowSectionGroupTrigger;
+};
+
+export type WorkflowActionGroup = {
+  __typename?: 'WorkflowActionGroup';
+  id: Scalars['ID'];
+  workflowSectionGroupId: Scalars['ID'];
+  type: WorkflowActionGroupType;
+};
+
+export type WorkflowAction = {
+  __typename?: 'WorkflowAction';
+  id: Scalars['ID'];
+  workflowActionGroupId: Scalars['ID'];
+  action: WorkflowActionType;
+};
+
+export enum WorkflowTemplateStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export enum WorkflowSectionStartpoint {
+  Startpoint1 = 'Startpoint1',
+  Startpoint2 = 'Startpoint2',
+  Startpoint3 = 'Startpoint3',
+}
+
+export enum WorkflowSectionEndpoint {
+  Endpoint1 = 'Endpoint1',
+  Endpoint2 = 'Endpoint2',
+  Endpoint3 = 'Endpoint3',
+}
+
+export enum WorkflowSectionGroupTrigger {
+  MakeAppointment = 'MakeAppointment',
+  DifferentTrigger = 'DifferentTrigger',
+  Trigger1 = 'Trigger1',
+  Trigger2 = 'Trigger2',
+}
+
+export enum WorkflowActionGroupType {
+  New = 'New',
+  Delete = 'Delete',
+  Update = 'Update',
+}
+
+export enum WorkflowActionType {
+  SendEmail = 'SendEmail',
+  Action1 = 'Action1',
+  Action2 = 'Action2',
+  Action3 = 'Action3',
+}
+
 export type LoginMutationVariables = Exact<{
   input?: Maybe<LoginInput>;
 }>;

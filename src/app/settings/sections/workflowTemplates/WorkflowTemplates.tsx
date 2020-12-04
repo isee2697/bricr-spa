@@ -10,8 +10,9 @@ import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { AddCustomPropertyModal } from 'ui/organisms';
 import { IconSelectedTheme } from 'ui/molecules/iconPicker/IconPicker.types';
+import { WorkflowTemplateStatus } from 'api/types';
 
-import { ActiveTabStatus, WorkflowTemplatesProps } from './WorkflowTemplates.types';
+import { WorkflowTemplatesProps } from './WorkflowTemplates.types';
 import { useStyles } from './WorkflowTemplates.styles';
 import { WorkflowTemplatesTabs } from './workflowTemplatesTabs/WorkflowTemplatesTabs';
 import { WorkflowTemplatesItem } from './workflowTemplatesItem/WorkflowTemplatesItem';
@@ -21,22 +22,24 @@ const mockData = {
 };
 
 export const WorkflowTemplates = ({
-  templates,
+  templates: templatesPageData,
   updatedBy,
   dateUpdated,
   onAdd,
   onUpdate,
   templateType = 'bricr',
+  status,
+  onStatusChange,
 }: WorkflowTemplatesProps) => {
   const { formatMessage } = useLocale();
   const [isModalVisible, setModalVisible] = useState(false);
   const classes = useStyles();
   const { push } = useHistory();
-  const [status, setStatus] = useState<ActiveTabStatus>('inactive');
   const { notifications } = mockData;
+  const templates = templatesPageData?.workflowTemplates || [];
 
-  const activeTemplates = templates.filter(item => item.status === 'active' && item.type === templateType);
-  const inactiveTemplates = templates.filter(item => item.status === 'inactive' && item.type === templateType);
+  const activeTemplates = templates.filter(item => item.status === WorkflowTemplateStatus.Active);
+  const inactiveTemplates = templates.filter(item => item.status === WorkflowTemplateStatus.Inactive);
 
   return (
     <Box flex={1}>
@@ -86,7 +89,7 @@ export const WorkflowTemplates = ({
                   <Box mb={2}>
                     <WorkflowTemplatesTabs
                       status={status}
-                      onStatusChange={setStatus}
+                      onStatusChange={onStatusChange}
                       amounts={{
                         active: activeTemplates?.length,
                         inactive: inactiveTemplates?.length,
@@ -95,7 +98,7 @@ export const WorkflowTemplates = ({
                   </Box>
                   <List
                     className="workflow-template-list"
-                    items={status === 'active' ? activeTemplates : inactiveTemplates}
+                    items={status === WorkflowTemplateStatus.Active ? activeTemplates : inactiveTemplates}
                     itemIndex="id"
                     sortOptions={[
                       { key: 'lastEdited', name: 'Last edited' },
@@ -127,7 +130,7 @@ export const WorkflowTemplates = ({
                           <Box
                             className={classes.itemButton}
                             onClick={() => {
-                              if (template.type === 'custom' && template.status === 'active') {
+                              if (template.status === WorkflowTemplateStatus.Active) {
                                 push(AppRoute.workflow.replace(':id', template.id), {
                                   icon: template.icon,
                                   name: template.name,
@@ -138,10 +141,12 @@ export const WorkflowTemplates = ({
                             <WorkflowTemplatesItem
                               template={template}
                               onCopyToCustom={() => {
-                                onUpdate({ ...template, type: 'custom' });
+                                // TODO: Update again after template type introduced
+                                // onUpdate({ ...template, type: 'custom' });
                               }}
                               onStatusChange={status => {
-                                onUpdate({ ...template, status });
+                                // TODO: Update again after template type introduced
+                                // onUpdate({ ...template, status });
                               }}
                             />
                           </Box>
