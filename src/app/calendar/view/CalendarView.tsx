@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Page } from 'ui/templates';
 import { Box, Button, Card, CardHeader, CardContent, Grid, Tab, Tabs, Typography, IconButton } from 'ui/atoms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
-import { AddIcon, ArrowLeftIcon, ArrowRightIcon, BuildingIcon, SettingsIcon, ManageIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowLeftIcon, ArrowRightIcon, TodayIcon, SettingsIcon, ManageIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -135,8 +135,8 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
                 className={classes.header}
                 action={
                   <Box display="flex" alignItems="center">
-                    <IconButton variant="roundedContained" color="primary" size="small" onClick={() => goBackToToday()}>
-                      <BuildingIcon />
+                    <IconButton variant="rounded" size="small" onClick={() => goBackToToday()}>
+                      <TodayIcon color="primary" />
                     </IconButton>
                     <Box ml={2} />
                     <IconButton variant="rounded" size="small" onClick={() => {}}>
