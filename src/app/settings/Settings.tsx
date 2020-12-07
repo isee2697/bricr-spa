@@ -19,6 +19,7 @@ import { ContractTemplatesContainer } from './sections/documents/contractTemplat
 import { DashboardContainer } from './sections/dashboard/DashboardContainer';
 import { ContractTemplatesDetailsContainer } from './sections/documents/contractTemplatesDetails/ContractTemplatesDetailsContainer';
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
+import { CadastreSettingsContainer } from './sections/cadastre/CadastreSettingsContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -65,6 +66,7 @@ export const Settings = ({ data }: SettingsProps) => {
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
             <Route path={AppRoute.users} render={() => <UsersRouter />} />
             <Route exact path={AppRoute.settings} render={() => <DashboardContainer />} />
+            <Route exact path={AppRoute.cadastre} render={() => <CadastreSettingsContainer />} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>

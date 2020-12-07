@@ -170,6 +170,8 @@ export type Mutation = {
   updateInsideGeneral?: Maybe<Pim>;
   updateInspection: Pim;
   updateInvestment: Pim;
+  updateKikInfo: Scalars['Boolean'];
+  updateKikSettings: Scalars['Boolean'];
   updateLinkedPropertiesListDescription?: Maybe<ObjectTypeGeneral>;
   updateMediaLink?: Maybe<Pim>;
   updateNcp: NcpGeneral;
@@ -675,6 +677,14 @@ export type MutationUpdateInvestmentArgs = {
   input: InvestmentInput;
 };
 
+export type MutationUpdateKikInfoArgs = {
+  input: KikInfoInput;
+};
+
+export type MutationUpdateKikSettingsArgs = {
+  input: KikSettingsInput;
+};
+
 export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
   input: UpdateLinkedPropertiesListDescription;
 };
@@ -917,6 +927,7 @@ export type Query = {
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
   getEmail?: Maybe<Email>;
+  getKikSettings?: Maybe<KikSettings>;
   getLabels?: Maybe<Array<Label>>;
   getMyTeamMembers: ProfileSearchResult;
   getNcp: NcpGeneral;
@@ -2198,6 +2209,26 @@ export type UpdateIdentificationNumberInput = {
   name?: Maybe<Scalars['String']>;
   number?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+};
+
+export enum KikInfoType {
+  CadastralPlot = 'CadastralPlot',
+  CadastralMap = 'CadastralMap',
+}
+
+export type KikSettings = {
+  __typename?: 'KikSettings';
+  username: Scalars['String'];
+};
+
+export type KikSettingsInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type KikInfoInput = {
+  pimId: Scalars['ID'];
+  infoType: KikInfoType;
 };
 
 export enum LabelProperty {
@@ -7729,6 +7760,18 @@ export type UpdateIdentificationNumberObjectTypeMutation = { __typename?: 'Mutat
   >;
 };
 
+export type UpdateKikSettingsMutationVariables = Exact<{
+  input: KikSettingsInput;
+}>;
+
+export type UpdateKikSettingsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateKikSettings'>;
+
+export type UpdateKikInfoMutationVariables = Exact<{
+  input: KikInfoInput;
+}>;
+
+export type UpdateKikInfoMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'updateKikInfo'>;
+
 export type AddLabelMutationVariables = Exact<{
   input: LabelInput;
 }>;
@@ -9150,6 +9193,12 @@ export type GetEmailQuery = { __typename?: 'Query' } & {
         to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
       }
   >;
+};
+
+export type GetKikSettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetKikSettingsQuery = { __typename?: 'Query' } & {
+  getKikSettings?: Maybe<{ __typename?: 'KikSettings' } & Pick<KikSettings, 'username'>>;
 };
 
 export type GetLabelsQueryVariables = Exact<{
@@ -12813,6 +12862,44 @@ export type UpdateIdentificationNumberObjectTypeMutationOptions = ApolloReactCom
   UpdateIdentificationNumberObjectTypeMutation,
   UpdateIdentificationNumberObjectTypeMutationVariables
 >;
+export const UpdateKikSettingsDocument = gql`
+  mutation UpdateKikSettings($input: KikSettingsInput!) {
+    updateKikSettings(input: $input)
+  }
+`;
+export function useUpdateKikSettingsMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateKikSettingsMutation, UpdateKikSettingsMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateKikSettingsMutation, UpdateKikSettingsMutationVariables>(
+    UpdateKikSettingsDocument,
+    baseOptions,
+  );
+}
+export type UpdateKikSettingsMutationHookResult = ReturnType<typeof useUpdateKikSettingsMutation>;
+export type UpdateKikSettingsMutationResult = ApolloReactCommon.MutationResult<UpdateKikSettingsMutation>;
+export type UpdateKikSettingsMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateKikSettingsMutation,
+  UpdateKikSettingsMutationVariables
+>;
+export const UpdateKikInfoDocument = gql`
+  mutation UpdateKikInfo($input: KikInfoInput!) {
+    updateKikInfo(input: $input)
+  }
+`;
+export function useUpdateKikInfoMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateKikInfoMutation, UpdateKikInfoMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateKikInfoMutation, UpdateKikInfoMutationVariables>(
+    UpdateKikInfoDocument,
+    baseOptions,
+  );
+}
+export type UpdateKikInfoMutationHookResult = ReturnType<typeof useUpdateKikInfoMutation>;
+export type UpdateKikInfoMutationResult = ApolloReactCommon.MutationResult<UpdateKikInfoMutation>;
+export type UpdateKikInfoMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateKikInfoMutation,
+  UpdateKikInfoMutationVariables
+>;
 export const AddLabelDocument = gql`
   mutation AddLabel($input: LabelInput!) {
     addLabel(input: $input) {
@@ -16174,6 +16261,35 @@ export function useGetEmailLazyQuery(
 export type GetEmailQueryHookResult = ReturnType<typeof useGetEmailQuery>;
 export type GetEmailLazyQueryHookResult = ReturnType<typeof useGetEmailLazyQuery>;
 export type GetEmailQueryResult = ApolloReactCommon.QueryResult<GetEmailQuery, GetEmailQueryVariables>;
+export const GetKikSettingsDocument = gql`
+  query GetKikSettings {
+    getKikSettings {
+      username
+    }
+  }
+`;
+export function useGetKikSettingsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetKikSettingsQuery, GetKikSettingsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetKikSettingsQuery, GetKikSettingsQueryVariables>(
+    GetKikSettingsDocument,
+    baseOptions,
+  );
+}
+export function useGetKikSettingsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetKikSettingsQuery, GetKikSettingsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetKikSettingsQuery, GetKikSettingsQueryVariables>(
+    GetKikSettingsDocument,
+    baseOptions,
+  );
+}
+export type GetKikSettingsQueryHookResult = ReturnType<typeof useGetKikSettingsQuery>;
+export type GetKikSettingsLazyQueryHookResult = ReturnType<typeof useGetKikSettingsLazyQuery>;
+export type GetKikSettingsQueryResult = ApolloReactCommon.QueryResult<
+  GetKikSettingsQuery,
+  GetKikSettingsQueryVariables
+>;
 export const GetLabelsDocument = gql`
   query GetLabels($id: ID!, $properties: [LabelProperty!]) {
     getLabels(parentId: $id, properties: $properties) {
