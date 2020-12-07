@@ -1,26 +1,11 @@
 import { withStyles } from '@material-ui/core';
 import clsx from 'classnames';
 import React from 'react';
-import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import {
-  Avatar,
-  Box,
-  Chip,
-  Emoji,
-  Grid,
-  IconButton,
-  PersonChip,
-  Step,
-  StepConnector,
-  StepLabel,
-  Stepper,
-  Typography,
-  UserAvatar,
-} from 'ui/atoms';
-import { AddIcon, CheckIcon, CloseIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Emoji, Grid, IconButton, Step, StepConnector, StepLabel, Stepper, Typography } from 'ui/atoms';
+import { AddIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 

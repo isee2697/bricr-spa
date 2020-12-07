@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { Avatar, Box, Chip, Emoji, Grid, IconButton, PersonChip, Typography, UserAvatar } from 'ui/atoms';
+import { Avatar, Box, Emoji, Grid, IconButton, Typography } from 'ui/atoms';
 import { HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -15,7 +15,7 @@ export const OrderItem = (props: OrderItemProps) => {
   const {
     checkbox,
     checked,
-    order: { id, name, type },
+    order: { id, name },
   } = props;
   const classes = useStyles(props);
   const { formatMessage } = useLocale();
