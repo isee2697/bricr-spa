@@ -168,6 +168,7 @@ export const SidebarMenu = ({
                     <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
                       {group.items.map(item => (
                         <SideMenuItem
+                          className={!group?.isCollapsable ? classes.notCollapsable : ''}
                           key={item.key}
                           itemKey={item.key}
                           icon={item.icon ? item.icon : item.hideIcon ? <></> : <SaleIcon />}

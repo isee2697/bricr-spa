@@ -3,9 +3,8 @@ import React from 'react';
 import { Page } from 'ui/templates';
 import { Grid, Box, Card, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks';
-
-import { useStyles } from './BillingContainer.styles';
-import { BillingProps } from './BillingContainer.types';
+import { useStyles } from 'app/settings/sections/general/billing/BillingContainer.styles';
+import { BillingProps } from 'app/settings/sections/general/billing/BillingContainer.types';
 
 export const Billing = ({ billingUrl }: BillingProps) => {
   const { formatMessage } = useLocale();

@@ -1,0 +1,68 @@
+enum BricrPlans {
+  Professional,
+  EnterPrise,
+  Start,
+}
+
+input CreateCompanyInput {
+  name: String!
+  email: String!
+  space: String!
+  amountUsers: Int
+  amountProperties: Int
+  plan: BricrPlans
+}
+
+input UpdateCompanyInput {
+  id: ID!
+  name: String
+  address: String
+  addressSecondLine: String
+  state: String
+  city: String
+  zipcode: String
+  country: String
+  houseNumber: String
+  floor: Int
+  chamberOfCommerce: String
+  vat: String
+  imageId: ID
+}
+
+input CheckCompanyRegistereInput {
+  name: String!
+}
+
+type Company {
+  id: ID!
+  teams: [Team!]
+  users: [Profile!]
+  name: String
+  domain: String
+  address: String
+  addressSecondLine: String
+  state: String
+  city: String
+  zipcode: String
+  country: String
+  houseNumber: String
+  floor: Int
+  chamberOfCommerce: String
+  vat: String
+  image: File
+}
+
+type CheckRegisteredResponse {
+   suggestions: [String!]
+   taken: Boolean!
+}
+
+extend type Query {
+  checkCompanyRegistered(name: String!): CheckRegisteredResponse!
+  getCompanyDetails: Company! @auth
+}
+
+extend type Mutation {
+  createCompany(input: CreateCompanyInput!): Company!
+  updateCompanyDetails(input: UpdateCompanyInput!): Company! @auth
+}

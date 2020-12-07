@@ -18,6 +18,7 @@ export enum AppRoute {
   forgotPassword = '/auth/forgot-password',
   resetPassword = '/auth/reset-password/:token',
   settings = '/settings',
+  settingsGeneral = '/settings/general',
   workflow = '/settings/workflow/:id',
   teams = '/settings/teams/:id',
   billing = '/settings/billing',
