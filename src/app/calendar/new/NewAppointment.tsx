@@ -14,7 +14,7 @@ import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
 import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 
-export const NewAppointment = ({ members, locations }: NewAppointmentProps) => {
+export const NewAppointment = ({ members, locations, appointmentInfo }: NewAppointmentProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -25,7 +25,7 @@ export const NewAppointment = ({ members, locations }: NewAppointmentProps) => {
       title={formatMessage({ id: 'appointment.new.title' })}
       titleActions={<ExitButton />}
     >
-      <Form mutators={{ ...arrayMutators }} onSubmit={() => {}}>
+      <Form initialValues={appointmentInfo} keepDirtyOnReinitialize mutators={{ ...arrayMutators }} onSubmit={() => {}}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <Grid container spacing={3}>

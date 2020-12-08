@@ -32,7 +32,7 @@ export const AppointmentBaseInfoCard = () => {
   return (
     <Card>
       <GenericField
-        name="name"
+        name="title"
         label={formatMessage({ id: 'appointment.name.label' })}
         placeholder={formatMessage({ id: 'appointment.name.placeholder' })}
       />

@@ -1,6 +1,6 @@
 import { AnyObject } from 'react-final-form';
 
-import { ListPimsQuery, MovePimDataQuery, Pim as PimEntity } from 'api/types';
+import { MovePimDataQuery, Pim as PimEntity } from 'api/types';
 import { ModalStateOptions } from 'context/modal/modalContext/ModalContext.types';
 
 export type ObjectType = {
