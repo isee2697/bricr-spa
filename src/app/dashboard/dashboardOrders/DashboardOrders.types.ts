@@ -1,3 +1,4 @@
+import { SalesLabel } from 'api/types';
 import { OrderProps } from 'ui/molecules/order/Order.types';
 
 type Order = Omit<OrderProps, 'onClick' | 'children'> & {
@@ -7,7 +8,6 @@ type Order = Omit<OrderProps, 'onClick' | 'children'> & {
 
 export type DashboardOrdersProps = {
   orders: Order[];
-  tabs: string[];
-  currentTab: number;
-  onChangeTab: (tabIndex: number) => void;
+  currentTab: SalesLabel;
+  onChangeTab: (tabIndex: SalesLabel) => void;
 };

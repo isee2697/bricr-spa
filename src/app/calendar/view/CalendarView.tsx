@@ -3,9 +3,9 @@ import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
-import { Box, Button, Card, Grid, Tab, Tabs, Typography } from 'ui/atoms';
+import { Box, Button, Card, CardHeader, CardContent, Grid, Tab, Tabs, Typography, IconButton } from 'ui/atoms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
-import { AddIcon, ArrowLeftIcon, ArrowRightIcon, SettingsIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowLeftIcon, ArrowRightIcon, TodayIcon, SettingsIcon, ManageIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -57,6 +57,13 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
     }));
   };
 
+  const goBackToToday = () => {
+    onFilterChange(current => ({
+      ...current,
+      selectedDate: DateTime.local(),
+    }));
+  };
+
   const getTabLabelId = (dateView: DateView) => {
     if (dateView === DateView.Day && Math.round(selectedDate.diff(DateTime.local(), 'days').days) === 0) {
       return formatMessage({ id: `common.today` });
@@ -89,12 +96,23 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
               <Box display="flex" mr={2}>
                 {getViewTitle(!selectedGroup && currentView, selectedDate, formatMessage)}
               </Box>
-              <Button variant="contained" onClick={() => switchStartDate('prev')}>
+              <IconButton
+                size="small"
+                variant="roundedContained"
+                onClick={() => switchStartDate('prev')}
+                className={classes.btnNav}
+              >
                 <ArrowLeftIcon />
-              </Button>
-              <Button variant="contained" onClick={() => switchStartDate('next')}>
+              </IconButton>
+              <Box ml={1} />
+              <IconButton
+                size="small"
+                variant="roundedContained"
+                onClick={() => switchStartDate('next')}
+                className={classes.btnNav}
+              >
                 <ArrowRightIcon />
-              </Button>
+              </IconButton>
             </div>
           }
           headerProps={{
@@ -111,29 +129,45 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
           }}
           titleActions={<></>}
         >
-          <Card className={classes.content}>
-            {!selectedGroup && (
-              <>
-                <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view === currentView)}>
-                  {dateValues.map(
-                    dateView =>
-                      dateView !== DateView.Group && (
-                        <Tab key={dateView} onClick={() => setView(dateView)} label={getTabLabelId(dateView)} />
-                      ),
-                  )}
-                </Tabs>
-                <Box mt={2} />
-
-                <CalendarMolecule view={currentView} currentDate={selectedDate.toJSDate()} data={data} />
-              </>
-            )}
-            {!!selectedGroup && (
-              <GroupDayView
-                data={data}
-                group={groups.find(group => group.id === selectedGroup)}
-                currentDate={selectedDate.toJSDate()}
+          <Card>
+            <CardContent>
+              <CardHeader
+                className={classes.header}
+                action={
+                  <Box display="flex" alignItems="center">
+                    <IconButton variant="rounded" size="small" onClick={() => goBackToToday()}>
+                      <TodayIcon color="primary" />
+                    </IconButton>
+                    <Box ml={2} />
+                    <IconButton variant="rounded" size="small" onClick={() => {}}>
+                      <ManageIcon />
+                    </IconButton>
+                  </Box>
+                }
               />
-            )}
+              {!selectedGroup && (
+                <>
+                  <Tabs indicatorColor="primary" value={dateValues.findIndex(view => view === currentView)}>
+                    {dateValues.map(
+                      dateView =>
+                        dateView !== DateView.Group && (
+                          <Tab key={dateView} onClick={() => setView(dateView)} label={getTabLabelId(dateView)} />
+                        ),
+                    )}
+                  </Tabs>
+                  <Box mt={2} />
+
+                  <CalendarMolecule view={currentView} currentDate={selectedDate.toJSDate()} data={data} />
+                </>
+              )}
+              {!!selectedGroup && (
+                <GroupDayView
+                  data={data}
+                  group={groups.find(group => group.id === selectedGroup)}
+                  currentDate={selectedDate.toJSDate()}
+                />
+              )}
+            </CardContent>
           </Card>
         </Page>
       </Grid>
