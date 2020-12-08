@@ -4,6 +4,12 @@ export const useStyles = makeStyles(({ palette, spacing }) => ({
   content: {
     padding: spacing(3),
   },
+  header: {
+    padding: 0,
+  },
+  btnNav: {
+    background: palette.white.main,
+  },
   title: {
     display: 'flex',
     alignItems: 'center',
