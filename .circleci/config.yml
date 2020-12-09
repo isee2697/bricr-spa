@@ -116,7 +116,7 @@ workflows:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-                - /features/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - run-coverage:
           filters:
@@ -138,10 +138,19 @@ workflows:
             branches:
               only:
                 - develop
-                - /feature/UL(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
+  deploy_stage:
+    jobs:
+      - build-stage:
+          filters:
+            branches:
+              only:
+                - /release/(?:-.+)?$/
+      - deploy-stage:
+          requires:
+            - build-stage
 
 
 
