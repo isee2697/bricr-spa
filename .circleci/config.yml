@@ -14,8 +14,8 @@ jobs:
       - image: cypress/base:12
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
+#      - setup_remote_docker:
+#          docker_layer_caching: true
       - restore_cache:
           key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
@@ -56,6 +56,8 @@ jobs:
       - image: cimg/node:12.19.1
     steps:
       - checkout
+      - restore_cache:
+          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
