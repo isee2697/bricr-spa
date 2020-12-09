@@ -1,0 +1,200 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.0
+
+# Define the jobs we want to run for this project
+jobs:
+  build-tests:
+    resource_class: medium
+    docker:
+      - image: cypress/base:12
+    steps:
+      - checkout
+      - restore_cache:
+          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
+      - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
+      - run: npm install && cd e2e && npm install && cd ..
+      - save_cache:
+          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
+          paths:
+            - ~/node_modules
+            - ~/.npm
+            - ~/.cache
+            - ~/e2e/node_modules
+            - ~/e2e/.npm
+      - run: npm run build:ci
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+            - .cache/Cypress
+
+  run-chrome:
+    docker:
+      - image: cypress/browsers:node12.19.0-chrome86-ff82
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run e2e:ci:chrome
+  run-firefox:
+    resource_class: medium
+    docker:
+      - image: cypress/browsers:node12.19.0-chrome86-ff82
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: npm run e2e:ci:firefox
+  run-coverage:
+    resource_class: large
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - checkout
+      - run:
+          command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+          name: "Config and install"
+      - run: npm run coverage
+  lint-and-build:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - checkout
+      - run:
+          command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+          name: "Config and install"
+      - run: npm run lint
+      - run: npm run build
+  build-develop:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - setup_remote_docker
+      - aws-ecr/build-and-push-image:
+          account-url: ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          dockerfile: ./devops/docker/Dockerfile.dev
+          create-repo: true
+          no-output-timeout: 20m
+          region: AWS_REGION
+          repo: bricr-spa
+          skip-when-tags-exist: false
+          tag: 'latest,${CIRCLE_SHA1}'
+          extra-build-args: --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID
+
+  deploy-develop:
+    docker:
+      - image: wojtaszczykkamil/terraform:0.12.24
+    steps:
+      - checkout
+      - run:
+          name: "Deploy spa to develop"
+          command: |
+            echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+            echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+            echo "export PACKAGE=bricr-spa-dev" >> $BASH_ENV
+            echo "export URL=https://develop.dev-domain.nl" >> $BASH_ENV
+            echo "export TF_VAR_docker_tag=$CIRCLE_SHA1" >> $BASH_ENV
+            echo "export SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $BASH_ENV
+            source $BASH_ENV
+            chmod +x ./devops/scripts/deploy-and-notify.sh && ./devops/scripts/deploy-and-notify.sh
+  build-stage:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - setup_remote_docker
+      - aws-ecr/build-and-push-image:
+          account-url: ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          dockerfile: ./devops/docker/Dockerfile
+          create-repo: true
+          no-output-timeout: 20m
+          region: AWS_REGION
+          repo: bricr-spa
+          skip-when-tags-exist: false
+          tag: 'latest,${CIRCLE_SHA1}'
+          extra-build-args: --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID
+
+  deploy-stage:
+    docker:
+      - image: wojtaszczykkamil/terraform:0.12.24
+    steps:
+      - checkout
+      - run:
+          name: "Deploy spa to stage"
+          command: |
+            echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+            echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+            echo "export PACKAGE=bricr-spa" >> $BASH_ENV
+            echo "export URL=https://staging.dev-domain.nl" >> $BASH_ENV
+            echo "export TF_VAR_docker_tag=$CIRCLE_SHA1" >> $BASH_ENV
+            echo "export SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $BASH_ENV
+            source $BASH_ENV
+            chmod +x ./devops/scripts/deploy-and-notify.sh && ./devops/scripts/deploy-and-notify.sh
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build-tests:
+          filters:
+            branches:
+              only:
+                - /hotfix/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
+                - /bugfix/UL(?:-.+)?$/
+      - lint-and-build:
+          filters:
+            branches:
+              only:
+                - /hotfix/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
+                - /bugfix/UL(?:-.+)?$/
+      - run-coverage:
+          filters:
+            branches:
+              only:
+                - /hotfix/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
+                - /bugfix/UL(?:-.+)?$/
+      - run-chrome:
+          requires:
+            - build-tests
+      - run-firefox:
+          requires:
+            - build-tests
+  deploy_develop:
+    jobs:
+      - build-develop:
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy-develop:
+          requires:
+            - build-develop
+  deploy_stage:
+    jobs:
+      - build-stage:
+          filters:
+            branches:
+              only:
+                - /release/(?:-.+)?$/
+      - deploy-stage:
+          requires:
+            - build-stage
+  custom_develop:
+    jobs:
+      - build-develop:
+          filters:
+            branches:
+              only:
+                - /deploy/(?:-.+)?$/
+      - deploy-develop:
+          requires:
+            - build-develop
+
+
+

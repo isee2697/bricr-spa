@@ -17,6 +17,7 @@ context('Pim Details', () => {
     cy.contains('Add new price');
   });
   it('allows to enable pricings', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/prices'));
     cy.findByText('Add price').click();
 
     cy.contains('The property is for...');
@@ -35,6 +36,20 @@ context('Pim Details', () => {
     cy.get('.form-section-title').contains('Rent');
   });
   it('allows to hide pricings', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/prices'));
+    cy.findByText('Add price').click();
+
+    cy.get('.MuiDialog-paper')
+      .findByText('Sale')
+      .click();
+    cy.get('.MuiDialog-paper')
+      .findByText('Rent')
+      .click();
+
+    cy.findByText('Set prices').click();
+
+    cy.wait(1000);
+
     cy.findByText('Edit price').click();
 
     cy.contains('The property is for...');
