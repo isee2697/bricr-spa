@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.0
+
 # Define the jobs we want to run for this project
 jobs:
   build-tests:
@@ -45,7 +48,7 @@ jobs:
       - run: npm run e2e:ci:firefox
   run-coverage:
     docker:
-      - image: cimg/node:12.14.1
+      - image: cimg/node:12.19.1
     steps:
       - checkout
       - run:
@@ -88,8 +91,8 @@ jobs:
           command: |
             echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
             echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
-            echo "export PACKAGE=bricr-security" >> $BASH_ENV
-            echo "export URL=https://staging-security.dev-domain.nl/health" >> $BASH_ENV
+            echo "export PACKAGE=bricr-spa-dev" >> $BASH_ENV
+            echo "export URL=https://develop.dev-domain.nl" >> $BASH_ENV
             echo "export TF_VAR_docker_tag=$CIRCLE_SHA1" >> $BASH_ENV
             echo "export SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $BASH_ENV
             source $BASH_ENV
