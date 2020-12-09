@@ -1,11 +1,12 @@
 version: 2.1
 
 only-working-branches: &only-working-branches
-  branches:
-    only:
-      - /hotfix/UL(?:-.+)?$/
-      - /features/UL(?:-.+)?$/
-      - /bugfix/UL(?:-.+)?$/
+  filters:
+    branches:
+      only:
+        - /hotfix/UL(?:-.+)?$/
+        - /features/UL(?:-.+)?$/
+        - /bugfix/UL(?:-.+)?$/
 # Define the jobs we want to run for this project
 jobs:
   build-tests:
@@ -77,14 +78,11 @@ workflows:
   build_and_test:
     jobs:
       - build-tests:
-          filters:
-            <<: &only-working-branches
+          <<: &only-working-branches
       - lint-and-build:
-          filters:
-            <<: &only-working-branches
+          <<: &only-working-branches
       - run-coverage:
-          filters:
-            <<: &only-working-branches
+          <<: &only-working-branches
       - run-chrome:
           requires:
             - build-tests
