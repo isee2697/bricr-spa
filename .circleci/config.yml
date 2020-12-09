@@ -82,9 +82,8 @@ jobs:
           repo: bricr-spa
           skip-when-tags-exist: false
           tag: 'latest,${CIRCLE_SHA1}'
-          extra-build-args:
-            PHRASE_ACCESS_TOKEN: $PHRASE_ACCESS_TOKEN
-            PHRASE_PROJECT_ID: $PHRASE_PROJECT_ID
+          extra-build-args: --build-arg PHRASE_ACCESS_TOKEN=$PHRASE_ACCESS_TOKEN --build-arg PHRASE_PROJECT_ID=$PHRASE_PROJECT_ID
+
   deploy-develop:
     docker:
       - image: wojtaszczykkamil/terraform:0.12.24
