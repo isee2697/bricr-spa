@@ -78,25 +78,13 @@ workflows:
     jobs:
       - build-tests:
           filters:
-            branches:
-              only:
-                - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
-                - /bugfix/UL(?:-.+)?$/
+            <<: &only-working-branches
       - lint-and-build:
           filters:
-            branches:
-              only:
-                - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
-                - /bugfix/UL(?:-.+)?$/
+            <<: &only-working-branches
       - run-coverage:
           filters:
-            branches:
-              only:
-                - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
-                - /bugfix/UL(?:-.+)?$/
+            <<: &only-working-branches
       - run-chrome:
           requires:
             - build-tests
