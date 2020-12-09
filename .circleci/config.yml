@@ -51,12 +51,30 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:firefox
+  lint-and-test:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - run:
+          command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+          name: "Config and install"
+      - run: npm run lint
+      - run: npm run coverage
+      - run: npm run build
+
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build-tests:
+          filters:
+            branches:
+              only:
+                - /hotfix/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
+                - /bugfix/UL(?:-.+)?$/
+      - lint-and-test:
           filters:
             branches:
               only:
