@@ -51,7 +51,16 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: npm run e2e:ci:firefox
-  lint-and-test:
+  run-coverage:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - checkout
+      - run:
+          command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
+          name: "Config and install"
+      - run: npm run coverage
+  lint-and-build:
     docker:
       - image: cimg/node:12.19.1
     steps:
@@ -60,7 +69,6 @@ jobs:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
       - run: npm run lint
-      - run: npm run coverage
       - run: npm run build
 
 
@@ -75,7 +83,14 @@ workflows:
                 - /hotfix/UL(?:-.+)?$/
                 - /feature/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
-      - lint-and-test:
+      - lint-and-build:
+          filters:
+            branches:
+              only:
+                - /hotfix/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
+                - /bugfix/UL(?:-.+)?$/
+      - run-coverage:
           filters:
             branches:
               only:
