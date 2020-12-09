@@ -182,10 +182,19 @@ workflows:
             branches:
               only:
                 - /release/(?:-.+)?$/
-                - feature/UL-setup-circle
       - deploy-stage:
           requires:
             - build-stage
+  custom_develop:
+    jobs:
+      - build-develop:
+          filters:
+            branches:
+              only:
+                - /deploy/(?:-.+)?$/
+      - deploy-develop:
+          requires:
+            - build-develop
 
 
 
