@@ -8,8 +8,6 @@ jobs:
       - image: cypress/base:12
     steps:
       - checkout
-#      - setup_remote_docker:
-#          docker_layer_caching: true
       - restore_cache:
           key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run: cp .env.dist .env && cp .env.e2e.dist ./e2e/.env
@@ -47,7 +45,7 @@ jobs:
       - run: npm run e2e:ci:firefox
   run-coverage:
     docker:
-      - image: cimg/node:12.19.1
+      - image: cimg/node:12.14.1
     steps:
       - checkout
       - run:
@@ -64,8 +62,38 @@ jobs:
           name: "Config and install"
       - run: npm run lint
       - run: npm run build
-
-
+  build-develop:
+    docker:
+      - image: cimg/node:12.19.1
+    steps:
+      - setup_remote_docker
+      - aws-ecr/build-and-push-image:
+          account-url: ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          dockerfile: ./devops/docker/Dockerfile.dev
+          create-repo: true
+          no-output-timeout: 20m
+          region: AWS_REGION
+          repo: bricr-spa
+          skip-when-tags-exist: false
+          tag: 'latest,${CIRCLE_SHA1}'
+  deploy-develop:
+    docker:
+      - image: wojtaszczykkamil/terraform:0.12.24
+    steps:
+      - checkout
+      - run:
+          name: "Deploy spa to develop"
+          command: |
+            echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> $BASH_ENV
+            echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
+            echo "export PACKAGE=bricr-security" >> $BASH_ENV
+            echo "export URL=https://staging-security.dev-domain.nl/health" >> $BASH_ENV
+            echo "export TF_VAR_docker_tag=$CIRCLE_SHA1" >> $BASH_ENV
+            echo "export SLACK_WEBHOOK=$SLACK_WEBHOOK" >> $BASH_ENV
+            source $BASH_ENV
+            chmod +x ./devops/scripts/deploy-and-notify.sh && ./devops/scripts/deploy-and-notify.sh
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
@@ -75,21 +103,21 @@ workflows:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
+                - /features/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - lint-and-build:
           filters:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
+                - /features/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - run-coverage:
           filters:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
+                - /features/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - run-chrome:
           requires:
@@ -97,5 +125,17 @@ workflows:
       - run-firefox:
           requires:
             - build-tests
+  deploy_develop:
+    jobs:
+      - build-develop:
+          filters:
+            branches:
+              only:
+                - develop
+                - /feature/UL(?:-.+)?$/
+      - deploy-develop:
+          requires:
+            - build-develop
+
 
 
