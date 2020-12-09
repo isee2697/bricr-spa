@@ -64,7 +64,8 @@ context('Add Pim', () => {
     cy.findAllByRole('button', { name: 'Add property' })
       .last()
       .click();
-    cy.contains('Something went wrong');
+
+    cy.wait(500);
     cy.findByLabelText('close').click();
   });
 });

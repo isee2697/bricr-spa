@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-import { OrdersTabStatus, SalesOrder } from '../Orders.types';
+import { Sales, SalesStatus } from 'api/types';
 
 export type OrderItemProps = {
-  status: OrdersTabStatus;
-  order: SalesOrder;
+  status: SalesStatus;
+  order: Sales;
   checked: boolean;
   checkbox: ReactElement;
 };

@@ -20,7 +20,9 @@ export const useShowError = () => {
     if (showMessage && isAuthorized) {
       setHistory(history => ({ ...history, [message as string]: DateTime.local() }));
 
-      message = formatMessage({ id: 'common.error' }, { message: message?.replace('GraphQL error: ', '') });
+      const text = message?.replace('GraphQL error: ', '');
+      const translated = formatMessage({ id: text, defaultMessage: text });
+      message = formatMessage({ id: 'common.error' }, { message: translated });
       openSnackbar({
         severity: 'error',
         message: message.length > 35 ? `${message.substring(0, 35)}...` : message,

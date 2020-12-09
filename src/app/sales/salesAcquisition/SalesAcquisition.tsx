@@ -98,7 +98,7 @@ export const SalesAcquisition = (props: SalesAcquisitionProps) => {
                 emptyTitle={formatMessage({ id: 'sales.acquisition.empty_title' })}
                 emptyDescription={formatMessage({ id: 'sales.acquisition.empty_description' })}
                 sortOptions={sortOptions}
-                items={salesAcquisitions}
+                items={salesAcquisitions?.salesItems || []}
                 itemIndex={'id'}
                 renderItem={(salesAcuiqisition, checked, checkbox) => (
                   <SalesAcquisitionItem

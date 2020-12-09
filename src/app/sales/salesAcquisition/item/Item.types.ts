@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-import { SalesAcquisition } from '../SalesAcquisition.types';
+import { Sales, SalesStatus } from 'api/types';
 
 export type SalesAcquisitionItemProps = {
-  status: 'actionRequired' | 'active' | 'withdrawn';
-  salesAcquisition: SalesAcquisition;
+  status: SalesStatus;
+  salesAcquisition: Sales;
   checked: boolean;
   checkbox: ReactElement;
 };

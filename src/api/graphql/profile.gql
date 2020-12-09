@@ -1,9 +1,3 @@
-enum BricrPlans {
-  Professional,
-  EnterPrise,
-  Start,
-}
-
 enum GenderType {
   Male,
   Female,
@@ -180,31 +174,6 @@ type ProfileTeam {
   deletePermission: Boolean!
 }
 
-input CreateCompanyInput {
-  name: String!
-  email: String!
-  space: String!
-  amountUsers: Int
-  amountProperties: Int
-  plan: BricrPlans
-}
-
-input CheckCompanyRegistereInput {
-  name: String!
-}
-
-type Company {
-  id: ID!
-  teams: [Team!]
-  users: [Profile!]
-  name: String
-}
-
-type CheckRegisteredResponse {
-   suggestions: [String!]
-   taken: Boolean!
-}
-
 type TeamMember {
   id: ID!
   notes: String
@@ -239,11 +208,9 @@ extend type Query {
   getProfile(id: ID!): Profile @auth
   getMyTeamMembers(pagination: Pagination, search: String): ProfileSearchResult! @auth
   getAllProfiles(filters: ProfileFilters, pagination: Pagination, search: String): ProfileSearchResult! @auth
-  checkCompanyRegistered(name: String!): CheckRegisteredResponse!
 }
 
 extend type Mutation {
-  createCompany(input: CreateCompanyInput!): Company!
   createProfile(input: CreateProfileInput!): Profile! @auth
   updateProfile(input: UpdateProfileInput!): Profile! @auth
   deactivateProfile(id: String!): Profile! @auth

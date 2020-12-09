@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+import { SalesStatus } from 'api/types';
+
 import { SalesAcquisitionItemProps } from './Item.types';
 
 export const useStyles = makeStyles(theme => ({
@@ -7,7 +9,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     position: 'relative',
-    filter: ({ status }: SalesAcquisitionItemProps) => (status === 'withdrawn' ? 'grayscale(1)' : ''),
+    filter: ({ status }: SalesAcquisitionItemProps) => (status === SalesStatus.Inactive ? 'grayscale(1)' : ''),
 
     '&:after': {
       content: '""',
