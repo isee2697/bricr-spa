@@ -56,8 +56,6 @@ jobs:
       - image: cimg/node:12.19.1
     steps:
       - checkout
-      - restore_cache:
-          key: 'cache-{{ arch }}-{{ checksum "package.json" }}'
       - run:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
