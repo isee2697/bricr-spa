@@ -14,11 +14,13 @@ export const VisitedPages = ({ children, onMoreClick, opened }: VisitedPagesProp
     <Card>
       <CardHeader title={formatMessage({ id: 'visited_pages.title' })} />
       <CardContent className={classes.card}>{children}</CardContent>
-      <CardActions>
-        <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: opened ? 'visited_pages.view_less' : 'visited_pages.view_more' })}
-        </Button>
-      </CardActions>
+      {onMoreClick && (
+        <CardActions>
+          <Button fullWidth onClick={onMoreClick}>
+            {formatMessage({ id: opened ? 'visited_pages.view_less' : 'visited_pages.view_more' })}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 };

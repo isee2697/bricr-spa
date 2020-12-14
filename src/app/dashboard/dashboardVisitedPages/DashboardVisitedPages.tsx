@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, VisitedPage, Collapse } from 'ui/atoms';
+import { Box, VisitedPage, Collapse, Typography } from 'ui/atoms';
 import { VisitedPages } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
 import { useLocale } from 'hooks';
@@ -12,7 +12,7 @@ export const DashboardVisitedPages = ({ pages }: DashboardVisitedPagesProps) => 
   const { formatMessage } = useLocale();
 
   return (
-    <VisitedPages opened={allVisible} onMoreClick={() => setAllVisible(!allVisible)}>
+    <VisitedPages opened={allVisible} onMoreClick={pages.length > 5 ? () => setAllVisible(!allVisible) : undefined}>
       {pages.length ? (
         <>
           <Box>
@@ -27,7 +27,9 @@ export const DashboardVisitedPages = ({ pages }: DashboardVisitedPagesProps) => 
           </Collapse>
         </>
       ) : (
-        <InfoSection emoji="🤖">{formatMessage({ id: 'common.pages.empty_title' })}</InfoSection>
+        <InfoSection emoji="🤖">
+          <Typography>{formatMessage({ id: 'common.pages.empty_title' })}</Typography>
+        </InfoSection>
       )}
     </VisitedPages>
   );
