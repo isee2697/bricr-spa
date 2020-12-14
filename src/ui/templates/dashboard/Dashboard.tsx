@@ -19,9 +19,9 @@ import { ShortcutsMenu } from './shortcutsMenu/ShortcutsMenu';
 import { ProfileMenu } from './profileMenu/ProfileMenu';
 import { NotificationMenu } from './notificationMenu/NotificationMenu';
 import { AddMenu } from './addMenu/AddMenu';
-import { Search } from './search/Search';
 import { Overlay } from './overlay/Overlay';
 import { TopMenu } from './topMenu/TopMenu';
+import { SearchContainer } from './search/SearchContainer';
 
 export const Dashboard = ({ children }: DashboardProps) => {
   const classes = useStyles();
@@ -57,7 +57,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
     <>
       {isHeaderVisible && (
         <TopBar>
-          <Search />
+          <SearchContainer />
           <nav className={classes.menu}>
             <TopMenu />
           </nav>
