@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export type VisitedPagesProps = {
-  onMoreClick: () => void;
-  onManageClick: () => void;
+  onMoreClick?: () => void;
+  opened: boolean;
   children: React.ReactNode;
 };

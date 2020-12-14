@@ -5,8 +5,6 @@ import { Box } from 'ui/atoms/';
 import { VisitedPage } from './VisitedPage';
 
 <Box display="flex" flexDirection="column">
-  <VisitedPage category="PIM" subCategory="Sale">
-    Weerschijnvlinder 8: Prijzen
-  </VisitedPage>
+  <VisitedPage category="PIM" subCategory="Sale" name="Weerschijnvlinder 8: Prijzen" />
 </Box>
 ```
