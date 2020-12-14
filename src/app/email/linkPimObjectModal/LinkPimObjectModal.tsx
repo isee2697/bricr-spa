@@ -9,35 +9,11 @@ import { UserIcon } from 'ui/atoms/icons';
 
 import { LinkPimObjectModalProps, PimListItem } from './LinkPimObjectModal.types';
 
-export const LinkPimObjectModal = ({ isOpened, onClose, onSubmit }: LinkPimObjectModalProps) => {
+export const LinkPimObjectModal = ({ isOpened, onClose, onSubmit, pims, loading }: LinkPimObjectModalProps) => {
   const { formatMessage } = useLocale();
 
-  const pimList: PimListItem[] = [
-    {
-      id: '0001',
-      city: 'Breda',
-      houseNumber: '36',
-      postalCode: '2525',
-      street: 'Isenburgstraat 36',
-    },
-    {
-      id: '0002',
-      city: 'Breda',
-      houseNumber: '36',
-      postalCode: '2525',
-      street: 'Weerschijnvlinder 45',
-    },
-    {
-      id: '0003',
-      city: 'Terheijden',
-      houseNumber: '36',
-      postalCode: '2525',
-      street: 'Tomasberg 25',
-    },
-  ];
-
-  const handleSubmit = async () => {
-    onSubmit();
+  const handleSubmit = async ({ linkedPimObjects }: { linkedPimObjects: string[] }) => {
+    await onSubmit(linkedPimObjects);
 
     return undefined;
   };
@@ -71,7 +47,7 @@ export const LinkPimObjectModal = ({ isOpened, onClose, onSubmit }: LinkPimObjec
       <Field name="linkedPimObjects">
         {({ input }) => (
           <SearchList<PimListItem>
-            items={pimList}
+            items={pims}
             selectedItemsIds={[]}
             resultListLabel={formatMessage({ id: 'email.link_pim_object.pim_objects_in_portfolio' })}
             item={({ item, highlightString }) => (
