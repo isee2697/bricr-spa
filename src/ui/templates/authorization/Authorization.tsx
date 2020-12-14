@@ -38,7 +38,7 @@ export const Authorization = ({ children }: AuthorizationProps) => {
           <LocaleSwitch isFormField={false} />
         </Grid>
         <Grid item xs={false} sm={4} md={5} lg={8} className={classes.image}>
-          {pathname === AppRoute.register && <RegisterInfoScreen />}
+          {pathname.includes(AppRoute.register) && <RegisterInfoScreen />}
         </Grid>
       </Grid>
     </ClaimSpaceContextController>

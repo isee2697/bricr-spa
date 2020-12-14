@@ -6,19 +6,20 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { useLayout } from 'context/layout';
 import { UsersRouter } from 'app/settings/sections/users/UsersRouter';
+import { GeneralSettings } from 'app/settings/sections/general/general';
 
 import { TeamsGeneral } from './sections/teams/TeamsGeneral';
 import { TeamContainer } from './sections/teams/TeamContainer';
 import { WorkflowTemplatesContainer } from './sections/workflowTemplates/WorkflowTemplatesContainer';
 import { WorkflowContainer } from './sections/workflow/WorkflowContainer';
 import { SettingsProps } from './Settings.types';
-import { BillingContainer } from './sections/billing/BillingContainer';
 import { LvzPropertyContainer } from './sections/documents/lvzProperty/LvzPropertyContainer';
 import { QuestionnaireContainer } from './sections/documents/questionnaireProperty/QuestionnaireContainer';
 import { ContractTemplatesContainer } from './sections/documents/contractTemplates/ContractTemplatesContainer';
 import { DashboardContainer } from './sections/dashboard/DashboardContainer';
 import { ContractTemplatesDetailsContainer } from './sections/documents/contractTemplatesDetails/ContractTemplatesDetailsContainer';
 import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
+import { CadastreSettingsContainer } from './sections/cadastre/CadastreSettingsContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -33,7 +34,6 @@ export const Settings = ({ data }: SettingsProps) => {
         <SettingsSidebarMenu data={data} />
         <Box flex={1} padding={isFullScreen ? 0 : 3}>
           <Switch>
-            <Route path={`${AppRoute.settings}/billing`} render={() => <BillingContainer />} />
             <Route
               exact
               path={[
@@ -61,10 +61,12 @@ export const Settings = ({ data }: SettingsProps) => {
               path={`${AppRoute.settings}/contractTemplates`}
               render={() => <ContractTemplatesContainer />}
             />
+            <Route path={`${AppRoute.settingsGeneral}`} render={() => <GeneralSettings />} />
             <Route exact path={AppRoute.contractTemplates} render={() => <ContractTemplatesDetailsContainer />} />
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
             <Route path={AppRoute.users} render={() => <UsersRouter />} />
             <Route exact path={AppRoute.settings} render={() => <DashboardContainer />} />
+            <Route exact path={AppRoute.cadastre} render={() => <CadastreSettingsContainer />} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>

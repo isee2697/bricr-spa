@@ -3,6 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs } from 'ui/molecules';
+import { SalesStatus } from 'api/types';
 
 import { SalesAcquisitionTabsProps } from './Tabs.types';
 
@@ -11,20 +12,20 @@ export const SalesAcquisitionTabs = ({ status, onStatusChange, amounts }: SalesA
 
   const tabs: ActionTab[] = [
     {
-      value: 'actionRequired',
+      value: SalesStatus.ActionRequired,
       amount: amounts && amounts.actionRequired,
       hasBadge: true,
       badgeColor: 'error',
       label: formatMessage({ id: 'common.status.action_required' }),
     },
     {
-      value: 'active',
+      value: SalesStatus.Active,
       amount: amounts && amounts.active,
       hasBadge: true,
       label: formatMessage({ id: 'common.status.active' }),
     },
     {
-      value: 'withdrawn',
+      value: SalesStatus.Inactive,
       amount: amounts && amounts.withdrawn,
       hasBadge: true,
       label: formatMessage({ id: 'common.status.withdrawn' }),

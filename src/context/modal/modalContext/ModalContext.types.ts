@@ -17,6 +17,7 @@ export type ModalStateOptions = {
   isLinkedProperty?: boolean;
   projectType?: ProjectType;
   salesItemType?: SalesItemType;
+  salesItemOrderType?: string;
 };
 
 export type ModalStateType = {

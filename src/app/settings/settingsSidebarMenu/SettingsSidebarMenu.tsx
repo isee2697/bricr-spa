@@ -15,7 +15,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
-  const { hasBillingAccess } = useAuthState();
+  const { user, hasBillingAccess } = useAuthState();
   const { getTeams: teams } = data;
 
   const teamItems = ((teams?.items &&
@@ -37,27 +37,14 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         key: 'settings.menu.general',
         items: [
           {
-            key: 'workflow_templates',
-            subItems: [
-              {
-                id: 'bricr',
-                label: 'settings.menu.bricr_templates',
-                icon: (
-                  <div style={{ marginLeft: 30 }}>
-                    <AogIcon color="primary" />
-                  </div>
-                ),
-              },
-              {
-                id: 'custom',
-                label: 'settings.menu.custom_templates',
-                icon: (
-                  <div style={{ color: 'orange', marginLeft: 30 }}>
-                    <AogIcon color="inherit" />
-                  </div>
-                ),
-              },
-            ],
+            key: 'general/payment_methods',
+            title: formatMessage({ id: 'settings.menu.general.payment_methods' }),
+            icon: <AogIcon />,
+          },
+          {
+            key: 'general/invoices',
+            title: formatMessage({ id: 'settings.menu.general.invoices' }),
+            icon: <AogIcon />,
           },
         ],
       },
@@ -73,6 +60,22 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       },
       {
         isCollapsable: true,
+        key: 'settings.menu.workflows',
+        items: [
+          {
+            key: 'workflow_templates/bricr',
+            title: formatMessage({ id: 'settings.menu.bricr_templates' }),
+            icon: <AogIcon />,
+          },
+          {
+            key: 'workflow_templates/custom',
+            title: formatMessage({ id: 'settings.menu.custom_templates' }),
+            icon: <AogIcon />,
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
         key: 'settings.menu.documents',
         items: [
           { key: 'lvzProperty' },
@@ -82,11 +85,24 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
           { key: 'contractTemplates' },
         ],
       },
+      {
+        isCollapsable: true,
+        key: 'settings.menu.cadastre',
+        items: [{ key: 'cadastre' }],
+      },
     ],
   };
 
+  if (user?.isAdmin) {
+    menu.groups[0].items.splice(0, 0, {
+      key: 'general/account',
+      title: formatMessage({ id: 'settings.menu.general.account' }),
+      icon: <AogIcon />,
+    });
+  }
+
   if (hasBillingAccess) {
-    menu.groups[0].items.push({ key: 'billing' });
+    menu.groups[0].items.splice(2, 0, { key: 'general/billing', title: 'settings.menu.billing' });
   }
 
   return (

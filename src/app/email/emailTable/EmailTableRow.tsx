@@ -19,14 +19,7 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
   const { push } = useHistory();
   const { formatMessage } = useLocale();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-  const {
-    id,
-    from: { firstName, lastName, image },
-    pinned,
-    subject,
-    links,
-    date,
-  } = email;
+  const { id, from, image, pinned, subject, links, date } = email;
   const classes = useStyles();
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -121,11 +114,9 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <Box display="flex" alignItems="center">
-            <UserAvatar avatar={image} name={`${firstName} ${lastName}`} className={classes.avatar} />
+            <UserAvatar avatar={image} name={`${from[0].name}`} className={classes.avatar} />
             <Box mr={0.5} />
-            <Typography variant="h5">
-              {firstName} {lastName}
-            </Typography>
+            <Typography variant="h5">{from[0].name}</Typography>
           </Box>
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
@@ -135,14 +126,14 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <Box display="flex" alignItems="center">
             <LinkIcon />
-            <Typography variant="caption">{links > 0 ? links : '-'}</Typography>
+            <Typography variant="caption">{links && links > 0 ? links : '-'}</Typography>
           </Box>
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <Typography variant="h5" className={classes.fontWeightMedium}>
-            {date.toLocaleString(DateTime.DATE_SHORT)}
+            {DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT)}
           </Typography>
-          <Typography variant="h6">{date.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
+          <Typography variant="h6">{DateTime.fromISO(date).toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <IconButton size="small" variant="rounded" onClick={onMenuClick}>

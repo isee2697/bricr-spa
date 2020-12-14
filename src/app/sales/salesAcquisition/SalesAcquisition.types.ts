@@ -1,17 +1,31 @@
 import { DateTime } from 'luxon';
 
+import { Sales, SalesStatus } from 'api/types';
+
 export type SalesAcquisitionContainerProps = {
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
 };
 
 export type SalesAcquisitionProps = {
-  status: 'actionRequired' | 'active' | 'withdrawn';
-  onStatusChange: (status: 'actionRequired' | 'active' | 'withdrawn') => void;
+  status: SalesStatus;
+  onStatusChange: (status: SalesStatus) => void;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
-  salesAcquisitions: SalesAcquisition[];
+  salesAcquisitions?: GetSalesListData;
 };
+
+export interface GetSalesListData extends PaginatedMeta {
+  salesItems: Sales[];
+}
+
+export interface PaginatedMeta {
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+  };
+}
 
 export type SalesAcquisition = {
   id: string;

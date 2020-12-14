@@ -3,7 +3,7 @@ import { useForm } from 'react-final-form';
 import classNames from 'classnames';
 
 import { AppointmentLocation } from 'api/types';
-import { DropdownField, GenericField } from 'form/fields';
+import { DropdownField, GenericField, QuantityField } from 'form/fields';
 import { ConferenceRoomIcon, LocationIcon, UserIcon } from 'ui/atoms/icons';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
 import { Grid, Box, Typography, Button, Collapse } from 'ui/atoms';
@@ -96,12 +96,7 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
               placeholder="appointment.location.placeholder"
             />
           </Box>
-          <DropdownField
-            items={timeDropdownItems}
-            label="appointment.travel.label_before"
-            placeholder="appointment.travel.placeholder_before"
-            name="travelBeforeAppointment"
-          />
+          <QuantityField min={0} name="travelBeforeAppointment" label="appointment.travel.label_before" />
           <DropdownField
             items={timeDropdownItems}
             label="appointment.travel.label_After"

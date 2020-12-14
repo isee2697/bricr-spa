@@ -1,0 +1,27 @@
+enum KikInfoType {
+    CadastralPlot,
+    CadastralMap
+}
+
+type KikSettings {
+    username: String!
+}
+
+input KikSettingsInput {
+    username: String!
+    password: String!
+}
+
+input KikInfoInput {
+    pimId: ID!
+    infoType: KikInfoType!
+}
+
+extend type Mutation {
+  updateKikSettings(input: KikSettingsInput!): Boolean! @auth
+  updateKikInfo(input: KikInfoInput!): Boolean! @auth
+}
+
+extend type Query {
+  getKikSettings: KikSettings @auth
+}

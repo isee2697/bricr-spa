@@ -14,7 +14,7 @@ export const LoginContainer = () => {
   const dispatch = useAuthDispatch();
   const [login] = useLoginMutation();
 
-  const { isAuthorized } = useAuthState();
+  const { isAuthorized, user } = useAuthState();
 
   const onSubmit = useCallback(
     async (body: LoginInput): Promise<boolean> => {
@@ -47,6 +47,14 @@ export const LoginContainer = () => {
   );
 
   if (isAuthorized) {
+    const lastPath = localStorage.getItem('bricrPreLogoutPage');
+
+    if (!!lastPath && user?.id) {
+      localStorage.removeItem('bricrPreLogoutPage');
+
+      return <Redirect to={lastPath} />;
+    }
+
     return <Redirect to={AppRoute.home} />;
   }
 

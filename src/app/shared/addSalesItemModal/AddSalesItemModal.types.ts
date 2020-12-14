@@ -17,8 +17,8 @@ export type AddSalesItemModalProps = {
 };
 
 export type AddSalesItemBody = {
-  orderType: string;
-  extraDescription: string;
+  type: string;
+  extraInfo: string;
 };
 
 export enum SalesItemType {

@@ -1,27 +1,13 @@
 import { withStyles } from '@material-ui/core';
 import clsx from 'classnames';
 import React from 'react';
-import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import {
-  Avatar,
-  Box,
-  Chip,
-  Emoji,
-  Grid,
-  IconButton,
-  PersonChip,
-  Step,
-  StepConnector,
-  StepLabel,
-  Stepper,
-  Typography,
-  UserAvatar,
-} from 'ui/atoms';
-import { AddIcon, CheckIcon, CloseIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Emoji, Grid, IconButton, Step, StepConnector, StepLabel, Stepper, Typography } from 'ui/atoms';
+import { AddIcon, HelpIcon, MailIcon, MenuIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { SalesAcquisitionItemProps } from './Item.types';
 import { useStyles } from './Item.styles';
@@ -56,14 +42,14 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
   const { push } = useHistory();
 
   return (
-    <Box className={clsx(classes.row, !!salesAcquisition.isNewlyAdded && 'new', { [classes.rowChecked]: checked })}>
+    <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
       {checkbox}
       <Box display="flex" width="100%" alignItems="flex-start">
         <Box
           className={classes.rowContent}
           width="100%"
           mt={2}
-          onClick={() => push(AppRoute.salesDetails.replace(':id', salesAcquisition.id))}
+          onClick={() => push(joinUrlParams(AppRoute.salesDetails, { type: 'acquisitions', id: salesAcquisition.id }))}
         >
           <Box width="100%" display="flex" alignItems="flex-start">
             <Box width="100%" display="flex" alignItems="flex-start">
@@ -71,8 +57,8 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                 <Grid container>
                   <Grid item xs={7}>
                     <Box display="flex">
-                      <Avatar variant="rounded" src={salesAcquisition.image} className={classes.image}>
-                        {!salesAcquisition.image && <Emoji>{'📷'}</Emoji>}
+                      <Avatar variant="rounded" src={''} className={classes.image}>
+                        {<Emoji>{'📷'}</Emoji>}
                       </Avatar>
                       <Box>
                         <Typography variant="h3" className={classes.fontWeightBold}>
@@ -82,14 +68,14 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                           <HelpIcon className={classes.verticalAlignTop} />
                           <Box mr={0.5} />
                           <Typography variant="h5" className={classes.fontWeightMedium}>
-                            {salesAcquisition.number}
+                            'NUMBER HERE'
                           </Typography>
                         </Box>
                         <Box display="flex" alignItems="center">
                           <MailIcon className={classes.verticalAlignTop} />
                           <Box mr={0.5} />
                           <Typography variant="h5" className={classes.fontWeightMedium}>
-                            {salesAcquisition.email}
+                            'EMAIL HERE'
                           </Typography>
                         </Box>
                       </Box>
@@ -99,7 +85,8 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                         {formatMessage({ id: 'sales.acquisition.interested_in' })}
                       </Typography>
                       <Box display="flex" flexWrap="wrap">
-                        {salesAcquisition.interests.map((interest, index) => (
+                        {/* TODO: SHOW INTERESTS HERE */}
+                        {/* {salesAcquisition.interests.map((interest, index) => (
                           <Box mr={1.5} mt={0.5} key={index}>
                             <Chip
                               variant="outlined"
@@ -108,12 +95,12 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                               size="small"
                             />
                           </Box>
-                        ))}
+                        ))} */}
                       </Box>
                     </Box>
                     <Box mt={0.5}>
                       <Typography variant="h5" className={classes.fontWeightBold}>
-                        {salesAcquisition.address}
+                        {/* TODO: ADDRESS {salesAcquisition.address} */}
                       </Typography>
                     </Box>
                   </Grid>
@@ -122,21 +109,21 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                       <Typography variant="h6" className={clsx(classes.fontWeightMedium, classes.gray)}>
                         {formatMessage({ id: 'sales.acquisition.partner' })}
                       </Typography>
-                      {!salesAcquisition.partner && <Typography variant="h6">-</Typography>}
+                      {/* {!salesAcquisition.partner && <Typography variant="h6">-</Typography>}
                       {salesAcquisition.partner && (
                         <PersonChip name={salesAcquisition.partner.name} image={salesAcquisition.partner.image || ''} />
-                      )}
+                      )} */}
                     </Box>
                     <Box mt={5.5}>
                       <Typography variant="h6" className={clsx(classes.fontWeightMedium, classes.gray)}>
                         {formatMessage({ id: 'sales.acquisition.account_managers' })}
                       </Typography>
                       <Box display="flex" alignItems="center">
-                        {salesAcquisition.accountManagers.map((accountManager, index) => (
+                        {/* {salesAcquisition.accountManagers.map((accountManager, index) => (
                           <Box mr={0.5} mb={0.5}>
                             <UserAvatar name={accountManager.name} variant="circle" avatar={accountManager.image} />
                           </Box>
-                        ))}
+                        ))} */}
                       </Box>
                     </Box>
                   </Grid>
@@ -152,7 +139,7 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
               connector={<StatusStepConnector />}
               className={classes.stepper}
             >
-              {salesAcquisition.steps?.map((step, index) => (
+              {/* {salesAcquisition.steps?.map((step, index) => (
                 <Step className={clsx(classes.step, step.status)}>
                   <StepLabel
                     optional={
@@ -185,7 +172,7 @@ export const SalesAcquisitionItem = (props: SalesAcquisitionItemProps) => {
                     })}
                   </StepLabel>
                 </Step>
-              ))}
+              ))} */}
               <Step className={clsx(classes.step)}>
                 <StepLabel
                   className={clsx(classes.stepLabel)}

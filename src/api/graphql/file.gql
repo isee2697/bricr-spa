@@ -22,7 +22,8 @@ enum EntityWithFiles {
   ObjectTypeProjectMarketing,
   ProjectPhase,
   Profile,
-  Crm
+  Crm,
+  Company,
 }
 
 enum EntityWithMultipleFiles {

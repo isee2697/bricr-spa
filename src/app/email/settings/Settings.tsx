@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import clsx from 'classnames';
 
-import { EmailSidebarMenu } from '../emailSidebarMenu/EmailSidebarMenu';
+import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuContainer';
 import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { EmailHeader } from '../emailHeader/EmailHeader';
 import { joinUrlParams } from 'routing/AppRoute.utils';
@@ -73,7 +73,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
 
   return (
     <>
-      <EmailSidebarMenu onHide={onSidebarClose} isVisible={isSidebarVisible} />
+      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} />
       <Box flex={1}>
         <Grid container className={classes.content}>
           <EmailHeader

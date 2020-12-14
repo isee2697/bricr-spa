@@ -103,3 +103,4 @@ export * from './hourglass/HourglassIcon';
 export * from './sales/SalesIcon';
 export * from './clock/ClockIcon';
 export * from './door/DoorIcon';
+export * from './today/TodayIcon';

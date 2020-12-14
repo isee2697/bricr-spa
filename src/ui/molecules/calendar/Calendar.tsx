@@ -1,11 +1,14 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 
 import {
   AllDayPanel,
   AppointmentForm,
   Appointments,
   AppointmentTooltip,
+  AppointmentTooltipHeader,
   CurrentTimeIndicator,
   DayView,
   MonthView,
@@ -15,6 +18,7 @@ import {
   WeekView,
 } from 'ui/organisms';
 import { useLocale } from 'hooks';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import {
   CalendarProps,
@@ -38,6 +42,13 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
 export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => {
   const { locale } = useLocale();
   const { spacing, breakpoints } = useTheme();
+  const { push } = useHistory();
+
+  const handleNavigateToEditAppointment = (appointmentData: AppointmentModel | undefined) => {
+    if (appointmentData && appointmentData.id) {
+      push(AppRoute.editAppointment.replace(':id', `${appointmentData.id}`));
+    }
+  };
 
   return (
     <Scheduler
@@ -55,7 +66,12 @@ export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => 
       <AllDayPanel />
       <Appointments view={view} />
       <CurrentTimeIndicator updateInterval={60000} />
-      <AppointmentTooltip showCloseButton />
+      <AppointmentTooltip
+        showCloseButton
+        headerComponent={headerProps => (
+          <AppointmentTooltipHeader {...headerProps} onEdit={handleNavigateToEditAppointment} />
+        )}
+      />
       <AppointmentForm readOnly />
       <Resources data={CalendarResources} mainResourceName="type" />
     </Scheduler>

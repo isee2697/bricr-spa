@@ -19,7 +19,6 @@ import { ClockIcon, DeleteIcon, MenuIcon, PinIcon, ShareIcon } from 'ui/atoms/ic
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { Page } from 'ui/templates';
 import { EmailReply } from '../Email.types';
-import { LinkPimObjectModal } from '../linkPimObjectModal/LinkPimObjectModal';
 import { PIM_1 } from 'api/mocks/pim';
 import { CRM } from 'api/mocks/crm';
 import { SALES_LEADS } from 'api/mocks/sales';
@@ -28,6 +27,7 @@ import { CrmItem } from 'app/crm/Crm.types';
 import { SalesLead } from 'app/sales/salesLeads/SalesLeads.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { LinkPimObjectModalContainer } from '../linkPimObjectModal/LinkPimObjectModalContainer';
 
 import { useStyles } from './Details.styles';
 import { EmailDetailsProps } from './Details.types';
@@ -139,6 +139,14 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
     },
   ];
 
+  const handleLinkPimObjects = async (pims: string[]) => {
+    close('link-pim-object');
+    setLinkedPims([PIM_1]);
+    setLinkedRelations([CRM]);
+    setLinkedSalesOrders(SALES_LEADS);
+    setLinkedCalendars([DateTime.local()]);
+  };
+
   return (
     <>
       <Grid item xs={12}>
@@ -152,7 +160,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               </IconButton>
               <Box ml={6} />
               <Typography variant="h5" className={classes.fontWeightMedium}>
-                {date.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
+                {DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
               </Typography>
               <Box ml={4} />
               <IconButton
@@ -226,18 +234,12 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
           </MenuItem>
         ))}
       </Menu>
-      <LinkPimObjectModal
+      <LinkPimObjectModalContainer
         isOpened={isOpen}
         onClose={() => {
           close('link-pim-object');
         }}
-        onSubmit={() => {
-          close('link-pim-object');
-          setLinkedPims([PIM_1]);
-          setLinkedRelations([CRM]);
-          setLinkedSalesOrders(SALES_LEADS);
-          setLinkedCalendars([DateTime.local()]);
-        }}
+        onSubmit={handleLinkPimObjects}
       />
     </>
   );
