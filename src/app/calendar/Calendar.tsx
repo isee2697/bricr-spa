@@ -22,6 +22,7 @@ export const Calendar = ({ data, groups }: CalendarProps) => {
           render={() => <CalendarViewContainer teamMembers={data} groups={groups} />}
         />
         <Route exact path={AppRoute.newAppointment} render={() => <NewAppointmentContainer data={data} />} />
+        <Route path={AppRoute.editAppointment} render={() => <NewAppointmentContainer data={data} isEdit />} />
         <Redirect to={AppRoute.calendar} />
       </Switch>
     </>

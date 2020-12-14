@@ -1,0 +1,84 @@
+type History {
+  id: String!
+  entity: Entities!
+  entityId: String!
+  description: String
+  data: String!
+  oldData: String!
+  createdAt: Date!
+  userId: String!
+  companyId: String!
+}
+
+type CreateHistoryInput {
+  entity: Entities!
+  entityId: String!
+  description: String
+  data: String!
+  oldData: String!
+  userId: String!
+  companyId: String!
+}
+
+type HistoryData {
+  id: String!
+  data: String!
+}
+
+type CreateHistoryDataInput {
+  data: String!
+}
+
+enum Entities {
+  team,
+  pim,
+  listPim,
+  generalPim,
+  pimCadastre,
+  pimPrices,
+  pimOutside,
+  pimInside,
+  profile,
+  pimServices,
+  pimMedia,
+  pimSpecification,
+  pimSales,
+  label,
+  ncpLabel,
+  taskLabel,
+  pimLocation,
+  event,
+  ncpGeneral,
+  listNcp,
+  ncp,
+  ncpCharacteristics,
+  ncpPrices,
+  ncpMedia,
+  ncpServices,
+  ncpLinkedPims,
+  projectPhase,
+  objectType,
+  objectTypeGeneral,
+  objectTypePrices,
+  objectTypeMedia,
+  objectTypeLinkedPims,
+  objectTypeCharacteristics,
+  objectTypeServices,
+  objectTypesList,
+  objectTypeLabel,
+  company,
+  task,
+  notification,
+  crm,
+  crmList,
+  crmGeneral,
+  plan,
+  crmFamilyContacts,
+  crmHomeSituation,
+  crmFinancial,
+  crmContactInformation,
+  crmMatchProfile,
+  addOn,
+  tiaraMutation,
+  email
+}

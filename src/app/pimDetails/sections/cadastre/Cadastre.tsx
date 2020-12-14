@@ -6,7 +6,7 @@ import { useLocale } from 'hooks';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Box, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
-import { CadastreType } from 'api/types';
+import { CadastreType, KikInfoType } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
 
 import { useStyles } from './Cadastre.styles';
@@ -16,7 +16,7 @@ import { AddPlotModalContainer } from './addPlotModal/AddPlotModalContainer';
 import { CadastreProps } from './Cadastre.types';
 import { CadastreInfoContainer } from './info/CadastreInfoContainer';
 
-export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: CadastreProps) => {
+export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data, onAutofill }: CadastreProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const { baseUrl } = useEntityType();
@@ -40,8 +40,23 @@ export const Cadastre = ({ title, isSidebarVisible, onSidebarOpen, data }: Cadas
         onSidebarOpen={onSidebarOpen}
         action={
           <Box className={classes.buttonsContainer} display="flex" flexShrink={0}>
-            <Button className={classes.addPlot} color="primary" variant="outlined" onClick={() => {}} size="small">
+            <Button
+              className={classes.addPlot}
+              color="primary"
+              variant="outlined"
+              onClick={() => onAutofill(KikInfoType.CadastralPlot)}
+              size="small"
+            >
               {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre' })}
+            </Button>
+            <Button
+              className={classes.addPlot}
+              color="primary"
+              variant="outlined"
+              onClick={() => onAutofill(KikInfoType.CadastralMap)}
+              size="small"
+            >
+              {formatMessage({ id: 'pim_details.cadastre.autofill_cadastre_map' })}
             </Button>
             {!pathname.includes('cadastreMaps') && (
               <Button

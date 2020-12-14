@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { useSalesOrdersQueryParams } from 'app/shared/useSalesOrdersQueryParams/useSalesOrdersQueryParams';
-import { SALES_ORDERS } from 'api/mocks/sales';
+import { useGetSalesList } from 'hooks/useGetSalesList/useGetSalesList';
+import { SalesLabel } from 'api/types';
 
 import { Orders } from './Orders';
 import { OrdersContainerProps } from './Orders.types';
 
 export const OrdersContainer = (props: OrdersContainerProps) => {
-  const { status, sortType, setStatus, setSortType } = useSalesOrdersQueryParams({});
+  const { data, status, setStatus, sortType, setSortType } = useGetSalesList(SalesLabel.Order);
 
   return (
     <Orders
@@ -16,7 +16,7 @@ export const OrdersContainer = (props: OrdersContainerProps) => {
       sortType={sortType}
       onChangeStatus={setStatus}
       onChangeSortType={setSortType}
-      orders={SALES_ORDERS}
+      orders={data}
     />
   );
 };
