@@ -1,30 +1,22 @@
 import React from 'react';
 
-import { Card, CardHeader, CardContent, CardActions, IconButton, Button } from '../../atoms';
-import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+import { Card, CardHeader, CardContent, CardActions, Button } from '../../atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { useStyles } from './VisitedPages.styles';
 import { VisitedPagesProps } from './VisitedPages.types';
 
-export const VisitedPages = ({ children, onMoreClick, onManageClick }: VisitedPagesProps) => {
+export const VisitedPages = ({ children, onMoreClick, opened }: VisitedPagesProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
     <Card>
-      <CardHeader
-        title={formatMessage({ id: 'visited_pages.title' })}
-        action={
-          <IconButton aria-label="manage" size="small" variant="roundedContained" onClick={onManageClick}>
-            <ManageIcon color="inherit" />
-          </IconButton>
-        }
-      />
+      <CardHeader title={formatMessage({ id: 'visited_pages.title' })} />
       <CardContent className={classes.card}>{children}</CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: 'visited_pages.view_more' })}
+          {formatMessage({ id: opened ? 'visited_pages.view_less' : 'visited_pages.view_more' })}
         </Button>
       </CardActions>
     </Card>

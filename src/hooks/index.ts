@@ -19,3 +19,4 @@ export * from './useSorting/useSorting';
 export * from './useSnackbar/useSnackbar';
 export * from './useClaimSpaceHook/useClaimSpaceHook';
 export * from './useShowError/useShowError';
+export * from './usePages/usePages';
