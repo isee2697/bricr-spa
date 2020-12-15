@@ -47,7 +47,7 @@ jobs:
           at: ~/
       - run: npm run e2e:ci:firefox
   run-coverage:
-    resource_class: large
+    resource_class: xlarge
     docker:
       - image: cimg/node:12.19.1
     steps:
