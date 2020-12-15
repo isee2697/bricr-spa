@@ -1,20 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useQueryParam } from 'use-query-params';
 
 import { useClaimSpaceHook } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { useCreateCompanyMutation } from 'api/types';
+import { useCheckCompanyRegisteredQuery, useCreateCompanyMutation, BricrPlans, CreateCompanyInput } from 'api/types';
 import { Loader } from 'ui/atoms';
 
 import { RegisterForm } from './forms/RegisterForm';
-import { RegisterFormFields } from './forms/RegisterForm.types';
 
 export const RegisterContainer = () => {
-  const { isClaimed, spaceName, updateClaimSpace } = useClaimSpaceHook();
-  const [timeout, setNewTimeout] = useState<NodeJS.Timeout>();
+  const { isClaimed, spaceName, updateClaimSpace, suggestions } = useClaimSpaceHook();
+  const [preferredPlan] = useQueryParam<string>('preferred_license');
+  const [amountUsers] = useQueryParam<number>('preferred_users');
+  const [amountProperties] = useQueryParam<number>('preferred_properties');
+  const plan = (Object.keys(BricrPlans).find(item => item.toLowerCase() === preferredPlan) ??
+    BricrPlans.Professional) as BricrPlans;
+
+  const [formData, setFormData] = useState<CreateCompanyInput>({
+    name: '',
+    space: '',
+    email: '',
+    plan,
+    amountUsers: Number(amountUsers),
+    amountProperties: Number(amountProperties),
+  });
   const { push } = useHistory();
   const [createCompany] = useCreateCompanyMutation();
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>();
+
+  const { data: checkData } = useCheckCompanyRegisteredQuery({
+    variables: { name: spaceName ?? '' },
+    skip: !spaceName,
+    fetchPolicy: 'no-cache',
+  });
+
+  useEffect(() => {
+    const newSuggestions = checkData && checkData.checkCompanyRegistered.suggestions;
+
+    if (!!newSuggestions && newSuggestions !== suggestions) {
+      updateClaimSpace({
+        isCheckingSpaceName: false,
+        isClaimed: !!checkData?.checkCompanyRegistered?.taken,
+        suggestions: newSuggestions,
+        spaceName,
+      });
+    }
+  }, [checkData, spaceName, suggestions, updateClaimSpace]);
 
   const checkSpaceAvailable = async (space: string) => {
     const updated = {
@@ -24,44 +57,53 @@ export const RegisterContainer = () => {
     };
     updateClaimSpace(updated);
 
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    setNewTimeout(
-      setTimeout(() => {
-        updateClaimSpace({
-          ...updated,
-          isCheckingSpaceName: false,
-          isClaimed: space.length === 0 ? undefined : space === 'hendriks',
-          suggestions: space === 'hendriks' ? ['nl_hendriks', 'hendriks_nl', 'hendriks_realestate'] : undefined,
-        });
-      }, 1500),
-    );
-
     return undefined;
   };
 
-  const handleSave = async ({ name, email }: RegisterFormFields) => {
+  const handleSave = async (input: CreateCompanyInput) => {
     setLoading(true);
-    const { data: result } = await createCompany({
-      variables: {
-        input: {
-          name: spaceName ?? '',
-          email,
+
+    try {
+      const { data: result } = await createCompany({
+        variables: {
+          input: {
+            ...input,
+            space: spaceName ?? '',
+          },
         },
-      },
-    });
+      });
 
-    if (!result || !result.createCompany) {
+      if (!result || !result.createCompany) {
+        setLoading(false);
+        throw new Error('Could not create company.');
+      } else if (input.name && input.email && spaceName) {
+        setLoading(false);
+        push(`${AppRoute.setup}/?name=${input.name}`);
+      }
+
+      return undefined;
+    } catch (e) {
       setLoading(false);
-      throw new Error('Could not create company.');
-    } else if (name && email && spaceName) {
-      setLoading(false);
-      push(`${AppRoute.setup}/?name=${name}`);
+      const message = e.message?.replace('GraphQL error: ', '');
+
+      if (message.includes('"suggestions"') && message.includes('"taken":true')) {
+        const json = JSON.parse(message);
+        setFormData(old => ({ ...old, ...input }));
+
+        updateClaimSpace({
+          isCheckingSpaceName: false,
+          isClaimed: json.taken,
+          suggestions: json.suggestions,
+          spaceName,
+        });
+
+        return undefined;
+      } else {
+        setError(message);
+      }
+
+      return { error: true };
     }
-
-    return undefined;
   };
 
   if (loading) {
@@ -74,6 +116,8 @@ export const RegisterContainer = () => {
       checkSpaceAvailable={checkSpaceAvailable}
       onSubmit={handleSave}
       spaceName={spaceName}
+      data={formData}
+      error={error}
     />
   );
 };

@@ -9,21 +9,17 @@ import { useLocale } from 'hooks';
 
 import { useStyles } from './Description.styles';
 
-export const Description = ({ email: { description } }: EmailSectionsProps) => {
+export const Description = ({ email: { body } }: EmailSectionsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const initialValues = description
-    ? {
-        chapter: [...(JSON.parse(description) || [])],
-      }
-    : {
-        chapter: [
-          {
-            type: 'paragraph',
-            children: [{ text: '' }],
-          },
-        ],
-      };
+  const initialValues = {
+    chapter: [
+      {
+        type: 'paragraph',
+        children: [{ text: body }],
+      },
+    ],
+  };
 
   const handleSave = async () => {
     return undefined;

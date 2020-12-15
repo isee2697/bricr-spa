@@ -1,9 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(({ spacing }) => ({
+export const useStyles = makeStyles(() => ({
   list: {
     width: '100%',
-    paddingLeft: spacing(3),
     overflow: 'hidden',
   },
 }));

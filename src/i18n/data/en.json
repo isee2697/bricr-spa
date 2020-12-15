@@ -8,6 +8,7 @@
   "add_pim.address.postal_code_placeholder": "e.g. 4813",
   "add_pim.address.street": "Street address",
   "add_pim.address.street_placeholder": "e.g. Isenburgstraat",
+  "company.error.domain_cannot_be_changed": "Not allowed to change your bricr domain!",
   "add_pim.address.title": "Enter address information",
   "add_pim.address.title_Project": "Enter project address information",
   "add_pim.conflict.are_you_sure": "Are you sure you want to add next one?",

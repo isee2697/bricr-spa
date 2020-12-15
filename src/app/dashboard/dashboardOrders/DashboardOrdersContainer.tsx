@@ -1,42 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { SalesLabel } from 'api/types';
+import { GetSalesListData } from 'app/sales/salesAcquisition/SalesAcquisition.types';
+import { useAuthState } from 'hooks';
 
 import { DashboardOrders } from './DashboardOrders';
 
-// @TODO - replace with real data
-const mockData = [
-  {
-    labels: ['Verkoop', 'Getekend'],
-    price: 375500,
-    packages: 3,
-    image: 'http://placeimg.com/80/80/arch',
-    addressFirstLine: 'Isenburgstraat 36',
-    addressSecondLine: 'C.G.M. van Gils 06-48764044',
-    id: 'id123',
-  },
-  {
-    labels: ['Verkoop', 'Getekend'],
-    price: 375500,
-    packages: 3,
-    image: 'http://placeimg.com/80/80/arch?t=1',
-    addressFirstLine: 'Nova Scotiaplein',
-    addressSecondLine: 'I. de Bruin 040-9008663',
-    id: 'id124',
-  },
-  {
-    labels: ['Verkoop', 'Getekend'],
-    price: 375500,
-    packages: 3,
-    image: 'http://placeimg.com/80/80/arch?t=2',
-    addressFirstLine: 'Isenburgstraat 36',
-    addressSecondLine: 'C.G.M. van Gils 06-48764044',
-    id: 'id125',
-  },
-];
-
-const tabs = ['Sale', 'Rent', 'Appraisal'];
-
 export const DashboardOrdersContainer = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const { accessToken } = useAuthState();
+  const [selectedTab, setSelectedTab] = useState<SalesLabel>(SalesLabel.Acquisition);
+  const [data, setData] = useState<GetSalesListData | undefined>(undefined);
 
-  return <DashboardOrders tabs={tabs} currentTab={selectedTab} onChangeTab={setSelectedTab} orders={mockData} />;
+  const handleChangeOrderType = async (type: SalesLabel) => {
+    setSelectedTab(type);
+    setData(undefined);
+  };
+
+  useEffect(() => {
+    const getSalesList = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/get-sales-list?label=${selectedTab}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+        });
+
+        if (response.ok) {
+          const sales: GetSalesListData = await response.json();
+
+          setData(sales);
+        } else {
+          throw new Error('Failed to fetch sales list from server');
+        }
+      } catch (error) {
+        // TODO: Handle error here
+      }
+    };
+
+    getSalesList();
+  }, [accessToken, selectedTab]);
+
+  return (
+    <DashboardOrders
+      currentTab={selectedTab}
+      onChangeTab={handleChangeOrderType}
+      orders={
+        data
+          ? data.salesItems.map(salesItem => ({
+              id: salesItem.id,
+              addressFirstLine: salesItem.name,
+              addressSecondLine: 'C.G.M. van Gils 06-48764044',
+              labels: ['Verkoop', 'Getekend'],
+              price: 375500,
+              packages: 3,
+              image: 'http://placeimg.com/80/80/arch?t=2',
+            }))
+          : []
+      }
+    />
+  );
 };

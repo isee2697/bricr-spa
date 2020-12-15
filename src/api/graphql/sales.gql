@@ -1,0 +1,227 @@
+type Sales {
+  id: String!
+  label: SalesLabel!
+  status: SalesStatus!
+  createdAt: Date!
+  updatedAt: Date!
+  name: String!
+  type: SalesType!
+  extraInfo: String
+  attentionNote: String
+  date: Date
+}
+
+type SalesStatusChange {
+  id: ID!
+  cyclusId: ID!
+  status: SalesStatus!
+  createdAt: Date!
+  historyId: ID!
+}
+
+type SalesClient {
+  id: ID!
+  cyclusId: ID!
+  crmId: ID!
+}
+
+type SalesPim {
+  id: ID!
+  cyclusId: ID!
+  pimId: ID!
+}
+
+type SalesAccountContact {
+  id: ID!
+  cyclusId: ID!
+  userId: ID!
+  role: SalesRole!
+}
+
+type SalesEntity {
+  cyclusId: ID!
+  entityType: Entities!
+  entityId: ID!
+}
+
+type SalesFile {
+  cyclusId: ID!
+  documentId: ID!
+  label: String!
+}
+
+type SalesPackage {
+  cyclusId: ID!
+  package: String!
+}
+
+type SalesAddress {
+  cyclusId: ID!
+  country: String!
+  city: String!
+  zipCode: String!
+  street: String!
+  houseNumber: String!
+  extraInfo: String
+}
+
+type SalesBrokerage {
+  cyclusId: ID!
+  type: SalesBrokerageType!
+  percentage: Int
+  fixedAmount: Int
+  amountValues: String
+  vatPercentage: Int
+  reservationRate: String
+  partialCommission: Int
+  bonusPercentage: Int
+  description: String
+  notes: String
+}
+
+type CreateSalesInput {
+  label: SalesLabel!
+  type: SalesType!
+  extraInfo: String
+}
+
+type UpdateSalesInput {
+  attentionNote: String
+  status: SalesStatus
+  date: Date
+  type: SalesType
+  extraInfo: String
+}
+
+type CreateSalesStatusChangeInput {
+  cyclusId: ID!
+  label: SalesLabel!
+  status: SalesStatus!
+  historyId: ID!
+}
+
+type CreateSalesAccountContactInput {
+  cyclusId: ID!
+  userId: ID!
+  role: SalesRole!
+}
+
+type UpdateSalesAccountContactInput {
+  cyclusId: ID!
+  userId: ID!
+  role: SalesRole!
+}
+
+type CreateSalesEntityInput {
+  cyclusId: ID!
+  entityType: Entities!
+  entityId: ID!
+}
+
+type CreateSalesFileInput {
+  cyclusId: ID!
+  documentId: ID!
+  label: String!
+}
+
+type CreateSalesPackageInput {
+  cyclusId: ID!
+  package: String!
+}
+
+type CreateSalesAddressInput {
+  cyclusId: ID!
+  country: String
+  city: String
+  zipCode: String
+  street: String
+  houseNumber: String
+  extraInfo: String
+}
+
+type UpdateSalesAddressInput {
+  country: String
+  city: String
+  zipCode: String
+  street: String
+  houseNumber: String
+  extraInfo: String
+}
+
+type CreateSalesBrokerageInput {
+  cyclusId: ID!
+  type: Int!
+  percentage: Int
+  fixedAmount: Int
+  amountValues: String
+  vatPercentage: Int
+  reservationRate: String
+  partialCommission: Int
+  bonusPercentage: Int
+  description: String
+  notes: String
+}
+
+type UpdateSalesBrokerageInput {
+  type: Int
+  percentage: Int
+  fixedAmount: Int
+  amountValues: String
+  vatPercentage: Int
+  reservationRate: String
+  partialCommission: Int
+  bonusPercentage: Int
+  description: String
+  notes: String
+}
+
+type CreateSalesPimInput {
+  cyclusId: ID!
+  pimId: ID!
+}
+
+type BulkCreateSalesPimInput {
+  cyclusId: ID!
+  pimIds: [ID!]
+}
+
+type CreateSalesCrmInput {
+  cyclusId: ID!
+  crmId: ID!
+}
+
+type BulkCreateSalesCrmInput {
+  cyclusId: ID!
+  crmIds: [ID!]
+}
+
+enum SalesBrokerageType {
+  Percentage
+  Fixed
+}
+
+enum SalesLabel {
+  Lead
+  Acquisition
+  Quotation
+  Order
+}
+
+enum SalesStatus {
+  ActionRequired
+  Active
+  Inactive
+  Complete
+}
+
+enum SalesType {
+  Taxation
+  Inspection
+  SaleOrder
+}
+
+enum SalesRole {
+  Accountant
+  Concierge
+  Gardener
+}

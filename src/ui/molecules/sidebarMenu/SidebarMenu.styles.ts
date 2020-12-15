@@ -6,6 +6,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       position: 'relative',
     },
     menuWrapper: {
+      paddingLeft: 0,
       background: palette.white.main,
       boxShadow: 'inset -2px 0px 4px rgba(130, 141, 184, 0.2)',
       height: `calc(100vh - ${spacing(8)}px)`,
@@ -96,11 +97,18 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
     collapseHeader: {
       display: 'flex',
       justifyContent: 'space-between',
-      paddingRight: spacing(1.875),
+      padding: spacing(0, 1.87, 1, 1.87),
+
       cursor: 'pointer',
+      borderBottom: `${palette.gray.light} solid ${spacing(0.25)}px`,
     },
     collapseTitle: {
       ...typography.h4,
       fontWeight: typography.fontWeightMedium,
+    },
+    notCollapsable: {
+      marginLeft: 0,
+      padding: spacing(1.87),
+      width: '100%',
     },
   }))();

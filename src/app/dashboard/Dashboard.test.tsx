@@ -8,6 +8,6 @@ describe('Dashboard', () => {
   test('renders correctly', () => {
     const { getAllByRole } = render(<Dashboard />);
     const element = getAllByRole('button');
-    expect(element.length).toEqual(10);
+    expect(element.length).toEqual(8);
   });
 });

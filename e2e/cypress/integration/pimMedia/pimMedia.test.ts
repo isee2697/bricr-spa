@@ -22,11 +22,10 @@ context('Pim Details', () => {
     cy.contains('Tags');
   });
   it('allows to add media link and edit', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/media'));
     cy.get('.form-section-add')
       .eq(1)
       .click();
-    cy.wait(1000);
-    cy.contains('Media link');
 
     cy.findByText('You Tube').click();
 
@@ -39,10 +38,10 @@ context('Pim Details', () => {
       .click();
   });
   it('allows to add text chapter and edit', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/media'));
     cy.get('.form-section-add')
       .eq(2)
       .click();
-    cy.wait(1000);
     cy.contains('Text chapter name');
 
     cy.get('[data-slate-node="value"]').type('Chapter');
@@ -50,15 +49,14 @@ context('Pim Details', () => {
     cy.findByText('Garden').click();
 
     cy.get('.sub-section-header-toggle')
-      .eq(1)
+      .eq(0)
       .click();
   });
   it('allows to add usp and edit', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/media'));
     cy.get('.form-section-add')
       .eq(3)
       .click();
-    cy.wait(1000);
-    cy.contains('Media link');
 
     cy.findByText('Garden').click();
 
@@ -67,15 +65,16 @@ context('Pim Details', () => {
       .type('Usp description');
 
     cy.get('.sub-section-header-toggle')
-      .eq(2)
+      .eq(0)
       .click();
   });
   it('allows to add tag and edit', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/media'));
     cy.get('.form-section-add')
       .eq(4)
       .click();
-    cy.wait(1000);
-    cy.contains('Media link');
+
+    cy.contains('Tags');
 
     cy.findByText('Remote').click();
 
@@ -84,7 +83,7 @@ context('Pim Details', () => {
       .type('Tag description');
 
     cy.get('.sub-section-header-toggle')
-      .eq(3)
+      .eq(0)
       .click();
   });
 });

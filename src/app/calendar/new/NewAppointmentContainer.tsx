@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
 import { AppointmentLocation } from 'api/types';
 import { CalendarProps } from '../Calendar.types';
+import { schedulerData } from 'api/mocks/calendar';
 
 import { NewAppointment } from './NewAppointment';
+import { Appointment } from './NewAppointment.types';
 
 const locations: AppointmentLocation[] = [
   {
@@ -41,6 +44,16 @@ const locations: AppointmentLocation[] = [
   },
 ];
 
-export const NewAppointmentContainer = ({ data }: Pick<CalendarProps, 'data'>) => {
-  return <NewAppointment locations={locations} members={data} />;
+export const NewAppointmentContainer = ({ data, isEdit }: Pick<CalendarProps, 'data'> & { isEdit?: boolean }) => {
+  const [appointment, setAppointment] = useState<Appointment>();
+  const { params } = useRouteMatch();
+
+  useEffect(() => {
+    if (isEdit && params.id) {
+      const schedule = schedulerData.find(item => item.id.toString() === params.id);
+      setAppointment(schedule);
+    }
+  }, [isEdit, params.id]);
+
+  return <NewAppointment locations={locations} members={data} appointmentInfo={appointment} />;
 };
