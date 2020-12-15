@@ -7794,22 +7794,40 @@ export type WorkflowSection = {
   __typename?: 'WorkflowSection';
   id: Scalars['ID'];
   workflowTemplateId: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  startpoint?: Maybe<WorkflowSectionStartpoint>;
-  endpoint?: Maybe<WorkflowSectionEndpoint>;
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
 };
 
-export type WorkflowSectionGroup = {
-  __typename?: 'WorkflowSectionGroup';
+export type CreateWorkflowSectionInput = {
+  __typename?: 'CreateWorkflowSectionInput';
+  workflowTemplateId: Scalars['ID'];
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
+};
+
+export type WorkflowTrigger = {
+  __typename?: 'WorkflowTrigger';
   id: Scalars['ID'];
   workflowSectionId: Scalars['ID'];
-  trigger: WorkflowSectionGroupTrigger;
+  type: WorkflowTriggerType;
+};
+
+export type CreateWorkflowTriggerInput = {
+  __typename?: 'CreateWorkflowTriggerInput';
+  workflowSectionId: Scalars['ID'];
+  type: WorkflowTriggerType;
 };
 
 export type WorkflowActionGroup = {
   __typename?: 'WorkflowActionGroup';
   id: Scalars['ID'];
-  workflowSectionGroupId: Scalars['ID'];
+  workflowTriggerId: Scalars['ID'];
   type: WorkflowActionGroupType;
 };
 
@@ -7817,7 +7835,16 @@ export type WorkflowAction = {
   __typename?: 'WorkflowAction';
   id: Scalars['ID'];
   workflowActionGroupId: Scalars['ID'];
-  action: WorkflowActionType;
+  type: WorkflowActionType;
+  actionIndex: Scalars['Int'];
+};
+
+export type CreateWorkflowActionInput = {
+  __typename?: 'CreateWorkflowActionInput';
+  workflowTriggerId: Scalars['ID'];
+  workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
+  workflowActionGroupId?: Maybe<Scalars['ID']>;
+  type: WorkflowActionType;
 };
 
 export enum WorkflowTemplateStatus {
@@ -7826,18 +7853,18 @@ export enum WorkflowTemplateStatus {
 }
 
 export enum WorkflowSectionStartpoint {
-  Startpoint1 = 'Startpoint1',
-  Startpoint2 = 'Startpoint2',
-  Startpoint3 = 'Startpoint3',
+  Start = 'Start',
+  Outside = 'Outside',
+  Previous = 'Previous',
 }
 
 export enum WorkflowSectionEndpoint {
-  Endpoint1 = 'Endpoint1',
-  Endpoint2 = 'Endpoint2',
-  Endpoint3 = 'Endpoint3',
+  End = 'End',
+  Outside = 'Outside',
+  Next = 'Next',
 }
 
-export enum WorkflowSectionGroupTrigger {
+export enum WorkflowTriggerType {
   MakeAppointment = 'MakeAppointment',
   DifferentTrigger = 'DifferentTrigger',
   Trigger1 = 'Trigger1',

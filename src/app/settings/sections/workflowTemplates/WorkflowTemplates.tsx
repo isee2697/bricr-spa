@@ -130,12 +130,10 @@ export const WorkflowTemplates = ({
                           <Box
                             className={classes.itemButton}
                             onClick={() => {
-                              if (template.status === WorkflowTemplateStatus.Active) {
-                                push(AppRoute.workflow.replace(':id', template.id), {
-                                  icon: template.icon,
-                                  name: template.name,
-                                });
-                              }
+                              push(AppRoute.workflow.replace(':id', template.id), {
+                                icon: template.icon,
+                                name: template.name,
+                              });
                             }}
                           >
                             <WorkflowTemplatesItem

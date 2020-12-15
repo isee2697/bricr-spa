@@ -16,27 +16,51 @@ type CreateWorkflowTemplateInput {
 type WorkflowSection {
   id: ID!
   workflowTemplateId: ID!
-  name: String
-  startpoint: WorkflowSectionStartpoint
-  endpoint: WorkflowSectionEndpoint
+  name: String!
+  startpoint: WorkflowSectionStartpoint!
+  startpointOutside: ID
+  endpoint: WorkflowSectionEndpoint!
+  endpointOutside: ID
 }
 
-type WorkflowSectionGroup {
+type CreateWorkflowSectionInput {
+  workflowTemplateId: ID!
+  name: String!
+  startpoint: WorkflowSectionStartpoint!
+  startpointOutside: ID
+  endpoint: WorkflowSectionEndpoint!
+  endpointOutside: ID
+}
+
+type WorkflowTrigger {
   id: ID!
   workflowSectionId: ID!
-  trigger: WorkflowSectionGroupTrigger!
+  type: WorkflowTriggerType!
+}
+
+type CreateWorkflowTriggerInput {
+  workflowSectionId: ID!
+  type: WorkflowTriggerType!
 }
 
 type WorkflowActionGroup {
   id: ID!
-  workflowSectionGroupId: ID!
+  workflowTriggerId: ID!
   type: WorkflowActionGroupType!
 }
 
 type WorkflowAction {
   id: ID!
   workflowActionGroupId: ID!
-  action: WorkflowActionType!
+  type: WorkflowActionType!
+  actionIndex: Int!
+}
+
+type CreateWorkflowActionInput {
+  workflowTriggerId: ID!
+  workflowActionGroupType: WorkflowActionGroupType
+  workflowActionGroupId: ID
+  type: WorkflowActionType!
 }
 
 enum WorkflowTemplateStatus {
@@ -45,18 +69,18 @@ enum WorkflowTemplateStatus {
 }
 
 enum WorkflowSectionStartpoint {
-  Startpoint1
-  Startpoint2
-  Startpoint3
+  Start
+  Outside
+  Previous
 }
 
 enum WorkflowSectionEndpoint {
-  Endpoint1
-  Endpoint2
-  Endpoint3
+  End
+  Outside
+  Next
 }
 
-enum WorkflowSectionGroupTrigger {
+enum WorkflowTriggerType {
   MakeAppointment
   DifferentTrigger
   Trigger1
