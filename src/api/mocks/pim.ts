@@ -31,6 +31,11 @@ import {
   QuestionStepStatus,
   YesNoType,
 } from 'app/pimDetails/sections/documents/documentDetails/documentQuestionnaire/DocumentQuestionnaire.types';
+import {
+  ContractStepStatus,
+  ContractStepType,
+  DocumentContractType,
+} from 'app/pimDetails/sections/documents/documentDetails/documentContract/DocumentContract.types';
 
 export const PIM_1 = {
   id: 'pim_1',
@@ -566,6 +571,134 @@ export const PIM_DOCUMENT_QUESTIONNAIRE: DocumentQuestionnaireType = {
           },
         },
       ],
+    },
+  ],
+};
+
+export const PIM_DOCUMENT_CONTRACT: DocumentContractType = {
+  id: 'doc_1',
+  name: 'New contract',
+  documentKind: DocumentKind.Contract,
+  steps: [
+    {
+      id: 'step-1',
+      type: ContractStepType.Seller,
+      title: 'Seller',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.Completed,
+      users: ['C. van Gils', 'S.Pit- van Gils'],
+    },
+    {
+      id: 'step-2',
+      type: ContractStepType.Buyer,
+      title: 'Buyer',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.Completed,
+      users: ['H. Peeters'],
+    },
+    {
+      id: 'step-3',
+      type: ContractStepType.SalesPrice,
+      title: 'Sales price',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.Completed,
+      description: '€ 245.000 k.k.',
+    },
+    {
+      id: 'step-4',
+      type: ContractStepType.GroundLease,
+      title: 'Ground lease',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.Completed,
+      description: '2 plots',
+    },
+    {
+      id: 'step-5',
+      type: ContractStepType.MovableProperty,
+      title: 'Movable property',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.InProgress,
+      description: 'YES',
+    },
+    {
+      id: 'step-6',
+      type: ContractStepType.PublicLawRestrictions,
+      title: 'Public law restrictions',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-7',
+      type: ContractStepType.RemovableRightsTenants,
+      title: 'Removal rights tenants',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-8',
+      type: ContractStepType.CharesAndObligations,
+      title: 'Charges and obligations',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-9',
+      type: ContractStepType.Handover,
+      title: 'Handover',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-10',
+      type: ContractStepType.Notary,
+      title: 'Notary',
+      modifiedAt: new Date().toLocaleString(),
+      status: ContractStepStatus.Pending,
+      users: ['H. Peeters'],
+    },
+    {
+      id: 'step-11',
+      type: ContractStepType.Guarentee,
+      title: 'Guarentee',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-12',
+      type: ContractStepType.Dissolutions,
+      title: 'Dissolutions',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-13',
+      type: ContractStepType.NHG,
+      title: 'NHG',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-14',
+      type: ContractStepType.ConstructionInspection,
+      title: 'Construction inspectation',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-15',
+      type: ContractStepType.Registration,
+      title: 'Registration',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-16',
+      type: ContractStepType.AdditionalArticles,
+      title: 'Additional articles',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-17',
+      type: ContractStepType.Signing,
+      title: 'Signing',
+      status: ContractStepStatus.Pending,
+    },
+    {
+      id: 'step-18',
+      type: ContractStepType.Allonge,
+      title: 'Allonge',
+      status: ContractStepStatus.Pending,
     },
   ],
 };

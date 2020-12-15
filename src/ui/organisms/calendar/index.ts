@@ -8,3 +8,4 @@ export { DayView } from './dayView/DayView';
 export { MonthView } from './monthView/MonthView';
 export { Scheduler } from './scheduler/Scheduler';
 export { CurrentTimeIndicator } from './indicator/CurrentTimeInidcator';
+export { AppointmentTooltipHeader } from './appointmentTooltipHeader/AppointmentTooltipHeader';

@@ -1,31 +1,68 @@
 import { useTheme } from '@material-ui/core/styles';
 import React from 'react';
+import { useHistory } from 'react-router';
 
 import { Avatar, Box } from 'ui/atoms';
 import { SiteIcon } from 'ui/atoms/icons/site/SiteIcon';
+import { Page, PageType } from 'hooks/usePages/usePages.types';
+import { useLocale } from 'hooks';
+import {
+  CalendarIcon,
+  CrmIcon,
+  FolderIcon,
+  GraphIcon,
+  HomeIcon,
+  MailIcon,
+  SettingsIcon,
+  TasksIcon,
+} from 'ui/atoms/icons';
 
-import { VisitedPageProps } from './VisitedPage.types';
 import * as S from './VisitedPage.styles';
 
-export const VisitedPage = ({ category, subCategory, children }: VisitedPageProps) => {
+const getCategoryIcon = (pageCategory: PageType) => {
+  switch (pageCategory) {
+    case PageType.Calendar:
+      return <CalendarIcon color="inherit" />;
+    case PageType.CRM:
+      return <CrmIcon color="inherit" />;
+    case PageType.Documents:
+      return <FolderIcon color="inherit" />;
+    case PageType.Email:
+      return <MailIcon color="inherit" />;
+    case PageType.Pim:
+      return <HomeIcon color="inherit" />;
+    case PageType.Sales:
+      return <GraphIcon color="inherit" />;
+    case PageType.Settings:
+      return <SettingsIcon color="inherit" />;
+    case PageType.Tasks:
+      return <TasksIcon color="inherit" />;
+    default:
+      return <SiteIcon color="inherit" />;
+  }
+};
+
+export const VisitedPage = ({ category, subCategory, name, path }: Page) => {
   const theme = useTheme();
+  const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   return (
     <S.VisitedPageWrapper>
-      <Box display="flex" mb={2}>
+      <Box onClick={() => push(path)} display="flex" mb={2}>
         <Box mr={1}>
           <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
-            <Box color={theme.palette.purple.main}>
-              <SiteIcon color="inherit" />
-            </Box>
+            <Box color={theme.palette.purple.main}>{getCategoryIcon(category)}</Box>
           </Avatar>
         </Box>
         <Box>
           <Box fontWeight="fontWeightBold" lineHeight={`${theme.spacing(2)}px`} fontSize={theme.spacing(1.5)}>
-            {category}: {subCategory}
+            {formatMessage({ id: `common.pages.category.${category.toLowerCase()}` })}
+            {subCategory &&
+              `: ${formatMessage({ id: `common.pages.sub_catgeory.${subCategory}`, defaultMessage: subCategory })}`}
           </Box>
           <Box color={theme.palette.gray.main} lineHeight={`${theme.spacing(2)}px`} fontSize={theme.spacing(1.5)}>
-            {children}
+            {name}
           </Box>
         </Box>
       </Box>

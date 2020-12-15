@@ -7100,8 +7100,7 @@ export type Sales = {
   __typename?: 'Sales';
   id: Scalars['String'];
   label: SalesLabel;
-  crmId: Scalars['ID'];
-  status?: Maybe<SalesStatus>;
+  status: SalesStatus;
   createdAt: Scalars['Date'];
   updatedAt: Scalars['Date'];
   name: Scalars['String'];
@@ -7118,6 +7117,20 @@ export type SalesStatusChange = {
   status: SalesStatus;
   createdAt: Scalars['Date'];
   historyId: Scalars['ID'];
+};
+
+export type SalesClient = {
+  __typename?: 'SalesClient';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  crmId: Scalars['ID'];
+};
+
+export type SalesPim = {
+  __typename?: 'SalesPim';
+  id: Scalars['ID'];
+  cyclusId: Scalars['ID'];
+  pimId: Scalars['ID'];
 };
 
 export type SalesAccountContact = {
@@ -7280,6 +7293,30 @@ export type UpdateSalesBrokerageInput = {
   bonusPercentage?: Maybe<Scalars['Int']>;
   description?: Maybe<Scalars['String']>;
   notes?: Maybe<Scalars['String']>;
+};
+
+export type CreateSalesPimInput = {
+  __typename?: 'CreateSalesPimInput';
+  cyclusId: Scalars['ID'];
+  pimId: Scalars['ID'];
+};
+
+export type BulkCreateSalesPimInput = {
+  __typename?: 'BulkCreateSalesPimInput';
+  cyclusId: Scalars['ID'];
+  pimIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+export type CreateSalesCrmInput = {
+  __typename?: 'CreateSalesCrmInput';
+  cyclusId: Scalars['ID'];
+  crmId: Scalars['ID'];
+};
+
+export type BulkCreateSalesCrmInput = {
+  __typename?: 'BulkCreateSalesCrmInput';
+  cyclusId: Scalars['ID'];
+  crmIds?: Maybe<Array<Scalars['ID']>>;
 };
 
 export enum SalesBrokerageType {

@@ -7,8 +7,8 @@ import { Page } from 'ui/templates';
 
 import { GeneralProps } from './General.types';
 import { GeneralInformation } from './sections/generalInformation/GeneralInformation';
-import { PimObject } from './sections/pimObject/PimObject';
 import { PackageChoice } from './sections/packageChoice/PackageChoice';
+import { PimObjectContainer } from './sections/pimObject/PimObjectContainer';
 
 export const General = ({ isSidebarVisible, onSidebarOpen }: GeneralProps) => {
   const { formatMessage } = useLocale();
@@ -22,7 +22,7 @@ export const General = ({ isSidebarVisible, onSidebarOpen }: GeneralProps) => {
         <Grid xs={12} item>
           <GeneralInformation />
           <Box mt={3.25} />
-          <PimObject />
+          <PimObjectContainer />
           <Box mt={3.25} />
           <PackageChoice />
         </Grid>

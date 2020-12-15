@@ -7,6 +7,10 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 let refreshTokenPromise: Promise<Response> | null = null;
 
+const goToLogout = () => {
+  localStorage.setItem('bricrPreLogoutPage', window.location.pathname);
+  window.location.href = AppRoute.logout;
+};
 export const graphLink = (
   dispatch: React.Dispatch<AuthAction>,
   tokens: { accessToken: null | string; refreshToken: null | string },
@@ -67,10 +71,10 @@ export const graphLink = (
                 },
               });
             } else {
-              window.location.href = AppRoute.logout;
+              goToLogout();
             }
           } else {
-            window.location.href = AppRoute.logout;
+            goToLogout();
           }
         }
 

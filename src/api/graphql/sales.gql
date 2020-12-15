@@ -1,8 +1,7 @@
 type Sales {
   id: String!
   label: SalesLabel!
-  crmId: ID!
-  status: SalesStatus
+  status: SalesStatus!
   createdAt: Date!
   updatedAt: Date!
   name: String!
@@ -18,6 +17,18 @@ type SalesStatusChange {
   status: SalesStatus!
   createdAt: Date!
   historyId: ID!
+}
+
+type SalesClient {
+  id: ID!
+  cyclusId: ID!
+  crmId: ID!
+}
+
+type SalesPim {
+  id: ID!
+  cyclusId: ID!
+  pimId: ID!
 }
 
 type SalesAccountContact {
@@ -162,6 +173,26 @@ type UpdateSalesBrokerageInput {
   bonusPercentage: Int
   description: String
   notes: String
+}
+
+type CreateSalesPimInput {
+  cyclusId: ID!
+  pimId: ID!
+}
+
+type BulkCreateSalesPimInput {
+  cyclusId: ID!
+  pimIds: [ID!]
+}
+
+type CreateSalesCrmInput {
+  cyclusId: ID!
+  crmId: ID!
+}
+
+type BulkCreateSalesCrmInput {
+  cyclusId: ID!
+  crmIds: [ID!]
 }
 
 enum SalesBrokerageType {

@@ -6,7 +6,7 @@ import { Header } from '../header/Header';
 import { Page } from 'ui/templates';
 
 import { ClientProps } from './Client.types';
-import { Client as ClientSection } from './sections/client/Client';
+import { ClientContainer as ClientContainerSection } from './sections/client/ClientContainer';
 import { MyBricr } from './sections/myBricr/MyBricr';
 
 export const Client = ({ isSidebarVisible, onSidebarOpen }: ClientProps) => {
@@ -19,7 +19,7 @@ export const Client = ({ isSidebarVisible, onSidebarOpen }: ClientProps) => {
       <Box mt={3} />
       <Page withoutHeader>
         <Grid xs={12} item>
-          <ClientSection />
+          <ClientContainerSection />
           <Box mt={3} />
           <MyBricr />
         </Grid>
