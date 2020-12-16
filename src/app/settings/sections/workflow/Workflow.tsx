@@ -7,15 +7,15 @@ import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { FullscreenOnIcon, FullscreenOffIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PageHeader } from 'ui/templates/page/header/PageHeader';
+import { WorkflowSection } from 'api/types';
 
-import { WorkflowProps, AddItemData } from './Workflow.types';
+import { WorkflowProps } from './Workflow.types';
 import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
-import { WorkflowSection } from './workflowSection/WorkflowSection';
-import { WorkflowSection as WorkflowSectionType } from './workflowSection/WorkflowSection.types';
+import { WorkflowSectionExpanded } from './workflowSectionExpanded/WorkflowSectionExpanded';
+import { WorkflowSectionCollapsed } from './workflowSectionCollapsed/WorkflowSectionCollapsed';
 import { WorkflowSectionSettings } from './workflowSectionSettings/WorkflowSectionSettings';
-import { useSections } from './useSections';
 
 export const Workflow = ({
   onToggleFullScreen,
@@ -25,17 +25,17 @@ export const Workflow = ({
   goBack,
   actionsGroups,
   triggersGroups,
-  initValues,
+  workflowSections,
   onAddSection,
-  onAddItem,
+  ...otherProps
 }: WorkflowProps) => {
   const { id } = useParams<{ id: string }>();
   const [fullScreen, setFullScreen] = useState(true);
   const classes = useStyles({ fullScreen });
 
-  const [sections, addSection, addItem] = useSections(initValues);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [sectionSettings, showSettingsDialog] = useState<string | null>(isNew ? sections[0].id : null);
+  const [sectionSettings, showSettingsDialog] = useState<string | null>(isNew ? workflowSections[0].id : null);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleFullScreenToggle = () => {
     onToggleFullScreen(!fullScreen);
@@ -43,17 +43,7 @@ export const Workflow = ({
   };
 
   const handleAddSection = async () => {
-    const newSectionId = `s${sections.length + 1}`;
-
-    addSection(newSectionId, `Workflow section ${sections.length + 1}`);
-    setExpandedSection(newSectionId);
-
-    return onAddSection();
-  };
-
-  const handleAddItem = (data: AddItemData) => {
-    addItem(data);
-    onAddItem(data);
+    setShowSettings(true);
   };
 
   return (
@@ -80,23 +70,26 @@ export const Workflow = ({
           </Box>
           <Box width="100%">
             {!!expandedSection && (
-              <WorkflowSection
-                section={sections.find(({ id }) => id === expandedSection) ?? sections[0]}
-                expanded
-                onExpanded={() => setExpandedSection(null)}
-                onAddItem={handleAddItem}
-                onSettings={() => showSettingsDialog(expandedSection)}
+              <WorkflowSectionExpanded
+                section={workflowSections.find(({ id }) => id === expandedSection) ?? workflowSections[0]}
+                onCollapse={() => setExpandedSection(null)}
+                onSettings={() => {
+                  showSettingsDialog(expandedSection);
+                  setShowSettings(true);
+                }}
+                {...otherProps}
               />
             )}
             {!expandedSection &&
-              sections.map(section => (
-                <WorkflowSection
+              workflowSections.map(section => (
+                <WorkflowSectionCollapsed
                   key={section.id}
                   section={section}
-                  expanded={false}
-                  onExpanded={() => setExpandedSection(section.id)}
-                  onAddItem={handleAddItem}
-                  onSettings={() => showSettingsDialog(section.id)}
+                  onExpand={() => setExpandedSection(section.id)}
+                  onSettings={() => {
+                    setShowSettings(true);
+                    showSettingsDialog(section.id);
+                  }}
                 />
               ))}
           </Box>
@@ -109,13 +102,33 @@ export const Workflow = ({
         </IconButton>
       </div>
 
-      {sectionSettings && (
+      {showSettings && (
         <WorkflowSectionSettings
-          onClose={() => showSettingsDialog(null)}
-          isOpened={!!sectionSettings}
-          workflowSection={sections.find(({ id }) => id === sectionSettings)}
-          onSubmit={(section: WorkflowSectionType) => {
+          templateId={id}
+          onClose={() => {
+            setShowSettings(false);
             showSettingsDialog(null);
+          }}
+          isOpened={showSettings}
+          workflowSection={
+            (sectionSettings && workflowSections.find(section => section.id === sectionSettings)) || undefined
+          }
+          onSubmit={(section: WorkflowSection) => {
+            setShowSettings(false);
+            showSettingsDialog(null);
+
+            if (!section.id || section.id === '') {
+              onAddSection({
+                name: section.name,
+                workflowTemplateId: section.workflowTemplateId,
+                startpoint: section.startpoint,
+                startpointOutside: section.startpointOutside,
+                endpoint: section.endpoint,
+                endpointOutside: section.endpointOutside,
+              });
+            } else {
+              // TODO: Update section
+            }
           }}
         />
       )}
