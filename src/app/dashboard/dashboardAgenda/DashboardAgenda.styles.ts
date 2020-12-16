@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(theme => ({
   tabs: {
     '& .MuiTab-root': {
-      minWidth: 90,
+      minWidth: theme.spacing(11.25),
     },
   },
   scrollable: {
