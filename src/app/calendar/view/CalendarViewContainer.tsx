@@ -6,7 +6,6 @@ import { CalendarFilters, CalendarViewProps } from 'app/calendar/view/CalendarVi
 import { useListCalendarQuery } from 'api/types';
 
 import { CalendarView } from './CalendarView';
-// import { schedulerData } from 'api/mocks/calendar';
 
 export const CalendarViewContainer = ({ teamMembers, groups }: Pick<CalendarViewProps, 'teamMembers' | 'groups'>) => {
   //@Todo when quering selected filters for calendar
@@ -15,7 +14,6 @@ export const CalendarViewContainer = ({ teamMembers, groups }: Pick<CalendarView
     selectedDate: DateTime.local(),
   });
 
-  // let data = [...schedulerData];
   const { data } = useListCalendarQuery({
     variables: {
       input: {

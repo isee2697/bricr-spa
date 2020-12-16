@@ -79,30 +79,44 @@ type Appointment {
     state: AppointmentState
 }
 
-input AppointmentInput {
-    startDate: Date!
-    endDate: Date!
-    travelTimeBefore: Int
-    travelTimeAfter: Int
+input AppointmentTermInput {
+    from: Date
+    to: Date
+}
+
+input AddAppointmentInput {
     title: String
-    allDay: Boolean
-    type: CalendarTypes!
+    alternativeTerms: [AppointmentTermInput!]!
+    isAllDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    appointmentType: AppointmentType!
+    assignedPimIds: [String!]
+    ExternalAgreement: Boolean
+    Collegial: Boolean
+    CompleteAgreement: Boolean
+    RedirectAppointment: Boolean
+    FollowUpJob: Boolean
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
     location: String
-    taskLabel: TaskLabel
-    state: AppointmentState
+    outsideLocation: String
+    travelBeforeAppointment: Int
+    travelAfterAppointment: Int
 }
 
 input AppointmentSearch {
-  startDate: String!
-  endDate: String!
-  selectedUser: String
-  selectedGroup: String
-  selectedAppointmentType: AppointmentType
-  selectTaskType: [TaskLabel]
+    startDate: String!
+    endDate: String!
+    selectedUser: String
+    selectedGroup: String
+    selectedAppointmentType: AppointmentType
+    selectTaskType: [TaskLabel]
 }
 
 extend type Mutation {
-    addAppointment(input: AppointmentInput!): Appointment! @auth
+    addAppointment(input: AddAppointmentInput!): Appointment! @auth
 }
 
 extend type Query {

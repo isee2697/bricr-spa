@@ -2,14 +2,14 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { useForm } from 'react-final-form';
 
-import { AppointmentRepeat, AppointmentTerm } from 'api/types';
+import { AppointmentRepeat, AppointmentTermInput } from 'api/types';
 import { Button, Card, Grid, IconButton, Box, Typography } from 'ui/atoms';
 import { CheckboxField, DatePickerChip, DropdownField, GenericField, TimePickerChip } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
 
-const DEFAULT_TERM_ITEM: AppointmentTerm = {
+const DEFAULT_TERM_ITEM: AppointmentTermInput = {
   from: DateTime.local()
     .plus({ day: 1 })
     .toISODate(),
@@ -26,7 +26,7 @@ export const AppointmentBaseInfoCard = () => {
   const { formatMessage } = useLocale();
 
   const values = form.getState().values;
-  const alternativeTerms: AppointmentTerm[] = values?.[fieldName] ?? [DEFAULT_TERM_ITEM];
+  const alternativeTerms: AppointmentTermInput[] = values?.[fieldName] ?? [DEFAULT_TERM_ITEM];
   const amountOfTerms = alternativeTerms?.length ?? 0;
 
   return (

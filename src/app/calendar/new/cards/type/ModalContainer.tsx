@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { useListPimsQuery } from 'api/types';
 import { useModalDispatch } from 'hooks';
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
 import { LinkedPropertyModal } from 'app/shared/linkedProperties/linkedPropertyModal/LinkedPropertyModal';
@@ -11,18 +10,8 @@ import {
 
 import { SelectPimModalProps } from './AppointmentTypeCard.types';
 
-export const LinkPropertyModalContainer = ({
-  isOpened,
-  onClose,
-  selected,
-  refetchQueryVariables,
-}: SelectPimModalProps) => {
+export const LinkPropertyModalContainer = ({ isOpened, onClose, selected, listData }: SelectPimModalProps) => {
   const { open } = useModalDispatch();
-
-  const { data: listData } = useListPimsQuery({
-    variables: { ...refetchQueryVariables, archived: false },
-    fetchPolicy: 'no-cache',
-  });
 
   const pimList = listData?.listPims.items?.filter(pim => !selected.find(item => item.id === pim.id)) as PimListItem[];
 

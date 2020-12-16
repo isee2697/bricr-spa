@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { DateTime } from 'luxon';
 
-import { AppointmentLocation } from 'api/types';
+import {
+  AppointmentLocation,
+  useAddAppointmentMutation,
+  AddAppointmentInput,
+  AppointmentType,
+  AppointmentTermInput,
+} from 'api/types';
 import { CalendarProps } from '../Calendar.types';
-import { schedulerData } from 'api/mocks/calendar';
 
 import { NewAppointment } from './NewAppointment';
-import { Appointment } from './NewAppointment.types';
 
 const locations: AppointmentLocation[] = [
   {
@@ -44,16 +48,59 @@ const locations: AppointmentLocation[] = [
   },
 ];
 
+const DEFAULT_TERM_ITEM: AppointmentTermInput = {
+  from: DateTime.local()
+    .plus({ day: 1 })
+    .toISODate(),
+  to: DateTime.local()
+    .plus({ day: 1, hour: 1 })
+    .toISODate(),
+};
+
+const INITIAL_APPOINTMENT: AddAppointmentInput = {
+  alternativeTerms: [DEFAULT_TERM_ITEM],
+  appointmentType: AppointmentType.Aquisition,
+};
+
 export const NewAppointmentContainer = ({ data, isEdit }: Pick<CalendarProps, 'data'> & { isEdit?: boolean }) => {
-  const [appointment, setAppointment] = useState<Appointment>();
-  const { params } = useRouteMatch();
+  const [appointment] = useState<AddAppointmentInput>();
+  const [addAppointment] = useAddAppointmentMutation();
 
-  useEffect(() => {
-    if (isEdit && params.id) {
-      const schedule = schedulerData.find(item => item.id.toString() === params.id);
-      setAppointment(schedule);
-    }
-  }, [isEdit, params.id]);
+  // const { params } = useRouteMatch();
+  // useEffect(() => {
+  //   if (isEdit && params.id) {
+  //     const schedule = schedulerData.find(item => item.id.toString() === params.id);
+  //     setAppointment(schedule);
+  //   }
+  // }, [isEdit, params.id]);
 
-  return <NewAppointment locations={locations} members={data} appointmentInfo={appointment} />;
+  const handleSubmit = useCallback(
+    async (appointment: AddAppointmentInput): Promise<boolean> => {
+      try {
+        const { data, errors } = await addAppointment({
+          variables: {
+            input: { ...appointment, description: '' },
+          },
+        });
+
+        if (!errors && data && data.addAppointment) {
+          return true;
+        }
+
+        throw new Error();
+      } catch {
+        return false;
+      }
+    },
+    [addAppointment],
+  );
+
+  return (
+    <NewAppointment
+      locations={locations}
+      members={data}
+      appointmentInfo={appointment || INITIAL_APPOINTMENT}
+      onSubmit={handleSubmit}
+    />
+  );
 };

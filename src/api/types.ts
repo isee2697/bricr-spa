@@ -238,7 +238,7 @@ export type MutationAddAogSpaceArgs = {
 };
 
 export type MutationAddAppointmentArgs = {
-  input: AppointmentInput;
+  input: AddAppointmentInput;
 };
 
 export type MutationAddBogSpaceArgs = {
@@ -1359,17 +1359,31 @@ export type Appointment = {
   state?: Maybe<AppointmentState>;
 };
 
-export type AppointmentInput = {
-  startDate: Scalars['Date'];
-  endDate: Scalars['Date'];
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
+export type AppointmentTermInput = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type AddAppointmentInput = {
   title?: Maybe<Scalars['String']>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  type: CalendarTypes;
+  alternativeTerms: Array<AppointmentTermInput>;
+  isAllDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  appointmentType: AppointmentType;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  ExternalAgreement?: Maybe<Scalars['Boolean']>;
+  Collegial?: Maybe<Scalars['Boolean']>;
+  CompleteAgreement?: Maybe<Scalars['Boolean']>;
+  RedirectAppointment?: Maybe<Scalars['Boolean']>;
+  FollowUpJob?: Maybe<Scalars['Boolean']>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
   location?: Maybe<Scalars['String']>;
-  taskLabel?: Maybe<TaskLabel>;
-  state?: Maybe<AppointmentState>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelBeforeAppointment?: Maybe<Scalars['Int']>;
+  travelAfterAppointment?: Maybe<Scalars['Int']>;
 };
 
 export type AppointmentSearch = {
@@ -7875,6 +7889,27 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type AddAppointmentMutationVariables = Exact<{
+  input: AddAppointmentInput;
+}>;
+
+export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
+  addAppointment: { __typename?: 'Appointment' } & Pick<
+    Appointment,
+    | 'id'
+    | 'startDate'
+    | 'endDate'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'location'
+    | 'taskLabel'
+    | 'state'
+  >;
+};
+
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
@@ -12716,6 +12751,37 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const AddAppointmentDocument = gql`
+  mutation AddAppointment($input: AddAppointmentInput!) {
+    addAppointment(input: $input) {
+      id
+      startDate
+      endDate
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      location
+      taskLabel
+      state
+    }
+  }
+`;
+export function useAddAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddAppointmentMutation, AddAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddAppointmentMutation, AddAppointmentMutationVariables>(
+    AddAppointmentDocument,
+    baseOptions,
+  );
+}
+export type AddAppointmentMutationHookResult = ReturnType<typeof useAddAppointmentMutation>;
+export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddAppointmentMutation>;
+export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAppointmentMutation,
+  AddAppointmentMutationVariables
+>;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
     createCompany(input: $input) {
