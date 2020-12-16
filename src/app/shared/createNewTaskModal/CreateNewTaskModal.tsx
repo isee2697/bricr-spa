@@ -190,7 +190,14 @@ export const CreateNewTaskModal = ({ isOpen, onSubmit, members = [] }: CreateNew
               </Grid>
             </DialogContent>
             <DialogActions>
-              <Button color="ghost" size="small">
+              <Button
+                color="ghost"
+                size="small"
+                onClick={() => {
+                  form.reset();
+                  handleClose();
+                }}
+              >
                 {formatMessage({ id: 'common.cancel' })}
               </Button>
               <SubmitButton

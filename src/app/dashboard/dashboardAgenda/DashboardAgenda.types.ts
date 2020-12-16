@@ -1,10 +1,5 @@
-type AgendaItem = {
-  title: string;
-  startDate: string;
-  endDate: string;
-  isAllDay: boolean;
-};
+import { Task } from 'api/types';
 
 export type DashboardAgendaProps = {
-  agendaItems: AgendaItem[];
+  tasks: Task[];
 };
