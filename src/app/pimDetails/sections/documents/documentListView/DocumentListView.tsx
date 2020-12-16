@@ -33,6 +33,10 @@ export const DocumentListView = ({
     history.push(history.location.pathname + '/' + documentKind + '/' + id);
   };
 
+  const handleUploadedNavigate = (id: string) => {
+    history.push(history.location.pathname + '/uploaded/' + id);
+  };
+
   return (
     <Grid item xs={12}>
       <Card className={classes.root}>
@@ -43,13 +47,18 @@ export const DocumentListView = ({
           </Box>
           <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
           {status === DocumentStatus.Uploaded ? (
-            <DocumentTableView data={documents || []} onClick={handleNavigate} />
+            <DocumentTableView data={documents || []} onClick={(docKind, id) => handleUploadedNavigate(id)} />
           ) : (
             <List
               items={(documents ?? []) as DocumentListViewType[]}
               itemIndex={'id'}
               renderItem={(item, checked, checkbox) => (
-                <Box key={item.id} className={classNames(classes.row, { [classes.rowChecked]: checked })}>
+                <Box
+                  key={item.id}
+                  className={classNames(classes.row, {
+                    [classes.rowChecked]: checked,
+                  })}
+                >
                   {checkbox}
                   <Box component="span" className={classes.rowItem}>
                     <Box className={classes.itemButton} onClick={() => {}}>
@@ -73,8 +82,12 @@ export const DocumentListView = ({
               }}
               loading={isLoading}
               loadingItem={<PropertyItemPlaceholder />}
-              emptyTitle={formatMessage({ id: 'pim_details.documents.empty_title' })}
-              emptyDescription={formatMessage({ id: 'pim_details.documents.empty_description' })}
+              emptyTitle={formatMessage({
+                id: 'pim_details.documents.empty_title',
+              })}
+              emptyDescription={formatMessage({
+                id: 'pim_details.documents.empty_description',
+              })}
             />
           )}
         </CardContent>

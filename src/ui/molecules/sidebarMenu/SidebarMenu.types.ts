@@ -47,4 +47,5 @@ export type SidebarMenuProps = {
   menu: SidebarMenuType;
   bannerColor?: string;
   hasHideButton?: boolean;
+  children?: ReactNode;
 };
