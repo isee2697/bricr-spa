@@ -7810,6 +7810,117 @@ export type TiaraSendMessageInput = {
   messageType: TiaraMessageType;
 };
 
+export type WorkflowTemplate = {
+  __typename?: 'WorkflowTemplate';
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  icon: Scalars['String'];
+  status: WorkflowTemplateStatus;
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+};
+
+export type CreateWorkflowTemplateInput = {
+  __typename?: 'CreateWorkflowTemplateInput';
+  name: Scalars['String'];
+  icon: Scalars['String'];
+};
+
+export type WorkflowSection = {
+  __typename?: 'WorkflowSection';
+  id: Scalars['ID'];
+  workflowTemplateId: Scalars['ID'];
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
+};
+
+export type CreateWorkflowSectionInput = {
+  __typename?: 'CreateWorkflowSectionInput';
+  workflowTemplateId: Scalars['ID'];
+  name: Scalars['String'];
+  startpoint: WorkflowSectionStartpoint;
+  startpointOutside?: Maybe<Scalars['ID']>;
+  endpoint: WorkflowSectionEndpoint;
+  endpointOutside?: Maybe<Scalars['ID']>;
+};
+
+export type WorkflowTrigger = {
+  __typename?: 'WorkflowTrigger';
+  id: Scalars['ID'];
+  workflowSectionId: Scalars['ID'];
+  type: WorkflowTriggerType;
+};
+
+export type CreateWorkflowTriggerInput = {
+  __typename?: 'CreateWorkflowTriggerInput';
+  workflowSectionId: Scalars['ID'];
+  type: WorkflowTriggerType;
+};
+
+export type WorkflowActionGroup = {
+  __typename?: 'WorkflowActionGroup';
+  id: Scalars['ID'];
+  workflowTriggerId: Scalars['ID'];
+  type: WorkflowActionGroupType;
+};
+
+export type WorkflowAction = {
+  __typename?: 'WorkflowAction';
+  id: Scalars['ID'];
+  workflowActionGroupId: Scalars['ID'];
+  type: WorkflowActionType;
+  actionIndex: Scalars['Int'];
+};
+
+export type CreateWorkflowActionInput = {
+  __typename?: 'CreateWorkflowActionInput';
+  workflowTriggerId: Scalars['ID'];
+  workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
+  workflowActionGroupId?: Maybe<Scalars['ID']>;
+  type: WorkflowActionType;
+};
+
+export enum WorkflowTemplateStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+export enum WorkflowSectionStartpoint {
+  Start = 'Start',
+  Outside = 'Outside',
+  Previous = 'Previous',
+}
+
+export enum WorkflowSectionEndpoint {
+  End = 'End',
+  Outside = 'Outside',
+  Next = 'Next',
+}
+
+export enum WorkflowTriggerType {
+  MakeAppointment = 'MakeAppointment',
+  DifferentTrigger = 'DifferentTrigger',
+  Trigger1 = 'Trigger1',
+  Trigger2 = 'Trigger2',
+}
+
+export enum WorkflowActionGroupType {
+  New = 'New',
+  Delete = 'Delete',
+  Update = 'Update',
+}
+
+export enum WorkflowActionType {
+  SendEmail = 'SendEmail',
+  Action1 = 'Action1',
+  Action2 = 'Action2',
+  Action3 = 'Action3',
+}
+
 export type LoginMutationVariables = Exact<{
   input?: Maybe<LoginInput>;
 }>;

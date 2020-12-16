@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { WorkflowActionType, WorkflowTriggerType } from 'api/types';
+
 export type WorkflowSidebarProps = {
   isFullScreen: boolean;
   triggersGroups: WorkflowSidebarGroup[];
@@ -12,7 +14,7 @@ export type WorkflowSidebarGroup = {
 };
 
 export type WorkflowSidebarGroupItem = {
-  id: string;
+  id: WorkflowActionType | WorkflowTriggerType;
   icon: ReactNode;
   title: string;
 };
