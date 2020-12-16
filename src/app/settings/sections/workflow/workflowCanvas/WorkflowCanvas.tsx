@@ -67,8 +67,6 @@ export const WorkflowCanvas = ({
   const classes = useStyles();
 
   const [confirmModal, setConfirmModal] = useState<ReactNode | null>(null);
-  const [triggerCondition, setTriggerCondition] = useState<number | null>(null);
-  const [conditionTab, setConditionTab] = useState<number>(0);
 
   const [width, height] = useWindowSize();
   const [topCanvasOffset, setTopCanvasOffset] = useState(0);
@@ -86,10 +84,6 @@ export const WorkflowCanvas = ({
 
   const handleToggleTriggerStatus = (index: number) => {
     // TODO: Update trigger status
-    // if (triggers?.[index]) {
-    //   triggers[index].status = triggers[index].status === 'inactive' ? 'active' : 'inactive';
-    //   setState(!state);
-    // }
   };
 
   const handleShowConfirmModal = useCallback(
@@ -123,10 +117,6 @@ export const WorkflowCanvas = ({
     },
     [formatMessage, setConfirmModal],
   );
-
-  const handleShowTriggerConditions = (index: number | null) => {
-    setTriggerCondition(index);
-  };
 
   const handleToggleActionStatus = useCallback((action: WorkflowAction) => {
     // TODO: Update workflow action status
@@ -466,7 +456,7 @@ export const WorkflowCanvas = ({
                       handleShowConfirmModal('trigger', () => onRemoveTrigger(trigger.id));
                     }}
                     onShowConditions={() => {
-                      handleShowTriggerConditions(index);
+                      // TODO: Show conditions popup
                     }}
                   />
                 </Box>
