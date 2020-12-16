@@ -119,7 +119,9 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
             customAction: (
               <>
                 <Box mt={1} ml="auto" mr={5}>
-                  <SettingsIcon />
+                  <IconButton variant="rounded" size="small" onClick={() => push(`${AppRoute.calendar}/settings`)}>
+                    <SettingsIcon />
+                  </IconButton>
                 </Box>
                 <Button onClick={() => push(AppRoute.newAppointment)} variant="contained" color="primary">
                   <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointment.add' })}
