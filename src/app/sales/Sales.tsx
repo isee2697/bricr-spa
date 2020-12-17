@@ -14,6 +14,7 @@ import { SalesLeadsContainer } from './salesLeads/SalesLeadsContainer';
 import { SalesAcquisitionContainer } from './salesAcquisition/SalesAcquisitionContainer';
 import { OrdersContainer } from './orders/OrdersContainer';
 import { QuotationsContainer } from './quotations/QuotationsContainer';
+import { InvoicesContainer } from './invoices/InvoicesContainer';
 
 export const Sales = ({ path, entityType }: SalesProps) => {
   const { formatMessage } = useLocale();
@@ -60,7 +61,13 @@ export const Sales = ({ path, entityType }: SalesProps) => {
               />
               <Route
                 path={`${path}/orders`}
-                render={() => <OrdersContainer onSidebarOpen={handleSidebarHide} isSidebarVisible={isSidebarVisible} />}
+                render={() => <OrdersContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />}
+              />
+              <Route
+                path={`${path}/invoices`}
+                render={() => (
+                  <InvoicesContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                )}
               />
               <Redirect to={{ pathname: `${path}/dashboard` }} />
             </Switch>

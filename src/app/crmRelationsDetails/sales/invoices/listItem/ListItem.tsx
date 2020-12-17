@@ -39,7 +39,7 @@ export const ListItem = ({
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="h6" className={classes.fontWeightBolder}>
-                        {number && number > 0 ? number : '-'}
+                        {number ? `INV-${number}` : '-'}
                       </Typography>
                     </Grid>
                   </Grid>
