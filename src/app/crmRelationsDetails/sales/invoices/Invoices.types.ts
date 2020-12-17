@@ -15,7 +15,7 @@ export type InvoicesProps = {
 export type SalesInvoice = {
   id: string;
   image: string;
-  number?: number;
+  number?: string;
   date?: DateTime;
   dueDate?: DateTime;
   type: SalesInvoiceType;
@@ -23,6 +23,14 @@ export type SalesInvoice = {
   tax: number;
   interest: SalesInvoiceInterest;
   address: string;
+  status: InvoicesStatus;
+  linkedObjects?: LinkedObject[];
+};
+
+export type LinkedObject = {
+  id: string;
+  name: string;
+  image: string;
 };
 
 export enum SalesInvoiceType {
@@ -35,4 +43,13 @@ export enum SalesInvoiceInterest {
   Appraisal = 'Appraisal',
   Mortgage = 'Mortgage',
   CommercialRealEstateForHire = 'CommercialRealEstateForHire',
+}
+
+export enum InvoicesStatus {
+  Drafts = 'Drafts',
+  Sent = 'Sent',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Overdue = 'Overdue',
+  Paid = 'Paid',
 }
