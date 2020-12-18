@@ -90,6 +90,16 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         key: 'settings.menu.cadastre',
         items: [{ key: 'cadastre' }],
       },
+      {
+        items: [
+          {
+            key: 'keyboard',
+          },
+          {
+            key: 'signboard',
+          },
+        ],
+      },
     ],
   };
 
