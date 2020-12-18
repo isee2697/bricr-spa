@@ -39,14 +39,14 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
   }));
 };
 
-export const Calendar = ({ data, currentDate, view, height }: CalendarProps) => {
+export const Calendar = ({ account, data, currentDate, view, height }: CalendarProps) => {
   const { locale } = useLocale();
   const { spacing, breakpoints } = useTheme();
   const { push } = useHistory();
 
   const handleNavigateToEditAppointment = (appointmentData: AppointmentModel | undefined) => {
     if (appointmentData && appointmentData.id) {
-      push(AppRoute.editAppointment.replace(':id', `${appointmentData.id}`));
+      push(AppRoute.editAppointment.replace(':accountId', account?.id || '').replace(':id', `${appointmentData.id}`));
     }
   };
 

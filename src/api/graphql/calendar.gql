@@ -67,16 +67,26 @@ enum AppointmentState {
 
 type Appointment {
     id: ID!
-    startDate: Date!
-    endDate: Date!
+    title: String
+    from: Date!
+    to: Date!
+    alternativeTerms: [AppointmentTerm!]
+    allDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    type: CalendarTypes
+    appointmentType: AppointmentType!
+    assignedPimIds: [String!]
+    agreementType: [AppointmentMeetingType]
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
+    location: String
+    outsideLocation: String
     travelTimeBefore: Int
     travelTimeAfter: Int
-    title: String
-    allDay: Boolean
-    type: CalendarTypes!
-    location: String
-    taskLabel: TaskLabel
     state: AppointmentState
+    taskLabel: TaskLabel
 }
 
 input AppointmentTermInput {
@@ -85,34 +95,34 @@ input AppointmentTermInput {
 }
 
 input AddAppointmentInput {
+    accountId: ID!
     title: String
-    alternativeTerms: [AppointmentTermInput!]!
-    isAllDay: Boolean
+    from: Date!
+    to: Date!
+    alternativeTerms: [AppointmentTermInput!]
+    allDay: Boolean
     confirmedDate: Boolean
     repeatAppointment: AppointmentRepeat
     description: String
     appointmentType: AppointmentType!
     assignedPimIds: [String!]
-    ExternalAgreement: Boolean
-    Collegial: Boolean
-    CompleteAgreement: Boolean
-    RedirectAppointment: Boolean
-    FollowUpJob: Boolean
+    agreementType: [AppointmentMeetingType]
     invitedPersons: [String!]
     isInsideOffice: Boolean
     location: String
     outsideLocation: String
-    travelBeforeAppointment: Int
-    travelAfterAppointment: Int
+    travelTimeBefore: Int
+    travelTimeAfter: Int
 }
 
 input AppointmentSearch {
+    accountId: ID!
     startDate: String!
     endDate: String!
     selectedUser: String
     selectedGroup: String
     selectedAppointmentType: AppointmentType
-    selectTaskType: [TaskLabel]
+    selectTaskType: [TaskLabel!]
 }
 
 extend type Mutation {

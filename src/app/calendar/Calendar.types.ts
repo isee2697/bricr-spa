@@ -1,6 +1,7 @@
-import { Profile, CalendarGroup } from 'api/types';
+import { Profile, CalendarGroup, NylasAccountItem } from 'api/types';
 
 export type CalendarProps = {
-  data: Profile[];
+  accounts: NylasAccountItem[];
+  teamMembers: Profile[];
   groups: CalendarGroup[];
 };

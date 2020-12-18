@@ -1,6 +1,6 @@
 import { AppointmentModel, Resource, ResourceInstance, ValidResourceInstance } from '@devexpress/dx-react-scheduler';
 
-import { AppointmentState, CalendarTypes, TaskLabel } from 'api/types';
+import { AppointmentState, CalendarTypes, TaskLabel, NylasAccountItem } from 'api/types';
 import { palette } from 'theme/palette';
 
 export enum DateView {
@@ -21,6 +21,7 @@ export type CalendarProps = {
   currentDate: Date;
   view: DateView;
   height?: number;
+  account?: NylasAccountItem;
 };
 
 export type ConvertDataFunction = (data: AppointmentModel[]) => AppointmentModel[];

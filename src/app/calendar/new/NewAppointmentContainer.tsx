@@ -1,16 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router-dom';
 
 import {
   AppointmentLocation,
   useAddAppointmentMutation,
-  AddAppointmentInput,
   AppointmentType,
-  AppointmentTermInput,
+  AppointmentMeetingType,
+  AddAppointmentInput,
 } from 'api/types';
-import { CalendarProps } from '../Calendar.types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { NewAppointment } from './NewAppointment';
+import { AppointmentFormType, AppointmentTermFormType, NewAppointmentContainerProps } from './NewAppointment.types';
 
 const locations: AppointmentLocation[] = [
   {
@@ -48,23 +50,37 @@ const locations: AppointmentLocation[] = [
   },
 ];
 
-const DEFAULT_TERM_ITEM: AppointmentTermInput = {
-  from: DateTime.local()
-    .plus({ day: 1 })
-    .toISODate(),
-  to: DateTime.local()
-    .plus({ day: 1, hour: 1 })
-    .toISODate(),
+const splitDateTime = (date: string) => {
+  const datetime = DateTime.fromISO(date);
+
+  return { date: datetime.toISODate(), time: datetime.toISOTime() };
 };
 
-const INITIAL_APPOINTMENT: AddAppointmentInput = {
-  alternativeTerms: [DEFAULT_TERM_ITEM],
+const mergeDateTime = (date: string, time: string) => {
+  const jsDate = DateTime.fromISO(date).toJSDate();
+  const jsTime = DateTime.fromISO(time).toJSDate();
+
+  return new Date(jsDate.getTime() + (jsTime.getTime() % (1000 * 3600 * 24)));
+};
+
+const INITIAL_APPOINTMENT: AppointmentFormType = {
+  from: splitDateTime(
+    DateTime.local()
+      .plus({ day: 1 })
+      .toISO(),
+  ),
+  to: splitDateTime(
+    DateTime.local()
+      .plus({ day: 1, hour: 1 })
+      .toISO(),
+  ),
   appointmentType: AppointmentType.Aquisition,
 };
 
-export const NewAppointmentContainer = ({ data, isEdit }: Pick<CalendarProps, 'data'> & { isEdit?: boolean }) => {
-  const [appointment] = useState<AddAppointmentInput>();
+export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewAppointmentContainerProps) => {
+  const [appointment] = useState<AppointmentFormType>(INITIAL_APPOINTMENT);
   const [addAppointment] = useAddAppointmentMutation();
+  const { push } = useHistory();
 
   // const { params } = useRouteMatch();
   // useEffect(() => {
@@ -75,15 +91,30 @@ export const NewAppointmentContainer = ({ data, isEdit }: Pick<CalendarProps, 'd
   // }, [isEdit, params.id]);
 
   const handleSubmit = useCallback(
-    async (appointment: AddAppointmentInput): Promise<boolean> => {
+    async (appointment): Promise<boolean> => {
+      const appointmentInput: AddAppointmentInput = {
+        ...appointment,
+        accountId: account?.id || '',
+        from: mergeDateTime(appointment.from.date, appointment.from.time),
+        to: mergeDateTime(appointment.to.date, appointment.to.time),
+        alternativeTerms: appointment.alternativeTerms?.map((item: AppointmentTermFormType) => ({
+          from: mergeDateTime(item.from.date, item.from.time),
+          to: mergeDateTime(item.to.date, item.to.time),
+        })),
+        description: '',
+        agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
+      };
+
       try {
         const { data, errors } = await addAppointment({
           variables: {
-            input: { ...appointment, description: '' },
+            input: appointmentInput,
           },
         });
 
         if (!errors && data && data.addAppointment) {
+          push(AppRoute.calendarAppointments.replace(':accountId', account?.id || ''));
+
           return true;
         }
 
@@ -92,15 +123,10 @@ export const NewAppointmentContainer = ({ data, isEdit }: Pick<CalendarProps, 'd
         return false;
       }
     },
-    [addAppointment],
+    [account, addAppointment, push],
   );
 
   return (
-    <NewAppointment
-      locations={locations}
-      members={data}
-      appointmentInfo={appointment || INITIAL_APPOINTMENT}
-      onSubmit={handleSubmit}
-    />
+    <NewAppointment locations={locations} members={teamMembers} appointmentInfo={appointment} onSubmit={handleSubmit} />
   );
 };

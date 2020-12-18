@@ -34,9 +34,9 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
     ),
   }));
 
-  const timeDropdownItems: DropdownItem[] = Object.keys(TravelTime).map((item, key) => ({
-    label: formatMessage({ id: `dictionaries.appointment.travel.${item}` }),
-    value: item,
+  const timeDropdownItems: DropdownItem[] = Object.entries(TravelTime).map(([key, value], index) => ({
+    label: formatMessage({ id: `dictionaries.appointment.travel.${key}` }),
+    value: value,
   }));
 
   return (
@@ -96,12 +96,12 @@ export const Locations = ({ locations }: { locations: AppointmentLocation[] }) =
               placeholder="appointment.location.placeholder"
             />
           </Box>
-          <QuantityField min={0} name="travelBeforeAppointment" label="appointment.travel.label_before" />
+          <QuantityField min={0} name="travelTimeBefore" label="appointment.travel.label_before" />
           <DropdownField
             items={timeDropdownItems}
             label="appointment.travel.label_After"
             placeholder="appointment.travel.placeholder_After"
-            name="travelAfterAppointment"
+            name="travelTimeAfter"
           />
         </Collapse>
       </Grid>

@@ -125,6 +125,7 @@
     "libphonenumber-js": "1.8.3",
     "lodash": "4.17.20",
     "luxon": "1.23.0",
+    "nylas": "5.3.1",
     "pdfjs-dist": "2.4.456",
     "query-string": "6.12.1",
     "react": "16.12.0",

@@ -39,7 +39,7 @@ const getViewTitle = (
   }
 };
 
-export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChange }: CalendarViewProps) => {
+export const CalendarView = ({ account, data, teamMembers, groups, filters, onFilterChange }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
@@ -123,7 +123,11 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
                     <SettingsIcon />
                   </IconButton>
                 </Box>
-                <Button onClick={() => push(AppRoute.newAppointment)} variant="contained" color="primary">
+                <Button
+                  onClick={() => push(AppRoute.newAppointment.replace(':accountId', account?.id || ''))}
+                  variant="contained"
+                  color="primary"
+                >
                   <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointment.add' })}
                 </Button>
               </>
@@ -167,6 +171,7 @@ export const CalendarView = ({ data, teamMembers, groups, filters, onFilterChang
                   data={data}
                   group={groups.find(group => group.id === selectedGroup)}
                   currentDate={selectedDate.toJSDate()}
+                  account={account}
                 />
               )}
             </CardContent>

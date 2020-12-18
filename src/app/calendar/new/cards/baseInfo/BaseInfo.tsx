@@ -9,13 +9,23 @@ import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
 
-const DEFAULT_TERM_ITEM: AppointmentTermInput = {
-  from: DateTime.local()
-    .plus({ day: 1 })
-    .toISODate(),
-  to: DateTime.local()
-    .plus({ day: 1, hour: 1 })
-    .toISODate(),
+const splitDateTime = (date: string) => {
+  const datetime = DateTime.fromISO(date);
+
+  return { date: datetime.toISODate(), time: datetime.toISOTime() };
+};
+
+const DEFAULT_TERM_ITEM = {
+  from: splitDateTime(
+    DateTime.local()
+      .plus({ day: 1 })
+      .toISO(),
+  ),
+  to: splitDateTime(
+    DateTime.local()
+      .plus({ day: 1, hour: 1 })
+      .toISO(),
+  ),
 };
 
 export const AppointmentBaseInfoCard = () => {
@@ -26,7 +36,7 @@ export const AppointmentBaseInfoCard = () => {
   const { formatMessage } = useLocale();
 
   const values = form.getState().values;
-  const alternativeTerms: AppointmentTermInput[] = values?.[fieldName] ?? [DEFAULT_TERM_ITEM];
+  const alternativeTerms: AppointmentTermInput[] = values?.[fieldName] ?? [];
   const amountOfTerms = alternativeTerms?.length ?? 0;
 
   return (
@@ -44,18 +54,31 @@ export const AppointmentBaseInfoCard = () => {
           <CheckboxField name="confirmedDate" label={formatMessage({ id: 'appointment.confirmed_date.label' })} />
         </Grid>
       </Grid>
+      <Grid container className={classes.term}>
+        <Grid item className={classes.item}>
+          <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
+          <DatePickerChip name={`from.date`} className={classes.date} />
+          <TimePickerChip name={`from.time`} />
+        </Grid>
+        <Grid item className={classes.item}>
+          <Box mr={1.5} />
+          <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
+          <DatePickerChip name={`to.date`} className={classes.date} />
+          <TimePickerChip name={`to.time`} />
+        </Grid>
+      </Grid>
       {alternativeTerms?.map((term, index) => (
         <Grid key={index} container className={classes.term}>
           <Grid item className={classes.item}>
             <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
-            <DatePickerChip name={`alternativeTerms[${index}].from`} className={classes.date} />
-            <TimePickerChip name={`alternativeTerms[${index}].from`} />
+            <DatePickerChip name={`alternativeTerms[${index}].from.date`} className={classes.date} />
+            <TimePickerChip name={`alternativeTerms[${index}].from.time`} />
           </Grid>
           <Grid item className={classes.item}>
             <Box mr={1.5} />
             <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
-            <DatePickerChip name={`alternativeTerms[${index}].to`} className={classes.date} />
-            <TimePickerChip name={`alternativeTerms[${index}].to`} />
+            <DatePickerChip name={`alternativeTerms[${index}].to.date`} className={classes.date} />
+            <TimePickerChip name={`alternativeTerms[${index}].to.time`} />
           </Grid>
           {amountOfTerms > 1 && (
             <Grid item className="right">
