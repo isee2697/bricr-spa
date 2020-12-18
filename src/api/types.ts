@@ -60,6 +60,7 @@ export type Mutation = {
   _?: Maybe<Scalars['Boolean']>;
   addAllocationCriteria: AddAllocationCriteriaResult;
   addAogSpace: PimWithNewAogSpace;
+  addAppointment: Appointment;
   addBogSpace: PimWithNewBogSpace;
   addCadastre?: Maybe<PimWithNewCadastre>;
   addCadastreMaps?: Maybe<Pim>;
@@ -234,6 +235,10 @@ export type MutationAddAllocationCriteriaArgs = {
 
 export type MutationAddAogSpaceArgs = {
   input: AddAogSpaceInput;
+};
+
+export type MutationAddAppointmentArgs = {
+  input: AppointmentInput;
 };
 
 export type MutationAddBogSpaceArgs = {
@@ -973,6 +978,7 @@ export type Query = {
   getTiaraMutations?: Maybe<Array<TiaraMutation>>;
   getTiaraValidation: TiaraValidation;
   getUndoId: Scalars['ID'];
+  listCalendar?: Maybe<Array<Appointment>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
   listNcps: NcpListSearchResult;
@@ -1197,6 +1203,10 @@ export type QueryGetUndoIdArgs = {
   filters?: Maybe<UndoIdQueryFilters>;
 };
 
+export type QueryListCalendarArgs = {
+  input: AppointmentSearch;
+};
+
 export type QueryListEmailArgs = {
   folder: Scalars['String'];
 };
@@ -1336,17 +1346,39 @@ export enum AppointmentState {
 
 export type Appointment = {
   __typename?: 'Appointment';
+  id: Scalars['ID'];
   startDate: Scalars['Date'];
   endDate: Scalars['Date'];
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
   allDay?: Maybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
   type: CalendarTypes;
   location?: Maybe<Scalars['String']>;
   taskLabel?: Maybe<TaskLabel>;
   state?: Maybe<AppointmentState>;
+};
+
+export type AppointmentInput = {
+  startDate: Scalars['Date'];
+  endDate: Scalars['Date'];
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  type: CalendarTypes;
+  location?: Maybe<Scalars['String']>;
+  taskLabel?: Maybe<TaskLabel>;
+  state?: Maybe<AppointmentState>;
+};
+
+export type AppointmentSearch = {
+  startDate: Scalars['String'];
+  endDate: Scalars['String'];
+  selectedUser?: Maybe<Scalars['String']>;
+  selectedGroup?: Maybe<Scalars['String']>;
+  selectedAppointmentType?: Maybe<AppointmentType>;
+  selectTaskType?: Maybe<Array<Maybe<TaskLabel>>>;
 };
 
 export enum CharacteristicsSections {
@@ -9434,6 +9466,31 @@ export type BulkDetailsQuery = { __typename?: 'Query' } & {
   getBulkDetails?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'id' | 'value'>>>;
 };
 
+export type ListCalendarQueryVariables = Exact<{
+  input: AppointmentSearch;
+}>;
+
+export type ListCalendarQuery = { __typename?: 'Query' } & {
+  listCalendar?: Maybe<
+    Array<
+      { __typename?: 'Appointment' } & Pick<
+        Appointment,
+        | 'id'
+        | 'startDate'
+        | 'endDate'
+        | 'travelTimeBefore'
+        | 'travelTimeAfter'
+        | 'title'
+        | 'allDay'
+        | 'type'
+        | 'location'
+        | 'taskLabel'
+        | 'state'
+      >
+    >
+  >;
+};
+
 export type CheckCompanyRegisteredQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -16305,6 +16362,39 @@ export function useBulkDetailsLazyQuery(
 export type BulkDetailsQueryHookResult = ReturnType<typeof useBulkDetailsQuery>;
 export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLazyQuery>;
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
+export const ListCalendarDocument = gql`
+  query ListCalendar($input: AppointmentSearch!) {
+    listCalendar(input: $input) {
+      id
+      startDate
+      endDate
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      location
+      taskLabel
+      state
+    }
+  }
+`;
+export function useListCalendarQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListCalendarQuery, ListCalendarQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListCalendarQuery, ListCalendarQueryVariables>(ListCalendarDocument, baseOptions);
+}
+export function useListCalendarLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListCalendarQuery, ListCalendarQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListCalendarQuery, ListCalendarQueryVariables>(
+    ListCalendarDocument,
+    baseOptions,
+  );
+}
+export type ListCalendarQueryHookResult = ReturnType<typeof useListCalendarQuery>;
+export type ListCalendarLazyQueryHookResult = ReturnType<typeof useListCalendarLazyQuery>;
+export type ListCalendarQueryResult = ApolloReactCommon.QueryResult<ListCalendarQuery, ListCalendarQueryVariables>;
 export const CheckCompanyRegisteredDocument = gql`
   query CheckCompanyRegistered($name: String!) {
     checkCompanyRegistered(name: $name) {

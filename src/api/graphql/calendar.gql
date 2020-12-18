@@ -66,15 +66,45 @@ enum AppointmentState {
 }
 
 type Appointment {
-  startDate: Date!
-  endDate: Date!
-  travelTimeBefore: Int
-  travelTimeAfter: Int
-  title: String
-  allDay: Boolean
-  id: ID!
-  type: CalendarTypes!
-  location: String
-  taskLabel: TaskLabel
-  state: AppointmentState
+    id: ID!
+    startDate: Date!
+    endDate: Date!
+    travelTimeBefore: Int
+    travelTimeAfter: Int
+    title: String
+    allDay: Boolean
+    type: CalendarTypes!
+    location: String
+    taskLabel: TaskLabel
+    state: AppointmentState
+}
+
+input AppointmentInput {
+    startDate: Date!
+    endDate: Date!
+    travelTimeBefore: Int
+    travelTimeAfter: Int
+    title: String
+    allDay: Boolean
+    type: CalendarTypes!
+    location: String
+    taskLabel: TaskLabel
+    state: AppointmentState
+}
+
+input AppointmentSearch {
+  startDate: String!
+  endDate: String!
+  selectedUser: String
+  selectedGroup: String
+  selectedAppointmentType: AppointmentType
+  selectTaskType: [TaskLabel]
+}
+
+extend type Mutation {
+    addAppointment(input: AppointmentInput!): Appointment! @auth
+}
+
+extend type Query {
+    listCalendar(input: AppointmentSearch!): [Appointment!] @auth
 }
