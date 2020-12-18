@@ -6,6 +6,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { DocumentListOfCaseContainer } from './documentListOfCase/DocumentListOfCaseContainer';
 import { DocumentQuestionnaireContainer } from './documentQuestionnaire/DocumentQuestionnaireContainer';
 import { DocumentContractContainer } from './documentContract/DocumentContractContainer';
+import { DocumentUploadedContainer } from './documentUploaded/DocumentUploadedContainer';
 
 export const DocumentDetailsContainer = () => {
   return (
@@ -21,6 +22,10 @@ export const DocumentDetailsContainer = () => {
       <Route
         path={AppRoute.pimDocumentDetails.replace(':kind', 'contract')}
         render={() => <DocumentContractContainer />}
+      />
+      <Route
+        path={AppRoute.pimDocumentDetails.replace(':kind', 'uploaded')}
+        render={() => <DocumentUploadedContainer />}
       />
     </Switch>
   );

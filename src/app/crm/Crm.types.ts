@@ -2,10 +2,8 @@ import { CrmType, Maybe, Profile } from 'api/types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
 
 export type CrmProps = {
-  crms: CrmItem[];
-  type: CrmType;
+  path: string;
   status: ActionTabStatus;
-  onTypeChange: (type: CrmType) => void;
   onStatusChange: (status: ActionTabStatus) => void;
 };
 

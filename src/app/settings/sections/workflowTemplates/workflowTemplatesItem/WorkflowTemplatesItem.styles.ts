@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/core';
 
-import { WorkflowItem } from '../WorkflowTemplates.types';
+import { WorkflowTemplate, WorkflowTemplateStatus } from 'api/types';
 
 export const useStyles = makeStyles(theme => ({
   image: {
     width: theme.spacing(39.25),
     height: theme.spacing(25.5),
     marginRight: theme.spacing(2),
-    filter: ({ status }: WorkflowItem) => (status === 'inactive' ? 'grayscale(1)' : ''),
+    filter: ({ status }: WorkflowTemplate) => (status === WorkflowTemplateStatus.Active ? 'grayscale(1)' : ''),
     fontSize: '3em',
   },
   label: {

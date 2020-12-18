@@ -1,8 +1,30 @@
 import { ReactNode } from 'react';
 
+import {
+  WorkflowActionGroup,
+  WorkflowAction,
+  WorkflowTrigger,
+  WorkflowSection as WorkflowSectionType,
+  WorkflowTriggerType,
+  WorkflowActionGroupType,
+  WorkflowActionType,
+  CreateWorkflowSectionInput,
+} from 'api/types';
+
 import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
-import { WorkflowSection } from './workflowSection/WorkflowSection.types';
 import { TriggerConditionValuesType } from './workflowConditions/triggerConditions/TriggerConditions.types';
+
+export type WorkflowActionGroupWithActions = WorkflowActionGroup & {
+  actions: WorkflowAction[];
+};
+
+export type WorkflowTriggerWithActionGroups = WorkflowTrigger & {
+  actionGroups: WorkflowActionGroupWithActions[];
+};
+
+export type WorkflowSectionWithInfo = WorkflowSectionType & {
+  triggers: WorkflowTriggerWithActionGroups[];
+};
 
 export type WorkflowItemStatus = 'active' | 'inactive';
 
@@ -25,7 +47,7 @@ export type TriggerActionGroup = {
 };
 
 export type Trigger = {
-  id: string;
+  id: WorkflowTriggerType;
   title: string;
   icon: ReactNode;
   status?: WorkflowItemStatus;
@@ -40,7 +62,7 @@ export type ActionSetting = {
 };
 
 export type Action = {
-  id: string;
+  id: WorkflowActionType;
   title: string;
   icon: ReactNode;
   status?: WorkflowItemStatus;
@@ -56,7 +78,22 @@ export type WorkflowProps = {
   goBack: VoidFunction;
   triggersGroups: WorkflowSidebarGroup[];
   actionsGroups: WorkflowSidebarGroup[];
-  initValues: WorkflowSection[];
-  onAddSection: () => Promise<undefined | { error: boolean }>;
-  onAddItem: (data: AddItemData) => Promise<undefined | { error: boolean }>;
+  workflowSections: WorkflowSectionWithInfo[];
+  onAddSection: (section: CreateWorkflowSectionInput) => Promise<undefined | { error: boolean }>;
+  onAddWorkflowTrigger: (
+    workflowSectionId: string,
+    triggerType: WorkflowTriggerType,
+  ) => Promise<undefined | { error: boolean }>;
+  onAddWorkflowActionGroupAndAction: (
+    workflowTriggerId: string,
+    workflowActionGroupType: WorkflowActionGroupType,
+    type: WorkflowActionType,
+  ) => Promise<undefined | { error: boolean }>;
+  onAddWorkflowAction: (
+    workflowTriggerId: string,
+    workflowActionGroupId: string,
+    type: WorkflowActionType,
+  ) => Promise<undefined | { error: boolean }>;
+  onRemoveAction: (actionId: string) => void;
+  onRemoveTrigger: (triggerId: string) => void;
 };

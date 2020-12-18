@@ -7,7 +7,6 @@ import { useLocale } from 'hooks';
 import { Modal, SubmitButton, CancelButton } from 'ui/molecules';
 import { DialogContent, DialogActions, Box, Typography, Radio, Dropdown } from 'ui/atoms';
 import { GenericField } from 'form/fields';
-import { WorkflowSection, StartPointType, EndPointType } from '../workflowSection/WorkflowSection.types';
 import {
   StartPointStart,
   StartPointOutside,
@@ -17,12 +16,14 @@ import {
   EndPointNext,
 } from '../GeneralTriggerTypes';
 import { DropdownItem } from 'ui/atoms/dropdown/Dropdown.types';
+import { WorkflowSection, WorkflowSectionEndpoint, WorkflowSectionStartpoint } from 'api/types';
 
 import { useStyles } from './WorkflowSectionSettings.styles';
 import { WorkflowSectionSettingsProps } from './WorkflowSectionSettings.types';
 
 export const WorkflowSectionSettings = ({
   isOpened,
+  templateId,
   onClose,
   onSubmit,
   workflowSection: defaultWorkflowSection,
@@ -34,23 +35,24 @@ export const WorkflowSectionSettings = ({
   const [workflowSection, setWorkflowSection] = useState<WorkflowSection>(
     defaultWorkflowSection || {
       id: '',
-      title: '',
-      startpoint: 'start',
-      endpoint: 'end',
+      name: '',
+      workflowTemplateId: templateId,
+      startpoint: WorkflowSectionStartpoint.Start,
+      endpoint: WorkflowSectionEndpoint.End,
     },
   );
 
   const handleChangeStartpoint = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWorkflowSection({
       ...workflowSection,
-      startpoint: (event.target as HTMLInputElement).value as StartPointType,
+      startpoint: (event.target as HTMLInputElement).value as WorkflowSectionStartpoint,
     });
   };
 
   const handleChangeEndpoint = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWorkflowSection({
       ...workflowSection,
-      endpoint: (event.target as HTMLInputElement).value as EndPointType,
+      endpoint: (event.target as HTMLInputElement).value as WorkflowSectionEndpoint,
     });
   };
 
@@ -78,7 +80,7 @@ export const WorkflowSectionSettings = ({
           <>
             <span style={{ fontWeight: 'bold' }}>{formatMessage({ id: 'settings.workflow.settings' })}</span>
             {formatMessage({ id: 'settings.workflow.for_workflow_section' })}
-            <span style={{ fontWeight: 'bold' }}>{workflowSection.title}</span>
+            <span style={{ fontWeight: 'bold' }}>{workflowSection.name}</span>
           </>
         ) : (
           formatMessage({ id: 'settings.workflow.new_workflow_section' })
@@ -101,7 +103,7 @@ export const WorkflowSectionSettings = ({
                   })}
                 </Typography>
                 <GenericField
-                  name="title"
+                  name="name"
                   placeholder="settings.workflow.name_workflow_section.placeholder"
                   className={classes.title}
                 />
@@ -118,13 +120,13 @@ export const WorkflowSectionSettings = ({
                     onChange={handleChangeStartpoint}
                   >
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="start" color="primary" />
+                      <Radio value={WorkflowSectionStartpoint.Start} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75} pl={5}>
                         <StartPointStart />
                       </Box>
                     </Box>
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="outside" color="primary" />
+                      <Radio value={WorkflowSectionStartpoint.Outside} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75} mr={2}>
                         <StartPointOutside />
                       </Box>
@@ -134,13 +136,13 @@ export const WorkflowSectionSettings = ({
                           placeholder={formatMessage({
                             id: 'settings.workflow.startpoint_workflow.placeholder',
                           })}
-                          value={workflowSection.startpointOutside}
+                          value={workflowSection.startpointOutside || undefined}
                           onChange={handleChangeStartpointOutside}
                         />
                       </Box>
                     </Box>
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="previous" color="primary" />
+                      <Radio value={WorkflowSectionStartpoint.Previous} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75}>
                         <StartPointPrevious />
                       </Box>
@@ -161,13 +163,13 @@ export const WorkflowSectionSettings = ({
                     onChange={handleChangeEndpoint}
                   >
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="end" color="primary" />
+                      <Radio value={WorkflowSectionEndpoint.End} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75} pr={5}>
                         <EndPointEnd />
                       </Box>
                     </Box>
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="outside" color="primary" />
+                      <Radio value={WorkflowSectionEndpoint.Outside} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75} mr={2}>
                         <EndPointOutside />
                       </Box>
@@ -177,13 +179,13 @@ export const WorkflowSectionSettings = ({
                           placeholder={formatMessage({
                             id: 'settings.workflow.endpoint_workflow.placeholder',
                           })}
-                          value={workflowSection.endpointOutside}
+                          value={workflowSection.endpointOutside || undefined}
                           onChange={handleChangeEndpointOutside}
                         />
                       </Box>
                     </Box>
                     <Box mt={2} display="flex" alignItems="center">
-                      <Radio value="next" color="primary" />
+                      <Radio value={WorkflowSectionEndpoint.Next} color="primary" />
                       <Box className={classes.pointTypeItem} p={0.75}>
                         <EndPointNext />
                       </Box>

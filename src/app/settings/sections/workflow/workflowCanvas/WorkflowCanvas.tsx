@@ -11,13 +11,17 @@ import {
   DragObjectType,
   DropablePlaceholderCollectProps,
 } from '../workflowItems/dropablePlaceholder/DropablePlaceholder.types';
-import { Action, TriggerActionGroup, WorkflowItemType } from '../Workflow.types';
-import { TriggerConditions } from '../workflowConditions/triggerConditions/TriggerConditions';
-import { generalConditionsTypes } from '../dictionaries';
-import { TriggerConditionValuesType } from '../workflowConditions/triggerConditions/TriggerConditions.types';
+import {
+  Trigger,
+  WorkflowActionGroupWithActions,
+  WorkflowItemType,
+  WorkflowTriggerWithActionGroups,
+} from '../Workflow.types';
+import { WorkflowAction, WorkflowActionGroupType, WorkflowActionType } from 'api/types';
 
 import { WorkflowCanvasProps, Point } from './WorkflowCanvas.types';
 import { useStyles } from './WorkflowCanvas.styles';
+import { ActionIcons, TriggerIcons } from './dictionaries';
 
 const STEP = 24;
 const TRIGGER_OFFSET = {
@@ -50,35 +54,19 @@ const useWindowSize = () => {
   return size;
 };
 
-const getNestingDepth = (actions?: Action[]): number => {
-  if (!actions?.length) {
-    return 0;
-  }
-
-  const getActionDepth = (action: Action, nesting: number): number => {
-    if (!action.nextAction) {
-      return nesting;
-    }
-
-    return getActionDepth(action.nextAction, nesting + 1);
-  };
-
-  return actions.reduce((maxDepth, action) => {
-    const currentNesting = getActionDepth(action, 1);
-
-    return maxDepth < currentNesting ? currentNesting : maxDepth;
-  }, 0);
-};
-
-export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => {
+export const WorkflowCanvas = ({
+  triggers,
+  onRemoveTrigger,
+  onRemoveAction,
+  onAddWorkflowTrigger,
+  onAddWorkflowAction,
+  onAddWorkflowActionGroupAndAction,
+}: WorkflowCanvasProps) => {
   const { formatMessage } = useLocale();
   const theme = useTheme();
   const classes = useStyles();
 
-  const [state, setState] = useState(false);
   const [confirmModal, setConfirmModal] = useState<ReactNode | null>(null);
-  const [triggerCondition, setTriggerCondition] = useState<number | null>(null);
-  const [conditionTab, setConditionTab] = useState<number>(0);
 
   const [width, height] = useWindowSize();
   const [topCanvasOffset, setTopCanvasOffset] = useState(0);
@@ -90,15 +78,12 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
       isDrag: !!monitor.canDrop(),
     }),
   });
-  const error = isDragAction && !triggers?.length;
+  const error = isDragAction && !triggers.length;
 
   const maxWidth = useRef(0);
 
   const handleToggleTriggerStatus = (index: number) => {
-    if (triggers?.[index]) {
-      triggers[index].status = triggers[index].status === 'inactive' ? 'active' : 'inactive';
-      setState(!state);
-    }
+    // TODO: Update trigger status
   };
 
   const handleShowConfirmModal = useCallback(
@@ -133,51 +118,20 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
     [formatMessage, setConfirmModal],
   );
 
-  const handleRemoveTrigger = (index: number) => {
-    if (triggers?.length) {
-      triggers?.splice(index, 1);
-    }
-  };
-
-  const handleShowTriggerConditions = (index: number | null) => {
-    setTriggerCondition(index);
-  };
-
-  const handleUpdateTriggerConditions = (conditions: TriggerConditionValuesType) => {
-    if (triggerCondition !== null && triggers?.[triggerCondition]) {
-      triggers[triggerCondition].conditions = conditions;
-      setState(!state);
-    }
-  };
-
-  const handleToggleActionStatus = useCallback(
-    (action: Action) => {
-      action.status = action.status === 'inactive' ? 'active' : 'inactive';
-      setState(prevState => !prevState);
-    },
-    [setState],
-  );
-
-  const handleRemoveAction = useCallback(
-    (actionGroup: TriggerActionGroup, index: number, action: Action) => {
-      if (actionGroup?.actions?.[index]) {
-        if (actionGroup.actions[index] === action) {
-          actionGroup.actions.splice(index, 1);
-        } else {
-          let curAction = actionGroup.actions[index];
-          while (curAction && curAction.nextAction && curAction.nextAction !== action) {
-            curAction = curAction.nextAction;
-          }
-          curAction.nextAction = undefined;
-        }
-        setState(prevState => !prevState);
-      }
-    },
-    [setState],
-  );
+  const handleToggleActionStatus = useCallback((action: WorkflowAction) => {
+    // TODO: Update workflow action status
+    // action.status = action.status === 'inactive' ? 'active' : 'inactive';
+    // setState(prevState => !prevState);
+  }, []);
 
   const renderAddPlaceholder = useCallback(
-    (topOffset: number, leftOffset: number, parentId: string) => {
+    (
+      topOffset: number,
+      leftOffset: number,
+      actionTriggerId: string,
+      actionGroupId?: string,
+      actionGroupType?: WorkflowActionGroupType,
+    ) => {
       if (leftOffset > maxWidth.current) {
         maxWidth.current = leftOffset;
       }
@@ -186,12 +140,18 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
         <Box position="absolute" top={topOffset} left={leftOffset}>
           <DropablePlaceholder
             type={WorkflowItemType.ACTION}
-            onDrop={item => onAddItem({ item, type: WorkflowItemType.ACTION, parentId })}
+            onDrop={item => {
+              if (actionGroupId) {
+                onAddWorkflowAction(actionTriggerId, actionGroupId, item.id as WorkflowActionType);
+              } else if (actionGroupType) {
+                onAddWorkflowActionGroupAndAction(actionTriggerId, actionGroupType, item.id as WorkflowActionType);
+              }
+            }}
           />
         </Box>
       );
     },
-    [onAddItem],
+    [onAddWorkflowAction, onAddWorkflowActionGroupAndAction],
   );
 
   const renderLine = useCallback(
@@ -263,96 +223,102 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
   );
 
   const renderAction = useCallback(
-    (
-      actionGroup: TriggerActionGroup,
-      index: number,
-      action: Action,
-      topOffset: number,
-      leftOffset: number,
-    ): ReactNode => (
+    (index: number, actionGroup: WorkflowActionGroupWithActions, topOffset: number, leftOffset: number): ReactNode => (
       <>
-        <Box position="absolute" top={topOffset} left={leftOffset}>
-          <ActionItem
-            icon={action.icon}
-            title={action.title}
-            state={DndItemState.DROPPED}
-            status={action.status}
-            onStatusChange={() => {
-              handleToggleActionStatus(action);
-            }}
-            onDelete={() => {
-              handleShowConfirmModal('action', () => handleRemoveAction(actionGroup, index, action));
-            }}
-          />
-        </Box>
-        {action.status !== 'inactive' && (
-          <>
+        {actionGroup.actions.map((action, actionIndex) => (
+          <React.Fragment key={actionIndex}>
+            <Box position="absolute" top={topOffset} left={leftOffset + ACTION_STEP.left * actionIndex}>
+              <ActionItem
+                icon={ActionIcons.find(icon => icon.type === action.type)?.icon}
+                title={formatMessage({ id: `dictionaries.workflow_action_type.${action.type}` })}
+                state={DndItemState.DROPPED}
+                onStatusChange={() => {
+                  handleToggleActionStatus(action);
+                }}
+                onDelete={() => {
+                  handleShowConfirmModal('action', () => onRemoveAction(action.id));
+                }}
+              />
+            </Box>
             {renderLine(
               {
-                x: leftOffset + ACTION_STEP.left - STEP * 2,
+                x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left - STEP * 2,
                 y: topOffset + STEP,
               },
-              { x: leftOffset + ACTION_STEP.left, y: topOffset + STEP },
+              { x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left, y: topOffset + STEP },
             )}
-            {!!action.nextAction &&
-              renderAction(actionGroup, index, action.nextAction, topOffset, leftOffset + ACTION_STEP.left)}
-            {!action.nextAction && renderAddPlaceholder(topOffset, leftOffset + ACTION_STEP.left, action.id)}
-          </>
+          </React.Fragment>
+        ))}
+        {renderAddPlaceholder(
+          topOffset,
+          leftOffset + ACTION_STEP.left * actionGroup.actions.length,
+          actionGroup.workflowTriggerId,
+          actionGroup.id,
         )}
       </>
     ),
-    [handleToggleActionStatus, handleRemoveAction, handleShowConfirmModal, renderAddPlaceholder, renderLine],
+    [renderAddPlaceholder, formatMessage, renderLine, handleToggleActionStatus, handleShowConfirmModal, onRemoveAction],
   );
 
   const renderActionGroup = useCallback(
     (
-      actionGroup: TriggerActionGroup,
+      actionGroups: WorkflowActionGroupWithActions[],
       leftOffset: number,
       topOffset: number,
       rule: string,
       ruleLeftOffset: number,
       ruleTopOffset: number,
+      triggerId: string,
+      groupType: WorkflowActionGroupType,
       lineDirection = 'horizontal',
-    ): ReactNode => (
-      <Box position="relative" height={((actionGroup.actions?.length ?? 0) + 1) * ACTION_STEP.top}>
-        {actionGroup.actions?.map((action, index) => (
-          <div key={`${action.id}_${index}`}>
-            {renderLine(
-              {
-                x: leftOffset,
-                y: topOffset,
-              },
-              {
-                x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
-                y: STEP + ACTION_STEP.top * index,
-              },
-              lineDirection,
-            )}
-            {renderAction(actionGroup, index, action, index * ACTION_STEP.top, ACTION_OFFSET.left)}
-          </div>
-        ))}
-        {renderLine(
-          {
-            x: leftOffset,
-            y: topOffset,
-          },
-          {
-            x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
-            y: STEP + ACTION_STEP.top * (actionGroup.actions?.length || 0),
-          },
-          lineDirection,
-        )}
-        {renderIfRule(
-          {
-            x: ruleLeftOffset,
-            y: ruleTopOffset,
-          },
-          rule,
-        )}
-        <Box position="relative" top={topOffset} left={leftOffset} className={classes.entryDot} />
-        {renderAddPlaceholder((actionGroup.actions?.length || 0) * ACTION_STEP.top, ACTION_OFFSET.left, actionGroup.id)}
-      </Box>
-    ),
+    ): ReactNode => {
+      return (
+        <Box position="relative" height={((actionGroups.length ?? 0) + 1) * ACTION_STEP.top}>
+          {actionGroups.map((actionGroup, index) => (
+            <div key={`${actionGroup.id}_${index}`}>
+              {renderLine(
+                {
+                  x: leftOffset,
+                  y: topOffset,
+                },
+                {
+                  x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
+                  y: STEP + ACTION_STEP.top * index,
+                },
+                lineDirection,
+              )}
+              {renderAction(index, actionGroup, index * ACTION_STEP.top, ACTION_OFFSET.left)}
+            </div>
+          ))}
+          {renderLine(
+            {
+              x: leftOffset,
+              y: topOffset,
+            },
+            {
+              x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
+              y: STEP + ACTION_STEP.top * (actionGroups.length || 0),
+            },
+            lineDirection,
+          )}
+          {renderIfRule(
+            {
+              x: ruleLeftOffset,
+              y: ruleTopOffset,
+            },
+            rule,
+          )}
+          <Box position="relative" top={topOffset} left={leftOffset} className={classes.entryDot} />
+          {renderAddPlaceholder(
+            (actionGroups.length || 0) * ACTION_STEP.top,
+            ACTION_OFFSET.left,
+            triggerId,
+            undefined,
+            groupType,
+          )}
+        </Box>
+      );
+    },
     [classes.entryDot, renderAction, renderLine, renderIfRule, renderAddPlaceholder],
   );
 
@@ -360,29 +326,87 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
   const canvasWidth = width - 216;
 
   const triggersHeight =
-    triggers?.map(trigger =>
-      trigger.status === 'inactive'
-        ? TRIGGER_OFFSET.top + STEP * 5
-        : ACTION_OFFSET.top +
-          (trigger.newActions ? (trigger.newActions.actions?.length ?? 0) + 1 : 0) * ACTION_STEP.top +
-          (trigger.updateActions ? (trigger.updateActions.actions?.length ?? 0) + 1 : 0) * ACTION_STEP.top +
-          (trigger.deleteActions ? (trigger.deleteActions.actions?.length ?? 0) + 1 : 0) * ACTION_STEP.top,
-    ) || [];
+    triggers.map(trigger => {
+      const newActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.New);
+      const updateActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Update);
+      const deleteActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Delete);
+
+      return (
+        ACTION_OFFSET.top +
+        (newActionGroups ? newActionGroups.length + 1 : 0) * ACTION_STEP.top +
+        (updateActionGroups ? updateActionGroups.length + 1 : 0) * ACTION_STEP.top +
+        (deleteActionGroups ? deleteActionGroups.length + 1 : 0) * ACTION_STEP.top
+      );
+    }) || [];
+
   const totalHeight = triggersHeight.reduce((prevHeight, currentHeight) => currentHeight + prevHeight, 0) || 0;
 
   const totalWidth = Math.max(
-    ...(triggers?.map(trigger =>
-      trigger.status === 'inactive'
-        ? TRIGGER_OFFSET.left + STEP * 5
-        : Math.max(
-            ACTION_OFFSET.left + ((trigger ? getNestingDepth(trigger.newActions?.actions) : 0) + 1) * ACTION_STEP.left,
-            ACTION_OFFSET.left +
-              ((trigger ? getNestingDepth(trigger.updateActions?.actions) : 0) + 1) * ACTION_STEP.left,
-            ACTION_OFFSET.left +
-              ((trigger ? getNestingDepth(trigger.deleteActions?.actions) : 0) + 1) * ACTION_STEP.left,
-          ),
-    ) || [0]),
+    ...(triggers.map(trigger => {
+      const newActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.New);
+      const updateActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Update);
+      const deleteActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Delete);
+
+      return Math.max(
+        ACTION_OFFSET.left + ((newActionGroups.length ?? 0) + 1) * ACTION_STEP.left,
+        ACTION_OFFSET.left + ((updateActionGroups.length ?? 0) + 1) * ACTION_STEP.left,
+        ACTION_OFFSET.left + ((deleteActionGroups.length ?? 0) + 1) * ACTION_STEP.left,
+      );
+    }) || [0]),
   );
+
+  const renderTriggerActionGroups = (trigger: WorkflowTriggerWithActionGroups) => {
+    const newActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.New);
+    const updateActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Update);
+    const deleteActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Delete);
+
+    return (
+      <>
+        {/** Render new actions */}
+        {newActionGroups &&
+          renderActionGroup(
+            newActionGroups,
+            TRIGGER_OFFSET.left + 5 * STEP,
+            TRIGGER_OFFSET.top + 2.5 * STEP - ACTION_OFFSET.top,
+            formatMessage({ id: 'settings.workflow.new' }),
+            TRIGGER_OFFSET.left + 5 * STEP + 12,
+            TRIGGER_OFFSET.top + 2.5 * STEP - 12 - ACTION_OFFSET.top,
+            trigger.id,
+            WorkflowActionGroupType.New,
+          )}
+
+        {/** Render delete actions */}
+        {deleteActionGroups &&
+          renderActionGroup(
+            deleteActionGroups,
+            TRIGGER_OFFSET.left + 3.5 * STEP,
+            3.5 * STEP - (newActionGroups ? (newActionGroups.length ?? 0) + 1 : 0) * ACTION_STEP.top,
+            formatMessage({ id: 'settings.workflow.delete' }),
+            TRIGGER_OFFSET.left + 2.5 * STEP,
+            -12,
+            trigger.id,
+            WorkflowActionGroupType.Delete,
+            'vertical',
+          )}
+
+        {/** Render update actions */}
+        {updateActionGroups &&
+          renderActionGroup(
+            updateActionGroups,
+            TRIGGER_OFFSET.left + 1.5 * STEP,
+            3.5 * STEP -
+              (newActionGroups ? (newActionGroups.length ?? 0) + 1 : 0) * ACTION_STEP.top -
+              (deleteActionGroups ? (deleteActionGroups.length ?? 0) + 1 : 0) * ACTION_STEP.top,
+            formatMessage({ id: 'settings.workflow.update' }),
+            TRIGGER_OFFSET.left + 0.5 * STEP,
+            -12,
+            trigger.id,
+            WorkflowActionGroupType.Update,
+            'vertical',
+          )}
+      </>
+    );
+  };
 
   return (
     <Box height={canvasHeight} width={canvasWidth} overflow="auto">
@@ -396,7 +420,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
         <Box className={classes.imageContainer} />
         {error && <Box className={classes.errorContainer} />}
 
-        {!triggers?.length ? (
+        {!triggers.length ? (
           <InfoSection emoji="👈">
             {error && (
               <Typography variant="h3" color="error">
@@ -421,67 +445,25 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
                     <Typography className={classes.title}>{index + 1}</Typography>
                   </Box>
                   <TriggerItem
-                    icon={trigger.icon}
-                    title={trigger.title}
+                    icon={TriggerIcons.find(icon => icon.type === trigger.type)?.icon}
+                    title={formatMessage({ id: `dictionaries.workflow_trigger.${trigger.type}` })}
                     state={DndItemState.DROPPED}
-                    status={trigger.status}
-                    conditions={trigger.conditions}
+                    status={'active'}
                     onStatusChange={() => {
                       handleToggleTriggerStatus(index);
                     }}
                     onDelete={() => {
-                      handleShowConfirmModal('trigger', () => handleRemoveTrigger(index));
+                      handleShowConfirmModal('trigger', () => onRemoveTrigger(trigger.id));
                     }}
                     onShowConditions={() => {
-                      handleShowTriggerConditions(index);
+                      // TODO: Show conditions popup
                     }}
                   />
                 </Box>
 
-                {trigger.status !== 'inactive' && (
-                  <>
-                    <Box height={ACTION_OFFSET.top} />
+                <Box height={ACTION_OFFSET.top} />
 
-                    {/** Render new actions */}
-                    {trigger.newActions &&
-                      renderActionGroup(
-                        trigger.newActions,
-                        TRIGGER_OFFSET.left + 5 * STEP,
-                        TRIGGER_OFFSET.top + 2.5 * STEP - ACTION_OFFSET.top,
-                        formatMessage({ id: 'settings.workflow.new' }),
-                        TRIGGER_OFFSET.left + 5 * STEP + 12,
-                        TRIGGER_OFFSET.top + 2.5 * STEP - 12 - ACTION_OFFSET.top,
-                      )}
-
-                    {/** Render delete actions */}
-                    {trigger.deleteActions &&
-                      renderActionGroup(
-                        trigger.deleteActions,
-                        TRIGGER_OFFSET.left + 3.5 * STEP,
-                        3.5 * STEP -
-                          (trigger.newActions ? (trigger.newActions.actions?.length ?? 0) + 1 : 0) * ACTION_STEP.top,
-                        formatMessage({ id: 'settings.workflow.delete' }),
-                        TRIGGER_OFFSET.left + 2.5 * STEP,
-                        -12,
-                        'vertical',
-                      )}
-
-                    {/** Render update actions */}
-                    {trigger.updateActions &&
-                      renderActionGroup(
-                        trigger.updateActions,
-                        TRIGGER_OFFSET.left + 1.5 * STEP,
-                        3.5 * STEP -
-                          (trigger.newActions ? (trigger.newActions.actions?.length ?? 0) + 1 : 0) * ACTION_STEP.top -
-                          (trigger.deleteActions ? (trigger.deleteActions.actions?.length ?? 0) + 1 : 0) *
-                            ACTION_STEP.top,
-                        formatMessage({ id: 'settings.workflow.update' }),
-                        TRIGGER_OFFSET.left + 0.5 * STEP,
-                        -12,
-                        'vertical',
-                      )}
-                  </>
-                )}
+                {renderTriggerActionGroups(trigger)}
               </Box>
             ))}
           </>
@@ -490,7 +472,7 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
         <Box position="absolute" top={2.5 * STEP + totalHeight} left={1.5 * STEP}>
           <DropablePlaceholder
             type={WorkflowItemType.TRIGGER}
-            onDrop={item => onAddItem({ item, type: WorkflowItemType.TRIGGER })}
+            onDrop={item => onAddWorkflowTrigger((item as Trigger).id)}
             hidePlaceholder={!triggers?.length}
           />
         </Box>
@@ -498,17 +480,6 @@ export const WorkflowCanvas = ({ triggers, onAddItem }: WorkflowCanvasProps) => 
 
       {/** Show confirm dialog */}
       {confirmModal}
-
-      {/** Show Trigger conditions dialog */}
-      <TriggerConditions
-        data={triggerCondition !== null ? triggers?.[triggerCondition]?.conditions : {}}
-        isOpened={triggerCondition !== null}
-        activeTab={conditionTab}
-        onSubmit={handleUpdateTriggerConditions}
-        onTabChange={tab => setConditionTab(tab)}
-        onClose={() => handleShowTriggerConditions(null)}
-        conditionsTypes={generalConditionsTypes}
-      />
     </Box>
   );
 };

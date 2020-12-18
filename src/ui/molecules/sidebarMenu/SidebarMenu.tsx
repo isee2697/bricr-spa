@@ -30,6 +30,7 @@ export const SidebarMenu = ({
   translationPrefix,
   bannerColor,
   hasHideButton = true,
+  children,
 }: SidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { pathname } = useLocation();
@@ -184,6 +185,7 @@ export const SidebarMenu = ({
                   </Box>
                 ))}
               </SideMenu>
+              {children}
             </Scrollable>
           </div>
         </div>

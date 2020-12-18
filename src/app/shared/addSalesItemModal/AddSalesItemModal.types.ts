@@ -25,4 +25,5 @@ export enum SalesItemType {
   Acquisition = 'Acquisition',
   Quotation = 'Quotation',
   Order = 'Order',
+  Invoice = 'Invoice',
 }

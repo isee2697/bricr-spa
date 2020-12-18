@@ -1,0 +1,101 @@
+type WorkflowTemplate {
+  id: ID!
+  image: String
+  name: String!
+  icon: String!
+  status: WorkflowTemplateStatus!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type CreateWorkflowTemplateInput {
+  name: String!
+  icon: String!
+}
+
+type WorkflowSection {
+  id: ID!
+  workflowTemplateId: ID!
+  name: String!
+  startpoint: WorkflowSectionStartpoint!
+  startpointOutside: ID
+  endpoint: WorkflowSectionEndpoint!
+  endpointOutside: ID
+}
+
+type CreateWorkflowSectionInput {
+  workflowTemplateId: ID!
+  name: String!
+  startpoint: WorkflowSectionStartpoint!
+  startpointOutside: ID
+  endpoint: WorkflowSectionEndpoint!
+  endpointOutside: ID
+}
+
+type WorkflowTrigger {
+  id: ID!
+  workflowSectionId: ID!
+  type: WorkflowTriggerType!
+}
+
+type CreateWorkflowTriggerInput {
+  workflowSectionId: ID!
+  type: WorkflowTriggerType!
+}
+
+type WorkflowActionGroup {
+  id: ID!
+  workflowTriggerId: ID!
+  type: WorkflowActionGroupType!
+}
+
+type WorkflowAction {
+  id: ID!
+  workflowActionGroupId: ID!
+  type: WorkflowActionType!
+  actionIndex: Int!
+}
+
+type CreateWorkflowActionInput {
+  workflowTriggerId: ID!
+  workflowActionGroupType: WorkflowActionGroupType
+  workflowActionGroupId: ID
+  type: WorkflowActionType!
+}
+
+enum WorkflowTemplateStatus {
+  Active
+  Inactive
+}
+
+enum WorkflowSectionStartpoint {
+  Start
+  Outside
+  Previous
+}
+
+enum WorkflowSectionEndpoint {
+  End
+  Outside
+  Next
+}
+
+enum WorkflowTriggerType {
+  MakeAppointment
+  DifferentTrigger
+  Trigger1
+  Trigger2
+}
+
+enum WorkflowActionGroupType {
+  New
+  Delete
+  Update
+}
+
+enum WorkflowActionType {
+  SendEmail
+  Action1
+  Action2
+  Action3
+}

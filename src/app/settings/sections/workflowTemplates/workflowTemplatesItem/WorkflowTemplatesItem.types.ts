@@ -1,7 +1,7 @@
-import { ActiveTabStatus, WorkflowItem } from '../WorkflowTemplates.types';
+import { WorkflowTemplate, WorkflowTemplateStatus } from 'api/types';
 
 export type WorkflowTemplatesItemProps = {
-  template: WorkflowItem;
+  template: WorkflowTemplate;
   onCopyToCustom: () => void;
-  onStatusChange: (status: ActiveTabStatus) => void;
+  onStatusChange: (status: WorkflowTemplateStatus) => void;
 };
