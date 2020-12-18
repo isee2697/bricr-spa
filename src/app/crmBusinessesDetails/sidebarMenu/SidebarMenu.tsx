@@ -32,11 +32,11 @@ export const CrmBusinessDetailsSidebarMenu = ({ onHide, isVisible }: CrmBusiness
           { key: 'timeline' },
           { key: 'summary' },
           {
-            key: 'customer_journey',
+            key: 'business_journey',
             subItems: [
               {
                 id: 'your_new_home',
-                label: 'crm.details.menu.customer_journey.your_new_home',
+                label: 'crm.details.menu.business_journey.your_new_home',
               },
             ],
           },
