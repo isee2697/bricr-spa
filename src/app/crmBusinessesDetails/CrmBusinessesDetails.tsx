@@ -8,6 +8,7 @@ import { CrmBusinessesDetailsProps } from './CrmBusinessesDetails.types';
 import { useStyles } from './CrmBusinessesDetails.styles';
 import { CrmBusinessDetailsSidebarMenu } from './sidebarMenu/SidebarMenu';
 import { CrmBusinessDetailsDashboard } from './dashboard/Dashboard';
+import { BusinessJourneyContainer } from './businessJourney/BusinessJourneyContainer';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -34,6 +35,16 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                   path={`${path}/dashboard`}
                   render={() => (
                     <CrmBusinessDetailsDashboard
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                      crm={crm}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/business_journey`}
+                  render={() => (
+                    <BusinessJourneyContainer
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                       crm={crm}

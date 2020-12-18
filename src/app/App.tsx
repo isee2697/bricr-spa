@@ -11,6 +11,7 @@ import { AddCrmRelationModalContainer } from './shared/addCrmRelationModal/AddCr
 import { CreateNewTaskModalContainer } from './shared/createNewTaskModal/CreateNewTaskModalContainer';
 import { AddCrmTimelineModalContainer } from './shared/addCrmTimelineModal/AddCrmTimelineModalContainer';
 import { AddSalesItemModalContainer } from './shared/addSalesItemModal/AddSalesItemModalContainer';
+import { AddCrmBusinessModalContainer } from './shared/addCrmBusinessModal/AddCrmBusinessModalContainer';
 
 export const App = () => {
   usePages(true);
@@ -21,6 +22,7 @@ export const App = () => {
       <AddPimModalContainer />
       <MovePimModalContainer />
       <AddCrmRelationModalContainer />
+      <AddCrmBusinessModalContainer />
       <CreateNewTaskModalContainer />
       <AddCrmTimelineModalContainer />
       <AddSalesItemModalContainer />
