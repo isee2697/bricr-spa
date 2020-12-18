@@ -144,6 +144,10 @@ export const PimDetailsSidebarMenu = ({
                 id: 'personal',
                 label: 'pim_details.summary.personal.title',
               },
+              {
+                id: 'signsAndKey',
+                label: 'pim_details.summary.signs_and_key.title',
+              },
             ],
           },
           { key: 'propertyJourney' },
