@@ -12,7 +12,7 @@ export type SalesAcquisitionProps = {
   onStatusChange: (status: SalesStatus) => void;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
-  salesAcquisitions?: GetSalesListData;
+  salesAcquisitions: Sales[];
 };
 
 export interface GetSalesListData extends PaginatedMeta {

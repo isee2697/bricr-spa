@@ -1,34 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { useAuthState } from 'hooks';
+import { useAdvancedSearchLazyQuery } from 'api/types';
 
 import { Search } from './Search';
-import { AdvancedSearchResult } from './Search.types';
 
 export const SearchContainer = () => {
-  const { accessToken } = useAuthState();
-  const [searchResult, setSearchResult] = useState<AdvancedSearchResult>();
+  const [advancedSearch, { data }] = useAdvancedSearchLazyQuery({
+    fetchPolicy: 'no-cache',
+  });
 
   const handleSearch = async (keyword: string) => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_FILE_URL}/advanced-search?keyword=${keyword}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + accessToken,
+    advancedSearch({
+      variables: {
+        input: {
+          keyword,
         },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setSearchResult(result);
-      }
-
-      return undefined;
-    } catch (error) {
-      return error;
-    }
+      },
+    });
   };
 
-  return <Search results={searchResult} onSearch={handleSearch} />;
+  return (
+    <Search
+      results={data?.advancedSearch || { users: [], crms: [], pims: [], emails: [], teams: [] }}
+      onSearch={handleSearch}
+    />
+  );
 };

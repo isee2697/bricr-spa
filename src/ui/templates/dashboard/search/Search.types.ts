@@ -1,12 +1,4 @@
-import { CrmContactInformation, Pim, Profile, Team } from 'api/types';
-
-export type AdvancedSearchResult = {
-  users: Profile[];
-  emails: Profile[];
-  crms: CrmContactInformation[];
-  pims: Pim[];
-  teams: Team[];
-};
+import { AdvancedSearchResult } from 'api/types';
 
 export type SearchProps = {
   results?: AdvancedSearchResult;

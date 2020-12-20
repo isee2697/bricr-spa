@@ -225,3 +225,17 @@ enum SalesRole {
   Concierge
   Gardener
 }
+
+input SalesFilters {
+  label: SalesLabel!
+  status: SalesStatus!
+}
+
+type SalesSearchResult {
+  metadata: SearchMetadata
+  items: [Sales!]
+}
+
+extend type Query {
+  getSalesList(filters: SalesFilters!, sort: [Sort!]): SalesSearchResult
+}

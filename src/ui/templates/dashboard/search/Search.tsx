@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { Search as BaseSearch } from 'ui/molecules';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
+import { AdvancedSearchResult } from 'api/types';
 
-import { AdvancedSearchResult, FormattedAdvancedSearchResult, SearchProps } from './Search.types';
+import { FormattedAdvancedSearchResult, SearchProps } from './Search.types';
 
 export const Search = ({ results, onSearch }: SearchProps) => {
   const [hasFocus, setFocus] = useState(false);
@@ -24,9 +25,11 @@ export const Search = ({ results, onSearch }: SearchProps) => {
         type: 'Contact',
       })),
       ...(result?.crms || []).map(crm => ({
-        title: crm.addresses
-          ? `${crm.addresses[0].street || ''} ${crm.addresses[0].houseNumber || ''}, ${crm.addresses[0].city || ''} `
-          : '',
+        title: `${crm.firstName || ''} ${crm.insertion || ''} ${crm.lastName}`,
+        type: 'Property',
+      })),
+      ...(result?.pims || []).map(pim => ({
+        title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
         type: 'Property',
       })),
     ];

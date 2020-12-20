@@ -1,0 +1,18 @@
+type AdvancedSearchResult {
+  users: [Profile!]
+  emails: [Profile!]
+  crms: [CrmListItem!]
+  pims: [Pim!]
+  teams: [Team!]
+}
+
+input AdvancedSearchInput {
+  keyword: String!
+  type: [Entities!]
+  page: Int
+  size: Int
+}
+
+extend type Query {
+  advancedSearch(input: AdvancedSearchInput!): AdvancedSearchResult
+}

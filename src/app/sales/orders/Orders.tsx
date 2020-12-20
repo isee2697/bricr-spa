@@ -111,7 +111,7 @@ export const Orders = ({
                 emptyTitle={formatMessage({ id: 'sales.orders.empty_title' })}
                 emptyDescription={formatMessage({ id: 'sales.orders.empty_description' })}
                 sortOptions={sortOptions}
-                items={orders?.salesItems || []}
+                items={orders}
                 itemIndex={'id'}
                 renderItem={(order, checked, checkbox) => (
                   <OrderItem status={status} order={order} checked={checked} checkbox={checkbox} />
