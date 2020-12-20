@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon';
 
 import {
-  CrmRelationsCustomerJourneyProperty,
-  CrmRelationsDetailsCustomerJourneyType,
-} from '../../app/crmRelationsDetails/crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourney.types';
+  BusinessJourneyProperty,
+  BusinessJourneyType,
+} from 'app/crmBusinessesDetails/businessJourney/BusinessJourney.types';
 import {
   MatchProfile,
   MatchProfileMatch,
-} from '../../app/crmRelationsDetails/personalInformation/matchProfile/MatchProfile.types';
+} from 'app/crmRelationsDetails/personalInformation/matchProfile/MatchProfile.types';
 
 export const CRM_BUSINESSES = [
   {
@@ -32,7 +32,7 @@ export const CRM_BUSINESSES = [
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_MATCHING: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_MATCHING: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -41,10 +41,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_MATCHING: CrmRelationsDetailsCustom
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -58,10 +58,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_MATCHING: CrmRelationsDetailsCustom
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -75,10 +75,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_MATCHING: CrmRelationsDetailsCustom
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -86,7 +86,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_MATCHING: CrmRelationsDetailsCustom
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_INTERESTS: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_INTERESTS: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -95,10 +95,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_INTERESTS: CrmRelationsDetailsCusto
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -112,10 +112,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_INTERESTS: CrmRelationsDetailsCusto
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -129,10 +129,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_INTERESTS: CrmRelationsDetailsCusto
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -140,7 +140,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_INTERESTS: CrmRelationsDetailsCusto
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_VIEWINGS: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_VIEWINGS: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -149,10 +149,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_VIEWINGS: CrmRelationsDetailsCustom
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -184,7 +184,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_VIEWINGS: CrmRelationsDetailsCustom
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_BIDDINGS: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_BIDDINGS: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -193,10 +193,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_BIDDINGS: CrmRelationsDetailsCustom
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -248,7 +248,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_BIDDINGS: CrmRelationsDetailsCustom
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_CANDIDATES: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_CANDIDATES: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -257,10 +257,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_CANDIDATES: CrmRelationsDetailsCust
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -286,7 +286,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_CANDIDATES: CrmRelationsDetailsCust
   },
 ];
 
-export const CRM_BUSINESSES_CUSTOMER_JOURNEY_OPTANTS: CrmRelationsDetailsCustomerJourneyType[] = [
+export const CRM_BUSINESS_BUSINESS_JOURNEY_OPTANTS: BusinessJourneyType[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -295,10 +295,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_OPTANTS: CrmRelationsDetailsCustome
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -309,10 +309,10 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_OPTANTS: CrmRelationsDetailsCustome
         finalPrice: 35000,
         finalPriceDate: DateTime.fromISO('2020-05-17T15:26:40.317Z'),
         properties: [
-          CrmRelationsCustomerJourneyProperty.Apartment,
-          CrmRelationsCustomerJourneyProperty.Balcony,
-          CrmRelationsCustomerJourneyProperty.Terrace,
-          CrmRelationsCustomerJourneyProperty.Garden,
+          BusinessJourneyProperty.Apartment,
+          BusinessJourneyProperty.Balcony,
+          BusinessJourneyProperty.Terrace,
+          BusinessJourneyProperty.Garden,
         ],
         price: 358000,
         matchStrength: 0.65,
@@ -333,7 +333,7 @@ export const CRM_BUSINESSES_CUSTOMER_JOURNEY_OPTANTS: CrmRelationsDetailsCustome
   },
 ];
 
-export const CRM_BUSINESSES_MATCH_PROFILES: MatchProfile[] = [
+export const CRM_BUSINESS_MATCH_PROFILES: MatchProfile[] = [
   {
     id: '0001',
     amount: 112,
@@ -346,7 +346,7 @@ export const CRM_BUSINESSES_MATCH_PROFILES: MatchProfile[] = [
   },
 ];
 
-export const CRM_BUSINESSES_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
+export const CRM_BUSINESS_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
   {
     id: '00-0000',
     name: 'Van der Meerstraat 45, Amersfoort',
@@ -355,10 +355,10 @@ export const CRM_BUSINESSES_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -372,10 +372,10 @@ export const CRM_BUSINESSES_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
@@ -389,10 +389,10 @@ export const CRM_BUSINESSES_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
     size: 65,
     rooms: 2,
     properties: [
-      CrmRelationsCustomerJourneyProperty.Apartment,
-      CrmRelationsCustomerJourneyProperty.Balcony,
-      CrmRelationsCustomerJourneyProperty.Terrace,
-      CrmRelationsCustomerJourneyProperty.Garden,
+      BusinessJourneyProperty.Apartment,
+      BusinessJourneyProperty.Balcony,
+      BusinessJourneyProperty.Terrace,
+      BusinessJourneyProperty.Garden,
     ],
     price: 358000,
     matchStrength: 0.65,
