@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { SalesLabel, SalesSearchResult, SalesStatus, SortDirection, useGetSalesListLazyQuery } from 'api/types';
+import { SalesLabel, SalesStatus, SortDirection, useGetSalesListLazyQuery } from 'api/types';
 import { useAuthState } from 'hooks';
 
 import { DashboardOrders } from './DashboardOrders';
@@ -8,7 +8,7 @@ import { DashboardOrders } from './DashboardOrders';
 export const DashboardOrdersContainer = () => {
   const { accessToken } = useAuthState();
   const [selectedTab, setSelectedTab] = useState<SalesLabel>(SalesLabel.Acquisition);
-  const [getSalesList, { data, loading, error }] = useGetSalesListLazyQuery({
+  const [getSalesList, { data }] = useGetSalesListLazyQuery({
     fetchPolicy: 'no-cache',
   });
 
