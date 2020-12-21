@@ -1,0 +1,23 @@
+input LinkSalesPimsInput {
+  cyclusId: String!
+  pimIds: [String!]!
+}
+
+type LinkSalesPimsListPaginationMeta {
+  total: Int!
+  page: Int!
+  limit: Int!
+}
+
+type LinkSalesPimsListResult {
+  meta: LinkSalesPimsListPaginationMeta!
+  salesPimsItems: [ListPim!]
+}
+
+extend type Query {
+  getSalesPimsList(id: ID!): LinkSalesPimsListResult!
+}
+
+extend type Mutation {
+  linkSalesPims(input: LinkSalesPimsInput!): [ListPim!]
+}

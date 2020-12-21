@@ -1,0 +1,23 @@
+input LinkSalesCrmsInput {
+  cyclusId: String!
+  crmIds: [String!]!
+}
+
+type LinkSalesCrmsListPaginationMeta {
+  total: Int!
+  page: Int!
+  limit: Int!
+}
+
+type LinkSalesCrmsListResult {
+  meta: LinkSalesCrmsListPaginationMeta!
+  salesCrmsItems: [CrmListItem!]
+}
+
+extend type Query {
+  getSalesCrmsList(id: ID!): LinkSalesCrmsListResult!
+}
+
+extend type Mutation {
+  linkSalesCrms(input: LinkSalesCrmsInput!): [CrmListItem!]
+}
