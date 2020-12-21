@@ -1,38 +1,14 @@
 import React from 'react';
 import clsx from 'classnames';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
 
 import { useLocale } from 'hooks';
-import { Avatar, Box, Emoji, IconButton, Step, StepConnector, StepLabel, Stepper, Typography } from 'ui/atoms';
+import { Avatar, Box, Emoji, IconButton, Step, StepLabel, Stepper, Typography } from 'ui/atoms';
 import { CheckIcon, CloseIcon, MenuIcon } from 'ui/atoms/icons';
-import { DocumentRequestStatus } from '../Documents.types';
+import { DocumentRequestStatus } from '../../Documents.types';
 
 import { DocumentListItemProps, DocumentRequestStep } from './ListItem.types';
-import { useStyles } from './ListItem.styles';
-
-const StatusStepConnector = withStyles(theme => ({
-  alternativeLabel: {
-    left: `calc(-100% + ${theme.spacing(3)}px)`,
-    right: '100%',
-  },
-  active: {
-    '& $line': {
-      background: theme.palette.green.main,
-    },
-  },
-  completed: {
-    '& $line': {
-      background: theme.palette.green.main,
-    },
-  },
-  line: {
-    background: theme.palette.gray.light,
-    borderTopWidth: 0,
-    minHeight: 2,
-    height: 2,
-  },
-}))(StepConnector);
+import { StatusStepConnector, useStyles } from './ListItem.styles';
 
 export const DocumentListItem = ({ rowIndex, checkbox, checked, item }: DocumentListItemProps) => {
   const classes = useStyles();

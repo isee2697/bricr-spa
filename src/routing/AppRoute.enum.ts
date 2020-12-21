@@ -9,6 +9,7 @@ export enum AppRoute {
   linkedPropertyDetails = '/projectDetails/:projectId/objectTypeDetails/:objectTypeId/property/:id',
   crm = '/crm',
   crmRelationsDetails = '/crmRelations/:id',
+  crmRelationsDocumentDetails = '/crmRelations/:id/documents/:docId',
   crmBusinessesDetails = '/crmBusinesses/:id',
   crmGeneral = '/crm/:id/personal_information_general',
   sales = '/sales',

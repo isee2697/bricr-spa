@@ -1,10 +1,35 @@
+import { StepConnector, withStyles } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+
+export const StatusStepConnector = withStyles(theme => ({
+  alternativeLabel: {
+    left: `calc(-100% + ${theme.spacing(3)}px)`,
+    right: '100%',
+  },
+  active: {
+    '& $line': {
+      background: theme.palette.green.main,
+    },
+  },
+  completed: {
+    '& $line': {
+      background: theme.palette.green.main,
+    },
+  },
+  line: {
+    background: theme.palette.gray.light,
+    borderTopWidth: 0,
+    minHeight: 2,
+    height: 2,
+  },
+}))(StepConnector);
 
 export const useStyles = makeStyles(theme => ({
   row: {
     display: 'flex',
     alignItems: 'stretch',
     position: 'relative',
+    cursor: 'pointer',
 
     '&:after': {
       content: '""',

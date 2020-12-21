@@ -1,6 +1,12 @@
 import { DateTime } from 'luxon';
 
 import {
+  Document,
+  DocumentFolderType,
+  DocumentRequestStatus,
+  DocumentStatus,
+} from 'app/crmRelationsDetails/documents/Documents.types';
+import {
   CrmRelationsCustomerJourneyProperty,
   CrmRelationsDetailsCustomerJourneyType,
 } from '../../app/crmRelationsDetails/crmRelationsDetailsCustomerJourney/CrmRelationsDetailsCustomerJourney.types';
@@ -8,6 +14,7 @@ import {
   MatchProfile,
   MatchProfileMatch,
 } from '../../app/crmRelationsDetails/personalInformation/matchProfile/MatchProfile.types';
+import { DocumentDetailsType } from 'app/crmRelationsDetails/documents/documentDetails/DocumentDetails.types';
 
 export const CRM_RELATIONS = [
   {
@@ -395,3 +402,166 @@ export const CRM_RELATIONS_MATCH_PROFILES_MATCHES: MatchProfileMatch[] = [
     dateCreated: DateTime.local().minus({ hour: 1 }),
   },
 ];
+
+export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
+  {
+    id: 'folder-1',
+    name: 'Acquisition',
+    documents: [
+      {
+        id: '0001',
+        name: 'Wojciech’s Drivers Licence',
+        image: 'http://placeimg.com/104/152/arch',
+        dateCreated: DateTime.local(),
+        stepsCompleted: [
+          {
+            status: DocumentRequestStatus.Request,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.UserNotified,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.Uploaded,
+            date: DateTime.local(),
+          },
+        ],
+        type: 'pdf',
+        size: 34000,
+      },
+      {
+        id: '0002',
+        name: 'Wojciech’s Passport',
+        image: 'http://placeimg.com/104/152/arch',
+        dateCreated: DateTime.local(),
+        stepsCompleted: [
+          {
+            status: DocumentRequestStatus.Request,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.RequestRejected,
+            date: DateTime.local(),
+          },
+        ],
+        type: 'pdf',
+        size: 32000,
+      },
+      {
+        id: '0003',
+        name: 'Wojciech’s Drivers Licence',
+        image: 'http://placeimg.com/104/152/arch',
+        dateCreated: DateTime.local(),
+        stepsCompleted: [
+          {
+            status: DocumentRequestStatus.Request,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.UserNotified,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.Uploaded,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.Accepted,
+            date: DateTime.local(),
+          },
+        ],
+        type: 'docx',
+        size: 4000,
+      },
+    ],
+  },
+  {
+    id: 'folder-2',
+    name: 'Sales order',
+    documents: [],
+  },
+  {
+    id: 'folder-3',
+    name: 'Contracts',
+    documents: [],
+  },
+];
+
+export const CRM_DOCUMENTS: Document[] = [
+  {
+    id: '0001',
+    name: 'Wojciech’s Drivers Licence',
+    image: 'http://placeimg.com/104/152/arch',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.UserNotified,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Uploaded,
+        date: DateTime.local(),
+      },
+    ],
+    type: 'pdf',
+    size: 34000,
+  },
+  {
+    id: '0002',
+    name: 'Wojciech’s Passport',
+    image: 'http://placeimg.com/104/152/arch',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.RequestRejected,
+        date: DateTime.local(),
+      },
+    ],
+    type: 'pdf',
+    size: 32000,
+  },
+  {
+    id: '0003',
+    name: 'Wojciech’s Drivers Licence',
+    image: 'http://placeimg.com/104/152/arch',
+    dateCreated: DateTime.local(),
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.UserNotified,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Uploaded,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Accepted,
+        date: DateTime.local(),
+      },
+    ],
+    type: 'docx',
+    size: 4000,
+  },
+];
+
+export const CRM_DOCUMENT_DETAIL: DocumentDetailsType = {
+  id: '0001',
+  name: 'Akte van levering',
+  version: 4,
+  status: DocumentStatus.Uploaded,
+  previousVersions: CRM_DOCUMENTS,
+  file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+};
