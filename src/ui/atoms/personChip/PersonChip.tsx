@@ -10,9 +10,11 @@ export const PersonChip = ({ name, image, label, onDelete }: PersonChipProps) =>
 
   return (
     <>
-      <Typography className={classes.label} variant="h6">
-        {label}
-      </Typography>
+      {label && (
+        <Typography className={classes.label} variant="h6">
+          {label}
+        </Typography>
+      )}
       <Chip
         className={classes.chip}
         avatar={image ? <Avatar variant="square" alt={name} src={image} /> : undefined}

@@ -148,6 +148,10 @@ export const PimDetailsSidebarMenu = ({
                 id: 'signsAndKey',
                 label: 'pim_details.summary.signs_and_key.title',
               },
+              {
+                id: 'auditChecklist',
+                label: 'pim_details.summary.audit_checklist.title',
+              },
             ],
           },
           { key: 'propertyJourney' },
