@@ -24,11 +24,11 @@ export const AuditChecklist = ({ summary, isSidebarVisible, onSidebarOpen }: Aud
       <PimDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page withoutHeader classes={{ container: classes.summaryContainer }}>
         <Grid xs={12} item className={classes.summaryContent}>
-          <Box display="flex" alignItems="cetner" justifyContent="space-between">
-            <Box display="flex" alignItems="center">
-              <Typography variant="h1" className={classes.fontWeightBold}>
-                {formatMessage({ id: 'pim_details.summary.audit_checklist.title' })}
-              </Typography>
+          <Typography variant="h1" className={classes.fontWeightBold}>
+            {formatMessage({ id: 'pim_details.summary.audit_checklist.title' })}
+          </Typography>
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box>
               <Typography variant="h1" className={clsx(classes.marginTopTwo, classes.fontWeightMedium)}>
                 <BuildingIcon className={classes.addressIcon} color="error" /> {address}
               </Typography>
