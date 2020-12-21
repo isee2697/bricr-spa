@@ -6,7 +6,7 @@ orbs:
 # Define the jobs we want to run for this project
 jobs:
   build-tests:
-    resource_class: medium
+    resource_class: large
     docker:
       - image: cypress/base:12
     steps:
@@ -57,6 +57,7 @@ jobs:
           name: "Config and install"
       - run: npm run coverage
   lint-and-build:
+    resource_class: large
     docker:
       - image: cimg/node:12.19.1
     steps:
