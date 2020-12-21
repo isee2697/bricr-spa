@@ -1,22 +1,25 @@
 import React from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router-dom';
 
 import { Avatar, Box, Chip, Emoji, Grid, IconButton, PersonChip, Typography } from 'ui/atoms';
 import { MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { InvoicesStatus } from 'app/crmRelationsDetails/sales/invoices/Invoices.types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { InvoiceItemProps } from './InvoiceItem.types';
 import { useStyles } from './InvoiceItem.styles';
 
 export const InvoiceItem = ({
-  item: { image, number, date, dueDate, type, amount, tax, interest, address, linkedObjects = [], status },
+  item: { id, image, number, date, dueDate, type, amount, tax, interest, address, linkedObjects = [], status },
   checkbox,
   checked,
 }: InvoiceItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   return (
     <>
@@ -180,7 +183,11 @@ export const InvoiceItem = ({
               </Grid>
             </Grid>
           </Box>
-          <IconButton variant="rounded" size="small">
+          <IconButton
+            variant="rounded"
+            size="small"
+            onClick={() => push(AppRoute.salesInvoiceDetails.replace(':id', id))}
+          >
             <MenuIcon />
           </IconButton>
         </Box>

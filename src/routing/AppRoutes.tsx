@@ -30,6 +30,7 @@ import { EmailContainer } from '../app/email/EmailContainer';
 import { SalesDetailsContainer } from 'app/salesDetails/SalesDetailsContainer';
 import { DocumentDetailsContainer as PimDocumentDetailsContainer } from 'app/pimDetails/sections/documents/documentDetails/DocumentDetailsContainer';
 import { CrmBusinessesDetailsContainer } from 'app/crmBusinessesDetails/CrmBusinessesDetailsContainer';
+import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoiceDetailsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -85,6 +86,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.crmBusinessesDetails} component={CrmBusinessesDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.sales} component={SalesContainer} />
                 <AuthorizedRoute path={AppRoute.salesDetails} component={SalesDetailsContainer} />
+                <AuthorizedRoute path={AppRoute.salesInvoiceDetails} component={SalesInvoiceDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.settings} component={SettingsContainer} />
                 <AuthorizedRoute path={AppRoute.tasks} exact component={TasksContainer} />
                 <AuthorizedRoute path={AppRoute.taskDetails} component={TaskDetailsContainer} />
