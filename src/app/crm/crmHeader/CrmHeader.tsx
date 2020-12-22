@@ -5,6 +5,7 @@ import { Grid, Box, IconButton, Typography, Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { HideIcon } from 'ui/atoms/icons/hide/HideIcon';
 import { useModalDispatch } from 'hooks';
+import { CrmType } from 'api/types';
 
 import { CrmHeaderProps } from './CrmHeader.types';
 import { useStyles } from './CrmHeader.styles';
@@ -32,7 +33,7 @@ export const CrmHeader = ({ type, isSidebarVisible, onSidebarOpen }: CrmHeaderPr
       <Button
         color="primary"
         variant="contained"
-        onClick={() => open('add-relation')}
+        onClick={() => (type === CrmType.Relation ? open('add-relation') : open('add-business'))}
         startIcon={<AddIcon color="inherit" />}
         size="small"
       >
