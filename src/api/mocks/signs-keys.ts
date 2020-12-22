@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 
 import { KeyBoardSetting } from 'app/settings/sections/keyBoard/Keyboard.types';
+import { SignBoardSetting, TypeOfSign } from 'app/settings/sections/signBoard/SignBoard.types';
 
 export const PIM_SUMMARY_KEY = {
   number: 'h-2345',
@@ -15,5 +16,25 @@ export const KEY_BOARD_SETTING: KeyBoardSetting[] = [
     to: 'C van Gils',
     object: 'Isenburgstraat 36, Breda, Netherlands',
     lentDate: DateTime.local(),
+  },
+];
+
+export const SIGN_BOARD_SETTINGS: SignBoardSetting[] = [
+  {
+    number: '1234',
+    object: 'Isenburgstraat 36, Breda, Netherlands',
+    typeOfSign: TypeOfSign.Flag,
+    datePlace: DateTime.local(),
+    dateRemove: DateTime.local(),
+    datePlaced: DateTime.local(),
+  },
+  {
+    number: '1234',
+    object: 'Isenburgstraat 36, Breda, Netherlands',
+    typeOfSign: TypeOfSign.Triangle,
+    dateSold: DateTime.local(),
+    datePlace: DateTime.local(),
+    dateRemove: DateTime.local(),
+    datePlaced: DateTime.local(),
   },
 ];
