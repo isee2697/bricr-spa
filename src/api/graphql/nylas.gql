@@ -20,6 +20,12 @@ type NylasAccountItem {
     syncState: String!
 }
 
+input NylasAccountAuthOptions {
+    loginHint: String!
+    redirectURI: String
+    scopes: [String!]
+}
+
 extend type Mutation {
     authorizeNylasAccount(input: NylasAuthorizationInput!, isCalendarConnected: Boolean): Boolean @auth
     authorizeNylasAccountWithToken(nylasToken: String!, isCalendarConnected: Boolean): Boolean @auth
@@ -27,4 +33,5 @@ extend type Mutation {
 
 extend type Query {
     listNylasAccount(isCalendarConnected: Boolean): [NylasAccountItem!] @auth
+    getNylasAuthUrl(input: NylasAccountAuthOptions!): String @auth
 }

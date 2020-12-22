@@ -11,3 +11,9 @@ export const LIST_NYLAS_ACCOUNT = gql`
     }
   }
 `;
+
+export const GET_NYLAS_AUTH_URL = gql`
+  query GetNylasAuthUrl($input: NylasAccountAuthOptions!) {
+    getNylasAuthUrl(input: $input)
+  }
+`;

@@ -4,7 +4,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import clsx from 'classnames';
-import Nylas from 'nylas';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { useHistory } from 'react-router';
 
@@ -14,17 +13,12 @@ import { Page } from 'ui/templates';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
-import { useAuthorizeNylasAccountWithTokenMutation } from 'api/types';
+import { useAuthorizeNylasAccountWithTokenMutation, useGetNylasAuthUrlLazyQuery } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddNewAccountModal } from './addNewAccountModal/AddNewAccountModal';
 import { useStyles } from './Settings.styles';
 import { CalendarSettingsProps } from './Settings.types';
-
-Nylas.config({
-  clientId: process.env.REACT_APP_NYLAS_CLIENT_ID || '',
-  clientSecret: process.env.REACT_APP_NYLAS_CLIENT_SECRET || '',
-});
 
 export const CalendarSettings = ({
   onSidebarClose,
@@ -39,6 +33,7 @@ export const CalendarSettings = ({
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState<'active' | 'inactive'>('active');
   const [authorizeNylasAccountWithToken] = useAuthorizeNylasAccountWithTokenMutation();
+  const [getNylasAuthUrl, { data: nylasAuthUrl }] = useGetNylasAuthUrlLazyQuery();
 
   const [nylasAuthCode, setNylasAuthCode] = useQueryParam('code', StringParam);
 
@@ -58,6 +53,10 @@ export const CalendarSettings = ({
     };
     addNylasAccount();
   }, [authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
+
+  if (nylasAuthUrl?.getNylasAuthUrl) {
+    window.open(nylasAuthUrl.getNylasAuthUrl, '_blank');
+  }
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -177,10 +176,11 @@ export const CalendarSettings = ({
             scopes: ['email.modify', 'email.send', 'calendar', 'contacts'],
           };
 
-          // Redirect your user to the auth_url
-          const authUrl = Nylas.urlForAuthentication(options);
-
-          window.open(authUrl, '_blank');
+          await getNylasAuthUrl({
+            variables: {
+              input: options,
+            },
+          });
 
           return true;
         }}

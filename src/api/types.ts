@@ -967,6 +967,7 @@ export type Query = {
   getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
   getNotifications?: Maybe<NotificationSearchResult>;
+  getNylasAuthUrl?: Maybe<Scalars['String']>;
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeLabels?: Maybe<Array<Label>>;
@@ -1097,6 +1098,10 @@ export type QueryGetNcpServicesArgs = {
 
 export type QueryGetNcpWithSameAddressArgs = {
   input: NcpWithSameAddressInput;
+};
+
+export type QueryGetNylasAuthUrlArgs = {
+  input: NylasAccountAuthOptions;
 };
 
 export type QueryGetObjectTypeCharacteristicsArgs = {
@@ -3197,6 +3202,12 @@ export type NylasAccountItem = {
   provider: Scalars['String'];
   billingState: Scalars['String'];
   syncState: Scalars['String'];
+};
+
+export type NylasAccountAuthOptions = {
+  loginHint: Scalars['String'];
+  redirectURI?: Maybe<Scalars['String']>;
+  scopes?: Maybe<Array<Scalars['String']>>;
 };
 
 export enum TypeOfObjectType {
@@ -10739,6 +10750,12 @@ export type ListNylasAccountQuery = { __typename?: 'Query' } & {
     >
   >;
 };
+
+export type GetNylasAuthUrlQueryVariables = Exact<{
+  input: NylasAccountAuthOptions;
+}>;
+
+export type GetNylasAuthUrlQuery = { __typename?: 'Query' } & Pick<Query, 'getNylasAuthUrl'>;
 
 export type ObjectTypeCharacteristicsQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -18528,6 +18545,33 @@ export type ListNylasAccountLazyQueryHookResult = ReturnType<typeof useListNylas
 export type ListNylasAccountQueryResult = ApolloReactCommon.QueryResult<
   ListNylasAccountQuery,
   ListNylasAccountQueryVariables
+>;
+export const GetNylasAuthUrlDocument = gql`
+  query GetNylasAuthUrl($input: NylasAccountAuthOptions!) {
+    getNylasAuthUrl(input: $input)
+  }
+`;
+export function useGetNylasAuthUrlQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>(
+    GetNylasAuthUrlDocument,
+    baseOptions,
+  );
+}
+export function useGetNylasAuthUrlLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>(
+    GetNylasAuthUrlDocument,
+    baseOptions,
+  );
+}
+export type GetNylasAuthUrlQueryHookResult = ReturnType<typeof useGetNylasAuthUrlQuery>;
+export type GetNylasAuthUrlLazyQueryHookResult = ReturnType<typeof useGetNylasAuthUrlLazyQuery>;
+export type GetNylasAuthUrlQueryResult = ApolloReactCommon.QueryResult<
+  GetNylasAuthUrlQuery,
+  GetNylasAuthUrlQueryVariables
 >;
 export const ObjectTypeCharacteristicsDocument = gql`
   query ObjectTypeCharacteristics($id: ID!) {
