@@ -9,6 +9,8 @@ import { useStyles } from './CrmBusinessesDetails.styles';
 import { CrmBusinessDetailsSidebarMenu } from './sidebarMenu/SidebarMenu';
 import { CrmBusinessDetailsDashboard } from './dashboard/Dashboard';
 import { BusinessJourneyContainer } from './businessJourney/BusinessJourneyContainer';
+import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
+import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -48,6 +50,24 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                       crm={crm}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_general`}
+                  render={() => (
+                    <PersonalInformationGeneralContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_contact_information`}
+                  render={() => (
+                    <ContactInformationContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
                     />
                   )}
                 />

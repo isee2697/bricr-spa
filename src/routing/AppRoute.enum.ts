@@ -13,6 +13,7 @@ export enum AppRoute {
   crmGeneral = '/crm/:id/personal_information_general',
   sales = '/sales',
   salesDetails = '/salesDetails/:type/:id',
+  salesInvoiceDetails = '/salesInvoices/:id',
   logout = '/logout',
   login = '/auth/login',
   forgotPassword = '/auth/forgot-password',

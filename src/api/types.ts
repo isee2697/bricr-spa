@@ -126,6 +126,8 @@ export type Mutation = {
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
+  linkSalesCrms?: Maybe<Array<CrmListItem>>;
+  linkSalesPims?: Maybe<Array<ListPim>>;
   login?: Maybe<LoginResponse>;
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
@@ -503,6 +505,14 @@ export type MutationInitSendFileArgs = {
 
 export type MutationLinkNcpToProjectPhaseArgs = {
   input: LinkNcpToProjectPhaseInput;
+};
+
+export type MutationLinkSalesCrmsArgs = {
+  input: LinkSalesCrmsInput;
+};
+
+export type MutationLinkSalesPimsArgs = {
+  input: LinkSalesPimsInput;
 };
 
 export type MutationLoginArgs = {
@@ -931,6 +941,7 @@ export type Billing = {
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
+  advancedSearch?: Maybe<AdvancedSearchResult>;
   checkCompanyRegistered: CheckRegisteredResponse;
   crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
@@ -980,6 +991,9 @@ export type Query = {
   getProfile?: Maybe<Profile>;
   getProjectPhases: ProjectPhaseSearchResult;
   getPropertyTypes: Array<Scalars['String']>;
+  getSalesCrmsList: LinkSalesCrmsListResult;
+  getSalesList?: Maybe<SalesSearchResult>;
+  getSalesPimsList: LinkSalesPimsListResult;
   getTask?: Maybe<Task>;
   getTaskLabels?: Maybe<Array<Label>>;
   getTasks?: Maybe<TaskSearchResult>;
@@ -998,6 +1012,10 @@ export type Query = {
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
+};
+
+export type QueryAdvancedSearchArgs = {
+  input: AdvancedSearchInput;
 };
 
 export type QueryCheckCompanyRegisteredArgs = {
@@ -1169,6 +1187,19 @@ export type QueryGetProfileArgs = {
 export type QueryGetProjectPhasesArgs = {
   filters?: Maybe<ProjectPhaseFilters>;
   pagination: Pagination;
+};
+
+export type QueryGetSalesCrmsListArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryGetSalesListArgs = {
+  filters: SalesFilters;
+  sort?: Maybe<Array<Sort>>;
+};
+
+export type QueryGetSalesPimsListArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetTaskArgs = {
@@ -2431,6 +2462,42 @@ export type LabelInput = {
   icon?: Maybe<Scalars['String']>;
   text: Scalars['String'];
   property: LabelProperty;
+};
+
+export type LinkSalesCrmsInput = {
+  cyclusId: Scalars['String'];
+  crmIds: Array<Scalars['String']>;
+};
+
+export type LinkSalesCrmsListPaginationMeta = {
+  __typename?: 'LinkSalesCrmsListPaginationMeta';
+  total: Scalars['Int'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+export type LinkSalesCrmsListResult = {
+  __typename?: 'LinkSalesCrmsListResult';
+  meta: LinkSalesCrmsListPaginationMeta;
+  salesCrmsItems?: Maybe<Array<CrmListItem>>;
+};
+
+export type LinkSalesPimsInput = {
+  cyclusId: Scalars['String'];
+  pimIds: Array<Scalars['String']>;
+};
+
+export type LinkSalesPimsListPaginationMeta = {
+  __typename?: 'LinkSalesPimsListPaginationMeta';
+  total: Scalars['Int'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
+};
+
+export type LinkSalesPimsListResult = {
+  __typename?: 'LinkSalesPimsListResult';
+  meta: LinkSalesPimsListPaginationMeta;
+  salesPimsItems?: Maybe<Array<ListPim>>;
 };
 
 export type LinkedPimFilters = {
@@ -7446,6 +7513,17 @@ export enum SalesRole {
   Gardener = 'Gardener',
 }
 
+export type SalesFilters = {
+  label: SalesLabel;
+  status: SalesStatus;
+};
+
+export type SalesSearchResult = {
+  __typename?: 'SalesSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<Sales>>;
+};
+
 export type SearchMetadata = {
   __typename?: 'SearchMetadata';
   total: Scalars['Int'];
@@ -7478,6 +7556,22 @@ export type Pagination = {
   from?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   searchAfter?: Maybe<Array<Scalars['String']>>;
+};
+
+export type AdvancedSearchResult = {
+  __typename?: 'AdvancedSearchResult';
+  users?: Maybe<Array<Profile>>;
+  emails?: Maybe<Array<Profile>>;
+  crms?: Maybe<Array<CrmListItem>>;
+  pims?: Maybe<Array<Pim>>;
+  teams?: Maybe<Array<Team>>;
+};
+
+export type AdvancedSearchInput = {
+  keyword: Scalars['String'];
+  type?: Maybe<Array<Entities>>;
+  page?: Maybe<Scalars['Int']>;
+  size?: Maybe<Scalars['Int']>;
 };
 
 export enum MeterType {
@@ -12692,6 +12786,75 @@ export type ProjectPhasesQuery = { __typename?: 'Query' } & {
       >
     >;
   };
+};
+
+export type GetSalesListQueryVariables = Exact<{
+  label: SalesLabel;
+  status: SalesStatus;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+}>;
+
+export type GetSalesListQuery = { __typename?: 'Query' } & {
+  getSalesList?: Maybe<
+    { __typename?: 'SalesSearchResult' } & { items?: Maybe<Array<{ __typename?: 'Sales' } & Pick<Sales, 'id'>>> }
+  >;
+};
+
+export type AdvancedSearchQueryVariables = Exact<{
+  input: AdvancedSearchInput;
+}>;
+
+export type AdvancedSearchQuery = { __typename?: 'Query' } & {
+  advancedSearch?: Maybe<
+    { __typename?: 'AdvancedSearchResult' } & {
+      users?: Maybe<
+        Array<
+          { __typename?: 'Profile' } & Pick<
+            Profile,
+            'id' | 'firstName' | 'lastName' | 'email' | 'functionDescription' | 'adminSettings' | 'isActive' | 'isAdmin'
+          > & {
+              image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+              teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+            }
+        >
+      >;
+      emails?: Maybe<
+        Array<
+          { __typename?: 'Profile' } & Pick<
+            Profile,
+            'id' | 'firstName' | 'lastName' | 'email' | 'functionDescription' | 'adminSettings' | 'isActive' | 'isAdmin'
+          > & {
+              image?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+              teams?: Maybe<Array<{ __typename?: 'ProfileTeam' } & Pick<ProfileTeam, 'id' | 'name'>>>;
+            }
+        >
+      >;
+      crms?: Maybe<
+        Array<
+          { __typename?: 'CrmListItem' } & Pick<
+            CrmListItem,
+            'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+          > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+        >
+      >;
+      pims?: Maybe<
+        Array<
+          { __typename?: 'Pim' } & Pick<
+            Pim,
+            'id' | 'street' | 'houseNumber' | 'district' | 'city' | 'state' | 'country' | 'county'
+          >
+        >
+      >;
+      teams?: Maybe<
+        Array<
+          { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
+              profileMembers?: Maybe<Array<{ __typename?: 'TeamMember' } & Pick<TeamMember, 'id'>>>;
+            }
+        >
+      >;
+    }
+  >;
 };
 
 export type SettingInfoQueryVariables = Exact<{ [key: string]: never }>;
@@ -21335,6 +21498,129 @@ export function useProjectPhasesLazyQuery(
 export type ProjectPhasesQueryHookResult = ReturnType<typeof useProjectPhasesQuery>;
 export type ProjectPhasesLazyQueryHookResult = ReturnType<typeof useProjectPhasesLazyQuery>;
 export type ProjectPhasesQueryResult = ApolloReactCommon.QueryResult<ProjectPhasesQuery, ProjectPhasesQueryVariables>;
+export const GetSalesListDocument = gql`
+  query GetSalesList($label: SalesLabel!, $status: SalesStatus!, $sortColumn: String!, $sortDirection: SortDirection!) {
+    getSalesList(
+      filters: { label: $label, status: $status }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+      }
+    }
+  }
+`;
+export function useGetSalesListQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetSalesListQuery, GetSalesListQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetSalesListQuery, GetSalesListQueryVariables>(GetSalesListDocument, baseOptions);
+}
+export function useGetSalesListLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetSalesListQuery, GetSalesListQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetSalesListQuery, GetSalesListQueryVariables>(
+    GetSalesListDocument,
+    baseOptions,
+  );
+}
+export type GetSalesListQueryHookResult = ReturnType<typeof useGetSalesListQuery>;
+export type GetSalesListLazyQueryHookResult = ReturnType<typeof useGetSalesListLazyQuery>;
+export type GetSalesListQueryResult = ApolloReactCommon.QueryResult<GetSalesListQuery, GetSalesListQueryVariables>;
+export const AdvancedSearchDocument = gql`
+  query AdvancedSearch($input: AdvancedSearchInput!) {
+    advancedSearch(input: $input) {
+      users {
+        id
+        firstName
+        lastName
+        email
+        image {
+          id
+          key
+          url
+        }
+        functionDescription
+        adminSettings
+        isActive
+        isAdmin
+        teams {
+          id
+          name
+        }
+      }
+      emails {
+        id
+        firstName
+        lastName
+        email
+        image {
+          id
+          key
+          url
+        }
+        functionDescription
+        adminSettings
+        isActive
+        isAdmin
+        teams {
+          id
+          name
+        }
+      }
+      crms {
+        id
+        type
+        firstName
+        insertion
+        lastName
+        phoneNumber
+        email
+        avatar {
+          url
+        }
+      }
+      pims {
+        id
+        street
+        houseNumber
+        district
+        city
+        state
+        country
+        county
+      }
+      teams {
+        id
+        name
+        profileMembers {
+          id
+        }
+      }
+    }
+  }
+`;
+export function useAdvancedSearchQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
+    AdvancedSearchDocument,
+    baseOptions,
+  );
+}
+export function useAdvancedSearchLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AdvancedSearchQuery, AdvancedSearchQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<AdvancedSearchQuery, AdvancedSearchQueryVariables>(
+    AdvancedSearchDocument,
+    baseOptions,
+  );
+}
+export type AdvancedSearchQueryHookResult = ReturnType<typeof useAdvancedSearchQuery>;
+export type AdvancedSearchLazyQueryHookResult = ReturnType<typeof useAdvancedSearchLazyQuery>;
+export type AdvancedSearchQueryResult = ApolloReactCommon.QueryResult<
+  AdvancedSearchQuery,
+  AdvancedSearchQueryVariables
+>;
 export const SettingInfoDocument = gql`
   query SettingInfo {
     getTeams {

@@ -16,7 +16,7 @@ export const Keys = () => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { open, close } = useModalDispatch();
-  const [showKey, setShowKey] = useState(true);
+  const [showKey, setShowKey] = useState(false);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
 
   const handleConnectKey = () => {
@@ -103,7 +103,7 @@ export const Keys = () => {
             onMenuClose();
           }}
         >
-          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
             <Box display="flex" alignItems="center">
               <HomeIcon classes={{ root: classes.menuIcon }} />
               <Box ml={2}>
@@ -121,6 +121,7 @@ export const Keys = () => {
           className={classes.menuItem}
           onClick={(event: React.MouseEvent) => {
             event.stopPropagation();
+            open('connect-key');
             onMenuClose();
           }}
         >
@@ -139,6 +140,7 @@ export const Keys = () => {
           className={classes.menuItem}
           onClick={(event: React.MouseEvent) => {
             event.stopPropagation();
+            push(AppRoute.dms);
             onMenuClose();
           }}
         >

@@ -11,6 +11,7 @@ import { SummaryOutside } from './summaryOutside/SummaryOutside';
 import { SummaryInside } from './summaryInside/SummaryInside';
 import { SummaryPersonal } from './summaryPersonal/SummaryPersonal';
 import { SignsAndKey } from './signsAndKey/SignsAndKey';
+import { AuditChecklist } from './auditChecklist/AuditChecklist';
 
 export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: SummaryProps) => {
   const { formatMessage } = useLocale();
@@ -54,6 +55,13 @@ export const Summary = ({ summary, isSidebarVisible, onSidebarOpen, ...props }: 
           exact
           render={() => (
             <SignsAndKey summary={summary} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
+          )}
+        />
+        <Route
+          path={`${baseUrl}/summary/auditChecklist`}
+          exact
+          render={() => (
+            <AuditChecklist summary={summary} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
           )}
         />
         <Redirect to={`${baseUrl}/summary`} />

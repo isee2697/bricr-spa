@@ -4,7 +4,6 @@ import { FormModal } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { Box } from 'ui/atoms';
 import { AdvancedSearchField, CheckboxField, GenericField } from 'form/fields';
-import { requireValidator } from 'form/validators';
 
 import { ConnectKeyModalProps } from './ConnectKeyModal.types';
 import { useStyles } from './ConnectKeyModal.styles';
@@ -47,7 +46,6 @@ export const ConnectKeyModal = ({ isOpened, onSubmit, onClose, people }: Connect
       </Box>
       <Box>
         <AdvancedSearchField
-          validate={[requireValidator]}
           items={people.map(person => ({
             label: `${person.firstName} ${person.lastName}`,
             value: person.id,
