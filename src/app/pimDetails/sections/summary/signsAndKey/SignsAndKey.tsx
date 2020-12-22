@@ -9,7 +9,7 @@ import { BuildingIcon } from 'ui/atoms/icons';
 
 import { SignsAndKeyProps } from './SignsAndKey.types';
 import { useStyles } from './SignsAndKey.styles';
-import { Signs } from './signs/Signs';
+import { SignsContainer } from './signs/SignsContainer';
 import { Keys } from './keys/Keys';
 
 export const SignsAndKey = ({ summary, isSidebarVisible, onSidebarOpen }: SignsAndKeyProps) => {
@@ -30,7 +30,7 @@ export const SignsAndKey = ({ summary, isSidebarVisible, onSidebarOpen }: SignsA
           </Typography>
           <Grid container spacing={3} className={classes.details}>
             <Grid item xs={6}>
-              <Signs />
+              <SignsContainer />
             </Grid>
             <Grid item xs={6}>
               <Keys />
