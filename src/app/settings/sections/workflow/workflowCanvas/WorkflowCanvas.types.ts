@@ -1,4 +1,10 @@
-import { WorkflowActionGroupType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
+import {
+  UpdateWorkflowActionInput,
+  UpdateWorkflowTriggerInput,
+  WorkflowActionGroupType,
+  WorkflowActionType,
+  WorkflowTriggerType,
+} from 'api/types';
 import { WorkflowTriggerWithActionGroups } from '../Workflow.types';
 
 export type Point = {
@@ -17,4 +23,6 @@ export type WorkflowCanvasProps = {
   onAddWorkflowAction: (workflowTriggerId: string, workflowActionGroupId: string, type: WorkflowActionType) => void;
   onRemoveAction: (actionId: string) => void;
   onRemoveTrigger: (triggerId: string) => void;
+  onUpdateAction: (actionId: string, action: UpdateWorkflowActionInput) => void;
+  onUpdateTrigger: (triggerId: string, trigger: UpdateWorkflowTriggerInput) => void;
 };

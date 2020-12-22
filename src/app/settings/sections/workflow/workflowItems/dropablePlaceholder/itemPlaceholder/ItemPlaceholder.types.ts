@@ -4,4 +4,5 @@ export type ItemPlaceholderProps = {
   type: WorkflowItemType;
   hovered?: boolean;
   isDrag?: boolean;
+  disabled?: boolean;
 };

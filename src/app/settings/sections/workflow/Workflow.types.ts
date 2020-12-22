@@ -9,6 +9,8 @@ import {
   WorkflowActionGroupType,
   WorkflowActionType,
   CreateWorkflowSectionInput,
+  UpdateWorkflowActionInput,
+  UpdateWorkflowTriggerInput,
 } from 'api/types';
 
 import { WorkflowSidebarGroup } from './workflowSidebar/WorkflowSidebar.types';
@@ -26,7 +28,10 @@ export type WorkflowSectionWithInfo = WorkflowSectionType & {
   triggers: WorkflowTriggerWithActionGroups[];
 };
 
-export type WorkflowItemStatus = 'active' | 'inactive';
+export enum WorkflowItemStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
 
 export enum WorkflowItemType {
   TRIGGER = 'Trigger',
@@ -79,6 +84,7 @@ export type WorkflowProps = {
   triggersGroups: WorkflowSidebarGroup[];
   actionsGroups: WorkflowSidebarGroup[];
   workflowSections: WorkflowSectionWithInfo[];
+  expandedSection?: WorkflowSectionWithInfo;
   onAddSection: (section: CreateWorkflowSectionInput) => Promise<undefined | { error: boolean }>;
   onAddWorkflowTrigger: (
     workflowSectionId: string,
@@ -96,4 +102,6 @@ export type WorkflowProps = {
   ) => Promise<undefined | { error: boolean }>;
   onRemoveAction: (actionId: string) => void;
   onRemoveTrigger: (triggerId: string) => void;
+  onUpdateAction: (actionId: string, action: UpdateWorkflowActionInput) => void;
+  onUpdateTrigger: (triggerId: string, trigger: UpdateWorkflowTriggerInput) => void;
 };
