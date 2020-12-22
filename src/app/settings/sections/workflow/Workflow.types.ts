@@ -28,7 +28,10 @@ export type WorkflowSectionWithInfo = WorkflowSectionType & {
   triggers: WorkflowTriggerWithActionGroups[];
 };
 
-export type WorkflowItemStatus = 'active' | 'inactive';
+export enum WorkflowItemStatus {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
 
 export enum WorkflowItemType {
   TRIGGER = 'Trigger',

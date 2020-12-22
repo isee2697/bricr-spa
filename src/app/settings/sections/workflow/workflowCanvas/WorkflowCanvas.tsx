@@ -14,6 +14,7 @@ import {
 import {
   Trigger,
   WorkflowActionGroupWithActions,
+  WorkflowItemStatus,
   WorkflowItemType,
   WorkflowTriggerWithActionGroups,
 } from '../Workflow.types';
@@ -487,7 +488,7 @@ export const WorkflowCanvas = ({
                     icon={TriggerIcons.find(icon => icon.type === trigger.type)?.icon}
                     title={formatMessage({ id: `dictionaries.workflow_trigger.${trigger.type}` })}
                     state={DndItemState.DROPPED}
-                    status={trigger.status ? 'active' : 'inactive'}
+                    status={trigger.status ? WorkflowItemStatus.Active : WorkflowItemStatus.Inactive}
                     onStatusChange={() => {
                       handleToggleTriggerStatus(trigger);
                     }}
