@@ -21,6 +21,8 @@ const getPageCategory = (path: string) => {
     return PageType.Settings;
   } else if (path.includes('task')) {
     return PageType.Tasks;
+  } else if (path.includes('crm')) {
+    return PageType.CRM;
   }
 };
 
