@@ -17,11 +17,13 @@ import {
   WorkflowItemType,
   WorkflowTriggerWithActionGroups,
 } from '../Workflow.types';
-import { WorkflowAction, WorkflowActionGroupType, WorkflowActionType } from 'api/types';
+import { WorkflowAction, WorkflowActionGroupType, WorkflowActionType, WorkflowTrigger } from 'api/types';
+import { TriggerConditions } from '../workflowConditions/triggerConditions/TriggerConditions';
+import { TriggerConditionValuesType } from '../workflowConditions/triggerConditions/TriggerConditions.types';
 
 import { WorkflowCanvasProps, Point } from './WorkflowCanvas.types';
 import { useStyles } from './WorkflowCanvas.styles';
-import { ActionIcons, TriggerIcons } from './dictionaries';
+import { ActionIcons, generalConditionsTypes, TriggerIcons } from './dictionaries';
 
 const STEP = 24;
 const TRIGGER_OFFSET = {
@@ -61,10 +63,14 @@ export const WorkflowCanvas = ({
   onAddWorkflowTrigger,
   onAddWorkflowAction,
   onAddWorkflowActionGroupAndAction,
+  onUpdateAction,
+  onUpdateTrigger,
 }: WorkflowCanvasProps) => {
   const { formatMessage } = useLocale();
   const theme = useTheme();
   const classes = useStyles();
+  const [triggerCondition, setTriggerCondition] = useState<WorkflowTrigger | null>(null);
+  const [conditionTab, setConditionTab] = useState<number>(0);
 
   const [confirmModal, setConfirmModal] = useState<ReactNode | null>(null);
 
@@ -82,9 +88,29 @@ export const WorkflowCanvas = ({
 
   const maxWidth = useRef(0);
 
-  const handleToggleTriggerStatus = (index: number) => {
-    // TODO: Update trigger status
+  const handleShowTriggerConditions = (trigger: WorkflowTrigger | null) => {
+    setTriggerCondition(trigger);
   };
+
+  const handleUpdateTriggerConditions = (conditions: TriggerConditionValuesType) => {
+    if (triggerCondition) {
+      onUpdateTrigger(triggerCondition.id, { conditions: JSON.stringify(conditions) });
+    }
+    handleShowTriggerConditions(null);
+  };
+
+  const handleToggleTriggerStatus = (trigger: WorkflowTriggerWithActionGroups) => {
+    onUpdateTrigger(trigger.id, {
+      status: !trigger.status,
+    });
+  };
+
+  const handleToggleActionStatus = useCallback(
+    (action: WorkflowAction) => {
+      onUpdateAction(action.id, { status: !action.status });
+    },
+    [onUpdateAction],
+  );
 
   const handleShowConfirmModal = useCallback(
     (type: string, onConfirm: () => void) => {
@@ -118,17 +144,12 @@ export const WorkflowCanvas = ({
     [formatMessage, setConfirmModal],
   );
 
-  const handleToggleActionStatus = useCallback((action: WorkflowAction) => {
-    // TODO: Update workflow action status
-    // action.status = action.status === 'inactive' ? 'active' : 'inactive';
-    // setState(prevState => !prevState);
-  }, []);
-
   const renderAddPlaceholder = useCallback(
     (
       topOffset: number,
       leftOffset: number,
       actionTriggerId: string,
+      showPlaceholder = true,
       actionGroupId?: string,
       actionGroupType?: WorkflowActionGroupType,
     ) => {
@@ -147,6 +168,7 @@ export const WorkflowCanvas = ({
                 onAddWorkflowActionGroupAndAction(actionTriggerId, actionGroupType, item.id as WorkflowActionType);
               }
             }}
+            disabled={!showPlaceholder}
           />
         </Box>
       );
@@ -222,10 +244,21 @@ export const WorkflowCanvas = ({
     [classes.triggerRule, formatMessage],
   );
 
-  const renderAction = useCallback(
-    (index: number, actionGroup: WorkflowActionGroupWithActions, topOffset: number, leftOffset: number): ReactNode => (
+  const renderAction = (
+    index: number,
+    actionGroup: WorkflowActionGroupWithActions,
+    topOffset: number,
+    leftOffset: number,
+    showPlaceholder = true,
+  ): ReactNode => {
+    const inactiveActionIndex = actionGroup.actions.findIndex(action => !action.status);
+
+    const filteredActionGroupActions =
+      inactiveActionIndex >= 0 ? actionGroup.actions.slice(0, inactiveActionIndex + 1) : actionGroup.actions;
+
+    return (
       <>
-        {actionGroup.actions.map((action, actionIndex) => (
+        {filteredActionGroupActions.map((action, actionIndex) => (
           <React.Fragment key={actionIndex}>
             <Box position="absolute" top={topOffset} left={leftOffset + ACTION_STEP.left * actionIndex}>
               <ActionItem
@@ -238,89 +271,92 @@ export const WorkflowCanvas = ({
                 onDelete={() => {
                   handleShowConfirmModal('action', () => onRemoveAction(action.id));
                 }}
+                status={action.status}
+                disabled={!showPlaceholder}
               />
             </Box>
-            {renderLine(
-              {
-                x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left - STEP * 2,
-                y: topOffset + STEP,
-              },
-              { x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left, y: topOffset + STEP },
-            )}
+            {(inactiveActionIndex < 0 || actionIndex < filteredActionGroupActions.length - 1) &&
+              renderLine(
+                {
+                  x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left - STEP * 2,
+                  y: topOffset + STEP,
+                },
+                { x: leftOffset + ACTION_STEP.left * actionIndex + ACTION_STEP.left, y: topOffset + STEP },
+              )}
           </React.Fragment>
         ))}
-        {renderAddPlaceholder(
-          topOffset,
-          leftOffset + ACTION_STEP.left * actionGroup.actions.length,
-          actionGroup.workflowTriggerId,
-          actionGroup.id,
-        )}
+        {inactiveActionIndex < 0 &&
+          renderAddPlaceholder(
+            topOffset,
+            leftOffset + ACTION_STEP.left * actionGroup.actions.length,
+            actionGroup.workflowTriggerId,
+            showPlaceholder,
+            actionGroup.id,
+          )}
       </>
-    ),
-    [renderAddPlaceholder, formatMessage, renderLine, handleToggleActionStatus, handleShowConfirmModal, onRemoveAction],
-  );
+    );
+  };
 
-  const renderActionGroup = useCallback(
-    (
-      actionGroups: WorkflowActionGroupWithActions[],
-      leftOffset: number,
-      topOffset: number,
-      rule: string,
-      ruleLeftOffset: number,
-      ruleTopOffset: number,
-      triggerId: string,
-      groupType: WorkflowActionGroupType,
-      lineDirection = 'horizontal',
-    ): ReactNode => {
-      return (
-        <Box position="relative" height={((actionGroups.length ?? 0) + 1) * ACTION_STEP.top}>
-          {actionGroups.map((actionGroup, index) => (
-            <div key={`${actionGroup.id}_${index}`}>
-              {renderLine(
-                {
-                  x: leftOffset,
-                  y: topOffset,
-                },
-                {
-                  x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
-                  y: STEP + ACTION_STEP.top * index,
-                },
-                lineDirection,
-              )}
-              {renderAction(index, actionGroup, index * ACTION_STEP.top, ACTION_OFFSET.left)}
-            </div>
-          ))}
-          {renderLine(
-            {
-              x: leftOffset,
-              y: topOffset,
-            },
-            {
-              x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
-              y: STEP + ACTION_STEP.top * (actionGroups.length || 0),
-            },
-            lineDirection,
-          )}
-          {renderIfRule(
-            {
-              x: ruleLeftOffset,
-              y: ruleTopOffset,
-            },
-            rule,
-          )}
-          <Box position="relative" top={topOffset} left={leftOffset} className={classes.entryDot} />
-          {renderAddPlaceholder(
-            (actionGroups.length || 0) * ACTION_STEP.top,
-            ACTION_OFFSET.left,
-            triggerId,
-            undefined,
-            groupType,
-          )}
-        </Box>
-      );
-    },
-    [classes.entryDot, renderAction, renderLine, renderIfRule, renderAddPlaceholder],
-  );
+  const renderActionGroup = (
+    actionGroups: WorkflowActionGroupWithActions[],
+    leftOffset: number,
+    topOffset: number,
+    rule: string,
+    ruleLeftOffset: number,
+    ruleTopOffset: number,
+    triggerId: string,
+    groupType: WorkflowActionGroupType,
+    showPlaceholder: boolean,
+    lineDirection = 'horizontal',
+  ): ReactNode => {
+    return (
+      <Box position="relative" height={((actionGroups.length ?? 0) + 1) * ACTION_STEP.top}>
+        {actionGroups.map((actionGroup, index) => (
+          <div key={`${actionGroup.id}_${index}`}>
+            {renderLine(
+              {
+                x: leftOffset,
+                y: topOffset,
+              },
+              {
+                x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
+                y: STEP + ACTION_STEP.top * index,
+              },
+              lineDirection,
+            )}
+            {renderAction(index, actionGroup, index * ACTION_STEP.top, ACTION_OFFSET.left, showPlaceholder)}
+          </div>
+        ))}
+        {renderLine(
+          {
+            x: leftOffset,
+            y: topOffset,
+          },
+          {
+            x: TRIGGER_OFFSET.left + ACTION_STEP.left - STEP * 2,
+            y: STEP + ACTION_STEP.top * (actionGroups.length || 0),
+          },
+          lineDirection,
+        )}
+        {renderIfRule(
+          {
+            x: ruleLeftOffset,
+            y: ruleTopOffset,
+          },
+          rule,
+        )}
+        <Box position="relative" top={topOffset} left={leftOffset} className={classes.entryDot} />
+        {renderAddPlaceholder(
+          (actionGroups.length || 0) * ACTION_STEP.top,
+          ACTION_OFFSET.left,
+          triggerId,
+          showPlaceholder,
+          undefined,
+          groupType,
+        )}
+      </Box>
+    );
+  };
 
   const canvasHeight = height - topCanvasOffset;
   const canvasWidth = width - 216;
@@ -355,7 +391,7 @@ export const WorkflowCanvas = ({
     }) || [0]),
   );
 
-  const renderTriggerActionGroups = (trigger: WorkflowTriggerWithActionGroups) => {
+  const renderTriggerActionGroups = (trigger: WorkflowTriggerWithActionGroups, triggerStatus = true) => {
     const newActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.New);
     const updateActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Update);
     const deleteActionGroups = trigger.actionGroups.filter(group => group.type === WorkflowActionGroupType.Delete);
@@ -373,6 +409,7 @@ export const WorkflowCanvas = ({
             TRIGGER_OFFSET.top + 2.5 * STEP - 12 - ACTION_OFFSET.top,
             trigger.id,
             WorkflowActionGroupType.New,
+            triggerStatus,
           )}
 
         {/** Render delete actions */}
@@ -386,6 +423,7 @@ export const WorkflowCanvas = ({
             -12,
             trigger.id,
             WorkflowActionGroupType.Delete,
+            triggerStatus,
             'vertical',
           )}
 
@@ -402,6 +440,7 @@ export const WorkflowCanvas = ({
             -12,
             trigger.id,
             WorkflowActionGroupType.Update,
+            triggerStatus,
             'vertical',
           )}
       </>
@@ -448,22 +487,23 @@ export const WorkflowCanvas = ({
                     icon={TriggerIcons.find(icon => icon.type === trigger.type)?.icon}
                     title={formatMessage({ id: `dictionaries.workflow_trigger.${trigger.type}` })}
                     state={DndItemState.DROPPED}
-                    status={'active'}
+                    status={trigger.status ? 'active' : 'inactive'}
                     onStatusChange={() => {
-                      handleToggleTriggerStatus(index);
+                      handleToggleTriggerStatus(trigger);
                     }}
                     onDelete={() => {
                       handleShowConfirmModal('trigger', () => onRemoveTrigger(trigger.id));
                     }}
                     onShowConditions={() => {
-                      // TODO: Show conditions popup
+                      handleShowTriggerConditions(trigger);
                     }}
+                    conditions={trigger.conditions ? JSON.parse(trigger.conditions) : {}}
                   />
                 </Box>
 
                 <Box height={ACTION_OFFSET.top} />
 
-                {renderTriggerActionGroups(trigger)}
+                {renderTriggerActionGroups(trigger, trigger.status)}
               </Box>
             ))}
           </>
@@ -480,6 +520,19 @@ export const WorkflowCanvas = ({
 
       {/** Show confirm dialog */}
       {confirmModal}
+
+      {/** Show Trigger conditions dialog */}
+      <TriggerConditions
+        data={
+          triggerCondition !== null && triggerCondition.conditions ? JSON.parse(triggerCondition.conditions) || {} : {}
+        }
+        isOpened={triggerCondition !== null}
+        activeTab={conditionTab}
+        onSubmit={handleUpdateTriggerConditions}
+        onTabChange={tab => setConditionTab(tab)}
+        onClose={() => handleShowTriggerConditions(null)}
+        conditionsTypes={generalConditionsTypes}
+      />
     </Box>
   );
 };

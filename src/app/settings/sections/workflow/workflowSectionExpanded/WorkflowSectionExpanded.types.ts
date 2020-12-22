@@ -1,4 +1,10 @@
-import { WorkflowActionGroupType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
+import {
+  UpdateWorkflowActionInput,
+  UpdateWorkflowTriggerInput,
+  WorkflowActionGroupType,
+  WorkflowActionType,
+  WorkflowTriggerType,
+} from 'api/types';
 import { WorkflowSectionWithInfo } from '../Workflow.types';
 
 export type WorkflowSectionExpandedProps = {
@@ -21,4 +27,6 @@ export type WorkflowSectionExpandedProps = {
   ) => Promise<undefined | { error: boolean }>;
   onRemoveAction: (actionId: string) => void;
   onRemoveTrigger: (triggerId: string) => void;
+  onUpdateAction: (actionId: string, action: UpdateWorkflowActionInput) => void;
+  onUpdateTrigger: (triggerId: string, trigger: UpdateWorkflowTriggerInput) => void;
 };

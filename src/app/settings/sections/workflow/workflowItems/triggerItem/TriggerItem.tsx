@@ -25,6 +25,10 @@ export const TriggerItem = ({
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
+
+    if (status === 'inactive') {
+      return;
+    }
     setMenuEl(menuEl ? null : event.currentTarget);
   };
 
@@ -46,7 +50,12 @@ export const TriggerItem = ({
       {state === DndItemState.DROPPED && (
         <>
           <Box className={classes.badge}>
-            <IconButton onClick={onMenuClick} className={classes.badgeButton} selected={Boolean(menuEl)}>
+            <IconButton
+              onClick={onMenuClick}
+              className={classes.badgeButton}
+              selected={Boolean(menuEl)}
+              disabled={status === 'inactive'}
+            >
               <Badge badgeContent={Object.keys(conditions || {}).length || '-'} color="primary">
                 <MenuIcon />
               </Badge>

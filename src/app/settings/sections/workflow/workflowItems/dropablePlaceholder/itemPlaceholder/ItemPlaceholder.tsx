@@ -24,13 +24,17 @@ const texts = {
   [WorkflowItemType.TRIGGER]: 'settings.workflow.trigger_placeholder',
 };
 
-export const ItemPlaceholder = ({ type, isDrag, hovered }: ItemPlaceholderProps) => {
+export const ItemPlaceholder = ({ type, isDrag, hovered, disabled }: ItemPlaceholderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
     <Box
-      className={classNames(classes.placeholder, isDrag && classes.dragged, isDrag && hovered && classes.hovered)}
+      className={classNames(
+        classes.placeholder,
+        !disabled && isDrag && classes.dragged,
+        !disabled && isDrag && hovered && classes.hovered,
+      )}
       {...sizes[type]}
     >
       {formatMessage({ id: texts[type] })}
