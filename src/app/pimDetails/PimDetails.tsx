@@ -59,6 +59,7 @@ export const PimDetails = ({
   return (
     <EntityTypeProvider entityType={entityType}>
       {breadcrumbs}
+      DKLJLDSKFJLDSJ
       <Grid container spacing={0}>
         <PimDetailsSidebarMenu
           isVisible={isSidebarVisible}

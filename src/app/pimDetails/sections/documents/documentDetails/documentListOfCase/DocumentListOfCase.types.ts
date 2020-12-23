@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { PimOverallInfoQueryHookResult } from 'api/types';
-import { DocumentKind } from '../../Documents.types';
+import { DocumentKind } from '../../general/General.types';
 
 export type DocumentListOfCaseType = {
   id: string;

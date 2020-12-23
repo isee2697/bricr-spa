@@ -8,7 +8,7 @@ import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/Dms
 import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { UploadModal } from 'ui/organisms';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
-import { DocumentFolderType, DocumentKind } from '../Documents.types';
+import { DocumentFolderType, DocumentKind } from '../General.types';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';

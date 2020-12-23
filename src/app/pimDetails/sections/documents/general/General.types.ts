@@ -49,7 +49,7 @@ export type DocumentMeta = {
   percent: number;
 };
 
-export type DocumentsFormProps = {
+export type DocumentsGeneralFormProps = {
   documents: DocumentFolderType[];
   metaInfo: DocumentMeta[];
   onAdd: (name: string) => void;
@@ -57,4 +57,4 @@ export type DocumentsFormProps = {
   onRemove: (id: string) => void;
 };
 
-export type DocumentsProps = PimDetailsSectionProps & DocumentsFormProps;
+export type DocumentsGeneralProps = PimDetailsSectionProps & DocumentsGeneralFormProps;

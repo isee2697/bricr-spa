@@ -39,6 +39,8 @@ export const AppRoutes = () => {
   const { formatMessage } = useIntl();
   useScrollToTop();
 
+  console.log('here here');
+
   return (
     <Switch>
       <Route path="/auth">

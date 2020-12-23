@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ListPimsFilters, PropertyType } from 'api/types';
-import { DocumentStatus } from '../Documents.types';
+import { DocumentStatus } from '../General.types';
 
 import { DocumentListView } from './DocumentListView';
 import { DocumentListViewContainerProps } from './DocumentListViewContainer.types';

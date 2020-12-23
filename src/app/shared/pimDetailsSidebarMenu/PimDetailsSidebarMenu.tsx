@@ -9,7 +9,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
 import { BuildingIcon, ComplexBuildingIcon, CrmIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
-import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
+import { MenuItem, SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { PimTypes } from 'app/pim/dictionaries';
 
 import { PimDetailsSidebarMenuProps, SideBarItemTypes } from './PimDetailsSidebarMenu.types';
@@ -114,7 +114,7 @@ export const PimDetailsSidebarMenu = ({
       ? 'residental'
       : pim?.propertyType.toLowerCase();
 
-  const menu = {
+  const menu: SidebarMenuType = {
     url: url,
     back: {
       url: getBackUrl(params, pim?.propertyType),
