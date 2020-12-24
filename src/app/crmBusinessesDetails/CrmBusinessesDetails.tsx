@@ -11,6 +11,8 @@ import { CrmBusinessDetailsDashboard } from './dashboard/Dashboard';
 import { BusinessJourneyContainer } from './businessJourney/BusinessJourneyContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
+import { ContactsContainer } from './personalInformation/contacts/ContactsContainer';
+import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -69,6 +71,18 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_contacts`}
+                  render={() => (
+                    <ContactsContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_financial_profile`}
+                  render={() => (
+                    <FinancialProfile onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
                   )}
                 />
                 <Redirect to={`${path}/dashboard`} />
