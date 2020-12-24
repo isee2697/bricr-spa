@@ -22,7 +22,7 @@ export const DocumentAuditTrail = () => {
         <CardHeader
           title={formatMessage({ id: 'crm.details.documents.audit_trail' })}
           action={
-            <>
+            <Box display="flex">
               <IconButton variant="roundedContained" size="small" onClick={() => {}}>
                 <ManageIcon color="inherit" />
               </IconButton>
@@ -30,7 +30,7 @@ export const DocumentAuditTrail = () => {
               <IconButton variant="roundedContained" size="small" onClick={() => {}}>
                 <SearchIcon />
               </IconButton>
-            </>
+            </Box>
           }
         />
         <CardContent>
@@ -43,7 +43,7 @@ export const DocumentAuditTrail = () => {
               ))}
             </Select>
           </Box>
-          <Box>
+          <Box mt={3}>
             <CrmRelationsDetailsTimelineBoards timelineItems={timelineItems} />
           </Box>
         </CardContent>
