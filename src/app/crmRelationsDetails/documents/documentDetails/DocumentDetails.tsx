@@ -13,6 +13,8 @@ import { DocumentSecurity } from './documentSecurity/DocumentSettings';
 import { DocumentDetailsProps } from './DocumentDetails.types';
 import { DocumentDetailsSidebarMenu } from './documentDetailsSidebar/DocumentDetailsSidebarMenu';
 import { ActualDocument } from './actualDocument/ActualDocument';
+import { DocumentPreviousVersions } from './previousVersions/DocumentPreviousVersions';
+import { DocumentAuditTrail } from './auditTrail/DocumentAuditTrail';
 
 export const DocumentDetails = ({ loading, data, breadcrumbs }: DocumentDetailsProps) => {
   const { formatMessage } = useLocale();
@@ -78,11 +80,11 @@ export const DocumentDetails = ({ loading, data, breadcrumbs }: DocumentDetailsP
             />
             <Route
               path={[AppRoute.crmRelationsDocumentDetails, 'previous-versions'].join('/')}
-              render={() => <DocumentSecurity title={data.name} />}
+              render={() => <DocumentPreviousVersions documents={data.previousVersions} />}
             />
             <Route
               path={[AppRoute.crmRelationsDocumentDetails, 'audit-trail'].join('/')}
-              render={() => <DocumentSecurity title={data.name} />}
+              render={() => <DocumentAuditTrail />}
             />
             <Redirect to={[AppRoute.crmRelationsDocumentDetails, 'actual-document'].join('/')} />
           </Switch>
