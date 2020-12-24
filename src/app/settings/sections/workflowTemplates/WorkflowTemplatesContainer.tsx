@@ -14,7 +14,7 @@ import { WorkflowItem } from './WorkflowTemplates.types';
 
 export const WorkflowTemplatesContainer = ({ templateType }: WorkflowTemplatesContainerProps) => {
   const { push } = useHistory();
-  const { accessToken } = useAuthState();
+  const { accessToken, user } = useAuthState();
   const { data, status, setStatus } = useGetWorkflowTemplateList();
   const [templates, setTemplates] = useState<WorkflowItem[]>(Templates);
 
@@ -27,6 +27,7 @@ export const WorkflowTemplatesContainer = ({ templateType }: WorkflowTemplatesCo
           Authorization: 'Bearer ' + accessToken,
         },
         body: JSON.stringify({
+          companyId: user?.company?.id,
           name: values.text,
           icon: values.icon,
         }),
