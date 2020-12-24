@@ -11,6 +11,10 @@ import { CrmBusinessDetailsDashboard } from './dashboard/Dashboard';
 import { BusinessJourneyContainer } from './businessJourney/BusinessJourneyContainer';
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
+import { ContactsContainer } from './personalInformation/contacts/ContactsContainer';
+import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
+import { BusinessTimeline } from './timeline/Timeline';
+import { MatchProfileContainer } from './matchProfile/MatchProfileContainer';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -44,6 +48,12 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                   )}
                 />
                 <Route
+                  path={`${path}/timeline`}
+                  render={() => (
+                    <BusinessTimeline onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} crm={crm} />
+                  )}
+                />
+                <Route
                   path={`${path}/business_journey`}
                   render={() => (
                     <BusinessJourneyContainer
@@ -66,6 +76,28 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                   path={`${path}/personal_information_contact_information`}
                   render={() => (
                     <ContactInformationContainer
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_contacts`}
+                  render={() => (
+                    <ContactsContainer onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_financial_profile`}
+                  render={() => (
+                    <FinancialProfile onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_match_profile`}
+                  render={() => (
+                    <MatchProfileContainer
+                      path={`${path}/personal_information_match_profile`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
