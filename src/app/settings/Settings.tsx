@@ -22,6 +22,7 @@ import { SettingsSidebarMenu } from './settingsSidebarMenu/SettingsSidebarMenu';
 import { CadastreSettingsContainer } from './sections/cadastre/CadastreSettingsContainer';
 import { KeyBoardContainer } from './sections/keyBoard/KeyBoardContainer';
 import { SignBoardContainer } from './sections/signBoard/SignBoardContainer';
+import { LivingSituationContainer } from './sections/livingSituation/LivingSituationContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -71,6 +72,7 @@ export const Settings = ({ data }: SettingsProps) => {
             <Route exact path={AppRoute.cadastre} render={() => <CadastreSettingsContainer />} />
             <Route exact path={AppRoute.keyboard} render={() => <KeyBoardContainer />} />
             <Route exact path={AppRoute.signboard} render={() => <SignBoardContainer />} />
+            <Route path={AppRoute.livingSituation} render={() => <LivingSituationContainer />} />
             <Redirect to={{ pathname: `${AppRoute.settings}` }} />
           </Switch>
         </Box>
