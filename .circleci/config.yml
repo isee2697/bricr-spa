@@ -6,7 +6,7 @@ orbs:
 # Define the jobs we want to run for this project
 jobs:
   build-tests:
-    resource_class: medium
+    resource_class: large
     docker:
       - image: cypress/base:12
     steps:
