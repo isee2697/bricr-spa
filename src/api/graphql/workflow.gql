@@ -9,6 +9,7 @@ type WorkflowTemplate {
 }
 
 type CreateWorkflowTemplateInput {
+  companyId: ID!
   name: String!
   icon: String!
 }
@@ -24,6 +25,7 @@ type WorkflowSection {
 }
 
 type CreateWorkflowSectionInput {
+  companyId: ID!
   workflowTemplateId: ID!
   name: String!
   startpoint: WorkflowSectionStartpoint!
@@ -41,6 +43,7 @@ type WorkflowTrigger {
 }
 
 type CreateWorkflowTriggerInput {
+  companyId: ID!
   workflowSectionId: ID!
   type: WorkflowTriggerType!
 }
@@ -60,6 +63,7 @@ type WorkflowAction {
 }
 
 input CreateWorkflowActionInput {
+  companyId: ID!
   workflowTriggerId: ID!
   workflowActionGroupType: WorkflowActionGroupType
   workflowActionGroupId: ID
