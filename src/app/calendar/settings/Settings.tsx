@@ -10,7 +10,7 @@ import { useHistory } from 'react-router';
 import { Box, Card, CardContent, CardHeader, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AddIcon, ClockIcon, DeleteIcon, MenuIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { useLocale, useModalDispatch, useModalState } from 'hooks';
+import { useAuthState, useLocale, useModalDispatch, useModalState } from 'hooks';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
 import { useAuthorizeNylasAccountWithTokenMutation, useGetNylasAuthUrlLazyQuery } from 'api/types';
@@ -36,26 +36,49 @@ export const CalendarSettings = ({
   const [getNylasAuthUrl, { data: nylasAuthUrl }] = useGetNylasAuthUrlLazyQuery();
 
   const [nylasAuthCode, setNylasAuthCode] = useQueryParam('code', StringParam);
+  const { accessToken } = useAuthState();
 
   const { push } = useHistory();
 
   useEffect(() => {
     const addNylasAccount = async () => {
       if (nylasAuthCode) {
-        await authorizeNylasAccountWithToken({
-          variables: {
-            nylasToken: nylasAuthCode,
-            isCalendarConnected: true,
+        // await authorizeNylasAccountWithToken({
+        //   variables: {
+        //     nylasToken: nylasAuthCode,
+        //     isCalendarConnected: true,
+        //   },
+        // });
+
+        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/nylas-addaccount`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
           },
+          body: JSON.stringify({
+            nylasToken: nylasAuthCode,
+            token: accessToken,
+            isCalendarConnected: true,
+          }),
         });
-        window.location.href = window.location.href.split('?')[0];
+
+        console.log(response);
+
+        if (response.ok) {
+          const result: boolean = ((await response.body) || false) as boolean;
+
+          if (result) {
+            window.location.href = window.location.href.split('?')[0];
+          }
+        }
       }
     };
 
     if (nylasAuthCode) {
       addNylasAccount();
     }
-  }, [authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
+  }, [accessToken, authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
 
   if (nylasAuthUrl?.getNylasAuthUrl) {
     window.open(nylasAuthUrl.getNylasAuthUrl, '_blank');
