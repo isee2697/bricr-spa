@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Profile, useGetUsersQuery, CalendarGroup, useListNylasAccountQuery } from 'api/types';
+import { Profile, useGetUsersQuery, CalendarGroup } from 'api/types';
 import { palette } from 'theme/palette';
-import { Loader } from 'ui/atoms';
+import { useNylasAccountState } from 'hooks';
 
 import { Calendar } from './Calendar';
 
@@ -28,18 +28,7 @@ export const CalendarContainer = () => {
   const { data } = useGetUsersQuery({ variables: { from: 0, isActive: true } });
 
   const profiles = (data?.getAllProfiles.items as Profile[]) ?? [];
-
-  const { data: nylasAccountData } = useListNylasAccountQuery({
-    variables: {
-      isCalendarConnected: true,
-    },
-  });
-
-  if (!nylasAccountData?.listNylasAccount) {
-    return <Loader />;
-  }
-
-  const accounts = nylasAccountData?.listNylasAccount || [];
+  const { accounts } = useNylasAccountState();
 
   calendarGroups[0].members = profiles;
   calendarGroups[1].members = profiles.length ? profiles.slice(0, Math.round(profiles.length / 2)) : null;

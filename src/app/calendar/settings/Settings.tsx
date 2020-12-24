@@ -51,7 +51,10 @@ export const CalendarSettings = ({
         window.location.href = window.location.href.split('?')[0];
       }
     };
-    addNylasAccount();
+
+    if (nylasAuthCode) {
+      addNylasAccount();
+    }
   }, [authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
 
   if (nylasAuthUrl?.getNylasAuthUrl) {
