@@ -46,8 +46,6 @@ export const AnnualFigures = () => {
     return { error: false };
   };
 
-  console.log(initialValues);
-
   return (
     <>
       <FormSection

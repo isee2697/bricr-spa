@@ -13,6 +13,8 @@ import { PersonalInformationGeneralContainer } from './personalInformation/gener
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { ContactsContainer } from './personalInformation/contacts/ContactsContainer';
 import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
+import { BusinessTimeline } from './timeline/Timeline';
+import { MatchProfileContainer } from './matchProfile/MatchProfileContainer';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -43,6 +45,12 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                       isSidebarVisible={isSidebarVisible}
                       crm={crm}
                     />
+                  )}
+                />
+                <Route
+                  path={`${path}/timeline`}
+                  render={() => (
+                    <BusinessTimeline onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} crm={crm} />
                   )}
                 />
                 <Route
@@ -83,6 +91,16 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                   path={`${path}/personal_information_financial_profile`}
                   render={() => (
                     <FinancialProfile onSidebarOpen={handleSidebarOpen} isSidebarVisible={isSidebarVisible} />
+                  )}
+                />
+                <Route
+                  path={`${path}/personal_information_match_profile`}
+                  render={() => (
+                    <MatchProfileContainer
+                      path={`${path}/personal_information_match_profile`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
                   )}
                 />
                 <Redirect to={`${path}/dashboard`} />
