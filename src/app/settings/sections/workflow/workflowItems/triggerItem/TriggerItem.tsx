@@ -5,6 +5,7 @@ import { Typography, Badge, IconButton, Menu, MenuItem, Box, Checkbox } from 'ui
 import { MenuIcon, EditIcon, DeleteIcon } from 'ui/atoms/icons';
 import { DndItemState } from '../WorkflowItems.types';
 import { useLocale } from 'hooks';
+import { WorkflowItemStatus } from '../../Workflow.types';
 
 import { TriggerItemProps } from './TriggerItem.types';
 import { useStyles } from './TriggerItem.styles';
@@ -25,6 +26,7 @@ export const TriggerItem = ({
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
+
     setMenuEl(menuEl ? null : event.currentTarget);
   };
 
@@ -36,12 +38,14 @@ export const TriggerItem = ({
     <div
       className={classNames(
         classes.item,
-        status === 'inactive' && classes.inactive,
+        status === WorkflowItemStatus.Inactive && classes.inactive,
         [DndItemState.DRAGGED, DndItemState.DROPPED].includes(state) && 'background',
         DndItemState.DROPPED === state && 'purple-border',
       )}
     >
-      <div className={classNames(classes.itemIcon, status === 'inactive' && classes.inactiveIcon)}>{icon}</div>
+      <div className={classNames(classes.itemIcon, status === WorkflowItemStatus.Inactive && classes.inactiveIcon)}>
+        {icon}
+      </div>
       <Typography variant="h5">{title}</Typography>
       {state === DndItemState.DROPPED && (
         <>
@@ -94,7 +98,7 @@ export const TriggerItem = ({
                   </Typography>
                 </Box>
                 <Box ml="auto">
-                  <Checkbox color="primary" checked={status === 'inactive'} name="checkedA" />
+                  <Checkbox color="primary" checked={status === WorkflowItemStatus.Inactive} name="checkedA" />
                 </Box>
               </MenuItem>
             )}

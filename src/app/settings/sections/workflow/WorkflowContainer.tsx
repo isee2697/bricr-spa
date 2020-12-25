@@ -3,15 +3,19 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { useLayout } from 'context/layout';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { useAuthState } from 'hooks';
+import { useAuthState, useLocale } from 'hooks';
 import {
   CreateWorkflowSectionInput,
+  UpdateWorkflowActionInput,
+  UpdateWorkflowTriggerInput,
   WorkflowActionGroupType,
   WorkflowActionType,
   WorkflowTemplate,
   WorkflowTriggerType,
+  useUpdateWorkflowActionMutation,
+  useUpdateWorkflowTriggerMutation,
 } from 'api/types';
-import { Loader } from 'ui/atoms';
+import { Loader, Snackbar, Alert } from 'ui/atoms';
 
 import { Workflow } from './Workflow';
 import * as dictionaries from './dictionaries';
@@ -25,10 +29,15 @@ export const WorkflowContainer = () => {
   }>();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
-  const { accessToken } = useAuthState();
+  const { accessToken, user } = useAuthState();
   const [loading, setLoading] = useState(false);
   const [workflowTemplate, setWorkflowTemplate] = useState<WorkflowTemplate>();
   const [workflowSections, setWorkflowSections] = useState<WorkflowSectionWithInfo[]>([]);
+  const [workflowSectionExpanded, setWorkflowSectionExpanded] = useState<WorkflowSectionWithInfo>();
+  const [updateWorkflowAction] = useUpdateWorkflowActionMutation();
+  const [updateWorkflowTrigger] = useUpdateWorkflowTriggerMutation();
+  const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
+  const { formatMessage } = useLocale();
 
   useEffect(() => {
     setFullscreen(true);
@@ -111,6 +120,7 @@ export const WorkflowContainer = () => {
         body: JSON.stringify({
           workflowSectionId,
           type: triggerType,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -138,6 +148,7 @@ export const WorkflowContainer = () => {
           workflowTriggerId,
           workflowActionGroupType,
           type,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -165,6 +176,7 @@ export const WorkflowContainer = () => {
           workflowTriggerId,
           workflowActionGroupId,
           type,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -218,7 +230,7 @@ export const WorkflowContainer = () => {
     }
   };
 
-  const handleAddWorkflowSection = async (section: CreateWorkflowSectionInput) => {
+  const handleAddWorkflowSection = async (section: Partial<CreateWorkflowSectionInput>) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_FILE_URL}/create-workflow-section`, {
         method: 'POST',
@@ -226,14 +238,47 @@ export const WorkflowContainer = () => {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + accessToken,
         },
-        body: JSON.stringify(section),
+        body: JSON.stringify({ ...section, companyId: user?.company?.id }),
       });
 
       if (response.ok) {
+        const workflowSectionAdded = await response.json();
+        setWorkflowSections([...workflowSections, { ...workflowSectionAdded, triggers: [] }]);
+        setWorkflowSectionExpanded(workflowSectionAdded);
         await getWorkflowSections();
       }
     } catch (error) {
       return error;
+    }
+  };
+
+  const handleUpdateWorkflowAction = async (id: string, action: UpdateWorkflowActionInput) => {
+    const { data: result, errors } = await updateWorkflowAction({
+      variables: {
+        id,
+        input: action,
+      },
+    });
+
+    if (!result || !result.updateWorkflowAction || errors) {
+      setIndicatorState('error');
+    } else {
+      await getWorkflowSections();
+    }
+  };
+
+  const handleUpdateWorkflowTrigger = async (id: string, trigger: UpdateWorkflowTriggerInput) => {
+    const { data: result, errors } = await updateWorkflowTrigger({
+      variables: {
+        id,
+        input: trigger,
+      },
+    });
+
+    if (!result || !result.updateWorkflowTrigger || errors) {
+      setIndicatorState('error');
+    } else {
+      await getWorkflowSections();
     }
   };
 
@@ -251,29 +296,44 @@ export const WorkflowContainer = () => {
   }
 
   return (
-    <Workflow
-      onToggleFullScreen={onToggleFullScreen}
-      name={workflowTemplate.name}
-      iconName={workflowTemplate.icon}
-      isNew={state.isNew}
-      goBack={goBack}
-      actionsGroups={dictionaries.actionsGroups}
-      triggersGroups={dictionaries.triggersGroups}
-      workflowSections={workflowSections}
-      onAddSection={(section: CreateWorkflowSectionInput) => handleAddWorkflowSection(section)}
-      onAddWorkflowTrigger={(workflowSectionId: string, triggerType: WorkflowTriggerType) =>
-        handleAddWorkflowTrigger(workflowSectionId, triggerType)
-      }
-      onAddWorkflowActionGroupAndAction={(
-        workflowTriggerId: string,
-        workflowActionGroupType: WorkflowActionGroupType,
-        type: WorkflowActionType,
-      ) => handleAddWorkflowActionGroupAndAction(workflowTriggerId, workflowActionGroupType, type)}
-      onAddWorkflowAction={(workflowTriggerId: string, workflowActionGroupId: string, type: WorkflowActionType) =>
-        handleAddWorkflowAction(workflowTriggerId, workflowActionGroupId, type)
-      }
-      onRemoveTrigger={(triggerId: string) => handleRemoveWorkflowTrigger(triggerId)}
-      onRemoveAction={(actionId: string) => handleRemoveWorkflowAction(actionId)}
-    />
+    <>
+      <Workflow
+        onToggleFullScreen={onToggleFullScreen}
+        name={workflowTemplate.name}
+        iconName={workflowTemplate.icon}
+        isNew={state.isNew}
+        goBack={goBack}
+        actionsGroups={dictionaries.actionsGroups}
+        triggersGroups={dictionaries.triggersGroups}
+        workflowSections={workflowSections}
+        expandedSection={workflowSectionExpanded}
+        onAddSection={(section: Partial<CreateWorkflowSectionInput>) => handleAddWorkflowSection(section)}
+        onAddWorkflowTrigger={(workflowSectionId: string, triggerType: WorkflowTriggerType) =>
+          handleAddWorkflowTrigger(workflowSectionId, triggerType)
+        }
+        onAddWorkflowActionGroupAndAction={(
+          workflowTriggerId: string,
+          workflowActionGroupType: WorkflowActionGroupType,
+          type: WorkflowActionType,
+        ) => handleAddWorkflowActionGroupAndAction(workflowTriggerId, workflowActionGroupType, type)}
+        onAddWorkflowAction={(workflowTriggerId: string, workflowActionGroupId: string, type: WorkflowActionType) =>
+          handleAddWorkflowAction(workflowTriggerId, workflowActionGroupId, type)
+        }
+        onRemoveTrigger={(triggerId: string) => handleRemoveWorkflowTrigger(triggerId)}
+        onRemoveAction={(actionId: string) => handleRemoveWorkflowAction(actionId)}
+        onUpdateAction={handleUpdateWorkflowAction}
+        onUpdateTrigger={handleUpdateWorkflowTrigger}
+      />
+      <Snackbar
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        open={!!indicatorState}
+        autoHideDuration={6000}
+        onClose={() => setIndicatorState(undefined)}
+      >
+        <Alert variant="filled" severity={indicatorState}>
+          {formatMessage({ id: 'common.autosaving' })}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };

@@ -20,4 +20,7 @@ export const useStyles = makeStyles(theme => ({
   menuIcon: {
     color: theme.palette.gray.main,
   },
+  deleteIcon: {
+    color: theme.palette.error.main,
+  },
 }));

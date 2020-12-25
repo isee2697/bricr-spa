@@ -230,6 +230,8 @@ export type Mutation = {
   updateTextChapter?: Maybe<Pim>;
   updateUserInTeam?: Maybe<Team>;
   updateUsp?: Maybe<Pim>;
+  updateWorkflowAction: WorkflowAction;
+  updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
 };
 
@@ -922,6 +924,16 @@ export type MutationUpdateUserInTeamArgs = {
 
 export type MutationUpdateUspArgs = {
   input: UpdateUspInput;
+};
+
+export type MutationUpdateWorkflowActionArgs = {
+  id: Scalars['ID'];
+  input: UpdateWorkflowActionInput;
+};
+
+export type MutationUpdateWorkflowTriggerArgs = {
+  id: Scalars['ID'];
+  input: UpdateWorkflowTriggerInput;
 };
 
 export type MutationUploadFileArgs = {
@@ -8026,6 +8038,7 @@ export type WorkflowTemplate = {
 
 export type CreateWorkflowTemplateInput = {
   __typename?: 'CreateWorkflowTemplateInput';
+  companyId: Scalars['ID'];
   name: Scalars['String'];
   icon: Scalars['String'];
 };
@@ -8043,6 +8056,7 @@ export type WorkflowSection = {
 
 export type CreateWorkflowSectionInput = {
   __typename?: 'CreateWorkflowSectionInput';
+  companyId: Scalars['ID'];
   workflowTemplateId: Scalars['ID'];
   name: Scalars['String'];
   startpoint: WorkflowSectionStartpoint;
@@ -8056,10 +8070,13 @@ export type WorkflowTrigger = {
   id: Scalars['ID'];
   workflowSectionId: Scalars['ID'];
   type: WorkflowTriggerType;
+  status: Scalars['Boolean'];
+  conditions?: Maybe<Scalars['String']>;
 };
 
 export type CreateWorkflowTriggerInput = {
   __typename?: 'CreateWorkflowTriggerInput';
+  companyId: Scalars['ID'];
   workflowSectionId: Scalars['ID'];
   type: WorkflowTriggerType;
 };
@@ -8077,14 +8094,24 @@ export type WorkflowAction = {
   workflowActionGroupId: Scalars['ID'];
   type: WorkflowActionType;
   actionIndex: Scalars['Int'];
+  status: Scalars['Boolean'];
 };
 
 export type CreateWorkflowActionInput = {
-  __typename?: 'CreateWorkflowActionInput';
+  companyId: Scalars['ID'];
   workflowTriggerId: Scalars['ID'];
   workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
   workflowActionGroupId?: Maybe<Scalars['ID']>;
   type: WorkflowActionType;
+};
+
+export type UpdateWorkflowTriggerInput = {
+  status?: Maybe<Scalars['Boolean']>;
+  conditions?: Maybe<Scalars['String']>;
+};
+
+export type UpdateWorkflowActionInput = {
+  status?: Maybe<Scalars['Boolean']>;
 };
 
 export enum WorkflowTemplateStatus {
@@ -9668,6 +9695,24 @@ export type TiaraSendMessageMutationVariables = Exact<{
 }>;
 
 export type TiaraSendMessageMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'tiaraSendMessage'>;
+
+export type UpdateWorkflowActionMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: UpdateWorkflowActionInput;
+}>;
+
+export type UpdateWorkflowActionMutation = { __typename?: 'Mutation' } & {
+  updateWorkflowAction: { __typename?: 'WorkflowAction' } & Pick<WorkflowAction, 'id'>;
+};
+
+export type UpdateWorkflowTriggerMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: UpdateWorkflowTriggerInput;
+}>;
+
+export type UpdateWorkflowTriggerMutation = { __typename?: 'Mutation' } & {
+  updateWorkflowTrigger: { __typename?: 'WorkflowTrigger' } & Pick<WorkflowTrigger, 'id'>;
+};
 
 export type GetBillingQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -16722,6 +16767,54 @@ export type TiaraSendMessageMutationResult = ApolloReactCommon.MutationResult<Ti
 export type TiaraSendMessageMutationOptions = ApolloReactCommon.BaseMutationOptions<
   TiaraSendMessageMutation,
   TiaraSendMessageMutationVariables
+>;
+export const UpdateWorkflowActionDocument = gql`
+  mutation UpdateWorkflowAction($id: ID!, $input: UpdateWorkflowActionInput!) {
+    updateWorkflowAction(id: $id, input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateWorkflowActionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateWorkflowActionMutation,
+    UpdateWorkflowActionMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateWorkflowActionMutation, UpdateWorkflowActionMutationVariables>(
+    UpdateWorkflowActionDocument,
+    baseOptions,
+  );
+}
+export type UpdateWorkflowActionMutationHookResult = ReturnType<typeof useUpdateWorkflowActionMutation>;
+export type UpdateWorkflowActionMutationResult = ApolloReactCommon.MutationResult<UpdateWorkflowActionMutation>;
+export type UpdateWorkflowActionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateWorkflowActionMutation,
+  UpdateWorkflowActionMutationVariables
+>;
+export const UpdateWorkflowTriggerDocument = gql`
+  mutation UpdateWorkflowTrigger($id: ID!, $input: UpdateWorkflowTriggerInput!) {
+    updateWorkflowTrigger(id: $id, input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateWorkflowTriggerMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateWorkflowTriggerMutation,
+    UpdateWorkflowTriggerMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<UpdateWorkflowTriggerMutation, UpdateWorkflowTriggerMutationVariables>(
+    UpdateWorkflowTriggerDocument,
+    baseOptions,
+  );
+}
+export type UpdateWorkflowTriggerMutationHookResult = ReturnType<typeof useUpdateWorkflowTriggerMutation>;
+export type UpdateWorkflowTriggerMutationResult = ApolloReactCommon.MutationResult<UpdateWorkflowTriggerMutation>;
+export type UpdateWorkflowTriggerMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateWorkflowTriggerMutation,
+  UpdateWorkflowTriggerMutationVariables
 >;
 export const GetBillingDocument = gql`
   query GetBilling {

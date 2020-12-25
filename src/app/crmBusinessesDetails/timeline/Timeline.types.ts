@@ -1,0 +1,28 @@
+import { DateTime } from 'luxon';
+
+import { Profile } from 'api/types';
+import { CrmItem } from '../../crm/Crm.types';
+
+export type BusinessTimelineProps = {
+  crm: CrmItem;
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
+};
+
+export type Timeline = {
+  status: 'done' | 'expired';
+  date: DateTime;
+  title: string;
+  memo?: string;
+  sentTo?: Profile[];
+  location?: {
+    address: string;
+    image: string;
+  };
+  bog?: {
+    address: string;
+    image: string;
+  };
+  isComplete?: boolean;
+  postedBy?: Profile;
+};

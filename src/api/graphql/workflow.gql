@@ -9,6 +9,7 @@ type WorkflowTemplate {
 }
 
 type CreateWorkflowTemplateInput {
+  companyId: ID!
   name: String!
   icon: String!
 }
@@ -24,6 +25,7 @@ type WorkflowSection {
 }
 
 type CreateWorkflowSectionInput {
+  companyId: ID!
   workflowTemplateId: ID!
   name: String!
   startpoint: WorkflowSectionStartpoint!
@@ -36,9 +38,12 @@ type WorkflowTrigger {
   id: ID!
   workflowSectionId: ID!
   type: WorkflowTriggerType!
+  status: Boolean!
+  conditions: String
 }
 
 type CreateWorkflowTriggerInput {
+  companyId: ID!
   workflowSectionId: ID!
   type: WorkflowTriggerType!
 }
@@ -54,13 +59,24 @@ type WorkflowAction {
   workflowActionGroupId: ID!
   type: WorkflowActionType!
   actionIndex: Int!
+  status: Boolean!
 }
 
-type CreateWorkflowActionInput {
+input CreateWorkflowActionInput {
+  companyId: ID!
   workflowTriggerId: ID!
   workflowActionGroupType: WorkflowActionGroupType
   workflowActionGroupId: ID
   type: WorkflowActionType!
+}
+
+input UpdateWorkflowTriggerInput {
+  status: Boolean
+  conditions: String
+}
+
+input UpdateWorkflowActionInput {
+  status: Boolean
 }
 
 enum WorkflowTemplateStatus {
@@ -98,4 +114,9 @@ enum WorkflowActionType {
   Action1
   Action2
   Action3
+}
+
+extend type Mutation {
+  updateWorkflowTrigger(id: ID!, input: UpdateWorkflowTriggerInput!): WorkflowTrigger!
+  updateWorkflowAction(id: ID!, input: UpdateWorkflowActionInput!): WorkflowAction!
 }

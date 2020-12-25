@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd';
 import { DropablePlaceholderProps, DragObjectType, DropablePlaceholderCollectProps } from './DropablePlaceholder.types';
 import { ItemPlaceholder } from './itemPlaceholder/ItemPlaceholder';
 
-export const DropablePlaceholder = ({ type, onDrop, hidePlaceholder }: DropablePlaceholderProps) => {
+export const DropablePlaceholder = ({ type, onDrop, hidePlaceholder, disabled }: DropablePlaceholderProps) => {
   const [{ isOver, isDrag }, drop] = useDrop<DragObjectType, void, DropablePlaceholderCollectProps>({
     accept: type,
     drop: onDrop,
@@ -18,8 +18,8 @@ export const DropablePlaceholder = ({ type, onDrop, hidePlaceholder }: DropableP
   if (!isDrag && hidePlaceholder) return null;
 
   return (
-    <div ref={drop}>
-      <ItemPlaceholder type={type} hovered={isOver} isDrag={isDrag} />
+    <div ref={disabled ? undefined : drop}>
+      <ItemPlaceholder type={type} hovered={isOver} isDrag={isDrag} disabled={disabled} />
     </div>
   );
 };

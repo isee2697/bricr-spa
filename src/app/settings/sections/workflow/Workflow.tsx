@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -9,7 +9,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { PageHeader } from 'ui/templates/page/header/PageHeader';
 import { WorkflowSection } from 'api/types';
 
-import { WorkflowProps } from './Workflow.types';
+import { WorkflowProps, WorkflowSectionWithInfo } from './Workflow.types';
 import { useStyles } from './Workflow.styles';
 import { WorkflowHeader } from './workflowHeader/WorkflowHeader';
 import { WorkflowSidebar } from './workflowSidebar/WorkflowSidebar';
@@ -26,6 +26,7 @@ export const Workflow = ({
   actionsGroups,
   triggersGroups,
   workflowSections,
+  expandedSection: passedExpandedSection,
   onAddSection,
   ...otherProps
 }: WorkflowProps) => {
@@ -33,9 +34,15 @@ export const Workflow = ({
   const [fullScreen, setFullScreen] = useState(true);
   const classes = useStyles({ fullScreen });
 
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [sectionSettings, showSettingsDialog] = useState<string | null>(isNew ? workflowSections[0].id : null);
+  const [expandedSection, setExpandedSection] = useState<WorkflowSectionWithInfo | undefined>(passedExpandedSection);
+  const [sectionSettings, showSettingsDialog] = useState<string | null>(isNew ? workflowSections?.[0]?.id : null);
   const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(() => {
+    if (passedExpandedSection) {
+      setExpandedSection(passedExpandedSection);
+    }
+  }, [passedExpandedSection]);
 
   const handleFullScreenToggle = () => {
     onToggleFullScreen(!fullScreen);
@@ -71,10 +78,10 @@ export const Workflow = ({
           <Box width="100%">
             {!!expandedSection && (
               <WorkflowSectionExpanded
-                section={workflowSections.find(({ id }) => id === expandedSection) ?? workflowSections[0]}
-                onCollapse={() => setExpandedSection(null)}
+                section={workflowSections.find(({ id }) => id === expandedSection.id) ?? workflowSections[0]}
+                onCollapse={() => setExpandedSection(undefined)}
                 onSettings={() => {
-                  showSettingsDialog(expandedSection);
+                  showSettingsDialog(expandedSection.id);
                   setShowSettings(true);
                 }}
                 {...otherProps}
@@ -85,7 +92,7 @@ export const Workflow = ({
                 <WorkflowSectionCollapsed
                   key={section.id}
                   section={section}
-                  onExpand={() => setExpandedSection(section.id)}
+                  onExpand={() => setExpandedSection(section)}
                   onSettings={() => {
                     setShowSettings(true);
                     showSettingsDialog(section.id);

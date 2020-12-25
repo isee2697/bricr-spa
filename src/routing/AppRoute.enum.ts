@@ -29,6 +29,7 @@ export enum AppRoute {
   cadastre = '/settings/cadastre',
   keyboard = '/settings/keyboard',
   signboard = '/settings/signboard',
+  livingSituation = '/settings/livingSituation',
   tasks = '/tasks',
   taskDetails = '/tasks/:id',
   calendar = '/calendar',

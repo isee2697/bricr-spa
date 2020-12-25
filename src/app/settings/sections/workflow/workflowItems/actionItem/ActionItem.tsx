@@ -13,7 +13,8 @@ export const ActionItem = ({
   icon,
   title,
   state,
-  status,
+  status = true,
+  disabled = false,
   settings,
   onShowSettings,
   onStatusChange,
@@ -25,6 +26,10 @@ export const ActionItem = ({
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
+
+    if (disabled) {
+      return;
+    }
     setMenuEl(menuEl ? null : event.currentTarget);
   };
 
@@ -36,7 +41,7 @@ export const ActionItem = ({
     <div
       className={classNames(
         classes.item,
-        status === 'inactive' && classes.inactive,
+        (!status || disabled) && classes.inactive,
         DndItemState.DRAGGED === state && 'background',
         DndItemState.DROPPED === state && 'dropped',
       )}
@@ -44,7 +49,7 @@ export const ActionItem = ({
       <div
         className={classNames(
           classes.itemIcon,
-          status === 'inactive' && classes.inactiveIcon,
+          (!status || disabled) && classes.inactiveIcon,
           DndItemState.DROPPED === state && 'dropped',
         )}
       >
@@ -57,7 +62,12 @@ export const ActionItem = ({
         <>
           <Box className={classes.badge}>
             <Badge badgeContent={settings?.length || '-'} color="primary">
-              <IconButton onClick={onMenuClick} className={classes.badgeButton} selected={Boolean(menuEl)}>
+              <IconButton
+                onClick={onMenuClick}
+                className={classes.badgeButton}
+                selected={Boolean(menuEl)}
+                disabled={disabled}
+              >
                 <MenuIcon />
               </IconButton>
             </Badge>
@@ -104,7 +114,7 @@ export const ActionItem = ({
                   </Typography>
                 </Box>
                 <Box ml="auto">
-                  <Checkbox color="primary" checked={status === 'inactive'} name="checkedA" />
+                  <Checkbox color="primary" checked={!status} name="checkedA" />
                 </Box>
               </MenuItem>
             )}
