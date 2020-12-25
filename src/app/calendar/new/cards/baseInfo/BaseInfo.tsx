@@ -40,6 +40,8 @@ export const AppointmentBaseInfoCard = () => {
   const alternativeTerms: AppointmentTermInput[] = values?.[fieldName] ?? [];
   const amountOfTerms = alternativeTerms?.length ?? 0;
 
+  const allDay = values.type === CalendarTypes.Birthday ? true : values.allDay;
+
   return (
     <Card>
       <DropdownField
@@ -69,14 +71,16 @@ export const AppointmentBaseInfoCard = () => {
         <Grid item className={classes.item}>
           <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
           <DatePickerChip name={`from.date`} className={classes.date} />
-          <TimePickerChip name={`from.time`} />
+          {!allDay && <TimePickerChip name={`from.time`} />}
         </Grid>
-        <Grid item className={classes.item}>
-          <Box mr={1.5} />
-          <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
-          <DatePickerChip name={`to.date`} className={classes.date} />
-          <TimePickerChip name={`to.time`} />
-        </Grid>
+        {!allDay && (
+          <Grid item className={classes.item}>
+            <Box mr={1.5} />
+            <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
+            <DatePickerChip name={`to.date`} className={classes.date} />
+            <TimePickerChip name={`to.time`} />
+          </Grid>
+        )}
       </Grid>
       {values.type !== CalendarTypes.Birthday &&
         alternativeTerms?.map((term, index) => (

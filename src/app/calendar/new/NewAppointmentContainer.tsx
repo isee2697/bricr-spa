@@ -9,6 +9,7 @@ import {
   AddAppointmentInput,
   TaskLabel,
   CalendarTypes,
+  AppointmentRepeat,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -82,17 +83,23 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
   const [appointment] = useState<AppointmentFormType>(INITIAL_APPOINTMENT);
   const [addAppointment] = useAddAppointmentMutation();
   const { push } = useHistory();
-
-  // const { params } = useRouteMatch();
-  // useEffect(() => {
-  //   if (isEdit && params.id) {
-  //     const schedule = schedulerData.find(item => item.id.toString() === params.id);
-  //     setAppointment(schedule);
-  //   }
-  // }, [isEdit, params.id]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = useCallback(
     async (appointment): Promise<boolean> => {
+      if (appointment.type === CalendarTypes.Birthday) {
+        appointment.to.date = appointment.from.date;
+        appointment.repeatAppointment = AppointmentRepeat.Yearly;
+        appointment.allDay = true;
+      }
+
+      if (appointment.allDay) {
+        appointment.from.time = '00:00:00';
+        appointment.to.time = '23:59:59';
+      }
+
+      const description = document.querySelector('.rich-text-field#description')?.innerHTML;
+
       const appointmentInput: AddAppointmentInput = {
         ...appointment,
         accountId: account?.id || '',
@@ -102,17 +109,19 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
           from: mergeDateTime(item.from.date, item.from.time),
           to: mergeDateTime(item.to.date, item.to.time),
         })),
-        description: '',
         agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
         taskLabel: TaskLabel.Business,
+        description,
       };
 
       try {
+        setLoading(true);
         const { data, errors } = await addAppointment({
           variables: {
             input: appointmentInput,
           },
         });
+        setLoading(false);
 
         if (!errors && data && data.addAppointment) {
           push(AppRoute.calendarAppointments.replace(':accountId', account?.id || ''));
@@ -122,6 +131,8 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
 
         throw new Error();
       } catch {
+        setLoading(false);
+
         return false;
       }
     },
@@ -129,6 +140,12 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
   );
 
   return (
-    <NewAppointment locations={locations} members={teamMembers} appointmentInfo={appointment} onSubmit={handleSubmit} />
+    <NewAppointment
+      locations={locations}
+      members={teamMembers}
+      appointmentInfo={appointment}
+      onSubmit={handleSubmit}
+      loading={loading}
+    />
   );
 };

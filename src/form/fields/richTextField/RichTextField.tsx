@@ -48,7 +48,10 @@ export const RichTextField = ({ name, placeholder, disabled, withoutBorder, full
             <BlockButton format={ElementTypes.BULLET_LIST} />
           </ToolbarSection>
         </Toolbar>
-        <div className={classNames(!fullWidth && classes.editor, disabled && classes.disabled)}>
+        <div
+          className={classNames('rich-text-field', !fullWidth && classes.editor, disabled && classes.disabled)}
+          id={name}
+        >
           <Editable
             renderElement={renderElement}
             renderLeaf={renderLeaf}

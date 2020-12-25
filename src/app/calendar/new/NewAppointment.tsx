@@ -17,7 +17,7 @@ import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
 import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 
-export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }: NewAppointmentProps) => {
+export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, loading }: NewAppointmentProps) => {
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -41,7 +41,7 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }
                   {formatMessage({ id: 'common.cancel' })}
                 </Button>
                 <Box mr={3} />
-                <Button type="submit" variant="contained" color="primary">
+                <Button type="submit" variant="contained" color="primary" disabled={loading}>
                   <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointment.add' })}
                 </Button>
               </Box>
@@ -54,7 +54,9 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }
                 {values.type !== CalendarTypes.Birthday && <AppointmentTypeCard />}
               </Grid>
               <Grid item xs={12} md={4}>
-                <ParticipantsLocation members={members} locations={locations} />
+                {values.type !== CalendarTypes.Birthday && (
+                  <ParticipantsLocation members={members} locations={locations} />
+                )}
               </Grid>
               {values.type !== CalendarTypes.Birthday && (
                 <Grid item xs={12}>

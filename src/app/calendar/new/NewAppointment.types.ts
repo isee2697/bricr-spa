@@ -11,6 +11,7 @@ export type NewAppointmentProps = {
   members: Profile[];
   appointmentInfo?: AppointmentFormType;
   onSubmit: (appointment: AddAppointmentInput) => Promise<boolean>;
+  loading?: boolean;
 };
 
 export type AppointmentTermFormType = {
