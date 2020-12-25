@@ -1408,8 +1408,6 @@ export type Appointment = {
   confirmedDate?: Maybe<Scalars['Boolean']>;
   repeatAppointment?: Maybe<AppointmentRepeat>;
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<CalendarTypes>;
-  appointmentType: AppointmentType;
   assignedPimIds?: Maybe<Array<Scalars['String']>>;
   agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
   invitedPersons?: Maybe<Array<Scalars['String']>>;
@@ -1419,6 +1417,8 @@ export type Appointment = {
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
   state?: Maybe<AppointmentState>;
+  type: CalendarTypes;
+  appointmentType?: Maybe<AppointmentType>;
   taskLabel?: Maybe<TaskLabel>;
 };
 
@@ -1437,7 +1437,6 @@ export type AddAppointmentInput = {
   confirmedDate?: Maybe<Scalars['Boolean']>;
   repeatAppointment?: Maybe<AppointmentRepeat>;
   description?: Maybe<Scalars['String']>;
-  appointmentType: AppointmentType;
   assignedPimIds?: Maybe<Array<Scalars['String']>>;
   agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
   invitedPersons?: Maybe<Array<Scalars['String']>>;
@@ -1446,6 +1445,9 @@ export type AddAppointmentInput = {
   outsideLocation?: Maybe<Scalars['String']>;
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
+  type: CalendarTypes;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
 };
 
 export type AppointmentSearch = {

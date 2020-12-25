@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory } from 'react-router-dom';
+import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 
 import { Page } from 'ui/templates';
-import { Box, Button, Card, CardHeader, CardContent, Grid, Tab, Tabs, Typography, IconButton } from 'ui/atoms';
+import { Box, Button, Card, CardHeader, CardContent, Grid, Tab, Tabs, Typography, IconButton, Loader } from 'ui/atoms';
 import { Calendar as CalendarMolecule } from 'ui/molecules';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, TodayIcon, SettingsIcon, ManageIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
@@ -11,10 +12,12 @@ import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from '../sidebarMenu/SidebarMenu';
 import { useLayout } from 'context/layout';
+import { AppointmentSearch, useListCalendarLazyQuery } from 'api/types';
 
 import { GroupDayView } from './group/GroupDayView';
 import { CalendarViewProps } from './CalendarView.types';
 import { useStyles } from './CalendarView.styles';
+import { getViewRange } from './CalendarView.controller';
 
 const getViewTitle = (
   view: DateView | boolean,
@@ -39,7 +42,14 @@ const getViewTitle = (
   }
 };
 
-export const CalendarView = ({ account, data, teamMembers, groups, filters, onFilterChange }: CalendarViewProps) => {
+export const CalendarView = ({
+  account,
+  // data,
+  teamMembers,
+  groups,
+  filters,
+  onFilterChange,
+}: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
@@ -48,6 +58,42 @@ export const CalendarView = ({ account, data, teamMembers, groups, filters, onFi
   const { formatMessage } = useLocale();
 
   const { push } = useHistory();
+
+  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery();
+
+  useEffect(() => {
+    const { startDate, endDate } = getViewRange(currentView, selectedDate.toJSDate());
+    const searchParams: AppointmentSearch = {
+      accountId: account?.id || '',
+      startDate: startDate.toLocaleDateString(),
+      endDate: endDate.toLocaleDateString(),
+    };
+
+    getListCalendarQuery({
+      variables: {
+        input: searchParams,
+      },
+    });
+  }, [account, currentView, filters.selectedDate, getListCalendarQuery, selectedDate]);
+
+  let data: AppointmentModel[] = [];
+
+  if (filters.selectTaskType.length > 0) {
+    data =
+      calendarData?.listCalendar
+        ?.filter(appointment => appointment.taskLabel && filters.selectTaskType.includes(appointment.taskLabel))
+        .map(appointment => ({
+          ...appointment,
+          title: appointment.title || '',
+          allDay: appointment.allDay || false,
+          startDate: appointment.from,
+          endDate: appointment.to,
+        })) || [];
+  }
+
+  if (!data) {
+    return <Loader />;
+  }
 
   const switchStartDate = (status: 'next' | 'prev') => {
     const duration = !selectedGroup ? currentView : DateView.Day;

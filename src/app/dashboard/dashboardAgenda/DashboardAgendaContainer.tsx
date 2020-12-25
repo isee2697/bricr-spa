@@ -25,8 +25,9 @@ export const DashboardAgendaContainer = () => {
     variables: {
       input: searchParams,
     },
-    skip: !!nylasAccounts.length,
   });
+
+  console.log(agenda?.listCalendar);
 
   useEffect(() => {
     if (user) {

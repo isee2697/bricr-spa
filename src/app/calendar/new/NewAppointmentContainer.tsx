@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom';
 import {
   AppointmentLocation,
   useAddAppointmentMutation,
-  AppointmentType,
   AppointmentMeetingType,
   AddAppointmentInput,
+  TaskLabel,
+  CalendarTypes,
 } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -74,7 +75,7 @@ const INITIAL_APPOINTMENT: AppointmentFormType = {
       .plus({ day: 1, hour: 1 })
       .toISO(),
   ),
-  appointmentType: AppointmentType.Aquisition,
+  type: CalendarTypes.Appointment,
 };
 
 export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewAppointmentContainerProps) => {
@@ -103,6 +104,7 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
         })),
         description: '',
         agreementType: Object.values(AppointmentMeetingType).filter(type => appointment.agreementType?.[type]),
+        taskLabel: TaskLabel.Business,
       };
 
       try {

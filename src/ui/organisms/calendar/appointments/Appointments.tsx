@@ -90,7 +90,7 @@ export const AppointmentContent = ({ ...props }: App.AppointmentContentProps) =>
   const classes = useContentStyles(props.data.color);
 
   if (taskResource) {
-    const date = DateTime.fromJSDate(props.data.startDate as Date);
+    const date = DateTime.fromJSDate(new Date(props.data.startDate));
 
     props.data.rRule = `RRULE:FREQ=DAILY;UNTIL=${date.toFormat(
       'yyyyddmm',

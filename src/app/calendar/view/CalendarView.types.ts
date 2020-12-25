@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { Profile, CalendarGroup, AppointmentType, TaskLabel, NylasAccountItem } from 'api/types';
 
 export type CalendarViewProps = {
-  data: AppointmentModel[];
+  // data: AppointmentModel[];
   groups: CalendarGroup[];
   teamMembers: Profile[];
   onFilterChange: Dispatch<SetStateAction<CalendarFilters>>;

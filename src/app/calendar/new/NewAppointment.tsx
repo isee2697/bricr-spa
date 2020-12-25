@@ -7,6 +7,7 @@ import { Box, Button, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { AddIcon } from 'ui/atoms/icons';
+import { CalendarTypes } from 'api/types';
 
 import { AppointmentBaseInfoCard } from './cards/baseInfo/BaseInfo';
 import { ParticipantsLocation } from './cards/participantsLocation/ParticipantsLocation';
@@ -28,7 +29,7 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }
       mutators={{ ...arrayMutators }}
       onSubmit={values => onSubmit(values)}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
           <Page
             classes={{ container: classes.content }}
@@ -50,14 +51,16 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }
               <Grid item xs={12} md={8}>
                 <AppointmentBaseInfoCard />
                 <EditorCard />
-                <AppointmentTypeCard />
+                {values.type !== CalendarTypes.Birthday && <AppointmentTypeCard />}
               </Grid>
               <Grid item xs={12} md={4}>
                 <ParticipantsLocation members={members} locations={locations} />
               </Grid>
-              <Grid item xs={12}>
-                <CheckboxesCard />
-              </Grid>
+              {values.type !== CalendarTypes.Birthday && (
+                <Grid item xs={12}>
+                  <CheckboxesCard />
+                </Grid>
+              )}
             </Grid>
           </Page>
         </form>

@@ -75,8 +75,6 @@ type Appointment {
     confirmedDate: Boolean
     repeatAppointment: AppointmentRepeat
     description: String
-    type: CalendarTypes
-    appointmentType: AppointmentType!
     assignedPimIds: [String!]
     agreementType: [AppointmentMeetingType]
     invitedPersons: [String!]
@@ -86,6 +84,8 @@ type Appointment {
     travelTimeBefore: Int
     travelTimeAfter: Int
     state: AppointmentState
+    type: CalendarTypes!
+    appointmentType: AppointmentType
     taskLabel: TaskLabel
 }
 
@@ -104,7 +104,6 @@ input AddAppointmentInput {
     confirmedDate: Boolean
     repeatAppointment: AppointmentRepeat
     description: String
-    appointmentType: AppointmentType!
     assignedPimIds: [String!]
     agreementType: [AppointmentMeetingType]
     invitedPersons: [String!]
@@ -113,6 +112,9 @@ input AddAppointmentInput {
     outsideLocation: String
     travelTimeBefore: Int
     travelTimeAfter: Int
+    type: CalendarTypes!
+    appointmentType: AppointmentType
+    taskLabel: TaskLabel
 }
 
 input AppointmentSearch {
