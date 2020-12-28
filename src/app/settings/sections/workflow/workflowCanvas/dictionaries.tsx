@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DevelopmentType, PricingType, PropertyType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
+import { DevelopmentType, PropertyType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
 import {
   ArrowDownIcon,
   BuildingIcon,
