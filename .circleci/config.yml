@@ -188,10 +188,10 @@ workflows:
   custom_develop:
     jobs:
       - build-develop:
-          filters:
-            branches:
-              only:
-                - /deploy/(?:-.+)?$/
+#          filters:
+#            branches:
+#              only:
+#                - /deploy/(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
