@@ -1,5 +1,4 @@
-import { DocumentListViewType } from '../../Documents.types';
-import { DocumentKind } from 'app/pimDetails/sections/documents/Documents.types';
+import { DocumentKind, DocumentListViewType } from '../../General.types';
 
 export type DocumentTableViewProps = {
   data: DocumentListViewType[];

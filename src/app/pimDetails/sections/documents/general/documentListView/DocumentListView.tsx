@@ -8,8 +8,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, List } from 'ui/molecules';
-import { DocumentListViewType, DocumentStatus } from '../Documents.types';
-import { DocumentKind } from 'app/pimDetails/sections/documents/Documents.types';
+import { DocumentListViewType, DocumentStatus, DocumentKind } from '../General.types';
 
 import { DocumentListViewTabs } from './documentListViewTabs/DocumentListViewTabs';
 import { useStyles } from './DocumentListView.styles';

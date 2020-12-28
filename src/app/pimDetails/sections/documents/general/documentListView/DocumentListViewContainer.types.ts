@@ -1,4 +1,4 @@
-import { DocumentListViewType } from '../Documents.types';
+import { DocumentListViewType } from '../General.types';
 
 export type DocumentListViewContainerProps = {
   documents?: DocumentListViewType[];

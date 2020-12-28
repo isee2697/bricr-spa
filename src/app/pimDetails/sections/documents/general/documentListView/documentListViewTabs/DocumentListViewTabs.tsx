@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { ActionTabs } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { DocumentStatus } from '../../Documents.types';
+import { DocumentStatus } from '../../../general/General.types';
 
 import { DocumentListViewTabsProps } from './DocumentListViewTabs.types';
 import { useStyles } from './DocumentListViewTabs.styles';

@@ -1,4 +1,4 @@
-import { DocumentFolderType } from '../Documents.types';
+import { DocumentFolderType } from '../General.types';
 
 export type DocumentFoldersProps = {
   isLoading: boolean;

@@ -1,4 +1,4 @@
-import { DocumentMeta } from '../Documents.types';
+import { DocumentMeta } from '../General.types';
 
 export type DocumentStatsProps = {
   metaInfo: DocumentMeta[];

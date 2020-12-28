@@ -1,4 +1,4 @@
-import { DocumentStatus } from '../../Documents.types';
+import { DocumentStatus } from '../../General.types';
 
 export type DocumentListViewTabsProps = {
   status: DocumentStatus;
