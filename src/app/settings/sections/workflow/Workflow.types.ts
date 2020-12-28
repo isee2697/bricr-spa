@@ -85,7 +85,7 @@ export type WorkflowProps = {
   actionsGroups: WorkflowSidebarGroup[];
   workflowSections: WorkflowSectionWithInfo[];
   expandedSection?: WorkflowSectionWithInfo;
-  onAddSection: (section: CreateWorkflowSectionInput) => Promise<undefined | { error: boolean }>;
+  onAddSection: (section: Partial<CreateWorkflowSectionInput>) => Promise<undefined | { error: boolean }>;
   onAddWorkflowTrigger: (
     workflowSectionId: string,
     triggerType: WorkflowTriggerType,

@@ -48,7 +48,7 @@ export const CrmBusinessDetailsSidebarMenu = ({ onHide, isVisible }: CrmBusiness
         items: [
           { key: 'personal_information_general' },
           { key: 'personal_information_contact_information' },
-          { key: 'personal_information_family_and_contacts' },
+          { key: 'personal_information_contacts' },
           { key: 'personal_information_home_situation' },
           { key: 'personal_information_financial_profile' },
           { key: 'personal_information_match_profile' },
