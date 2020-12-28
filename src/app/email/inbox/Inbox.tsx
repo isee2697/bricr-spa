@@ -27,7 +27,7 @@ import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuC
 import { EmailInboxProps } from './Inbox.types';
 import { useStyles } from './Inbox.styles';
 
-export const EmailInbox = ({ onSidebarOpen, onSidebarClose, isSidebarVisible, emails }: EmailInboxProps) => {
+export const EmailInbox = ({ onSidebarOpen, onSidebarClose, isSidebarVisible, emails, accounts }: EmailInboxProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [checkedEmails, setCheckedEmails] = useState<string[]>([]);
@@ -54,7 +54,7 @@ export const EmailInbox = ({ onSidebarOpen, onSidebarClose, isSidebarVisible, em
 
   return (
     <>
-      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} />
+      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} accounts={accounts} />
       <Grid item xs={12} md={9} lg={10}>
         <Grid container className={classes.content}>
           <EmailHeader

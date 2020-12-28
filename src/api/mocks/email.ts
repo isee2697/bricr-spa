@@ -5,7 +5,10 @@ import { Email } from 'app/email/Email.types';
 export const EMAILS: Email[] = [
   {
     id: '0001',
-    folder: { name: 'inbox' },
+    folder: {
+      id: '0001',
+      name: 'inbox',
+    },
     from: [
       {
         name: 'John Doe',
@@ -21,7 +24,10 @@ export const EMAILS: Email[] = [
   },
   {
     id: '0002',
-    folder: { name: 'inbox' },
+    folder: {
+      id: '0001',
+      name: 'inbox',
+    },
     from: [
       {
         name: 'John Doe',
@@ -37,7 +43,10 @@ export const EMAILS: Email[] = [
   },
   {
     id: '0003',
-    folder: { name: 'inbox' },
+    folder: {
+      id: '0001',
+      name: 'inbox',
+    },
     from: [
       {
         name: 'John Doe',

@@ -13,7 +13,7 @@ import { useStyles } from './EmailSidebarMenu.styles';
 import { EmailSidebarMenuItem } from './EmailSidebarMenuItem';
 import { EmailSidebarSubMenuItem } from './EmailSidebarSubMenuItem';
 
-export const EmailSidebarMenu = ({ onHide, isVisible, folders }: EmailSidebarMenuProps) => {
+export const EmailSidebarMenu = ({ onHide, isVisible, folders, accounts }: EmailSidebarMenuProps) => {
   const { params } = useRouteMatch();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -28,7 +28,7 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders }: EmailSidebarMen
         {
           key: folder.folder.name,
           title: folder.folder.displayName || folder.folder.name,
-          count: folder.numberOfEmails,
+          count: folder.numberOfUnreadEmails,
         },
       ],
     })),

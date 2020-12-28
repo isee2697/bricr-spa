@@ -4,14 +4,16 @@ import { useParams } from 'react-router-dom';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { EntityType } from 'app/shared/entityType';
 import { NavBreadcrumb } from 'ui/atoms';
-import { useLocale } from 'hooks';
+import { useLocale, useNylasAccountState } from 'hooks';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { useListEmailFoldersQuery } from 'api/types';
 
 import { Email } from './Email';
 
 export const EmailContainer = () => {
   const { formatMessage } = useLocale();
   const urlParams = useParams();
+
   const breadcrumbs = (
     <>
       <NavBreadcrumb
@@ -22,5 +24,16 @@ export const EmailContainer = () => {
     </>
   );
 
-  return <Email breadcrumbs={breadcrumbs} path={AppRoute.email} entityType={EntityType.Email} />;
+  const { data } = useListEmailFoldersQuery({ fetchPolicy: 'no-cache' });
+  const { accounts } = useNylasAccountState();
+
+  return (
+    <Email
+      breadcrumbs={breadcrumbs}
+      path={AppRoute.email}
+      entityType={EntityType.Email}
+      accounts={accounts || []}
+      folders={data?.listEmailFolders || []}
+    />
+  );
 };

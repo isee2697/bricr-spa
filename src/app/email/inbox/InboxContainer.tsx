@@ -16,5 +16,5 @@ export const EmailInboxContainer = (props: EmailInboxContainerProps) => {
     return <Loader />;
   }
 
-  return <EmailInbox {...props} emails={data.listEmail} />;
+  return <EmailInbox {...props} emails={data.listEmail || []} />;
 };

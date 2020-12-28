@@ -167,6 +167,7 @@ export type Mutation = {
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
+  updateEmail?: Maybe<Email>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
   updateIdentificationNumberNcp: NcpCharacteristics;
@@ -672,6 +673,10 @@ export type MutationUpdateCrmHomeSituationArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateEmailArgs = {
+  input: UpdateEmailInput;
 };
 
 export type MutationUpdateEmailAddressArgs = {
@@ -1269,7 +1274,7 @@ export type QueryListCalendarArgs = {
 };
 
 export type QueryListEmailArgs = {
-  folder: Scalars['String'];
+  folderId: Scalars['ID'];
 };
 
 export type QueryListNcpsArgs = {
@@ -2065,6 +2070,7 @@ export type EmailAndNameInput = {
 
 export type EmailFolder = {
   __typename?: 'EmailFolder';
+  id: Scalars['ID'];
   name: Scalars['String'];
   displayName?: Maybe<Scalars['String']>;
 };
@@ -2077,6 +2083,7 @@ export type EmailListItem = {
   to: Array<EmailAndName>;
   subject: Scalars['String'];
   date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type Email = {
@@ -2090,12 +2097,13 @@ export type Email = {
   subject: Scalars['String'];
   body: Scalars['String'];
   date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type EmailFolderListItem = {
   __typename?: 'EmailFolderListItem';
   folder: EmailFolder;
-  numberOfEmails: Scalars['Int'];
+  numberOfUnreadEmails: Scalars['Int'];
 };
 
 export type SendEmailInput = {
@@ -2104,6 +2112,11 @@ export type SendEmailInput = {
   bcc?: Maybe<Array<EmailAndNameInput>>;
   subject: Scalars['String'];
   body: Scalars['String'];
+};
+
+export type UpdateEmailInput = {
+  id: Scalars['ID'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type Energy = {
@@ -9939,22 +9952,22 @@ export type ListEmailFoldersQueryVariables = Exact<{ [key: string]: never }>;
 export type ListEmailFoldersQuery = { __typename?: 'Query' } & {
   listEmailFolders?: Maybe<
     Array<
-      { __typename?: 'EmailFolderListItem' } & Pick<EmailFolderListItem, 'numberOfEmails'> & {
-          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+      { __typename?: 'EmailFolderListItem' } & Pick<EmailFolderListItem, 'numberOfUnreadEmails'> & {
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         }
     >
   >;
 };
 
 export type ListEmailQueryVariables = Exact<{
-  folder: Scalars['String'];
+  folder: Scalars['ID'];
 }>;
 
 export type ListEmailQuery = { __typename?: 'Query' } & {
   listEmail?: Maybe<
     Array<
       { __typename?: 'EmailListItem' } & Pick<EmailListItem, 'id' | 'subject' | 'date'> & {
-          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
           from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
           to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         }
@@ -9969,7 +9982,7 @@ export type GetEmailQueryVariables = Exact<{
 export type GetEmailQuery = { __typename?: 'Query' } & {
   getEmail?: Maybe<
     { __typename?: 'Email' } & Pick<Email, 'id' | 'subject' | 'body' | 'date'> & {
-        folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+        folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
       }
@@ -17210,10 +17223,11 @@ export const ListEmailFoldersDocument = gql`
   query ListEmailFolders {
     listEmailFolders {
       folder {
+        id
         name
         displayName
       }
-      numberOfEmails
+      numberOfUnreadEmails
     }
   }
 `;
@@ -17240,10 +17254,11 @@ export type ListEmailFoldersQueryResult = ApolloReactCommon.QueryResult<
   ListEmailFoldersQueryVariables
 >;
 export const ListEmailDocument = gql`
-  query ListEmail($folder: String!) {
-    listEmail(folder: $folder) {
+  query ListEmail($folder: ID!) {
+    listEmail(folderId: $folder) {
       id
       folder {
+        id
         name
         displayName
       }
@@ -17278,6 +17293,7 @@ export const GetEmailDocument = gql`
     getEmail(id: $id) {
       id
       folder {
+        id
         name
         displayName
       }

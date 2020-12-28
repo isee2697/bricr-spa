@@ -4,19 +4,21 @@ export const LIST_EMAIL_FOLDERS = gql`
   query ListEmailFolders {
     listEmailFolders {
       folder {
+        id
         name
         displayName
       }
-      numberOfEmails
+      numberOfUnreadEmails
     }
   }
 `;
 
 export const LIST_EMAIL = gql`
-  query ListEmail($folder: String!) {
-    listEmail(folder: $folder) {
+  query ListEmail($folder: ID!) {
+    listEmail(folderId: $folder) {
       id
       folder {
+        id
         name
         displayName
       }
@@ -39,6 +41,7 @@ export const GET_EMAIL = gql`
     getEmail(id: $id) {
       id
       folder {
+        id
         name
         displayName
       }

@@ -22,7 +22,7 @@ import { ActionTabs, InfoSection } from 'ui/molecules';
 import { useStyles } from './Settings.styles';
 import { EmailSettingsProps, Inbox } from './Settings.types';
 
-export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible }: EmailSettingsProps) => {
+export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible, accounts }: EmailSettingsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const urlParams = useParams();
@@ -73,7 +73,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
 
   return (
     <>
-      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} />
+      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} accounts={accounts} />
       <Box flex={1}>
         <Grid container className={classes.content}>
           <EmailHeader
@@ -107,7 +107,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
                 }
               />
               <CardContent>
-                {inboxes.length === 0 && (
+                {accounts.length === 0 && (
                   <InfoSection emoji="🤔">
                     <Typography variant="h3">
                       {formatMessage({
@@ -121,21 +121,16 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
                     </Typography>
                   </InfoSection>
                 )}
-                {inboxes.length > 0 && (
+                {accounts.length > 0 && (
                   <>
                     <ActionTabs onStatusChange={setStatus} status={status} tabs={tabs} badgeClasses={classes.badge} />
                     <Table>
                       <TableBody>
-                        {inboxes.map(({ name, mainEmailAddress, dateCreated }, index) => (
+                        {accounts.map(({ id, email, provider, syncState }, index) => (
                           <TableRow key={index} className={classes.tableRow}>
-                            <TableCell>{name}</TableCell>
-                            <TableCell>{mainEmailAddress}</TableCell>
-                            <TableCell>
-                              <Typography variant="h6">{dateCreated.toLocaleString(DateTime.DATE_SHORT)}</Typography>
-                              <Typography variant="caption">
-                                {dateCreated.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}
-                              </Typography>
-                            </TableCell>
+                            <TableCell>{syncState}</TableCell>
+                            <TableCell>{email}</TableCell>
+                            <TableCell>{provider}</TableCell>
                             <TableCell>
                               <IconButton variant="rounded" size="small" onClick={onMenuClick}>
                                 <MenuIcon />

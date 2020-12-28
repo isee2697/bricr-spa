@@ -11,15 +11,15 @@ export const NylasAccountController = ({ children }: NylasAccountControllerProps
   const { user, accessToken } = useAuthState();
   const dispatch = useNylasAccountDispatch();
 
-  const { loading, data, error } = useListNylasAccountQuery({
+  const { loading, data } = useListNylasAccountQuery({
     variables: { isCalendarConnected: true },
   });
 
   useEffect(() => {
-    if (!error && data?.listNylasAccount) {
+    if (user && !loading && data?.listNylasAccount) {
       dispatch(setNylasAccounts(data.listNylasAccount));
     }
-  }, [dispatch, error, data, loading, user, accessToken]);
+  }, [dispatch, data, loading, user, accessToken]);
 
   if (loading) {
     return <Loader />;

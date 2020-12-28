@@ -1,13 +1,15 @@
 import { DateTime } from 'luxon';
 import { ReactNode } from 'react';
 
-import { EmailListItem } from 'api/types';
+import { EmailFolderListItem, EmailListItem, NylasAccountItem } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type EmailProps = {
   path: string;
   entityType: EntityType;
   breadcrumbs: ReactNode;
+  accounts: NylasAccountItem[];
+  folders: EmailFolderListItem[];
 };
 
 export type Email = Omit<EmailListItem, '__typename'> & {
