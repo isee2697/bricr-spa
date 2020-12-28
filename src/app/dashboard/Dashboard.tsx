@@ -8,9 +8,10 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { DashboardEmailsContainer } from './dashboardEmails/DashboardEmailsContainer';
 import { DashboardOrdersContainer } from './dashboardOrders/DashboardOrdersContainer';
 import { DashboardStatsContainer } from './dashboardStats/DashboardStatsContainer';
-import { DashboardAgendaContainer } from './dashboardAgenda/DashboardAgendaContainer';
 import { DashboardVisitedPagesContainer } from './dashboardVisitedPages/DashboardVisitedPagesContainer';
+import { DashboardTasksContainer } from './dashboardTasks/DashboardTasksContainer';
 import { useStyles } from './Dashboard.styles';
+import { DashboardCalendarContainer } from './dashboardCalendar/DashboardCalendarContainer';
 
 export const Dashboard = () => {
   const { user } = useAuthState();
@@ -33,6 +34,9 @@ export const Dashboard = () => {
                 <DashboardEmailsContainer />
               </Grid>
               <Grid item xs={12}>
+                <DashboardTasksContainer />
+              </Grid>
+              <Grid item xs={12}>
                 <DashboardOrdersContainer />
               </Grid>
             </Grid>
@@ -40,7 +44,7 @@ export const Dashboard = () => {
           <Grid item xs={12} md={4}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <DashboardAgendaContainer />
+                <DashboardCalendarContainer />
               </Grid>
               <Grid item xs={12}>
                 <DashboardVisitedPagesContainer />
