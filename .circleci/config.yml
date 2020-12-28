@@ -57,7 +57,7 @@ jobs:
           name: "Config and install"
       - run: npm run coverage
   lint-and-build:
-    resource_class: large
+    resource_class: medium
     docker:
       - image: cimg/node:12.19.1
     steps:
