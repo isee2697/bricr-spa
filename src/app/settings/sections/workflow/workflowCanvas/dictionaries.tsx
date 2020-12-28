@@ -26,6 +26,10 @@ export const TriggerIcons = [
     icon: <UserIcon color="inherit" />,
   },
   {
+    type: WorkflowTriggerType.PimPricingUpdated,
+    icon: <SaleIcon color="inherit" />,
+  },
+  {
     type: WorkflowTriggerType.Trigger1,
     icon: <DashboardIcon color="inherit" />,
   },
@@ -106,8 +110,8 @@ export const generalConditionsTypes: TriggerConditionsTypes[] = [
     type: Types.RadioButton,
     size: Sizes.L,
     options: [
-      { label: PricingType.Sale, value: PricingType.Sale, icon: <EuroIcon /> },
-      { label: PricingType.Rent, value: PricingType.Rent, icon: <EuroIcon /> },
+      { label: 'Now', value: '0', icon: <EuroIcon /> },
+      { label: '10 min', value: '600000', icon: <EuroIcon /> },
     ],
   },
   {

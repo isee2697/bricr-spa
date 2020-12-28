@@ -8053,6 +8053,7 @@ export enum WorkflowSectionEndpoint {
 export enum WorkflowTriggerType {
   MakeAppointment = 'MakeAppointment',
   DifferentTrigger = 'DifferentTrigger',
+  PimPricingUpdated = 'PimPricingUpdated',
   Trigger1 = 'Trigger1',
   Trigger2 = 'Trigger2',
 }
