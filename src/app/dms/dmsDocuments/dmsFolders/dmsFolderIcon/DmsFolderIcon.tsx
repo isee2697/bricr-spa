@@ -1,4 +1,4 @@
-import React, { useRef, useState, ReactNode } from 'react';
+import React, { useRef, useState, ReactNode, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 
 import { Badge, Box, Typography } from 'ui/atoms';
@@ -29,33 +29,32 @@ export const DmsFolderIcon = ({
   const [isRenaming, setIsRenaming] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleStartRenaming = () => {
+  const handleStartRenaming = useCallback(() => {
     if (onRename) {
       setIsRenaming(true);
       inputRef.current?.select();
     }
-  };
+  }, [onRename]);
 
-  const handleEndRenaming = () => {
+  const handleEndRenaming = useCallback(() => {
     if (onRename) {
       if (inputRef.current?.value) {
         onRename?.(inputRef.current?.value);
         setIsRenaming(false);
       }
     }
-  };
+  }, [onRename]);
 
-  const handleChange = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleEndRenaming();
-    }
-  };
+  const handleChange = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleEndRenaming();
+      }
+    },
+    [handleEndRenaming],
+  );
 
-  window.addEventListener('click', () => {
-    handleEndRenaming();
-  });
-
-  const handleRemove = () => {
+  const handleRemove = useCallback(() => {
     if (onRemove) {
       setDialog(
         <ConfirmModal
@@ -84,7 +83,13 @@ export const DmsFolderIcon = ({
         />,
       );
     }
-  };
+  }, [formatMessage, onRemove]);
+
+  useEffect(() => {
+    window.addEventListener('click', handleEndRenaming);
+
+    return () => window.removeEventListener('click', handleEndRenaming);
+  }, [handleEndRenaming]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" className={classes.root}>

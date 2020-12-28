@@ -1,4 +1,4 @@
-import { DocumentKind } from '../../../Documents.types';
+import { DocumentKind } from '../../../general/General.types';
 
 export type DocumentListOfCaseSidebarMenuProps = {
   onHide: () => void;

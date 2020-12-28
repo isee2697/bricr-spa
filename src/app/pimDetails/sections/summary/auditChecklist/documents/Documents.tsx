@@ -19,7 +19,7 @@ import {
 } from 'ui/atoms';
 import { CloseIcon, CheckIcon } from 'ui/atoms/icons';
 
-import { Document, DocumentRequestStatus, DocumentType } from './Documents.types';
+import { Document, DocumentCondition, DocumentRequestStatus, DocumentType } from './Documents.types';
 import { useStyles } from './Documents.styles';
 
 const StatusStepConnector = withStyles(theme => ({
@@ -70,6 +70,11 @@ export const Documents = () => {
           date: DateTime.local(),
         },
       ],
+      condition: DocumentCondition.Mandatory,
+      document: {
+        name: 'choosing-a-pdf.pdf',
+        url: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+      },
     },
     {
       id: '0002',
@@ -91,6 +96,11 @@ export const Documents = () => {
           date: DateTime.local(),
         },
       ],
+      condition: DocumentCondition.Mandatory,
+      document: {
+        name: 'choosing-a-pdf.pdf',
+        url: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+      },
     },
     {
       id: '0003',
@@ -112,6 +122,11 @@ export const Documents = () => {
           date: DateTime.local(),
         },
       ],
+      condition: DocumentCondition.Mandatory,
+      document: {
+        name: 'choosing-a-pdf.pdf',
+        url: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
+      },
     },
   ];
 

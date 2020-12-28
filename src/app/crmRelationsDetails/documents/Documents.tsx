@@ -1,25 +1,60 @@
-import React from 'react';
-import { useParams, Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import React, { useState, ReactNode, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks';
 import { useEntityType } from 'app/shared/entityType';
-import { Button, NavBreadcrumb } from 'ui/atoms';
+import { Avatar, Box, Button, Grid, Loader, NavBreadcrumb, Placeholder, Typography } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { AddIcon } from 'ui/atoms/icons';
+import { AddIcon, BuildingIcon } from 'ui/atoms/icons';
 import { CrmRelationsDetailsHeader } from '../crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { Page } from 'ui/templates';
 
+import { useStyles } from './Documents.styles';
 import { DocumentsProps } from './Documents.types';
-import { DocumentsListContainer } from './list/ListContainer';
+import { DocumentFolders } from './documentFolders/DocumentFolders';
+import { AddFolderDialog } from './addFolderDialog/AddFolderDialog';
 
-export const Documents = ({ path, onSidebarOpen, isSidebarVisible }: DocumentsProps) => {
+export const Documents = ({
+  path,
+  title,
+  documents,
+  onSidebarOpen,
+  isSidebarVisible,
+  onAddFolder,
+  onDeleteFolder,
+  onUpdateFolder,
+}: DocumentsProps) => {
   const { formatMessage } = useLocale();
+  const theme = useTheme();
+  const classes = useStyles();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
-  const { push } = useHistory();
+  const [dialog, setDialog] = useState<ReactNode | null>(null);
 
-  const handleAddNew = () => {
-    push(`${joinUrlParams(baseUrl, urlParams)}/documents/new`);
-  };
+  const handleShowAddFolder = useCallback(() => {
+    setDialog(
+      <AddFolderDialog
+        isOpened={true}
+        isAdd={true}
+        onClose={() => {
+          setDialog(null);
+        }}
+        onSubmit={({ folderName }) => {
+          if (onAddFolder) {
+            onAddFolder(folderName);
+          }
+          setDialog(null);
+
+          return new Promise(resolve => {});
+        }}
+      />,
+    );
+  }, [onAddFolder]);
+
+  if (!documents) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -37,17 +72,35 @@ export const Documents = ({ path, onSidebarOpen, isSidebarVisible }: DocumentsPr
             color="primary"
             variant="contained"
             startIcon={<AddIcon color="inherit" />}
-            onClick={handleAddNew}
+            onClick={handleShowAddFolder}
           >
-            {formatMessage({ id: 'crm.details.request_document' })}
+            {formatMessage({ id: 'crm.details.documents.create_document' })}
           </Button>
         }
       />
-      <Switch>
-        <Route exact path={path} component={() => <DocumentsListContainer />} />
-        <Route exact path={`${path}/new`} component={() => <></>} />
-        <Redirect to={{ pathname: `${path}` }} />
-      </Switch>
+      <Page withoutHeader>
+        <Grid xs={12} item>
+          <Box display="flex" alignItems="center">
+            <Avatar variant="rounded" bgcolor={theme.palette.red.light} className={classes.avatarIcon}>
+              <Box color={theme.palette.red.main}>
+                <BuildingIcon color="inherit" />
+              </Box>
+            </Avatar>
+            <Typography variant="h1">{title ? title : <Placeholder variant="text" width={150} />}</Typography>
+          </Box>
+        </Grid>
+        <DocumentFolders
+          path={path}
+          foldersData={documents}
+          isLoading={false}
+          isError={false}
+          onAddFolder={onAddFolder}
+          onDeleteFolder={onDeleteFolder}
+          onUpdateFolder={onUpdateFolder}
+        />
+      </Page>
+
+      {dialog}
     </>
   );
 };

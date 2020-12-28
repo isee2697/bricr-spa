@@ -4,12 +4,18 @@ export type DocumentsContainerProps = {
   path: string;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
+  title: string;
 };
 
 export type DocumentsProps = {
   path: string;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
+  title: string;
+  documents?: DocumentFolderType[];
+  onAddFolder?: (folderName: string) => void;
+  onDeleteFolder?: (id: string) => void;
+  onUpdateFolder?: (folder: DocumentFolderType) => void;
 };
 
 export enum DocumentStatus {
@@ -26,12 +32,20 @@ export type DocumentsCount = {
   [DocumentStatus.Accepted]: number;
 };
 
+export type DocumentFolderType = {
+  id: string;
+  name: string;
+  documents?: Document[];
+};
+
 export type Document = {
   id: string;
   image: string;
   dateCreated: DateTime;
   name: string;
   stepsCompleted: DocumentRequestStep[];
+  size?: number;
+  type?: string;
 };
 
 export type DocumentRequestStep = {
