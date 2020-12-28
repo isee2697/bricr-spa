@@ -5,7 +5,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { SidebarMenu } from 'ui/molecules';
 import { CrmIcon, SaleIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
-import { DocumentKind } from '../../../Documents.types';
+import { DocumentKind } from '../../../general/General.types';
 
 import { DocumentListOfCaseSidebarMenuProps } from './DocumentListOfCaseSidebarMenu.types';
 

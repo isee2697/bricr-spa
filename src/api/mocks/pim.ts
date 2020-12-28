@@ -21,7 +21,6 @@ import {
   RealEstateType,
   ServiceType,
 } from 'api/types';
-import { DocumentFolderType, DocumentKind, DocumentMeta } from 'app/pimDetails/sections/documents/Documents.types';
 import { AllocatedProperty } from 'app/pimDetails/sections/allocateResultsDetails/list/List.types';
 import { AllocateResultsRelationRanking } from 'app/pimDetails/sections/allocateResultsDetails/AllocateResultsDetails.types';
 import { DocumentListOfCaseType } from 'app/pimDetails/sections/documents/documentDetails/documentListOfCase/DocumentListOfCase.types';
@@ -37,6 +36,11 @@ import {
   DocumentContractType,
 } from 'app/pimDetails/sections/documents/documentDetails/documentContract/DocumentContract.types';
 import { DocumentUploadedType } from 'app/pimDetails/sections/documents/documentDetails/documentUploaded/DocumentUploaded.types';
+import {
+  DocumentFolderType,
+  DocumentKind,
+  DocumentMeta,
+} from 'app/pimDetails/sections/documents/general/General.types';
 
 export const PIM_1 = {
   id: 'pim_1',

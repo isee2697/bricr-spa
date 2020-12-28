@@ -20,7 +20,7 @@ import {
 } from 'ui/atoms';
 import { MenuIcon, EditIcon, CloseIcon, CheckIcon } from 'ui/atoms/icons';
 import { Button } from 'ui/atoms/button/Button.styles';
-import { DocumentRequestStep } from 'app/crmRelationsDetails/documents/listItem/ListItem.types';
+import { DocumentRequestStep } from 'app/crmRelationsDetails/documents/documentListView/listItem/ListItem.types';
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
 
 import { DmsDetailViewItemProps } from './DmsDetailViewItem.types';

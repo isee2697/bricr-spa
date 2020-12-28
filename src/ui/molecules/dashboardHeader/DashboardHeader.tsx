@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import { Typography, IconButton, Grid, Emoji } from 'ui/atoms';
-import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
+import { SettingsIcon } from 'ui/atoms/icons';
 
 import { DashboardHeaderProps } from './DashboardHeader.types';
 import { useStyles } from './DashboardHeader.styles';
@@ -21,7 +21,7 @@ export const DashboardHeader = ({ children, onFilterClick }: DashboardHeaderProp
       </Typography>
 
       <IconButton variant="rounded" size="small" onClick={onFilterClick}>
-        <ManageIcon />
+        <SettingsIcon />
       </IconButton>
     </Grid>
   );
