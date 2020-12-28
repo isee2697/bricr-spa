@@ -87,6 +87,11 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       },
       {
         isCollapsable: true,
+        key: 'settings.menu.checklists_documents',
+        items: [{ key: 'livingSituation' }],
+      },
+      {
+        isCollapsable: true,
         key: 'settings.menu.cadastre',
         items: [{ key: 'cadastre' }],
       },

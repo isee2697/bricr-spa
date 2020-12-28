@@ -7961,6 +7961,7 @@ export type WorkflowTemplate = {
 
 export type CreateWorkflowTemplateInput = {
   __typename?: 'CreateWorkflowTemplateInput';
+  companyId: Scalars['ID'];
   name: Scalars['String'];
   icon: Scalars['String'];
 };
@@ -7978,6 +7979,7 @@ export type WorkflowSection = {
 
 export type CreateWorkflowSectionInput = {
   __typename?: 'CreateWorkflowSectionInput';
+  companyId: Scalars['ID'];
   workflowTemplateId: Scalars['ID'];
   name: Scalars['String'];
   startpoint: WorkflowSectionStartpoint;
@@ -7997,6 +7999,7 @@ export type WorkflowTrigger = {
 
 export type CreateWorkflowTriggerInput = {
   __typename?: 'CreateWorkflowTriggerInput';
+  companyId: Scalars['ID'];
   workflowSectionId: Scalars['ID'];
   type: WorkflowTriggerType;
 };
@@ -8018,6 +8021,7 @@ export type WorkflowAction = {
 };
 
 export type CreateWorkflowActionInput = {
+  companyId: Scalars['ID'];
   workflowTriggerId: Scalars['ID'];
   workflowActionGroupType?: Maybe<WorkflowActionGroupType>;
   workflowActionGroupId?: Maybe<Scalars['ID']>;

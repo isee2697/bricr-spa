@@ -29,7 +29,7 @@ export const WorkflowContainer = () => {
   }>();
   const { id } = useParams<{ id: string }>();
   const { push } = useHistory();
-  const { accessToken } = useAuthState();
+  const { accessToken, user } = useAuthState();
   const [loading, setLoading] = useState(false);
   const [workflowTemplate, setWorkflowTemplate] = useState<WorkflowTemplate>();
   const [workflowSections, setWorkflowSections] = useState<WorkflowSectionWithInfo[]>([]);
@@ -120,6 +120,7 @@ export const WorkflowContainer = () => {
         body: JSON.stringify({
           workflowSectionId,
           type: triggerType,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -147,6 +148,7 @@ export const WorkflowContainer = () => {
           workflowTriggerId,
           workflowActionGroupType,
           type,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -174,6 +176,7 @@ export const WorkflowContainer = () => {
           workflowTriggerId,
           workflowActionGroupId,
           type,
+          companyId: user?.company?.id,
         }),
       });
 
@@ -227,7 +230,7 @@ export const WorkflowContainer = () => {
     }
   };
 
-  const handleAddWorkflowSection = async (section: CreateWorkflowSectionInput) => {
+  const handleAddWorkflowSection = async (section: Partial<CreateWorkflowSectionInput>) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_FILE_URL}/create-workflow-section`, {
         method: 'POST',
@@ -235,7 +238,7 @@ export const WorkflowContainer = () => {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + accessToken,
         },
-        body: JSON.stringify(section),
+        body: JSON.stringify({ ...section, companyId: user?.company?.id }),
       });
 
       if (response.ok) {
@@ -304,7 +307,7 @@ export const WorkflowContainer = () => {
         triggersGroups={dictionaries.triggersGroups}
         workflowSections={workflowSections}
         expandedSection={workflowSectionExpanded}
-        onAddSection={(section: CreateWorkflowSectionInput) => handleAddWorkflowSection(section)}
+        onAddSection={(section: Partial<CreateWorkflowSectionInput>) => handleAddWorkflowSection(section)}
         onAddWorkflowTrigger={(workflowSectionId: string, triggerType: WorkflowTriggerType) =>
           handleAddWorkflowTrigger(workflowSectionId, triggerType)
         }
