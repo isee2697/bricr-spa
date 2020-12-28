@@ -27,8 +27,6 @@ export const DashboardAgendaContainer = () => {
     },
   });
 
-  console.log(agenda?.listCalendar);
-
   useEffect(() => {
     if (user) {
       getTasks({
