@@ -17,7 +17,7 @@ import { HomeSituationContainer } from './personalInformation/homeSituation/Home
 import { PersonalInformationGeneralContainer } from './personalInformation/general/GeneralContainer';
 import { ContactInformationContainer } from './personalInformation/contactInformation/ContactInformationContainer';
 import { MatchProfileContainer } from './personalInformation/matchProfile/MatchProfileContainer';
-import { DocumentsConatiner } from './documents/DocumentsContainer';
+import { DocumentsContainer } from './documents/DocumentsContainer';
 import { MarketingNewLetterContainer } from './marketingNewLetters/MarketingNewLettersContainer';
 import { OrdersContainer } from './orders/OrdersContainer';
 import { LinkedBusinessesContainer } from './linkedBusinesses/LinkedBusinessesContainer';
@@ -141,8 +141,9 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route
                   path={`${path}/documents`}
                   render={() => (
-                    <DocumentsConatiner
-                      path={`${path}/documents`}
+                    <DocumentsContainer
+                      path={`${path.replace(':id', crm.id)}/documents`}
+                      title={`${crm.firstName} ${crm.lastName}`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />

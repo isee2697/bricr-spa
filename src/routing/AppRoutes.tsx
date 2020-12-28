@@ -29,6 +29,7 @@ import { SalesContainer } from '../app/sales/SalesContainer';
 import { EmailContainer } from '../app/email/EmailContainer';
 import { SalesDetailsContainer } from 'app/salesDetails/SalesDetailsContainer';
 import { DocumentDetailsContainer as PimDocumentDetailsContainer } from 'app/pimDetails/sections/documents/documentDetails/DocumentDetailsContainer';
+import { DocumentDetailsContainer as CrmDocumentDetailsContainer } from 'app/crmRelationsDetails/documents/documentDetails/DocumentDetailsContainer';
 import { CrmBusinessesDetailsContainer } from 'app/crmBusinessesDetails/CrmBusinessesDetailsContainer';
 import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoiceDetailsContainer';
 
@@ -84,6 +85,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crm} component={CrmContainer} />
+                <AuthorizedRoute path={AppRoute.crmRelationsDocumentDetails} component={CrmDocumentDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crmBusinessesDetails} component={CrmBusinessesDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.sales} component={SalesContainer} />
