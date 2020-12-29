@@ -105,7 +105,7 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   authorizeNylasAccount?: Maybe<Scalars['Boolean']>;
-  authorizeNylasAccountWithToken?: Maybe<Scalars['Boolean']>;
+  authorizeNylasAccountWithToken?: Maybe<NylasAccount>;
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
@@ -423,11 +423,13 @@ export type MutationAddViewingMomentArgs = {
 export type MutationAuthorizeNylasAccountArgs = {
   input: NylasAuthorizationInput;
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationAuthorizeNylasAccountWithTokenArgs = {
   nylasToken: Scalars['String'];
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationBulkArgs = {
@@ -1285,6 +1287,7 @@ export type QueryListNcpsArgs = {
 
 export type QueryListNylasAccountArgs = {
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryListObjectTypesArgs = {
@@ -3206,6 +3209,17 @@ export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
   notificationAdded: NotificationAdded;
+};
+
+export type NylasAccount = {
+  __typename?: 'NylasAccount';
+  id: Scalars['ID'];
+  userId: Scalars['ID'];
+  accountId: Scalars['ID'];
+  accessToken: Scalars['String'];
+  newAccount: Scalars['Boolean'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export enum NylasProviderType {
@@ -8816,6 +8830,7 @@ export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick
 export type AuthorizeNylasAccountMutationVariables = Exact<{
   input: NylasAuthorizationInput;
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'authorizeNylasAccount'>;
@@ -8823,12 +8838,17 @@ export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<M
 export type AuthorizeNylasAccountWithTokenMutationVariables = Exact<{
   nylasToken: Scalars['String'];
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
-export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & Pick<
-  Mutation,
-  'authorizeNylasAccountWithToken'
->;
+export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & {
+  authorizeNylasAccountWithToken?: Maybe<
+    { __typename?: 'NylasAccount' } & Pick<
+      NylasAccount,
+      'id' | 'userId' | 'accountId' | 'accessToken' | 'newAccount' | 'isCalendarConnected' | 'isEmailConnected'
+    >
+  >;
+};
 
 export type UpdateObjectTypeCharacteristicsMutationVariables = Exact<{
   input: ObjectTypeCharacteristicsInput;
@@ -10798,6 +10818,7 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
 
 export type ListNylasAccountQueryVariables = Exact<{
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type ListNylasAccountQuery = { __typename?: 'Query' } & {
@@ -14565,8 +14586,12 @@ export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutat
   BulkDeleteNotificationsMutationVariables
 >;
 export const AuthorizeNylasAccountDocument = gql`
-  mutation AuthorizeNylasAccount($input: NylasAuthorizationInput!, $isCalendarConnected: Boolean) {
-    authorizeNylasAccount(input: $input, isCalendarConnected: $isCalendarConnected)
+  mutation AuthorizeNylasAccount(
+    $input: NylasAuthorizationInput!
+    $isCalendarConnected: Boolean
+    $isEmailConnected: Boolean
+  ) {
+    authorizeNylasAccount(input: $input, isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected)
   }
 `;
 export function useAuthorizeNylasAccountMutation(
@@ -14587,8 +14612,24 @@ export type AuthorizeNylasAccountMutationOptions = ApolloReactCommon.BaseMutatio
   AuthorizeNylasAccountMutationVariables
 >;
 export const AuthorizeNylasAccountWithTokenDocument = gql`
-  mutation AuthorizeNylasAccountWithToken($nylasToken: String!, $isCalendarConnected: Boolean) {
-    authorizeNylasAccountWithToken(nylasToken: $nylasToken, isCalendarConnected: $isCalendarConnected)
+  mutation AuthorizeNylasAccountWithToken(
+    $nylasToken: String!
+    $isCalendarConnected: Boolean
+    $isEmailConnected: Boolean
+  ) {
+    authorizeNylasAccountWithToken(
+      nylasToken: $nylasToken
+      isCalendarConnected: $isCalendarConnected
+      isEmailConnected: $isEmailConnected
+    ) {
+      id
+      userId
+      accountId
+      accessToken
+      newAccount
+      isCalendarConnected
+      isEmailConnected
+    }
   }
 `;
 export function useAuthorizeNylasAccountWithTokenMutation(
@@ -18625,8 +18666,8 @@ export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
   GetNotificationsQueryVariables
 >;
 export const ListNylasAccountDocument = gql`
-  query ListNylasAccount($isCalendarConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected) {
+  query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
       id
       email
       provider

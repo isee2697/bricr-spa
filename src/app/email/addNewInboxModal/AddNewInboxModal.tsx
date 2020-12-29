@@ -5,12 +5,12 @@ import { GenericField } from 'form/fields';
 import { Box, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
-import { AddNewInboxModalProps } from './AddNewInboxModal.types';
+import { AddNewInboxBody, AddNewInboxModalProps } from './AddNewInboxModal.types';
 
 export const AddNewInboxModal = ({ isOpened, onClose, onSubmit }: AddNewInboxModalProps) => {
   const { formatMessage } = useLocale();
-  const handleSubmit = async () => {
-    onSubmit();
+  const handleSubmit = async (values: AddNewInboxBody) => {
+    onSubmit(values);
 
     return undefined;
   };

@@ -1,3 +1,13 @@
+type NylasAccount {
+    id: ID!
+    userId: ID!
+    accountId: ID!
+    accessToken: String!
+    newAccount: Boolean!
+    isCalendarConnected: Boolean
+    isEmailConnected: Boolean
+}
+
 enum NylasProviderType {
     Exchange,
     Gmail,
@@ -27,11 +37,11 @@ input NylasAccountAuthOptions {
 }
 
 extend type Mutation {
-    authorizeNylasAccount(input: NylasAuthorizationInput!, isCalendarConnected: Boolean): Boolean @auth
-    authorizeNylasAccountWithToken(nylasToken: String!, isCalendarConnected: Boolean): Boolean @auth
+    authorizeNylasAccount(input: NylasAuthorizationInput!, isCalendarConnected: Boolean, isEmailConnected: Boolean): Boolean @auth
+    authorizeNylasAccountWithToken(nylasToken: String!, isCalendarConnected: Boolean, isEmailConnected: Boolean): NylasAccount @auth
 }
 
 extend type Query {
-    listNylasAccount(isCalendarConnected: Boolean): [NylasAccountItem!] @auth
+    listNylasAccount(isCalendarConnected: Boolean, isEmailConnected: Boolean): [NylasAccountItem!] @auth
     getNylasAuthUrl(input: NylasAccountAuthOptions!): String @auth
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { DateTime } from 'luxon';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -20,15 +19,20 @@ import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
 
 import { useStyles } from './Settings.styles';
-import { EmailSettingsProps, Inbox } from './Settings.types';
+import { EmailSettingsProps } from './Settings.types';
 
-export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible, accounts }: EmailSettingsProps) => {
+export const EmailSettings = ({
+  onSidebarClose,
+  onSidebarOpen,
+  isSidebarVisible,
+  accounts,
+  onAddNewInbox,
+}: EmailSettingsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const urlParams = useParams();
   const { push } = useHistory();
   const { isOpen } = useModalState('add-new-inbox');
-  const [inboxes, setInboxes] = useState<Inbox[]>([]);
   const { open, close } = useModalDispatch();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState<'active' | 'inactive'>('active');
@@ -147,16 +151,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible,
           </Page>
         </Grid>
       </Box>
-      <AddNewInboxModal
-        isOpened={isOpen}
-        onClose={() => close('add-new-inbox')}
-        onSubmit={() => {
-          setInboxes([
-            { id: '0001', name: 'Inbox', mainEmailAddress: 'info@hureninhetgroen.nl', dateCreated: DateTime.local() },
-          ]);
-          close('add-new-inbox');
-        }}
-      />
+      <AddNewInboxModal isOpened={isOpen} onClose={() => close('add-new-inbox')} onSubmit={onAddNewInbox} />
       <Menu
         id="email-inbox-settings-row-menu"
         open={Boolean(menuEl)}

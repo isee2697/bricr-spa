@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const LIST_NYLAS_ACCOUNT = gql`
-  query ListNylasAccount($isCalendarConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected) {
+  query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
       id
       email
       provider

@@ -10,6 +10,7 @@ export type EmailProps = {
   breadcrumbs: ReactNode;
   accounts: NylasAccountItem[];
   folders: EmailFolderListItem[];
+  onAddedNewAccount: VoidFunction;
 };
 
 export type Email = Omit<EmailListItem, '__typename'> & {

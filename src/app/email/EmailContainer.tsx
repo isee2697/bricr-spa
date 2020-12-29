@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { EntityType } from 'app/shared/entityType';
 import { NavBreadcrumb } from 'ui/atoms';
-import { useLocale, useNylasAccountState } from 'hooks';
+import { useLocale } from 'hooks';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { useListEmailFoldersQuery } from 'api/types';
+import { useListEmailFoldersQuery, useListNylasAccountLazyQuery } from 'api/types';
 
 import { Email } from './Email';
 
@@ -25,15 +25,36 @@ export const EmailContainer = () => {
   );
 
   const { data } = useListEmailFoldersQuery({ fetchPolicy: 'no-cache' });
-  const { accounts } = useNylasAccountState();
+  const [listNylasAccounts, { data: nylasAccountsData }] = useListNylasAccountLazyQuery({ fetchPolicy: 'no-cache' });
+
+  useEffect(() => {
+    const getNylasAccounts = () => {
+      listNylasAccounts({
+        variables: {
+          isEmailConnected: true,
+        },
+      });
+    };
+
+    getNylasAccounts();
+  }, [listNylasAccounts]);
+
+  const handleAddedNewAccount = () => {
+    listNylasAccounts({
+      variables: {
+        isEmailConnected: true,
+      },
+    });
+  };
 
   return (
     <Email
       breadcrumbs={breadcrumbs}
       path={AppRoute.email}
       entityType={EntityType.Email}
-      accounts={accounts || []}
+      accounts={nylasAccountsData?.listNylasAccount || []}
       folders={data?.listEmailFolders || []}
+      onAddedNewAccount={handleAddedNewAccount}
     />
   );
 };
