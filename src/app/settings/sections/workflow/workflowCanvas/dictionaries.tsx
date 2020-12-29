@@ -26,7 +26,7 @@ export const TriggerIcons = [
     icon: <UserIcon color="inherit" />,
   },
   {
-    type: WorkflowTriggerType.PimPricingUpdated,
+    type: WorkflowTriggerType.PimPricing,
     icon: <SaleIcon color="inherit" />,
   },
   {

@@ -99,7 +99,7 @@ enum WorkflowSectionEndpoint {
 enum WorkflowTriggerType {
   MakeAppointment
   DifferentTrigger
-  PimPricingUpdated
+  PimPricing
   Trigger1
   Trigger2
 }

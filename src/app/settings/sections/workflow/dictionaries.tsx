@@ -29,7 +29,7 @@ export const triggersGroups: WorkflowSidebarGroup[] = [
         title: 'Different trigger',
       },
       {
-        id: WorkflowTriggerType.PimPricingUpdated,
+        id: WorkflowTriggerType.PimPricing,
         icon: <SaleIcon color="inherit" />,
         title: 'Pim Price',
       },
