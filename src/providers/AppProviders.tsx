@@ -31,17 +31,17 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
                 <SnackbarContextController>
                   <ApiClientContextController>
                     <UserController>
-                      <NylasAccountController>
-                        <OverlayContextController>
-                          <ModalContextController>
-                            <LayoutContextController>
+                      <OverlayContextController>
+                        <ModalContextController>
+                          <LayoutContextController>
+                            <NylasAccountController>
                               <Router>
                                 <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
                               </Router>
-                            </LayoutContextController>
-                          </ModalContextController>
-                        </OverlayContextController>
-                      </NylasAccountController>
+                            </NylasAccountController>
+                          </LayoutContextController>
+                        </ModalContextController>
+                      </OverlayContextController>
                     </UserController>
                   </ApiClientContextController>
                 </SnackbarContextController>

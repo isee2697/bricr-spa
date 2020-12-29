@@ -18,6 +18,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AgendaItemProps } from 'ui/atoms/agendaItem/AgendaItem.types';
 import { GroupTitle } from 'ui/organisms';
 import { ManageIcon } from 'ui/atoms/icons';
+import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './DashboardCalendar.styles';
 import { DashboardCalendarProps } from './DashboardCalendar.types';
@@ -55,16 +56,31 @@ export const DashboardCalendar = ({ onMoreClick, data }: DashboardCalendarProps)
         }
       />
       <CardContent>
-        <Scrollable className={classes.scrollable} width="auto" height={342}>
-          {sortedByDate.map((dateGroup, key) => {
-            return (
-              <div className={classes.group} key={key}>
-                <GroupTitle date={dateGroup} dateFormat={dateFormat} />
-                {getGroupAgendaItems(grouped[dateGroup])}
-              </div>
-            );
-          })}
-        </Scrollable>
+        {data.length ? (
+          <Scrollable className={classes.scrollable} width="auto" height={342}>
+            {sortedByDate.map((dateGroup, key) => {
+              return (
+                <div className={classes.group} key={key}>
+                  <GroupTitle date={dateGroup} dateFormat={dateFormat} />
+                  {getGroupAgendaItems(grouped[dateGroup])}
+                </div>
+              );
+            })}
+          </Scrollable>
+        ) : (
+          <InfoSection emoji="🤔">
+            <Typography variant="h3">
+              {formatMessage({
+                id: 'dashboard.agenda.empty_title',
+              })}
+            </Typography>
+            <Typography variant="h3">
+              {formatMessage({
+                id: 'dashboard.agenda.empty_description',
+              })}
+            </Typography>
+          </InfoSection>
+        )}
       </CardContent>
       <CardActions>
         <Button fullWidth className={classes.moreButton} onClick={onMoreClick}>

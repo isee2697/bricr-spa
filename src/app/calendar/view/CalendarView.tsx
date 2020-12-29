@@ -59,7 +59,9 @@ export const CalendarView = ({
 
   const { push } = useHistory();
 
-  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery();
+  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery({
+    fetchPolicy: 'no-cache',
+  });
 
   useEffect(() => {
     const { startDate, endDate } = getViewRange(currentView, selectedDate.toJSDate());
