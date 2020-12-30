@@ -28,25 +28,25 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
       <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
         <Theme>
           <AuthContextController>
-            <NylasAccountContextController>
-              <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-                <SnackbarContextController>
-                  <ApiClientContextController>
-                    <OverlayContextController>
-                      <ModalContextController>
-                        <LayoutContextController>
-                          <MuiPickersUtilsProvider utils={LuxonUtils}>
-                            <Router>
-                              <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                            </Router>
-                          </MuiPickersUtilsProvider>
-                        </LayoutContextController>
-                      </ModalContextController>
-                    </OverlayContextController>
-                  </ApiClientContextController>
-                </SnackbarContextController>
-              </LocaleContext.Provider>
-            </NylasAccountContextController>
+            {/* <NylasAccountContextController> */}
+            <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+              <SnackbarContextController>
+                <ApiClientContextController>
+                  <OverlayContextController>
+                    <ModalContextController>
+                      <LayoutContextController>
+                        <MuiPickersUtilsProvider utils={LuxonUtils}>
+                          <Router>
+                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                          </Router>
+                        </MuiPickersUtilsProvider>
+                      </LayoutContextController>
+                    </ModalContextController>
+                  </OverlayContextController>
+                </ApiClientContextController>
+              </SnackbarContextController>
+            </LocaleContext.Provider>
+            {/* </NylasAccountContextController> */}
           </AuthContextController>
         </Theme>
       </IntlProvider>
