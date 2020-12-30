@@ -24,31 +24,31 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
   <ThroughProvider>
     <Theme>
       <AuthContextController>
-        <NylasAccountContextController>
-          <LocaleContextController>
-            <MuiPickersUtilsProvider utils={LuxonUtils}>
-              <ErrorBoundary>
-                <SnackbarContextController>
-                  <ApiClientContextController>
-                    <UserController>
-                      <OverlayContextController>
-                        <ModalContextController>
-                          <LayoutContextController>
-                            <NylasAccountController>
-                              <Router>
-                                <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                              </Router>
-                            </NylasAccountController>
-                          </LayoutContextController>
-                        </ModalContextController>
-                      </OverlayContextController>
-                    </UserController>
-                  </ApiClientContextController>
-                </SnackbarContextController>
-              </ErrorBoundary>
-            </MuiPickersUtilsProvider>
-          </LocaleContextController>
-        </NylasAccountContextController>
+        {/* <NylasAccountContextController> */}
+        <LocaleContextController>
+          <MuiPickersUtilsProvider utils={LuxonUtils}>
+            <ErrorBoundary>
+              <SnackbarContextController>
+                <ApiClientContextController>
+                  <UserController>
+                    <OverlayContextController>
+                      <ModalContextController>
+                        <LayoutContextController>
+                          {/* <NylasAccountController> */}
+                          <Router>
+                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                          </Router>
+                          {/* </NylasAccountController> */}
+                        </LayoutContextController>
+                      </ModalContextController>
+                    </OverlayContextController>
+                  </UserController>
+                </ApiClientContextController>
+              </SnackbarContextController>
+            </ErrorBoundary>
+          </MuiPickersUtilsProvider>
+        </LocaleContextController>
+        {/* </NylasAccountContextController> */}
       </AuthContextController>
     </Theme>
   </ThroughProvider>
