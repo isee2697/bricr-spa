@@ -15,8 +15,8 @@ import { OverlayContextController } from 'context/overlay/overlayContextControll
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
-import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
-import { NylasAccountController } from 'context/nylasContext/nylasAccountController/NylasAccountController';
+// import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
+// import { NylasAccountController } from 'context/nylasContext/nylasAccountController/NylasAccountController';
 
 import { AppProvidersProps } from './AppProviders.types';
 

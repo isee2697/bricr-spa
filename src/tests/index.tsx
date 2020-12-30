@@ -18,7 +18,7 @@ import { OverlayContextController } from 'context/overlay/overlayContextControll
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
-import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
+// import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
