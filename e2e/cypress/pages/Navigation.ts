@@ -2,22 +2,25 @@ import { AppRoute } from '../../../src/routing/AppRoute.enum';
 
 class Navigation {
   goToLogout(): void {
-    cy.get('#profile-button').click();
-    cy.get(`a[href*="${AppRoute.logout}"]`)
-      .first()
-      .click();
+    // cy.get('#profile-button').click();
+    // cy.get(`a[href*="${AppRoute.logout}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.logout);
   }
 
   goToHome(): void {
-    cy.get(`a[href*="${AppRoute.home}"]`)
-      .first()
-      .click();
+    // cy.get(`a[href*="${AppRoute.home}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.home);
   }
 
   goToPim(): void {
-    cy.get(`a[href*="${AppRoute.pim}"]`)
-      .first()
-      .click();
+    // cy.get(`a[href*="${AppRoute.pim}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.pim);
   }
 
   goToUsers(): void {
@@ -25,15 +28,17 @@ class Navigation {
   }
 
   goToLogin(): void {
-    cy.get(`a[href*="${AppRoute.login}"]`)
-      .first()
-      .click();
+    // cy.get(`a[href*="${AppRoute.login}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.login);
   }
 
   goToForgotPassword(): void {
-    cy.get(`a[href*="${AppRoute.forgotPassword}"]`)
-      .first()
-      .click();
+    // cy.get(`a[href*="${AppRoute.forgotPassword}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.forgotPassword);
   }
 
   goToResetPasswordPage(): void {
