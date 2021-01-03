@@ -19,7 +19,7 @@ import { ModalContextController } from 'context/modal/modalContextController/Mod
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
 // import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
-import { UserController } from 'context/auth/userController/UserController';
+// import { UserController } from 'context/auth/userController/UserController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
@@ -33,19 +33,17 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
             <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
               <SnackbarContextController>
                 <ApiClientContextController>
-                  <UserController>
-                    <OverlayContextController>
-                      <ModalContextController>
-                        <LayoutContextController>
-                          <MuiPickersUtilsProvider utils={LuxonUtils}>
-                            <Router>
-                              <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                            </Router>
-                          </MuiPickersUtilsProvider>
-                        </LayoutContextController>
-                      </ModalContextController>
-                    </OverlayContextController>
-                  </UserController>
+                  <OverlayContextController>
+                    <ModalContextController>
+                      <LayoutContextController>
+                        <MuiPickersUtilsProvider utils={LuxonUtils}>
+                          <Router>
+                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                          </Router>
+                        </MuiPickersUtilsProvider>
+                      </LayoutContextController>
+                    </ModalContextController>
+                  </OverlayContextController>
                 </ApiClientContextController>
               </SnackbarContextController>
             </LocaleContext.Provider>
