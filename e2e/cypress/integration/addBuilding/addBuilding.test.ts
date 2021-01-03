@@ -3,15 +3,21 @@
 import { NavigationMenu } from '../../pages/Navigation';
 
 context('Add buildimg', () => {
-  beforeEach(() => {
+  // beforeEach(() => {
+  //   cy.clearSession();
+  //   cy.visit(Cypress.env().baseUrl);
+  //   cy.userLogin();
+
+  //   NavigationMenu.goToPim();
+  // });
+
+  it('allows to add building and change it', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
     NavigationMenu.goToPim();
-  });
 
-  it('allows to add building and change it', () => {
     NavigationMenu.goToPimBuildings();
     cy.findByRole('button', { name: 'Add new building' }).click();
     cy.findByLabelText('Name of the building').type('Name');
