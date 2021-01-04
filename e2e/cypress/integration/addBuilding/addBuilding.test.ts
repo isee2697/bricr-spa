@@ -9,11 +9,12 @@ context('Add buildimg', () => {
     cy.userLogin();
 
     NavigationMenu.goToPim();
+    cy.wait(1500);
   });
 
   it('allows to add building and change it', () => {
-    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/buildings'));
-    // NavigationMenu.goToPimBuildings();
+    // cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/buildings'));
+    NavigationMenu.goToPimBuildings();
     cy.findByRole('button', { name: 'Add new building' }).click();
     cy.findByLabelText('Name of the building').type('Name');
     cy.findByRole('button', { name: 'Add new building' }).click();
