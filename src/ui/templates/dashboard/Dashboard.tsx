@@ -40,7 +40,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
   };
 
   const isOnDMSPage = pathname.startsWith(AppRoute.dms);
-  const isOnEmailPage = pathname.startsWith(AppRoute.email.replace(':inboxId', ''));
+  const isOnEmailPage = pathname.startsWith(AppRoute.email);
   const handleDMSClick = () => {
     if (isOnDMSPage) {
       push(AppRoute.home);
@@ -81,7 +81,7 @@ export const Dashboard = ({ children }: DashboardProps) => {
               variant="rounded"
               size="small"
               aria-label="mail"
-              onClick={handleNavigate(AppRoute.email.replace(':inboxId', '0'))}
+              onClick={handleNavigate(AppRoute.email)}
               selected={isOnEmailPage}
             >
               <Badge badgeContent={2} color="secondary">

@@ -67,6 +67,12 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
       marginTop: spacing(3),
     },
   },
+  groupHeader: {
+    background: palette.gray.light,
+    height: spacing(6),
+    padding: spacing(3),
+    cursor: 'pointer',
+  },
   collapseHeader: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -116,5 +122,8 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     color: palette.gray.main,
     background: palette.gray.light,
     borderRadius: spacing(3),
+  },
+  fontWeightBold: {
+    fontWeight: typography.fontWeightBold,
   },
 }));

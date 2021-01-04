@@ -105,7 +105,7 @@ export type Mutation = {
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
   authorizeNylasAccount?: Maybe<Scalars['Boolean']>;
-  authorizeNylasAccountWithToken?: Maybe<Scalars['Boolean']>;
+  authorizeNylasAccountWithToken?: Maybe<NylasAccount>;
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
@@ -167,6 +167,7 @@ export type Mutation = {
   updateCrmGeneral?: Maybe<CrmGeneral>;
   updateCrmHomeSituation?: Maybe<CrmHomeSituation>;
   updateDescription?: Maybe<Scalars['String']>;
+  updateEmail?: Maybe<Email>;
   updateEmailAddress: Profile;
   updateFloor: Pim;
   updateIdentificationNumberNcp: NcpCharacteristics;
@@ -422,11 +423,13 @@ export type MutationAddViewingMomentArgs = {
 export type MutationAuthorizeNylasAccountArgs = {
   input: NylasAuthorizationInput;
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationAuthorizeNylasAccountWithTokenArgs = {
   nylasToken: Scalars['String'];
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationBulkArgs = {
@@ -583,6 +586,7 @@ export type MutationResetPasswordArgs = {
 };
 
 export type MutationSendEmailArgs = {
+  accountId: Scalars['String'];
   input: SendEmailInput;
 };
 
@@ -672,6 +676,10 @@ export type MutationUpdateCrmHomeSituationArgs = {
 
 export type MutationUpdateDescriptionArgs = {
   input: UpdateDescriptionInput;
+};
+
+export type MutationUpdateEmailArgs = {
+  input: UpdateEmailInput;
 };
 
 export type MutationUpdateEmailAddressArgs = {
@@ -1066,7 +1074,8 @@ export type QueryGetCrmHomeSituationArgs = {
 };
 
 export type QueryGetEmailArgs = {
-  id: Scalars['ID'];
+  accountId: Scalars['String'];
+  emailId: Scalars['String'];
 };
 
 export type QueryGetLabelsArgs = {
@@ -1269,7 +1278,12 @@ export type QueryListCalendarArgs = {
 };
 
 export type QueryListEmailArgs = {
-  folder: Scalars['String'];
+  accountId: Scalars['String'];
+  folderId: Scalars['ID'];
+};
+
+export type QueryListEmailFoldersArgs = {
+  accountId: Scalars['String'];
 };
 
 export type QueryListNcpsArgs = {
@@ -1280,6 +1294,7 @@ export type QueryListNcpsArgs = {
 
 export type QueryListNylasAccountArgs = {
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryListObjectTypesArgs = {
@@ -2065,8 +2080,11 @@ export type EmailAndNameInput = {
 
 export type EmailFolder = {
   __typename?: 'EmailFolder';
+  id: Scalars['ID'];
+  nylasFolderId: Scalars['ID'];
   name: Scalars['String'];
   displayName?: Maybe<Scalars['String']>;
+  userId: Scalars['ID'];
 };
 
 export type EmailListItem = {
@@ -2077,6 +2095,7 @@ export type EmailListItem = {
   to: Array<EmailAndName>;
   subject: Scalars['String'];
   date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type Email = {
@@ -2090,20 +2109,27 @@ export type Email = {
   subject: Scalars['String'];
   body: Scalars['String'];
   date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type EmailFolderListItem = {
   __typename?: 'EmailFolderListItem';
   folder: EmailFolder;
-  numberOfEmails: Scalars['Int'];
+  numberOfUnreadEmails: Scalars['Int'];
 };
 
 export type SendEmailInput = {
+  from: Array<EmailAndNameInput>;
   to: Array<EmailAndNameInput>;
   cc?: Maybe<Array<EmailAndNameInput>>;
   bcc?: Maybe<Array<EmailAndNameInput>>;
   subject: Scalars['String'];
   body: Scalars['String'];
+};
+
+export type UpdateEmailInput = {
+  id: Scalars['ID'];
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type Energy = {
@@ -3193,6 +3219,17 @@ export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
   notificationAdded: NotificationAdded;
+};
+
+export type NylasAccount = {
+  __typename?: 'NylasAccount';
+  id: Scalars['ID'];
+  userId: Scalars['ID'];
+  accountId: Scalars['ID'];
+  accessToken: Scalars['String'];
+  newAccount: Scalars['Boolean'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export enum NylasProviderType {
@@ -8362,6 +8399,7 @@ export type UpdateCrmHomeSituationMutation = { __typename?: 'Mutation' } & {
 };
 
 export type SendEmailMutationVariables = Exact<{
+  accountId: Scalars['String'];
   input: SendEmailInput;
 }>;
 
@@ -8803,6 +8841,7 @@ export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick
 export type AuthorizeNylasAccountMutationVariables = Exact<{
   input: NylasAuthorizationInput;
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'authorizeNylasAccount'>;
@@ -8810,12 +8849,17 @@ export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<M
 export type AuthorizeNylasAccountWithTokenMutationVariables = Exact<{
   nylasToken: Scalars['String'];
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
-export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & Pick<
-  Mutation,
-  'authorizeNylasAccountWithToken'
->;
+export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & {
+  authorizeNylasAccountWithToken?: Maybe<
+    { __typename?: 'NylasAccount' } & Pick<
+      NylasAccount,
+      'id' | 'userId' | 'accountId' | 'accessToken' | 'newAccount' | 'isCalendarConnected' | 'isEmailConnected'
+    >
+  >;
+};
 
 export type UpdateObjectTypeCharacteristicsMutationVariables = Exact<{
   input: ObjectTypeCharacteristicsInput;
@@ -9934,27 +9978,30 @@ export type CrmListQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type ListEmailFoldersQueryVariables = Exact<{ [key: string]: never }>;
+export type ListEmailFoldersQueryVariables = Exact<{
+  accountId: Scalars['String'];
+}>;
 
 export type ListEmailFoldersQuery = { __typename?: 'Query' } & {
   listEmailFolders?: Maybe<
     Array<
-      { __typename?: 'EmailFolderListItem' } & Pick<EmailFolderListItem, 'numberOfEmails'> & {
-          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+      { __typename?: 'EmailFolderListItem' } & Pick<EmailFolderListItem, 'numberOfUnreadEmails'> & {
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         }
     >
   >;
 };
 
 export type ListEmailQueryVariables = Exact<{
-  folder: Scalars['String'];
+  accountId: Scalars['String'];
+  folderId: Scalars['ID'];
 }>;
 
 export type ListEmailQuery = { __typename?: 'Query' } & {
   listEmail?: Maybe<
     Array<
       { __typename?: 'EmailListItem' } & Pick<EmailListItem, 'id' | 'subject' | 'date'> & {
-          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
           from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
           to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         }
@@ -9963,13 +10010,14 @@ export type ListEmailQuery = { __typename?: 'Query' } & {
 };
 
 export type GetEmailQueryVariables = Exact<{
-  id: Scalars['ID'];
+  accountId: Scalars['String'];
+  emailId: Scalars['String'];
 }>;
 
 export type GetEmailQuery = { __typename?: 'Query' } & {
   getEmail?: Maybe<
     { __typename?: 'Email' } & Pick<Email, 'id' | 'subject' | 'body' | 'date'> & {
-        folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'name' | 'displayName'>;
+        folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
       }
@@ -10785,6 +10833,7 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
 
 export type ListNylasAccountQueryVariables = Exact<{
   isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type ListNylasAccountQuery = { __typename?: 'Query' } & {
@@ -13465,8 +13514,8 @@ export type UpdateCrmHomeSituationMutationOptions = ApolloReactCommon.BaseMutati
   UpdateCrmHomeSituationMutationVariables
 >;
 export const SendEmailDocument = gql`
-  mutation SendEmail($input: SendEmailInput!) {
-    sendEmail(input: $input)
+  mutation SendEmail($accountId: String!, $input: SendEmailInput!) {
+    sendEmail(accountId: $accountId, input: $input)
   }
 `;
 export function useSendEmailMutation(
@@ -14552,8 +14601,12 @@ export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutat
   BulkDeleteNotificationsMutationVariables
 >;
 export const AuthorizeNylasAccountDocument = gql`
-  mutation AuthorizeNylasAccount($input: NylasAuthorizationInput!, $isCalendarConnected: Boolean) {
-    authorizeNylasAccount(input: $input, isCalendarConnected: $isCalendarConnected)
+  mutation AuthorizeNylasAccount(
+    $input: NylasAuthorizationInput!
+    $isCalendarConnected: Boolean
+    $isEmailConnected: Boolean
+  ) {
+    authorizeNylasAccount(input: $input, isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected)
   }
 `;
 export function useAuthorizeNylasAccountMutation(
@@ -14574,8 +14627,24 @@ export type AuthorizeNylasAccountMutationOptions = ApolloReactCommon.BaseMutatio
   AuthorizeNylasAccountMutationVariables
 >;
 export const AuthorizeNylasAccountWithTokenDocument = gql`
-  mutation AuthorizeNylasAccountWithToken($nylasToken: String!, $isCalendarConnected: Boolean) {
-    authorizeNylasAccountWithToken(nylasToken: $nylasToken, isCalendarConnected: $isCalendarConnected)
+  mutation AuthorizeNylasAccountWithToken(
+    $nylasToken: String!
+    $isCalendarConnected: Boolean
+    $isEmailConnected: Boolean
+  ) {
+    authorizeNylasAccountWithToken(
+      nylasToken: $nylasToken
+      isCalendarConnected: $isCalendarConnected
+      isEmailConnected: $isEmailConnected
+    ) {
+      id
+      userId
+      accountId
+      accessToken
+      newAccount
+      isCalendarConnected
+      isEmailConnected
+    }
   }
 `;
 export function useAuthorizeNylasAccountWithTokenMutation(
@@ -17207,13 +17276,14 @@ export type CrmListQueryHookResult = ReturnType<typeof useCrmListQuery>;
 export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const ListEmailFoldersDocument = gql`
-  query ListEmailFolders {
-    listEmailFolders {
+  query ListEmailFolders($accountId: String!) {
+    listEmailFolders(accountId: $accountId) {
       folder {
+        id
         name
         displayName
       }
-      numberOfEmails
+      numberOfUnreadEmails
     }
   }
 `;
@@ -17240,10 +17310,11 @@ export type ListEmailFoldersQueryResult = ApolloReactCommon.QueryResult<
   ListEmailFoldersQueryVariables
 >;
 export const ListEmailDocument = gql`
-  query ListEmail($folder: String!) {
-    listEmail(folder: $folder) {
+  query ListEmail($accountId: String!, $folderId: ID!) {
+    listEmail(accountId: $accountId, folderId: $folderId) {
       id
       folder {
+        id
         name
         displayName
       }
@@ -17274,10 +17345,11 @@ export type ListEmailQueryHookResult = ReturnType<typeof useListEmailQuery>;
 export type ListEmailLazyQueryHookResult = ReturnType<typeof useListEmailLazyQuery>;
 export type ListEmailQueryResult = ApolloReactCommon.QueryResult<ListEmailQuery, ListEmailQueryVariables>;
 export const GetEmailDocument = gql`
-  query GetEmail($id: ID!) {
-    getEmail(id: $id) {
+  query GetEmail($accountId: String!, $emailId: String!) {
+    getEmail(accountId: $accountId, emailId: $emailId) {
       id
       folder {
+        id
         name
         displayName
       }
@@ -18609,8 +18681,8 @@ export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
   GetNotificationsQueryVariables
 >;
 export const ListNylasAccountDocument = gql`
-  query ListNylasAccount($isCalendarConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected) {
+  query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
       id
       email
       provider

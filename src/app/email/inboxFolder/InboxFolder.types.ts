@@ -1,18 +1,20 @@
-import { EmailFolderListItem, NylasAccountItem } from 'api/types';
+import { EmailFolderListItem, EmailListItem, NylasAccountItem } from 'api/types';
 
-export type EmailInboxContainerProps = {
-  onSidebarClose: VoidFunction;
-  onSidebarOpen: VoidFunction;
-  isSidebarVisible: boolean;
-  accounts: NylasAccountItem[];
-  path: string;
-};
-
-export type EmailInboxProps = {
+export type InboxFolderProps = {
   onSidebarClose: VoidFunction;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
   accounts: NylasAccountItem[];
   folders: EmailFolderListItem[];
-  path: string;
+  currentFolder?: EmailFolderListItem;
+  emails: EmailListItem[];
+  loading: boolean;
+};
+
+export type InboxFolderContainerProps = {
+  onSidebarClose: VoidFunction;
+  onSidebarOpen: VoidFunction;
+  isSidebarVisible: boolean;
+  accounts: NylasAccountItem[];
+  folders: EmailFolderListItem[];
 };

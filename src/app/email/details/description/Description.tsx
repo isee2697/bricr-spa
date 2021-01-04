@@ -1,44 +1,20 @@
-import arrayMutators from 'final-form-arrays';
 import React from 'react';
 
 import { EmailSectionsProps } from '../Details.types';
-import { AutosaveForm } from 'ui/organisms';
-import { Box, Card, CardContent, Typography } from 'ui/atoms';
-import { Editor } from 'app/shared/media/form/parts/Editor';
-import { useLocale } from 'hooks';
+import { Box, Card, CardContent } from 'ui/atoms';
 
 import { useStyles } from './Description.styles';
 
 export const Description = ({ email: { body } }: EmailSectionsProps) => {
   const classes = useStyles();
-  const { formatMessage } = useLocale();
-  const initialValues = {
-    chapter: [
-      {
-        type: 'paragraph',
-        children: [{ text: body }],
-      },
-    ],
-  };
-
-  const handleSave = async () => {
-    return undefined;
-  };
 
   return (
-    <AutosaveForm onSave={handleSave} initialValues={initialValues} mutators={{ ...arrayMutators }}>
-      <Card>
-        <CardContent className={classes.cardContent}>
-          <Box mt={3} ml={2} mr={2}>
-            <Typography variant="h6" className={classes.fontWeightMedium}>
-              {formatMessage({ id: 'common.description' })}
-            </Typography>
-          </Box>
-          <Box>
-            <Editor disabled={false} noBorder />
-          </Box>
-        </CardContent>
-      </Card>
-    </AutosaveForm>
+    <Card>
+      <CardContent className={classes.cardContent}>
+        <Box mt={4} mr={3} ml={3} mb={4}>
+          <div dangerouslySetInnerHTML={{ __html: body || '' }} />
+        </Box>
+      </CardContent>
+    </Card>
   );
 };

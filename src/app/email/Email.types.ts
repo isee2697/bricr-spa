@@ -1,13 +1,15 @@
 import { DateTime } from 'luxon';
 import { ReactNode } from 'react';
 
-import { EmailListItem } from 'api/types';
+import { EmailListItem, NylasAccountItem } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type EmailProps = {
   path: string;
   entityType: EntityType;
   breadcrumbs: ReactNode;
+  accounts: NylasAccountItem[];
+  onAddedNewAccount: VoidFunction;
 };
 
 export type Email = Omit<EmailListItem, '__typename'> & {

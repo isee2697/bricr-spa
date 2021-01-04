@@ -1,22 +1,24 @@
 import { gql } from 'apollo-boost';
 
 export const LIST_EMAIL_FOLDERS = gql`
-  query ListEmailFolders {
-    listEmailFolders {
+  query ListEmailFolders($accountId: String!) {
+    listEmailFolders(accountId: $accountId) {
       folder {
+        id
         name
         displayName
       }
-      numberOfEmails
+      numberOfUnreadEmails
     }
   }
 `;
 
 export const LIST_EMAIL = gql`
-  query ListEmail($folder: String!) {
-    listEmail(folder: $folder) {
+  query ListEmail($accountId: String!, $folderId: ID!) {
+    listEmail(accountId: $accountId, folderId: $folderId) {
       id
       folder {
+        id
         name
         displayName
       }
@@ -35,10 +37,11 @@ export const LIST_EMAIL = gql`
 `;
 
 export const GET_EMAIL = gql`
-  query GetEmail($id: ID!) {
-    getEmail(id: $id) {
+  query GetEmail($accountId: String!, $emailId: String!) {
+    getEmail(accountId: $accountId, emailId: $emailId) {
       id
       folder {
+        id
         name
         displayName
       }

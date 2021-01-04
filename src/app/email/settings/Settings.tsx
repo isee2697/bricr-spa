@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { DateTime } from 'luxon';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -20,15 +19,20 @@ import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
 
 import { useStyles } from './Settings.styles';
-import { EmailSettingsProps, Inbox } from './Settings.types';
+import { EmailSettingsProps } from './Settings.types';
 
-export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible }: EmailSettingsProps) => {
+export const EmailSettings = ({
+  onSidebarClose,
+  onSidebarOpen,
+  isSidebarVisible,
+  accounts,
+  onAddNewInbox,
+}: EmailSettingsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const urlParams = useParams();
   const { push } = useHistory();
   const { isOpen } = useModalState('add-new-inbox');
-  const [inboxes, setInboxes] = useState<Inbox[]>([]);
   const { open, close } = useModalDispatch();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState<'active' | 'inactive'>('active');
@@ -73,7 +77,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
 
   return (
     <>
-      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} />
+      <EmailSidebarMenuContainer onHide={onSidebarClose} isVisible={isSidebarVisible} accounts={accounts} />
       <Box flex={1}>
         <Grid container className={classes.content}>
           <EmailHeader
@@ -90,7 +94,14 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
                     <SettingsIcon />
                   </IconButton>
                 </Box>
-                <Button color="primary" variant="contained" startIcon={<AddIcon color="inherit" />} onClick={() => {}}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  startIcon={<AddIcon color="inherit" />}
+                  onClick={() => {
+                    open('compose-new-email');
+                  }}
+                >
                   {formatMessage({ id: 'email.inbox.new_email' })}
                 </Button>
               </Box>
@@ -107,7 +118,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
                 }
               />
               <CardContent>
-                {inboxes.length === 0 && (
+                {accounts.length === 0 && (
                   <InfoSection emoji="🤔">
                     <Typography variant="h3">
                       {formatMessage({
@@ -121,21 +132,16 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
                     </Typography>
                   </InfoSection>
                 )}
-                {inboxes.length > 0 && (
+                {accounts.length > 0 && (
                   <>
                     <ActionTabs onStatusChange={setStatus} status={status} tabs={tabs} badgeClasses={classes.badge} />
                     <Table>
                       <TableBody>
-                        {inboxes.map(({ name, mainEmailAddress, dateCreated }, index) => (
+                        {accounts.map(({ id, email, provider, syncState }, index) => (
                           <TableRow key={index} className={classes.tableRow}>
-                            <TableCell>{name}</TableCell>
-                            <TableCell>{mainEmailAddress}</TableCell>
-                            <TableCell>
-                              <Typography variant="h6">{dateCreated.toLocaleString(DateTime.DATE_SHORT)}</Typography>
-                              <Typography variant="caption">
-                                {dateCreated.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}
-                              </Typography>
-                            </TableCell>
+                            <TableCell>{syncState}</TableCell>
+                            <TableCell>{email}</TableCell>
+                            <TableCell>{provider}</TableCell>
                             <TableCell>
                               <IconButton variant="rounded" size="small" onClick={onMenuClick}>
                                 <MenuIcon />
@@ -152,16 +158,7 @@ export const EmailSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible 
           </Page>
         </Grid>
       </Box>
-      <AddNewInboxModal
-        isOpened={isOpen}
-        onClose={() => close('add-new-inbox')}
-        onSubmit={() => {
-          setInboxes([
-            { id: '0001', name: 'Inbox', mainEmailAddress: 'info@hureninhetgroen.nl', dateCreated: DateTime.local() },
-          ]);
-          close('add-new-inbox');
-        }}
-      />
+      <AddNewInboxModal isOpened={isOpen} onClose={() => close('add-new-inbox')} onSubmit={onAddNewInbox} />
       <Menu
         id="email-inbox-settings-row-menu"
         open={Boolean(menuEl)}

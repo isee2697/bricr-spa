@@ -9,8 +9,11 @@ input EmailAndNameInput {
 }
 
 type EmailFolder {
+    id: ID!
+    nylasFolderId: ID!
     name: String!
     displayName: String
+    userId: ID!
 }
 
 type EmailListItem {
@@ -20,6 +23,7 @@ type EmailListItem {
     to: [EmailAndName!]!
     subject: String!
     date: Date!
+    unread: Boolean
 }
 
 type Email {
@@ -32,14 +36,16 @@ type Email {
     subject: String!
     body: String!
     date: Date!
+    unread: Boolean
 }
 
 type EmailFolderListItem {
     folder: EmailFolder!
-    numberOfEmails: Int!
+    numberOfUnreadEmails: Int!
 }
 
 input SendEmailInput {
+    from: [EmailAndNameInput!]!
     to: [EmailAndNameInput!]!
     cc: [EmailAndNameInput!]
     bcc: [EmailAndNameInput!]
@@ -47,12 +53,18 @@ input SendEmailInput {
     body: String!
 }
 
+input UpdateEmailInput {
+    id: ID!
+    unread: Boolean
+}
+
 extend type Mutation {
-    sendEmail(input: SendEmailInput!): Boolean! @auth
+    sendEmail(accountId: String!, input: SendEmailInput!): Boolean! @auth
+    updateEmail(input: UpdateEmailInput!): Email @auth
 }
 
 extend type Query {
-    listEmailFolders: [EmailFolderListItem!] @auth
-    listEmail(folder: String!): [EmailListItem!] @auth
-    getEmail(id: ID!): Email @auth
+    listEmailFolders(accountId: String!): [EmailFolderListItem!] @auth
+    listEmail(accountId: String!, folderId: ID!): [EmailListItem!] @auth
+    getEmail(accountId: String!, emailId: String!): Email @auth
 }

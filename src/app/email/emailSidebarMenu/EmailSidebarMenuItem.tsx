@@ -6,14 +6,12 @@ import { useLocation, useRouteMatch } from 'react-router-dom';
 import { SaleIcon } from 'ui/atoms/icons';
 import { Box, Typography } from 'ui/atoms';
 import { EmailDragObject } from '../Email.types';
-import { useLocale } from 'hooks';
 
 import { useStyles } from './EmailSidebarMenu.styles';
 import { EmailSidebarMenuItemProps } from './EmailSidebarMenu.types';
 
 export const EmailSidebarMenuItem = ({ value, count }: EmailSidebarMenuItemProps) => {
   const { url } = useRouteMatch();
-  const { formatMessage } = useLocale();
   const classes = useStyles();
   const { pathname } = useLocation();
 
@@ -43,7 +41,7 @@ export const EmailSidebarMenuItem = ({ value, count }: EmailSidebarMenuItemProps
       <Box ml={0.5} />
       <Box display="flex" flex={1} justifyContent="space-between">
         <Typography variant="h3" className={clsx(classes.title, isOver && 'draggingOver')}>
-          {formatMessage({ id: `email.menu.${value}` })}
+          {value}
         </Typography>
         {count !== undefined && (
           <Typography variant="h4" className={classes.badge}>

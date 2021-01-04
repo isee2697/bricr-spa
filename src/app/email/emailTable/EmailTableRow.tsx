@@ -102,7 +102,7 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
         key={id}
         ref={drag}
         className={clsx(classes.row, isDragging && 'dragging')}
-        onClick={() => push(`${joinUrlParams(`${baseUrl}/:folder`, urlParams)}/${email.id}`)}
+        onClick={() => push(`${joinUrlParams(`${baseUrl}/inbox/:inboxId/:folderId`, urlParams)}/${email.id}`)}
       >
         <TableCell padding="checkbox" className={clsx(classes.cell, isDragging && 'dragging')}>
           <Checkbox
@@ -131,9 +131,11 @@ export const EmailTableRow = ({ email, checkedItems, onCheckItem }: EmailTableRo
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <Typography variant="h5" className={classes.fontWeightMedium}>
-            {DateTime.fromISO(date).toLocaleString(DateTime.DATE_SHORT)}
+            {DateTime.fromSeconds(parseInt(date, 10)).toLocaleString(DateTime.DATE_SHORT)}
           </Typography>
-          <Typography variant="h6">{DateTime.fromISO(date).toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
+          <Typography variant="h6">
+            {DateTime.fromSeconds(parseInt(date, 10)).toLocaleString(DateTime.TIME_24_WITH_SECONDS)}
+          </Typography>
         </TableCell>
         <TableCell padding="none" className={clsx(classes.cell, isDragging && 'dragging')}>
           <IconButton size="small" variant="rounded" onClick={onMenuClick}>
