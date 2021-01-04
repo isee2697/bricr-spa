@@ -1,23 +1,38 @@
-import { Profile, AppointmentLocation, CalendarTypes, AppointmentState, TaskLabel } from 'api/types';
+import { Profile, AppointmentLocation, Appointment, AddAppointmentInput, NylasAccountItem } from 'api/types';
+
+export type NewAppointmentContainerProps = {
+  teamMembers: Profile[];
+  account?: NylasAccountItem;
+  isEdit?: boolean;
+};
 
 export type NewAppointmentProps = {
   locations: AppointmentLocation[];
   members: Profile[];
-  appointmentInfo?: Appointment;
+  appointmentInfo?: AppointmentFormType;
+  onSubmit: (appointment: AddAppointmentInput) => Promise<boolean>;
+  loading?: boolean;
 };
 
-export type Appointment = {
-  id: number;
-  startDate: Date;
-  endDate: Date;
-  title: string;
-  type: CalendarTypes;
-  state?: AppointmentState;
-  overlap?: boolean;
-  allDay?: boolean;
-  travelTimeBefore?: number;
-  travelTimeAfter?: number;
-  location?: string;
-  taskLabel?: TaskLabel;
-  rRule?: string;
+export type AppointmentTermFormType = {
+  from: {
+    date: string;
+    time: string;
+  };
+  to: {
+    date: string;
+    time: string;
+  };
+};
+
+export type AppointmentFormType = Omit<Partial<Appointment>, 'from' | 'to'> & {
+  from: {
+    date: string;
+    time: string;
+  };
+  to: {
+    date: string;
+    time: string;
+  };
+  alternativeTerms?: [AppointmentTermFormType];
 };

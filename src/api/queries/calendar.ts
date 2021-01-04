@@ -4,16 +4,24 @@ export const LIST_CALENDAR = gql`
   query ListCalendar($input: AppointmentSearch!) {
     listCalendar(input: $input) {
       id
-      startDate
-      endDate
+      from
+      to
       travelTimeBefore
       travelTimeAfter
       title
       allDay
       type
+      isInsideOffice
       location
+      outsideLocation
       taskLabel
       state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
     }
   }
 `;

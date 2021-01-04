@@ -106,6 +106,10 @@ export const mockServer = () => {
         return newFile;
       });
 
+      this.post('/mock/nylas-account-list', (schema, request) => {
+        return [];
+      });
+
       this.post('/mock', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
         const query = requestJson.query;
@@ -117,6 +121,9 @@ export const mockServer = () => {
               return ME;
             }
             throw new Error();
+          },
+          listCalendar() {
+            return [];
           },
           listNcps() {
             const from = variables?.from ?? 0;

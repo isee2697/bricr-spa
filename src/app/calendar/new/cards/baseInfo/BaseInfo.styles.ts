@@ -8,7 +8,7 @@ export const useStyles = makeStyles(({ palette, spacing, typography }) => ({
     },
   },
   term: {
-    marginTop: spacing(0.5),
+    marginBottom: spacing(0.5),
   },
   date: {
     margin: spacing(0, 1),

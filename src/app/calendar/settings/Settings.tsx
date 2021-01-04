@@ -1,30 +1,79 @@
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import React, { useEffect, useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import clsx from 'classnames';
+import { useQueryParam, StringParam } from 'use-query-params';
+import { useHistory } from 'react-router';
 
 import { Box, Card, CardContent, CardHeader, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AddIcon, ClockIcon, DeleteIcon, MenuIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { useLocale, useModalDispatch, useModalState } from 'hooks';
+import { useAuthState, useLocale, useModalDispatch, useModalState } from 'hooks';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { ActionTabs, InfoSection } from 'ui/molecules';
+import { useAuthorizeNylasAccountWithTokenMutation, useGetNylasAuthUrlLazyQuery } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { AddNewAccountModal } from './addNewAccountModal/AddNewAccountModal';
 import { useStyles } from './Settings.styles';
-import { CalendarSettingsProps, CalendarAccount } from './Settings.types';
+import { CalendarSettingsProps } from './Settings.types';
 
-export const CalendarSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisible }: CalendarSettingsProps) => {
+export const CalendarSettings = ({
+  onSidebarClose,
+  onSidebarOpen,
+  isSidebarVisible,
+  accounts,
+}: CalendarSettingsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const { isOpen } = useModalState('add-new-inbox');
-  const [inboxes, setInboxes] = useState<CalendarAccount[]>([]);
+  const { isOpen } = useModalState('add-new-calendar-account');
   const { open, close } = useModalDispatch();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState<'active' | 'inactive'>('active');
+  const [authorizeNylasAccountWithToken] = useAuthorizeNylasAccountWithTokenMutation();
+  const [getNylasAuthUrl, { data: nylasAuthUrl }] = useGetNylasAuthUrlLazyQuery();
+
+  const [nylasAuthCode, setNylasAuthCode] = useQueryParam('code', StringParam);
+  const { accessToken } = useAuthState();
+
+  const { push } = useHistory();
+
+  useEffect(() => {
+    const addNylasAccount = async () => {
+      if (nylasAuthCode) {
+        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/nylas-addaccount`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+          },
+          body: JSON.stringify({
+            nylasToken: nylasAuthCode,
+            token: accessToken,
+            isCalendarConnected: true,
+          }),
+        });
+
+        if (response.ok) {
+          const { account } = await response.json();
+
+          if (account) {
+            window.location.href = window.location.href.split('?')[0];
+          }
+        }
+      }
+    };
+
+    if (nylasAuthCode) {
+      addNylasAccount();
+    }
+  }, [accessToken, authorizeNylasAccountWithToken, nylasAuthCode, setNylasAuthCode]);
+
+  if (nylasAuthUrl?.getNylasAuthUrl) {
+    window.open(nylasAuthUrl.getNylasAuthUrl, '_blank');
+  }
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -33,6 +82,10 @@ export const CalendarSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisib
 
   const onMenuClose = () => {
     setMenuEl(null);
+  };
+
+  const onClickAccount = (accountId: string) => {
+    push(`${AppRoute.calendar}/${accountId}/appointments`);
   };
 
   const tabs: ActionTab[] = [
@@ -73,13 +126,18 @@ export const CalendarSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisib
               <CardHeader
                 title={formatMessage({ id: 'calendar.account_settings.title' })}
                 action={
-                  <IconButton size="small" variant="circle" color="primary" onClick={() => open('add-new-inbox')}>
+                  <IconButton
+                    size="small"
+                    variant="circle"
+                    color="primary"
+                    onClick={() => open('add-new-calendar-account')}
+                  >
                     <AddIcon />
                   </IconButton>
                 }
               />
               <CardContent>
-                {inboxes.length === 0 && (
+                {accounts.length === 0 && (
                   <InfoSection emoji="🤔">
                     <Typography variant="h3">
                       {formatMessage({
@@ -93,21 +151,22 @@ export const CalendarSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisib
                     </Typography>
                   </InfoSection>
                 )}
-                {inboxes.length > 0 && (
+                {accounts.length > 0 && (
                   <>
                     <ActionTabs onStatusChange={setStatus} status={status} tabs={tabs} badgeClasses={classes.badge} />
                     <Table>
                       <TableBody>
-                        {inboxes.map(({ name, mainEmailAddress, dateCreated }, index) => (
-                          <TableRow key={index} className={classes.tableRow}>
-                            <TableCell>{name}</TableCell>
-                            <TableCell>{mainEmailAddress}</TableCell>
-                            <TableCell>
-                              <Typography variant="h6">{dateCreated.toLocaleString(DateTime.DATE_SHORT)}</Typography>
-                              <Typography variant="caption">
-                                {dateCreated.toLocaleString(DateTime.TIME_24_WITH_SECONDS)}
-                              </Typography>
-                            </TableCell>
+                        {accounts.map(({ syncState, email, provider, id }, index) => (
+                          <TableRow
+                            key={index}
+                            className={classes.tableRow}
+                            onClick={() => {
+                              onClickAccount(id);
+                            }}
+                          >
+                            <TableCell>{syncState}</TableCell>
+                            <TableCell>{email}</TableCell>
+                            <TableCell>{provider}</TableCell>
                             <TableCell>
                               <IconButton variant="rounded" size="small" onClick={onMenuClick}>
                                 <MenuIcon />
@@ -126,12 +185,21 @@ export const CalendarSettings = ({ onSidebarClose, onSidebarOpen, isSidebarVisib
       </Box>
       <AddNewAccountModal
         isOpened={isOpen}
-        onClose={() => close('add-new-inbox')}
-        onSubmit={() => {
-          setInboxes([
-            { id: '0001', name: 'Inbox', mainEmailAddress: 'info@hureninhetgroen.nl', dateCreated: DateTime.local() },
-          ]);
-          close('add-new-inbox');
+        onClose={() => close('add-new-calendar-account')}
+        onSubmit={async (values): Promise<boolean> => {
+          const options = {
+            loginHint: values.email,
+            redirectURI: window.location.href,
+            scopes: ['email.modify', 'email.send', 'calendar', 'contacts'],
+          };
+
+          await getNylasAuthUrl({
+            variables: {
+              input: options,
+            },
+          });
+
+          return true;
         }}
       />
       <Menu

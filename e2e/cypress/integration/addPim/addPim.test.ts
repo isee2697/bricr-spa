@@ -7,6 +7,7 @@ context('Add Pim', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
+    cy.wait(1500);
 
     NavigationMenu.goToPim();
     cy.findByTestId('menu-item-residential').click();

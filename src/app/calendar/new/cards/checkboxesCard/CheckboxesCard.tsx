@@ -11,7 +11,11 @@ export const CheckboxesCard = () => {
   return (
     <Card>
       {Object.values(AppointmentMeetingType).map(item => (
-        <CheckboxField name={item} label={formatMessage({ id: `dictionaries.appointment.meeting_type.${item}` })} />
+        <CheckboxField
+          name={`agreementType[${item}]`}
+          value={item}
+          label={formatMessage({ id: `dictionaries.appointment.meeting_type.${item}` })}
+        />
       ))}
     </Card>
   );

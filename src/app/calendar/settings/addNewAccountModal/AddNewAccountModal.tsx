@@ -2,15 +2,16 @@ import React from 'react';
 
 import { FormModal } from 'ui/organisms';
 import { GenericField } from 'form/fields';
-import { Box, Grid } from 'ui/atoms';
+import { Box } from 'ui/atoms';
 import { useLocale } from 'hooks';
+import { NylasAuthorizationInput } from 'api/types';
 
 import { AddNewAccountModalProps } from './AddNewAccountModal.types';
 
 export const AddNewAccountModal = ({ isOpened, onClose, onSubmit }: AddNewAccountModalProps) => {
   const { formatMessage } = useLocale();
-  const handleSubmit = async () => {
-    onSubmit();
+  const handleSubmit = async (values: NylasAuthorizationInput) => {
+    onSubmit(values);
 
     return undefined;
   };
@@ -20,34 +21,16 @@ export const AddNewAccountModal = ({ isOpened, onClose, onSubmit }: AddNewAccoun
       isOpened={isOpened}
       onClose={onClose}
       onSubmit={handleSubmit}
-      title={formatMessage({ id: 'calendar.account_settings.add_new_inbox' })}
-      addText={formatMessage({ id: 'calendar.account_settings.add_new_inbox' })}
+      title={formatMessage({ id: 'calendar.account_settings.add_new_account' })}
+      addText={formatMessage({ id: 'calendar.account_settings.add_new_account' })}
     >
       <Box>
-        <GenericField name="name" label={formatMessage({ id: 'calendar.account_settings.name_inbox' })} />
-      </Box>
-      <Box>
         <GenericField
-          name="mainEmailAddress"
+          type="email"
+          name="email"
           label={formatMessage({ id: 'calendar.account_settings.main_email_address' })}
         />
       </Box>
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <GenericField name="settings1" label={formatMessage({ id: 'calendar.account_settings.settings1' })} />
-        </Grid>
-        <Grid item xs={6}>
-          <GenericField name="settings2" label={formatMessage({ id: 'calendar.account_settings.settings2' })} />
-        </Grid>
-      </Grid>
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
-          <GenericField name="settings3" label={formatMessage({ id: 'calendar.account_settings.settings3' })} />
-        </Grid>
-        <Grid item xs={6}>
-          <GenericField name="settings4" label={formatMessage({ id: 'calendar.account_settings.settings4' })} />
-        </Grid>
-      </Grid>
     </FormModal>
   );
 };

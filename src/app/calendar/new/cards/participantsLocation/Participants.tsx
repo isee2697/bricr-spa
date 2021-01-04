@@ -27,6 +27,7 @@ export const Participants = ({ members }: { members: Profile[] }) => {
         members={members.filter(member => !assignedUsers.find(id => member.id === id))}
         label={undefined}
         name={membersSelectField}
+        validate={[]}
       />
       {assignedUsers.length > 0 && (
         <Box mt={2} mb={2}>

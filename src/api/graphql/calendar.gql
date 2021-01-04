@@ -67,42 +67,68 @@ enum AppointmentState {
 
 type Appointment {
     id: ID!
-    startDate: Date!
-    endDate: Date!
+    title: String
+    from: Date!
+    to: Date!
+    alternativeTerms: [AppointmentTerm!]
+    allDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    assignedPimIds: [String!]
+    agreementType: [AppointmentMeetingType]
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
+    location: String
+    outsideLocation: String
     travelTimeBefore: Int
     travelTimeAfter: Int
-    title: String
-    allDay: Boolean
-    type: CalendarTypes!
-    location: String
-    taskLabel: TaskLabel
     state: AppointmentState
+    type: CalendarTypes!
+    appointmentType: AppointmentType
+    taskLabel: TaskLabel
 }
 
-input AppointmentInput {
-    startDate: Date!
-    endDate: Date!
+input AppointmentTermInput {
+    from: Date
+    to: Date
+}
+
+input AddAppointmentInput {
+    accountId: ID!
+    title: String
+    from: Date!
+    to: Date!
+    alternativeTerms: [AppointmentTermInput!]
+    allDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    assignedPimIds: [String!]
+    agreementType: [AppointmentMeetingType]
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
+    location: String
+    outsideLocation: String
     travelTimeBefore: Int
     travelTimeAfter: Int
-    title: String
-    allDay: Boolean
     type: CalendarTypes!
-    location: String
+    appointmentType: AppointmentType
     taskLabel: TaskLabel
-    state: AppointmentState
 }
 
 input AppointmentSearch {
-  startDate: String!
-  endDate: String!
-  selectedUser: String
-  selectedGroup: String
-  selectedAppointmentType: AppointmentType
-  selectTaskType: [TaskLabel]
+    accountId: ID!
+    startDate: String!
+    endDate: String!
+    selectedUser: String
+    selectedGroup: String
+    selectedAppointmentType: AppointmentType
+    selectTaskType: [TaskLabel!]
 }
 
 extend type Mutation {
-    addAppointment(input: AppointmentInput!): Appointment! @auth
+    addAppointment(input: AddAppointmentInput!): Appointment! @auth
 }
 
 extend type Query {

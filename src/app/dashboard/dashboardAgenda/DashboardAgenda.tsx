@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 import { Card, CardContent, CardActions, IconButton, Button, Tabs, Tab, Scrollable, Typography } from 'ui/atoms';
 import { InfoSection } from 'ui/molecules';
-import { Task, TaskStatus } from 'api/types';
-import { useLocale, useModalDispatch } from 'hooks';
+import { Task, TaskStatus, Appointment } from 'api/types';
+import { useLocale, useModalDispatch, useNylasAccountState } from 'hooks';
 import { GroupTitle } from 'ui/organisms';
 import { AddIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -14,10 +14,12 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { DashboardAgendaProps } from './DashboardAgenda.types';
 import { useStyles } from './DashboardAgenda.styles';
 import { DashboardTaskItem } from './DashboardTaskItem';
+import { DashboardAgendaItem } from './DashboardAgendaItem';
 
-export const DashboardAgenda = ({ tasks }: DashboardAgendaProps) => {
+export const DashboardAgenda = ({ tasks, agenda }: DashboardAgendaProps) => {
   const [activeTab, setActiveTab] = useState(0);
   const classes = useStyles();
+  const { accounts: nylasAccounts } = useNylasAccountState();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
   const { open } = useModalDispatch();
@@ -38,12 +40,23 @@ export const DashboardAgenda = ({ tasks }: DashboardAgendaProps) => {
     return task.deadline ? DateTime.fromISO(task.deadline).toFormat(dateFormat) : '-';
   });
 
-  const sortedByDate = Object.keys(grouped).sort((dateA, dateB) => {
+  const tasksByDate = Object.keys(grouped).sort((dateA, dateB) => {
+    return DateTime.fromString(dateA, dateFormat) > DateTime.fromString(dateB, dateFormat) ? 1 : -1;
+  });
+
+  const groupedEvents = groupBy(agenda, (event: Appointment) => {
+    return event.from ? DateTime.fromISO(event.from).toFormat(dateFormat) : '-';
+  });
+
+  const calendarByDate = Object.keys(groupedEvents).sort((dateA, dateB) => {
     return DateTime.fromString(dateA, dateFormat) > DateTime.fromString(dateB, dateFormat) ? 1 : -1;
   });
 
   const getGroupTaskItems = (taskItems: Task[]) =>
     taskItems.map((itemProps, key) => <DashboardTaskItem key={key} {...itemProps} />);
+
+  const getGroupEventItems = (eventItems: Appointment[]) =>
+    eventItems.map((itemProps, key) => <DashboardAgendaItem key={key} {...itemProps} />);
 
   return (
     <Card>
@@ -58,29 +71,54 @@ export const DashboardAgenda = ({ tasks }: DashboardAgendaProps) => {
       </Tabs>
       <CardContent>
         <Scrollable className={classes.scrollable} width="auto" height={342}>
-          {(tasks.length === 0 || activeTab === 0) && (
-            <InfoSection emoji="🤔" className={classes.emptyCard}>
-              <Typography variant="h3">
-                {formatMessage({
-                  id: 'dashboard.agenda.empty_title',
-                })}
-              </Typography>
-              <Typography variant="h3">
-                {formatMessage({
-                  id: 'dashboard.agenda.empty_description',
-                })}
-              </Typography>
-            </InfoSection>
-          )}
+          {activeTab === 0 &&
+            (calendarByDate?.length ? (
+              calendarByDate.map((dateGroup, key) => {
+                return (
+                  <div className={classes.group} key={key}>
+                    <GroupTitle date={dateGroup} dateFormat={dateFormat} />
+                    {getGroupEventItems(groupedEvents[dateGroup])}
+                  </div>
+                );
+              })
+            ) : (
+              <InfoSection emoji="🤔" className={classes.emptyCard}>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'dashboard.agenda.empty_title',
+                  })}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'dashboard.agenda.empty_description',
+                  })}
+                </Typography>
+              </InfoSection>
+            ))}
           {activeTab === 1 &&
-            sortedByDate.map((dateGroup, key) => {
-              return (
-                <div className={classes.group} key={key}>
-                  <GroupTitle date={dateGroup} dateFormat={dateFormat} />
-                  {getGroupTaskItems(grouped[dateGroup])}
-                </div>
-              );
-            })}
+            (tasksByDate?.length ? (
+              tasksByDate.map((dateGroup, key) => {
+                return (
+                  <div className={classes.group} key={key}>
+                    <GroupTitle date={dateGroup} dateFormat={dateFormat} />
+                    {getGroupTaskItems(grouped[dateGroup])}
+                  </div>
+                );
+              })
+            ) : (
+              <InfoSection emoji="🤔" className={classes.emptyCard}>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'dashboard.agenda.empty_title',
+                  })}
+                </Typography>
+                <Typography variant="h3">
+                  {formatMessage({
+                    id: 'dashboard.agenda.empty_description',
+                  })}
+                </Typography>
+              </InfoSection>
+            ))}
         </Scrollable>
       </CardContent>
       <CardActions>
@@ -88,7 +126,9 @@ export const DashboardAgenda = ({ tasks }: DashboardAgendaProps) => {
           fullWidth
           className={classes.moreButton}
           onClick={() => {
-            if (activeTab === 1) {
+            if (activeTab === 0) {
+              push(AppRoute.calendar);
+            } else if (activeTab === 1) {
               push(AppRoute.tasks);
             }
           }}
@@ -100,7 +140,9 @@ export const DashboardAgenda = ({ tasks }: DashboardAgendaProps) => {
           color="primary"
           size="small"
           onClick={() => {
-            if (activeTab === 1) {
+            if (activeTab === 0) {
+              push(AppRoute.newAppointment.replace(':accountId', nylasAccounts[0].id));
+            } else if (activeTab === 1) {
               open('create-new-task');
             }
           }}

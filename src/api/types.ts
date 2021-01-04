@@ -104,6 +104,8 @@ export type Mutation = {
   addUserToTeam?: Maybe<Team>;
   addUsp?: Maybe<PimWithNewUsp>;
   addViewingMoment: AddViewingMomentResult;
+  authorizeNylasAccount?: Maybe<Scalars['Boolean']>;
+  authorizeNylasAccountWithToken?: Maybe<Scalars['Boolean']>;
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
@@ -242,7 +244,7 @@ export type MutationAddAogSpaceArgs = {
 };
 
 export type MutationAddAppointmentArgs = {
-  input: AppointmentInput;
+  input: AddAppointmentInput;
 };
 
 export type MutationAddBogSpaceArgs = {
@@ -415,6 +417,16 @@ export type MutationAddUspArgs = {
 
 export type MutationAddViewingMomentArgs = {
   input: AddViewingMomentInput;
+};
+
+export type MutationAuthorizeNylasAccountArgs = {
+  input: NylasAuthorizationInput;
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+};
+
+export type MutationAuthorizeNylasAccountWithTokenArgs = {
+  nylasToken: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationBulkArgs = {
@@ -967,6 +979,7 @@ export type Query = {
   getNcpServices: NcpServices;
   getNcpWithSameAddress: NcpSearchResult;
   getNotifications?: Maybe<NotificationSearchResult>;
+  getNylasAuthUrl?: Maybe<Scalars['String']>;
   getObjectTypeCharacteristics: ObjectTypeCharacteristics;
   getObjectTypeGeneral: ObjectTypeGeneral;
   getObjectTypeLabels?: Maybe<Array<Label>>;
@@ -1008,6 +1021,7 @@ export type Query = {
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
   listNcps: NcpListSearchResult;
+  listNylasAccount?: Maybe<Array<NylasAccountItem>>;
   listObjectTypes: ObjectTypeListSearchResult;
   listPims: PimListSearchResult;
   me?: Maybe<Profile>;
@@ -1096,6 +1110,10 @@ export type QueryGetNcpServicesArgs = {
 
 export type QueryGetNcpWithSameAddressArgs = {
   input: NcpWithSameAddressInput;
+};
+
+export type QueryGetNylasAuthUrlArgs = {
+  input: NylasAccountAuthOptions;
 };
 
 export type QueryGetObjectTypeCharacteristicsArgs = {
@@ -1260,6 +1278,10 @@ export type QueryListNcpsArgs = {
   sort?: Maybe<Array<Sort>>;
 };
 
+export type QueryListNylasAccountArgs = {
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+};
+
 export type QueryListObjectTypesArgs = {
   filters: ListObjectTypesFilters;
   pagination?: Maybe<Pagination>;
@@ -1390,38 +1412,64 @@ export enum AppointmentState {
 export type Appointment = {
   __typename?: 'Appointment';
   id: Scalars['ID'];
-  startDate: Scalars['Date'];
-  endDate: Scalars['Date'];
+  title?: Maybe<Scalars['String']>;
+  from: Scalars['Date'];
+  to: Scalars['Date'];
+  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  type: CalendarTypes;
-  location?: Maybe<Scalars['String']>;
-  taskLabel?: Maybe<TaskLabel>;
   state?: Maybe<AppointmentState>;
+  type: CalendarTypes;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
 };
 
-export type AppointmentInput = {
-  startDate: Scalars['Date'];
-  endDate: Scalars['Date'];
+export type AppointmentTermInput = {
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+};
+
+export type AddAppointmentInput = {
+  accountId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  from: Scalars['Date'];
+  to: Scalars['Date'];
+  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
   travelTimeBefore?: Maybe<Scalars['Int']>;
   travelTimeAfter?: Maybe<Scalars['Int']>;
-  title?: Maybe<Scalars['String']>;
-  allDay?: Maybe<Scalars['Boolean']>;
   type: CalendarTypes;
-  location?: Maybe<Scalars['String']>;
+  appointmentType?: Maybe<AppointmentType>;
   taskLabel?: Maybe<TaskLabel>;
-  state?: Maybe<AppointmentState>;
 };
 
 export type AppointmentSearch = {
+  accountId: Scalars['ID'];
   startDate: Scalars['String'];
   endDate: Scalars['String'];
   selectedUser?: Maybe<Scalars['String']>;
   selectedGroup?: Maybe<Scalars['String']>;
   selectedAppointmentType?: Maybe<AppointmentType>;
-  selectTaskType?: Maybe<Array<Maybe<TaskLabel>>>;
+  selectTaskType?: Maybe<Array<TaskLabel>>;
 };
 
 export enum CharacteristicsSections {
@@ -3145,6 +3193,35 @@ export type Subscription = {
   __typename?: 'Subscription';
   _?: Maybe<Scalars['Boolean']>;
   notificationAdded: NotificationAdded;
+};
+
+export enum NylasProviderType {
+  Exchange = 'Exchange',
+  Gmail = 'Gmail',
+  Outlook = 'Outlook',
+}
+
+export type NylasAuthorizationInput = {
+  name: Scalars['String'];
+  email: Scalars['String'];
+  provider: NylasProviderType;
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type NylasAccountItem = {
+  __typename?: 'NylasAccountItem';
+  id: Scalars['ID'];
+  email: Scalars['String'];
+  provider: Scalars['String'];
+  billingState: Scalars['String'];
+  syncState: Scalars['String'];
+};
+
+export type NylasAccountAuthOptions = {
+  loginHint: Scalars['String'];
+  redirectURI?: Maybe<Scalars['String']>;
+  scopes?: Maybe<Array<Scalars['String']>>;
 };
 
 export enum TypeOfObjectType {
@@ -8107,6 +8184,35 @@ export type BulkMutation = { __typename?: 'Mutation' } & {
   bulk: { __typename?: 'BulkOperationResult' } & Pick<BulkOperationResult, 'undoIds'>;
 };
 
+export type AddAppointmentMutationVariables = Exact<{
+  input: AddAppointmentInput;
+}>;
+
+export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
+  addAppointment: { __typename?: 'Appointment' } & Pick<
+    Appointment,
+    | 'id'
+    | 'from'
+    | 'to'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'isInsideOffice'
+    | 'location'
+    | 'outsideLocation'
+    | 'taskLabel'
+    | 'state'
+    | 'agreementType'
+    | 'repeatAppointment'
+    | 'description'
+    | 'appointmentType'
+    | 'assignedPimIds'
+    | 'invitedPersons'
+  >;
+};
+
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
@@ -8693,6 +8799,23 @@ export type BulkDeleteNotificationsMutationVariables = Exact<{
 }>;
 
 export type BulkDeleteNotificationsMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'bulkDeleteNotifications'>;
+
+export type AuthorizeNylasAccountMutationVariables = Exact<{
+  input: NylasAuthorizationInput;
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'authorizeNylasAccount'>;
+
+export type AuthorizeNylasAccountWithTokenMutationVariables = Exact<{
+  nylasToken: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & Pick<
+  Mutation,
+  'authorizeNylasAccountWithToken'
+>;
 
 export type UpdateObjectTypeCharacteristicsMutationVariables = Exact<{
   input: ObjectTypeCharacteristicsInput;
@@ -9615,16 +9738,24 @@ export type ListCalendarQuery = { __typename?: 'Query' } & {
       { __typename?: 'Appointment' } & Pick<
         Appointment,
         | 'id'
-        | 'startDate'
-        | 'endDate'
+        | 'from'
+        | 'to'
         | 'travelTimeBefore'
         | 'travelTimeAfter'
         | 'title'
         | 'allDay'
         | 'type'
+        | 'isInsideOffice'
         | 'location'
+        | 'outsideLocation'
         | 'taskLabel'
         | 'state'
+        | 'agreementType'
+        | 'repeatAppointment'
+        | 'description'
+        | 'appointmentType'
+        | 'assignedPimIds'
+        | 'invitedPersons'
       >
     >
   >;
@@ -10651,6 +10782,27 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
     }
   >;
 };
+
+export type ListNylasAccountQueryVariables = Exact<{
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type ListNylasAccountQuery = { __typename?: 'Query' } & {
+  listNylasAccount?: Maybe<
+    Array<
+      { __typename?: 'NylasAccountItem' } & Pick<
+        NylasAccountItem,
+        'id' | 'email' | 'provider' | 'billingState' | 'syncState'
+      >
+    >
+  >;
+};
+
+export type GetNylasAuthUrlQueryVariables = Exact<{
+  input: NylasAccountAuthOptions;
+}>;
+
+export type GetNylasAuthUrlQuery = { __typename?: 'Query' } & Pick<Query, 'getNylasAuthUrl'>;
 
 export type ObjectTypeCharacteristicsQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -13035,6 +13187,45 @@ export function useBulkMutation(
 export type BulkMutationHookResult = ReturnType<typeof useBulkMutation>;
 export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
+export const AddAppointmentDocument = gql`
+  mutation AddAppointment($input: AddAppointmentInput!) {
+    addAppointment(input: $input) {
+      id
+      from
+      to
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      isInsideOffice
+      location
+      outsideLocation
+      taskLabel
+      state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
+    }
+  }
+`;
+export function useAddAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddAppointmentMutation, AddAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddAppointmentMutation, AddAppointmentMutationVariables>(
+    AddAppointmentDocument,
+    baseOptions,
+  );
+}
+export type AddAppointmentMutationHookResult = ReturnType<typeof useAddAppointmentMutation>;
+export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddAppointmentMutation>;
+export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAppointmentMutation,
+  AddAppointmentMutationVariables
+>;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
     createCompany(input: $input) {
@@ -14359,6 +14550,54 @@ export type BulkDeleteNotificationsMutationResult = ApolloReactCommon.MutationRe
 export type BulkDeleteNotificationsMutationOptions = ApolloReactCommon.BaseMutationOptions<
   BulkDeleteNotificationsMutation,
   BulkDeleteNotificationsMutationVariables
+>;
+export const AuthorizeNylasAccountDocument = gql`
+  mutation AuthorizeNylasAccount($input: NylasAuthorizationInput!, $isCalendarConnected: Boolean) {
+    authorizeNylasAccount(input: $input, isCalendarConnected: $isCalendarConnected)
+  }
+`;
+export function useAuthorizeNylasAccountMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AuthorizeNylasAccountMutation,
+    AuthorizeNylasAccountMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<AuthorizeNylasAccountMutation, AuthorizeNylasAccountMutationVariables>(
+    AuthorizeNylasAccountDocument,
+    baseOptions,
+  );
+}
+export type AuthorizeNylasAccountMutationHookResult = ReturnType<typeof useAuthorizeNylasAccountMutation>;
+export type AuthorizeNylasAccountMutationResult = ApolloReactCommon.MutationResult<AuthorizeNylasAccountMutation>;
+export type AuthorizeNylasAccountMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AuthorizeNylasAccountMutation,
+  AuthorizeNylasAccountMutationVariables
+>;
+export const AuthorizeNylasAccountWithTokenDocument = gql`
+  mutation AuthorizeNylasAccountWithToken($nylasToken: String!, $isCalendarConnected: Boolean) {
+    authorizeNylasAccountWithToken(nylasToken: $nylasToken, isCalendarConnected: $isCalendarConnected)
+  }
+`;
+export function useAuthorizeNylasAccountWithTokenMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AuthorizeNylasAccountWithTokenMutation,
+    AuthorizeNylasAccountWithTokenMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<
+    AuthorizeNylasAccountWithTokenMutation,
+    AuthorizeNylasAccountWithTokenMutationVariables
+  >(AuthorizeNylasAccountWithTokenDocument, baseOptions);
+}
+export type AuthorizeNylasAccountWithTokenMutationHookResult = ReturnType<
+  typeof useAuthorizeNylasAccountWithTokenMutation
+>;
+export type AuthorizeNylasAccountWithTokenMutationResult = ApolloReactCommon.MutationResult<
+  AuthorizeNylasAccountWithTokenMutation
+>;
+export type AuthorizeNylasAccountWithTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AuthorizeNylasAccountWithTokenMutation,
+  AuthorizeNylasAccountWithTokenMutationVariables
 >;
 export const UpdateObjectTypeCharacteristicsDocument = gql`
   mutation UpdateObjectTypeCharacteristics($input: ObjectTypeCharacteristicsInput!) {
@@ -16622,16 +16861,24 @@ export const ListCalendarDocument = gql`
   query ListCalendar($input: AppointmentSearch!) {
     listCalendar(input: $input) {
       id
-      startDate
-      endDate
+      from
+      to
       travelTimeBefore
       travelTimeAfter
       title
       allDay
       type
+      isInsideOffice
       location
+      outsideLocation
       taskLabel
       state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
     }
   }
 `;
@@ -18360,6 +18607,66 @@ export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotifi
 export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
   GetNotificationsQuery,
   GetNotificationsQueryVariables
+>;
+export const ListNylasAccountDocument = gql`
+  query ListNylasAccount($isCalendarConnected: Boolean) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected) {
+      id
+      email
+      provider
+      billingState
+      syncState
+    }
+  }
+`;
+export function useListNylasAccountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListNylasAccountQuery, ListNylasAccountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListNylasAccountQuery, ListNylasAccountQueryVariables>(
+    ListNylasAccountDocument,
+    baseOptions,
+  );
+}
+export function useListNylasAccountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListNylasAccountQuery, ListNylasAccountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListNylasAccountQuery, ListNylasAccountQueryVariables>(
+    ListNylasAccountDocument,
+    baseOptions,
+  );
+}
+export type ListNylasAccountQueryHookResult = ReturnType<typeof useListNylasAccountQuery>;
+export type ListNylasAccountLazyQueryHookResult = ReturnType<typeof useListNylasAccountLazyQuery>;
+export type ListNylasAccountQueryResult = ApolloReactCommon.QueryResult<
+  ListNylasAccountQuery,
+  ListNylasAccountQueryVariables
+>;
+export const GetNylasAuthUrlDocument = gql`
+  query GetNylasAuthUrl($input: NylasAccountAuthOptions!) {
+    getNylasAuthUrl(input: $input)
+  }
+`;
+export function useGetNylasAuthUrlQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>(
+    GetNylasAuthUrlDocument,
+    baseOptions,
+  );
+}
+export function useGetNylasAuthUrlLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetNylasAuthUrlQuery, GetNylasAuthUrlQueryVariables>(
+    GetNylasAuthUrlDocument,
+    baseOptions,
+  );
+}
+export type GetNylasAuthUrlQueryHookResult = ReturnType<typeof useGetNylasAuthUrlQuery>;
+export type GetNylasAuthUrlLazyQueryHookResult = ReturnType<typeof useGetNylasAuthUrlLazyQuery>;
+export type GetNylasAuthUrlQueryResult = ApolloReactCommon.QueryResult<
+  GetNylasAuthUrlQuery,
+  GetNylasAuthUrlQueryVariables
 >;
 export const ObjectTypeCharacteristicsDocument = gql`
   query ObjectTypeCharacteristics($id: ID!) {

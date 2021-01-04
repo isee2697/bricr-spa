@@ -1,15 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
-import { SortDirection, useGetTasksLazyQuery } from 'api/types';
-import { useAuthState } from 'hooks';
+import { AppointmentSearch, SortDirection, useGetTasksLazyQuery, useListCalendarQuery } from 'api/types';
+import { useAuthState, useNylasAccountState } from 'hooks';
 
 import { DashboardAgenda } from './DashboardAgenda';
 
 export const DashboardAgendaContainer = () => {
   const { user } = useAuthState();
+  const { accounts: nylasAccounts } = useNylasAccountState();
 
-  const [getTasks, { data }] = useGetTasksLazyQuery({
+  const [getTasks, { data: tasks }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
+  });
+
+  const searchParams: AppointmentSearch = useMemo(
+    () => ({
+      accountId: nylasAccounts?.[0]?.id || '',
+      startDate: new Date().toLocaleDateString(),
+      endDate: new Date(Date.now() + 3 * 24 * 3600 * 1000).toLocaleDateString(),
+    }),
+    [nylasAccounts],
+  );
+  const { data: agenda } = useListCalendarQuery({
+    variables: {
+      input: searchParams,
+    },
   });
 
   useEffect(() => {
@@ -24,5 +39,5 @@ export const DashboardAgendaContainer = () => {
     }
   }, [getTasks, user]);
 
-  return <DashboardAgenda tasks={data?.getTasks?.items || []} />;
+  return <DashboardAgenda tasks={tasks?.getTasks?.items || []} agenda={agenda?.listCalendar || []} />;
 };

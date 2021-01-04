@@ -8,7 +8,7 @@ import { CalendarGroupViewProps } from 'app/calendar/view/CalendarView.types';
 
 import { useStyles } from './GroupDayView.styles';
 
-export const GroupDayView = ({ currentDate, data, group }: CalendarGroupViewProps) => {
+export const GroupDayView = ({ account, currentDate, data, group }: CalendarGroupViewProps) => {
   const classes = useStyles();
   const { spacing, breakpoints } = useTheme();
 
@@ -27,6 +27,7 @@ export const GroupDayView = ({ currentDate, data, group }: CalendarGroupViewProp
                   view={DateView.Group}
                   currentDate={currentDate}
                   data={data}
+                  account={account}
                 />
               </div>
             </div>

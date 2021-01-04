@@ -6,7 +6,7 @@ import { BuildingIcon } from 'ui/atoms/icons';
 import { requireValidator } from 'form/validators';
 import { AdvancedSearchField, CheckboxField, GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
-import { AppointmentType, SortDirection, AppointmentAddressType } from 'api/types';
+import { AppointmentType, SortDirection, AppointmentAddressType, useListPimsQuery } from 'api/types';
 import { PimListItem } from 'app/shared/linkedProperties/linkedPropertyModal/LinkedPropertyModal.types';
 
 import { LinkPropertyModalContainer } from './ModalContainer';
@@ -23,7 +23,21 @@ export const AppointmentTypeCard = () => {
   const form = useForm();
   const values = form.getState().values;
 
-  const assignedPims: PimListItem[] = values?.[fieldName] ?? [];
+  const refetchQueryVariables = {
+    from: 0,
+    limit: undefined,
+    sortColumn: 'dateCreated',
+    sortDirection: SortDirection.Asc,
+  };
+  const { data: pimsListData } = useListPimsQuery({
+    variables: { ...refetchQueryVariables, archived: false },
+    fetchPolicy: 'no-cache',
+  });
+
+  const assignedPimIds: string[] = values?.[fieldName] ?? [];
+  const assignedPims: PimListItem[] = pimsListData?.listPims.items?.filter(pim =>
+    assignedPimIds.find(item => item === pim.id),
+  ) as PimListItem[];
   const isAcquissition = values?.[typeFieldName] === AppointmentType.Aquisition;
   const selectedAddressType = values?.[acquissitionAddressField];
   const selectedUser = values?.[selectedUserAddressField];
@@ -145,7 +159,7 @@ export const AppointmentTypeCard = () => {
             onDelete={() =>
               form.change(
                 fieldName,
-                assignedPims.filter(item => item.id !== pim.id),
+                assignedPimIds.filter(item => item !== pim.id),
               )
             }
             icon={<BuildingIcon className={classes.icon} />}
@@ -157,15 +171,11 @@ export const AppointmentTypeCard = () => {
         selected={assignedPims}
         isOpened={isModalOpened}
         onClose={values => {
-          form.change(fieldName, [...assignedPims, ...values]);
+          form.change(fieldName, [...assignedPimIds, ...values.map(item => item.id)]);
           setModalOpened(false);
         }}
-        refetchQueryVariables={{
-          from: 0,
-          limit: undefined,
-          sortColumn: 'dateCreated',
-          sortDirection: SortDirection.Asc,
-        }}
+        refetchQueryVariables={refetchQueryVariables}
+        listData={pimsListData}
       />
     </>
   );

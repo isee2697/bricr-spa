@@ -38,7 +38,7 @@ export const MembersDropdownField = ({
   return (
     <AdvancedSearchField
       {...props}
-      validate={[requireValidator]}
+      validate={props.validate ?? [requireValidator]}
       items={assignees}
       placeholder={
         <Box display="flex" alignItems="center" className={classes.assigneePlaceholder}>

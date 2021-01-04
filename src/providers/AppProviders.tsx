@@ -15,6 +15,8 @@ import { OverlayContextController } from 'context/overlay/overlayContextControll
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
+import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
+import { NylasAccountController } from 'context/nylasContext/nylasAccountController/NylasAccountController';
 
 import { AppProvidersProps } from './AppProviders.types';
 
@@ -22,27 +24,31 @@ export const AppProviders = ({ children }: AppProvidersProps) => (
   <ThroughProvider>
     <Theme>
       <AuthContextController>
-        <LocaleContextController>
-          <MuiPickersUtilsProvider utils={LuxonUtils}>
-            <ErrorBoundary>
-              <SnackbarContextController>
-                <ApiClientContextController>
-                  <UserController>
-                    <OverlayContextController>
-                      <ModalContextController>
-                        <LayoutContextController>
-                          <Router>
-                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                          </Router>
-                        </LayoutContextController>
-                      </ModalContextController>
-                    </OverlayContextController>
-                  </UserController>
-                </ApiClientContextController>
-              </SnackbarContextController>
-            </ErrorBoundary>
-          </MuiPickersUtilsProvider>
-        </LocaleContextController>
+        <NylasAccountContextController>
+          <LocaleContextController>
+            <MuiPickersUtilsProvider utils={LuxonUtils}>
+              <ErrorBoundary>
+                <SnackbarContextController>
+                  <ApiClientContextController>
+                    <UserController>
+                      <OverlayContextController>
+                        <ModalContextController>
+                          <LayoutContextController>
+                            <NylasAccountController>
+                              <Router>
+                                <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                              </Router>
+                            </NylasAccountController>
+                          </LayoutContextController>
+                        </ModalContextController>
+                      </OverlayContextController>
+                    </UserController>
+                  </ApiClientContextController>
+                </SnackbarContextController>
+              </ErrorBoundary>
+            </MuiPickersUtilsProvider>
+          </LocaleContextController>
+        </NylasAccountContextController>
       </AuthContextController>
     </Theme>
   </ThroughProvider>

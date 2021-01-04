@@ -10,6 +10,7 @@ export const useStyles = makeStyles(theme => ({
     color: theme.palette.gray.main,
   },
   tableRow: {
+    cursor: 'pointer',
     '&:nth-child(odd)': {
       background: theme.palette.gray.light,
     },

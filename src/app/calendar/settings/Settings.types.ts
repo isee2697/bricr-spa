@@ -1,20 +1,15 @@
-import { DateTime } from 'luxon';
+import { NylasAccountItem } from 'api/types';
 
 export type CalendarSettingsProps = {
   onSidebarClose: VoidFunction;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
+  accounts: NylasAccountItem[];
 };
 
 export type CalendarSettingsContainerProps = {
   onSidebarClose: VoidFunction;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
-};
-
-export type CalendarAccount = {
-  id: string;
-  name: string;
-  mainEmailAddress: string;
-  dateCreated: DateTime;
+  accounts: NylasAccountItem[];
 };

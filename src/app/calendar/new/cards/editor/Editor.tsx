@@ -10,7 +10,7 @@ export const EditorCard = () => {
 
   return (
     <Card className={classes.root}>
-      <RichTextField fullWidth withoutBorder disabled={false} name="chapter" />
+      <RichTextField fullWidth withoutBorder disabled={false} name="description" />
     </Card>
   );
 };
