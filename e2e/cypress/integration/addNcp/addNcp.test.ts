@@ -7,6 +7,7 @@ context('Add Ncp', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
+    cy.wait(1500);
 
     NavigationMenu.goToPim();
     cy.get('[aria-controls="add-menu"]').click();
@@ -40,6 +41,7 @@ context('Add Ncp', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
+    cy.wait(1500);
 
     NavigationMenu.goToPim();
     cy.findByTestId('menu-item-new_construction').click();

@@ -42,14 +42,7 @@ const getViewTitle = (
   }
 };
 
-export const CalendarView = ({
-  account,
-  // data,
-  teamMembers,
-  groups,
-  filters,
-  onFilterChange,
-}: CalendarViewProps) => {
+export const CalendarView = ({ account, teamMembers, groups, filters, onFilterChange }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
@@ -59,7 +52,9 @@ export const CalendarView = ({
 
   const { push } = useHistory();
 
-  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery();
+  const [getListCalendarQuery, { data: calendarData }] = useListCalendarLazyQuery({
+    fetchPolicy: 'no-cache',
+  });
 
   useEffect(() => {
     const { startDate, endDate } = getViewRange(currentView, selectedDate.toJSDate());

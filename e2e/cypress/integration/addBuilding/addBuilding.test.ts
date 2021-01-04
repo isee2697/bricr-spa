@@ -2,12 +2,13 @@
 
 import { NavigationMenu } from '../../pages/Navigation';
 
-context('Add buildimg', () => {
+context('Add building', () => {
   beforeEach(() => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
+    cy.wait(3000);
     NavigationMenu.goToPim();
   });
 

@@ -7,6 +7,7 @@ context('List Pims', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
+    cy.wait(1500);
 
     NavigationMenu.goToPim();
     cy.visit(NavigationMenu.pimResidentialLink);

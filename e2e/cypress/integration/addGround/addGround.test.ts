@@ -8,6 +8,7 @@ context('Add Ground', () => {
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
+    cy.wait(2000);
     NavigationMenu.goToPim();
   });
 
