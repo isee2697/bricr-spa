@@ -10,7 +10,6 @@ import { EntityTypeProvider } from 'app/shared/entityType';
 import { EmailProps } from './Email.types';
 import { EmailInboxContainer } from './inbox/InboxContainer';
 import { EmailSettingsContainer } from './settings/SettingsContainer';
-import { ComposeNewEmailModalContainer } from './composeNewEmailModal/ComposeNewEmailModalContainer';
 
 export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNewAccount }: EmailProps) => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -63,7 +62,6 @@ export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNew
           </Grid>
         </EntityTypeProvider>
       </DndProvider>
-      <ComposeNewEmailModalContainer />
     </>
   );
 };

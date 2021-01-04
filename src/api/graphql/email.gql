@@ -45,6 +45,7 @@ type EmailFolderListItem {
 }
 
 input SendEmailInput {
+    from: [EmailAndNameInput!]!
     to: [EmailAndNameInput!]!
     cc: [EmailAndNameInput!]
     bcc: [EmailAndNameInput!]
@@ -58,7 +59,7 @@ input UpdateEmailInput {
 }
 
 extend type Mutation {
-    sendEmail(input: SendEmailInput!): Boolean! @auth
+    sendEmail(accountId: String!, input: SendEmailInput!): Boolean! @auth
     updateEmail(input: UpdateEmailInput!): Email @auth
 }
 
