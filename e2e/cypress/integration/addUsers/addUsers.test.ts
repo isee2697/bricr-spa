@@ -8,6 +8,7 @@ context('Users', () => {
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
+    cy.wait(1500);
     NavigationMenu.goToPim();
   });
 

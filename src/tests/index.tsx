@@ -18,8 +18,9 @@ import { OverlayContextController } from 'context/overlay/overlayContextControll
 import { ModalContextController } from 'context/modal/modalContextController/ModalContextController';
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
-// import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
+import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
 // import { UserController } from 'context/auth/userController/UserController';
+// import { NylasAccountController } from 'context/nylasContext/nylasAccountController/NylasAccountController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
@@ -29,25 +30,29 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
       <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
         <Theme>
           <AuthContextController>
-            {/* <NylasAccountContextController> */}
-            <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-              <SnackbarContextController>
-                <ApiClientContextController>
-                  <OverlayContextController>
-                    <ModalContextController>
-                      <LayoutContextController>
-                        <MuiPickersUtilsProvider utils={LuxonUtils}>
-                          <Router>
-                            <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
-                          </Router>
-                        </MuiPickersUtilsProvider>
-                      </LayoutContextController>
-                    </ModalContextController>
-                  </OverlayContextController>
-                </ApiClientContextController>
-              </SnackbarContextController>
-            </LocaleContext.Provider>
-            {/* </NylasAccountContextController> */}
+            <NylasAccountContextController>
+              <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+                <SnackbarContextController>
+                  <ApiClientContextController>
+                    {/* <UserController> */}
+                    <OverlayContextController>
+                      <ModalContextController>
+                        <LayoutContextController>
+                          <MuiPickersUtilsProvider utils={LuxonUtils}>
+                            {/* <NylasAccountController> */}
+                            <Router>
+                              <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
+                            </Router>
+                            {/* </NylasAccountController> */}
+                          </MuiPickersUtilsProvider>
+                        </LayoutContextController>
+                      </ModalContextController>
+                    </OverlayContextController>
+                    {/* </UserController> */}
+                  </ApiClientContextController>
+                </SnackbarContextController>
+              </LocaleContext.Provider>
+            </NylasAccountContextController>
           </AuthContextController>
         </Theme>
       </IntlProvider>
