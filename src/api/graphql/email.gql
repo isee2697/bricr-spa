@@ -10,8 +10,10 @@ input EmailAndNameInput {
 
 type EmailFolder {
     id: ID!
+    nylasFolderId: ID!
     name: String!
     displayName: String
+    userId: ID!
 }
 
 type EmailListItem {
@@ -61,7 +63,7 @@ extend type Mutation {
 }
 
 extend type Query {
-    listEmailFolders: [EmailFolderListItem!] @auth
-    listEmail(folderId: ID!): [EmailListItem!] @auth
-    getEmail(id: ID!): Email @auth
+    listEmailFolders(accountId: String!): [EmailFolderListItem!] @auth
+    listEmail(accountId: String!, folderId: ID!): [EmailListItem!] @auth
+    getEmail(accountId: String!, emailId: String!): Email @auth
 }

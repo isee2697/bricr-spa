@@ -8,6 +8,9 @@ export const EMAILS: Email[] = [
     folder: {
       id: '0001',
       name: 'inbox',
+      displayName: 'Inbox',
+      nylasFolderId: '0001',
+      userId: '0001',
     },
     from: [
       {
@@ -27,6 +30,9 @@ export const EMAILS: Email[] = [
     folder: {
       id: '0001',
       name: 'inbox',
+      displayName: 'Inbox',
+      nylasFolderId: '0001',
+      userId: '0001',
     },
     from: [
       {
@@ -46,6 +52,9 @@ export const EMAILS: Email[] = [
     folder: {
       id: '0001',
       name: 'inbox',
+      displayName: 'Inbox',
+      nylasFolderId: '0001',
+      userId: '0001',
     },
     from: [
       {

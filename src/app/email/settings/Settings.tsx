@@ -94,7 +94,14 @@ export const EmailSettings = ({
                     <SettingsIcon />
                   </IconButton>
                 </Box>
-                <Button color="primary" variant="contained" startIcon={<AddIcon color="inherit" />} onClick={() => {}}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  startIcon={<AddIcon color="inherit" />}
+                  onClick={() => {
+                    open('compose-new-email');
+                  }}
+                >
                   {formatMessage({ id: 'email.inbox.new_email' })}
                 </Button>
               </Box>

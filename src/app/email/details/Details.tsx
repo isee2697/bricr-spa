@@ -166,7 +166,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               <IconButton
                 variant="rounded"
                 size="small"
-                onClick={() => push(joinUrlParams(`${AppRoute.email}/:folder`, params))}
+                onClick={() => push(joinUrlParams(`${AppRoute.email}/inbox/:inboxId/:folderId`, params))}
               >
                 <ShareIcon />
               </IconButton>

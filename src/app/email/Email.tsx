@@ -10,8 +10,7 @@ import { EntityTypeProvider } from 'app/shared/entityType';
 import { EmailProps } from './Email.types';
 import { EmailInboxContainer } from './inbox/InboxContainer';
 import { EmailSettingsContainer } from './settings/SettingsContainer';
-import { EmailDetailsContainer } from './details/DetailsContainer';
-import { EmailNewContainer } from './new/EmailNewContainer';
+import { ComposeNewEmailModalContainer } from './composeNewEmailModal/ComposeNewEmailModalContainer';
 
 export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNewAccount }: EmailProps) => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -25,58 +24,46 @@ export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNew
   }, []);
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <EntityTypeProvider entityType={entityType}>
-        <Grid container spacing={0} wrap="nowrap">
-          {breadcrumbs}
-          <Switch>
-            <Route
-              exact
-              path={`${path}/settings`}
-              render={() => (
-                <EmailSettingsContainer
-                  onSidebarOpen={handleSidebarOpen}
-                  onSidebarClose={handleSidebarHide}
-                  isSidebarVisible={isSidebarVisible}
-                  accounts={accounts}
-                  onAddedNewAccount={onAddedNewAccount}
-                />
-              )}
-            />
-            <Route exact path={`${path}/:inboxId/new`} render={() => <EmailNewContainer />} />
-            <Route
-              exact
-              path={`${path}/:inboxId/inbox`}
-              render={() => (
-                <EmailInboxContainer
-                  onSidebarOpen={handleSidebarOpen}
-                  onSidebarClose={handleSidebarHide}
-                  isSidebarVisible={isSidebarVisible}
-                  accounts={accounts}
-                />
-              )}
-            />
-            <Route
-              exact
-              path={`${path}/:inboxId/:folder`}
-              render={() => (
-                <EmailInboxContainer
-                  onSidebarOpen={handleSidebarOpen}
-                  onSidebarClose={handleSidebarHide}
-                  isSidebarVisible={isSidebarVisible}
-                  accounts={accounts}
-                />
-              )}
-            />
-            <Route path={`${path}/:inboxId/:folder/:emailId`} render={() => <EmailDetailsContainer />} />
-            <Redirect
-              to={
-                accounts.length && accounts[0].id ? `${AppRoute.email}/${accounts[0].id}` : `${AppRoute.email}/settings`
-              }
-            />
-          </Switch>
-        </Grid>
-      </EntityTypeProvider>
-    </DndProvider>
+    <>
+      <DndProvider backend={HTML5Backend}>
+        <EntityTypeProvider entityType={entityType}>
+          <Grid container spacing={0} wrap="nowrap">
+            {breadcrumbs}
+            <Switch>
+              <Route
+                exact
+                path={`${path}/settings`}
+                render={() => (
+                  <EmailSettingsContainer
+                    onSidebarOpen={handleSidebarOpen}
+                    onSidebarClose={handleSidebarHide}
+                    isSidebarVisible={isSidebarVisible}
+                    accounts={accounts}
+                    onAddedNewAccount={onAddedNewAccount}
+                  />
+                )}
+              />
+              {/* <Route exact path={`${path}/:inboxId/new`} render={() => <EmailNewContainer />} /> */}
+              <Route
+                path={`${path}/inbox/:inboxId`}
+                render={() => (
+                  <EmailInboxContainer
+                    onSidebarOpen={handleSidebarOpen}
+                    onSidebarClose={handleSidebarHide}
+                    isSidebarVisible={isSidebarVisible}
+                    accounts={accounts}
+                    path={path}
+                  />
+                )}
+              />
+              <Redirect
+                to={accounts[0]?.id ? `${AppRoute.email}/inbox/${accounts[0].id}` : `${AppRoute.email}/settings`}
+              />
+            </Switch>
+          </Grid>
+        </EntityTypeProvider>
+      </DndProvider>
+      <ComposeNewEmailModalContainer />
+    </>
   );
 };

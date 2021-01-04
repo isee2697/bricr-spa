@@ -6,7 +6,4 @@ export const useStyles = makeStyles(theme => ({
       padding: 0,
     },
   },
-  fontWeightMedium: {
-    fontWeight: theme.typography.fontWeightMedium,
-  },
 }));

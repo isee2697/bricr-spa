@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { ReactNode } from 'react';
 
-import { EmailFolderListItem, EmailListItem, NylasAccountItem } from 'api/types';
+import { EmailListItem, NylasAccountItem } from 'api/types';
 import { EntityType } from 'app/shared/entityType';
 
 export type EmailProps = {
@@ -9,7 +9,6 @@ export type EmailProps = {
   entityType: EntityType;
   breadcrumbs: ReactNode;
   accounts: NylasAccountItem[];
-  folders: EmailFolderListItem[];
   onAddedNewAccount: VoidFunction;
 };
 

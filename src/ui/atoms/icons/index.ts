@@ -105,3 +105,4 @@ export * from './clock/ClockIcon';
 export * from './door/DoorIcon';
 export * from './today/TodayIcon';
 export * from './arrowOriginal/ArrowOriginalIcon';
+export * from './emailFolder/EmailFolderIcon';
