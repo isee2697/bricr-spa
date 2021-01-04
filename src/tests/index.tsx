@@ -19,8 +19,6 @@ import { ModalContextController } from 'context/modal/modalContextController/Mod
 import { LayoutContextController } from 'context/layout';
 import { SnackbarContextController } from 'context/snackbar/snackbarContextController/SnackbarContextController';
 import { NylasAccountContextController } from 'context/nylasContext/nylasAccountContextController/NylasAccountContextController';
-// import { UserController } from 'context/auth/userController/UserController';
-// import { NylasAccountController } from 'context/nylasContext/nylasAccountController/NylasAccountController';
 
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
@@ -34,21 +32,17 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
               <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
                 <SnackbarContextController>
                   <ApiClientContextController>
-                    {/* <UserController> */}
                     <OverlayContextController>
                       <ModalContextController>
                         <LayoutContextController>
                           <MuiPickersUtilsProvider utils={LuxonUtils}>
-                            {/* <NylasAccountController> */}
                             <Router>
                               <QueryParamProvider ReactRouterRoute={Route}>{children}</QueryParamProvider>
                             </Router>
-                            {/* </NylasAccountController> */}
                           </MuiPickersUtilsProvider>
                         </LayoutContextController>
                       </ModalContextController>
                     </OverlayContextController>
-                    {/* </UserController> */}
                   </ApiClientContextController>
                 </SnackbarContextController>
               </LocaleContext.Provider>

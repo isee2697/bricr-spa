@@ -42,14 +42,7 @@ const getViewTitle = (
   }
 };
 
-export const CalendarView = ({
-  account,
-  // data,
-  teamMembers,
-  groups,
-  filters,
-  onFilterChange,
-}: CalendarViewProps) => {
+export const CalendarView = ({ account, teamMembers, groups, filters, onFilterChange }: CalendarViewProps) => {
   const [currentView, setView] = useState(DateView.Week);
   const dateValues = Object.values(DateView);
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
