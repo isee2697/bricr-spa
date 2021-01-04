@@ -106,6 +106,10 @@ export const mockServer = () => {
         return newFile;
       });
 
+      this.post('/mock/nylas-account-list', (schema, request) => {
+        return [];
+      });
+
       this.post('/mock', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
         const query = requestJson.query;

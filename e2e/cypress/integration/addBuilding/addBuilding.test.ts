@@ -9,10 +9,10 @@ context('Add building', () => {
     cy.userLogin();
 
     NavigationMenu.goToPim();
-    cy.wait(3000);
   });
 
   it('allows to add building and change it', () => {
+    cy.wait(3000);
     // cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/buildings'));
     NavigationMenu.goToPimBuildings();
     cy.findByRole('button', { name: 'Add new building' }).click();
