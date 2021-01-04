@@ -122,6 +122,9 @@ export const mockServer = () => {
             }
             throw new Error();
           },
+          listCalendar() {
+            return [];
+          },
           listNcps() {
             const from = variables?.from ?? 0;
             const limit = variables?.limit ?? 10;

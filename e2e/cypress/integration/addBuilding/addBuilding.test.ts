@@ -8,11 +8,11 @@ context('Add building', () => {
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
+    cy.wait(3000);
     NavigationMenu.goToPim();
   });
 
   it('allows to add building and change it', () => {
-    cy.wait(3000);
     // cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/buildings'));
     NavigationMenu.goToPimBuildings();
     cy.findByRole('button', { name: 'Add new building' }).click();
