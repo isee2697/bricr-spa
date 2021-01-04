@@ -3,7 +3,7 @@
 import { NavigationMenu } from '../../pages/Navigation';
 
 context('Add buildimg', () => {
-  it('first login', () => {
+  beforeEach(() => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
