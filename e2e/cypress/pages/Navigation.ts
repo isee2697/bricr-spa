@@ -6,20 +6,13 @@ class Navigation {
     cy.get(`a[href*="${AppRoute.logout}"]`)
       .first()
       .click();
-    // cy.visit(Cypress.env().baseUrl + AppRoute.logout);
   }
 
   goToHome(): void {
-    // cy.get(`a[href*="${AppRoute.home}"]`)
-    //   .first()
-    //   .click();
     cy.visit(Cypress.env().baseUrl + AppRoute.home);
   }
 
   goToPim(): void {
-    // cy.get(`a[href*="${AppRoute.pim}"]`)
-    //   .first()
-    //   .click();
     cy.visit(Cypress.env().baseUrl + AppRoute.pim);
   }
 
@@ -28,16 +21,10 @@ class Navigation {
   }
 
   goToLogin(): void {
-    // cy.get(`a[href*="${AppRoute.login}"]`)
-    //   .first()
-    //   .click();
     cy.visit(Cypress.env().baseUrl + AppRoute.login);
   }
 
   goToForgotPassword(): void {
-    // cy.get(`a[href*="${AppRoute.forgotPassword}"]`)
-    //   .first()
-    //   .click();
     cy.visit(Cypress.env().baseUrl + AppRoute.forgotPassword);
   }
 
