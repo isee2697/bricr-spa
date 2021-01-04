@@ -2,14 +2,14 @@
 
 import { NavigationMenu } from '../../pages/Navigation';
 
-context('Add buildimg', () => {
+context('Add building', () => {
   beforeEach(() => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     cy.userLogin();
 
     NavigationMenu.goToPim();
-    cy.wait(1500);
+    cy.wait(3000);
   });
 
   it('allows to add building and change it', () => {
