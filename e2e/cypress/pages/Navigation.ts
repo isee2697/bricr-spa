@@ -2,11 +2,11 @@ import { AppRoute } from '../../../src/routing/AppRoute.enum';
 
 class Navigation {
   goToLogout(): void {
-    cy.get('#profile-button').click();
-    cy.get(`a[href*="${AppRoute.logout}"]`)
-      .first()
-      .click();
-    // cy.visit(Cypress.env().baseUrl + AppRoute.logout);
+    // cy.get('#profile-button').click();
+    // cy.get(`a[href*="${AppRoute.logout}"]`)
+    //   .first()
+    //   .click();
+    cy.visit(Cypress.env().baseUrl + AppRoute.logout);
   }
 
   goToHome(): void {
