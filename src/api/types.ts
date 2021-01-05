@@ -2096,6 +2096,16 @@ export type EmailListItem = {
   subject: Scalars['String'];
   date: Scalars['Date'];
   unread?: Maybe<Scalars['Boolean']>;
+  files?: Maybe<Array<EmailAttachment>>;
+};
+
+export type EmailAttachment = {
+  __typename?: 'EmailAttachment';
+  contentDisposition: Scalars['String'];
+  contentType: Scalars['String'];
+  filename: Scalars['String'];
+  id: Scalars['String'];
+  size: Scalars['Int'];
 };
 
 export type Email = {
@@ -2110,6 +2120,7 @@ export type Email = {
   body: Scalars['String'];
   date: Scalars['Date'];
   unread?: Maybe<Scalars['Boolean']>;
+  files?: Maybe<Array<EmailAttachment>>;
 };
 
 export type EmailFolderListItem = {
@@ -10020,6 +10031,7 @@ export type GetEmailQuery = { __typename?: 'Query' } & {
         folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+        files?: Maybe<Array<{ __typename?: 'EmailAttachment' } & Pick<EmailAttachment, 'id' | 'filename'>>>;
       }
   >;
 };
@@ -17360,6 +17372,10 @@ export const GetEmailDocument = gql`
       to {
         name
         email
+      }
+      files {
+        id
+        filename
       }
       subject
       body
