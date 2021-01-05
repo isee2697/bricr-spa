@@ -18,7 +18,6 @@ import {
 import { ClockIcon, DeleteIcon, MenuIcon, PinIcon, ShareIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { Page } from 'ui/templates';
-import { EmailReply } from '../Email.types';
 import { PIM_1 } from 'api/mocks/pim';
 import { CRM } from 'api/mocks/crm';
 import { SALES_LEADS } from 'api/mocks/sales';
@@ -42,7 +41,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-  const { id, pinned, date } = email;
+  const { id, pinned, date, threadMessages = [] } = email;
   const { isOpen } = useModalState('link-pim-object');
   const { open, close } = useModalDispatch();
   const [linkedPims, setLinkedPims] = useState<Pim[]>([]);
@@ -51,19 +50,6 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const [linkedCalendars, setLinkedCalendars] = useState<DateTime[]>([]);
   const { params } = useRouteMatch();
   const { push } = useHistory();
-
-  const replies: EmailReply[] = [
-    {
-      id: '0001',
-      from: {
-        firstName: 'John',
-        lastName: 'Doe',
-        image: 'http://placeimg.com/80/80/people',
-      },
-      date: DateTime.local(),
-      description: 'Billing discussion reply',
-    },
-  ];
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -160,7 +146,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               </IconButton>
               <Box ml={6} />
               <Typography variant="h5" className={classes.fontWeightMedium}>
-                {DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
+                {DateTime.fromSeconds(parseInt(date, 10)).toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS)}
               </Typography>
               <Box ml={4} />
               <IconButton
@@ -192,10 +178,10 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
             )}
             <Description email={email} />
             <Attachements />
-            {replies.length > 0 && (
+            {threadMessages && threadMessages.length > 0 && (
               <>
                 <Box width="100%" mt={5} mb={5} className={classes.splitter} />
-                <Replies email={email} replies={replies} />
+                <Replies email={email} replies={threadMessages} />
               </>
             )}
             <Box mt={8.75} width="100%" display="flex" alignItems="center" justifyContent="space-between">

@@ -2087,6 +2087,18 @@ export type EmailFolder = {
   userId: Scalars['ID'];
 };
 
+export type ThreadMessage = {
+  __typename?: 'ThreadMessage';
+  id: Scalars['ID'];
+  folder: EmailFolder;
+  from: Array<EmailAndName>;
+  to: Array<EmailAndName>;
+  subject: Scalars['String'];
+  date: Scalars['Date'];
+  unread?: Maybe<Scalars['Boolean']>;
+  thread_id?: Maybe<Scalars['String']>;
+};
+
 export type EmailListItem = {
   __typename?: 'EmailListItem';
   id: Scalars['ID'];
@@ -2096,6 +2108,9 @@ export type EmailListItem = {
   subject: Scalars['String'];
   date: Scalars['Date'];
   unread?: Maybe<Scalars['Boolean']>;
+  thread_id?: Maybe<Scalars['String']>;
+  threads?: Maybe<EmailThread>;
+  threadMessages?: Maybe<Array<ThreadMessage>>;
 };
 
 export type Email = {
@@ -2110,6 +2125,16 @@ export type Email = {
   body: Scalars['String'];
   date: Scalars['Date'];
   unread?: Maybe<Scalars['Boolean']>;
+  thread_id?: Maybe<Scalars['String']>;
+  threads?: Maybe<EmailThread>;
+  threadMessages?: Maybe<Array<ThreadMessage>>;
+};
+
+export type EmailThread = {
+  __typename?: 'EmailThread';
+  id: Scalars['ID'];
+  message_ids: Array<Scalars['String']>;
+  participants: Array<EmailAndName>;
 };
 
 export type EmailFolderListItem = {
@@ -10000,7 +10025,7 @@ export type ListEmailQueryVariables = Exact<{
 export type ListEmailQuery = { __typename?: 'Query' } & {
   listEmail?: Maybe<
     Array<
-      { __typename?: 'EmailListItem' } & Pick<EmailListItem, 'id' | 'subject' | 'date'> & {
+      { __typename?: 'EmailListItem' } & Pick<EmailListItem, 'id' | 'subject' | 'date' | 'thread_id'> & {
           folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
           from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
           to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
@@ -10016,10 +10041,23 @@ export type GetEmailQueryVariables = Exact<{
 
 export type GetEmailQuery = { __typename?: 'Query' } & {
   getEmail?: Maybe<
-    { __typename?: 'Email' } & Pick<Email, 'id' | 'subject' | 'body' | 'date'> & {
+    { __typename?: 'Email' } & Pick<Email, 'id' | 'subject' | 'body' | 'date' | 'thread_id'> & {
         folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
         from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
         to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+        threads?: Maybe<
+          { __typename?: 'EmailThread' } & Pick<EmailThread, 'id' | 'message_ids'> & {
+              participants: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'email' | 'name'>>;
+            }
+        >;
+        threadMessages?: Maybe<
+          Array<
+            { __typename?: 'ThreadMessage' } & Pick<ThreadMessage, 'id' | 'subject' | 'date'> & {
+                from: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+                to: Array<{ __typename?: 'EmailAndName' } & Pick<EmailAndName, 'name' | 'email'>>;
+              }
+          >
+        >;
       }
   >;
 };
@@ -17328,6 +17366,7 @@ export const ListEmailDocument = gql`
       }
       subject
       date
+      thread_id
     }
   }
 `;
@@ -17364,6 +17403,28 @@ export const GetEmailDocument = gql`
       subject
       body
       date
+      thread_id
+      threads {
+        id
+        message_ids
+        participants {
+          email
+          name
+        }
+      }
+      threadMessages {
+        id
+        from {
+          name
+          email
+        }
+        to {
+          name
+          email
+        }
+        subject
+        date
+      }
     }
   }
 `;
