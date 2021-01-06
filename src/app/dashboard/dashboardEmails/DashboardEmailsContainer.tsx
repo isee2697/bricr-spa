@@ -44,10 +44,7 @@ export const DashboardEmailsContainer = () => {
     } else if (!data?.listEmail?.length) {
       push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
     } else {
-      // push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}/${data.listEmail[0].folder.id}`);
       push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
-      // const { open } = useModalDispatch();
-      // open('compose-new-email');
     }
   };
 
@@ -63,7 +60,6 @@ export const DashboardEmailsContainer = () => {
     const email = data?.listEmail?.find(item => item.id === id);
 
     if (email) {
-      // push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}/${email.folder.id}/${email.id}`);
       push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
     }
   };
