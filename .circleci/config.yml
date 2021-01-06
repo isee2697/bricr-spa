@@ -67,6 +67,7 @@ jobs:
       - run: npm run lint
       - run: npm run build
   build-develop:
+    resource_class: xlarge
     docker:
       - image: cimg/node:12.19.1
     steps:
@@ -187,11 +188,11 @@ workflows:
             - build-stage
   custom_develop:
     jobs:
-      - build-develop:
-          filters:
-            branches:
-              only:
-                - /deploy/(?:-.+)?$/
+      - build-develop
+#          filters:
+#            branches:
+#              only:
+#                - /deploy/(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
