@@ -53,6 +53,10 @@ export const GET_EMAIL = gql`
         name
         email
       }
+      files {
+        id
+        filename
+      }
       subject
       body
       date
