@@ -50,5 +50,6 @@ export const useStyles = ({ isAuthPath }: { isAuthPath: boolean }) =>
       position: 'absolute',
       top: theme.spacing(2),
       right: theme.spacing(2),
+      width: theme.spacing(16),
     },
   }))();

@@ -46,7 +46,7 @@ export const SelectBox = ({
         )}
         <Box className={classNames(propsClasses?.inputInner, classes.inputInner)}>
           <span
-            className={classNames(classes.inputValue, {
+            className={classNames(classes.inputValue, propsClasses?.inputValue, {
               disabled,
               placeholder: !value,
             })}

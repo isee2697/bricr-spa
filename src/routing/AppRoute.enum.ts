@@ -44,4 +44,5 @@ export enum AppRoute {
   notifications = '/notifications',
   dms = '/dms',
   email = '/email',
+  insights = '/insights',
 }

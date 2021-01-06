@@ -17,6 +17,7 @@ const baseUrls = {
   [EntityType.Dms]: AppRoute.dms,
   [EntityType.Sales]: AppRoute.sales,
   [EntityType.Email]: AppRoute.email,
+  [EntityType.Insights]: AppRoute.insights,
 };
 
 export const useEntityType = (): useEntityTypeProps => {

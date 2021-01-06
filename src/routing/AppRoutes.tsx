@@ -32,6 +32,7 @@ import { DocumentDetailsContainer as PimDocumentDetailsContainer } from 'app/pim
 import { DocumentDetailsContainer as CrmDocumentDetailsContainer } from 'app/crmRelationsDetails/documents/documentDetails/DocumentDetailsContainer';
 import { CrmBusinessesDetailsContainer } from 'app/crmBusinessesDetails/CrmBusinessesDetailsContainer';
 import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoiceDetailsContainer';
+import { InsightsContainer } from 'app/insights/InsightsContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -96,6 +97,7 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.calendar} component={CalendarContainer} />
                 <AuthorizedRoute path={AppRoute.dms} component={DmsContainer} />
                 <AuthorizedRoute path={AppRoute.email} component={EmailContainer} />
+                <AuthorizedRoute path={AppRoute.insights} component={InsightsContainer} />
                 <Route path={AppRoute.logout} component={LogoutContainer} />
                 <Redirect to={AppRoute.home} />
               </Switch>
