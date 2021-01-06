@@ -1279,7 +1279,8 @@ export type QueryListCalendarArgs = {
 
 export type QueryListEmailArgs = {
   accountId: Scalars['String'];
-  folderId: Scalars['ID'];
+  folderId?: Maybe<Scalars['ID']>;
+  unread?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryListEmailFoldersArgs = {
@@ -10030,7 +10031,8 @@ export type ListEmailFoldersQuery = { __typename?: 'Query' } & {
 
 export type ListEmailQueryVariables = Exact<{
   accountId: Scalars['String'];
-  folderId: Scalars['ID'];
+  folderId?: Maybe<Scalars['ID']>;
+  unread?: Maybe<Scalars['Boolean']>;
 }>;
 
 export type ListEmailQuery = { __typename?: 'Query' } & {
@@ -17360,8 +17362,8 @@ export type ListEmailFoldersQueryResult = ApolloReactCommon.QueryResult<
   ListEmailFoldersQueryVariables
 >;
 export const ListEmailDocument = gql`
-  query ListEmail($accountId: String!, $folderId: ID!) {
-    listEmail(accountId: $accountId, folderId: $folderId) {
+  query ListEmail($accountId: String!, $folderId: ID, $unread: Boolean) {
+    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread) {
       id
       folder {
         id
