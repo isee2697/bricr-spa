@@ -42,7 +42,6 @@ export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNew
                   />
                 )}
               />
-              {/* <Route exact path={`${path}/:inboxId/new`} render={() => <EmailNewContainer />} /> */}
               <Route
                 path={`${path}/inbox/:inboxId`}
                 render={() => (

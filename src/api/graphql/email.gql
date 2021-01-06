@@ -16,6 +16,17 @@ type EmailFolder {
     userId: ID!
 }
 
+type ThreadMessage {
+    id: ID!
+    folder: EmailFolder!
+    from: [EmailAndName!]!
+    to: [EmailAndName!]!
+    subject: String!
+    date: Date!
+    unread: Boolean
+    thread_id: String
+}
+
 type EmailListItem {
     id: ID!
     folder: EmailFolder!
@@ -24,6 +35,9 @@ type EmailListItem {
     subject: String!
     date: Date!
     unread: Boolean
+    thread_id: String
+    threads: EmailThread
+    threadMessages: [ThreadMessage!]
     files: [EmailAttachment!]
 }
 
@@ -47,6 +61,15 @@ type Email {
     date: Date!
     unread: Boolean
     files: [EmailAttachment!]
+    thread_id: String
+    threads: EmailThread
+    threadMessages: [ThreadMessage!]
+}
+
+type EmailThread {
+    id: ID!
+    message_ids: [String!]!
+    participants: [EmailAndName!]!
 }
 
 type EmailFolderListItem {

@@ -32,6 +32,7 @@ export const LIST_EMAIL = gql`
       }
       subject
       date
+      thread_id
     }
   }
 `;
@@ -60,6 +61,28 @@ export const GET_EMAIL = gql`
       subject
       body
       date
+      thread_id
+      threads {
+        id
+        message_ids
+        participants {
+          email
+          name
+        }
+      }
+      threadMessages {
+        id
+        from {
+          name
+          email
+        }
+        to {
+          name
+          email
+        }
+        subject
+        date
+      }
     }
   }
 `;
