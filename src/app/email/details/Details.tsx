@@ -177,7 +177,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               />
             )}
             <Description email={email} />
-            <Attachements />
+            <Attachements email={email} />
             {threadMessages && threadMessages.length > 0 && (
               <>
                 <Box width="100%" mt={5} mb={5} className={classes.splitter} />

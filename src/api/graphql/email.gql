@@ -38,6 +38,15 @@ type EmailListItem {
     thread_id: String
     threads: EmailThread
     threadMessages: [ThreadMessage!]
+    files: [EmailAttachment!]
+}
+
+type EmailAttachment {
+    contentDisposition: String!
+    contentType: String!
+    filename: String!
+    id: String!
+    size: Int!
 }
 
 type Email {
@@ -51,6 +60,7 @@ type Email {
     body: String!
     date: Date!
     unread: Boolean
+    files: [EmailAttachment!]
     thread_id: String
     threads: EmailThread
     threadMessages: [ThreadMessage!]
