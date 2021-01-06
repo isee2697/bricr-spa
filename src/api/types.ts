@@ -10876,7 +10876,11 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
           { __typename?: 'Notification' } & Pick<
             Notification,
             'id' | 'type' | 'isRead' | 'isDeleted' | 'description' | 'dateCreated'
-          > & { receiver: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'isAdmin' | 'isActive'> }
+          > & {
+              receiver: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'isAdmin' | 'isActive'> & {
+                  image?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                };
+            }
         >
       >;
     }
@@ -18728,6 +18732,9 @@ export const GetNotificationsDocument = gql`
           email
           isAdmin
           isActive
+          image {
+            url
+          }
         }
         isRead
         isDeleted

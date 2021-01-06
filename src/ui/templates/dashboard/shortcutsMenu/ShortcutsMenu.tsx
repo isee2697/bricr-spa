@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { IconButton, Avatar, Menu, Box, Typography, Link, CardHeader } from 'ui/atoms';
-import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 import { ShortcutsIcon } from 'ui/atoms/icons/shortcuts/ShortcutsIcon';
 import { FilesIcon } from 'ui/atoms/icons/files/FilesIcon';
 import { LinkIcon } from 'ui/atoms/icons/link/LinkIcon';
@@ -11,6 +10,7 @@ import { DocIcon } from 'ui/atoms/icons/doc/DocIcon';
 import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { SettingsIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './ShortcutsMenu.styles';
 
@@ -54,7 +54,7 @@ export const ShortcutsMenu = () => {
           title={formatMessage({ id: 'shortcuts_menu.title' })}
           action={
             <IconButton aria-label="add" variant="roundedContained" size="small">
-              <ManageIcon color="inherit" />
+              <SettingsIcon color="inherit" />
             </IconButton>
           }
         />
@@ -78,7 +78,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.nvm_offer' })}</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.generate_contract' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -90,7 +90,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.wwft_check' })}</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.dashboard_allocate' })}</Typography>
             </Box>
           </Box>
         </Link>
@@ -102,7 +102,7 @@ export const ShortcutsMenu = () => {
               </Box>
             </Avatar>
             <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.invoices' })}</Typography>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.wwft_check' })}</Typography>
             </Box>
           </Box>
         </Link>
