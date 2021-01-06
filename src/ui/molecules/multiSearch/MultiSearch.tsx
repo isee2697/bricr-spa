@@ -37,6 +37,7 @@ export const MultiSearch = ({
   endAdornment,
   classes: passedClasses,
   onChange,
+  onAddNewOption,
   ...props
 }: MultiSearchProps) => {
   const [value, setValue] = useState([...(inputValue || [])]);
@@ -86,8 +87,16 @@ export const MultiSearch = ({
     <Autocomplete
       {...props}
       onChange={(event: ChangeEvent<{}>, newValue) => {
-        setValue([...newValue]);
-        onChange && onChange(newValue || []);
+        if (newValue.length === 0 || typeof newValue[newValue.length - 1] !== 'string') {
+          setValue([...newValue]);
+          onChange && onChange(newValue || []);
+        } else {
+          const lastValue = newValue[newValue.length - 1];
+
+          if (onAddNewOption) {
+            onAddNewOption(((lastValue as unknown) as string) || '');
+          }
+        }
       }}
       multiple
       className={clsx(classes.root, passedClasses?.root)}
@@ -155,6 +164,12 @@ export const MultiSearch = ({
           </Box>
         ))
       }
+      onKeyUp={e => {
+        if (e.key === 'Enter' && onAddNewOption) {
+          e.preventDefault();
+          // onAddNewOption(keyword);
+        }
+      }}
     />
   );
 };

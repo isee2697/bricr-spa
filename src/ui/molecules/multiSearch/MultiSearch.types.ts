@@ -25,6 +25,7 @@ interface MultiSearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
   endAdornment?: ReactNode;
   classes?: MultiSearchClasses;
   onChange?: (value: T[]) => void;
+  onAddNewOption?: (option: string) => void;
 }
 
 export type MultiSearchProps = MultiSearchPropsInterface<MultiSearch>;
