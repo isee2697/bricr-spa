@@ -11,6 +11,9 @@ export const GET_NOTIFICATIONS = gql`
           email
           isAdmin
           isActive
+          image {
+            url
+          }
         }
         isRead
         isDeleted

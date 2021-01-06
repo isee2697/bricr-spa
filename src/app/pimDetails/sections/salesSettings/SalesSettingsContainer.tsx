@@ -27,7 +27,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
             color="primary"
             startIcon={<AddIcon color="inherit" />}
             variant="contained"
-            onClick={() => push('salesSettings/1')}
+            onClick={() => push('allocateSettings/1')}
             size="small"
           >
             {formatMessage({ id: `pim_details.sales_settings.add_new_allocation` })}
@@ -36,9 +36,9 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
       />
 
       <Switch>
-        <Route default path={`${baseUrl}/salesSettings`} exact render={() => <SalesSettings />} />
+        <Route default path={`${baseUrl}/allocateSettings`} exact render={() => <SalesSettings />} />
         <Route
-          path={`${baseUrl}/salesSettings/:allocId`}
+          path={`${baseUrl}/allocateSettings/:allocId`}
           render={() => (
             <AllocationMain
               title="Alocation and Match Criteria"
@@ -47,7 +47,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
             />
           )}
         />
-        <Redirect to={`${baseUrl}/salesSettings`} />
+        <Redirect to={`${baseUrl}/allocateSettings`} />
       </Switch>
     </>
   );
