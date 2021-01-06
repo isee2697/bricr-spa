@@ -9,4 +9,5 @@ export enum EntityType {
   'Dms',
   'Sales',
   'Email',
+  'Insights',
 }

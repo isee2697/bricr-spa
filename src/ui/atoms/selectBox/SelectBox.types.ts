@@ -10,6 +10,7 @@ export type SelectBoxClasses = {
   menu?: string;
   menuItem?: string;
   menuItemInner?: string;
+  inputValue?: string;
 };
 
 export type SelectBoxProps = {

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Card, CardHeader, CardContent, CardActions, IconButton, Button } from '../../atoms';
+import { Card, CardHeader, CardContent, CardActions, IconButton, Button, Typography } from '../../atoms';
 import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { Email } from 'ui/molecules/email/Email';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './Emails.styles';
 import { EmailsProps, EmailItem } from './Emails.types';
@@ -23,20 +24,35 @@ export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: E
         }
       />
       <CardContent className={classes.card}>
-        {data.map((email: EmailItem) => (
-          <Email
-            name={email.name}
-            avatar={email.avatar}
-            title={email.title}
-            date={email.date}
-            open={email.open}
-            onClick={id => onEmailClick(id)}
-            id={email.id}
-            key={email.id}
-          >
-            {email.children}
-          </Email>
-        ))}
+        {data.length ? (
+          data.map((email: EmailItem) => (
+            <Email
+              name={email.name}
+              avatar={email.avatar}
+              title={email.title}
+              date={email.date}
+              open={email.open}
+              onClick={id => onEmailClick(id)}
+              id={email.id}
+              key={email.id}
+            >
+              {email.children}
+            </Email>
+          ))
+        ) : (
+          <InfoSection emoji="🤔">
+            <Typography variant="h3">
+              {formatMessage({
+                id: 'dashboard.emails.empty_title',
+              })}
+            </Typography>
+            <Typography variant="h3">
+              {formatMessage({
+                id: 'dashboard.emails.empty_description',
+              })}
+            </Typography>
+          </InfoSection>
+        )}
       </CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>

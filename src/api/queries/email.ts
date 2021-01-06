@@ -14,8 +14,8 @@ export const LIST_EMAIL_FOLDERS = gql`
 `;
 
 export const LIST_EMAIL = gql`
-  query ListEmail($accountId: String!, $folderId: ID!) {
-    listEmail(accountId: $accountId, folderId: $folderId) {
+  query ListEmail($accountId: String!, $folderId: ID, $unread: Boolean) {
+    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread) {
       id
       folder {
         id

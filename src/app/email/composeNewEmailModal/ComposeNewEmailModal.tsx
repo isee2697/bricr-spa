@@ -44,9 +44,11 @@ export const ComposeNewEmailModal = ({
   const { open } = useModalDispatch();
 
   const handleSendEmail = async (values: ComposeNewEmailBody & { chapter: Chapter }) => {
+    const emailHtml = document.querySelector('.rich-text-field#chapter')?.innerHTML || '(no content)';
+
     return onSubmit({
       ...values,
-      body: JSON.stringify(values.chapter),
+      body: emailHtml,
       from: from[0].email,
       to: to[0].email,
       bcc: bcc.map(email => email.email).join(','),
