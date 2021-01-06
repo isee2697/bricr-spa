@@ -76,7 +76,7 @@ export const AddMenu = () => {
           mb={2}
           onClick={() => open('add-relation')}
           style={{ cursor: 'pointer' }}
-          data-testid="add-menu-property"
+          data-testid="add-menu-relation"
         >
           <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
             <Box color={theme.palette.orange.main}>
@@ -93,7 +93,7 @@ export const AddMenu = () => {
           mb={2}
           onClick={() => open('add-sales-item')}
           style={{ cursor: 'pointer' }}
-          data-testid="add-menu-property"
+          data-testid="add-menu-sales"
         >
           <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
             <Box color={theme.palette.purple.main}>
@@ -104,7 +104,7 @@ export const AddMenu = () => {
             <Typography variant="subtitle1">{formatMessage({ id: 'header.links.sales' })}</Typography>
           </Box>
         </Box>
-        <Link component={RouterLink} to={AppRoute.email} color="inherit" data-testid="add-menu-appointment">
+        <Link component={RouterLink} to={AppRoute.email} color="inherit" data-testid="add-menu-email">
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
               <Box color={theme.palette.yellow.main}>
