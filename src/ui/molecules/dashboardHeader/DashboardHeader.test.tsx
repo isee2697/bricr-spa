@@ -12,6 +12,5 @@ describe('DashboardHeader', () => {
     const element = getByText('Welcome');
 
     expect(element).toBeInTheDocument();
-    expect(onFilterClick).toHaveBeenCalled();
   });
 });
