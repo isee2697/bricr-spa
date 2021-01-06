@@ -25,7 +25,9 @@ export const ComposeNewEmailModal = ({ isOpened, onClose, onSubmit }: ComposeNew
   const [showCrm, setShowCrm] = useState(false);
 
   const handleSendEmail = async (values: ComposeNewEmailBody & { chapter: Chapter }) => {
-    return onSubmit({ ...values, body: JSON.stringify(values.chapter) });
+    const emailHtml = document.querySelector('.rich-text-field#chapter')?.innerHTML || '(no content)';
+
+    return onSubmit({ ...values, body: emailHtml });
   };
 
   return (
@@ -140,7 +142,9 @@ export const ComposeNewEmailModal = ({ isOpened, onClose, onSubmit }: ComposeNew
                 isLoading={submitting}
                 disabled={!valid}
               >
-                {formatMessage({ id: 'email.compose_new_email.save_as_concept' })}
+                {formatMessage({
+                  id: 'email.compose_new_email.save_as_concept',
+                })}
               </SubmitButton>
               <SubmitButton
                 type="submit"
