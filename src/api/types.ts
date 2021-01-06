@@ -10023,7 +10023,7 @@ export type ListEmailFoldersQuery = { __typename?: 'Query' } & {
   listEmailFolders?: Maybe<
     Array<
       { __typename?: 'EmailFolderListItem' } & Pick<EmailFolderListItem, 'numberOfUnreadEmails'> & {
-          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName'>;
+          folder: { __typename?: 'EmailFolder' } & Pick<EmailFolder, 'id' | 'name' | 'displayName' | 'nylasFolderId'>;
         }
     >
   >;
@@ -17334,6 +17334,7 @@ export const ListEmailFoldersDocument = gql`
         id
         name
         displayName
+        nylasFolderId
       }
       numberOfUnreadEmails
     }

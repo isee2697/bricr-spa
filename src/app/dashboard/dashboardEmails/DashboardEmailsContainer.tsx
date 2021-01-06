@@ -44,15 +44,17 @@ export const DashboardEmailsContainer = () => {
     } else if (!data?.listEmail?.length) {
       push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
     } else {
-      push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
+      push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}/${data.listEmail[0].folder.id}`);
     }
   };
 
   const handleViewMoreEmail = () => {
     if (!nylasAccounts.length) {
       push(`${AppRoute.email}/settings`);
-    } else {
+    } else if (!data?.listEmail?.length) {
       push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
+    } else {
+      push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}/${data.listEmail[0].folder.id}`);
     }
   };
 
@@ -60,7 +62,7 @@ export const DashboardEmailsContainer = () => {
     const email = data?.listEmail?.find(item => item.id === id);
 
     if (email) {
-      push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}`);
+      push(`${AppRoute.email}/inbox/${nylasAccounts[0].id}/${email.folder.id}/${email.id}`);
     }
   };
 
