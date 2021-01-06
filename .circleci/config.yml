@@ -187,11 +187,11 @@ workflows:
             - build-stage
   custom_develop:
     jobs:
-      - build-develop
-#          filters:
-#            branches:
-#              only:
-#                - /deploy/(?:-.+)?$/
+      - build-develop:
+          filters:
+            branches:
+              only:
+                - /deploy/(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
