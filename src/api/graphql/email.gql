@@ -24,6 +24,15 @@ type EmailListItem {
     subject: String!
     date: Date!
     unread: Boolean
+    files: [EmailAttachment!]
+}
+
+type EmailAttachment {
+    contentDisposition: String!
+    contentType: String!
+    filename: String!
+    id: String!
+    size: Int!
 }
 
 type Email {
@@ -37,6 +46,7 @@ type Email {
     body: String!
     date: Date!
     unread: Boolean
+    files: [EmailAttachment!]
 }
 
 type EmailFolderListItem {
