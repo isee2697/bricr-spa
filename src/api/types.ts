@@ -8208,6 +8208,7 @@ export enum WorkflowSectionEndpoint {
 export enum WorkflowTriggerType {
   MakeAppointment = 'MakeAppointment',
   DifferentTrigger = 'DifferentTrigger',
+  PimPricing = 'PimPricing',
   Trigger1 = 'Trigger1',
   Trigger2 = 'Trigger2',
 }

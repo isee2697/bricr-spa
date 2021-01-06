@@ -15,13 +15,16 @@ export const useGetWorkflowTemplateList = () => {
   useEffect(() => {
     const getWorkflowTemplateList = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/get-workflow-template-list?status=${status}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
+        const response = await fetch(
+          `${process.env.REACT_APP_FILE_URL}/get-workflow-template-list?status=${status}&token=${accessToken}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + accessToken,
+            },
           },
-        });
+        );
 
         if (response.ok) {
           const workflowTemplates: GetWorkflowTemplateListData = await response.json();

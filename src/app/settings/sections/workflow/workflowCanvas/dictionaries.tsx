@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DevelopmentType, PricingType, PropertyType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
+import { DevelopmentType, PropertyType, WorkflowActionType, WorkflowTriggerType } from 'api/types';
 import {
   ArrowDownIcon,
   BuildingIcon,
@@ -24,6 +24,10 @@ export const TriggerIcons = [
   {
     type: WorkflowTriggerType.DifferentTrigger,
     icon: <UserIcon color="inherit" />,
+  },
+  {
+    type: WorkflowTriggerType.PimPricing,
+    icon: <SaleIcon color="inherit" />,
   },
   {
     type: WorkflowTriggerType.Trigger1,
@@ -106,8 +110,8 @@ export const generalConditionsTypes: TriggerConditionsTypes[] = [
     type: Types.RadioButton,
     size: Sizes.L,
     options: [
-      { label: PricingType.Sale, value: PricingType.Sale, icon: <EuroIcon /> },
-      { label: PricingType.Rent, value: PricingType.Rent, icon: <EuroIcon /> },
+      { label: 'Now', value: '0', icon: <EuroIcon /> },
+      { label: '10 min', value: '600000', icon: <EuroIcon /> },
     ],
   },
   {
