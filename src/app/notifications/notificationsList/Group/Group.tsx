@@ -16,7 +16,7 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
   const {
     id,
     title,
-    createdBy: { firstName, lastName },
+    createdBy: { firstName, lastName, image },
   } = data;
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -24,7 +24,12 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
   return (
     <Box display="flex" width="100%">
       <Box>
-        <UserAvatar size="medium" name={`${firstName} ${lastName}`} className={classes.avatar} />
+        <UserAvatar
+          size="medium"
+          avatar={image?.url || ''}
+          name={`${firstName} ${lastName}`}
+          className={classes.avatar}
+        />
       </Box>
       <Box>
         <Box display="flex">

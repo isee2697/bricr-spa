@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { IconButton, Badge, Sidebar } from 'ui/atoms';
 import { TopBar } from 'ui/molecules';
-import { PinIcon } from 'ui/atoms/icons/pin/PinIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
@@ -62,9 +61,6 @@ export const Dashboard = ({ children }: DashboardProps) => {
             <TopMenu />
           </nav>
           <nav className={classes.actions}>
-            <IconButton size="small" variant="roundedContained">
-              <PinIcon />
-            </IconButton>
             <NotificationMenu />
             <ProfileMenu />
             <AddMenu />

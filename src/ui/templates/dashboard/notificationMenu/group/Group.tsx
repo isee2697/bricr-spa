@@ -17,12 +17,17 @@ const TaskAssignedGroupItem = ({ data, onNavigate }: GroupItemProps) => {
   const {
     id,
     title,
-    createdBy: { firstName, lastName },
+    createdBy: { firstName, lastName, image },
   } = data;
 
   return (
-    <Box display="flex">
-      <UserAvatar size="medium" name={`${firstName} ${lastName}`} className={classes.avatar} />
+    <Box display="flex" onClick={() => onNavigate(AppRoute.taskDetails.replace(':id', id))}>
+      <UserAvatar
+        size="medium"
+        avatar={image?.url || ''}
+        name={`${firstName} ${lastName}`}
+        className={classes.avatar}
+      />
       <Box>
         <Typography variant="h6">2m ago</Typography>
         <Typography variant="h5">

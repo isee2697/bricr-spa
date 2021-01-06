@@ -156,15 +156,15 @@ export const PimDetailsSidebarMenu = ({
           },
           { key: 'propertyJourney' },
           {
-            key: 'salesSettings',
+            key: 'allocateSettings',
             subItems: [
               {
                 id: 'allocation1',
-                label: 'pim_details.sales_settings.allocation.title',
+                label: 'pim_details.allocate_settings.allocation.title',
               },
               {
                 id: 'allocation2',
-                label: 'pim_details.sales_settings.allocation.title',
+                label: 'pim_details.allocate_settings.allocation.title',
               },
             ],
           },
@@ -207,7 +207,6 @@ export const PimDetailsSidebarMenu = ({
           },
           { key: 'contacts' },
           { key: 'marketing' },
-          { key: 'reactions' },
           { key: 'tiara' },
           { key: 'allocateResults', count: allocateResultsNumber },
         ],

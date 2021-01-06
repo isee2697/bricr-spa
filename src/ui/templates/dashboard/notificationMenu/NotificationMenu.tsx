@@ -148,7 +148,7 @@ export const NotificationMenu = () => {
           </Button>
         }
       >
-        <Box className={classes.notificationsMenu}>
+        <Box className={classes.notificationsMenu} onClick={() => setOpened(false)}>
           <Box
             className={classes.notificationMenuHeader}
             display="flex"
