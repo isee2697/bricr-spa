@@ -19,7 +19,7 @@ import { DashboardAgendaItem } from './DashboardAgendaItem';
 export const DashboardAgenda = ({ tasks, agenda }: DashboardAgendaProps) => {
   const [activeTab, setActiveTab] = useState(0);
   const classes = useStyles();
-  const { accounts: nylasAccounts } = useNylasAccountState();
+  const { calendarAccounts: nylasAccounts } = useNylasAccountState();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
   const { open } = useModalDispatch();

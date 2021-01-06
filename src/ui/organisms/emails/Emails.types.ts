@@ -8,4 +8,5 @@ export type EmailsProps = {
   onMoreClick: () => void;
   onEmailClick: (id: string) => void;
   count: number;
+  loading?: boolean;
 };

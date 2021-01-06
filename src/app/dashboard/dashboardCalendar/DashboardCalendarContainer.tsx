@@ -9,7 +9,7 @@ import { DashboardCalendar } from './DashboardCalendar';
 
 export const DashboardCalendarContainer = () => {
   const { push } = useHistory();
-  const { accounts: nylasAccounts } = useNylasAccountState();
+  const { calendarAccounts: nylasAccounts } = useNylasAccountState();
 
   const searchParams: AppointmentSearch = useMemo(
     () => ({
