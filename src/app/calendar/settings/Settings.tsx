@@ -42,28 +42,17 @@ export const CalendarSettings = ({
 
   useEffect(() => {
     const addNylasAccount = async () => {
-      if (nylasAuthCode) {
-        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/nylas-addaccount`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
-          },
-          body: JSON.stringify({
-            nylasToken: nylasAuthCode,
-            token: accessToken,
-            isCalendarConnected: true,
-          }),
-        });
-
-        if (response.ok) {
-          const { account } = await response.json();
+      try {
+        if (nylasAuthCode) {
+          const account = await authorizeNylasAccountWithToken({
+            variables: { nylasToken: nylasAuthCode, isCalendarConnected: true },
+          });
 
           if (account) {
             window.location.href = window.location.href.split('?')[0];
           }
         }
-      }
+      } catch (error) {}
     };
 
     if (nylasAuthCode) {
