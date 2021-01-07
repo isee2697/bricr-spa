@@ -40,11 +40,20 @@ export const Dashboard = ({ children }: DashboardProps) => {
 
   const isOnDMSPage = pathname.startsWith(AppRoute.dms);
   const isOnEmailPage = pathname.startsWith(AppRoute.email);
+  const isOnInsightsPage = pathname.startsWith(AppRoute.insights);
   const handleDMSClick = () => {
     if (isOnDMSPage) {
       push(AppRoute.home);
     } else {
       push(AppRoute.dms);
+    }
+  };
+
+  const handleInsightsClick = () => {
+    if (isOnInsightsPage) {
+      push(AppRoute.home);
+    } else {
+      push(AppRoute.insights);
     }
   };
 
@@ -101,7 +110,13 @@ export const Dashboard = ({ children }: DashboardProps) => {
             >
               <TasksIcon />
             </IconButton>
-            <IconButton variant="rounded" size="small" aria-label="stats">
+            <IconButton
+              variant="rounded"
+              size="small"
+              aria-label="stats"
+              onClick={handleInsightsClick}
+              selected={isOnInsightsPage}
+            >
               <Badge badgeContent={4} color="secondary">
                 <GraphArrowIcon />
               </Badge>
