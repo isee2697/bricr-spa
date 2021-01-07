@@ -10,7 +10,7 @@ import { SidebarTitleTile, Box } from 'ui/atoms';
 import { useStyles } from './SidebarMenu.styles';
 import { InsightsSidebarMenuProps } from './SidebarMenu.types';
 
-export const InsightsSidebarMenu = ({ dashboards }: InsightsSidebarMenuProps) => {
+export const InsightsSidebarMenu = ({ dashboards, charts }: InsightsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const classes = useStyles();
@@ -31,6 +31,11 @@ export const InsightsSidebarMenu = ({ dashboards }: InsightsSidebarMenuProps) =>
           {
             key: 'charts',
             icon: <ClockIcon />,
+            subItems: charts.map(chart => ({
+              id: chart.id,
+              label: chart.title,
+              number: chart.count,
+            })),
           },
         ],
       },

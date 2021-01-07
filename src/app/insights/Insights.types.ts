@@ -12,3 +12,9 @@ export type InsightsDashboardType = {
   id: string;
   title: string;
 };
+
+export type InsightsChartType = {
+  id: string;
+  title: string;
+  count: number;
+};

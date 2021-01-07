@@ -4,7 +4,7 @@ import { useLocale } from 'hooks';
 import { Box, Button, NavBreadcrumbs } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 
-export const Header = () => {
+export const DashboardsHeader = () => {
   const { formatMessage } = useLocale();
 
   return (
