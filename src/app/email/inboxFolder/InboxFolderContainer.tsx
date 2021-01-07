@@ -25,7 +25,7 @@ export const InboxFolderContainer = (props: InboxFolderContainerProps) => {
     getEmails();
   }, [folderId, inboxId, listEmails]);
 
-  const currentFolder = folders.find(folder => folder.folder.id === folderId);
+  const currentFolder = folders.find(folder => folder.folder.nylasFolderId === folderId);
 
   return (
     <InboxFolder

@@ -2,7 +2,8 @@ import { NylasAccountStateContextType } from '../nylasAccountContext/NylasAccoun
 
 import { NylasAccountAction } from './nylasAccountReducer.types';
 
-export const SET_NYLAS_ACCOUNTS = 'nylas/set-accounts';
+export const SET_NYLAS_CALENDAR_ACCOUNTS = 'nylas/set-calendar-accounts';
+export const SET_NYLAS_EMAIL_ACCOUNTS = 'nylas/set-email-accounts';
 
 export const nylasAccountReducer: (
   state: NylasAccountStateContextType,
@@ -12,9 +13,13 @@ export const nylasAccountReducer: (
     string,
     (state: NylasAccountStateContextType, action: NylasAccountAction) => NylasAccountStateContextType
   > = {
-    [SET_NYLAS_ACCOUNTS]: state => ({
+    [SET_NYLAS_CALENDAR_ACCOUNTS]: state => ({
       ...state,
-      accounts: action.accounts,
+      calendarAccounts: action.accounts,
+    }),
+    [SET_NYLAS_EMAIL_ACCOUNTS]: state => ({
+      ...state,
+      emailAccounts: action.accounts,
     }),
   };
 

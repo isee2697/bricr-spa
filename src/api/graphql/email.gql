@@ -98,6 +98,6 @@ extend type Mutation {
 
 extend type Query {
     listEmailFolders(accountId: String!): [EmailFolderListItem!] @auth
-    listEmail(accountId: String!, folderId: ID!): [EmailListItem!] @auth
+    listEmail(accountId: String!, folderId: ID, unread: Boolean): [EmailListItem!] @auth
     getEmail(accountId: String!, emailId: String!): Email @auth
 }

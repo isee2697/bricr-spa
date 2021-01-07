@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { useAuthState, useNylasAccountDispatch } from 'hooks';
-import { setNylasAccounts } from '../nylasAccountActionCreator/nylasAccountActionCreators';
+import {
+  setNylasCalendarAccounts,
+  setNylasEmailAccounts,
+} from '../nylasAccountActionCreator/nylasAccountActionCreators';
 
 import { NylasAccountControllerProps } from './NylasAccountController.types';
 
@@ -25,12 +28,34 @@ export const NylasAccountController = ({ children }: NylasAccountControllerProps
 
         if (response.ok) {
           const accounts = await response.json();
-          dispatch(setNylasAccounts(accounts));
+          dispatch(setNylasCalendarAccounts(accounts));
         } else {
-          throw new Error('Error returned while getting nylas account list');
+          throw new Error('Error returned while getting nylas calendar account list');
         }
       } catch (e) {
-        dispatch(setNylasAccounts([]));
+        dispatch(setNylasCalendarAccounts([]));
+      }
+
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_FILE_URL}/nylas-account-list?accountId=${user?.id}&isEmailConnected=true`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + accessToken,
+            },
+          },
+        );
+
+        if (response.ok) {
+          const accounts = await response.json();
+          dispatch(setNylasEmailAccounts(accounts));
+        } else {
+          throw new Error('Error returned while getting nylas email account list');
+        }
+      } catch (e) {
+        dispatch(setNylasEmailAccounts([]));
       }
     };
 

@@ -24,7 +24,7 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders = [], accounts }: 
       id: account.id,
       email: account.email,
       items: folders.map(folder => ({
-        id: folder.folder?.id as string,
+        id: folder.folder?.nylasFolderId as string,
         icon: !folder.folder?.name ? (
           <EmailFolderIcon />
         ) : folder.folder.name === 'inbox' ? (
