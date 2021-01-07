@@ -32,7 +32,6 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const { id, pinned, date, threadMessages = [] } = email;
   const { isOpen: isOpenPim } = useModalState('link-pim-object');
   const { isOpen: isOpenCrm } = useModalState('link-crm-relation');
-  // const { isOpen: isOpenSales } = useModalState('link-sales-order');
   const { open, close } = useModalDispatch();
   const [linkedPims, setLinkedPims] = useState<Pim[]>([]);
   const [linkedRelations, setLinkedRelations] = useState<CrmItem[]>([]);
@@ -104,7 +103,6 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
 
   const handleLinkCrmRelations = async (crm: CrmGeneral) => {
     close('link-crm-relation');
-    // setLinkedRelations([...linkedRelations, crm]);
   };
 
   const handleLinkSalesOrders = () => {
