@@ -7,6 +7,7 @@ export const LIST_EMAIL_FOLDERS = gql`
         id
         name
         displayName
+        nylasFolderId
       }
       numberOfUnreadEmails
     }

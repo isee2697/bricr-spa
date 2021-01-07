@@ -8,7 +8,6 @@ export type InboxFolderProps = {
   folders: EmailFolderListItem[];
   currentFolder?: EmailFolderListItem;
   emails: EmailListItem[];
-  loading: boolean;
 };
 
 export type InboxFolderContainerProps = {
