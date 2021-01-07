@@ -29,6 +29,11 @@ export const triggersGroups: WorkflowSidebarGroup[] = [
         title: 'Different trigger',
       },
       {
+        id: WorkflowTriggerType.PimPricing,
+        icon: <SaleIcon color="inherit" />,
+        title: 'Pim Price',
+      },
+      {
         id: WorkflowTriggerType.Trigger1,
         icon: <DashboardIcon color="inherit" />,
         title: 'Trigger 1',

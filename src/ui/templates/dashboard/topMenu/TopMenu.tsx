@@ -11,10 +11,13 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { matchesRouteAlias } from 'routing/AppRoute.aliases';
 
+import { useStyles } from './TopMenu.styles';
+
 const menuLinks = [AppRoute.home, AppRoute.pim, AppRoute.crm, AppRoute.sales];
 
 export const TopMenu = () => {
   const { pathname } = useLocation();
+  const classes = useStyles();
   const { formatMessage } = useLocale();
   const activeLinkIndex =
     pathname === AppRoute.home
@@ -30,10 +33,30 @@ export const TopMenu = () => {
       textColor="primary"
       centered
     >
-      <LinkTab icon={<HomeIcon color="inherit" />} label={formatMessage({ id: 'header.links.home' })} to="/" />
-      <LinkTab icon={<BuildingIcon color="inherit" />} label={formatMessage({ id: 'header.links.pim' })} to="/pim" />
-      <LinkTab icon={<CrmIcon color="inherit" />} label={formatMessage({ id: 'header.links.crm' })} to="/crm" />
-      <LinkTab icon={<GraphIcon color="inherit" />} label={formatMessage({ id: 'header.links.sales' })} to="/sales" />
+      <LinkTab
+        className={classes.linkTab}
+        icon={<HomeIcon color="inherit" />}
+        label={formatMessage({ id: 'header.links.home' })}
+        to="/"
+      />
+      <LinkTab
+        className={classes.linkTab}
+        icon={<BuildingIcon color="inherit" />}
+        label={formatMessage({ id: 'header.links.pim' })}
+        to="/pim"
+      />
+      <LinkTab
+        className={classes.linkTab}
+        icon={<CrmIcon color="inherit" />}
+        label={formatMessage({ id: 'header.links.crm' })}
+        to="/crm"
+      />
+      <LinkTab
+        className={classes.linkTab}
+        icon={<GraphIcon color="inherit" />}
+        label={formatMessage({ id: 'header.links.sales' })}
+        to="/sales"
+      />
     </Tabs>
   );
 };

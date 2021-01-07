@@ -137,7 +137,7 @@ export const PimDetails = ({
                   )}
                 />
                 <Route
-                  path={`${path}/salesSettings`}
+                  path={`${path}/allocateSettings`}
                   render={() => (
                     <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                   )}

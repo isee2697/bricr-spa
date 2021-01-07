@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useModalDispatch, useModalState } from 'hooks';
-import { useSendEmailMutation } from 'api/types';
+import { EmailAndName, useSendEmailMutation } from 'api/types';
 
 import { ComposeNewEmailModal } from './ComposeNewEmailModal';
 import { ComposeNewEmailBody } from './ComposeNewEmailModal.types';
@@ -12,6 +12,16 @@ export const ComposeNewEmailModalContainer = () => {
   const { close } = useModalDispatch();
   const [sendEmail] = useSendEmailMutation();
   const { inboxId } = useParams<{ inboxId: string }>();
+  const [emails, setEmails] = useState<EmailAndName[]>([
+    {
+      email: 'info@cubiceys.com',
+      name: 'Accounting Team',
+    },
+    {
+      email: 'rens@cubiceys.com',
+      name: 'Rens van Gils',
+    },
+  ]);
 
   const handleSubmit = async ({ from, to, subject, body }: ComposeNewEmailBody) => {
     try {
@@ -45,5 +55,13 @@ export const ComposeNewEmailModalContainer = () => {
     }
   };
 
-  return <ComposeNewEmailModal isOpened={isOpen} onClose={() => close('compose-new-email')} onSubmit={handleSubmit} />;
+  return (
+    <ComposeNewEmailModal
+      isOpened={isOpen}
+      onClose={() => close('compose-new-email')}
+      onSubmit={handleSubmit}
+      contacts={emails}
+      onAddNewEmail={value => setEmails([...emails, { email: value, name: value }])}
+    />
+  );
 };
