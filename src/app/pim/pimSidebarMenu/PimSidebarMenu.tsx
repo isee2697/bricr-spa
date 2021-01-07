@@ -5,6 +5,7 @@ import { SidebarMenu } from 'ui/molecules';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { DashboardIcon, SaleIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 import { PimSidebarMenuProps } from './PimSidebarMenu.types';
 
@@ -18,7 +19,22 @@ export const PimSidebarMenu = ({ types }: PimSidebarMenuProps) => {
     onClick: () => push(`${AppRoute.pim}/${type.name}`),
   }));
 
-  const menu = {
+  const externalGroupItems = [
+    {
+      key: 'nvm',
+      title: 'NVM',
+    },
+    {
+      key: 'vbo',
+      title: 'VBO',
+    },
+    {
+      key: 'lms',
+      title: 'LMS',
+    },
+  ];
+
+  const menu: SidebarMenuType = {
     url: AppRoute.pim,
     groups: [
       {
@@ -30,8 +46,15 @@ export const PimSidebarMenu = ({ types }: PimSidebarMenuProps) => {
             icon: <DashboardIcon />,
             onClick: () => push(AppRoute.pim),
           },
-          ...groupItems,
         ],
+      },
+      {
+        items: [...groupItems],
+      },
+      {
+        key: 'externalPim',
+        isCollapsable: true,
+        items: [...externalGroupItems],
       },
     ],
   };

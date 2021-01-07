@@ -8,12 +8,12 @@ import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
 import { TasksIcon } from 'ui/atoms/icons/tasks/TasksIcon';
 import { CalendarIcon } from 'ui/atoms/icons/calendar/CalendarIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
-import { NoteIcon } from 'ui/atoms/icons/note/NoteIcon';
 import { BuildingIcon } from 'ui/atoms/icons/building/BuildingIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
+import { GraphIcon } from 'ui/atoms/icons';
 
 export const AddMenu = () => {
   const theme = useTheme();
@@ -54,6 +54,81 @@ export const AddMenu = () => {
         </Box>
 
         <Box
+          display="flex"
+          alignItems="center"
+          mb={2}
+          onClick={() => open('add-new-pim')}
+          style={{ cursor: 'pointer' }}
+          data-testid="add-menu-property"
+        >
+          <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
+            <Box color={theme.palette.red.main}>
+              <BuildingIcon color="inherit" />
+            </Box>
+          </Avatar>
+          <Box ml={2}>
+            <Typography variant="subtitle1">{formatMessage({ id: 'header.links.pim' })}</Typography>
+          </Box>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={2}
+          onClick={() => open('add-relation')}
+          style={{ cursor: 'pointer' }}
+          data-testid="add-menu-relation"
+        >
+          <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
+            <Box color={theme.palette.orange.main}>
+              <UserIcon color="inherit" />
+            </Box>
+          </Avatar>
+          <Box ml={2}>
+            <Typography variant="subtitle1">{formatMessage({ id: 'header.links.crm' })}</Typography>
+          </Box>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={2}
+          onClick={() => open('add-sales-item')}
+          style={{ cursor: 'pointer' }}
+          data-testid="add-menu-sales"
+        >
+          <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
+            <Box color={theme.palette.purple.main}>
+              <GraphIcon color="inherit" />
+            </Box>
+          </Avatar>
+          <Box ml={2}>
+            <Typography variant="subtitle1">{formatMessage({ id: 'header.links.sales' })}</Typography>
+          </Box>
+        </Box>
+        <Link component={RouterLink} to={AppRoute.email} color="inherit" data-testid="add-menu-email">
+          <Box display="flex" alignItems="center" mb={2}>
+            <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
+              <Box color={theme.palette.yellow.main}>
+                <MailIcon color="inherit" />
+              </Box>
+            </Avatar>
+            <Box ml={2}>
+              <Typography variant="subtitle1">{formatMessage({ id: 'header.links.email' })}</Typography>
+            </Box>
+          </Box>
+        </Link>
+        <Link component={RouterLink} to={AppRoute.calendar} color="inherit" data-testid="add-menu-appointment">
+          <Box display="flex" alignItems="center" mb={2}>
+            <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
+              <Box color={theme.palette.green.main}>
+                <CalendarIcon color="inherit" />
+              </Box>
+            </Avatar>
+            <Box ml={2}>
+              <Typography variant="subtitle1">{formatMessage({ id: 'header.links.appointment' })}</Typography>
+            </Box>
+          </Box>
+        </Link>
+        <Box
           onClick={() => open('create-new-task')}
           display="flex"
           style={{ cursor: 'pointer' }}
@@ -70,71 +145,6 @@ export const AddMenu = () => {
             <Typography variant="subtitle1">{formatMessage({ id: 'common.task' })}</Typography>
           </Box>
         </Box>
-        <Link component={RouterLink} to={AppRoute.newAppointment} color="inherit" data-testid="add-menu-appointment">
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar variant="rounded" bgcolor={theme.palette.green.light}>
-              <Box color={theme.palette.green.main}>
-                <CalendarIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'common.calendar' })}</Typography>
-            </Box>
-          </Box>
-        </Link>
-        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-mail">
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar variant="rounded" bgcolor={theme.palette.yellow.light}>
-              <Box color={theme.palette.yellow.main}>
-                <MailIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'common.mail' })}</Typography>
-            </Box>
-          </Box>
-        </Link>
-        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-note">
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar variant="rounded" bgcolor={theme.palette.purple.light}>
-              <Box color={theme.palette.purple.main}>
-                <NoteIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'common.note' })}</Typography>
-            </Box>
-          </Box>
-        </Link>
-        <Box
-          display="flex"
-          alignItems="center"
-          mb={2}
-          onClick={() => open('add-new-pim')}
-          style={{ cursor: 'pointer' }}
-          data-testid="add-menu-property"
-        >
-          <Avatar variant="rounded" bgcolor={theme.palette.red.light}>
-            <Box color={theme.palette.red.main}>
-              <BuildingIcon color="inherit" />
-            </Box>
-          </Avatar>
-          <Box ml={2}>
-            <Typography variant="subtitle1">{formatMessage({ id: 'common.property' })}</Typography>
-          </Box>
-        </Box>
-        <Link component={RouterLink} to="/" color="inherit" data-testid="add-menu-contact">
-          <Box display="flex" alignItems="center">
-            <Avatar variant="rounded" bgcolor={theme.palette.orange.light}>
-              <Box color={theme.palette.orange.main}>
-                <UserIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Box ml={2}>
-              <Typography variant="subtitle1">{formatMessage({ id: 'common.contact' })}</Typography>
-            </Box>
-          </Box>
-        </Link>
       </Menu>
     </IconButton>
   );
