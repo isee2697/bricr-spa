@@ -30,7 +30,7 @@ export const CreateNewChartModal = ({ onClose, isOpened, onSubmit }: CreateNewCh
       isOpened={isOpened}
       onClose={onClose}
       title={formatMessage({ id: 'insights.charts.create_new_chart.title' })}
-      addIcon={<AddIcon />}
+      addIcon={<AddIcon color="inherit" />}
       addText={formatMessage({ id: 'insights.charts.create_new_chart.start_visualization' })}
     >
       <FormSubSectionHeader
@@ -41,7 +41,7 @@ export const CreateNewChartModal = ({ onClose, isOpened, onSubmit }: CreateNewCh
         noBorder
       />
       <RadioGroupField xs={2} name="type" options={types} />
-      <GenericField name="title" label={formatMessage({ id: 'calendar.account_settings.main_email_address' })} />
+      <GenericField name="title" label={formatMessage({ id: 'insights.charts.create_new_chart.name_of_report' })} />
     </FormModal>
   );
 };

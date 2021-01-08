@@ -10,8 +10,8 @@ export type CreateNewChartBody = {
 };
 
 export enum ChartType {
-  SingleObject,
-  CrossObject,
-  Funnels,
-  Attribution,
+  SingleObject = 'SingleObject',
+  CrossObject = 'CrossObject',
+  Funnels = 'Funnels',
+  Attribution = 'Attribution',
 }
