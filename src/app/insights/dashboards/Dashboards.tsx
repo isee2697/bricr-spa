@@ -5,6 +5,7 @@ import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { DashboardsHeader } from './header/Header';
+import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
 
 export const Dashboards = () => {
   const { formatMessage } = useLocale();
@@ -16,6 +17,7 @@ export const Dashboards = () => {
         to={`${AppRoute.insights}/dashboards`}
       />
       <DashboardsHeader />
+      <CreateNewDashboardModalContainer />
     </>
   );
 };
