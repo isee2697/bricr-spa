@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl-phraseapp';
 
-import { Alert, Box, Button, Checkbox, FormControlLabel, InputAdornment, Link, Typography } from 'ui/atoms';
+import { Alert, Box, Button, Checkbox, FormControlLabel, InputAdornment, Link, Typography, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GenericField } from 'form/fields';
 import { requireValidator } from 'form/validators';
@@ -12,13 +12,16 @@ import { SeeIcon } from 'ui/atoms/icons/see/SeeIcon';
 import { UnseeIcon } from 'ui/atoms/icons/unsee/UnseeIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { UserIcon } from 'ui/atoms/icons/user/UserIcon';
+import { GoogleIcon, OutlookIcon } from 'ui/atoms/icons';
 
 import { LoginProps } from './Login.types';
+import { useStyles } from './Login.styles';
 
 export const Login = ({ onSubmit }: LoginProps) => {
   const [isError, setError] = useState(false);
   const { formatMessage } = useLocale();
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const classes = useStyles();
 
   const handleSubmit = useCallback(
     async (body: LoginInput) => {
@@ -89,6 +92,31 @@ export const Login = ({ onSubmit }: LoginProps) => {
           <Button variant="contained" color="primary" fullWidth type="submit" disabled={submitting} size="large">
             {formatMessage({ id: 'login.submit' })}
           </Button>
+
+          <Grid container spacing={3} className={classes.socialIconWrapper}>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                fullWidth
+                disabled={submitting}
+                size="large"
+                className={classes.socialLoginButton}
+              >
+                <GoogleIcon className={classes.socialIcon} /> {formatMessage({ id: 'login.google_login' })}
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                fullWidth
+                disabled={submitting}
+                size="large"
+                className={classes.socialLoginButton}
+              >
+                <OutlookIcon className={classes.socialIcon} /> {formatMessage({ id: 'login.google_login' })}
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       )}
     </Form>

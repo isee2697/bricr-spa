@@ -106,3 +106,6 @@ export * from './door/DoorIcon';
 export * from './today/TodayIcon';
 export * from './arrowOriginal/ArrowOriginalIcon';
 export * from './emailFolder/EmailFolderIcon';
+export * from './chart/ChartIcon';
+export * from './google/GoogleIcon';
+export * from './outlook/OutlookIcon';
