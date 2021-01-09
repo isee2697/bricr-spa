@@ -89,7 +89,15 @@ export const Login = ({ onSubmit }: LoginProps) => {
             </Link>
           </Box>
 
-          <Button variant="contained" color="primary" fullWidth type="submit" disabled={submitting} size="large">
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            type="submit"
+            disabled={submitting}
+            size="large"
+            role="loginButton"
+          >
             {formatMessage({ id: 'login.submit' })}
           </Button>
 

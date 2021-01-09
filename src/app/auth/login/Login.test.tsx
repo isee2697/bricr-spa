@@ -21,7 +21,7 @@ describe('Login', () => {
           value: 'bar',
         },
       });
-      fireEvent.click(getByRole('button'));
+      fireEvent.click(getByRole('loginButton'));
     });
 
     await wait(() => {
@@ -47,7 +47,7 @@ describe('Login', () => {
           value: 'bar',
         },
       });
-      fireEvent.submit(getByRole('button'));
+      fireEvent.submit(getByRole('loginButton'));
     });
 
     await wait(() => {
@@ -60,7 +60,7 @@ describe('Login', () => {
     const { getAllByText, getByRole } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.submit(getByRole('button'));
+      fireEvent.submit(getByRole('loginButton'));
     });
 
     await wait(() => {
