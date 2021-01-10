@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Responsive, WidthProvider, Layout, Layouts } from 'react-grid-layout';
 import { useTheme } from '@material-ui/core';
 
-import { useLocale } from 'hooks';
-import { NavBreadcrumb, Box } from 'ui/atoms';
+import { useLocale, useModalDispatch } from 'hooks';
+import { Box, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ScaleIcon } from 'ui/atoms/icons';
 
@@ -11,6 +11,7 @@ import { DashboardsHeader } from './header/Header';
 import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
 import { DashboardCard } from './card/Card';
 import { useStyles } from './Dashboards.styles';
+import { AddNewChartModal } from './addNewChartModal/AddNewChartModal';
 
 import 'react-grid-layout/css/styles.css';
 
@@ -21,6 +22,7 @@ export const Dashboards = () => {
   const { spacing } = useTheme();
   const { formatMessage } = useLocale();
   const [isDragging, setIsDragging] = useState(false);
+  const { open } = useModalDispatch();
   const [layout, setLayout] = useState<Layout[]>([
     {
       i: 'a',
@@ -157,9 +159,16 @@ export const Dashboards = () => {
           <div key="i">
             <DashboardCard>DDDDDD</DashboardCard>
           </div>
+          <Box
+            className={classes.placeholder}
+            onClick={() => {
+              open('add_new_chart');
+            }}
+          />
         </ReactGridLayout>
       </div>
       <CreateNewDashboardModalContainer />
+      <AddNewChartModal />
     </>
   );
 };
