@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Layout } from 'react-grid-layout';
 
 import { Dashboards } from './Dashboards';
 
 export const DashboardsContainer = () => {
-  const initialCards = [
+  const [cards, setCards] = useState<Layout[]>([
     {
       i: 'a',
       x: 0,
@@ -76,7 +77,11 @@ export const DashboardsContainer = () => {
       maxW: 8,
       isResizable: true,
     },
-  ];
+  ]);
 
-  return <Dashboards cards={initialCards} />;
+  const handleAddNewCard = (newCard: Layout) => {
+    setCards([...cards, { ...newCard, i: `${cards.length}`, isResizable: true }]);
+  };
+
+  return <Dashboards cards={cards} onAddNewCard={handleAddNewCard} />;
 };

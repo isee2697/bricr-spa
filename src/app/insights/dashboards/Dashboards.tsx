@@ -3,9 +3,9 @@ import { Responsive, WidthProvider, Layout, Layouts } from 'react-grid-layout';
 import { useTheme } from '@material-ui/core';
 
 import { useLocale, useModalDispatch } from 'hooks';
-import { Box, NavBreadcrumb } from 'ui/atoms';
+import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ScaleIcon } from 'ui/atoms/icons';
+import { AddIcon, ScaleIcon } from 'ui/atoms/icons';
 
 import { DashboardsHeader } from './header/Header';
 import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
@@ -18,7 +18,7 @@ import 'react-grid-layout/css/styles.css';
 
 const ReactGridLayout = WidthProvider(Responsive);
 
-export const Dashboards = ({ cards }: DashboardsProps) => {
+export const Dashboards = ({ cards, onAddNewCard }: DashboardsProps) => {
   const classes = useStyles();
   const { spacing } = useTheme();
   const { formatMessage } = useLocale();
@@ -66,8 +66,6 @@ export const Dashboards = ({ cards }: DashboardsProps) => {
         isResizable: false,
       });
     }
-
-    console.log('Debugging: ', newPlaceholders);
 
     return newPlaceholders;
   };
@@ -127,7 +125,6 @@ export const Dashboards = ({ cards }: DashboardsProps) => {
           onResizeStop={() => {
             setIsResizing(false);
           }}
-          preventCollision
         >
           <div key="a">
             <DashboardCard>Card 1</DashboardCard>
@@ -159,16 +156,23 @@ export const Dashboards = ({ cards }: DashboardsProps) => {
                   <Box
                     className={classes.placeholder}
                     onClick={() => {
-                      open('add_new_chart');
+                      open('add_new_chart', { insightDashboardNewType: placeholder });
                     }}
-                  />
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <IconButton size="small" variant="circle" color="primary">
+                      <AddIcon color="inherit" />
+                    </IconButton>
+                  </Box>
                 </div>
               ))
             : []}
         </ReactGridLayout>
       </div>
       <CreateNewDashboardModalContainer />
-      <AddNewChartModal />
+      <AddNewChartModal onAddNewChart={(newCard: Layout) => onAddNewCard(newCard)} />
     </>
   );
 };
