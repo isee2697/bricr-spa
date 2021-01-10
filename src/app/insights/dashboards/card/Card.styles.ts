@@ -23,9 +23,9 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
-  resizeIcon: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
+  btnDrag: {
+    cursor: 'grabbing',
+    width: theme.spacing(2),
+    height: theme.spacing(2),
   },
 }));

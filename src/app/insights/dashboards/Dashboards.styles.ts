@@ -8,10 +8,14 @@ export const useStyles = makeStyles(theme => ({
     cursor: 'nwse-resize',
   },
   placeholder: {
-    width: theme.spacing(20),
-    height: theme.spacing(12),
+    width: '100%',
+    height: '100%',
     border: `1px solid ${theme.palette.gray.main}`,
     borderRadius: theme.spacing(1),
     background: theme.palette.gradientBlue.light,
+
+    '& ~ div': {
+      display: 'none',
+    },
   },
 }));

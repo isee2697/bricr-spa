@@ -7,7 +7,7 @@ export const ScaleIcon = (props: DefaultSvgIconProps) => {
   const theme = useTheme();
 
   return (
-    <SvgIcon {...props} width="17" height="17" viewBox="0 0 17 17">
+    <SvgIcon {...props} width="17" height="17" viewBox="0 0 17px 17px">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'classnames';
 
 import { Card, CardContent, CardHeader, Box, IconButton } from 'ui/atoms';
 import { DragIcon, MenuIcon } from 'ui/atoms/icons';
@@ -20,14 +21,9 @@ export const DashboardCard = ({ children }: DashboardCardProps) => {
               <MenuIcon />
             </IconButton>
             <Box ml={2} />
-            <IconButton
-              size="small"
-              variant="rounded"
-              classes={{ sizeSmall: classes.cardHeaderButton, root: classes.cardHeaderButtonRoot }}
-              className={'dragPoint'}
-            >
-              <DragIcon />
-            </IconButton>
+            <Box className={clsx('dragPoint', classes.btnDrag)}>
+              <DragIcon width={16} height={16} />
+            </Box>
           </Box>
         }
         className={classes.cardHeaderRoot}
