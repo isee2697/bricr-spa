@@ -18,7 +18,7 @@ import 'react-grid-layout/css/styles.css';
 
 const ReactGridLayout = WidthProvider(Responsive);
 
-export const Dashboards = ({ cards, onAddNewCard }: DashboardsProps) => {
+export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   const classes = useStyles();
   const { spacing } = useTheme();
   const { formatMessage } = useLocale();
@@ -90,6 +90,36 @@ export const Dashboards = ({ cards, onAddNewCard }: DashboardsProps) => {
     }
   };
 
+  const handleAddNewCard = (newCard: Layout) => {
+    setLayout([
+      ...layout,
+      {
+        ...newCard,
+        i: `new-${layout.length}`,
+        isResizable: true,
+      },
+    ]);
+    setPlaceholders(
+      generatePlaceholders([
+        ...layout,
+        {
+          ...newCard,
+          i: `new-${layout.length}`,
+          isResizable: true,
+        },
+      ]),
+    );
+
+    onUpdateLayout([
+      ...layout,
+      {
+        ...newCard,
+        i: `new-${layout.length}`,
+        isResizable: true,
+      },
+    ]);
+  };
+
   return (
     <>
       <NavBreadcrumb
@@ -126,30 +156,11 @@ export const Dashboards = ({ cards, onAddNewCard }: DashboardsProps) => {
             setIsResizing(false);
           }}
         >
-          <div key="a">
-            <DashboardCard>Card 1</DashboardCard>
-          </div>
-          <div key="b">
-            <DashboardCard>Card 2</DashboardCard>
-          </div>
-          <div key="c">
-            <DashboardCard>Card 3</DashboardCard>
-          </div>
-          <div key="d">
-            <DashboardCard>Card 4</DashboardCard>
-          </div>
-          <div key="e">
-            <DashboardCard>Card 5</DashboardCard>
-          </div>
-          <div key="f">
-            <DashboardCard>Card 6</DashboardCard>
-          </div>
-          <div key="g">
-            <DashboardCard>Card 7</DashboardCard>
-          </div>
-          <div key="h">
-            <DashboardCard>Card 8</DashboardCard>
-          </div>
+          {layout.map(card => (
+            <div key={card.i}>
+              <DashboardCard>Card {card.i}</DashboardCard>
+            </div>
+          ))}
           {!isDragging && !isResizing
             ? placeholders.map(placeholder => (
                 <div key={placeholder.i}>
@@ -172,7 +183,7 @@ export const Dashboards = ({ cards, onAddNewCard }: DashboardsProps) => {
         </ReactGridLayout>
       </div>
       <CreateNewDashboardModalContainer />
-      <AddNewChartModal onAddNewChart={(newCard: Layout) => onAddNewCard(newCard)} />
+      <AddNewChartModal onAddNewChart={handleAddNewCard} />
     </>
   );
 };
