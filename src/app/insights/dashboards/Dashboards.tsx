@@ -155,6 +155,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
           onResizeStop={() => {
             setIsResizing(false);
           }}
+          className={classes.gridLayout}
         >
           {layout.map(card => (
             <div key={card.i}>
