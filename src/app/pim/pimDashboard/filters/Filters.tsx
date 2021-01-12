@@ -100,22 +100,7 @@ export const PimDashboardFilters = ({
   };
 
   const handleSearch = (targetFilter: FiltersTypes, values: AnyObject, searchValue: string) => {
-    /* NOTE: updating state is breaking the entire app
-     * I have no Idea why
-     */
-    // const filtersCopy = JSON.parse(JSON.stringify(filters));
-    // let newFilters = [];
-    // if (filtersCopy) {
-    //   newFilters = filtersCopy.map((filter: FiltersTypes) => {
-    //     if (filter.options && filter.key === targetFilter.key) {
-    //       filter.options = filter.options.filter((item: CheckboxDataType) =>
-    //         item.label.toLowerCase().includes(searchValue),
-    //       );
-    //     }
-    //     return filter;
-    //   });
-    //   setDefaultFilters(newFilters);
-    // }
+    // TODO: Search for filter
   };
 
   return (
