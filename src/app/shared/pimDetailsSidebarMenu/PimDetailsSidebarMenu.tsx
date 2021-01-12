@@ -179,15 +179,15 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'prices',
-            title: 'pim_details.menu.prices',
+            title: formatMessage({ id: 'pim_details.menu.prices' }),
           },
           {
             key: 'prices/costs',
-            title: 'pim_details.prices.costs.title',
+            title: formatMessage({ id: 'pim_details.prices.costs.title' }),
           },
           {
             key: 'prices/investments',
-            title: 'pim_details.prices.investments.menu_title',
+            title: formatMessage({ id: 'pim_details.prices.investments.menu_title' }),
           },
         ],
       },
@@ -197,11 +197,11 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'documents/checklist',
-            title: 'pim_details.documents.checklist.title',
+            title: formatMessage({ id: 'pim_details.documents.checklist.title' }),
           },
           {
             key: 'documents/audit_checklist',
-            title: 'pim_details.documents.audit_checklist.menu_title',
+            title: formatMessage({ id: 'pim_details.documents.audit_checklist.menu_title' }),
           },
         ],
       },
@@ -211,15 +211,15 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'allocateResults',
-            title: 'pim_details.menu.allocateResults',
+            title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
           },
           {
             key: 'allocateSettings/allocation1',
-            title: 'pim_details.allocate_settings.allocation.title',
+            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
           },
           {
             key: 'allocateSettings/allocation2',
-            title: 'pim_details.allocate_settings.allocation.title',
+            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
           },
         ],
       },
@@ -229,7 +229,7 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'sales',
-            title: 'pim_details.menu.sales',
+            title: formatMessage({ id: 'pim_details.menu.sales' }),
           },
         ],
       },
@@ -239,7 +239,7 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'marketing',
-            title: 'pim_details.menu.marketing',
+            title: formatMessage({ id: 'pim_details.menu.marketing' }),
           },
         ],
       },
@@ -248,8 +248,8 @@ export const PimDetailsSidebarMenu = ({
         key: 'pim_details.menu.contacts',
         items: [
           {
-            key: 'tiara',
-            title: 'pim_details.menu.contacts',
+            key: 'contacts',
+            title: formatMessage({ id: 'pim_details.menu.contacts' }),
           },
         ],
       },
@@ -259,7 +259,7 @@ export const PimDetailsSidebarMenu = ({
         items: [
           {
             key: 'tiara',
-            title: 'pim_details.menu.dashboard',
+            title: formatMessage({ id: 'pim_details.menu.dashboard' }),
           },
         ],
       },
