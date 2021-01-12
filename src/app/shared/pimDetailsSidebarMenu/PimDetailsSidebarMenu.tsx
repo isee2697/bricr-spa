@@ -178,6 +178,10 @@ export const PimDetailsSidebarMenu = ({
         key: 'pim_details.menu.prices',
         items: [
           {
+            key: 'prices',
+            title: 'pim_details.menu.prices',
+          },
+          {
             key: 'prices/costs',
             title: 'pim_details.prices.costs.title',
           },
