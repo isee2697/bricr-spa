@@ -33,7 +33,7 @@ export const SideMenuItem = ({
       >
         {typeof title === 'string' ? (
           <>
-            {icon || <Box ml={3} />}
+            {icon || <Box ml={1} />}
             <Box display="flex" flex={1} justifyContent="space-between">
               <Typography variant="h3" className={classes.title}>
                 {title}

@@ -12,7 +12,7 @@ export const PimDetailsHeader = ({ isSidebarVisible, onSidebarOpen, action }: Pi
 
   return (
     <Grid xs={12} item>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
         <Box display="flex" alignItems="center">
           {!isSidebarVisible && (
             <IconButton
