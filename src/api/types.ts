@@ -6011,6 +6011,13 @@ export type ParkingLotGeneral = {
   insulation?: Maybe<ParkingInsulation>;
 };
 
+export enum DateRangeType {
+  ThirtyDays = 'ThirtyDays',
+  TwoWeeks = 'TwoWeeks',
+  OneWeek = 'OneWeek',
+  ThreeDays = 'ThreeDays',
+}
+
 export enum CostPaymentFrequency {
   Monthly = 'Monthly',
   Yearly = 'Yearly',
