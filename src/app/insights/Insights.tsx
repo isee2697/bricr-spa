@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { EntityTypeProvider } from 'app/shared/entityType';
 import { Grid, Box } from 'ui/atoms';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { InsightsProps } from './Insights.types';
 import { InsightsSidebarMenu } from './sidebarMenu/SidebarMenu';
@@ -14,7 +15,7 @@ export const Insights = ({ breadcrumbs, entityType, path }: InsightsProps) => {
   return (
     <EntityTypeProvider entityType={entityType}>
       <Switch>
-        <Route path={`${path}/charts/:id`} component={ChartDetailContainer} />
+        <Route path={`${AppRoute.chartDetail}`} component={ChartDetailContainer} />
         <Route
           render={() => (
             <>
@@ -27,12 +28,12 @@ export const Insights = ({ breadcrumbs, entityType, path }: InsightsProps) => {
                   ]}
                   charts={[
                     {
-                      id: '0001',
+                      id: 'bricr',
                       title: 'Bricr chart',
                       count: 1,
                     },
                     {
-                      id: '0002',
+                      id: 'custom',
                       title: 'Custom chart',
                       count: 4,
                     },

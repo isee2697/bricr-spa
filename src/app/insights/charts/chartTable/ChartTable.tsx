@@ -19,8 +19,9 @@ import {
   Checkbox,
   Typography,
 } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
 
 import { useStyles } from './ChartTable.styles';
 import { ChartTableItemType } from './ChartTable.types';
@@ -126,7 +127,7 @@ export const ChartTable = () => {
           </TableHead>
           <TableBody>
             {charts.map((chart, index) => (
-              <TableRow key={index} onClick={() => navigateToDetail(chart.id)}>
+              <TableRow key={index}>
                 <TableCell padding="checkbox">
                   <Checkbox checked={false} inputProps={{ 'aria-labelledby': `insights-chart-checkbox-${chart.id}` }} />
                 </TableCell>
@@ -140,9 +141,7 @@ export const ChartTable = () => {
                   <Typography variant="h5">{DateTime.local().toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
                 </TableCell>
                 <TableCell>
-                  <IconButton size="small" variant="roundedContained">
-                    <MenuIcon />
-                  </IconButton>
+                  <ActionButtons id={chart.id} onEditDetails={() => navigateToDetail(chart.id)} />
                 </TableCell>
               </TableRow>
             ))}

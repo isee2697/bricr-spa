@@ -45,5 +45,5 @@ export enum AppRoute {
   dms = '/dms',
   email = '/email',
   insights = '/insights',
-  chartDetail = '/insights/charts/:id',
+  chartDetail = '/insights/chartDetails/:id',
 }
