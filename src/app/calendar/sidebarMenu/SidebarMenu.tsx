@@ -21,6 +21,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { ArrowDownIcon, ArrowUpIcon, CalendarIcon } from 'ui/atoms/icons';
 import { MembersDropdownField } from 'form/fields';
 import { AppointmentType, TaskLabel } from 'api/types';
+import { palette } from 'theme/palette';
 
 import { useStyles } from './SidebarMenu.styles';
 import { SidebarMenuProps } from './SidebarMenu.types';
@@ -28,7 +29,10 @@ import { SidebarMenuProps } from './SidebarMenu.types';
 const taskTypes = Object.values(TaskLabel);
 
 export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, onFilterChange }: SidebarMenuProps) => {
-  const [toggledSections, setToggled] = useState<{ [key: string]: boolean }>({ showGroups: true });
+  const [toggledSections, setToggled] = useState<{ [key: string]: boolean }>({
+    showGroups: true,
+    showSecondCalendar: true,
+  });
   const currentTeamMember = teamMembers.find(member => member.id === filters.selectedUser);
   const selectedGroup = groups.find(group => group.id === filters.selectedGroup);
   const ref = useRef<HTMLDivElement>(null);
@@ -42,9 +46,22 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
     date && onFilterChange(() => ({ ...filters, selectedDate: date }));
   };
 
+  const specialsGroups = [
+    {
+      id: 'randomId1',
+      name: 'Birthdays',
+      color: palette.red.main,
+    },
+    {
+      id: 'randomId2',
+      name: 'NationalHolidays',
+      color: palette.red.main,
+    },
+  ];
+
   return (
     <Slide unmountOnExit mountOnEnter in={isVisible} direction="right">
-      <Grid ref={ref} item xs={12} md={3} lg={2} className={classes.container}>
+      <Grid ref={ref} item xs={12} sm={4} md={3} lg={2} className={classes.container}>
         <div className={classes.root}>
           <div className={classes.hideButton} onClick={onHide}>
             <SidebarHideButton />
@@ -60,6 +77,52 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                 {!currentTeamMember && !selectedGroup && formatMessage({ id: 'calendar.my_calendar' })}
               </Typography>
             </div>
+            <Button
+              className={classes.showHideButton}
+              onClick={() => setToggled(current => ({ ...current, showGroups: !current.showGroups }))}
+            >
+              <Typography variant="h5">{formatMessage({ id: `calendar.choose_calendar` })}</Typography>
+              {toggledSections.showGroups ? <ArrowUpIcon /> : <ArrowDownIcon />}
+            </Button>
+            <div className={classes.groups}>
+              <Collapse in={toggledSections.showGroups}>
+                <RadioGroup aria-label="group" name="group">
+                  {groups.map(group => (
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          onClick={() => {
+                            const value = selectedGroup?.id === group.id ? undefined : group.id;
+                            onFilterChange(() => ({ ...filters, selectedGroup: value }));
+                          }}
+                          color="primary"
+                          checked={filters.selectedGroup === group.id}
+                        />
+                      }
+                      label={
+                        <>
+                          {group?.name}
+                          <Chip size="small" className={classes.count} label={group.members?.length ?? '-'} />
+                        </>
+                      }
+                      disabled={!group.members || group.members.length === 0}
+                    />
+                  ))}
+                </RadioGroup>
+              </Collapse>
+            </div>
+            <div className={classes.groups}>
+              <Form onSubmit={() => Promise.resolve(undefined)}>
+                {() => (
+                  <MembersDropdownField
+                    onChange={id => id && onFilterChange(() => ({ ...filters, selectedUser: id as string }))}
+                    label="calendar.search_co_workers"
+                    members={teamMembers}
+                  />
+                )}
+              </Form>
+            </div>
+
             {!selectedGroup && (
               <>
                 <div className={classes.pickers}>
@@ -85,17 +148,6 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                       onChangeDate={onChangeDate}
                     />
                   </Collapse>
-                </div>
-                <div className={classes.groups}>
-                  <Form onSubmit={() => Promise.resolve(undefined)}>
-                    {() => (
-                      <MembersDropdownField
-                        onChange={id => id && onFilterChange(() => ({ ...filters, selectedUser: id as string }))}
-                        label="calendar.search.members"
-                        members={teamMembers}
-                      />
-                    )}
-                  </Form>
                 </div>
                 <Button
                   className={classes.showHideButton}
@@ -210,42 +262,6 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                 </div>
               </>
             )}
-            <Button
-              className={classes.showHideButton}
-              onClick={() => setToggled(current => ({ ...current, showGroups: !current.showGroups }))}
-            >
-              <Typography variant="h5">
-                {formatMessage({ id: `calendar.${toggledSections.showGroups ? 'hide' : 'show'}_groups` })}
-              </Typography>
-              {toggledSections.showGroups ? <ArrowUpIcon /> : <ArrowDownIcon />}
-            </Button>
-            <div className={classes.groups}>
-              <Collapse in={toggledSections.showGroups}>
-                <RadioGroup aria-label="group" name="group">
-                  {groups.map(group => (
-                    <FormControlLabel
-                      control={
-                        <Radio
-                          onClick={() => {
-                            const value = selectedGroup?.id === group.id ? undefined : group.id;
-                            onFilterChange(() => ({ ...filters, selectedGroup: value }));
-                          }}
-                          color="primary"
-                          checked={filters.selectedGroup === group.id}
-                        />
-                      }
-                      label={
-                        <>
-                          {group?.name}
-                          <Chip size="medium" className={classes.count} label={group.members?.length ?? '-'} />
-                        </>
-                      }
-                      disabled={!group.members || group.members.length === 0}
-                    />
-                  ))}
-                </RadioGroup>
-              </Collapse>
-            </div>
             <div className={classes.groups}>
               <DatePicker label="calendar.search.date" value={filters.selectedDate} onChange={onChangeDate} />
 
@@ -264,6 +280,37 @@ export const SidebarMenu = ({ isVisible, onHide, groups, teamMembers, filters, o
                 classes={classes}
                 value={filters.selectedAppointmentType}
               />
+            </div>
+            <Box mt={2} />
+            <Button
+              className={classes.showHideButton}
+              onClick={() => setToggled(current => ({ ...current, showSpecials: !current.showSpecials }))}
+            >
+              <Typography variant="h5">
+                {formatMessage({ id: `calendar.${toggledSections.showSpecials ? 'hide' : 'show'}_specials` })}
+              </Typography>
+              {toggledSections.showSpecials ? <ArrowUpIcon /> : <ArrowDownIcon />}
+            </Button>
+            <div className={classes.groups}>
+              <Collapse in={toggledSections.showSpecials}>
+                <RadioGroup aria-label="group" name="group">
+                  {specialsGroups.map(group => (
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          onClick={() => {
+                            const value = selectedGroup?.id === group.id ? undefined : group.id;
+                            onFilterChange(() => ({ ...filters, selectedGroup: value }));
+                          }}
+                          color="primary"
+                          checked={filters.selectedGroup === group.id}
+                        />
+                      }
+                      label={group?.name}
+                    />
+                  ))}
+                </RadioGroup>
+              </Collapse>
             </div>
             <Box mb={5} />
           </div>
