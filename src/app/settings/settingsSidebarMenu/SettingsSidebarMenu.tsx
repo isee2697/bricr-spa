@@ -4,9 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { useAuthState, useLocale } from 'hooks';
 import { SidebarMenu } from 'ui/molecules';
 import { SettingsIcon, AogIcon } from 'ui/atoms/icons';
-import { SidebarTitleTile } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { SidebarTileCategory } from 'ui/atoms/sidebarTitleTile/SidebarTitleTile.types';
 import { useLayout } from 'context/layout';
 import { SettingsProps } from 'app/settings/Settings.types';
 import { MenuItem, SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
@@ -126,13 +124,8 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       isVisible={isSidebarMenuVisible}
       menu={menu}
       translationPrefix="settings.menu"
-      menuTitle={
-        <SidebarTitleTile
-          title={formatMessage({ id: `settings.title` })}
-          category={SidebarTileCategory.OTHER}
-          icon={<SettingsIcon color="inherit" />}
-        />
-      }
+      menuTitle={formatMessage({ id: `settings.title` })}
+      menuTitleIcon={<SettingsIcon color="inherit" />}
     />
   );
 };

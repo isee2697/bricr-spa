@@ -12801,6 +12801,15 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & {
     meters?: Maybe<Array<{ __typename?: 'Meter' } & Pick<Meter, 'id' | 'type'>>>;
   };
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'mainPictureId'> & {
+      pictures?: Maybe<
+        Array<
+          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
+            }
+        >
+      >;
+    };
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -21516,6 +21525,18 @@ export const PimOverallInfoDocument = gql`
         id
         type
       }
+    }
+    getPimMedia(id: $id) {
+      id
+      pictures {
+        id
+        file {
+          id
+          key
+          url
+        }
+      }
+      mainPictureId
     }
   }
 `;

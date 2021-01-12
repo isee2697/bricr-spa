@@ -49,10 +49,10 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       backgroundColor: bannerColor ? `${bannerColor}25` : palette.gray.light,
       display: 'flex',
       color: bannerColor ?? 'inherit',
+      marginBottom: spacing(4),
       alignItems: 'center',
-      '& .MuiSvgIcon-root': {
+      '& .MuiSvgIcon-root, & .MuiAvatar-root': {
         backgroundColor: palette.white.main,
-        padding: spacing(0.5),
         margin: spacing(1, 2, 1, 3),
         borderRadius: spacing(1),
         width: spacing(4),
@@ -61,8 +61,15 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
           fill: bannerColor ?? 'inherit',
         },
       },
+      '& .MuiSvgIcon-root': {
+        padding: spacing(0.5),
+      },
       '& .MuiTypography-h5': {
         fontWeight: typography.fontWeightBold,
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        width: `calc(100% - ${spacing(10)}px) !important`,
       },
       '& .MuiTypography-root': {
         width: '100%',
@@ -72,7 +79,7 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       height: 'auto',
       '& a': {
         display: 'flex',
-        padding: spacing(3, 2, 3, 2),
+        padding: spacing(1.5, 0, 2, 0),
         ...typography.h5,
         fontWeight: typography.fontWeightBold,
         '& h3, & svg': {
@@ -91,24 +98,32 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
     },
     group: {
       '& + &': {
-        marginTop: spacing(3),
+        marginTop: spacing(2),
+      },
+    },
+    selected: {
+      '& .MuiTypography-root[class*="makeStyles-collapseTitle-"] ': {
+        fontWeight: typography.fontWeightBold,
+        color: palette.black.main,
       },
     },
     collapseHeader: {
       display: 'flex',
-      justifyContent: 'space-between',
       padding: spacing(0, 1.87, 1, 1.87),
-
       cursor: 'pointer',
       borderBottom: `${palette.gray.light} solid ${spacing(0.25)}px`,
     },
     collapseTitle: {
       ...typography.h4,
       fontWeight: typography.fontWeightMedium,
+      color: palette.gray.main,
     },
     notCollapsable: {
       marginLeft: 0,
       padding: spacing(1.87),
       width: '100%',
+    },
+    spaceAfter: {
+      marginBottom: spacing(5),
     },
   }))();
