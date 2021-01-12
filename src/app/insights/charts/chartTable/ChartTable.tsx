@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 import { SortDirection } from '@material-ui/core';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router';
 
 import { useLocale } from 'hooks';
 import {
@@ -19,11 +20,13 @@ import {
   Typography,
 } from 'ui/atoms';
 import { ArrowDownIcon, ArrowUpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './ChartTable.styles';
 import { ChartTableItemType } from './ChartTable.types';
 
 export const ChartTable = () => {
+  const { push } = useHistory();
   const { formatMessage } = useLocale();
   const [sortBy, setSortBy] = useState('name');
   const [sort, setSort] = useState('desc');
@@ -63,6 +66,10 @@ export const ChartTable = () => {
       setSortBy(property);
       setSort('desc');
     }
+  };
+
+  const navigateToDetail = (id: string) => {
+    push(AppRoute.chartDetail.replace(':id', id));
   };
 
   return (
@@ -119,7 +126,7 @@ export const ChartTable = () => {
           </TableHead>
           <TableBody>
             {charts.map((chart, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} onClick={() => navigateToDetail(chart.id)}>
                 <TableCell padding="checkbox">
                   <Checkbox checked={false} inputProps={{ 'aria-labelledby': `insights-chart-checkbox-${chart.id}` }} />
                 </TableCell>
