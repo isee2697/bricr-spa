@@ -45,7 +45,7 @@ export type QuestionNoteOnly = {
 
 export enum QuestionStepStatus {
   Pending = 'Pending',
-  InProgress = 'In Progress',
+  InProgress = 'InProgress',
   Completed = 'Completed',
 }
 

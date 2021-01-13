@@ -1,4 +1,4 @@
-import { PimOverallInfoQuery } from 'api/types';
+import { Picture, PimOverallInfoQuery } from 'api/types';
 
 export type PimDetailsSidebarMenuProps = {
   onHide: () => void;
@@ -6,6 +6,7 @@ export type PimDetailsSidebarMenuProps = {
   data?: PimOverallInfoQuery;
   objectTypeName?: string;
   allocateResultsNumber?: number;
+  picture?: Picture;
 };
 
 export type SubMenuItem = {

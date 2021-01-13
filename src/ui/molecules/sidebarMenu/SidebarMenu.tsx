@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
+import classNames from 'classnames';
 
 import { useLocale } from 'hooks';
 import { SideMenu } from 'ui/molecules';
@@ -14,8 +15,9 @@ import {
   Slide,
   Grid,
   Scrollable,
+  Avatar,
 } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, BackIcon, SaleIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowRightIcon, BackIcon, SaleIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './SidebarMenu.styles';
 import { MenuGroup, MenuItem, SidebarMenuProps, SubMenuItem } from './SidebarMenu.types';
@@ -58,6 +60,8 @@ export const SidebarMenu = ({
 
     return () => window.removeEventListener('resize', handleWindowResize);
   }, [ref, width, setWidth]);
+
+  const itemSelected = (item: MenuItem) => pathname.startsWith(`${menu.url}/${item.key}`);
 
   const renderSubItem = (subItem: SubMenuItem, menuItem: MenuItem) => {
     if (typeof subItem === 'string') {
@@ -106,6 +110,14 @@ export const SidebarMenu = ({
     return isGroupOpen[menuGroup.key];
   };
 
+  const showIcon = (item: MenuItem, groupCollapsable: boolean) => {
+    if (groupCollapsable || item.hideIcon) {
+      return;
+    }
+
+    return item.icon ? item.icon : <SaleIcon />;
+  };
+
   return (
     <Slide unmountOnExit mountOnEnter in={!hasHideButton || isVisible} direction="right">
       <Grid ref={ref} item xs={12} sm={4} md={3} lg={2} className={classes.container}>
@@ -120,20 +132,8 @@ export const SidebarMenu = ({
               <SidebarHideButton />
             </div>
           )}
+
           <div className={classes.menuWrapper}>
-            <Box minHeight={48} mb={!!menu.back ? 0 : 2}>
-              {menuTitle && typeof menuTitle === 'string' ? (
-                <div className={classes.banner}>
-                  {!!menuTitle && menuTitleIcon}
-                  <Box display="flex" flexDirection="column">
-                    <Typography variant="h5">{menuTitle}</Typography>
-                    {menuSubTitle && <Typography variant="h6">{menuSubTitle}</Typography>}
-                  </Box>
-                </div>
-              ) : (
-                menuTitle
-              )}
-            </Box>
             {!!menu.back && (
               <SideMenuItem
                 className={classes.backToList}
@@ -146,10 +146,37 @@ export const SidebarMenu = ({
                 selected={false}
               />
             )}
-            <Scrollable width="100%" height={`calc(100vh - ${spacing(24)}px`}>
+            <Box minHeight={48} mb={!!menu.back ? 0 : 2}>
+              {menuTitle && typeof menuTitle === 'string' ? (
+                <div className={classes.banner}>
+                  {!!menuTitle &&
+                    menuTitleIcon &&
+                    (typeof menuTitleIcon === 'string' ? (
+                      <Avatar variant="rounded" src={menuTitleIcon} />
+                    ) : (
+                      menuTitleIcon
+                    ))}
+                  <Box display="flex" flexDirection="column">
+                    <Typography variant="h5">{menuTitle}</Typography>
+                    {menuSubTitle && <Typography variant="h6">{menuSubTitle}</Typography>}
+                  </Box>
+                </div>
+              ) : (
+                menuTitle
+              )}
+            </Box>
+
+            <Scrollable width="100%" height={`calc(100vh - ${spacing(27)}px`}>
               <SideMenu disablePadding>
                 {menu.groups.map((group, index) => (
-                  <Box className={classes.group} key={`group_${index}`}>
+                  <Box
+                    className={classNames(
+                      classes.group,
+                      group.items.find(item => itemSelected(item)) ? classes.selected : '',
+                      group.spaceAfter && classes.spaceAfter,
+                    )}
+                    key={`group_${index}`}
+                  >
                     {group.isCollapsable && group.key && (
                       <Box
                         onClick={() =>
@@ -162,8 +189,8 @@ export const SidebarMenu = ({
                         data-toggled={isGroupOpen[group.key as string]}
                         data-testid={`toggle-group-${group.key}`}
                       >
+                        {!group.hideArrowIcon && (isGroupCollapseOpen(group) ? <ArrowDownIcon /> : <ArrowRightIcon />)}
                         <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>
-                        {!group.hideArrowIcon && (isGroupCollapseOpen(group) ? <ArrowUpIcon /> : <ArrowDownIcon />)}
                       </Box>
                     )}
                     <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
@@ -172,9 +199,9 @@ export const SidebarMenu = ({
                           className={!group?.isCollapsable ? classes.notCollapsable : ''}
                           key={item.key}
                           itemKey={item.key}
-                          icon={item.icon ? item.icon : item.hideIcon ? <></> : <SaleIcon />}
+                          icon={showIcon(item, !!group?.isCollapsable)}
                           title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
-                          selected={pathname.startsWith(`${menu.url}/${item.key}`)}
+                          selected={itemSelected(item)}
                           badge={item.count}
                           onClick={() => (item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`))}
                         >

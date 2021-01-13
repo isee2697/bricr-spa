@@ -1,7 +1,9 @@
-import { DashboardStatsProps } from 'app/dashboard/dashboardStats/DashboardStats.types';
+import { ReactNode } from 'react';
 
-type statsType = { labelId: string; stats: DashboardStatsProps };
+import { ListPimsFilters } from 'api/types';
 
 export type PimDashBoardProps = {
-  data: statsType[];
+  breadcrumbs: ReactNode;
+  onFilter: (filters: ListPimsFilters) => void;
+  activeFilters: ListPimsFilters;
 };

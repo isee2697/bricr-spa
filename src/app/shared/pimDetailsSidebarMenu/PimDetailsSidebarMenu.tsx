@@ -8,7 +8,15 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PropertyType } from 'api/types';
 import { EntityType, useEntityType } from 'app/shared/entityType';
-import { BuildingIcon, ComplexBuildingIcon, CrmIcon, MailIcon, SaleIcon } from 'ui/atoms/icons';
+import {
+  BuildingIcon,
+  ClockIcon,
+  ComplexBuildingIcon,
+  DocIcon,
+  GraphArrowIcon,
+  NcRentIcon,
+  SaleIcon,
+} from 'ui/atoms/icons';
 import { MenuItem, SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { PimTypes } from 'app/pim/dictionaries';
 
@@ -33,7 +41,7 @@ export const PimDetailsSidebarMenu = ({
   data,
   objectTypeName,
   isVisible,
-  allocateResultsNumber = 0,
+  picture,
 }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -106,8 +114,7 @@ export const PimDetailsSidebarMenu = ({
   }
 
   const pim = data?.getPimGeneral;
-  let title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
-  title = title.length > 25 ? `${title.slice(0, 25)}...` : title;
+  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const type =
     pim?.propertyType === PropertyType.House || pim?.propertyType === PropertyType.Apartment
@@ -127,10 +134,15 @@ export const PimDetailsSidebarMenu = ({
     },
     groups: [
       {
+        spaceAfter: true,
         items: [
-          { key: 'dashboard' },
+          { key: 'dashboard', icon: <GraphArrowIcon /> },
+          { key: 'propertyJourney', icon: <NcRentIcon /> },
+          { key: 'timeline', icon: <ClockIcon /> },
           {
             key: 'summary',
+            icon: <DocIcon />,
+
             subItems: [
               {
                 id: 'inside',
@@ -154,20 +166,6 @@ export const PimDetailsSidebarMenu = ({
               },
             ],
           },
-          { key: 'propertyJourney' },
-          {
-            key: 'allocateSettings',
-            subItems: [
-              {
-                id: 'allocation1',
-                label: 'pim_details.allocate_settings.allocation.title',
-              },
-              {
-                id: 'allocation2',
-                label: 'pim_details.allocate_settings.allocation.title',
-              },
-            ],
-          },
         ],
       },
       {
@@ -176,39 +174,93 @@ export const PimDetailsSidebarMenu = ({
         items,
       },
       {
+        isCollapsable: true,
+        key: 'pim_details.menu.prices',
         items: [
           {
             key: 'prices',
-            subItems: [
-              {
-                id: 'costs',
-                label: 'pim_details.prices.costs.title',
-              },
-              {
-                id: 'investments',
-                label: 'pim_details.prices.investments.menu_title',
-              },
-            ],
-            icon: <MailIcon />,
+            title: formatMessage({ id: 'pim_details.menu.prices' }),
           },
           {
-            key: 'documents',
-            subItems: [
-              {
-                id: 'checklist',
-                label: 'pim_details.documents.checklist.title',
-              },
-              {
-                id: 'audit_checklist',
-                label: 'pim_details.documents.audit_checklist.menu_title',
-              },
-            ],
-            icon: <CrmIcon />,
+            key: 'prices/costs',
+            title: formatMessage({ id: 'pim_details.prices.costs.title' }),
           },
-          { key: 'contacts' },
-          { key: 'marketing' },
-          { key: 'tiara' },
-          { key: 'allocateResults', count: allocateResultsNumber },
+          {
+            key: 'prices/investments',
+            title: formatMessage({ id: 'pim_details.prices.investments.menu_title' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.documents',
+        items: [
+          {
+            key: 'documents/checklist',
+            title: formatMessage({ id: 'pim_details.documents.checklist.title' }),
+          },
+          {
+            key: 'documents/audit_checklist',
+            title: formatMessage({ id: 'pim_details.documents.audit_checklist.menu_title' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.allocation',
+        items: [
+          {
+            key: 'allocateResults',
+            title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
+          },
+          {
+            key: 'allocateSettings/allocation1',
+            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+          },
+          {
+            key: 'allocateSettings/allocation2',
+            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.sales',
+        items: [
+          {
+            key: 'sales',
+            title: formatMessage({ id: 'pim_details.menu.sales' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.marketing',
+        items: [
+          {
+            key: 'marketing',
+            title: formatMessage({ id: 'pim_details.menu.marketing' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.contacts',
+        items: [
+          {
+            key: 'contacts',
+            title: formatMessage({ id: 'pim_details.menu.contacts' }),
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.tiara',
+        items: [
+          {
+            key: 'tiara',
+            title: formatMessage({ id: 'pim_details.menu.dashboard' }),
+          },
         ],
       },
     ],
@@ -220,7 +272,7 @@ export const PimDetailsSidebarMenu = ({
       isVisible={isVisible}
       translationPrefix="pim_details.menu"
       menu={menu}
-      menuTitleIcon={<SaleIcon />}
+      menuTitleIcon={picture?.file?.url ? picture?.file?.url : <SaleIcon />}
       menuTitle={
         objectTypeName ? (
           <SidebarTitleTile
@@ -236,11 +288,12 @@ export const PimDetailsSidebarMenu = ({
             }
           />
         ) : (
-          formatMessage({
-            id: `pim.type.${type}`,
-          })
+          title
         )
       }
+      menuSubTitle={formatMessage({
+        id: `pim.type.${type}`,
+      })}
     />
   );
 };
