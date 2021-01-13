@@ -195,12 +195,12 @@ export const PimDetailsSidebarMenu = ({
             key: 'documents',
             subItems: [
               {
-                id: 'checklist',
-                label: 'pim_details.documents.checklist.title',
+                id: 'folders',
+                label: 'pim_details.documents.folders.title',
               },
               {
-                id: 'audit_checklist',
-                label: 'pim_details.documents.audit_checklist.menu_title',
+                id: 'checklist',
+                label: 'pim_details.documents.checklist.title',
               },
             ],
             icon: <CrmIcon />,
