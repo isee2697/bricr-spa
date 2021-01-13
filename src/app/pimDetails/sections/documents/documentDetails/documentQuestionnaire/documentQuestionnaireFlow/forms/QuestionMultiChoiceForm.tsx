@@ -4,8 +4,9 @@ import { useLocale } from 'hooks';
 import { FormSection, AutosaveForm } from 'ui/organisms';
 import { QuestionMultiChoiceFormProps } from '../DocumentQuestionnaireFlow.types';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { Box, Typography, Grid, RadioGroup, FormControlLabel, Radio } from 'ui/atoms';
+import { Box, Typography, Grid, RadioGroup, FormControlLabel, Checkbox } from 'ui/atoms';
 import { GenericField } from 'form/fields';
+import { useStyles } from '../DocumentQuestionnaireFlow.styles';
 
 export function QuestionMultiChoiceForm({
   initOpened,
@@ -14,6 +15,7 @@ export function QuestionMultiChoiceForm({
   question,
   isNote,
 }: QuestionMultiChoiceFormProps) {
+  const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
@@ -32,14 +34,14 @@ export function QuestionMultiChoiceForm({
             <Grid item xs={12} sm={6}>
               <Typography variant="h5">{question.question}</Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} className={classes.multiChoiceAnswersWrapper}>
               <RadioGroup>
                 {question.choices?.map((item, index) => (
                   <FormControlLabel
                     key={index}
                     value={item.value}
                     name="choices"
-                    control={<Radio color="primary" defaultChecked={item.selected} />}
+                    control={<Checkbox color="primary" defaultChecked={item.selected} />}
                     label={item.title}
                     disabled={!editing}
                   />
