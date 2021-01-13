@@ -6,6 +6,8 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
+    borderRadius: theme.spacing(1),
+    background: theme.palette.gray.light,
 
     '&.draggingOver': {
       backgroundColor: theme.palette.blue.light,

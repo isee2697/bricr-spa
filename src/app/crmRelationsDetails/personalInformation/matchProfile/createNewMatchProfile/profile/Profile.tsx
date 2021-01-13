@@ -241,27 +241,27 @@ export const Profile = () => {
               <Box className={classes.marginTopTwo}>
                 <RadioGroupField xs={2} name="preferredRentalPeriod" options={rentalPeriods} disabled={!isEditing} />
               </Box>
-              <Box className={classes.marginTopTwo}>
-                <DatePickerField
-                  label={formatMessage({
-                    id:
-                      'crm.details.personal_information_match_profile.profile_name.preferred_rental_period.preferred_starting_date',
-                  })}
-                  name="preferredStartingDate"
-                  disabled={!isEditing}
-                  placeholder={formatMessage({ id: 'common.date_picker' })}
-                />
-              </Box>
-              <Grid container className={classes.marginTopFour}>
+              <Grid container className={classes.marginTopTwo}>
                 <Grid item xs={4}>
-                  <GenericField
-                    name="extraInformation"
-                    label={formatMessage({ id: 'common.extra_information' })}
-                    placeholder={formatMessage({ id: 'common.put_information_here' })}
-                    fullWidth
+                  <DatePickerField
+                    label={formatMessage({
+                      id:
+                        'crm.details.personal_information_match_profile.profile_name.preferred_rental_period.preferred_starting_date',
+                    })}
+                    name="preferredStartingDate"
+                    disabled={!isEditing}
+                    placeholder={formatMessage({ id: 'common.date_picker' })}
                   />
                 </Grid>
               </Grid>
+              <Box className={classes.marginTopFour}>
+                <GenericField
+                  name="extraInformation"
+                  label={formatMessage({ id: 'common.extra_information' })}
+                  placeholder={formatMessage({ id: 'common.put_information_here' })}
+                  fullWidth
+                />
+              </Box>
             </Box>
             <Box className={classes.marginTopFour}>
               <Box display="flex" justifyContent="space-between">
