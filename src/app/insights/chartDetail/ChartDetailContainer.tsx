@@ -12,7 +12,6 @@ export const ChartDetailContainer = () => {
   const [data, setData] = useState(CHART_DATA);
 
   const handleUpdate = async (newData: ChartDataType) => {
-    console.log(newData);
     setData(newData);
 
     return { error: false };
