@@ -89,12 +89,12 @@ export function Preview({ data }: PreviewProps) {
   }
 
   const scheme: Colors = [
-    data.primaryColor || '#40C4FF',
-    data.secondaryColor || '#FF5252',
-    '#00C853',
-    '#FFEB3B',
-    '#FF4081',
-    '#E040FB',
+    data.primaryColor || theme.palette.chartColors['100'] || '',
+    data.secondaryColor || theme.palette.chartColors['200'] || '',
+    theme.palette.chartColors['300'] || '',
+    theme.palette.chartColors['400'] || '',
+    theme.palette.chartColors['500'] || '',
+    theme.palette.chartColors['600'] || '',
   ];
 
   return (

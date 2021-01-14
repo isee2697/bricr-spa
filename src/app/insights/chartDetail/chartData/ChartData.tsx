@@ -1,6 +1,7 @@
 import React from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
@@ -14,6 +15,7 @@ import { DATASOURCE_GROUPS } from './datasourceCanvas/dictionaries';
 
 export function ChartData({ data, onAddSource, onRemoveSource }: ChartDataProps) {
   const { formatMessage } = useLocale();
+  const theme = useTheme();
 
   const sourceGroups: DatasourceGroup[] = DATASOURCE_GROUPS;
 
@@ -28,7 +30,7 @@ export function ChartData({ data, onAddSource, onRemoveSource }: ChartDataProps)
         <AutosaveForm onSave={() => Promise.resolve(undefined)}>
           <DndProvider backend={HTML5Backend}>
             <Box display="flex">
-              <Box width={230}>
+              <Box width={theme.spacing(28.75)}>
                 <DatasourceSidebar sourceGroups={sourceGroups} />
               </Box>
               <Box width="100%" height="100%">
