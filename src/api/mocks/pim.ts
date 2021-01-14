@@ -309,7 +309,7 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
     {
       id: 'folder_1_2',
       name: 'Questionnaires',
-      kind: DocumentKind.Questionnaire,
+      kind: DocumentKind.Questionnaires,
       documents: [
         {
           id: 'doc_1',
@@ -321,7 +321,7 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
           versionNumber: '1.0',
           buyer: 'H. Janssens',
           sellers: ['C. van Gils', 'S. Pit-van Gils'],
-          documentKind: DocumentKind.Questionnaire,
+          documentKind: DocumentKind.Questionnaires,
           contractAddress: 'Isenburgstraat 36, Breda',
           price: '€ 245.000,00 k.k',
         },
@@ -351,7 +351,7 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
     {
       id: 'folder_1_4',
       name: 'Contracts',
-      kind: DocumentKind.Contract,
+      kind: DocumentKind.Contracts,
       documents: [
         {
           id: 'doc_1',
@@ -363,7 +363,7 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
           versionNumber: '1.0',
           buyer: 'H. Janssens',
           sellers: ['C. van Gils', 'S. Pit-van Gils'],
-          documentKind: DocumentKind.Contract,
+          documentKind: DocumentKind.Contracts,
           contractAddress: 'Isenburgstraat 36, Breda',
           price: '€ 245.000,00 k.k',
         },
@@ -371,7 +371,32 @@ export const PIM_DOCUMENTS: { documents: DocumentFolderType[]; metaInfo: Documen
     },
     {
       id: 'folder_1_5',
-      name: 'New Folder',
+      name: 'Acquisition',
+      kind: DocumentKind.Custom,
+    },
+    {
+      id: 'folder_1_6',
+      name: 'Quotation',
+      kind: DocumentKind.Custom,
+    },
+    {
+      id: 'folder_1_7',
+      name: 'SalesOrder',
+      kind: DocumentKind.Custom,
+    },
+    {
+      id: 'folder_1_8',
+      name: 'Property',
+      kind: DocumentKind.Custom,
+    },
+    {
+      id: 'folder_1_9',
+      name: 'Publication',
+      kind: DocumentKind.Custom,
+    },
+    {
+      id: 'folder_1_10',
+      name: 'Internal',
       kind: DocumentKind.Custom,
     },
   ],
@@ -419,7 +444,7 @@ export const PIM_DOCUMENT_LISTOFCASE: DocumentListOfCaseType = {
 export const PIM_DOCUMENT_QUESTIONNAIRE: DocumentQuestionnaireType = {
   id: 'doc_1',
   name: 'Akte van levering',
-  documentKind: DocumentKind.Questionnaire,
+  documentKind: DocumentKind.Questionnaires,
   steps: [
     {
       id: 'step-1',
@@ -590,7 +615,7 @@ export const PIM_DOCUMENT_QUESTIONNAIRE: DocumentQuestionnaireType = {
 export const PIM_DOCUMENT_CONTRACT: DocumentContractType = {
   id: 'doc_1',
   name: 'New contract',
-  documentKind: DocumentKind.Contract,
+  documentKind: DocumentKind.Contracts,
   steps: [
     {
       id: 'step-1',

@@ -7,9 +7,9 @@ import { AppRoute } from 'routing/AppRoute.enum';
 
 import { InsightsProps } from './Insights.types';
 import { InsightsSidebarMenu } from './sidebarMenu/SidebarMenu';
-import { Dashboards } from './dashboards/Dashboards';
 import { Charts } from './charts/Charts';
 import { ChartDetailContainer } from './chartDetail/ChartDetailContainer';
+import { DashboardsContainer } from './dashboards/DashboardsContainer';
 
 export const Insights = ({ breadcrumbs, entityType, path }: InsightsProps) => {
   return (
@@ -42,7 +42,7 @@ export const Insights = ({ breadcrumbs, entityType, path }: InsightsProps) => {
                 <Grid item xs={12} sm={8} md={9} lg={10}>
                   <Box pr={3} pt={3} pl={3}>
                     <Switch>
-                      <Route path={`${path}/dashboards`} component={Dashboards} />
+                      <Route path={`${path}/dashboards`} component={DashboardsContainer} />
                       <Route path={`${path}/charts`} component={Charts} />
                       <Redirect to={`${path}/dashboards`} />
                     </Switch>

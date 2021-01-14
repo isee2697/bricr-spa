@@ -7,15 +7,19 @@ import { Modal, SelectCard } from 'ui/molecules';
 import { Avatar, Button } from 'ui/atoms';
 
 import { useStyles } from './AddNewChartModal.styles';
-import { AddNewChartBody, ChartType } from './AddNewChartModal.types';
+import { AddNewChartBody, AddNewChartModalProps, ChartType } from './AddNewChartModal.types';
 
-export const AddNewChartModal = () => {
-  const { isOpen } = useModalState('add_new_chart');
+export const AddNewChartModal = ({ onAddNewChart }: AddNewChartModalProps) => {
+  const { isOpen, options } = useModalState('add_new_chart');
   const { close } = useModalDispatch();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   const handleSubmit = async (values: AddNewChartBody) => {
+    if (options?.insightDashboardNewType) {
+      onAddNewChart(options?.insightDashboardNewType);
+    }
+
     close('add_new_chart');
 
     return undefined;

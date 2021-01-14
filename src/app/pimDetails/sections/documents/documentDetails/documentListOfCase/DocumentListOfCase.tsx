@@ -4,7 +4,7 @@ import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { UploadIcon, MenuIcon, DeleteIcon, HistoryIcon } from 'ui/atoms/icons';
+import { MenuIcon, DeleteIcon, HistoryIcon, ShareIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import { useStyles } from '../DocumentDetails.styles';
@@ -100,7 +100,7 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
               action={
                 <Box display="flex">
                   <IconButton onClick={handleGoBack} variant="rounded" size="small">
-                    <UploadIcon />
+                    <ShareIcon />
                   </IconButton>
                   <Box ml={3.5}>
                     <IconButton
