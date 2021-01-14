@@ -16,7 +16,7 @@ export const DocumentDetailsSidebarMenu = ({ onHide, isVisible, title }: Documen
   const menu = {
     url,
     back: {
-      url: `${AppRoute.crmRelationsDetails.replace(':id', params.id)}/documents`,
+      url: `${AppRoute.crmRelationsDetails.replace(':id', params.id)}/documents/folders`,
       title: formatMessage({ id: `common.back` }),
     },
     groups: [

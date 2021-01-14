@@ -83,6 +83,16 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
         items: [
           {
             key: 'documents',
+            subItems: [
+              {
+                id: 'folders',
+                label: 'crm.details.menu.documents.folders',
+              },
+              {
+                id: 'checklist',
+                label: 'crm.details.menu.documents.checklist',
+              },
+            ],
           },
           {
             key: 'orders',
