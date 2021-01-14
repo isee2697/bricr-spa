@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 import { SortDirection } from '@material-ui/core';
 import { DateTime } from 'luxon';
+import { useHistory } from 'react-router';
 
 import { useLocale } from 'hooks';
 import {
@@ -18,12 +19,15 @@ import {
   Checkbox,
   Typography,
 } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, ManageIcon, MenuIcon, SearchIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
 
 import { useStyles } from './ChartTable.styles';
 import { ChartTableItemType } from './ChartTable.types';
 
 export const ChartTable = () => {
+  const { push } = useHistory();
   const { formatMessage } = useLocale();
   const [sortBy, setSortBy] = useState('name');
   const [sort, setSort] = useState('desc');
@@ -63,6 +67,10 @@ export const ChartTable = () => {
       setSortBy(property);
       setSort('desc');
     }
+  };
+
+  const navigateToDetail = (id: string) => {
+    push(AppRoute.chartDetail.replace(':id', id));
   };
 
   return (
@@ -133,9 +141,7 @@ export const ChartTable = () => {
                   <Typography variant="h5">{DateTime.local().toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
                 </TableCell>
                 <TableCell>
-                  <IconButton size="small" variant="roundedContained">
-                    <MenuIcon />
-                  </IconButton>
+                  <ActionButtons id={chart.id} onEditDetails={() => navigateToDetail(chart.id)} />
                 </TableCell>
               </TableRow>
             ))}
