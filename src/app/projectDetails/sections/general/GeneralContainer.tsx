@@ -3,7 +3,14 @@ import { useParams } from 'react-router-dom';
 import arrayMutators from 'final-form-arrays';
 import { FormRenderProps } from 'react-final-form';
 
-import { useNcpGeneralQuery, useUpdateNcpMutation, NcpGeneralDocument, NcpGeneral, UpdateNcpInput } from 'api/types';
+import {
+  useNcpGeneralQuery,
+  useUpdateNcpMutation,
+  NcpGeneralDocument,
+  NcpGeneral,
+  UpdateNcpInput,
+  useProjectPhasesQuery,
+} from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
 import { ProjectDetailsProps } from 'app/projectDetails/ProjectDetails.types';
 
@@ -14,6 +21,11 @@ export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDet
   const formRef = useRef<FormRenderProps<UpdateNcpInput>>();
 
   const { data } = useNcpGeneralQuery({ variables: { id }, fetchPolicy: 'network-only' });
+  const { data: phaseData } = useProjectPhasesQuery({
+    variables: { name: undefined, ncpId: id, from: 0, limit: 1 },
+    fetchPolicy: 'no-cache',
+  });
+
   const [updateNcpGeneral] = useUpdateNcpMutation();
 
   const handleSave = async ({ archived, ...values }: NcpGeneral) => {
@@ -71,7 +83,14 @@ export const GeneralContainer = ({ onSidebarOpen, isSidebarVisible }: ProjectDet
           formRef.current = (form as unknown) as FormRenderProps<UpdateNcpInput>;
         }
 
-        return <General data={data.getNcp} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />;
+        return (
+          <General
+            data={data.getNcp}
+            phase={phaseData?.getProjectPhases.items?.[0]}
+            isSidebarVisible={isSidebarVisible}
+            onSidebarOpen={onSidebarOpen}
+          />
+        );
       }}
     </AutosaveForm>
   );

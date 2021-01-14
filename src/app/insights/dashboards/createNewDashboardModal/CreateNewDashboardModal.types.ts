@@ -1,4 +1,4 @@
-import { DashboardType } from '../Dashboard.types';
+import { DashboardType } from '../Dashboards.types';
 
 export type CreateNewDashboardBody = {
   type: DashboardType;

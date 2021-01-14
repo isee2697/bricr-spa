@@ -26,6 +26,7 @@ import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 import { DocumentsContainer } from './sections/documents/DocumentsContainer';
+import { DashboardContainer } from './sections/dashboard/DashboardContainer';
 
 export const PimDetails = ({
   loading,
@@ -42,6 +43,9 @@ export const PimDetails = ({
   const { state } = useLocation<{ newlyAdded: boolean }>();
 
   const pim = data?.getPimGeneral;
+  const mainPicture =
+    data?.getPimMedia?.mainPictureId &&
+    data?.getPimMedia.pictures?.find(({ id }) => id === data.getPimMedia.mainPictureId);
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
@@ -66,6 +70,7 @@ export const PimDetails = ({
           onHide={handleSidebarHide}
           objectTypeName={objectTypeName}
           allocateResultsNumber={5}
+          picture={mainPicture || undefined}
         />
         <Box flex={1}>
           <Grid container className={classes.content}>
@@ -78,6 +83,16 @@ export const PimDetails = ({
             )}
             {!error && !!pim && (
               <Switch>
+                <Route
+                  path={`${path}/dashboard`}
+                  render={() => (
+                    <DashboardContainer
+                      isSidebarVisible={isSidebarVisible}
+                      onSidebarOpen={handleSidebarOpen}
+                      title={title}
+                    />
+                  )}
+                />
                 <Route
                   path={`${path}/general`}
                   render={() => (
@@ -203,6 +218,8 @@ export const PimDetails = ({
                     />
                   )}
                 />
+                <Route exact path={`${path}/propertyJourney`} render={() => <>PropertyJourney</>} />
+                <Route exact path={`${path}/timeline`} render={() => <>Timeline</>} />
                 <Route
                   exact
                   path={`${path}/allocateResults`}
@@ -233,7 +250,7 @@ export const PimDetails = ({
                     )}
                   />
                 ))}
-                <Redirect to={{ pathname: `${path}/general`, state }} />
+                <Redirect to={{ pathname: `${path}/dashboard`, state }} />
               </Switch>
             )}
           </Grid>

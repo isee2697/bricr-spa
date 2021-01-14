@@ -12,9 +12,9 @@ export enum DocumentStatus {
 }
 
 export enum DocumentKind {
-  Questionnaire = 'questionnaire',
-  ListOfCase = 'list-of-case',
-  Contract = 'contract',
+  Questionnaires = 'Questionnaires',
+  ListOfCase = 'ListOfCase',
+  Contracts = 'Contracts',
   Custom = 'custom',
 }
 

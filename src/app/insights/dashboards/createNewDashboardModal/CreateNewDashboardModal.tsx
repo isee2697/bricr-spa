@@ -6,7 +6,7 @@ import { AddIcon, SquareIcon } from 'ui/atoms/icons';
 import { GenericField, RadioGroupField } from 'form/fields';
 import { RadioDataType } from 'form/fields/radioGroupField/RadioGroupField.types';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { DashboardType } from '../Dashboard.types';
+import { DashboardType } from '../Dashboards.types';
 
 import { CreateNewDashboardBody, CreateNewDashboardModalProps } from './CreateNewDashboardModal.types';
 

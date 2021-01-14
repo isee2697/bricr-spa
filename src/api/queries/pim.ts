@@ -528,5 +528,17 @@ export const PIM_OVERALL_INFO = gql`
         type
       }
     }
+    getPimMedia(id: $id) {
+      id
+      pictures {
+        id
+        file {
+          id
+          key
+          url
+        }
+      }
+      mainPictureId
+    }
   }
 `;

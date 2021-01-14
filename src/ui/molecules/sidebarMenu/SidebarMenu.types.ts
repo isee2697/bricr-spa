@@ -26,6 +26,7 @@ export type MenuGroup = {
   key?: string;
   hideArrowIcon?: boolean;
   items: MenuItem[];
+  spaceAfter?: boolean;
 };
 
 export type SidebarMenuType = {
@@ -42,7 +43,7 @@ export type SidebarMenuProps = {
   isVisible?: boolean;
   menuTitle?: ReactNode;
   menuSubTitle?: string;
-  menuTitleIcon?: ReactNode;
+  menuTitleIcon?: ReactNode | string;
   translationPrefix: string;
   menu: SidebarMenuType;
   bannerColor?: string;
