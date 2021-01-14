@@ -39,6 +39,7 @@ export enum AppRoute {
   calendarAppointments = '/calendar/:accountId/appointments',
   register = '/register',
   setup = '/setup',
+  verify = '/verify',
   propertiesSetup = '/setup/properties',
   confirmationSetup = '/setup/confirmation',
   notifications = '/notifications',

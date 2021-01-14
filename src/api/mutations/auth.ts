@@ -2,10 +2,7 @@ import { gql } from 'apollo-boost';
 
 export const LOGIN = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
-      accessToken
-      refreshToken
-    }
+    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default")
   }
 `;
 
@@ -29,5 +26,11 @@ export const RESET_PASSWORD = gql`
       ) {
       error
     }
+  }
+`;
+
+export const VERIFY_USER = gql`
+  mutation VerifyUser($input: VerifyUserInput!) {
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default")
   }
 `;

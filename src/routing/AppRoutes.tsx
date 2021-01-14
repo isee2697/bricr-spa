@@ -33,6 +33,7 @@ import { DocumentDetailsContainer as CrmDocumentDetailsContainer } from 'app/crm
 import { CrmBusinessesDetailsContainer } from 'app/crmBusinessesDetails/CrmBusinessesDetailsContainer';
 import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoiceDetailsContainer';
 import { InsightsContainer } from 'app/insights/InsightsContainer';
+import { VerifyUserContainer } from 'app/register/verify/VerifyUserContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -59,6 +60,13 @@ export const AppRoutes = () => {
         {() => (
           <Authorization>
             <RegisterContainer />
+          </Authorization>
+        )}
+      </Route>
+      <Route path={AppRoute.verify}>
+        {() => (
+          <Authorization>
+            <VerifyUserContainer />
           </Authorization>
         )}
       </Route>

@@ -17,7 +17,9 @@ import { SetupStepThree } from './StepThree';
 import { SetupSteps, StepData } from './Setup.types';
 
 export const Setup = () => {
-  const [name] = useQueryParam<string>('name');
+  const { state } = useLocation();
+  const [queryParamName] = useQueryParam<string>('name');
+  const name = state?.name || queryParamName;
   const [fullName, setFulleName] = useState<string>();
   const { pathname } = useLocation();
   const { formatMessage } = useLocale();

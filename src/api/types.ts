@@ -29,10 +29,21 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type AuthResult = {
+  __typename?: 'AuthResult';
+  AccessToken: Scalars['String'];
+  RefreshToken: Scalars['String'];
+  IdToken: Scalars['String'];
+};
+
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  AuthenticationResult: AuthResult;
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  refreshToken: Scalars['String'];
+  AuthenticationResult: Scalars['String'];
 };
 
 export type ForgotPasswordInput = {
@@ -53,6 +64,11 @@ export type ResetPasswordResponse = {
   __typename?: 'ResetPasswordResponse';
   error?: Maybe<Scalars['String']>;
   stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserInput = {
+  code?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -128,7 +144,7 @@ export type Mutation = {
   linkNcpToProjectPhase: ProjectPhase;
   linkSalesCrms?: Maybe<Array<CrmListItem>>;
   linkSalesPims?: Maybe<Array<ListPim>>;
-  login?: Maybe<LoginResponse>;
+  login?: Maybe<Scalars['String']>;
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
   removeAllocationCriteria: Pim;
@@ -234,6 +250,7 @@ export type Mutation = {
   updateWorkflowAction: WorkflowAction;
   updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
+  verifyUser?: Maybe<Scalars['String']>;
 };
 
 export type MutationAddAllocationCriteriaArgs = {
@@ -949,6 +966,10 @@ export type MutationUploadFileArgs = {
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
+export type MutationVerifyUserArgs = {
+  input?: Maybe<VerifyUserInput>;
+};
+
 export type BillingResponse = {
   url: Scalars['String'];
 };
@@ -1583,6 +1604,7 @@ export enum BricrPlans {
 export type CreateCompanyInput = {
   name: Scalars['String'];
   email: Scalars['String'];
+  password: Scalars['String'];
   space: Scalars['String'];
   amountUsers?: Maybe<Scalars['Int']>;
   amountProperties?: Maybe<Scalars['Int']>;
@@ -8230,9 +8252,7 @@ export type LoginMutationVariables = Exact<{
   input?: Maybe<LoginInput>;
 }>;
 
-export type LoginMutation = { __typename?: 'Mutation' } & {
-  login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
-};
+export type LoginMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'login'>;
 
 export type ForgotPasswordMutationVariables = Exact<{
   input?: Maybe<ForgotPasswordInput>;
@@ -8250,6 +8270,12 @@ export type ResetPasswordMutationVariables = Exact<{
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
 };
+
+export type VerifyUserMutationVariables = Exact<{
+  input: VerifyUserInput;
+}>;
+
+export type VerifyUserMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'verifyUser'>;
 
 export type BulkMutationVariables = Exact<{
   input: BulkOperationInput;
@@ -13224,10 +13250,7 @@ export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
 
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
-      accessToken
-      refreshToken
-    }
+    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default")
   }
 `;
 export function useLoginMutation(
@@ -13286,6 +13309,22 @@ export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<Reset
 export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
+>;
+export const VerifyUserDocument = gql`
+  mutation VerifyUser($input: VerifyUserInput!) {
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default")
+  }
+`;
+export function useVerifyUserMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, baseOptions);
+}
+export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
+export type VerifyUserMutationResult = ApolloReactCommon.MutationResult<VerifyUserMutation>;
+export type VerifyUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  VerifyUserMutation,
+  VerifyUserMutationVariables
 >;
 export const BulkDocument = gql`
   mutation Bulk($input: BulkOperationInput!) {

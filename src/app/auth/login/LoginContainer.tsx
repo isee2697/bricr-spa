@@ -5,7 +5,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { startAuthorizing, setTokens, setUnauthorized } from 'context/auth/authActionCreators/authActionCreators';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { useLoginMutation, LoginInput } from 'api/types';
+import { useLoginMutation, LoginInput, AuthResult } from 'api/types';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 import { Login } from './Login';
@@ -27,11 +27,11 @@ export const LoginContainer = () => {
           },
         });
 
-        if (!errors && data && data.login) {
-          const { accessToken, refreshToken } = data.login;
-          authStorage.accessToken = accessToken;
-          authStorage.refreshToken = refreshToken;
-          dispatch(setTokens(accessToken, refreshToken));
+        if (!errors && data && data?.login) {
+          const { AccessToken, RefreshToken }: AuthResult = JSON.parse(data.login)?.AuthenticationResult;
+          authStorage.accessToken = AccessToken;
+          authStorage.refreshToken = RefreshToken;
+          dispatch(setTokens(AccessToken, RefreshToken));
 
           return true;
         }

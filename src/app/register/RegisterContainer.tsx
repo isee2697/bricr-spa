@@ -6,6 +6,7 @@ import { useClaimSpaceHook } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useCheckCompanyRegisteredQuery, useCreateCompanyMutation, BricrPlans, CreateCompanyInput } from 'api/types';
 import { Loader } from 'ui/atoms';
+import { HandleCreateCompanyInput } from 'app/register/forms/RegisterForm.types';
 
 import { RegisterForm } from './forms/RegisterForm';
 
@@ -21,6 +22,7 @@ export const RegisterContainer = () => {
     name: '',
     space: '',
     email: '',
+    password: '',
     plan,
     amountUsers: Number(amountUsers),
     amountProperties: Number(amountProperties),
@@ -60,14 +62,15 @@ export const RegisterContainer = () => {
     return undefined;
   };
 
-  const handleSave = async (input: CreateCompanyInput) => {
+  const handleSave = async (input: HandleCreateCompanyInput) => {
     setLoading(true);
+    delete input.repeat_password;
 
     try {
       const { data: result } = await createCompany({
         variables: {
           input: {
-            ...input,
+            ...(input as CreateCompanyInput),
             space: spaceName ?? '',
           },
         },
@@ -78,7 +81,7 @@ export const RegisterContainer = () => {
         throw new Error('Could not create company.');
       } else if (input.name && input.email && spaceName) {
         setLoading(false);
-        push(`${AppRoute.setup}/?name=${input.name}`);
+        push(AppRoute.verify, { email: input.email, name: input.name });
       }
 
       return undefined;

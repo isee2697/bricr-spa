@@ -4,10 +4,18 @@ input LoginInput {
   username: String!
   password: String!
 }
+type AuthResult {
+  AccessToken: String!
+  RefreshToken: String!
+  IdToken: String!
+}
+
+type AuthenticationResult {
+  AuthenticationResult: AuthResult!
+}
 
 type LoginResponse {
-  accessToken: String!
-  refreshToken: String!
+  AuthenticationResult: String!
 }
 
 input ForgotPasswordInput {
@@ -27,13 +35,19 @@ type ResetPasswordResponse {
   error: String
   stack: String
 }
+
+input VerifyUserInput {
+  code: String
+  username: String
+}
 # END REST
 
 
 extend type Mutation {
   #REST don't remove
-  login(input: LoginInput): LoginResponse
+  login(input: LoginInput): String
   forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
   resetPassword(input: ResetPasswordInput, token: String!): ResetPasswordResponse
+  verifyUser(input: VerifyUserInput): String
   #END REST
 }
