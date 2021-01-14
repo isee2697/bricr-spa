@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
 import { Grid, IconButton, Typography, Card, CardHeader, CardContent, Box } from 'ui/atoms';
-import { HelpIcon, MenuIcon, CardsIcon, ListIcon, LocationIcon, SearchIcon, ManageIcon } from 'ui/atoms/icons';
+import { HelpIcon, MenuIcon, ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon } from 'ui/atoms/icons';
 import { ListActionTabs } from '../listActionTabs/ListActionTabs';
 import { MatchProfile, MatchProfileMatch } from '../MatchProfile.types';
 import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
@@ -68,9 +68,6 @@ export const MatchProfileList = () => {
                 title={formatMessage({ id: 'crm.details.personal_information_match_profile.matches' })}
                 action={
                   <>
-                    <IconButton variant="rounded" size="small" classes={{ root: classes.sortIcon }} onClick={() => {}}>
-                      <CardsIcon color="primary" />
-                    </IconButton>
                     <IconButton variant="rounded" size="small" classes={{ root: classes.sortIcon }}>
                       <ListIcon color="inherit" />
                     </IconButton>
@@ -93,6 +90,13 @@ export const MatchProfileList = () => {
                     onProfileIndexChange={profile => setSelectedProfile(profile)}
                     profiles={profiles}
                   />
+                  <Box display="flex" alignItems="center" ml={4} mt={1.5} mb={1.5}>
+                    <SettingsIcon className={classes.settingIcon} />
+                    <Box ml={1.5} />
+                    <Typography variant="h5" color="textSecondary">
+                      {formatMessage({ id: 'crm.details.personal_information_match_profile.matches.matchprofile' })}
+                    </Typography>
+                  </Box>
                   <List
                     loadingItem={<PropertyItemPlaceholder />}
                     isShowHeader
@@ -102,6 +106,12 @@ export const MatchProfileList = () => {
                       <ListItem key={match.id} checked={checked} checkbox={checkbox} item={match} />
                     )}
                     sortOptions={sortOptions}
+                    emptyTitle={formatMessage({
+                      id: 'crm.details.personal_information_match_profile.matches.empty_title',
+                    })}
+                    emptyDescription={formatMessage({
+                      id: 'crm.details.personal_information_match_profile.matches.empty_description',
+                    })}
                   />
                 </Box>
               </CardContent>

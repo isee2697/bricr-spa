@@ -14,4 +14,10 @@ export const useStyles = makeStyles(theme => ({
   sortIcon: {
     marginLeft: theme.spacing(2),
   },
+  settingIcon: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    background: theme.palette.gray.light,
+    borderRadius: theme.spacing(1),
+  },
 }));

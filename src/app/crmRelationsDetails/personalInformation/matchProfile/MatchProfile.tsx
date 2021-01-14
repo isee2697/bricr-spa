@@ -40,7 +40,7 @@ export const MatchProfile = ({ path, onSidebarOpen, isSidebarVisible }: MatchPro
             startIcon={<AddIcon color="inherit" />}
             onClick={handleAddNew}
           >
-            {formatMessage({ id: 'crm.details.new_profile' })}
+            {formatMessage({ id: 'crm.details.new_matchprofile' })}
           </Button>
         }
       />

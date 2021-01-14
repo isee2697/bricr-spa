@@ -27,7 +27,7 @@ export const ExtrasColumn = ({ isEditable, columnType, items, onUpdateExtraItemS
 
   return (
     <div ref={isEditable ? drop : undefined} className={clsx(classes.root, isOver && 'draggingOver')}>
-      <Box mb={2}>
+      <Box mb={4}>
         <Badge badgeContent={items.length} showZero color="secondary" className={classes.badge}>
           <Typography variant="h3">
             {formatMessage({ id: `dictionaries.match_profile_extra.${columnType}` })}

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { Box, Typography } from 'ui/atoms';
+import { Box, Card, CardContent, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
 import { ExtrasColumnItemProps } from './Extras.types';
@@ -33,13 +33,11 @@ export const ExtrasColumnItem = ({ isEditable, item, noMargin }: ExtrasColumnIte
   return (
     <div ref={isEditable ? drag : undefined}>
       <div ref={drop}>
-        <Box
-          display="flex"
-          alignItems="center"
-          className={clsx(classes.root, noMargin && 'no-margin', isDragging && 'dragging')}
-        >
-          <Typography variant="h5">{formatMessage({ id: `dictionaries.match_profile_extra.${item}` })}</Typography>
-        </Box>
+        <Card className={clsx(classes.root, noMargin && 'no-margin', isDragging && 'dragging')}>
+          <CardContent>
+            <Typography variant="h5">{formatMessage({ id: `dictionaries.match_profile_extra.${item}` })}</Typography>
+          </CardContent>
+        </Card>
         {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}
       </div>
     </div>

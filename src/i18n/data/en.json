@@ -2991,5 +2991,10 @@
   "settings.contract_templates_details.fields": "Fields",
   "settings.contract_templates_details.search_placeholder": "Search",
   "dictionaries.contract_templates_details.serviceCosts": "Service costs",
-  "dictionaries.contract_templates_details.exceptionalProvisions": "Exceptional provisions"
+  "dictionaries.contract_templates_details.exceptionalProvisions": "Exceptional provisions",
+  "pim_details.specification.outside.description": "Description",
+  "pim_details.specification.outside.stays_behind": "Stas behind",
+  "pim_details.specification.outside.goes_with": "Goes with",
+  "pim_details.specification.outside.for_takeover": "For takeover",
+  "pim_details.specification.outside.nvt": "NVT"
 }
