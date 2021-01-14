@@ -2,6 +2,10 @@ import { ReactNode } from 'react';
 
 import { PimOverallInfoQueryHookResult } from 'api/types';
 import { DocumentKind } from '../../general/General.types';
+import { PromiseFunction } from 'app/shared/types';
+
+import { AddQuestionnaireGroupBody } from './addQuestionnaireGroupModal/AddQuestionnaireGroupModal.types';
+import { AddQuestionnaireItemBody } from './addQuestionnaireItemModal/AddQuestionnaireItemModal.types';
 
 export enum DocumentQuestionKind {
   YesNo = 'YesNo',
@@ -41,7 +45,7 @@ export type QuestionNoteOnly = {
 
 export enum QuestionStepStatus {
   Pending = 'Pending',
-  InProgress = 'In Progress',
+  InProgress = 'InProgress',
   Completed = 'Completed',
 }
 
@@ -74,4 +78,6 @@ export type DocumentQuestionnaireProps = Pick<PimOverallInfoQueryHookResult, 'lo
   pimId: string;
   data?: DocumentQuestionnaireType;
   breadcrumbs: ReactNode;
+  onAddNewDocumentQuestionnaireGroup: (values: AddQuestionnaireGroupBody) => Promise<boolean>;
+  onAddNewDocumentQuestionnaireItem: PromiseFunction<AddQuestionnaireItemBody>;
 };

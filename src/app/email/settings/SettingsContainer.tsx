@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StringParam, useQueryParam } from 'use-query-params';
 
-import { useGetNylasAuthUrlLazyQuery } from 'api/types';
+import { useGetNylasAuthUrlLazyQuery, useAuthorizeNylasAccountWithTokenMutation } from 'api/types';
 import { AddNewInboxBody } from '../addNewInboxModal/AddNewInboxModal.types';
 import { useAuthState } from 'hooks';
 
@@ -10,39 +10,25 @@ import { EmailSettingsContainerProps } from './Settings.types';
 
 export const EmailSettingsContainer = ({ onAddedNewAccount, ...props }: EmailSettingsContainerProps) => {
   const [getNylasAuthUrl, { data: nylasAuthUrl }] = useGetNylasAuthUrlLazyQuery();
+  const [addNylasAccount] = useAuthorizeNylasAccountWithTokenMutation();
   const [nylasAuthCode] = useQueryParam('code', StringParam);
   const { accessToken } = useAuthState();
 
   useEffect(() => {
-    const addNylasAccount = async () => {
-      if (nylasAuthCode) {
-        const response = await fetch(`${process.env.REACT_APP_FILE_URL}/nylas-addaccount`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + accessToken,
-          },
-          body: JSON.stringify({
-            nylasToken: nylasAuthCode,
-            token: accessToken,
-            isEmailConnected: true,
-          }),
-        });
-
-        if (response.ok) {
-          const { account } = await response.json();
+    const addNewNylasAccount = async () => {
+      try {
+        if (nylasAuthCode) {
+          const account = await addNylasAccount({ variables: { nylasToken: nylasAuthCode, isEmailConnected: true } });
 
           if (account) {
             window.location.href = window.location.href.split('?')[0];
           }
         }
-      }
+      } catch (error) {}
     };
 
-    if (nylasAuthCode) {
-      addNylasAccount();
-    }
-  }, [accessToken, nylasAuthCode]);
+    addNewNylasAccount();
+  }, [accessToken, addNylasAccount, nylasAuthCode]);
 
   if (nylasAuthUrl?.getNylasAuthUrl) {
     window.open(nylasAuthUrl.getNylasAuthUrl, '_self');

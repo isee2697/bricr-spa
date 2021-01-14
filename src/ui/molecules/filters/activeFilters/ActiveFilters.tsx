@@ -20,6 +20,7 @@ type ChipProps = {
 type ActiveFiltersProps<T> = {
   activeFilters: T;
   onDelete: (filters: T) => void;
+  className?: string;
 };
 
 const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
@@ -47,6 +48,7 @@ const ChipComponent = ({ index, filter, onDelete }: ChipProps) => {
 export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<ActiveFiltersProps<T>> = ({
   activeFilters,
   onDelete,
+  className,
 }) => {
   const classes = useStyles();
   const handleDelete = (key: string, filter: Filter | string) => {
@@ -107,7 +109,7 @@ export const ActiveFilters: <T>(p: ActiveFiltersProps<T>) => React.ReactElement<
     <Box
       className={`${classes.root} ${
         activeFilters && Object.values(activeFilters).length > 0 ? classes.hasfilters : ''
-      }`}
+      } ${className}`}
       p={2}
     >
       {generateFilters()}

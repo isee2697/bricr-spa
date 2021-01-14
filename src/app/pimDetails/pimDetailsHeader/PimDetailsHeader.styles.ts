@@ -9,4 +9,7 @@ export const useStyles = makeStyles(theme => ({
   avatarIcon: {
     marginRight: theme.spacing(1),
   },
+  root: {
+    minHeight: theme.spacing(3.5),
+  },
 }));

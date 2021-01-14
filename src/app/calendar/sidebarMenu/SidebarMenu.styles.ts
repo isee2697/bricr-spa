@@ -55,6 +55,8 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
       right: spacing(3),
       marginTop: -spacing(0.5),
       backgroundColor: palette.gray.light,
+      color: palette.gray.main,
+      padding: 0,
     },
     groups: {
       padding: spacing(0, 3),

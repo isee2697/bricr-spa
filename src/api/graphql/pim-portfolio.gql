@@ -1,0 +1,6 @@
+enum DateRangeType {
+  ThirtyDays,
+  TwoWeeks,
+  OneWeek,
+  ThreeDays
+}

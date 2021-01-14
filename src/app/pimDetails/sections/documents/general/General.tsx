@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
 
-import { Avatar, Box, Grid, Placeholder, Typography } from 'ui/atoms';
+import { Avatar, Box, Grid, Typography } from 'ui/atoms';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { BuildingIcon } from 'ui/atoms/icons';
+import { useLocale } from 'hooks';
 
-import { DocumentStats } from './documentStats/DocumentStats';
 import { DocumentFolders } from './documentFolders/DocumentFolders';
 import { DocumentsGeneralProps } from './General.types';
 import { useStyles } from './General.styles';
@@ -23,6 +23,7 @@ export const DocumentsGeneral = ({
 }: DocumentsGeneralProps) => {
   const theme = useTheme();
   const classes = useStyles();
+  const { formatMessage } = useLocale();
 
   return (
     <>
@@ -35,14 +36,11 @@ export const DocumentsGeneral = ({
                 <BuildingIcon color="inherit" />
               </Box>
             </Avatar>
-            <Typography variant="h1">{title ? title : <Placeholder variant="text" width={150} />}</Typography>
+            <Typography variant="h1">{formatMessage({ id: 'pim_details.documents.document_folders' })}</Typography>
           </Box>
         </Grid>
-        <Box mt={3} mb={2} width="100%">
-          <DocumentStats metaInfo={metaInfo} />
-        </Box>
         <DocumentFolders
-          foldersData={documents}
+          foldersData={[...documents].sort((document1, document2) => (document1.name < document2.name ? -1 : 1))}
           isLoading={false}
           isError={false}
           onAddFolder={onAdd}

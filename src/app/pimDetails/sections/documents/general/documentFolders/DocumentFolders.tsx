@@ -9,6 +9,7 @@ import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { UploadModal } from 'ui/organisms';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType, DocumentKind } from '../General.types';
+import { DocumentTimelineContainer } from '../documentTimeline/DocumentTimelineContainer';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';
@@ -160,16 +161,21 @@ export const DocumentFolders = ({
                   onClick={() => {}}
                   size="small"
                 >
-                  {selectedFolder.kind === DocumentKind.Contract &&
+                  {selectedFolder.kind === DocumentKind.Contracts &&
                     formatMessage({ id: 'pim_details.documents.new_contract' })}
                   {selectedFolder.kind === DocumentKind.ListOfCase &&
                     formatMessage({ id: 'pim_details.documents.new_list_of_case' })}
-                  {selectedFolder.kind === DocumentKind.Questionnaire &&
+                  {selectedFolder.kind === DocumentKind.Questionnaires &&
                     formatMessage({ id: 'pim_details.documents.new_questionnaire' })}
                 </Button>
               </Box>
             )}
           </Box>
+          {selectedFolder.kind && selectedFolder.kind !== DocumentKind.Custom && (
+            <Box mb={2}>
+              <DocumentTimelineContainer type={selectedFolder.kind} />
+            </Box>
+          )}
           <DocumentListViewContainer documents={selectedFolder.documents} />
         </>
       )}

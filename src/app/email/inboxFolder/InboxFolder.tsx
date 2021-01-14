@@ -11,7 +11,6 @@ import {
   Checkbox,
   Grid,
   IconButton,
-  Loader,
   MenuItem,
   Select,
   Typography,
@@ -23,6 +22,7 @@ import { EmailTable } from '../emailTable/EmailTable';
 import { InfoSection } from 'ui/molecules';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuContainer';
 
 import { useStyles } from './InboxFolder.styles';
 import { InboxFolderProps } from './InboxFolder.types';
@@ -35,7 +35,6 @@ export const InboxFolder = ({
   folders,
   currentFolder,
   emails,
-  loading,
 }: InboxFolderProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -64,8 +63,13 @@ export const InboxFolder = ({
 
   return (
     <>
-      {loading && <Loader />}
-      {!loading && (
+      <EmailSidebarMenuContainer
+        onHide={onSidebarClose}
+        isVisible={isSidebarVisible}
+        accounts={accounts}
+        folders={folders}
+      />
+      <Grid item xs={12} md={9} lg={10}>
         <Grid container className={classes.content}>
           <EmailHeader
             onSidebarOpen={onSidebarOpen}
@@ -126,9 +130,7 @@ export const InboxFolder = ({
                     <Select variant="outlined" value={sortOptions[0]} className={classes.sort}>
                       {sortOptions.map(option => (
                         <MenuItem key={option} value={option}>
-                          {formatMessage({
-                            id: `common.sort_options.${option}`,
-                          })}
+                          {formatMessage({ id: `common.sort_options.${option}` })}
                         </MenuItem>
                       ))}
                     </Select>
@@ -155,8 +157,7 @@ export const InboxFolder = ({
             )}
           </Page>
         </Grid>
-      )}
-      {/* </Grid> */}
+      </Grid>
     </>
   );
 };
