@@ -18,11 +18,7 @@ export const Documents = (props: PimDetailsSectionProps) => {
       <NavBreadcrumb title={formatMessage({ id: 'pim_details.documents.title' })} urlBase={baseUrl} to="/documents" />
       <Switch>
         <Route path={`${baseUrl}/documents/folders`} exact render={() => <DocumentsGeneralContainer {...props} />} />
-        <Route
-          path={`${baseUrl}/documents/checklist`}
-          exact
-          render={() => <DocumentsCheckListContainer {...props} />}
-        />
+        <Route path={`${baseUrl}/documents/checklist`} render={() => <DocumentsCheckListContainer {...props} />} />
         <Redirect to={`${baseUrl}/documents/folders`} />
       </Switch>
     </>

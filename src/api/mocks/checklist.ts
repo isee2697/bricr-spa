@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { CheckList } from 'app/pimDetails/sections/documents/checklist/CheckList.types';
+import { CheckList } from 'app/pimDetails/sections/documents/checklist/checklistItem/CheckList.types';
 import {
   DocumentCondition,
   DocumentRequestStatus,
