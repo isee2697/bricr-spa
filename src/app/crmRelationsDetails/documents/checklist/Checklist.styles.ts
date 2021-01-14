@@ -40,7 +40,7 @@ export const useStyles = makeStyles(theme => ({
     background: `${theme.palette.primary.main}08`,
   },
   rowItem: {
-    padding: `22px 16px 22px 0`,
+    padding: theme.spacing(2.75, 2, 2.75, 0),
     width: '100%',
   },
   rowItemIndex: {
