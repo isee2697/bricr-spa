@@ -213,12 +213,12 @@ export const PimDetailsSidebarMenu = ({
         key: 'pim_details.menu.documents',
         items: [
           {
-            key: 'documents/checklist',
-            title: formatMessage({ id: 'pim_details.documents.checklist.title' }),
+            key: 'documents/folders',
+            title: formatMessage({ id: 'pim_details.documents.folders.title' }),
           },
           {
-            key: 'documents/audit_checklist',
-            title: formatMessage({ id: 'pim_details.documents.audit_checklist.menu_title' }),
+            key: 'documents/checklist',
+            title: formatMessage({ id: 'pim_details.documents.checklist.title' }),
           },
         ],
       },

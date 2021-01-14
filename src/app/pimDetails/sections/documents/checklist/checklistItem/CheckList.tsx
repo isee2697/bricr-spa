@@ -20,7 +20,7 @@ import { useLocale } from 'hooks';
 import { ActionTabs, InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { SortOption } from 'ui/molecules/list/List.types';
-import { DocumentsCheckListDetailsContainer } from '../checklistDetails/CheckListDetailsContainer';
+import { DocumentsCheckListDetailsContainer } from '../../checklistDetails/CheckListDetailsContainer';
 
 import { CheckListStatus, DocumentsCheckListProps } from './CheckList.types';
 import { useStyles } from './CheckList.styles';

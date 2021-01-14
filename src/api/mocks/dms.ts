@@ -1,11 +1,80 @@
 import { DateTime } from 'luxon';
 
-import { DmsStats } from 'app/dms/Dms.types';
+import { DmsStats, DmsDocument } from 'app/dms/Dms.types';
 import { Timeline } from 'app/dms/dmsDashboard/dmsDashboardBoards/dmsDashboardBoardsTimeline/DmsDashboardBoardsTimeline.types';
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
 import { DmsTemplateItem } from 'app/dms/dmsTemplates/DmsTemplates.types';
 import { DmsBlockItem } from 'app/dms/dmsContentBlocks/DmsContentBlocks.types';
 import { DmsImageItem } from 'app/dms/dmsImageLibrary/DmsImages.types';
+
+export const DMSDocuments: DmsDocument[] = [
+  {
+    id: 'doc_1',
+    name: 'Akte van levering.pdf',
+    dateCreated: DateTime.fromJSDate(new Date('2020/09/22')),
+    size: 34223,
+    type: 'pdf',
+    avatar: 'http://placeimg.com/104/152/arch',
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.UserNotified,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Uploaded,
+        date: DateTime.local(),
+      },
+    ],
+  },
+  {
+    id: 'doc_2',
+    name: 'Bewijs van inschrijving.pdf',
+    dateCreated: DateTime.fromJSDate(new Date('2020/09/23')),
+    size: 32223,
+    type: 'pdf',
+    avatar: 'http://placeimg.com/104/152/arch',
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.RequestRejected,
+        date: DateTime.local(),
+      },
+    ],
+  },
+  {
+    id: 'doc_3',
+    name: 'Inschrijfformulier.docx',
+    dateCreated: DateTime.fromJSDate(new Date('2010/09/16')),
+    size: 4223,
+    type: 'docx',
+    avatar: 'http://placeimg.com/104/152/arch',
+    stepsCompleted: [
+      {
+        status: DocumentRequestStatus.Request,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.UserNotified,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Uploaded,
+        date: DateTime.local(),
+      },
+      {
+        status: DocumentRequestStatus.Accepted,
+        date: DateTime.local(),
+      },
+    ],
+  },
+];
 
 export const DMSStats: DmsStats = {
   total: {
