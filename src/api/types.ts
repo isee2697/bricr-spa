@@ -125,6 +125,7 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
   createEmailAddress: Profile;
@@ -459,6 +460,10 @@ export type MutationBulkDeleteNotificationsArgs = {
 
 export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
+};
+
+export type MutationConfirmProfileInviteArgs = {
+  input: ConfirmProfileInvite;
 };
 
 export type MutationCreateCompanyArgs = {
@@ -7343,6 +7348,13 @@ export type ProfileFilters = {
   isActive?: Maybe<Scalars['Boolean']>;
 };
 
+export type ConfirmProfileInvite = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type ProjectPhase = {
   __typename?: 'ProjectPhase';
   id: Scalars['ID'];
@@ -9646,6 +9658,14 @@ export type UpdateProfileMutationVariables = Exact<{
 
 export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
   updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type ConfirmProfileInviteMutationVariables = Exact<{
+  input: ConfirmProfileInvite;
+}>;
+
+export type ConfirmProfileInviteMutation = { __typename?: 'Mutation' } & {
+  confirmProfileInvite: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
 export type DeactivateProfileMutationVariables = Exact<{
@@ -16530,6 +16550,30 @@ export type UpdateProfileMutationResult = ApolloReactCommon.MutationResult<Updat
 export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateProfileMutation,
   UpdateProfileMutationVariables
+>;
+export const ConfirmProfileInviteDocument = gql`
+  mutation ConfirmProfileInvite($input: ConfirmProfileInvite!) {
+    confirmProfileInvite(input: $input) {
+      id
+    }
+  }
+`;
+export function useConfirmProfileInviteMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    ConfirmProfileInviteMutation,
+    ConfirmProfileInviteMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<ConfirmProfileInviteMutation, ConfirmProfileInviteMutationVariables>(
+    ConfirmProfileInviteDocument,
+    baseOptions,
+  );
+}
+export type ConfirmProfileInviteMutationHookResult = ReturnType<typeof useConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationResult = ApolloReactCommon.MutationResult<ConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ConfirmProfileInviteMutation,
+  ConfirmProfileInviteMutationVariables
 >;
 export const DeactivateProfileDocument = gql`
   mutation DeactivateProfile($id: String!) {

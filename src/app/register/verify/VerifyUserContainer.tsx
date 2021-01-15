@@ -14,11 +14,13 @@ export const VerifyUserContainer = () => {
   const { push } = useHistory();
   const [email] = useQueryParam<{ email: string }>('email');
   const [name] = useQueryParam<{ name: string }>('name');
+  const [skipSetupParam] = useQueryParam<{ skipSetup: boolean }>('skipSetup');
   const [error, setError] = useState();
   const [verifyUser] = useVerifyUserMutation();
 
   const emailValue = state?.email || email;
   const nameValue = state?.name || name;
+  const skipSetup = state?.skipSetup || skipSetupParam;
   const handleSubmit = async (data: VerifyData) => {
     try {
       const verified = await verifyUser({
@@ -31,7 +33,7 @@ export const VerifyUserContainer = () => {
       });
 
       if (verified && verified.data) {
-        push(AppRoute.setup, { email: emailValue, name: nameValue });
+        skipSetup ? push(AppRoute.login) : push(AppRoute.setup, { email: emailValue, name: nameValue });
       }
     } catch (e) {
       let message = 'register.error.failed_to_verify';
