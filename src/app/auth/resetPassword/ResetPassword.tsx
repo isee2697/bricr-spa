@@ -39,6 +39,14 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
           {isSuccess && <Alert severity="success">{formatMessage({ id: 'reset_password.success' })}</Alert>}
 
           <GenericField
+            name="email"
+            label="common.email.label"
+            placeholder="common.email.placeholder"
+            validate={[requireValidator, minLengthValidator(8)]}
+            type="email"
+          />
+
+          <GenericField
             name="password"
             label="reset_password.new_password"
             placeholder="reset_password.new_password_placeholder"

@@ -28,7 +28,9 @@ type ForgotPasswordResponse {
 }
 
 input ResetPasswordInput {
-  newPassword: String!
+  password: String!
+  username: String!
+  code: String!
 }
 
 type ResetPasswordResponse {
@@ -47,7 +49,7 @@ extend type Mutation {
   #REST don't remove
   login(input: LoginInput): String
   forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
-  resetPassword(input: ResetPasswordInput, token: String!): ResetPasswordResponse
+  resetPassword(input: ResetPasswordInput): ResetPasswordResponse
   verifyUser(input: VerifyUserInput): String
   #END REST
 }

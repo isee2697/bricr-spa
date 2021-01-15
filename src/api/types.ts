@@ -57,7 +57,9 @@ export type ForgotPasswordResponse = {
 };
 
 export type ResetPasswordInput = {
-  newPassword: Scalars['String'];
+  password: Scalars['String'];
+  username: Scalars['String'];
+  code: Scalars['String'];
 };
 
 export type ResetPasswordResponse = {
@@ -604,7 +606,6 @@ export type MutationRemoveViewingMomentArgs = {
 
 export type MutationResetPasswordArgs = {
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 };
 
 export type MutationSendEmailArgs = {
@@ -8276,7 +8277,6 @@ export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
 
 export type ResetPasswordMutationVariables = Exact<{
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 }>;
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
@@ -13284,7 +13284,7 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
     forgotPassword(input: $input)
-      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
+      @rest(type: "ForgotPasswordResponse", path: "/forgot_password", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -13304,14 +13304,9 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
   ForgotPasswordMutationVariables
 >;
 export const ResetPasswordDocument = gql`
-  mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
-    resetPassword(input: $input, token: $token)
-      @rest(
-        type: "ResetPasswordResponse"
-        path: "/public/auth/reset-password/{args.token}"
-        method: "POST"
-        endpoint: "default"
-      ) {
+  mutation ResetPassword($input: ResetPasswordInput) {
+    resetPassword(input: $input)
+      @rest(type: "ResetPasswordResponse", path: "/forgot_password/confirm", method: "POST", endpoint: "default") {
       error
     }
   }
