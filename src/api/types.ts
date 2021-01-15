@@ -97,6 +97,7 @@ export type Mutation = {
   addPimService?: Maybe<PimWithNewService>;
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
+  addSubtask: Task;
   addTag?: Maybe<PimWithNewTag>;
   addTaskLabel: Label;
   addTeam?: Maybe<Team>;
@@ -123,6 +124,7 @@ export type Mutation = {
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
+  deleteSubtask?: Maybe<Task>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -225,6 +227,7 @@ export type Mutation = {
   updateSpace: Pim;
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
+  updateSubtaskStatus?: Maybe<Task>;
   updateTag?: Maybe<Pim>;
   updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
@@ -392,6 +395,11 @@ export type MutationAddSpaceToFloorArgs = {
   input: AddSpaceInput;
 };
 
+export type MutationAddSubtaskArgs = {
+  taskId: Scalars['String'];
+  input: AddSubtaskInput;
+};
+
 export type MutationAddTagArgs = {
   input: AddTagInput;
 };
@@ -498,6 +506,10 @@ export type MutationDeleteEntityArgs = {
 
 export type MutationDeleteNotificationArgs = {
   input: DeleteNotificationInput;
+};
+
+export type MutationDeleteSubtaskArgs = {
+  subtaskId: Scalars['ID'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -908,6 +920,11 @@ export type MutationUpdateSpecificationArgs = {
 
 export type MutationUpdateSpecificationAdvancedArgs = {
   input: SpecificationAdvancedInput;
+};
+
+export type MutationUpdateSubtaskStatusArgs = {
+  subtaskId: Scalars['ID'];
+  status: TaskStatus;
 };
 
 export type MutationUpdateTagArgs = {
@@ -7927,9 +7944,19 @@ export type Task = LastUpdated & {
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
   originalEstimate?: Maybe<Scalars['Int']>;
+  subTasks?: Maybe<Array<Subtask>>;
   logs?: Maybe<Array<TaskLog>>;
   resultIntern?: Maybe<Scalars['String']>;
   resultClient?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type Subtask = LastUpdated & {
+  __typename?: 'Subtask';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  status: TaskStatus;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
@@ -7985,6 +8012,10 @@ export type UpdateTaskInput = {
   taskLog?: Maybe<TaskLogInput>;
   resultIntern?: Maybe<Scalars['String']>;
   resultClient?: Maybe<Scalars['String']>;
+};
+
+export type AddSubtaskInput = {
+  title: Scalars['String'];
 };
 
 export type DateRange = {
@@ -9731,6 +9762,32 @@ export type UpdateTaskMutationVariables = Exact<{
 
 export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
   updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
+
+export type AddNewSubtaskMutationVariables = Exact<{
+  taskId: Scalars['String'];
+  title: Scalars['String'];
+}>;
+
+export type AddNewSubtaskMutation = { __typename?: 'Mutation' } & {
+  addSubtask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
+
+export type UpdateSubtaskStatusMutationVariables = Exact<{
+  subtaskId: Scalars['ID'];
+  status: TaskStatus;
+}>;
+
+export type UpdateSubtaskStatusMutation = { __typename?: 'Mutation' } & {
+  updateSubtaskStatus?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
+
+export type DeleteSubtaskMutationVariables = Exact<{
+  subtaskId: Scalars['ID'];
+}>;
+
+export type DeleteSubtaskMutation = { __typename?: 'Mutation' } & {
+  deleteSubtask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
 };
 
 export type AddTeamMutationVariables = Exact<{
@@ -13084,6 +13141,15 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
       | 'dateUpdated'
     > & {
         logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+        subTasks?: Maybe<
+          Array<
+            { __typename?: 'Subtask' } & Pick<Subtask, 'id' | 'title' | 'status' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
+              }
+          >
+        >;
         lastEditedBy?: Maybe<
           { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
         >;
@@ -16777,6 +16843,69 @@ export type UpdateTaskMutationResult = ApolloReactCommon.MutationResult<UpdateTa
 export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateTaskMutation,
   UpdateTaskMutationVariables
+>;
+export const AddNewSubtaskDocument = gql`
+  mutation AddNewSubtask($taskId: String!, $title: String!) {
+    addSubtask(taskId: $taskId, input: { title: $title }) {
+      id
+    }
+  }
+`;
+export function useAddNewSubtaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNewSubtaskMutation, AddNewSubtaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNewSubtaskMutation, AddNewSubtaskMutationVariables>(
+    AddNewSubtaskDocument,
+    baseOptions,
+  );
+}
+export type AddNewSubtaskMutationHookResult = ReturnType<typeof useAddNewSubtaskMutation>;
+export type AddNewSubtaskMutationResult = ApolloReactCommon.MutationResult<AddNewSubtaskMutation>;
+export type AddNewSubtaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNewSubtaskMutation,
+  AddNewSubtaskMutationVariables
+>;
+export const UpdateSubtaskStatusDocument = gql`
+  mutation UpdateSubtaskStatus($subtaskId: ID!, $status: TaskStatus!) {
+    updateSubtaskStatus(subtaskId: $subtaskId, status: $status) {
+      id
+    }
+  }
+`;
+export function useUpdateSubtaskStatusMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSubtaskStatusMutation, UpdateSubtaskStatusMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSubtaskStatusMutation, UpdateSubtaskStatusMutationVariables>(
+    UpdateSubtaskStatusDocument,
+    baseOptions,
+  );
+}
+export type UpdateSubtaskStatusMutationHookResult = ReturnType<typeof useUpdateSubtaskStatusMutation>;
+export type UpdateSubtaskStatusMutationResult = ApolloReactCommon.MutationResult<UpdateSubtaskStatusMutation>;
+export type UpdateSubtaskStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSubtaskStatusMutation,
+  UpdateSubtaskStatusMutationVariables
+>;
+export const DeleteSubtaskDocument = gql`
+  mutation DeleteSubtask($subtaskId: ID!) {
+    deleteSubtask(subtaskId: $subtaskId) {
+      id
+    }
+  }
+`;
+export function useDeleteSubtaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteSubtaskMutation, DeleteSubtaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteSubtaskMutation, DeleteSubtaskMutationVariables>(
+    DeleteSubtaskDocument,
+    baseOptions,
+  );
+}
+export type DeleteSubtaskMutationHookResult = ReturnType<typeof useDeleteSubtaskMutation>;
+export type DeleteSubtaskMutationResult = ApolloReactCommon.MutationResult<DeleteSubtaskMutation>;
+export type DeleteSubtaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteSubtaskMutation,
+  DeleteSubtaskMutationVariables
 >;
 export const AddTeamDocument = gql`
   mutation AddTeam($input: AddTeamInput!) {
@@ -22015,6 +22144,17 @@ export const GetTaskDocument = gql`
         timeSpent
         dateStarted
         notes
+      }
+      subTasks {
+        id
+        title
+        status
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
       }
       resultIntern
       resultClient

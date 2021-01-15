@@ -8,7 +8,7 @@ import { TaskDetailsHeader } from './taskDetailsHeader/TaskDetailsHeader';
 import { TaskDetailsBoards } from './taskDetailsBoards/TaskDetailsBoards';
 import { TaskDetailsFooter } from './taskDetailsFooter/TaskDetailsFooter';
 
-export const TaskDetails = ({ taskData, breadcrumbs, user, members, onUpdateTask }: TaskDetailsProps) => {
+export const TaskDetails = ({ taskData, breadcrumbs, user, members, ...props }: TaskDetailsProps) => {
   const classes = useStyles();
 
   return (
@@ -16,7 +16,7 @@ export const TaskDetails = ({ taskData, breadcrumbs, user, members, onUpdateTask
       {breadcrumbs}
       <Box className={classes.content}>
         <TaskDetailsHeader title={taskData.title || ''} />
-        <TaskDetailsBoards task={taskData} user={user} members={members} onUpdateTask={onUpdateTask} />
+        <TaskDetailsBoards task={taskData} user={user} members={members} {...props} />
         <TaskDetailsFooter />
       </Box>
     </>
