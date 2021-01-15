@@ -36,6 +36,7 @@ export type DocumentFolderType = {
   id: string;
   name: string;
   documents?: Document[];
+  isEmailFolder?: boolean;
 };
 
 export type Document = {
