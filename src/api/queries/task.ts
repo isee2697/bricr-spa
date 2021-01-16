@@ -19,6 +19,17 @@ export const GET_TASK = gql`
         dateStarted
         notes
       }
+      subTasks {
+        id
+        title
+        status
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
+      }
       resultIntern
       resultClient
       dateUpdated
