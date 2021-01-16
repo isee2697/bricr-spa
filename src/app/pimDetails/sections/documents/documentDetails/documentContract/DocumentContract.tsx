@@ -4,13 +4,15 @@ import { useHistory } from 'react-router-dom';
 import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { UploadIcon, MenuIcon, DeleteIcon, HistoryIcon } from 'ui/atoms/icons';
+import { MenuIcon, DeleteIcon, HistoryIcon, ShareIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { useStyles } from '../DocumentDetails.styles';
 
 import { DocumentContractProps } from './DocumentContract.types';
 import { DocumentContractSidebarMenu } from './documentContractSidebar/DocumentContractSidebarMenu';
 import { DocumentContractFlow } from './documentContractFlow/DocumentContractFlow';
+import { DocumentContractGroup } from './documentContractSidebar/DocumentContractSidebarMenu.types';
+import { DocumentSecurity } from './documentSecurity/DocumentSecurity';
 
 type SubMenuItemType = {
   title: string;
@@ -43,6 +45,7 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { push } = useHistory();
+  const [openedGroup, setOpenedGroup] = useState<DocumentContractGroup>(DocumentContractGroup.Data);
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -79,7 +82,13 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
     <>
       {breadcrumbs}
       <Grid container spacing={0}>
-        <DocumentContractSidebarMenu isVisible={isSidebarVisible} onHide={handleSidebarHide} data={data} />
+        <DocumentContractSidebarMenu
+          isVisible={isSidebarVisible}
+          onHide={handleSidebarHide}
+          data={data}
+          onChangeGroup={setOpenedGroup}
+          group={openedGroup}
+        />
         <Box flex={1}>
           <Grid container className={classes.content}>
             <PimDetailsHeader
@@ -89,7 +98,7 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
               action={
                 <Box display="flex">
                   <IconButton onClick={handleGoBack} variant="rounded" size="small">
-                    <UploadIcon />
+                    <ShareIcon />
                   </IconButton>
                   <Box ml={3.5}>
                     <IconButton
@@ -162,7 +171,8 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
                 </Box>
               }
             />
-            <DocumentContractFlow data={data} />
+            {openedGroup === DocumentContractGroup.Data && <DocumentContractFlow data={data} />}
+            {openedGroup === DocumentContractGroup.Security && <DocumentSecurity />}
           </Grid>
         </Box>
       </Grid>
