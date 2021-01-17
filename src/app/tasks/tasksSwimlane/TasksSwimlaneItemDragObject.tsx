@@ -1,11 +1,13 @@
-import React from 'react';
-import clsx from 'classnames';
+import { Box, CardContent, Typography, useTheme } from '@material-ui/core';
 import { DateTime } from 'luxon';
-import { useHistory } from 'react-router-dom';
-import { useDrag, useDrop } from 'react-dnd';
-import { useTheme } from '@material-ui/core';
+import React from 'react';
+import { useDragLayer } from 'react-dnd';
+import clsx from 'classnames';
 
-import { Box, Loader, Typography, UserAvatar, Card, CardContent, ProgressFilling, IconButton } from 'ui/atoms';
+import { useLocale } from 'hooks';
+import { TasksTab } from '../Tasks.types';
+import { Card, IconButton, UserAvatar, ProgressFilling } from 'ui/atoms';
+import { TaskLabel, TaskPriority } from 'api/types';
 import {
   BellIcon,
   BuildingIcon,
@@ -20,40 +22,27 @@ import {
   RefreshIcon,
   UserRectangleIcon,
 } from 'ui/atoms/icons';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { TaskLabel, TaskPriority } from 'api/types';
-import { AppRoute } from 'routing/AppRoute.enum';
-import { TasksTab } from '../Tasks.types';
 
-import { TasksSwimlaneItemProps } from './TasksSwimlaneItem.types';
-import { useStyles } from './TasksSwimlaneItem.styles';
+import { useStyles } from './TasksSwimlaneItemDragObject.styles';
 
-export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
-  const [{ isDragging }, drag] = useDrag({
-    item: {
-      type: 'UpdateTaskStatus',
-      tab,
-      ...task,
-    },
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [{ isOver, isDrag }, drop] = useDrop({
-    accept: 'UpdateTaskStatus',
-    collect: monitor => ({
-      isOver: monitor.isOver(),
-      isDrag: monitor.canDrop(),
-    }),
-  });
-  const theme = useTheme();
-
+export const TasksSwimlaneItemDragObject = () => {
   const classes = useStyles();
+  const theme = useTheme();
   const { formatMessage } = useLocale();
-  const { push } = useHistory();
+  const { itemType, isDragging, item, currentOffset } = useDragLayer(monitor => ({
+    item: monitor.getItem(),
+    itemType: monitor.getItemType(),
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging: monitor.isDragging(),
+  }));
 
-  const { id, taskIndex, title, assigneeDetail, deadline, label, priority, isUpdating } = task;
+  if (!isDragging || itemType !== 'UpdateTaskStatus' || !currentOffset) {
+    return null;
+  }
+
+  const { x, y } = currentOffset;
+
+  const { tab, taskIndex, title, assigneeDetail, deadline, label, priority } = item;
   const deadlineDate = deadline && DateTime.fromISO(deadline);
   const remainingMinutes = deadlineDate && Math.floor(deadlineDate.diffNow('minutes').minutes);
   const expireInfo =
@@ -78,11 +67,10 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
       : '-';
 
   return (
-    <div onClick={() => push(AppRoute.taskDetails.replace(':id', id))} ref={drag}>
-      <div ref={!isUpdating ? drop : undefined}>
-        {isUpdating && <Loader />}
-        <Card className={clsx(classes.root, isDragging && 'dragging')}>
-          <CardContent className={classes.card}>
+    <Box component="div" className={classes.wrapper}>
+      <Box style={{ transform: `translate(${x}px, ${y}px)` }}>
+        <Card className={classes.root}>
+          <CardContent>
             <Box display="flex" alignItems="center" justifyContent="space-between" mr={-1}>
               <Typography
                 variant="h6"
@@ -170,8 +158,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
             <ProgressFilling progress={0.6} fullWidth />
           </CardContent>
         </Card>
-        {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
