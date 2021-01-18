@@ -488,6 +488,35 @@ export const CRM_DOCUMENT_FOLDERS: DocumentFolderType[] = [
     name: 'Contracts',
     documents: [],
   },
+  {
+    id: 'folder-4',
+    name: 'Emails',
+    documents: [
+      {
+        id: '0001',
+        name: 'Wojciech’s Drivers Licence',
+        image: 'http://placeimg.com/104/152/arch',
+        dateCreated: DateTime.local(),
+        stepsCompleted: [
+          {
+            status: DocumentRequestStatus.Request,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.UserNotified,
+            date: DateTime.local(),
+          },
+          {
+            status: DocumentRequestStatus.Uploaded,
+            date: DateTime.local(),
+          },
+        ],
+        type: 'pdf',
+        size: 34000,
+      },
+    ],
+    isEmailFolder: true,
+  },
 ];
 
 export const CRM_DOCUMENTS: Document[] = [

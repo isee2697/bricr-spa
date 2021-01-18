@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import classnames from 'classnames';
 
 import {
   Table,
@@ -8,13 +9,12 @@ import {
   TableBody,
   Checkbox,
   Box,
-  Emoji,
   IconButton,
   Menu,
   Typography,
   MenuItem,
 } from 'ui/atoms';
-import { TasksIcon, BuildingIcon, HistoryIcon, StatusIcon, MenuIcon, DeleteIcon } from 'ui/atoms/icons';
+import { HistoryIcon, MenuIcon, DeleteIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 
 import { DocumentTableViewProps } from './DocumentTableView.types';
@@ -48,10 +48,11 @@ const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
 export const DocumentTableView = ({
   documents,
   onClick,
-  onPreview,
-  onSend,
-  onArchive,
+  onEdit,
   onDelete,
+  selected,
+  onSelectDoc,
+  onSelectAllDoc,
 }: DocumentTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -70,46 +71,51 @@ export const DocumentTableView = ({
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox />
+          <TableCell padding="checkbox" className={classes.tableHeaderCell}>
+            <Checkbox
+              checked={documents.length === selected.length}
+              onClick={e => {
+                e.stopPropagation();
+                onSelectAllDoc();
+              }}
+            />
           </TableCell>
-          <TableCell>
-            <Box className={classes.tableHeaderCell}>
-              <TasksIcon className={classes.tableHeaderIcon} /> {formatMessage({ id: 'dms.list.headers.file_name' })}
-            </Box>
+          <TableCell className={classes.tableHeaderCell}>
+            {formatMessage({ id: 'crm.details.documents.document_name' })}
           </TableCell>
-          <TableCell>
-            <Box className={classes.tableHeaderCell}>
-              <BuildingIcon className={classes.tableHeaderIcon} />{' '}
-              {formatMessage({ id: 'dms.list.headers.date_modified' })}
-            </Box>
+          <TableCell className={classes.tableHeaderCell}>
+            {formatMessage({ id: 'crm.details.documents.file_type' })}
           </TableCell>
-          <TableCell>
-            <Box className={classes.tableHeaderCell}>
-              <HistoryIcon className={classes.tableHeaderIcon} /> {formatMessage({ id: 'dms.list.headers.size' })}
-            </Box>
+          <TableCell className={classes.tableHeaderCell}>
+            {formatMessage({ id: 'crm.details.documents.date' })}
           </TableCell>
-          <TableCell>
-            <Box className={classes.tableHeaderCell}>
-              <StatusIcon className={classes.tableHeaderIcon} /> {formatMessage({ id: 'dms.list.headers.type' })}
-            </Box>
-          </TableCell>
-          <TableCell />
+          <TableCell className={classes.tableHeaderCell} />
         </TableRow>
       </TableHead>
       <TableBody>
         {documents.map((doc, index) => (
-          <TableRow key={index} onClick={() => onClick?.(doc.id)} className={classes.tableRow}>
+          <TableRow
+            key={index}
+            onClick={() => onClick?.(doc.id)}
+            className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
+          >
             <TableCell padding="checkbox">
-              <Checkbox checked={false} inputProps={{ 'aria-labelledby': doc.id }} />
+              <Checkbox
+                checked={selected.includes(doc.id)}
+                inputProps={{ 'aria-labelledby': doc.id }}
+                onClick={e => {
+                  e.stopPropagation();
+                  onSelectDoc(doc.id);
+                }}
+              />
             </TableCell>
             <TableCell className={classes.tableCellFileName}>{doc.name}</TableCell>
-            <TableCell className={classes.tableCellDate}>{doc.dateCreated?.toFormat('dd-MM-yyyy') || ''}</TableCell>
-            <TableCell className={classes.tableCellSize}>{doc.size}</TableCell>
             <TableCell className={classes.tableCellType}>
-              <Box className={classes.fileType}>
-                <Emoji children={`⏱️ ${doc.type}`} />
-              </Box>
+              <Box className={classes.fileType}>{doc.type}</Box>
+            </TableCell>
+            <TableCell className={classes.tableCellDate}>
+              <Typography variant="h5">{doc.dateCreated?.toFormat('dd-MM-yyyy') || ''}</Typography>
+              <Typography variant="h6">{doc.dateCreated?.toFormat('HH:mm:ss') || ''}</Typography>
             </TableCell>
             <TableCell>
               <div>
@@ -125,28 +131,10 @@ export const DocumentTableView = ({
                 <Menu id={doc.id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
                   <SubMenuItem
                     title={formatMessage({
-                      id: 'crm.details.documents.menu.preview',
+                      id: 'crm.details.documents.menu.edit',
                     })}
                     onClick={() => {
-                      onPreview?.();
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'crm.details.documents.menu.send',
-                    })}
-                    onClick={() => {
-                      onSend?.();
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'crm.details.documents.menu.archive',
-                    })}
-                    onClick={() => {
-                      onArchive?.();
+                      onEdit?.();
                       onMenuClose();
                     }}
                   />
