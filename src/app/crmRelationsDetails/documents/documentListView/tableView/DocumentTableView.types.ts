@@ -3,8 +3,9 @@ import { Document } from '../../Documents.types';
 export type DocumentTableViewProps = {
   documents: Document[];
   onClick?: (id: string) => void;
-  onPreview?: VoidFunction;
-  onSend?: VoidFunction;
-  onArchive?: VoidFunction;
+  onEdit?: VoidFunction;
   onDelete?: VoidFunction;
+  selected: string[];
+  onSelectDoc: (id: string) => void;
+  onSelectAllDoc: VoidFunction;
 };

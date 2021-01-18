@@ -25,7 +25,7 @@ export const RequestInformationStep = ({ onClose, onRequestBricrData }: AddCrmRe
             <Button color="ghost" size="small" onClick={onClose}>
               {formatMessage({ id: 'common.cancel' })}
             </Button>
-            <SubmitButton type="submit" size="large" color="primary" variant="contained">
+            <SubmitButton type="submit" size="large" color="primary" variant="contained" onClick={onRequestBricrData}>
               {formatMessage({ id: 'crm.relation.add_relation.request_mybricr_data' })}
             </SubmitButton>
           </DialogActions>
