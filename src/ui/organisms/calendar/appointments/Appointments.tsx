@@ -3,11 +3,13 @@ import { Appointments as App, AppointmentsProps } from '@devexpress/dx-react-sch
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 import { ValidResourceInstance } from '@devexpress/dx-react-scheduler';
+import { Box, Typography, useTheme } from '@material-ui/core';
 
 import { DateView } from 'ui/molecules/calendar/Calandar.types';
 import { ShowMore } from 'ui/atoms/showMore/ShowMore';
 import { LockIcon, RedoIcon, ReplayIcon, UserIcon, WarningIcon } from 'ui/atoms/icons';
 import { CalendarTypes, TaskLabel } from 'api/types';
+import { useLocale } from 'hooks';
 
 import {
   AppointmentComponentProps,
@@ -85,6 +87,64 @@ const TaskLabelIcon = ({ resource, className }: { resource?: ValidResourceInstan
   return <ReplayIcon className={className} />;
 };
 
+const AppointmentWithoutTravelTime = ({ ...props }: App.AppointmentContentProps) => {
+  const theme = useTheme();
+  const { formatMessage } = useLocale();
+  const classes = useContentStyles(props.data.color);
+
+  const startDate = DateTime.fromISO(props.data.startDate as string);
+  const endDate = DateTime.fromISO(props.data.endDate as string);
+
+  return (
+    <Box>
+      {props.data.travelTimeBefore && props.data.travelTimeBefore > 0 ? (
+        <Box
+          className={classes.travelBefore}
+          style={{
+            top: -(props.data.travelTimeBefore / 30) * theme.spacing(7.5),
+            height: (props.data.travelTimeBefore / 30) * theme.spacing(7.5),
+          }}
+        >
+          <Typography variant="h6" color="textSecondary">
+            {startDate.minus({ minute: props.data.travelTimeBefore }).toLocaleString(DateTime.TIME_SIMPLE)} -{' '}
+            {startDate.toLocaleString(DateTime.TIME_SIMPLE)}
+          </Typography>
+        </Box>
+      ) : (
+        <></>
+      )}
+      <Box display="flex" justifyContent="space-between">
+        <Box>
+          <Typography variant="h5" style={{ color: props.data.color || theme.palette.gray.main }}>
+            {props.data.title || `(${formatMessage({ id: 'calendar.appointments.no_title' })})`}
+          </Typography>
+          <Box mt={0.5}>
+            <Typography variant="h6" color="textSecondary">
+              {startDate.toLocaleString(DateTime.TIME_SIMPLE)} - {endDate.toLocaleString(DateTime.TIME_SIMPLE)}
+            </Typography>
+          </Box>
+        </Box>
+        <Box className={classes.statusBox} style={{ background: props.data.color || theme.palette.gray.main }} />
+      </Box>
+      {props.data.travelTimeAfter && props.data.travelTimeAfter > 0 ? (
+        <Box
+          className={classes.travelAfter}
+          style={{
+            height: (props.data.travelAfter / 30) * theme.spacing(7.5),
+          }}
+        >
+          <Typography variant="h6" color="textSecondary">
+            {endDate.toLocaleString(DateTime.TIME_SIMPLE)} -{' '}
+            {endDate.plus({ minute: props.data.travelTimeAfter }).toLocaleString(DateTime.TIME_SIMPLE)}
+          </Typography>
+        </Box>
+      ) : (
+        <></>
+      )}
+    </Box>
+  );
+};
+
 export const AppointmentContent = ({ ...props }: App.AppointmentContentProps) => {
   const taskResource = props.resources.find(resource => resource.fieldName === 'taskLabel');
   const classes = useContentStyles(props.data.color);
@@ -96,18 +156,16 @@ export const AppointmentContent = ({ ...props }: App.AppointmentContentProps) =>
       'yyyyddmm',
     )}T080800Z;COUNT=30;INTERVAL=1;WKST=MO;BYDAY=${date.weekdayShort.toUpperCase().substring(0, 2)}`;
   }
-  const isRecurring = taskResource || props.data.rRule;
 
   props.recurringIconComponent = () => (
     <TaskLabelIcon className={taskResource ? classes.icon : classes.defaultIcon} resource={taskResource} />
   );
 
-  return (
-    <App.AppointmentContent
-      {...props}
-      className={classNames(classes.root, isRecurring ? classes.recurring : '', !taskResource && 'appointment')}
-    />
-  );
+  if (props.data.type === CalendarTypes.Travel) {
+    return <></>;
+  } else {
+    return <AppointmentWithoutTravelTime {...props} />;
+  }
 };
 
 export const Appointments = ({ view = DateView.Week, ...props }: AppointmentsProps & ViewProps) => {
