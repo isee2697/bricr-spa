@@ -192,23 +192,6 @@ export const PimDetailsSidebarMenu = ({
         ],
       },
       {
-        items: [
-          {
-            key: 'documents',
-            subItems: [
-              {
-                id: 'checklist',
-                label: 'pim_details.documents.checklist.title',
-              },
-              {
-                id: 'audit_checklist',
-                label: 'pim_details.documents.audit_checklist.title',
-              },
-            ],
-          },
-        ],
-      },
-      {
         isCollapsable: true,
         key: 'pim_details.menu.documents',
         items: [

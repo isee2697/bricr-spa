@@ -15,7 +15,6 @@ import {
   Select,
   Typography,
 } from 'ui/atoms';
-import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuContainer';
 import { EmailHeader } from '../emailHeader/EmailHeader';
 import { AddIcon, ManageIcon, SearchIcon, SettingsIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
@@ -23,6 +22,7 @@ import { EmailTable } from '../emailTable/EmailTable';
 import { InfoSection } from 'ui/molecules';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { EmailSidebarMenuContainer } from '../emailSidebarMenu/EmailSidebarMenuContainer';
 
 import { useStyles } from './InboxFolder.styles';
 import { InboxFolderProps } from './InboxFolder.types';

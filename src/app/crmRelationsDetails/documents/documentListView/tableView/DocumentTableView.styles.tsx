@@ -6,18 +6,19 @@ export const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.h5.fontSize,
     fontWeight: theme.typography.fontWeightMedium,
     borderBottom: 'none',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    padding: theme.spacing(1),
+    borderTop: `1px solid ${theme.palette.gray.light}`,
   },
   tableHeaderIcon: {
     fontSize: theme.typography.h4.fontSize,
   },
   tableCellFileName: {
     width: '45%',
+    fontSize: theme.typography.h5.fontSize,
   },
   tableCellDate: {
     width: '15%',
+    fontWeight: theme.typography.fontWeightBold,
   },
   tableCellSize: {
     width: '15%',
@@ -27,18 +28,25 @@ export const useStyles = makeStyles(theme => ({
   },
   tableRow: {
     cursor: 'pointer',
+    '& > td': {
+      border: 'none',
+      padding: theme.spacing(0.5, 1),
+    },
+    '&.striped > td': {
+      background: theme.palette.gray.light,
+    },
   },
   fileType: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
-    background: theme.palette.gray.light,
-    borderRadius: theme.spacing(0.5),
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+    background: theme.palette.white.main,
+    borderRadius: theme.spacing(50),
+    border: `1px solid ${theme.palette.gray.main}`,
     color: theme.palette.gray.main,
-    fontSize: theme.typography.h5.fontSize,
-    fontWeight: theme.typography.fontWeightBold,
+    fontSize: theme.typography.h6.fontSize,
     width: 'fit-content',
   },
   menuItem: {

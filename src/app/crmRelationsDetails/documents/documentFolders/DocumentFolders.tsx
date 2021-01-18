@@ -1,7 +1,7 @@
 import React, { useState, ReactNode, useCallback } from 'react';
-import { Typography, useTheme } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
-import { Box, Grid, Card, CardContent, Button, Avatar, Placeholder } from 'ui/atoms';
+import { Box, Grid, Card, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
@@ -9,7 +9,6 @@ import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/Dms
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType } from '../Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
-import { AddIcon, BuildingIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 
 import { useStyles } from './DocumentFolders.styles';
@@ -25,7 +24,6 @@ const documentFoldersOptions = [
 export const DocumentFolders = ({
   onSidebarOpen,
   isSidebarVisible,
-  title,
   path,
   foldersData,
   isLoading,
@@ -33,7 +31,6 @@ export const DocumentFolders = ({
   onDeleteFolder,
   onUpdateFolder,
 }: DocumentFoldersProps) => {
-  const theme = useTheme();
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
@@ -68,30 +65,11 @@ export const DocumentFolders = ({
 
   return (
     <>
-      <CrmRelationsDetailsHeader
-        onSidebarOpen={onSidebarOpen}
-        isSidebarVisible={isSidebarVisible}
-        actions={
-          <Button
-            size="small"
-            color="primary"
-            variant="contained"
-            startIcon={<AddIcon color="inherit" />}
-            onClick={handleAdd}
-          >
-            {formatMessage({ id: 'crm.details.documents.create_document' })}
-          </Button>
-        }
-      />
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
       <Page withoutHeader>
         <Grid xs={12} item>
           <Box display="flex" alignItems="center">
-            <Avatar variant="rounded" bgcolor={theme.palette.red.light} className={classes.avatarIcon}>
-              <Box color={theme.palette.red.main}>
-                <BuildingIcon color="inherit" />
-              </Box>
-            </Avatar>
-            <Typography variant="h1">{title ? title : <Placeholder variant="text" width={150} />}</Typography>
+            <Typography variant="h1">{formatMessage({ id: 'crm.details.documents.document_folders' })}</Typography>
           </Box>
         </Grid>
         <Grid item xs={12}>
@@ -143,14 +121,14 @@ export const DocumentFolders = ({
                   </Grid>
                 </Grid>
               </Box>
-
-              {selectedFolder && (
-                <Box mt={4}>
-                  <DocumentListViewContainer documents={selectedFolder.documents} path={path} />
-                </Box>
-              )}
             </CardContent>
           </Card>
+
+          {selectedFolder && (
+            <Box mt={3.5}>
+              <DocumentListViewContainer folder={selectedFolder} documents={selectedFolder.documents} path={path} />
+            </Box>
+          )}
 
           {/* show add folder dialog */}
           {dialog}

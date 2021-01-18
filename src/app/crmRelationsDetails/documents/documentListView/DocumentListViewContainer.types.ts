@@ -1,6 +1,7 @@
-import { Document } from 'app/crmRelationsDetails/documents/Documents.types';
+import { Document, DocumentFolderType } from 'app/crmRelationsDetails/documents/Documents.types';
 
 export type DocumentListViewContainerProps = {
   path: string;
+  folder: DocumentFolderType;
   documents?: Document[];
 };
