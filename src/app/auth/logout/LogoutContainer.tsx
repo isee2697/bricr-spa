@@ -16,6 +16,4 @@ export const LogoutContainer = () => {
   }, [dispatch]);
 
   return <Redirect to={AppRoute.login} />;
-
-  return <></>;
 };

@@ -25,7 +25,7 @@ module "bricr-spa" {
       "value" : "en"
     },
     { "name" : "REACT_APP_SECURITY_URL",
-      "value" : "https://staging-security.dev-domain.nl/api"
+      "value" : "https://ay1sn7qxk8.execute-api.eu-west-1.amazonaws.com/staging"
     },
     { "name" : "REACT_APP_FILE_URL",
       "value" : "https://6ey54pre9l.execute-api.eu-west-1.amazonaws.com/staging"

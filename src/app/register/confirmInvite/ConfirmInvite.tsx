@@ -3,10 +3,9 @@ import { Form } from 'react-final-form';
 
 import { Alert, Box, Button, Typography } from 'ui/atoms';
 import { WarningIcon } from 'ui/atoms/icons';
-import { DropdownField, GenericField } from 'form/fields';
+import { GenericField } from 'form/fields';
 import { useLocale } from 'hooks';
 import { PasswordArea } from 'app/register/forms/PasswordArea';
-import { BricrPlans } from 'api/types';
 
 import { ConfirmInviteProps } from './ConfirmInvite.types';
 
