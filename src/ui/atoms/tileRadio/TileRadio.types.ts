@@ -7,4 +7,5 @@ export type TileRadioProps = {
   children?: ReactNode;
   title: string;
   className?: string;
+  orientation?: 'vertical' | 'horizontal';
 };

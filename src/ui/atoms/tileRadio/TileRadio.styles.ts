@@ -71,4 +71,47 @@ export const useStyles = makeStyles(theme => ({
       backgroundImage: 'linear-gradient(#f5f8ff, #e7effd), radial-gradient(circle at top left, #9fc0ff, #0a57e9)',
     },
   },
+  card: {
+    justifyContent: 'center',
+    padding: 0,
+    height: theme.spacing(8),
+    width: '100%',
+    border: `1px solid ${theme.palette.gray.main}`,
+    '&.isDisabled': {
+      border: `2px solid ${theme.palette.gray.light}`,
+    },
+    '&.horizontal': {
+      flexWrap: 'nowrap',
+    },
+  },
+  icon: {
+    '& svg': {
+      width: theme.spacing(4.5),
+      height: theme.spacing(4.5),
+      margin: `0 ${theme.spacing(1.5)}px`,
+      color: theme.palette.gray.main,
+    },
+    '&.isSelected svg': {
+      color: theme.palette.primary.main,
+    },
+  },
+  title: {
+    flex: 1,
+    fontSize: theme.typography.h5.fontSize,
+    fontWeight: theme.typography.h5.fontWeight,
+    color: theme.palette.black.main,
+    '&.isSelected': {
+      fontWeight: theme.typography.fontWeightBold,
+    },
+    '&.isDisabled': {
+      color: theme.palette.gray.main,
+    },
+  },
+  box: {
+    width: theme.spacing(2.25),
+    height: theme.spacing(2.25),
+    margin: '3px',
+    border: `1px solid ${theme.palette.gray.main}`,
+    borderRadius: theme.spacing(50),
+  },
 }));
