@@ -7,7 +7,7 @@ export const PriorityHighIcon = (props: DefaultSvgIconProps) => {
   const theme = useTheme();
 
   return (
-    <SvgIcon width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+    <SvgIcon fill="none" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

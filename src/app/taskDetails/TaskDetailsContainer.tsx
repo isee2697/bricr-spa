@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import {
@@ -7,6 +7,7 @@ import {
   Task,
   TaskStatus,
   useAddNewSubtaskMutation,
+  useCreateTaskMutation,
   useDeleteSubtaskMutation,
   useGetMyTeamMembersQuery,
   useGetTaskQuery,
@@ -16,16 +17,19 @@ import {
 import { Alert, Loader, NavBreadcrumb, Snackbar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { TaskDetails } from './TaskDetails';
 import { useStyles } from './TaskDetails.style';
 import { TaskLabelIcon } from './taskLabelIcon/TaskLabelIcon';
+import { FollowUpTaskBody } from './TaskDetails.types';
 
 export const TaskDetailsContainer = () => {
   const { user } = useAuthState();
   const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
   const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery();
   const classes = useStyles();
+  const { push } = useHistory();
 
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
@@ -51,6 +55,7 @@ export const TaskDetailsContainer = () => {
     </>
   );
 
+  const [createTask] = useCreateTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
   const [addNewSubtask] = useAddNewSubtaskMutation();
   const [updateSubtaskStatus] = useUpdateSubtaskStatusMutation();
@@ -78,6 +83,22 @@ export const TaskDetailsContainer = () => {
       setIndicatorState('error');
     } else {
       setIndicatorState('success');
+    }
+  };
+
+  const handleFollowUpTask = async (taskDetails: FollowUpTaskBody) => {
+    const { data: result, errors } = await createTask({
+      variables: {
+        input: {
+          ...taskDetails,
+        },
+      },
+    });
+
+    if (!result || !result.createTask || errors) {
+      setIndicatorState('error');
+    } else {
+      push(joinUrlParams(AppRoute.taskDetails, { id: result.createTask.id }));
     }
   };
 
@@ -158,6 +179,7 @@ export const TaskDetailsContainer = () => {
       <TaskDetails
         taskData={taskData.getTask}
         breadcrumbs={breadcrumbs}
+        onFollowUpTask={handleFollowUpTask}
         onUpdateTask={handleUpdateTask}
         onAddNewSubtask={handleAddNewSubtask}
         onUpdateSubtaskStatus={handleUpdateSubtaskStatus}
