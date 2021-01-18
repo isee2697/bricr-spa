@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Checkbox, Typography, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { TasksIcon, UserIcon, BuildingIcon, HistoryIcon, StatusIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import { TasksIcon, BuildingIcon, HistoryIcon, StatusIcon, ArrowDownIcon, ArrowUpIcon, CrmIcon } from 'ui/atoms/icons';
 import { TasksStatusBadge } from '../tasksStatusBadge/TasksStatusBadge';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -32,16 +32,26 @@ export const TasksList = ({ tasks }: TasksListProps) => {
       icon: TasksIcon,
     },
     {
+      id: 'pim',
+      disablePadding: true,
+      label: formatMessage({ id: 'tasks.list.pim' }),
+      icon: BuildingIcon,
+    },
+    {
+      id: 'crm',
+      disablePadding: true,
+      label: formatMessage({ id: 'tasks.list.crm' }),
+      icon: CrmIcon,
+    },
+    {
       id: 'assign',
       disablePadding: true,
       label: formatMessage({ id: 'tasks.list.assign' }),
-      icon: UserIcon,
     },
     {
       id: 'number',
       disablePadding: true,
       label: formatMessage({ id: 'tasks.list.number' }),
-      icon: BuildingIcon,
     },
     {
       id: 'deadline',
@@ -122,6 +132,8 @@ export const TasksList = ({ tasks }: TasksListProps) => {
               <TableCell component="th" id={labelId} scope="row" padding="none">
                 {title}
               </TableCell>
+              <TableCell>Weerschijnvlinder 8</TableCell>
+              <TableCell>Brigitta Schultz</TableCell>
               <TableCell>
                 <UserAvatar
                   name={assigneeDetail ? `${assigneeDetail.firstName} ${assigneeDetail.lastName}` : 'User'}

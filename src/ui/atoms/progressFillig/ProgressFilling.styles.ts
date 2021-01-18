@@ -1,14 +1,17 @@
-import { styled } from '@material-ui/core/styles';
+import { styled, Theme } from '@material-ui/core/styles';
 
-export const ProgressFilling = styled('div')(({ theme }) => ({
-  maxWidth: theme.spacing(13.25),
+export const ProgressFilling = styled('div')(({ theme, fullWidth }: { theme: Theme; fullWidth: boolean }) => ({
+  maxWidth: fullWidth ? 'unset' : theme.spacing(13.25),
+  width: '100%',
   display: 'inline-flex',
   borderRadius: theme.spacing(0.5),
   height: theme.spacing(1),
   overflow: 'hidden',
+
   '& div': {
-    width: theme.spacing(2),
+    width: fullWidth ? `calc(100% / 6)` : theme.spacing(2),
     height: '100%',
+
     '&:not(:last-child)': {
       marginRight: theme.spacing(0.25),
     },

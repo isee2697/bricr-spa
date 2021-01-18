@@ -82,23 +82,16 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
         ],
       },
       {
+        isCollapsable: true,
+        key: 'pim_details.menu.documents',
         items: [
           {
-            key: 'documents',
-            showArrowIcon: true,
-            subItems: [
-              {
-                id: 'folders',
-                label: 'crm.details.menu.documents.folders',
-              },
-              {
-                id: 'checklist',
-                label: 'crm.details.menu.documents.checklist',
-              },
-            ],
+            key: 'documents/folders',
+            title: formatMessage({ id: 'crm.details.menu.documents.folders' }),
           },
           {
-            key: 'orders',
+            key: 'documents/checklist',
+            title: formatMessage({ id: 'crm.details.menu.documents.checklist' }),
           },
         ],
       },

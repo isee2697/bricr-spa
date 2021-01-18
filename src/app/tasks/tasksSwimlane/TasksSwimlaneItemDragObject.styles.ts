@@ -1,28 +1,25 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
+  wrapper: {
+    position: 'fixed',
+    pointerEvents: 'none',
+    zIndex: 1200,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+  },
   root: {
     marginBottom: theme.spacing(1),
     backgroundColor: theme.palette.white.main,
     cursor: 'pointer',
-
-    '&:hover': {
-      background: theme.palette.gradientBlue.light,
-    },
-
-    '&.dragging': {
-      display: 'none',
-    },
-  },
-  card: {
-    padding: theme.spacing(2),
-
-    '&:last-child': {
-      padding: theme.spacing(2),
-    },
+    width: `calc(25% - ${theme.spacing(8)}px)`,
+    border: `1px solid ${theme.palette.primary.main}`,
   },
   expireInfo: {
     color: theme.palette.gray.main,
+    marginBottom: theme.spacing(1),
 
     '&.overdue': {
       color: theme.palette.error.main,
@@ -41,6 +38,8 @@ export const useStyles = makeStyles(theme => ({
   },
   taskLockedIcon: {
     verticalAlign: 'middle',
+    width: theme.spacing(2),
+    height: theme.spacing(2),
   },
   priorityIcon: {
     verticalAlign: 'middle',

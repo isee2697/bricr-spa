@@ -50,7 +50,13 @@ export const DocumentPreviousVersions = ({ documents }: DocumentPreviousVersions
             </Select>
           </Box>
           <Box mt={4}>
-            <DocumentTableView documents={documents || []} onClick={handleNavigateDetail} />
+            <DocumentTableView
+              documents={documents || []}
+              onClick={handleNavigateDetail}
+              selected={[]}
+              onSelectDoc={() => {}}
+              onSelectAllDoc={() => {}}
+            />
           </Box>
         </CardContent>
       </Card>

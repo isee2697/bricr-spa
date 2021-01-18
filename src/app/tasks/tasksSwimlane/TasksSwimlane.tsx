@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 import { Grid } from 'ui/atoms';
 import { Task, TaskStatus } from 'api/types';
@@ -8,6 +8,7 @@ import { Task, TaskStatus } from 'api/types';
 import { TasksSwimlaneColumn } from './TasksSwimlaneColumn';
 import { useStyles } from './TasksSwimlane.styles';
 import { GroupTaskItem, GroupTasks, TasksSwimlaneProps } from './TasksSwimlane.types';
+import { TasksSwimlaneItemDragObject } from './TasksSwimlaneItemDragObject';
 
 export const TasksSwimlane = ({
   tab,
@@ -42,7 +43,8 @@ export const TasksSwimlane = ({
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+      <TasksSwimlaneItemDragObject />
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={3}>
           <TasksSwimlaneColumn
