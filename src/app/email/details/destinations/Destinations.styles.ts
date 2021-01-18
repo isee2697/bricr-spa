@@ -20,6 +20,9 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.25, 1.75),
     top: 0,
   },
+  fontWeightBold: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
   fontWeightMedium: {
     fontWeight: theme.typography.fontWeightMedium,
   },
@@ -70,5 +73,33 @@ export const useStyles = makeStyles(theme => ({
   },
   highlight: {
     color: theme.palette.red.main,
+  },
+  badge: {
+    '& .MuiBadge-badge': {
+      minWidth: theme.spacing(1),
+      padding: theme.spacing(0.25, 0.5, 0, 0.5),
+      height: theme.spacing(2),
+      textAlign: 'center',
+      borderRadius: theme.spacing(1),
+      background: theme.palette.primary.main,
+      color: theme.palette.white.main,
+    },
+  },
+  badgeCount: {
+    width: 'auto',
+  },
+  menuItem: {
+    padding: 0,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    borderBottom: `2px solid ${theme.palette.gray.light}`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    '&.red': {
+      color: theme.palette.error.main,
+    },
   },
 }));
