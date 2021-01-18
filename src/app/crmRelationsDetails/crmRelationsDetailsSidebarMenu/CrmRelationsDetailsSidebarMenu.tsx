@@ -6,7 +6,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';
 import { SidebarTitleTile, UserAvatar } from 'ui/atoms';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
-import { CRM_RELATIONS } from 'api/mocks/crm-relation';
+import { ClockIcon, DocIcon, GraphArrowIcon, NcRentIcon } from 'ui/atoms/icons';
 
 import { CrmRelationsDetailsSidebarMenuProps } from './CrmRelationsDetailsSidebarMenu.types';
 
@@ -14,7 +14,7 @@ const getBackUrl = (routeParams: Record<string, string>) => {
   return AppRoute.crm;
 };
 
-export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelationsDetailsSidebarMenuProps) => {
+export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRelationsDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const params = useParams();
@@ -28,11 +28,10 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
     groups: [
       {
         items: [
-          { key: 'dashboard' },
-          { key: 'timeline' },
-          { key: 'summary' },
+          { key: 'dashboard', icon: <GraphArrowIcon /> },
           {
             key: 'customer_journey',
+            icon: <NcRentIcon />,
             subItems: [
               {
                 id: 'your_new_home',
@@ -40,6 +39,8 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
               },
             ],
           },
+          { key: 'summary', icon: <DocIcon /> },
+          { key: 'timeline', icon: <ClockIcon /> },
         ],
       },
       {
@@ -58,6 +59,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
         items: [
           {
             key: 'sales',
+            showArrowIcon: true,
             subItems: [
               {
                 id: 'acquisition',
@@ -106,7 +108,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
     ],
   };
 
-  const selectedCrmRelation = CRM_RELATIONS[0];
+  const title = crm.firstName + (crm.insertion ? ` ${crm.insertion} ` : ' ') + crm.lastName;
 
   return (
     <SidebarMenu
@@ -116,10 +118,14 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible }: CrmRelatio
       menu={menu}
       menuTitle={
         <SidebarTitleTile
-          title={selectedCrmRelation.property}
+          title={title}
           subtitle={formatMessage({ id: 'crm.relation' })}
           icon={
-            <UserAvatar name={selectedCrmRelation.property} avatar={selectedCrmRelation.avatar} variant="rounded" />
+            <UserAvatar
+              name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
+              avatar={crm.avatar?.url || ''}
+              variant="rounded"
+            />
           }
         />
       }

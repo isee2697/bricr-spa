@@ -115,6 +115,10 @@ export const SidebarMenu = ({
       return;
     }
 
+    if (item.showArrowIcon) {
+      return itemSelected(item) ? <ArrowDownIcon /> : <ArrowRightIcon />;
+    }
+
     return item.icon ? item.icon : <SaleIcon />;
   };
 
