@@ -26,6 +26,8 @@ export const RESET_PASSWORD = gql`
 
 export const VERIFY_USER = gql`
   mutation VerifyUser($input: VerifyUserInput!) {
-    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default")
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default") {
+      status
+    }
   }
 `;

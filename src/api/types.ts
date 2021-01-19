@@ -56,6 +56,17 @@ export type ForgotPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
+export type VerifiyCognito = {
+  __typename?: 'VerifiyCognito';
+  status: Scalars['String'];
+};
+
+export type VerifyUserResponse = {
+  __typename?: 'VerifyUserResponse';
+  error?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+};
+
 export type ResetPasswordInput = {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -253,7 +264,7 @@ export type Mutation = {
   updateWorkflowAction: WorkflowAction;
   updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
-  verifyUser?: Maybe<Scalars['String']>;
+  verifyUser?: Maybe<VerifyUserResponse>;
 };
 
 export type MutationAddAllocationCriteriaArgs = {
@@ -8287,7 +8298,9 @@ export type VerifyUserMutationVariables = Exact<{
   input: VerifyUserInput;
 }>;
 
-export type VerifyUserMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'verifyUser'>;
+export type VerifyUserMutation = { __typename?: 'Mutation' } & {
+  verifyUser?: Maybe<{ __typename?: 'VerifyUserResponse' } & Pick<VerifyUserResponse, 'status'>>;
+};
 
 export type BulkMutationVariables = Exact<{
   input: BulkOperationInput;
@@ -13327,7 +13340,9 @@ export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions
 >;
 export const VerifyUserDocument = gql`
   mutation VerifyUser($input: VerifyUserInput!) {
-    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default")
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default") {
+      status
+    }
   }
 `;
 export function useVerifyUserMutation(

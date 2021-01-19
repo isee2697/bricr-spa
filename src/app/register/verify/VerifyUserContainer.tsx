@@ -32,7 +32,7 @@ export const VerifyUserContainer = () => {
         },
       });
 
-      if (verified && verified.data === 'verified') {
+      if (verified && verified.data?.verifyUser?.status === 'verified') {
         skipSetup ? push(AppRoute.login) : push(AppRoute.setup, { email: emailValue, name: nameValue });
       }
     } catch (e) {
