@@ -4,19 +4,6 @@ input LoginInput {
   username: String!
   password: String!
 }
-type AuthResult {
-  AccessToken: String!
-  RefreshToken: String!
-  IdToken: String!
-}
-
-type AuthenticationResult {
-  AuthenticationResult: AuthResult!
-}
-
-type LoginResponse {
-  AuthenticationResult: String!
-}
 
 input ForgotPasswordInput {
   username: String!
@@ -27,14 +14,22 @@ type ForgotPasswordResponse {
   stack: String
 }
 
-type VerifiyCognito {
-  status: String!
-}
 
 type VerifyUserResponse {
   error: String
   status: String!
 }
+
+type AuthenticationResult {
+  AccessToken: String!
+  RefreshToken: String!
+}
+
+type LoginResponse {
+  error: String
+  AuthenticationResult: AuthenticationResult!
+}
+
 
 input ResetPasswordInput {
   password: String!
@@ -56,7 +51,7 @@ input VerifyUserInput {
 
 extend type Mutation {
   #REST don't remove
-  login(input: LoginInput): String
+  login(input: LoginInput): LoginResponse
   forgotPassword(input: ForgotPasswordInput): ForgotPasswordResponse
   resetPassword(input: ResetPasswordInput): ResetPasswordResponse
   verifyUser(input: VerifyUserInput): VerifyUserResponse

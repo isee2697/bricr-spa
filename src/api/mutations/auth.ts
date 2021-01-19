@@ -2,7 +2,13 @@ import { gql } from 'apollo-boost';
 
 export const LOGIN = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default")
+    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default") {
+      error
+      AuthenticationResult {
+        AccessToken
+        RefreshToken
+      }
+    }
   }
 `;
 
