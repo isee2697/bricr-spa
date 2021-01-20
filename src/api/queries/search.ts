@@ -62,6 +62,48 @@ export const ADVANCED_SEARCH = gql`
         state
         country
         county
+        propertyType
+      }
+      ncps {
+        id
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        logoPicture {
+          url
+        }
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        soldNumber
+        rentNumber
+        completeness
+        available
+        underOption
+        soldOrRent
+        matches
+        interests
+        candidates
+        optants
+        properties
+        objectTypesCount
+        attentionNote
+        projectType
       }
       teams {
         id
@@ -69,6 +111,18 @@ export const ADVANCED_SEARCH = gql`
         profileMembers {
           id
         }
+      }
+      sales {
+        id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }

@@ -7389,7 +7389,7 @@ export type Sales = {
   status: SalesStatus;
   createdAt: Scalars['Date'];
   updatedAt: Scalars['Date'];
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   type: SalesType;
   extraInfo?: Maybe<Scalars['String']>;
   attentionNote?: Maybe<Scalars['String']>;
@@ -7688,6 +7688,8 @@ export type AdvancedSearchResult = {
   crms?: Maybe<Array<CrmListItem>>;
   pims?: Maybe<Array<Pim>>;
   teams?: Maybe<Array<Team>>;
+  ncps?: Maybe<Array<ListNcp>>;
+  sales?: Maybe<Array<Sales>>;
 };
 
 export type AdvancedSearchInput = {
@@ -13085,8 +13087,52 @@ export type AdvancedSearchQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Pim' } & Pick<
             Pim,
-            'id' | 'street' | 'houseNumber' | 'district' | 'city' | 'state' | 'country' | 'county'
+            'id' | 'street' | 'houseNumber' | 'district' | 'city' | 'state' | 'country' | 'county' | 'propertyType'
           >
+        >
+      >;
+      ncps?: Maybe<
+        Array<
+          { __typename?: 'ListNcp' } & Pick<
+            ListNcp,
+            | 'id'
+            | 'dateCreated'
+            | 'dateUpdated'
+            | 'archived'
+            | 'areaRangeFrom'
+            | 'areaRangeTo'
+            | 'numberOfRoomsFrom'
+            | 'numberOfRoomsTo'
+            | 'name'
+            | 'salePriceFrom'
+            | 'salePriceTo'
+            | 'rentPriceFrom'
+            | 'rentPriceTo'
+            | 'saleLabel'
+            | 'rentLabel'
+            | 'partOfPhase'
+            | 'soldNumber'
+            | 'rentNumber'
+            | 'completeness'
+            | 'available'
+            | 'underOption'
+            | 'soldOrRent'
+            | 'matches'
+            | 'interests'
+            | 'candidates'
+            | 'optants'
+            | 'properties'
+            | 'objectTypesCount'
+            | 'attentionNote'
+            | 'projectType'
+          > & {
+              logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+              mainPicture?: Maybe<
+                { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                    file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                  }
+              >;
+            }
         >
       >;
       teams?: Maybe<
@@ -13094,6 +13140,23 @@ export type AdvancedSearchQuery = { __typename?: 'Query' } & {
           { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
               profileMembers?: Maybe<Array<{ __typename?: 'TeamMember' } & Pick<TeamMember, 'id'>>>;
             }
+        >
+      >;
+      sales?: Maybe<
+        Array<
+          { __typename?: 'Sales' } & Pick<
+            Sales,
+            | 'id'
+            | 'label'
+            | 'status'
+            | 'createdAt'
+            | 'updatedAt'
+            | 'name'
+            | 'type'
+            | 'extraInfo'
+            | 'attentionNote'
+            | 'date'
+          >
         >
       >;
     }
@@ -22044,6 +22107,48 @@ export const AdvancedSearchDocument = gql`
         state
         country
         county
+        propertyType
+      }
+      ncps {
+        id
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        logoPicture {
+          url
+        }
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        soldNumber
+        rentNumber
+        completeness
+        available
+        underOption
+        soldOrRent
+        matches
+        interests
+        candidates
+        optants
+        properties
+        objectTypesCount
+        attentionNote
+        projectType
       }
       teams {
         id
@@ -22051,6 +22156,18 @@ export const AdvancedSearchDocument = gql`
         profileMembers {
           id
         }
+      }
+      sales {
+        id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }
