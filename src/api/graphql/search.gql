@@ -4,6 +4,8 @@ type AdvancedSearchResult {
   crms: [CrmListItem!]
   pims: [Pim!]
   teams: [Team!]
+  ncps: [ListNcp!]
+  sales: [Sales!]
 }
 
 input AdvancedSearchInput {

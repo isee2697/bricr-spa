@@ -27,5 +27,13 @@ export const useStyles = makeStyles(theme => ({
     '& ~ div': {
       display: 'none',
     },
+
+    '& > button': {
+      opacity: 0,
+    },
+
+    '&:hover > button': {
+      opacity: 1,
+    },
   },
 }));

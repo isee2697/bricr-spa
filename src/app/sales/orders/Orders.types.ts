@@ -13,6 +13,8 @@ export type OrdersProps = {
   onChangeStatus: (status: SalesStatus) => void;
   onChangeSortType: (sortType: string) => void;
   orders: Sales[];
+  viewMode: 'list' | 'table';
+  onViewModeChange: (viewMode: 'list' | 'table') => void;
 };
 
 export enum OrdersTabStatus {

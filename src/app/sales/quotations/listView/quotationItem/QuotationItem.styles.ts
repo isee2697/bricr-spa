@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-import { QuotationsTabStatus } from '../Quotations.types';
+import { QuotationsTabStatus } from '../../Quotations.types';
 
 import { QuotationItemProps } from './QuotationItem.types';
 

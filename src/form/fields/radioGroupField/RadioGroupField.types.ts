@@ -37,6 +37,7 @@ export type RadioGroupFieldProps = {
   onChange?: (item: RadioDataType) => void;
   classes?: RadioGroupFieldClasses;
   optionType?: 'tile' | 'checkbox';
+  orientation?: 'vertical' | 'horizontal';
 } & Pick<UseFieldConfig<string>, 'format'>;
 
 export type RadioGroupFieldStylesProps = {

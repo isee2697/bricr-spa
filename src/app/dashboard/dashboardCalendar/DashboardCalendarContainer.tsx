@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppointmentSearch, useListCalendarQuery } from 'api/types';
+import { AppointmentSearch, useListCalendarLazyQuery } from 'api/types';
 import { useNylasAccountState } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -10,21 +10,38 @@ import { DashboardCalendar } from './DashboardCalendar';
 export const DashboardCalendarContainer = () => {
   const { push } = useHistory();
   const { calendarAccounts: nylasAccounts } = useNylasAccountState();
+  const [listCalendar, { data: agenda, loading }] = useListCalendarLazyQuery({ fetchPolicy: 'no-cache' });
+  const [searchParams, setSearchParams] = useState<AppointmentSearch>();
 
-  const searchParams: AppointmentSearch = useMemo(
-    () => ({
-      accountId: nylasAccounts?.[0]?.id || '',
-      startDate: new Date().toLocaleDateString(),
-      endDate: new Date(Date.now() + 3 * 24 * 3600 * 1000).toLocaleDateString(),
-    }),
-    [nylasAccounts],
-  );
-  const { data: agenda } = useListCalendarQuery({
-    variables: {
-      input: searchParams,
-    },
-    fetchPolicy: 'no-cache',
-  });
+  useEffect(() => {
+    if (nylasAccounts.length) {
+      const startDay = new Date();
+      const endDay = new Date();
+      endDay.setDate(endDay.getDate() + 3);
+
+      setSearchParams({
+        accountId: nylasAccounts[0].id || '',
+        startDate: startDay.toLocaleDateString(),
+        endDate: endDay.toLocaleDateString(),
+      });
+    }
+  }, [nylasAccounts]);
+
+  useEffect(() => {
+    const getAppointments = async () => {
+      if (nylasAccounts.length && searchParams) {
+        listCalendar({
+          variables: {
+            input: searchParams,
+          },
+        });
+      }
+    };
+
+    if (nylasAccounts.length) {
+      getAppointments();
+    }
+  }, [searchParams, nylasAccounts.length, listCalendar]);
 
   const data =
     agenda?.listCalendar?.map(item => ({
@@ -34,5 +51,5 @@ export const DashboardCalendarContainer = () => {
       title: item.title || '',
     })) || [];
 
-  return <DashboardCalendar onMoreClick={() => push(AppRoute.calendar)} data={data} />;
+  return <DashboardCalendar onMoreClick={() => push(AppRoute.calendar)} data={data} loading={loading} />;
 };
