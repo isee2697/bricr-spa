@@ -7,4 +7,8 @@ export const useStyles = makeStyles(theme => ({
       borderBottom: 0,
     },
   },
+  badge: {
+    right: -theme.spacing(1),
+    top: theme.spacing(1),
+  },
 }));

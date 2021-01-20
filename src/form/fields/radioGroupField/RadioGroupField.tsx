@@ -28,6 +28,7 @@ export const RadioGroupField = ({
   justify,
   onChange,
   classes: propsClasses,
+  orientation,
 }: RadioGroupFieldProps) => {
   const { formatMessage } = useLocale();
   const { input, meta } = useField<string>(name, {
@@ -77,6 +78,7 @@ export const RadioGroupField = ({
                 title={item.isCustom ? item.label : formatMessage({ id: item.label })}
                 isDisabled={disabled}
                 className={propsClasses?.option}
+                orientation={orientation}
               >
                 {item.icon}
               </TileRadio>

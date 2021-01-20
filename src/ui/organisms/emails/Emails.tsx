@@ -1,30 +1,46 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 
-import { Card, CardHeader, CardContent, CardActions, IconButton, Button, Typography } from '../../atoms';
-import { AddIcon } from 'ui/atoms/icons/add/AddIcon';
+import { Card, CardHeader, CardContent, CardActions, Button, Typography, Placeholder, Box, Badge } from '../../atoms';
 import { Email } from 'ui/molecules/email/Email';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './Emails.styles';
 import { EmailsProps, EmailItem } from './Emails.types';
+import { EmailDashboardFiltersButton } from './filters/FiltersButton';
 
-export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: EmailsProps) => {
+export const Emails = ({ data, onEmailClick, onMoreClick, loading, activeFilters, onFilter }: EmailsProps) => {
+  const theme = useTheme();
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
     <Card>
       <CardHeader
-        title={formatMessage({ id: 'emails.title' })}
-        action={
-          <IconButton aria-label="add" color="primary" size="small" onClick={onAddClick}>
-            <AddIcon color="inherit" />
-          </IconButton>
+        title={
+          <Badge badgeContent={data.length} color="secondary" classes={{ badge: classes.badge }}>
+            <Typography variant="h2">{formatMessage({ id: 'emails.title' })}</Typography>
+          </Badge>
         }
+        action={<EmailDashboardFiltersButton data={activeFilters} getActiveFilters={onFilter} />}
       />
       <CardContent className={classes.card}>
-        {data.length ? (
+        {loading ? (
+          <Box mt={2}>
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+            <Box mt={1.5} />
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+            <Box mt={1.5} />
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+          </Box>
+        ) : data.length ? (
           data.map((email: EmailItem) => (
             <Email
               name={email.name}
@@ -56,7 +72,7 @@ export const Emails = ({ data, onEmailClick, count, onAddClick, onMoreClick }: E
       </CardContent>
       <CardActions>
         <Button fullWidth onClick={onMoreClick}>
-          {formatMessage({ id: 'emails.view_more' })} ({count})
+          {formatMessage({ id: 'emails.view_all_emails' })}
         </Button>
       </CardActions>
     </Card>
