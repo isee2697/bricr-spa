@@ -20,7 +20,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { ListIcon, LocationIcon } from 'ui/atoms/icons';
+import { ListIcon, LocationIcon, HamburgerIcon } from 'ui/atoms/icons';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
@@ -80,7 +80,7 @@ export const PimList = ({
                 </Box>
                 <Box mr={2}>
                   <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
-                    <ListIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                    <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
                   </IconButton>
                 </Box>
                 <Box mr={2}>
