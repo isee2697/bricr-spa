@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { AdvancedSearchResult } from 'api/types';
 
 export type SearchProps = {
@@ -10,4 +12,5 @@ export type FormattedAdvancedSearchResult = {
   subline?: string;
   date?: Date;
   type: string;
+  icon?: ReactNode;
 };

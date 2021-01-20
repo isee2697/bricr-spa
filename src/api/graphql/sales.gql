@@ -4,7 +4,7 @@ type Sales {
   status: SalesStatus!
   createdAt: Date!
   updatedAt: Date!
-  name: String!
+  name: String
   type: SalesType!
   extraInfo: String
   attentionNote: String
