@@ -47,6 +47,7 @@ export const PimList = ({
   const { push } = useHistory();
 
   const [selected, setSelected] = useState<string[]>([]);
+  const [sort, setSort] = useState(sorting.sortOptions.length > 0 ? sorting.sortOptions[0].key : '');
 
   const handleSelectItem = (itemId: string) => {
     const index = selected.findIndex(id => id === itemId);
@@ -109,14 +110,18 @@ export const PimList = ({
                 label={formatMessage({ id: 'common.select_all' })}
               />
               <Select
-                variant="outlined"
-                value={sorting.sortOptions[0]}
                 className={classNames(classes.sort, 'sort-select')}
-                onSelect={() => {}}
+                variant="outlined"
+                value={sort}
+                onChange={event => {
+                  const value = event?.target.value as string;
+                  setSort(value);
+                  sorting.onSort(value);
+                }}
               >
-                {sorting.sortOptions.map(option => (
-                  <MenuItem key={option.key} value={option.key}>
-                    {formatMessage({ id: `pim.list.sort_options.${option.name}` })}
+                {sorting.sortOptions.map(({ key, name }) => (
+                  <MenuItem key={key} value={key}>
+                    {formatMessage({ id: `pim.list.sort_options.${name}` })}
                   </MenuItem>
                 ))}
               </Select>
