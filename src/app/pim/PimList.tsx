@@ -101,6 +101,7 @@ export const PimList = ({
                 control={
                   <Checkbox
                     color="primary"
+                    className="list-select-all"
                     checked={selected.length === listData?.listPims?.items?.length}
                     onClick={handleSelectAllItems}
                   />
