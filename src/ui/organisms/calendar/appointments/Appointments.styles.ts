@@ -4,6 +4,11 @@ import { palette } from 'theme/palette';
 
 export const useStyles = (color: string = palette.blue.main) =>
   makeStyles(({ spacing, typography, palette }) => ({
+    containerRoot: {
+      '&:hover': {
+        zIndex: 100,
+      },
+    },
     root: {
       backgroundColor: palette.gray.light,
       boxSizing: 'border-box',
@@ -14,6 +19,7 @@ export const useStyles = (color: string = palette.blue.main) =>
 
       '&:hover': {
         backgroundColor: palette.gray.light,
+        zIndex: 100,
       },
     },
     allDay: {
@@ -58,23 +64,6 @@ export const useStyles = (color: string = palette.blue.main) =>
 
 export const useContentStyles = (color: string = palette.blue.main) =>
   makeStyles(({ typography, spacing }) => ({
-    root: {
-      color: palette.black.main,
-
-      '& > div:first-child': {
-        fontWeight: typography.fontWeightRegular,
-      },
-    },
-    recurring: {
-      flexDirection: 'row-reverse',
-      '& > div:first-child': {
-        width: `calc(100% - ${spacing(3)}px)`,
-      },
-      '& > div:last-child': {
-        width: spacing(3),
-        height: spacing(3),
-      },
-    },
     defaultIcon: {
       position: 'absolute',
       top: spacing(1),
@@ -100,7 +89,7 @@ export const useContentStyles = (color: string = palette.blue.main) =>
     },
     travelBefore: {
       position: 'absolute',
-      background: palette.warmgray.main,
+      background: palette.warmgray.light,
       width: '100%',
       left: 0,
       borderTopLeftRadius: spacing(0.5),
@@ -109,12 +98,27 @@ export const useContentStyles = (color: string = palette.blue.main) =>
     },
     travelAfter: {
       position: 'absolute',
-      bottom: -spacing(2),
-      background: palette.warmgray.main,
+      bottom: -spacing(3),
+      background: palette.warmgray.light,
       width: '100%',
       left: 0,
       borderBottomLeftRadius: spacing(0.5),
       borderBottomRightRadius: spacing(0.5),
       padding: spacing(0.5, 1),
+    },
+    statusIcon: {
+      padding: spacing(0.5),
+      width: spacing(4),
+      height: spacing(4),
+      borderRadius: spacing(1),
+      color: palette.white.main,
+      background: palette.gray.main,
+    },
+    invitedPerson: {
+      padding: spacing(1),
+      borderRadius: spacing(1),
+      border: `1px solid ${palette.warmgray.light}`,
+      background: palette.white.main,
+      fontWeight: typography.fontWeightBold,
     },
   }))();
