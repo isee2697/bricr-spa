@@ -1952,6 +1952,12 @@ export enum CrmIdentificationNumberType {
   Custom = 'Custom',
 }
 
+export enum CrmStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
@@ -1974,6 +1980,7 @@ export type CrmGeneral = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type CrmIdentificationNumber = {
@@ -2019,6 +2026,7 @@ export type UpdateCrmGeneralInput = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export enum CurrentHomeSituationType {
@@ -2083,6 +2091,7 @@ export type CrmListItem = {
   phoneNumber?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type EmailAndName = {
@@ -8446,6 +8455,7 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -10039,6 +10049,7 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -10076,7 +10087,7 @@ export type CrmListQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'CrmListItem' } & Pick<
         CrmListItem,
-        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
       > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
     >
   >;
@@ -13666,6 +13677,7 @@ export const UpdateCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -17457,6 +17469,7 @@ export const GetCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -17526,6 +17539,7 @@ export const CrmListDocument = gql`
       avatar {
         url
       }
+      status
     }
   }
 `;

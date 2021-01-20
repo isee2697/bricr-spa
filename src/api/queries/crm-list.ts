@@ -13,6 +13,7 @@ export const CRM_LIST = gql`
       avatar {
         url
       }
+      status
     }
   }
 `;

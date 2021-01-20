@@ -8,6 +8,7 @@ type CrmListItem {
   phoneNumber: String
   email: String
   avatar: File
+  status: CrmStatus
 }
 
 extend type Query {
