@@ -20,6 +20,7 @@ import {
 } from 'ui/atoms';
 import { CheckIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import { SalesQuotationProfile, SalesQuotationStep } from '../../Quotations.types';
 
 import { QuotationItemProps } from './QuotationItem.types';
 import { useStyles } from './QuotationItem.styles';
@@ -91,7 +92,7 @@ export const QuotationItem = (props: QuotationItemProps) => {
                   connector={<StatusStepConnector />}
                   className={classes.stepper}
                 >
-                  {steps?.map((step, index) => (
+                  {steps?.map((step: SalesQuotationStep, index: number) => (
                     <Step className={clsx(classes.step, step.status)}>
                       <StepLabel
                         optional={
@@ -135,7 +136,7 @@ export const QuotationItem = (props: QuotationItemProps) => {
             <Grid item xs={4}>
               <Box mb={3.75}>
                 {partners.length === 0 && <Typography variant="h6">-</Typography>}
-                {partners.map((partner, partnerIndex) => (
+                {partners.map((partner: SalesQuotationProfile, partnerIndex: number) => (
                   <Box key={partnerIndex} mt={1}>
                     <PersonChip name={partner.name} image={partner.image} />
                   </Box>
@@ -146,7 +147,7 @@ export const QuotationItem = (props: QuotationItemProps) => {
                   {formatMessage({ id: 'sales.quotations.account_managers' })}
                 </Typography>
                 <Box display="flex" alignItems="center">
-                  {accountManagers.map((accountManager, accountManagerIndex) => (
+                  {accountManagers.map((accountManager: SalesQuotationProfile, accountManagerIndex: number) => (
                     <Box mr={0.5} mb={0.5} key={accountManagerIndex}>
                       <UserAvatar name={accountManager.name} variant="circle" avatar={accountManager.image} />
                     </Box>

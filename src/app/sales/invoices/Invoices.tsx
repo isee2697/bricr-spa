@@ -7,18 +7,35 @@ import { useEntityType } from 'app/shared/entityType';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { SalesHeader } from '../salesHeader/SalesHeader';
-import { AddIcon, ManageIcon, MenuIcon, SearchIcon, SettingsIcon } from 'ui/atoms/icons';
+import {
+  AddIcon,
+  HamburgerIcon,
+  ListIcon,
+  LocationIcon,
+  ManageIcon,
+  MenuIcon,
+  SearchIcon,
+  SettingsIcon,
+} from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
-import { SortOption } from 'ui/molecules/list/List.types';
+import { ActionTabs } from 'ui/molecules';
 import { InvoicesStatus } from 'app/crmRelationsDetails/sales/invoices/Invoices.types';
 import { SalesItemType, SalesOrderType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 
 import { InvoicesProps } from './Invoices.types';
 import { useStyles } from './Invoices.styles';
-import { InvoiceItem } from './invoiceItem/InvoiceItem';
+import { ListView } from './listView/ListView';
+import { TableView } from './tableView/TableView';
 
-export const Invoices = ({ onSidebarOpen, isSidebarVisible, status, onChangeStatus, invoices }: InvoicesProps) => {
+export const Invoices = ({
+  onSidebarOpen,
+  isSidebarVisible,
+  status,
+  onChangeStatus,
+  invoices,
+  viewMode,
+  onViewModeChange,
+}: InvoicesProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -70,13 +87,6 @@ export const Invoices = ({ onSidebarOpen, isSidebarVisible, status, onChangeStat
     },
   ];
 
-  const sortOptions: SortOption[] = [
-    {
-      name: formatMessage({ id: 'common.sort_options.last_edited' }),
-      key: 'lastEdited',
-    },
-  ];
-
   return (
     <>
       <NavBreadcrumb
@@ -120,30 +130,39 @@ export const Invoices = ({ onSidebarOpen, isSidebarVisible, status, onChangeStat
             <CardHeader
               title={formatMessage({ id: 'sales.invoices.title' })}
               action={
-                <Box display="flex" alignItems="center">
-                  <IconButton size="small" variant="roundedContained">
-                    <SearchIcon />
-                  </IconButton>
-                  <Box ml={2} />
-                  <IconButton size="small" variant="roundedContained">
-                    <ManageIcon />
-                  </IconButton>
+                <Box display="flex">
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('list')}>
+                      <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('table')}>
+                      <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small">
+                      <LocationIcon />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="roundedContained" size="small">
+                      <ManageIcon />
+                    </IconButton>
+                  </Box>
+                  <Box>
+                    <IconButton variant="roundedContained" size="small">
+                      <SearchIcon />
+                    </IconButton>
+                  </Box>
                 </Box>
               }
             />
             <CardContent>
               <ActionTabs onStatusChange={onChangeStatus} status={status} tabs={tabs} />
-              <List
-                items={invoices}
-                itemIndex={'id'}
-                renderItem={(invoice, checked, checkbox) => (
-                  <InvoiceItem checked={checked} checkbox={checkbox} item={invoice} />
-                )}
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({ id: 'sales.invoices.list.empty_title' })}
-                emptyDescription={formatMessage({ id: 'sales.invoices.empty_description' })}
-                sortOptions={sortOptions}
-              />
+              {viewMode === 'list' && <ListView items={invoices} />}
+              {viewMode === 'table' && <TableView items={invoices} />}
             </CardContent>
           </Card>
         </Grid>

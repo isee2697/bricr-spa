@@ -11,4 +11,6 @@ export type InvoicesProps = {
   status: InvoicesStatus;
   onChangeStatus: (status: InvoicesStatus) => void;
   invoices: SalesInvoice[];
+  viewMode: 'list' | 'table';
+  onViewModeChange: (viewMode: 'list' | 'table') => void;
 };
