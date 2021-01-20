@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'classnames';
-import { useHistory } from 'react-router-dom';
 
-import { CrmType } from 'api/types';
+import { CrmStatus, CrmType } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -12,16 +11,22 @@ import { useLocale } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
 
-export const Relations = ({ onSidebarOpen, isSidebarVisible, status, onStatusChange, crms }: RelationsProps) => {
+export const Relations = ({
+  onSidebarOpen,
+  isSidebarVisible,
+  status,
+  onStatusChange,
+  crms,
+  onUpdateItemStatus,
+  onDeleteItem,
+}: RelationsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const { push } = useHistory();
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
@@ -45,9 +50,9 @@ export const Relations = ({ onSidebarOpen, isSidebarVisible, status, onStatusCha
                   status={status}
                   onStatusChange={onStatusChange}
                   amounts={{
-                    actionRequired: crms.filter(crmItem => crmItem.status === 'actionRequired').length,
-                    active: crms.filter(crmItem => crmItem.status === 'active').length,
-                    inactive: crms.filter(crmItem => crmItem.status === 'archived').length,
+                    actionRequired: crms.filter(crmItem => crmItem.status === CrmStatus.ActionRequired).length,
+                    active: crms.filter(crmItem => crmItem.status === CrmStatus.Active).length,
+                    inactive: crms.filter(crmItem => crmItem.status === CrmStatus.Inactive).length,
                   }}
                 />
               </Box>
@@ -65,12 +70,7 @@ export const Relations = ({ onSidebarOpen, isSidebarVisible, status, onStatusCha
                   <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
                     {checkbox}
                     <Box component="span" className={classes.rowItem}>
-                      <Box
-                        className={classes.itemButton}
-                        onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
-                      >
-                        <CrmListItem crm={crm} />
-                      </Box>
+                      <CrmListItem crm={crm} onUpdateStatus={onUpdateItemStatus} onDelete={onDeleteItem} />
                     </Box>
                   </Box>
                 )}

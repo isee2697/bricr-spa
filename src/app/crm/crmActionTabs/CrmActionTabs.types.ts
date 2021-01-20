@@ -1,8 +1,8 @@
-import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { CrmStatus } from 'api/types';
 
 export type CrmActionTabsProps = {
-  status: ActionTabStatus;
-  onStatusChange: (status: ActionTabStatus) => void;
+  status: CrmStatus;
+  onStatusChange: (status: CrmStatus) => void;
   amounts?: {
     actionRequired: number;
     active: number;

@@ -21,6 +21,7 @@ export type PersonalInformationGeneralProps = {
     | 'preferredTitleSuffix'
     | 'preferredLetterSalutation'
     | 'preferredTitleInformation'
+    | 'status'
   >;
   onSave(values: unknown): Promise<undefined | { error: boolean }>;
 };
