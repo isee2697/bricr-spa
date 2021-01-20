@@ -108,7 +108,12 @@ export const PimList = ({
                 }
                 label={formatMessage({ id: 'common.select_all' })}
               />
-              <Select variant="outlined" value={sorting.sortOptions[0]} className={classes.sort} onSelect={() => {}}>
+              <Select
+                variant="outlined"
+                value={sorting.sortOptions[0]}
+                className={classNames(classes.sort, 'sort-select')}
+                onSelect={() => {}}
+              >
                 {sorting.sortOptions.map(option => (
                   <MenuItem key={option.key} value={option.key}>
                     {formatMessage({ id: `pim.list.sort_options.${option.name}` })}
