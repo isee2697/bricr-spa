@@ -20,7 +20,7 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { ListIcon, SwimlaneIcon, LocationIcon } from 'ui/atoms/icons';
+import { ListIcon, LocationIcon } from 'ui/atoms/icons';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
@@ -41,7 +41,7 @@ export const PimList = ({
   onFilter,
   activeFilters,
 }: PimProps) => {
-  const [viewMode, setViewMode] = useState<'list' | 'table'>('table');
+  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -74,13 +74,13 @@ export const PimList = ({
             action={
               <Box display="flex">
                 <Box mr={2}>
-                  <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
-                    <ListIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                  <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
+                    <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
                   </IconButton>
                 </Box>
                 <Box mr={2}>
-                  <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
-                    <SwimlaneIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                  <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
+                    <ListIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
                   </IconButton>
                 </Box>
                 <Box mr={2}>
