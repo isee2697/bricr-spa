@@ -7,9 +7,9 @@ export type SalesLeadsContainerProps = {
 
 export type SalesLeadsProps = {
   status: 'actionRequired' | 'withdrawn';
-  viewMode: 'list' | 'card';
+  viewMode: 'list' | 'table';
   onStatusChange: (status: 'actionRequired' | 'withdrawn') => void;
-  onViewModeChange: (viewMode: 'list' | 'card') => void;
+  onViewModeChange: (viewMode: 'list' | 'table') => void;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
   salesLeads: SalesLead[];

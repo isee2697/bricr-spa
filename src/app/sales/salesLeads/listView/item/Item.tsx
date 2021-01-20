@@ -24,6 +24,7 @@ import { AddIcon, CheckIcon, CloseIcon, EditIcon, HelpIcon, MailIcon, MenuIcon }
 import { useLocale } from 'hooks';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { SalesLeadInterest, SalesLeadStep } from '../../SalesLeads.types';
 
 import { useStyles } from './Item.styles';
 import { SalesLeadItemProps } from './Item.types';
@@ -169,7 +170,7 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
                 {formatMessage({ id: 'sales.leads.interested_in' })}
               </Typography>
               <Box display="flex" flexWrap="wrap">
-                {interests.map((interest, index) => (
+                {interests.map((interest: SalesLeadInterest, index: number) => (
                   <Box mr={1.5} key={index}>
                     <Chip
                       variant="outlined"
@@ -191,7 +192,7 @@ export const SalesLeadItem = (props: SalesLeadItemProps) => {
             connector={<StatusStepConnector />}
             className={classes.stepper}
           >
-            {steps?.map((step, index) => (
+            {steps?.map((step: SalesLeadStep, index: number) => (
               <Step className={clsx(classes.step, step.status)}>
                 <StepLabel
                   optional={

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { QuotationsTabStatus, SalesQuotation } from '../Quotations.types';
+import { QuotationsTabStatus, SalesQuotation } from '../../Quotations.types';
 
 export type QuotationItemProps = {
   status: QuotationsTabStatus;

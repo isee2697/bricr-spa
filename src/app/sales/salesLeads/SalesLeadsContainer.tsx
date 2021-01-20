@@ -8,7 +8,7 @@ import { SalesLeadsContainerProps } from './SalesLeads.types';
 
 export const SalesLeadsContainer = (props: SalesLeadsContainerProps) => {
   const [status = 'actionRequired', setStatus] = useQueryParam<'actionRequired' | 'withdrawn'>('actionRequired');
-  const [viewMode = 'list', setViewMode] = useQueryParam<'list' | 'card'>('viewMode');
+  const [viewMode = 'list', setViewMode] = useQueryParam<'list' | 'table'>('viewMode');
 
   return (
     <SalesLeads

@@ -10,7 +10,9 @@ export type QuotationsProps = {
   isSidebarVisible: boolean;
   status: QuotationsTabStatus;
   sortType: string;
+  viewMode: 'list' | 'table';
   onChangeStatus: (status: QuotationsTabStatus) => void;
+  onViewModeChange: (viewMode: 'list' | 'table') => void;
   onChangeSortType: (sortType: string) => void;
   quotations: SalesQuotation[];
 };

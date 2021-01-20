@@ -1,22 +1,22 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { SortOption } from 'ui/molecules/list/List.types';
 import { useLocale, useModalDispatch } from 'hooks';
-import { Button, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
+import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
 import { SalesHeader } from '../salesHeader/SalesHeader';
-import { AddIcon, ManageIcon } from 'ui/atoms/icons';
+import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
-import { ActionTabs, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { ActionTabs } from 'ui/molecules';
 import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 import { SalesStatus } from 'api/types';
 
 import { OrdersProps } from './Orders.types';
 import { useStyles } from './Orders.styles';
-import { OrderItem } from './orderItem/OrderItem';
+import { ListView } from './listView/ListView';
+import { TableView } from './tableView/TableView';
 
 export const Orders = ({
   onSidebarOpen,
@@ -26,19 +26,14 @@ export const Orders = ({
   onChangeStatus,
   onChangeSortType,
   orders,
+  viewMode,
+  onViewModeChange,
 }: OrdersProps) => {
   const classes = useStyles();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
-
-  const sortOptions: SortOption[] = [
-    {
-      name: formatMessage({ id: 'common.sort_option.newest' }),
-      key: 'newest',
-    },
-  ];
 
   const tabs: ActionTab[] = [
     {
@@ -99,25 +94,41 @@ export const Orders = ({
             <CardHeader
               title={formatMessage({ id: 'sales.orders.title' })}
               action={
-                <IconButton size="small" variant="roundedContained">
-                  <ManageIcon />
-                </IconButton>
+                <Box display="flex">
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('list')}>
+                      <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('table')}>
+                      <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small">
+                      <LocationIcon />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="roundedContained" size="small">
+                      <ManageIcon />
+                    </IconButton>
+                  </Box>
+                  <Box>
+                    <IconButton variant="roundedContained" size="small">
+                      <SearchIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
               }
             />
             <CardContent>
               <ActionTabs onStatusChange={onChangeStatus} status={status} tabs={tabs} />
-              <List
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({ id: 'sales.orders.empty_title' })}
-                emptyDescription={formatMessage({ id: 'sales.orders.empty_description' })}
-                sortOptions={sortOptions}
-                items={orders}
-                itemIndex={'id'}
-                renderItem={(order, checked, checkbox) => (
-                  <OrderItem status={status} order={order} checked={checked} checkbox={checkbox} />
-                )}
-                onSort={key => onChangeSortType(key)}
-              />
+              {viewMode === 'list' && (
+                <ListView items={orders} status={status} sortType={sortType} onChangeSortType={onChangeSortType} />
+              )}
+              {viewMode === 'table' && <TableView items={orders} />}
             </CardContent>
           </Card>
         </Grid>
