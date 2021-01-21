@@ -7,14 +7,14 @@ import { Box, Grid, Card, CardHeader, CardContent } from 'ui/atoms';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
-import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
 import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
+import { FiltersButton } from './pimFilters/FiltersButton';
+import { ActiveFilters } from './pimFilters/activeFilters/ActiveFilters';
 
 export const PimList = ({
   status,
@@ -27,6 +27,8 @@ export const PimList = ({
   pagination,
   onFilter,
   activeFilters,
+  teams,
+  accountManagers,
 }: PimProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -43,7 +45,12 @@ export const PimList = ({
             action={
               <Box display="flex">
                 <Box mr={3}>
-                  <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+                  <FiltersButton
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    teams={teams}
+                    accountManagers={accountManagers}
+                  />
                 </Box>
               </Box>
             }

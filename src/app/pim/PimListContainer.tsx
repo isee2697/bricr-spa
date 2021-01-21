@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { ListPimsFilters, useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import { ListPimsFilters, Team, useGetTeamsQuery, useListPimsCountQuery, useListPimsQuery } from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
@@ -21,6 +21,7 @@ export const PimListContainer = () => {
   const { pathname } = useLocation();
   const type = pathname.split('/').pop() ?? 'residential';
   const { status, setStatus, priceTypeFilter } = usePimQueryParams({});
+  const { data: teamsData } = useGetTeamsQuery({ fetchPolicy: 'network-only' });
 
   const [activeFilters, setActiveFilters] = useState(getPimFilterVariables(type));
 
@@ -74,6 +75,17 @@ export const PimListContainer = () => {
       listData={status === 'actionRequired' ? EMPTY_LIST : listData}
       sorting={sorting}
       pagination={pagination}
+      teams={(teamsData?.getTeams?.items as Team[]) || []}
+      accountManagers={[
+        {
+          id: '0001',
+          email: 'accountmanager@email.com',
+          firstName: 'John',
+          lastName: 'Doe',
+          isActive: true,
+          isAdmin: true,
+        },
+      ]}
     />
   );
 };
