@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Form } from 'react-final-form';
 
-import { LockIcon } from 'ui/atoms/icons/lock/LockIcon';
-import { Button, Typography, Alert, InputAdornment } from 'ui/atoms';
+import { Button, Typography, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { GenericField } from 'form/fields';
-import { requireValidator, fieldMatchValidator, minLengthValidator } from 'form/validators';
+import { requireValidator, minLengthValidator } from 'form/validators';
+import { PasswordArea } from 'app/register/forms/PasswordArea';
 
 import { ResetPasswordProps, ResetPasswordFormValues } from './ResetPassword.types';
 
@@ -46,37 +46,7 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
             type="email"
           />
 
-          <GenericField
-            name="password"
-            label="reset_password.new_password"
-            placeholder="reset_password.new_password_placeholder"
-            validate={[requireValidator, minLengthValidator(8)]}
-            size="medium"
-            type="password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <LockIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <GenericField
-            name="passwordRepeat"
-            label="reset_password.repeat_password"
-            placeholder="reset_password.repeat_password_placeholder"
-            validate={[requireValidator, fieldMatchValidator('password', 'reset_password.repeat_password_error')]}
-            size="medium"
-            type="password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <LockIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <PasswordArea error={isError} setError={err => setError(err)} />
 
           <Button
             variant="contained"

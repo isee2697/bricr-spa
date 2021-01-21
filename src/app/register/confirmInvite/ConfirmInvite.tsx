@@ -31,8 +31,8 @@ export const ConfirmInvite = ({ onSubmit, error }: ConfirmInviteProps) => {
           />
           <GenericField
             required
-            label={'register.name_label'}
-            placeholder={'register.name_placeholder'}
+            label={'register.last_name_label'}
+            placeholder={'register.last_name_placeholder'}
             name="lastName"
           />
 
