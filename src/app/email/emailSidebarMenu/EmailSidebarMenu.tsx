@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { SideMenu } from 'ui/molecules';
-import { Box, Collapse, Grid, SidebarHideButton, SideMenuItem, Slide, Typography } from 'ui/atoms';
+import { Box, Collapse, Grid, SidebarHideButton, SideMenuItem, SideSubMenuItem, Slide, Typography } from 'ui/atoms';
 import { EmailFolderIcon, MailIcon, TasksIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
@@ -23,20 +23,57 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders = [], accounts }: 
     groups: accounts.map(account => ({
       id: account.id,
       email: account.email,
-      items: folders.map(folder => ({
-        id: folder.folder?.nylasFolderId as string,
-        icon: !folder.folder?.name ? (
-          <EmailFolderIcon />
-        ) : folder.folder.name === 'inbox' ? (
-          <MailIcon />
-        ) : (
-          <TasksIcon />
-        ),
-        title: folder.folder?.displayName || '',
-        count: folder.numberOfUnreadEmails || 0,
-      })),
+      items: folders
+        .filter(folder => folderFilter(folder.folder?.displayName || ''))
+        .map(folder => ({
+          id: folder.folder?.nylasFolderId as string,
+          icon:
+            folder.folder?.displayName?.indexOf('/') !== -1 ? null : !folder.folder?.name &&
+              folder.folder?.displayName?.indexOf('/') === -1 ? (
+              <EmailFolderIcon />
+            ) : folder.folder.name === 'inbox' ? (
+              <MailIcon />
+            ) : (
+              <TasksIcon />
+            ),
+          name: folder.folder?.displayName || '',
+          title: folderName(folder.folder?.displayName || ''),
+          count: folder.numberOfUnreadEmails || 0,
+          level: (folder.folder?.displayName?.match(/\//g) || []).length,
+        }))
+        .sort(folderOrder),
     })),
   };
+
+  function folderFilter(name: string) {
+    return !/^(sync issues|files|bestanden|quick step settings|purges|webextaddins|journal|deletions|social activity notifications|yammer root|conversation history|conversation action settings)/gi.test(
+      name,
+    );
+  }
+
+  function folderName(name: string) {
+    const n = name.lastIndexOf('/');
+
+    return name.substring(n + 1);
+  }
+
+  function folderOrder(a: { name: string }, b: { name: string }) {
+    if (a.name.toLowerCase().startsWith('inbox')) {
+      if (b.name.toLowerCase().startsWith('inbox')) {
+        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() > b.name.toLowerCase() ? 1 : 0;
+      } else {
+        return -1;
+      }
+    } else if (b.name.toLowerCase().startsWith('inbox')) {
+      if (a.name.toLowerCase().startsWith('inbox')) {
+        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() > b.name.toLowerCase() ? 1 : 0;
+      } else {
+        return 1;
+      }
+    } else {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() > b.name.toLowerCase() ? 1 : 0;
+    }
+  }
 
   const isGroupCollapseOpen = (group: EmailSidebarMenuGroup) => {
     if (isGroupOpen[group.id] === undefined) {
@@ -79,16 +116,25 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders = [], accounts }: 
                     </Box>
                   </Box>
                   <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
-                    {group.items.map(item => (
-                      <SideMenuItem
-                        key={item.id}
-                        icon={item.icon}
-                        title={<EmailSidebarMenuItem value={item.title} count={item.count} />}
-                        selected={pathname.startsWith(`${menu.url}/inbox/${group.id}/${item.id}`)}
-                        badge={item.count}
-                        onClick={() => push(`${menu.url}/inbox/${group.id}/${item.id}`)}
-                      />
-                    ))}
+                    {group.items.map(item =>
+                      item.level === 0 ? (
+                        <SideMenuItem
+                          key={item.id}
+                          title={<EmailSidebarMenuItem value={item.title} count={item.count} icon={item.icon} />}
+                          selected={pathname.startsWith(`${menu.url}/inbox/${group.id}/${item.id}`)}
+                          badge={item.count}
+                          onClick={() => push(`${menu.url}/inbox/${group.id}/${item.id}`)}
+                        />
+                      ) : (
+                        <SideSubMenuItem
+                          key={item.id}
+                          title={<EmailSidebarMenuItem value={item.title} count={item.count} icon={item.icon} />}
+                          selected={pathname.startsWith(`${menu.url}/inbox/${group.id}/${item.id}`)}
+                          badge={item.count}
+                          onClick={() => push(`${menu.url}/inbox/${group.id}/${item.id}`)}
+                        />
+                      ),
+                    )}
                   </Collapse>
                 </Box>
               ))}

@@ -19,6 +19,7 @@ export type EmailSidebarMenuProps = {
 export type EmailSidebarMenuItemProps = {
   value: string;
   count?: number;
+  icon: ReactNode;
 };
 
 export type EmailSidebarMenuSubItemProps = {
@@ -44,4 +45,5 @@ export type EmailSidebarMenuItem = {
   count?: number;
   title: string;
   isCollapsable?: boolean;
+  level: number;
 };
