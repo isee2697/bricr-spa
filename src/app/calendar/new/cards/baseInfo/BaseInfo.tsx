@@ -69,14 +69,14 @@ export const AppointmentBaseInfoCard = () => {
         <Grid item className={classes.item}>
           <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
           <DatePickerChip name={`from.date`} className={classes.date} />
-          {!allDay && <TimePickerChip name={`from.time`} />}
+          {!allDay && <TimePickerChip name={`from.time`} disableToolbar={false} />}
         </Grid>
         {!allDay && (
           <Grid item className={classes.item}>
             <Box mr={1.5} />
             <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
             <DatePickerChip name={`to.date`} className={classes.date} />
-            <TimePickerChip name={`to.time`} />
+            <TimePickerChip name={`to.time`} disableToolbar={false} />
           </Grid>
         )}
       </Grid>
@@ -86,13 +86,13 @@ export const AppointmentBaseInfoCard = () => {
             <Grid item className={classes.item}>
               <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
               <DatePickerChip name={`alternativeTerms[${index}].from.date`} className={classes.date} />
-              <TimePickerChip name={`alternativeTerms[${index}].from.time`} />
+              <TimePickerChip name={`alternativeTerms[${index}].from.time`} disableToolbar={false} />
             </Grid>
             <Grid item className={classes.item}>
               <Box mr={1.5} />
               <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
               <DatePickerChip name={`alternativeTerms[${index}].to.date`} className={classes.date} />
-              <TimePickerChip name={`alternativeTerms[${index}].to.time`} />
+              <TimePickerChip name={`alternativeTerms[${index}].to.time`} disableToolbar={false} />
             </Grid>
             {amountOfTerms > 1 && (
               <Grid item className="right">
