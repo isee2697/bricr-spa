@@ -37,7 +37,7 @@ export const EmailSettingsContainer = ({ onAddedNewAccount, ...props }: EmailSet
   const handleAddNewInbox = async (values: AddNewInboxBody) => {
     const options = {
       loginHint: values.mainEmailAddress,
-      redirectURI: window.location.href,
+      redirectURI: window.location.href.split('?')[0],
       scopes: ['email.modify', 'email.send', 'calendar', 'contacts'],
     };
 

@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { useResetPasswordMutation } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { ResetPassword } from './ResetPassword';
 import { ResetPasswordFormValues } from './ResetPassword.types';
@@ -9,6 +10,7 @@ import { ResetPasswordFormValues } from './ResetPassword.types';
 export const ResetPasswordContainer = () => {
   const [forgotPassword] = useResetPasswordMutation();
   const { token } = useParams<{ token: string }>();
+  const { push } = useHistory();
 
   const onSubmit = useCallback(
     async (body: ResetPasswordFormValues): Promise<boolean> => {
@@ -16,9 +18,10 @@ export const ResetPasswordContainer = () => {
         const { errors, data } = await forgotPassword({
           variables: {
             input: {
-              newPassword: body.password,
+              password: body.password,
+              code: token,
+              username: body.email,
             },
-            token,
           },
         });
 
@@ -26,12 +29,14 @@ export const ResetPasswordContainer = () => {
           throw new Error();
         }
 
+        push(AppRoute.login);
+
         return true;
       } catch (error) {
         return false;
       }
     },
-    [forgotPassword, token],
+    [forgotPassword, push, token],
   );
 
   return <ResetPassword onSubmit={onSubmit} />;

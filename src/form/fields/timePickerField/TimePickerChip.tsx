@@ -18,7 +18,7 @@ export const TimePickerChip = ({ name, className, ...props }: TimePickerFieldPro
     (!meta.dirtySinceLastSubmit && !!meta.submitError) ||
     (meta.initial !== undefined && meta.initial !== null && !!meta.error);
 
-  const displayDate = (input.value ? DateTime.fromISO(input.value) : DateTime.local()).toFormat('hh:mm');
+  const displayDate = (input.value ? DateTime.fromISO(input.value) : DateTime.local()).toFormat('hh:mm a');
 
   return (
     <>

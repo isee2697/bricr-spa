@@ -16,6 +16,14 @@ export const UPDATE_PROFILE = gql`
   }
 `;
 
+export const CONFIRM_PROFILE_UPDATE = gql`
+  mutation ConfirmProfileInvite($input: ConfirmProfileInvite!) {
+    confirmProfileInvite(input: $input) {
+      id
+    }
+  }
+`;
+
 export const DEACTIVATE_PROFILE = gql`
   mutation DeactivateProfile($id: String!) {
     deactivateProfile(id: $id) {
