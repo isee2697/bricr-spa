@@ -44,6 +44,7 @@ export const ResetPassword = ({ onSubmit }: ResetPasswordProps) => {
             placeholder="common.email.placeholder"
             validate={[requireValidator, minLengthValidator(8)]}
             type="email"
+            data-testid="reset-email-field"
           />
 
           <PasswordArea error={isError} setError={err => setError(err)} />

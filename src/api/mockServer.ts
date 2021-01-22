@@ -66,20 +66,20 @@ export const mockServer = () => {
         };
       });
 
-      this.post('/mock-security/reset-password', (schema, request) => {
+      this.post('/mock-security/forgot-password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
-        if (requestJson.username !== 'test') {
+        if (requestJson.email !== 'test@bricr.com') {
           throw new Error();
         }
 
         return {};
       });
 
-      this.post('/mock-security/reset-password/token', (schema, request) => {
+      this.post('/mock-security/forgot_password/confirm', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
-        if (requestJson.newPassword !== 'passw0rd') {
+        if (requestJson.password !== 'passw0rd') {
           throw new Error();
         }
 
