@@ -8,15 +8,20 @@ describe('ResetPasssword', () => {
   test('calls onSubmit prop with new password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
-    const { getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
+    const { getByRole, getByLabelText } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByLabelText('common.email.label'), {
+        target: {
+          value: 'test@bricr.com',
+        },
+      });
+      fireEvent.change(getByLabelText('register.password_label *'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByLabelText('register.password_label *'), {
         target: {
           value: 'fooBarBaz',
         },
@@ -26,8 +31,8 @@ describe('ResetPasssword', () => {
 
     await wait(() => {
       expect(onSubmit).toBeCalledWith({
+        email: 'test@bricr.com',
         password: 'fooBarBaz',
-        passwordRepeat: 'fooBarBaz',
       });
     });
   });
@@ -37,12 +42,17 @@ describe('ResetPasssword', () => {
     const { getByText, getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByLabelText('common.email.label'), {
+        target: {
+          value: 'test@bricr.com',
+        },
+      });
+      fireEvent.change(getByLabelText('register.password_label *'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByLabelText('register.repeat_password *'), {
         target: {
           value: 'fooBarBaz',
         },
@@ -55,17 +65,22 @@ describe('ResetPasssword', () => {
     });
   });
 
-  test('displays success message if reset password succeded', async () => {
+  test('displays success message if reset password succeeded', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
     const { getByText, getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByLabelText('common.email.label'), {
+        target: {
+          value: 'test@bricr.com',
+        },
+      });
+      fireEvent.change(getByLabelText('register.password_label *'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByLabelText('register.repeat_password *'), {
         target: {
           value: 'fooBarBaz',
         },
@@ -87,7 +102,7 @@ describe('ResetPasssword', () => {
     });
 
     await wait(() => {
-      expect(getAllByText('validation.required').length).toBe(2);
+      expect(getAllByText('validation.required').length).toBe(1);
     });
   });
 });
