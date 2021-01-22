@@ -29,12 +29,6 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  refreshToken: Scalars['String'];
-};
-
 export type ForgotPasswordInput = {
   username: Scalars['String'];
 };
@@ -45,14 +39,39 @@ export type ForgotPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
+export type VerifyUserResponse = {
+  __typename?: 'VerifyUserResponse';
+  error?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+};
+
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  AccessToken: Scalars['String'];
+  RefreshToken: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  error?: Maybe<Scalars['String']>;
+  AuthenticationResult: AuthenticationResult;
+};
+
 export type ResetPasswordInput = {
-  newPassword: Scalars['String'];
+  password: Scalars['String'];
+  username: Scalars['String'];
+  code: Scalars['String'];
 };
 
 export type ResetPasswordResponse = {
   __typename?: 'ResetPasswordResponse';
   error?: Maybe<Scalars['String']>;
   stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserInput = {
+  code?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -111,6 +130,7 @@ export type Mutation = {
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
   confirmAppointment: Appointment;
+  confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
   createEmailAddress: Profile;
@@ -239,6 +259,7 @@ export type Mutation = {
   updateWorkflowAction: WorkflowAction;
   updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
+  verifyUser?: Maybe<VerifyUserResponse>;
 };
 
 export type MutationAddAllocationCriteriaArgs = {
@@ -459,6 +480,10 @@ export type MutationConfirmAppointmentArgs = {
   appointmentId: Scalars['ID'];
 };
 
+export type MutationConfirmProfileInviteArgs = {
+  input: ConfirmProfileInvite;
+};
+
 export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
@@ -605,7 +630,6 @@ export type MutationRemoveViewingMomentArgs = {
 
 export type MutationResetPasswordArgs = {
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 };
 
 export type MutationSendEmailArgs = {
@@ -975,6 +999,10 @@ export type MutationUpdateWorkflowTriggerArgs = {
 export type MutationUploadFileArgs = {
   input: Scalars['UploadFileInput'];
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
+};
+
+export type MutationVerifyUserArgs = {
+  input?: Maybe<VerifyUserInput>;
 };
 
 export type BillingResponse = {
@@ -1665,6 +1693,7 @@ export enum BricrPlans {
 export type CreateCompanyInput = {
   name: Scalars['String'];
   email: Scalars['String'];
+  password: Scalars['String'];
   space: Scalars['String'];
   amountUsers?: Maybe<Scalars['Int']>;
   amountProperties?: Maybe<Scalars['Int']>;
@@ -7419,6 +7448,13 @@ export type ProfileFilters = {
   isActive?: Maybe<Scalars['Boolean']>;
 };
 
+export type ConfirmProfileInvite = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type ProjectPhase = {
   __typename?: 'ProjectPhase';
   id: Scalars['ID'];
@@ -8345,7 +8381,14 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
-  login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
+  login?: Maybe<
+    { __typename?: 'LoginResponse' } & Pick<LoginResponse, 'error'> & {
+        AuthenticationResult: { __typename?: 'AuthenticationResult' } & Pick<
+          AuthenticationResult,
+          'AccessToken' | 'RefreshToken'
+        >;
+      }
+  >;
 };
 
 export type ForgotPasswordMutationVariables = Exact<{
@@ -8358,11 +8401,18 @@ export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
 
 export type ResetPasswordMutationVariables = Exact<{
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 }>;
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
+};
+
+export type VerifyUserMutationVariables = Exact<{
+  input: VerifyUserInput;
+}>;
+
+export type VerifyUserMutation = { __typename?: 'Mutation' } & {
+  verifyUser?: Maybe<{ __typename?: 'VerifyUserResponse' } & Pick<VerifyUserResponse, 'status'>>;
 };
 
 export type BulkMutationVariables = Exact<{
@@ -9773,6 +9823,14 @@ export type UpdateProfileMutationVariables = Exact<{
 
 export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
   updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
+export type ConfirmProfileInviteMutationVariables = Exact<{
+  input: ConfirmProfileInvite;
+}>;
+
+export type ConfirmProfileInviteMutation = { __typename?: 'Mutation' } & {
+  confirmProfileInvite: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
 export type DeactivateProfileMutationVariables = Exact<{
@@ -13503,9 +13561,12 @@ export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
 
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
-      accessToken
-      refreshToken
+    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default") {
+      error
+      AuthenticationResult {
+        AccessToken
+        RefreshToken
+      }
     }
   }
 `;
@@ -13520,7 +13581,7 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
     forgotPassword(input: $input)
-      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
+      @rest(type: "ForgotPasswordResponse", path: "/forgot_password", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -13540,14 +13601,9 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
   ForgotPasswordMutationVariables
 >;
 export const ResetPasswordDocument = gql`
-  mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
-    resetPassword(input: $input, token: $token)
-      @rest(
-        type: "ResetPasswordResponse"
-        path: "/public/auth/reset-password/{args.token}"
-        method: "POST"
-        endpoint: "default"
-      ) {
+  mutation ResetPassword($input: ResetPasswordInput) {
+    resetPassword(input: $input)
+      @rest(type: "ResetPasswordResponse", path: "/forgot_password/confirm", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -13565,6 +13621,24 @@ export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<Reset
 export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
+>;
+export const VerifyUserDocument = gql`
+  mutation VerifyUser($input: VerifyUserInput!) {
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default") {
+      status
+    }
+  }
+`;
+export function useVerifyUserMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, baseOptions);
+}
+export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
+export type VerifyUserMutationResult = ApolloReactCommon.MutationResult<VerifyUserMutation>;
+export type VerifyUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  VerifyUserMutation,
+  VerifyUserMutationVariables
 >;
 export const BulkDocument = gql`
   mutation Bulk($input: BulkOperationInput!) {
@@ -16831,6 +16905,30 @@ export type UpdateProfileMutationResult = ApolloReactCommon.MutationResult<Updat
 export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateProfileMutation,
   UpdateProfileMutationVariables
+>;
+export const ConfirmProfileInviteDocument = gql`
+  mutation ConfirmProfileInvite($input: ConfirmProfileInvite!) {
+    confirmProfileInvite(input: $input) {
+      id
+    }
+  }
+`;
+export function useConfirmProfileInviteMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    ConfirmProfileInviteMutation,
+    ConfirmProfileInviteMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<ConfirmProfileInviteMutation, ConfirmProfileInviteMutationVariables>(
+    ConfirmProfileInviteDocument,
+    baseOptions,
+  );
+}
+export type ConfirmProfileInviteMutationHookResult = ReturnType<typeof useConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationResult = ApolloReactCommon.MutationResult<ConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ConfirmProfileInviteMutation,
+  ConfirmProfileInviteMutationVariables
 >;
 export const DeactivateProfileDocument = gql`
   mutation DeactivateProfile($id: String!) {

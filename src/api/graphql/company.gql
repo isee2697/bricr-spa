@@ -7,6 +7,7 @@ enum BricrPlans {
 input CreateCompanyInput {
   name: String!
   email: String!
+  password: String!
   space: String!
   amountUsers: Int
   amountProperties: Int
