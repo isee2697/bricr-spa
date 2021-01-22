@@ -24,7 +24,6 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders = [], accounts }: 
       id: account.id,
       email: account.email,
       items: folders
-        .filter(folder => folderFilter(folder.folder?.displayName || ''))
         .map(folder => ({
           id: folder.folder?.nylasFolderId as string,
           icon:
@@ -44,12 +43,6 @@ export const EmailSidebarMenu = ({ onHide, isVisible, folders = [], accounts }: 
         .sort(folderOrder),
     })),
   };
-
-  function folderFilter(name: string) {
-    return !/^(sync issues|files|bestanden|quick step settings|purges|webextaddins|journal|deletions|social activity notifications|yammer root|conversation history|conversation action settings)/gi.test(
-      name,
-    );
-  }
 
   function folderName(name: string) {
     const n = name.lastIndexOf('/');
