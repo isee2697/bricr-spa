@@ -4,7 +4,7 @@ import { act, fireEvent, render, wait } from 'tests';
 
 import { ResetPassword } from './ResetPassword';
 
-describe.only('ResetPasssword', () => {
+describe('ResetPasssword', () => {
   test('calls onSubmit prop with new password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
