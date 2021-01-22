@@ -1,11 +1,11 @@
 #!/bin/sh
 
 function fail() {
-    curl -X POST --data-urlencode "payload={\"channel\": \"#bricr-notifications\", \"username\": \"Pipelines\", \"text\": \"Hey! Your job <https://bitbucket.org/bricr/bricr-spa/addon/pipelines/home#!/results/${BITBUCKET_BUILD_NUMBER}|failed> :pepecry: check it please.\"}" "${SLACK_WEBHOOK}"
+    curl -X POST --data-urlencode "payload={\"channel\": \"#bricr-notifications\", \"username\": \"Pipelines\", \"text\": \"Hey! Your job for $CIRCLE_BRANCH <https://bitbucket.org/bricr/bricr-spa/addon/pipelines/home#!/results/${BITBUCKET_BUILD_NUMBER}|failed> :pepecry: check it please.\"}" "${SLACK_WEBHOOK}"
 }
 
 function success()  {
-    curl -X POST --data-urlencode "payload={\"channel\": \"#bricr-notifications\", \"username\": \"Pipelines\", \"text\": \"Hey! Your job <https://bitbucket.org/bricr/bricr-spa/addon/pipelines/home#!/results/${BITBUCKET_BUILD_NUMBER}|finished successfully.> It should be live here ${URL} in a few minutes.\"}" "${SLACK_WEBHOOK}"
+    curl -X POST --data-urlencode "payload={\"channel\": \"#bricr-notifications\", \"username\": \"Pipelines\", \"text\": \"Hey! Your job for $CIRCLE_BRANCH  <https://bitbucket.org/bricr/bricr-spa/addon/pipelines/home#!/results/${BITBUCKET_BUILD_NUMBER}|finished successfully.> It should be live here ${URL} in a few minutes.\"}" "${SLACK_WEBHOOK}"
 }
 
 export TF_VAR_docker_tag=$TF_VAR_docker_tag

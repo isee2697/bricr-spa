@@ -144,21 +144,21 @@ workflows:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-#                - /feature/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - lint-and-build:
           filters:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-#                - /feature/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - run-coverage:
           filters:
             branches:
               only:
                 - /hotfix/UL(?:-.+)?$/
-#                - /feature/UL(?:-.+)?$/
+                - /feature/UL(?:-.+)?$/
                 - /bugfix/UL(?:-.+)?$/
       - run-chrome:
           requires:
@@ -193,7 +193,6 @@ workflows:
             branches:
               only:
                 - /deploy/(?:-.+)?$/
-                - /feature/UL(?:-.+)?$/
       - deploy-develop:
           requires:
             - build-develop
