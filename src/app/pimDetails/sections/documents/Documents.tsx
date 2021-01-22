@@ -8,7 +8,6 @@ import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 
 import { DocumentsGeneralContainer } from './general/GeneralContainer';
 import { DocumentsCheckListContainer } from './checklist/CheckListContainer';
-import { DocumentsAuditCheckListContainer } from './auditChecklist/AuditCheckListContainer';
 
 export const Documents = (props: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
@@ -18,18 +17,9 @@ export const Documents = (props: PimDetailsSectionProps) => {
     <>
       <NavBreadcrumb title={formatMessage({ id: 'pim_details.documents.title' })} urlBase={baseUrl} to="/documents" />
       <Switch>
-        <Route default path={`${baseUrl}/documents`} exact render={() => <DocumentsGeneralContainer {...props} />} />
-        <Route
-          path={`${baseUrl}/documents/checklist`}
-          exact
-          render={() => <DocumentsCheckListContainer {...props} />}
-        />
-        <Route
-          path={`${baseUrl}/documents/audit_checklist`}
-          exact
-          render={() => <DocumentsAuditCheckListContainer {...props} />}
-        />
-        <Redirect to={`${baseUrl}/documents`} />
+        <Route path={`${baseUrl}/documents/folders`} exact render={() => <DocumentsGeneralContainer {...props} />} />
+        <Route path={`${baseUrl}/documents/checklist`} render={() => <DocumentsCheckListContainer {...props} />} />
+        <Redirect to={`${baseUrl}/documents/folders`} />
       </Switch>
     </>
   );

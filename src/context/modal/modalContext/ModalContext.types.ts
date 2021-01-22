@@ -21,6 +21,7 @@ export type ModalStateOptions = {
   salesItemType?: SalesItemType;
   salesItemOrderType?: string;
   insightDashboardNewType?: Layout;
+  id?: number;
 };
 
 export type ModalStateType = {

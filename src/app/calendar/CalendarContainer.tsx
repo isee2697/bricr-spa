@@ -9,12 +9,12 @@ import { Calendar } from './Calendar';
 const calendarGroups: CalendarGroup[] = [
   {
     id: 'randomId1',
-    name: 'Brokers',
+    name: 'MyCalendar',
     color: palette.red.main,
   },
   {
     id: 'randomID2',
-    name: 'Marketeers',
+    name: 'Brokers',
     color: palette.blue.main,
   },
   {

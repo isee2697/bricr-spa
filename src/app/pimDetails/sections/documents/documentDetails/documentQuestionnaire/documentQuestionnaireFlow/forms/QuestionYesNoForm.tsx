@@ -4,12 +4,14 @@ import { useLocale } from 'hooks';
 import { FormSection, AutosaveForm } from 'ui/organisms';
 import { QuestionYesNoFormProps } from '../DocumentQuestionnaireFlow.types';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { Box, Typography, Grid, RadioGroup, FormControlLabel, Radio } from 'ui/atoms';
+import { Box, Typography, RadioGroup, FormControlLabel, Radio } from 'ui/atoms';
 import { YesNoType } from '../../DocumentQuestionnaire.types';
 import { GenericField } from 'form/fields';
+import { useStyles } from '../DocumentQuestionnaireFlow.styles';
 
 export function QuestionYesNoForm({ initOpened, title, subtitle, question, isNote }: QuestionYesNoFormProps) {
   const { formatMessage } = useLocale();
+  const classes = useStyles();
 
   return (
     <FormSection title={title} isExpandable isInitExpanded={initOpened}>
@@ -23,11 +25,10 @@ export function QuestionYesNoForm({ initOpened, title, subtitle, question, isNot
             />
           )}
           <Box mt={3.5} />
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h5">{question.question}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+          <Box display="flex" alignItems="flex-start">
+            <Typography variant="h5">{question.question}</Typography>
+            <Box ml={4} />
+            <Box display="flex" className={classes.yesNoRadioWrapper}>
               <RadioGroup row>
                 <FormControlLabel
                   value={YesNoType.Yes}
@@ -44,8 +45,8 @@ export function QuestionYesNoForm({ initOpened, title, subtitle, question, isNot
                   disabled={!editing}
                 />
               </RadioGroup>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
           {isNote && (
             <>
               <Box mt={1} />

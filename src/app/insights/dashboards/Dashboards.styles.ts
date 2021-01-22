@@ -9,6 +9,14 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(2),
     height: theme.spacing(2),
   },
+  gridLayout: {
+    '& > .react-grid-placeholder': {
+      background: theme.palette.gradientBlue.light,
+      border: `1px dashed ${theme.palette.primary.main}`,
+      borderRadius: theme.spacing(1),
+      opacity: 1,
+    },
+  },
   placeholder: {
     width: '100%',
     height: '100%',
@@ -18,6 +26,14 @@ export const useStyles = makeStyles(theme => ({
 
     '& ~ div': {
       display: 'none',
+    },
+
+    '& > button': {
+      opacity: 0,
+    },
+
+    '&:hover > button': {
+      opacity: 1,
     },
   },
 }));

@@ -180,4 +180,12 @@ export const palette: PaletteOptions = {
     '500': blue500,
     '600': blue600,
   },
+  chartColors: {
+    '100': '#40C4FF',
+    '200': '#FF5252',
+    '300': '#00C853',
+    '400': '#FFEB3B',
+    '500': '#FF4081',
+    '600': '#E040FB',
+  },
 };

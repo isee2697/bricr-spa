@@ -68,7 +68,6 @@ export const useStyles = makeStyles(theme => ({
   },
   stepper: {
     background: 'transparent',
-    width: '100%',
     padding: 0,
   },
   step: {

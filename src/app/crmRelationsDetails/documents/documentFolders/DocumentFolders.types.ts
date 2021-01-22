@@ -1,6 +1,6 @@
-import { DocumentFolderType } from '../Documents.types';
+import { DocumentFolderType, DocumentsProps } from '../Documents.types';
 
-export type DocumentFoldersProps = {
+export type DocumentFoldersProps = DocumentsProps & {
   isLoading: boolean;
   isError: boolean;
   foldersData?: DocumentFolderType[];

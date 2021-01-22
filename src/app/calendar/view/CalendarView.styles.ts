@@ -25,4 +25,16 @@ export const useStyles = makeStyles(({ palette, spacing }) => ({
       },
     },
   },
+  appointmentCountChip: {
+    padding: 0,
+    marginLeft: spacing(1),
+    color: palette.gray.main,
+  },
+  smallChip: {
+    padding: 0,
+    color: palette.gray.main,
+  },
+  collapseBtn: {
+    cursor: 'pointer',
+  },
 }));

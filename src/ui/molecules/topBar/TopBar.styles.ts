@@ -10,4 +10,9 @@ export const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(4),
     minWidth: theme.spacing(15),
   },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 }));

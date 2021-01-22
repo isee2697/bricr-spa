@@ -42,7 +42,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
     <EntityTypeProvider entityType={entityType}>
       <Grid container spacing={0} wrap="nowrap">
         {breadcrumbs}
-        <CrmRelationsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
+        <CrmRelationsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} crm={crm} />
         <Box flex={1}>
           <Grid container className={classes.content}>
             {!!crm && (

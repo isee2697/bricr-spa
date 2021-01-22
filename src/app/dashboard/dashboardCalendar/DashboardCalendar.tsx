@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 import groupBy from 'lodash/groupBy';
 import { DateTime } from 'luxon';
 
@@ -7,23 +8,24 @@ import {
   CardHeader,
   CardContent,
   CardActions,
-  IconButton,
   Button,
   AgendaItem,
   Scrollable,
   Badge,
   Typography,
+  Box,
+  Placeholder,
 } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AgendaItemProps } from 'ui/atoms/agendaItem/AgendaItem.types';
 import { GroupTitle } from 'ui/organisms';
-import { ManageIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 
 import { useStyles } from './DashboardCalendar.styles';
 import { DashboardCalendarProps } from './DashboardCalendar.types';
 
-export const DashboardCalendar = ({ onMoreClick, data }: DashboardCalendarProps) => {
+export const DashboardCalendar = ({ onMoreClick, data, loading }: DashboardCalendarProps) => {
+  const theme = useTheme();
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -45,19 +47,28 @@ export const DashboardCalendar = ({ onMoreClick, data }: DashboardCalendarProps)
     <Card>
       <CardHeader
         title={
-          <Badge badgeContent={data.length} color="error">
-            <Typography variant="h2">{formatMessage({ id: 'dashboard.calendar.title' })}</Typography>
+          <Badge badgeContent={data.length} color="error" classes={{ badge: classes.badge }}>
+            <Typography variant="h2">{formatMessage({ id: 'calendar.title' })}</Typography>
           </Badge>
-        }
-        action={
-          <IconButton size="small" variant="roundedContained">
-            <ManageIcon />
-          </IconButton>
         }
       />
       <CardContent>
-        {data.length ? (
-          <Scrollable className={classes.scrollable} width="auto" height={342}>
+        {loading ? (
+          <Box height={theme.spacing(40)}>
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+            <Box mt={1.5} />
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+            <Box mt={1.5} />
+            <Placeholder height={theme.spacing(2)} />
+            <Box mt={0.5} />
+            <Placeholder height={theme.spacing(1)} />
+          </Box>
+        ) : data.length ? (
+          <Scrollable className={classes.scrollable} width="auto" height={theme.spacing(40)}>
             {sortedByDate.map((dateGroup, key) => {
               return (
                 <div className={classes.group} key={key}>
@@ -84,7 +95,7 @@ export const DashboardCalendar = ({ onMoreClick, data }: DashboardCalendarProps)
       </CardContent>
       <CardActions>
         <Button fullWidth className={classes.moreButton} onClick={onMoreClick}>
-          {formatMessage({ id: 'dashboard.calendar.view_more' })}
+          {formatMessage({ id: 'dashboard.calendar.view_all_appointments' })}
         </Button>
       </CardActions>
     </Card>

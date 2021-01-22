@@ -10,7 +10,6 @@ export const useStyles = makeStyles(({ spacing }) => ({
   },
   week: {
     '& td:first-child': {
-      height: spacing(7.5),
       '& div:first-child': {
         height: spacing(3.75),
       },

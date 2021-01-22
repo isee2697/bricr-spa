@@ -15,11 +15,14 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   card: {
-    paddingBottom: theme.spacing(1.5),
+    padding: theme.spacing(2),
+
+    '&:last-child': {
+      padding: theme.spacing(2),
+    },
   },
   expireInfo: {
     color: theme.palette.gray.main,
-    marginBottom: theme.spacing(1),
 
     '&.overdue': {
       color: theme.palette.error.main,
@@ -38,13 +41,12 @@ export const useStyles = makeStyles(theme => ({
   },
   taskLockedIcon: {
     verticalAlign: 'middle',
-    width: 16,
-    height: 16,
   },
   priorityIcon: {
     verticalAlign: 'middle',
-    width: 16,
-    height: 16,
+  },
+  refreshButton: {
+    marginRight: theme.spacing(1.5),
   },
   taskId: {
     lineHeight: `${theme.spacing(3)}px`,
@@ -60,6 +62,19 @@ export const useStyles = makeStyles(theme => ({
     background: theme.palette.gradientBlue.light,
     border: `1px dashed ${theme.palette.primary.main}`,
     borderRadius: theme.spacing(1),
+  },
+  linkItem: {
+    color: theme.palette.gray.main,
+    background: theme.palette.white.main,
+    padding: theme.spacing(0.5),
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    borderRadius: theme.spacing(1),
+
+    '&.selected': {
+      color: theme.palette.white.main,
+      background: theme.palette.gray.main,
+    },
   },
   flexGrowOne: {
     flexGrow: 1,

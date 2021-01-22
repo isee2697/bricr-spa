@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import { Grid, Box } from 'ui/atoms';
+import { Grid, Box, Typography, Avatar } from 'ui/atoms';
 import { PercentIcon } from 'ui/atoms/icons';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { FormSection, AutoCalculateForm } from 'ui/organisms';
@@ -15,7 +15,7 @@ import { GeneralProps } from './General.types';
 import { useStyles } from './General.styles';
 import * as dictionaries from './dictionaries';
 
-export const General = ({ data, isSidebarVisible, onSidebarOpen }: GeneralProps) => {
+export const General = ({ data, phase, isSidebarVisible, onSidebarOpen }: GeneralProps) => {
   const { state } = useLocation<{ newlyAdded?: boolean }>();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -25,6 +25,27 @@ export const General = ({ data, isSidebarVisible, onSidebarOpen }: GeneralProps)
       <ProjectDetailsHeader isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} />
       <Page
         title={formatMessage({ id: 'project_details.general.title' })}
+        titleActions={
+          <Box display="flex" alignItems="center">
+            {phase && (
+              <>
+                <Box>
+                  <Typography variant="h6" color="textSecondary">
+                    {formatMessage({ id: 'project_details.general.phase' })}
+                  </Typography>
+                  <Typography variant="h5" className={classes.fontWeightBold}>
+                    {phase.name}
+                  </Typography>
+                </Box>
+                {phase.logo?.url && (
+                  <Box ml={3}>
+                    <Avatar variant="rounded" src={phase.logo.url} className={classes.avatar} />
+                  </Box>
+                )}
+              </>
+            )}
+          </Box>
+        }
         dateUpdated={data?.dateUpdated}
         updatedBy={data?.lastEditedBy}
       >

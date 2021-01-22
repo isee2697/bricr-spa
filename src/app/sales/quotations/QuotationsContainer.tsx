@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQueryParam } from 'use-query-params';
 
 import { SALES_QUOTATIONS } from 'api/mocks/sales';
 import { useSalesQuotationsQueryParams } from 'app/shared/useSalesQuotationsQueryParams/useSalesQuotationsQueryParams';
@@ -8,6 +9,7 @@ import { QuotationsContainerProps, QuotationsTabStatus, SalesQuotationStepAction
 
 export const QuotationsContainer = (props: QuotationsContainerProps) => {
   const { status, sortType, setStatus, setSortType } = useSalesQuotationsQueryParams({});
+  const [viewMode = 'list', setViewMode] = useQueryParam<'list' | 'table'>('viewMode');
 
   return (
     <Quotations
@@ -16,6 +18,8 @@ export const QuotationsContainer = (props: QuotationsContainerProps) => {
       sortType={sortType}
       onChangeStatus={setStatus}
       onChangeSortType={setSortType}
+      viewMode={viewMode}
+      onViewModeChange={setViewMode}
       quotations={SALES_QUOTATIONS.filter(
         quotation =>
           quotation.steps?.findIndex(

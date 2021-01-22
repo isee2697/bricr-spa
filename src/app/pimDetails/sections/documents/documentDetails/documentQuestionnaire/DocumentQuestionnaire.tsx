@@ -1,59 +1,34 @@
-import React, { ReactElement, useCallback, useState } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { Loader, Grid, Box, Button } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { UploadIcon, MenuIcon, DeleteIcon, HistoryIcon } from 'ui/atoms/icons';
-import { useLocale } from 'hooks';
+import { AddIcon } from 'ui/atoms/icons';
+import { useLocale, useModalDispatch } from 'hooks';
 import { useStyles } from '../DocumentDetails.styles';
 import { DocumentSecurity } from '../documentSecurity/DocumentSecurity';
 
 import { DocumentQuestionnaireProps } from './DocumentQuestionnaire.types';
 import { DocumentQuestionnaireSidebarMenu } from './documentQuestionnaireSidebar/DocumentQuestionnaireSidebarMenu';
 import { DocumentQuestionnaireFlow } from './documentQuestionnaireFlow/DocumentQuestionnaireFlow';
+import { AddQuestionnaireGroupModal } from './addQuestionnaireGroupModal/AddQuestionnaireGroupModal';
+import { AddQuestionnaireItemModal } from './addQuestionnaireItemModal/AddQuestionnaireItemModal';
 
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
-
-export const DocumentQuestionnaire = ({ pimId, loading, error, data, breadcrumbs }: DocumentQuestionnaireProps) => {
+export const DocumentQuestionnaire = ({
+  pimId,
+  loading,
+  error,
+  data,
+  breadcrumbs,
+  onAddNewDocumentQuestionnaireGroup,
+  onAddNewDocumentQuestionnaireItem,
+}: DocumentQuestionnaireProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-  const { push } = useHistory();
   const [currentStep, setCurrentStep] = useState(3);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
+  const { open } = useModalDispatch();
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -62,12 +37,6 @@ export const DocumentQuestionnaire = ({ pimId, loading, error, data, breadcrumbs
   const handleSidebarOpen = useCallback(() => {
     setSidebarVisibility(true);
   }, []);
-
-  const handleGoBack = useCallback(() => {
-    if (pimId) {
-      push(AppRoute.pimDetails.replace(':id', pimId) + '/documents');
-    }
-  }, [push, pimId]);
 
   if (loading) {
     return <Loader />;
@@ -95,79 +64,15 @@ export const DocumentQuestionnaire = ({ pimId, loading, error, data, breadcrumbs
               isSidebarVisible={isSidebarVisible}
               onSidebarOpen={handleSidebarOpen}
               action={
-                <Box display="flex">
-                  <IconButton onClick={handleGoBack} variant="rounded" size="small">
-                    <UploadIcon />
-                  </IconButton>
-                  <Box ml={3.5}>
-                    <IconButton
-                      className="menu-icon"
-                      variant="rounded"
-                      size="small"
-                      selected={Boolean(menuEl)}
-                      onClick={onMenuClick}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Menu
-                      id={data.id}
-                      open={Boolean(menuEl)}
-                      onClose={onMenuClose}
-                      anchorEl={menuEl}
-                      placement="bottom-end"
-                    >
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'pim_details.documents.menu.generate_pdf',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                      />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'pim_details.documents.menu.send',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                      />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'pim_details.documents.menu.save_as_draft',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                      />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'pim_details.documents.menu.copy',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                      />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'pim_details.documents.menu.archive',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                      />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'common.delete',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                        icon={<DeleteIcon color="secondary" />}
-                      />
-                    </Menu>
-                  </Box>
-                </Box>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<AddIcon color="inherit" />}
+                  onClick={() => open('add_questionnaire_group')}
+                >
+                  {formatMessage({ id: 'pim_details.documents.add_questionnaire_group' })}
+                </Button>
               }
             />
             <Switch>
@@ -189,6 +94,8 @@ export const DocumentQuestionnaire = ({ pimId, loading, error, data, breadcrumbs
           </Grid>
         </Box>
       </Grid>
+      <AddQuestionnaireGroupModal onSubmit={onAddNewDocumentQuestionnaireGroup} />
+      <AddQuestionnaireItemModal onSubmit={onAddNewDocumentQuestionnaireItem} />
     </>
   );
 };

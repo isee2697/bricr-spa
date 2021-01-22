@@ -3,32 +3,32 @@ import { useParams } from 'react-router-dom';
 
 import { useEntityType } from 'app/shared/entityType';
 import { useLocale, useModalDispatch } from 'hooks';
-import { SortOption } from 'ui/molecules/list/List.types';
 import { Box, Button, Card, CardContent, CardHeader, Grid, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { joinUrlParams } from 'routing/AppRoute.utils';
-import { AddIcon, LocationIcon, ManageIcon, SearchIcon, SettingsIcon } from 'ui/atoms/icons';
+import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon, SettingsIcon } from 'ui/atoms/icons';
 import { SalesHeader } from '../salesHeader/SalesHeader';
 import { Page } from 'ui/templates';
-import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 
 import { SalesAcquisitionProps } from './SalesAcquisition.types';
 import { SalesAcquisitionTabs } from './tabs/Tabs';
-import { SalesAcquisitionItem } from './item/Item';
+import { ListView } from './listView/ListView';
+import { TableView } from './tableView/TableView';
 
 export const SalesAcquisition = (props: SalesAcquisitionProps) => {
-  const { onSidebarOpen, isSidebarVisible, onStatusChange, status, salesAcquisitions } = props;
+  const {
+    onSidebarOpen,
+    isSidebarVisible,
+    onStatusChange,
+    status,
+    viewMode,
+    onViewModeChange,
+    salesAcquisitions,
+  } = props;
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
-
-  const sortOptions: SortOption[] = [
-    {
-      name: formatMessage({ id: 'common.sort_option.newest' }),
-      key: 'newest',
-    },
-  ];
 
   return (
     <>
@@ -66,6 +66,16 @@ export const SalesAcquisition = (props: SalesAcquisitionProps) => {
               action={
                 <Box display="flex">
                   <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('list')}>
+                      <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('table')}>
+                      <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
                     <IconButton variant="rounded" size="small">
                       <LocationIcon />
                     </IconButton>
@@ -93,22 +103,8 @@ export const SalesAcquisition = (props: SalesAcquisitionProps) => {
                   withdrawn: 12,
                 }}
               />
-              <List
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({ id: 'sales.acquisition.empty_title' })}
-                emptyDescription={formatMessage({ id: 'sales.acquisition.empty_description' })}
-                sortOptions={sortOptions}
-                items={salesAcquisitions || []}
-                itemIndex={'id'}
-                renderItem={(salesAcuiqisition, checked, checkbox) => (
-                  <SalesAcquisitionItem
-                    status={status}
-                    salesAcquisition={salesAcuiqisition}
-                    checked={checked}
-                    checkbox={checkbox}
-                  />
-                )}
-              />
+              {viewMode === 'list' && <ListView status={status} items={salesAcquisitions} />}
+              {viewMode === 'table' && <TableView items={salesAcquisitions} />}
             </CardContent>
           </Card>
         </Grid>

@@ -116,6 +116,7 @@ export type Mutation = {
   addPimService?: Maybe<PimWithNewService>;
   addProjectPhase: ProjectPhase;
   addSpaceToFloor: PimWithUpdatedSpace;
+  addSubtask: Task;
   addTag?: Maybe<PimWithNewTag>;
   addTaskLabel: Label;
   addTeam?: Maybe<Team>;
@@ -143,6 +144,7 @@ export type Mutation = {
   deactivateProfile: Profile;
   deleteEntity: Array<DeleteResult>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
+  deleteSubtask?: Maybe<Task>;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -245,6 +247,7 @@ export type Mutation = {
   updateSpace: Pim;
   updateSpecification: Pim;
   updateSpecificationAdvanced: Pim;
+  updateSubtaskStatus?: Maybe<Task>;
   updateTag?: Maybe<Pim>;
   updateTask?: Maybe<Task>;
   updateTeam?: Maybe<Team>;
@@ -413,6 +416,11 @@ export type MutationAddSpaceToFloorArgs = {
   input: AddSpaceInput;
 };
 
+export type MutationAddSubtaskArgs = {
+  taskId: Scalars['String'];
+  input: AddSubtaskInput;
+};
+
 export type MutationAddTagArgs = {
   input: AddTagInput;
 };
@@ -523,6 +531,10 @@ export type MutationDeleteEntityArgs = {
 
 export type MutationDeleteNotificationArgs = {
   input: DeleteNotificationInput;
+};
+
+export type MutationDeleteSubtaskArgs = {
+  subtaskId: Scalars['ID'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -932,6 +944,11 @@ export type MutationUpdateSpecificationArgs = {
 
 export type MutationUpdateSpecificationAdvancedArgs = {
   input: SpecificationAdvancedInput;
+};
+
+export type MutationUpdateSubtaskStatusArgs = {
+  subtaskId: Scalars['ID'];
+  status: TaskStatus;
 };
 
 export type MutationUpdateTagArgs = {
@@ -1964,6 +1981,12 @@ export enum CrmIdentificationNumberType {
   Custom = 'Custom',
 }
 
+export enum CrmStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
@@ -1986,6 +2009,7 @@ export type CrmGeneral = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type CrmIdentificationNumber = {
@@ -2031,6 +2055,7 @@ export type UpdateCrmGeneralInput = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export enum CurrentHomeSituationType {
@@ -2095,6 +2120,7 @@ export type CrmListItem = {
   phoneNumber?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type EmailAndName = {
@@ -6040,6 +6066,13 @@ export type ParkingLotGeneral = {
   insulation?: Maybe<ParkingInsulation>;
 };
 
+export enum DateRangeType {
+  ThirtyDays = 'ThirtyDays',
+  TwoWeeks = 'TwoWeeks',
+  OneWeek = 'OneWeek',
+  ThreeDays = 'ThreeDays',
+}
+
 export enum CostPaymentFrequency {
   Monthly = 'Monthly',
   Yearly = 'Yearly',
@@ -7401,7 +7434,7 @@ export type Sales = {
   status: SalesStatus;
   createdAt: Scalars['Date'];
   updatedAt: Scalars['Date'];
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   type: SalesType;
   extraInfo?: Maybe<Scalars['String']>;
   attentionNote?: Maybe<Scalars['String']>;
@@ -7700,6 +7733,8 @@ export type AdvancedSearchResult = {
   crms?: Maybe<Array<CrmListItem>>;
   pims?: Maybe<Array<Pim>>;
   teams?: Maybe<Array<Team>>;
+  ncps?: Maybe<Array<ListNcp>>;
+  sales?: Maybe<Array<Sales>>;
 };
 
 export type AdvancedSearchInput = {
@@ -7956,9 +7991,19 @@ export type Task = LastUpdated & {
   status: TaskStatus;
   description?: Maybe<Scalars['String']>;
   originalEstimate?: Maybe<Scalars['Int']>;
+  subTasks?: Maybe<Array<Subtask>>;
   logs?: Maybe<Array<TaskLog>>;
   resultIntern?: Maybe<Scalars['String']>;
   resultClient?: Maybe<Scalars['String']>;
+  lastEditedBy?: Maybe<LastUpdatedProfile>;
+  dateUpdated?: Maybe<Scalars['Date']>;
+};
+
+export type Subtask = LastUpdated & {
+  __typename?: 'Subtask';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  status: TaskStatus;
   lastEditedBy?: Maybe<LastUpdatedProfile>;
   dateUpdated?: Maybe<Scalars['Date']>;
 };
@@ -8014,6 +8059,10 @@ export type UpdateTaskInput = {
   taskLog?: Maybe<TaskLogInput>;
   resultIntern?: Maybe<Scalars['String']>;
   resultClient?: Maybe<Scalars['String']>;
+};
+
+export type AddSubtaskInput = {
+  title: Scalars['String'];
 };
 
 export type DateRange = {
@@ -8456,6 +8505,7 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -9784,6 +9834,32 @@ export type UpdateTaskMutation = { __typename?: 'Mutation' } & {
   updateTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
 };
 
+export type AddNewSubtaskMutationVariables = Exact<{
+  taskId: Scalars['String'];
+  title: Scalars['String'];
+}>;
+
+export type AddNewSubtaskMutation = { __typename?: 'Mutation' } & {
+  addSubtask: { __typename?: 'Task' } & Pick<Task, 'id'>;
+};
+
+export type UpdateSubtaskStatusMutationVariables = Exact<{
+  subtaskId: Scalars['ID'];
+  status: TaskStatus;
+}>;
+
+export type UpdateSubtaskStatusMutation = { __typename?: 'Mutation' } & {
+  updateSubtaskStatus?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
+
+export type DeleteSubtaskMutationVariables = Exact<{
+  subtaskId: Scalars['ID'];
+}>;
+
+export type DeleteSubtaskMutation = { __typename?: 'Mutation' } & {
+  deleteSubtask?: Maybe<{ __typename?: 'Task' } & Pick<Task, 'id'>>;
+};
+
 export type AddTeamMutationVariables = Exact<{
   input: AddTeamInput;
 }>;
@@ -10031,6 +10107,7 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -10068,7 +10145,7 @@ export type CrmListQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'CrmListItem' } & Pick<
         CrmListItem,
-        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
       > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
     >
   >;
@@ -13079,8 +13156,52 @@ export type AdvancedSearchQuery = { __typename?: 'Query' } & {
         Array<
           { __typename?: 'Pim' } & Pick<
             Pim,
-            'id' | 'street' | 'houseNumber' | 'district' | 'city' | 'state' | 'country' | 'county'
+            'id' | 'street' | 'houseNumber' | 'district' | 'city' | 'state' | 'country' | 'county' | 'propertyType'
           >
+        >
+      >;
+      ncps?: Maybe<
+        Array<
+          { __typename?: 'ListNcp' } & Pick<
+            ListNcp,
+            | 'id'
+            | 'dateCreated'
+            | 'dateUpdated'
+            | 'archived'
+            | 'areaRangeFrom'
+            | 'areaRangeTo'
+            | 'numberOfRoomsFrom'
+            | 'numberOfRoomsTo'
+            | 'name'
+            | 'salePriceFrom'
+            | 'salePriceTo'
+            | 'rentPriceFrom'
+            | 'rentPriceTo'
+            | 'saleLabel'
+            | 'rentLabel'
+            | 'partOfPhase'
+            | 'soldNumber'
+            | 'rentNumber'
+            | 'completeness'
+            | 'available'
+            | 'underOption'
+            | 'soldOrRent'
+            | 'matches'
+            | 'interests'
+            | 'candidates'
+            | 'optants'
+            | 'properties'
+            | 'objectTypesCount'
+            | 'attentionNote'
+            | 'projectType'
+          > & {
+              logoPicture?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+              mainPicture?: Maybe<
+                { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+                    file?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                  }
+              >;
+            }
         >
       >;
       teams?: Maybe<
@@ -13088,6 +13209,23 @@ export type AdvancedSearchQuery = { __typename?: 'Query' } & {
           { __typename?: 'Team' } & Pick<Team, 'id' | 'name'> & {
               profileMembers?: Maybe<Array<{ __typename?: 'TeamMember' } & Pick<TeamMember, 'id'>>>;
             }
+        >
+      >;
+      sales?: Maybe<
+        Array<
+          { __typename?: 'Sales' } & Pick<
+            Sales,
+            | 'id'
+            | 'label'
+            | 'status'
+            | 'createdAt'
+            | 'updatedAt'
+            | 'name'
+            | 'type'
+            | 'extraInfo'
+            | 'attentionNote'
+            | 'date'
+          >
         >
       >;
     }
@@ -13135,6 +13273,15 @@ export type GetTaskQuery = { __typename?: 'Query' } & {
       | 'dateUpdated'
     > & {
         logs?: Maybe<Array<{ __typename?: 'TaskLog' } & Pick<TaskLog, 'timeSpent' | 'dateStarted' | 'notes'>>>;
+        subTasks?: Maybe<
+          Array<
+            { __typename?: 'Subtask' } & Pick<Subtask, 'id' | 'title' | 'status' | 'dateUpdated'> & {
+                lastEditedBy?: Maybe<
+                  { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
+                >;
+              }
+          >
+        >;
         lastEditedBy?: Maybe<
           { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
         >;
@@ -13604,6 +13751,7 @@ export const UpdateCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -16869,6 +17017,69 @@ export type UpdateTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpdateTaskMutation,
   UpdateTaskMutationVariables
 >;
+export const AddNewSubtaskDocument = gql`
+  mutation AddNewSubtask($taskId: String!, $title: String!) {
+    addSubtask(taskId: $taskId, input: { title: $title }) {
+      id
+    }
+  }
+`;
+export function useAddNewSubtaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddNewSubtaskMutation, AddNewSubtaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddNewSubtaskMutation, AddNewSubtaskMutationVariables>(
+    AddNewSubtaskDocument,
+    baseOptions,
+  );
+}
+export type AddNewSubtaskMutationHookResult = ReturnType<typeof useAddNewSubtaskMutation>;
+export type AddNewSubtaskMutationResult = ApolloReactCommon.MutationResult<AddNewSubtaskMutation>;
+export type AddNewSubtaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddNewSubtaskMutation,
+  AddNewSubtaskMutationVariables
+>;
+export const UpdateSubtaskStatusDocument = gql`
+  mutation UpdateSubtaskStatus($subtaskId: ID!, $status: TaskStatus!) {
+    updateSubtaskStatus(subtaskId: $subtaskId, status: $status) {
+      id
+    }
+  }
+`;
+export function useUpdateSubtaskStatusMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSubtaskStatusMutation, UpdateSubtaskStatusMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateSubtaskStatusMutation, UpdateSubtaskStatusMutationVariables>(
+    UpdateSubtaskStatusDocument,
+    baseOptions,
+  );
+}
+export type UpdateSubtaskStatusMutationHookResult = ReturnType<typeof useUpdateSubtaskStatusMutation>;
+export type UpdateSubtaskStatusMutationResult = ApolloReactCommon.MutationResult<UpdateSubtaskStatusMutation>;
+export type UpdateSubtaskStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateSubtaskStatusMutation,
+  UpdateSubtaskStatusMutationVariables
+>;
+export const DeleteSubtaskDocument = gql`
+  mutation DeleteSubtask($subtaskId: ID!) {
+    deleteSubtask(subtaskId: $subtaskId) {
+      id
+    }
+  }
+`;
+export function useDeleteSubtaskMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteSubtaskMutation, DeleteSubtaskMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteSubtaskMutation, DeleteSubtaskMutationVariables>(
+    DeleteSubtaskDocument,
+    baseOptions,
+  );
+}
+export type DeleteSubtaskMutationHookResult = ReturnType<typeof useDeleteSubtaskMutation>;
+export type DeleteSubtaskMutationResult = ApolloReactCommon.MutationResult<DeleteSubtaskMutation>;
+export type DeleteSubtaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteSubtaskMutation,
+  DeleteSubtaskMutationVariables
+>;
 export const AddTeamDocument = gql`
   mutation AddTeam($input: AddTeamInput!) {
     addTeam(input: $input) {
@@ -17356,6 +17567,7 @@ export const GetCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -17425,6 +17637,7 @@ export const CrmListDocument = gql`
       avatar {
         url
       }
+      status
     }
   }
 `;
@@ -22006,6 +22219,48 @@ export const AdvancedSearchDocument = gql`
         state
         country
         county
+        propertyType
+      }
+      ncps {
+        id
+        dateCreated
+        dateUpdated
+        archived
+        areaRangeFrom
+        areaRangeTo
+        numberOfRoomsFrom
+        numberOfRoomsTo
+        logoPicture {
+          url
+        }
+        mainPicture {
+          id
+          file {
+            url
+          }
+        }
+        name
+        salePriceFrom
+        salePriceTo
+        rentPriceFrom
+        rentPriceTo
+        saleLabel
+        rentLabel
+        partOfPhase
+        soldNumber
+        rentNumber
+        completeness
+        available
+        underOption
+        soldOrRent
+        matches
+        interests
+        candidates
+        optants
+        properties
+        objectTypesCount
+        attentionNote
+        projectType
       }
       teams {
         id
@@ -22013,6 +22268,18 @@ export const AdvancedSearchDocument = gql`
         profileMembers {
           id
         }
+      }
+      sales {
+        id
+        label
+        status
+        createdAt
+        updatedAt
+        name
+        type
+        extraInfo
+        attentionNote
+        date
       }
     }
   }
@@ -22106,6 +22373,17 @@ export const GetTaskDocument = gql`
         timeSpent
         dateStarted
         notes
+      }
+      subTasks {
+        id
+        title
+        status
+        lastEditedBy {
+          id
+          firstName
+          lastName
+        }
+        dateUpdated
       }
       resultIntern
       resultClient

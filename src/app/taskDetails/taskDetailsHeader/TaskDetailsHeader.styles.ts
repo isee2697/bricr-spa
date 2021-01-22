@@ -5,6 +5,14 @@ export const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
   },
   btnShare: {
-    marginRight: theme.spacing(3.5),
+    marginRight: theme.spacing(1),
+  },
+  btnRefresh: {
+    background: theme.palette.white.main,
+    width: theme.spacing(4),
+  },
+  btnNotify: {
+    background: theme.palette.white.main,
+    marginLeft: theme.spacing(1),
   },
 }));

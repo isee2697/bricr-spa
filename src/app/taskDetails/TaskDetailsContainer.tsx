@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { GetTaskDocument, Task, useGetMyTeamMembersQuery, useGetTaskQuery, useUpdateTaskMutation } from 'api/types';
+import {
+  GetTaskDocument,
+  Task,
+  TaskStatus,
+  useAddNewSubtaskMutation,
+  useCreateTaskMutation,
+  useDeleteSubtaskMutation,
+  useGetMyTeamMembersQuery,
+  useGetTaskQuery,
+  useUpdateSubtaskStatusMutation,
+  useUpdateTaskMutation,
+} from 'api/types';
 import { Alert, Loader, NavBreadcrumb, Snackbar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { TaskDetails } from './TaskDetails';
 import { useStyles } from './TaskDetails.style';
 import { TaskLabelIcon } from './taskLabelIcon/TaskLabelIcon';
+import { FollowUpTaskBody } from './TaskDetails.types';
 
 export const TaskDetailsContainer = () => {
   const { user } = useAuthState();
   const [indicatorState, setIndicatorState] = useState<undefined | 'success' | 'error' | 'info'>(undefined);
   const { loading: loadingTeam, data: teamData } = useGetMyTeamMembersQuery();
   const classes = useStyles();
+  const { push } = useHistory();
 
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
@@ -41,7 +55,11 @@ export const TaskDetailsContainer = () => {
     </>
   );
 
+  const [createTask] = useCreateTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
+  const [addNewSubtask] = useAddNewSubtaskMutation();
+  const [updateSubtaskStatus] = useUpdateSubtaskStatusMutation();
+  const [deleteSubtask] = useDeleteSubtaskMutation();
 
   const handleUpdateTask = async (taskId: string, task: Partial<Task>) => {
     const { data: result, errors } = await updateTask({
@@ -68,6 +86,90 @@ export const TaskDetailsContainer = () => {
     }
   };
 
+  const handleFollowUpTask = async (taskDetails: FollowUpTaskBody) => {
+    const { data: result, errors } = await createTask({
+      variables: {
+        input: {
+          ...taskDetails,
+        },
+      },
+    });
+
+    if (!result || !result.createTask || errors) {
+      setIndicatorState('error');
+    } else {
+      push(joinUrlParams(AppRoute.taskDetails, { id: result.createTask.id }));
+    }
+  };
+
+  const handleAddNewSubtask = async (taskId: string, subtaskTitle: string) => {
+    const { data: result, errors } = await addNewSubtask({
+      variables: {
+        taskId,
+        title: subtaskTitle,
+      },
+      refetchQueries: [
+        {
+          query: GetTaskDocument,
+          variables: {
+            id: taskId,
+          },
+        },
+      ],
+    });
+
+    if (!result || !result.addSubtask || errors) {
+      setIndicatorState('error');
+    } else {
+      setIndicatorState('success');
+    }
+  };
+
+  const handleUpdateSubtaskStatus = async (taskId: string, subtaskId: string, subtaskStatus: TaskStatus) => {
+    const { data: result, errors } = await updateSubtaskStatus({
+      variables: {
+        subtaskId,
+        status: subtaskStatus,
+      },
+      refetchQueries: [
+        {
+          query: GetTaskDocument,
+          variables: {
+            id: taskId,
+          },
+        },
+      ],
+    });
+
+    if (!result || !result.updateSubtaskStatus || errors) {
+      setIndicatorState('error');
+    } else {
+      setIndicatorState('success');
+    }
+  };
+
+  const handleDeleteSubtask = async (taskId: string, subtaskId: string) => {
+    const { data: result, errors } = await deleteSubtask({
+      variables: {
+        subtaskId,
+      },
+      refetchQueries: [
+        {
+          query: GetTaskDocument,
+          variables: {
+            id: taskId,
+          },
+        },
+      ],
+    });
+
+    if (!result || !result.deleteSubtask || errors) {
+      setIndicatorState('error');
+    } else {
+      setIndicatorState('success');
+    }
+  };
+
   if (loading || !user || loadingTeam || !teamData || !teamData.members || !taskData || !taskData.getTask) {
     return <Loader />;
   }
@@ -77,7 +179,11 @@ export const TaskDetailsContainer = () => {
       <TaskDetails
         taskData={taskData.getTask}
         breadcrumbs={breadcrumbs}
+        onFollowUpTask={handleFollowUpTask}
         onUpdateTask={handleUpdateTask}
+        onAddNewSubtask={handleAddNewSubtask}
+        onUpdateSubtaskStatus={handleUpdateSubtaskStatus}
+        onDeleteSubtask={handleDeleteSubtask}
         user={user}
         members={teamData.members.items || []}
       />

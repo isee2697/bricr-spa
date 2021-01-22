@@ -2,7 +2,7 @@ import { Layout } from 'react-grid-layout';
 
 export type DashboardsProps = {
   cards: Layout[];
-  onAddNewCard: (newCard: Layout) => void;
+  onUpdateLayout: (newLayout: Layout[]) => void;
 };
 
 export enum DashboardType {

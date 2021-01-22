@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout } from 'react-grid-layout';
 
 import { Dashboards } from './Dashboards';
 
 export const DashboardsContainer = () => {
-  const [cards, setCards] = useState<Layout[]>([
+  const cards = [
     {
       i: 'a',
       x: 0,
@@ -77,11 +77,11 @@ export const DashboardsContainer = () => {
       maxW: 8,
       isResizable: true,
     },
-  ]);
+  ];
 
-  const handleAddNewCard = (newCard: Layout) => {
-    setCards([...cards, { ...newCard, i: `${cards.length}`, isResizable: true }]);
+  const handleUpdateLayout = (newLayout: Layout[]) => {
+    // TODO: Save updated layout into db
   };
 
-  return <Dashboards cards={cards} onAddNewCard={handleAddNewCard} />;
+  return <Dashboards cards={cards} onUpdateLayout={handleUpdateLayout} />;
 };

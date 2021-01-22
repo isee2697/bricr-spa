@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
   root: {},
+  avatarIcon: {
+    marginRight: theme.spacing(1),
+  },
   backBtnWrapper: {
     position: 'relative',
     width: theme.spacing(5.25),

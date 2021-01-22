@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
 import { DateTime } from 'luxon';
-import clsx from 'classnames';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-import {
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  IconButton,
-  Menu,
-  MenuItem,
-  NavBreadcrumb,
-  NavBreadcrumbs,
-  Typography,
-} from 'ui/atoms';
-import { ClockIcon, DeleteIcon, MenuIcon, PinIcon, ShareIcon } from 'ui/atoms/icons';
+import { Box, Button, Grid, IconButton, NavBreadcrumb, NavBreadcrumbs, Typography } from 'ui/atoms';
+import { ClockIcon, DeleteIcon, PinIcon, ShareIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { Page } from 'ui/templates';
 import { PIM_1 } from 'api/mocks/pim';
 import { CRM } from 'api/mocks/crm';
 import { SALES_LEADS } from 'api/mocks/sales';
-import { Pim } from 'api/types';
+import { Pim, CrmGeneral } from 'api/types';
 import { CrmItem } from 'app/crm/Crm.types';
 import { SalesLead } from 'app/sales/salesLeads/SalesLeads.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -36,13 +24,14 @@ import { Attachements } from './attachements/Attachements';
 import { Replies } from './replies/Replies';
 import { Destinations } from './destinations/Destinations';
 import { LinkedItems } from './linkedItems/LinkedItems';
+import { LinkCrmRelationModalContainer } from './../linkCrmRelationModal/LinkCrmRelationModalContainer';
 
 export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { id, pinned, date, threadMessages = [] } = email;
-  const { isOpen } = useModalState('link-pim-object');
+  const { isOpen: isOpenPim } = useModalState('link-pim-object');
+  const { isOpen: isOpenCrm } = useModalState('link-crm-relation');
   const { open, close } = useModalDispatch();
   const [linkedPims, setLinkedPims] = useState<Pim[]>([]);
   const [linkedRelations, setLinkedRelations] = useState<CrmItem[]>([]);
@@ -51,36 +40,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
   const { params } = useRouteMatch();
   const { push } = useHistory();
 
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
-
   const actions = [
-    {
-      value: 'linkToCrm',
-      icon: <ClockIcon />,
-      onClick: () => {},
-      isChecked: linkedRelations.length > 0,
-    },
-    {
-      value: 'linkToPim',
-      icon: <ClockIcon />,
-      onClick: () => {
-        open('link-pim-object');
-      },
-      isChecked: linkedPims.length > 0,
-    },
-    {
-      value: 'linkToSales',
-      icon: <ClockIcon />,
-      onClick: () => {},
-      isChecked: linkedSalesOrders.length > 0,
-    },
     {
       value: 'linkToCalendar',
       icon: <ClockIcon />,
@@ -125,12 +85,28 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
     },
   ];
 
+  const handleLinkPims = () => {
+    open('link-pim-object');
+  };
+
   const handleLinkPimObjects = async (pims: string[]) => {
     close('link-pim-object');
     setLinkedPims([PIM_1]);
-    setLinkedRelations([CRM]);
+    setLinkedRelations([CRM, CRM]);
     setLinkedSalesOrders(SALES_LEADS);
     setLinkedCalendars([DateTime.local()]);
+  };
+
+  const handleLinkRelations = () => {
+    open('link-crm-relation');
+  };
+
+  const handleLinkCrmRelations = async (crm: CrmGeneral) => {
+    close('link-crm-relation');
+  };
+
+  const handleLinkSalesOrders = () => {
+    open('link-sales-order');
   };
 
   return (
@@ -156,14 +132,19 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
               >
                 <ShareIcon />
               </IconButton>
-              <Box ml={3.5} />
-              <IconButton variant="rounded" size="small" onClick={onMenuClick}>
-                <MenuIcon />
-              </IconButton>
             </Box>
           </Box>
           <Page withoutHeader>
-            <Destinations />
+            <Destinations
+              email={email}
+              linkedPims={linkedPims}
+              onLinkPims={handleLinkPims}
+              linkedRelations={linkedRelations}
+              onLinkRelations={handleLinkRelations}
+              linkedSalesOrders={linkedSalesOrders}
+              onLinkSalesOrders={handleLinkSalesOrders}
+              actions={actions}
+            />
             <Subject email={email} />
             {(linkedPims.length > 0 ||
               linkedRelations.length > 0 ||
@@ -198,34 +179,19 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
           </Page>
         </Grid>
       </Grid>
-      <Menu id={id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-        {actions.map((action, index) => (
-          <MenuItem
-            onClick={(event: React.MouseEvent) => {
-              event.stopPropagation();
-              setMenuEl(null);
-              action.onClick();
-            }}
-            className={clsx(classes.menuItem, action.color)}
-          >
-            {action.icon}
-            <Box ml={2} display="flex" width="100%" justifyContent="space-between" alignItems="center">
-              <Typography variant="subtitle1">
-                {formatMessage({
-                  id: `email.action.${action.value}`,
-                })}
-              </Typography>
-              {action.isChecked && <Checkbox color="primary" checked />}
-            </Box>
-          </MenuItem>
-        ))}
-      </Menu>
       <LinkPimObjectModalContainer
-        isOpened={isOpen}
+        isOpened={isOpenPim}
         onClose={() => {
           close('link-pim-object');
         }}
         onSubmit={handleLinkPimObjects}
+      />
+      <LinkCrmRelationModalContainer
+        isOpened={isOpenCrm}
+        onClose={() => {
+          close('link-crm-relation');
+        }}
+        onSubmit={handleLinkCrmRelations}
       />
     </>
   );

@@ -10,6 +10,8 @@ export type SalesAcquisitionContainerProps = {
 export type SalesAcquisitionProps = {
   status: SalesStatus;
   onStatusChange: (status: SalesStatus) => void;
+  viewMode: 'list' | 'table';
+  onViewModeChange: (viewMode: 'list' | 'table') => void;
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
   salesAcquisitions: Sales[];
