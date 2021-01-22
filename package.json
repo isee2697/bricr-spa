@@ -3,8 +3,8 @@
   "version": "1.2.1",
   "private": true,
   "scripts": {
-    "build": "react-scripts build",
-    "build:ci": "cross-env REACT_APP_CI=1 react-scripts build",
+    "build": "react-scripts build --max-old-space-size=3068",
+    "build:ci": "cross-env REACT_APP_CI=1 react-scripts build --max-old-space-size=3068",
     "coverage": "npm rebuild && cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/**/*.{ts,tsx} && stylelint ./src/**/*.{css,pcss,scss} && echo 'lint success'",
