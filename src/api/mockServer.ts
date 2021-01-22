@@ -48,21 +48,25 @@ export const mockServer = () => {
       me: Model,
     },
     routes() {
-      this.post('/mock-security/public/auth/login', (schema, request) => {
+      this.post('/mock-security/login', (schema, request) => {
         return {
-          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
-          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          AuthenticationResult: {
+            AccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            RefreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          },
         };
       });
 
-      this.post('/mock-security/public/auth/refresh-token', (schema, request) => {
+      this.post('/mock-security/refresh-token', (schema, request) => {
         return {
-          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
-          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          AuthenticationResult: {
+            AccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            RefreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          },
         };
       });
 
-      this.post('/mock-security/public/auth/reset-password', (schema, request) => {
+      this.post('/mock-security/reset-password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
         if (requestJson.username !== 'test') {
@@ -72,7 +76,7 @@ export const mockServer = () => {
         return {};
       });
 
-      this.post('/mock-security/public/auth/reset-password/token', (schema, request) => {
+      this.post('/mock-security/reset-password/token', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
         if (requestJson.newPassword !== 'passw0rd') {
