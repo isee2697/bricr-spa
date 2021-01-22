@@ -1,19 +1,22 @@
 import React from 'react';
 import { useForm } from 'react-final-form';
 
-import { Typography, Box } from 'ui/atoms';
+import { Typography, Box, Card, Tabs, Tab, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { MembersDropdownField } from 'form/fields';
-import { Profile } from 'api/types';
+import { CheckboxField, MembersDropdownField } from 'form/fields';
 import { AvatarRowItem } from 'ui/atoms/avatarRowItem/AvatarRowItem';
 
-export const Participants = ({ members }: { members: Profile[] }) => {
+import { ParticipantProps } from './Participant.types';
+import { useStyles } from './Participant.styles';
+
+export const Participant = ({ members }: ParticipantProps) => {
   const fieldName = 'invitedPersons';
   const membersSelectField = 'members_no_submit_value';
   const { formatMessage } = useLocale();
   const form = useForm();
   const inviteUserId = form.getState().values?.[membersSelectField];
   const assignedUsers: string[] = form.getState().values?.[fieldName] ?? [];
+  const classes = useStyles();
 
   //empty select and add value to form array
   if (!!inviteUserId && !assignedUsers.includes(inviteUserId)) {
@@ -22,19 +25,23 @@ export const Participants = ({ members }: { members: Profile[] }) => {
   }
 
   return (
-    <>
-      <MembersDropdownField
-        members={members.filter(member => !assignedUsers.find(id => member.id === id))}
-        label={undefined}
-        name={membersSelectField}
-        validate={[]}
-      />
-      {assignedUsers.length > 0 && (
-        <Box mt={2} mb={2}>
-          <Typography variant="h5">{formatMessage({ id: 'appointment.invited_users.label' })}</Typography>
-        </Box>
-      )}
-      <>
+    <Card>
+      <Tabs className={classes.tabs} value={0} indicatorColor="primary">
+        <Tab label={formatMessage({ id: 'appointment.participant.title' })} />
+      </Tabs>
+      <CardContent>
+        <MembersDropdownField
+          members={members.filter(member => !assignedUsers.find(id => member.id === id))}
+          name={membersSelectField}
+          validate={[]}
+        />
+        {assignedUsers.length > 0 && (
+          <Box mt={2} mb={2}>
+            <Typography variant="h5">
+              {formatMessage({ id: 'appointment.participant.already_invited_users' })}
+            </Typography>
+          </Box>
+        )}
         {assignedUsers.map(memberId => {
           const member = members.find(item => item.id === memberId);
 
@@ -51,7 +58,9 @@ export const Participants = ({ members }: { members: Profile[] }) => {
             />
           );
         })}
-      </>
-    </>
+        <Box mt={3} />
+        <CheckboxField name="collegial" label={formatMessage({ id: 'appointment.participant.collegial' })} />
+      </CardContent>
+    </Card>
   );
 };
