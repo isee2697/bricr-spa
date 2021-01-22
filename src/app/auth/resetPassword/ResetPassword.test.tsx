@@ -4,19 +4,19 @@ import { act, fireEvent, render, wait } from 'tests';
 
 import { ResetPassword } from './ResetPassword';
 
-describe('ResetPasssword', () => {
+describe.only('ResetPasssword', () => {
   test('calls onSubmit prop with new password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
 
-    const { getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
+    const { getByRole, getByTestId } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByTestId('reset-password-field'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByTestId('reset-password-repeat-field'), {
         target: {
           value: 'fooBarBaz',
         },
@@ -34,15 +34,15 @@ describe('ResetPasssword', () => {
 
   test('displays an error if reset password failed', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(false));
-    const { getByText, getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
+    const { getByText, getByTestId, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByTestId('reset-password-field'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByTestId('reset-password-repeat-field'), {
         target: {
           value: 'fooBarBaz',
         },
@@ -55,17 +55,17 @@ describe('ResetPasssword', () => {
     });
   });
 
-  test('displays success message if reset password succeded', async () => {
+  test('displays success message if reset password succeeded', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));
-    const { getByText, getByLabelText, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
+    const { getByText, getByTestId, getByRole } = render(<ResetPassword onSubmit={onSubmit} />);
 
     act(() => {
-      fireEvent.change(getByLabelText('reset_password.new_password'), {
+      fireEvent.change(getByTestId('reset-password-field'), {
         target: {
           value: 'fooBarBaz',
         },
       });
-      fireEvent.change(getByLabelText('reset_password.repeat_password'), {
+      fireEvent.change(getByTestId('reset-password-repeatfield'), {
         target: {
           value: 'fooBarBaz',
         },

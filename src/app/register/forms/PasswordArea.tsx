@@ -26,6 +26,7 @@ export const PasswordArea = ({ error, setError }: PasswordAreaProps) => {
           onKeyUp={() => checkPassword()}
           required
           name="password"
+          data-testid="reset-password-field"
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -38,6 +39,7 @@ export const PasswordArea = ({ error, setError }: PasswordAreaProps) => {
           error={error}
           name="repeat_password"
           helperText={error && 'common.password.repeat_error'}
+          data-testid="reset-password-repeat-field"
         />
       </Grid>
     </Grid>
