@@ -5,7 +5,7 @@ import { useAdvancedSearchLazyQuery } from 'api/types';
 import { Search } from './Search';
 
 export const SearchContainer = () => {
-  const [advancedSearch, { data }] = useAdvancedSearchLazyQuery({
+  const [advancedSearch, { data, loading }] = useAdvancedSearchLazyQuery({
     fetchPolicy: 'no-cache',
   });
 
@@ -23,6 +23,7 @@ export const SearchContainer = () => {
     <Search
       results={data?.advancedSearch || { users: [], crms: [], pims: [], emails: [], teams: [] }}
       onSearch={handleSearch}
+      loading={loading}
     />
   );
 };
