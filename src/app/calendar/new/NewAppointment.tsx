@@ -28,6 +28,7 @@ import { NewAppointmentProps } from './NewAppointment.types';
 import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
 import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
+import { PencilAppointment } from './cards/pencilAppointment/PencilAppointment';
 
 type SubMenuItemType = {
   title: string;
@@ -197,6 +198,7 @@ export const NewAppointment = ({
             <Grid container spacing={3}>
               <Grid item xs={12} md={8}>
                 <AppointmentBaseInfoCard />
+                <PencilAppointment />
                 <EditorCard />
                 {values.type !== CalendarTypes.Birthday && <AppointmentTypeCard />}
               </Grid>

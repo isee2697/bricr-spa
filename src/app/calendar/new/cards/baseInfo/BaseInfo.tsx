@@ -110,12 +110,14 @@ export const AppointmentBaseInfoCard = () => {
             )}
           </Grid>
         ))}
-
       <Box mb={1} />
       {values.type !== CalendarTypes.Birthday && (
         <Grid container spacing={3} alignItems="center" className={classes.bottom}>
           <Grid item>
-            <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}>
+            <Button
+              onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}
+              disabled={alternativeTerms.length >= 3}
+            >
               <AddIcon /> {formatMessage({ id: 'appointment.alternative_term.label' })}
             </Button>
           </Grid>
