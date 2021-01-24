@@ -114,3 +114,6 @@ export * from './outlook/OutlookIcon';
 export * from './trigger/TriggerIcon';
 export * from './eyeSlash/EyeSlash';
 export * from './hamburger/HamburgerIcon';
+export * from './travelAfter/TravelAfterIcon';
+export * from './travelBefore/TravelBeforeIcon';
+export * from './alert/AlertIcon';
