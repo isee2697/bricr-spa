@@ -15,6 +15,7 @@ import { PimActionTabs } from './pimActionTabs/PimActionTabs';
 import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
+import { MovePimModal } from './movePimModal/MovePimModal';
 
 export const PimList = ({
   status,
@@ -33,54 +34,57 @@ export const PimList = ({
   const { push } = useHistory();
 
   return (
-    <Grid data-testid={`pim-list-${type}`} container spacing={3} className={classes.content}>
-      <PimHeader type={type} />
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader
-            className="pim-list-header"
-            title={formatMessage({ id: `pim.type.${type}` })}
-            action={
-              <Box display="flex">
-                <Box mr={3}>
-                  <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
-                </Box>
-              </Box>
-            }
-          />
-          <CardContent className={classes.listContent}>
-            <Box mx={2}>
-              <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-            </Box>
-            <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
-            <List
-              className="pim-list"
-              items={(listData?.listPims?.items ?? []) as PimEntity[]}
-              itemIndex={'id'}
-              renderItem={(pim, checked, checkbox) => (
-                <Box key={pim.id} className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
-                  {checkbox}
-                  <Box component="span" className={classes.rowItem}>
-                    <Box
-                      className={classes.itemButton}
-                      onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
-                    >
-                      <PimItem {...pim} />
-                    </Box>
+    <>
+      <Grid data-testid={`pim-list-${type}`} container spacing={3} className={classes.content}>
+        <PimHeader type={type} />
+        <Grid item xs={12}>
+          <Card>
+            <CardHeader
+              className="pim-list-header"
+              title={formatMessage({ id: `pim.type.${type}` })}
+              action={
+                <Box display="flex">
+                  <Box mr={3}>
+                    <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
                   </Box>
                 </Box>
-              )}
-              sortOptions={sorting.sortOptions}
-              onSort={sorting.onSort}
-              pagination={pagination}
-              loading={isLoading}
-              loadingItem={<PropertyItemPlaceholder />}
-              emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
-              emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+              }
             />
-          </CardContent>
-        </Card>
+            <CardContent className={classes.listContent}>
+              <Box mx={2}>
+                <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
+              </Box>
+              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              <List
+                className="pim-list"
+                items={(listData?.listPims?.items ?? []) as PimEntity[]}
+                itemIndex={'id'}
+                renderItem={(pim, checked, checkbox) => (
+                  <Box key={pim.id} className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
+                    {checkbox}
+                    <Box component="span" className={classes.rowItem}>
+                      <Box
+                        className={classes.itemButton}
+                        onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                      >
+                        <PimItem {...pim} />
+                      </Box>
+                    </Box>
+                  </Box>
+                )}
+                sortOptions={sorting.sortOptions}
+                onSort={sorting.onSort}
+                pagination={pagination}
+                loading={isLoading}
+                loadingItem={<PropertyItemPlaceholder />}
+                emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
+                emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+      <MovePimModal />
+    </>
   );
 };
