@@ -7,10 +7,9 @@ context('Authorization', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     NavigationMenu.goToForgotPassword();
-    cy.get('input[name="username"]').type('random@email.com');
+    cy.get('input[name="username"]').type('test@bricr.com');
     cy.get('button[type="submit"]').click();
 
-    cy.wait(500);
     cy.contains('sent');
   });
 
