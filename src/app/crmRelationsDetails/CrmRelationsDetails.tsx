@@ -23,7 +23,11 @@ import { OrdersContainer } from './orders/OrdersContainer';
 import { LinkedBusinessesContainer } from './linkedBusinesses/LinkedBusinessesContainer';
 import { MarketingTargetGroupsContainer } from './marketingTargetGroups/MarketingTargetGroupsContainer';
 import { MarketingCrossSellContainer } from './marketingCrossSell/MarketingCrossSellContainer';
-import { SalesContainer } from './sales/SalesContainer';
+import { DashboardContainer } from './sales/dashboard/DashboardContainer';
+import { AcquisitionsContainer } from './sales/acquisitions/AcquisitionsContainer';
+import { QuotationsContainer } from './sales/quotations/QuotationsContainer';
+import { InvoicesContainer } from './sales/invoices/InvoicesContainer';
+import { OrdersContainer as SalesOrdersContainer } from './sales/orders/OrdersContainer';
 
 export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmRelationsDetailsProps) => {
   const classes = useStyles();
@@ -131,8 +135,48 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                 <Route
                   path={`${path}/sales`}
                   render={() => (
-                    <SalesContainer
+                    <DashboardContainer
                       path={`${path}/sales`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/acquisition`}
+                  render={() => (
+                    <AcquisitionsContainer
+                      path={`${path}/acquisition`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/sales_orders`}
+                  render={() => (
+                    <SalesOrdersContainer
+                      path={`${path}/sales_orders`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/quotation`}
+                  render={() => (
+                    <QuotationsContainer
+                      path={`${path}/quotation`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/invoices`}
+                  render={() => (
+                    <InvoicesContainer
+                      path={`${path}/invoices`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />
