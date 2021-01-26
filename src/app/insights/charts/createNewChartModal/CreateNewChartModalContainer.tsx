@@ -16,6 +16,7 @@ export const CreateNewChartModalContainer = () => {
   const handleCreateNewChart = async (values: CreateNewChartBody) => {
     const id = uuid.v4();
     push(AppRoute.chartDetail.replace(':id', id));
+    close('create-new-chart');
 
     return true;
   };
