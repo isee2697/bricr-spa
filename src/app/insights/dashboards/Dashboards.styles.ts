@@ -36,4 +36,7 @@ export const useStyles = makeStyles(theme => ({
       opacity: 1,
     },
   },
+  fontWeightBold: {
+    fontWeight: theme.typography.fontWeightBold,
+  },
 }));
