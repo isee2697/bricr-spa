@@ -12,19 +12,23 @@ import { useShowError } from 'hooks';
 import { ApiClientProviderProps } from './ApiClientContextController.types';
 import { graphLink } from './graphLink/graphLink';
 
-const restLink = new RestLink({
-  uri: '',
-  endpoints: {
-    upload: process.env.REACT_APP_FILE_URL + '/upload',
-    default: process.env.REACT_APP_SECURITY_URL,
-    empty: '',
-  },
-  bodySerializers: {
-    fileEncode: (data: File, headers: Headers) => {
-      return { body: data, headers };
+const restLink = (token: string | null) =>
+  new RestLink({
+    uri: '',
+    endpoints: {
+      upload: process.env.REACT_APP_FILE_URL + '/upload',
+      default: process.env.REACT_APP_SECURITY_URL,
+      empty: '',
     },
-  },
-});
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    bodySerializers: {
+      fileEncode: (data: File, headers: Headers) => {
+        return { body: data, headers };
+      },
+    },
+  });
 const cache = new InMemoryCache();
 
 export const ApiClientContextController = ({ children }: ApiClientProviderProps) => {
@@ -34,7 +38,7 @@ export const ApiClientContextController = ({ children }: ApiClientProviderProps)
 
   const client = useMemo(() => {
     return new ApolloClient({
-      link: from([restLink, graphLink(dispatch, authStorage, showError)]),
+      link: from([restLink(authStorage?.accessToken), graphLink(dispatch, authStorage, showError)]),
       cache,
     });
   }, [dispatch, showError]);

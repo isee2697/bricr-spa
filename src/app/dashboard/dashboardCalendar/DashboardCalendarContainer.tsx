@@ -9,23 +9,21 @@ import { DashboardCalendar } from './DashboardCalendar';
 
 export const DashboardCalendarContainer = () => {
   const { push } = useHistory();
-  const { calendarAccounts: nylasAccounts } = useNylasAccountState();
+  const nylasAccounts = useNylasAccountState().accounts.filter(account => !!account.isCalendarConnected);
   const [listCalendar, { data: agenda, loading }] = useListCalendarLazyQuery({ fetchPolicy: 'no-cache' });
   const [searchParams, setSearchParams] = useState<AppointmentSearch>();
 
-  useEffect(() => {
-    if (nylasAccounts.length) {
-      const startDay = new Date();
-      const endDay = new Date();
-      endDay.setDate(endDay.getDate() + 3);
+  if (nylasAccounts.length) {
+    const startDay = new Date();
+    const endDay = new Date();
+    endDay.setDate(endDay.getDate() + 3);
 
-      setSearchParams({
-        accountId: nylasAccounts[0].id || '',
-        startDate: startDay.toLocaleDateString(),
-        endDate: endDay.toLocaleDateString(),
-      });
-    }
-  }, [nylasAccounts]);
+    setSearchParams({
+      accountId: nylasAccounts[0].id || '',
+      startDate: startDay.toLocaleDateString(),
+      endDate: endDay.toLocaleDateString(),
+    });
+  }
 
   useEffect(() => {
     const getAppointments = async () => {
