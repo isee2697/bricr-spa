@@ -129,6 +129,7 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  confirmAppointment: Appointment;
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
@@ -145,6 +146,7 @@ export type Mutation = {
   deleteEntity: Array<DeleteResult>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
+  draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -473,6 +475,11 @@ export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
 };
 
+export type MutationConfirmAppointmentArgs = {
+  accountId: Scalars['String'];
+  appointmentId: Scalars['ID'];
+};
+
 export type MutationConfirmProfileInviteArgs = {
   input: ConfirmProfileInvite;
 };
@@ -535,6 +542,10 @@ export type MutationDeleteNotificationArgs = {
 
 export type MutationDeleteSubtaskArgs = {
   subtaskId: Scalars['ID'];
+};
+
+export type MutationDraftAppointmentArgs = {
+  input: DraftAppointmentInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -1011,6 +1022,7 @@ export type Query = {
   crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
+  getAppointment: Appointment;
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
@@ -1092,6 +1104,10 @@ export type QueryGetAllProfilesArgs = {
   filters?: Maybe<ProfileFilters>;
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetAppointmentArgs = {
+  appointmentId: Scalars['ID'];
 };
 
 export type QueryGetBulkDetailsArgs = {
@@ -1470,6 +1486,31 @@ export enum AppointmentState {
   Unconfirmed = 'Unconfirmed',
 }
 
+export type DraftAppointment = {
+  __typename?: 'DraftAppointment';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  state?: Maybe<AppointmentState>;
+  type?: Maybe<CalendarTypes>;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   id: Scalars['ID'];
@@ -1493,11 +1534,35 @@ export type Appointment = {
   type: CalendarTypes;
   appointmentType?: Maybe<AppointmentType>;
   taskLabel?: Maybe<TaskLabel>;
+  isConfirmed?: Maybe<Scalars['Boolean']>;
 };
 
 export type AppointmentTermInput = {
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
+};
+
+export type DraftAppointmentInput = {
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  type?: Maybe<CalendarTypes>;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
 };
 
 export type AddAppointmentInput = {
@@ -3345,6 +3410,8 @@ export type NylasAccountItem = {
   provider: Scalars['String'];
   billingState: Scalars['String'];
   syncState: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type NylasAccountAuthOptions = {
@@ -8387,6 +8454,44 @@ export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+export type DraftAppointmentMutationVariables = Exact<{
+  input: DraftAppointmentInput;
+}>;
+
+export type DraftAppointmentMutation = { __typename?: 'Mutation' } & {
+  draftAppointment: { __typename?: 'DraftAppointment' } & Pick<
+    DraftAppointment,
+    | 'id'
+    | 'from'
+    | 'to'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'isInsideOffice'
+    | 'location'
+    | 'outsideLocation'
+    | 'taskLabel'
+    | 'state'
+    | 'agreementType'
+    | 'repeatAppointment'
+    | 'description'
+    | 'appointmentType'
+    | 'assignedPimIds'
+    | 'invitedPersons'
+  >;
+};
+
+export type ConfirmAppointmentMutationVariables = Exact<{
+  appointmentId: Scalars['ID'];
+  accountId: Scalars['String'];
+}>;
+
+export type ConfirmAppointmentMutation = { __typename?: 'Mutation' } & {
+  confirmAppointment: { __typename?: 'Appointment' } & Pick<Appointment, 'id'>;
+};
+
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
@@ -9977,6 +10082,35 @@ export type ListCalendarQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetAppointmentQueryVariables = Exact<{
+  appointmentId: Scalars['ID'];
+}>;
+
+export type GetAppointmentQuery = { __typename?: 'Query' } & {
+  getAppointment: { __typename?: 'Appointment' } & Pick<
+    Appointment,
+    | 'id'
+    | 'from'
+    | 'to'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'isInsideOffice'
+    | 'location'
+    | 'outsideLocation'
+    | 'taskLabel'
+    | 'state'
+    | 'agreementType'
+    | 'repeatAppointment'
+    | 'description'
+    | 'appointmentType'
+    | 'assignedPimIds'
+    | 'invitedPersons'
+  >;
+};
+
 export type CheckCompanyRegisteredQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -11033,7 +11167,7 @@ export type ListNylasAccountQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'NylasAccountItem' } & Pick<
         NylasAccountItem,
-        'id' | 'email' | 'provider' | 'billingState' | 'syncState'
+        'id' | 'email' | 'provider' | 'billingState' | 'syncState' | 'isCalendarConnected' | 'isEmailConnected'
       >
     >
   >;
@@ -13561,6 +13695,66 @@ export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddA
 export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddAppointmentMutation,
   AddAppointmentMutationVariables
+>;
+export const DraftAppointmentDocument = gql`
+  mutation DraftAppointment($input: DraftAppointmentInput!) {
+    draftAppointment(input: $input) {
+      id
+      from
+      to
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      isInsideOffice
+      location
+      outsideLocation
+      taskLabel
+      state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
+    }
+  }
+`;
+export function useDraftAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DraftAppointmentMutation, DraftAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DraftAppointmentMutation, DraftAppointmentMutationVariables>(
+    DraftAppointmentDocument,
+    baseOptions,
+  );
+}
+export type DraftAppointmentMutationHookResult = ReturnType<typeof useDraftAppointmentMutation>;
+export type DraftAppointmentMutationResult = ApolloReactCommon.MutationResult<DraftAppointmentMutation>;
+export type DraftAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DraftAppointmentMutation,
+  DraftAppointmentMutationVariables
+>;
+export const ConfirmAppointmentDocument = gql`
+  mutation ConfirmAppointment($appointmentId: ID!, $accountId: String!) {
+    confirmAppointment(appointmentId: $appointmentId, accountId: $accountId) {
+      id
+    }
+  }
+`;
+export function useConfirmAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>(
+    ConfirmAppointmentDocument,
+    baseOptions,
+  );
+}
+export type ConfirmAppointmentMutationHookResult = ReturnType<typeof useConfirmAppointmentMutation>;
+export type ConfirmAppointmentMutationResult = ApolloReactCommon.MutationResult<ConfirmAppointmentMutation>;
+export type ConfirmAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ConfirmAppointmentMutation,
+  ConfirmAppointmentMutationVariables
 >;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
@@ -17342,6 +17536,53 @@ export function useListCalendarLazyQuery(
 export type ListCalendarQueryHookResult = ReturnType<typeof useListCalendarQuery>;
 export type ListCalendarLazyQueryHookResult = ReturnType<typeof useListCalendarLazyQuery>;
 export type ListCalendarQueryResult = ApolloReactCommon.QueryResult<ListCalendarQuery, ListCalendarQueryVariables>;
+export const GetAppointmentDocument = gql`
+  query GetAppointment($appointmentId: ID!) {
+    getAppointment(appointmentId: $appointmentId) {
+      id
+      from
+      to
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      isInsideOffice
+      location
+      outsideLocation
+      taskLabel
+      state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
+    }
+  }
+`;
+export function useGetAppointmentQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetAppointmentQuery, GetAppointmentQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetAppointmentQuery, GetAppointmentQueryVariables>(
+    GetAppointmentDocument,
+    baseOptions,
+  );
+}
+export function useGetAppointmentLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAppointmentQuery, GetAppointmentQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetAppointmentQuery, GetAppointmentQueryVariables>(
+    GetAppointmentDocument,
+    baseOptions,
+  );
+}
+export type GetAppointmentQueryHookResult = ReturnType<typeof useGetAppointmentQuery>;
+export type GetAppointmentLazyQueryHookResult = ReturnType<typeof useGetAppointmentLazyQuery>;
+export type GetAppointmentQueryResult = ApolloReactCommon.QueryResult<
+  GetAppointmentQuery,
+  GetAppointmentQueryVariables
+>;
 export const CheckCompanyRegisteredDocument = gql`
   query CheckCompanyRegistered($name: String!) {
     checkCompanyRegistered(name: $name) {
@@ -17654,7 +17895,13 @@ export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
-    listEmailFolders(accountId: $accountId) {
+    listEmailFolders(accountId: $accountId)
+      @rest(
+        type: "ListEmailFolders"
+        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}&folderIds="
+        method: "GET"
+        endpoint: "default"
+      ) {
       folder {
         id
         name
@@ -19090,12 +19337,15 @@ export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListNylasAccountDocument = gql`
   query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected)
+      @rest(type: "NylasAccount", path: "/nylas-account-list", method: "GET", endpoint: "default") {
       id
       email
       provider
       billingState
       syncState
+      isCalendarConnected
+      isEmailConnected
     }
   }
 `;

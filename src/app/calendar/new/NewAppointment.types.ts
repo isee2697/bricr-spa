@@ -11,7 +11,9 @@ export type NewAppointmentProps = {
   members: Profile[];
   appointmentInfo?: AppointmentFormType;
   onSubmit: (appointment: AddAppointmentInput) => Promise<boolean>;
+  onConfirm: () => Promise<boolean>;
   loading?: boolean;
+  isEdit?: boolean;
 };
 
 export type AppointmentTermFormType = {
@@ -26,11 +28,11 @@ export type AppointmentTermFormType = {
 };
 
 export type AppointmentFormType = Omit<Partial<Appointment>, 'from' | 'to'> & {
-  from: {
+  from?: {
     date: string;
     time: string;
   };
-  to: {
+  to?: {
     date: string;
     time: string;
   };
