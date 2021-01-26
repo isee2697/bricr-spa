@@ -130,7 +130,8 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
       display="flex"
       width="100%"
       flexDirection="column"
-      className={clsx(crm.status === CrmStatus.Inactive && classes.inactive)}
+      className={clsx(classes.cursor, crm.status === CrmStatus.Inactive && classes.inactive)}
+      onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
     >
       <Box display="flex" mb={3}>
         <Box>
@@ -141,7 +142,7 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
         <Box width="100%">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <Box>
-              <Box className={classes.cursor} onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}>
+              <Box>
                 <Typography variant="h3" className={classes.crmUserName}>
                   {firstName} {insertion} {lastName}
                 </Typography>

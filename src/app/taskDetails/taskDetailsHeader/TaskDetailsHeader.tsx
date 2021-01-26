@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
 import { NavBreadcrumbs, Typography, Box, IconButton } from 'ui/atoms';
-import { BellIcon, MenuIcon, RefreshIcon, ShareIcon } from 'ui/atoms/icons';
+import { BellIcon, LeaveIcon, MenuIcon, RefreshIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { TaskDetailsHeaderProps } from './TaskDetailsHeader.types';
@@ -34,7 +34,7 @@ export const TaskDetailsHeader = ({ title, onFollowUpTask }: TaskDetailsHeaderPr
               onClick={() => push(AppRoute.tasks)}
               className={classes.btnShare}
             >
-              <ShareIcon />
+              <LeaveIcon />
             </IconButton>
             <IconButton variant="rounded" size="small" onClick={() => {}}>
               <MenuIcon />

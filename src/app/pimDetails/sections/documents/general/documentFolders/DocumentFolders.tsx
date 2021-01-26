@@ -124,15 +124,6 @@ export const DocumentFolders = ({
               </Grid>
             </Grid>
           </Box>
-          {!selectedFolder && (
-            <Box mt={3}>
-              <InfoSection emoji="☝️">
-                <Typography variant="h3">
-                  {formatMessage({ id: 'pim_details.documents.select_folder_placeholder' })}
-                </Typography>
-              </InfoSection>
-            </Box>
-          )}
         </CardContent>
       </Card>
       {selectedFolder && (
