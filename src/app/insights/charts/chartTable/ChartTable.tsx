@@ -127,7 +127,7 @@ export const ChartTable = () => {
           </TableHead>
           <TableBody>
             {charts.map((chart, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} onClick={() => navigateToDetail(chart.id)} className={classes.row}>
                 <TableCell padding="checkbox">
                   <Checkbox checked={false} inputProps={{ 'aria-labelledby': `insights-chart-checkbox-${chart.id}` }} />
                 </TableCell>
