@@ -27,6 +27,7 @@ import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsCo
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 import { DocumentsContainer } from './sections/documents/DocumentsContainer';
 import { DashboardContainer } from './sections/dashboard/DashboardContainer';
+import { PublicationContainer } from './sections/publication/PublicationContainer';
 
 export const PimDetails = ({
   loading,
@@ -234,6 +235,12 @@ export const PimDetails = ({
                       isSidebarVisible={isSidebarVisible}
                       onSidebarOpen={handleSidebarOpen}
                     />
+                  )}
+                />
+                <Route
+                  path={`${path}/publication`}
+                  render={() => (
+                    <PublicationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                   )}
                 />
                 {Object.values(AogSpaceType).map(aogSpaceType => (

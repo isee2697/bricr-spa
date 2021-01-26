@@ -72,6 +72,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   const [placeholders, setPlaceholders] = useState<Layout[]>(generatePlaceholders(cards));
 
   const handleUpdateLayout = (changedLayout: Layout[]) => {
+    console.log('Debugging: Changed layout ', changedLayout);
     const layoutChanged =
       changedLayout
         .filter(card => card.isResizable)
@@ -89,6 +90,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   };
 
   const handleAddNewCard = (newCard: Layout) => {
+    console.log('Debugging: ', newCard);
     setLayout([
       ...layout,
       {
@@ -154,6 +156,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
             setIsResizing(false);
           }}
           className={classes.gridLayout}
+          maxRows={20}
         >
           {layout.map(card => (
             <div key={card.i}>

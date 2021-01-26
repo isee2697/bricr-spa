@@ -10,7 +10,7 @@ export type FormSectionBaseProps = {
   titleBadge?: number;
   isEditable?: boolean;
   onAdd?: VoidFunction;
-  onOptionsClick?: VoidFunction;
+  onOptionsClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onSettingsClick?: VoidFunction;
   onEditClick?: VoidFunction;
   isExpandable?: boolean;
