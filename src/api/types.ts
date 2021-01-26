@@ -33,6 +33,10 @@ export type ForgotPasswordInput = {
   username: Scalars['String'];
 };
 
+export type RefreshTokenInput = {
+  token: Scalars['String'];
+};
+
 export type ForgotPasswordResponse = {
   __typename?: 'ForgotPasswordResponse';
   error?: Maybe<Scalars['String']>;
@@ -153,6 +157,7 @@ export type Mutation = {
   login?: Maybe<LoginResponse>;
   reactivateProfile: Profile;
   readNotification?: Maybe<Scalars['Boolean']>;
+  refreshToken?: Maybe<LoginResponse>;
   removeAllocationCriteria: Pim;
   removeFiles: Array<Maybe<File>>;
   removeInspection: Pim;
@@ -567,6 +572,10 @@ export type MutationReactivateProfileArgs = {
 
 export type MutationReadNotificationArgs = {
   input: ReadNotificationInput;
+};
+
+export type MutationRefreshTokenArgs = {
+  input?: Maybe<RefreshTokenInput>;
 };
 
 export type MutationRemoveAllocationCriteriaArgs = {
@@ -8334,6 +8343,21 @@ export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
   forgotPassword?: Maybe<{ __typename?: 'ForgotPasswordResponse' } & Pick<ForgotPasswordResponse, 'error'>>;
 };
 
+export type RefreshTokenMutationVariables = Exact<{
+  input?: Maybe<RefreshTokenInput>;
+}>;
+
+export type RefreshTokenMutation = { __typename?: 'Mutation' } & {
+  refreshToken?: Maybe<
+    { __typename?: 'LoginResponse' } & Pick<LoginResponse, 'error'> & {
+        AuthenticationResult: { __typename?: 'AuthenticationResult' } & Pick<
+          AuthenticationResult,
+          'AccessToken' | 'RefreshToken'
+        >;
+      }
+  >;
+};
+
 export type ResetPasswordMutationVariables = Exact<{
   input?: Maybe<ResetPasswordInput>;
 }>;
@@ -13467,6 +13491,32 @@ export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<Forg
 export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
+>;
+export const RefreshTokenDocument = gql`
+  mutation RefreshToken($input: RefreshTokenInput) {
+    refreshToken(input: $input)
+      @rest(type: "LoginResponse", path: "/refresh-token", method: "POST", endpoint: "default") {
+      error
+      AuthenticationResult {
+        AccessToken
+        RefreshToken
+      }
+    }
+  }
+`;
+export function useRefreshTokenMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RefreshTokenMutation, RefreshTokenMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RefreshTokenMutation, RefreshTokenMutationVariables>(
+    RefreshTokenDocument,
+    baseOptions,
+  );
+}
+export type RefreshTokenMutationHookResult = ReturnType<typeof useRefreshTokenMutation>;
+export type RefreshTokenMutationResult = ApolloReactCommon.MutationResult<RefreshTokenMutation>;
+export type RefreshTokenMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RefreshTokenMutation,
+  RefreshTokenMutationVariables
 >;
 export const ResetPasswordDocument = gql`
   mutation ResetPassword($input: ResetPasswordInput) {

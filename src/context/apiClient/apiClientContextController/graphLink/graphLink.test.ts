@@ -9,17 +9,17 @@ describe('graphLink', () => {
   test('call set error when error from api returned', async () => {
     const expectedString = 'myError';
     const cache = new InMemoryCache();
-    const dispatch = jest.fn();
     const setError = jest.fn();
+    const refetchToken = jest.fn();
     const mockResponse = [{ message: expectedString }];
 
     const link = graphLink(
-      dispatch,
       {
         accessToken: 'test',
         refreshToken: 'test',
       },
       setError,
+      refetchToken,
     );
 
     const client = new ApolloClient({
@@ -48,7 +48,7 @@ describe('graphLink', () => {
 
   test('refresh token when expired and re-run fetch with new one token', async () => {
     const cache = new InMemoryCache();
-    const dispatch = jest.fn();
+    const refetchToken = jest.fn();
     const mockResponse = {
       me: {
         firstName: 'test',
@@ -73,12 +73,12 @@ describe('graphLink', () => {
     };
 
     const link = graphLink(
-      dispatch,
       {
         accessToken: 'test',
         refreshToken: 'test',
       },
       (message: string) => {},
+      refetchToken,
     );
 
     const client = new ApolloClient({
@@ -121,8 +121,10 @@ describe('graphLink', () => {
       // Response with new token
       return new Response(
         JSON.stringify({
-          accessToken: 'new',
-          refreshToken: 'new',
+          AuthenticationResult: {
+            AccessToken: 'new',
+            RefreshToken: 'new',
+          },
         }),
         {
           status: 200,
@@ -134,7 +136,7 @@ describe('graphLink', () => {
       query: CURRENT_USER,
     });
 
-    expect(dispatch).toHaveBeenCalledWith({ accessToken: 'new', refreshToken: 'new', type: 'auth/set-tokens' });
+    expect(refetchToken).toHaveBeenCalled();
 
     expect(test.data).toEqual(mockResponse);
   });
