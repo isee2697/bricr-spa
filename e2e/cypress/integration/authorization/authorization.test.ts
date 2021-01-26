@@ -9,6 +9,7 @@ context('Authorization', () => {
     NavigationMenu.goToForgotPassword();
     cy.get('input[name="username"]').type('test@bricr.com');
     cy.get('button[type="submit"]').click();
+
     cy.contains('sent');
   });
 

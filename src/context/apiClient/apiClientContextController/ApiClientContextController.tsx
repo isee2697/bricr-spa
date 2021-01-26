@@ -4,10 +4,9 @@ import { ApolloClient as ApolloClientType } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { RestLink } from 'apollo-link-rest';
 
-import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
-import { useShowError } from 'hooks';
+import { useRefreshToken, useShowError } from 'hooks';
 
 import { ApiClientProviderProps } from './ApiClientContextController.types';
 import { graphLink } from './graphLink/graphLink';
@@ -28,16 +27,16 @@ const restLink = new RestLink({
 const cache = new InMemoryCache();
 
 export const ApiClientContextController = ({ children }: ApiClientProviderProps) => {
-  const dispatch = useAuthDispatch();
+  const refetchToken = useRefreshToken();
   const showError = useShowError();
   const { isAuthorized } = useAuthState();
 
   const client = useMemo(() => {
     return new ApolloClient({
-      link: from([restLink, graphLink(dispatch, authStorage, showError)]),
+      link: from([restLink, graphLink(authStorage, showError, refetchToken)]),
       cache,
     });
-  }, [dispatch, showError]);
+  }, [refetchToken, showError]);
 
   useEffect(() => {
     if (!isAuthorized) {
