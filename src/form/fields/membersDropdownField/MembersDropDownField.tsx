@@ -14,7 +14,7 @@ export const MembersDropdownField = ({
   members,
   placeholder,
   name = 'members',
-  label = 'tasks.create_new.details.assignee.label',
+  label,
   ...props
 }: Partial<AdvancedSearchFieldProps> & { members: TeamMemberItem[] }) => {
   const { user } = useAuthState();

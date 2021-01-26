@@ -1,4 +1,4 @@
-import { Profile, AppointmentLocation } from 'api/types';
+import { AppointmentLocation } from 'api/types';
 
 export const TravelTime = {
   Minutes15: 15,
@@ -16,7 +16,6 @@ export const TravelTime = {
   PlusThreeHour: 200,
 };
 
-export type ParticipantsLocationProps = {
-  members: Profile[];
+export type LocationProps = {
   locations: AppointmentLocation[];
 };
