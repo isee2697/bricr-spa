@@ -7,7 +7,7 @@ import { DashboardAgenda } from './DashboardAgenda';
 
 export const DashboardAgendaContainer = () => {
   const { user } = useAuthState();
-  const { calendarAccounts: nylasAccounts } = useNylasAccountState();
+  const nylasAccounts = useNylasAccountState().accounts.filter(account => !!account.isCalendarConnected);
 
   const [getTasks, { data: tasks }] = useGetTasksLazyQuery({
     fetchPolicy: 'network-only',
