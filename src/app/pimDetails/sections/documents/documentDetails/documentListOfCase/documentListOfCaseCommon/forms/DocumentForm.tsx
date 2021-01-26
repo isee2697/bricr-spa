@@ -1,34 +1,20 @@
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 import { useLocale, useModalDispatch } from 'hooks';
 import { FormSection } from 'ui/organisms';
 import { DocumentFormProps } from '../DocumentListOfCaseCommon.types';
-import {
-  Box,
-  Checkbox,
-  IconButton,
-  Radio,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from 'ui/atoms';
-import { MenuIcon } from 'ui/atoms/icons';
+import { Box, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography } from 'ui/atoms';
 import { useStyles } from '../DocumentListOfCaseCommon.styles';
-import { DocumentOutsideItem, DocumentOutsideItemState } from '../../DocumentListOfCase.types';
+
+import { DocumentFormRow } from './DocumentFormRow';
+import { DocumentFormRowDragObject } from './DocumentFormRowDragObject';
 
 export function DocumentForm({ initOpened, card, onChangeItemState }: DocumentFormProps) {
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
   const classes = useStyles();
-
-  const handleChangeItemState = (updateItem: DocumentOutsideItem, state: DocumentOutsideItemState) => {
-    if (onChangeItemState) {
-      onChangeItemState(card?.id as number, updateItem.id, state);
-    }
-  };
 
   return (
     <FormSection
@@ -79,55 +65,12 @@ export function DocumentForm({ initOpened, card, onChangeItemState }: DocumentFo
               </TableRow>
             </TableHead>
             <TableBody>
-              {card?.items?.map((item, index) => (
-                <TableRow key={index} className={classes.tableRow}>
-                  <TableCell padding="checkbox">
-                    <Checkbox color="primary" />
-                  </TableCell>
-                  <TableCell padding="none">
-                    <Typography variant="h3" className={classes.mediumText}>
-                      {item.description}
-                    </Typography>
-                  </TableCell>
-                  <TableCell padding="checkbox">
-                    <Radio
-                      name={`outsideOption${index}`}
-                      color="primary"
-                      checked={item.state === DocumentOutsideItemState.StaysBehind}
-                      onChange={() => editing && handleChangeItemState(item, DocumentOutsideItemState.StaysBehind)}
-                    />
-                  </TableCell>
-                  <TableCell padding="checkbox">
-                    <Radio
-                      name={`outsideOption${index}`}
-                      color="primary"
-                      checked={item.state === DocumentOutsideItemState.GoesWith}
-                      onChange={() => editing && handleChangeItemState(item, DocumentOutsideItemState.GoesWith)}
-                    />
-                  </TableCell>
-                  <TableCell padding="checkbox">
-                    <Radio
-                      name={`outsideOption${index}`}
-                      color="primary"
-                      checked={item.state === DocumentOutsideItemState.ForTakeover}
-                      onChange={() => editing && handleChangeItemState(item, DocumentOutsideItemState.ForTakeover)}
-                    />
-                  </TableCell>
-                  <TableCell padding="checkbox">
-                    <Radio
-                      name={`outsideOption${index}`}
-                      color="primary"
-                      checked={item.state === DocumentOutsideItemState.Nvt}
-                      onChange={() => editing && handleChangeItemState(item, DocumentOutsideItemState.Nvt)}
-                    />
-                  </TableCell>
-                  <TableCell align="right">
-                    <IconButton size="small" variant="rounded">
-                      <MenuIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
+              <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+                <DocumentFormRowDragObject />
+                {card?.items?.map((item, index) => (
+                  <DocumentFormRow item={item} editing={editing} />
+                ))}
+              </DndProvider>
             </TableBody>
           </Table>
         </>
