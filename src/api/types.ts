@@ -3410,6 +3410,8 @@ export type NylasAccountItem = {
   provider: Scalars['String'];
   billingState: Scalars['String'];
   syncState: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type NylasAccountAuthOptions = {
@@ -11165,7 +11167,7 @@ export type ListNylasAccountQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'NylasAccountItem' } & Pick<
         NylasAccountItem,
-        'id' | 'email' | 'provider' | 'billingState' | 'syncState'
+        'id' | 'email' | 'provider' | 'billingState' | 'syncState' | 'isCalendarConnected' | 'isEmailConnected'
       >
     >
   >;
@@ -17893,7 +17895,13 @@ export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
-    listEmailFolders(accountId: $accountId) {
+    listEmailFolders(accountId: $accountId)
+      @rest(
+        type: "ListEmailFolders"
+        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}&folderIds="
+        method: "GET"
+        endpoint: "default"
+      ) {
       folder {
         id
         name
@@ -19329,12 +19337,15 @@ export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListNylasAccountDocument = gql`
   query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected)
+      @rest(type: "NylasAccount", path: "/nylas-account-list", method: "GET", endpoint: "default") {
       id
       email
       provider
       billingState
       syncState
+      isCalendarConnected
+      isEmailConnected
     }
   }
 `;

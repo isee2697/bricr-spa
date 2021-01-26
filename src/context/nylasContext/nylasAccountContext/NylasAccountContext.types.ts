@@ -4,8 +4,7 @@ import { NylasAccountItem } from 'api/types';
 import { NylasAccountAction } from '../nylasAccountReducer/nylasAccountReducer.types';
 
 export type NylasAccountStateContextType = {
-  calendarAccounts: NylasAccountItem[];
-  emailAccounts: NylasAccountItem[];
+  accounts: NylasAccountItem[];
 };
 
 export type NylasAccountDispatchContextType = Dispatch<NylasAccountAction>;
