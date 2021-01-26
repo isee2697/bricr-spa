@@ -28,9 +28,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
 
   const generatePlaceholders = (changedLayout: Layout[]) => {
     const newPlaceholders: Layout[] = [];
-    const maxHeight = changedLayout.reduce((accum: number, card: Layout) => {
-      return Math.max(accum, card.y + card.h);
-    }, 0);
+    const maxHeight = 19;
 
     for (let xPos = 0; xPos < 4; xPos++) {
       for (let yPos = 0; yPos < maxHeight; yPos++) {

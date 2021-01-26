@@ -15,3 +15,27 @@ export const UPDATE_TASK = gql`
     }
   }
 `;
+
+export const ADD_NEW_SUBTASK = gql`
+  mutation AddNewSubtask($taskId: String!, $title: String!) {
+    addSubtask(taskId: $taskId, input: { title: $title }) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_SUBTASK_STATUS = gql`
+  mutation UpdateSubtaskStatus($subtaskId: ID!, $status: TaskStatus!) {
+    updateSubtaskStatus(subtaskId: $subtaskId, status: $status) {
+      id
+    }
+  }
+`;
+
+export const DELETE_SUBTASK = gql`
+  mutation DeleteSubtask($subtaskId: ID!) {
+    deleteSubtask(subtaskId: $subtaskId) {
+      id
+    }
+  }
+`;

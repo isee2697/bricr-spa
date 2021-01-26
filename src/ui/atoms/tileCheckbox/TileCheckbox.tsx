@@ -20,7 +20,11 @@ export const TileCheckbox = ({
 
   if (orientation === 'horizontal')
     return (
-      <SelectCard className={classNames(classes.card, { isDisabled })} onClick={onClick} selected={isSelected}>
+      <SelectCard
+        className={classNames(classes.card, { isDisabled, horizontal: true })}
+        onClick={onClick}
+        selected={isSelected}
+      >
         <Box className={classNames(classes.icon, { isSelected })}>{children}</Box>
         <Typography className={classNames(classes.title, { isDisabled, isSelected })}>{title}</Typography>
         <Box display="flex" ml={2} mr={2}>

@@ -3,14 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import { palette } from 'theme/palette';
 
 export const useStyles = (color: string = palette.blue.main) =>
-  makeStyles(({ spacing, typography }) => ({
+  makeStyles(({ spacing, typography, palette }) => ({
+    containerRoot: {
+      '&:hover': {
+        zIndex: 100,
+      },
+    },
     root: {
-      backgroundColor: `${color}69`,
+      backgroundColor: palette.gray.light,
       boxSizing: 'border-box',
       borderRadius: spacing(0, 0, 1, 1),
-      paddingTop: spacing(0.25),
+      padding: spacing(1),
+      overflow: 'visible',
+      position: 'relative',
+
       '&:hover': {
-        backgroundColor: `${color}59`,
+        backgroundColor: palette.gray.light,
+        zIndex: 100,
       },
     },
     allDay: {
@@ -22,10 +31,14 @@ export const useStyles = (color: string = palette.blue.main) =>
       },
     },
     travelTime: {
-      backgroundColor: palette.white.main,
-      borderRadius: 0,
-      borderTop: `${palette.blue.dark} ${spacing(0.25)}px solid !important`,
-      borderBottom: `${palette.blue.dark} ${spacing(0.25)}px solid`,
+      backgroundColor: palette.warmgray.main,
+      borderTopLeftRadius: spacing(0.5),
+      borderTopRightRadius: spacing(0.5),
+      borderTop: 'none !important',
+
+      '&:hover': {
+        background: 'none',
+      },
     },
     Week: {
       borderTop: `${color} ${spacing(0.5)}px solid`,
@@ -46,28 +59,11 @@ export const useStyles = (color: string = palette.blue.main) =>
     task: {
       borderTop: 'none',
       borderRadius: spacing(0.5),
-      paddingTop: 0,
     },
   }))();
 
 export const useContentStyles = (color: string = palette.blue.main) =>
   makeStyles(({ typography, spacing }) => ({
-    root: {
-      color: palette.black.main,
-      '& > div:first-child': {
-        fontWeight: typography.fontWeightRegular,
-      },
-    },
-    recurring: {
-      flexDirection: 'row-reverse',
-      '& > div:first-child': {
-        width: `calc(100% - ${spacing(3)}px)`,
-      },
-      '& > div:last-child': {
-        width: spacing(3),
-        height: spacing(3),
-      },
-    },
     defaultIcon: {
       position: 'absolute',
       top: spacing(1),
@@ -85,5 +81,44 @@ export const useContentStyles = (color: string = palette.blue.main) =>
       '& path': {
         fill: color,
       },
+    },
+    statusBox: {
+      width: spacing(3),
+      height: spacing(3),
+      borderRadius: spacing(0.5),
+    },
+    travelBefore: {
+      position: 'absolute',
+      background: palette.warmgray.light,
+      width: '100%',
+      left: 0,
+      borderTopLeftRadius: spacing(0.5),
+      borderTopRightRadius: spacing(0.5),
+      padding: spacing(0.5, 1),
+    },
+    travelAfter: {
+      position: 'absolute',
+      bottom: -spacing(3),
+      background: palette.warmgray.light,
+      width: '100%',
+      left: 0,
+      borderBottomLeftRadius: spacing(0.5),
+      borderBottomRightRadius: spacing(0.5),
+      padding: spacing(0.5, 1),
+    },
+    statusIcon: {
+      padding: spacing(0.5),
+      width: spacing(4),
+      height: spacing(4),
+      borderRadius: spacing(1),
+      color: palette.white.main,
+      background: palette.gray.main,
+    },
+    invitedPerson: {
+      padding: spacing(1),
+      borderRadius: spacing(1),
+      border: `1px solid ${palette.warmgray.light}`,
+      background: palette.white.main,
+      fontWeight: typography.fontWeightBold,
     },
   }))();

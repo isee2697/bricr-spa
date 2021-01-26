@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SidebarMenu } from 'ui/molecules';
-import { CrmIcon, SaleIcon } from 'ui/atoms/icons';
+import { LockIcon, SaleIcon, TriggerIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { DocumentKind } from '../../../general/General.types';
 
@@ -23,8 +23,8 @@ export const DocumentListOfCaseSidebarMenu = ({
 
   if (!kind || kind === DocumentKind.ListOfCase || kind === DocumentKind.Custom) {
     items = [
-      { key: 'content', icon: <CrmIcon /> },
-      { key: 'security', icon: <CrmIcon /> },
+      { key: 'data', icon: <TriggerIcon /> },
+      { key: 'security', icon: <LockIcon /> },
     ];
     subtitle = formatMessage({ id: 'common.sidebar_property.link_movable' });
   }

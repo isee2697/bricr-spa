@@ -48,6 +48,27 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
+  sideBarButtonWrapper: {
+    height: theme.spacing(6),
+    paddingLeft: theme.spacing(3),
+    cursor: 'pointer',
+    color: theme.palette.gray.main,
+  },
+  sideBarButton: {
+    padding: theme.spacing(1, 0),
+
+    '&.selected': {
+      color: theme.palette.black.main,
+    },
+  },
+  sideBarBottomBorder: {
+    height: 2,
+    background: theme.palette.gray.light,
+
+    '&.selected': {
+      background: theme.palette.gradientPrimary.main,
+    },
+  },
 }));
 
 export const Connector = withStyles(theme => ({

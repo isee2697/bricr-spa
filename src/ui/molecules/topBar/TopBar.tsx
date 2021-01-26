@@ -17,7 +17,7 @@ export const TopBar = ({ children, className }: TopBarProps) => {
 
   return (
     <AppBar color="transparent" className={classNames(classes.root, className)} position="sticky">
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <RouterLink to="/">
           <Logo className={classes.logo} />
         </RouterLink>

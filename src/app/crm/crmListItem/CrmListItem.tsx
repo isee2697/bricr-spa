@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'classnames';
+import { useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, UserAvatar, Emoji, ProgressFilling, IconButton, Chip } from 'ui/atoms';
-import { MailIcon, HelpIcon, MenuIcon } from 'ui/atoms/icons';
+import {
+  Avatar,
+  Box,
+  Typography,
+  UserAvatar,
+  Emoji,
+  ProgressFilling,
+  IconButton,
+  Chip,
+  Menu,
+  MenuItem,
+} from 'ui/atoms';
+import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { CrmStatus } from 'api/types';
 
 import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
@@ -23,11 +37,14 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
   );
 };
 
-export const CrmListItem = ({ crm }: CrmListItemProps) => {
+export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles({ crm });
+  const { push } = useHistory();
+  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
 
   const {
+    id,
     firstName,
     insertion,
     lastName,
@@ -39,6 +56,7 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     informationCompletedStatus,
     meta: { matches, interests, viewings, biddings, candidate, optant },
+    status,
   } = crm;
 
   const metaAsArray = [
@@ -68,12 +86,51 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
     },
   ];
 
+  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation();
+    setMenuEl(menuEl ? null : event.currentTarget);
+  };
+
+  const onMenuClose = () => {
+    setMenuEl(null);
+  };
+
+  const menuItems = [
+    {
+      icon: <EditIcon classes={{ root: classes.menuIcon }} />,
+      title: formatMessage({
+        id: 'crm.item.toggle_active_inactive',
+      }),
+      onClick: () => {
+        if (!onUpdateStatus) return;
+
+        if (status === CrmStatus.Active) {
+          onUpdateStatus(id, CrmStatus.Inactive);
+        } else if (status === CrmStatus.Inactive || CrmStatus.ActionRequired) {
+          onUpdateStatus(id, CrmStatus.Active);
+        }
+      },
+      color: 'default',
+    },
+    {
+      icon: <DeleteIcon classes={{ root: classes.menuIcon }} />,
+      title: formatMessage({
+        id: 'crm.item.delete',
+      }),
+      onClick: () => {
+        if (!onDelete) return;
+        onDelete(id);
+      },
+      color: 'error',
+    },
+  ];
+
   return (
     <Box
       display="flex"
       width="100%"
       flexDirection="column"
-      className={clsx(crm.status === 'archived' && classes.inactive)}
+      className={clsx(crm.status === CrmStatus.Inactive && classes.inactive)}
     >
       <Box display="flex" mb={3}>
         <Box>
@@ -84,9 +141,11 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
         <Box width="100%">
           <Box display="flex" justifyContent="space-between" mb={2}>
             <Box>
-              <Typography variant="h3" className={classes.crmUserName}>
-                {firstName} {insertion} {lastName}
-              </Typography>
+              <Box className={classes.cursor} onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}>
+                <Typography variant="h3" className={classes.crmUserName}>
+                  {firstName} {insertion} {lastName}
+                </Typography>
+              </Box>
               <Box display="flex">
                 <Box mr={4}>
                   <HelpIcon className={classes.verticalAlignTop} /> {phoneNumber}
@@ -97,11 +156,43 @@ export const CrmListItem = ({ crm }: CrmListItemProps) => {
               </Box>
             </Box>
             <Box>
-              <IconButton className="menu-icon" variant="rounded" size="small" onClick={() => {}}>
+              <IconButton
+                className="menu-icon"
+                variant="rounded"
+                size="small"
+                selected={Boolean(menuEl)}
+                onClick={onMenuClick}
+              >
                 <MenuIcon />
               </IconButton>
             </Box>
           </Box>
+          <Menu
+            id="crm-relation-menu"
+            open={Boolean(menuEl)}
+            onClose={onMenuClose}
+            anchorEl={menuEl}
+            placement="bottom-end"
+          >
+            {menuItems.map((menuItem, index) => (
+              <MenuItem
+                className={classes.menuItem}
+                onClick={(event: React.MouseEvent) => {
+                  event.stopPropagation();
+                  menuItem.onClick();
+                }}
+              >
+                <Box width="100%" display="flex" alignItems="center" justifyContent="space-between">
+                  <Box display="flex" alignItems="center">
+                    {menuItem.icon}
+                    <Box ml={2}>
+                      <Typography variant="subtitle1">{menuItem.title}</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </MenuItem>
+            ))}
+          </Menu>
           <Box display="flex" justifyContent="space-between">
             <Box>
               <Typography variant="h6" className={classes.label}>

@@ -1,4 +1,5 @@
 import React, { useState, ReactNode, useCallback } from 'react';
+import { Typography } from '@material-ui/core';
 
 import { Box, Grid, Card, CardContent } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -7,6 +8,8 @@ import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
 import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType } from '../Documents.types';
+import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { Page } from 'ui/templates';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';
@@ -19,6 +22,8 @@ const documentFoldersOptions = [
 ];
 
 export const DocumentFolders = ({
+  onSidebarOpen,
+  isSidebarVisible,
   path,
   foldersData,
   isLoading,
@@ -59,66 +64,76 @@ export const DocumentFolders = ({
   ]);
 
   return (
-    <Grid item xs={12}>
-      <Card className={classes.root}>
-        <CardContent>
-          <Box display="flex" flexDirection="column" alignItems="center" className={classes.searchBoxWrapper}>
-            <Search
-              options={documentFoldersOptions}
-              endAdornment={<></>}
-              classes={{
-                root: classes.searchBox,
-                input: classes.searchBox,
-              }}
-            />
+    <>
+      <CrmRelationsDetailsHeader onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+      <Page withoutHeader>
+        <Grid xs={12} item>
+          <Box display="flex" alignItems="center">
+            <Typography variant="h1">{formatMessage({ id: 'crm.details.documents.document_folders' })}</Typography>
           </Box>
-          <Box mt={4}>
-            <Grid container>
-              {isLoading ? (
-                <Grid item xs={12}>
-                  <PropertyItemPlaceholder />
-                </Grid>
-              ) : foldersData?.length ? (
-                foldersData.map((item, index) => (
-                  <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
+        </Grid>
+        <Grid item xs={12}>
+          <Card className={classes.root}>
+            <CardContent>
+              <Box display="flex" flexDirection="column" alignItems="center" className={classes.searchBoxWrapper}>
+                <Search
+                  options={documentFoldersOptions}
+                  endAdornment={<></>}
+                  classes={{
+                    root: classes.searchBox,
+                    input: classes.searchBox,
+                  }}
+                />
+              </Box>
+              <Box mt={4}>
+                <Grid container>
+                  {isLoading ? (
+                    <Grid item xs={12}>
+                      <PropertyItemPlaceholder />
+                    </Grid>
+                  ) : foldersData?.length ? (
+                    foldersData.map((item, index) => (
+                      <Grid item key={index} className={classes.listItem} xs={6} sm={4} lg={2}>
+                        <DmsFolderIcon
+                          id={item.id}
+                          name={item.name}
+                          childCount={item.documents?.length || 0}
+                          type="secondary"
+                          isOpened={item.id === selectedFolder?.id}
+                          onClick={() => {
+                            setSelectedFolder(item.id === selectedFolder?.id ? null : item);
+                          }}
+                          onRemove={() => handleDelete(item)}
+                          onRename={name => handleUpdate(item, name)}
+                        />
+                      </Grid>
+                    ))
+                  ) : null}
+                  <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
                     <DmsFolderIcon
-                      id={item.id}
-                      name={item.name}
-                      childCount={item.documents?.length || 0}
-                      type="secondary"
-                      isOpened={item.id === selectedFolder?.id}
+                      id="add_folder"
+                      name={formatMessage({ id: 'dms.documents.add_folder' })}
                       onClick={() => {
-                        setSelectedFolder(item.id === selectedFolder?.id ? null : item);
+                        handleAdd();
                       }}
-                      onRemove={() => handleDelete(item)}
-                      onRename={name => handleUpdate(item, name)}
+                      isAdd
                     />
                   </Grid>
-                ))
-              ) : null}
-              <Grid item className={classes.listItem} xs={6} sm={4} lg={2}>
-                <DmsFolderIcon
-                  id="add_folder"
-                  name={formatMessage({ id: 'dms.documents.add_folder' })}
-                  onClick={() => {
-                    handleAdd();
-                  }}
-                  isAdd
-                />
-              </Grid>
-            </Grid>
-          </Box>
+                </Grid>
+              </Box>
+            </CardContent>
+          </Card>
 
           {selectedFolder && (
-            <Box mt={4}>
-              <DocumentListViewContainer documents={selectedFolder.documents} path={path} />
+            <Box mt={3.5}>
+              <DocumentListViewContainer folder={selectedFolder} documents={selectedFolder.documents} path={path} />
             </Box>
           )}
-        </CardContent>
-      </Card>
 
-      {/* show add folder dialog */}
-      {dialog}
-    </Grid>
+          {/* show add folder dialog */}
+          {dialog}
+        </Grid>
+      </Page>
+    </>
   );
 };

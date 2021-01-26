@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
-import { usePimDocumentsCheckListQueryParams } from 'app/shared/usePimDocumentsCheckListQueryParams/usePimDocumentsCheckListQueryParams';
-import { CHECKLIST_ITEMS } from 'api/mocks/checklist';
+import { AppRoute } from 'routing/AppRoute.enum';
 
-import { DocumentsCheckList } from './CheckList';
-import { CheckList } from './CheckList.types';
+import { CheckListViewContainer } from './checklistView/CheckListViewContainer';
+import { CheckListItemContainer } from './checklistItem/CheckListItemContainer';
 
 export const DocumentsCheckListContainer = (props: PimDetailsSectionProps) => {
-  const [checkListItems, setCheckListItems] = useState<CheckList[]>();
-  const { status, setStatus } = usePimDocumentsCheckListQueryParams();
-
-  const handleAddChecklist = () => {
-    setCheckListItems(CHECKLIST_ITEMS);
-  };
+  const { isSidebarVisible, onSidebarOpen } = props;
 
   return (
-    <DocumentsCheckList
-      {...props}
-      checkListItems={checkListItems || []}
-      status={status}
-      onStatusChange={setStatus}
-      onAddChecklist={handleAddChecklist}
-    />
+    <Switch>
+      <Route
+        path={`${AppRoute.pimDetails}/documents/checklist/:docId`}
+        render={() => <CheckListItemContainer {...props} />}
+      />
+      <Route
+        path={`${AppRoute.pimDetails}/documents/checklist`}
+        render={({ match }) => (
+          <CheckListViewContainer
+            isSidebarVisible={isSidebarVisible}
+            onSidebarOpen={onSidebarOpen}
+            path={`${AppRoute.pimDetails.replace(':id', match.params.id)}/documents/checklist`}
+          />
+        )}
+      />
+      <Redirect to={`${AppRoute.pimDetails}/documents/checklist`} />
+    </Switch>
   );
 };

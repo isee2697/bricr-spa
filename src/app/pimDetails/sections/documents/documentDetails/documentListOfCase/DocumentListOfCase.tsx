@@ -1,18 +1,22 @@
 import React, { ReactElement, useCallback, useState } from 'react';
 import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 
-import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography, Button } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { MenuIcon, DeleteIcon, HistoryIcon, ShareIcon } from 'ui/atoms/icons';
-import { useLocale } from 'hooks';
+import { MenuIcon, DeleteIcon, HistoryIcon, ShareIcon, AddIcon } from 'ui/atoms/icons';
+import { useLocale, useModalDispatch } from 'hooks';
 import { Page } from 'ui/templates';
 import { useStyles } from '../DocumentDetails.styles';
 import { DocumentSecurity } from '../documentSecurity/DocumentSecurity';
 
-import { DocumentListOfCaseProps } from './DocumentListOfCase.types';
+import { DocumentListOfCaseCard, DocumentListOfCaseProps } from './DocumentListOfCase.types';
 import { DocumentListOfCaseSidebarMenu } from './documentListOfCaseSidebar/DocumentListOfCaseSidebarMenu';
 import { DocumentListOfCaseCommon } from './documentListOfCaseCommon/DocumentListOfCaseCommon';
+import { AddLvzCardModal } from './documentListOfCaseCommon/addLvzCardModal/AddLvzCardModal';
+import { AddLvzCardBody } from './documentListOfCaseCommon/addLvzCardModal/AddLvzCardModal.types';
+import { AddLvzItemModal } from './documentListOfCaseCommon/addLvzItemModal/AddLvzItemModal';
+import { AddLvzItemBody } from './documentListOfCaseCommon/addLvzItemModal/AddLvzItemModal.types';
 
 type SubMenuItemType = {
   title: string;
@@ -49,6 +53,13 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
     .replace(':docId', data?.id || '');
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { push } = useHistory();
+  const { open, close } = useModalDispatch();
+  const [cards, setCards] = useState<DocumentListOfCaseCard[]>([
+    {
+      id: 1,
+      name: 'Outside',
+    },
+  ]);
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -66,6 +77,44 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
   const handleSidebarOpen = useCallback(() => {
     setSidebarVisibility(true);
   }, []);
+
+  const handleAddNewLvzCard = async (values: AddLvzCardBody) => {
+    setCards([
+      ...cards,
+      {
+        id: cards.length + 1,
+        name: values.name,
+        items: [],
+      },
+    ]);
+
+    close('add-lvz-card');
+
+    return undefined;
+  };
+
+  const handleAddNewItem = async (cardId: number, values: AddLvzItemBody) => {
+    setCards([
+      ...cards.map(card =>
+        card.id === cardId
+          ? {
+              ...card,
+              items: [
+                ...(card?.items || []),
+                {
+                  id: (card.items?.length || 0) + 1,
+                  description: values.description,
+                },
+              ],
+            }
+          : card,
+      ),
+    ]);
+
+    close('add-lvz-item');
+
+    return true;
+  };
 
   const handleGoBack = useCallback(() => {
     if (pimId) {
@@ -98,6 +147,20 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
               isSidebarVisible={isSidebarVisible}
               onSidebarOpen={handleSidebarOpen}
               action={
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<AddIcon color="inherit" />}
+                  onClick={() => open('add-lvz-card')}
+                >
+                  {formatMessage({ id: 'pim_details.documents.add_lvz_card' })}
+                </Button>
+              }
+            />
+            <Page
+              title={formatMessage({ id: 'pim_details.documents.list_of_case' })}
+              titleActions={
                 <Box display="flex">
                   <IconButton onClick={handleGoBack} variant="rounded" size="small">
                     <ShareIcon />
@@ -172,30 +235,26 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
                   </Box>
                 </Box>
               }
-            />
-            <Page withoutHeader>
-              <Grid xs={12} item>
-                <Box display="flex" alignItems="center">
-                  <Typography variant="h1">{formatMessage({ id: 'pim_details.documents.list_of_case' })}</Typography>
-                </Box>
-              </Grid>
+            >
               <Box mt={3} width="100%">
                 <Switch>
                   <Route
-                    path={[AppRoute.pimDocumentDetails, 'common'].join('/')}
-                    render={() => <DocumentListOfCaseCommon />}
+                    path={[AppRoute.pimDocumentDetails, 'data'].join('/')}
+                    render={() => <DocumentListOfCaseCommon cards={cards} />}
                   />
                   <Route
                     path={[AppRoute.pimDocumentDetails, 'security'].join('/')}
                     render={() => <DocumentSecurity title={data.name} />}
                   />
-                  <Redirect to={[pathname, 'common'].join('/')} />
+                  <Redirect to={[pathname, 'data'].join('/')} />
                 </Switch>
               </Box>
             </Page>
           </Grid>
         </Box>
       </Grid>
+      <AddLvzCardModal onSubmit={handleAddNewLvzCard} />
+      <AddLvzItemModal onSubmit={handleAddNewItem} />
     </>
   );
 };

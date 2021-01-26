@@ -23,8 +23,9 @@ export const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2) - 1,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
+
     '& .MuiAutocomplete-listbox': {
-      maxHeight: '70vh',
+      maxHeight: theme.spacing(68),
       boxShadow: 'inset 0 4px 4px -4px rgba(159, 192, 255, 0.5)',
     },
     [theme.breakpoints.down('sm')]: {

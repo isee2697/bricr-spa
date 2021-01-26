@@ -6,15 +6,14 @@ import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
 import { useLocale, useModalDispatch } from 'hooks';
 import { SalesHeader } from '../salesHeader/SalesHeader';
-import { AddIcon, CardsIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
+import { AddIcon, HamburgerIcon, ListIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { SortOption } from 'ui/molecules/list/List.types';
 import { AddSalesLeadModalContainer } from '../addSalesLeadModal/AddSalesLeadModalContainer';
 
 import { SalesLeadsProps } from './SalesLeads.types';
 import { SalesLeadsTabs } from './tabs/Tabs';
-import { SalesLeadItem } from './item/Item';
+import { ListView } from './listView/ListView';
+import { TableView } from './tableView/TableView';
 
 export const SalesLeads = (props: SalesLeadsProps) => {
   const { onSidebarOpen, isSidebarVisible, onStatusChange, status, viewMode, onViewModeChange, salesLeads } = props;
@@ -22,13 +21,6 @@ export const SalesLeads = (props: SalesLeadsProps) => {
   const urlParams = useParams();
   const { formatMessage } = useLocale();
   const { open } = useModalDispatch();
-
-  const sortOptions: SortOption[] = [
-    {
-      name: formatMessage({ id: 'common.sort_option.newest' }),
-      key: 'newest',
-    },
-  ];
 
   return (
     <>
@@ -65,8 +57,8 @@ export const SalesLeads = (props: SalesLeadsProps) => {
                     </IconButton>
                   </Box>
                   <Box mr={2}>
-                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('card')}>
-                      <CardsIcon color={viewMode === 'card' ? 'primary' : 'inherit'} />
+                    <IconButton variant="rounded" size="small" onClick={() => onViewModeChange('table')}>
+                      <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
                     </IconButton>
                   </Box>
                   <Box mr={2}>
@@ -93,23 +85,8 @@ export const SalesLeads = (props: SalesLeadsProps) => {
                 onStatusChange={onStatusChange}
                 amounts={{ actionRequired: 2, withdrawn: 44 }}
               />
-              <List
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({ id: 'sales.leads.empty_title' })}
-                emptyDescription={formatMessage({ id: 'sales.leads.empty_description' })}
-                sortOptions={sortOptions}
-                items={salesLeads}
-                itemIndex={'id'}
-                renderItem={(salesLead, checked, checkbox) => (
-                  <SalesLeadItem
-                    key={salesLead.id}
-                    status={status}
-                    salesLead={salesLead}
-                    checked={checked}
-                    checkbox={checkbox}
-                  />
-                )}
-              />
+              {viewMode === 'list' && <ListView items={salesLeads} status={status} />}
+              {viewMode === 'table' && <TableView items={salesLeads} />}
             </CardContent>
           </Card>
         </Grid>

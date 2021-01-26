@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 
@@ -39,9 +38,8 @@ export const connectDataToResources: ConvertDataFunction = schedulerData => {
   }));
 };
 
-export const Calendar = ({ account, data, currentDate, view, height }: CalendarProps) => {
+export const Calendar = ({ account, data, currentDate, view }: CalendarProps) => {
   const { locale } = useLocale();
-  const { spacing, breakpoints } = useTheme();
   const { push } = useHistory();
 
   const handleNavigateToEditAppointment = (appointmentData: AppointmentModel | undefined) => {
@@ -51,15 +49,9 @@ export const Calendar = ({ account, data, currentDate, view, height }: CalendarP
   };
 
   return (
-    <Scheduler
-      height={height ?? spacing(breakpoints.up('xl') ? 70 : 60)}
-      locale={locale}
-      firstDayOfWeek={1}
-      data={connectDataToResources(data)}
-      currentView={view}
-    >
+    <Scheduler height="auto" locale={locale} firstDayOfWeek={1} data={connectDataToResources(data)} currentView={view}>
       <ViewState currentDate={currentDate} currentViewName={view} />
-      <DayView />
+      <DayView disableHead />
       <DayView disableHead name={DateView.Group} />
       <WeekView />
       <MonthView />

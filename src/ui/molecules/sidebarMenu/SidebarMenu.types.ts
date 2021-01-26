@@ -13,6 +13,7 @@ export type SubMenuItem =
 
 export type MenuItem = {
   key: string;
+  showArrowIcon?: boolean;
   subItems?: SubMenuItem[];
   count?: number;
   icon?: ReactNode;

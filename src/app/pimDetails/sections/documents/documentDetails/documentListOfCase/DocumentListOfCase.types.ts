@@ -14,3 +14,22 @@ export type DocumentListOfCaseProps = Pick<PimOverallInfoQueryHookResult, 'loadi
   data?: DocumentListOfCaseType;
   breadcrumbs: ReactNode;
 };
+
+export type DocumentListOfCaseCard = {
+  id: number;
+  name: string;
+  items?: DocumentOutsideItem[];
+};
+
+export type DocumentOutsideItem = {
+  id: number;
+  description: string;
+  state?: DocumentOutsideItemState;
+};
+
+export enum DocumentOutsideItemState {
+  StaysBehind = 'StaysBehind',
+  GoesWith = 'GoesWith',
+  ForTakeover = 'ForTakeover',
+  Nvt = 'Nvt',
+}

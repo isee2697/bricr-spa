@@ -100,6 +100,9 @@ export const useStyles = makeStyles(theme => ({
     '&.isDisabled': {
       border: `2px solid ${theme.palette.gray.light}`,
     },
+    '&.horizontal': {
+      flexWrap: 'nowrap',
+    },
   },
   icon: {
     '& svg': {

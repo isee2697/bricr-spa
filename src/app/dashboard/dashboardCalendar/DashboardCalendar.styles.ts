@@ -15,4 +15,8 @@ export const useStyles = makeStyles(theme => ({
   moreButton: {
     justifyContent: 'left',
   },
+  badge: {
+    right: -theme.spacing(1),
+    top: theme.spacing(1),
+  },
 }));
