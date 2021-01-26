@@ -14,7 +14,6 @@ export const EmailSidebarSubMenuItem = ({ id, title, selected }: EmailSidebarMen
     accept: 'UpdateEmailFolder',
     drop: (item: EmailDragObject) => {
       // TODO: Update email folder here
-      console.log('Email updated: ', item);
     },
     canDrop: () => true,
     collect: monitor => ({
