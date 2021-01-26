@@ -38,9 +38,11 @@ export const AdvancedSearchField = ({
 
   return (
     <FormControl margin={margin ?? 'normal'} style={{ width: '100%' }}>
-      <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
-        {formatMessage({ id: label })}
-      </InputLabel>
+      {label && (
+        <InputLabel shrink variant="outlined" color="primary" htmlFor={name} disabled={disabled}>
+          {formatMessage({ id: label })}
+        </InputLabel>
+      )}
       <AdvancedSearch
         value={input.value}
         onChange={onChangeValue}

@@ -11,7 +11,7 @@ import { EmailProps } from './Email.types';
 import { EmailInboxContainer } from './inbox/InboxContainer';
 import { EmailSettingsContainer } from './settings/SettingsContainer';
 
-export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNewAccount }: EmailProps) => {
+export const Email = ({ breadcrumbs, path, entityType, accounts = [] }: EmailProps) => {
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
 
   const handleSidebarHide = useCallback(() => {
@@ -38,7 +38,6 @@ export const Email = ({ breadcrumbs, path, entityType, accounts = [], onAddedNew
                     onSidebarClose={handleSidebarHide}
                     isSidebarVisible={isSidebarVisible}
                     accounts={accounts}
-                    onAddedNewAccount={onAddedNewAccount}
                   />
                 )}
               />

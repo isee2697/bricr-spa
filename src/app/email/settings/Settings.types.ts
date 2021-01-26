@@ -17,7 +17,6 @@ export type EmailSettingsContainerProps = {
   onSidebarOpen: VoidFunction;
   isSidebarVisible: boolean;
   accounts: NylasAccountItem[];
-  onAddedNewAccount: VoidFunction;
 };
 
 export type Inbox = {

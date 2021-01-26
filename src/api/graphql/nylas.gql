@@ -28,6 +28,8 @@ type NylasAccountItem {
     provider: String!
     billingState: String!
     syncState: String!
+    isCalendarConnected: Boolean
+    isEmailConnected: Boolean
 }
 
 input NylasAccountAuthOptions {
