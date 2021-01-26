@@ -31,7 +31,6 @@ export const VerifyUserContainer = () => {
           },
         },
       });
-      console.log(verified);
 
       if (verified && verified.data?.verifyUser?.status === 'verified') {
         skipSetup ? push(AppRoute.login) : push(AppRoute.setup, { email: emailValue, name: nameValue });
@@ -39,7 +38,6 @@ export const VerifyUserContainer = () => {
 
       return true;
     } catch (e) {
-      console.log(e);
       let message = 'register.error.failed_to_verify';
 
       if (e.code === 'CodeMismatchException') {
