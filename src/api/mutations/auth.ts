@@ -21,19 +21,6 @@ export const FORGOT_PASSWORD = gql`
   }
 `;
 
-export const REFRESH_TOKEN = gql`
-  mutation RefreshToken($input: RefreshTokenInput) {
-    refreshToken(input: $input)
-      @rest(type: "LoginResponse", path: "/refresh-token", method: "POST", endpoint: "default") {
-      error
-      AuthenticationResult {
-        AccessToken
-        RefreshToken
-      }
-    }
-  }
-`;
-
 export const RESET_PASSWORD = gql`
   mutation ResetPassword($input: ResetPasswordInput) {
     resetPassword(input: $input)
