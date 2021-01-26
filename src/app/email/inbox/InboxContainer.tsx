@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { EmailFolderListItem, useListEmailFoldersLazyQuery } from 'api/types';
+import { EmailFolderListItem, useListEmailFoldersQuery } from 'api/types';
+import { useAuthState } from 'hooks';
 
 import { EmailInbox } from './Inbox';
 import { EmailInboxContainerProps } from './Inbox.types';
@@ -9,21 +10,14 @@ import { EmailInboxContainerProps } from './Inbox.types';
 export const EmailInboxContainer = (props: EmailInboxContainerProps) => {
   const { inboxId } = useParams<{ inboxId: string }>();
 
-  const [listNylasEmailFolders, { data }] = useListEmailFoldersLazyQuery({ fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    const getNylasEmailFolders = () => {
-      if (inboxId) {
-        listNylasEmailFolders({
-          variables: {
-            accountId: inboxId,
-          },
-        });
-      }
-    };
-
-    getNylasEmailFolders();
-  }, [listNylasEmailFolders, inboxId]);
+  const { user } = useAuthState();
+  const { data } = useListEmailFoldersQuery({
+    fetchPolicy: 'no-cache',
+    skip: !user || !inboxId,
+    variables: {
+      accountId: inboxId,
+    },
+  });
 
   return <EmailInbox {...props} folders={(data?.listEmailFolders || []) as EmailFolderListItem[]} />;
 };
