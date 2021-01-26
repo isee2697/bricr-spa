@@ -8,7 +8,7 @@ export type AdvancedSearchFieldProps = Pick<
   AdvancedSearchProps,
   'items' | 'placeholder' | 'disabled' | 'align' | 'classes'
 > & {
-  label: string;
+  label?: string;
   name: string;
   validate?: FieldValidator<string>[];
   validateFields?: string[];

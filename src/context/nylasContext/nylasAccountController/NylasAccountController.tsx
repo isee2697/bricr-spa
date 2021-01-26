@@ -1,68 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useAuthState, useNylasAccountDispatch } from 'hooks';
-import {
-  setNylasCalendarAccounts,
-  setNylasEmailAccounts,
-} from '../nylasAccountActionCreator/nylasAccountActionCreators';
+import { setNylasAccounts } from '../nylasAccountActionCreator/nylasAccountActionCreators';
+import { useListNylasAccountQuery } from 'api/types';
 
 import { NylasAccountControllerProps } from './NylasAccountController.types';
 
 export const NylasAccountController = ({ children }: NylasAccountControllerProps) => {
-  const { user, accessToken } = useAuthState();
+  const { user } = useAuthState();
+  const { data } = useListNylasAccountQuery({
+    fetchPolicy: 'no-cache',
+    skip: !user,
+  });
+
   const dispatch = useNylasAccountDispatch();
 
-  useEffect(() => {
-    const getNylasAccounts = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_FILE_URL}/nylas-account-list?accountId=${user?.id}&isCalendarConnected=true`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + accessToken,
-            },
-          },
-        );
-
-        if (response.ok) {
-          const accounts = await response.json();
-          dispatch(setNylasCalendarAccounts(accounts));
-        } else {
-          throw new Error('Error returned while getting nylas calendar account list');
-        }
-      } catch (e) {
-        dispatch(setNylasCalendarAccounts([]));
-      }
-
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_FILE_URL}/nylas-account-list?accountId=${user?.id}&isEmailConnected=true`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + accessToken,
-            },
-          },
-        );
-
-        if (response.ok) {
-          const accounts = await response.json();
-          dispatch(setNylasEmailAccounts(accounts));
-        } else {
-          throw new Error('Error returned while getting nylas email account list');
-        }
-      } catch (e) {
-        dispatch(setNylasEmailAccounts([]));
-      }
-    };
-
-    if (user) {
-      getNylasAccounts();
-    }
-  }, [dispatch, user, accessToken]);
+  if (data?.listNylasAccount) {
+    dispatch(setNylasAccounts(data.listNylasAccount));
+  } else {
+    dispatch(setNylasAccounts([]));
+  }
 
   return <>{children}</>;
 };

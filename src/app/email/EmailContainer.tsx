@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { AppRoute } from 'routing/AppRoute.enum';
 import { EntityType } from 'app/shared/entityType';
 import { NavBreadcrumb } from 'ui/atoms';
-import { useLocale } from 'hooks';
-import { useListNylasAccountLazyQuery } from 'api/types';
+import { useLocale, useNylasAccountState } from 'hooks';
 
 import { Email } from './Email';
 
@@ -17,35 +16,14 @@ export const EmailContainer = () => {
       <NavBreadcrumb title={formatMessage({ id: 'email.list' })} />
     </>
   );
-  const [listNylasAccounts, { data: nylasAccountsData }] = useListNylasAccountLazyQuery({ fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    const getNylasAccounts = () => {
-      listNylasAccounts({
-        variables: {
-          isEmailConnected: true,
-        },
-      });
-    };
-
-    getNylasAccounts();
-  }, [listNylasAccounts]);
-
-  const handleAddedNewAccount = () => {
-    listNylasAccounts({
-      variables: {
-        isEmailConnected: true,
-      },
-    });
-  };
+  const nylasAccountsData = useNylasAccountState().accounts.filter(account => !!account.isEmailConnected);
 
   return (
     <Email
       breadcrumbs={breadcrumbs}
       path={AppRoute.email}
       entityType={EntityType.Email}
-      accounts={nylasAccountsData?.listNylasAccount || []}
-      onAddedNewAccount={handleAddedNewAccount}
+      accounts={nylasAccountsData || []}
     />
   );
 };

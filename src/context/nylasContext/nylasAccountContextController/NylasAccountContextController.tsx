@@ -7,8 +7,7 @@ import { NylasAccountContextControllerProps } from './NylasAccountContextControl
 
 export const NylasAccountContextController = ({ children }: NylasAccountContextControllerProps) => {
   const [state, dispatch] = useReducer(nylasAccountReducer, {
-    calendarAccounts: [],
-    emailAccounts: [],
+    accounts: [],
   });
 
   return (
