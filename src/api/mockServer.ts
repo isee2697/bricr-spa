@@ -68,7 +68,6 @@ export const mockServer = () => {
 
       this.post('/mock-security/forgot_password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
-        console.log(requestJson.username);
 
         if (requestJson.username !== 'test@bricr.com') {
           throw new Error();
