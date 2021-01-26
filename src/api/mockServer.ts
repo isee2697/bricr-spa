@@ -66,10 +66,10 @@ export const mockServer = () => {
         };
       });
 
-      this.post('/mock-security/forgot-password', (schema, request) => {
+      this.post('/mock-security/forgot_password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
-        if (requestJson.email !== 'test@bricr.com') {
+        if (requestJson.username !== 'test@bricr.com') {
           throw new Error();
         }
 
