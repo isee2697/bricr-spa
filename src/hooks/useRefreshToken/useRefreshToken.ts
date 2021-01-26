@@ -7,6 +7,8 @@ export const useRefreshToken = () => {
   const dispatch = useAuthDispatch();
 
   const getRefreshToken = async (headers: HeadersInit): Promise<string | undefined> => {
+    console.log('Passed token', token);
+
     if (!token) {
       return undefined;
     }
@@ -22,6 +24,7 @@ export const useRefreshToken = () => {
         const { AuthenticationResult } = await response.json();
 
         dispatch(setTokens(AuthenticationResult.AccessToken, AuthenticationResult.RefreshToken));
+        console.log('Returning token', AuthenticationResult?.AccessToken);
 
         return AuthenticationResult?.AccessToken;
       }

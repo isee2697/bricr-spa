@@ -37,14 +37,20 @@ export const graphLink = (
         }
 
         if (tokens.accessToken && tokens.refreshToken && response.status === 401) {
+          console.log('SET');
+
           if (!refreshTokenPromise) {
+            console.log('WORKING');
             refreshTokenPromise = refetchToken(newOptions.headers);
           }
 
           const newToken = await refreshTokenPromise;
+          console.log('NewTOken', newToken);
           refreshTokenPromise = undefined;
 
           if (newToken) {
+            console.log('NewTOken', newToken);
+
             return fetch(endpoint, {
               ...newOptions,
               headers: {

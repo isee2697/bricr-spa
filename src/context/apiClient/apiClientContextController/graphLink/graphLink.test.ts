@@ -48,7 +48,7 @@ describe('graphLink', () => {
 
   test('refresh token when expired and re-run fetch with new one token', async () => {
     const cache = new InMemoryCache();
-    const refetchToken = jest.fn();
+    const refetchToken = jest.fn().mockReturnValue('token');
     const mockResponse = {
       me: {
         firstName: 'test',
