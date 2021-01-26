@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Responsive, WidthProvider, Layout, Layouts } from 'react-grid-layout';
-import { useTheme } from '@material-ui/core';
+import { Typography, useTheme } from '@material-ui/core';
 
 import { useLocale, useModalDispatch } from 'hooks';
 import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AddIcon, ScaleIcon } from 'ui/atoms/icons';
+import { AddIcon, ManageIcon, MenuIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
 
 import { DashboardsHeader } from './header/Header';
 import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
@@ -125,6 +125,24 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
         to={`${AppRoute.insights}/dashboards`}
       />
       <DashboardsHeader />
+      <Box mt={3} display="flex" justifyContent="space-between">
+        <Typography variant="h1" className={classes.fontWeightBold}>
+          Tenants of complex
+        </Typography>
+        <Box display="flex" alignItems="flex-start">
+          <IconButton size="small" variant="rounded">
+            <SettingsIcon />
+          </IconButton>
+          <Box ml={3} />
+          <IconButton size="small" variant="rounded">
+            <ManageIcon />
+          </IconButton>
+          <Box ml={3} />
+          <IconButton size="small" variant="rounded">
+            <MenuIcon />
+          </IconButton>
+        </Box>
+      </Box>
       <Box mt={3} />
       <div style={{ position: 'relative' }}>
         <ReactGridLayout
