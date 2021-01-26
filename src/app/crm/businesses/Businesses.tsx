@@ -3,7 +3,7 @@ import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { CrmType } from 'api/types';
+import { CrmStatus, CrmType } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, FormControlLabel, Checkbox, Select, MenuItem } from 'ui/atoms';
@@ -71,9 +71,9 @@ export const Businesses = ({ onSidebarOpen, isSidebarVisible, status, onStatusCh
                   status={status}
                   onStatusChange={onStatusChange}
                   amounts={{
-                    actionRequired: crms.filter(crmItem => crmItem.status === 'actionRequired').length,
-                    active: crms.filter(crmItem => crmItem.status === 'active').length,
-                    inactive: crms.filter(crmItem => crmItem.status === 'archived').length,
+                    actionRequired: crms.filter(crmItem => crmItem.status === CrmStatus.ActionRequired).length,
+                    active: crms.filter(crmItem => crmItem.status === CrmStatus.Active).length,
+                    inactive: crms.filter(crmItem => crmItem.status === CrmStatus.Inactive).length,
                   }}
                 />
               </Box>

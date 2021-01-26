@@ -1,10 +1,9 @@
-import { CrmType, Maybe, Profile } from 'api/types';
-import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
+import { CrmType, Maybe, Profile, CrmStatus } from 'api/types';
 
 export type CrmProps = {
   path: string;
-  status: ActionTabStatus;
-  onStatusChange: (status: ActionTabStatus) => void;
+  status: CrmStatus;
+  onStatusChange: (status: CrmStatus) => void;
 };
 
 export type CrmItem = {
@@ -16,7 +15,7 @@ export type CrmItem = {
   email?: Maybe<string>;
   phoneNumber?: Maybe<string>;
   avatar?: Maybe<{ url?: Maybe<string> }>;
-  status: ActionTabStatus;
+  status: CrmStatus;
   property: string;
   partner: Profile;
   manager: Profile;

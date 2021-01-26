@@ -63,6 +63,17 @@ export const Search = ({ results, onSearch }: SearchProps) => {
           ),
         })),
       ...(result?.pims || [])
+        .filter(pim => pim.propertyType === PropertyType.Apartment || pim.propertyType === PropertyType.House)
+        .map(pim => ({
+          title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
+          type: formatMessage({ id: 'search.pim.residential' }),
+          icon: (
+            <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
+              <MailIcon />
+            </Box>
+          ),
+        })),
+      ...(result?.pims || [])
         .filter(pim => pim.propertyType === PropertyType.Commercial)
         .map(pim => ({
           title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,

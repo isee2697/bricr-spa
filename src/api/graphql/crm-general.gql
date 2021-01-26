@@ -44,6 +44,11 @@ enum CrmIdentificationNumberType {
   Custom
 }
 
+enum CrmStatus {
+  ActionRequired,
+  Active, Inactive
+}
+
 type CrmGeneral {
   id: ID!
   firstName: String
@@ -65,6 +70,7 @@ type CrmGeneral {
   preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])
   preferredTitleInformation: String
   identificationNumbers: [CrmIdentificationNumber!]
+  status: CrmStatus
 }
 
 type CrmIdentificationNumber {
@@ -109,6 +115,7 @@ input UpdateCrmGeneralInput {
   preferredLetterSalutation: String @uuidOrEnum(enum: ["preferredLetterSalutationType"])
   preferredTitleInformation: String
   identificationNumbers: [CrmIdentificationNumberInput!]
+  status: CrmStatus
 }
 
 extend type Mutation {

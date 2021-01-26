@@ -52,7 +52,9 @@ export const EmailInbox = ({
               folders.length > 0
                 ? joinUrlParams(`${path}/inbox/:inboxId/:folderId`, {
                     inboxId,
-                    folderId: folders[0].folder.nylasFolderId,
+                    folderId: folders.some(folder => folder.folder.name === 'inbox')
+                      ? folders.filter(folder => folder.folder.name === 'inbox')[0].folder.nylasFolderId
+                      : folders[0].folder.nylasFolderId,
                   })
                 : joinUrlParams(`${path}/inbox/:inboxId`, { inboxId })
             }

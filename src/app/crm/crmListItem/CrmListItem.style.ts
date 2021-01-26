@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
+import { CrmStatus } from 'api/types';
+
 import { CrmListItemProps } from './CrmListItem.types';
 
 export const useStyles = makeStyles(theme => ({
@@ -10,8 +12,11 @@ export const useStyles = makeStyles(theme => ({
     width: 160,
     height: 152,
     marginRight: theme.spacing(2),
-    filter: ({ crm: { status } }: CrmListItemProps) => (status === 'archived' ? 'grayscale(1)' : ''),
+    filter: ({ crm: { status } }: CrmListItemProps) => (status === CrmStatus.Inactive ? 'grayscale(1)' : ''),
     fontSize: '3em',
+  },
+  cursor: {
+    cursor: 'pointer',
   },
   crmUserName: {
     marginBottom: theme.spacing(1),
@@ -52,5 +57,18 @@ export const useStyles = makeStyles(theme => ({
   },
   verticalAlignTop: {
     verticalAlign: 'top',
+  },
+  menuItem: {
+    padding: 0,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    borderBottom: `2px solid ${theme.palette.gray.light}`,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuIcon: {
+    color: theme.palette.gray.main,
   },
 }));
