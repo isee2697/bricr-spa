@@ -234,7 +234,7 @@ export const Addresses = ({ data, onSave }: AddressesProps) => {
                     xs={4}
                     md={3}
                     lg={2}
-                    name={`${address.key}.addressType`}
+                    name={`${address.key}.type`}
                     options={addressTypes}
                   />
                   <Box mb={2} />

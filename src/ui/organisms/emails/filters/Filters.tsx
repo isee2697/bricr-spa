@@ -34,7 +34,7 @@ export const EmailDashboardFilters = ({
   onDeleteFilter,
 }: FilterProps) => {
   const { formatMessage } = useLocale();
-  const { emailAccounts: nylasAccounts } = useNylasAccountState();
+  const nylasAccounts = useNylasAccountState().accounts.filter(account => !!account.isEmailConnected);
   const filters: FiltersTypes[] = [
     {
       key: 'inbox',

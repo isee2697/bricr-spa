@@ -20,7 +20,7 @@ import {
   BuildingIcon,
 } from 'ui/atoms/icons';
 import { CalendarTypes, TaskLabel } from 'api/types';
-import { useLocale } from 'hooks';
+import { useLocale, useModalDispatch } from 'hooks';
 import { IconButton, Scrollable } from 'ui/atoms';
 
 import {
@@ -37,6 +37,7 @@ export const AppointmentComponent = ({ view, ...props }: AppointmentComponentPro
     ?.color as string;
   const classes = useStyles(color);
   props.data.color = color;
+  const { open } = useModalDispatch();
 
   if (props.data.type === CalendarTypes.Travel) {
     return <></>;
@@ -52,6 +53,7 @@ export const AppointmentComponent = ({ view, ...props }: AppointmentComponentPro
         props.className,
         !!props.data.taskLabel && classes.task,
       )}
+      onClick={() => open('appointment-detail')}
     />
   );
 };

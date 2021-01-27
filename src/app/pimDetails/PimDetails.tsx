@@ -73,195 +73,191 @@ export const PimDetails = ({
           allocateResultsNumber={5}
           picture={mainPicture || undefined}
         />
-        <Box flex={1}>
-          <Grid container className={classes.content}>
-            {!!error && (
-              <Grid item xs={12}>
-                <Alert data-testid="pim-details-error" severity="error">
-                  {formatMessage({ id: 'common.error' })}
-                </Alert>
-              </Grid>
-            )}
-            {!error && !!pim && (
-              <Switch>
-                <Route
-                  path={`${path}/dashboard`}
-                  render={() => (
-                    <DashboardContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/general`}
-                  render={() => (
-                    <General isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
-                  )}
-                />
-                <Route
-                  path={`${path}/inside`}
-                  render={() => (
-                    <Inside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
-                  )}
-                />
-                <Route
-                  path={`${path}/outside`}
-                  render={() => (
-                    <Outside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
-                  )}
-                />
-                <Route
-                  path={`${path}/cadastre`}
-                  render={() => (
-                    <CadastreContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/services`}
-                  render={() => (
-                    <ServicesContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/meters`}
-                  render={() => (
-                    <MetersContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/prices`}
-                  render={() => (
-                    <PricesContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/allocateSettings`}
-                  render={() => (
-                    <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                  )}
-                />
-                <Route
-                  path={`${path}/specification`}
-                  render={() => (
-                    <Specification
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/media`}
-                  render={() => (
-                    <MediaContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/commercialspaces`}
-                  render={() => (
-                    <CommercialSpacesContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/summary`}
-                  render={() => (
-                    <SummaryContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/tiara`}
-                  render={() => (
-                    <TiaraContainer
-                      entity={TiaraEntities.Pim}
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/documents`}
-                  render={() => (
-                    <DocumentsContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                      title={title}
-                    />
-                  )}
-                />
-                <Route exact path={`${path}/propertyJourney`} render={() => <>PropertyJourney</>} />
-                <Route exact path={`${path}/timeline`} render={() => <>Timeline</>} />
-                <Route
-                  exact
-                  path={`${path}/allocateResults`}
-                  render={() => (
-                    <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                  )}
-                />
-                <Route
-                  path={`${path}/allocateResults/:id`}
-                  render={() => (
-                    <AllocateResultsDetailsContainer
-                      isSidebarVisible={isSidebarVisible}
-                      onSidebarOpen={handleSidebarOpen}
-                    />
-                  )}
-                />
-                <Route
-                  path={`${path}/publication`}
-                  render={() => (
-                    <PublicationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                  )}
-                />
-                {Object.values(AogSpaceType).map(aogSpaceType => (
+        <Grid item xs={12} md={9} lg={10}>
+          <Box width="100%">
+            <Grid container className={classes.content}>
+              {!!error && (
+                <Grid item xs={12}>
+                  <Alert data-testid="pim-details-error" severity="error">
+                    {formatMessage({ id: 'common.error' })}
+                  </Alert>
+                </Grid>
+              )}
+              {!error && !!pim && (
+                <Switch>
                   <Route
-                    key={aogSpaceType}
-                    path={`${path}/${aogSpaceType.toLowerCase()}`}
+                    path={`${path}/dashboard`}
                     render={() => (
-                      <AogSpacesContainer
+                      <DashboardContainer
                         isSidebarVisible={isSidebarVisible}
                         onSidebarOpen={handleSidebarOpen}
                         title={title}
-                        type={aogSpaceType}
                       />
                     )}
                   />
-                ))}
-                <Redirect to={{ pathname: `${path}/dashboard`, state }} />
-              </Switch>
-            )}
-          </Grid>
-        </Box>
+                  <Route
+                    path={`${path}/general`}
+                    render={() => (
+                      <General isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/inside`}
+                    render={() => (
+                      <Inside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/outside`}
+                    render={() => (
+                      <Outside isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} title={title} />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/cadastre`}
+                    render={() => (
+                      <CadastreContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/services`}
+                    render={() => (
+                      <ServicesContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/meters`}
+                    render={() => (
+                      <MetersContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/prices`}
+                    render={() => (
+                      <PricesContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/allocateSettings`}
+                    render={() => (
+                      <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/specification`}
+                    render={() => (
+                      <Specification
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/media`}
+                    render={() => (
+                      <MediaContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/commercialspaces`}
+                    render={() => (
+                      <CommercialSpacesContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/summary`}
+                    render={() => (
+                      <SummaryContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/tiara`}
+                    render={() => (
+                      <TiaraContainer
+                        entity={TiaraEntities.Pim}
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/documents`}
+                    render={() => (
+                      <DocumentsContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                        title={title}
+                      />
+                    )}
+                  />
+                  <Route exact path={`${path}/propertyJourney`} render={() => <>PropertyJourney</>} />
+                  <Route exact path={`${path}/timeline`} render={() => <>Timeline</>} />
+                  <Route
+                    exact
+                    path={`${path}/allocateResults`}
+                    render={() => (
+                      <AllocateResultsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                    )}
+                  />
+                  <Route
+                    path={`${path}/allocateResults/:id`}
+                    render={() => (
+                      <AllocateResultsDetailsContainer
+                        isSidebarVisible={isSidebarVisible}
+                        onSidebarOpen={handleSidebarOpen}
+                      />
+                    )}
+                  />
+                  {Object.values(AogSpaceType).map(aogSpaceType => (
+                    <Route
+                      key={aogSpaceType}
+                      path={`${path}/${aogSpaceType.toLowerCase()}`}
+                      render={() => (
+                        <AogSpacesContainer
+                          isSidebarVisible={isSidebarVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
+                          type={aogSpaceType}
+                        />
+                      )}
+                    />
+                  ))}
+                  <Redirect to={{ pathname: `${path}/dashboard`, state }} />
+                </Switch>
+              )}
+            </Grid>
+          </Box>
+        </Grid>
       </Grid>
     </EntityTypeProvider>
   );
