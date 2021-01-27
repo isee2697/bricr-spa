@@ -17,4 +17,9 @@ export const useStyles = makeStyles(theme => ({
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,
   },
+  tab: {
+    '& .MuiTab-wrapper': {
+      color: theme.palette.gray.main,
+    },
+  },
 }));

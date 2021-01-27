@@ -11,6 +11,7 @@ import { FolderIcon } from 'ui/atoms/icons/folder/FolderIcon';
 import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SettingsIcon } from 'ui/atoms/icons';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './ShortcutsMenu.styles';
 
@@ -67,6 +68,18 @@ export const ShortcutsMenu = () => {
             </Avatar>
             <Box ml={2}>
               <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.print_brochure' })}</Typography>
+            </Box>
+          </Box>
+        </Link>
+        <Link component={RouterLink} to={`${AppRoute.pim}/nvm`} color="inherit">
+          <Box className={classes.box} display="flex" alignItems="center" mb={2}>
+            <Avatar size="large" variant="rounded" bgcolor={theme.palette.red.light}>
+              <Box color={theme.palette.red.main}>
+                <FilesIcon fontSize="large" color="inherit" />
+              </Box>
+            </Avatar>
+            <Box ml={2}>
+              <Typography variant="subtitle1">{formatMessage({ id: 'shortcuts_menu.daily_nvm_mutations' })}</Typography>
             </Box>
           </Box>
         </Link>

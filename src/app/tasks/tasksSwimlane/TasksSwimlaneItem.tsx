@@ -149,17 +149,17 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
                 </Box>
               </Box>
             </Box>
-            <Box display="flex" alignItems="center" width="100%" justifyContent="space-between" mt={1.5} mb={1.5}>
+            <Box display="flex" alignItems="center" width="100%" mt={1.5} mb={1.5}>
               <Box className={clsx(classes.linkItem, 'selected')}>
                 <BuildingIcon color="inherit" />
               </Box>
-              <Box className={classes.linkItem}>
+              <Box ml={2} className={classes.linkItem}>
                 <CrmIcon color="inherit" />
               </Box>
-              <Box className={classes.linkItem}>
+              <Box ml={2} className={classes.linkItem}>
                 <GraphIcon color="inherit" />
               </Box>
-              <Box className={classes.linkItem}>
+              <Box ml={2} className={classes.linkItem}>
                 <CalendarIcon color="inherit" />
               </Box>
             </Box>
@@ -167,7 +167,7 @@ export const TasksSwimlaneItem = ({ tab, task }: TasksSwimlaneItemProps) => {
               {formatMessage({ id: 'tasks.details.subtasks' })}:{' '}
               {formatMessage({ id: 'tasks.details.subtasks.completed' }, { percentage: 33, completed: 1, total: 3 })}
             </Typography>
-            <ProgressFilling progress={0.6} fullWidth />
+            <ProgressFilling progress={0.6} />
           </CardContent>
         </Card>
         {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}

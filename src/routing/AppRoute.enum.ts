@@ -1,5 +1,6 @@
 export enum AppRoute {
   home = '/',
+  pimNvm = '/pim/nvm',
   pim = '/pim',
   pimDetails = '/pimDetails/:id',
   pimDocumentDetails = '/pimDetails/:id/documents/folders/:kind/:docId',
