@@ -43,7 +43,7 @@ export const PimList = ({
   teams,
   accountManagers,
 }: PimProps) => {
-  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
+  const [viewMode, setViewMode] = useState<'list' | 'table'>(type === 'purchase' ? 'table' : 'list');
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
@@ -76,11 +76,13 @@ export const PimList = ({
             title={formatMessage({ id: `pim.type.${type}` })}
             action={
               <Box display="flex">
-                <Box mr={2}>
-                  <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
-                    <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
-                  </IconButton>
-                </Box>
+                {type !== 'purchase' && (
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
+                      <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                )}
                 <Box mr={2}>
                   <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
                     <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />

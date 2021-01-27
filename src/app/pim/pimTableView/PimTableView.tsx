@@ -13,6 +13,8 @@ import {
   Menu,
   Typography,
   MenuItem,
+  Avatar,
+  Emoji,
 } from 'ui/atoms';
 import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -168,6 +170,11 @@ export const PimTableView = ({
               </TableCell>
               {FIXED_HEADER_COLUMNS.map(cell => (
                 <TableCell className={classes.tableCellType} key={cell}>
+                  {cell === 'address' && item.mainPicture?.file?.url && (
+                    <Avatar variant="rounded" src={item.mainPicture.file.url} className={classes.image}>
+                      {!item.mainPicture.file.url && <Emoji>{'📷'}</Emoji>}
+                    </Avatar>
+                  )}
                   {renderCell(item, cell)}
                 </TableCell>
               ))}

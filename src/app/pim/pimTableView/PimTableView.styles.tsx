@@ -65,4 +65,10 @@ export const useStyles = makeStyles(theme => ({
   menuIcon: {
     color: theme.palette.gray.main,
   },
+  image: {
+    width: 176,
+    height: 112,
+    marginRight: theme.spacing(2),
+    fontSize: '3em',
+  },
 }));
