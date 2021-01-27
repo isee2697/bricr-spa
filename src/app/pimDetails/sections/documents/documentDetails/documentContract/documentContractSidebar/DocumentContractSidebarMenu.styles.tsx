@@ -10,6 +10,7 @@ export const useStyles = makeStyles(theme => ({
     zIndex: 1,
   },
   step: {
+    cursor: 'pointer',
     padding: 0,
   },
   stepper: {
@@ -73,6 +74,7 @@ export const useStyles = makeStyles(theme => ({
 
 export const Connector = withStyles(theme => ({
   vertical: {
+    pointerEvents: 'none',
     paddingBottom: 0,
     marginTop: -theme.spacing(5),
     '& $line': {

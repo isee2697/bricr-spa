@@ -7,11 +7,11 @@ import { DragIcon, MenuIcon } from 'ui/atoms/icons';
 import { useStyles } from './Card.styles';
 import { DashboardCardProps } from './Card.types';
 
-export const DashboardCard = ({ children }: DashboardCardProps) => {
+export const DashboardCard = ({ children, isUpdating }: DashboardCardProps) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={clsx(classes.card, isUpdating && 'updating')}>
       <CardHeader
         classes={{ title: classes.cardHeaderTitle }}
         title={'Contacts'}

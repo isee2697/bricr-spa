@@ -21,7 +21,7 @@ export const useRefreshToken = () => {
       if (response.ok) {
         const { AuthenticationResult } = await response.json();
 
-        dispatch(setTokens(AuthenticationResult.AccessToken, AuthenticationResult.RefreshToken));
+        dispatch(setTokens(AuthenticationResult.AccessToken, token));
 
         return AuthenticationResult?.AccessToken;
       }

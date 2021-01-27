@@ -11,10 +11,7 @@ export const useStyles = makeStyles(theme => ({
   },
   gridLayout: {
     '& > .react-grid-placeholder': {
-      background: theme.palette.gradientBlue.light,
-      border: `1px dashed ${theme.palette.primary.main}`,
-      borderRadius: theme.spacing(1),
-      opacity: 1,
+      display: 'none',
     },
   },
   placeholder: {
