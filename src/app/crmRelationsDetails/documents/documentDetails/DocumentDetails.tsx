@@ -1,8 +1,7 @@
 import React, { ReactNode, useCallback, useState } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useParams } from 'react-router-dom';
 
 import { Loader, Grid, Box, Button } from 'ui/atoms';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
@@ -16,10 +15,12 @@ import { ActualDocument } from './actualDocument/ActualDocument';
 import { DocumentPreviousVersions } from './previousVersions/DocumentPreviousVersions';
 import { DocumentAuditTrail } from './auditTrail/DocumentAuditTrail';
 
-export const DocumentDetails = ({ loading, data, breadcrumbs }: DocumentDetailsProps) => {
+export const DocumentDetails = ({ path, loading, data, breadcrumbs }: DocumentDetailsProps) => {
   const { formatMessage } = useLocale();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const [dialog, setDialog] = useState<ReactNode | null>(null);
+
+  const { docId } = useParams<{ docId: string }>();
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -51,7 +52,12 @@ export const DocumentDetails = ({ loading, data, breadcrumbs }: DocumentDetailsP
   return (
     <Grid container spacing={0} wrap="nowrap">
       {breadcrumbs}
-      <DocumentDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} title={data.name} />
+      <DocumentDetailsSidebarMenu
+        onHide={handleSidebarHide}
+        isVisible={isSidebarVisible}
+        title={data.name}
+        path={path}
+      />
       <Box flex={1} padding={3}>
         <CrmRelationsDetailsHeader
           onSidebarOpen={handleSidebarOpen}
@@ -71,22 +77,19 @@ export const DocumentDetails = ({ loading, data, breadcrumbs }: DocumentDetailsP
         <Page withoutHeader>
           <Switch>
             <Route
-              path={[AppRoute.crmRelationsDocumentDetails, 'actual-document'].join('/')}
+              path={[path, docId, 'actual-document'].join('/')}
               render={() => <ActualDocument document={data} />}
             />
             <Route
-              path={[AppRoute.crmRelationsDocumentDetails, 'document-settings'].join('/')}
+              path={[path, docId, 'document-settings'].join('/')}
               render={() => <DocumentSecurity title={data.name} />}
             />
             <Route
-              path={[AppRoute.crmRelationsDocumentDetails, 'previous-versions'].join('/')}
-              render={() => <DocumentPreviousVersions documents={data.previousVersions} />}
+              path={[path, docId, 'previous-versions'].join('/')}
+              render={() => <DocumentPreviousVersions documents={data.previousVersions} path={path} />}
             />
-            <Route
-              path={[AppRoute.crmRelationsDocumentDetails, 'audit-trail'].join('/')}
-              render={() => <DocumentAuditTrail />}
-            />
-            <Redirect to={[AppRoute.crmRelationsDocumentDetails, 'actual-document'].join('/')} />
+            <Route path={[path, docId, 'audit-trail'].join('/')} render={() => <DocumentAuditTrail />} />
+            <Redirect to={[path, docId, 'actual-document'].join('/')} />
           </Switch>
         </Page>
       </Box>

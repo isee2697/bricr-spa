@@ -1,25 +1,23 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 
 import { Box, Card, CardContent, CardHeader, IconButton, MenuItem, Select } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { DocumentTableView } from '../../documentListView/tableView/DocumentTableView';
 
 import { DocumentPreviousVersionsProps } from './DocumentPreviousVersions.types';
 import { useStyles } from './DocumentPreviousVersions.styles';
 
-export const DocumentPreviousVersions = ({ documents }: DocumentPreviousVersionsProps) => {
+export const DocumentPreviousVersions = ({ path, documents }: DocumentPreviousVersionsProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
-  const { id } = useParams<{ id: string }>();
   const sortOptions = ['last_edited'];
 
-  const handleNavigateDetail = (docId: string) => {
-    push(AppRoute.crmRelationsDocumentDetails.replace('id', id).replace('docId', docId));
+  const handleNavigateDetail = (newDocId: string) => {
+    push(`${path}/${newDocId}`);
   };
 
   return (

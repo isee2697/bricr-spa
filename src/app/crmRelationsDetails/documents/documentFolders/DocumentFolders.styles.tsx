@@ -45,4 +45,7 @@ export const useStyles = makeStyles(theme => ({
     marginRight: -theme.spacing(2),
     padding: theme.spacing(2),
   },
+  listContainer: {
+    padding: theme.spacing(2),
+  },
 }));
