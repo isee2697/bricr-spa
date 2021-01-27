@@ -40,6 +40,7 @@ export type FilterContainerProps = {
 export type FilterButtonProps = {
   data?: AnyObject;
   getActiveFilters?: (filters: ListPimsFilters) => void;
+  color?: 'primary' | 'secondary' | 'default' | 'error';
 };
 
 export type FilterSidenavProps = {
