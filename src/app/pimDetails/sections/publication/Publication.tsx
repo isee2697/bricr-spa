@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Box, Button, IconButton, NavBreadcrumbs, Typography } from 'ui/atoms';
-import { AddIcon, HideIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { Box, Button, NavBreadcrumbs } from 'ui/atoms';
+import { AddIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
 
