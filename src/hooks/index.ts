@@ -22,3 +22,4 @@ export * from './useShowError/useShowError';
 export * from './usePages/usePages';
 export * from './useNylasAccountDispatch/useNylasAccountDispatch';
 export * from './useNylasAccountState/useNylasAccountState';
+export * from './useRefreshToken/useRefreshToken';
