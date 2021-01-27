@@ -2,7 +2,13 @@ import { gql } from 'apollo-boost';
 
 export const LIST_EMAIL_FOLDERS = gql`
   query ListEmailFolders($accountId: String!) {
-    listEmailFolders(accountId: $accountId) {
+    listEmailFolders(accountId: $accountId)
+      @rest(
+        type: "ListEmailFolders"
+        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       folder {
         id
         name

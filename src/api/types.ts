@@ -17659,7 +17659,7 @@ export const ListEmailFoldersDocument = gql`
     listEmailFolders(accountId: $accountId)
       @rest(
         type: "ListEmailFolders"
-        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}&folderIds="
+        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}"
         method: "GET"
         endpoint: "default"
       ) {
