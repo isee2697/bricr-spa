@@ -28,6 +28,7 @@ export type MenuGroup = {
   hideArrowIcon?: boolean;
   items: MenuItem[];
   spaceAfter?: boolean;
+  onClick?: VoidFunction;
 };
 
 export type SidebarMenuType = {

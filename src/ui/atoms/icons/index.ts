@@ -115,3 +115,8 @@ export * from './trigger/TriggerIcon';
 export * from './eyeSlash/EyeSlash';
 export * from './hamburger/HamburgerIcon';
 export * from './leave/LeaveIcon';
+export * from './travelAfter/TravelAfterIcon';
+export * from './travelBefore/TravelBeforeIcon';
+export * from './alert/AlertIcon';
+export * from './star/StarIcon';
+export * from './starFilled/StarFilledIcon';

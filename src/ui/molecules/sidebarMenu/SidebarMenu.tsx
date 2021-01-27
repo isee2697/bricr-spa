@@ -183,12 +183,13 @@ export const SidebarMenu = ({
                   >
                     {group.isCollapsable && group.key && (
                       <Box
-                        onClick={() =>
+                        onClick={() => {
+                          group.onClick && group.onClick();
                           setGroupOpen(groups => ({
                             ...groups,
                             [group.key as string]: !groups[group.key as string],
-                          }))
-                        }
+                          }));
+                        }}
                         className={classes.collapseHeader}
                         data-toggled={isGroupOpen[group.key as string]}
                         data-testid={`toggle-group-${group.key}`}

@@ -18,15 +18,15 @@ import {
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
-import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
-import { ListIcon, LocationIcon, HamburgerIcon } from 'ui/atoms/icons';
+import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
 import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
+import { FiltersButton } from './pimFilters/FiltersButton';
+import { ActiveFilters } from './pimFilters/activeFilters/ActiveFilters';
 import { PimTableView } from './pimTableView/PimTableView';
 
 export const PimList = ({
@@ -40,6 +40,8 @@ export const PimList = ({
   pagination,
   onFilter,
   activeFilters,
+  teams,
+  accountManagers,
 }: PimProps) => {
   const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
   const classes = useStyles();
@@ -89,7 +91,14 @@ export const PimList = ({
                     <LocationIcon />
                   </IconButton>
                 </Box>
-                <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+                <Box mr={3}>
+                  <FiltersButton
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    teams={teams}
+                    accountManagers={accountManagers}
+                  />
+                </Box>
               </Box>
             }
           />
