@@ -25,6 +25,7 @@ import { PimActionTabs } from './pimActionTabs/PimActionTabs';
 import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
+import { MovePimModal } from './movePimModal/MovePimModal';
 import { FiltersButton } from './pimFilters/FiltersButton';
 import { ActiveFilters } from './pimFilters/activeFilters/ActiveFilters';
 import { PimTableView } from './pimTableView/PimTableView';
@@ -67,113 +68,115 @@ export const PimList = ({
   }, [listData, selected.length]);
 
   return (
-    <Grid data-testid={`pim-list-${type}`} container spacing={3} className={classes.content}>
-      <PimHeader type={type} />
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader
-            className="pim-list-header"
-            title={formatMessage({ id: `pim.type.${type}` })}
-            action={
-              <Box display="flex">
-                <Box mr={2}>
-                  <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
-                    <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
-                  </IconButton>
+    <>
+      <Grid data-testid={`pim-list-${type}`} container spacing={3} className={classes.content}>
+        <PimHeader type={type} />
+        <Grid item xs={12}>
+          <Card>
+            <CardHeader
+              className="pim-list-header"
+              title={formatMessage({ id: `pim.type.${type}` })}
+              action={
+                <Box display="flex">
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" aria-label="list" onClick={() => setViewMode('list')}>
+                      <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
+                      <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
+                    </IconButton>
+                  </Box>
+                  <Box mr={2}>
+                    <IconButton variant="rounded" size="small" onClick={() => {}}>
+                      <LocationIcon />
+                    </IconButton>
+                  </Box>
+                  <Box mr={3}>
+                    <FiltersButton
+                      data={activeFilters}
+                      getActiveFilters={onFilter}
+                      teams={teams}
+                      accountManagers={accountManagers}
+                    />
+                  </Box>
                 </Box>
-                <Box mr={2}>
-                  <IconButton variant="rounded" size="small" aria-label="table" onClick={() => setViewMode('table')}>
-                    <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
-                  </IconButton>
-                </Box>
-                <Box mr={2}>
-                  <IconButton variant="rounded" size="small" onClick={() => {}}>
-                    <LocationIcon />
-                  </IconButton>
-                </Box>
-                <Box mr={3}>
-                  <FiltersButton
-                    data={activeFilters}
-                    getActiveFilters={onFilter}
-                    teams={teams}
-                    accountManagers={accountManagers}
-                  />
-                </Box>
+              }
+            />
+            <CardContent className={classes.listContent}>
+              <Box mx={2}>
+                <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
               </Box>
-            }
-          />
-          <CardContent className={classes.listContent}>
-            <Box mx={2}>
-              <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
-            </Box>
-            <Box mx={2.5} mt={3} display="flex" alignItems="center" justifyContent="space-between">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="primary"
-                    className="list-select-all"
-                    checked={selected.length === listData?.listPims?.items?.length}
-                    onClick={handleSelectAllItems}
-                  />
-                }
-                label={formatMessage({ id: 'common.select_all' })}
-              />
-              <Select
-                className={classNames(classes.sort, 'sort-select')}
-                variant="outlined"
-                value={sort}
-                onChange={event => {
-                  const value = event?.target.value as string;
-                  setSort(value);
-                  sorting.onSort(value);
-                }}
-              >
-                {sorting.sortOptions.map(({ key, name }) => (
-                  <MenuItem key={key} value={key}>
-                    {formatMessage({ id: `pim.list.sort_options.${name}` })}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-            <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
-            {viewMode === 'table' ? (
-              <PimTableView
-                items={(listData?.listPims?.items ?? []) as PimEntity[]}
-                selected={selected}
-                onSelectItem={handleSelectItem}
-                onSelectAllItems={handleSelectAllItems}
-              />
-            ) : (
-              <List
-                className="pim-list"
-                items={(listData?.listPims?.items ?? []) as PimEntity[]}
-                itemIndex={'id'}
-                renderItem={(pim, checked, checkbox) => (
-                  <Box key={pim.id} className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
-                    {checkbox}
-                    <Box component="span" className={classes.rowItem}>
-                      <Box
-                        className={classes.itemButton}
-                        onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
-                      >
-                        <PimItem {...pim} />
+              <Box mx={2.5} mt={3} display="flex" alignItems="center" justifyContent="space-between">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      className="list-select-all"
+                      checked={selected.length === listData?.listPims?.items?.length}
+                      onClick={handleSelectAllItems}
+                    />
+                  }
+                  label={formatMessage({ id: 'common.select_all' })}
+                />
+                <Select
+                  className={classNames(classes.sort, 'sort-select')}
+                  variant="outlined"
+                  value={sort}
+                  onChange={event => {
+                    const value = event?.target.value as string;
+                    setSort(value);
+                    sorting.onSort(value);
+                  }}
+                >
+                  {sorting.sortOptions.map(({ key, name }) => (
+                    <MenuItem key={key} value={key}>
+                      {formatMessage({ id: `pim.list.sort_options.${name}` })}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              {viewMode === 'table' ? (
+                <PimTableView
+                  items={(listData?.listPims?.items ?? []) as PimEntity[]}
+                  selected={selected}
+                  onSelectItem={handleSelectItem}
+                  onSelectAllItems={handleSelectAllItems}
+                />
+              ) : (
+                <List
+                  className="pim-list"
+                  items={(listData?.listPims?.items ?? []) as PimEntity[]}
+                  itemIndex={'id'}
+                  renderItem={(pim, checked, checkbox) => (
+                    <Box key={pim.id} className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
+                      {checkbox}
+                      <Box component="span" className={classes.rowItem}>
+                        <Box
+                          className={classes.itemButton}
+                          onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                        >
+                          <PimItem {...pim} />
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
-                )}
-                pagination={pagination}
-                loading={isLoading}
-                loadingItem={<PropertyItemPlaceholder />}
-                emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
-                emptyDescription={formatMessage({
-                  id: 'pim.list.empty_description',
-                })}
-                isShowHeader={false}
-              />
-            )}
-          </CardContent>
-        </Card>
+                  )}
+                  sortOptions={sorting.sortOptions}
+                  onSort={sorting.onSort}
+                  pagination={pagination}
+                  loading={isLoading}
+                  loadingItem={<PropertyItemPlaceholder />}
+                  emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
+                  emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+                />
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+      <MovePimModal />
+    </>
   );
 };
