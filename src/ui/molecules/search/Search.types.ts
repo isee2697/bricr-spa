@@ -23,6 +23,7 @@ interface SearchPropsInterface<T> extends Partial<AutocompleteProps<T>> {
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
   classes?: SearchClasses;
+  loading?: boolean;
 }
 
 export type SearchProps = SearchPropsInterface<Search>;
