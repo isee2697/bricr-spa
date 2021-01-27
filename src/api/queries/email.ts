@@ -5,7 +5,7 @@ export const LIST_EMAIL_FOLDERS = gql`
     listEmailFolders(accountId: $accountId)
       @rest(
         type: "ListEmailFolders"
-        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}"
+        path: "/nylas-email-folders-unread-count?accountId={args.accountId}"
         method: "GET"
         endpoint: "default"
       ) {
@@ -22,7 +22,13 @@ export const LIST_EMAIL_FOLDERS = gql`
 
 export const LIST_EMAIL = gql`
   query ListEmail($accountId: String!, $folderId: ID, $unread: Boolean) {
-    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread) {
+    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread)
+      @rest(
+        type: "ListEmail"
+        path: "/nylas-email-list?accountId={args.accountId}&folderId={args.folderId}&unread={args.unread}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       folder {
         id
