@@ -24,3 +24,5 @@ export const DocumentDetailsContainer = (props: DocumentDetailsContainerProps) =
 
   return <DocumentDetails breadcrumbs={breadcrumbs} data={data} {...props} />;
 };
+
+export default DocumentDetailsContainer;

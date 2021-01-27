@@ -18,3 +18,5 @@ export const PimNvmContainer = () => {
     />
   );
 };
+
+export default PimNvmContainer;

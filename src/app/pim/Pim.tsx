@@ -30,3 +30,5 @@ export const Pim = () => {
     </Grid>
   );
 };
+
+export default Pim;
