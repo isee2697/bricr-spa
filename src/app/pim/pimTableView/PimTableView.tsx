@@ -127,6 +127,7 @@ export const PimTableView = ({
           <TableRow>
             <TableCell padding="checkbox" className={classes.tableHeaderCell}>
               <Checkbox
+                color="primary"
                 checked={items.length === selected.length}
                 onClick={e => {
                   e.stopPropagation();
@@ -160,6 +161,7 @@ export const PimTableView = ({
             >
               <TableCell padding="checkbox">
                 <Checkbox
+                  color="primary"
                   checked={selected.includes(item.id)}
                   inputProps={{ 'aria-labelledby': item.id }}
                   onClick={e => {
