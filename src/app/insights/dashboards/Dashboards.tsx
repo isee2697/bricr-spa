@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Responsive, WidthProvider, Layout, Layouts } from 'react-grid-layout';
 import { Typography, useTheme } from '@material-ui/core';
 
@@ -22,13 +22,13 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   const classes = useStyles();
   const { spacing } = useTheme();
   const { formatMessage } = useLocale();
-  const [isDragging, setIsDragging] = useState(false);
-  const [isResizing, setIsResizing] = useState(false);
+  const [draggingObject, setDraggingObject] = useState<Layout>();
+  const [resizingObject, setResizingObject] = useState<Layout>();
   const { open } = useModalDispatch();
 
   const generatePlaceholders = (changedLayout: Layout[]) => {
     const newPlaceholders: Layout[] = [];
-    const maxHeight = 19;
+    const maxHeight = 20;
 
     for (let xPos = 0; xPos < 4; xPos++) {
       for (let yPos = 0; yPos < maxHeight; yPos++) {
@@ -49,20 +49,11 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
             w: 1,
             h: 1,
             isResizable: false,
+            isBounded: true,
+            moved: true,
           });
         }
       }
-    }
-
-    for (let xPos = 0; xPos < 4; xPos++) {
-      newPlaceholders.push({
-        i: `placeholder-${xPos}-${maxHeight + 1}`,
-        x: xPos,
-        y: maxHeight + 1,
-        w: 1,
-        h: 1,
-        isResizable: false,
-      });
     }
 
     return newPlaceholders;
@@ -72,19 +63,19 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   const [placeholders, setPlaceholders] = useState<Layout[]>(generatePlaceholders(cards));
 
   const handleUpdateLayout = (changedLayout: Layout[]) => {
+    const newLayout = changedLayout.filter(layout => layout.isResizable);
+
     const layoutChanged =
-      changedLayout
-        .filter(card => card.isResizable)
-        .findIndex(
-          card =>
-            layout.findIndex(
-              l => l.i === card.i && (l.w !== card.w || l.h !== card.h || l.x !== card.x || l.y !== card.y),
-            ) >= 0,
-        ) >= 0;
+      newLayout.findIndex(
+        card =>
+          layout.findIndex(
+            l => l.i === card.i && (l.w !== card.w || l.h !== card.h || l.x !== card.x || l.y !== card.y),
+          ) >= 0,
+      ) >= 0;
 
     if (layoutChanged) {
-      setLayout(changedLayout);
-      setPlaceholders(generatePlaceholders(changedLayout));
+      setLayout(newLayout);
+      setPlaceholders(generatePlaceholders(newLayout));
     }
   };
 
@@ -93,10 +84,11 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
       ...layout,
       {
         ...newCard,
-        i: `new-${layout.length}`,
+        i: `new-${layout.length + 1}`,
         isResizable: true,
       },
     ]);
+
     setPlaceholders(
       generatePlaceholders([
         ...layout,
@@ -117,6 +109,44 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
       },
     ]);
   };
+
+  const cardsRendered = useMemo(() => {
+    return layout.map(card => (
+      <div key={card.i}>
+        <DashboardCard
+          isUpdating={
+            (!!resizingObject && card.i === resizingObject.i) || (!!draggingObject && card.i === draggingObject.i)
+          }
+        >
+          Card {card.i}
+        </DashboardCard>
+      </div>
+    ));
+  }, [draggingObject, layout, resizingObject]);
+
+  const placeholdersRendered = useMemo(() => {
+    if (!!resizingObject || !!draggingObject) {
+      return [];
+    }
+
+    return placeholders.map(placeholder => (
+      <div key={placeholder.i}>
+        <Box
+          className={classes.placeholder}
+          onClick={() => {
+            open('add_new_chart', { insightDashboardNewType: placeholder });
+          }}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <IconButton size="small" variant="circle" color="primary">
+            <AddIcon color="inherit" />
+          </IconButton>
+        </Box>
+      </div>
+    ));
+  }, [classes.placeholder, draggingObject, open, placeholders, resizingObject]);
 
   return (
     <>
@@ -147,7 +177,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
       <div style={{ position: 'relative' }}>
         <ReactGridLayout
           cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}
-          layouts={{ lg: [...layout, ...(!isDragging && !isResizing ? placeholders : [])] }}
+          layouts={{ lg: [...layout, ...placeholders] }}
           onLayoutChange={(changedLayout: Layout[], layouts: Layouts) => {
             handleUpdateLayout(changedLayout);
           }}
@@ -159,44 +189,25 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
               <ScaleIcon />
             </Box>
           }
-          onDragStart={() => {
-            setIsDragging(true);
+          onDragStart={(layout: Layout[]) => {
+            setDraggingObject(layout[0]);
           }}
           onDragStop={() => {
-            setIsDragging(false);
+            setDraggingObject(undefined);
           }}
-          onResizeStart={() => {
-            setIsResizing(true);
+          onResizeStart={(layout: Layout[]) => {
+            setResizingObject(layout[0]);
           }}
           onResizeStop={() => {
-            setIsResizing(false);
+            setResizingObject(undefined);
           }}
           className={classes.gridLayout}
+          maxRows={20}
+          verticalCompact={false}
+          preventCollision
         >
-          {layout.map(card => (
-            <div key={card.i}>
-              <DashboardCard>Card {card.i}</DashboardCard>
-            </div>
-          ))}
-          {!isDragging && !isResizing
-            ? placeholders.map(placeholder => (
-                <div key={placeholder.i}>
-                  <Box
-                    className={classes.placeholder}
-                    onClick={() => {
-                      open('add_new_chart', { insightDashboardNewType: placeholder });
-                    }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <IconButton size="small" variant="circle" color="primary">
-                      <AddIcon color="inherit" />
-                    </IconButton>
-                  </Box>
-                </div>
-              ))
-            : []}
+          {cardsRendered}
+          {placeholdersRendered}
         </ReactGridLayout>
       </div>
       <CreateNewDashboardModalContainer />

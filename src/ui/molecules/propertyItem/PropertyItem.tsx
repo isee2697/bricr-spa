@@ -75,7 +75,7 @@ export const PropertyItem = ({
                 size="small"
                 onClick={e => {
                   e.stopPropagation();
-                  onMenuClick();
+                  onMenuClick(e);
                 }}
               >
                 <MenuIcon />
