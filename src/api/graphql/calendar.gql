@@ -65,6 +65,30 @@ enum AppointmentState {
     Unconfirmed
 }
 
+type DraftAppointment {
+    id: ID
+    title: String
+    from: Date
+    to: Date
+    alternativeTerms: [AppointmentTerm!]
+    allDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    assignedPimIds: [String!]
+    agreementType: [AppointmentMeetingType]
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
+    location: String
+    outsideLocation: String
+    travelTimeBefore: Int
+    travelTimeAfter: Int
+    state: AppointmentState
+    type: CalendarTypes
+    appointmentType: AppointmentType
+    taskLabel: TaskLabel
+}
+
 type Appointment {
     id: ID!
     title: String
@@ -87,11 +111,35 @@ type Appointment {
     type: CalendarTypes!
     appointmentType: AppointmentType
     taskLabel: TaskLabel
+    isConfirmed: Boolean
 }
 
 input AppointmentTermInput {
     from: Date
     to: Date
+}
+
+input DraftAppointmentInput {
+    id: ID
+    title: String
+    from: Date
+    to: Date
+    alternativeTerms: [AppointmentTermInput!]
+    allDay: Boolean
+    confirmedDate: Boolean
+    repeatAppointment: AppointmentRepeat
+    description: String
+    assignedPimIds: [String!]
+    agreementType: [AppointmentMeetingType]
+    invitedPersons: [String!]
+    isInsideOffice: Boolean
+    location: String
+    outsideLocation: String
+    travelTimeBefore: Int
+    travelTimeAfter: Int
+    type: CalendarTypes
+    appointmentType: AppointmentType
+    taskLabel: TaskLabel
 }
 
 input AddAppointmentInput {
@@ -128,9 +176,12 @@ input AppointmentSearch {
 }
 
 extend type Mutation {
+    draftAppointment(input: DraftAppointmentInput!): DraftAppointment! @auth
+    confirmAppointment(accountId: String!, appointmentId: ID!): Appointment! @auth
     addAppointment(input: AddAppointmentInput!): Appointment! @auth
 }
 
 extend type Query {
+    getAppointment(appointmentId: ID!): Appointment! @auth
     listCalendar(input: AppointmentSearch!): [Appointment!] @auth
 }

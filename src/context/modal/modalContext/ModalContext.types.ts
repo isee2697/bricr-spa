@@ -1,7 +1,7 @@
 import { Layout } from 'react-grid-layout';
 
 import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
-import { ProjectType, PropertyType } from 'api/types';
+import { Appointment, ProjectType, PropertyType } from 'api/types';
 import { SalesItemType } from 'app/shared/addSalesItemModal/AddSalesItemModal.types';
 
 export type ModalContextType = {
@@ -23,6 +23,7 @@ export type ModalStateOptions = {
   salesItemOrderType?: string;
   insightDashboardNewType?: Layout;
   id?: number;
+  appointment?: Appointment;
 };
 
 export type ModalStateType = {

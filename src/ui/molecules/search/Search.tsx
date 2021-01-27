@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 
-import { Avatar, Grid, Typography, CardActions, Autocomplete, TextField, Button, Paper } from 'ui/atoms';
+import {
+  Avatar,
+  Grid,
+  Typography,
+  CardActions,
+  Autocomplete,
+  TextField,
+  Button,
+  Paper,
+  CircularProgress,
+  Box,
+} from 'ui/atoms';
 import { FilterIcon } from 'ui/atoms/icons/filter/FilterIcon';
 import { SearchIcon } from 'ui/atoms/icons/search/SearchIcon';
 import { MailIcon } from 'ui/atoms/icons/mail/MailIcon';
@@ -35,6 +46,7 @@ export const Search = ({
   startAdornment,
   endAdornment,
   classes: passedClasses,
+  loading = false,
   ...props
 }: SearchProps) => {
   const [hasFocus, setFocus] = useState(!!hasFocusProp);
@@ -130,7 +142,13 @@ export const Search = ({
             ...params.InputProps,
             ...{
               startAdornment: startAdornment ?? <SearchIcon />,
-              endAdornment: endAdornment ?? <FilterIcon className="MuiAutocomplete-endAdornment filter-icon" />,
+              endAdornment: loading ? (
+                <Box className={classes.loader}>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                endAdornment ?? <FilterIcon className="MuiAutocomplete-endAdornment filter-icon" />
+              ),
             },
           }}
         />

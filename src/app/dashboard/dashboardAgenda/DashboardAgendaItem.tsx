@@ -13,7 +13,7 @@ export const DashboardAgendaItem = ({ id, from, to, title }: Appointment) => {
   const classes = useStyles();
   const { push } = useHistory();
 
-  const { calendarAccounts: accounts } = useNylasAccountState();
+  const accounts = useNylasAccountState().accounts.filter(account => !!account.isCalendarConnected);
 
   return (
     <Box

@@ -5,6 +5,7 @@ import { AdvancedSearchResult } from 'api/types';
 export type SearchProps = {
   results?: AdvancedSearchResult;
   onSearch: (keyword: string) => Promise<void>;
+  loading: boolean;
 };
 
 export type FormattedAdvancedSearchResult = {
