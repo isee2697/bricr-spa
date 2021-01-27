@@ -45,13 +45,7 @@ export const DashboardEmailsContainer = () => {
     })) || [];
 
   const handleViewMoreEmail = () => {
-    if (!activeFilters?.inbox) {
-      push(`${AppRoute.email}/settings`);
-    } else if (!data?.listEmail?.length) {
-      push(`${AppRoute.email}/inbox/${activeFilters.inbox}`);
-    } else {
-      push(`${AppRoute.email}/inbox/${activeFilters.inbox}/${data.listEmail[0].folder.id}`);
-    }
+    push(`${AppRoute.email}/inbox`);
   };
 
   const handleSelectEmail = (id: string) => {
