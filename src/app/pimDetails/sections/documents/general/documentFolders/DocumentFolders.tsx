@@ -1,8 +1,8 @@
 import React, { useState, ReactNode } from 'react';
 
-import { Box, Grid, Card, CardContent, Typography, IconButton, Button } from 'ui/atoms';
+import { Box, Grid, Card, CardContent, IconButton, Button } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
+import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
 import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { SettingsIcon, AddIcon } from 'ui/atoms/icons';
