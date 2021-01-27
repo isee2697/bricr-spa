@@ -91,7 +91,7 @@ export const Checklist = ({
                         <Box display="flex" flexDirection="column" justifyContent="space-between">
                           {checkbox}
                           <Typography variant="h4" className={classes.rowItemIndex}>
-                            {list.listIndex}
+                            {list.listIndex + 1}
                           </Typography>
                         </Box>
                         <Box component="span" className={classes.rowItem}>
