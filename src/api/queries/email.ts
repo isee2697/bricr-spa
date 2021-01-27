@@ -52,7 +52,13 @@ export const LIST_EMAIL = gql`
 
 export const GET_EMAIL = gql`
   query GetEmail($accountId: String!, $emailId: String!) {
-    getEmail(accountId: $accountId, emailId: $emailId) {
+    getEmail(accountId: $accountId, emailId: $emailId)
+      @rest(
+        type: "GetEmail"
+        path: "/nylas-email-item?accountId={args.accountId}&emailId={args.emailId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       folder {
         id

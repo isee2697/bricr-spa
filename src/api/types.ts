@@ -17734,7 +17734,13 @@ export type ListEmailLazyQueryHookResult = ReturnType<typeof useListEmailLazyQue
 export type ListEmailQueryResult = ApolloReactCommon.QueryResult<ListEmailQuery, ListEmailQueryVariables>;
 export const GetEmailDocument = gql`
   query GetEmail($accountId: String!, $emailId: String!) {
-    getEmail(accountId: $accountId, emailId: $emailId) {
+    getEmail(accountId: $accountId, emailId: $emailId)
+      @rest(
+        type: "GetEmail"
+        path: "/nylas-email-item?accountId={args.accountId}&emailId={args.emailId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       folder {
         id
