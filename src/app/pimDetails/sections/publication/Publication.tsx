@@ -6,10 +6,8 @@ import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
 
 import { PublicationProps } from './Publication.types';
-import { useStyles } from './Publication.styles';
 
 export const Publication = ({ onSidebarOpen, isSidebarVisible }: PublicationProps) => {
-  const classes = useStyles();
   const { formatMessage } = useLocale();
 
   return (
