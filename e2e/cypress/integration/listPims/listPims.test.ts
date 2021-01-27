@@ -91,7 +91,6 @@ context('List Pims', () => {
     cy.get('.MuiPopover-root').within(() => {
       cy.get('li')
         .first()
-        .eq(2)
         .click();
     });
 
