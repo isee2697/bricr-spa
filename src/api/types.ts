@@ -456,9 +456,7 @@ export type MutationAuthorizeNylasAccountArgs = {
 };
 
 export type MutationAuthorizeNylasAccountWithTokenArgs = {
-  nylasToken: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
+  input: NylasAddAccountInput;
 };
 
 export type MutationBulkArgs = {
@@ -3353,6 +3351,12 @@ export type NylasAccountAuthOptions = {
   loginHint: Scalars['String'];
   redirectURI?: Maybe<Scalars['String']>;
   scopes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type NylasAddAccountInput = {
+  nylasToken: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export enum TypeOfObjectType {
@@ -8987,9 +8991,7 @@ export type AuthorizeNylasAccountMutationVariables = Exact<{
 export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'authorizeNylasAccount'>;
 
 export type AuthorizeNylasAccountWithTokenMutationVariables = Exact<{
-  nylasToken: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
+  input: NylasAddAccountInput;
 }>;
 
 export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & {
@@ -14917,16 +14919,9 @@ export type AuthorizeNylasAccountMutationOptions = ApolloReactCommon.BaseMutatio
   AuthorizeNylasAccountMutationVariables
 >;
 export const AuthorizeNylasAccountWithTokenDocument = gql`
-  mutation AuthorizeNylasAccountWithToken(
-    $nylasToken: String!
-    $isCalendarConnected: Boolean
-    $isEmailConnected: Boolean
-  ) {
-    authorizeNylasAccountWithToken(
-      nylasToken: $nylasToken
-      isCalendarConnected: $isCalendarConnected
-      isEmailConnected: $isEmailConnected
-    ) {
+  mutation AuthorizeNylasAccountWithToken($input: NylasAddAccountInput!) {
+    authorizeNylasAccountWithToken(input: $input)
+      @rest(type: "CreateNylasAccount", path: "/nylas-addaccount", method: "POST", endpoint: "default") {
       id
       userId
       accountId
