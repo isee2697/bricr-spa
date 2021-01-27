@@ -9,6 +9,7 @@ import { useLocale } from 'hooks';
 
 import { CalendarProps } from './Calendar.types';
 import { CalendarSettings } from './settings/Settings';
+import { AppointmentModal } from './appointmentModal/AppointmentModal';
 
 export const Calendar = ({ teamMembers, accounts, groups }: CalendarProps) => {
   const { formatMessage } = useLocale();
@@ -66,6 +67,7 @@ export const Calendar = ({ teamMembers, accounts, groups }: CalendarProps) => {
           }
         />
       </Switch>
+      <AppointmentModal />
     </>
   );
 };

@@ -9,15 +9,13 @@ import { EmailFilter } from 'ui/organisms/emails/filters/Filters.types';
 
 export const DashboardEmailsContainer = () => {
   const { push } = useHistory();
-  const { emailAccounts: nylasAccounts } = useNylasAccountState();
+  const nylasAccounts = useNylasAccountState().accounts.filter(account => !!account.isEmailConnected);
   const [listEmails, { data, loading: loadingEmails }] = useListEmailLazyQuery({ fetchPolicy: 'no-cache' });
   const [activeFilters, setActiveFilters] = useState<EmailFilter>();
 
-  useEffect(() => {
-    if (nylasAccounts.length) {
-      setActiveFilters({ inbox: nylasAccounts[0].id });
-    }
-  }, [nylasAccounts]);
+  if (nylasAccounts.length && !activeFilters) {
+    setActiveFilters({ inbox: nylasAccounts[0].id });
+  }
 
   useEffect(() => {
     const getEmails = async () => {
@@ -41,7 +39,7 @@ export const DashboardEmailsContainer = () => {
       avatar: '',
       title: email.subject,
       children: email.folder.displayName || '',
-      date: new Date(email.date),
+      date: new Date(parseInt(email.date) * 1000),
       open: true,
       id: email.id,
     })) || [];

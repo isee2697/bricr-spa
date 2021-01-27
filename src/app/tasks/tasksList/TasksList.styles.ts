@@ -37,4 +37,9 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  columnSortIconPlaceholder: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    display: 'inline-block',
+  },
 }));

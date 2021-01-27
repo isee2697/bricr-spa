@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 
-import { Box, Card, CardContent, IconButton, Tab, Tabs, Typography, Collapse, Checkbox } from 'ui/atoms';
+import {
+  Box,
+  Card,
+  CardContent,
+  IconButton,
+  Tab,
+  Tabs,
+  Typography,
+  Collapse,
+  Checkbox,
+  ProgressFilling,
+} from 'ui/atoms';
 import { TaskDetailsBoardsResultTab } from '../taskDetailsBoardsResult/TaskDetailsBoardsResult.types';
 import { useLocale, useModalDispatch } from 'hooks';
 import { AddIcon, ArrowDownIcon, ArrowUpIcon, DeleteIcon } from 'ui/atoms/icons';
@@ -36,17 +47,32 @@ export const SubtasksBoards = ({
     <>
       <Card className={classes.root}>
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Tabs
-            value={activeTab}
-            onChange={(e, value) => setActiveTab(value)}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab
-              value={TaskDetailsBoardsResultTab.ResultIntern}
-              label={formatMessage({ id: 'tasks.details.subtasks' })}
-            />
-          </Tabs>
+          <Box display="flex">
+            <Tabs
+              value={activeTab}
+              onChange={(e, value) => setActiveTab(value)}
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <Tab
+                value={TaskDetailsBoardsResultTab.ResultIntern}
+                label={formatMessage({ id: 'tasks.details.subtasks' })}
+                className={classes.tab}
+              />
+            </Tabs>
+            <Box mt={2} ml={1}>
+              <Typography variant="h6" color="textSecondary" className={classes.fontWeightBold}>
+                {formatMessage({ id: 'tasks.details.subtasks.completed_percentage' }, { percentage: 33 })}
+              </Typography>
+              <ProgressFilling
+                progress={
+                  task.subTasks && task.subTasks?.length > 0
+                    ? task.subTasks.filter(subtask => subtask.status === TaskStatus.Done).length / task.subTasks?.length
+                    : 0
+                }
+              />
+            </Box>
+          </Box>
           <Box mr={1}>
             <IconButton
               size="small"

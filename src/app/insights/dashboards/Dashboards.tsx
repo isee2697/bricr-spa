@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { useLocale, useModalDispatch } from 'hooks';
 import { Box, IconButton, Typography, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AddIcon, ScaleIcon, SettingsIcon, ManageIcon } from 'ui/atoms/icons';
+import { AddIcon, ManageIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
 import { ActionButtons } from '../common/ActionButtons/ActionButtons';
 
 import { DashboardsHeader } from './header/Header';
@@ -133,8 +133,10 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
         to={`${AppRoute.insights}/dashboards`}
       />
       <DashboardsHeader />
-      <Box display="flex" alignItems="center" justifyContent="space-between" mt={2}>
-        <Typography variant="h1">{formatMessage({ id: 'insights.dashboard.allocate.title' })}</Typography>
+      <Box display="flex" alignItems="center" justifyContent="space-between" mt={3}>
+        <Typography variant="h1" className={classes.fontWeightBold}>
+          {formatMessage({ id: 'insights.dashboard.allocate.title' })}
+        </Typography>
         <Box display="flex" alignItems="center">
           <Box mr={1.5}>
             <IconButton variant="rounded" size="small" onClick={() => {}}>
@@ -151,7 +153,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
           </Box>
         </Box>
       </Box>
-      <Box mt={4} />
+      <Box mt={3} />
       <div style={{ position: 'relative' }}>
         <ReactGridLayout
           cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 4 }}

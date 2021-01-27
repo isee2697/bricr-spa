@@ -4,7 +4,7 @@ import { useForm } from 'react-final-form';
 
 import { AppointmentRepeat, AppointmentTermInput, CalendarTypes } from 'api/types';
 import { Button, Card, Grid, IconButton, Box, Typography } from 'ui/atoms';
-import { CheckboxField, DatePickerChip, DropdownField, GenericField, TimePickerChip } from 'form/fields';
+import { CheckboxField, DatePickerChip, DropdownField, TimePickerChip } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
@@ -46,21 +46,19 @@ export const AppointmentBaseInfoCard = () => {
     <Card>
       <DropdownField
         items={Object.keys(CalendarTypes).map(item => ({
-          label: formatMessage({ id: `calendar.calendar_type.${item}` }),
+          label: formatMessage({ id: `calendar.name_of_event.${item}` }),
           value: item,
         }))}
-        placeholder="calendar.calendar_type.placeholder"
+        placeholder="calendar.name_of_event.placeholder"
         name={typeFieldName}
-        label={formatMessage({ id: 'calendar.calendar_type.label' })}
-      />
-      <GenericField
-        name="title"
-        label={formatMessage({ id: 'appointment.name.label' })}
-        placeholder={formatMessage({ id: 'appointment.name.placeholder' })}
+        label={formatMessage({ id: 'calendar.name_of_event' })}
       />
       <Grid container>
         <Grid item>
           <CheckboxField name="allDay" label={formatMessage({ id: 'appointment.all_day.label' })} />
+        </Grid>
+        <Grid item>
+          <CheckboxField name="viewingBlock" label={formatMessage({ id: 'appointment.confirmed_date.label' })} />
         </Grid>
         <Grid item className="right">
           <CheckboxField name="confirmedDate" label={formatMessage({ id: 'appointment.confirmed_date.label' })} />
@@ -112,12 +110,14 @@ export const AppointmentBaseInfoCard = () => {
             )}
           </Grid>
         ))}
-
       <Box mb={1} />
       {values.type !== CalendarTypes.Birthday && (
         <Grid container spacing={3} alignItems="center" className={classes.bottom}>
           <Grid item>
-            <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}>
+            <Button
+              onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}
+              disabled={alternativeTerms.length >= 3}
+            >
               <AddIcon /> {formatMessage({ id: 'appointment.alternative_term.label' })}
             </Button>
           </Grid>
