@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 import { Box, IconButton, Typography, Grid } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { HelpIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { HelpIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 
 import { useStyles } from './AllocateResultsDetails.styles';
@@ -50,7 +50,7 @@ export const AllocateResultsDetails = () => {
           </Box>
           <Box>
             <IconButton size="small" variant="roundedContained">
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
           </Box>
         </Box>

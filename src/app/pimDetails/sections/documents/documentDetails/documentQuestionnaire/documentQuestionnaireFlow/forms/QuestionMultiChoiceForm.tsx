@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { FormSection, AutosaveForm } from 'ui/organisms';
 import { QuestionMultiChoiceFormProps } from '../DocumentQuestionnaireFlow.types';
-import { FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader, ListOptionsMenu } from 'ui/molecules';
 import { Box, Typography, Grid, RadioGroup, FormControlLabel, Checkbox } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 import { useStyles } from '../DocumentQuestionnaireFlow.styles';
@@ -19,7 +19,7 @@ export function QuestionMultiChoiceForm({
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection title={title} isExpandable isInitExpanded={initOpened}>
+    <FormSection buttons={<ListOptionsMenu />} title={title} isExpandable isInitExpanded={initOpened}>
       {editing => (
         <AutosaveForm onSave={() => Promise.resolve(undefined)}>
           {subtitle && (

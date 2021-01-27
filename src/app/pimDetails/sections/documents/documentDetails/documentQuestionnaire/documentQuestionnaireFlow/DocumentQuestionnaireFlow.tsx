@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { Box, FormControlLabel, Checkbox, Typography, Grid, IconButton, Menu, MenuItem } from 'ui/atoms';
 import { useLocale, useModalDispatch } from 'hooks';
-import { AddIcon, DeleteIcon, HistoryIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { AddIcon, DeleteIcon, HistoryIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { DocumentQuestionKind } from '../DocumentQuestionnaire.types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -78,7 +78,7 @@ export const DocumentQuestionnaireFlow = ({ documentKind, stepInfo, stepIndex }:
           </Typography>
           <Box display="flex">
             <IconButton onClick={handleGoBack} variant="rounded" size="small">
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
             <Box ml={3.5}>
               <IconButton

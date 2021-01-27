@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { MenuIcon, DeleteIcon, HistoryIcon, ShareIcon } from 'ui/atoms/icons';
+import { MenuIcon, DeleteIcon, HistoryIcon, ExitIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { useStyles } from '../DocumentDetails.styles';
 
@@ -98,7 +98,7 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
               action={
                 <Box display="flex">
                   <IconButton onClick={handleGoBack} variant="rounded" size="small">
-                    <ShareIcon />
+                    <ExitIcon />
                   </IconButton>
                   <Box ml={3.5}>
                     <IconButton

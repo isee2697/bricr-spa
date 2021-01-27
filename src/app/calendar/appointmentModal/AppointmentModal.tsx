@@ -12,7 +12,7 @@ import {
   EditIcon,
   LocationIcon,
   RefreshIcon,
-  ShareIcon,
+  ExitIcon,
   TravelAfterIcon,
   TravelBeforeIcon,
   UnseeIcon,
@@ -111,7 +111,7 @@ export const AppointmentModal = () => {
                 </Typography>
               </Box>
               <IconButton size="small" variant="rounded" className={classes.btnShare}>
-                <ShareIcon color="inherit" />
+                <ExitIcon color="inherit" />
               </IconButton>
             </Box>
           </Grid>

@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, IconButton, Box, Typography, Card, CardHeader, CardContent } from 'ui/atoms';
 import { useLayout } from 'context/layout';
 import { Page } from 'ui/templates';
-import { CardsIcon, HideIcon, ListIcon, LocationIcon, ShareIcon } from 'ui/atoms/icons';
+import { CardsIcon, HideIcon, ListIcon, LocationIcon, ExitIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { ActionTabs } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -56,7 +56,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
               <Typography variant="h1">{formatMessage({ id: 'nvm.title' })}</Typography>
             </Box>
             <IconButton size="small" variant="rounded" className={classes.shareIcon}>
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
           </Box>
           <Card>
