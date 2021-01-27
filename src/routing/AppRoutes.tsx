@@ -35,6 +35,7 @@ import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoi
 import { InsightsContainer } from 'app/insights/InsightsContainer';
 import { VerifyUserContainer } from 'app/register/verify/VerifyUserContainer';
 import { ConfirmInviteContainer } from 'app/register/confirmInvite/ConfirmInviteContainer';
+import { PimNvmContainer } from 'app/pimNvm/PimNvmContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -88,6 +89,7 @@ export const AppRoutes = () => {
             <DashboardTemplate>
               <Switch>
                 <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.pimNvm} exact component={PimNvmContainer} />
                 <AuthorizedRoute path={AppRoute.pim} component={Pim} />
                 <AuthorizedRoute path={AppRoute.pimDocumentDetails} component={PimDocumentDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />

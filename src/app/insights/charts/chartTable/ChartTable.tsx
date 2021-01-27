@@ -120,7 +120,9 @@ export const ChartTable = () => {
                       <ArrowUpIcon color="primary" className={clsx(classes.columnHeaderIcon, classes.inlineBlock)} />
                     )}
                   </>
-                ) : null}
+                ) : (
+                  <Box className={classes.columnSortIconPlaceholder} />
+                )}
               </TableCell>
             ))}
             <TableCell />
