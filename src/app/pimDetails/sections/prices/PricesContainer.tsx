@@ -13,3 +13,5 @@ export const PricesContainer = (props: PimDetailsSectionProps) => {
 
   return null;
 };
+
+export default PricesContainer;

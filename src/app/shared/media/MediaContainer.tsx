@@ -119,3 +119,5 @@ export const MediaContainer = ({ isSidebarVisible, onSidebarOpen, ...props }: Pi
     />
   );
 };
+
+export default MediaContainer;

@@ -37,3 +37,5 @@ export const Specification = ({ title, isSidebarVisible, onSidebarOpen }: PimDet
     </>
   );
 };
+
+export default Specification;
