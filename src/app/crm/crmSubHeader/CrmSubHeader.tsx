@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { IconButton } from 'ui/atoms';
-import { ListIcon, CardsIcon, LocationIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
+import { ListIcon, LocationIcon, ManageIcon, SearchIcon, HamburgerIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './CrmSubHeader.style';
+import { CrmSubHeaderProps } from './CrmSubHeader.types';
 
-export const CrmSubHeader = () => {
+export const CrmSubHeader = ({ viewMode = 'list', setViewMode }: CrmSubHeaderProps) => {
   const classes = useStyles();
-  const [viewMode, setViewMode] = useState('cards');
 
   return (
     <>
@@ -15,17 +15,17 @@ export const CrmSubHeader = () => {
         variant="rounded"
         size="small"
         classes={{ root: classes.sortIcon }}
-        onClick={() => setViewMode('cards')}
+        onClick={() => setViewMode('list')}
       >
-        <CardsIcon color={viewMode === 'cards' ? 'primary' : 'inherit'} />
+        <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
       </IconButton>
       <IconButton
         variant="rounded"
         size="small"
         classes={{ root: classes.sortIcon }}
-        onClick={() => setViewMode('list')}
+        onClick={() => setViewMode('table')}
       >
-        <ListIcon color={viewMode === 'list' ? 'primary' : 'inherit'} />
+        <HamburgerIcon color={viewMode === 'table' ? 'primary' : 'inherit'} />
       </IconButton>
       <IconButton variant="rounded" size="small" classes={{ root: classes.sortIcon }}>
         <LocationIcon color="inherit" />
