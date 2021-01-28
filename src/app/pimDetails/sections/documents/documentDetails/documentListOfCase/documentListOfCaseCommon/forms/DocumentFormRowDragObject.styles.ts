@@ -8,19 +8,19 @@ export const useStyles = makeStyles(theme => ({
     left: 0,
     top: 0,
     height: '100%',
-    width: `calc(100vw - 112px)`,
+    width: `calc(100vw - ${theme.spacing(14)}px)`,
 
     [theme.breakpoints.up('sm')]: {
       width: ({ isSidebarVisible }: { isSidebarVisible: boolean }) =>
-        isSidebarVisible ? `calc(66.66vw - 112px)` : `calc(100w - 112px)`,
+        isSidebarVisible ? `calc(66.66vw - ${theme.spacing(14)}px)` : `calc(100w - ${theme.spacing(14)}px)`,
     },
     [theme.breakpoints.up('md')]: {
       width: ({ isSidebarVisible }: { isSidebarVisible: boolean }) =>
-        isSidebarVisible ? `calc(75vw - 112px)` : `calc(100w - 112px)`,
+        isSidebarVisible ? `calc(75vw - ${theme.spacing(14)}px)` : `calc(100w - ${theme.spacing(14)}px)`,
     },
     [theme.breakpoints.up('lg')]: {
       width: ({ isSidebarVisible }: { isSidebarVisible: boolean }) =>
-        isSidebarVisible ? `calc(83.33vw - 112px)` : `calc(100w - 112px)`,
+        isSidebarVisible ? `calc(83.33vw - ${theme.spacing(14)}px)` : `calc(100w - ${theme.spacing(14)}px)`,
     },
   },
   tableRow: {
