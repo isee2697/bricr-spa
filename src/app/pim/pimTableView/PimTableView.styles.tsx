@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(theme => ({
   tableHeaderCell: {
     color: theme.palette.gray.main,
-    fontSize: theme.typography.h5.fontSize,
+    fontSize: theme.typography.caption.fontSize,
     fontWeight: theme.typography.fontWeightMedium,
     borderBottom: 'none',
     padding: theme.spacing(1),
