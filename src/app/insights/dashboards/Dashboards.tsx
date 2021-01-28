@@ -1,11 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Responsive, WidthProvider, Layout, Layouts } from 'react-grid-layout';
-import { Typography, useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 import { useLocale, useModalDispatch } from 'hooks';
-import { Box, IconButton, NavBreadcrumb } from 'ui/atoms';
+import { Box, IconButton, Typography, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AddIcon, ManageIcon, MenuIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
+import { AddIcon, ManageIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
+import { ActionButtons } from '../common/ActionButtons/ActionButtons';
 
 import { DashboardsHeader } from './header/Header';
 import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
@@ -25,6 +27,8 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
   const [draggingObject, setDraggingObject] = useState<Layout>();
   const [resizingObject, setResizingObject] = useState<Layout>();
   const { open } = useModalDispatch();
+
+  const { push } = useHistory();
 
   const generatePlaceholders = (changedLayout: Layout[]) => {
     const newPlaceholders: Layout[] = [];
@@ -110,19 +114,28 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
     ]);
   };
 
+  const navigateChartDetail = useCallback(
+    (id: string) => {
+      push(AppRoute.chartDetail.replace(':id', id));
+    },
+    [push],
+  );
+
   const cardsRendered = useMemo(() => {
     return layout.map(card => (
       <div key={card.i}>
         <DashboardCard
+          id={card.i}
           isUpdating={
             (!!resizingObject && card.i === resizingObject.i) || (!!draggingObject && card.i === draggingObject.i)
           }
+          onEdit={() => navigateChartDetail(card.i)}
         >
           Card {card.i}
         </DashboardCard>
       </div>
     ));
-  }, [draggingObject, layout, resizingObject]);
+  }, [draggingObject, layout, navigateChartDetail, resizingObject]);
 
   const placeholdersRendered = useMemo(() => {
     if (!!resizingObject || !!draggingObject) {
@@ -155,22 +168,24 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
         to={`${AppRoute.insights}/dashboards`}
       />
       <DashboardsHeader />
-      <Box mt={3} display="flex" justifyContent="space-between">
+      <Box display="flex" alignItems="center" justifyContent="space-between" mt={3}>
         <Typography variant="h1" className={classes.fontWeightBold}>
-          Tenants of complex
+          {formatMessage({ id: 'insights.dashboard.allocate.title' })}
         </Typography>
-        <Box display="flex" alignItems="flex-start">
-          <IconButton size="small" variant="rounded">
-            <SettingsIcon />
-          </IconButton>
-          <Box ml={3} />
-          <IconButton size="small" variant="rounded">
-            <ManageIcon />
-          </IconButton>
-          <Box ml={3} />
-          <IconButton size="small" variant="rounded">
-            <MenuIcon />
-          </IconButton>
+        <Box display="flex" alignItems="center">
+          <Box mr={1.5}>
+            <IconButton variant="rounded" size="small" onClick={() => {}}>
+              <SettingsIcon />
+            </IconButton>
+          </Box>
+          <Box mr={1.5}>
+            <IconButton variant="rounded" size="small" onClick={() => {}}>
+              <ManageIcon />
+            </IconButton>
+          </Box>
+          <Box>
+            <ActionButtons id="insights-dashboard-actions" />
+          </Box>
         </Box>
       </Box>
       <Box mt={3} />
