@@ -8,11 +8,11 @@ import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
 import { useStyles } from './Card.styles';
 import { DashboardCardProps } from './Card.types';
 
-export const DashboardCard = ({ children, id, onEdit }: DashboardCardProps) => {
+export const DashboardCard = ({ children, isUpdating, onEdit }: DashboardCardProps) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={clsx(classes.card, isUpdating && 'updating')}>
       <CardHeader
         classes={{ title: classes.cardHeaderTitle }}
         title={'Contacts'}

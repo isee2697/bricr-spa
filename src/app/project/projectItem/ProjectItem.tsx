@@ -16,9 +16,10 @@ import {
   InfoItem,
   MenuItem,
 } from 'ui/atoms';
-import { useLocale } from 'hooks';
-import { ArchiveIcon, ArrowDownIcon, ArrowUpIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
+import { useLocale, useModalDispatch } from 'hooks';
+import { ArchiveIcon, ArrowDownIcon, ArrowUpIcon, HistoryIcon, NewConstructionIcon, WarningIcon } from 'ui/atoms/icons';
 import { ListOptionsMenu } from 'ui/molecules';
+import { PropertyCategory } from 'app/shared/addPimModal/AddPimModal.types';
 
 import { ProjectItemProps } from './ProjectItem.types';
 import { useStyles } from './ProjectItem.styles';
@@ -56,6 +57,7 @@ export const ProjectItem = ({
   const { formatMessage, locale } = useLocale();
   const { push } = useHistory();
   const classes = useStyles();
+  const { open } = useModalDispatch();
   const [toggled, setToggled] = useState(false);
   const percentage = soldOrRent && properties ? (soldOrRent / properties) * 100 : 0;
 
@@ -90,6 +92,14 @@ export const ProjectItem = ({
         </Grid>
         <Grid className={classes.rightItem} item>
           <ListOptionsMenu onEditClick={() => goToItem(true)} onDeleteClick={onDelete}>
+            <MenuItem
+              onClick={() => {
+                open('move-pim-item', { propertyCategory: PropertyCategory.PROJECT });
+              }}
+            >
+              <HistoryIcon />
+              <Typography>{formatMessage({ id: 'projects.move_ncp' })}</Typography>
+            </MenuItem>
             {!archived && (
               <MenuItem onClick={() => onArchive()} data-testid="delete-option-button">
                 <ArchiveIcon />
