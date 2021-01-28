@@ -8,7 +8,7 @@ import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
 import { useStyles } from './Card.styles';
 import { DashboardCardProps } from './Card.types';
 
-export const DashboardCard = ({ children, isUpdating, onEdit }: DashboardCardProps) => {
+export const DashboardCard = ({ children, id, isUpdating, onEdit }: DashboardCardProps) => {
   const classes = useStyles();
 
   return (

@@ -125,6 +125,7 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
     return layout.map(card => (
       <div key={card.i}>
         <DashboardCard
+          id={card.i}
           isUpdating={
             (!!resizingObject && card.i === resizingObject.i) || (!!draggingObject && card.i === draggingObject.i)
           }
