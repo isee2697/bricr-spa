@@ -66,6 +66,7 @@ jobs:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
       - run: npm run lint
+      - run: rm -r node_modules/terser && npm install terser@5.5.1 --save-dev
       - run: npm run build
   build-develop:
     docker:
