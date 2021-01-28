@@ -52,3 +52,5 @@ export const VerifyUserContainer = () => {
 
   return <VerifyUser email={emailValue} name={nameValue} onSubmit={handleSubmit} error={error} />;
 };
+
+export default VerifyUserContainer;

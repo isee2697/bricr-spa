@@ -26,3 +26,5 @@ export const SalesInvoiceDetailsContainer = () => {
 
   return <SalesInvoiceDetails breadcrumbs={breadcrumbs} />;
 };
+
+export default SalesInvoiceDetailsContainer;

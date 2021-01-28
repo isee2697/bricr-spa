@@ -22,7 +22,7 @@ import {
   TableRow,
   Typography,
 } from 'ui/atoms';
-import { AddIcon, CheckIcon, CloseIcon, ManageIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { AddIcon, CheckIcon, CloseIcon, ManageIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch } from 'hooks';
 import { Page } from 'ui/templates';
 import { AddChecklistItemModal } from '../addChecklistItemModal/AddChecklistItemModal';
@@ -57,7 +57,7 @@ export const ChecklistList = ({
             </IconButton>
             <Box ml={2} />
             <IconButton size="small" variant="rounded" className={classes.rotatedButton} onClick={() => push(path)}>
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
           </Box>
         }

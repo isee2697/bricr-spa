@@ -4,7 +4,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { HideIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { HideIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -60,7 +60,7 @@ export const AllocateResultsDetails = ({ isSidebarVisible, onSidebarOpen }: Allo
             <MenuIcon />
           </IconButton>
           <IconButton size="small" variant="rounded" onClick={handleNavigateToResults}>
-            <ShareIcon />
+            <ExitIcon />
           </IconButton>
         </Box>
       </Box>

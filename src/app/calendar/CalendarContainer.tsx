@@ -35,3 +35,5 @@ export const CalendarContainer = () => {
 
   return <Calendar groups={calendarGroups} teamMembers={profiles} accounts={accounts} />;
 };
+
+export default CalendarContainer;

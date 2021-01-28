@@ -5,3 +5,5 @@ import { Setup } from './Setup';
 export const SetupContainer = () => {
   return <Setup />;
 };
+
+export default SetupContainer;

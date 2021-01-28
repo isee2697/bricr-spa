@@ -18,3 +18,5 @@ export const TasksContainer = () => {
 
   return <Tasks user={user} members={data?.members.items || []} />;
 };
+
+export default TasksContainer;

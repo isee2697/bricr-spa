@@ -36,3 +36,5 @@ export const PimDetailsContainer = () => {
     />
   );
 };
+
+export default PimDetailsContainer;

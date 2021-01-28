@@ -13,3 +13,5 @@ export const SettingsContainer = () => {
 
   return <Loader />;
 };
+
+export default SettingsContainer;

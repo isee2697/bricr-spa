@@ -12,3 +12,5 @@ export const ProjectDetailsContainer = () => {
 
   return <ProjectDetails data={data} />;
 };
+
+export default ProjectDetailsContainer;
