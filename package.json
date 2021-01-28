@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build --max-old-space-size=3068",
-    "build:ci": "cross-env REACT_APP_CI=1 react-scripts build --max-old-space-size=3068",
+    "build:ci": "cross-env REACT_APP_CI=1 react-scripts build --max-old-space-size=3072",
     "coverage": "npm rebuild && cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/**/*.{ts,tsx} && echo 'lint success'",
