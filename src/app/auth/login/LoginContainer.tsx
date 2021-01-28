@@ -27,11 +27,11 @@ export const LoginContainer = () => {
           },
         });
 
-        if (!errors && data && data.login) {
-          const { accessToken, refreshToken } = data.login;
-          authStorage.accessToken = accessToken;
-          authStorage.refreshToken = refreshToken;
-          dispatch(setTokens(accessToken, refreshToken));
+        if (!errors && data && data?.login) {
+          const { AccessToken, RefreshToken } = data.login?.AuthenticationResult;
+          authStorage.accessToken = AccessToken;
+          authStorage.refreshToken = RefreshToken;
+          dispatch(setTokens(AccessToken, RefreshToken));
 
           return true;
         }

@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import * as uuid from 'uuid';
+import { DateTime } from 'luxon';
 
 import { CRM_DOCUMENT_FOLDERS } from 'api/mocks/crm-relation';
 
@@ -34,6 +36,26 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
     [documents],
   );
 
+  const handleUploadFiles = useCallback(
+    (folder: DocumentFolderType, files: File[]) => {
+      if (!folder.documents) folder.documents = [];
+      folder.documents = [
+        ...folder.documents,
+        ...files.map(item => ({
+          id: uuid.v4(),
+          image: '',
+          dateCreated: DateTime.fromJSDate(new Date()),
+          name: item.name,
+          stepsCompleted: [],
+          size: item.size,
+          type: item.type,
+        })),
+      ];
+      handleUpdateFolder(folder);
+    },
+    [handleUpdateFolder],
+  );
+
   return (
     <Documents
       {...props}
@@ -41,6 +63,7 @@ export const DocumentsContainer = ({ path, ...props }: DocumentsContainerProps) 
       onAddFolder={handleAddFolder}
       onDeleteFolder={handleRemoveFolder}
       onUpdateFolder={handleUpdateFolder}
+      onUploadFiles={handleUploadFiles}
       documents={documents}
     />
   );

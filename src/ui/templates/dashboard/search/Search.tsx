@@ -5,12 +5,12 @@ import { useOverlayDispatch } from 'hooks/useOverlayDispatch/useOverlayDispatch'
 import { AdvancedSearchResult, CrmType, ProjectType, PropertyType, SalesLabel } from 'api/types';
 import { useLocale } from 'hooks';
 import { BuildingIcon, MailIcon, NoteIcon, UserIcon } from 'ui/atoms/icons';
-import { Box } from 'ui/atoms';
+import { Box, Loader } from 'ui/atoms';
 
 import { FormattedAdvancedSearchResult, SearchProps } from './Search.types';
 import { useStyles } from './Search.styles';
 
-export const Search = ({ results, onSearch }: SearchProps) => {
+export const Search = ({ results, onSearch, loading }: SearchProps) => {
   const [hasFocus, setFocus] = useState(false);
   const setOverlay = useOverlayDispatch();
   const { formatMessage } = useLocale();
@@ -59,6 +59,17 @@ export const Search = ({ results, onSearch }: SearchProps) => {
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
               <NoteIcon />
+            </Box>
+          ),
+        })),
+      ...(result?.pims || [])
+        .filter(pim => pim.propertyType === PropertyType.Apartment || pim.propertyType === PropertyType.House)
+        .map(pim => ({
+          title: `${pim.street || ''} ${pim.houseNumber || ''}, ${pim.city}`,
+          type: formatMessage({ id: 'search.pim.residential' }),
+          icon: (
+            <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
+              <MailIcon />
             </Box>
           ),
         })),
@@ -194,6 +205,8 @@ export const Search = ({ results, onSearch }: SearchProps) => {
       setFocus={setFocus}
       onChangeCapture={(e: React.ChangeEvent<HTMLInputElement>) => onSearch(e.target.value)}
       options={getFormattedResults(results)}
+      loading={loading}
+      loadingText={<Loader />}
     />
   );
 };

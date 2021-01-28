@@ -81,4 +81,8 @@ export const useStyles = makeStyles(theme => ({
   highlight: {
     color: theme.palette.red.main,
   },
+  loader: {
+    position: 'absolute',
+    right: theme.spacing(1),
+  },
 }));

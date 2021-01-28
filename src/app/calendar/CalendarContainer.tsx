@@ -28,7 +28,7 @@ export const CalendarContainer = () => {
   const { data } = useGetUsersQuery({ variables: { from: 0, isActive: true } });
 
   const profiles = (data?.getAllProfiles.items as Profile[]) ?? [];
-  const { calendarAccounts: accounts } = useNylasAccountState();
+  const accounts = useNylasAccountState().accounts.filter(account => !!account.isCalendarConnected);
 
   calendarGroups[0].members = profiles;
   calendarGroups[1].members = profiles.length ? profiles.slice(0, Math.round(profiles.length / 2)) : null;

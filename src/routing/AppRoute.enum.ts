@@ -1,5 +1,6 @@
 export enum AppRoute {
   home = '/',
+  pimNvm = '/pim/nvm',
   pim = '/pim',
   pimDetails = '/pimDetails/:id',
   pimDocumentDetails = '/pimDetails/:id/documents/folders/:kind/:docId',
@@ -11,6 +12,7 @@ export enum AppRoute {
   crmRelationsDetails = '/crmRelations/:id',
   crmRelationsDocumentDetails = '/crmRelations/:id/documents/folders/:docId',
   crmBusinessesDetails = '/crmBusinesses/:id',
+  crmBusinessesDocumentDetails = '/crmBusinesses/:id/documents/folders/:docId',
   crmGeneral = '/crm/:id/personal_information_general',
   sales = '/sales',
   salesDetails = '/salesDetails/:type/:id',
@@ -39,6 +41,8 @@ export enum AppRoute {
   calendarAppointments = '/calendar/:accountId/appointments',
   register = '/register',
   setup = '/setup',
+  verify = '/auth/verify',
+  confirmInvite = '/auth/confirm-invite',
   propertiesSetup = '/setup/properties',
   confirmationSetup = '/setup/confirmation',
   notifications = '/notifications',

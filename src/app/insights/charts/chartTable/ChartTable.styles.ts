@@ -26,6 +26,11 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(4),
     fontSize: theme.typography.h5.fontSize,
   },
+  columnSortIconPlaceholder: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    display: 'inline-block',
+  },
   orange: {
     color: theme.palette.orange.main,
   },

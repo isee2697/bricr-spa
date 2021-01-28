@@ -48,34 +48,38 @@ export const mockServer = () => {
       me: Model,
     },
     routes() {
-      this.post('/mock-security/public/auth/login', (schema, request) => {
+      this.post('/mock-security/login', (schema, request) => {
         return {
-          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
-          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          AuthenticationResult: {
+            AccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            RefreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          },
         };
       });
 
-      this.post('/mock-security/public/auth/refresh-token', (schema, request) => {
+      this.post('/mock-security/refresh-token', (schema, request) => {
         return {
-          accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
-          refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          AuthenticationResult: {
+            AccessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            RefreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          },
         };
       });
 
-      this.post('/mock-security/public/auth/reset-password', (schema, request) => {
+      this.post('/mock-security/forgot_password', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
-        if (requestJson.username !== 'test') {
+        if (requestJson.username !== 'test@bricr.com') {
           throw new Error();
         }
 
         return {};
       });
 
-      this.post('/mock-security/public/auth/reset-password/token', (schema, request) => {
+      this.post('/mock-security/forgot_password/confirm', (schema, request) => {
         const requestJson = JSON.parse(request.requestBody);
 
-        if (requestJson.newPassword !== 'passw0rd') {
+        if (requestJson.password !== 'passw0rd') {
           throw new Error();
         }
 
@@ -231,6 +235,7 @@ export const mockServer = () => {
                 {
                   id: '1234-5678-9012',
                   name: 'Mock team',
+                  company: { id: 'test' },
                 },
               ],
             };

@@ -1,22 +1,20 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SidebarMenu } from 'ui/molecules';
 import { CrmIcon, SaleIcon } from 'ui/atoms/icons';
-import { AppRoute } from 'routing/AppRoute.enum';
 
 import { DocumentDetailsSidebarMenuProps } from './DocumentDetailsSidebarMenu.types';
 
-export const DocumentDetailsSidebarMenu = ({ onHide, isVisible, title }: DocumentDetailsSidebarMenuProps) => {
+export const DocumentDetailsSidebarMenu = ({ onHide, isVisible, title, path }: DocumentDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
-  const params = useParams<{ id: string }>();
 
   const menu = {
     url,
     back: {
-      url: `${AppRoute.crmRelationsDetails.replace(':id', params.id)}/documents/folders`,
+      url: path,
       title: formatMessage({ id: `common.back` }),
     },
     groups: [

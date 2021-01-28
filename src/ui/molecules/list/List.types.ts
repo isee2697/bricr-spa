@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
 import { ActionModalAction } from 'ui/organisms/actionModal/ActionModal.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
@@ -48,6 +48,7 @@ export type ListHeaderProps = {
   onCheckAll: VoidFunction;
   onArchive?: VoidFunction;
   onDelete?: VoidFunction;
-  onBulk: VoidFunction;
+  onBulk?: VoidFunction;
+  bulkComponent?: ReactNode;
   onSort: (key: string) => void;
 };

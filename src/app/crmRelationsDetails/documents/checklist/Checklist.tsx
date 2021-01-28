@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ export const Checklist = ({
   const { open } = useModalDispatch();
   const { push } = useHistory();
   const classes = useStyles({});
+  const [showChecklist, setToggleShowChecklist] = useState(false);
 
   const tabs: ActionTab[] = Object.keys(ChecklistStatus).map(key => ({
     value: key,
@@ -55,10 +56,10 @@ export const Checklist = ({
       />
       <Page title={formatMessage({ id: 'crm.details.documents.checklist.title' })} titleActions={<></>}>
         <Grid xs={12} item>
-          <Card>
+          <Card onClick={() => setToggleShowChecklist(!showChecklist)}>
             <CardHeader title={formatMessage({ id: 'crm.details.documents.checklist' })} />
             <CardContent>
-              {lists.length === 0 && (
+              {(!showChecklist || lists.length === 0) && (
                 <InfoSection emoji="📄">
                   <Typography variant="h3">
                     {formatMessage({
@@ -72,7 +73,7 @@ export const Checklist = ({
                   </Typography>
                 </InfoSection>
               )}
-              {lists.length > 0 && (
+              {showChecklist && lists.length > 0 && (
                 <>
                   <ActionTabs onStatusChange={onStatusChange} status={status} tabs={tabs} />
                   <List
@@ -90,7 +91,7 @@ export const Checklist = ({
                         <Box display="flex" flexDirection="column" justifyContent="space-between">
                           {checkbox}
                           <Typography variant="h4" className={classes.rowItemIndex}>
-                            {list.listIndex}
+                            {list.listIndex + 1}
                           </Typography>
                         </Box>
                         <Box component="span" className={classes.rowItem}>

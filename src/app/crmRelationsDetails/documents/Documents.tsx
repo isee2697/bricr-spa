@@ -14,7 +14,7 @@ import { ChecklistListContainer } from './checklistList/ChecklistListContainer';
 import { CheckListItemDetailsContainer } from './checkListItemDetails/CheckListItemDetailsContainer';
 
 export const Documents = (props: DocumentsProps) => {
-  const { path, documents, onAddFolder, onDeleteFolder, onUpdateFolder } = props;
+  const { path, documents, onAddFolder, onDeleteFolder, onUpdateFolder, onUploadFiles } = props;
 
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
@@ -44,6 +44,7 @@ export const Documents = (props: DocumentsProps) => {
               onAddFolder={onAddFolder}
               onDeleteFolder={onDeleteFolder}
               onUpdateFolder={onUpdateFolder}
+              onUploadFiles={onUploadFiles}
             />
           )}
         />

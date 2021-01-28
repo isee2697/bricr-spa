@@ -29,12 +29,6 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  refreshToken: Scalars['String'];
-};
-
 export type ForgotPasswordInput = {
   username: Scalars['String'];
 };
@@ -45,14 +39,39 @@ export type ForgotPasswordResponse = {
   stack?: Maybe<Scalars['String']>;
 };
 
+export type VerifyUserResponse = {
+  __typename?: 'VerifyUserResponse';
+  error?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+};
+
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  AccessToken: Scalars['String'];
+  RefreshToken: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  error?: Maybe<Scalars['String']>;
+  AuthenticationResult: AuthenticationResult;
+};
+
 export type ResetPasswordInput = {
-  newPassword: Scalars['String'];
+  password: Scalars['String'];
+  username: Scalars['String'];
+  code: Scalars['String'];
 };
 
 export type ResetPasswordResponse = {
   __typename?: 'ResetPasswordResponse';
   error?: Maybe<Scalars['String']>;
   stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserInput = {
+  code?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -110,6 +129,8 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
+  confirmAppointment: Appointment;
+  confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
   createEmailAddress: Profile;
@@ -125,6 +146,7 @@ export type Mutation = {
   deleteEntity: Array<DeleteResult>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
+  draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -237,6 +259,7 @@ export type Mutation = {
   updateWorkflowAction: WorkflowAction;
   updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
+  verifyUser?: Maybe<VerifyUserResponse>;
 };
 
 export type MutationAddAllocationCriteriaArgs = {
@@ -452,6 +475,15 @@ export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
 };
 
+export type MutationConfirmAppointmentArgs = {
+  accountId: Scalars['String'];
+  appointmentId: Scalars['ID'];
+};
+
+export type MutationConfirmProfileInviteArgs = {
+  input: ConfirmProfileInvite;
+};
+
 export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
@@ -510,6 +542,10 @@ export type MutationDeleteNotificationArgs = {
 
 export type MutationDeleteSubtaskArgs = {
   subtaskId: Scalars['ID'];
+};
+
+export type MutationDraftAppointmentArgs = {
+  input: DraftAppointmentInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -594,7 +630,6 @@ export type MutationRemoveViewingMomentArgs = {
 
 export type MutationResetPasswordArgs = {
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 };
 
 export type MutationSendEmailArgs = {
@@ -966,6 +1001,10 @@ export type MutationUploadFileArgs = {
   pathBuilder?: Maybe<Scalars['PathBuilder']>;
 };
 
+export type MutationVerifyUserArgs = {
+  input?: Maybe<VerifyUserInput>;
+};
+
 export type BillingResponse = {
   url: Scalars['String'];
 };
@@ -983,6 +1022,7 @@ export type Query = {
   crmList?: Maybe<Array<CrmListItem>>;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
+  getAppointment: Appointment;
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
   getChangesHistory: Array<Event>;
@@ -1064,6 +1104,10 @@ export type QueryGetAllProfilesArgs = {
   filters?: Maybe<ProfileFilters>;
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetAppointmentArgs = {
+  appointmentId: Scalars['ID'];
 };
 
 export type QueryGetBulkDetailsArgs = {
@@ -1442,6 +1486,31 @@ export enum AppointmentState {
   Unconfirmed = 'Unconfirmed',
 }
 
+export type DraftAppointment = {
+  __typename?: 'DraftAppointment';
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  alternativeTerms?: Maybe<Array<AppointmentTerm>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  state?: Maybe<AppointmentState>;
+  type?: Maybe<CalendarTypes>;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
+};
+
 export type Appointment = {
   __typename?: 'Appointment';
   id: Scalars['ID'];
@@ -1465,11 +1534,35 @@ export type Appointment = {
   type: CalendarTypes;
   appointmentType?: Maybe<AppointmentType>;
   taskLabel?: Maybe<TaskLabel>;
+  isConfirmed?: Maybe<Scalars['Boolean']>;
 };
 
 export type AppointmentTermInput = {
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
+};
+
+export type DraftAppointmentInput = {
+  id?: Maybe<Scalars['ID']>;
+  title?: Maybe<Scalars['String']>;
+  from?: Maybe<Scalars['Date']>;
+  to?: Maybe<Scalars['Date']>;
+  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
+  allDay?: Maybe<Scalars['Boolean']>;
+  confirmedDate?: Maybe<Scalars['Boolean']>;
+  repeatAppointment?: Maybe<AppointmentRepeat>;
+  description?: Maybe<Scalars['String']>;
+  assignedPimIds?: Maybe<Array<Scalars['String']>>;
+  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
+  invitedPersons?: Maybe<Array<Scalars['String']>>;
+  isInsideOffice?: Maybe<Scalars['Boolean']>;
+  location?: Maybe<Scalars['String']>;
+  outsideLocation?: Maybe<Scalars['String']>;
+  travelTimeBefore?: Maybe<Scalars['Int']>;
+  travelTimeAfter?: Maybe<Scalars['Int']>;
+  type?: Maybe<CalendarTypes>;
+  appointmentType?: Maybe<AppointmentType>;
+  taskLabel?: Maybe<TaskLabel>;
 };
 
 export type AddAppointmentInput = {
@@ -1600,6 +1693,7 @@ export enum BricrPlans {
 export type CreateCompanyInput = {
   name: Scalars['String'];
   email: Scalars['String'];
+  password: Scalars['String'];
   space: Scalars['String'];
   amountUsers?: Maybe<Scalars['Int']>;
   amountProperties?: Maybe<Scalars['Int']>;
@@ -1952,6 +2046,12 @@ export enum CrmIdentificationNumberType {
   Custom = 'Custom',
 }
 
+export enum CrmStatus {
+  ActionRequired = 'ActionRequired',
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
 export type CrmGeneral = {
   __typename?: 'CrmGeneral';
   id: Scalars['ID'];
@@ -1974,6 +2074,7 @@ export type CrmGeneral = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumber>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type CrmIdentificationNumber = {
@@ -2019,6 +2120,7 @@ export type UpdateCrmGeneralInput = {
   preferredLetterSalutation?: Maybe<Scalars['String']>;
   preferredTitleInformation?: Maybe<Scalars['String']>;
   identificationNumbers?: Maybe<Array<CrmIdentificationNumberInput>>;
+  status?: Maybe<CrmStatus>;
 };
 
 export enum CurrentHomeSituationType {
@@ -2083,6 +2185,7 @@ export type CrmListItem = {
   phoneNumber?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  status?: Maybe<CrmStatus>;
 };
 
 export type EmailAndName = {
@@ -3307,6 +3410,8 @@ export type NylasAccountItem = {
   provider: Scalars['String'];
   billingState: Scalars['String'];
   syncState: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export type NylasAccountAuthOptions = {
@@ -7345,6 +7450,13 @@ export type ProfileFilters = {
   isActive?: Maybe<Scalars['Boolean']>;
 };
 
+export type ConfirmProfileInvite = {
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type ProjectPhase = {
   __typename?: 'ProjectPhase';
   id: Scalars['ID'];
@@ -8271,7 +8383,14 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 export type LoginMutation = { __typename?: 'Mutation' } & {
-  login?: Maybe<{ __typename?: 'LoginResponse' } & Pick<LoginResponse, 'accessToken' | 'refreshToken'>>;
+  login?: Maybe<
+    { __typename?: 'LoginResponse' } & Pick<LoginResponse, 'error'> & {
+        AuthenticationResult: { __typename?: 'AuthenticationResult' } & Pick<
+          AuthenticationResult,
+          'AccessToken' | 'RefreshToken'
+        >;
+      }
+  >;
 };
 
 export type ForgotPasswordMutationVariables = Exact<{
@@ -8284,11 +8403,18 @@ export type ForgotPasswordMutation = { __typename?: 'Mutation' } & {
 
 export type ResetPasswordMutationVariables = Exact<{
   input?: Maybe<ResetPasswordInput>;
-  token: Scalars['String'];
 }>;
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<{ __typename?: 'ResetPasswordResponse' } & Pick<ResetPasswordResponse, 'error'>>;
+};
+
+export type VerifyUserMutationVariables = Exact<{
+  input: VerifyUserInput;
+}>;
+
+export type VerifyUserMutation = { __typename?: 'Mutation' } & {
+  verifyUser?: Maybe<{ __typename?: 'VerifyUserResponse' } & Pick<VerifyUserResponse, 'status'>>;
 };
 
 export type BulkMutationVariables = Exact<{
@@ -8326,6 +8452,44 @@ export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
     | 'assignedPimIds'
     | 'invitedPersons'
   >;
+};
+
+export type DraftAppointmentMutationVariables = Exact<{
+  input: DraftAppointmentInput;
+}>;
+
+export type DraftAppointmentMutation = { __typename?: 'Mutation' } & {
+  draftAppointment: { __typename?: 'DraftAppointment' } & Pick<
+    DraftAppointment,
+    | 'id'
+    | 'from'
+    | 'to'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'isInsideOffice'
+    | 'location'
+    | 'outsideLocation'
+    | 'taskLabel'
+    | 'state'
+    | 'agreementType'
+    | 'repeatAppointment'
+    | 'description'
+    | 'appointmentType'
+    | 'assignedPimIds'
+    | 'invitedPersons'
+  >;
+};
+
+export type ConfirmAppointmentMutationVariables = Exact<{
+  appointmentId: Scalars['ID'];
+  accountId: Scalars['String'];
+}>;
+
+export type ConfirmAppointmentMutation = { __typename?: 'Mutation' } & {
+  confirmAppointment: { __typename?: 'Appointment' } & Pick<Appointment, 'id'>;
 };
 
 export type CreateCompanyMutationVariables = Exact<{
@@ -8446,6 +8610,7 @@ export type UpdateCrmGeneralMutation = { __typename?: 'Mutation' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -9662,6 +9827,14 @@ export type UpdateProfileMutation = { __typename?: 'Mutation' } & {
   updateProfile: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
 };
 
+export type ConfirmProfileInviteMutationVariables = Exact<{
+  input: ConfirmProfileInvite;
+}>;
+
+export type ConfirmProfileInviteMutation = { __typename?: 'Mutation' } & {
+  confirmProfileInvite: { __typename?: 'Profile' } & Pick<Profile, 'id'>;
+};
+
 export type DeactivateProfileMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -9909,6 +10082,35 @@ export type ListCalendarQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetAppointmentQueryVariables = Exact<{
+  appointmentId: Scalars['ID'];
+}>;
+
+export type GetAppointmentQuery = { __typename?: 'Query' } & {
+  getAppointment: { __typename?: 'Appointment' } & Pick<
+    Appointment,
+    | 'id'
+    | 'from'
+    | 'to'
+    | 'travelTimeBefore'
+    | 'travelTimeAfter'
+    | 'title'
+    | 'allDay'
+    | 'type'
+    | 'isInsideOffice'
+    | 'location'
+    | 'outsideLocation'
+    | 'taskLabel'
+    | 'state'
+    | 'agreementType'
+    | 'repeatAppointment'
+    | 'description'
+    | 'appointmentType'
+    | 'assignedPimIds'
+    | 'invitedPersons'
+  >;
+};
+
 export type CheckCompanyRegisteredQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -10039,6 +10241,7 @@ export type GetCrmGeneralQuery = { __typename?: 'Query' } & {
       | 'preferredTitleSuffix'
       | 'preferredLetterSalutation'
       | 'preferredTitleInformation'
+      | 'status'
     > & {
         identificationNumbers?: Maybe<
           Array<{ __typename?: 'CrmIdentificationNumber' } & Pick<CrmIdentificationNumber, 'type' | 'number' | 'name'>>
@@ -10076,7 +10279,7 @@ export type CrmListQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'CrmListItem' } & Pick<
         CrmListItem,
-        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email'
+        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
       > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
     >
   >;
@@ -10964,7 +11167,7 @@ export type ListNylasAccountQuery = { __typename?: 'Query' } & {
     Array<
       { __typename?: 'NylasAccountItem' } & Pick<
         NylasAccountItem,
-        'id' | 'email' | 'provider' | 'billingState' | 'syncState'
+        'id' | 'email' | 'provider' | 'billingState' | 'syncState' | 'isCalendarConnected' | 'isEmailConnected'
       >
     >
   >;
@@ -13360,9 +13563,12 @@ export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
 
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
-    login(input: $input) @rest(type: "LoginResponse", path: "/public/auth/login", method: "POST", endpoint: "default") {
-      accessToken
-      refreshToken
+    login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default") {
+      error
+      AuthenticationResult {
+        AccessToken
+        RefreshToken
+      }
     }
   }
 `;
@@ -13377,7 +13583,7 @@ export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMu
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($input: ForgotPasswordInput) {
     forgotPassword(input: $input)
-      @rest(type: "ForgotPasswordResponse", path: "/public/auth/reset-password", method: "POST", endpoint: "default") {
+      @rest(type: "ForgotPasswordResponse", path: "/forgot_password", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -13397,14 +13603,9 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
   ForgotPasswordMutationVariables
 >;
 export const ResetPasswordDocument = gql`
-  mutation ResetPassword($input: ResetPasswordInput, $token: String!) {
-    resetPassword(input: $input, token: $token)
-      @rest(
-        type: "ResetPasswordResponse"
-        path: "/public/auth/reset-password/{args.token}"
-        method: "POST"
-        endpoint: "default"
-      ) {
+  mutation ResetPassword($input: ResetPasswordInput) {
+    resetPassword(input: $input)
+      @rest(type: "ResetPasswordResponse", path: "/forgot_password/confirm", method: "POST", endpoint: "default") {
       error
     }
   }
@@ -13422,6 +13623,24 @@ export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<Reset
 export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
+>;
+export const VerifyUserDocument = gql`
+  mutation VerifyUser($input: VerifyUserInput!) {
+    verifyUser(input: $input) @rest(type: "VerifyUser", method: "POST", path: "/signup/verify", endpoint: "default") {
+      status
+    }
+  }
+`;
+export function useVerifyUserMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<VerifyUserMutation, VerifyUserMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<VerifyUserMutation, VerifyUserMutationVariables>(VerifyUserDocument, baseOptions);
+}
+export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
+export type VerifyUserMutationResult = ApolloReactCommon.MutationResult<VerifyUserMutation>;
+export type VerifyUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  VerifyUserMutation,
+  VerifyUserMutationVariables
 >;
 export const BulkDocument = gql`
   mutation Bulk($input: BulkOperationInput!) {
@@ -13476,6 +13695,66 @@ export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddA
 export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddAppointmentMutation,
   AddAppointmentMutationVariables
+>;
+export const DraftAppointmentDocument = gql`
+  mutation DraftAppointment($input: DraftAppointmentInput!) {
+    draftAppointment(input: $input) {
+      id
+      from
+      to
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      isInsideOffice
+      location
+      outsideLocation
+      taskLabel
+      state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
+    }
+  }
+`;
+export function useDraftAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DraftAppointmentMutation, DraftAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DraftAppointmentMutation, DraftAppointmentMutationVariables>(
+    DraftAppointmentDocument,
+    baseOptions,
+  );
+}
+export type DraftAppointmentMutationHookResult = ReturnType<typeof useDraftAppointmentMutation>;
+export type DraftAppointmentMutationResult = ApolloReactCommon.MutationResult<DraftAppointmentMutation>;
+export type DraftAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DraftAppointmentMutation,
+  DraftAppointmentMutationVariables
+>;
+export const ConfirmAppointmentDocument = gql`
+  mutation ConfirmAppointment($appointmentId: ID!, $accountId: String!) {
+    confirmAppointment(appointmentId: $appointmentId, accountId: $accountId) {
+      id
+    }
+  }
+`;
+export function useConfirmAppointmentMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>(
+    ConfirmAppointmentDocument,
+    baseOptions,
+  );
+}
+export type ConfirmAppointmentMutationHookResult = ReturnType<typeof useConfirmAppointmentMutation>;
+export type ConfirmAppointmentMutationResult = ApolloReactCommon.MutationResult<ConfirmAppointmentMutation>;
+export type ConfirmAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ConfirmAppointmentMutation,
+  ConfirmAppointmentMutationVariables
 >;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
@@ -13666,6 +13945,7 @@ export const UpdateCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -16628,6 +16908,30 @@ export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions
   UpdateProfileMutation,
   UpdateProfileMutationVariables
 >;
+export const ConfirmProfileInviteDocument = gql`
+  mutation ConfirmProfileInvite($input: ConfirmProfileInvite!) {
+    confirmProfileInvite(input: $input) {
+      id
+    }
+  }
+`;
+export function useConfirmProfileInviteMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    ConfirmProfileInviteMutation,
+    ConfirmProfileInviteMutationVariables
+  >,
+) {
+  return ApolloReactHooks.useMutation<ConfirmProfileInviteMutation, ConfirmProfileInviteMutationVariables>(
+    ConfirmProfileInviteDocument,
+    baseOptions,
+  );
+}
+export type ConfirmProfileInviteMutationHookResult = ReturnType<typeof useConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationResult = ApolloReactCommon.MutationResult<ConfirmProfileInviteMutation>;
+export type ConfirmProfileInviteMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ConfirmProfileInviteMutation,
+  ConfirmProfileInviteMutationVariables
+>;
 export const DeactivateProfileDocument = gql`
   mutation DeactivateProfile($id: String!) {
     deactivateProfile(id: $id) {
@@ -17232,6 +17536,53 @@ export function useListCalendarLazyQuery(
 export type ListCalendarQueryHookResult = ReturnType<typeof useListCalendarQuery>;
 export type ListCalendarLazyQueryHookResult = ReturnType<typeof useListCalendarLazyQuery>;
 export type ListCalendarQueryResult = ApolloReactCommon.QueryResult<ListCalendarQuery, ListCalendarQueryVariables>;
+export const GetAppointmentDocument = gql`
+  query GetAppointment($appointmentId: ID!) {
+    getAppointment(appointmentId: $appointmentId) {
+      id
+      from
+      to
+      travelTimeBefore
+      travelTimeAfter
+      title
+      allDay
+      type
+      isInsideOffice
+      location
+      outsideLocation
+      taskLabel
+      state
+      agreementType
+      repeatAppointment
+      description
+      appointmentType
+      assignedPimIds
+      invitedPersons
+    }
+  }
+`;
+export function useGetAppointmentQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetAppointmentQuery, GetAppointmentQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetAppointmentQuery, GetAppointmentQueryVariables>(
+    GetAppointmentDocument,
+    baseOptions,
+  );
+}
+export function useGetAppointmentLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAppointmentQuery, GetAppointmentQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetAppointmentQuery, GetAppointmentQueryVariables>(
+    GetAppointmentDocument,
+    baseOptions,
+  );
+}
+export type GetAppointmentQueryHookResult = ReturnType<typeof useGetAppointmentQuery>;
+export type GetAppointmentLazyQueryHookResult = ReturnType<typeof useGetAppointmentLazyQuery>;
+export type GetAppointmentQueryResult = ApolloReactCommon.QueryResult<
+  GetAppointmentQuery,
+  GetAppointmentQueryVariables
+>;
 export const CheckCompanyRegisteredDocument = gql`
   query CheckCompanyRegistered($name: String!) {
     checkCompanyRegistered(name: $name) {
@@ -17457,6 +17808,7 @@ export const GetCrmGeneralDocument = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
@@ -17526,6 +17878,7 @@ export const CrmListDocument = gql`
       avatar {
         url
       }
+      status
     }
   }
 `;
@@ -17542,7 +17895,13 @@ export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
-    listEmailFolders(accountId: $accountId) {
+    listEmailFolders(accountId: $accountId)
+      @rest(
+        type: "ListEmailFolders"
+        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}&folderIds="
+        method: "GET"
+        endpoint: "default"
+      ) {
       folder {
         id
         name
@@ -18978,12 +19337,15 @@ export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListNylasAccountDocument = gql`
   query ListNylasAccount($isCalendarConnected: Boolean, $isEmailConnected: Boolean) {
-    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected) {
+    listNylasAccount(isCalendarConnected: $isCalendarConnected, isEmailConnected: $isEmailConnected)
+      @rest(type: "NylasAccount", path: "/nylas-account-list", method: "GET", endpoint: "default") {
       id
       email
       provider
       billingState
       syncState
+      isCalendarConnected
+      isEmailConnected
     }
   }
 `;

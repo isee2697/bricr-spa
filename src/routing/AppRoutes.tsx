@@ -33,6 +33,9 @@ import { DocumentDetailsContainer as CrmDocumentDetailsContainer } from 'app/crm
 import { CrmBusinessesDetailsContainer } from 'app/crmBusinessesDetails/CrmBusinessesDetailsContainer';
 import { SalesInvoiceDetailsContainer } from 'app/salesInvoiceDetails/SalesInvoiceDetailsContainer';
 import { InsightsContainer } from 'app/insights/InsightsContainer';
+import { VerifyUserContainer } from 'app/register/verify/VerifyUserContainer';
+import { ConfirmInviteContainer } from 'app/register/confirmInvite/ConfirmInviteContainer';
+import { PimNvmContainer } from 'app/pimNvm/PimNvmContainer';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
@@ -50,6 +53,8 @@ export const AppRoutes = () => {
               <Route path={AppRoute.login} exact component={LoginContainer} />
               <Route path={AppRoute.forgotPassword} exact component={ForgotPasswordContainer} />
               <Route path={AppRoute.resetPassword} exact component={ResetPasswordContainer} />
+              <Route path={AppRoute.verify} exact component={VerifyUserContainer} />
+              <Route path={AppRoute.confirmInvite} exact component={ConfirmInviteContainer} />
               <Redirect to={AppRoute.home} />
             </Switch>
           </Authorization>
@@ -59,6 +64,13 @@ export const AppRoutes = () => {
         {() => (
           <Authorization>
             <RegisterContainer />
+          </Authorization>
+        )}
+      </Route>
+      <Route path={AppRoute.verify}>
+        {() => (
+          <Authorization>
+            <VerifyUserContainer />
           </Authorization>
         )}
       </Route>
@@ -77,6 +89,7 @@ export const AppRoutes = () => {
             <DashboardTemplate>
               <Switch>
                 <AuthorizedRoute path={AppRoute.home} exact component={Dashboard} />
+                <AuthorizedRoute path={AppRoute.pimNvm} exact component={PimNvmContainer} />
                 <AuthorizedRoute path={AppRoute.pim} component={Pim} />
                 <AuthorizedRoute path={AppRoute.pimDocumentDetails} component={PimDocumentDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.pimDetails} component={PimDetailsContainer} />
@@ -84,8 +97,15 @@ export const AppRoutes = () => {
                 <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.crm} component={CrmContainer} />
-                <AuthorizedRoute path={AppRoute.crmRelationsDocumentDetails} component={CrmDocumentDetailsContainer} />
+                <AuthorizedRoute
+                  path={AppRoute.crmRelationsDocumentDetails}
+                  render={() => <CrmDocumentDetailsContainer path={AppRoute.crmRelationsDetails} />}
+                />
                 <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
+                <AuthorizedRoute
+                  path={AppRoute.crmBusinessesDocumentDetails}
+                  render={() => <CrmDocumentDetailsContainer path={AppRoute.crmBusinessesDetails} />}
+                />
                 <AuthorizedRoute path={AppRoute.crmBusinessesDetails} component={CrmBusinessesDetailsContainer} />
                 <AuthorizedRoute path={AppRoute.sales} component={SalesContainer} />
                 <AuthorizedRoute path={AppRoute.salesDetails} component={SalesDetailsContainer} />

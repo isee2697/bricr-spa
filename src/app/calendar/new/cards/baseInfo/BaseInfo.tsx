@@ -4,7 +4,7 @@ import { useForm } from 'react-final-form';
 
 import { AppointmentRepeat, AppointmentTermInput, CalendarTypes } from 'api/types';
 import { Button, Card, Grid, IconButton, Box, Typography } from 'ui/atoms';
-import { CheckboxField, DatePickerChip, DropdownField, GenericField, TimePickerChip } from 'form/fields';
+import { CheckboxField, DatePickerChip, DropdownField, TimePickerChip } from 'form/fields';
 import { useLocale } from 'hooks';
 import { AddIcon, CloseIcon } from 'ui/atoms/icons';
 import { useStyles } from 'app/calendar/new/cards/baseInfo/BaseInfo.styles';
@@ -46,21 +46,19 @@ export const AppointmentBaseInfoCard = () => {
     <Card>
       <DropdownField
         items={Object.keys(CalendarTypes).map(item => ({
-          label: formatMessage({ id: `calendar.calendar_type.${item}` }),
+          label: formatMessage({ id: `calendar.name_of_event.${item}` }),
           value: item,
         }))}
-        placeholder="calendar.calendar_type.placeholder"
+        placeholder="calendar.name_of_event.placeholder"
         name={typeFieldName}
-        label={formatMessage({ id: 'calendar.calendar_type.label' })}
-      />
-      <GenericField
-        name="title"
-        label={formatMessage({ id: 'appointment.name.label' })}
-        placeholder={formatMessage({ id: 'appointment.name.placeholder' })}
+        label={formatMessage({ id: 'calendar.name_of_event' })}
       />
       <Grid container>
         <Grid item>
           <CheckboxField name="allDay" label={formatMessage({ id: 'appointment.all_day.label' })} />
+        </Grid>
+        <Grid item>
+          <CheckboxField name="viewingBlock" label={formatMessage({ id: 'appointment.confirmed_date.label' })} />
         </Grid>
         <Grid item className="right">
           <CheckboxField name="confirmedDate" label={formatMessage({ id: 'appointment.confirmed_date.label' })} />
@@ -71,14 +69,14 @@ export const AppointmentBaseInfoCard = () => {
         <Grid item className={classes.item}>
           <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
           <DatePickerChip name={`from.date`} className={classes.date} />
-          {!allDay && <TimePickerChip name={`from.time`} />}
+          {!allDay && <TimePickerChip name={`from.time`} disableToolbar={false} />}
         </Grid>
         {!allDay && (
           <Grid item className={classes.item}>
             <Box mr={1.5} />
             <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
             <DatePickerChip name={`to.date`} className={classes.date} />
-            <TimePickerChip name={`to.time`} />
+            <TimePickerChip name={`to.time`} disableToolbar={false} />
           </Grid>
         )}
       </Grid>
@@ -88,13 +86,13 @@ export const AppointmentBaseInfoCard = () => {
             <Grid item className={classes.item}>
               <Typography>{formatMessage({ id: 'appointment.from.label' })}</Typography>
               <DatePickerChip name={`alternativeTerms[${index}].from.date`} className={classes.date} />
-              <TimePickerChip name={`alternativeTerms[${index}].from.time`} />
+              <TimePickerChip name={`alternativeTerms[${index}].from.time`} disableToolbar={false} />
             </Grid>
             <Grid item className={classes.item}>
               <Box mr={1.5} />
               <Typography>{formatMessage({ id: 'appointment.to.label' })}</Typography>
               <DatePickerChip name={`alternativeTerms[${index}].to.date`} className={classes.date} />
-              <TimePickerChip name={`alternativeTerms[${index}].to.time`} />
+              <TimePickerChip name={`alternativeTerms[${index}].to.time`} disableToolbar={false} />
             </Grid>
             {amountOfTerms > 1 && (
               <Grid item className="right">
@@ -112,12 +110,14 @@ export const AppointmentBaseInfoCard = () => {
             )}
           </Grid>
         ))}
-
       <Box mb={1} />
       {values.type !== CalendarTypes.Birthday && (
         <Grid container spacing={3} alignItems="center" className={classes.bottom}>
           <Grid item>
-            <Button onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}>
+            <Button
+              onClick={() => form.change('alternativeTerms', [...(alternativeTerms ?? []), DEFAULT_TERM_ITEM])}
+              disabled={alternativeTerms.length >= 3}
+            >
               <AddIcon /> {formatMessage({ id: 'appointment.alternative_term.label' })}
             </Button>
           </Grid>

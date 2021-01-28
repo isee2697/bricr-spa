@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import classnames from 'classnames';
 
-import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, SettingsIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Emoji } from 'ui/atoms';
+import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
 
@@ -116,6 +116,7 @@ export const PimTableView = ({
           <TableRow>
             <TableCell padding="checkbox" className={classes.tableHeaderCell}>
               <Checkbox
+                color="primary"
                 checked={items.length === selected.length}
                 onClick={e => {
                   e.stopPropagation();
@@ -157,6 +158,7 @@ export const PimTableView = ({
             >
               <TableCell padding="checkbox">
                 <Checkbox
+                  color="primary"
                   checked={selected.includes(item.id)}
                   inputProps={{ 'aria-labelledby': item.id }}
                   onClick={e => {
@@ -166,7 +168,14 @@ export const PimTableView = ({
                 />
               </TableCell>
               {headerCells.map((cell, index) => (
-                <TableCell key={index}>{renderCell(item, cell.field)}</TableCell>
+                <TableCell key={index}>
+                  {cell.field === 'address' && item.mainPicture?.file?.url && (
+                    <Avatar variant="rounded" src={item.mainPicture.file.url} className={classes.image}>
+                      {!item.mainPicture.file.url && <Emoji>{'📷'}</Emoji>}
+                    </Avatar>
+                  )}
+                  {renderCell(item, cell.field)}
+                </TableCell>
               ))}
               <TableCell>
                 <ActionButtons id={item.id} onArchive={onArchive} onEdit={onEdit} onDelete={onDelete} />

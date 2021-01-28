@@ -1,4 +1,4 @@
-import { CrmType, FilePermission } from 'api/types';
+import { CrmStatus, CrmType, FilePermission } from 'api/types';
 import { CrmItem } from 'app/crm/Crm.types';
 
 export const CRM: CrmItem = {
@@ -31,7 +31,7 @@ export const CRM: CrmItem = {
       permission: FilePermission.Public,
     },
   },
-  status: 'active',
+  status: CrmStatus.Active,
   informationCompletedStatus: 0.64,
   manager: {
     id: 'user-number-2',

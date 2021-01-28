@@ -15,6 +15,7 @@ import { ContactsContainer } from './personalInformation/contacts/ContactsContai
 import { FinancialProfile } from './personalInformation/financialProfile/FinancialProfile';
 import { BusinessTimeline } from './timeline/Timeline';
 import { MatchProfileContainer } from './matchProfile/MatchProfileContainer';
+import { DocumentsContainer } from './../crmRelationsDetails/documents/DocumentsContainer';
 
 export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: CrmBusinessesDetailsProps) => {
   const classes = useStyles();
@@ -98,6 +99,17 @@ export const CrmBusinessesDetails = ({ crm, breadcrumbs, path, entityType }: Crm
                   render={() => (
                     <MatchProfileContainer
                       path={`${path}/personal_information_match_profile`}
+                      onSidebarOpen={handleSidebarOpen}
+                      isSidebarVisible={isSidebarVisible}
+                    />
+                  )}
+                />
+                <Route
+                  path={`${path}/documents`}
+                  render={() => (
+                    <DocumentsContainer
+                      path={`${path.replace(':id', crm.id)}/documents`}
+                      title={`${crm.firstName} ${crm.lastName}`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
                     />

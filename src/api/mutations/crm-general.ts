@@ -40,6 +40,7 @@ export const UPDATE_CRM_GENERAL = gql`
         fileName
         url
       }
+      status
     }
   }
 `;

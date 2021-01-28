@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 
 import { Typography, Button, Box, Alert } from 'ui/atoms';
@@ -8,6 +8,7 @@ import { BricrPlans } from 'api/types';
 import { WarningIcon } from 'ui/atoms/icons';
 
 import { RegisterFormProps } from './RegisterForm.types';
+import { PasswordArea } from './PasswordArea';
 
 export const RegisterForm = ({
   isSubmitEnabled,
@@ -18,6 +19,7 @@ export const RegisterForm = ({
   error,
 }: RegisterFormProps) => {
   const { formatMessage } = useLocale();
+  const [passwordError, setPasswordError] = useState(false);
 
   const changeSpaceName = (name: string, isEmailField = false) => {
     if (isEmailField && (!spaceName || spaceName === '')) {
@@ -51,6 +53,7 @@ export const RegisterForm = ({
             required
             name="email"
           />
+          <PasswordArea error={passwordError} setError={err => setPasswordError(err)} />
           <GenericField
             label={'register.space_label'}
             placeholder={'register.space_placeholder'}
@@ -72,7 +75,7 @@ export const RegisterForm = ({
           <Typography variant="h5">
             <div dangerouslySetInnerHTML={{ __html: formatMessage({ id: 'register.terms' }) }} />
           </Typography>
-          <Button type="submit" disabled={!isSubmitEnabled} variant="contained" color="primary">
+          <Button type="submit" disabled={!isSubmitEnabled || passwordError} variant="contained" color="primary">
             {formatMessage({ id: 'register.agree' })}
           </Button>
           <Box mb={2} />

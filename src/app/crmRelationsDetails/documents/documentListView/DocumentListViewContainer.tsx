@@ -1,22 +1,29 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Box, Card, CardContent, CardHeader, Checkbox, Chip, FormControlLabel, Grid } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Chip, Grid } from 'ui/atoms';
 import { ListPimsFilters, PropertyType } from 'api/types';
-import { UploadModal, UploadModalField } from 'ui/organisms';
+import { UploadModalField } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { EmailTable } from 'app/email/emailTable/EmailTable';
 import { EMAILS } from 'api/mocks/email';
+import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 
 import { DocumentListViewContainerProps } from './DocumentListViewContainer.types';
 import { ListViewTabs } from './listViewTabs/ListViewTabs';
 import { DocumentTableView } from './tableView/DocumentTableView';
 import { useStyles } from './DocumentListViewContainer.styles';
+import { ActionButtons } from './actionButtons/ActionButtons';
 
-export const DocumentListViewContainer = ({ path, folder, documents }: DocumentListViewContainerProps) => {
+export const DocumentListViewContainer = ({
+  path,
+  folder,
+  documents,
+  onUploadFiles,
+}: DocumentListViewContainerProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
   const [isExpanded, setIsExpanded] = useState(true);
@@ -24,23 +31,14 @@ export const DocumentListViewContainer = ({ path, folder, documents }: DocumentL
     propertyTypes: [PropertyType.Apartment, PropertyType.House],
   });
   const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
-  const [dialog, setDialog] = useState<ReactNode | null>(null);
   const { push } = useHistory();
 
   const handleFilterChange = (filters: ListPimsFilters) => {
     setActiveFilters(filters);
   };
 
-  const handleUpload = () => {
-    setDialog(
-      <UploadModal
-        isOpened={true}
-        onClose={() => setDialog(null)}
-        onUpload={files => {
-          setDialog(null);
-        }}
-      />,
-    );
+  const handleUpload = (files: File[]) => {
+    onUploadFiles(files);
   };
 
   const handleNavigateDetail = (id: string) => {
@@ -84,32 +82,41 @@ export const DocumentListViewContainer = ({ path, folder, documents }: DocumentL
         <CardContent className={classes.listContainer}>
           {isExpanded && (
             <>
-              {!folder.isEmailFolder && (
-                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={handleFilterChange} />
-              )}
+              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={handleFilterChange} />
               <Box width="100%" display="flex" flexDirection="column" px={2} pt={2}>
-                <Box mx={2}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        checked={documents?.length === selectedDocs.length}
-                        onClick={handleSelectAllDoc}
-                      />
-                    }
-                    label={formatMessage({ id: 'common.select_all' })}
-                  />
-                </Box>
+                <ListHeader
+                  sortOptions={[]}
+                  onSort={() => {}}
+                  checkedKeys={selectedDocs}
+                  checkAllStatus={{
+                    checked: documents?.length === selectedDocs.length,
+                    indeterminate: documents?.length !== selectedDocs.length && selectedDocs.length > 0,
+                  }}
+                  onCheckAll={handleSelectAllDoc}
+                  bulkComponent={
+                    <Box ml={0.5} mr={1.5}>
+                      <ActionButtons id="crmRelations-document-actions" onEdit={() => {}} onDelete={() => {}} />
+                    </Box>
+                  }
+                />
                 {!folder.isEmailFolder && (
                   <>
                     <Box mt={1.5} />
                     <UploadModalField
-                      onFileParse={parsedFiles => {}}
+                      onFileParse={parsedFiles => {
+                        onUploadFiles(parsedFiles);
+                      }}
                       onSetError={() => {}}
                       title={
                         <>
-                          <strong>{formatMessage({ id: 'crm.details.documents.add_documents' })}</strong>{' '}
-                          {formatMessage({ id: 'upload_modal.or_drag_and_drop' })}
+                          <strong>
+                            {formatMessage({
+                              id: 'crm.details.documents.add_documents',
+                            })}
+                          </strong>{' '}
+                          {formatMessage({
+                            id: 'upload_modal.or_drag_and_drop',
+                          })}
                         </>
                       }
                     />
@@ -139,8 +146,6 @@ export const DocumentListViewContainer = ({ path, folder, documents }: DocumentL
           )}
         </CardContent>
       </Card>
-
-      {dialog}
     </Grid>
   );
 };

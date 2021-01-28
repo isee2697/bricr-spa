@@ -7,18 +7,22 @@ context('Authorization', () => {
     cy.clearSession();
     cy.visit(Cypress.env().baseUrl);
     NavigationMenu.goToForgotPassword();
-    cy.get('input[name="username"]').type('test');
+    cy.get('input[name="username"]').type('test@bricr.com');
     cy.get('button[type="submit"]').click();
+
     cy.contains('sent');
   });
 
   it('allows to reset password', () => {
     cy.clearSession();
     NavigationMenu.goToResetPasswordPage();
-    cy.get('input[name="password"]').type('passw0rd');
-    cy.get('input[name="passwordRepeat"]').type('passw0rd');
+    cy.findByTestId('reset-password-field').type('passw0rd');
+    cy.findByTestId('reset-password-repeat-field').type('passw0rd');
+    cy.findByTestId('reset-email-field').type('test@bricr.com');
     cy.get('button[type="submit"]').click();
-    cy.contains('successfully');
+    cy.location().should(loc => {
+      expect(loc.href).to.eq(NavigationMenu.loginLink);
+    });
   });
 
   it('navigates to dashboard after logging in', () => {

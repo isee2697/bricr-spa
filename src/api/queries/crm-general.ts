@@ -32,6 +32,7 @@ export const GET_CRM_GENERAL = gql`
         fileName
         url
       }
+      status
     }
   }
 `;
