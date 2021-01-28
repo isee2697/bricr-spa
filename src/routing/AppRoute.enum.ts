@@ -12,6 +12,7 @@ export enum AppRoute {
   crmRelationsDetails = '/crmRelations/:id',
   crmRelationsDocumentDetails = '/crmRelations/:id/documents/folders/:docId',
   crmBusinessesDetails = '/crmBusinesses/:id',
+  crmBusinessesDocumentDetails = '/crmBusinesses/:id/documents/folders/:docId',
   crmGeneral = '/crm/:id/personal_information_general',
   sales = '/sales',
   salesDetails = '/salesDetails/:type/:id',

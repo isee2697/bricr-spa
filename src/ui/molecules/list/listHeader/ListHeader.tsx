@@ -17,6 +17,7 @@ export const ListHeader = ({
   onArchive,
   onDelete,
   onBulk,
+  bulkComponent,
 }: ListHeaderProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -79,11 +80,13 @@ export const ListHeader = ({
               <DeleteIcon color="inherit" />
             </IconButton>
           )}
-          {onBulk && (
-            <IconButton className={classes.icon} variant="rounded" size="small" onClick={onBulk}>
-              <MenuIcon color="inherit" />
-            </IconButton>
-          )}
+          {bulkComponent
+            ? bulkComponent
+            : onBulk && (
+                <IconButton className={classes.icon} variant="rounded" size="small" onClick={onBulk}>
+                  <MenuIcon color="inherit" />
+                </IconButton>
+              )}
         </Box>
       )}
     </Box>
