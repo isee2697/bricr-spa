@@ -73,16 +73,17 @@ export const FormSection = forwardRef<FormSectionRef, FormSectionProps>(
                   labelPlacement="start"
                 />
               )}
-              {onEditClick && (
-                <IconButton className={classes.options} variant="rounded" size="small" onClick={onEditClick}>
-                  <EditIcon color="inherit" />
-                </IconButton>
-              )}
               {onOptionsClick && (
                 <IconButton className={classes.options} variant="rounded" size="small" onClick={onOptionsClick}>
                   <MenuIcon color="inherit" />
                 </IconButton>
               )}
+              {onEditClick && (
+                <IconButton className={classes.options} variant="rounded" size="small" onClick={onEditClick}>
+                  <EditIcon color="inherit" />
+                </IconButton>
+              )}
+
               {onSettingsClick && (
                 <IconButton className={classes.options} variant="rounded" size="small" onClick={onSettingsClick}>
                   <ManageIcon color="inherit" />

@@ -14,7 +14,7 @@ import {
   HistoryIcon,
   HomeIcon,
   MenuIcon,
-  ShareIcon,
+  ExitIcon,
   TasksIcon,
 } from 'ui/atoms/icons';
 import { AddAppointmentInput, CalendarTypes } from 'api/types';
@@ -132,7 +132,7 @@ export const NewAppointment = ({
                 </IconButton>
                 <Box ml={1} />
                 <IconButton size="small" variant="roundedContained" onClick={goBack} className={classes.btnBack}>
-                  <ShareIcon />
+                  <ExitIcon />
                 </IconButton>
                 <Menu
                   id="new-appointment-setting-menu"

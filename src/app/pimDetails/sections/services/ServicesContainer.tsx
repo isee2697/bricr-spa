@@ -121,3 +121,5 @@ export const ServicesContainer = ({ title, isSidebarVisible, onSidebarOpen }: Pi
     </>
   );
 };
+
+export default ServicesContainer;

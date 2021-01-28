@@ -54,11 +54,16 @@ export const SidebarMenu = ({
   window.addEventListener('resize', handleWindowResize);
 
   useEffect(() => {
-    if (width !== ref?.current?.clientWidth) {
-      setWidth(ref?.current?.clientWidth ?? 'auto');
-    }
+    const timeout = setTimeout(() => {
+      if (width !== ref?.current?.clientWidth) {
+        setWidth(ref?.current?.clientWidth ?? 'auto');
+      }
+    }, 10);
 
-    return () => window.removeEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+      clearTimeout(timeout);
+    };
   }, [ref, width, setWidth]);
 
   const itemSelected = (item: MenuItem) => pathname.startsWith(`${menu.url}/${item.key}`);

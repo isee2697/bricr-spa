@@ -46,3 +46,5 @@ export const CommercialSpacesContainer = (props: PimDetailsSectionProps) => {
 
   return null;
 };
+
+export default CommercialSpacesContainer;

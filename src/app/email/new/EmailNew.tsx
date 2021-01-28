@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, Grid, IconButton, NavBreadcrumb, NavBreadcrumbs } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { ActionTabs } from 'ui/molecules';
 import { Page } from 'ui/templates';
 
@@ -35,7 +35,7 @@ export const EmailNew = () => {
           </Box>
           <Box display="flex" alignItems="center">
             <IconButton variant="rounded" size="small" onClick={() => {}}>
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
             <Box ml={3.5} />
             <IconButton variant="rounded" size="small" onClick={() => {}}>

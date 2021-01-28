@@ -116,3 +116,5 @@ export const Inside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSec
     </>
   );
 };
+
+export default Inside;

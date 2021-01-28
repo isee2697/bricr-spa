@@ -41,3 +41,5 @@ export const ResetPasswordContainer = () => {
 
   return <ResetPassword onSubmit={onSubmit} />;
 };
+
+export default ResetPasswordContainer;

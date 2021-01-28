@@ -458,9 +458,7 @@ export type MutationAuthorizeNylasAccountArgs = {
 };
 
 export type MutationAuthorizeNylasAccountWithTokenArgs = {
-  nylasToken: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
+  input: NylasAddAccountInput;
 };
 
 export type MutationBulkArgs = {
@@ -3418,6 +3416,12 @@ export type NylasAccountAuthOptions = {
   loginHint: Scalars['String'];
   redirectURI?: Maybe<Scalars['String']>;
   scopes?: Maybe<Array<Scalars['String']>>;
+};
+
+export type NylasAddAccountInput = {
+  nylasToken: Scalars['String'];
+  isCalendarConnected?: Maybe<Scalars['Boolean']>;
+  isEmailConnected?: Maybe<Scalars['Boolean']>;
 };
 
 export enum TypeOfObjectType {
@@ -9090,9 +9094,7 @@ export type AuthorizeNylasAccountMutationVariables = Exact<{
 export type AuthorizeNylasAccountMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'authorizeNylasAccount'>;
 
 export type AuthorizeNylasAccountWithTokenMutationVariables = Exact<{
-  nylasToken: Scalars['String'];
-  isCalendarConnected?: Maybe<Scalars['Boolean']>;
-  isEmailConnected?: Maybe<Scalars['Boolean']>;
+  input: NylasAddAccountInput;
 }>;
 
 export type AuthorizeNylasAccountWithTokenMutation = { __typename?: 'Mutation' } & {
@@ -15109,16 +15111,9 @@ export type AuthorizeNylasAccountMutationOptions = ApolloReactCommon.BaseMutatio
   AuthorizeNylasAccountMutationVariables
 >;
 export const AuthorizeNylasAccountWithTokenDocument = gql`
-  mutation AuthorizeNylasAccountWithToken(
-    $nylasToken: String!
-    $isCalendarConnected: Boolean
-    $isEmailConnected: Boolean
-  ) {
-    authorizeNylasAccountWithToken(
-      nylasToken: $nylasToken
-      isCalendarConnected: $isCalendarConnected
-      isEmailConnected: $isEmailConnected
-    ) {
+  mutation AuthorizeNylasAccountWithToken($input: NylasAddAccountInput!) {
+    authorizeNylasAccountWithToken(input: $input)
+      @rest(type: "CreateNylasAccount", path: "/nylas-addaccount", method: "POST", endpoint: "default") {
       id
       userId
       accountId
@@ -17898,7 +17893,7 @@ export const ListEmailFoldersDocument = gql`
     listEmailFolders(accountId: $accountId)
       @rest(
         type: "ListEmailFolders"
-        path: "/nylas-email-folders-unread-count/?accountId={args.accountId}&folderIds="
+        path: "/nylas-email-folders-unread-count?accountId={args.accountId}"
         method: "GET"
         endpoint: "default"
       ) {
@@ -17936,7 +17931,13 @@ export type ListEmailFoldersQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const ListEmailDocument = gql`
   query ListEmail($accountId: String!, $folderId: ID, $unread: Boolean) {
-    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread) {
+    listEmail(accountId: $accountId, folderId: $folderId, unread: $unread)
+      @rest(
+        type: "ListEmail"
+        path: "/nylas-email-list?accountId={args.accountId}&folderId={args.folderId}&unread={args.unread}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       folder {
         id
@@ -17972,7 +17973,13 @@ export type ListEmailLazyQueryHookResult = ReturnType<typeof useListEmailLazyQue
 export type ListEmailQueryResult = ApolloReactCommon.QueryResult<ListEmailQuery, ListEmailQueryVariables>;
 export const GetEmailDocument = gql`
   query GetEmail($accountId: String!, $emailId: String!) {
-    getEmail(accountId: $accountId, emailId: $emailId) {
+    getEmail(accountId: $accountId, emailId: $emailId)
+      @rest(
+        type: "GetEmail"
+        path: "/nylas-email-item?accountId={args.accountId}&emailId={args.emailId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       folder {
         id

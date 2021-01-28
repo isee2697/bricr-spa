@@ -13,7 +13,7 @@ import {
   RedoIcon,
   RefreshIcon,
   ReplayIcon,
-  ShareIcon,
+  ExitIcon,
   UserIcon,
   WarningIcon,
   EyeSlashIcon,
@@ -152,7 +152,7 @@ const AppointmentWithoutTravelTime = ({ ...props }: App.AppointmentContentProps)
             <Box>
               <Box display="flex" alignItems="center" justifyContent="flex-end" flexWrap="wrap-reverse">
                 <IconButton size="small" variant="rounded">
-                  <ShareIcon color="inherit" />
+                  <ExitIcon color="inherit" />
                 </IconButton>
                 <Box ml={1} />
                 <IconButton size="small" variant="rounded">
