@@ -2,7 +2,8 @@ import { gql } from 'apollo-boost';
 
 export const ADD_APPOINTMENT = gql`
   mutation AddAppointment($input: AddAppointmentInput!) {
-    addAppointment(input: $input) {
+    addAppointment(input: $input)
+      @rest(type: "AddAppointment", path: "/calendar-addappointment", method: "POST", endpoint: "default") {
       id
       from
       to

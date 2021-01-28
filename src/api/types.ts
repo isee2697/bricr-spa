@@ -13529,7 +13529,8 @@ export type BulkMutationResult = ApolloReactCommon.MutationResult<BulkMutation>;
 export type BulkMutationOptions = ApolloReactCommon.BaseMutationOptions<BulkMutation, BulkMutationVariables>;
 export const AddAppointmentDocument = gql`
   mutation AddAppointment($input: AddAppointmentInput!) {
-    addAppointment(input: $input) {
+    addAppointment(input: $input)
+      @rest(type: "AddAppointment", path: "/calendar-addappointment", method: "POST", endpoint: "default") {
       id
       from
       to
@@ -17300,7 +17301,8 @@ export type BulkDetailsLazyQueryHookResult = ReturnType<typeof useBulkDetailsLaz
 export type BulkDetailsQueryResult = ApolloReactCommon.QueryResult<BulkDetailsQuery, BulkDetailsQueryVariables>;
 export const ListCalendarDocument = gql`
   query ListCalendar($input: AppointmentSearch!) {
-    listCalendar(input: $input) {
+    listCalendar(input: $input)
+      @rest(type: "ListCalendar", path: "/calendar-search", method: "POST", endpoint: "default") {
       id
       from
       to

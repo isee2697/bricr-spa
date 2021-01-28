@@ -2,7 +2,8 @@ import { gql } from 'apollo-boost';
 
 export const LIST_CALENDAR = gql`
   query ListCalendar($input: AppointmentSearch!) {
-    listCalendar(input: $input) {
+    listCalendar(input: $input)
+      @rest(type: "ListCalendar", path: "/calendar-search", method: "POST", endpoint: "default") {
       id
       from
       to

@@ -62,7 +62,9 @@ const mergeDateTime = (date: string, time: string) => {
   const jsDate = DateTime.fromISO(date).toJSDate();
   const jsTime = DateTime.fromISO(time).toJSDate();
 
-  return new Date(jsDate.getTime() + (jsTime.getTime() % (1000 * 3600 * 24)));
+  return new Date(
+    jsDate.getTime() + (jsTime.getTime() % (1000 * 3600 * 24)) - jsTime.getTimezoneOffset() * 60 * 1000,
+  ).toISOString();
 };
 
 const INITIAL_APPOINTMENT: AppointmentFormType = {
