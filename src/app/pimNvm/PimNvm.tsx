@@ -1,15 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Grid, IconButton, Box, Typography, Card, CardHeader, CardContent } from 'ui/atoms';
 import { useLayout } from 'context/layout';
 import { Page } from 'ui/templates';
-import { CardsIcon, HideIcon, ListIcon, LocationIcon, ShareIcon } from 'ui/atoms/icons';
+import { CardsIcon, HideIcon, LeaveIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { ActionTabs } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { SidebarMenu } from './sidebarMenu/SidebarMenu';
 import { useStyles } from './PimNvm.styles';
@@ -20,6 +22,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const tabs: ActionTab[] = Object.keys(PimNvmTab).map(key => ({
     label: formatMessage({ id: `nvm.tab.${key}` }),
@@ -55,8 +58,8 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
               )}
               <Typography variant="h1">{formatMessage({ id: 'nvm.title' })}</Typography>
             </Box>
-            <IconButton size="small" variant="rounded" className={classes.shareIcon}>
-              <ShareIcon />
+            <IconButton size="small" variant="rounded" onClick={() => push(AppRoute.pim)}>
+              <LeaveIcon />
             </IconButton>
           </Box>
           <Card>
