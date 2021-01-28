@@ -8,10 +8,9 @@ export const useStyles = makeStyles(theme => ({
     borderBottom: 'none',
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
-
-    '&.sorting': {
-      color: theme.palette.primary.main,
-    },
+  },
+  tableActionCell: {
+    cursor: 'pointer',
   },
   tableHeaderIcon: {
     fontSize: theme.typography.h4.fontSize,

@@ -83,7 +83,7 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
       },
       {
         isCollapsable: true,
-        key: 'pim_details.menu.documents',
+        key: 'crm.details.menu.documents',
         items: [
           {
             key: 'documents/folders',

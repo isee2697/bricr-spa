@@ -28,6 +28,9 @@ export const useStyles = makeStyles(theme => ({
   label: {
     marginBottom: theme.spacing(0.5),
   },
+  crmUserAvatar: {
+    fontSize: theme.spacing(20),
+  },
   avatarWithName: {
     background: theme.palette.gradientBlue.light,
     borderRadius: theme.spacing(0.5),

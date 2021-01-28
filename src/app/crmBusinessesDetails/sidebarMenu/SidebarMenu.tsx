@@ -82,10 +82,21 @@ export const CrmBusinessDetailsSidebarMenu = ({ onHide, isVisible }: CrmBusiness
       {
         items: [
           {
-            key: 'documents',
+            key: 'orders',
+          },
+        ],
+      },
+      {
+        isCollapsable: true,
+        key: 'crm.details.menu.documents',
+        items: [
+          {
+            key: 'documents/folders',
+            title: formatMessage({ id: 'crm.details.menu.documents.folders' }),
           },
           {
-            key: 'orders',
+            key: 'documents/checklist',
+            title: formatMessage({ id: 'crm.details.menu.documents.checklist' }),
           },
         ],
       },

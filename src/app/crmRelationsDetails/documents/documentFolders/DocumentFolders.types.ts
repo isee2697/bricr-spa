@@ -7,5 +7,6 @@ export type DocumentFoldersProps = DocumentsProps & {
   onAddFolder?: (folderName: string) => void;
   onDeleteFolder?: (id: string) => void;
   onUpdateFolder?: (folder: DocumentFolderType) => void;
+  onUploadFiles?: (folder: DocumentFolderType, files: File[]) => void;
   path: string;
 };
