@@ -22,7 +22,7 @@ export const useRefreshToken = () => {
         if (response.ok) {
           const { AuthenticationResult } = await response.json();
 
-        dispatch(setTokens(AuthenticationResult.AccessToken, token));
+          dispatch(setTokens(AuthenticationResult.AccessToken, token));
 
           return AuthenticationResult?.AccessToken;
         }
