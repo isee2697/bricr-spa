@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { lazy, useCallback, useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
@@ -26,7 +26,8 @@ import { AogSpacesContainer } from './sections/aogSpaces/AogSpacesContainer';
 import { SalesSettingsContainer } from './sections/salesSettings/SalesSettingsContainer';
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 import { DocumentsContainer } from './sections/documents/DocumentsContainer';
-import { DashboardContainer } from './sections/dashboard/DashboardContainer';
+
+const DashboardContainer = lazy(() => import('./sections/dashboard/DashboardContainer'));
 
 export const PimDetails = ({
   loading,
@@ -59,6 +60,7 @@ export const PimDetails = ({
   if (loading) {
     return <Loader />;
   }
+  console.log(data);
 
   return (
     <EntityTypeProvider entityType={entityType}>

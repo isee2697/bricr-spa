@@ -25,3 +25,5 @@ export const DmsContainer = () => {
 
   return <Dms dms={dms} breadcrumbs={breadcrumbs} path={AppRoute.dms} entityType={EntityType.Dms} />;
 };
+
+export default DmsContainer;

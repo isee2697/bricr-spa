@@ -3,30 +3,32 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 
 import { Dashboard as DashboardTemplate, Authorization } from 'ui/templates';
-import { LogoutContainer } from 'app/auth/logout/LogoutContainer';
-import { LoginContainer } from 'app/auth/login/LoginContainer';
-import { ForgotPasswordContainer } from 'app/auth/forgotPassword/ForgotPasswordContainer';
-import { ResetPasswordContainer } from 'app/auth/resetPassword/ResetPasswordContainer';
-import { PimDetailsContainer } from 'app/pimDetails/PimDetailsContainer';
-import { ObjectTypeDetailsContainer } from 'app/objectTypeDetails/ObjectTypeDetailsContainer';
 import { useScrollToTop } from 'hooks';
 import { NavBreadcrumb } from 'ui/atoms/navBreadcrumb/NavBreadcrumb';
-import { ProjectDetailsContainer } from 'app/projectDetails/ProjectDetailsContainer';
-import { TasksContainer } from 'app/tasks/TasksContainer';
-import { TaskDetailsContainer } from 'app/taskDetails/TaskDetailsContainer';
-import { LinkedPropertiesDetailsContainer } from 'app/linkedPropertiesDetails/LinkedPropertiesDetailsContainer';
-import { SettingsContainer } from 'app/settings/SettingsContainer';
-import { RegisterContainer } from 'app/register/RegisterContainer';
-import { SetupContainer } from 'app/register/setup/SetupContainer';
-import { CrmContainer } from 'app/crm/CrmContainer';
-import { DmsContainer } from 'app/dms/DmsContainer';
-import { CrmRelationsDetailsContainer } from 'app/crmRelationsDetails/CrmRelationsDetailsContainer';
-import { NotificationsContainer } from '../app/notifications/NotificationsContainer';
 import { Loader } from 'ui/atoms';
 
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRoute } from './AuthorizedRoute';
 
+const LogoutContainer = lazy(() => import('app/auth/logout/LogoutContainer'));
+const LoginContainer = lazy(() => import('app/auth/login/LoginContainer'));
+const ForgotPasswordContainer = lazy(() => import('app/auth/forgotPassword/ForgotPasswordContainer'));
+const ResetPasswordContainer = lazy(() => import('app/auth/resetPassword/ResetPasswordContainer'));
+const PimDetailsContainer = lazy(() => import('app/pimDetails/PimDetailsContainer'));
+const ObjectTypeDetailsContainer = lazy(() => import('app/objectTypeDetails/ObjectTypeDetailsContainer'));
+const ProjectDetailsContainer = lazy(() => import('app/projectDetails/ProjectDetailsContainer'));
+const TasksContainer = lazy(() => import('app/tasks/TasksContainer'));
+const TaskDetailsContainer = lazy(() => import('app/taskDetails/TaskDetailsContainer'));
+const LinkedPropertiesDetailsContainer = lazy(() =>
+  import('app/linkedPropertiesDetails/LinkedPropertiesDetailsContainer'),
+);
+const SettingsContainer = lazy(() => import('app/settings/SettingsContainer'));
+const RegisterContainer = lazy(() => import('app/register/RegisterContainer'));
+const SetupContainer = lazy(() => import('app/register/setup/SetupContainer'));
+const CrmContainer = lazy(() => import('app/crm/CrmContainer'));
+const DmsContainer = lazy(() => import('app/dms/DmsContainer'));
+const CrmRelationsDetailsContainer = lazy(() => import('app/crmRelationsDetails/CrmRelationsDetailsContainer'));
+const NotificationsContainer = lazy(() => import('app/notifications/NotificationsContainer'));
 const Pim = lazy(() => import('app/pim/Pim'));
 const Dashboard = lazy(() => import('app/dashboard/Dashboard'));
 const PimNvmContainer = lazy(() => import('app/pimNvm/PimNvmContainer'));

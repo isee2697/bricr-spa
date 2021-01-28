@@ -200,3 +200,5 @@ export const TaskDetailsContainer = () => {
     </>
   );
 };
+
+export default TaskDetailsContainer;

@@ -140,3 +140,5 @@ export const NotificationsContainer = () => {
     </>
   );
 };
+
+export default NotificationsContainer;
