@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Alert, Box, Grid, Loader } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { EntityTypeProvider } from 'app/shared/entityType';
+import { PimDetailsSidebarMenu } from 'app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu';
 import { AogSpaceType, TiaraEntities } from 'api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
@@ -23,7 +24,6 @@ const MetersContainer = lazy(() => import('./sections/meters/MetersContainer'));
 const Specification = lazy(() => import('./sections/specification/Specification'));
 const TiaraContainer = lazy(() => import('app/shared/tiara/TiaraContainer'));
 const AllocateResultsContainer = lazy(() => import('./sections/allocateResults/AllocateResultsContainer'));
-const PimDetailsSidebarMenu = lazy(() => import('app/shared/pimDetailsSidebarMenu/PimDetailsSidebarMenu'));
 const CommercialSpacesContainer = lazy(() => import('./sections/commercial/CommercialSpacesContainer'));
 const AogSpacesContainer = lazy(() => import('./sections/aogSpaces/AogSpacesContainer'));
 const SalesSettingsContainer = lazy(() => import('./sections/salesSettings/SalesSettingsContainer'));
