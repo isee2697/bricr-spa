@@ -31,6 +31,7 @@ export const DocumentFolders = ({
   onAddFolder,
   onDeleteFolder,
   onUpdateFolder,
+  onUploadFiles,
 }: DocumentFoldersProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -64,6 +65,13 @@ export const DocumentFolders = ({
   const handleUpdate = useCallback((item: DocumentFolderType, name: string) => onUpdateFolder?.({ ...item, name }), [
     onUpdateFolder,
   ]);
+
+  const handleUploadFiles = useCallback(
+    (folder: DocumentFolderType, files: File[]) => {
+      onUploadFiles?.(folder, files);
+    },
+    [onUploadFiles],
+  );
 
   return (
     <>
@@ -142,7 +150,12 @@ export const DocumentFolders = ({
 
           {selectedFolder && (
             <Box mt={3.5}>
-              <DocumentListViewContainer folder={selectedFolder} documents={selectedFolder.documents} path={path} />
+              <DocumentListViewContainer
+                folder={selectedFolder}
+                documents={selectedFolder.documents}
+                path={path}
+                onUploadFiles={files => handleUploadFiles(selectedFolder, files)}
+              />
             </Box>
           )}
 
