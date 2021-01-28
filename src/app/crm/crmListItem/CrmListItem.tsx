@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
+import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import {
-  Avatar,
-  Box,
-  Typography,
-  UserAvatar,
-  Emoji,
-  ProgressFilling,
-  IconButton,
-  Chip,
-  Menu,
-  MenuItem,
-} from 'ui/atoms';
-import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Typography, UserAvatar, ProgressFilling, IconButton, Chip, Menu, MenuItem } from 'ui/atoms';
+import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon, HeadIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CrmStatus } from 'api/types';
 
@@ -42,6 +32,7 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
   const classes = useStyles({ crm });
   const { push } = useHistory();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+  const theme = useTheme();
 
   const {
     id,
@@ -135,8 +126,15 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
     >
       <Box display="flex" mb={3}>
         <Box>
-          <Avatar variant="rounded" src={avatar?.url || ''} className={classes.image}>
-            {!avatar && <Emoji>{'📷'}</Emoji>}
+          <Avatar variant="circle" src={avatar?.url || ''} className={classes.image}>
+            {!avatar && (
+              <HeadIcon
+                width={theme.spacing(20)}
+                height={theme.spacing(20)}
+                viewBox={`0 0 ${theme.spacing(20)} ${theme.spacing(20)}`}
+                className={classes.crmUserAvatar}
+              />
+            )}
           </Avatar>
         </Box>
         <Box width="100%">

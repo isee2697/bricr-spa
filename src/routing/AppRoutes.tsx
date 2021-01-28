@@ -106,10 +106,15 @@ export const AppRoutes = () => {
                   <AuthorizedRoute path={AppRoute.objectTypeDetails} component={ObjectTypeDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.projectDetails} component={ProjectDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.crm} component={CrmContainer} />
-                  <AuthorizedRoute
-                    path={AppRoute.crmRelationsDocumentDetails}
-                    component={CrmDocumentDetailsContainer}
-                  />
+                    <AuthorizedRoute
+                        path={AppRoute.crmRelationsDocumentDetails}
+                        render={() => <CrmDocumentDetailsContainer path={AppRoute.crmRelationsDetails} />}
+                    />
+                    <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
+                    <AuthorizedRoute
+                        path={AppRoute.crmBusinessesDocumentDetails}
+                        render={() => <CrmDocumentDetailsContainer path={AppRoute.crmBusinessesDetails} />}
+                    />
                   <AuthorizedRoute path={AppRoute.crmRelationsDetails} component={CrmRelationsDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.crmBusinessesDetails} component={CrmBusinessesDetailsContainer} />
                   <AuthorizedRoute path={AppRoute.sales} component={SalesContainer} />

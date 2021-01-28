@@ -120,3 +120,4 @@ export * from './travelBefore/TravelBeforeIcon';
 export * from './alert/AlertIcon';
 export * from './star/StarIcon';
 export * from './starFilled/StarFilledIcon';
+export * from './head/HeadIcon';

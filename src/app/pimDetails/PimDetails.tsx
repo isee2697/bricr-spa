@@ -30,6 +30,7 @@ const SalesSettingsContainer = lazy(() => import('./sections/salesSettings/Sales
 const SummaryContainer = lazy(() => import('./sections/summary/SummaryContainer'));
 const DocumentsContainer = lazy(() => import('./sections/documents/DocumentsContainer'));
 const DashboardContainer = lazy(() => import('./sections/dashboard/DashboardContainer'));
+const PublicationContainer = lazy(() => import('./sections/publication/PublicationContainer'));
 
 export const PimDetails = ({
   loading,
@@ -242,6 +243,12 @@ export const PimDetails = ({
                           isSidebarVisible={isSidebarVisible}
                           onSidebarOpen={handleSidebarOpen}
                         />
+                      )}
+                    />
+                    <Route
+                      path={`${path}/publication`}
+                      render={() => (
+                        <PublicationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                       )}
                     />
                     {Object.values(AogSpaceType).map(aogSpaceType => (

@@ -4,6 +4,7 @@ import { StepConnector, StepButton } from 'ui/atoms';
 
 export const useStyles = makeStyles(theme => ({
   step: {
+    cursor: 'pointer',
     padding: 0,
   },
   completed: {
@@ -41,6 +42,7 @@ export const useStyles = makeStyles(theme => ({
 
 export const Connector = withStyles(theme => ({
   vertical: {
+    pointerEvents: 'none',
     paddingBottom: 0,
     marginTop: -theme.spacing(6.75),
     '& $line': {
