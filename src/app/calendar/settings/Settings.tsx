@@ -45,7 +45,9 @@ export const CalendarSettings = ({
       try {
         if (nylasAuthCode) {
           const account = await authorizeNylasAccountWithToken({
-            variables: { nylasToken: nylasAuthCode, isCalendarConnected: true },
+            variables: {
+              input: { nylasToken: nylasAuthCode, isCalendarConnected: true },
+            },
           });
 
           if (account) {
