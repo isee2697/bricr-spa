@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useLocale, useModalDispatch } from 'hooks';
 import { Box, Button, IconButton, NavBreadcrumbs } from 'ui/atoms';
-import { AddIcon, ShareIcon } from 'ui/atoms/icons';
+import { AddIcon, ExitIcon } from 'ui/atoms/icons';
 
 import { ChartsHeaderProps } from './Header.types';
 
@@ -32,7 +32,7 @@ export const ChartsHeader = ({ count }: ChartsHeaderProps) => {
         </Button>
         <Box ml={3} />
         <IconButton size="small" variant="rounded">
-          <ShareIcon />
+          <ExitIcon />
         </IconButton>
       </Box>
     </Box>

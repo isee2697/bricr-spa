@@ -1,25 +1,24 @@
 import React from 'react';
 import clsx from 'classnames';
 
-import { Card, CardContent, CardHeader, Box, IconButton } from 'ui/atoms';
-import { DragIcon, MenuIcon } from 'ui/atoms/icons';
+import { Card, CardContent, CardHeader, Box } from 'ui/atoms';
+import { DragIcon } from 'ui/atoms/icons';
+import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
 
 import { useStyles } from './Card.styles';
 import { DashboardCardProps } from './Card.types';
 
-export const DashboardCard = ({ children }: DashboardCardProps) => {
+export const DashboardCard = ({ children, id, isUpdating, onEdit }: DashboardCardProps) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={clsx(classes.card, isUpdating && 'updating')}>
       <CardHeader
         classes={{ title: classes.cardHeaderTitle }}
         title={'Contacts'}
         action={
           <Box display="flex" alignItems="center">
-            <IconButton size="small" variant="rounded" classes={{ sizeSmall: classes.cardHeaderButton }}>
-              <MenuIcon />
-            </IconButton>
+            <ActionButtons id={id} onEditDetails={onEdit} />
             <Box ml={2} />
             <Box className={clsx('dragPoint', classes.btnDrag)}>
               <DragIcon width={16} height={16} />

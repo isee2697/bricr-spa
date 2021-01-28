@@ -1,14 +1,15 @@
 import React from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useHistory, useParams, useRouteMatch } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SidebarMenu } from 'ui/molecules';
-import { SidebarTitleTile, UserAvatar } from 'ui/atoms';
+import { Box, SidebarTitleTile, Typography, UserAvatar } from 'ui/atoms';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
-import { ClockIcon, DocIcon, GraphArrowIcon, NcRentIcon } from 'ui/atoms/icons';
+import { ArrowUpIcon, ClockIcon, DocIcon, GraphArrowIcon, LinkIcon, NcRentIcon } from 'ui/atoms/icons';
 
 import { CrmRelationsDetailsSidebarMenuProps } from './CrmRelationsDetailsSidebarMenu.types';
+import { useStyles } from './CrmRelationsDetailsSidebarMenu.styles';
 
 const getBackUrl = (routeParams: Record<string, string>) => {
   return AppRoute.crm;
@@ -18,6 +19,8 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
   const params = useParams();
+  const classes = useStyles();
+  const { push } = useHistory();
 
   const menu: SidebarMenuType = {
     url,
@@ -39,8 +42,8 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
               },
             ],
           },
-          { key: 'summary', icon: <DocIcon /> },
           { key: 'timeline', icon: <ClockIcon /> },
+          { key: 'summary', icon: <DocIcon /> },
         ],
       },
       {
@@ -56,34 +59,31 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
         ],
       },
       {
+        isCollapsable: true,
+        key: 'crm.details.menu.sales',
+        onClick: () => push(`${url}/sales`),
         items: [
           {
-            key: 'sales',
-            showArrowIcon: true,
-            subItems: [
-              {
-                id: 'acquisition',
-                label: 'crm.details.menu.sales.acquisition',
-              },
-              {
-                id: 'quotation',
-                label: 'crm.details.menu.sales.quotation',
-              },
-              {
-                id: 'orders',
-                label: 'crm.details.menu.sales.orders',
-              },
-              {
-                id: 'invoices',
-                label: 'crm.details.menu.sales.invoices',
-              },
-            ],
+            key: 'acquisition',
+            onClick: () => push(`${url}/acquisition`),
+          },
+          {
+            key: 'quotation',
+            onClick: () => push(`${url}/quotation`),
+          },
+          {
+            key: 'orders',
+            onClick: () => push(`${url}/sales_orders`),
+          },
+          {
+            key: 'invoices',
+            onClick: () => push(`${url}/invoices`),
           },
         ],
       },
       {
         isCollapsable: true,
-        key: 'pim_details.menu.documents',
+        key: 'crm.details.menu.documents',
         items: [
           {
             key: 'documents/folders',
@@ -117,17 +117,49 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
       translationPrefix="crm.details.menu"
       menu={menu}
       menuTitle={
-        <SidebarTitleTile
-          title={title}
-          subtitle={formatMessage({ id: 'crm.relation' })}
-          icon={
+        <>
+          <SidebarTitleTile
+            title={title}
+            subtitle={formatMessage({ id: 'crm.relation' })}
+            icon={
+              <UserAvatar
+                name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
+                avatar={crm.avatar?.url || ''}
+                variant="rounded"
+              />
+            }
+          />
+          <Box display="flex" alignItems="center" mt={1} ml={4.5}>
+            <LinkIcon fontSize="small" />
+            <ArrowUpIcon fontSize="small" />
+          </Box>
+          <Box
+            display="flex"
+            ml={1}
+            mt={1}
+            mr={1}
+            pt={1}
+            pb={1}
+            pl={2}
+            pr={2}
+            alignItems="center"
+            className={classes.alternativeRelation}
+          >
             <UserAvatar
               name={`${crm.firstName} ${crm.insertion} ${crm.lastName}`}
               avatar={crm.avatar?.url || ''}
               variant="rounded"
             />
-          }
-        />
+            <Box ml={1}>
+              <Typography variant="h5" color="textSecondary" className={classes.fontWeightBold}>
+                {crm.firstName} {crm.insertion} {crm.lastName}
+              </Typography>
+              <Typography variant="h6" color="textSecondary">
+                {formatMessage({ id: 'crm.relation' })}
+              </Typography>
+            </Box>
+          </Box>
+        </>
       }
     />
   );

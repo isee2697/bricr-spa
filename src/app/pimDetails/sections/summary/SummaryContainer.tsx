@@ -92,3 +92,5 @@ export const SummaryContainer = (props: PimDetailsSectionProps) => {
 
   return <Summary summary={summary} {...props} />;
 };
+
+export default SummaryContainer;

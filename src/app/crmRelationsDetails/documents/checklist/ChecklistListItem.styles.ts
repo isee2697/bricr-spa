@@ -54,6 +54,8 @@ export const useStyles = makeStyles(theme => ({
   },
   stepLabel: {
     alignItems: 'flex-start',
+    lineBreak: 'anywhere',
+    paddingRight: theme.spacing(2),
     '& .MuiStepIcon-root': {
       color: theme.palette.white.main,
       border: `1px solid ${theme.palette.green.main}`,

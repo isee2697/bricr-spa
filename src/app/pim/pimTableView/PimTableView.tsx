@@ -13,6 +13,8 @@ import {
   Menu,
   Typography,
   MenuItem,
+  Avatar,
+  Emoji,
 } from 'ui/atoms';
 import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -125,6 +127,7 @@ export const PimTableView = ({
           <TableRow>
             <TableCell padding="checkbox" className={classes.tableHeaderCell}>
               <Checkbox
+                color="primary"
                 checked={items.length === selected.length}
                 onClick={e => {
                   e.stopPropagation();
@@ -158,6 +161,7 @@ export const PimTableView = ({
             >
               <TableCell padding="checkbox">
                 <Checkbox
+                  color="primary"
                   checked={selected.includes(item.id)}
                   inputProps={{ 'aria-labelledby': item.id }}
                   onClick={e => {
@@ -168,6 +172,11 @@ export const PimTableView = ({
               </TableCell>
               {FIXED_HEADER_COLUMNS.map(cell => (
                 <TableCell className={classes.tableCellType} key={cell}>
+                  {cell === 'address' && item.mainPicture?.file?.url && (
+                    <Avatar variant="rounded" src={item.mainPicture.file.url} className={classes.image}>
+                      {!item.mainPicture.file.url && <Emoji>{'📷'}</Emoji>}
+                    </Avatar>
+                  )}
                   {renderCell(item, cell)}
                 </TableCell>
               ))}

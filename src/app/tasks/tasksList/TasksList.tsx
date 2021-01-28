@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Checkbox, Typography, UserAvatar } from 'ui/atoms';
+import { Box, Checkbox, Typography, UserAvatar } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { TasksIcon, BuildingIcon, HistoryIcon, StatusIcon, ArrowDownIcon, ArrowUpIcon, CrmIcon } from 'ui/atoms/icons';
 import { TasksStatusBadge } from '../tasksStatusBadge/TasksStatusBadge';
@@ -108,7 +108,9 @@ export const TasksList = ({ tasks }: TasksListProps) => {
                     <ArrowUpIcon color="primary" className={clsx(classes.columnHeaderIcon, classes.inlineBlock)} />
                   )}
                 </>
-              ) : null}
+              ) : (
+                <Box className={classes.columnSortIconPlaceholder} />
+              )}
             </TableCell>
           ))}
         </TableRow>

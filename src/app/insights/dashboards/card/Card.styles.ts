@@ -4,6 +4,10 @@ export const useStyles = makeStyles(theme => ({
   card: {
     width: '100%',
     height: '100%',
+
+    '&.updating': {
+      border: `1px dashed ${theme.palette.primary.main}`,
+    },
   },
   cardHeaderRoot: {
     padding: theme.spacing(1.5),

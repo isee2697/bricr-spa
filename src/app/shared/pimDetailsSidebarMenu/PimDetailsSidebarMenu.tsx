@@ -238,8 +238,16 @@ export const PimDetailsSidebarMenu = ({
         key: 'pim_details.menu.marketing',
         items: [
           {
-            key: 'marketing',
-            title: formatMessage({ id: 'pim_details.menu.marketing' }),
+            key: 'publication',
+            title: formatMessage({ id: 'pim_details.menu.publication' }),
+          },
+          {
+            key: 'newsLetter',
+            title: formatMessage({ id: 'pim_details.menu.news_letter' }),
+          },
+          {
+            key: 'openHouse',
+            title: formatMessage({ id: 'pim_details.menu.open_house' }),
           },
         ],
       },
@@ -297,3 +305,5 @@ export const PimDetailsSidebarMenu = ({
     />
   );
 };
+
+export default PimDetailsSidebarMenu;

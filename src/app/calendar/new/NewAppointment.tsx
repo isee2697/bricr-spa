@@ -1,5 +1,4 @@
 import React, { ReactElement, useState } from 'react';
-import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { useHistory } from 'react-router-dom';
 import clsx from 'classnames';
@@ -8,7 +7,6 @@ import { Box, Button, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/at
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import {
-  AddIcon,
   BuildingIcon,
   CrmIcon,
   DeleteIcon,
@@ -16,18 +14,21 @@ import {
   HistoryIcon,
   HomeIcon,
   MenuIcon,
-  ShareIcon,
+  ExitIcon,
   TasksIcon,
 } from 'ui/atoms/icons';
-import { CalendarTypes } from 'api/types';
+import { AddAppointmentInput, CalendarTypes } from 'api/types';
+import { AutosaveForm } from 'ui/organisms';
 
 import { AppointmentBaseInfoCard } from './cards/baseInfo/BaseInfo';
-import { ParticipantsLocation } from './cards/participantsLocation/ParticipantsLocation';
+import { Participant } from './cards/participant/Participant';
+import { Location } from './cards/location/Location';
 import { EditorCard } from './cards/editor/Editor';
 import { NewAppointmentProps } from './NewAppointment.types';
 import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
 import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
+import { PencilAppointment } from './cards/pencilAppointment/PencilAppointment';
 
 type SubMenuItemType = {
   title: string;
@@ -54,7 +55,15 @@ const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
   );
 };
 
-export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, loading }: NewAppointmentProps) => {
+export const NewAppointment = ({
+  members,
+  locations,
+  appointmentInfo,
+  onSubmit,
+  onConfirm,
+  loading,
+  isEdit,
+}: NewAppointmentProps) => {
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -69,12 +78,18 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, 
     setMenuEl(null);
   };
 
+  const handleSave = async (values: AddAppointmentInput) => {
+    await onSubmit(values);
+
+    return undefined;
+  };
+
   return (
-    <Form
+    <AutosaveForm
       initialValues={appointmentInfo}
       keepDirtyOnReinitialize
       mutators={{ ...arrayMutators }}
-      onSubmit={values => onSubmit(values)}
+      onSave={handleSave}
     >
       {({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
@@ -84,6 +99,14 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, 
             title={formatMessage({ id: 'appointment.new.title' })}
             titleActions={
               <Box display="flex" alignItems="center">
+                {!isEdit && (
+                  <>
+                    <Button variant="contained" color="primary" onClick={onConfirm} disabled={loading}>
+                      {formatMessage({ id: 'calendar.appointments.create_appointment.confirm' })}
+                    </Button>
+                    <Box ml={4} />
+                  </>
+                )}
                 <IconButton size="small" variant="roundedContained" className={classes.btnWhite}>
                   <TasksIcon />
                 </IconButton>
@@ -109,12 +132,8 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, 
                 </IconButton>
                 <Box ml={1} />
                 <IconButton size="small" variant="roundedContained" onClick={goBack} className={classes.btnBack}>
-                  <ShareIcon />
+                  <ExitIcon />
                 </IconButton>
-                <Box ml={1} />
-                <Button type="submit" variant="contained" color="primary" disabled={loading}>
-                  <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointments.create_appointment.add' })}
-                </Button>
                 <Menu
                   id="new-appointment-setting-menu"
                   open={Boolean(menuEl)}
@@ -179,12 +198,16 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, 
             <Grid container spacing={3}>
               <Grid item xs={12} md={8}>
                 <AppointmentBaseInfoCard />
+                <PencilAppointment />
                 <EditorCard />
                 {values.type !== CalendarTypes.Birthday && <AppointmentTypeCard />}
               </Grid>
               <Grid item xs={12} md={4}>
                 {values.type !== CalendarTypes.Birthday && (
-                  <ParticipantsLocation members={members} locations={locations} />
+                  <>
+                    <Participant members={members} />
+                    <Location locations={locations} />
+                  </>
                 )}
               </Grid>
               {values.type !== CalendarTypes.Birthday && (
@@ -196,6 +219,6 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, 
           </Page>
         </form>
       )}
-    </Form>
+    </AutosaveForm>
   );
 };

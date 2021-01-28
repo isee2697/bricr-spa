@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import { Box, Button, Grid, IconButton, NavBreadcrumb, NavBreadcrumbs, Typography } from 'ui/atoms';
-import { ClockIcon, DeleteIcon, PinIcon, ShareIcon } from 'ui/atoms/icons';
+import { ClockIcon, DeleteIcon, PinIcon, ExitIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { Page } from 'ui/templates';
 import { PIM_1 } from 'api/mocks/pim';
@@ -130,7 +130,7 @@ export const EmailDetails = ({ email }: EmailDetailsProps) => {
                 size="small"
                 onClick={() => push(joinUrlParams(`${AppRoute.email}/inbox/:inboxId/:folderId`, params))}
               >
-                <ShareIcon />
+                <ExitIcon />
               </IconButton>
             </Box>
           </Box>

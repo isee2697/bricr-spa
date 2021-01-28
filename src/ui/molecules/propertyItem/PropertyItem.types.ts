@@ -17,5 +17,5 @@ export type PropertyItemProps = {
   stageIndex?: number;
   formerOwners?: string;
   buyers?: string;
-  onMenuClick: () => void;
+  onMenuClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };

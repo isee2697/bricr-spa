@@ -3,7 +3,7 @@ import React from 'react';
 import { useLocale } from 'hooks';
 import { FormSection, AutosaveForm } from 'ui/organisms';
 import { QuestionNoteOnlyFormProps } from '../DocumentQuestionnaireFlow.types';
-import { FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader, ListOptionsMenu } from 'ui/molecules';
 import { Box, Typography } from 'ui/atoms';
 import { GenericField } from 'form/fields';
 
@@ -11,7 +11,7 @@ export function QuestionNoteOnlyForm({ initOpened, title, subtitle, question }: 
   const { formatMessage } = useLocale();
 
   return (
-    <FormSection title={title} isExpandable isInitExpanded={initOpened}>
+    <FormSection buttons={<ListOptionsMenu />} title={title} isExpandable isInitExpanded={initOpened}>
       {editing => (
         <AutosaveForm onSave={() => Promise.resolve(undefined)}>
           {subtitle && (

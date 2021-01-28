@@ -3,7 +3,7 @@ import clsx from 'classnames';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Button, Grid, Typography } from 'ui/atoms';
-import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
 import { CadastreType, Cadastre, CadastrePlot } from 'api/types';
@@ -35,7 +35,7 @@ export const SummaryOutside = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
         action={
           <Button
             color="primary"
-            startIcon={<ShareIcon className={classes.btnHeader} />}
+            startIcon={<ExitIcon className={classes.btnHeader} />}
             variant="contained"
             size="small"
           >

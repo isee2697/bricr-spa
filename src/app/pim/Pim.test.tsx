@@ -19,6 +19,10 @@ describe('Pim', () => {
           onSort: () => {},
         }}
         pagination={{}}
+        teams={[]}
+        accountManagers={[]}
+        onFilter={() => {}}
+        activeFilters={{}}
       />,
     );
 

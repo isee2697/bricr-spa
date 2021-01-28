@@ -24,9 +24,12 @@ export const Pim = () => {
               component={item.isProject ? ProjectContainer : PimListContainer}
             />
           ))}
+          <Route exact path={`${AppRoute.pim}/purchase`} component={PimListContainer} />
           <Redirect to={`${AppRoute.pim}/dashboard`} />
         </Switch>
       </Grid>
     </Grid>
   );
 };
+
+export default Pim;

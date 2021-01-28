@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
 import { Box, NavBreadcrumbs, IconButton, Typography } from 'ui/atoms';
-import { MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 
 import { useStyles } from './Header.styles';
@@ -19,7 +19,7 @@ export const Header = () => {
         <NavBreadcrumbs />
         <Box display="flex" alignItems="center">
           <IconButton variant="rounded" size="small" onClick={() => push(`${AppRoute.sales}/invoices`)}>
-            <ShareIcon />
+            <ExitIcon />
           </IconButton>
           <Box ml={3} />
           <IconButton variant="rounded" size="small" onClick={() => {}}>

@@ -29,7 +29,12 @@ export const ListOptionsMenu = ({
 
   return (
     <>
-      <IconButton onClick={e => setAnchorEl(e.currentTarget)} data-testid="open-options-menu">
+      <IconButton
+        variant="rounded"
+        size="small"
+        onClick={e => setAnchorEl(e.currentTarget)}
+        data-testid="open-options-menu"
+      >
         <MenuIcon />
       </IconButton>
       {anchorEl && (

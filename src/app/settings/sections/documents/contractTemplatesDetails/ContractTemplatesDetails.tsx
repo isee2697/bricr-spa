@@ -5,7 +5,7 @@ import clsx from 'classnames';
 
 import { Box, Button, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
-import { AddIcon, ClockIcon, DeleteIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { AddIcon, ClockIcon, DeleteIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 
 import { ContractTemplatesDetailsSidebar } from './sidebar/Sidebar';
@@ -72,7 +72,7 @@ export const ContractTemplatesDetails = ({ goBack, generalInfo, onAddArticleGrou
                   </Typography>
                   <Box display="flex">
                     <IconButton size="small" variant="roundedContained" onClick={goBack}>
-                      <ShareIcon />
+                      <ExitIcon />
                     </IconButton>
                     <Box ml={3} />
                     <IconButton size="small" variant="roundedContained" onClick={onMenuClick}>

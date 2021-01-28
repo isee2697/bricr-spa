@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
-import { FormSubSectionHeader } from 'ui/molecules';
+import { FormSubSectionHeader, ListOptionsMenu } from 'ui/molecules';
 import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 import { Box, Grid } from 'ui/atoms';
 import { SquareIcon } from 'ui/atoms/icons';
@@ -26,7 +26,12 @@ export function QuestionGeneralForm({ documentKind }: QuestionFormProps) {
   ];
 
   return (
-    <FormSection title={formatMessage({ id: 'pim_details.general.title' })} isExpandable isInitExpanded>
+    <FormSection
+      buttons={<ListOptionsMenu />}
+      title={formatMessage({ id: 'pim_details.general.title' })}
+      isExpandable
+      isInitExpanded
+    >
       {editing => (
         <AutosaveForm onSave={() => Promise.resolve(undefined)}>
           <FormSubSectionHeader

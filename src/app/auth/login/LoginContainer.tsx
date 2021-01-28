@@ -60,3 +60,5 @@ export const LoginContainer = () => {
 
   return <Login onSubmit={onSubmit} />;
 };
+
+export default LoginContainer;

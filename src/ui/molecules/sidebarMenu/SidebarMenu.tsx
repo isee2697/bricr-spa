@@ -54,11 +54,16 @@ export const SidebarMenu = ({
   window.addEventListener('resize', handleWindowResize);
 
   useEffect(() => {
-    if (width !== ref?.current?.clientWidth) {
-      setWidth(ref?.current?.clientWidth ?? 'auto');
-    }
+    const timeout = setTimeout(() => {
+      if (width !== ref?.current?.clientWidth) {
+        setWidth(ref?.current?.clientWidth ?? 'auto');
+      }
+    }, 10);
 
-    return () => window.removeEventListener('resize', handleWindowResize);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+      clearTimeout(timeout);
+    };
   }, [ref, width, setWidth]);
 
   const itemSelected = (item: MenuItem) => pathname.startsWith(`${menu.url}/${item.key}`);
@@ -183,12 +188,13 @@ export const SidebarMenu = ({
                   >
                     {group.isCollapsable && group.key && (
                       <Box
-                        onClick={() =>
+                        onClick={() => {
+                          group.onClick && group.onClick();
                           setGroupOpen(groups => ({
                             ...groups,
                             [group.key as string]: !groups[group.key as string],
-                          }))
-                        }
+                          }));
+                        }}
                         className={classes.collapseHeader}
                         data-toggled={isGroupOpen[group.key as string]}
                         data-testid={`toggle-group-${group.key}`}

@@ -27,3 +27,5 @@ export const EmailContainer = () => {
     />
   );
 };
+
+export default EmailContainer;

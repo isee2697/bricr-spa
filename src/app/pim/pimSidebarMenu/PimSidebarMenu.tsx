@@ -25,8 +25,8 @@ export const PimSidebarMenu = ({ types }: PimSidebarMenuProps) => {
       title: 'NVM',
     },
     {
-      key: 'vbo',
-      title: 'VBO',
+      key: 'purchase',
+      title: formatMessage({ id: `pim.purchase` }),
     },
     {
       key: 'lms',

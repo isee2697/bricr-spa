@@ -14,7 +14,7 @@ export function QuestionYesNoForm({ initOpened, title, subtitle, question, isNot
   const classes = useStyles();
 
   return (
-    <FormSection title={title} isExpandable isInitExpanded={initOpened}>
+    <FormSection onOptionsClick={() => ''} title={title} isExpandable isInitExpanded={initOpened}>
       {editing => (
         <AutosaveForm onSave={() => Promise.resolve(undefined)}>
           {subtitle && (

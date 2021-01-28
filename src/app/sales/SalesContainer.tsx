@@ -8,3 +8,5 @@ import { Sales } from './Sales';
 export const SalesContainer = () => {
   return <Sales path={AppRoute.sales} entityType={EntityType.Sales} />;
 };
+
+export default SalesContainer;

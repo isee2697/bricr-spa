@@ -235,6 +235,7 @@ export const mockServer = () => {
                 {
                   id: '1234-5678-9012',
                   name: 'Mock team',
+                  company: { id: 'test' },
                 },
               ],
             };
