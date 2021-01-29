@@ -13,9 +13,9 @@ export const Sales = ({ path, ...otherProps }: SalesProps) => {
     <Switch>
       <Route exact path={path} component={() => <DashboardContainer path={path} {...otherProps} />} />
       <Route path={`${path}/acquisition`} render={() => <AcquisitionsContainer path={path} {...otherProps} />} />
-      <Route path={`${path}/orders`} render={() => <OrdersContainer path={path} {...otherProps} />} />} />
-      <Route path={`${path}/quotation`} render={() => <QuotationsContainer path={path} {...otherProps} />} />} />
-      <Route path={`${path}/invoices`} render={() => <InvoicesContainer path={path} {...otherProps} />} />} />
+      <Route path={`${path}/orders`} render={() => <OrdersContainer path={path} {...otherProps} />} />
+      <Route path={`${path}/quotation`} render={() => <QuotationsContainer path={path} {...otherProps} />} />
+      <Route path={`${path}/invoices`} render={() => <InvoicesContainer path={path} {...otherProps} />} />
       <Redirect to={{ pathname: `${path}` }} />
     </Switch>
   );
