@@ -101,10 +101,6 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
       }
 
       const description = document.querySelector('.rich-text-field#description')?.innerHTML;
-      console.log(`from date: ${appointment.from.date}, from time: ${appointment.from.time}`);
-      console.log(`to date: ${appointment.to.date}, to time: ${appointment.to.time}`);
-      console.log(`merged from: ${mergeDateTime(appointment.from.date, appointment.from.time)}`);
-      console.log(`merged to: ${mergeDateTime(appointment.to.date, appointment.to.time)}`);
       const appointmentInput: AddAppointmentInput = {
         ...appointment,
         accountId: account?.id || '',
@@ -118,7 +114,6 @@ export const NewAppointmentContainer = ({ teamMembers, account, isEdit }: NewApp
         taskLabel: TaskLabel.Business,
         description,
       };
-      console.log(`appointmentInput: ${JSON.stringify(appointmentInput)}`);
       try {
         setLoading(true);
 
