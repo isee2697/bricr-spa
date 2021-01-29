@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'classnames';
+import { SortDirection } from '@material-ui/core';
 
-import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Emoji } from 'ui/atoms';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Typography, Emoji } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
@@ -64,14 +65,12 @@ export const PimTableView = ({
     FIXED_HEADER_COLUMNS.map(cell => ({
       field: cell,
       label: formatMessage({ id: `pim.table.header.${cell}` }),
-      sorter: () => {
-        onSort(cell);
-      },
+      sortable: true,
     })),
   );
 
-  const [sortColumn, setSortColumn] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | null>(null);
+  const [sortBy, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(false);
 
   const changeHeaderCells = (headerCells: HeaderColumnItemType[]) => {
     setMovableHeaderCells([...headerCells]);
@@ -79,16 +78,14 @@ export const PimTableView = ({
       ...FIXED_HEADER_COLUMNS.map(cell => ({
         field: cell,
         label: formatMessage({ id: `pim.table.header.${cell}` }),
-        sorter: () => {
-          onSort(cell);
-        },
+        sortable: true,
       })),
       ...headerCells
         .filter(cell => !cell.hidden)
         .map(cell => ({
           field: cell.value,
           label: formatMessage({ id: `pim.table.header.${cell.value}` }),
-          sorter: () => onSort(cell.value),
+          sortable: true,
         })),
     ]);
     showFilterHeaderDlg(false);
@@ -106,12 +103,12 @@ export const PimTableView = ({
   }, []);
 
   const onSort = (column: string) => {
-    let direction: 'ascending' | 'descending' = 'ascending';
+    let direction: SortDirection = 'asc';
 
-    if (sortColumn !== column) {
+    if (sortBy !== column) {
       setSortColumn(column);
     } else if (sortDirection === direction) {
-      direction = 'descending';
+      direction = 'desc';
     }
 
     setSortDirection(direction);
@@ -135,21 +132,21 @@ export const PimTableView = ({
             {headerCells.map(cell => (
               <TableCell
                 key={cell.field}
-                className={classnames(classes.tableHeaderCell, sortColumn === cell.field && 'sorting')}
-                onClick={() => cell.sorter?.()}
+                sortDirection={sortBy === cell.field ? (sortDirection as SortDirection) : false}
+                className={clsx(classes.tableHeaderCell, sortBy === cell.field && 'sorted')}
+                onClick={() => (cell.sortable ? onSort(cell.field) : null)}
               >
-                <Box display="flex" alignItems="center">
-                  <div>{cell.label}</div>
-                  <Box ml={0.5} display="flex" alignItems="center">
-                    {sortColumn === cell.field ? (
-                      sortDirection === 'ascending' ? (
-                        <ArrowUpIcon fontSize="small" color="primary" />
-                      ) : (
-                        <ArrowDownIcon fontSize="small" color="primary" />
-                      )
-                    ) : null}
-                  </Box>
-                </Box>
+                <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
+                  {cell.label}
+                </Typography>
+                {sortBy === cell.field ? (
+                  <>
+                    {sortDirection === 'desc' && <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />}
+                    {sortDirection === 'asc' && <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />}
+                  </>
+                ) : (
+                  <Box className={classes.columnSortIconPlaceholder} />
+                )}
               </TableCell>
             ))}
             <TableCell className={classes.tableHeaderCell} valign="middle">
@@ -162,7 +159,7 @@ export const PimTableView = ({
             <TableRow
               key={index}
               onClick={() => onClick?.(item.id)}
-              className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
+              className={clsx(classes.tableRow, index % 2 === 0 && 'striped')}
             >
               <TableCell padding="checkbox">
                 <Checkbox

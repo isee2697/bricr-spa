@@ -13,7 +13,7 @@ export type PimTableMovableHeader =
 export type PimTableHeaderCell = {
   field: PimTableFixedHeader | PimTableMovableHeader;
   label?: string;
-  sorter?: VoidFunction;
+  sortable?: boolean;
 };
 
 export type PimTableViewProps = {

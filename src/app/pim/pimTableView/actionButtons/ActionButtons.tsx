@@ -41,10 +41,7 @@ export const ActionButtons = ({ id, onArchive, onEdit, onDelete }: ActionButtons
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
-
-    // if (!menuEl) {
-    setMenuEl(menu => (menu ? null : event.currentTarget));
-    // }
+    setMenuEl(menuEl ? null : event.currentTarget);
   };
 
   const onMenuClose = () => {

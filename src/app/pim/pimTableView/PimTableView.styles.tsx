@@ -8,8 +8,9 @@ export const useStyles = makeStyles(theme => ({
     borderBottom: 'none',
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
+    cursor: 'pointer',
 
-    '&.sorting': {
+    '&.sorted': {
       color: theme.palette.primary.main,
     },
   },
@@ -74,5 +75,20 @@ export const useStyles = makeStyles(theme => ({
     height: 112,
     marginRight: theme.spacing(2),
     fontSize: '3em',
+  },
+  columnHeaderLabel: {
+    marginRight: theme.spacing(1),
+    verticalAlign: 'middle',
+  },
+  columnHeaderIcon: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    verticalAlign: 'middle',
+  },
+  columnSortIconPlaceholder: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    display: 'inline-block',
+    verticalAlign: 'middle',
   },
 }));
