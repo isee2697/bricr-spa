@@ -13,3 +13,5 @@ export const InsightsContainer = () => {
 
   return <Insights breadcrumbs={breadcrumbs} entityType={EntityType.Insights} path={AppRoute.insights} />;
 };
+
+export default InsightsContainer;

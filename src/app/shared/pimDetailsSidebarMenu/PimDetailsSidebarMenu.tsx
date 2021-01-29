@@ -305,3 +305,5 @@ export const PimDetailsSidebarMenu = ({
     />
   );
 };
+
+export default PimDetailsSidebarMenu;

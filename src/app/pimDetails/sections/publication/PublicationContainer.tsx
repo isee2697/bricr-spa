@@ -7,3 +7,5 @@ import { Publication } from './Publication';
 export const PublicationContainer = (props: PimDetailsSectionProps) => {
   return <Publication {...props} />;
 };
+
+export default PublicationContainer;

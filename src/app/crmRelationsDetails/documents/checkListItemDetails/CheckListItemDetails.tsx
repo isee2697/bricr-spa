@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { useLocale } from 'hooks';
 import { Box, Chip, Grid, IconButton, Typography } from 'ui/atoms';
-import { CheckIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { CheckIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 
 import { ChecklistItemDetailsProps } from './ChecklistItemDetails.types';
@@ -40,7 +40,7 @@ export const CheckListItemDetails = ({
               className={classes.rotatedButton}
               onClick={() => push(`${path}/${checklistId}`)}
             >
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
           </Box>
         }

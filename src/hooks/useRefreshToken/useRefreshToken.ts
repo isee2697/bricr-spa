@@ -17,15 +17,19 @@ export const useRefreshToken = () => {
       body: JSON.stringify({
         token,
       }),
-    }).then(async response => {
-      if (response.ok) {
-        const { AuthenticationResult } = await response.json();
+    })
+      .then(async response => {
+        if (response.ok) {
+          const { AuthenticationResult } = await response.json();
 
-        dispatch(setTokens(AuthenticationResult.AccessToken, token));
+          dispatch(setTokens(AuthenticationResult.AccessToken, token));
 
-        return AuthenticationResult?.AccessToken;
-      }
-    });
+          return AuthenticationResult?.AccessToken;
+        }
+      })
+      .catch(() => {
+        return undefined;
+      });
   };
 
   return getRefreshToken;

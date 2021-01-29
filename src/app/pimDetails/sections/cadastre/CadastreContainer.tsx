@@ -32,3 +32,5 @@ export const CadastreContainer = ({ title, isSidebarVisible, onSidebarOpen }: Pi
     />
   );
 };
+
+export default CadastreContainer;

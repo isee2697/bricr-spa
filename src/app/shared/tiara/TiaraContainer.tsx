@@ -43,3 +43,5 @@ export const TiaraContainer = (props: TiaraContainerProps) => {
     />
   );
 };
+
+export default TiaraContainer;

@@ -10,3 +10,5 @@ export const CrmContainer = () => {
 
   return <Crm path={AppRoute.crm} status={status} onStatusChange={setStatus} />;
 };
+
+export default CrmContainer;

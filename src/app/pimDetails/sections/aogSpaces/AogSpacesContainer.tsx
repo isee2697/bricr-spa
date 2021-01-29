@@ -19,3 +19,5 @@ export const AogSpacesContainer = ({ isSidebarVisible, onSidebarOpen, type }: Ao
     <AogSpaces data={data.getPimInside} isSidebarVisible={isSidebarVisible} onSidebarOpen={onSidebarOpen} type={type} />
   );
 };
+
+export default AogSpacesContainer;

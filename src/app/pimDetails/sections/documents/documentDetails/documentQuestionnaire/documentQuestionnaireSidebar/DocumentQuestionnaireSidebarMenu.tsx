@@ -3,13 +3,14 @@ import { useLocation, useRouteMatch } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { SidebarMenu } from 'ui/molecules';
-import { CheckIcon, SaleIcon, CloseIcon, TriggerIcon, LockIcon } from 'ui/atoms/icons';
+import { CheckIcon, CloseIcon, LockIcon, SaleIcon, TriggerIcon } from 'ui/atoms/icons';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
-import { Scrollable, Stepper, Step, Typography, Box, Chip, SidebarTitleTile, UserAvatar } from 'ui/atoms';
+import { Box, Chip, Scrollable, SidebarTitleTile, Step, Stepper, Typography, UserAvatar } from 'ui/atoms';
 import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
 import { useLocale } from 'hooks';
+import { QuestionStepStatus } from 'app/pimDetails/sections/documents/documentDetails/documentQuestionnaire/DocumentQuestionnaire.types';
 
-import { useStyles, Connector, Labels } from './DocumentQuestionnaireSidebarMenu.styles';
+import { Connector, Labels, useStyles } from './DocumentQuestionnaireSidebarMenu.styles';
 import { DocumentQuestionnaireSidebarMenuProps } from './DocumentQuestionnaireSidebarMenu.types';
 
 export const DocumentQuestionnaireSidebarMenu = ({
@@ -68,10 +69,25 @@ export const DocumentQuestionnaireSidebarMenu = ({
                 connector={<Connector />}
                 className={classes.stepper}
                 orientation="vertical"
+                nonLinear
               >
-                {data.steps.map(({ title, modifiedAt, approved, declined }, index) => (
-                  <Step key={title} className={classes.step} onClick={() => onChangeStep(index)}>
-                    <Labels StepIconComponent={StageIcon}>
+                {data.steps.map(({ title, modifiedAt, approved, declined, status }, index) => (
+                  <Step
+                    completed={status === QuestionStepStatus.Completed}
+                    key={title}
+                    className={`${classes.step} ${status === QuestionStepStatus.Completed && classes.completed}`}
+                    onClick={() => onChangeStep(index)}
+                  >
+                    <Labels
+                      completed={status === QuestionStepStatus.Completed}
+                      icon={
+                        <StageIcon
+                          active={activeItem === index}
+                          completed={status === QuestionStepStatus.Completed}
+                          icon={index}
+                        />
+                      }
+                    >
                       <Box display="flex" alignItems="flex-start">
                         <Box display="flex" flexDirection="column" alignItems="flex-start">
                           <Box my={0.5}>

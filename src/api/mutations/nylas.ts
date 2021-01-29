@@ -11,16 +11,9 @@ export const AUTHORIZE_NYLAS_ACCOUNT = gql`
 `;
 
 export const AUTHORIZE_NYLAS_ACCOUNT_WITH_TOKEN = gql`
-  mutation AuthorizeNylasAccountWithToken(
-    $nylasToken: String!
-    $isCalendarConnected: Boolean
-    $isEmailConnected: Boolean
-  ) {
-    authorizeNylasAccountWithToken(
-      nylasToken: $nylasToken
-      isCalendarConnected: $isCalendarConnected
-      isEmailConnected: $isEmailConnected
-    ) {
+  mutation AuthorizeNylasAccountWithToken($input: NylasAddAccountInput!) {
+    authorizeNylasAccountWithToken(input: $input)
+      @rest(type: "CreateNylasAccount", path: "/nylas-addaccount", method: "POST", endpoint: "default") {
       id
       userId
       accountId
