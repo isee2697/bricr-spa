@@ -146,6 +146,9 @@ export const PimList = ({
                   selected={selected}
                   onSelectItem={handleSelectItem}
                   onSelectAllItems={handleSelectAllItems}
+                  onArchive={() => {}}
+                  onEdit={() => {}}
+                  onDelete={() => {}}
                 />
               ) : (
                 <List

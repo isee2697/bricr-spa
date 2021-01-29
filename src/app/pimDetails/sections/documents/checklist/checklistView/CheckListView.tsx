@@ -82,7 +82,10 @@ export const CheckListView = ({
             <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
             <List
               className="checklist-view"
-              items={data}
+              items={data.map((item, index) => ({
+                ...item,
+                listIndex: index,
+              }))}
               itemIndex="id"
               sortOptions={[
                 { key: 'lastEdited', name: 'Last edited' },
@@ -112,7 +115,7 @@ export const CheckListView = ({
                   <Box display="flex" flexDirection="column" justifyContent="space-between" alignItems="center">
                     {checkbox}
                     <Typography variant="h4" className={classes.rowIndex}>
-                      {data.findIndex(item => item.id === doc.id) + 1}
+                      {doc.listIndex}
                     </Typography>
                   </Box>
                   <Box component="span" className={classes.rowItem}>

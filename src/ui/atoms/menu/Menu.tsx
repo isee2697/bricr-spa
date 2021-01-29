@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { CardContent, Popper, Card, CardActions, Box } from '../';
-import { useOnClickOutside } from 'hooks/useOnClickOutside/useOnClickOutside';
+import { CardContent, Popper, Card, CardActions, Box, ClickAwayListener } from '../';
 
 import { MenuProps } from './Menu.types';
 import { useStyles } from './Menu.styles';
@@ -26,7 +25,9 @@ export const Menu = ({
   const [arrRef, setArrRef] = useState<HTMLDivElement | null>(null);
   const classes = useStyles({ offsetTop, offsetRight, offsetBottom, offsetLeft, placement });
 
-  useOnClickOutside(ref, () => onClose());
+  const handleClickAway = () => {
+    onClose();
+  };
 
   return (
     <Popper
@@ -38,20 +39,22 @@ export const Menu = ({
       modifiers={{ arrow: { enabled: arrow, element: arrRef } }}
       transition
     >
-      <div ref={ref}>
-        {arrow ? <div className={classes.arrow} ref={setArrRef} /> : null}
-        <Box
-          mr={offsetRight && offsetRight}
-          mt={offsetTop && offsetTop}
-          mb={offsetBottom && offsetBottom}
-          ml={offsetLeft && offsetLeft}
-        >
-          <Card className={classes.card}>
-            <CardContent>{children}</CardContent>
-            {actions && <CardActions>{actions}</CardActions>}
-          </Card>
-        </Box>
-      </div>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <div ref={ref}>
+          {arrow ? <div className={classes.arrow} ref={setArrRef} /> : null}
+          <Box
+            mr={offsetRight && offsetRight}
+            mt={offsetTop && offsetTop}
+            mb={offsetBottom && offsetBottom}
+            ml={offsetLeft && offsetLeft}
+          >
+            <Card className={classes.card}>
+              <CardContent>{children}</CardContent>
+              {actions && <CardActions>{actions}</CardActions>}
+            </Card>
+          </Box>
+        </div>
+      </ClickAwayListener>
     </Popper>
   );
 };
