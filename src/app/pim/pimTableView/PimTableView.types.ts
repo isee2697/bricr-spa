@@ -10,6 +10,12 @@ export type PimTableMovableHeader =
   | 'attentionNote'
   | 'completeness';
 
+export type PimTableHeaderCell = {
+  field: PimTableFixedHeader | PimTableMovableHeader;
+  label?: string;
+  sortable?: boolean;
+};
+
 export type PimTableViewProps = {
   items: Pim[];
   onClick?: (id: string) => void;
