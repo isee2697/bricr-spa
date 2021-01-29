@@ -1,54 +1,22 @@
-import React, { ReactElement, useCallback, useState } from 'react';
-import classnames from 'classnames';
+import React, { useCallback, useState } from 'react';
+import clsx from 'classnames';
+import { SortDirection } from '@material-ui/core';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Box,
-  IconButton,
-  Menu,
-  Typography,
-  MenuItem,
-  Avatar,
-  Emoji,
-} from 'ui/atoms';
-import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Typography, Emoji } from 'ui/atoms';
+import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
 
-import { PimTableFixedHeader, PimTableMovableHeader, PimTableViewProps } from './PimTableView.types';
+import {
+  PimTableFixedHeader,
+  PimTableHeaderCell,
+  PimTableMovableHeader,
+  PimTableViewProps,
+} from './PimTableView.types';
 import { useStyles } from './PimTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
+import { ActionButtons } from './actionButtons/ActionButtons';
 
 const FIXED_HEADER_COLUMNS: PimTableFixedHeader[] = ['address', 'houseNumber', 'addition', 'city'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
@@ -93,19 +61,33 @@ export const PimTableView = ({
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+  const [headerCells, setHeaderCells] = useState<PimTableHeaderCell[]>(
+    FIXED_HEADER_COLUMNS.map(cell => ({
+      field: cell,
+      label: formatMessage({ id: `pim.table.header.${cell}` }),
+      sortable: true,
+    })),
+  );
 
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
+  const [sortBy, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(false);
 
   const changeHeaderCells = (headerCells: HeaderColumnItemType[]) => {
     setMovableHeaderCells([...headerCells]);
+    setHeaderCells([
+      ...FIXED_HEADER_COLUMNS.map(cell => ({
+        field: cell,
+        label: formatMessage({ id: `pim.table.header.${cell}` }),
+        sortable: true,
+      })),
+      ...headerCells
+        .filter(cell => !cell.hidden)
+        .map(cell => ({
+          field: cell.value,
+          label: formatMessage({ id: `pim.table.header.${cell.value}` }),
+          sortable: true,
+        })),
+    ]);
     showFilterHeaderDlg(false);
   };
 
@@ -119,6 +101,18 @@ export const PimTableView = ({
         return pim[cell];
     }
   }, []);
+
+  const onSort = (column: string) => {
+    let direction: SortDirection = 'asc';
+
+    if (sortBy !== column) {
+      setSortColumn(column);
+    } else if (sortDirection === direction) {
+      direction = 'desc';
+    }
+
+    setSortDirection(direction);
+  };
 
   return (
     <>
@@ -135,29 +129,37 @@ export const PimTableView = ({
                 }}
               />
             </TableCell>
-            {FIXED_HEADER_COLUMNS.map(cell => (
-              <TableCell className={classes.tableHeaderCell} key={cell}>
-                {formatMessage({ id: `pim.table.header.${cell}` })}
+            {headerCells.map(cell => (
+              <TableCell
+                key={cell.field}
+                sortDirection={sortBy === cell.field ? (sortDirection as SortDirection) : false}
+                className={clsx(classes.tableHeaderCell, sortBy === cell.field && 'sorted')}
+                onClick={() => (cell.sortable ? onSort(cell.field) : null)}
+              >
+                <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
+                  {cell.label}
+                </Typography>
+                {sortBy === cell.field ? (
+                  <>
+                    {sortDirection === 'desc' && <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />}
+                    {sortDirection === 'asc' && <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />}
+                  </>
+                ) : (
+                  <Box className={classes.columnSortIconPlaceholder} />
+                )}
               </TableCell>
             ))}
-            {movableHeaderCells
-              .filter(cell => !cell.hidden)
-              .map(cell => (
-                <TableCell className={classes.tableHeaderCell} key={cell.value}>
-                  {formatMessage({ id: `pim.table.header.${cell.value}` })}
-                </TableCell>
-              ))}
             <TableCell className={classes.tableHeaderCell} valign="middle">
               <SettingsIcon className={classes.tableActionCell} onClick={() => showFilterHeaderDlg(true)} />
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item, index) => (
+          {[...items, ...items].map((item, index) => (
             <TableRow
               key={index}
               onClick={() => onClick?.(item.id)}
-              className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
+              className={clsx(classes.tableRow, index % 2 === 0 && 'striped')}
             >
               <TableCell padding="checkbox">
                 <Checkbox
@@ -170,71 +172,18 @@ export const PimTableView = ({
                   }}
                 />
               </TableCell>
-              {FIXED_HEADER_COLUMNS.map(cell => (
-                <TableCell className={classes.tableCellType} key={cell}>
-                  {cell === 'address' && item.mainPicture?.file?.url && (
+              {headerCells.map((cell, index) => (
+                <TableCell key={index}>
+                  {cell.field === 'address' && item.mainPicture?.file?.url && (
                     <Avatar variant="rounded" src={item.mainPicture.file.url} className={classes.image}>
                       {!item.mainPicture.file.url && <Emoji>{'📷'}</Emoji>}
                     </Avatar>
                   )}
-                  {renderCell(item, cell)}
+                  {renderCell(item, cell.field)}
                 </TableCell>
               ))}
-              {movableHeaderCells
-                .filter(cell => !cell.hidden)
-                .map(cell => (
-                  <TableCell className={classes.tableCellType} key={cell.value}>
-                    {renderCell(item, cell.value)}
-                  </TableCell>
-                ))}
               <TableCell>
-                <div>
-                  <IconButton
-                    className="menu-icon"
-                    variant="rounded"
-                    size="small"
-                    selected={Boolean(menuEl)}
-                    onClick={onMenuClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Menu
-                    id={item.id}
-                    open={Boolean(menuEl)}
-                    onClose={onMenuClose}
-                    anchorEl={menuEl}
-                    placement="bottom-end"
-                  >
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.archive',
-                      })}
-                      onClick={() => {
-                        onArchive?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.edit',
-                      })}
-                      onClick={() => {
-                        onEdit?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.delete',
-                      })}
-                      onClick={() => {
-                        onDelete?.();
-                        onMenuClose();
-                      }}
-                      icon={<DeleteIcon color="secondary" />}
-                    />
-                  </Menu>
-                </div>
+                <ActionButtons id={item.id} onArchive={onArchive} onEdit={onEdit} onDelete={onDelete} />
               </TableCell>
             </TableRow>
           ))}

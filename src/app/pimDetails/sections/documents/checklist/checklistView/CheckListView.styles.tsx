@@ -26,14 +26,13 @@ export const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   rowIndex: {
-    color: theme.palette.gray.main,
-    border: `2px solid ${theme.palette.gray.light}`,
-    borderRadius: theme.spacing(1.5),
+    margin: theme.spacing(2.5),
     width: theme.spacing(3),
     height: theme.spacing(3),
     textAlign: 'center',
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2.75),
+    border: `1px solid ${theme.palette.gray.light}`,
+    borderRadius: theme.spacing(1.5),
+    color: theme.palette.gray.main,
   },
   listContent: {
     paddingLeft: 0,
