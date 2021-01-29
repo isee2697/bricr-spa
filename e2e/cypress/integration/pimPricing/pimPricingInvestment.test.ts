@@ -17,6 +17,8 @@ context('Pim Details Investments', () => {
     cy.contains('Investment');
   });
   it('allows to edit investment', () => {
+    cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/prices/investments'));
+
     cy.findByText('Edit mode').click();
 
     cy.get('input[name="economicRentalValue"]').type('1000');
