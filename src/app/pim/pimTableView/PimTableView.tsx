@@ -60,7 +60,15 @@ export const PimTableView = ({
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
-  const [headerCells, setHeaderCells] = useState<PimTableHeaderCell[]>([]);
+  const [headerCells, setHeaderCells] = useState<PimTableHeaderCell[]>(
+    FIXED_HEADER_COLUMNS.map(cell => ({
+      field: cell,
+      label: formatMessage({ id: `pim.table.header.${cell}` }),
+      sorter: () => {
+        onSort(cell);
+      },
+    })),
+  );
 
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | null>(null);
