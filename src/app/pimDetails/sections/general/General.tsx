@@ -30,3 +30,4 @@ export const General = (props: PimDetailsSectionProps) => {
     </>
   );
 };
+export default General;

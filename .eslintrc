@@ -22,7 +22,6 @@
     "react/jsx-props-no-spreading": "off",
     "react-hooks/exhaustive-deps": "warn",
 
-    "import/no-default-export": "error",
     "import/order": [
       "error",
       {

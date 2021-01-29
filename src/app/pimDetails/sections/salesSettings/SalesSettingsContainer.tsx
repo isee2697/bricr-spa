@@ -52,3 +52,5 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
     </>
   );
 };
+
+export default SalesSettingsContainer;

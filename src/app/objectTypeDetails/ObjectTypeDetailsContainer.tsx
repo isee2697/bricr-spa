@@ -15,3 +15,5 @@ export const ObjectTypeDetailsContainer = () => {
     </>
   );
 };
+
+export default ObjectTypeDetailsContainer;

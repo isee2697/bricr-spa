@@ -10,12 +10,14 @@ import {
 } from 'api/types';
 import { Loader, Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { useAuthState } from 'hooks';
 
 import { Notifications } from './Notifications';
 
 export const NotificationsContainer = () => {
   const { formatMessage } = useLocale();
-  const { loading, error, data } = useGetNotificationsQuery({ fetchPolicy: 'no-cache' });
+  const { user } = useAuthState();
+  const { loading, error, data } = useGetNotificationsQuery({ fetchPolicy: 'no-cache', skip: !user });
   const [isSuccess, setSuccess] = useState(false);
   const [updateInfo, setUpdateInfo] = useState<'read' | 'delete'>();
   const [deleteNotification] = useDeleteNotificationMutation();
@@ -140,3 +142,5 @@ export const NotificationsContainer = () => {
     </>
   );
 };
+
+export default NotificationsContainer;

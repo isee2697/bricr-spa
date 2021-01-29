@@ -40,3 +40,5 @@ export const CrmBusinessesDetailsContainer = () => {
     />
   );
 };
+
+export default CrmBusinessesDetailsContainer;

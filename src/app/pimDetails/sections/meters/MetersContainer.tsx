@@ -23,3 +23,5 @@ export const MetersContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimD
     />
   );
 };
+
+export default MetersContainer;
