@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { useHistory } from 'react-router-dom';
 import clsx from 'classnames';
@@ -7,6 +8,7 @@ import { Box, Button, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/at
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
 import {
+  AddIcon,
   BuildingIcon,
   CrmIcon,
   DeleteIcon,
@@ -17,8 +19,7 @@ import {
   ExitIcon,
   TasksIcon,
 } from 'ui/atoms/icons';
-import { AddAppointmentInput, CalendarTypes } from 'api/types';
-import { AutosaveForm } from 'ui/organisms';
+import { CalendarTypes } from 'api/types';
 
 import { AppointmentBaseInfoCard } from './cards/baseInfo/BaseInfo';
 import { Participant } from './cards/participant/Participant';
@@ -55,15 +56,7 @@ const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
   );
 };
 
-export const NewAppointment = ({
-  members,
-  locations,
-  appointmentInfo,
-  onSubmit,
-  onConfirm,
-  loading,
-  isEdit,
-}: NewAppointmentProps) => {
+export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, loading }: NewAppointmentProps) => {
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -78,18 +71,12 @@ export const NewAppointment = ({
     setMenuEl(null);
   };
 
-  const handleSave = async (values: AddAppointmentInput) => {
-    await onSubmit(values);
-
-    return undefined;
-  };
-
   return (
-    <AutosaveForm
+    <Form
       initialValues={appointmentInfo}
       keepDirtyOnReinitialize
       mutators={{ ...arrayMutators }}
-      onSave={handleSave}
+      onSubmit={values => onSubmit(values)}
     >
       {({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit} autoComplete="off">
@@ -99,14 +86,6 @@ export const NewAppointment = ({
             title={formatMessage({ id: 'appointment.new.title' })}
             titleActions={
               <Box display="flex" alignItems="center">
-                {!isEdit && (
-                  <>
-                    <Button variant="contained" color="primary" onClick={onConfirm} disabled={loading}>
-                      {formatMessage({ id: 'calendar.appointments.create_appointment.confirm' })}
-                    </Button>
-                    <Box ml={4} />
-                  </>
-                )}
                 <IconButton size="small" variant="roundedContained" className={classes.btnWhite}>
                   <TasksIcon />
                 </IconButton>
@@ -134,6 +113,10 @@ export const NewAppointment = ({
                 <IconButton size="small" variant="roundedContained" onClick={goBack} className={classes.btnBack}>
                   <ExitIcon />
                 </IconButton>
+                <Box ml={1} />
+                <Button type="submit" variant="contained" color="primary" disabled={loading}>
+                  <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointments.create_appointment.add' })}
+                </Button>
                 <Menu
                   id="new-appointment-setting-menu"
                   open={Boolean(menuEl)}
@@ -219,6 +202,6 @@ export const NewAppointment = ({
           </Page>
         </form>
       )}
-    </AutosaveForm>
+    </Form>
   );
 };

@@ -129,7 +129,6 @@ export type Mutation = {
   bulk: BulkOperationResult;
   bulkDeleteNotifications?: Maybe<Scalars['Boolean']>;
   bulkReadNotifications?: Maybe<Scalars['Boolean']>;
-  confirmAppointment: Appointment;
   confirmProfileInvite: Profile;
   createCompany: Company;
   createCrm: CrmGeneral;
@@ -146,7 +145,6 @@ export type Mutation = {
   deleteEntity: Array<DeleteResult>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
   deleteSubtask?: Maybe<Task>;
-  draftAppointment: DraftAppointment;
   forgotPassword?: Maybe<ForgotPasswordResponse>;
   initSendFile: File;
   linkNcpToProjectPhase: ProjectPhase;
@@ -473,11 +471,6 @@ export type MutationBulkReadNotificationsArgs = {
   input: BulkReadNotificationsInput;
 };
 
-export type MutationConfirmAppointmentArgs = {
-  accountId: Scalars['String'];
-  appointmentId: Scalars['ID'];
-};
-
 export type MutationConfirmProfileInviteArgs = {
   input: ConfirmProfileInvite;
 };
@@ -540,10 +533,6 @@ export type MutationDeleteNotificationArgs = {
 
 export type MutationDeleteSubtaskArgs = {
   subtaskId: Scalars['ID'];
-};
-
-export type MutationDraftAppointmentArgs = {
-  input: DraftAppointmentInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -1538,29 +1527,6 @@ export type Appointment = {
 export type AppointmentTermInput = {
   from?: Maybe<Scalars['Date']>;
   to?: Maybe<Scalars['Date']>;
-};
-
-export type DraftAppointmentInput = {
-  id?: Maybe<Scalars['ID']>;
-  title?: Maybe<Scalars['String']>;
-  from?: Maybe<Scalars['Date']>;
-  to?: Maybe<Scalars['Date']>;
-  alternativeTerms?: Maybe<Array<AppointmentTermInput>>;
-  allDay?: Maybe<Scalars['Boolean']>;
-  confirmedDate?: Maybe<Scalars['Boolean']>;
-  repeatAppointment?: Maybe<AppointmentRepeat>;
-  description?: Maybe<Scalars['String']>;
-  assignedPimIds?: Maybe<Array<Scalars['String']>>;
-  agreementType?: Maybe<Array<Maybe<AppointmentMeetingType>>>;
-  invitedPersons?: Maybe<Array<Scalars['String']>>;
-  isInsideOffice?: Maybe<Scalars['Boolean']>;
-  location?: Maybe<Scalars['String']>;
-  outsideLocation?: Maybe<Scalars['String']>;
-  travelTimeBefore?: Maybe<Scalars['Int']>;
-  travelTimeAfter?: Maybe<Scalars['Int']>;
-  type?: Maybe<CalendarTypes>;
-  appointmentType?: Maybe<AppointmentType>;
-  taskLabel?: Maybe<TaskLabel>;
 };
 
 export type AddAppointmentInput = {
@@ -8458,44 +8424,6 @@ export type AddAppointmentMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
-export type DraftAppointmentMutationVariables = Exact<{
-  input: DraftAppointmentInput;
-}>;
-
-export type DraftAppointmentMutation = { __typename?: 'Mutation' } & {
-  draftAppointment: { __typename?: 'DraftAppointment' } & Pick<
-    DraftAppointment,
-    | 'id'
-    | 'from'
-    | 'to'
-    | 'travelTimeBefore'
-    | 'travelTimeAfter'
-    | 'title'
-    | 'allDay'
-    | 'type'
-    | 'isInsideOffice'
-    | 'location'
-    | 'outsideLocation'
-    | 'taskLabel'
-    | 'state'
-    | 'agreementType'
-    | 'repeatAppointment'
-    | 'description'
-    | 'appointmentType'
-    | 'assignedPimIds'
-    | 'invitedPersons'
-  >;
-};
-
-export type ConfirmAppointmentMutationVariables = Exact<{
-  appointmentId: Scalars['ID'];
-  accountId: Scalars['String'];
-}>;
-
-export type ConfirmAppointmentMutation = { __typename?: 'Mutation' } & {
-  confirmAppointment: { __typename?: 'Appointment' } & Pick<Appointment, 'id'>;
-};
-
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
@@ -13698,66 +13626,6 @@ export type AddAppointmentMutationResult = ApolloReactCommon.MutationResult<AddA
 export type AddAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddAppointmentMutation,
   AddAppointmentMutationVariables
->;
-export const DraftAppointmentDocument = gql`
-  mutation DraftAppointment($input: DraftAppointmentInput!) {
-    draftAppointment(input: $input) {
-      id
-      from
-      to
-      travelTimeBefore
-      travelTimeAfter
-      title
-      allDay
-      type
-      isInsideOffice
-      location
-      outsideLocation
-      taskLabel
-      state
-      agreementType
-      repeatAppointment
-      description
-      appointmentType
-      assignedPimIds
-      invitedPersons
-    }
-  }
-`;
-export function useDraftAppointmentMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<DraftAppointmentMutation, DraftAppointmentMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<DraftAppointmentMutation, DraftAppointmentMutationVariables>(
-    DraftAppointmentDocument,
-    baseOptions,
-  );
-}
-export type DraftAppointmentMutationHookResult = ReturnType<typeof useDraftAppointmentMutation>;
-export type DraftAppointmentMutationResult = ApolloReactCommon.MutationResult<DraftAppointmentMutation>;
-export type DraftAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  DraftAppointmentMutation,
-  DraftAppointmentMutationVariables
->;
-export const ConfirmAppointmentDocument = gql`
-  mutation ConfirmAppointment($appointmentId: ID!, $accountId: String!) {
-    confirmAppointment(appointmentId: $appointmentId, accountId: $accountId) {
-      id
-    }
-  }
-`;
-export function useConfirmAppointmentMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<ConfirmAppointmentMutation, ConfirmAppointmentMutationVariables>(
-    ConfirmAppointmentDocument,
-    baseOptions,
-  );
-}
-export type ConfirmAppointmentMutationHookResult = ReturnType<typeof useConfirmAppointmentMutation>;
-export type ConfirmAppointmentMutationResult = ApolloReactCommon.MutationResult<ConfirmAppointmentMutation>;
-export type ConfirmAppointmentMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  ConfirmAppointmentMutation,
-  ConfirmAppointmentMutationVariables
 >;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
