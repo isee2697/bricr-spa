@@ -28,7 +28,7 @@ export const ChartsHeader = ({ count }: ChartsHeaderProps) => {
           variant="contained"
           onClick={() => open('create-new-chart')}
         >
-          {formatMessage({ id: 'insights.create_new_chart' })}
+          {formatMessage({ id: 'insights.create_new_chart' })}dashboard
         </Button>
         <Box ml={3} />
         <IconButton size="small" variant="rounded">
