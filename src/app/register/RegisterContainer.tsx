@@ -124,3 +124,5 @@ export const RegisterContainer = () => {
     />
   );
 };
+
+export default RegisterContainer;

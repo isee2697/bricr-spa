@@ -30,3 +30,5 @@ export const ForgotPasswordContainer = () => {
 
   return <ForgotPassword onSubmit={onSubmit} />;
 };
+
+export default ForgotPasswordContainer;

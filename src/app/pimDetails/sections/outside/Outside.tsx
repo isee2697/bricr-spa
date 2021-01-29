@@ -77,3 +77,5 @@ export const Outside = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSe
     </>
   );
 };
+
+export default Outside;

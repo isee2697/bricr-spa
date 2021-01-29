@@ -30,3 +30,5 @@ export const DocumentDetailsContainer = ({ path, ...props }: DocumentDetailsCont
     />
   );
 };
+
+export default DocumentDetailsContainer;

@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { Box, Grid, IconButton, Typography, Menu, MenuItem } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { DeleteIcon, HistoryIcon, MenuIcon, ShareIcon } from 'ui/atoms/icons';
+import { DeleteIcon, HistoryIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -73,7 +73,7 @@ export const DocumentSecurity = ({ title }: DocumentSecurityProps) => {
           <Typography variant="h1">{title}</Typography>
           <Box display="flex">
             <IconButton onClick={handleGoBack} variant="rounded" size="small">
-              <ShareIcon />
+              <ExitIcon />
             </IconButton>
             <Box ml={3.5}>
               <IconButton

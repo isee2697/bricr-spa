@@ -1,11 +1,16 @@
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import { StepConnector, StepLabel } from 'ui/atoms';
+import { StepConnector, StepButton } from 'ui/atoms';
 
 export const useStyles = makeStyles(theme => ({
   step: {
     cursor: 'pointer',
     padding: 0,
+  },
+  completed: {
+    '&.MuiStep-completed  + div > span': {
+      borderColor: theme.palette.success.main,
+    },
   },
   stepper: {
     backgroundColor: 'transparent',
@@ -63,9 +68,11 @@ export const Connector = withStyles(theme => ({
 
 export const Labels = withStyles(theme => ({
   root: {
+    height: theme.spacing(6.75),
     flexDirection: 'row',
     alignItems: 'flex-start',
     '& .MuiStepLabel-iconContainer': {
+      marginTop: -theme.spacing(2),
       zIndex: 999,
       cursor: 'pointer',
     },
@@ -73,7 +80,6 @@ export const Labels = withStyles(theme => ({
   vertical: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    height: theme.spacing(6.75),
   },
   label: {
     '& h5': {
@@ -97,4 +103,4 @@ export const Labels = withStyles(theme => ({
       fontWeight: theme.typography.fontWeightBold,
     },
   },
-}))(StepLabel);
+}))(StepButton);

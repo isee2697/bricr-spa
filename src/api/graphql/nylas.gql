@@ -38,9 +38,15 @@ input NylasAccountAuthOptions {
     scopes: [String!]
 }
 
+input NylasAddAccountInput {
+    nylasToken: String!
+    isCalendarConnected: Boolean
+    isEmailConnected: Boolean
+}
+
 extend type Mutation {
     authorizeNylasAccount(input: NylasAuthorizationInput!, isCalendarConnected: Boolean, isEmailConnected: Boolean): Boolean @auth
-    authorizeNylasAccountWithToken(nylasToken: String!, isCalendarConnected: Boolean, isEmailConnected: Boolean): NylasAccount @auth
+    authorizeNylasAccountWithToken(input: NylasAddAccountInput!): NylasAccount @auth
 }
 
 extend type Query {

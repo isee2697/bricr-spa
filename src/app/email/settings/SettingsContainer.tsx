@@ -26,7 +26,11 @@ export const EmailSettingsContainer = ({ ...props }: EmailSettingsContainerProps
     const addNewNylasAccount = async () => {
       try {
         if (nylasAuthCode) {
-          const account = await addNylasAccount({ variables: { nylasToken: nylasAuthCode, isEmailConnected: true } });
+          const account = await addNylasAccount({
+            variables: {
+              input: { nylasToken: nylasAuthCode, isEmailConnected: true },
+            },
+          });
 
           if (account) {
             window.location.href = window.location.href.split('?')[0];

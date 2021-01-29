@@ -45,3 +45,5 @@ export const ConfirmInviteContainer = () => {
 
   return <ConfirmInvite onSubmit={handleSubmit} error={error} />;
 };
+
+export default ConfirmInviteContainer;

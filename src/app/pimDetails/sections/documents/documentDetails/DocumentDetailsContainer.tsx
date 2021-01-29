@@ -31,3 +31,5 @@ export const DocumentDetailsContainer = () => {
     </Switch>
   );
 };
+
+export default DocumentContractContainer;
