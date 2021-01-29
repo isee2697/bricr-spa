@@ -8,6 +8,7 @@
  *
  * Source: https://gist.github.com/dfreeman/33fc80164c0ad91d5e9480a94aa6454c#file-tests-model-ts
  */
+
 declare module 'miragejs' {
   import { FactoryDefinition, ModelDefinition, ModelInstance } from 'miragejs/-types';
   export { Server } from 'miragejs/server';
@@ -421,3 +422,5 @@ declare module 'miragejs/test-support/setup-mirage' {
 }
 
 declare module 'react-through';
+
+declare module 'react-open-weather';
