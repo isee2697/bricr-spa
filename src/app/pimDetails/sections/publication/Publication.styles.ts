@@ -21,6 +21,7 @@ export const useStyles = makeStyles(theme => ({
   },
   row: {
     cursor: 'pointer',
+    whiteSpace: 'break-spaces',
 
     '&:hover': {
       background: theme.palette.gray.light,
@@ -67,7 +68,7 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
       fontSize: theme.typography.h5.fontSize,
       fontWeight: theme.typography.fontWeightMedium,
-      padding: '8px 36px 8px 8px',
+      padding: theme.spacing(1, 4.5, 1, 1),
     },
   },
   marginRightOne: {
