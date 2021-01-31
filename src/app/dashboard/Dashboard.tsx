@@ -12,6 +12,7 @@ import { DashboardVisitedPagesContainer } from './dashboardVisitedPages/Dashboar
 import { DashboardTasksContainer } from './dashboardTasks/DashboardTasksContainer';
 import { useStyles } from './Dashboard.styles';
 import { DashboardCalendarContainer } from './dashboardCalendar/DashboardCalendarContainer';
+import { DashboardWeatherContainer } from './dashboardWeather/DashboardWeatherContainer';
 
 export const Dashboard = () => {
   const { user } = useAuthState();
@@ -48,6 +49,9 @@ export const Dashboard = () => {
               </Grid>
               <Grid item xs={12}>
                 <DashboardVisitedPagesContainer />
+              </Grid>
+              <Grid item xs={12}>
+                <DashboardWeatherContainer />
               </Grid>
             </Grid>
           </Grid>

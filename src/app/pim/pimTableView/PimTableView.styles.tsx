@@ -3,11 +3,16 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles(theme => ({
   tableHeaderCell: {
     color: theme.palette.gray.main,
-    fontSize: theme.typography.h5.fontSize,
+    fontSize: theme.typography.caption.fontSize,
     fontWeight: theme.typography.fontWeightMedium,
     borderBottom: 'none',
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
+    cursor: 'pointer',
+
+    '&.sorted': {
+      color: theme.palette.primary.main,
+    },
   },
   tableActionCell: {
     cursor: 'pointer',
@@ -70,5 +75,20 @@ export const useStyles = makeStyles(theme => ({
     height: 112,
     marginRight: theme.spacing(2),
     fontSize: '3em',
+  },
+  columnHeaderLabel: {
+    marginRight: theme.spacing(1),
+    verticalAlign: 'middle',
+  },
+  columnHeaderIcon: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    verticalAlign: 'middle',
+  },
+  columnSortIconPlaceholder: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    display: 'inline-block',
+    verticalAlign: 'middle',
   },
 }));
