@@ -3,9 +3,11 @@ import clsx from 'classnames';
 import { SortDirection } from '@material-ui/core';
 
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Typography, Emoji } from 'ui/atoms';
-import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import { SettingsIcon, ArrowDownIcon, ArrowUpIcon, EditIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import {
   PimTableFixedHeader,
@@ -16,7 +18,6 @@ import {
 import { useStyles } from './PimTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
-import { ActionButtons } from './actionButtons/ActionButtons';
 
 const FIXED_HEADER_COLUMNS: PimTableFixedHeader[] = ['address', 'houseNumber', 'addition', 'city'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
@@ -183,7 +184,15 @@ export const PimTableView = ({
                 </TableCell>
               ))}
               <TableCell>
-                <ActionButtons id={item.id} onArchive={onArchive} onEdit={onEdit} onDelete={onDelete} />
+                <ListOptionsMenu id={item.id} onEditClick={onEdit} onDeleteClick={onDelete}>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'common.archive',
+                    })}
+                    icon={<EditIcon />}
+                    onClick={onArchive}
+                  />
+                </ListOptionsMenu>
               </TableCell>
             </TableRow>
           ))}

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { IconButton, Menu } from 'ui/atoms';
 import { DeleteIcon, EditIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 
 import { ListOptionsMenuProps } from './ListOptionsMenu.types';
 import { useStyles } from './ListOptionsMenu.styles';
+import { ListOptionsMenuItem } from './menuItem/ListOptionsMenuItem';
 
 export const ListOptionsMenu = ({
+  id,
   onEditClick,
   onDeleteClick,
   children,
@@ -18,56 +20,53 @@ export const ListOptionsMenu = ({
 }: ListOptionsMenuProps) => {
   const { formatMessage } = useLocale();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const classes = useStyles();
-
-  useEffect(() => {
-    setIsMenuOpen(Boolean(anchorEl));
-
-    return;
-  }, [anchorEl, setIsMenuOpen]);
 
   return (
     <>
       <IconButton
+        className="menu-icon"
         variant="rounded"
         size="small"
-        onClick={e => setAnchorEl(e.currentTarget)}
+        onClick={e => {
+          e.stopPropagation();
+          setAnchorEl(e.currentTarget);
+        }}
         data-testid="open-options-menu"
+        selected={Boolean(anchorEl)}
       >
         <MenuIcon />
       </IconButton>
       {anchorEl && (
         <Menu
-          id="simple-menu"
+          id={id ?? 'simple-menu'}
           anchorEl={anchorEl}
           keepMounted
-          open={isMenuOpen}
+          open={Boolean(anchorEl)}
           onClose={() => setAnchorEl(null)}
-          offsetRight={12}
+          placement="bottom-end"
+          onClick={e => e.stopPropagation()}
         >
           <div className={classes.menu} onClick={() => setAnchorEl(null)}>
             {children}
             {!hideEditButton && (
-              <MenuItem
+              <ListOptionsMenuItem
+                icon={<EditIcon />}
                 disabled={!onEditClick}
                 onClick={() => onEditClick && onEditClick()}
                 data-testid="edit-option-button"
-              >
-                <EditIcon />
-                <Typography>{editText ?? formatMessage({ id: 'common.edit' })}</Typography>
-              </MenuItem>
+                title={editText ?? formatMessage({ id: 'common.edit' })}
+              />
             )}
             {!hideDeleteButton && (
-              <MenuItem
+              <ListOptionsMenuItem
                 className="delete"
+                icon={<DeleteIcon />}
                 disabled={!onDeleteClick}
                 onClick={() => onDeleteClick && onDeleteClick()}
                 data-testid="delete-option-button"
-              >
-                <DeleteIcon />
-                <Typography>{deleteText ?? formatMessage({ id: 'common.delete' })}</Typography>
-              </MenuItem>
+                title={deleteText ?? formatMessage({ id: 'common.delete' })}
+              />
             )}
           </div>
         </Menu>

@@ -1,38 +1,13 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { GenericField, RadioGroupField } from 'form/fields';
-import { Box, Grid, MenuItem, Menu, Typography } from 'ui/atoms';
-import { HistoryIcon, SquareIcon, DeleteIcon } from 'ui/atoms/icons';
+import { Box, Grid, Menu, Typography } from 'ui/atoms';
+import { SquareIcon, DeleteIcon } from 'ui/atoms/icons';
 import { SalesConditionsType } from '../DocumentContractFlow.types';
-import { useStyles } from '../DocumentContractFlow.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 export function ContractSalesPriceForm() {
   const { formatMessage } = useLocale();
@@ -108,7 +83,7 @@ export function ContractSalesPriceForm() {
         anchorEl={menuEl}
         placement="bottom-end"
       >
-        <SubMenuItem
+        <ListOptionsMenuItem
           title={formatMessage({
             id: 'common.delete',
           })}
@@ -116,6 +91,7 @@ export function ContractSalesPriceForm() {
             onMenuClose();
           }}
           icon={<DeleteIcon color="secondary" />}
+          color="secondary"
         />
       </Menu>
     </>

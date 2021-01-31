@@ -4,10 +4,10 @@ import classnames from 'classnames';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Typography } from 'ui/atoms';
 import { ArrowUpIcon, ArrowDownIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { DocumentTableHeaderCell, DocumentTableViewProps } from './DocumentTableView.types';
 import { useStyles } from './DocumentTableView.styles';
-import { ActionButtons } from './../actionButtons/ActionButtons';
 
 export const DocumentTableView = ({
   documents,
@@ -126,7 +126,7 @@ export const DocumentTableView = ({
               </TableCell>
             ))}
             <TableCell>
-              <ActionButtons id={doc.id} onEdit={onEdit} onDelete={onDelete} />
+              <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
             </TableCell>
           </TableRow>
         ))}

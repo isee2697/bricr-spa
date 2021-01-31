@@ -1,14 +1,16 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 
-import { Loader, Grid, Box, IconButton, Menu, MenuItem, Typography, Button } from 'ui/atoms';
+import { Loader, Grid, Box, IconButton, Button } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
-import { MenuIcon, DeleteIcon, HistoryIcon, ExitIcon, AddIcon } from 'ui/atoms/icons';
+import { ExitIcon, AddIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch } from 'hooks';
 import { Page } from 'ui/templates';
 import { useStyles } from '../DocumentDetails.styles';
 import { DocumentSecurity } from '../documentSecurity/DocumentSecurity';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { DocumentListOfCaseCard, DocumentListOfCaseProps } from './DocumentListOfCase.types';
 import { DocumentListOfCaseSidebarMenu } from './documentListOfCaseSidebar/DocumentListOfCaseSidebarMenu';
@@ -18,31 +20,6 @@ import { AddLvzCardBody } from './documentListOfCaseCommon/addLvzCardModal/AddLv
 import { AddLvzItemModal } from './documentListOfCaseCommon/addLvzItemModal/AddLvzItemModal';
 import { AddLvzItemBody } from './documentListOfCaseCommon/addLvzItemModal/AddLvzItemModal.types';
 
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
-
 export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }: DocumentListOfCaseProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
@@ -51,7 +28,6 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
     .replace(':id', pimId)
     .replace(':kind', data?.documentKind || '')
     .replace(':docId', data?.id || '');
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { push } = useHistory();
   const { open, close } = useModalDispatch();
   const [cards, setCards] = useState<DocumentListOfCaseCard[]>([
@@ -60,15 +36,6 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
       name: 'Outside',
     },
   ]);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -166,72 +133,33 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
                     <ExitIcon />
                   </IconButton>
                   <Box ml={2.5}>
-                    <IconButton
-                      className="menu-icon"
-                      variant="rounded"
-                      size="small"
-                      selected={Boolean(menuEl)}
-                      onClick={onMenuClick}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Menu
-                      id={data.id}
-                      open={Boolean(menuEl)}
-                      onClose={onMenuClose}
-                      anchorEl={menuEl}
-                      placement="bottom-end"
-                    >
-                      <SubMenuItem
+                    <ListOptionsMenu id={data.id} onDeleteClick={() => {}} hideEditButton>
+                      <ListOptionsMenuItem
                         title={formatMessage({
                           id: 'pim_details.documents.menu.generate_pdf',
                         })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
                       />
-                      <SubMenuItem
+                      <ListOptionsMenuItem
                         title={formatMessage({
                           id: 'pim_details.documents.menu.send',
                         })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
                       />
-                      <SubMenuItem
+                      <ListOptionsMenuItem
                         title={formatMessage({
                           id: 'pim_details.documents.menu.save_as_draft',
                         })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
                       />
-                      <SubMenuItem
+                      <ListOptionsMenuItem
                         title={formatMessage({
                           id: 'pim_details.documents.menu.copy',
                         })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
                       />
-                      <SubMenuItem
+                      <ListOptionsMenuItem
                         title={formatMessage({
                           id: 'pim_details.documents.menu.archive',
                         })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
                       />
-                      <SubMenuItem
-                        title={formatMessage({
-                          id: 'common.delete',
-                        })}
-                        onClick={() => {
-                          onMenuClose();
-                        }}
-                        icon={<DeleteIcon color="secondary" />}
-                      />
-                    </Menu>
+                    </ListOptionsMenu>
                   </Box>
                 </Box>
               }

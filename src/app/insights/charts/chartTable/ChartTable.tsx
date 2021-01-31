@@ -19,9 +19,10 @@ import {
   Checkbox,
   Typography,
 } from 'ui/atoms';
-import { ArrowDownIcon, ArrowUpIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, EditIcon, ManageIcon, SearchIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActionButtons } from 'app/insights/common/ActionButtons/ActionButtons';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { useStyles } from './ChartTable.styles';
 import { ChartTableItemType } from './ChartTable.types';
@@ -143,7 +144,41 @@ export const ChartTable = () => {
                   <Typography variant="h5">{DateTime.local().toLocaleString(DateTime.TIME_24_WITH_SECONDS)}</Typography>
                 </TableCell>
                 <TableCell>
-                  <ActionButtons id={chart.id} onEditDetails={() => navigateToDetail(chart.id)} />
+                  <ListOptionsMenu id={chart.id} onDeleteClick={() => {}} hideEditButton>
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'insights.menu.clone',
+                      })}
+                      icon={<EditIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'insights.menu.copy_url',
+                      })}
+                      icon={<EditIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'insights.menu.email_dashboard',
+                      })}
+                      icon={<EditIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'insights.menu.edit_details',
+                      })}
+                      icon={<EditIcon />}
+                      onClick={() => {
+                        navigateToDetail(chart.id);
+                      }}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'insights.menu.inactive',
+                      })}
+                      icon={<EditIcon />}
+                    />
+                  </ListOptionsMenu>
                 </TableCell>
               </TableRow>
             ))}

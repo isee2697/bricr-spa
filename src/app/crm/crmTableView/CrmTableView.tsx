@@ -1,52 +1,17 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import classnames from 'classnames';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Box,
-  IconButton,
-  Menu,
-  Typography,
-  MenuItem,
-} from 'ui/atoms';
-import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox } from 'ui/atoms';
+import { SettingsIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmItem } from 'app/crm/Crm.types';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { CrmTableFixedHeader, CrmTableMovableHeader, CrmTableViewProps } from './CrmTableView.types';
 import { useStyles } from './CrmTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = ['type', 'insertion', 'property', 'lastName'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
@@ -91,16 +56,6 @@ export const CrmTableView = ({
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   const changeHeaderCells = (headerCells: HeaderColumnItemType[]) => {
     setMovableHeaderCells([...headerCells]);
@@ -172,53 +127,14 @@ export const CrmTableView = ({
                   </TableCell>
                 ))}
               <TableCell>
-                <div>
-                  <IconButton
-                    className="menu-icon"
-                    variant="rounded"
-                    size="small"
-                    selected={Boolean(menuEl)}
-                    onClick={onMenuClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Menu
-                    id={item.id}
-                    open={Boolean(menuEl)}
-                    onClose={onMenuClose}
-                    anchorEl={menuEl}
-                    placement="bottom-end"
-                  >
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.archive',
-                      })}
-                      onClick={() => {
-                        onArchive?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.edit',
-                      })}
-                      onClick={() => {
-                        onEdit?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.delete',
-                      })}
-                      onClick={() => {
-                        onDelete?.();
-                        onMenuClose();
-                      }}
-                      icon={<DeleteIcon color="secondary" />}
-                    />
-                  </Menu>
-                </div>
+                <ListOptionsMenu id={item.id} onEditClick={() => onEdit?.()} onDeleteClick={() => onDelete?.()}>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'common.archive',
+                    })}
+                    onClick={() => onArchive?.()}
+                  />
+                </ListOptionsMenu>
               </TableCell>
             </TableRow>
           ))}

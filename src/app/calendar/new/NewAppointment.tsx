@@ -1,24 +1,16 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { useHistory } from 'react-router-dom';
 import clsx from 'classnames';
 
-import { Box, Button, Grid, IconButton, Menu, MenuItem, Typography } from 'ui/atoms';
+import { Box, Button, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
-import {
-  BuildingIcon,
-  CrmIcon,
-  DeleteIcon,
-  GraphIcon,
-  HistoryIcon,
-  HomeIcon,
-  MenuIcon,
-  ExitIcon,
-  TasksIcon,
-} from 'ui/atoms/icons';
+import { BuildingIcon, CrmIcon, GraphIcon, HomeIcon, ExitIcon, TasksIcon } from 'ui/atoms/icons';
 import { AddAppointmentInput, CalendarTypes } from 'api/types';
 import { AutosaveForm } from 'ui/organisms';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { AppointmentBaseInfoCard } from './cards/baseInfo/BaseInfo';
 import { Participant } from './cards/participant/Participant';
@@ -29,31 +21,6 @@ import { AppointmentTypeCard } from './cards/type/AppointmentTypeCard';
 import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 import { PencilAppointment } from './cards/pencilAppointment/PencilAppointment';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 export const NewAppointment = ({
   members,
@@ -67,16 +34,6 @@ export const NewAppointment = ({
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   const handleSave = async (values: AddAppointmentInput) => {
     await onSubmit(values);
@@ -127,71 +84,38 @@ export const NewAppointment = ({
                   <GraphIcon />
                 </IconButton>
                 <Box ml={1} />
-                <IconButton size="small" variant="roundedContained" onClick={onMenuClick} selected={Boolean(menuEl)}>
-                  <MenuIcon />
-                </IconButton>
+                <ListOptionsMenu id="new-appointment-setting-menu" onDeleteClick={() => {}} hideEditButton>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'calendar.appointments.create_appointment.menu.reply',
+                    })}
+                    icon={<HomeIcon />}
+                  />
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'calendar.appointments.create_appointment.menu.reply_to_all',
+                    })}
+                  />
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'calendar.appointments.create_appointment.menu.notification',
+                    })}
+                  />
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'calendar.appointments.create_appointment.menu.set_role',
+                    })}
+                  />
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'calendar.appointments.create_appointment.menu.print',
+                    })}
+                  />
+                </ListOptionsMenu>
                 <Box ml={1} />
                 <IconButton size="small" variant="roundedContained" onClick={goBack} className={classes.btnBack}>
                   <ExitIcon />
                 </IconButton>
-                <Menu
-                  id="new-appointment-setting-menu"
-                  open={Boolean(menuEl)}
-                  onClose={onMenuClose}
-                  anchorEl={menuEl}
-                  placement="bottom-end"
-                >
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'calendar.appointments.create_appointment.menu.reply',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                    icon={<HomeIcon color="secondary" />}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'calendar.appointments.create_appointment.menu.reply_to_all',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'calendar.appointments.create_appointment.menu.notification',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'calendar.appointments.create_appointment.menu.set_role',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'calendar.appointments.create_appointment.menu.print',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                  />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'common.delete',
-                    })}
-                    onClick={() => {
-                      onMenuClose();
-                    }}
-                    icon={<DeleteIcon color="secondary" />}
-                  />
-                </Menu>
               </Box>
             }
           >
