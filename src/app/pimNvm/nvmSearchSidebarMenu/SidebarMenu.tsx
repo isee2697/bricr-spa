@@ -71,7 +71,9 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
           <div className={classes.menuWrapper}>
             <div className={classes.banner}>
               <BuildingIcon />
-              <Typography variant="h5">{formatMessage({ id: 'nvm.title' })}</Typography>
+              <Typography variant="h5" color="textPrimary">
+                {formatMessage({ id: 'nvm.title' })}
+              </Typography>
             </div>
             <Button
               className={classes.showHideButton}

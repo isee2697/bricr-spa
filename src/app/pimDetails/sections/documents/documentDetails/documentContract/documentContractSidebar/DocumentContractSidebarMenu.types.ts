@@ -6,6 +6,8 @@ export type DocumentContractSidebarMenuProps = {
   data: DocumentContractType;
   onChangeGroup: (group: DocumentContractGroup) => void;
   group: DocumentContractGroup;
+  activeItem: number;
+  onChangeActiveItem: (item: number) => void;
 };
 
 export enum DocumentContractGroup {

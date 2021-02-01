@@ -36,7 +36,7 @@ export const DocumentContractFlow = ({ data }: DocumentContractFlowProps) => {
   return (
     <Page withoutHeader>
       <Grid item xs={12}>
-        <Box>
+        <Box id={`document-contract-step-${1}`}>
           <FormControlLabel
             control={<Checkbox checked={allOpened} onChange={() => setAllOpened(!allOpened)} color="primary" />}
             label={
@@ -46,52 +46,52 @@ export const DocumentContractFlow = ({ data }: DocumentContractFlowProps) => {
             }
           />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${2}`}>
           <ContractGeneralForm documentKind={data.documentKind} />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${3}`}>
           <ContractSalesPriceForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${4}`}>
           <ContractGroundLeaseForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${5}`}>
           <ContractMovablePropertyForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${6}`}>
           <ContractPublicLawForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${7}`}>
           <ContractRemovalRightsForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${8}`}>
           <ContractChargesnObligationsForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${9}`}>
           <ContractHandoverForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${10}`}>
           <ContractGuarenteeForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${11}`}>
           <ContractDissolutionsForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${12}`}>
           <ContractNHGForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${13}`}>
           <ContractConstructionInsForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${14}`}>
           <ContractRegistrationForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${15}`}>
           <ContractExtraArticlesForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${16}`}>
           <ContractSigningForm />
         </Box>
-        <Box mt={2.5}>
+        <Box mt={2.5} id={`document-contract-step-${17}`}>
           <ContractAllongeForm />
         </Box>
         {/* {data.steps.map(step => (

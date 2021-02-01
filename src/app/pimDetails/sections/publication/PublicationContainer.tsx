@@ -17,7 +17,12 @@ export const PublicationContainer = (props: PimDetailsSectionProps) => {
         name: values.name,
         type: values.type,
         startDate: DateTime.local(),
-        status: PublicationStatus.Error,
+        status:
+          publications.length % 3 === 0
+            ? PublicationStatus.Success
+            : publications.length % 3 === 1
+            ? PublicationStatus.Warning
+            : PublicationStatus.Error,
         isActive: true,
       },
     ]);

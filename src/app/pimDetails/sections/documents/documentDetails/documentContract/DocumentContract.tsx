@@ -8,7 +8,7 @@ import { MenuIcon, DeleteIcon, HistoryIcon, ExitIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { useStyles } from '../DocumentDetails.styles';
 
-import { DocumentContractProps } from './DocumentContract.types';
+import { ContractStepStatus, DocumentContractProps } from './DocumentContract.types';
 import { DocumentContractSidebarMenu } from './documentContractSidebar/DocumentContractSidebarMenu';
 import { DocumentContractFlow } from './documentContractFlow/DocumentContractFlow';
 import { DocumentContractGroup } from './documentContractSidebar/DocumentContractSidebarMenu.types';
@@ -46,6 +46,9 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { push } = useHistory();
   const [openedGroup, setOpenedGroup] = useState<DocumentContractGroup>(DocumentContractGroup.Data);
+  const [activeItem, setActiveItem] = useState(
+    data?.steps.findIndex(step => step.status === ContractStepStatus.InProgress) || -1,
+  );
 
   const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
@@ -54,6 +57,12 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
 
   const onMenuClose = () => {
     setMenuEl(null);
+  };
+
+  const handleChangeActiveItem = (itemIndex: number) => {
+    const element = document.getElementById(`document-contract-step-${itemIndex + 1}`);
+    element?.scrollIntoView();
+    setActiveItem(itemIndex);
   };
 
   const handleSidebarHide = useCallback(() => {
@@ -88,6 +97,8 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
           data={data}
           onChangeGroup={setOpenedGroup}
           group={openedGroup}
+          activeItem={activeItem}
+          onChangeActiveItem={handleChangeActiveItem}
         />
         <Box flex={1}>
           <Grid container className={classes.content}>
