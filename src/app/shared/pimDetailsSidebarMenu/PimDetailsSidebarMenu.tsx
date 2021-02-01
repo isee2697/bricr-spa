@@ -240,14 +240,17 @@ export const PimDetailsSidebarMenu = ({
           {
             key: 'publication',
             title: formatMessage({ id: 'pim_details.menu.publication' }),
+            count: 5,
           },
           {
             key: 'newsLetter',
             title: formatMessage({ id: 'pim_details.menu.news_letter' }),
+            count: 5,
           },
           {
             key: 'openHouse',
             title: formatMessage({ id: 'pim_details.menu.open_house' }),
+            count: 5,
           },
         ],
       },

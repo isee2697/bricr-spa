@@ -1,27 +1,17 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { withStyles } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import {
-  Avatar,
-  Box,
-  Typography,
-  Emoji,
-  IconButton,
-  Menu,
-  MenuItem,
-  Step,
-  StepConnector,
-  StepLabel,
-  Stepper,
-} from 'ui/atoms';
-import { MenuIcon, CloseIcon, CheckIcon, HistoryIcon, DeleteIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Typography, Emoji, Step, StepConnector, StepLabel, Stepper } from 'ui/atoms';
+import { CloseIcon, CheckIcon } from 'ui/atoms/icons';
 import { Button } from 'ui/atoms/button/Button.styles';
 import { DocumentRequestStep } from 'app/crmRelationsDetails/documents/documentListView/listItem/ListItem.types';
 import { DocumentRequestStatus } from 'app/crmRelationsDetails/documents/Documents.types';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { CheckListViewItemProps } from './CheckListViewItem.types';
 import { useStyles } from './CheckListViewItem.styles';
@@ -49,50 +39,12 @@ const StatusStepConnector = withStyles(theme => ({
   },
 }))(StepConnector);
 
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-  color?: 'initial' | 'inherit' | 'primary' | 'secondary' | 'textPrimary' | 'textSecondary' | 'error';
-};
-
-const SubMenuItem = ({ title, onClick, icon, color }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1" color={color}>
-          {title}
-        </Typography>
-      </Box>
-    </MenuItem>
-  );
-};
-
 export const CheckListViewItem = ({ data }: CheckListViewItemProps) => {
   const { formatMessage } = useLocale();
   const intl = useIntl();
   const classes = useStyles(data);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
 
   const { id, name, dateCreated: modifiedAt, avatar, stepsCompleted } = data;
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   const documentRequestStatuses = [
     DocumentRequestStatus.Request,
@@ -185,44 +137,23 @@ export const CheckListViewItem = ({ data }: CheckListViewItemProps) => {
               </Box>
             </Box>
             <div>
-              <IconButton
-                className="menu-icon"
-                variant="rounded"
-                size="small"
-                selected={Boolean(menuEl)}
-                onClick={onMenuClick}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu id={id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-                <SubMenuItem
+              <ListOptionsMenu id={id} onDeleteClick={() => {}} onEditClick={() => {}}>
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'checklist_view.invite',
                   })}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'checklist_view.reminder',
                   })}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'checklist_view.inactive',
                   })}
                 />
-                <SubMenuItem
-                  title={formatMessage({
-                    id: 'checklist_view.edit',
-                  })}
-                />
-                <SubMenuItem
-                  title={formatMessage({
-                    id: 'common.delete',
-                  })}
-                  icon={<DeleteIcon color="secondary" />}
-                  color="secondary"
-                />
-              </Menu>
+              </ListOptionsMenu>
             </div>
           </Box>
         </Box>

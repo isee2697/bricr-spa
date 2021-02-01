@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import clsx from 'classnames';
@@ -7,7 +7,7 @@ import { SidebarMenu } from 'ui/molecules';
 import { SaleIcon, EditIcon, TriggerIcon, LockIcon } from 'ui/atoms/icons';
 import { Scrollable, Stepper, Step, Typography, Box, IconButton, StepContent, Avatar, Collapse } from 'ui/atoms';
 import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
-import { ContractStepStatus, ContractStepType } from '../DocumentContract.types';
+import { ContractStepType } from '../DocumentContract.types';
 import { useLocale } from 'hooks';
 
 import { useStyles, Connector, Labels } from './DocumentContractSidebarMenu.styles';
@@ -19,6 +19,8 @@ export const DocumentContractSidebarMenu = ({
   data,
   group,
   onChangeGroup,
+  activeItem,
+  onChangeActiveItem,
 }: DocumentContractSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -30,15 +32,11 @@ export const DocumentContractSidebarMenu = ({
     groups: [],
   };
 
-  const [activeItem, setActiveItem] = useState(
-    data.steps.findIndex(step => step.status === ContractStepStatus.InProgress),
-  );
-
   const handleChangeStep = (index: number) => {
     const id = data.steps[index].id;
     const url = location.pathname.split('#')[0];
     push(`${url}#${id}`);
-    setActiveItem(index);
+    onChangeActiveItem(index);
   };
 
   const handleEditStep = (id: string) => {};

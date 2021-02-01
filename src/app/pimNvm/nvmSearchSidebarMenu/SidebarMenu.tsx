@@ -25,16 +25,16 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const [width, setWidth] = useState<number | string>('auto');
   const [toggledSections, setToggled] = useState<{ [key: string]: boolean }>({
-    showPrice: false,
-    showTypeOfProperty: false,
-    showDaysOnFunda: false,
-    showStatus: false,
-    showUsageArea: false,
-    showPlotArea: false,
-    showAmountOfRooms: false,
-    showAmountOfBedrooms: false,
-    showOutdoorSpace: false,
-    showConstructionPeriod: false,
+    showPrice: true,
+    showTypeOfProperty: true,
+    showDaysOnFunda: true,
+    showStatus: true,
+    showUsageArea: true,
+    showPlotArea: true,
+    showAmountOfRooms: true,
+    showAmountOfBedrooms: true,
+    showOutdoorSpace: true,
+    showConstructionPeriod: true,
     showLocation: true,
     showTypeOfConstruction: true,
     showGarage: true,
@@ -71,7 +71,9 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
           <div className={classes.menuWrapper}>
             <div className={classes.banner}>
               <BuildingIcon />
-              <Typography variant="h5">{formatMessage({ id: 'nvm.title' })}</Typography>
+              <Typography variant="h5" color="textPrimary">
+                {formatMessage({ id: 'nvm.title' })}
+              </Typography>
             </div>
             <Button
               className={classes.showHideButton}

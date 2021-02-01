@@ -4,10 +4,10 @@ import classnames from 'classnames';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Typography } from 'ui/atoms';
 import { ArrowUpIcon, ArrowDownIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { DocumentTableHeaderCell, DocumentTableViewProps } from './DocumentTableView.types';
 import { useStyles } from './DocumentTableView.styles';
-import { ActionButtons } from './../actionButtons/ActionButtons';
 
 export const DocumentTableView = ({
   documents,
@@ -73,6 +73,7 @@ export const DocumentTableView = ({
         <TableRow>
           <TableCell padding="checkbox" className={classes.tableHeaderCell}>
             <Checkbox
+              color="primary"
               checked={documents.length === selected.length}
               onClick={e => {
                 e.stopPropagation();
@@ -112,6 +113,7 @@ export const DocumentTableView = ({
           >
             <TableCell padding="checkbox">
               <Checkbox
+                color="primary"
                 checked={selected.includes(doc.id)}
                 inputProps={{ 'aria-labelledby': doc.id }}
                 onClick={e => {
@@ -126,7 +128,7 @@ export const DocumentTableView = ({
               </TableCell>
             ))}
             <TableCell>
-              <ActionButtons id={doc.id} onEdit={onEdit} onDelete={onDelete} />
+              <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
             </TableCell>
           </TableRow>
         ))}

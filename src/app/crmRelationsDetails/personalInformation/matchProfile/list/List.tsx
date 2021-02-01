@@ -1,25 +1,44 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Page } from 'ui/templates';
-import { Grid, IconButton, Typography, Card, CardHeader, CardContent, Box } from 'ui/atoms';
-import { HelpIcon, MenuIcon, ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon } from 'ui/atoms/icons';
+import { IconButton, Typography, Card, CardHeader, CardContent, Box, Button } from 'ui/atoms';
+import { ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { ListActionTabs } from '../listActionTabs/ListActionTabs';
 import { MatchProfile, MatchProfileMatch } from '../MatchProfile.types';
 import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { CRM_RELATIONS_MATCH_PROFILES, CRM_RELATIONS_MATCH_PROFILES_MATCHES } from 'api/mocks/crm-relation';
 import { SortOption } from 'ui/molecules/list/List.types';
+import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
+import { joinUrlParams } from 'routing/AppRoute.utils';
+import { useEntityType } from 'app/shared/entityType';
 
 import { useStyles } from './List.styles';
 import { ListItem } from './listItem/ListItem';
+import { ListProps } from './List.types';
 
-export const MatchProfileList = () => {
+export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: ListProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [selectedProfile, setSelectedProfile] = useState<string>();
+  const [profiles, setProfiles] = useState<MatchProfile[]>([]);
+  const [matches, setMatches] = useState<MatchProfileMatch[]>([]);
+  const { push } = useHistory();
+  const { baseUrl } = useEntityType();
+  const urlParams = useParams();
 
-  const profiles: MatchProfile[] = CRM_RELATIONS_MATCH_PROFILES;
-  const matches: MatchProfileMatch[] = CRM_RELATIONS_MATCH_PROFILES_MATCHES;
+  const handleUpdateProfiles = () => {
+    if (profiles.length === 0) {
+      setProfiles(CRM_RELATIONS_MATCH_PROFILES);
+    } else {
+      handleUpdateMatches();
+    }
+  };
+
+  const handleUpdateMatches = () => {
+    setMatches(CRM_RELATIONS_MATCH_PROFILES_MATCHES);
+  };
 
   useEffect(() => {
     if (profiles.length > 0) {
@@ -31,23 +50,29 @@ export const MatchProfileList = () => {
     { key: 'last_edited', name: formatMessage({ id: 'common.sort_option.last_edited' }) },
   ];
 
+  const handleAddNew = () => {
+    push(`${joinUrlParams(baseUrl, urlParams)}/personal_information_match_profile/new`);
+  };
+
   return (
     <>
-      <Page withoutHeader>
-        <Grid xs={12} item container className={classes.header}>
-          <Typography variant="h1" className={classes.title}>
-            {formatMessage({ id: 'crm.details.personal_information_match_profile.title' })}
-          </Typography>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}} className={classes.marginRightTwo}>
-            <HelpIcon />
-          </IconButton>
-
-          <IconButton variant="rounded" size="small" onClick={() => {}}>
-            <MenuIcon />
-          </IconButton>
-        </Grid>
-        <Card>
+      <CrmRelationsDetailsHeader
+        onSidebarOpen={onSidebarOpen}
+        isSidebarVisible={isSidebarVisible}
+        actions={
+          <Button
+            size="small"
+            color="primary"
+            variant="contained"
+            startIcon={<AddIcon color="inherit" />}
+            onClick={handleAddNew}
+          >
+            {formatMessage({ id: 'crm.details.new_matchprofile' })}
+          </Button>
+        }
+      />
+      <Page title={formatMessage({ id: 'crm.details.personal_information_match_profile.title' })} titleActions={<></>}>
+        <Card onClick={handleUpdateProfiles}>
           {profiles.length === 0 && (
             <InfoSection emoji="🤔">
               <Typography variant="h3">
@@ -90,7 +115,22 @@ export const MatchProfileList = () => {
                     onProfileIndexChange={profile => setSelectedProfile(profile)}
                     profiles={profiles}
                   />
-                  <Box display="flex" alignItems="center" ml={4} mt={1.5} mb={1.5}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    ml={4}
+                    mt={1.5}
+                    mb={1.5}
+                    onClick={() =>
+                      push(
+                        joinUrlParams(`${path}/:profileId/edit`, {
+                          ...urlParams,
+                          profileId: selectedProfile as string,
+                        }),
+                      )
+                    }
+                    className={classes.settingRow}
+                  >
                     <SettingsIcon className={classes.settingIcon} />
                     <Box ml={1.5} />
                     <Typography variant="h5" color="textSecondary">

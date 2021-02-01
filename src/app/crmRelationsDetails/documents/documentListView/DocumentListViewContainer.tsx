@@ -11,12 +11,12 @@ import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters'
 import { EmailTable } from 'app/email/emailTable/EmailTable';
 import { EMAILS } from 'api/mocks/email';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { DocumentListViewContainerProps } from './DocumentListViewContainer.types';
 import { ListViewTabs } from './listViewTabs/ListViewTabs';
 import { DocumentTableView } from './tableView/DocumentTableView';
 import { useStyles } from './DocumentListViewContainer.styles';
-import { ActionButtons } from './actionButtons/ActionButtons';
 
 export const DocumentListViewContainer = ({
   path,
@@ -95,7 +95,7 @@ export const DocumentListViewContainer = ({
                   onCheckAll={handleSelectAllDoc}
                   bulkComponent={
                     <Box ml={0.5} mr={1.5}>
-                      <ActionButtons id="crmRelations-document-actions" onEdit={() => {}} onDelete={() => {}} />
+                      <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
                     </Box>
                   }
                 />

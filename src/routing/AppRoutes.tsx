@@ -90,7 +90,7 @@ export const AppRoutes = () => {
             </Authorization>
           )}
         </Route>
-
+        <Route path={AppRoute.logout} component={LogoutContainer} />
         <Route path="/">
           {() => (
             <>
@@ -128,7 +128,6 @@ export const AppRoutes = () => {
                   <AuthorizedRoute path={AppRoute.dms} component={DmsContainer} />
                   <AuthorizedRoute path={AppRoute.email} component={EmailContainer} />
                   <AuthorizedRoute path={AppRoute.insights} component={InsightsContainer} />
-                  <Route path={AppRoute.logout} component={LogoutContainer} />
                   <Redirect to={AppRoute.home} />
                 </Switch>
               </DashboardTemplate>

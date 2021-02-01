@@ -1,52 +1,24 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import classnames from 'classnames';
+import { SortDirection } from '@material-ui/core';
+import clsx from 'clsx';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Box,
-  IconButton,
-  Menu,
-  Typography,
-  MenuItem,
-} from 'ui/atoms';
-import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box } from 'ui/atoms';
+import { EditIcon, SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmItem } from 'app/crm/Crm.types';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
-import { CrmTableFixedHeader, CrmTableMovableHeader, CrmTableViewProps } from './CrmTableView.types';
+import {
+  CrmTableFixedHeader,
+  CrmTableHeaderCell,
+  CrmTableMovableHeader,
+  CrmTableViewProps,
+} from './CrmTableView.types';
 import { useStyles } from './CrmTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = ['type', 'insertion', 'property', 'lastName'];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
@@ -91,23 +63,53 @@ export const CrmTableView = ({
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+  const [headerCells, setHeaderCells] = useState<CrmTableHeaderCell[]>(
+    FIXED_HEADER_COLUMNS.map(cell => ({
+      field: cell,
+      label: formatMessage({ id: `crm.table.header.${cell}` }),
+      sortable: true,
+    })),
+  );
 
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
+  const [sortBy, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<SortDirection>(false);
 
   const changeHeaderCells = (headerCells: HeaderColumnItemType[]) => {
     setMovableHeaderCells([...headerCells]);
+    setHeaderCells([
+      ...FIXED_HEADER_COLUMNS.map(cell => ({
+        field: cell,
+        label: formatMessage({ id: `pim.table.header.${cell}` }),
+        sortable: true,
+      })),
+      ...headerCells
+        .filter(cell => !cell.hidden)
+        .map(cell => ({
+          field: cell.value,
+          label: formatMessage({ id: `pim.table.header.${cell.value}` }),
+          sortable: true,
+        })),
+    ]);
     showFilterHeaderDlg(false);
   };
 
+  const onSort = (column: string) => {
+    let direction: SortDirection = 'asc';
+
+    if (sortBy !== column) {
+      setSortColumn(column);
+    } else if (sortDirection === direction) {
+      direction = 'desc';
+    }
+
+    setSortDirection(direction);
+  };
+
   const renderCell = useCallback((crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
+    if (cell === 'partner' || cell === 'manager') {
+      return `${crm[cell].firstName} ${crm[cell].lastName}`;
+    }
+
     return crm[cell];
   }, []);
 
@@ -118,6 +120,7 @@ export const CrmTableView = ({
           <TableRow>
             <TableCell padding="checkbox" className={classes.tableHeaderCell}>
               <Checkbox
+                color="primary"
                 checked={items.length === selected.length}
                 onClick={e => {
                   e.stopPropagation();
@@ -125,18 +128,26 @@ export const CrmTableView = ({
                 }}
               />
             </TableCell>
-            {FIXED_HEADER_COLUMNS.map(cell => (
-              <TableCell className={classes.tableHeaderCell} key={cell}>
-                {formatMessage({ id: `crm.table.header.${cell}` })}
+            {headerCells.map(cell => (
+              <TableCell
+                key={cell.field}
+                sortDirection={sortBy === cell.field ? (sortDirection as SortDirection) : false}
+                className={clsx(classes.tableHeaderCell, sortBy === cell.field && 'sorted')}
+                onClick={() => (cell.sortable ? onSort(cell.field) : null)}
+              >
+                <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
+                  {cell.label}
+                </Typography>
+                {sortBy === cell.field ? (
+                  <>
+                    {sortDirection === 'desc' && <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />}
+                    {sortDirection === 'asc' && <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />}
+                  </>
+                ) : (
+                  <Box className={classes.columnSortIconPlaceholder} />
+                )}
               </TableCell>
             ))}
-            {movableHeaderCells
-              .filter(cell => !cell.hidden)
-              .map(cell => (
-                <TableCell className={classes.tableHeaderCell} key={cell.value}>
-                  {formatMessage({ id: `crm.table.header.${cell.value}` })}
-                </TableCell>
-              ))}
             <TableCell className={classes.tableHeaderCell} valign="middle">
               <SettingsIcon className={classes.tableActionCell} onClick={() => showFilterHeaderDlg(true)} />
             </TableCell>
@@ -151,6 +162,7 @@ export const CrmTableView = ({
             >
               <TableCell padding="checkbox">
                 <Checkbox
+                  color="primary"
                   checked={selected.includes(item.id)}
                   inputProps={{ 'aria-labelledby': item.id }}
                   onClick={e => {
@@ -159,66 +171,19 @@ export const CrmTableView = ({
                   }}
                 />
               </TableCell>
-              {FIXED_HEADER_COLUMNS.map(cell => (
-                <TableCell className={classes.tableCellType} key={cell}>
-                  {renderCell(item, cell)}
-                </TableCell>
+              {headerCells.map((cell, index) => (
+                <TableCell key={index}>{renderCell(item, cell.field)}</TableCell>
               ))}
-              {movableHeaderCells
-                .filter(cell => !cell.hidden)
-                .map(cell => (
-                  <TableCell className={classes.tableCellType} key={cell.value}>
-                    {renderCell(item, cell.value)}
-                  </TableCell>
-                ))}
               <TableCell>
-                <div>
-                  <IconButton
-                    className="menu-icon"
-                    variant="rounded"
-                    size="small"
-                    selected={Boolean(menuEl)}
-                    onClick={onMenuClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Menu
-                    id={item.id}
-                    open={Boolean(menuEl)}
-                    onClose={onMenuClose}
-                    anchorEl={menuEl}
-                    placement="bottom-end"
-                  >
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.archive',
-                      })}
-                      onClick={() => {
-                        onArchive?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.edit',
-                      })}
-                      onClick={() => {
-                        onEdit?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.delete',
-                      })}
-                      onClick={() => {
-                        onDelete?.();
-                        onMenuClose();
-                      }}
-                      icon={<DeleteIcon color="secondary" />}
-                    />
-                  </Menu>
-                </div>
+                <ListOptionsMenu id={item.id} onEditClick={() => onEdit?.()} onDeleteClick={() => onDelete?.()}>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'common.archive',
+                    })}
+                    icon={<EditIcon />}
+                    onClick={() => onArchive?.()}
+                  />
+                </ListOptionsMenu>
               </TableCell>
             </TableRow>
           ))}

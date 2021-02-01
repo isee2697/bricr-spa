@@ -8,6 +8,11 @@ export const useStyles = makeStyles(theme => ({
     borderBottom: 'none',
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
+    cursor: 'pointer',
+
+    '&.sorted': {
+      color: theme.palette.primary.main,
+    },
   },
   tableActionCell: {
     cursor: 'pointer',
@@ -64,5 +69,20 @@ export const useStyles = makeStyles(theme => ({
   },
   menuIcon: {
     color: theme.palette.gray.main,
+  },
+  columnHeaderLabel: {
+    marginRight: theme.spacing(1),
+    verticalAlign: 'middle',
+  },
+  columnHeaderIcon: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    verticalAlign: 'middle',
+  },
+  columnSortIconPlaceholder: {
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    display: 'inline-block',
+    verticalAlign: 'middle',
   },
 }));

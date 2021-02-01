@@ -3,8 +3,7 @@ import { useTheme } from '@material-ui/core';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
 
-import { Avatar, Box, Typography, IconButton, ProgressFilling, Collapse, Button, Price, Chip, Emoji } from 'ui/atoms';
-import { MenuIcon } from 'ui/atoms/icons/menu/MenuIcon';
+import { Avatar, Box, Typography, ProgressFilling, Collapse, Button, Price, Chip, Emoji } from 'ui/atoms';
 import { HelpIcon } from 'ui/atoms/icons/help/HelpIcon';
 import { ArrowDownIcon } from 'ui/atoms/icons/arrowDown/ArrowDownIcon';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -30,7 +29,7 @@ export const PropertyItem = ({
   isArchived,
   formerOwners,
   buyers,
-  onMenuClick,
+  actionsMenu,
 }: PropertyItemProps) => {
   const { formatMessage } = useLocale();
   const intl = useIntl();
@@ -68,19 +67,7 @@ export const PropertyItem = ({
                 )}
               </div>
             </div>
-            <div>
-              <IconButton
-                className="menu-icon"
-                variant="rounded"
-                size="small"
-                onClick={e => {
-                  e.stopPropagation();
-                  onMenuClick(e);
-                }}
-              >
-                <MenuIcon />
-              </IconButton>
-            </div>
+            <div>{actionsMenu}</div>
           </Box>
           <div className={classes.content}>
             <div>

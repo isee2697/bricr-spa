@@ -4,6 +4,11 @@ export const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
   },
+  content: {
+    '&.noPadding': {
+      paddingBottom: theme.spacing(1),
+    },
+  },
   row: {
     display: 'flex',
     alignItems: 'flex-start',

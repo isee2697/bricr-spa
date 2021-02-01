@@ -1,36 +1,11 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField } from 'form/fields';
-import { Box, Checkbox, FormControlLabel, Grid, Typography, Menu, MenuItem } from 'ui/atoms';
-import { useStyles } from '../DocumentContractFlow.styles';
-import { HistoryIcon, DeleteIcon } from 'ui/atoms/icons';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
+import { Box, Checkbox, FormControlLabel, Grid, Typography, Menu } from 'ui/atoms';
+import { DeleteIcon } from 'ui/atoms/icons';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 export function ContractSigningForm() {
   const { formatMessage } = useLocale();
@@ -97,7 +72,7 @@ export function ContractSigningForm() {
         anchorEl={menuEl}
         placement="bottom-end"
       >
-        <SubMenuItem
+        <ListOptionsMenuItem
           title={formatMessage({
             id: 'common.delete',
           })}
@@ -105,6 +80,7 @@ export function ContractSigningForm() {
             onMenuClose();
           }}
           icon={<DeleteIcon color="secondary" />}
+          color="secondary"
         />
       </Menu>
     </>
