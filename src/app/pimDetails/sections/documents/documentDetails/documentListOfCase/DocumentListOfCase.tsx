@@ -12,7 +12,7 @@ import { DocumentSecurity } from '../documentSecurity/DocumentSecurity';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
-import { DocumentListOfCaseCard, DocumentListOfCaseProps } from './DocumentListOfCase.types';
+import { DocumentListOfCaseCard, DocumentListOfCaseProps, DocumentOutsideItem } from './DocumentListOfCase.types';
 import { DocumentListOfCaseSidebarMenu } from './documentListOfCaseSidebar/DocumentListOfCaseSidebarMenu';
 import { DocumentListOfCaseCommon } from './documentListOfCaseCommon/DocumentListOfCaseCommon';
 import { AddLvzCardModal } from './documentListOfCaseCommon/addLvzCardModal/AddLvzCardModal';
@@ -58,6 +58,39 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
     close('add-lvz-card');
 
     return undefined;
+  };
+
+  const handleDeleteCard = (cardId: number) => {
+    setCards([...cards.filter(card => card.id !== cardId)]);
+  };
+
+  const handleUpdateLvzCardOrder = (cardId: number, dragItemId: number, targetId: number) => {
+    const targetCardItems = cards.find(card => card.id === cardId)?.items || [];
+    const sortedCardItems = targetCardItems.filter(item => item.id !== dragItemId);
+    const targetItemIndex = sortedCardItems.findIndex(item => item.id === targetId);
+    const dragItem = targetCardItems.find(item => item.id === dragItemId);
+    sortedCardItems.splice(targetItemIndex + 1, 0, dragItem as DocumentOutsideItem);
+
+    setCards([
+      ...cards.map(card =>
+        card.id !== cardId
+          ? card
+          : {
+              ...card,
+              items: [...sortedCardItems],
+            },
+      ),
+    ]);
+  };
+
+  const handleDeleteLvzCard = (cardId: number, deleteItemId: number) => {
+    setCards([
+      ...cards.map(card =>
+        card.id !== cardId
+          ? card
+          : { ...card, items: [...(card.items?.filter(item => item.id !== deleteItemId) || [])] },
+      ),
+    ]);
   };
 
   const handleAddNewItem = async (cardId: number, values: AddLvzItemBody) => {
@@ -168,7 +201,15 @@ export const DocumentListOfCase = ({ pimId, loading, error, data, breadcrumbs }:
                 <Switch>
                   <Route
                     path={[AppRoute.pimDocumentDetails, 'data'].join('/')}
-                    render={() => <DocumentListOfCaseCommon cards={cards} />}
+                    render={() => (
+                      <DocumentListOfCaseCommon
+                        cards={cards}
+                        isSidebarVisible={isSidebarVisible}
+                        onChangeOrder={handleUpdateLvzCardOrder}
+                        onDeleteCard={handleDeleteCard}
+                        onDeleteItem={handleDeleteLvzCard}
+                      />
+                    )}
                   />
                   <Route
                     path={[AppRoute.pimDocumentDetails, 'security'].join('/')}
