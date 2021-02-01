@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { CrmStatus, useCrmListQuery, useUpdateCrmGeneralMutation, CrmListDocument } from 'api/types';
+import {
+  CrmStatus,
+  useCrmListQuery,
+  useUpdateCrmGeneralMutation,
+  CrmListDocument,
+  ListPimsFilters,
+  PropertyType,
+} from 'api/types';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { CrmItem } from '../Crm.types';
 
@@ -10,6 +17,9 @@ import { Relations } from './Relations';
 export const RelationsContainer = (props: RelationsContainerProps) => {
   const { data } = useCrmListQuery();
   const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
+    propertyTypes: [PropertyType.Apartment, PropertyType.House],
+  });
 
   const crms: CrmItem[] = (data?.crmList || []).map(crm => ({
     ...mockCrm,
@@ -35,5 +45,18 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
 
   const handleDeleteCrm = async (id: string) => {};
 
-  return <Relations {...props} crms={crms} onUpdateItemStatus={hanldeUpdateCrmStatus} onDeleteItem={handleDeleteCrm} />;
+  const handleFilterChange = (filters: ListPimsFilters) => {
+    setActiveFilters(filters);
+  };
+
+  return (
+    <Relations
+      {...props}
+      crms={crms}
+      onUpdateItemStatus={hanldeUpdateCrmStatus}
+      onDeleteItem={handleDeleteCrm}
+      activeFilters={activeFilters}
+      onFilter={handleFilterChange}
+    />
+  );
 };

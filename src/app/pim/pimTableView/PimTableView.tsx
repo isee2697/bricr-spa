@@ -156,7 +156,7 @@ export const PimTableView = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {[...items, ...items].map((item, index) => (
+          {items.map((item, index) => (
             <TableRow
               key={index}
               onClick={() => onClick?.(item.id)}
