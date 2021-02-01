@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {} from 'react-transition-group';
 
 import {
   Box,
@@ -11,6 +12,7 @@ import {
   Collapse,
   Checkbox,
   ProgressFilling,
+  Fade,
 } from 'ui/atoms';
 import { TaskDetailsBoardsResultTab } from '../taskDetailsBoardsResult/TaskDetailsBoardsResult.types';
 import { useLocale, useModalDispatch } from 'hooks';
@@ -102,19 +104,21 @@ export const SubtasksBoards = ({
               {(task.subTasks || [])
                 .filter((subtask: Subtask) => subtask.status === TaskStatus.ToDo)
                 .map((subtask: Subtask) => (
-                  <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <Box ml={-1} display="flex" alignItems="center">
-                      <Checkbox
-                        color="primary"
-                        checked={false}
-                        onChange={() => onUpdateSubtaskStatus(task.id, subtask.id, TaskStatus.Done)}
-                      />
-                      <Typography variant="h5">{subtask.title}</Typography>
+                  <Fade in timeout={3}>
+                    <Box display="flex" alignItems="center" justifyContent="space-between">
+                      <Box ml={-1} display="flex" alignItems="center">
+                        <Checkbox
+                          color="primary"
+                          checked={false}
+                          onChange={() => onUpdateSubtaskStatus(task.id, subtask.id, TaskStatus.Done)}
+                        />
+                        <Typography variant="h5">{subtask.title}</Typography>
+                      </Box>
+                      <IconButton variant="rounded" size="small" onClick={() => onDeleteSubtask(task.id, subtask.id)}>
+                        <DeleteIcon />
+                      </IconButton>
                     </Box>
-                    <IconButton variant="rounded" size="small" onClick={() => onDeleteSubtask(task.id, subtask.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
+                  </Fade>
                 ))}
             </Collapse>
           </Box>
@@ -134,21 +138,23 @@ export const SubtasksBoards = ({
               {(task.subTasks || [])
                 .filter((subtask: Subtask) => subtask.status === TaskStatus.Done)
                 .map((subtask: Subtask) => (
-                  <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <Box ml={-1} display="flex" alignItems="center">
-                      <Checkbox
-                        color="primary"
-                        checked
-                        onChange={() => onUpdateSubtaskStatus(task.id, subtask.id, TaskStatus.ToDo)}
-                      />
-                      <Typography variant="h5" className={classes.completedSubtask}>
-                        {subtask.title}
-                      </Typography>
+                  <Fade in timeout={3}>
+                    <Box display="flex" alignItems="center" justifyContent="space-between">
+                      <Box ml={-1} display="flex" alignItems="center">
+                        <Checkbox
+                          color="primary"
+                          checked
+                          onChange={() => onUpdateSubtaskStatus(task.id, subtask.id, TaskStatus.ToDo)}
+                        />
+                        <Typography variant="h5" className={classes.completedSubtask}>
+                          {subtask.title}
+                        </Typography>
+                      </Box>
+                      <IconButton variant="rounded" size="small" onClick={() => onDeleteSubtask(task.id, subtask.id)}>
+                        <DeleteIcon />
+                      </IconButton>
                     </Box>
-                    <IconButton variant="rounded" size="small" onClick={() => onDeleteSubtask(task.id, subtask.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
+                  </Fade>
                 ))}
             </Collapse>
           </Box>

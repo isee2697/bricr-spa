@@ -32,4 +32,4 @@ export const DocumentDetailsContainer = () => {
   );
 };
 
-export default DocumentContractContainer;
+export default DocumentDetailsContainer;

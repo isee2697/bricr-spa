@@ -14,6 +14,9 @@ export const useStyles = makeStyles(theme => ({
   sortIcon: {
     marginLeft: theme.spacing(2),
   },
+  settingRow: {
+    cursor: 'pointer',
+  },
   settingIcon: {
     width: theme.spacing(4),
     height: theme.spacing(4),
