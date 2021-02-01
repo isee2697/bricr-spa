@@ -23,9 +23,10 @@ export const useStyles = ({ width }: { width: number | string }) =>
       width: '100%',
       backgroundColor: palette.gray.light,
       display: 'flex',
-      color: 'inherit',
+      color: palette.gray.main,
       alignItems: 'center',
       marginBottom: spacing(4),
+
       '& .MuiSvgIcon-root': {
         backgroundColor: palette.white.main,
         padding: spacing(0.5),

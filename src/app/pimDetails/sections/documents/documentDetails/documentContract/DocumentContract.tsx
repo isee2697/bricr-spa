@@ -10,7 +10,7 @@ import { useStyles } from '../DocumentDetails.styles';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
-import { DocumentContractProps } from './DocumentContract.types';
+import { ContractStepStatus, DocumentContractProps } from './DocumentContract.types';
 import { DocumentContractSidebarMenu } from './documentContractSidebar/DocumentContractSidebarMenu';
 import { DocumentContractFlow } from './documentContractFlow/DocumentContractFlow';
 import { DocumentContractGroup } from './documentContractSidebar/DocumentContractSidebarMenu.types';
@@ -22,6 +22,15 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const { push } = useHistory();
   const [openedGroup, setOpenedGroup] = useState<DocumentContractGroup>(DocumentContractGroup.Data);
+  const [activeItem, setActiveItem] = useState(
+    data?.steps.findIndex(step => step.status === ContractStepStatus.InProgress) || -1,
+  );
+
+  const handleChangeActiveItem = (itemIndex: number) => {
+    const element = document.getElementById(`document-contract-step-${itemIndex + 1}`);
+    element?.scrollIntoView();
+    setActiveItem(itemIndex);
+  };
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -55,6 +64,8 @@ export const DocumentContract = ({ pimId, loading, error, data, breadcrumbs }: D
           data={data}
           onChangeGroup={setOpenedGroup}
           group={openedGroup}
+          activeItem={activeItem}
+          onChangeActiveItem={handleChangeActiveItem}
         />
         <Box flex={1}>
           <Grid container className={classes.content}>

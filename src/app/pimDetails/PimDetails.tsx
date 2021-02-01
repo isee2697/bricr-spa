@@ -248,7 +248,11 @@ export const PimDetails = ({
                     <Route
                       path={`${path}/publication`}
                       render={() => (
-                        <PublicationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+                        <PublicationContainer
+                          title={title}
+                          isSidebarVisible={isSidebarVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                        />
                       )}
                     />
                     {Object.values(AogSpaceType).map(aogSpaceType => (
