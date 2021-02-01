@@ -87,6 +87,7 @@ export const PimList = ({
                   </Box>
                   <Box mr={3}>
                     <FiltersButton
+                      color="primary"
                       data={activeFilters}
                       getActiveFilters={onFilter}
                       teams={teams}

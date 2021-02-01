@@ -39,7 +39,7 @@ export const DocumentListView = ({
   return (
     <Grid item xs={12}>
       <Card className={classes.root}>
-        <CardHeader action={<FiltersButton data={activeFilters} getActiveFilters={onFilter} />} />
+        <CardHeader action={<FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />} />
         <CardContent>
           <Box>
             <DocumentListViewTabs status={status} onStatusChange={onStatusChange} />
