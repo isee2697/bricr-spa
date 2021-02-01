@@ -81,6 +81,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
           { key: 'questionnaireProperty' },
           { key: 'questionnaireBog' },
           { key: 'contractTemplates' },
+          { key: 'emailTemplate' },
         ],
       },
       {
