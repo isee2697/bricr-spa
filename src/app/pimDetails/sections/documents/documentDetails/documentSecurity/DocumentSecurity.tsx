@@ -1,12 +1,14 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { DateTime } from 'luxon';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { Box, Grid, IconButton, Typography, Menu, MenuItem } from 'ui/atoms';
+import { Box, Grid, IconButton, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { DeleteIcon, HistoryIcon, MenuIcon, ExitIcon } from 'ui/atoms/icons';
+import { HistoryIcon, ExitIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { useStyles } from './DocumentSecurity.styles';
 import { SecurityGeneralForm } from './forms/SecurityGeneralForm';
@@ -16,46 +18,11 @@ import { SecurityRightsForm } from './forms/SecurityRightsForm';
 import { SecuritySecureForm } from './forms/SecuritySecureForm';
 import { SecurityActionsForm } from './forms/SecurityActionsForm';
 
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
-
 export const DocumentSecurity = ({ title }: DocumentSecurityProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const { push } = useHistory();
   const { id: pimId } = useParams<{ id: string }>();
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   const handleGoBack = useCallback(() => {
     if (pimId) {
@@ -76,66 +43,33 @@ export const DocumentSecurity = ({ title }: DocumentSecurityProps) => {
               <ExitIcon />
             </IconButton>
             <Box ml={3.5}>
-              <IconButton
-                className="menu-icon"
-                variant="rounded"
-                size="small"
-                selected={Boolean(menuEl)}
-                onClick={onMenuClick}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu id={pimId} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-                <SubMenuItem
+              <ListOptionsMenu id={pimId} onDeleteClick={() => {}} hideEditButton>
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'pim_details.documents.menu.generate_pdf',
                   })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'pim_details.documents.menu.send',
                   })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'pim_details.documents.menu.save_as_draft',
                   })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'pim_details.documents.menu.copy',
                   })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
                 />
-                <SubMenuItem
+                <ListOptionsMenuItem
                   title={formatMessage({
                     id: 'pim_details.documents.menu.archive',
                   })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
                 />
-                <SubMenuItem
-                  title={formatMessage({
-                    id: 'common.delete',
-                  })}
-                  onClick={() => {
-                    onMenuClose();
-                  }}
-                  icon={<DeleteIcon color="secondary" />}
-                />
-              </Menu>
+              </ListOptionsMenu>
             </Box>
           </Box>
         </Box>

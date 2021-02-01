@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
-import classNames from 'classnames';
 
-import { CrmStatus, CrmType } from 'api/types';
+import { CrmStatus, CrmType, ListPimsFilters } from 'api/types';
 import { Page } from 'ui/templates';
-import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { Grid, Card, CardHeader, CardContent, Box, FormControlLabel, Checkbox, Select, MenuItem } from 'ui/atoms';
+import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
+import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
 import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale } from 'hooks';
@@ -15,6 +14,8 @@ import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -28,6 +29,8 @@ export const Relations = ({
   crms,
   onUpdateItemStatus,
   onDeleteItem,
+  onFilter,
+  activeFilters,
 }: RelationsProps) => {
   const { push } = useHistory();
   const { formatMessage } = useLocale();
@@ -45,7 +48,7 @@ export const Relations = ({
   ];
 
   const [selected, setSelected] = useState<string[]>([]);
-  const [sort, setSort] = useState(sortOptions.length > 0 ? sortOptions[0].key : '');
+  const [, setSort] = useState(sortOptions.length > 0 ? sortOptions[0].key : '');
 
   const handleSelectItem = (itemId: string) => {
     const index = selected.findIndex(id => id === itemId);
@@ -71,9 +74,16 @@ export const Relations = ({
           <Card>
             <CardHeader
               title={formatMessage({ id: `crm.type.relations` })}
-              action={<CrmSubHeader viewMode={viewMode} setViewMode={setViewMode} />}
+              action={
+                <CrmSubHeader
+                  viewMode={viewMode}
+                  setViewMode={setViewMode}
+                  activeFilters={activeFilters}
+                  onFilter={onFilter}
+                />
+              }
             />
-            <CardContent>
+            <CardContent className={classes.listContainer}>
               <Box mx={2}>
                 <CrmActionTabs
                   status={status}
@@ -85,68 +95,64 @@ export const Relations = ({
                   }}
                 />
               </Box>
-              <Box mx={2.5} mt={3} mb={2} display="flex" alignItems="center" justifyContent="space-between">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="primary"
-                      className="list-select-all"
-                      checked={selected.length === crmItemsFiltered.length}
-                      onClick={handleSelectAllItems}
-                    />
-                  }
-                  label={formatMessage({ id: 'common.select_all' })}
-                />
-                <Select
-                  className={classNames(classes.sort, 'sort-select')}
-                  variant="outlined"
-                  value={sort}
-                  onChange={event => {
-                    const value = event?.target.value as string;
+              <Box width="100%" display="flex" flexDirection="column" pt={2}>
+                <ListHeader
+                  sortOptions={sortOptions}
+                  onSort={value => {
                     setSort(value);
                   }}
-                >
-                  {sortOptions.map(({ key, name }) => (
-                    <MenuItem key={key} value={key}>
-                      {formatMessage({ id: `crm.list.sort_options.${name}` })}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
-              {viewMode === 'table' ? (
-                <CrmTableView
-                  items={crmItemsFiltered as CrmItem[]}
-                  selected={selected}
-                  onSelectItem={handleSelectItem}
-                  onSelectAllItems={handleSelectAllItems}
+                  checkedKeys={selected}
+                  checkAllStatus={{
+                    checked: crmItemsFiltered?.length === selected.length,
+                    indeterminate: crmItemsFiltered?.length !== selected.length && selected.length > 0,
+                  }}
+                  onCheckAll={handleSelectAllItems}
+                  bulkComponent={
+                    <Box ml={0.5} mr={1.5}>
+                      <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
+                    </Box>
+                  }
                 />
-              ) : (
-                <List
-                  className="crm-list"
-                  items={crmItemsFiltered as CrmItem[]}
-                  itemIndex={'id'}
-                  loadingItem={<PropertyItemPlaceholder />}
-                  emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
-                  emptyDescription={formatMessage(
-                    { id: 'crm.list.empty_description' },
-                    { buttonName: formatMessage({ id: `crm.add.relations` }) },
-                  )}
-                  renderItem={(crm, checked, checkbox) => (
-                    <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
-                      {checkbox}
-                      <Box component="span" className={classes.rowItem}>
-                        <Box
-                          className={classes.itemButton}
-                          onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
-                        >
-                          <CrmListItem crm={crm} onUpdateStatus={onUpdateItemStatus} onDelete={onDeleteItem} />
+              </Box>
+              <Box mt={-2}>
+                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              </Box>
+              <Box px={2}>
+                {viewMode === 'table' ? (
+                  <CrmTableView
+                    items={crmItemsFiltered as CrmItem[]}
+                    selected={selected}
+                    onSelectItem={handleSelectItem}
+                    onSelectAllItems={handleSelectAllItems}
+                  />
+                ) : (
+                  <List
+                    className="crm-list"
+                    items={crmItemsFiltered as CrmItem[]}
+                    itemIndex={'id'}
+                    loadingItem={<PropertyItemPlaceholder />}
+                    emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
+                    emptyDescription={formatMessage(
+                      { id: 'crm.list.empty_description' },
+                      { buttonName: formatMessage({ id: `crm.add.relations` }) },
+                    )}
+                    renderItem={(crm, checked, checkbox) => (
+                      <Box key={crm.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
+                        {checkbox}
+                        <Box component="span" className={classes.rowItem}>
+                          <Box
+                            className={classes.itemButton}
+                            onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
+                          >
+                            <CrmListItem crm={crm} onUpdateStatus={onUpdateItemStatus} onDelete={onDeleteItem} />
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                  )}
-                  isShowHeader={false}
-                />
-              )}
+                    )}
+                    isShowHeader={false}
+                  />
+                )}
+              </Box>
             </CardContent>
           </Card>
         </Grid>

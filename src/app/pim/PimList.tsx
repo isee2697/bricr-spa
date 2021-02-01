@@ -3,22 +3,12 @@ import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ListPimsFilters, Pim as PimEntity } from 'api/types';
-import {
-  Box,
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  IconButton,
-  FormControlLabel,
-  Checkbox,
-  Select,
-  MenuItem,
-} from 'ui/atoms';
-import { List, PropertyItemPlaceholder } from 'ui/molecules';
+import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
+import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
+import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
@@ -50,7 +40,7 @@ export const PimList = ({
   const { push } = useHistory();
 
   const [selected, setSelected] = useState<string[]>([]);
-  const [sort, setSort] = useState(sorting.sortOptions.length > 0 ? sorting.sortOptions[0].key : '');
+  const [, setSort] = useState(sorting.sortOptions.length > 0 ? sorting.sortOptions[0].key : '');
 
   const handleSelectItem = (itemId: string) => {
     const index = selected.findIndex(id => id === itemId);
@@ -110,36 +100,29 @@ export const PimList = ({
               <Box mx={2}>
                 <PimActionTabs status={status} onStatusChange={onStatusChange} amounts={amounts} />
               </Box>
-              <Box mx={2.5} mt={3} display="flex" alignItems="center" justifyContent="space-between">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="primary"
-                      className="list-select-all"
-                      checked={selected.length === listData?.listPims?.items?.length}
-                      onClick={handleSelectAllItems}
-                    />
-                  }
-                  label={formatMessage({ id: 'common.select_all' })}
-                />
-                <Select
-                  className={classNames(classes.sort, 'sort-select')}
-                  variant="outlined"
-                  value={sort}
-                  onChange={event => {
-                    const value = event?.target.value as string;
+              <Box width="100%" display="flex" flexDirection="column" pt={2}>
+                <ListHeader
+                  sortOptions={sorting.sortOptions}
+                  onSort={value => {
                     setSort(value);
                     sorting.onSort(value);
                   }}
-                >
-                  {sorting.sortOptions.map(({ key, name }) => (
-                    <MenuItem key={key} value={key}>
-                      {formatMessage({ id: `pim.list.sort_options.${name}` })}
-                    </MenuItem>
-                  ))}
-                </Select>
+                  checkedKeys={selected}
+                  checkAllStatus={{
+                    checked: listData?.listPims?.items?.length === selected.length,
+                    indeterminate: listData?.listPims?.items?.length !== selected.length && selected.length > 0,
+                  }}
+                  onCheckAll={handleSelectAllItems}
+                  bulkComponent={
+                    <Box ml={0.5} mr={1.5}>
+                      <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
+                    </Box>
+                  }
+                />
               </Box>
-              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              <Box mt={-2}>
+                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              </Box>
               {viewMode === 'table' ? (
                 <PimTableView
                   items={(listData?.listPims?.items ?? []) as PimEntity[]}
@@ -168,13 +151,12 @@ export const PimList = ({
                       </Box>
                     </Box>
                   )}
-                  sortOptions={sorting.sortOptions}
-                  onSort={sorting.onSort}
                   pagination={pagination}
                   loading={isLoading}
                   loadingItem={<PropertyItemPlaceholder />}
                   emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
                   emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+                  isShowHeader={false}
                 />
               )}
             </CardContent>

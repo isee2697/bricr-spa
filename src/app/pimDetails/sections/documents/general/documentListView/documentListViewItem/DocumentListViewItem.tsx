@@ -1,38 +1,14 @@
-import React, { useState, ReactElement } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { DateTime } from 'luxon';
 
-import { Grid, Typography, Box, IconButton, ProgressFilling, MenuItem, Menu } from 'ui/atoms';
+import { Grid, Typography, ProgressFilling } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { MenuIcon, HistoryIcon, DeleteIcon } from 'ui/atoms/icons';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { DocumentListViewItemProps } from './DocumentListViewItem.types';
 import { useStyles } from './DocumentListViewItem.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 export const DocumentListViewItem = ({
   id,
@@ -54,16 +30,6 @@ export const DocumentListViewItem = ({
 }: DocumentListViewItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   return (
     <>
@@ -115,72 +81,48 @@ export const DocumentListViewItem = ({
           </Grid>
         )}
         <div className={classes.menu}>
-          <IconButton
-            className="menu-icon"
-            variant="rounded"
-            size="small"
-            selected={Boolean(menuEl)}
-            onClick={onMenuClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu id={id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-            <SubMenuItem
+          <ListOptionsMenu id={id} onDeleteClick={() => onDelete?.()} hideEditButton>
+            <ListOptionsMenuItem
               title={formatMessage({
                 id: 'pim_details.documents.menu.print',
               })}
               onClick={() => {
                 onPrint?.();
-                onMenuClose();
               }}
             />
-            <SubMenuItem
+            <ListOptionsMenuItem
               title={formatMessage({
                 id: 'pim_details.documents.menu.lock_unlock',
               })}
               onClick={() => {
                 onToggleLock?.();
-                onMenuClose();
               }}
             />
-            <SubMenuItem
+            <ListOptionsMenuItem
               title={formatMessage({
                 id: 'pim_details.documents.menu.send',
               })}
               onClick={() => {
                 onSend?.();
-                onMenuClose();
               }}
             />
-            <SubMenuItem
+            <ListOptionsMenuItem
               title={formatMessage({
                 id: 'pim_details.documents.menu.copy',
               })}
               onClick={() => {
                 onCopy?.();
-                onMenuClose();
               }}
             />
-            <SubMenuItem
+            <ListOptionsMenuItem
               title={formatMessage({
                 id: 'pim_details.documents.menu.archive',
               })}
               onClick={() => {
                 onArchive?.();
-                onMenuClose();
               }}
             />
-            <SubMenuItem
-              title={formatMessage({
-                id: 'common.delete',
-              })}
-              onClick={() => {
-                onDelete?.();
-                onMenuClose();
-              }}
-              icon={<DeleteIcon color="secondary" />}
-            />
-          </Menu>
+          </ListOptionsMenu>
         </div>
       </Grid>
     </>
