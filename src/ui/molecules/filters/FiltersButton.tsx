@@ -8,7 +8,7 @@ import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 import { FilterButtonProps } from './Filters.types';
 import { Filters } from './Filters';
 
-export const FiltersButton = ({ color = 'secondary', data, getActiveFilters }: FilterButtonProps) => {
+export const FiltersButton = ({ color = 'primary', data, getActiveFilters }: FilterButtonProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [filterAmount, setFilterAmount] = useState(0);
   const [activeTab, setActiveTab] = useState(0);

@@ -28,7 +28,7 @@ export const ListViewTabs = ({ activeFilters, onFilter, onAdd, isExpanded, onTog
         <AddIcon color="inherit" />
       </IconButton>
       <Box mr={2} />
-      <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+      <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
       <Box mr={2} />
       <IconButton size="small" variant="roundedContained" onClick={onToggleExpand}>
         {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}

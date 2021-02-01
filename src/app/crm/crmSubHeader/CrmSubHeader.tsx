@@ -32,7 +32,7 @@ export const CrmSubHeader = ({ viewMode = 'list', setViewMode, activeFilters, on
         <LocationIcon color="inherit" />
       </IconButton>
       <IconButton variant="roundedContained" size="small" classes={{ root: classes.sortIcon }}>
-        <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+        <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
       </IconButton>
       <IconButton variant="roundedContained" size="small" classes={{ root: classes.sortIcon }}>
         <SearchIcon color="inherit" />

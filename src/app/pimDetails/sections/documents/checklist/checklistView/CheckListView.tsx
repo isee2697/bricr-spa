@@ -70,7 +70,7 @@ export const CheckListView = ({
             action={
               <Box display="flex">
                 <Box mr={3}>
-                  <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+                  <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
                 </Box>
               </Box>
             }
