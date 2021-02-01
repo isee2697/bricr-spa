@@ -108,6 +108,7 @@ export const usePages = (initializer = false) => {
       pages[userId] = userPages;
     }
 
+    localStorage.setItem('bricrPreLogoutPage', page.path);
     localStorage.setItem('visitedBricrPages', JSON.stringify(pages));
   };
 
