@@ -4,8 +4,8 @@ import { useLocale } from 'hooks';
 import { MenuItem, Box, Typography, IconButton, Menu } from 'ui/atoms';
 import { MenuIcon, DeleteIcon, EditIcon } from 'ui/atoms/icons';
 
-import { useStyles } from './ActionButtons.styles';
-import { ActionButtonsProps } from './ActionButtons.types';
+import { useStyles } from './PublicationRowActionButtons.styles';
+import { PublicationRowActionButtonsProps } from './PublicationRowActionButtons.types';
 
 type SubMenuItemType = {
   title: string;
@@ -35,7 +35,7 @@ const SubMenuItem = ({ title, onClick, icon, color }: SubMenuItemType) => {
   );
 };
 
-export const ActionButtons = ({ id, onEditDetails }: ActionButtonsProps) => {
+export const PublicationRowActionButtons = ({ id, onDelete }: PublicationRowActionButtonsProps) => {
   const { formatMessage } = useLocale();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
 
@@ -48,20 +48,6 @@ export const ActionButtons = ({ id, onEditDetails }: ActionButtonsProps) => {
     setMenuEl(null);
   };
 
-  const handleClone = () => {};
-
-  const handleCopyUrl = () => {};
-
-  const handleEmailDashboard = () => {};
-
-  const handleEditDetails = () => {
-    onEditDetails?.();
-  };
-
-  const handleInactive = () => {};
-
-  const handleDelete = () => {};
-
   return (
     <>
       <IconButton className="menu-icon" variant="rounded" size="small" selected={Boolean(menuEl)} onClick={onMenuClick}>
@@ -70,55 +56,10 @@ export const ActionButtons = ({ id, onEditDetails }: ActionButtonsProps) => {
       <Menu id={id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
         <SubMenuItem
           title={formatMessage({
-            id: 'insights.menu.clone',
-          })}
-          onClick={() => {
-            handleClone?.();
-            onMenuClose();
-          }}
-        />
-        <SubMenuItem
-          title={formatMessage({
-            id: 'insights.menu.copy_url',
-          })}
-          onClick={() => {
-            handleCopyUrl?.();
-            onMenuClose();
-          }}
-        />
-        <SubMenuItem
-          title={formatMessage({
-            id: 'insights.menu.email_dashboard',
-          })}
-          onClick={() => {
-            handleEmailDashboard?.();
-            onMenuClose();
-          }}
-        />
-        <SubMenuItem
-          title={formatMessage({
-            id: 'insights.menu.edit_details',
-          })}
-          onClick={() => {
-            handleEditDetails?.();
-            onMenuClose();
-          }}
-        />
-        <SubMenuItem
-          title={formatMessage({
-            id: 'insights.menu.inactive',
-          })}
-          onClick={() => {
-            handleInactive?.();
-            onMenuClose();
-          }}
-        />
-        <SubMenuItem
-          title={formatMessage({
             id: 'common.delete',
           })}
           onClick={() => {
-            handleDelete?.();
+            onDelete?.();
             onMenuClose();
           }}
           icon={<DeleteIcon color="secondary" />}

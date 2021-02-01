@@ -44,6 +44,7 @@ export type FilterButtonProps = {
   getActiveFilters?: (filters: ListPimsFilters) => void;
   teams: Team[];
   accountManagers: Profile[];
+  color?: 'primary' | 'secondary' | 'default' | 'error';
 };
 
 export type FilterSidenavProps = {

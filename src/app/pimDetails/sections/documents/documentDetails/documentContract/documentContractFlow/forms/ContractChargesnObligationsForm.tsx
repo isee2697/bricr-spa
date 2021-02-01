@@ -1,38 +1,13 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
-import { Box, Checkbox, FormControlLabel, Grid, Menu, MenuItem, Typography } from 'ui/atoms';
+import { Box, Checkbox, FormControlLabel, Grid, Menu, Typography } from 'ui/atoms';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { DeleteIcon, HistoryIcon, SquareIcon } from 'ui/atoms/icons';
+import { DeleteIcon, SquareIcon } from 'ui/atoms/icons';
 import { BenefitBuyerType } from '../DocumentContractFlow.types';
-import { useStyles } from '../DocumentContractFlow.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 export function ContractChargesnObligationsForm() {
   const { formatMessage } = useLocale();
@@ -161,7 +136,7 @@ export function ContractChargesnObligationsForm() {
         anchorEl={menuEl}
         placement="bottom-end"
       >
-        <SubMenuItem
+        <ListOptionsMenuItem
           title={formatMessage({
             id: 'common.delete',
           })}
@@ -169,6 +144,7 @@ export function ContractChargesnObligationsForm() {
             onMenuClose();
           }}
           icon={<DeleteIcon color="secondary" />}
+          color="secondary"
         />
       </Menu>
     </>

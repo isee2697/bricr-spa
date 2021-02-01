@@ -6,8 +6,9 @@ import { useHistory } from 'react-router';
 import { useLocale, useModalDispatch } from 'hooks';
 import { Box, IconButton, Typography, NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { AddIcon, ManageIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
-import { ActionButtons } from '../common/ActionButtons/ActionButtons';
+import { AddIcon, EditIcon, ManageIcon, ScaleIcon, SettingsIcon } from 'ui/atoms/icons';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { DashboardsHeader } from './header/Header';
 import { CreateNewDashboardModalContainer } from './createNewDashboardModal/CreateNewDashboardModalContainer';
@@ -184,7 +185,38 @@ export const Dashboards = ({ cards, onUpdateLayout }: DashboardsProps) => {
             </IconButton>
           </Box>
           <Box>
-            <ActionButtons id="insights-dashboard-actions" />
+            <ListOptionsMenu id="insights-dashboard-actions" onDeleteClick={() => {}} hideEditButton>
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'insights.menu.clone',
+                })}
+                icon={<EditIcon />}
+              />
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'insights.menu.copy_url',
+                })}
+                icon={<EditIcon />}
+              />
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'insights.menu.email_dashboard',
+                })}
+                icon={<EditIcon />}
+              />
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'insights.menu.edit_details',
+                })}
+                icon={<EditIcon />}
+              />
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'insights.menu.inactive',
+                })}
+                icon={<EditIcon />}
+              />
+            </ListOptionsMenu>
           </Box>
         </Box>
       </Box>

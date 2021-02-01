@@ -1,4 +1,4 @@
-import { CrmStatus } from 'api/types';
+import { CrmStatus, ListPimsFilters } from 'api/types';
 import { CrmItem } from '../Crm.types';
 
 export type RelationsContainerProps = {
@@ -16,4 +16,6 @@ export type RelationsProps = {
   onStatusChange: (status: CrmStatus) => void;
   onUpdateItemStatus: (id: string, status: CrmStatus) => Promise<void>;
   onDeleteItem: (id: string) => void;
+  onFilter: (filters: ListPimsFilters) => void;
+  activeFilters: ListPimsFilters;
 };

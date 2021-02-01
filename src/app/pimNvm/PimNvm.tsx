@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Grid, IconButton, Box, Typography, Card, CardHeader, CardContent } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Grid, IconButton, Typography } from 'ui/atoms';
 import { useLayout } from 'context/layout';
 import { Page } from 'ui/templates';
-import { CardsIcon, HideIcon, ListIcon, LocationIcon, ExitIcon } from 'ui/atoms/icons';
+import { CardsIcon, ExitIcon, HideIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { ActionTabs } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -11,10 +11,11 @@ import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
 
-import { SidebarMenu } from './sidebarMenu/SidebarMenu';
+import { SidebarMenu as NvmSearchSidebarMenu } from './nvmSearchSidebarMenu/SidebarMenu';
 import { useStyles } from './PimNvm.styles';
 import { PimNvmProps, PimNvmTab } from './PimNvm.types';
 import { NvmSearchContainer } from './nvmSearch/NvmSearchContainer';
+import { DailyMutationsSidebarMenu } from './dailyMutationsSidebarMenu/SidebarMenu';
 
 export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProps) => {
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
@@ -30,7 +31,17 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
 
   return (
     <Grid container>
-      <SidebarMenu isVisible={isSidebarMenuVisible} onHide={() => setSidebarMenuVisible(!isSidebarMenuVisible)} />
+      {tab === PimNvmTab.NvmSearch ? (
+        <NvmSearchSidebarMenu
+          isVisible={isSidebarMenuVisible}
+          onHide={() => setSidebarMenuVisible(!isSidebarMenuVisible)}
+        />
+      ) : (
+        <DailyMutationsSidebarMenu
+          isVisible={isSidebarMenuVisible}
+          onHide={() => setSidebarMenuVisible(!isSidebarMenuVisible)}
+        />
+      )}
 
       <Grid
         item
@@ -55,7 +66,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
               )}
               <Typography variant="h1">{formatMessage({ id: 'nvm.title' })}</Typography>
             </Box>
-            <IconButton size="small" variant="rounded" className={classes.shareIcon}>
+            <IconButton size="small" variant="rounded">
               <ExitIcon />
             </IconButton>
           </Box>

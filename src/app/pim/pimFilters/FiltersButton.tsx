@@ -8,7 +8,13 @@ import { ManageIcon } from 'ui/atoms/icons/manage/ManageIcon';
 import { FilterButtonProps } from './Filters.types';
 import { Filters } from './Filters';
 
-export const FiltersButton = ({ data, getActiveFilters, teams, accountManagers }: FilterButtonProps) => {
+export const FiltersButton = ({
+  color = 'primary',
+  data,
+  getActiveFilters,
+  teams,
+  accountManagers,
+}: FilterButtonProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [filterAmount, setFilterAmount] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
@@ -64,7 +70,7 @@ export const FiltersButton = ({ data, getActiveFilters, teams, accountManagers }
   return (
     <>
       <IconButton aria-label="manage" size="small" variant="roundedContained" onClick={() => setModalOpen(true)}>
-        <Badge badgeContent={filterAmount} color="secondary">
+        <Badge badgeContent={filterAmount} color={color}>
           <ManageIcon color="inherit" />
         </Badge>
       </IconButton>
