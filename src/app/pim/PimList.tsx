@@ -19,6 +19,7 @@ import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
+import { PIM_1 } from 'api/mocks/pim';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
@@ -29,6 +30,7 @@ import { MovePimModal } from './movePimModal/MovePimModal';
 import { FiltersButton } from './pimFilters/FiltersButton';
 import { ActiveFilters } from './pimFilters/activeFilters/ActiveFilters';
 import { PimTableView } from './pimTableView/PimTableView';
+import { PimPurchaseTableView } from './pimPurchaseTableView/PimPurchaseTableView';
 
 export const PimList = ({
   status,
@@ -140,9 +142,9 @@ export const PimList = ({
                 </Select>
               </Box>
               <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
-              {viewMode === 'table' ? (
-                <PimTableView
-                  items={(listData?.listPims?.items ?? []) as PimEntity[]}
+              {type === 'purchase' && (
+                <PimPurchaseTableView
+                  items={[PIM_1] as PimEntity[]}
                   selected={selected}
                   onSelectItem={handleSelectItem}
                   onSelectAllItems={handleSelectAllItems}
@@ -150,32 +152,47 @@ export const PimList = ({
                   onEdit={() => {}}
                   onDelete={() => {}}
                 />
-              ) : (
-                <List
-                  className="pim-list"
-                  items={(listData?.listPims?.items ?? []) as PimEntity[]}
-                  itemIndex={'id'}
-                  renderItem={(pim, checked, checkbox) => (
-                    <Box key={pim.id} className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}>
-                      {checkbox}
-                      <Box component="span" className={classes.rowItem}>
+              )}
+              {type !== 'purchase' && (
+                <>
+                  {viewMode === 'table' ? (
+                    <PimTableView
+                      items={(listData?.listPims?.items ?? []) as PimEntity[]}
+                      selected={selected}
+                      onSelectItem={handleSelectItem}
+                      onSelectAllItems={handleSelectAllItems}
+                    />
+                  ) : (
+                    <List
+                      className="pim-list"
+                      items={(listData?.listPims?.items ?? []) as PimEntity[]}
+                      itemIndex={'id'}
+                      renderItem={(pim, checked, checkbox) => (
                         <Box
-                          className={classes.itemButton}
-                          onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                          key={pim.id}
+                          className={classNames(classes.row, { [classes.rowChecked]: checked }, 'pim-row')}
                         >
-                          <PimItem {...pim} />
+                          {checkbox}
+                          <Box component="span" className={classes.rowItem}>
+                            <Box
+                              className={classes.itemButton}
+                              onClick={() => push(AppRoute.pimDetails.replace(':id', pim.id))}
+                            >
+                              <PimItem {...pim} />
+                            </Box>
+                          </Box>
                         </Box>
-                      </Box>
-                    </Box>
+                      )}
+                      sortOptions={sorting.sortOptions}
+                      onSort={sorting.onSort}
+                      pagination={pagination}
+                      loading={isLoading}
+                      loadingItem={<PropertyItemPlaceholder />}
+                      emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
+                      emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
+                    />
                   )}
-                  sortOptions={sorting.sortOptions}
-                  onSort={sorting.onSort}
-                  pagination={pagination}
-                  loading={isLoading}
-                  loadingItem={<PropertyItemPlaceholder />}
-                  emptyTitle={formatMessage({ id: 'pim.list.empty_title' })}
-                  emptyDescription={formatMessage({ id: 'pim.list.empty_description' })}
-                />
+                </>
               )}
             </CardContent>
           </Card>

@@ -42,6 +42,8 @@ import {
   DocumentMeta,
 } from 'app/pimDetails/sections/documents/general/General.types';
 
+import { FILE_1 } from './file';
+
 export const PIM_1 = {
   id: 'pim_1',
   street: 'Isenburgstraat',
@@ -57,6 +59,8 @@ export const PIM_1 = {
   completeness: 0,
   archived: false,
   dateCreated: '2020-05-17T15:26:40.317Z',
+  salePrice: 245000,
+  mainPicture: { file: { ...FILE_1, id: 'mp_1', url: 'http://placeimg.com/176/112/arch' }, id: 'pic_1' },
 };
 
 export const PIM_DETAILS_1: Pim = {
