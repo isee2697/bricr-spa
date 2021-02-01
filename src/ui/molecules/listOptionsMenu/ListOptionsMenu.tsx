@@ -54,7 +54,7 @@ export const ListOptionsMenu = ({
                 icon={<EditIcon />}
                 disabled={!onEditClick}
                 onClick={() => onEditClick && onEditClick()}
-                data-testid="edit-option-button"
+                dataTestId="edit-option-button"
                 title={editText ?? formatMessage({ id: 'common.edit' })}
               />
             )}
@@ -64,7 +64,7 @@ export const ListOptionsMenu = ({
                 icon={<DeleteIcon />}
                 disabled={!onDeleteClick}
                 onClick={() => onDeleteClick && onDeleteClick()}
-                data-testid="delete-option-button"
+                dataTestId="delete-option-button"
                 title={deleteText ?? formatMessage({ id: 'common.delete' })}
               />
             )}
