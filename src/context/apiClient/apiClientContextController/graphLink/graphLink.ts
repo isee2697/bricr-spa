@@ -5,7 +5,6 @@ import { AppRoute } from 'routing/AppRoute.enum';
 let refreshTokenPromise: Promise<string | undefined> | undefined;
 
 const goToLogout = () => {
-  localStorage.setItem('bricrPreLogoutPage', window.location.pathname);
   window.location.href = AppRoute.logout;
 };
 export const graphLink = (

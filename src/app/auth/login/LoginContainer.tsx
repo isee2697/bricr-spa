@@ -7,12 +7,15 @@ import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { useLoginMutation, LoginInput } from 'api/types';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
+import { usePages } from 'hooks';
+import { Loader } from 'ui/atoms';
 
 import { Login } from './Login';
 
 export const LoginContainer = () => {
   const dispatch = useAuthDispatch();
   const [login] = useLoginMutation();
+  const pages = usePages();
 
   const { isAuthorized, user } = useAuthState();
 
@@ -49,13 +52,20 @@ export const LoginContainer = () => {
   if (isAuthorized) {
     const lastPath = localStorage.getItem('bricrPreLogoutPage');
 
-    if (!!lastPath && user?.id) {
-      localStorage.removeItem('bricrPreLogoutPage');
+    if (lastPath) {
+      if (user) {
+        const [lastItem] = pages?.[user.id].slice(-1);
+        localStorage.removeItem('bricrPreLogoutPage');
 
-      return <Redirect to={lastPath} />;
+        const path = lastItem.path === lastPath && lastPath !== AppRoute.logout ? lastPath : AppRoute.home;
+
+        return <Redirect to={path} />;
+      }
+
+      return <Loader />;
+    } else {
+      return <Redirect to={AppRoute.home} />;
     }
-
-    return <Redirect to={AppRoute.home} />;
   }
 
   return <Login onSubmit={onSubmit} />;
