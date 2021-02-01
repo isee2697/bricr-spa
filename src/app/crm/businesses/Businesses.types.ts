@@ -1,4 +1,4 @@
-import { CrmStatus } from 'api/types';
+import { CrmStatus, ListPimsFilters } from 'api/types';
 import { CrmItem } from '../Crm.types';
 
 export type BusinessesContainerProps = {
@@ -14,4 +14,6 @@ export type BusinessesProps = {
   isSidebarVisible: boolean;
   status: CrmStatus;
   onStatusChange: (status: CrmStatus) => void;
+  onFilter: (filters: ListPimsFilters) => void;
+  activeFilters: ListPimsFilters;
 };

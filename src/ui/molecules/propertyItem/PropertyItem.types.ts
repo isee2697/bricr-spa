@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { PropertyStageItem } from 'ui/molecules/propertyStage/PropertyStage.types';
 
 export type PropertyItemProps = {
@@ -17,5 +19,5 @@ export type PropertyItemProps = {
   stageIndex?: number;
   formerOwners?: string;
   buyers?: string;
-  onMenuClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  actionsMenu?: ReactNode;
 };

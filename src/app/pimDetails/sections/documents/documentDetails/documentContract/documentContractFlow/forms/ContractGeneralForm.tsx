@@ -1,39 +1,14 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useLocale } from 'hooks';
 import { AutosaveForm, FormSection } from 'ui/organisms';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { DatePickerField, GenericField, RadioGroupField } from 'form/fields';
-import { Box, Grid, Menu, MenuItem, Typography } from 'ui/atoms';
-import { DeleteIcon, HistoryIcon, SquareIcon } from 'ui/atoms/icons';
+import { Box, Grid, Menu } from 'ui/atoms';
+import { DeleteIcon, SquareIcon } from 'ui/atoms/icons';
 import { PricingType } from 'api/types';
 import { ContractFormProps } from '../DocumentContractFlow.types';
-import { useStyles } from '../DocumentContractFlow.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 export function ContractGeneralForm({ documentKind }: ContractFormProps) {
   const { formatMessage } = useLocale();
@@ -106,7 +81,7 @@ export function ContractGeneralForm({ documentKind }: ContractFormProps) {
         anchorEl={menuEl}
         placement="bottom-end"
       >
-        <SubMenuItem
+        <ListOptionsMenuItem
           title={formatMessage({
             id: 'common.delete',
           })}
@@ -114,6 +89,7 @@ export function ContractGeneralForm({ documentKind }: ContractFormProps) {
             onMenuClose();
           }}
           icon={<DeleteIcon color="secondary" />}
+          color="secondary"
         />
       </Menu>
     </>

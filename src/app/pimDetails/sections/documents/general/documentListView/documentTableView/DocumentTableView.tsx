@@ -1,50 +1,14 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import { DateTime } from 'luxon';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Box,
-  Emoji,
-  IconButton,
-  Menu,
-  Typography,
-  MenuItem,
-} from 'ui/atoms';
-import { TasksIcon, BuildingIcon, HistoryIcon, StatusIcon, MenuIcon, DeleteIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Emoji } from 'ui/atoms';
+import { TasksIcon, BuildingIcon, HistoryIcon, StatusIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { ListOptionsMenu } from 'ui/molecules';
 
 import { DocumentTableViewProps } from './DocumentTableView.types';
 import { useStyles } from './DocumentTableView.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 export const DocumentTableView = ({
   data,
@@ -56,16 +20,6 @@ export const DocumentTableView = ({
 }: DocumentTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   return (
     <Table>
@@ -116,54 +70,33 @@ export const DocumentTableView = ({
             </TableCell>
             <TableCell>
               <div>
-                <IconButton
-                  className="menu-icon"
-                  variant="rounded"
-                  size="small"
-                  selected={Boolean(menuEl)}
-                  onClick={onMenuClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu id={doc.id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-                  <SubMenuItem
+                {' '}
+                <ListOptionsMenu id={doc.id} onDeleteClick={() => onDelete?.()} hideEditButton>
+                  <ListOptionsMenuItem
                     title={formatMessage({
                       id: 'pim_details.documents.menu.preview',
                     })}
                     onClick={() => {
                       onPreview?.();
-                      onMenuClose();
                     }}
                   />
-                  <SubMenuItem
+                  <ListOptionsMenuItem
                     title={formatMessage({
                       id: 'pim_details.documents.menu.send',
                     })}
                     onClick={() => {
                       onSend?.();
-                      onMenuClose();
                     }}
                   />
-                  <SubMenuItem
+                  <ListOptionsMenuItem
                     title={formatMessage({
                       id: 'pim_details.documents.menu.archive',
                     })}
                     onClick={() => {
                       onArchive?.();
-                      onMenuClose();
                     }}
                   />
-                  <SubMenuItem
-                    title={formatMessage({
-                      id: 'common.delete',
-                    })}
-                    onClick={() => {
-                      onDelete?.();
-                      onMenuClose();
-                    }}
-                    icon={<DeleteIcon color="secondary" />}
-                  />
-                </Menu>
+                </ListOptionsMenu>
               </div>
             </TableCell>
           </TableRow>
