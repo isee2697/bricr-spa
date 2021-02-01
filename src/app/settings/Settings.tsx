@@ -23,6 +23,7 @@ import { CadastreSettingsContainer } from './sections/cadastre/CadastreSettingsC
 import { KeyBoardContainer } from './sections/keyBoard/KeyBoardContainer';
 import { SignBoardContainer } from './sections/signBoard/SignBoardContainer';
 import { LivingSituationContainer } from './sections/livingSituation/LivingSituationContainer';
+import { EmailTemplateContainer } from './sections/documents/emailTemplate/EmailTemplateContainer';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -64,6 +65,7 @@ export const Settings = ({ data }: SettingsProps) => {
               path={`${AppRoute.settings}/contractTemplates`}
               render={() => <ContractTemplatesContainer />}
             />
+            <Route exact path={`${AppRoute.settings}/emailTemplate`} render={() => <EmailTemplateContainer />} />
             <Route path={`${AppRoute.settingsGeneral}`} render={() => <GeneralSettings />} />
             <Route exact path={AppRoute.contractTemplates} render={() => <ContractTemplatesDetailsContainer />} />
             <Route exact path={AppRoute.teams} render={() => <TeamContainer />} />
