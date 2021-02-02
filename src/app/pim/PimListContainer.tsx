@@ -14,6 +14,10 @@ const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
+  if (type === 'purchase') {
+    return {};
+  }
+
   return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 

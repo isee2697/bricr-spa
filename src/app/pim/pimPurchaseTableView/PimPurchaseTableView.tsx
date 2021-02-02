@@ -1,23 +1,9 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  Box,
-  IconButton,
-  Menu,
-  Typography,
-  MenuItem,
-  Avatar,
-  Emoji,
-} from 'ui/atoms';
-import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon, ClockIcon } from 'ui/atoms/icons';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Emoji } from 'ui/atoms';
+import { SettingsIcon, ClockIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
@@ -27,31 +13,6 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 
 import { PimPurchaseTableViewFixedHeader, PimPurchaseTableViewViewProps } from './PimPurchaseTableView.types';
 import { useStyles } from './PimPurchaseTableView.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 const FIXED_HEADER_COLUMNS: PimPurchaseTableViewFixedHeader[] = [
   'address',
@@ -77,17 +38,6 @@ export const PimPurchaseTableView = ({
   const classes = useStyles();
   const { push } = useHistory();
 
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
-
   const renderCell = useCallback((pim: Pim, cell: PimPurchaseTableViewFixedHeader) => {
     switch (cell) {
       case 'address':
@@ -97,7 +47,7 @@ export const PimPurchaseTableView = ({
       case 'tv':
         return 'bis';
       case 'salePrice':
-        return `€ ${pim.salePrice}`;
+        return `€ ${pim.salePrice || 0}`;
       default:
         return pim[cell];
     }
@@ -132,7 +82,7 @@ export const PimPurchaseTableView = ({
           {items.map((item, index) => (
             <TableRow
               key={index}
-              onClick={() => push(joinUrlParams(AppRoute.pimDetails, { id: item.id }))}
+              onClick={() => push(joinUrlParams(AppRoute.pimDetails, { id: item.id }), { purchased: true })}
               className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
             >
               <TableCell padding="checkbox">

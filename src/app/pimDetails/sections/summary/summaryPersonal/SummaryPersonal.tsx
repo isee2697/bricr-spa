@@ -3,7 +3,7 @@ import clsx from 'classnames';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Button, Grid, Typography } from 'ui/atoms';
-import { BuildingIcon, ExitIcon } from 'ui/atoms/icons';
+import { BuildingIcon, ShareIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
 
@@ -29,7 +29,7 @@ export const SummaryPersonal = ({ summary, isSidebarVisible, onSidebarOpen }: Su
         action={
           <Button
             color="primary"
-            startIcon={<ExitIcon className={classes.btnHeader} />}
+            startIcon={<ShareIcon color="inherit" className={classes.btnHeader} />}
             variant="contained"
             size="small"
           >

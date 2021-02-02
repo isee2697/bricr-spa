@@ -8,7 +8,6 @@ import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
-import { PIM_1 } from 'api/mocks/pim';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 
 import { PimHeader } from './pimHeader/PimHeader';
@@ -123,13 +122,12 @@ export const PimList = ({
                   }
                 />
               </Box>
-              <Box mt={-2}>
+              {Object.keys(activeFilters).length > 0 && (
                 <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
-              </Box>
-              <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+              )}
               {type === 'purchase' && (
                 <PimPurchaseTableView
-                  items={[PIM_1] as PimEntity[]}
+                  items={(listData?.listPims?.items ?? []) as PimEntity[]}
                   selected={selected}
                   onSelectItem={handleSelectItem}
                   onSelectAllItems={handleSelectAllItems}

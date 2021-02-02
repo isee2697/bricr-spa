@@ -47,9 +47,4 @@ export const PimTypes = [
     icon: <AogIcon />,
     types: [PropertyType.BuildingPlot],
   },
-  {
-    name: 'purchase',
-    icon: <AogIcon />,
-    types: [PropertyType.Other],
-  },
 ];

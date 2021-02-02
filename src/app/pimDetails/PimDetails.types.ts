@@ -8,6 +8,7 @@ export type PimDetailsSectionProps = {
   onSidebarOpen: VoidFunction;
   title?: string;
   onAddAllocation?: () => void;
+  isPurchased?: boolean;
 };
 
 export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'error' | 'data'> & {
@@ -16,4 +17,5 @@ export type PimDetailsProps = Pick<PimOverallInfoQueryHookResult, 'loading' | 'e
   breadcrumbs: ReactNode;
   path: string;
   entityType: EntityType;
+  isPurchased?: boolean;
 };
