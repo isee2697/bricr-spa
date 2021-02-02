@@ -2,8 +2,10 @@ import React from 'react';
 import clsx from 'classnames';
 
 import { useLocale } from 'hooks';
-import { Avatar, Box, Emoji, IconButton, ProgressFilling, Typography } from 'ui/atoms';
-import { MenuIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Emoji, ProgressFilling, Typography } from 'ui/atoms';
+import { ClockIcon } from 'ui/atoms/icons';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { ListItemProps } from './ListItem.types';
 import { useStyles } from './ListItem.styles';
@@ -12,7 +14,7 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
 
-  const { image, name, size, rooms, properties, price, matchStrength } = item;
+  const { id, image, name, size, rooms, properties, price, matchStrength } = item;
 
   return (
     <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
@@ -68,9 +70,14 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
                     </Box>
                   </Box>
                   <Box>
-                    <IconButton className="menu-icon" variant="rounded" size="small" onClick={() => {}}>
-                      <MenuIcon />
-                    </IconButton>
+                    <ListOptionsMenu id={`crm-match-profile-menu-${id}`} onDeleteClick={() => {}} hideEditButton>
+                      <ListOptionsMenuItem
+                        title={formatMessage({
+                          id: 'crm.details.personal_information_match_profile.menu.active_inactive',
+                        })}
+                        icon={<ClockIcon />}
+                      />
+                    </ListOptionsMenu>
                   </Box>
                 </Box>
               </Box>
