@@ -36,8 +36,11 @@ export const graphLink = (
         }
 
         if (tokens.accessToken && tokens.refreshToken && response.status === 401) {
-          if (!refreshTokenPromise) {
-            refreshTokenPromise = refetchToken(newOptions.headers);
+          if (json && json.error && json.error.id === 'TokenExpiredError: jwt expired') {
+            if (!refreshTokenPromise) {
+              refreshTokenPromise = refetchToken(newOptions.headers);
+            }
+
             const newToken = await refreshTokenPromise;
             refreshTokenPromise = undefined;
 
@@ -52,6 +55,8 @@ export const graphLink = (
             } else {
               goToLogout();
             }
+          } else {
+            goToLogout();
           }
         }
 
