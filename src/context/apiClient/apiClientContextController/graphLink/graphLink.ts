@@ -36,25 +36,21 @@ export const graphLink = (
         }
 
         if (tokens.accessToken && tokens.refreshToken && response.status === 401) {
-          if (json && json.error && json.error.id === 'TokenExpiredError: jwt expired') {
-            if (!refreshTokenPromise) {
-              refreshTokenPromise = refetchToken(newOptions.headers);
-            }
+          if (!refreshTokenPromise) {
+            refreshTokenPromise = refetchToken(newOptions.headers);
+          }
 
-            const newToken = await refreshTokenPromise;
-            refreshTokenPromise = undefined;
+          const newToken = await refreshTokenPromise;
+          refreshTokenPromise = undefined;
 
-            if (newToken) {
-              return fetch(endpoint, {
-                ...newOptions,
-                headers: {
-                  ...newOptions.headers,
-                  authorization: `Bearer ${newToken}`,
-                },
-              });
-            } else {
-              goToLogout();
-            }
+          if (newToken) {
+            return fetch(endpoint, {
+              ...newOptions,
+              headers: {
+                ...newOptions.headers,
+                authorization: `Bearer ${newToken}`,
+              },
+            });
           } else {
             goToLogout();
           }

@@ -1,6 +1,7 @@
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { setTokens } from 'context/auth/authActionCreators/authActionCreators';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 export const useRefreshToken = () => {
   const { refreshToken: token } = useAuthState();
@@ -23,6 +24,7 @@ export const useRefreshToken = () => {
           const { AuthenticationResult } = await response.json();
 
           dispatch(setTokens(AuthenticationResult.AccessToken, token));
+          authStorage.accessToken = AuthenticationResult.AccessToken;
 
           return AuthenticationResult?.AccessToken;
         }
