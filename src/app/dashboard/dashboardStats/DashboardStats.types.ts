@@ -1,12 +1,14 @@
 export type StatItem = {
   value: number;
   type: 'info' | 'warning' | 'error' | 'success';
+  optionalValue?: number;
 };
 
 export type DashboardStatsProps = {
-  orders?: StatItem;
-  ordersValue?: StatItem;
-  visits?: StatItem;
-  properties?: StatItem;
+  pims?: StatItem;
+  crms?: StatItem;
+  sales?: StatItem;
   emails?: StatItem;
+  appointments?: StatItem;
+  documents?: StatItem;
 };
