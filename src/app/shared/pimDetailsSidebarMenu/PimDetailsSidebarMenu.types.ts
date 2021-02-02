@@ -7,6 +7,7 @@ export type PimDetailsSidebarMenuProps = {
   objectTypeName?: string;
   allocateResultsNumber?: number;
   picture?: Picture;
+  isPurchased?: boolean;
 };
 
 export type SubMenuItem = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Box, Card, CardContent, CardHeader, Grid, IconButton, Typography } from 'ui/atoms';
 import { useLayout } from 'context/layout';
@@ -10,6 +11,7 @@ import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ListPimsFilters } from 'api/types';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { SidebarMenu as NvmSearchSidebarMenu } from './nvmSearchSidebarMenu/SidebarMenu';
 import { useStyles } from './PimNvm.styles';
@@ -21,6 +23,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
   const classes = useStyles();
   const { formatMessage } = useLocale();
+  const { push } = useHistory();
 
   const tabs: ActionTab[] = Object.keys(PimNvmTab).map(key => ({
     label: formatMessage({ id: `nvm.tab.${key}` }),
@@ -52,7 +55,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
         className={classes.content}
       >
         <Page withoutHeader>
-          <Box width="100%" display="flex" justifyContent="space-between">
+          <Box width="100%" display="flex" justifyContent="space-between" alignItems="center">
             <Box display="flex">
               {!isSidebarMenuVisible && (
                 <IconButton
@@ -66,7 +69,7 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
               )}
               <Typography variant="h1">{formatMessage({ id: 'nvm.title' })}</Typography>
             </Box>
-            <IconButton size="small" variant="rounded">
+            <IconButton size="small" variant="rounded" onClick={() => push(AppRoute.pim)}>
               <ExitIcon />
             </IconButton>
           </Box>
