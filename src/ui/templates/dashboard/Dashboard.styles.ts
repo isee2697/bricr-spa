@@ -32,10 +32,10 @@ export const useStyles = makeStyles(theme => ({
   content: {
     padding: theme.spacing(0),
     flex: '1 1 auto',
-    width: `calc(100vw - ${theme.spacing(8)}px)`,
+    width: `calc(100% - ${theme.spacing(8)}px)`,
 
     [theme.breakpoints.down('sm')]: {
-      maxWidth: `calc(100vw - ${theme.spacing(8)}px)`,
+      maxWidth: `calc(100% - ${theme.spacing(8)}px)`,
     },
   },
   overlay: {

@@ -4,25 +4,35 @@ import { DashboardStats } from './DashboardStats';
 
 // @TODO - replace with real data
 const mockData = {
-  orders: {
-    value: 42.99,
+  pims: {
+    value: 231,
     type: 'success',
+    optionalValue: 15,
   },
-  ordersValue: {
-    value: 123123512,
+  crms: {
+    value: 2,
     type: 'warning',
+    optionalValue: 15,
   },
-  visits: {
-    value: -20,
+  sales: {
+    value: 2,
     type: 'error',
-  },
-  properties: {
-    value: 13,
-    type: 'info',
+    optionalValue: 15,
   },
   emails: {
-    value: 252,
+    value: 144,
     type: 'success',
+    optionalValue: 15,
+  },
+  appointments: {
+    value: 14,
+    type: 'success',
+    optionalValue: 15,
+  },
+  documents: {
+    value: 2,
+    type: 'error',
+    optionalValue: 15,
   },
 } as const;
 
