@@ -17,11 +17,13 @@ import {
   Avatar,
   Emoji,
 } from 'ui/atoms';
-import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon } from 'ui/atoms/icons';
+import { HistoryIcon, MenuIcon, DeleteIcon, SettingsIcon, ClockIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Pim } from 'api/types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { PimPurchaseTableViewFixedHeader, PimPurchaseTableViewViewProps } from './PimPurchaseTableView.types';
 import { useStyles } from './PimPurchaseTableView.styles';
@@ -157,53 +159,25 @@ export const PimPurchaseTableView = ({
                 </TableCell>
               ))}
               <TableCell>
-                <div>
-                  <IconButton
-                    className="menu-icon"
-                    variant="rounded"
-                    size="small"
-                    selected={Boolean(menuEl)}
-                    onClick={onMenuClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Menu
-                    id={item.id}
-                    open={Boolean(menuEl)}
-                    onClose={onMenuClose}
-                    anchorEl={menuEl}
-                    placement="bottom-end"
-                  >
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.archive',
-                      })}
-                      onClick={() => {
-                        onArchive?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.edit',
-                      })}
-                      onClick={() => {
-                        onEdit?.();
-                        onMenuClose();
-                      }}
-                    />
-                    <SubMenuItem
-                      title={formatMessage({
-                        id: 'common.delete',
-                      })}
-                      onClick={() => {
-                        onDelete?.();
-                        onMenuClose();
-                      }}
-                      icon={<DeleteIcon color="secondary" />}
-                    />
-                  </Menu>
-                </div>
+                <ListOptionsMenu
+                  id="purchase-table-menu"
+                  onDeleteClick={() => {
+                    onDelete?.();
+                  }}
+                  onEditClick={() => {
+                    onEdit?.();
+                  }}
+                >
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'common.archive',
+                    })}
+                    icon={<ClockIcon />}
+                    onClick={() => {
+                      onArchive?.();
+                    }}
+                  />
+                </ListOptionsMenu>
               </TableCell>
             </TableRow>
           ))}
