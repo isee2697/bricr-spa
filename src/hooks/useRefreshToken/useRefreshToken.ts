@@ -26,6 +26,8 @@ export const useRefreshToken = () => {
 
           return AuthenticationResult?.AccessToken;
         }
+
+        return undefined;
       })
       .catch(() => {
         return undefined;
