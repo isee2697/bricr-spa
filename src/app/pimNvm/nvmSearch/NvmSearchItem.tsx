@@ -1,38 +1,15 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import clsx from 'classnames';
 
-import { Box, Avatar, Emoji, Typography, IconButton, Chip, MenuItem, Menu } from 'ui/atoms';
+import { Box, Avatar, Emoji, Typography, Chip } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { HistoryIcon, MenuIcon } from 'ui/atoms/icons';
 import { NvmItemStatus } from '../PimNvm.types';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { ClockIcon } from 'ui/atoms/icons';
 
 import { NvmSearchItemProps } from './NvmSearch.types';
 import { useStyles } from './NvmSearchItem.styles';
-
-type SubMenuItemType = {
-  title: string;
-  onClick?: VoidFunction;
-  icon?: ReactElement;
-};
-
-const SubMenuItem = ({ title, onClick, icon }: SubMenuItemType) => {
-  const classes = useStyles();
-
-  return (
-    <MenuItem
-      className={classes.menuItem}
-      onClick={(event: React.MouseEvent) => {
-        event.stopPropagation();
-        onClick?.();
-      }}
-    >
-      {icon ?? <HistoryIcon classes={{ root: classes.menuIcon }} />}
-      <Box ml={2}>
-        <Typography variant="subtitle1">{title}</Typography>
-      </Box>
-    </MenuItem>
-  );
-};
 
 export const NvmSearchItem = ({
   item: { id, image, price, properties, address, date, labels, rooms, size, status },
@@ -41,16 +18,6 @@ export const NvmSearchItem = ({
 }: NvmSearchItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   return (
     <>
@@ -88,9 +55,14 @@ export const NvmSearchItem = ({
                     ))}
                   </Box>
                 </Box>
-                <IconButton size="small" variant="rounded" onClick={onMenuClick}>
-                  <MenuIcon />
-                </IconButton>
+                <ListOptionsMenu id={`nvm-search-menu-${id}`} hideDeleteButton hideEditButton>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'nvm.purchase',
+                    })}
+                    icon={<ClockIcon />}
+                  />
+                </ListOptionsMenu>
               </Box>
               <Box display="flex" justifyContent="space-between" mt={2}>
                 <Box>
@@ -139,23 +111,6 @@ export const NvmSearchItem = ({
           </Box>
         </Box>
       </Box>
-      <Menu
-        id={`nvm-search-menu-${id}`}
-        open={Boolean(menuEl)}
-        onClose={onMenuClose}
-        anchorEl={menuEl}
-        placement="bottom-end"
-      >
-        <SubMenuItem
-          title={formatMessage({
-            id: 'nvm.purchase',
-          })}
-          onClick={() => {
-            // TODO: Copy NVM to purchase list
-            onMenuClose();
-          }}
-        />
-      </Menu>
     </>
   );
 };
