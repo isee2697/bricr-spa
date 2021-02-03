@@ -9,6 +9,7 @@ import { AogSpaceType, TiaraEntities } from 'api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
+import { PublicationDetailsContainer } from './sections/publicationDetails/PublicationDetailsContainer';
 
 const AllocateResultsDetailsContainer = lazy(() =>
   import('./sections/allocateResultsDetails/AllocateResultsDetailsContainer'),
@@ -246,12 +247,23 @@ export const PimDetails = ({
                       )}
                     />
                     <Route
+                      exact
                       path={`${path}/publication`}
                       render={() => (
                         <PublicationContainer
                           title={title}
                           isSidebarVisible={isSidebarVisible}
                           onSidebarOpen={handleSidebarOpen}
+                        />
+                      )}
+                    />
+                    <Route
+                      path={`${path}/publication/:publicationId`}
+                      render={() => (
+                        <PublicationDetailsContainer
+                          isSidebarVisible={isSidebarVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
                         />
                       )}
                     />
