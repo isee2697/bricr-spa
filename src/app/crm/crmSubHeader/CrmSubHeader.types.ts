@@ -1,4 +1,4 @@
-import { ListPimsFilters, Profile, Team } from 'api/types';
+import { ListPimsFilters } from 'api/types';
 
 export type CrmSubHeaderProps = {
   viewMode: 'list' | 'table';

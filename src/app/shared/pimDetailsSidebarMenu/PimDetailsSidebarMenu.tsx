@@ -42,6 +42,7 @@ export const PimDetailsSidebarMenu = ({
   objectTypeName,
   isVisible,
   picture,
+  isPurchased = false,
 }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -205,24 +206,28 @@ export const PimDetailsSidebarMenu = ({
           },
         ],
       },
-      {
-        isCollapsable: true,
-        key: 'pim_details.menu.allocation',
-        items: [
-          {
-            key: 'allocateResults',
-            title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
-          },
-          {
-            key: 'allocateSettings/allocation1',
-            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
-          },
-          {
-            key: 'allocateSettings/allocation2',
-            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
-          },
-        ],
-      },
+      ...(isPurchased
+        ? []
+        : [
+            {
+              isCollapsable: true,
+              key: 'pim_details.menu.allocation',
+              items: [
+                {
+                  key: 'allocateResults',
+                  title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
+                },
+                {
+                  key: 'allocateSettings/allocation1',
+                  title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+                },
+                {
+                  key: 'allocateSettings/allocation2',
+                  title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+                },
+              ],
+            },
+          ]),
       {
         isCollapsable: true,
         key: 'pim_details.menu.sales',
@@ -303,7 +308,7 @@ export const PimDetailsSidebarMenu = ({
         )
       }
       menuSubTitle={formatMessage({
-        id: `pim.type.${type}`,
+        id: isPurchased ? 'pim.type.purchase' : `pim.type.${type}`,
       })}
     />
   );

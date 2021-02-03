@@ -41,6 +41,7 @@ export const PimDetails = ({
   path,
   entityType,
   objectTypeName,
+  isPurchased = false,
 }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -76,6 +77,7 @@ export const PimDetails = ({
           objectTypeName={objectTypeName}
           allocateResultsNumber={5}
           picture={mainPicture || undefined}
+          isPurchased={isPurchased}
         />
         <Grid item xs={12} md={9} lg={10}>
           <Box width="100%">
@@ -97,6 +99,7 @@ export const PimDetails = ({
                           isSidebarVisible={isSidebarVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
+                          isPurchased={isPurchased}
                         />
                       )}
                     />
@@ -158,12 +161,17 @@ export const PimDetails = ({
                         />
                       )}
                     />
-                    <Route
-                      path={`${path}/allocateSettings`}
-                      render={() => (
-                        <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
-                      )}
-                    />
+                    {!isPurchased && (
+                      <Route
+                        path={`${path}/allocateSettings`}
+                        render={() => (
+                          <SalesSettingsContainer
+                            isSidebarVisible={isSidebarVisible}
+                            onSidebarOpen={handleSidebarOpen}
+                          />
+                        )}
+                      />
+                    )}
                     <Route
                       path={`${path}/specification`}
                       render={() => (
@@ -227,25 +235,30 @@ export const PimDetails = ({
                     />
                     <Route exact path={`${path}/propertyJourney`} render={() => <>PropertyJourney</>} />
                     <Route exact path={`${path}/timeline`} render={() => <>Timeline</>} />
-                    <Route
-                      exact
-                      path={`${path}/allocateResults`}
-                      render={() => (
-                        <AllocateResultsContainer
-                          isSidebarVisible={isSidebarVisible}
-                          onSidebarOpen={handleSidebarOpen}
+                    {!isPurchased && (
+                      <>
+                        <Route
+                          exact
+                          path={`${path}/allocateResults`}
+                          render={() => (
+                            <AllocateResultsContainer
+                              isSidebarVisible={isSidebarVisible}
+                              onSidebarOpen={handleSidebarOpen}
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    <Route
-                      path={`${path}/allocateResults/:id`}
-                      render={() => (
-                        <AllocateResultsDetailsContainer
-                          isSidebarVisible={isSidebarVisible}
-                          onSidebarOpen={handleSidebarOpen}
+                        <Route
+                          path={`${path}/allocateResults/:id`}
+                          render={() => (
+                            <AllocateResultsDetailsContainer
+                              isSidebarVisible={isSidebarVisible}
+                              onSidebarOpen={handleSidebarOpen}
+                            />
+                          )}
                         />
-                      )}
-                    />
+                      </>
+                    )}
+
                     <Route
                       exact
                       path={`${path}/publication`}

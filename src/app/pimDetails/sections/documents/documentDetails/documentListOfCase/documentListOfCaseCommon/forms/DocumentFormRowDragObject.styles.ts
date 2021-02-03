@@ -31,7 +31,7 @@ export const useStyles = makeStyles(theme => ({
     alignItems: 'center',
 
     '&.even': {
-      background: theme.palette.blue.light,
+      background: theme.palette.gray.light,
     },
   },
   fullWidthCell: {

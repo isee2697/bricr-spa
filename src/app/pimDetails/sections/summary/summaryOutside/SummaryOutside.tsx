@@ -35,7 +35,7 @@ export const SummaryOutside = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
         action={
           <Button
             color="primary"
-            startIcon={<ExitIcon className={classes.btnHeader} />}
+            startIcon={<ExitIcon color="inherit" className={classes.btnHeader} />}
             variant="contained"
             size="small"
           >
