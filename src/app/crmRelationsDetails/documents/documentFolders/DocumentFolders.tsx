@@ -1,16 +1,16 @@
 import React, { useState, ReactNode, useCallback } from 'react';
 import { Typography } from '@material-ui/core';
 
+import { DmsFolderIcon } from 'app/dms/dmsPims/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { Box, Grid, Card, CardHeader, CardContent, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
-import { AddFolderDialog } from '../addFolderDialog/AddFolderDialog';
-import { DmsFolderIcon } from 'app/dms/dmsDocuments/dmsFolders/dmsFolderIcon/DmsFolderIcon';
 import { DocumentListViewContainer } from '../documentListView/DocumentListViewContainer';
 import { DocumentFolderType } from '../Documents.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Page } from 'ui/templates';
 import { ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 
 import { useStyles } from './DocumentFolders.styles';
 import { DocumentFoldersProps } from './DocumentFolders.types';
@@ -42,7 +42,7 @@ export const DocumentFolders = ({
 
   const handleAdd = () => {
     setDialog(
-      <AddFolderDialog
+      <DmsAddFolderDialog
         isOpened={true}
         isAdd={true}
         onClose={() => {

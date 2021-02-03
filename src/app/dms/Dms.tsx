@@ -9,13 +9,13 @@ import { useStyles } from './Dms.styles';
 import { DmsSidebarMenu } from './dmsSidebarMenu/DmsSidebarMenu';
 import { DmsHeader } from './dmsHeader/DmsHeader';
 import { DmsDashboard } from './dmsDashboard/DmsDashboard';
-import { DmsDocumentsContainer } from './dmsDocuments/DmsDocumentsContainer';
 import { DmsTemplatesContainer } from './dmsTemplates/DmsTemplatesContainer';
 import { DmsContentBlocksContainer } from './dmsContentBlocks/DmsContentBlocksContainer';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
 import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDetailsContainer';
 import { DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/dmsDetailsSidebarMenu';
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
+import { DmsPims } from './dmsPims/DmsPims';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -58,7 +58,10 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
               {!!dms && (
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
-                  <Route path={`${path}/documents`} render={() => <DmsDocumentsContainer dms={dms} />} />
+                  <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
+                  <Route path={`${path}/templatesEmail`} render={() => <></>} />
+                  <Route path={`${path}/contentBlocks`} render={() => <></>} />
+                  <Route path={`${path}/imageLibrary`} render={() => <></>} />
                   <Route exact path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
                   <Route path={`${path}/templates/:id`} render={() => <DmsTemplateDetailsContainer />} />
                   <Route exact path={`${path}/content-blocks`} render={() => <DmsContentBlocksContainer />} />

@@ -116,7 +116,7 @@ export const SidebarMenu = ({
   };
 
   const showIcon = (item: MenuItem, groupCollapsable: boolean) => {
-    if (groupCollapsable || item.hideIcon) {
+    if (item.hideIcon) {
       return;
     }
 
