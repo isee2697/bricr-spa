@@ -8,4 +8,5 @@ export type VerticalTimelineItem = {
 
 export type VerticalTimelineProps = {
   items: VerticalTimelineItem[];
+  noSideMargin?: boolean;
 };
