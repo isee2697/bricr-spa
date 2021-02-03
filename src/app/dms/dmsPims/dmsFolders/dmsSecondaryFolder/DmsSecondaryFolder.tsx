@@ -7,9 +7,9 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { PropertyItemPlaceholder, Search } from 'ui/molecules';
 import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
 import { DmsFolderType } from 'app/dms/Dms.types';
-import { DmsAddFolderDialog } from '../../dmsAddFolderDialog/DmsAddFolderDialog';
 import { DmsListViewContainer } from '../dmsListView/DmsListViewContainer';
 import { DirectoryIcon } from 'ui/atoms/icons';
+import { DmsAddFolderDialog } from 'app/dms/dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
 
 import { useStyles } from './DmsSecondaryFolder.styles';
 import { DmsSecondaryFolderProps } from './DmsSecondaryFolder.types';

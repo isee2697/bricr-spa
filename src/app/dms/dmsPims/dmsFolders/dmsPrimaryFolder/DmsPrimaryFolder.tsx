@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ListPimsFilters } from 'api/types';
-import { Box, Grid, Card, CardHeader, CardContent, Typography } from 'ui/atoms';
+import { Box, Grid, Card, CardHeader, CardContent, Typography, IconButton, ClickAwayListener } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { PropertyItemPlaceholder, Search, InfoSection } from 'ui/molecules';
 import { DmsFolderIcon } from '../dmsFolderIcon/DmsFolderIcon';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { SearchIcon } from 'ui/atoms/icons';
 
-import { DmsFolderTabs } from './dmsFolderTabs/DmsFolderTabs';
 import { useStyles } from './DmsPrimaryFolder.styles';
 import { DmsPrimaryFolderProps } from './DmsPrimaryFolder.types';
 
@@ -24,34 +24,50 @@ const primaryFolderOptions = [
 export const DmsPrimaryFolder = ({
   id,
   name,
-  status,
-  onStatusChange,
   activeFilters,
   onFilter,
   foldersData,
   isLoading,
+  type,
 }: DmsPrimaryFolderProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const { push } = useHistory();
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <Grid item xs={12}>
       <Card className={classes.root}>
         <CardHeader
           className="dms-primary-folder-header"
-          title={[formatMessage({ id: 'dms.documents' }), name].join(' ')}
+          title={[formatMessage({ id: 'dms.documents.pim' }), formatMessage({ id: `dms.documents.${type}` })].join(' ')}
           action={
             <Box display="flex">
               <Box mr={3} className={classes.searchBoxWrapper}>
-                <Search
-                  options={primaryFolderOptions}
-                  endAdornment={<></>}
-                  classes={{
-                    root: classes.searchBox,
-                    input: classes.searchBox,
+                <ClickAwayListener
+                  onClickAway={() => {
+                    setShowSearchBar(false);
                   }}
-                />
+                >
+                  {showSearchBar ? (
+                    <Search
+                      options={primaryFolderOptions}
+                      endAdornment={<></>}
+                      classes={{
+                        root: classes.searchBox,
+                        input: classes.searchBox,
+                      }}
+                    />
+                  ) : (
+                    <IconButton
+                      size="small"
+                      variant="roundedContained"
+                      onClick={() => setShowSearchBar(!showSearchBar)}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  )}
+                </ClickAwayListener>
               </Box>
               <Box mr={3}>
                 <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
@@ -60,9 +76,6 @@ export const DmsPrimaryFolder = ({
           }
         />
         <CardContent>
-          <Box>
-            <DmsFolderTabs status={status} onStatusChange={onStatusChange} />
-          </Box>
           <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
           <Box my={2} p={4}>
             <Grid container>
@@ -79,7 +92,7 @@ export const DmsPrimaryFolder = ({
                       childCount={item.folders?.length || 0}
                       type="primary"
                       onClick={() => {
-                        push(`${AppRoute.dms}/documents/${id}/${item.id}`);
+                        push(`${AppRoute.dms}/pim/${type}/${item.id}`);
                       }}
                     />
                   </Grid>

@@ -20,6 +20,7 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
     teams.items.map(team => ({
       key: `teams/${team.id}`,
       title: team.name,
+      hideIcon: true,
     }))) ||
     []) as MenuItem[];
 
@@ -38,23 +39,25 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
             key: 'general/payment_methods',
             title: formatMessage({ id: 'settings.menu.general.payment_methods' }),
             icon: <AogIcon />,
+            hideIcon: true,
           },
           {
             key: 'general/invoices',
             title: formatMessage({ id: 'settings.menu.general.invoices' }),
             icon: <AogIcon />,
+            hideIcon: true,
           },
         ],
       },
       {
         isCollapsable: true,
         key: 'settings.menu.user_options',
-        items: [{ key: 'users' }],
+        items: [{ key: 'users', hideIcon: true }],
       },
       {
         isCollapsable: true,
         key: 'settings.menu.teams',
-        items: [{ key: 'createTeam' }, ...teamItems],
+        items: [{ key: 'createTeam', hideIcon: true }, ...teamItems],
       },
       {
         isCollapsable: true,
@@ -64,11 +67,13 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
             key: 'workflow_templates/bricr',
             title: formatMessage({ id: 'settings.menu.bricr_templates' }),
             icon: <AogIcon />,
+            hideIcon: true,
           },
           {
             key: 'workflow_templates/custom',
             title: formatMessage({ id: 'settings.menu.custom_templates' }),
             icon: <AogIcon />,
+            hideIcon: true,
           },
         ],
       },
@@ -76,31 +81,33 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         isCollapsable: true,
         key: 'settings.menu.documents',
         items: [
-          { key: 'lvzProperty' },
-          { key: 'lvzBog' },
-          { key: 'questionnaireProperty' },
-          { key: 'questionnaireBog' },
-          { key: 'contractTemplates' },
-          { key: 'emailTemplate' },
+          { key: 'lvzProperty', hideIcon: true },
+          { key: 'lvzBog', hideIcon: true },
+          { key: 'questionnaireProperty', hideIcon: true },
+          { key: 'questionnaireBog', hideIcon: true },
+          { key: 'contractTemplates', hideIcon: true },
+          { key: 'emailTemplate', hideIcon: true },
         ],
       },
       {
         isCollapsable: true,
         key: 'settings.menu.checklists_documents',
-        items: [{ key: 'livingSituation' }],
+        items: [{ key: 'livingSituation', hideIcon: true }],
       },
       {
         isCollapsable: true,
         key: 'settings.menu.cadastre',
-        items: [{ key: 'cadastre' }],
+        items: [{ key: 'cadastre', hideIcon: true }],
       },
       {
         items: [
           {
             key: 'keyboard',
+            hideIcon: true,
           },
           {
             key: 'signboard',
+            hideIcon: true,
           },
         ],
       },
@@ -112,11 +119,12 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
       key: 'general/account',
       title: formatMessage({ id: 'settings.menu.general.account' }),
       icon: <AogIcon />,
+      hideIcon: true,
     });
   }
 
   if (hasBillingAccess) {
-    menu.groups[0].items.splice(2, 0, { key: 'general/billing', title: 'settings.menu.billing' });
+    menu.groups[0].items.splice(2, 0, { key: 'general/billing', title: 'settings.menu.billing', hideIcon: true });
   }
 
   return (
