@@ -26,4 +26,5 @@ export type DmsTemplatesProps = {
   templates: DmsTemplateItem[];
   onAdd: PromiseFunction<{ name: string }>;
   onUpdate: (template: DmsTemplateItem) => void;
+  category: string;
 };

@@ -9,13 +9,13 @@ import { useStyles } from './Dms.styles';
 import { DmsSidebarMenu } from './dmsSidebarMenu/DmsSidebarMenu';
 import { DmsHeader } from './dmsHeader/DmsHeader';
 import { DmsDashboard } from './dmsDashboard/DmsDashboard';
-import { DmsTemplatesContainer } from './dmsTemplates/DmsTemplatesContainer';
 import { DmsContentBlocksContainer } from './dmsContentBlocks/DmsContentBlocksContainer';
 import { DmsImageLibrary } from './dmsImageLibrary/DmsImageLibrary';
 import { DmsTemplateDetailsContainer } from './dmsTemplateDetails/DmsTemplateDetailsContainer';
 import { DmsDetailsSidebarMenu } from './dmsDetailsSidebarMenu/dmsDetailsSidebarMenu';
 import { DmsContentBlockDetailsContainer } from './dmsContentBlockDetails/DmsContentBlockDetailsContainer';
 import { DmsPims } from './dmsPims/DmsPims';
+import { DmsTemplatesList } from './dmsTemplates/DmsTemplatesList';
 
 export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
@@ -36,7 +36,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         {breadcrumbs}
         <Switch>
           <Route
-            path={[`${path}/templates/:id`, `${path}/content-blocks/:id`]}
+            path={[`${path}/templates/:type/:category/:id`, `${path}/content-blocks/:id`]}
             render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
           />
           <Route
@@ -62,8 +62,11 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                   <Route path={`${path}/templatesEmail`} render={() => <></>} />
                   <Route path={`${path}/contentBlocks`} render={() => <></>} />
                   <Route path={`${path}/imageLibrary`} render={() => <></>} />
-                  <Route exact path={`${path}/templates`} render={() => <DmsTemplatesContainer />} />
-                  <Route path={`${path}/templates/:id`} render={() => <DmsTemplateDetailsContainer />} />
+                  <Route
+                    path={`${path}/templates/:type/:category/:id`}
+                    render={() => <DmsTemplateDetailsContainer />}
+                  />
+                  <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
                   <Route exact path={`${path}/content-blocks`} render={() => <DmsContentBlocksContainer />} />
                   <Route path={`${path}/content-blocks/:id`} render={() => <DmsContentBlockDetailsContainer />} />
                   <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />

@@ -1,1 +1,1 @@
-export type DmsTemplatesContainerProps = {};
+export type DmsTemplatesContainerProps = { category: string };
