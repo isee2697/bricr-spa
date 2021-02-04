@@ -5442,7 +5442,6 @@ export type PimMedia = LastUpdated & {
   __typename?: 'PimMedia';
   id: Scalars['String'];
   pictures?: Maybe<Array<Picture>>;
-  mainPictureId?: Maybe<Scalars['String']>;
   mediaLinks?: Maybe<Array<MediaLink>>;
   textChapters?: Maybe<Array<TextChapter>>;
   usps?: Maybe<Array<Usp>>;
@@ -10685,18 +10684,16 @@ export type NcpMediaQueryVariables = Exact<{
 }>;
 
 export type NcpMediaQuery = { __typename?: 'Query' } & {
-  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<
-    NcpMedia,
-    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
-  > & {
+  getNcpMedia: { __typename?: 'NcpMedia' } & Pick<NcpMedia, 'id' | 'mediaDescription' | 'dateUpdated'> & {
       lastEditedBy?: Maybe<
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
       pictures?: Maybe<
         Array<
-          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>>;
-            }
+          { __typename?: 'Picture' } & Pick<
+            Picture,
+            'id' | 'name' | 'description' | 'type' | 'dateUpdated' | 'isMainPicture'
+          > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName' | 'url'>> }
         >
       >;
       mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
@@ -11361,16 +11358,17 @@ export type ObjectTypeMediaQueryVariables = Exact<{
 export type ObjectTypeMediaQuery = { __typename?: 'Query' } & {
   getObjectTypeMedia: { __typename?: 'ObjectTypeMedia' } & Pick<
     ObjectTypeMedia,
-    'id' | 'mediaDescription' | 'dateUpdated' | 'mainPictureId'
+    'id' | 'mediaDescription' | 'dateUpdated'
   > & {
       lastEditedBy?: Maybe<
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
       pictures?: Maybe<
         Array<
-          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
-            }
+          { __typename?: 'Picture' } & Pick<
+            Picture,
+            'isMainPicture' | 'id' | 'name' | 'description' | 'type' | 'dateUpdated'
+          > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>> }
         >
       >;
       mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
@@ -12136,15 +12134,16 @@ export type PimMediaQueryVariables = Exact<{
 }>;
 
 export type PimMediaQuery = { __typename?: 'Query' } & {
-  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated' | 'mainPictureId'> & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'description' | 'dateUpdated'> & {
       lastEditedBy?: Maybe<
         { __typename?: 'LastUpdatedProfile' } & Pick<LastUpdatedProfile, 'id' | 'firstName' | 'lastName'>
       >;
       pictures?: Maybe<
         Array<
-          { __typename?: 'Picture' } & Pick<Picture, 'id' | 'name' | 'description' | 'type' | 'dateUpdated'> & {
-              file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>>;
-            }
+          { __typename?: 'Picture' } & Pick<
+            Picture,
+            'id' | 'name' | 'description' | 'type' | 'dateUpdated' | 'isMainPicture'
+          > & { file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'fileName'>> }
         >
       >;
       mediaLinks?: Maybe<Array<{ __typename?: 'MediaLink' } & Pick<MediaLink, 'id' | 'name' | 'type' | 'url'>>>;
@@ -13065,10 +13064,10 @@ export type PimOverallInfoQuery = { __typename?: 'Query' } & {
   getPimServices: { __typename?: 'PimServices' } & {
     meters?: Maybe<Array<{ __typename?: 'Meter' } & Pick<Meter, 'id' | 'type'>>>;
   };
-  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id' | 'mainPictureId'> & {
+  getPimMedia: { __typename?: 'PimMedia' } & Pick<PimMedia, 'id'> & {
       pictures?: Maybe<
         Array<
-          { __typename?: 'Picture' } & Pick<Picture, 'id'> & {
+          { __typename?: 'Picture' } & Pick<Picture, 'isMainPicture' | 'id'> & {
               file?: Maybe<{ __typename?: 'File' } & Pick<File, 'id' | 'key' | 'url'>>;
             }
         >
@@ -18650,6 +18649,7 @@ export const NcpMediaDocument = gql`
         description
         type
         dateUpdated
+        isMainPicture
         file {
           id
           key
@@ -18657,7 +18657,6 @@ export const NcpMediaDocument = gql`
           url
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name
@@ -19761,6 +19760,7 @@ export const ObjectTypeMediaDocument = gql`
         lastName
       }
       pictures(sort: $picturesSort) {
+        isMainPicture
         id
         name
         description
@@ -19772,7 +19772,6 @@ export const ObjectTypeMediaDocument = gql`
           fileName
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name
@@ -20870,13 +20869,13 @@ export const PimMediaDocument = gql`
         description
         type
         dateUpdated
+        isMainPicture
         file {
           id
           key
           fileName
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name
@@ -22090,6 +22089,7 @@ export const PimOverallInfoDocument = gql`
     getPimMedia(id: $id) {
       id
       pictures {
+        isMainPicture
         id
         file {
           id
@@ -22097,7 +22097,6 @@ export const PimOverallInfoDocument = gql`
           url
         }
       }
-      mainPictureId
     }
   }
 `;

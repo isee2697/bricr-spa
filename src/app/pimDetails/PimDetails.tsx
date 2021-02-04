@@ -49,9 +49,7 @@ export const PimDetails = ({
   const { state } = useLocation<{ newlyAdded: boolean }>();
 
   const pim = data?.getPimGeneral;
-  const mainPicture =
-    data?.getPimMedia?.mainPictureId &&
-    data?.getPimMedia.pictures?.find(({ id }) => id === data.getPimMedia.mainPictureId);
+  const mainPicture = data?.getPimMedia.pictures?.find(({ isMainPicture }) => isMainPicture);
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {

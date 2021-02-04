@@ -12,6 +12,7 @@ export const OBJECT_TYPE_MEDIA = gql`
         lastName
       }
       pictures(sort: $picturesSort) {
+        isMainPicture
         id
         name
         description
@@ -23,7 +24,6 @@ export const OBJECT_TYPE_MEDIA = gql`
           fileName
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name
