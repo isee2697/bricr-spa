@@ -54,10 +54,11 @@ export const LoginContainer = () => {
 
     if (lastPath) {
       if (user) {
-        const [lastItem] = pages?.[user.id].slice(-1);
+        const userPages = pages?.[user.id];
+        const [lastItem] = (userPages && userPages.slice(-1)) || [undefined];
         localStorage.removeItem('bricrPreLogoutPage');
 
-        const path = lastItem.path === lastPath && lastPath !== AppRoute.logout ? lastPath : AppRoute.home;
+        const path = lastItem?.path === lastPath && lastPath !== AppRoute.logout ? lastPath : AppRoute.home;
 
         return <Redirect to={path} />;
       }

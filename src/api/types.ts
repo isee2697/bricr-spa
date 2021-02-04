@@ -2523,6 +2523,17 @@ export type CreateHistoryDataInput = {
   data: Scalars['String'];
 };
 
+export type LinkedEntity = {
+  __typename?: 'LinkedEntity';
+  id: Scalars['ID'];
+  type?: Maybe<Entities>;
+};
+
+export type LinkedEntityInput = {
+  id: Scalars['ID'];
+  type?: Maybe<Entities>;
+};
+
 export enum Entities {
   Team = 'team',
   Pim = 'pim',
@@ -3331,6 +3342,8 @@ export type Notification = {
   __typename?: 'Notification';
   id: Scalars['ID'];
   receiver: Profile;
+  createdBy?: Maybe<Profile>;
+  linkedEntity?: Maybe<LinkedEntity>;
   type: NotificationType;
   description: Scalars['String'];
   isRead: Scalars['Boolean'];
@@ -3352,6 +3365,7 @@ export type CreateNotificationInput = {
   type: NotificationType;
   receiver: Scalars['ID'];
   description: Scalars['String'];
+  linkedEntity?: Maybe<LinkedEntityInput>;
 };
 
 export type ReadNotificationInput = {
@@ -11152,6 +11166,12 @@ export type GetNotificationsQuery = { __typename?: 'Query' } & {
               receiver: { __typename?: 'Profile' } & Pick<Profile, 'id' | 'email' | 'isAdmin' | 'isActive'> & {
                   image?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
                 };
+              createdBy?: Maybe<
+                { __typename?: 'Profile' } & Pick<Profile, 'id' | 'firstName' | 'lastName'> & {
+                    image?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                  }
+              >;
+              linkedEntity?: Maybe<{ __typename?: 'LinkedEntity' } & Pick<LinkedEntity, 'id' | 'type'>>;
             }
         >
       >;
@@ -19311,6 +19331,18 @@ export const GetNotificationsDocument = gql`
           image {
             url
           }
+        }
+        createdBy {
+          id
+          firstName
+          lastName
+          image {
+            url
+          }
+        }
+        linkedEntity {
+          id
+          type
         }
         isRead
         isDeleted
