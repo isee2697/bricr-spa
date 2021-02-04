@@ -14,5 +14,4 @@ export type PictureContainerProps = {
     onSort: (key: string) => void;
   };
   sortQuery: Sort;
-  mainPictureId?: string;
 };

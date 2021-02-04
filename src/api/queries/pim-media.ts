@@ -17,13 +17,13 @@ export const PIM_MEDIA = gql`
         description
         type
         dateUpdated
+        isMainPicture
         file {
           id
           key
           fileName
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name

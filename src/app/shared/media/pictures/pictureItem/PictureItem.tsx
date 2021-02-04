@@ -12,15 +12,7 @@ import { getEntityFilesType, useUpdateImage } from '../Pictures.helpers';
 import { PictureItemProps } from './PictureItem.types';
 import { useStyles } from './PictureItem.styles';
 
-export const PictureItem = ({
-  picture,
-  editing,
-  checkbox,
-  onEdit,
-  customLabel,
-  isSelected,
-  isMainPicture,
-}: PictureItemProps) => {
+export const PictureItem = ({ picture, editing, checkbox, onEdit, customLabel, isSelected }: PictureItemProps) => {
   const { id } = useParams<{ id: string }>();
   const { formatMessage } = useLocale();
   const { entityType } = useEntityType();
@@ -38,7 +30,9 @@ export const PictureItem = ({
     <Grid container spacing={0} className={classNames(classes.container, isSelected && classes.selected)}>
       <Grid item xs={3}>
         <div className={classes.image}>
-          {isMainPicture && <div className={classes.mainPicture}>{formatMessage({ id: 'common.main_picture' })}</div>}
+          {!!picture.isMainPicture && (
+            <div className={classes.mainPicture}>{formatMessage({ id: 'common.main_picture' })}</div>
+          )}
           {checkbox}
         </div>
       </Grid>
@@ -68,7 +62,7 @@ export const PictureItem = ({
       <Grid item xs={1}>
         {editing && (
           <ListOptionsMenu onEditClick={handleEdit}>
-            <MenuItem disabled={isMainPicture} onClick={() => save({ ...picture, isMainPicture: true })}>
+            <MenuItem disabled={!!picture.isMainPicture} onClick={() => save({ ...picture, isMainPicture: true })}>
               <HomeIcon />
               {formatMessage({ id: 'common.set_main_picture' })}
             </MenuItem>
