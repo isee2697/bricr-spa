@@ -531,6 +531,7 @@ export const PIM_OVERALL_INFO = gql`
     getPimMedia(id: $id) {
       id
       pictures {
+        isMainPicture
         id
         file {
           id
@@ -538,7 +539,6 @@ export const PIM_OVERALL_INFO = gql`
           url
         }
       }
-      mainPictureId
     }
   }
 `;

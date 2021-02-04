@@ -17,6 +17,7 @@ export const NCP_MEDIA = gql`
         description
         type
         dateUpdated
+        isMainPicture
         file {
           id
           key
@@ -24,7 +25,6 @@ export const NCP_MEDIA = gql`
           url
         }
       }
-      mainPictureId
       mediaLinks {
         id
         name
