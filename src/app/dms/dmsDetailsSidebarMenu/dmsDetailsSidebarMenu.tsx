@@ -4,8 +4,8 @@ import { KeyboardBackspace } from '@material-ui/icons';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { SidebarMenu } from 'ui/molecules';
-import { CrmIcon } from 'ui/atoms/icons';
 import { Link, Typography, Box } from 'ui/atoms';
+import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 import { DmsDetailsSidebarMenuProps } from './dmsDetailsSidebarMenu.types';
 
@@ -16,13 +16,22 @@ export const DmsDetailsSidebarMenu = ({ onHide, isVisible }: DmsDetailsSidebarMe
   urlPath.pop();
   const parentUrl = urlPath.join('/');
 
-  const menu = {
+  const menu: SidebarMenuType = {
     url,
     groups: [
       {
         items: [
-          { key: 'general', selected: true, icon: <CrmIcon /> },
-          { key: 'layout', icon: <CrmIcon /> },
+          { key: 'general', hideIcon: true, title: `1. ${formatMessage({ id: 'dms.templates.general' })}` },
+          {
+            key: 'configureSettings',
+            hideIcon: true,
+            title: `2. ${formatMessage({ id: 'dms.templates.configure_settings' })}`,
+          },
+          {
+            key: 'layoutPreview',
+            hideIcon: true,
+            title: `3. ${formatMessage({ id: 'dms.templates.layout_preview' })}`,
+          },
         ],
       },
     ],
