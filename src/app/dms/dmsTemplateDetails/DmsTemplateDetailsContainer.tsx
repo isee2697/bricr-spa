@@ -8,6 +8,7 @@ import { Templates } from 'api/mocks/dms';
 
 import { DmsTemplateGeneralDetails } from './dmsTemplateGeneralDetails/DmsTemplateGeneralDetails';
 import { DmsTemplateLayoutDetails } from './dmsTemplateLayoutDetails/DmsTemplateLayoutDetails';
+import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
 
 export const DmsTemplateDetailsContainer = () => {
   const { formatMessage } = useLocale();
@@ -23,14 +24,18 @@ export const DmsTemplateDetailsContainer = () => {
       <NavBreadcrumb title={formatMessage({ id: 'dms.templates.title' })} to={AppRoute.dms + '/templates'} />
       <Switch>
         <Route
-          path={`${AppRoute.dms}/templates/${id}/general`}
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/general`}
           render={() => <DmsTemplateGeneralDetails template={data} />}
         />
         <Route
-          path={`${AppRoute.dms}/templates/${id}/layout`}
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/configureSettings`}
+          render={() => <DmsTemplateConfigureSettingsDetails template={data} />}
+        />
+        <Route
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/layoutPreview`}
           render={() => <DmsTemplateLayoutDetails template={data} />}
         />
-        <Redirect to={`${AppRoute.dms}/templates/${id}/general`} />
+        <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>
     </>
   );

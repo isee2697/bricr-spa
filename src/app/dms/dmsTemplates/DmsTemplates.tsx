@@ -137,7 +137,7 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                               className={classes.itemButton}
                               onClick={() => {
                                 if (template.status === 'active') {
-                                  push(`${AppRoute.dms}/templates/${template.id}`, {
+                                  push(`${AppRoute.dms}/templates/${type}/${category}/${template.id}`, {
                                     name: template.name,
                                   });
                                 }
