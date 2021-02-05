@@ -1,5 +1,5 @@
 import { NotificationsGroup } from '../NotificationsList.types';
-import { Profile, Scalars, TaskLabel, TaskPriority, TaskStatus } from 'api/types';
+import { LinkedEntity, Profile, Scalars, TaskLabel, TaskPriority, TaskStatus } from 'api/types';
 
 export type GroupProps = {
   group: NotificationsGroup;
@@ -16,13 +16,7 @@ export type TaskAssignedNotificationGroupItemProps = {
 };
 
 export type TaskAssignedNotification = {
-  id: string;
   title: string;
-  startDate: string;
-  deadline: string;
-  priority: TaskPriority;
-  label: TaskLabel;
-  status: TaskStatus;
-  description: string;
-  createdBy: Profile;
+  linkedEntity?: LinkedEntity | null;
+  createdBy?: Profile | null;
 };

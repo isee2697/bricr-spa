@@ -1,7 +1,14 @@
-import { Maybe, TiaraEntities, TiaraMessageType, TiaraMutation, TiaraMutationStatusType } from 'api/types';
+import {
+  Maybe,
+  Notification,
+  TiaraEntities,
+  TiaraMessageType,
+  TiaraMutation,
+  TiaraMutationStatusType,
+} from 'api/types';
 
 export type TiaraMutationUpdatedNotificationsGroupItemContainerProps = {
-  data: TiaraMutationUpdatedNotification;
+  data: Notification & TiaraMutationUpdatedNotificationsGroupItemProps;
 };
 export type TiaraMutationUpdatedNotificationsGroupItemProps = {
   description: string;
@@ -9,11 +16,4 @@ export type TiaraMutationUpdatedNotificationsGroupItemProps = {
   status: TiaraMutationStatusType;
   date: string;
   errors?: Maybe<string[]>;
-};
-
-export type TiaraMutationUpdatedNotification = TiaraMutation & {
-  entity: TiaraEntities;
-  pimId?: string;
-  ncpId?: string;
-  objectTypeId?: string;
 };
