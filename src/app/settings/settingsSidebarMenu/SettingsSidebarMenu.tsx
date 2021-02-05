@@ -100,6 +100,17 @@ export const SettingsSidebarMenu = ({ data }: SettingsProps) => {
         items: [{ key: 'cadastre', hideIcon: true }],
       },
       {
+        isCollapsable: true,
+        key: 'settings.menu.allocate_criteria',
+        items: [
+          { key: 'bricrAllocateCriteria', hideIcon: true },
+          {
+            key: 'customAllocateCriteria',
+            hideIcon: true,
+          },
+        ],
+      },
+      {
         items: [
           {
             key: 'keyboard',
