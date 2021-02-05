@@ -37,6 +37,7 @@ const schemas = [
   loader('./graphql/pim-bog-spaces.gql'),
   loader('./graphql/object-type-characteristics.gql'),
   loader('./graphql/notification.gql'),
+  loader('./graphql/history.gql'),
 ];
 
 export const loadSchemas = () => {
