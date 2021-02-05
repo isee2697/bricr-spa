@@ -32,11 +32,9 @@ export const LvzProperty = ({ template, groups, onAddLvzGroup }: LvzPropertyProp
         <Card>
           <CardContent>
             <InfoSection emoji="🤔">
+              <Typography variant="h3">{formatMessage({ id: 'dms.templates.lvz_property.empty.title' })}</Typography>
               <Typography variant="h3">
-                {formatMessage({ id: 'settings.documents.lvz_property.empty.title' })}
-              </Typography>
-              <Typography variant="h3">
-                {formatMessage({ id: 'settings.documents.lvz_property.empty.description' })}
+                {formatMessage({ id: 'dms.templates.lvz_property.empty.description' })}
               </Typography>
             </InfoSection>
           </CardContent>

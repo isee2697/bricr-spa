@@ -14,16 +14,16 @@ export const AddLvzPropertyGroupModal = ({ isOpened, onClose, onSubmit }: AddLvz
     <FormModal
       isOpened={isOpened}
       onClose={onClose}
-      title={formatMessage({ id: 'settings.documents.lvz_property.add_lvz_group.title' })}
+      title={formatMessage({ id: 'dms.templates.lvz_property.add_lvz_group.title' })}
       onSubmit={onSubmit}
       mutators={{ ...arrayMutators }}
-      addText={formatMessage({ id: 'settings.documents.lvz_property.add_lvz_group.add_button' })}
+      addText={formatMessage({ id: 'dms.templates.lvz_property.add_lvz_group.add_button' })}
     >
       <GenericField
         fullWidth
         name="name"
-        label={formatMessage({ id: 'settings.documents.lvz_property.add_lvz_group.name_lvz_group' })}
-        placeholder={formatMessage({ id: 'settings.documents.lvz_property.add_lvz_group.name_lvz_group.placeholder' })}
+        label={formatMessage({ id: 'dms.templates.lvz_property.add_lvz_group.name_lvz_group' })}
+        placeholder={formatMessage({ id: 'dms.templates.lvz_property.add_lvz_group.name_lvz_group.placeholder' })}
       />
     </FormModal>
   );

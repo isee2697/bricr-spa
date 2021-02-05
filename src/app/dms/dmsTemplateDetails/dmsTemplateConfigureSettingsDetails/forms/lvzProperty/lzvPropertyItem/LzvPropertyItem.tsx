@@ -88,8 +88,8 @@ export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
               <GenericField
                 fullWidth
                 name="name"
-                label={formatMessage({ id: 'settings.documents.lvz_property.item.name_lvz_group' })}
-                placeholder={formatMessage({ id: 'settings.documents.lvz_property.item.name_lvz_group.placeholder' })}
+                label={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group' })}
+                placeholder={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group.placeholder' })}
                 disabled={!isEditing}
               />
             </Grid>
@@ -97,10 +97,10 @@ export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
           {lvzGroupItems.length === 0 && (
             <InfoSection emoji="🤔">
               <Typography variant="h3">
-                {formatMessage({ id: 'settings.documents.lvz_property.item.empty.title' })}
+                {formatMessage({ id: 'dms.templates.lvz_property.item.empty.title' })}
               </Typography>
               <Typography variant="h3">
-                {formatMessage({ id: 'settings.documents.lvz_property.item.empty.description' })}
+                {formatMessage({ id: 'dms.templates.lvz_property.item.empty.description' })}
               </Typography>
             </InfoSection>
           )}
