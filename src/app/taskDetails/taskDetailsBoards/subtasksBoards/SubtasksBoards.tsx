@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, Card, CardContent, Collapse, IconButton, ProgressFilling, Tab, Tabs, Typography } from 'ui/atoms';
 import { TaskDetailsBoardsResultTab } from '../taskDetailsBoardsResult/TaskDetailsBoardsResult.types';
 import { useLocale, useModalDispatch } from 'hooks';
-import { AddIcon, ArrowDownIcon, ArrowUpIcon, DeleteIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { AddSubtaskModal } from '../addSubtaskModal/AddSubtaskModal';
 import { AddSubtaskBody } from '../addSubtaskModal/AddSubtaskModal.types';
 import { Subtask, TaskStatus } from 'api/types';
