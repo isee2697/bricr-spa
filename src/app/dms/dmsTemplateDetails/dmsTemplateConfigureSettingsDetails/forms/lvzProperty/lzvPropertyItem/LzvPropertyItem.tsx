@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
-import { AddIcon, ArrowUpIcon, ClockIcon, MenuIcon } from 'ui/atoms/icons';
+import { AddIcon, ArrowDownIcon, ArrowUpIcon, ClockIcon, MenuIcon } from 'ui/atoms/icons';
 import { useLocale, useModalDispatch, useModalState } from 'hooks';
 import { AutosaveForm } from 'ui/organisms';
 import { GenericField } from 'form/fields';
@@ -16,6 +16,7 @@ import { useStyles } from './LzvPropertyItem.styles';
 export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
   const { formatMessage } = useLocale();
   const [isEditing, setIsEditing] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [lvzGroupItems, setLvzGroupItems] = useState<LvzPropertyGroupItem[]>([]);
   const classes = useStyles();
   const { open, close } = useModalDispatch();
@@ -76,56 +77,60 @@ export const LzvPropertyItem = ({ group }: LzvPropertyItemProps) => {
                 />
               </ListOptionsMenu>
               <Box ml={1} />
-              <IconButton size="small" variant="roundedContained">
-                <ArrowUpIcon />
+              <IconButton size="small" variant="roundedContained" onClick={() => setIsExpanded(!isExpanded)}>
+                {isExpanded ? <ArrowUpIcon /> : <ArrowDownIcon />}
               </IconButton>
             </Box>
           }
         />
-        <CardContent>
-          <AutosaveForm onSave={handleSave} initialValues={initialValues}>
-            <Grid item xs={12}>
-              <GenericField
-                fullWidth
-                name="name"
-                label={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group' })}
-                placeholder={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group.placeholder' })}
-                disabled={!isEditing}
-              />
-            </Grid>
-          </AutosaveForm>
-          {lvzGroupItems.length === 0 && (
-            <InfoSection emoji="🤔">
-              <Typography variant="h3">
-                {formatMessage({ id: 'dms.templates.lvz_property.item.empty.title' })}
-              </Typography>
-              <Typography variant="h3">
-                {formatMessage({ id: 'dms.templates.lvz_property.item.empty.description' })}
-              </Typography>
-            </InfoSection>
-          )}
-          {lvzGroupItems.map((item, index) => (
-            <Box
-              mt={3}
-              width="100%"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              className={classes.itemRow}
-            >
-              <Box display="flex">
-                <Typography variant="h4" color="textSecondary" className={classes.counter}>
-                  {index + 1}
+        {isExpanded ? (
+          <CardContent>
+            <AutosaveForm onSave={handleSave} initialValues={initialValues}>
+              <Grid item xs={12}>
+                <GenericField
+                  fullWidth
+                  name="name"
+                  label={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group' })}
+                  placeholder={formatMessage({ id: 'dms.templates.lvz_property.item.name_lvz_group.placeholder' })}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </AutosaveForm>
+            {lvzGroupItems.length === 0 && (
+              <InfoSection emoji="🤔">
+                <Typography variant="h3">
+                  {formatMessage({ id: 'dms.templates.lvz_property.item.empty.title' })}
                 </Typography>
-                <Box ml={0.5} />
-                <Typography variant="h3">{item.name}</Typography>
+                <Typography variant="h3">
+                  {formatMessage({ id: 'dms.templates.lvz_property.item.empty.description' })}
+                </Typography>
+              </InfoSection>
+            )}
+            {lvzGroupItems.map((item, index) => (
+              <Box
+                mt={3}
+                width="100%"
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                className={classes.itemRow}
+              >
+                <Box display="flex">
+                  <Typography variant="h4" color="textSecondary" className={classes.counter}>
+                    {index + 1}
+                  </Typography>
+                  <Box ml={0.5} />
+                  <Typography variant="h3">{item.name}</Typography>
+                </Box>
+                <IconButton size="small" variant="rounded">
+                  <MenuIcon />
+                </IconButton>
               </Box>
-              <IconButton size="small" variant="rounded">
-                <MenuIcon />
-              </IconButton>
-            </Box>
-          ))}
-        </CardContent>
+            ))}
+          </CardContent>
+        ) : (
+          <Box mt={2} />
+        )}
       </Card>
       <AddLvzPropertyGroupItemModal
         isOpened={isModalOpen}
