@@ -5,8 +5,10 @@ import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { Box, IconButton } from 'ui/atoms';
-import { ExitIcon, MenuIcon } from 'ui/atoms/icons';
+import { ExitIcon, HomeIcon, MenuIcon } from 'ui/atoms/icons';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { Profile } from './profile/Profile';
 import { Location } from './location/Location';
@@ -25,6 +27,14 @@ export const CreateNewMatchProfile = ({ path, onSidebarOpen, isSidebarVisible }:
         isSidebarVisible={isSidebarVisible}
         actions={
           <Box display="flex">
+            <ListOptionsMenu onDeleteClick={() => {}} hideEditButton>
+              <ListOptionsMenuItem
+                title={formatMessage({
+                  id: 'crm.details.personal_information_match_profile.active_inactive',
+                })}
+                icon={<HomeIcon />}
+              />
+            </ListOptionsMenu>
             <IconButton size="small" variant="rounded">
               <MenuIcon />
             </IconButton>
