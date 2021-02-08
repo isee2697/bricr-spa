@@ -1,42 +1,30 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { Page } from 'ui/templates';
-import { AutosaveForm, FormSection } from 'ui/organisms';
-import { GenericField } from 'form/fields';
-import { Box } from 'ui/atoms';
+import { AppRoute } from 'routing/AppRoute.enum';
 
 import { DmsTemplateConfigureSettingsDetailsProps } from './DmsTemplateConfigureSettingsDetails.types';
+import { DefaultConfigureSettingsDetails } from './forms/generalSettings/DefaultConfigureSettingsDetails';
+import { LvzPropertyContainer } from './forms/lvzProperty/LvzPropertyContainer';
+import { QuestionnaireContainer } from './forms/questionnaireProperty/QuestionnaireContainer';
+import { ContractContainer } from './forms/contract/ContractContainer';
 
 export const DmsTemplateConfigureSettingsDetails = ({ template }: DmsTemplateConfigureSettingsDetailsProps) => {
-  const { formatMessage } = useLocale();
-
   return (
-    <>
-      <Page showHeader title={template.name} titleActions={[]}>
-        <Box display="flex" flexDirection="column" width="100%">
-          <Box mt={1}>
-            <FormSection
-              title={formatMessage({ id: 'dms.template.configure_settings' })}
-              onOptionsClick={() => {}}
-              isExpandable
-              isInitExpanded
-            >
-              {editing => (
-                <AutosaveForm onSave={() => Promise.resolve(undefined)}>
-                  <GenericField
-                    name="templateName"
-                    label="dms.template.measurements"
-                    placeholder="dms.template.measurements.placeholder"
-                    size="medium"
-                    disabled={!editing}
-                  />
-                </AutosaveForm>
-              )}
-            </FormSection>
-          </Box>
-        </Box>
-      </Page>
-    </>
+    <Switch>
+      <Route
+        path={`${AppRoute.dms}/templates/list_of_case/:category/:id/configureSettings`}
+        render={() => <LvzPropertyContainer template={template} />}
+      />
+      <Route
+        path={`${AppRoute.dms}/templates/questionnaire/:category/:id/configureSettings`}
+        render={() => <QuestionnaireContainer template={template} />}
+      />
+      <Route
+        path={`${AppRoute.dms}/templates/contract/:category/:id/configureSettings`}
+        render={() => <ContractContainer template={template} />}
+      />
+      <Route render={() => <DefaultConfigureSettingsDetails template={template} />} />
+    </Switch>
   );
 };
