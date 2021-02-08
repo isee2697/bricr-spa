@@ -126,4 +126,26 @@ export const useStyles = ({ width, bannerColor }: { width: number | string; bann
     spaceAfter: {
       marginBottom: spacing(5),
     },
+    groupCollapse: {
+      position: 'relative',
+    },
+    groupConnector: {
+      position: 'absolute',
+      top: spacing(1),
+      left: spacing(3),
+      width: 2,
+      height: `calc(100% - ${spacing(1)}px)`,
+      background: palette.gradientGray.main,
+    },
+    itemsCollapse: {
+      position: 'relative',
+    },
+    itemsConnector: {
+      position: 'absolute',
+      top: spacing(1),
+      left: spacing(5.5),
+      width: 2,
+      height: `calc(100% - ${spacing(1)}px)`,
+      background: palette.gradientGray.main,
+    },
   }))();
