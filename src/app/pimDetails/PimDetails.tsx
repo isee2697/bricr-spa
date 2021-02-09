@@ -246,7 +246,7 @@ export const PimDetails = ({
                           )}
                         />
                         <Route
-                          path={`${path}/allocateResults/:id`}
+                          path={`${path}/allocateResults/:resultId`}
                           render={() => (
                             <AllocateResultsDetailsContainer
                               isSidebarVisible={isSidebarVisible}

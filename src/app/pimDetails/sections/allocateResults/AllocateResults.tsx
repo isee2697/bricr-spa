@@ -8,10 +8,25 @@ import { useLocale } from 'hooks';
 import { AllocateResultsProps } from './AllocateResults.types';
 import { AllocateResultsList } from './list/List';
 import { CreateWizard } from './createWizard/CreateWizard';
+import { AllocateTypeModal } from './allocateTypeModal/AllocateTypeModal';
+import { AllocateType } from './allocateTypeModal/AllocateTypeModal.types';
+import { AllocateTypeDetailsModal } from './allocateTypeDetailsModal/AllocateTypeDetailsModal';
 
 export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateResultsProps) => {
   const { formatMessage } = useLocale();
   const [isAllocating, setIsAllocating] = useState(false);
+  const [showTypeModal, setShowTypeModal] = useState(false);
+  const [showTypeDetailsModal, setShowTypeDetailsModal] = useState<AllocateType | null>(null);
+
+  const handleTypeDetailsModal = (type: AllocateType) => {
+    setShowTypeModal(false);
+
+    if (type === AllocateType.StartWithBlank) {
+      setIsAllocating(true);
+    } else {
+      setShowTypeDetailsModal(type);
+    }
+  };
 
   return (
     <Grid item xs={12}>
@@ -28,7 +43,7 @@ export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateRes
             <Button
               color="primary"
               variant="contained"
-              onClick={() => setIsAllocating(true)}
+              onClick={() => setShowTypeModal(true)}
               startIcon={<AddIcon color="inherit" />}
               size="small"
             >
@@ -37,7 +52,31 @@ export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateRes
           )
         }
       />
-      {isAllocating && <CreateWizard onCloseWizard={() => setIsAllocating(false)} />}
+      {showTypeModal && (
+        <AllocateTypeModal
+          isOpen={showTypeModal}
+          onClose={() => setShowTypeModal(false)}
+          onSelect={handleTypeDetailsModal}
+        />
+      )}
+      {showTypeDetailsModal && (
+        <AllocateTypeDetailsModal
+          isOpen={!!showTypeDetailsModal}
+          allocateType={showTypeDetailsModal}
+          onClose={() => setShowTypeDetailsModal(null)}
+          onNext={() => {
+            setShowTypeDetailsModal(null);
+            setIsAllocating(true);
+          }}
+          onPrev={() => {
+            setShowTypeDetailsModal(null);
+            setShowTypeModal(true);
+          }}
+        />
+      )}
+      {isAllocating && (
+        <CreateWizard onGotoResult={() => setIsAllocating(false)} onSaveCriteria={() => setIsAllocating(false)} />
+      )}
       {!isAllocating && <AllocateResultsList />}
     </Grid>
   );

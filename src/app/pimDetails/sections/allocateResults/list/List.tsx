@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { Page } from 'ui/templates';
-import { Box, Card, CardContent, CardHeader, IconButton, Tab, Tabs, Typography } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, Tab, Tabs, Typography } from 'ui/atoms';
 import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { useLocale } from 'hooks';
-import { ManageIcon } from 'ui/atoms/icons';
 import { AllocateResultsRelationRanking } from '../../allocateResultsDetails/AllocateResultsDetails.types';
 import { SortOption } from 'ui/molecules/list/List.types';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ListPimsFilters } from 'api/types';
 
 import { ListItem } from './listItem/ListItem';
 import { useStyles } from './List.styles';
@@ -23,6 +25,7 @@ export const AllocateResultsList = () => {
   ];
   const [status, setStatus] = useState(tabs[0]);
 
+  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({});
   const [allocateResults, setAllocateResults] = useState<AllocateResultItem[]>([]);
 
   const handleAllocateResultsUpdate = () => {
@@ -40,6 +43,9 @@ export const AllocateResultsList = () => {
           },
         ],
         sortOrders: [AllocateResultSortOrder.CollectiveIncome, AllocateResultSortOrder.RegistrationDate],
+        allocationBase: 'Base 10-01-2019',
+        assigned: 8,
+        unassigned: 30,
       },
     ]);
   };
@@ -51,6 +57,10 @@ export const AllocateResultsList = () => {
     },
   ];
 
+  const handleFilterChange = (filters: ListPimsFilters) => {
+    setActiveFilters(filters);
+  };
+
   return (
     <Page withoutHeader>
       <Card onClick={() => handleAllocateResultsUpdate()}>
@@ -58,11 +68,7 @@ export const AllocateResultsList = () => {
           <>
             <CardHeader
               title={formatMessage({ id: 'project.details.allocate_results.title' })}
-              action={
-                <IconButton variant="roundedContained" onClick={() => {}} size="small">
-                  <ManageIcon />
-                </IconButton>
-              }
+              action={<FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />}
             />
             <CardContent className={classes.noPadding}>
               <Box>
@@ -79,6 +85,9 @@ export const AllocateResultsList = () => {
                     label={formatMessage({ id: `project.details.allocate_results.${status.key}` })}
                   />
                 </Tabs>
+                {Object.keys(activeFilters).length > 0 && (
+                  <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={() => {}} />
+                )}
                 <List
                   items={allocateResults}
                   itemIndex={'id'}
@@ -90,6 +99,14 @@ export const AllocateResultsList = () => {
                     <ListItem key={item.id} checked={checked} checkbox={checkbox} item={item} />
                   )}
                   sortOptions={sortOptions}
+                  pagination={{
+                    count: 8,
+                    currentPerPage: 10,
+                    perPageOptions: [10, 25, 'All'],
+                    onPerPageChange: value => {
+                      alert(value);
+                    },
+                  }}
                 />
               </Box>
             </CardContent>

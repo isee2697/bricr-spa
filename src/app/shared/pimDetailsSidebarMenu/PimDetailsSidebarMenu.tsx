@@ -218,12 +218,8 @@ export const PimDetailsSidebarMenu = ({
                   title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
                 },
                 {
-                  key: 'allocateSettings/allocation1',
-                  title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
-                },
-                {
-                  key: 'allocateSettings/allocation2',
-                  title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+                  key: 'allocateSettings',
+                  title: formatMessage({ id: 'pim_details.menu.allocateCriteria' }),
                 },
               ],
             },
