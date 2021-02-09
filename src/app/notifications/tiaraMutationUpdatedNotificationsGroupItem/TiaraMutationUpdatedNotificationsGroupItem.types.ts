@@ -1,11 +1,4 @@
-import {
-  Maybe,
-  Notification,
-  TiaraEntities,
-  TiaraMessageType,
-  TiaraMutation,
-  TiaraMutationStatusType,
-} from 'api/types';
+import { Maybe, Notification, TiaraMessageType, TiaraMutationStatusType } from 'api/types';
 
 export type TiaraMutationUpdatedNotificationsGroupItemContainerProps = {
   data: Notification & TiaraMutationUpdatedNotificationsGroupItemProps;

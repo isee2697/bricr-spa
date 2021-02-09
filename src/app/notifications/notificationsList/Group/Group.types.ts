@@ -1,5 +1,5 @@
 import { NotificationsGroup } from '../NotificationsList.types';
-import { LinkedEntity, Profile, Scalars, TaskLabel, TaskPriority, TaskStatus } from 'api/types';
+import { LinkedEntity, Profile, Scalars } from 'api/types';
 
 export type GroupProps = {
   group: NotificationsGroup;
