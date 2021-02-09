@@ -4,8 +4,9 @@ import clsx from 'classnames';
 
 import { Badge, Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
+import { MatchRequirementType } from 'api/types';
 
-import { ExtrasColumnProps, ExtrasItemDragObject, ExtrasItemType } from './Extras.types';
+import { ExtrasColumnProps, ExtrasItemDragObject } from './Extras.types';
 import { useStyles } from './ExtrasColumn.styles';
 import { ExtrasColumnItem } from './ExtrasColumnItem';
 import { ExtrasPlaceholder } from './ExtrasPlaceholder';
@@ -35,7 +36,7 @@ export const ExtrasColumn = ({ isEditable, columnType, items, onUpdateExtraItemS
         </Badge>
       </Box>
       <Box>
-        {items.map((item: ExtrasItemType, index) => (
+        {items.map((item: MatchRequirementType, index) => (
           <ExtrasColumnItem isEditable={isEditable} item={item} noMargin={items.length === index + 1} />
         ))}
       </Box>
