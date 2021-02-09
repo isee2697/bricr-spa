@@ -16,13 +16,16 @@ export const Conditions = ({ onSave }: SubSectionProps) => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.conditions.title' })}
         isExpandable
       >
-        <CheckboxGroupField
-          name="conditions"
-          options={CommercialConditionTypes.map(type => ({
-            ...type,
-            label: formatMessage({ id: `dictionaries.match_condition.${type.value}` }),
-          }))}
-        />
+        {isEditing => (
+          <CheckboxGroupField
+            name="conditions"
+            options={CommercialConditionTypes.map(type => ({
+              ...type,
+              label: formatMessage({ id: `dictionaries.match_condition.${type.value}` }),
+            }))}
+            disabled={!isEditing}
+          />
+        )}
       </FormSection>
     </AutosaveForm>
   );

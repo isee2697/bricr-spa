@@ -19,97 +19,108 @@ export const Pricing = ({ onSave }: SubSectionProps) => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.pricing.title' })}
         isExpandable
       >
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.pricing.sales',
-          })}
-          noBorder
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <GenericField
-              name="pricing.buyFrom"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.buy_from',
+        {isEditing => (
+          <>
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.pricing.sales',
               })}
-              InputProps={{ endAdornment: <EuroIcon /> }}
+              noBorder
             />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name="pricing.buyTo"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.buy_to',
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <GenericField
+                  name="pricing.buyFrom"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.buy_from',
+                  })}
+                  InputProps={{ endAdornment: <EuroIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <GenericField
+                  name="pricing.buyTo"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.buy_to',
+                  })}
+                  InputProps={{ endAdornment: <EuroIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+            <Box mt={3} />
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.pricing.rent',
               })}
-              InputProps={{ endAdornment: <EuroIcon /> }}
+              noBorder
             />
-          </Grid>
-        </Grid>
-        <Box mt={3} />
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.pricing.rent',
-          })}
-          noBorder
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <GenericField
-              name="pricing.rentFrom"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.rent_from',
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <GenericField
+                  name="pricing.rentFrom"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.rent_from',
+                  })}
+                  InputProps={{ endAdornment: <EuroIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <GenericField
+                  name="pricing.rentTo"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.rent_to',
+                  })}
+                  InputProps={{ endAdornment: <EuroIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <DropdownField
+                  name="pricing.rentFrequency"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.frequency',
+                  })}
+                  items={PaymentFrequencyTypes.map(type => ({
+                    ...type,
+                    label: formatMessage({ id: `dictionaries.frequency.${type.value}` }),
+                  }))}
+                  placeholder="crm.details.personal_information_match_profile.pricing.frequency.placeholder"
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+            <Box mt={3} />
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.pricing.preferred_rental_period',
               })}
-              InputProps={{ endAdornment: <EuroIcon /> }}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+              noBorder
             />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name="pricing.rentTo"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.rent_to',
-              })}
-              InputProps={{ endAdornment: <EuroIcon /> }}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <DropdownField
-              name="pricing.rentFrequency"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.frequency',
-              })}
-              items={PaymentFrequencyTypes.map(type => ({
+            <RadioGroupField
+              name="pricing.rentalPeriod"
+              options={RentalPeriodTypes.map(type => ({
                 ...type,
-                label: formatMessage({ id: `dictionaries.frequency.${type.value}` }),
+                label: formatMessage({ id: `dictionaries.period.${type.value}` }),
               }))}
-              placeholder="crm.details.personal_information_match_profile.pricing.frequency.placeholder"
+              disabled={!isEditing}
             />
-          </Grid>
-        </Grid>
-        <Box mt={3} />
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.pricing.preferred_rental_period',
-          })}
-          subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
-          noBorder
-        />
-        <RadioGroupField
-          name="pricing.rentalPeriod"
-          options={RentalPeriodTypes.map(type => ({
-            ...type,
-            label: formatMessage({ id: `dictionaries.period.${type.value}` }),
-          }))}
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <DatePickerField
-              name="pricing.preferredStartDate"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.pricing.preferred_start_date',
-              })}
-            />
-          </Grid>
-        </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <DatePickerField
+                  name="pricing.preferredStartDate"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.pricing.preferred_start_date',
+                  })}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+          </>
+        )}
       </FormSection>
     </AutosaveForm>
   );

@@ -18,57 +18,67 @@ export const SurfaceProperty = ({ onSave }: SubSectionProps) => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.surface_property.title' })}
         isExpandable
       >
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.surface_property.business_space',
-          })}
-          noBorder
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <GenericField
-              name="measurements.businessSpaceSurfaceFromMin"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_from',
+        {isEditing => (
+          <>
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.surface_property.business_space',
               })}
-              InputProps={{ endAdornment: <SquareMeterIcon /> }}
+              noBorder
             />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name="measurements.businessSpaceSurfaceToMin"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_to',
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <GenericField
+                  name="measurements.businessSpaceSurfaceFromMin"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_from',
+                  })}
+                  InputProps={{ endAdornment: <SquareMeterIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <GenericField
+                  name="measurements.businessSpaceSurfaceToMin"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_to',
+                  })}
+                  InputProps={{ endAdornment: <SquareMeterIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+            <Box mt={2} />
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.surface_property.practice_room',
               })}
-              InputProps={{ endAdornment: <SquareMeterIcon /> }}
+              noBorder
             />
-          </Grid>
-        </Grid>
-        <Box mt={2} />
-        <FormSubSectionHeader
-          title={formatMessage({ id: 'crm.details.personal_information_match_profile.surface_property.practice_room' })}
-          noBorder
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <GenericField
-              name="measurements.practiceRoomSurfaceToMax"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_from',
-              })}
-              InputProps={{ endAdornment: <SquareMeterIcon /> }}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericField
-              name="measurements.practiceRoomSurfaceToMin"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_to',
-              })}
-              InputProps={{ endAdornment: <SquareMeterIcon /> }}
-            />
-          </Grid>
-        </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <GenericField
+                  name="measurements.practiceRoomSurfaceToMax"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_from',
+                  })}
+                  InputProps={{ endAdornment: <SquareMeterIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <GenericField
+                  name="measurements.practiceRoomSurfaceToMin"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.surface_property.minimal_surface_to',
+                  })}
+                  InputProps={{ endAdornment: <SquareMeterIcon /> }}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+          </>
+        )}
       </FormSection>
     </AutosaveForm>
   );

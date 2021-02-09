@@ -17,22 +17,27 @@ export const Outside = ({ onSave }: SubSectionProps) => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.outside.title' })}
         isExpandable
       >
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.outside.garage',
-          })}
-          noBorder
-        />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <QuantityField
-              name="outside.minGarage"
-              label={formatMessage({
-                id: 'crm.details.personal_information_match_profile.outside.car',
+        {isEditing => (
+          <>
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.outside.garage',
               })}
+              noBorder
             />
-          </Grid>
-        </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <QuantityField
+                  name="outside.minGarage"
+                  label={formatMessage({
+                    id: 'crm.details.personal_information_match_profile.outside.car',
+                  })}
+                  disabled={!isEditing}
+                />
+              </Grid>
+            </Grid>
+          </>
+        )}
       </FormSection>
     </AutosaveForm>
   );

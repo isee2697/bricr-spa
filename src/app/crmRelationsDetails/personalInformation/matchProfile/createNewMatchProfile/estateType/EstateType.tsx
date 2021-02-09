@@ -20,35 +20,41 @@ export const EstateType = () => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.residential.title' })}
         isExpandable
       >
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.estate_type.pick_type_of_property',
-          })}
-          subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
-          noBorder
-        />
-        <RadioGroupField
-          name="estateType"
-          options={EstateTypes.map(type => ({
-            ...type,
-            label: formatMessage({ id: `dictionaries.match_estate_type.${type.value}` }),
-          }))}
-        />
-        <Box mt={8} />
-        <FormSubSectionHeader
-          title={formatMessage({
-            id: 'crm.details.personal_information_match_profile.estate_type.general_characteristics',
-          })}
-          subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
-          noBorder
-        />
-        <RadioGroupField
-          name="characteristics.general"
-          options={CharacteristicsGeneralTypes.map(type => ({
-            ...type,
-            label: formatMessage({ id: `dictionaries.general_characteristics.${type.value}` }),
-          }))}
-        />
+        {isEditing => (
+          <>
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.estate_type.pick_type_of_property',
+              })}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+              noBorder
+            />
+            <RadioGroupField
+              name="estateType"
+              options={EstateTypes.map(type => ({
+                ...type,
+                label: formatMessage({ id: `dictionaries.match_estate_type.${type.value}` }),
+              }))}
+              disabled={!isEditing}
+            />
+            <Box mt={8} />
+            <FormSubSectionHeader
+              title={formatMessage({
+                id: 'crm.details.personal_information_match_profile.estate_type.general_characteristics',
+              })}
+              subtitle={formatMessage({ id: 'common.choose_one_option_below' })}
+              noBorder
+            />
+            <RadioGroupField
+              name="characteristics.general"
+              options={CharacteristicsGeneralTypes.map(type => ({
+                ...type,
+                label: formatMessage({ id: `dictionaries.general_characteristics.${type.value}` }),
+              }))}
+              disabled={!isEditing}
+            />
+          </>
+        )}
       </FormSection>
     </AutosaveForm>
   );

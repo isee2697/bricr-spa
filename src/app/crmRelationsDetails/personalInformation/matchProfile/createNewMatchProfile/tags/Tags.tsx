@@ -16,14 +16,17 @@ export const Tags = ({ onSave }: SubSectionProps) => {
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.tags.title' })}
         isExpandable
       >
-        <CheckboxGroupField
-          name="tags"
-          options={TagTypes.map(type => ({
-            ...type,
-            label: formatMessage({ id: `dictionaries.match_tag.${type.value}` }),
-          }))}
-          xs={2}
-        />
+        {isEditing => (
+          <CheckboxGroupField
+            name="tags"
+            options={TagTypes.map(type => ({
+              ...type,
+              label: formatMessage({ id: `dictionaries.match_tag.${type.value}` }),
+            }))}
+            xs={2}
+            disabled={!isEditing}
+          />
+        )}
       </FormSection>
     </AutosaveForm>
   );
