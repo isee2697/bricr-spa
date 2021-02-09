@@ -1,49 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import arrayMutators from 'final-form-arrays';
 
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  FormControlLabel,
-  Grid,
-  InputAdornment,
-  Switch,
-  TextField,
-  Typography,
-} from 'ui/atoms';
+import { Box, Grid, InputAdornment, TextField, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
-import { AutosaveForm } from 'ui/organisms';
+import { AutosaveForm, FormSection } from 'ui/organisms';
 import { AogIcon, DeleteIcon, SearchIcon } from 'ui/atoms/icons';
 import { QuantityField } from 'form/fields';
+import { SubSectionProps } from '../CreateNewMatchProfile.types';
 
 import { useStyles } from './Location.styles';
 import { LocationMap } from './locationMap/LocationMap';
 
-export const Location = () => {
+export const Location = ({ onSave }: SubSectionProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [isEditing, setIsEditing] = useState(false);
-
-  const onSave = async () => {
-    return undefined;
-  };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        title={formatMessage({ id: 'crm.details.personal_information_match_profile.location.title' })}
-        action={
-          <FormControlLabel
-            control={<Switch checked={isEditing} onChange={() => setIsEditing(!isEditing)} color="primary" />}
-            label={formatMessage({ id: 'form_section.edit_mode' })}
-            labelPlacement="start"
-          />
-        }
-      />
-      <CardContent>
-        <AutosaveForm onSave={onSave} mutators={{ ...arrayMutators }}>
+    <AutosaveForm onSave={onSave} mutators={{ ...arrayMutators }}>
+      <FormSection
+        title={formatMessage({
+          id: 'crm.details.personal_information_match_profile.characteristics_property.title',
+        })}
+        isExpandable
+      >
+        {isEditing => (
           <Grid item xs={12}>
             <LocationMap latitudeName="latitude" longitudeName="longitude" disabled={!isEditing} />
             <Box mt={3}>
@@ -86,8 +66,8 @@ export const Location = () => {
               </Grid>
             </Box>
           </Grid>
-        </AutosaveForm>
-      </CardContent>
-    </Card>
+        )}
+      </FormSection>
+    </AutosaveForm>
   );
 };

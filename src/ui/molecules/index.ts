@@ -34,4 +34,5 @@ export { DatePicker } from './datePicker/DatePicker';
 export { AdvancedSearch } from './advancedSearch/AdvancedSearch';
 export { Map } from './map/Map';
 export { MultiSearch } from './multiSearch/MultiSearch';
+export { CheckboxLoading } from './checkboxLoading/CheckboxLoading';
 export * from './calendar/Calendar';

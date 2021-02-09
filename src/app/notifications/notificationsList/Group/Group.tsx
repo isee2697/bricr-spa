@@ -6,30 +6,28 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox, IconButton, Typography, UserAvatar } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { DeleteIcon, FollowUpIcon } from 'ui/atoms/icons';
-import { NotificationType } from 'api/types';
+import { NotificationType, Notification } from 'api/types';
 import { TiaraMutationUpdatedNotificationsGroupItemContainer } from 'app/notifications/tiaraMutationUpdatedNotificationsGroupItem/TiaraMutationUpdatedNotificationsGroupItemContainer';
+import robotImage from 'assets/images/robot.jpg';
+import { TiaraMutationUpdatedNotificationsGroupItemProps } from 'app/notifications/tiaraMutationUpdatedNotificationsGroupItem/TiaraMutationUpdatedNotificationsGroupItem.types';
 
 import { useStyles } from './Group.styles';
 import { GroupProps, TaskAssignedNotificationGroupItemProps } from './Group.types';
 
 const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNotificationGroupItemProps) => {
-  const {
-    id,
-    title,
-    createdBy: { firstName, lastName, image },
-  } = data;
+  const { title, createdBy, linkedEntity } = data;
+
+  const name = createdBy && `${createdBy.firstName} ${createdBy.lastName}`;
+
+  const image = name ? createdBy?.image?.url : robotImage;
+
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
   return (
     <Box display="flex" width="100%">
       <Box>
-        <UserAvatar
-          size="medium"
-          avatar={image?.url || ''}
-          name={`${firstName} ${lastName}`}
-          className={classes.avatar}
-        />
+        <UserAvatar size="medium" avatar={image || ''} name={name ?? ''} className={classes.avatar} />
       </Box>
       <Box>
         <Box display="flex">
@@ -39,7 +37,7 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
           <IconButton
             size="small"
             variant="rounded"
-            onClick={() => onNavigate(AppRoute.taskDetails.replace(':id', id))}
+            onClick={() => onNavigate(AppRoute.taskDetails.replace(':id', linkedEntity?.id || ''))}
             className={classes.btnFollowUp}
           >
             <FollowUpIcon className={classes.followUpIcon} />
@@ -51,7 +49,7 @@ const TaskAssignedNotificationsGroupItem = ({ data, onNavigate }: TaskAssignedNo
             {
               user: (
                 <Box component="span" className={classes.fontWeightBold}>
-                  {firstName} {lastName}
+                  {name}
                 </Box>
               ),
               title: (
@@ -87,9 +85,16 @@ export const Group = ({
         {title}
       </Typography>
       {items.map(item => {
-        const { id, type, description, isRead, dateCreated } = item;
-        const data = JSON.parse(description);
+        const { id, type, description, isRead, dateCreated, createdBy, linkedEntity } = item;
         const checked = checkedKeys.includes(id);
+
+        let data: Notification;
+
+        try {
+          data = { ...item, ...JSON.parse(description) };
+        } catch {
+          data = item;
+        }
 
         return (
           <Box key={id} className={clsx(classes.row, checked && 'checked')}>
@@ -106,10 +111,16 @@ export const Group = ({
               onClick={() => !isRead && onReadNotification(id)}
             >
               {type === NotificationType.TaskAssigned && (
-                <TaskAssignedNotificationsGroupItem data={data} dateCreated={dateCreated} onNavigate={handleNavigate} />
+                <TaskAssignedNotificationsGroupItem
+                  data={{ createdBy, title: description, linkedEntity }}
+                  dateCreated={dateCreated}
+                  onNavigate={handleNavigate}
+                />
               )}
               {type === NotificationType.TiaraMutationUpdate && (
-                <TiaraMutationUpdatedNotificationsGroupItemContainer data={data} />
+                <TiaraMutationUpdatedNotificationsGroupItemContainer
+                  data={data as Notification & TiaraMutationUpdatedNotificationsGroupItemProps}
+                />
               )}
             </Box>
             <IconButton size="small" variant="rounded" onClick={() => onDeleteNotification(id)}>

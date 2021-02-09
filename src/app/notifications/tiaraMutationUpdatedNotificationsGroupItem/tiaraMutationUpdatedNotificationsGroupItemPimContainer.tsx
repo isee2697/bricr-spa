@@ -6,9 +6,9 @@ import { TiaraMutationUpdatedNotificationsGroupItem } from './TiaraMutationUpdat
 import { TiaraMutationUpdatedNotificationsGroupItemContainerProps } from './TiaraMutationUpdatedNotificationsGroupItem.types';
 
 export const TiaraMutationUpdatedNotificationsGroupItemPimContainer = ({
-  data: { pimId, messageType, status, date, errors },
+  data: { linkedEntity, messageType, status, date, errors },
 }: TiaraMutationUpdatedNotificationsGroupItemContainerProps) => {
-  const { data } = usePimGeneralQuery({ variables: { id: pimId ?? '' } });
+  const { data } = usePimGeneralQuery({ variables: { id: linkedEntity?.id ?? '' }, skip: !linkedEntity?.id });
   const description = `${data?.getPimGeneral.street} ${data?.getPimGeneral.houseNumber}`;
 
   return (
