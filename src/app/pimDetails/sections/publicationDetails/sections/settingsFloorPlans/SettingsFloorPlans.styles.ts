@@ -25,6 +25,13 @@ export const useStyles = makeStyles(theme => ({
   },
   planItem: {
     position: 'relative',
+
+    '&:hover .badge': {
+      display: 'block',
+    },
+    '& .badge': {
+      display: 'none',
+    },
   },
   badge: {
     position: 'absolute',
