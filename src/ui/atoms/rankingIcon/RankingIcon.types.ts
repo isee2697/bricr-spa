@@ -4,6 +4,7 @@ export type RankingIconProps = {
   rankings: AllocateResultsRelationRanking[];
   showCount?: boolean;
   count?: RankingCount;
+  showActiveOnly?: boolean;
 };
 
 export type RankingCount = {

@@ -96,12 +96,12 @@ export const SortingStep = ({ onNextStep, onPreviousStep }: CreateWizardStepProp
           </Box>
         </CardContent>
       </Card>
-      <Box mt={3} display="flex" justifyContent="space-between" width="100%" onClick={onPreviousStep}>
-        <Button variant="outlined" color="primary">
-          {formatMessage({ id: 'project_details.allocate_results.sorting.go_to_filtering_people' })}
+      <Box mt={3} display="flex" justifyContent="space-between" width="100%">
+        <Button variant="outlined" color="primary" onClick={onPreviousStep}>
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step3' })}
         </Button>
         <Button variant="outlined" color="primary" onClick={onNextStep}>
-          {formatMessage({ id: 'project_details.allocate_results.sorting.go_to_results' })}
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_results' })}
         </Button>
       </Box>
     </>
