@@ -284,7 +284,7 @@ export const DmsDetailsSidebarMenu = ({
             />
             <Box mt={2} />
             <Box pl={1.5} pr={1.5}>
-              <Button fullWidth color="primary" size="small" variant="outlined" startIcon={<AddIcon />}>
+              <Button fullWidth color="primary" size="small" variant="outlined" startIcon={<AddIcon color="inherit" />}>
                 {formatMessage({ id: 'dms.menu.add_attachements' })}
               </Button>
             </Box>
