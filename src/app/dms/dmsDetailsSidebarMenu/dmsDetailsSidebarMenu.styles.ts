@@ -60,4 +60,13 @@ export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     borderRadius: spacing(1),
     padding: spacing(1),
   },
+  noBorderRadius: {
+    borderRadius: 0,
+    boxShadow: 'none',
+    marginRight: spacing(1),
+  },
+  spacing: {
+    height: spacing(4),
+    background: palette.gray.light,
+  },
 }));

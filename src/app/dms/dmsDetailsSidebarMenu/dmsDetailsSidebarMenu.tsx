@@ -116,203 +116,238 @@ export const DmsDetailsSidebarMenu = ({
         </Link>
       }
     >
-      {isOnEditorPage && (
-        <Card>
-          <CardContent>
-            <ActionTabs tabs={actionTabs} status={editorTab} onStatusChange={setEditorTab} />
-            {editorTab === 'blocks' && (
-              <>
-                <Box
-                  onClick={() => {
-                    setGroupOpen(groups => ({
-                      ...groups,
-                      general: !groups.general,
-                    }));
-                  }}
-                  className={classes.collapseHeader}
-                  mt={6}
-                >
-                  <Typography variant="h4" color="textSecondary">
-                    {formatMessage({ id: 'dms.menu.template_blocks.general' })}
-                  </Typography>
-                  {isGroupCollapseOpen('general') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                </Box>
-                <Collapse in={isGroupCollapseOpen('general')} className={classes.collapseContent}>
-                  {Object.keys(EditorBlocksGeneral).map(key => (
-                    <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
-                      <Box className={classes.icon} display="flex" alignItems="center" justifyContent="center" mb={1}>
-                        <DashboardIcon />
-                      </Box>
-                      <Typography variant="h5">
-                        {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+      {(showImages || showAttachments || isOnEditorPage) && (
+        <>
+          <Box className={classes.spacing} />
+          {!showImages && !showAttachments && isOnEditorPage && (
+            <Card className={classes.noBorderRadius}>
+              <CardContent>
+                <ActionTabs tabs={actionTabs} status={editorTab} onStatusChange={setEditorTab} />
+                {editorTab === 'blocks' && (
+                  <>
+                    <Box
+                      onClick={() => {
+                        setGroupOpen(groups => ({
+                          ...groups,
+                          general: !groups.general,
+                        }));
+                      }}
+                      className={classes.collapseHeader}
+                      mt={6}
+                    >
+                      <Typography variant="h4" color="textSecondary">
+                        {formatMessage({ id: 'dms.menu.template_blocks.general' })}
                       </Typography>
+                      {isGroupCollapseOpen('general') ? <ArrowUpIcon /> : <ArrowDownIcon />}
                     </Box>
-                  ))}
-                </Collapse>
-                <Box
-                  onClick={() => {
-                    setGroupOpen(groups => ({
-                      ...groups,
-                      media: !groups.media,
-                    }));
-                  }}
-                  className={classes.collapseHeader}
-                  mt={4}
-                >
-                  <Typography variant="h4" color="textSecondary">
-                    {formatMessage({ id: 'dms.menu.template_blocks.media' })}
-                  </Typography>
-                  {isGroupCollapseOpen('media') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                </Box>
-                <Collapse in={isGroupCollapseOpen('media')} className={classes.collapseContent}>
-                  {Object.keys(EditorBlocksMedia).map(key => (
-                    <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
-                      <Box className={classes.icon} display="flex" alignItems="center" justifyContent="center" mb={1}>
-                        <DashboardIcon />
-                      </Box>
-                      <Typography variant="h5">
-                        {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+                    <Collapse in={isGroupCollapseOpen('general')} className={classes.collapseContent}>
+                      {Object.keys(EditorBlocksGeneral).map(key => (
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                          <Box
+                            className={classes.icon}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            mb={1}
+                          >
+                            <DashboardIcon />
+                          </Box>
+                          <Typography variant="h5">
+                            {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Collapse>
+                    <Box
+                      onClick={() => {
+                        setGroupOpen(groups => ({
+                          ...groups,
+                          media: !groups.media,
+                        }));
+                      }}
+                      className={classes.collapseHeader}
+                      mt={4}
+                    >
+                      <Typography variant="h4" color="textSecondary">
+                        {formatMessage({ id: 'dms.menu.template_blocks.media' })}
                       </Typography>
+                      {isGroupCollapseOpen('media') ? <ArrowUpIcon /> : <ArrowDownIcon />}
                     </Box>
-                  ))}
-                </Collapse>
-                <Box
-                  onClick={() => {
-                    setGroupOpen(groups => ({
-                      ...groups,
-                      formatting: !groups.formatting,
-                    }));
-                  }}
-                  className={classes.collapseHeader}
-                  mt={6}
-                >
-                  <Typography variant="h4" color="textSecondary">
-                    {formatMessage({ id: 'dms.menu.template_blocks.formatting' })}
-                  </Typography>
-                  {isGroupCollapseOpen('formatting') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                </Box>
-                <Collapse in={isGroupCollapseOpen('formatting')} className={classes.collapseContent}>
-                  {Object.keys(EditorBlocksFormatting).map(key => (
-                    <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
-                      <Box className={classes.icon} display="flex" alignItems="center" justifyContent="center" mb={1}>
-                        <DashboardIcon />
-                      </Box>
-                      <Typography variant="h5">
-                        {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+                    <Collapse in={isGroupCollapseOpen('media')} className={classes.collapseContent}>
+                      {Object.keys(EditorBlocksMedia).map(key => (
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                          <Box
+                            className={classes.icon}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            mb={1}
+                          >
+                            <DashboardIcon />
+                          </Box>
+                          <Typography variant="h5">
+                            {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Collapse>
+                    <Box
+                      onClick={() => {
+                        setGroupOpen(groups => ({
+                          ...groups,
+                          formatting: !groups.formatting,
+                        }));
+                      }}
+                      className={classes.collapseHeader}
+                      mt={6}
+                    >
+                      <Typography variant="h4" color="textSecondary">
+                        {formatMessage({ id: 'dms.menu.template_blocks.formatting' })}
                       </Typography>
+                      {isGroupCollapseOpen('formatting') ? <ArrowUpIcon /> : <ArrowDownIcon />}
                     </Box>
-                  ))}
-                </Collapse>
-              </>
-            )}
-            {editorTab === 'fields' && (
-              <Box mt={3}>
-                {Object.keys(EditorFields).map(key => (
-                  <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
-                    <Box className={classes.icon} display="flex" alignItems="center" justifyContent="center" mb={1}>
-                      <DashboardIcon />
+                    <Collapse in={isGroupCollapseOpen('formatting')} className={classes.collapseContent}>
+                      {Object.keys(EditorBlocksFormatting).map(key => (
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                          <Box
+                            className={classes.icon}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            mb={1}
+                          >
+                            <DashboardIcon />
+                          </Box>
+                          <Typography variant="h5">
+                            {formatMessage({ id: `dictionaries.template_blocks.${key}` })}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Collapse>
+                  </>
+                )}
+                {editorTab === 'fields' && (
+                  <Box mt={3}>
+                    {Object.keys(EditorFields).map(key => (
+                      <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                        <Box className={classes.icon} display="flex" alignItems="center" justifyContent="center" mb={1}>
+                          <DashboardIcon />
+                        </Box>
+                        <Typography variant="h5">
+                          {formatMessage({ id: `dictionaries.template_fields.${key}` })}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+                {editorTab === 'tokens' && (
+                  <Box mt={3}>
+                    <AdvancedSearch
+                      items={[]}
+                      onChange={() => {}}
+                      placeholder={formatMessage({ id: 'common.search' })}
+                    />
+
+                    <Box
+                      onClick={() => {
+                        setGroupOpen(groups => ({
+                          ...groups,
+                          crm: !groups.crm,
+                        }));
+                      }}
+                      className={classes.collapseHeader}
+                      mt={3}
+                    >
+                      <Typography variant="h4" color="textSecondary">
+                        {formatMessage({ id: 'dms.menu.template_tokens.crm' })}
+                      </Typography>
+                      {isGroupCollapseOpen('crm') ? <ArrowUpIcon /> : <ArrowDownIcon />}
                     </Box>
-                    <Typography variant="h5">{formatMessage({ id: `dictionaries.template_fields.${key}` })}</Typography>
+                    <Collapse in={isGroupCollapseOpen('crm')} className={classes.collapseContent}>
+                      {Object.keys(EditorTokensCrm).map(key => (
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3} className={classes.token}>
+                          <Typography variant="h5">
+                            {formatMessage({ id: `dictionaries.template_tokens.${key}` })}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Collapse>
+                  </Box>
+                )}
+              </CardContent>
+            </Card>
+          )}
+          {showImages && (
+            <Card className={classes.noBorderRadius}>
+              <CardContent>
+                <AdvancedSearch
+                  items={[]}
+                  onChange={() => {}}
+                  placeholder={formatMessage({ id: 'common.search' })}
+                  classes={classes}
+                />
+                <Box mt={2} />
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <UserAvatar
+                      name="Image"
+                      avatar={'http://placeimg.com/104/152/arch'}
+                      variant="square"
+                      className={classes.image}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          )}
+          {showAttachments && (
+            <Card className={classes.noBorderRadius}>
+              <CardContent>
+                <AdvancedSearch
+                  items={[]}
+                  onChange={() => {}}
+                  placeholder={formatMessage({ id: 'common.search' })}
+                  classes={classes}
+                />
+                <Box mt={2} />
+                <Box pl={1.5} pr={1.5}>
+                  <Button
+                    fullWidth
+                    color="primary"
+                    size="small"
+                    variant="outlined"
+                    startIcon={<AddIcon color="inherit" />}
+                  >
+                    {formatMessage({ id: 'dms.menu.add_attachements' })}
+                  </Button>
+                </Box>
+                <Box mt={4} />
+                {attachments.map((attachment, index) => (
+                  <Box
+                    key={index}
+                    display="flex"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    className={classes.attachment}
+                    mb={1}
+                  >
+                    <Box display="flex" alignItems="flex-start">
+                      <AttachIcon className={classes.attachIcon} />
+                      <Box ml={0.5} />
+                      <Box>
+                        <Typography variant="h5">{attachment.fileName}</Typography>
+                        <Typography variant="h5">PDF, 36kb</Typography>
+                      </Box>
+                    </Box>
+                    <Box>
+                      <Avatar src={'http://placeimg.com/104/152/arch'} variant="square" className={classes.image} />
+                    </Box>
                   </Box>
                 ))}
-              </Box>
-            )}
-            {editorTab === 'tokens' && (
-              <Box mt={3}>
-                <AdvancedSearch items={[]} onChange={() => {}} placeholder={formatMessage({ id: 'common.search' })} />
-
-                <Box
-                  onClick={() => {
-                    setGroupOpen(groups => ({
-                      ...groups,
-                      crm: !groups.crm,
-                    }));
-                  }}
-                  className={classes.collapseHeader}
-                  mt={3}
-                >
-                  <Typography variant="h4" color="textSecondary">
-                    {formatMessage({ id: 'dms.menu.template_tokens.crm' })}
-                  </Typography>
-                  {isGroupCollapseOpen('crm') ? <ArrowUpIcon /> : <ArrowDownIcon />}
-                </Box>
-                <Collapse in={isGroupCollapseOpen('crm')} className={classes.collapseContent}>
-                  {Object.keys(EditorTokensCrm).map(key => (
-                    <Box display="flex" flexDirection="column" alignItems="center" mb={3} className={classes.token}>
-                      <Typography variant="h5">
-                        {formatMessage({ id: `dictionaries.template_tokens.${key}` })}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Collapse>
-              </Box>
-            )}
-          </CardContent>
-        </Card>
-      )}
-      {showImages && (
-        <Card>
-          <CardContent>
-            <AdvancedSearch
-              items={[]}
-              onChange={() => {}}
-              placeholder={formatMessage({ id: 'common.search' })}
-              classes={classes}
-            />
-            <Box mt={2} />
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <UserAvatar
-                  name="Image"
-                  avatar={'http://placeimg.com/104/152/arch'}
-                  variant="square"
-                  className={classes.image}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      )}
-      {showAttachments && (
-        <Card>
-          <CardContent>
-            <AdvancedSearch
-              items={[]}
-              onChange={() => {}}
-              placeholder={formatMessage({ id: 'common.search' })}
-              classes={classes}
-            />
-            <Box mt={2} />
-            <Box pl={1.5} pr={1.5}>
-              <Button fullWidth color="primary" size="small" variant="outlined" startIcon={<AddIcon color="inherit" />}>
-                {formatMessage({ id: 'dms.menu.add_attachements' })}
-              </Button>
-            </Box>
-            <Box mt={4} />
-            {attachments.map((attachment, index) => (
-              <Box
-                key={index}
-                display="flex"
-                alignItems="flex-start"
-                justifyContent="space-between"
-                className={classes.attachment}
-                mb={1}
-              >
-                <Box display="flex" alignItems="flex-start">
-                  <AttachIcon className={classes.attachIcon} />
-                  <Box ml={0.5} />
-                  <Box>
-                    <Typography variant="h5">{attachment.fileName}</Typography>
-                    <Typography variant="h5">PDF, 36kb</Typography>
-                  </Box>
-                </Box>
-                <Box>
-                  <Avatar src={'http://placeimg.com/104/152/arch'} variant="square" className={classes.image} />
-                </Box>
-              </Box>
-            ))}
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          )}
+        </>
       )}
     </SidebarMenu>
   );
