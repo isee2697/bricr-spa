@@ -47,7 +47,7 @@ enum MatchRentalPeriodType {
 
 enum MatchProfileWith {
   OwnPortfolio,
-  ExternalNVM
+  ExternalNvm
 }
 
 enum MatchCharacteristicsGeneralType {
@@ -276,31 +276,6 @@ type MatchRequirement {
 }
 
 input MatchProfileInput {
-  id: ID!
-  crmId: ID!
-  companyId: ID!
-  propertyType: MatchPropertyType
-  startDate: Date
-  endDate: Date
-  duration: DateRange
-  matchWith: [MatchProfileWith!]
-  description: String
-  estateType: MatchEstateType
-  commercialEstateType: MatchCommercialEstateType
-  characteristics: MatchCharacteristicsInput
-  commercialCharacteristics: MatchCommercialCharacteristicsInput
-  pricing: MatchPricingInput
-  outside: MatchOutsidePricingInput
-  garden: MatchGardenInput
-  tags: [MatchTags!]
-  measurements: MatchMeasurementsInput
-  revenue: IntRangeInput
-  exploitation: IntRangeInput
-  requirements: [MatchRequirementInput!]
-  locations: [MatchProfileLocationInput!]
-}
-
-input UpdateMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
@@ -415,7 +390,7 @@ input MatchRequirementInput {
 
 extend type Mutation {
   addMatchProfile(crmId: ID!, input: MatchProfileInput!): MatchProfile @auth
-  updateMatchProfile(id: ID!, input: UpdateMatchProfileInput!): MatchProfile @auth
+  updateMatchProfile(id: ID!, input: MatchProfileInput!): MatchProfile @auth
   deleteMatchProfile(id: ID!): Boolean @auth
 }
 

@@ -785,7 +785,7 @@ export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
 
 export type MutationUpdateMatchProfileArgs = {
   id: Scalars['ID'];
-  input: UpdateMatchProfileInput;
+  input: MatchProfileInput;
 };
 
 export type MutationUpdateMediaLinkArgs = {
@@ -2883,7 +2883,7 @@ export enum MatchRentalPeriodType {
 
 export enum MatchProfileWith {
   OwnPortfolio = 'OwnPortfolio',
-  ExternalNvm = 'ExternalNVM',
+  ExternalNvm = 'ExternalNvm',
 }
 
 export enum MatchCharacteristicsGeneralType {
@@ -3125,31 +3125,6 @@ export type MatchRequirement = {
 };
 
 export type MatchProfileInput = {
-  id: Scalars['ID'];
-  crmId: Scalars['ID'];
-  companyId: Scalars['ID'];
-  propertyType?: Maybe<MatchPropertyType>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<DateRange>;
-  matchWith?: Maybe<Array<MatchProfileWith>>;
-  description?: Maybe<Scalars['String']>;
-  estateType?: Maybe<MatchEstateType>;
-  commercialEstateType?: Maybe<MatchCommercialEstateType>;
-  characteristics?: Maybe<MatchCharacteristicsInput>;
-  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
-  pricing?: Maybe<MatchPricingInput>;
-  outside?: Maybe<MatchOutsidePricingInput>;
-  garden?: Maybe<MatchGardenInput>;
-  tags?: Maybe<Array<MatchTags>>;
-  measurements?: Maybe<MatchMeasurementsInput>;
-  revenue?: Maybe<IntRangeInput>;
-  exploitation?: Maybe<IntRangeInput>;
-  requirements?: Maybe<Array<MatchRequirementInput>>;
-  locations?: Maybe<Array<MatchProfileLocationInput>>;
-};
-
-export type UpdateMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
@@ -9345,7 +9320,7 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
 
 export type UpdateMatchProfileMutationVariables = Exact<{
   id: Scalars['ID'];
-  input: UpdateMatchProfileInput;
+  input: MatchProfileInput;
 }>;
 
 export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
@@ -15256,7 +15231,7 @@ export type AddMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptio
   AddMatchProfileMutationVariables
 >;
 export const UpdateMatchProfileDocument = gql`
-  mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
+  mutation UpdateMatchProfile($id: ID!, $input: MatchProfileInput!) {
     updateMatchProfile(id: $id, input: $input) {
       id
       crmId

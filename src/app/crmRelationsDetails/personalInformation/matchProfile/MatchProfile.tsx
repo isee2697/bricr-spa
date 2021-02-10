@@ -43,6 +43,17 @@ export const MatchProfile = ({ path, onSidebarOpen, isSidebarVisible }: MatchPro
         />
         <Route
           exact
+          path={`${path}/:matchProfileId`}
+          component={() => (
+            <CreateNewMatchProfileContainer
+              path={path}
+              onSidebarOpen={onSidebarOpen}
+              isSidebarVisible={isSidebarVisible}
+            />
+          )}
+        />
+        <Route
+          exact
           path={`${path}/:profileId/edit`}
           component={() => (
             <CreateNewMatchProfileContainer
