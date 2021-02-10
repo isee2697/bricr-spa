@@ -11,6 +11,7 @@ const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
 const grayLight = '#F3F5FA';
+const grayDark = '#E1E1E1';
 const warmgray = '#C4C4C4';
 const warmgrayLight = '#E5E5E5';
 const red = '#EB5F60';
@@ -75,6 +76,7 @@ export const palette: PaletteOptions = {
   gray: {
     main: gray,
     light: grayLight,
+    dark: grayDark,
   },
   warmgray: {
     main: warmgray,
