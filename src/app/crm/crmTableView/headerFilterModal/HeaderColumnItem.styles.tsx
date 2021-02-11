@@ -25,4 +25,12 @@ export const useStyles = makeStyles(theme => ({
     border: `1px dashed ${theme.palette.primary.main}`,
     borderRadius: theme.spacing(1),
   },
+  placeholderItem: {
+    marginBottom: theme.spacing(2, 0),
+    height: theme.spacing(7),
+    maxWidth: theme.spacing(60),
+    background: theme.palette.gradientBlue.light,
+    border: `1px dashed ${theme.palette.primary.main}`,
+    borderRadius: theme.spacing(1),
+  },
 }));

@@ -15,8 +15,6 @@ export type HeaderFilterModalProps = {
 
 export type HeaderColumnItemProps = {
   item: string;
-  isShow: boolean;
-  setShow: (show: boolean) => void;
   changeOrder: (beforeObj: string, dropObj: string) => void;
   isDisabled?: boolean;
 };

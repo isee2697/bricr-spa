@@ -7,4 +7,10 @@ export const useStyles = makeStyles(theme => ({
     overflow: 'auto',
     background: theme.palette.gray.light,
   },
+  previewButton: {
+    border: `1px solid ${theme.palette.gray.main}`,
+  },
+  toolbar: {
+    border: `1px solid ${theme.palette.gray.main}`,
+  },
 }));

@@ -4,11 +4,12 @@ import { DndProvider } from 'react-dnd';
 
 import { useLocale } from 'hooks';
 import { CancelButton, Modal, SubmitButton } from 'ui/molecules';
-import { DialogActions, DialogContent, Box } from 'ui/atoms';
+import { DialogActions, DialogContent, Box, Typography } from 'ui/atoms';
 
 import { HeaderFilterModalProps } from './HeaderFilterModal.types';
 import { useStyles } from './HeaderFilterModal.styles';
 import { HeaderColumnItem } from './HeaderColumnItem';
+import { HeaderColumnItemPlaceholder } from './HeaderColumnItemPlaceholder';
 
 export const HeaderFilterModal = ({
   isOpened,
@@ -25,15 +26,11 @@ export const HeaderFilterModal = ({
 
   const selectedCount = headerColumns.filter(item => !item.hidden).length;
 
-  const toggleColumnVisibility = (index: number) => {
-    headerColumns[index].hidden = !headerColumns[index].hidden;
-    setUpdate(!update);
-  };
-
   const changeColumnOrder = (beforeObj: string, dropObj: string) => {
     const beforeIndex = headerColumns.findIndex(item => item.value === beforeObj);
     const dropIndex = headerColumns.findIndex(item => item.value === dropObj);
 
+    headerColumns[dropIndex].hidden = headerColumns[beforeIndex].hidden;
     headerColumns.splice(beforeIndex + 1, 0, headerColumns[dropIndex]);
     headerColumns.splice(beforeIndex < dropIndex ? dropIndex + 1 : dropIndex, 1);
     setUpdate(!update);
@@ -49,20 +46,37 @@ export const HeaderFilterModal = ({
       <DialogContent className={classes.modalContent}>
         <DndProvider backend={HTML5Backend}>
           <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt={3} mb={1}>
-            {headerColumns.map((column, index) => (
-              <HeaderColumnItem
-                item={column.value}
-                isShow={!column.hidden}
-                setShow={() => toggleColumnVisibility(index)}
-                isDisabled={selectedCount >= maxColumns && column.hidden}
-                changeOrder={changeColumnOrder}
-              />
-            ))}
+            <Typography variant="h4" className={classes.subtitle}>
+              {formatMessage({ id: 'crm.table.header_filter.active_columns' })}
+            </Typography>
+            {headerColumns
+              .filter(headerColumn => !headerColumn.hidden)
+              .map((column, index) => (
+                <HeaderColumnItem
+                  item={column.value}
+                  isDisabled={selectedCount >= maxColumns && column.hidden}
+                  changeOrder={changeColumnOrder}
+                />
+              ))}
+            <HeaderColumnItemPlaceholder />
+            <Box mt={6} mb={6} className={classes.splitter} />
+            <Typography variant="h4" className={classes.subtitle}>
+              {formatMessage({ id: 'crm.table.header_filter.available_columns' })}
+            </Typography>
+            {headerColumns
+              .filter(headerColumn => !!headerColumn.hidden)
+              .map((column, index) => (
+                <HeaderColumnItem
+                  item={column.value}
+                  isDisabled={selectedCount >= maxColumns && column.hidden}
+                  changeOrder={changeColumnOrder}
+                />
+              ))}
           </Box>
         </DndProvider>
       </DialogContent>
       <DialogActions className={classes.modalFooter}>
-        <CancelButton size="large" onClick={onClose}>
+        <CancelButton variant="outlined" size="large" onClick={onClose}>
           {formatMessage({ id: 'common.cancel' })}
         </CancelButton>
         <SubmitButton

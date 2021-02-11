@@ -31,11 +31,11 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
     hidden: false,
   },
   {
-    value: 'phoneNumber',
+    value: 'status',
     hidden: true,
   },
   {
-    value: 'status',
+    value: 'phoneNumber',
     hidden: true,
   },
   {
@@ -44,6 +44,18 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
   },
   {
     value: 'manager',
+    hidden: true,
+  },
+  {
+    value: 'property',
+    hidden: true,
+  },
+  {
+    value: 'initials',
+    hidden: true,
+  },
+  {
+    value: 'gender',
     hidden: true,
   },
 ];
@@ -63,13 +75,18 @@ export const CrmTableView = ({
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
-  const [headerCells, setHeaderCells] = useState<CrmTableHeaderCell[]>(
-    FIXED_HEADER_COLUMNS.map(cell => ({
+  const [headerCells, setHeaderCells] = useState<CrmTableHeaderCell[]>([
+    ...FIXED_HEADER_COLUMNS.map(cell => ({
       field: cell,
       label: formatMessage({ id: `crm.table.header.${cell}` }),
       sortable: true,
     })),
-  );
+    ...MOVABLE_HEADER_COLUMNS.filter(cell => !cell.hidden).map(cell => ({
+      field: cell.value,
+      label: formatMessage({ id: `pim.table.header.${cell.value}` }),
+      sortable: true,
+    })),
+  ]);
 
   const [sortBy, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(false);
@@ -105,13 +122,24 @@ export const CrmTableView = ({
     setSortDirection(direction);
   };
 
-  const renderCell = useCallback((crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
-    if (cell === 'partner' || cell === 'manager') {
-      return `${crm[cell].firstName} ${crm[cell].lastName}`;
-    }
+  const renderCell = useCallback(
+    (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
+      if (cell === 'partner' || cell === 'manager') {
+        return `${crm[cell].firstName} ${crm[cell].lastName}`;
+      }
 
-    return crm[cell];
-  }, []);
+      if (cell === 'status') {
+        return formatMessage({ id: `dictionaries.crm_status.${crm.status}` });
+      }
+
+      if (cell === 'initials') {
+        return '';
+      }
+
+      return crm[cell];
+    },
+    [formatMessage],
+  );
 
   return (
     <>
