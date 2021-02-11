@@ -2,7 +2,16 @@ import { CrmItem } from 'app/crm/Crm.types';
 
 export type CrmTableFixedHeader = 'type' | 'insertion' | 'lastName' | 'property';
 
-export type CrmTableMovableHeader = 'firstName' | 'email' | 'phoneNumber' | 'status' | 'partner' | 'manager';
+export type CrmTableMovableHeader =
+  | 'firstName'
+  | 'email'
+  | 'status'
+  | 'phoneNumber'
+  | 'partner'
+  | 'manager'
+  | 'property'
+  | 'initials'
+  | 'gender';
 
 export type CrmTableHeaderCell = {
   field: CrmTableFixedHeader | CrmTableMovableHeader;
