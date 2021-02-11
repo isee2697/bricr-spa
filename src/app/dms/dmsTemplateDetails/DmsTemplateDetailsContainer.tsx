@@ -7,10 +7,11 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { Templates } from 'api/mocks/dms';
 
 import { DmsTemplateGeneralDetails } from './dmsTemplateGeneralDetails/DmsTemplateGeneralDetails';
-import { DmsTemplateLayoutDetails } from './dmsTemplateLayoutDetails/DmsTemplateLayoutDetails';
 import { DmsTemplateConfigureSettingsDetails } from './dmsTemplateConfigureSettingsDetails/DmsTemplateConfigureSettingsDetails';
+import { DmsTemplateEditor } from './dmsTemplateEditor/DmsTemplateEditor';
+import { DmsTemplateDetailsContainerProps } from './DmsTemplateDetailsContainer.types';
 
-export const DmsTemplateDetailsContainer = () => {
+export const DmsTemplateDetailsContainer = (props: DmsTemplateDetailsContainerProps) => {
   const { formatMessage } = useLocale();
   const { id } = useParams<{ id: string }>();
   const data = Templates.find(item => item.id === id);
@@ -32,8 +33,8 @@ export const DmsTemplateDetailsContainer = () => {
           render={() => <DmsTemplateConfigureSettingsDetails template={data} />}
         />
         <Route
-          path={`${AppRoute.dms}/templates/:type/:category/${id}/layoutPreview`}
-          render={() => <DmsTemplateLayoutDetails template={data} />}
+          path={`${AppRoute.dms}/templates/:type/:category/${id}/editor`}
+          render={() => <DmsTemplateEditor template={data} {...props} />}
         />
         <Redirect to={`${AppRoute.dms}/templates/:type/:category/${id}/general`} />
       </Switch>

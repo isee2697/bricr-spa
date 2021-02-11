@@ -12,6 +12,10 @@ export const useStyles = makeStyles(theme => ({
   step: {
     cursor: 'pointer',
     padding: 0,
+
+    '& *': {
+      cursor: 'pointer',
+    },
   },
   stepper: {
     backgroundColor: 'transparent',

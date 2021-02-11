@@ -8,7 +8,6 @@ import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { Box, Chip, Scrollable, SidebarTitleTile, Step, Stepper, Typography, UserAvatar } from 'ui/atoms';
 import { StageIcon } from 'ui/molecules/propertyStage/stageIcon/StageIcon';
 import { useLocale } from 'hooks';
-import { QuestionStepStatus } from 'app/pimDetails/sections/documents/documentDetails/documentQuestionnaire/DocumentQuestionnaire.types';
 
 import { Connector, Labels, useStyles } from './DocumentQuestionnaireSidebarMenu.styles';
 import { DocumentQuestionnaireSidebarMenuProps } from './DocumentQuestionnaireSidebarMenu.types';
@@ -69,24 +68,17 @@ export const DocumentQuestionnaireSidebarMenu = ({
                 connector={<Connector />}
                 className={classes.stepper}
                 orientation="vertical"
-                nonLinear
               >
                 {data.steps.map(({ title, modifiedAt, approved, declined, status }, index) => (
                   <Step
-                    completed={status === QuestionStepStatus.Completed}
+                    completed={index < activeItem}
                     key={title}
-                    className={`${classes.step} ${status === QuestionStepStatus.Completed && classes.completed}`}
+                    className={`${classes.step} ${index < activeItem && classes.completed}`}
                     onClick={() => onChangeStep(index)}
                   >
                     <Labels
-                      completed={status === QuestionStepStatus.Completed}
-                      icon={
-                        <StageIcon
-                          active={activeItem === index}
-                          completed={status === QuestionStepStatus.Completed}
-                          icon={index}
-                        />
-                      }
+                      completed={index < activeItem}
+                      icon={<StageIcon active={activeItem === index} completed={index < activeItem} icon={index} />}
                     >
                       <Box display="flex" alignItems="flex-start">
                         <Box display="flex" flexDirection="column" alignItems="flex-start">

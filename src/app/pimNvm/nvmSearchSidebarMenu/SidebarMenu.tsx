@@ -96,6 +96,7 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  fullWidth
                 />
                 <Box mt={1} />
                 <TextField
@@ -105,6 +106,7 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  fullWidth
                 />
               </Collapse>
             </Box>
@@ -126,6 +128,7 @@ export const SidebarMenu = ({ onHide, isVisible }: SidebarMenuProps) => {
                 {PropertyTypes.map(type => (
                   <FormControlLabel
                     control={<Radio color="primary" />}
+                    className={classes.radio}
                     label={
                       <Box display="flex" justifyContent="space-between" alignItems="center">
                         <Typography variant="h4" color="textSecondary">

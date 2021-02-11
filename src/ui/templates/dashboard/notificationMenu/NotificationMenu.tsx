@@ -87,7 +87,7 @@ export const NotificationMenu = () => {
   };
 
   const handleReadAllNotifications = async () => {
-    const notifications: NotificationRow[] = data?.getNotifications?.items || [];
+    const notifications: NotificationRow[] = (data?.getNotifications?.items as NotificationRow[]) || [];
     const { data: result, errors } = await bulkReadNotifications({
       variables: {
         input: {
@@ -164,7 +164,7 @@ export const NotificationMenu = () => {
           </Box>
           {data?.getNotifications?.items && data.getNotifications.items.length > 0 ? (
             <>
-              {getNotificationGroup(data.getNotifications.items).map((group, index) => (
+              {getNotificationGroup(data.getNotifications.items as NotificationRow[]).map((group, index) => (
                 <Group key={index} group={group} onReadNotification={handleReadNotification} />
               ))}
             </>

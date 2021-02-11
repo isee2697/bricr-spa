@@ -29,6 +29,16 @@ type CreateHistoryDataInput {
   data: String!
 }
 
+type LinkedEntity {
+  id: ID!
+  type: Entities
+}
+
+input LinkedEntityInput {
+  id: ID!
+  type: Entities
+}
+
 enum Entities {
   team,
   pim,

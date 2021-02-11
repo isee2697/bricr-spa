@@ -1,0 +1,424 @@
+enum MatchPropertyType {
+  Residential,
+  NewConstruction,
+  Relet,
+  Commercial,
+  Agriculture,
+  ParkingLot,
+  BuildingPlot
+}
+
+enum MatchEstateType {
+  SignleFamily,
+  DykeHouse,
+  CourtHouse,
+  DriveInHome,
+  SplitLevel,
+  QuadrantHouse,
+  PatioHouse,
+  Villa,
+  CanalHouse,
+  WaterHouse,
+  Bungalow,
+  SemiBungalow,
+  StiltHouse,
+  BusinessOrServiceHome,
+  Estate,
+  CountryHouse,
+  Mansion
+}
+
+enum MatchCommercialEstateType {
+  BusinessSpace,
+  Offices,
+  RetailSpace,
+  SocialRealEstate,
+  CateringIndustry,
+  Terrain
+}
+
+enum MatchRentalPeriodType {
+  ThreeToSixMonths,
+  SixToTwelveMonths,
+  TwelveToTwentyfourMonths,
+  TwentyfourToThirtysixMonths,
+  Indeterminate
+}
+
+enum MatchProfileWith {
+  OwnPortfolio,
+  ExternalNVM
+}
+
+enum MatchCharacteristicsGeneralType {
+  SemiDetached,
+  FinalHouse,
+  CornerHouse,
+  TerracedHouse,
+  DetachedHouse,
+  Recreation
+}
+
+enum MatchCommercialCharacteristicsGeneralType {
+  Leissure,
+  Logistic,
+  PracticeRoom
+}
+
+enum MatchCharacteristicsMaintenanceQuality {
+  Good,
+  Poor,
+  Regular,
+  Bad,
+  Terrible,
+  Perfect
+}
+
+enum MatchCommercialConditions {
+  VatTaxed,
+  Indexed,
+  FurnishedIncludingServiceCost,
+  PavedOutsideTerrain,
+  CompanyResidence,
+  Camping,
+  Investment
+}
+
+enum PaymentFrequency {
+  Yearly,
+  Monthly
+}
+
+enum PaymentPeriod {
+  HalfYear,
+  OneYear,
+  TwoYear,
+  ThreeYear,
+  Undetermined
+}
+
+enum MatchGardenSituation {
+  North,
+  East,
+  South,
+  West
+}
+
+enum MatchTags {
+  Seniors,
+  DiyHouse,
+  ReadyToMoveIn,
+  Starter,
+  Rural,
+  Thirties,
+  Exclusive,
+  ByWater,
+  ChildFriendly
+}
+
+enum MatchRequirementType {
+  BathroomOnGroundFloor,
+  RoofTerrace,
+  Balcony,
+  Elevator,
+  Monument,
+  MonumentalBuilding,
+  SwimmingPool,
+  PermanentHabitation,
+  ProtectedCityOrVillageView,
+  DoubleOccupancyAvailable,
+  AccessibleToDisabledPeople,
+  AccssibleToTheElderly,
+  PartlyUpholstered,
+  PartiallyRented,
+  Furnished,
+  Upholsterd,
+  DiyHome
+}
+
+enum MatchRequirementStatus {
+  Required,
+  Desirable,
+  NotSignificant
+}
+
+enum MatchService {
+  ConcreteFloor
+  Skylights
+  PaymentFrequencyHeating
+  LoadingDocks
+  Sprinkler
+  PowerFlow
+  OverheadDoors
+  ToiletRecessedLuminaries
+  Elevators
+  OpenableWindows
+}
+
+type MatchProfile {
+  id: ID!
+  crmId: ID!
+  companyId: ID!
+  propertyType: MatchPropertyType
+  startDate: Date
+  endDate: Date
+  duration: MatchProfileDateRange
+  matchWith: [MatchProfileWith!]
+  description: String
+  estateType: MatchEstateType
+  commercialEstateType: MatchCommercialEstateType
+  characteristics: MatchCharacteristics
+  commercialCharacteristics: MatchCommercialCharacteristics
+  pricing: MatchPricing
+  outside: MatchOutsidePricing
+  garden: MatchGarden
+  conditions: [MatchCommercialConditions!]
+  services: [MatchService!]
+  tags: [MatchTags!]
+  measurements: MatchMeasurements
+  revenue: IntRange
+  exploitation: IntRange
+  requirements: [MatchRequirement!]
+  locations: [MatchProfileLocation!]
+}
+
+type MatchRevenueAndExploitation {
+  revenueFrom: Int
+  revenueTo: Int
+  exploitationFrom: Int
+  exploitationTo: Int
+}
+
+type MatchProfileDateRange {
+  from: Date
+  to: Date
+}
+
+type MatchCharacteristics {
+  general: MatchCharacteristicsGeneralType
+  property: MatchCharacteristicsProperty
+}
+
+type MatchCharacteristicsProperty {
+  minAmountRooms: Int
+  minAmountBedrooms: Int
+  minAmountFloors: Int
+  residentialLayerFrom: Int
+  residentialLayerTo: Int
+  constructionYearFrom: Int
+  constructionYearTo: Int
+  maintenanceQuality: MatchCharacteristicsMaintenanceQuality
+}
+
+type MatchCommercialCharacteristics {
+  general: MatchCommercialCharacteristicsGeneralType
+  property: MatchCommercialCharacteristicsProperty
+}
+
+type MatchCommercialCharacteristicsProperty {
+  minFreeHeight: Int
+  minFreeSpan: Int
+  minFloorLoad: Int
+  minAmountOfFloors: Int
+  minParkingLots: Int
+  engergyLabel: EnergyType
+  constructionYearFrom: Int
+  constructionYearTo: Int
+  maintenanceQuality: MatchCharacteristicsMaintenanceQuality
+}
+
+type MatchPricing {
+  buyFrom: Float
+  buyTo: Float
+  rentFrom: Float
+  rentTo: Float
+  rentFrequency: PaymentFrequency
+  rentalPeriod: PaymentPeriod
+  preferredStartDate: Date
+}
+
+type MatchOutsidePricing {
+  minGarage: Int
+}
+
+type MatchGarden {
+  situation: MatchGardenSituation
+  outdoorSpacesMin: Float
+  outdoorSpacesMax: Float
+  volumeMin: Float
+  volumeMax: Float
+}
+
+type MatchMeasurements {
+  surfaceFromMin: Float
+  surfaceToMin: Float
+  livingAreaFromMin: Float
+  livingAreaToMin: Float
+  businessSpaceSurfaceFromMin: Float
+  businessSpaceSurfaceToMin: Float
+  practiceRoomSurfaceToMax: Float
+  practiceRoomSurfaceToMin: Float
+  plotSurfaceFromMin: Float
+  plotSurfaceToMin: Float
+}
+
+type MatchProfileLocation {
+  latitude: Float!
+  longitude: Float!
+  street: String!
+  houseNumber: Int!
+  radius: Float!
+}
+
+type MatchRequirement {
+  key: MatchRequirementType!
+  status: MatchRequirementStatus!
+}
+
+input MatchProfileInput {
+  id: ID!
+  crmId: ID!
+  companyId: ID!
+  propertyType: MatchPropertyType
+  startDate: Date
+  endDate: Date
+  duration: DateRange
+  matchWith: [MatchProfileWith!]
+  description: String
+  estateType: MatchEstateType
+  commercialEstateType: MatchCommercialEstateType
+  characteristics: MatchCharacteristicsInput
+  commercialCharacteristics: MatchCommercialCharacteristicsInput
+  pricing: MatchPricingInput
+  outside: MatchOutsidePricingInput
+  garden: MatchGardenInput
+  tags: [MatchTags!]
+  measurements: MatchMeasurementsInput
+  revenue: IntRangeInput
+  exploitation: IntRangeInput
+  requirements: [MatchRequirementInput!]
+  locations: [MatchProfileLocationInput!]
+}
+
+input UpdateMatchProfileInput {
+  propertyType: MatchPropertyType
+  startDate: Date
+  endDate: Date
+  duration: DateRange
+  matchWith: [MatchProfileWith!]
+  description: String
+  estateType: MatchEstateType
+  commercialEstateType: MatchCommercialEstateType
+  characteristics: MatchCharacteristicsInput
+  commercialCharacteristics: MatchCommercialCharacteristicsInput
+  pricing: MatchPricingInput
+  outside: MatchOutsidePricingInput
+  garden: MatchGardenInput
+  tags: [MatchTags!]
+  measurements: MatchMeasurementsInput
+  revenue: IntRangeInput
+  exploitation: IntRangeInput
+  requirements: [MatchRequirementInput!]
+  locations: [MatchProfileLocationInput!]
+}
+
+input MatchCharacteristicsInput {
+  general: MatchCharacteristicsGeneralType
+  property: MatchCharacteristicsPropertyInput
+}
+
+input MatchCommercialCharacteristicsInput {
+  general: MatchCommercialCharacteristicsGeneralType
+  property: MatchCommercialCharacteristicsPropertyInput
+}
+
+type IntRange {
+  from: Int
+  to: Int
+}
+
+input IntRangeInput {
+  from: Int
+  to: Int
+}
+
+input MatchCharacteristicsPropertyInput {
+  minAmountRooms: Int
+  minAmountBedrooms: Int
+  minAmountFloors: Int
+  residentialLayerFrom: Int
+  residentialLayerTo: Int
+  constructionYearFrom: Int
+  constructionYearTo: Int
+  maintenanceQuality: MatchCharacteristicsMaintenanceQuality
+}
+
+input MatchCommercialCharacteristicsPropertyInput {
+  minFreeHeight: Int
+  minFreeSpan: Int
+  minFloorLoad: Int
+  minAmountOfFloors: Int
+  minParkingLots: Int
+  engergyLabel: EnergyType
+  constructionYearFrom: Int
+  constructionYearTo: Int
+  maintenanceQuality: MatchCharacteristicsMaintenanceQuality
+}
+
+input MatchPricingInput {
+  buyFrom: Float
+  buyTo: Float
+  rentFrom: Float
+  rentTo: Float
+  rentFrequency: PaymentFrequency
+  rentalPeriod: PaymentPeriod
+  preferredStartDate: Date
+}
+
+input MatchOutsidePricingInput {
+  minGarage: Int
+}
+
+input MatchGardenInput {
+  situation: MatchGardenSituation
+  outdoorSpacesMin: Float
+  outdoorSpacesMax: Float
+  volumeMin: Float
+  volumeMax: Float
+}
+
+input MatchMeasurementsInput {
+  surfaceFromMin: Float
+  surfaceToMin: Float
+  livingAreaFromMin: Float
+  livingAreaToMin: Float
+  businessSpaceSurfaceFromMin: Float
+  businessSpaceSurfaceToMin: Float
+  practiceRoomSurfaceToMax: Float
+  practiceRoomSurfaceToMin: Float
+  plotSurfaceFromMin: Float
+  plotSurfaceToMin: Float
+}
+
+input MatchProfileLocationInput {
+  latitude: Float!
+  longitude: Float!
+  street: String!
+  houseNumber: Int!
+  radius: Float!
+}
+
+input MatchRequirementInput {
+  key: MatchRequirementType!
+  status: MatchRequirementStatus!
+}
+
+extend type Mutation {
+  addMatchProfile(crmId: ID!, input: MatchProfileInput!): MatchProfile @auth
+  updateMatchProfile(id: ID!, input: UpdateMatchProfileInput!): MatchProfile @auth
+  deleteMatchProfile(id: ID!): Boolean @auth
+}
+
+extend type Query {
+  getMatchProfile(id: ID!): MatchProfile @auth
+}
