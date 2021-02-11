@@ -25,7 +25,7 @@ export const useStyles = ({ width }: { width: number | string }) =>
       display: 'flex',
       color: palette.gray.main,
       alignItems: 'center',
-      marginBottom: spacing(4),
+      marginBottom: spacing(0.5),
 
       '& .MuiSvgIcon-root': {
         backgroundColor: palette.white.main,
@@ -46,23 +46,25 @@ export const useStyles = ({ width }: { width: number | string }) =>
       maxWidth: `calc(100% - ${spacing(0.5)}px)`,
     },
     showHideButton: {
-      padding: spacing(1, 1, 1, 2),
-      margin: 0,
+      padding: spacing(1, 1, 1, 0.5),
+      margin: spacing(2.5, 0, 0, 2),
       justifyContent: 'space-between',
       borderBottom: `2px solid ${palette.gray.light}`,
       borderRadius: 0,
       color: palette.gray.main,
       alignItems: 'center',
-      width: '100%',
+      width: `calc(100% - ${spacing(2)}px)`,
     },
     checkIcon: {
       color: palette.success.main,
+      height: spacing(3),
     },
     group: {
       padding: spacing(0, 1, 0, 2),
     },
     radio: {
       width: '100%',
+      marginLeft: -spacing(0.5),
 
       '& .MuiFormControlLabel-label': {
         width: '100%',

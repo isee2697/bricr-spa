@@ -6,9 +6,9 @@ import { TiaraMutationUpdatedNotificationsGroupItem } from './TiaraMutationUpdat
 import { TiaraMutationUpdatedNotificationsGroupItemContainerProps } from './TiaraMutationUpdatedNotificationsGroupItem.types';
 
 export const TiaraMutationUpdatedNotificationsGroupItemObjectTypeContainer = ({
-  data: { objectTypeId, messageType, status, date, errors },
+  data: { linkedEntity, messageType, status, date, errors },
 }: TiaraMutationUpdatedNotificationsGroupItemContainerProps) => {
-  const { data } = useGetObjectTypeGeneralQuery({ variables: { id: objectTypeId ?? '' } });
+  const { data } = useGetObjectTypeGeneralQuery({ variables: { id: linkedEntity?.id ?? '' } });
   const description = `${data?.getObjectTypeGeneral.name}`;
 
   return (

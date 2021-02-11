@@ -4,8 +4,8 @@ import { DateTime } from 'luxon';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Box, Checkbox } from 'ui/atoms';
-import { NotificationRow } from '../Notifications.types';
 import { useSelect } from 'ui/molecules/list/useSelect/useSelect';
+import { Notification } from 'api/types';
 
 import { useStyles } from './NotificationsList.styles';
 import {
@@ -43,14 +43,14 @@ export const NotificationsList = ({
     },
   ];
 
-  const getNotificationGroups = (notifications: NotificationRow[]) => {
+  const getNotificationGroups = (notifications: Notification[]) => {
     const today = DateTime.local().toFormat('dd-MM-yyyy');
     const yesterday = DateTime.local()
       .minus({ day: 1 })
       .toFormat('dd-MM-yyyy');
 
     const groups: NotificationsGroupObject = notifications.reduce(
-      (accum: NotificationsGroupObject, notification: NotificationRow) => {
+      (accum: NotificationsGroupObject, notification: Notification) => {
         const date = DateTime.fromISO(notification.dateCreated).toFormat('dd-MM-yyyy');
 
         if (!accum[date]) {

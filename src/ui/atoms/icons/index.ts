@@ -121,3 +121,4 @@ export * from './alert/AlertIcon';
 export * from './star/StarIcon';
 export * from './starFilled/StarFilledIcon';
 export * from './head/HeadIcon';
+export * from './stamp/StampIcon';
