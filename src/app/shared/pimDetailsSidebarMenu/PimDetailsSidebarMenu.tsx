@@ -206,24 +206,24 @@ export const PimDetailsSidebarMenu = ({
           },
         ],
       },
-      ...(isPurchased
-        ? []
-        : [
-            {
-              isCollapsable: true,
-              key: 'pim_details.menu.allocation',
-              items: [
-                {
-                  key: 'allocateResults',
-                  title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
-                },
-                {
-                  key: 'allocateSettings',
-                  title: formatMessage({ id: 'pim_details.menu.allocateCriteria' }),
-                },
-              ],
-            },
-          ]),
+      // ...(isPurchased
+      //   ? []
+      //   : [
+      {
+        isCollapsable: true,
+        key: 'pim_details.menu.allocation',
+        items: [
+          {
+            key: 'allocateResults',
+            title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
+          },
+          {
+            key: 'allocateSettings',
+            title: formatMessage({ id: 'pim_details.menu.allocateCriteria' }),
+          },
+        ],
+      },
+      // ]),
       {
         isCollapsable: true,
         key: 'pim_details.menu.sales',
