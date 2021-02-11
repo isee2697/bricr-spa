@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
 
-import { Avatar, Box, Checkbox, Chip, Emoji, Grid, IconButton, PersonChip, Typography, RankingIcon } from 'ui/atoms';
+import { Avatar, Box, Checkbox, Chip, Emoji, Grid, PersonChip, Typography, RankingIcon } from 'ui/atoms';
 import { AllocateResultsRelationRanking } from '../../AllocateResultsDetails.types';
 import { useLocale } from 'hooks';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, MenuIcon } from 'ui/atoms/icons';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ClockIcon } from 'ui/atoms/icons';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { ListOptionsMenu } from 'ui/molecules';
+import { AssignedTableView } from '../assignedTableView/AssignedTableView';
 
 import { ListItemProps } from './ListItem.types';
 import { useStyles } from './ListItem.styles';
 
-export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
+export const ListItem = ({ checkbox, checked, item, onClick }: ListItemProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isShowAllocatedRelations, setIsShowAllocatedRelations] = useState(false);
-  const [isShowLowRankedRelations, setIsShowLowRankedRelations] = useState(false);
 
   const highRankedRelations = item.allocatedRelations
     .filter(relation => relation.ranking !== AllocateResultsRelationRanking.None)
@@ -25,10 +27,10 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
   );
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" className={classes.rowWrapper}>
       <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
         {checkbox}
-        <Box className={classes.rowItem} display="flex">
+        <Box className={classes.rowItem} display="flex" onClick={onClick}>
           <Box mr={2}>
             <Avatar variant="rounded" src={item.image} className={classes.image}>
               {!item.image && <Emoji>{'📷'}</Emoji>}
@@ -73,26 +75,21 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                     </Box>
                   ))}
                 </Box>
-              </Box>
-              <IconButton size="small" variant="rounded">
-                <MenuIcon />
-              </IconButton>
-            </Box>
-            <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
-              <Box display="flex" alignItems="flex-end">
-                <Box mr={1}>
+                <Box mt={1}>
                   <RankingIcon rankings={highRankedRelations.map(relation => relation.ranking)} />
                 </Box>
-                <Typography variant="h6" className={classes.gray}>
-                  + {item.allocatedRelations.length}
-                </Typography>
               </Box>
-              <Chip
-                size="small"
-                variant="outlined"
-                label={formatMessage({ id: 'project_details.allocate_results_details.name_objecttype' })}
-                className={classes.gray}
-              />
+              <Box display="flex" flexDirection="column" alignItems="flex-end">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  label={formatMessage({ id: 'project_details.allocate_results_details.name_objecttype' })}
+                  className={classes.gray}
+                />
+                <Box mt={2} className={classes.assigned}>
+                  {item.propertyTypes.length}
+                </Box>
+              </Box>
             </Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
               <Typography variant="h3" className={classes.fontWeightBold}>
@@ -105,7 +102,11 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                 className={classes.btnShowHide}
               >
                 <Typography variant="h5" className={classes.gray}>
-                  {formatMessage({ id: isShowAllocatedRelations ? 'common.hide' : 'common.show' })}
+                  {formatMessage({
+                    id: isShowAllocatedRelations
+                      ? 'project_details.allocate_results_details.close_result'
+                      : 'project_details.allocate_results_details.show_result',
+                  })}
                 </Typography>
                 {isShowAllocatedRelations ? <ArrowUpIcon /> : <ArrowDownIcon />}
               </Box>
@@ -115,12 +116,12 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
       </Box>
       {isShowAllocatedRelations && (
         <>
-          <Box ml={4}>
+          <Box ml={4} mr={2}>
             {highRankedRelations.map(relation => (
               <Box display="flex" alignItems="flex-start" className={classes.allocatedRelation}>
                 <Box mr={2} display="flex" alignItems="flex-end">
-                  <Checkbox className={classes.allocatedRelationCheckbox} />
-                  <RankingIcon rankings={[relation.ranking]} />
+                  <Checkbox className={classes.allocatedRelationCheckbox} color="primary" />
+                  <RankingIcon rankings={[relation.ranking]} showActiveOnly />
                 </Box>
                 <Box width="100%">
                   <Grid container spacing={1}>
@@ -245,75 +246,48 @@ export const ListItem = ({ checkbox, checked, item }: ListItemProps) => {
                   </Grid>
                 </Box>
                 <Box>
-                  <IconButton size="small" variant="rounded">
-                    <MenuIcon />
-                  </IconButton>
+                  <ListOptionsMenu
+                    id={`allocate-results-details-ranking-${item.id}`}
+                    onDeleteClick={() => {}}
+                    hideEditButton
+                  >
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'project_details.allocateResults.mail',
+                      })}
+                      icon={<ClockIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'project_details.allocateResults.start_workflow',
+                      })}
+                      icon={<ClockIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'project_details.allocateResults.change_role',
+                      })}
+                      icon={<ClockIcon />}
+                    />
+                    <ListOptionsMenuItem
+                      title={formatMessage({
+                        id: 'project_details.allocateResults.drop_out',
+                      })}
+                      icon={<ClockIcon />}
+                    />
+                  </ListOptionsMenu>
                 </Box>
               </Box>
             ))}
           </Box>
-          {isShowLowRankedRelations && (
-            <Box ml={4} pl={6} className={classes.allocatedRelation}>
-              {lowRankedRelations.map(relation => (
-                <Box display="flex" alignItems="center">
-                  <Checkbox />
-                  <Box width="100%" ml={5}>
-                    <Grid container spacing={1}>
-                      <Grid item xs={4}>
-                        <Typography variant="h5">
-                          {relation.relation.firstName} {relation.relation.lastName}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={3}>
-                        <Typography variant="h5">
-                          {relation.dateOfSubscription.toLocaleString(DateTime.DATE_SHORT)}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={3}>
-                        <Typography variant="h5">
-                          {relation.typeOfInterest
-                            ? formatMessage({ id: `dictionaries.type_of_interest.${relation.typeOfInterest}` })
-                            : '-'}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={2}>
-                        <Typography variant="h5">
-                          {relation.monthlyIncomeFrom ? `€ ${relation.monthlyIncomeFrom}` : '-'}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                  <Box>
-                    <IconButton size="small" variant="rounded">
-                      <MenuIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              ))}
-            </Box>
-          )}
-          {lowRankedRelations.length > 0 && (
-            <Box alignSelf="flex-end" mt={1}>
-              <Box
-                display="flex"
-                alignItems="center"
-                onClick={() => setIsShowLowRankedRelations(!isShowLowRankedRelations)}
-                className={classes.btnShowHide}
-              >
-                <Typography variant="h5" className={classes.gray}>
-                  {formatMessage(
-                    {
-                      id: isShowLowRankedRelations
-                        ? 'project_details.allocate_results_details.show_relations'
-                        : 'project_details.allocate_results_details.hide_relations',
-                    },
-                    { count: lowRankedRelations.length },
-                  )}
-                </Typography>
-                {isShowLowRankedRelations ? <ArrowUpIcon /> : <ArrowDownIcon />}
-              </Box>
-            </Box>
-          )}
+          <AssignedTableView
+            type="assigned"
+            properties={lowRankedRelations}
+            onClick={() => {}}
+            selected={[]}
+            onSelectProperty={id => {}}
+            onSelectAllProperties={() => {}}
+          />
         </>
       )}
     </Box>

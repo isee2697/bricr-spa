@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
 
 import { ProjectDetailsHeader } from '../../projectDetailsHeader/ProjectDetailsHeader';
-import { Button, NavBreadcrumb } from 'ui/atoms';
+import { Button, Grid, NavBreadcrumb } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 
-import { useStyles } from './AllocateResults.styles';
 import { AllocateResultsProps } from './AllocateResults.types';
 import { AllocateResultsList } from './list/List';
 import { CreateWizard } from './createWizard/CreateWizard';
+import { AllocateTypeModal } from './allocateTypeModal/AllocateTypeModal';
+import { AllocateType } from './allocateTypeModal/AllocateTypeModal.types';
+import { AllocateTypeDetailsModal } from './allocateTypeDetailsModal/AllocateTypeDetailsModal';
 
 export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateResultsProps) => {
-  const classes = useStyles();
   const { formatMessage } = useLocale();
   const [isAllocating, setIsAllocating] = useState(false);
+  const [showTypeModal, setShowTypeModal] = useState(false);
+  const [showTypeDetailsModal, setShowTypeDetailsModal] = useState<AllocateType | null>(null);
+
+  const handleTypeDetailsModal = (type: AllocateType) => {
+    setShowTypeModal(false);
+
+    if (type === AllocateType.StartWithBlank) {
+      setIsAllocating(true);
+    } else {
+      setShowTypeDetailsModal(type);
+    }
+  };
 
   return (
-    <div className={classes.root}>
-      <NavBreadcrumb title={formatMessage({ id: 'project.details.allocate_results' })} />
+    <Grid item xs={12}>
+      <NavBreadcrumb title={formatMessage({ id: 'pim.details.allocate_results' })} />
       <ProjectDetailsHeader
         onSidebarOpen={onSidebarOpen}
         isSidebarVisible={isSidebarVisible}
@@ -30,17 +43,41 @@ export const AllocateResults = ({ onSidebarOpen, isSidebarVisible }: AllocateRes
             <Button
               color="primary"
               variant="contained"
-              onClick={() => setIsAllocating(true)}
+              onClick={() => setShowTypeModal(true)}
               startIcon={<AddIcon color="inherit" />}
               size="small"
             >
-              {formatMessage({ id: 'project.details.allocation_add' })}
+              {formatMessage({ id: 'pim.details.allocation_add' })}
             </Button>
           )
         }
       />
-      {isAllocating && <CreateWizard />}
+      {showTypeModal && (
+        <AllocateTypeModal
+          isOpen={showTypeModal}
+          onClose={() => setShowTypeModal(false)}
+          onSelect={handleTypeDetailsModal}
+        />
+      )}
+      {showTypeDetailsModal && (
+        <AllocateTypeDetailsModal
+          isOpen={!!showTypeDetailsModal}
+          allocateType={showTypeDetailsModal}
+          onClose={() => setShowTypeDetailsModal(null)}
+          onNext={() => {
+            setShowTypeDetailsModal(null);
+            setIsAllocating(true);
+          }}
+          onPrev={() => {
+            setShowTypeDetailsModal(null);
+            setShowTypeModal(true);
+          }}
+        />
+      )}
+      {isAllocating && (
+        <CreateWizard onGotoResult={() => setIsAllocating(false)} onSaveCriteria={() => setIsAllocating(false)} />
+      )}
       {!isAllocating && <AllocateResultsList />}
-    </div>
+    </Grid>
   );
 };

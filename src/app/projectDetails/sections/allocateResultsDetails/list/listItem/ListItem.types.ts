@@ -6,4 +6,5 @@ export type ListItemProps = {
   checkbox: ReactElement;
   checked: boolean;
   item: AllocatedProperty;
+  onClick: VoidFunction;
 };

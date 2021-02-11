@@ -24,6 +24,8 @@ context('Add Pim', () => {
     cy.findAllByRole('button', { name: 'Add property' })
       .last()
       .click();
+
+    cy.wait(1500);
     cy.location().should(loc => {
       expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/dashboard'));
     });
@@ -45,6 +47,8 @@ context('Add Pim', () => {
       .click();
     cy.contains('Oh, there are already');
     cy.findByRole('button', { name: 'Yes, add the same address' }).click();
+
+    cy.wait(1500);
     cy.location().should(loc => {
       expect(loc.href).to.eq(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/dashboard'));
     });
