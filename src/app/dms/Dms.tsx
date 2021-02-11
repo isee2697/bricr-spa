@@ -21,6 +21,8 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
   const classes = useStyles();
   const [isSidebarVisible, setSidebarVisibility] = useState(true);
   const { state } = useLocation<{ newlyAdded: boolean }>();
+  const [showImages, setShowImages] = useState(false);
+  const [showAttachments, setShowAttachments] = useState(false);
 
   const handleSidebarHide = useCallback(() => {
     setSidebarVisibility(false);
@@ -30,6 +32,16 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
     setSidebarVisibility(true);
   }, []);
 
+  const handleChangeShowImages = () => {
+    setShowImages(!showImages);
+    setShowAttachments(false);
+  };
+
+  const handleChangeShowAttachments = () => {
+    setShowImages(false);
+    setShowAttachments(!showAttachments);
+  };
+
   return (
     <EntityTypeProvider entityType={entityType}>
       <Grid container wrap="nowrap">
@@ -37,7 +49,14 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         <Switch>
           <Route
             path={[`${path}/templates/:type/:category/:id`, `${path}/content-blocks/:id`]}
-            render={() => <DmsDetailsSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />}
+            render={() => (
+              <DmsDetailsSidebarMenu
+                onHide={handleSidebarHide}
+                isVisible={isSidebarVisible}
+                showImages={showImages}
+                showAttachments={showAttachments}
+              />
+            )}
           />
           <Route
             render={() => (
@@ -64,7 +83,14 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                   <Route path={`${path}/imageLibrary`} render={() => <></>} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
-                    render={() => <DmsTemplateDetailsContainer />}
+                    render={() => (
+                      <DmsTemplateDetailsContainer
+                        showImages={showImages}
+                        onChangeShowImages={handleChangeShowImages}
+                        showAttachments={showAttachments}
+                        onChangeShowAttachments={handleChangeShowAttachments}
+                      />
+                    )}
                   />
                   <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
                   <Route exact path={`${path}/content-blocks`} render={() => <DmsContentBlocksContainer />} />
