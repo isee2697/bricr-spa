@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { SortDirection } from '@material-ui/core';
 import clsx from 'clsx';
 
-import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box } from 'ui/atoms';
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
 import { EditIcon, SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmItem } from 'app/crm/Crm.types';
@@ -57,6 +57,7 @@ export const CrmTableView = ({
   selected,
   onSelectItem,
   onSelectAllItems,
+  pagination,
 }: CrmTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -189,6 +190,11 @@ export const CrmTableView = ({
           ))}
         </TableBody>
       </Table>
+      {pagination && (
+        <Box className={classes.pagination}>
+          <Pagination {...pagination} />
+        </Box>
+      )}
       <HeaderFilterModal
         isOpened={filterHeaderDlg}
         onClose={() => showFilterHeaderDlg(false)}

@@ -1,4 +1,5 @@
 import { CrmItem } from 'app/crm/Crm.types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type CrmTableFixedHeader = 'type' | 'insertion' | 'lastName' | 'property';
 
@@ -19,4 +20,5 @@ export type CrmTableViewProps = {
   selected: string[];
   onSelectItem: (id: string) => void;
   onSelectAllItems: VoidFunction;
+  pagination?: PaginationProps;
 };
