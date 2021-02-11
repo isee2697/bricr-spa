@@ -43,4 +43,16 @@ export const useStyles = makeStyles(theme => ({
     borderTop: `1px solid ${theme.palette.gray.light}`,
     padding: theme.spacing(2, 3),
   },
+  subtitle: {
+    fontWeight: theme.typography.fontWeightBold,
+    width: '100%',
+    maxWidth: theme.spacing(60),
+    marginBottom: theme.spacing(2),
+  },
+  splitter: {
+    height: 1,
+    width: '100%',
+    maxWidth: theme.spacing(60),
+    background: theme.palette.gray.main,
+  },
 }));
