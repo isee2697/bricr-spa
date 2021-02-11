@@ -44,7 +44,7 @@ export const Connector = withStyles(theme => ({
   vertical: {
     pointerEvents: 'none',
     paddingBottom: 0,
-    marginTop: -theme.spacing(6.75),
+    marginTop: -theme.spacing(5),
     '& $line': {
       height: theme.spacing(11.25),
     },
@@ -68,11 +68,9 @@ export const Connector = withStyles(theme => ({
 
 export const Labels = withStyles(theme => ({
   root: {
-    height: theme.spacing(6.75),
     flexDirection: 'row',
     alignItems: 'flex-start',
     '& .MuiStepLabel-iconContainer': {
-      marginTop: -theme.spacing(2),
       zIndex: 999,
       cursor: 'pointer',
     },
@@ -80,6 +78,11 @@ export const Labels = withStyles(theme => ({
   vertical: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    height: theme.spacing(5),
+
+    '& > span': {
+      alignItems: 'flex-start',
+    },
   },
   label: {
     '& h5': {

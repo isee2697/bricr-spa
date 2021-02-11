@@ -9,6 +9,8 @@ enum NotificationType {
 type Notification {
   id: ID!
   receiver: Profile!
+  createdBy: Profile
+  linkedEntity: LinkedEntity
   type: NotificationType!
   description: String!
   isRead: Boolean!
@@ -28,6 +30,7 @@ input CreateNotificationInput {
   type: NotificationType!
   receiver: ID!
   description: String!
+  linkedEntity: LinkedEntityInput
 }
 
 input ReadNotificationInput {

@@ -10,3 +10,11 @@ export type SubtasksBoardsProps = {
   onUpdateSubtaskStatus: (taskId: string, subtaskId: string, status: TaskStatus) => void;
   onDeleteSubtask: (taskId: string, subtaskId: string) => void;
 };
+
+export type SubtasksProps = {
+  title: string;
+  isCompleted?: boolean;
+  isLoading: boolean;
+  onUpdateSubtaskStatus: () => void;
+  onDeleteSubtask: () => void;
+};

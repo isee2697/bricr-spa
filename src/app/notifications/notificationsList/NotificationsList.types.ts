@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { NotificationRow } from '../Notifications.types';
+import { Notification } from 'api/types';
 
 export type NotificationsListSortOption = {
   name: string;
@@ -8,16 +8,16 @@ export type NotificationsListSortOption = {
 };
 
 export type NotificationsGroupObject = {
-  [key: string]: NotificationRow[];
+  [key: string]: Notification[];
 };
 
 export type NotificationsGroup = {
   title: string;
-  items: NotificationRow[];
+  items: Notification[];
 };
 
 export type NotificationsListProps = {
-  notifications: NotificationRow[];
+  notifications: Notification[];
   onReadNotification: (notificationId: string) => void;
   onDeleteNotification: (notificationId: string) => void;
   onBulkReadNotifications: (notificationIds: string[]) => void;

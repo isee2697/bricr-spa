@@ -15,6 +15,18 @@ export const GET_NOTIFICATIONS = gql`
             url
           }
         }
+        createdBy {
+          id
+          firstName
+          lastName
+          image {
+            url
+          }
+        }
+        linkedEntity {
+          id
+          type
+        }
         isRead
         isDeleted
         description
