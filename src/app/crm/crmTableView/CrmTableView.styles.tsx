@@ -86,4 +86,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     verticalAlign: 'middle',
   },
+  pagination: {
+    padding: theme.spacing(2.5),
+  },
 }));
