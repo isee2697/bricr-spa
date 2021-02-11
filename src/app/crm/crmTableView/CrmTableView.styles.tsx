@@ -9,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
     cursor: 'pointer',
+    whiteSpace: 'nowrap',
 
     '&.sorted': {
       color: theme.palette.primary.main,

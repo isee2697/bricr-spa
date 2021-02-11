@@ -1,4 +1,4 @@
-import { CrmType, Maybe, Profile, CrmStatus } from 'api/types';
+import { CrmType, Maybe, Profile, CrmStatus, GenderType } from 'api/types';
 
 export type CrmProps = {
   path: string;
@@ -12,6 +12,7 @@ export type CrmItem = {
   firstName?: Maybe<string>;
   insertion?: Maybe<string>;
   lastName?: Maybe<string>;
+  gender?: GenderType;
   email?: Maybe<string>;
   phoneNumber?: Maybe<string>;
   avatar?: Maybe<{ url?: Maybe<string> }>;
