@@ -37,6 +37,15 @@ export const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(1),
     },
   },
+  lastLabel: {
+    '& .MuiStepLabel-iconContainer': {
+      visibility: 'hidden',
+    },
+    '& .MuiStepLabel-label': {
+      marginTop: -theme.spacing(3.5),
+      marginLeft: theme.spacing(3.5),
+    },
+  },
   stepLabelOptional: {
     color: theme.palette.gray.main,
     marginTop: theme.spacing(1),

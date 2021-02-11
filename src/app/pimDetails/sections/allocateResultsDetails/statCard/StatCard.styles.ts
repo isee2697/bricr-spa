@@ -15,6 +15,13 @@ export const useStyles = makeStyles(theme => ({
       borderBottom: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
     },
   },
+  content: {
+    padding: 0,
+
+    '&:last-child': {
+      paddingBottom: theme.spacing(1),
+    },
+  },
   rowChecked: {
     background: `${theme.palette.primary.main}08`,
   },
@@ -60,5 +67,29 @@ export const useStyles = makeStyles(theme => ({
   },
   gray: {
     color: theme.palette.gray.main,
+  },
+  before: {
+    borderRadius: '50%',
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    border: `3px solid ${theme.palette.green.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  after: {
+    borderRadius: '50%',
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    border: `3px solid ${theme.palette.red.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
   },
 }));

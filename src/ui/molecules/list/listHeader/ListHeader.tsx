@@ -18,6 +18,7 @@ export const ListHeader = ({
   onDelete,
   onBulk,
   bulkComponent,
+  actionButtons,
 }: ListHeaderProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -49,7 +50,9 @@ export const ListHeader = ({
         )}
       </Box>
       {!checkedKeys.length && sortOptions.length > 0 && (
-        <Box mr={2}>
+        <Box mr={2} display="flex" alignItems="center">
+          {actionButtons && <Box mr={1}>{actionButtons}</Box>}
+
           <Select
             className={classNames(classes.sorting, 'sort-select')}
             variant="outlined"

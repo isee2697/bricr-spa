@@ -50,5 +50,6 @@ export type ListHeaderProps = {
   onDelete?: VoidFunction;
   onBulk?: VoidFunction;
   bulkComponent?: ReactNode;
+  actionButtons?: ReactNode;
   onSort: (key: string) => void;
 };

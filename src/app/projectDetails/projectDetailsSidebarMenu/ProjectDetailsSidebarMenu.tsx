@@ -78,7 +78,7 @@ export const ProjectDetailsSidebarMenu = ({
             key: 'allocateResults',
           },
           {
-            key: 'allocateSettings',
+            key: 'allocateCriteria',
           },
         ],
       },

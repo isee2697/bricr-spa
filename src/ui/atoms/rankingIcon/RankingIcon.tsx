@@ -12,14 +12,14 @@ export const RankingIcon = ({ rankings, showCount = false, count }: RankingIconP
 
   return (
     <Box>
-      <Box className={classes.root} mb={0.5}>
+      <Box className={classes.root} mb={0.5} display="flex" alignItems="center">
         <Box
           className={clsx(
             classes.silverItem,
             rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Silver) >= 0 && 'active',
           )}
         >
-          <Typography variant="h2" className={classes.label}>
+          <Typography variant="h3" className={classes.label}>
             2
           </Typography>
         </Box>
@@ -28,6 +28,7 @@ export const RankingIcon = ({ rankings, showCount = false, count }: RankingIconP
             classes.goldItem,
             rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Gold) >= 0 && 'active',
           )}
+          ml={0.5}
         >
           <Typography variant="h2" className={classes.label}>
             1
@@ -38,8 +39,9 @@ export const RankingIcon = ({ rankings, showCount = false, count }: RankingIconP
             classes.bronzeItem,
             rankings.findIndex(ranking => ranking === AllocateResultsRelationRanking.Bronze) >= 0 && 'active',
           )}
+          ml={0.5}
         >
-          <Typography variant="h2" className={classes.label}>
+          <Typography variant="h3" className={classes.label}>
             3
           </Typography>
         </Box>
