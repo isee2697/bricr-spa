@@ -98,7 +98,10 @@ export const ListItem = ({ checkbox, checked, item, onClick }: ListItemProps) =>
               <Box
                 display="flex"
                 alignItems="center"
-                onClick={() => setIsShowAllocatedRelations(!isShowAllocatedRelations)}
+                onClick={e => {
+                  e.stopPropagation();
+                  setIsShowAllocatedRelations(!isShowAllocatedRelations);
+                }}
                 className={classes.btnShowHide}
               >
                 <Typography variant="h5" className={classes.gray}>
