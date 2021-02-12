@@ -30,6 +30,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     variables: {
       type: CrmType.Relation,
     },
+    fetchPolicy: 'no-cache',
   });
 
   const amounts =
@@ -52,6 +53,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       ...sortQuery,
       ...paginationQuery,
     },
+    fetchPolicy: 'no-cache',
   });
 
   const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
@@ -77,6 +79,9 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
           query: CrmListDocument,
           variables: {
             type: CrmType.Relation,
+            status,
+            ...sortQuery,
+            ...paginationQuery,
           },
         },
         {
