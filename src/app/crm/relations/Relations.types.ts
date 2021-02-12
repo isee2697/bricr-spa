@@ -1,4 +1,6 @@
 import { CrmStatus, ListPimsFilters } from 'api/types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
+import { SortOption } from 'ui/molecules/list/List.types';
 import { CrmItem } from '../Crm.types';
 
 export type RelationsContainerProps = {
@@ -18,4 +20,14 @@ export type RelationsProps = {
   onDeleteItem: (id: string) => void;
   onFilter: (filters: ListPimsFilters) => void;
   activeFilters: ListPimsFilters;
+  amounts?: {
+    [CrmStatus.ActionRequired]: number;
+    [CrmStatus.Active]: number;
+    [CrmStatus.Inactive]: number;
+  };
+  sorting: {
+    sortOptions: SortOption[];
+    onSort: (key: string) => void;
+  };
+  pagination: PaginationProps;
 };

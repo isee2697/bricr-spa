@@ -16,7 +16,7 @@ export type CrmItem = {
   email?: Maybe<string>;
   phoneNumber?: Maybe<string>;
   avatar?: Maybe<{ url?: Maybe<string> }>;
-  status: CrmStatus;
+  status: Maybe<CrmStatus>;
   property: string;
   partner: Profile;
   manager: Profile;
