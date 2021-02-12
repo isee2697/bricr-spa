@@ -1,4 +1,4 @@
-import { CrmListItem } from 'api/types';
+import { CrmListItem, CrmType } from 'api/types';
 
 export type LinkContactModalCrmListItem = Pick<CrmListItem, 'id' | 'firstName' | 'insertion' | 'lastName'>;
 
@@ -9,6 +9,7 @@ export type LinkContactModalForm = {
 
 export type LinkContactModalContainerProps = {
   onSubmit: (values: LinkContactModalForm) => Promise<undefined | { error: boolean }>;
+  type?: CrmType;
 };
 
 export type LinkContactModalProps = {

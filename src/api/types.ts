@@ -1034,7 +1034,7 @@ export type Query = {
   _?: Maybe<Scalars['Boolean']>;
   advancedSearch?: Maybe<AdvancedSearchResult>;
   checkCompanyRegistered: CheckRegisteredResponse;
-  crmList?: Maybe<Array<CrmListItem>>;
+  crmList: CrmListSearchResult;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
   getAppointment: Appointment;
@@ -1114,6 +1114,12 @@ export type QueryAdvancedSearchArgs = {
 
 export type QueryCheckCompanyRegisteredArgs = {
   name: Scalars['String'];
+};
+
+export type QueryCrmListArgs = {
+  filters?: Maybe<ListCrmFilters>;
+  pagination?: Maybe<Pagination>;
+  sort?: Maybe<Array<Sort>>;
 };
 
 export type QueryGetAllProfilesArgs = {
@@ -2205,6 +2211,17 @@ export type CrmListItem = {
   phoneNumber?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
+  status?: Maybe<CrmStatus>;
+};
+
+export type CrmListSearchResult = {
+  __typename?: 'CrmListSearchResult';
+  metadata?: Maybe<SearchMetadata>;
+  items?: Maybe<Array<CrmListItem>>;
+};
+
+export type ListCrmFilters = {
+  type?: Maybe<CrmType>;
   status?: Maybe<CrmStatus>;
 };
 
@@ -10946,17 +10963,42 @@ export type GetCrmHomeSituationQuery = { __typename?: 'Query' } & {
   >;
 };
 
-export type CrmListQueryVariables = Exact<{ [key: string]: never }>;
+export type CrmListQueryVariables = Exact<{
+  type?: Maybe<CrmType>;
+  status?: Maybe<CrmStatus>;
+  sortColumn: Scalars['String'];
+  sortDirection: SortDirection;
+  from: Scalars['Int'];
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 export type CrmListQuery = { __typename?: 'Query' } & {
-  crmList?: Maybe<
-    Array<
-      { __typename?: 'CrmListItem' } & Pick<
-        CrmListItem,
-        'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
-      > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
-    >
-  >;
+  crmList: { __typename?: 'CrmListSearchResult' } & {
+    items?: Maybe<
+      Array<
+        { __typename?: 'CrmListItem' } & Pick<
+          CrmListItem,
+          'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
+        > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+      >
+    >;
+  };
+};
+
+export type ListCrmsCountQueryVariables = Exact<{
+  type?: Maybe<CrmType>;
+}>;
+
+export type ListCrmsCountQuery = { __typename?: 'Query' } & {
+  actionRequired: { __typename?: 'CrmListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  active: { __typename?: 'CrmListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+  inactive: { __typename?: 'CrmListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
 };
 
 export type ListEmailFoldersQueryVariables = Exact<{
@@ -18884,19 +18926,32 @@ export type GetCrmHomeSituationQueryResult = ApolloReactCommon.QueryResult<
   GetCrmHomeSituationQueryVariables
 >;
 export const CrmListDocument = gql`
-  query crmList {
-    crmList {
-      id
-      type
-      firstName
-      insertion
-      lastName
-      phoneNumber
-      email
-      avatar {
-        url
+  query crmList(
+    $type: CrmType
+    $status: CrmStatus
+    $sortColumn: String!
+    $sortDirection: SortDirection!
+    $from: Int!
+    $limit: Int
+  ) {
+    crmList(
+      filters: { type: $type, status: $status }
+      pagination: { from: $from, limit: $limit }
+      sort: { column: $sortColumn, direction: $sortDirection }
+    ) {
+      items {
+        id
+        type
+        firstName
+        insertion
+        lastName
+        phoneNumber
+        email
+        avatar {
+          url
+        }
+        status
       }
-      status
     }
   }
 `;
@@ -18911,6 +18966,41 @@ export function useCrmListLazyQuery(
 export type CrmListQueryHookResult = ReturnType<typeof useCrmListQuery>;
 export type CrmListLazyQueryHookResult = ReturnType<typeof useCrmListLazyQuery>;
 export type CrmListQueryResult = ApolloReactCommon.QueryResult<CrmListQuery, CrmListQueryVariables>;
+export const ListCrmsCountDocument = gql`
+  query ListCrmsCount($type: CrmType) {
+    actionRequired: crmList(filters: { type: $type, status: ActionRequired }) {
+      metadata {
+        total
+      }
+    }
+    active: crmList(filters: { type: $type, status: Active }) {
+      metadata {
+        total
+      }
+    }
+    inactive: crmList(filters: { type: $type, status: Inactive }) {
+      metadata {
+        total
+      }
+    }
+  }
+`;
+export function useListCrmsCountQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListCrmsCountQuery, ListCrmsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListCrmsCountQuery, ListCrmsCountQueryVariables>(ListCrmsCountDocument, baseOptions);
+}
+export function useListCrmsCountLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListCrmsCountQuery, ListCrmsCountQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListCrmsCountQuery, ListCrmsCountQueryVariables>(
+    ListCrmsCountDocument,
+    baseOptions,
+  );
+}
+export type ListCrmsCountQueryHookResult = ReturnType<typeof useListCrmsCountQuery>;
+export type ListCrmsCountLazyQueryHookResult = ReturnType<typeof useListCrmsCountLazyQuery>;
+export type ListCrmsCountQueryResult = ApolloReactCommon.QueryResult<ListCrmsCountQuery, ListCrmsCountQueryVariables>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
     listEmailFolders(accountId: $accountId)
