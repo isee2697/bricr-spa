@@ -37,7 +37,7 @@ const publishMethodCheckboxes = [
   },
 ];
 
-export const CriteriaTypeForm = () => {
+export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -47,6 +47,7 @@ export const CriteriaTypeForm = () => {
         title={formatMessage({ id: 'pim_details.sales_settings.criteria_type.title' })}
         isExpandable
         isInitExpanded={true} // TODO set to false
+        className={formClassName}
       >
         {editing => (
           <Grid className={classes.textFields} container spacing={3}>
