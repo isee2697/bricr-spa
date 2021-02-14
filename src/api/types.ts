@@ -2843,6 +2843,7 @@ export type ListPim = {
   developmentType: DevelopmentType;
   linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimListSearchResult = {
@@ -5266,6 +5267,7 @@ export type PimGeneralInput = {
   buildingPlotGeneral?: Maybe<BuildingPlotGeneralInput>;
   attentionNote?: Maybe<Scalars['String']>;
   showAttentionNote?: Maybe<Scalars['Boolean']>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export enum ApartmentType {
@@ -5469,6 +5471,7 @@ export type PimGeneral = LastUpdated & {
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
   apartmentGeneral?: Maybe<ApartmentGeneral>;
   buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimWithNewIdentificationNumber = {
@@ -7625,6 +7628,7 @@ export type Pim = LastUpdated & {
   bogSpaces?: Maybe<Array<BogSpace>>;
   aogSpaces?: Maybe<Array<AogSpace>>;
   mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimSearchResult = {
@@ -7652,6 +7656,7 @@ export type ListPimsFilters = {
   country?: Maybe<Scalars['String']>;
   archived?: Maybe<Scalars['Boolean']>;
   pricingType?: Maybe<PricingType>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdateOutsideFeatureInput = {
@@ -11129,6 +11134,8 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'dateCreated'
           | 'livingArea'
           | 'propertyType'
+          | 'postalCode'
+          | 'country'
           | 'salePrice'
           | 'rentPrice'
           | 'completeness'
@@ -19293,6 +19300,8 @@ export const ListPimsDocument = gql`
         dateCreated
         livingArea
         propertyType
+        postalCode
+        country
         pictures {
           id
           name
