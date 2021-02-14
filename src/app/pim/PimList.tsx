@@ -34,6 +34,7 @@ export const PimList = ({
   activeFilters,
   teams,
   accountManagers,
+  onUpdatePim,
 }: PimProps) => {
   const [viewMode, setViewMode] = useState<'list' | 'table'>(type === 'purchase' ? 'table' : 'list');
   const classes = useStyles();
@@ -142,6 +143,7 @@ export const PimList = ({
                     <PimTableView
                       items={(listData?.listPims?.items ?? []) as PimEntity[]}
                       selected={selected}
+                      onUpdatePim={onUpdatePim}
                       onSelectItem={handleSelectItem}
                       onSelectAllItems={handleSelectAllItems}
                     />
