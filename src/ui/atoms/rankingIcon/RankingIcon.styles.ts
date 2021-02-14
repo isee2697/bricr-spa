@@ -1,74 +1,52 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    alignItems: 'flex-end',
-  },
+  root: {},
   goldItem: {
-    borderTop: `1px solid ${theme.palette.info.light}`,
-    width: theme.spacing(3),
-    height: theme.spacing(4.5),
+    width: theme.spacing(3.5),
+    height: theme.spacing(3.5),
+    borderRadius: '50%',
+    border: `1.5px solid ${theme.palette.white.main}`,
     background: theme.palette.info.light,
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    '&.active:after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      width: theme.spacing(3),
-      borderBottom: `${theme.spacing(2.5)}px solid ${theme.palette.gold.main}`,
-      borderRight: `${theme.spacing(3)}px solid transparent`,
-    },
+    boxShadow: '0px 2px 4px 0px #0000001A',
 
     '&.active': {
       background: theme.palette.gradientGold.main,
     },
   },
   silverItem: {
-    borderTop: `1px solid ${theme.palette.info.light}`,
     width: theme.spacing(3),
     height: theme.spacing(3),
+    borderRadius: '50%',
+    border: `1.5px solid ${theme.palette.white.main}`,
     background: theme.palette.info.light,
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    '&.active:after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      width: theme.spacing(3),
-      borderBottom: `${theme.spacing(3)}px solid ${theme.palette.silver.main}80`,
-      borderRight: `${theme.spacing(3)}px solid transparent`,
-    },
+    boxShadow: '0px 2px 4px 0px #0000001A',
+    borderTop: `1px solid ${theme.palette.info.light}`,
 
     '&.active': {
       background: theme.palette.gradientSilver.main,
     },
   },
   bronzeItem: {
-    borderTop: `1px solid ${theme.palette.info.light}`,
     width: theme.spacing(3),
-    height: theme.spacing(2.5),
+    height: theme.spacing(3),
+    borderRadius: '50%',
+    border: `1.5px solid ${theme.palette.white.main}`,
     background: theme.palette.info.light,
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-
-    '&.active:after': {
-      content: '""',
-      position: 'absolute',
-      bottom: 0,
-      width: theme.spacing(3),
-      borderBottom: `${theme.spacing(2.5)}px solid ${theme.palette.bronze.main}80`,
-      borderRight: `${theme.spacing(3)}px solid transparent`,
-    },
+    boxShadow: '0px 2px 4px 0px #0000001A',
+    borderTop: `1px solid ${theme.palette.info.light}`,
 
     '&.active': {
       background: theme.palette.gradientBronze.main,

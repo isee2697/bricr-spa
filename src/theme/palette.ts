@@ -11,6 +11,7 @@ const white = '#fff';
 const whiteLight = 'rgba(255, 255, 255, 0.3)';
 const gray = '#828DB8';
 const grayLight = '#F3F5FA';
+const grayDark = '#E1E1E1';
 const warmgray = '#C4C4C4';
 const warmgrayLight = '#E5E5E5';
 const red = '#EB5F60';
@@ -49,9 +50,12 @@ const gradientBlue = 'linear-gradient(339deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientLightBlue = 'linear-gradient(354deg, #0a57e91a 0%, #9fc0ff1a 100%)';
 const gradientGreen = 'linear-gradient(315deg, #0ABE67 0%, #00E174 100%)';
 const gradientWhite = 'linear-gradient(180deg, #F3F5FA 104px, rgba(243, 245, 250, 0) 312px)';
-const gradientGold = 'linear-gradient(180deg, #C6A242 0%, rgba(198, 162, 66, 0) 100%)';
-const gradientSilver = 'linear-gradient(180deg, #828DB8 0%, rgba(130, 141, 184, 0) 100%)';
-const gradientBronze = 'linear-gradient(180deg, #CD7732 0%, rgba(205, 119, 50, 0) 100%)';
+const gradientGold = 'linear-gradient(204.7deg, #D39E13 7.56%, #F8DC97 90.55%)';
+// const gradientGold = 'linear-gradient(180deg, #C6A242 0%, rgba(198, 162, 66, 0) 100%)';
+const gradientSilver = 'linear-gradient(213.93deg, #8A94BC 10.76%, rgba(138, 148, 188, 0) 106.28%)';
+// const gradientSilver = 'linear-gradient(180deg, #828DB8 0%, rgba(130, 141, 184, 0) 100%)';
+const gradientBronze = 'linear-gradient(204.7deg, #D57B34 7.56%, #E6BB99 90.55%)';
+// const gradientBronze = 'linear-gradient(180deg, #CD7732 0%, rgba(205, 119, 50, 0) 100%)';
 const gradientGreenRed = 'linear-gradient(90deg, #EB5F60 0%, #FFAD21 25.52%, #FCC616 52.6%, #0ABE67 100%)';
 const gradientRed = 'linear-gradient(315deg, rgba(235, 95, 96, 0.1) 0%, rgba(247, 227, 227, 0.1) 100%)';
 const gradientGray = 'linear-gradient(180deg, #EEF3FE 0%, rgba(54, 76, 229, 0) 100%)';
@@ -75,6 +79,7 @@ export const palette: PaletteOptions = {
   gray: {
     main: gray,
     light: grayLight,
+    dark: grayDark,
   },
   warmgray: {
     main: warmgray,

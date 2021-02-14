@@ -467,7 +467,7 @@ export const SettingsStep = ({ onNextStep }: CreateWizardStepProps) => {
       </Card>
       <Box width="100%" display="flex" justifyContent="flex-end">
         <Button variant="outlined" color="primary" className={classes.btnAction} onClick={onNextStep}>
-          {formatMessage({ id: 'pim_details.allocate_results.settings.go_to_filtering_people' })}
+          {formatMessage({ id: 'pim_details.allocate_results.steps.go_to_step2' })}
         </Button>
       </Box>
     </Box>

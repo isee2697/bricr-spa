@@ -9,6 +9,7 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     borderTop: `1px solid ${theme.palette.gray.light}`,
     cursor: 'pointer',
+    whiteSpace: 'nowrap',
 
     '&.sorted': {
       color: theme.palette.primary.main,
@@ -84,5 +85,8 @@ export const useStyles = makeStyles(theme => ({
     height: theme.spacing(2),
     display: 'inline-block',
     verticalAlign: 'middle',
+  },
+  pagination: {
+    padding: theme.spacing(2.5),
   },
 }));

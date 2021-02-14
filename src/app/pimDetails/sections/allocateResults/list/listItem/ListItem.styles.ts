@@ -34,4 +34,28 @@ export const useStyles = makeStyles(theme => ({
   fontWeightBold: {
     fontWeight: theme.typography.fontWeightBold,
   },
+  before: {
+    borderRadius: '50%',
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    border: `1.5px solid ${theme.palette.green.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  after: {
+    borderRadius: '50%',
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    border: `1.5px solid ${theme.palette.red.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
 }));

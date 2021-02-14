@@ -352,12 +352,12 @@ export const FilteringPropertiesStep = ({ onNextStep, onPreviousStep }: CreateWi
           </AutosaveForm>
         </CardContent>
       </Card>
-      <Box display="flex" justifyContent="space-between" width="100%" onClick={onPreviousStep}>
-        <Button variant="outlined" color="primary">
-          {formatMessage({ id: 'project_details.allocate_results.filtering_properties.go_to_settings' })}
+      <Box display="flex" justifyContent="space-between" width="100%">
+        <Button variant="outlined" color="primary" onClick={onPreviousStep}>
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step1' })}
         </Button>
         <Button variant="outlined" color="primary" onClick={onNextStep}>
-          {formatMessage({ id: 'project_details.allocate_results.filtering_properties.go_to_filtering_people' })}
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step3' })}
         </Button>
       </Box>
     </>

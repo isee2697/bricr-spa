@@ -18,12 +18,12 @@ export const FilteringPeopleStep = ({ onNextStep, onPreviousStep }: CreateWizard
       <Documents />
       <Couples />
       <Tags />
-      <Box mt={3} display="flex" justifyContent="space-between" width="100%" onClick={onPreviousStep}>
-        <Button variant="outlined" color="primary">
-          {formatMessage({ id: 'project_details.allocate_results.filtering_people.go_to_filtering_people' })}
+      <Box mt={3} display="flex" justifyContent="space-between" width="100%">
+        <Button variant="outlined" color="primary" onClick={onPreviousStep}>
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step2' })}
         </Button>
         <Button variant="outlined" color="primary" onClick={onNextStep}>
-          {formatMessage({ id: 'project_details.allocate_results.filtering_people.go_to_sorting' })}
+          {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step4' })}
         </Button>
       </Box>
     </>

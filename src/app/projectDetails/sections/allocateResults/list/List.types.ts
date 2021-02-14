@@ -9,6 +9,9 @@ export type AllocateResultItem = {
   name: string;
   relations: AllocateResultRelation[];
   sortOrders: AllocateResultSortOrder[];
+  allocationBase: string;
+  assigned: number;
+  unassigned: number;
 };
 
 export type AllocateResultRelation = {

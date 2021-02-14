@@ -1,6 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(theme => ({
+  rowWrapper: {
+    position: 'relative',
+
+    '&:first-child:before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      width: `calc(100% - ${theme.spacing(4)}px)`,
+      margin: theme.spacing(0, 2),
+      borderTop: `${theme.spacing(0.25)}px solid ${theme.palette.gray.light}`,
+    },
+  },
   row: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -60,5 +72,29 @@ export const useStyles = makeStyles(theme => ({
   },
   gray: {
     color: theme.palette.gray.main,
+  },
+  assigned: {
+    borderRadius: '50%',
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    border: `${theme.spacing(0.5)}px solid ${theme.palette.green.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  unassigned: {
+    borderRadius: '50%',
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    border: `${theme.spacing(0.5)}px solid ${theme.palette.red.main}`,
+    background: theme.palette.gray.light,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    fontWeight: theme.typography.fontWeightMedium,
   },
 }));

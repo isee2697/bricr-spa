@@ -122,3 +122,5 @@ export * from './star/StarIcon';
 export * from './starFilled/StarFilledIcon';
 export * from './head/HeadIcon';
 export * from './stamp/StampIcon';
+export * from './attach/AttachIcon';
+export * from './photoCamera/PhotoCameraIcon';
