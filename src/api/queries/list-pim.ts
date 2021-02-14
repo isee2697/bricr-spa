@@ -53,6 +53,8 @@ export const LIST_PIMS = gql`
         dateCreated
         livingArea
         propertyType
+        postalCode
+        country
         pictures {
           id
           name

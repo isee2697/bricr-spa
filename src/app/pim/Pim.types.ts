@@ -1,4 +1,4 @@
-import { ListPimsQuery, Profile, Team } from 'api/types';
+import { ListPimsQuery, PimGeneral, Profile, Team } from 'api/types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { ActionTabStatus } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -31,4 +31,5 @@ export type PimProps = {
   pagination: PaginationProps;
   teams: Team[];
   accountManagers: Profile[];
+  onUpdatePim(values: PimGeneral): Promise<undefined | { error: boolean }>;
 };

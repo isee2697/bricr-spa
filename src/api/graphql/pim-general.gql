@@ -31,6 +31,7 @@ input PimGeneralInput {
   buildingPlotGeneral: BuildingPlotGeneralInput
   attentionNote: String
   showAttentionNote: Boolean
+  isPurchased: Boolean
 }
 
 enum ApartmentType {
@@ -225,6 +226,7 @@ type PimGeneral implements LastUpdated {
   showIdentificationNumber: Boolean
   apartmentGeneral: ApartmentGeneral
   buildingPlotGeneral: BuildingPlotGeneral
+  isPurchased: Boolean
 }
 
 type PimWithNewIdentificationNumber {

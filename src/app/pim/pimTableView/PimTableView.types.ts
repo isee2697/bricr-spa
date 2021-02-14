@@ -1,4 +1,4 @@
-import { Pim } from 'api/types';
+import { Pim, PimGeneral } from 'api/types';
 
 export type PimTableFixedHeader = 'address' | 'houseNumber' | 'addition' | 'city';
 
@@ -19,6 +19,7 @@ export type PimTableHeaderCell = {
 export type PimTableViewProps = {
   items: Pim[];
   onClick?: (id: string) => void;
+  onUpdatePim(values: PimGeneral): Promise<undefined | { error: boolean }>;
   onArchive?: VoidFunction;
   onEdit?: VoidFunction;
   onDelete?: VoidFunction;
