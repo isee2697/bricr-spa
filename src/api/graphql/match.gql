@@ -395,5 +395,6 @@ extend type Mutation {
 }
 
 extend type Query {
+  listMatchProfiles(crmId: ID!): [MatchProfile!] @auth
   getMatchProfile(id: ID!): MatchProfile @auth
 }

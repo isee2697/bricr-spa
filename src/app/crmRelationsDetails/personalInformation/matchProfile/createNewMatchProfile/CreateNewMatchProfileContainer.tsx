@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  MatchProfile,
-  MatchProfileInput,
-  useAddMatchProfileMutation,
-  useGetMatchProfileLazyQuery,
-  useGetMatchProfileQuery,
-  useUpdateMatchProfileMutation,
-} from 'api/types';
+import { MatchProfile, MatchProfileInput, useAddMatchProfileMutation, useUpdateMatchProfileMutation } from 'api/types';
 
 import { CreateNewMatchProfile } from './CreateNewMatchProfile';
 import { CreateNewMatchProfileContainerProps } from './CreateNewMatchProfile.types';
@@ -17,18 +10,7 @@ export const CreateNewMatchProfileContainer = (props: CreateNewMatchProfileConta
   const [addMatchProfile] = useAddMatchProfileMutation();
   const [updateMatchProfile] = useUpdateMatchProfileMutation();
   const [matchProfile, setMatchProfile] = useState<MatchProfile>();
-  const { id, matchProfileId } = useParams<{ id: string; matchProfileId?: string }>();
-  const [getMatchProfile, { data: result }] = useGetMatchProfileLazyQuery({ fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    const getMatchProfileById = async () => {
-      await getMatchProfile({ variables: { id: matchProfileId! } });
-    };
-
-    if (matchProfileId) {
-      getMatchProfileById();
-    }
-  }, [getMatchProfile, matchProfileId]);
+  const { id } = useParams<{ id: string; matchProfileId?: string }>();
 
   const handleSubmit = async (values: MatchProfileInput) => {
     try {
