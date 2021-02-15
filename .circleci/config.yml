@@ -47,7 +47,7 @@ jobs:
           at: ~/
       - run: npm run e2e:ci:firefox
   run-coverage:
-    resource_class: large
+    resource_class: xlarge
     docker:
       - image: cimg/node:12.19.1
     steps:
@@ -55,7 +55,7 @@ jobs:
       - run:
           command: cp .env.dist .env && npm install && node ./scripts/get_translations.js --accessToken=$PHRASE_ACCESS_TOKEN --projectID=$PHRASE_PROJECT_ID
           name: "Config and install"
-      - run: npm run coverage --max-old-space-size=3072
+      - run: npm run coverage --max-old-space-size=7244
   lint-and-build:
     resource_class: large
     docker:
