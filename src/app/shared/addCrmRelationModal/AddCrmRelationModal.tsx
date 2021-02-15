@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
+import { Form } from 'react-final-form';
 
 import { Modal } from 'ui/molecules';
 import { useLocale } from 'hooks';
+import { CreateCrmInput } from 'api/types';
 
 import { AddCrmRelationModalProps } from './AddCrmRelationModal.types';
-import { SearchProfileStep } from './searchProfileStep/SearchProfileStep';
 import { RequestInformationStep } from './requestInformationStep/RequestInformationStep';
 import { useStyles } from './AddCrmRelationModal.styles';
 import { CreateRelationStep } from './createRelationStep/CreateRelationStep';
+import { ConflictStep } from './conflictStep/ConflictStep';
 
 const steps = [
-  {
-    name: 'searchProfile',
-    component: SearchProfileStep,
-  },
   {
     name: 'createRelation',
     component: CreateRelationStep,
@@ -21,6 +19,10 @@ const steps = [
   {
     name: 'requestInformation',
     component: RequestInformationStep,
+  },
+  {
+    name: 'conflict',
+    component: ConflictStep,
   },
 ];
 
@@ -39,28 +41,50 @@ export const AddCrmRelationModal = ({
     setStep(step);
   };
 
+  const handleAddCrmRelation = async (body: CreateCrmInput) => {
+    const response = await onCreateNewRelation(body);
+
+    if (!response) {
+      return;
+    }
+
+    if (response.error) {
+      handleGoTo(2);
+    }
+
+    if (!response.error) {
+      setStep(0);
+    }
+
+    return response;
+  };
+
   return (
-    <Modal
-      fullWidth
-      isOpened={isOpened}
-      onClose={onClose}
-      title={formatMessage({
-        id:
-          step === 0
-            ? 'crm.relation.add_relation'
-            : step === 1
-            ? 'crm.relation.enter_relation_informatoin'
-            : 'crm.relation.type_of_information_requesting',
-      })}
-      className={classes.modal}
-    >
-      {React.createElement(currentStep.component, {
-        handleGoTo,
-        onCreateNewRelation,
-        onRequestBricrData,
-        onClose,
-        isOpened,
-      })}
-    </Modal>
+    <Form onSubmit={handleAddCrmRelation}>
+      {({ handleSubmit, submitErrors, values, invalid }) => (
+        <Modal
+          fullWidth
+          isOpened={isOpened}
+          onClose={onClose}
+          title={formatMessage({
+            id:
+              step === 0
+                ? 'crm.relation.enter_relation_informatoin'
+                : step === 1
+                ? 'crm.relation.type_of_information_requesting'
+                : 'crm.relation.enter_relation_informatoin',
+          })}
+          className={classes.modal}
+        >
+          <form onSubmit={handleSubmit} autoComplete="off">
+            {React.createElement(currentStep.component, {
+              handleGoTo,
+              onRequestBricrData,
+              onClose,
+            })}
+          </form>
+        </Modal>
+      )}
+    </Form>
   );
 };
