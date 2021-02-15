@@ -92,7 +92,14 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
   const handleDeleteCrm = async (id: string) => {};
 
   const handleFilterChange = (filters: ListPimsFilters) => {
+    setSelected([]);
     setActiveFilters(filters);
+  };
+
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const handleSelectItems = (items: string[]) => {
+    setSelected(items);
   };
 
   return (
@@ -106,6 +113,12 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       amounts={amounts}
       sorting={sorting}
       pagination={pagination}
+      bulkData={{ status: ['Active', 'Inactive'], teams: ['Team 1', 'Team 2'] }}
+      onBulkOpen={(items: CrmItem[]) => {
+        console.log('Debugging: ');
+      }}
+      onSelectItems={handleSelectItems}
+      selectedItems={selected}
     />
   );
 };

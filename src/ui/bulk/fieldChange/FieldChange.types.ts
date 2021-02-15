@@ -4,4 +4,5 @@ export type FieldChangeProps = {
   fieldPlaceholderId: string;
   valuesFieldName: string;
   fieldName: string;
+  type?: 'text' | 'checkfield' | 'checkgroup' | 'radiogroup' | 'dateRange';
 };

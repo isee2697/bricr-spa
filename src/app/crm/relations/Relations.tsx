@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListPimsFilters } from 'api/types';
+import { BulkField, CrmType, ListPimsFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -14,6 +14,7 @@ import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -32,6 +33,10 @@ export const Relations = ({
   activeFilters,
   sorting,
   pagination,
+  bulkData,
+  onBulkOpen,
+  onSelectItems,
+  selectedItems,
 }: RelationsProps) => {
   const { push } = useHistory();
   const { formatMessage } = useLocale();
@@ -41,23 +46,23 @@ export const Relations = ({
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
-  const [selected, setSelected] = useState<string[]>([]);
-
   const handleSelectItem = (itemId: string) => {
-    const index = selected.findIndex(id => id === itemId);
+    const index = selectedItems.findIndex(id => id === itemId);
 
     if (index >= 0) {
-      setSelected(selected.filter(id => id !== itemId));
+      onSelectItems(selectedItems.filter(id => id !== itemId));
     } else {
-      setSelected([...selected, itemId]);
+      onSelectItems([...selectedItems, itemId]);
     }
   };
 
   const handleSelectAllItems = useCallback(() => {
-    setSelected(
-      crmItemsFiltered && crmItemsFiltered?.length !== selected.length ? crmItemsFiltered.map(item => item.id) : [],
+    onSelectItems(
+      crmItemsFiltered && crmItemsFiltered?.length !== selectedItems.length
+        ? crmItemsFiltered.map(item => item.id)
+        : [],
     );
-  }, [crmItemsFiltered, selected.length]);
+  }, [crmItemsFiltered, onSelectItems, selectedItems.length]);
 
   return (
     <>
@@ -95,16 +100,10 @@ export const Relations = ({
                 {viewMode === 'table' ? (
                   <CrmTableView
                     items={crmItemsFiltered as CrmItem[]}
-                    selected={selected}
+                    selected={selectedItems}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
-                    pagination={{
-                      count: 8,
-                      page: 3,
-                      currentPerPage: 10,
-                      perPageOptions: [10, 25, 'All'],
-                      onPerPageChange: value => {},
-                    }}
+                    pagination={pagination}
                   />
                 ) : (
                   <List
@@ -133,7 +132,28 @@ export const Relations = ({
                     pagination={pagination}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
-                    onSelectItems={setSelected}
+                    selectedItems={selectedItems}
+                    onSelectItems={onSelectItems}
+                    onBulkOpen={onBulkOpen}
+                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
+                    bulkData={bulkData}
+                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
+                    bulkActions={[
+                      {
+                        key: BulkField.Status,
+                        title: formatMessage({ id: 'crm.bulk.status.title' }),
+                        content: (
+                          <FieldChange
+                            fieldLabelId="project.bulk.status.label"
+                            fieldName={BulkField.Status}
+                            fieldPlaceholderId="project.bulk.status.placeholder"
+                            valuesFieldName={'status'}
+                            valuesLabel={formatMessage({ id: 'project.bulk.status.values_title' })}
+                            type={'checkfield'}
+                          />
+                        ),
+                      },
+                    ]}
                   />
                 )}
               </Box>

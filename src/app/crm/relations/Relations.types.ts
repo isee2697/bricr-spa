@@ -15,6 +15,8 @@ export type RelationsProps = {
   onSidebarOpen: () => void;
   isSidebarVisible: boolean;
   status: CrmStatus;
+  selectedItems: string[];
+  onSelectItems: (key: string[]) => void;
   onStatusChange: (status: CrmStatus) => void;
   onUpdateItemStatus: (id: string, status: CrmStatus) => Promise<void>;
   onDeleteItem: (id: string) => void;
@@ -30,4 +32,6 @@ export type RelationsProps = {
     onSort: (key: string) => void;
   };
   pagination: PaginationProps;
+  bulkData: Record<string, string | string[]> | null;
+  onBulkOpen: (projects: CrmItem[]) => void;
 };
