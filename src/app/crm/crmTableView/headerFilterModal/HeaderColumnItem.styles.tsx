@@ -26,6 +26,7 @@ export const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(1),
   },
   placeholderItem: {
+    width: '100%',
     marginBottom: theme.spacing(2, 0),
     height: theme.spacing(7),
     maxWidth: theme.spacing(60),

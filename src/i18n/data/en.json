@@ -3757,5 +3757,8 @@
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",
   "visited_pages.view_more": "View more",
-  "wed.placeholder": "10:00"
+  "wed.placeholder": "10:00",
+  "dms.menu.editor_tab.blocks": "Blocks",
+  "dms.menu.editor_tab.fields": "fields",
+  "dms.menu.editor_tab.tokens": "tokens"
 }
