@@ -18475,7 +18475,8 @@ export type ListCalendarLazyQueryHookResult = ReturnType<typeof useListCalendarL
 export type ListCalendarQueryResult = ApolloReactCommon.QueryResult<ListCalendarQuery, ListCalendarQueryVariables>;
 export const GetAppointmentDocument = gql`
   query GetAppointment($appointmentId: ID!) {
-    getAppointment(appointmentId: $appointmentId) {
+    getAppointment(appointmentId: $appointmentId)
+      @rest(type: "GetAppointment", path: "/calendar-getappointment", method: "POST", endpoint: "default") {
       id
       from
       to
