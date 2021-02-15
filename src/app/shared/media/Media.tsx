@@ -48,12 +48,7 @@ export const Media = ({
         updatedBy={media.lastEditedBy}
       >
         <Grid item xs={12}>
-          <PicturesContainer
-            mainPictureId={media?.mainPictureId ?? undefined}
-            pictures={media.pictures}
-            sorting={sorting}
-            sortQuery={sortQuery}
-          />
+          <PicturesContainer pictures={media.pictures} sorting={sorting} sortQuery={sortQuery} />
         </Grid>
 
         <Grid item xs={12}>

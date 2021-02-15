@@ -37,6 +37,7 @@ type ListPim {
   developmentType: DevelopmentType!
   linkedObjectTypeIds: [String]
   mainPicture: Picture
+  isPurchased: Boolean
 }
 
 type PimListSearchResult {

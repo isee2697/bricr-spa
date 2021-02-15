@@ -79,6 +79,7 @@ export const ProjectDetailsSidebarMenu = ({
           },
           {
             key: 'allocateSettings',
+            title: formatMessage({ id: 'project_details.menu.allocateCriteria' }),
           },
         ],
       },

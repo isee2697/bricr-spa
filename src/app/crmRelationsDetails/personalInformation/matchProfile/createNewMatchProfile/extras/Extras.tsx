@@ -3,82 +3,91 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { useLocale } from 'hooks';
-import { Card, CardContent, CardHeader, FormControlLabel, Grid, Switch } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
+import { SubSectionProps } from '../CreateNewMatchProfile.types';
+import { MatchRequirementStatus, MatchRequirementType } from 'api/types';
+import { FormSection } from 'ui/organisms';
 
-import { useStyles } from './Extras.styles';
 import { ExtrasColumn } from './ExtrasColumn';
-import { ExtrasColumnItems, ExtrasItemStatus, ExtrasItemType } from './Extras.types';
+import { ExtrasColumnItems } from './Extras.types';
 
-export const Extras = () => {
-  const classes = useStyles();
+export const Extras = ({ onSave }: SubSectionProps) => {
   const { formatMessage } = useLocale();
-  const [isEditing, setIsEditing] = useState(false);
   const [columnItems, setColumnItems] = useState<ExtrasColumnItems>({
-    [ExtrasItemStatus.Requires]: Object.values(ExtrasItemType),
-    [ExtrasItemStatus.Desirable]: [],
-    [ExtrasItemStatus.NotSignificant]: [],
+    [MatchRequirementStatus.Required]: Object.values(MatchRequirementType),
+    [MatchRequirementStatus.Desirable]: [],
+    [MatchRequirementStatus.NotSignificant]: [],
   });
 
-  const handleUpdateExtraStatus = (item: ExtrasItemType, status: ExtrasItemStatus) => {
+  const handleUpdateExtraStatus = (item: MatchRequirementType, status: MatchRequirementStatus) => {
     setColumnItems({
-      [ExtrasItemStatus.Requires]: [
-        ...columnItems[ExtrasItemStatus.Requires].filter(columnItem => columnItem !== item),
-        ...(status === ExtrasItemStatus.Requires ? [item] : []),
+      [MatchRequirementStatus.Required]: [
+        ...columnItems[MatchRequirementStatus.Required].filter(columnItem => columnItem !== item),
+        ...(status === MatchRequirementStatus.Required ? [item] : []),
       ],
-      [ExtrasItemStatus.Desirable]: [
-        ...columnItems[ExtrasItemStatus.Desirable].filter(columnItem => columnItem !== item),
-        ...(status === ExtrasItemStatus.Desirable ? [item] : []),
+      [MatchRequirementStatus.Desirable]: [
+        ...columnItems[MatchRequirementStatus.Desirable].filter(columnItem => columnItem !== item),
+        ...(status === MatchRequirementStatus.Desirable ? [item] : []),
       ],
-      [ExtrasItemStatus.NotSignificant]: [
-        ...columnItems[ExtrasItemStatus.NotSignificant].filter(columnItem => columnItem !== item),
-        ...(status === ExtrasItemStatus.NotSignificant ? [item] : []),
+      [MatchRequirementStatus.NotSignificant]: [
+        ...columnItems[MatchRequirementStatus.NotSignificant].filter(columnItem => columnItem !== item),
+        ...(status === MatchRequirementStatus.NotSignificant ? [item] : []),
+      ],
+    });
+
+    onSave({
+      requirements: [
+        ...columnItems.Required.map(item => ({
+          key: item,
+          status: MatchRequirementStatus.Required,
+        })),
+        ...columnItems.Desirable.map(item => ({
+          key: item,
+          status: MatchRequirementStatus.Desirable,
+        })),
+        ...columnItems.NotSignificant.map(item => ({
+          key: item,
+          status: MatchRequirementStatus.NotSignificant,
+        })),
       ],
     });
   };
 
   return (
-    <Card>
-      <CardHeader
-        title={formatMessage({ id: 'crm.details.personal_information_match_profile.extras.title' })}
-        action={
-          <FormControlLabel
-            control={<Switch checked={isEditing} onChange={() => setIsEditing(!isEditing)} color="primary" />}
-            label={formatMessage({ id: 'form_section.edit_mode' })}
-            labelPlacement="start"
-            className={classes.editSwitcher}
-          />
-        }
-      />
-      <CardContent>
+    <FormSection
+      title={formatMessage({ id: 'crm.details.personal_information_match_profile.extras.title' })}
+      isExpandable
+    >
+      {isEditing => (
         <DndProvider backend={HTML5Backend}>
           <Grid container spacing={1}>
             <Grid item xs={4}>
               <ExtrasColumn
                 isEditable={isEditing}
-                columnType={ExtrasItemStatus.Requires}
-                items={columnItems[ExtrasItemStatus.Requires]}
+                columnType={MatchRequirementStatus.Required}
+                items={columnItems[MatchRequirementStatus.Required]}
                 onUpdateExtraItemStatus={handleUpdateExtraStatus}
               />
             </Grid>
             <Grid item xs={4}>
               <ExtrasColumn
                 isEditable={isEditing}
-                columnType={ExtrasItemStatus.Desirable}
-                items={columnItems[ExtrasItemStatus.Desirable]}
+                columnType={MatchRequirementStatus.Desirable}
+                items={columnItems[MatchRequirementStatus.Desirable]}
                 onUpdateExtraItemStatus={handleUpdateExtraStatus}
               />
             </Grid>
             <Grid item xs={4}>
               <ExtrasColumn
                 isEditable={isEditing}
-                columnType={ExtrasItemStatus.NotSignificant}
-                items={columnItems[ExtrasItemStatus.NotSignificant]}
+                columnType={MatchRequirementStatus.NotSignificant}
+                items={columnItems[MatchRequirementStatus.NotSignificant]}
                 onUpdateExtraItemStatus={handleUpdateExtraStatus}
               />
             </Grid>
           </Grid>
         </DndProvider>
-      </CardContent>
-    </Card>
+      )}
+    </FormSection>
   );
 };

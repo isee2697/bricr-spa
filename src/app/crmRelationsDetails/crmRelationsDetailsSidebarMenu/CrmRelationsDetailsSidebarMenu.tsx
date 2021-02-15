@@ -50,12 +50,12 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
         isCollapsable: true,
         key: 'crm.details.menu.personal_information',
         items: [
-          { key: 'personal_information_general' },
-          { key: 'personal_information_contact_information' },
-          { key: 'personal_information_family_and_contacts' },
-          { key: 'personal_information_home_situation' },
-          { key: 'personal_information_financial_profile' },
-          { key: 'personal_information_match_profile' },
+          { key: 'personal_information_general', hideIcon: true },
+          { key: 'personal_information_contact_information', hideIcon: true },
+          { key: 'personal_information_family_and_contacts', hideIcon: true },
+          { key: 'personal_information_home_situation', hideIcon: true },
+          { key: 'personal_information_financial_profile', hideIcon: true },
+          { key: 'personal_information_match_profile', hideIcon: true },
         ],
       },
       {
@@ -66,18 +66,22 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           {
             key: 'acquisition',
             onClick: () => push(`${url}/acquisition`),
+            hideIcon: true,
           },
           {
             key: 'quotation',
             onClick: () => push(`${url}/quotation`),
+            hideIcon: true,
           },
           {
             key: 'orders',
             onClick: () => push(`${url}/sales_orders`),
+            hideIcon: true,
           },
           {
             key: 'invoices',
             onClick: () => push(`${url}/invoices`),
+            hideIcon: true,
           },
         ],
       },
@@ -88,17 +92,23 @@ export const CrmRelationsDetailsSidebarMenu = ({ onHide, isVisible, crm }: CrmRe
           {
             key: 'documents/folders',
             title: formatMessage({ id: 'crm.details.menu.documents.folders' }),
+            hideIcon: true,
           },
           {
             key: 'documents/checklist',
             title: formatMessage({ id: 'crm.details.menu.documents.checklist' }),
+            hideIcon: true,
           },
         ],
       },
       {
         key: 'crm.details.menu.marketing',
         isCollapsable: true,
-        items: [{ key: 'marketing_news_letter' }, { key: 'marketing_target_groups' }, { key: 'marketing_cross_sell' }],
+        items: [
+          { key: 'marketing_news_letter', hideIcon: true },
+          { key: 'marketing_target_groups', hideIcon: true },
+          { key: 'marketing_cross_sell', hideIcon: true },
+        ],
       },
       {
         key: 'crm.details.menu.business_info',

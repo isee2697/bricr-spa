@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import { ListPimsFilters, Team, useGetTeamsQuery, useListPimsCountQuery, useListPimsQuery } from 'api/types';
+import {
+  ListPimsFilters,
+  PimGeneral,
+  Team,
+  useGetTeamsQuery,
+  useListPimsCountQuery,
+  useListPimsQuery,
+  useUpdatePimGeneralInfoMutation,
+} from 'api/types';
 import { usePagination } from 'hooks';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { usePimsSorting } from '../shared/usePimsSorting/usePimsSorting';
@@ -14,6 +22,12 @@ const EMPTY_LIST = { listPims: { items: [] } };
 const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 const getPimFilterVariables = (type: string): ListPimsFilters => {
+  if (type === 'purchase') {
+    return {
+      isPurchased: true,
+    };
+  }
+
   return { propertyTypes: PimTypes.find(pimType => pimType.name === type)?.types };
 };
 
@@ -63,6 +77,42 @@ export const PimListContainer = () => {
     fetchPolicy: 'no-cache',
   });
 
+  const [updatePimGeneralInfo] = useUpdatePimGeneralInfoMutation();
+
+  const handleUpdatePim = async (values: PimGeneral) => {
+    try {
+      const { data: result } = await updatePimGeneralInfo({
+        variables: {
+          input: {
+            id: values.id,
+            street: values.street,
+            city: values.city,
+            houseNumber: values.houseNumber,
+            postalCode: values.postalCode,
+            country: values.country,
+            houseGeneral: values.houseGeneral,
+            extraAddress: values.extraAddress,
+            attentionNote: values.attentionNote,
+            apartmentGeneral: values.apartmentGeneral,
+            bogGeneral: values.bogGeneral,
+            aogGeneral: values.aogGeneral,
+            parkingGeneral: values.parkingGeneral,
+            buildingPlotGeneral: values.buildingPlotGeneral,
+            isPurchased: values.isPurchased,
+          },
+        },
+      });
+
+      if (!result || !result.updatePimGeneralInfo) {
+        throw new Error();
+      }
+
+      return undefined;
+    } catch (error) {
+      return { error: true };
+    }
+  };
+
   return (
     <PimList
       status={status}
@@ -86,6 +136,7 @@ export const PimListContainer = () => {
           isAdmin: true,
         },
       ]}
+      onUpdatePim={handleUpdatePim}
     />
   );
 };

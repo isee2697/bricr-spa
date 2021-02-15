@@ -21,7 +21,7 @@ export const useStyles = makeStyles(theme => ({
     minHeight: theme.spacing(7),
 
     '&.even': {
-      background: theme.palette.blue.light,
+      background: theme.palette.gray.light,
     },
   },
   fullWidthCell: {

@@ -33,6 +33,7 @@ export const PimDetailsContainer = () => {
       breadcrumbs={breadcrumbs}
       path={AppRoute.pimDetails}
       entityType={EntityType.Property}
+      isPurchased={true}
     />
   );
 };

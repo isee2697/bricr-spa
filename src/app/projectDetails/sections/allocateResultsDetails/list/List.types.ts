@@ -36,4 +36,5 @@ export type AllocatedProperty = {
   outsideFeatureTypes: OutsideFeatureType[];
   monthlyPrice: number;
   allocatedRelations: AllocatedPropertyRelation[];
+  allocationBase?: string;
 };

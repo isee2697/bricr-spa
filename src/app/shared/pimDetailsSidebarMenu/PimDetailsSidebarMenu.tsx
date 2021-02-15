@@ -42,6 +42,7 @@ export const PimDetailsSidebarMenu = ({
   objectTypeName,
   isVisible,
   picture,
+  isPurchased = false,
 }: PimDetailsSidebarMenuProps) => {
   const { formatMessage } = useLocale();
   const { url } = useRouteMatch();
@@ -205,6 +206,9 @@ export const PimDetailsSidebarMenu = ({
           },
         ],
       },
+      // ...(isPurchased
+      //   ? []
+      //   : [
       {
         isCollapsable: true,
         key: 'pim_details.menu.allocation',
@@ -214,15 +218,12 @@ export const PimDetailsSidebarMenu = ({
             title: formatMessage({ id: 'pim_details.menu.allocateResults' }),
           },
           {
-            key: 'allocateSettings/allocation1',
-            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
-          },
-          {
-            key: 'allocateSettings/allocation2',
-            title: formatMessage({ id: 'pim_details.allocate_settings.allocation.title' }),
+            key: 'allocateSettings',
+            title: formatMessage({ id: 'pim_details.menu.allocateCriteria' }),
           },
         ],
       },
+      // ]),
       {
         isCollapsable: true,
         key: 'pim_details.menu.sales',
@@ -303,7 +304,7 @@ export const PimDetailsSidebarMenu = ({
         )
       }
       menuSubTitle={formatMessage({
-        id: `pim.type.${type}`,
+        id: isPurchased ? 'pim.type.purchase' : `pim.type.${type}`,
       })}
     />
   );

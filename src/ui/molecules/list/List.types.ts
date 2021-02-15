@@ -25,7 +25,9 @@ export type ListProps<T> = {
   className?: string;
   checkboxProps?: CheckboxProps;
   disabled?: boolean;
+  selectedItems?: string[];
   onSort?: (key: string) => void;
+  onSelectItems?: (key: string[]) => void;
   onOperation?: (operation: BulkOperations, selectedItems: T[]) => Promise<undefined>;
   onBulk?: (selectedItems: T[], values: Record<string, string | string[]>) => Promise<undefined>;
   renderDeleteTitle?: (item: T) => string;
@@ -50,5 +52,6 @@ export type ListHeaderProps = {
   onDelete?: VoidFunction;
   onBulk?: VoidFunction;
   bulkComponent?: ReactNode;
+  actionButtons?: ReactNode;
   onSort: (key: string) => void;
 };

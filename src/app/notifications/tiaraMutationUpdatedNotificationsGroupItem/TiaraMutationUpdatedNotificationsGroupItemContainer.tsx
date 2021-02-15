@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TiaraEntities } from 'api/types';
+import { Entities } from 'api/types';
 
 import { TiaraMutationUpdatedNotificationsGroupItemContainerProps } from './TiaraMutationUpdatedNotificationsGroupItem.types';
 import { TiaraMutationUpdatedNotificationsGroupItemNcpContainer } from './tiaraMutationUpdatedNotificationsGroupItemNcpContainer';
@@ -10,12 +10,12 @@ import { TiaraMutationUpdatedNotificationsGroupItemPimContainer } from './tiaraM
 export const TiaraMutationUpdatedNotificationsGroupItemContainer = ({
   data,
 }: TiaraMutationUpdatedNotificationsGroupItemContainerProps) => {
-  switch (data.entity) {
-    case TiaraEntities.Pim:
+  switch (data.linkedEntity?.type) {
+    case Entities.Pim:
       return <TiaraMutationUpdatedNotificationsGroupItemPimContainer data={data} />;
-    case TiaraEntities.Ncp:
+    case Entities.Ncp:
       return <TiaraMutationUpdatedNotificationsGroupItemNcpContainer data={data} />;
-    case TiaraEntities.ObjectType:
+    case Entities.ObjectType:
       return <TiaraMutationUpdatedNotificationsGroupItemObjectTypeContainer data={data} />;
     default:
       throw new Error('Unkown entity type');

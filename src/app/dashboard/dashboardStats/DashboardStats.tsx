@@ -1,47 +1,89 @@
 import { useTheme } from '@material-ui/core/styles';
 import React from 'react';
 
+import { useLocale } from 'hooks';
 import { StatCard } from 'ui/molecules';
 import { StatsSection } from 'ui/organisms';
 
 import { DashboardStatsProps } from './DashboardStats.types';
 
-export const DashboardStats = ({ orders, ordersValue, visits, properties, emails }: DashboardStatsProps) => {
+export const DashboardStats = ({ pims, crms, sales, appointments, emails, documents }: DashboardStatsProps) => {
   const theme = useTheme();
+  const { formatMessage } = useLocale();
 
   return (
     <StatsSection width={`calc(100% + ${theme.spacing(3.25)}px`}>
-      {orders && (
-        <StatCard value={orders.value} variant={orders.type} endAdornment="%">
-          Number of <strong>orders</strong> last month
+      {pims && (
+        <StatCard
+          value={pims.value}
+          variant={pims.type}
+          optionalValue={pims.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.pims' })}
         </StatCard>
       )}
 
-      {ordersValue && (
-        <StatCard value={ordersValue.value} variant={ordersValue.type} endAdornment="EUR">
-          Value of <strong>orders</strong> last month
+      {crms && (
+        <StatCard
+          value={crms.value}
+          variant={crms.type}
+          optionalValue={crms.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.crms' })}
         </StatCard>
       )}
 
-      {properties && (
-        <StatCard value={properties.value} variant={properties.type}>
-          <strong>Properties</strong> added last month
+      {sales && (
+        <StatCard
+          value={sales.value}
+          variant={sales.type}
+          optionalValue={sales.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.sales' })}
+        </StatCard>
+      )}
+
+      {appointments && (
+        <StatCard
+          value={appointments.value}
+          variant={appointments.type}
+          optionalValue={appointments.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.appointments' })}
         </StatCard>
       )}
 
       {emails && (
-        <StatCard value={emails.value} variant={emails.type}>
-          New <strong>emails</strong> last week
+        <StatCard
+          value={emails.value}
+          variant={emails.type}
+          optionalValue={emails.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.emails' })}
         </StatCard>
       )}
 
-      {visits && (
-        <StatCard value={visits.value} variant={visits.type}>
-          Number of <strong>visits</strong> last month per day
+      {documents && (
+        <StatCard
+          value={documents.value}
+          variant={documents.type}
+          optionalValue={documents.optionalValue}
+          optionalValueEndAdornment="%"
+          placeholder={formatMessage({ id: 'dashboard.stats.last_7_days' })}
+        >
+          {formatMessage({ id: 'dashboard.stats.documents' })}
         </StatCard>
       )}
-
-      {emails && <StatCard value={emails.value}>Average price per house you sell</StatCard>}
     </StatsSection>
   );
 };

@@ -22,4 +22,8 @@ export const useStyles = makeStyles(theme => ({
       color: theme.palette.gray.main,
     },
   },
+  isDeleting: {
+    filter: `grayscale(100%)`,
+    opacity: '0.2',
+  },
 }));

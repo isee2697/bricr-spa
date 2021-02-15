@@ -116,7 +116,7 @@ export const SidebarMenu = ({
   };
 
   const showIcon = (item: MenuItem, groupCollapsable: boolean) => {
-    if (groupCollapsable || item.hideIcon) {
+    if (item.hideIcon) {
       return;
     }
 
@@ -203,10 +203,18 @@ export const SidebarMenu = ({
                         <Typography className={classes.collapseTitle}>{formatMessage({ id: group.key })}</Typography>
                       </Box>
                     )}
-                    <Collapse in={isGroupCollapseOpen(group)} timeout="auto" unmountOnExit>
+                    <Collapse
+                      in={isGroupCollapseOpen(group)}
+                      timeout="auto"
+                      unmountOnExit
+                      className={classes.groupCollapse}
+                    >
                       {group.items.map(item => (
                         <SideMenuItem
-                          className={!group?.isCollapsable ? classes.notCollapsable : ''}
+                          className={classNames(
+                            !group?.isCollapsable ? classes.notCollapsable : '',
+                            classes.itemsCollapse,
+                          )}
                           key={item.key}
                           itemKey={item.key}
                           icon={showIcon(item, !!group?.isCollapsable)}
@@ -216,8 +224,11 @@ export const SidebarMenu = ({
                           onClick={() => (item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`))}
                         >
                           {item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
+
+                          {item.title && <Box className={classes.itemsConnector} />}
                         </SideMenuItem>
                       ))}
+                      {group.key && <Box className={classes.groupConnector} />}
                     </Collapse>
                   </Box>
                 ))}

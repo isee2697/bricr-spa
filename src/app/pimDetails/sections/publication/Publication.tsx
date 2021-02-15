@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SortDirection } from '@material-ui/core';
 import clsx from 'classnames';
 import { DateTime } from 'luxon';
+import { useHistory, useParams } from 'react-router-dom';
 
 import {
   Box,
@@ -29,6 +30,8 @@ import { AddPublicationModal } from '../../addPublicationModal/AddPublicationMod
 import { ActionTabs, InfoSection } from 'ui/molecules';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
 import { SortOption } from 'ui/molecules/list/List.types';
+import { joinUrlParams } from '../../../../routing/AppRoute.utils';
+import { AppRoute } from '../../../../routing/AppRoute.enum';
 
 import { PublicationProps, PublicationStatus } from './Publication.types';
 import { useStyles } from './Publication.styles';
@@ -49,6 +52,8 @@ export const Publication = ({
   const [sort, setSort] = useState('desc');
   const [sorting, setSorting] = useState('last_edited');
   const classes = useStyles();
+  const { push } = useHistory();
+  const { id } = useParams<{ id: string }>();
 
   const tabs: ActionTab[] = [
     {
@@ -210,7 +215,18 @@ export const Publication = ({
                     {items
                       .filter(item => item.isActive === (status === 'active'))
                       .map((item, index) => (
-                        <TableRow key={index} className={classes.row}>
+                        <TableRow
+                          key={index}
+                          className={classes.row}
+                          onClick={() =>
+                            push(
+                              joinUrlParams(`${AppRoute.pimDetails}/publication/:publicationId`, {
+                                id,
+                                publicationId: `${item.id}`,
+                              }),
+                            )
+                          }
+                        >
                           <TableCell padding="checkbox">
                             <Checkbox
                               checked={false}

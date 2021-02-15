@@ -470,7 +470,7 @@ export const SettingsStep = ({ onNextStep }: CreateWizardStepProps) => {
         </CardContent>
       </Card>
       <Button variant="outlined" color="primary" className={classes.btnAction} onClick={onNextStep}>
-        {formatMessage({ id: 'project_details.allocate_results.settings.go_to_filtering_properties' })}
+        {formatMessage({ id: 'project_details.allocate_results.steps.go_to_step2' })}
       </Button>
     </Box>
   );

@@ -20,8 +20,12 @@ import {
   PropertyType,
   RealEstateType,
   ServiceType,
+  TypeOfObjectType,
 } from 'api/types';
-import { AllocatedProperty } from 'app/pimDetails/sections/allocateResultsDetails/list/List.types';
+import {
+  AllocatedProperty,
+  AssignedProperty,
+} from 'app/pimDetails/sections/allocateResultsDetails/AllocateResultsDetails.types';
 import { AllocateResultsRelationRanking } from 'app/pimDetails/sections/allocateResultsDetails/AllocateResultsDetails.types';
 import { DocumentListOfCaseType } from 'app/pimDetails/sections/documents/documentDetails/documentListOfCase/DocumentListOfCase.types';
 import {
@@ -42,6 +46,8 @@ import {
   DocumentMeta,
 } from 'app/pimDetails/sections/documents/general/General.types';
 
+import { FILE_1 } from './file';
+
 export const PIM_1 = {
   id: 'pim_1',
   street: 'Isenburgstraat',
@@ -57,6 +63,8 @@ export const PIM_1 = {
   completeness: 0,
   archived: false,
   dateCreated: '2020-05-17T15:26:40.317Z',
+  salePrice: 245000,
+  mainPicture: { file: { ...FILE_1, id: 'mp_1', url: 'http://placeimg.com/176/112/arch' }, id: 'pic_1' },
 };
 
 export const PIM_DETAILS_1: Pim = {
@@ -740,6 +748,103 @@ export const PIM_DOCUMENT_CONTRACT: DocumentContractType = {
   ],
 };
 
+export const ASSIGNEDPROPERTIES: AssignedProperty[] = [
+  {
+    id: '0001',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0002',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0003',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0004',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0005',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+];
+
+export const UNASSIGNEDPROPERTIES: AssignedProperty[] = [
+  {
+    id: '0001',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0002',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0003',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0004',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0005',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0006',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0007',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+  {
+    id: '0008',
+    name: 'Hanneke de Boer',
+    date: new Date(),
+    type: 'Projectinteresse',
+    price: 35000,
+  },
+];
+
 export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
   {
     id: '0001',
@@ -753,6 +858,7 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
     monthlyPrice: 1550,
     allocatedRelations: [
       {
+        id: 'goldRelation',
         ranking: AllocateResultsRelationRanking.Gold,
         relation: {
           firstName: 'Anna',
@@ -793,6 +899,7 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
         relations: [],
       },
       {
+        id: 'silverRelation',
         ranking: AllocateResultsRelationRanking.Silver,
         relation: {
           firstName: 'Anna',
@@ -833,6 +940,7 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
         relations: [],
       },
       {
+        id: 'noneRelation',
         ranking: AllocateResultsRelationRanking.None,
         relation: {
           firstName: 'Anna',
@@ -872,6 +980,7 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
         relations: [],
       },
       {
+        id: 'bronzeRelation',
         ranking: AllocateResultsRelationRanking.Bronze,
         relation: {
           firstName: 'Anna',
@@ -925,6 +1034,10 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
         ],
       },
     ],
+    allocationBase: 'mid-segment 20-01-2019',
+    assigned: ASSIGNEDPROPERTIES,
+    unassigned: UNASSIGNEDPROPERTIES,
+    objectTypes: [TypeOfObjectType.Apartament],
   },
   {
     id: '0002',
@@ -938,6 +1051,7 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
     monthlyPrice: 1550,
     allocatedRelations: [
       {
+        id: 'goldRelation',
         ranking: AllocateResultsRelationRanking.Gold,
         relation: {
           firstName: 'Anna',
@@ -978,5 +1092,9 @@ export const PIM_MATCH_ALLOCATED_PROPERTIES: AllocatedProperty[] = [
         relations: [],
       },
     ],
+    allocationBase: 'mid-segment 20-01-2019',
+    assigned: ASSIGNEDPROPERTIES,
+    unassigned: UNASSIGNEDPROPERTIES,
+    objectTypes: [TypeOfObjectType.Apartament],
   },
 ];

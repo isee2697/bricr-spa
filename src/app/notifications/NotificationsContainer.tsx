@@ -7,6 +7,7 @@ import {
   useDeleteNotificationMutation,
   useGetNotificationsQuery,
   useReadNotificationMutation,
+  Notification,
 } from 'api/types';
 import { Loader, Snackbar, Alert } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -132,7 +133,7 @@ export const NotificationsContainer = () => {
         </Snackbar>
       )}
       <Notifications
-        notifications={data?.getNotifications?.items || []}
+        notifications={(data?.getNotifications?.items as Notification[]) || []}
         error={error}
         onReadNotification={handleReadNotification}
         onDeleteNotification={handleDeleteNotification}

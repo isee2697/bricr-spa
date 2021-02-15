@@ -23,6 +23,9 @@ import { CadastreSettingsContainer } from './sections/cadastre/CadastreSettingsC
 import { KeyBoardContainer } from './sections/keyBoard/KeyBoardContainer';
 import { SignBoardContainer } from './sections/signBoard/SignBoardContainer';
 import { LivingSituationContainer } from './sections/livingSituation/LivingSituationContainer';
+import { EmailTemplateContainer } from './sections/documents/emailTemplate/EmailTemplateContainer';
+import { AllocateCriteria } from './sections/allocateCriteria/AllocateCriteria';
+import { AllocateCriteriaType } from './sections/allocateCriteria/AllocateCriteria.types';
 
 export const Settings = ({ data }: SettingsProps) => {
   const { formatMessage } = useLocale();
@@ -63,6 +66,15 @@ export const Settings = ({ data }: SettingsProps) => {
               exact
               path={`${AppRoute.settings}/contractTemplates`}
               render={() => <ContractTemplatesContainer />}
+            />
+            <Route exact path={`${AppRoute.settings}/emailTemplate`} render={() => <EmailTemplateContainer />} />
+            <Route
+              path={`${AppRoute.settings}/bricrAllocateCriteria`}
+              render={() => <AllocateCriteria type={AllocateCriteriaType.Bricr} />}
+            />
+            <Route
+              path={`${AppRoute.settings}/customAllocateCriteria`}
+              render={() => <AllocateCriteria type={AllocateCriteriaType.Custom} />}
             />
             <Route path={`${AppRoute.settingsGeneral}`} render={() => <GeneralSettings />} />
             <Route exact path={AppRoute.contractTemplates} render={() => <ContractTemplatesDetailsContainer />} />

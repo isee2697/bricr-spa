@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'classnames';
 
 import { Badge, Box, Button, Grid, IconButton, Typography } from 'ui/atoms';
-import { BuildingIcon, SeeIcon, ExitIcon, UnseeIcon } from 'ui/atoms/icons';
+import { BuildingIcon, SeeIcon, ShareIcon, UnseeIcon } from 'ui/atoms/icons';
 import { Page } from 'ui/templates';
 import { PimDetailsHeader } from '../../../pimDetailsHeader/PimDetailsHeader';
 import { useLocale } from 'hooks/useLocale/useLocale';
@@ -37,7 +37,7 @@ export const SummaryGeneral = ({ summary, isSidebarVisible, onSidebarOpen }: Sum
         action={
           <Button
             color="primary"
-            startIcon={<ExitIcon className={classes.btnHeader} />}
+            startIcon={<ShareIcon color="inherit" className={classes.btnHeader} />}
             variant="contained"
             size="small"
           >

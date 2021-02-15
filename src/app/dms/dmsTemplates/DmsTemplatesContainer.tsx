@@ -4,8 +4,9 @@ import { Templates } from 'api/mocks/dms';
 
 import { DmsTemplates } from './DmsTemplates';
 import { DmsTemplateItem } from './DmsTemplates.types';
+import { DmsTemplatesContainerProps } from './DmsTemplatesContainer.types';
 
-export const DmsTemplatesContainer = () => {
+export const DmsTemplatesContainer = ({ category }: DmsTemplatesContainerProps) => {
   const [templates, setTemplates] = useState<DmsTemplateItem[]>(Templates);
 
   const handleAddTemplate = async () => {
@@ -18,5 +19,7 @@ export const DmsTemplatesContainer = () => {
     setTemplates([...templates]);
   };
 
-  return <DmsTemplates templates={templates} onAdd={handleAddTemplate} onUpdate={handleUpdateTemplate} />;
+  return (
+    <DmsTemplates category={category} templates={templates} onAdd={handleAddTemplate} onUpdate={handleUpdateTemplate} />
+  );
 };

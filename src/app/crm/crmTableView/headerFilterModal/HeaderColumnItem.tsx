@@ -2,13 +2,13 @@ import React from 'react';
 import clsx from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { Box, Checkbox, Typography } from 'ui/atoms';
+import { Box, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks';
 
 import { useStyles } from './HeaderColumnItem.styles';
 import { HeaderColumnItemDragObject, HeaderColumnItemProps } from './HeaderFilterModal.types';
 
-export const HeaderColumnItem = ({ item, isShow, setShow, isDisabled, changeOrder }: HeaderColumnItemProps) => {
+export const HeaderColumnItem = ({ item, isDisabled, changeOrder }: HeaderColumnItemProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -41,11 +41,8 @@ export const HeaderColumnItem = ({ item, isShow, setShow, isDisabled, changeOrde
           alignItems="center"
           className={clsx(classes.root, isDragging && 'dragging', isDisabled && 'disabled')}
         >
-          <Checkbox checked={isShow} disabled={isDisabled} onClick={() => setShow(!isShow)} color="primary" />
           <Box ml={2}>
-            <Typography variant="h5" color={isDisabled ? 'textSecondary' : 'primary'}>
-              {formatMessage({ id: `crm.table.header_filter.column.${item}` })}
-            </Typography>
+            <Typography variant="h5">{formatMessage({ id: `crm.table.header_filter.column.${item}` })}</Typography>
           </Box>
         </Box>
         {isDrag && isOver && <Box width="100%" className={classes.placeholder} />}

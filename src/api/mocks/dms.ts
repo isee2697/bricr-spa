@@ -487,7 +487,7 @@ export const Templates: DmsTemplateItem[] = [
     name: 'Contract for Rent',
     labels: ['Residential', 'BOG'],
     status: 'active',
-    createdAt: '2020/09/22',
+    createdAt: '2020/09/21',
     avatar: 'http://placeimg.com/104/152/arch',
     file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
     meta: {
@@ -504,7 +504,7 @@ export const Templates: DmsTemplateItem[] = [
     name: 'Key transfer',
     labels: ['Residential', 'BOG'],
     status: 'active',
-    createdAt: '2020/09/22',
+    createdAt: '2020/09/24',
     avatar: 'http://placeimg.com/104/152/arch',
     file: 'https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf',
     meta: {

@@ -4,6 +4,11 @@ export const useStyles = makeStyles(theme => ({
   stepper: {
     paddingLeft: 0,
     marginRight: theme.spacing(2),
+
+    '&.noSideMargin': {
+      marginRight: 0,
+      paddingRight: 0,
+    },
   },
   stepConnector: {
     padding: 0,

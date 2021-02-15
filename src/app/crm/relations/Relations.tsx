@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmStatus, CrmType, ListPimsFilters } from 'api/types';
+import { CrmType, ListPimsFilters } from 'api/types';
 import { Page } from 'ui/templates';
-import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
+import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
 import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
@@ -12,9 +12,7 @@ import { useLocale } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
-import { SortOption } from 'ui/molecules/list/List.types';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { RelationsProps } from './Relations.types';
@@ -26,11 +24,14 @@ export const Relations = ({
   isSidebarVisible,
   status,
   onStatusChange,
+  amounts,
   crms,
   onUpdateItemStatus,
   onDeleteItem,
   onFilter,
   activeFilters,
+  sorting,
+  pagination,
 }: RelationsProps) => {
   const { push } = useHistory();
   const { formatMessage } = useLocale();
@@ -40,15 +41,7 @@ export const Relations = ({
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
-  const sortOptions: SortOption[] = [
-    {
-      name: formatMessage({ id: 'crm.list.sort_option.newest' }),
-      key: 'newest',
-    },
-  ];
-
   const [selected, setSelected] = useState<string[]>([]);
-  const [, setSort] = useState(sortOptions.length > 0 ? sortOptions[0].key : '');
 
   const handleSelectItem = (itemId: string) => {
     const index = selected.findIndex(id => id === itemId);
@@ -89,29 +82,10 @@ export const Relations = ({
                   status={status}
                   onStatusChange={onStatusChange}
                   amounts={{
-                    actionRequired: crms.filter(crmItem => crmItem.status === CrmStatus.ActionRequired).length,
-                    active: crms.filter(crmItem => crmItem.status === CrmStatus.Active).length,
-                    inactive: crms.filter(crmItem => crmItem.status === CrmStatus.Inactive).length,
+                    actionRequired: amounts?.ActionRequired || 0,
+                    active: amounts?.Active || 0,
+                    inactive: amounts?.Inactive || 0,
                   }}
-                />
-              </Box>
-              <Box width="100%" display="flex" flexDirection="column" pt={2}>
-                <ListHeader
-                  sortOptions={sortOptions}
-                  onSort={value => {
-                    setSort(value);
-                  }}
-                  checkedKeys={selected}
-                  checkAllStatus={{
-                    checked: crmItemsFiltered?.length === selected.length,
-                    indeterminate: crmItemsFiltered?.length !== selected.length && selected.length > 0,
-                  }}
-                  onCheckAll={handleSelectAllItems}
-                  bulkComponent={
-                    <Box ml={0.5} mr={1.5}>
-                      <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
-                    </Box>
-                  }
                 />
               </Box>
               <Box mt={-2}>
@@ -124,6 +98,13 @@ export const Relations = ({
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
+                    pagination={{
+                      count: 8,
+                      page: 3,
+                      currentPerPage: 10,
+                      perPageOptions: [10, 25, 'All'],
+                      onPerPageChange: value => {},
+                    }}
                   />
                 ) : (
                   <List
@@ -149,7 +130,10 @@ export const Relations = ({
                         </Box>
                       </Box>
                     )}
-                    isShowHeader={false}
+                    pagination={pagination}
+                    sortOptions={sorting.sortOptions}
+                    onSort={sorting.onSort}
+                    onSelectItems={setSelected}
                   />
                 )}
               </Box>

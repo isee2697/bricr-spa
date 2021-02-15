@@ -17,7 +17,7 @@ export const useStyles = makeStyles(theme => ({
   item: {
     position: 'relative',
     height: 52,
-    padding: 0,
+    padding: theme.spacing(0, 0, 0, 1),
     marginLeft: theme.spacing(3),
     width: `calc(100% - ${theme.spacing(3)}px)`,
     '&::after': {

@@ -3,12 +3,14 @@ import clsx from 'classnames';
 import { DateTime } from 'luxon';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-import { Box, Grid, IconButton, RankingIcon, Typography } from 'ui/atoms';
-import { MenuIcon } from 'ui/atoms/icons';
+import { Box, Grid, RankingIcon, Typography } from 'ui/atoms';
+import { ClockIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
 import { AllocateResultsRelationRanking } from '../../../allocateResultsDetails/AllocateResultsDetails.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { joinUrlParams } from 'routing/AppRoute.utils';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { ListItemProps } from './ListItem.types';
 import { useStyles } from './ListItem.styles';
@@ -18,7 +20,7 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
   const { push } = useHistory();
   const { params } = useRouteMatch();
   const { formatMessage } = useLocale();
-  const { id, name, assignee, date, relations, sortOrders } = item;
+  const { id, name, assignee, date, relations } = item;
 
   const handleNavigateToDetails = () => {
     push(joinUrlParams(`${AppRoute.pimDetails}/allocateResults/${id}`, params));
@@ -27,7 +29,7 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
   return (
     <Box className={clsx(classes.row, { [classes.rowChecked]: checked })}>
       {checkbox}
-      <Box onClick={handleNavigateToDetails} className={classes.rowItem}>
+      <Box onClick={handleNavigateToDetails} className={classes.rowItem} display="flex" flexDirection="row">
         <Grid container>
           <Grid item xs={2}>
             <Box mb={1.5}>
@@ -63,7 +65,6 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
                   AllocateResultsRelationRanking.Bronze,
                   AllocateResultsRelationRanking.Silver,
                 ]}
-                showCount
                 count={{
                   gold: relations.filter(relation => relation.ranking === AllocateResultsRelationRanking.Gold).length,
                   silver: relations.filter(relation => relation.ranking === AllocateResultsRelationRanking.Silver)
@@ -72,29 +73,40 @@ export const ListItem = ({ checked, checkbox, item }: ListItemProps) => {
                     .length,
                 }}
               />
-              <Box ml={1.5}>
-                <Typography variant="h6" className={clsx(classes.gray, classes.fontWeightBold)}>
-                  + {relations.length}
-                </Typography>
-              </Box>
             </Box>
           </Grid>
           <Grid item xs={2}>
             <Typography variant="h6" className={classes.gray}>
-              {formatMessage({ id: 'project.details.allocate_results.sort_orders' })}
+              {formatMessage({ id: 'project.details.allocate_results.based_on' })}
             </Typography>
-            {sortOrders.map((sortOrder, index) => (
-              <Typography variant="h5" className={classes.fontWeightMedium}>
-                {index + 1}. {formatMessage({ id: `project.details.allocate_results.sort_orders.${sortOrder}` })}
-              </Typography>
-            ))}
+            <Typography variant="h5" className={classes.fontWeightMedium}>
+              {item.allocationBase}
+            </Typography>
+            <Box display="flex" mt={1}>
+              <Box className={classes.before}>{item.assigned}</Box>
+              <Box ml={2.5} className={classes.after}>
+                {item.unassigned}
+              </Box>
+            </Box>
           </Grid>
         </Grid>
-      </Box>
-      <Box mr={2.5}>
-        <IconButton size="small" variant="rounded">
-          <MenuIcon />
-        </IconButton>
+        <Box>
+          <ListOptionsMenu id={`allocate-results-menu-${id}`} onDeleteClick={() => {}} hideEditButton>
+            <ListOptionsMenuItem
+              title={formatMessage({
+                id: 'pim.details.allocateResults.viewSettings',
+              })}
+              icon={<ClockIcon />}
+            />
+            <ListOptionsMenuItem
+              title={formatMessage({
+                id: 'pim.details.allocateResults.viewResult',
+              })}
+              icon={<ClockIcon />}
+              onClick={handleNavigateToDetails}
+            />
+          </ListOptionsMenu>
+        </Box>
       </Box>
     </Box>
   );

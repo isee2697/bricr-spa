@@ -1,31 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
 import clsx from 'clsx';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Avatar, Box, Typography, Emoji, IconButton, Chip, Menu, MenuItem, Checkbox } from 'ui/atoms';
-import { MenuIcon, EditIcon } from 'ui/atoms/icons';
+import { Avatar, Box, Typography, Emoji, Chip } from 'ui/atoms';
+import { ListOptionsMenu } from 'ui/molecules';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import { DmsTemplatesItemProps } from './DmsTemplatesItem.types';
 import { useStyles } from './DmsTemplatesItem.styles';
 
-export const DmsTemplatesItem = ({ template, onStatusChange }: DmsTemplatesItemProps) => {
+export const DmsTemplatesItem = ({ template, onStatusChange, category }: DmsTemplatesItemProps) => {
   const { formatMessage } = useLocale();
   const intl = useIntl();
   const classes = useStyles(template);
-  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
 
   const { id, name, createdAt, avatar, labels, meta, status } = template;
-
-  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.stopPropagation();
-    setMenuEl(menuEl ? null : event.currentTarget);
-  };
-
-  const onMenuClose = () => {
-    setMenuEl(null);
-  };
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
@@ -67,36 +58,25 @@ export const DmsTemplatesItem = ({ template, onStatusChange }: DmsTemplatesItemP
               </Box>
             </div>
             <div>
-              <IconButton
-                className="menu-icon"
-                variant="rounded"
-                size="small"
-                selected={Boolean(menuEl)}
-                onClick={onMenuClick}
+              <ListOptionsMenu
+                id={`dms-template-item-menu-${id}`}
+                hideDeleteButton={category === 'bricr'}
+                hideEditButton
               >
-                <MenuIcon />
-              </IconButton>
-              <Menu id={id} open={Boolean(menuEl)} onClose={onMenuClose} anchorEl={menuEl} placement="bottom-end">
-                <MenuItem
-                  className={classes.menuItem}
-                  onClick={(event: React.MouseEvent) => {
-                    event.stopPropagation();
+                <ListOptionsMenuItem
+                  title={formatMessage({
+                    id: 'dms.templates.clone',
+                  })}
+                />
+                <ListOptionsMenuItem
+                  title={formatMessage({
+                    id: 'dms.templates.active_inactive',
+                  })}
+                  onClick={() => {
                     onStatusChange(status === 'active' ? 'inactive' : 'active');
                   }}
-                >
-                  <EditIcon classes={{ root: classes.menuIcon }} />
-                  <Box ml={2}>
-                    <Typography variant="subtitle1">
-                      {formatMessage({
-                        id: 'dms.templates.inactive',
-                      })}
-                    </Typography>
-                  </Box>
-                  <Box ml="auto">
-                    <Checkbox color="primary" checked={status === 'active'} name="checkedA" />
-                  </Box>
-                </MenuItem>
-              </Menu>
+                />
+              </ListOptionsMenu>
             </div>
           </Box>
           <Box display="flex" className={classes.stats}>

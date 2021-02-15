@@ -1,5 +1,6 @@
 import withStyles from '@material-ui/core/styles/withStyles';
 import React from 'react';
+import clsx from 'classnames';
 
 import { Stepper, Step, StepLabel, StepContent, StepConnector } from 'ui/atoms';
 
@@ -14,12 +15,12 @@ const VerticalTimlineStepConnector = withStyles(theme => ({
   },
 }))(StepConnector);
 
-export const VerticalTimeline = ({ items }: VerticalTimelineProps) => {
+export const VerticalTimeline = ({ items, noSideMargin = false }: VerticalTimelineProps) => {
   const classes = useStyles();
 
   return (
     <Stepper
-      className={classes.stepper}
+      className={clsx(classes.stepper, noSideMargin && 'noSideMargin')}
       orientation="vertical"
       connector={<VerticalTimlineStepConnector className={classes.stepConnector} />}
     >

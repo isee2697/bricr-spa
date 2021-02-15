@@ -9,6 +9,7 @@ import { AogSpaceType, TiaraEntities } from 'api/types';
 
 import { PimDetailsProps } from './PimDetails.types';
 import { useStyles } from './PimDetails.styles';
+import { PublicationDetailsContainer } from './sections/publicationDetails/PublicationDetailsContainer';
 
 const AllocateResultsDetailsContainer = lazy(() =>
   import('./sections/allocateResultsDetails/AllocateResultsDetailsContainer'),
@@ -40,6 +41,7 @@ export const PimDetails = ({
   path,
   entityType,
   objectTypeName,
+  isPurchased = false,
 }: PimDetailsProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -47,9 +49,7 @@ export const PimDetails = ({
   const { state } = useLocation<{ newlyAdded: boolean }>();
 
   const pim = data?.getPimGeneral;
-  const mainPicture =
-    data?.getPimMedia?.mainPictureId &&
-    data?.getPimMedia.pictures?.find(({ id }) => id === data.getPimMedia.mainPictureId);
+  const mainPicture = data?.getPimMedia.pictures?.find(({ isMainPicture }) => isMainPicture);
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const handleSidebarHide = useCallback(() => {
@@ -75,6 +75,7 @@ export const PimDetails = ({
           objectTypeName={objectTypeName}
           allocateResultsNumber={5}
           picture={mainPicture || undefined}
+          isPurchased={isPurchased}
         />
         <Grid item xs={12} md={9} lg={10}>
           <Box width="100%">
@@ -96,6 +97,7 @@ export const PimDetails = ({
                           isSidebarVisible={isSidebarVisible}
                           onSidebarOpen={handleSidebarOpen}
                           title={title}
+                          isPurchased={isPurchased}
                         />
                       )}
                     />
@@ -157,12 +159,14 @@ export const PimDetails = ({
                         />
                       )}
                     />
+                    {/* {!isPurchased && ( */}
                     <Route
                       path={`${path}/allocateSettings`}
                       render={() => (
                         <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
                       )}
                     />
+                    {/* )} */}
                     <Route
                       path={`${path}/specification`}
                       render={() => (
@@ -226,6 +230,8 @@ export const PimDetails = ({
                     />
                     <Route exact path={`${path}/propertyJourney`} render={() => <>PropertyJourney</>} />
                     <Route exact path={`${path}/timeline`} render={() => <>Timeline</>} />
+                    {/* {!isPurchased && (
+                      <> */}
                     <Route
                       exact
                       path={`${path}/allocateResults`}
@@ -237,7 +243,7 @@ export const PimDetails = ({
                       )}
                     />
                     <Route
-                      path={`${path}/allocateResults/:id`}
+                      path={`${path}/allocateResults/:resultId`}
                       render={() => (
                         <AllocateResultsDetailsContainer
                           isSidebarVisible={isSidebarVisible}
@@ -245,13 +251,27 @@ export const PimDetails = ({
                         />
                       )}
                     />
+                    {/* </>
+                    )} */}
+
                     <Route
+                      exact
                       path={`${path}/publication`}
                       render={() => (
                         <PublicationContainer
                           title={title}
                           isSidebarVisible={isSidebarVisible}
                           onSidebarOpen={handleSidebarOpen}
+                        />
+                      )}
+                    />
+                    <Route
+                      path={`${path}/publication/:publicationId`}
+                      render={() => (
+                        <PublicationDetailsContainer
+                          isSidebarVisible={isSidebarVisible}
+                          onSidebarOpen={handleSidebarOpen}
+                          title={title}
                         />
                       )}
                     />

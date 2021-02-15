@@ -1,8 +1,18 @@
 import { CrmItem } from 'app/crm/Crm.types';
+import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 
 export type CrmTableFixedHeader = 'type' | 'insertion' | 'lastName' | 'property';
 
-export type CrmTableMovableHeader = 'firstName' | 'email' | 'phoneNumber' | 'status' | 'partner' | 'manager';
+export type CrmTableMovableHeader =
+  | 'firstName'
+  | 'email'
+  | 'status'
+  | 'phoneNumber'
+  | 'partner'
+  | 'manager'
+  | 'property'
+  | 'initials'
+  | 'gender';
 
 export type CrmTableHeaderCell = {
   field: CrmTableFixedHeader | CrmTableMovableHeader;
@@ -19,4 +29,5 @@ export type CrmTableViewProps = {
   selected: string[];
   onSelectItem: (id: string) => void;
   onSelectAllItems: VoidFunction;
+  pagination?: PaginationProps;
 };

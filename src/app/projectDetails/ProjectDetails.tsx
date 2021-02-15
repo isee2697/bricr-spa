@@ -23,6 +23,7 @@ import { LinkedPropertiesContainer } from './sections/linkedProperties/LinkedPro
 import { SummaryContainer } from './sections/summary/SummaryContainer';
 import { AllocateResultsContainer } from './sections/allocateResults/AllocateResultsContainer';
 import { AllocateResultsDetailsContainer } from './sections/allocateResultsDetails/AllocateResultsDetailsContainer';
+import { AllocateResultsDetailItemContainer } from './sections/allocateResultsDetailsItem/AllocateResultsDetailItemContainer';
 
 export const ProjectDetails = ({ data }: NcpProps) => {
   const { formatMessage } = useLocale();
@@ -124,8 +125,28 @@ export const ProjectDetails = ({ data }: NcpProps) => {
               )}
             />
             <Route
-              path={`${AppRoute.projectDetails}/allocateResults/:id`}
-              render={() => <AllocateResultsDetailsContainer />}
+              path={`${AppRoute.projectDetails}/allocateResults/:resultId/:resultDetailId`}
+              render={() => (
+                <AllocateResultsDetailItemContainer
+                  isSidebarVisible={isSidebarVisible}
+                  onSidebarOpen={handleSidebarOpen}
+                />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateResults/:resultId`}
+              render={() => (
+                <AllocateResultsDetailsContainer
+                  isSidebarVisible={isSidebarVisible}
+                  onSidebarOpen={handleSidebarOpen}
+                />
+              )}
+            />
+            <Route
+              path={`${AppRoute.projectDetails}/allocateSettings`}
+              render={() => (
+                <SalesSettingsContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
             />
             <Route
               path={`${AppRoute.projectDetails}/tiara`}

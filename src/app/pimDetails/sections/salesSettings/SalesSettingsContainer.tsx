@@ -1,20 +1,22 @@
-import React from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
-import { useEntityType } from 'app/shared/entityType';
 
-import { SalesSettings } from './SalesSettings';
 import { AllocationMain } from './allocationMain/AllocationMain';
+import { AddCriteriaModal } from './addCriteriaModal/AddCriteriaModal';
+import { AllocateCriteriaDetailsType } from './SalesSettings.types';
 
 export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
-  const { baseUrl } = useEntityType();
   const { formatMessage } = useLocale();
-  const { push } = useHistory();
+
+  const [showCriteriaModal, setShowCriteriaModal] = useState(false);
+
+  const [criterias, setCriterias] = useState<AllocateCriteriaDetailsType[]>([]);
 
   return (
     <>
@@ -27,7 +29,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
             color="primary"
             startIcon={<AddIcon color="inherit" />}
             variant="contained"
-            onClick={() => push('allocateSettings/1')}
+            onClick={() => setShowCriteriaModal(true)}
             size="small"
           >
             {formatMessage({ id: `pim_details.sales_settings.add_new_allocation` })}
@@ -35,20 +37,25 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         }
       />
 
-      <Switch>
-        <Route default path={`${baseUrl}/allocateSettings`} exact render={() => <SalesSettings />} />
-        <Route
-          path={`${baseUrl}/allocateSettings/:allocId`}
-          render={() => (
-            <AllocationMain
-              title="Alocation and Match Criteria"
-              isSidebarVisible={isSidebarVisible}
-              onSidebarOpen={onSidebarOpen}
-            />
-          )}
+      {showCriteriaModal && (
+        <AddCriteriaModal
+          isOpened={true}
+          onClose={() => setShowCriteriaModal(false)}
+          onSubmit={newCriteria => {
+            setShowCriteriaModal(false);
+            setCriterias([...criterias, { criteriaName: newCriteria.criteriaName, createdDate: DateTime.local() }]);
+
+            return new Promise(resolve => undefined);
+          }}
         />
-        <Redirect to={`${baseUrl}/allocateSettings`} />
-      </Switch>
+      )}
+
+      <AllocationMain
+        title="Alocation settings"
+        isSidebarVisible={isSidebarVisible}
+        onSidebarOpen={onSidebarOpen}
+        criterias={criterias}
+      />
     </>
   );
 };

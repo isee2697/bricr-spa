@@ -1,5 +1,6 @@
 export type CreateWizardProps = {
-  onCloseWizard: VoidFunction;
+  onGotoResult: VoidFunction;
+  onSaveCriteria: VoidFunction;
 };
 
 export type CreateWizardStepProps = {

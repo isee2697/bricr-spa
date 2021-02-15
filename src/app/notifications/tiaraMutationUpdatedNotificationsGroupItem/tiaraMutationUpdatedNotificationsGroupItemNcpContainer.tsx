@@ -6,9 +6,9 @@ import { TiaraMutationUpdatedNotificationsGroupItem } from './TiaraMutationUpdat
 import { TiaraMutationUpdatedNotificationsGroupItemContainerProps } from './TiaraMutationUpdatedNotificationsGroupItem.types';
 
 export const TiaraMutationUpdatedNotificationsGroupItemNcpContainer = ({
-  data: { ncpId, messageType, status, date, errors },
+  data: { linkedEntity, messageType, status, date, errors },
 }: TiaraMutationUpdatedNotificationsGroupItemContainerProps) => {
-  const { data } = useNcpGeneralQuery({ variables: { id: ncpId ?? '' } });
+  const { data } = useNcpGeneralQuery({ variables: { id: linkedEntity?.id ?? '' } });
   const description = `${data?.getNcp.name}`;
 
   return (

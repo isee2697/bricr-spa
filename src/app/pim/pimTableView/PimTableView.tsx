@@ -5,7 +5,7 @@ import { SortDirection } from '@material-ui/core';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Box, Avatar, Typography, Emoji } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon, EditIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { Pim } from 'api/types';
+import { Pim, PimGeneral } from 'api/types';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
@@ -50,6 +50,7 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
 export const PimTableView = ({
   items,
   onClick,
+  onUpdatePim,
   onArchive,
   onEdit,
   onDelete,
@@ -185,6 +186,18 @@ export const PimTableView = ({
               ))}
               <TableCell>
                 <ListOptionsMenu id={item.id} onEditClick={onEdit} onDeleteClick={onDelete}>
+                  <ListOptionsMenuItem
+                    title={formatMessage({
+                      id: 'common.purchase',
+                    })}
+                    icon={<EditIcon />}
+                    onClick={() =>
+                      onUpdatePim({
+                        ...item,
+                        isPurchased: !!!item.isPurchased,
+                      } as PimGeneral)
+                    }
+                  />
                   <ListOptionsMenuItem
                     title={formatMessage({
                       id: 'common.archive',

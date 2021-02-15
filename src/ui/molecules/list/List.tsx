@@ -25,10 +25,12 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
   emptyDescription,
   className,
   checkboxProps,
+  selectedItems = [],
   disabled,
   onOperation,
   onBulk,
   onSort,
+  onSelectItems,
   renderDeleteTitle = () => '',
   bulkActions,
   onBulkOpen,
@@ -54,6 +56,12 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
     itemIndex,
     disabled,
   );
+
+  useEffect(() => {
+    if (!!onSelectItems) {
+      onSelectItems(checkedKeys);
+    }
+  }, [checkedKeys, onSelectItems]);
 
   useEffect(() => {
     if (items.length > 0 && (!amountItems || amountItems !== items.length)) {
