@@ -4,10 +4,10 @@ import arrayMutators from 'final-form-arrays';
 import { useHistory } from 'react-router-dom';
 import clsx from 'classnames';
 
-import { Box, Grid, IconButton } from 'ui/atoms';
+import { Box, Button, Grid, IconButton } from 'ui/atoms';
 import { useLocale } from 'hooks';
 import { Page } from 'ui/templates';
-import { BuildingIcon, CrmIcon, GraphIcon, HomeIcon, ExitIcon, TasksIcon } from 'ui/atoms/icons';
+import { BuildingIcon, CrmIcon, GraphIcon, HomeIcon, ExitIcon, TasksIcon, AddIcon } from 'ui/atoms/icons';
 import { CalendarTypes } from 'api/types';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 import { ListOptionsMenu } from 'ui/molecules';
@@ -22,7 +22,7 @@ import { CheckboxesCard } from './cards/checkboxesCard/CheckboxesCard';
 import { useStyles } from './NewAppointment.styles';
 import { PencilAppointment } from './cards/pencilAppointment/PencilAppointment';
 
-export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }: NewAppointmentProps) => {
+export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit, loading }: NewAppointmentProps) => {
   const { goBack } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -62,6 +62,9 @@ export const NewAppointment = ({ members, locations, appointmentInfo, onSubmit }
                   <GraphIcon />
                 </IconButton>
                 <Box ml={1} />
+                <Button type="submit" variant="contained" color="primary" disabled={loading}>
+                  <AddIcon color="inherit" /> {formatMessage({ id: 'calendar.appointments.create_appointment.add' })}
+                </Button>
                 <ListOptionsMenu id="new-appointment-setting-menu" onDeleteClick={() => {}} hideEditButton>
                   <ListOptionsMenuItem
                     title={formatMessage({

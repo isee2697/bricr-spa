@@ -29,7 +29,8 @@ export const LIST_CALENDAR = gql`
 
 export const GET_APPOINTMENT = gql`
   query GetAppointment($appointmentId: ID!) {
-    getAppointment(appointmentId: $appointmentId) {
+    getAppointment(appointmentId: $appointmentId)
+      @rest(type: "GetAppointment", path: "/calendar-getappointment", method: "POST", endpoint: "default") {
       id
       from
       to
