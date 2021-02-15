@@ -115,13 +115,18 @@ export const SidebarMenu = ({
     return isGroupOpen[menuGroup.key];
   };
 
-  const showIcon = (item: MenuItem, groupCollapsable: boolean) => {
+  const showIcon = (group: MenuGroup, item: MenuItem, groupCollapsable: boolean) => {
     if (item.hideIcon) {
       return;
     }
 
     if (item.showArrowIcon) {
-      return itemSelected(item) ? <ArrowDownIcon /> : <ArrowRightIcon />;
+      return itemSelected(item) &&
+        (isGroupOpen[`${group.key}-${item.key}`] == null || !!isGroupOpen[`${group.key}-${item.key}`]) ? (
+        <ArrowDownIcon />
+      ) : (
+        <ArrowRightIcon />
+      );
     }
 
     return item.icon ? item.icon : <SaleIcon />;
@@ -217,18 +222,44 @@ export const SidebarMenu = ({
                           )}
                           key={item.key}
                           itemKey={item.key}
-                          icon={showIcon(item, !!group?.isCollapsable)}
+                          icon={showIcon(group, item, !!group?.isCollapsable)}
                           title={item?.title ? item.title : formatMessage({ id: `${translationPrefix}.${item.key}` })}
                           selected={itemSelected(item)}
                           badge={item.count}
-                          onClick={() => (item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`))}
+                          onClick={() => {
+                            if (
+                              pathname.includes(`${menu.url}/${item.key}`) &&
+                              isGroupOpen[`${group.key}-${item.key}`] != null
+                            ) {
+                              setGroupOpen(groups => ({
+                                ...groups,
+                                [`${group.key}-${item.key}`]: !groups[`${group.key}-${item.key}`],
+                              }));
+                            } else if (
+                              pathname.includes(`${menu.url}/${item.key}`) &&
+                              isGroupOpen[`${group.key}-${item.key}`] == null
+                            ) {
+                              setGroupOpen(groups => ({
+                                ...groups,
+                                [`${group.key}-${item.key}`]: false,
+                              }));
+                            } else {
+                              setGroupOpen(groups => ({
+                                ...groups,
+                                [`${group.key}-${item.key}`]: true,
+                              }));
+                            }
+                            item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`);
+                          }}
                         >
-                          {item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
+                          {(isGroupOpen[`${group.key}-${item.key}`] == null ||
+                            !!isGroupOpen[`${group.key}-${item.key}`]) &&
+                            item.subItems?.map((subItem: SubMenuItem) => renderSubItem(subItem, item))}
 
                           {item.title && <Box className={classes.itemsConnector} />}
                         </SideMenuItem>
                       ))}
-                      {group.key && <Box className={classes.groupConnector} />}
+                      {group.key && group.items.length > 1 && <Box className={classes.groupConnector} />}
                     </Collapse>
                   </Box>
                 ))}
