@@ -37,6 +37,7 @@ export const SettingsFloorPlans = () => {
     },
   ];
 
+  const [mainPicture, setMainPicture] = useState<SettingsFloorPlanItem>();
   const [addedPictures, setAddedPictures] = useState<SettingsFloorPlanItem[]>([]);
 
   const handleAddToList = (item: SettingsFloorPlanItem) => {
@@ -56,6 +57,16 @@ export const SettingsFloorPlans = () => {
     setAddedPictures([...addedPictures.filter(picture => picture.id !== item.id)]);
   };
 
+  const handleSetMainPicture = (item: SettingsFloorPlanItem) => {
+    handleRemoveFromList(item);
+    setMainPicture(item);
+  };
+
+  const handleRemoveFromMainPicture = () => {
+    setAddedPictures([mainPicture!, ...addedPictures]);
+    setMainPicture(undefined);
+  };
+
   return (
     <FormSection
       title={formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.title' })}
@@ -64,12 +75,21 @@ export const SettingsFloorPlans = () => {
     >
       <DndProvider backend={HTML5Backend}>
         <Box display="flex" flexWrap>
+          <Box mr={2}>
+            <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+              {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.main_picture' })}
+            </Typography>
+            <Box mt={1.5} />
+            {mainPicture ? (
+              <PlanItem isAdded onRemoveFromList={handleRemoveFromMainPicture} {...mainPicture} />
+            ) : (
+              <PlanItemPlaceholder onAddItemToAddedList={handleSetMainPicture} />
+            )}
+          </Box>
           {addedPictures.map((picture, index) => (
             <Box mr={2}>
               <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-                {index === 0
-                  ? formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.main_picture' })
-                  : index}
+                {index + 1}
               </Typography>
               <Box mt={1.5} />
               <PlanItem
@@ -83,7 +103,7 @@ export const SettingsFloorPlans = () => {
           ))}
           <Box>
             <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-              {Math.max(addedPictures.length, 1)}
+              {Math.max(addedPictures.length + 1, 1)}
             </Typography>
             <Box mt={1.5} />
             <PlanItemPlaceholder onAddItemToAddedList={handleAddToList} />
@@ -97,7 +117,11 @@ export const SettingsFloorPlans = () => {
       <DndProvider backend={HTML5Backend}>
         <Box display="flex" flexWrap mt={1.5}>
           {availableImages
-            .filter(picture => addedPictures.findIndex(image => image.id === picture.id) < 0)
+            .filter(
+              picture =>
+                (!mainPicture || mainPicture.id !== picture.id) &&
+                addedPictures.findIndex(image => image.id === picture.id) < 0,
+            )
             .map((picture, index) => (
               <Box mr={2}>
                 <PlanItem key={index} {...picture} />
