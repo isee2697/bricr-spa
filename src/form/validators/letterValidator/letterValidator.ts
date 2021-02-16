@@ -2,7 +2,7 @@ export const letterValidator = (value: string | number) => {
   if (value) {
     const parsed = `${value}`;
 
-    if (parsed.search(/\D/g) >= 0) {
+    if (!/^[a-zA-Z]+$/.test(parsed)) {
       return { id: 'validation.letter' };
     }
   }

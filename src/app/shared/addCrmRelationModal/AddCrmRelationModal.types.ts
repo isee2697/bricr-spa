@@ -11,6 +11,7 @@ export type AddCrmRelationStepProps = {
   handleGoTo: (step: number) => void;
   onRequestBricrData: () => void;
   onClose: () => void;
+  valid: boolean;
 };
 
 export type AddCrmSubmit<T = CreateCrmInput & { forceAdd?: boolean }> = (

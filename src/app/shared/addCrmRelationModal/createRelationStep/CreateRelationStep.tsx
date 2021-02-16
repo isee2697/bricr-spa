@@ -9,11 +9,11 @@ import { AddCrmRelationStepProps } from '../AddCrmRelationModal.types';
 import { GenericField } from 'form/fields';
 import { emailValidator, letterValidator, phoneNumberValidator, requireValidator } from 'form/validators';
 
-export const CreateRelationStep = ({ handleGoTo, onClose }: AddCrmRelationStepProps) => {
+export const CreateRelationStep = ({ handleGoTo, valid }: AddCrmRelationStepProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const { valid, invalid } = useFormState({
-    subscription: { valid: false, invalid: true },
+  const { submitting } = useFormState({
+    subscription: { submitting: false },
   });
 
   return (
@@ -24,16 +24,11 @@ export const CreateRelationStep = ({ handleGoTo, onClose }: AddCrmRelationStepPr
             <GenericField
               name="firstName"
               label="crm.relations.first_name"
-              placeholder="project_details.characteristics.project_marketing.color_placeholder"
               validate={[requireValidator, letterValidator]}
             />
           </Grid>
           <Grid item xs={3}>
-            <GenericField
-              name="insertion"
-              label="crm.relations.middle_name"
-              validate={[requireValidator, letterValidator]}
-            />
+            <GenericField name="insertion" label="crm.relations.middle_name" validate={[letterValidator]} />
           </Grid>
           <Grid item xs={6}>
             <GenericField
@@ -50,11 +45,7 @@ export const CreateRelationStep = ({ handleGoTo, onClose }: AddCrmRelationStepPr
             />
           </Grid>
           <Grid item xs={6}>
-            <GenericField
-              name="phoneNumber"
-              label="crm.relations.phone_number"
-              validate={[requireValidator, phoneNumberValidator]}
-            />
+            <GenericField name="phoneNumber" label="crm.relations.phone_number" validate={[phoneNumberValidator]} />
           </Grid>
         </Grid>
       </DialogContent>
@@ -62,7 +53,14 @@ export const CreateRelationStep = ({ handleGoTo, onClose }: AddCrmRelationStepPr
         <Button color="ghost" size="small" onClick={() => handleGoTo(0)}>
           {formatMessage({ id: 'common.previous_step' })}
         </Button>
-        <SubmitButton type="submit" size="large" color="primary" variant="outlined" disabled={!valid || invalid}>
+        <SubmitButton
+          type="submit"
+          size="large"
+          color="primary"
+          variant="outlined"
+          isLoading={submitting}
+          disabled={!valid}
+        >
           {formatMessage({ id: 'crm.relation.add_relation.create_new' })}
         </SubmitButton>
       </DialogActions>

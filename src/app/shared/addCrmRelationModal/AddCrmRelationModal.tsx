@@ -59,13 +59,18 @@ export const AddCrmRelationModal = ({
     return response;
   };
 
+  const handleClose = () => {
+    onClose();
+    setStep(0);
+  };
+
   return (
     <Form onSubmit={handleAddCrmRelation}>
-      {({ handleSubmit, submitErrors, values, invalid }) => (
+      {({ handleSubmit, submitErrors, values, valid }) => (
         <Modal
           fullWidth
           isOpened={isOpened}
-          onClose={onClose}
+          onClose={handleClose}
           title={formatMessage({
             id:
               step === 0
@@ -80,7 +85,8 @@ export const AddCrmRelationModal = ({
             {React.createElement(currentStep.component, {
               handleGoTo,
               onRequestBricrData,
-              onClose,
+              valid,
+              onClose: handleClose,
             })}
           </form>
         </Modal>

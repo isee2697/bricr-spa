@@ -50,3 +50,16 @@ export const LIST_CRMS_COUNT = gql`
     }
   }
 `;
+
+export const GET_CRM_WITH_SAME_INFO = gql`
+  query GetCrmWithSameInfo($input: CrmWithSameInfoInput!) {
+    getCrmWithSameInfo(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;
