@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, ProgressFilling, IconButton, Chip, Menu, MenuItem } from 'ui/atoms';
-import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon, HeadIcon } from 'ui/atoms/icons';
+import { MailIcon, MenuIcon, EditIcon, DeleteIcon, HeadIcon, PhoneIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CrmStatus } from 'api/types';
 
@@ -147,7 +147,7 @@ export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps)
               </Box>
               <Box display="flex">
                 <Box mr={4}>
-                  <HelpIcon className={classes.verticalAlignTop} /> {phoneNumber}
+                  <PhoneIcon className={classes.verticalAlignTop} /> {phoneNumber}
                 </Box>
                 <Box>
                   <MailIcon className={classes.verticalAlignTop} /> {email}

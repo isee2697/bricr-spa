@@ -124,3 +124,4 @@ export * from './head/HeadIcon';
 export * from './stamp/StampIcon';
 export * from './attach/AttachIcon';
 export * from './photoCamera/PhotoCameraIcon';
+export * from './phone/PhoneIcon';
