@@ -16,6 +16,7 @@ type CrmListSearchResult {
 }
 
 input ListCrmFilters {
+  city: String
   type: CrmType
   status: CrmStatus
 }
