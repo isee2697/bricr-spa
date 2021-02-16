@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmStatus, CrmType, ListPimsFilters } from 'api/types';
+import { CrmStatus, CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -113,7 +113,7 @@ export const Businesses = ({
                 />
               </Box>
               <Box mt={-2}>
-                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                <ActiveFilters<ListCrmFilters> activeFilters={activeFilters} onDelete={onFilter} />
               </Box>
               <Box px={2}>
                 {viewMode === 'table' ? (

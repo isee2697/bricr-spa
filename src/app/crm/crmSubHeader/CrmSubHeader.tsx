@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, IconButton } from 'ui/atoms';
 import { ListIcon, LocationIcon, SearchIcon, HamburgerIcon } from 'ui/atoms/icons';
-import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { FiltersButton } from '../filters/FiltersButton';
 
 import { useStyles } from './CrmSubHeader.style';
 import { CrmSubHeaderProps } from './CrmSubHeader.types';
