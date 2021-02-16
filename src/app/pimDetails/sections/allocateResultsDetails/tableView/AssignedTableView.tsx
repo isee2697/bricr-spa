@@ -27,6 +27,7 @@ import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters'
 
 import { AssignedTableHeaderCell, AssignedTableViewProps } from './AssignedTableView.types';
 import { useStyles } from './AssignedTableView.styles';
+import { AssignedTableFilters } from './dictionaries';
 
 export const AssignedTableView = ({
   type,
@@ -116,7 +117,14 @@ export const AssignedTableView = ({
                 <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
               </Box>
             }
-            actionButtons={<FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />}
+            actionButtons={
+              <FiltersButton
+                color="primary"
+                data={activeFilters}
+                getActiveFilters={handleFilterChange}
+                filters={AssignedTableFilters}
+              />
+            }
           />
           {Object.keys(activeFilters).length > 0 && (
             <Box mt={-1}>

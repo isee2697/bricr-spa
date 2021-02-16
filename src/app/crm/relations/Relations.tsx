@@ -13,7 +13,7 @@ import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
