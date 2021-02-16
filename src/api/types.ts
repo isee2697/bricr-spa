@@ -2221,6 +2221,7 @@ export type CrmListSearchResult = {
 };
 
 export type ListCrmFilters = {
+  city?: Maybe<Scalars['String']>;
   type?: Maybe<CrmType>;
   status?: Maybe<CrmStatus>;
 };
@@ -10975,6 +10976,7 @@ export type CrmListQueryVariables = Exact<{
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
+  city?: Maybe<Scalars['String']>;
 }>;
 
 export type CrmListQuery = { __typename?: 'Query' } & {
@@ -18940,9 +18942,10 @@ export const CrmListDocument = gql`
     $sortDirection: SortDirection!
     $from: Int!
     $limit: Int
+    $city: String
   ) {
     crmList(
-      filters: { type: $type, status: $status }
+      filters: { type: $type, status: $status, city: $city }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {

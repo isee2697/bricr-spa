@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListPimsFilters } from 'api/types';
+import { CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -13,7 +13,7 @@ import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -89,7 +89,7 @@ export const Relations = ({
                 />
               </Box>
               <Box mt={-2}>
-                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                <ActiveFilters<ListCrmFilters> activeFilters={activeFilters} onDelete={onFilter} />
               </Box>
               <Box px={2}>
                 {viewMode === 'table' ? (
