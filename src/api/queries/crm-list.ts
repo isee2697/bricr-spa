@@ -8,9 +8,10 @@ export const CRM_LIST = gql`
     $sortDirection: SortDirection!
     $from: Int!
     $limit: Int
+    $city: String
   ) {
     crmList(
-      filters: { type: $type, status: $status }
+      filters: { type: $type, status: $status, city: $city }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
