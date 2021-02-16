@@ -251,6 +251,8 @@ export const SidebarMenu = ({
                             }
                             item.onClick ? item.onClick() : push(`${menu.url}/${item.key}`);
                           }}
+                          data-testid={`toggle-group-${group.key}-${item.key}`}
+                          data-toggled={isGroupOpen[`${group.key}-${item.key}`]}
                         >
                           {(isGroupOpen[`${group.key}-${item.key}`] == null ||
                             !!isGroupOpen[`${group.key}-${item.key}`]) &&
