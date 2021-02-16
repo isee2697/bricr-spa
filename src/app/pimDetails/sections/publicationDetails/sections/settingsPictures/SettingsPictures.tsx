@@ -37,6 +37,7 @@ export const SettingsPictures = () => {
     },
   ];
 
+  const [mainPicture, setMainPicture] = useState<SettingsPictureItem>();
   const [addedPictures, setAddedPictures] = useState<SettingsPictureItem[]>([]);
 
   const handleAddToList = (item: SettingsPictureItem) => {
@@ -56,6 +57,16 @@ export const SettingsPictures = () => {
     setAddedPictures([...addedPictures.filter(picture => picture.id !== item.id)]);
   };
 
+  const handleSetMainPicture = (item: SettingsPictureItem) => {
+    handleRemoveFromList(item);
+    setMainPicture(item);
+  };
+
+  const handleRemoveFromMainPicture = () => {
+    setAddedPictures([mainPicture!, ...addedPictures]);
+    setMainPicture(undefined);
+  };
+
   return (
     <FormSection
       title={formatMessage({ id: 'pim_details.publication.funda.settings.pictures.title' })}
@@ -64,12 +75,21 @@ export const SettingsPictures = () => {
     >
       <DndProvider backend={HTML5Backend}>
         <Box display="flex" flexWrap>
+          <Box mr={2}>
+            <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+              {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.main_picture' })}
+            </Typography>
+            <Box mt={1.5} />
+            {mainPicture ? (
+              <PictureItem isAdded onRemoveFromList={handleRemoveFromMainPicture} {...mainPicture} />
+            ) : (
+              <PictureItemPlaceholder onAddItemToAddedList={handleSetMainPicture} />
+            )}
+          </Box>
           {addedPictures.map((picture, index) => (
             <Box mr={2}>
               <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-                {index === 0
-                  ? formatMessage({ id: 'pim_details.publication.funda.settings.pictures.main_picture' })
-                  : index}
+                {index + 1}
               </Typography>
               <Box mt={1.5} />
               <PictureItem
@@ -83,7 +103,7 @@ export const SettingsPictures = () => {
           ))}
           <Box>
             <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-              {Math.max(addedPictures.length, 1)}
+              {Math.max(addedPictures.length + 1, 1)}
             </Typography>
             <Box mt={1.5} />
             <PictureItemPlaceholder onAddItemToAddedList={handleAddToList} />
@@ -97,7 +117,11 @@ export const SettingsPictures = () => {
       <DndProvider backend={HTML5Backend}>
         <Box display="flex" flexWrap mt={1.5}>
           {availableImages
-            .filter(picture => addedPictures.findIndex(image => image.id === picture.id) < 0)
+            .filter(
+              picture =>
+                (!mainPicture || mainPicture.id !== picture.id) &&
+                addedPictures.findIndex(image => image.id === picture.id) < 0,
+            )
             .map((picture, index) => (
               <Box mr={2}>
                 <PictureItem key={index} {...picture} />
