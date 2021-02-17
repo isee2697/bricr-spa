@@ -18,6 +18,8 @@ export const Garden = ({ onSave }: SubSectionProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.garden.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>

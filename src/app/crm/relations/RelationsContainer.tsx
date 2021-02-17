@@ -5,12 +5,11 @@ import {
   useCrmListQuery,
   useUpdateCrmGeneralMutation,
   CrmListDocument,
-  ListPimsFilters,
-  PropertyType,
   CrmType,
   useListCrmsCountQuery,
   ListCrmsCountDocument,
   BulkOperations,
+  ListCrmFilters,
 } from 'api/types';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { CrmItem } from '../Crm.types';
@@ -36,8 +35,6 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     },
   });
 
-  console.log(sorting, sortQuery);
-
   const amounts =
     (countData && {
       [CrmStatus.ActionRequired]: countData.actionRequired.metadata?.total || 0,
@@ -51,24 +48,8 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const { data } = useCrmListQuery({
-    variables: {
-      type: CrmType.Relation,
-      status,
-      ...sortQuery,
-      ...paginationQuery,
-    },
-  });
-
   const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
-  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
-    propertyTypes: [PropertyType.Apartment, PropertyType.House],
-  });
-
-  const crms: CrmItem[] = (data?.crmList.items || []).map(crm => ({
-    ...mockCrm,
-    ...crm,
-  }));
+  const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
 
   const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
     try {
@@ -84,15 +65,16 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
             query: CrmListDocument,
             variables: {
               type: CrmType.Relation,
-              status,
-              ...sortQuery,
-              ...paginationQuery,
             },
           },
           {
             query: ListCrmsCountDocument,
             variables: {
               type: CrmType.Relation,
+              ...activeFilters,
+              status,
+              ...sortQuery,
+              ...paginationQuery,
             },
           },
         ],
@@ -100,9 +82,25 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     } catch (e) {}
   };
 
+  const { data } = useCrmListQuery({
+    variables: {
+      type: CrmType.Relation,
+      ...activeFilters,
+      status,
+      ...sortQuery,
+      ...paginationQuery,
+    },
+    fetchPolicy: 'no-cache',
+  });
+
+  const crms: CrmItem[] = (data?.crmList.items || []).map(crm => ({
+    ...mockCrm,
+    ...crm,
+  }));
+
   const handleDeleteCrm = async (ids: string[]) => {};
 
-  const handleFilterChange = (filters: ListPimsFilters) => {
+  const handleFilterChange = (filters: ListCrmFilters) => {
     setActiveFilters(filters);
   };
 

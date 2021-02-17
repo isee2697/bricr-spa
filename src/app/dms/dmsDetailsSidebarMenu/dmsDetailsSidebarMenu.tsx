@@ -61,14 +61,17 @@ export const DmsDetailsSidebarMenu = ({
     {
       label: formatMessage({ id: 'dms.menu.editor_tab.blocks' }),
       value: 'blocks',
+      className: classes.tab,
     },
     {
       label: formatMessage({ id: 'dms.menu.editor_tab.fields' }),
       value: 'fields',
+      className: classes.tab,
     },
     {
       label: formatMessage({ id: 'dms.menu.editor_tab.tokens' }),
       value: 'tokens',
+      className: classes.tab,
     },
   ];
 
@@ -122,7 +125,13 @@ export const DmsDetailsSidebarMenu = ({
           {!showImages && !showAttachments && isOnEditorPage && (
             <Card className={classes.noBorderRadius}>
               <CardContent>
-                <ActionTabs tabs={actionTabs} status={editorTab} onStatusChange={setEditorTab} />
+                <ActionTabs
+                  variant="fullWidth"
+                  tabs={actionTabs}
+                  status={editorTab}
+                  onStatusChange={setEditorTab}
+                  className={classes.tabs}
+                />
                 {editorTab === 'blocks' && (
                   <>
                     <Box

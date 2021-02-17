@@ -6,7 +6,11 @@ export const useStyles = makeStyles(({ palette, shadows, spacing }) => ({
     '&.Mui-selected, &:hover, &.Mui-selected:hover': {
       '&::after': {
         borderBottomColor: palette.gray.light,
+        boxShadow: 'none',
       },
+    },
+    '&.Mui-selected::after': {
+      boxShadow: 'none',
     },
   },
 }));

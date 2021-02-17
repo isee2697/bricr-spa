@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { SidebarMenu } from 'ui/molecules';
-import { CrmIcon } from 'ui/atoms/icons';
+import { CrmIcon, RoundBusinessCenterIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
 
@@ -23,7 +23,7 @@ export const CrmSidebarMenu = ({ isVisible, onHide }: CrmSidebarMenuProps) => {
           },
           {
             key: 'businesses',
-            icon: <CrmIcon />,
+            icon: <RoundBusinessCenterIcon />,
             onClick: () => push(`${AppRoute.crm}/businesses`),
           },
         ],

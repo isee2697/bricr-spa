@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListPimsFilters, BulkOperations } from 'api/types';
+import { BulkOperations, CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
@@ -13,7 +13,7 @@ import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -95,7 +95,7 @@ export const Relations = ({
                 />
               </Box>
               <Box mt={-2}>
-                <ActiveFilters<ListPimsFilters> activeFilters={activeFilters} onDelete={onFilter} />
+                <ActiveFilters<ListCrmFilters> activeFilters={activeFilters} onDelete={onFilter} />
               </Box>
               <Box px={2}>
                 {viewMode === 'table' ? (
