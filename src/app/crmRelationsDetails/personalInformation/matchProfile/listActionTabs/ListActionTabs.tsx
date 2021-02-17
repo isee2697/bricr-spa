@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { ActionTab } from 'ui/molecules/actionTabs/ActionTabs.types';
@@ -13,11 +14,11 @@ export const ListActionTabs = ({ onProfileIndexChange, profileIndex, profiles }:
 
   const tabs: ActionTab[] = profiles.map(profile => ({
     value: profile.id,
-    amount: profile.amount,
+    amount: 300,
     hasBadge: true,
     label: formatMessage(
       { id: 'crm.details.match_profile.profile' },
-      { date: profile.dateCreated.toFormat('dd-MM-yyyy') },
+      { date: DateTime.local().toFormat('dd-MM-yyyy') },
     ),
   }));
 

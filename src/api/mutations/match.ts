@@ -101,7 +101,7 @@ export const ADD_MATCH_PROFILE = gql`
 `;
 
 export const UPDATE_MATCH_PROFILE = gql`
-  mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
+  mutation UpdateMatchProfile($id: ID!, $input: MatchProfileInput!) {
     updateMatchProfile(id: $id, input: $input) {
       id
       crmId

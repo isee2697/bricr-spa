@@ -4,18 +4,18 @@ import { Modal } from 'ui/molecules';
 import { useLocale } from 'hooks';
 
 import { AddCrmBusinessModalProps, CreateBusinessInput } from './AddCrmBusinessModal.types';
-import { SearchProfileStep } from './searchProfileStep/SearchProfileStep';
 import { useStyles } from './AddCrmBusinessModal.styles';
 import { CreateBusinessStep } from './createBusinessStep/CreateBusinessStep';
+import { ConflictStep } from './conflictStep/ConflictStep';
 
 const steps = [
   {
-    name: 'searchProfile',
-    component: SearchProfileStep,
-  },
-  {
     name: 'createBusiness',
     component: CreateBusinessStep,
+  },
+  {
+    name: 'conflict',
+    component: ConflictStep,
   },
 ];
 
