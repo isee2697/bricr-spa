@@ -25,6 +25,8 @@ export const LinkCrmRelationModalContainer = ({ isOpened, onSubmit, onClose }: L
     if (data) {
       onSubmit(data.createCrm);
     }
+
+    return undefined;
   };
 
   return (

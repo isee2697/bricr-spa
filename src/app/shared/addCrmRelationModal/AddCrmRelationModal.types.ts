@@ -3,16 +3,26 @@ import { CreateCrmInput } from 'api/types';
 export type AddCrmRelationModalProps = {
   isOpened: boolean;
   onClose: VoidFunction;
-  onCreateNewRelation: (input: CreateCrmInput) => Promise<void>;
+  onCreateNewRelation: AddCrmSubmit;
   onRequestBricrData: VoidFunction;
 };
 
 export type AddCrmRelationStepProps = {
   handleGoTo: (step: number) => void;
-  onCreateNewRelation: (input: CreateCrmInput) => Promise<void>;
   onRequestBricrData: () => void;
   onClose: () => void;
+  valid: boolean;
 };
+
+export type AddCrmSubmit<T = CreateCrmInput & { forceAdd?: boolean }> = (
+  body: T,
+) => Promise<
+  | undefined
+  | {
+      error: 'conflict' | 'unknown';
+      conflictsCount?: number;
+    }
+>;
 
 export enum TypeOfInformation {
   General = 'General',

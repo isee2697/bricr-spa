@@ -3753,6 +3753,7 @@
   "validation.min_length": "Minimum length of {length} is required",
   "validation.min_value": "Minimum value of {value} is required",
   "validation.number": "Value must be an valid number",
+  "validation.letter": "Value must be an valid letter",
   "validation.required": "Field is required",
   "validation.url": "Url is not valid",
   "visited_pages.title": "Visited pages",

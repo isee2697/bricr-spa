@@ -1046,6 +1046,7 @@ export type Query = {
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmWithSameInfo: CrmListSearchResult;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
   getLabels?: Maybe<Array<Label>>;
@@ -1154,6 +1155,10 @@ export type QueryGetCrmGeneralArgs = {
 
 export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetCrmWithSameInfoArgs = {
+  input: CrmWithSameInfoInput;
 };
 
 export type QueryGetEmailArgs = {
@@ -2224,6 +2229,14 @@ export type ListCrmFilters = {
   city?: Maybe<Scalars['String']>;
   type?: Maybe<CrmType>;
   status?: Maybe<CrmStatus>;
+};
+
+export type CrmWithSameInfoInput = {
+  firstName?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type EmailAndName = {
@@ -11008,6 +11021,17 @@ export type ListCrmsCountQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type GetCrmWithSameInfoQueryVariables = Exact<{
+  input: CrmWithSameInfoInput;
+}>;
+
+export type GetCrmWithSameInfoQuery = { __typename?: 'Query' } & {
+  getCrmWithSameInfo: { __typename?: 'CrmListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'CrmListItem' } & Pick<CrmListItem, 'id'>>>;
+  };
+};
+
 export type ListEmailFoldersQueryVariables = Exact<{
   accountId: Scalars['String'];
 }>;
@@ -19011,6 +19035,40 @@ export function useListCrmsCountLazyQuery(
 export type ListCrmsCountQueryHookResult = ReturnType<typeof useListCrmsCountQuery>;
 export type ListCrmsCountLazyQueryHookResult = ReturnType<typeof useListCrmsCountLazyQuery>;
 export type ListCrmsCountQueryResult = ApolloReactCommon.QueryResult<ListCrmsCountQuery, ListCrmsCountQueryVariables>;
+export const GetCrmWithSameInfoDocument = gql`
+  query GetCrmWithSameInfo($input: CrmWithSameInfoInput!) {
+    getCrmWithSameInfo(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;
+export function useGetCrmWithSameInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>(
+    GetCrmWithSameInfoDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmWithSameInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>(
+    GetCrmWithSameInfoDocument,
+    baseOptions,
+  );
+}
+export type GetCrmWithSameInfoQueryHookResult = ReturnType<typeof useGetCrmWithSameInfoQuery>;
+export type GetCrmWithSameInfoLazyQueryHookResult = ReturnType<typeof useGetCrmWithSameInfoLazyQuery>;
+export type GetCrmWithSameInfoQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmWithSameInfoQuery,
+  GetCrmWithSameInfoQueryVariables
+>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
     listEmailFolders(accountId: $accountId)
