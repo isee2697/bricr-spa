@@ -57,6 +57,8 @@ export const Extras = ({ onSave }: SubSectionProps) => {
     <FormSection
       title={formatMessage({ id: 'crm.details.personal_information_match_profile.extras.title' })}
       isExpandable
+      isInitExpanded
+      isInitEditing
     >
       {isEditing => (
         <DndProvider backend={HTML5Backend}>

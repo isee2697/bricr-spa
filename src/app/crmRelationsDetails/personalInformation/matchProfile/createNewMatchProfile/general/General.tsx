@@ -18,6 +18,8 @@ export const General = ({ onSave }: GeneralProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.general.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>

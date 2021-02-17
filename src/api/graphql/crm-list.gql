@@ -21,6 +21,15 @@ input ListCrmFilters {
   status: CrmStatus
 }
 
+input CrmWithSameInfoInput {
+  firstName: String
+  insertion: String
+  lastName: String
+  email: String
+  phoneNumber: String
+}
+
 extend type Query {
   crmList(filters: ListCrmFilters, pagination: Pagination, sort: [Sort!]): CrmListSearchResult! @auth
+  getCrmWithSameInfo(input: CrmWithSameInfoInput!): CrmListSearchResult! @auth
 }

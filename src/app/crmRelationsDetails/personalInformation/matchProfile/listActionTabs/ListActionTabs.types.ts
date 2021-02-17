@@ -1,4 +1,4 @@
-import { MatchProfile } from '../MatchProfile.types';
+import { MatchProfile } from 'api/types';
 
 export type ListActionTabsProps = {
   profileIndex?: string;

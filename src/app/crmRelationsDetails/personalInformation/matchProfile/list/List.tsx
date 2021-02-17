@@ -6,45 +6,32 @@ import { Page } from 'ui/templates';
 import { IconButton, Typography, Card, CardHeader, CardContent, Box, Button } from 'ui/atoms';
 import { ListIcon, LocationIcon, SearchIcon, ManageIcon, SettingsIcon, AddIcon } from 'ui/atoms/icons';
 import { ListActionTabs } from '../listActionTabs/ListActionTabs';
-import { MatchProfile, MatchProfileMatch } from '../MatchProfile.types';
 import { InfoSection, List, PropertyItemPlaceholder } from 'ui/molecules';
-import { CRM_RELATIONS_MATCH_PROFILES, CRM_RELATIONS_MATCH_PROFILES_MATCHES } from 'api/mocks/crm-relation';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { CrmRelationsDetailsHeader } from 'app/crmRelationsDetails/crmRelationsDetailsHeader/CrmRelationsDetailsHeader';
 import { joinUrlParams } from 'routing/AppRoute.utils';
 import { useEntityType } from 'app/shared/entityType';
+import { MatchProfileMatch } from '../MatchProfile.types';
+import { CRM_RELATIONS_MATCH_PROFILES_MATCHES } from 'api/mocks/crm-relation';
 
 import { useStyles } from './List.styles';
 import { ListItem } from './listItem/ListItem';
 import { ListProps } from './List.types';
 
-export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: ListProps) => {
+export const MatchProfileList = ({ crm, path, isSidebarVisible, onSidebarOpen, matchProfiles }: ListProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [selectedProfile, setSelectedProfile] = useState<string>();
-  const [profiles, setProfiles] = useState<MatchProfile[]>([]);
   const [matches, setMatches] = useState<MatchProfileMatch[]>([]);
   const { push } = useHistory();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
 
-  const handleUpdateProfiles = () => {
-    if (profiles.length === 0) {
-      setProfiles(CRM_RELATIONS_MATCH_PROFILES);
-    } else {
-      handleUpdateMatches();
-    }
-  };
-
-  const handleUpdateMatches = () => {
-    setMatches(CRM_RELATIONS_MATCH_PROFILES_MATCHES);
-  };
-
   useEffect(() => {
-    if (profiles.length > 0) {
-      setSelectedProfile(profiles[0].id);
+    if (matchProfiles.length > 0) {
+      setSelectedProfile(matchProfiles[0].id);
     }
-  }, [profiles, setSelectedProfile]);
+  }, [matchProfiles, setSelectedProfile]);
 
   const sortOptions: SortOption[] = [
     { key: 'last_edited', name: formatMessage({ id: 'common.sort_option.last_edited' }) },
@@ -72,8 +59,8 @@ export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: List
         }
       />
       <Page title={formatMessage({ id: 'crm.details.personal_information_match_profile.title' })} titleActions={<></>}>
-        <Card onClick={handleUpdateProfiles}>
-          {profiles.length === 0 && (
+        <Card onClick={() => setMatches(CRM_RELATIONS_MATCH_PROFILES_MATCHES)}>
+          {matchProfiles.length === 0 && (
             <InfoSection emoji="🤔">
               <Typography variant="h3">
                 {formatMessage({
@@ -87,7 +74,7 @@ export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: List
               </Typography>
             </InfoSection>
           )}
-          {profiles.length > 0 && (
+          {matchProfiles.length > 0 && (
             <>
               <CardHeader
                 title={formatMessage({ id: 'crm.details.personal_information_match_profile.matches' })}
@@ -113,7 +100,7 @@ export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: List
                   <ListActionTabs
                     profileIndex={selectedProfile}
                     onProfileIndexChange={profile => setSelectedProfile(profile)}
-                    profiles={profiles}
+                    profiles={matchProfiles}
                   />
                   <Box
                     display="flex"
@@ -143,7 +130,7 @@ export const MatchProfileList = ({ path, isSidebarVisible, onSidebarOpen }: List
                     items={matches}
                     itemIndex={'id'}
                     renderItem={(match, checked, checkbox) => (
-                      <ListItem key={match.id} checked={checked} checkbox={checkbox} item={match} />
+                      <ListItem key={match.id} checked={checked} checkbox={checkbox} item={match} crm={crm} />
                     )}
                     sortOptions={sortOptions}
                     emptyTitle={formatMessage({

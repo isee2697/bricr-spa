@@ -17,6 +17,8 @@ export const CharacteristicsProperty = ({ onSave }: SubSectionProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.characteristics_property.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>
