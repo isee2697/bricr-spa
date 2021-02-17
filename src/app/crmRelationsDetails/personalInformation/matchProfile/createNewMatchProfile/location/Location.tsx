@@ -22,6 +22,8 @@ export const Location = ({ onSave }: SubSectionProps) => {
           id: 'crm.details.personal_information_match_profile.characteristics_property.title',
         })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <Grid item xs={12}>

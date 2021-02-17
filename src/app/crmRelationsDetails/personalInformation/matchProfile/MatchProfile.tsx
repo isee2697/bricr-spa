@@ -10,7 +10,7 @@ import { MatchProfileProps } from './MatchProfile.types';
 import { MatchProfileListContainer } from './list/ListContainer';
 import { CreateNewMatchProfileContainer } from './createNewMatchProfile/CreateNewMatchProfileContainer';
 
-export const MatchProfile = ({ path, onSidebarOpen, isSidebarVisible }: MatchProfileProps) => {
+export const MatchProfile = ({ crm, path, onSidebarOpen, isSidebarVisible }: MatchProfileProps) => {
   const { formatMessage } = useLocale();
   const { baseUrl } = useEntityType();
   const urlParams = useParams();
@@ -27,12 +27,28 @@ export const MatchProfile = ({ path, onSidebarOpen, isSidebarVisible }: MatchPro
           exact
           path={path}
           component={() => (
-            <MatchProfileListContainer path={path} onSidebarOpen={onSidebarOpen} isSidebarVisible={isSidebarVisible} />
+            <MatchProfileListContainer
+              path={path}
+              onSidebarOpen={onSidebarOpen}
+              isSidebarVisible={isSidebarVisible}
+              crm={crm}
+            />
           )}
         />
         <Route
           exact
           path={`${path}/new`}
+          component={() => (
+            <CreateNewMatchProfileContainer
+              path={path}
+              onSidebarOpen={onSidebarOpen}
+              isSidebarVisible={isSidebarVisible}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={`${path}/:matchProfileId`}
           component={() => (
             <CreateNewMatchProfileContainer
               path={path}

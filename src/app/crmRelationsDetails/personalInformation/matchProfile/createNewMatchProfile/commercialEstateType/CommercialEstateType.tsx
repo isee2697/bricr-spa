@@ -19,6 +19,8 @@ export const CommercialEstateType = () => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.commercial.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>

@@ -16,6 +16,8 @@ export const Outside = ({ onSave }: SubSectionProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.outside.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>
