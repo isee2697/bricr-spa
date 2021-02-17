@@ -116,9 +116,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       sorting={sorting}
       pagination={pagination}
       bulkData={{ status: ['Active', 'Inactive'], teams: ['Team 1', 'Team 2'] }}
-      onBulkOpen={(items: CrmItem[]) => {
-        console.log('Debugging: ');
-      }}
+      onBulkOpen={(items: CrmItem[]) => {}}
       onSelectItems={handleSelectItems}
       selectedItems={selected}
     />
