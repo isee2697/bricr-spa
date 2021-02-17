@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListPimsFilters } from 'api/types';
+import { CrmType, ListPimsFilters, BulkOperations } from 'api/types';
 import { Page } from 'ui/templates';
-import { List, PropertyItemPlaceholder } from 'ui/molecules';
-import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
+import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
+import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
 import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale } from 'hooks';
@@ -14,10 +14,14 @@ import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
+import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
+import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
 import { CrmTableView } from './../crmTableView/CrmTableView';
+import { RelationsMenu } from './relationsMenu/RelationsMenu';
 
 export const Relations = ({
   onSidebarOpen,
@@ -27,17 +31,19 @@ export const Relations = ({
   amounts,
   crms,
   onUpdateItemStatus,
-  onDeleteItem,
+  onOperation,
   onFilter,
   activeFilters,
   sorting,
   pagination,
+  viewMode,
+  setViewMode,
 }: RelationsProps) => {
   const { push } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
-
-  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
+  const [deleteItem, setDeleteItem] = useState<CrmItem | null>(null);
+  const { open } = useModalDispatch();
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
 
@@ -105,9 +111,21 @@ export const Relations = ({
                       perPageOptions: [10, 25, 'All'],
                       onPerPageChange: value => {},
                     }}
+                    onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
+                    renderAction={(item: CrmItem) => (
+                      <RelationsMenu
+                        item={item}
+                        onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
+                        onMove={() => open('move-crm-relation')}
+                        onUpdateStatus={onUpdateItemStatus}
+                        onDelete={() => setDeleteItem(item)}
+                      />
+                    )}
+                    sortOptions={sorting.sortOptions}
+                    onSort={sorting.onSort}
                   />
                 ) : (
-                  <List
+                  <List<CrmItem>
                     className="crm-list"
                     items={crmItemsFiltered as CrmItem[]}
                     itemIndex={'id'}
@@ -125,7 +143,20 @@ export const Relations = ({
                             className={classes.itemButton}
                             onClick={() => push(AppRoute.crmRelationsDetails.replace(':id', crm.id))}
                           >
-                            <CrmListItem crm={crm} onUpdateStatus={onUpdateItemStatus} onDelete={onDeleteItem} />
+                            <CrmListItem
+                              crm={crm}
+                              renderAction={(item: CrmItem) => (
+                                <RelationsMenu
+                                  item={item}
+                                  onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
+                                  onMove={() => {
+                                    open('move-crm-relation');
+                                  }}
+                                  onUpdateStatus={onUpdateItemStatus}
+                                  onDelete={() => setDeleteItem(item)}
+                                />
+                              )}
+                            />
                           </Box>
                         </Box>
                       </Box>
@@ -134,12 +165,44 @@ export const Relations = ({
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
                     onSelectItems={setSelected}
+                    onOperation={onOperation}
                   />
                 )}
               </Box>
             </CardContent>
           </Card>
         </Grid>
+
+        {deleteItem && (
+          <ConfirmModal
+            isOpened={!!deleteItem}
+            onCancel={() => setDeleteItem(null)}
+            onConfirm={() => {
+              setDeleteItem(null);
+              onOperation(BulkOperations.Delete, [deleteItem]);
+            }}
+            messageLineFirst={formatMessage(
+              { id: 'bulk_actions.delete.message_line_1' },
+              {
+                count: 1,
+                name: `${deleteItem.firstName} ${deleteItem.insertion} ${deleteItem.lastName}`,
+                span: msg => (
+                  <Typography component="span" color="secondary">
+                    {msg}
+                  </Typography>
+                ),
+              },
+            )}
+            messageLineSecond={formatMessage({ id: 'bulk_actions.delete.message_line_2' })}
+            cancelText={formatMessage({ id: 'bulk_actions.delete.cancel' })}
+            confirmText={formatMessage({ id: 'bulk_actions.delete.confirm' }, { count: 1 })}
+            title={formatMessage({ id: 'bulk_actions.delete.title' }, { count: 1 })}
+            emoji={'😬'}
+            confirmButtonType={ConfirmButtonType.ERROR}
+          />
+        )}
+
+        <MoveCrmRelationContainer />
       </Page>
     </>
   );
