@@ -111,18 +111,6 @@ export const CrmTableView = ({
     showFilterHeaderDlg(false);
   };
 
-  // const onSort = (column: string) => {
-  //   let direction: SortDirection = 'asc';
-
-  //   if (sortBy !== column) {
-  //     setSortColumn(column);
-  //   } else if (sortDirection === direction) {
-  //     direction = 'desc';
-  //   }
-
-  //   setSortDirection(direction);
-  // };
-
   const renderCell = useCallback(
     (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
       if (cell === 'lastName') {
