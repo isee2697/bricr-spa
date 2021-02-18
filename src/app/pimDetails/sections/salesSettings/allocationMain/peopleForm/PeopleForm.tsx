@@ -227,7 +227,7 @@ export const PeopleForm = () => {
                   />
                 </Box>
                 <Box mb={2} px={2}>
-                  <CheckboxGroupField
+                  <RadioGroupField
                     validate={[() => ({ id: 'common.error' })]}
                     name="home.situation"
                     options={homeSituationCheckboxes.map(type => ({
