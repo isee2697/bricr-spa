@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-import { CheckboxField } from 'form/fields';
 import { Chip } from 'ui/atoms/chip/Chip.styles';
+import { Checkbox, FormControlLabel, Typography } from 'ui/atoms';
 
 import { useStyles } from './ReorderableList.styles';
 import { ListItemProps, ListTypeDragObject } from './ReorderableList.types';
 
-export const ListItem = ({ index, data, onUpdateList }: ListItemProps) => {
+export const ListItem = ({ index, data, onUpdateList, onUpdateCheckedStatus }: ListItemProps) => {
   const ref = useRef(null);
   const classes = useStyles();
   const [, drag] = useDrag({
@@ -35,7 +35,14 @@ export const ListItem = ({ index, data, onUpdateList }: ListItemProps) => {
         return;
       }
 
-      onUpdateList(currentItemIndex, targetItemIndex);
+      onUpdateList(
+        {
+          key: item.key,
+          label: item.label,
+          checked: item.checked,
+        },
+        data,
+      );
       item.index = targetItemIndex;
     },
   });
@@ -47,7 +54,16 @@ export const ListItem = ({ index, data, onUpdateList }: ListItemProps) => {
       <Chip className={classes.itemCounter} size="small" variant="outlined" color="primary" label={index + 1} />
 
       <div className={classes.item}>
-        <CheckboxField name={data.key} label={data.label} />
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={data.checked}
+              onChange={(event, checked: boolean) => onUpdateCheckedStatus({ ...data, checked })}
+            />
+          }
+          label={<Typography variant="h4">{data.label}</Typography>}
+        />
       </div>
     </span>
   );

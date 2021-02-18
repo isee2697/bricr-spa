@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  CheckboxField,
-  CheckboxGroupField,
-  RadioGroupField,
-  DatePickerField,
-  GenericField,
-  QuantityField,
-} from 'form/fields';
+import { CheckboxField, CheckboxGroupField, DatePickerField, GenericField, QuantityField } from 'form/fields';
 import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { requireValidator } from 'form/validators';
@@ -15,7 +8,6 @@ import { useLocale } from 'hooks';
 import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { SquareIcon } from 'ui/atoms/icons';
 import { ReorderableList } from '../reorderableList/ReorderableList';
 
 const allocationCheckboxes = [
@@ -28,19 +20,6 @@ const allocationCheckboxes = [
     label: 'dictionaries.allocation.MatchProfile',
     icon: <HomeIcon color="inherit" />,
     value: 'MatchProfile',
-  },
-];
-
-const publishMethodCheckboxes = [
-  {
-    label: 'dictionaries.publishMethod.Yes',
-    icon: <SquareIcon color="inherit" />,
-    value: 'Yes',
-  },
-  {
-    label: 'dictionaries.publishMethod.No',
-    icon: <SquareIcon color="inherit" />,
-    value: 'No',
   },
 ];
 
