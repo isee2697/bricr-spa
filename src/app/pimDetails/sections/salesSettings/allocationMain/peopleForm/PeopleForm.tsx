@@ -4,7 +4,7 @@ import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
 import { FormSubSectionHeader, Search, SimpleSearch } from 'ui/molecules';
-import { CheckboxField, CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
+import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { PercentIcon } from 'ui/atoms/icons';
