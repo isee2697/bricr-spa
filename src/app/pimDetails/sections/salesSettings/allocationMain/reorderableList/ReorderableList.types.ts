@@ -5,7 +5,6 @@ export enum ITEM_TYPE {
 export type ListType = {
   label: string;
   key: string;
-  id: number;
 };
 
 export type ListItemProps = {

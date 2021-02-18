@@ -22,7 +22,7 @@ export const ListColumn = ({ items, hasCheckbox, onUpdateList }: ListColumnProps
     <div ref={drop} className={clsx(classes.listContainer, isOver && 'draggingOver')}>
       {items.map((item: ListType, index: number) => {
         return (
-          <ListItem key={item.id} index={index} data={item} onUpdateList={onUpdateList} hasCheckbox={hasCheckbox} />
+          <ListItem key={item.key} index={index} data={item} onUpdateList={onUpdateList} hasCheckbox={hasCheckbox} />
         );
       })}
     </div>

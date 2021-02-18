@@ -18,7 +18,7 @@ export const AddCriteriaModal = ({ isOpened, onClose, onSubmit }: AddCriteriaMod
       addText={formatMessage({ id: 'pim_details.allocate_criteria.add_criteria' })}
     >
       <GenericField
-        name="criteriaName"
+        name="name"
         placeholder={formatMessage({ id: 'pim_details.allocate_criteria.name.placeholder' })}
         label={formatMessage({ id: 'pim_details.allocate_criteria.name' })}
       />
