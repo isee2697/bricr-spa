@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import { CrmType, Maybe, Profile, CrmStatus, GenderType } from 'api/types';
 
 export type CrmProps = {
@@ -21,6 +23,7 @@ export type CrmItem = {
   partner: Profile;
   manager: Profile;
   informationCompletedStatus: number;
+  createdAt?: DateTime;
   meta: {
     matches: number;
     interests: number;

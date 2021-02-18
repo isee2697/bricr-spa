@@ -8,6 +8,7 @@ import { useStyles } from './Crm.style';
 import { CrmSidebarMenu } from './crmSidebarMenu/CrmSidebarMenu';
 import { RelationsContainer } from './relations/RelationsContainer';
 import { BusinessesContainer } from './businesses/BusinessesContainer';
+import { MergeCrmRelationContainer } from './mergeRelation/MergeCrmRelationContainer';
 
 export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   const classes = useStyles();
@@ -27,6 +28,12 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
       <Box flex={1}>
         <Grid container spacing={3} className={classes.content}>
           <Switch>
+            <Route
+              path={`${path}/merge/:id`}
+              render={() => (
+                <MergeCrmRelationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
             <Route
               path={`${path}/relations`}
               render={() => (
