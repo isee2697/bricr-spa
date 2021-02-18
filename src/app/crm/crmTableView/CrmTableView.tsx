@@ -1,14 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import classnames from 'classnames';
-import { SortDirection } from '@material-ui/core';
 import clsx from 'clsx';
 
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
-import { EditIcon, SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
+import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { CrmItem } from 'app/crm/Crm.types';
-import { ListOptionsMenu } from 'ui/molecules';
-import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 
 import {
   CrmTableFixedHeader,
@@ -20,18 +17,18 @@ import { useStyles } from './CrmTableView.styles';
 import { HeaderFilterModal } from './headerFilterModal/HeaderFilterModal';
 import { HeaderColumnItemType } from './headerFilterModal/HeaderFilterModal.types';
 
-const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = ['type', 'insertion', 'property', 'lastName'];
+const FIXED_HEADER_COLUMNS: CrmTableFixedHeader[] = [];
 const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
   {
     value: 'firstName',
     hidden: false,
   },
   {
-    value: 'email',
+    value: 'lastName',
     hidden: false,
   },
   {
-    value: 'status',
+    value: 'email',
     hidden: true,
   },
   {
@@ -51,6 +48,10 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
     hidden: true,
   },
   {
+    value: 'status',
+    hidden: true,
+  },
+  {
     value: 'initials',
     hidden: true,
   },
@@ -63,13 +64,13 @@ const MOVABLE_HEADER_COLUMNS: HeaderColumnItemType[] = [
 export const CrmTableView = ({
   items,
   onClick,
-  onArchive,
-  onEdit,
-  onDelete,
   selected,
   onSelectItem,
   onSelectAllItems,
+  renderAction,
   pagination,
+  sortOptions,
+  onSort,
 }: CrmTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
@@ -89,8 +90,7 @@ export const CrmTableView = ({
     })),
   ]);
 
-  const [sortBy, setSortColumn] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<SortDirection>(false);
+  const [sorting, setSorting] = useState(sortOptions && sortOptions.length > 0 ? sortOptions[0].key : '');
 
   const changeHeaderCells = (headerCells: HeaderColumnItemType[]) => {
     setMovableHeaderCells([...headerCells]);
@@ -111,20 +111,12 @@ export const CrmTableView = ({
     showFilterHeaderDlg(false);
   };
 
-  const onSort = (column: string) => {
-    let direction: SortDirection = 'asc';
-
-    if (sortBy !== column) {
-      setSortColumn(column);
-    } else if (sortDirection === direction) {
-      direction = 'desc';
-    }
-
-    setSortDirection(direction);
-  };
-
   const renderCell = useCallback(
     (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
+      if (cell === 'lastName') {
+        return `${crm.insertion ? crm.insertion + ' ' : ''}${crm.lastName}`;
+      }
+
       if (cell === 'partner' || cell === 'manager') {
         return `${crm[cell].firstName} ${crm[cell].lastName}`;
       }
@@ -160,17 +152,28 @@ export const CrmTableView = ({
             {headerCells.map(cell => (
               <TableCell
                 key={cell.field}
-                sortDirection={sortBy === cell.field ? (sortDirection as SortDirection) : false}
-                className={clsx(classes.tableHeaderCell, sortBy === cell.field && 'sorted')}
-                onClick={() => (cell.sortable ? onSort(cell.field) : null)}
+                sortDirection={
+                  sorting.indexOf(cell.field) !== -1 ? (sorting.indexOf('_up') !== -1 ? 'asc' : 'desc') : false
+                }
+                className={clsx(classes.tableHeaderCell, sorting.indexOf(cell.field) !== -1 && 'sorted')}
+                onClick={() => {
+                  if (cell.sortable) {
+                    onSort?.(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
+                    setSorting(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
+                  }
+                }}
               >
                 <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
                   {cell.label}
                 </Typography>
-                {sortBy === cell.field ? (
+                {sorting.indexOf(cell.field) !== -1 ? (
                   <>
-                    {sortDirection === 'desc' && <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />}
-                    {sortDirection === 'asc' && <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />}
+                    {sorting.indexOf('_down') !== -1 && (
+                      <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />
+                    )}
+                    {sorting.indexOf('_up') !== -1 && (
+                      <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />
+                    )}
                   </>
                 ) : (
                   <Box className={classes.columnSortIconPlaceholder} />
@@ -203,17 +206,7 @@ export const CrmTableView = ({
               {headerCells.map((cell, index) => (
                 <TableCell key={index}>{renderCell(item, cell.field)}</TableCell>
               ))}
-              <TableCell>
-                <ListOptionsMenu id={item.id} onEditClick={() => onEdit?.()} onDeleteClick={() => onDelete?.()}>
-                  <ListOptionsMenuItem
-                    title={formatMessage({
-                      id: 'common.archive',
-                    })}
-                    icon={<EditIcon />}
-                    onClick={() => onArchive?.()}
-                  />
-                </ListOptionsMenu>
-              </TableCell>
+              <TableCell>{renderAction?.(item)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

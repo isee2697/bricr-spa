@@ -20,6 +20,7 @@ import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters'
 import { BusinessesProps } from './Businesses.types';
 import { useStyles } from './Businesses.styles';
 import { CrmTableView } from './../crmTableView/CrmTableView';
+import { BusinessesMenu } from './businessesMenu/BusinessesMenu';
 
 export const Businesses = ({
   onSidebarOpen,
@@ -122,6 +123,16 @@ export const Businesses = ({
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
+                    onClick={id => push(AppRoute.crmBusinessesDetails.replace(':id', id))}
+                    renderAction={(item: CrmItem) => (
+                      <BusinessesMenu
+                        item={item}
+                        onMerge={() => {}}
+                        onMove={() => {}}
+                        onActive={() => {}}
+                        onDelete={() => {}}
+                      />
+                    )}
                   />
                 ) : (
                   <List
@@ -145,7 +156,18 @@ export const Businesses = ({
                             className={classes.itemButton}
                             onClick={() => push(AppRoute.crmBusinessesDetails.replace(':id', crm.id))}
                           >
-                            <CrmListItem crm={crm} />
+                            <CrmListItem
+                              crm={crm}
+                              renderAction={(item: CrmItem) => (
+                                <BusinessesMenu
+                                  item={item}
+                                  onMerge={() => {}}
+                                  onMove={() => {}}
+                                  onActive={() => {}}
+                                  onDelete={() => {}}
+                                />
+                              )}
+                            />
                           </Box>
                         </Box>
                       </Box>
