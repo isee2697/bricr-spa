@@ -1419,6 +1419,7 @@ export enum BulkEntities {
   Pim = 'Pim',
   ObjectType = 'ObjectType',
   Ncp = 'Ncp',
+  Crm = 'Crm',
 }
 
 export enum BulkOperations {
@@ -11012,6 +11013,14 @@ export type GetCrmWithSameInfoQuery = { __typename?: 'Query' } & {
   };
 };
 
+export type CrmBulkDetailsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']>;
+}>;
+
+export type CrmBulkDetailsQuery = { __typename?: 'Query' } & {
+  status?: Maybe<Array<{ __typename?: 'GetBulkResult' } & Pick<GetBulkResult, 'value'>>>;
+};
+
 export type ListEmailFoldersQueryVariables = Exact<{
   accountId: Scalars['String'];
 }>;
@@ -19150,6 +19159,35 @@ export type GetCrmWithSameInfoLazyQueryHookResult = ReturnType<typeof useGetCrmW
 export type GetCrmWithSameInfoQueryResult = ApolloReactCommon.QueryResult<
   GetCrmWithSameInfoQuery,
   GetCrmWithSameInfoQueryVariables
+>;
+export const CrmBulkDetailsDocument = gql`
+  query CrmBulkDetails($ids: [ID!]!) {
+    status: getBulkDetails(input: { ids: $ids, field: Status, entity: Crm }) {
+      value
+    }
+  }
+`;
+export function useCrmBulkDetailsQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<CrmBulkDetailsQuery, CrmBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<CrmBulkDetailsQuery, CrmBulkDetailsQueryVariables>(
+    CrmBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export function useCrmBulkDetailsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CrmBulkDetailsQuery, CrmBulkDetailsQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<CrmBulkDetailsQuery, CrmBulkDetailsQueryVariables>(
+    CrmBulkDetailsDocument,
+    baseOptions,
+  );
+}
+export type CrmBulkDetailsQueryHookResult = ReturnType<typeof useCrmBulkDetailsQuery>;
+export type CrmBulkDetailsLazyQueryHookResult = ReturnType<typeof useCrmBulkDetailsLazyQuery>;
+export type CrmBulkDetailsQueryResult = ApolloReactCommon.QueryResult<
+  CrmBulkDetailsQuery,
+  CrmBulkDetailsQueryVariables
 >;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {

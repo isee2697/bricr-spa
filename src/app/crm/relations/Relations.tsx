@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListCrmFilters, BulkField } from 'api/types';
+import { CrmType, ListCrmFilters, BulkField, CrmListItem as CrmListItemType } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -34,6 +34,8 @@ export const Relations = ({
   sorting,
   pagination,
   bulkData,
+  onOperation,
+  onBulk,
   onBulkOpen,
   onSelectItems,
   selectedItems,
@@ -106,9 +108,9 @@ export const Relations = ({
                     pagination={pagination}
                   />
                 ) : (
-                  <List
+                  <List<CrmListItemType>
                     className="crm-list"
-                    items={crmItemsFiltered as CrmItem[]}
+                    items={crmItemsFiltered as CrmListItemType[]}
                     itemIndex={'id'}
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
@@ -134,6 +136,7 @@ export const Relations = ({
                     onSort={sorting.onSort}
                     selectedItems={selectedItems}
                     onSelectItems={onSelectItems}
+                    onBulk={onBulk}
                     onBulkOpen={onBulkOpen}
                     bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
                     bulkData={bulkData}
@@ -144,16 +147,17 @@ export const Relations = ({
                         title: formatMessage({ id: 'crm.bulk.status.title' }),
                         content: (
                           <FieldChange
-                            fieldLabelId="project.bulk.status.label"
+                            fieldLabelId="crm.bulk.status.label"
                             fieldName={BulkField.Status}
-                            fieldPlaceholderId="project.bulk.status.placeholder"
+                            fieldPlaceholderId="crm.bulk.status.placeholder"
                             valuesFieldName={'status'}
-                            valuesLabel={formatMessage({ id: 'project.bulk.status.values_title' })}
+                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
                             type={'checkfield'}
                           />
                         ),
                       },
                     ]}
+                    onOperation={onOperation}
                   />
                 )}
               </Box>

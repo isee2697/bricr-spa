@@ -5,6 +5,7 @@ import { Box, Button, Card, CardContent, CardHeader, FormControlLabel, IconButto
 import { AddIcon, ArrowUpIcon, LinkIcon } from 'ui/atoms/icons';
 import { InfoSection } from 'ui/molecules';
 import { CrmListItem } from 'app/crm/crmListItem/CrmListItem';
+import { CrmListItem as CrmListItemType } from 'api/types';
 
 import { ClientProps } from './Client.types';
 import { LinkContactModalContainer } from './linkModal/LinkContactModalContainer';
@@ -64,7 +65,7 @@ export const Client = ({ crms = [], onLinkSalesCrm }: ClientProps) => {
             </InfoSection>
           )}
           {crms.map(crm => (
-            <CrmListItem crm={crm} />
+            <CrmListItem crm={crm as CrmListItemType} />
           ))}
         </CardContent>
       </Card>

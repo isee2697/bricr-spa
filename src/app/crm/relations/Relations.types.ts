@@ -1,4 +1,4 @@
-import { CrmStatus, ListCrmFilters } from 'api/types';
+import { BulkOperations, CrmListItem, CrmStatus, ListCrmFilters } from 'api/types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { CrmItem } from '../Crm.types';
@@ -33,5 +33,7 @@ export type RelationsProps = {
   };
   pagination: PaginationProps;
   bulkData: Record<string, string | string[]> | null;
-  onBulkOpen: (projects: CrmItem[]) => void;
+  onOperation: (operation: BulkOperations, rojects: CrmListItem[]) => Promise<undefined>;
+  onBulkOpen: (projects: CrmListItem[]) => void;
+  onBulk: (projects: CrmListItem[], formData: Record<string, string | string[]>) => Promise<undefined>;
 };

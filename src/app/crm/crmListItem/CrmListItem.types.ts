@@ -1,8 +1,7 @@
-import { CrmStatus } from 'api/types';
-import { CrmItem } from '../Crm.types';
+import { CrmListItem, CrmStatus } from 'api/types';
 
 export type CrmListItemProps = {
-  crm: CrmItem;
+  crm: CrmListItem;
   onUpdateStatus?: (id: string, status: CrmStatus) => Promise<void>;
   onDelete?: (id: string) => void;
 };
@@ -10,5 +9,5 @@ export type CrmListItemProps = {
 export type CrmListItemMetaBoxProps = {
   label: string;
   count: number;
-  crm: CrmItem;
+  crm: CrmListItem;
 };

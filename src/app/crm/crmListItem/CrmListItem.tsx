@@ -8,12 +8,13 @@ import { Avatar, Box, Typography, UserAvatar, ProgressFilling, IconButton, Chip,
 import { MailIcon, HelpIcon, MenuIcon, EditIcon, DeleteIcon, HeadIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CrmStatus } from 'api/types';
+import { CRM as crmMock } from 'api/mocks/crm';
 
 import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
 
 const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
 
   return (
     <Box className={classes.meta}>
@@ -29,26 +30,19 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
 
 export const CrmListItem = ({ crm, onUpdateStatus, onDelete }: CrmListItemProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
   const { push } = useHistory();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const theme = useTheme();
 
+  const { id, firstName, insertion, lastName, email, phoneNumber, avatar, status } = crm;
   const {
-    id,
-    firstName,
-    insertion,
-    lastName,
-    email,
-    phoneNumber,
-    avatar,
     property,
     partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     informationCompletedStatus,
     meta: { matches, interests, viewings, biddings, candidate, optant },
-    status,
-  } = crm;
+  } = crmMock;
 
   const metaAsArray = [
     {

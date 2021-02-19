@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmStatus, CrmType, ListCrmFilters } from 'api/types';
+import { CrmListItem as CrmListItemType, CrmStatus, CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -124,9 +124,9 @@ export const Businesses = ({
                     onSelectAllItems={handleSelectAllItems}
                   />
                 ) : (
-                  <List
+                  <List<CrmListItemType>
                     className="crm-list"
-                    items={crmItemsFiltered as CrmItem[]}
+                    items={crmItemsFiltered as CrmListItemType[]}
                     itemIndex={'id'}
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
