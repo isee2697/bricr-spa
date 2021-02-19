@@ -60,7 +60,7 @@ export const GET_ALLOCATE = gql`
         amountChildren
         amountAdults
         situation
-        currentResidence
+        hasCurrentResidence
       }
       assignToRole
     }
@@ -127,7 +127,7 @@ export const LIST_ALLOCATES = gql`
         amountChildren
         amountAdults
         situation
-        currentResidence
+        hasCurrentResidence
       }
       assignToRole
     }

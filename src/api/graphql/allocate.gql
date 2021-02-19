@@ -100,7 +100,7 @@ type AllocateHome {
   amountChildren: Int
   amountAdults: Int
   situation: AllocateHomeSituation
-  currentResidence: ID
+  hasCurrentResidence: Boolean
 }
 
 input AddAllocateInput {
@@ -175,7 +175,7 @@ input AllocateHomeInput {
   amountChildren: Int
   amountAdults: Int
   situation: AllocateHomeSituation
-  currentResidence: ID
+  hasCurrentResidence: Boolean
 }
 
 extend type Mutation {
