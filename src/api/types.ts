@@ -136,7 +136,7 @@ export type AllocateHome = {
   amountChildren?: Maybe<Scalars['Int']>;
   amountAdults?: Maybe<Scalars['Int']>;
   situation?: Maybe<AllocateHomeSituation>;
-  currentResidence?: Maybe<Scalars['ID']>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
 };
 
 export type AddAllocateInput = {
@@ -211,7 +211,7 @@ export type AllocateHomeInput = {
   amountChildren?: Maybe<Scalars['Int']>;
   amountAdults?: Maybe<Scalars['Int']>;
   situation?: Maybe<AllocateHomeSituation>;
-  currentResidence?: Maybe<Scalars['ID']>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
 };
 
 export type Mutation = {
@@ -11031,7 +11031,7 @@ export type GetAllocateQuery = { __typename?: 'Query' } & {
         home?: Maybe<
           { __typename?: 'AllocateHome' } & Pick<
             AllocateHome,
-            'amountChildren' | 'amountAdults' | 'situation' | 'currentResidence'
+            'amountChildren' | 'amountAdults' | 'situation' | 'hasCurrentResidence'
           >
         >;
       }
@@ -11104,7 +11104,7 @@ export type ListAllocatesQuery = { __typename?: 'Query' } & {
           home?: Maybe<
             { __typename?: 'AllocateHome' } & Pick<
               AllocateHome,
-              'amountChildren' | 'amountAdults' | 'situation' | 'currentResidence'
+              'amountChildren' | 'amountAdults' | 'situation' | 'hasCurrentResidence'
             >
           >;
         }
@@ -19137,7 +19137,7 @@ export const GetAllocateDocument = gql`
         amountChildren
         amountAdults
         situation
-        currentResidence
+        hasCurrentResidence
       }
       assignToRole
     }
@@ -19216,7 +19216,7 @@ export const ListAllocatesDocument = gql`
         amountChildren
         amountAdults
         situation
-        currentResidence
+        hasCurrentResidence
       }
       assignToRole
     }

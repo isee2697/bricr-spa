@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { FormSubSectionHeader, Search, SimpleSearch } from 'ui/molecules';
+import { FormSubSectionHeader } from 'ui/molecules';
 import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
@@ -11,17 +11,7 @@ import { PercentIcon } from 'ui/atoms/icons';
 
 import { rolesCheckboxes, employementCheckboxes, homeSituationCheckboxes } from './dictionaries';
 
-const residenceOptions = [
-  { title: 'Stationstraat 25, Amsterdam', type: 'Property' },
-  { title: 'The Software House', type: 'Email', subline: 'Marcin Piela', date: new Date() },
-  { title: 'CubicEyes', type: 'Email', subline: 'Christian van Gils', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen', type: 'Note', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
-];
-
 export const PeopleForm = () => {
-  const [residence, setResidence] = useState<string>('');
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -271,11 +261,11 @@ export const PeopleForm = () => {
             <Grid item xs={12}>
               <Box mb={4} px={2}>
                 <Box mb={2}>
-                  <label>{formatMessage({ id: 'pim_details.sales_settings.people.residence' })}</label>
-                </Box>
-                <Box>
-                  <SimpleSearch onChange={v => setResidence(v.currentTarget.value)} value={residence} />
-                  <Search options={residenceOptions} fullWidth />
+                  <CheckboxField
+                    name="home.hasCurrentResidence"
+                    label="pim_details.sales_settings.people.residence"
+                    disabled={!editing}
+                  />
                 </Box>
               </Box>
             </Grid>
