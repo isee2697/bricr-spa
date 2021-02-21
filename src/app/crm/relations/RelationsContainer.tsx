@@ -36,15 +36,17 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
   const { open: openSnackbar } = useSnackbar();
   const { formatMessage } = useLocale();
   const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
+
   const { data: countData } = useListCrmsCountQuery({
     variables: {
       type: CrmType.Relation,
     },
   });
+  const [getBulkData, { data: bulkData }] = useCrmBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
 
   const [bulk] = useBulkMutation();
-  const [getBulkData, { data: bulkData }] = useCrmBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
   const [undoEntity] = useUndoEntityMutation();
+  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
 
   const amounts =
     (countData && {
@@ -59,7 +61,6 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
   const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
 
   const hanldeUpdateCrmStatus = async (id: string, newStatus: CrmStatus) => {
@@ -109,7 +110,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     ...crm,
   }));
 
-  const handleDeleteCrm = async (ids: string[]) => {};
+  const handleDeleteCrm = async (ids: string) => {};
 
   const handleFilterChange = (filters: ListCrmFilters) => {
     setActiveFilters(filters);
@@ -280,6 +281,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       selectedItems={selected}
       onBulk={handleBulk}
       onOperation={handleOperation}
+      onDeleteItem={handleDeleteCrm}
       viewMode={viewMode}
       setViewMode={setViewMode}
     />
