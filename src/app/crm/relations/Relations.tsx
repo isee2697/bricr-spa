@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListCrmFilters, BulkField, CrmListItem as CrmListItemType } from 'api/types';
+import { CrmType, ListCrmFilters, BulkField, CrmListItem as CrmListItemType, BulkOperations } from 'api/types';
 import { Page } from 'ui/templates';
 import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
@@ -10,7 +10,6 @@ import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale, useModalDispatch } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
@@ -22,6 +21,7 @@ import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
 import { CrmTableView } from './../crmTableView/CrmTableView';
 import { RelationsMenu } from './relationsMenu/RelationsMenu';
+import { CrmStatusOptions } from './dictionaries';
 
 export const Relations = ({
   onSidebarOpen,
@@ -47,7 +47,7 @@ export const Relations = ({
   const { push } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [deleteItem, setDeleteItem] = useState<CrmItem | null>(null);
+  const [deleteItem, setDeleteItem] = useState<CrmListItemType | null>(null);
   const { open } = useModalDispatch();
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
@@ -105,13 +105,13 @@ export const Relations = ({
               <Box px={2}>
                 {viewMode === 'table' ? (
                   <CrmTableView
-                    items={crmItemsFiltered as CrmItem[]}
+                    items={crmItemsFiltered as CrmListItemType[]}
                     selected={selectedItems}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
                     pagination={pagination}
                     onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
-                    renderAction={(item: CrmItem) => (
+                    renderAction={(item: CrmListItemType) => (
                       <RelationsMenu
                         item={item}
                         onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
@@ -144,7 +144,7 @@ export const Relations = ({
                           >
                             <CrmListItem
                               crm={crm}
-                              renderAction={(item: CrmItem) => (
+                              renderAction={(item: CrmListItemType) => (
                                 <RelationsMenu
                                   item={item}
                                   onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
@@ -181,7 +181,12 @@ export const Relations = ({
                             fieldPlaceholderId="crm.bulk.status.placeholder"
                             valuesFieldName={'status'}
                             valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
-                            type={'checkfield'}
+                            radioOptions={CrmStatusOptions.map(s => ({
+                              ...s,
+                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
+                            }))}
+                            xs={6}
+                            type="radiogroup"
                           />
                         ),
                       },

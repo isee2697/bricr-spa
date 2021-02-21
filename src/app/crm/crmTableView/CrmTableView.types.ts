@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
-import { CrmStatus } from 'api/types';
-import { CrmItem } from 'app/crm/Crm.types';
+import { CrmStatus, CrmListItem } from 'api/types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { SortOption } from 'ui/molecules/tableList/TableList.types';
 
@@ -26,7 +25,7 @@ export type CrmTableHeaderCell = {
 };
 
 export type CrmTableViewProps = {
-  items: CrmItem[];
+  items: CrmListItem[];
   onClick?: (id: string) => void;
   onUpdateStatus?: (id: string, status: CrmStatus) => Promise<void>;
   onDelete?: (id: string) => void;
@@ -34,7 +33,7 @@ export type CrmTableViewProps = {
   onSelectItem: (id: string) => void;
   onSelectAllItems: VoidFunction;
   pagination?: PaginationProps;
-  renderAction?: (item: CrmItem) => ReactNode;
+  renderAction?: (item: CrmListItem) => ReactNode;
   sortOptions?: SortOption[];
   onSort?: (key: string) => void;
 };

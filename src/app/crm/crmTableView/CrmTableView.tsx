@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { CrmItem } from 'app/crm/Crm.types';
+import { CrmListItem } from 'api/types';
 
 import {
   CrmTableFixedHeader,
@@ -112,13 +112,17 @@ export const CrmTableView = ({
   };
 
   const renderCell = useCallback(
-    (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
+    (crm: CrmListItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
       if (cell === 'lastName') {
         return `${crm.insertion ? crm.insertion + ' ' : ''}${crm.lastName}`;
       }
 
       if (cell === 'partner' || cell === 'manager') {
-        return `${crm[cell].firstName} ${crm[cell].lastName}`;
+        return 'Partner';
+      }
+
+      if (cell === 'gender') {
+        return 'Male';
       }
 
       if (cell === 'status') {
@@ -126,6 +130,10 @@ export const CrmTableView = ({
       }
 
       if (cell === 'initials') {
+        return '';
+      }
+
+      if (cell === 'property') {
         return '';
       }
 

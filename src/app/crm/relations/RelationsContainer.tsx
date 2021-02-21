@@ -32,7 +32,7 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const RelationsContainer = (props: RelationsContainerProps) => {
   const { status } = useCrmQueryParams({});
-  const { sorting, query: sortQuery } = useCrmsSorting();
+  const { sorting, query: sortQuery } = useCrmsSorting('list');
   const { open: openSnackbar } = useSnackbar();
   const { formatMessage } = useLocale();
   const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
@@ -62,13 +62,13 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
   const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
   const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
 
-  const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
+  const hanldeUpdateCrmStatus = async (id: string, newStatus: CrmStatus) => {
     try {
       await updateCrmGeneral({
         variables: {
           input: {
             id,
-            status,
+            status: newStatus,
           },
         },
         refetchQueries: [
@@ -76,16 +76,16 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
             query: CrmListDocument,
             variables: {
               type: CrmType.Relation,
+              status,
+              ...activeFilters,
+              ...sortQuery,
+              ...paginationQuery,
             },
           },
           {
             query: ListCrmsCountDocument,
             variables: {
               type: CrmType.Relation,
-              ...activeFilters,
-              status,
-              ...sortQuery,
-              ...paginationQuery,
             },
           },
         ],
@@ -139,11 +139,19 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       refetchQueries: [
         {
           query: CrmListDocument,
-          variables: { status, ...sortQuery, ...paginationQuery },
+          variables: {
+            type: CrmType.Relation,
+            status,
+            ...activeFilters,
+            ...sortQuery,
+            ...paginationQuery,
+          },
         },
         {
           query: ListCrmsCountDocument,
-          variables: {},
+          variables: {
+            type: CrmType.Relation,
+          },
         },
       ],
     });
@@ -184,11 +192,19 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
         },
         {
           query: CrmListDocument,
-          variables: { status, ...sortQuery, ...paginationQuery },
+          variables: {
+            type: CrmType.Relation,
+            status,
+            ...activeFilters,
+            ...sortQuery,
+            ...paginationQuery,
+          },
         },
         {
           query: ListCrmsCountDocument,
-          variables: {},
+          variables: {
+            type: CrmType.Relation,
+          },
         },
       ],
     });
@@ -223,11 +239,19 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
           },
           {
             query: CrmListDocument,
-            variables: { status, ...sortQuery, ...paginationQuery },
+            variables: {
+              type: CrmType.Relation,
+              status,
+              ...activeFilters,
+              ...sortQuery,
+              ...paginationQuery,
+            },
           },
           {
             query: ListCrmsCountDocument,
-            variables: {},
+            variables: {
+              type: CrmType.Relation,
+            },
           },
         ],
       });
@@ -245,7 +269,6 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       {...props}
       crms={crms}
       onUpdateItemStatus={hanldeUpdateCrmStatus}
-      onOperation={handleOperation}
       activeFilters={activeFilters}
       onFilter={handleFilterChange}
       amounts={amounts}

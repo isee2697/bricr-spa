@@ -1,8 +1,7 @@
-import { CrmStatus } from 'api/types';
-import { CrmItem } from 'app/crm/Crm.types';
+import { CrmStatus, CrmListItem } from 'api/types';
 
 export type RelationsMenuProps = {
-  item: CrmItem;
+  item: CrmListItem;
   onMerge?: (id: string) => void;
   onEdit?: (id: string) => void;
   onMove?: (id: string) => void;

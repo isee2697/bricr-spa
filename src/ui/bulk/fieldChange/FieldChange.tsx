@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormState } from 'react-final-form';
 
 import { Box, InputLabel, Typography } from 'ui/atoms';
-import { CheckboxField, DatePickerField, GenericField } from 'form/fields';
+import { CheckboxField, CheckboxGroupField, DatePickerField, GenericField, RadioGroupField } from 'form/fields';
 
 import { FieldChangeProps } from './FieldChange.types';
 
@@ -12,7 +12,13 @@ export const FieldChange = ({
   fieldLabelId,
   fieldName,
   fieldPlaceholderId,
+  checkOptions = [],
+  radioOptions = [],
   type = 'text',
+  xs,
+  sm,
+  md,
+  lg,
 }: FieldChangeProps) => {
   const formState = useFormState();
   const values = formState.values[valuesFieldName];
@@ -46,6 +52,10 @@ export const FieldChange = ({
             label={fieldLabelId}
           />
         </>
+      )}
+      {type === 'checkgroup' && <CheckboxGroupField name={fieldName} options={checkOptions} />}
+      {type === 'radiogroup' && (
+        <RadioGroupField name={fieldName} options={radioOptions} xs={xs} sm={sm} md={md} lg={lg} />
       )}
     </Box>
   );

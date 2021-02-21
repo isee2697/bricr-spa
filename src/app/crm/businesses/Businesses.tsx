@@ -10,7 +10,6 @@ import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
@@ -119,12 +118,12 @@ export const Businesses = ({
               <Box px={2}>
                 {viewMode === 'table' ? (
                   <CrmTableView
-                    items={crmItemsFiltered as CrmItem[]}
+                    items={crmItemsFiltered as CrmListItemType[]}
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
                     onClick={id => push(AppRoute.crmBusinessesDetails.replace(':id', id))}
-                    renderAction={(item: CrmItem) => (
+                    renderAction={(item: CrmListItemType) => (
                       <BusinessesMenu
                         item={item}
                         onMerge={() => {}}
@@ -158,7 +157,7 @@ export const Businesses = ({
                           >
                             <CrmListItem
                               crm={crm}
-                              renderAction={(item: CrmItem) => (
+                              renderAction={(item: CrmListItemType) => (
                                 <BusinessesMenu
                                   item={item}
                                   onMerge={() => {}}

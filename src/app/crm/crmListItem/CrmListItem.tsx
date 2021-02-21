@@ -34,7 +34,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { push } = useHistory();
   const theme = useTheme();
 
-  const { id, firstName, insertion, lastName, email, phoneNumber, avatar, status } = crm;
+  const { firstName, insertion, lastName, email, phoneNumber, avatar } = crm;
   const {
     property,
     partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },

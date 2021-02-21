@@ -7,7 +7,7 @@ export type CrmListItemProps = {
   crm: CrmListItem;
   onUpdateStatus?: (id: string, status: CrmStatus) => Promise<void>;
   onDelete?: (id: string) => void;
-  renderAction?: (item: CrmItem) => ReactNode;
+  renderAction?: (item: CrmListItem) => ReactNode;
 };
 
 export type CrmListItemMetaBoxProps = {
