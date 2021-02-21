@@ -8,12 +8,12 @@ import {
   CrmType,
   useListCrmsCountQuery,
   ListCrmsCountDocument,
+  BulkOperations,
   ListCrmFilters,
   useBulkMutation,
   useUndoEntityMutation,
   useCrmBulkDetailsLazyQuery,
   CrmBulkDetailsDocument,
-  BulkOperations,
   BulkEntities,
   CrmListItem,
 } from 'api/types';
@@ -35,6 +35,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
   const { sorting, query: sortQuery } = useCrmsSorting();
   const { open: openSnackbar } = useSnackbar();
   const { formatMessage } = useLocale();
+  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
   const { data: countData } = useListCrmsCountQuery({
     variables: {
       type: CrmType.Relation,
@@ -62,32 +63,34 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
   const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
 
   const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
-    await updateCrmGeneral({
-      variables: {
-        input: {
-          id,
-          status,
-        },
-      },
-      refetchQueries: [
-        {
-          query: CrmListDocument,
-          variables: {
-            type: CrmType.Relation,
-          },
-        },
-        {
-          query: ListCrmsCountDocument,
-          variables: {
-            type: CrmType.Relation,
-            ...activeFilters,
+    try {
+      await updateCrmGeneral({
+        variables: {
+          input: {
+            id,
             status,
-            ...sortQuery,
-            ...paginationQuery,
           },
         },
-      ],
-    });
+        refetchQueries: [
+          {
+            query: CrmListDocument,
+            variables: {
+              type: CrmType.Relation,
+            },
+          },
+          {
+            query: ListCrmsCountDocument,
+            variables: {
+              type: CrmType.Relation,
+              ...activeFilters,
+              status,
+              ...sortQuery,
+              ...paginationQuery,
+            },
+          },
+        ],
+      });
+    } catch (e) {}
   };
 
   const { data } = useCrmListQuery({
@@ -106,7 +109,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     ...crm,
   }));
 
-  const handleDeleteCrm = async (id: string) => {};
+  const handleDeleteCrm = async (ids: string[]) => {};
 
   const handleFilterChange = (filters: ListCrmFilters) => {
     setActiveFilters(filters);
@@ -242,7 +245,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       {...props}
       crms={crms}
       onUpdateItemStatus={hanldeUpdateCrmStatus}
-      onDeleteItem={handleDeleteCrm}
+      onOperation={handleOperation}
       activeFilters={activeFilters}
       onFilter={handleFilterChange}
       amounts={amounts}
@@ -254,6 +257,8 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       selectedItems={selected}
       onBulk={handleBulk}
       onOperation={handleOperation}
+      viewMode={viewMode}
+      setViewMode={setViewMode}
     />
   );
 };

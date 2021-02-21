@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useLocale } from 'hooks';
 
@@ -13,6 +13,10 @@ export const useSorting = (options: Options) => {
     name: formatMessage({ id: `property_item.sorting.${key}` }),
     key,
   }));
+
+  useEffect(() => {
+    setSortingKey(Object.keys(options)[0]);
+  }, [options]);
 
   return {
     sorting: {

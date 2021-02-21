@@ -19,7 +19,7 @@ export type RelationsProps = {
   onSelectItems: (key: string[]) => void;
   onStatusChange: (status: CrmStatus) => void;
   onUpdateItemStatus: (id: string, status: CrmStatus) => Promise<void>;
-  onDeleteItem: (id: string) => void;
+  onDeleteItem?: (id: string) => void;
   onFilter: (filters: ListCrmFilters) => void;
   activeFilters: ListCrmFilters;
   amounts?: {
@@ -36,4 +36,6 @@ export type RelationsProps = {
   onOperation: (operation: BulkOperations, rojects: CrmListItem[]) => Promise<undefined>;
   onBulkOpen: (projects: CrmListItem[]) => void;
   onBulk: (projects: CrmListItem[], formData: Record<string, string | string[]>) => Promise<undefined>;
+  viewMode: 'list' | 'table';
+  setViewMode: (mode: 'list' | 'table') => void;
 };
