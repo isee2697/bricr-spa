@@ -40,7 +40,7 @@ export const PreferredTitle = ({ data, onSave }: PreferredTitleProps) => {
                   })}
                 </Typography>
               </Box>
-              <Box display="flex" className={classes.marginTopTwo}>
+              <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
                   name="preferredTitlePrefix"
@@ -60,7 +60,7 @@ export const PreferredTitle = ({ data, onSave }: PreferredTitleProps) => {
                   })}
                 </Typography>
               </Box>
-              <Box display="flex" className={classes.marginTopTwo}>
+              <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
                   name="preferredTitleSuffix"
@@ -82,7 +82,7 @@ export const PreferredTitle = ({ data, onSave }: PreferredTitleProps) => {
                   })}
                 </Typography>
               </Box>
-              <Box display="flex" className={classes.marginTopTwo}>
+              <Box className={classes.marginTopTwo}>
                 <RadioGroupField
                   disabled={!isEditing}
                   name="preferredLetterSalutation"

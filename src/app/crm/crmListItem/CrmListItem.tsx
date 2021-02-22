@@ -18,7 +18,7 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
   return (
     <Box className={classes.meta}>
       <Typography className={classes.metaCount} variant="h3">
-        {count}
+        {count || '-'}
       </Typography>
       <Typography className={classes.metaLabel} variant="h6">
         {label}
@@ -37,15 +37,39 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     firstName,
     insertion,
     lastName,
+    gender,
+    dateOfBirth,
+    placeOfBirth,
+    nationality,
+    addresses,
+    martialStatus,
+    familyCompositionChildren,
+    familyCompositionAdults,
+    currentHomeSituation,
     email,
     phoneNumber,
     avatar,
     property,
     partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
-    informationCompletedStatus,
     meta: { matches, interests, viewings, biddings, candidate, optant },
   } = crm;
+
+  const informationCompletedStatus =
+    ((!!firstName ? 1 : 0) +
+      (!!lastName ? 1 : 0) +
+      (!!gender ? 1 : 0) +
+      (!!dateOfBirth ? 1 : 0) +
+      (!!placeOfBirth ? 1 : 0) +
+      (!!nationality ? 1 : 0) +
+      (!!addresses && addresses.length !== 0 ? 1 : 0) +
+      (!!martialStatus ? 1 : 0) +
+      (!!familyCompositionChildren ? 1 : 0) +
+      (!!familyCompositionAdults ? 1 : 0) +
+      (!!currentHomeSituation ? 1 : 0) +
+      (!!email ? 1 : 0) +
+      (!!phoneNumber ? 1 : 0)) /
+    12;
 
   const metaAsArray = [
     {
