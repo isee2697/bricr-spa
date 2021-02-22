@@ -1,27 +1,13 @@
 import React from 'react';
-import { useParams, Route, Switch, Redirect } from 'react-router-dom';
-
-import { NavBreadcrumb } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { useEntityType } from 'app/shared/entityType';
-import { joinUrlParams } from 'routing/AppRoute.utils';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { MatchProfileProps } from './MatchProfile.types';
 import { MatchProfileListContainer } from './list/ListContainer';
 import { CreateNewMatchProfileContainer } from './createNewMatchProfile/CreateNewMatchProfileContainer';
 
 export const MatchProfile = ({ crm, path, onSidebarOpen, isSidebarVisible }: MatchProfileProps) => {
-  const { formatMessage } = useLocale();
-  const { baseUrl } = useEntityType();
-  const urlParams = useParams();
-
   return (
     <>
-      <NavBreadcrumb
-        title={formatMessage({ id: 'crm.details.personal_information_match_profile.title' })}
-        to="/personal_information_match_profile"
-        urlBase={joinUrlParams(baseUrl, urlParams)}
-      />
       <Switch>
         <Route
           exact
