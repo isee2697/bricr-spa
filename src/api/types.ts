@@ -24,59 +24,200 @@ export type Scalars = {
   ServiceConfigurationInput: any;
 };
 
-export type LoginInput = {
-  username: Scalars['String'];
-  password: Scalars['String'];
+export enum AllocateCriteriaType {
+  JointIncome = 'JointIncome',
+  MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
+  NumberOfPreferenceInterest = 'NumberOfPreferenceInterest',
+  DateOfRegistrationInterest = 'DateOfRegistrationInterest',
+  AdditionalWork = 'AdditionalWork',
+}
+
+export enum AllocateEmploymentType {
+  Equity = 'Equity',
+  SalariedEmployment = 'SalariedEmployment',
+  Entrepreneur = 'Entrepreneur',
+  Benefits = 'Benefits',
+}
+
+export enum AllocateAssignRole {
+  Reservation = 'Reservation',
+  Candidate = 'Candidate',
+  Optant = 'Optant',
+  Tenant = 'Tenant',
+}
+
+export enum AllocateHomeSituation {
+  LivingIn = 'LivingIn',
+  OwnerOccupiedHome = 'OwnerOccupiedHome',
+  SocialHosuing = 'SocialHosuing',
+  FreeSecotorRental = 'FreeSecotorRental',
+}
+
+export type Allocate = {
+  __typename?: 'Allocate';
+  id: Scalars['ID'];
+  companyId: Scalars['ID'];
+  objectId: Scalars['ID'];
+  name: Scalars['String'];
+  version: Scalars['Date'];
+  note?: Maybe<Scalars['String']>;
+  criteria?: Maybe<AllocateCriteria>;
+  people?: Maybe<AllocatePeople>;
+  home?: Maybe<AllocateHome>;
+  assignToRole?: Maybe<AllocateAssignRole>;
 };
 
-export type ForgotPasswordInput = {
-  username: Scalars['String'];
+export type AllocateCriteria = {
+  __typename?: 'AllocateCriteria';
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  amountAssignedCandidates?: Maybe<Scalars['Int']>;
+  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculation>;
+  isPublishedExternally?: Maybe<Scalars['Boolean']>;
+  interestDetails?: Maybe<AllocateInterestDetails>;
+  documents?: Maybe<AllocateCriteriaDocuments>;
+  criteriaOrder?: Maybe<Array<AllocateCriteriaOrder>>;
 };
 
-export type ForgotPasswordResponse = {
-  __typename?: 'ForgotPasswordResponse';
-  error?: Maybe<Scalars['String']>;
-  stack?: Maybe<Scalars['String']>;
+export type AllocateRentalPriceCalculation = {
+  __typename?: 'AllocateRentalPriceCalculation';
+  minJointIncome?: Maybe<Scalars['Int']>;
+  maxJointIncome?: Maybe<Scalars['Int']>;
+  minRentByIncome?: Maybe<Scalars['Int']>;
+  maxRentByIcome?: Maybe<Scalars['Int']>;
 };
 
-export type VerifyUserResponse = {
-  __typename?: 'VerifyUserResponse';
-  error?: Maybe<Scalars['String']>;
-  status: Scalars['String'];
+export type AllocateInterestDetails = {
+  __typename?: 'AllocateInterestDetails';
+  minNumberOfPreferences?: Maybe<Scalars['Int']>;
+  registrationForm?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
 };
 
-export type AuthenticationResult = {
-  __typename?: 'AuthenticationResult';
-  AccessToken: Scalars['String'];
-  RefreshToken: Scalars['String'];
+export type AllocateCriteriaDocuments = {
+  __typename?: 'AllocateCriteriaDocuments';
+  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  error?: Maybe<Scalars['String']>;
-  AuthenticationResult: AuthenticationResult;
+export type AllocateCriteriaOrder = {
+  __typename?: 'AllocateCriteriaOrder';
+  name?: Maybe<AllocateCriteriaType>;
+  order?: Maybe<Scalars['Int']>;
+  checked?: Maybe<Scalars['Boolean']>;
 };
 
-export type ResetPasswordInput = {
-  password: Scalars['String'];
-  username: Scalars['String'];
-  code: Scalars['String'];
+export type AllocatePeople = {
+  __typename?: 'AllocatePeople';
+  jointIncome?: Maybe<AllocatePeopleJointIncome>;
+  income?: Maybe<AllocatePeopleIncome>;
+  partnerIncome?: Maybe<AllocatePeopleIncome>;
 };
 
-export type ResetPasswordResponse = {
-  __typename?: 'ResetPasswordResponse';
-  error?: Maybe<Scalars['String']>;
-  stack?: Maybe<Scalars['String']>;
+export type AllocatePeopleJointIncome = {
+  __typename?: 'AllocatePeopleJointIncome';
+  lowestPercentage?: Maybe<Scalars['Int']>;
+  distributionThreshold?: Maybe<Scalars['Int']>;
+  ficitousCalculation?: Maybe<Scalars['Int']>;
+  includePension?: Maybe<Scalars['Int']>;
 };
 
-export type VerifyUserInput = {
-  code?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+export type AllocatePeopleIncome = {
+  __typename?: 'AllocatePeopleIncome';
+  availableCapitalCount?: Maybe<Scalars['Int']>;
+  deductMonthlyObligations?: Maybe<Scalars['Int']>;
+  minAge?: Maybe<Scalars['Int']>;
+  employementType?: Maybe<AllocateEmploymentType>;
+};
+
+export type AllocateHome = {
+  __typename?: 'AllocateHome';
+  amountChildren?: Maybe<Scalars['Int']>;
+  amountAdults?: Maybe<Scalars['Int']>;
+  situation?: Maybe<AllocateHomeSituation>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
+};
+
+export type AddAllocateInput = {
+  name: Scalars['String'];
+};
+
+export type AllocateInput = {
+  note?: Maybe<Scalars['String']>;
+  criteria?: Maybe<AllocateCriteriaInput>;
+  people?: Maybe<AllocatePeopleInput>;
+  home?: Maybe<AllocateHomeInput>;
+  assignToRole?: Maybe<AllocateAssignRole>;
+};
+
+export type AllocateCriteriaInput = {
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  amountAssignedCandidates?: Maybe<Scalars['Int']>;
+  rentalePriceCalculation?: Maybe<AllocateRentalPriceCalculationInput>;
+  isPublishedExternally?: Maybe<Scalars['Boolean']>;
+  interestDetails?: Maybe<AllocateInterestDetailsInput>;
+  documents?: Maybe<AllocateCriteriaDocumentsInput>;
+  criteriaOrder?: Maybe<Array<AllocateCriteriaOrderInput>>;
+};
+
+export type AllocateRentalPriceCalculationInput = {
+  minJointIncome?: Maybe<Scalars['Int']>;
+  maxJointIncome?: Maybe<Scalars['Int']>;
+  minRentByIncome?: Maybe<Scalars['Int']>;
+  maxRentByIcome?: Maybe<Scalars['Int']>;
+};
+
+export type AllocateInterestDetailsInput = {
+  minNumberOfPreferences?: Maybe<Scalars['Int']>;
+  registrationForm?: Maybe<Scalars['Date']>;
+  registrationTo?: Maybe<Scalars['Date']>;
+  assignOnlyWithInterest?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocateCriteriaDocumentsInput = {
+  acceptedMissingDocumentsNumber?: Maybe<Scalars['Int']>;
+  onlyAcceptedDocuments?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocateCriteriaOrderInput = {
+  name?: Maybe<AllocateCriteriaType>;
+  order?: Maybe<Scalars['Int']>;
+  checked?: Maybe<Scalars['Boolean']>;
+};
+
+export type AllocatePeopleInput = {
+  jointIncome?: Maybe<AllocatePeopleJointIncomeInput>;
+  income?: Maybe<AllocatePeopleIncomeInput>;
+  partnerIncome?: Maybe<AllocatePeopleIncomeInput>;
+};
+
+export type AllocatePeopleJointIncomeInput = {
+  lowestPercentage?: Maybe<Scalars['Int']>;
+  distributionThreshold?: Maybe<Scalars['Int']>;
+  ficitousCalculation?: Maybe<Scalars['Int']>;
+  includePension?: Maybe<Scalars['Int']>;
+};
+
+export type AllocatePeopleIncomeInput = {
+  availableCapitalCount?: Maybe<Scalars['Int']>;
+  deductMonthlyObligations?: Maybe<Scalars['Int']>;
+  minAge?: Maybe<Scalars['Int']>;
+  employementType?: Maybe<AllocateEmploymentType>;
+};
+
+export type AllocateHomeInput = {
+  amountChildren?: Maybe<Scalars['Int']>;
+  amountAdults?: Maybe<Scalars['Int']>;
+  situation?: Maybe<AllocateHomeSituation>;
+  hasCurrentResidence?: Maybe<Scalars['Boolean']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['Boolean']>;
+  addAllocate?: Maybe<Allocate>;
   addAllocationCriteria: AddAllocationCriteriaResult;
   addAogSpace: PimWithNewAogSpace;
   addAppointment: Appointment;
@@ -144,6 +285,7 @@ export type Mutation = {
   createSocialMediaLink: Profile;
   createTask: Task;
   deactivateProfile: Profile;
+  deleteAllocate?: Maybe<Scalars['Boolean']>;
   deleteEntity: Array<DeleteResult>;
   deleteMatchProfile?: Maybe<Scalars['Boolean']>;
   deleteNotification?: Maybe<Scalars['Boolean']>;
@@ -181,6 +323,7 @@ export type Mutation = {
   toggleObjectTypePricing: ObjectTypePricesResult;
   togglePricing: Pim;
   undoEntity: Array<UndoResult>;
+  updateAllocate?: Maybe<Allocate>;
   updateAllocationCriteria: Pim;
   updateAogSpace: AogSpace;
   updateBogSpace: BogSpace;
@@ -263,6 +406,11 @@ export type Mutation = {
   updateWorkflowTrigger: WorkflowTrigger;
   uploadFile?: Maybe<UploadFileResponse>;
   verifyUser?: Maybe<VerifyUserResponse>;
+};
+
+export type MutationAddAllocateArgs = {
+  objectId: Scalars['ID'];
+  input: AddAllocateInput;
 };
 
 export type MutationAddAllocationCriteriaArgs = {
@@ -538,6 +686,10 @@ export type MutationDeactivateProfileArgs = {
   id: Scalars['String'];
 };
 
+export type MutationDeleteAllocateArgs = {
+  id: Scalars['ID'];
+};
+
 export type MutationDeleteEntityArgs = {
   input: DeleteEntityInput;
 };
@@ -687,6 +839,11 @@ export type MutationUndoEntityArgs = {
   input: UndoEntityInput;
 };
 
+export type MutationUpdateAllocateArgs = {
+  id: Scalars['ID'];
+  input: AllocateInput;
+};
+
 export type MutationUpdateAllocationCriteriaArgs = {
   input: AllocationCriteriaInput;
 };
@@ -785,7 +942,7 @@ export type MutationUpdateLinkedPropertiesListDescriptionArgs = {
 
 export type MutationUpdateMatchProfileArgs = {
   id: Scalars['ID'];
-  input: UpdateMatchProfileInput;
+  input: MatchProfileInput;
 };
 
 export type MutationUpdateMediaLinkArgs = {
@@ -1020,15 +1177,6 @@ export type MutationVerifyUserArgs = {
   input?: Maybe<VerifyUserInput>;
 };
 
-export type BillingResponse = {
-  url: Scalars['String'];
-};
-
-export type Billing = {
-  __typename?: 'Billing';
-  url: Scalars['String'];
-};
-
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['Boolean']>;
@@ -1037,6 +1185,7 @@ export type Query = {
   crmList: CrmListSearchResult;
   dictionary?: Maybe<Scalars['Dictionary']>;
   getAllProfiles: ProfileSearchResult;
+  getAllocate?: Maybe<Allocate>;
   getAppointment: Appointment;
   getBilling?: Maybe<Billing>;
   getBulkDetails?: Maybe<Array<GetBulkResult>>;
@@ -1046,6 +1195,7 @@ export type Query = {
   getCrmFamilyContacts?: Maybe<CrmFamilyContacts>;
   getCrmGeneral?: Maybe<CrmGeneral>;
   getCrmHomeSituation?: Maybe<CrmHomeSituation>;
+  getCrmWithSameInfo: CrmListSearchResult;
   getEmail?: Maybe<Email>;
   getKikSettings?: Maybe<KikSettings>;
   getLabels?: Maybe<Array<Label>>;
@@ -1098,9 +1248,11 @@ export type Query = {
   getTiaraMutations?: Maybe<Array<TiaraMutation>>;
   getTiaraValidation: TiaraValidation;
   getUndoId: Scalars['ID'];
+  listAllocates?: Maybe<Array<Allocate>>;
   listCalendar?: Maybe<Array<Appointment>>;
   listEmail?: Maybe<Array<EmailListItem>>;
   listEmailFolders?: Maybe<Array<EmailFolderListItem>>;
+  listMatchProfiles?: Maybe<Array<MatchProfile>>;
   listNcps: NcpListSearchResult;
   listNylasAccount?: Maybe<Array<NylasAccountItem>>;
   listObjectTypes: ObjectTypeListSearchResult;
@@ -1126,6 +1278,10 @@ export type QueryGetAllProfilesArgs = {
   filters?: Maybe<ProfileFilters>;
   pagination?: Maybe<Pagination>;
   search?: Maybe<Scalars['String']>;
+};
+
+export type QueryGetAllocateArgs = {
+  id: Scalars['ID'];
 };
 
 export type QueryGetAppointmentArgs = {
@@ -1154,6 +1310,10 @@ export type QueryGetCrmGeneralArgs = {
 
 export type QueryGetCrmHomeSituationArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryGetCrmWithSameInfoArgs = {
+  input: CrmWithSameInfoInput;
 };
 
 export type QueryGetEmailArgs = {
@@ -1360,6 +1520,10 @@ export type QueryGetUndoIdArgs = {
   filters?: Maybe<UndoIdQueryFilters>;
 };
 
+export type QueryListAllocatesArgs = {
+  objectId: Scalars['ID'];
+};
+
 export type QueryListCalendarArgs = {
   input: AppointmentSearch;
 };
@@ -1372,6 +1536,10 @@ export type QueryListEmailArgs = {
 
 export type QueryListEmailFoldersArgs = {
   accountId: Scalars['String'];
+};
+
+export type QueryListMatchProfilesArgs = {
+  crmId: Scalars['ID'];
 };
 
 export type QueryListNcpsArgs = {
@@ -1395,6 +1563,65 @@ export type QueryListPimsArgs = {
   filters?: Maybe<ListPimsFilters>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<Array<Sort>>;
+};
+
+export type LoginInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type ForgotPasswordInput = {
+  username: Scalars['String'];
+};
+
+export type ForgotPasswordResponse = {
+  __typename?: 'ForgotPasswordResponse';
+  error?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserResponse = {
+  __typename?: 'VerifyUserResponse';
+  error?: Maybe<Scalars['String']>;
+  status: Scalars['String'];
+};
+
+export type AuthenticationResult = {
+  __typename?: 'AuthenticationResult';
+  AccessToken: Scalars['String'];
+  RefreshToken: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  error?: Maybe<Scalars['String']>;
+  AuthenticationResult: AuthenticationResult;
+};
+
+export type ResetPasswordInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+  code: Scalars['String'];
+};
+
+export type ResetPasswordResponse = {
+  __typename?: 'ResetPasswordResponse';
+  error?: Maybe<Scalars['String']>;
+  stack?: Maybe<Scalars['String']>;
+};
+
+export type VerifyUserInput = {
+  code?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type BillingResponse = {
+  url: Scalars['String'];
+};
+
+export type Billing = {
+  __typename?: 'Billing';
+  url: Scalars['String'];
 };
 
 export enum BulkField {
@@ -2221,8 +2448,17 @@ export type CrmListSearchResult = {
 };
 
 export type ListCrmFilters = {
+  city?: Maybe<Scalars['String']>;
   type?: Maybe<CrmType>;
   status?: Maybe<CrmStatus>;
+};
+
+export type CrmWithSameInfoInput = {
+  firstName?: Maybe<Scalars['String']>;
+  insertion?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type EmailAndName = {
@@ -2843,6 +3079,7 @@ export type ListPim = {
   developmentType: DevelopmentType;
   linkedObjectTypeIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimListSearchResult = {
@@ -2900,7 +3137,7 @@ export enum MatchRentalPeriodType {
 
 export enum MatchProfileWith {
   OwnPortfolio = 'OwnPortfolio',
-  ExternalNvm = 'ExternalNVM',
+  ExternalNvm = 'ExternalNvm',
 }
 
 export enum MatchCharacteristicsGeneralType {
@@ -3142,31 +3379,6 @@ export type MatchRequirement = {
 };
 
 export type MatchProfileInput = {
-  id: Scalars['ID'];
-  crmId: Scalars['ID'];
-  companyId: Scalars['ID'];
-  propertyType?: Maybe<MatchPropertyType>;
-  startDate?: Maybe<Scalars['Date']>;
-  endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<DateRange>;
-  matchWith?: Maybe<Array<MatchProfileWith>>;
-  description?: Maybe<Scalars['String']>;
-  estateType?: Maybe<MatchEstateType>;
-  commercialEstateType?: Maybe<MatchCommercialEstateType>;
-  characteristics?: Maybe<MatchCharacteristicsInput>;
-  commercialCharacteristics?: Maybe<MatchCommercialCharacteristicsInput>;
-  pricing?: Maybe<MatchPricingInput>;
-  outside?: Maybe<MatchOutsidePricingInput>;
-  garden?: Maybe<MatchGardenInput>;
-  tags?: Maybe<Array<MatchTags>>;
-  measurements?: Maybe<MatchMeasurementsInput>;
-  revenue?: Maybe<IntRangeInput>;
-  exploitation?: Maybe<IntRangeInput>;
-  requirements?: Maybe<Array<MatchRequirementInput>>;
-  locations?: Maybe<Array<MatchProfileLocationInput>>;
-};
-
-export type UpdateMatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
@@ -5266,6 +5478,7 @@ export type PimGeneralInput = {
   buildingPlotGeneral?: Maybe<BuildingPlotGeneralInput>;
   attentionNote?: Maybe<Scalars['String']>;
   showAttentionNote?: Maybe<Scalars['Boolean']>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export enum ApartmentType {
@@ -5469,6 +5682,7 @@ export type PimGeneral = LastUpdated & {
   showIdentificationNumber?: Maybe<Scalars['Boolean']>;
   apartmentGeneral?: Maybe<ApartmentGeneral>;
   buildingPlotGeneral?: Maybe<BuildingPlotGeneral>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimWithNewIdentificationNumber = {
@@ -7625,6 +7839,7 @@ export type Pim = LastUpdated & {
   bogSpaces?: Maybe<Array<BogSpace>>;
   aogSpaces?: Maybe<Array<AogSpace>>;
   mainPicture?: Maybe<Picture>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type PimSearchResult = {
@@ -7652,6 +7867,7 @@ export type ListPimsFilters = {
   country?: Maybe<Scalars['String']>;
   archived?: Maybe<Scalars['Boolean']>;
   pricingType?: Maybe<PricingType>;
+  isPurchased?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdateOutsideFeatureInput = {
@@ -8863,6 +9079,30 @@ export enum WorkflowActionType {
   Action3 = 'Action3',
 }
 
+export type AddAllocateMutationVariables = Exact<{
+  objectId: Scalars['ID'];
+  input: AddAllocateInput;
+}>;
+
+export type AddAllocateMutation = { __typename?: 'Mutation' } & {
+  addAllocate?: Maybe<{ __typename?: 'Allocate' } & Pick<Allocate, 'id'>>;
+};
+
+export type UpdateAllocateMutationVariables = Exact<{
+  id: Scalars['ID'];
+  input: AllocateInput;
+}>;
+
+export type UpdateAllocateMutation = { __typename?: 'Mutation' } & {
+  updateAllocate?: Maybe<{ __typename?: 'Allocate' } & Pick<Allocate, 'id'>>;
+};
+
+export type DeleteAllocateMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type DeleteAllocateMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAllocate'>;
+
 export type LoginMutationVariables = Exact<{
   input?: Maybe<LoginInput>;
 }>;
@@ -9362,7 +9602,7 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
 
 export type UpdateMatchProfileMutationVariables = Exact<{
   id: Scalars['ID'];
-  input: UpdateMatchProfileInput;
+  input: MatchProfileInput;
 }>;
 
 export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
@@ -10726,6 +10966,152 @@ export type UpdateWorkflowTriggerMutation = { __typename?: 'Mutation' } & {
   updateWorkflowTrigger: { __typename?: 'WorkflowTrigger' } & Pick<WorkflowTrigger, 'id'>;
 };
 
+export type GetAllocateQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetAllocateQuery = { __typename?: 'Query' } & {
+  getAllocate?: Maybe<
+    { __typename?: 'Allocate' } & Pick<
+      Allocate,
+      'id' | 'companyId' | 'objectId' | 'name' | 'version' | 'note' | 'assignToRole'
+    > & {
+        criteria?: Maybe<
+          { __typename?: 'AllocateCriteria' } & Pick<
+            AllocateCriteria,
+            'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
+          > & {
+              rentalePriceCalculation?: Maybe<
+                { __typename?: 'AllocateRentalPriceCalculation' } & Pick<
+                  AllocateRentalPriceCalculation,
+                  'minJointIncome' | 'maxJointIncome' | 'minRentByIncome' | 'maxRentByIcome'
+                >
+              >;
+              interestDetails?: Maybe<
+                { __typename?: 'AllocateInterestDetails' } & Pick<
+                  AllocateInterestDetails,
+                  'minNumberOfPreferences' | 'registrationForm' | 'registrationTo' | 'assignOnlyWithInterest'
+                >
+              >;
+              documents?: Maybe<
+                { __typename?: 'AllocateCriteriaDocuments' } & Pick<
+                  AllocateCriteriaDocuments,
+                  'acceptedMissingDocumentsNumber' | 'onlyAcceptedDocuments'
+                >
+              >;
+              criteriaOrder?: Maybe<
+                Array<
+                  { __typename?: 'AllocateCriteriaOrder' } & Pick<AllocateCriteriaOrder, 'name' | 'order' | 'checked'>
+                >
+              >;
+            }
+        >;
+        people?: Maybe<
+          { __typename?: 'AllocatePeople' } & {
+            jointIncome?: Maybe<
+              { __typename?: 'AllocatePeopleJointIncome' } & Pick<
+                AllocatePeopleJointIncome,
+                'lowestPercentage' | 'distributionThreshold' | 'ficitousCalculation' | 'includePension'
+              >
+            >;
+            income?: Maybe<
+              { __typename?: 'AllocatePeopleIncome' } & Pick<
+                AllocatePeopleIncome,
+                'availableCapitalCount' | 'deductMonthlyObligations' | 'minAge' | 'employementType'
+              >
+            >;
+            partnerIncome?: Maybe<
+              { __typename?: 'AllocatePeopleIncome' } & Pick<
+                AllocatePeopleIncome,
+                'availableCapitalCount' | 'deductMonthlyObligations' | 'minAge' | 'employementType'
+              >
+            >;
+          }
+        >;
+        home?: Maybe<
+          { __typename?: 'AllocateHome' } & Pick<
+            AllocateHome,
+            'amountChildren' | 'amountAdults' | 'situation' | 'hasCurrentResidence'
+          >
+        >;
+      }
+  >;
+};
+
+export type ListAllocatesQueryVariables = Exact<{
+  objectId: Scalars['ID'];
+}>;
+
+export type ListAllocatesQuery = { __typename?: 'Query' } & {
+  listAllocates?: Maybe<
+    Array<
+      { __typename?: 'Allocate' } & Pick<
+        Allocate,
+        'id' | 'companyId' | 'objectId' | 'name' | 'version' | 'note' | 'assignToRole'
+      > & {
+          criteria?: Maybe<
+            { __typename?: 'AllocateCriteria' } & Pick<
+              AllocateCriteria,
+              'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
+            > & {
+                rentalePriceCalculation?: Maybe<
+                  { __typename?: 'AllocateRentalPriceCalculation' } & Pick<
+                    AllocateRentalPriceCalculation,
+                    'minJointIncome' | 'maxJointIncome' | 'minRentByIncome' | 'maxRentByIcome'
+                  >
+                >;
+                interestDetails?: Maybe<
+                  { __typename?: 'AllocateInterestDetails' } & Pick<
+                    AllocateInterestDetails,
+                    'minNumberOfPreferences' | 'registrationForm' | 'registrationTo' | 'assignOnlyWithInterest'
+                  >
+                >;
+                documents?: Maybe<
+                  { __typename?: 'AllocateCriteriaDocuments' } & Pick<
+                    AllocateCriteriaDocuments,
+                    'acceptedMissingDocumentsNumber' | 'onlyAcceptedDocuments'
+                  >
+                >;
+                criteriaOrder?: Maybe<
+                  Array<
+                    { __typename?: 'AllocateCriteriaOrder' } & Pick<AllocateCriteriaOrder, 'name' | 'order' | 'checked'>
+                  >
+                >;
+              }
+          >;
+          people?: Maybe<
+            { __typename?: 'AllocatePeople' } & {
+              jointIncome?: Maybe<
+                { __typename?: 'AllocatePeopleJointIncome' } & Pick<
+                  AllocatePeopleJointIncome,
+                  'lowestPercentage' | 'distributionThreshold' | 'ficitousCalculation' | 'includePension'
+                >
+              >;
+              income?: Maybe<
+                { __typename?: 'AllocatePeopleIncome' } & Pick<
+                  AllocatePeopleIncome,
+                  'availableCapitalCount' | 'deductMonthlyObligations' | 'minAge' | 'employementType'
+                >
+              >;
+              partnerIncome?: Maybe<
+                { __typename?: 'AllocatePeopleIncome' } & Pick<
+                  AllocatePeopleIncome,
+                  'availableCapitalCount' | 'deductMonthlyObligations' | 'minAge' | 'employementType'
+                >
+              >;
+            }
+          >;
+          home?: Maybe<
+            { __typename?: 'AllocateHome' } & Pick<
+              AllocateHome,
+              'amountChildren' | 'amountAdults' | 'situation' | 'hasCurrentResidence'
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type GetBillingQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetBillingQuery = { __typename?: 'Query' } & {
@@ -10970,6 +11356,7 @@ export type CrmListQueryVariables = Exact<{
   sortDirection: SortDirection;
   from: Scalars['Int'];
   limit?: Maybe<Scalars['Int']>;
+  city?: Maybe<Scalars['String']>;
 }>;
 
 export type CrmListQuery = { __typename?: 'Query' } & {
@@ -10998,6 +11385,17 @@ export type ListCrmsCountQuery = { __typename?: 'Query' } & {
   };
   inactive: { __typename?: 'CrmListSearchResult' } & {
     metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+  };
+};
+
+export type GetCrmWithSameInfoQueryVariables = Exact<{
+  input: CrmWithSameInfoInput;
+}>;
+
+export type GetCrmWithSameInfoQuery = { __typename?: 'Query' } & {
+  getCrmWithSameInfo: { __typename?: 'CrmListSearchResult' } & {
+    metadata?: Maybe<{ __typename?: 'SearchMetadata' } & Pick<SearchMetadata, 'total'>>;
+    items?: Maybe<Array<{ __typename?: 'CrmListItem' } & Pick<CrmListItem, 'id'>>>;
   };
 };
 
@@ -11129,6 +11527,8 @@ export type ListPimsQuery = { __typename?: 'Query' } & {
           | 'dateCreated'
           | 'livingArea'
           | 'propertyType'
+          | 'postalCode'
+          | 'country'
           | 'salePrice'
           | 'rentPrice'
           | 'completeness'
@@ -11265,6 +11665,108 @@ export type GetMatchProfileQuery = { __typename?: 'Query' } & {
           >
         >;
       }
+  >;
+};
+
+export type ListMatchProfilesQueryVariables = Exact<{
+  crmId: Scalars['ID'];
+}>;
+
+export type ListMatchProfilesQuery = { __typename?: 'Query' } & {
+  listMatchProfiles?: Maybe<
+    Array<
+      { __typename?: 'MatchProfile' } & Pick<
+        MatchProfile,
+        | 'id'
+        | 'crmId'
+        | 'companyId'
+        | 'propertyType'
+        | 'startDate'
+        | 'endDate'
+        | 'matchWith'
+        | 'description'
+        | 'estateType'
+        | 'commercialEstateType'
+        | 'conditions'
+        | 'services'
+        | 'tags'
+      > & {
+          duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+          characteristics?: Maybe<
+            { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
+                property?: Maybe<
+                  { __typename?: 'MatchCharacteristicsProperty' } & Pick<
+                    MatchCharacteristicsProperty,
+                    | 'minAmountRooms'
+                    | 'minAmountBedrooms'
+                    | 'residentialLayerFrom'
+                    | 'residentialLayerTo'
+                    | 'constructionYearFrom'
+                    | 'constructionYearTo'
+                    | 'maintenanceQuality'
+                  >
+                >;
+              }
+          >;
+          commercialCharacteristics?: Maybe<
+            { __typename?: 'MatchCommercialCharacteristics' } & Pick<MatchCommercialCharacteristics, 'general'> & {
+                property?: Maybe<
+                  { __typename?: 'MatchCommercialCharacteristicsProperty' } & Pick<
+                    MatchCommercialCharacteristicsProperty,
+                    | 'minFreeHeight'
+                    | 'minFreeSpan'
+                    | 'minFloorLoad'
+                    | 'minAmountOfFloors'
+                    | 'minParkingLots'
+                    | 'engergyLabel'
+                    | 'constructionYearFrom'
+                    | 'constructionYearTo'
+                    | 'maintenanceQuality'
+                  >
+                >;
+              }
+          >;
+          pricing?: Maybe<
+            { __typename?: 'MatchPricing' } & Pick<
+              MatchPricing,
+              'buyFrom' | 'buyTo' | 'rentFrom' | 'rentTo' | 'rentFrequency' | 'rentalPeriod' | 'preferredStartDate'
+            >
+          >;
+          outside?: Maybe<{ __typename?: 'MatchOutsidePricing' } & Pick<MatchOutsidePricing, 'minGarage'>>;
+          garden?: Maybe<
+            { __typename?: 'MatchGarden' } & Pick<
+              MatchGarden,
+              'situation' | 'outdoorSpacesMin' | 'outdoorSpacesMax' | 'volumeMin' | 'volumeMax'
+            >
+          >;
+          measurements?: Maybe<
+            { __typename?: 'MatchMeasurements' } & Pick<
+              MatchMeasurements,
+              | 'surfaceFromMin'
+              | 'surfaceToMin'
+              | 'livingAreaFromMin'
+              | 'livingAreaToMin'
+              | 'businessSpaceSurfaceFromMin'
+              | 'businessSpaceSurfaceToMin'
+              | 'practiceRoomSurfaceToMax'
+              | 'practiceRoomSurfaceToMin'
+              | 'plotSurfaceFromMin'
+              | 'plotSurfaceToMin'
+            >
+          >;
+          revenue?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+          exploitation?: Maybe<{ __typename?: 'IntRange' } & Pick<IntRange, 'from' | 'to'>>;
+          requirements?: Maybe<Array<{ __typename?: 'MatchRequirement' } & Pick<MatchRequirement, 'key' | 'status'>>>;
+          locations?: Maybe<
+            Array<
+              { __typename?: 'MatchProfileLocation' } & Pick<
+                MatchProfileLocation,
+                'latitude' | 'longitude' | 'street' | 'houseNumber' | 'radius'
+              >
+            >
+          >;
+        }
+    >
   >;
 };
 
@@ -14383,6 +14885,67 @@ export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
   getTiaraValidation: { __typename?: 'TiaraValidation' } & Pick<TiaraValidation, 'errors'>;
 };
 
+export const AddAllocateDocument = gql`
+  mutation AddAllocate($objectId: ID!, $input: AddAllocateInput!) {
+    addAllocate(objectId: $objectId, input: $input) {
+      id
+    }
+  }
+`;
+export function useAddAllocateMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddAllocateMutation, AddAllocateMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<AddAllocateMutation, AddAllocateMutationVariables>(
+    AddAllocateDocument,
+    baseOptions,
+  );
+}
+export type AddAllocateMutationHookResult = ReturnType<typeof useAddAllocateMutation>;
+export type AddAllocateMutationResult = ApolloReactCommon.MutationResult<AddAllocateMutation>;
+export type AddAllocateMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddAllocateMutation,
+  AddAllocateMutationVariables
+>;
+export const UpdateAllocateDocument = gql`
+  mutation UpdateAllocate($id: ID!, $input: AllocateInput!) {
+    updateAllocate(id: $id, input: $input) {
+      id
+    }
+  }
+`;
+export function useUpdateAllocateMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAllocateMutation, UpdateAllocateMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<UpdateAllocateMutation, UpdateAllocateMutationVariables>(
+    UpdateAllocateDocument,
+    baseOptions,
+  );
+}
+export type UpdateAllocateMutationHookResult = ReturnType<typeof useUpdateAllocateMutation>;
+export type UpdateAllocateMutationResult = ApolloReactCommon.MutationResult<UpdateAllocateMutation>;
+export type UpdateAllocateMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateAllocateMutation,
+  UpdateAllocateMutationVariables
+>;
+export const DeleteAllocateDocument = gql`
+  mutation DeleteAllocate($id: ID!) {
+    deleteAllocate(id: $id)
+  }
+`;
+export function useDeleteAllocateMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteAllocateMutation, DeleteAllocateMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<DeleteAllocateMutation, DeleteAllocateMutationVariables>(
+    DeleteAllocateDocument,
+    baseOptions,
+  );
+}
+export type DeleteAllocateMutationHookResult = ReturnType<typeof useDeleteAllocateMutation>;
+export type DeleteAllocateMutationResult = ApolloReactCommon.MutationResult<DeleteAllocateMutation>;
+export type DeleteAllocateMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteAllocateMutation,
+  DeleteAllocateMutationVariables
+>;
 export const LoginDocument = gql`
   mutation Login($input: LoginInput) {
     login(input: $input) @rest(type: "LoginResponse", path: "/login", method: "POST", endpoint: "default") {
@@ -15298,7 +15861,7 @@ export type AddMatchProfileMutationOptions = ApolloReactCommon.BaseMutationOptio
   AddMatchProfileMutationVariables
 >;
 export const UpdateMatchProfileDocument = gql`
-  mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
+  mutation UpdateMatchProfile($id: ID!, $input: MatchProfileInput!) {
     updateMatchProfile(id: $id, input: $input) {
       id
       crmId
@@ -18514,6 +19077,167 @@ export type UpdateWorkflowTriggerMutationOptions = ApolloReactCommon.BaseMutatio
   UpdateWorkflowTriggerMutation,
   UpdateWorkflowTriggerMutationVariables
 >;
+export const GetAllocateDocument = gql`
+  query GetAllocate($id: ID!) {
+    getAllocate(id: $id) {
+      id
+      companyId
+      objectId
+      name
+      version
+      note
+      criteria {
+        startDate
+        endDate
+        amountAssignedCandidates
+        rentalePriceCalculation {
+          minJointIncome
+          maxJointIncome
+          minRentByIncome
+          maxRentByIcome
+        }
+        isPublishedExternally
+        interestDetails {
+          minNumberOfPreferences
+          registrationForm
+          registrationTo
+          assignOnlyWithInterest
+        }
+        documents {
+          acceptedMissingDocumentsNumber
+          onlyAcceptedDocuments
+        }
+        criteriaOrder {
+          name
+          order
+          checked
+        }
+      }
+      people {
+        jointIncome {
+          lowestPercentage
+          distributionThreshold
+          ficitousCalculation
+          includePension
+        }
+        income {
+          availableCapitalCount
+          deductMonthlyObligations
+          minAge
+          employementType
+        }
+        partnerIncome {
+          availableCapitalCount
+          deductMonthlyObligations
+          minAge
+          employementType
+        }
+      }
+      home {
+        amountChildren
+        amountAdults
+        situation
+        hasCurrentResidence
+      }
+      assignToRole
+    }
+  }
+`;
+export function useGetAllocateQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllocateQuery, GetAllocateQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetAllocateQuery, GetAllocateQueryVariables>(GetAllocateDocument, baseOptions);
+}
+export function useGetAllocateLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllocateQuery, GetAllocateQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetAllocateQuery, GetAllocateQueryVariables>(GetAllocateDocument, baseOptions);
+}
+export type GetAllocateQueryHookResult = ReturnType<typeof useGetAllocateQuery>;
+export type GetAllocateLazyQueryHookResult = ReturnType<typeof useGetAllocateLazyQuery>;
+export type GetAllocateQueryResult = ApolloReactCommon.QueryResult<GetAllocateQuery, GetAllocateQueryVariables>;
+export const ListAllocatesDocument = gql`
+  query ListAllocates($objectId: ID!) {
+    listAllocates(objectId: $objectId) {
+      id
+      companyId
+      objectId
+      name
+      version
+      note
+      criteria {
+        startDate
+        endDate
+        amountAssignedCandidates
+        rentalePriceCalculation {
+          minJointIncome
+          maxJointIncome
+          minRentByIncome
+          maxRentByIcome
+        }
+        isPublishedExternally
+        interestDetails {
+          minNumberOfPreferences
+          registrationForm
+          registrationTo
+          assignOnlyWithInterest
+        }
+        documents {
+          acceptedMissingDocumentsNumber
+          onlyAcceptedDocuments
+        }
+        criteriaOrder {
+          name
+          order
+          checked
+        }
+      }
+      people {
+        jointIncome {
+          lowestPercentage
+          distributionThreshold
+          ficitousCalculation
+          includePension
+        }
+        income {
+          availableCapitalCount
+          deductMonthlyObligations
+          minAge
+          employementType
+        }
+        partnerIncome {
+          availableCapitalCount
+          deductMonthlyObligations
+          minAge
+          employementType
+        }
+      }
+      home {
+        amountChildren
+        amountAdults
+        situation
+        hasCurrentResidence
+      }
+      assignToRole
+    }
+  }
+`;
+export function useListAllocatesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListAllocatesQuery, ListAllocatesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListAllocatesQuery, ListAllocatesQueryVariables>(ListAllocatesDocument, baseOptions);
+}
+export function useListAllocatesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListAllocatesQuery, ListAllocatesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListAllocatesQuery, ListAllocatesQueryVariables>(
+    ListAllocatesDocument,
+    baseOptions,
+  );
+}
+export type ListAllocatesQueryHookResult = ReturnType<typeof useListAllocatesQuery>;
+export type ListAllocatesLazyQueryHookResult = ReturnType<typeof useListAllocatesLazyQuery>;
+export type ListAllocatesQueryResult = ApolloReactCommon.QueryResult<ListAllocatesQuery, ListAllocatesQueryVariables>;
 export const GetBillingDocument = gql`
   query GetBilling {
     getBilling {
@@ -18933,9 +19657,10 @@ export const CrmListDocument = gql`
     $sortDirection: SortDirection!
     $from: Int!
     $limit: Int
+    $city: String
   ) {
     crmList(
-      filters: { type: $type, status: $status }
+      filters: { type: $type, status: $status, city: $city }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
@@ -19001,6 +19726,40 @@ export function useListCrmsCountLazyQuery(
 export type ListCrmsCountQueryHookResult = ReturnType<typeof useListCrmsCountQuery>;
 export type ListCrmsCountLazyQueryHookResult = ReturnType<typeof useListCrmsCountLazyQuery>;
 export type ListCrmsCountQueryResult = ApolloReactCommon.QueryResult<ListCrmsCountQuery, ListCrmsCountQueryVariables>;
+export const GetCrmWithSameInfoDocument = gql`
+  query GetCrmWithSameInfo($input: CrmWithSameInfoInput!) {
+    getCrmWithSameInfo(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
+      }
+    }
+  }
+`;
+export function useGetCrmWithSameInfoQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>(
+    GetCrmWithSameInfoDocument,
+    baseOptions,
+  );
+}
+export function useGetCrmWithSameInfoLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCrmWithSameInfoQuery, GetCrmWithSameInfoQueryVariables>(
+    GetCrmWithSameInfoDocument,
+    baseOptions,
+  );
+}
+export type GetCrmWithSameInfoQueryHookResult = ReturnType<typeof useGetCrmWithSameInfoQuery>;
+export type GetCrmWithSameInfoLazyQueryHookResult = ReturnType<typeof useGetCrmWithSameInfoLazyQuery>;
+export type GetCrmWithSameInfoQueryResult = ApolloReactCommon.QueryResult<
+  GetCrmWithSameInfoQuery,
+  GetCrmWithSameInfoQueryVariables
+>;
 export const ListEmailFoldersDocument = gql`
   query ListEmailFolders($accountId: String!) {
     listEmailFolders(accountId: $accountId)
@@ -19293,6 +20052,8 @@ export const ListPimsDocument = gql`
         dateCreated
         livingArea
         propertyType
+        postalCode
+        country
         pictures {
           id
           name
@@ -19494,6 +20255,127 @@ export type GetMatchProfileLazyQueryHookResult = ReturnType<typeof useGetMatchPr
 export type GetMatchProfileQueryResult = ApolloReactCommon.QueryResult<
   GetMatchProfileQuery,
   GetMatchProfileQueryVariables
+>;
+export const ListMatchProfilesDocument = gql`
+  query ListMatchProfiles($crmId: ID!) {
+    listMatchProfiles(crmId: $crmId) {
+      id
+      crmId
+      companyId
+      propertyType
+      startDate
+      endDate
+      duration {
+        from
+        to
+      }
+      matchWith
+      description
+      estateType
+      commercialEstateType
+      characteristics {
+        general
+        property {
+          minAmountRooms
+          minAmountBedrooms
+          residentialLayerFrom
+          residentialLayerTo
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      commercialCharacteristics {
+        general
+        property {
+          minFreeHeight
+          minFreeSpan
+          minFloorLoad
+          minAmountOfFloors
+          minParkingLots
+          engergyLabel
+          constructionYearFrom
+          constructionYearTo
+          maintenanceQuality
+        }
+      }
+      pricing {
+        buyFrom
+        buyTo
+        rentFrom
+        rentTo
+        rentFrequency
+        rentalPeriod
+        preferredStartDate
+      }
+      outside {
+        minGarage
+      }
+      garden {
+        situation
+        outdoorSpacesMin
+        outdoorSpacesMax
+        volumeMin
+        volumeMax
+      }
+      conditions
+      services
+      tags
+      measurements {
+        surfaceFromMin
+        surfaceToMin
+        livingAreaFromMin
+        livingAreaToMin
+        businessSpaceSurfaceFromMin
+        businessSpaceSurfaceToMin
+        practiceRoomSurfaceToMax
+        practiceRoomSurfaceToMin
+        plotSurfaceFromMin
+        plotSurfaceToMin
+      }
+      revenue {
+        from
+        to
+      }
+      exploitation {
+        from
+        to
+      }
+      requirements {
+        key
+        status
+      }
+      locations {
+        latitude
+        longitude
+        street
+        houseNumber
+        radius
+      }
+    }
+  }
+`;
+export function useListMatchProfilesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<ListMatchProfilesQuery, ListMatchProfilesQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<ListMatchProfilesQuery, ListMatchProfilesQueryVariables>(
+    ListMatchProfilesDocument,
+    baseOptions,
+  );
+}
+export function useListMatchProfilesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ListMatchProfilesQuery, ListMatchProfilesQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<ListMatchProfilesQuery, ListMatchProfilesQueryVariables>(
+    ListMatchProfilesDocument,
+    baseOptions,
+  );
+}
+export type ListMatchProfilesQueryHookResult = ReturnType<typeof useListMatchProfilesQuery>;
+export type ListMatchProfilesLazyQueryHookResult = ReturnType<typeof useListMatchProfilesLazyQuery>;
+export type ListMatchProfilesQueryResult = ApolloReactCommon.QueryResult<
+  ListMatchProfilesQuery,
+  ListMatchProfilesQueryVariables
 >;
 export const NcpCharacteristicsDocument = gql`
   query NcpCharacteristics($id: ID!) {

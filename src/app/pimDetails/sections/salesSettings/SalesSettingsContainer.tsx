@@ -1,22 +1,81 @@
 import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import { useParams } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
 import { PimDetailsHeader } from 'app/pimDetails/pimDetailsHeader/PimDetailsHeader';
 import { Button } from 'ui/atoms';
 import { AddIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks';
+import {
+  AddAllocateInput,
+  AllocateInput,
+  ListAllocatesDocument,
+  useAddAllocateMutation,
+  useListAllocatesQuery,
+  useUpdateAllocateMutation,
+} from 'api/types';
 
 import { AllocationMain } from './allocationMain/AllocationMain';
 import { AddCriteriaModal } from './addCriteriaModal/AddCriteriaModal';
-import { AllocateCriteriaDetailsType } from './SalesSettings.types';
 
 export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen }: PimDetailsSectionProps) => {
   const { formatMessage } = useLocale();
 
   const [showCriteriaModal, setShowCriteriaModal] = useState(false);
 
-  const [criterias, setCriterias] = useState<AllocateCriteriaDetailsType[]>([]);
+  const { id } = useParams<{ id: string }>();
+  const [addAllocate] = useAddAllocateMutation();
+  const [updateAllocate] = useUpdateAllocateMutation();
+  const { data: allocatesData } = useListAllocatesQuery({ variables: { objectId: id } });
+
+  const handleAddAllocateCriteria = async (values: AddAllocateInput) => {
+    try {
+      const { data } = await addAllocate({
+        variables: { objectId: id, input: values },
+        refetchQueries: [
+          {
+            query: ListAllocatesDocument,
+            variables: {
+              objectId: id,
+            },
+          },
+        ],
+      });
+
+      if (!data || !data.addAllocate) {
+        throw new Error();
+      }
+
+      setShowCriteriaModal(false);
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: true,
+      };
+    }
+  };
+
+  const handleUpdateAllocateCriteria = async (criteriaId: string, values: AllocateInput) => {
+    try {
+      const { data } = await updateAllocate({
+        variables: {
+          id: criteriaId,
+          input: values,
+        },
+      });
+
+      if (!data || !data.updateAllocate) {
+        throw new Error();
+      }
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: true,
+      };
+    }
+  };
 
   return (
     <>
@@ -41,12 +100,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         <AddCriteriaModal
           isOpened={true}
           onClose={() => setShowCriteriaModal(false)}
-          onSubmit={newCriteria => {
-            setShowCriteriaModal(false);
-            setCriterias([...criterias, { criteriaName: newCriteria.criteriaName, createdDate: DateTime.local() }]);
-
-            return new Promise(resolve => undefined);
-          }}
+          onSubmit={handleAddAllocateCriteria}
         />
       )}
 
@@ -54,7 +108,8 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         title="Alocation settings"
         isSidebarVisible={isSidebarVisible}
         onSidebarOpen={onSidebarOpen}
-        criterias={criterias}
+        criterias={allocatesData?.listAllocates || []}
+        onSubmit={handleUpdateAllocateCriteria}
       />
     </>
   );

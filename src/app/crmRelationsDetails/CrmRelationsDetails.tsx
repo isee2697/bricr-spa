@@ -128,6 +128,7 @@ export const CrmRelationsDetails = ({ crm, breadcrumbs, path, entityType }: CrmR
                       path={`${path}/personal_information_match_profile`}
                       onSidebarOpen={handleSidebarOpen}
                       isSidebarVisible={isSidebarVisible}
+                      crm={crm}
                     />
                   )}
                 />

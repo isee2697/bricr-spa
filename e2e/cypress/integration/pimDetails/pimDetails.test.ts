@@ -175,10 +175,7 @@ context('Pim Details', () => {
 
   it('allows to add an outside feature', () => {
     cy.visit(NavigationMenu.pimDetailsLink.replace(':id', 'pim_1/outside'));
-    cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
-    cy.findAllByText('Outside')
-      .first()
-      .click();
+    cy.openMenuGroupByTestIdWhenClosed('menu-item-outside');
     cy.contains('Garden 2');
 
     cy.findByText('Add outside feature').click();
@@ -193,6 +190,7 @@ context('Pim Details', () => {
 
   it('allows to edit outside feature', () => {
     cy.openMenuGroupByTestIdWhenClosed('toggle-group-pim_details.menu.pim_intake');
+    cy.openMenuGroupByTestIdWhenClosed('menu-item-outside');
     cy.contains('Garden 2');
     cy.findByText('Main garden').click();
 

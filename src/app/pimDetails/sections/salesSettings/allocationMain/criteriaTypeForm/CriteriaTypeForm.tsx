@@ -8,7 +8,6 @@ import { useLocale } from 'hooks';
 import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';
-import { SquareIcon } from 'ui/atoms/icons';
 import { ReorderableList } from '../reorderableList/ReorderableList';
 
 const allocationCheckboxes = [
@@ -21,19 +20,6 @@ const allocationCheckboxes = [
     label: 'dictionaries.allocation.MatchProfile',
     icon: <HomeIcon color="inherit" />,
     value: 'MatchProfile',
-  },
-];
-
-const publishMethodCheckboxes = [
-  {
-    label: 'dictionaries.publishMethod.Yes',
-    icon: <SquareIcon color="inherit" />,
-    value: 'Yes',
-  },
-  {
-    label: 'dictionaries.publishMethod.No',
-    icon: <SquareIcon color="inherit" />,
-    value: 'No',
   },
 ];
 
@@ -96,14 +82,14 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <DatePickerField
-                        name="start_date"
+                        name="criteria.startDate"
                         label="pim_details.sales_settings.criteria_type.start_date"
                         disabled={!editing}
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <DatePickerField
-                        name="end_date"
+                        name="criteria.endDate"
                         label="pim_details.sales_settings.criteria_type.end_date"
                         disabled={!editing}
                       />
@@ -125,7 +111,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                 <Box px={2}>
                   <Grid item xs={3}>
                     <QuantityField
-                      name="assigned_candidates"
+                      name="criteria.amountAssignedCandidates"
                       label="pim_details.sales_settings.criteria_type.assigned_candidates"
                       min={0}
                       max={99}
@@ -149,33 +135,37 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="min_anual_income"
+                        name="criteria.rentalePriceCalculation.minJointIncome"
                         label="pim_details.sales_settings.criteria_type.min_anual_income"
                         placeholder="pim_details.sales_settings.criteria_type.min_anual_income_placeholder"
                         validate={[requireValidator]}
+                        type="number"
                         disabled={!editing}
                       />
                       <GenericField
-                        name="max_anual_income"
+                        name="criteria.rentalePriceCalculation.maxJointIncome"
                         label="pim_details.sales_settings.criteria_type.max_anual_income"
                         placeholder="pim_details.sales_settings.criteria_type.max_anual_income_placeholder"
                         validate={[requireValidator]}
+                        type="number"
                         disabled={!editing}
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="min_month_income"
+                        name="criteria.rentalePriceCalculation.minRentByIncome"
                         label="pim_details.sales_settings.criteria_type.min_month_income"
                         placeholder="pim_details.sales_settings.criteria_type.min_month_income_placeholder"
                         validate={[requireValidator]}
+                        type="number"
                         disabled={!editing}
                       />
                       <GenericField
-                        name="max_month_income"
+                        name="criteria.rentalePriceCalculation.maxRentByIcome"
                         label="pim_details.sales_settings.criteria_type.max_month_income"
                         placeholder="pim_details.sales_settings.criteria_type.max_month_income_placeholder"
                         validate={[requireValidator]}
+                        type="number"
                         disabled={!editing}
                       />
                     </Grid>
@@ -186,18 +176,10 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
 
             <Grid item xs={12}>
               <Box mb={4}>
-                <Box mb={3} px={2}>
-                  <FormSubSectionHeader
-                    noBorder
-                    title={formatMessage({ id: 'pim_details.sales_settings.published_externally' })}
-                    subtitle={formatMessage({ id: 'pim_details.choose_one_option_below' })}
-                  />
-                </Box>
                 <Box px={2}>
-                  <CheckboxGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="published_externally"
-                    options={publishMethodCheckboxes}
+                  <CheckboxField
+                    name="criteria.isPublishedExternally"
+                    label="pim_details.sales_settings.published_externally"
                     disabled={!editing}
                   />
                 </Box>
@@ -216,7 +198,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="min_preferenc_interest"
+                        name="criteria.interestDetails.minNumberOfPreferences"
                         label="pim_details.sales_settings.criteria_type.min_preferenc_interest"
                         placeholder="pim_details.sales_settings.criteria_type.min_preferenc_interest_placeholder"
                         type="number"
@@ -226,14 +208,14 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                     </Grid>
                     <Grid item xs={3}>
                       <DatePickerField
-                        name="registration_from"
+                        name="criteria.interestDetails.registrationForm"
                         label="pim_details.sales_settings.criteria_type.registration_from"
                         disabled={!editing}
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <DatePickerField
-                        name="registration_to"
+                        name="criteria.interestDetails.registrationTo"
                         label="pim_details.sales_settings.criteria_type.registration_to"
                         disabled={!editing}
                       />
@@ -242,7 +224,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                 </Box>
                 <Box px={2}>
                   <CheckboxField
-                    name="assign_to_people_with_property"
+                    name="criteria.interestDetails.assignOnlyWithInterest"
                     label="pim_details.sales_settings.criteria_type.assign_to_people_with_property"
                     disabled={!editing}
                   />
@@ -261,7 +243,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                 <Box mb={2} px={2}>
                   <Grid item xs={3}>
                     <QuantityField
-                      name="number_of_missing_documents"
+                      name="criteria.documents.acceptedMissingDocumentsNumber"
                       label="pim_details.sales_settings.criteria_type.number_of_missing_documents"
                       min={0}
                       max={99}
@@ -271,7 +253,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
                 </Box>
                 <Box px={2}>
                   <CheckboxField
-                    name="only_accepted_documents"
+                    name="criteria.documents.onlyAcceptedDocuments"
                     label="pim_details.sales_settings.criteria_type.only_accepted_documents"
                     disabled={!editing}
                   />

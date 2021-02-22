@@ -17,6 +17,8 @@ export const SurfaceProperty = ({ onSave }: SubSectionProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.surface_property.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>

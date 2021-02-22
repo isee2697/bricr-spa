@@ -69,4 +69,11 @@ export const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     height: spacing(4),
     background: palette.gray.light,
   },
+  tabs: {
+    marginLeft: -spacing(2),
+    marginRight: -spacing(2),
+  },
+  tab: {
+    minWidth: 'unset',
+  },
 }));

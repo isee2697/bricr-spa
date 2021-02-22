@@ -6,3 +6,5 @@ export * from './minValueValidator/minValueValidator';
 export * from './requireValidator/requireValidator';
 export * from './urlValidator/urlValidator';
 export * from './validatorsChain/validatorsChain';
+export * from './letterValidator/letterValidator';
+export * from './phoneNumberValidator/phoneNumberValidator';

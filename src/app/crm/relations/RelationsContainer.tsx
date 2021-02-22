@@ -5,15 +5,15 @@ import {
   useCrmListQuery,
   useUpdateCrmGeneralMutation,
   CrmListDocument,
-  ListPimsFilters,
-  PropertyType,
   CrmType,
   useListCrmsCountQuery,
   ListCrmsCountDocument,
+  BulkOperations,
+  ListCrmFilters,
 } from 'api/types';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { CrmItem } from '../Crm.types';
-import { usePagination } from 'hooks';
+import { usePagination, useSnackbar, useLocale } from 'hooks';
 import { useCrmQueryParams } from 'app/shared/useCrmQueryParams/useCrmQueryParams';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useCrmsSorting } from 'app/shared/useCrmsSorting/useCrmsSorting';
@@ -25,7 +25,10 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const RelationsContainer = (props: RelationsContainerProps) => {
   const { status } = useCrmQueryParams({});
-  const { sorting, query: sortQuery } = useCrmsSorting();
+  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
+  const { sorting, query: sortQuery } = useCrmsSorting(viewMode);
+  const { formatMessage } = useLocale();
+  const { open: openSnackbar } = useSnackbar();
   const { data: countData } = useListCrmsCountQuery({
     variables: {
       type: CrmType.Relation,
@@ -46,9 +49,44 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
+  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
+  const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
+
+  const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
+    try {
+      await updateCrmGeneral({
+        variables: {
+          input: {
+            id,
+            status,
+          },
+        },
+        refetchQueries: [
+          {
+            query: CrmListDocument,
+            variables: {
+              type: CrmType.Relation,
+            },
+          },
+          {
+            query: ListCrmsCountDocument,
+            variables: {
+              type: CrmType.Relation,
+              ...activeFilters,
+              status,
+              ...sortQuery,
+              ...paginationQuery,
+            },
+          },
+        ],
+      });
+    } catch (e) {}
+  };
+
   const { data } = useCrmListQuery({
     variables: {
       type: CrmType.Relation,
+      ...activeFilters,
       status,
       ...sortQuery,
       ...paginationQuery,
@@ -56,48 +94,35 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     fetchPolicy: 'no-cache',
   });
 
-  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
-  const [activeFilters, setActiveFilters] = useState<ListPimsFilters>({
-    propertyTypes: [PropertyType.Apartment, PropertyType.House],
-  });
-
   const crms: CrmItem[] = (data?.crmList.items || []).map(crm => ({
     ...mockCrm,
     ...crm,
   }));
 
-  const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
-    await updateCrmGeneral({
-      variables: {
-        input: {
-          id,
-          status,
-        },
-      },
-      refetchQueries: [
-        {
-          query: CrmListDocument,
-          variables: {
-            type: CrmType.Relation,
-            status,
-            ...sortQuery,
-            ...paginationQuery,
-          },
-        },
-        {
-          query: ListCrmsCountDocument,
-          variables: {
-            type: CrmType.Relation,
-          },
-        },
-      ],
-    });
+  const handleDeleteCrm = async (ids: string[]) => {};
+
+  const handleFilterChange = (filters: ListCrmFilters) => {
+    setActiveFilters(filters);
   };
 
-  const handleDeleteCrm = async (id: string) => {};
+  const handleUndo = async (undoIds: string[], bulkActionIds: string[]) => {};
 
-  const handleFilterChange = (filters: ListPimsFilters) => {
-    setActiveFilters(filters);
+  const handleOperation = async (operation: BulkOperations, items: CrmItem[]) => {
+    const bulkActionIds = items.map(item => item.id);
+
+    if (operation === BulkOperations.Delete) {
+      await handleDeleteCrm(bulkActionIds);
+    }
+
+    openSnackbar({
+      severity: 'success',
+      message: formatMessage({ id: `crm.${operation}.title` }),
+      modalContent: <></>,
+      modalTitle: formatMessage({ id: `crm.${operation}.details_title` }),
+      onUndo: () => handleUndo([], bulkActionIds),
+    });
+
+    return undefined;
   };
 
   return (
@@ -105,12 +130,14 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       {...props}
       crms={crms}
       onUpdateItemStatus={hanldeUpdateCrmStatus}
-      onDeleteItem={handleDeleteCrm}
+      onOperation={handleOperation}
       activeFilters={activeFilters}
       onFilter={handleFilterChange}
       amounts={amounts}
       sorting={sorting}
       pagination={pagination}
+      viewMode={viewMode}
+      setViewMode={setViewMode}
     />
   );
 };

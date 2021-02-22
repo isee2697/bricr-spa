@@ -17,6 +17,8 @@ export const Measurements = ({ onSave }: SubSectionProps) => {
       <FormSection
         title={formatMessage({ id: 'crm.details.personal_information_match_profile.measurements.title' })}
         isExpandable
+        isInitExpanded
+        isInitEditing
       >
         {isEditing => (
           <>

@@ -8,9 +8,10 @@ export const CRM_LIST = gql`
     $sortDirection: SortDirection!
     $from: Int!
     $limit: Int
+    $city: String
   ) {
     crmList(
-      filters: { type: $type, status: $status }
+      filters: { type: $type, status: $status, city: $city }
       pagination: { from: $from, limit: $limit }
       sort: { column: $sortColumn, direction: $sortDirection }
     ) {
@@ -46,6 +47,19 @@ export const LIST_CRMS_COUNT = gql`
     inactive: crmList(filters: { type: $type, status: Inactive }) {
       metadata {
         total
+      }
+    }
+  }
+`;
+
+export const GET_CRM_WITH_SAME_INFO = gql`
+  query GetCrmWithSameInfo($input: CrmWithSameInfoInput!) {
+    getCrmWithSameInfo(input: $input) {
+      metadata {
+        total
+      }
+      items {
+        id
       }
     }
   }
