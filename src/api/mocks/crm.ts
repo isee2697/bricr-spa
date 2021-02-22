@@ -32,7 +32,6 @@ export const CRM: CrmItem = {
     },
   },
   status: CrmStatus.Active,
-  informationCompletedStatus: 0.64,
   manager: {
     id: 'user-number-2',
     firstName: 'Christian',

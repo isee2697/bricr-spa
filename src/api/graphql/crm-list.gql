@@ -4,10 +4,21 @@ type CrmListItem {
   firstName: String
   insertion: String
   lastName: String
+  gender: GenderType
+  dateOfBirth: Date
+  placeOfBirth: String
+  nationality: String
+  maritalStatus: String @uuidOrEnum(enum: ["MaritalStatusType"])
+  familyCompositionChildren: Int
+  familyCompositionAdults: Int
+  currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
   phoneNumber: String
+  addresses: [CrmAddress!]
   email: String
   avatar: File
   status: CrmStatus
+  dateCreated: Date!
+  dateUpdated: Date
 }
 
 type CrmListSearchResult {

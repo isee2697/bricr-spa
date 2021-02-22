@@ -2435,10 +2435,21 @@ export type CrmListItem = {
   firstName?: Maybe<Scalars['String']>;
   insertion?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  gender?: Maybe<GenderType>;
+  dateOfBirth?: Maybe<Scalars['Date']>;
+  placeOfBirth?: Maybe<Scalars['String']>;
+  nationality?: Maybe<Scalars['String']>;
+  maritalStatus?: Maybe<Scalars['String']>;
+  familyCompositionChildren?: Maybe<Scalars['Int']>;
+  familyCompositionAdults?: Maybe<Scalars['Int']>;
+  currentHomeSituation?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
   avatar?: Maybe<File>;
   status?: Maybe<CrmStatus>;
+  dateCreated: Scalars['Date'];
+  dateUpdated?: Maybe<Scalars['Date']>;
 };
 
 export type CrmListSearchResult = {
@@ -11365,8 +11376,28 @@ export type CrmListQuery = { __typename?: 'Query' } & {
       Array<
         { __typename?: 'CrmListItem' } & Pick<
           CrmListItem,
-          'id' | 'type' | 'firstName' | 'insertion' | 'lastName' | 'phoneNumber' | 'email' | 'status'
-        > & { avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>> }
+          | 'id'
+          | 'type'
+          | 'firstName'
+          | 'insertion'
+          | 'lastName'
+          | 'gender'
+          | 'dateOfBirth'
+          | 'placeOfBirth'
+          | 'nationality'
+          | 'maritalStatus'
+          | 'familyCompositionChildren'
+          | 'familyCompositionAdults'
+          | 'currentHomeSituation'
+          | 'phoneNumber'
+          | 'email'
+          | 'status'
+          | 'dateCreated'
+          | 'dateUpdated'
+        > & {
+            addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
+            avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+          }
       >
     >;
   };
@@ -19670,12 +19701,25 @@ export const CrmListDocument = gql`
         firstName
         insertion
         lastName
+        gender
+        dateOfBirth
+        placeOfBirth
+        nationality
+        maritalStatus
+        familyCompositionChildren
+        familyCompositionAdults
+        currentHomeSituation
         phoneNumber
+        addresses {
+          city
+        }
         email
         avatar {
           url
         }
         status
+        dateCreated
+        dateUpdated
       }
     }
   }
