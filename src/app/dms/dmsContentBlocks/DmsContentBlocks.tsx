@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import clsx from 'classnames';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { Card, CardContent, Grid, Box, Typography, CardHeader, IconButton } from 'ui/atoms';
 import { AddIcon, ManageIcon } from 'ui/atoms/icons';
 import { List, PropertyItemPlaceholder } from 'ui/molecules';
+import { joinUrlParams } from 'routing/AppRoute.utils';
 
 import { ActiveTabStatus, DmsContentBlocksProps } from './DmsContentBlocks.types';
 import { useStyles } from './DmsContentBlocks.styles';
@@ -21,6 +21,8 @@ export const DmsContentBlocks = ({ contentBlocks, onAdd, onUpdate }: DmsContentB
   const classes = useStyles();
   const { push } = useHistory();
   const [status, setStatus] = useState<ActiveTabStatus>('active');
+  const params = useParams<{ type: string; category: string }>();
+  const { pathname } = useLocation();
 
   const activeBlocks = contentBlocks.filter(item => item.status === 'active');
   const inactiveBlocks = contentBlocks.filter(item => item.status === 'inactive');
@@ -100,7 +102,7 @@ export const DmsContentBlocks = ({ contentBlocks, onAdd, onUpdate }: DmsContentB
                               className={classes.itemButton}
                               onClick={() => {
                                 if (block.status === 'active') {
-                                  push(`${AppRoute.dms}/content-blocks/${block.id}`, {
+                                  push(`${joinUrlParams(pathname, params)}/${block.id}`, {
                                     name: block.name,
                                   });
                                 }

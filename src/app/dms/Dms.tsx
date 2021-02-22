@@ -48,7 +48,7 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
         {breadcrumbs}
         <Switch>
           <Route
-            path={[`${path}/templates/:type/:category/:id`, `${path}/content-blocks/:id`]}
+            path={[`${path}/templates/:type/:category/:id`, `${path}/contentBlocks/:type/:id`]}
             render={() => (
               <DmsDetailsSidebarMenu
                 onHide={handleSidebarHide}
@@ -78,9 +78,10 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                 <Switch>
                   <Route path={`${path}/dashboard`} render={() => <DmsDashboard dms={dms} />} />
                   <Route path={`${path}/pim/:type`} render={() => <DmsPims dms={dms} />} />
-                  <Route path={`${path}/templatesEmail`} render={() => <></>} />
-                  <Route path={`${path}/contentBlocks`} render={() => <></>} />
-                  <Route path={`${path}/imageLibrary`} render={() => <></>} />
+                  <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
+                  <Route exact path={`${path}/contentBlocks/:type`} render={() => <DmsContentBlocksContainer />} />
+                  <Route path={`${path}/contentBlocks/:type/:id`} render={() => <DmsContentBlockDetailsContainer />} />
+                  <Route path={`${path}/imageLibrary`} render={() => <DmsImageLibrary />} />
                   <Route
                     path={`${path}/templates/:type/:category/:id`}
                     render={() => (
@@ -92,10 +93,6 @@ export const Dms = ({ dms, breadcrumbs, path, entityType }: DmsProps) => {
                       />
                     )}
                   />
-                  <Route path={`${path}/templates/:type`} render={() => <DmsTemplatesList />} />
-                  <Route exact path={`${path}/content-blocks`} render={() => <DmsContentBlocksContainer />} />
-                  <Route path={`${path}/content-blocks/:id`} render={() => <DmsContentBlockDetailsContainer />} />
-                  <Route path={`${path}/image-library`} render={() => <DmsImageLibrary />} />
                   <Redirect to={{ pathname: `${path}/dashboard`, state }} />
                 </Switch>
               )}
