@@ -1,41 +1,21 @@
-import React, { useState, ReactNode } from 'react';
+import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useTheme } from '@material-ui/core';
 
 import { SidebarMenu } from 'ui/molecules';
 import { Box } from 'ui/atoms';
-import { CrmIcon, FolderIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
-import { DmsAddFolderDialog } from '../dmsPims/dmsFolders/dmsAddFolderDialog/DmsAddFolderDialog';
+import { FolderIcon, AddIcon, GraphArrowIcon } from 'ui/atoms/icons';
 import { SidebarMenuType } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 import { AppRoute } from 'routing/AppRoute.enum';
+import { useLocale } from 'hooks';
 
 import { DmsSidebarMenuProps } from './DmsSidebarMenu.types';
 
 export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMenuProps) => {
   const { url } = useRouteMatch();
-  const [dialog, setDialog] = useState<ReactNode | null>(null);
   const theme = useTheme();
+  const { formatMessage } = useLocale();
   const { push } = useHistory();
-
-  const handleAddFolder = () => {
-    if (onAddFolder) {
-      setDialog(
-        <DmsAddFolderDialog
-          isOpened={true}
-          isAdd={true}
-          onClose={() => {
-            setDialog(null);
-          }}
-          onSubmit={({ folderName }) => {
-            onAddFolder(folderName);
-            setDialog(null);
-
-            return new Promise(resolve => {});
-          }}
-        />,
-      );
-    }
-  };
 
   const menu: SidebarMenuType = {
     url,
@@ -289,7 +269,7 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
       {
         isCollapsable: true,
         key: 'contentBlocks',
-        onClick: () => push(`${AppRoute.dms}/contentBlocks`),
+        onClick: () => push(`${AppRoute.dms}/contentBlocks/bricr`),
         items: [
           {
             key: 'contentBlocks/bricr',
@@ -315,62 +295,19 @@ export const DmsSidebarMenu = ({ onHide, isVisible, onAddFolder }: DmsSidebarMen
           },
         ],
       },
-      {
-        items: [
-          {
-            key: 'documents',
-            icon: <CrmIcon />,
-            subItems: [
-              {
-                id: 'pim',
-                label: 'dms.menu.pim',
-                icon: (
-                  <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color="inherit" />
-                  </div>
-                ),
-              },
-              {
-                id: 'crm',
-                label: 'dms.menu.crm',
-                icon: (
-                  <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color="inherit" />
-                  </div>
-                ),
-              },
-              {
-                id: 'sales',
-                label: 'dms.menu.sales',
-                icon: (
-                  <div style={{ marginLeft: 30 }}>
-                    <FolderIcon color="inherit" />
-                  </div>
-                ),
-              },
-              {
-                id: 'add_folder',
-                label: 'dms.menu.add_folder',
-                icon: (
-                  <div style={{ marginLeft: 30 }}>
-                    <AddIcon color="inherit" />
-                  </div>
-                ),
-                onClick: handleAddFolder,
-              },
-            ],
-          },
-          { key: 'content-blocks', icon: <CrmIcon /> },
-          { key: 'image-library', icon: <CrmIcon /> },
-        ],
-      },
     ],
   };
 
   return (
     <>
-      <SidebarMenu onHide={onHide} isVisible={isVisible} translationPrefix="dms.menu" menu={menu} />
-      {dialog}
+      <SidebarMenu
+        onHide={onHide}
+        isVisible={isVisible}
+        translationPrefix="dms.menu"
+        menu={menu}
+        menuTitle={formatMessage({ id: 'dms.title' })}
+        menuTitleIcon={<FolderIcon color="inherit" />}
+      />
     </>
   );
 };
