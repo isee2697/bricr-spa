@@ -2443,6 +2443,7 @@ export type CrmListItem = {
   familyCompositionChildren?: Maybe<Scalars['Int']>;
   familyCompositionAdults?: Maybe<Scalars['Int']>;
   currentHomeSituation?: Maybe<Scalars['String']>;
+  partner?: Maybe<LinkedCrm>;
   phoneNumber?: Maybe<Scalars['String']>;
   addresses?: Maybe<Array<CrmAddress>>;
   email?: Maybe<Scalars['String']>;
@@ -11395,6 +11396,11 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'dateCreated'
           | 'dateUpdated'
         > & {
+            partner?: Maybe<
+              { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
+                  avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
+                }
+            >;
             addresses?: Maybe<Array<{ __typename?: 'CrmAddress' } & Pick<CrmAddress, 'city'>>>;
             avatar?: Maybe<{ __typename?: 'File' } & Pick<File, 'url'>>;
           }
@@ -19709,6 +19715,14 @@ export const CrmListDocument = gql`
         familyCompositionChildren
         familyCompositionAdults
         currentHomeSituation
+        partner {
+          id
+          firstName
+          lastName
+          avatar {
+            url
+          }
+        }
         phoneNumber
         addresses {
           city

@@ -105,7 +105,7 @@ export const RelationCard = ({ title, crm, compare, onCheck, isChecked, children
                 {crm.partner ? (
                   <PersonChip
                     name={`${crm.partner.firstName} ${crm.partner.lastName}`}
-                    image={crm.partner.image?.url || ''}
+                    image={crm.partner.avatar?.url || ''}
                   />
                 ) : (
                   <Typography variant="h5" className={clsx(classes.typographyItem, 'red')}>

@@ -50,7 +50,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     phoneNumber,
     avatar,
     property,
-    partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
+    partner,
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     meta: { matches, interests, viewings, biddings, candidate, optant },
   } = crm;
@@ -151,19 +151,21 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
               <br />
               <Box className={classes.inlineBlock}>
                 <Box display="flex">
-                  <Box mr={2}>
-                    <Typography variant="h6" className={classes.label}>
-                      {formatMessage({ id: 'crm.item.partner' })}
-                    </Typography>
-                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                      <UserAvatar
-                        name={`${partnerFirstName} ${partnerLastName}`}
-                        avatar={partnerAvatar?.url || undefined}
-                        className={classes.avatarIcon}
-                      />{' '}
-                      {partnerFirstName} {partnerLastName}
+                  {partner && (
+                    <Box mr={2}>
+                      <Typography variant="h6" className={classes.label}>
+                        {formatMessage({ id: 'crm.item.partner' })}
+                      </Typography>
+                      <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                        <UserAvatar
+                          name={`${partner.firstName} ${partner.lastName}`}
+                          avatar={partner.avatar?.url || undefined}
+                          className={classes.avatarIcon}
+                        />{' '}
+                        {partner.firstName} {partner.lastName}
+                      </Box>
                     </Box>
-                  </Box>
+                  )}
                   <Box>
                     <Typography variant="h6" className={classes.label}>
                       {formatMessage({ id: 'crm.item.manager' })}

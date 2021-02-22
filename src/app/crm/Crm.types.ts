@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { CrmType, Maybe, Profile, CrmStatus, GenderType, CrmAddress } from 'api/types';
+import { CrmType, Maybe, Profile, CrmStatus, GenderType, CrmAddress, LinkedCrm } from 'api/types';
 
 export type CrmProps = {
   path: string;
@@ -28,7 +28,7 @@ export type CrmItem = {
   avatar?: Maybe<{ url?: Maybe<string> }>;
   status: Maybe<CrmStatus>;
   property: string;
-  partner: Profile;
+  partner: Maybe<LinkedCrm>;
   manager: Profile;
   createdAt?: DateTime;
   meta: {

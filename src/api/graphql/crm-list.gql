@@ -12,6 +12,7 @@ type CrmListItem {
   familyCompositionChildren: Int
   familyCompositionAdults: Int
   currentHomeSituation: String @uuidOrEnum(enum: ["CurrentHomeSituationType"])
+  partner: LinkedCrm
   phoneNumber: String
   addresses: [CrmAddress!]
   email: String

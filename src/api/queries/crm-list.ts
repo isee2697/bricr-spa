@@ -29,6 +29,14 @@ export const CRM_LIST = gql`
         familyCompositionChildren
         familyCompositionAdults
         currentHomeSituation
+        partner {
+          id
+          firstName
+          lastName
+          avatar {
+            url
+          }
+        }
         phoneNumber
         addresses {
           city
