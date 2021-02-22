@@ -122,6 +122,33 @@ export const Relations = ({
                     )}
                     sortOptions={sorting.sortOptions}
                     onSort={sorting.onSort}
+                    onBulk={onBulk}
+                    onBulkOpen={onBulkOpen}
+                    bulkTitle={formatMessage({ id: 'crm.bulk.title' })}
+                    bulkData={bulkData}
+                    bulkSubmitText={formatMessage({ id: 'crm.bulk.submit' })}
+                    bulkActions={[
+                      {
+                        key: BulkField.Status,
+                        title: formatMessage({ id: 'crm.bulk.status.title' }),
+                        content: (
+                          <FieldChange
+                            fieldLabelId="crm.bulk.status.label"
+                            fieldName={BulkField.Status}
+                            fieldPlaceholderId="crm.bulk.status.placeholder"
+                            valuesFieldName={'status'}
+                            valuesLabel={formatMessage({ id: 'crm.bulk.status.values_title' })}
+                            radioOptions={CrmStatusOptions.map(s => ({
+                              ...s,
+                              label: formatMessage({ id: `dictionaries.status.${s.label}` }),
+                            }))}
+                            xs={6}
+                            type="radiogroup"
+                          />
+                        ),
+                      },
+                    ]}
+                    onOperation={onOperation}
                   />
                 ) : (
                   <List<CrmListItemType>
