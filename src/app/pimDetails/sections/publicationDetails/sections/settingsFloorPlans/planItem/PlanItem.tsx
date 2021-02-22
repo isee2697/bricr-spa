@@ -42,7 +42,7 @@ export const PlanItem = ({ isAdded = false, onRemoveFromList, onChangeOrder, ...
             <Avatar variant="rounded" src={item.image} className={clsx(classes.avatar, !isAdded && 'pointerCursor')} />
             {isAdded && !!onRemoveFromList && (
               <Badge
-                className={clsx(classes.badge, 'badge')}
+                className={clsx(classes.badge, 'badge', isDragging && 'hide')}
                 onClick={() => onRemoveFromList(item)}
                 badgeContent={<CloseIcon className={classes.badgeIcon} />}
                 color="error"
