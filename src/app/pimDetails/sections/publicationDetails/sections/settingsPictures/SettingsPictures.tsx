@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 import { useLocale } from 'hooks';
 import { FormSection } from 'ui/organisms';
@@ -10,6 +10,7 @@ import { useStyles } from './SettingsPictures.styles';
 import { SettingsPictureItem } from './SettingsPictures.types';
 import { PictureItem } from './pictureItem/PictureItem';
 import { PictureItemPlaceholder } from './pictureItemPlaceholder/PictureItemPlaceholder';
+import { PictureItemDragObject } from './pictureItemDragObject/PictureItemDragObject';
 
 export const SettingsPictures = () => {
   const { formatMessage } = useLocale();
@@ -42,6 +43,11 @@ export const SettingsPictures = () => {
 
   const handleAddToList = (item: SettingsPictureItem) => {
     const filteredList = addedPictures.filter(picture => picture.id !== item.id);
+
+    if (mainPicture && mainPicture.id === item.id) {
+      setMainPicture(undefined);
+    }
+
     setAddedPictures([...filteredList, item]);
   };
 
@@ -63,7 +69,6 @@ export const SettingsPictures = () => {
   };
 
   const handleRemoveFromMainPicture = () => {
-    setAddedPictures([mainPicture!, ...addedPictures]);
     setMainPicture(undefined);
   };
 
@@ -73,7 +78,8 @@ export const SettingsPictures = () => {
       isEditable
       isExpandable
     >
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+        <PictureItemDragObject />
         <Box display="flex" flexWrap>
           <Box mr={2}>
             <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
@@ -109,12 +115,10 @@ export const SettingsPictures = () => {
             <PictureItemPlaceholder onAddItemToAddedList={handleAddToList} />
           </Box>
         </Box>
-      </DndProvider>
-      <Box mt={9} />
-      <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-        {formatMessage({ id: 'pim_details.publication.funda.settings.pictures.available_images' })}
-      </Typography>
-      <DndProvider backend={HTML5Backend}>
+        <Box mt={9} />
+        <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+          {formatMessage({ id: 'pim_details.publication.funda.settings.pictures.available_images' })}
+        </Typography>
         <Box display="flex" flexWrap mt={1.5}>
           {availableImages
             .filter(
