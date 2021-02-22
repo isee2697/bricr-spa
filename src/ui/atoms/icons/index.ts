@@ -125,3 +125,4 @@ export * from './stamp/StampIcon';
 export * from './attach/AttachIcon';
 export * from './photoCamera/PhotoCameraIcon';
 export * from './roundBusinessCenter/RoundBusinessCenterIcon';
+export * from './phone/PhoneIcon';
