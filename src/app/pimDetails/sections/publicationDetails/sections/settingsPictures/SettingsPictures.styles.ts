@@ -46,4 +46,13 @@ export const useStyles = makeStyles(theme => ({
       fill: theme.palette.white.main,
     },
   },
+  itemObjectWrapper: {
+    position: 'fixed',
+    pointerEvents: 'none',
+    zIndex: 1200,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+  },
 }));
