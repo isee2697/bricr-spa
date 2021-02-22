@@ -1,10 +1,5 @@
 import React from 'react';
-import { useParams, Route, Switch, Redirect } from 'react-router-dom';
-
-import { NavBreadcrumb } from 'ui/atoms';
-import { useLocale } from 'hooks/useLocale/useLocale';
-import { useEntityType } from 'app/shared/entityType';
-import { joinUrlParams } from 'routing/AppRoute.utils';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { MatchProfileProps } from './MatchProfile.types';
 import { MatchProfileListContainer } from './list/ListContainer';
