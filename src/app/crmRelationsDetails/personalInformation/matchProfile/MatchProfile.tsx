@@ -11,17 +11,8 @@ import { MatchProfileListContainer } from './list/ListContainer';
 import { CreateNewMatchProfileContainer } from './createNewMatchProfile/CreateNewMatchProfileContainer';
 
 export const MatchProfile = ({ crm, path, onSidebarOpen, isSidebarVisible }: MatchProfileProps) => {
-  const { formatMessage } = useLocale();
-  const { baseUrl } = useEntityType();
-  const urlParams = useParams();
-
   return (
     <>
-      <NavBreadcrumb
-        title={formatMessage({ id: 'crm.details.personal_information_match_profile.title' })}
-        to="/personal_information_match_profile"
-        urlBase={joinUrlParams(baseUrl, urlParams)}
-      />
       <Switch>
         <Route
           exact
