@@ -9,7 +9,7 @@ export const GET_MATCH_PROFILE = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -109,7 +109,7 @@ export const LIST_MATCH_PROFILES = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }

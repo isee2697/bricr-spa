@@ -162,7 +162,7 @@ type MatchProfile {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  duration: MatchProfileDateRange
+  matchDuration: MatchProfileDateRange
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -242,7 +242,7 @@ type MatchOutsidePricing {
 }
 
 type MatchGarden {
-  situation: MatchGardenSituation
+  situation: [MatchGardenSituation!]
   outdoorSpacesMin: Float
   outdoorSpacesMax: Float
   volumeMin: Float
@@ -279,7 +279,7 @@ input MatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
-  duration: DateRange
+  matchDuration: DateRange
   matchWith: [MatchProfileWith!]
   description: String
   estateType: MatchEstateType
@@ -355,7 +355,7 @@ input MatchOutsidePricingInput {
 }
 
 input MatchGardenInput {
-  situation: MatchGardenSituation
+  situation: [MatchGardenSituation!]
   outdoorSpacesMin: Float
   outdoorSpacesMax: Float
   volumeMin: Float
@@ -376,11 +376,11 @@ input MatchMeasurementsInput {
 }
 
 input MatchProfileLocationInput {
-  latitude: Float!
-  longitude: Float!
-  street: String!
-  houseNumber: Int!
-  radius: Float!
+  latitude: Float
+  longitude: Float
+  street: String
+  houseNumber: Int
+  radius: Float
 }
 
 input MatchRequirementInput {

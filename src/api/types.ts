@@ -3253,7 +3253,7 @@ export type MatchProfile = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<MatchProfileDateRange>;
+  matchDuration?: Maybe<MatchProfileDateRange>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
@@ -3342,7 +3342,7 @@ export type MatchOutsidePricing = {
 
 export type MatchGarden = {
   __typename?: 'MatchGarden';
-  situation?: Maybe<MatchGardenSituation>;
+  situation?: Maybe<Array<MatchGardenSituation>>;
   outdoorSpacesMin?: Maybe<Scalars['Float']>;
   outdoorSpacesMax?: Maybe<Scalars['Float']>;
   volumeMin?: Maybe<Scalars['Float']>;
@@ -3382,7 +3382,7 @@ export type MatchProfileInput = {
   propertyType?: Maybe<MatchPropertyType>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
-  duration?: Maybe<DateRange>;
+  matchDuration?: Maybe<DateRange>;
   matchWith?: Maybe<Array<MatchProfileWith>>;
   description?: Maybe<Scalars['String']>;
   estateType?: Maybe<MatchEstateType>;
@@ -3459,7 +3459,7 @@ export type MatchOutsidePricingInput = {
 };
 
 export type MatchGardenInput = {
-  situation?: Maybe<MatchGardenSituation>;
+  situation?: Maybe<Array<MatchGardenSituation>>;
   outdoorSpacesMin?: Maybe<Scalars['Float']>;
   outdoorSpacesMax?: Maybe<Scalars['Float']>;
   volumeMin?: Maybe<Scalars['Float']>;
@@ -3480,11 +3480,11 @@ export type MatchMeasurementsInput = {
 };
 
 export type MatchProfileLocationInput = {
-  latitude: Scalars['Float'];
-  longitude: Scalars['Float'];
-  street: Scalars['String'];
-  houseNumber: Scalars['Int'];
-  radius: Scalars['Float'];
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  street?: Maybe<Scalars['String']>;
+  houseNumber?: Maybe<Scalars['Int']>;
+  radius?: Maybe<Scalars['Float']>;
 };
 
 export type MatchRequirementInput = {
@@ -9522,7 +9522,7 @@ export type AddMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -9623,7 +9623,7 @@ export type UpdateMatchProfileMutation = { __typename?: 'Mutation' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -11590,7 +11590,7 @@ export type GetMatchProfileQuery = { __typename?: 'Query' } & {
       | 'services'
       | 'tags'
     > & {
-        duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+        matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
         characteristics?: Maybe<
           { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
               property?: Maybe<
@@ -11691,7 +11691,7 @@ export type ListMatchProfilesQuery = { __typename?: 'Query' } & {
         | 'services'
         | 'tags'
       > & {
-          duration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
+          matchDuration?: Maybe<{ __typename?: 'MatchProfileDateRange' } & Pick<MatchProfileDateRange, 'from' | 'to'>>;
           characteristics?: Maybe<
             { __typename?: 'MatchCharacteristics' } & Pick<MatchCharacteristics, 'general'> & {
                 property?: Maybe<
@@ -15756,7 +15756,7 @@ export const AddMatchProfileDocument = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -15869,7 +15869,7 @@ export const UpdateMatchProfileDocument = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -20144,7 +20144,7 @@ export const GetMatchProfileDocument = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
@@ -20265,7 +20265,7 @@ export const ListMatchProfilesDocument = gql`
       propertyType
       startDate
       endDate
-      duration {
+      matchDuration {
         from
         to
       }
