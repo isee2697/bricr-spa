@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 import { useLocale } from 'hooks';
 import { FormSection } from 'ui/organisms';
@@ -10,6 +10,7 @@ import { useStyles } from './SettingsFloorPlans.styles';
 import { SettingsFloorPlanItem } from './SettingsFloorPlans.types';
 import { PlanItem } from './planItem/PlanItem';
 import { PlanItemPlaceholder } from './planItemPlaceholder/PlanItemPlaceholder';
+import { PlanItemDragObject } from './planItemDragObject/PlanItemDragObject';
 
 export const SettingsFloorPlans = () => {
   const { formatMessage } = useLocale();
@@ -42,6 +43,11 @@ export const SettingsFloorPlans = () => {
 
   const handleAddToList = (item: SettingsFloorPlanItem) => {
     const filteredList = addedPictures.filter(picture => picture.id !== item.id);
+
+    if (mainPicture && mainPicture.id === item.id) {
+      setMainPicture(undefined);
+    }
+
     setAddedPictures([...filteredList, item]);
   };
 
@@ -63,7 +69,6 @@ export const SettingsFloorPlans = () => {
   };
 
   const handleRemoveFromMainPicture = () => {
-    setAddedPictures([mainPicture!, ...addedPictures]);
     setMainPicture(undefined);
   };
 
@@ -73,7 +78,8 @@ export const SettingsFloorPlans = () => {
       isEditable
       isExpandable
     >
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+        <PlanItemDragObject />
         <Box display="flex" flexWrap>
           <Box mr={2}>
             <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
@@ -109,12 +115,11 @@ export const SettingsFloorPlans = () => {
             <PlanItemPlaceholder onAddItemToAddedList={handleAddToList} />
           </Box>
         </Box>
-      </DndProvider>
-      <Box mt={9} />
-      <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
-        {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.available_images' })}
-      </Typography>
-      <DndProvider backend={HTML5Backend}>
+        <Box mt={9} />
+        <Typography variant="h5" className={classes.fontWeightMedium} color="textSecondary">
+          {formatMessage({ id: 'pim_details.publication.funda.settings.floor_plans.available_images' })}
+        </Typography>
+        <PlanItemDragObject />
         <Box display="flex" flexWrap mt={1.5}>
           {availableImages
             .filter(

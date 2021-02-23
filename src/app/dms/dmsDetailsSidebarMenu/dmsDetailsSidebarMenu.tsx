@@ -151,7 +151,7 @@ export const DmsDetailsSidebarMenu = ({
                     </Box>
                     <Collapse in={isGroupCollapseOpen('general')} className={classes.collapseContent}>
                       {Object.keys(EditorBlocksGeneral).map(key => (
-                        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3} width="50%">
                           <Box
                             className={classes.icon}
                             display="flex"
@@ -184,7 +184,7 @@ export const DmsDetailsSidebarMenu = ({
                     </Box>
                     <Collapse in={isGroupCollapseOpen('media')} className={classes.collapseContent}>
                       {Object.keys(EditorBlocksMedia).map(key => (
-                        <Box display="flex" flexDirection="column" alignItems="center" mb={3}>
+                        <Box display="flex" flexDirection="column" alignItems="center" mb={3} width="50%">
                           <Box
                             className={classes.icon}
                             display="flex"
