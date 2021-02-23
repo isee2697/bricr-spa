@@ -4,6 +4,9 @@ export const CREATE_CRM = gql`
   mutation CreateCrm($input: CreateCrmInput!) {
     createCrm(input: $input) {
       id
+      firstName
+      insertion
+      lastName
     }
   }
 `;

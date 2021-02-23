@@ -1,6 +1,6 @@
 import groupBy from 'lodash/groupBy';
 
-import { AogSpaceType, CadastreType, FloorType, PimOverallInfoQuery } from 'api/types';
+import { AogSpaceType, CadastreType, FloorType, Pim } from 'api/types';
 import { MenuItem } from 'ui/molecules/sidebarMenu/SidebarMenu.types';
 
 import { MessageFormat, SideBarItemTypes, SubMenuItem } from './PimDetailsSidebarMenu.types';
@@ -22,7 +22,7 @@ import {
 
 export const getMenuItem = (
   item: SideBarItemTypes,
-  data: PimOverallInfoQuery,
+  data: Pim,
   formatMessage: (data: MessageFormat) => string,
 ): MenuItem => {
   switch (item) {
@@ -69,8 +69,8 @@ export const createSubMenuData = (
   return { id, title: `${formatMessage({ id: label })} ${number ?? ''}` };
 };
 
-const getInsideItem = (data: PimOverallInfoQuery) => {
-  const floorGroups = groupBy(data.getPimInside.floors || [], floor => floor.floorType);
+const getInsideItem = (data: Pim) => {
+  const floorGroups = groupBy(data.floors || [], floor => floor.floorType);
 
   return {
     ...insideItem,
@@ -91,8 +91,8 @@ const getInsideItem = (data: PimOverallInfoQuery) => {
   };
 };
 
-const getCommercialSpacesItem = (data: PimOverallInfoQuery, formatMessage: (data: MessageFormat) => string) => {
-  const spaceGroups = groupBy([...(data.getPimInside.bogSpaces || [])].reverse(), space => space.type);
+const getCommercialSpacesItem = (data: Pim, formatMessage: (data: MessageFormat) => string) => {
+  const spaceGroups = groupBy([...(data.bogSpaces || [])].reverse(), space => space.type);
 
   return {
     ...commercialSpacesItem,
@@ -112,8 +112,8 @@ const getCommercialSpacesItem = (data: PimOverallInfoQuery, formatMessage: (data
   };
 };
 
-const getOutsideItem = (data: PimOverallInfoQuery, formatMessage: (data: MessageFormat) => string) => {
-  const outsideGroups = groupBy(data.getPimOutside.outsideFeatures || [], outside => outside.type);
+const getOutsideItem = (data: Pim, formatMessage: (data: MessageFormat) => string) => {
+  const outsideGroups = groupBy(data.outsideFeatures || [], outside => outside.type);
 
   return {
     ...outsideItem,
@@ -131,11 +131,8 @@ const getOutsideItem = (data: PimOverallInfoQuery, formatMessage: (data: Message
   };
 };
 
-const getCadastreItem = (data: PimOverallInfoQuery, formatMessage: (data: MessageFormat) => string) => {
-  const plotGroups = groupBy(
-    data.getPimCadastre.cadastre?.filter(c => c.type === CadastreType.Plot) || [],
-    c => c.type,
-  );
+const getCadastreItem = (data: Pim, formatMessage: (data: MessageFormat) => string) => {
+  const plotGroups = groupBy(data.cadastre?.filter(c => c.type === CadastreType.Plot) || [], c => c.type);
 
   return {
     ...cadastreItem,
@@ -159,8 +156,8 @@ const getCadastreItem = (data: PimOverallInfoQuery, formatMessage: (data: Messag
   };
 };
 
-export const getMetersItem = (data: PimOverallInfoQuery, formatMessage: (data: MessageFormat) => string) => {
-  const meterGroups = groupBy(data.getPimServices.meters || [], meter => meter.type);
+export const getMetersItem = (data: Pim, formatMessage: (data: MessageFormat) => string) => {
+  const meterGroups = groupBy(data.meters || [], meter => meter.type);
 
   return {
     ...metersItem,
@@ -176,8 +173,8 @@ export const getMetersItem = (data: PimOverallInfoQuery, formatMessage: (data: M
   };
 };
 
-export const getAogSpaceTypeItem = (data: PimOverallInfoQuery, baseItem: MenuItem, type: AogSpaceType) => {
-  const animals = data?.getPimInside?.aogSpaces?.filter(space => space.type === type) || [];
+export const getAogSpaceTypeItem = (data: Pim, baseItem: MenuItem, type: AogSpaceType) => {
+  const animals = data?.aogSpaces?.filter(space => space.type === type) || [];
 
   return {
     ...baseItem,
