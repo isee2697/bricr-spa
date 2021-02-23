@@ -130,28 +130,22 @@ export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps
                 >
                   <Grid container spacing={1} className={classes.identificationNumberFormFields}>
                     <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_general.identification_number.number',
-                        })}
-                      </Typography>
                       <GenericField
-                        className={classes.formField}
                         name={`${identificationNumber.key}.number`}
                         disabled={!isEditing}
+                        label={formatMessage({
+                          id: 'crm.details.personal_information_general.identification_number.number',
+                        })}
                         placeholder="crm.details.personal_information_general.identification_number.number_placeholder"
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_general.identification_number.name',
-                        })}
-                      </Typography>
                       <GenericField
-                        className={classes.formField}
                         name={`${identificationNumber.key}.name`}
                         disabled={!isEditing}
+                        label={formatMessage({
+                          id: 'crm.details.personal_information_general.identification_number.name',
+                        })}
                         placeholder="crm.details.personal_information_general.identification_number.name_placeholder"
                       />
                     </Grid>
