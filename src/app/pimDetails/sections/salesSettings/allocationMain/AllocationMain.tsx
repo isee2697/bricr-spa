@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import arrayMutators from 'final-form-arrays';
 import { DateTime } from 'luxon';
 
-import { Grid, Box, Typography, Card, CardContent, Tabs, Tab } from 'ui/atoms';
+import { Grid, Box, Typography, Card, CardContent, Tabs, Tab, Loader } from 'ui/atoms';
 import { Page } from 'ui/templates';
 import { AutosaveForm } from 'ui/organisms';
 import { InfoSection } from 'ui/molecules';
@@ -15,15 +15,22 @@ import { PeopleForm } from './peopleForm/PeopleForm';
 import { useStyles } from './AllocationMain.styles';
 import { AllocationMainProps } from './AllocationMain.types';
 
-export const AllocationMain = ({ title, criterias, onSubmit, onDelete }: AllocationMainProps) => {
+export const AllocationMain = ({
+  title,
+  criterias,
+  selectedCriteria,
+  loadingList,
+  loadingAllocate,
+  onSubmit,
+  onDelete,
+  onChangeTab,
+}: AllocationMainProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
-  const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [isDirty, setIsDirty] = useState(false);
 
   const onSave = async (values: AllocateInput) => {
     try {
-      await onSubmit(activeTab!, values);
+      await onSubmit(selectedCriteria?.id!, values);
 
       return undefined;
     } catch (error) {
@@ -33,8 +40,8 @@ export const AllocationMain = ({ title, criterias, onSubmit, onDelete }: Allocat
 
   const handleDelete = async () => {
     try {
-      if (!!activeTab) {
-        await onDelete(activeTab);
+      if (!!selectedCriteria?.id) {
+        await onDelete(selectedCriteria?.id);
       }
 
       return undefined;
@@ -43,79 +50,59 @@ export const AllocationMain = ({ title, criterias, onSubmit, onDelete }: Allocat
     }
   };
 
-  useEffect(() => {
-    if (criterias.length) {
-      setActiveTab(criterias[criterias.length - 1].id);
-      setIsDirty(true);
-    }
-  }, [criterias, criterias.length]);
-
-  const activeCriteria = criterias.find(criteria => criteria.id === activeTab);
-
-  const initialValues: AllocateInput = {
-    note: activeCriteria?.note,
-    criteria: activeCriteria?.criteria,
-    assignToRole: activeCriteria?.assignToRole,
-    home: activeCriteria?.home,
-    people: activeCriteria?.people,
+  const initialValues = {
+    ...selectedCriteria,
+    id: null,
+    companyId: null,
+    objectId: null,
+    name: null,
+    version: null,
   };
 
-  return criterias?.length && !!activeTab ? (
-    <AutosaveForm
-      mutators={{ ...arrayMutators }}
-      onSave={onSave}
-      initialValues={initialValues}
-      keepDirtyOnReinitialize
-      initialValuesEqual={() => {
-        if (isDirty) {
-          setIsDirty(false);
+  if (loadingList) {
+    return <Loader />;
+  }
 
-          return false;
-        }
-
-        return true;
-      }}
-    >
-      <Page
-        title={title}
-        titleActions={[]}
-        placeholder="pim_details.allocation_criteria.description_placeholder"
-        name="description"
-      >
-        <Grid item xs={12}>
-          <Card className={classes.tabs}>
-            <Tabs value={activeTab} onChange={(event, value) => setActiveTab(value)} indicatorColor="primary">
-              {criterias.map(item => (
-                <Tab
-                  className={classes.tabItem}
-                  key={item.id}
-                  value={item.id}
-                  label={
-                    <Box>
-                      <Typography variant="h5" className={classes.fontWeightBold}>
-                        {item.name}
-                      </Typography>
-                      <Typography variant="h5" className={classes.fontWeightBold}>
-                        {DateTime.fromISO(item.version).toFormat('dd-MM-yyyy')}
-                      </Typography>
-                    </Box>
-                  }
-                />
-              ))}
-            </Tabs>
-          </Card>
-          <CriteriaTypeForm formClassName={classes.criteriaTypeForm} onDelete={handleDelete} />
-        </Grid>
-
-        <Grid item xs={12}>
-          <PeopleForm />
-        </Grid>
-
-        <Grid item xs={12}>
-          <SegmentationFrom />
-        </Grid>
-      </Page>
-    </AutosaveForm>
+  return criterias?.length ? (
+    <Page title={title} titleActions={[]} placeholder="pim_details.allocation_criteria.description_placeholder">
+      <Grid item xs={12}>
+        <Card className={classes.tabs}>
+          <Tabs value={selectedCriteria?.id} onChange={(event, value) => onChangeTab(value)} indicatorColor="primary">
+            {criterias.map(item => (
+              <Tab
+                className={classes.tabItem}
+                key={item.id}
+                value={item.id}
+                label={
+                  <Box>
+                    <Typography variant="h5" className={classes.fontWeightBold}>
+                      {item.name}
+                    </Typography>
+                    <Typography variant="h5" className={classes.fontWeightBold}>
+                      {DateTime.fromISO(item.version).toFormat('dd-MM-yyyy')}
+                    </Typography>
+                  </Box>
+                }
+              />
+            ))}
+          </Tabs>
+          {!selectedCriteria && (
+            <CardContent>
+              <Loader />
+            </CardContent>
+          )}
+        </Card>
+        {!loadingAllocate && !!selectedCriteria && (
+          <AutosaveForm mutators={{ ...arrayMutators }} onSave={onSave} initialValues={initialValues}>
+            <CriteriaTypeForm formClassName={classes.criteriaTypeForm} onDelete={handleDelete} />
+            <Box mt={3} />
+            <PeopleForm />
+            <Box mt={3} />
+            <SegmentationFrom />
+          </AutosaveForm>
+        )}
+      </Grid>
+    </Page>
   ) : (
     <Page withoutHeader>
       <Card>

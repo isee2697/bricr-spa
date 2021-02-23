@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -12,6 +12,7 @@ import {
   ListAllocatesDocument,
   useAddAllocateMutation,
   useDeleteAllocateMutation,
+  useGetAllocateLazyQuery,
   useListAllocatesQuery,
   useUpdateAllocateMutation,
 } from 'api/types';
@@ -28,7 +29,22 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
   const [addAllocate] = useAddAllocateMutation();
   const [updateAllocate] = useUpdateAllocateMutation();
   const [deleteAllocate] = useDeleteAllocateMutation();
-  const { data: allocatesData } = useListAllocatesQuery({ variables: { objectId: id } });
+  const { data: allocatesData, loading } = useListAllocatesQuery({ variables: { objectId: id } });
+  const [getAllocateById, { data: allocateData, loading: loadingAllocate }] = useGetAllocateLazyQuery({
+    fetchPolicy: 'no-cache',
+  });
+
+  const handleChangeTab = useCallback(
+    (tab: string) => {
+      getAllocateById({ variables: { id: tab } });
+    },
+    [getAllocateById],
+  );
+
+  useEffect(() => {
+    if (!!allocatesData?.listAllocates && allocatesData?.listAllocates?.length > 0)
+      handleChangeTab(allocatesData.listAllocates[allocatesData.listAllocates.length - 1].id);
+  }, [allocatesData, handleChangeTab]);
 
   const handleAddAllocateCriteria = async (values: AddAllocateInput) => {
     try {
@@ -49,6 +65,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
       }
 
       setShowCriteriaModal(false);
+      handleChangeTab(data.addAllocate.id);
 
       return undefined;
     } catch (error) {
@@ -137,8 +154,12 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         isSidebarVisible={isSidebarVisible}
         onSidebarOpen={onSidebarOpen}
         criterias={allocatesData?.listAllocates || []}
+        selectedCriteria={allocateData?.getAllocate || undefined}
+        onChangeTab={handleChangeTab}
         onSubmit={handleUpdateAllocateCriteria}
         onDelete={handleDeleteAllocateCriteria}
+        loadingList={loading}
+        loadingAllocate={loadingAllocate}
       />
     </>
   );

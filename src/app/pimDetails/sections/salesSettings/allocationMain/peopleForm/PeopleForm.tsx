@@ -218,7 +218,6 @@ export const PeopleForm = () => {
                 </Box>
                 <Box mb={2} px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
                     name="home.situation"
                     options={homeSituationCheckboxes.map(type => ({
                       ...type,
@@ -281,7 +280,6 @@ export const PeopleForm = () => {
                 </Box>
                 <Box px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
                     name="people.income.employementType"
                     options={employementCheckboxes.map(type => ({
                       ...type,
@@ -304,7 +302,6 @@ export const PeopleForm = () => {
                 </Box>
                 <Box px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
                     name="people.partnerIncome.employementType"
                     options={employementCheckboxes.map(type => ({
                       ...type,
@@ -327,7 +324,6 @@ export const PeopleForm = () => {
                 </Box>
                 <Box mb={2} px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
                     name="assignToRole"
                     options={rolesCheckboxes.map(type => ({
                       ...type,
