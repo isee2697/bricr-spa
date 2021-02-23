@@ -5,7 +5,6 @@ import { Grid, Box, Menu } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { requireValidator } from 'form/validators';
 import { useLocale } from 'hooks';
-import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { ReorderableList } from '../reorderableList/ReorderableList';
@@ -13,19 +12,7 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 import { DeleteIcon } from 'ui/atoms/icons';
 
 import { CriteriaTypeFormProps } from './CriteriaTypeForm.types';
-
-const allocationCheckboxes = [
-  {
-    label: 'dictionaries.allocation.Allocation',
-    icon: <HomeIcon color="inherit" />,
-    value: 'Allocation',
-  },
-  {
-    label: 'dictionaries.allocation.MatchProfile',
-    icon: <HomeIcon color="inherit" />,
-    value: 'MatchProfile',
-  },
-];
+import { allocateTypeCheckboxes } from './dictionaries';
 
 export const CriteriaTypeForm = ({ formClassName, onDelete }: CriteriaTypeFormProps) => {
   const { formatMessage } = useLocale();
@@ -64,9 +51,11 @@ export const CriteriaTypeForm = ({ formClassName, onDelete }: CriteriaTypeFormPr
                 </Box>
                 <Box px={2}>
                   <CheckboxGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="type"
-                    options={allocationCheckboxes}
+                    name="criteria.type"
+                    options={allocateTypeCheckboxes.map(type => ({
+                      ...type,
+                      label: formatMessage({ id: `dictionaries.allocate_type.${type.label}` }),
+                    }))}
                     disabled={!editing}
                   />
                 </Box>

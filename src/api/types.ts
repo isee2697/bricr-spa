@@ -24,6 +24,11 @@ export type Scalars = {
   ServiceConfigurationInput: any;
 };
 
+export enum AllocateType {
+  MatchProfile = 'MatchProfile',
+  Allocation = 'Allocation',
+}
+
 export enum AllocateCriteriaType {
   JointIncome = 'JointIncome',
   MinimalAmountOfMissingDocuments = 'MinimalAmountOfMissingDocuments',
@@ -69,6 +74,7 @@ export type Allocate = {
 
 export type AllocateCriteria = {
   __typename?: 'AllocateCriteria';
+  type?: Maybe<Array<AllocateType>>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
   amountAssignedCandidates?: Maybe<Scalars['Int']>;
@@ -152,6 +158,7 @@ export type AllocateInput = {
 };
 
 export type AllocateCriteriaInput = {
+  type?: Maybe<Array<AllocateType>>;
   startDate?: Maybe<Scalars['Date']>;
   endDate?: Maybe<Scalars['Date']>;
   amountAssignedCandidates?: Maybe<Scalars['Int']>;
@@ -10979,7 +10986,7 @@ export type GetAllocateQuery = { __typename?: 'Query' } & {
         criteria?: Maybe<
           { __typename?: 'AllocateCriteria' } & Pick<
             AllocateCriteria,
-            'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
+            'type' | 'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
           > & {
               rentalePriceCalculation?: Maybe<
                 { __typename?: 'AllocateRentalPriceCalculation' } & Pick<
@@ -11052,7 +11059,7 @@ export type ListAllocatesQuery = { __typename?: 'Query' } & {
           criteria?: Maybe<
             { __typename?: 'AllocateCriteria' } & Pick<
               AllocateCriteria,
-              'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
+              'type' | 'startDate' | 'endDate' | 'amountAssignedCandidates' | 'isPublishedExternally'
             > & {
                 rentalePriceCalculation?: Maybe<
                   { __typename?: 'AllocateRentalPriceCalculation' } & Pick<
@@ -19087,6 +19094,7 @@ export const GetAllocateDocument = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates
@@ -19166,6 +19174,7 @@ export const ListAllocatesDocument = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates

@@ -1,3 +1,8 @@
+enum AllocateType {
+  MatchProfile
+  Allocation
+}
+
 enum AllocateCriteriaType {
   JointIncome
   MinimalAmountOfMissingDocuments
@@ -41,6 +46,7 @@ type Allocate {
 }
 
 type AllocateCriteria {
+  type: [AllocateType!]
   startDate: Date
   endDate: Date
   amountAssignedCandidates: Int
@@ -116,6 +122,7 @@ input AllocateInput {
 }
 
 input AllocateCriteriaInput {
+  type: [AllocateType!]
   startDate: Date
   endDate: Date
   amountAssignedCandidates: Int

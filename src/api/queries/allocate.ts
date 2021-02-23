@@ -10,6 +10,7 @@ export const GET_ALLOCATE = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates
@@ -77,6 +78,7 @@ export const LIST_ALLOCATES = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates
