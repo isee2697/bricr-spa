@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { CheckboxField, CheckboxGroupField, DatePickerField, GenericField, QuantityField } from 'form/fields';
-import { Grid, Box } from 'ui/atoms';
+import { Grid, Box, Menu } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { requireValidator } from 'form/validators';
 import { useLocale } from 'hooks';
@@ -9,6 +9,10 @@ import { HomeIcon } from 'ui/atoms/icons/home/HomeIcon';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { FormSubSectionHeader } from 'ui/molecules';
 import { ReorderableList } from '../reorderableList/ReorderableList';
+import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
+import { DeleteIcon } from 'ui/atoms/icons';
+
+import { CriteriaTypeFormProps } from './CriteriaTypeForm.types';
 
 const allocationCheckboxes = [
   {
@@ -23,9 +27,20 @@ const allocationCheckboxes = [
   },
 ];
 
-export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) => {
+export const CriteriaTypeForm = ({ formClassName, onDelete }: CriteriaTypeFormProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+
+  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+
+  const onMenuClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation();
+    setMenuEl(menuEl ? null : event.currentTarget);
+  };
+
+  const onMenuClose = () => {
+    setMenuEl(null);
+  };
 
   return (
     <>
@@ -34,6 +49,7 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
         isExpandable
         isInitExpanded={true} // TODO set to false
         className={formClassName}
+        onOptionsClick={onMenuClick}
       >
         {editing => (
           <Grid className={classes.textFields} container spacing={3}>
@@ -278,6 +294,25 @@ export const CriteriaTypeForm = ({ formClassName }: { formClassName?: string }) 
           </Grid>
         )}
       </FormSection>
+      <Menu
+        id="allocate-criteria-form-menu"
+        open={Boolean(menuEl)}
+        onClose={onMenuClose}
+        anchorEl={menuEl}
+        placement="bottom-end"
+      >
+        <ListOptionsMenuItem
+          title={formatMessage({
+            id: 'common.delete',
+          })}
+          onClick={() => {
+            !!onDelete && onDelete();
+            onMenuClose();
+          }}
+          icon={<DeleteIcon color="secondary" />}
+          color="secondary"
+        />
+      </Menu>
     </>
   );
 };

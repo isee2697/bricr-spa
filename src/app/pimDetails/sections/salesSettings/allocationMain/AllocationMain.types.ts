@@ -5,4 +5,5 @@ import { PromiseResponse } from 'app/shared/types';
 export type AllocationMainProps = PimDetailsSectionProps & {
   criterias: Allocate[];
   onSubmit: (criteriaId: string, values: AllocateInput) => PromiseResponse;
+  onDelete: (criteriaId: string) => PromiseResponse;
 };

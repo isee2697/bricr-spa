@@ -11,6 +11,7 @@ import {
   AllocateInput,
   ListAllocatesDocument,
   useAddAllocateMutation,
+  useDeleteAllocateMutation,
   useListAllocatesQuery,
   useUpdateAllocateMutation,
 } from 'api/types';
@@ -26,6 +27,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
   const { id } = useParams<{ id: string }>();
   const [addAllocate] = useAddAllocateMutation();
   const [updateAllocate] = useUpdateAllocateMutation();
+  const [deleteAllocate] = useDeleteAllocateMutation();
   const { data: allocatesData } = useListAllocatesQuery({ variables: { objectId: id } });
 
   const handleAddAllocateCriteria = async (values: AddAllocateInput) => {
@@ -47,6 +49,32 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
       }
 
       setShowCriteriaModal(false);
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: true,
+      };
+    }
+  };
+
+  const handleDeleteAllocateCriteria = async (criteriaId: string) => {
+    try {
+      const { data } = await deleteAllocate({
+        variables: { id: criteriaId },
+        refetchQueries: [
+          {
+            query: ListAllocatesDocument,
+            variables: {
+              objectId: id,
+            },
+          },
+        ],
+      });
+
+      if (!data || !data.deleteAllocate) {
+        throw new Error();
+      }
 
       return undefined;
     } catch (error) {
@@ -110,6 +138,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         onSidebarOpen={onSidebarOpen}
         criterias={allocatesData?.listAllocates || []}
         onSubmit={handleUpdateAllocateCriteria}
+        onDelete={handleDeleteAllocateCriteria}
       />
     </>
   );

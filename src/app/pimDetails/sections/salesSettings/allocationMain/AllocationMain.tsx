@@ -15,7 +15,7 @@ import { PeopleForm } from './peopleForm/PeopleForm';
 import { useStyles } from './AllocationMain.styles';
 import { AllocationMainProps } from './AllocationMain.types';
 
-export const AllocationMain = ({ title, criterias, onSubmit }: AllocationMainProps) => {
+export const AllocationMain = ({ title, criterias, onSubmit, onDelete }: AllocationMainProps) => {
   const classes = useStyles();
   const { formatMessage } = useLocale();
   const [activeTab, setActiveTab] = useState<string | null>(null);
@@ -24,6 +24,18 @@ export const AllocationMain = ({ title, criterias, onSubmit }: AllocationMainPro
   const onSave = async (values: AllocateInput) => {
     try {
       await onSubmit(activeTab!, values);
+
+      return undefined;
+    } catch (error) {
+      return { error: true };
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      if (!!activeTab) {
+        await onDelete(activeTab);
+      }
 
       return undefined;
     } catch (error) {
@@ -92,7 +104,7 @@ export const AllocationMain = ({ title, criterias, onSubmit }: AllocationMainPro
               ))}
             </Tabs>
           </Card>
-          <CriteriaTypeForm formClassName={classes.criteriaTypeForm} />
+          <CriteriaTypeForm formClassName={classes.criteriaTypeForm} onDelete={handleDelete} />
         </Grid>
 
         <Grid item xs={12}>
