@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import arrayMutators from 'final-form-arrays';
 
 import { Page } from 'ui/templates';
 import { useLocale } from 'hooks';
@@ -10,6 +11,7 @@ import { joinUrlParams } from 'routing/AppRoute.utils';
 import { ListOptionsMenu } from 'ui/molecules';
 import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListOptionsMenuItem';
 import { MatchPropertyType } from 'api/types';
+import { AutosaveForm } from 'ui/organisms';
 
 import { Location } from './location/Location';
 import { Extras } from './extras/Extras';
@@ -64,34 +66,42 @@ export const CreateNewMatchProfile = ({
         }
       />
       <Page title={formatMessage({ id: 'crm.details.personal_information_match_profile.title' })} titleActions={<></>}>
-        <General onSave={onSave} />
-        {(!matchProfile || matchProfile.propertyType !== MatchPropertyType.Commercial) && (
-          <>
-            <EstateType />
-            <Measurements onSave={onSave} />
-            <SurfacePlot onSave={onSave} />
-            <CharacteristicsProperty onSave={onSave} />
-            <Pricing onSave={onSave} />
-            <Outside onSave={onSave} />
-            <Garden onSave={onSave} />
-            <Tags onSave={onSave} />
-            <Location onSave={onSave} />
-            <Extras onSave={onSave} />
-          </>
-        )}
-        {matchProfile && matchProfile.propertyType === MatchPropertyType.Commercial && (
-          <>
-            <CommercialEstateType />
-            <SurfaceProperty onSave={onSave} />
-            <SurfacePlot onSave={onSave} />
-            <Conditions onSave={onSave} />
-            <Characteristics onSave={onSave} />
-            <Services onSave={onSave} />
-            <RevenueAndExploitation onSave={onSave} />
-            <Tags onSave={onSave} />
-            <Location onSave={onSave} />
-          </>
-        )}
+        <AutosaveForm
+          mutators={{ ...arrayMutators }}
+          onSave={onSave}
+          initialValues={{ ...matchProfile, id: null, crmId: null, companyId: null }}
+        >
+          <General />
+          {(!matchProfile ||
+            !matchProfile.propertyType ||
+            matchProfile.propertyType !== MatchPropertyType.Commercial) && (
+            <>
+              <EstateType />
+              <Measurements />
+              <SurfacePlot />
+              <CharacteristicsProperty />
+              <Pricing />
+              <Outside />
+              <Garden />
+              <Tags />
+              <Location />
+              <Extras onSave={onSave} />
+            </>
+          )}
+          {matchProfile && !!matchProfile.propertyType && matchProfile.propertyType === MatchPropertyType.Commercial && (
+            <>
+              <CommercialEstateType />
+              <SurfaceProperty />
+              <SurfacePlot />
+              <Conditions />
+              <Characteristics />
+              <Services />
+              <RevenueAndExploitation />
+              <Tags />
+              <Location />
+            </>
+          )}
+        </AutosaveForm>
       </Page>
     </>
   );
