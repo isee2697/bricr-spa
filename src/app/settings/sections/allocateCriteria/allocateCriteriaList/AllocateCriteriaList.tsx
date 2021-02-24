@@ -18,6 +18,7 @@ import { StampIcon } from 'ui/atoms/icons';
 
 import { AllocateCriteriaListProps } from './AllocateCriteriaList.types';
 import { useStyles } from './AllocateCriteriaList.styles';
+import { SettingsAllocateCriteriaFilters } from './dictionaries';
 
 export const AllocateCriteriaList = ({ type, items, onSubmit }: AllocateCriteriaListProps) => {
   const { formatMessage } = useLocale();
@@ -90,7 +91,14 @@ export const AllocateCriteriaList = ({ type, items, onSubmit }: AllocateCriteria
           <Card>
             <CardHeader
               title={title}
-              action={<FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />}
+              action={
+                <FiltersButton
+                  color="primary"
+                  data={activeFilters}
+                  getActiveFilters={handleFilterChange}
+                  filters={SettingsAllocateCriteriaFilters}
+                />
+              }
             />
             <CardContent>
               <ActionTabs onStatusChange={setStatus} status={status} tabs={tabs} />

@@ -18,6 +18,7 @@ import { useStyles } from './PimNvm.styles';
 import { PimNvmProps, PimNvmTab } from './PimNvm.types';
 import { NvmSearchContainer } from './nvmSearch/NvmSearchContainer';
 import { DailyMutationsSidebarMenu } from './dailyMutationsSidebarMenu/SidebarMenu';
+import { PimNvmFilters } from './dictionaries';
 
 export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProps) => {
   const { isSidebarMenuVisible, setSidebarMenuVisible } = useLayout();
@@ -89,7 +90,12 @@ export const PimNvm = ({ tab, onChangeTab, onFilter, activeFilters }: PimNvmProp
                     <LocationIcon />
                   </IconButton>
                   <Box ml={3} />
-                  <FiltersButton color="primary" data={activeFilters} getActiveFilters={onFilter} />
+                  <FiltersButton
+                    color="primary"
+                    data={activeFilters}
+                    getActiveFilters={onFilter}
+                    filters={PimNvmFilters}
+                  />
                 </Box>
               }
             />
