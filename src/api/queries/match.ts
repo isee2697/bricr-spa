@@ -2,7 +2,8 @@ import { gql } from 'apollo-boost';
 
 export const GET_MATCH_PROFILE = gql`
   query GetMatchProfile($id: ID!) {
-    getMatchProfile(id: $id) {
+    getMatchProfile(id: $id)
+      @rest(type: "GetMatchProfileResponse", path: "/get-match?id={args.id}", method: "GET", endpoint: "default") {
       id
       crmId
       companyId
@@ -102,7 +103,13 @@ export const GET_MATCH_PROFILE = gql`
 
 export const LIST_MATCH_PROFILES = gql`
   query ListMatchProfiles($crmId: ID!) {
-    listMatchProfiles(crmId: $crmId) {
+    listMatchProfiles(crmId: $crmId)
+      @rest(
+        type: "ListMatchProfileResponse"
+        path: "/list-matches?crmId={args.crmId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       crmId
       companyId

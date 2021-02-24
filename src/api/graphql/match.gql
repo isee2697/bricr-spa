@@ -263,11 +263,11 @@ type MatchMeasurements {
 }
 
 type MatchProfileLocation {
-  latitude: Float!
-  longitude: Float!
-  street: String!
-  houseNumber: Int!
-  radius: Float!
+  latitude: Float
+  longitude: Float
+  street: String
+  houseNumber: Int
+  radius: Float
 }
 
 type MatchRequirement {
@@ -275,7 +275,30 @@ type MatchRequirement {
   status: MatchRequirementStatus!
 }
 
-input MatchProfileInput {
+input AddMatchProfileInput {
+  crmId: ID!
+  propertyType: MatchPropertyType
+  startDate: Date
+  endDate: Date
+  matchDuration: DateRange
+  matchWith: [MatchProfileWith!]
+  description: String
+  estateType: MatchEstateType
+  commercialEstateType: MatchCommercialEstateType
+  characteristics: MatchCharacteristicsInput
+  commercialCharacteristics: MatchCommercialCharacteristicsInput
+  pricing: MatchPricingInput
+  outside: MatchOutsidePricingInput
+  garden: MatchGardenInput
+  tags: [MatchTags!]
+  measurements: MatchMeasurementsInput
+  revenue: IntRangeInput
+  exploitation: IntRangeInput
+  requirements: [MatchRequirementInput!]
+  locations: [MatchProfileLocationInput!]
+}
+
+input UpdateMatchProfileInput {
   propertyType: MatchPropertyType
   startDate: Date
   endDate: Date
@@ -389,8 +412,8 @@ input MatchRequirementInput {
 }
 
 extend type Mutation {
-  addMatchProfile(crmId: ID!, input: MatchProfileInput!): MatchProfile @auth
-  updateMatchProfile(id: ID!, input: MatchProfileInput!): MatchProfile @auth
+  addMatchProfile(input: AddMatchProfileInput!): MatchProfile @auth
+  updateMatchProfile(id: ID!, input: UpdateMatchProfileInput!): MatchProfile @auth
   deleteMatchProfile(id: ID!): Boolean @auth
 }
 

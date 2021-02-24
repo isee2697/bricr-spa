@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  MatchProfileInput,
+  AddMatchProfileInput,
+  UpdateMatchProfileInput,
   useAddMatchProfileMutation,
   useGetMatchProfileLazyQuery,
   useUpdateMatchProfileMutation,
@@ -17,31 +18,38 @@ export const CreateNewMatchProfileContainer = (props: CreateNewMatchProfileConta
   const [updateMatchProfile] = useUpdateMatchProfileMutation();
   const [getMatchProfile, { data, loading }] = useGetMatchProfileLazyQuery();
   const { id, matchProfileId } = useParams<{ id: string; matchProfileId?: string }>();
+  const [currentProfileId, setCurrentProfileId] = useState<string>();
 
   useEffect(() => {
     const getMatchProfileFunc = async (id: string) => {
       await getMatchProfile({ variables: { id } });
     };
 
+    setCurrentProfileId(matchProfileId);
+
     if (matchProfileId) {
       getMatchProfileFunc(matchProfileId);
     }
   }, [getMatchProfile, matchProfileId]);
 
-  const handleSubmit = async (values: MatchProfileInput) => {
+  const handleSubmit = async (values: AddMatchProfileInput | UpdateMatchProfileInput) => {
     try {
-      if (!!matchProfileId) {
-        const { data } = await updateMatchProfile({ variables: { id: matchProfileId, input: values } });
+      if (!!currentProfileId) {
+        const { data: updatedMatchProfile } = await updateMatchProfile({
+          variables: { id: currentProfileId, input: values },
+        });
 
-        if (!data || !data.updateMatchProfile) {
+        if (!updatedMatchProfile || !updatedMatchProfile.updateMatchProfile) {
           throw new Error();
         }
       } else {
-        const { data } = await addMatchProfile({ variables: { crmId: id, input: values as MatchProfileInput } });
+        const { data } = await addMatchProfile({ variables: { input: { ...values, crmId: id } } });
 
         if (!data || !data.addMatchProfile) {
           throw new Error();
         }
+
+        setCurrentProfileId(data.addMatchProfile.id);
       }
 
       return undefined;

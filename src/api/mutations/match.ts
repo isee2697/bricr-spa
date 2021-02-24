@@ -1,8 +1,9 @@
 import { gql } from 'apollo-boost';
 
 export const ADD_MATCH_PROFILE = gql`
-  mutation AddMatchProfile($crmId: ID!, $input: MatchProfileInput!) {
-    addMatchProfile(crmId: $crmId, input: $input) {
+  mutation AddMatchProfile($input: AddMatchProfileInput!) {
+    addMatchProfile(input: $input)
+      @rest(type: "AddMatchResponse", path: "/create-match", method: "POST", endpoint: "default") {
       id
       crmId
       companyId
@@ -101,8 +102,9 @@ export const ADD_MATCH_PROFILE = gql`
 `;
 
 export const UPDATE_MATCH_PROFILE = gql`
-  mutation UpdateMatchProfile($id: ID!, $input: MatchProfileInput!) {
-    updateMatchProfile(id: $id, input: $input) {
+  mutation UpdateMatchProfile($id: ID!, $input: UpdateMatchProfileInput!) {
+    updateMatchProfile(id: $id, input: $input)
+      @rest(type: "UpdateMatchResponse", path: "/update-match?id={args.id}", method: "PUT", endpoint: "default") {
       id
       crmId
       companyId
@@ -201,7 +203,13 @@ export const UPDATE_MATCH_PROFILE = gql`
 `;
 
 export const DELETE_MATCH_PROFILE = gql`
-  mutation DeleteMatchProfile($id: ID!) {
+  mutation DeleteMatchProfile($id: ID!)
+    @rest(
+      type: "DeleteMatchProfileResponse"
+      path: "/delete-match?id={args.id}"
+      method: "DELETE"
+      endpoint: "default"
+    ) {
     deleteMatchProfile(id: $id)
   }
 `;
