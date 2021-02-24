@@ -15,6 +15,8 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
   if (!state?.newlyAdded && response) {
     Object.values(response).map(part => {
       data = { ...data, ...part };
+
+      return data;
     });
   } else if (state?.newlyAdded) {
     data = Object.assign(state?.data);
