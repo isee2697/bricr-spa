@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PimDetailsSectionProps } from 'app/pimDetails/PimDetails.types';
@@ -11,6 +11,8 @@ import {
   AllocateInput,
   ListAllocatesDocument,
   useAddAllocateMutation,
+  useDeleteAllocateMutation,
+  useGetAllocateLazyQuery,
   useListAllocatesQuery,
   useUpdateAllocateMutation,
 } from 'api/types';
@@ -26,12 +28,28 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
   const { id } = useParams<{ id: string }>();
   const [addAllocate] = useAddAllocateMutation();
   const [updateAllocate] = useUpdateAllocateMutation();
-  const { data: allocatesData } = useListAllocatesQuery({ variables: { objectId: id } });
+  const [deleteAllocate] = useDeleteAllocateMutation();
+  const { data: allocatesData, loading } = useListAllocatesQuery({ variables: { objectId: id } });
+  const [getAllocateById, { data: allocateData, loading: loadingAllocate }] = useGetAllocateLazyQuery({
+    fetchPolicy: 'no-cache',
+  });
+
+  const handleChangeTab = useCallback(
+    (tab: string) => {
+      getAllocateById({ variables: { id: tab } });
+    },
+    [getAllocateById],
+  );
+
+  useEffect(() => {
+    if (!!allocatesData?.listAllocates && allocatesData?.listAllocates?.length > 0)
+      handleChangeTab(allocatesData.listAllocates[allocatesData.listAllocates.length - 1].id);
+  }, [allocatesData, handleChangeTab]);
 
   const handleAddAllocateCriteria = async (values: AddAllocateInput) => {
     try {
       const { data } = await addAllocate({
-        variables: { objectId: id, input: values },
+        variables: { input: { ...values, objectId: id } },
         refetchQueries: [
           {
             query: ListAllocatesDocument,
@@ -47,6 +65,33 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
       }
 
       setShowCriteriaModal(false);
+      handleChangeTab(data.addAllocate.id);
+
+      return undefined;
+    } catch (error) {
+      return {
+        error: true,
+      };
+    }
+  };
+
+  const handleDeleteAllocateCriteria = async (criteriaId: string) => {
+    try {
+      const { data } = await deleteAllocate({
+        variables: { id: criteriaId },
+        refetchQueries: [
+          {
+            query: ListAllocatesDocument,
+            variables: {
+              objectId: id,
+            },
+          },
+        ],
+      });
+
+      if (!data || !data.deleteAllocate) {
+        throw new Error();
+      }
 
       return undefined;
     } catch (error) {
@@ -109,7 +154,12 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
         isSidebarVisible={isSidebarVisible}
         onSidebarOpen={onSidebarOpen}
         criterias={allocatesData?.listAllocates || []}
+        selectedCriteria={allocateData?.getAllocate || undefined}
+        onChangeTab={handleChangeTab}
         onSubmit={handleUpdateAllocateCriteria}
+        onDelete={handleDeleteAllocateCriteria}
+        loadingList={loading}
+        loadingAllocate={loadingAllocate}
       />
     </>
   );

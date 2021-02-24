@@ -2,7 +2,8 @@ import { gql } from 'apollo-boost';
 
 export const GET_ALLOCATE = gql`
   query GetAllocate($id: ID!) {
-    getAllocate(id: $id) {
+    getAllocate(id: $id)
+      @rest(type: "GetAllocateResponse", path: "/get-allocate?id={args.id}", method: "GET", endpoint: "default") {
       id
       companyId
       objectId
@@ -10,6 +11,7 @@ export const GET_ALLOCATE = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates
@@ -69,7 +71,13 @@ export const GET_ALLOCATE = gql`
 
 export const LIST_ALLOCATES = gql`
   query ListAllocates($objectId: ID!) {
-    listAllocates(objectId: $objectId) {
+    listAllocates(objectId: $objectId)
+      @rest(
+        type: "ListAllocates"
+        path: "/list-allocates?objectId={args.objectId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       companyId
       objectId
@@ -77,6 +85,7 @@ export const LIST_ALLOCATES = gql`
       version
       note
       criteria {
+        type
         startDate
         endDate
         amountAssignedCandidates
