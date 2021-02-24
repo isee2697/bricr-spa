@@ -4,10 +4,10 @@ import { StateQueryProps, ReturnStateQuery } from './useStateQuery.types';
 
 export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = ({ query, variables }) => {
   const { state } = useLocation<{ newlyAdded: boolean; data: object }>();
-
+  const skip = state?.newlyAdded && !!state?.data;
   const { loading, error, data: response } = query({
     variables,
-    skip: state?.newlyAdded,
+    skip,
   });
 
   let data = response;
@@ -18,7 +18,7 @@ export const useStateQuery: <T>(p: StateQueryProps<T>) => ReturnStateQuery<T> = 
 
       return data;
     });
-  } else if (state?.newlyAdded) {
+  } else if (skip) {
     data = Object.assign(state?.data);
   }
 
