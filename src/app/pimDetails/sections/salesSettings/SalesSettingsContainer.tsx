@@ -49,7 +49,7 @@ export const SalesSettingsContainer = ({ title, isSidebarVisible, onSidebarOpen 
   const handleAddAllocateCriteria = async (values: AddAllocateInput) => {
     try {
       const { data } = await addAllocate({
-        variables: { objectId: id, input: values },
+        variables: { input: { ...values, objectId: id } },
         refetchQueries: [
           {
             query: ListAllocatesDocument,

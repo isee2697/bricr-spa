@@ -110,6 +110,7 @@ type AllocateHome {
 }
 
 input AddAllocateInput {
+  objectId: String!
   name: String!
 }
 
@@ -186,7 +187,7 @@ input AllocateHomeInput {
 }
 
 extend type Mutation {
-  addAllocate(objectId: ID!, input: AddAllocateInput!): Allocate @auth
+  addAllocate(input: AddAllocateInput!): Allocate @auth
   updateAllocate(id: ID!, input: AllocateInput!): Allocate @auth
   deleteAllocate(id: ID!): Boolean @auth
 }

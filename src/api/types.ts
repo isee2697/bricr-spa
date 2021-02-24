@@ -146,6 +146,7 @@ export type AllocateHome = {
 };
 
 export type AddAllocateInput = {
+  objectId: Scalars['String'];
   name: Scalars['String'];
 };
 
@@ -416,7 +417,6 @@ export type Mutation = {
 };
 
 export type MutationAddAllocateArgs = {
-  objectId: Scalars['ID'];
   input: AddAllocateInput;
 };
 
@@ -9087,7 +9087,6 @@ export enum WorkflowActionType {
 }
 
 export type AddAllocateMutationVariables = Exact<{
-  objectId: Scalars['ID'];
   input: AddAllocateInput;
 }>;
 
@@ -14893,8 +14892,8 @@ export type GetTiaraValidationQuery = { __typename?: 'Query' } & {
 };
 
 export const AddAllocateDocument = gql`
-  mutation AddAllocate($objectId: ID!, $input: AddAllocateInput!) {
-    addAllocate(objectId: $objectId, input: $input) {
+  mutation AddAllocate($input: AddAllocateInput!) {
+    addAllocate(input: $input) @rest(type: "Allocate", path: "/create-allocate", method: "POST", endpoint: "default") {
       id
     }
   }
@@ -14915,7 +14914,8 @@ export type AddAllocateMutationOptions = ApolloReactCommon.BaseMutationOptions<
 >;
 export const UpdateAllocateDocument = gql`
   mutation UpdateAllocate($id: ID!, $input: AllocateInput!) {
-    updateAllocate(id: $id, input: $input) {
+    updateAllocate(id: $id, input: $input)
+      @rest(type: "UpdateAllocateResponse", path: "/update-allocate?id={args.id}", method: "PUT", endpoint: "default") {
       id
     }
   }
@@ -14937,6 +14937,12 @@ export type UpdateAllocateMutationOptions = ApolloReactCommon.BaseMutationOption
 export const DeleteAllocateDocument = gql`
   mutation DeleteAllocate($id: ID!) {
     deleteAllocate(id: $id)
+      @rest(
+        type: "DeleteAllocateResponse"
+        path: "/delete-allocate?id={args.id}"
+        method: "DELETE"
+        endpoint: "default"
+      )
   }
 `;
 export function useDeleteAllocateMutation(
@@ -19086,7 +19092,8 @@ export type UpdateWorkflowTriggerMutationOptions = ApolloReactCommon.BaseMutatio
 >;
 export const GetAllocateDocument = gql`
   query GetAllocate($id: ID!) {
-    getAllocate(id: $id) {
+    getAllocate(id: $id)
+      @rest(type: "GetAllocateResponse", path: "/get-allocate?id={args.id}", method: "GET", endpoint: "default") {
       id
       companyId
       objectId
@@ -19166,7 +19173,13 @@ export type GetAllocateLazyQueryHookResult = ReturnType<typeof useGetAllocateLaz
 export type GetAllocateQueryResult = ApolloReactCommon.QueryResult<GetAllocateQuery, GetAllocateQueryVariables>;
 export const ListAllocatesDocument = gql`
   query ListAllocates($objectId: ID!) {
-    listAllocates(objectId: $objectId) {
+    listAllocates(objectId: $objectId)
+      @rest(
+        type: "ListAllocates"
+        path: "/list-allocates?objectId={args.objectId}"
+        method: "GET"
+        endpoint: "default"
+      ) {
       id
       companyId
       objectId
