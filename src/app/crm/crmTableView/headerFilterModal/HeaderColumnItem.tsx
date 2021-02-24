@@ -34,8 +34,8 @@ export const HeaderColumnItem = ({ item, isDisabled, changeOrder }: HeaderColumn
   });
 
   return (
-    <div ref={drag} className={classes.wrapper}>
-      <div ref={drop}>
+    <div ref={drop} className={clsx(classes.wrapper, isDragging && 'dragging')}>
+      <div ref={drag}>
         <Box
           display="flex"
           alignItems="center"

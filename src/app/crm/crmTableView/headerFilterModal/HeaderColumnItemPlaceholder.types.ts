@@ -1,3 +1,3 @@
 export type HeaderColumnItemPlaceholderProps = {
-  addColumnToList: (dropObj: string) => void;
+  onDropColumn: (dropObj: string) => void;
 };

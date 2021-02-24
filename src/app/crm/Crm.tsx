@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Grid, Box } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 
 import { CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
@@ -25,7 +25,13 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   return (
     <Grid container>
       <CrmSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
-      <Box flex={1}>
+      <Grid
+        item
+        xs={isSidebarVisible ? false : 12}
+        md={isSidebarVisible ? 9 : 12}
+        lg={isSidebarVisible ? 10 : 12}
+        className={classes.content}
+      >
         <Grid container spacing={3} className={classes.content}>
           <Switch>
             <Route
@@ -59,7 +65,7 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
             <Redirect to={`${path}/relations`} />
           </Switch>
         </Grid>
-      </Box>
+      </Grid>
     </Grid>
   );
 };
