@@ -104,13 +104,7 @@ export const Relations = ({
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
-                    pagination={{
-                      count: 8,
-                      page: 3,
-                      currentPerPage: 10,
-                      perPageOptions: [10, 25, 'All'],
-                      onPerPageChange: value => {},
-                    }}
+                    pagination={pagination}
                     onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
                     renderAction={(item: CrmItem) => (
                       <RelationsMenu

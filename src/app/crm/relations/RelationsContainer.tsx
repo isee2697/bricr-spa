@@ -33,6 +33,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     variables: {
       type: CrmType.Relation,
     },
+    fetchPolicy: 'no-cache',
   });
 
   const amounts =
