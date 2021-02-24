@@ -20,6 +20,7 @@ type CrmListItem {
   status: CrmStatus
   dateCreated: Date!
   dateUpdated: Date
+  completeness: Float!
 }
 
 type CrmListSearchResult {

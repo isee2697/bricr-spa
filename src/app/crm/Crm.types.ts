@@ -31,6 +31,7 @@ export type CrmItem = {
   partner: Maybe<LinkedCrm>;
   manager: Profile;
   createdAt?: DateTime;
+  completeness?: number;
   meta: {
     matches: number;
     interests: number;

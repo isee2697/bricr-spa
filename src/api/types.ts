@@ -2451,6 +2451,7 @@ export type CrmListItem = {
   status?: Maybe<CrmStatus>;
   dateCreated: Scalars['Date'];
   dateUpdated?: Maybe<Scalars['Date']>;
+  completeness: Scalars['Float'];
 };
 
 export type CrmListSearchResult = {
@@ -11395,6 +11396,7 @@ export type CrmListQuery = { __typename?: 'Query' } & {
           | 'status'
           | 'dateCreated'
           | 'dateUpdated'
+          | 'completeness'
         > & {
             partner?: Maybe<
               { __typename?: 'LinkedCrm' } & Pick<LinkedCrm, 'id' | 'firstName' | 'lastName'> & {
@@ -19734,6 +19736,7 @@ export const CrmListDocument = gql`
         status
         dateCreated
         dateUpdated
+        completeness
       }
     }
   }

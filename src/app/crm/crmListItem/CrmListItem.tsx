@@ -37,15 +37,6 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     firstName,
     insertion,
     lastName,
-    gender,
-    dateOfBirth,
-    placeOfBirth,
-    nationality,
-    addresses,
-    martialStatus,
-    familyCompositionChildren,
-    familyCompositionAdults,
-    currentHomeSituation,
     email,
     phoneNumber,
     avatar,
@@ -53,23 +44,8 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
     partner,
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
     meta: { matches, interests, viewings, biddings, candidate, optant },
+    completeness = 0,
   } = crm;
-
-  const informationCompletedStatus =
-    ((!!firstName ? 1 : 0) +
-      (!!lastName ? 1 : 0) +
-      (!!gender ? 1 : 0) +
-      (!!dateOfBirth ? 1 : 0) +
-      (!!placeOfBirth ? 1 : 0) +
-      (!!nationality ? 1 : 0) +
-      (!!addresses && addresses.length !== 0 ? 1 : 0) +
-      (!!martialStatus ? 1 : 0) +
-      (!!familyCompositionChildren ? 1 : 0) +
-      (!!familyCompositionAdults ? 1 : 0) +
-      (!!currentHomeSituation ? 1 : 0) +
-      (!!email ? 1 : 0) +
-      (!!phoneNumber ? 1 : 0)) /
-    12;
 
   const metaAsArray = [
     {
@@ -196,7 +172,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
       <Box display="flex" justifyContent="space-between">
         <Box className={classes.infoProgress} mr={1}>
           <Box mb={1}>{formatMessage({ id: 'property_item.info_completed' })}</Box>
-          <ProgressFilling progress={informationCompletedStatus ?? 0} />
+          <ProgressFilling progress={completeness} />
         </Box>
         <Box display="flex">
           {metaAsArray.map(meta => (

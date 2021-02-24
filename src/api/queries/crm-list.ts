@@ -48,6 +48,7 @@ export const CRM_LIST = gql`
         status
         dateCreated
         dateUpdated
+        completeness
       }
     }
   }
