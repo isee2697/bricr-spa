@@ -5,23 +5,19 @@ export enum ITEM_TYPE {
 export type ListType = {
   label: string;
   key: string;
-  id: number;
+  checked: boolean;
 };
 
 export type ListItemProps = {
   data: ListType;
-  hasCheckbox?: boolean;
   index: number;
-  onUpdateList: (item: number, target: number) => void;
-};
-
-export type ReorderableListProps = {
-  hasCheckbox?: boolean;
+  onUpdateList: (item: ListType, target: ListType) => void;
+  onUpdateCheckedStatus: (item: ListType) => void;
 };
 
 export type ListColumnProps = {
-  hasCheckbox?: boolean;
-  onUpdateList: (item: number, target: number) => void;
+  onUpdateList: (item: ListType, target: ListType) => void;
+  onUpdateCheckedStatus: (item: ListType) => void;
   items: ListType[];
 };
 
@@ -29,3 +25,5 @@ export type ListTypeDragObject = ListType & {
   type: string;
   index: number;
 };
+
+export type ReorderableListProps = {};

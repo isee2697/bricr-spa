@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Grid, Box } from 'ui/atoms';
+import { Grid } from 'ui/atoms';
 
 import { CrmProps } from './Crm.types';
 import { useStyles } from './Crm.style';
 import { CrmSidebarMenu } from './crmSidebarMenu/CrmSidebarMenu';
 import { RelationsContainer } from './relations/RelationsContainer';
 import { BusinessesContainer } from './businesses/BusinessesContainer';
+import { MergeCrmRelationContainer } from './mergeRelation/MergeCrmRelationContainer';
 
 export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   const classes = useStyles();
@@ -24,9 +25,21 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
   return (
     <Grid container>
       <CrmSidebarMenu onHide={handleSidebarHide} isVisible={isSidebarVisible} />
-      <Box flex={1}>
+      <Grid
+        item
+        xs={isSidebarVisible ? false : 12}
+        md={isSidebarVisible ? 9 : 12}
+        lg={isSidebarVisible ? 10 : 12}
+        className={classes.content}
+      >
         <Grid container spacing={3} className={classes.content}>
           <Switch>
+            <Route
+              path={`${path}/merge/:id`}
+              render={() => (
+                <MergeCrmRelationContainer isSidebarVisible={isSidebarVisible} onSidebarOpen={handleSidebarOpen} />
+              )}
+            />
             <Route
               path={`${path}/relations`}
               render={() => (
@@ -52,7 +65,7 @@ export const Crm = ({ path, status, onStatusChange }: CrmProps) => {
             <Redirect to={`${path}/relations`} />
           </Switch>
         </Grid>
-      </Box>
+      </Grid>
     </Grid>
   );
 };

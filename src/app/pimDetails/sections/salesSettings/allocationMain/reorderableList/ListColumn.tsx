@@ -6,7 +6,7 @@ import { ListItem } from './ListItem';
 import { useStyles } from './ReorderableList.styles';
 import { ListType, ListColumnProps } from './ReorderableList.types';
 
-export const ListColumn = ({ items, hasCheckbox, onUpdateList }: ListColumnProps) => {
+export const ListColumn = ({ items, onUpdateList, onUpdateCheckedStatus }: ListColumnProps) => {
   const classes = useStyles();
 
   const [{ isOver }, drop] = useDrop({
@@ -22,7 +22,13 @@ export const ListColumn = ({ items, hasCheckbox, onUpdateList }: ListColumnProps
     <div ref={drop} className={clsx(classes.listContainer, isOver && 'draggingOver')}>
       {items.map((item: ListType, index: number) => {
         return (
-          <ListItem key={item.id} index={index} data={item} onUpdateList={onUpdateList} hasCheckbox={hasCheckbox} />
+          <ListItem
+            key={item.key}
+            index={index}
+            data={item}
+            onUpdateList={onUpdateList}
+            onUpdateCheckedStatus={onUpdateCheckedStatus}
+          />
         );
       })}
     </div>

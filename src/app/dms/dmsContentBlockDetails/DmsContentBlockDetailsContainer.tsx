@@ -23,14 +23,14 @@ export const DmsContentBlockDetailsContainer = () => {
       <NavBreadcrumb title={formatMessage({ id: 'dms.content_blocks.title' })} to={AppRoute.dms + '/content-blocks'} />
       <Switch>
         <Route
-          path={`${AppRoute.dms}/content-blocks/${id}/general`}
+          path={`${AppRoute.dms}/contentBlocks/:type/${id}/general`}
           render={() => <DmsContentBlockGeneralDetails block={data} />}
         />
         <Route
-          path={`${AppRoute.dms}/content-blocks/${id}/layout`}
+          path={`${AppRoute.dms}/contentBlocks/:type/${id}/layout`}
           render={() => <DmsContentBlockLayoutDetails block={data} />}
         />
-        <Redirect to={`${AppRoute.dms}/content-blocks/${id}/general`} />
+        <Redirect to={`${AppRoute.dms}/contentBlocks/:type/${id}/general`} />
       </Switch>
     </>
   );

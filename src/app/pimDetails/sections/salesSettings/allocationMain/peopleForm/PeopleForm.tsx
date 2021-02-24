@@ -1,27 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Grid, Box } from 'ui/atoms';
 import { FormSection } from 'ui/organisms';
 import { useLocale } from 'hooks';
-import { FormSubSectionHeader, Search, SimpleSearch } from 'ui/molecules';
-import { CheckboxField, CheckboxGroupField, GenericField, RadioGroupField } from 'form/fields';
+import { FormSubSectionHeader } from 'ui/molecules';
+import { CheckboxField, GenericField, RadioGroupField } from 'form/fields';
 import { requireValidator } from 'form/validators';
 import { useStyles } from 'app/pimDetails/sections/general/generalMain/GeneralMain.styles';
 import { PercentIcon } from 'ui/atoms/icons';
 
 import { rolesCheckboxes, employementCheckboxes, homeSituationCheckboxes } from './dictionaries';
 
-const residenceOptions = [
-  { title: 'Stationstraat 25, Amsterdam', type: 'Property' },
-  { title: 'The Software House', type: 'Email', subline: 'Marcin Piela', date: new Date() },
-  { title: 'CubicEyes', type: 'Email', subline: 'Christian van Gils', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen', type: 'Note', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
-  { title: 'Amsterdam bezichtiging inpannen 2', type: 'Note', date: new Date() },
-];
-
 export const PeopleForm = () => {
-  const [residence, setResidence] = useState<string>('');
   const { formatMessage } = useLocale();
   const classes = useStyles();
 
@@ -46,7 +36,7 @@ export const PeopleForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="lowest_income_percent"
+                        name="people.jointIncome.lowestPercentage"
                         label="pim_details.sales_settings.people.lowest_income_percent"
                         placeholder="pim_details.sales_settings.people.lowest_income_percent_placeholder"
                         type="number"
@@ -57,7 +47,7 @@ export const PeopleForm = () => {
                         }}
                       />
                       <GenericField
-                        name="income_distribution"
+                        name="people.jointIncome.distributionThreshold"
                         label="pim_details.sales_settings.people.income_distribution"
                         placeholder="pim_details.sales_settings.people.income_distribution_placeholder"
                         type="number"
@@ -70,7 +60,7 @@ export const PeopleForm = () => {
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="fictitious_income_calculation"
+                        name="people.jointIncome.ficitousCalculation"
                         label="pim_details.sales_settings.people.fictitious_income_calculation"
                         placeholder="pim_details.sales_settings.people.fictitious_income_calculation_placeholder"
                         type="number"
@@ -81,7 +71,7 @@ export const PeopleForm = () => {
                         }}
                       />
                       <GenericField
-                        name="include_pension_income"
+                        name="people.jointIncome.includePension"
                         label="pim_details.sales_settings.people.include_pension_income"
                         placeholder="pim_details.sales_settings.people.include_pension_income_placeholder"
                         type="number"
@@ -109,7 +99,7 @@ export const PeopleForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="capital_count_1"
+                        name="people.income.availableCapitalCount"
                         label="pim_details.sales_settings.people.capital_count_1"
                         placeholder="pim_details.sales_settings.people.capital_count_1_placeholder"
                         type="number"
@@ -122,7 +112,7 @@ export const PeopleForm = () => {
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="montly_obligation_1"
+                        name="people.income.deductMonthlyObligations"
                         label="pim_details.sales_settings.people.montly_obligation_1"
                         placeholder="pim_details.sales_settings.people.montly_obligation_1_placeholder"
                         type="number"
@@ -150,7 +140,7 @@ export const PeopleForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="capital_count_2"
+                        name="people.partnerIncome.availableCapitalCount"
                         label="pim_details.sales_settings.people.capital_count_2"
                         placeholder="pim_details.sales_settings.people.capital_count_2_placeholder"
                         type="number"
@@ -163,7 +153,7 @@ export const PeopleForm = () => {
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="montly_obligation_2"
+                        name="people.partnerIncome.deductMonthlyObligations"
                         label="pim_details.sales_settings.people.montly_obligation_2"
                         placeholder="pim_details.sales_settings.people.montly_obligation_2_placeholder"
                         type="number"
@@ -191,7 +181,7 @@ export const PeopleForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="min_age_first_person"
+                        name="people.income.minAge"
                         label="pim_details.sales_settings.people.min_age_first_person"
                         placeholder="pim_details.sales_settings.people.min_age_first_person_placeholder"
                         type="number"
@@ -201,7 +191,7 @@ export const PeopleForm = () => {
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="min_age_partner"
+                        name="people.partnerIncome.minAge"
                         label="pim_details.sales_settings.people.min_age_partner"
                         placeholder="pim_details.sales_settings.people.min_age_partner_placeholder"
                         type="number"
@@ -227,10 +217,12 @@ export const PeopleForm = () => {
                   />
                 </Box>
                 <Box mb={2} px={2}>
-                  <CheckboxGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="home_situation"
-                    options={homeSituationCheckboxes}
+                  <RadioGroupField
+                    name="home.situation"
+                    options={homeSituationCheckboxes.map(type => ({
+                      ...type,
+                      label: formatMessage({ id: `dictionaries.homeSituation.${type.label}` }),
+                    }))}
                     disabled={!editing}
                   />
                 </Box>
@@ -239,7 +231,7 @@ export const PeopleForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={3}>
                       <GenericField
-                        name="number_of_adults"
+                        name="home.amountAdults"
                         label="pim_details.sales_settings.people.number_of_adults"
                         placeholder="pim_details.sales_settings.people.number_of_adults_placeholder"
                         type="number"
@@ -249,7 +241,7 @@ export const PeopleForm = () => {
                     </Grid>
                     <Grid item xs={3}>
                       <GenericField
-                        name="number_of_children"
+                        name="home.amountChildren"
                         label="pim_details.sales_settings.people.number_of_children"
                         placeholder="pim_details.sales_settings.people.number_of_children_placeholder"
                         type="number"
@@ -268,11 +260,11 @@ export const PeopleForm = () => {
             <Grid item xs={12}>
               <Box mb={4} px={2}>
                 <Box mb={2}>
-                  <label>{formatMessage({ id: 'pim_details.sales_settings.people.residence' })}</label>
-                </Box>
-                <Box>
-                  <SimpleSearch onChange={v => setResidence(v.currentTarget.value)} value={residence} />
-                  <Search options={residenceOptions} fullWidth />
+                  <CheckboxField
+                    name="home.hasCurrentResidence"
+                    label="pim_details.sales_settings.people.residence"
+                    disabled={!editing}
+                  />
                 </Box>
               </Box>
             </Grid>
@@ -288,9 +280,11 @@ export const PeopleForm = () => {
                 </Box>
                 <Box px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="employment_type_1"
-                    options={employementCheckboxes}
+                    name="people.income.employementType"
+                    options={employementCheckboxes.map(type => ({
+                      ...type,
+                      label: formatMessage({ id: `dictionaries.employment.${type.label}` }),
+                    }))}
                     disabled={!editing}
                   />
                 </Box>
@@ -308,9 +302,11 @@ export const PeopleForm = () => {
                 </Box>
                 <Box px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="employment_type_2"
-                    options={employementCheckboxes}
+                    name="people.partnerIncome.employementType"
+                    options={employementCheckboxes.map(type => ({
+                      ...type,
+                      label: formatMessage({ id: `dictionaries.employment.${type.label}` }),
+                    }))}
                     disabled={!editing}
                   />
                 </Box>
@@ -328,9 +324,11 @@ export const PeopleForm = () => {
                 </Box>
                 <Box mb={2} px={2}>
                   <RadioGroupField
-                    validate={[() => ({ id: 'common.error' })]}
-                    name="employment_type_2"
-                    options={rolesCheckboxes}
+                    name="assignToRole"
+                    options={rolesCheckboxes.map(type => ({
+                      ...type,
+                      label: formatMessage({ id: `dictionaries.roles.${type.label}` }),
+                    }))}
                     disabled={!editing}
                   />
                 </Box>

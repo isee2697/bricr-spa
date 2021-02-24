@@ -1,0 +1,198 @@
+enum AllocateType {
+  MatchProfile
+  Allocation
+}
+
+enum AllocateCriteriaType {
+  JointIncome
+  MinimalAmountOfMissingDocuments
+  NumberOfPreferenceInterest
+  DateOfRegistrationInterest
+  AdditionalWork
+}
+
+enum AllocateEmploymentType {
+  Equity
+  SalariedEmployment
+  Entrepreneur
+  Benefits
+}
+
+enum AllocateAssignRole {
+  Reservation
+  Candidate
+  Optant
+  Tenant
+}
+
+enum AllocateHomeSituation {
+  LivingIn
+  OwnerOccupiedHome
+  SocialHosuing
+  FreeSecotorRental
+}
+
+type Allocate {
+  id: ID!
+  companyId: ID!
+  objectId: ID!
+  name: String!
+  version: Date!
+  note: String
+  criteria: AllocateCriteria
+  people: AllocatePeople
+  home: AllocateHome
+  assignToRole: AllocateAssignRole
+}
+
+type AllocateCriteria {
+  type: [AllocateType!]
+  startDate: Date
+  endDate: Date
+  amountAssignedCandidates: Int
+  rentalePriceCalculation: AllocateRentalPriceCalculation
+  isPublishedExternally: Boolean
+  interestDetails: AllocateInterestDetails
+  documents: AllocateCriteriaDocuments
+  criteriaOrder: [AllocateCriteriaOrder!]
+}
+
+type AllocateRentalPriceCalculation {
+  minJointIncome: Int
+  maxJointIncome: Int
+  minRentByIncome: Int
+  maxRentByIcome: Int
+}
+
+type AllocateInterestDetails {
+  minNumberOfPreferences: Int
+  registrationForm: Date
+  registrationTo: Date
+  assignOnlyWithInterest: Boolean
+}
+
+type AllocateCriteriaDocuments {
+  acceptedMissingDocumentsNumber: Int
+  onlyAcceptedDocuments: Boolean
+}
+
+type AllocateCriteriaOrder {
+  name: AllocateCriteriaType
+  order: Int
+  checked: Boolean
+}
+
+type AllocatePeople {
+  jointIncome: AllocatePeopleJointIncome
+  income: AllocatePeopleIncome
+  partnerIncome: AllocatePeopleIncome
+}
+
+type AllocatePeopleJointIncome {
+  lowestPercentage: Int
+  distributionThreshold: Int
+  ficitousCalculation: Int
+  includePension: Int
+}
+
+type AllocatePeopleIncome {
+  availableCapitalCount: Int
+  deductMonthlyObligations: Int
+  minAge: Int
+  employementType: AllocateEmploymentType
+}
+
+type AllocateHome {
+  amountChildren: Int
+  amountAdults: Int
+  situation: AllocateHomeSituation
+  hasCurrentResidence: Boolean
+}
+
+input AddAllocateInput {
+  objectId: String!
+  name: String!
+}
+
+input AllocateInput {
+  note: String
+  criteria: AllocateCriteriaInput
+  people: AllocatePeopleInput
+  home: AllocateHomeInput
+  assignToRole: AllocateAssignRole
+}
+
+input AllocateCriteriaInput {
+  type: [AllocateType!]
+  startDate: Date
+  endDate: Date
+  amountAssignedCandidates: Int
+  rentalePriceCalculation: AllocateRentalPriceCalculationInput
+  isPublishedExternally: Boolean
+  interestDetails: AllocateInterestDetailsInput
+  documents: AllocateCriteriaDocumentsInput
+  criteriaOrder: [AllocateCriteriaOrderInput!]
+}
+
+input AllocateRentalPriceCalculationInput {
+  minJointIncome: Int
+  maxJointIncome: Int
+  minRentByIncome: Int
+  maxRentByIcome: Int
+}
+
+input AllocateInterestDetailsInput {
+  minNumberOfPreferences: Int
+  registrationForm: Date
+  registrationTo: Date
+  assignOnlyWithInterest: Boolean
+}
+
+input AllocateCriteriaDocumentsInput {
+  acceptedMissingDocumentsNumber: Int
+  onlyAcceptedDocuments: Boolean
+}
+
+input AllocateCriteriaOrderInput {
+  name: AllocateCriteriaType
+  order: Int
+  checked: Boolean
+}
+
+input AllocatePeopleInput {
+  jointIncome: AllocatePeopleJointIncomeInput
+  income: AllocatePeopleIncomeInput
+  partnerIncome: AllocatePeopleIncomeInput
+}
+
+input AllocatePeopleJointIncomeInput {
+  lowestPercentage: Int
+  distributionThreshold: Int
+  ficitousCalculation: Int
+  includePension: Int
+}
+
+input AllocatePeopleIncomeInput {
+  availableCapitalCount: Int
+  deductMonthlyObligations: Int
+  minAge: Int
+  employementType: AllocateEmploymentType
+}
+
+input AllocateHomeInput {
+  amountChildren: Int
+  amountAdults: Int
+  situation: AllocateHomeSituation
+  hasCurrentResidence: Boolean
+}
+
+extend type Mutation {
+  addAllocate(input: AddAllocateInput!): Allocate @auth
+  updateAllocate(id: ID!, input: AllocateInput!): Allocate @auth
+  deleteAllocate(id: ID!): Boolean @auth
+}
+
+extend type Query {
+  getAllocate(id: ID!): Allocate @auth
+  listAllocates(objectId: ID!): [Allocate!] @auth
+}
