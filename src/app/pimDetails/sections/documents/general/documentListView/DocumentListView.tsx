@@ -17,6 +17,7 @@ import { useStyles } from './DocumentListView.styles';
 import { DocumentListViewProps } from './DocumentListView.types';
 import { DocumentListViewItem } from './documentListViewItem/DocumentListViewItem';
 import { DocumentTableView } from './documentTableView/DocumentTableView';
+import { PimDocumentsFilters } from './dictionaries';
 
 export const DocumentListView = ({
   status,
@@ -50,7 +51,12 @@ export const DocumentListView = ({
                 <AddIcon />
               </IconButton>
               <Box ml={2} />
-              <FiltersButton data={activeFilters} getActiveFilters={onFilter} color="primary" />
+              <FiltersButton
+                data={activeFilters}
+                getActiveFilters={onFilter}
+                color="primary"
+                filters={PimDocumentsFilters}
+              />
               <Box ml={2} />
               <IconButton variant="roundedContained" size="small" onClick={() => setShowDocuments(!showDocuments)}>
                 {showDocuments ? <ArrowUpIcon /> : <ArrowDownIcon />}

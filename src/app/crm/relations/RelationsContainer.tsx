@@ -33,6 +33,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     variables: {
       type: CrmType.Relation,
     },
+    fetchPolicy: 'no-cache',
   });
 
   const amounts =
@@ -65,16 +66,16 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
             query: CrmListDocument,
             variables: {
               type: CrmType.Relation,
+              ...activeFilters,
+              status,
+              ...sortQuery,
+              ...paginationQuery,
             },
           },
           {
             query: ListCrmsCountDocument,
             variables: {
               type: CrmType.Relation,
-              ...activeFilters,
-              status,
-              ...sortQuery,
-              ...paginationQuery,
             },
           },
         ],

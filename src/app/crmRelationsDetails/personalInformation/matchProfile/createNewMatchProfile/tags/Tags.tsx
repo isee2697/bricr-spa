@@ -1,35 +1,33 @@
 import React from 'react';
-import arrayMutators from 'final-form-arrays';
+import { useParams } from 'react-router-dom';
 
 import { useLocale } from 'hooks';
-import { AutosaveForm, FormSection } from 'ui/organisms';
-import { SubSectionProps } from '../CreateNewMatchProfile.types';
+import { FormSection } from 'ui/organisms';
 import { CheckboxGroupField } from 'form/fields';
 import { TagTypes } from '../dictionaries';
 
-export const Tags = ({ onSave }: SubSectionProps) => {
+export const Tags = () => {
   const { formatMessage } = useLocale();
+  const { matchProfileId } = useParams<{ matchProfileId?: string }>();
 
   return (
-    <AutosaveForm mutators={{ ...arrayMutators }} onSave={onSave}>
-      <FormSection
-        title={formatMessage({ id: 'crm.details.personal_information_match_profile.tags.title' })}
-        isExpandable
-        isInitExpanded
-        isInitEditing
-      >
-        {isEditing => (
-          <CheckboxGroupField
-            name="tags"
-            options={TagTypes.map(type => ({
-              ...type,
-              label: formatMessage({ id: `dictionaries.match_tag.${type.value}` }),
-            }))}
-            xs={2}
-            disabled={!isEditing}
-          />
-        )}
-      </FormSection>
-    </AutosaveForm>
+    <FormSection
+      title={formatMessage({ id: 'crm.details.personal_information_match_profile.tags.title' })}
+      isExpandable
+      isInitExpanded
+      isInitEditing={!matchProfileId}
+    >
+      {isEditing => (
+        <CheckboxGroupField
+          name="tags"
+          options={TagTypes.map(type => ({
+            ...type,
+            label: formatMessage({ id: `dictionaries.match_tag.${type.value}` }),
+          }))}
+          xs={2}
+          disabled={!isEditing}
+        />
+      )}
+    </FormSection>
   );
 };

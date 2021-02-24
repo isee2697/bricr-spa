@@ -17,6 +17,7 @@ import { useStyles } from './DmsTemplates.styles';
 import { DmsTemplatesTabs } from './dmsTemplatesTabs/DmsTemplatesTabs';
 import { DmsTemplatesItem } from './dmsTemplatesItem/DmsTemplatesItem';
 import { DmsAddTemplateDialog } from './dmsAddTemplateDialog/DmsAddTemplateDialog';
+import { DmsTemplatesFilters } from './dictionaries';
 
 export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTemplatesProps) => {
   const { formatMessage } = useLocale();
@@ -88,7 +89,12 @@ export const DmsTemplates = ({ templates, onAdd, onUpdate, category }: DmsTempla
                       </Typography>
                     }
                     action={
-                      <FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />
+                      <FiltersButton
+                        color="primary"
+                        data={activeFilters}
+                        getActiveFilters={handleFilterChange}
+                        filters={DmsTemplatesFilters}
+                      />
                     }
                   />
                   <CardContent>

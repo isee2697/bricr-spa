@@ -19,6 +19,7 @@ import { AllocateResultsDetailsProps } from './AllocateResultsDetails.types';
 import { StatCard } from './statCard/StatCard';
 import { RankingList } from './goldList/List';
 import { AssignedTableView } from './tableView/AssignedTableView';
+import { PimAllocateResultDetailsFilters } from './dictionaries';
 
 export const AllocateResultsDetails = ({ isSidebarVisible, onSidebarOpen }: AllocateResultsDetailsProps) => {
   const { formatMessage } = useLocale();
@@ -130,7 +131,12 @@ export const AllocateResultsDetails = ({ isSidebarVisible, onSidebarOpen }: Allo
               {formatMessage({ id: 'common.select_all' })}
             </Typography>
           </Box>
-          <FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />
+          <FiltersButton
+            color="primary"
+            data={activeFilters}
+            getActiveFilters={handleFilterChange}
+            filters={PimAllocateResultDetailsFilters}
+          />
         </Box>
         <RankingList
           items={item.allocatedRelations}

@@ -102,7 +102,7 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
                   })}
                 </Typography>
               </Box>
-              <Box className={classes.marginTopTwo}>
+              <Box mt={2}>
                 <RadioGroupField
                   disabled={!isEditing}
                   name="gender"
@@ -174,7 +174,7 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
                   })}
                 </Typography>
               </Box>
-              <Box className={classes.marginTopTwo}>
+              <Box mt={2}>
                 <RadioGroupField
                   disabled={!isEditing}
                   name="preferredLanguage"

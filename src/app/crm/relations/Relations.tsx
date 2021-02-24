@@ -13,7 +13,7 @@ import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
 import { useModalDispatch } from 'hooks/useModalDispatch/useModalDispatch';
@@ -104,13 +104,7 @@ export const Relations = ({
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
-                    pagination={{
-                      count: 8,
-                      page: 3,
-                      currentPerPage: 10,
-                      perPageOptions: [10, 25, 'All'],
-                      onPerPageChange: value => {},
-                    }}
+                    pagination={pagination}
                     onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
                     renderAction={(item: CrmItem) => (
                       <RelationsMenu

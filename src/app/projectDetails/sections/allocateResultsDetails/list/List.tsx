@@ -18,6 +18,7 @@ import { useStyles } from './List.styles';
 import { AllocatedProperty } from './List.types';
 import { ListItem } from './listItem/ListItem';
 import { AllocateResultsTableView } from './crmTableView/AllocateResultsTableView';
+import { NcpAllocateResultsListFilters } from './dictionaries';
 
 export const AllocateResultsList = () => {
   const classes = useStyles();
@@ -81,7 +82,11 @@ export const AllocateResultsList = () => {
               </IconButton>
             </Grid>
             <Grid item>
-              <FiltersButton data={activeFilters} getActiveFilters={handleFilterChange} />
+              <FiltersButton
+                data={activeFilters}
+                getActiveFilters={handleFilterChange}
+                filters={NcpAllocateResultsListFilters}
+              />
             </Grid>
             <Grid item>
               <IconButton size="small" variant="roundedContained" onClick={() => setIsExpanded(!isExpanded)}>

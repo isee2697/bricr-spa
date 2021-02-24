@@ -1,3 +1,8 @@
+enum AllocateType {
+  MatchProfile
+  Allocation
+}
+
 enum AllocateCriteriaType {
   JointIncome
   MinimalAmountOfMissingDocuments
@@ -41,6 +46,7 @@ type Allocate {
 }
 
 type AllocateCriteria {
+  type: [AllocateType!]
   startDate: Date
   endDate: Date
   amountAssignedCandidates: Int
@@ -104,6 +110,7 @@ type AllocateHome {
 }
 
 input AddAllocateInput {
+  objectId: String!
   name: String!
 }
 
@@ -116,6 +123,7 @@ input AllocateInput {
 }
 
 input AllocateCriteriaInput {
+  type: [AllocateType!]
   startDate: Date
   endDate: Date
   amountAssignedCandidates: Int
@@ -179,7 +187,7 @@ input AllocateHomeInput {
 }
 
 extend type Mutation {
-  addAllocate(objectId: ID!, input: AddAllocateInput!): Allocate @auth
+  addAllocate(input: AddAllocateInput!): Allocate @auth
   updateAllocate(id: ID!, input: AllocateInput!): Allocate @auth
   deleteAllocate(id: ID!): Boolean @auth
 }
