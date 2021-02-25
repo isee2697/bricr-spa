@@ -4,6 +4,18 @@ export const CREATE_PIM = gql`
   mutation CreatePim($input: CreatePimInput!) {
     createPim(input: $input) {
       id
+      realEstateType
+      street
+      houseNumber
+      postalCode
+      city
+      developmentType
+      outsideFeatures {
+        id
+      }
+      floors {
+        id
+      }
     }
   }
 `;

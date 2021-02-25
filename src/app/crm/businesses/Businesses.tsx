@@ -10,12 +10,12 @@ import { CrmHeader } from '../crmHeader/CrmHeader';
 import { CrmActionTabs } from '../crmActionTabs/CrmActionTabs';
 import { useLocale } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
-import { CrmItem } from '../Crm.types';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { CrmItem } from '../Crm.types';
 
 import { BusinessesProps } from './Businesses.types';
 import { useStyles } from './Businesses.styles';
@@ -135,7 +135,7 @@ export const Businesses = ({
                     )}
                   />
                 ) : (
-                  <List
+                  <List<CrmItem>
                     className="crm-list"
                     items={crmItemsFiltered as CrmItem[]}
                     itemIndex={'id'}

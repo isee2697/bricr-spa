@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 
-import { CrmStatus } from 'api/types';
-import { CrmItem } from 'app/crm/Crm.types';
+import { CrmStatus, BulkOperations } from 'api/types';
 import { PaginationProps } from 'ui/atoms/pagination/Pagination.types';
 import { SortOption } from 'ui/molecules/tableList/TableList.types';
+import { ActionModalAction } from 'ui/organisms/actionModal/ActionModal.types';
+import { CrmItem } from '../Crm.types';
 
 export type CrmTableFixedHeader = 'firstName' | 'lastName';
 
@@ -37,4 +38,12 @@ export type CrmTableViewProps = {
   renderAction?: (item: CrmItem) => ReactNode;
   sortOptions?: SortOption[];
   onSort?: (key: string) => void;
+  renderDeleteTitle?: (item: CrmItem) => string;
+  onBulk?: (selectedItems: CrmItem[], values: Record<string, string | string[]>) => Promise<undefined>;
+  bulkActions?: ActionModalAction[];
+  onBulkOpen?: (selectedItems: CrmItem[]) => void;
+  bulkData?: Record<string, string | string[]> | null;
+  bulkTitle?: string;
+  bulkSubmitText?: string;
+  onOperation?: (operation: BulkOperations, selectedItems: CrmItem[]) => Promise<undefined>;
 };
