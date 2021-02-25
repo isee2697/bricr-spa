@@ -15,7 +15,6 @@ import {
   useCrmBulkDetailsLazyQuery,
   CrmBulkDetailsDocument,
   BulkEntities,
-  CrmListItem,
 } from 'api/types';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { CrmItem } from '../Crm.types';
@@ -41,6 +40,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     variables: {
       type: CrmType.Relation,
     },
+    fetchPolicy: 'no-cache',
   });
   const [getBulkData, { data: bulkData }] = useCrmBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
 
@@ -77,8 +77,8 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
             query: CrmListDocument,
             variables: {
               type: CrmType.Relation,
-              status,
               ...activeFilters,
+              status,
               ...sortQuery,
               ...paginationQuery,
             },
@@ -122,11 +122,11 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     setSelected(items);
   };
 
-  const fetchBulkDetails = (crmItems: CrmListItem[]) => {
+  const fetchBulkDetails = (crmItems: CrmItem[]) => {
     getBulkData({ variables: { ids: crmItems.map(p => p.id) } });
   };
 
-  const handleOperation = async (operation: BulkOperations, projects: CrmListItem[]) => {
+  const handleOperation = async (operation: BulkOperations, projects: CrmItem[]) => {
     const bulkActionIds = projects.map(p => p.id);
 
     const { data: result } = await bulk({
@@ -172,7 +172,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     return undefined;
   };
 
-  const handleBulk = async (crmItems: CrmListItem[], formData: unknown) => {
+  const handleBulk = async (crmItems: CrmItem[], formData: unknown) => {
     const data = formData as BulkForm;
 
     const bulkActionIds = crmItems.map(p => p.id);

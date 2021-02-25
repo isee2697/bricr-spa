@@ -24,6 +24,7 @@ import { ListOptionsMenuItem } from 'ui/molecules/listOptionsMenu/menuItem/ListO
 import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
 import { ListPimsFilters } from 'api/types';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { NcpAllocateResultDetailsFilters } from '../dictionaries';
 
 import { AssignedTableHeaderCell, AssignedTableViewProps } from './AssignedTableView.types';
 import { useStyles } from './AssignedTableView.styles';
@@ -116,7 +117,14 @@ export const AssignedTableView = ({
                 <ListOptionsMenu onEditClick={() => {}} onDeleteClick={() => {}} />
               </Box>
             }
-            actionButtons={<FiltersButton color="primary" data={activeFilters} getActiveFilters={handleFilterChange} />}
+            actionButtons={
+              <FiltersButton
+                color="primary"
+                data={activeFilters}
+                getActiveFilters={handleFilterChange}
+                filters={NcpAllocateResultDetailsFilters}
+              />
+            }
           />
           {Object.keys(activeFilters).length > 0 && (
             <Box mt={-1}>

@@ -9,6 +9,8 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { HamburgerIcon, ListIcon, LocationIcon } from 'ui/atoms/icons';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
+import { FiltersButton } from 'ui/molecules/filters/FiltersButton';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 
 import { PimHeader } from './pimHeader/PimHeader';
 import { PimActionTabs } from './pimActionTabs/PimActionTabs';
@@ -16,10 +18,9 @@ import { PimItem } from './pimItem/PimItem';
 import { PimProps } from './Pim.types';
 import { useStyles } from './Pim.styles';
 import { MovePimModal } from './movePimModal/MovePimModal';
-import { FiltersButton } from './pimFilters/FiltersButton';
-import { ActiveFilters } from './pimFilters/activeFilters/ActiveFilters';
 import { PimTableView } from './pimTableView/PimTableView';
 import { PimPurchaseTableView } from './pimPurchaseTableView/PimPurchaseTableView';
+import { PimListFilters } from './dictionaries';
 
 export const PimList = ({
   status,
@@ -94,6 +95,7 @@ export const PimList = ({
                       getActiveFilters={onFilter}
                       teams={teams}
                       accountManagers={accountManagers}
+                      filters={PimListFilters}
                     />
                   </Box>
                 </Box>

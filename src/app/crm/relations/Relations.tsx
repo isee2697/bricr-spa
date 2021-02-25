@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmType, ListCrmFilters, BulkField, CrmListItem as CrmListItemType, BulkOperations } from 'api/types';
+import { CrmType, ListCrmFilters, BulkField, BulkOperations } from 'api/types';
 import { Page } from 'ui/templates';
 import { ConfirmModal, List, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box, Typography } from 'ui/atoms';
@@ -12,10 +12,11 @@ import { useLocale, useModalDispatch } from 'hooks';
 import { CrmSubHeader } from '../crmSubHeader/CrmSubHeader';
 import { CrmListItem } from '../crmListItem/CrmListItem';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ActiveFilters } from '../filters/activeFilters/ActiveFilters';
+import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
 import { FieldChange } from 'ui/bulk/fieldChange/FieldChange';
 import { ConfirmButtonType } from 'ui/molecules/confirmModal/ConfirmModal.types';
 import { MoveCrmRelationContainer } from '../moveRelation/MoveCrmRelationContainer';
+import { CrmItem } from '../Crm.types';
 
 import { RelationsProps } from './Relations.types';
 import { useStyles } from './Relations.styles';
@@ -47,7 +48,7 @@ export const Relations = ({
   const { push } = useHistory();
   const { formatMessage } = useLocale();
   const classes = useStyles();
-  const [deleteItem, setDeleteItem] = useState<CrmListItemType | null>(null);
+  const [deleteItem, setDeleteItem] = useState<CrmItem | null>(null);
   const { open } = useModalDispatch();
 
   const crmItemsFiltered = crms.filter(crmItem => crmItem.status === status);
@@ -105,13 +106,13 @@ export const Relations = ({
               <Box px={2}>
                 {viewMode === 'table' ? (
                   <CrmTableView
-                    items={crmItemsFiltered as CrmListItemType[]}
+                    items={crmItemsFiltered}
                     selected={selectedItems}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
                     pagination={pagination}
                     onClick={id => push(AppRoute.crmRelationsDetails.replace(':id', id))}
-                    renderAction={(item: CrmListItemType) => (
+                    renderAction={(item: CrmItem) => (
                       <RelationsMenu
                         item={item}
                         onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}
@@ -151,9 +152,9 @@ export const Relations = ({
                     onOperation={onOperation}
                   />
                 ) : (
-                  <List<CrmListItemType>
+                  <List<CrmItem>
                     className="crm-list"
-                    items={crmItemsFiltered as CrmListItemType[]}
+                    items={crmItemsFiltered}
                     itemIndex={'id'}
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
@@ -171,7 +172,7 @@ export const Relations = ({
                           >
                             <CrmListItem
                               crm={crm}
-                              renderAction={(item: CrmListItemType) => (
+                              renderAction={(item: CrmItem) => (
                                 <RelationsMenu
                                   item={item}
                                   onMerge={id => push(`${AppRoute.crm}/merge/${id}`)}

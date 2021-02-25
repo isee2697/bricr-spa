@@ -5,11 +5,12 @@ import clsx from 'clsx';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { BulkOperations, CrmListItem } from 'api/types';
+import { BulkOperations } from 'api/types';
 import { ActionModalForm } from 'ui/organisms/actionModal/ActionModalForm';
 import { BulkActionConfirmModal } from 'ui/organisms';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { useSelect } from 'ui/molecules/list/useSelect/useSelect';
+import { CrmItem } from '../Crm.types';
 
 import {
   CrmTableFixedHeader,
@@ -134,17 +135,13 @@ export const CrmTableView = ({
   };
 
   const renderCell = useCallback(
-    (crm: CrmListItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
+    (crm: CrmItem, cell: CrmTableFixedHeader | CrmTableMovableHeader) => {
       if (cell === 'lastName') {
         return `${crm.insertion ? crm.insertion + ' ' : ''}${crm.lastName}`;
       }
 
       if (cell === 'partner' || cell === 'manager') {
-        return 'Partner';
-      }
-
-      if (cell === 'gender') {
-        return 'Male';
+        return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
       }
 
       if (cell === 'status') {
@@ -216,81 +213,83 @@ export const CrmTableView = ({
         onBulk={handleBulk}
         onSort={!!onSort ? onSort : () => {}}
       />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell padding="checkbox" className={classes.tableHeaderCell}>
-              <Checkbox
-                color="primary"
-                checked={items.length === selected.length}
-                onClick={e => {
-                  e.stopPropagation();
-                  onSelectAllItems();
-                }}
-              />
-            </TableCell>
-            {headerCells.map(cell => (
-              <TableCell
-                key={cell.field}
-                sortDirection={
-                  sorting.indexOf(cell.field) !== -1 ? (sorting.indexOf('_up') !== -1 ? 'asc' : 'desc') : false
-                }
-                className={clsx(classes.tableHeaderCell, sorting.indexOf(cell.field) !== -1 && 'sorted')}
-                onClick={() => {
-                  if (cell.sortable) {
-                    onSort?.(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
-                    setSorting(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
-                  }
-                }}
-              >
-                <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
-                  {cell.label}
-                </Typography>
-                {sorting.indexOf(cell.field) !== -1 ? (
-                  <>
-                    {sorting.indexOf('_down') !== -1 && (
-                      <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />
-                    )}
-                    {sorting.indexOf('_up') !== -1 && (
-                      <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />
-                    )}
-                  </>
-                ) : (
-                  <Box className={classes.columnSortIconPlaceholder} />
-                )}
-              </TableCell>
-            ))}
-            <TableCell className={classes.tableHeaderCell} valign="middle">
-              <SettingsIcon className={classes.tableActionCell} onClick={() => showFilterHeaderDlg(true)} />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((item, index) => (
-            <TableRow
-              key={index}
-              onClick={() => onClick?.(item.id)}
-              className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
-            >
-              <TableCell padding="checkbox">
+      <Box width="100%" className={classes.scrollable}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox" className={classes.tableHeaderCell}>
                 <Checkbox
                   color="primary"
-                  checked={selected.includes(item.id)}
-                  inputProps={{ 'aria-labelledby': item.id }}
+                  checked={items.length === selected.length}
                   onClick={e => {
                     e.stopPropagation();
-                    onSelectItem(item.id);
+                    onSelectAllItems();
                   }}
                 />
               </TableCell>
-              {headerCells.map((cell, index) => (
-                <TableCell key={index}>{renderCell(item, cell.field)}</TableCell>
+              {headerCells.map(cell => (
+                <TableCell
+                  key={cell.field}
+                  sortDirection={
+                    sorting.indexOf(cell.field) !== -1 ? (sorting.indexOf('_up') !== -1 ? 'asc' : 'desc') : false
+                  }
+                  className={clsx(classes.tableHeaderCell, sorting.indexOf(cell.field) !== -1 && 'sorted')}
+                  onClick={() => {
+                    if (cell.sortable) {
+                      onSort?.(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
+                      setSorting(`${cell.field}_${sorting.indexOf('_up') !== -1 ? 'down' : 'up'}`);
+                    }
+                  }}
+                >
+                  <Typography variant="h5" component="span" className={classes.columnHeaderLabel}>
+                    {cell.label}
+                  </Typography>
+                  {sorting.indexOf(cell.field) !== -1 ? (
+                    <>
+                      {sorting.indexOf('_down') !== -1 && (
+                        <ArrowDownIcon color="primary" className={classes.columnHeaderIcon} />
+                      )}
+                      {sorting.indexOf('_up') !== -1 && (
+                        <ArrowUpIcon color="primary" className={classes.columnHeaderIcon} />
+                      )}
+                    </>
+                  ) : (
+                    <Box className={classes.columnSortIconPlaceholder} />
+                  )}
+                </TableCell>
               ))}
-              <TableCell>{renderAction?.(item)}</TableCell>
+              <TableCell className={classes.tableHeaderCell} valign="middle">
+                <SettingsIcon className={classes.tableActionCell} onClick={() => showFilterHeaderDlg(true)} />
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {items.map((item, index) => (
+              <TableRow
+                key={index}
+                onClick={() => onClick?.(item.id)}
+                className={classnames(classes.tableRow, index % 2 === 0 && 'striped')}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={selected.includes(item.id)}
+                    inputProps={{ 'aria-labelledby': item.id }}
+                    onClick={e => {
+                      e.stopPropagation();
+                      onSelectItem(item.id);
+                    }}
+                  />
+                </TableCell>
+                {headerCells.map((cell, index) => (
+                  <TableCell key={index}>{renderCell(item, cell.field)}</TableCell>
+                ))}
+                <TableCell>{renderAction?.(item)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
       {pagination && (
         <Box className={classes.pagination}>
           <Pagination {...pagination} />

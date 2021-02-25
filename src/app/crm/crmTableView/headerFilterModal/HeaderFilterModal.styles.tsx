@@ -34,6 +34,7 @@ export const useStyles = makeStyles(theme => ({
   modalContent: {
     width: theme.spacing(91),
     borderBottom: `1px solid ${theme.palette.gray.light}`,
+    position: 'relative',
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',

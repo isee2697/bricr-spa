@@ -13,6 +13,7 @@ import { SearchIcon } from 'ui/atoms/icons';
 
 import { useStyles } from './DmsPrimaryFolder.styles';
 import { DmsPrimaryFolderProps } from './DmsPrimaryFolder.types';
+import { DmsPrimaryFolderFilters } from './dictionaries';
 
 const primaryFolderOptions = [
   { title: 'Adriaan van Bergenstraat', type: '', value: 'Adriaan van Bergenstraat', icon: 'CH' },
@@ -70,7 +71,7 @@ export const DmsPrimaryFolder = ({
                 </ClickAwayListener>
               </Box>
               <Box mr={3}>
-                <FiltersButton data={activeFilters} getActiveFilters={onFilter} />
+                <FiltersButton data={activeFilters} getActiveFilters={onFilter} filters={DmsPrimaryFolderFilters} />
               </Box>
             </Box>
           }

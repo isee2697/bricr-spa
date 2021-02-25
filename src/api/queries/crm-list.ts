@@ -21,12 +21,34 @@ export const CRM_LIST = gql`
         firstName
         insertion
         lastName
+        gender
+        dateOfBirth
+        placeOfBirth
+        nationality
+        maritalStatus
+        familyCompositionChildren
+        familyCompositionAdults
+        currentHomeSituation
+        partner {
+          id
+          firstName
+          lastName
+          avatar {
+            url
+          }
+        }
         phoneNumber
+        addresses {
+          city
+        }
         email
         avatar {
           url
         }
         status
+        dateCreated
+        dateUpdated
+        completeness
       }
     }
   }

@@ -5,13 +5,13 @@ import { useStyles } from './HeaderColumnItem.styles';
 import { HeaderColumnItemPlaceholderProps } from './HeaderColumnItemPlaceholder.types';
 import { HeaderColumnItemDragObject } from './HeaderFilterModal.types';
 
-export const HeaderColumnItemPlaceholder = ({ addColumnToList }: HeaderColumnItemPlaceholderProps) => {
+export const HeaderColumnItemPlaceholder = ({ onDropColumn }: HeaderColumnItemPlaceholderProps) => {
   const classes = useStyles();
 
   const [, drop] = useDrop({
     accept: 'CrmTableHeaderFilter',
     drop: (dropObject: HeaderColumnItemDragObject) => {
-      addColumnToList(dropObject.item);
+      onDropColumn(dropObject.item);
     },
   });
 

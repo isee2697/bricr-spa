@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
 
-import { CrmListItem, CrmStatus } from 'api/types';
+import { CrmStatus } from 'api/types';
 import { CrmItem } from '../Crm.types';
 
 export type CrmListItemProps = {
-  crm: CrmListItem;
+  crm: CrmItem;
   onUpdateStatus?: (id: string, status: CrmStatus) => Promise<void>;
   onDelete?: (id: string) => void;
-  renderAction?: (item: CrmListItem) => ReactNode;
+  renderAction?: (item: CrmItem) => ReactNode;
 };
 
 export type CrmListItemMetaBoxProps = {
   label: string;
   count: number;
-  crm: CrmListItem;
+  crm: CrmItem;
 };

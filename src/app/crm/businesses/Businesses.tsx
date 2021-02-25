@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import clsx from 'classnames';
 import { useHistory } from 'react-router-dom';
 
-import { CrmListItem as CrmListItemType, CrmStatus, CrmType, ListCrmFilters } from 'api/types';
+import { CrmStatus, CrmType, ListCrmFilters } from 'api/types';
 import { Page } from 'ui/templates';
 import { List, ListOptionsMenu, PropertyItemPlaceholder } from 'ui/molecules';
 import { Grid, Card, CardHeader, CardContent, Box } from 'ui/atoms';
@@ -15,6 +15,7 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { SortOption } from 'ui/molecules/list/List.types';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
 import { ActiveFilters } from 'ui/molecules/filters/activeFilters/ActiveFilters';
+import { CrmItem } from '../Crm.types';
 
 import { BusinessesProps } from './Businesses.types';
 import { useStyles } from './Businesses.styles';
@@ -118,12 +119,12 @@ export const Businesses = ({
               <Box px={2}>
                 {viewMode === 'table' ? (
                   <CrmTableView
-                    items={crmItemsFiltered as CrmListItemType[]}
+                    items={crmItemsFiltered as CrmItem[]}
                     selected={selected}
                     onSelectItem={handleSelectItem}
                     onSelectAllItems={handleSelectAllItems}
                     onClick={id => push(AppRoute.crmBusinessesDetails.replace(':id', id))}
-                    renderAction={(item: CrmListItemType) => (
+                    renderAction={(item: CrmItem) => (
                       <BusinessesMenu
                         item={item}
                         onMerge={() => {}}
@@ -134,9 +135,9 @@ export const Businesses = ({
                     )}
                   />
                 ) : (
-                  <List<CrmListItemType>
+                  <List<CrmItem>
                     className="crm-list"
-                    items={crmItemsFiltered as CrmListItemType[]}
+                    items={crmItemsFiltered as CrmItem[]}
                     itemIndex={'id'}
                     loadingItem={<PropertyItemPlaceholder />}
                     emptyTitle={formatMessage({ id: 'crm.list.empty_title' })}
@@ -157,7 +158,7 @@ export const Businesses = ({
                           >
                             <CrmListItem
                               crm={crm}
-                              renderAction={(item: CrmListItemType) => (
+                              renderAction={(item: CrmItem) => (
                                 <BusinessesMenu
                                   item={item}
                                   onMerge={() => {}}

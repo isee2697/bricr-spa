@@ -5,10 +5,9 @@ import { useTheme } from '@material-ui/core';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { Avatar, Box, Typography, UserAvatar, ProgressFilling, Chip } from 'ui/atoms';
-import { MailIcon, HelpIcon, HeadIcon } from 'ui/atoms/icons';
+import { MailIcon, HeadIcon, PhoneIcon } from 'ui/atoms/icons';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { CrmStatus } from 'api/types';
-import { CRM as crmMock } from 'api/mocks/crm';
 
 import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
@@ -19,7 +18,7 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
   return (
     <Box className={classes.meta}>
       <Typography className={classes.metaCount} variant="h3">
-        {count}
+        {count || '-'}
       </Typography>
       <Typography className={classes.metaLabel} variant="h6">
         {label}
@@ -37,11 +36,11 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { firstName, insertion, lastName, email, phoneNumber, avatar } = crm;
   const {
     property,
-    partner: { image: partnerAvatar, firstName: partnerFirstName, lastName: partnerLastName },
+    partner,
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
-    informationCompletedStatus,
     meta: { matches, interests, viewings, biddings, candidate, optant },
-  } = crmMock;
+    completeness = 0,
+  } = crm;
 
   const metaAsArray = [
     {
@@ -101,7 +100,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
               </Box>
               <Box display="flex">
                 <Box mr={4}>
-                  <HelpIcon className={classes.verticalAlignTop} /> {phoneNumber}
+                  <PhoneIcon className={classes.verticalAlignTop} /> {phoneNumber}
                 </Box>
                 <Box>
                   <MailIcon className={classes.verticalAlignTop} /> {email}
@@ -123,19 +122,21 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
               <br />
               <Box className={classes.inlineBlock}>
                 <Box display="flex">
-                  <Box mr={2}>
-                    <Typography variant="h6" className={classes.label}>
-                      {formatMessage({ id: 'crm.item.partner' })}
-                    </Typography>
-                    <Box display="flex" alignItems="center" className={classes.avatarWithName}>
-                      <UserAvatar
-                        name={`${partnerFirstName} ${partnerLastName}`}
-                        avatar={partnerAvatar?.url || undefined}
-                        className={classes.avatarIcon}
-                      />{' '}
-                      {partnerFirstName} {partnerLastName}
+                  {partner && (
+                    <Box mr={2}>
+                      <Typography variant="h6" className={classes.label}>
+                        {formatMessage({ id: 'crm.item.partner' })}
+                      </Typography>
+                      <Box display="flex" alignItems="center" className={classes.avatarWithName}>
+                        <UserAvatar
+                          name={`${partner.firstName} ${partner.lastName}`}
+                          avatar={partner.avatar?.url || undefined}
+                          className={classes.avatarIcon}
+                        />{' '}
+                        {partner.firstName} {partner.lastName}
+                      </Box>
                     </Box>
-                  </Box>
+                  )}
                   <Box>
                     <Typography variant="h6" className={classes.label}>
                       {formatMessage({ id: 'crm.item.manager' })}
@@ -166,7 +167,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
       <Box display="flex" justifyContent="space-between">
         <Box className={classes.infoProgress} mr={1}>
           <Box mb={1}>{formatMessage({ id: 'property_item.info_completed' })}</Box>
-          <ProgressFilling progress={informationCompletedStatus ?? 0} />
+          <ProgressFilling progress={completeness} />
         </Box>
         <Box display="flex">
           {metaAsArray.map(meta => (
