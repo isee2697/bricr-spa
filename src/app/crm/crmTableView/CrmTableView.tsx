@@ -5,7 +5,11 @@ import clsx from 'clsx';
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Typography, Box, Pagination } from 'ui/atoms';
 import { SettingsIcon, ArrowDownIcon, ArrowUpIcon } from 'ui/atoms/icons';
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { CrmItem } from 'app/crm/Crm.types';
+import { BulkOperations } from 'api/types';
+import { ActionModalForm } from 'ui/organisms/actionModal/ActionModalForm';
+import { BulkActionConfirmModal } from 'ui/organisms';
+import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
+import { CrmItem } from '../Crm.types';
 
 import {
   CrmTableFixedHeader,
@@ -71,9 +75,25 @@ export const CrmTableView = ({
   pagination,
   sortOptions,
   onSort,
+  renderDeleteTitle = () => '',
+  bulkActions,
+  bulkTitle,
+  bulkSubmitText,
+  bulkData = null,
+  onBulk,
+  onBulkOpen,
+  onOperation,
 }: CrmTableViewProps) => {
   const { formatMessage } = useLocale();
   const classes = useStyles();
+  const [isActionModalOpened, setActionModalOpened] = useState(false);
+  const [isModalOpened, setModalOpened] = useState(false);
+  const [bulkActionProps, setBulkActionProps] = useState({
+    itemName: '',
+    type: BulkOperations.Delete,
+    count: 0,
+    onConfirm: () => Promise.resolve(),
+  });
 
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
@@ -118,7 +138,7 @@ export const CrmTableView = ({
       }
 
       if (cell === 'partner' || cell === 'manager') {
-        return `${crm[cell]?.firstName} ${crm[cell]?.lastName}`;
+        return `${crm.partner?.firstName} ${crm.partner?.lastName}`;
       }
 
       if (cell === 'status') {
@@ -129,27 +149,74 @@ export const CrmTableView = ({
         return '';
       }
 
+      if (cell === 'property') {
+        return '';
+      }
+
       return crm[cell];
     },
     [formatMessage],
   );
 
+  const handleOperation = (operation: BulkOperations) => {
+    if (onOperation) {
+      const filtered = items.filter(item => selected.includes(`${item.id}`));
+      setBulkActionProps({
+        itemName: filtered.length === 1 ? renderDeleteTitle(filtered[0]) : '',
+        type: operation,
+        count: filtered.length,
+        onConfirm: async () => {
+          await onOperation(operation, filtered);
+          setModalOpened(false);
+        },
+      });
+
+      setModalOpened(true);
+    }
+
+    return undefined;
+  };
+
+  const handleBulk = () => {
+    const filtered = items.filter(item => selected.includes(`${item.id}`));
+
+    if (onBulkOpen) {
+      onBulkOpen(filtered);
+    }
+
+    setActionModalOpened(true);
+  };
+
+  const handleBulkSubmit = async (values: Record<string, string | string[]>) => {
+    const filtered = items.filter(item => selected.includes(`${item.id}`));
+
+    if (onBulk) {
+      await onBulk(filtered, values);
+    }
+
+    return undefined;
+  };
+
   return (
     <>
+      <ListHeader
+        sortOptions={sortOptions ?? []}
+        checkedKeys={selected}
+        checkAllStatus={{
+          indeterminate: !!selected.length && selected.length < items.length,
+          checked: !!selected.length,
+        }}
+        onCheckAll={onSelectAllItems}
+        onArchive={() => handleOperation(BulkOperations.Archive)}
+        onDelete={() => handleOperation(BulkOperations.Delete)}
+        onBulk={handleBulk}
+        onSort={!!onSort ? onSort : () => {}}
+      />
       <Box width="100%" className={classes.scrollable}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox" className={classes.tableHeaderCell}>
-                <Checkbox
-                  color="primary"
-                  checked={items.length === selected.length}
-                  onClick={e => {
-                    e.stopPropagation();
-                    onSelectAllItems();
-                  }}
-                />
-              </TableCell>
+              <TableCell padding="checkbox" className={classes.tableHeaderCell} />
               {headerCells.map(cell => (
                 <TableCell
                   key={cell.field}
@@ -225,6 +292,20 @@ export const CrmTableView = ({
         columns={movableHeaderCells}
         maxColumns={5}
       />
+      {isModalOpened && (
+        <BulkActionConfirmModal {...bulkActionProps} isOpened={isModalOpened} onCancel={() => setModalOpened(false)} />
+      )}
+      {!!bulkActions && (
+        <ActionModalForm
+          title={bulkTitle ?? ''}
+          isOpened={isActionModalOpened}
+          submitText={bulkSubmitText ?? ''}
+          actions={bulkActions}
+          onClose={() => setActionModalOpened(false)}
+          onSubmit={handleBulkSubmit}
+          initialValues={bulkData}
+        />
+      )}
     </>
   );
 };

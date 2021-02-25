@@ -10,6 +10,7 @@ enum BulkEntities {
   Pim,
   ObjectType,
   Ncp
+  Crm
 }
 
 enum BulkOperations {

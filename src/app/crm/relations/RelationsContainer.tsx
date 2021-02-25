@@ -10,13 +10,19 @@ import {
   ListCrmsCountDocument,
   BulkOperations,
   ListCrmFilters,
+  useBulkMutation,
+  useUndoEntityMutation,
+  useCrmBulkDetailsLazyQuery,
+  CrmBulkDetailsDocument,
+  BulkEntities,
 } from 'api/types';
 import { CRM as mockCrm } from 'api/mocks/crm';
 import { CrmItem } from '../Crm.types';
-import { usePagination, useSnackbar, useLocale } from 'hooks';
+import { useLocale, usePagination, useSnackbar } from 'hooks';
 import { useCrmQueryParams } from 'app/shared/useCrmQueryParams/useCrmQueryParams';
 import { PerPageType } from 'ui/atoms/pagination/Pagination.types';
 import { useCrmsSorting } from 'app/shared/useCrmsSorting/useCrmsSorting';
+import { BulkForm } from 'app/project/Project.types';
 
 import { RelationsContainerProps } from './Relations.types';
 import { Relations } from './Relations';
@@ -25,16 +31,22 @@ const PER_PAGE_OPTIONS: PerPageType[] = [10, 25, 'All'];
 
 export const RelationsContainer = (props: RelationsContainerProps) => {
   const { status } = useCrmQueryParams({});
-  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
-  const { sorting, query: sortQuery } = useCrmsSorting(viewMode);
-  const { formatMessage } = useLocale();
+  const { sorting, query: sortQuery } = useCrmsSorting('list');
   const { open: openSnackbar } = useSnackbar();
+  const { formatMessage } = useLocale();
+  const [viewMode, setViewMode] = useState<'list' | 'table'>('list');
+
   const { data: countData } = useListCrmsCountQuery({
     variables: {
       type: CrmType.Relation,
     },
     fetchPolicy: 'no-cache',
   });
+  const [getBulkData, { data: bulkData }] = useCrmBulkDetailsLazyQuery({ fetchPolicy: 'network-only' });
+
+  const [bulk] = useBulkMutation();
+  const [undoEntity] = useUndoEntityMutation();
+  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
 
   const amounts =
     (countData && {
@@ -49,16 +61,15 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     perPageOptions: PER_PAGE_OPTIONS,
   });
 
-  const [updateCrmGeneral] = useUpdateCrmGeneralMutation();
   const [activeFilters, setActiveFilters] = useState<ListCrmFilters>({});
 
-  const hanldeUpdateCrmStatus = async (id: string, status: CrmStatus) => {
+  const hanldeUpdateCrmStatus = async (id: string, newStatus: CrmStatus) => {
     try {
       await updateCrmGeneral({
         variables: {
           input: {
             id,
-            status,
+            status: newStatus,
           },
         },
         refetchQueries: [
@@ -99,28 +110,157 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
     ...crm,
   }));
 
-  const handleDeleteCrm = async (ids: string[]) => {};
+  const handleDeleteCrm = async (ids: string) => {};
 
   const handleFilterChange = (filters: ListCrmFilters) => {
     setActiveFilters(filters);
   };
 
-  const handleUndo = async (undoIds: string[], bulkActionIds: string[]) => {};
+  const [selected, setSelected] = useState<string[]>([]);
 
-  const handleOperation = async (operation: BulkOperations, items: CrmItem[]) => {
-    const bulkActionIds = items.map(item => item.id);
+  const handleSelectItems = (items: string[]) => {
+    setSelected(items);
+  };
 
-    if (operation === BulkOperations.Delete) {
-      await handleDeleteCrm(bulkActionIds);
+  const fetchBulkDetails = (crmItems: CrmItem[]) => {
+    getBulkData({ variables: { ids: crmItems.map(p => p.id) } });
+  };
+
+  const handleOperation = async (operation: BulkOperations, projects: CrmItem[]) => {
+    const bulkActionIds = projects.map(p => p.id);
+
+    const { data: result } = await bulk({
+      variables: {
+        input: {
+          operation,
+          entity: BulkEntities.Crm,
+          ids: bulkActionIds,
+        },
+      },
+      refetchQueries: [
+        {
+          query: CrmListDocument,
+          variables: {
+            type: CrmType.Relation,
+            status,
+            ...activeFilters,
+            ...sortQuery,
+            ...paginationQuery,
+          },
+        },
+        {
+          query: ListCrmsCountDocument,
+          variables: {
+            type: CrmType.Relation,
+          },
+        },
+      ],
+    });
+
+    if (!result || !result.bulk) {
+      throw new Error();
     }
 
     openSnackbar({
       severity: 'success',
-      message: formatMessage({ id: `crm.${operation}.title` }),
+      message: formatMessage({ id: `project.${operation}.title` }),
       modalContent: <></>,
-      modalTitle: formatMessage({ id: `crm.${operation}.details_title` }),
-      onUndo: () => handleUndo([], bulkActionIds),
+      modalTitle: formatMessage({ id: `project.${operation}.details_title` }),
+      onUndo: () => handleUndo(result.bulk.undoIds ?? [], bulkActionIds),
     });
+
+    return undefined;
+  };
+
+  const handleBulk = async (crmItems: CrmItem[], formData: unknown) => {
+    const data = formData as BulkForm;
+
+    const bulkActionIds = crmItems.map(p => p.id);
+    const { data: result } = await bulk({
+      variables: {
+        input: {
+          operation: BulkOperations.SetField,
+          entity: BulkEntities.Crm,
+          ids: crmItems.map(p => p.id),
+          field: data.operation,
+          value: data[data.operation],
+        },
+      },
+      refetchQueries: [
+        {
+          query: CrmBulkDetailsDocument,
+          variables: { ids: bulkActionIds },
+        },
+        {
+          query: CrmListDocument,
+          variables: {
+            type: CrmType.Relation,
+            status,
+            ...activeFilters,
+            ...sortQuery,
+            ...paginationQuery,
+          },
+        },
+        {
+          query: ListCrmsCountDocument,
+          variables: {
+            type: CrmType.Relation,
+          },
+        },
+      ],
+    });
+
+    if (!result || !result.bulk) {
+      throw new Error();
+    }
+
+    openSnackbar({
+      severity: 'success',
+      message: formatMessage({ id: `project.${BulkOperations.SetField}.title` }),
+      modalContent: <></>,
+      modalTitle: formatMessage({ id: `project.${BulkOperations.SetField}.details_title` }),
+      onUndo: () => handleUndo(result.bulk.undoIds ?? [], bulkActionIds),
+    });
+
+    return undefined;
+  };
+
+  const handleUndo = async (undoIds: string[], bulkActionIds: string[]) => {
+    if (undoIds.length > 0) {
+      const { data: result } = await undoEntity({
+        variables: {
+          input: {
+            undoIds,
+          },
+        },
+        refetchQueries: [
+          {
+            query: CrmBulkDetailsDocument,
+            variables: { ids: bulkActionIds },
+          },
+          {
+            query: CrmListDocument,
+            variables: {
+              type: CrmType.Relation,
+              status,
+              ...activeFilters,
+              ...sortQuery,
+              ...paginationQuery,
+            },
+          },
+          {
+            query: ListCrmsCountDocument,
+            variables: {
+              type: CrmType.Relation,
+            },
+          },
+        ],
+      });
+
+      if (!result || !result.undoEntity) {
+        throw new Error();
+      }
+    }
 
     return undefined;
   };
@@ -130,12 +270,18 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       {...props}
       crms={crms}
       onUpdateItemStatus={hanldeUpdateCrmStatus}
-      onOperation={handleOperation}
       activeFilters={activeFilters}
       onFilter={handleFilterChange}
       amounts={amounts}
       sorting={sorting}
       pagination={pagination}
+      bulkData={{ status: bulkData?.status?.map(s => s.value as string) ?? [], teams: ['Team 1', 'Team 2'] }}
+      onBulkOpen={fetchBulkDetails}
+      onSelectItems={handleSelectItems}
+      selectedItems={selected}
+      onBulk={handleBulk}
+      onOperation={handleOperation}
+      onDeleteItem={handleDeleteCrm}
       viewMode={viewMode}
       setViewMode={setViewMode}
     />

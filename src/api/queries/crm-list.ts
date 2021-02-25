@@ -86,3 +86,11 @@ export const GET_CRM_WITH_SAME_INFO = gql`
     }
   }
 `;
+
+export const CRM_BULK_DETAILS = gql`
+  query CrmBulkDetails($ids: [ID!]!) {
+    status: getBulkDetails(input: { ids: $ids, field: Status, entity: Crm }) {
+      value
+    }
+  }
+`;

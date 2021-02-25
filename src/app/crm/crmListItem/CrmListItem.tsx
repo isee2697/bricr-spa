@@ -13,7 +13,7 @@ import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
 
 const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
 
   return (
     <Box className={classes.meta}>
@@ -29,17 +29,12 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
 
 export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
   const { push } = useHistory();
   const theme = useTheme();
 
+  const { firstName, insertion, lastName, email, phoneNumber, avatar } = crm;
   const {
-    firstName,
-    insertion,
-    lastName,
-    email,
-    phoneNumber,
-    avatar,
     property,
     partner,
     manager: { image: managerAvatar, firstName: managerFirstName, lastName: managerLastName },
