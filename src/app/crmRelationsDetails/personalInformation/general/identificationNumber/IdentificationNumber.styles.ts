@@ -37,6 +37,9 @@ export const useStyles = makeStyles(theme => ({
       marginBottom: 0,
     },
   },
+  radioItem: {
+    marginRight: -theme.spacing(2),
+  },
   formField: {
     marginTop: theme.spacing(1),
   },

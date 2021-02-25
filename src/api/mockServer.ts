@@ -110,7 +110,7 @@ export const mockServer = () => {
         return newFile;
       });
 
-      this.post('/mock/nylas-account-list', (schema, request) => {
+      this.get('/mock/nylas-account-list', (schema, request) => {
         return [];
       });
 
@@ -209,7 +209,8 @@ export const mockServer = () => {
             }
 
             return {
-              id: PIM_DETAILS.id,
+              ...PIM_DETAILS,
+              ...variables.input,
             };
           },
           getAllProfiles() {

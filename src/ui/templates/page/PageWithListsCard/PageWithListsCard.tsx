@@ -77,19 +77,18 @@ export const PageWithListsCard: <V, A, F>(
         )}
         <List
           {...list}
+          className={clsx(list.className, views[activeView]?.hasEvenOddBackground && classes.evenOddBackground)}
           renderItem={(item, checked, checkbox) => {
             const baseItem = (item as unknown) as BaseListType;
 
             return (
-              <Box key={baseItem.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'crm-row')}>
+              <Box key={baseItem.id} className={clsx(classes.row, { [classes.rowChecked]: checked }, 'list-row')}>
                 {checkbox}
-                <Box component="span" className={classes.rowItem}>
-                  <Box
-                    className={classes.itemButton}
-                    onClick={() => baseRoute && push(baseRoute.replace(':id', baseItem.id))}
-                  >
-                    {views[activeView].renderViewComponent(item)}
-                  </Box>
+                <Box
+                  className={classes.rowItem}
+                  onClick={() => baseRoute && push(baseRoute.replace(':id', baseItem.id))}
+                >
+                  {views[activeView].renderViewComponent(item)}
                 </Box>
               </Box>
             );

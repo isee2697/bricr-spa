@@ -20,8 +20,13 @@ export const useStyles = makeStyles(({ palette, shadows, spacing }) => ({
   },
   listContainer: {},
   row: {
+    '&.list-row > span[class*="makeStyles-checkbox"]': {
+      padding: spacing(1),
+      marginLeft: spacing(1.3),
+      marginRight: spacing(1.3),
+    },
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     position: 'relative',
 
     '&:after': {
@@ -36,11 +41,14 @@ export const useStyles = makeStyles(({ palette, shadows, spacing }) => ({
   rowChecked: {
     background: `${palette.primary.main}08`,
   },
-  rowItem: {
-    padding: spacing(3.75, 2, 3.75, 0),
-    width: '100%',
+  evenOddBackground: {
+    '& .list-row:nth-child(even)': {
+      background: `${palette.blue.light}`,
+    },
   },
-  itemButton: {
+
+  rowItem: {
+    width: '100%',
     cursor: 'pointer',
   },
 }));

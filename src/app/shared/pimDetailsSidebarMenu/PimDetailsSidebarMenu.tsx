@@ -56,7 +56,7 @@ export const PimDetailsSidebarMenu = ({
 
   const items: MenuItem[] = [];
 
-  switch (data.getPimGeneral.propertyType) {
+  switch (data.propertyType) {
     case PropertyType.House:
     case PropertyType.Apartment:
       items.push(
@@ -114,18 +114,18 @@ export const PimDetailsSidebarMenu = ({
       break;
   }
 
-  const pim = data?.getPimGeneral;
+  const pim = data;
   const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
 
   const type =
     pim?.propertyType === PropertyType.House || pim?.propertyType === PropertyType.Apartment
       ? 'residental'
-      : pim?.propertyType.toLowerCase();
+      : pim?.propertyType?.toLowerCase();
 
   const menu: SidebarMenuType = {
     url: url,
     back: {
-      url: getBackUrl(params, pim?.propertyType),
+      url: getBackUrl(params, pim?.propertyType!),
       title: formatMessage({
         id:
           entityType === EntityType.Property

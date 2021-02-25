@@ -12,7 +12,7 @@ export type CrmItem = {
   id: string;
   type: CrmType;
   firstName?: Maybe<string>;
-  insertion?: Maybe<string>;
+  initials?: Maybe<string>;
   lastName?: Maybe<string>;
   gender?: Maybe<GenderType>;
   dateOfBirth?: Maybe<string>;

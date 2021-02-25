@@ -2,7 +2,7 @@ type CrmListItem {
   id: ID!
   type: CrmType!
   firstName: String
-  insertion: String
+  initials: String
   lastName: String
   gender: GenderType
   dateOfBirth: Date
@@ -18,6 +18,9 @@ type CrmListItem {
   email: String
   avatar: File
   status: CrmStatus
+  matchProfilesFrom: Date
+  matchProfilesTo: Date
+  sales: [Sales!]
   dateCreated: Date!
   dateUpdated: Date
   completeness: Float!
@@ -36,7 +39,7 @@ input ListCrmFilters {
 
 input CrmWithSameInfoInput {
   firstName: String
-  insertion: String
+  initials: String
   lastName: String
   email: String
   phoneNumber: String

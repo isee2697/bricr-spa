@@ -13,7 +13,7 @@ import { CrmListItemMetaBoxProps, CrmListItemProps } from './CrmListItem.types';
 import { useStyles } from './CrmListItem.style';
 
 const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
 
   return (
     <Box className={classes.meta}>
@@ -29,13 +29,13 @@ const CrmListItemMetaBox = ({ label, count, crm }: CrmListItemMetaBoxProps) => {
 
 export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
   const { formatMessage } = useLocale();
-  const classes = useStyles({ crm });
+  const classes = useStyles({ status: crm.status });
   const { push } = useHistory();
   const theme = useTheme();
 
   const {
     firstName,
-    insertion,
+    initials,
     lastName,
     email,
     phoneNumber,
@@ -100,7 +100,7 @@ export const CrmListItem = ({ crm, renderAction }: CrmListItemProps) => {
             <Box>
               <Box>
                 <Typography variant="h3" className={classes.crmUserName}>
-                  {firstName} {insertion} {lastName}
+                  {firstName} {initials} {lastName}
                 </Typography>
               </Box>
               <Box display="flex">

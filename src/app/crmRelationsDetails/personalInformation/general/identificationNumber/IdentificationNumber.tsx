@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import * as uuid from 'uuid';
 
-import { Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
+import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm, FormSubSection } from 'ui/organisms';
 import { AddIcon } from 'ui/atoms/icons';
-import { InfoSection } from 'ui/molecules';
+import { InfoSection, TileButton } from 'ui/molecules';
 import { useModalDispatch, useModalState } from 'hooks';
 import { AddNewIdentificationNumberModal } from '../addNewIdentificationNumberModal/AddNewIdentificationNumberModal';
 import { AddNewIdentificationNumberBody } from '../addNewIdentificationNumberModal/AddNewIdentificationNumberModal.types';
 import { PromiseFunction } from 'app/shared/types';
-import { GenericField } from 'form/fields';
+import { GenericField, RadioGroupField } from 'form/fields';
 
 import { IdentificationNumberItem, IdentificationNumberProps } from './IdentificationNumber.types';
 import { useStyles } from './IdentificationNumber.styles';
+import { idNumberTypes } from './dictionaries';
 
 export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps) => {
   const classes = useStyles();
@@ -24,6 +25,7 @@ export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps
   const [identificationNumbers, setidentificationNumbers] = useState<IdentificationNumberItem[]>(
     (data.identificationNumbers || []).map(identificationNumber => ({ ...identificationNumber, key: uuid.v4() })),
   );
+  const [loading, setLoading] = useState(false);
 
   const initialValues = identificationNumbers.reduce((accu, currentValue) => {
     return {
@@ -36,14 +38,29 @@ export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps
 
   const handleAddNewIdentificationNumber: PromiseFunction<AddNewIdentificationNumberBody> = async ({ type }) => {
     try {
+      setLoading(true);
+      await onSave({
+        identificationNumbers: [
+          ...(data.identificationNumbers ?? []).map(number => ({
+            type: number.type,
+            number: number.number,
+            name: number.name,
+          })),
+          {
+            type,
+          },
+        ],
+      });
+
       setidentificationNumbers([
         ...identificationNumbers,
         {
           key: uuid.v4(),
           type,
-          number: '',
         },
       ]);
+
+      setLoading(false);
 
       close('add-new-crm-identification-number');
 
@@ -96,7 +113,7 @@ export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps
         }
       />
       <CardContent>
-        <AutosaveForm onSave={handleSave} initialValues={initialValues}>
+        <AutosaveForm onSave={handleSave} initialValues={initialValues} initialValuesEqual={() => !loading}>
           <Grid item xs={12}>
             {identificationNumbers.length === 0 && (
               <InfoSection emoji="🛰">
@@ -130,32 +147,50 @@ export const IdentificationNumber = ({ data, onSave }: IdentificationNumberProps
                 >
                   <Grid container spacing={1} className={classes.identificationNumberFormFields}>
                     <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_general.identification_number.number',
-                        })}
-                      </Typography>
                       <GenericField
-                        className={classes.formField}
                         name={`${identificationNumber.key}.number`}
                         disabled={!isEditing}
+                        label={formatMessage({
+                          id: 'crm.details.personal_information_general.identification_number.number',
+                        })}
                         placeholder="crm.details.personal_information_general.identification_number.number_placeholder"
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <Typography variant="h5">
-                        {formatMessage({
-                          id: 'crm.details.personal_information_general.identification_number.name',
-                        })}
-                      </Typography>
                       <GenericField
-                        className={classes.formField}
                         name={`${identificationNumber.key}.name`}
                         disabled={!isEditing}
+                        label={formatMessage({
+                          id: 'crm.details.personal_information_general.identification_number.name',
+                        })}
                         placeholder="crm.details.personal_information_general.identification_number.name_placeholder"
                       />
                     </Grid>
                   </Grid>
+                  <Box mt={4}>
+                    <Box display="flex" justifyContent="space-between">
+                      <Typography variant="h3">
+                        {formatMessage({
+                          id:
+                            'crm.details.personal_information_general.identification_number.type_of_identification_number',
+                        })}
+                      </Typography>
+                      <Typography variant="h5" className={classes.gray}>
+                        {formatMessage({
+                          id: 'common.choose_one_option_below',
+                        })}
+                      </Typography>
+                    </Box>
+                    <Box mt={2}>
+                      <RadioGroupField
+                        disabled={!isEditing}
+                        name={`${identificationNumber.key}.type`}
+                        options={idNumberTypes}
+                        actionElement={<TileButton onClick={() => {}} />}
+                        classes={{ groupItem: classes.radioItem }}
+                      />
+                    </Box>
+                  </Box>
                 </FormSubSection>
               ))}
           </Grid>

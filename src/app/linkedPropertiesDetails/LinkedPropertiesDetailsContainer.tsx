@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useObjectTypeOverallInfoQuery, usePimOverallInfoQuery } from 'api/types';
+import { Pim, useObjectTypeOverallInfoQuery, usePimOverallInfoQuery } from 'api/types';
 import { NavBreadcrumb } from 'ui/atoms';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks';
 import { PimDetails } from 'app/pimDetails/PimDetails';
 import { EntityType } from 'app/shared/entityType';
+import { useStateQuery } from 'hooks/useStateQuery/useStateQuery';
 
 export const LinkedPropertiesDetailsContainer = () => {
   const { formatMessage } = useLocale();
@@ -19,11 +20,15 @@ export const LinkedPropertiesDetailsContainer = () => {
     .replace(':projectId', projectId)
     .replace(':objectTypeId', objectTypeId);
 
-  const { loading, error, data } = usePimOverallInfoQuery({ variables: { id } });
+  const { loading, error, data: pim } = useStateQuery({
+    query: usePimOverallInfoQuery,
+    variables: { id },
+  });
+
+  const data: Pim = pim as Pim;
   const { data: objectTypeData } = useObjectTypeOverallInfoQuery({ variables: { id: objectTypeId, projectId } });
 
-  const pim = data?.getPimGeneral;
-  const title = pim ? `${pim.street} ${pim.houseNumber} ${pim.postalCode} ${pim.city}` : '';
+  const title = data ? `${data.street} ${data.houseNumber} ${data.postalCode} ${data.city}` : '';
 
   const breadcrumbs = (
     <>

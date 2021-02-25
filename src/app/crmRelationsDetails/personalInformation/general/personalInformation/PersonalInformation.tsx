@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, Card, CardContent, CardHeader, FormControlLabel, Grid, Switch, Typography } from 'ui/atoms';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AutosaveForm } from 'ui/organisms';
-import { DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
+import { CheckboxField, DatePickerField, GenericField, RadioGroupField, UploadImageField } from 'form/fields';
 import { EntityWithFiles } from 'api/types';
 import { TileButton } from 'ui/molecules';
 
@@ -47,48 +47,42 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
               <Box width="100%">
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
-                    <Typography variant="h5">
-                      {formatMessage({ id: 'crm.details.personal_information_general.personal_info.first_name' })}
-                    </Typography>
                     <GenericField
-                      className={classes.formField}
                       name="firstName"
                       disabled={!isEditing}
+                      label={formatMessage({ id: 'crm.details.personal_information_general.personal_info.first_name' })}
                       placeholder="crm.details.personal_information_general.personal_info.placeholder"
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography variant="h5">
-                      {formatMessage({ id: 'crm.details.personal_information_general.personal_info.extra_names' })}
-                    </Typography>
                     <GenericField
-                      className={classes.formField}
                       name="extraNames"
                       disabled={!isEditing}
+                      label={formatMessage({
+                        id: 'crm.details.personal_information_general.personal_info.extra_names',
+                      })}
                       placeholder="crm.details.personal_information_general.personal_info.placeholder"
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography variant="h5">
-                      {formatMessage({ id: 'crm.details.personal_information_general.personal_info.insertion' })}
-                    </Typography>
                     <Grid container spacing={1}>
                       <Grid item xs={6}>
                         <GenericField
-                          className={classes.formField}
-                          name="insertion"
+                          name="initials"
                           disabled={!isEditing}
+                          label={formatMessage({
+                            id: 'crm.details.personal_information_general.personal_info.initials',
+                          })}
                           placeholder="crm.details.personal_information_general.personal_info.placeholder"
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography variant="h5">
-                          {formatMessage({ id: 'crm.details.personal_information_general.personal_info.last_name' })}
-                        </Typography>
                         <GenericField
-                          className={classes.formField}
                           name="lastName"
                           disabled={!isEditing}
+                          label={formatMessage({
+                            id: 'crm.details.personal_information_general.personal_info.last_name',
+                          })}
                           placeholder="crm.details.personal_information_general.personal_info.placeholder"
                         />
                       </Grid>
@@ -123,31 +117,49 @@ export const PersonalInformation = ({ data, onSave }: PersonalInformationProps) 
               </Typography>
               <Grid container spacing={1} className={classes.marginTopTwo}>
                 <Grid item xs={4}>
-                  <Typography variant="h5">
-                    {formatMessage({ id: 'crm.details.personal_information_general.personal_info.date_of_birth' })}
-                  </Typography>
-                  <DatePickerField className={classes.formField} disabled={!isEditing} name="dateOfBirth" />
+                  <DatePickerField
+                    disabled={!isEditing}
+                    name="dateOfBirth"
+                    label={formatMessage({
+                      id: 'crm.details.personal_information_general.personal_info.date_of_birth',
+                    })}
+                    disableToolbar={false}
+                  />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="h5">
-                    {formatMessage({ id: 'crm.details.personal_information_general.personal_info.place_of_birth' })}
-                  </Typography>
                   <GenericField
-                    className={classes.formField}
                     name="placeOfBirth"
                     disabled={!isEditing}
+                    label={formatMessage({
+                      id: 'crm.details.personal_information_general.personal_info.place_of_birth',
+                    })}
                     placeholder="crm.details.personal_information_general.personal_info.placeholder"
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="h5">
-                    {formatMessage({ id: 'crm.details.personal_information_general.personal_info.nationality' })}
-                  </Typography>
                   <GenericField
-                    className={classes.formField}
                     name="nationality"
                     disabled={!isEditing}
+                    label={formatMessage({ id: 'crm.details.personal_information_general.personal_info.nationality' })}
                     placeholder="crm.details.personal_information_general.personal_info.placeholder"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <DatePickerField
+                    disabled={!isEditing}
+                    name="dateOfDeath"
+                    label={formatMessage({
+                      id: 'crm.details.personal_information_general.personal_info.date_of_death',
+                    })}
+                    disableToolbar={false}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Box mt={5} />
+                  <CheckboxField
+                    disabled={!isEditing}
+                    name="isPassedAway"
+                    label={formatMessage({ id: 'crm.details.personal_information_general.personal_info.passed_away' })}
                   />
                 </Grid>
               </Grid>

@@ -13,7 +13,7 @@ type LinkedCrm {
   id: ID!
   firstName: String
   extraNames: String
-  insertion: String
+  initials: String
   lastName: String
   email: String
   phoneNumber: String

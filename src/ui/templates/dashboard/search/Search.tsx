@@ -43,7 +43,7 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
       ...(result?.crms || [])
         .filter(crm => crm.type === CrmType.Relation)
         .map(crm => ({
-          title: `${crm.firstName || ''} ${crm.insertion || ''} ${crm.lastName}`,
+          title: `${crm.firstName || ''} ${crm.lastName}`,
           type: formatMessage({ id: 'search.crm.relation' }),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>
@@ -54,7 +54,7 @@ export const Search = ({ results, onSearch, loading }: SearchProps) => {
       ...(result?.crms || [])
         .filter(crm => crm.type === CrmType.Business)
         .map(crm => ({
-          title: `${crm.firstName || ''} ${crm.insertion || ''} ${crm.lastName}`,
+          title: `${crm.firstName || ''} ${crm.lastName}`,
           type: formatMessage({ id: 'search.crm.business' }),
           icon: (
             <Box display="flex" alignItems="center" justifyContent="center" className={classes.icon}>

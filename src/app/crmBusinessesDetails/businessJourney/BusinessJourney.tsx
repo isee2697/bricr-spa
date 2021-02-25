@@ -13,12 +13,7 @@ import { BusinessJourneyProps, BusinessJourneyTab } from './BusinessJourney.type
 import { useStyles } from './BusinessJourney.styles';
 import { ListItem } from './listItem/ListItem';
 
-export const BusinessJourney = ({
-  crm: { firstName, insertion, lastName },
-  items,
-  status,
-  onStatusChange,
-}: BusinessJourneyProps) => {
+export const BusinessJourney = ({ items, status, onStatusChange }: BusinessJourneyProps) => {
   const customerJourneyTabs = [
     {
       key: BusinessJourneyTab.Matches,

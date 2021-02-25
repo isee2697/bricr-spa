@@ -19,7 +19,7 @@ export const CRM_LIST = gql`
         id
         type
         firstName
-        insertion
+        initials
         lastName
         gender
         dateOfBirth
@@ -83,6 +83,14 @@ export const GET_CRM_WITH_SAME_INFO = gql`
       items {
         id
       }
+    }
+  }
+`;
+
+export const CRM_BULK_DETAILS = gql`
+  query CrmBulkDetails($ids: [ID!]!) {
+    status: getBulkDetails(input: { ids: $ids, field: Status, entity: Crm }) {
+      value
     }
   }
 `;

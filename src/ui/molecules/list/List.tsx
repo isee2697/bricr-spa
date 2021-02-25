@@ -55,6 +55,7 @@ export const List: <T>(p: ListProps<T>) => React.ReactElement<ListProps<T>> = ({
     items,
     itemIndex,
     disabled,
+    selectedItems,
   );
 
   useEffect(() => {

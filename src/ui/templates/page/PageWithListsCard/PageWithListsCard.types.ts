@@ -10,6 +10,7 @@ export type ListView<T> = {
   renderViewComponent: (item: T) => JSX.Element;
   viewIcon: ReactNode;
   isActive?: boolean;
+  hasEvenOddBackground?: boolean;
 };
 
 export type PageWithListsCardProps<V, A, F> = {

@@ -11,7 +11,6 @@ export type ObjectType = {
 
 export type DataFieldType =
   | 'firstName'
-  | 'insertion'
   | 'lastName'
   | 'initials'
   | 'gender'

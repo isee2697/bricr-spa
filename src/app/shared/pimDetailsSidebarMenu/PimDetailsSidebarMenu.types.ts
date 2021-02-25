@@ -1,9 +1,9 @@
-import { Picture, PimOverallInfoQuery } from 'api/types';
+import { Picture, Pim } from 'api/types';
 
 export type PimDetailsSidebarMenuProps = {
   onHide: () => void;
   isVisible: boolean;
-  data?: PimOverallInfoQuery;
+  data?: Pim;
   objectTypeName?: string;
   allocateResultsNumber?: number;
   picture?: Picture;

@@ -5,7 +5,7 @@ export const CRM: CrmItem = {
   id: '06-48764045',
   type: CrmType.Relation,
   firstName: 'Christian',
-  insertion: 'van',
+  initials: 'van',
   lastName: 'Gils',
   email: 'miesvanderrohe@gmal.com',
   avatar: {
