@@ -9,7 +9,6 @@ import { BulkOperations } from 'api/types';
 import { ActionModalForm } from 'ui/organisms/actionModal/ActionModalForm';
 import { BulkActionConfirmModal } from 'ui/organisms';
 import { ListHeader } from 'ui/molecules/list/listHeader/ListHeader';
-import { useSelect } from 'ui/molecules/list/useSelect/useSelect';
 import { CrmItem } from '../Crm.types';
 
 import {
@@ -96,8 +95,6 @@ export const CrmTableView = ({
     onConfirm: () => Promise.resolve(),
   });
 
-  const { checkedKeys, checkAllStatus, handleCheckAll, handleClearAll } = useSelect(items, 'id', false, selected);
-
   const [filterHeaderDlg, showFilterHeaderDlg] = useState(false);
   const [movableHeaderCells, setMovableHeaderCells] = useState<HeaderColumnItemType[]>(MOVABLE_HEADER_COLUMNS);
   const [headerCells, setHeaderCells] = useState<CrmTableHeaderCell[]>([
@@ -171,7 +168,6 @@ export const CrmTableView = ({
         onConfirm: async () => {
           await onOperation(operation, filtered);
           setModalOpened(false);
-          handleClearAll();
         },
       });
 
@@ -205,9 +201,12 @@ export const CrmTableView = ({
     <>
       <ListHeader
         sortOptions={sortOptions ?? []}
-        checkedKeys={checkedKeys}
-        checkAllStatus={checkAllStatus}
-        onCheckAll={handleCheckAll}
+        checkedKeys={selected}
+        checkAllStatus={{
+          indeterminate: !!selected.length && selected.length < items.length,
+          checked: !!selected.length,
+        }}
+        onCheckAll={onSelectAllItems}
         onArchive={() => handleOperation(BulkOperations.Archive)}
         onDelete={() => handleOperation(BulkOperations.Delete)}
         onBulk={handleBulk}
@@ -217,16 +216,7 @@ export const CrmTableView = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox" className={classes.tableHeaderCell}>
-                <Checkbox
-                  color="primary"
-                  checked={items.length === selected.length}
-                  onClick={e => {
-                    e.stopPropagation();
-                    onSelectAllItems();
-                  }}
-                />
-              </TableCell>
+              <TableCell padding="checkbox" className={classes.tableHeaderCell} />
               {headerCells.map(cell => (
                 <TableCell
                   key={cell.field}

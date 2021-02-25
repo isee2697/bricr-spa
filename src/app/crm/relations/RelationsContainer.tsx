@@ -133,7 +133,7 @@ export const RelationsContainer = (props: RelationsContainerProps) => {
       variables: {
         input: {
           operation,
-          entity: BulkEntities.Ncp,
+          entity: BulkEntities.Crm,
           ids: bulkActionIds,
         },
       },
